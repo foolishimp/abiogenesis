@@ -1,4 +1,9 @@
-import type { EventStoreReopenAuthority } from "../abg/event_store.js";
+import {
+  validateEventStoreCloseHandoff,
+  type DurablePrefixCoordinate,
+  type EventStoreCloseHandoff,
+  type EventStoreReopenAuthority,
+} from "../abg/event_store.js";
 import type { ModulePublication } from "../gtl/contracts.js";
 import type {
   ReadyGraphFunctionCatalog,
@@ -52,6 +57,7 @@ export interface PublicStartIdentity {
 export interface PublicGapAuthority {
   readonly kind: "public_gap_authority";
   readonly schemaVersion: "5.0.0";
+  readonly prefix: DurablePrefixCoordinate;
   readonly reopenAuthority: EventStoreReopenAuthority;
   readonly installInvocationRef: string;
   readonly workspaceBindingInvocationRef: string;
@@ -80,6 +86,7 @@ const AUTHORITY_KEYS = Object.freeze([
   "installInvocationRef",
   "kind",
   "productSet",
+  "prefix",
   "publications",
   "publicStart",
   "reopenAuthority",
@@ -144,6 +151,12 @@ function authorityBody(input: PublicGapAuthorityInput) {
 export function constructPublicGapAuthority(
   input: PublicGapAuthorityInput,
 ): PublicGapAuthority {
+  if (!validateEventStoreCloseHandoff({
+    prefix: input.prefix,
+    reopenAuthority: input.reopenAuthority,
+  })) {
+    throw new TypeError("gap authority requires one exact durable close pair");
+  }
   const body = authorityBody(input);
   return deepFreeze(
     JSON.parse(canonicalJson({
@@ -155,7 +168,7 @@ export function constructPublicGapAuthority(
 
 export function updatePublicGapAuthority(
   authority: PublicGapAuthority,
-  reopenAuthority: EventStoreReopenAuthority,
+  handoff: EventStoreCloseHandoff,
 ): PublicGapAuthority {
   const {
     authorityDigest: _authorityDigest,
@@ -165,7 +178,7 @@ export function updatePublicGapAuthority(
   } = authority;
   return constructPublicGapAuthority({
     ...input,
-    reopenAuthority,
+    ...handoff,
   });
 }
 
@@ -180,6 +193,10 @@ export function parsePublicGapAuthority(
     value.schemaVersion !== "5.0.0" ||
     !isRecord(value.reopenAuthority) ||
     value.reopenAuthority.kind !== "event_store_reopen_authority" ||
+    !validateEventStoreCloseHandoff({
+      prefix: value.prefix,
+      reopenAuthority: value.reopenAuthority,
+    }) ||
     !nonEmptyString(value.installInvocationRef) ||
     !nonEmptyString(value.workspaceBindingInvocationRef) ||
     !isRecord(value.install) ||

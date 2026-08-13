@@ -1,4 +1,8 @@
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import {
+  canonicalJson,
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {
@@ -182,9 +186,15 @@ function validatePublishedDeclarations(
       code: "invalid_reference",
       path: "$.productSemanticsBinding",
       message:
-        "publication requires one exact Product-owned semantics binding carried by its implementation package",
+      "publication requires one exact Product-owned semantics binding carried by its implementation package",
     });
   }
+  appendDuplicateDiagnostics(
+    diagnostics,
+    publication.contracts.map((row) => row.contractRef),
+    "$.contracts",
+    "Contract declaration",
+  );
   for (const name of duplicates(publication.evaluators.map((row) => row.name))) {
     diagnostics.push({
       code: "duplicate_identity",
@@ -199,7 +209,43 @@ function validatePublishedDeclarations(
       message: `duplicate Rule declaration ${name}`,
     });
   }
+  appendDuplicateDiagnostics(
+    diagnostics,
+    publication.implementationBindings.map((row) => row.bindingRef),
+    "$.implementationBindings",
+    "ImplementationBinding declaration",
+  );
+  appendDuplicateDiagnostics(
+    diagnostics,
+    publication.closureContracts.map((row) => row.closureContractRef),
+    "$.closureContracts",
+    "ClosureContract declaration",
+  );
+  appendDuplicateDiagnostics(
+    diagnostics,
+    publication.programs.map((row) => row.programRef),
+    "$.programs",
+    "Program declaration",
+  );
+  appendDuplicateDiagnostics(
+    diagnostics,
+    publication.graphFunctions.map((row) => row.name),
+    "$.graphFunctions",
+    "GraphFunction declaration",
+  );
   publication.evaluators.forEach((evaluator, index) => {
+    appendDuplicateDiagnostics(
+      diagnostics,
+      evaluator.consumedFieldRefs,
+      `$.evaluators[${evaluator.name}].consumedFieldRefs`,
+      "Evaluator consumed field",
+    );
+    appendDuplicateDiagnostics(
+      diagnostics,
+      evaluator.tags,
+      `$.evaluators[${evaluator.name}].tags`,
+      "Evaluator tag",
+    );
     if (!hasExactEvaluatorShape(evaluator)) {
       diagnostics.push({
         code: "invalid_reference",
@@ -209,6 +255,12 @@ function validatePublishedDeclarations(
     }
   });
   publication.rules.forEach((rule, index) => {
+    appendDuplicateDiagnostics(
+      diagnostics,
+      rule.tags,
+      `$.rules[${rule.name}].tags`,
+      "Rule tag",
+    );
     if (!hasExactRuleShape(rule)) {
       diagnostics.push({
         code: "invalid_reference",
@@ -217,6 +269,64 @@ function validatePublishedDeclarations(
       });
     }
   });
+  for (const graphFunction of publication.graphFunctions) {
+    appendDuplicateDiagnostics(
+      diagnostics,
+      graphFunction.environment.requires,
+      `$.graphFunctions[${graphFunction.name}].environment.requires`,
+      "GraphFunction required environment ref",
+    );
+    appendDuplicateDiagnostics(
+      diagnostics,
+      graphFunction.environment.provides,
+      `$.graphFunctions[${graphFunction.name}].environment.provides`,
+      "GraphFunction provided environment ref",
+    );
+    appendDuplicateDiagnostics(
+      diagnostics,
+      graphFunction.environment.carries,
+      `$.graphFunctions[${graphFunction.name}].environment.carries`,
+      "GraphFunction carried environment ref",
+    );
+    appendDuplicateDiagnostics(
+      diagnostics,
+      graphFunction.effects,
+      `$.graphFunctions[${graphFunction.name}].effects`,
+      "GraphFunction effect",
+    );
+    appendDuplicateDiagnostics(
+      diagnostics,
+      graphFunction.tags,
+      `$.graphFunctions[${graphFunction.name}].tags`,
+      "GraphFunction tag",
+    );
+  }
+  for (const contribution of publication.contributions) {
+    appendDuplicateDiagnostics(
+      diagnostics,
+      contribution.programMembershipRefs,
+      `$.contributions[${contribution.handle}].programMembershipRefs`,
+      "contribution Program membership",
+    );
+    appendDuplicateDiagnostics(
+      diagnostics,
+      contribution.readinessPrerequisiteRefs,
+      `$.contributions[${contribution.handle}].readinessPrerequisiteRefs`,
+      "contribution readiness prerequisite",
+    );
+    appendDuplicateDiagnostics(
+      diagnostics,
+      contribution.compatibilityRefs,
+      `$.contributions[${contribution.handle}].compatibilityRefs`,
+      "contribution compatibility ref",
+    );
+    appendDuplicateDiagnostics(
+      diagnostics,
+      contribution.provenanceRefs,
+      `$.contributions[${contribution.handle}].provenanceRefs`,
+      "contribution provenance ref",
+    );
+  }
   return diagnostics;
 }
 
@@ -405,7 +515,39 @@ function duplicates(values: readonly string[]): readonly string[] {
     if (seen.has(value)) duplicateValues.add(value);
     seen.add(value);
   }
-  return [...duplicateValues].sort();
+  return [...duplicateValues].sort(compareUnicodeCodeUnits);
+}
+
+function appendDuplicateDiagnostics(
+  diagnostics: StaticDiagnostic[],
+  values: readonly string[],
+  path: string,
+  label: string,
+): void {
+  for (const value of duplicates(values)) {
+    diagnostics.push({
+      code: "duplicate_identity",
+      path,
+      message: `duplicate ${label} ${value}`,
+    });
+  }
+}
+
+function orderedRawAdmissions<S>(
+  values: readonly RawAdmittedValue<S>[],
+  identityOf: (value: Readonly<S>) => unknown,
+): readonly RawAdmittedValue<S>[] {
+  return [...values].sort((left, right) => {
+    const leftIdentity = identityOf(left.value);
+    const rightIdentity = identityOf(right.value);
+    const identityComparison = compareUnicodeCodeUnits(
+      typeof leftIdentity === "string" ? leftIdentity : left.subjectDigest,
+      typeof rightIdentity === "string" ? rightIdentity : right.subjectDigest,
+    );
+    return identityComparison !== 0
+      ? identityComparison
+      : compareUnicodeCodeUnits(left.subjectDigest, right.subjectDigest);
+  });
 }
 
 function invalid(
@@ -429,6 +571,10 @@ function validatePublicationSubject(
 ): PublicationValidationResult {
   const diagnostics: StaticDiagnostic[] = [];
   const value = publication.value;
+  const orderedContributions = orderedRawAdmissions(
+    contributions,
+    (row) => row.handle,
+  );
   if (!isRawAdmittedValue(publication) || publication.subjectKind !== "module_publication") {
     diagnostics.push({ code: "raw_subject_mismatch", path: "$", message: "expected raw-admitted ModulePublication" });
   }
@@ -442,7 +588,9 @@ function validatePublicationSubject(
   if (contributions.length !== value.contributions.length) {
     diagnostics.push({ code: "raw_subject_mismatch", path: "$.contributions", message: "raw contribution set differs from publication" });
   }
-  const rawByHandle = new Map(contributions.map((row) => [row.value.handle, row]));
+  const rawByHandle = new Map(
+    orderedContributions.map((row) => [row.value.handle, row]),
+  );
   const graphFunctionRefs = new Set(value.graphFunctions.map((graphFunction) => graphFunction.name));
   const contractRefs = new Set(value.contracts.map((contract) => contract.contractRef));
   const programByRef = new Map(value.programs.map((program) => [program.programRef, program]));
@@ -458,39 +606,7 @@ function validatePublicationSubject(
       if (!graphFunctionRefs.has(row.declarationOrContractRef)) {
         diagnostics.push({ code: "invalid_reference", path: `$.contributions[${row.handle}]`, message: "graph_function contribution does not reference a published GraphFunction" });
       }
-      const hasExactPublicHandleBinding = row.programMembershipRefs.every(
-        (ref) => {
-          const program = programByRef.get(ref);
-          return program?.publicAssetTargets?.some(
-            (target) => {
-              const start = program.starts.find(
-                (candidate) => candidate.startRef === target.startRef,
-              );
-              const directStart =
-                start?.graphFunctionRef === row.declarationOrContractRef;
-              const supervisedSelection =
-                program.policies["abg.root_mode"] === "supervised" &&
-                start?.graphFunctionRef ===
-                  program.constructionComposition?.graphFunctionRef &&
-                program.actionCatalog?.rows.some(
-                  (action) =>
-                    action.programRef === program.programRef &&
-                    action.graphFunctionRef === row.declarationOrContractRef &&
-                    action.targetProgramLocusRef ===
-                      row.declarationOrContractRef,
-                ) === true;
-              return target.handle === row.handle &&
-                target.assetRef === row.declarationOrContractRef &&
-                (directStart || supervisedSelection);
-            },
-          ) === true;
-        },
-      );
       if (
-        (
-          row.handle !== row.declarationOrContractRef &&
-          !hasExactPublicHandleBinding
-        ) ||
         row.programMembershipRefs.length === 0 ||
         row.programMembershipRefs.some((ref) => {
           const program = programByRef.get(ref);
@@ -521,7 +637,7 @@ function validatePublicationSubject(
     }
   }
   if (diagnostics.length !== 0) return invalid("publication", publication.subjectDigest, diagnostics);
-  const contributionDispositions = contributions.map((row) => ({
+  const contributionDispositions = orderedContributions.map((row) => ({
     handle: row.value.handle,
     kind: row.value.kind,
     disposition: "valid" as const,
@@ -578,10 +694,26 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   }
   const publication = input.publication.value;
   const program = input.program.value;
-  const graphFunctions = input.graphFunctions.map((raw) => raw.value);
-  const contracts = input.contracts.map((raw) => raw.value);
-  const bindings = input.implementationBindings.map((raw) => raw.value);
-  const closureContracts = input.closureContracts.map((raw) => raw.value);
+  const graphFunctionAdmissions = orderedRawAdmissions(
+    input.graphFunctions,
+    (value) => value.name,
+  );
+  const contractAdmissions = orderedRawAdmissions(
+    input.contracts,
+    (value) => value.contractRef,
+  );
+  const implementationBindingAdmissions = orderedRawAdmissions(
+    input.implementationBindings,
+    (value) => value.bindingRef,
+  );
+  const closureContractAdmissions = orderedRawAdmissions(
+    input.closureContracts,
+    (value) => value.closureContractRef,
+  );
+  const graphFunctions = graphFunctionAdmissions.map((raw) => raw.value);
+  const contracts = contractAdmissions.map((raw) => raw.value);
+  const bindings = implementationBindingAdmissions.map((raw) => raw.value);
+  const closureContracts = closureContractAdmissions.map((raw) => raw.value);
   diagnostics.push(...validatePublishedDeclarations(publication));
 
   const publishedProgram = publication.programs.find((candidate) => candidate.programRef === program.programRef);
@@ -956,20 +1088,20 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
               ? []
               : [evaluator.binding];
           })
-          .sort();
+          .sort(compareUnicodeCodeUnits);
         const attachedExecutableBindings = attachedLeaves
           .filter(isExecutableCLeaf)
           .map((leaf) =>
             bindingByRef.get(leaf.requirement.implementationBindingRef)
               ?.implementationRef ?? ""
           )
-          .sort();
+          .sort(compareUnicodeCodeUnits);
         const expectedRegimes = application.evaluatorRefs
           .map((ref) => publishedEvaluatorByRef.get(ref)?.regime ?? "")
-          .sort();
+          .sort(compareUnicodeCodeUnits);
         const attachedRegimes = attachedLeaves
           .map((leaf) => leaf.fibre)
-          .sort();
+          .sort(compareUnicodeCodeUnits);
         if (
           attachedLeaves.length === 0 ||
           workflowTargets.length !== 1 ||
@@ -1552,12 +1684,16 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   }
   if (diagnostics.length !== 0) return invalid("program", input.program.subjectDigest, diagnostics);
 
-  const graphFunctionDigests = input.graphFunctions.map((value) => value.subjectDigest);
-  const contractDigests = input.contracts.map((value) => value.subjectDigest);
-  const implementationBindingDigests = input.implementationBindings.map((value) => value.subjectDigest);
-  const closureContractDigests = input.closureContracts.map((value) => value.subjectDigest);
-  executableLeafRows.sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
-  interactionLeafRows.sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+  const graphFunctionDigests = graphFunctionAdmissions.map((value) => value.subjectDigest);
+  const contractDigests = contractAdmissions.map((value) => value.subjectDigest);
+  const implementationBindingDigests = implementationBindingAdmissions.map((value) => value.subjectDigest);
+  const closureContractDigests = closureContractAdmissions.map((value) => value.subjectDigest);
+  executableLeafRows.sort((left, right) =>
+    compareUnicodeCodeUnits(left.requirementKey, right.requirementKey)
+  );
+  interactionLeafRows.sort((left, right) =>
+    compareUnicodeCodeUnits(left.requirementKey, right.requirementKey)
+  );
   const transitiveReachableExecutableLeafKeys = executableLeafRows.map((row) => row.requirementKey);
   const transitiveReachableInteractionLeafKeys = interactionLeafRows.map((row) => row.requirementKey);
   const sourceDigest = sha256Canonical({

@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
+import { cloneEventPrefixResource } from "../support/new-empty-append-sink.mjs";
+
 let bytes = "";
 for await (const chunk of process.stdin) bytes += chunk;
 const input = JSON.parse(bytes);
@@ -18,20 +20,20 @@ const eventStore = await import(
   )).href
 );
 
-function reopen(events) {
-  const store = new abg.AbgEventStore();
-  for (const expected of events) {
-    const candidate = structuredClone(expected);
-    delete candidate.eventId;
-    delete candidate.admissionOrdinal;
-    delete candidate.payloadDigest;
-    assert.deepEqual(eventStore.admitRuntimeEvent(store, candidate), expected);
-  }
-  return store;
+async function reopen(events, label) {
+  return await cloneEventPrefixResource(abg, eventStore, events, label);
 }
 
-const beforeRouteStore = reopen(input.beforeRoutePrefix);
-const afterRouteStore = reopen(input.afterRoutePrefix);
+const beforeRouteResource = await reopen(
+  input.beforeRoutePrefix,
+  "abi5-recursion-lifecycle-worker-before-",
+);
+const afterRouteResource = await reopen(
+  input.afterRoutePrefix,
+  "abi5-recursion-lifecycle-worker-after-",
+);
+const beforeRouteStore = beforeRouteResource.store;
+const afterRouteStore = afterRouteResource.store;
 const sourceCoordinates = {
   runId: input.runId,
   frameId: input.frameId,
@@ -49,9 +51,15 @@ const route = abg.projectAdmittedRecursionRoute(afterRouteStore, {
   runId: input.runId,
   routeRef: input.routeRef,
 });
-const routeAfterTerminal = input.terminalPrefix === undefined
+const terminalResource = input.terminalPrefix === undefined
+  ? null
+  : await reopen(
+      input.terminalPrefix,
+      "abi5-recursion-lifecycle-worker-terminal-",
+    );
+const routeAfterTerminal = terminalResource === null
   ? undefined
-  : abg.projectAdmittedRecursionRoute(reopen(input.terminalPrefix), {
+  : abg.projectAdmittedRecursionRoute(terminalResource.store, {
       runId: input.runId,
       routeRef: input.routeRef,
     });
@@ -90,6 +98,11 @@ assert.ok(route);
 if (input.terminalPrefix !== undefined) assert.equal(routeAfterTerminal, null);
 assert.equal(targetActiveAfterRoute, input.routeKind === "advance");
 assert.equal(runTerminalAfterRoute, input.routeKind === "blocked");
+await Promise.all([
+  beforeRouteResource.dispose(),
+  afterRouteResource.dispose(),
+  ...(terminalResource === null ? [] : [terminalResource.dispose()]),
+]);
 process.stdout.write(JSON.stringify({
   processId: process.pid,
   route,

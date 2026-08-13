@@ -1,18 +1,37 @@
-import type { JsonValue } from "../shared/canonical_json.js";
+import type { ClosureContract } from "../gtl/contracts.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { isExactOperationInvocationCoordinate } from "../shared/operation_definition_coordinate.js";
 import { projectPendingInteractionCarrier } from "./c_call.js";
 import {
   constructRuntimeFluent,
+  deriveRuntimeEventCalculusProjection,
   holdsAt,
   type RuntimeEventCalculusProjection,
 } from "./event_calculus.js";
 import {
   runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
+  validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
-import type { RuntimeEvent } from "./event_store.js";
+import { rehydrateExecutionBasisAtPrefix } from "./execution_basis.js";
 import {
+  durableRuntimeEventPrefixDigest,
+  type RuntimeEvent,
+} from "./event_store.js";
+import {
+  deriveFhResumeSuccessorInputAtPrefix,
+  type FhResumeSuccessorInput,
+} from "./fh_resume_relation.js";
+import {
+  hasExactInvocationRunBindingAtPrefix,
+  projectExactExecutionBasisAtPrefix,
+  projectExactInvocationAdmissionAtPrefix,
+} from "./invocation_execution_truth.js";
+import {
+  isInteractionResumeCursorSuccessorAtPrefix,
   isTraversalCursorCandidate,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
@@ -40,14 +59,39 @@ export interface ReplayContinuationState {
   readonly successorInputRef: string | null;
   readonly successorInputDigest: Sha256Digest | null;
   readonly successorInputValue: JsonValue | null;
+  readonly successorInputContractRef: string | null;
+  readonly successorInputValueKind: string | null;
   readonly successorCursorRef: string | null;
   readonly successorCursorDigest: Sha256Digest | null;
   readonly openedEventRef: string;
   readonly respondedEventRef: string | null;
+  readonly respondedPublicOperationEventRef: string | null;
   readonly resumedEventRef: string | null;
+  readonly resumedPublicOperationEventRef: string | null;
   readonly terminalEventRef: string | null;
   readonly status: "abandoned" | "open" | "responded" | "resolved" | "superseded";
 }
+
+export interface FhEffectfulPublicInvocationFact {
+  readonly operationId:
+    | "abg.operation.interaction.respond"
+    | "abg.operation.run.continue";
+  readonly publicInvocationRef: string;
+  readonly ownerInvocationRef: string;
+  readonly ownerInvocationDigest: Sha256Digest;
+  readonly publicOperationEventRef: string;
+  readonly admissionEventRef: string;
+}
+
+export type FhEffectfulPublicInvocationFactProjection =
+  | Readonly<{
+      readonly disposition: "valid";
+      readonly facts: readonly FhEffectfulPublicInvocationFact[];
+    }>
+  | Readonly<{
+      readonly disposition: "invalid_history";
+      readonly eventRefs: readonly string[];
+    }>;
 
 function isRecord(
   value: JsonValue | undefined,
@@ -93,7 +137,10 @@ function exactPublicOperation(
       typeof grants[0] === "string" && grants[0].length > 0 &&
       event.admissionOrdinal > predecessor.admissionOrdinal &&
       event.admissionOrdinal < successor.admissionOrdinal &&
-      successor.causationEventRefs.includes(event.eventId)
+      event.admissionOrdinal + 1 === successor.admissionOrdinal &&
+      successor.causationEventRefs.length === 2 &&
+      successor.causationEventRefs[0] === predecessor.eventId &&
+      successor.causationEventRefs[1] === event.eventId
     ? event
     : null;
 }
@@ -258,9 +305,243 @@ function exactLifecycleEnvelope(
     event.graphCallId === opened.graphCallId && event.frameId === opened.frameId;
 }
 
+function exactClosureContract(
+  value: JsonValue | undefined,
+  executionBasis: NonNullable<ReturnType<
+    typeof projectExactExecutionBasisAtPrefix
+  >>,
+): Readonly<ClosureContract> | null {
+  if (!isRecord(value)) return null;
+  const keys = Object.keys(value).sort();
+  const expectedKeys = [
+    "closureContractRef",
+    "closureScope",
+    "eventKindRefs",
+    "evidenceContractRef",
+    "judgmentContractRef",
+    "kind",
+    "predicateRef",
+    "refusalContractRef",
+    "refusalValueKind",
+    "rejectionContractRef",
+    "replayProjectionRef",
+    "resultContractRef",
+    "terminalKind",
+    "transitionContractRef",
+  ].sort();
+  if (
+    keys.length !== expectedKeys.length ||
+    keys.some((key, index) => key !== expectedKeys[index]) ||
+    value.kind !== "closure_contract" ||
+    (value.closureScope !== "run" && value.closureScope !== "graph_call") ||
+    value.terminalKind !== "completed" ||
+    !Array.isArray(value.eventKindRefs)
+  ) return null;
+  const expectedKinds = value.closureScope === "run"
+    ? ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"]
+    : ["terminal_reached", "frame_closed", "graph_call_closed"];
+  const stringKeys = expectedKeys.filter((key) =>
+    key !== "eventKindRefs" && key !== "closureScope"
+  );
+  if (
+    stringKeys.some((key) =>
+      typeof value[key] !== "string" || (value[key] as string).length === 0
+    ) ||
+    canonicalJson(value.eventKindRefs) !== canonicalJson(expectedKinds) ||
+    value.closureContractRef !== executionBasis.closureContractRef ||
+    value.predicateRef !== executionBasis.terminalPredicateRef ||
+    value.evidenceContractRef !== executionBasis.evidenceContractRef ||
+    value.resultContractRef !== executionBasis.resultContractRef ||
+    value.refusalContractRef !== executionBasis.refusalContractRef ||
+    value.refusalValueKind !== executionBasis.refusalValueKind ||
+    value.judgmentContractRef !== executionBasis.judgmentContractRef ||
+    value.rejectionContractRef !== executionBasis.rejectionContractRef ||
+    value.transitionContractRef !== executionBasis.transitionContractRef ||
+    value.replayProjectionRef !== executionBasis.replayProjectionRef ||
+    sha256Canonical(value) !== executionBasis.closureContractDigest
+  ) return null;
+  return value as unknown as Readonly<ClosureContract>;
+}
+
+export function validateExactFhResumeOwnerRelationAtPrefix(
+  authorityPrefix: ValidatedRuntimeEventPrefix,
+  resumeEvent: RuntimeEvent,
+): boolean {
+  try {
+    const ownerAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
+      authorityPrefix,
+      resumeEvent.eventId,
+    );
+    const authorityEvents = runtimeEventsFromValidatedPrefix(
+      ownerAuthorityPrefix,
+    );
+    if (
+      authorityEvents.some(
+        (event, index) => event.admissionOrdinal !== index + 1
+      ) ||
+      resumeEvent.kind !== "fh_interaction_resume_admitted" ||
+      resumeEvent.runId === undefined ||
+      !isRecord(resumeEvent.payload)
+    ) return false;
+    const ownerRunPrefix = selectValidatedRuntimeEventPrefix(
+      authorityEvents,
+      { runId: resumeEvent.runId },
+    );
+    const runEvents = runtimeEventsFromValidatedPrefix(ownerRunPrefix);
+    const exactResume = runEvents.find((event) =>
+      event.eventId === resumeEvent.eventId
+    );
+    if (
+      exactResume === undefined ||
+      canonicalJson(exactResume as unknown as JsonValue) !==
+        canonicalJson(resumeEvent as unknown as JsonValue)
+    ) return false;
+    const payload = resumeEvent.payload;
+    const continuationRef = stringField(resumeEvent, "continuationRef");
+    const openedEventRef = stringField(resumeEvent, "openedEventRef");
+    const respondedEventRef = stringField(resumeEvent, "respondedEventRef");
+    const publicOperationEventRef = stringField(
+      resumeEvent,
+      "publicOperationEventRef",
+    );
+    const opened = runEvents.find((event) => event.eventId === openedEventRef);
+    const responded = runEvents.find((event) =>
+      event.eventId === respondedEventRef
+    );
+    const publicOperation = authorityEvents.find(
+      (event) => event.eventId === publicOperationEventRef,
+    );
+    if (
+      continuationRef === null ||
+      opened?.kind !== "fh_interaction_opened" ||
+      responded?.kind !== "fh_interaction_responded" ||
+      publicOperation?.kind !== "public_operation_admitted" ||
+      !isRecord(opened.payload) ||
+      !isRecord(publicOperation.payload) ||
+      publicOperation.payload.operationId !== "abg.operation.run.continue" ||
+      publicOperation.payload.continuationRef !== continuationRef ||
+      publicOperation.admissionOrdinal + 1 !== resumeEvent.admissionOrdinal ||
+      resumeEvent.causationEventRefs.length !== 2 ||
+      resumeEvent.causationEventRefs[0] !== responded.eventId ||
+      resumeEvent.causationEventRefs[1] !== publicOperation.eventId ||
+      resumeEvent.eventTime !== publicOperation.eventTime ||
+      resumeEvent.correlationId !== publicOperation.correlationId
+    ) return false;
+    const predecessorEvents = authorityEvents.slice(
+      0,
+      publicOperation.admissionOrdinal - 1,
+    );
+    const durablePrefixDigest = digestField(resumeEvent, "durablePrefixDigest");
+    if (
+      durablePrefixDigest === null ||
+      durableRuntimeEventPrefixDigest(predecessorEvents) !== durablePrefixDigest
+    ) return false;
+    const respondedAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
+      ownerAuthorityPrefix,
+      responded.eventId,
+    );
+    const respondedRunPrefix = selectValidatedRuntimeEventPrefix(
+      runtimeEventsFromValidatedPrefix(respondedAuthorityPrefix),
+      { runId: resumeEvent.runId },
+    );
+    const respondedContinuation = projectFhContinuations(
+      respondedRunPrefix,
+      deriveRuntimeEventCalculusProjection(respondedRunPrefix),
+      respondedAuthorityPrefix,
+    ).find((candidate) => candidate.continuationRef === continuationRef);
+    if (
+      respondedContinuation === undefined ||
+      respondedContinuation.status !== "responded"
+    ) return false;
+    const prefixThroughOperation = validatedRuntimeEventPrefixThroughEvent(
+      ownerAuthorityPrefix,
+      publicOperation.eventId,
+    );
+    const executionBasisRef = stringField(opened, "executionBasisRef");
+    const executionBasis = executionBasisRef === null
+      ? null
+      : rehydrateExecutionBasisAtPrefix(
+          prefixThroughOperation,
+          executionBasisRef,
+        );
+    if (executionBasis === null) return false;
+    const closureContract = exactClosureContract(
+      payload.closureContract,
+      executionBasis,
+    );
+    const successorInputRef = stringField(resumeEvent, "successorInputRef");
+    const successorInputDigest = digestField(
+      resumeEvent,
+      "successorInputDigest",
+    );
+    const successorInputValue = isRecord(payload.successorInputValue)
+      ? payload.successorInputValue
+      : null;
+    const successorInputContractRef = payload.successorInputContractRef;
+    const successorInputValueKind = payload.successorInputValueKind;
+    const successorCursor = isRecord(payload.successorCursor)
+      ? payload.successorCursor as unknown as TraversalCursorCandidate
+      : null;
+    if (
+      closureContract === null ||
+      successorInputRef === null ||
+      successorInputDigest === null ||
+      successorInputValue === null ||
+      !(
+        (successorInputContractRef === null && successorInputValueKind === null) ||
+        (typeof successorInputContractRef === "string" &&
+          successorInputContractRef.length > 0 &&
+          typeof successorInputValueKind === "string" &&
+          successorInputValueKind.length > 0)
+      ) ||
+      successorCursor === null ||
+      !isTraversalCursorCandidate(successorCursor) ||
+      payload.successorCursorRef !== successorCursor.cursorRef ||
+      payload.successorCursorDigest !== successorCursor.cursorDigest
+    ) return false;
+    const suppliedInput: FhResumeSuccessorInput = deepFreeze({
+      kind: "fh_resume_successor_input" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      inputRef: successorInputRef,
+      inputDigest: successorInputDigest,
+      inputValue: successorInputValue,
+      inputContractRef: successorInputContractRef as string | null,
+      inputValueKind: successorInputValueKind as string | null,
+    });
+    const expectedInput = deriveFhResumeSuccessorInputAtPrefix(
+      prefixThroughOperation,
+      respondedContinuation,
+      { admissionEventRef: publicOperation.eventId },
+      executionBasis,
+      closureContract,
+      {
+        inputContractRef: suppliedInput.inputContractRef,
+        inputValueKind: suppliedInput.inputValueKind,
+      },
+    );
+    const heldCursor = isRecord(opened.payload.heldCursor)
+      ? opened.payload.heldCursor as unknown as TraversalCursorCandidate
+      : null;
+    return canonicalJson(suppliedInput as unknown as JsonValue) ===
+        canonicalJson(expectedInput as unknown as JsonValue) &&
+      heldCursor !== null &&
+      isTraversalCursorCandidate(heldCursor) &&
+      isInteractionResumeCursorSuccessorAtPrefix(
+        prefixThroughOperation,
+        heldCursor,
+        expectedInput,
+        successorCursor,
+      );
+  } catch {
+    return false;
+  }
+}
+
 export function projectFhContinuations(
   prefix: ValidatedRuntimeEventPrefix,
   eventCalculus: RuntimeEventCalculusProjection,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
 ): readonly ReplayContinuationState[] {
   const allEvents = runtimeEventsFromValidatedPrefix(prefix);
   const events = allEvents.filter((event) =>
@@ -316,6 +597,19 @@ export function projectFhContinuations(
     const resumedPayload = resumed !== undefined && isRecord(resumed.payload)
       ? resumed.payload
       : null;
+    const respondedPublicOperation = responded === undefined ||
+        respondedPayload === null
+      ? null
+      : exactPublicOperation(
+          allEvents,
+          continuationRef,
+          respondedPayload.publicOperationEventRef,
+          "abg.operation.interaction.respond",
+          respondedPayload.actorRef,
+          respondedPayload.capabilityRef,
+          opened,
+          responded,
+        );
     if (responded !== undefined && (
       respondedPayload === null ||
       !exactLifecycleEnvelope(responded, opened, continuationRef) ||
@@ -331,17 +625,23 @@ export function projectFhContinuations(
           String(respondedPayload.responseDigest).slice("sha256:".length)
         }` ||
       responded.causationEventRefs[0] !== opened.eventId ||
-      exactPublicOperation(
-        allEvents,
-        continuationRef,
-        respondedPayload.publicOperationEventRef,
-        "abg.operation.interaction.respond",
-        respondedPayload.actorRef,
-        respondedPayload.capabilityRef,
-        opened,
-        responded,
-      ) === null
+      respondedPublicOperation === null
     )) throw new TypeError(`continuation ${continuationRef} has invalid response truth`);
+    const resumedPublicOperation = resumed === undefined ||
+        resumedPayload === null || responded === undefined
+      ? null
+      : exactPublicOperation(
+          allEvents,
+          continuationRef,
+          resumedPayload.publicOperationEventRef,
+          "abg.operation.run.continue",
+          resumedPayload.actorRef,
+          resumedPayload.capabilityRef,
+          responded,
+          resumed,
+        );
+    const successorInputContractRef = resumedPayload?.successorInputContractRef;
+    const successorInputValueKind = resumedPayload?.successorInputValueKind;
     if (resumed !== undefined && (
       resumedPayload === null || responded === undefined ||
       respondedPayload === null ||
@@ -362,19 +662,21 @@ export function projectFhContinuations(
       typeof resumedPayload.successorInputRef !== "string" ||
       typeof resumedPayload.successorCursorRef !== "string" ||
       typeof resumedPayload.successorCursorDigest !== "string" ||
+      !(
+        (successorInputContractRef === null &&
+          successorInputValueKind === null) ||
+        (typeof successorInputContractRef === "string" &&
+          successorInputContractRef.length > 0 &&
+          typeof successorInputValueKind === "string" &&
+          successorInputValueKind.length > 0)
+      ) ||
+      (openedBasis.constructionIntentRef !== null &&
+        successorInputValueKind !== "action_evaluation_basis") ||
       typeof resumedPayload.durablePrefixDigest !== "string" ||
       !resumedPayload.durablePrefixDigest.startsWith("sha256:") ||
       resumed.causationEventRefs[0] !== responded.eventId ||
-      exactPublicOperation(
-        allEvents,
-        continuationRef,
-        resumedPayload.publicOperationEventRef,
-        "abg.operation.run.continue",
-        resumedPayload.actorRef,
-        resumedPayload.capabilityRef,
-        responded,
-        resumed,
-      ) === null
+      resumedPublicOperation === null ||
+      !validateExactFhResumeOwnerRelationAtPrefix(authorityPrefix, resumed)
     )) throw new TypeError(`continuation ${continuationRef} has invalid resume truth`);
     const disposition = dispositionRows[0];
     const dispositionPayload = disposition !== undefined &&
@@ -460,6 +762,12 @@ export function projectFhContinuations(
         ? null
         : digestField(resumed, "successorInputDigest"),
       successorInputValue: resumedPayload?.successorInputValue ?? null,
+      successorInputContractRef: resumed === undefined
+        ? null
+        : successorInputContractRef as string | null,
+      successorInputValueKind: resumed === undefined
+        ? null
+        : successorInputValueKind as string | null,
       successorCursorRef: resumed === undefined
         ? null
         : stringField(resumed, "successorCursorRef"),
@@ -468,7 +776,10 @@ export function projectFhContinuations(
         : digestField(resumed, "successorCursorDigest"),
       openedEventRef: opened.eventId,
       respondedEventRef: responded?.eventId ?? null,
+      respondedPublicOperationEventRef:
+        respondedPublicOperation?.eventId ?? null,
       resumedEventRef: resumed?.eventId ?? null,
+      resumedPublicOperationEventRef: resumedPublicOperation?.eventId ?? null,
       terminalEventRef: dispositionRows[0]?.eventId ?? resumed?.eventId ?? null,
       status: abandoned !== undefined
         ? "abandoned" as const
@@ -480,5 +791,313 @@ export function projectFhContinuations(
               ? "responded" as const
               : "open" as const,
     });
+  });
+}
+
+export function projectFhEffectfulPublicInvocationFacts(
+  prefix: ValidatedRuntimeEventPrefix,
+): FhEffectfulPublicInvocationFactProjection {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const publicEvents = events.filter((event) =>
+    event.kind === "public_operation_admitted" &&
+    isRecord(event.payload) &&
+    (
+      event.payload.operationId === "abg.operation.interaction.respond" ||
+      event.payload.operationId === "abg.operation.run.continue"
+    )
+  );
+  const ownerEvents = events.filter((event) =>
+    event.kind === "fh_interaction_responded" ||
+    event.kind === "fh_interaction_resume_admitted"
+  );
+  const relevantEventRefs = [...publicEvents, ...ownerEvents]
+    .map((event) => event.eventId)
+    .sort();
+  let continuationHistories: readonly Readonly<{
+    authorityPrefix: ValidatedRuntimeEventPrefix;
+    events: readonly RuntimeEvent[];
+    continuation: ReplayContinuationState;
+  }>[];
+  try {
+    const continuationEvents = events.filter((event) =>
+      event.aggregateType === "continuation"
+    );
+    const continuationRefs = [
+      ...new Set(continuationEvents.map((event) => event.aggregateId)),
+    ];
+    continuationHistories = continuationRefs.map((continuationRef) => {
+      const rows = continuationEvents.filter((event) =>
+        event.aggregateId === continuationRef
+      );
+      const ownerRows = rows.filter((event) =>
+        event.kind === "fh_interaction_responded" ||
+        event.kind === "fh_interaction_resume_admitted"
+      );
+      const boundary = ownerRows.at(-1) ?? rows.at(-1);
+      if (boundary === undefined) {
+        throw new TypeError(
+          `continuation ${continuationRef} has no historical owner boundary`,
+        );
+      }
+      if (boundary.runId === undefined) {
+        throw new TypeError(
+          `continuation ${continuationRef} has no owner Run boundary`,
+        );
+      }
+      const ownerAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
+        prefix,
+        boundary.eventId,
+      );
+      const ownerEvents = runtimeEventsFromValidatedPrefix(
+        ownerAuthorityPrefix,
+      );
+      const ownerRunPrefix = selectValidatedRuntimeEventPrefix(
+        ownerEvents,
+        { runId: boundary.runId },
+      );
+      const continuation = projectFhContinuations(
+        ownerRunPrefix,
+        deriveRuntimeEventCalculusProjection(ownerRunPrefix),
+        ownerAuthorityPrefix,
+      ).find((candidate) =>
+        candidate.continuationRef === continuationRef
+      );
+      if (continuation === undefined) {
+        throw new TypeError(
+          `continuation ${continuationRef} is absent at its historical owner boundary`,
+        );
+      }
+      return {
+        authorityPrefix: ownerAuthorityPrefix,
+        events: ownerEvents,
+        continuation,
+      };
+    });
+  } catch {
+    return deepFreeze({
+      disposition: "invalid_history" as const,
+      eventRefs: relevantEventRefs,
+    });
+  }
+  const facts: FhEffectfulPublicInvocationFact[] = [];
+  for (const history of continuationHistories) {
+    const { continuation } = history;
+    const opened = history.events.find((event) =>
+      event.eventId === continuation.openedEventRef &&
+      event.kind === "fh_interaction_opened"
+    );
+    const openedPayload = opened !== undefined && isRecord(opened.payload)
+      ? opened.payload
+      : null;
+    const executionBasisRef = openedPayload?.executionBasisRef;
+    const executionBasis = typeof executionBasisRef === "string"
+      ? projectExactExecutionBasisAtPrefix(
+          history.authorityPrefix,
+          executionBasisRef,
+        )
+      : null;
+    const rootInvocation = executionBasis === null
+      ? null
+      : projectExactInvocationAdmissionAtPrefix(
+          history.authorityPrefix,
+          executionBasis.invocationAdmissionRef,
+        );
+    if (
+      opened === undefined ||
+      openedPayload === null ||
+      executionBasis === null ||
+      rootInvocation === null ||
+      opened.basisId !== executionBasis.basisRef ||
+      openedPayload.executionBasisRef !== executionBasis.basisRef ||
+      openedPayload.executionBasisDigest !== executionBasis.basisDigest ||
+      openedPayload.workspaceBindingId !==
+        executionBasis.workspaceBindingId ||
+      openedPayload.workspaceBindingDigest !==
+        executionBasis.workspaceBindingDigest ||
+      openedPayload.catalogViewId !== executionBasis.catalogViewId ||
+      openedPayload.catalogViewDigest !== executionBasis.catalogViewDigest ||
+      openedPayload.programRef !== executionBasis.programRef ||
+      openedPayload.programDigest !== executionBasis.programDigest ||
+      openedPayload.graphFunctionRef !== executionBasis.graphFunctionRef ||
+      openedPayload.graphFunctionDigest !==
+        executionBasis.graphFunctionDigest ||
+      openedPayload.graphRef !== executionBasis.graphRef ||
+      openedPayload.graphDigest !== executionBasis.graphDigest ||
+      openedPayload.implementationSetRef !==
+        executionBasis.implementationSetRef ||
+      openedPayload.implementationSetDigest !==
+        executionBasis.implementationSetDigest ||
+      openedPayload.interactionSetRef !== executionBasis.interactionSetRef ||
+      openedPayload.interactionSetDigest !==
+        executionBasis.interactionSetDigest ||
+      executionBasis.actorRef !== rootInvocation.actorRef ||
+      executionBasis.workspaceBindingId !==
+        rootInvocation.workspaceBindingId ||
+      executionBasis.workspaceBindingDigest !==
+        rootInvocation.workspaceBindingDigest ||
+      executionBasis.catalogBasisRef !== rootInvocation.catalogBasisRef ||
+      executionBasis.catalogBasisDigest !== rootInvocation.catalogBasisDigest ||
+      executionBasis.catalogViewId !== rootInvocation.catalogViewId ||
+      executionBasis.catalogViewDigest !== rootInvocation.catalogViewDigest ||
+      !hasExactInvocationRunBindingAtPrefix(
+        history.authorityPrefix,
+        rootInvocation,
+        continuation.runId,
+      )
+    ) {
+      return deepFreeze({
+        disposition: "invalid_history" as const,
+        eventRefs: relevantEventRefs,
+      });
+    }
+    const coordinates = [
+      continuation.respondedEventRef === null ||
+          continuation.respondedPublicOperationEventRef === null
+        ? null
+        : {
+            operationId: "abg.operation.interaction.respond" as const,
+            ownerKind: "fh_interaction_responded" as const,
+            publicOperationEventRef:
+              continuation.respondedPublicOperationEventRef,
+            admissionEventRef: continuation.respondedEventRef,
+          },
+      continuation.resumedEventRef === null ||
+          continuation.resumedPublicOperationEventRef === null
+        ? null
+        : {
+            operationId: "abg.operation.run.continue" as const,
+            ownerKind: "fh_interaction_resume_admitted" as const,
+            publicOperationEventRef:
+              continuation.resumedPublicOperationEventRef,
+            admissionEventRef: continuation.resumedEventRef,
+          },
+    ].filter((coordinate) => coordinate !== null);
+    for (const coordinate of coordinates) {
+      const publicEvent = history.events.find((event) =>
+        event.eventId === coordinate.publicOperationEventRef
+      );
+      const ownerEvent = history.events.find((event) =>
+        event.eventId === coordinate.admissionEventRef
+      );
+      const publicPayload = publicEvent !== undefined &&
+          isRecord(publicEvent.payload)
+        ? publicEvent.payload
+        : null;
+      const ownerPayload = ownerEvent !== undefined && isRecord(ownerEvent.payload)
+        ? ownerEvent.payload
+        : null;
+      const invocationRef = publicPayload?.invocationRef;
+      const invocationPayloadDigest = publicPayload?.invocationPayloadDigest;
+      const invocationDigest = publicPayload?.invocationDigest;
+      const capabilityGrantRefs = publicPayload?.capabilityGrantRefs;
+      const capabilityGrantRef = Array.isArray(capabilityGrantRefs) &&
+          capabilityGrantRefs.length === 1
+        ? capabilityGrantRefs[0]
+        : null;
+      const capabilityGrant = typeof capabilityGrantRef === "string"
+        ? rootInvocation.capabilityGrants.filter((grant) =>
+            grant.grantRef === capabilityGrantRef
+          )
+        : [];
+      const expectedVariant = coordinate.operationId ===
+          "abg.operation.interaction.respond"
+        ? new Set(["select", "approve", "reject", "assess", "answer_escalation"])
+        : new Set(["current_intent", "selected_action"]);
+      if (
+        publicEvent?.kind !== "public_operation_admitted" ||
+        publicEvent.aggregateType !== "workspace" ||
+        publicEvent.aggregateId !== rootInvocation.workspaceBindingId ||
+        publicEvent.basisId !== rootInvocation.authorityRef ||
+        publicEvent.workflowVersion !== "5.0.0" ||
+        publicEvent.scopeClass !== "workspace" ||
+        publicPayload === null ||
+        publicPayload.operationId !== coordinate.operationId ||
+        typeof publicPayload.variant !== "string" ||
+        !expectedVariant.has(publicPayload.variant) ||
+        publicPayload.memberKey !== publicPayload.variant ||
+        publicPayload.continuationRef !== continuation.continuationRef ||
+        typeof invocationRef !== "string" ||
+        invocationRef.length === 0 ||
+        publicEvent.parentAggregateId !== invocationRef ||
+        typeof invocationPayloadDigest !== "string" ||
+        !/^sha256:[a-f0-9]{64}$/u.test(invocationPayloadDigest) ||
+        !isExactOperationInvocationCoordinate({
+          operationId: coordinate.operationId,
+          memberKey: publicPayload.memberKey,
+          definitionDigest: publicPayload.definitionDigest,
+          invocationRef,
+          invocationPayloadDigest,
+          invocationDigest,
+        }) ||
+        publicPayload.actorRef !== rootInvocation.actorRef ||
+        publicPayload.authorityRef !== rootInvocation.authorityRef ||
+        publicPayload.authorityDigest !== rootInvocation.authorityDigest ||
+        publicPayload.workspaceBindingId !==
+          rootInvocation.workspaceBindingId ||
+        publicPayload.workspaceBindingDigest !==
+          rootInvocation.workspaceBindingDigest ||
+        publicPayload.catalogBasisRef !== rootInvocation.catalogBasisRef ||
+        publicPayload.catalogBasisDigest !== rootInvocation.catalogBasisDigest ||
+        publicPayload.catalogViewId !== rootInvocation.catalogViewId ||
+        publicPayload.catalogViewDigest !== rootInvocation.catalogViewDigest ||
+        publicPayload.programRef !== rootInvocation.programRef ||
+        publicPayload.programDigest !== rootInvocation.programDigest ||
+        publicPayload.graphFunctionRef !== rootInvocation.graphFunctionRef ||
+        publicPayload.graphFunctionDigest !==
+          rootInvocation.graphFunctionDigest ||
+        publicPayload.policyRef !== rootInvocation.policyRef ||
+        publicPayload.policyDigest !== rootInvocation.policyDigest ||
+        typeof publicPayload.capabilityRef !== "string" ||
+        capabilityGrant.length !== 1 ||
+        capabilityGrant[0]!.actorRef !== publicPayload.actorRef ||
+        capabilityGrant[0]!.operationId !== coordinate.operationId ||
+        capabilityGrant[0]!.capabilityRef !== publicPayload.capabilityRef ||
+        capabilityGrant[0]!.policyRef !== rootInvocation.policyRef ||
+        capabilityGrant[0]!.policyDigest !== rootInvocation.policyDigest ||
+        !rootInvocation.capabilityGrantRefs.includes(
+          capabilityGrant[0]!.grantRef,
+        ) ||
+        ownerEvent?.kind !== coordinate.ownerKind ||
+        ownerPayload === null ||
+        ownerPayload.continuationRef !== continuation.continuationRef ||
+        ownerPayload.publicOperationEventRef !== publicEvent.eventId ||
+        ownerEvent.eventTime !== publicEvent.eventTime ||
+        ownerEvent.correlationId !== publicEvent.correlationId
+      ) {
+        return deepFreeze({
+          disposition: "invalid_history" as const,
+          eventRefs: relevantEventRefs,
+        });
+      }
+      facts.push(deepFreeze({
+        operationId: coordinate.operationId,
+        publicInvocationRef: invocationRef,
+        ownerInvocationRef: invocationRef,
+        ownerInvocationDigest: invocationDigest as Sha256Digest,
+        publicOperationEventRef: publicEvent.eventId,
+        admissionEventRef: ownerEvent.eventId,
+      }));
+    }
+  }
+  const factPublicRefs = new Set(
+    facts.map((fact) => fact.publicOperationEventRef),
+  );
+  const factOwnerRefs = new Set(facts.map((fact) => fact.admissionEventRef));
+  if (
+    factPublicRefs.size !== facts.length ||
+    factOwnerRefs.size !== facts.length ||
+    publicEvents.length !== facts.length ||
+    ownerEvents.length !== facts.length ||
+    publicEvents.some((event) => !factPublicRefs.has(event.eventId)) ||
+    ownerEvents.some((event) => !factOwnerRefs.has(event.eventId))
+  ) {
+    return deepFreeze({
+      disposition: "invalid_history" as const,
+      eventRefs: relevantEventRefs,
+    });
+  }
+  return deepFreeze({
+    disposition: "valid" as const,
+    facts,
   });
 }

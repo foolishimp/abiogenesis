@@ -46,6 +46,18 @@
     "contracts/**",
     "product-toolchain-manifest.json"
   ],
+  "dependencies": {
+    "@valibot/to-json-schema": "1.7.1",
+    "effect": "3.22.1",
+    "jsonc-parser": "3.3.1",
+    "valibot": "1.4.2"
+  },
+  "bundleDependencies": [
+    "@valibot/to-json-schema",
+    "effect",
+    "jsonc-parser",
+    "valibot"
+  ],
   "scripts": {
     "clean": "node scripts/clean.mjs",
     "build": "npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs",

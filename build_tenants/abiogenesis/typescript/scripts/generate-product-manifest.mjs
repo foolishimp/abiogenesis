@@ -42,6 +42,9 @@ import {
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(import.meta.url);
 const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
+const packageLock = JSON.parse(
+  await readFile(join(root, "package-lock.json"), "utf8"),
+);
 const productId = `product://abiogenesis/typescript-tenant@${packageJson.version}`;
 
 if (
@@ -169,10 +172,108 @@ async function listFiles(path) {
   return files;
 }
 
+const bundledDependencyNames = packageJson.bundleDependencies ??
+  packageJson.bundledDependencies ?? [];
+if (
+  !Array.isArray(bundledDependencyNames) ||
+  bundledDependencyNames.some(
+    (name) =>
+      typeof name !== "string" ||
+      packageJson.dependencies?.[name] === undefined,
+  )
+) {
+  throw new Error(
+    "bundled runtime dependencies must name exact declared dependencies",
+  );
+}
+
+const lockedPackages = packageLock.packages;
+if (
+  lockedPackages === null ||
+  typeof lockedPackages !== "object" ||
+  Array.isArray(lockedPackages)
+) {
+  throw new Error("package lock does not expose an installed package inventory");
+}
+
+function dependencyLocator(ownerLocator, dependencyName) {
+  const dependencySuffix = `node_modules/${dependencyName}`;
+  let cursor = ownerLocator;
+  while (cursor !== "") {
+    const nestedCandidate = `${cursor}/${dependencySuffix}`;
+    if (lockedPackages[nestedCandidate] !== undefined) {
+      return nestedCandidate;
+    }
+    const parentMarker = cursor.lastIndexOf("/node_modules/");
+    cursor = parentMarker === -1 ? "" : cursor.slice(0, parentMarker);
+  }
+  return lockedPackages[dependencySuffix] === undefined
+    ? null
+    : dependencySuffix;
+}
+
+function bundledDependencyClosure(names) {
+  const pending = names.map((name) => `node_modules/${name}`);
+  const visited = new Set();
+  while (pending.length > 0) {
+    const locator = pending.pop();
+    if (visited.has(locator)) {
+      continue;
+    }
+    const lockedPackage = lockedPackages[locator];
+    if (
+      lockedPackage === null ||
+      typeof lockedPackage !== "object" ||
+      Array.isArray(lockedPackage)
+    ) {
+      throw new Error(`bundled dependency is absent from package lock: ${locator}`);
+    }
+    visited.add(locator);
+    const requiredDependencies = lockedPackage.dependencies ?? {};
+    for (const dependencyName of Object.keys(requiredDependencies).sort()) {
+      const dependency = dependencyLocator(locator, dependencyName);
+      if (dependency === null) {
+        throw new Error(
+          `bundled dependency closure is incomplete: ${locator} -> ${dependencyName}`,
+        );
+      }
+      pending.push(dependency);
+    }
+    const optionalDependencies = lockedPackage.optionalDependencies ?? {};
+    for (const dependencyName of Object.keys(optionalDependencies).sort()) {
+      const dependency = dependencyLocator(locator, dependencyName);
+      if (dependency !== null) {
+        pending.push(dependency);
+      }
+    }
+  }
+  return [...visited].sort();
+}
+
+const bundledDependencyLocators = [];
+for (const locator of bundledDependencyClosure(bundledDependencyNames)) {
+  const name = locator.slice("node_modules/".length);
+  const expectedRoot = join(root, ...locator.split("/"));
+  const dependencyEntry = resolve(require.resolve(name));
+  const entryRelativeToExpected = relative(
+    resolve(expectedRoot),
+    dependencyEntry,
+  );
+  if (
+    entryRelativeToExpected === "" ||
+    entryRelativeToExpected.startsWith(`..${sep}`) ||
+    entryRelativeToExpected === ".."
+  ) {
+    throw new Error(`bundled dependency resolves outside its exact package root: ${name}`);
+  }
+  bundledDependencyLocators.push(...await listFiles(expectedRoot));
+}
+
 const productRelativeLocators = [
   "package.json",
   ...(await listFiles(join(root, "build"))),
   ...(await listFiles(join(root, "contracts"))),
+  ...bundledDependencyLocators,
 ].sort();
 
 const payloadInventory = [];

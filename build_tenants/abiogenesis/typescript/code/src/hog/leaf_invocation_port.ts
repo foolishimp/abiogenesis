@@ -2,11 +2,12 @@ import { isAbsolute, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { hasAdmittedProductInstall } from "../abg/environment_admission.js";
+import type { ExactPrefixArtifactTruthProjection } from "../abg/artifact_truth.js";
 import {
-  hasAdmittedImplementationSet,
+  hasAdmittedImplementationSetAtPrefix,
   type AdmittedImplementationSet,
 } from "../abg/execution_basis.js";
-import type { AbgEventStore } from "../abg/event_store.js";
+import type { ValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
 import type { ModulePublication } from "../gtl/contracts.js";
 import {
   inspectProductLeafSemanticsProjection,
@@ -20,13 +21,40 @@ import type {
   ProbabilisticLeafEffectPort,
 } from "../implementation/contracts.js";
 
-const admittedPorts = new WeakSet<object>();
-
 export type LeafInvocationInstall =
   Parameters<typeof hasAdmittedProductInstall>[1];
 
 export function isAdmittedLeafInvocationPort(value: object): boolean {
-  return admittedPorts.has(value);
+  const candidate = value as Partial<LeafInvocationPort>;
+  return candidate.kind === "admitted_leaf_invocation_port" &&
+    typeof candidate.installId === "string" && candidate.installId.length > 0 &&
+    typeof candidate.implementationSetRef === "string" &&
+      candidate.implementationSetRef.length > 0 &&
+    typeof candidate.implementationSetDigest === "string" &&
+      candidate.implementationSetDigest.startsWith("sha256:") &&
+    typeof candidate.publicationDigest === "string" &&
+      candidate.publicationDigest.startsWith("sha256:") &&
+    typeof candidate.contractValueKind === "function" &&
+    typeof candidate.validateContractValue === "function" &&
+    typeof candidate.resolveJudgmentRelation === "function" &&
+    typeof candidate.validateResultEvidenceLineage === "function" &&
+    typeof candidate.invoke === "function";
+}
+
+export function isAdmittedLeafInvocationResolution(
+  port: object,
+  resolution: object,
+): boolean {
+  if (!isAdmittedLeafInvocationPort(port)) return false;
+  const candidate = port as LeafInvocationPort;
+  return candidate.publication.implementationBindings.some((binding) =>
+    binding.implementationRef ===
+      (resolution as LeafInvocationResolution).implementationRef &&
+    binding.inputContractRef ===
+      (resolution as LeafInvocationResolution).inputContractRef &&
+    binding.outputContractRef ===
+      (resolution as LeafInvocationResolution).outputContractRef
+  );
 }
 
 export function leafInvocationBindingMatches(authority: Readonly<{
@@ -72,12 +100,12 @@ export function leafInvocationBindingMatches(authority: Readonly<{
 }
 
 export async function constructAdmittedLeafInvocationPort(authority: {
-  readonly store: AbgEventStore;
+  readonly prefix: ValidatedRuntimeEventPrefix;
+  readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly install: LeafInvocationInstall;
   readonly implementationSet: AdmittedImplementationSet;
   readonly publication: Readonly<ModulePublication>;
   readonly semanticsProjection: InstalledLeafSemanticsProjection;
-  readonly verifyInstallAuthority?: (install: LeafInvocationInstall) => boolean;
 }): Promise<LeafInvocationPort> {
   const publicationDigest = sha256Canonical(authority.publication as unknown as JsonValue);
   const inspected = inspectProductLeafSemanticsProjection(
@@ -85,11 +113,11 @@ export async function constructAdmittedLeafInvocationPort(authority: {
   );
   if (
     inspected === null ||
-    !(
-      hasAdmittedProductInstall(authority.store, authority.install) ||
-      authority.verifyInstallAuthority?.(authority.install) === true
+    !hasAdmittedProductInstall(authority.artifactTruth, authority.install) ||
+    !hasAdmittedImplementationSetAtPrefix(
+      authority.prefix,
+      authority.implementationSet,
     ) ||
-    !hasAdmittedImplementationSet(authority.store, authority.implementationSet) ||
     !leafInvocationBindingMatches(authority) ||
     !(await inspected.runtime.verifyInstalledContent())
   ) {
@@ -99,6 +127,16 @@ export async function constructAdmittedLeafInvocationPort(authority: {
   }
   const semantics = inspected.runtime;
   const modules = new Map<string, Promise<Record<string, unknown>>>();
+
+  function uniqueContractByRef(contractRef: string) {
+    const matches = authority.publication.contracts.filter(
+      (contract) => contract.contractRef === contractRef,
+    );
+    const contract = matches.length === 1 ? matches[0] : undefined;
+    return contract !== undefined && contract.valueKind.length > 0
+      ? contract
+      : null;
+  }
 
   async function loadModule(modulePath: string): Promise<Record<string, unknown>> {
     const exactPath = resolve(authority.install.installedRoot, modulePath);
@@ -120,6 +158,18 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     implementationSetRef: authority.implementationSet.implementationSetRef,
     implementationSetDigest: authority.implementationSet.implementationSetDigest,
     publicationDigest,
+    publication: authority.publication,
+    contractValueKindByRef(contractRef: string): string | null {
+      return uniqueContractByRef(contractRef)?.valueKind ?? null;
+    },
+    validateContractValueByRef(
+      contractRef: string,
+      value: unknown,
+    ): value is Readonly<Record<string, JsonValue>> {
+      const contract = uniqueContractByRef(contractRef);
+      return contract !== null &&
+        semantics.validateContractValue(contract.valueKind, value);
+    },
     contractValueKind(
       contractRef: string,
       contractKind: "failure" | "output",
@@ -162,7 +212,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       input: Readonly<Record<string, JsonValue>>,
     ) {
       if (
-        !admittedPorts.has(port) ||
+        !isAdmittedLeafInvocationPort(port) ||
         !authority.implementationSet.rows.some((row) => row === resolution)
       ) {
         return null;
@@ -179,12 +229,12 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       effects: ProbabilisticLeafEffectPort | null,
     ): Promise<unknown> {
       if (
-        !admittedPorts.has(port) ||
-        !(
-          hasAdmittedProductInstall(authority.store, authority.install) ||
-          authority.verifyInstallAuthority?.(authority.install) === true
+        !isAdmittedLeafInvocationPort(port) ||
+        !hasAdmittedProductInstall(authority.artifactTruth, authority.install) ||
+        !hasAdmittedImplementationSetAtPrefix(
+          authority.prefix,
+          authority.implementationSet,
         ) ||
-        !hasAdmittedImplementationSet(authority.store, authority.implementationSet) ||
         !(await semantics.verifyInstalledContent()) ||
         !authority.implementationSet.rows.some((row) => row === resolution)
       ) {
@@ -204,6 +254,5 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       return implementation(input);
     },
   }) satisfies LeafInvocationPort;
-  admittedPorts.add(port);
   return port;
 }

@@ -6,6 +6,10 @@ type PublicPayloadFieldDefinition =
   | Readonly<{ readonly kind: "nonblank_string" }>
   | Readonly<{ readonly kind: "record" }>
   | Readonly<{
+    readonly kind: "record_array";
+    readonly minItems: number;
+  }>
+  | Readonly<{
     readonly kind: "string_array";
     readonly minItems: number;
     readonly uniqueItems: boolean;
@@ -22,6 +26,8 @@ interface PublicPayloadDefinition {
 const FIELD = {
   digest: { kind: "digest" },
   record: { kind: "record" },
+  records: { kind: "record_array", minItems: 0 },
+  recordsNonempty: { kind: "record_array", minItems: 1 },
   ref: { kind: "nonblank_string" },
   refs: { kind: "string_array", minItems: 0, uniqueItems: true },
   refsNonempty: {
@@ -59,9 +65,9 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
   "abg.operation.product.resolve": {
     verified_product_set: {
       fields: {
-        verifiedInvocationRefs: FIELD.refsNonempty,
+        verifiedProductInputs: FIELD.recordsNonempty,
       },
-      required: ["verifiedInvocationRefs"],
+      required: ["verifiedProductInputs"],
       successfulResultSchemaRef: "#/$defs/ResolvedProductLockProjection",
     },
   },
@@ -69,15 +75,15 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
     verified_artifact: {
       fields: {
         artifactPath: FIELD.ref,
-        resolvedLockInvocationRef: FIELD.ref,
+        resolvedLock: FIELD.record,
         targetRoot: FIELD.ref,
-        verifiedInvocationRef: FIELD.ref,
+        verifiedProduct: FIELD.record,
       },
       required: [
         "artifactPath",
-        "resolvedLockInvocationRef",
+        "resolvedLock",
         "targetRoot",
-        "verifiedInvocationRef",
+        "verifiedProduct",
       ],
     },
   },
@@ -113,14 +119,16 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
   "abg.operation.catalog.apply": {
     node_type: {
       fields: {
-        catalogBasis: FIELD.record,
+        catalog: FIELD.record,
+        catalogView: FIELD.record,
         contributorRef: FIELD.ref,
         handle: FIELD.ref,
         target: FIELD.record,
         value: FIELD.record,
       },
       required: [
-        "catalogBasis",
+        "catalog",
+        "catalogView",
         "contributorRef",
         "handle",
         "target",
@@ -129,13 +137,15 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
     },
     overlay: {
       fields: {
-        catalogBasis: FIELD.record,
+        catalog: FIELD.record,
+        catalogView: FIELD.record,
         contributorRef: FIELD.ref,
         handle: FIELD.ref,
         value: FIELD.record,
       },
       required: [
-        "catalogBasis",
+        "catalog",
+        "catalogView",
         "contributorRef",
         "handle",
         "value",
@@ -145,9 +155,10 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
   "abg.operation.catalog.view": {
     allowlist: {
       fields: {
-        catalogBasis: FIELD.record,
+        allowlist: FIELD.refs,
+        catalog: FIELD.record,
       },
-      required: ["catalogBasis"],
+      required: ["allowlist", "catalog"],
     },
   },
   "abg.operation.project.read": {
@@ -269,9 +280,11 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
     direct: {
       fields: {
         actorRef: FIELD.ref,
-        catalogBasis: FIELD.record,
+        applications: FIELD.records,
+        catalog: FIELD.record,
+        catalogView: FIELD.record,
         eventLogPath: FIELD.ref,
-        graphFunctionRef: FIELD.ref,
+        catalogHandle: FIELD.ref,
         input: FIELD.record,
         installInvocationRef: FIELD.ref,
         programRef: FIELD.ref,
@@ -282,9 +295,11 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
       },
       required: [
         "actorRef",
-        "catalogBasis",
+        "applications",
+        "catalog",
+        "catalogView",
         "eventLogPath",
-        "graphFunctionRef",
+        "catalogHandle",
         "input",
         "installInvocationRef",
         "programRef",
@@ -296,7 +311,9 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
     start: {
       fields: {
         actorRef: FIELD.ref,
-        catalogBasis: FIELD.record,
+        applications: FIELD.records,
+        catalog: FIELD.record,
+        catalogView: FIELD.record,
         eventLogPath: FIELD.ref,
         input: FIELD.record,
         installInvocationRef: FIELD.ref,
@@ -317,7 +334,9 @@ export const ROOT_PUBLIC_OPERATION_DEFINITIONS = {
       },
       required: [
         "actorRef",
-        "catalogBasis",
+        "applications",
+        "catalog",
+        "catalogView",
         "eventLogPath",
         "input",
         "installInvocationRef",
@@ -354,6 +373,8 @@ type FieldValue<D> =
     : D extends Readonly<{ readonly kind: "nonblank_string" }> ? string
     : D extends Readonly<{ readonly kind: "record" }>
       ? Readonly<Record<string, JsonValue>>
+    : D extends Readonly<{ readonly kind: "record_array" }>
+      ? readonly Readonly<Record<string, JsonValue>>[]
     : D extends Readonly<{ readonly kind: "string_array" }>
       ? readonly string[]
     : never;
@@ -580,6 +601,10 @@ function isPayloadField(
       return typeof value === "string" && value.trim().length > 0;
     case "record":
       return isRecord(value);
+    case "record_array":
+      return Array.isArray(value) &&
+        value.length >= definition.minItems &&
+        value.every(isRecord);
     case "string_array":
       return Array.isArray(value) &&
         value.length >= definition.minItems &&

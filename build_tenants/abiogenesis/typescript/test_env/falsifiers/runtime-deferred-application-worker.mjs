@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
+import { cloneEventPrefixResource } from "../support/new-empty-append-sink.mjs";
+
 let bytes = "";
 for await (const chunk of process.stdin) bytes += chunk;
 const input = JSON.parse(bytes);
@@ -18,25 +20,36 @@ const eventStore = await import(
   )).href
 );
 
-function reopen(events) {
-  const store = new abg.AbgEventStore();
-  for (const expected of events) {
-    const candidate = structuredClone(expected);
-    delete candidate.eventId;
-    delete candidate.admissionOrdinal;
-    delete candidate.payloadDigest;
-    assert.deepEqual(eventStore.admitRuntimeEvent(store, candidate), expected);
-  }
-  return store;
+async function reopen(events, label) {
+  return await cloneEventPrefixResource(abg, eventStore, events, label);
 }
 
-const beforeRouteStore = reopen(input.beforeRoutePrefix);
+const beforeRouteResource = await reopen(
+  input.beforeRoutePrefix,
+  "abi5-deferred-application-worker-before-",
+);
+const beforeRouteHandoff =
+  beforeRouteResource.store.projectReopenAuthorityAndClose();
+const reopenedBeforeRoute = eventStore.reopenEventStore(
+  beforeRouteHandoff.reopenAuthority,
+);
+assert.equal(
+  reopenedBeforeRoute.kind,
+  "reopened_event_store_context",
+  JSON.stringify(reopenedBeforeRoute),
+);
+assert.deepEqual(reopenedBeforeRoute.prefix, beforeRouteHandoff.prefix);
+const beforeRouteStore = reopenedBeforeRoute.store;
 const completion = abg.projectCurrentDeferredApplication(
   beforeRouteStore,
   input.coordinates,
 );
 const unrelatedWorkspaceEvent = structuredClone(
-  input.beforeRoutePrefix.find((event) => event.scopeClass === "workspace"),
+  input.beforeRoutePrefix.find(
+    (event) =>
+      event.scopeClass === "workspace" &&
+      event.kind !== "public_operation_artifact_admitted",
+  ),
 );
 assert.ok(unrelatedWorkspaceEvent);
 delete unrelatedWorkspaceEvent.eventId;
@@ -47,7 +60,21 @@ const interleavedCompletion = abg.projectCurrentDeferredApplication(
   beforeRouteStore,
   input.coordinates,
 );
-const afterRouteStore = reopen(input.afterRoutePrefix);
+const afterRouteResource = await reopen(
+  input.afterRoutePrefix,
+  "abi5-deferred-application-worker-after-",
+);
+const afterRouteHandoff = afterRouteResource.store.projectReopenAuthorityAndClose();
+const reopenedAfterRoute = eventStore.reopenEventStore(
+  afterRouteHandoff.reopenAuthority,
+);
+assert.equal(
+  reopenedAfterRoute.kind,
+  "reopened_event_store_context",
+  JSON.stringify(reopenedAfterRoute),
+);
+assert.deepEqual(reopenedAfterRoute.prefix, afterRouteHandoff.prefix);
+const afterRouteStore = reopenedAfterRoute.store;
 const consumedCompletion = abg.projectCurrentDeferredApplication(
   afterRouteStore,
   input.coordinates,
@@ -63,6 +90,12 @@ assert.equal(
   abg.isCurrentDeferredApplicationProjection(afterRouteStore, completion),
   false,
 );
+beforeRouteStore.closeDurableLog();
+afterRouteStore.closeDurableLog();
+await Promise.all([
+  beforeRouteResource.dispose(),
+  afterRouteResource.dispose(),
+]);
 process.stdout.write(JSON.stringify({
   processId: process.pid,
   completion,
@@ -70,4 +103,6 @@ process.stdout.write(JSON.stringify({
   consumedCompletion,
   currentBeforeRoute: true,
   currentAfterRoute: false,
+  reopenedBeforeRoute: true,
+  reopenedAfterRoute: true,
 }));

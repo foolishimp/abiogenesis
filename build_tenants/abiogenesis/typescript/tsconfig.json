@@ -13,6 +13,7 @@
     "outDir": "build/code/src",
     "rootDir": "code/src",
     "skipLibCheck": true,
+    "stripInternal": true,
     "strict": true,
     "target": "ES2022",
     "verbatimModuleSyntax": true

@@ -29,8 +29,9 @@ test("M5 installed HoG traverses one natively composed GraphFunction", async (co
     "m5-graph-edge",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       allowlist: [GRAPH_FUNCTION_REF],
     },
   );

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
-import { basename, join } from "node:path";
+import { readFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 
 import * as installedAbg from "@abiogenesis/typescript-tenant/abg";
@@ -43,7 +43,7 @@ function publicOperationBasis(
       operationId,
       payloadDigest: invocationPayloadDigest,
     }),
-    correlationId: `correlation://s06/ax-f06/${operationId}`,
+    correlationId: `correlation://s06/ax-f06/${invocationRef}`,
     eventTime: EVENT_TIME,
     causationEventRefs,
   };
@@ -144,36 +144,54 @@ function validatePublicationAndPrograms(validator, publication) {
   return { publicationAdmission, publicationValidation, programValidations };
 }
 
+function requireCaseId(caseId) {
+  assert.equal(
+    [
+      "equal",
+      "f13-duplicate",
+      "f13-pure",
+      "f13-semantic",
+      "tampered",
+    ].includes(caseId),
+    true,
+    `unknown installed invocation-fixture case ${String(caseId)}`,
+  );
+}
+
 async function produce(input) {
   assert.deepEqual(Object.keys(input).sort(), [
     "action",
+    "caseId",
     "packageRoot",
     "supportPath",
   ]);
+  requireCaseId(input.caseId);
   const support = await import(pathToFileURL(input.supportPath).href);
   const environment = await support.setupInstalledRootCatalog(
     { after() {} },
     input.packageRoot,
   );
   const {
-    abg,
     gtl,
     product,
     validator,
     store,
     verified,
-    admittedInstall,
-    workspaceBinding,
+    installCandidate,
+    bindingCandidate,
     lock,
     scratch,
   } = environment;
-  const publication = constructPublication(gtl, admittedInstall);
-  const {
-    publicationAdmission,
-    publicationValidation,
-    programValidations,
-  } = validatePublicationAndPrograms(validator, publication);
-  const catalog = product.buildGraphFunctionCatalog([publication]);
+  const publication = constructPublication(gtl, installCandidate);
+  validatePublicationAndPrograms(validator, publication);
+  const readinessBasis = {
+    workspaceBinding: bindingCandidate,
+    resolvedLock: lock,
+    verifiedProducts: [verified],
+    installedProducts: [installCandidate],
+    publications: [publication],
+  };
+  const catalog = product.admitGraphFunctionCatalog(readinessBasis);
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
   const program = publication.programs.find((candidate) =>
     candidate.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef);
@@ -182,10 +200,8 @@ async function produce(input) {
     candidate.name === program.starts[0]?.graphFunctionRef);
   assert.notEqual(graphFunction, undefined);
   const subjectHandle = gtl.CONSENSUS_IDS.subjectCatalogHandle;
-  const view = product.narrowGraphFunctionCatalog(catalog, [
-    graphFunction.name,
-    subjectHandle,
-  ]);
+  const allowlist = [graphFunction.name, subjectHandle];
+  const view = product.narrowGraphFunctionCatalog(catalog, allowlist);
   assert.equal(view.kind, "graph_function_catalog_view", JSON.stringify(view));
   const subjectMaterialization = gtl.constructConsensusSubjectMaterialization({
     subjectContractRef: "contract://stdo/ticket@2.2.2",
@@ -196,141 +212,179 @@ async function produce(input) {
     subjectContractRef: "contract://stdo/ticket@2.2.2",
     subjectRef: "ticket://abiogenesis/T-281",
     subjectDigest: subjectMaterialization.contentDigest,
-    submittingActorRef: workspaceBinding.authorizedActorRef,
+    submittingActorRef: bindingCandidate.authorizedActorRef,
     panelRef: "panel://s06/ax-f06",
     roundPolicyRef: "policy://s06/ax-f06",
-    workspaceRef: workspaceBinding.workspaceId,
+    workspaceRef: bindingCandidate.workspaceId,
     ticketRef: "ticket://abiogenesis/T-281",
     ticketDigest: subjectMaterialization.contentDigest,
   });
   const target = { kind: "program", programRef: program.programRef };
   const targetDigest = product.sha256Canonical(target);
   const valueDigest = product.sha256Canonical(subject);
-  const application = product.applyCatalogDeclaration(view, {
+  const applicationInput = {
     applicationKind: "node_type",
     handle: subjectHandle,
-    targetRef: `catalog-target://abiogenesis/${targetDigest.slice("sha256:".length)}`,
+    targetRef:
+      `catalog-target://abiogenesis/${targetDigest.slice("sha256:".length)}`,
     targetDigest,
-    appliedValueRef: `catalog-value://abiogenesis/${valueDigest.slice("sha256:".length)}`,
+    appliedValueRef:
+      `catalog-value://abiogenesis/${valueDigest.slice("sha256:".length)}`,
     appliedValueDigest: valueDigest,
-  });
-  assert.equal(application.kind, "declaration_application", JSON.stringify(application));
-  const eventLogPath = join(scratch, "ax-f06.events.jsonl");
-  store.configureDurableLog(eventLogPath);
-  const prefix = store.projectReopenAuthorityAndClose();
-  const handoff = {
-    prefix,
-    install: admittedInstall,
-    workspaceBinding,
-    lock,
-    catalog,
-    view,
-    application,
+  };
+  const application = product.applyCatalogDeclaration(view, applicationInput);
+  assert.equal(
+    application.kind,
+    "declaration_application",
+    JSON.stringify(application),
+  );
+  const expected = {
+    publicationDigest: product.modulePublicationSemanticDigest(publication),
+    catalogBasisDigest: catalog.basisDigest,
+    viewDigest: view.viewDigest,
+    applicationRef: application.applicationRef,
+    applicationDigest: application.applicationDigest,
     programRef: program.programRef,
     graphFunctionRef: graphFunction.name,
   };
+  const eventCountAtHandoff = store.readAll().length;
+  const prefix = store.projectReopenAuthorityAndClose();
+  const handoff = {
+    allowlist,
+    applicationInput,
+    expected,
+    prefix,
+    readinessBasis,
+  };
   return {
     action: "produce",
+    caseId: input.caseId,
     pid: process.pid,
     cleanupRoot: scratch,
     handoff,
     audit: {
-      originatingApplicationPure: true,
       exactHandoffKeys:
         Object.keys(handoff).sort().join("\0") === [
-          "application",
-          "catalog",
-          "graphFunctionRef",
-          "install",
-          "lock",
+          "allowlist",
+          "applicationInput",
+          "expected",
           "prefix",
-          "programRef",
-          "view",
-          "workspaceBinding",
+          "readinessBasis",
         ].join("\0"),
-      publicationMatchesInstalledIdentity:
-        verified.productId === admittedInstall.productId &&
-        catalog.publicationDigests.includes(
-          product.modulePublicationSemanticDigest(publication),
-        ),
-      applicationDigestSelfConsistent:
-        application.applicationDigest === product.sha256Canonical({
-          kind: application.kind,
-          schemaVersion: application.schemaVersion,
-          catalogBasisDigest: application.catalogBasisDigest,
-          viewDigest: application.viewDigest,
-          declaration: application.declaration,
-          targetRef: application.targetRef,
-          targetDigest: application.targetDigest,
-          appliedValueRef: application.appliedValueRef,
-          appliedValueDigest: application.appliedValueDigest,
-        }),
+      handoffExcludesConstructedAuthorityObjects:
+        !("catalog" in handoff) &&
+        !("view" in handoff) &&
+        !("application" in handoff),
+      readinessPublicationMatchesInstalledIdentity:
+        verified.productId === installCandidate.productId &&
+        catalog.publicationDigests.includes(expected.publicationDigest),
+      productConstructorsProducedExactInputs:
+        catalog.kind === "graph_function_catalog" &&
+        view.kind === "graph_function_catalog_view" &&
+        application.kind === "declaration_application",
+      eventCountAtHandoff,
     },
   };
 }
 
 async function consume(input) {
-  assert.deepEqual(Object.keys(input).sort(), ["action", "handoff"]);
+  assert.deepEqual(Object.keys(input).sort(), ["action", "caseId", "handoff"]);
+  requireCaseId(input.caseId);
   assert.deepEqual(Object.keys(input.handoff).sort(), [
-    "application",
-    "catalog",
-    "graphFunctionRef",
-    "install",
-    "lock",
+    "allowlist",
+    "applicationInput",
+    "expected",
     "prefix",
-    "programRef",
-    "view",
-    "workspaceBinding",
+    "readinessBasis",
   ]);
-  const reopened = installedAbg.reopenEventStore(input.handoff.prefix);
-  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
+  const reopened = installedAbg.reopenEventStore(
+    input.handoff.prefix.reopenAuthority,
+    input.handoff.prefix.prefix,
+  );
+  assert.equal(
+    reopened.kind,
+    "reopened_event_store_context",
+    JSON.stringify(reopened),
+  );
+  let closed = false;
   try {
     const store = reopened.store;
+    assert.deepEqual(reopened.prefix, input.handoff.prefix.prefix);
+    const artifactTruth = installedAbg.projectExactPrefixArtifactTruth(
+      reopened.prefix,
+    );
+    assert.equal(
+      artifactTruth.kind,
+      "exact_prefix_artifact_truth_projection",
+      JSON.stringify(artifactTruth),
+    );
     const {
-      install,
-      workspaceBinding,
-      lock,
-      catalog,
-      view,
-      application,
-      programRef,
-      graphFunctionRef,
+      allowlist,
+      applicationInput,
+      expected,
+      readinessBasis,
     } = input.handoff;
-    const publication = constructPublication(installedGtl, install);
-    const publicationMatchesP1 =
-      catalog.publicationDigests.includes(
-        installedProduct.modulePublicationSemanticDigest(publication),
-      );
-    assert.equal(publicationMatchesP1, true);
+    assert.equal(readinessBasis.installedProducts.length, 1);
+    assert.equal(readinessBasis.publications.length, 1);
+    const installCandidate = readinessBasis.installedProducts[0];
+    const admittedInstall = installedAbg.projectAdmittedProductInstall(
+      artifactTruth,
+      installCandidate,
+    );
+    const workspaceBinding = installedAbg.projectAdmittedWorkspaceBinding(
+      artifactTruth,
+      readinessBasis.workspaceBinding,
+    );
+    assert.notEqual(admittedInstall, null);
+    assert.notEqual(workspaceBinding, null);
+    const publication = constructPublication(installedGtl, admittedInstall);
+    const publicationCanonicallyEqual =
+      installedProduct.canonicalJson(publication) ===
+        installedProduct.canonicalJson(readinessBasis.publications[0]);
+    assert.equal(publicationCanonicallyEqual, true);
+    const reconstructedReadinessBasis = {
+      workspaceBinding: readinessBasis.workspaceBinding,
+      resolvedLock: readinessBasis.resolvedLock,
+      verifiedProducts: readinessBasis.verifiedProducts,
+      installedProducts: readinessBasis.installedProducts,
+      publications: [publication],
+    };
+    const catalog = installedProduct.admitGraphFunctionCatalog(
+      reconstructedReadinessBasis,
+    );
+    assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
+    const view = installedProduct.narrowGraphFunctionCatalog(catalog, allowlist);
+    assert.equal(view.kind, "graph_function_catalog_view", JSON.stringify(view));
+    const application = installedProduct.applyCatalogDeclaration(
+      view,
+      applicationInput,
+    );
+    assert.equal(
+      application.kind,
+      "declaration_application",
+      JSON.stringify(application),
+    );
+    const applicationIdentityExact =
+      installedProduct.modulePublicationSemanticDigest(publication) ===
+        expected.publicationDigest &&
+      catalog.basisDigest === expected.catalogBasisDigest &&
+      view.viewDigest === expected.viewDigest &&
+      application.applicationRef === expected.applicationRef &&
+      application.applicationDigest === expected.applicationDigest;
+    assert.equal(applicationIdentityExact, true);
     const { programValidations } = validatePublicationAndPrograms(
       installedValidator,
       publication,
     );
     const program = publication.programs.find((candidate) =>
-      candidate.programRef === programRef);
+      candidate.programRef === expected.programRef);
     const graphFunction = publication.graphFunctions.find((candidate) =>
-      candidate.name === graphFunctionRef);
+      candidate.name === expected.graphFunctionRef);
     assert.notEqual(program, undefined);
     assert.notEqual(graphFunction, undefined);
-    const reconstructedApplication = installedProduct.applyCatalogDeclaration(view, {
-      applicationKind: application.declaration.declarationKind,
-      handle: application.declaration.handle,
-      targetRef: application.targetRef,
-      targetDigest: application.targetDigest,
-      appliedValueRef: application.appliedValueRef,
-      appliedValueDigest: application.appliedValueDigest,
-    });
-    const applicationStructurallyExact =
-      installedProduct.canonicalJson(reconstructedApplication) ===
-        installedProduct.canonicalJson(application);
-    const installAdmitted = installedAbg.hasAdmittedProductInstall(store, install);
-    const workspaceAdmitted = installedAbg.hasAdmittedWorkspaceBinding(
-      store,
-      workspaceBinding,
-    );
-    assert.equal(installAdmitted, true);
-    assert.equal(workspaceAdmitted, true);
-    assert.equal(applicationStructurallyExact, true);
+    const programValidation = programValidations.find((candidate) =>
+      candidate.programRef === program.programRef);
+    assert.notEqual(programValidation, undefined);
     const inputContractRef = graphFunction.inputs[0];
     const inputContract = publication.contracts.find((candidate) =>
       candidate.contractRef === inputContractRef);
@@ -341,6 +395,8 @@ async function consume(input) {
       "invocation_input",
       inputContractRef,
     );
+    const runtimeInvocationRef =
+      `invocation://s06/ax-f06/${input.caseId}/run-invoke`;
     const rawRequest = requireRawAdmission(
       installedValidator,
       {
@@ -348,9 +404,9 @@ async function consume(input) {
         schemaVersion: "5.0.0",
         operationId: "abg.operation.run.invoke",
         variant: "start",
-        invocationRef: "invocation://s06/ax-f06/run-invoke",
+        invocationRef: runtimeInvocationRef,
         eventTime: EVENT_TIME,
-        correlationId: "correlation://s06/ax-f06/run-invoke",
+        correlationId: `correlation://s06/ax-f06/${input.caseId}/run-invoke`,
         payload: {
           programRef: program.programRef,
           startRef: program.starts[0].startRef,
@@ -363,36 +419,78 @@ async function consume(input) {
       "public_operation_request",
       "contract://abiogenesis/public/run-invoke-request@5",
     );
+    const interactionCapabilities = programValidation.interactionLeafRows.map(
+      (row) => ({
+        requirementKey: row.requirementKey,
+        requirementKeyDigest: row.requirementKeyDigest,
+        actorCapabilityRef: row.requirement.actorCapabilityRef,
+      }),
+    );
+    const declaredComputeRegimes = new Set([
+      ...programValidation.executableLeafRows.map((row) => row.fibre),
+      ...programValidation.interactionLeafRows.map((row) => row.fibre),
+    ]);
+    const allowedComputeRegimes = ["F_D", "F_P", "F_H"].filter((regime) =>
+      declaredComputeRegimes.has(regime));
     const policy = installedProduct.constructRootInvocationPolicy(
       workspaceBinding,
       program,
-      [],
-      ["F_D", "F_P", "F_H"],
+      interactionCapabilities,
+      allowedComputeRegimes,
       [application],
     );
-    const grant = installedProduct.constructCapabilityGrant(
-      policy,
-      workspaceBinding.authorizedActorRef,
+    const actorRef = workspaceBinding.authorizedActorRef;
+    const interactionCapabilityRefs = [
+      ...new Set(
+        interactionCapabilities.map((row) => row.actorCapabilityRef),
+      ),
+    ].sort();
+    const capabilityGrants = [
+      installedProduct.constructCapabilityGrant(policy, actorRef),
+      ...interactionCapabilityRefs.flatMap((capabilityRef) => [
+        installedProduct.constructCapabilityGrant(
+          policy,
+          actorRef,
+          "abg.operation.interaction.respond",
+          capabilityRef,
+        ),
+        installedProduct.constructCapabilityGrant(
+          policy,
+          actorRef,
+          "abg.operation.run.continue",
+          capabilityRef,
+        ),
+      ]),
+    ];
+    const selectedDefinition = installedProduct.lookupGraphFunctionDefinition(
+      view,
+      graphFunction.name,
+      program.programRef,
+    );
+    assert.equal(
+      selectedDefinition.kind,
+      "graph_function_definition_lookup_exact",
+      JSON.stringify(selectedDefinition),
     );
     const authority = installedProduct.constructInvocationAuthority(
-      workspaceBinding.authorizedActorRef,
+      actorRef,
       workspaceBinding,
       view,
       program.programRef,
-      graphFunction.name,
+      selectedDefinition.entry,
       policy,
-      [grant],
+      capabilityGrants,
     );
     assert.equal(authority.kind, "invocation_authority", JSON.stringify(authority));
     const invocation = installedProduct.constructStartInvocation(
       workspaceBinding,
       view,
       program,
-      graphFunction,
+      selectedDefinition.entry,
       rawRequest,
       rawInput,
       policy,
-      [grant],
+      capabilityGrants,
       authority,
     );
     assert.equal(
@@ -400,63 +498,422 @@ async function consume(input) {
       "public_invocation_candidate",
       JSON.stringify(invocation),
     );
-    const eventCountBefore = store.readAll().length;
-    const refusal = installedAbg.admitInvocation(
-      store,
-      {
-        invocation,
-        rawRequest,
-        rawInput,
-        modulePublication: publication,
-        program,
-        graphFunction,
-        programValidation: programValidations.find((candidate) =>
-          candidate.programRef === program.programRef),
-        workspaceBinding,
-        catalogView: view,
-        catalogApplications: [application],
-        policy,
-        capabilityGrants: [grant],
-        authority,
-      },
-      publicOperationBasis(
-        installedProduct,
-        "abg.operation.run.invoke",
-        workspaceBinding.bindingId,
-        workspaceBinding.bindingDigest,
-        invocation.invocationRef,
-        [workspaceBinding.admissionEventRef],
-      ),
+    const carrierIdentity = {
+      invocationRef: invocation.invocationRef,
+      invocationDigest: invocation.invocationDigest,
+      publicRequestAdmissionRef: invocation.publicRequestAdmissionRef,
+      publicRequestDigest: invocation.publicRequestDigest,
+      rawInputAdmissionRef: invocation.rawInputAdmissionRef,
+      rawInputDigest: invocation.rawInputDigest,
+    };
+    const invocationBasis = publicOperationBasis(
+      installedProduct,
+      "abg.operation.run.invoke",
+      workspaceBinding.bindingId,
+      workspaceBinding.bindingDigest,
+      invocation.publicRequestInvocationRef,
+      [workspaceBinding.admissionEventRef],
     );
+    const admitExact = (targetStore, exactArtifactTruth, exactApplication) =>
+      installedAbg.admitInvocation(
+        targetStore,
+        {
+          invocation,
+          rawRequest,
+          rawInput,
+          modulePublication: publication,
+          program,
+          graphFunction,
+          programValidation,
+          workspaceBinding,
+          artifactTruth: exactArtifactTruth,
+          catalogView: view,
+          catalogApplications: [exactApplication],
+          policy,
+          capabilityGrants,
+          authority,
+        },
+        invocationBasis,
+      );
+
+    if (input.action === "f13_pure_projection") {
+      const eventsBefore = store.readAll();
+      const bytesBefore = await readFile(
+        input.handoff.prefix.reopenAuthority.eventLogPath,
+      );
+      const prefixBefore = structuredClone(reopened.prefix);
+      const firstProjection = installedProduct.narrowGraphFunctionCatalog(
+        catalog,
+        allowlist,
+      );
+      const secondProjection = installedProduct.narrowGraphFunctionCatalog(
+        catalog,
+        allowlist,
+      );
+      assert.equal(
+        firstProjection.kind,
+        "graph_function_catalog_view",
+        JSON.stringify(firstProjection),
+      );
+      assert.equal(
+        secondProjection.kind,
+        "graph_function_catalog_view",
+        JSON.stringify(secondProjection),
+      );
+      const eventsAfter = store.readAll();
+      const bytesAfter = await readFile(
+        input.handoff.prefix.reopenAuthority.eventLogPath,
+      );
+      const finalHandoff = store.projectReopenAuthorityAndClose();
+      closed = true;
+      const projectionDigests = [firstProjection, secondProjection].map(
+        (projection) => installedProduct.sha256Canonical(projection),
+      );
+      return {
+        action: input.action,
+        caseId: input.caseId,
+        pid: process.pid,
+        handoff: finalHandoff,
+        projection: {
+          kind: firstProjection.kind,
+          viewDigest: firstProjection.viewDigest,
+          canonicalDigest: projectionDigests[0],
+        },
+        audit: {
+          exactInputKeys: true,
+          prefixReopened: true,
+          admittedInstallProjected: admittedInstall !== null,
+          workspaceBindingProjected: workspaceBinding !== null,
+          publicationCanonicallyEqual,
+          catalogConstructed: catalog.kind === "graph_function_catalog",
+          viewConstructed: view.kind === "graph_function_catalog_view",
+          applicationConstructed:
+            application.kind === "declaration_application",
+          applicationIdentityExact,
+          projectionOperation: "Product.narrowGraphFunctionCatalog",
+          retainedCanonicalEquality:
+            projectionDigests[0] === projectionDigests[1],
+          eventCountBefore: eventsBefore.length,
+          eventCountAfter: eventsAfter.length,
+          eventDelta: eventsAfter.length - eventsBefore.length,
+          byteLengthBefore: bytesBefore.byteLength,
+          byteLengthAfter: bytesAfter.byteLength,
+          eventsUnchanged:
+            installedProduct.canonicalJson(eventsAfter) ===
+              installedProduct.canonicalJson(eventsBefore),
+          bytesUnchanged: bytesAfter.equals(bytesBefore),
+          prefixUnchanged:
+            installedProduct.canonicalJson(finalHandoff.prefix) ===
+              installedProduct.canonicalJson(prefixBefore),
+          fullHandoffUnchanged:
+            installedProduct.canonicalJson(finalHandoff) ===
+              installedProduct.canonicalJson(input.handoff.prefix),
+        },
+      };
+    }
+
+    if (input.action === "f13_duplicate_retained") {
+      const initialEvents = store.readAll();
+      const initialBytes = await readFile(
+        input.handoff.prefix.reopenAuthority.eventLogPath,
+      );
+      const firstResult = admitExact(store, artifactTruth, application);
+      const eventsAfterFirst = store.readAll();
+      const bytesAfterFirst = await readFile(
+        input.handoff.prefix.reopenAuthority.eventLogPath,
+      );
+      const firstHandoff = store.projectReopenAuthorityAndClose();
+      closed = true;
+      const retryReopened = installedAbg.reopenEventStore(
+        firstHandoff.reopenAuthority,
+      );
+      assert.equal(
+        retryReopened.kind,
+        "reopened_event_store_context",
+        JSON.stringify(retryReopened),
+      );
+      assert.deepEqual(retryReopened.prefix, firstHandoff.prefix);
+      let retryClosed = false;
+      try {
+        const retryArtifactTruth = installedAbg.projectExactPrefixArtifactTruth(
+          retryReopened.prefix,
+        );
+        assert.equal(
+          retryArtifactTruth.kind,
+          "exact_prefix_artifact_truth_projection",
+          JSON.stringify(retryArtifactTruth),
+        );
+        const retryEventsBefore = retryReopened.store.readAll();
+        const retryBytesBefore = await readFile(
+          firstHandoff.reopenAuthority.eventLogPath,
+        );
+        const retryResult = admitExact(
+          retryReopened.store,
+          retryArtifactTruth,
+          application,
+        );
+        const retryEventsAfter = retryReopened.store.readAll();
+        const retryBytesAfter = await readFile(
+          firstHandoff.reopenAuthority.eventLogPath,
+        );
+        const finalHandoff =
+          retryReopened.store.projectReopenAuthorityAndClose();
+        retryClosed = true;
+        return {
+          action: input.action,
+          caseId: input.caseId,
+          pid: process.pid,
+          handoff: finalHandoff,
+          firstHandoff,
+          carrierIdentity,
+          firstResult,
+          retryResult,
+          audit: {
+            exactInputKeys: true,
+            initialPrefixReopened: true,
+            admittedInstallProjected: admittedInstall !== null,
+            workspaceBindingProjected: workspaceBinding !== null,
+            publicationCanonicallyEqual,
+            catalogConstructed: catalog.kind === "graph_function_catalog",
+            viewConstructed: view.kind === "graph_function_catalog_view",
+            applicationConstructed:
+              application.kind === "declaration_application",
+            applicationIdentityExact,
+            successorPrefixReopenedExact:
+              installedProduct.canonicalJson(retryReopened.prefix) ===
+                installedProduct.canonicalJson(firstHandoff.prefix),
+            firstEventCountBefore: initialEvents.length,
+            firstEventCountAfter: eventsAfterFirst.length,
+            firstEventDelta: eventsAfterFirst.length - initialEvents.length,
+            firstByteLengthBefore: initialBytes.byteLength,
+            firstByteLengthAfter: bytesAfterFirst.byteLength,
+            firstByteDelta:
+              bytesAfterFirst.byteLength - initialBytes.byteLength,
+            retryEventCountBefore: retryEventsBefore.length,
+            retryEventCountAfter: retryEventsAfter.length,
+            retryEventDelta:
+              retryEventsAfter.length - retryEventsBefore.length,
+            retryByteLengthBefore: retryBytesBefore.byteLength,
+            retryByteLengthAfter: retryBytesAfter.byteLength,
+            retryByteDelta:
+              retryBytesAfter.byteLength - retryBytesBefore.byteLength,
+            retryEventsUnchanged:
+              installedProduct.canonicalJson(retryEventsAfter) ===
+                installedProduct.canonicalJson(retryEventsBefore),
+            retryBytesUnchanged: retryBytesAfter.equals(retryBytesBefore),
+            retryPrefixUnchanged:
+              installedProduct.canonicalJson(finalHandoff.prefix) ===
+                installedProduct.canonicalJson(firstHandoff.prefix),
+            firstAppendedAtoms: eventsAfterFirst.slice(initialEvents.length).map(
+              (event) => ({
+                kind: event.kind,
+                eventId: event.eventId,
+                invocationRef: event.payload?.invocationRef ?? null,
+                invocationAdmissionRef:
+                  event.payload?.invocationAdmissionRef ?? null,
+                invocationAdmissionDigest:
+                  event.payload?.invocationAdmissionDigest ?? null,
+              }),
+            ),
+            retryAppendedAtoms: retryEventsAfter
+              .slice(retryEventsBefore.length)
+              .map((event) => ({
+                kind: event.kind,
+                eventId: event.eventId,
+                invocationRef: event.payload?.invocationRef ?? null,
+                invocationAdmissionRef:
+                  event.payload?.invocationAdmissionRef ?? null,
+                invocationAdmissionDigest:
+                  event.payload?.invocationAdmissionDigest ?? null,
+              })),
+          },
+        };
+      } finally {
+        if (!retryClosed) retryReopened.store.closeDurableLog();
+      }
+    }
+
+    const semanticTamper =
+      input.caseId === "tampered" ||
+      input.action === "f13_semantic_refusal";
+    const suppliedApplication = semanticTamper
+      ? {
+        ...application,
+        targetRef: input.caseId === "tampered"
+          ? "catalog-target://abiogenesis/ax-f06-tampered"
+          : "catalog-target://abiogenesis/ax-f13-semantic-tamper",
+      }
+      : application;
+    const changedApplicationFields = Object.keys(application).filter((key) =>
+      installedProduct.canonicalJson(suppliedApplication[key]) !==
+        installedProduct.canonicalJson(application[key]));
+    assert.deepEqual(
+      changedApplicationFields,
+      semanticTamper ? ["targetRef"] : [],
+    );
+    const retainedOriginalIdentity =
+      suppliedApplication.applicationRef === application.applicationRef &&
+      suppliedApplication.applicationDigest === application.applicationDigest;
+    assert.equal(retainedOriginalIdentity, true);
+
+    const eventsBefore = store.readAll();
+    const bytesBefore = await readFile(
+      input.handoff.prefix.reopenAuthority.eventLogPath,
+    );
+    const prefixBefore = structuredClone(reopened.prefix);
+    const result = admitExact(store, artifactTruth, suppliedApplication);
+    const eventsAfter = store.readAll();
+    const bytesAfter = await readFile(
+      input.handoff.prefix.reopenAuthority.eventLogPath,
+    );
+    const finalHandoff = store.projectReopenAuthorityAndClose();
+    closed = true;
+    const finalEvents = installedAbg.readRuntimeEventsAtDurablePrefix(
+      finalHandoff.prefix,
+    );
+    const finalPrefix = installedAbg.selectValidatedRuntimeEventPrefix(
+      finalEvents,
+    );
+    const appendedEvents = finalEvents.slice(eventsBefore.length);
+    const publicAtom = appendedEvents.find((event) =>
+      event.kind === "public_operation_admitted");
+    const invocationAtom = appendedEvents.find((event) =>
+      event.kind === "invocation_admitted");
+    const expectedRefs = [application.applicationRef];
+    const expectedDigests = [application.applicationDigest];
+    const resultAdmitted =
+      result.kind === "invocation_admission" &&
+      result.disposition === "admitted";
+    const resultRefDigestExact = resultAdmitted &&
+      installedProduct.canonicalJson(result.catalogApplicationRefs) ===
+        installedProduct.canonicalJson(expectedRefs) &&
+      installedProduct.canonicalJson(result.catalogApplicationDigests) ===
+        installedProduct.canonicalJson(expectedDigests);
+    const publicAtomRefDigestExact =
+      installedProduct.canonicalJson(
+        publicAtom?.payload?.catalogApplicationRefs ?? null,
+      ) === installedProduct.canonicalJson(expectedRefs) &&
+      installedProduct.canonicalJson(
+        publicAtom?.payload?.catalogApplicationDigests ?? null,
+      ) === installedProduct.canonicalJson(expectedDigests);
+    const invocationAtomRefDigestExact =
+      installedProduct.canonicalJson(
+        invocationAtom?.payload?.catalogApplicationRefs ?? null,
+      ) === installedProduct.canonicalJson(expectedRefs) &&
+      installedProduct.canonicalJson(
+        invocationAtom?.payload?.catalogApplicationDigests ?? null,
+      ) === installedProduct.canonicalJson(expectedDigests);
+    const exactInvocationAtoms =
+      resultAdmitted &&
+      eventsAfter.length - eventsBefore.length === 2 &&
+      appendedEvents.length === 2 &&
+      appendedEvents[0]?.kind === "public_operation_admitted" &&
+      appendedEvents[1]?.kind === "invocation_admitted" &&
+      resultRefDigestExact &&
+      publicAtomRefDigestExact &&
+      invocationAtomRefDigestExact &&
+      installedAbg.hasAdmittedInvocationAtPrefix(finalPrefix, result);
+    const eventsUnchanged =
+      installedProduct.canonicalJson(eventsAfter) ===
+        installedProduct.canonicalJson(eventsBefore);
+    const bytesUnchanged = bytesAfter.equals(bytesBefore);
+    const prefixUnchanged =
+      installedProduct.canonicalJson(finalHandoff.prefix) ===
+        installedProduct.canonicalJson(prefixBefore);
+    const typedEventlessRefusal =
+      result.kind === "invocation_admission_refusal" &&
+      eventsUnchanged &&
+      bytesUnchanged &&
+      prefixUnchanged;
+
+    const audit = {
+      exactInputKeys: true,
+      prefixReopened: true,
+      admittedInstallProjected: admittedInstall !== null,
+      workspaceBindingProjected: workspaceBinding !== null,
+      publicationCanonicallyEqual,
+      catalogConstructed: catalog.kind === "graph_function_catalog",
+      viewConstructed: view.kind === "graph_function_catalog_view",
+      applicationConstructed:
+        application.kind === "declaration_application",
+      applicationIdentityExact,
+      changedApplicationFields,
+      retainedOriginalIdentity,
+      eventCountBefore: eventsBefore.length,
+      eventCountAfter: eventsAfter.length,
+      eventDelta: eventsAfter.length - eventsBefore.length,
+      byteLengthBefore: bytesBefore.byteLength,
+      byteLengthAfter: bytesAfter.byteLength,
+      eventsUnchanged,
+      bytesUnchanged,
+      prefixUnchanged,
+      fullHandoffUnchanged:
+        installedProduct.canonicalJson(finalHandoff) ===
+          installedProduct.canonicalJson(input.handoff.prefix),
+      typedEventlessRefusal,
+      exactInvocationAtoms,
+      resultRefDigestExact,
+      publicAtomRefDigestExact,
+      invocationAtomRefDigestExact,
+      admittedAtFinalPrefix:
+        resultAdmitted &&
+        installedAbg.hasAdmittedInvocationAtPrefix(finalPrefix, result),
+      appendedAtoms: appendedEvents.map((event) => ({
+        kind: event.kind,
+        eventId: event.eventId,
+        ...(input.action === "consume"
+          ? {}
+          : {
+            invocationRef: event.payload?.invocationRef ?? null,
+            invocationAdmissionRef:
+              event.payload?.invocationAdmissionRef ?? null,
+            invocationAdmissionDigest:
+              event.payload?.invocationAdmissionDigest ?? null,
+          }),
+        catalogApplicationRefs:
+          event.payload?.catalogApplicationRefs ?? null,
+        catalogApplicationDigests:
+          event.payload?.catalogApplicationDigests ?? null,
+      })),
+    };
+    if (input.action !== "consume") {
+      return {
+        action: input.action,
+        caseId: input.caseId,
+        pid: process.pid,
+        handoff: finalHandoff,
+        carrierIdentity,
+        result,
+        audit,
+      };
+    }
     return {
-      action: "consume",
+      action: input.action,
+      caseId: input.caseId,
       pid: process.pid,
-      applicationDigest: application.applicationDigest,
-      refusal,
-      audit: {
-        exactInputKeys: true,
-        prefixReopened: true,
-        installAdmitted,
-        workspaceAdmitted,
-        catalogPure: true,
-        viewPure: true,
-        publicationMatchesP1,
-        applicationStructurallyExact,
-        reconstructedApplicationPure: true,
-        eventDelta: store.readAll().length - eventCountBefore,
-      },
+      result,
+      audit,
     };
   } finally {
-    reopened.store.closeDurableLog();
+    if (!closed) reopened.store.closeDurableLog();
   }
 }
 
 const input = await readInput();
 const output = input.action === "produce"
   ? await produce(input)
-  : input.action === "consume"
+  : [
+      "consume",
+      "f13_duplicate_fresh",
+      "f13_duplicate_retained",
+      "f13_pure_projection",
+      "f13_semantic_corrected",
+      "f13_semantic_refusal",
+    ].includes(input.action)
     ? await consume(input)
     : (() => {
-        throw new TypeError(`unknown AX-F06 action ${String(input.action)}`);
+        throw new TypeError(
+          `unknown installed invocation-fixture action ${String(input.action)}`,
+        );
       })();
 process.stdout.write(`${JSON.stringify(output)}\n`);

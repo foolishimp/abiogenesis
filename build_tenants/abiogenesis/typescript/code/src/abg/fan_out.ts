@@ -253,7 +253,7 @@ export function admitFanOutCompletion(
         }
         return projected;
       },
-    );
+    ).value;
   } catch (error) {
     if (
       error instanceof FanOutCompletionProjectionError ||

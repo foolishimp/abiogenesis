@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import test from "node:test";
 
+import { acquireNewEmptyAppendSinkFixture } from "../support/new-empty-append-sink.mjs";
 import { setupInstalledRootCatalog } from "../support/root-installed-environment.mjs";
 
 function candidate(kind, runId, causationEventRefs = []) {
@@ -41,7 +42,11 @@ test("ABG rejects cross-run causation before scoped replay", async (context) => 
     environment.installedRoot,
     "build/code/src/abg/event_store.js",
   )).href);
-  const store = new internal.AbgEventStore();
+  const { store } = await acquireNewEmptyAppendSinkFixture(
+    context,
+    environment.abg.createNewEmptyAppendSink,
+    "abi5-runtime-scope-cross-run-",
+  );
   const runB = "run://abiogenesis/runtime-scope-b";
   const closedB = internal.admitRuntimeEvent(store, candidate("run_closed", runB));
   assert.throws(
@@ -64,7 +69,11 @@ test("ABG replay fails closed when a failure follows a close", async (context) =
     environment.installedRoot,
     "build/code/src/abg/event_store.js",
   )).href);
-  const store = new internal.AbgEventStore();
+  const { store } = await acquireNewEmptyAppendSinkFixture(
+    context,
+    environment.abg.createNewEmptyAppendSink,
+    "abi5-runtime-scope-precedence-",
+  );
   const runId = "run://abiogenesis/runtime-failure-precedence";
   const closed = internal.admitRuntimeEvent(store, candidate("run_closed", runId));
   const failure = internal.admitRuntimeEvent(

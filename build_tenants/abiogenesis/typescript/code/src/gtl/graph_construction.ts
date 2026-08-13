@@ -1,6 +1,9 @@
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import {
+  canonicalJson,
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
 import { requireRef } from "../shared/references.js";
 import {
   cCarrier,
@@ -8,6 +11,7 @@ import {
   cTermResultCardinality,
   type CProgramNode,
 } from "./c_algebra.js";
+import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
 import type {
   GraphFunction,
   GraphFunctionApplication,
@@ -48,7 +52,7 @@ export interface PromoteGraphFunctionInput {
 }
 
 function stableUnion(values: readonly (readonly string[])[]): readonly string[] {
-  return [...new Set(values.flat())];
+  return [...new Set(values.flat())].sort(compareUnicodeCodeUnits);
 }
 
 function mergeDeclarations(
@@ -273,7 +277,7 @@ export function identityGraphFunction(
   const digest = sha256Canonical(identity as unknown as JsonValue);
   const nodeRef =
     `node://abiogenesis/identity/${digest.slice("sha256:".length)}`;
-  return deepFreeze({
+  return canonicalizeAuthoredGtlCarrier({
     kind: "graph_function" as const,
     name,
     version: "5.0.0" as const,
@@ -296,7 +300,7 @@ export function identityGraphFunction(
     effects: [],
     declarations: {},
     tags: [],
-  }) as Readonly<GraphFunction>;
+  }, "graph_function");
 }
 
 export function promoteGraphFunction(
@@ -331,7 +335,7 @@ export function promoteGraphFunction(
     sourceGraphRef: source.template.graphRef,
     applicationRef: application.applicationRef,
   });
-  return deepFreeze({
+  return canonicalizeAuthoredGtlCarrier({
     kind: "graph_function" as const,
     name,
     version: "5.0.0" as const,
@@ -354,7 +358,7 @@ export function promoteGraphFunction(
     effects: [...source.effects],
     declarations: { ...source.declarations },
     tags: [...source.tags],
-  }) as Readonly<GraphFunction>;
+  }, "graph_function");
 }
 
 export function composeGraphFunctions(
@@ -422,7 +426,7 @@ export function composeGraphFunctions(
   const graphDigest = sha256Canonical(graphIdentity as unknown as JsonValue);
   if (leftIsIdentity && rightIsIdentity) {
     const base = identityGraphFunction({ name, contractRef: left.inputs[0]! });
-    return deepFreeze({
+    return canonicalizeAuthoredGtlCarrier({
       ...base,
       template: {
         ...base.template,
@@ -434,7 +438,7 @@ export function composeGraphFunctions(
           "compose",
         ),
       },
-    }) as Readonly<GraphFunction>;
+    }, "graph_function");
   }
   const graphFunction = {
     kind: "graph_function" as const,
@@ -479,7 +483,7 @@ export function composeGraphFunctions(
     declarations: mergeDeclarations(left.declarations, right.declarations, "compose"),
     tags: stableUnion([left.tags, right.tags]),
   };
-  return deepFreeze(graphFunction) as Readonly<GraphFunction>;
+  return canonicalizeAuthoredGtlCarrier(graphFunction, "graph_function");
 }
 
 export function substituteGraphFunction(
@@ -625,5 +629,5 @@ export function substituteGraphFunction(
     ),
     tags: stableUnion([outer.tags, inner.tags]),
   };
-  return deepFreeze(graphFunction) as Readonly<GraphFunction>;
+  return canonicalizeAuthoredGtlCarrier(graphFunction, "graph_function");
 }

@@ -7,6 +7,10 @@ import type {
   GtlProgram,
 } from "../gtl/contracts.js";
 import {
+  deriveDirectCStepFromGraph,
+  rootCTraversalCoordinate,
+} from "../hog/direct_fold.js";
+import {
   type ImplementationResolutionCandidate,
   type ImplementationResolutionSetCandidate,
   type LeafImplementationResolutionCandidate,
@@ -15,7 +19,10 @@ import {
   isImplementationResolutionCandidate,
   isImplementationResolutionSetCandidate,
 } from "../product/implementation_resolution.js";
-import type { JsonValue } from "../shared/canonical_json.js";
+import {
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -38,8 +45,22 @@ import {
   hasAdmittedInvocation,
   type InvocationAdmission,
 } from "./invocation_admission.js";
-import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
-import type { OpenedTraversalScope } from "./open_call.js";
+import { projectCurrentChildParentCCallAtPrefix } from "./c_call.js";
+import {
+  AbgEventStore,
+  admitRuntimeEvent,
+  compareAndAppendExpectedPrefix,
+} from "./event_store.js";
+import {
+  runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
+import { projectExactExecutionBasisAtPrefix } from "./invocation_execution_truth.js";
+import {
+  rehydrateOpenedTraversalScopeAtPrefix,
+  type OpenedTraversalScope,
+} from "./open_call.js";
 
 export interface RuntimeAdmissionBasis {
   readonly eventTime: string;
@@ -164,6 +185,7 @@ export interface ExecutionBasis {
   readonly invocationDigest: Sha256Digest;
   readonly rawInputAdmissionRef: string;
   readonly rawInputDigest: Sha256Digest;
+  readonly rawInputValue: Readonly<Record<string, JsonValue>>;
   readonly workspaceBindingId: string;
   readonly workspaceBindingDigest: Sha256Digest;
   readonly catalogBasisRef: string;
@@ -185,6 +207,7 @@ export interface ExecutionBasis {
   readonly actorRef: string;
   readonly parentExecutionBasisRef: string | null;
   readonly parentTraversalScopeRef: string | null;
+  readonly parentCCallRef: string | null;
   readonly entryRef: string;
   readonly programValidationRef: string;
   readonly graphValidationRef: string;
@@ -230,6 +253,7 @@ export interface ExecutionBasisAdmission {
 
 export interface ExecutionBasisInput {
   readonly invocationAdmission: InvocationAdmission;
+  readonly rawInputValue: Readonly<Record<string, JsonValue>>;
   readonly program: Readonly<GtlProgram>;
   readonly programValidation: ProgramValidation;
   readonly graph: Readonly<GtlGraph>;
@@ -246,6 +270,7 @@ export type ExecutionBasisAdmissionResult = ExecutionBasisAdmission | Invocation
 export interface ChildExecutionBasisInput {
   readonly parentExecutionBasis: ExecutionBasis;
   readonly parentTraversalScope: OpenedTraversalScope;
+  readonly parentCCallRef: string;
   readonly program: Readonly<GtlProgram>;
   readonly programValidation: ProgramValidation;
   readonly graphFunction: Readonly<GraphFunction>;
@@ -256,6 +281,7 @@ export interface ChildExecutionBasisInput {
   readonly closureContract: Readonly<ClosureContract>;
   readonly admittedInputRef: string;
   readonly admittedInputDigest: Sha256Digest;
+  readonly rawInputValue: Readonly<Record<string, JsonValue>>;
 }
 
 export interface ChildExecutionBasisAdmission {
@@ -274,6 +300,7 @@ export interface ChildExecutionBasisRefusal {
     | "child_input_mismatch"
     | "child_membership_mismatch"
     | "child_subset_mismatch"
+    | "child_basis_already_admitted"
     | "parent_basis_mismatch";
   readonly message: string;
 }
@@ -288,9 +315,30 @@ const implementationSets = new WeakSet<object>();
 const interactionSets = new WeakSet<object>();
 
 function isJsonRecord(
-  value: JsonValue | undefined,
+  value: unknown,
 ): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function canonicalRecordDigest(value: unknown): Sha256Digest | null {
+  if (!isJsonRecord(value)) return null;
+  try {
+    return sha256Canonical(value);
+  } catch {
+    return null;
+  }
+}
+
+function detachJsonRecord(
+  value: unknown,
+): Readonly<Record<string, JsonValue>> | null {
+  if (!isJsonRecord(value)) return null;
+  try {
+    const detached = structuredClone(value);
+    return isJsonRecord(detached) ? deepFreeze(detached) : null;
+  } catch {
+    return null;
+  }
 }
 
 export function hasExactInvocationObservationBasis(
@@ -384,6 +432,16 @@ export function hasAdmittedImplementationSet(
   store: AbgEventStore,
   set: AdmittedImplementationSet,
 ): boolean {
+  return hasAdmittedImplementationSetAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    set,
+  );
+}
+
+export function hasAdmittedImplementationSetAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  set: AdmittedImplementationSet,
+): boolean {
   if (!isAdmittedImplementationSet(set)) return false;
   const {
     kind: _kind,
@@ -394,7 +452,9 @@ export function hasAdmittedImplementationSet(
     admissionEventRef: _admissionEventRef,
     ...body
   } = set;
-  const event = store.readAll().find((candidate) => candidate.eventId === set.admissionEventRef);
+  const event = runtimeEventsFromValidatedPrefix(prefix).find(
+    (candidate) => candidate.eventId === set.admissionEventRef,
+  );
   return (
     sha256Canonical(body as unknown as JsonValue) === set.implementationSetDigest &&
     set.implementationSetRef ===
@@ -470,6 +530,16 @@ export function hasAdmittedInteractionSet(
   store: AbgEventStore,
   set: AdmittedInteractionSet,
 ): boolean {
+  return hasAdmittedInteractionSetAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    set,
+  );
+}
+
+export function hasAdmittedInteractionSetAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  set: AdmittedInteractionSet,
+): boolean {
   if (!isAdmittedInteractionSet(set)) return false;
   const {
     kind: _kind,
@@ -480,7 +550,9 @@ export function hasAdmittedInteractionSet(
     admissionEventRef: _admissionEventRef,
     ...body
   } = set;
-  const event = store.readAll().find((candidate) => candidate.eventId === set.admissionEventRef);
+  const event = runtimeEventsFromValidatedPrefix(prefix).find(
+    (candidate) => candidate.eventId === set.admissionEventRef,
+  );
   return (
     sha256Canonical(body as unknown as JsonValue) === set.interactionSetDigest &&
     set.interactionSetRef ===
@@ -503,7 +575,17 @@ export function rehydrateAdmittedImplementationSet(
   store: AbgEventStore,
   implementationSetRef: string,
 ): AdmittedImplementationSet | null {
-  const matches = store.readAll().filter(
+  return rehydrateAdmittedImplementationSetAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    implementationSetRef,
+  );
+}
+
+export function rehydrateAdmittedImplementationSetAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  implementationSetRef: string,
+): AdmittedImplementationSet | null {
+  const matches = runtimeEventsFromValidatedPrefix(prefix).filter(
     (event) =>
       event.kind === "implementation_admitted" &&
       isJsonRecord(event.payload) &&
@@ -528,14 +610,24 @@ export function rehydrateAdmittedImplementationSet(
     admissionEventRef: event.eventId,
   }) as unknown as AdmittedImplementationSet;
   implementationSets.add(set);
-  return hasAdmittedImplementationSet(store, set) ? set : null;
+  return hasAdmittedImplementationSetAtPrefix(prefix, set) ? set : null;
 }
 
 export function rehydrateAdmittedInteractionSet(
   store: AbgEventStore,
   interactionSetRef: string,
 ): AdmittedInteractionSet | null {
-  const matches = store.readAll().filter(
+  return rehydrateAdmittedInteractionSetAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    interactionSetRef,
+  );
+}
+
+export function rehydrateAdmittedInteractionSetAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  interactionSetRef: string,
+): AdmittedInteractionSet | null {
+  const matches = runtimeEventsFromValidatedPrefix(prefix).filter(
     (event) =>
       event.kind === "implementation_admitted" &&
       isJsonRecord(event.payload) &&
@@ -560,7 +652,7 @@ export function rehydrateAdmittedInteractionSet(
     admissionEventRef: event.eventId,
   }) as unknown as AdmittedInteractionSet;
   interactionSets.add(set);
-  return hasAdmittedInteractionSet(store, set) ? set : null;
+  return hasAdmittedInteractionSetAtPrefix(prefix, set) ? set : null;
 }
 
 export function hasAdmittedImplementationResolution(
@@ -596,57 +688,44 @@ export function hasAdmittedExecutionBasis(
   store: AbgEventStore,
   basis: ExecutionBasis,
 ): boolean {
-  if (!isExecutionBasis(basis)) return false;
-  const {
-    kind: _kind,
-    schemaVersion: _schemaVersion,
-    disposition: _disposition,
-    basisRef: _basisRef,
-    basisDigest: _basisDigest,
-    admissionEventRef: _admissionEventRef,
-    ...body
-  } = basis;
-  const event = store.readAll().find((candidate) => candidate.eventId === basis.admissionEventRef);
-  return (
-    sha256Canonical(body as unknown as JsonValue) === basis.basisDigest &&
-    basis.basisRef === `execution-basis://abiogenesis/${basis.basisDigest.slice("sha256:".length)}` &&
-    event?.kind === "basis_admitted" &&
-    event.basisId === basis.basisRef &&
-    isJsonRecord(event.payload) &&
-    event.payload.basisRef === basis.basisRef &&
-    event.payload.basisDigest === basis.basisDigest &&
-    event.payload.invocationAdmissionRef === basis.invocationAdmissionRef &&
-    event.payload.implementationSetRef === basis.implementationSetRef &&
-    event.payload.implementationSetDigest === basis.implementationSetDigest &&
-    event.payload.interactionSetRef === basis.interactionSetRef &&
-    event.payload.interactionSetDigest === basis.interactionSetDigest &&
-    event.payload.implementationResolutionRef === basis.implementationResolutionRef
+  return hasAdmittedExecutionBasisAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    basis,
   );
+}
+
+export function hasAdmittedExecutionBasisAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  basis: ExecutionBasis,
+): boolean {
+  if (!isExecutionBasis(basis)) return false;
+  const projected = projectExactExecutionBasisAtPrefix(
+    prefix,
+    basis.basisRef,
+  );
+  return projected !== null &&
+    sha256Canonical(projected as unknown as JsonValue) ===
+      sha256Canonical(basis as unknown as JsonValue);
 }
 
 export function rehydrateExecutionBasis(
   store: AbgEventStore,
   basisRef: string,
 ): ExecutionBasis | null {
-  const matches = store.readAll().filter(
-    (event) =>
-      event.kind === "basis_admitted" &&
-      event.basisId === basisRef &&
-      isJsonRecord(event.payload) &&
-      event.payload.basisRef === basisRef,
+  return rehydrateExecutionBasisAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    basisRef,
   );
-  if (matches.length !== 1) return null;
-  const event = matches[0]!;
-  if (!isJsonRecord(event.payload)) return null;
-  const basis = deepFreeze({
-    kind: "execution_basis" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    ...event.payload,
-    admissionEventRef: event.eventId,
-  }) as unknown as ExecutionBasis;
+}
+
+export function rehydrateExecutionBasisAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  basisRef: string,
+): ExecutionBasis | null {
+  const basis = projectExactExecutionBasisAtPrefix(prefix, basisRef);
+  if (basis === null) return null;
   executionBases.add(basis);
-  return hasAdmittedExecutionBasis(store, basis) ? basis : null;
+  return basis;
 }
 
 export function admitInvocationRefusal(
@@ -712,6 +791,25 @@ export function admitExecutionBasis(
   if (!hasAdmittedInvocation(store, input.invocationAdmission)) {
     throw new TypeError("ExecutionBasis requires one exact admitted invocation");
   }
+  const rawInputValue = detachJsonRecord(input.rawInputValue);
+  if (
+    rawInputValue === null ||
+    canonicalRecordDigest(rawInputValue) !==
+      input.invocationAdmission.rawInputDigest ||
+    input.graph.admittedInputRef !==
+      input.invocationAdmission.rawInputAdmissionRef ||
+    input.graph.admittedInputDigest !==
+      input.invocationAdmission.rawInputDigest ||
+    input.graphValidation.admittedInputRef !==
+      input.invocationAdmission.rawInputAdmissionRef ||
+    input.graphValidation.admittedInputDigest !==
+      input.invocationAdmission.rawInputDigest
+  ) {
+    return reject(
+      input.graph.materializationDigest,
+      "diagnostic://abiogenesis/execution-basis/raw-input-mismatch@5",
+    );
+  }
   if (
     !isGraphValidation(input.graphValidation) ||
     input.graphValidation.graphRef !== input.graph.materializationRef ||
@@ -720,6 +818,27 @@ export function admitExecutionBasis(
     input.graphValidation.programValidationRef !== input.invocationAdmission.programValidationRef
   ) {
     return reject(input.graph.materializationDigest, "diagnostic://abiogenesis/execution-basis/graph-mismatch@5");
+  }
+  const hogEntryCoordinate = rootCTraversalCoordinate(
+    input.graph.template.startNodeRef,
+  );
+  const hogEntryStep = deriveDirectCStepFromGraph(
+    input.graph.template,
+    hogEntryCoordinate,
+  );
+  if (
+    hogEntryStep.kind !== "direct_c_traversal_step" ||
+    sha256Canonical(
+      input.invocationAdmission.hogEntryCoordinate as unknown as JsonValue,
+    ) !== sha256Canonical(hogEntryCoordinate as unknown as JsonValue) ||
+    sha256Canonical(
+      input.invocationAdmission.hogEntryStep as unknown as JsonValue,
+    ) !== sha256Canonical(hogEntryStep as unknown as JsonValue)
+  ) {
+    return reject(
+      input.graph.materializationDigest,
+      "diagnostic://abiogenesis/execution-basis/hog-entry-mismatch@5",
+    );
   }
   if (
     !isProgramValidation(input.programValidation) ||
@@ -943,21 +1062,6 @@ export function admitExecutionBasis(
     }) as AdmittedImplementationResolution;
   if (implementationResolution !== null) implementationResolutions.add(implementationResolution);
   const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
-  const entry = input.program.starts.find((candidate) =>
-    input.invocationAdmission.publicStart === null
-      ? candidate.graphFunctionRef ===
-        input.invocationAdmission.graphFunctionRef
-      : candidate.startRef ===
-          input.invocationAdmission.publicStart.startRef &&
-        candidate.graphFunctionRef ===
-          input.invocationAdmission.publicStart.graphFunctionRef
-  );
-  if (entry === undefined) {
-    return reject(
-      input.programValidation.sourceDigest,
-      "diagnostic://abiogenesis/execution-basis/program-start-absent@5",
-    );
-  }
   const localImplementationSubsetDigest = sha256Canonical({
     rootImplementationSetRef: implementationSet.implementationSetRef,
     rootImplementationSetDigest: implementationSet.implementationSetDigest,
@@ -977,6 +1081,7 @@ export function admitExecutionBasis(
     invocationDigest: input.invocationAdmission.invocationDigest,
     rawInputAdmissionRef: input.invocationAdmission.rawInputAdmissionRef,
     rawInputDigest: input.invocationAdmission.rawInputDigest,
+    rawInputValue,
     workspaceBindingId: input.invocationAdmission.workspaceBindingId,
     workspaceBindingDigest: input.invocationAdmission.workspaceBindingDigest,
     catalogBasisRef: input.invocationAdmission.catalogBasisRef,
@@ -998,7 +1103,10 @@ export function admitExecutionBasis(
     actorRef: input.invocationAdmission.actorRef,
     parentExecutionBasisRef: null,
     parentTraversalScopeRef: null,
-    entryRef: entry.startRef,
+    parentCCallRef: null,
+    entryRef: input.invocationAdmission.publicStart === null
+      ? hogEntryCoordinate.nodeRef
+      : input.invocationAdmission.publicStart.startRef,
     programValidationRef: input.invocationAdmission.programValidationRef,
     graphValidationRef: input.graphValidation.validationRef,
     graphRef: input.graph.materializationRef,
@@ -1091,19 +1199,95 @@ export function admitChildExecutionBasis(
   input: ChildExecutionBasisInput,
   basis: RuntimeAdmissionBasis,
 ): ChildExecutionBasisResult {
-  const parent = input.parentExecutionBasis;
-  const parentScope = input.parentTraversalScope;
+  const rawInputValue = detachJsonRecord(input.rawInputValue);
+  const current = (() => {
+    try {
+      const snapshot = store.readAll();
+      const expectedStorePrefixDigest = sha256Canonical(
+        snapshot as unknown as JsonValue,
+      );
+      if (store.digest() !== expectedStorePrefixDigest) return null;
+      const authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+      const runPrefix = selectValidatedRuntimeEventPrefix(
+        runtimeEventsFromValidatedPrefix(authorityPrefix),
+        { runId: input.parentTraversalScope.runId },
+      );
+      const parent = rehydrateExecutionBasisAtPrefix(
+        authorityPrefix,
+        input.parentExecutionBasis.basisRef,
+      );
+      const parentScope = rehydrateOpenedTraversalScopeAtPrefix(
+        runPrefix,
+        input.parentTraversalScope as unknown as Readonly<
+          Record<string, JsonValue>
+        >,
+      );
+      const rootImplementationSet = rehydrateAdmittedImplementationSetAtPrefix(
+        authorityPrefix,
+        input.rootImplementationSet.implementationSetRef,
+      );
+      const rootInteractionSet = rehydrateAdmittedInteractionSetAtPrefix(
+        authorityPrefix,
+        input.rootInteractionSet.interactionSetRef,
+      );
+      if (
+        parent === null ||
+        parentScope === null ||
+        rootImplementationSet === null ||
+        rootInteractionSet === null ||
+        sha256Canonical(parent as unknown as JsonValue) !==
+          sha256Canonical(input.parentExecutionBasis as unknown as JsonValue) ||
+        sha256Canonical(parentScope as unknown as JsonValue) !==
+          sha256Canonical(input.parentTraversalScope as unknown as JsonValue) ||
+        sha256Canonical(rootImplementationSet as unknown as JsonValue) !==
+          sha256Canonical(input.rootImplementationSet as unknown as JsonValue) ||
+        sha256Canonical(rootInteractionSet as unknown as JsonValue) !==
+          sha256Canonical(input.rootInteractionSet as unknown as JsonValue)
+      ) return null;
+      const parentCCall = projectCurrentChildParentCCallAtPrefix(runPrefix, {
+        parentCCallRef: input.parentCCallRef,
+        parentExecutionBasisRef: parent.basisRef,
+        runId: parentScope.runId,
+        graphCallId: parentScope.graphCallId,
+        frameId: parentScope.frameId,
+        childGraphFunctionRef: input.graphFunction.name,
+        admittedInputRef: input.admittedInputRef,
+        admittedInputDigest: input.admittedInputDigest,
+      });
+      return parentCCall === null ? null : {
+        expectedStorePrefixDigest,
+        authorityPrefix,
+        runPrefix,
+        parent,
+        parentScope,
+        rootImplementationSet,
+        rootInteractionSet,
+        parentCCall,
+      };
+    } catch {
+      return null;
+    }
+  })();
+  if (current === null) {
+    return childRefusal(
+      "parent_basis_mismatch",
+      "child traversal requires one exact current workflow or deferred-application parent",
+    );
+  }
+  const {
+    parent,
+    parentScope,
+    rootImplementationSet,
+    rootInteractionSet,
+  } = current;
   if (
-    !hasAdmittedExecutionBasis(store, parent) ||
     parentScope.executionBasisRef !== parent.basisRef ||
     parentScope.scopeRef.length === 0 ||
     parentScope.runId.length === 0 ||
-    input.rootImplementationSet.implementationSetRef !== parent.rootImplementationSetRef ||
-    input.rootImplementationSet.implementationSetDigest !== parent.rootImplementationSetDigest ||
-    input.rootInteractionSet.interactionSetRef !== parent.rootInteractionSetRef ||
-    input.rootInteractionSet.interactionSetDigest !== parent.rootInteractionSetDigest ||
-    !hasAdmittedImplementationSet(store, input.rootImplementationSet) ||
-    !hasAdmittedInteractionSet(store, input.rootInteractionSet)
+    rootImplementationSet.implementationSetRef !== parent.rootImplementationSetRef ||
+    rootImplementationSet.implementationSetDigest !== parent.rootImplementationSetDigest ||
+    rootInteractionSet.interactionSetRef !== parent.rootInteractionSetRef ||
+    rootInteractionSet.interactionSetDigest !== parent.rootInteractionSetDigest
   ) {
     return childRefusal(
       "parent_basis_mismatch",
@@ -1140,6 +1324,9 @@ export function admitChildExecutionBasis(
   }
   if (
     input.admittedInputRef.length === 0 ||
+    rawInputValue === null ||
+    canonicalRecordDigest(rawInputValue) !==
+      input.admittedInputDigest ||
     input.graph.admittedInputRef !== input.admittedInputRef ||
     input.graph.admittedInputDigest !== input.admittedInputDigest ||
     input.graphValidation.admittedInputRef !== input.admittedInputRef ||
@@ -1168,19 +1355,23 @@ export function admitChildExecutionBasis(
     .filter((row) => row.graphFunctionRef === input.graphFunction.name);
   const localExecutableLeafKeys = localExecutableRows
     .map((row) => row.requirementKey)
-    .sort((left, right) => left.localeCompare(right));
-  const admittedExecutableRows = input.rootImplementationSet.rows
+    .sort(compareUnicodeCodeUnits);
+  const admittedExecutableRows = rootImplementationSet.rows
     .filter((row) => row.graphFunctionRef === input.graphFunction.name)
-    .sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+    .sort((left, right) =>
+      compareUnicodeCodeUnits(left.requirementKey, right.requirementKey)
+    );
   const admittedExecutableKeys = admittedExecutableRows.map((row) => row.requirementKey);
   const localInteractionRows = input.programValidation.interactionLeafRows
     .filter((row) => row.graphFunctionRef === input.graphFunction.name);
   const localInteractionLeafKeys = localInteractionRows
     .map((row) => row.requirementKey)
-    .sort((left, right) => left.localeCompare(right));
-  const admittedInteractionRows = input.rootInteractionSet.rows
+    .sort(compareUnicodeCodeUnits);
+  const admittedInteractionRows = rootInteractionSet.rows
     .filter((row) => row.graphFunctionRef === input.graphFunction.name)
-    .sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+    .sort((left, right) =>
+      compareUnicodeCodeUnits(left.requirementKey, right.requirementKey)
+    );
   const admittedInteractionKeys = admittedInteractionRows.map((row) => row.requirementKey);
   if (
     !sameOrderedValues(localExecutableLeafKeys, admittedExecutableKeys) ||
@@ -1193,20 +1384,21 @@ export function admitChildExecutionBasis(
   }
 
   const localImplementationSubsetDigest = sha256Canonical({
-    rootImplementationSetRef: input.rootImplementationSet.implementationSetRef,
-    rootImplementationSetDigest: input.rootImplementationSet.implementationSetDigest,
+    rootImplementationSetRef: rootImplementationSet.implementationSetRef,
+    rootImplementationSetDigest: rootImplementationSet.implementationSetDigest,
     executableLeafKeys: localExecutableLeafKeys,
     rows: admittedExecutableRows,
   } as unknown as JsonValue);
   const localInteractionSubsetDigest = sha256Canonical({
-    rootInteractionSetRef: input.rootInteractionSet.interactionSetRef,
-    rootInteractionSetDigest: input.rootInteractionSet.interactionSetDigest,
+    rootInteractionSetRef: rootInteractionSet.interactionSetRef,
+    rootInteractionSetDigest: rootInteractionSet.interactionSetDigest,
     interactionLeafKeys: localInteractionLeafKeys,
     rows: admittedInteractionRows,
   } as unknown as JsonValue);
   const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
   const entryDigest = sha256Canonical({
     parentTraversalScopeRef: parentScope.scopeRef,
+    parentCCallRef: current.parentCCall.cCallRef,
     graphFunctionRef: input.graphFunction.name,
     graphRef: input.graph.materializationRef,
     admittedInputRef: input.admittedInputRef,
@@ -1220,6 +1412,7 @@ export function admitChildExecutionBasis(
     invocationDigest: parent.invocationDigest,
     rawInputAdmissionRef: input.admittedInputRef,
     rawInputDigest: input.admittedInputDigest,
+    rawInputValue,
     workspaceBindingId: parent.workspaceBindingId,
     workspaceBindingDigest: parent.workspaceBindingDigest,
     catalogBasisRef: parent.catalogBasisRef,
@@ -1239,19 +1432,20 @@ export function admitChildExecutionBasis(
     actorRef: parent.actorRef,
     parentExecutionBasisRef: parent.basisRef,
     parentTraversalScopeRef: parentScope.scopeRef,
+    parentCCallRef: current.parentCCall.cCallRef,
     entryRef,
     programValidationRef: input.programValidation.validationRef,
     graphValidationRef: input.graphValidation.validationRef,
     graphRef: input.graph.materializationRef,
     graphDigest: input.graph.materializationDigest,
-    implementationSetRef: input.rootImplementationSet.implementationSetRef,
-    implementationSetDigest: input.rootImplementationSet.implementationSetDigest,
-    interactionSetRef: input.rootInteractionSet.interactionSetRef,
-    interactionSetDigest: input.rootInteractionSet.interactionSetDigest,
-    rootImplementationSetRef: input.rootImplementationSet.implementationSetRef,
-    rootImplementationSetDigest: input.rootImplementationSet.implementationSetDigest,
-    rootInteractionSetRef: input.rootInteractionSet.interactionSetRef,
-    rootInteractionSetDigest: input.rootInteractionSet.interactionSetDigest,
+    implementationSetRef: rootImplementationSet.implementationSetRef,
+    implementationSetDigest: rootImplementationSet.implementationSetDigest,
+    interactionSetRef: rootInteractionSet.interactionSetRef,
+    interactionSetDigest: rootInteractionSet.interactionSetDigest,
+    rootImplementationSetRef: rootImplementationSet.implementationSetRef,
+    rootImplementationSetDigest: rootImplementationSet.implementationSetDigest,
+    rootInteractionSetRef: rootInteractionSet.interactionSetRef,
+    rootInteractionSetDigest: rootInteractionSet.interactionSetDigest,
     localExecutableLeafKeys,
     localImplementationSubsetDigest,
     localInteractionLeafKeys,
@@ -1272,13 +1466,28 @@ export function admitChildExecutionBasis(
   };
   const basisDigest = sha256Canonical(executionBody as unknown as JsonValue);
   const basisRef = `execution-basis://abiogenesis/${basisDigest.slice("sha256:".length)}`;
-  const event = admitRuntimeEvent(store, {
+  if (
+    rehydrateExecutionBasisAtPrefix(current.authorityPrefix, basisRef) !== null
+  ) {
+    return childRefusal(
+      "child_basis_already_admitted",
+      "one deterministic child entry cannot admit a second ExecutionBasis",
+    );
+  }
+  const event = compareAndAppendExpectedPrefix(
+    store,
+    current.expectedStorePrefixDigest,
+    [() => ({
     kind: "basis_admitted",
     eventTime: basis.eventTime,
     aggregateType: "frame",
     aggregateId: parentScope.frameId,
     parentAggregateId: parentScope.graphCallId,
-    causationEventRefs: [parentScope.frameOpenEventRef, ...basis.causationEventRefs],
+    causationEventRefs: [
+      current.parentCCall.causationEventRef,
+      parentScope.frameOpenEventRef,
+      ...basis.causationEventRefs,
+    ],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "run",
@@ -1294,7 +1503,8 @@ export function admitChildExecutionBasis(
       basisDigest,
       ...executionBody,
     } as unknown as JsonValue,
-  });
+    })],
+  )[0]!;
   const executionBasis = deepFreeze({
     kind: "execution_basis" as const,
     schemaVersion: "5.0.0" as const,

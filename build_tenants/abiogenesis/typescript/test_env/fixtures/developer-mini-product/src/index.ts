@@ -108,6 +108,8 @@ export const DEVELOPER_MINI_IDS = Object.freeze({
   mixedNodeRef: "node://developer.example/greeting/mixed-fibres@5",
   mixedCompositionRef:
     "composition://developer.example/greeting/fd-fp-fh@5",
+  probabilisticRawResultContractRef:
+    "contract://developer.example/greeting/probabilistic-raw-result@5",
   deterministicLocusRef:
     "locus://developer.example/greeting/mixed-fibres/fd@5",
   probabilisticLocusRef:
@@ -1049,8 +1051,8 @@ function isActionEvaluationBasis(
     value.admittedEvidence.length !== 1 ||
     !isRecord(value.admittedEvidence[0]) ||
     !Array.isArray(value.runtimeEvidenceEventRefs) ||
-    value.runtimeEvidenceEventRefs.length !== 4 ||
-    new Set(value.runtimeEvidenceEventRefs).size !== 4
+    value.runtimeEvidenceEventRefs.length !== 5 ||
+    new Set(value.runtimeEvidenceEventRefs).size !== 5
   ) {
     return false;
   }
@@ -1514,8 +1516,8 @@ function isActionEvaluation(value: unknown): value is Readonly<{
         typeof archive.inspectionRef !== "string" ||
         typeof archive.inspectionDigest !== "string" ||
         !Array.isArray(archive.runtimeEvidenceEventRefs) ||
-        archive.runtimeEvidenceEventRefs.length !== 4 ||
-        new Set(archive.runtimeEvidenceEventRefs).size !== 4
+        archive.runtimeEvidenceEventRefs.length !== 5 ||
+        new Set(archive.runtimeEvidenceEventRefs).size !== 5
       )
     )
   ) {
@@ -2056,16 +2058,15 @@ function parseGreetingCandidate(value: string): Readonly<Record<string, JsonValu
   });
 }
 
-export async function realizeDeveloperProbabilisticPass(
+export function constructDeveloperProbabilisticPassRequest(
   input: unknown,
-  effects: Readonly<ProbabilisticEffectPort>,
-): Promise<Readonly<object>> {
+): Readonly<Record<string, JsonValue>> {
   if (!isGreetingOutput(input)) {
     throw new TypeError(
       "developer probabilistic pass requires its exact greeting output input",
     );
   }
-  const transport = await effects.invokeWorker({
+  return deepFreeze({
     actorRef: DEVELOPER_MINI_IDS.workerActorRef,
     workerBindingRef: DEVELOPER_MINI_IDS.workerBindingRef,
     implementationRef: DEVELOPER_MINI_IDS.probabilisticImplementationRef,
@@ -2073,7 +2074,8 @@ export async function realizeDeveloperProbabilisticPass(
     materializationPlanRef: DEVELOPER_MINI_IDS.materializationPlanRef,
     rendererRef: DEVELOPER_MINI_IDS.rendererRef,
     instructionContractRef: DEVELOPER_MINI_IDS.outputContractRef,
-    resultContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+    resultContractRef:
+      DEVELOPER_MINI_IDS.probabilisticRawResultContractRef,
     transportLane: "closed_prompt_proof",
     prompt: [
       "Return the declared developer greeting output unchanged.",
@@ -2090,11 +2092,24 @@ export async function realizeDeveloperProbabilisticPass(
       },
     },
   });
+}
+
+export async function realizeDeveloperProbabilisticPass(
+  input: unknown,
+  effects: Readonly<ProbabilisticEffectPort>,
+): Promise<Readonly<object>> {
+  const request = constructDeveloperProbabilisticPassRequest(input);
+  const admittedInput = input as Readonly<{
+    kind: "developer_greeting_output";
+    schemaVersion: "5.0.0";
+    message: string;
+  }>;
+  const transport = await effects.invokeWorker(request);
   const resultCandidate = parseGreetingCandidate(transport.finalOutput);
   const success =
     transport.disposition === "success" &&
     isGreetingOutput(resultCandidate) &&
-    resultCandidate.message === input.message;
+    resultCandidate.message === admittedInput.message;
   return deepFreeze({
     kind: "leaf_realization_candidate" as const,
     schemaVersion: "5.0.0" as const,
@@ -3424,6 +3439,7 @@ export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
   validateContractValue(valueKind: string, value: unknown) {
     switch (valueKind) {
       case "developer_greeting_output":
+      case "developer_greeting_raw_result":
         return isGreetingOutput(value);
       case "developer_ticket_work_output":
         return isTicketWorkOutput(value);
@@ -3456,6 +3472,27 @@ export const DEVELOPER_MINI_PRODUCT_SEMANTICS = Object.freeze({
       default:
         return false;
     }
+  },
+  resolveProbabilisticWorkerContracts(basis: Readonly<{
+    inputContractRef: string;
+    outputContractRef: string;
+    input: Readonly<Record<string, JsonValue>>;
+  }>) {
+    if (
+      basis.inputContractRef === DEVELOPER_MINI_IDS.outputContractRef &&
+      basis.outputContractRef === DEVELOPER_MINI_IDS.outputContractRef &&
+      isGreetingOutput(basis.input)
+    ) {
+      return Object.freeze({
+        instructionContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+        resultContractRef:
+          DEVELOPER_MINI_IDS.probabilisticRawResultContractRef,
+      });
+    }
+    return Object.freeze({
+      instructionContractRef: basis.inputContractRef,
+      resultContractRef: basis.outputContractRef,
+    });
   },
   resolveJudgmentRelation(predicateRef: string) {
     if (predicateRef === DEVELOPER_MINI_IDS.spanJudgmentPredicateRef) {
@@ -3567,6 +3604,11 @@ export function constructDeveloperMiniPublication(
   const contracts = [
     ["input", DEVELOPER_MINI_IDS.inputContractRef, "developer_greeting_input"],
     ["output", DEVELOPER_MINI_IDS.outputContractRef, "developer_greeting_output"],
+    [
+      "output",
+      DEVELOPER_MINI_IDS.probabilisticRawResultContractRef,
+      "developer_greeting_raw_result",
+    ],
     [
       "input",
       DEVELOPER_MINI_IDS.ticketInputContractRef,

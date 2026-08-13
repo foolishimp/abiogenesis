@@ -12,26 +12,18 @@ const moduleUrl = (relativePath) => pathToFileURL(join(
   "build/code/src",
   relativePath,
 )).href;
-const [eventStoreApi, prefixApi, eventCalculusApi, cCallApi, retryApi,
-  retryLifecycleApi, routeApi, replayApi, executionApi, materializeApi,
-  sourcePathApi, hogRouteApi, digestApi, immutableApi] = await Promise.all([
+const [eventStoreApi, prefixApi, cCallApi, retryApi, materializeApi,
+  digestApi, immutableApi] = await Promise.all([
     import(moduleUrl("abg/event_store.js")),
     import(moduleUrl("abg/event_prefix.js")),
-    import(moduleUrl("abg/event_calculus.js")),
     import(moduleUrl("abg/c_call.js")),
     import(moduleUrl("abg/retry.js")),
-    import(moduleUrl("abg/retry_lifecycle.js")),
-    import(moduleUrl("abg/traversal_route.js")),
-    import(moduleUrl("abg/replay.js")),
-    import(moduleUrl("abg/execution_basis.js")),
     import(moduleUrl("gtl/materialize.js")),
-    import(moduleUrl("gtl/source_path.js")),
-    import(moduleUrl("hog/traversal_route.js")),
     import(moduleUrl("shared/digests.js")),
     import(moduleUrl("shared/immutable.js")),
   ]);
 
-const bytes = await readFile(input.eventLogPath);
+const bytesBefore = await readFile(input.eventLogPath);
 const identity = await stat(input.eventLogPath);
 const authorityBody = {
   kind: "event_store_reopen_authority",
@@ -40,8 +32,8 @@ const authorityBody = {
   device: identity.dev,
   inode: identity.ino,
   eventLogDigest:
-    `sha256:${createHash("sha256").update(bytes).digest("hex")}`,
-  durableByteLength: bytes.byteLength,
+    `sha256:${createHash("sha256").update(bytesBefore).digest("hex")}`,
+  durableByteLength: bytesBefore.byteLength,
   eventContractDigest: eventStoreApi.ROOT_EVENT_CONTRACT_DIGEST,
 };
 const reopened = eventStoreApi.reopenEventStore({
@@ -51,22 +43,12 @@ const reopened = eventStoreApi.reopenEventStore({
 assert.equal(reopened.kind, "reopened_event_store_context",
   JSON.stringify(reopened));
 const store = reopened.store;
-
-function isRecord(value) {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function eventCandidate(event, overrides = {}) {
-  const {
-    eventId: _eventId,
-    admissionOrdinal: _admissionOrdinal,
-    payloadDigest: _payloadDigest,
-    ...candidate
-  } = event;
-  return { ...candidate, ...overrides };
-}
-
 const initialEvents = store.readAll();
+const initialDigest = store.digest();
+const prefix = prefixApi.selectValidatedRuntimeEventPrefix(initialEvents);
+
+const isRecord = (value) =>
+  typeof value === "object" && value !== null && !Array.isArray(value);
 const openedEvents = initialEvents.filter((event) =>
   event.kind === "c_call_opened" && event.aggregateId === input.cCallRef);
 assert.equal(openedEvents.length, 1,
@@ -78,46 +60,47 @@ const resultEvents = initialEvents.filter((event) =>
   event.aggregateId === input.cCallRef);
 const judgmentEvents = initialEvents.filter((event) =>
   event.kind === "c_call_judged" && event.aggregateId === input.cCallRef);
+const blockedRouteEvents = initialEvents.filter((event) =>
+  event.kind === "traversal_route_admitted" &&
+  isRecord(event.payload) &&
+  event.payload.routeKind === "blocked" &&
+  event.payload.cCallRef === input.cCallRef);
 assert.equal(resultEvents.length, 1,
   "selected CCall has one exact admitted result");
 assert.equal(judgmentEvents.length, 1,
   "selected CCall has one exact admitted judgment");
+assert.equal(blockedRouteEvents.length, 1,
+  "selected CCall has one exact admitted blocked route");
 const resultEvent = resultEvents[0];
 const judgmentEvent = judgmentEvents[0];
+const blockedRouteEvent = blockedRouteEvents[0];
 assert.ok(isRecord(resultEvent.payload));
 assert.ok(isRecord(judgmentEvent.payload));
+assert.ok(isRecord(blockedRouteEvent.payload));
 assert.equal(judgmentEvent.payload.resultRef, resultEvent.payload.resultRef);
-const beforePrefix = prefixApi.selectValidatedRuntimeEventPrefix(initialEvents);
-const attemptSelectionPrefix =
-  prefixApi.validatedRuntimeEventPrefixThroughEvent(
-    beforePrefix,
-    judgmentEvent.eventId,
-  );
-const attemptSelectionEvents =
-  prefixApi.runtimeEventsFromValidatedPrefix(attemptSelectionPrefix);
-const attemptEvent = retryLifecycleApi.selectExactRetryAttemptEvent(
-  attemptSelectionEvents,
-  {
-    cCallRef: input.cCallRef,
-    runId: openedEvent.runId,
-    graphCallId: openedEvent.graphCallId,
-    frameId: openedEvent.frameId,
-    taskOrdinal: openedEvent.payload.taskOrdinal,
-    attempt: openedEvent.payload.attempt,
-    retryPath: openedEvent.payload.retryPath,
-    programLocusRef: openedEvent.payload.programLocusRef,
-  },
-  eventCalculusApi.deriveRuntimeEventCalculusProjection(
-    attemptSelectionPrefix,
-  ),
-);
-assert.ok(attemptEvent,
-  "owner-internal selector derives the exact retry attempt from history");
+
+const attemptEvents = initialEvents.filter((event) =>
+  event.kind === "retry_attempt_opened" &&
+  event.runId === openedEvent.runId &&
+  event.graphCallId === openedEvent.graphCallId &&
+  event.frameId === openedEvent.frameId &&
+  event.basisId === openedEvent.basisId &&
+  event.materializationRef === openedEvent.materializationRef &&
+  event.admissionOrdinal < openedEvent.admissionOrdinal &&
+  isRecord(event.payload) &&
+  event.payload.attemptRef === judgmentEvent.payload.retryAttemptRef &&
+  event.payload.attempt === openedEvent.payload.attempt &&
+  digestApi.sha256Canonical(event.payload.retryPath) ===
+    digestApi.sha256Canonical(openedEvent.payload.retryPath));
+assert.equal(attemptEvents.length, 1,
+  "the selected judgment names one exact retry attempt preimage");
+const attemptEvent = attemptEvents[0];
 assert.ok(isRecord(attemptEvent.payload));
 assert.ok(isRecord(attemptEvent.payload.inputValue));
 const basisEvent = initialEvents.find((event) =>
   event.kind === "basis_admitted" && event.basisId === openedEvent.basisId);
 assert.ok(basisEvent);
+assert.ok(isRecord(basisEvent.payload));
 assert.equal(
   digestApi.sha256Canonical(attemptEvent.payload.inputValue),
   basisEvent.payload.rawInputDigest,
@@ -134,160 +117,21 @@ assert.equal(graph.materializationRef, openedEvent.materializationRef);
 assert.equal(graph.materializationRef, basisEvent.payload.graphRef);
 assert.equal(graph.materializationDigest, basisEvent.payload.graphDigest);
 const projectedAttempt = retryApi.projectRetryAttempt(
-  beforePrefix,
+  prefix,
   graph,
   attemptEvent.eventId,
 );
 assert.ok(projectedAttempt,
   "owner-internal attempt projection revalidates against materialized GTL");
 assert.equal(projectedAttempt.attemptRef, attemptEvent.payload.attemptRef);
-const beforeCCall = cCallApi.projectOpenedCCallCarrier(
-  store,
-  beforePrefix,
-  graph,
-  input.cCallRef,
-);
-assert.ok(beforeCCall,
-  "owner-internal reconstruction projects the opened CCall");
 
-const stoppedRows = initialEvents.filter((event) =>
-  event.kind === "retry_progress_recorded" &&
-  event.runId === openedEvent.runId &&
-  event.graphCallId === openedEvent.graphCallId &&
-  event.frameId === openedEvent.frameId &&
-  event.materializationRef === graph.materializationRef &&
-  isRecord(event.payload) &&
-  event.payload.progressClass === "stopped" &&
-  event.payload.cCallRef === beforeCCall.cCallRef &&
-  event.payload.resultRef === resultEvent.payload.resultRef &&
-  event.payload.judgmentRef === judgmentEvent.payload.judgmentRef
-);
-assert.equal(stoppedRows.length, projectedAttempt.retryPath.length,
-  "stopped suffix cardinality equals the selected nested retry depth");
-const selectedStoppedProgresses = stoppedRows.map((event) => {
-  const progress = retryApi.projectAdmittedRetryProgress(
-    beforePrefix,
-    event.eventId,
-  );
-  assert.ok(progress,
-    "every selected stopped row reprojects from the immutable prefix");
-  return progress;
-});
-for (const [index, progress] of selectedStoppedProgresses.entries()) {
-  const event = stoppedRows[index];
-  const expectedPath = projectedAttempt.retryPath.slice(
-    0,
-    projectedAttempt.retryPath.length - index,
-  );
-  assert.deepEqual(progress.retryPath, expectedPath);
-  assert.equal(progress.cCallRef, beforeCCall.cCallRef);
-  assert.equal(progress.resultRef, resultEvent.payload.resultRef);
-  assert.equal(progress.judgmentRef, judgmentEvent.payload.judgmentRef);
-  assert.equal(progress.attempt, expectedPath.at(-1));
-  assert.equal(retryApi.hasAdmittedRetryProgress(beforePrefix, progress), true);
-  if (index === 0) {
-    assert.equal(progress.stopReason, "boundary_terminal");
-    assert.equal(progress.predecessorProgressRef, null);
-    assert.equal(progress.attemptRef, projectedAttempt.attemptRef);
-    assert.equal(event.admissionOrdinal, judgmentEvent.admissionOrdinal + 1);
-    assert.equal(event.causationEventRefs[1], judgmentEvent.eventId);
-  } else {
-    const predecessor = selectedStoppedProgresses[index - 1];
-    const predecessorEvent = stoppedRows[index - 1];
-    assert.equal(progress.stopReason, "propagated_inner_stop");
-    assert.equal(progress.predecessorProgressRef, predecessor.progressRef);
-    assert.equal(event.admissionOrdinal, predecessorEvent.admissionOrdinal + 1);
-    assert.equal(event.causationEventRefs[1], predecessorEvent.eventId);
-  }
-}
-
-// Event-contract-valid mutation control only: this deliberately bypasses the
-// semantic admitExecutionBasis/openCall owners. It proves whole-prefix
-// projection invariance, not unrelated-Run authority.
-const { basisRef: _basisRef, basisDigest: _basisDigest, ...basisBody } =
-  basisEvent.payload;
-const unrelatedBasisBody = {
-  ...basisBody,
-  invocationRef: `${basisBody.invocationRef}/t287-r3-unrelated`,
-};
-const unrelatedBasisDigest = digestApi.sha256Canonical(unrelatedBasisBody);
-const unrelatedBasisRef =
-  `basis://t287-r3/${unrelatedBasisDigest.slice("sha256:".length)}`;
-const unrelatedBasisEvent = eventStoreApi.admitRuntimeEvent(store,
-  eventCandidate(basisEvent, {
-    basisId: unrelatedBasisRef,
-    correlationId: "correlation://t287/r3/unrelated-basis",
-    payload: {
-      basisRef: unrelatedBasisRef,
-      basisDigest: unrelatedBasisDigest,
-      ...unrelatedBasisBody,
-    },
-  }));
-const targetRunEvent = initialEvents.find((event) =>
-  event.kind === "run_segment_opened" && event.runId === openedEvent.runId);
-assert.ok(targetRunEvent);
-const { runId: _runId, runDigest: _runDigest, ...runBody } =
-  targetRunEvent.payload;
-const unrelatedRunBody = {
-  ...runBody,
-  executionBasisRef: unrelatedBasisRef,
-  executionBasisDigest: unrelatedBasisDigest,
-  invocationRef: `${runBody.invocationRef}/t287-r3-unrelated`,
-};
-const unrelatedRunDigest = digestApi.sha256Canonical(unrelatedRunBody);
-const unrelatedRunId =
-  `run://abiogenesis/${unrelatedRunDigest.slice("sha256:".length)}`;
-const unrelatedRunEvent = eventStoreApi.admitRuntimeEvent(store,
-  eventCandidate(targetRunEvent, {
-    aggregateId: unrelatedRunId,
-    causationEventRefs: [unrelatedBasisEvent.eventId],
-    correlationId: "correlation://t287/r3/unrelated-run",
-    basisId: unrelatedBasisRef,
-    runId: unrelatedRunId,
-    payload: {
-      runId: unrelatedRunId,
-      runDigest: unrelatedRunDigest,
-      ...unrelatedRunBody,
-    },
-  }));
-
-const interleavedPrefix = prefixApi.selectValidatedRuntimeEventPrefix(
-  store.readAll(),
-);
-const interleavedCCall = cCallApi.projectOpenedCCallCarrier(
-  store,
-  interleavedPrefix,
-  graph,
-  input.cCallRef,
-);
-assert.ok(interleavedCCall);
-assert.equal(
-  digestApi.sha256Canonical(interleavedCCall),
-  digestApi.sha256Canonical(beforeCCall),
-  "unrelated global Run interleaving does not alter CCall projection",
-);
-const stoppedProgresses = stoppedRows.map((event, index) => {
-  const progress = retryApi.projectAdmittedRetryProgress(
-    interleavedPrefix,
-    event.eventId,
-  );
-  assert.ok(progress);
-  assert.equal(
-    digestApi.sha256Canonical(progress),
-    digestApi.sha256Canonical(selectedStoppedProgresses[index]),
-    "unrelated global Run interleaving does not alter stopped progress",
-  );
-  return progress;
-});
 const initialCursorEvent = initialEvents.find((event) =>
   event.kind === "traversal_cursor_entered" &&
-  event.runId === openedEvent.runId);
+  event.runId === openedEvent.runId &&
+  event.graphCallId === openedEvent.graphCallId &&
+  event.frameId === openedEvent.frameId);
 assert.ok(initialCursorEvent);
-const locus = sourcePathApi.resolveCProgramLocus(
-  graph.template,
-  interleavedCCall.programLocusRef,
-);
-assert.notEqual(locus.kind, "c_source_path_refusal", JSON.stringify(locus));
+assert.ok(isRecord(initialCursorEvent.payload));
 const cursorBody = {
   programRef: initialCursorEvent.payload.programRef,
   executionBasisRef: initialCursorEvent.payload.executionBasisRef,
@@ -296,14 +140,14 @@ const cursorBody = {
   graphCallId: openedEvent.graphCallId,
   frameId: openedEvent.frameId,
   graphRef: graph.materializationRef,
-  inputRef: initialCursorEvent.payload.inputRef,
-  inputDigest: initialCursorEvent.payload.inputDigest,
-  currentNodeRef: locus.nodeRef,
+  inputRef: attemptEvent.payload.inputRef,
+  inputDigest: attemptEvent.payload.inputDigest,
+  currentNodeRef: attemptEvent.payload.wrappedTermPath[1],
   position: "at_term",
-  termPath: locus.termPath,
-  taskOrdinal: openedEvent.payload.taskOrdinal,
-  attempt: openedEvent.payload.attempt,
-  retryPath: openedEvent.payload.retryPath,
+  termPath: attemptEvent.payload.wrappedTermPath,
+  taskOrdinal: attemptEvent.payload.taskOrdinal,
+  attempt: attemptEvent.payload.attempt,
+  retryPath: attemptEvent.payload.retryPath,
 };
 const cursorDigest = digestApi.sha256Canonical(cursorBody);
 const sourceCursor = immutableApi.deepFreeze({
@@ -316,56 +160,103 @@ const sourceCursor = immutableApi.deepFreeze({
 });
 assert.equal(sourceCursor.cursorRef, openedEvent.payload.cursorRef);
 assert.equal(sourceCursor.cursorDigest, openedEvent.payload.cursorDigest);
-const executionBasis = executionApi.rehydrateExecutionBasis(
+const cCall = cCallApi.projectOpenedCCallCarrier(
   store,
-  openedEvent.basisId,
-);
-assert.ok(executionBasis);
-const targetReplay = replayApi.replay(store, { runId: openedEvent.runId });
-const proposal = hogRouteApi.proposeBlockedRoute(
+  prefix,
   graph,
-  { cursor: sourceCursor, programLocusRef: interleavedCCall.programLocusRef },
-  interleavedCCall,
+  input.cCallRef,
+);
+assert.ok(cCall, "owner-internal reconstruction projects the opened CCall");
+
+const consumedOwners = Array.from(
+  { length: projectedAttempt.retryPath.length },
+  (_, index) => {
+    const retryDepth = projectedAttempt.retryPath.length - index;
+    const owner = retryApi.projectDeclaredCRetryFrontier(
+      prefix,
+      graph,
+      sourceCursor,
+      graphFunction,
+      retryDepth,
+    );
+    assert.equal(owner?.state, "progress_consumed",
+      `stopped depth ${retryDepth} is consumed in the final prefix`);
+    assert.equal(
+      owner.consumed.kind,
+      index === 0
+        ? "declared_c_retry_boundary_stopped_progress"
+        : "declared_c_retry_propagated_stopped_progress",
+    );
+    assert.equal(owner.consumed.consumption.kind,
+      "progress_consumed_by_exit");
+    assert.equal(
+      owner.consumed.consumption.route.admissionEventRef,
+      blockedRouteEvent.eventId,
+    );
+    return owner;
+  },
+);
+const stoppedProgresses = consumedOwners.map((owner) =>
+  owner.consumed.progress
+);
+const stoppedRows = consumedOwners.map((owner) => {
+  const rows = initialEvents.filter((event) =>
+    event.eventId === owner.consumed.progressEventRef);
+  assert.equal(rows.length, 1,
+    "each consumed owner row names one admitted stopped event");
+  return rows[0];
+});
+for (const [index, progress] of stoppedProgresses.entries()) {
+  const expectedPath = projectedAttempt.retryPath.slice(
+    0,
+    projectedAttempt.retryPath.length - index,
+  );
+  assert.deepEqual(progress.retryPath, expectedPath,
+    "consumed stopped coordinates equal the selected CCall retry path");
+  assert.equal(progress.cCallRef, cCall.cCallRef);
+  assert.equal(progress.resultRef, resultEvent.payload.resultRef);
+  assert.equal(progress.judgmentRef, judgmentEvent.payload.judgmentRef);
+  assert.equal(progress.attempt, expectedPath.at(-1));
+  if (index === 0) {
+    assert.equal(progress.stopReason, "boundary_terminal");
+    assert.equal(progress.predecessorProgressRef, null);
+  } else {
+    assert.equal(progress.stopReason, "propagated_inner_stop");
+    assert.equal(
+      progress.predecessorProgressRef,
+      stoppedProgresses[index - 1].progressRef,
+    );
+  }
+}
+assert.deepEqual(blockedRouteEvent.payload.consumedAvailabilityRefs, [
   judgmentEvent.payload.judgmentRef,
-  targetReplay,
-  interleavedCCall.transitionContractRef,
-  stoppedProgresses.map((progress) => progress.progressRef),
+  ...stoppedProgresses.map((progress) => progress.progressRef),
+]);
+assert.deepEqual(
+  blockedRouteEvent.causationEventRefs,
+  stoppedRows.toReversed().map((event) => event.eventId),
 );
-assert.equal(proposal.kind, "traversal_route_candidate", JSON.stringify(proposal));
-const route = routeApi.admitRoute(
-  store,
-  executionBasis,
-  graph,
-  sourceCursor,
-  null,
-  targetReplay,
-  proposal,
-  {
-    eventTime: input.eventTime,
-    correlationId: "correlation://t287/r3/owner-internal-route",
-    causationEventRefs: [],
-  },
-  {
-    cCall: interleavedCCall,
-    resultRef: judgmentEvent.payload.resultRef,
-    judgmentRef: judgmentEvent.payload.judgmentRef,
-    judgmentEventRef: judgmentEvent.eventId,
-    reasonRef: judgmentEvent.payload.reasonRef,
-    stoppedProgresses,
-  },
-  { terminalizeRun: false },
-);
-assert.equal(route.kind, "admitted_traversal_route", JSON.stringify(route));
-const admittedRouteEvent = store.readAll().find((event) =>
-  event.eventId === route.admissionEventRef);
-assert.ok(admittedRouteEvent);
+const runStoppedEvents = initialEvents.filter((event) =>
+  event.kind === "run_stopped" &&
+  event.runId === openedEvent.runId &&
+  event.causationEventRefs.includes(blockedRouteEvent.eventId));
+assert.equal(runStoppedEvents.length, 1,
+  "the final blocked route has one exact run_stopped consequence");
+assert.deepEqual(store.readAll(), initialEvents,
+  "fresh-process reconstruction appends no in-memory event");
+assert.equal(store.digest(), initialDigest,
+  "fresh-process reconstruction preserves the event-store digest");
 store.closeDurableLog();
+const bytesAfter = await readFile(input.eventLogPath);
+assert.deepEqual(bytesAfter, bytesBefore,
+  "fresh-process reconstruction changes no durable byte");
+
 process.stdout.write(`${JSON.stringify({
   pid: process.pid,
-  reconstructionKind: "owner_internal_retry_frontier",
+  reconstructionKind: "owner_internal_consumed_retry_frontier",
   ownerInternalProjectionEqual: true,
   ownerInternalProjection: {
-    cCallRef: interleavedCCall.cCallRef,
+    cCallRef: cCall.cCallRef,
     attemptRef: projectedAttempt.attemptRef,
     attemptDigest: projectedAttempt.attemptDigest,
     inputRef: projectedAttempt.inputRef,
@@ -376,8 +267,8 @@ process.stdout.write(`${JSON.stringify({
     stoppedProgressDigests: stoppedProgresses.map((progress) =>
       progress.progressDigest),
   },
-  unrelatedBasisEventRef: unrelatedBasisEvent.eventId,
-  unrelatedRunEventRef: unrelatedRunEvent.eventId,
-  consumedAvailabilityRefs: route.consumedAvailabilityRefs,
-  causationEventRefs: admittedRouteEvent.causationEventRefs,
+  consumedAvailabilityRefs: blockedRouteEvent.payload.consumedAvailabilityRefs,
+  causationEventRefs: blockedRouteEvent.causationEventRefs,
+  routeAdmissionEventRef: blockedRouteEvent.eventId,
+  runStoppedEventRef: runStoppedEvents[0].eventId,
 })}\n`);

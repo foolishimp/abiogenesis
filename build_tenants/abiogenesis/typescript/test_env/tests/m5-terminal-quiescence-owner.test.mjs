@@ -5,6 +5,9 @@ import {
   projectActorProcessLifecycle,
 } from "../../build/code/src/abg/actor_process.js";
 import {
+  projectCCallPhase,
+} from "../../build/code/src/abg/c_call.js";
+import {
   deriveRuntimeEventCalculusProjection,
   holdsAt,
   constructRuntimeFluent,
@@ -43,6 +46,27 @@ function prefix(rows) {
 
 const actorRef = "actor-invocation://t287/cleanup";
 const processRef = "process://t287/cleanup";
+const cCallRef = "c-call:sha256:t287-atomic-open";
+
+test("CCall opening is one atomic open-and-fibre transition", () => {
+  const opened = event("c_call_opened", 1, "c_call", cCallRef, "frame://t287/cleanup", {
+    cCallRef,
+  });
+  assert.throws(
+    () => projectCCallPhase(prefix([opened]), cCallRef),
+    /atomic open\/fibre pair/,
+  );
+  const fibre = Object.freeze({
+    ...event("c_call_fibre_selected", 2, "c_call", cCallRef, "frame://t287/cleanup", {
+      cCallRef,
+    }),
+    causationEventRefs: Object.freeze([opened.eventId]),
+  });
+  assert.equal(
+    projectCCallPhase(prefix([opened, fibre]), cCallRef).phase,
+    "selected_no_evidence",
+  );
+});
 
 test("timeout and termination-unconfirmed never prove a started process absent", () => {
   const selected = prefix([

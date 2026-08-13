@@ -24,6 +24,7 @@ assert.equal(
   "reopened_event_store_context",
   JSON.stringify(reopened),
 );
+assert.deepEqual(reopened.prefix, input.prefix);
 
 try {
   function invoke(request) {
@@ -40,6 +41,9 @@ try {
         request.prefixScope,
       );
       return projector(prefix, ...(request.args ?? []));
+    }
+    if (request.input === "durable_prefix") {
+      return projector(input.prefix, ...(request.args ?? []));
     }
     if (request.owner === "product") {
       return projector(...(request.args ?? []));

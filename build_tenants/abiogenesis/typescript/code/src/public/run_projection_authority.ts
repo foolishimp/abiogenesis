@@ -1,4 +1,9 @@
-import type { EventStoreReopenAuthority } from "../abg/event_store.js";
+import {
+  validateEventStoreCloseHandoff,
+  type DurablePrefixCoordinate,
+  type EventStoreCloseHandoff,
+  type EventStoreReopenAuthority,
+} from "../abg/event_store.js";
 import type { ModulePublication } from "../gtl/index.js";
 import type { CatalogReadinessBasis, ProductInstall } from "../product/index.js";
 import {
@@ -15,6 +20,7 @@ import { deepFreeze } from "../shared/immutable.js";
 export interface PublicRunProjectionAuthority {
   readonly kind: "public_run_projection_authority";
   readonly schemaVersion: "5.0.0";
+  readonly prefix: DurablePrefixCoordinate;
   readonly reopenAuthority: EventStoreReopenAuthority;
   readonly runtimeInvocationRef: string;
   readonly invocationAdmissionRef: string;
@@ -51,6 +57,7 @@ const AUTHORITY_KEYS = Object.freeze([
   "outputContractRef",
   "publicationDigests",
   "publications",
+  "prefix",
   "reopenAuthority",
   "resultRef",
   "runId",
@@ -85,6 +92,12 @@ function authorityBody(input: PublicRunProjectionAuthorityInput) {
 export function constructPublicRunProjectionAuthority(
   input: PublicRunProjectionAuthorityInput,
 ): PublicRunProjectionAuthority {
+  if (!validateEventStoreCloseHandoff({
+    prefix: input.prefix,
+    reopenAuthority: input.reopenAuthority,
+  })) {
+    throw new TypeError("run projection authority requires one exact durable close pair");
+  }
   const body = authorityBody(input);
   return deepFreeze(
     JSON.parse(canonicalJson({
@@ -96,7 +109,7 @@ export function constructPublicRunProjectionAuthority(
 
 export function updatePublicRunProjectionAuthority(
   authority: PublicRunProjectionAuthority,
-  reopenAuthority: EventStoreReopenAuthority,
+  handoff: EventStoreCloseHandoff,
 ): PublicRunProjectionAuthority {
   const {
     authorityDigest: _authorityDigest,
@@ -106,7 +119,7 @@ export function updatePublicRunProjectionAuthority(
   } = authority;
   return constructPublicRunProjectionAuthority({
     ...input,
-    reopenAuthority,
+    ...handoff,
   });
 }
 
@@ -157,6 +170,10 @@ export function parsePublicRunProjectionAuthority(
     ) ||
     !isRecord(value.reopenAuthority) ||
     value.reopenAuthority.kind !== "event_store_reopen_authority" ||
+    !validateEventStoreCloseHandoff({
+      prefix: value.prefix,
+      reopenAuthority: value.reopenAuthority,
+    }) ||
     !isSha256Digest(value.authorityDigest)
   ) {
     return null;

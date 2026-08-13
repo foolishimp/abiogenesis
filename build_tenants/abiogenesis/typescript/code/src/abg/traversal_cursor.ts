@@ -9,7 +9,18 @@ import {
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
+import {
+  constructRunActiveFluent,
+  constructRuntimeFluent,
+  deriveRuntimeEventCalculusProjection,
+  holdsAt,
+} from "./event_calculus.js";
 import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
+import {
+  runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
 import {
   hasOpenedTraversalScope,
   type OpenedTraversalScope,
@@ -107,12 +118,12 @@ function cursorBody(cursor: TraversalCursorCandidate): JsonValue {
   };
 }
 
-export function traversalCursorAdmissionEventRef(
-  store: AbgEventStore,
+export function traversalCursorAdmissionEventRefAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
   cursor: TraversalCursorCandidate,
 ): string | null {
   if (!isTraversalCursorCandidate(cursor)) return null;
-  const event = store.readAll().find((candidate) =>
+  const event = runtimeEventsFromValidatedPrefix(prefix).find((candidate) =>
     isJsonRecord(candidate.payload) &&
     (
       (
@@ -141,6 +152,16 @@ export function traversalCursorAdmissionEventRef(
   return event?.eventId ?? null;
 }
 
+export function traversalCursorAdmissionEventRef(
+  store: AbgEventStore,
+  cursor: TraversalCursorCandidate,
+): string | null {
+  return traversalCursorAdmissionEventRefAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    cursor,
+  );
+}
+
 export function isTraversalCursorCandidate(
   cursor: TraversalCursorCandidate,
 ): boolean {
@@ -156,7 +177,55 @@ export function hasAdmittedTraversalCursor(
   store: AbgEventStore,
   cursor: TraversalCursorCandidate,
 ): boolean {
-  return traversalCursorAdmissionEventRef(store, cursor) !== null;
+  return hasAdmittedTraversalCursorAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    cursor,
+  );
+}
+
+export function hasAdmittedTraversalCursorAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  cursor: TraversalCursorCandidate,
+): boolean {
+  return traversalCursorAdmissionEventRefAtPrefix(prefix, cursor) !== null;
+}
+
+export function isInteractionResumeCursorSuccessorAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  heldCursor: TraversalCursorCandidate,
+  successorInput: Readonly<{
+    inputRef: string;
+    inputDigest: Sha256Digest;
+  }>,
+  successorCursor: TraversalCursorCandidate,
+): boolean {
+  try {
+    return hasAdmittedTraversalCursorAtPrefix(prefix, heldCursor) &&
+      isTraversalCursorCandidate(heldCursor) &&
+      isTraversalCursorCandidate(successorCursor) &&
+      heldCursor.position === "at_term" &&
+      successorInput.inputRef.length > 0 &&
+      successorInput.inputDigest.startsWith("sha256:") &&
+      successorCursor.programRef === heldCursor.programRef &&
+      successorCursor.executionBasisRef === heldCursor.executionBasisRef &&
+      successorCursor.traversalScopeRef === heldCursor.traversalScopeRef &&
+      successorCursor.runId === heldCursor.runId &&
+      successorCursor.graphCallId === heldCursor.graphCallId &&
+      successorCursor.frameId === heldCursor.frameId &&
+      successorCursor.graphRef === heldCursor.graphRef &&
+      successorCursor.inputRef === successorInput.inputRef &&
+      successorCursor.inputDigest === successorInput.inputDigest &&
+      successorCursor.currentNodeRef === heldCursor.currentNodeRef &&
+      successorCursor.position === heldCursor.position &&
+      sha256Canonical(successorCursor.termPath as unknown as JsonValue) ===
+        sha256Canonical(heldCursor.termPath as unknown as JsonValue) &&
+      successorCursor.taskOrdinal === heldCursor.taskOrdinal &&
+      successorCursor.attempt === heldCursor.attempt &&
+      sha256Canonical(successorCursor.retryPath as unknown as JsonValue) ===
+        sha256Canonical(heldCursor.retryPath as unknown as JsonValue);
+  } catch {
+    return false;
+  }
 }
 
 export function isTraversalCursorAdmission(value: object): boolean {
@@ -229,7 +298,27 @@ export function admitInitialTraversalCursor(
   ) {
     return refusal("cursor_repeated", "one frame cannot admit a second initial traversal cursor");
   }
-  if (store.readAll().at(-1)?.eventId !== scope.frameOpenEventRef) {
+  const runPrefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: scope.runId,
+  });
+  const currentRunTruth = deriveRuntimeEventCalculusProjection(runPrefix);
+  if (
+    !holdsAt(currentRunTruth, constructRunActiveFluent(scope.runId)) ||
+    !holdsAt(
+      currentRunTruth,
+      constructRuntimeFluent({
+        name: "graph_call_active",
+        identity: scope.graphCallId,
+      }),
+    ) ||
+    !holdsAt(
+      currentRunTruth,
+      constructRuntimeFluent({
+        name: "frame_active",
+        identity: scope.frameId,
+      }),
+    )
+  ) {
     return refusal("scope_mismatch", "initial cursor must immediately extend the opened frame truth");
   }
 

@@ -113,8 +113,9 @@ test("M5 installed fibre substitution changes the interior but preserves the C-c
     "m5-fibre-fd",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: FD_PROGRAM_REF,
-      graphFunctionRef: FD_GRAPH_FUNCTION_REF,
+      catalogHandle: FD_GRAPH_FUNCTION_REF,
       input,
     },
   );
@@ -123,8 +124,9 @@ test("M5 installed fibre substitution changes the interior but preserves the C-c
     "m5-fibre-fp",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: FP_PROGRAM_REF,
-      graphFunctionRef: FP_GRAPH_FUNCTION_REF,
+      catalogHandle: FP_GRAPH_FUNCTION_REF,
       input,
     },
   );
@@ -188,8 +190,9 @@ test("M5 fibre-equivalent contracts cannot substitute an unowned GraphFunction",
     "m5-fibre-cross-wire",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: FD_PROGRAM_REF,
-      graphFunctionRef: FP_GRAPH_FUNCTION_REF,
+      catalogHandle: FP_GRAPH_FUNCTION_REF,
       allowlist: [FP_GRAPH_FUNCTION_REF],
       input: instruction("World"),
     },

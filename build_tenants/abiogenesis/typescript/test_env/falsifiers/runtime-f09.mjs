@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import { copyFile, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 
 import { prepareAxF09RetryProduct } from "./runtime-f09-product.mjs";
@@ -90,7 +90,57 @@ export async function runAxF09Aba({ harness, packageRoot }) {
       retryBudget: 4,
     });
     assert.equal(produced.action, "produce_aba");
+    const fixtureOwner = await import(pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis-fixtures/developer-mini-product/build/index.js",
+    )).href);
+    const ids = fixtureOwner.AX_F09_RETRY_IDS;
+    assert.notEqual(ids, undefined);
+    const programs = fixture.publication.programs.filter(
+      (candidate) => candidate.programRef === ids.programRef,
+    );
+    assert.equal(programs.length, 1);
+    const [program] = programs;
+    const starts = program.starts.filter((candidate) =>
+      candidate.startRef === ids.startRef &&
+      candidate.graphFunctionRef === ids.graphFunctionRef);
+    assert.equal(starts.length, 1);
+    const parentGraphFunctions = fixture.publication.graphFunctions.filter(
+      (candidate) => candidate.name === ids.graphFunctionRef,
+    );
+    assert.equal(parentGraphFunctions.length, 1);
+    const [parentGraphFunction] = parentGraphFunctions;
+    const parentNodes = parentGraphFunction.template.nodes.filter(
+      (candidate) => candidate.nodeRef === ids.nodeRef,
+    );
+    assert.equal(parentNodes.length, 1);
+    const [parentNode] = parentNodes;
+    assert.equal(parentNode.term.kind, "c_compose");
+    const workflows = parentNode.term.terms.filter((term) =>
+      term.kind === "c_workflow" &&
+      term.graphFunctionRef === ids.childGraphFunctionRef);
+    assert.equal(workflows.length, 1);
+    const [workflow] = workflows;
+    const childGraphFunctions = fixture.publication.graphFunctions.filter(
+      (candidate) => candidate.name === ids.childGraphFunctionRef,
+    );
+    assert.equal(childGraphFunctions.length, 1);
+    const [childGraphFunction] = childGraphFunctions;
+    assert.equal(workflow.graphFunctionRef, childGraphFunction.name);
+    const childNodes = childGraphFunction.template.nodes.filter(
+      (candidate) => candidate.nodeRef === ids.childNodeRef,
+    );
+    assert.equal(childNodes.length, 1);
+    const [childNode] = childNodes;
+    assert.equal(childNode.term.kind, "c_compose");
+    const childFhTerms = childNode.term.terms.filter((term) =>
+      term.kind === "c_of" &&
+      term.fibre === "F_H" &&
+      term.programLocusRef === ids.childLocusRef);
+    assert.equal(childFhTerms.length, 1);
+    const [childFhTerm] = childFhTerms;
     assert.deepEqual(produced.audit.attemptOrdinals, [1, 2, 3, 4]);
+    assert.deepEqual(produced.audit.failureProgressOrdinals, [1, 2, 3]);
     assert.deepEqual(produced.audit.failureClasses, [
       "contract_failure",
       "contract_failure",
@@ -103,8 +153,65 @@ export async function runAxF09Aba({ harness, packageRoot }) {
     assert.equal(produced.audit.workerCount, 4);
     assert.equal(produced.audit.stoppedProgressCount, 0);
     assert.equal(produced.audit.attemptFourDispatchReached, true);
-    assert.equal(produced.audit.attemptFourResultReached, true);
-    assert.equal(produced.audit.attemptFourTerminalRouteReached, true);
+    assert.equal(produced.audit.attemptFourResultClass, "success");
+    assert.equal(produced.audit.attemptFourJudgment, "advance");
+    assert.equal(produced.audit.attemptFourCompletedProgressCount, 1);
+    assert.equal(
+      produced.audit.attemptFourCompletedProgressClass,
+      "judged_success",
+    );
+    assert.equal(produced.audit.attemptFourCompletedRetryDepth, 1);
+    assert.equal(
+      produced.audit.attemptFourCompletedProgressCoordinatesExact,
+      true,
+    );
+    assert.equal(produced.audit.attemptFourAdvanceRouteCount, 1);
+    assert.equal(produced.audit.attemptFourRouteKind, "advance");
+    assert.equal(produced.audit.attemptFourRouteCoordinatesExact, true);
+    assert.equal(produced.audit.attemptFourRouteToAuthoredWorkflow, true);
+    assert.equal(produced.audit.attemptFourConsumedRefsExact, true);
+    assert.equal(produced.audit.attemptFourTerminalRouteCount, 0);
+    assert.equal(produced.audit.rootClosureCount, 0);
+    assert.equal(
+      produced.audit.childFhGraphFunctionRef,
+      childGraphFunction.name,
+    );
+    assert.equal(
+      produced.audit.childFhProgramLocusRef,
+      childFhTerm.programLocusRef,
+    );
+    assert.equal(produced.audit.childFhCCallCount, 1);
+    assert.equal(produced.audit.childFhHoldRouteCount, 1);
+    assert.equal(produced.audit.childFhRouteKind, "hold");
+    assert.equal(produced.audit.childFhHoldCoordinatesExact, true);
+    assert.equal(produced.audit.childFhContinuationCount, 1);
+    assert.equal(produced.audit.disposition, "held");
+    assert.equal(produced.audit.parentSuspensionCount, 1);
+    assert.equal(
+      produced.audit.parentSuspensionKind,
+      "held_workflow_suspension",
+    );
+    assert.equal(
+      produced.audit.parentGraphFunctionRef,
+      parentGraphFunction.name,
+    );
+    assert.equal(
+      produced.audit.childGraphFunctionRef,
+      childGraphFunction.name,
+    );
+    assert.equal(produced.audit.parentChildInputDigestExact, true);
+    assert.equal(
+      produced.audit.parentChildExecutionBasisLineageExact,
+      true,
+    );
+    assert.equal(
+      produced.audit.parentChildTraversalScopeLineageExact,
+      true,
+    );
+    assert.equal(produced.audit.parentWorkflowRouteTargetExact, true);
+    assert.equal(produced.audit.parentWorkflowRouteCount, 0);
+    assert.equal(produced.audit.heldReplayStatus, "held");
+    assert.equal(produced.audit.heldReplayExact, true);
     return produced.audit;
   } finally {
     if (typeof produced?.cleanupRoot === "string") {
@@ -152,9 +259,16 @@ export async function runAxF09({ harness, packageRoot }) {
     assert.equal(consumer.action, "inspect_frontier");
 
     const processesAreDistinct = producer.pid !== consumer.pid;
+    const restartedProjectionAudit = {
+      d17Disposition: consumer.audit.d17Disposition,
+      d17ProjectionRef: consumer.audit.d17ProjectionRef,
+      d17ProjectionDigest: consumer.audit.d17ProjectionDigest,
+      d17FrontierRowIdentities: consumer.audit.d17FrontierRowIdentities,
+      scopedRetryFluentCanonical: consumer.audit.scopedRetryFluentCanonical,
+    };
     const retainedAndRestartedInspectionEqual =
       JSON.stringify(producer.retainedAudit) ===
-        JSON.stringify(consumer.audit);
+        JSON.stringify(restartedProjectionAudit);
     const producerAuthentic =
       producer.audit.retryBudget === 3 &&
       JSON.stringify(producer.audit.attemptOrdinals) === "[1,2]" &&
@@ -176,11 +290,31 @@ export async function runAxF09({ harness, packageRoot }) {
       producer.audit.attemptThreeRouteAbsent === true &&
       producer.audit.attemptThreeCCallAbsent === true &&
       producer.audit.attemptThreeEffectAbsent === true &&
+      producer.audit.graphEntryAndRetryInputDistinct === true &&
+      producer.audit.initialEntryMismatchExactDiagnosticAndZeroAppend ===
+        true &&
+      producer.audit.projectedResumeControls
+          .forgedGraphValidationRefusedPurely === true &&
+      producer.audit.projectedResumeControls
+          .malformedEventTimeRefusedPurely === true &&
+      producer.audit.projectedResumeControls
+          .stalePrefixRefusedWithoutMutation === true &&
+      producer.audit.projectedResumeControls
+          .routeFailureRolledBack === true &&
+      producer.audit.projectedResumeControls
+          .attemptFailureRolledBackRoute === true &&
+      producer.audit.projectedResumeControls
+          .cyclicCarrierMappedToExactDiagnostic === true &&
+      producer.audit.projectedResumeControls
+          .projectedXorRejectsRawIngress === true &&
+      producer.audit.projectedResumeControls
+          .unrelatedRunTailSubstitutionRefused === true &&
       producer.audit.attemptInputCoverage.everyAttemptInputPreimageExact ===
         true;
     const handoffIsClosed =
       producer.audit.exactHandoffKeys === true &&
-      producer.audit.handoffContainsInputValue === false;
+      producer.audit.handoffContainsInputValue === false &&
+      producer.audit.retainedAuditContainsInputValue === false;
     const completeDurablePrefixWasExamined =
       producer.audit.durableRowsEqualClosedStore === true &&
       producer.audit.completeDurablePrefixScanned === true &&
@@ -233,16 +367,33 @@ export async function runAxF09({ harness, packageRoot }) {
       consumer.audit.completeDurablePrefixContainsCanonicalInputPreimage ===
         true &&
       completeDurablePrefixWasExamined;
-    const missingInstalledD17D18Suffix =
+    const installedD17D18Suffix =
       consumer.audit.targetSuffixCoordinatesExact === true &&
       consumer.audit.targetSuffixDependenciesReady === true &&
       consumer.audit.targetSuffixDisposition ===
-        "installed_suffix_exports_absent" &&
-      consumer.audit.projectorExportPresent === false &&
-      consumer.audit.retryAttemptFrontierTypeExportPresent === false &&
-      consumer.audit.executableRetryInputTypeExportPresent === false &&
-      consumer.audit.fullFrontierAssertionExportPresent === false &&
-      consumer.audit.resumeExportPresent === false;
+        "installed_suffix_available" &&
+      consumer.audit.projectorExportPresent === true &&
+      consumer.audit.retryAttemptFrontierTypeExportPresent === true &&
+      consumer.audit.executableRetryInputTypeExportPresent === true &&
+      consumer.audit.fullFrontierAssertionExportPresent === true &&
+      consumer.audit.resumeExportPresent === true &&
+      consumer.audit.d17Disposition === "projected" &&
+      consumer.audit.d17FrontierRowIdentities.length === 2 &&
+      consumer.audit.scopedRetryFluentCanonical.length === 2 &&
+      consumer.audit.d18Disposition === "resumed" &&
+      consumer.audit.d18AtomicTailBound === true &&
+      Object.values(consumer.audit.projectedBranchControls)
+        .every((value) => value === true) &&
+      JSON.stringify(consumer.audit.finalAttemptOrdinals) === "[1,2,3]" &&
+      consumer.audit.finalEffectCount === 3 &&
+      consumer.audit.finalWorkerCount === 3 &&
+      consumer.audit.finalCompletionDisposition === "held" &&
+      consumer.audit.finalRuntimeStatus === "held" &&
+      consumer.audit.finalHeldRuntimeStatus === "held" &&
+      consumer.audit.graphEntryAndRetryInputDistinct === true &&
+      consumer.audit.parentGraphInputReconstructedFromBasis === true &&
+      consumer.audit.parentRetryInputRemainsTransformed === true &&
+      consumer.audit.childBasisInputComesFromRetryLocus === true;
 
     assert.equal(processesAreDistinct, true);
     assert.equal(
@@ -264,7 +415,7 @@ export async function runAxF09({ harness, packageRoot }) {
     );
     assert.equal(lawfulDurableRetrySources, true,
       JSON.stringify({ producer: producer.audit, consumer: consumer.audit }));
-    assert.equal(missingInstalledD17D18Suffix, true,
+    assert.equal(installedD17D18Suffix, true,
       JSON.stringify(consumer.audit));
 
     const observed = {
@@ -302,8 +453,12 @@ export async function runAxF09({ harness, packageRoot }) {
           producer.audit.attemptRouteCursorBinding,
         compactRetryProgress:
           producer.audit.compactRetryProgress,
+        projectedResumeControls:
+          producer.audit.projectedResumeControls,
         exactHandoffKeys: producer.audit.exactHandoffKeys,
         handoffContainsInputValue: producer.audit.handoffContainsInputValue,
+        retainedAuditContainsInputValue:
+          producer.audit.retainedAuditContainsInputValue,
         durableRowsEqualClosedStore:
           producer.audit.durableRowsEqualClosedStore,
         completeDurablePrefixScanned:
@@ -312,6 +467,13 @@ export async function runAxF09({ harness, packageRoot }) {
           producer.audit.durablePrefixContainsNonce,
         durablePrefixContainsCanonicalInputPreimage:
           producer.audit.durablePrefixContainsCanonicalInputPreimage,
+        graphEntryInputDigest: producer.audit.graphEntryInputDigest,
+        transformedRetryInputDigest:
+          producer.audit.transformedRetryInputDigest,
+        graphEntryAndRetryInputDistinct:
+          producer.audit.graphEntryAndRetryInputDistinct,
+        initialEntryMismatchExactDiagnosticAndZeroAppend:
+          producer.audit.initialEntryMismatchExactDiagnosticAndZeroAppend,
       },
       consumer: {
         exactInputKeys: consumer.audit.exactInputKeys,
@@ -365,20 +527,53 @@ export async function runAxF09({ harness, packageRoot }) {
         resumeExportPresent: consumer.audit.resumeExportPresent,
         completeDurablePrefixContainsCanonicalInputPreimage:
           consumer.audit.completeDurablePrefixContainsCanonicalInputPreimage,
+        d17Disposition: consumer.audit.d17Disposition,
+        d17ProjectionRef: consumer.audit.d17ProjectionRef,
+        d17ProjectionDigest: consumer.audit.d17ProjectionDigest,
+        d17FrontierRowIdentities:
+          consumer.audit.d17FrontierRowIdentities,
+        scopedRetryFluentCanonical:
+          consumer.audit.scopedRetryFluentCanonical,
+        d18Disposition: consumer.audit.d18Disposition,
+        d18AtomicTailBound: consumer.audit.d18AtomicTailBound,
+        projectedBranchControls:
+          consumer.audit.projectedBranchControls,
+        finalAttemptOrdinals: consumer.audit.finalAttemptOrdinals,
+        finalProgressOrdinals: consumer.audit.finalProgressOrdinals,
+        finalEffectCount: consumer.audit.finalEffectCount,
+        finalWorkerCount: consumer.audit.finalWorkerCount,
+        finalCompletionDisposition:
+          consumer.audit.finalCompletionDisposition,
+        finalRuntimeStatus: consumer.audit.finalRuntimeStatus,
+        finalHeldRuntimeStatus: consumer.audit.finalHeldRuntimeStatus,
+        graphEntryInputDigest: consumer.audit.graphEntryInputDigest,
+        projectedRetryInputDigest:
+          consumer.audit.projectedRetryInputDigest,
+        graphEntryAndRetryInputDistinct:
+          consumer.audit.graphEntryAndRetryInputDistinct,
+        parentGraphInputReconstructedFromBasis:
+          consumer.audit.parentGraphInputReconstructedFromBasis,
+        parentRetryInputRemainsTransformed:
+          consumer.audit.parentRetryInputRemainsTransformed,
+        childBasisInputComesFromRetryLocus:
+          consumer.audit.childBasisInputComesFromRetryLocus,
+        finalReplayDigest: consumer.audit.finalReplayDigest,
+        finalEventCalculusCanonical:
+          consumer.audit.finalEventCalculusCanonical,
       },
     };
 
     return {
       relationId: "AX-F09",
-      disposition: "confirmed_red",
+      disposition: "preserved_green",
       claim:
-        "two authentic prior retry failures are durable, but absent installed D17 cannot project and assert the canonical RetryAttemptFrontier and ExecutableRetryInput, and absent installed D18 cannot resume",
+        "the admitted graph-entry value survives a real transform and two authentic retry failures, then a fresh process reconstructs D17/D18, executes attempt three at the transformed retry locus, and reaches a downstream hold whose parent graph input comes only from the rehydrated ExecutionBasis",
       ingress:
-        "current src/hog/graph_execute.ts::executeGraphTraversal retained retry map; target installed ./abg::projectExecutableRetryInput then ./hog::resumeProjectedRetry",
+        "installed ./abg::projectExecutableRetryInput then ./hog::resumeProjectedRetry, followed by the exact projected executor branch",
       fixtureSource:
-        "authored packed and installed test Product extending the m5 C.retry and worker relation to budget three, with nonce input, no-output attempt one, malformed-result attempt two, and unopened attempt three",
+        "authored packed and installed test Product composing an F_D input transform, budget-three F_P retry, and downstream child F_H hold, with nonce graph-entry input, no-output attempt one, malformed-result attempt two, and unopened attempt three",
       processBoundary:
-        "P1 durably admits two authentic failed attempts, projects the exact prefix, closes and exits; only prefix plus retry coordinates cross to fresh P2",
+        "P1 durably admits two authentic failed attempts, projects the exact prefix, closes and exits; only the closed coordinate, selector, and expected D17 identity cross to fresh P2",
       mutation: {
         kind: "executor_exit_at_two_failure_retry_frontier",
         declaredRetryBudget: 3,
@@ -386,11 +581,14 @@ export async function runAxF09({ harness, packageRoot }) {
         priorFailureClasses: ["no_output", "contract_failure"],
         handoffFields: [
           "prefix",
-          "retry.runId",
-          "retry.graphCallId",
-          "retry.frameId",
-          "retry.retryBoundaryRef",
-          "retry.retryProgressRef",
+          "reopenAuthority",
+          "selector.runId",
+          "selector.graphCallId",
+          "selector.frameId",
+          "selector.retryBoundaryRef",
+          "selector.retryProgressRef",
+          "expectedExecutableRetryInputRef",
+          "expectedExecutableRetryInputDigest",
         ],
       },
       oracle: {
@@ -475,22 +673,25 @@ export async function runAxF09({ harness, packageRoot }) {
           finalAttemptOrdinals: [1, 2, 3],
           finalProgressOrdinals: [1, 2],
           finalLeafEffectCount: 3,
-          finalCompletionAndReplayCanonicalEquality: true,
+          downstreamCompletion: "held",
+          parentGraphInputSource: "rehydrated_execution_basis_raw_value",
+          parentRetryInputSource: "transformed_retry_locus",
+          childBasisInputSource: "transformed_retry_locus",
         },
       },
       expectedBaselineSignature: {
-        disposition: "confirmed_red",
+        disposition: "preserved_green",
         retryAttemptPayloadPreimages: "present_and_exact_for_attempts_1_2",
         retryAttemptSourceCursorBinding: "exact_cited_retry_route",
         duplicateSourceCursorPayload: "absent",
         compactRetryProgress: "lawful_numeric_coverage",
         storedFullFrontierCarrier: "absent_by_design",
-        installedD17ProjectorExport: "absent",
-        installedD17FrontierTypeExport: "absent",
-        installedD17ExecutableInputTypeExport: "absent",
-        installedD17FrontierAssertionExport: "absent",
-        installedD18ResumeExport: "absent",
-        installedTargetSuffixDisposition: "installed_suffix_exports_absent",
+        installedD17ProjectorExport: "present",
+        installedD17FrontierTypeExport: "present",
+        installedD17ExecutableInputTypeExport: "present",
+        installedD17FrontierAssertionExport: "present",
+        installedD18ResumeExport: "present",
+        installedTargetSuffixDisposition: "installed_suffix_available",
         retainedAndRestartedInspectionEqual: true,
       },
       observedSignature: observed,
@@ -563,7 +764,8 @@ export async function runAxF09({ harness, packageRoot }) {
           {
             exactCoordinateOnly: producer.audit.exactHandoffKeys,
             executableCarrierPresent:
-              producer.audit.handoffContainsInputValue,
+              producer.audit.handoffContainsInputValue ||
+              producer.audit.retainedAuditContainsInputValue,
           },
           handoffIsClosed,
         ),
@@ -687,16 +889,28 @@ export async function runAxF09({ harness, packageRoot }) {
           lawfulDurableRetrySources,
         ),
         caseRecord(
-          "missing_installed_d17_d18_suffix",
+          "installed_d17_d18_suffix",
           {
             targetSuffixCoordinatesExact: true,
             targetSuffixDependenciesReady: true,
-            targetSuffixDisposition: "installed_suffix_exports_absent",
-            projectorExportPresent: false,
-            retryAttemptFrontierTypeExportPresent: false,
-            executableRetryInputTypeExportPresent: false,
-            fullFrontierAssertionExportPresent: false,
-            resumeExportPresent: false,
+            targetSuffixDisposition: "installed_suffix_available",
+            projectorExportPresent: true,
+            retryAttemptFrontierTypeExportPresent: true,
+            executableRetryInputTypeExportPresent: true,
+            fullFrontierAssertionExportPresent: true,
+            resumeExportPresent: true,
+            d18Disposition: "resumed",
+            projectedBranchControlsEventless: true,
+            finalAttemptOrdinals: [1, 2, 3],
+            finalProgressOrdinals: [1, 2],
+            finalEffectCount: 3,
+            finalCompletionDisposition: "held",
+            finalRuntimeStatus: "held",
+            finalHeldRuntimeStatus: "held",
+            graphEntryAndRetryInputDistinct: true,
+            parentGraphInputReconstructedFromBasis: true,
+            parentRetryInputRemainsTransformed: true,
+            childBasisInputComesFromRetryLocus: true,
           },
           {
             targetSuffixCoordinatesExact:
@@ -713,8 +927,27 @@ export async function runAxF09({ harness, packageRoot }) {
             fullFrontierAssertionExportPresent:
               consumer.audit.fullFrontierAssertionExportPresent,
             resumeExportPresent: consumer.audit.resumeExportPresent,
+            d18Disposition: consumer.audit.d18Disposition,
+            projectedBranchControlsEventless:
+              Object.values(consumer.audit.projectedBranchControls)
+                .every((value) => value === true),
+            finalAttemptOrdinals: consumer.audit.finalAttemptOrdinals,
+            finalProgressOrdinals: consumer.audit.finalProgressOrdinals,
+            finalEffectCount: consumer.audit.finalEffectCount,
+            finalCompletionDisposition:
+              consumer.audit.finalCompletionDisposition,
+            finalRuntimeStatus: consumer.audit.finalRuntimeStatus,
+            finalHeldRuntimeStatus: consumer.audit.finalHeldRuntimeStatus,
+            graphEntryAndRetryInputDistinct:
+              consumer.audit.graphEntryAndRetryInputDistinct,
+            parentGraphInputReconstructedFromBasis:
+              consumer.audit.parentGraphInputReconstructedFromBasis,
+            parentRetryInputRemainsTransformed:
+              consumer.audit.parentRetryInputRemainsTransformed,
+            childBasisInputComesFromRetryLocus:
+              consumer.audit.childBasisInputComesFromRetryLocus,
           },
-          missingInstalledD17D18Suffix,
+          installedD17D18Suffix,
         ),
       ],
     };

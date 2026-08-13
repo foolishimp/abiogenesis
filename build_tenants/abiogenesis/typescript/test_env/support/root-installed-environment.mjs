@@ -13,6 +13,33 @@ import {
 
 const execFileAsync = promisify(execFile);
 
+function selectedFrozenArtifact(options) {
+  const explicit = options.frozenArtifact ?? null;
+  const environment = process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH === undefined &&
+      process.env.ABI5_WAVE1_FROZEN_INSTALL_HOST === undefined &&
+      process.env.ABI5_WAVE1_FROZEN_ARTIFACT_SHA256 === undefined
+    ? null
+    : {
+      artifactPath: process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH,
+      installHost: process.env.ABI5_WAVE1_FROZEN_INSTALL_HOST,
+      artifactSha256: process.env.ABI5_WAVE1_FROZEN_ARTIFACT_SHA256,
+    };
+  const selected = explicit ?? environment;
+  if (selected === null) return null;
+  for (const field of ["artifactPath", "installHost", "artifactSha256"]) {
+    if (typeof selected[field] !== "string" || selected[field].length === 0) {
+      throw new TypeError(`frozen artifact mode requires ${field}`);
+    }
+  }
+  return {
+    artifactPath: selected.artifactPath,
+    installHost: selected.installHost,
+    artifactSha256: selected.artifactSha256.startsWith("sha256:")
+      ? selected.artifactSha256
+      : `sha256:${selected.artifactSha256}`,
+  };
+}
+
 export function publicOperationBasis(
   product,
   operationId,
@@ -22,18 +49,32 @@ export function publicOperationBasis(
   causationEventRefs = [],
 ) {
   const invocationPayloadDigest = product.sha256Canonical({});
+  const memberKey = operationId === "abg.operation.product.install"
+    ? "install"
+    : operationId === "abg.operation.workspace.bind"
+      ? "bind"
+      : operationId === "abg.operation.run.invoke"
+        ? "invoke"
+      : operationId;
+  const definitionDigest = product.sha256Canonical({
+    operationId,
+    memberKey,
+    schemaVersion: "5.0.0",
+  });
   return {
     operationId,
-    definitionKey: operationId,
-    definitionDigest: product.sha256Canonical({ operationId, schemaVersion: "5.0.0" }),
+    memberKey,
+    definitionDigest,
     authorityScopeRef: scopeRef,
     authorityScopeDigest: scopeDigest,
     invocationRef,
     invocationPayloadDigest,
     invocationDigest: product.sha256Canonical({
+      definitionDigest,
       invocationRef,
+      invocationPayloadDigest,
+      memberKey,
       operationId,
-      payloadDigest: invocationPayloadDigest,
     }),
     correlationId: "correlation://t286/root",
     eventTime: "2026-07-21T00:00:00.000Z",
@@ -47,7 +88,8 @@ export function requireRawAdmission(validator, value, subjectKind, contractRef) 
   return admitted;
 }
 
-export function rawProgramInput(validator, publicationAdmission, program = publicationAdmission.value.programs[0]) {
+export function rawProgramInput(validator, publicationAdmission, program) {
+  assert.ok(program, "raw Program input requires one exact selected Program");
   const publication = publicationAdmission.value;
   return {
     publication: publicationAdmission,
@@ -70,27 +112,76 @@ export function rawProgramInput(validator, publicationAdmission, program = publi
   };
 }
 
-export async function setupInstalledRootCatalog(context, packageRoot) {
+export async function setupInstalledRootCatalog(
+  context,
+  packageRoot,
+  options = {},
+) {
+  const frozenArtifact = selectedFrozenArtifact(options);
   const scratch = await mkdtemp(join(tmpdir(), "abi5-root-env-"));
-  context.after(async () => rm(scratch, { force: true, recursive: true }));
-  const artifacts = join(scratch, "artifacts");
-  await mkdir(artifacts);
-  const { stdout } = await execFileAsync(
-    "npm",
-    ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
-    { cwd: packageRoot, maxBuffer: 10 * 1024 * 1024 },
-  );
-  const [packResult] = JSON.parse(stdout);
-  const artifactPath = join(artifacts, packResult.filename);
-  const bootstrapRoot = join(scratch, "bootstrap");
-  await mkdir(bootstrapRoot);
-  await execFileAsync("tar", ["-xzf", artifactPath, "-C", bootstrapRoot]);
-  const bootstrapPackage = join(bootstrapRoot, "package");
+  let durableStore = null;
+  context.after(async () => {
+    durableStore?.closeDurableLog();
+    await rm(scratch, { force: true, recursive: true });
+  });
+  let artifactPath;
+  let bootstrapPackage;
+  let consumerRoot;
+  let installedRoot;
+  if (frozenArtifact === null) {
+    const artifacts = join(scratch, "artifacts");
+    await mkdir(artifacts);
+    const { stdout } = await execFileAsync(
+      "npm",
+      ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
+      { cwd: packageRoot, maxBuffer: 10 * 1024 * 1024 },
+    );
+    const [packResult] = JSON.parse(stdout);
+    artifactPath = join(artifacts, packResult.filename);
+    const bootstrapRoot = join(scratch, "bootstrap");
+    await mkdir(bootstrapRoot);
+    await execFileAsync("tar", ["-xzf", artifactPath, "-C", bootstrapRoot]);
+    bootstrapPackage = join(bootstrapRoot, "package");
+    consumerRoot = join(scratch, "consumer");
+  } else {
+    artifactPath = frozenArtifact.artifactPath;
+    bootstrapPackage = join(
+      frozenArtifact.installHost,
+      "node_modules",
+      "@abiogenesis",
+      "typescript-tenant",
+    );
+    consumerRoot = join(scratch, "consumer");
+  }
   const bootstrapProduct = await import(
     `${pathToFileURL(join(bootstrapPackage, "build/code/src/product/index.js")).href}?artifact=${Date.now()}`
   );
+  if (frozenArtifact !== null) {
+    assert.equal(
+      await bootstrapProduct.sha256File(artifactPath),
+      frozenArtifact.artifactSha256,
+      "frozen artifact digest differs from the authorized subject",
+    );
+  }
   const packageJson = JSON.parse(await readFile(join(bootstrapPackage, "package.json"), "utf8"));
-  const candidateBasis = await readCandidateBasis(packageRoot);
+  const persistedCandidateBasis = await readCandidateBasis(packageRoot);
+  const candidateManifest = JSON.parse(
+    await readFile(
+      join(bootstrapPackage, "product-toolchain-manifest.json"),
+      "utf8",
+    ),
+  );
+  const candidateBasis = options.candidateBasisSource === "packed_artifact"
+    ? {
+        ...persistedCandidateBasis,
+        artifactDigest: await bootstrapProduct.sha256File(artifactPath),
+        productContentDigest: candidateManifest.productContentDigest,
+        manifestDigest: bootstrapProduct.sha256Canonical(candidateManifest),
+        productId: candidateManifest.productId,
+        packageName: candidateManifest.packageName,
+        packageVersion: candidateManifest.packageVersion,
+      }
+    : persistedCandidateBasis;
   const verified = await bootstrapProduct.verifyProduct({
     artifactPath,
     artifactRef: basename(artifactPath),
@@ -99,7 +190,6 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
   const lock = bootstrapProduct.constructResolvedProductLock([verified]);
   assert.equal(lock.kind, "resolved_product_lock", JSON.stringify(lock));
-  const consumerRoot = join(scratch, "consumer");
   const installCandidate = await bootstrapProduct.installProduct({
     artifactPath,
     targetRoot: consumerRoot,
@@ -107,7 +197,17 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     resolvedLock: lock,
   });
   assert.equal(installCandidate.disposition, "materialized", JSON.stringify(installCandidate));
-  const installedRoot = installCandidate.installedRoot;
+  assert.equal(
+    bootstrapProduct.isProductInstallCandidate(installCandidate, lock),
+    true,
+    "frozen installed root does not satisfy the Product install carrier",
+  );
+  assert.equal(
+    await bootstrapProduct.installedProductContentMatches(installCandidate),
+    true,
+    "frozen installed root bytes differ from the verified Product",
+  );
+  installedRoot = installCandidate.installedRoot;
   const nonce = Date.now();
   const product = await import(`${pathToFileURL(join(installedRoot, "build/code/src/product/index.js")).href}?env=${nonce}`);
   const abg = await import(`${pathToFileURL(join(installedRoot, "build/code/src/abg/index.js")).href}?env=${nonce}`);
@@ -123,18 +223,35 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     `${pathToFileURL(join(installedRoot, "build/code/src/implementation/index.js")).href}?env=${nonce}`
   );
   const validator = await import(`${pathToFileURL(join(installedRoot, "build/code/src/validator/index.js")).href}?env=${nonce}`);
-  const store = new abg.AbgEventStore();
-  const admittedInstall = abg.admitProductInstall(
+  const acquired = abg.createNewEmptyAppendSink({
+    kind: "new_empty_append_sink_request",
+    schemaVersion: "5.0.0",
+    eventLogPath: join(scratch, "runtime", "events.jsonl"),
+  });
+  assert.equal(acquired.disposition, undefined, JSON.stringify(acquired));
+  const store = acquired.store;
+  durableStore = store;
+  const admittedInstallResult = abg.admitProductInstall(
     store,
     installCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.product.install",
-      installCandidate.installId,
-      installCandidate.productContentDigest,
-      "invocation://t286/root/product-install",
-    ),
+    {
+      ...publicOperationBasis(
+        product,
+        "abg.operation.product.install",
+        installCandidate.installId,
+        installCandidate.productContentDigest,
+        "invocation://t286/root/product-install",
+      ),
+      predecessorPrefix: acquired.prefix,
+    },
+    lock,
   );
+  assert.equal(
+    admittedInstallResult.kind,
+    "artifact_owner_result",
+    JSON.stringify(admittedInstallResult),
+  );
+  const admittedInstall = admittedInstallResult.value;
   const productSet = product.constructProductSet([admittedInstall], lock);
   const workspaceRoot = join(scratch, "workspace");
   await mkdir(workspaceRoot);
@@ -162,18 +279,28 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
       archiveRoot: join(workspaceRoot, ".ai-workspace/archive"),
     },
   );
-  const workspaceBinding = abg.admitWorkspaceBinding(
+  const workspaceBindingResult = abg.admitWorkspaceBinding(
     store,
     bindingCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.workspace.bind",
-      bindingCandidate.bindingId,
-      bindingCandidate.bindingDigest,
-      "invocation://t286/root/workspace-bind",
-      [admittedInstall.admissionEventRef],
-    ),
+    {
+      ...publicOperationBasis(
+        product,
+        "abg.operation.workspace.bind",
+        bindingCandidate.bindingId,
+        bindingCandidate.bindingDigest,
+        "invocation://t286/root/workspace-bind",
+        [admittedInstall.admissionEventRef],
+      ),
+      predecessorPrefix: admittedInstallResult.successorPrefix,
+    },
+    workspaceAuthority,
   );
+  assert.equal(
+    workspaceBindingResult.kind,
+    "artifact_owner_result",
+    JSON.stringify(workspaceBindingResult),
+  );
+  const workspaceBinding = workspaceBindingResult.value;
   const publication = gtl.constructHelloWorldModulePublication({
     productId: verified.productId,
     artifactDigest: verified.artifactDigest,
@@ -194,7 +321,8 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
   const programValidations = publication.programs.map((program) =>
     validator.validateProgram(rawProgramInput(validator, publicationAdmission, program)));
   const programValidation = programValidations.find(
-    (value) => value.programRef === gtl.HELLO_WORLD_IDS.programRef,
+    (value) => value.programRef ===
+      (options.programRef ?? gtl.HELLO_WORLD_IDS.programRef),
   );
   assert.equal(publicationValidation.kind, "publication_validation", JSON.stringify(publicationValidation));
   assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
@@ -203,7 +331,7 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
   const catalogView = product.narrowGraphFunctionCatalog(
     catalog,
-    [gtl.HELLO_WORLD_IDS.graphFunctionRef],
+    [options.graphFunctionRef ?? gtl.HELLO_WORLD_IDS.graphFunctionRef],
   );
   assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
 
@@ -221,6 +349,8 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
     implementation,
     validator,
     store,
+    artifactTruth: workspaceBindingResult.artifactTruth,
+    durablePrefix: workspaceBindingResult.successorPrefix,
     verified,
     installCandidate,
     admittedInstall,
@@ -239,8 +369,16 @@ export async function setupInstalledRootCatalog(context, packageRoot) {
   };
 }
 
-export async function setupInstalledRootInvocation(context, packageRoot) {
-  const environment = await setupInstalledRootCatalog(context, packageRoot);
+export async function setupInstalledRootInvocation(
+  context,
+  packageRoot,
+  options = {},
+) {
+  const environment = await setupInstalledRootCatalog(
+    context,
+    packageRoot,
+    options,
+  );
   const {
     product,
     abg,
@@ -248,18 +386,33 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
     validator,
     store,
     workspaceBinding,
+    artifactTruth,
     publication,
     programValidation,
     catalogView,
   } = environment;
-  const program = publication.programs[0];
-  const graphFunction = publication.graphFunctions[0];
-  const input = gtl.constructHelloWorldInput("World");
+  const programRef = options.programRef ?? gtl.HELLO_WORLD_IDS.programRef;
+  const graphFunctionRef = options.graphFunctionRef ??
+    gtl.HELLO_WORLD_IDS.graphFunctionRef;
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === programRef,
+  );
+  const graphFunction = publication.graphFunctions.find(
+    (candidate) => candidate.name === graphFunctionRef,
+  );
+  assert.ok(program, "installed root requires one exact selected Program");
+  assert.ok(
+    graphFunction,
+    "installed root requires one exact selected GraphFunction",
+  );
+  const input = options.input ?? gtl.constructHelloWorldInput("World");
+  const inputContractRef = options.inputContractRef ??
+    gtl.HELLO_WORLD_IDS.inputContractRef;
   const rawInput = requireRawAdmission(
     validator,
     input,
     "invocation_input",
-    gtl.HELLO_WORLD_IDS.inputContractRef,
+    inputContractRef,
   );
   const rawRequest = requireRawAdmission(
     validator,
@@ -273,37 +426,75 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
       correlationId: "correlation://t286/support/run-invoke",
       payload: {
         programRef: program.programRef,
-        graphFunctionRef: graphFunction.name,
+        catalogHandle: graphFunction.name,
       },
     },
     "public_operation_request",
     "contract://abiogenesis/public/run-invoke-request@5",
   );
+  const interactionCapabilities = programValidation.interactionLeafRows.map(
+    (row) => ({
+      requirementKey: row.requirementKey,
+      requirementKeyDigest: row.requirementKeyDigest,
+      actorCapabilityRef: row.requirement.actorCapabilityRef,
+    }),
+  );
+  const allowedComputeRegimes = ["F_D", "F_P", "F_H"].filter((regime) =>
+    [
+      ...programValidation.executableLeafRows,
+      ...programValidation.interactionLeafRows,
+    ].some((row) => row.fibre === regime));
   const policy = product.constructRootInvocationPolicy(
     workspaceBinding,
     program,
-    [],
+    interactionCapabilities,
+    allowedComputeRegimes,
   );
-  const actorRef = "actor://abiogenesis/t286/trusted-developer";
+  const actorRef = options.actorRef ??
+    "actor://abiogenesis/t286/trusted-developer";
   const capabilityGrant = product.constructCapabilityGrant(policy, actorRef);
+  const capabilityGrants = [
+    capabilityGrant,
+    ...[...new Set(
+      interactionCapabilities.map((row) => row.actorCapabilityRef),
+    )].sort().flatMap((capabilityRef) => [
+      product.constructCapabilityGrant(
+        policy,
+        actorRef,
+        "abg.operation.interaction.respond",
+        capabilityRef,
+      ),
+      product.constructCapabilityGrant(
+        policy,
+        actorRef,
+        "abg.operation.run.continue",
+        capabilityRef,
+      ),
+    ]),
+  ];
+  const selectedRow = product.lookupGraphFunction(
+    catalogView,
+    graphFunction.name,
+  );
+  assert.ok(selectedRow);
   const invocationAuthority = product.constructInvocationAuthority(
     actorRef,
     workspaceBinding,
     catalogView,
     program.programRef,
-    graphFunction.name,
+    selectedRow,
     policy,
-    [capabilityGrant],
+    capabilityGrants,
   );
   const invocation = product.constructDirectInvocation(
     workspaceBinding,
     catalogView,
     program,
-    graphFunction,
+    selectedRow,
     rawRequest,
     rawInput,
     policy,
-    [capabilityGrant],
+    capabilityGrants,
     invocationAuthority,
   );
   const invocationAdmission = abg.admitInvocation(
@@ -317,9 +508,10 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
       graphFunction,
       programValidation,
       workspaceBinding,
+      artifactTruth,
       catalogView,
       policy,
-      capabilityGrants: [capabilityGrant],
+      capabilityGrants,
       authority: invocationAuthority,
     },
     publicOperationBasis(
@@ -327,7 +519,7 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
-      invocation.invocationRef,
+      invocation.publicRequestInvocationRef,
       [workspaceBinding.admissionEventRef],
     ),
   );
@@ -342,14 +534,23 @@ export async function setupInstalledRootInvocation(context, packageRoot) {
     policy,
     actorRef,
     capabilityGrant,
+    capabilityGrants,
     invocationAuthority,
     invocation,
     invocationAdmission,
   };
 }
 
-export async function setupInstalledRootResolution(context, packageRoot) {
-  const environment = await setupInstalledRootInvocation(context, packageRoot);
+export async function setupInstalledRootResolution(
+  context,
+  packageRoot,
+  options = {},
+) {
+  const environment = await setupInstalledRootInvocation(
+    context,
+    packageRoot,
+    options,
+  );
   const {
     product,
     gtl,
@@ -359,14 +560,24 @@ export async function setupInstalledRootResolution(context, packageRoot) {
     programValidation,
     graphFunction,
     catalogView,
+    input,
     rawInput,
     invocationAdmission,
   } = environment;
-  const node = graphFunction.template.nodes[0];
+  const rootNodes = graphFunction.template.nodes.filter(
+    (candidate) => candidate.nodeRef === graphFunction.template.startNodeRef,
+  );
+  assert.equal(
+    rootNodes.length,
+    1,
+    "installed resolution requires one exact declared graph root",
+  );
+  const [node] = rootNodes;
   const graph = gtl.materializeGraph(graphFunction, {
     invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
     admittedInputRef: rawInput.admissionRef,
     admittedInputDigest: rawInput.subjectDigest,
+    admittedInput: input,
   });
   const graphValidation = validator.validateGraph(
     graph,
@@ -376,11 +587,20 @@ export async function setupInstalledRootResolution(context, packageRoot) {
       invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
       admittedInputRef: rawInput.admissionRef,
       admittedInputDigest: rawInput.subjectDigest,
+      admittedInput: input,
     },
   );
   assert.equal(graphValidation.kind, "graph_validation", JSON.stringify(graphValidation));
+  const implementationBinding = publication.implementationBindings.find(
+    (candidate) =>
+      candidate.bindingRef === node.term.requirement.implementationBindingRef,
+  );
+  assert.ok(
+    implementationBinding,
+    "installed resolution requires the canonical Hello World binding",
+  );
   const implementationModule = await import(
-    `${pathToFileURL(join(installedRoot, publication.implementationBindings[0].modulePath)).href}?resolution=${Date.now()}`
+    `${pathToFileURL(join(installedRoot, implementationBinding.modulePath)).href}?resolution=${Date.now()}`
   );
   const packagedImplementations = Object.values(implementationModule).filter(
     product.isPackagedLeafImplementationDescriptor,
@@ -445,15 +665,25 @@ export async function setupInstalledRootResolution(context, packageRoot) {
   };
 }
 
-export async function setupInstalledRootExecutionBasis(context, packageRoot) {
-  const environment = await setupInstalledRootResolution(context, packageRoot);
+export async function setupInstalledRootExecutionBasis(
+  context,
+  packageRoot,
+  options = {},
+) {
+  const environment = await setupInstalledRootResolution(
+    context,
+    packageRoot,
+    options,
+  );
   const {
     abg,
     store,
     program,
     programValidation,
     invocationAdmission,
+    input,
     publication,
+    node,
     graph,
     graphValidation,
     resolutionSetCandidate,
@@ -468,6 +698,7 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     store,
     {
       invocationAdmission,
+      rawInputValue: input,
       program,
       programValidation,
       graph,
@@ -491,8 +722,8 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     {
       graphFunctionRef: graph.graphFunctionRef,
       nodeRef: graph.template.startNodeRef,
-      programLocusRef: graph.template.nodes[0].term.programLocusRef,
-      implementationBindingRef: graph.template.nodes[0].term.requirement.implementationBindingRef,
+      programLocusRef: node.term.programLocusRef,
+      implementationBindingRef: node.term.requirement.implementationBindingRef,
     },
   );
   assert.notEqual(implementationRow, null);
@@ -500,12 +731,13 @@ export async function setupInstalledRootExecutionBasis(context, packageRoot) {
     install: environment.admittedInstall,
     publication,
     verifyInstallAdmission: (install) =>
-      abg.hasAdmittedProductInstall(store, install),
+      abg.hasAdmittedProductInstall(environment.artifactTruth, install),
   });
   const semanticsProjection =
     environment.product.projectInstalledLeafSemantics(semantics);
   const leafPort = await environment.hogInstalledProduct.bindInstalledLeafInvocationPort({
-    store,
+    prefix: abg.selectValidatedRuntimeEventPrefix(store.readAll()),
+    artifactTruth: environment.artifactTruth,
     install: environment.admittedInstall,
     implementationSet: executionBasisAdmission.implementationSet,
     publication,

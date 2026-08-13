@@ -38,8 +38,9 @@ async function runGateScenario(context, subject) {
     `m5-gate-${subject.toLowerCase()}`,
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       allowlist: [GRAPH_FUNCTION_REF, TARGET_GRAPH_FUNCTION_REF],
       subject,
     },

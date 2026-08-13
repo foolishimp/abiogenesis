@@ -3,6 +3,7 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
+  constructRuntimeFluent,
   constructRunActiveFluent,
   constructRunClosedFluent,
   constructRunTerminalFluent,
@@ -21,6 +22,8 @@ import type {
   RuntimeEvent,
   RuntimeEventScope,
 } from "./event_store.js";
+import { ROOT_EVENT_CONTRACT_DIGEST } from "./event_store.js";
+import { projectCCallPhase } from "./c_call.js";
 import type { FanOutCompletionAdmission } from "./fan_out.js";
 import { projectExactFanOutCompletion } from "./fan_out_projection.js";
 import {
@@ -379,31 +382,18 @@ function isNonNegativeInteger(value: JsonValue | undefined): value is number {
   return Number.isSafeInteger(value) && (value as number) >= 0;
 }
 
-function validateCCallOrder(events: readonly RuntimeEvent[]): void {
-  const ranks: Readonly<Record<string, number>> = {
-    c_call_opened: 0,
-    c_call_fibre_selected: 1,
-    c_call_evidenced: 2,
-    c_call_result_admitted: 3,
-    c_call_judged: 4,
-  };
-  let previous = -1;
-  for (const event of events) {
-    const rank = ranks[event.kind];
-    if (rank === undefined || rank < previous || (rank === previous && event.kind !== "c_call_evidenced")) {
-      throw new TypeError(`invalid CCall replay order at ${event.eventId}`);
-    }
-    previous = rank;
-  }
-}
-
 export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayState {
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), scope);
-  return replayValidatedRuntimeEventPrefix(prefix);
+  const events = store.readAll();
+  const fullPrefix = selectValidatedRuntimeEventPrefix(events);
+  const prefix = scope === undefined
+    ? fullPrefix
+    : selectValidatedRuntimeEventPrefix(events, scope);
+  return replayValidatedRuntimeEventPrefix(prefix, fullPrefix);
 }
 
 export function replayValidatedRuntimeEventPrefix(
   prefix: ValidatedRuntimeEventPrefix,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
 ): ReplayState {
   const events = runtimeEventsFromValidatedPrefix(prefix);
   const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
@@ -417,7 +407,7 @@ export function replayValidatedRuntimeEventPrefix(
     const rows = events.filter(
       (event) => event.aggregateType === "c_call" && event.aggregateId === cCallRef,
     );
-    validateCCallOrder(rows);
+    const phase = projectCCallPhase(prefix, cCallRef);
     const evidenceRows = rows.filter((event) => event.kind === "c_call_evidenced");
     const openedEvent = rows.find((event) => event.kind === "c_call_opened");
     const resultEvent = rows.find((event) => event.kind === "c_call_result_admitted");
@@ -450,10 +440,11 @@ export function replayValidatedRuntimeEventPrefix(
     ) {
       throw new TypeError(`incomplete CCall identity payload at ${cCallRef}`);
     }
-    let status: ReplayCCallState["status"] = "opened";
-    if (rows.some((event) => event.kind === "c_call_fibre_selected")) status = "fibre_selected";
-    if (resultEvent !== undefined) status = "result_admitted";
-    if (judgmentEvent !== undefined) status = "judged";
+    const status: ReplayCCallState["status"] = phase.phase === "judged"
+      ? "judged"
+      : phase.phase === "result_admitted"
+        ? "result_admitted"
+        : "fibre_selected";
     return {
       cCallRef,
       batchRef: batchRef as string | null,
@@ -882,7 +873,11 @@ export function replayValidatedRuntimeEventPrefix(
   );
 
   const runOpen = events.find((event) => event.kind === "run_segment_opened");
-  const continuations = projectFhContinuations(prefix, eventCalculus);
+  const continuations = projectFhContinuations(
+    prefix,
+    eventCalculus,
+    authorityPrefix,
+  );
   const graphCallOpen = events.find(
     (event) =>
       event.kind === "graph_call_opened" &&
@@ -920,7 +915,11 @@ export function replayValidatedRuntimeEventPrefix(
           event.graphCallId === graphCallOpen.graphCallId,
       );
   const runClosed = events.find((event) => event.kind === "run_closed");
-  const runStoppedRows = events.filter((event) => event.kind === "run_stopped");
+  const runStoppedRows = events.filter(
+    (event) =>
+      event.kind === "run_stopped" &&
+      stringField(event, "disposition") !== null,
+  );
   const invocationRefused = events.find((event) => event.kind === "invocation_refused");
   const runtimeFailure = events.find((event) => event.kind === "runtime_failure_observed");
   if (runStoppedRows.length > 1) {
@@ -950,6 +949,23 @@ export function replayValidatedRuntimeEventPrefix(
   const runStoppedDisposition = runStopped === undefined
     ? null
     : stringField(runStopped, "disposition");
+  const operatorRunStoppedHeld = runId !== null && holdsAt(
+    eventCalculus,
+    constructRuntimeFluent({ name: "operator_run_stopped", identity: runId }),
+  );
+  const operatorRunStopped = !operatorRunStoppedHeld
+    ? undefined
+    : [...events].reverse().find(
+        (event) =>
+          event.kind === "run_stopped" &&
+          event.runId === runId &&
+          stringField(event, "reasonKind") !== null,
+      );
+  const projectedRunStoppedEvent = runStopped ?? operatorRunStopped;
+  const projectedRunStoppedDisposition = runStoppedDisposition ??
+    (operatorRunStopped === undefined
+      ? null
+      : stringField(operatorRunStopped, "reasonKind"));
   const runStoppedRouteRef = runStopped === undefined
     ? null
     : stringField(runStopped, "routeRef");
@@ -999,8 +1015,8 @@ export function replayValidatedRuntimeEventPrefix(
     frameClosedEventRef: frameClosed?.eventId ?? null,
     graphCallClosedEventRef: graphCallClosed?.eventId ?? null,
     runClosedEventRef: runClosed?.eventId ?? null,
-    runStoppedEventRef: runStopped?.eventId ?? null,
-    runStoppedDisposition,
+    runStoppedEventRef: projectedRunStoppedEvent?.eventId ?? null,
+    runStoppedDisposition: projectedRunStoppedDisposition,
     invocationRefusalEventRef: invocationRefused?.eventId ?? null,
     runtimeFailureEventRef: runtimeFailure?.eventId ?? null,
     runtimeStatus: runtimeFailure !== undefined
@@ -1015,6 +1031,8 @@ export function replayValidatedRuntimeEventPrefix(
               : runStoppedDisposition === "failed"
                 ? "failed" as const
               : "stopped" as const
+          : operatorRunStoppedHeld
+            ? "stopped" as const
           : invocationRefused !== undefined
             ? "refused" as const
             : continuations.some(
@@ -1038,4 +1056,620 @@ export function replayValidatedRuntimeEventPrefix(
     replayDigest,
     ...body,
   }) as ReplayState;
+}
+
+export interface RunSemanticReplayPhysicalEventCoordinate {
+  readonly eventRef: string;
+  readonly eventId: string;
+  readonly admissionOrdinal: number;
+  readonly payloadDigest: Sha256Digest;
+}
+
+export interface RunSemanticReplayPhysicalCoordinates {
+  readonly kind: "run_semantic_replay_physical_coordinates";
+  readonly fullEventHistoryDigest: Sha256Digest;
+  readonly scopedEventStoreDigest: Sha256Digest;
+  readonly scopedReplayRef: string;
+  readonly scopedReplayDigest: Sha256Digest;
+  readonly events: readonly RunSemanticReplayPhysicalEventCoordinate[];
+}
+
+export interface RunSemanticEventAtom {
+  readonly atomRef: string;
+  readonly eventKind: RootEventKind;
+  readonly semanticPayloadDigest: Sha256Digest;
+  readonly eventTime: string;
+  readonly correlationId: string;
+  readonly workflowVersion: RuntimeEvent["workflowVersion"];
+  readonly aggregateType: RuntimeEvent["aggregateType"];
+  readonly aggregateId: string;
+  readonly parentAggregateId: string | null;
+  readonly scopeClass: RuntimeEvent["scopeClass"];
+  readonly basisId: string | null;
+  readonly runId: string | null;
+  readonly graphFunctionRef: string | null;
+  readonly materializationRef: string | null;
+  readonly graphCallId: string | null;
+  readonly frameId: string | null;
+}
+
+export interface RunSemanticRelationEdge {
+  readonly sourceAtom: string;
+  readonly relation: string;
+  readonly targetAtom: string;
+}
+
+export interface RunSemanticRelationView {
+  readonly kind: "run_semantic_relation_view";
+  readonly schemaVersion: "5.0.0";
+  readonly viewRef: string;
+  readonly viewDigest: Sha256Digest;
+  readonly eventContractDigest: Sha256Digest;
+  readonly runId: string;
+  readonly eventCount: number;
+  readonly eventKinds: readonly RootEventKind[];
+  readonly eventAtoms: readonly RunSemanticEventAtom[];
+  readonly relations: readonly RunSemanticRelationEdge[];
+  readonly ownerFacts: readonly Readonly<Record<string, JsonValue>>[];
+  readonly lifecycle: Readonly<Record<string, JsonValue>>;
+  readonly outcome: Readonly<Record<string, JsonValue>>;
+  readonly holdsAt: readonly JsonValue[];
+  readonly runtimeStatus: ReplayState["runtimeStatus"];
+  readonly physicalCoordinates: RunSemanticReplayPhysicalCoordinates;
+}
+
+export type RunSemanticReplayProjection = RunSemanticRelationView;
+
+type ClosedPathSegment = string | "*";
+
+interface ClosedTypedReferencePath {
+  readonly path: readonly ClosedPathSegment[];
+  readonly optional?: boolean;
+  readonly nullable?: boolean;
+}
+
+const EVENT_TYPED_REFERENCE_PATHS: Partial<
+  Readonly<Record<RootEventKind, readonly ClosedTypedReferencePath[]>>
+> = Object.freeze({
+  public_operation_artifact_admitted: [{
+    path: ["payload", "causationEventRefs", "*"],
+    optional: true,
+  }],
+  invocation_admitted: [
+    { path: ["payload", "reentryBasis", "sourceRouteEventRef"], optional: true },
+    { path: ["payload", "reentryBasis", "sourceRunStoppedEventRef"], optional: true },
+    { path: ["payload", "sourceResultBasis", "sourceResultAdmissionEventRef"], optional: true },
+    { path: ["payload", "sourceResultBasis", "sourceResultJudgmentEventRef"], optional: true },
+  ],
+  actor_invocation_closed: [
+    { path: ["payload", "consumedArtifactEventRef"], optional: true, nullable: true },
+    { path: ["payload", "consumedStdoutEventRefs", "*"], optional: true },
+    { path: ["payload", "consumedStderrEventRefs", "*"], optional: true },
+  ],
+  actor_invocation_failed: [
+    { path: ["payload", "consumedArtifactEventRef"], optional: true, nullable: true },
+    { path: ["payload", "consumedStdoutEventRefs", "*"], optional: true },
+    { path: ["payload", "consumedStderrEventRefs", "*"], optional: true },
+  ],
+  c_call_evidenced: [
+    { path: ["payload", "foldbackEventRef"], optional: true },
+    { path: ["payload", "childTerminalEventRef"], optional: true },
+  ],
+  retry_progress_recorded: [{
+    path: ["payload", "completionWitnessEventRef"],
+    optional: true,
+  }],
+  fan_out_completion_admitted: [
+    { path: ["payload", "taskRows", "*", "foldbackEventRef"], optional: true },
+    { path: ["payload", "completedRows", "*", "foldbackEventRef"], optional: true },
+    { path: ["payload", "stoppingRow", "foldbackEventRef"], optional: true },
+    { path: ["payload", "stoppingRow", "stoppingEventRef"], optional: true },
+  ],
+  child_foldback_admitted: [{
+    path: ["payload", "childTerminalEventRef"],
+  }],
+  construction_delta_observed: [
+    { path: ["payload", "runtimeEvidenceEventRefs", "*"] },
+    { path: ["payload", "actionEvaluationAdmission", "runtimeEvidenceEventRefs", "*"] },
+    { path: ["payload", "actionEvaluation", "runtimeArchiveInspection", "runtimeEvidenceEventRefs", "*"], optional: true },
+  ],
+  fh_interaction_opened: [
+    { path: ["payload", "causedByEventRef"] },
+    { path: ["payload", "cCall", "openedEventRef"] },
+    { path: ["payload", "cCall", "fibreSelectedEventRef"] },
+    { path: ["payload", "openedTraversalScope", "runOpenEventRef"] },
+    { path: ["payload", "openedTraversalScope", "graphCallOpenEventRef"] },
+    { path: ["payload", "openedTraversalScope", "frameOpenEventRef"] },
+    { path: ["payload", "pendingResult", "admissionEventRef"] },
+    { path: ["payload", "pendingJudgment", "admissionEventRef"] },
+  ],
+  fh_interaction_responded: [{
+    path: ["payload", "publicOperationEventRef"],
+  }],
+  fh_interaction_resume_admitted: [
+    { path: ["payload", "openedEventRef"] },
+    { path: ["payload", "respondedEventRef"] },
+    { path: ["payload", "publicOperationEventRef"] },
+  ],
+  continuation_abandoned: [{ path: ["payload", "causedByEventRef"] }],
+  continuation_superseded: [{ path: ["payload", "causedByEventRef"] }],
+  frame_closed: [{ path: ["payload", "terminalReachedEventRef"] }],
+  graph_call_closed: [{ path: ["payload", "frameClosedEventRef"] }],
+  run_closed: [{ path: ["payload", "graphCallClosedEventRef"] }],
+});
+
+interface LocatedReference {
+  readonly relation: string;
+  readonly value: JsonValue;
+}
+
+function isSemanticRecord(
+  value: JsonValue | undefined,
+): value is Readonly<Record<string, JsonValue>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+const ACTION_EVALUATION_BASIS_REFERENCE_PATHS = Object.freeze([
+  ["constructionIntent", "admissionEventRef"],
+  ["admittedEvidence", "*", "admissionEventRef"],
+  ["runtimeEvidenceEventRefs", "*"],
+] as const);
+
+function typedReferencePathsForEvent(
+  event: RuntimeEvent,
+): readonly ClosedTypedReferencePath[] {
+  const fixed = EVENT_TYPED_REFERENCE_PATHS[event.kind] ?? [];
+  if (!isSemanticRecord(event.payload)) return fixed;
+  const valueField = event.kind === "fh_interaction_resume_admitted" &&
+      event.payload.successorInputValueKind === "action_evaluation_basis"
+    ? "successorInputValue"
+    : null;
+  return valueField === null
+    ? fixed
+    : Object.freeze([
+        ...fixed,
+        ...ACTION_EVALUATION_BASIS_REFERENCE_PATHS.map((path) => ({
+          path: ["payload", valueField, ...path],
+        })),
+      ]);
+}
+
+function locateClosedTypedReferences(
+  value: JsonValue,
+  spec: ClosedTypedReferencePath,
+): readonly LocatedReference[] {
+  const walk = (
+    current: JsonValue | undefined,
+    depth: number,
+    relation: string,
+  ): readonly LocatedReference[] => {
+    if (depth === spec.path.length) {
+      return current === undefined ? [] : [{ relation, value: current }];
+    }
+    const segment = spec.path[depth]!;
+    if (segment === "*") {
+      if ((current === undefined || current === null) && spec.optional) return [];
+      if (!Array.isArray(current)) {
+        throw new TypeError(
+          `run semantic relation requires one typed array at ${relation}`,
+        );
+      }
+      return current.flatMap((entry, index) =>
+        walk(entry, depth + 1, `${relation}[${index}]`)
+      );
+    }
+    if ((current === undefined || current === null) && spec.optional) return [];
+    if (!isSemanticRecord(current)) {
+      throw new TypeError(
+        `run semantic relation requires one typed carrier at ${relation || segment}`,
+      );
+    }
+    if (!Object.hasOwn(current, segment)) {
+      if (spec.optional) return [];
+      throw new TypeError(
+        `run semantic relation is missing typed path ${relation}.${segment}`,
+      );
+    }
+    return walk(
+      current[segment],
+      depth + 1,
+      relation.length === 0 ? segment : `${relation}.${segment}`,
+    );
+  };
+  return walk(value, 0, "");
+}
+
+function relationEdges(
+  events: readonly RuntimeEvent[],
+  correspondence: ReadonlyMap<string, string>,
+  fullEventIds: ReadonlySet<string>,
+): readonly RunSemanticRelationEdge[] {
+  const edges: RunSemanticRelationEdge[] = [];
+  for (const event of events) {
+    const sourceAtom = correspondence.get(event.eventId)!;
+    const specs: readonly ClosedTypedReferencePath[] = [
+      { path: ["causationEventRefs", "*"] },
+      ...typedReferencePathsForEvent(event),
+    ];
+    for (const spec of specs) {
+      const located = locateClosedTypedReferences(
+        event as unknown as JsonValue,
+        spec,
+      );
+      for (const reference of located) {
+        if (reference.value === null && spec.nullable) continue;
+        if (typeof reference.value !== "string") {
+          throw new TypeError(
+            `run semantic relation requires one string event reference at ${reference.relation}`,
+          );
+        }
+        const targetAtom = correspondence.get(reference.value);
+        if (targetAtom === undefined) {
+          throw new TypeError(
+            fullEventIds.has(reference.value)
+              ? `run semantic relation encountered an out-of-scope event reference at ${reference.relation}`
+              : `run semantic relation requires one admitted Run event identity at ${reference.relation}`,
+          );
+        }
+        edges.push({ sourceAtom, relation: reference.relation, targetAtom });
+      }
+    }
+  }
+  return Object.freeze(edges);
+}
+
+function replaceClosedTypedReferences(
+  current: JsonValue | undefined,
+  spec: ClosedTypedReferencePath,
+  path: readonly ClosedPathSegment[],
+  correspondence: ReadonlyMap<string, string>,
+  fullEventIds: ReadonlySet<string>,
+  depth = 0,
+  relation = "payload",
+): JsonValue | undefined {
+  if (depth === path.length) {
+    if (current === null && spec.nullable) return null;
+    if (typeof current !== "string") {
+      throw new TypeError(
+        `run semantic relation requires one string event reference at ${relation}`,
+      );
+    }
+    const atom = correspondence.get(current);
+    if (atom === undefined) {
+      throw new TypeError(
+        fullEventIds.has(current)
+          ? `run semantic relation encountered an out-of-scope event reference at ${relation}`
+          : `run semantic relation requires one admitted Run event identity at ${relation}`,
+      );
+    }
+    return atom;
+  }
+  const segment = path[depth]!;
+  if (segment === "*") {
+    if ((current === undefined || current === null) && spec.optional) {
+      return current;
+    }
+    if (!Array.isArray(current)) {
+      throw new TypeError(
+        `run semantic relation requires one typed array at ${relation}`,
+      );
+    }
+    return current.map((entry, index) =>
+      replaceClosedTypedReferences(
+        entry,
+        spec,
+        path,
+        correspondence,
+        fullEventIds,
+        depth + 1,
+        `${relation}[${index}]`,
+      )!
+    );
+  }
+  if ((current === undefined || current === null) && spec.optional) {
+    return current;
+  }
+  if (!isSemanticRecord(current)) {
+    throw new TypeError(
+      `run semantic relation requires one typed carrier at ${relation}`,
+    );
+  }
+  if (!Object.hasOwn(current, segment)) {
+    if (spec.optional) return current;
+    throw new TypeError(
+      `run semantic relation is missing typed path ${relation}.${segment}`,
+    );
+  }
+  return {
+    ...current,
+    [segment]: replaceClosedTypedReferences(
+      current[segment],
+      spec,
+      path,
+      correspondence,
+      fullEventIds,
+      depth + 1,
+      `${relation}.${segment}`,
+    )!,
+  };
+}
+
+function semanticPayloadDigest(
+  event: RuntimeEvent,
+  correspondence: ReadonlyMap<string, string>,
+  fullEventIds: ReadonlySet<string>,
+): Sha256Digest {
+  let payload = event.payload as JsonValue;
+  if (event.kind === "fh_interaction_resume_admitted") {
+    if (!isSemanticRecord(payload)) {
+      throw new TypeError(
+        "run semantic relation requires one F_H resume payload",
+      );
+    }
+    const { durablePrefixDigest: _physicalPrefixDigest, ...semanticPayload } =
+      payload;
+    payload = semanticPayload;
+  }
+  for (const spec of typedReferencePathsForEvent(event)) {
+    if (spec.path[0] !== "payload") {
+      throw new TypeError("run semantic relation requires one payload-rooted path");
+    }
+    payload = replaceClosedTypedReferences(
+      payload,
+      spec,
+      spec.path.slice(1),
+      correspondence,
+      fullEventIds,
+    )!;
+  }
+  return sha256Canonical(payload);
+}
+
+function requiredAtom(
+  eventRef: string,
+  correspondence: ReadonlyMap<string, string>,
+  path: string,
+): string {
+  const atom = correspondence.get(eventRef);
+  if (atom === undefined) {
+    throw new TypeError(`run semantic relation lacks owner atom at ${path}`);
+  }
+  return atom;
+}
+
+function projectOwnerFacts(
+  prefix: ValidatedRuntimeEventPrefix,
+  replayState: ReplayState,
+  continuations: readonly ReplayContinuationState[],
+  correspondence: ReadonlyMap<string, string>,
+): readonly Readonly<Record<string, JsonValue>>[] {
+  const cCalls = replayState.cCalls.map((cCall) => {
+    const phase = projectCCallPhase(prefix, cCall.cCallRef);
+    if (phase.openedEventRef === null) {
+      throw new TypeError("replayed CCall lacks its atomic opening pair");
+    }
+    return {
+      owner: "c_call",
+      ownerAtom: requiredAtom(phase.openedEventRef, correspondence, "c_call"),
+      cCallRef: cCall.cCallRef,
+      phase: phase.phase,
+    } as Readonly<Record<string, JsonValue>>;
+  });
+  const routes = replayState.routes.map((route) => ({
+    owner: "route",
+    ownerAtom: requiredAtom(route.admissionEventRef, correspondence, "route"),
+    routeKind: route.routeKind,
+    declarationRef: route.declarationRef,
+    cCallRef: route.cCallRef,
+    contractRef: route.contractRef,
+  } as Readonly<Record<string, JsonValue>>));
+  const continuationFacts = continuations.map((continuation) => ({
+    owner: "fh_continuation",
+    ownerAtom: requiredAtom(
+      continuation.openedEventRef,
+      correspondence,
+      "continuation",
+    ),
+    continuationRef: continuation.continuationRef,
+    cCallRef: continuation.cCallRef,
+    requestContractRef: continuation.requestContractRef,
+    responseContractRef: continuation.responseContractRef,
+    constructionIntentRef: continuation.constructionIntentRef,
+    status: continuation.status,
+  } as Readonly<Record<string, JsonValue>>));
+  const fanOut = replayState.fanOutCompletions.map((completion) => ({
+    owner: "fan_out_completion",
+    ownerAtom: requiredAtom(
+      completion.admissionEventRef,
+      correspondence,
+      "fan_out_completion",
+    ),
+    applicationRef: completion.applicationRef,
+    batchRef: completion.batchRef,
+    completionKind: completion.completionKind,
+    taskOrdinals: completion.completionKind === "complete_vector"
+      ? completion.taskRows.map((row) => row.ordinal)
+      : [
+          ...completion.completedRows.map((row) => row.ordinal),
+          completion.stoppingRow.ordinal,
+        ],
+  } as Readonly<Record<string, JsonValue>>));
+  const deltas = replayState.constructionDeltas.map((delta) => ({
+    owner: "construction_delta",
+    ownerAtom: requiredAtom(
+      delta.admissionEventRef,
+      correspondence,
+      "construction_delta",
+    ),
+    constructionIntentRef: delta.constructionIntentRef,
+    targetOutcomeRef: delta.targetOutcomeRef,
+    semanticEvidenceAssetRefs: delta.semanticEvidenceAssetRefs,
+  } as Readonly<Record<string, JsonValue>>));
+  return Object.freeze([
+    ...cCalls,
+    ...routes,
+    ...continuationFacts,
+    ...fanOut,
+    ...deltas,
+  ]);
+}
+
+const EVENT_IDENTITY_FLUENT_NAMES = Object.freeze([
+  "actor_process_signal_requested",
+  "actor_result_artifact_available",
+  "actor_stderr_available",
+  "actor_stdout_available",
+  "runtime_failure",
+] as const);
+
+function semanticHoldsAt(
+  fluentRef: string,
+  correspondence: ReadonlyMap<string, string>,
+  fullEventIds: ReadonlySet<string>,
+): JsonValue {
+  for (const name of EVENT_IDENTITY_FLUENT_NAMES) {
+    const prefix = `${name}(`;
+    if (!fluentRef.startsWith(prefix) || !fluentRef.endsWith(")")) continue;
+    const eventRef = fluentRef.slice(prefix.length, -1);
+    const identityAtom = correspondence.get(eventRef);
+    if (identityAtom === undefined) {
+      throw new TypeError(
+        fullEventIds.has(eventRef)
+          ? `run semantic relation encountered out-of-scope HoldsAt identity ${name}`
+          : `run semantic relation requires admitted HoldsAt identity ${name}`,
+      );
+    }
+    return { name, identityAtom };
+  }
+  return fluentRef;
+}
+
+/**
+ * Projects one Run as a single replay-owned semantic relation view. Runtime
+ * carriers remain immutable physical truth; only closed typed event-reference
+ * paths become positional relation edges. Product-owned JSON is never walked.
+ */
+export function projectRunSemanticReplayProjection(
+  fullPrefix: ValidatedRuntimeEventPrefix,
+  runId: string,
+): RunSemanticRelationView {
+  if (runId.length === 0) {
+    throw new TypeError("run semantic relation requires one non-empty Run id");
+  }
+  const fullEvents = runtimeEventsFromValidatedPrefix(fullPrefix);
+  const runPrefix = selectValidatedRuntimeEventPrefix(fullEvents, { runId });
+  const events = runtimeEventsFromValidatedPrefix(runPrefix);
+  if (
+    events.length === 0 ||
+    !events.some((event) => event.runId === runId) ||
+    events.some((event) => event.runId !== undefined && event.runId !== runId)
+  ) {
+    throw new TypeError(
+      "run semantic relation requires one exact causally closed Run prefix",
+    );
+  }
+  const correspondence = new Map(
+    events.map((event, index) => [event.eventId, `r${index + 1}`]),
+  );
+  if (correspondence.size !== events.length) {
+    throw new TypeError("run semantic relation requires unique event identities");
+  }
+  const fullEventIds = new Set(fullEvents.map((event) => event.eventId));
+  const replayState = replayValidatedRuntimeEventPrefix(runPrefix, fullPrefix);
+  if (replayState.runId !== runId) {
+    throw new TypeError("run semantic relation differs from its selected Run");
+  }
+  const continuations = projectFhContinuations(
+    runPrefix,
+    deriveRuntimeEventCalculusProjection(runPrefix),
+    fullPrefix,
+  );
+  const eventAtoms = events.map((event): RunSemanticEventAtom => ({
+    atomRef: correspondence.get(event.eventId)!,
+    eventKind: event.kind,
+    semanticPayloadDigest: semanticPayloadDigest(
+      event,
+      correspondence,
+      fullEventIds,
+    ),
+    eventTime: event.eventTime,
+    correlationId: event.correlationId,
+    workflowVersion: event.workflowVersion,
+    aggregateType: event.aggregateType,
+    aggregateId: event.aggregateId,
+    parentAggregateId: event.parentAggregateId,
+    scopeClass: event.scopeClass,
+    basisId: event.basisId ?? null,
+    runId: event.runId ?? null,
+    graphFunctionRef: event.graphFunctionRef ?? null,
+    materializationRef: event.materializationRef ?? null,
+    graphCallId: event.graphCallId ?? null,
+    frameId: event.frameId ?? null,
+  }));
+  const lifecycle = {
+    traversalCursorPresent: replayState.traversalCursorEventRef !== null,
+    terminalReached: replayState.terminalReachedEventRef !== null,
+    frameClosed: replayState.frameClosedEventRef !== null,
+    graphCallClosed: replayState.graphCallClosedEventRef !== null,
+    runClosed: replayState.runClosedEventRef !== null,
+    runStopped: replayState.runStoppedEventRef !== null,
+    runStoppedDisposition: replayState.runStoppedDisposition,
+    invocationRefused: replayState.invocationRefusalEventRef !== null,
+    runtimeFailed: replayState.runtimeFailureEventRef !== null,
+  };
+  const outcome = {
+    routeKinds: replayState.routes.map((route) => route.routeKind),
+    cCallStatuses: replayState.cCalls.map((cCall) => cCall.status),
+    continuationStatuses: replayState.continuations.map((row) => row.status),
+    fanOutCompletionKinds: replayState.fanOutCompletions.map((row) =>
+      row.completionKind
+    ),
+  };
+  const semanticBody = {
+    eventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
+    runId,
+    eventCount: events.length,
+    eventKinds: events.map((event) => event.kind),
+    eventAtoms,
+    relations: relationEdges(
+      events,
+      correspondence,
+      fullEventIds,
+    ),
+    ownerFacts: projectOwnerFacts(
+      runPrefix,
+      replayState,
+      continuations,
+      correspondence,
+    ),
+    lifecycle,
+    outcome,
+    holdsAt: replayState.activeFluents.map((fluent) =>
+      semanticHoldsAt(fluent, correspondence, fullEventIds)
+    ),
+    runtimeStatus: replayState.runtimeStatus,
+  };
+  const viewDigest = sha256Canonical(semanticBody as unknown as JsonValue);
+  const physicalCoordinates = {
+    kind: "run_semantic_replay_physical_coordinates" as const,
+    fullEventHistoryDigest: sha256Canonical(fullEvents as unknown as JsonValue),
+    scopedEventStoreDigest: replayState.eventStoreDigest,
+    scopedReplayRef: replayState.replayRef,
+    scopedReplayDigest: replayState.replayDigest,
+    events: events.map((event, index) => ({
+        eventRef: `r${index + 1}`,
+        eventId: event.eventId,
+        admissionOrdinal: event.admissionOrdinal,
+        payloadDigest: event.payloadDigest,
+      })),
+  };
+  return deepFreeze({
+    kind: "run_semantic_relation_view" as const,
+    schemaVersion: "5.0.0" as const,
+    viewRef:
+      `run-semantic-relation://abiogenesis/${viewDigest.slice("sha256:".length)}`,
+    viewDigest,
+    ...semanticBody,
+    physicalCoordinates,
+  }) as RunSemanticRelationView;
 }

@@ -2,10 +2,15 @@ import assert from "node:assert/strict";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
+import { cloneEventPrefixResource } from "../support/new-empty-append-sink.mjs";
+
 let bytes = "";
 for await (const chunk of process.stdin) bytes += chunk;
 const input = JSON.parse(bytes);
 const moduleRoot = join(input.installedPackageRoot, "build/code/src/abg");
+const abg = await import(
+  `${pathToFileURL(join(moduleRoot, "index.js")).href}?stale-owner=${process.pid}`
+);
 const cCallModule = await import(
   `${pathToFileURL(join(moduleRoot, "c_call.js")).href}?stale=${process.pid}`
 );
@@ -21,14 +26,13 @@ function deeplyFreeze(value) {
   return Object.freeze(value);
 }
 
-const store = new eventStoreModule.AbgEventStore();
-for (const expected of input.events) {
-  const candidate = structuredClone(expected);
-  delete candidate.eventId;
-  delete candidate.admissionOrdinal;
-  delete candidate.payloadDigest;
-  assert.deepEqual(eventStoreModule.admitRuntimeEvent(store, candidate), expected);
-}
+const storeResource = await cloneEventPrefixResource(
+  abg,
+  eventStoreModule,
+  input.events,
+  "abi5-stale-rehydrate-worker-",
+);
+const store = storeResource.store;
 
 const opened = input.events.find(
   (event) =>
@@ -82,16 +86,22 @@ const state = cCallModule.rehydrateAdmittedCCallState(
   result,
   judgment,
 );
-process.stdout.write(JSON.stringify({
+const output = {
   processId: process.pid,
   state,
   sameCCallBranded: cCallModule.isCCall(cCall),
   sameResultBranded: cCallModule.isAdmittedCCallResult(result),
   sameJudgmentBranded: cCallModule.isAdmittedCCallJudgment(judgment),
-  currentOutcome: cCallModule.hasCurrentAdmittedCCallOutcome(
-    store,
+  currentOutcome: cCallModule.projectAdmittedCCallOutcomeAtPrefix(
+    abg.selectValidatedRuntimeEventPrefix(store.readAll(), {
+      runId: cCall.runId,
+    }),
     cCall,
     result,
     judgment,
-  ),
+  ) !== null,
+};
+await storeResource.dispose();
+process.stdout.write(JSON.stringify({
+  ...output,
 }));

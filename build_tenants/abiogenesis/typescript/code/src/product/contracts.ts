@@ -106,6 +106,8 @@ export interface VerifiedProductArtifact {
   readonly kind: "verified_product_artifact";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "verified";
+  readonly verificationRef: string;
+  readonly verificationDigest: Sha256Digest;
   readonly artifactRef: string;
   readonly artifactDigest: Sha256Digest;
   readonly artifactByteLength: number;
@@ -129,6 +131,8 @@ export interface VerifiedProductArtifact {
   readonly publicContractRefs: readonly string[];
   readonly publicCapabilityRefs: readonly string[];
   readonly checkedPayloadFiles: number;
+  readonly nativeDeclarationEvidence:
+    import("./declaration_exports.js").NativeProductDeclarationEvidence;
 }
 
 export const PRODUCT_VERIFICATION_REFUSAL_CODES = [

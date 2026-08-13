@@ -146,16 +146,14 @@
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "verifiedInvocationRefs"
+                "verifiedProductInputs"
               ],
               "properties": {
-                "verifiedInvocationRefs": {
+                "verifiedProductInputs": {
                   "type": "array",
                   "minItems": 1,
-                  "uniqueItems": true,
                   "items": {
-                    "type": "string",
-                    "pattern": "\\S"
+                    "type": "object"
                   }
                 }
               }
@@ -205,26 +203,24 @@
               "additionalProperties": false,
               "required": [
                 "artifactPath",
-                "resolvedLockInvocationRef",
+                "resolvedLock",
                 "targetRoot",
-                "verifiedInvocationRef"
+                "verifiedProduct"
               ],
               "properties": {
                 "artifactPath": {
                   "type": "string",
                   "pattern": "\\S"
                 },
-                "resolvedLockInvocationRef": {
-                  "type": "string",
-                  "pattern": "\\S"
+                "resolvedLock": {
+                  "type": "object"
                 },
                 "targetRoot": {
                   "type": "string",
                   "pattern": "\\S"
                 },
-                "verifiedInvocationRef": {
-                  "type": "string",
-                  "pattern": "\\S"
+                "verifiedProduct": {
+                  "type": "object"
                 }
               }
             }
@@ -455,14 +451,18 @@
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "catalogBasis",
+                "catalog",
+                "catalogView",
                 "contributorRef",
                 "handle",
                 "target",
                 "value"
               ],
               "properties": {
-                "catalogBasis": {
+                "catalog": {
+                  "type": "object"
+                },
+                "catalogView": {
                   "type": "object"
                 },
                 "contributorRef": {
@@ -525,13 +525,17 @@
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "catalogBasis",
+                "catalog",
+                "catalogView",
                 "contributorRef",
                 "handle",
                 "value"
               ],
               "properties": {
-                "catalogBasis": {
+                "catalog": {
+                  "type": "object"
+                },
+                "catalogView": {
                   "type": "object"
                 },
                 "contributorRef": {
@@ -591,10 +595,20 @@
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "catalogBasis"
+                "allowlist",
+                "catalog"
               ],
               "properties": {
-                "catalogBasis": {
+                "allowlist": {
+                  "type": "array",
+                  "minItems": 0,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "\\S"
+                  }
+                },
+                "catalog": {
                   "type": "object"
                 }
               }
@@ -1415,9 +1429,11 @@
               "additionalProperties": false,
               "required": [
                 "actorRef",
-                "catalogBasis",
+                "applications",
+                "catalog",
+                "catalogView",
                 "eventLogPath",
-                "graphFunctionRef",
+                "catalogHandle",
                 "input",
                 "installInvocationRef",
                 "programRef",
@@ -1429,14 +1445,24 @@
                   "type": "string",
                   "pattern": "\\S"
                 },
-                "catalogBasis": {
+                "applications": {
+                  "type": "array",
+                  "minItems": 0,
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "catalog": {
+                  "type": "object"
+                },
+                "catalogView": {
                   "type": "object"
                 },
                 "eventLogPath": {
                   "type": "string",
                   "pattern": "\\S"
                 },
-                "graphFunctionRef": {
+                "catalogHandle": {
                   "type": "string",
                   "pattern": "\\S"
                 },
@@ -1540,7 +1566,9 @@
               "additionalProperties": false,
               "required": [
                 "actorRef",
-                "catalogBasis",
+                "applications",
+                "catalog",
+                "catalogView",
                 "eventLogPath",
                 "input",
                 "installInvocationRef",
@@ -1556,7 +1584,17 @@
                   "type": "string",
                   "pattern": "\\S"
                 },
-                "catalogBasis": {
+                "applications": {
+                  "type": "array",
+                  "minItems": 0,
+                  "items": {
+                    "type": "object"
+                  }
+                },
+                "catalog": {
+                  "type": "object"
+                },
+                "catalogView": {
                   "type": "object"
                 },
                 "eventLogPath": {
@@ -2304,15 +2342,19 @@
       "additionalProperties": false,
       "required": [
         "kind",
+        "schemaVersion",
         "lockId",
         "lockDigest",
         "nativeContractClosureDigest",
-        "productIds",
+        "rows",
         "dependencyEdges"
       ],
       "properties": {
         "kind": {
           "const": "resolved_product_lock"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
         },
         "lockId": {
           "type": "string",
@@ -2326,13 +2368,11 @@
           "type": "string",
           "pattern": "^sha256:[0-9a-f]{64}$"
         },
-        "productIds": {
+        "rows": {
           "type": "array",
           "minItems": 1,
-          "uniqueItems": true,
           "items": {
-            "type": "string",
-            "pattern": "\\S"
+            "type": "object"
           }
         },
         "dependencyEdges": {

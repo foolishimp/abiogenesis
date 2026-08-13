@@ -9,7 +9,7 @@ const worker = resolve(
   "../falsifiers/runtime-retained-projections-worker.mjs",
 );
 
-function observeRetained(abg, product, store, requests) {
+function observeRetained(abg, product, store, requests, durablePrefix) {
   return requests.map((request) => {
     if (request.availability === "blocked_migration") {
       return {
@@ -28,6 +28,8 @@ function observeRetained(abg, product, store, requests) {
     );
     const projection = request.owner === "product"
       ? projector(...(request.args ?? []))
+      : request.input === "durable_prefix"
+      ? projector(durablePrefix, ...(request.args ?? []))
       : request.input === "validated_run_prefix"
       ? projector(
           abg.selectValidatedRuntimeEventPrefix(
@@ -85,23 +87,40 @@ export async function proveFreshProcessRuntimeProjectionEquality({
   requests,
   store,
 }) {
-  const retainedRows = observeRetained(abg, product, store, requests);
-  const reopenAuthority = store.projectReopenAuthorityAndClose();
-  const input = { installedPackageRoot, reopenAuthority, requests };
+  const closeHandoff = store.projectReopenAuthorityAndClose();
+  const retainedRows = observeRetained(
+    abg,
+    product,
+    store,
+    requests,
+    closeHandoff.prefix,
+  );
+  const input = {
+    installedPackageRoot,
+    reopenAuthority: closeHandoff.reopenAuthority,
+    prefix: closeHandoff.prefix,
+    requests,
+  };
   const first = await runFreshWorker(input);
   const second = await runFreshWorker(input);
 
   assert.notEqual(first.processId, process.pid);
   assert.notEqual(second.processId, process.pid);
   assert.notEqual(first.processId, second.processId);
-  assert.equal(first.eventLogDigest, reopenAuthority.eventLogDigest);
-  assert.equal(second.eventLogDigest, reopenAuthority.eventLogDigest);
+  assert.equal(
+    first.eventLogDigest,
+    closeHandoff.reopenAuthority.eventLogDigest,
+  );
+  assert.equal(
+    second.eventLogDigest,
+    closeHandoff.reopenAuthority.eventLogDigest,
+  );
   assert.deepEqual(first.rows, retainedRows);
   assert.deepEqual(second.rows, retainedRows);
 
   return Object.freeze({
     kind: "fresh_process_runtime_projection_proof",
-    eventLogDigest: reopenAuthority.eventLogDigest,
+    eventLogDigest: closeHandoff.reopenAuthority.eventLogDigest,
     historicalEventCount: first.historicalEventCount,
     retainedRows,
     freshProcessIds: Object.freeze([first.processId, second.processId]),

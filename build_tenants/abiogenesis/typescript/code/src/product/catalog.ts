@@ -3,6 +3,7 @@ import type {
   GraphFunction,
   ModulePublication,
 } from "../gtl/contracts.js";
+import { canonicalizeAuthoredGtlCarrier } from "../gtl/canonicalization.js";
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
@@ -14,6 +15,7 @@ import type { ProductInstall, ResolvedProductLock, WorkspaceBindingCandidate } f
 import { constructProductSet, isResolvedProductLock } from "./environment.js";
 import type { ProductInstallCandidate, VerifiedProductArtifact } from "./contracts.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
+import { isVerifiedProductArtifact } from "./verify_product.js";
 
 export interface GraphFunctionCatalogEntry {
   readonly kind: "graph_function_catalog_entry";
@@ -103,12 +105,38 @@ export interface GraphFunctionCatalogView {
   readonly viewDigest: Sha256Digest;
 }
 
+export interface GraphFunctionDefinitionLookupExact {
+  readonly kind: "graph_function_definition_lookup_exact";
+  readonly definitionRef: string;
+  readonly programRef: string;
+  readonly entry: GraphFunctionCatalogEntry;
+}
+
+export interface GraphFunctionDefinitionLookupAbsent {
+  readonly kind: "graph_function_definition_lookup_absent";
+  readonly definitionRef: string;
+  readonly programRef: string;
+}
+
+export interface GraphFunctionDefinitionLookupAmbiguous {
+  readonly kind: "graph_function_definition_lookup_ambiguous";
+  readonly definitionRef: string;
+  readonly programRef: string;
+  readonly entries: readonly GraphFunctionCatalogEntry[];
+}
+
+export type GraphFunctionDefinitionLookupResult =
+  | GraphFunctionDefinitionLookupExact
+  | GraphFunctionDefinitionLookupAbsent
+  | GraphFunctionDefinitionLookupAmbiguous;
+
 export interface CatalogConstructionRefusal {
   readonly kind: "catalog_construction_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
   readonly code:
     | "canonical_handle_collision"
+    | "duplicate_contribution_reference"
     | "duplicate_allowlist_entry"
     | "graph_function_definition_missing"
     | "invalid_program_membership"
@@ -184,6 +212,62 @@ function orderedUniqueStrings(values: readonly string[]): readonly string[] {
   );
 }
 
+function orderedStrings(values: readonly string[]): readonly string[] {
+  return Object.freeze([...values].sort(compareUnicodeCodeUnits));
+}
+
+function frozenCanonicalStrings(values: readonly string[]): readonly string[] {
+  return Object.freeze([...values]);
+}
+
+const CONTRIBUTION_INVENTORY_FIELDS = [
+  "programMembershipRefs",
+  "readinessPrerequisiteRefs",
+  "compatibilityRefs",
+  "provenanceRefs",
+] as const;
+
+type ContributionInventoryField =
+  (typeof CONTRIBUTION_INVENTORY_FIELDS)[number];
+
+function duplicateContributionReference(
+  publications: readonly Readonly<ModulePublication>[],
+): Readonly<{
+  readonly moduleRef: string;
+  readonly handle: string;
+  readonly field: ContributionInventoryField;
+  readonly value: string;
+}> | null {
+  for (const publication of publications) {
+    for (const contribution of publication.contributions) {
+      for (const field of CONTRIBUTION_INVENTORY_FIELDS) {
+        const seen = new Set<string>();
+        for (const value of contribution[field]) {
+          if (seen.has(value)) {
+            return {
+              moduleRef: publication.moduleRef,
+              handle: contribution.handle,
+              field,
+              value,
+            };
+          }
+          seen.add(value);
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function duplicateContributionRefusal(
+  duplicate: NonNullable<ReturnType<typeof duplicateContributionReference>>,
+): CatalogConstructionRefusal {
+  return refusal(
+    "duplicate_contribution_reference",
+    `module ${duplicate.moduleRef} catalog handle ${duplicate.handle} has duplicate ${duplicate.field} value ${duplicate.value}`,
+  );
+}
+
 function frozenIndex<T extends Readonly<{ readonly handle: string }>>(
   entries: readonly T[],
 ): Readonly<Record<string, T>> {
@@ -216,11 +300,11 @@ function graphFunctionEntry(
     owningProductId: contribution.owningProductId,
     moduleRef: publication.moduleRef,
     publicationDigest,
-    programMembershipRefs: orderedUniqueStrings(
+    programMembershipRefs: frozenCanonicalStrings(
       contribution.programMembershipRefs,
     ),
-    compatibilityRefs: orderedUniqueStrings(contribution.compatibilityRefs),
-    provenanceRefs: orderedUniqueStrings(contribution.provenanceRefs),
+    compatibilityRefs: frozenCanonicalStrings(contribution.compatibilityRefs),
+    provenanceRefs: frozenCanonicalStrings(contribution.provenanceRefs),
   };
   return deepFreeze({
     kind: "graph_function_catalog_entry" as const,
@@ -243,11 +327,11 @@ function declarationEntry(
     owningProductId: contribution.owningProductId,
     moduleRef: publication.moduleRef,
     publicationDigest,
-    programMembershipRefs: orderedUniqueStrings(
+    programMembershipRefs: frozenCanonicalStrings(
       contribution.programMembershipRefs,
     ),
-    compatibilityRefs: orderedUniqueStrings(contribution.compatibilityRefs),
-    provenanceRefs: orderedUniqueStrings(contribution.provenanceRefs),
+    compatibilityRefs: frozenCanonicalStrings(contribution.compatibilityRefs),
+    provenanceRefs: frozenCanonicalStrings(contribution.provenanceRefs),
   };
   return deepFreeze({
     kind: "declaration_catalog_entry" as const,
@@ -319,11 +403,15 @@ export function admitGraphFunctionCatalog(
       compareUnicodeCodeUnits(left.productId, right.productId)),
     installedProducts: [...basis.installedProducts].sort((left, right) =>
       compareUnicodeCodeUnits(left.productId, right.productId)),
-    publications: [...basis.publications].sort((left, right) =>
-      compareUnicodeCodeUnits(
-        modulePublicationSemanticDigest(left),
-        modulePublicationSemanticDigest(right),
-      )),
+    publications: basis.publications
+      .map((publication) =>
+        canonicalizeAuthoredGtlCarrier(publication, "module_publication")
+      )
+      .sort((left, right) =>
+        compareUnicodeCodeUnits(
+          modulePublicationSemanticDigest(left),
+          modulePublicationSemanticDigest(right),
+        )),
   };
   const { workspaceBinding, resolvedLock, verifiedProducts, installedProducts, publications } = canonicalBasis;
   const workspaceBindingBody = {
@@ -358,10 +446,7 @@ export function admitGraphFunctionCatalog(
   if (
     verifiedProducts.length !== resolvedLock.rows.length ||
     verifiedProducts.some((verified) => {
-      if (
-        verified.kind !== "verified_product_artifact" ||
-        verified.disposition !== "verified"
-      ) return true;
+      if (!isVerifiedProductArtifact(verified)) return true;
       const rows = resolvedLock.rows.filter((row) => row.productId === verified.productId);
       return rows.length !== 1 || canonicalJson(
         lockComparableProduct(verified),
@@ -406,6 +491,10 @@ export function admitGraphFunctionCatalog(
       "binding_lock_mismatch",
       "catalog readiness workspace is unrelated to the exact installed Product set",
     );
+  }
+  const duplicateContribution = duplicateContributionReference(publications);
+  if (duplicateContribution !== null) {
+    return duplicateContributionRefusal(duplicateContribution);
   }
   const rowDispositions: CatalogReadinessRowDisposition[] = [];
   const admittedPublications: ModulePublication[] = [];
@@ -455,7 +544,9 @@ export function admitGraphFunctionCatalog(
       publication.productManifestDigest !== lockRow.manifestDigest ||
       publication.descriptorRef !== lockRow.descriptorRef ||
       publication.contributionManifestRef !== lockRow.contributionManifestRef ||
-      publicationBindings.length !== 1;
+      publicationBindings.length !== 1 ||
+      publicationBindings[0]?.publicationDigest !==
+        modulePublicationSemanticDigest(publication);
     const admittedReadinessRefs = new Set([
       publication.moduleRef,
       lockRow.artifactDigest,
@@ -503,25 +594,40 @@ export function admitGraphFunctionCatalog(
         declared.declarationOrContractRef !== contribution.declarationOrContractRef ||
         declared.owningProductId !== contribution.owningProductId ||
         declared.provenanceRef !== lockRow.provenanceRef ||
-        canonicalJson(declared.programMembershipRefs as unknown as JsonValue) !==
-          canonicalJson(contribution.programMembershipRefs as unknown as JsonValue) ||
+        canonicalJson(orderedStrings(
+          declared.programMembershipRefs,
+        ) as unknown as JsonValue) !==
+          canonicalJson(
+            contribution.programMembershipRefs as unknown as JsonValue,
+          ) ||
         canonicalJson(contribution.provenanceRefs as unknown as JsonValue) !==
-          canonicalJson([lockRow.artifactDigest, lockRow.manifestDigest])
+          canonicalJson(orderedStrings([
+            lockRow.artifactDigest,
+            lockRow.manifestDigest,
+          ]) as unknown as JsonValue)
       ) {
         pushDisposition(publication, contribution, "rejected", "manifest_or_provenance_mismatch");
         continue;
       }
       if (
-        canonicalJson(declared.compatibilityRefs as unknown as JsonValue) !==
-          canonicalJson(contribution.compatibilityRefs as unknown as JsonValue) ||
+        canonicalJson(orderedStrings(
+          declared.compatibilityRefs,
+        ) as unknown as JsonValue) !==
+          canonicalJson(
+            contribution.compatibilityRefs as unknown as JsonValue,
+          ) ||
         declared.compatibilityRefs.some((ref) => !lockRow.compatibilityRefs.includes(ref))
       ) {
         pushDisposition(publication, contribution, "incompatible", "compatibility_mismatch");
         continue;
       }
       if (
-        canonicalJson(declared.readinessPrerequisiteRefs as unknown as JsonValue) !==
-          canonicalJson(contribution.readinessPrerequisiteRefs as unknown as JsonValue)
+        canonicalJson(orderedStrings(
+          declared.readinessPrerequisiteRefs,
+        ) as unknown as JsonValue) !==
+          canonicalJson(
+            contribution.readinessPrerequisiteRefs as unknown as JsonValue,
+          )
       ) {
         pushDisposition(publication, contribution, "unready", "readiness_declaration_mismatch");
         continue;
@@ -561,13 +667,25 @@ export function admitGraphFunctionCatalog(
 export function buildGraphFunctionCatalog(
   exactPublications: readonly Readonly<ModulePublication>[],
 ): GraphFunctionCatalogResult {
-  const publications = exactPublications.map((publication) => ({
-    publication,
-    digest: modulePublicationSemanticDigest(publication),
-  })).sort((left, right) =>
+  const publications = exactPublications.map((authoredPublication) => {
+    const publication = canonicalizeAuthoredGtlCarrier(
+      authoredPublication,
+      "module_publication",
+    );
+    return {
+      publication,
+      digest: modulePublicationSemanticDigest(publication),
+    };
+  }).sort((left, right) =>
     compareUnicodeCodeUnits(left.publication.moduleRef, right.publication.moduleRef) ||
     compareUnicodeCodeUnits(left.digest, right.digest)
   );
+  const duplicateContribution = duplicateContributionReference(
+    publications.map((row) => row.publication),
+  );
+  if (duplicateContribution !== null) {
+    return duplicateContributionRefusal(duplicateContribution);
+  }
   const publicationByModule = new Map<string, Sha256Digest>();
   const callableByHandle = new Map<string, GraphFunctionCatalogEntry>();
   const declarationByHandle = new Map<string, DeclarationCatalogEntry>();
@@ -703,11 +821,34 @@ export function lookupGraphFunction(
 export function lookupGraphFunctionDefinition(
   catalog: GraphFunctionCatalog | GraphFunctionCatalogView,
   definitionRef: string,
-): GraphFunctionCatalogEntry | null {
+  programRef: string,
+): GraphFunctionDefinitionLookupResult {
   const matches = catalog.entries.filter(
-    (entry) => entry.definitionRef === definitionRef,
+    (entry) =>
+      entry.definitionRef === definitionRef &&
+      entry.programMembershipRefs.includes(programRef),
   );
-  return matches.length === 1 ? matches[0]! : null;
+  if (matches.length === 0) {
+    return deepFreeze({
+      kind: "graph_function_definition_lookup_absent" as const,
+      definitionRef,
+      programRef,
+    });
+  }
+  if (matches.length === 1) {
+    return deepFreeze({
+      kind: "graph_function_definition_lookup_exact" as const,
+      definitionRef,
+      programRef,
+      entry: matches[0]!,
+    });
+  }
+  return deepFreeze({
+    kind: "graph_function_definition_lookup_ambiguous" as const,
+    definitionRef,
+    programRef,
+    entries: matches,
+  });
 }
 
 export function narrowGraphFunctionCatalog(

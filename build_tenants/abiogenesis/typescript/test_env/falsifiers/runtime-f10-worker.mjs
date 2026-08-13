@@ -11,21 +11,12 @@ const abg = await import(
     "build/code/src/abg/index.js",
   )).href}?fresh=${process.pid}`
 );
-const eventStore = await import(
-  pathToFileURL(join(
-    input.installedPackageRoot,
-    "build/code/src/abg/event_store.js",
-  )).href
+const reopened = abg.reopenEventStore(
+  input.reopenAuthority,
+  input.prefix,
 );
-
-const store = new abg.AbgEventStore();
-for (const expected of input.events) {
-  const candidate = structuredClone(expected);
-  delete candidate.eventId;
-  delete candidate.admissionOrdinal;
-  delete candidate.payloadDigest;
-  assert.deepEqual(eventStore.admitRuntimeEvent(store, candidate), expected);
-}
+assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
+const store = reopened.store;
 
 const state = abg.rehydrateAdmittedCCallState(
   store,
@@ -36,21 +27,25 @@ const state = abg.rehydrateAdmittedCCallState(
 assert.ok(state);
 const result = structuredClone(state.result);
 const judgment = structuredClone(state.judgment);
-const accepted = abg.hasCurrentAdmittedCCallOutcome(
-  store,
+const prefix = abg.selectValidatedRuntimeEventPrefix(store.readAll(), {
+  runId: state.cCall.runId,
+});
+const accepted = abg.projectAdmittedCCallOutcomeAtPrefix(
+  prefix,
   state.cCall,
   result,
   judgment,
-);
+) !== null;
 const substituted = structuredClone(judgment);
 substituted.reasonRef = "reason://abiogenesis/s06/ax-f10/substituted@5";
-const substitutedAccepted = abg.hasCurrentAdmittedCCallOutcome(
-  store,
+const substitutedAccepted = abg.projectAdmittedCCallOutcomeAtPrefix(
+  prefix,
   state.cCall,
   result,
   substituted,
-);
+) !== null;
 const replay = abg.replay(store, { runId: state.cCall.runId });
+store.closeDurableLog();
 process.stdout.write(JSON.stringify({
   processId: process.pid,
   historicalCCallBranded: abg.isCCall(state.cCall),

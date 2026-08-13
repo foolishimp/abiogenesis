@@ -1,7 +1,4 @@
-import { constants } from "node:fs";
-import { createHash } from "node:crypto";
-import { copyFile, mkdir, readFile, stat } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
 async function readRequest() {
@@ -45,136 +42,7 @@ function summarizeOutcome(outcome) {
   };
 }
 
-function sha256Bytes(bytes) {
-  return `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
-}
-
-function requireCondition(condition, message) {
-  if (!condition) throw new TypeError(message);
-}
-
-function sameAuthority(left, right) {
-  return left?.authorityDigest === right?.authorityDigest;
-}
-
-async function projectedAuthorityExtends(requested, projected) {
-  if (
-    requested?.eventLogPath !== projected?.eventLogPath ||
-    requested?.device !== projected?.device ||
-    requested?.inode !== projected?.inode ||
-    requested?.eventContractDigest !== projected?.eventContractDigest ||
-    !Number.isSafeInteger(requested?.durableByteLength) ||
-    !Number.isSafeInteger(projected?.durableByteLength) ||
-    projected.durableByteLength < requested.durableByteLength
-  ) {
-    return false;
-  }
-  const bytes = await readFile(projected.eventLogPath);
-  return sha256Bytes(bytes.subarray(0, requested.durableByteLength)) ===
-    requested.eventLogDigest;
-}
-
-function projectAndRemember(context) {
-  if (context.pendingReopenAuthority !== null) {
-    return context.pendingReopenAuthority;
-  }
-  if (context.store.configuredDurableLogPath() === null) return null;
-  const authority = context.store.projectReopenAuthorityAndClose();
-  context.pendingReopenAuthority = authority;
-  return authority;
-}
-
-async function cloneVerifiedPrefix(cliHost, sourceAuthority, targetPath) {
-  const abg = await importInstalled(
-    cliHost,
-    "@abiogenesis/typescript-tenant/abg",
-  );
-  const product = await importInstalled(
-    cliHost,
-    "@abiogenesis/typescript-tenant/product",
-  );
-  const source = abg.reopenEventStore(sourceAuthority);
-  requireCondition(
-    source.kind === "reopened_event_store_context",
-    `source prefix reopen refused: ${source.code ?? "unknown"}`,
-  );
-  source.store.closeDurableLog();
-  await mkdir(dirname(targetPath), { recursive: true });
-  await copyFile(
-    sourceAuthority.eventLogPath,
-    targetPath,
-    constants.COPYFILE_EXCL,
-  );
-  const [identity, bytes] = await Promise.all([
-    stat(targetPath),
-    readFile(targetPath),
-  ]);
-  requireCondition(
-    sha256Bytes(bytes) === sourceAuthority.eventLogDigest,
-    "cloned prefix bytes differ from the admitted source prefix",
-  );
-  const body = {
-    kind: "event_store_reopen_authority",
-    schemaVersion: "5.0.0",
-    eventLogPath: targetPath,
-    device: identity.dev,
-    inode: identity.ino,
-    eventLogDigest: sourceAuthority.eventLogDigest,
-    durableByteLength: identity.size,
-    eventContractDigest: sourceAuthority.eventContractDigest,
-  };
-  const candidate = {
-    ...body,
-    authorityDigest: product.sha256Canonical(body),
-  };
-  const reopened = abg.reopenEventStore(candidate);
-  requireCondition(
-    reopened.kind === "reopened_event_store_context",
-    `cloned prefix reopen refused: ${reopened.code ?? "unknown"}`,
-  );
-  const authority = reopened.store.projectReopenAuthorityAndClose();
-  requireCondition(
-    authority.eventLogDigest === sourceAuthority.eventLogDigest &&
-      authority.durableByteLength === sourceAuthority.durableByteLength,
-    "cloned prefix does not preserve the exact durable prefix bytes",
-  );
-  return {
-    authority,
-    historicalEventCount: reopened.historicalEventCount,
-  };
-}
-
-async function runF12Phase(context, publicApi, product, phase, requestedAuthority) {
-  const ingressAuthority = context.pendingReopenAuthority;
-  requireCondition(
-    ingressAuthority !== null,
-    `${phase.label}: retained context has no observable ingress prefix`,
-  );
-  const outcomes = [];
-  for (const row of phase.rows) {
-    outcomes.push(summarizeOutcome(
-      await publicApi.applyRootPublicInvocation(context, row),
-    ));
-  }
-  const projectedAuthority = projectAndRemember(context);
-  requireCondition(
-    projectedAuthority !== null,
-    `${phase.label}: invocation did not project one durable prefix`,
-  );
-  return {
-    label: phase.label,
-    requestCarrierDigest: product.sha256Canonical(phase.rows),
-    outcomes,
-    requestedIngressEqual: sameAuthority(requestedAuthority, ingressAuthority),
-    projectedExtendsRequested: await projectedAuthorityExtends(
-      requestedAuthority,
-      projectedAuthority,
-    ),
-    projectedAuthority,
-  };
-}
-
-async function runF12Retained(request) {
+async function runF12ContextSequence(request) {
   const publicApi = await importInstalled(
     request.cliHost,
     "@abiogenesis/typescript-tenant/public",
@@ -183,112 +51,38 @@ async function runF12Retained(request) {
     request.cliHost,
     "@abiogenesis/typescript-tenant/product",
   );
-  const context = publicApi.createRootOperationContext(request.prefixA.eventLogPath);
-  try {
-    const setupOutcomes = [];
-    for (const row of request.prefixA.setupRows) {
-      setupOutcomes.push(summarizeOutcome(
-        await publicApi.applyRootPublicInvocation(context, row),
-      ));
+  const episodes = [];
+  for (const episode of request.episodes) {
+    const context = publicApi.reopenRootOperationContext(episode.handoff);
+    const startHistoricalEventCount = context.store.readAll().length;
+    const ingressPrefix = structuredClone(context.prefix);
+    const outcomes = [];
+    const outcomeProjectionDigests = [];
+    let endEventCount = startHistoricalEventCount;
+    let successorHandoff = null;
+    try {
+      for (const row of episode.rows) {
+        const outcome = await publicApi.applyRootPublicInvocation(context, row);
+        outcomes.push(summarizeOutcome(outcome));
+        outcomeProjectionDigests.push(product.sha256Canonical(outcome));
+      }
+      endEventCount = context.store.readAll().length;
+      successorHandoff = publicApi.projectRootOperationContextAuthority(context);
+    } finally {
+      publicApi.closeRootOperationContext(context);
     }
-    const prefixA = projectAndRemember(context);
-    requireCondition(prefixA !== null, "AX-F12 prefix A did not project");
-    const freshA = await cloneVerifiedPrefix(
-      request.cliHost,
-      prefixA,
-      request.prefixA.freshEventLogPath,
-    );
-
-    const phaseA = await runF12Phase(
-      context,
-      publicApi,
-      product,
-      request.phaseA,
-      prefixA,
-    );
-    const phaseB = await runF12Phase(
-      context,
-      publicApi,
-      product,
-      request.phaseB,
-      request.prefixB,
-    );
-    const phaseAReturn = await runF12Phase(
-      context,
-      publicApi,
-      product,
-      request.phaseAReturn,
-      phaseA.projectedAuthority,
-    );
-    return {
-      pid: process.pid,
-      setupOutcomes,
-      prefixA,
-      freshA,
-      phases: [phaseA, phaseB, phaseAReturn],
-    };
-  } finally {
-    publicApi.closeRootOperationContext(context);
+    episodes.push({
+      label: episode.label,
+      requestCarrierDigest: product.sha256Canonical(episode.rows),
+      ingressPrefix,
+      startHistoricalEventCount,
+      endEventCount,
+      outcomeProjectionDigests,
+      outcomes,
+      successorHandoff,
+    });
   }
-}
-
-async function runF12Fresh(request) {
-  const publicApi = await importInstalled(
-    request.cliHost,
-    "@abiogenesis/typescript-tenant/public",
-  );
-  const product = await importInstalled(
-    request.cliHost,
-    "@abiogenesis/typescript-tenant/product",
-  );
-  const context = publicApi.reopenRootOperationContext(request.authority);
-  try {
-    return {
-      pid: process.pid,
-      phase: await runF12Phase(
-      context,
-      publicApi,
-      product,
-      request.phase,
-      request.authority,
-      ),
-    };
-  } finally {
-    publicApi.closeRootOperationContext(context);
-  }
-}
-
-async function inspectF12Prefix(request) {
-  const abg = await importInstalled(
-    request.cliHost,
-    "@abiogenesis/typescript-tenant/abg",
-  );
-  const reopened = abg.reopenEventStore(request.authority);
-  requireCondition(
-    reopened.kind === "reopened_event_store_context",
-    `AX-F12 prefix inspection refused: ${reopened.code ?? "unknown"}`,
-  );
-  try {
-    const events = reopened.store.readAll();
-    const install = events.filter((event) =>
-      event.kind === "public_operation_artifact_admitted" &&
-      event.payload.operationId === "abg.operation.product.install" &&
-      event.payload.invocationRef === request.installInvocationRef
-    );
-    const binding = events.filter((event) =>
-      event.kind === "public_operation_artifact_admitted" &&
-      event.payload.operationId === "abg.operation.workspace.bind" &&
-      event.payload.invocationRef === request.bindingInvocationRef
-    );
-    return {
-      authorityVerified: reopened.eventLogDigest === request.authority.eventLogDigest,
-      historicalEventCount: reopened.historicalEventCount,
-      installAdmissionCount: install.length,
-      workspaceBindingAdmissionCount: binding.length,
-    };
-  } finally {
-    publicApi.closeRootOperationContext(context);
-  }
+  return { pid: process.pid, episodes };
 }
 
 async function runPublicTranscript(request) {
@@ -301,10 +95,11 @@ async function runPublicTranscript(request) {
     "@abiogenesis/typescript-tenant/product",
   );
   const context = request.durableStart?.kind === "reopen"
-    ? publicApi.reopenRootOperationContext(request.durableStart.authority)
+    ? publicApi.reopenRootOperationContext(request.durableStart.handoff)
     : publicApi.createRootOperationContext(request.durableStart.eventLogPath);
-  let startHistoricalEventCount = context.store.readAll().length;
-  let projectedAuthority = null;
+  const startHistoricalEventCount = context.store.readAll().length;
+  let endEventCount = startHistoricalEventCount;
+  let handoff = null;
   const phases = [];
   try {
     for (const phase of request.phases) {
@@ -324,21 +119,22 @@ async function runPublicTranscript(request) {
         outcomes,
       });
     }
-
-    if (request.returnAuthority === true) {
-      if (context.pendingReopenAuthority !== null) {
-        projectedAuthority = context.pendingReopenAuthority;
-      } else if (context.store.configuredDurableLogPath() !== null) {
-        projectedAuthority = context.store.projectReopenAuthorityAndClose();
-      }
+    endEventCount = context.store.readAll().length;
+    if (
+      request.returnHandoff === true &&
+      context.store.configuredDurableLogPath() !== null
+    ) {
+      handoff = publicApi.projectRootOperationContextAuthority(context);
     }
   } finally {
     publicApi.closeRootOperationContext(context);
   }
   return {
+    pid: process.pid,
     phases,
     startHistoricalEventCount,
-    authority: projectedAuthority,
+    endEventCount,
+    handoff,
   };
 }
 
@@ -392,18 +188,8 @@ async function main() {
       return runOwnerVerify(request, true);
     case "owner_resolve":
       return runOwnerResolve(request);
-    case "f12_clone_prefix":
-      return cloneVerifiedPrefix(
-        request.cliHost,
-        request.authority,
-        request.targetPath,
-      );
-    case "f12_retained":
-      return runF12Retained(request);
-    case "f12_fresh":
-      return runF12Fresh(request);
-    case "f12_inspect_prefix":
-      return inspectF12Prefix(request);
+    case "f12_context_sequence":
+      return runF12ContextSequence(request);
     default:
       throw new TypeError(`unknown installed-worker action ${request.action}`);
   }

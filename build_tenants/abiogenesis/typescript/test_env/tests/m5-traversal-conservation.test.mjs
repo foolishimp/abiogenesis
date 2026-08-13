@@ -57,7 +57,7 @@ const FAN_IN_REDUCER_REF =
 const ACTOR_REF = "actor://abiogenesis/conformance/claude-worker@5";
 const WORKER_BINDING_REF =
   "worker-binding://abiogenesis/conformance/claude-worker@5";
-const INSTALLED_WITNESS_TIMEOUT_MS = 180_000;
+const INSTALLED_WITNESS_TIMEOUT_MS = 360_000;
 
 function fpInput(subject) {
   return {
@@ -142,7 +142,7 @@ async function runScenario(harness, label, options = {}, environment = {}) {
     harness,
     label,
     (payload) => payload,
-    options,
+    { catalogApplications: [], ...options },
   );
   const run = await runInstalledCli(harness, scenario, { environment });
   return { scenario, run, events: await readEvents(scenario.eventLogPath) };
@@ -201,32 +201,7 @@ function rc5Witness(sourceClass, witness46) {
   return Object.freeze({ sourceClass, witness46 });
 }
 
-const CURRENT_DEPENDENCY_RED = Object.freeze({
-  "structural_form/flat_composition": Object.freeze({
-    owner: "A5-F10",
-    reason: "retry-input-basis-absent",
-  }),
-  "structural_form/edge_program": Object.freeze({
-    owner: "A5-F10",
-    reason: "retry-input-basis-absent",
-  }),
-  "structural_form/batch": Object.freeze({
-    owner: "A5-F10",
-    reason: "retry-input-basis-absent",
-  }),
-  "structural_form/retry": Object.freeze({
-    owner: "A5-F10",
-    reason: "retry-input-basis-absent",
-  }),
-  "consequence_route/same_edge_retry": Object.freeze({
-    owner: "A5-F10",
-    reason: "retry-input-basis-absent",
-  }),
-  "runtime_disposition/advance_vector": Object.freeze({
-    owner: "A5-F10",
-    reason: "retry-input-basis-absent",
-  }),
-});
+const CURRENT_DEPENDENCY_RED = Object.freeze({});
 
 const RC5_WITNESS_SOURCE = Object.freeze({
   basis: Object.freeze({
@@ -652,23 +627,41 @@ const matrix = [
     const terminalRoutes = retry.events.filter((event) =>
       event.kind === "traversal_route_admitted" &&
       event.payload.routeKind === "terminal");
-    assert.deepEqual(attempts.map((event) => event.payload.attempt), [1, 2]);
-    assert.notEqual(attempts[0].payload.attemptRef, attempts[1].payload.attemptRef);
+    const retryRoutes = retry.events.filter((event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload.routeKind === "retry");
+    assert.deepEqual(
+      attempts.map((event) => event.payload.attempt),
+      [1, 1, 2],
+    );
+    assert.deepEqual(
+      attempts.map((event) => event.payload.retryPath),
+      [[1], [1, 1], [1, 2]],
+    );
+    assert.equal(
+      new Set(attempts.map((event) => event.payload.attemptRef)).size,
+      3,
+    );
     assert.deepEqual(progress.map((event) => event.payload.progressClass), [
       "retry",
       "completed",
+      "completed",
     ]);
-    assert.deepEqual(progress.map((event) => event.payload.attempt), [1, 2]);
-    assert.deepEqual(progress.map((event) => event.payload.attemptRef),
-      attempts.map((event) => event.payload.attemptRef));
-    assert.deepEqual(progress.map((event) => event.payload.cCallRef),
-      calls.map((event) => event.payload.cCallRef));
-    assert.deepEqual(progress.map((event) => event.payload.judgmentRef),
-      judgments.map((event) => event.payload.judgmentRef));
+    assert.equal(progress[0].payload.attemptRef, attempts[1].payload.attemptRef);
+    assert.equal(progress[1].payload.attemptRef, attempts[2].payload.attemptRef);
+    assert.equal(progress[2].payload.attemptRef, attempts[0].payload.attemptRef);
+    assert.deepEqual(calls.map((event) => event.payload.attempt), [1, 2]);
+    assert.deepEqual(judgments.map((event) => event.payload.judgment), [
+      "retry",
+      "advance",
+    ]);
+    assert.equal(retryRoutes.length, 3);
     assert.equal(terminalRoutes.length, 1);
-    assert.ok(terminalRoutes[0].payload.consumedAvailabilityRefs.includes(
-      progress[1].payload.progressRef,
-    ));
+    for (const completed of progress.slice(1)) {
+      assert.ok(terminalRoutes[0].payload.consumedAvailabilityRefs.includes(
+        completed.payload.progressRef,
+      ));
+    }
     assert.equal(retryContradiction.run.exitCode, 2, retryContradiction.run.stdout);
     assert.equal(retryContradiction.events.some((event) =>
       event.kind === "retry_progress_recorded"), false);
@@ -684,18 +677,102 @@ const matrix = [
     publicOutcome: "installed replay retains both attempts and the successful successor",
     invalidMutation: "semantic rejection cannot mint retry progress or a second call",
   }, ({ retry, retryContradiction, retryExhausted }) => {
+    const assertExactRetryIngress = (evidence) => {
+      const retryRoutes = evidence.events.filter((event) =>
+        event.kind === "traversal_route_admitted" &&
+        event.payload.routeKind === "retry");
+      const attempts = evidence.events.filter((event) =>
+        event.kind === "retry_attempt_opened");
+      const structuralEntries = retryRoutes.filter((route) =>
+        route.payload.cCallRef === null &&
+        route.payload.judgmentRef === null &&
+        route.payload.consumedAvailabilityRefs.length === 0);
+      const progressRedispatches = retryRoutes.filter((route) =>
+        route.payload.cCallRef !== null &&
+        route.payload.judgmentRef !== null);
+      assert.equal(retryRoutes.length, 3);
+      assert.deepEqual(
+        structuralEntries.map((route) => route.eventId),
+        retryRoutes.slice(0, 2).map((route) => route.eventId),
+      );
+      assert.deepEqual(
+        progressRedispatches.map((route) => route.eventId),
+        [retryRoutes[2].eventId],
+      );
+
+      const boundAttempts = retryRoutes.map((route) => {
+        const matches = attempts.filter((attempt) =>
+          attempt.payload.priorRouteRef === route.payload.routeRef &&
+          attempt.causationEventRefs.length === 1 &&
+          attempt.causationEventRefs[0] === route.eventId);
+        assert.equal(matches.length, 1);
+        return matches[0];
+      });
+      assert.equal(new Set(boundAttempts.map((attempt) => attempt.eventId)).size,
+        attempts.length);
+      assert.deepEqual(boundAttempts.map((attempt) => ({
+        attempt: attempt.payload.attempt,
+        retryPath: attempt.payload.retryPath,
+      })), [
+        { attempt: 1, retryPath: [1] },
+        { attempt: 1, retryPath: [1, 1] },
+        { attempt: 2, retryPath: [1, 2] },
+      ]);
+
+      const retryProgresses = evidence.events.filter((event) =>
+        event.kind === "retry_progress_recorded" &&
+        event.payload.progressClass === "retry");
+      const retryJudgments = evidence.events.filter((event) =>
+        event.kind === "c_call_judged" &&
+        event.payload.judgment === "retry");
+      assert.equal(retryProgresses.length, 1);
+      assert.equal(retryJudgments.length, 1);
+      assert.equal(retryProgresses[0].payload.cCallRef,
+        retryJudgments[0].aggregateId);
+      assert.equal(retryProgresses[0].payload.judgmentRef,
+        retryJudgments[0].payload.judgmentRef);
+      assert.deepEqual({
+        cCallRef: progressRedispatches[0].payload.cCallRef,
+        judgmentRef: progressRedispatches[0].payload.judgmentRef,
+        consumedAvailabilityRefs:
+          progressRedispatches[0].payload.consumedAvailabilityRefs,
+      }, {
+        cCallRef: retryProgresses[0].payload.cCallRef,
+        judgmentRef: retryProgresses[0].payload.judgmentRef,
+        consumedAvailabilityRefs: [
+          retryProgresses[0].payload.judgmentRef,
+          retryProgresses[0].payload.progressRef,
+        ],
+      });
+      return { progressRedispatch: progressRedispatches[0] };
+    };
+
     assertSuccessfulInstalled(retry);
-    const routes = retry.events.filter((event) =>
-      event.kind === "traversal_route_admitted" &&
-      event.payload.routeKind === "retry");
-    assert.equal(routes.length, 2);
-    assert.equal(routes[0].payload.cCallRef, null);
-    assert.notEqual(routes[1].payload.cCallRef, null);
+    assertExactRetryIngress(retry);
+
+    const contradictionRedispatches = retryContradiction.events.filter(
+      (event) =>
+        event.kind === "traversal_route_admitted" &&
+        event.payload.routeKind === "retry" &&
+        (event.payload.cCallRef !== null ||
+          event.payload.judgmentRef !== null ||
+          event.payload.consumedAvailabilityRefs.length !== 0),
+    );
+    assert.equal(contradictionRedispatches.length, 0);
+    assert.equal(retryContradiction.events.filter((event) =>
+      event.kind === "retry_progress_recorded").length, 0);
     assert.equal(retryContradiction.events.filter((event) =>
       event.kind === "c_call_opened").length, 1);
-    assert.equal(retryExhausted.events.filter((event) =>
+
+    const exhaustedIngress = assertExactRetryIngress(retryExhausted);
+    const exhaustedBlockedRoutes = retryExhausted.events.filter((event) =>
       event.kind === "traversal_route_admitted" &&
-      event.payload.routeKind === "retry").length, 2);
+      event.payload.routeKind === "blocked");
+    assert.equal(exhaustedBlockedRoutes.length, 1);
+    assert.ok(
+      exhaustedIngress.progressRedispatch.admissionOrdinal <
+        exhaustedBlockedRoutes[0].admissionOrdinal,
+    );
   }),
   mappedRow("consequence_route", "depth_traversal", {
     gtlExpression: "workflow.C child GraphFunction declaration",
@@ -995,8 +1072,15 @@ const matrix = [
     invalidMutation: "GraphFunction outside Program membership refuses before Run admission",
   }, ({ fd, crossWire }) => {
     assertSuccessfulInstalled(fd);
-    assert.equal(fd.scenario.transcript[6].payload.graphFunctionRef,
-      "graph-function://abiogenesis/conformance/hello-world@5");
+    assert.equal(
+      fd.scenario.transcript[6].payload.catalogHandle,
+      "graph-function://abiogenesis/conformance/hello-world@5",
+    );
+    assert.equal(
+      fd.events.find((event) => event.kind === "graph_call_opened")
+        ?.graphFunctionRef,
+      "graph-function://abiogenesis/conformance/hello-world@5",
+    );
     assertCrossWireRefuses(crossWire);
   }),
   mappedRow("public_control", "asset_target", {
@@ -1076,7 +1160,7 @@ test("M5 establishes the RC5 source census and maps current 5.0 traversal eviden
       matrix.filter((row) => row.currentStatus === status).length,
     ]),
   );
-  assert.deepEqual(currentStatusCounts, { proven: 34, dependency_red: 6 });
+  assert.deepEqual(currentStatusCounts, { proven: 40, dependency_red: 0 });
   assert.deepEqual(
     matrix
       .filter((row) => row.currentStatus === "dependency_red")
@@ -1085,38 +1169,7 @@ test("M5 establishes the RC5 source census and maps current 5.0 traversal eviden
         owner: row.dependencyOwner,
         reason: row.dependencyReason,
       })),
-    [
-      {
-        key: "structural_form/flat_composition",
-        owner: "A5-F10",
-        reason: "retry-input-basis-absent",
-      },
-      {
-        key: "structural_form/edge_program",
-        owner: "A5-F10",
-        reason: "retry-input-basis-absent",
-      },
-      {
-        key: "structural_form/batch",
-        owner: "A5-F10",
-        reason: "retry-input-basis-absent",
-      },
-      {
-        key: "structural_form/retry",
-        owner: "A5-F10",
-        reason: "retry-input-basis-absent",
-      },
-      {
-        key: "consequence_route/same_edge_retry",
-        owner: "A5-F10",
-        reason: "retry-input-basis-absent",
-      },
-      {
-        key: "runtime_disposition/advance_vector",
-        owner: "A5-F10",
-        reason: "retry-input-basis-absent",
-      },
-    ],
+    [],
   );
   assert.deepEqual(
     Object.keys(CURRENT_DEPENDENCY_RED),
@@ -1183,33 +1236,33 @@ test("M5 establishes the RC5 source census and maps current 5.0 traversal eviden
   const fd = await runScenario(harness, "matrix-fd");
   const compose = await runScenario(harness, "matrix-compose", {
     programRef: COMPOSE_PROGRAM_REF,
-    graphFunctionRef: COMPOSE_GRAPH_FUNCTION_REF,
+    catalogHandle: COMPOSE_GRAPH_FUNCTION_REF,
     subject: "  World  ",
   });
   const workflow = await runScenario(harness, "matrix-workflow", {
     programRef: WORKFLOW_PROGRAM_REF,
-    graphFunctionRef: WORKFLOW_GRAPH_FUNCTION_REF,
+    catalogHandle: WORKFLOW_GRAPH_FUNCTION_REF,
     allowlist: [WORKFLOW_GRAPH_FUNCTION_REF, WORKFLOW_CHILD_REF],
   });
   const omittedChild = await runScenario(harness, "matrix-workflow-omitted", {
     programRef: WORKFLOW_PROGRAM_REF,
-    graphFunctionRef: WORKFLOW_GRAPH_FUNCTION_REF,
+    catalogHandle: WORKFLOW_GRAPH_FUNCTION_REF,
     allowlist: [WORKFLOW_GRAPH_FUNCTION_REF],
   });
   const gate = await runScenario(harness, "matrix-gate", {
     programRef: GATE_PROGRAM_REF,
-    graphFunctionRef: GATE_GRAPH_FUNCTION_REF,
+    catalogHandle: GATE_GRAPH_FUNCTION_REF,
     allowlist: [GATE_GRAPH_FUNCTION_REF, GATE_TARGET_REF],
   });
   const gateBlocked = await runScenario(harness, "matrix-gate-blocked", {
     programRef: GATE_PROGRAM_REF,
-    graphFunctionRef: GATE_GRAPH_FUNCTION_REF,
+    catalogHandle: GATE_GRAPH_FUNCTION_REF,
     allowlist: [GATE_GRAPH_FUNCTION_REF, GATE_TARGET_REF],
     subject: "Blocked",
   });
   const recursion = await runScenario(harness, "matrix-recursion", {
     programRef: RECURSION_PROGRAM_REF,
-    graphFunctionRef: RECURSION_GRAPH_FUNCTION_REF,
+    catalogHandle: RECURSION_GRAPH_FUNCTION_REF,
     allowlist: [RECURSION_GRAPH_FUNCTION_REF, RECURSION_CHILD_REF],
     input: {
       kind: "bounded_recursion_state",
@@ -1225,7 +1278,7 @@ test("M5 establishes the RC5 source census and maps current 5.0 traversal eviden
     "matrix-recursion-bound",
     {
       programRef: RECURSION_PROGRAM_REF,
-      graphFunctionRef: RECURSION_GRAPH_FUNCTION_REF,
+      catalogHandle: RECURSION_GRAPH_FUNCTION_REF,
       allowlist: [RECURSION_GRAPH_FUNCTION_REF, RECURSION_CHILD_REF],
       input: {
         kind: "bounded_recursion_state",
@@ -1239,7 +1292,7 @@ test("M5 establishes the RC5 source census and maps current 5.0 traversal eviden
   );
   const fanOut = await runScenario(harness, "matrix-fan-out", {
     programRef: FAN_OUT_PROGRAM_REF,
-    graphFunctionRef: FAN_OUT_GRAPH_FUNCTION_REF,
+    catalogHandle: FAN_OUT_GRAPH_FUNCTION_REF,
     allowlist: [
       FAN_OUT_GRAPH_FUNCTION_REF,
       FAN_OUT_ELEMENT_REF,
@@ -1252,7 +1305,7 @@ test("M5 establishes the RC5 source census and maps current 5.0 traversal eviden
     "matrix-fan-out-partial",
     {
       programRef: FAN_OUT_PROGRAM_REF,
-      graphFunctionRef: FAN_OUT_GRAPH_FUNCTION_REF,
+      catalogHandle: FAN_OUT_GRAPH_FUNCTION_REF,
       allowlist: [
         FAN_OUT_GRAPH_FUNCTION_REF,
         FAN_OUT_ELEMENT_REF,
@@ -1263,12 +1316,12 @@ test("M5 establishes the RC5 source census and maps current 5.0 traversal eviden
   );
   const fp = await runScenario(harness, "matrix-fp", {
     programRef: FP_PROGRAM_REF,
-    graphFunctionRef: FP_GRAPH_FUNCTION_REF,
+    catalogHandle: FP_GRAPH_FUNCTION_REF,
     input: fpInput("World"),
   }, { ABG_TS_CLAUDE_COMMAND: command });
   const malformedFp = await runScenario(harness, "matrix-fp-malformed", {
     programRef: FP_PROGRAM_REF,
-    graphFunctionRef: FP_GRAPH_FUNCTION_REF,
+    catalogHandle: FP_GRAPH_FUNCTION_REF,
     input: fpInput("World"),
   }, {
     ABG_TS_CLAUDE_COMMAND: command,
@@ -1277,7 +1330,7 @@ test("M5 establishes the RC5 source census and maps current 5.0 traversal eviden
   const retryCounterPath = join(harness.scratch, "matrix-retry.count");
   const retry = await runScenario(harness, "matrix-retry", {
     programRef: FP_RETRY_PROGRAM_REF,
-    graphFunctionRef: FP_RETRY_GRAPH_FUNCTION_REF,
+    catalogHandle: FP_RETRY_GRAPH_FUNCTION_REF,
     input: fpInput("World"),
   }, {
     ABG_TS_CLAUDE_COMMAND: command,
@@ -1288,7 +1341,7 @@ test("M5 establishes the RC5 source census and maps current 5.0 traversal eviden
     "matrix-retry-contradiction",
     {
       programRef: FP_RETRY_PROGRAM_REF,
-      graphFunctionRef: FP_RETRY_GRAPH_FUNCTION_REF,
+      catalogHandle: FP_RETRY_GRAPH_FUNCTION_REF,
       input: fpInput("World"),
     },
     {
@@ -1301,7 +1354,7 @@ test("M5 establishes the RC5 source census and maps current 5.0 traversal eviden
     "matrix-retry-exhausted",
     {
       programRef: FP_RETRY_PROGRAM_REF,
-      graphFunctionRef: FP_RETRY_GRAPH_FUNCTION_REF,
+      catalogHandle: FP_RETRY_GRAPH_FUNCTION_REF,
       input: fpInput("World"),
     },
     {
@@ -1312,7 +1365,7 @@ test("M5 establishes the RC5 source census and maps current 5.0 traversal eviden
   );
   const crossWire = await runScenario(harness, "matrix-cross-wire", {
     programRef: FD_FP_PROGRAM_REF,
-    graphFunctionRef: FP_GRAPH_FUNCTION_REF,
+    catalogHandle: FP_GRAPH_FUNCTION_REF,
     allowlist: [FP_GRAPH_FUNCTION_REF],
     input: fpInput("World"),
   });

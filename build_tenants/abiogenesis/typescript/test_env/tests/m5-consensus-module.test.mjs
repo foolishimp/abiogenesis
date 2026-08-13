@@ -10,6 +10,7 @@ import {
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import test from "node:test";
+import { pathToFileURL } from "node:url";
 
 import * as abg from "../../build/code/src/abg/index.js";
 import { ROOT_EVENT_CONTRACT_DIGEST } from "../../build/code/src/abg/event_store.js";
@@ -25,6 +26,7 @@ import {
 import { ABI5_SYSTEM_PRODUCT_SEMANTICS } from "../../build/code/src/product/builtin_semantics.js";
 import * as product from "../../build/code/src/product/index.js";
 import { ROOT_PUBLIC_OPERATION_IDS } from "../../build/code/src/public/index.js";
+import { compareUnicodeCodeUnits } from "../../build/code/src/shared/canonical_json.js";
 import * as validator from "../../build/code/src/validator/index.js";
 import {
   constructPublicRunProjectionAuthority,
@@ -40,8 +42,8 @@ function artifactBasis() {
   return {
     productId: "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
     artifactDigest: DIGEST,
-    productContentDigest: DIGEST,
-    productManifestDigest: DIGEST,
+    productContentDigest: `sha256:${"2".repeat(64)}`,
+    productManifestDigest: `sha256:${"3".repeat(64)}`,
     packageName: "@abiogenesis/typescript-tenant",
     packageVersion: "5.0.0-dev.286",
   };
@@ -543,9 +545,11 @@ test("S05 module publishes the exact Consensus contracts, vocabularies, and ordi
   const publication = gtl.constructConsensusModulePublication(artifactBasis());
   assert.deepEqual(
     publication.contracts,
-    gtl.CONSENSUS_NATIVE_CONTRACT_DEFINITIONS.map(
-      ({ validate: _validate, ...declaration }) => declaration,
-    ),
+    gtl.CONSENSUS_NATIVE_CONTRACT_DEFINITIONS
+      .map(({ validate: _validate, ...declaration }) => declaration)
+      .sort((left, right) =>
+        compareUnicodeCodeUnits(left.contractRef, right.contractRef)
+      ),
     "publication contracts must project the single native contract registry",
   );
   const contribution = publication.contributions.find(
@@ -868,15 +872,15 @@ test("S05 module binds exact policy identities and the invocation workspace", ()
       candidate.programRef === gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
   );
   const input = invocationFor();
-  const catalogBasis = consensusCatalogBasis(input);
+  const catalogFamily = consensusCatalogBasis(input);
   const basis = {
     input,
     workspaceBindingId: "workspace-binding://developer/module-proof",
     workspaceBindingDigest: DIGEST,
     workspaceId: WORKSPACE,
     actionCatalog: program.actionCatalog,
-    catalogView: catalogBasis.view,
-    catalogApplications: catalogBasis.applications,
+    catalogView: catalogFamily.view,
+    catalogApplications: catalogFamily.applications,
     sourceResultBasis: null,
   };
   assert.equal(
@@ -1340,7 +1344,7 @@ test("S05 round reduction and same-Run human finalization form one total Product
 
 test("S05 Product semantics own invocation-basis validation and replay projection", () => {
   const invocation = invocationFor();
-  const catalogBasis = consensusCatalogBasis(invocation);
+  const catalogFamily = consensusCatalogBasis(invocation);
   const validateInvocationBasis =
     ABI5_SYSTEM_PRODUCT_SEMANTICS.validateInvocationBasis;
   assert.equal(
@@ -1350,8 +1354,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
-      catalogView: catalogBasis.view,
-      catalogApplications: catalogBasis.applications,
+      catalogView: catalogFamily.view,
+      catalogApplications: catalogFamily.applications,
       sourceResultBasis: null,
     }),
     true,
@@ -1363,8 +1367,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: `${WORKSPACE}/other`,
       actionCatalog: null,
-      catalogView: catalogBasis.view,
-      catalogApplications: catalogBasis.applications,
+      catalogView: catalogFamily.view,
+      catalogApplications: catalogFamily.applications,
       sourceResultBasis: null,
     }),
     false,
@@ -1428,8 +1432,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
-      catalogView: catalogBasis.view,
-      catalogApplications: catalogBasis.applications,
+      catalogView: catalogFamily.view,
+      catalogApplications: catalogFamily.applications,
       sourceResultBasis,
     }),
     false,
@@ -1442,8 +1446,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
-      catalogView: catalogBasis.view,
-      catalogApplications: catalogBasis.applications,
+      catalogView: catalogFamily.view,
+      catalogApplications: catalogFamily.applications,
       sourceResultBasis: null,
     }),
     true,
@@ -1464,8 +1468,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: `${WORKSPACE}/substituted`,
       actionCatalog: null,
-      catalogView: catalogBasis.view,
-      catalogApplications: catalogBasis.applications,
+      catalogView: catalogFamily.view,
+      catalogApplications: catalogFamily.applications,
       sourceResultBasis,
     }),
     false,
@@ -1477,8 +1481,8 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
       workspaceBindingDigest: DIGEST,
       workspaceId: WORKSPACE,
       actionCatalog: null,
-      catalogView: catalogBasis.view,
-      catalogApplications: catalogBasis.applications,
+      catalogView: catalogFamily.view,
+      catalogApplications: catalogFamily.applications,
       sourceResultBasis: {
         ...sourceResultBasis,
         sourceGraphFunctionRef:
@@ -1495,14 +1499,9 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
     packageRoot,
     "test_env/proof/abi5-root-r10.events.jsonl",
   );
-  const transcriptPath = resolve(
-    packageRoot,
-    "test_env/proof/abi5-root-r10.transcript.json",
-  );
   const eventLogPath = join(scratch, "abi5-root-r10.events.jsonl");
   try {
     await copyFile(sourcePath, eventLogPath);
-    const transcript = JSON.parse(await readFile(transcriptPath, "utf8"));
     const bytes = await readFile(eventLogPath);
     const status = await stat(eventLogPath);
     const authorityBody = {
@@ -1527,81 +1526,72 @@ test("S05 ABG binds each durable Run to its exact admitted invocation", async ()
     );
     if (reopened.kind !== "reopened_event_store_context") return;
     try {
-      const runOpens = reopened.store.readAll().filter(
+      const exactPrefix = abg.selectValidatedRuntimeEventPrefix(
+        abg.readRuntimeEventsAtDurablePrefix(reopened.prefix),
+      );
+      const exactEvents = abg.readRuntimeEventsAtDurablePrefix(reopened.prefix);
+      const runOpens = exactEvents.filter(
         (event) => event.kind === "run_segment_opened",
       );
-      assert.equal(runOpens.length, 2);
-      const admissions = runOpens.map((event) =>
-        abg.rehydrateInvocationAdmission(
-          reopened.store,
-          event.payload.invocationAdmissionRef,
-        )
-      );
-      assert.ok(admissions[0]);
-      assert.ok(admissions[1]);
       assert.equal(
-        abg.hasInvocationRunBinding(
-          reopened.store,
-          admissions[0],
-          runOpens[0].runId,
+        runOpens.length,
+        1,
+        "one installed invocation opens one durable Run; replay folds do not open Runs",
+      );
+      const runOpen = runOpens[0];
+      const admission = abg.rehydrateInvocationAdmissionAtPrefix(
+        exactPrefix,
+        runOpen.payload.invocationAdmissionRef,
+      );
+      assert.ok(admission);
+      assert.equal(
+        abg.hasInvocationRunBindingAtPrefix(
+          exactPrefix,
+          admission,
+          runOpen.runId,
         ),
         true,
       );
+      const unrelatedRunId = `run://abiogenesis/${"0".repeat(64)}`;
       assert.equal(
-        abg.hasInvocationRunBinding(
-          reopened.store,
-          admissions[0],
-          runOpens[1].runId,
+        abg.hasInvocationRunBindingAtPrefix(
+          exactPrefix,
+          admission,
+          unrelatedRunId,
         ),
         false,
       );
-      assert.equal(
-        abg.hasInvocationRunBinding(
-          reopened.store,
-          admissions[1],
-          runOpens[0].runId,
-        ),
-        false,
+      const replayFirst = abg.replay(reopened.store, { runId: runOpen.runId });
+      const replaySecond = abg.replay(reopened.store, { runId: runOpen.runId });
+      assert.deepEqual(
+        replaySecond,
+        replayFirst,
+        "repeating the replay fold must not be mistaken for a second execution attempt",
       );
-      assert.equal(
-        abg.hasInvocationRunBinding(
-          reopened.store,
-          admissions[1],
-          runOpens[1].runId,
-        ),
-        true,
-      );
-      const replays = runOpens.map((event) =>
-        abg.replay(reopened.store, { runId: event.runId })
-      );
-      const resultRefs = replays.map(
-        (replay) =>
-          replay.cCalls.find((cCall) => cCall.resultRef !== null)?.resultRef,
-      );
-      assert.equal(typeof resultRefs[0], "string");
-      assert.equal(typeof resultRefs[1], "string");
-      const ownRunBasis = abg.deriveInvocationSourceResultBasis(
-        reopened.store,
+      const resultRef = replayFirst.cCalls.find(
+        (cCall) => cCall.resultRef !== null,
+      )?.resultRef;
+      assert.equal(typeof resultRef, "string");
+      const ownRunBasis = abg.deriveInvocationSourceResultBasisAtPrefix(
+        exactPrefix,
         {
           publicAuthorityDigest: DIGEST,
-          runtimeInvocationRef: admissions[0].invocationRef,
-          invocationAdmissionRef:
-            runOpens[0].payload.invocationAdmissionRef,
-          runId: runOpens[0].runId,
-          resultRef: resultRefs[0],
+          runtimeInvocationRef: admission.invocationRef,
+          invocationAdmissionRef: runOpen.payload.invocationAdmissionRef,
+          runId: runOpen.runId,
+          resultRef,
         },
       );
       assert.ok(ownRunBasis);
-      assert.equal(ownRunBasis.sourceRunId, runOpens[0].runId);
-      const crossPairedRunBasis = abg.deriveInvocationSourceResultBasis(
-        reopened.store,
+      assert.equal(ownRunBasis.sourceRunId, runOpen.runId);
+      const crossPairedRunBasis = abg.deriveInvocationSourceResultBasisAtPrefix(
+        exactPrefix,
         {
           publicAuthorityDigest: DIGEST,
-          runtimeInvocationRef: admissions[0].invocationRef,
-          invocationAdmissionRef:
-            runOpens[0].payload.invocationAdmissionRef,
-          runId: runOpens[1].runId,
-          resultRef: resultRefs[1],
+          runtimeInvocationRef: admission.invocationRef,
+          invocationAdmissionRef: runOpen.payload.invocationAdmissionRef,
+          runId: unrelatedRunId,
+          resultRef,
         },
       );
       assert.equal(
@@ -2149,7 +2139,23 @@ test("S05 public result binds real replay while its authority rejects digest tam
     durableByteLength: 0,
     eventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
   };
+  const prefixBody = {
+    kind: "durable_prefix_coordinate",
+    schemaVersion: "5.0.0",
+    eventLogRef: pathToFileURL(reopenBody.eventLogPath).href,
+    prefixLength: reopenBody.durableByteLength,
+    prefixDigest: reopenBody.eventLogDigest,
+    storeIdentity: {
+      device: reopenBody.device,
+      inode: reopenBody.inode,
+      eventContractDigest: reopenBody.eventContractDigest,
+    },
+  };
   const authority = constructPublicRunProjectionAuthority({
+    prefix: {
+      ...prefixBody,
+      coordinateDigest: product.sha256Canonical(prefixBody),
+    },
     reopenAuthority: {
       ...reopenBody,
       authorityDigest: product.sha256Canonical(reopenBody),

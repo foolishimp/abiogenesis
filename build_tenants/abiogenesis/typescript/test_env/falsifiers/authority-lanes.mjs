@@ -70,23 +70,29 @@ async function readEvents(path) {
   }
 }
 
-function eventCountForInvocation(events, invocationRef) {
-  return events.filter(
-    (event) => event?.payload?.invocationRef === invocationRef,
-  ).length;
+async function isAbsent(path) {
+  try {
+    await readFile(path);
+    return false;
+  } catch (error) {
+    if (error?.code === "ENOENT") return true;
+    throw error;
+  }
 }
 
-function invocation(operationId, variant, invocationRef, payload) {
-  return {
-    kind: "public_invocation",
-    schemaVersion: "5.0.0",
-    operationId,
-    variant,
-    invocationRef,
-    eventTime: "2026-07-21T00:00:00.000Z",
-    correlationId: "correlation://t286/increment-0a-authority",
-    payload,
-  };
+function isExactCloseHandoffForPath(handoff, eventLogPath) {
+  return (
+    handoff?.prefix?.kind === "durable_prefix_coordinate" &&
+    handoff?.reopenAuthority?.kind === "event_store_reopen_authority" &&
+    handoff.reopenAuthority.eventLogPath === eventLogPath &&
+    handoff.prefix.prefixDigest === handoff.reopenAuthority.eventLogDigest &&
+    handoff.prefix.prefixLength ===
+      handoff.reopenAuthority.durableByteLength &&
+    handoff.prefix.storeIdentity.device === handoff.reopenAuthority.device &&
+    handoff.prefix.storeIdentity.inode === handoff.reopenAuthority.inode &&
+    handoff.prefix.storeIdentity.eventContractDigest ===
+      handoff.reopenAuthority.eventContractDigest
+  );
 }
 
 function relationDisposition(redObserved) {
@@ -94,7 +100,20 @@ function relationDisposition(redObserved) {
 }
 
 async function runAxF02(harness) {
-  const scenario = await buildRootCliScenario(harness, "increment-0a-f02");
+  const scenario = await buildRootCliScenario(
+    harness,
+    "increment-0a-f02",
+    (payload) => payload,
+    { catalogApplications: [] },
+  );
+  const splitPublicEventLogPath = join(
+    scenario.eventLogRoot,
+    "abi5-root-ax-f02-split.events.jsonl",
+  );
+  const splitPublicSinkAbsent = await isAbsent(splitPublicEventLogPath);
+  if (!splitPublicSinkAbsent) {
+    throw new TypeError("AX-F02 split Public sink must be absent before P1");
+  }
   const expectedIdentity = expectedVerificationIdentity(harness.candidateBasis);
   const ownerP1 = await runInstalledWorker(harness, {
     action: "owner_verify_and_resolve",
@@ -111,19 +130,21 @@ async function runAxF02(harness) {
     phases: [{ label: "verify", rows: [scenario.transcript[0]] }],
     durableStart: {
       kind: "configure",
-      eventLogPath: scenario.eventLogPath,
+      eventLogPath: splitPublicEventLogPath,
     },
-    returnAuthority: true,
+    returnHandoff: true,
   });
+  const publicP1Events = await readEvents(splitPublicEventLogPath);
   const publicP2 = await runInstalledWorker(harness, {
     action: "public_transcript",
     phases: [{ label: "resolve", rows: [scenario.transcript[1]] }],
     durableStart: {
       kind: "reopen",
-      authority: publicP1.authority,
+      handoff: publicP1.handoff,
     },
-    returnAuthority: true,
+    returnHandoff: true,
   });
+  const publicP2Events = await readEvents(splitPublicEventLogPath);
 
   const publicResolve = phaseOutcome(publicP2, 0);
   const carrierBytesEqual =
@@ -131,6 +152,22 @@ async function runAxF02(harness) {
   const restartedOwnerRefusal =
     ownerP2.lock?.kind === "environment_refusal" &&
     ownerP2.lock?.code === "lock_mismatch";
+  const distinctSplitPublicSink =
+    splitPublicEventLogPath !== scenario.eventLogPath;
+  const exactPublicPrefixReopen =
+    publicP1.pid !== publicP2.pid &&
+    publicP1.startHistoricalEventCount === 0 &&
+    publicP1.endEventCount === publicP1Events.length &&
+    publicP1Events.length > 0 &&
+    isExactCloseHandoffForPath(
+      publicP1.handoff,
+      splitPublicEventLogPath,
+    ) &&
+    publicP2.startHistoricalEventCount === publicP1Events.length &&
+    publicP2.endEventCount === publicP1Events.length &&
+    JSON.stringify(publicP2Events) === JSON.stringify(publicP1Events) &&
+    JSON.stringify(publicP2.handoff.prefix) ===
+      JSON.stringify(publicP1.handoff.prefix);
   const redObserved =
     ownerP1.verified?.disposition === "verified" &&
     ownerP1.lock?.kind === "resolved_product_lock" &&
@@ -149,9 +186,11 @@ async function runAxF02(harness) {
       authority: "accepted census blob efe88cac AX-F02",
       artifact: "the exact packed installed ABIogenesis TypeScript Product",
       operations: ["product.verify/artifact", "product.resolve/verified_product_set"],
+      splitPublicProbe:
+        "one distinct sibling event log proven absent before P1 acquisition",
     },
     processBoundary:
-      "P1 serializes the complete installed Product verification carrier; P2 imports the installed Product and Public exports, reopens the exact empty prefix, and resolves after P1 exits",
+      "owner P1 serializes the complete installed Product verification carrier; Public P1 acquires a distinct absent sibling sink and closes its exact verification handoff; fresh Public P2 reopens only that handoff and resolves after P1 exits",
     mutation:
       "JSON round-trip the complete verification carrier and restart before Product resolution",
     oracle:
@@ -174,6 +213,8 @@ async function runAxF02(harness) {
         caseId: "public-verification-reference",
         p1: outcomeSignature(phaseOutcome(publicP1, 0)),
         p2: outcomeSignature(publicResolve),
+        p1EventCount: publicP1Events.length,
+        p2StartHistoricalEventCount: publicP2.startHistoricalEventCount,
       },
     ],
     maskControls: [
@@ -190,10 +231,14 @@ async function runAxF02(harness) {
           ownerP1.verifiedCanonicalDigest === ownerP2.inputCanonicalDigest,
       },
       {
-        controlId: "explicit-prefix-reopen",
+        controlId: "distinct-absent-public-probe-sink",
         passed:
-          publicP2.startHistoricalEventCount === 0 &&
-          publicP1.authority?.kind === "event_store_reopen_authority",
+          splitPublicSinkAbsent &&
+          distinctSplitPublicSink,
+      },
+      {
+        controlId: "explicit-prefix-reopen",
+        passed: exactPublicPrefixReopen,
       },
       {
         controlId: "parse-valid-public-request",
@@ -207,13 +252,35 @@ async function runAxF01(harness) {
   const control = await buildRootCliScenario(
     harness,
     "increment-0a-f01-control",
+    (payload) => payload,
+    { catalogApplications: [] },
   );
+  const controlEventLogPath = join(
+    control.eventLogRoot,
+    "abi5-root-ax-f01-control.events.jsonl",
+  );
+  const controlSinkAbsent = await isAbsent(controlEventLogPath);
+  const controlSinkDistinct = controlEventLogPath !== control.eventLogPath;
+  if (!controlSinkAbsent || !controlSinkDistinct) {
+    throw new TypeError(
+      "AX-F01 control requires one distinct absent Public sink",
+    );
+  }
   const controlResult = await runInstalledWorker(harness, {
     action: "public_transcript",
     phases: [{ label: "retained-control", rows: control.transcript.slice(0, 6) }],
-    durableStart: { kind: "configure", eventLogPath: control.eventLogPath },
-    returnAuthority: true,
+    durableStart: { kind: "configure", eventLogPath: controlEventLogPath },
+    returnHandoff: true,
   });
+  const controlEvents = await readEvents(controlEventLogPath);
+  const controlPrefixExact =
+    controlResult.startHistoricalEventCount === 0 &&
+    controlResult.endEventCount === controlEvents.length &&
+    controlEvents.length > 0 &&
+    isExactCloseHandoffForPath(
+      controlResult.handoff,
+      controlEventLogPath,
+    );
   const stageDefinitions = [
     { caseId: "resolved-to-install", targetIndex: 2 },
     { caseId: "install-to-workspace", targetIndex: 3 },
@@ -225,32 +292,61 @@ async function runAxF01(harness) {
     const scenario = await buildRootCliScenario(
       harness,
       `increment-0a-f01-${stage.caseId}`,
+      (payload) => payload,
+      { catalogApplications: [] },
     );
+    const splitEventLogPath = join(
+      scenario.eventLogRoot,
+      "abi5-root-ax-f01-split.events.jsonl",
+    );
+    const splitSinkAbsent = await isAbsent(splitEventLogPath);
+    const splitSinkDistinct = splitEventLogPath !== scenario.eventLogPath;
+    if (!splitSinkAbsent || !splitSinkDistinct) {
+      throw new TypeError(
+        `AX-F01 ${stage.caseId} requires one distinct absent Public sink`,
+      );
+    }
     const p1 = await runInstalledWorker(harness, {
       action: "public_transcript",
       phases: [{
         label: "originating-prefix",
         rows: scenario.transcript.slice(0, stage.targetIndex),
       }],
-      durableStart: { kind: "configure", eventLogPath: scenario.eventLogPath },
-      returnAuthority: true,
+      durableStart: { kind: "configure", eventLogPath: splitEventLogPath },
+      returnHandoff: true,
     });
+    const p1Events = await readEvents(splitEventLogPath);
     const p2 = await runInstalledWorker(harness, {
       action: "public_transcript",
       phases: [{
         label: "reconstructed-stage",
         rows: [scenario.transcript[stage.targetIndex]],
       }],
-      durableStart: { kind: "reopen", authority: p1.authority },
-      returnAuthority: true,
+      durableStart: { kind: "reopen", handoff: p1.handoff },
+      returnHandoff: true,
     });
+    const p2Events = await readEvents(splitEventLogPath);
     const target = phaseOutcome(p2, 0);
+    const exactPrefixReopen =
+      p1.pid !== p2.pid &&
+      p1.startHistoricalEventCount === 0 &&
+      p1.endEventCount === p1Events.length &&
+      p1Events.length > 0 &&
+      isExactCloseHandoffForPath(p1.handoff, splitEventLogPath) &&
+      p2.startHistoricalEventCount === p1Events.length &&
+      p2.endEventCount === p1Events.length &&
+      JSON.stringify(p2Events) === JSON.stringify(p1Events) &&
+      JSON.stringify(p2.handoff.prefix) ===
+        JSON.stringify(p1.handoff.prefix);
     cases.push({
       caseId: stage.caseId,
       p1PrefixSucceeded: p1.phases[0].outcomes.every(
         (outcome) => outcome.disposition === "succeeded",
       ),
       prefixEventCount: p2.startHistoricalEventCount,
+      sinkAbsentBeforeP1: splitSinkAbsent,
+      sinkDistinctFromScenarioLog: splitSinkDistinct,
+      exactPrefixReopen,
       p2: outcomeSignature(target),
       control: outcomeSignature(
         controlResult.phases[0].outcomes[stage.targetIndex],
@@ -263,7 +359,12 @@ async function runAxF01(harness) {
     (outcome) => outcome.disposition === "succeeded",
   );
   const allSplitPrefixesValid = cases.every(
-    (entry) => entry.p1PrefixSucceeded && Number.isInteger(entry.prefixEventCount),
+    (entry) =>
+      entry.p1PrefixSucceeded &&
+      Number.isInteger(entry.prefixEventCount) &&
+      entry.sinkAbsentBeforeP1 &&
+      entry.sinkDistinctFromScenarioLog &&
+      entry.exactPrefixReopen,
   );
   const allRestartedStagesRefused = cases.every(
     (entry) => entry.p2 === "refused:missing_prerequisite",
@@ -281,9 +382,11 @@ async function runAxF01(harness) {
       authority: "accepted census blob efe88cac AX-F01",
       product: "the exact packed installed ABIogenesis TypeScript Product",
       stages: stageDefinitions.map((stage) => stage.caseId),
+      splitPublicProbes:
+        "the retained control and four split cases each use a distinct sibling event log proven absent before P1",
     },
     processBoundary:
-      "each fixture terminates P1 after one setup prefix, then P2 imports installed exports, verifies and reopens only that exact prefix, and attempts the next stage",
+      "the populated scenario logs supply transcript inputs only; each probe acquires a distinct absent sibling sink, terminates P1 after one exact setup handoff, then fresh P2 reopens only that handoff and attempts the next stage",
     mutation:
       "restart between resolution/install, install/workspace, workspace/catalog, and catalog/view",
     oracle:
@@ -298,7 +401,11 @@ async function runAxF01(harness) {
     maskControls: [
       {
         controlId: "retained-process-stage-validity",
-        passed: controlsSucceeded,
+        passed:
+          controlsSucceeded &&
+          controlSinkAbsent &&
+          controlSinkDistinct &&
+          controlPrefixExact,
       },
       {
         controlId: "one-exact-prefix-per-fixture",
@@ -318,426 +425,355 @@ async function runAxF01(harness) {
 }
 
 export async function runAxF12(harness) {
-  const prefixA = await buildRootCliScenario(
+  const scenarioA = await buildRootCliScenario(
     harness,
     "increment-0a-f12-prefix-a",
+    (payload) => payload,
+    { catalogApplications: [] },
   );
-  const prefixB = await buildRootCliScenario(
+  const scenarioB = await buildRootCliScenario(
     harness,
     "increment-0a-f12-prefix-b",
+    (payload) => payload,
+    { catalogApplications: [] },
   );
-  const setupRowsA = prefixA.transcript.slice(0, 4);
-  const setupRowsB = prefixB.transcript.slice(0, 4);
-  const callA = structuredClone(prefixA.transcript[4]);
-  const callB = structuredClone(prefixB.transcript[4]);
-  const returnToA = structuredClone(prefixA.transcript[5]);
-  returnToA.invocationRef =
-    "invocation://t286/increment-0a-f12-prefix-a/catalog-view-return";
-
-  const prefixBSetup = await runInstalledWorker(harness, {
-    action: "public_transcript",
-    durableStart: {
-      kind: "configure",
-      eventLogPath: prefixB.eventLogPath,
+  const runA = scenarioA.executionTranscript.at(-1);
+  const runB = scenarioB.executionTranscript.at(-1);
+  if (
+    runA?.operationId !== "abg.operation.run.invoke" ||
+    runB?.operationId !== "abg.operation.run.invoke"
+  ) {
+    throw new TypeError(
+      "AX-F12 requires the exact terminal run.invoke row from both scenarios",
+    );
+  }
+  const handoffA = runA.payload.runtimePrefixAuthority;
+  const handoffB = runB.payload.runtimePrefixAuthority;
+  const [beforeBytesA, beforeBytesB, beforeEventsA, beforeEventsB] =
+    await Promise.all([
+      readFile(scenarioA.eventLogPath),
+      readFile(scenarioB.eventLogPath),
+      readEvents(scenarioA.eventLogPath),
+      readEvents(scenarioB.eventLogPath),
+    ]);
+  const sameJson = (left, right) =>
+    JSON.stringify(left) === JSON.stringify(right);
+  const expectedCarrierDigests = {
+    a: harness.product.sha256Canonical([runA]),
+    b: harness.product.sha256Canonical([runB]),
+  };
+  const initialMasks = [
+    {
+      controlId: "exact-run-rows",
+      passed:
+        runA === scenarioA.transcript.at(-1) &&
+        runB === scenarioB.transcript.at(-1),
     },
-    phases: [{ label: "prefix-b-setup", rows: setupRowsB }],
-    returnAuthority: true,
-  });
-  const prefixBSetupSucceeded = prefixBSetup.phases[0].outcomes.every(
-    (outcome) => outcome.disposition === "succeeded",
-  );
-  const freshBPrefix = await runInstalledWorker(harness, {
-    action: "f12_clone_prefix",
-    authority: prefixBSetup.authority,
-    targetPath: join(
-      harness.scratch,
-      "increment-0a-f12-prefix-clones",
-      "fresh-b.events.jsonl",
-    ),
-  });
+    {
+      controlId: "valid-independent-full-handoffs",
+      passed:
+        isExactCloseHandoffForPath(handoffA, scenarioA.eventLogPath) &&
+        isExactCloseHandoffForPath(handoffB, scenarioB.eventLogPath) &&
+        runA.payload.eventLogPath === scenarioA.eventLogPath &&
+        runB.payload.eventLogPath === scenarioB.eventLogPath &&
+        scenarioA.eventLogPath !== scenarioB.eventLogPath &&
+        handoffA.prefix.coordinateDigest !==
+          handoffB.prefix.coordinateDigest &&
+        handoffA.reopenAuthority.authorityDigest !==
+          handoffB.reopenAuthority.authorityDigest,
+    },
+    {
+      controlId: "captured-setup-prefixes-before-runtime-effects",
+      passed:
+        beforeEventsA.length > 0 &&
+        beforeEventsB.length > 0 &&
+        beforeBytesA.byteLength === handoffA.prefix.prefixLength &&
+        beforeBytesB.byteLength === handoffB.prefix.prefixLength,
+    },
+  ];
+  const failedInitialMask = initialMasks.find((control) => !control.passed);
+  if (failedInitialMask !== undefined) {
+    throw new TypeError(
+      `AX-F12 prerequisite mask failed: ${failedInitialMask.controlId}`,
+    );
+  }
 
+  const retainedInputs = [
+    {
+      label: "request-a-on-context-b",
+      requestedPrefix: "A",
+      boundContext: "B",
+      rows: [runA],
+      handoff: handoffB,
+    },
+    {
+      label: "request-b-on-context-a",
+      requestedPrefix: "B",
+      boundContext: "A",
+      rows: [runB],
+      handoff: handoffA,
+    },
+    {
+      label: "request-a-return-on-context-b",
+      requestedPrefix: "A",
+      boundContext: "B",
+      rows: [runA],
+      handoff: handoffB,
+    },
+  ];
   const retained = await runInstalledWorker(harness, {
-    action: "f12_retained",
-    prefixA: {
-      eventLogPath: prefixA.eventLogPath,
-      setupRows: setupRowsA,
-      freshEventLogPath: join(
-        harness.scratch,
-        "increment-0a-f12-prefix-clones",
-        "fresh-a.events.jsonl",
+    action: "f12_context_sequence",
+    episodes: retainedInputs.map(({ label, rows, handoff }) => ({
+      label,
+      rows,
+      handoff,
+    })),
+  });
+  const [afterRetainedBytesA, afterRetainedBytesB] = await Promise.all([
+    readFile(scenarioA.eventLogPath),
+    readFile(scenarioB.eventLogPath),
+  ]);
+  const [afterRetainedEventsA, afterRetainedEventsB] = await Promise.all([
+    readEvents(scenarioA.eventLogPath),
+    readEvents(scenarioB.eventLogPath),
+  ]);
+
+  const retainedCases = retainedInputs.map((input, index) => {
+    const episode = retained.episodes[index];
+    const boundHandoff = input.handoff;
+    const requestedHandoff = input.rows[0].payload.runtimePrefixAuthority;
+    const boundEventCount = input.boundContext === "A"
+      ? beforeEventsA.length
+      : beforeEventsB.length;
+    const expectedDigest = input.requestedPrefix === "A"
+      ? expectedCarrierDigests.a
+      : expectedCarrierDigests.b;
+    const exactRequestedHandoff = input.requestedPrefix === "A"
+      ? handoffA
+      : handoffB;
+    return {
+      caseId: input.label,
+      requestedPrefix: input.requestedPrefix,
+      boundContext: input.boundContext,
+      outcome: outcomeSignature(episode?.outcomes[0]),
+      startEventCount: episode?.startHistoricalEventCount ?? null,
+      endEventCount: episode?.endEventCount ?? null,
+      eventDelta:
+        (episode?.endEventCount ?? 0) -
+        (episode?.startHistoricalEventCount ?? 0),
+      requestCarrierDigest: episode?.requestCarrierDigest ?? null,
+      requestCarrierExact:
+        episode?.requestCarrierDigest === expectedDigest,
+      requestedHandoffExact:
+        sameJson(requestedHandoff, exactRequestedHandoff),
+      requestedPrefixDiffersFromBound:
+        requestedHandoff.prefix.coordinateDigest !==
+          boundHandoff.prefix.coordinateDigest,
+      reopenedBoundPrefixExact:
+        sameJson(episode?.ingressPrefix, boundHandoff.prefix),
+      returnedBoundHandoffExact:
+        sameJson(episode?.successorHandoff, boundHandoff),
+      refusedBeforeAppend:
+        outcomeSignature(episode?.outcomes[0]) ===
+          "refused:missing_prerequisite" &&
+        episode?.startHistoricalEventCount === boundEventCount &&
+        episode?.endEventCount === boundEventCount,
+    };
+  });
+  const retainedPrefixesUnchanged =
+    beforeBytesA.equals(afterRetainedBytesA) &&
+    beforeBytesB.equals(afterRetainedBytesB) &&
+    sameJson(beforeEventsA, afterRetainedEventsA) &&
+    sameJson(beforeEventsB, afterRetainedEventsB);
+  if (
+    retained.episodes.length !== 3 ||
+    !retainedCases.every((entry) =>
+      entry.requestCarrierExact &&
+      entry.requestedHandoffExact &&
+      entry.requestedPrefixDiffersFromBound &&
+      entry.reopenedBoundPrefixExact &&
+      entry.returnedBoundHandoffExact &&
+      entry.refusedBeforeAppend
+    ) ||
+    !retainedPrefixesUnchanged
+  ) {
+    throw new TypeError(
+      `AX-F12 opposite-context refusal mask failed: ${JSON.stringify({
+        retainedCases,
+        retainedPrefixesUnchanged,
+      })}`,
+    );
+  }
+
+  const [freshA, freshB] = await Promise.all([
+    runInstalledWorker(harness, {
+      action: "public_transcript",
+      durableStart: { kind: "reopen", handoff: handoffA },
+      phases: [{ label: "fresh-a-matching-context", rows: [runA] }],
+      returnHandoff: true,
+    }),
+    runInstalledWorker(harness, {
+      action: "public_transcript",
+      durableStart: { kind: "reopen", handoff: handoffB },
+      phases: [{ label: "fresh-b-matching-context", rows: [runB] }],
+      returnHandoff: true,
+    }),
+  ]);
+  const [afterFreshBytesA, afterFreshBytesB] = await Promise.all([
+    readFile(scenarioA.eventLogPath),
+    readFile(scenarioB.eventLogPath),
+  ]);
+  const [afterFreshEventsA, afterFreshEventsB] = await Promise.all([
+    readEvents(scenarioA.eventLogPath),
+    readEvents(scenarioB.eventLogPath),
+  ]);
+  const freshCases = [
+    {
+      caseId: "fresh-a-matching-context",
+      pid: freshA.pid,
+      outcome: outcomeSignature(phaseOutcome(freshA, 0)),
+      requestCarrierDigest: freshA.phases[0].requestCarrierDigest,
+      requestCarrierExact:
+        freshA.phases[0].requestCarrierDigest === expectedCarrierDigests.a &&
+        freshA.phases[0].requestCarrierDigest ===
+          retained.episodes[0].requestCarrierDigest &&
+        freshA.phases[0].requestCarrierDigest ===
+          retained.episodes[2].requestCarrierDigest,
+      startEventCount: freshA.startHistoricalEventCount,
+      endEventCount: freshA.endEventCount,
+      eventDelta:
+        freshA.endEventCount - freshA.startHistoricalEventCount,
+      byteDelta: afterFreshBytesA.byteLength - beforeBytesA.byteLength,
+      successorHandoffValid:
+        isExactCloseHandoffForPath(freshA.handoff, scenarioA.eventLogPath) &&
+        freshA.handoff.prefix.prefixLength === afterFreshBytesA.byteLength,
+    },
+    {
+      caseId: "fresh-b-matching-context",
+      pid: freshB.pid,
+      outcome: outcomeSignature(phaseOutcome(freshB, 0)),
+      requestCarrierDigest: freshB.phases[0].requestCarrierDigest,
+      requestCarrierExact:
+        freshB.phases[0].requestCarrierDigest === expectedCarrierDigests.b &&
+        freshB.phases[0].requestCarrierDigest ===
+          retained.episodes[1].requestCarrierDigest,
+      startEventCount: freshB.startHistoricalEventCount,
+      endEventCount: freshB.endEventCount,
+      eventDelta:
+        freshB.endEventCount - freshB.startHistoricalEventCount,
+      byteDelta: afterFreshBytesB.byteLength - beforeBytesB.byteLength,
+      successorHandoffValid:
+        isExactCloseHandoffForPath(freshB.handoff, scenarioB.eventLogPath) &&
+        freshB.handoff.prefix.prefixLength === afterFreshBytesB.byteLength,
+    },
+  ];
+  const processBoundariesExact =
+    new Set([retained.pid, freshA.pid, freshB.pid]).size === 3;
+  const freshExecutionsExact =
+    freshCases.every((entry) =>
+      entry.outcome === "succeeded:none" &&
+      entry.requestCarrierExact &&
+      entry.startEventCount > 0 &&
+      entry.endEventCount > entry.startEventCount &&
+      entry.eventDelta > 0 &&
+      entry.byteDelta > 0 &&
+      entry.successorHandoffValid
+    ) &&
+    freshA.startHistoricalEventCount === beforeEventsA.length &&
+    freshB.startHistoricalEventCount === beforeEventsB.length &&
+    freshA.endEventCount === afterFreshEventsA.length &&
+    freshB.endEventCount === afterFreshEventsB.length;
+  const maskControls = [
+    ...initialMasks,
+    {
+      controlId: "one-retained-process-opposite-context-refusals",
+      passed:
+        retainedCases.every((entry) => entry.refusedBeforeAppend) &&
+        retainedPrefixesUnchanged,
+    },
+    {
+      controlId: "full-bound-handoffs-returned-unchanged",
+      passed: retainedCases.every((entry) =>
+        entry.reopenedBoundPrefixExact &&
+        entry.returnedBoundHandoffExact
       ),
     },
-    prefixB: prefixBSetup.authority,
-    phaseA: { label: "prefix-a", rows: [callA] },
-    phaseB: { label: "prefix-b", rows: [callB] },
-    phaseAReturn: { label: "prefix-a-return", rows: [returnToA] },
-  });
-  const prefixASetupSucceeded = retained.setupOutcomes.every(
-    (outcome) => outcome.disposition === "succeeded",
-  );
-
-  const [prefixAInspection, prefixBInspection] = await Promise.all([
-    runInstalledWorker(harness, {
-      action: "f12_inspect_prefix",
-      authority: retained.freshA.authority,
-      installInvocationRef: prefixA.refs.install,
-      bindingInvocationRef: prefixA.refs.bind,
-    }),
-    runInstalledWorker(harness, {
-      action: "f12_inspect_prefix",
-      authority: freshBPrefix.authority,
-      installInvocationRef: prefixB.refs.install,
-      bindingInvocationRef: prefixB.refs.bind,
-    }),
-  ]);
-
-  const [freshAResult, freshBResult] = await Promise.all([
-    runInstalledWorker(harness, {
-      action: "f12_fresh",
-      authority: retained.freshA.authority,
-      phase: { label: "fresh-a", rows: [callA] },
-    }),
-    runInstalledWorker(harness, {
-      action: "f12_fresh",
-      authority: freshBPrefix.authority,
-      phase: { label: "fresh-b", rows: [callB] },
-    }),
-  ]);
-
-  const retainedA = retained.phases[0];
-  const retainedB = retained.phases[1];
-  const retainedAReturn = retained.phases[2];
-  const freshA = freshAResult.phase;
-  const freshB = freshBResult.phase;
-  const retainedAOutcome = retainedA.outcomes[0];
-  const retainedBOutcome = retainedB.outcomes[0];
-  const retainedAReturnOutcome = retainedAReturn.outcomes[0];
-  const freshAOutcome = freshA.outcomes[0];
-  const freshBOutcome = freshB.outcomes[0];
-  const prefixesValid = [prefixAInspection, prefixBInspection].every(
-    (inspection) =>
-      inspection.authorityVerified === true &&
-      inspection.historicalEventCount > 0 &&
-      inspection.installAdmissionCount === 1 &&
-      inspection.workspaceBindingAdmissionCount === 1,
-  );
-  const prefixClonesExact =
-    retained.prefixA.eventLogDigest === retained.freshA.authority.eventLogDigest &&
-    prefixBSetup.authority.eventLogDigest === freshBPrefix.authority.eventLogDigest;
-  const prefixHashesValid = [
-    retained.prefixA.eventLogDigest,
-    retained.freshA.authority.eventLogDigest,
-    prefixBSetup.authority.eventLogDigest,
-    freshBPrefix.authority.eventLogDigest,
-  ].every((digest) => /^sha256:[0-9a-f]{64}$/u.test(digest));
-  const independentPrefixes =
-    retained.prefixA.eventLogDigest !== prefixBSetup.authority.eventLogDigest;
-  const requestCarrierEquality = {
-    a: retainedA.requestCarrierDigest === freshA.requestCarrierDigest,
-    b: retainedB.requestCarrierDigest === freshB.requestCarrierDigest,
-  };
-  const requestCarrierDigestsValid = [
-    retainedA.requestCarrierDigest,
-    retainedB.requestCarrierDigest,
-    freshA.requestCarrierDigest,
-    freshB.requestCarrierDigest,
-  ].every((digest) => /^sha256:[0-9a-f]{64}$/u.test(digest));
-  const processBoundariesExact =
-    new Set([retained.pid, freshAResult.pid, freshBResult.pid]).size === 3;
-  const retainedBinding = {
-    aIngress: retainedA.requestedIngressEqual,
-    aOutcome: retainedA.projectedExtendsRequested,
-    bIngress: retainedB.requestedIngressEqual,
-    bOutcome: retainedB.projectedExtendsRequested,
-    aReturnIngress: retainedAReturn.requestedIngressEqual,
-    aReturnOutcome: retainedAReturn.projectedExtendsRequested,
-  };
-  const freshBinding = {
-    aIngress: freshA.requestedIngressEqual,
-    aOutcome: freshA.projectedExtendsRequested,
-    bIngress: freshB.requestedIngressEqual,
-    bOutcome: freshB.projectedExtendsRequested,
-  };
-  const redObserved =
-    prefixASetupSucceeded &&
-    prefixBSetupSucceeded &&
-    prefixesValid &&
-    prefixClonesExact &&
-    prefixHashesValid &&
-    independentPrefixes &&
-    processBoundariesExact &&
-    requestCarrierDigestsValid &&
-    requestCarrierEquality.a &&
-    requestCarrierEquality.b &&
-    retainedAOutcome?.disposition === "succeeded" &&
-    retainedBOutcome?.disposition === "refused" &&
-    retainedAReturnOutcome?.disposition === "succeeded" &&
-    retainedBinding.aIngress &&
-    retainedBinding.aOutcome &&
-    !retainedBinding.bIngress &&
-    !retainedBinding.bOutcome &&
-    retainedBinding.aReturnIngress &&
-    retainedBinding.aReturnOutcome &&
-    freshBinding.aIngress &&
-    freshBinding.aOutcome &&
-    freshBinding.bIngress &&
-    freshBinding.bOutcome &&
-    freshAOutcome?.disposition === "refused" &&
-    freshBOutcome?.disposition === "refused";
+    {
+      controlId: "byte-identical-request-carriers",
+      passed:
+        retainedCases.every((entry) => entry.requestCarrierExact) &&
+        freshCases.every((entry) => entry.requestCarrierExact),
+    },
+    {
+      controlId: "three-exact-process-boundaries",
+      passed: processBoundariesExact,
+    },
+    {
+      controlId: "matching-fresh-contexts-produce-effects",
+      passed: freshExecutionsExact,
+    },
+  ];
+  const failedMask = maskControls.find((control) => !control.passed);
+  if (failedMask !== undefined) {
+    throw new TypeError(
+      `AX-F12 mask failed: ${failedMask.controlId}; ${JSON.stringify({
+        retainedPid: retained.pid,
+        retainedCases,
+        freshCases,
+      })}`,
+    );
+  }
 
   return {
     relationId: "AX-F12",
     claim:
-      "each effectful invocation must select its explicitly supplied durable prefix independently of retained context history",
+      "run.invoke runtimePrefixAuthority must be one full EventStoreCloseHandoff whose prefix exactly matches the separately reopened Public context before effects",
     ingress:
-      "installed Public A and B setup/run transcripts through one retained context and two fresh installed worker processes",
+      "the exact terminal installed Public run.invoke carrier from each of two independently prepared scenario prefixes",
     fixtureSource: {
       authority: "accepted census blob efe88cac AX-F12",
-      paths: ["A", "B", "A"],
-      requestCarrierReuse:
-        "retained and fresh workers receive byte-equal effectful A and B invocation carriers over exact independently reopened prefix copies",
+      requestedPrefixOrder: ["A", "B", "A"],
+      oppositeBoundContextOrder: ["B", "A", "B"],
+      requestRows:
+        "executionTranscript.at(-1) from each independently built installed scenario, asserted as abg.operation.run.invoke",
+      initialPrefixes: {
+        a: {
+          eventLogPath: scenarioA.eventLogPath,
+          eventCount: beforeEventsA.length,
+          byteLength: beforeBytesA.byteLength,
+          coordinateDigest: handoffA.prefix.coordinateDigest,
+          authorityDigest: handoffA.reopenAuthority.authorityDigest,
+        },
+        b: {
+          eventLogPath: scenarioB.eventLogPath,
+          eventCount: beforeEventsB.length,
+          byteLength: beforeBytesB.byteLength,
+          coordinateDigest: handoffB.prefix.coordinateDigest,
+          authorityDigest: handoffB.reopenAuthority.authorityDigest,
+        },
+      },
     },
     processBoundary:
-      "one installed worker alternates A to B to A through one retained Public context; two other installed workers execute equivalent A and B paths in fresh processes",
+      "one installed worker opens and closes three distinct opposite-bound Public contexts; only after all eventless refusals, two separate fresh workers reopen the original matching A and B handoffs",
     mutation:
-      "select prefix B after prefix A in a retained context, then return to A, while fresh processes select each prefix independently",
+      "present the exact A, B, A request carriers to contexts explicitly reopened from B, A, B full handoffs",
     oracle:
-      "every result and append derives only from the explicitly named prefix and is independent of retained context history",
+      "each opposite-bound request refuses missing_prerequisite with identical handoff, prefix, bytes, and event count; the same carrier succeeds with effects only in a fresh matching context",
     expectedBaselineSignature:
-      "the retained context selects remembered A when B is explicitly requested, while fresh contexts reopen the exact requested prefixes but lack the process-local setup authority",
+      "context-handoff mismatch is checked before effects and no ambient process state selects or retargets a prefix",
     observedSignature:
-      `retained_a=${outcomeSignature(retainedAOutcome)};retained_b=${outcomeSignature(retainedBOutcome)};return_a=${outcomeSignature(retainedAReturnOutcome)};fresh_a=${outcomeSignature(freshAOutcome)};fresh_b=${outcomeSignature(freshBOutcome)};retained_b_ingress_matches=${retainedBinding.bIngress};retained_b_outcome_matches=${retainedBinding.bOutcome};fresh_ingress_matches=${freshBinding.aIngress && freshBinding.bIngress};prefixes_valid=${prefixesValid};request_a_equal=${requestCarrierEquality.a};request_b_equal=${requestCarrierEquality.b}`,
-    disposition: relationDisposition(redObserved),
+      `retained=${retainedCases.map((entry) => entry.outcome).join(",")};retained_event_deltas=${retainedCases.map((entry) => entry.eventDelta).join(",")};prefix_bytes_unchanged=${retainedPrefixesUnchanged};fresh_a=${freshCases[0].outcome};fresh_a_event_delta=${freshCases[0].eventDelta};fresh_a_byte_delta=${freshCases[0].byteDelta};fresh_b=${freshCases[1].outcome};fresh_b_event_delta=${freshCases[1].eventDelta};fresh_b_byte_delta=${freshCases[1].byteDelta};pids=${retained.pid},${freshA.pid},${freshB.pid}`,
+    disposition: "preserved_green",
     cases: [
       {
-        caseId: "retained-a-b-a",
-        a: outcomeSignature(retainedAOutcome),
-        b: outcomeSignature(retainedBOutcome),
-        aReturn: outcomeSignature(retainedAReturnOutcome),
-        requestedIngress: retainedBinding,
+        caseId: "retained-a-b-a-on-opposite-contexts",
+        pid: retained.pid,
+        prefixBytesUnchanged: retainedPrefixesUnchanged,
+        episodes: retainedCases,
       },
-      {
-        caseId: "fresh-a",
-        outcome: outcomeSignature(freshAOutcome),
-        retainedRequestCarrierEqual: requestCarrierEquality.a,
-        requestedIngressEqual: freshBinding.aIngress,
-        projectedPrefixExtendsRequested: freshBinding.aOutcome,
-      },
-      {
-        caseId: "fresh-b",
-        outcome: outcomeSignature(freshBOutcome),
-        retainedRequestCarrierEqual: requestCarrierEquality.b,
-        requestedIngressEqual: freshBinding.bIngress,
-        projectedPrefixExtendsRequested: freshBinding.bOutcome,
-      },
+      ...freshCases,
     ],
-    maskControls: [
-      {
-        controlId: "two-exact-prefixes-precomputed-and-reopened",
-        passed:
-          prefixASetupSucceeded &&
-          prefixBSetupSucceeded &&
-          prefixesValid &&
-          prefixClonesExact &&
-          prefixHashesValid &&
-          independentPrefixes,
-      },
-      {
-        controlId: "identical-request-carriers",
-        passed:
-          requestCarrierDigestsValid &&
-          requestCarrierEquality.a &&
-          requestCarrierEquality.b,
-      },
-      {
-        controlId: "real-retained-and-fresh-process-boundaries",
-        passed: processBoundariesExact,
-      },
-      {
-        controlId: "requested-prefix-observed-at-ingress-and-outcome",
-        passed:
-          retainedBinding.aIngress &&
-          retainedBinding.aOutcome &&
-          !retainedBinding.bIngress &&
-          !retainedBinding.bOutcome &&
-          retainedBinding.aReturnIngress &&
-          retainedBinding.aReturnOutcome &&
-          freshBinding.aIngress &&
-          freshBinding.aOutcome &&
-          freshBinding.bIngress &&
-          freshBinding.bOutcome,
-      },
-    ],
-  };
-}
-
-async function runAxF13(harness) {
-  const scenario = await buildRootCliScenario(harness, "increment-0a-f13");
-  const effect = scenario.transcript[2];
-  const semanticRefusal = invocation(
-    "abg.operation.product.resolve",
-    "verified_product_set",
-    "invocation://t286/increment-0a-f13/semantic-refusal",
-    { verifiedInvocationRefs: ["invocation://t286/increment-0a-f13/absent"] },
-  );
-  const pureRead = scenario.transcript[5];
-  const p1 = await runInstalledWorker(harness, {
-    action: "public_transcript",
-    phases: [
-      { label: "initial", rows: scenario.transcript },
-      { label: "effect-retained-retry", rows: [effect] },
-      { label: "semantic-first", rows: [semanticRefusal] },
-      { label: "semantic-retained-retry", rows: [semanticRefusal] },
-      { label: "pure-read-retained-retry", rows: [pureRead] },
-    ],
-    fullOutcomes: true,
-    returnAuthority: true,
-  });
-  const p2Effect = await runInstalledWorker(harness, {
-    action: "public_transcript",
-    phases: [{ label: "effect-restarted-retry", rows: [effect] }],
-    durableStart: { kind: "reopen", authority: p1.authority },
-    returnAuthority: true,
-  });
-  const p2Semantic = await runInstalledWorker(harness, {
-    action: "public_transcript",
-    phases: [{ label: "semantic-restarted-retry", rows: [semanticRefusal] }],
-    durableStart: { kind: "reopen", authority: p1.authority },
-    returnAuthority: true,
-  });
-  const restartedRead = await runInstalledWorker(harness, {
-    action: "public_transcript",
-    phases: [{ label: "pure-read-restarted", rows: [pureRead] }],
-    durableStart: { kind: "reopen", authority: p1.authority },
-    returnAuthority: true,
-  });
-
-  const events = await readEvents(scenario.eventLogPath);
-  const retainedEffect = phaseOutcome(p1, 1);
-  const firstSemantic = phaseOutcome(p1, 2);
-  const retainedSemantic = phaseOutcome(p1, 3);
-  const retainedRead = phaseOutcome(p1, 4);
-  const restartedEffect = phaseOutcome(p2Effect, 0);
-  const restartedSemantic = phaseOutcome(p2Semantic, 0);
-  const freshRead = phaseOutcome(restartedRead, 0);
-  const effectEventCount = eventCountForInvocation(
-    events,
-    effect.invocationRef,
-  );
-  const semanticEventCount = eventCountForInvocation(
-    events,
-    semanticRefusal.invocationRef,
-  );
-  const pureReadEventCount = eventCountForInvocation(
-    events,
-    pureRead.invocationRef,
-  );
-  const pureReadProjectionDigests = {
-    initial: p1.phases[0].outcomeProjectionDigests[5],
-    retained: p1.phases[4].outcomeProjectionDigests[0],
-    restarted: restartedRead.phases[0].outcomeProjectionDigests[0],
-  };
-  const pureReadCanonicalEquality =
-    pureReadProjectionDigests.initial === pureReadProjectionDigests.retained &&
-    pureReadProjectionDigests.initial === pureReadProjectionDigests.restarted;
-  const redObserved =
-    effectEventCount === 1 &&
-    retainedEffect?.result?.code === "duplicate_invocation" &&
-    restartedEffect?.code === "missing_prerequisite" &&
-    firstSemantic?.result?.code === "missing_prerequisite" &&
-    retainedSemantic?.result?.code === "duplicate_invocation" &&
-    restartedSemantic?.code === "missing_prerequisite" &&
-    semanticEventCount === 0 &&
-    retainedRead?.result?.code === "duplicate_invocation" &&
-    freshRead?.code === "missing_prerequisite" &&
-    pureReadEventCount === 1 &&
-    !pureReadCanonicalEquality;
-
-  return {
-    relationId: "AX-F13",
-    claim:
-      "invocation identity is admitted-event truth for effects, is not consumed by pre-admission refusal, and does not govern repeatable pure reads",
-    ingress:
-      "installed Public product.install, product.resolve, and catalog.view calls over one verified/reopened ABG event prefix",
-    fixtureSource: {
-      authority: "accepted census blob efe88cac AX-F13",
-      effect: "the admitted Product installation in the exact root transcript",
-      refusal: "a parse-valid resolution naming one absent verified carrier",
-      pureRead: "the deterministic catalog view in the exact root transcript",
-    },
-    processBoundary:
-      "P1 admits one effect, one deterministic catalog-view read, and one non-admitted semantic refusal; fresh installed workers reopen the same prefix and retry each exact ref",
-    mutation:
-      "retry an admitted effect after restart, retry a parse-valid pre-admission refusal in-process and after restart, and repeat one pure read ref",
-    oracle:
-      "effect retries have one durable duplicate meaning, refusals before admission do not consume identity, and pure reads repeat identically without events",
-    expectedBaselineSignature:
-      "effect retry changes from duplicate_invocation to missing_prerequisite after restart, the semantic refusal is consumed only in the retained Set, and the deterministic catalog-view read follows the same volatile Set",
-    observedSignature:
-      `effect_retained=${outcomeSignature(retainedEffect)};effect_restarted=${outcomeSignature(restartedEffect)};semantic_first=${outcomeSignature(firstSemantic)};semantic_retained=${outcomeSignature(retainedSemantic)};semantic_restarted=${outcomeSignature(restartedSemantic)};pure_read_retained=${outcomeSignature(retainedRead)};pure_read_restarted=${outcomeSignature(freshRead)};pure_read_canonical_equal=${pureReadCanonicalEquality}`,
-    disposition: relationDisposition(redObserved),
-    cases: [
-      {
-        caseId: "admitted-effect",
-        eventCount: effectEventCount,
-        retained: outcomeSignature(retainedEffect),
-        restarted: outcomeSignature(restartedEffect),
-      },
-      {
-        caseId: "non-admitted-semantic-refusal",
-        eventCount: semanticEventCount,
-        first: outcomeSignature(firstSemantic),
-        retainedRetry: outcomeSignature(retainedSemantic),
-        restartedRetry: outcomeSignature(restartedSemantic),
-      },
-      {
-        caseId: "repeatable-pure-read",
-        eventCount: pureReadEventCount,
-        initial: outcomeSignature(p1.phases[0].outcomes[5]),
-        retainedRetry: outcomeSignature(retainedRead),
-        restarted: outcomeSignature(freshRead),
-        initialRetainedCanonicalEquality:
-          pureReadProjectionDigests.initial ===
-          pureReadProjectionDigests.retained,
-        initialRestartedCanonicalEquality:
-          pureReadProjectionDigests.initial ===
-          pureReadProjectionDigests.restarted,
-        retainedRestartedCanonicalEquality:
-          pureReadProjectionDigests.retained ===
-          pureReadProjectionDigests.restarted,
-        canonicalEquality: pureReadCanonicalEquality,
-      },
-    ],
-    maskControls: [
-      {
-        controlId: "effect-admission-event-present",
-        passed: effectEventCount === 1,
-      },
-      {
-        controlId: "semantic-refusal-parse-valid-and-eventless",
-        passed:
-          firstSemantic?.result?.code === "missing_prerequisite" &&
-          semanticEventCount === 0,
-      },
-      {
-        controlId: "same-verified-prefix-for-retries",
-        passed:
-          p2Effect.startHistoricalEventCount === events.length &&
-          p2Semantic.startHistoricalEventCount === events.length,
-      },
-      {
-        controlId: "deterministic-view-request-valid-before-retry",
-        passed:
-          p1.phases[0].outcomes[5]?.disposition === "succeeded" &&
-          pureReadEventCount === 1,
-      },
-      {
-        controlId: "pure-read-projections-canonicalized",
-        passed: Object.values(pureReadProjectionDigests).every(
-          (digest) => /^sha256:[0-9a-f]{64}$/u.test(digest),
-        ),
-      },
-    ],
+    maskControls,
   };
 }
 
@@ -754,6 +790,5 @@ export async function runAuthorityLanes({ harness, packageRoot }) {
   const f02 = await runAxF02(harness);
   const f01 = await runAxF01(harness);
   const f12 = await runAxF12(harness);
-  const f13 = await runAxF13(harness);
-  return [f01, f02, f12, f13];
+  return [f01, f02, f12];
 }

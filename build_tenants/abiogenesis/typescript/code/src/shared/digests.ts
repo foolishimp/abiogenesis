@@ -1,7 +1,11 @@
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 
-import { canonicalJson, type JsonValue } from "./canonical_json.js";
+import {
+  canonicalJson,
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "./canonical_json.js";
 
 export type Sha256Digest = `sha256:${string}`;
 
@@ -26,7 +30,7 @@ export function payloadInventoryDigest(
   rows: readonly PayloadInventoryRow[],
 ): Sha256Digest {
   const canonicalRows = [...rows]
-    .sort((left, right) => left.path.localeCompare(right.path))
+    .sort((left, right) => compareUnicodeCodeUnits(left.path, right.path))
     .map(({ path, sha256 }) => ({ path, sha256 }));
   return sha256Canonical(canonicalRows);
 }

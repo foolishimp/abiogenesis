@@ -4,6 +4,9 @@ import { dirname, join, resolve } from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import test from "node:test";
 
+import { cloneEventPrefixFixture } from "../support/new-empty-append-sink.mjs";
+import { proveFreshProcessRuntimeProjectionEquality } from
+  "../support/fresh-process-runtime-proof.mjs";
 import { setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
@@ -16,17 +19,21 @@ function runtimeBasis(correlationId) {
   };
 }
 
-function cloneEventStore(eventStore, events) {
-  const clone = new eventStore.AbgEventStore();
-  for (const expected of events) {
-    const candidate = structuredClone(expected);
-    delete candidate.eventId;
-    delete candidate.admissionOrdinal;
-    delete candidate.payloadDigest;
-    const admitted = eventStore.admitRuntimeEvent(clone, candidate);
-    assert.equal(admitted.eventId, expected.eventId);
-  }
-  return clone;
+async function cloneEventStore(
+  context,
+  abg,
+  eventStore,
+  events,
+  label,
+) {
+  const acquired = await cloneEventPrefixFixture(
+    context,
+    abg,
+    eventStore,
+    events,
+    label,
+  );
+  return acquired.store;
 }
 
 function admitInitialCursor(environment, opened, traversalStop, correlationId) {
@@ -53,6 +60,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     installedRoot,
     verified,
     program,
+    graphFunction,
     graph,
     graphValidation,
     input,
@@ -68,6 +76,12 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     pathToFileURL(join(
       installedRoot,
       "build/code/src/abg/event_store.js",
+    )).href
+  );
+  const retryOwner = await import(
+    pathToFileURL(join(
+      installedRoot,
+      "build/code/src/abg/retry.js",
     )).href
   );
   const opened = abg.openCall(
@@ -128,6 +142,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     executionBasis,
     opened.scope,
     program,
+    graphFunction,
     graph,
     traversalStop,
     implementationSet,
@@ -140,7 +155,10 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   assert.equal(cCall.regime, "F_D");
   assert.equal(cCall.programLocusRef, traversalStop.nodeRef);
   assert.deepEqual(cCall.retryPath, []);
-  assert.equal(abg.hasOpenedCCall(store, cCall), true);
+  assert.ok(abg.projectCCallCarrierPhaseAtPrefix(
+    abg.selectValidatedRuntimeEventPrefix(store.readAll(), { runId: cCall.runId }),
+    cCall,
+  ));
   assert.equal(
     store.readAll().find((event) => event.kind === "c_call_opened")
       .causationEventRefs[0],
@@ -162,6 +180,9 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
 
   const evidence = abg.admitEvidence(
     store,
+    graph,
+    graphFunction,
+    traversalStop.cursor,
     cCall,
     leafCandidate.evidenceCandidates[0],
     closureContract.evidenceContractRef,
@@ -171,6 +192,9 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   assert.equal(evidence.kind, "admitted_c_call_evidence", JSON.stringify(evidence));
   const result = abg.admitResult(
     store,
+    graph,
+    graphFunction,
+    traversalStop.cursor,
     cCall,
     leafCandidate.resultCandidate,
     "success",
@@ -222,6 +246,9 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   const ownerPrefix = store.readAll();
   const forgedOwnerJudgment = abg.admitJudgment(
     store,
+    graph,
+    graphFunction,
+    traversalStop.cursor,
     cCall,
     result,
     forgedOwnerCandidate,
@@ -232,6 +259,9 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   assert.deepEqual(store.readAll(), ownerPrefix);
   const judgment = abg.admitJudgment(
     store,
+    graph,
+    graphFunction,
+    traversalStop.cursor,
     cCall,
     result,
     judgmentCandidate,
@@ -243,6 +273,9 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   const postJudgmentPrefix = store.readAll();
   const duplicateOwnerJudgment = abg.admitJudgment(
     store,
+    graph,
+    graphFunction,
+    traversalStop.cursor,
     cCall,
     result,
     judgmentCandidate,
@@ -258,7 +291,13 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     ["missing", (payload) => delete payload.retryAttemptRef],
     ["numeric", (payload) => { payload.retryAttemptRef = 1; }],
   ]) {
-    const refusalStore = cloneEventStore(eventStore, judgmentPrefix);
+    const refusalStore = await cloneEventStore(
+      context,
+      abg,
+      eventStore,
+      judgmentPrefix,
+      `abi5-r9-judgment-${label}-`,
+    );
     const candidate = structuredClone(admittedJudgmentEvent);
     delete candidate.eventId;
     delete candidate.admissionOrdinal;
@@ -296,7 +335,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
       sourceCursorDigest: `sha256:${"0".repeat(64)}`,
     },
     runtimeBasis("correlation://t286/r9/forged-route"),
-    { cCall, result, judgment },
+    { cCall, graphFunction, result, judgment },
   );
   assert.equal(forgedRoute.kind, "traversal_route_admission_refusal");
   assert.equal(forgedRoute.code, "cursor_mismatch");
@@ -310,7 +349,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     judgedReplay,
     routeCandidate,
     runtimeBasis("correlation://t286/r9/route"),
-    { cCall, result, judgment },
+    { cCall, graphFunction, result, judgment },
   );
   assert.equal(route.kind, "admitted_traversal_route", JSON.stringify(route));
 
@@ -333,11 +372,83 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     replayStateDigest: route.replayStateDigest,
     admissionEventRef: route.admissionEventRef,
   });
-  const controlStore = cloneEventStore(eventStore, store.readAll());
-  const unrelatedRouteStore = cloneEventStore(eventStore, store.readAll());
-  const blockingStore = cloneEventStore(eventStore, store.readAll());
-  const blockingAttemptRef = "retry-attempt://abiogenesis/r9/live-closure-blocker";
-  eventStore.admitRuntimeEvent(blockingStore, {
+  const controlStore = await cloneEventStore(
+    context,
+    abg,
+    eventStore,
+    store.readAll(),
+    "abi5-r9-control-",
+  );
+  const freshProcessStore = await cloneEventStore(
+    context,
+    abg,
+    eventStore,
+    store.readAll(),
+    "abi5-r9-fresh-process-closure-",
+  );
+  const freshProcessClosureProof =
+    await proveFreshProcessRuntimeProjectionEquality({
+      abg,
+      product,
+      installedPackageRoot: installedRoot,
+      requests: [{
+        rowId: "root_closure_quiescence",
+        exportName: "projectRunQuiescence",
+        input: "validated_run_prefix",
+        prefixScope: { runId: cCall.runId },
+      }],
+      store: freshProcessStore,
+    });
+  assert.equal(freshProcessClosureProof.freshProcessIds.length, 2);
+  assert.equal(
+    freshProcessClosureProof.retainedRows[0].projection.disposition,
+    "quiescent_for_close",
+  );
+  assert.equal(
+    freshProcessClosureProof.retainedRows[0].projection.terminalRouteRef,
+    route.routeRef,
+  );
+  const unrelatedRouteStore = await cloneEventStore(
+    context,
+    abg,
+    eventStore,
+    store.readAll(),
+    "abi5-r9-unrelated-route-",
+  );
+  const blockingStore = await cloneEventStore(
+    context,
+    abg,
+    eventStore,
+    store.readAll(),
+    "abi5-r9-blocking-",
+  );
+  const staleStore = await cloneEventStore(
+    context,
+    abg,
+    eventStore,
+    store.readAll(),
+    "abi5-r9-stale-prefix-",
+  );
+  const blockingRetryBoundaryRef =
+    "retry-boundary://abiogenesis/r9/live-closure-blocker";
+  const blockingAttemptBody = {
+    attemptManifestRef: retryOwner.deriveRetryAttemptManifestRef({
+      retryBoundaryRef: blockingRetryBoundaryRef,
+      executionBasisRef: cCall.basisId,
+      inputContractRef: cCall.inputContractRef,
+      inputRef: traversalStop.cursor.inputRef,
+      inputDigest: traversalStop.cursor.inputDigest,
+      attempt: cCall.attempt,
+      retryPath: cCall.retryPath,
+    }),
+    retryBoundaryRef: blockingRetryBoundaryRef,
+    attempt: cCall.attempt,
+    retryPath: cCall.retryPath,
+  };
+  const blockingAttemptDigest = product.sha256Canonical(blockingAttemptBody);
+  const blockingAttemptRef =
+    `retry-attempt://abiogenesis/${blockingAttemptDigest.slice("sha256:".length)}`;
+  const blockingAttemptEvent = eventStore.admitRuntimeEvent(blockingStore, {
     kind: "retry_attempt_opened",
     eventTime: "2026-07-21T00:00:00.000Z",
     aggregateType: "frame",
@@ -354,12 +465,21 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     frameId: cCall.frameId,
     payload: {
       attemptRef: blockingAttemptRef,
-      attemptDigest: product.sha256Canonical({ attemptRef: blockingAttemptRef }),
-      retryBoundaryRef: "retry-boundary://abiogenesis/r9/live-closure-blocker",
-      attempt: cCall.attempt,
-      retryPath: cCall.retryPath,
+      attemptDigest: blockingAttemptDigest,
+      ...blockingAttemptBody,
     },
   });
+  assert.equal(
+    retryOwner.projectRetryAttempt(
+      abg.selectValidatedRuntimeEventPrefix(blockingStore.readAll(), {
+        runId: cCall.runId,
+      }),
+      graph,
+      blockingAttemptEvent.eventId,
+    ),
+    null,
+    "terminal-route-caused synthetic retry attempt must not rehydrate as an owner attempt",
+  );
   const unrelatedRouteBody = {
     routeKind: "advance",
     declarationRef: graph.materializationRef,
@@ -377,7 +497,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   const unrelatedRouteDigest = product.sha256Canonical(unrelatedRouteBody);
   const unrelatedRouteRef =
     `traversal-route://abiogenesis/${unrelatedRouteDigest.slice("sha256:".length)}`;
-  eventStore.admitRuntimeEvent(unrelatedRouteStore, {
+  const unrelatedRouteCandidate = {
     kind: "traversal_route_admitted",
     eventTime: "2026-07-21T00:00:00.000Z",
     aggregateType: "frame",
@@ -397,36 +517,62 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
       routeDigest: unrelatedRouteDigest,
       ...unrelatedRouteBody,
     },
-  });
-  const controlClosure = abg.admitClosure(
-    controlStore,
+  };
+  eventStore.admitRuntimeEvent(unrelatedRouteStore, unrelatedRouteCandidate);
+  const staleCoordinate = eventStore.selectHeldEventStoreDurablePrefix(staleStore);
+  eventStore.admitRuntimeEvent(staleStore, unrelatedRouteCandidate);
+  const stalePostInterleave = {
+    coordinate: eventStore.selectHeldEventStoreDurablePrefix(staleStore),
+    digest: staleStore.digest(),
+    eventCount: staleStore.readAll().length,
+  };
+  const staleClosure = abg.admitClosure(
+    staleStore,
+    staleCoordinate,
     cCall,
     result,
     judgment,
     route,
-    abg.replay(controlStore, replayScope),
+    closureContract,
+    runtimeBasis("correlation://t286/r9/stale-prefix"),
+  );
+  assert.equal(staleClosure.kind, "closure_admission_refusal");
+  assert.equal(staleClosure.code, "stale_prefix");
+  assert.equal(staleClosure.failureEventRef, null);
+  assert.deepEqual({
+    coordinate: eventStore.selectHeldEventStoreDurablePrefix(staleStore),
+    digest: staleStore.digest(),
+    eventCount: staleStore.readAll().length,
+  }, stalePostInterleave);
+  const controlClosure = abg.admitClosure(
+    controlStore,
+    eventStore.selectHeldEventStoreDurablePrefix(controlStore),
+    cCall,
+    result,
+    judgment,
+    route,
     closureContract,
     runtimeBasis("correlation://t286/r9/route-selection-control"),
   );
   const unrelatedRoutePrefix = unrelatedRouteStore.readAll();
   const unrelatedRouteClosure = abg.admitClosure(
     unrelatedRouteStore,
+    eventStore.selectHeldEventStoreDurablePrefix(unrelatedRouteStore),
     cCall,
     result,
     judgment,
     route,
-    abg.replay(unrelatedRouteStore, replayScope),
     closureContract,
     runtimeBasis("correlation://t286/r9/route-selection-counterexample"),
   );
   const blockingPrefix = blockingStore.readAll();
   const blockingClosure = abg.admitClosure(
     blockingStore,
+    eventStore.selectHeldEventStoreDurablePrefix(blockingStore),
     cCall,
     result,
     judgment,
     route,
-    abg.replay(blockingStore, replayScope),
     closureContract,
     runtimeBasis("correlation://t286/r9/live-closure-blocker"),
   );
@@ -436,9 +582,23 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   assert.deepEqual(unrelatedRouteStore.readAll(), unrelatedRoutePrefix);
   assert.equal(blockingClosure.kind, "closure_admission_refusal");
   assert.equal(blockingClosure.failureEventRef, null);
-  assert.match(
-    blockingClosure.message,
-    new RegExp(`retry_attempt_active\\(${blockingAttemptRef}\\)`, "u"),
+  const blockingRetryIdentityDigest = product.sha256Canonical({
+    kind: "retry_fluent_identity",
+    schemaVersion: "5.0.0",
+    name: "retry_attempt_active",
+    runId: cCall.runId,
+    graphCallId: cCall.graphCallId,
+    frameId: cCall.frameId,
+    retryBoundaryRef: blockingRetryBoundaryRef,
+    authorityRef: blockingAttemptRef,
+  });
+  const blockingRetryIdentity =
+    `retry-fluent://abiogenesis/${blockingRetryIdentityDigest.slice("sha256:".length)}`;
+  assert.equal(
+    blockingClosure.message.includes(
+      `retry_attempt_active(${blockingRetryIdentity})`,
+    ),
+    true,
   );
   assert.deepEqual(blockingStore.readAll(), blockingPrefix);
   assert.equal(
@@ -451,11 +611,11 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   assert.equal(controlClosure.routeRef, route.routeRef);
   const closure = abg.admitClosure(
     store,
+    eventStore.selectHeldEventStoreDurablePrefix(store),
     cCall,
     result,
     judgment,
     route,
-    routeReplay,
     closureContract,
     runtimeBasis("correlation://t286/r9/closure"),
   );
@@ -471,11 +631,11 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   const closedEventCount = store.readAll().length;
   const duplicateClosure = abg.admitClosure(
     store,
+    eventStore.selectHeldEventStoreDurablePrefix(store),
     cCall,
     result,
     judgment,
     route,
-    routeReplay,
     closureContract,
     runtimeBasis("correlation://t286/r9/duplicate-closure"),
   );
@@ -566,6 +726,7 @@ test("R9 totalizes a real result-admission rejection on the same CCall spine", a
     store,
     installedRoot,
     program,
+    graphFunction,
     graph,
     graphValidation,
     input,
@@ -601,6 +762,7 @@ test("R9 totalizes a real result-admission rejection on the same CCall spine", a
     executionBasis,
     opened.scope,
     program,
+    graphFunction,
     graph,
     traversalStop,
     implementationSet,
@@ -616,6 +778,9 @@ test("R9 totalizes a real result-admission rejection on the same CCall spine", a
   const leafCandidate = implementationModule[implementationResolution.namedSymbol](input);
   const evidence = abg.admitEvidence(
     store,
+    graph,
+    graphFunction,
+    traversalStop.cursor,
     cCall,
     leafCandidate.evidenceCandidates[0],
     closureContract.evidenceContractRef,
@@ -627,6 +792,9 @@ test("R9 totalizes a real result-admission rejection on the same CCall spine", a
   alteredResult.message = "Wrong result";
   const resultRejection = abg.admitResult(
     store,
+    graph,
+    graphFunction,
+    traversalStop.cursor,
     cCall,
     alteredResult,
     "success",
@@ -638,25 +806,31 @@ test("R9 totalizes a real result-admission rejection on the same CCall spine", a
   );
   assert.equal(resultRejection.kind, "c_call_admission_rejection");
   assert.equal(resultRejection.stage, "result");
-  const eventCountBeforeForgedCompletion = store.readAll().length;
-  assert.throws(
-    () => abg.completeRejectedCCall(
-      store,
-      cCall,
-      structuredClone(resultRejection),
-      runtimeBasis("correlation://t286/r9-rejection/forged-completion"),
-    ),
-    /authentic open-call admission rejection/,
-  );
-  assert.equal(store.readAll().length, eventCountBeforeForgedCompletion);
   const completion = abg.completeRejectedCCall(
     store,
+    graph,
+    graphFunction,
+    traversalStop.cursor,
     cCall,
-    resultRejection,
+    structuredClone(resultRejection),
     runtimeBasis("correlation://t286/r9-rejection/completion"),
   );
   assert.equal(completion.kind, "rejected_c_call_completion");
   assert.equal(completion.disposition, "blocked");
+  const eventCountAfterCompletion = store.readAll().length;
+  assert.throws(
+    () => abg.completeRejectedCCall(
+      store,
+      graph,
+      graphFunction,
+      traversalStop.cursor,
+      cCall,
+      resultRejection,
+      runtimeBasis("correlation://t286/r9-rejection/stale-duplicate"),
+    ),
+    /authentic open-call admission rejection/,
+  );
+  assert.equal(store.readAll().length, eventCountAfterCompletion);
 
   const rows = store.readAll().filter((event) => event.aggregateId === cCall.cCallRef);
   assert.deepEqual(rows.map((event) => event.kind), [
@@ -719,13 +893,9 @@ test("R9 admits and durably appends a post-open CCall refusal", async (context) 
     leafPort,
     executionBasis,
     closureContract,
-    workspaceBinding,
+    durablePrefix,
   } = environment;
-  const durablePath = join(
-    workspaceBinding.roots.eventLogRoot,
-    "r9-post-open-refusal.events.jsonl",
-  );
-  store.configureDurableLog(durablePath);
+  const durablePath = fileURLToPath(durablePrefix.eventLogRef);
   const opened = abg.openCall(
     store,
     executionBasis,

@@ -17,12 +17,61 @@ export const AX_F09_RETRY_IDS = Object.freeze({
   graphFunctionRef: "graph-function://developer.example/greeting/retry-restart@5",
   graphRef: "graph://developer.example/greeting/retry-restart@5",
   nodeRef: "node://developer.example/greeting/retry-restart@5",
+  compositionRef:
+    "composition://developer.example/greeting/retry-restart@5",
+  transformLocusRef:
+    "locus://developer.example/greeting/retry-restart/transform@5",
+  transformJudgmentPredicateRef:
+    "judgment-predicate://developer.example/greeting/retry-transform@5",
   locusRef: "locus://developer.example/greeting/retry-restart@5",
+  childGraphFunctionRef:
+    "graph-function://developer.example/greeting/retry-restart/hold@5",
+  childGraphRef:
+    "graph://developer.example/greeting/retry-restart/hold@5",
+  childNodeRef:
+    "node://developer.example/greeting/retry-restart/hold@5",
+  childCompositionRef:
+    "composition://developer.example/greeting/retry-restart/hold@5",
+  childLocusRef:
+    "locus://developer.example/greeting/retry-restart/hold@5",
   inputContractRef: "contract://developer.example/greeting/retry-input@5",
+  transformImplementationBindingRef:
+    "implementation-binding://developer.example/greeting/retry-transform-fd@5",
+  transformImplementationRef:
+    "implementation://developer.example/greeting/retry-transform-fd@5",
   implementationBindingRef: "implementation-binding://developer.example/greeting/retry-fp@5",
   implementationRef: "implementation://developer.example/greeting/retry-fp@5",
   semanticsBindingRef: "product-semantics://developer.example/greeting/retry@5",
+  closureContractRef:
+    "contract://developer.example/greeting/retry-closure@5",
+  childClosureContractRef:
+    "contract://developer.example/greeting/retry-child-closure@5",
 });
+
+export function realizeAxF09Transform(input) {
+  if (!isGreetingOutput(input)) {
+    throw new TypeError(
+      "AX-F09 transform requires its exact graph-entry greeting input",
+    );
+  }
+  const resultCandidate = deepFreeze({
+    ...input,
+    message: input.message + "::retry-locus",
+  });
+  return deepFreeze({
+    kind: "leaf_realization_candidate",
+    schemaVersion: "5.0.0",
+    disposition: "success",
+    evidenceCandidates: [{
+      kind: "deterministic_evidence_candidate",
+      schemaVersion: "5.0.0",
+      implementationRef: AX_F09_RETRY_IDS.transformImplementationRef,
+      inputDigest: sha256Canonical(input),
+      outputDigest: sha256Canonical(resultCandidate),
+    }],
+    resultCandidate,
+  });
+}
 
 export async function realizeAxF09ProbabilisticPass(input, effects) {
   if (!isGreetingOutput(input)) {
@@ -37,7 +86,7 @@ export async function realizeAxF09ProbabilisticPass(input, effects) {
     inputDigest: sha256Canonical(input),
     materializationPlanRef: DEVELOPER_MINI_IDS.materializationPlanRef,
     rendererRef: DEVELOPER_MINI_IDS.rendererRef,
-    instructionContractRef: AX_F09_RETRY_IDS.inputContractRef,
+    instructionContractRef: DEVELOPER_MINI_IDS.outputContractRef,
     resultContractRef: DEVELOPER_MINI_IDS.outputContractRef,
     transportLane: "closed_prompt_proof",
     prompt: [
@@ -100,11 +149,33 @@ const AX_F09_IMPLEMENTATION_DESCRIPTOR_BODY = {
   modulePath: "build/index.js",
   namedSymbol: "realizeAxF09ProbabilisticPass",
   computeRegime: "F_P",
+  inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+  outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+  failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+  refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+};
+
+const AX_F09_TRANSFORM_IMPLEMENTATION_DESCRIPTOR_BODY = {
+  implementationRef: AX_F09_RETRY_IDS.transformImplementationRef,
+  packageName: "@abiogenesis-fixtures/developer-mini-product",
+  packageVersion: "5.0.0",
+  modulePath: "build/index.js",
+  namedSymbol: "realizeAxF09Transform",
+  computeRegime: "F_D",
   inputContractRef: AX_F09_RETRY_IDS.inputContractRef,
   outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
   failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
   refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
 };
+
+export const AX_F09_TRANSFORM_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
+  kind: "packaged_leaf_implementation_descriptor",
+  schemaVersion: "5.0.0",
+  descriptorDigest: sha256Canonical(
+    AX_F09_TRANSFORM_IMPLEMENTATION_DESCRIPTOR_BODY,
+  ),
+  ...AX_F09_TRANSFORM_IMPLEMENTATION_DESCRIPTOR_BODY,
+});
 
 export const AX_F09_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
   kind: "packaged_leaf_implementation_descriptor",
@@ -125,6 +196,24 @@ export const AX_F09_PRODUCT_SEMANTICS = Object.freeze({
     }
     return DEVELOPER_MINI_PRODUCT_SEMANTICS.admitInput(contractRef, value);
   },
+  resolveJudgmentRelation(predicateRef) {
+    if (predicateRef === AX_F09_RETRY_IDS.transformJudgmentPredicateRef) {
+      return Object.freeze({
+        predicateRef,
+        advanceReasonRef:
+          "reason://developer.example/greeting/retry-transform-valid@5",
+        rejectionReasonRef:
+          "reason://developer.example/greeting/retry-transform-invalid@5",
+        evaluate: (input, output) =>
+          isGreetingOutput(input) &&
+          isGreetingOutput(output) &&
+          output.message === input.message + "::retry-locus",
+      });
+    }
+    return DEVELOPER_MINI_PRODUCT_SEMANTICS.resolveJudgmentRelation(
+      predicateRef,
+    );
+  },
 });
 
 function constructAxF09Declarations() {
@@ -143,8 +232,29 @@ function constructAxF09Declarations() {
   const probabilistic = mixed?.template?.nodes?.[0]?.term?.terms?.find(
     (candidate) => candidate.kind === "c_of" && candidate.fibre === "F_P",
   );
-  if (mixed === undefined || probabilistic === undefined) {
-    throw new TypeError("AX-F09 Product requires the authored probabilistic leaf");
+  const transform = mixed?.template?.nodes?.[0]?.term?.terms?.find(
+    (candidate) => candidate.kind === "c_of" && candidate.fibre === "F_D",
+  );
+  const interaction = mixed?.template?.nodes?.[0]?.term?.terms?.find(
+    (candidate) => candidate.kind === "c_of" && candidate.fibre === "F_H",
+  );
+  const deterministicPass = mixed?.template?.nodes?.[0]?.term?.terms?.find(
+    (candidate) =>
+      candidate.kind === "c_of" &&
+      candidate.fibre === "F_D" &&
+      candidate.inputCarrierRef === DEVELOPER_MINI_IDS.outputContractRef &&
+      candidate.outputCarrierRef === DEVELOPER_MINI_IDS.outputContractRef,
+  );
+  if (
+    mixed === undefined ||
+    probabilistic === undefined ||
+    transform === undefined ||
+    interaction === undefined ||
+    deterministicPass === undefined
+  ) {
+    throw new TypeError(
+      "AX-F09 Product requires authored transform, probabilistic, and hold leaves",
+    );
   }
   const graphFunction = deepFreeze({
     kind: "graph_function",
@@ -169,24 +279,51 @@ function constructAxF09Declarations() {
         nodeRef: AX_F09_RETRY_IDS.nodeRef,
         nodeKind: "c_locus",
         term: {
-          kind: "c_retry",
+          kind: "c_compose",
           inputCarrierRef: AX_F09_RETRY_IDS.inputContractRef,
           outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
-          budget: 3,
-          term: {
-            ...structuredClone(probabilistic),
+          terms: [{
+            ...structuredClone(transform),
             inputCarrierRef: AX_F09_RETRY_IDS.inputContractRef,
-            programLocusRef: AX_F09_RETRY_IDS.locusRef,
-            compositionRef: null,
+            outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            programLocusRef: AX_F09_RETRY_IDS.transformLocusRef,
+            judgmentPredicateRef:
+              AX_F09_RETRY_IDS.transformJudgmentPredicateRef,
+            compositionRef: AX_F09_RETRY_IDS.compositionRef,
             vectorIndex: 0,
-            resultBearing: true,
+            resultBearing: false,
             requirement: {
-              ...structuredClone(probabilistic.requirement),
+              ...structuredClone(transform.requirement),
               implementationBindingRef:
-                AX_F09_RETRY_IDS.implementationBindingRef,
+                AX_F09_RETRY_IDS.transformImplementationBindingRef,
               inputContractRef: AX_F09_RETRY_IDS.inputContractRef,
+              outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
             },
-          },
+          }, {
+            kind: "c_retry",
+            inputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            budget: 3,
+            term: {
+              ...structuredClone(probabilistic),
+              inputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+              programLocusRef: AX_F09_RETRY_IDS.locusRef,
+              compositionRef: AX_F09_RETRY_IDS.compositionRef,
+              vectorIndex: 1,
+              resultBearing: false,
+              requirement: {
+                ...structuredClone(probabilistic.requirement),
+                implementationBindingRef:
+                  AX_F09_RETRY_IDS.implementationBindingRef,
+                inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+              },
+            },
+          }, {
+            kind: "c_workflow",
+            inputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            graphFunctionRef: AX_F09_RETRY_IDS.childGraphFunctionRef,
+          }],
         },
       }],
       edges: [],
@@ -195,9 +332,62 @@ function constructAxF09Declarations() {
     effects: [...mixed.effects],
     declarations: {
       ...structuredClone(mixed.declarations),
-      "abg.closure_contract": DEVELOPER_MINI_IDS.closureContractRef,
+      "abg.closure_contract": AX_F09_RETRY_IDS.closureContractRef,
     },
     tags: ["developer", "falsifier", "retry", "restart", "fp"],
+  });
+  const childGraphFunction = deepFreeze({
+    kind: "graph_function",
+    name: AX_F09_RETRY_IDS.childGraphFunctionRef,
+    version: "5.0.0",
+    environment: {
+      requires: [DEVELOPER_MINI_IDS.outputContractRef],
+      provides: [DEVELOPER_MINI_IDS.outputContractRef],
+      carries: [DEVELOPER_MINI_IDS.outputContractRef],
+    },
+    inputs: [DEVELOPER_MINI_IDS.outputContractRef],
+    outputs: [DEVELOPER_MINI_IDS.outputContractRef],
+    template: {
+      kind: "inline_graph",
+      graphRef: AX_F09_RETRY_IDS.childGraphRef,
+      startNodeRef: AX_F09_RETRY_IDS.childNodeRef,
+      terminalNodeRefs: [AX_F09_RETRY_IDS.childNodeRef],
+      nodes: [{
+        nodeRef: AX_F09_RETRY_IDS.childNodeRef,
+        nodeKind: "c_locus",
+        term: {
+          kind: "c_compose",
+          inputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+          outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+          terms: [{
+            ...structuredClone(deterministicPass),
+            compositionRef: AX_F09_RETRY_IDS.childCompositionRef,
+            vectorIndex: 0,
+            resultBearing: false,
+          }, {
+            ...structuredClone(interaction),
+            inputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            outputCarrierRef: DEVELOPER_MINI_IDS.outputContractRef,
+            programLocusRef: AX_F09_RETRY_IDS.childLocusRef,
+            compositionRef: AX_F09_RETRY_IDS.childCompositionRef,
+            vectorIndex: 1,
+            resultBearing: true,
+            requirement: structuredClone(interaction.requirement),
+          }],
+        },
+      }],
+      edges: [],
+      applications: [],
+    },
+    effects: ["effect://developer.example/greeting/retry-child-hold@5"],
+    declarations: {
+      ...structuredClone(mixed.declarations),
+      "abg.compute_regime": "F_H",
+      "abg.closure_contract": AX_F09_RETRY_IDS.childClosureContractRef,
+      "abg.child_closure_contract":
+        AX_F09_RETRY_IDS.childClosureContractRef,
+    },
+    tags: ["developer", "falsifier", "retry", "downstream-hold", "fh"],
   });
   const program = deepFreeze({
     kind: "gtl_program",
@@ -208,23 +398,35 @@ function constructAxF09Declarations() {
       startRef: AX_F09_RETRY_IDS.startRef,
       graphFunctionRef: AX_F09_RETRY_IDS.graphFunctionRef,
     }],
-    callableMembership: [AX_F09_RETRY_IDS.graphFunctionRef],
-    closureContractRef: DEVELOPER_MINI_IDS.closureContractRef,
+    callableMembership: [
+      AX_F09_RETRY_IDS.graphFunctionRef,
+      AX_F09_RETRY_IDS.childGraphFunctionRef,
+    ],
+    closureContractRef: AX_F09_RETRY_IDS.closureContractRef,
     policies: {
       "abg.root_mode": "direct",
       "abg.compute_regime": "F_P",
       "abg.instruction_plan": DEVELOPER_MINI_IDS.materializationPlanRef,
     },
   });
-  return { graphFunction, program };
+  return { childGraphFunction, graphFunction, program };
 }
 
 const AX_F09_DECLARATIONS = constructAxF09Declarations();
 export const AX_F09_GRAPH_FUNCTION = AX_F09_DECLARATIONS.graphFunction;
+export const AX_F09_CHILD_GRAPH_FUNCTION =
+  AX_F09_DECLARATIONS.childGraphFunction;
 export const AX_F09_PROGRAM = AX_F09_DECLARATIONS.program;
 
 export function constructAxF09Publication(artifact) {
   const base = constructDeveloperMiniPublication(artifact);
+  const baseClosureContract = base.closureContracts.find(
+    (candidate) =>
+      candidate.closureContractRef === DEVELOPER_MINI_IDS.closureContractRef,
+  );
+  if (baseClosureContract === undefined) {
+    throw new TypeError("AX-F09 requires the installed base closure contract");
+  }
   return deepFreeze({
     ...base,
     productSemanticsBinding: {
@@ -237,8 +439,26 @@ export function constructAxF09Publication(artifact) {
       contractVersion: "5.0.0",
       contractKind: "input",
       valueKind: "developer_greeting_output",
+    }, {
+      contractRef: AX_F09_RETRY_IDS.childClosureContractRef,
+      contractVersion: "5.0.0",
+      contractKind: "closure",
+      valueKind: "developer_retry_child_closure",
     }],
     implementationBindings: [...base.implementationBindings, {
+      kind: "implementation_binding",
+      bindingRef: AX_F09_RETRY_IDS.transformImplementationBindingRef,
+      implementationRef: AX_F09_RETRY_IDS.transformImplementationRef,
+      packageName: artifact.packageName,
+      packageVersion: artifact.packageVersion,
+      modulePath: "build/index.js",
+      namedSymbol: "realizeAxF09Transform",
+      computeRegime: "F_D",
+      inputContractRef: AX_F09_RETRY_IDS.inputContractRef,
+      outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
+      refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
+    }, {
       kind: "implementation_binding",
       bindingRef: AX_F09_RETRY_IDS.implementationBindingRef,
       implementationRef: AX_F09_RETRY_IDS.implementationRef,
@@ -247,17 +467,46 @@ export function constructAxF09Publication(artifact) {
       modulePath: "build/index.js",
       namedSymbol: "realizeAxF09ProbabilisticPass",
       computeRegime: "F_P",
-      inputContractRef: AX_F09_RETRY_IDS.inputContractRef,
+      inputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
       outputContractRef: DEVELOPER_MINI_IDS.outputContractRef,
       failureContractRef: DEVELOPER_MINI_IDS.failureContractRef,
       refusalContractRef: DEVELOPER_MINI_IDS.refusalContractRef,
     }],
-    graphFunctions: [...base.graphFunctions, AX_F09_GRAPH_FUNCTION],
+    closureContracts: [...base.closureContracts, {
+      ...baseClosureContract,
+      closureContractRef: AX_F09_RETRY_IDS.closureContractRef,
+      evidenceContractRef:
+        DEVELOPER_MINI_IDS.probabilisticEvidenceContractRef,
+    }, {
+      ...baseClosureContract,
+      closureContractRef: AX_F09_RETRY_IDS.childClosureContractRef,
+      resultContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+      closureScope: "graph_call",
+      eventKindRefs: [
+        "terminal_reached",
+        "frame_closed",
+        "graph_call_closed",
+      ],
+    }],
+    graphFunctions: [
+      ...base.graphFunctions,
+      AX_F09_GRAPH_FUNCTION,
+      AX_F09_CHILD_GRAPH_FUNCTION,
+    ],
     programs: [...base.programs, AX_F09_PROGRAM],
     contributions: [...base.contributions, {
       handle: AX_F09_RETRY_IDS.graphFunctionRef,
       kind: "graph_function",
       declarationOrContractRef: AX_F09_RETRY_IDS.graphFunctionRef,
+      owningProductId: artifact.productId,
+      programMembershipRefs: [AX_F09_RETRY_IDS.programRef],
+      readinessPrerequisiteRefs: [AX_F09_RETRY_IDS.programRef],
+      compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+      provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+    }, {
+      handle: AX_F09_RETRY_IDS.childGraphFunctionRef,
+      kind: "graph_function",
+      declarationOrContractRef: AX_F09_RETRY_IDS.childGraphFunctionRef,
       owningProductId: artifact.productId,
       programMembershipRefs: [AX_F09_RETRY_IDS.programRef],
       readinessPrerequisiteRefs: [AX_F09_RETRY_IDS.programRef],
@@ -282,12 +531,17 @@ export declare const AX_F09_RETRY_IDS: Readonly<{
   semanticsBindingRef: string;
 }>;
 export declare const AX_F09_IMPLEMENTATION_DESCRIPTOR: Readonly<Record<string, unknown>>;
+export declare const AX_F09_TRANSFORM_IMPLEMENTATION_DESCRIPTOR: Readonly<Record<string, unknown>>;
+export declare function realizeAxF09Transform(
+  input: unknown,
+): Readonly<Record<string, unknown>>;
 export declare function realizeAxF09ProbabilisticPass(
   input: unknown,
   effects: Readonly<Record<string, unknown>>,
 ): Promise<Readonly<Record<string, unknown>>>;
 export declare const AX_F09_PRODUCT_SEMANTICS: Readonly<Record<string, unknown>>;
 export declare const AX_F09_GRAPH_FUNCTION: Readonly<Record<string, unknown>>;
+export declare const AX_F09_CHILD_GRAPH_FUNCTION: Readonly<Record<string, unknown>>;
 export declare const AX_F09_PROGRAM: Readonly<Record<string, unknown>>;
 export declare function constructAxF09Publication(
   artifact: Readonly<Record<string, string>>,

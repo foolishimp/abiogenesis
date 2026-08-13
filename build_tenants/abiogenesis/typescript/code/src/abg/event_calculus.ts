@@ -2,6 +2,7 @@ import {
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   runtimeEventsFromValidatedPrefix,
@@ -37,6 +38,50 @@ export interface RuntimeFluentPattern {
 export interface RuntimeFluentInput {
   readonly name: string;
   readonly identity?: string | null;
+}
+
+export type RetryFluentName =
+  | "retry_attempt_active"
+  | "retry_progress_available";
+
+export interface RetryFluentIdentityCoordinates {
+  readonly runId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly retryBoundaryRef: string;
+  readonly authorityRef: string;
+}
+
+export function constructRetryFluentIdentity(
+  name: RetryFluentName,
+  coordinates: RetryFluentIdentityCoordinates,
+): string {
+  if (
+    coordinates.runId.length === 0 ||
+    coordinates.graphCallId.length === 0 ||
+    coordinates.frameId.length === 0 ||
+    coordinates.retryBoundaryRef.length === 0 ||
+    coordinates.authorityRef.length === 0
+  ) {
+    throw new TypeError("retry fluent identity requires one exact closed scope");
+  }
+  const digest = sha256Canonical({
+    kind: "retry_fluent_identity",
+    schemaVersion: "5.0.0",
+    name,
+    ...coordinates,
+  });
+  return `retry-fluent://abiogenesis/${digest.slice("sha256:".length)}`;
+}
+
+export function constructScopedRetryFluent(
+  name: RetryFluentName,
+  coordinates: RetryFluentIdentityCoordinates,
+): RuntimeFluent {
+  return constructRuntimeFluent({
+    name,
+    identity: constructRetryFluentIdentity(name, coordinates),
+  });
 }
 
 export interface RuntimeFluentPatternInput {
@@ -89,6 +134,26 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   basis_admitted: {
     initiates: ["basis_admitted"],
     terminates: [], clips: [], declips: [],
+  },
+  declaration_reprice_admitted: {
+    initiates: ["declaration_reprice_admitted"],
+    terminates: [], clips: [], declips: [],
+  },
+  replay_log_attested: {
+    initiates: ["replay_log_attested"],
+    terminates: [], clips: [], declips: [],
+  },
+  workspace_hygiene_stamped: {
+    initiates: ["workspace_hygiene_stamped"],
+    terminates: [], clips: [], declips: [],
+  },
+  defect_intake_admitted: {
+    initiates: ["defect_intake_admitted"],
+    terminates: [], clips: [], declips: [],
+  },
+  run_resumed: {
+    initiates: ["run_active"],
+    terminates: ["operator_run_stopped"], clips: [], declips: [],
   },
   run_segment_opened: {
     initiates: ["run_active"],
@@ -178,6 +243,10 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: ["c_call_judgment_available"],
     terminates: ["c_call_active", "c_call_result_available"],
     clips: [], declips: [],
+  },
+  assessed: {
+    initiates: ["result_assessment_admitted"],
+    terminates: [], clips: [], declips: [],
   },
   retry_attempt_opened: {
     initiates: ["retry_attempt_active"],
@@ -306,7 +375,29 @@ function fluent(name: string, identity: string): string {
   return `${name}(${identity})`;
 }
 
-function consumedAvailabilityFluents(ref: string): readonly string[] {
+function retryFluentIdentityForEvent(
+  event: RuntimeEvent,
+  name: RetryFluentName,
+  authorityRef: string,
+): string | null {
+  const retryBoundaryRef = stringField(event, "retryBoundaryRef");
+  return event.runId === undefined || event.graphCallId === undefined ||
+      event.frameId === undefined || retryBoundaryRef === null
+    ? null
+    : constructRetryFluentIdentity(name, {
+        runId: event.runId,
+        graphCallId: event.graphCallId,
+        frameId: event.frameId,
+        retryBoundaryRef,
+        authorityRef,
+      });
+}
+
+function consumedAvailabilityFluents(
+  ref: string,
+  event: RuntimeEvent,
+  priorEvents: readonly RuntimeEvent[],
+): readonly string[] {
   if (ref.startsWith("judgment://")) {
     return [fluent("c_call_judgment_available", ref)];
   }
@@ -317,7 +408,23 @@ function consumedAvailabilityFluents(ref: string): readonly string[] {
     return [fluent("child_preparation_refused", ref)];
   }
   if (ref.startsWith("retry-progress://")) {
-    return [fluent("retry_progress_available", ref)];
+    const cited = priorEvents.filter((candidate) =>
+      candidate.kind === "retry_progress_recorded" &&
+      candidate.runId === event.runId &&
+      candidate.graphCallId === event.graphCallId &&
+      candidate.frameId === event.frameId &&
+      stringField(candidate, "progressRef") === ref &&
+      event.causationEventRefs.includes(candidate.eventId)
+    );
+    if (cited.length !== 1) return [];
+    const identity = retryFluentIdentityForEvent(
+      cited[0]!,
+      "retry_progress_available",
+      ref,
+    );
+    return identity === null
+      ? []
+      : [fluent("retry_progress_available", identity)];
   }
   if (ref.startsWith("graph-function-application://")) {
     return [
@@ -330,10 +437,73 @@ function consumedAvailabilityFluents(ref: string): readonly string[] {
 
 function eventCalculusEffectRefs(
   eventOrKind: RootEventKind | Pick<RuntimeEvent, "kind" | "payload">,
+  priorEvents: readonly RuntimeEvent[] = [],
 ): EventCalculusEffectRefs {
   if (typeof eventOrKind === "string") return ROOT_EVENT_CALCULUS[eventOrKind];
   const event = eventOrKind as RuntimeEvent;
   switch (event.kind) {
+    case "public_operation_artifact_admitted": {
+      const authorityScopeRef = stringField(event, "authorityScopeRef");
+      if (authorityScopeRef === null) {
+        throw new TypeError(
+          "artifact admission requires one authority-scope fluent identity",
+        );
+      }
+      return {
+        initiates: [
+          fluent("public_operation_artifact_available", authorityScopeRef),
+        ],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    }
+    case "declaration_reprice_admitted": {
+      const repriceRef = stringField(event, "repriceRef");
+      return {
+        initiates: repriceRef === null
+          ? []
+          : [fluent("declaration_reprice_admitted", repriceRef)],
+        terminates: [], clips: [], declips: [],
+      };
+    }
+    case "replay_log_attested": {
+      const attestationRef = stringField(event, "attestationRef");
+      return {
+        initiates: attestationRef === null
+          ? []
+          : [fluent("replay_log_attested", attestationRef)],
+        terminates: [], clips: [], declips: [],
+      };
+    }
+    case "workspace_hygiene_stamped": {
+      const hygieneRef = stringField(event, "hygieneRef");
+      return {
+        initiates: hygieneRef === null
+          ? []
+          : [fluent("workspace_hygiene_stamped", hygieneRef)],
+        terminates: [], clips: [], declips: [],
+      };
+    }
+    case "defect_intake_admitted": {
+      const intakeRef = stringField(event, "intakeRef");
+      return {
+        initiates: intakeRef === null
+          ? []
+          : [fluent("defect_intake_admitted", intakeRef)],
+        terminates: [], clips: [], declips: [],
+      };
+    }
+    case "run_resumed":
+      return {
+        initiates: event.runId === undefined
+          ? []
+          : [fluent("run_active", event.runId)],
+        terminates: event.runId === undefined
+          ? []
+          : [fluent("operator_run_stopped", event.runId)],
+        clips: [], declips: [],
+      };
     case "run_segment_opened":
       return {
         initiates: [fluent("run_active", event.runId ?? event.aggregateId)],
@@ -527,12 +697,30 @@ function eventCalculusEffectRefs(
         declips: [],
       };
     }
+    case "assessed": {
+      const assessmentRef = stringField(event, "assessmentRef");
+      return {
+        initiates: assessmentRef === null
+          ? []
+          : [fluent("result_assessment_admitted", assessmentRef)],
+        terminates: [],
+        clips: [],
+        declips: [],
+      };
+    }
     case "retry_attempt_opened": {
       const attemptRef = stringField(event, "attemptRef");
+      const identity = attemptRef === null
+        ? null
+        : retryFluentIdentityForEvent(
+            event,
+            "retry_attempt_active",
+            attemptRef,
+          );
       return {
-        initiates: attemptRef === null
+        initiates: identity === null
           ? []
-          : [fluent("retry_attempt_active", attemptRef)],
+          : [fluent("retry_attempt_active", identity)],
         terminates: [],
         clips: [],
         declips: [],
@@ -541,13 +729,27 @@ function eventCalculusEffectRefs(
     case "retry_progress_recorded": {
       const attemptRef = stringField(event, "attemptRef");
       const progressRef = stringField(event, "progressRef");
+      const attemptIdentity = attemptRef === null
+        ? null
+        : retryFluentIdentityForEvent(
+            event,
+            "retry_attempt_active",
+            attemptRef,
+          );
+      const progressIdentity = progressRef === null
+        ? null
+        : retryFluentIdentityForEvent(
+            event,
+            "retry_progress_available",
+            progressRef,
+          );
       return {
-        initiates: progressRef === null
+        initiates: progressIdentity === null
           ? []
-          : [fluent("retry_progress_available", progressRef)],
-        terminates: attemptRef === null
+          : [fluent("retry_progress_available", progressIdentity)],
+        terminates: attemptIdentity === null
           ? []
-          : [fluent("retry_attempt_active", attemptRef)],
+          : [fluent("retry_attempt_active", attemptIdentity)],
         clips: [],
         declips: [],
       };
@@ -776,6 +978,18 @@ function eventCalculusEffectRefs(
         declips: [],
       };
     case "run_stopped":
+      if (stringField(event, "reasonKind") !== null) {
+        return {
+          initiates: event.runId === undefined
+            ? []
+            : [fluent("operator_run_stopped", event.runId)],
+          terminates: event.runId === undefined
+            ? []
+            : [fluent("run_active", event.runId)],
+          clips: [],
+          declips: [],
+        };
+      }
       return {
         initiates: event.runId === undefined
           ? []
@@ -861,7 +1075,7 @@ function eventCalculusEffectRefs(
   const consumedFluents = stringArrayField(
     event,
     "consumedAvailabilityRefs",
-  ).flatMap((ref) => consumedAvailabilityFluents(ref));
+  ).flatMap((ref) => consumedAvailabilityFluents(ref, event, priorEvents));
   switch (eventOrKind.payload.routeKind) {
     case "advance":
     case "re_enter":
@@ -1183,8 +1397,9 @@ validateRuntimeEventCalculusAxiomKindsForModuleTest(
 
 export function eventCalculusEffect(
   eventOrKind: RootEventKind | Pick<RuntimeEvent, "kind" | "payload">,
+  priorEvents: readonly RuntimeEvent[] = [],
 ): EventCalculusEffect {
-  const effect = eventCalculusEffectRefs(eventOrKind);
+  const effect = eventCalculusEffectRefs(eventOrKind, priorEvents);
   return completeEffect({
     initiates: effect.initiates.map(runtimeFluentFromRef),
     terminates: effect.terminates.map(runtimeFluentFromRef),
@@ -1214,8 +1429,8 @@ export function deriveRuntimeEventCalculusProjection(
   const clippedFluentRefs: string[] = [];
   const declippedPatternRefs: string[] = [];
   const contextualFluentRunIds = new Map<string, string>();
-  for (const event of events) {
-    const baseEffect = eventCalculusEffect(event);
+  for (const [eventIndex, event] of events.entries()) {
+    const baseEffect = eventCalculusEffect(event, events.slice(0, eventIndex));
     const terminalLocusEvent =
       event.kind === "runtime_failure_observed" ||
       event.kind === "run_stopped" ||

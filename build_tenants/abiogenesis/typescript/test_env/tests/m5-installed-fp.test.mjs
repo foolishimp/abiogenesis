@@ -11,6 +11,8 @@ import {
   runInstalledCli,
   setupInstalledCliHarness,
 } from "../support/root-cli-environment.mjs";
+import { proveFreshProcessRuntimeProjectionEquality } from
+  "../support/fresh-process-runtime-proof.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const PROGRAM_REF = "program://abiogenesis/conformance/fp-hello@5";
@@ -106,8 +108,9 @@ test("M5 installed CLI admits one subprocess-backed F_P leaf through ordinary GT
     "m5-fp-valid",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: fpInput("World"),
     },
   );
@@ -228,6 +231,41 @@ test("M5 installed CLI admits one subprocess-backed F_P leaf through ordinary GT
   assert.match(evidence.payload.transportDigest, /^sha256:[a-f0-9]{64}$/u);
   assert.equal(result.payload.value.actorRef, ACTOR_REF);
   assert.equal(events.filter((event) => event.kind === "run_closed").length, 1);
+  const finalHandoff = run.transportResults.at(-1)?.closeHandoff;
+  assert.notEqual(finalHandoff, undefined);
+  const reopened = installedAbg.reopenEventStore(
+    finalHandoff.reopenAuthority,
+  );
+  assert.equal(
+    reopened.kind,
+    "reopened_event_store_context",
+    JSON.stringify(reopened),
+  );
+  const installedProduct = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/product",
+    `fp-fresh-product=${Date.now()}`,
+  );
+  const freshProof = await proveFreshProcessRuntimeProjectionEquality({
+    abg: installedAbg,
+    product: installedProduct,
+    installedPackageRoot: scenario.installedRoot,
+    requests: [{
+      rowId: "f04_probabilistic_runtime_replay",
+      exportName: "replay",
+      args: [{ runId: outcome.runId }],
+    }],
+    store: reopened.store,
+  });
+  assert.equal(freshProof.retainedRows.length, 1);
+  assert.equal(
+    freshProof.retainedRows[0].projection.replayDigest,
+    outcome.replayDigest,
+  );
+  assert.equal(
+    freshProof.retainedRows[0].projection.runtimeStatus,
+    "closed",
+  );
   const installedLeaf = await readFile(
     join(scenario.installedRoot, "build/code/src/implementation/fp_hello.js"),
     "utf8",
@@ -243,8 +281,9 @@ test("M5 installed worker_executes lane preserves B-001 capability through ABG a
     "m5-fp-worker-executes",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: fpInput("World", "worker_executes"),
     },
   );
@@ -280,8 +319,9 @@ test("M5 admitted GTL lane overrides ambient process lane selection", async (con
     "m5-fp-admitted-lane",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: fpInput("World", "closed_prompt_proof"),
     },
   );
@@ -319,8 +359,9 @@ test("M5 deterministically salvages a valid result produced before nonzero exit"
     "m5-fp-nonzero-salvage",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: fpInput("World"),
     },
   );
@@ -353,8 +394,9 @@ test("M5 records unavailable worker commands as typed process failure", async (c
     "m5-fp-command-unavailable",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: fpInput("World"),
     },
   );
@@ -365,11 +407,82 @@ test("M5 records unavailable worker commands as typed process failure", async (c
   });
 
   assert.equal(run.exitCode, 2, run.stdout);
-  assert.equal(run.outcomes[6].disposition, "blocked");
+  assert.equal(run.outcomes[6].disposition, "failed");
   const events = await readEvents(scenario.eventLogPath);
-  assert.equal(events.some((event) => event.kind === "actor_process_spawn_failed"), true);
-  assert.equal(events.some((event) => event.kind === "actor_invocation_failed"), true);
-  assert.equal(events.at(-1).kind, "run_stopped");
+  const spawnFailures = events.filter(
+    (event) => event.kind === "actor_process_spawn_failed",
+  );
+  assert.equal(spawnFailures.length, 1);
+  const actorFailures = events.filter(
+    (event) =>
+      event.kind === "actor_invocation_failed" &&
+      event.payload.actorInvocationRef ===
+        spawnFailures[0].payload.actorInvocationRef &&
+      event.payload.processRef === spawnFailures[0].payload.processRef,
+  );
+  assert.equal(actorFailures.length, 1);
+  const unavailableCCallRef = actorFailures[0].payload.cCallRef;
+  const unavailableCCalls = events.filter(
+    (event) =>
+      event.kind === "c_call_opened" &&
+      event.payload.cCallRef === unavailableCCallRef,
+  );
+  assert.equal(unavailableCCalls.length, 1);
+  const unavailableFibres = events.filter(
+    (event) =>
+      event.kind === "c_call_fibre_selected" &&
+      event.payload.cCallRef === unavailableCCallRef &&
+      event.payload.regime === "F_P",
+  );
+  assert.equal(unavailableFibres.length, 1);
+
+  const runStops = events.filter((event) => event.kind === "run_stopped");
+  assert.equal(runStops.length, 1);
+  const runStopped = runStops[0];
+  assert.equal(runStopped.payload.disposition, "failed");
+  const failedRoutes = events.filter(
+    (event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload.routeKind === "failed",
+  );
+  assert.equal(failedRoutes.length, 1);
+  const terminalFailedRoutes = failedRoutes.filter(
+    (event) => runStopped.causationEventRefs.includes(event.eventId),
+  );
+  assert.equal(terminalFailedRoutes.length, 1);
+  const terminalFailedRoute = terminalFailedRoutes[0];
+  assert.deepEqual(runStopped.causationEventRefs, [terminalFailedRoute.eventId]);
+  assert.equal(terminalFailedRoute.payload.cCallRef, unavailableCCallRef);
+
+  const failureJudgments = events.filter(
+    (event) =>
+      event.kind === "c_call_judged" &&
+      event.aggregateId === unavailableCCallRef &&
+      event.payload.cCallRef === unavailableCCallRef &&
+      event.payload.judgmentRef === terminalFailedRoute.payload.judgmentRef,
+  );
+  assert.equal(failureJudgments.length, 1);
+  const failureJudgment = failureJudgments[0];
+  assert.equal(failureJudgment.payload.judgment, "blocked");
+  assert.deepEqual(
+    terminalFailedRoute.causationEventRefs,
+    [failureJudgment.eventId],
+  );
+  const failureResults = events.filter(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.aggregateId === unavailableCCallRef &&
+      event.payload.cCallRef === unavailableCCallRef &&
+      event.payload.resultRef === failureJudgment.payload.resultRef,
+  );
+  assert.equal(failureResults.length, 1);
+  const failureResult = failureResults[0];
+  assert.equal(failureResult.payload.resultClass, "failure");
+  assert.deepEqual(failureJudgment.causationEventRefs, [failureResult.eventId]);
+  assert.equal(
+    events.some((event) => event.kind === "runtime_failure_observed"),
+    false,
+  );
 });
 
 test("M5 refuses post-install implementation substitution before HoG execution", async (context) => {
@@ -379,8 +492,9 @@ test("M5 refuses post-install implementation substitution before HoG execution",
     "m5-fp-install-tamper",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: fpInput("World"),
     },
   );
@@ -413,8 +527,9 @@ test("M5 rejects misattributed F_P output before success-result admission or clo
     "m5-fp-misattributed",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: fpInput("World"),
     },
   );
@@ -455,8 +570,9 @@ test("M5 rejects syntactically malformed F_P output before success-result admiss
     "m5-fp-invalid-json",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: fpInput("World"),
     },
   );
@@ -483,7 +599,14 @@ test("M5 rejects syntactically malformed F_P output before success-result admiss
   const evidence = events.find((event) =>
     event.kind === "c_call_evidenced" &&
     event.payload.evidenceClass === "probabilistic_transport");
-  assert.equal(evidence.payload.transportDisposition, "success");
+  assert.equal(
+    evidence,
+    undefined,
+    "a syntactically invalid raw output has no accepted F04-A carrier to evidence",
+  );
+  const observedArtifact = events.find((event) =>
+    event.kind === "actor_result_artifact_observed");
+  assert.equal(observedArtifact.payload.disposition, "success");
   const refusal = events.find((event) =>
     event.kind === "c_call_result_admitted" &&
     event.payload.contractRef === REFUSAL_CONTRACT_REF);
@@ -505,8 +628,9 @@ for (const [responseMode, scenarioLabel] of [
       `m5-fp-${scenarioLabel}`,
       (payload) => payload,
       {
+        catalogApplications: [],
         programRef: PROGRAM_REF,
-        graphFunctionRef: GRAPH_FUNCTION_REF,
+        catalogHandle: GRAPH_FUNCTION_REF,
         input: fpInput("World"),
       },
     );

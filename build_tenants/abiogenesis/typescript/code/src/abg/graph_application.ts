@@ -27,6 +27,7 @@ import {
   deriveRuntimeEventCalculusProjection,
   holdsAt,
 } from "./event_calculus.js";
+import { hasExactPartialFanOutStopRouteBridge } from "./fan_out_projection.js";
 import {
   hasOpenedTraversalScope,
   type OpenedTraversalScope,
@@ -36,9 +37,8 @@ import {
   type ReplayRouteState,
 } from "./replay.js";
 import {
-  hasCurrentAdmittedCCallOutcome,
-  hasOpenedCCall,
   isCCall,
+  projectAdmittedCCallOutcomeAtPrefix,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
   type CCall,
@@ -367,12 +367,14 @@ export function projectCurrentApplicationChildRoute(
     judgmentRef: string;
   }>,
 ): ReplayRouteState | null {
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+  const snapshot = store.readAll();
+  const fullPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+  const prefix = selectValidatedRuntimeEventPrefix(snapshot, {
     runId: coordinates.runId,
   });
   const events = runtimeEventsFromValidatedPrefix(prefix);
   const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
-  const route = replayValidatedRuntimeEventPrefix(prefix).routes.find(
+  const route = replayValidatedRuntimeEventPrefix(prefix, fullPrefix).routes.find(
     (candidate) =>
       candidate.cCallRef === coordinates.cCallRef &&
       candidate.judgmentRef === coordinates.judgmentRef &&
@@ -451,6 +453,9 @@ export function admitApplicationChildPreparationRefusal(
   },
   basis: RuntimeAdmissionBasis,
 ): ApplicationChildPreparationRefusalResult {
+  const ownerPrefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: parentCCall.runId,
+  });
   if (
     !hasAdmittedExecutionBasis(store, executionBasis) ||
     !isMaterializedGtlGraph(graph) ||
@@ -460,13 +465,12 @@ export function admitApplicationChildPreparationRefusal(
     ) !== application ||
     application.relationKind !== "recurse" ||
     application.applicationRef !== graphFunctionApplicationRef(application) ||
-    !hasOpenedCCall(store, parentCCall) ||
-    !hasCurrentAdmittedCCallOutcome(
-      store,
+    projectAdmittedCCallOutcomeAtPrefix(
+      ownerPrefix,
       parentCCall,
       parentResult,
       parentJudgment,
-    ) ||
+    ) === null ||
     !hasAdmittedTraversalCursor(store, sourceCursor) ||
     parentCCall.basisId !== executionBasis.basisRef ||
     parentCCall.frameId !== sourceCursor.frameId ||
@@ -743,6 +747,21 @@ export function admitApplicationChildFoldback(
   const childLifecycleEvent = routeKind === "terminal"
     ? graphCallClosedEvent
     : routeEvent;
+  const partialFanOutStopBridge = routeKind === "blocked" &&
+      routeEvent !== undefined && childCCallRef !== null
+    ? hasExactPartialFanOutStopRouteBridge(
+        prefix,
+        routeEvent.eventId,
+        {
+          runId: childScope.runId,
+          graphCallId: childScope.graphCallId,
+          frameId: childScope.frameId,
+          cCallRef: childCCallRef,
+          resultRef: child.resultRef,
+          judgmentRef: child.judgmentRef,
+        },
+      )
+    : false;
   if (
     childGraphCallEvent === undefined ||
     resultEvent === undefined ||
@@ -750,7 +769,8 @@ export function admitApplicationChildFoldback(
     routeEvent === undefined ||
     childLifecycleEvent === undefined ||
     !judgmentEvent.causationEventRefs.includes(resultEvent.eventId) ||
-    !routeEvent.causationEventRefs.includes(judgmentEvent.eventId) ||
+    (!routeEvent.causationEventRefs.includes(judgmentEvent.eventId) &&
+      !partialFanOutStopBridge) ||
     typeof resultDigest !== "string" ||
     !/^sha256:[a-f0-9]{64}$/u.test(resultDigest) ||
     typeof outputDigest !== "string" ||

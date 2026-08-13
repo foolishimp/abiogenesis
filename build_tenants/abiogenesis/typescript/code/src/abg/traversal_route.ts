@@ -1,5 +1,6 @@
 import type {
   FanOutApplication,
+  GraphFunction,
   GtlGraph,
   ReenterApplication,
   RecurseApplication,
@@ -9,6 +10,7 @@ import {
   recursionTerminationDecision,
 } from "../gtl/graph_applications.js";
 import {
+  deriveCEnclosingRetryTopology,
   deriveCBatchTaskInput,
   deriveCContinuationTarget,
   deriveCSourceContinuation,
@@ -23,9 +25,12 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
-  hasCurrentAdmittedCCallOutcome,
-  hasOpenedCCall,
-  projectOpenedCCallCarrier,
+  deriveCanonicalRootedTopologyPartition,
+} from "../shared/rooted_topology_partition.js";
+import {
+  projectAdmittedCCallOutcomeAtPrefix,
+  projectCCallCarrierPhaseAtPrefix,
+  projectPendingInteractionCarrier,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
   type CCall,
@@ -52,11 +57,13 @@ import {
   AbgEventStore,
   admitRuntimeEvent,
   admitRuntimeEventBatch,
+  assertRuntimeEventTransactionActive,
   type RuntimeEvent,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
+  validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
@@ -64,18 +71,23 @@ import {
   deriveRuntimeEventCalculusProjection,
   holdsAt,
 } from "./event_calculus.js";
-import { replay, type ReplayState } from "./replay.js";
 import {
-  hasAdmittedRetryProgress,
-  projectAdmittedRetryProgress,
+  replay,
+  replayValidatedRuntimeEventPrefix,
+  type ReplayState,
+} from "./replay.js";
+import {
+  projectDeclaredCRetryFrontier,
   type RetryCompletedProgressAdmission,
   type RetryProgressAdmission,
   type RetryStoppedProgressAdmission,
 } from "./retry.js";
 import {
   hasAdmittedTraversalCursor,
+  hasAdmittedTraversalCursorAtPrefix,
   isTraversalCursorCandidate,
   traversalCursorAdmissionEventRef,
+  traversalCursorAdmissionEventRefAtPrefix,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
 
@@ -384,6 +396,7 @@ export interface RouteAdmissionRefusal {
 export type RouteAdmissionResult = AdmittedRoute | RouteAdmissionRefusal;
 
 export interface RouteAdmissionEvidence {
+  readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
@@ -391,6 +404,7 @@ export interface RouteAdmissionEvidence {
 }
 
 export interface BlockedRouteAdmissionEvidence {
+  readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
   readonly resultRef: string;
   readonly judgmentRef: string;
@@ -400,12 +414,14 @@ export interface BlockedRouteAdmissionEvidence {
 }
 
 export interface HoldRouteAdmissionEvidence {
+  readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
 }
 
 export interface InteractionResumeRouteAdmissionEvidence {
+  readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
@@ -414,11 +430,13 @@ export interface InteractionResumeRouteAdmissionEvidence {
 }
 
 export interface RetryRouteAdmissionEvidence {
+  readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
   readonly progress: RetryProgressAdmission;
 }
 
 export interface FanOutRouteAdmissionEvidence {
+  readonly graphFunction: Readonly<GraphFunction>;
   readonly cCall: CCall;
   readonly result: AdmittedCCallResult;
   readonly judgment: AdmittedCCallJudgment;
@@ -428,6 +446,7 @@ export interface FanOutRouteAdmissionEvidence {
 }
 
 export interface StructuralIdentityRouteAdmissionEvidence {
+  readonly graphFunction: Readonly<GraphFunction>;
   readonly completionClass: "structural_identity_success";
   readonly completionWitnessEventRef: string;
   readonly completedProgresses: readonly RetryCompletedProgressAdmission[];
@@ -451,6 +470,251 @@ const admittedRoutes = new WeakSet<object>();
 
 export function isAdmittedRoute(value: object): boolean {
   return admittedRoutes.has(value);
+}
+
+export interface HistoricalTraversalRouteProjection {
+  readonly kind: "historical_traversal_route_projection";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "projected";
+  readonly routeRef: string;
+  readonly routeDigest: Sha256Digest;
+  readonly routeKind: TraversalRouteKind;
+  readonly declarationRef: string;
+  readonly declarationDigest: Sha256Digest;
+  readonly sourceCursorRef: string;
+  readonly sourceCursorDigest: Sha256Digest;
+  readonly targetCursorRef: string | null;
+  readonly targetCursorDigest: Sha256Digest | null;
+  readonly cCallRef: string | null;
+  readonly judgmentRef: string | null;
+  readonly consumedAvailabilityRefs: readonly string[];
+  readonly contractRef: string | null;
+  readonly replayStateDigest: Sha256Digest;
+  readonly admissionEventRef: string;
+  readonly admissionOrdinal: number;
+  readonly causationEventRefs: readonly string[];
+  readonly runId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly executionBasisRef: string;
+  readonly materializationRef: string;
+}
+
+export type DeclaredStructuralAdvanceRoute =
+  HistoricalTraversalRouteProjection & Readonly<{
+    readonly routeKind: "advance";
+    readonly targetCursorRef: string;
+    readonly targetCursorDigest: Sha256Digest;
+    readonly cCallRef: null;
+    readonly judgmentRef: null;
+    readonly consumedAvailabilityRefs: readonly [];
+    readonly contractRef: null;
+  }>;
+
+export interface DeclaredStructuralAdvanceProjection {
+  readonly kind: "declared_structural_advance_projection";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "projected";
+  readonly route: DeclaredStructuralAdvanceRoute;
+  readonly sourceCursor: TraversalCursorCandidate;
+  readonly targetCursor: TraversalCursorCandidate;
+}
+
+function historicalRouteBody(
+  route: ReplayState["routes"][number],
+): Readonly<Record<string, JsonValue>> | null {
+  if (
+    route.consumedAvailabilityRefs === null ||
+    route.replayStateDigest === null
+  ) return null;
+  return {
+    routeKind: route.routeKind,
+    declarationRef: route.declarationRef,
+    declarationDigest: route.declarationDigest,
+    sourceCursorRef: route.sourceCursorRef,
+    sourceCursorDigest: route.sourceCursorDigest,
+    targetCursorRef: route.targetCursorRef,
+    targetCursorDigest: route.targetCursorDigest,
+    cCallRef: route.cCallRef,
+    judgmentRef: route.judgmentRef,
+    consumedAvailabilityRefs: route.consumedAvailabilityRefs,
+    contractRef: route.contractRef,
+    replayStateDigest: route.replayStateDigest,
+    ...(route.nextActionProjectionRef === undefined
+      ? {}
+      : {
+          nextActionProjectionRef: route.nextActionProjectionRef,
+          nextActionProjectionDigest: route.nextActionProjectionDigest!,
+          nextActionProjection:
+            route.nextActionProjection as unknown as JsonValue,
+        }),
+    ...(route.graphSpanReentryProjectionRef === undefined
+      ? {}
+      : {
+          graphSpanReentryProjectionRef:
+            route.graphSpanReentryProjectionRef,
+          graphSpanReentryProjectionDigest:
+            route.graphSpanReentryProjectionDigest!,
+          graphSpanReentryProjection:
+            route.graphSpanReentryProjection as unknown as JsonValue,
+        }),
+  };
+}
+
+export function projectHistoricalTraversalRouteAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  admissionEventRef: string,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
+): HistoricalTraversalRouteProjection | null {
+  if (admissionEventRef.length === 0) return null;
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const matches = events.filter((event) =>
+    event.eventId === admissionEventRef &&
+    event.kind === "traversal_route_admitted" &&
+    event.aggregateType === "frame" &&
+    event.scopeClass === "run" &&
+    event.workflowVersion === "5.0.0" &&
+    event.runId !== undefined &&
+    event.graphCallId !== undefined &&
+    event.frameId !== undefined &&
+    event.basisId !== undefined &&
+    event.materializationRef !== undefined &&
+    event.aggregateId === event.frameId &&
+    event.parentAggregateId === event.graphCallId &&
+    isJsonRecord(event.payload)
+  );
+  if (matches.length !== 1) return null;
+  const event = matches[0]!;
+  if (!isJsonRecord(event.payload)) return null;
+  const { routeRef, routeDigest, ...body } = event.payload;
+  let replayRoutes: ReplayState["routes"];
+  try {
+    const historicalPrefix = validatedRuntimeEventPrefixThroughEvent(
+      prefix,
+      event.eventId,
+    );
+    const historicalAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
+      authorityPrefix,
+      event.eventId,
+    );
+    replayRoutes = replayValidatedRuntimeEventPrefix(
+      historicalPrefix,
+      historicalAuthorityPrefix,
+    ).routes;
+  } catch {
+    return null;
+  }
+  const replayMatches = replayRoutes.filter((route) =>
+    route.admissionEventRef === event.eventId
+  );
+  const projected = replayMatches.length === 1 ? replayMatches[0]! : null;
+  const projectedBody = projected === null ? null : historicalRouteBody(projected);
+  if (
+    typeof routeRef !== "string" ||
+    typeof routeDigest !== "string" ||
+    projected === null ||
+    projectedBody === null ||
+    routeDigest !== sha256Canonical(body as unknown as JsonValue) ||
+    routeRef !==
+      `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}` ||
+    projected.routeRef !== routeRef ||
+    projected.routeDigest !== routeDigest ||
+    sha256Canonical(projectedBody as unknown as JsonValue) !==
+      sha256Canonical(body as unknown as JsonValue)
+  ) return null;
+  return deepFreeze({
+    kind: "historical_traversal_route_projection" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "projected" as const,
+    routeRef,
+    routeDigest: routeDigest as Sha256Digest,
+    routeKind: projected.routeKind,
+    declarationRef: projected.declarationRef,
+    declarationDigest: projected.declarationDigest,
+    sourceCursorRef: projected.sourceCursorRef,
+    sourceCursorDigest: projected.sourceCursorDigest,
+    targetCursorRef: projected.targetCursorRef,
+    targetCursorDigest: projected.targetCursorDigest,
+    cCallRef: projected.cCallRef,
+    judgmentRef: projected.judgmentRef,
+    consumedAvailabilityRefs: projected.consumedAvailabilityRefs!,
+    contractRef: projected.contractRef,
+    replayStateDigest: projected.replayStateDigest!,
+    admissionEventRef: event.eventId,
+    admissionOrdinal: event.admissionOrdinal,
+    causationEventRefs: event.causationEventRefs,
+    runId: event.runId!,
+    graphCallId: event.graphCallId!,
+    frameId: event.frameId!,
+    executionBasisRef: event.basisId!,
+    materializationRef: event.materializationRef!,
+  });
+}
+
+export function projectHistoricalTraversalRoutesAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
+): readonly HistoricalTraversalRouteProjection[] | null {
+  const routeEvents = runtimeEventsFromValidatedPrefix(prefix).filter(
+    (event) => event.kind === "traversal_route_admitted",
+  );
+  const projected = routeEvents.map((event) =>
+    projectHistoricalTraversalRouteAtPrefix(
+      prefix,
+      event.eventId,
+      authorityPrefix,
+    )
+  );
+  return projected.some((route) => route === null)
+    ? null
+    : deepFreeze(projected as HistoricalTraversalRouteProjection[]);
+}
+
+export function projectAdmittedRetryRouteAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  admissionEventRef: string,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
+): AdmittedRoute | null {
+  const projected = projectHistoricalTraversalRouteAtPrefix(
+    prefix,
+    admissionEventRef,
+    authorityPrefix,
+  );
+  if (
+    projected === null ||
+    projected.routeKind !== "retry" ||
+    projected.targetCursorRef === null ||
+    projected.targetCursorDigest === null ||
+    projected.cCallRef === null ||
+    projected.judgmentRef === null ||
+    projected.contractRef === null
+  ) return null;
+  const route = deepFreeze({
+    kind: "admitted_traversal_route" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    routeRef: projected.routeRef,
+    routeDigest: projected.routeDigest,
+    routeKind: projected.routeKind,
+    declarationRef: projected.declarationRef,
+    declarationDigest: projected.declarationDigest,
+    sourceCursorRef: projected.sourceCursorRef,
+    sourceCursorDigest: projected.sourceCursorDigest,
+    targetCursorRef: projected.targetCursorRef,
+    targetCursorDigest: projected.targetCursorDigest,
+    cCallRef: projected.cCallRef,
+    judgmentRef: projected.judgmentRef,
+    consumedAvailabilityRefs: projected.consumedAvailabilityRefs,
+    contractRef: projected.contractRef,
+    replayStateDigest: projected.replayStateDigest,
+    constructionIntentRef: null,
+    constructionIntentDigest: null,
+    constructionIntentAdmissionEventRef: null,
+    admissionEventRef: projected.admissionEventRef,
+    runStoppedEventRef: null,
+  }) as unknown as AdmittedRoute;
+  admittedRoutes.add(route);
+  return route;
 }
 
 export function isCurrentRecursionRouteSource(
@@ -1758,7 +2022,17 @@ export function rehydrateConstructionIntentForCursor(
   store: AbgEventStore,
   cursor: TraversalCursorCandidate,
 ): ConstructionIntentAdmission | null {
-  const event = store.readAll().find(
+  return rehydrateConstructionIntentForCursorAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    cursor,
+  );
+}
+
+export function rehydrateConstructionIntentForCursorAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  cursor: TraversalCursorCandidate,
+): ConstructionIntentAdmission | null {
+  const event = runtimeEventsFromValidatedPrefix(prefix).find(
     (candidate) =>
       candidate.kind === "construction_intent_selected" &&
       candidate.runId === cursor.runId &&
@@ -2273,6 +2547,11 @@ function constructionDeltaForAdvance(
     sameValues(basisRuntimeEventRefs, [
       intent?.admissionEventRef ?? "",
       opened?.eventId ?? "",
+      String(
+        responded !== undefined && isJsonRecord(responded.payload)
+          ? responded.payload.publicOperationEventRef
+          : "",
+      ),
       responded?.eventId ?? "",
       String(
         resumed !== undefined && isJsonRecord(resumed.payload)
@@ -2675,105 +2954,201 @@ function isDeclaredStructuralTarget(
   target: TraversalCursorCandidate,
   routeKind: TraversalRouteKind,
 ): boolean {
-  if (!hasSameCursorLineage(source, target)) return false;
+  const declared = deriveDeclaredStructuralTarget(graph, source, routeKind);
+  return declared !== null &&
+    isTraversalCursorCandidate(target) &&
+    target.cursorRef === declared.cursorRef &&
+    target.cursorDigest === declared.cursorDigest;
+}
+
+function deriveDeclaredStructuralTarget(
+  graph: Readonly<GtlGraph>,
+  source: TraversalCursorCandidate,
+  routeKind: TraversalRouteKind,
+): TraversalCursorCandidate | null {
   const term = resolveCProgramTermAtSourcePath(
     graph.template,
     source.currentNodeRef,
     source.termPath,
   );
-  if (term.kind === "c_source_path_refusal") return false;
-  let structuralInput: Readonly<{
+  if (term.kind === "c_source_path_refusal") return null;
+
+  let input: Readonly<{
     inputRef: string;
     inputDigest: Sha256Digest;
   }> = source;
-  if (term.kind === "c_batch") {
-    const batchInput = deriveCBatchTaskInput(
-      graph,
-      {
-        nodeRef: source.currentNodeRef,
-        termPath: source.termPath,
-        taskOrdinal: source.taskOrdinal,
-        inputRef: source.inputRef,
-        inputDigest: source.inputDigest,
-      },
-      "enter_batch",
-      term.batchRef,
-      target.taskOrdinal ?? -1,
-    );
-    if (batchInput.kind === "c_source_path_refusal") return false;
-    structuralInput = batchInput;
-  }
-  if (
-    target.inputRef !== structuralInput.inputRef ||
-    target.inputDigest !== structuralInput.inputDigest
-  ) return false;
-  const unchangedAttempt = target.attempt === source.attempt &&
-    sameValues(target.retryPath.map(String), source.retryPath.map(String));
+  let currentNodeRef: string;
+  let termPath: readonly string[];
+  let taskOrdinal: number | null;
+  let attempt = source.attempt;
+  let retryPath = source.retryPath;
   switch (term.kind) {
     case "c_compose":
-      return routeKind === "advance" &&
-        target.currentNodeRef === source.currentNodeRef &&
-        sameValues(target.termPath, [...source.termPath, "terms", "0"]) &&
-        target.taskOrdinal === source.taskOrdinal &&
-        unchangedAttempt;
+      if (routeKind !== "advance") return null;
+      currentNodeRef = source.currentNodeRef;
+      termPath = [...source.termPath, "terms", "0"];
+      taskOrdinal = source.taskOrdinal;
+      break;
     case "c_edge":
-      return routeKind === "advance" &&
-        target.currentNodeRef === source.currentNodeRef &&
-        sameValues(target.termPath, [...source.termPath, "transform"]) &&
-        target.taskOrdinal === source.taskOrdinal &&
-        unchangedAttempt;
-    case "c_batch":
-      return routeKind === "advance" &&
-        target.currentNodeRef === source.currentNodeRef &&
-        sameValues(target.termPath, [...source.termPath, "tasks", "0"]) &&
-        target.taskOrdinal === 0 &&
-        unchangedAttempt;
-    case "c_retry":
-      return routeKind === "retry" &&
-        target.currentNodeRef === source.currentNodeRef &&
-        sameValues(target.termPath, [...source.termPath, "term"]) &&
-        target.taskOrdinal === source.taskOrdinal &&
-        target.attempt === 1 &&
-        sameValues(
-          target.retryPath.map(String),
-          [...source.retryPath, 1].map(String),
-        );
+      if (routeKind !== "advance") return null;
+      currentNodeRef = source.currentNodeRef;
+      termPath = [...source.termPath, "transform"];
+      taskOrdinal = source.taskOrdinal;
+      break;
+    case "c_batch": {
+      if (routeKind !== "advance") return null;
+      const batchInput = deriveCBatchTaskInput(
+        graph,
+        {
+          nodeRef: source.currentNodeRef,
+          termPath: source.termPath,
+          taskOrdinal: source.taskOrdinal,
+          inputRef: source.inputRef,
+          inputDigest: source.inputDigest,
+        },
+        "enter_batch",
+        term.batchRef,
+        0,
+      );
+      if (batchInput.kind === "c_source_path_refusal") return null;
+      input = batchInput;
+      currentNodeRef = source.currentNodeRef;
+      termPath = [...source.termPath, "tasks", "0"];
+      taskOrdinal = 0;
+      break;
+    }
     case "c_identity": {
+      if (routeKind !== "advance") return null;
       const continuation = deriveCSourceContinuation(
         graph.template,
         source.currentNodeRef,
         source.termPath,
       );
       if (
-        routeKind !== "advance" ||
         continuation.kind === "c_source_path_refusal" ||
         continuation.disposition !== "advance" ||
         continuation.targetPath === null ||
-        continuation.targetRetryDepth > source.retryPath.length
-      ) {
-        return false;
-      }
-      const targetNodeRef = continuation.targetPath[0] === "node"
-        ? continuation.targetPath[1]
-        : null;
-      const targetRetryPath = source.retryPath.slice(
-        0,
-        continuation.targetRetryDepth,
-      );
-      return targetNodeRef !== null &&
-        target.currentNodeRef === targetNodeRef &&
-        sameValues(target.termPath, continuation.targetPath) &&
-        target.taskOrdinal === continuation.targetTaskOrdinal &&
-        target.attempt === (targetRetryPath.at(-1) ?? 1) &&
-        sameValues(
-          target.retryPath.map(String),
-          targetRetryPath.map(String),
-        );
+        continuation.targetRetryDepth > source.retryPath.length ||
+        continuation.targetPath[0] !== "node" ||
+        continuation.targetPath[1] === undefined
+      ) return null;
+      currentNodeRef = continuation.targetPath[1];
+      termPath = continuation.targetPath;
+      taskOrdinal = continuation.targetTaskOrdinal;
+      retryPath = source.retryPath.slice(0, continuation.targetRetryDepth);
+      attempt = retryPath.at(-1) ?? 1;
+      break;
     }
+    case "c_retry":
+      if (routeKind !== "retry") return null;
+      currentNodeRef = source.currentNodeRef;
+      termPath = [...source.termPath, "term"];
+      taskOrdinal = source.taskOrdinal;
+      attempt = 1;
+      retryPath = [...source.retryPath, 1];
+      break;
     case "c_of":
     case "c_workflow":
-      return false;
+      return null;
   }
+
+  const body = {
+    programRef: source.programRef,
+    executionBasisRef: source.executionBasisRef,
+    traversalScopeRef: source.traversalScopeRef,
+    runId: source.runId,
+    graphCallId: source.graphCallId,
+    frameId: source.frameId,
+    graphRef: source.graphRef,
+    inputRef: input.inputRef,
+    inputDigest: input.inputDigest,
+    currentNodeRef,
+    position: "at_term" as const,
+    termPath,
+    taskOrdinal,
+    attempt,
+    retryPath,
+  };
+  const cursorDigest = sha256Canonical(body as unknown as JsonValue);
+  const target = deepFreeze({
+    kind: "traversal_cursor" as const,
+    schemaVersion: "5.0.0" as const,
+    cursorRef:
+      `traversal-cursor://abiogenesis/${cursorDigest.slice("sha256:".length)}`,
+    cursorDigest,
+    ...body,
+  });
+  return isTraversalCursorCandidate(target) ? target : null;
+}
+
+export function projectDeclaredStructuralAdvanceAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  sourceCursor: TraversalCursorCandidate,
+  admissionEventRef: string,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
+): DeclaredStructuralAdvanceProjection | null {
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !isTraversalCursorCandidate(sourceCursor) ||
+    !hasAdmittedTraversalCursorAtPrefix(prefix, sourceCursor) ||
+    sourceCursor.graphRef !== graph.materializationRef ||
+    graphFunction.name !== graph.graphFunctionRef ||
+    sha256Canonical(graphFunction as unknown as JsonValue) !==
+      graph.graphFunctionDigest
+  ) return null;
+  const route = projectHistoricalTraversalRouteAtPrefix(
+    prefix,
+    admissionEventRef,
+    authorityPrefix,
+  );
+  const sourceAdmissionEventRef = traversalCursorAdmissionEventRefAtPrefix(
+    prefix,
+    sourceCursor,
+  );
+  const sourceAdmission = sourceAdmissionEventRef === null
+    ? undefined
+    : runtimeEventsFromValidatedPrefix(prefix).find((event) =>
+      event.eventId === sourceAdmissionEventRef
+    );
+  const targetCursor = deriveDeclaredStructuralTarget(
+    graph,
+    sourceCursor,
+    "advance",
+  );
+  if (
+    route === null || sourceAdmission === undefined || targetCursor === null ||
+    route.routeKind !== "advance" ||
+    route.declarationRef !== graph.materializationRef ||
+    route.declarationDigest !== graph.materializationDigest ||
+    route.sourceCursorRef !== sourceCursor.cursorRef ||
+    route.sourceCursorDigest !== sourceCursor.cursorDigest ||
+    route.targetCursorRef !== targetCursor.cursorRef ||
+    route.targetCursorDigest !== targetCursor.cursorDigest ||
+    route.cCallRef !== null || route.judgmentRef !== null ||
+    route.contractRef !== null ||
+    route.consumedAvailabilityRefs.length !== 0 ||
+    route.runId !== sourceCursor.runId ||
+    route.graphCallId !== sourceCursor.graphCallId ||
+    route.frameId !== sourceCursor.frameId ||
+    route.executionBasisRef !== sourceCursor.executionBasisRef ||
+    route.materializationRef !== graph.materializationRef ||
+    route.admissionOrdinal <= sourceAdmission.admissionOrdinal ||
+    route.causationEventRefs[0] !== sourceAdmission.eventId ||
+    traversalCursorAdmissionEventRefAtPrefix(prefix, targetCursor) !==
+      route.admissionEventRef ||
+    !hasAdmittedTraversalCursorAtPrefix(prefix, targetCursor) ||
+    !isDeclaredStructuralTarget(graph, sourceCursor, targetCursor, "advance")
+  ) return null;
+  return deepFreeze({
+    kind: "declared_structural_advance_projection" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "projected" as const,
+    route: route as DeclaredStructuralAdvanceRoute,
+    sourceCursor,
+    targetCursor,
+  });
 }
 
 type CompletedRetryProgressExpectation =
@@ -2789,26 +3164,94 @@ type CompletedRetryProgressExpectation =
     completionWitnessEventRef: string;
   }>;
 
+function deriveCompletedProgressRouteCausation(
+  completedProgresses: readonly RetryCompletedProgressAdmission[],
+  completionWitnessEventRef: string,
+): Readonly<{
+  causationEventRef: string;
+  additionalCausationEventRefs: readonly string[];
+}> {
+  const progressEventRefs = completedProgresses.map(
+    (progress) => progress.admissionEventRef,
+  );
+  return deepFreeze({
+    causationEventRef: progressEventRefs.at(-1) ?? completionWitnessEventRef,
+    additionalCausationEventRefs: progressEventRefs.slice(0, -1).reverse(),
+  });
+}
+
 function hasCompletedRetryProgressChain(
   prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
   sourceCursor: TraversalCursorCandidate,
   targetCursor: TraversalCursorCandidate | null,
   completedProgresses: readonly RetryCompletedProgressAdmission[],
   expected: CompletedRetryProgressExpectation,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
 ): boolean {
-  const targetRetryDepth = targetCursor?.retryPath.length ?? 0;
-  const exitedRetryDepths = Array.from(
-    { length: Math.max(0, sourceCursor.retryPath.length - targetRetryDepth) },
-    (_, index) => sourceCursor.retryPath.length - index,
+  const sourceTopology = deriveCEnclosingRetryTopology(graph, {
+    nodeRef: sourceCursor.currentNodeRef,
+    termPath: sourceCursor.termPath,
+  });
+  const targetTopology = deriveCEnclosingRetryTopology(
+    graph,
+    targetCursor === null
+      ? null
+      : {
+          nodeRef: targetCursor.currentNodeRef,
+          termPath: targetCursor.termPath,
+        },
   );
-  return completedProgresses.length === exitedRetryDepths.length &&
-    completedProgresses.every((progress, index) =>
+  if (
+    sourceTopology.kind === "c_source_path_refusal" ||
+    targetTopology.kind === "c_source_path_refusal"
+  ) return false;
+  const partition = deriveCanonicalRootedTopologyPartition(
+    sourceTopology.witness,
+    targetTopology.witness,
+  );
+  if (partition.kind === "canonical_rooted_topology_partition_refusal") {
+    return false;
+  }
+  if (partition.exited.length === 0) {
+    return completedProgresses.length === 0;
+  }
+  if (
+    partition.entered.length !== 0 ||
+    partition.preserved.length !== targetTopology.entries.length
+  ) return false;
+  const contextBySegmentRef = new Map(
+    sourceTopology.entries.map((entry) => [
+      entry.segmentRef,
+      entry.context,
+    ] as const),
+  );
+  const exitedContexts = partition.exited.map((segmentRef) =>
+    contextBySegmentRef.get(segmentRef)
+  );
+  return completedProgresses.length === exitedContexts.length &&
+    completedProgresses.every((progress, index) => {
+      const context = exitedContexts[index];
+      if (context === undefined) return false;
+      const retryDepth = context.retryDepth;
+      const frontier = projectDeclaredCRetryFrontier(
+        prefix,
+        graph,
+        sourceCursor,
+        graphFunction,
+        retryDepth,
+        authorityPrefix,
+      );
+      return frontier?.state === "progress_available" &&
+      frontier.available.progress.progressClass === "completed" &&
+      sha256Canonical(frontier.available.progress as unknown as JsonValue) ===
+        sha256Canonical(progress as unknown as JsonValue) &&
       progress.progressClass === "completed" &&
       progress.completionClass === expected.completionClass &&
       progress.completionWitnessEventRef ===
         expected.completionWitnessEventRef &&
-      hasAdmittedRetryProgress(prefix, progress) &&
-      progress.completedRetryDepth === exitedRetryDepths[index] &&
+      progress.completedRetryDepth === retryDepth &&
       (expected.completionClass === "structural_identity_success"
         ? !("cCallRef" in progress)
         : "cCallRef" in progress &&
@@ -2823,9 +3266,9 @@ function hasCompletedRetryProgressChain(
         (index === 0 ? null : completedProgresses[index - 1]!.progressRef) &&
       sameValues(
         progress.retryPath.map(String),
-        sourceCursor.retryPath.slice(0, exitedRetryDepths[index]).map(String),
-      )
-    );
+        sourceCursor.retryPath.slice(0, retryDepth).map(String),
+      );
+    });
 }
 
 function hasStructuralIdentityRouteEvidence(
@@ -2836,6 +3279,7 @@ function hasStructuralIdentityRouteEvidence(
   targetCursor: TraversalCursorCandidate,
   candidate: RouteCandidate,
   evidence: StructuralIdentityRouteAdmissionEvidence | null,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
 ): evidence is StructuralIdentityRouteAdmissionEvidence {
   if (evidence === null) return false;
   const sourceTerm = resolveCProgramTermAtSourcePath(
@@ -2849,6 +3293,8 @@ function hasStructuralIdentityRouteEvidence(
       traversalCursorAdmissionEventRef(store, sourceCursor) &&
     hasCompletedRetryProgressChain(
       prefix,
+      graph,
+      evidence.graphFunction,
       sourceCursor,
       targetCursor,
       evidence.completedProgresses,
@@ -2856,6 +3302,7 @@ function hasStructuralIdentityRouteEvidence(
         completionClass: "structural_identity_success",
         completionWitnessEventRef: evidence.completionWitnessEventRef,
       },
+      authorityPrefix,
     ) &&
     candidate.cCallRef === null && candidate.judgmentRef === null &&
     candidate.contractRef === null &&
@@ -2880,15 +3327,20 @@ function hasJudgedRouteEvidence(
   targetCursor: TraversalCursorCandidate | null,
   candidate: RouteCandidate,
   evidence: RouteAdmissionEvidence | null,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
 ): evidence is RouteAdmissionEvidence {
   const cCall = evidence?.cCall;
   const result = evidence?.result;
   const judgment = evidence?.judgment;
+  const graphFunction = evidence?.graphFunction;
   const completedProgresses = evidence?.completedProgresses ?? [];
   const completedProgressMatches = cCall !== undefined &&
     result !== undefined && judgment !== undefined &&
+    graphFunction !== undefined &&
     hasCompletedRetryProgressChain(
       prefix,
+      graph,
+      graphFunction,
       sourceCursor,
       targetCursor,
       completedProgresses,
@@ -2899,6 +3351,7 @@ function hasJudgedRouteEvidence(
         resultRef: result.resultRef,
         judgmentRef: judgment.judgmentRef,
       },
+      authorityPrefix,
     );
   const term = resolveCProgramTermAtSourcePath(
     graph.template,
@@ -2917,8 +3370,7 @@ function hasJudgedRouteEvidence(
     result !== undefined &&
     judgment !== undefined &&
     locusMatches &&
-    hasOpenedCCall(store, cCall) &&
-    hasCurrentAdmittedCCallOutcome(store, cCall, result, judgment) &&
+    projectAdmittedCCallOutcomeAtPrefix(prefix, cCall, result, judgment) !== null &&
     result.cCallRef === cCall.cCallRef &&
     judgment.cCallRef === cCall.cCallRef &&
     judgment.resultRef === result.resultRef &&
@@ -2941,29 +3393,88 @@ function hasJudgedRouteEvidence(
 }
 
 function hasBlockedRouteEvidence(
-  store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
   executionBasis: ExecutionBasis,
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
   candidate: RouteCandidate,
   evidence: BlockedRouteAdmissionEvidence | null,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
 ): evidence is BlockedRouteAdmissionEvidence {
   const stoppedProgresses = evidence?.stoppedProgresses ?? [];
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
-  const projectedRetryCCall = evidence === null || stoppedProgresses.length === 0
-    ? null
-    : projectOpenedCCallCarrier(
-        store,
-        prefix,
-        graph,
-        evidence.cCall.cCallRef,
-      );
-  const exactOpenedCarrier = evidence !== null &&
-    (stoppedProgresses.length === 0
-      ? hasOpenedCCall(store, evidence.cCall)
-      : projectedRetryCCall !== null &&
-        sha256Canonical(projectedRetryCCall as unknown as JsonValue) ===
-          sha256Canonical(evidence.cCall as unknown as JsonValue));
+  const sourceTopology = deriveCEnclosingRetryTopology(graph, {
+    nodeRef: sourceCursor.currentNodeRef,
+    termPath: sourceCursor.termPath,
+  });
+  const targetTopology = deriveCEnclosingRetryTopology(graph, null);
+  if (
+    sourceTopology.kind === "c_source_path_refusal" ||
+    targetTopology.kind === "c_source_path_refusal"
+  ) return false;
+  const partition = deriveCanonicalRootedTopologyPartition(
+    sourceTopology.witness,
+    targetTopology.witness,
+  );
+  if (
+    partition.kind === "canonical_rooted_topology_partition_refusal" ||
+    partition.preserved.length !== 0 ||
+    partition.entered.length !== 0
+  ) return false;
+  const contextBySegmentRef = new Map(
+    sourceTopology.entries.map((entry) => [
+      entry.segmentRef,
+      entry.context,
+    ] as const),
+  );
+  const exitedContexts = partition.exited.map((segmentRef) =>
+    contextBySegmentRef.get(segmentRef)
+  );
+  if (
+    evidence === null ||
+    exitedContexts.some((context) => context === undefined)
+  ) return false;
+  const graphFunctionDigest = sha256Canonical(
+    evidence.graphFunction as unknown as JsonValue,
+  );
+  if (
+    evidence.graphFunction.kind !== "graph_function" ||
+    evidence.graphFunction.name !== graph.graphFunctionRef ||
+    graphFunctionDigest !== graph.graphFunctionDigest ||
+    evidence.graphFunction.name !== executionBasis.graphFunctionRef ||
+    graphFunctionDigest !== executionBasis.graphFunctionDigest
+  ) return false;
+  const stoppedFrontiers = exitedContexts.map((context) =>
+    projectDeclaredCRetryFrontier(
+      prefix,
+      graph,
+      sourceCursor,
+      evidence.graphFunction,
+      context!.retryDepth,
+      authorityPrefix,
+    )
+  );
+  if (stoppedFrontiers.some((frontier) => frontier === null)) return false;
+  const stoppedOwnerRows = stoppedFrontiers.map((frontier) =>
+    frontier?.state === "progress_available" &&
+        (frontier.available.kind ===
+            "declared_c_retry_boundary_stopped_progress" ||
+          frontier.available.kind ===
+            "declared_c_retry_propagated_stopped_progress")
+      ? frontier.available
+      : null
+  );
+  const stoppedSuffixRequired = stoppedOwnerRows.some((row) => row !== null);
+  const boundaryOwner = stoppedFrontiers[0];
+  const boundaryStopped = boundaryOwner?.state === "progress_available" &&
+      boundaryOwner.available.kind ===
+        "declared_c_retry_boundary_stopped_progress"
+    ? boundaryOwner.available
+    : null;
+  const exactOpenedCarrier = stoppedSuffixRequired
+    ? boundaryStopped !== null &&
+      sha256Canonical(boundaryStopped.failureCCall.cCall as unknown as JsonValue) ===
+        sha256Canonical(evidence.cCall as unknown as JsonValue)
+    : projectCCallCarrierPhaseAtPrefix(prefix, evidence.cCall) !== null;
   if (
     evidence === null ||
     !exactOpenedCarrier ||
@@ -2980,22 +3491,18 @@ function hasBlockedRouteEvidence(
     ]) ||
     candidate.contractRef !== evidence.cCall.transitionContractRef
   ) return false;
-  const projected = replay(store, { runId: sourceCursor.runId }).cCalls.find(
+  const projected = replayValidatedRuntimeEventPrefix(
+    prefix,
+    authorityPrefix,
+  ).cCalls.find(
     (row) => row.cCallRef === evidence.cCall.cCallRef,
   );
   const judgmentEvent = runtimeEventsFromValidatedPrefix(prefix).find(
     (event) => event.eventId === evidence.judgmentEventRef,
   );
-  const contexts = resolveEnclosingCRetryContexts(
-    graph.template,
-    sourceCursor.currentNodeRef,
-    sourceCursor.termPath,
-  );
-  if ("kind" in contexts) return false;
-  const exitedContexts = [...contexts].reverse();
   if (
-    (stoppedProgresses.length > 0 &&
-      stoppedProgresses.length !== exitedContexts.length) ||
+    stoppedProgresses.length !==
+      (stoppedSuffixRequired ? exitedContexts.length : 0) ||
     evidence.cCall.taskOrdinal !== sourceCursor.taskOrdinal ||
     evidence.cCall.attempt !== sourceCursor.attempt ||
     !sameValues(
@@ -3003,29 +3510,19 @@ function hasBlockedRouteEvidence(
       sourceCursor.retryPath.map(String),
     )
   ) return false;
-  const projectedStoppedProgresses = stoppedProgresses.map((progress) =>
-    projectAdmittedRetryProgress(prefix, progress.admissionEventRef)
-  );
-  const stoppedSuffixMatches = projectedStoppedProgresses.every(
-    (projectedProgress, index) => {
-      const progress = stoppedProgresses[index]!;
+  const stoppedSuffixMatches = stoppedProgresses.every(
+    (progress, index) => {
+      const frontier = stoppedFrontiers[index];
+      const ownerRow = stoppedOwnerRows[index] ?? null;
       const context = exitedContexts[index]!;
       const expectedRetryPath = sourceCursor.retryPath.slice(
         0,
         context.retryDepth,
       );
-      const expectedBoundaryRef =
-        `retry-boundary://abiogenesis/${sha256Canonical({
-          graphRef: graph.materializationRef,
-          frameId: sourceCursor.frameId,
-          nodeRef: sourceCursor.currentNodeRef,
-          retryTermPath: context.retryTermPath,
-        }).slice("sha256:".length)}`;
-      return projectedProgress?.progressClass === "stopped" &&
-        sha256Canonical(projectedProgress as unknown as JsonValue) ===
+      return ownerRow !== null &&
+        sha256Canonical(ownerRow.progress as unknown as JsonValue) ===
           sha256Canonical(progress as unknown as JsonValue) &&
-        hasAdmittedRetryProgress(prefix, progress) &&
-        progress.retryBoundaryRef === expectedBoundaryRef &&
+        progress.retryBoundaryRef === frontier?.retryBoundaryRef &&
         progress.cCallRef === evidence.cCall.cCallRef &&
         progress.resultRef === evidence.resultRef &&
         progress.judgmentRef === evidence.judgmentRef &&
@@ -3046,32 +3543,7 @@ function hasBlockedRouteEvidence(
     },
   );
   if (!stoppedSuffixMatches) return false;
-  const exactStoppedProgresses = runtimeEventsFromValidatedPrefix(prefix)
-    .filter((event) =>
-      event.kind === "retry_progress_recorded" &&
-      event.runId === sourceCursor.runId &&
-      event.graphCallId === sourceCursor.graphCallId &&
-      event.frameId === sourceCursor.frameId &&
-      isJsonRecord(event.payload) &&
-      event.payload.progressClass === "stopped"
-    )
-    .map((event) => projectAdmittedRetryProgress(prefix, event.eventId))
-    .filter((progress): progress is RetryStoppedProgressAdmission =>
-      progress !== null &&
-      progress.progressClass === "stopped" &&
-      progress.cCallRef === evidence.cCall.cCallRef &&
-      progress.resultRef === evidence.resultRef &&
-      progress.judgmentRef === evidence.judgmentRef &&
-      progress.failureSignalRef === evidence.reasonRef &&
-      hasAdmittedRetryProgress(prefix, progress)
-    );
-  const completeSuffixMatches =
-    exactStoppedProgresses.length === stoppedProgresses.length &&
-    exactStoppedProgresses.every((progress, index) =>
-      sha256Canonical(progress as unknown as JsonValue) ===
-        sha256Canonical(stoppedProgresses[index] as unknown as JsonValue)
-    );
-  return completeSuffixMatches && projected?.status === "judged" &&
+  return projected?.status === "judged" &&
     projected.resultRef === evidence.resultRef &&
     projected.judgmentRef === evidence.judgmentRef &&
     projected.judgment === "blocked" &&
@@ -3091,15 +3563,17 @@ function hasFailedRouteEvidence(
   candidate: RouteCandidate,
   evidence: RouteAdmissionEvidence | null,
 ): evidence is RouteAdmissionEvidence {
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: sourceCursor.runId,
+  });
   if (
     evidence === null ||
-    !hasOpenedCCall(store, evidence.cCall) ||
-    !hasCurrentAdmittedCCallOutcome(
-      store,
+    projectAdmittedCCallOutcomeAtPrefix(
+      prefix,
       evidence.cCall,
       evidence.result,
       evidence.judgment,
-    ) ||
+    ) === null ||
     evidence.cCall.basisId !== executionBasis.basisRef ||
     evidence.cCall.frameId !== sourceCursor.frameId ||
     evidence.cCall.graphCallId !== sourceCursor.graphCallId ||
@@ -3131,6 +3605,9 @@ function hasHoldRouteEvidence(
   evidence: HoldRouteAdmissionEvidence | null,
 ): evidence is HoldRouteAdmissionEvidence {
   if (evidence === null) return false;
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: sourceCursor.runId,
+  });
   const term = resolveCProgramTermAtSourcePath(
     graph.template,
     sourceCursor.currentNodeRef,
@@ -3138,13 +3615,12 @@ function hasHoldRouteEvidence(
   );
   return term.kind !== "c_source_path_refusal" &&
     isInteractionCLeaf(term) &&
-    hasOpenedCCall(store, evidence.cCall) &&
-    hasCurrentAdmittedCCallOutcome(
-      store,
+    projectAdmittedCCallOutcomeAtPrefix(
+      prefix,
       evidence.cCall,
       evidence.result,
       evidence.judgment,
-    ) &&
+    ) !== null &&
     evidence.cCall.basisId === executionBasis.basisRef &&
     evidence.cCall.regime === "F_H" &&
     evidence.cCall.frameId === sourceCursor.frameId &&
@@ -3175,6 +3651,7 @@ function hasInteractionResumeRouteEvidence(
   targetCursor: TraversalCursorCandidate | null,
   candidate: RouteCandidate,
   evidence: InteractionResumeRouteAdmissionEvidence | null,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
 ): evidence is InteractionResumeRouteAdmissionEvidence {
   if (evidence === null) return false;
   const completedProgresses = evidence.completedProgresses ?? [];
@@ -3183,23 +3660,30 @@ function hasInteractionResumeRouteEvidence(
     sourceCursor.currentNodeRef,
     sourceCursor.termPath,
   );
-  const continuation = replay(store, {
-    runId: sourceCursor.runId,
-  }).continuations.find(
+  const continuation = replayValidatedRuntimeEventPrefix(
+    prefix,
+    authorityPrefix,
+  ).continuations.find(
     (row) => row.continuationRef === evidence.resume.continuationRef,
   );
-  const resumeEvent = store.readAll().find(
+  const resumeEvent = runtimeEventsFromValidatedPrefix(authorityPrefix).find(
     (event) => event.eventId === evidence.resume.admissionEventRef,
+  );
+  const projectedPending = projectPendingInteractionCarrier(
+    prefix,
+    evidence.cCall as unknown as Readonly<Record<string, JsonValue>>,
+    evidence.result as unknown as Readonly<Record<string, JsonValue>>,
+    evidence.judgment as unknown as Readonly<Record<string, JsonValue>>,
   );
   return term.kind !== "c_source_path_refusal" &&
     isInteractionCLeaf(term) &&
-    hasOpenedCCall(store, evidence.cCall) &&
-    hasCurrentAdmittedCCallOutcome(
-      store,
-      evidence.cCall,
-      evidence.result,
-      evidence.judgment,
-    ) &&
+    projectedPending !== null &&
+    sha256Canonical(projectedPending.cCall as unknown as JsonValue) ===
+      sha256Canonical(evidence.cCall as unknown as JsonValue) &&
+    sha256Canonical(projectedPending.result as unknown as JsonValue) ===
+      sha256Canonical(evidence.result as unknown as JsonValue) &&
+    sha256Canonical(projectedPending.judgment as unknown as JsonValue) ===
+      sha256Canonical(evidence.judgment as unknown as JsonValue) &&
     evidence.cCall.basisId === executionBasis.basisRef &&
     evidence.cCall.regime === "F_H" &&
     evidence.cCall.frameId === sourceCursor.frameId &&
@@ -3227,6 +3711,8 @@ function hasInteractionResumeRouteEvidence(
     sourceCursor.inputDigest === evidence.resume.successorInputDigest &&
     hasCompletedRetryProgressChain(
       prefix,
+      graph,
+      evidence.graphFunction,
       sourceCursor,
       targetCursor,
       completedProgresses,
@@ -3237,6 +3723,7 @@ function hasInteractionResumeRouteEvidence(
         resultRef: evidence.result.resultRef,
         judgmentRef: evidence.judgment.judgmentRef,
       },
+      authorityPrefix,
     ) &&
     candidate.cCallRef === evidence.cCall.cCallRef &&
     candidate.judgmentRef === evidence.judgment.judgmentRef &&
@@ -3264,12 +3751,28 @@ function hasRetryRouteEvidence(
   targetCursor: TraversalCursorCandidate,
   candidate: RouteCandidate,
   evidence: RetryRouteAdmissionEvidence | null,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
 ): evidence is RetryRouteAdmissionEvidence {
+  const frontier = evidence === null ? null : projectDeclaredCRetryFrontier(
+    prefix,
+    graph,
+    sourceCursor,
+    evidence.graphFunction,
+    sourceCursor.retryPath.length,
+    authorityPrefix,
+  );
+  const available = frontier?.state === "progress_available" &&
+      frontier.available.kind === "declared_c_retry_retry_progress"
+    ? frontier.available
+    : null;
   if (
     evidence === null ||
     evidence.progress.progressClass !== "retry" ||
-    !hasOpenedCCall(store, evidence.cCall) ||
-    !hasAdmittedRetryProgress(prefix, evidence.progress) ||
+    available === null ||
+    sha256Canonical(available.failureCCall.cCall as unknown as JsonValue) !==
+      sha256Canonical(evidence.cCall as unknown as JsonValue) ||
+    sha256Canonical(available.progress as unknown as JsonValue) !==
+      sha256Canonical(evidence.progress as unknown as JsonValue) ||
     evidence.cCall.basisId !== executionBasis.basisRef ||
     evidence.cCall.frameId !== sourceCursor.frameId ||
     evidence.cCall.graphCallId !== sourceCursor.graphCallId ||
@@ -3326,6 +3829,7 @@ function hasFanOutRouteEvidence(
   targetCursor: TraversalCursorCandidate | null,
   candidate: RouteCandidate,
   evidence: FanOutRouteAdmissionEvidence | null,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
 ): evidence is FanOutRouteAdmissionEvidence {
   if (evidence === null) return false;
   const completedProgresses = evidence?.completedProgresses ?? [];
@@ -3342,13 +3846,12 @@ function hasFanOutRouteEvidence(
     },
   });
   if (
-    !hasOpenedCCall(store, evidence.cCall) ||
-    !hasCurrentAdmittedCCallOutcome(
-      store,
+    projectAdmittedCCallOutcomeAtPrefix(
+      prefix,
       evidence.cCall,
       evidence.result,
       evidence.judgment,
-    ) ||
+    ) === null ||
     projectedCompletion?.kind !== "fan_out_completion_admission" ||
     sha256Canonical(evidence.completion as unknown as JsonValue) !==
       sha256Canonical(projectedCompletion as unknown as JsonValue) ||
@@ -3413,6 +3916,8 @@ function hasFanOutRouteEvidence(
   ) return false;
   if (!hasCompletedRetryProgressChain(
     prefix,
+    graph,
+    evidence.graphFunction,
     sourceCursor,
     targetCursor,
     completedProgresses,
@@ -3423,6 +3928,7 @@ function hasFanOutRouteEvidence(
       resultRef: evidence.result.resultRef,
       judgmentRef: evidence.judgment.judgmentRef,
     },
+    authorityPrefix,
   )) return false;
   const continuation = deriveCSourceContinuation(
     graph.template,
@@ -3693,10 +4199,15 @@ export function admitRoute(
       "route source is not an admitted cursor under the exact original Graph",
     );
   }
-  const currentReplay = replay(store, { runId: sourceCursor.runId });
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+  const snapshot = store.readAll();
+  const authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+  const prefix = selectValidatedRuntimeEventPrefix(snapshot, {
     runId: sourceCursor.runId,
   });
+  const currentReplay = replayValidatedRuntimeEventPrefix(
+    prefix,
+    authorityPrefix,
+  );
   const frameEvents = runtimeEventsFromValidatedPrefix(prefix).filter(
     (event) => event.runId === sourceCursor.runId && event.frameId === sourceCursor.frameId,
   );
@@ -3777,6 +4288,7 @@ export function admitRoute(
         null,
         candidate,
         resumeEvidence,
+        authorityPrefix,
       )) {
         return refusal(
           "judgment_mismatch",
@@ -3797,11 +4309,13 @@ export function admitRoute(
           "terminal construction closure requires an admitted evidence fold and refreshed convergence projection",
         );
       }
-      causationEventRef = resumeEvidence.completedProgresses?.at(-1)
-        ?.admissionEventRef ?? resumeEvidence.resume.admissionEventRef;
-      additionalCausationEventRefs = (resumeEvidence.completedProgresses ?? [])
-        .slice(0, -1)
-        .map((progress) => progress.admissionEventRef);
+      const routeCausation = deriveCompletedProgressRouteCausation(
+        resumeEvidence.completedProgresses ?? [],
+        resumeEvidence.resume.admissionEventRef,
+      );
+      causationEventRef = routeCausation.causationEventRef;
+      additionalCausationEventRefs =
+        routeCausation.additionalCausationEventRefs;
     } else {
       if (!hasJudgedRouteEvidence(
         store,
@@ -3812,6 +4326,7 @@ export function admitRoute(
         null,
         candidate,
         judgedEvidence,
+        authorityPrefix,
       )) {
         return refusal(
           "judgment_mismatch",
@@ -3832,8 +4347,13 @@ export function admitRoute(
           "terminal construction closure requires an admitted evidence fold and refreshed convergence projection",
         );
       }
-      causationEventRef = judgedEvidence.completedProgresses?.at(-1)?.admissionEventRef ??
-        judgedEvidence.judgment.admissionEventRef;
+      const routeCausation = deriveCompletedProgressRouteCausation(
+        judgedEvidence.completedProgresses ?? [],
+        judgedEvidence.judgment.admissionEventRef,
+      );
+      causationEventRef = routeCausation.causationEventRef;
+      additionalCausationEventRefs =
+        routeCausation.additionalCausationEventRefs;
     }
     if (
       targetCursor !== null ||
@@ -3915,17 +4435,20 @@ export function admitRoute(
         targetCursor,
         candidate,
         evidence,
+        authorityPrefix,
       )) {
         return refusal(
           "candidate_mismatch",
           "structural identity retry exit requires its exact completed-progress chain",
         );
       }
-      causationEventRef = evidence.completedProgresses.at(-1)?.admissionEventRef ??
-        evidence.completionWitnessEventRef;
-      additionalCausationEventRefs = evidence.completedProgresses
-        .slice(0, -1)
-        .map((progress) => progress.admissionEventRef);
+      const routeCausation = deriveCompletedProgressRouteCausation(
+        evidence.completedProgresses,
+        evidence.completionWitnessEventRef,
+      );
+      causationEventRef = routeCausation.causationEventRef;
+      additionalCausationEventRefs =
+        routeCausation.additionalCausationEventRefs;
     } else if ("resume" in evidence) {
       if (
         candidate.routeKind !== "advance" ||
@@ -3938,6 +4461,7 @@ export function admitRoute(
           targetCursor,
           candidate,
           evidence,
+          authorityPrefix,
         )
       ) {
         return refusal(
@@ -3945,11 +4469,13 @@ export function admitRoute(
           "F_H advance route requires the exact admitted response and declared target",
         );
       }
-      causationEventRef = evidence.completedProgresses?.at(-1)?.admissionEventRef ??
-        evidence.resume.admissionEventRef;
-      additionalCausationEventRefs = (evidence.completedProgresses ?? [])
-        .slice(0, -1)
-        .map((progress) => progress.admissionEventRef);
+      const routeCausation = deriveCompletedProgressRouteCausation(
+        evidence.completedProgresses ?? [],
+        evidence.resume.admissionEventRef,
+      );
+      causationEventRef = routeCausation.causationEventRef;
+      additionalCausationEventRefs =
+        routeCausation.additionalCausationEventRefs;
     } else if ("completion" in evidence) {
       if (
         candidate.routeKind !== "advance" ||
@@ -3962,6 +4488,7 @@ export function admitRoute(
           targetCursor,
           candidate,
           evidence,
+          authorityPrefix,
         )
       ) {
         return refusal(
@@ -3969,11 +4496,13 @@ export function admitRoute(
           "fan-out route requires exact admitted complete-vector truth",
         );
       }
-      causationEventRef = evidence.completedProgresses?.at(-1)?.admissionEventRef ??
-        evidence.completion.admissionEventRef;
-      additionalCausationEventRefs = (evidence.completedProgresses ?? [])
-        .slice(0, -1)
-        .map((progress) => progress.admissionEventRef);
+      const routeCausation = deriveCompletedProgressRouteCausation(
+        evidence.completedProgresses ?? [],
+        evidence.completion.admissionEventRef,
+      );
+      causationEventRef = routeCausation.causationEventRef;
+      additionalCausationEventRefs =
+        routeCausation.additionalCausationEventRefs;
     } else if ("result" in evidence) {
       if (
         candidate.routeKind !== "advance" ||
@@ -3986,6 +4515,7 @@ export function admitRoute(
           targetCursor,
           candidate,
           evidence,
+          authorityPrefix,
         ) ||
         !isDeclaredJudgedTarget(graph, sourceCursor, targetCursor, evidence.result)
       ) {
@@ -3994,8 +4524,13 @@ export function admitRoute(
           "post-judgment route is not the exact declared GTL continuation",
         );
       }
-      causationEventRef = evidence.completedProgresses?.at(-1)?.admissionEventRef ??
-        evidence.judgment.admissionEventRef;
+      const routeCausation = deriveCompletedProgressRouteCausation(
+        evidence.completedProgresses ?? [],
+        evidence.judgment.admissionEventRef,
+      );
+      causationEventRef = routeCausation.causationEventRef;
+      additionalCausationEventRefs =
+        routeCausation.additionalCausationEventRefs;
     } else if (
       "progress" in evidence &&
       candidate.routeKind === "retry" &&
@@ -4008,6 +4543,7 @@ export function admitRoute(
         targetCursor,
         candidate,
         evidence,
+        authorityPrefix,
       )
     ) {
       causationEventRef = evidence.progress.admissionEventRef;
@@ -4055,6 +4591,7 @@ export function admitRoute(
         targetCursor,
         candidate,
         gapEvidence,
+        authorityPrefix,
       )
     ) {
       return refusal(
@@ -4099,6 +4636,7 @@ export function admitRoute(
         null,
         candidate,
         evidence,
+        authorityPrefix,
       )) {
         return refusal(
           "judgment_mismatch",
@@ -4111,12 +4649,13 @@ export function admitRoute(
         ? evidence
         : null;
       if (!hasBlockedRouteEvidence(
-        store,
+        prefix,
         executionBasis,
         graph,
         sourceCursor,
         candidate,
         blockedEvidence,
+        authorityPrefix,
       )) {
         return refusal(
           "judgment_mismatch",
@@ -4159,6 +4698,14 @@ export function admitRoute(
       "cursor_mismatch",
       "route source has no admitted cursor event",
     );
+  }
+  if (
+    candidate.routeKind === "blocked" &&
+    evidence !== null &&
+    "judgmentEventRef" in evidence &&
+    (evidence.stoppedProgresses?.length ?? 0) > 0
+  ) {
+    assertRuntimeEventTransactionActive(store);
   }
 
   const judgedEvidence =
@@ -4423,6 +4970,9 @@ export function admitRecursionRoute(
       "recursion route requires one exact admitted Graph and recurse application",
     );
   }
+  const ownerPrefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+    runId: sourceCursor.runId,
+  });
   if (
     !hasAdmittedTraversalCursor(store, sourceCursor) ||
     sourceCursor.graphRef !== graph.materializationRef ||
@@ -4484,8 +5034,12 @@ export function admitRecursionRoute(
     sourceTerm.kind === "c_source_path_refusal" ||
     sourceTerm.kind !== "c_of" ||
     sourceTerm.compositionRef !== application.applicationRef ||
-    !hasOpenedCCall(store, cCall) ||
-    !hasCurrentAdmittedCCallOutcome(store, cCall, result, judgment) ||
+    projectAdmittedCCallOutcomeAtPrefix(
+      ownerPrefix,
+      cCall,
+      result,
+      judgment,
+    ) === null ||
     cCall.basisId !== executionBasis.basisRef ||
     cCall.frameId !== sourceCursor.frameId ||
     cCall.graphCallId !== sourceCursor.graphCallId ||

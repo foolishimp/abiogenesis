@@ -11,7 +11,8 @@
       "disposition": "refused",
       "refusalCode": "invalid_request",
       "runtimeInvocationAbsent": true,
-      "durableEventLogAbsent": true
+      "setupPrefixUnchanged": true,
+      "runtimeEventsAbsent": true
     },
     {
       "mutation": "missing_explicit_target",
@@ -42,16 +43,7 @@
       "runtimeFailureAdmitted": true,
       "cCallAbsent": true,
       "rivalResultAbsent": true,
-      "falseClosureAbsent": true,
-      "rootGovernorDisposition": "root_red"
-    },
-    {
-      "mutation": "renamed_controller_forged_output",
-      "boundary": "public_projection",
-      "projectedDisposition": "succeeded",
-      "matchingOutputForged": true,
-      "arbitraryFileCannotSubstituteForAbgTruth": true,
-      "installedRootSatisfied": false
+      "falseClosureAbsent": true
     },
     {
       "mutation": "copied_private_execution_basis",
@@ -66,16 +58,14 @@
       "disposition": "refused",
       "invocationAdmitted": true,
       "refusalAdmitted": true,
-      "runOpenAbsent": true,
-      "rootGovernorDisposition": "root_red"
+      "runOpenAbsent": true
     },
     {
       "mutation": "post_open_judgment_exception",
       "boundary": "judgment_relation",
       "disposition": "blocked",
       "cCallSpineComplete": true,
-      "directRuntimeFailureAbsent": true,
-      "rootGovernorDisposition": "root_red"
+      "directRuntimeFailureAbsent": true
     },
     {
       "mutation": "forged_leaf_execution_port",
@@ -89,8 +79,7 @@
       "boundary": "installed_product_content",
       "disposition": "refused",
       "diagnosticRef": "diagnostic://abiogenesis/public/target_mismatch@5",
-      "runtimeExecutionAbsent": true,
-      "rootGovernorDisposition": "root_red"
+      "runtimeExecutionAbsent": true
     }
   ],
   "installedAbsence": {

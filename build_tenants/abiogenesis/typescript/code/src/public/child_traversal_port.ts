@@ -109,22 +109,12 @@ export function bindChildTraversalPreparationPort(
         "child Graph failed exact non-lowering validation",
       );
     }
-    const parentFibreEvent = binding.store.readAll().find(
-      (event) => event.kind === "c_call_fibre_selected" &&
-        event.aggregateId === request.parentCCallRef,
-    );
-    if (parentFibreEvent === undefined) {
-      return refusal(
-        "basis_admission",
-        "diagnostic://abiogenesis/child-traversal/parent-call-absent@5",
-        "child basis admission requires the opened transparent parent CCall",
-      );
-    }
     const childBasis = admitChildExecutionBasis(
       binding.store,
       {
         parentExecutionBasis: request.parentExecutionBasis,
         parentTraversalScope: request.parentTraversalScope,
+        parentCCallRef: request.parentCCallRef,
         program: binding.program,
         programValidation: binding.programValidation,
         graphFunction,
@@ -135,11 +125,12 @@ export function bindChildTraversalPreparationPort(
         closureContract,
         admittedInputRef: request.inputRef,
         admittedInputDigest: request.inputDigest,
+        rawInputValue: request.input,
       },
       {
         eventTime: request.eventTime,
         correlationId: `${request.correlationId}/basis`,
-        causationEventRefs: [parentFibreEvent.eventId],
+        causationEventRefs: [],
       },
     );
     if (childBasis.kind !== "child_execution_basis_admission") {
@@ -156,7 +147,7 @@ export function bindChildTraversalPreparationPort(
       {
         eventTime: request.eventTime,
         correlationId: `${request.correlationId}/open`,
-        causationEventRefs: [parentFibreEvent.eventId],
+        causationEventRefs: [],
       },
     );
     if (opened.kind !== "open_child_call_admission") {

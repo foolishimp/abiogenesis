@@ -73,8 +73,6 @@ export interface ChildTraversalPreparationPort {
   ) => ChildTraversalPreparationResult | Promise<ChildTraversalPreparationResult>;
 }
 
-const preparationPorts = new WeakSet<object>();
-
 export function constructChildTraversalPreparationPort(
   prepare: ChildTraversalPreparationPort["prepare"],
 ): ChildTraversalPreparationPort {
@@ -83,12 +81,14 @@ export function constructChildTraversalPreparationPort(
     schemaVersion: "5.0.0" as const,
     prepare,
   }) as ChildTraversalPreparationPort;
-  preparationPorts.add(port);
   return port;
 }
 
 export function isChildTraversalPreparationPort(
   value: object,
 ): value is ChildTraversalPreparationPort {
-  return preparationPorts.has(value);
+  const candidate = value as Partial<ChildTraversalPreparationPort>;
+  return candidate.kind === "child_traversal_preparation_port" &&
+    candidate.schemaVersion === "5.0.0" &&
+    typeof candidate.prepare === "function";
 }

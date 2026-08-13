@@ -3,6 +3,11 @@ import type {
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
+import { isInteractionCLeaf } from "../gtl/c_algebra.js";
+import {
+  resolveEnclosingCBatchRef,
+  resolveCProgramTermAtSourcePath,
+} from "../gtl/source_path.js";
 import type { ProductInstall, WorkspaceBinding } from "../product/environment.js";
 import type { GraphFunctionCatalogView } from "../product/catalog.js";
 import {
@@ -14,14 +19,17 @@ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { GraphValidation } from "../validator/graph.js";
 import type { ProgramValidation } from "../validator/validation.js";
+import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import {
   isAdmittedCCallJudgment,
   isAdmittedCCallResult,
+  projectPendingInteractionCarrier,
   rehydratePendingInteraction,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
   type CCall,
   type PendingInteractionAdmission,
+  type RehydratedAdmittedCCallState,
 } from "./c_call.js";
 
 function graphFunctionCatalogViewRef(view: GraphFunctionCatalogView): string {
@@ -30,9 +38,12 @@ function graphFunctionCatalogViewRef(view: GraphFunctionCatalogView): string {
 import {
   admittedConstructionComposition,
   hasAdmittedExecutionBasis,
+  hasAdmittedExecutionBasisAtPrefix,
   hasAdmittedInteractionSet,
+  hasAdmittedInteractionSetAtPrefix,
   isAdmittedConstructionInteractionLocus,
   rehydrateExecutionBasis,
+  rehydrateExecutionBasisAtPrefix,
   type AdmittedInteractionSet,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
@@ -44,10 +55,20 @@ import {
   type PublicOperationAdmissionBasis,
 } from "./environment_admission.js";
 import {
+  projectEffectfulPublicInvocationTruthAtPrefix,
+  type EffectfulPublicInvocationTruth,
+} from "./effectful_invocation_truth.js";
+import {
   AbgEventStore,
   admitRuntimeEvent,
+  admitRuntimeEventTransactionAtExpectedPrefix,
+  assertHeldEventStoreAtDurablePrefix,
   compareAndAppendExpectedPrefix,
+  projectRuntimeEventFromValidatedHistory,
+  readRuntimeEventsAtDurablePrefix,
+  type DurablePrefixCoordinate,
   type RuntimeEvent,
+  type RuntimeEventCandidate,
 } from "./event_store.js";
 
 export function admitContinuationTerminal(
@@ -120,41 +141,68 @@ import {
 } from "./event_prefix.js";
 import {
   hasAdmittedInvocation,
-  rehydrateInvocationAdmission,
+  hasAdmittedInvocationAtPrefix,
+  rehydrateInvocationAdmissionAtPrefix,
   type InvocationAdmission,
 } from "./invocation_admission.js";
 import {
   hasOpenedTraversalScope,
+  hasOpenedTraversalScopeAtPrefix,
   rehydrateOpenedTraversalScope,
+  rehydrateOpenedTraversalScopeAtPrefix,
   type OpenedTraversalScope,
 } from "./open_call.js";
 import {
   isAdmittedRoute,
   rehydrateConstructionIntentForCursor,
+  rehydrateConstructionIntentForCursorAtPrefix,
   type AdmittedRoute,
   type ConstructionIntentAdmission,
 } from "./traversal_route.js";
 import {
   hasAdmittedTraversalCursor,
+  hasAdmittedTraversalCursorAtPrefix,
+  isInteractionResumeCursorSuccessorAtPrefix,
   isTraversalCursorCandidate,
+  traversalCursorAdmissionEventRefAtPrefix,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
 import {
   projectFhContinuations,
+  validateExactFhResumeOwnerRelationAtPrefix,
   type ReplayContinuationState,
 } from "./fh_continuation_projection.js";
+import {
+  deriveFhResumeSuccessorInputAtPrefix as deriveOwnerFhResumeSuccessorInputAtPrefix,
+  type FhResumeSuccessorCarrier,
+  type FhResumeSuccessorInput,
+} from "./fh_resume_relation.js";
 
 export {
   projectFhContinuations,
   type ReplayContinuationState,
 } from "./fh_continuation_projection.js";
+export type {
+  FhResumeSuccessorCarrier,
+  FhResumeSuccessorInput,
+} from "./fh_resume_relation.js";
 
 export interface ContinuationProductBasis {
   readonly install: ProductInstall;
   readonly workspaceBinding: WorkspaceBinding;
+  readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly catalogView: GraphFunctionCatalogView;
   readonly programValidation: ProgramValidation;
   readonly graphValidation: GraphValidation;
+}
+
+export interface HeldInteractionCCallProjectionInput {
+  readonly executionBasis: ExecutionBasis;
+  readonly openedTraversalScope: OpenedTraversalScope;
+  readonly program: Readonly<GtlProgram>;
+  readonly graph: Readonly<GtlGraph>;
+  readonly interactionSet: AdmittedInteractionSet;
+  readonly cursor: TraversalCursorCandidate;
 }
 
 export interface FhInteractionContinuation {
@@ -194,6 +242,23 @@ export interface ContinuationPublicOperationAdmission {
   readonly admissionEventRef: string;
 }
 
+export interface PreparedContinuationPublicOperation {
+  readonly kind: "prepared_continuation_public_operation";
+  readonly schemaVersion: "5.0.0";
+  readonly operation: ContinuationPublicOperationAdmission;
+  readonly event: RuntimeEvent;
+  readonly projectedPrefix: ValidatedRuntimeEventPrefix;
+}
+
+export type UnavailableEffectfulPublicInvocationTruth = Exclude<
+  EffectfulPublicInvocationTruth,
+  { readonly disposition: "available" }
+>;
+
+export type PreparedContinuationPublicOperationResult =
+  | PreparedContinuationPublicOperation
+  | UnavailableEffectfulPublicInvocationTruth;
+
 export interface FhInteractionResponseAdmission {
   readonly kind: "fh_interaction_response_admission";
   readonly schemaVersion: "5.0.0";
@@ -208,6 +273,25 @@ export interface FhInteractionResponseAdmission {
   readonly admissionEventRef: string;
 }
 
+export interface PreparedFhInteractionResponse {
+  readonly kind: "prepared_fh_interaction_response";
+  readonly schemaVersion: "5.0.0";
+  readonly publicOperation: PreparedContinuationPublicOperation;
+  readonly response: FhInteractionResponseAdmission;
+  readonly event: RuntimeEvent;
+  readonly projectedPrefix: ValidatedRuntimeEventPrefix;
+}
+
+export interface CommittedFhInteractionResponse {
+  readonly operation: ContinuationPublicOperationAdmission;
+  readonly response: FhInteractionResponseAdmission;
+  readonly successorPrefix: DurablePrefixCoordinate;
+}
+
+export type CommittedFhInteractionResponseResult =
+  | CommittedFhInteractionResponse
+  | UnavailableEffectfulPublicInvocationTruth;
+
 export interface FhInteractionResumeAdmission {
   readonly kind: "fh_interaction_resume_admission";
   readonly schemaVersion: "5.0.0";
@@ -221,19 +305,31 @@ export interface FhInteractionResumeAdmission {
   readonly successorInputRef: string;
   readonly successorInputDigest: Sha256Digest;
   readonly successorInputValue: Readonly<Record<string, JsonValue>>;
+  readonly successorInputContractRef: string | null;
+  readonly successorInputValueKind: string | null;
   readonly successorCursorRef: string;
   readonly successorCursorDigest: Sha256Digest;
   readonly admissionEventRef: string;
 }
 
-export interface FhResumeSuccessorInput {
-  readonly kind: "fh_resume_successor_input";
+export interface PreparedFhInteractionResume {
+  readonly kind: "prepared_fh_interaction_resume";
   readonly schemaVersion: "5.0.0";
-  readonly disposition: "admitted";
-  readonly inputRef: string;
-  readonly inputDigest: Sha256Digest;
-  readonly inputValue: Readonly<Record<string, JsonValue>>;
+  readonly publicOperation: PreparedContinuationPublicOperation;
+  readonly resume: FhInteractionResumeAdmission;
+  readonly event: RuntimeEvent;
+  readonly projectedPrefix: ValidatedRuntimeEventPrefix;
 }
+
+export interface CommittedFhInteractionResume {
+  readonly operation: ContinuationPublicOperationAdmission;
+  readonly resume: FhInteractionResumeAdmission;
+  readonly successorPrefix: DurablePrefixCoordinate;
+}
+
+export type CommittedFhInteractionResumeResult =
+  | CommittedFhInteractionResume
+  | UnavailableEffectfulPublicInvocationTruth;
 
 export interface FhContinuationRehydrationBasis {
   readonly install: ProductInstall;
@@ -262,6 +358,18 @@ function executionBasisDescendsFromRootInvocation(
   leafBasis: ExecutionBasis,
   rootInvocation: InvocationAdmission,
 ): boolean {
+  return executionBasisDescendsFromRootInvocationAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    leafBasis,
+    rootInvocation,
+  );
+}
+
+function executionBasisDescendsFromRootInvocationAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  leafBasis: ExecutionBasis,
+  rootInvocation: InvocationAdmission,
+): boolean {
   const seen = new Set<string>();
   let current: ExecutionBasis | null = leafBasis;
   while (current !== null) {
@@ -286,8 +394,8 @@ function executionBasisDescendsFromRootInvocation(
     ) {
       return false;
     }
-    current = rehydrateExecutionBasis(
-      store,
+    current = rehydrateExecutionBasisAtPrefix(
+      prefix,
       current.parentExecutionBasisRef,
     );
   }
@@ -300,6 +408,332 @@ function isRecord(
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+/**
+ * Reconstructs the exact pending F_H CCall carrier from one immutable ABG
+ * prefix and the admitted owner surfaces that declared its interaction locus.
+ */
+export function projectHeldInteractionCCallOutcomeAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  input: HeldInteractionCCallProjectionInput,
+): RehydratedAdmittedCCallState | null {
+  const basis = input.executionBasis;
+  const scope = input.openedTraversalScope;
+  const graph = input.graph;
+  const cursor = input.cursor;
+  const interactionSet = input.interactionSet;
+  const term = resolveCProgramTermAtSourcePath(
+    graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
+  const batchRef = resolveEnclosingCBatchRef(
+    graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
+  if (
+    !hasAdmittedExecutionBasisAtPrefix(prefix, basis) ||
+    !hasOpenedTraversalScopeAtPrefix(prefix, scope) ||
+    !hasAdmittedInteractionSetAtPrefix(prefix, interactionSet) ||
+    !hasAdmittedTraversalCursorAtPrefix(prefix, cursor) ||
+    scope.executionBasisRef !== basis.basisRef ||
+    scope.graphFunctionRef !== basis.graphFunctionRef ||
+    scope.runId !== cursor.runId ||
+    scope.graphCallId !== cursor.graphCallId ||
+    scope.frameId !== cursor.frameId ||
+    cursor.executionBasisRef !== basis.basisRef ||
+    cursor.traversalScopeRef !== scope.scopeRef ||
+    cursor.graphRef !== graph.materializationRef ||
+    graph.materializationRef !== basis.graphRef ||
+    graph.materializationDigest !== basis.graphDigest ||
+    graph.graphFunctionRef !== basis.graphFunctionRef ||
+    input.program.programRef !== basis.programRef ||
+    sha256Canonical(input.program as unknown as JsonValue) !==
+      basis.programDigest ||
+    !input.program.callableMembership.includes(basis.graphFunctionRef) ||
+    interactionSet.interactionSetRef !== basis.interactionSetRef ||
+    interactionSet.interactionSetDigest !== basis.interactionSetDigest ||
+    term.kind === "c_source_path_refusal" ||
+    !isInteractionCLeaf(term) ||
+    term.fibre !== "F_H" ||
+    (batchRef !== null && typeof batchRef !== "string")
+  ) {
+    return null;
+  }
+  const interactionRows = interactionSet.rows.filter((row) =>
+    row.graphFunctionRef === basis.graphFunctionRef &&
+    row.nodeRef === cursor.currentNodeRef &&
+    row.programLocusRef === term.programLocusRef &&
+    row.fibre === "F_H" &&
+    row.requirement.interactionKind === term.requirement.interactionKind &&
+    row.requirement.actorCapabilityRef ===
+      term.requirement.actorCapabilityRef &&
+    row.requirement.requestContractRef ===
+      term.requirement.requestContractRef &&
+    row.requirement.responseContractRef ===
+      term.requirement.responseContractRef &&
+    row.requirement.continuationContractRef ===
+      term.requirement.continuationContractRef
+  );
+  if (interactionRows.length !== 1) {
+    return null;
+  }
+  const interaction = interactionRows[0]!;
+  const identity = {
+    basisId: basis.basisRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    vectorIndex: term.vectorIndex,
+    stageRole: term.stageRole,
+    taskOrdinal: cursor.taskOrdinal,
+    attempt: cursor.attempt,
+    programLocusRef: term.programLocusRef,
+    retryPath: cursor.retryPath,
+  };
+  const cCallDigest = sha256Canonical(identity as unknown as JsonValue);
+  const cCallRef = `c-call:${cCallDigest}`;
+  const cCallEvents = runtimeEventsFromValidatedPrefix(prefix).filter(
+    (event) =>
+      event.aggregateType === "c_call" && event.aggregateId === cCallRef,
+  );
+  const openedRows = cCallEvents.filter((event) =>
+    event.kind === "c_call_opened"
+  );
+  const fibreRows = cCallEvents.filter((event) =>
+    event.kind === "c_call_fibre_selected"
+  );
+  const evidenceRows = cCallEvents.filter((event) =>
+    event.kind === "c_call_evidenced"
+  );
+  const resultRows = cCallEvents.filter((event) =>
+    event.kind === "c_call_result_admitted"
+  );
+  const judgmentRows = cCallEvents.filter((event) =>
+    event.kind === "c_call_judged"
+  );
+  if (
+    cCallEvents.length !== 5 || openedRows.length !== 1 ||
+    fibreRows.length !== 1 || evidenceRows.length !== 1 ||
+    resultRows.length !== 1 || judgmentRows.length !== 1
+  ) {
+    return null;
+  }
+  const openedEvent = openedRows[0]!;
+  const fibreEvent = fibreRows[0]!;
+  const evidenceEvent = evidenceRows[0]!;
+  const resultEvent = resultRows[0]!;
+  const judgmentEvent = judgmentRows[0]!;
+  const cursorEventRef = traversalCursorAdmissionEventRefAtPrefix(
+    prefix,
+    cursor,
+  );
+  const locusBody = {
+    cCallRef,
+    cCallDigest,
+    callClass: "leaf" as const,
+    basisId: basis.basisRef,
+    graphFunctionRef: basis.graphFunctionRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    edgeRef: basis.entryRef,
+    vectorIndex: term.vectorIndex,
+    stageRole: term.stageRole,
+    batchRef,
+    taskOrdinal: cursor.taskOrdinal,
+    attempt: cursor.attempt,
+    programLocusRef: term.programLocusRef,
+    retryPath: cursor.retryPath,
+    cursorRef: cursor.cursorRef,
+    cursorDigest: cursor.cursorDigest,
+  };
+  const fibreBody = {
+    cCallRef,
+    callClass: "leaf" as const,
+    regime: "F_H" as const,
+    armId: term.armId,
+    compositionRef: term.compositionRef,
+    implementationSetRef: basis.rootImplementationSetRef,
+    implementationRequirementKey: null,
+    implementationBindingRef: null,
+    implementationRef: null,
+    interactionSetRef: interactionSet.interactionSetRef,
+    interactionRequirementKey: interaction.requirementKey,
+    interactionKind: term.requirement.interactionKind,
+    actorCapabilityRef: term.requirement.actorCapabilityRef,
+    requestContractRef: term.requirement.requestContractRef,
+    responseContractRef: term.requirement.responseContractRef,
+    continuationContractRef: term.requirement.continuationContractRef,
+  };
+  const requestDigest = cursor.inputDigest;
+  const requestRef =
+    `interaction-request://abiogenesis/${requestDigest.slice("sha256:".length)}`;
+  const pendingValue = deepFreeze({
+    kind: "fh_pending_result" as const,
+    schemaVersion: "5.0.0" as const,
+    interactionKind: term.requirement.interactionKind,
+    requestRef,
+    requestDigest,
+    responseContractRef: term.requirement.responseContractRef,
+    continuationContractRef: term.requirement.continuationContractRef,
+  });
+  const pendingValueDigest = sha256Canonical(
+    pendingValue as unknown as JsonValue,
+  );
+  const evidenceBody = {
+    cCallRef,
+    evidenceClass: "interaction_request" as const,
+    contractRef: term.requirement.requestContractRef,
+    implementationRef: null,
+    inputDigest: requestDigest,
+    outputDigest: pendingValueDigest,
+    requestRef,
+    requestDigest,
+  };
+  const evidenceDigest = sha256Canonical(evidenceBody as unknown as JsonValue);
+  const evidenceRef =
+    `evidence://abiogenesis/${evidenceDigest.slice("sha256:".length)}`;
+  const resultBody = {
+    cCallRef,
+    resultClass: "pending" as const,
+    contractRef: term.requirement.continuationContractRef,
+    valueKind: "fh_pending_result" as const,
+    valueDigest: pendingValueDigest,
+    value: pendingValue,
+    evidenceRefs: [evidenceRef],
+  };
+  const resultDigest = sha256Canonical(resultBody as unknown as JsonValue);
+  const resultRef =
+    `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
+  const exactPayload = (
+    event: RuntimeEvent,
+    payload: Readonly<Record<string, JsonValue>>,
+  ): boolean => isRecord(event.payload) &&
+    sha256Canonical(event.payload as unknown as JsonValue) ===
+      sha256Canonical(payload as unknown as JsonValue);
+  const exactEnvelope = (event: RuntimeEvent): boolean =>
+    event.parentAggregateId === scope.frameId &&
+    event.basisId === basis.basisRef && event.runId === scope.runId &&
+    event.graphFunctionRef === basis.graphFunctionRef &&
+    event.graphCallId === scope.graphCallId && event.frameId === scope.frameId;
+  if (
+    cursorEventRef === null || !exactEnvelope(openedEvent) ||
+    openedEvent.materializationRef !== basis.graphRef ||
+    openedEvent.frameLineageId !== scope.frameLineageId ||
+    openedEvent.causationEventRefs.length !== 1 ||
+    openedEvent.causationEventRefs[0] !== cursorEventRef ||
+    !exactPayload(openedEvent, locusBody) || !exactEnvelope(fibreEvent) ||
+    fibreEvent.materializationRef !== basis.graphRef ||
+    fibreEvent.frameLineageId !== scope.frameLineageId ||
+    fibreEvent.causationEventRefs.length !== 1 ||
+    fibreEvent.causationEventRefs[0] !== openedEvent.eventId ||
+    !exactPayload(fibreEvent, fibreBody) || !exactEnvelope(evidenceEvent) ||
+    evidenceEvent.causationEventRefs.length !== 1 ||
+    evidenceEvent.causationEventRefs[0] !== fibreEvent.eventId ||
+    !exactPayload(evidenceEvent, {
+      evidenceRef,
+      evidenceDigest,
+      ...evidenceBody,
+    }) ||
+    !exactEnvelope(resultEvent) || resultEvent.causationEventRefs.length !== 1 ||
+    resultEvent.causationEventRefs[0] !== evidenceEvent.eventId ||
+    !exactPayload(resultEvent, { resultRef, resultDigest, ...resultBody }) ||
+    !exactEnvelope(judgmentEvent) ||
+    judgmentEvent.causationEventRefs.length !== 1 ||
+    judgmentEvent.causationEventRefs[0] !== resultEvent.eventId ||
+    !isRecord(judgmentEvent.payload) ||
+    judgmentEvent.payload.cCallRef !== cCallRef ||
+    judgmentEvent.payload.resultRef !== resultRef ||
+    judgmentEvent.payload.resultDigest !== resultDigest ||
+    judgmentEvent.payload.judgment !== "pending" ||
+    judgmentEvent.payload.reasonRef !==
+      `reason://abiogenesis/fh/${term.requirement.interactionKind}/pending@5` ||
+    judgmentEvent.payload.contractRef !==
+      term.requirement.continuationContractRef ||
+    judgmentEvent.payload.predicateRef !== term.judgmentPredicateRef
+  ) {
+    return null;
+  }
+  const cCall = deepFreeze({
+    kind: "c_call" as const,
+    schemaVersion: "5.0.0" as const,
+    cCallRef,
+    cCallDigest,
+    callClass: "leaf" as const,
+    basisId: basis.basisRef,
+    runId: scope.runId,
+    graphFunctionRef: basis.graphFunctionRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    edgeRef: basis.entryRef,
+    vectorIndex: term.vectorIndex,
+    stageRole: term.stageRole,
+    batchRef,
+    taskOrdinal: cursor.taskOrdinal,
+    attempt: cursor.attempt,
+    programLocusRef: term.programLocusRef,
+    retryPath: cursor.retryPath,
+    regime: "F_H" as const,
+    armId: term.armId,
+    compositionRef: term.compositionRef,
+    implementationSetRef: basis.rootImplementationSetRef,
+    implementationRequirementKey: null,
+    implementationBindingRef: null,
+    implementationRef: null,
+    interactionSetRef: interactionSet.interactionSetRef,
+    interactionRequirementKey: interaction.requirementKey,
+    interactionKind: term.requirement.interactionKind,
+    actorCapabilityRef: term.requirement.actorCapabilityRef,
+    responseContractRef: term.requirement.responseContractRef,
+    continuationContractRef: term.requirement.continuationContractRef,
+    childGraphFunctionRef: null,
+    inputContractRef: term.requirement.requestContractRef,
+    outputContractRef: term.requirement.responseContractRef,
+    failureContractRef: basis.refusalContractRef,
+    refusalContractRef: basis.refusalContractRef,
+    refusalValueKind: basis.refusalValueKind,
+    evidenceContractRef: term.requirement.requestContractRef,
+    judgmentContractRef: term.requirement.continuationContractRef,
+    rejectionContractRef: basis.rejectionContractRef,
+    transitionContractRef: basis.transitionContractRef,
+    closureContractRef: basis.closureContractRef,
+    closureContractDigest: basis.closureContractDigest,
+    judgmentPredicateRef: term.judgmentPredicateRef,
+    terminalPredicateRef: basis.terminalPredicateRef,
+    replayProjectionRef: basis.replayProjectionRef,
+    terminalKind: basis.terminalKind,
+    openedEventRef: openedEvent.eventId,
+    fibreSelectedEventRef: fibreEvent.eventId,
+  }) as CCall;
+  const result = deepFreeze({
+    ...(resultEvent.payload as Readonly<Record<string, JsonValue>>),
+    kind: "admitted_c_call_result" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    admissionEventRef: resultEvent.eventId,
+  }) as unknown as AdmittedCCallResult;
+  const judgment = deepFreeze({
+    ...(judgmentEvent.payload as Readonly<Record<string, JsonValue>>),
+    kind: "admitted_c_call_judgment" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "admitted" as const,
+    admissionEventRef: judgmentEvent.eventId,
+  }) as unknown as AdmittedCCallJudgment;
+  const projected = projectPendingInteractionCarrier(
+    prefix,
+    cCall as unknown as Readonly<Record<string, JsonValue>>,
+    result as unknown as Readonly<Record<string, JsonValue>>,
+    judgment as unknown as Readonly<Record<string, JsonValue>>,
+  );
+  return projected !== null && projected.requestRef === requestRef &&
+      projected.requestDigest === requestDigest
+    ? deepFreeze({
+        cCall: projected.cCall,
+        result: projected.result,
+        judgment: projected.judgment,
+      })
+    : null;
+}
+
 function stringField(event: RuntimeEvent, key: string): string | null {
   if (!isRecord(event.payload)) return null;
   const value = event.payload[key];
@@ -309,6 +743,16 @@ function stringField(event: RuntimeEvent, key: string): string | null {
 function digestField(event: RuntimeEvent, key: string): Sha256Digest | null {
   const value = stringField(event, key);
   return value?.startsWith("sha256:") ? value as Sha256Digest : null;
+}
+
+function runtimeEventCandidate(event: RuntimeEvent): RuntimeEventCandidate {
+  const {
+    eventId: _eventId,
+    admissionOrdinal: _admissionOrdinal,
+    payloadDigest: _payloadDigest,
+    ...candidate
+  } = event;
+  return candidate;
 }
 
 function resolveCurrentContinuationOperationCoordinate(
@@ -323,8 +767,27 @@ function resolveCurrentContinuationOperationCoordinate(
   readonly event: RuntimeEvent;
   readonly payload: Readonly<Record<string, JsonValue>>;
 }> | null {
+  return resolveCurrentContinuationOperationCoordinateAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    continuationRef,
+    operation,
+    predecessor,
+  );
+}
+
+function resolveCurrentContinuationOperationCoordinateAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  continuationRef: string,
+  operation: ContinuationPublicOperationAdmission,
+  predecessor: Readonly<{
+    readonly eventRef: string | null;
+    readonly kind: "fh_interaction_opened" | "fh_interaction_responded";
+  }>,
+): Readonly<{
+  readonly event: RuntimeEvent;
+  readonly payload: Readonly<Record<string, JsonValue>>;
+}> | null {
   if (predecessor.eventRef === null) return null;
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
   const applicable = runtimeEventsFromValidatedPrefix(prefix).filter(
     (event) =>
       (
@@ -346,7 +809,16 @@ function resolveCurrentContinuationOperationCoordinate(
     operationEvent !== undefined && isRecord(operationEvent.payload)
       ? operationEvent.payload
       : null;
+  const capabilityGrantRefs =
+    operationPayload !== null &&
+      Array.isArray(operationPayload.capabilityGrantRefs)
+      ? operationPayload.capabilityGrantRefs
+      : null;
   if (
+    operation.kind !== "continuation_public_operation_admission" ||
+    operation.schemaVersion !== "5.0.0" ||
+    operation.disposition !== "admitted" ||
+    operation.continuationRef !== continuationRef ||
     operationEvent?.eventId !== operation.admissionEventRef ||
     operationEvent.kind !== "public_operation_admitted" ||
     operationEvent.parentAggregateId !== operation.invocationRef ||
@@ -354,6 +826,11 @@ function resolveCurrentContinuationOperationCoordinate(
     operationPayload.operationId !== operation.operationId ||
     operationPayload.continuationRef !== continuationRef ||
     operationPayload.invocationRef !== operation.invocationRef ||
+    operationPayload.actorRef !== operation.actorRef ||
+    operationPayload.capabilityRef !== operation.capabilityRef ||
+    capabilityGrantRefs === null ||
+    capabilityGrantRefs.length !== 1 ||
+    capabilityGrantRefs[0] !== operation.capabilityGrantRef ||
     predecessorEvent?.eventId !== predecessor.eventRef ||
     predecessorEvent.kind !== predecessor.kind ||
     predecessorEvent.aggregateType !== "continuation" ||
@@ -363,6 +840,37 @@ function resolveCurrentContinuationOperationCoordinate(
     return null;
   }
   return { event: operationEvent, payload: operationPayload };
+}
+
+function resolvePreparedContinuationOperationCoordinateAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  continuationRef: string,
+  prepared: PreparedContinuationPublicOperation,
+  predecessor: Readonly<{
+    readonly eventRef: string | null;
+    readonly kind: "fh_interaction_opened" | "fh_interaction_responded";
+  }>,
+): Readonly<{
+  readonly event: RuntimeEvent;
+  readonly payload: Readonly<Record<string, JsonValue>>;
+}> | null {
+  if (
+    prepared.kind !== "prepared_continuation_public_operation" ||
+    prepared.schemaVersion !== "5.0.0"
+  ) {
+    return null;
+  }
+  const coordinate = resolveCurrentContinuationOperationCoordinateAtPrefix(
+    prefix,
+    continuationRef,
+    prepared.operation,
+    predecessor,
+  );
+  return coordinate !== null &&
+      sha256Canonical(prepared.event as unknown as JsonValue) ===
+        sha256Canonical(coordinate.event as unknown as JsonValue)
+    ? coordinate
+    : null;
 }
 
 export function projectFhInteractionSemanticBasis(
@@ -375,8 +883,25 @@ export function projectFhInteractionSemanticBasis(
   readonly constructionIntent: Readonly<Record<string, JsonValue>> | null;
   readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
 }> | null {
+  return projectFhInteractionSemanticBasisAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    continuation,
+  );
+}
+
+export function projectFhInteractionSemanticBasisAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  continuation: ReplayContinuationState,
+): Readonly<{
+  readonly requestContractRef: string;
+  readonly responseContractRef: string;
+  readonly requestValue: Readonly<Record<string, JsonValue>>;
+  readonly constructionIntent: Readonly<Record<string, JsonValue>> | null;
+  readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
+}> | null {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
   const continuationRef = continuation.continuationRef;
-  const opened = store.readAll().find(
+  const opened = events.find(
     (event) => event.eventId === continuation.openedEventRef,
   );
   if (
@@ -405,7 +930,7 @@ export function projectFhInteractionSemanticBasis(
       nextActionBasis: null,
     });
   }
-  const intentRows = store.readAll().filter(
+  const intentRows = events.filter(
     (event) =>
       event.kind === "construction_intent_selected" &&
       event.runId === continuation.runId &&
@@ -482,9 +1007,24 @@ export function rehydrateFhContinuation(
   expected: FhContinuationRehydrationBasis,
   operation: ContinuationPublicOperationAdmission,
 ): RehydratedFhContinuationScope | null {
+  return rehydrateFhContinuationAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    continuation,
+    expected,
+    operation,
+  );
+}
+
+export function rehydrateFhContinuationAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  continuation: ReplayContinuationState,
+  expected: FhContinuationRehydrationBasis,
+  operation: ContinuationPublicOperationAdmission,
+): RehydratedFhContinuationScope | null {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
   const continuationRef = continuation.continuationRef;
-  const operationCoordinate = resolveCurrentContinuationOperationCoordinate(
-    store,
+  const operationCoordinate = resolveCurrentContinuationOperationCoordinateAtPrefix(
+    prefix,
     continuationRef,
     operation,
     {
@@ -492,7 +1032,7 @@ export function rehydrateFhContinuation(
       kind: "fh_interaction_responded",
     },
   );
-  const opened = store.readAll().find(
+  const opened = events.find(
     (event) => event.eventId === continuation.openedEventRef,
   );
   if (
@@ -506,10 +1046,13 @@ export function rehydrateFhContinuation(
   if (!isRecord(opened.payload)) return null;
   const executionBasisRef = stringField(opened, "executionBasisRef");
   if (executionBasisRef === null) return null;
-  const executionBasis = rehydrateExecutionBasis(store, executionBasisRef);
+  const executionBasis = rehydrateExecutionBasisAtPrefix(
+    prefix,
+    executionBasisRef,
+  );
   if (executionBasis === null) return null;
-  const rootInvocation = rehydrateInvocationAdmission(
-    store,
+  const rootInvocation = rehydrateInvocationAdmissionAtPrefix(
+    prefix,
     executionBasis.invocationAdmissionRef,
   );
   const scopeValue = opened.payload.openedTraversalScope;
@@ -527,17 +1070,20 @@ export function rehydrateFhContinuation(
   ) {
     return null;
   }
-  const openedTraversalScope = rehydrateOpenedTraversalScope(store, scopeValue);
+  const openedTraversalScope = rehydrateOpenedTraversalScopeAtPrefix(
+    prefix,
+    scopeValue,
+  );
   const cursor = deepFreeze(cursorValue) as unknown as TraversalCursorCandidate;
-  const pending = rehydratePendingInteraction(
-    store,
+  const pending = projectPendingInteractionCarrier(
+    prefix,
     cCallValue,
     resultValue,
     judgmentValue,
   );
   if (pending === null) return null;
   const constructionIntent = isTraversalCursorCandidate(cursor)
-    ? rehydrateConstructionIntentForCursor(store, cursor)
+    ? rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor)
     : null;
   const requiresConstructionIntent =
     isAdmittedConstructionInteractionLocus(
@@ -558,7 +1104,7 @@ export function rehydrateFhContinuation(
   if (
     openedTraversalScope === null ||
     !isTraversalCursorCandidate(cursor) ||
-    !hasAdmittedTraversalCursor(store, cursor) ||
+    !hasAdmittedTraversalCursorAtPrefix(prefix, cursor) ||
     stringField(opened, "continuationRef") !== continuationRef ||
     digestField(opened, "continuationDigest") !==
       continuation.continuationDigest ||
@@ -609,8 +1155,8 @@ export function rehydrateFhContinuation(
     rootInvocation.workspaceBindingId !== expected.workspaceBinding.bindingId ||
     rootInvocation.catalogViewId !== graphFunctionCatalogViewRef(expected.catalogView) ||
     rootInvocation.programRef !== expected.program.programRef ||
-    !executionBasisDescendsFromRootInvocation(
-      store,
+    !executionBasisDescendsFromRootInvocationAtPrefix(
+      prefix,
       executionBasis,
       rootInvocation,
     ) ||
@@ -680,8 +1226,8 @@ export function rehydrateFhContinuation(
   });
 }
 
-export function admitContinuationPublicOperation(
-  store: AbgEventStore,
+export function prepareContinuationPublicOperation(
+  prefix: ValidatedRuntimeEventPrefix,
   rootInvocation: InvocationAdmission,
   operation:
     | "abg.operation.interaction.respond"
@@ -691,25 +1237,23 @@ export function admitContinuationPublicOperation(
   actorRef: string,
   capabilityRef: string,
   basis: PublicOperationAdmissionBasis,
-): ContinuationPublicOperationAdmission {
-  const runPrefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+): PreparedContinuationPublicOperationResult {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const runPrefix = selectValidatedRuntimeEventPrefix(events, {
     runId: continuation.runId,
   });
   const reconstructedContinuation = projectFhContinuations(
     runPrefix,
     deriveRuntimeEventCalculusProjection(runPrefix),
+    prefix,
   ).find((candidate) =>
     candidate.continuationRef === continuation.continuationRef
   );
-  const allEvents = runtimeEventsFromValidatedPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+  const invocationTruth = projectEffectfulPublicInvocationTruthAtPrefix(
+    prefix,
+    basis.invocationRef,
   );
-  const duplicateInvocation = allEvents.some(
-    (event) =>
-      event.kind === "public_operation_admitted" &&
-      isRecord(event.payload) &&
-      event.payload.invocationRef === basis.invocationRef,
-  );
+  if (invocationTruth.disposition !== "available") return invocationTruth;
   if (
     reconstructedContinuation === undefined ||
     sha256Canonical(reconstructedContinuation as unknown as JsonValue) !==
@@ -728,17 +1272,16 @@ export function admitContinuationPublicOperation(
     actorRef,
     capabilityRef,
     basis,
-    duplicateInvocation,
   });
   if (
     grant === null ||
-    !hasAdmittedInvocation(store, rootInvocation)
+    !hasAdmittedInvocationAtPrefix(prefix, rootInvocation)
   ) {
     throw new TypeError(
       "continuation public operation requires the exact admitted run authority",
     );
   }
-  const event = admitRuntimeEvent(store, {
+  const candidate: RuntimeEventCandidate = {
     kind: "public_operation_admitted",
     eventTime: basis.eventTime,
     aggregateType: "workspace",
@@ -752,10 +1295,11 @@ export function admitContinuationPublicOperation(
     payload: {
       operationId: operation,
       continuationRef,
-      definitionKey: basis.definitionKey,
+      memberKey: basis.memberKey,
       definitionDigest: basis.definitionDigest,
       variant,
       invocationRef: basis.invocationRef,
+      invocationPayloadDigest: basis.invocationPayloadDigest,
       invocationDigest: basis.invocationDigest,
       actorRef,
       authorityRef: rootInvocation.authorityRef,
@@ -765,12 +1309,22 @@ export function admitContinuationPublicOperation(
       policyRef: rootInvocation.policyRef,
       policyDigest: rootInvocation.policyDigest,
       workspaceBindingId: rootInvocation.workspaceBindingId,
+      workspaceBindingDigest: rootInvocation.workspaceBindingDigest,
+      catalogBasisRef: rootInvocation.catalogBasisRef,
+      catalogBasisDigest: rootInvocation.catalogBasisDigest,
       catalogViewId: rootInvocation.catalogViewId,
+      catalogViewDigest: rootInvocation.catalogViewDigest,
       programRef: rootInvocation.programRef,
+      programDigest: rootInvocation.programDigest,
       graphFunctionRef: rootInvocation.graphFunctionRef,
+      graphFunctionDigest: rootInvocation.graphFunctionDigest,
     },
-  });
-  return deepFreeze({
+  };
+  const event = projectRuntimeEventFromValidatedHistory(events, candidate);
+  const projectedPrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze([...events, event]),
+  );
+  const admitted = deepFreeze({
     kind: "continuation_public_operation_admission" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
@@ -781,6 +1335,13 @@ export function admitContinuationPublicOperation(
     capabilityRef,
     capabilityGrantRef: grant.grantRef,
     admissionEventRef: event.eventId,
+  });
+  return deepFreeze({
+    kind: "prepared_continuation_public_operation" as const,
+    schemaVersion: "5.0.0" as const,
+    operation: admitted,
+    event,
+    projectedPrefix,
   });
 }
 
@@ -801,16 +1362,22 @@ export function resolveContinuationPublicOperationGrant(input: Readonly<{
   actorRef: string;
   capabilityRef: string;
   basis: PublicOperationAdmissionBasis;
-  duplicateInvocation: boolean;
 }>): CapabilityGrant | null {
   const invalidBasis = validatePublicOperationBasis(
     input.basis,
     input.operation,
+    input.variant,
   );
   const requiredStatus =
     input.operation === "abg.operation.interaction.respond"
       ? "open"
       : "responded";
+  const validVariant = input.operation === "abg.operation.interaction.respond"
+    ? input.variant === "select" || input.variant === "approve" ||
+      input.variant === "reject" || input.variant === "assess" ||
+      input.variant === "answer_escalation"
+    : input.variant === "current_intent" ||
+      input.variant === "selected_action";
   const grant = input.rootInvocation.capabilityGrants.find(
     (candidate) =>
       isCapabilityGrantValue(candidate) &&
@@ -830,8 +1397,7 @@ export function resolveContinuationPublicOperationGrant(input: Readonly<{
     input.actorRef !== input.rootInvocation.actorRef ||
     grant === undefined ||
     !input.rootInvocation.capabilityGrantRefs.includes(grant.grantRef) ||
-    input.duplicateInvocation ||
-    input.variant.length === 0
+    !validVariant
   ) {
     return null;
   }
@@ -869,8 +1435,11 @@ export function admitFhInteractionOpen(
     !isAdmittedCCallResult(pending.result) ||
     !isAdmittedCCallJudgment(pending.judgment) ||
     !isAdmittedRoute(route) ||
-    !hasAdmittedProductInstall(store, productBasis.install) ||
-    !hasAdmittedWorkspaceBinding(store, productBasis.workspaceBinding) ||
+    !hasAdmittedProductInstall(productBasis.artifactTruth, productBasis.install) ||
+    !hasAdmittedWorkspaceBinding(
+      productBasis.artifactTruth,
+      productBasis.workspaceBinding,
+    ) ||
     productBasis.catalogView.kind !== "graph_function_catalog_view" ||
     cCall.regime !== "F_H" ||
     cCall.actorCapabilityRef === null ||
@@ -1040,7 +1609,7 @@ export function admitFhInteractionOpen(
   });
 }
 
-export function admitFhInteractionResponse(
+function admitFhInteractionResponse(
   store: AbgEventStore,
   continuation: ReplayContinuationState,
   operation: ContinuationPublicOperationAdmission,
@@ -1073,7 +1642,9 @@ export function admitFhInteractionResponse(
     publicEvent?.kind !== "public_operation_admitted" ||
     publicPayload?.capabilityRef !== operation.capabilityRef ||
     !Array.isArray(publicPayload.capabilityGrantRefs) ||
-    publicPayload.capabilityGrantRefs[0] !== operation.capabilityGrantRef
+    publicPayload.capabilityGrantRefs[0] !== operation.capabilityGrantRef ||
+    basis.eventTime !== publicEvent.eventTime ||
+    basis.correlationId !== publicEvent.correlationId
   ) {
     throw new TypeError(
       "F_H response requires one exact open continuation and admitted response operation",
@@ -1126,239 +1697,56 @@ export function admitFhInteractionResponse(
   });
 }
 
-export function deriveFhResumeSuccessorInput(
-  store: AbgEventStore,
+export function prepareFhInteractionResponse(
+  publicOperation: PreparedContinuationPublicOperation,
   continuation: ReplayContinuationState,
-  operation: ContinuationPublicOperationAdmission,
-  executionBasis: ExecutionBasis,
-  closureContract: Readonly<ClosureContract>,
-): FhResumeSuccessorInput {
-  const continuationRef = continuation.continuationRef;
-  if (
-    continuation.status !== "responded" ||
-    continuation.responseRef === null ||
-    continuation.responseDigest === null ||
-    !isRecord(continuation.responseValue)
-  ) {
-    throw new TypeError(
-      "F_H successor input requires one exact responded continuation",
-    );
-  }
-  if (continuation.constructionIntentRef === null) {
-    return deepFreeze({
-      kind: "fh_resume_successor_input" as const,
-      schemaVersion: "5.0.0" as const,
-      disposition: "admitted" as const,
-      inputRef: continuation.responseRef,
-      inputDigest: continuation.responseDigest,
-      inputValue: continuation.responseValue,
-    });
-  }
-  const opened = store.readAll().find(
-    (event) => event.eventId === continuation.openedEventRef,
-  );
-  const heldCursor =
-    opened !== undefined && isRecord(opened.payload) &&
-      isRecord(opened.payload.heldCursor)
-      ? opened.payload.heldCursor
-      : null;
-  if (
-    heldCursor === null ||
-    !isTraversalCursorCandidate(
-      heldCursor as unknown as TraversalCursorCandidate,
-    ) ||
-    !hasAdmittedExecutionBasis(store, executionBasis) ||
-    executionBasis.basisRef !== opened?.basisId ||
-    closureContract.closureContractRef !==
-      executionBasis.closureContractRef ||
-    sha256Canonical(closureContract as unknown as JsonValue) !==
-      executionBasis.closureContractDigest
-  ) {
-    throw new TypeError(
-      "construction successor input requires its exact admitted execution basis",
-    );
-  }
-  const heldCursorCandidate =
-    heldCursor as unknown as TraversalCursorCandidate;
-  const intent = rehydrateConstructionIntentForCursor(
-    store,
-    heldCursorCandidate,
-  );
-  if (
-    intent === null ||
-    intent.constructionIntentRef !== continuation.constructionIntentRef ||
-    intent.constructionIntentDigest !==
-      continuation.constructionIntentDigest ||
-    intent.executionBasisRef !== executionBasis.basisRef
-  ) {
-    throw new TypeError(
-      "construction successor input requires its exact admitted intent",
-    );
-  }
-  const intentEvent = store.readAll().find(
-    (event) => event.eventId === intent.admissionEventRef,
-  );
-  const nextActionBasis =
-    intentEvent !== undefined && isRecord(intentEvent.payload) &&
-      isRecord(intentEvent.payload.nextActionBasis)
-      ? intentEvent.payload.nextActionBasis
-      : null;
-  const composition = admittedConstructionComposition(executionBasis);
-  const declaredPolicy =
-    nextActionBasis !== null && isRecord(nextActionBasis.declaredPolicy)
-      ? nextActionBasis.declaredPolicy
-      : null;
-  const semanticEvidenceAssetRefs =
-    Array.isArray(
-      continuation.responseValue.semanticEvidenceAssetRefs,
-    ) &&
-      continuation.responseValue.semanticEvidenceAssetRefs.every(
-        (value) => typeof value === "string" && value.length > 0,
-      )
-      ? continuation.responseValue.semanticEvidenceAssetRefs as readonly string[]
-      : null;
-  if (
-    nextActionBasis === null ||
-    nextActionBasis.kind !== "next_action_basis" ||
-    nextActionBasis.basisRef !== intent.nextActionBasisRef ||
-    nextActionBasis.basisDigest !== intent.nextActionBasisDigest ||
-    composition === null ||
-    composition.compositionRef !== intent.constructionCompositionRef ||
-    composition.compositionDigest !==
-      intent.constructionCompositionDigest ||
-    declaredPolicy === null ||
-    sha256Canonical(declaredPolicy) !==
-      sha256Canonical(
-        composition.closurePolicy as unknown as JsonValue,
-      ) ||
-    semanticEvidenceAssetRefs === null ||
-    semanticEvidenceAssetRefs.join("\0") !==
-      intent.outputAssetRefs.join("\0")
-  ) {
-    throw new TypeError(
-      "construction successor input requires its exact admitted basis, Product policy, and observed evidence",
-    );
-  }
-  const body = {
-    kind: "action_evaluation_basis" as const,
-    schemaVersion: "5.0.0" as const,
-    constructionIntent: intent as unknown as JsonValue,
-    nextActionBasis,
-    admittedEvidence: [{
-      kind: "admitted_semantic_evidence" as const,
-      schemaVersion: "5.0.0" as const,
-      responseContractRef: continuation.responseContractRef,
-      responseRef: continuation.responseRef,
-      responseDigest: continuation.responseDigest,
-      responseValue: continuation.responseValue,
-      semanticEvidenceAssetRefs,
-      admissionEventRef: continuation.respondedEventRef!,
-    }],
-    workspaceBinding: {
-      workspaceBindingId: executionBasis.workspaceBindingId,
-      workspaceBindingDigest: executionBasis.workspaceBindingDigest,
-    },
-    actionCatalog: {
-      actionCatalogRef: intent.actionCatalogRef,
-      actionCatalogDigest: intent.actionCatalogDigest,
-      actionCatalogRowDigest: intent.actionCatalogRowDigest,
-      selectedActionRef: intent.selectedActionRef,
-    },
-    closurePolicy: composition.closurePolicy,
-    runtimeEvidenceEventRefs: [
-      intent.admissionEventRef,
-      continuation.openedEventRef,
-      continuation.respondedEventRef!,
-      operation.admissionEventRef,
-    ],
-  };
-  const basisDigest = sha256Canonical(body as unknown as JsonValue);
-  const inputValue = deepFreeze({
-    ...body,
-    basisRef:
-      `action-evaluation-basis://abiogenesis/${basisDigest.slice("sha256:".length)}`,
-    basisDigest,
-  });
-  const inputDigest = sha256Canonical(inputValue as unknown as JsonValue);
-  return deepFreeze({
-    kind: "fh_resume_successor_input" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    inputRef: inputValue.basisRef,
-    inputDigest,
-    inputValue:
-      inputValue as unknown as Readonly<Record<string, JsonValue>>,
-  });
-}
-
-export function admitFhInteractionResume(
-  store: AbgEventStore,
-  continuation: ReplayContinuationState,
-  operation: ContinuationPublicOperationAdmission,
-  executionBasis: ExecutionBasis,
-  closureContract: Readonly<ClosureContract>,
-  successorInput: FhResumeSuccessorInput,
-  successorCursor: TraversalCursorCandidate,
-  durablePrefixDigest: Sha256Digest,
+  responseContractRef: string,
+  responseValue: Readonly<Record<string, JsonValue>>,
   basis: RuntimeAdmissionBasis,
-): FhInteractionResumeAdmission {
-  const continuationRef = continuation.continuationRef;
-  const operationCoordinate = resolveCurrentContinuationOperationCoordinate(
-    store,
-    continuationRef,
-    operation,
+): PreparedFhInteractionResponse {
+  const operation = publicOperation.operation;
+  const prefix = publicOperation.projectedPrefix;
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const operationCoordinate = resolvePreparedContinuationOperationCoordinateAtPrefix(
+    prefix,
+    continuation.continuationRef,
+    publicOperation,
     {
-      eventRef: continuation.respondedEventRef,
-      kind: "fh_interaction_responded",
+      eventRef: continuation.openedEventRef,
+      kind: "fh_interaction_opened",
     },
   );
-  const publicEvent = operationCoordinate?.event;
-  const publicPayload = operationCoordinate?.payload ?? null;
-  const expectedSuccessorInput = deriveFhResumeSuccessorInput(
-    store,
-    continuation,
-    operation,
-    executionBasis,
-    closureContract,
-  );
   if (
-    continuation.status !== "responded" ||
-    continuation.responseRef === null ||
-    continuation.responseDigest === null ||
-    !isRecord(continuation.responseValue) ||
-    operation.operationId !== "abg.operation.run.continue" ||
+    continuation.status !== "open" ||
+    operation.operationId !== "abg.operation.interaction.respond" ||
     operation.capabilityRef !== continuation.actorCapabilityRef ||
-    publicEvent?.kind !== "public_operation_admitted" ||
-    publicPayload?.capabilityRef !== operation.capabilityRef ||
-    !Array.isArray(publicPayload.capabilityGrantRefs) ||
-    publicPayload.capabilityGrantRefs[0] !== operation.capabilityGrantRef ||
-    successorInput.kind !== "fh_resume_successor_input" ||
-    successorInput.disposition !== "admitted" ||
-    successorInput.inputRef !== expectedSuccessorInput.inputRef ||
-    successorInput.inputDigest !== expectedSuccessorInput.inputDigest ||
-    sha256Canonical(successorInput.inputValue as unknown as JsonValue) !==
-      expectedSuccessorInput.inputDigest ||
-    !isTraversalCursorCandidate(successorCursor) ||
-    successorCursor.runId !== continuation.runId ||
-    successorCursor.graphCallId !== continuation.graphCallId ||
-    successorCursor.frameId !== continuation.frameId ||
-    successorCursor.inputRef !== successorInput.inputRef ||
-    successorCursor.inputDigest !== successorInput.inputDigest
+    responseContractRef !== continuation.responseContractRef ||
+    (
+      continuation.constructionIntentRef !== null &&
+      responseValue.constructionIntentRef !==
+        continuation.constructionIntentRef
+    ) ||
+    operationCoordinate === null ||
+    basis.eventTime !== operationCoordinate.event.eventTime ||
+    basis.correlationId !== operationCoordinate.event.correlationId ||
+    basis.causationEventRefs.length !== 0
   ) {
     throw new TypeError(
-      "F_H resume requires one exact responded continuation and successor cursor",
+      "F_H response preparation requires one exact prefix-projected operation and open continuation",
     );
   }
-  const event = admitRuntimeEvent(store, {
-    kind: "fh_interaction_resume_admitted",
+  const responseDigest = sha256Canonical(responseValue as unknown as JsonValue);
+  const responseRef =
+    `interaction-response://abiogenesis/${responseDigest.slice("sha256:".length)}`;
+  const candidate: RuntimeEventCandidate = {
+    kind: "fh_interaction_responded",
     eventTime: basis.eventTime,
     aggregateType: "continuation",
-    aggregateId: continuationRef,
+    aggregateId: continuation.continuationRef,
     parentAggregateId: continuation.frameId,
     causationEventRefs: [
-      continuation.respondedEventRef!,
+      continuation.openedEventRef,
       operation.admissionEventRef,
-      ...basis.causationEventRefs,
     ],
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
@@ -1368,12 +1756,269 @@ export function admitFhInteractionResume(
     graphCallId: continuation.graphCallId,
     frameId: continuation.frameId,
     payload: {
-      continuationRef,
+      continuationRef: continuation.continuationRef,
+      actorRef: operation.actorRef,
+      capabilityRef: operation.capabilityRef,
+      responseContractRef,
+      responseRef,
+      responseDigest,
+      responseValue,
+      publicOperationEventRef: operation.admissionEventRef,
+    },
+  };
+  const event = projectRuntimeEventFromValidatedHistory(events, candidate);
+  const projectedPrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze([...events, event]),
+  );
+  const response = deepFreeze({
+    kind: "fh_interaction_response_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "responded" as const,
+    continuationRef: continuation.continuationRef,
+    actorRef: operation.actorRef,
+    capabilityRef: operation.capabilityRef,
+    responseContractRef,
+    responseRef,
+    responseDigest,
+    responseValue,
+    admissionEventRef: event.eventId,
+  });
+  return deepFreeze({
+    kind: "prepared_fh_interaction_response" as const,
+    schemaVersion: "5.0.0" as const,
+    publicOperation,
+    response,
+    event,
+    projectedPrefix,
+  });
+}
+
+export function commitFhInteractionResponseAtExpectedPrefix(
+  store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
+  rootInvocation: InvocationAdmission,
+  continuation: ReplayContinuationState,
+  variant: string,
+  actorRef: string,
+  capabilityRef: string,
+  operationBasis: PublicOperationAdmissionBasis,
+  responseContractRef: string,
+  responseValue: Readonly<Record<string, JsonValue>>,
+  responseBasis: RuntimeAdmissionBasis,
+): CommittedFhInteractionResponseResult {
+  assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+  const prefix = selectValidatedRuntimeEventPrefix(
+    readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+  );
+  const expectedLogicalDigest = sha256Canonical(
+    runtimeEventsFromValidatedPrefix(prefix) as unknown as JsonValue,
+  );
+  const preparedOperation = prepareContinuationPublicOperation(
+    prefix,
+    rootInvocation,
+    "abg.operation.interaction.respond",
+    continuation,
+    variant,
+    actorRef,
+    capabilityRef,
+    operationBasis,
+  );
+  if (preparedOperation.kind !== "prepared_continuation_public_operation") {
+    return preparedOperation;
+  }
+  const prepared = prepareFhInteractionResponse(
+    preparedOperation,
+    continuation,
+    responseContractRef,
+    responseValue,
+    responseBasis,
+  );
+  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+    store,
+    expectedLogicalDigest,
+    () => {
+      const operationEvent = admitRuntimeEvent(
+        store,
+        runtimeEventCandidate(prepared.publicOperation.event),
+      );
+      const responseEvent = admitRuntimeEvent(
+        store,
+        runtimeEventCandidate(prepared.event),
+      );
+      if (
+        sha256Canonical(operationEvent as unknown as JsonValue) !==
+            sha256Canonical(
+              prepared.publicOperation.event as unknown as JsonValue,
+            ) ||
+        sha256Canonical(responseEvent as unknown as JsonValue) !==
+            sha256Canonical(prepared.event as unknown as JsonValue)
+      ) {
+        throw new TypeError(
+          "F_H response append differs from its exact prefix plan",
+        );
+      }
+      return deepFreeze({
+        operation: prepared.publicOperation.operation,
+        response: prepared.response,
+      });
+    },
+  );
+  if (committed.successorPrefix === null) {
+    throw new TypeError("F_H response requires one durable successor prefix");
+  }
+  return deepFreeze({
+    ...committed.value,
+    successorPrefix: committed.successorPrefix,
+  });
+}
+
+export function deriveFhResumeSuccessorInput(
+  store: AbgEventStore,
+  continuation: ReplayContinuationState,
+  operation: ContinuationPublicOperationAdmission,
+  executionBasis: ExecutionBasis,
+  closureContract: Readonly<ClosureContract>,
+  successorCarrier: FhResumeSuccessorCarrier,
+): FhResumeSuccessorInput {
+  return deriveFhResumeSuccessorInputAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    continuation,
+    operation,
+    executionBasis,
+    closureContract,
+    successorCarrier,
+  );
+}
+
+export function deriveFhResumeSuccessorInputAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  continuation: ReplayContinuationState,
+  operation: ContinuationPublicOperationAdmission,
+  executionBasis: ExecutionBasis,
+  closureContract: Readonly<ClosureContract>,
+  successorCarrier: FhResumeSuccessorCarrier,
+): FhResumeSuccessorInput {
+  return deriveOwnerFhResumeSuccessorInputAtPrefix(
+    prefix,
+    continuation,
+    operation,
+    executionBasis,
+    closureContract,
+    successorCarrier,
+  );
+}
+
+
+export function prepareFhInteractionResume(
+  publicOperation: PreparedContinuationPublicOperation,
+  continuation: ReplayContinuationState,
+  executionBasis: ExecutionBasis,
+  closureContract: Readonly<ClosureContract>,
+  successorInput: FhResumeSuccessorInput,
+  successorCursor: TraversalCursorCandidate,
+  durablePrefixDigest: Sha256Digest,
+  basis: RuntimeAdmissionBasis,
+): PreparedFhInteractionResume {
+  const operation = publicOperation.operation;
+  const prefix = publicOperation.projectedPrefix;
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const operationCoordinate = resolvePreparedContinuationOperationCoordinateAtPrefix(
+    prefix,
+    continuation.continuationRef,
+    publicOperation,
+    {
+      eventRef: continuation.respondedEventRef,
+      kind: "fh_interaction_responded",
+    },
+  );
+  const expectedSuccessorInput = deriveFhResumeSuccessorInputAtPrefix(
+    prefix,
+    continuation,
+    operation,
+    executionBasis,
+    closureContract,
+    {
+      inputContractRef: successorInput.inputContractRef,
+      inputValueKind: successorInput.inputValueKind,
+    },
+  );
+  const opened = events.find(
+    (event) => event.eventId === continuation.openedEventRef,
+  );
+  const heldCursorValue =
+    opened !== undefined && isRecord(opened.payload) &&
+      isRecord(opened.payload.heldCursor)
+      ? opened.payload.heldCursor
+      : null;
+  const heldCursor = heldCursorValue !== null &&
+      isTraversalCursorCandidate(
+        heldCursorValue as unknown as TraversalCursorCandidate,
+      )
+    ? heldCursorValue as unknown as TraversalCursorCandidate
+    : null;
+  if (
+    continuation.status !== "responded" ||
+    continuation.responseRef === null ||
+    continuation.responseDigest === null ||
+    !isRecord(continuation.responseValue) ||
+    operation.operationId !== "abg.operation.run.continue" ||
+    operation.capabilityRef !== continuation.actorCapabilityRef ||
+    operationCoordinate === null ||
+    basis.eventTime !== operationCoordinate.event.eventTime ||
+    basis.correlationId !== operationCoordinate.event.correlationId ||
+    successorInput.kind !== "fh_resume_successor_input" ||
+    successorInput.disposition !== "admitted" ||
+    successorInput.inputRef !== expectedSuccessorInput.inputRef ||
+    successorInput.inputDigest !== expectedSuccessorInput.inputDigest ||
+    successorInput.inputContractRef !==
+      expectedSuccessorInput.inputContractRef ||
+    successorInput.inputValueKind !== expectedSuccessorInput.inputValueKind ||
+    sha256Canonical(successorInput.inputValue as unknown as JsonValue) !==
+      expectedSuccessorInput.inputDigest ||
+    !isTraversalCursorCandidate(successorCursor) ||
+    successorCursor.runId !== continuation.runId ||
+    successorCursor.graphCallId !== continuation.graphCallId ||
+    successorCursor.frameId !== continuation.frameId ||
+    successorCursor.inputRef !== successorInput.inputRef ||
+    successorCursor.inputDigest !== successorInput.inputDigest ||
+    heldCursor === null ||
+    basis.causationEventRefs.length !== 0 ||
+    !isInteractionResumeCursorSuccessorAtPrefix(
+      prefix,
+      heldCursor,
+      expectedSuccessorInput,
+      successorCursor,
+    )
+  ) {
+    throw new TypeError(
+      "F_H resume preparation requires one exact prefix-projected operation, responded continuation, and successor cursor",
+    );
+  }
+  const candidate: RuntimeEventCandidate = {
+    kind: "fh_interaction_resume_admitted",
+    eventTime: basis.eventTime,
+    aggregateType: "continuation",
+    aggregateId: continuation.continuationRef,
+    parentAggregateId: continuation.frameId,
+    causationEventRefs: [
+      continuation.respondedEventRef!,
+      operation.admissionEventRef,
+    ],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: continuation.continuationRef,
+    runId: continuation.runId,
+    graphCallId: continuation.graphCallId,
+    frameId: continuation.frameId,
+    payload: {
+      continuationRef: continuation.continuationRef,
       openedEventRef: continuation.openedEventRef,
-      respondedEventRef: continuation.respondedEventRef!,
+      respondedEventRef: continuation.respondedEventRef,
       publicOperationEventRef: operation.admissionEventRef,
       actorRef: operation.actorRef,
       capabilityRef: operation.capabilityRef,
+      closureContract: closureContract as unknown as JsonValue,
       durablePrefixDigest,
       responseRef: continuation.responseRef,
       responseDigest: continuation.responseDigest,
@@ -1381,15 +2026,27 @@ export function admitFhInteractionResume(
       successorInputRef: successorInput.inputRef,
       successorInputDigest: successorInput.inputDigest,
       successorInputValue: successorInput.inputValue,
+      successorInputContractRef: successorInput.inputContractRef,
+      successorInputValueKind: successorInput.inputValueKind,
+      successorCursor: successorCursor as unknown as JsonValue,
       successorCursorRef: successorCursor.cursorRef,
       successorCursorDigest: successorCursor.cursorDigest,
     },
-  });
-  return deepFreeze({
+  };
+  const event = projectRuntimeEventFromValidatedHistory(events, candidate);
+  const projectedPrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze([...events, event]),
+  );
+  if (!validateExactFhResumeOwnerRelationAtPrefix(projectedPrefix, event)) {
+    throw new TypeError(
+      "F_H resume preparation differs from the exact owner reconstruction relation",
+    );
+  }
+  const resume = deepFreeze({
     kind: "fh_interaction_resume_admission" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "resolved" as const,
-    continuationRef,
+    continuationRef: continuation.continuationRef,
     actorRef: operation.actorRef,
     capabilityRef: operation.capabilityRef,
     responseRef: continuation.responseRef,
@@ -1398,8 +2055,102 @@ export function admitFhInteractionResume(
     successorInputRef: successorInput.inputRef,
     successorInputDigest: successorInput.inputDigest,
     successorInputValue: successorInput.inputValue,
+    successorInputContractRef: successorInput.inputContractRef,
+    successorInputValueKind: successorInput.inputValueKind,
     successorCursorRef: successorCursor.cursorRef,
     successorCursorDigest: successorCursor.cursorDigest,
     admissionEventRef: event.eventId,
+  });
+  return deepFreeze({
+    kind: "prepared_fh_interaction_resume" as const,
+    schemaVersion: "5.0.0" as const,
+    publicOperation,
+    resume,
+    event,
+    projectedPrefix,
+  });
+}
+
+export function commitFhInteractionResumeAtExpectedPrefix(
+  store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
+  rootInvocation: InvocationAdmission,
+  continuation: ReplayContinuationState,
+  variant: string,
+  actorRef: string,
+  capabilityRef: string,
+  operationBasis: PublicOperationAdmissionBasis,
+  executionBasis: ExecutionBasis,
+  closureContract: Readonly<ClosureContract>,
+  successorInput: FhResumeSuccessorInput,
+  successorCursor: TraversalCursorCandidate,
+  resumeBasis: RuntimeAdmissionBasis,
+): CommittedFhInteractionResumeResult {
+  assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+  const prefix = selectValidatedRuntimeEventPrefix(
+    readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+  );
+  const expectedLogicalDigest = sha256Canonical(
+    runtimeEventsFromValidatedPrefix(prefix) as unknown as JsonValue,
+  );
+  const preparedOperation = prepareContinuationPublicOperation(
+    prefix,
+    rootInvocation,
+    "abg.operation.run.continue",
+    continuation,
+    variant,
+    actorRef,
+    capabilityRef,
+    operationBasis,
+  );
+  if (preparedOperation.kind !== "prepared_continuation_public_operation") {
+    return preparedOperation;
+  }
+  const prepared = prepareFhInteractionResume(
+    preparedOperation,
+    continuation,
+    executionBasis,
+    closureContract,
+    successorInput,
+    successorCursor,
+    predecessorPrefix.prefixDigest,
+    resumeBasis,
+  );
+  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+    store,
+    expectedLogicalDigest,
+    () => {
+      const operationEvent = admitRuntimeEvent(
+        store,
+        runtimeEventCandidate(prepared.publicOperation.event),
+      );
+      const resumeEvent = admitRuntimeEvent(
+        store,
+        runtimeEventCandidate(prepared.event),
+      );
+      if (
+        sha256Canonical(operationEvent as unknown as JsonValue) !==
+            sha256Canonical(
+              prepared.publicOperation.event as unknown as JsonValue,
+            ) ||
+        sha256Canonical(resumeEvent as unknown as JsonValue) !==
+            sha256Canonical(prepared.event as unknown as JsonValue)
+      ) {
+        throw new TypeError(
+          "F_H resume append differs from its exact prefix plan",
+        );
+      }
+      return deepFreeze({
+        operation: prepared.publicOperation.operation,
+        resume: prepared.resume,
+      });
+    },
+  );
+  if (committed.successorPrefix === null) {
+    throw new TypeError("F_H resume requires one durable successor prefix");
+  }
+  return deepFreeze({
+    ...committed.value,
+    successorPrefix: committed.successorPrefix,
   });
 }

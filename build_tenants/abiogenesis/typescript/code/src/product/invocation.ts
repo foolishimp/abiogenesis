@@ -1,15 +1,27 @@
 import type {
   ComputeRegime,
-  GraphFunction,
   GtlProgram,
 } from "../gtl/contracts.js";
 import {
   isRawAdmittedValue,
   type RawAdmittedValue,
 } from "../validator/raw_admission.js";
-import type { JsonValue } from "../shared/canonical_json.js";
-import type { DeclarationApplication, GraphFunctionCatalogView } from "./catalog.js";
-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import {
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
+import type { AdmittedPublicInvocation } from "../shared/public_invocation.js";
+import {
+  lookupGraphFunction,
+  type DeclarationApplication,
+  type GraphFunctionCatalogEntry,
+  type GraphFunctionCatalogView,
+} from "./catalog.js";
+import {
+  isSha256Digest,
+  sha256Canonical,
+  type Sha256Digest,
+} from "../shared/digests.js";
 import type { WorkspaceBinding } from "./environment.js";
 import { deepFreeze } from "../shared/immutable.js";
 
@@ -73,6 +85,9 @@ export interface InvocationAuthority {
   readonly catalogBasisDigest: string;
   readonly catalogViewDigest: Sha256Digest;
   readonly programRef: string;
+  readonly catalogHandle: string;
+  readonly selectedDefinitionRef: string;
+  readonly selectedDefinitionDigest: Sha256Digest;
   readonly graphFunctionRef: string;
   readonly policyRef: string;
   readonly policyDigest: Sha256Digest;
@@ -95,6 +110,9 @@ export interface PublicInvocationCandidate {
   readonly catalogViewDigest: Sha256Digest;
   readonly programRef: string;
   readonly programDigest: Sha256Digest;
+  readonly catalogHandle: string;
+  readonly selectedDefinitionRef: string;
+  readonly selectedDefinitionDigest: Sha256Digest;
   readonly graphFunctionRef: string;
   readonly graphFunctionDigest: Sha256Digest;
   readonly inputContractRef: string;
@@ -121,25 +139,35 @@ export interface InvocationConstructionRefusal {
   readonly message: string;
 }
 
-const policies = new WeakSet<object>();
-const grants = new WeakSet<object>();
-const authorities = new WeakSet<object>();
-const invocations = new WeakSet<object>();
-
-export function isInvocationPolicyBasis(value: object): boolean {
-  return policies.has(value);
+export interface ExactDirectRunInvocationRequest
+  extends Readonly<Record<string, JsonValue>> {
+  readonly program: Readonly<{ readonly ref: string; readonly digest: Sha256Digest }>;
+  readonly catalogHandle: string;
+  readonly inputContract: Readonly<{
+    readonly ref: string;
+    readonly digest: Sha256Digest;
+  }>;
+  readonly input: JsonValue;
+  readonly catalogView: Readonly<{
+    readonly ref: string;
+    readonly digest: Sha256Digest;
+  }>;
+  readonly allowlist: readonly string[];
+  readonly sourceBasis: Readonly<Record<string, JsonValue>>;
 }
 
-export function isCapabilityGrant(value: object): boolean {
-  return grants.has(value) && isCapabilityGrantValue(value);
-}
+export type ExactDirectRunInvocation = AdmittedPublicInvocation<
+  Readonly<{
+    readonly operationId: "abg.operation.run.invoke";
+    readonly memberKey: "invoke";
+  }>,
+  ExactDirectRunInvocationRequest
+>;
 
-export function isInvocationAuthority(value: object): boolean {
-  return authorities.has(value);
-}
-
-export function isPublicInvocationCandidate(value: object): boolean {
-  return invocations.has(value);
+interface PublicRequestAdmissionCoordinates {
+  readonly admissionRef: string;
+  readonly subjectDigest: Sha256Digest;
+  readonly invocationRef: string;
 }
 
 function identity(prefix: string, digest: Sha256Digest): string {
@@ -148,6 +176,281 @@ function identity(prefix: string, digest: Sha256Digest): string {
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function hasExactKeys(
+  value: Readonly<Record<string, unknown>>,
+  keys: readonly string[],
+): boolean {
+  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
+}
+
+function nonEmptyString(value: unknown): value is string {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function uniqueStrings(value: unknown): value is readonly string[] {
+  return Array.isArray(value) &&
+    value.every(nonEmptyString) &&
+    new Set(value).size === value.length;
+}
+
+export function isInvocationPolicyBasis(
+  value: unknown,
+): value is InvocationPolicyBasis {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "allowedComputeRegimes",
+      "authorityBasisDigest",
+      "authorityBasisId",
+      "authorityMode",
+      "authorizedActorRef",
+      "catalogApplicationDigests",
+      "catalogApplicationRefs",
+      "graphMaterialization",
+      "interactionCapabilities",
+      "kind",
+      "policyDigest",
+      "policyRef",
+      "programDigest",
+      "programRef",
+      "schemaVersion",
+      "workspaceBindingDigest",
+      "workspaceBindingId",
+    ]) ||
+    value.kind !== "invocation_policy_basis" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.authorityMode !== "trusted_developer" ||
+    !nonEmptyString(value.policyRef) ||
+    !isSha256Digest(value.policyDigest) ||
+    !nonEmptyString(value.authorityBasisId) ||
+    !isSha256Digest(value.authorityBasisDigest) ||
+    !nonEmptyString(value.authorizedActorRef) ||
+    !nonEmptyString(value.workspaceBindingId) ||
+    !isSha256Digest(value.workspaceBindingDigest) ||
+    !nonEmptyString(value.programRef) ||
+    !isSha256Digest(value.programDigest) ||
+    !Array.isArray(value.allowedComputeRegimes) ||
+    value.allowedComputeRegimes.length === 0 ||
+    value.allowedComputeRegimes.some(
+      (regime) => regime !== "F_D" && regime !== "F_P" && regime !== "F_H",
+    ) ||
+    value.allowedComputeRegimes.join("\0") !==
+      (["F_D", "F_P", "F_H"] as const)
+        .filter((regime) =>
+          (value.allowedComputeRegimes as readonly unknown[]).includes(regime)
+        )
+        .join("\0") ||
+    !Array.isArray(value.interactionCapabilities) ||
+    value.interactionCapabilities.some((row) =>
+      !isRecord(row) ||
+      !hasExactKeys(row, [
+        "actorCapabilityRef",
+        "requirementKey",
+        "requirementKeyDigest",
+      ]) ||
+      !nonEmptyString(row.requirementKey) ||
+      !isSha256Digest(row.requirementKeyDigest) ||
+      !nonEmptyString(row.actorCapabilityRef)
+    ) ||
+    new Set(value.interactionCapabilities.map((row) =>
+      (row as Readonly<Record<string, unknown>>).requirementKey
+    )).size !== value.interactionCapabilities.length ||
+    value.interactionCapabilities.map((row) =>
+      (row as Readonly<Record<string, unknown>>).requirementKey as string
+    ).join("\0") !== [...value.interactionCapabilities]
+      .map((row) =>
+        (row as Readonly<Record<string, unknown>>).requirementKey as string
+      )
+      .sort(compareUnicodeCodeUnits)
+      .join("\0") ||
+    !uniqueStrings(value.catalogApplicationRefs) ||
+    value.catalogApplicationRefs.join("\0") !==
+      [...value.catalogApplicationRefs]
+        .sort(compareUnicodeCodeUnits)
+        .join("\0") ||
+    !Array.isArray(value.catalogApplicationDigests) ||
+    value.catalogApplicationDigests.length !==
+      value.catalogApplicationRefs.length ||
+    value.catalogApplicationDigests.some((digest) => !isSha256Digest(digest)) ||
+    value.graphMaterialization !== "after_invocation_admission"
+  ) {
+    return false;
+  }
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    policyRef,
+    policyDigest,
+    ...body
+  } = value;
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  return policyDigest === digest &&
+    policyRef === identity("invocation-policy://abiogenesis/root", digest);
+}
+
+export function isCapabilityGrant(value: unknown): value is CapabilityGrant {
+  return isCapabilityGrantValue(value);
+}
+
+export function isInvocationAuthority(
+  value: unknown,
+): value is InvocationAuthority {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "actorRef",
+      "authorityDigest",
+      "authorityRef",
+      "capabilityGrantRefs",
+      "catalogBasisDigest",
+      "catalogHandle",
+      "catalogViewDigest",
+      "graphFunctionRef",
+      "kind",
+      "operationId",
+      "policyDigest",
+      "policyRef",
+      "programRef",
+      "selectedDefinitionDigest",
+      "selectedDefinitionRef",
+      "schemaVersion",
+      "workspaceBindingDigest",
+      "workspaceBindingId",
+    ]) ||
+    value.kind !== "invocation_authority" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.operationId !== "abg.operation.run.invoke" ||
+    !nonEmptyString(value.authorityRef) ||
+    !isSha256Digest(value.authorityDigest) ||
+    !nonEmptyString(value.actorRef) ||
+    !nonEmptyString(value.workspaceBindingId) ||
+    !isSha256Digest(value.workspaceBindingDigest) ||
+    !isSha256Digest(value.catalogBasisDigest) ||
+    !isSha256Digest(value.catalogViewDigest) ||
+    !nonEmptyString(value.programRef) ||
+    !nonEmptyString(value.catalogHandle) ||
+    !nonEmptyString(value.selectedDefinitionRef) ||
+    !isSha256Digest(value.selectedDefinitionDigest) ||
+    !nonEmptyString(value.graphFunctionRef) ||
+    !nonEmptyString(value.policyRef) ||
+    !isSha256Digest(value.policyDigest) ||
+    !uniqueStrings(value.capabilityGrantRefs)
+  ) {
+    return false;
+  }
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    authorityRef,
+    authorityDigest,
+    ...body
+  } = value;
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  return authorityDigest === digest &&
+    authorityRef === identity("invocation-authority://abiogenesis", digest);
+}
+
+export function isPublicInvocationCandidate(
+  value: unknown,
+): value is PublicInvocationCandidate {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "actorAttributionRef",
+      "capabilityGrantDigests",
+      "capabilityGrantRefs",
+      "catalogBasisDigest",
+      "catalogHandle",
+      "catalogViewDigest",
+      "disposition",
+      "graphFunctionDigest",
+      "graphFunctionRef",
+      "inputContractRef",
+      "invocationAuthorityDigest",
+      "invocationAuthorityRef",
+      "invocationDigest",
+      "invocationRef",
+      "kind",
+      "operationId",
+      "outputContractRef",
+      "programDigest",
+      "programRef",
+      "publicFunctionDefinitionDigest",
+      "publicFunctionDefinitionRef",
+      "publicRequestAdmissionRef",
+      "publicRequestDigest",
+      "publicRequestInvocationRef",
+      "rawInputAdmissionRef",
+      "rawInputDigest",
+      "schemaVersion",
+      "selectedDefinitionDigest",
+      "selectedDefinitionRef",
+      "sessionPolicyDigest",
+      "sessionPolicyRef",
+      "variant",
+      "workspaceBindingDigest",
+      "workspaceBindingId",
+    ]) ||
+    value.kind !== "public_invocation_candidate" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.disposition !== "candidate" ||
+    value.operationId !== "abg.operation.run.invoke" ||
+    (value.variant !== "direct" && value.variant !== "start") ||
+    !nonEmptyString(value.invocationRef) ||
+    !isSha256Digest(value.invocationDigest) ||
+    !nonEmptyString(value.publicFunctionDefinitionRef) ||
+    !isSha256Digest(value.publicFunctionDefinitionDigest) ||
+    !nonEmptyString(value.workspaceBindingId) ||
+    !isSha256Digest(value.workspaceBindingDigest) ||
+    !isSha256Digest(value.catalogBasisDigest) ||
+    !isSha256Digest(value.catalogViewDigest) ||
+    !nonEmptyString(value.programRef) ||
+    !isSha256Digest(value.programDigest) ||
+    !nonEmptyString(value.catalogHandle) ||
+    !nonEmptyString(value.selectedDefinitionRef) ||
+    !isSha256Digest(value.selectedDefinitionDigest) ||
+    !nonEmptyString(value.graphFunctionRef) ||
+    !isSha256Digest(value.graphFunctionDigest) ||
+    !nonEmptyString(value.inputContractRef) ||
+    !nonEmptyString(value.outputContractRef) ||
+    !nonEmptyString(value.rawInputAdmissionRef) ||
+    !isSha256Digest(value.rawInputDigest) ||
+    !nonEmptyString(value.publicRequestAdmissionRef) ||
+    !isSha256Digest(value.publicRequestDigest) ||
+    !nonEmptyString(value.publicRequestInvocationRef) ||
+    !nonEmptyString(value.sessionPolicyRef) ||
+    !isSha256Digest(value.sessionPolicyDigest) ||
+    !uniqueStrings(value.capabilityGrantRefs) ||
+    !Array.isArray(value.capabilityGrantDigests) ||
+    value.capabilityGrantDigests.length !== value.capabilityGrantRefs.length ||
+    value.capabilityGrantDigests.some((digest) => !isSha256Digest(digest)) ||
+    !nonEmptyString(value.invocationAuthorityRef) ||
+    !isSha256Digest(value.invocationAuthorityDigest) ||
+    !nonEmptyString(value.actorAttributionRef)
+  ) {
+    return false;
+  }
+  const expectedDefinitionDigest = sha256Canonical({
+    operationId: "abg.operation.run.invoke",
+    variant: value.variant,
+    schemaVersion: "5.0.0",
+  });
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    disposition: _disposition,
+    invocationRef,
+    invocationDigest,
+    ...body
+  } = value;
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  return value.publicFunctionDefinitionDigest === expectedDefinitionDigest &&
+    value.publicFunctionDefinitionRef ===
+      `public-function://abiogenesis/run.invoke/${value.variant}@5` &&
+    invocationDigest === digest &&
+    invocationRef === identity("invocation://abiogenesis", digest);
 }
 
 function refusal(
@@ -175,10 +478,10 @@ export function constructRootInvocationPolicy(
     allowedComputeRegimes.includes(regime)
   );
   const canonicalInteractions = [...interactionCapabilities].sort((left, right) =>
-    left.requirementKey.localeCompare(right.requirementKey)
+    compareUnicodeCodeUnits(left.requirementKey, right.requirementKey)
   );
   const canonicalApplications = [...catalogApplications].sort((left, right) =>
-    left.applicationRef.localeCompare(right.applicationRef)
+    compareUnicodeCodeUnits(left.applicationRef, right.applicationRef)
   );
   if (
     canonicalRegimes.length === 0 ||
@@ -232,35 +535,42 @@ export function constructRootInvocationPolicy(
     policyDigest,
     ...body,
   }) as InvocationPolicyBasis;
-  policies.add(value);
   return value;
 }
 
 export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant {
   if (
     !isRecord(value) ||
+    !hasExactKeys(value, [
+      "actorRef",
+      "capabilityRef",
+      "grantDigest",
+      "grantRef",
+      "interactionRequirementKeys",
+      "kind",
+      "operationId",
+      "policyDigest",
+      "policyRef",
+      "schemaVersion",
+    ]) ||
     value.kind !== "capability_grant" ||
     value.schemaVersion !== "5.0.0" ||
-    typeof value.grantRef !== "string" ||
-    typeof value.grantDigest !== "string" ||
-    typeof value.actorRef !== "string" ||
-    value.actorRef.length === 0 ||
+    !nonEmptyString(value.grantRef) ||
+    !isSha256Digest(value.grantDigest) ||
+    !nonEmptyString(value.actorRef) ||
     ![
       "abg.operation.interaction.respond",
       "abg.operation.run.continue",
       "abg.operation.run.invoke",
     ].includes(String(value.operationId)) ||
-    typeof value.capabilityRef !== "string" ||
-    value.capabilityRef.length === 0 ||
-    typeof value.policyRef !== "string" ||
-    value.policyRef.length === 0 ||
-    typeof value.policyDigest !== "string" ||
-    !Array.isArray(value.interactionRequirementKeys) ||
-    value.interactionRequirementKeys.some(
-      (key) => typeof key !== "string" || key.length === 0,
-    ) ||
-    new Set(value.interactionRequirementKeys).size !==
-      value.interactionRequirementKeys.length
+    !nonEmptyString(value.capabilityRef) ||
+    !nonEmptyString(value.policyRef) ||
+    !isSha256Digest(value.policyDigest) ||
+    !uniqueStrings(value.interactionRequirementKeys) ||
+    value.interactionRequirementKeys.join("\0") !==
+      [...value.interactionRequirementKeys]
+        .sort(compareUnicodeCodeUnits)
+        .join("\0")
   ) {
     return false;
   }
@@ -325,7 +635,6 @@ export function constructCapabilityGrant(
     grantDigest,
     ...body,
   }) as CapabilityGrant;
-  grants.add(value);
   return value;
 }
 
@@ -334,10 +643,11 @@ export function constructInvocationAuthority(
   workspaceBinding: WorkspaceBinding,
   catalogView: GraphFunctionCatalogView,
   programRef: string,
-  graphFunctionRef: string,
+  selectedRow: GraphFunctionCatalogEntry,
   policy: InvocationPolicyBasis,
   capabilityGrants: readonly CapabilityGrant[],
 ): InvocationAuthority | InvocationConstructionRefusal {
+  const exactSelectedRow = lookupGraphFunction(catalogView, selectedRow.handle);
   if (
     !isInvocationPolicyBasis(policy) ||
     actorRef !== policy.authorizedActorRef ||
@@ -360,6 +670,20 @@ export function constructInvocationAuthority(
       "invocation authority requires unique actor-scoped grants including run.invoke",
     );
   }
+  if (
+    exactSelectedRow === null ||
+    sha256Canonical(exactSelectedRow as unknown as JsonValue) !==
+      sha256Canonical(selectedRow as unknown as JsonValue) ||
+    selectedRow.definitionRef !== selectedRow.definition.name ||
+    selectedRow.definitionDigest !==
+      sha256Canonical(selectedRow.definition as unknown as JsonValue) ||
+    !selectedRow.programMembershipRefs.includes(programRef)
+  ) {
+    return refusal(
+      "authority_mismatch",
+      "invocation authority requires one exact selected catalog definition in the Program",
+    );
+  }
   const body = {
     actorRef,
     operationId: "abg.operation.run.invoke" as const,
@@ -368,7 +692,10 @@ export function constructInvocationAuthority(
     catalogBasisDigest: catalogView.catalogBasisDigest,
     catalogViewDigest: catalogView.viewDigest,
     programRef,
-    graphFunctionRef,
+    catalogHandle: selectedRow.handle,
+    selectedDefinitionRef: selectedRow.definitionRef,
+    selectedDefinitionDigest: selectedRow.definitionDigest,
+    graphFunctionRef: selectedRow.definitionRef,
     policyRef: policy.policyRef,
     policyDigest: policy.policyDigest,
     capabilityGrantRefs: capabilityGrants.map((grant) => grant.grantRef),
@@ -381,7 +708,6 @@ export function constructInvocationAuthority(
     authorityDigest,
     ...body,
   }) as InvocationAuthority;
-  authorities.add(value);
   return value;
 }
 
@@ -390,13 +716,15 @@ function constructInvocation(
   workspaceBinding: WorkspaceBinding,
   catalogView: GraphFunctionCatalogView,
   program: Readonly<GtlProgram>,
-  graphFunction: Readonly<GraphFunction>,
-  rawRequest: RawAdmittedValue<unknown>,
+  selectedRow: GraphFunctionCatalogEntry,
+  publicRequest: PublicRequestAdmissionCoordinates,
   rawInput: RawAdmittedValue<unknown>,
   policy: InvocationPolicyBasis,
   capabilityGrants: readonly CapabilityGrant[],
   authority: InvocationAuthority,
 ): PublicInvocationCandidate | InvocationConstructionRefusal {
+  const exactSelectedRow = lookupGraphFunction(catalogView, selectedRow.handle);
+  const graphFunction = selectedRow.definition;
   if (
     !isInvocationPolicyBasis(policy) ||
     capabilityGrants.some((grant) => !isCapabilityGrant(grant))
@@ -419,7 +747,18 @@ function constructInvocation(
     authority.catalogBasisDigest !== catalogView.catalogBasisDigest ||
     authority.catalogViewDigest !== catalogView.viewDigest ||
     authority.programRef !== program.programRef ||
-    authority.graphFunctionRef !== graphFunction.name ||
+    exactSelectedRow === null ||
+    sha256Canonical(exactSelectedRow as unknown as JsonValue) !==
+      sha256Canonical(selectedRow as unknown as JsonValue) ||
+    selectedRow.definitionRef !== graphFunction.name ||
+    selectedRow.definitionDigest !==
+      sha256Canonical(graphFunction as unknown as JsonValue) ||
+    !selectedRow.programMembershipRefs.includes(program.programRef) ||
+    !program.callableMembership.includes(selectedRow.definitionRef) ||
+    authority.catalogHandle !== selectedRow.handle ||
+    authority.selectedDefinitionRef !== selectedRow.definitionRef ||
+    authority.selectedDefinitionDigest !== selectedRow.definitionDigest ||
+    authority.graphFunctionRef !== selectedRow.definitionRef ||
     authority.policyRef !== policy.policyRef ||
     authority.policyDigest !== policy.policyDigest ||
     authority.capabilityGrantRefs.join("\0") !== capabilityGrants.map((grant) => grant.grantRef).join("\0")
@@ -436,22 +775,6 @@ function constructInvocation(
     rawInput.contractRef !== inputContractRef
   ) {
     return refusal("contract_mismatch", "direct root invocation requires one exact input and output contract");
-  }
-  const request = rawRequest.value;
-  if (
-    !isRawAdmittedValue(rawRequest) ||
-    rawRequest.subjectKind !== "public_operation_request" ||
-    rawRequest.contractRef !== "contract://abiogenesis/public/run-invoke-request@5" ||
-    !isRecord(request) ||
-    request.operationId !== "abg.operation.run.invoke" ||
-    request.variant !== variant ||
-    typeof request.invocationRef !== "string" ||
-    request.invocationRef.length === 0
-  ) {
-    return refusal(
-      "authority_mismatch",
-      `${variant} invocation requires one exact raw public request admission`,
-    );
   }
   const publicFunctionDefinition = {
     operationId: "abg.operation.run.invoke",
@@ -471,15 +794,18 @@ function constructInvocation(
     catalogViewDigest: catalogView.viewDigest,
     programRef: program.programRef,
     programDigest: sha256Canonical(program as unknown as JsonValue),
-    graphFunctionRef: graphFunction.name,
-    graphFunctionDigest: sha256Canonical(graphFunction as unknown as JsonValue),
+    catalogHandle: selectedRow.handle,
+    selectedDefinitionRef: selectedRow.definitionRef,
+    selectedDefinitionDigest: selectedRow.definitionDigest,
+    graphFunctionRef: selectedRow.definitionRef,
+    graphFunctionDigest: selectedRow.definitionDigest,
     inputContractRef,
     outputContractRef,
     rawInputAdmissionRef: rawInput.admissionRef,
     rawInputDigest: rawInput.subjectDigest,
-    publicRequestAdmissionRef: rawRequest.admissionRef,
-    publicRequestDigest: rawRequest.subjectDigest,
-    publicRequestInvocationRef: request.invocationRef as string,
+    publicRequestAdmissionRef: publicRequest.admissionRef,
+    publicRequestDigest: publicRequest.subjectDigest,
+    publicRequestInvocationRef: publicRequest.invocationRef,
     sessionPolicyRef: policy.policyRef,
     sessionPolicyDigest: policy.policyDigest,
     capabilityGrantRefs: capabilityGrants.map((grant) => grant.grantRef),
@@ -497,7 +823,6 @@ function constructInvocation(
     invocationDigest,
     ...body,
   }) as PublicInvocationCandidate;
-  invocations.add(value);
   return value;
 }
 
@@ -505,20 +830,40 @@ export function constructDirectInvocation(
   workspaceBinding: WorkspaceBinding,
   catalogView: GraphFunctionCatalogView,
   program: Readonly<GtlProgram>,
-  graphFunction: Readonly<GraphFunction>,
+  selectedRow: GraphFunctionCatalogEntry,
   rawRequest: RawAdmittedValue<unknown>,
   rawInput: RawAdmittedValue<unknown>,
   policy: InvocationPolicyBasis,
   capabilityGrants: readonly CapabilityGrant[],
   authority: InvocationAuthority,
 ): PublicInvocationCandidate | InvocationConstructionRefusal {
+  const request = rawRequest.value;
+  if (
+    !isRawAdmittedValue(rawRequest) ||
+    rawRequest.subjectKind !== "public_operation_request" ||
+    rawRequest.contractRef !== "contract://abiogenesis/public/run-invoke-request@5" ||
+    !isRecord(request) ||
+    request.operationId !== "abg.operation.run.invoke" ||
+    request.variant !== "direct" ||
+    typeof request.invocationRef !== "string" ||
+    request.invocationRef.length === 0
+  ) {
+    return refusal(
+      "authority_mismatch",
+      "direct invocation requires one exact raw public request admission",
+    );
+  }
   return constructInvocation(
     "direct",
     workspaceBinding,
     catalogView,
     program,
-    graphFunction,
-    rawRequest,
+    selectedRow,
+    {
+      admissionRef: rawRequest.admissionRef,
+      subjectDigest: rawRequest.subjectDigest,
+      invocationRef: request.invocationRef,
+    },
     rawInput,
     policy,
     capabilityGrants,
@@ -530,20 +875,97 @@ export function constructStartInvocation(
   workspaceBinding: WorkspaceBinding,
   catalogView: GraphFunctionCatalogView,
   program: Readonly<GtlProgram>,
-  graphFunction: Readonly<GraphFunction>,
+  selectedRow: GraphFunctionCatalogEntry,
   rawRequest: RawAdmittedValue<unknown>,
   rawInput: RawAdmittedValue<unknown>,
   policy: InvocationPolicyBasis,
   capabilityGrants: readonly CapabilityGrant[],
   authority: InvocationAuthority,
 ): PublicInvocationCandidate | InvocationConstructionRefusal {
+  const request = rawRequest.value;
+  if (
+    !isRawAdmittedValue(rawRequest) ||
+    rawRequest.subjectKind !== "public_operation_request" ||
+    rawRequest.contractRef !== "contract://abiogenesis/public/run-invoke-request@5" ||
+    !isRecord(request) ||
+    request.operationId !== "abg.operation.run.invoke" ||
+    request.variant !== "start" ||
+    typeof request.invocationRef !== "string" ||
+    request.invocationRef.length === 0
+  ) {
+    return refusal(
+      "authority_mismatch",
+      "start invocation requires one exact raw public request admission",
+    );
+  }
   return constructInvocation(
     "start",
     workspaceBinding,
     catalogView,
     program,
-    graphFunction,
-    rawRequest,
+    selectedRow,
+    {
+      admissionRef: rawRequest.admissionRef,
+      subjectDigest: rawRequest.subjectDigest,
+      invocationRef: request.invocationRef,
+    },
+    rawInput,
+    policy,
+    capabilityGrants,
+    authority,
+  );
+}
+
+/**
+ * Native exact-family construction. This consumes the admitted definition
+ * invocation directly and shares only Product's semantic construction atom;
+ * it does not manufacture or translate a legacy Public request carrier.
+ */
+export function constructExactDirectInvocation(
+  publicInvocation: ExactDirectRunInvocation,
+  workspaceBinding: WorkspaceBinding,
+  catalogView: GraphFunctionCatalogView,
+  program: Readonly<GtlProgram>,
+  selectedRow: GraphFunctionCatalogEntry,
+  rawInput: RawAdmittedValue<unknown>,
+  policy: InvocationPolicyBasis,
+  capabilityGrants: readonly CapabilityGrant[],
+  authority: InvocationAuthority,
+): PublicInvocationCandidate | InvocationConstructionRefusal {
+  const request = publicInvocation.request;
+  if (
+    publicInvocation.kind !== "public_invocation" ||
+    publicInvocation.schemaVersion !== "5.0.0" ||
+    publicInvocation.definitionKey.operationId !==
+      "abg.operation.run.invoke" ||
+    publicInvocation.definitionKey.memberKey !== "invoke" ||
+    publicInvocation.requestRef.length === 0 ||
+    publicInvocation.invocationRef.length === 0 ||
+    !isSha256Digest(publicInvocation.requestDigest) ||
+    publicInvocation.requestDigest !==
+      sha256Canonical(request as unknown as JsonValue) ||
+    !isRecord(request.program) ||
+    request.program.ref !== program.programRef ||
+    request.catalogHandle !== selectedRow.handle ||
+    !isRecord(request.inputContract) ||
+    request.inputContract.ref !== rawInput.contractRef
+  ) {
+    return refusal(
+      "authority_mismatch",
+      "direct invocation requires one exact admitted definition request",
+    );
+  }
+  return constructInvocation(
+    "direct",
+    workspaceBinding,
+    catalogView,
+    program,
+    selectedRow,
+    {
+      admissionRef: publicInvocation.requestRef,
+      subjectDigest: publicInvocation.requestDigest,
+      invocationRef: publicInvocation.invocationRef,
+    },
     rawInput,
     policy,
     capabilityGrants,

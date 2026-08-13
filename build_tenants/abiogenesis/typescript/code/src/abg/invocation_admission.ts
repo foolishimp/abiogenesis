@@ -5,6 +5,12 @@ import type {
 } from "../gtl/contracts.js";
 import { resolveProgramStart } from "../gtl/public_start.js";
 import {
+  deriveDirectCStepFromGraph,
+  rootCTraversalCoordinate,
+  type CTraversalCoordinate,
+  type DirectCTraversalStep,
+} from "../hog/direct_fold.js";
+import {
   DIRECT_INVOKE_CAPABILITY,
   type CapabilityGrant,
   type DeclarationApplication,
@@ -17,13 +23,23 @@ import {
   type RunInvocationVariant,
   type WorkspaceBinding,
 } from "../product/index.js";
+import type { ExactDirectRunInvocation } from "../product/invocation.js";
+import {
+  applyCatalogDeclaration,
+  lookupGraphFunction,
+  lookupGraphFunctionDefinition,
+} from "../product/catalog.js";
 import {
   isCapabilityGrant,
   isInvocationAuthority,
   isInvocationPolicyBasis,
   isPublicInvocationCandidate,
 } from "../product/invocation.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import {
+  canonicalJson,
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -35,14 +51,36 @@ import {
   isRawAdmittedValue,
   type RawAdmittedValue,
 } from "../validator/raw_admission.js";
+import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
+import {
+  projectEffectfulPublicInvocationTruthAtPrefix,
+  type EffectfulPublicInvocationPriorAdmission,
+  type EffectfulPublicInvocationTruth,
+} from "./effectful_invocation_truth.js";
 import {
   hasAdmittedWorkspaceBinding,
   validatePublicOperationBasis,
   type AbgAdmissionRefusal,
   type PublicOperationAdmissionBasis,
 } from "./environment_admission.js";
-import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
-import { replay } from "./replay.js";
+import {
+  AbgEventStore,
+  admitRuntimeEvent,
+  admitRuntimeEventTransactionAtExpectedPrefix,
+  assertHeldEventStoreAtDurablePrefix,
+  readRuntimeEventsAtDurablePrefix,
+} from "./event_store.js";
+import {
+  runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
+import {
+  hasExactInvocationAdmissionAtPrefix,
+  hasExactInvocationRunBindingAtPrefix,
+  projectExactInvocationAdmissionAtPrefix,
+} from "./invocation_execution_truth.js";
+import { replayValidatedRuntimeEventPrefix } from "./replay.js";
 
 export interface InvocationAdmissionInput {
   readonly invocation: PublicInvocationCandidate;
@@ -53,6 +91,7 @@ export interface InvocationAdmissionInput {
   readonly graphFunction: Readonly<GraphFunction>;
   readonly programValidation: ProgramValidation;
   readonly workspaceBinding: WorkspaceBinding;
+  readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly catalogView: GraphFunctionCatalogView;
   readonly catalogApplications?: readonly DeclarationApplication[];
   readonly policy: InvocationPolicyBasis;
@@ -61,6 +100,21 @@ export interface InvocationAdmissionInput {
   readonly reentryBasis?: InvocationReentryBasis;
   readonly sourceResultBasis?: ProductInvocationSourceResultBasis;
 }
+
+export interface ExactInvocationAdmissionInput
+  extends Omit<InvocationAdmissionInput, "rawRequest"> {
+  readonly publicInvocation: ExactDirectRunInvocation;
+}
+
+type InvocationRequestBasis =
+  | Readonly<{
+    readonly family: "legacy_root_public";
+    readonly rawRequest: RawAdmittedValue<unknown>;
+  }>
+  | Readonly<{
+    readonly family: "exact_public_definition";
+    readonly publicInvocation: ExactDirectRunInvocation;
+  }>;
 
 export interface InvocationReentryBasis {
   readonly kind: "invocation_reentry_basis";
@@ -119,14 +173,13 @@ export interface InvocationAdmission {
   readonly catalogApplicationDigests: readonly Sha256Digest[];
   readonly programRef: string;
   readonly programDigest: Sha256Digest;
+  readonly catalogHandle: string;
   readonly graphFunctionRef: string;
   readonly graphFunctionDigest: Sha256Digest;
   readonly selectedDefinitionRef: string;
   readonly selectedDefinitionDigest: Sha256Digest;
-  readonly selectedFibreRef: string;
-  readonly selectedFibreDigest: Sha256Digest;
-  readonly selectedPlanRef: string;
-  readonly selectedPlanDigest: Sha256Digest;
+  readonly hogEntryCoordinate: CTraversalCoordinate;
+  readonly hogEntryStep: DirectCTraversalStep;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
   readonly programValidationRef: string;
@@ -145,31 +198,49 @@ export interface InvocationAdmission {
   readonly admissionEventRef: string;
 }
 
-export interface InvocationAdmissionRefusal {
+type InvocationAdmissionSemanticRefusalCode =
+  | "authority_mismatch"
+  | "capability_mismatch"
+  | "catalog_view_not_admitted"
+  | "contract_mismatch"
+  | "invocation_not_constructed"
+  | "selection_mismatch"
+  | "validation_mismatch"
+  | "workspace_not_admitted";
+
+interface InvocationAdmissionSemanticRefusal {
   readonly kind: "invocation_admission_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
-  readonly code:
-    | "authority_mismatch"
-    | "capability_mismatch"
-    | "catalog_view_not_admitted"
-    | "contract_mismatch"
-    | "invocation_not_constructed"
-    | "selection_mismatch"
-    | "validation_mismatch"
-    | "workspace_not_admitted";
+  readonly code: InvocationAdmissionSemanticRefusalCode;
   readonly message: string;
 }
+
+export interface DuplicateInvocationAdmissionRefusal {
+  readonly kind: "invocation_admission_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: "duplicate_invocation";
+  readonly message: string;
+  readonly priorAdmission: EffectfulPublicInvocationPriorAdmission;
+}
+
+export type InvocationAdmissionRefusal =
+  | InvocationAdmissionSemanticRefusal
+  | DuplicateInvocationAdmissionRefusal;
 
 export type InvocationAdmissionResult =
   | InvocationAdmission
   | InvocationAdmissionRefusal
-  | AbgAdmissionRefusal;
+  | AbgAdmissionRefusal
+  | Extract<EffectfulPublicInvocationTruth, {
+      readonly disposition: "invalid_history";
+    }>;
 
 function refusal(
-  code: InvocationAdmissionRefusal["code"],
+  code: InvocationAdmissionSemanticRefusalCode,
   message: string,
-): InvocationAdmissionRefusal {
+): InvocationAdmissionSemanticRefusal {
   return {
     kind: "invocation_admission_refusal",
     schemaVersion: "5.0.0",
@@ -179,6 +250,19 @@ function refusal(
   };
 }
 
+function duplicateInvocationRefusal(
+  priorAdmission: EffectfulPublicInvocationPriorAdmission,
+): DuplicateInvocationAdmissionRefusal {
+  return deepFreeze({
+    kind: "invocation_admission_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code: "duplicate_invocation" as const,
+    message: "the exact invocation admission already exists at the current durable prefix",
+    priorAdmission,
+  });
+}
+
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -186,8 +270,6 @@ function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
 function catalogViewRef(view: GraphFunctionCatalogView): string {
   return `graph-function-catalog-view://abiogenesis/${view.viewDigest.slice("sha256:".length)}`;
 }
-
-const sourceResultBases = new WeakSet<object>();
 
 export interface InvocationSourceResultDerivationInput {
   readonly publicAuthorityDigest: Sha256Digest;
@@ -200,24 +282,110 @@ export interface InvocationSourceResultDerivationInput {
 export function isInvocationSourceResultBasis(
   value: object,
 ): value is ProductInvocationSourceResultBasis {
-  return sourceResultBases.has(value);
+  try {
+    if (!isRecord(value)) return false;
+    const expectedKeys = [
+      "basisDigest",
+      "basisRef",
+      "kind",
+      "publicAuthorityDigest",
+      "schemaVersion",
+      "sourceCCallRef",
+      "sourceGraphCallId",
+      "sourceGraphFunctionRef",
+      "sourceInvocationAdmissionRef",
+      "sourceInvocationRef",
+      "sourceReplayDigest",
+      "sourceReplayRef",
+      "sourceResultAdmissionEventRef",
+      "sourceResultContractRef",
+      "sourceResultDigest",
+      "sourceResultJudgmentEventRef",
+      "sourceResultRef",
+      "sourceResultValue",
+      "sourceResultValueDigest",
+      "sourceRunId",
+      "sourceWorkspaceId",
+      "workspaceBindingDigest",
+      "workspaceBindingId",
+    ];
+    if (Object.keys(value).sort().join("\0") !== expectedKeys.join("\0")) {
+      return false;
+    }
+    const digestFields = [
+      "basisDigest",
+      "publicAuthorityDigest",
+      "sourceReplayDigest",
+      "sourceResultDigest",
+      "sourceResultValueDigest",
+      "workspaceBindingDigest",
+    ] as const;
+    const refFields = [
+      "basisRef",
+      "sourceCCallRef",
+      "sourceGraphCallId",
+      "sourceGraphFunctionRef",
+      "sourceInvocationAdmissionRef",
+      "sourceInvocationRef",
+      "sourceReplayRef",
+      "sourceResultAdmissionEventRef",
+      "sourceResultContractRef",
+      "sourceResultJudgmentEventRef",
+      "sourceResultRef",
+      "sourceRunId",
+      "sourceWorkspaceId",
+      "workspaceBindingId",
+    ] as const;
+    if (
+      value.kind !== "invocation_source_result_basis" ||
+      value.schemaVersion !== "5.0.0" ||
+      digestFields.some((field) =>
+        typeof value[field] !== "string" ||
+        !/^sha256:[a-f0-9]{64}$/u.test(value[field] as string)
+      ) ||
+      refFields.some((field) =>
+        typeof value[field] !== "string" ||
+        (value[field] as string).length === 0
+      ) ||
+      value.sourceResultValueDigest !==
+        sha256Canonical(value.sourceResultValue as JsonValue)
+    ) return false;
+    const {
+      kind: _kind,
+      schemaVersion: _schemaVersion,
+      basisRef: _basisRef,
+      basisDigest: _basisDigest,
+      ...body
+    } = value;
+    const basisDigest = sha256Canonical(body as unknown as JsonValue);
+    return value.basisDigest === basisDigest &&
+      value.basisRef ===
+        `invocation-source-result://abiogenesis/${basisDigest.slice("sha256:".length)}`;
+  } catch {
+    return false;
+  }
 }
 
-export function deriveInvocationSourceResultBasis(
-  store: AbgEventStore,
+export function deriveInvocationSourceResultBasisAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
   input: InvocationSourceResultDerivationInput,
 ): ProductInvocationSourceResultBasis | null {
-  const sourceInvocation = rehydrateInvocationAdmission(
-    store,
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const runPrefix = selectValidatedRuntimeEventPrefix(events, {
+    runId: input.runId,
+  });
+  const runEvents = runtimeEventsFromValidatedPrefix(runPrefix);
+  const sourceInvocation = rehydrateInvocationAdmissionAtPrefix(
+    prefix,
     input.invocationAdmissionRef,
   );
-  const sourceReplay = replay(store, { runId: input.runId });
+  const sourceReplay = replayValidatedRuntimeEventPrefix(runPrefix, prefix);
   const sourceCall = sourceReplay.cCalls.find(
     (row) => row.resultRef === input.resultRef,
   );
   const resultEvent = sourceCall === undefined
     ? undefined
-    : store.readScope({ runId: input.runId }).find(
+    : runEvents.find(
         (event) =>
           event.kind === "c_call_result_admitted" &&
           event.aggregateId === sourceCall.cCallRef &&
@@ -226,7 +394,7 @@ export function deriveInvocationSourceResultBasis(
       );
   const judgmentEvent = sourceCall === undefined
     ? undefined
-    : store.readScope({ runId: input.runId }).find(
+    : runEvents.find(
         (event) =>
           event.kind === "c_call_judged" &&
           event.aggregateId === sourceCall.cCallRef &&
@@ -258,7 +426,7 @@ export function deriveInvocationSourceResultBasis(
       );
   const sourceRunMatchesInvocation =
     sourceInvocation !== null &&
-    hasInvocationRunBinding(store, sourceInvocation, input.runId);
+    hasInvocationRunBindingAtPrefix(prefix, sourceInvocation, input.runId);
   if (
     sourceInvocation === null ||
     !sourceRunMatchesInvocation ||
@@ -312,7 +480,6 @@ export function deriveInvocationSourceResultBasis(
     basisDigest,
     ...body,
   }) as ProductInvocationSourceResultBasis;
-  sourceResultBases.add(basis);
   return basis;
 }
 
@@ -335,7 +502,8 @@ function validatedInteractionCapabilities(
       requirementKeyDigest: row.requirementKeyDigest,
       actorCapabilityRef: row.requirement.actorCapabilityRef,
     }))
-    .sort((left, right) => left.requirementKey.localeCompare(right.requirementKey));
+    .sort((left, right) =>
+      compareUnicodeCodeUnits(left.requirementKey, right.requirementKey));
 }
 
 export function validateInvocationCapabilityBasis(input: Readonly<{
@@ -353,7 +521,7 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
   );
   const exactCatalogApplications = [...(input.catalogApplications ?? [])]
     .sort((left, right) =>
-      left.applicationRef.localeCompare(right.applicationRef)
+      compareUnicodeCodeUnits(left.applicationRef, right.applicationRef)
     );
   if (
     !isInvocationPolicyBasis(input.policy) ||
@@ -449,196 +617,107 @@ export function hasAdmittedInvocation(
   store: AbgEventStore,
   admission: InvocationAdmission,
 ): boolean {
-  const event = store.readAll().find(
-    (candidate) => candidate.eventId === admission.admissionEventRef,
-  );
-  const carriesCatalogApplications = event?.kind === "invocation_admitted" &&
-    isRecord(event.payload) &&
-    Array.isArray(event.payload.catalogApplicationRefs) &&
-    Array.isArray(event.payload.catalogApplicationDigests);
-  const body = {
-    invocationRef: admission.invocationRef,
-    invocationDigest: admission.invocationDigest,
-    invocationVariant: admission.invocationVariant,
-    rawInputAdmissionRef: admission.rawInputAdmissionRef,
-    rawInputDigest: admission.rawInputDigest,
-    publicRequestAdmissionRef: admission.publicRequestAdmissionRef,
-    publicRequestDigest: admission.publicRequestDigest,
-    publicRequestInvocationRef: admission.publicRequestInvocationRef,
-    workspaceId: admission.workspaceId,
-    workspaceBindingId: admission.workspaceBindingId,
-    workspaceBindingDigest: admission.workspaceBindingDigest,
-    catalogBasisRef: admission.catalogBasisRef,
-    catalogBasisDigest: admission.catalogBasisDigest,
-    catalogViewId: admission.catalogViewId,
-    catalogViewDigest: admission.catalogViewDigest,
-    ...(carriesCatalogApplications
-      ? {
-        catalogApplicationRefs: admission.catalogApplicationRefs,
-        catalogApplicationDigests: admission.catalogApplicationDigests,
-      }
-      : {}),
-    programRef: admission.programRef,
-    programDigest: admission.programDigest,
-    graphFunctionRef: admission.graphFunctionRef,
-    graphFunctionDigest: admission.graphFunctionDigest,
-    selectedDefinitionRef: admission.selectedDefinitionRef,
-    selectedDefinitionDigest: admission.selectedDefinitionDigest,
-    selectedFibreRef: admission.selectedFibreRef,
-    selectedFibreDigest: admission.selectedFibreDigest,
-    selectedPlanRef: admission.selectedPlanRef,
-    selectedPlanDigest: admission.selectedPlanDigest,
-    inputContractRef: admission.inputContractRef,
-    outputContractRef: admission.outputContractRef,
-    programValidationRef: admission.programValidationRef,
-    programValidationDigest: admission.programValidationDigest,
-    policyRef: admission.policyRef,
-    policyDigest: admission.policyDigest,
-    capabilityGrants: admission.capabilityGrants,
-    capabilityGrantRefs: admission.capabilityGrantRefs,
-    authorityRef: admission.authorityRef,
-    authorityDigest: admission.authorityDigest,
-    actorRef: admission.actorRef,
-    publicStart: admission.publicStart,
-    reentryBasis: admission.reentryBasis,
-    sourceResultBasis: admission.sourceResultBasis,
-  };
-  const publicEvent = store.readAll().find(
-    (candidate) => candidate.eventId === admission.publicOperationEventRef,
-  );
-  return (
-    sha256Canonical(body as unknown as JsonValue) === admission.invocationAdmissionDigest &&
-    admission.invocationAdmissionRef === `invocation-admission://abiogenesis/${admission.invocationAdmissionDigest.slice("sha256:".length)}` &&
-    publicEvent?.kind === "public_operation_admitted" &&
-    isRecord(publicEvent.payload) &&
-    publicEvent.payload.operationId === "abg.operation.run.invoke" &&
-    publicEvent.payload.variant === admission.invocationVariant &&
-    publicEvent.payload.invocationRef === admission.invocationRef &&
-    publicEvent.payload.invocationDigest === admission.invocationDigest &&
-    publicEvent.payload.authorityRef === admission.authorityRef &&
-    publicEvent.payload.catalogBasisRef === admission.catalogBasisRef &&
-    publicEvent.payload.catalogBasisDigest === admission.catalogBasisDigest &&
-    publicEvent.payload.selectedDefinitionRef === admission.selectedDefinitionRef &&
-    publicEvent.payload.selectedDefinitionDigest === admission.selectedDefinitionDigest &&
-    publicEvent.payload.selectedFibreRef === admission.selectedFibreRef &&
-    publicEvent.payload.selectedFibreDigest === admission.selectedFibreDigest &&
-    publicEvent.payload.selectedPlanRef === admission.selectedPlanRef &&
-    publicEvent.payload.selectedPlanDigest === admission.selectedPlanDigest &&
-    (
-      !carriesCatalogApplications ||
-      (
-        Array.isArray(publicEvent.payload.catalogApplicationRefs) &&
-        Array.isArray(publicEvent.payload.catalogApplicationDigests) &&
-        publicEvent.payload.catalogApplicationRefs.join("\0") ===
-          admission.catalogApplicationRefs.join("\0") &&
-        publicEvent.payload.catalogApplicationDigests.join("\0") ===
-          admission.catalogApplicationDigests.join("\0")
-      )
-    ) &&
-    event?.kind === "invocation_admitted" &&
-    isRecord(event.payload) &&
-    event.payload.invocationAdmissionRef === admission.invocationAdmissionRef &&
-    event.payload.invocationAdmissionDigest === admission.invocationAdmissionDigest &&
-    event.causationEventRefs.includes(admission.publicOperationEventRef)
+  return hasAdmittedInvocationAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    admission,
   );
 }
 
-export function hasInvocationRunBinding(
-  store: AbgEventStore,
+export function hasAdmittedInvocationAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  admission: InvocationAdmission,
+): boolean {
+  return hasExactInvocationAdmissionAtPrefix(prefix, admission);
+}
+
+export function hasInvocationRunBindingAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
   admission: InvocationAdmission,
   runId: string,
 ): boolean {
-  if (!hasAdmittedInvocation(store, admission)) return false;
-  const runOpenEvents = store.readScope({ runId }).filter(
-    (event) =>
-      event.kind === "run_segment_opened" &&
-      event.aggregateType === "run" &&
-      event.aggregateId === runId &&
-      event.runId === runId,
-  );
-  if (runOpenEvents.length !== 1) return false;
-  const runOpen = runOpenEvents[0]!;
-  const payload = runOpen.payload;
-  return (
-    isRecord(payload) &&
-    runOpen.parentAggregateId === admission.workspaceBindingId &&
-    runOpen.graphFunctionRef === admission.graphFunctionRef &&
-    payload.runId === runId &&
-    payload.invocationAdmissionRef === admission.invocationAdmissionRef &&
-    payload.invocationRef === admission.invocationRef &&
-    payload.workspaceBindingId === admission.workspaceBindingId &&
-    payload.programRef === admission.programRef &&
-    payload.graphFunctionRef === admission.graphFunctionRef
-  );
+  return hasExactInvocationRunBindingAtPrefix(prefix, admission, runId);
 }
 
-export function rehydrateInvocationAdmission(
-  store: AbgEventStore,
+export function rehydrateInvocationAdmissionAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
   invocationAdmissionRef: string,
 ): InvocationAdmission | null {
-  const matches = store.readAll().filter(
-    (event) =>
-      event.kind === "invocation_admitted" &&
-      isRecord(event.payload) &&
-      event.payload.invocationAdmissionRef === invocationAdmissionRef,
+  return projectExactInvocationAdmissionAtPrefix(
+    prefix,
+    invocationAdmissionRef,
   );
-  if (matches.length !== 1) return null;
-  const event = matches[0]!;
-  if (
-    event.causationEventRefs.length !== 1 ||
-    !isRecord(event.payload)
-  ) {
-    return null;
-  }
-  const publicEvent = store.readAll().find(
-    (candidate) =>
-      candidate.eventId === event.causationEventRefs[0] &&
-      candidate.kind === "public_operation_admitted",
-  );
-  if (publicEvent === undefined) return null;
-  const admission = deepFreeze({
-    kind: "invocation_admission" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    ...event.payload,
-    catalogApplicationRefs:
-      Array.isArray(event.payload.catalogApplicationRefs)
-        ? event.payload.catalogApplicationRefs
-        : [],
-    catalogApplicationDigests:
-      Array.isArray(event.payload.catalogApplicationDigests)
-        ? event.payload.catalogApplicationDigests
-        : [],
-    publicOperationEventRef: publicEvent.eventId,
-    admissionEventRef: event.eventId,
-  }) as unknown as InvocationAdmission;
-  return hasAdmittedInvocation(store, admission) ? admission : null;
 }
 
-export function admitInvocation(
+function admitInvocationWithRequest(
   store: AbgEventStore,
-  input: InvocationAdmissionInput,
+  input: Omit<InvocationAdmissionInput, "rawRequest">,
   basis: PublicOperationAdmissionBasis,
+  requestBasis: InvocationRequestBasis,
 ): InvocationAdmissionResult {
   const catalogApplications = input.catalogApplications ?? [];
-  const invalidBasis = validatePublicOperationBasis(basis, "abg.operation.run.invoke");
+  const expectedMemberKey = input.invocation.variant === "direct"
+    ? "invoke"
+    : input.invocation.variant;
+  const invalidBasis = validatePublicOperationBasis(
+    basis,
+    "abg.operation.run.invoke",
+    expectedMemberKey,
+  );
   if (invalidBasis !== null) return invalidBasis;
   if (!isPublicInvocationCandidate(input.invocation)) {
     return refusal("invocation_not_constructed", "invocation was not constructed by the Product boundary");
   }
   if (
-    basis.invocationRef !== input.invocation.invocationRef ||
+    basis.invocationRef !== input.invocation.publicRequestInvocationRef ||
     basis.authorityScopeRef !== input.workspaceBinding.bindingId ||
     basis.authorityScopeDigest !== input.workspaceBinding.bindingDigest
   ) {
     return refusal("authority_mismatch", "public operation basis differs from invocation or workspace authority");
   }
-  if (!hasAdmittedWorkspaceBinding(store, input.workspaceBinding)) {
+  if (!hasAdmittedWorkspaceBinding(input.artifactTruth, input.workspaceBinding)) {
     return refusal("workspace_not_admitted", "invocation workspace binding lacks ABG admission truth");
   }
+  let predecessorPrefix: ValidatedRuntimeEventPrefix;
+  let expectedPrefixDigest: Sha256Digest;
+  try {
+    assertHeldEventStoreAtDurablePrefix(store, input.artifactTruth.prefix);
+    predecessorPrefix = selectValidatedRuntimeEventPrefix(
+      readRuntimeEventsAtDurablePrefix(input.artifactTruth.prefix),
+    );
+    expectedPrefixDigest = store.digest();
+  } catch {
+    return refusal(
+      "authority_mismatch",
+      "invocation admission requires the exact held artifact-truth predecessor prefix",
+    );
+  }
+  const invocationTruth = projectEffectfulPublicInvocationTruthAtPrefix(
+    input.artifactTruth.prefix,
+    basis.invocationRef,
+  );
+  if (invocationTruth.disposition === "invalid_history") {
+    return invocationTruth;
+  }
+  if (invocationTruth.disposition === "duplicate") {
+    return duplicateInvocationRefusal(invocationTruth.priorAdmission);
+  }
+  const exactCatalogApplications = catalogApplications.map((application) => {
+    const reconstructed = applyCatalogDeclaration(input.catalogView, {
+      applicationKind: application.declaration.declarationKind,
+      handle: application.declaration.handle,
+      targetRef: application.targetRef,
+      targetDigest: application.targetDigest,
+      appliedValueRef: application.appliedValueRef,
+      appliedValueDigest: application.appliedValueDigest,
+    });
+    return reconstructed.kind === "declaration_application" &&
+      canonicalJson(reconstructed as unknown as JsonValue) ===
+        canonicalJson(application as unknown as JsonValue);
+  });
   if (
     new Set(catalogApplications.map((row) => row.applicationRef)).size !==
       catalogApplications.length ||
+    exactCatalogApplications.some((exact) => !exact) ||
     catalogApplications.some(
       (application) =>
         application.viewDigest !== input.catalogView.viewDigest ||
@@ -647,7 +726,7 @@ export function admitInvocation(
   ) {
     return refusal(
       "catalog_view_not_admitted",
-      "invocation catalog applications require unique ABG admission under the exact CatalogView",
+      "invocation catalog applications must be unique exact Product reconstructions under the supplied CatalogView",
     );
   }
   if (
@@ -668,26 +747,6 @@ export function admitInvocation(
   ) {
     return refusal("validation_mismatch", "Invocation requires the exact non-lowering ProgramValidation");
   }
-  const selectedRow = input.catalogView.entries.find(
-    (row) =>
-      (
-        row.handle === input.graphFunction.name ||
-        row.definitionRef === input.graphFunction.name
-      ) &&
-      row.programMembershipRefs.includes(input.program.programRef),
-  );
-  if (
-    input.invocation.programRef !== input.program.programRef ||
-    input.invocation.programDigest !== sha256Canonical(input.program as unknown as JsonValue) ||
-    input.invocation.graphFunctionRef !== input.graphFunction.name ||
-    input.invocation.graphFunctionDigest !== sha256Canonical(input.graphFunction as unknown as JsonValue) ||
-    !input.program.callableMembership.includes(input.graphFunction.name) ||
-    selectedRow?.kind !== "graph_function_catalog_entry" ||
-    selectedRow.definitionDigest !== input.invocation.graphFunctionDigest ||
-    !selectedRow.programMembershipRefs.includes(input.program.programRef)
-  ) {
-    return refusal("selection_mismatch", "selected Program and GraphFunction lack exact admitted membership");
-  }
   const inputContract = input.modulePublication.contracts.find(
     (contract) => contract.contractRef === input.invocation.inputContractRef,
   );
@@ -707,9 +766,15 @@ export function admitInvocation(
   ) {
     return refusal("contract_mismatch", "raw input or declared input/output contract differs from invocation");
   }
-  const request = input.rawRequest.value;
-  const requestPayload = isRecord(request) && isRecord(request.payload)
+  const request = requestBasis.family === "legacy_root_public"
+    ? requestBasis.rawRequest.value
+    : requestBasis.publicInvocation.request;
+  const requestPayload = requestBasis.family === "legacy_root_public" &&
+      isRecord(request) && isRecord(request.payload)
     ? request.payload
+    : null;
+  const exactRequest = requestBasis.family === "exact_public_definition"
+    ? requestBasis.publicInvocation.request
     : null;
   const suppliedReentryAuthority =
     requestPayload !== null && isRecord(requestPayload.reentryAuthority)
@@ -742,13 +807,90 @@ export function admitInvocation(
             : {}),
         })
       : null;
-  const rawTargetMatches =
-    requestPayload !== null &&
-    requestPayload.programRef === input.invocation.programRef &&
+  const directCatalogHandle =
+    input.invocation.variant === "direct" &&
+      exactRequest !== null &&
+      typeof exactRequest.catalogHandle === "string"
+      ? exactRequest.catalogHandle
+      : input.invocation.variant === "direct" &&
+          requestPayload !== null &&
+          typeof requestPayload.catalogHandle === "string"
+      ? requestPayload.catalogHandle
+      : null;
+  const definitionLookup = input.invocation.variant === "start" &&
+      resolvedPublicStart?.kind === "resolved_program_start"
+    ? lookupGraphFunctionDefinition(
+        input.catalogView,
+        resolvedPublicStart.start.graphFunctionRef,
+        input.program.programRef,
+      )
+    : null;
+  const selectedRow = input.invocation.variant === "direct"
+    ? directCatalogHandle === null
+      ? null
+      : lookupGraphFunction(input.catalogView, directCatalogHandle)
+    : definitionLookup?.kind === "graph_function_definition_lookup_exact"
+      ? definitionLookup.entry
+      : null;
+  if (
+    input.invocation.variant === "start" &&
+    definitionLookup?.kind !== "graph_function_definition_lookup_exact"
+  ) {
+    return refusal(
+      "selection_mismatch",
+      definitionLookup?.kind ===
+          "graph_function_definition_lookup_ambiguous"
+        ? "Product start revalidation found ambiguous catalog definitions"
+        : "Product start revalidation found no catalog definition",
+    );
+  }
+  if (
+    input.invocation.programRef !== input.program.programRef ||
+    input.invocation.programDigest !==
+      sha256Canonical(input.program as unknown as JsonValue) ||
+    input.invocation.graphFunctionRef !== input.graphFunction.name ||
+    input.invocation.graphFunctionDigest !==
+      sha256Canonical(input.graphFunction as unknown as JsonValue) ||
+    input.invocation.catalogHandle !== selectedRow?.handle ||
+    input.invocation.selectedDefinitionRef !== selectedRow?.definitionRef ||
+    input.invocation.selectedDefinitionDigest !== selectedRow?.definitionDigest ||
+    !input.program.callableMembership.includes(input.graphFunction.name) ||
+    selectedRow?.kind !== "graph_function_catalog_entry" ||
+    selectedRow.definitionRef !== input.graphFunction.name ||
+    selectedRow.definitionDigest !== input.invocation.graphFunctionDigest ||
+    !selectedRow.programMembershipRefs.includes(input.program.programRef)
+  ) {
+    return refusal(
+      "selection_mismatch",
+      "selected catalog handle, definition, and Program lack exact admitted membership",
+    );
+  }
+  const hogEntryCoordinate = rootCTraversalCoordinate(
+    input.graphFunction.template.startNodeRef,
+  );
+  const hogEntryResult = deriveDirectCStepFromGraph(
+    input.graphFunction.template,
+    hogEntryCoordinate,
+  );
+  if (hogEntryResult.kind !== "direct_c_traversal_step") {
+    return refusal(
+      "selection_mismatch",
+      "selected GraphFunction lacks one exact HoG root C entry",
+    );
+  }
+  const requestProgramRef = exactRequest !== null &&
+      isRecord(exactRequest.program) &&
+      typeof exactRequest.program.ref === "string"
+    ? exactRequest.program.ref
+    : requestPayload !== null && typeof requestPayload.programRef === "string"
+    ? requestPayload.programRef
+    : null;
+  const requestTargetMatches =
+    requestProgramRef === input.invocation.programRef &&
     (
       (
         input.invocation.variant === "direct" &&
-        requestPayload.graphFunctionRef === input.invocation.graphFunctionRef
+        directCatalogHandle === selectedRow.handle
       ) ||
       (
         input.invocation.variant === "start" &&
@@ -758,20 +900,45 @@ export function admitInvocation(
       )
     );
   if (
-    !isRawAdmittedValue(input.rawRequest) ||
-    input.rawRequest.subjectKind !== "public_operation_request" ||
-    input.rawRequest.contractRef !== "contract://abiogenesis/public/run-invoke-request@5" ||
-    input.rawRequest.admissionRef !== input.invocation.publicRequestAdmissionRef ||
-    input.rawRequest.subjectDigest !== input.invocation.publicRequestDigest ||
-    !isRecord(request) ||
-    request.operationId !== "abg.operation.run.invoke" ||
-    request.variant !== input.invocation.variant ||
-    request.invocationRef !== input.invocation.publicRequestInvocationRef ||
-    !rawTargetMatches
+    (
+      requestBasis.family === "legacy_root_public"
+        ? !isRawAdmittedValue(requestBasis.rawRequest) ||
+          requestBasis.rawRequest.subjectKind !== "public_operation_request" ||
+          requestBasis.rawRequest.contractRef !==
+            "contract://abiogenesis/public/run-invoke-request@5" ||
+          requestBasis.rawRequest.admissionRef !==
+            input.invocation.publicRequestAdmissionRef ||
+          requestBasis.rawRequest.subjectDigest !==
+            input.invocation.publicRequestDigest ||
+          !isRecord(request) ||
+          request.operationId !== "abg.operation.run.invoke" ||
+          request.variant !== input.invocation.variant ||
+          request.invocationRef !== input.invocation.publicRequestInvocationRef
+        : requestBasis.publicInvocation.kind !== "public_invocation" ||
+          requestBasis.publicInvocation.schemaVersion !== "5.0.0" ||
+          requestBasis.publicInvocation.definitionKey.operationId !==
+            "abg.operation.run.invoke" ||
+          requestBasis.publicInvocation.definitionKey.memberKey !== "invoke" ||
+          requestBasis.publicInvocation.requestRef !==
+            input.invocation.publicRequestAdmissionRef ||
+          requestBasis.publicInvocation.requestDigest !==
+            input.invocation.publicRequestDigest ||
+          requestBasis.publicInvocation.invocationRef !==
+            input.invocation.publicRequestInvocationRef ||
+          requestBasis.publicInvocation.requestDigest !==
+            sha256Canonical(request as unknown as JsonValue) ||
+          basis.definitionDigest !==
+            requestBasis.publicInvocation.definitionDigest ||
+          basis.invocationPayloadDigest !==
+            requestBasis.publicInvocation.requestDigest ||
+          basis.invocationDigest !==
+            requestBasis.publicInvocation.invocationDigest
+    ) ||
+    !requestTargetMatches
   ) {
     return refusal(
       "authority_mismatch",
-      "invocation target lacks exact raw caller-request admission",
+      "invocation target lacks exact caller-request admission",
     );
   }
   const priorGap =
@@ -809,13 +976,21 @@ export function admitInvocation(
     }
   } else {
     const reentry = input.reentryBasis;
-    const sourceInvocation = rehydrateInvocationAdmission(
-      store,
+    const predecessorEvents = runtimeEventsFromValidatedPrefix(
+      predecessorPrefix,
+    );
+    const sourceInvocation = rehydrateInvocationAdmissionAtPrefix(
+      predecessorPrefix,
       reentry.sourceInvocationAdmissionRef,
     );
     const sourceReplay = (() => {
       try {
-        return replay(store, { runId: reentry.sourceRunId });
+        return replayValidatedRuntimeEventPrefix(
+          selectValidatedRuntimeEventPrefix(predecessorEvents, {
+            runId: reentry.sourceRunId,
+          }),
+          predecessorPrefix,
+        );
       } catch {
         return null;
       }
@@ -824,7 +999,7 @@ export function admitInvocation(
       (route) => route.admissionEventRef === reentry.sourceRouteEventRef,
     );
     const sourceProjection = sourceRoute?.nextActionProjection ?? null;
-    const sourceAlreadyConsumed = store.readAll().some(
+    const sourceAlreadyConsumed = predecessorEvents.some(
       (event) =>
         event.kind === "invocation_admitted" &&
         isRecord(event.payload) &&
@@ -911,18 +1086,33 @@ export function admitInvocation(
         "source result authority and its ABG-derived basis must be admitted together",
       );
     }
-  } else if (
-    suppliedSourceProjectionAuthority === null ||
-    suppliedSourceResultRef === null ||
-    !isInvocationSourceResultBasis(input.sourceResultBasis) ||
-    suppliedSourceProjectionAuthority.authorityDigest !==
-      input.sourceResultBasis.publicAuthorityDigest ||
-    suppliedSourceResultRef !== input.sourceResultBasis.sourceResultRef
-  ) {
-    return refusal(
-      "authority_mismatch",
-      "source result basis differs from the durable public authority or selected result",
-    );
+  } else {
+    const suppliedBasis = input.sourceResultBasis;
+    const exactBasis = isInvocationSourceResultBasis(suppliedBasis)
+      ? deriveInvocationSourceResultBasisAtPrefix(predecessorPrefix, {
+          publicAuthorityDigest: suppliedBasis.publicAuthorityDigest,
+          runtimeInvocationRef: suppliedBasis.sourceInvocationRef,
+          invocationAdmissionRef:
+            suppliedBasis.sourceInvocationAdmissionRef,
+          runId: suppliedBasis.sourceRunId,
+          resultRef: suppliedBasis.sourceResultRef,
+        })
+      : null;
+    if (
+      suppliedSourceProjectionAuthority === null ||
+      suppliedSourceResultRef === null ||
+      exactBasis === null ||
+      canonicalJson(exactBasis as unknown as JsonValue) !==
+        canonicalJson(suppliedBasis as unknown as JsonValue) ||
+      suppliedSourceProjectionAuthority.authorityDigest !==
+        suppliedBasis.publicAuthorityDigest ||
+      suppliedSourceResultRef !== suppliedBasis.sourceResultRef
+    ) {
+      return refusal(
+        "authority_mismatch",
+        "source result basis differs from its exact predecessor events, durable public authority, or selected result",
+      );
+    }
   }
   const capabilityRefusal = validateInvocationCapabilityBasis({
     actorRef: input.invocation.actorAttributionRef,
@@ -958,6 +1148,9 @@ export function admitInvocation(
     input.authority.catalogViewDigest !== input.catalogView.viewDigest ||
     input.authority.catalogViewDigest !== input.catalogView.viewDigest ||
     input.authority.programRef !== input.program.programRef ||
+    input.authority.catalogHandle !== selectedRow.handle ||
+    input.authority.selectedDefinitionRef !== selectedRow.definitionRef ||
+    input.authority.selectedDefinitionDigest !== selectedRow.definitionDigest ||
     input.authority.graphFunctionRef !== input.graphFunction.name ||
     input.authority.policyRef !== input.policy.policyRef ||
     input.authority.policyDigest !== input.policy.policyDigest ||
@@ -966,32 +1159,21 @@ export function admitInvocation(
     return refusal("authority_mismatch", "invocation authority does not cover the exact actor, environment, and target");
   }
 
-  const programValidationDigest = sha256Canonical(input.programValidation as unknown as JsonValue);
-  const selectedFibreDigest = sha256Canonical({
-    executable: input.programValidation.executableLeafRows.map((row) => ({
-      nodeRef: row.nodeRef,
-      fibre: row.fibre,
-    })),
-    interaction: input.programValidation.interactionLeafRows.map((row) => ({
-      nodeRef: row.nodeRef,
-      fibre: row.fibre,
-    })),
-  } as unknown as JsonValue);
-  const selectedPlanDigest = sha256Canonical({
-    catalogBasisDigest: input.catalogView.catalogBasisDigest,
-    catalogViewDigest: input.catalogView.viewDigest,
-    definitionDigest: selectedRow.definitionDigest,
-    programRef: input.program.programRef,
-    programValidationRef: input.programValidation.validationRef,
-  } as unknown as JsonValue);
+  const programValidationDigest = sha256Canonical(
+    input.programValidation as unknown as JsonValue,
+  );
   const admissionBody = {
     invocationRef: input.invocation.invocationRef,
     invocationDigest: input.invocation.invocationDigest,
     invocationVariant: input.invocation.variant,
     rawInputAdmissionRef: input.rawInput.admissionRef,
     rawInputDigest: input.rawInput.subjectDigest,
-    publicRequestAdmissionRef: input.rawRequest.admissionRef,
-    publicRequestDigest: input.rawRequest.subjectDigest,
+    publicRequestAdmissionRef: requestBasis.family === "legacy_root_public"
+      ? requestBasis.rawRequest.admissionRef
+      : requestBasis.publicInvocation.requestRef,
+    publicRequestDigest: requestBasis.family === "legacy_root_public"
+      ? requestBasis.rawRequest.subjectDigest
+      : requestBasis.publicInvocation.requestDigest,
     publicRequestInvocationRef: input.invocation.publicRequestInvocationRef,
     workspaceId: input.workspaceBinding.workspaceId,
     workspaceBindingId: input.workspaceBinding.bindingId,
@@ -1002,24 +1184,23 @@ export function admitInvocation(
     catalogViewDigest: input.catalogView.viewDigest,
     catalogApplicationRefs: [...catalogApplications]
       .sort((left, right) =>
-        left.applicationRef.localeCompare(right.applicationRef)
+        compareUnicodeCodeUnits(left.applicationRef, right.applicationRef)
       )
       .map((application) => application.applicationRef),
     catalogApplicationDigests: [...catalogApplications]
       .sort((left, right) =>
-        left.applicationRef.localeCompare(right.applicationRef)
+        compareUnicodeCodeUnits(left.applicationRef, right.applicationRef)
       )
       .map((application) => application.applicationDigest),
     programRef: input.program.programRef,
     programDigest: input.invocation.programDigest,
+    catalogHandle: selectedRow.handle,
     graphFunctionRef: input.graphFunction.name,
     graphFunctionDigest: input.invocation.graphFunctionDigest,
     selectedDefinitionRef: selectedRow.definitionRef,
     selectedDefinitionDigest: selectedRow.definitionDigest,
-    selectedFibreRef: `fibre-selection://abiogenesis/${selectedFibreDigest.slice("sha256:".length)}`,
-    selectedFibreDigest,
-    selectedPlanRef: `execution-plan://abiogenesis/${selectedPlanDigest.slice("sha256:".length)}`,
-    selectedPlanDigest,
+    hogEntryCoordinate,
+    hogEntryStep: hogEntryResult,
     inputContractRef: input.invocation.inputContractRef,
     outputContractRef: input.invocation.outputContractRef,
     programValidationRef: input.programValidation.validationRef,
@@ -1037,68 +1218,79 @@ export function admitInvocation(
   };
   const invocationAdmissionDigest = sha256Canonical(admissionBody as unknown as JsonValue);
   const invocationAdmissionRef = `invocation-admission://abiogenesis/${invocationAdmissionDigest.slice("sha256:".length)}`;
-  const publicOperationEvent = admitRuntimeEvent(store, {
-    kind: "public_operation_admitted",
-    eventTime: basis.eventTime,
-    aggregateType: "workspace",
-    aggregateId: input.workspaceBinding.bindingId,
-    parentAggregateId: input.invocation.invocationRef,
-    causationEventRefs: [
-      ...new Set([
-        ...basis.causationEventRefs,
-      ]),
-    ],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "workspace",
-    basisId: input.authority.authorityRef,
-    payload: {
-      operationId: "abg.operation.run.invoke",
-      definitionKey: basis.definitionKey,
-      definitionDigest: basis.definitionDigest,
-      variant: input.invocation.variant,
-      invocationRef: input.invocation.invocationRef,
-      invocationDigest: input.invocation.invocationDigest,
-      actorRef: input.authority.actorRef,
-      authorityRef: input.authority.authorityRef,
-      authorityDigest: input.authority.authorityDigest,
-      capabilityGrantRefs: input.capabilityGrants.map((grant) => grant.grantRef),
-      catalogApplicationRefs: admissionBody.catalogApplicationRefs,
-      catalogApplicationDigests:
-        admissionBody.catalogApplicationDigests,
-      policyRef: input.policy.policyRef,
-      policyDigest: input.policy.policyDigest,
-      workspaceBindingId: input.workspaceBinding.bindingId,
-      catalogBasisRef: admissionBody.catalogBasisRef,
-      catalogBasisDigest: admissionBody.catalogBasisDigest,
-      catalogViewId: catalogViewRef(input.catalogView),
-      programRef: input.program.programRef,
-      graphFunctionRef: input.graphFunction.name,
-      selectedDefinitionRef: admissionBody.selectedDefinitionRef,
-      selectedDefinitionDigest: admissionBody.selectedDefinitionDigest,
-      selectedFibreRef: admissionBody.selectedFibreRef,
-      selectedFibreDigest: admissionBody.selectedFibreDigest,
-      selectedPlanRef: admissionBody.selectedPlanRef,
-      selectedPlanDigest: admissionBody.selectedPlanDigest,
+  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+    store,
+    expectedPrefixDigest,
+    () => {
+      const publicOperationEvent = admitRuntimeEvent(store, {
+        kind: "public_operation_admitted",
+        eventTime: basis.eventTime,
+        aggregateType: "workspace",
+        aggregateId: input.workspaceBinding.bindingId,
+        parentAggregateId: input.invocation.invocationRef,
+        causationEventRefs: [...basis.causationEventRefs],
+        correlationId: basis.correlationId,
+        workflowVersion: "5.0.0",
+        scopeClass: "workspace",
+        basisId: input.authority.authorityRef,
+        payload: {
+          operationId: "abg.operation.run.invoke",
+          memberKey: basis.memberKey,
+          definitionDigest: basis.definitionDigest,
+          variant: input.invocation.variant,
+          invocationRef: input.invocation.invocationRef,
+          invocationDigest: input.invocation.invocationDigest,
+          actorRef: input.authority.actorRef,
+          authorityRef: input.authority.authorityRef,
+          authorityDigest: input.authority.authorityDigest,
+          capabilityGrantRefs:
+            input.capabilityGrants.map((grant) => grant.grantRef),
+          catalogApplicationRefs: admissionBody.catalogApplicationRefs,
+          catalogApplicationDigests:
+            admissionBody.catalogApplicationDigests,
+          policyRef: input.policy.policyRef,
+          policyDigest: input.policy.policyDigest,
+          workspaceBindingId: input.workspaceBinding.bindingId,
+          catalogBasisRef: admissionBody.catalogBasisRef,
+          catalogBasisDigest: admissionBody.catalogBasisDigest,
+          catalogViewId: catalogViewRef(input.catalogView),
+          programRef: input.program.programRef,
+          catalogHandle: admissionBody.catalogHandle,
+          graphFunctionRef: input.graphFunction.name,
+          selectedDefinitionRef: admissionBody.selectedDefinitionRef,
+          selectedDefinitionDigest: admissionBody.selectedDefinitionDigest,
+          programValidationRef: admissionBody.programValidationRef,
+          programValidationDigest: admissionBody.programValidationDigest,
+          hogEntryCoordinate: admissionBody.hogEntryCoordinate,
+          hogEntryStep: admissionBody.hogEntryStep,
+        } as unknown as JsonValue,
+      });
+      const admissionEvent = admitRuntimeEvent(store, {
+        kind: "invocation_admitted",
+        eventTime: basis.eventTime,
+        aggregateType: "workspace",
+        aggregateId: input.workspaceBinding.bindingId,
+        parentAggregateId: input.invocation.invocationRef,
+        causationEventRefs: [publicOperationEvent.eventId],
+        correlationId: basis.correlationId,
+        workflowVersion: "5.0.0",
+        scopeClass: "workspace",
+        basisId: invocationAdmissionRef,
+        payload: {
+          invocationAdmissionRef,
+          invocationAdmissionDigest,
+          ...admissionBody,
+        } as unknown as JsonValue,
+      });
+      return { publicOperationEvent, admissionEvent };
     },
-  });
-  const admissionEvent = admitRuntimeEvent(store, {
-    kind: "invocation_admitted",
-    eventTime: basis.eventTime,
-    aggregateType: "workspace",
-    aggregateId: input.workspaceBinding.bindingId,
-    parentAggregateId: input.invocation.invocationRef,
-    causationEventRefs: [publicOperationEvent.eventId],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "workspace",
-    basisId: invocationAdmissionRef,
-    payload: {
-      invocationAdmissionRef,
-      invocationAdmissionDigest,
-      ...admissionBody,
-    } as unknown as JsonValue,
-  });
+  );
+  if (committed.successorPrefix === null) {
+    throw new TypeError(
+      "atomic invocation admission produced no durable successor prefix",
+    );
+  }
+  const { publicOperationEvent, admissionEvent } = committed.value;
   return deepFreeze({
     kind: "invocation_admission" as const,
     schemaVersion: "5.0.0" as const,
@@ -1109,4 +1301,36 @@ export function admitInvocation(
     publicOperationEventRef: publicOperationEvent.eventId,
     admissionEventRef: admissionEvent.eventId,
   }) as InvocationAdmission;
+}
+
+export function admitInvocation(
+  store: AbgEventStore,
+  input: InvocationAdmissionInput,
+  basis: PublicOperationAdmissionBasis,
+): InvocationAdmissionResult {
+  const { rawRequest, ...ownerInput } = input;
+  return admitInvocationWithRequest(
+    store,
+    ownerInput,
+    basis,
+    { family: "legacy_root_public", rawRequest },
+  );
+}
+
+/**
+ * ABG admission for the exact Public family. It consumes the admitted
+ * invocation directly; no old Public request is synthesized or parsed.
+ */
+export function admitExactInvocation(
+  store: AbgEventStore,
+  input: ExactInvocationAdmissionInput,
+  basis: PublicOperationAdmissionBasis,
+): InvocationAdmissionResult {
+  const { publicInvocation, ...ownerInput } = input;
+  return admitInvocationWithRequest(
+    store,
+    ownerInput,
+    basis,
+    { family: "exact_public_definition", publicInvocation },
+  );
 }

@@ -35,6 +35,7 @@ export {
   FP_RETRY_HELLO_IDS,
   GATE_HELLO_IDS,
   GRAPH_EDGE_HELLO_IDS,
+  HELLO_WORLD_DIRECT_IDS,
   HELLO_WORLD_IDS,
   FP_FD_COMPOSED_HELLO_IDS,
   SUBSTITUTED_HELLO_IDS,
@@ -88,6 +89,11 @@ export {
   productSemanticsBinding,
   ruleDeclaration,
 } from "./declarations.js";
+export {
+  CANONICAL_AUTHORED_GTL_SUBJECT_KIND_VALUES,
+  canonicalizeAuthoredGtlCarrier,
+  type CanonicalAuthoredGtlSubjectKind,
+} from "./canonicalization.js";
 export {
   resolveProgramStart,
   type ProgramRootMode,

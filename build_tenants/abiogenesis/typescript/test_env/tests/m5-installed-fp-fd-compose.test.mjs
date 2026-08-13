@@ -80,8 +80,9 @@ test("M5 installed GTL composes F_P then F_D without changing execution authorit
     "m5-fp-fd-compose",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: instruction("World"),
     },
   );

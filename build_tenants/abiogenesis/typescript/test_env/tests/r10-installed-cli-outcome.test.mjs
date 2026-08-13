@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { tmpdir } from "node:os";
@@ -8,9 +7,12 @@ import test from "node:test";
 
 import {
   buildRootCliScenario,
+  importInstalledPackageExport,
   runInstalledCli,
   setupInstalledCliHarness,
 } from "../support/root-cli-environment.mjs";
+import { projectAbi5RootOwnerEvidence } from
+  "../support/root-owner-evidence.mjs";
 import { evaluateAbi5Root } from "../support/root-governor.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
@@ -19,24 +21,43 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
   const harness = await setupInstalledCliHarness(context, root, {
     scratchPath: join(tmpdir(), "abi5-root-r10-proof"),
   });
-  const scenario = await buildRootCliScenario(harness, "r10");
-  const secondRun = structuredClone(scenario.executionTranscript.at(-1));
-  secondRun.invocationRef = `${scenario.refs.run}-second`;
-  secondRun.correlationId = `${secondRun.correlationId}/second`;
-  secondRun.payload.input.subject = "Universe";
-  const executionTranscript = [...scenario.executionTranscript, secondRun];
-  const transcript = [...scenario.transcript, secondRun];
-  await writeFile(
-    scenario.transcriptPath,
-    `${executionTranscript.map((row) => JSON.stringify(row)).join("\n")}\n`,
-    "utf8",
+  const scenario = await buildRootCliScenario(
+    harness,
+    "r10",
+    (payload) => payload,
+    { catalogApplications: [] },
   );
   const run = await runInstalledCli(harness, scenario);
   assert.equal(run.exitCode, 0, run.stdout);
   assert.equal(run.stderr, "");
-  assert.equal(run.outcomes.length, 8, run.stdout);
-  assert.deepEqual(run.outcomes.map((outcome) => outcome.disposition), [
-    "succeeded",
+  assert.equal(run.transportRequests.length, 7);
+  assert.equal(run.transportResults.length, 7);
+  assert.equal(run.transportRuns.length, 7);
+  assert.deepEqual(
+    run.transportRequests,
+    run.transportRuns.map((transportRun) => transportRun.transportRequest),
+  );
+  assert.deepEqual(
+    run.transportResults,
+    run.transportRuns.map((transportRun) => transportRun.transportResult),
+  );
+  const transportOutcomeProjection = run.transportRuns.map(
+    (transportRun) => transportRun.transportResult.outcome,
+  );
+  const operationIds = [
+    "abg.operation.product.verify",
+    "abg.operation.product.resolve",
+    "abg.operation.product.install",
+    "abg.operation.workspace.bind",
+    "abg.operation.catalog.admit",
+    "abg.operation.catalog.view",
+    "abg.operation.run.invoke",
+  ];
+  assert.deepEqual(
+    transportOutcomeProjection.map((outcome) => outcome.operationId),
+    operationIds,
+  );
+  assert.deepEqual(transportOutcomeProjection.map((outcome) => outcome.disposition), [
     "succeeded",
     "succeeded",
     "succeeded",
@@ -45,18 +66,56 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
     "succeeded",
     "succeeded",
   ]);
-  const firstOutcome = run.outcomes.at(-2);
-  const outcome = run.outcomes.at(-1);
+  for (const [index, transportRun] of run.transportRuns.entries()) {
+    const request = transportRun.transportRequest;
+    const result = transportRun.transportResult;
+    assert.equal(transportRun.executor, "abg.cli");
+    assert.equal(request.kind, "abg_cli_transport_request");
+    assert.equal(request.schemaVersion, "5.0.0");
+    assert.equal(request.invocation.operationId, operationIds[index]);
+    assert.equal(result.kind, "abg_cli_transport_result");
+    assert.equal(result.schemaVersion, "5.0.0");
+    assert.equal(result.disposition, "completed");
+    assert.equal(result.acquisitionKind, request.acquisition.kind);
+    assert.equal(result.outcome.operationId, operationIds[index]);
+    assert.equal(result.outcome.invocationRef, request.invocation.invocationRef);
+    if (index === 0) {
+      assert.equal(request.acquisition.kind, "new");
+      assert.equal(result.entryPrefix.kind, "durable_prefix_coordinate");
+      assert.equal(result.entryPrefix.prefixLength, 0);
+      assert.equal(
+        result.closeHandoff.reopenAuthority.eventLogPath,
+        request.acquisition.eventLogPath,
+      );
+      assert.equal(
+        result.entryPrefix.eventLogRef,
+        result.closeHandoff.prefix.eventLogRef,
+      );
+    } else {
+      assert.equal(request.acquisition.kind, "reopen");
+      assert.deepEqual(
+        request.acquisition.closeHandoff,
+        run.transportRuns[index - 1].transportResult.closeHandoff,
+      );
+      assert.deepEqual(
+        result.entryPrefix,
+        request.acquisition.closeHandoff.prefix,
+      );
+    }
+  }
+  const outcome = run.transportRuns.at(-1).transportResult.outcome;
   assert.equal(outcome.kind, "public_outcome");
   assert.equal(outcome.operationId, "abg.operation.run.invoke");
-  assert.equal(firstOutcome.invocationRef, scenario.refs.run);
-  assert.equal(outcome.invocationRef, secondRun.invocationRef);
+  assert.equal(
+    outcome.invocationRef,
+    run.transportRuns.at(-1).transportRequest.invocation.invocationRef,
+  );
   assert.equal(outcome.runtimeInvocationRef.startsWith("invocation://abiogenesis/"), true);
   assert.equal(outcome.outputContractRef, "contract://abiogenesis/conformance/hello-output@5");
   assert.equal(outcome.admittedResultContractRef, outcome.outputContractRef);
   assert.deepEqual(outcome.result, {
     kind: "hello_world_output",
-    message: "Hello Universe",
+    message: "Hello World",
     schemaVersion: "5.0.0",
   });
   assert.equal(outcome.replayAgreement, true);
@@ -65,64 +124,42 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
   assert.equal(outcome.graphCallId.startsWith("graph-call://abiogenesis/"), true);
   assert.equal(outcome.frameId.startsWith("frame://abiogenesis/"), true);
   assert.equal(outcome.cCallRef.startsWith("c-call:sha256:"), true);
-  assert.equal(firstOutcome.disposition, "succeeded");
-  assert.deepEqual(firstOutcome.result, {
-    kind: "hello_world_output",
-    message: "Hello World",
-    schemaVersion: "5.0.0",
-  });
-  assert.equal(firstOutcome.replayAgreement, true);
-  assert.notEqual(firstOutcome.runId, outcome.runId);
-  assert.notEqual(firstOutcome.replayDigest, outcome.replayDigest);
-
-  const persistedEvents = (await readFile(scenario.eventLogPath, "utf8"))
-    .trim()
-    .split(/\r?\n/u)
-    .map((line) => JSON.parse(line));
-  assert.deepEqual(persistedEvents.slice(-10).map((event) => event.kind), [
-    "c_call_opened",
-    "c_call_fibre_selected",
-    "c_call_evidenced",
-    "c_call_result_admitted",
-    "c_call_judged",
-    "traversal_route_admitted",
-    "terminal_reached",
-    "frame_closed",
-    "graph_call_closed",
-    "run_closed",
-  ]);
-  assert.equal(persistedEvents.at(-1).causationEventRefs[0], persistedEvents.at(-2).eventId);
-  assert.equal(persistedEvents.filter((event) => event.kind === "run_closed").length, 2);
-  assert.equal(
-    persistedEvents.some((event) =>
-      JSON.stringify(event).includes("CompiledCProgramPlan") ||
-      JSON.stringify(event).includes("publicControlLoop")),
-    false,
-  );
 
   const rawEventLog = await readFile(scenario.eventLogPath);
-  const eventLogDigest = `sha256:${createHash("sha256").update(rawEventLog).digest("hex")}`;
-  const governor = await evaluateAbi5Root({
-    candidateBasis: harness.candidateBasis,
-    artifactPath: harness.artifactPath,
-    transcript,
-    outcomes: run.outcomes,
-    eventLogPath: scenario.eventLogPath,
+  const installedProduct = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/product",
+    `r10-product-owner=${Date.now()}`,
+  );
+  const installedAbg = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/abg",
+    `r10-abg-owner=${Date.now()}`,
+  );
+  const ownerEvidence = projectAbi5RootOwnerEvidence({
+    product: installedProduct,
+    abg: installedAbg,
+    run,
   });
+  const governor = evaluateAbi5Root({ ownerEvidence });
   assert.equal(governor.disposition, "root_satisfied", JSON.stringify(governor));
   const proofDirectory = join(root, "test_env/proof");
   await mkdir(proofDirectory, { recursive: true });
   await writeFile(join(proofDirectory, "abi5-root-r10.events.jsonl"), rawEventLog);
-  const proofTranscript = transcript;
-  const proofOutcomes = run.outcomes;
+  const proofTransportRequests = ownerEvidence.transport.transportRuns.map(
+    (transportRun) => transportRun.transportRequest,
+  );
+  const proofTransportResults = ownerEvidence.transport.transportRuns.map(
+    (transportRun) => transportRun.transportResult,
+  );
   await writeFile(
     join(proofDirectory, "abi5-root-r10.transcript.json"),
-    `${JSON.stringify(proofTranscript, null, 2)}\n`,
+    `${JSON.stringify(proofTransportRequests, null, 2)}\n`,
     "utf8",
   );
   await writeFile(
     join(proofDirectory, "abi5-root-r10.outcomes.json"),
-    `${JSON.stringify(proofOutcomes, null, 2)}\n`,
+    `${JSON.stringify(proofTransportResults, null, 2)}\n`,
     "utf8",
   );
   await writeFile(
@@ -139,12 +176,26 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
       obligation: "R10_replay_and_cli_typed_outcome_agree",
       result: "satisfied",
       sourceImportUsed: false,
-      artifactDigest: run.outcomes[0].result.artifactDigest,
-      productInstallId: run.outcomes[2].result.installId,
-      workspaceBindingId: run.outcomes[3].result.bindingId,
-      catalogId: run.outcomes[4].result.catalogId,
-      catalogViewId: run.outcomes[5].result.viewId,
-      runOutcomes: [firstOutcome, outcome].map((value) => ({
+      artifactDigest: ownerEvidence.product.verifiedProduct.artifactDigest,
+      productInstallId: ownerEvidence.product.admittedInstall.install.installId,
+      workspaceBindingId:
+        ownerEvidence.product.admittedWorkspace.binding.bindingId,
+      catalogId: ownerEvidence.public.catalogOutcome.result.catalogId,
+      catalogViewId: ownerEvidence.abg.executionBasis.catalogViewId,
+      targetIdentity: {
+        catalogHandle:
+          ownerEvidence.public.runRequest.payload.catalogHandle,
+        programRef: ownerEvidence.abg.executionBasis.programRef,
+        selectedDefinitionRef:
+          ownerEvidence.product.selectedCatalogEntry.definitionRef,
+        selectedDefinitionDigest:
+          ownerEvidence.product.selectedCatalogEntry.definitionDigest,
+        executionBasisGraphFunctionRef:
+          ownerEvidence.abg.executionBasis.graphFunctionRef,
+        executionBasisGraphFunctionDigest:
+          ownerEvidence.abg.executionBasis.graphFunctionDigest,
+      },
+      runOutcomes: [outcome].map((value) => ({
         invocationRef: value.invocationRef,
         disposition: value.disposition,
         result: value.result,
@@ -158,17 +209,28 @@ test("R10 installed abg.cli returns the same typed outcome as two ABG replay fol
         replayDigest: value.replayDigest,
         replayAgreement: value.replayAgreement,
       })),
-      replayAgreement: firstOutcome.replayAgreement && outcome.replayAgreement,
-      replayScopesDistinct: firstOutcome.runId !== outcome.runId,
+      replayAgreement: outcome.replayAgreement,
       rootGovernorId: governor.governorId,
-      rootGovernorDigest: governor.governorDigest,
+      ownerSemanticViewRef: governor.ownerSemanticViewRef,
+      ownerSemanticViewDigest: governor.ownerSemanticViewDigest,
+      ownerReplayRef: governor.ownerReplayRef,
       rootGovernorDisposition: governor.disposition,
-      durableEventCount: persistedEvents.length,
+      transportExecutors: ownerEvidence.transport.transportRuns.map(
+        (transportRun) => transportRun.executor,
+      ),
+      transportRequests: proofTransportRequests,
+      transportResults: proofTransportResults,
+      transportOutcomeProjection:
+        ownerEvidence.public.transportOutcomeProjection,
+      runSemanticEventCount: ownerEvidence.abg.semanticReplay.eventCount,
       durableEventLogLocator: "test_env/proof/abi5-root-r10.events.jsonl",
-      durableEventLogDigest: eventLogDigest,
-      eventKinds: persistedEvents.map((event) => event.kind),
+      durableEventLogDigest:
+        ownerEvidence.transport.finalCloseHandoff.prefix.prefixDigest,
       authorityBoundary: {
-        callerAuthoredOperationOrder: true,
+        exactStaticTransportInvocations: true,
+        rawTransportResultsAreTransportTruth: true,
+        transportOutcomeProjectionIsTestOnly: true,
+        everyTransportTraversedInstalledCli: true,
         cliConstructedExecutionBasis: false,
         cliWroteRuntimeEvents: false,
         cliSelectedHiddenTarget: false,

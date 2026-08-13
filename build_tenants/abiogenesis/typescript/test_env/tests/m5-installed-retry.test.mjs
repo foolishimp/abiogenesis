@@ -92,7 +92,11 @@ async function readEvents(path) {
 }
 
 async function reopenPrefix(events, path) {
-  const bytes = `${events.map((event) => JSON.stringify(event)).join("\n")}\n`;
+  const { canonicalJson } = await import(pathToFileURL(join(
+    root,
+    "build/code/src/shared/canonical_json.js",
+  )).href);
+  const bytes = `${events.map((event) => canonicalJson(event)).join("\n")}\n`;
   await writeFile(path, bytes, "utf8");
   const identity = await stat(path);
   const [{ reopenEventStore, ROOT_EVENT_CONTRACT_DIGEST }, { sha256Canonical }] =
@@ -170,8 +174,9 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     "m5-fp-retry-success",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: fpInput("World"),
     },
   );
@@ -181,7 +186,6 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
       ABG_FP_RETRY_COUNTER: counterPath,
     },
   });
-
   assert.equal(run.exitCode, 0, run.stdout);
   assert.equal(run.outcomes[6].disposition, "succeeded");
   assert.equal(await readFile(counterPath, "utf8"), "2");
@@ -199,6 +203,16 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     [1, 1],
     [1, 2],
   ]);
+  assert.ok(attempts.every((event) =>
+    typeof event.payload.attemptManifestRef === "string" &&
+    event.payload.attemptManifestRef.startsWith(
+      "retry-attempt-manifest://abiogenesis/",
+    )), "every declared retry ordinal carries its owner-local fresh manifest");
+  assert.equal(
+    new Set(attempts.map((event) => event.payload.attemptManifestRef)).size,
+    attempts.length,
+    "nested and repeated retry ordinals never reuse an attempt manifest",
+  );
   assert.deepEqual(progress.map((event) => event.payload.progressClass), [
     "retry",
     "completed",
@@ -268,8 +282,8 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   assert.equal(reopened.kind, "reopened_event_store_context");
   const {
     admitRetryAttempt,
-    hasAdmittedRetryProgress,
-    projectAdmittedRetryProgress,
+    projectDeclaredCRetryFrontier,
+    projectExecutableRetryInput,
     projectRetryAttempt,
   } = await import(pathToFileURL(join(
     root,
@@ -289,13 +303,6 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     admissionEventRef: event.eventId,
   }));
   const completedPrefix = selectValidatedRuntimeEventPrefix(reopened.store.readAll());
-  for (const admission of completedAdmissions) {
-    assert.deepEqual(
-      projectAdmittedRetryProgress(completedPrefix, admission.admissionEventRef),
-      admission,
-    );
-    assert.equal(hasAdmittedRetryProgress(completedPrefix, admission), true);
-  }
   reopened.store.closeDurableLog();
 
   const beforeCompleted = await reopenPrefix(
@@ -345,9 +352,13 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   }
   beforeCompleted.store.closeDurableLog();
 
+  const ownerStorePath = join(
+    harness.scratch,
+    "retry-owner-prefix.events.jsonl",
+  );
   const ownerStore = await reopenPrefix(
     events.slice(0, firstCompletedIndex),
-    join(harness.scratch, "retry-owner-prefix.events.jsonl"),
+    ownerStorePath,
   );
   assert.equal(ownerStore.kind, "reopened_event_store_context");
   const entered = events.find((event) => event.kind === "traversal_cursor_entered");
@@ -380,6 +391,19 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     attempt: secondCall.payload.attempt,
     retryPath: secondCall.payload.retryPath,
   };
+  const retrySourceCall = calls[0];
+  assert.ok(retrySourceCall);
+  const retrySourceCursor = {
+    ...sourceCursor,
+    cursorRef: retrySourceCall.payload.cursorRef,
+    cursorDigest: retrySourceCall.payload.cursorDigest,
+    runId: retrySourceCall.runId,
+    graphCallId: retrySourceCall.graphCallId,
+    frameId: retrySourceCall.frameId,
+    taskOrdinal: retrySourceCall.payload.taskOrdinal,
+    attempt: retrySourceCall.payload.attempt,
+    retryPath: retrySourceCall.payload.retryPath,
+  };
   const cCallValue = {
     kind: "c_call",
     schemaVersion: "5.0.0",
@@ -407,18 +431,24 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     ...secondJudgment.payload,
     admissionEventRef: secondJudgment.eventId,
   };
-  const { rehydrateAdmittedCCallState } = await import(pathToFileURL(join(
+  const {
+    projectAdmittedCCallOutcomeAtPrefix,
+    projectCCallCarrierPhaseAtPrefix,
+    projectOpenedCCallCarrier,
+    rehydrateAdmittedCCallState,
+  } = await import(pathToFileURL(join(
     root,
     "build/code/src/abg/c_call.js",
   )).href);
-  const rehydratedOutcome = rehydrateAdmittedCCallState(
+  const incompleteOpenedOnlyOutcome = rehydrateAdmittedCCallState(
     ownerStore.store,
     cCallValue,
     resultValue,
     judgmentValue,
   );
-  assert.ok(rehydratedOutcome);
-  const catalogEntry = run.outcomes[4].result.graphFunctionEntries.find((entry) =>
+  assert.equal(incompleteOpenedOnlyOutcome, null,
+    "opened-only caller assembly cannot rehydrate an admitted CCall outcome");
+  const catalogEntry = run.outcomes[4].result.entries.find((entry) =>
     entry.handle === GRAPH_FUNCTION_REF);
   const basisEvent = events.find((event) =>
     event.kind === "basis_admitted" && event.basisId === secondCall.basisId);
@@ -434,10 +464,296 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   });
   assert.equal(graph.materializationRef, entered.payload.materializationRef);
   assert.equal(graph.materializationDigest, entered.payload.materializationDigest);
+  const completedOwnerCases = [
+    {
+      depth: 2,
+      event: progress[1],
+      admission: completedAdmissions[0],
+      rowKind: "declared_c_retry_c_call_completed_progress",
+    },
+    {
+      depth: 1,
+      event: progress[2],
+      admission: completedAdmissions[1],
+      rowKind: "declared_c_retry_propagated_completed_progress",
+    },
+  ];
+  const completedOwners = completedOwnerCases.map((ownerCase) => {
+    const owner = projectDeclaredCRetryFrontier(
+      completedPrefix,
+      graph,
+      sourceCursor,
+      catalogEntry.definition,
+      ownerCase.depth,
+    );
+    assert.equal(owner?.state, "progress_available",
+      `completed retry depth ${ownerCase.depth} is the available declared frontier`);
+    assert.equal(owner.available.kind, ownerCase.rowKind);
+    assert.equal(owner.available.progressEventRef, ownerCase.event.eventId);
+    assert.deepEqual(owner.available.progress, ownerCase.admission,
+      "historical progress is read from the matching exact owner row");
+    assert.equal(owner.rows.filter((row) =>
+      row.progress?.progressRef === ownerCase.admission.progressRef &&
+      row.progressEventRef === ownerCase.event.eventId
+    ).length, 1);
+    return owner;
+  });
+  assert.equal(
+    completedOwners[1].available.predecessor.progress.progressRef,
+    completedOwners[0].available.progress.progressRef,
+    "the outer completed owner binds its exact inner predecessor",
+  );
+  assert.equal(
+    completedOwners[1].available.predecessor.progressEventRef,
+    completedOwners[0].available.progressEventRef,
+  );
+  const ownerPrefix = selectValidatedRuntimeEventPrefix(
+    ownerStore.store.readAll(),
+  );
+  const projectedOwnerCCall = projectOpenedCCallCarrier(
+    ownerStore.store,
+    ownerPrefix,
+    graph,
+    secondCall.aggregateId,
+  );
+  assert.ok(projectedOwnerCCall,
+    "the complete CCall carrier is projected from open, fibre, graph, and basis truth");
+  const rehydratedOutcome = rehydrateAdmittedCCallState(
+    ownerStore.store,
+    projectedOwnerCCall,
+    resultValue,
+    judgmentValue,
+  );
+  assert.ok(rehydratedOutcome,
+    "the exact projected carrier rehydrates its admitted result and judgment");
+  const program = harness.rootPublication.programs.find((candidate) =>
+    candidate.programRef === PROGRAM_REF);
+  assert.ok(program);
+  const retrySelector = {
+    kind: "retry_frontier_selector",
+    schemaVersion: "5.0.0",
+    runId: progress[0].runId,
+    graphCallId: progress[0].graphCallId,
+    frameId: progress[0].frameId,
+    retryBoundaryRef: progress[0].payload.retryBoundaryRef,
+    retryProgressRef: progress[0].payload.progressRef,
+  };
+  const selectedProgressIndex = events.findIndex((event) =>
+    event.eventId === progress[0].eventId);
+  const noOutgoingRoute = await reopenPrefix(
+    events.slice(0, selectedProgressIndex + 1),
+    join(harness.scratch, "retry-d17-no-outgoing-route.events.jsonl"),
+  );
+  assert.equal(noOutgoingRoute.kind, "reopened_event_store_context");
+  const currentD17 = projectExecutableRetryInput({
+    prefix: noOutgoingRoute.prefix,
+    selector: retrySelector,
+    program,
+    graphFunction: catalogEntry.definition,
+    graph,
+  });
+  assert.equal(currentD17.kind, "executable_retry_input",
+    JSON.stringify(currentD17));
+  const isolatedProgressPrefix = selectValidatedRuntimeEventPrefix(
+    noOutgoingRoute.store.readAll(),
+  );
+  const isolatedProgressOwner = projectDeclaredCRetryFrontier(
+    isolatedProgressPrefix,
+    graph,
+    currentD17.sourceCursor,
+    catalogEntry.definition,
+  );
+  assert.equal(isolatedProgressOwner?.state, "progress_available");
+  assert.equal(
+    isolatedProgressOwner.available.progressEventRef,
+    progress[0].eventId,
+    "the isolated progress row is the exact available owner frontier",
+  );
+  assert.equal(
+    isolatedProgressOwner.available.progress.progressRef,
+    progress[0].payload.progressRef,
+  );
+  assert.equal(
+    isolatedProgressOwner.rows.filter((row) =>
+      row.progressEventRef === progress[0].eventId &&
+      row.progress?.progressRef === progress[0].payload.progressRef
+    ).length,
+    1,
+    "the exact owner retains one matching historical retry row",
+  );
+  noOutgoingRoute.store.closeDurableLog();
+  const actualOutgoingRoute = routes.find((event) =>
+    event.payload.routeKind === "retry" &&
+    event.payload.sourceCursorRef === currentD17.sourceCursor.cursorRef &&
+    event.payload.sourceCursorDigest === currentD17.sourceCursor.cursorDigest &&
+    event.payload.consumedAvailabilityRefs.includes(
+      progress[0].payload.progressRef,
+    ));
+  assert.ok(actualOutgoingRoute);
+  const actualOutgoingRouteIndex = events.findIndex((event) =>
+    event.eventId === actualOutgoingRoute.eventId);
+  assert.notEqual(actualOutgoingRouteIndex, -1);
+  const spentSource = await reopenPrefix(
+    events.slice(0, actualOutgoingRouteIndex + 1),
+    join(harness.scratch, "retry-d17-spent-source.events.jsonl"),
+  );
+  assert.equal(
+    spentSource.kind,
+    "reopened_event_store_context",
+    JSON.stringify(spentSource),
+  );
+  const staleD17 = projectExecutableRetryInput({
+    prefix: spentSource.prefix,
+    selector: retrySelector,
+    program,
+    graphFunction: catalogEntry.definition,
+    graph,
+  });
+  assert.equal(staleD17.kind, "executable_retry_input_refusal");
+  assert.equal(staleD17.code, "frontier_stale");
+  assert.deepEqual(staleD17.citedSourceEventRefs, [
+    actualOutgoingRoute.eventId,
+  ]);
+  spentSource.store.closeDurableLog();
+  const eventStoreProjectorApi = await import(pathToFileURL(join(
+    root,
+    "build/code/src/abg/event_store.js",
+  )).href);
+  const preProgressSource = events.slice(0, selectedProgressIndex);
+  const preProgressRouteEvents = [];
+  const preProgressRefMap = new Map();
+  const mapPreProgressRefs = (value) => {
+    if (typeof value === "string") {
+      return preProgressRefMap.get(value) ?? value;
+    }
+    if (Array.isArray(value)) return value.map(mapPreProgressRefs);
+    if (value === null || typeof value !== "object") return value;
+    return Object.fromEntries(Object.entries(value).map(([key, child]) => [
+      key,
+      mapPreProgressRefs(child),
+    ]));
+  };
+  for (const original of preProgressSource) {
+    const admitted = eventStoreProjectorApi.projectRuntimeEventFromValidatedHistory(
+      Object.freeze([...preProgressRouteEvents]),
+      eventCandidate(original, {
+        causationEventRefs: original.causationEventRefs.map((eventRef) =>
+          preProgressRefMap.get(eventRef) ?? eventRef),
+        payload: mapPreProgressRefs(original.payload),
+      }),
+    );
+    preProgressRouteEvents.push(admitted);
+    preProgressRefMap.set(original.eventId, admitted.eventId);
+  }
+  const duplicateAttemptSource = attempts[1];
+  const duplicateAttempt =
+    eventStoreProjectorApi.projectRuntimeEventFromValidatedHistory(
+      Object.freeze([...preProgressRouteEvents]),
+      eventCandidate(duplicateAttemptSource, {
+        causationEventRefs: duplicateAttemptSource.causationEventRefs.map(
+          (eventRef) => preProgressRefMap.get(eventRef) ?? eventRef,
+        ),
+        correlationId: `${duplicateAttemptSource.correlationId}/frontier-gap`,
+        payload: mapPreProgressRefs(duplicateAttemptSource.payload),
+      }),
+    );
+  const duplicateAttemptHistory = [
+    ...preProgressRouteEvents,
+    duplicateAttempt,
+  ];
+  const duplicateAttemptProgress =
+    eventStoreProjectorApi.projectRuntimeEventFromValidatedHistory(
+      Object.freeze([...duplicateAttemptHistory]),
+      eventCandidate(progress[0], {
+        causationEventRefs: progress[0].causationEventRefs.map((eventRef) =>
+          preProgressRefMap.get(eventRef) ?? eventRef),
+        payload: mapPreProgressRefs(progress[0].payload),
+      }),
+    );
+  const duplicateAttemptPrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze([...duplicateAttemptHistory, duplicateAttemptProgress]),
+  );
+  assert.equal(projectDeclaredCRetryFrontier(
+    duplicateAttemptPrefix,
+    graph,
+    currentD17.sourceCursor,
+    catalogEntry.definition,
+  ), null, "the declared retry owner refuses a duplicate attempt ordinal");
+  const { sha256Canonical: hashCanonical } = await import(pathToFileURL(join(
+    root,
+    "build/code/src/shared/digests.js",
+  )).href);
+  const manifestReuseEvents = [];
+  const manifestReuseRefMap = new Map();
+  const mapManifestReuseRefs = (value) => {
+    if (typeof value === "string") {
+      return manifestReuseRefMap.get(value) ?? value;
+    }
+    if (Array.isArray(value)) return value.map(mapManifestReuseRefs);
+    if (value === null || typeof value !== "object") return value;
+    return Object.fromEntries(Object.entries(value).map(([key, child]) => [
+      key,
+      mapManifestReuseRefs(child),
+    ]));
+  };
+  let reusedManifestAttempt;
+  for (const original of [...preProgressSource, progress[0]]) {
+    let payload = mapManifestReuseRefs(original.payload);
+    if (original.eventId === duplicateAttemptSource.eventId) {
+      const {
+        attemptRef: _attemptRef,
+        attemptDigest: _attemptDigest,
+        ...attemptBody
+      } = payload;
+      const reusedBody = {
+        ...attemptBody,
+        attemptManifestRef: attempts[0].payload.attemptManifestRef,
+      };
+      const attemptDigest = hashCanonical(reusedBody);
+      const attemptRef =
+        `retry-attempt://abiogenesis/${attemptDigest.slice("sha256:".length)}`;
+      payload = { attemptRef, attemptDigest, ...reusedBody };
+      manifestReuseRefMap.set(original.payload.attemptRef, attemptRef);
+    }
+    const admitted = eventStoreProjectorApi.projectRuntimeEventFromValidatedHistory(
+      Object.freeze([...manifestReuseEvents]),
+      eventCandidate(original, {
+        causationEventRefs: original.causationEventRefs.map((eventRef) =>
+          manifestReuseRefMap.get(eventRef) ?? eventRef),
+        payload,
+      }),
+    );
+    manifestReuseEvents.push(admitted);
+    manifestReuseRefMap.set(original.eventId, admitted.eventId);
+    if (original.eventId === duplicateAttemptSource.eventId) {
+      reusedManifestAttempt = admitted;
+    }
+  }
+  assert.ok(reusedManifestAttempt);
+  const manifestReusePrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze(manifestReuseEvents),
+  );
+  assert.equal(
+    projectRetryAttempt(
+      manifestReusePrefix,
+      graph,
+      reusedManifestAttempt.eventId,
+    ),
+    null,
+    "a recomputed attempt identity cannot reuse another boundary manifest",
+  );
+  assert.equal(projectDeclaredCRetryFrontier(
+    manifestReusePrefix,
+    graph,
+    currentD17.sourceCursor,
+    catalogEntry.definition,
+  ), null, "the declared retry owner refuses a reused attempt manifest");
+  const thirdAttemptIndex = events.findIndex((event) =>
+    event.eventId === attempts[2].eventId);
   const projectedAttempt = projectRetryAttempt(
     completedPrefix,
     graph,
-    attempts[2].payload.attemptRef,
+    attempts[2].eventId,
   );
   assert.equal(projectedAttempt?.attemptRef, attempts[2].payload.attemptRef,
     "T-287 R5 reconstructs the attempt cursor from its admitted retry route");
@@ -445,8 +761,89 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   assert.equal(projectRetryAttempt(
     completedPrefix,
     graph,
+    attempts[2].payload.attemptRef,
+  ), null, "a bare retry-attempt ref is not a projection query alias");
+  assert.equal(projectRetryAttempt(
+    completedPrefix,
+    graph,
     sourceCursor.cursorRef,
   ), null, "a traversal cursor ref is not an attempt identity");
+  const eventStoreApi = await import(pathToFileURL(join(
+    root,
+    "build/code/src/abg/event_store.js",
+  )).href);
+  const completedProgressRefusalRollback = Symbol(
+    "completed-progress-refusal-rollback",
+  );
+  const invokeCompletedRetryProgressForProof = (store, action) => {
+    let refusal;
+    try {
+      return eventStoreApi.admitRuntimeEventTransactionAtExpectedPrefix(
+        store,
+        store.digest(),
+        () => {
+          const result = action();
+          if (!Array.isArray(result)) {
+            refusal = result;
+            throw completedProgressRefusalRollback;
+          }
+          return result;
+        },
+      ).value;
+    } catch (error) {
+      if (
+        error === completedProgressRefusalRollback &&
+        refusal !== undefined
+      ) return refusal;
+      throw error;
+    }
+  };
+  const eventRefMap = new Map();
+  const mapEventRefs = (value) => {
+    if (typeof value === "string") return eventRefMap.get(value) ?? value;
+    if (Array.isArray(value)) return value.map(mapEventRefs);
+    if (value === null || typeof value !== "object") return value;
+    return Object.fromEntries(
+      Object.entries(value).map(([key, child]) => [key, mapEventRefs(child)]),
+    );
+  };
+  const forgedOriginEvents = [];
+  let forgedLaterAttempt = null;
+  for (const original of events.slice(0, thirdAttemptIndex + 1)) {
+    const causationEventRefs = original.eventId === attempts[1].eventId
+      ? [
+          eventRefMap.get(routes[1].eventId) ?? routes[1].eventId,
+          eventRefMap.get(routes[0].eventId) ?? routes[0].eventId,
+        ]
+      : original.causationEventRefs.map((eventRef) =>
+          eventRefMap.get(eventRef) ?? eventRef
+        );
+    const admitted = eventStoreApi.projectRuntimeEventFromValidatedHistory(
+      Object.freeze([...forgedOriginEvents]),
+      eventCandidate(original, {
+        causationEventRefs,
+        payload: mapEventRefs(original.payload),
+      }),
+    );
+    forgedOriginEvents.push(admitted);
+    eventRefMap.set(original.eventId, admitted.eventId);
+    if (original.eventId === attempts[2].eventId) {
+      forgedLaterAttempt = admitted;
+    }
+  }
+  assert.ok(forgedLaterAttempt);
+  const forgedOriginPrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze([...forgedOriginEvents]),
+  );
+  assert.equal(
+    projectRetryAttempt(
+      forgedOriginPrefix,
+      graph,
+      forgedLaterAttempt.eventId,
+    ),
+    null,
+    "a later attempt cannot bootstrap authority through a schema-valid but C1-invalid origin attempt",
+  );
   const { rehydrateExecutionBasis } = await import(pathToFileURL(join(
     root,
     "build/code/src/abg/execution_basis.js",
@@ -463,8 +860,6 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     JSON.stringify(sourceCursor));
   assert.equal(cursorApi.hasAdmittedTraversalCursor(ownerStore.store, sourceCursor), true);
 
-  const thirdAttemptIndex = events.findIndex((event) =>
-    event.eventId === attempts[2].eventId);
   const attemptStore = await reopenPrefix(
     events.slice(0, thirdAttemptIndex),
     join(harness.scratch, "retry-attempt-owner-prefix.events.jsonl"),
@@ -477,14 +872,17 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   assert.ok(attemptBasis);
   const attemptBefore = attemptStore.store.readAll().length;
   const attemptDigestMethod = attemptStore.store.digest;
+  const thirdAttemptRouteEventRef = attempts[2].causationEventRefs[0];
+  assert.equal(typeof thirdAttemptRouteEventRef, "string");
   attemptStore.store.digest = () => `sha256:${"0".repeat(64)}`;
   const staleAttempt = admitRetryAttempt(
     attemptStore.store,
     attemptBasis,
     graph,
+    catalogEntry.definition,
     sourceCursor,
     attempts[2].payload.inputValue,
-    routes[2].eventId,
+    thirdAttemptRouteEventRef,
     { eventTime: attempts[2].eventTime, correlationId: "test://retry-attempt-stale", causationEventRefs: [routes[0].eventId] },
   );
   attemptStore.store.digest = attemptDigestMethod;
@@ -495,31 +893,80 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     attemptStore.store,
     attemptBasis,
     graph,
+    catalogEntry.definition,
     sourceCursor,
     attempts[2].payload.inputValue,
-    routes[2].eventId,
+    thirdAttemptRouteEventRef,
     { eventTime: attempts[2].eventTime, correlationId: "test://retry-attempt-nonempty-basis", causationEventRefs: [routes[0].eventId] },
   );
-  assert.equal(admittedAttempt.kind, "retry_attempt_admission");
+  assert.equal(
+    admittedAttempt.kind,
+    "retry_attempt_admission",
+    JSON.stringify(admittedAttempt),
+  );
   assert.equal(admittedAttempt.attemptRef, attempts[2].payload.attemptRef);
   assert.deepEqual(attemptStore.store.readAll().at(-1).causationEventRefs, [
-    routes[2].eventId,
-  ], "caller basis causes cannot enter retry-attempt authority");
+    thirdAttemptRouteEventRef,
+  ], "retry-attempt authority is caused only by its admitted retry route");
+  assert.equal(Object.hasOwn(attempts[2].payload, "inputSourceEventRef"), false);
+  assert.equal(Object.hasOwn(attempts[2].payload, "inputValueKind"), false);
   attemptStore.store.closeDurableLog();
 
   const ownerBefore = ownerStore.store.readAll().length;
-  const fabricatedTarget = admitCompletedRetryProgress(
+  const judgedSuccess = (cCall, result, judgment) => ({
+    completionClass: "judged_success",
+    cCall,
+    result,
+    judgment,
+  });
+  const fabricatedTarget = invokeCompletedRetryProgressForProof(
     ownerStore.store,
-    graph,
-    sourceCursor,
-    sourceCursor,
-    rehydratedOutcome.cCall,
-    rehydratedOutcome.result,
-    rehydratedOutcome.judgment,
-    { eventTime: progress[1].eventTime, correlationId: "test://retry-forged-target", causationEventRefs: [] },
+    () => admitCompletedRetryProgress(
+      ownerStore.store,
+      graph,
+      catalogEntry.definition,
+      sourceCursor,
+      sourceCursor,
+      judgedSuccess(
+        rehydratedOutcome.cCall,
+        rehydratedOutcome.result,
+        rehydratedOutcome.judgment,
+      ),
+      { eventTime: progress[1].eventTime, correlationId: "test://retry-forged-target", causationEventRefs: [] },
+    ),
   );
   assert.equal(fabricatedTarget.kind, "retry_admission_refusal");
   assert.equal(ownerStore.store.readAll().length, ownerBefore);
+  const cursorWithCoordinates = (coordinates) => {
+    const body = {
+      programRef: coordinates.programRef,
+      executionBasisRef: coordinates.executionBasisRef,
+      traversalScopeRef: coordinates.traversalScopeRef,
+      runId: coordinates.runId,
+      graphCallId: coordinates.graphCallId,
+      frameId: coordinates.frameId,
+      graphRef: coordinates.graphRef,
+      inputRef: coordinates.inputRef,
+      inputDigest: coordinates.inputDigest,
+      currentNodeRef: coordinates.currentNodeRef,
+      position: coordinates.position,
+      termPath: coordinates.termPath,
+      taskOrdinal: coordinates.taskOrdinal,
+      attempt: coordinates.attempt,
+      retryPath: coordinates.retryPath,
+    };
+    const cursorDigest = hashCanonical(body);
+    return Object.freeze({
+      kind: "traversal_cursor",
+      schemaVersion: "5.0.0",
+      cursorRef:
+        `traversal-cursor://abiogenesis/${
+          cursorDigest.slice("sha256:".length)
+        }`,
+      cursorDigest,
+      ...body,
+    });
+  };
   for (const mutation of [
     { runId: "run://forged" },
     { graphCallId: "graph-call://forged" },
@@ -530,18 +977,47 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     { currentNodeRef: "node://forged" },
     { termPath: [...sourceCursor.termPath, "forged"] },
   ]) {
-    const refused = admitCompletedRetryProgress(
+    const mutatedSourceCursor = cursorWithCoordinates({
+      ...sourceCursor,
+      ...mutation,
+    });
+    assert.equal(
+      cursorApi.isTraversalCursorCandidate(mutatedSourceCursor),
+      true,
+      JSON.stringify(mutation),
+    );
+    assert.equal(
+      cursorApi.hasAdmittedTraversalCursor(
+        ownerStore.store,
+        mutatedSourceCursor,
+      ),
+      false,
+      JSON.stringify(mutation),
+    );
+    const mutationBeforeEvents = ownerStore.store.readAll();
+    const mutationBeforeDigest = ownerStore.store.digest();
+    const mutationBeforeBytes = await readFile(ownerStorePath, "utf8");
+    const refused = invokeCompletedRetryProgressForProof(
       ownerStore.store,
-      graph,
-      { ...sourceCursor, ...mutation },
-      null,
-      rehydratedOutcome.cCall,
-      rehydratedOutcome.result,
-      rehydratedOutcome.judgment,
-      { eventTime: progress[1].eventTime, correlationId: "test://retry-coordinate-mutation", causationEventRefs: [] },
+      () => admitCompletedRetryProgress(
+        ownerStore.store,
+        graph,
+        catalogEntry.definition,
+        mutatedSourceCursor,
+        null,
+        judgedSuccess(
+          rehydratedOutcome.cCall,
+          rehydratedOutcome.result,
+          rehydratedOutcome.judgment,
+        ),
+        { eventTime: progress[1].eventTime, correlationId: "test://retry-coordinate-mutation", causationEventRefs: [] },
+      ),
     );
     assert.equal(refused.kind, "retry_admission_refusal");
+    assert.deepEqual(ownerStore.store.readAll(), mutationBeforeEvents);
     assert.equal(ownerStore.store.readAll().length, ownerBefore);
+    assert.equal(ownerStore.store.digest(), mutationBeforeDigest);
+    assert.equal(await readFile(ownerStorePath, "utf8"), mutationBeforeBytes);
   }
   for (const [label, graphValue, cCall, result, judgment] of [
     [
@@ -573,45 +1049,59 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
       { ...rehydratedOutcome.judgment, judgmentRef: "judgment://abiogenesis/forged" },
     ],
   ]) {
-    const refused = admitCompletedRetryProgress(
+    const refused = invokeCompletedRetryProgressForProof(
       ownerStore.store,
-      graphValue,
-      sourceCursor,
-      null,
-      cCall,
-      result,
-      judgment,
-      { eventTime: progress[1].eventTime, correlationId: `test://retry-${label}`, causationEventRefs: [] },
+      () => admitCompletedRetryProgress(
+        ownerStore.store,
+        graphValue,
+        catalogEntry.definition,
+        sourceCursor,
+        null,
+        judgedSuccess(cCall, result, judgment),
+        { eventTime: progress[1].eventTime, correlationId: `test://retry-${label}`, causationEventRefs: [] },
+      ),
     );
     assert.equal(refused.kind, "retry_admission_refusal", label);
     assert.equal(ownerStore.store.readAll().length, ownerBefore, label);
   }
   const originalDigest = ownerStore.store.digest;
   ownerStore.store.digest = () => `sha256:${"0".repeat(64)}`;
-  const staleCompletion = admitCompletedRetryProgress(
+  const staleCompletion = invokeCompletedRetryProgressForProof(
     ownerStore.store,
-    graph,
-    sourceCursor,
-    null,
-    rehydratedOutcome.cCall,
-    rehydratedOutcome.result,
-    rehydratedOutcome.judgment,
-    { eventTime: progress[1].eventTime, correlationId: "test://retry-stale-prefix", causationEventRefs: [] },
+    () => admitCompletedRetryProgress(
+      ownerStore.store,
+      graph,
+      catalogEntry.definition,
+      sourceCursor,
+      null,
+      judgedSuccess(
+        rehydratedOutcome.cCall,
+        rehydratedOutcome.result,
+        rehydratedOutcome.judgment,
+      ),
+      { eventTime: progress[1].eventTime, correlationId: "test://retry-stale-prefix", causationEventRefs: [] },
+    ),
   );
   ownerStore.store.digest = originalDigest;
   assert.equal(staleCompletion.kind, "retry_admission_refusal");
   assert.equal(staleCompletion.code, "progress_mismatch");
   assert.equal(ownerStore.store.readAll().length, ownerBefore,
     "stale expected prefix appends neither nested completion row");
-  const admittedCompletion = admitCompletedRetryProgress(
+  const admittedCompletion = invokeCompletedRetryProgressForProof(
     ownerStore.store,
-    graph,
-    sourceCursor,
-    null,
-    rehydratedOutcome.cCall,
-    rehydratedOutcome.result,
-    rehydratedOutcome.judgment,
-    { eventTime: progress[1].eventTime, correlationId: "test://retry-owner", causationEventRefs: [] },
+    () => admitCompletedRetryProgress(
+      ownerStore.store,
+      graph,
+      catalogEntry.definition,
+      sourceCursor,
+      null,
+      judgedSuccess(
+        rehydratedOutcome.cCall,
+        rehydratedOutcome.result,
+        rehydratedOutcome.judgment,
+      ),
+      { eventTime: progress[1].eventTime, correlationId: "test://retry-owner", causationEventRefs: [] },
+    ),
   );
   assert.equal(Array.isArray(admittedCompletion), true,
     JSON.stringify(admittedCompletion));
@@ -629,6 +1119,182 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
     ]),
   );
   assert.equal(ownerStore.store.readAll().length, ownerBefore + 2);
+  const [{ replay }, routeApi, { sha256Canonical }] = await Promise.all([
+    import(pathToFileURL(join(root, "build/code/src/abg/replay.js")).href),
+    import(pathToFileURL(join(
+      root,
+      "build/code/src/abg/traversal_route.js",
+    )).href),
+    import(pathToFileURL(join(root, "build/code/src/shared/digests.js")).href),
+  ]);
+  const ownerExecutionBasis = rehydrateExecutionBasis(
+    ownerStore.store,
+    secondCall.basisId,
+  );
+  assert.ok(ownerExecutionBasis);
+  const completedOwnerPrefix = selectValidatedRuntimeEventPrefix(
+    ownerStore.store.readAll(),
+  );
+  const routeCCall = projectOpenedCCallCarrier(
+    ownerStore.store,
+    completedOwnerPrefix,
+    graph,
+    rehydratedOutcome.cCall.cCallRef,
+  );
+  assert.ok(routeCCall);
+  const routeOutcome = rehydrateAdmittedCCallState(
+    ownerStore.store,
+    routeCCall,
+    rehydratedOutcome.result,
+    rehydratedOutcome.judgment,
+  );
+  assert.ok(routeOutcome);
+  assert.equal(
+    terminalRoute.payload.contractRef,
+    routeOutcome.cCall.transitionContractRef,
+  );
+  assert.ok(projectCCallCarrierPhaseAtPrefix(
+    completedOwnerPrefix,
+    routeOutcome.cCall,
+  ));
+  assert.ok(projectAdmittedCCallOutcomeAtPrefix(
+    completedOwnerPrefix,
+    routeOutcome.cCall,
+    routeOutcome.result,
+    routeOutcome.judgment,
+  ));
+  const admittedCompletionOwners = [2, 1].map((depth, index) => {
+    const owner = projectDeclaredCRetryFrontier(
+      completedOwnerPrefix,
+      graph,
+      sourceCursor,
+      catalogEntry.definition,
+      depth,
+    );
+    assert.equal(owner?.state, "progress_available",
+      `owner-built completed depth ${depth} is available`);
+    assert.deepEqual(owner.available.progress, admittedCompletion[index]);
+    assert.equal(owner.available.progressEventRef,
+      admittedCompletion[index].admissionEventRef);
+    return owner;
+  });
+  assert.equal(
+    admittedCompletionOwners[1].available.predecessor.progress.progressRef,
+    admittedCompletionOwners[0].available.progress.progressRef,
+  );
+  const directRouteCandidate = (completedProgresses) => {
+    const replayState = replay(ownerStore.store, { runId: sourceCursor.runId });
+    const body = {
+      routeKind: "terminal",
+      declarationRef: graph.materializationRef,
+      declarationDigest: graph.materializationDigest,
+      sourceCursorRef: sourceCursor.cursorRef,
+      sourceCursorDigest: sourceCursor.cursorDigest,
+      targetCursorRef: null,
+      targetCursorDigest: null,
+      cCallRef: routeOutcome.cCall.cCallRef,
+      judgmentRef: routeOutcome.judgment.judgmentRef,
+      consumedAvailabilityRefs: [
+        routeOutcome.judgment.judgmentRef,
+        ...completedProgresses.map((row) => row.progressRef),
+      ],
+      contractRef: routeOutcome.cCall.transitionContractRef,
+      replayStateDigest: replayState.replayDigest,
+    };
+    const candidateDigest = sha256Canonical(body);
+    return {
+      kind: "traversal_route_candidate",
+      schemaVersion: "5.0.0",
+      candidateRef:
+        `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
+      candidateDigest,
+      ...body,
+    };
+  };
+  const admitDirectRoute = (completedProgresses, suffix) => routeApi.admitRoute(
+    ownerStore.store,
+    ownerExecutionBasis,
+    graph,
+    sourceCursor,
+    null,
+    replay(ownerStore.store, { runId: sourceCursor.runId }),
+    directRouteCandidate(completedProgresses),
+    {
+      eventTime: progress[2].eventTime,
+      correlationId: `test://retry-owner/direct-route/${suffix}`,
+      causationEventRefs: [],
+    },
+    {
+      graphFunction: catalogEntry.definition,
+      cCall: routeOutcome.cCall,
+      result: routeOutcome.result,
+      judgment: routeOutcome.judgment,
+      completedProgresses,
+    },
+    { terminalizeRun: false },
+  );
+  const beforeDirectRoute = ownerStore.store.readAll().length;
+  for (const [label, completedProgresses] of [
+    ["reordered", admittedCompletion.toReversed()],
+    ["duplicate", [admittedCompletion[0], admittedCompletion[0]]],
+    ["incomplete", admittedCompletion.slice(1)],
+  ]) {
+    const refusal = admitDirectRoute(completedProgresses, label);
+    assert.equal(refusal.kind, "traversal_route_admission_refusal", label);
+    assert.equal(refusal.code, "judgment_mismatch", label);
+    assert.equal(ownerStore.store.readAll().length, beforeDirectRoute, label);
+  }
+  const directRoute = admitDirectRoute(admittedCompletion, "complete");
+  assert.equal(directRoute.kind, "admitted_traversal_route",
+    JSON.stringify(directRoute));
+  const directRouteEvent = ownerStore.store.readAll().at(-1);
+  assert.equal(directRouteEvent.eventId, directRoute.admissionEventRef);
+  assert.deepEqual(
+    directRouteEvent.causationEventRefs,
+    admittedCompletion.toReversed().map((row) => row.admissionEventRef),
+    "direct ABG route admission derives the complete outer-to-inner cause set",
+  );
+  const directPrefix = selectValidatedRuntimeEventPrefix(
+    ownerStore.store.readAll(),
+  );
+  const directEventCalculus = await import(pathToFileURL(join(
+    root,
+    "build/code/src/abg/event_calculus.js",
+  )).href);
+  const directCalculus = directEventCalculus
+    .deriveRuntimeEventCalculusProjection(directPrefix);
+  for (const [index, row] of admittedCompletion.entries()) {
+    assert.equal(directEventCalculus.holdsAt(
+      directCalculus,
+      directEventCalculus.constructScopedRetryFluent(
+        "retry_progress_available",
+        {
+          runId: sourceCursor.runId,
+          graphCallId: sourceCursor.graphCallId,
+          frameId: sourceCursor.frameId,
+          retryBoundaryRef: row.retryBoundaryRef,
+          authorityRef: row.progressRef,
+        },
+      ),
+    ), false, `direct route terminates completed depth ${row.completedRetryDepth}`);
+    const depth = index === 0 ? 2 : 1;
+    const consumedOwner = projectDeclaredCRetryFrontier(
+      directPrefix,
+      graph,
+      sourceCursor,
+      catalogEntry.definition,
+      depth,
+    );
+    assert.equal(consumedOwner?.state, "progress_consumed");
+    assert.equal(consumedOwner.consumed.progress.progressRef, row.progressRef);
+    assert.equal(consumedOwner.consumed.progressEventRef, row.admissionEventRef);
+    assert.equal(consumedOwner.consumed.consumption.kind,
+      "progress_consumed_by_exit");
+    assert.equal(
+      consumedOwner.consumed.consumption.route.admissionEventRef,
+      directRoute.admissionEventRef,
+    );
+  }
   ownerStore.store.closeDurableLog();
 
   for (const [label, mutate] of [
@@ -662,15 +1328,42 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   const closedPrefix = selectValidatedRuntimeEventPrefix(
     closedReopen.store.readAll(),
   );
-  for (const admission of completedAdmissions) {
-    assert.deepEqual(
-      projectAdmittedRetryProgress(closedPrefix, admission.admissionEventRef),
-      projectAdmittedRetryProgress(completedPrefix, admission.admissionEventRef),
-      "lawful later suffix does not reprice a historical retry-progress carrier",
+  const closedOwners = completedOwnerCases.map((ownerCase, index) => {
+    const owner = projectDeclaredCRetryFrontier(
+      closedPrefix,
+      graph,
+      sourceCursor,
+      catalogEntry.definition,
+      ownerCase.depth,
     );
-    assert.equal(hasAdmittedRetryProgress(closedPrefix, admission), false,
-      "terminal route consumption is reconstructed as unavailable after durable reopen");
-  }
+    assert.equal(owner?.state, "progress_consumed",
+      "terminal route consumption is reconstructed by the declared owner");
+    assert.equal(owner.consumed.kind, ownerCase.rowKind);
+    assert.deepEqual(
+      owner.consumed.progress,
+      completedOwners[index].available.progress,
+      "lawful later suffix does not reprice the matching historical owner row",
+    );
+    assert.equal(owner.consumed.progressEventRef, ownerCase.event.eventId);
+    assert.equal(owner.consumed.consumption.kind,
+      "progress_consumed_by_exit");
+    assert.equal(
+      owner.consumed.consumption.route.admissionEventRef,
+      terminalRoute.eventId,
+    );
+    assert.notEqual(owner.selectedPrefixDigest,
+      completedOwners[index].selectedPrefixDigest,
+      "frontier currentness is rebound to the fresh closed prefix");
+    return owner;
+  });
+  assert.equal(
+    closedOwners[1].consumed.predecessor.progress.progressRef,
+    closedOwners[0].consumed.progress.progressRef,
+  );
+  assert.equal(
+    closedOwners[1].consumed.predecessor.progressEventRef,
+    closedOwners[0].consumed.progressEventRef,
+  );
   const eventCalculus = await import(pathToFileURL(join(
     root,
     "build/code/src/abg/event_calculus.js",
@@ -681,18 +1374,24 @@ test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt 
   for (const attempt of attempts) {
     assert.equal(eventCalculus.holdsAt(
       closedCalculus,
-      eventCalculus.constructRuntimeFluent({
-        name: "retry_attempt_active",
-        identity: attempt.payload.attemptRef,
+      eventCalculus.constructScopedRetryFluent("retry_attempt_active", {
+        runId: attempt.runId,
+        graphCallId: attempt.graphCallId,
+        frameId: attempt.frameId,
+        retryBoundaryRef: attempt.payload.retryBoundaryRef,
+        authorityRef: attempt.payload.attemptRef,
       }),
     ), false);
   }
   for (const row of progress) {
     assert.equal(eventCalculus.holdsAt(
       closedCalculus,
-      eventCalculus.constructRuntimeFluent({
-        name: "retry_progress_available",
-        identity: row.payload.progressRef,
+      eventCalculus.constructScopedRetryFluent("retry_progress_available", {
+        runId: row.runId,
+        graphCallId: row.graphCallId,
+        frameId: row.frameId,
+        retryBoundaryRef: row.payload.retryBoundaryRef,
+        authorityRef: row.payload.progressRef,
       }),
     ), false);
   }
@@ -711,8 +1410,9 @@ test("M5 installed C.retry does not reinterpret a semantic contradiction as retr
     "m5-fp-retry-contradiction",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: fpInput("World"),
     },
   );
@@ -803,8 +1503,9 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
       `m5-fp-retry-${row.label}`,
       (payload) => payload,
       {
+        catalogApplications: [],
         programRef: PROGRAM_REF,
-        graphFunctionRef: GRAPH_FUNCTION_REF,
+        catalogHandle: GRAPH_FUNCTION_REF,
         input: fpInput("World"),
       },
     );
@@ -871,6 +1572,21 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
       progress[1].eventId,
     ], row.label);
     assert.equal(events.at(-1).kind, "run_stopped", row.label);
+    const finalCloseIndex = events.findIndex((event) =>
+      event.eventId === results.at(-1).eventId);
+    assert.ok(finalCloseIndex >= 0, row.label);
+    assert.deepEqual(
+      events.slice(finalCloseIndex).map((event) => event.kind),
+      [
+        "c_call_result_admitted",
+        "c_call_judged",
+        "retry_progress_recorded",
+        "retry_progress_recorded",
+        "traversal_route_admitted",
+        "run_stopped",
+      ],
+      `${row.label}: close, stopped suffix, route, and run stop are one complete final batch`,
+    );
 
     for (const [index, result] of results.entries()) {
       assert.equal(result.payload.value.failureSignalRef,
@@ -895,40 +1611,36 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
     );
     assert.equal(eventCalculus.holdsAt(
       routeCalculus,
-      eventCalculus.constructRuntimeFluent({
-        name: "retry_attempt_active",
-        identity: attempts[2].payload.attemptRef,
+      eventCalculus.constructScopedRetryFluent("retry_attempt_active", {
+        runId: attempts[2].runId,
+        graphCallId: attempts[2].graphCallId,
+        frameId: attempts[2].frameId,
+        retryBoundaryRef: attempts[2].payload.retryBoundaryRef,
+        authorityRef: attempts[2].payload.attemptRef,
       }),
     ), false, row.label);
     for (const stopped of progress.slice(1)) {
       assert.equal(eventCalculus.holdsAt(
         routeCalculus,
-        eventCalculus.constructRuntimeFluent({
-          name: "retry_progress_available",
-          identity: stopped.payload.progressRef,
+        eventCalculus.constructScopedRetryFluent("retry_progress_available", {
+          runId: stopped.runId,
+          graphCallId: stopped.graphCallId,
+          frameId: stopped.frameId,
+          retryBoundaryRef: stopped.payload.retryBoundaryRef,
+          authorityRef: stopped.payload.progressRef,
         }),
       ), false, row.label);
     }
 
     if (row.label === "stationary-contract-failure") {
       await context.test(
-        "T-287 R1 nested blocked return_to_parent consumes the full stopped suffix",
+        "T-287 R1 final blocked suffix reconstructs consumed and closes split late admission",
         async () => {
-          const childStore = await reopenPrefix(
-            events.slice(0, blockedRouteIndex),
-            join(harness.scratch, "retry-return-to-parent-prefix.events.jsonl"),
-          );
-          assert.equal(childStore.kind, "reopened_event_store_context");
-          const childPrefix = selectValidatedRuntimeEventPrefix(
-            childStore.store.readAll(),
-          );
-          const calls = events.filter((event) => event.kind === "c_call_opened");
+          const calls = events.filter((event) =>
+            event.kind === "c_call_opened");
           const childCall = calls.at(-1);
           const childResult = results.at(-1);
           const childJudgment = judgments.at(-1);
-          const childFibre = events.find((event) =>
-            event.kind === "c_call_fibre_selected" &&
-            event.aggregateId === childCall.aggregateId);
           const entered = events.find((event) =>
             event.kind === "traversal_cursor_entered");
           const childCursor = {
@@ -945,7 +1657,8 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
             graphRef: entered.payload.materializationRef,
             inputRef: entered.payload.inputRef,
             inputDigest: entered.payload.inputDigest,
-            currentNodeRef: "node://abiogenesis/conformance/fp-retry-hello@5",
+            currentNodeRef:
+              "node://abiogenesis/conformance/fp-retry-hello@5",
             position: "at_term",
             termPath: [...entered.payload.termPath, "term", "term"],
             taskOrdinal: childCall.payload.taskOrdinal,
@@ -985,33 +1698,7 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
               import(pathToFileURL(join(root,
                 "build/code/src/hog/traversal_route.js")).href),
             ]);
-          const executionBasis = rehydrateExecutionBasis(
-            childStore.store,
-            childCall.basisId,
-          );
-          assert.ok(executionBasis);
-          const cCallValue = {
-            kind: "c_call",
-            schemaVersion: "5.0.0",
-            ...childCall.payload,
-            basisId: childCall.basisId,
-            runId: childCall.runId,
-            graphFunctionRef: childCall.graphFunctionRef,
-            graphCallId: childCall.graphCallId,
-            frameId: childCall.frameId,
-            childGraphFunctionRef: null,
-            transitionContractRef: executionBasis.transitionContractRef,
-            openedEventRef: childCall.eventId,
-            fibreSelectedEventRef: childFibre.eventId,
-          };
-          const outcome = rehydrateAdmittedCCallState(
-            childStore.store,
-            cCallValue,
-            resultValue,
-            judgmentValue,
-          );
-          assert.ok(outcome);
-          const catalogEntry = run.outcomes[4].result.graphFunctionEntries
+          const catalogEntry = run.outcomes[4].result.entries
             .find((entry) => entry.handle === GRAPH_FUNCTION_REF);
           const basisEvent = events.find((event) =>
             event.kind === "basis_admitted" &&
@@ -1022,114 +1709,127 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
             admittedInputDigest: basisEvent.payload.rawInputDigest,
             admittedInput: fpInput("World"),
           });
-          const immutablePrefixText =
-            `${events.slice(0, blockedRouteIndex).map((event) =>
-              JSON.stringify(event)).join("\n")}\n`;
-          const workerPath = join(root,
-            "test_env/falsifiers/t287-r3-reopen-route-worker.mjs");
-          const runOwnerInternalWorker = async (label, cCallRef) => {
-            const eventLogPath = join(
-              harness.scratch,
-              `retry-r3-${label}-prefix.events.jsonl`,
-            );
-            const handoffPath = join(
-              harness.scratch,
-              `retry-r3-${label}-handoff.json`,
-            );
-            await writeFile(eventLogPath, immutablePrefixText, "utf8");
-            await writeFile(handoffPath, JSON.stringify({
-              packageRoot: harness.installedPackageRoot,
-              eventLogPath,
-              graphFunction: catalogEntry.definition,
-              cCallRef,
-              eventTime: blockedRoute.eventTime,
-            }), "utf8");
-            return execFileAsync(
-              process.execPath,
-              [workerPath, handoffPath],
-              { encoding: "utf8", maxBuffer: 20 * 1024 * 1024 },
-            );
-          };
-          const freshWorker = await runOwnerInternalWorker(
-            "owner-internal",
-            childCall.aggregateId,
+
+          const immutableFinalPrefixText =
+            `${events.map((event) => JSON.stringify(event)).join("\n")}\n`;
+          const workerEventLogPath = join(
+            harness.scratch,
+            "retry-r3-final-prefix.events.jsonl",
           );
-          const freshRoute = JSON.parse(freshWorker.stdout);
-          assert.notEqual(freshRoute.pid, process.pid,
-            "T-287 R3 owner-internal reconstruction executes in PID 2");
-          assert.equal(freshRoute.reconstructionKind,
-            "owner_internal_retry_frontier");
-          assert.equal(freshRoute.ownerInternalProjectionEqual, true);
-          assert.deepEqual(freshRoute.consumedAvailabilityRefs, [
-            outcome.judgment.judgmentRef,
+          const handoffPath = join(
+            harness.scratch,
+            "retry-r3-final-handoff.json",
+          );
+          await writeFile(
+            workerEventLogPath,
+            immutableFinalPrefixText,
+            "utf8",
+          );
+          await writeFile(handoffPath, JSON.stringify({
+            packageRoot: harness.installedPackageRoot,
+            eventLogPath: workerEventLogPath,
+            graphFunction: catalogEntry.definition,
+            cCallRef: childCall.aggregateId,
+          }), "utf8");
+          const workerPath = join(
+            root,
+            "test_env/falsifiers/t287-r3-reopen-route-worker.mjs",
+          );
+          const freshWorker = await execFileAsync(
+            process.execPath,
+            [workerPath, handoffPath],
+            { encoding: "utf8", maxBuffer: 20 * 1024 * 1024 },
+          );
+          const freshProjection = JSON.parse(freshWorker.stdout);
+          assert.notEqual(freshProjection.pid, process.pid,
+            "T-287 R3 final-prefix reconstruction executes in PID 2");
+          assert.equal(
+            freshProjection.reconstructionKind,
+            "owner_internal_consumed_retry_frontier",
+          );
+          assert.equal(freshProjection.ownerInternalProjectionEqual, true);
+          assert.deepEqual(freshProjection.consumedAvailabilityRefs, [
+            childJudgment.payload.judgmentRef,
             ...progress.slice(1).map((event) => event.payload.progressRef),
           ]);
-          assert.deepEqual(freshRoute.causationEventRefs,
-            progress.slice(1).toReversed().map((event) => event.eventId));
-          await assert.rejects(
-            () => runOwnerInternalWorker(
-              "forged-selector",
-              `${childCall.aggregateId}/forged`,
-            ),
-            (error) => {
-              assert.match(error.stderr,
-                /owner-internal selector resolves one exact CCall/u);
-              return true;
-            },
-            "a forged CCall selector is refused before reconstruction",
-          );
-          assert.equal(await readFile(join(
-            harness.scratch,
-            "retry-r3-forged-selector-prefix.events.jsonl",
-          ), "utf8"), immutablePrefixText);
-          const staleCall = calls.at(-2);
-          assert.ok(staleCall);
-          await assert.rejects(
-            () => runOwnerInternalWorker(
-              "stale-selector",
-              staleCall.aggregateId,
-            ),
-            (error) => {
-              assert.match(error.stderr,
-                /stopped suffix cardinality equals the selected nested retry depth/u);
-              return true;
-            },
-            "a stale CCall selector cannot select the current stopped suffix",
-          );
-          assert.equal(await readFile(join(
-            harness.scratch,
-            "retry-r3-stale-selector-prefix.events.jsonl",
-          ), "utf8"), immutablePrefixText);
-          const stoppedProgresses = progress.slice(1).map((event) =>
-            retryApi.projectAdmittedRetryProgress(childPrefix, event.eventId)
-          );
           assert.deepEqual(
-            stoppedProgresses.map((stopped) => stopped?.progressClass),
-            ["stopped", "stopped"],
+            freshProjection.causationEventRefs,
+            progress.slice(1).toReversed().map((event) => event.eventId),
           );
-          for (const stopped of stoppedProgresses) {
-            assert.equal(retryApi.hasAdmittedRetryProgress(
-              childPrefix,
-              stopped,
-            ), true);
-          }
-          const childReplay = replayApi.replay(childStore.store, {
-            runId: childCall.runId,
-          });
+          assert.equal(
+            freshProjection.routeAdmissionEventRef,
+            blockedRoute.eventId,
+          );
+          assert.equal(
+            freshProjection.runStoppedEventRef,
+            events.at(-1).eventId,
+          );
+          assert.equal(
+            await readFile(workerEventLogPath, "utf8"),
+            immutableFinalPrefixText,
+            "fresh-process reconstruction changes no final-prefix byte",
+          );
+
+          const lateStorePath = join(
+            harness.scratch,
+            "retry-split-late-route-prefix.events.jsonl",
+          );
+          const lateStore = await reopenPrefix(
+            events.slice(0, blockedRouteIndex),
+            lateStorePath,
+          );
+          assert.equal(lateStore.kind, "reopened_event_store_context");
+          const latePrefix = selectValidatedRuntimeEventPrefix(
+            lateStore.store.readAll(),
+          );
+          const executionBasis = rehydrateExecutionBasis(
+            lateStore.store,
+            childCall.basisId,
+          );
+          assert.ok(executionBasis);
           const eventDerivedCCall = projectOpenedCCallCarrier(
-            childStore.store,
-            childPrefix,
+            lateStore.store,
+            latePrefix,
             graph,
             childCall.aggregateId,
           );
           assert.ok(eventDerivedCCall);
+          const outcome = rehydrateAdmittedCCallState(
+            lateStore.store,
+            eventDerivedCCall,
+            resultValue,
+            judgmentValue,
+          );
+          assert.ok(outcome);
+          const stoppedOwnerCases = [
+            { depth: 2, event: progress[1] },
+            { depth: 1, event: progress[2] },
+          ];
+          const stoppedOwners = stoppedOwnerCases.map((ownerCase) => {
+            const owner = retryApi.projectDeclaredCRetryFrontier(
+              latePrefix,
+              graph,
+              childCursor,
+              catalogEntry.definition,
+              ownerCase.depth,
+            );
+            assert.equal(owner?.state, "progress_available");
+            assert.equal(
+              owner.available.progressEventRef,
+              ownerCase.event.eventId,
+            );
+            return owner;
+          });
+          const stoppedProgresses = stoppedOwners.map((owner) =>
+            owner.available.progress
+          );
           const eventDerivedAttempt = retryApi.projectRetryAttempt(
-            childPrefix,
+            latePrefix,
             graph,
             attempts[2].eventId,
           );
           assert.ok(eventDerivedAttempt);
-          assert.deepEqual(freshRoute.ownerInternalProjection, {
+          assert.deepEqual(freshProjection.ownerInternalProjection, {
             cCallRef: eventDerivedCCall.cCallRef,
             attemptRef: eventDerivedAttempt.attemptRef,
             attemptDigest: eventDerivedAttempt.attemptDigest,
@@ -1140,112 +1840,62 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
               stopped.progressRef),
             stoppedProgressDigests: stoppedProgresses.map((stopped) =>
               stopped.progressDigest),
-          }, "PID-2 owner projection equals the source-process projection");
-          const clonedCCall = structuredClone(eventDerivedCCall);
+          }, "fresh final-prefix projection equals the source-process owner");
+          const lateReplay = replayApi.replay(lateStore.store, {
+            runId: childCall.runId,
+          });
           const proposal = hogRouteApi.proposeBlockedRoute(
             graph,
             {
               cursor: childCursor,
               programLocusRef: childCall.payload.programLocusRef,
             },
-            clonedCCall,
+            eventDerivedCCall,
             outcome.judgment.judgmentRef,
-            childReplay,
-            clonedCCall.transitionContractRef,
+            lateReplay,
+            eventDerivedCCall.transitionContractRef,
             stoppedProgresses.map((stopped) => stopped.progressRef),
           );
           assert.equal(proposal.kind, "traversal_route_candidate",
             JSON.stringify(proposal));
-          const forgedStore = await reopenPrefix(
-            events.slice(0, blockedRouteIndex),
-            join(harness.scratch, "retry-forged-c-call-prefix.events.jsonl"),
-          );
-          assert.equal(forgedStore.kind, "reopened_event_store_context");
-          const forgedBasis = rehydrateExecutionBasis(
-            forgedStore.store,
-            childCall.basisId,
-          );
-          assert.ok(forgedBasis);
-          const forgedCCall = {
-            ...structuredClone(clonedCCall),
-            implementationRef: `${clonedCCall.implementationRef}/forged`,
-          };
-          const forgedBefore = forgedStore.store.readAll().length;
-          const forgedRoute = routeApi.admitRoute(
-            forgedStore.store,
-            forgedBasis,
-            graph,
-            childCursor,
-            null,
-            replayApi.replay(forgedStore.store, { runId: childCall.runId }),
-            proposal,
-            {
-              eventTime: blockedRoute.eventTime,
-              correlationId: "test://retry-forged-c-call/blocked-route",
-              causationEventRefs: [],
-            },
-            {
-              cCall: forgedCCall,
-              resultRef: outcome.result.resultRef,
-              judgmentRef: outcome.judgment.judgmentRef,
-              judgmentEventRef: outcome.judgment.admissionEventRef,
-              reasonRef: outcome.judgment.reasonRef,
-              stoppedProgresses: structuredClone(stoppedProgresses),
-            },
-            { terminalizeRun: false },
-          );
-          assert.equal(forgedRoute.kind, "traversal_route_admission_refusal",
-            "T-287 R3 rejects a shaped carrier that differs from event-derived CCall truth");
-          assert.equal(forgedStore.store.readAll().length, forgedBefore);
-          forgedStore.store.closeDurableLog();
-          const route = routeApi.admitRoute(
-            childStore.store,
-            executionBasis,
-            graph,
-            childCursor,
-            null,
-            childReplay,
-            proposal,
-            {
-              eventTime: blockedRoute.eventTime,
-              correlationId: "test://retry-return-to-parent/blocked-route",
-              causationEventRefs: [],
-            },
-            {
-              cCall: clonedCCall,
-              resultRef: outcome.result.resultRef,
-              judgmentRef: outcome.judgment.judgmentRef,
-              judgmentEventRef: outcome.judgment.admissionEventRef,
-              reasonRef: outcome.judgment.reasonRef,
-              stoppedProgresses: structuredClone(stoppedProgresses),
-            },
-            { terminalizeRun: false },
-          );
-          assert.equal(route.kind, "admitted_traversal_route",
-            JSON.stringify(route));
-          assert.equal(route.runStoppedEventRef, null);
-          assert.deepEqual(route.consumedAvailabilityRefs, [
-            outcome.judgment.judgmentRef,
-            ...stoppedProgresses.map((stopped) => stopped.progressRef),
-          ]);
-          assert.deepEqual(
-            childStore.store.readAll().at(-1).causationEventRefs,
-            stoppedProgresses.toReversed().map((stopped) =>
-              stopped.admissionEventRef
+          const beforeLateEvents = lateStore.store.readAll();
+          const beforeLateDigest = lateStore.store.digest();
+          const beforeLateBytes = await readFile(lateStorePath, "utf8");
+          assert.throws(
+            () => routeApi.admitRoute(
+              lateStore.store,
+              executionBasis,
+              graph,
+              childCursor,
+              null,
+              lateReplay,
+              proposal,
+              {
+                eventTime: blockedRoute.eventTime,
+                correlationId: "test://retry-split-late/blocked-route",
+                causationEventRefs: [],
+              },
+              {
+                graphFunction: catalogEntry.definition,
+                cCall: eventDerivedCCall,
+                resultRef: outcome.result.resultRef,
+                judgmentRef: outcome.judgment.judgmentRef,
+                judgmentEventRef: outcome.judgment.admissionEventRef,
+                reasonRef: outcome.judgment.reasonRef,
+                stoppedProgresses: structuredClone(stoppedProgresses),
+              },
+              { terminalizeRun: false },
             ),
+            /planned event admission requires one active outer transaction/u,
+            "a valid stopped suffix cannot enter the split late route path",
           );
-          assert.equal(childStore.store.readAll().some((event) =>
-            event.kind === "run_stopped"), false);
-          const routedPrefix = selectValidatedRuntimeEventPrefix(
-            childStore.store.readAll(),
-          );
-          for (const stopped of stoppedProgresses) {
-            assert.equal(retryApi.hasAdmittedRetryProgress(
-              routedPrefix,
-              stopped,
-            ), false);
-          }
-          childStore.store.closeDurableLog();
+          assert.deepEqual(lateStore.store.readAll(), beforeLateEvents,
+            "the closed split path appends no in-memory event");
+          assert.equal(lateStore.store.digest(), beforeLateDigest,
+            "the closed split path preserves the event-store digest");
+          assert.equal(await readFile(lateStorePath, "utf8"), beforeLateBytes,
+            "the closed split path appends no durable byte");
+          lateStore.store.closeDurableLog();
         },
       );
     }
@@ -1256,16 +1906,22 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
     );
     assert.equal(attempts.every((attempt) => !eventCalculus.holdsAt(
       closedCalculus,
-      eventCalculus.constructRuntimeFluent({
-        name: "retry_attempt_active",
-        identity: attempt.payload.attemptRef,
+      eventCalculus.constructScopedRetryFluent("retry_attempt_active", {
+        runId: attempt.runId,
+        graphCallId: attempt.graphCallId,
+        frameId: attempt.frameId,
+        retryBoundaryRef: attempt.payload.retryBoundaryRef,
+        authorityRef: attempt.payload.attemptRef,
       }),
     )), true, row.label);
     assert.equal(progress.every((entry) => !eventCalculus.holdsAt(
       closedCalculus,
-      eventCalculus.constructRuntimeFluent({
-        name: "retry_progress_available",
-        identity: entry.payload.progressRef,
+      eventCalculus.constructScopedRetryFluent("retry_progress_available", {
+        runId: entry.runId,
+        graphCallId: entry.graphCallId,
+        frameId: entry.frameId,
+        retryBoundaryRef: entry.payload.retryBoundaryRef,
+        authorityRef: entry.payload.progressRef,
       }),
     )), true, row.label);
   }

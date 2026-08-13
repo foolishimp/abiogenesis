@@ -10,12 +10,15 @@ import {
 } from "../abg/traversal_route.js";
 import {
   hasAdmittedTraversalCursor,
+  hasAdmittedTraversalCursorAtPrefix,
   isTraversalCursorCandidate,
   type TraversalCursorCandidate,
 } from "../abg/traversal_cursor.js";
 import type { AbgEventStore } from "../abg/event_store.js";
+import type { ValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
 import type {
   ComputeRegime,
+  GraphFunction,
   GtlGraph,
   GtlProgram,
   ReenterApplication,
@@ -29,57 +32,20 @@ import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import {
   deriveCBatchTaskInput,
   deriveCContinuationTarget,
+  resolveEnclosingCRetryContexts,
+  rootCSourcePath,
   resolveCProgramLocus,
   resolveCProgramTermAtSourcePath,
   resolveEnclosingCBatchRef,
 } from "../gtl/source_path.js";
+import type { CProgramNode } from "../gtl/c_algebra.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isGraphValidation, type GraphValidation } from "../validator/graph.js";
-import {
-  deriveDirectCContinuationStepFromGraph,
-  deriveDirectCRetryStepFromGraph,
-  deriveDirectCStepFromGraph,
-  resolveCProgramTermAtPath,
-  rootCTraversalCoordinate,
-  type CTraversalCoordinate,
-  type DirectCTraversalStep,
-} from "./direct_fold.js";
 
-export interface TraversalCursor {
-  readonly kind: "traversal_cursor";
-  readonly schemaVersion: "5.0.0";
-  readonly cursorRef: string;
-  readonly cursorDigest: Sha256Digest;
-  readonly programRef: string;
-  readonly executionBasisRef: string;
-  readonly traversalScopeRef: string;
-  readonly runId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly graphRef: string;
-  readonly inputRef: string;
-  readonly inputDigest: Sha256Digest;
-  readonly currentNodeRef: string;
-  readonly position: "at_compute_locus" | "at_term";
-  readonly termPath: readonly string[];
-  readonly taskOrdinal: number | null;
-  readonly attempt: number;
-  readonly retryPath: readonly number[];
-}
-
-export interface TraversalStep {
-  readonly kind: "traversal_step";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "derived";
-  readonly stepRef: string;
-  readonly stepDigest: Sha256Digest;
-  readonly sourceCursor: TraversalCursor;
-  readonly targetCursor: TraversalCursor | null;
-  readonly directStep: DirectCTraversalStep;
-}
+export type TraversalCursor = TraversalCursorCandidate;
 
 interface TraversalStopBase {
   readonly kind: "traversal_stop_ref";
@@ -151,30 +117,77 @@ export interface TraversalRefusal {
 
 export interface TraverseInput {
   readonly program: Readonly<GtlProgram>;
+  readonly graphFunction: Readonly<GraphFunction>;
   readonly graph: Readonly<GtlGraph>;
   readonly graphValidation: GraphValidation;
   readonly executionBasis: ExecutionBasis;
   readonly openedTraversalScope: OpenedTraversalScope;
 }
 
-export type TraverseResult = TraversalStep | TraversalStopRef | TraversalRefusal;
+export type TraverseResult = TraversalCursor | TraversalStopRef | TraversalRefusal;
 
-const traversalStops = new WeakSet<object>();
-const traversalCursors = new WeakSet<object>();
-const traversalSteps = new WeakSet<object>();
+function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
 
-export function isTraversalStopRef(value: object): boolean {
-  return traversalStops.has(value);
+export function isTraversalStopRef(value: object): value is TraversalStopRef {
+  if (!isRecord(value) || value.kind !== "traversal_stop_ref") return false;
+  const stop = value as unknown as TraversalStopRef;
+  const body = {
+    stopKind: stop.stopKind,
+    cursor: stop.cursor,
+    traversalScopeRef: stop.traversalScopeRef,
+    runId: stop.runId,
+    graphCallId: stop.graphCallId,
+    frameId: stop.frameId,
+    nodeRef: stop.nodeRef,
+    programLocusRef: stop.programLocusRef,
+    edgeRef: stop.edgeRef,
+    vectorIndex: stop.vectorIndex,
+    judgmentPredicateRef: stop.judgmentPredicateRef,
+    stageRole: stop.stageRole,
+    batchRef: stop.batchRef,
+    taskOrdinal: stop.taskOrdinal,
+    attempt: stop.attempt,
+    retryPath: stop.retryPath,
+    computeRegime: stop.computeRegime,
+    armId: stop.armId,
+    compositionRef: stop.compositionRef,
+    ...(stop.stopClass === "executable"
+      ? {
+          stopClass: stop.stopClass,
+          implementationBindingRef: stop.implementationBindingRef,
+          inputContractRef: stop.inputContractRef,
+          outputContractRef: stop.outputContractRef,
+          evidenceContractRef: stop.evidenceContractRef,
+          failureContractRef: stop.failureContractRef,
+          refusalContractRef: stop.refusalContractRef,
+          judgmentContractRef: stop.judgmentContractRef,
+        }
+      : stop.stopClass === "interaction"
+        ? {
+            stopClass: stop.stopClass,
+            interactionKind: stop.interactionKind,
+            actorCapabilityRef: stop.actorCapabilityRef,
+            requestContractRef: stop.requestContractRef,
+            responseContractRef: stop.responseContractRef,
+            continuationContractRef: stop.continuationContractRef,
+          }
+        : {}),
+  };
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  return stop.schemaVersion === "5.0.0" &&
+    stop.disposition === "at_compute_locus" &&
+    isTraversalCursorCandidate(stop.cursor) &&
+    stop.stopDigest === digest &&
+    stop.stopRef ===
+      `traversal-stop://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 
 export function isInteractionTraversalStopRef(
   value: TraversalStopRef,
 ): value is InteractionTraversalStopRef {
-  return traversalStops.has(value) && value.stopClass === "interaction";
-}
-
-export function isTraversalStep(value: object): boolean {
-  return traversalSteps.has(value);
+  return isTraversalStopRef(value) && value.stopClass === "interaction";
 }
 
 function refusal(
@@ -200,6 +213,14 @@ interface CursorLineage {
   readonly graphRef: string;
 }
 
+interface TraversalCoordinate {
+  readonly nodeRef: string;
+  readonly termPath: readonly string[];
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
+  readonly retryPath: readonly number[];
+}
+
 export interface TraversalInputBasis {
   readonly inputRef: string;
   readonly inputDigest: Sha256Digest;
@@ -207,7 +228,7 @@ export interface TraversalInputBasis {
 
 function createCursor(
   lineage: CursorLineage,
-  coordinate: CTraversalCoordinate,
+  coordinate: TraversalCoordinate,
   position: TraversalCursor["position"],
   input: TraversalInputBasis,
 ): TraversalCursor {
@@ -230,12 +251,11 @@ function createCursor(
     cursorDigest,
     ...cursorBody,
   }) as TraversalCursor;
-  traversalCursors.add(cursor);
   return cursor;
 }
 
 export function rehydrateHeldInteractionCursor(
-  store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
   candidate: TraversalCursorCandidate,
 ): TraversalCursor | null {
   const cursorBody = {
@@ -257,7 +277,7 @@ export function rehydrateHeldInteractionCursor(
   };
   const cursorDigest = sha256Canonical(cursorBody as unknown as JsonValue);
   if (
-    !hasAdmittedTraversalCursor(store, candidate) ||
+    !hasAdmittedTraversalCursorAtPrefix(prefix, candidate) ||
     candidate.kind !== "traversal_cursor" ||
     candidate.schemaVersion !== "5.0.0" ||
     candidate.position !== "at_term" ||
@@ -296,7 +316,6 @@ export function rehydrateHeldInteractionCursor(
     cursorDigest,
     ...cursorBody,
   }) as TraversalCursor;
-  traversalCursors.add(cursor);
   return cursor;
 }
 
@@ -312,192 +331,259 @@ function cursorLineage(cursor: TraversalCursor): CursorLineage {
   };
 }
 
-function targetCoordinate(
-  step: DirectCTraversalStep,
-): CTraversalCoordinate | null {
-  switch (step.stepKind) {
-    case "continue_term":
-    case "enter_term":
-    case "retry":
-    case "start_task":
-      return step.target;
-    case "complete_term":
-    case "enter_child":
-    case "open_leaf":
-    case "pass_identity":
-      return null;
-  }
-}
-
-function createTraversalStep(
-  sourceCursor: TraversalCursor,
-  directStep: DirectCTraversalStep,
-  targetInput: TraversalInputBasis = sourceCursor,
-): TraversalStep {
-  const target = targetCoordinate(directStep);
-  const targetCursor = target === null
-    ? null
-    : createCursor(cursorLineage(sourceCursor), target, "at_term", targetInput);
-  const stepBody = {
-    sourceCursor,
-    targetCursor,
-    directStep,
+function cursorCoordinate(cursor: TraversalCursor): TraversalCoordinate {
+  return {
+    nodeRef: cursor.currentNodeRef,
+    termPath: cursor.termPath,
+    taskOrdinal: cursor.taskOrdinal,
+    attempt: cursor.attempt,
+    retryPath: cursor.retryPath,
   };
-  const stepDigest = sha256Canonical(stepBody as unknown as JsonValue);
-  const step = deepFreeze({
-    kind: "traversal_step" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "derived" as const,
-    stepRef: `traversal-step://abiogenesis/${stepDigest.slice("sha256:".length)}`,
-    stepDigest,
-    ...stepBody,
-  }) as TraversalStep;
-  traversalSteps.add(step);
-  return step;
 }
 
-export function deriveTraversalStep(
+export function resolveTraversalTerm(
   graph: Readonly<GtlGraph>,
-  sourceCursor: TraversalCursor,
-): TraversalStep | TraversalRefusal {
+  cursor: TraversalCursor,
+): CProgramNode | TraversalRefusal {
   if (
     !isMaterializedGtlGraph(graph) ||
-    !traversalCursors.has(sourceCursor) ||
-    sourceCursor.graphRef !== graph.materializationRef ||
-    sourceCursor.position !== "at_term"
+    !isTraversalCursorCandidate(cursor) ||
+    cursor.graphRef !== graph.materializationRef ||
+    cursor.position !== "at_term"
   ) {
     return refusal(
       "traversal_cursor_mismatch",
-      "HoG derives a step only from its exact materialized Graph and owner-issued term cursor",
+      "HoG resolves only an exact materialized Graph cursor",
     );
   }
-  const coordinate = {
-    nodeRef: sourceCursor.currentNodeRef,
-    termPath: sourceCursor.termPath,
-    taskOrdinal: sourceCursor.taskOrdinal,
-    attempt: sourceCursor.attempt,
-    retryPath: sourceCursor.retryPath,
-  };
-  let directStep = deriveDirectCStepFromGraph(graph.template, coordinate);
-  if (directStep.kind === "direct_c_traversal_refusal") {
-    return refusal("locus_missing", directStep.message);
-  }
-  if (directStep.stepKind === "pass_identity") {
-    directStep = deriveDirectCContinuationStepFromGraph(
-      graph.template,
-      coordinate,
-    );
-    if (directStep.kind === "direct_c_traversal_refusal") {
-      return refusal("locus_missing", directStep.message);
-    }
-  }
-  let targetInput: TraversalInputBasis = sourceCursor;
-  if (directStep.stepKind === "start_task") {
-    const batchInput = deriveCBatchTaskInput(
-      graph,
-      {
-        nodeRef: sourceCursor.currentNodeRef,
-        termPath: sourceCursor.termPath,
-        taskOrdinal: sourceCursor.taskOrdinal,
-        inputRef: sourceCursor.inputRef,
-        inputDigest: sourceCursor.inputDigest,
-      },
-      "enter_batch",
-      directStep.batchRef,
-      directStep.target.taskOrdinal ?? -1,
-    );
-    if (batchInput.kind === "c_source_path_refusal") {
-      return refusal("locus_missing", batchInput.message);
-    }
-    targetInput = batchInput;
-  }
-  return createTraversalStep(sourceCursor, directStep, targetInput);
+  const term = resolveCProgramTermAtSourcePath(
+    graph.template,
+    cursor.currentNodeRef,
+    cursor.termPath,
+  );
+  return term.kind === "c_source_path_refusal"
+    ? refusal("locus_missing", term.message)
+    : term;
 }
 
-export function deriveCompletedTraversalStep(
+export function deriveStructuralTargetCursor(
+  graph: Readonly<GtlGraph>,
+  sourceCursor: TraversalCursor,
+): TraversalCursor | TraversalRefusal | null {
+  const term = resolveTraversalTerm(graph, sourceCursor);
+  if (term.kind === "traversal_refusal") return term;
+  const source = cursorCoordinate(sourceCursor);
+  let target: TraversalCoordinate | null = null;
+  let targetInput: TraversalInputBasis = sourceCursor;
+  switch (term.kind) {
+    case "c_of":
+    case "c_workflow":
+      return null;
+    case "c_identity": {
+      const continuation = deriveCContinuationTarget(
+        graph,
+        { ...source, inputRef: sourceCursor.inputRef, inputDigest: sourceCursor.inputDigest },
+        sourceCursor,
+      );
+      if (continuation.kind === "c_source_path_refusal") {
+        return refusal("locus_missing", continuation.message);
+      }
+      if (continuation.disposition === "terminal") return null;
+      target = {
+        nodeRef: continuation.nodeRef!,
+        termPath: continuation.termPath!,
+        taskOrdinal: continuation.taskOrdinal,
+        attempt: continuation.attempt!,
+        retryPath: continuation.retryPath,
+      };
+      targetInput = {
+        inputRef: continuation.inputRef!,
+        inputDigest: continuation.inputDigest!,
+      };
+      break;
+    }
+    case "c_compose":
+      target = { ...source, termPath: [...source.termPath, "terms", "0"] };
+      break;
+    case "c_edge":
+      target = { ...source, termPath: [...source.termPath, "transform"] };
+      break;
+    case "c_batch": {
+      target = {
+        ...source,
+        termPath: [...source.termPath, "tasks", "0"],
+        taskOrdinal: 0,
+      };
+      const batchInput = deriveCBatchTaskInput(
+        graph,
+        {
+          ...source,
+          inputRef: sourceCursor.inputRef,
+          inputDigest: sourceCursor.inputDigest,
+        },
+        "enter_batch",
+        term.batchRef,
+        0,
+      );
+      if (batchInput.kind === "c_source_path_refusal") {
+        return refusal("locus_missing", batchInput.message);
+      }
+      targetInput = batchInput;
+      break;
+    }
+    case "c_retry":
+      target = {
+        ...source,
+        termPath: [...source.termPath, "term"],
+        attempt: 1,
+        retryPath: [...source.retryPath, 1],
+      };
+      break;
+  }
+  return target === null
+    ? null
+    : createCursor(cursorLineage(sourceCursor), target, "at_term", targetInput);
+}
+
+export function deriveCompletedTraversalCursor(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursor,
   completedInput: TraversalInputBasis,
-): TraversalStep | TraversalRefusal {
-  if (
-    !isMaterializedGtlGraph(graph) ||
-    !traversalCursors.has(sourceCursor) ||
-    sourceCursor.graphRef !== graph.materializationRef ||
-    sourceCursor.position !== "at_term"
-  ) {
-    return refusal(
-      "traversal_cursor_mismatch",
-      "HoG derives continuation only from its exact original GTL cursor",
-    );
+): TraversalCursor | TraversalRefusal | null {
+  const term = resolveTraversalTerm(graph, sourceCursor);
+  if (term.kind === "traversal_refusal") return term;
+  const source = cursorCoordinate(sourceCursor);
+  const continuation = deriveCContinuationTarget(
+    graph,
+    { ...source, inputRef: sourceCursor.inputRef, inputDigest: sourceCursor.inputDigest },
+    completedInput,
+  );
+  if (continuation.kind === "c_source_path_refusal") {
+    return refusal("locus_missing", continuation.message);
   }
-  const directStep = deriveDirectCContinuationStepFromGraph(graph.template, {
-    nodeRef: sourceCursor.currentNodeRef,
-    termPath: sourceCursor.termPath,
-    taskOrdinal: sourceCursor.taskOrdinal,
-    attempt: sourceCursor.attempt,
-    retryPath: sourceCursor.retryPath,
-  });
-  if (directStep.kind === "direct_c_traversal_refusal") {
-    return refusal("locus_missing", directStep.message);
-  }
-  const declaredTarget = deriveCContinuationTarget(graph, {
-    nodeRef: sourceCursor.currentNodeRef,
-    termPath: sourceCursor.termPath,
-    taskOrdinal: sourceCursor.taskOrdinal,
-    attempt: sourceCursor.attempt,
-    retryPath: sourceCursor.retryPath,
-    inputRef: sourceCursor.inputRef,
-    inputDigest: sourceCursor.inputDigest,
-  }, completedInput);
-  if (declaredTarget.kind === "c_source_path_refusal") {
-    return refusal("locus_missing", declaredTarget.message);
-  }
-  const targetInput = declaredTarget.disposition === "terminal"
-    ? completedInput
-    : {
-        inputRef: declaredTarget.inputRef!,
-        inputDigest: declaredTarget.inputDigest!,
-      };
-  return createTraversalStep(sourceCursor, directStep, targetInput);
+  if (continuation.disposition === "terminal") return null;
+  return createCursor(
+    cursorLineage(sourceCursor),
+    {
+      nodeRef: continuation.nodeRef!,
+      termPath: continuation.termPath!,
+      taskOrdinal: continuation.taskOrdinal,
+      attempt: continuation.attempt!,
+      retryPath: continuation.retryPath,
+    },
+    "at_term",
+    { inputRef: continuation.inputRef!, inputDigest: continuation.inputDigest! },
+  );
 }
 
-export function deriveRetryTraversalStep(
+export function deriveRetryTraversalCursor(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursor,
   retryInput: TraversalInputBasis,
-): TraversalStep | TraversalRefusal {
+): TraversalCursor | TraversalRefusal {
+  const term = resolveTraversalTerm(graph, sourceCursor);
+  if (term.kind === "traversal_refusal") return term;
+  const source = cursorCoordinate(sourceCursor);
+  const contexts = resolveEnclosingCRetryContexts(
+    graph.template,
+    source.nodeRef,
+    source.termPath,
+  );
+  if ("kind" in contexts) return refusal("locus_missing", contexts.message);
+  const context = contexts.at(-1);
   if (
-    !isMaterializedGtlGraph(graph) ||
-    !traversalCursors.has(sourceCursor) ||
-    sourceCursor.graphRef !== graph.materializationRef ||
-    sourceCursor.position !== "at_term" ||
-    retryInput.inputRef.length === 0 ||
-    !retryInput.inputDigest.startsWith("sha256:")
+    context === undefined ||
+    context.retryDepth !== source.retryPath.length ||
+    source.attempt !== source.retryPath.at(-1) ||
+    source.attempt >= context.budget
   ) {
     return refusal(
       "traversal_cursor_mismatch",
-      "HoG derives retry only from its exact original GTL cursor and retained input basis",
+      "same-edge retry requires one active declared retry boundary with remaining budget",
     );
   }
-  const directStep = deriveDirectCRetryStepFromGraph(graph.template, {
-    nodeRef: sourceCursor.currentNodeRef,
-    termPath: sourceCursor.termPath,
-    taskOrdinal: sourceCursor.taskOrdinal,
-    attempt: sourceCursor.attempt,
-    retryPath: sourceCursor.retryPath,
-  });
-  if (directStep.kind === "direct_c_traversal_refusal") {
-    return refusal("locus_missing", directStep.message);
-  }
-  return createTraversalStep(sourceCursor, directStep, retryInput);
+  const nextAttempt = source.attempt + 1;
+  return createCursor(
+    cursorLineage(sourceCursor),
+    {
+      nodeRef: source.nodeRef,
+      termPath: context.wrappedTermPath,
+      taskOrdinal: context.taskOrdinal,
+      attempt: nextAttempt,
+      retryPath: [...source.retryPath.slice(0, -1), nextAttempt],
+    },
+    "at_term",
+    retryInput,
+  );
 }
 
-export function deriveGraphSpanReentryStep(
+export function deriveInteractionSuccessorInputCarrierRef(
+  graph: Readonly<GtlGraph>,
+  heldCursor: TraversalCursor,
+): string | null {
+  if (
+    !isMaterializedGtlGraph(graph) ||
+    !isTraversalCursorCandidate(heldCursor) ||
+    heldCursor.graphRef !== graph.materializationRef ||
+    heldCursor.position !== "at_term"
+  ) {
+    throw new TypeError(
+      "F_H successor carrier requires one exact materialized Graph and held cursor",
+    );
+  }
+  const source = resolveCProgramTermAtSourcePath(
+    graph.template,
+    heldCursor.currentNodeRef,
+    heldCursor.termPath,
+  );
+  if (
+    source.kind === "c_source_path_refusal" ||
+    source.kind !== "c_of" ||
+    source.fibre !== "F_H" ||
+    !isInteractionCLeaf(source)
+  ) {
+    throw new TypeError(
+      "F_H successor carrier requires the exact held c_of F_H interaction term",
+    );
+  }
+  const continuation = deriveCContinuationTarget(
+    graph,
+    {
+      nodeRef: heldCursor.currentNodeRef,
+      termPath: heldCursor.termPath,
+      taskOrdinal: heldCursor.taskOrdinal,
+      attempt: heldCursor.attempt,
+      retryPath: heldCursor.retryPath,
+      inputRef: heldCursor.inputRef,
+      inputDigest: heldCursor.inputDigest,
+    },
+    heldCursor,
+  );
+  if (continuation.kind === "c_source_path_refusal") {
+    throw new TypeError(
+      `F_H successor carrier derivation refused: ${continuation.code}: ${continuation.message}`,
+    );
+  }
+  if (continuation.disposition === "terminal") return null;
+  const target = resolveCProgramTermAtSourcePath(
+    graph.template,
+    continuation.nodeRef!,
+    continuation.termPath!,
+  );
+  if (target.kind === "c_source_path_refusal") {
+    throw new TypeError(
+      `F_H successor carrier target refused: ${target.code}: ${target.message}`,
+    );
+  }
+  return target.inputCarrierRef;
+}
+
+export function deriveGraphSpanReentryCursor(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursor,
   application: Readonly<ReenterApplication>,
   targetInput: TraversalInputBasis,
-): TraversalStep | TraversalRefusal {
+): TraversalCursor | TraversalRefusal {
   const declaredApplication = graph.template.applications.find(
     (candidate) => candidate.applicationRef === application.applicationRef,
   );
@@ -512,7 +598,7 @@ export function deriveGraphSpanReentryStep(
   );
   if (
     !isMaterializedGtlGraph(graph) ||
-    !traversalCursors.has(sourceCursor) ||
+    !isTraversalCursorCandidate(sourceCursor) ||
     sourceCursor.graphRef !== graph.materializationRef ||
     sourceCursor.position !== "at_term" ||
     declaredApplication !== application ||
@@ -534,28 +620,18 @@ export function deriveGraphSpanReentryStep(
       "HoG derives graph-span re-entry only from one exact declared application, source cursor, target locus, and Product input",
     );
   }
-  const directStep = deepFreeze({
-    kind: "direct_c_traversal_step" as const,
-    schemaVersion: "5.0.0" as const,
-    stepKind: "continue_term" as const,
-    termKind: "c_of" as const,
-    relation: "graph_span_reentry" as const,
-    source: {
-      nodeRef: sourceCursor.currentNodeRef,
-      termPath: [...sourceCursor.termPath],
-      taskOrdinal: sourceCursor.taskOrdinal,
-      attempt: sourceCursor.attempt,
-      retryPath: [...sourceCursor.retryPath],
-    },
-    target: {
+  return createCursor(
+    cursorLineage(sourceCursor),
+    {
       nodeRef: target.nodeRef,
       termPath: [...target.termPath],
       taskOrdinal: null,
       attempt: sourceCursor.attempt + 1,
       retryPath: [],
     },
-  });
-  return createTraversalStep(sourceCursor, directStep, targetInput);
+    "at_term",
+    targetInput,
+  );
 }
 
 export function deriveInteractionResumeCursor(
@@ -563,7 +639,7 @@ export function deriveInteractionResumeCursor(
   responseInput: TraversalInputBasis,
 ): TraversalCursor | TraversalRefusal {
   if (
-    !traversalCursors.has(heldCursor) ||
+    !isTraversalCursorCandidate(heldCursor) ||
     heldCursor.position !== "at_term" ||
     responseInput.inputRef.length === 0 ||
     !responseInput.inputDigest.startsWith("sha256:")
@@ -595,7 +671,7 @@ export function deriveRecursionReentryCursor(
 ): TraversalCursor | TraversalRefusal {
   if (
     !isMaterializedGtlGraph(graph) ||
-    !traversalCursors.has(sourceCursor) ||
+    !isTraversalCursorCandidate(sourceCursor) ||
     sourceCursor.graphRef !== graph.materializationRef ||
     sourceCursor.position !== "at_term" ||
     graph.template.applications.find(
@@ -675,19 +751,22 @@ function validateTraverseInput(input: TraverseInput): TraversalRefusal | null {
   ) {
     return refusal("program_mismatch", "HoG Program differs from the admitted execution basis");
   }
-  const programStart = input.program.starts.find(
-    (start) => start.graphFunctionRef === input.executionBasis.graphFunctionRef,
+  const rootTerm = resolveCProgramTermAtSourcePath(
+    input.graph.template,
+    input.graph.template.startNodeRef,
+    rootCSourcePath(input.graph.template.startNodeRef),
   );
   if (
     input.executionBasis.basisClass === "root"
-      ? programStart === undefined || programStart.startRef !== input.executionBasis.entryRef
+      ? rootTerm.kind === "c_source_path_refusal" ||
+        input.executionBasis.entryRef.length === 0
       : input.executionBasis.parentExecutionBasisRef === null ||
         input.executionBasis.parentTraversalScopeRef === null ||
         input.executionBasis.entryRef.length === 0
   ) {
     return refusal(
       "program_mismatch",
-      "HoG entry differs from the root start or admitted child entry",
+      "HoG entry differs from the exact admitted root C relation or child entry",
     );
   }
   if (
@@ -715,7 +794,7 @@ function traversalResultAtCursor(
   cursor: TraversalCursor,
 ): TraverseResult {
   if (
-    !traversalCursors.has(cursor) ||
+    !isTraversalCursorCandidate(cursor) ||
     cursor.programRef !== input.executionBasis.programRef ||
     cursor.executionBasisRef !== input.executionBasis.basisRef ||
     cursor.traversalScopeRef !== input.openedTraversalScope.scopeRef ||
@@ -733,16 +812,8 @@ function traversalResultAtCursor(
     );
   }
 
-  const term = resolveCProgramTermAtPath(input.graph.template, {
-    nodeRef: cursor.currentNodeRef,
-    termPath: cursor.termPath,
-    taskOrdinal: cursor.taskOrdinal,
-    attempt: cursor.attempt,
-    retryPath: cursor.retryPath,
-  });
-  if (term.kind === "direct_c_traversal_refusal") {
-    return refusal("locus_missing", term.message);
-  }
+  const term = resolveTraversalTerm(input.graph, cursor);
+  if (term.kind === "traversal_refusal") return term;
   const batchRef = resolveEnclosingCBatchRef(
     input.graph.template,
     cursor.currentNodeRef,
@@ -751,14 +822,7 @@ function traversalResultAtCursor(
   if (typeof batchRef === "object" && batchRef?.kind === "c_source_path_refusal") {
     return refusal("locus_missing", batchRef.message);
   }
-  const derivedStep = deriveTraversalStep(input.graph, cursor);
-  if (derivedStep.kind === "traversal_refusal") return derivedStep;
-  if (
-    (!isExecutableCLeaf(term) && !isInteractionCLeaf(term)) ||
-    derivedStep.directStep.stepKind !== "open_leaf"
-  ) {
-    return derivedStep;
-  }
+  if (!isExecutableCLeaf(term) && !isInteractionCLeaf(term)) return cursor;
   const commonStopBody = {
     stopKind: "compute_locus" as const,
     cursor,
@@ -812,7 +876,6 @@ function traversalResultAtCursor(
     stopDigest,
     ...stopBody,
   }) as TraversalStopRef;
-  traversalStops.add(stop);
   return stop;
 }
 
@@ -824,37 +887,23 @@ export function traverseFromCursor(
   return invalid ?? traversalResultAtCursor(input, cursor);
 }
 
-export function applyRoute(
-  step: TraversalStep,
+export function applyAdmittedRoute(
+  sourceCursor: TraversalCursor,
+  targetCursor: TraversalCursor,
+  expectedKind: "advance" | "re_enter" | "retry",
   route: AdmittedRoute,
 ): TraversalCursor | TraversalRefusal {
-  const targetCursor = step.targetCursor;
-  const expectedKind = step.directStep.stepKind === "retry" ||
-      (step.directStep.stepKind === "continue_term" &&
-        step.directStep.relation === "retry_same_edge")
-    ? "retry"
-    : step.directStep.stepKind === "continue_term" &&
-        step.directStep.relation === "graph_span_reentry"
-      ? "re_enter"
-    : step.directStep.stepKind === "continue_term" ||
-        step.directStep.stepKind === "enter_term" ||
-        step.directStep.stepKind === "start_task"
-      ? "advance"
-      : null;
   if (
-    !traversalSteps.has(step) ||
     !isAdmittedRoute(route) ||
-    targetCursor === null ||
-    expectedKind === null ||
     route.routeKind !== expectedKind ||
-    route.sourceCursorRef !== step.sourceCursor.cursorRef ||
-    route.sourceCursorDigest !== step.sourceCursor.cursorDigest ||
+    route.sourceCursorRef !== sourceCursor.cursorRef ||
+    route.sourceCursorDigest !== sourceCursor.cursorDigest ||
     route.targetCursorRef !== targetCursor.cursorRef ||
     route.targetCursorDigest !== targetCursor.cursorDigest
   ) {
     return refusal(
       "route_mismatch",
-      "HoG applies only the exact admitted route for its current structural step",
+      "HoG applies only the exact admitted route for its current and target cursors",
     );
   }
   return targetCursor;
@@ -864,10 +913,19 @@ export function traverse(input: TraverseInput): TraverseResult {
   const invalid = validateTraverseInput(input);
   if (invalid !== null) return invalid;
 
-  const node = input.graph.template.nodes.find(
-    (candidate) => candidate.nodeRef === input.graph.template.startNodeRef,
+  const rootCoordinate: TraversalCoordinate = {
+    nodeRef: input.graph.template.startNodeRef,
+    termPath: rootCSourcePath(input.graph.template.startNodeRef),
+    taskOrdinal: null,
+    attempt: 1,
+    retryPath: [],
+  };
+  const rootTerm = resolveCProgramTermAtSourcePath(
+    input.graph.template,
+    input.graph.template.startNodeRef,
+    rootCoordinate.termPath,
   );
-  if (node === undefined) {
+  if (rootTerm.kind === "c_source_path_refusal") {
     return refusal("locus_missing", "admitted GTL start node does not resolve to a compute locus");
   }
   const lineage = {
@@ -881,7 +939,7 @@ export function traverse(input: TraverseInput): TraverseResult {
   };
   const sourceCursor = createCursor(
     lineage,
-    rootCTraversalCoordinate(node.nodeRef),
+    rootCoordinate,
     "at_term",
     {
       inputRef: input.executionBasis.rawInputAdmissionRef,

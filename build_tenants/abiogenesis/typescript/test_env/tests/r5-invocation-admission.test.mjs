@@ -12,22 +12,106 @@ import {
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
-test("R5 selects and admits the exact validated direct invocation target", async (context) => {
+function readinessCatalogView(environment, allowlist) {
+  const catalog = environment.product.admitGraphFunctionCatalog({
+    workspaceBinding: environment.bindingCandidate,
+    resolvedLock: environment.lock,
+    verifiedProducts: [environment.verified],
+    installedProducts: [environment.installCandidate],
+    publications: [environment.publication],
+  });
+  assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
+  assert.ok(catalog.readinessBasis);
+  for (const handle of allowlist) {
+    const dispositions = catalog.rowDispositions.filter(
+      (row) => row.handle === handle,
+    );
+    assert.equal(dispositions.length, 1, JSON.stringify(dispositions));
+    assert.equal(dispositions[0].disposition, "admitted");
+  }
+  const view = environment.product.narrowGraphFunctionCatalog(
+    catalog,
+    allowlist,
+  );
+  assert.equal(view.kind, "graph_function_catalog_view", JSON.stringify(view));
+  return { catalog, view };
+}
+
+test("non-root alias selection admits a distinct catalogHandle for one exact definition", async (context) => {
   const environment = await setupInstalledRootCatalog(context, root);
   const {
     product,
     abg,
     gtl,
+    hog,
     validator,
     store,
+    artifactTruth,
     verified,
+    installCandidate,
+    lock,
+    bindingCandidate,
     workspaceBinding,
     publication,
-    programValidation,
-    catalogView,
+    programValidations,
   } = environment;
-  const program = publication.programs[0];
-  const graphFunction = publication.graphFunctions[0];
+  for (const field of [
+    "programMembershipRefs",
+    "readinessPrerequisiteRefs",
+    "compatibilityRefs",
+    "provenanceRefs",
+  ]) {
+    const duplicatePublication = structuredClone(publication);
+    const contribution = duplicatePublication.contributions.find(
+      (row) => row.handle === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+    );
+    assert.ok(contribution);
+    assert.ok(contribution[field].length > 0, `${field} duplicate witness`);
+    contribution[field].push(contribution[field][0]);
+    const duplicateRefusal = product.admitGraphFunctionCatalog({
+      workspaceBinding: bindingCandidate,
+      resolvedLock: lock,
+      verifiedProducts: [verified],
+      installedProducts: [installCandidate],
+      publications: [duplicatePublication],
+    });
+    assert.equal(
+      duplicateRefusal.kind,
+      "catalog_construction_refusal",
+      JSON.stringify(duplicateRefusal),
+    );
+    assert.equal(duplicateRefusal.code, "duplicate_contribution_reference");
+    assert.equal(
+      duplicateRefusal.message.includes(field),
+      true,
+      duplicateRefusal.message,
+    );
+  }
+  const program = publication.programs.find(
+    (row) => row.programRef === gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+  );
+  const graphFunction = publication.graphFunctions.find(
+    (row) => row.name === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  const programValidation = programValidations.find(
+    (row) => row.programRef === gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+  );
+  assert.ok(program);
+  assert.ok(graphFunction);
+  assert.ok(programValidation);
+  assert.equal(programValidation.kind, "program_validation");
+  assert.equal(program.starts.length, 0);
+  assert.equal(program.publicAssetTargets, undefined);
+  const { view: catalogView } = readinessCatalogView(
+    environment,
+    [gtl.HELLO_WORLD_DIRECT_IDS.handle],
+  );
+  const selectedRow = product.lookupGraphFunction(
+    catalogView,
+    gtl.HELLO_WORLD_DIRECT_IDS.handle,
+  );
+  assert.ok(selectedRow);
+  assert.notEqual(selectedRow.handle, selectedRow.definitionRef);
   const input = gtl.constructHelloWorldInput("World");
   const rawInput = requireRawAdmission(
     validator,
@@ -47,7 +131,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
       correlationId: "correlation://t286/r5/run-invoke",
       payload: {
         programRef: program.programRef,
-        graphFunctionRef: graphFunction.name,
+        catalogHandle: gtl.HELLO_WORLD_DIRECT_IDS.handle,
       },
     },
     "public_operation_request",
@@ -65,7 +149,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
     workspaceBinding,
     catalogView,
     program.programRef,
-    graphFunction.name,
+    selectedRow,
     policy,
     [capabilityGrant],
   );
@@ -74,7 +158,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
     workspaceBinding,
     catalogView,
     program,
-    graphFunction,
+    selectedRow,
     rawRequest,
     rawInput,
     policy,
@@ -82,7 +166,12 @@ test("R5 selects and admits the exact validated direct invocation target", async
     authority,
   );
   assert.equal(invocation.kind, "public_invocation_candidate", JSON.stringify(invocation));
+  assert.equal(invocation.catalogHandle, gtl.HELLO_WORLD_DIRECT_IDS.handle);
+  assert.equal(invocation.selectedDefinitionRef, graphFunction.name);
+  assert.equal(invocation.graphFunctionRef, graphFunction.name);
+  assert.notEqual(invocation.catalogHandle, invocation.graphFunctionRef);
   const admissionInput = {
+    artifactTruth,
     invocation,
     rawRequest,
     rawInput,
@@ -96,31 +185,73 @@ test("R5 selects and admits the exact validated direct invocation target", async
     capabilityGrants: [capabilityGrant],
     authority,
   };
-  const invocationAdmission = abg.admitInvocation(
+  const eventCountBeforeNegatives = store.readAll().length;
+  const wrongHandleRequest = requireRawAdmission(
+    validator,
+    {
+      kind: "public_invocation",
+      schemaVersion: "5.0.0",
+      operationId: "abg.operation.run.invoke",
+      variant: "direct",
+      invocationRef: "invocation://t286/r5/wrong-handle",
+      eventTime: "2026-07-21T00:00:00.000Z",
+      correlationId: "correlation://t286/r5/wrong-handle",
+      payload: {
+        programRef: program.programRef,
+        catalogHandle: "gtl://abiogenesis/conformance/absent/call@5",
+      },
+    },
+    "public_operation_request",
+    "contract://abiogenesis/public/run-invoke-request@5",
+  );
+  const wrongHandleInvocation = product.constructDirectInvocation(
+    workspaceBinding,
+    catalogView,
+    program,
+    selectedRow,
+    wrongHandleRequest,
+    rawInput,
+    policy,
+    [capabilityGrant],
+    authority,
+  );
+  assert.equal(wrongHandleInvocation.kind, "public_invocation_candidate");
+  const wrongHandleRefusal = abg.admitInvocation(
     store,
-    admissionInput,
+    {
+      ...admissionInput,
+      invocation: wrongHandleInvocation,
+      rawRequest: wrongHandleRequest,
+    },
     publicOperationBasis(
       product,
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
-      invocation.invocationRef,
-      [workspaceBinding.admissionEventRef],
+      wrongHandleInvocation.publicRequestInvocationRef,
     ),
   );
-  assert.equal(invocationAdmission.kind, "invocation_admission", JSON.stringify(invocationAdmission));
-  assert.equal(invocationAdmission.disposition, "admitted");
-  assert.equal(invocationAdmission.programRef, gtl.HELLO_WORLD_IDS.programRef);
-  assert.equal(invocationAdmission.graphFunctionRef, gtl.HELLO_WORLD_IDS.graphFunctionRef);
-  assert.equal(invocationAdmission.inputContractRef, gtl.HELLO_WORLD_IDS.inputContractRef);
-  assert.equal(invocationAdmission.outputContractRef, gtl.HELLO_WORLD_IDS.outputContractRef);
-  assert.equal(Object.isFrozen(invocationAdmission), true);
-  assert.equal("graph" in invocationAdmission, false);
-  assert.equal("executionBasis" in invocationAdmission, false);
-  assert.equal("rootMode" in invocation, false);
-  assert.equal("until" in invocation, false);
+  assert.equal(wrongHandleRefusal.code, "selection_mismatch");
 
-  const eventCountBeforeNegatives = store.readAll().length;
+  const wrongDefinitionRefusal = abg.admitInvocation(
+    store,
+    {
+      ...admissionInput,
+      graphFunction: {
+        ...graphFunction,
+        name: "graph-function://abiogenesis/conformance/absent@5",
+      },
+    },
+    publicOperationBasis(
+      product,
+      "abg.operation.run.invoke",
+      workspaceBinding.bindingId,
+      workspaceBinding.bindingDigest,
+      invocation.publicRequestInvocationRef,
+    ),
+  );
+  assert.equal(wrongDefinitionRefusal.code, "selection_mismatch");
+
   const directSupervisedRefusal = abg.admitInvocation(
     store,
     {
@@ -138,7 +269,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
-      invocation.invocationRef,
+      invocation.publicRequestInvocationRef,
     ),
   );
   assert.equal(directSupervisedRefusal.code, "selection_mismatch");
@@ -157,7 +288,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
-      invocation.invocationRef,
+      invocation.publicRequestInvocationRef,
     ),
   );
   assert.equal(malformedContractRefusal.code, "contract_mismatch");
@@ -170,7 +301,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
-      invocation.invocationRef,
+      invocation.publicRequestInvocationRef,
     ),
   );
   assert.equal(missingGrantRefusal.code, "capability_mismatch");
@@ -183,7 +314,7 @@ test("R5 selects and admits the exact validated direct invocation target", async
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
-      invocation.invocationRef,
+      invocation.publicRequestInvocationRef,
     ),
   );
   assert.equal(duplicateGrantRefusal.code, "capability_mismatch");
@@ -196,20 +327,23 @@ test("R5 selects and admits the exact validated direct invocation target", async
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
-      invocation.invocationRef,
+      invocation.publicRequestInvocationRef,
     ),
   );
   assert.equal(missingMembershipRefusal.code, "selection_mismatch");
 
   const changedViewRefusal = abg.admitInvocation(
     store,
-    { ...admissionInput, catalogView: { ...catalogView, entries: [] } },
+    {
+      ...admissionInput,
+      catalogView: { ...catalogView, entries: [], byHandle: {} },
+    },
     publicOperationBasis(
       product,
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
-      invocation.invocationRef,
+      invocation.publicRequestInvocationRef,
     ),
   );
   assert.equal(changedViewRefusal.code, "selection_mismatch");
@@ -228,24 +362,85 @@ test("R5 selects and admits the exact validated direct invocation target", async
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
-      invocation.invocationRef,
+      invocation.publicRequestInvocationRef,
     ),
   );
   assert.equal(changedWorkspaceRefusal.code, "workspace_not_admitted");
 
-  const forgedInvocationRefusal = abg.admitInvocation(
+  const invocationAdmission = abg.admitInvocation(
     store,
-    { ...admissionInput, invocation: structuredClone(invocation) },
+    admissionInput,
     publicOperationBasis(
       product,
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
-      invocation.invocationRef,
+      invocation.publicRequestInvocationRef,
+      [workspaceBinding.admissionEventRef],
     ),
   );
-  assert.equal(forgedInvocationRefusal.code, "invocation_not_constructed");
-  assert.equal(store.readAll().length, eventCountBeforeNegatives);
+  assert.equal(invocationAdmission.kind, "invocation_admission", JSON.stringify(invocationAdmission));
+  assert.equal(invocationAdmission.disposition, "admitted");
+  assert.equal(
+    invocationAdmission.programRef,
+    gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+  );
+  assert.equal(
+    invocationAdmission.catalogHandle,
+    gtl.HELLO_WORLD_DIRECT_IDS.handle,
+  );
+  assert.equal(invocationAdmission.graphFunctionRef, gtl.HELLO_WORLD_IDS.graphFunctionRef);
+  assert.equal(invocationAdmission.selectedDefinitionRef, graphFunction.name);
+  assert.equal(
+    invocationAdmission.programValidationRef,
+    programValidation.validationRef,
+  );
+  const rootCoordinate = hog.rootCTraversalCoordinate(
+    graphFunction.template.startNodeRef,
+  );
+  const rootStep = hog.deriveDirectCStepFromGraph(
+    graphFunction.template,
+    rootCoordinate,
+  );
+  assert.deepEqual(invocationAdmission.hogEntryCoordinate, rootCoordinate);
+  assert.deepEqual(invocationAdmission.hogEntryStep, rootStep);
+  assert.equal("selectedFibreRef" in invocationAdmission, false);
+  assert.equal("selectedFibreDigest" in invocationAdmission, false);
+  assert.equal("selectedPlanRef" in invocationAdmission, false);
+  assert.equal("selectedPlanDigest" in invocationAdmission, false);
+  assert.equal(invocationAdmission.inputContractRef, gtl.HELLO_WORLD_IDS.inputContractRef);
+  assert.equal(invocationAdmission.outputContractRef, gtl.HELLO_WORLD_IDS.outputContractRef);
+  assert.equal(Object.isFrozen(invocationAdmission), true);
+  assert.equal("graph" in invocationAdmission, false);
+  assert.equal("executionBasis" in invocationAdmission, false);
+  assert.equal("rootMode" in invocation, false);
+  assert.equal("until" in invocation, false);
+
+  const admittedPrefix = abg.selectHeldEventStoreDurablePrefix(store);
+  const admittedArtifactTruth = abg.projectExactPrefixArtifactTruth(
+    admittedPrefix,
+  );
+  assert.equal(
+    admittedArtifactTruth.kind,
+    "exact_prefix_artifact_truth_projection",
+  );
+  const clonedInvocationRefusal = abg.admitInvocation(
+    store,
+    {
+      ...admissionInput,
+      artifactTruth: admittedArtifactTruth,
+      invocation: structuredClone(invocation),
+    },
+    publicOperationBasis(
+      product,
+      "abg.operation.run.invoke",
+      workspaceBinding.bindingId,
+      workspaceBinding.bindingDigest,
+      invocation.publicRequestInvocationRef,
+    ),
+  );
+  assert.equal(clonedInvocationRefusal.code, "duplicate_invocation");
+  assert.equal(store.readAll().length, eventCountBeforeNegatives + 2);
 
   const events = store.readAll();
   assert.deepEqual(events.slice(-2).map((event) => event.kind), [
@@ -261,12 +456,12 @@ test("R5 selects and admits the exact validated direct invocation target", async
   const evidenceDirectory = join(root, "test_env/evidence");
   await mkdir(evidenceDirectory, { recursive: true });
   await writeFile(
-    join(evidenceDirectory, "abi5-root-r5.json"),
+    join(evidenceDirectory, "abi5-non-root-alias-selection.json"),
     `${JSON.stringify({
-      kind: "abi5_root_obligation_evidence",
+      kind: "abi5_non_root_alias_selection_evidence",
       schemaVersion: "5.0.0",
-      bindingId: "ABI5-ROOT-001",
-      obligation: "R5_exact_target_program_selected_and_admitted",
+      evidenceId: "ABI5-ALIAS-SELECTION-001",
+      obligation: "catalog_handle_alias_selects_exact_definition",
       result: "satisfied",
       sourceImportUsed: false,
       artifactDigest: verified.artifactDigest,
@@ -287,13 +482,16 @@ test("R5 selects and admits the exact validated direct invocation target", async
       eventKinds: events.map((event) => event.kind),
       mutation: {
         malformedInputRefusal: malformedContractRefusal.code,
+        wrongHandleRefusal: wrongHandleRefusal.code,
+        wrongDefinitionRefusal: wrongDefinitionRefusal.code,
         missingCapabilityRefusal: missingGrantRefusal.code,
         duplicateCapabilityRefusal: duplicateGrantRefusal.code,
         missingMembershipRefusal: missingMembershipRefusal.code,
         changedCatalogViewRefusal: changedViewRefusal.code,
         changedWorkspaceRefusal: changedWorkspaceRefusal.code,
-        forgedInvocationRefusal: forgedInvocationRefusal.code,
-        eventCountUnchanged: store.readAll().length === eventCountBeforeNegatives,
+        clonedInvocationRefusal: clonedInvocationRefusal.code,
+        duplicateEventCountUnchanged:
+          store.readAll().length === eventCountBeforeNegatives + 2,
       },
       authorityBoundary: {
         graphMaterialized: false,
@@ -303,4 +501,196 @@ test("R5 selects and admits the exact validated direct invocation target", async
     }, null, 2)}\n`,
     "utf8",
   );
+});
+
+test("R5 start admission resolves one exact Product start before its catalog definition", async (context) => {
+  const environment = await setupInstalledRootCatalog(context, root);
+  const {
+    product,
+    abg,
+    gtl,
+    validator,
+    store,
+    artifactTruth,
+    workspaceBinding,
+    publication,
+    programValidations,
+  } = environment;
+  const program = publication.programs.find(
+    (row) => row.programRef === gtl.HELLO_WORLD_IDS.programRef,
+  );
+  const graphFunction = publication.graphFunctions.find(
+    (row) => row.name === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  const programValidation = programValidations.find(
+    (row) => row.programRef === gtl.HELLO_WORLD_IDS.programRef,
+  );
+  assert.ok(program);
+  assert.ok(graphFunction);
+  assert.ok(programValidation);
+  assert.equal(programValidation.kind, "program_validation");
+  assert.equal(program.starts.length, 1);
+  assert.equal(
+    program.policies["abg.default_start_ref"],
+    gtl.HELLO_WORLD_IDS.startRef,
+  );
+  const { catalog, view: catalogView } = readinessCatalogView(
+    environment,
+    [
+      gtl.HELLO_WORLD_IDS.graphFunctionRef,
+      gtl.HELLO_WORLD_DIRECT_IDS.handle,
+    ],
+  );
+  assert.equal(catalogView.entries.length, 2);
+  const canonicalLookup = product.lookupGraphFunctionDefinition(
+    catalogView,
+    graphFunction.name,
+    program.programRef,
+  );
+  assert.equal(canonicalLookup.kind, "graph_function_definition_lookup_exact");
+  assert.equal(canonicalLookup.entry.handle, gtl.HELLO_WORLD_IDS.graphFunctionRef);
+  const directLookup = product.lookupGraphFunctionDefinition(
+    catalogView,
+    graphFunction.name,
+    gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+  );
+  assert.equal(directLookup.kind, "graph_function_definition_lookup_exact");
+  assert.equal(directLookup.entry.handle, gtl.HELLO_WORLD_DIRECT_IDS.handle);
+  assert.ok(catalog.readinessBasis);
+  const resolvedStart = gtl.resolveProgramStart(program, {
+    scope: "program",
+    target: "next",
+    until: "converged",
+    rootMode: "direct",
+  });
+  assert.equal(
+    resolvedStart.kind,
+    "resolved_program_start",
+    JSON.stringify(resolvedStart),
+  );
+  const start = resolvedStart.start;
+  assert.equal(start.startRef, gtl.HELLO_WORLD_IDS.startRef);
+  const input = gtl.constructHelloWorldInput("World");
+  const rawInput = requireRawAdmission(
+    validator,
+    input,
+    "invocation_input",
+    gtl.HELLO_WORLD_IDS.inputContractRef,
+  );
+  const policy = product.constructRootInvocationPolicy(
+    workspaceBinding,
+    program,
+    [],
+  );
+  const actorRef = "actor://abiogenesis/t286/trusted-developer";
+  const capabilityGrant = product.constructCapabilityGrant(policy, actorRef);
+  const authority = product.constructInvocationAuthority(
+    actorRef,
+    workspaceBinding,
+    catalogView,
+    program.programRef,
+    canonicalLookup.entry,
+    policy,
+    [capabilityGrant],
+  );
+  assert.equal(authority.kind, "invocation_authority");
+
+  const requestValue = (invocationRef, target) => ({
+    kind: "public_invocation",
+    schemaVersion: "5.0.0",
+    operationId: "abg.operation.run.invoke",
+    variant: "start",
+    invocationRef,
+    eventTime: "2026-07-21T00:00:00.000Z",
+    correlationId: `${invocationRef}/correlation`,
+    payload: {
+      programRef: program.programRef,
+      scope: "program",
+      target,
+      until: "converged",
+      rootMode: "direct",
+    },
+  });
+  const admitCandidate = (rawRequest) => {
+    const invocation = product.constructStartInvocation(
+      workspaceBinding,
+      catalogView,
+      program,
+      canonicalLookup.entry,
+      rawRequest,
+      rawInput,
+      policy,
+      [capabilityGrant],
+      authority,
+    );
+    assert.equal(invocation.kind, "public_invocation_candidate");
+    return {
+      invocation,
+      input: {
+        artifactTruth,
+        invocation,
+        rawRequest,
+        rawInput,
+        modulePublication: publication,
+        program,
+        graphFunction,
+        programValidation,
+        workspaceBinding,
+        catalogView,
+        policy,
+        capabilityGrants: [capabilityGrant],
+        authority,
+      },
+    };
+  };
+
+  const wrongRequest = requireRawAdmission(
+    validator,
+    requestValue(
+      "invocation://t286/r5/start-wrong",
+      "asset:gtl://abiogenesis/conformance/absent@5",
+    ),
+    "public_operation_request",
+    "contract://abiogenesis/public/run-invoke-request@5",
+  );
+  const wrong = admitCandidate(wrongRequest);
+  const eventCountBefore = store.readAll().length;
+  const wrongStartRefusal = abg.admitInvocation(
+    store,
+    wrong.input,
+    publicOperationBasis(
+      product,
+      "abg.operation.run.invoke",
+      workspaceBinding.bindingId,
+      workspaceBinding.bindingDigest,
+      wrong.invocation.publicRequestInvocationRef,
+    ),
+  );
+  assert.equal(wrongStartRefusal.code, "selection_mismatch");
+  assert.equal(store.readAll().length, eventCountBefore);
+
+  const exactRequest = requireRawAdmission(
+    validator,
+    requestValue("invocation://t286/r5/start-exact", "next"),
+    "public_operation_request",
+    "contract://abiogenesis/public/run-invoke-request@5",
+  );
+  const exact = admitCandidate(exactRequest);
+  const admission = abg.admitInvocation(
+    store,
+    exact.input,
+    publicOperationBasis(
+      product,
+      "abg.operation.run.invoke",
+      workspaceBinding.bindingId,
+      workspaceBinding.bindingDigest,
+      exact.invocation.publicRequestInvocationRef,
+      [workspaceBinding.admissionEventRef],
+    ),
+  );
+  assert.equal(admission.kind, "invocation_admission", JSON.stringify(admission));
+  assert.equal(admission.publicStart.startRef, start.startRef);
+  assert.equal(admission.publicStart.graphFunctionRef, start.graphFunctionRef);
+  assert.equal(admission.selectedDefinitionRef, start.graphFunctionRef);
+  assert.equal(admission.catalogHandle, gtl.HELLO_WORLD_IDS.graphFunctionRef);
 });

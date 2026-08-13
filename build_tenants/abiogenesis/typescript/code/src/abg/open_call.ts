@@ -3,11 +3,29 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
-  hasAdmittedExecutionBasis,
+  rehydrateExecutionBasisAtPrefix,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
-import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
+import { projectCurrentChildParentCCallAtPrefix } from "./c_call.js";
+import {
+  constructRunActiveFluent,
+  constructRunClosedFluent,
+  constructRunTerminalFluent,
+  constructRuntimeFluent,
+  deriveRuntimeEventCalculusProjection,
+  holdsAt,
+} from "./event_calculus.js";
+import {
+  AbgEventStore,
+  admitRuntimeEvent,
+  admitRuntimeEventTransactionAtExpectedPrefix,
+} from "./event_store.js";
+import {
+  runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
 
 export interface OpenedRun {
   readonly runId: string;
@@ -130,8 +148,135 @@ function isRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function sameCanonicalValue(left: unknown, right: unknown): boolean {
+  try {
+    return sha256Canonical(left as JsonValue) ===
+      sha256Canonical(right as JsonValue);
+  } catch {
+    return false;
+  }
+}
+
+type RunPhase = "not_open" | "active" | "closed" | "stopped" | "failed";
+
+function projectRunPhaseAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  input: Readonly<{
+    runId: string;
+    runDigest: Sha256Digest;
+    executionBasisRef: string;
+  }>,
+): RunPhase | null {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const openEvents = events.filter((event) =>
+    event.kind === "run_segment_opened" && event.aggregateId === input.runId
+  );
+  const failureEvents = events.filter((event) =>
+    event.kind === "runtime_failure_observed" && event.runId === input.runId
+  );
+  const stoppedEvents = events.filter((event) =>
+    event.kind === "run_stopped" && event.runId === input.runId
+  );
+  const closedEvents = events.filter((event) =>
+    event.kind === "run_closed" && event.runId === input.runId
+  );
+  if (openEvents.length === 0) {
+    return failureEvents.length === 0 &&
+        stoppedEvents.length === 0 &&
+        closedEvents.length === 0
+      ? "not_open"
+      : null;
+  }
+  const openEvent = openEvents[0]!;
+  if (
+    openEvents.length !== 1 ||
+    openEvent.aggregateType !== "run" ||
+    openEvent.basisId !== input.executionBasisRef ||
+    !isRecord(openEvent.payload) ||
+    openEvent.payload.runId !== input.runId ||
+    openEvent.payload.runDigest !== input.runDigest ||
+    failureEvents.length > 1 ||
+    stoppedEvents.length > 1 ||
+    closedEvents.length > 1 ||
+    [failureEvents, stoppedEvents, closedEvents]
+      .filter((rows) => rows.length === 1).length > 1
+  ) return null;
+  const calculus = deriveRuntimeEventCalculusProjection(prefix);
+  if (failureEvents.length === 1) return "failed";
+  if (
+    stoppedEvents.length === 1 &&
+    holdsAt(calculus, constructRunTerminalFluent(input.runId))
+  ) return "stopped";
+  if (
+    closedEvents.length === 1 &&
+    holdsAt(calculus, constructRunClosedFluent(input.runId))
+  ) return "closed";
+  return holdsAt(calculus, constructRunActiveFluent(input.runId))
+    ? "active"
+    : null;
+}
+
+type GraphCallPhase = "not_open" | "active" | "closed" | "inactive";
+
+function projectGraphCallPhaseAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  input: Readonly<{
+    graphCallId: string;
+    graphCallDigest: Sha256Digest;
+    executionBasisRef: string;
+  }>,
+): GraphCallPhase | null {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const openEvents = events.filter((event) =>
+    event.kind === "graph_call_opened" &&
+    event.aggregateId === input.graphCallId
+  );
+  const closedEvents = events.filter((event) =>
+    event.kind === "graph_call_closed" &&
+    event.graphCallId === input.graphCallId
+  );
+  if (openEvents.length === 0) {
+    return closedEvents.length === 0 ? "not_open" : null;
+  }
+  const openEvent = openEvents[0]!;
+  if (
+    openEvents.length !== 1 ||
+    closedEvents.length > 1 ||
+    openEvent.aggregateType !== "graph_call" ||
+    openEvent.basisId !== input.executionBasisRef ||
+    !isRecord(openEvent.payload) ||
+    openEvent.payload.graphCallId !== input.graphCallId ||
+    openEvent.payload.graphCallDigest !== input.graphCallDigest
+  ) return null;
+  const calculus = deriveRuntimeEventCalculusProjection(prefix);
+  if (closedEvents.length === 1) {
+    return holdsAt(calculus, constructRuntimeFluent({
+        name: "graph_call_closed",
+        identity: input.graphCallId,
+      }))
+      ? "closed"
+      : null;
+  }
+  return holdsAt(calculus, constructRuntimeFluent({
+      name: "graph_call_active",
+      identity: input.graphCallId,
+    }))
+    ? "active"
+    : "inactive";
+}
+
 export function hasOpenedTraversalScope(
   store: AbgEventStore,
+  scope: OpenedTraversalScope,
+): boolean {
+  return hasOpenedTraversalScopeAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    scope,
+  );
+}
+
+export function hasOpenedTraversalScopeAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
   scope: OpenedTraversalScope,
 ): boolean {
   if (!isOpenedTraversalScope(scope)) return false;
@@ -142,7 +287,7 @@ export function hasOpenedTraversalScope(
     scopeDigest: _scopeDigest,
     ...body
   } = scope;
-  const events = store.readAll();
+  const events = runtimeEventsFromValidatedPrefix(prefix);
   const runEvent = events.find((event) => event.eventId === scope.runOpenEventRef);
   const graphCallEvent = events.find((event) => event.eventId === scope.graphCallOpenEventRef);
   const frameEvent = events.find((event) => event.eventId === scope.frameOpenEventRef);
@@ -173,13 +318,23 @@ export function rehydrateOpenedTraversalScope(
   store: AbgEventStore,
   value: Readonly<Record<string, JsonValue>>,
 ): OpenedTraversalScope | null {
+  return rehydrateOpenedTraversalScopeAtPrefix(
+    selectValidatedRuntimeEventPrefix(store.readAll()),
+    value,
+  );
+}
+
+export function rehydrateOpenedTraversalScopeAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  value: Readonly<Record<string, JsonValue>>,
+): OpenedTraversalScope | null {
   const scope = deepFreeze({
     kind: "opened_traversal_scope" as const,
     schemaVersion: "5.0.0" as const,
     ...value,
   }) as unknown as OpenedTraversalScope;
   openedScopes.add(scope);
-  return hasOpenedTraversalScope(store, scope) ? scope : null;
+  return hasOpenedTraversalScopeAtPrefix(prefix, scope) ? scope : null;
 }
 
 export function openCall(
@@ -187,7 +342,27 @@ export function openCall(
   executionBasis: ExecutionBasis,
   basis: RuntimeAdmissionBasis,
 ): OpenCallResult {
-  if (!hasAdmittedExecutionBasis(store, executionBasis)) {
+  const snapshot = store.readAll();
+  const expectedStorePrefixDigest = sha256Canonical(
+    snapshot as unknown as JsonValue,
+  );
+  let authorityPrefix: ValidatedRuntimeEventPrefix;
+  let exactBasis: ExecutionBasis | null;
+  try {
+    if (store.digest() !== expectedStorePrefixDigest) throw new TypeError();
+    authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+    exactBasis = rehydrateExecutionBasisAtPrefix(
+      authorityPrefix,
+      executionBasis.basisRef,
+    );
+  } catch {
+    exactBasis = null;
+  }
+  if (
+    exactBasis === null ||
+    !sameCanonicalValue(exactBasis, executionBasis) ||
+    exactBasis.basisClass !== "root"
+  ) {
     return {
       kind: "open_call_refusal",
       schemaVersion: "5.0.0",
@@ -196,11 +371,24 @@ export function openCall(
       message: "openCall requires one exact ABG-admitted ExecutionBasis",
     };
   }
-  if (
-    store.readAll().some(
-      (event) => event.kind === "run_segment_opened" && event.basisId === executionBasis.basisRef,
-    )
-  ) {
+  const runBody = {
+    executionBasisRef: exactBasis.basisRef,
+    executionBasisDigest: exactBasis.basisDigest,
+    invocationAdmissionRef: exactBasis.invocationAdmissionRef,
+    invocationRef: exactBasis.invocationRef,
+    workspaceBindingId: exactBasis.workspaceBindingId,
+    programRef: exactBasis.programRef,
+    graphFunctionRef: exactBasis.graphFunctionRef,
+    graphRef: exactBasis.graphRef,
+    graphDigest: exactBasis.graphDigest,
+  };
+  const runDigest = sha256Canonical(runBody as unknown as JsonValue);
+  const runId = `run://abiogenesis/${runDigest.slice("sha256:".length)}`;
+  if (projectRunPhaseAtPrefix(authorityPrefix!, {
+    runId,
+    runDigest,
+    executionBasisRef: exactBasis.basisRef,
+  }) !== "not_open") {
     return {
       kind: "open_call_refusal",
       schemaVersion: "5.0.0",
@@ -210,19 +398,10 @@ export function openCall(
     };
   }
 
-  const runBody = {
-    executionBasisRef: executionBasis.basisRef,
-    executionBasisDigest: executionBasis.basisDigest,
-    invocationAdmissionRef: executionBasis.invocationAdmissionRef,
-    invocationRef: executionBasis.invocationRef,
-    workspaceBindingId: executionBasis.workspaceBindingId,
-    programRef: executionBasis.programRef,
-    graphFunctionRef: executionBasis.graphFunctionRef,
-    graphRef: executionBasis.graphRef,
-    graphDigest: executionBasis.graphDigest,
-  };
-  const runDigest = sha256Canonical(runBody as unknown as JsonValue);
-  const runId = `run://abiogenesis/${runDigest.slice("sha256:".length)}`;
+  return admitRuntimeEventTransactionAtExpectedPrefix(
+    store,
+    expectedStorePrefixDigest,
+    () => {
   const runEvent = admitRuntimeEvent(store, {
     kind: "run_segment_opened",
     eventTime: basis.eventTime,
@@ -364,6 +543,8 @@ export function openCall(
     frame,
     scope,
   }) as OpenCallAdmission;
+    },
+  ).value;
 }
 
 export function openChildCall(
@@ -372,8 +553,59 @@ export function openChildCall(
   executionBasis: ExecutionBasis,
   basis: RuntimeAdmissionBasis,
 ): OpenChildCallResult {
+  const current = (() => {
+    try {
+      const snapshot = store.readAll();
+      const expectedStorePrefixDigest = sha256Canonical(
+        snapshot as unknown as JsonValue,
+      );
+      if (store.digest() !== expectedStorePrefixDigest) return null;
+      const authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+      const runPrefix = selectValidatedRuntimeEventPrefix(
+        runtimeEventsFromValidatedPrefix(authorityPrefix),
+        { runId: parentScope.runId },
+      );
+      const exactBasis = rehydrateExecutionBasisAtPrefix(
+        authorityPrefix,
+        executionBasis.basisRef,
+      );
+      const exactParentScope = rehydrateOpenedTraversalScopeAtPrefix(
+        runPrefix,
+        parentScope as unknown as Readonly<Record<string, JsonValue>>,
+      );
+      if (
+        exactBasis === null ||
+        exactParentScope === null ||
+        !sameCanonicalValue(exactBasis, executionBasis) ||
+        !sameCanonicalValue(exactParentScope, parentScope) ||
+        exactBasis.basisClass !== "child" ||
+        exactBasis.parentCCallRef === null ||
+        exactBasis.parentExecutionBasisRef === null
+      ) return null;
+      const parentCCall = projectCurrentChildParentCCallAtPrefix(runPrefix, {
+        parentCCallRef: exactBasis.parentCCallRef,
+        parentExecutionBasisRef: exactBasis.parentExecutionBasisRef,
+        runId: exactParentScope.runId,
+        graphCallId: exactParentScope.graphCallId,
+        frameId: exactParentScope.frameId,
+        childGraphFunctionRef: exactBasis.graphFunctionRef,
+        admittedInputRef: exactBasis.rawInputAdmissionRef,
+        admittedInputDigest: exactBasis.rawInputDigest,
+      });
+      return parentCCall === null ? null : {
+        expectedStorePrefixDigest,
+        authorityPrefix,
+        runPrefix,
+        exactBasis,
+        exactParentScope,
+        parentCCall,
+      };
+    } catch {
+      return null;
+    }
+  })();
   if (
-    !hasAdmittedExecutionBasis(store, executionBasis) ||
+    current === null ||
     executionBasis.basisClass !== "child"
   ) {
     return {
@@ -385,7 +617,6 @@ export function openChildCall(
     };
   }
   if (
-    !hasOpenedTraversalScope(store, parentScope) ||
     executionBasis.parentExecutionBasisRef !== parentScope.executionBasisRef ||
     executionBasis.parentTraversalScopeRef !== parentScope.scopeRef ||
     executionBasis.invocationAdmissionRef !== parentScope.invocationAdmissionRef ||
@@ -399,11 +630,26 @@ export function openChildCall(
       message: "child call basis does not descend from the exact parent traversal scope",
     };
   }
-  if (
-    store.readAll().some(
-      (event) => event.kind === "graph_call_opened" && event.basisId === executionBasis.basisRef,
-    )
-  ) {
+  const graphCallBody = {
+    runId: current.exactParentScope.runId,
+    executionBasisRef: current.exactBasis.basisRef,
+    invocationRef: current.exactBasis.invocationRef,
+    graphFunctionRef: current.exactBasis.graphFunctionRef,
+    graphFunctionDigest: current.exactBasis.graphFunctionDigest,
+    graphRef: current.exactBasis.graphRef,
+    graphDigest: current.exactBasis.graphDigest,
+    parentFrameId: current.exactParentScope.frameId,
+  };
+  const graphCallDigest = sha256Canonical(
+    graphCallBody as unknown as JsonValue,
+  );
+  const graphCallId =
+    `graph-call://abiogenesis/${graphCallDigest.slice("sha256:".length)}`;
+  if (projectGraphCallPhaseAtPrefix(current.runPrefix, {
+    graphCallId,
+    graphCallDigest,
+    executionBasisRef: current.exactBasis.basisRef,
+  }) !== "not_open") {
     return {
       kind: "open_child_call_refusal",
       schemaVersion: "5.0.0",
@@ -413,18 +659,10 @@ export function openChildCall(
     };
   }
 
-  const graphCallBody = {
-    runId: parentScope.runId,
-    executionBasisRef: executionBasis.basisRef,
-    invocationRef: executionBasis.invocationRef,
-    graphFunctionRef: executionBasis.graphFunctionRef,
-    graphFunctionDigest: executionBasis.graphFunctionDigest,
-    graphRef: executionBasis.graphRef,
-    graphDigest: executionBasis.graphDigest,
-    parentFrameId: parentScope.frameId,
-  };
-  const graphCallDigest = sha256Canonical(graphCallBody as unknown as JsonValue);
-  const graphCallId = `graph-call://abiogenesis/${graphCallDigest.slice("sha256:".length)}`;
+  return admitRuntimeEventTransactionAtExpectedPrefix(
+    store,
+    current.expectedStorePrefixDigest,
+    () => {
   const graphCallEvent = admitRuntimeEvent(store, {
     kind: "graph_call_opened",
     eventTime: basis.eventTime,
@@ -432,6 +670,7 @@ export function openChildCall(
     aggregateId: graphCallId,
     parentAggregateId: parentScope.runId,
     causationEventRefs: [
+      current.parentCCall.causationEventRef,
       parentScope.runOpenEventRef,
       parentScope.frameOpenEventRef,
       executionBasis.admissionEventRef,
@@ -537,4 +776,6 @@ export function openChildCall(
     frame,
     scope,
   }) as OpenChildCallAdmission;
+    },
+  ).value;
 }

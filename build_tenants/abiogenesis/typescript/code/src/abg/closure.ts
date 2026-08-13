@@ -4,21 +4,26 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
-  hasOpenedCCall,
+  projectAdmittedCCallStateAtPrefix,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
   type CCall,
 } from "./c_call.js";
 import type { RuntimeAdmissionBasis } from "./execution_basis.js";
 import {
-  AbgEventStore,
-  admitRuntimeEvent,
-  admitRuntimeEventBatch,
+  assertHeldEventStoreAtDurablePrefix,
   compareAndAppendExpectedPrefix,
+  isRuntimeEventTransactionActive,
+  readRuntimeEventsAtDurablePrefix,
+  type AbgEventStore,
+  type DurablePrefixCoordinate,
+  type RuntimeEvent,
+  type RuntimeEventCandidateFactory,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
   constructRuntimeFluent,
@@ -26,10 +31,14 @@ import {
   holdsAt,
 } from "./event_calculus.js";
 import {
-  hasOpenedTraversalScope,
+  rehydrateOpenedTraversalScopeAtPrefix,
   type OpenedTraversalScope,
 } from "./open_call.js";
-import { projectRunQuiescence, replay, type ReplayState } from "./replay.js";
+import {
+  projectRunQuiescence,
+  replayValidatedRuntimeEventPrefix,
+  type ReplayState,
+} from "./replay.js";
 import {
   type AdmittedRoute,
 } from "./traversal_route.js";
@@ -59,7 +68,8 @@ export interface ClosureAdmissionRefusal {
   readonly code:
     | "closure_contract_mismatch"
     | "replay_mismatch"
-    | "runtime_basis_mismatch";
+    | "runtime_basis_mismatch"
+    | "stale_prefix";
   readonly message: string;
   readonly failureEventRef: string | null;
 }
@@ -80,18 +90,68 @@ function refuseClosureWithoutEffects(
   });
 }
 
-function projectExactPreClosureQuiescence(
+interface ExactClosurePrefix {
+  readonly fullPrefix: ValidatedRuntimeEventPrefix;
+  readonly runPrefix: ValidatedRuntimeEventPrefix;
+  readonly expectedStorePrefixDigest: Sha256Digest;
+}
+
+function selectExactClosurePrefix(
   store: AbgEventStore,
-  cCall: CCall,
-  route: AdmittedRoute,
+  predecessorPrefix: DurablePrefixCoordinate,
+  runId: string,
+): ExactClosurePrefix | null {
+  try {
+    assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+    const events = isRuntimeEventTransactionActive(store)
+      ? store.readAll()
+      : readRuntimeEventsAtDurablePrefix(predecessorPrefix);
+    const fullPrefix = selectValidatedRuntimeEventPrefix(events);
+    const runPrefix = selectValidatedRuntimeEventPrefix(events, { runId });
+    return deepFreeze({
+      fullPrefix,
+      runPrefix,
+      expectedStorePrefixDigest: sha256Canonical(events as unknown as JsonValue),
+    });
+  } catch {
+    return null;
+  }
+}
+
+function projectExactPreClosureQuiescence(
+  prefix: ValidatedRuntimeEventPrefix,
 ) {
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
-    runId: cCall.runId,
-  });
   return deepFreeze({
     ...projectRunQuiescence(prefix),
-    expectedStorePrefixDigest: store.digest(),
   });
+}
+
+function appendClosureBatchAtExpectedPrefix(
+  store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
+  expectedStorePrefixDigest: Sha256Digest,
+  factories: readonly RuntimeEventCandidateFactory[],
+): readonly RuntimeEvent[] | null {
+  try {
+    assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+  } catch {
+    return null;
+  }
+  try {
+    return compareAndAppendExpectedPrefix(
+      store,
+      expectedStorePrefixDigest,
+      factories,
+    );
+  } catch (error) {
+    try {
+      assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+    } catch {
+      return null;
+    }
+    if (store.digest() !== expectedStorePrefixDigest) return null;
+    throw error;
+  }
 }
 
 function isExactPreClosureQuiescence(
@@ -132,13 +192,27 @@ export interface ChildClosureAdmissionRefusal {
   readonly code:
     | "closure_contract_mismatch"
     | "replay_mismatch"
-    | "runtime_basis_mismatch";
+    | "runtime_basis_mismatch"
+    | "stale_prefix";
   readonly message: string;
 }
 
 export type ChildClosureAdmissionResult =
   | ChildClosureAdmission
   | ChildClosureAdmissionRefusal;
+
+function refuseChildClosureWithoutEffects(
+  code: ChildClosureAdmissionRefusal["code"],
+  message: string,
+): ChildClosureAdmissionRefusal {
+  return deepFreeze({
+    kind: "child_closure_admission_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code,
+    message,
+  });
+}
 
 interface CurrentClosureTruth {
   readonly events: ReturnType<typeof runtimeEventsFromValidatedPrefix>;
@@ -188,19 +262,19 @@ function routeBody(route: AdmittedRoute): Readonly<Record<string, JsonValue>> {
 }
 
 function projectCurrentClosureTruth(
-  store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
+  authorityPrefix: ValidatedRuntimeEventPrefix,
   cCall: CCall,
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
   route: AdmittedRoute,
-  replayState: ReplayState,
   resume: FhInteractionResumeAdmission | null = null,
 ): CurrentClosureTruth | null {
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
-    runId: cCall.runId,
-  });
   const events = runtimeEventsFromValidatedPrefix(prefix);
-  const currentReplay = replay(store, { runId: cCall.runId });
+  const currentReplay = replayValidatedRuntimeEventPrefix(
+    prefix,
+    authorityPrefix,
+  );
   const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
   const cCallTruth = currentReplay.cCalls.find(
     (candidate) => candidate.cCallRef === cCall.cCallRef,
@@ -255,7 +329,6 @@ function projectCurrentClosureTruth(
           candidate.successorCursorDigest === resume.successorCursorDigest,
       );
   if (
-    currentReplay.replayDigest !== replayState.replayDigest ||
     cCallTruth?.status !== "judged" ||
     cCallTruth.resultRef !== result.resultRef ||
     cCallTruth.resultDigest !== result.resultDigest ||
@@ -308,79 +381,44 @@ function projectCurrentClosureTruth(
   return { events, replay: currentReplay };
 }
 
-function refuseClosure(
-  store: AbgEventStore,
-  cCall: CCall,
-  code: ClosureAdmissionRefusal["code"],
-  message: string,
-  subjectDigest: Sha256Digest,
-  basis: RuntimeAdmissionBasis,
-): ClosureAdmissionRefusal {
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
-    runId: cCall.runId,
-  });
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  if (
-    !hasOpenedCCall(store, cCall) ||
-    events.some((event) =>
-      event.runId === cCall.runId &&
-      (event.kind === "run_closed" || event.kind === "runtime_failure_observed"))
-  ) {
-    return {
-      kind: "closure_admission_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code,
-      message,
-      failureEventRef: null,
-    };
-  }
-  const prior = events.at(-1)!;
-  const event = admitRuntimeEvent(store, {
-    kind: "runtime_failure_observed",
-    eventTime: basis.eventTime,
-    aggregateType: "frame",
-    aggregateId: cCall.frameId,
-    parentAggregateId: cCall.graphCallId,
-    causationEventRefs: [prior.eventId, ...basis.causationEventRefs],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: cCall.basisId,
-    runId: cCall.runId,
-    graphFunctionRef: cCall.graphFunctionRef,
-    graphCallId: cCall.graphCallId,
-    frameId: cCall.frameId,
-    payload: {
-      failureClass: "closure_refused",
-      code,
-      subjectDigest,
-      cCallRef: cCall.cCallRef,
-    },
-  });
-  return {
-    kind: "closure_admission_refusal",
-    schemaVersion: "5.0.0",
-    disposition: "refused",
-    code,
-    message,
-    failureEventRef: event.eventId,
-  };
-}
-
 export function admitClosure(
   store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
   cCall: CCall,
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
   route: AdmittedRoute,
-  replayState: ReplayState,
   closureContract: Readonly<ClosureContract>,
   basis: RuntimeAdmissionBasis,
 ): ClosureAdmissionResult {
+  const exactPrefix = selectExactClosurePrefix(
+    store,
+    predecessorPrefix,
+    cCall.runId,
+  );
+  if (exactPrefix === null) {
+    return refuseClosureWithoutEffects(
+      "stale_prefix",
+      "closure requires the exact held durable predecessor prefix",
+    );
+  }
+  const projectedCCall = projectAdmittedCCallStateAtPrefix(
+    exactPrefix.runPrefix,
+    cCall as unknown as Readonly<Record<string, JsonValue>>,
+    result as unknown as Readonly<Record<string, JsonValue>>,
+    judgment as unknown as Readonly<Record<string, JsonValue>>,
+  );
+  if (projectedCCall === null) {
+    return refuseClosureWithoutEffects(
+      "runtime_basis_mismatch",
+      "closure requires one exact prefix-admitted CCall, result, and judgment",
+    );
+  }
+  cCall = projectedCCall.cCall;
+  result = projectedCCall.result;
+  judgment = projectedCCall.judgment;
   const closureContractDigest = sha256Canonical(closureContract as unknown as JsonValue);
   if (
-    !hasOpenedCCall(store, cCall) ||
     result.cCallRef !== cCall.cCallRef ||
     judgment.cCallRef !== cCall.cCallRef ||
     route.cCallRef !== cCall.cCallRef ||
@@ -389,31 +427,23 @@ export function admitClosure(
     judgment.judgment !== "advance" ||
     route.routeKind !== "terminal"
   ) {
-    return refuseClosure(
-      store,
-      cCall,
+    return refuseClosureWithoutEffects(
       "runtime_basis_mismatch",
       "closure requires one exact judged CCall and admitted terminal route",
-      closureContractDigest,
-      basis,
     );
   }
   const currentTruth = projectCurrentClosureTruth(
-    store,
+    exactPrefix.runPrefix,
+    exactPrefix.fullPrefix,
     cCall,
     result,
     judgment,
     route,
-    replayState,
   );
   if (currentTruth === null) {
-    return refuseClosure(
-      store,
-      cCall,
+    return refuseClosureWithoutEffects(
       "replay_mismatch",
       "closure basis is not current replay truth",
-      replayState.replayDigest,
-      basis,
     );
   }
   if (
@@ -435,17 +465,13 @@ export function admitClosure(
       `terminal_admitted(${cCall.frameId})`,
     )
   ) {
-    return refuseClosure(
-      store,
-      cCall,
+    return refuseClosureWithoutEffects(
       "closure_contract_mismatch",
       "closure contract, result, judgment, route, or uniqueness check failed",
-      closureContractDigest,
-      basis,
     );
   }
 
-  const quiescence = projectExactPreClosureQuiescence(store, cCall, route);
+  const quiescence = projectExactPreClosureQuiescence(exactPrefix.runPrefix);
   if (!isExactPreClosureQuiescence(quiescence, cCall, route)) {
     return refuseClosureWithoutEffects(
       "runtime_basis_mismatch",
@@ -464,7 +490,11 @@ export function admitClosure(
   };
   const closureDigest = sha256Canonical(closureBody as unknown as JsonValue);
   const closureRef = `closure://abiogenesis/${closureDigest.slice("sha256:".length)}`;
-  const events = compareAndAppendExpectedPrefix(store, quiescence.expectedStorePrefixDigest, [
+  const events = appendClosureBatchAtExpectedPrefix(
+    store,
+    predecessorPrefix,
+    exactPrefix.expectedStorePrefixDigest,
+    [
     () => ({
     kind: "terminal_reached",
     eventTime: basis.eventTime,
@@ -543,7 +573,14 @@ export function admitClosure(
       closureContractRef: closureContract.closureContractRef,
     },
     }),
-  ]);
+    ],
+  );
+  if (events === null) {
+    return refuseClosureWithoutEffects(
+      "stale_prefix",
+      "closure predecessor became stale before its atomic append",
+    );
+  }
   return deepFreeze({
     kind: "closure_admission" as const,
     schemaVersion: "5.0.0" as const,
@@ -564,20 +601,45 @@ export function admitClosure(
 
 export function admitInteractionClosure(
   store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
   cCall: CCall,
   pendingResult: AdmittedCCallResult,
   pendingJudgment: AdmittedCCallJudgment,
   resume: FhInteractionResumeAdmission,
   route: AdmittedRoute,
-  replayState: ReplayState,
   closureContract: Readonly<ClosureContract>,
   basis: RuntimeAdmissionBasis,
 ): ClosureAdmissionResult {
+  const exactPrefix = selectExactClosurePrefix(
+    store,
+    predecessorPrefix,
+    cCall.runId,
+  );
+  if (exactPrefix === null) {
+    return refuseClosureWithoutEffects(
+      "stale_prefix",
+      "F_H closure requires the exact held durable predecessor prefix",
+    );
+  }
+  const projectedCCall = projectAdmittedCCallStateAtPrefix(
+    exactPrefix.runPrefix,
+    cCall as unknown as Readonly<Record<string, JsonValue>>,
+    pendingResult as unknown as Readonly<Record<string, JsonValue>>,
+    pendingJudgment as unknown as Readonly<Record<string, JsonValue>>,
+  );
+  if (projectedCCall === null) {
+    return refuseClosureWithoutEffects(
+      "runtime_basis_mismatch",
+      "F_H closure requires one exact prefix-admitted CCall, result, and judgment",
+    );
+  }
+  cCall = projectedCCall.cCall;
+  pendingResult = projectedCCall.result;
+  pendingJudgment = projectedCCall.judgment;
   const closureContractDigest = sha256Canonical(
     closureContract as unknown as JsonValue,
   );
   if (
-    !hasOpenedCCall(store, cCall) ||
     cCall.regime !== "F_H" ||
     cCall.responseContractRef === null ||
     cCall.continuationContractRef === null ||
@@ -595,32 +657,24 @@ export function admitInteractionClosure(
     route.sourceCursorDigest !== resume.successorCursorDigest ||
     route.routeKind !== "terminal"
   ) {
-    return refuseClosure(
-      store,
-      cCall,
+    return refuseClosureWithoutEffects(
       "runtime_basis_mismatch",
       "F_H closure requires one exact pending CCall, admitted response, resume, and terminal route",
-      closureContractDigest,
-      basis,
     );
   }
   const currentTruth = projectCurrentClosureTruth(
-    store,
+    exactPrefix.runPrefix,
+    exactPrefix.fullPrefix,
     cCall,
     pendingResult,
     pendingJudgment,
     route,
-    replayState,
     resume,
   );
   if (currentTruth === null) {
-    return refuseClosure(
-      store,
-      cCall,
+    return refuseClosureWithoutEffects(
       "replay_mismatch",
       "F_H closure basis is not the current resumed replay truth",
-      replayState.replayDigest,
-      basis,
     );
   }
   if (
@@ -643,17 +697,13 @@ export function admitInteractionClosure(
       `terminal_admitted(${cCall.frameId})`,
     )
   ) {
-    return refuseClosure(
-      store,
-      cCall,
+    return refuseClosureWithoutEffects(
       "closure_contract_mismatch",
       "F_H closure contract, response, route, or uniqueness check failed",
-      closureContractDigest,
-      basis,
     );
   }
 
-  const quiescence = projectExactPreClosureQuiescence(store, cCall, route);
+  const quiescence = projectExactPreClosureQuiescence(exactPrefix.runPrefix);
   if (!isExactPreClosureQuiescence(quiescence, cCall, route)) {
     return refuseClosureWithoutEffects(
       "runtime_basis_mismatch",
@@ -673,7 +723,11 @@ export function admitInteractionClosure(
   const closureDigest = sha256Canonical(closureBody as unknown as JsonValue);
   const closureRef =
     `closure://abiogenesis/${closureDigest.slice("sha256:".length)}`;
-  const events = compareAndAppendExpectedPrefix(store, quiescence.expectedStorePrefixDigest, [
+  const events = appendClosureBatchAtExpectedPrefix(
+    store,
+    predecessorPrefix,
+    exactPrefix.expectedStorePrefixDigest,
+    [
     () => ({
     kind: "terminal_reached",
     eventTime: basis.eventTime,
@@ -752,7 +806,14 @@ export function admitInteractionClosure(
       closureContractRef: closureContract.closureContractRef,
     },
     }),
-  ]);
+    ],
+  );
+  if (events === null) {
+    return refuseClosureWithoutEffects(
+      "stale_prefix",
+      "F_H closure predecessor became stale before its atomic append",
+    );
+  }
   return deepFreeze({
     kind: "closure_admission" as const,
     schemaVersion: "5.0.0" as const,
@@ -773,22 +834,50 @@ export function admitInteractionClosure(
 
 export function admitChildClosure(
   store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
   childScope: OpenedTraversalScope,
   cCall: CCall,
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
   route: AdmittedRoute,
-  replayState: ReplayState,
   closureContract: Readonly<ClosureContract>,
   basis: RuntimeAdmissionBasis,
 ): ChildClosureAdmissionResult {
+  const exactPrefix = selectExactClosurePrefix(
+    store,
+    predecessorPrefix,
+    childScope.runId,
+  );
+  if (exactPrefix === null) {
+    return refuseChildClosureWithoutEffects(
+      "stale_prefix",
+      "child closure requires the exact held durable predecessor prefix",
+    );
+  }
+  const projectedScope = rehydrateOpenedTraversalScopeAtPrefix(
+    exactPrefix.runPrefix,
+    childScope as unknown as Readonly<Record<string, JsonValue>>,
+  );
+  const projectedCCall = projectAdmittedCCallStateAtPrefix(
+    exactPrefix.runPrefix,
+    cCall as unknown as Readonly<Record<string, JsonValue>>,
+    result as unknown as Readonly<Record<string, JsonValue>>,
+    judgment as unknown as Readonly<Record<string, JsonValue>>,
+  );
+  if (projectedScope === null || projectedCCall === null) {
+    return refuseChildClosureWithoutEffects(
+      "runtime_basis_mismatch",
+      "child closure requires one exact prefix-admitted scope, CCall, result, and judgment",
+    );
+  }
+  childScope = projectedScope;
+  cCall = projectedCCall.cCall;
+  result = projectedCCall.result;
+  judgment = projectedCCall.judgment;
   const closureContractDigest = sha256Canonical(
     closureContract as unknown as JsonValue,
   );
-  const childPrefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
-    runId: childScope.runId,
-  });
-  const childEvents = runtimeEventsFromValidatedPrefix(childPrefix);
+  const childEvents = runtimeEventsFromValidatedPrefix(exactPrefix.runPrefix);
   const childGraphCallOpen = childEvents.find(
     (event) =>
       event.kind === "graph_call_opened" &&
@@ -803,9 +892,7 @@ export function admitChildClosure(
       ? childGraphCallOpen.payload as Readonly<Record<string, JsonValue>>
       : null;
   if (
-    !hasOpenedTraversalScope(store, childScope) ||
     typeof childGraphCallPayload?.parentFrameId !== "string" ||
-    !hasOpenedCCall(store, cCall) ||
     cCall.runId !== childScope.runId ||
     cCall.graphCallId !== childScope.graphCallId ||
     cCall.frameId !== childScope.frameId ||
@@ -817,31 +904,24 @@ export function admitChildClosure(
     judgment.judgment !== "advance" ||
     route.routeKind !== "terminal"
   ) {
-    return {
-      kind: "child_closure_admission_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "runtime_basis_mismatch",
-      message:
-        "child closure requires one exact child scope, judged CCall, and terminal route",
-    };
+    return refuseChildClosureWithoutEffects(
+      "runtime_basis_mismatch",
+      "child closure requires one exact child scope, judged CCall, and terminal route",
+    );
   }
   const currentTruth = projectCurrentClosureTruth(
-    store,
+    exactPrefix.runPrefix,
+    exactPrefix.fullPrefix,
     cCall,
     result,
     judgment,
     route,
-    replayState,
   );
   if (currentTruth === null) {
-    return {
-      kind: "child_closure_admission_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "replay_mismatch",
-      message: "child closure basis is not current replay truth",
-    };
+    return refuseChildClosureWithoutEffects(
+      "replay_mismatch",
+      "child closure basis is not current replay truth",
+    );
   }
   if (
     closureContract.closureContractRef !== cCall.closureContractRef ||
@@ -864,14 +944,10 @@ export function admitChildClosure(
       `graph_call_closed(${childScope.graphCallId})`,
     ].some((fluent) => currentTruth.replay.activeFluents.includes(fluent))
   ) {
-    return {
-      kind: "child_closure_admission_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "closure_contract_mismatch",
-      message:
-        "child closure contract, lifecycle identity, or uniqueness check failed",
-    };
+    return refuseChildClosureWithoutEffects(
+      "closure_contract_mismatch",
+      "child closure contract, lifecycle identity, or uniqueness check failed",
+    );
   }
 
   const closureBody = {
@@ -888,7 +964,11 @@ export function admitChildClosure(
   const closureDigest = sha256Canonical(closureBody as unknown as JsonValue);
   const closureRef =
     `closure://abiogenesis/${closureDigest.slice("sha256:".length)}`;
-  const events = admitRuntimeEventBatch(store, [
+  const events = appendClosureBatchAtExpectedPrefix(
+    store,
+    predecessorPrefix,
+    exactPrefix.expectedStorePrefixDigest,
+    [
     () => ({
       kind: "terminal_reached",
       eventTime: basis.eventTime,
@@ -951,7 +1031,14 @@ export function admitChildClosure(
         closureContractRef: closureContract.closureContractRef,
       },
     }),
-  ]);
+    ],
+  );
+  if (events === null) {
+    return refuseChildClosureWithoutEffects(
+      "stale_prefix",
+      "child closure predecessor became stale before its atomic append",
+    );
+  }
   return deepFreeze({
     kind: "child_closure_admission",
     schemaVersion: "5.0.0",

@@ -3,23 +3,25 @@
 ## Current Boundary
 
 The ABIogenesis 5.0 Product and direct-GTL M3 architecture are accepted.
-S03 and S05 are accepted. GOALS selects S06 as the sole unresolved 5.0 Product
-outcome. Direct F_H accepted exact census blob `efe88cac` and authorized one
-bounded Gate 1 authority/design/map construction. The proposed
-[S06 Axiomatic Authority And Exact Public Construction Design](./M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md)
-is not operative realization authority. Frozen candidate `ba2e39a4`, tree
-`3d5686d4`, was rejected on five bounded relations. Replacement `29aea26d`,
-tree `057e4d5f`, repaired four but was rejected because its selected installed
-owner port cannot consume the cited AX-F09 retry frontier. The bounded repair
-pass was returned to direct F_H. Direct F_H then authorized completion of
-Gate 1 inside the accepted Product and STDO 2.2.2, delegating missing
-owner-internal HOW to the worker. Complete candidate `2a60c2b7`, tree
-`fc19ebdf`, removes the Public retry ingress and binds installed ABG projection
-to HoG resume. Constructability review passed; authority review found one local
-omission of the complete prior-attempt retry frontier. The one permitted
-bounded repair is consumed at `3f80ba23`, tree `04906b1c`. Both delta reviews
-pass. Direct F_H accepted that exact Gate 1 subject and authorized only
-Increment 0A falsifier implementation under its frozen relations.
+S03 and S05 are accepted. Wave 1 functional interface closure is accepted at
+artifact `ab6dd512...c878` and receipt `c8c26047...a0d7d`. GOALS and T-287 now
+select Wave 2 exact Public construction at C0. Direct F_H
+accepted exact census blob `efe88cac` and the exact S06 Gate 1 construction
+subject at commit `3f80ba23`, tree `04906b1c`. That Git object is the retained
+18-operation/56-key structural owner map for Wave 2. Its Public algebra,
+concrete-port law, refusal/outcome law, projection graph, PFC-F08 relation, and
+atomic deletion boundary remain operative when Wave 2 is selected.
+
+Current Product requirements and the accepted T-287 catalog contraction
+supersede Gate 1's older catalog and workspace effect dispositions:
+`workspace.open`, catalog readiness, catalog view, catalog application, and
+catalog reads are eventless Product relations; workspace creation creates no
+ABG runtime event merely for creating the boundary; invocation alone records
+exact catalog use in ABG runtime truth. T-287 carries the bounded Wave 2
+reconciliation and execution plan. The mutable S06 design file is historical
+working text; the accepted Git object plus these explicit supersessions are the
+selected construction basis.
+
 `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen design
 remains non-operative future input under backlogged T-268.
 
@@ -41,7 +43,8 @@ The current design basis is:
 - [ADR-045 Global Design Constraints Survive Local Projection](./adrs/ADR-045-global-design-constraints-survive-local-projection.md)
   as global-to-local rationale; and
 - accepted S06 predecessor designs `4f80f84a`, `2bb7b594`, and `aa0daa62` as
-  immutable evidence refined only by the proposed corrective Gate 1 subject.
+  immutable evidence refined by exact accepted Gate 1 subject `3f80ba23` and
+  the explicit current Product/catalog supersessions above.
 
 M05 Section 13 remains superseded by the accepted S05 design. The frozen
 [S04 observer/tuner design](./M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md)
@@ -59,8 +62,8 @@ Read in this order:
 4. specification/requirements/
 5. accepted functional designs in the current design basis above
 6. ABI5_REALIZATION_CONSTITUTION.md for local realization and review
-7. M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md while
-   reviewing the proposed frozen Gate 1 subject
+7. exact Gate 1 object `3f80ba23` for the Wave 2 structural owner map, as
+   reconciled by current Product requirements and T-287
 8. the active ticket selected by GOALS
 
 Specification defines WHAT. Accepted design defines HOW for S06. The deferred
@@ -80,7 +83,8 @@ projection; Git and the T-284 correction vector preserve that inventory.
 
 ## Implementation Gate
 
-T-287 selects A5-F10 `graph_catalog_contraction_and_runtime_recovery`: pure
-catalog readiness and construction, event-authoritative runtime recovery, and
-installed terminal quiescence. The accepted T-287 design surfaces in this
-directory govern that implementation slice.
+T-287 currently selects Wave 2 `exact_public_family_construction` at `W2-C0`:
+consume the accepted Wave 1 owner/carrier/event/handoff/projection receipt and
+freeze the reconciled exact 56-row owner/dependency/deletion join. Subsequent
+construction follows the existing T-287 C1-C7 sequence and may consume but not
+alter the accepted Wave 1 interfaces without explicit re-entry.

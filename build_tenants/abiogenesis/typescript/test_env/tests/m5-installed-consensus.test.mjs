@@ -8,12 +8,20 @@ import test from "node:test";
 import {
   applyInstalledTranscriptPrefix,
   buildRootCliScenario,
+  importInstalledPackageExport,
   installedCliPackageRoot,
   runInstalledCli,
-  setupInstalledCliHarness,
+  setupInstalledCliHarness as setupInstalledCliHarnessBase,
+  writeCliTransportRequest,
 } from "../support/root-cli-environment.mjs";
 
 const packageRoot = new URL("../..", import.meta.url).pathname;
+
+function setupInstalledCliHarness(context, root) {
+  return setupInstalledCliHarnessBase(context, root, {
+    candidateBasisSource: "packed_artifact",
+  });
+}
 
 function digest(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
@@ -32,6 +40,13 @@ function publicInvocation(operationId, variant, invocationRef, payload) {
   };
 }
 
+function closeHandoff(authority) {
+  return {
+    prefix: authority.prefix,
+    reopenAuthority: authority.reopenAuthority,
+  };
+}
+
 async function readRunProjection(
   harness,
   projectionAuthority,
@@ -43,9 +58,12 @@ async function readRunProjection(
     harness.scratch,
     `m5-consensus-${label}-${variant}-read.jsonl`,
   );
-  await writeFile(
-    transcriptPath,
-    `${JSON.stringify(publicInvocation(
+  await writeCliTransportRequest(transcriptPath, {
+    acquisition: {
+      kind: "reopen",
+      closeHandoff: closeHandoff(projectionAuthority),
+    },
+    invocation: publicInvocation(
       "abg.operation.project.read",
       variant,
       `invocation://t276/consensus/${label}/read-${variant}`,
@@ -53,9 +71,8 @@ async function readRunProjection(
         projectionAuthority,
         targetRef,
       },
-    ))}\n`,
-    "utf8",
-  );
+    ),
+  });
   return runInstalledCli(harness, { transcriptPath });
 }
 
@@ -160,9 +177,12 @@ async function completeHeldConsensus(
       const respondedCountBefore = (
         await eventsAt(installed.eventLogPath)
       ).filter((event) => event.kind === "fh_interaction_responded").length;
-      await writeFile(
-        continuationTranscriptPath,
-        `${JSON.stringify(publicInvocation(
+      await writeCliTransportRequest(continuationTranscriptPath, {
+        acquisition: {
+          kind: "reopen",
+          closeHandoff: closeHandoff(continuationAuthority),
+        },
+        invocation: publicInvocation(
           "abg.operation.interaction.respond",
           "answer_escalation",
           `invocation://t276/consensus/${label}/respond-${invalid.label}`,
@@ -173,9 +193,8 @@ async function completeHeldConsensus(
             continuationRef: held.continuationRef,
             response: invalid.response,
           },
-        ))}\n`,
-        "utf8",
-      );
+        ),
+      });
       const refused = await runInstalledCli(harness, {
         transcriptPath: continuationTranscriptPath,
       });
@@ -197,9 +216,12 @@ async function completeHeldConsensus(
     }
   }
 
-  await writeFile(
-    continuationTranscriptPath,
-    `${JSON.stringify(publicInvocation(
+  await writeCliTransportRequest(continuationTranscriptPath, {
+    acquisition: {
+      kind: "reopen",
+      closeHandoff: closeHandoff(continuationAuthority),
+    },
+    invocation: publicInvocation(
       "abg.operation.interaction.respond",
       "answer_escalation",
       `invocation://t276/consensus/${label}/respond`,
@@ -210,9 +232,8 @@ async function completeHeldConsensus(
         continuationRef: held.continuationRef,
         response: decision,
       },
-    ))}\n`,
-    "utf8",
-  );
+    ),
+  });
   const responseRun = await runInstalledCli(harness, {
     transcriptPath: continuationTranscriptPath,
   });
@@ -225,9 +246,12 @@ async function completeHeldConsensus(
   assert.equal(responded.disposition, "succeeded", JSON.stringify(responded));
   assert.equal(responded.continuationStatus, "responded");
 
-  await writeFile(
-    continuationTranscriptPath,
-    `${JSON.stringify(publicInvocation(
+  await writeCliTransportRequest(continuationTranscriptPath, {
+    acquisition: {
+      kind: "reopen",
+      closeHandoff: closeHandoff(responded.result.continuationAuthority),
+    },
+    invocation: publicInvocation(
       "abg.operation.run.continue",
       "current_intent",
       `invocation://t276/consensus/${label}/continue`,
@@ -237,9 +261,8 @@ async function completeHeldConsensus(
         continuationAuthority: responded.result.continuationAuthority,
         continuationRef: held.continuationRef,
       },
-    ))}\n`,
-    "utf8",
-  );
+    ),
+  });
   const continuedRun = await runInstalledCli(harness, {
     transcriptPath: continuationTranscriptPath,
   });
@@ -654,7 +677,9 @@ async function selectConsensusThroughOneSurface(
   start.payload = {
     installInvocationRef: scenario.refs.install,
     workspaceBindingInvocationRef: scenario.refs.bind,
-    catalogBasis: scenario.transcript.at(-1).payload.catalogBasis,
+    catalog: scenario.transcript.at(-1).payload.catalog,
+    catalogView: scenario.transcript.at(-1).payload.catalogView,
+    applications: scenario.transcript.at(-1).payload.applications,
     programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
     actorRef: scenario.transcript[3].payload.authorizedActorRef,
     input: observation,
@@ -667,10 +692,17 @@ async function selectConsensusThroughOneSurface(
     until: "converged",
     startRef: basis.gtl.CONSENSUS_IDS.oneSurfaceStartRef,
   };
-  await writeFile(
+  scenario.finalTransportRequest = await writeCliTransportRequest(
     scenario.transcriptPath,
-    `${scenario.transcript.slice(4).map((row) => JSON.stringify(row)).join("\n")}\n`,
-    "utf8",
+    {
+      acquisition: {
+        kind: "reopen",
+        closeHandoff: closeHandoff(
+          scenario.transcript.at(-1).payload.runtimePrefixAuthority,
+        ),
+      },
+      invocation: start,
+    },
   );
   return observation;
 }
@@ -731,35 +763,329 @@ function diagnosticSummary(events) {
   };
 }
 
-function assertFailedRunTopology(events, failureResult) {
-  const failureJudgment = events.find(
+async function assertStoppedRetryFluentsReleased(
+  events,
+  installedRoot,
+  terminalRoute,
+) {
+  const stoppedProgresses = events.filter(
     (event) =>
-      event.kind === "c_call_judged" &&
-      event.payload?.resultRef === failureResult.payload.resultRef,
+      event.kind === "retry_progress_recorded" &&
+      event.payload?.progressClass === "stopped",
   );
-  assert.ok(failureJudgment, JSON.stringify(diagnosticTail(events)));
+  if (stoppedProgresses.length > 0) {
+    const nonce = encodeURIComponent(terminalRoute.eventId);
+    const [{ selectValidatedRuntimeEventPrefix }, eventCalculus, immutable] =
+      await Promise.all([
+        import(
+          pathToFileURL(
+            join(installedRoot, "build/code/src/abg/event_prefix.js"),
+          ).href
+        ),
+        import(
+          `${pathToFileURL(join(installedRoot, "build/code/src/abg/event_calculus.js")).href}?failed-topology=${nonce}`
+        ),
+        import(
+          `${pathToFileURL(join(installedRoot, "build/code/src/shared/immutable.js")).href}?failed-topology=${nonce}`
+        ),
+      ]);
+    const projection = eventCalculus.deriveRuntimeEventCalculusProjection(
+      selectValidatedRuntimeEventPrefix(immutable.deepFreeze(events)),
+    );
+    for (const progress of stoppedProgresses) {
+      assert.equal(
+        eventCalculus.holdsAt(
+          projection,
+          eventCalculus.constructScopedRetryFluent(
+            "retry_progress_available",
+            {
+              runId: progress.runId,
+              graphCallId: progress.graphCallId,
+              frameId: progress.frameId,
+              retryBoundaryRef: progress.payload.retryBoundaryRef,
+              authorityRef: progress.payload.progressRef,
+            },
+          ),
+        ),
+        false,
+        "run_stopped must release every stopped retry-progress fluent",
+      );
+    }
+  }
+}
+
+async function assertFailedRunTopology(
+  events,
+  installedRoot,
+  expectedFailureResult = null,
+) {
   const failedRoutes = events.filter(
     (event) =>
       event.kind === "traversal_route_admitted" &&
       event.payload?.routeKind === "failed",
   );
-  const leafFailedRoute = failedRoutes.find(
-    (event) => event.payload?.judgmentRef === failureJudgment.payload.judgmentRef,
-  );
-  assert.ok(leafFailedRoute, JSON.stringify(diagnosticTail(events)));
-  assert.deepEqual(leafFailedRoute.causationEventRefs, [failureJudgment.eventId]);
   const runStops = events.filter((event) => event.kind === "run_stopped");
   assert.equal(runStops.length, 1, JSON.stringify(diagnosticTail(events)));
   assert.equal(runStops[0].payload?.disposition, "failed");
   const terminalFailedRoute = failedRoutes.find(
-    (event) => runStops[0].causationEventRefs.includes(event.eventId),
+    (event) => runStops[0].causationEventRefs[0] === event.eventId,
   );
   assert.ok(terminalFailedRoute, JSON.stringify(diagnosticTail(events)));
   assert.deepEqual(runStops[0].causationEventRefs, [terminalFailedRoute.eventId]);
+  const failureJudgments = events.filter(
+    (event) =>
+      event.kind === "c_call_judged" &&
+      event.payload?.judgmentRef === terminalFailedRoute.payload.judgmentRef,
+  );
+  assert.equal(
+    failureJudgments.length,
+    1,
+    JSON.stringify(diagnosticTail(events)),
+  );
+  const failureJudgment = failureJudgments[0];
+  assert.deepEqual(terminalFailedRoute.causationEventRefs, [failureJudgment.eventId]);
+  const failureResults = events.filter(
+    (event) =>
+      event.kind === "c_call_result_admitted" &&
+      event.payload?.resultRef === failureJudgment.payload.resultRef,
+  );
+  assert.equal(failureResults.length, 1, JSON.stringify(diagnosticTail(events)));
+  const failureResult = failureResults[0];
+  assert.deepEqual(failureJudgment.causationEventRefs, [failureResult.eventId]);
+  if (expectedFailureResult !== null) {
+    assert.equal(failureResult.eventId, expectedFailureResult.eventId);
+  }
+  await assertStoppedRetryFluentsReleased(
+    events,
+    installedRoot,
+    terminalFailedRoute,
+  );
   assert.equal(
     events.some((event) => event.kind === "runtime_failure_observed"),
     false,
   );
+  return { failureJudgment, failureResult, terminalFailedRoute, runStopped: runStops[0] };
+}
+
+async function assertBlockedRetryExhaustionTopology(
+  events,
+  installedRoot,
+  failureResult,
+  fanInGraphFunctionRef,
+) {
+  const failureJudgments = events.filter(
+    (event) =>
+      event.kind === "c_call_judged" &&
+      event.payload?.resultRef === failureResult.payload.resultRef &&
+      event.payload?.judgment === "blocked",
+  );
+  assert.equal(
+    failureJudgments.length,
+    1,
+    JSON.stringify(diagnosticTail(events)),
+  );
+  const failureJudgment = failureJudgments[0];
+  assert.deepEqual(failureJudgment.causationEventRefs, [failureResult.eventId]);
+
+  const stoppedProgresses = events.filter(
+    (event) =>
+      event.kind === "retry_progress_recorded" &&
+      event.payload?.progressClass === "stopped" &&
+      event.payload?.cCallRef === failureJudgment.payload.cCallRef &&
+      event.payload?.resultRef === failureResult.payload.resultRef &&
+      event.payload?.judgmentRef === failureJudgment.payload.judgmentRef,
+  );
+  assert.ok(
+    stoppedProgresses.length > 0,
+    JSON.stringify(diagnosticTail(events)),
+  );
+  for (const [index, progress] of stoppedProgresses.entries()) {
+    const predecessor = stoppedProgresses[index - 1];
+    assert.equal(
+      progress.payload.stopReason,
+      index === 0 ? "boundary_terminal" : "propagated_inner_stop",
+    );
+    assert.equal(
+      progress.payload.predecessorProgressRef,
+      predecessor?.payload.progressRef ?? null,
+    );
+    assert.equal(
+      progress.causationEventRefs.at(-1),
+      predecessor?.eventId ?? failureJudgment.eventId,
+    );
+  }
+
+  const childBlockedRoutes = events.filter(
+    (event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload?.routeKind === "blocked" &&
+      event.payload?.cCallRef === failureJudgment.payload.cCallRef &&
+      event.payload?.judgmentRef === failureJudgment.payload.judgmentRef,
+  );
+  assert.equal(
+    childBlockedRoutes.length,
+    1,
+    JSON.stringify(diagnosticTail(events)),
+  );
+  const childBlockedRoute = childBlockedRoutes[0];
+  assert.deepEqual(childBlockedRoute.payload.consumedAvailabilityRefs, [
+    failureJudgment.payload.judgmentRef,
+    ...stoppedProgresses.map((event) => event.payload.progressRef),
+  ]);
+  assert.deepEqual(
+    childBlockedRoute.causationEventRefs,
+    stoppedProgresses.map((event) => event.eventId).reverse(),
+  );
+
+  const runStops = events.filter((event) => event.kind === "run_stopped");
+  assert.equal(runStops.length, 1, JSON.stringify(diagnosticTail(events)));
+  const runStopped = runStops[0];
+  assert.equal(runStopped.payload?.disposition, "blocked");
+  const terminalParentRoutes = events.filter(
+    (event) =>
+      event.kind === "traversal_route_admitted" &&
+      event.payload?.routeKind === "blocked" &&
+      runStopped.causationEventRefs[0] === event.eventId,
+  );
+  assert.equal(
+    terminalParentRoutes.length,
+    1,
+    JSON.stringify(diagnosticTail(events)),
+  );
+  const terminalParentRoute = terminalParentRoutes[0];
+  assert.notEqual(terminalParentRoute.eventId, childBlockedRoute.eventId);
+  assert.deepEqual(runStopped.causationEventRefs, [terminalParentRoute.eventId]);
+  assert.equal(
+    events.at(-1)?.eventId,
+    runStopped.eventId,
+    "the owning run_stopped event must be the final durable transition",
+  );
+
+  const eventByRef = new Map(events.map((event) => [event.eventId, event]));
+  function causallyDependsOn(event, ancestorRef, seen = new Set()) {
+    if (event.causationEventRefs.includes(ancestorRef)) return true;
+    return event.causationEventRefs.some((eventRef) => {
+      if (seen.has(eventRef)) return false;
+      const branchSeen = new Set(seen);
+      branchSeen.add(eventRef);
+      const cause = eventByRef.get(eventRef);
+      return cause !== undefined &&
+        causallyDependsOn(cause, ancestorRef, branchSeen);
+    });
+  }
+
+  const propagationFoldbacks = [];
+  const propagationRoutes = [childBlockedRoute];
+  let childRoute = childBlockedRoute;
+  while (childRoute.eventId !== terminalParentRoute.eventId) {
+    const matchingFoldbacks = events.filter(
+      (event) =>
+        event.kind === "child_foldback_admitted" &&
+        event.payload?.childDisposition === "blocked" &&
+        event.payload?.childTerminalEventRef === childRoute.eventId,
+    );
+    assert.equal(
+      matchingFoldbacks.length,
+      1,
+      JSON.stringify({ childRoute: childRoute.eventId, tail: diagnosticTail(events) }),
+    );
+    const foldback = matchingFoldbacks[0];
+    assert.equal(foldback.payload.childClosureRef, null);
+    assert.equal(foldback.causationEventRefs[0], childRoute.eventId);
+
+    const parentEvidence = events.filter(
+      (event) =>
+        event.kind === "c_call_evidenced" &&
+        event.payload?.cCallRef === foldback.payload.parentCCallRef &&
+        event.payload?.foldbackEventRef === foldback.eventId,
+    );
+    const parentRoutes = events.filter(
+      (event) =>
+        event.kind === "traversal_route_admitted" &&
+        event.payload?.routeKind === "blocked" &&
+        event.payload?.cCallRef === foldback.payload.parentCCallRef &&
+        causallyDependsOn(event, foldback.eventId),
+    );
+    assert.equal(parentRoutes.length, 1, JSON.stringify(diagnosticTail(events)));
+    if (parentEvidence.length === 0) {
+      assert.ok(
+        parentRoutes[0].causationEventRefs.includes(foldback.eventId),
+        "a recursion foldback route must directly consume its admitted child foldback",
+      );
+    } else {
+      assert.equal(parentEvidence.length, 1, JSON.stringify(diagnosticTail(events)));
+      const parentResults = events.filter(
+        (event) =>
+          event.kind === "c_call_result_admitted" &&
+          event.payload?.cCallRef === foldback.payload.parentCCallRef &&
+          causallyDependsOn(event, parentEvidence[0].eventId),
+      );
+      assert.equal(parentResults.length, 1, JSON.stringify(diagnosticTail(events)));
+      const parentResult = parentResults[0];
+      assert.deepEqual(
+        parentResult.payload.value,
+        failureResult.payload.value,
+        "each workflow parent must preserve the owning blocked value",
+      );
+      const parentJudgments = events.filter(
+        (event) =>
+          event.kind === "c_call_judged" &&
+          event.payload?.cCallRef === foldback.payload.parentCCallRef &&
+          event.payload?.resultRef === parentResult.payload.resultRef &&
+          event.payload?.judgment === "blocked" &&
+          causallyDependsOn(event, parentResult.eventId),
+      );
+      assert.equal(parentJudgments.length, 1, JSON.stringify(diagnosticTail(events)));
+      assert.equal(
+        parentRoutes[0].payload?.judgmentRef,
+        parentJudgments[0].payload?.judgmentRef,
+      );
+    }
+    childRoute = parentRoutes[0];
+    propagationFoldbacks.push(foldback);
+    propagationRoutes.push(childRoute);
+    assert.ok(
+      propagationRoutes.length <= events.length,
+      "blocked foldback propagation must be acyclic",
+    );
+  }
+  assert.ok(
+    propagationFoldbacks.length > 1,
+    "the nested Consensus failure must reach the root through owner foldbacks",
+  );
+
+  const fanOutCompletions = events.filter(
+    (event) => event.kind === "fan_out_completion_admitted",
+  );
+  assert.equal(fanOutCompletions.length, 1, JSON.stringify(diagnosticSummary(events)));
+  assert.equal(fanOutCompletions[0].payload?.completionKind, "partial_stop");
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "graph_call_opened" &&
+        event.graphFunctionRef === fanInGraphFunctionRef,
+    ),
+    false,
+    "a partial fan-out must not open fan-in",
+  );
+  await assertStoppedRetryFluentsReleased(
+    events,
+    installedRoot,
+    terminalParentRoute,
+  );
+  assert.equal(
+    events.some((event) => event.kind === "runtime_failure_observed"),
+    false,
+  );
+  return {
+    childBlockedRoute,
+    failureJudgment,
+    propagationFoldbacks,
+    propagationRoutes,
+    runStopped,
+    stoppedProgresses,
+    terminalParentRoute,
+  };
 }
 
 function assertTicketConsensusProjection(gtl, projection, result) {
@@ -861,7 +1187,7 @@ for (const workspace of workspaceApplications) {
       (payload) => payload,
       {
         programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-        graphFunctionRef:
+        catalogHandle:
           basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
         allowlist,
         input: basis.input,
@@ -983,6 +1309,30 @@ for (const workspace of workspaceApplications) {
     );
     const eventCountBeforeRead = events.length;
     const readLabel = `${workspace.label}-${scenario.label}`;
+    const installedAbg = await importInstalledPackageExport(
+      harness,
+      "@abiogenesis/typescript-tenant/abg",
+      `m5-consensus-read=${encodeURIComponent(readLabel)}`,
+    );
+    const durableEventsBeforeRead =
+      installedAbg.readRuntimeEventsAtDurablePrefix(
+        outcome.projectionAuthority.prefix,
+      );
+    const fullPrefixBeforeRead =
+      installedAbg.selectValidatedRuntimeEventPrefix(
+        durableEventsBeforeRead,
+      );
+    const runPrefixBeforeRead =
+      installedAbg.selectValidatedRuntimeEventPrefix(
+        durableEventsBeforeRead,
+        { runId: outcome.runId },
+      );
+    const ownerReplay = installedAbg.replayValidatedRuntimeEventPrefix(
+      runPrefixBeforeRead,
+      fullPrefixBeforeRead,
+    );
+    assert.equal(ownerReplay.runId, outcome.runId);
+    assert.equal(ownerReplay.runtimeStatus, "closed");
     if (workspace.label === "existing" && scenario.label === "agreement") {
       const substitutedAuthority = structuredClone(
         outcome.projectionAuthority,
@@ -1089,13 +1439,45 @@ for (const workspace of workspaceApplications) {
         "a read outside the exact Product-declared roster must append no runtime truth",
       );
     }
+    const statusRead = await readRunProjection(
+      harness,
+      outcome.projectionAuthority,
+      "status",
+      outcome.runId,
+      readLabel,
+    );
+    assert.equal(
+      statusRead.exitCode,
+      0,
+      `${statusRead.stderr}\n${statusRead.stdout}`,
+    );
+    const statusProjection = statusRead.outcomes.at(-1);
+    assert.equal(statusProjection.disposition, "succeeded");
+    assert.equal(
+      statusProjection.result.kind,
+      "public_run_status_projection",
+    );
+    assert.deepEqual(
+      statusProjection.projectionAuthority,
+      outcome.projectionAuthority,
+    );
+    assert.equal(statusProjection.result.runId, ownerReplay.runId);
+    assert.equal(statusProjection.result.graphCallId, ownerReplay.graphCallId);
+    assert.equal(statusProjection.result.runtimeStatus, ownerReplay.runtimeStatus);
+    assert.equal(
+      statusProjection.result.resultRef,
+      outcome.projectionAuthority.resultRef,
+    );
+    assert.equal(statusProjection.result.replayRef, ownerReplay.replayRef);
+    assert.equal(statusProjection.result.replayDigest, ownerReplay.replayDigest);
+
     const resultRead = await readRunProjection(
-        harness,
-        outcome.projectionAuthority,
-        "result",
-        childResultEvent.payload.resultRef,
-        readLabel,
-      );
+      harness,
+      outcome.projectionAuthority,
+      "result",
+      childResultEvent.payload.resultRef,
+      readLabel,
+    );
     assert.equal(
       resultRead.exitCode,
       0,
@@ -1104,6 +1486,29 @@ for (const workspace of workspaceApplications) {
     const resultProjection = resultRead.outcomes.at(-1);
     assert.equal(resultProjection.disposition, "succeeded");
     assert.equal(resultProjection.result.kind, "public_result_projection");
+    assert.deepEqual(
+      resultProjection.projectionAuthority,
+      outcome.projectionAuthority,
+    );
+    const ownerResult = ownerReplay.cCalls.find(
+      (cCall) => cCall.resultRef === childResultEvent.payload.resultRef,
+    );
+    assert.ok(ownerResult);
+    assert.equal(resultProjection.result.resultRef, ownerResult.resultRef);
+    assert.equal(
+      ownerResult.resultContractRef,
+      basis.gtl.CONSENSUS_IDS.resultCandidateContractRef,
+    );
+    assert.equal(
+      resultProjection.result.resultContractRef,
+      basis.gtl.CONSENSUS_IDS.resultContractRef,
+    );
+    assert.notEqual(
+      resultProjection.result.resultContractRef,
+      ownerResult.resultContractRef,
+    );
+    assert.equal(resultProjection.replayRef, ownerReplay.replayRef);
+    assert.equal(resultProjection.replayDigest, ownerReplay.replayDigest);
     assert.equal(
       basis.gtl.isConsensusResult(resultProjection.result.value),
       true,
@@ -1143,7 +1548,7 @@ for (const workspace of workspaceApplications) {
     );
     const replayRead = await readRunProjection(
       harness,
-      resultProjection.projectionAuthority,
+      outcome.projectionAuthority,
       "replay",
       outcome.runId,
       readLabel,
@@ -1156,26 +1561,32 @@ for (const workspace of workspaceApplications) {
     const replayProjection = replayRead.outcomes.at(-1);
     assert.equal(replayProjection.disposition, "succeeded");
     assert.equal(replayProjection.result.kind, "public_replay_projection");
+    assert.deepEqual(
+      replayProjection.projectionAuthority,
+      outcome.projectionAuthority,
+    );
     assert.equal(
       replayProjection.result.replayRef,
-      resultProjection.result.value.replayRef,
+      ownerReplay.replayRef,
+    );
+    assert.equal(replayProjection.result.replayDigest, ownerReplay.replayDigest);
+    assert.equal(
+      replayProjection.result.eventStoreDigest,
+      ownerReplay.eventStoreDigest,
     );
     assert.equal(
       replayProjection.result.eventCount,
-      replayProjection.result.events.length,
+      ownerReplay.eventCount,
     );
-    const replayEventRefs = new Set(
-      replayProjection.result.events.map((event) => event.eventId),
-    );
-    assert.equal(
-      events
-        .filter((event) => event.runId === outcome.runId)
-        .every((event) => replayEventRefs.has(event.eventId)),
-      true,
+    assert.deepEqual(
+      replayProjection.result.events,
+      runPrefixBeforeRead.events,
     );
     assert.equal(
-      (await eventsAt(installed.eventLogPath)).length,
-      eventCountBeforeRead,
+      installedAbg.readRuntimeEventsAtDurablePrefix(
+        outcome.projectionAuthority.prefix,
+      ).length,
+      durableEventsBeforeRead.length,
       "project.read must not append runtime truth",
     );
     assert.equal(
@@ -1293,7 +1704,7 @@ test("M5 installed Consensus closes the same Run with an unresolved result when 
     (payload) => payload,
     {
       programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-      graphFunctionRef:
+      catalogHandle:
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
@@ -1343,7 +1754,10 @@ test("M5 Consensus publication validates its canonical handle and ordinary calla
     basis.gtl.CONSENSUS_IDS.graphFunctionRef,
   );
   assert.equal(
-    basis.publication.programs[0].publicAssetTargets[0].handle,
+    basis.publication.programs.find(
+      (candidate) =>
+        candidate.programRef === basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
+    ).publicAssetTargets[0].handle,
     basis.gtl.CONSENSUS_IDS.handle,
   );
   assert.equal(
@@ -1373,7 +1787,7 @@ test("M5 installed Consensus admits one explicit reviewer through the ordinary p
     (payload) => payload,
     {
       programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-      graphFunctionRef:
+      catalogHandle:
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
@@ -1439,7 +1853,7 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
     (payload) => payload,
     {
       programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-      graphFunctionRef: basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
+      catalogHandle: basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
       catalogApplications: basis.catalogApplications,
@@ -1492,7 +1906,9 @@ test("M5 starts canonical Consensus through the installed One Surface GTL Progra
   start.payload = {
     installInvocationRef: scenario.refs.install,
     workspaceBindingInvocationRef: scenario.refs.bind,
-    catalogBasis: scenario.transcript.at(-1).payload.catalogBasis,
+    catalog: scenario.transcript.at(-1).payload.catalog,
+    catalogView: scenario.transcript.at(-1).payload.catalogView,
+    applications: scenario.transcript.at(-1).payload.applications,
     programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
     actorRef: "actor://abiogenesis/t276/trusted-developer",
     input: observation,
@@ -1639,7 +2055,7 @@ test("M5 rejects direct invocation of the supervised canonical Consensus root be
     (payload) => payload,
     {
       programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-      graphFunctionRef: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
+      catalogHandle: basis.gtl.CONSENSUS_IDS.graphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
       catalogApplications: basis.catalogApplications,
@@ -1724,7 +2140,7 @@ test("M5 Consensus refuses malformed and cross-basis Product values before a Run
       (payload) => payload,
       {
         programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-        graphFunctionRef:
+        catalogHandle:
           basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
         allowlist,
         input,
@@ -1748,10 +2164,17 @@ test("M5 Consensus refuses malformed and cross-basis Product values before a Run
     malformedObservation.snapshotRef =
       `observation-snapshot://product/${malformedObservation.snapshotDigest.slice("sha256:".length)}`;
     scenario.transcript.at(-1).payload.input = malformedObservation;
-    await writeFile(
+    scenario.finalTransportRequest = await writeCliTransportRequest(
       scenario.transcriptPath,
-      `${scenario.transcript.slice(4).map((row) => JSON.stringify(row)).join("\n")}\n`,
-      "utf8",
+      {
+        acquisition: {
+          kind: "reopen",
+          closeHandoff: closeHandoff(
+            scenario.transcript.at(-1).payload.runtimePrefixAuthority,
+          ),
+        },
+        invocation: scenario.transcript.at(-1),
+      },
     );
     const run = await runInstalledCli(harness, scenario, {
       environment: {
@@ -1846,7 +2269,7 @@ test("M5 Consensus refuses uncataloged values and unapplied overlays before a Ru
       (payload) => payload,
       {
         programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-        graphFunctionRef:
+        catalogHandle:
           basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
         allowlist,
         input: row.input,
@@ -1900,7 +2323,7 @@ test("M5 installed Consensus consumes an applied overlay to select ruling behavi
     (payload) => payload,
     {
       programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-      graphFunctionRef:
+      catalogHandle:
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
@@ -1954,7 +2377,7 @@ test("M5 Consensus exposes no direct support start outside same-Run continuation
     (payload) => payload,
     {
       programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-      graphFunctionRef:
+      catalogHandle:
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist,
       input: basis.input,
@@ -1990,8 +2413,9 @@ test("M5 Consensus exposes no direct support start outside same-Run continuation
     "m5-consensus-no-direct-support-attempt",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-      graphFunctionRef: basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
+      catalogHandle: basis.gtl.CONSENSUS_IDS.escalationGraphFunctionRef,
       allowlist,
       input: roundDecision,
       eventLogFile: "no-direct-support-attempt.events.jsonl",
@@ -2035,7 +2459,7 @@ test("M5 Consensus projects malformed attributed reviewer output as typed contra
     (payload) => payload,
     {
       programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-      graphFunctionRef:
+      catalogHandle:
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
@@ -2191,7 +2615,7 @@ test("M5 Consensus refuses malformed submitter output before reviewer reconsider
     (payload) => payload,
     {
       programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-      graphFunctionRef:
+      catalogHandle:
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,
@@ -2281,7 +2705,11 @@ test("M5 Consensus refuses malformed submitter output before reviewer reconsider
     false,
   );
   assert.equal(events.some((event) => event.kind === "run_closed"), false);
-  assertFailedRunTopology(events, submitterFailure);
+  await assertFailedRunTopology(
+    events,
+    installedCliPackageRoot(harness),
+    submitterFailure,
+  );
 });
 
 for (const transportCase of [{
@@ -2319,7 +2747,7 @@ for (const transportCase of [{
       (payload) => payload,
       {
         programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-        graphFunctionRef:
+        catalogHandle:
           basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
         allowlist: basis.publication.contributions.map((row) => row.handle),
         input: basis.input,
@@ -2345,8 +2773,11 @@ for (const transportCase of [{
     assert.equal(run.exitCode, 2, run.stdout);
     assert.equal(
       run.outcomes.at(-1).disposition,
-      "failed",
-      JSON.stringify(diagnosticTail(events)),
+      "blocked",
+      JSON.stringify({
+        outcome: run.outcomes.at(-1),
+        tail: diagnosticTail(events),
+      }),
     );
     const actorFailure = events.find(
       (event) => event.kind === "actor_invocation_failed",
@@ -2356,17 +2787,51 @@ for (const transportCase of [{
       transportCase.expectedFailureClass,
       JSON.stringify(diagnosticSummary(events)),
     );
-    const failureResult = events.find(
+    const stoppedProgresses = events.filter(
+      (event) =>
+        event.kind === "retry_progress_recorded" &&
+        event.payload?.progressClass === "stopped",
+    );
+    assert.ok(
+      stoppedProgresses.length > 0,
+      JSON.stringify(diagnosticTail(events)),
+    );
+    assert.equal(
+      stoppedProgresses.every(
+        (event) =>
+          event.payload.resultRef === stoppedProgresses[0].payload.resultRef,
+      ),
+      true,
+      "the stopped retry suffix must preserve one exact leaf failure result",
+    );
+    const failureResults = events.filter(
       (event) =>
         event.kind === "c_call_result_admitted" &&
+        event.payload?.resultRef === stoppedProgresses[0].payload.resultRef &&
         event.payload?.contractRef ===
-          basis.gtl.CONSENSUS_IDS.failureContractRef &&
-        event.payload?.value?.kind === "consensus_failure",
+          basis.gtl.CONSENSUS_IDS.failureContractRef,
     );
+    assert.equal(
+      failureResults.length,
+      1,
+      JSON.stringify(diagnosticTail(events)),
+    );
+    const failureResult = failureResults[0];
+    assert.equal(
+      failureResult.payload.contractRef,
+      basis.gtl.CONSENSUS_IDS.failureContractRef,
+    );
+    assert.equal(failureResult.payload.value?.kind, "consensus_failure");
     assert.equal(
       failureResult?.payload.value.failureClass,
       transportCase.expectedFailureClass,
       JSON.stringify(diagnosticTail(events)),
+    );
+    await assertBlockedRetryExhaustionTopology(
+      events,
+      installedCliPackageRoot(harness),
+      failureResult,
+      basis.gtl.CONSENSUS_IDS.roundReducerGraphFunctionRef,
     );
     assert.equal(
       events.some(
@@ -2379,7 +2844,6 @@ for (const transportCase of [{
       false,
       "transport failure must not become a semantic Consensus result",
     );
-    assertFailedRunTopology(events, failureResult);
   });
 }
 
@@ -2414,7 +2878,7 @@ test(`M5 Consensus salvages a valid reviewer candidate observed before ${salvage
     (payload) => payload,
     {
       programRef: basis.gtl.CONSENSUS_IDS.oneSurfaceProgramRef,
-      graphFunctionRef:
+      catalogHandle:
         basis.gtl.CONSENSUS_IDS.oneSurfaceGraphFunctionRef,
       allowlist: basis.publication.contributions.map((row) => row.handle),
       input: basis.input,

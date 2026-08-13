@@ -29,6 +29,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     verified,
     program,
     graphFunction,
+    input,
     rawInput,
     invocationAdmission,
     publication,
@@ -43,6 +44,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
     admittedInputRef: rawInput.admissionRef,
     admittedInputDigest: rawInput.subjectDigest,
+    admittedInput: input,
   });
   const graphValidation = validator.validateGraph(
     graph,
@@ -52,6 +54,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
       invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
       admittedInputRef: rawInput.admissionRef,
       admittedInputDigest: rawInput.subjectDigest,
+      admittedInput: input,
     },
   );
   assert.equal(graphValidation.kind, "graph_validation", JSON.stringify(graphValidation));
@@ -67,6 +70,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     store,
     {
       invocationAdmission,
+      rawInputValue: input,
       program,
       programValidation,
       graph,
@@ -143,6 +147,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
       invocationAdmissionRef: setOnlyEnvironment.invocationAdmission.invocationAdmissionRef,
       admittedInputRef: setOnlyEnvironment.rawInput.admissionRef,
       admittedInputDigest: setOnlyEnvironment.rawInput.subjectDigest,
+      admittedInput: setOnlyEnvironment.input,
     },
   );
   const setOnlyGraphValidation = setOnlyEnvironment.validator.validateGraph(
@@ -153,6 +158,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
       invocationAdmissionRef: setOnlyEnvironment.invocationAdmission.invocationAdmissionRef,
       admittedInputRef: setOnlyEnvironment.rawInput.admissionRef,
       admittedInputDigest: setOnlyEnvironment.rawInput.subjectDigest,
+      admittedInput: setOnlyEnvironment.input,
     },
   );
   assert.equal(setOnlyGraphValidation.kind, "graph_validation");
@@ -163,6 +169,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     setOnlyEnvironment.store,
     {
       invocationAdmission: setOnlyEnvironment.invocationAdmission,
+      rawInputValue: setOnlyEnvironment.input,
       program: setOnlyEnvironment.program,
       programValidation: setOnlyEnvironment.programValidation,
       graph: setOnlyGraph,
@@ -190,6 +197,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
       invocationAdmissionRef: rejectedEnvironment.invocationAdmission.invocationAdmissionRef,
       admittedInputRef: rejectedEnvironment.rawInput.admissionRef,
       admittedInputDigest: rejectedEnvironment.rawInput.subjectDigest,
+      admittedInput: rejectedEnvironment.input,
     },
   );
   const alteredGraphValidation = rejectedEnvironment.validator.validateGraph(
@@ -200,6 +208,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
       invocationAdmissionRef: rejectedEnvironment.invocationAdmission.invocationAdmissionRef,
       admittedInputRef: rejectedEnvironment.rawInput.admissionRef,
       admittedInputDigest: rejectedEnvironment.rawInput.subjectDigest,
+      admittedInput: rejectedEnvironment.input,
     },
   );
   assert.equal(alteredGraphValidation.kind, "static_validation_refusal");
@@ -224,6 +233,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
       invocationAdmissionRef: forgedBasisEnvironment.invocationAdmission.invocationAdmissionRef,
       admittedInputRef: forgedBasisEnvironment.rawInput.admissionRef,
       admittedInputDigest: forgedBasisEnvironment.rawInput.subjectDigest,
+      admittedInput: forgedBasisEnvironment.input,
     },
   );
   const forgedGraphValidation = forgedBasisEnvironment.validator.validateGraph(
@@ -234,6 +244,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
       invocationAdmissionRef: forgedBasisEnvironment.invocationAdmission.invocationAdmissionRef,
       admittedInputRef: forgedBasisEnvironment.rawInput.admissionRef,
       admittedInputDigest: forgedBasisEnvironment.rawInput.subjectDigest,
+      admittedInput: forgedBasisEnvironment.input,
     },
   );
   assert.equal(forgedGraphValidation.kind, "graph_validation");
@@ -247,6 +258,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     forgedBasisEnvironment.store,
     {
       invocationAdmission: forgedBasisEnvironment.invocationAdmission,
+      rawInputValue: forgedBasisEnvironment.input,
       program: forgedBasisEnvironment.program,
       programValidation: forgedBasisEnvironment.programValidation,
       graph: forgedGraph,

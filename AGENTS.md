@@ -24,6 +24,18 @@
   changes require lawful re-entry.
 - Worker-owned callable names, carrier shapes, helper placement, and algorithms
   proceed when accepted authority already fixes the outcome.
+- Every assurance review begins with a short `Product Frame` before findings.
+  It names the fixed 5.0 feature set, active wave and feature, selected slice,
+  exact Product outcome, source/tool/runtime authority split, and explicit
+  Product prohibitions relevant to the subject.
+- A review that begins from accepted design, ticket text, code, or tests without
+  first reconstructing that Product frame is invalid. Accepted design is
+  reviewed against Product and requirements; it is not presumed compatible.
+- Before assigning a lifecycle, event, projection, registry, ledger, or store,
+  the reviewer classifies the subject as immutable definition, derived tool,
+  pure projection, deterministic construction, runtime execution entity,
+  observation/evidence, or workspace transformation. Only an exact Product or
+  requirement grant may promote the latter runtime classes into ABG authority.
 
 ## Stable Product Boundaries
 

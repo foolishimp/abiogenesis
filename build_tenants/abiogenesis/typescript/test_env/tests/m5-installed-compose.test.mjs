@@ -26,8 +26,9 @@ test("M5 installed CLI traverses ordered C.batch, successful C.retry, and C.edge
     "m5-compose",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       subject: "  World  ",
     },
   );
@@ -47,7 +48,7 @@ test("M5 installed CLI traverses ordered C.batch, successful C.retry, and C.edge
     run.stdout,
   );
   assert.equal(
-    run.outcomes[4].result.graphFunctionEntries.length >= 1,
+    run.outcomes[4].result.entries.length >= 1,
     true,
     run.stdout,
   );

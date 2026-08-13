@@ -43,7 +43,10 @@ export {
   constructWorkspaceAuthorityBasis,
   constructWorkspaceBinding,
   isProductSet,
+  isProductInstallCandidate,
   isResolvedProductLock,
+  isWorkspaceAuthorityBasis,
+  isWorkspaceBindingCandidate,
   verifiedArtifactMatchesResolvedLock,
   type EnvironmentRefusal,
   type EnvironmentRefusalCode,
@@ -75,6 +78,7 @@ export {
   type ProductSemanticsProvider,
 } from "./semantics.js";
 export {
+  isVerifiedProductArtifact,
   isProductContributionManifest,
   parseProductPublicContract,
   verifyProduct,
@@ -101,6 +105,10 @@ export {
   type ReadyGraphFunctionCatalog,
   type ReadyGraphFunctionCatalogResult,
   type GraphFunctionCatalogEntry,
+  type GraphFunctionDefinitionLookupAbsent,
+  type GraphFunctionDefinitionLookupAmbiguous,
+  type GraphFunctionDefinitionLookupExact,
+  type GraphFunctionDefinitionLookupResult,
   type GraphFunctionCatalogResult,
   type GraphFunctionCatalogView,
   type GraphFunctionCatalogViewResult,
@@ -109,6 +117,7 @@ export {
   DIRECT_INVOKE_CAPABILITY,
   constructCapabilityGrant,
   constructDirectInvocation,
+  constructExactDirectInvocation,
   constructInvocationAuthority,
   constructRootInvocationPolicy,
   constructStartInvocation,
@@ -119,6 +128,8 @@ export {
   type InvocationConstructionRefusal,
   type InvocationInteractionCapability,
   type InvocationPolicyBasis,
+  type ExactDirectRunInvocation,
+  type ExactDirectRunInvocationRequest,
   type PublicInvocationCandidate,
   type RunInvocationVariant,
 } from "./invocation.js";
@@ -139,9 +150,63 @@ export {
   type PackagedLeafImplementationDescriptor,
 } from "./implementation_resolution.js";
 export {
-  RootOperationState,
-  type InstallOperationState,
-  type ResolveOperationState,
-  type VerifiedOperationState,
-  type WorkspaceOperationState,
-} from "./root_operation_state.js";
+  WORKSPACE_OPERATION_CONTRACTS,
+  WorkspaceOperationPort,
+  createWorkspace,
+  openWorkspace,
+  type CleanWorkspaceCreatePacket,
+  type ImportedWorkspaceCreatePacket,
+  type WorkspaceManifestAuthorityBasis,
+  type WorkspaceCreateOperationResult,
+  type WorkspaceCreatePacket,
+  type WorkspaceCreateResult,
+  type WorkspaceCreationMember,
+  type WorkspaceManifest,
+  type WorkspaceOpenPacket,
+  type WorkspaceOpenDisposition,
+  type WorkspaceOpenOperationResult,
+  type WorkspaceOpenProjection,
+  type WorkspaceOpenResidual,
+  type WorkspaceOpenResidualCode,
+  type WorkspaceOperationRefusal,
+  type WorkspaceOperationRefusalCode,
+  type WorkspaceProvenanceCoordinate,
+} from "./workspace_operations.js";
+export {
+  PRODUCT_VERIFICATION_CONTRACTS,
+  ProductVerificationPort,
+  verifyProductArtifact,
+  type ProductVerificationPacket,
+} from "./verification_operation.js";
+export {
+  PRODUCT_ENVIRONMENT_CONTRACTS,
+  ProductEnvironmentPort,
+  constructExactWorkspaceBinding,
+  resolveProductEnvironment,
+  type ProductResolutionPacket,
+  type WorkspaceBindingPacket,
+} from "./environment_operations.js";
+export {
+  PRODUCT_INSTALL_CONTRACTS,
+  ProductInstallPort,
+  materializeProductInstall,
+  type ProductInstallPacket,
+} from "./install_operation.js";
+export {
+  CATALOG_OPERATION_CONTRACTS,
+  CatalogOperationPort,
+  constructCatalogProgramValidationInput,
+  constructCatalogApplication,
+  constructCatalogView,
+  constructReadyCatalog,
+  type CatalogAdmissionOperationResult,
+  type CatalogAdmitPacket,
+  type CatalogApplyPacket,
+  type CatalogValidationRefusal,
+  type CatalogViewPacket,
+} from "./catalog_operations.js";
+export {
+  RUN_OPERATION_CONTRACTS,
+  type RunContinuationPort,
+  type RunInvocationPort,
+} from "./run_operation_contracts.js";

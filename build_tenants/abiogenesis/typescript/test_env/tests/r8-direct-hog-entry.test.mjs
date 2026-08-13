@@ -32,6 +32,10 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
   const eventsBeforeOpen = store.readAll();
   assert.equal(eventsBeforeOpen.at(-1).kind, "basis_admitted");
   assert.equal(abg.hasAdmittedExecutionBasis(store, executionBasis), true);
+  assert.equal(
+    executionBasis.entryRef,
+    invocationAdmission.hogEntryCoordinate.nodeRef,
+  );
 
   const opened = abg.openCall(
     store,
@@ -59,6 +63,21 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
   assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
   assert.equal(traversalStop.disposition, "at_compute_locus");
   assert.equal(traversalStop.nodeRef, graph.template.startNodeRef);
+  assert.deepEqual(
+    traversalStop.cursor.termPath,
+    invocationAdmission.hogEntryCoordinate.termPath,
+  );
+  assert.equal(
+    traversalStop.cursor.currentNodeRef,
+    invocationAdmission.hogEntryCoordinate.nodeRef,
+  );
+  assert.deepEqual(
+    hog.deriveDirectCStepFromGraph(
+      graph.template,
+      invocationAdmission.hogEntryCoordinate,
+    ),
+    invocationAdmission.hogEntryStep,
+  );
   assert.equal(traversalStop.computeRegime, "F_D");
   assert.equal(traversalStop.frameId, opened.frame.frameId);
   assert.equal(traversalStop.cursor.frameId, opened.frame.frameId);
@@ -69,6 +88,7 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
   assert.equal("plan" in traversalStop, false);
 
   const events = store.readAll();
+  assert.equal(events.length, eventsBeforeOpen.length + 3);
   assert.deepEqual(events.slice(-3).map((event) => event.kind), [
     "run_segment_opened",
     "graph_call_opened",
@@ -95,6 +115,14 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
   assert.equal(frameEvent.frameId, opened.frame.frameId);
   assert.equal(events.some((event) => event.kind.startsWith("c_call_")), false);
   assert.equal(events.some((event) => event.kind === "terminal_reached"), false);
+  assert.equal(
+    JSON.stringify(events).includes("fibre-selection://"),
+    false,
+  );
+  assert.equal(
+    JSON.stringify(events).includes("execution-plan://"),
+    false,
+  );
 
   const eventCountBeforeCopiedScope = events.length;
   const copiedScope = structuredClone(opened.scope);
@@ -116,7 +144,7 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
     runtimeBasis("correlation://t286/r8/copied-basis"),
   );
   assert.equal(copiedBasisOpen.kind, "open_call_refusal");
-  assert.equal(copiedBasisOpen.code, "execution_basis_not_admitted");
+  assert.equal(copiedBasisOpen.code, "execution_basis_already_opened");
   assert.equal(store.readAll().length, eventCountBeforeCopiedScope);
   const duplicateOpen = abg.openCall(
     store,
@@ -158,7 +186,8 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
       eventKinds: events.map((event) => event.kind),
       mutation: {
         copiedScopeRefused: copiedScopeResult.code,
-        copiedExecutionBasisRefused: copiedBasisOpen.code,
+        rehydratedExecutionBasisCannotBypassDuplicateGuard:
+          copiedBasisOpen.code,
         duplicateExecutionBasisOpenRefused: duplicateOpen.code,
         noEventsAddedByRefusals: true,
       },

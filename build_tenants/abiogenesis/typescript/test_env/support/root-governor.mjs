@@ -1,8 +1,11 @@
-import { createHash } from "node:crypto";
-import { readFile } from "node:fs/promises";
+import { isDeepStrictEqual } from "node:util";
 
 export const ABI5_ROOT_BINDING = "ABI5-ROOT-001";
 export const ABI5_ROOT_GOVERNOR = "abg5.root.s01.hello_world@5";
+export const ABI5_ROOT_PROGRAM_REF =
+  "program://abiogenesis/conformance/hello-world@5";
+export const ABI5_ROOT_DEFINITION_REF =
+  "graph-function://abiogenesis/conformance/hello-world@5";
 
 const OBLIGATIONS = Object.freeze([
   "R1",
@@ -17,516 +20,344 @@ const OBLIGATIONS = Object.freeze([
   "R10",
 ]);
 
-const SETUP_OPERATIONS = Object.freeze([
+const ROOT_OPERATION_ORDER = Object.freeze([
   "abg.operation.product.verify",
   "abg.operation.product.resolve",
   "abg.operation.product.install",
   "abg.operation.workspace.bind",
   "abg.operation.catalog.admit",
   "abg.operation.catalog.view",
+  "abg.operation.run.invoke",
 ]);
-
-const RUN_EVENT_KINDS = Object.freeze([
-  "public_operation_admitted",
-  "invocation_admitted",
-  "implementation_admitted",
-  "basis_admitted",
-  "run_segment_opened",
-  "graph_call_opened",
-  "frame_opened",
-  "traversal_cursor_entered",
-  "c_call_opened",
-  "c_call_fibre_selected",
-  "c_call_evidenced",
-  "c_call_result_admitted",
-  "c_call_judged",
-  "traversal_route_admitted",
-  "terminal_reached",
-  "frame_closed",
-  "graph_call_closed",
-  "run_closed",
-]);
-
-function canonicalJson(value) {
-  if (value === null || typeof value === "boolean" || typeof value === "string") {
-    return JSON.stringify(value);
-  }
-  if (typeof value === "number") {
-    if (!Number.isFinite(value)) throw new TypeError("non-finite number");
-    return JSON.stringify(value);
-  }
-  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
-  if (typeof value !== "object") throw new TypeError("non-JSON value");
-  return `{${Object.keys(value).sort().map((key) =>
-    `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`;
-}
-
-function sha256Bytes(value) {
-  return `sha256:${createHash("sha256").update(value).digest("hex")}`;
-}
-
-function sha256Canonical(value) {
-  return sha256Bytes(Buffer.from(canonicalJson(value), "utf8"));
-}
 
 function isRecord(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function equalJson(left, right) {
-  try {
-    return canonicalJson(left) === canonicalJson(right);
-  } catch {
-    return false;
-  }
+function succeeded(outcome, operationId) {
+  return isRecord(outcome) &&
+    outcome.kind === "public_outcome" &&
+    outcome.schemaVersion === "5.0.0" &&
+    outcome.operationId === operationId &&
+    outcome.disposition === "succeeded";
 }
 
-function validOutcomeIdentity(outcome) {
-  if (!isRecord(outcome)) return false;
-  const { kind, schemaVersion, outcomeDigest, ...body } = outcome;
-  return kind === "public_outcome" &&
-    schemaVersion === "5.0.0" &&
-    outcomeDigest === sha256Canonical(body);
-}
-
-function verifyEvents(events) {
-  const failures = [];
-  const byId = new Map();
-  for (const [index, event] of events.entries()) {
-    if (!isRecord(event) || event.admissionOrdinal !== index + 1) {
-      failures.push("event admission ordinals are not total and gap-free");
-      continue;
-    }
-    const { eventId, admissionOrdinal, payloadDigest, ...candidate } = event;
-    if (payloadDigest !== sha256Canonical(event.payload)) {
-      failures.push(`event ${index + 1} payload digest differs from its payload`);
-    }
-    const expectedId = `event://abiogenesis/${sha256Canonical({
-      ...candidate,
-      payloadDigest,
-      admissionOrdinal,
-    }).slice("sha256:".length)}`;
-    if (eventId !== expectedId || byId.has(eventId)) {
-      failures.push(`event ${index + 1} identity is invalid or duplicated`);
-    }
-    for (const causeRef of event.causationEventRefs ?? []) {
-      const cause = byId.get(causeRef);
-      if (cause === undefined) {
-        failures.push(`event ${index + 1} has a non-prior causation reference`);
-      } else if (
-        event.runId !== undefined &&
-        cause.runId !== undefined &&
-        cause.runId !== event.runId
-      ) {
-        failures.push(`event ${index + 1} crosses a run causation boundary`);
-      }
-    }
-    byId.set(eventId, event);
-  }
-  return failures;
-}
-
-function runEpisode(events, outcome, request) {
-  const selected = events.filter((event) =>
-    event.runId === outcome.runId ||
-    event.parentAggregateId === outcome.runtimeInvocationRef ||
-    event.payload?.invocationRef === outcome.runtimeInvocationRef);
-  const kinds = selected.map((event) => event.kind);
-  const resultEvent = selected.find((event) => event.kind === "c_call_result_admitted");
-  const judgmentEvent = selected.find((event) => event.kind === "c_call_judged");
-  const publicEvent = selected.find((event) => event.kind === "public_operation_admitted");
-  const invocationEvent = selected.find((event) => event.kind === "invocation_admitted");
-  const runEvent = selected.find((event) => event.kind === "run_segment_opened");
-  const graphCallEvent = selected.find((event) => event.kind === "graph_call_opened");
-  const frameEvent = selected.find((event) => event.kind === "frame_opened");
-  const cursorEvent = selected.find(
-    (event) => event.kind === "traversal_cursor_entered",
+function oneOwnerFact(view, owner, predicate = () => true) {
+  if (!Array.isArray(view?.ownerFacts)) return null;
+  const matches = view.ownerFacts.filter((fact) =>
+    fact?.owner === owner && predicate(fact)
   );
-  const cCallEvent = selected.find((event) => event.kind === "c_call_opened");
-  const failures = [];
-  const input = request?.payload?.input;
-  if (
-    !isRecord(input) ||
-    input.kind !== "hello_world_input" ||
-    input.schemaVersion !== "5.0.0" ||
-    typeof input.subject !== "string" ||
-    input.subject.length === 0
-  ) {
-    failures.push(`run ${outcome.runId} lacks the exact declared Hello World input`);
-  }
-  if (
-    publicEvent?.parentAggregateId !== outcome.runtimeInvocationRef ||
-    publicEvent?.payload?.invocationRef !== outcome.runtimeInvocationRef ||
-    invocationEvent?.parentAggregateId !== outcome.runtimeInvocationRef ||
-    invocationEvent?.payload?.invocationRef !== outcome.runtimeInvocationRef ||
-    invocationEvent?.payload?.publicRequestInvocationRef !== request?.invocationRef ||
-    invocationEvent?.payload?.publicRequestDigest !== sha256Canonical(request) ||
-    invocationEvent?.payload?.rawInputDigest !== sha256Canonical(input)
-  ) {
-    failures.push(`run ${outcome.runId} does not preserve its admitted invocation identity`);
-  }
-  if (
-    typeof request?.correlationId !== "string" ||
-    selected.some((event) =>
-      event.correlationId !== request.correlationId &&
-      !event.correlationId?.startsWith(`${request.correlationId}/`))
-  ) {
-    failures.push(`run ${outcome.runId} does not preserve its caller correlation scope`);
-  }
-  if (
-    publicEvent?.payload?.programRef !== request?.payload?.programRef ||
-    publicEvent?.payload?.graphFunctionRef !== request?.payload?.graphFunctionRef ||
-    runEvent?.aggregateId !== outcome.runId ||
-    runEvent?.payload?.runId !== outcome.runId ||
-    graphCallEvent?.aggregateId !== outcome.graphCallId ||
-    graphCallEvent?.payload?.graphCallId !== outcome.graphCallId ||
-    frameEvent?.aggregateId !== outcome.frameId ||
-    frameEvent?.payload?.frameId !== outcome.frameId ||
-    cursorEvent?.aggregateId !== outcome.frameId ||
-    cursorEvent?.payload?.termPath?.join("\0") !==
-      ["node", cCallEvent?.payload?.programLocusRef, "c"].join("\0") ||
-    cCallEvent?.aggregateId !== outcome.cCallRef ||
-    cCallEvent?.payload?.cCallRef !== outcome.cCallRef
-  ) {
-    failures.push(`run ${outcome.runId} scope identities differ from its public outcome`);
-  }
-  if (
-    cursorEvent?.causationEventRefs?.[0] !== frameEvent?.eventId ||
-    cCallEvent?.causationEventRefs?.[0] !== cursorEvent?.eventId
-  ) {
-    failures.push(`run ${outcome.runId} cursor and CCall causation are not contiguous`);
-  }
-  if (!equalJson(kinds, RUN_EVENT_KINDS)) {
-    failures.push(`run ${outcome.runId} event order differs from the exact admitted spine`);
-  }
-  for (const kind of RUN_EVENT_KINDS) {
-    if (kinds.filter((value) => value === kind).length !== 1) {
-      failures.push(`run ${outcome.runId} does not contain exactly one ${kind}`);
-    }
-  }
-  if (kinds.includes("runtime_failure_observed") || kinds.includes("invocation_refused")) {
-    failures.push(`run ${outcome.runId} contains a refusal or runtime failure`);
-  }
-  if (
-    resultEvent?.aggregateId !== outcome.cCallRef ||
-    resultEvent?.payload?.resultRef !== outcome.resultRef ||
-    resultEvent?.payload?.contractRef !== outcome.admittedResultContractRef ||
-    !equalJson(resultEvent?.payload?.value, outcome.result) ||
-    outcome.result?.message !== `Hello ${input?.subject ?? ""}`
-  ) {
-    failures.push(`run ${outcome.runId} result projection differs from admitted CCall truth`);
-  }
-  if (
-    judgmentEvent?.payload?.judgmentRef !== outcome.judgmentRef ||
-    judgmentEvent?.payload?.judgment !== "advance"
-  ) {
-    failures.push(`run ${outcome.runId} judgment projection differs from admitted truth`);
-  }
-  const closeKinds = selected.slice(-4).map((event) => event.kind);
-  if (!equalJson(closeKinds, ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"])) {
-    failures.push(`run ${outcome.runId} lacks the exact terminal closure suffix`);
-  }
-  return { failures, eventIds: selected.map((event) => event.eventId) };
+  return matches.length === 1 ? matches[0] : null;
 }
 
-export async function evaluateAbi5Root({
-  candidateBasis,
-  artifactPath,
-  transcript,
-  outcomes,
-  eventLogPath,
-}) {
-  const failures = [];
-  const obligationResults = Object.fromEntries(OBLIGATIONS.map((id) => [id, false]));
-  let artifactBytes = null;
-  let eventBytes = null;
-  let events = [];
-
-  try {
-    artifactBytes = await readFile(artifactPath);
-  } catch {
-    failures.push("R1 artifact bytes are not readable");
-  }
-  const verifyRequest = transcript[0];
-  const verifyOutcome = outcomes[0];
-  const outcomeIdentitiesValid = outcomes.every(validOutcomeIdentity);
-  if (!outcomeIdentitiesValid) {
-    failures.push("one or more public outcome identities are invalid");
-  }
-  obligationResults.R1 = artifactBytes !== null &&
-    sha256Bytes(artifactBytes) === candidateBasis.artifactDigest &&
-    verifyRequest?.operationId === SETUP_OPERATIONS[0] &&
-    verifyRequest?.payload?.expectedArtifactDigest === candidateBasis.artifactDigest &&
-    verifyRequest?.payload?.expectedProductContentDigest === candidateBasis.productContentDigest &&
-    verifyRequest?.payload?.expectedManifestDigest === candidateBasis.manifestDigest &&
-    verifyRequest?.payload?.expectedProductId === candidateBasis.productId &&
-    verifyRequest?.payload?.expectedPackageName === candidateBasis.packageName &&
-    verifyRequest?.payload?.expectedPackageVersion === candidateBasis.packageVersion &&
-    verifyOutcome?.disposition === "succeeded" &&
-    verifyOutcome?.result?.artifactDigest === candidateBasis.artifactDigest &&
-    verifyOutcome?.result?.productContentDigest === candidateBasis.productContentDigest &&
-    verifyOutcome?.result?.manifestDigest === candidateBasis.manifestDigest &&
-    verifyOutcome?.result?.productId === candidateBasis.productId &&
-    outcomeIdentitiesValid;
-
-  const operationIds = outcomes.map((outcome) => outcome.operationId);
-  const requestOperationIds = transcript.map((request) => request.operationId);
-  const expectedOperations = [
-    ...SETUP_OPERATIONS,
-    ...Array(Math.max(0, outcomes.length - SETUP_OPERATIONS.length)).fill("abg.operation.run.invoke"),
-  ];
-  if (!equalJson(operationIds, expectedOperations) || !equalJson(requestOperationIds, expectedOperations)) {
-    failures.push("public operation order differs from the bound installed path");
-  }
-  if (outcomes.some((outcome, index) => outcome.invocationRef !== transcript[index]?.invocationRef)) {
-    failures.push("one or more public outcomes differ from the caller invocation identity");
-  }
-  if (outcomes.some((outcome) => outcome.disposition !== "succeeded")) {
-    failures.push("one or more installed public operations did not succeed");
-  }
-  obligationResults.R2 = obligationResults.R1 &&
-    outcomes[1]?.result?.kind === "resolved_product_lock" &&
-    outcomes[1]?.result?.productIds?.length === 1 &&
-    outcomes[1]?.result?.productIds?.[0] === candidateBasis.productId &&
-    outcomes[2]?.result?.kind === "product_install" &&
-    outcomes[2]?.result?.productId === candidateBasis.productId &&
-    typeof outcomes[2]?.result?.installId === "string";
-  obligationResults.R3 = obligationResults.R2 &&
-    outcomes[3]?.result?.kind === "workspace_binding" &&
-    typeof outcomes[3]?.result?.bindingId === "string" &&
-    outcomes[3]?.result?.bindingId ===
-      `workspace-binding://abiogenesis/${outcomes[3]?.result?.bindingDigest?.slice("sha256:".length)}`;
-  obligationResults.R4 = obligationResults.R3 &&
-    outcomes[4]?.result?.kind === "graph_function_catalog" &&
-    typeof outcomes[4]?.result?.catalogBasisDigest === "string" &&
-    outcomes[4]?.result?.graphFunctionEntries?.length >= 1 &&
-    outcomes[5]?.result?.kind === "graph_function_catalog_view" &&
-    outcomes[5]?.result?.catalogBasisDigest === outcomes[4]?.result?.catalogBasisDigest &&
-    equalJson(outcomes[5]?.result?.allowlist, [
-      "graph-function://abiogenesis/conformance/hello-world@5",
-    ]);
-
-  try {
-    eventBytes = await readFile(eventLogPath);
-    const lines = eventBytes.toString("utf8").split(/\r?\n/u).filter(Boolean);
-    events = lines.map((line) => JSON.parse(line));
-    failures.push(...verifyEvents(events));
-  } catch {
-    failures.push("durable ABG event log is absent or malformed");
-  }
-
-  const expectedSetupRows = [
-    ["public_operation_artifact_admitted", "abg.operation.product.install", 2],
-    ["public_operation_artifact_admitted", "abg.operation.workspace.bind", 3],
-  ];
-  const setupEventCount = expectedSetupRows.length;
-  const setupEvents = events.slice(0, setupEventCount);
-  const installEvent = setupEvents[0];
-  const workspaceEvent = setupEvents[1];
-  const installOutcome = outcomes[2];
-  const workspaceOutcome = outcomes[3];
-  const setupEventsValid = setupEvents.length === setupEventCount &&
-    expectedSetupRows.every(([kind, operationId, requestIndex], index) =>
-      setupEvents[index]?.kind === kind &&
-      setupEvents[index]?.payload?.operationId === operationId &&
-      (requestIndex === null || (
-        setupEvents[index]?.payload?.invocationPayloadDigest ===
-          sha256Canonical(transcript[requestIndex]?.payload) &&
-        setupEvents[index]?.payload?.invocationDigest ===
-          sha256Canonical({
-            invocationRef: transcript[requestIndex]?.invocationRef,
-            operationId,
-            payloadDigest: sha256Canonical(transcript[requestIndex]?.payload),
-          })
-      ))) &&
-    installEvent?.eventId === installOutcome?.result?.admissionEventRef &&
-    installEvent?.aggregateId === installOutcome?.result?.installId &&
-    installEvent?.basisId === installOutcome?.result?.installId &&
-    installEvent?.payload?.artifactRef === installOutcome?.result?.installId &&
-    installEvent?.payload?.invocationRef === transcript[2]?.invocationRef &&
-    equalJson(installEvent?.causationEventRefs, []) &&
-    workspaceEvent?.eventId === workspaceOutcome?.result?.admissionEventRef &&
-    workspaceEvent?.aggregateId === workspaceOutcome?.result?.bindingId &&
-    workspaceEvent?.basisId === workspaceOutcome?.result?.bindingId &&
-    workspaceEvent?.payload?.artifactRef === workspaceOutcome?.result?.bindingId &&
-    workspaceEvent?.payload?.invocationRef === transcript[3]?.invocationRef &&
-    equalJson(workspaceEvent?.causationEventRefs, [installEvent?.eventId]) &&
-    events.every((event) =>
-      !event.kind.includes("catalog") &&
-      event.kind !== ["registry", "entry", "admitted"].join("_"));
-  if (!setupEventsValid) {
-    failures.push("installed setup events differ from the exact admitted path");
-  }
-  obligationResults.R2 = obligationResults.R2 && setupEventsValid;
-  obligationResults.R3 = obligationResults.R3 && setupEventsValid;
-  obligationResults.R4 = obligationResults.R4 && setupEventsValid;
-
-  const runRequests = transcript.slice(SETUP_OPERATIONS.length);
-  const runOutcomes = outcomes.slice(SETUP_OPERATIONS.length);
-  const uniqueRunIdentities =
-    new Set(runRequests.map((request) => request.invocationRef)).size === runRequests.length &&
-    new Set(runOutcomes.map((outcome) => outcome.runtimeInvocationRef)).size === runOutcomes.length &&
-    new Set(runOutcomes.map((outcome) => outcome.runId)).size === runOutcomes.length;
-  if (!uniqueRunIdentities) {
-    failures.push("run request, runtime invocation, or Run identities are duplicated");
-  }
-  const exactTargets = runRequests.length >= 1 && runRequests.every((request) =>
-    request.payload?.programRef === "program://abiogenesis/conformance/hello-world@5" &&
-    request.payload?.graphFunctionRef === "graph-function://abiogenesis/conformance/hello-world@5");
-  const invocationEvents = events.filter((event) => event.kind === "invocation_admitted");
-  obligationResults.R5 = obligationResults.R4 && exactTargets && uniqueRunIdentities &&
-    invocationEvents.length === runOutcomes.length;
-
-  const implementationEvents = events.filter((event) => event.kind === "implementation_admitted");
-  const implementationRows = implementationEvents.map(
-    (event) => event.payload?.implementationSet?.rows?.[0],
-  );
-  obligationResults.R6 = obligationResults.R5 &&
-    implementationEvents.length === runOutcomes.length &&
-    new Set(implementationRows.map((row) => row?.implementationBindingDigest)).size === 1 &&
-    new Set(implementationRows.map((row) => row?.implementationDescriptorDigest)).size === 1 &&
-    implementationEvents.every((event, index) => {
-      const row = implementationRows[index];
-      return event.payload?.implementationSetRef ===
-        event.payload?.implementationSet?.implementationSetRef &&
-      event.payload?.implementationSetDigest ===
-        event.payload?.implementationSet?.implementationSetDigest &&
-      event.payload?.interactionSetRef ===
-        event.payload?.interactionSet?.interactionSetRef &&
-      event.payload?.interactionSetDigest ===
-        event.payload?.interactionSet?.interactionSetDigest &&
-      event.payload?.implementationSet?.rows?.length === 1 &&
-      event.payload?.implementationSet?.executableLeafKeys?.length === 1 &&
-      row?.requirementKey === event.payload?.implementationSet?.executableLeafKeys?.[0] &&
-      event.payload?.interactionSet?.rows?.length === 0 &&
-      event.payload?.interactionSet?.interactionLeafKeys?.length === 0 &&
-      row?.implementationBindingRef ===
-        "implementation-binding://abiogenesis/conformance/hello-world-fd@5" &&
-      row?.implementationRef ===
-        "implementation://abiogenesis/conformance/hello-world-fd@5" &&
-      row?.computeRegime === "F_D" &&
-      typeof event.payload?.implementationSetRef === "string" &&
-      typeof event.payload?.implementationSetDigest === "string" &&
-      typeof event.payload?.interactionSetRef === "string" &&
-      typeof event.payload?.interactionSetDigest === "string" &&
-      row?.packageName === candidateBasis.packageName &&
-      row?.packageVersion === candidateBasis.packageVersion &&
-      row?.inputContractRef ===
-        "contract://abiogenesis/conformance/hello-input@5" &&
-      row?.outputContractRef ===
-        "contract://abiogenesis/conformance/hello-output@5" &&
-      typeof row?.implementationBindingDigest === "string" &&
-      typeof row?.implementationDescriptorDigest === "string";
-    });
-
-  const basisEvents = events.filter((event) => event.kind === "basis_admitted");
-  obligationResults.R7 = obligationResults.R6 &&
-    basisEvents.length === runOutcomes.length &&
-    basisEvents.every((event, index) =>
-      event.parentAggregateId === runOutcomes[index]?.runtimeInvocationRef &&
-      event.payload?.invocationRef === runOutcomes[index]?.runtimeInvocationRef &&
-      event.payload?.rawInputDigest === sha256Canonical(runRequests[index]?.payload?.input) &&
-      event.payload?.workspaceBindingId === outcomes[3]?.result?.bindingId &&
-      event.payload?.workspaceBindingDigest === outcomes[3]?.result?.bindingDigest &&
-      event.payload?.catalogBasisDigest === outcomes[5]?.result?.catalogBasisDigest &&
-      event.payload?.catalogViewDigest === outcomes[5]?.result?.viewDigest &&
-      event.payload?.programRef === "program://abiogenesis/conformance/hello-world@5" &&
-      event.payload?.graphFunctionRef === "graph-function://abiogenesis/conformance/hello-world@5" &&
-      typeof event.payload?.implementationSetRef === "string" &&
-      typeof event.payload?.implementationSetDigest === "string" &&
-      typeof event.payload?.interactionSetRef === "string" &&
-      typeof event.payload?.interactionSetDigest === "string" &&
-      event.payload?.graphRef ===
-        `graph-materialization://abiogenesis/${event.payload?.graphDigest?.slice("sha256:".length)}` &&
-      event.payload?.basisRef ===
-        `execution-basis://abiogenesis/${event.payload?.basisDigest?.slice("sha256:".length)}`);
-
-  const openKinds = ["run_segment_opened", "graph_call_opened", "frame_opened"];
-  obligationResults.R8 = obligationResults.R7 && runOutcomes.length >= 1 &&
-    openKinds.every((kind) => events.filter((event) => event.kind === kind).length === runOutcomes.length);
-
-  const episodeResults = runOutcomes.map((outcome, index) =>
-    runEpisode(events, outcome, runRequests[index]));
-  const episodeFailures = episodeResults.flatMap((result) => result.failures);
-  failures.push(...episodeFailures);
-  const accountedEventIds = new Set([
-    ...setupEvents.map((event) => event.eventId),
-    ...episodeResults.flatMap((result) => result.eventIds),
-  ]);
-  const eventAccountingValid =
-    events.length === setupEventCount + (runOutcomes.length * RUN_EVENT_KINDS.length) &&
-    accountedEventIds.size === events.length &&
-    events.every((event) => accountedEventIds.has(event.eventId));
-  if (!eventAccountingValid) {
-    failures.push("durable ledger contains a missing, duplicated, or unaccounted event");
-  }
-  obligationResults.R9 = obligationResults.R8 &&
-    episodeFailures.length === 0 &&
-    eventAccountingValid;
-
-  const outputContract = "contract://abiogenesis/conformance/hello-output@5";
-  const prefixChecks = eventBytes !== null && runOutcomes.every((outcome, index) => {
-    const expectedEventCount = setupEventCount +
-      ((index + 1) * RUN_EVENT_KINDS.length);
-    const expectedPrefix = Buffer.from(
-      `${events.slice(0, expectedEventCount).map(canonicalJson).join("\n")}\n`,
-      "utf8",
-    );
+function exactTransportChain(transport) {
+  const transportRuns = transport?.transportRuns;
+  if (
+    !Array.isArray(transportRuns) ||
+    transportRuns.length !== ROOT_OPERATION_ORDER.length
+  ) return false;
+  for (const [index, transportRun] of transportRuns.entries()) {
+    const request = transportRun?.transportRequest;
+    const result = transportRun?.transportResult;
+    const expectedOperationId = ROOT_OPERATION_ORDER[index];
     if (
-      !Number.isInteger(outcome.eventLogByteLength) ||
-      outcome.eventLogByteLength <= 0 ||
-      outcome.eventLogByteLength > eventBytes.byteLength ||
-      outcome.eventLogByteLength !== expectedPrefix.byteLength ||
-      outcome.durableEventCount !== expectedEventCount
+      transportRun?.executor !== "abg.cli" ||
+      request?.kind !== "abg_cli_transport_request" ||
+      request?.schemaVersion !== "5.0.0" ||
+      !isRecord(request.acquisition) ||
+      !isRecord(request.invocation) ||
+      request.invocation.operationId !== expectedOperationId ||
+      typeof request.invocation.invocationRef !== "string" ||
+      request.invocation.invocationRef.length === 0 ||
+      result?.kind !== "abg_cli_transport_result" ||
+      result?.schemaVersion !== "5.0.0" ||
+      result.disposition !== "completed" ||
+      result.acquisitionKind !== request.acquisition?.kind ||
+      !isRecord(result.outcome) ||
+      result.outcome.operationId !== expectedOperationId ||
+      result.outcome.invocationRef !== request.invocation.invocationRef
     ) return false;
-    const prefix = eventBytes.subarray(0, outcome.eventLogByteLength);
-    const prefixLines = prefix.toString("utf8").split(/\r?\n/u).filter(Boolean);
-    return prefix.at(-1) === 0x0a &&
-      prefixLines.length === outcome.durableEventCount &&
-      prefix.equals(expectedPrefix) &&
-      sha256Bytes(prefix) === outcome.eventLogDigest;
-  });
-  const finalPrefixCoversLog = eventBytes !== null &&
-    runOutcomes.at(-1)?.eventLogByteLength === eventBytes.byteLength;
-  if (!finalPrefixCoversLog) {
-    failures.push("final durable prefix does not cover the exact event log bytes");
+    if (index === 0) {
+      if (
+        request.acquisition.kind !== "new" ||
+        result.entryPrefix?.kind !== "durable_prefix_coordinate" ||
+        result.entryPrefix?.prefixLength !== 0 ||
+        result.closeHandoff?.reopenAuthority?.eventLogPath !==
+          request.acquisition.eventLogPath ||
+        result.entryPrefix?.eventLogRef !==
+          result.closeHandoff?.prefix?.eventLogRef
+      ) return false;
+    } else if (
+      request.acquisition.kind !== "reopen" ||
+      !isDeepStrictEqual(
+        request.acquisition.closeHandoff,
+        transportRuns[index - 1]?.transportResult?.closeHandoff,
+      ) ||
+      !isDeepStrictEqual(
+        result.entryPrefix,
+        request.acquisition.closeHandoff.prefix,
+      )
+    ) return false;
   }
-  obligationResults.R10 = obligationResults.R9 &&
-    runOutcomes.length >= 1 &&
-    runOutcomes.every((outcome) =>
-      outcome.replayAgreement === true &&
-      outcome.outputContractRef === outputContract &&
-      outcome.admittedResultContractRef === outputContract &&
-      outcome.result?.kind === "hello_world_output" &&
-      typeof outcome.result?.message === "string" &&
-      typeof outcome.replayDigest === "string") &&
-    runOutcomes.at(-1)?.durableEventCount === events.length &&
-    finalPrefixCoversLog &&
-    prefixChecks;
+  if (
+    new Set(transportRuns.map(
+      (transportRun) => transportRun.transportRequest.invocation.invocationRef,
+    ))
+      .size !== ROOT_OPERATION_ORDER.length
+  ) return false;
+  return isDeepStrictEqual(
+    transport.finalCloseHandoff,
+    transportRuns.at(-1)?.transportResult?.closeHandoff,
+  );
+}
 
-  for (const id of OBLIGATIONS) {
-    if (!obligationResults[id]) failures.push(`${id} is not satisfied`);
-  }
-  const firstFrontier = OBLIGATIONS.find((id) => !obligationResults[id]) ?? null;
-  const body = {
-    bindingId: ABI5_ROOT_BINDING,
-    governorId: ABI5_ROOT_GOVERNOR,
-    candidateBasis,
-    obligationResults,
-    firstFrontier,
-    eventLogDigest: eventBytes === null ? null : sha256Bytes(eventBytes),
-    eventCount: events.length,
-    runIds: runOutcomes.map((outcome) => outcome.runId),
-    failures: [...new Set(failures)],
+export function evaluateAbi5Root({ ownerEvidence }) {
+  const evidence = ownerEvidence;
+  const product = evidence?.product;
+  const abg = evidence?.abg;
+  const publicProjection = evidence?.public;
+  const failures = [];
+  const obligationResults = Object.fromEntries(
+    OBLIGATIONS.map((id) => [id, false]),
+  );
+  const requireObligation = (id, condition, failure) => {
+    obligationResults[id] = condition;
+    if (!condition) failures.push(failure);
+    return condition;
   };
-  const governorDigest = sha256Canonical(body);
+
+  const r1 = requireObligation(
+    "R1",
+    evidence?.kind === "abi5_root_owner_evidence" &&
+      evidence?.schemaVersion === "5.0.0" &&
+      evidence?.bindingId === ABI5_ROOT_BINDING &&
+      product?.verifiedProductValid === true &&
+      succeeded(
+        publicProjection?.verifyOutcome,
+        "abg.operation.product.verify",
+      ) &&
+      isDeepStrictEqual(
+        publicProjection?.verifyOutcome?.result,
+        product?.verifiedProduct,
+      ),
+    "R1 lacks one Product-validated verified artifact projection",
+  );
+
+  const r2 = requireObligation(
+    "R2",
+    r1 &&
+      product?.resolvedLockValid === true &&
+      product?.verifiedProductMatchesResolvedLock === true &&
+      succeeded(
+        publicProjection?.resolveOutcome,
+        "abg.operation.product.resolve",
+      ) &&
+      succeeded(
+        publicProjection?.installOutcome,
+        "abg.operation.product.install",
+      ) &&
+      isDeepStrictEqual(
+        publicProjection?.resolveOutcome?.result,
+        product?.resolvedLock,
+      ) &&
+      isDeepStrictEqual(
+        product?.admittedInstall?.resolvedLock,
+        product?.resolvedLock,
+      ) &&
+      isDeepStrictEqual(
+        product?.admittedInstall?.install,
+        publicProjection?.installOutcome?.result,
+      ),
+    "R2 lacks one ABG-projected admitted ProductInstall over the Product lock",
+  );
+
+  const r3 = requireObligation(
+    "R3",
+    r2 &&
+      succeeded(
+        publicProjection?.workspaceOutcome,
+        "abg.operation.workspace.bind",
+      ) &&
+      isDeepStrictEqual(
+        product?.admittedWorkspace?.binding,
+        publicProjection?.workspaceOutcome?.result,
+      ) &&
+      product?.admittedWorkspace?.invocationRef ===
+        publicProjection?.workspaceOutcome?.invocationRef,
+    "R3 lacks one ABG-projected admitted WorkspaceBinding",
+  );
+
+  const r4 = requireObligation(
+    "R4",
+    r3 &&
+      succeeded(
+        publicProjection?.catalogOutcome,
+        "abg.operation.catalog.admit",
+      ) &&
+      succeeded(
+        publicProjection?.viewOutcome,
+        "abg.operation.catalog.view",
+      ) &&
+      publicProjection?.catalogOutcome?.result?.basisDigest ===
+        publicProjection?.viewOutcome?.result?.catalogBasisDigest &&
+      publicProjection?.catalogOutcome?.result?.workspaceBindingId ===
+        product?.admittedWorkspace?.binding?.bindingId &&
+      publicProjection?.catalogOutcome?.result?.workspaceBindingDigest ===
+        product?.admittedWorkspace?.binding?.bindingDigest,
+    "R4 lacks one Product-owned Catalog and exact CatalogView projected through Public",
+  );
+
+  const r5 = requireObligation(
+    "R5",
+    r4 &&
+      succeeded(
+        publicProjection?.runOutcome,
+        "abg.operation.run.invoke",
+      ) &&
+      publicProjection?.runRequest?.kind === "public_invocation" &&
+      publicProjection?.runRequest?.operationId ===
+        "abg.operation.run.invoke" &&
+      publicProjection?.runRequest?.invocationRef ===
+        publicProjection?.runOutcome?.invocationRef &&
+      abg?.effectfulRunTruth?.disposition === "duplicate" &&
+      abg?.effectfulRunTruth?.priorAdmission?.publicInvocationRef ===
+        publicProjection?.runRequest?.invocationRef &&
+      abg?.effectfulRunTruth?.priorAdmission?.ownerInvocationRef ===
+        publicProjection?.runOutcome?.runtimeInvocationRef,
+    "R5 lacks one ABG-projected exact effectful Run invocation",
+  );
+
+  const basisAtom = abg?.semanticReplay?.eventAtoms?.filter((atom) =>
+    atom.eventKind === "basis_admitted"
+  ) ?? [];
+  const r6 = requireObligation(
+    "R6",
+    r5 &&
+      abg?.executionBasis?.kind === "execution_basis" &&
+      abg?.executionBasis?.disposition === "admitted" &&
+      abg?.executionBasis?.basisClass === "root" &&
+      basisAtom.length === 1 &&
+      basisAtom[0]?.basisId === abg?.executionBasis?.basisRef &&
+      abg?.executionBasis?.invocationRef ===
+        publicProjection?.runOutcome?.runtimeInvocationRef,
+    "R6 lacks one ABG-rehydrated root ExecutionBasis",
+  );
+
+  const r7 = requireObligation(
+    "R7",
+    r6 &&
+      abg?.executionBasis?.workspaceBindingId ===
+        product?.admittedWorkspace?.binding?.bindingId &&
+      abg?.executionBasis?.workspaceBindingDigest ===
+        product?.admittedWorkspace?.binding?.bindingDigest &&
+      abg?.executionBasis?.catalogViewDigest ===
+        publicProjection?.viewOutcome?.result?.viewDigest &&
+      product?.selectedCatalogEntry?.handle ===
+        publicProjection?.runRequest?.payload?.catalogHandle &&
+      product?.selectedCatalogEntry?.definitionRef ===
+        ABI5_ROOT_DEFINITION_REF &&
+      Array.isArray(product?.selectedCatalogEntry?.programMembershipRefs) &&
+      product.selectedCatalogEntry.programMembershipRefs.includes(
+        ABI5_ROOT_PROGRAM_REF,
+      ) &&
+      publicProjection?.runRequest?.payload?.programRef ===
+        ABI5_ROOT_PROGRAM_REF &&
+      abg?.executionBasis?.programRef ===
+        ABI5_ROOT_PROGRAM_REF &&
+      abg?.executionBasis?.graphFunctionRef ===
+        ABI5_ROOT_DEFINITION_REF &&
+      abg.executionBasis.graphFunctionRef ===
+        product.selectedCatalogEntry.definitionRef &&
+      abg.executionBasis.graphFunctionDigest ===
+        product.selectedCatalogEntry.definitionDigest,
+    "R7 owner projections do not bind one exact workspace, view, Program, and GraphFunction",
+  );
+
+  const cCallFact = oneOwnerFact(
+    abg?.semanticReplay,
+    "c_call",
+    (fact) => fact.cCallRef === publicProjection?.runOutcome?.cCallRef,
+  );
+  const r8 = requireObligation(
+    "R8",
+    r7 &&
+      abg?.semanticReplay?.kind === "run_semantic_relation_view" &&
+      abg?.semanticReplay?.runId === publicProjection?.runOutcome?.runId &&
+      abg?.semanticReplay?.lifecycle?.traversalCursorPresent === true &&
+      abg?.semanticReplay?.lifecycle?.invocationRefused === false &&
+      abg?.semanticReplay?.lifecycle?.runtimeFailed === false &&
+      cCallFact?.phase === "judged",
+    "R8 lacks one successful ABG semantic traversal and CCall projection",
+  );
+
+  const replayedCall = abg?.replayFirst?.cCalls?.filter((call) =>
+    call.cCallRef === publicProjection?.runOutcome?.cCallRef
+  ) ?? [];
+  const r9 = requireObligation(
+    "R9",
+    r8 &&
+      abg?.semanticReplay?.runtimeStatus === "closed" &&
+      abg?.semanticReplay?.lifecycle?.terminalReached === true &&
+      abg?.semanticReplay?.lifecycle?.frameClosed === true &&
+      abg?.semanticReplay?.lifecycle?.graphCallClosed === true &&
+      abg?.semanticReplay?.lifecycle?.runClosed === true &&
+      abg?.semanticReplay?.lifecycle?.runStopped === false &&
+      replayedCall.length === 1 &&
+      replayedCall[0]?.status === "judged" &&
+      replayedCall[0]?.resultRef === publicProjection?.runOutcome?.resultRef &&
+      replayedCall[0]?.resultContractRef ===
+        publicProjection?.runOutcome?.admittedResultContractRef &&
+      replayedCall[0]?.judgmentRef ===
+        publicProjection?.runOutcome?.judgmentRef &&
+      isDeepStrictEqual(
+        replayedCall[0]?.resultValue,
+        publicProjection?.runOutcome?.result,
+      ),
+    "R9 lacks one closed replay-owned result and judgment relation",
+  );
+
+  const rawOutcomeProjection = evidence?.transport?.transportRuns
+    ?.flatMap((transportRun) =>
+      transportRun?.transportResult?.outcome === undefined
+        ? []
+        : [transportRun.transportResult.outcome]
+    ) ?? [];
+  const r10 = requireObligation(
+    "R10",
+    r9 &&
+      exactTransportChain(evidence?.transport) &&
+      isDeepStrictEqual(
+        rawOutcomeProjection,
+        publicProjection?.transportOutcomeProjection,
+      ) &&
+      isDeepStrictEqual(abg?.replayFirst, abg?.replaySecond) &&
+      abg?.semanticReplay?.physicalCoordinates?.scopedReplayRef ===
+        abg?.replayFirst?.replayRef &&
+      abg?.semanticReplay?.physicalCoordinates?.scopedReplayDigest ===
+        abg?.replayFirst?.replayDigest &&
+      publicProjection?.runOutcome?.replayRef === abg?.replayFirst?.replayRef &&
+      publicProjection?.runOutcome?.replayDigest ===
+        abg?.replayFirst?.replayDigest &&
+      publicProjection?.runOutcome?.replayAgreement === true,
+    "R10 raw installed CLI transports, Public outcome, and two ABG replay folds disagree",
+  );
+
+  const firstFrontier = OBLIGATIONS.find(
+    (id) => obligationResults[id] !== true,
+  ) ?? null;
   return Object.freeze({
     kind: "abi5_root_governor_result",
     schemaVersion: "5.0.0",
-    disposition: firstFrontier === null && failures.length === 0
+    bindingId: ABI5_ROOT_BINDING,
+    governorId: ABI5_ROOT_GOVERNOR,
+    disposition: r10 && failures.length === 0
       ? "root_satisfied"
       : "root_red",
-    governorDigest,
-    ...body,
+    obligationResults: Object.freeze(obligationResults),
+    firstFrontier,
+    ownerSemanticViewRef: abg?.semanticReplay?.viewRef ?? null,
+    ownerSemanticViewDigest: abg?.semanticReplay?.viewDigest ?? null,
+    ownerReplayRef: abg?.replayFirst?.replayRef ?? null,
+    failures: Object.freeze([...new Set(failures)]),
   });
 }

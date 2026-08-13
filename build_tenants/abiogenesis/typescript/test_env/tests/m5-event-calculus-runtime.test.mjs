@@ -6,8 +6,8 @@ import { pathToFileURL, fileURLToPath } from "node:url";
 import test from "node:test";
 
 import {
-  AbgEventStore,
   admitRuntimeEvent,
+  createNewEmptyAppendSink,
 } from "../../build/code/src/abg/event_store.js";
 import {
   projectCurrentApplicationChildFoldback,
@@ -15,6 +15,7 @@ import {
 } from "../../build/code/src/abg/graph_application.js";
 import { sha256Canonical } from "../../build/code/src/shared/digests.js";
 
+import { acquireNewEmptyAppendSinkFixture } from "../support/new-empty-append-sink.mjs";
 import { setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
@@ -93,6 +94,9 @@ function retryEvent({
   eventId,
   admissionOrdinal,
   runId,
+  graphCallId = `graph-call://${runId}`,
+  frameId = `frame://${runId}`,
+  retryBoundaryRef = `retry-boundary://${runId}`,
   attemptRef,
   progressRef,
   causationEventRefs = [],
@@ -102,17 +106,27 @@ function retryEvent({
     ...fakeEvent(eventId, admissionOrdinal, runId, causationEventRefs),
     kind,
     aggregateType: "frame",
-    aggregateId: `frame://${runId}`,
-    graphCallId: `graph-call://${runId}`,
-    frameId: `frame://${runId}`,
+    aggregateId: frameId,
+    graphCallId,
+    frameId,
     payload: kind === "retry_attempt_opened"
-      ? { attemptRef }
+      ? { attemptRef, retryBoundaryRef }
       : kind === "retry_progress_recorded"
-        ? { attemptRef, progressRef }
+        ? { attemptRef, progressRef, retryBoundaryRef }
         : {
             routeKind: "retry",
             consumedAvailabilityRefs,
           },
+  });
+}
+
+function scopedRetryFluent(eventCalculus, name, event, authorityRef) {
+  return eventCalculus.constructScopedRetryFluent(name, {
+    runId: event.runId,
+    graphCallId: event.graphCallId,
+    frameId: event.frameId,
+    retryBoundaryRef: event.payload.retryBoundaryRef,
+    authorityRef,
   });
 }
 
@@ -158,6 +172,7 @@ async function admitStandardClosure(environment, store, opened, correlationRoot)
     hog,
     installedRoot,
     program,
+    graphFunction,
     graph,
     graphValidation,
     input,
@@ -191,6 +206,7 @@ async function admitStandardClosure(environment, store, opened, correlationRoot)
     executionBasis,
     opened.scope,
     program,
+    graphFunction,
     graph,
     traversalStop,
     implementationSet,
@@ -205,6 +221,9 @@ async function admitStandardClosure(environment, store, opened, correlationRoot)
   const leafCandidate = implementationModule[implementationResolution.namedSymbol](input);
   const evidence = abg.admitEvidence(
     store,
+    graph,
+    graphFunction,
+    traversalStop.cursor,
     cCall,
     leafCandidate.evidenceCandidates[0],
     closureContract.evidenceContractRef,
@@ -214,6 +233,9 @@ async function admitStandardClosure(environment, store, opened, correlationRoot)
   assert.equal(evidence.kind, "admitted_c_call_evidence", JSON.stringify(evidence));
   const result = abg.admitResult(
     store,
+    graph,
+    graphFunction,
+    traversalStop.cursor,
     cCall,
     leafCandidate.resultCandidate,
     "success",
@@ -240,6 +262,9 @@ async function admitStandardClosure(environment, store, opened, correlationRoot)
   );
   const judgment = abg.admitJudgment(
     store,
+    graph,
+    graphFunction,
+    traversalStop.cursor,
     cCall,
     result,
     judgmentCandidate,
@@ -265,23 +290,144 @@ async function admitStandardClosure(environment, store, opened, correlationRoot)
     judgedReplay,
     routeCandidate,
     runtimeBasis(`${correlationRoot}/route`),
-    { cCall, result, judgment },
+    { cCall, graphFunction, result, judgment },
   );
   assert.equal(route.kind, "admitted_traversal_route", JSON.stringify(route));
-  const routeReplay = abg.replay(store, { runId: opened.scope.runId });
   const closure = abg.admitClosure(
     store,
+    abg.selectHeldEventStoreDurablePrefix(store),
     cCall,
     result,
     judgment,
     route,
-    routeReplay,
     closureContract,
     runtimeBasis(`${correlationRoot}/closure`),
   );
   assert.equal(closure.kind, "closure_admission", JSON.stringify(closure));
   return closure;
 }
+
+test("A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat or stale prefixes with zero append", async (context) => {
+  const environment = await setupInstalledRootExecutionBasis(context, root);
+  const {
+    abg,
+    store,
+    executionBasis,
+    program,
+    graphFunction,
+    graph,
+    graphValidation,
+    implementationSet,
+    implementationRow,
+    hog,
+  } = environment;
+  const opened = abg.openCall(
+    store,
+    structuredClone(executionBasis),
+    runtimeBasis("correlation://t287/a5-f10/root-open"),
+  );
+  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  const traversalStop = hog.traverse({
+    program,
+    graph,
+    graphValidation,
+    executionBasis,
+    openedTraversalScope: opened.scope,
+  });
+  assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
+  const cursor = abg.admitInitialTraversalCursor(
+    store,
+    executionBasis,
+    opened.scope,
+    graph,
+    graphValidation,
+    traversalStop.cursor,
+    runtimeBasis("correlation://t287/a5-f10/cursor"),
+  );
+  assert.equal(cursor.kind, "traversal_cursor_admission", JSON.stringify(cursor));
+
+  const beforeOpen = store.readAll().length;
+  const first = abg.openCCall(
+    store,
+    structuredClone(executionBasis),
+    structuredClone(opened.scope),
+    program,
+    graphFunction,
+    graph,
+    structuredClone(traversalStop),
+    structuredClone(implementationSet),
+    structuredClone(implementationRow),
+    runtimeBasis("correlation://t287/a5-f10/c-call"),
+  );
+  assert.equal(first.kind, "c_call_admission", JSON.stringify(first));
+  assert.equal(store.readAll().length, beforeOpen + 2);
+  const beforeRepeat = store.readAll().length;
+  const repeated = abg.openCCall(
+    store,
+    executionBasis,
+    opened.scope,
+    program,
+    graphFunction,
+    graph,
+    traversalStop,
+    implementationSet,
+    implementationRow,
+    runtimeBasis("correlation://t287/a5-f10/c-call-repeat"),
+  );
+  assert.equal(repeated.kind, "c_call_open_refusal", JSON.stringify(repeated));
+  assert.equal(store.readAll().length, beforeRepeat);
+
+  const staleEnvironment = await setupInstalledRootExecutionBasis(context, root);
+  const staleOpened = staleEnvironment.abg.openCall(
+    staleEnvironment.store,
+    staleEnvironment.executionBasis,
+    runtimeBasis("correlation://t287/a5-f10/stale/root-open"),
+  );
+  assert.equal(staleOpened.kind, "open_call_admission", JSON.stringify(staleOpened));
+  const staleStop = staleEnvironment.hog.traverse({
+    program: staleEnvironment.program,
+    graph: staleEnvironment.graph,
+    graphValidation: staleEnvironment.graphValidation,
+    executionBasis: staleEnvironment.executionBasis,
+    openedTraversalScope: staleOpened.scope,
+  });
+  assert.equal(staleStop.kind, "traversal_stop_ref", JSON.stringify(staleStop));
+  const staleCursor = staleEnvironment.abg.admitInitialTraversalCursor(
+    staleEnvironment.store,
+    staleEnvironment.executionBasis,
+    staleOpened.scope,
+    staleEnvironment.graph,
+    staleEnvironment.graphValidation,
+    staleStop.cursor,
+    runtimeBasis("correlation://t287/a5-f10/stale/cursor"),
+  );
+  assert.equal(staleCursor.kind, "traversal_cursor_admission", JSON.stringify(staleCursor));
+  const stopped = staleEnvironment.abg.admitRuntimeFailure(
+    staleEnvironment.store,
+    staleEnvironment.executionBasis,
+    staleOpened.scope,
+    "hog_traversal",
+    { kind: "a5_f10_stale_open_probe" },
+    "diagnostic://t287/a5-f10/stale-open",
+    runtimeBasis("correlation://t287/a5-f10/stale/stop"),
+  );
+  assert.equal(stopped.kind, "runtime_failure_admission", JSON.stringify(stopped));
+  const beforeStale = staleEnvironment.store.readAll().length;
+  const stale = staleEnvironment.abg.openCCall(
+    staleEnvironment.store,
+    staleEnvironment.executionBasis,
+    staleOpened.scope,
+    staleEnvironment.program,
+    staleEnvironment.graphFunction,
+    staleEnvironment.graph,
+    staleStop,
+    staleEnvironment.implementationSet,
+    staleEnvironment.implementationRow,
+    runtimeBasis("correlation://t287/a5-f10/stale/c-call"),
+  );
+  assert.equal(stale.kind, "c_call_open_refusal", JSON.stringify(stale));
+  assert.equal(staleEnvironment.store.readAll().length, beforeStale);
+});
 
 test("validated event-prefix selection is immutable, ordered, and causally run-local", async () => {
   const prefixModule = await import(
@@ -386,6 +532,120 @@ test("closed typed Event Calculus law refuses missing, duplicate, malformed, and
   assert.equal(Object.isFrozen(pureProjection.effectRows[0].sourceEvent), true);
 });
 
+test("historical traversal-route projection ignores later construction enrichment and still refuses a forged admission body", async () => {
+  const routeApi = await import(
+    `${pathToFileURL(join(root, "build/code/src/abg/traversal_route.js")).href}?historical-route=${Date.now()}`
+  );
+  const prefixApi = await import(
+    pathToFileURL(join(root, "build/code/src/abg/event_prefix.js")).href
+  );
+  const replayApi = await import(
+    `${pathToFileURL(join(root, "build/code/src/abg/replay.js")).href}?historical-route=${Date.now()}`
+  );
+  const routeBody = {
+    routeKind: "advance",
+    declarationRef: "graph-materialization://historical-route",
+    declarationDigest: sha256Canonical({ declaration: "historical-route" }),
+    sourceCursorRef: "traversal-cursor://historical-route/source",
+    sourceCursorDigest: sha256Canonical({ cursor: "source" }),
+    targetCursorRef: "traversal-cursor://historical-route/target",
+    targetCursorDigest: sha256Canonical({ cursor: "target" }),
+    cCallRef: null,
+    judgmentRef: null,
+    consumedAvailabilityRefs: [],
+    contractRef: null,
+    replayStateDigest: sha256Canonical({ replay: "route-admission" }),
+  };
+  const routeDigest = sha256Canonical(routeBody);
+  const routeRef =
+    `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}`;
+  const routeEvent = deeplyFreeze({
+    kind: "traversal_route_admitted",
+    eventTime: "2026-08-09T00:00:00.000Z",
+    aggregateType: "frame",
+    aggregateId: "frame://historical-route",
+    parentAggregateId: "graph-call://historical-route",
+    causationEventRefs: [],
+    correlationId: "correlation://historical-route/admit",
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: "execution-basis://historical-route",
+    runId: "run://historical-route",
+    graphFunctionRef: "graph-function://historical-route@5",
+    materializationRef: routeBody.declarationRef,
+    graphCallId: "graph-call://historical-route",
+    frameId: "frame://historical-route",
+    payload: { routeRef, routeDigest, ...routeBody },
+    eventId: "event://historical-route/admitted",
+    admissionOrdinal: 1,
+    payloadDigest: sha256Canonical({ routeRef, routeDigest, ...routeBody }),
+  });
+  const nextActionProjection = {
+    kind: "next_action_projection",
+    schemaVersion: "5.0.0",
+    disposition: "selected",
+  };
+  const constructionIntent = {
+    kind: "construction_intent",
+    schemaVersion: "5.0.0",
+    actionKind: "invoke_graph_function",
+  };
+  const enrichmentEvent = deeplyFreeze({
+    ...routeEvent,
+    kind: "construction_intent_selected",
+    causationEventRefs: [routeEvent.eventId],
+    correlationId: "correlation://historical-route/enrich",
+    payload: {
+      routeRef,
+      nextActionProjectionRef: "next-action-projection://historical-route",
+      nextActionProjectionDigest: sha256Canonical(nextActionProjection),
+      nextActionProjection,
+      constructionIntentRef: "construction-intent://historical-route",
+      constructionIntentDigest: sha256Canonical(constructionIntent),
+      constructionIntent,
+    },
+    eventId: "event://historical-route/enriched",
+    admissionOrdinal: 2,
+    payloadDigest: sha256Canonical({ routeRef, constructionIntent }),
+  });
+  const fullPrefix = prefixApi.selectValidatedRuntimeEventPrefix(
+    deeplyFreeze([routeEvent, enrichmentEvent]),
+  );
+  const enrichedReplayRoute = replayApi
+    .replayValidatedRuntimeEventPrefix(fullPrefix).routes[0];
+  assert.equal(
+    enrichedReplayRoute.nextActionProjectionRef,
+    enrichmentEvent.payload.nextActionProjectionRef,
+  );
+  const projected = routeApi.projectHistoricalTraversalRouteAtPrefix(
+    fullPrefix,
+    routeEvent.eventId,
+  );
+  assert.ok(projected);
+  assert.equal(projected.routeRef, routeRef);
+  assert.equal(projected.routeDigest, routeDigest);
+  assert.equal(projected.sourceCursorRef, routeBody.sourceCursorRef);
+  assert.equal(projected.targetCursorRef, routeBody.targetCursorRef);
+
+  const forgedRouteEvent = deeplyFreeze({
+    ...routeEvent,
+    payload: {
+      ...routeEvent.payload,
+      sourceCursorRef: "traversal-cursor://historical-route/forged",
+    },
+  });
+  const forgedPrefix = prefixApi.selectValidatedRuntimeEventPrefix(
+    deeplyFreeze([forgedRouteEvent, enrichmentEvent]),
+  );
+  assert.equal(
+    routeApi.projectHistoricalTraversalRouteAtPrefix(
+      forgedPrefix,
+      forgedRouteEvent.eventId,
+    ),
+    null,
+  );
+});
+
 test("retry HoldsAt truth is exact-keyed, interleaving-invariant, and reconstruction-stable", async () => {
   const eventCalculus = await import(
     `${pathToFileURL(join(root, "build/code/src/abg/event_calculus.js")).href}?t287-retry-law=${Date.now()}`
@@ -434,10 +694,28 @@ test("retry HoldsAt truth is exact-keyed, interleaving-invariant, and reconstruc
       runId: "run://retry/r",
     }),
   ).holds.map((fluent) => fluent.fluentRef);
+  const attemptRFluent = scopedRetryFluent(
+    eventCalculus,
+    "retry_attempt_active",
+    attemptR,
+    attemptR.payload.attemptRef,
+  );
+  const attemptSFluent = scopedRetryFluent(
+    eventCalculus,
+    "retry_attempt_active",
+    attemptS,
+    attemptS.payload.attemptRef,
+  );
+  const progressSFluent = scopedRetryFluent(
+    eventCalculus,
+    "retry_progress_available",
+    progressS,
+    progressS.payload.progressRef,
+  );
   const expected = [
-    "retry_attempt_active(retry-attempt://r/1)",
+    attemptRFluent.fluentRef,
     "run_active(run://retry/r)",
-  ];
+  ].sort();
 
   assert.deepEqual(project(events), expected);
   assert.deepEqual(
@@ -450,9 +728,175 @@ test("retry HoldsAt truth is exact-keyed, interleaving-invariant, and reconstruc
   const global = eventCalculus.deriveRuntimeEventCalculusProjection(
     prefixModule.selectValidatedRuntimeEventPrefix(events),
   ).holds.map((fluent) => fluent.fluentRef);
-  assert.equal(global.includes("retry_attempt_active(retry-attempt://r/1)"), true);
-  assert.equal(global.includes("retry_attempt_active(retry-attempt://s/1)"), false);
-  assert.equal(global.includes("retry_progress_available(retry-progress://s/1)"), false);
+  assert.equal(global.includes(attemptRFluent.fluentRef), true);
+  assert.equal(global.includes(attemptSFluent.fluentRef), false);
+  assert.equal(global.includes(progressSFluent.fluentRef), false);
+});
+
+test("retry fluent identity is exact across graph-call, frame, and boundary scopes before and after consumption", async () => {
+  const eventCalculus = await import(
+    `${pathToFileURL(join(root, "build/code/src/abg/event_calculus.js")).href}?t287-retry-composite=${Date.now()}`
+  );
+  const prefixModule = await import(
+    pathToFileURL(join(root, "build/code/src/abg/event_prefix.js")).href
+  );
+  const runId = "run://retry/composite";
+  const attemptRef = "retry-attempt://retry/composite/shared";
+  const progressRef = "retry-progress://retry/composite/shared";
+  const scopes = [
+    ["graph-call://retry/composite/a", "frame://retry/composite/a", "retry-boundary://retry/composite/a"],
+    ["graph-call://retry/composite/b", "frame://retry/composite/a", "retry-boundary://retry/composite/a"],
+    ["graph-call://retry/composite/a", "frame://retry/composite/b", "retry-boundary://retry/composite/a"],
+    ["graph-call://retry/composite/a", "frame://retry/composite/a", "retry-boundary://retry/composite/b"],
+  ];
+  const run = fakeEvent("event://retry/composite/run", 1, runId);
+  const attempts = scopes.map(([graphCallId, frameId, retryBoundaryRef], index) =>
+    retryEvent({
+      kind: "retry_attempt_opened",
+      eventId: `event://retry/composite/attempt/${index}`,
+      admissionOrdinal: index + 2,
+      runId,
+      graphCallId,
+      frameId,
+      retryBoundaryRef,
+      attemptRef,
+      causationEventRefs: [run.eventId],
+    })
+  );
+  const progresses = scopes.map(([graphCallId, frameId, retryBoundaryRef], index) =>
+    retryEvent({
+      kind: "retry_progress_recorded",
+      eventId: `event://retry/composite/progress/${index}`,
+      admissionOrdinal: attempts.length + index + 2,
+      runId,
+      graphCallId,
+      frameId,
+      retryBoundaryRef,
+      attemptRef,
+      progressRef,
+      causationEventRefs: [attempts[index].eventId],
+    })
+  );
+  const before = eventCalculus.deriveRuntimeEventCalculusProjection(
+    prefixModule.selectValidatedRuntimeEventPrefix(
+      deeplyFreeze([run, ...attempts, ...progresses]),
+    ),
+  );
+  const progressFluents = progresses.map((event) => scopedRetryFluent(
+    eventCalculus,
+    "retry_progress_available",
+    event,
+    progressRef,
+  ));
+  assert.equal(new Set(progressFluents.map((fluent) => fluent.fluentRef)).size, 4);
+  assert.equal(progressFluents.every((fluent) =>
+    eventCalculus.holdsAt(before, fluent)
+  ), true, "all differently scoped shared refs hold before consumption");
+  assert.equal(
+    scopedRetryFluent(
+      eventCalculus,
+      "retry_progress_available",
+      progresses[0],
+      progressRef,
+    ).fluentRef,
+    progressFluents[0].fluentRef,
+    "the exact same scope and authority ref reconstruct one identical fluent",
+  );
+  const route = retryEvent({
+    kind: "traversal_route_admitted",
+    eventId: "event://retry/composite/route/a",
+    admissionOrdinal: attempts.length + progresses.length + 2,
+    runId,
+    graphCallId: scopes[0][0],
+    frameId: scopes[0][1],
+    retryBoundaryRef: scopes[0][2],
+    causationEventRefs: [progresses[0].eventId],
+    consumedAvailabilityRefs: [progressRef],
+  });
+  const after = eventCalculus.deriveRuntimeEventCalculusProjection(
+    prefixModule.selectValidatedRuntimeEventPrefix(
+      deeplyFreeze([run, ...attempts, ...progresses, route]),
+    ),
+  );
+  assert.equal(eventCalculus.holdsAt(after, progressFluents[0]), false);
+  assert.equal(progressFluents.slice(1).every((fluent) =>
+    eventCalculus.holdsAt(after, fluent)
+  ), true, "one exact consumed scope does not consume equal refs in other scopes");
+});
+
+test("retry handoff route matrix keeps retry, blocked, advance, and terminal effects decision-exact", async () => {
+  const eventCalculus = await import(
+    `${pathToFileURL(join(root, "build/code/src/abg/event_calculus.js")).href}?t287-retry-route-matrix=${Date.now()}`
+  );
+  const runId = "run://retry/route-matrix";
+  const frameId = "frame://retry/route-matrix";
+  const sourceCursorRef = "cursor://retry/route-matrix/source";
+  const targetCursorRef = "cursor://retry/route-matrix/target";
+  const routeRef = "route://retry/route-matrix";
+  const judgmentRef = "judgment://retry/route-matrix";
+  const routeEvent = (routeKind, admissionOrdinal) => deeplyFreeze({
+    ...fakeEvent(
+      `event://retry/route-matrix/${routeKind}`,
+      admissionOrdinal,
+      runId,
+    ),
+    kind: "traversal_route_admitted",
+    aggregateType: "frame",
+    aggregateId: frameId,
+    graphCallId: "graph-call://retry/route-matrix",
+    frameId,
+    payload: {
+      routeKind,
+      sourceCursorRef,
+      targetCursorRef:
+        routeKind === "terminal" || routeKind === "blocked"
+          ? null
+          : targetCursorRef,
+      routeRef,
+      judgmentRef,
+      consumedAvailabilityRefs: [],
+    },
+  });
+  const rows = ["retry", "blocked", "advance", "terminal"].map(
+    (routeKind, index) => {
+      const effect = eventCalculus.eventCalculusEffect(
+        routeEvent(routeKind, index + 1),
+      );
+      return {
+        routeKind,
+        initiates: effect.initiates.map((fluent) => fluent.fluentRef).sort(),
+        terminates: effect.terminates.map((fluent) => fluent.fluentRef).sort(),
+      };
+    },
+  );
+  assert.deepEqual(rows, [
+    {
+      routeKind: "retry",
+      initiates: [`locus_active(${targetCursorRef})`],
+      terminates: [`locus_active(${sourceCursorRef})`],
+    },
+    {
+      routeKind: "blocked",
+      initiates: [`frame_blocked(${frameId})`],
+      terminates: [
+        `frame_active(${frameId})`,
+        `locus_active(${sourceCursorRef})`,
+      ].sort(),
+    },
+    {
+      routeKind: "advance",
+      initiates: [`locus_active(${targetCursorRef})`],
+      terminates: [`locus_active(${sourceCursorRef})`],
+    },
+    {
+      routeKind: "terminal",
+      initiates: [`terminal_route_available(${routeRef})`],
+      terminates: [
+        `c_call_judgment_available(${judgmentRef})`,
+        `locus_active(${sourceCursorRef})`,
+      ].sort(),
+    },
+  ]);
 });
 
 test("retry judgment preserves attempt activity until exact progress consumption", async () => {
@@ -473,6 +917,12 @@ test("retry judgment preserves attempt activity until exact progress consumption
     attemptRef,
     causationEventRefs: [run.eventId],
   });
+  const attemptFluent = scopedRetryFluent(
+    eventCalculus,
+    "retry_attempt_active",
+    opened,
+    attemptRef,
+  );
   const judgmentEvent = (judgment, eventId, admissionOrdinal, cause) => deeplyFreeze({
     ...fakeEvent(eventId, admissionOrdinal, runId, [cause]),
     kind: "c_call_judged",
@@ -497,12 +947,7 @@ test("retry judgment preserves attempt activity until exact progress consumption
   const advanceProjection = eventCalculus.deriveRuntimeEventCalculusProjection(
     prefixModule.selectValidatedRuntimeEventPrefix(Object.freeze([run, opened, advance])),
   );
-  assert.equal(
-    advanceProjection.holds.some((fluent) =>
-      fluent.name === "retry_attempt_active" && fluent.identity === attemptRef
-    ),
-    true,
-  );
+  assert.equal(eventCalculus.holdsAt(advanceProjection, attemptFluent), true);
   assert.deepEqual(
     [...new Set(advanceProjection.effectRows.at(-1).terminates.map((row) => row.name))]
       .sort(),
@@ -518,12 +963,7 @@ test("retry judgment preserves attempt activity until exact progress consumption
   const retryProjection = eventCalculus.deriveRuntimeEventCalculusProjection(
     prefixModule.selectValidatedRuntimeEventPrefix(Object.freeze([run, opened, retry])),
   );
-  assert.equal(
-    retryProjection.holds.some((fluent) =>
-      fluent.name === "retry_attempt_active" && fluent.identity === attemptRef
-    ),
-    true,
-  );
+  assert.equal(eventCalculus.holdsAt(retryProjection, attemptFluent), true);
   assert.deepEqual(
     [...new Set(retryProjection.effectRows.at(-1).terminates.map((row) => row.name))]
       .sort(),
@@ -546,12 +986,7 @@ test("retry judgment preserves attempt activity until exact progress consumption
       progress,
     ])),
   );
-  assert.equal(
-    progressedProjection.holds.some((fluent) =>
-      fluent.name === "retry_attempt_active" && fluent.identity === attemptRef
-    ),
-    false,
-  );
+  assert.equal(eventCalculus.holdsAt(progressedProjection, attemptFluent), false);
   assert.deepEqual(
     [...new Set(progressedProjection.effectRows.at(-1).terminates.map((row) => row.name))]
       .sort(),
@@ -575,9 +1010,7 @@ test("retry judgment preserves attempt activity until exact progress consumption
     ])),
   );
   assert.equal(
-    staleProjection.holds.some((fluent) =>
-      fluent.name === "retry_attempt_active" && fluent.identity === attemptRef
-    ),
+    eventCalculus.holdsAt(staleProjection, attemptFluent),
     false,
     "a consumed attempt cannot be rebound by a later judgment",
   );
@@ -652,8 +1085,26 @@ test("run_stopped terminates every exact active retry attempt and available retr
     ),
   );
   const beforeRefs = before.holds.map((fluent) => fluent.fluentRef);
-  assert.equal(beforeRefs.includes("retry_attempt_active(retry-attempt://stopped/2)"), true);
-  assert.equal(beforeRefs.includes("retry_progress_available(retry-progress://stopped/1)"), true);
+  const secondAttemptFluent = scopedRetryFluent(
+    eventCalculus,
+    "retry_attempt_active",
+    secondAttempt,
+    secondAttempt.payload.attemptRef,
+  );
+  const progressFluent = scopedRetryFluent(
+    eventCalculus,
+    "retry_progress_available",
+    progress,
+    progress.payload.progressRef,
+  );
+  const otherAttemptFluent = scopedRetryFluent(
+    eventCalculus,
+    "retry_attempt_active",
+    otherAttempt,
+    otherAttempt.payload.attemptRef,
+  );
+  assert.equal(beforeRefs.includes(secondAttemptFluent.fluentRef), true);
+  assert.equal(beforeRefs.includes(progressFluent.fluentRef), true);
 
   const after = eventCalculus.deriveRuntimeEventCalculusProjection(
     prefixModule.selectValidatedRuntimeEventPrefix(
@@ -675,7 +1126,7 @@ test("run_stopped terminates every exact active retry attempt and available retr
   );
   assert.equal(
     globalAfter.holds.some((fluent) =>
-      fluent.fluentRef === "retry_attempt_active(retry-attempt://still-active/1)"
+      fluent.fluentRef === otherAttemptFluent.fluentRef
     ),
     true,
   );
@@ -690,8 +1141,8 @@ test("run_stopped terminates every exact active retry attempt and available retr
       .map((fluent) => fluent.fluentRef)
       .sort(),
     [
-      "retry_attempt_active(retry-attempt://stopped/2)",
-      "retry_progress_available(retry-progress://stopped/1)",
+      secondAttemptFluent.fluentRef,
+      progressFluent.fluentRef,
     ],
   );
 });
@@ -854,7 +1305,6 @@ test("terminal projection rows realize static locus law for the exact Run and pr
 test("run HoldsAt truth survives durable reopen and a lawful closure", async (context) => {
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const { abg, executionBasis } = environment;
-  environment.store.configureDurableLog(join(environment.scratch, "t287-event-calculus.events.jsonl"));
   const first = abg.openCall(
     environment.store,
     executionBasis,
@@ -872,8 +1322,8 @@ test("run HoldsAt truth survives durable reopen and a lawful closure", async (co
   assert.equal(abg.holdsAt(openProjection, abg.constructRunClosedFluent(first.scope.runId)), false);
   assert.equal(openProjection.effectRows.some((row) => row.eventKind === "frame_opened"), true);
 
-  const firstAuthority = environment.store.projectReopenAuthorityAndClose();
-  const firstReopen = abg.reopenEventStore(firstAuthority);
+  const firstHandoff = environment.store.projectReopenAuthorityAndClose();
+  const firstReopen = abg.reopenEventStore(firstHandoff.reopenAuthority);
   assert.equal(firstReopen.kind, "reopened_event_store_context", JSON.stringify(firstReopen));
   assert.deepEqual(
     runProjection(abg, prefixModule, firstReopen.store, first.scope.runId),
@@ -902,8 +1352,8 @@ test("run HoldsAt truth survives durable reopen and a lawful closure", async (co
   const replayBeforeReopen = abg.replay(firstReopen.store, { runId: first.scope.runId });
   assert.equal(replayBeforeReopen.runtimeStatus, "closed");
 
-  const secondAuthority = firstReopen.store.projectReopenAuthorityAndClose();
-  const secondReopen = abg.reopenEventStore(secondAuthority);
+  const secondHandoff = firstReopen.store.projectReopenAuthorityAndClose();
+  const secondReopen = abg.reopenEventStore(secondHandoff.reopenAuthority);
   assert.equal(secondReopen.kind, "reopened_event_store_context", JSON.stringify(secondReopen));
   assert.deepEqual(
     runProjection(abg, prefixModule, secondReopen.store, first.scope.runId),
@@ -917,6 +1367,15 @@ test("run HoldsAt truth survives durable reopen and a lawful closure", async (co
   );
   assert.equal(abg.holdsAt(finalProjection, abg.constructRunActiveFluent(first.scope.runId)), false);
   assert.equal(abg.holdsAt(finalProjection, abg.constructRunActiveFluent("run://t287/other")), false);
+  const beforeClosedReopen = secondReopen.store.readAll().length;
+  const closedReopen = abg.openCall(
+    secondReopen.store,
+    structuredClone(executionBasis),
+    runtimeBasis("correlation://t287/event-calculus/closed/reopen"),
+  );
+  assert.equal(closedReopen.kind, "open_call_refusal", JSON.stringify(closedReopen));
+  assert.equal(closedReopen.code, "execution_basis_already_opened");
+  assert.equal(secondReopen.store.readAll().length, beforeClosedReopen);
   secondReopen.store.closeDurableLog();
 });
 
@@ -951,13 +1410,21 @@ test("runtime_failure_observed terminates the exact active Run", async (context)
     false,
   );
   assert.equal(abg.replay(environment.store, { runId: opened.scope.runId }).runtimeStatus, "failed");
+  const beforeFailedReopen = environment.store.readAll().length;
+  const failedReopen = abg.openCall(
+    environment.store,
+    structuredClone(executionBasis),
+    runtimeBasis("correlation://t287/event-calculus/failed/reopen"),
+  );
+  assert.equal(failedReopen.kind, "open_call_refusal", JSON.stringify(failedReopen));
+  assert.equal(failedReopen.code, "execution_basis_already_opened");
+  assert.equal(environment.store.readAll().length, beforeFailedReopen);
 });
 
 test("run_stopped makes runtime failure throw before memory or durable append", async (context) => {
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const { abg, executionBasis } = environment;
-  const eventLogPath = join(environment.scratch, "t287-stopped-runtime.events.jsonl");
-  environment.store.configureDurableLog(eventLogPath);
+  const eventLogPath = fileURLToPath(environment.durablePrefix.eventLogRef);
   const opened = abg.openCall(
     environment.store,
     executionBasis,
@@ -1063,9 +1530,18 @@ test("run_stopped makes runtime failure throw before memory or durable append", 
   assert.equal(replayBeforeReopen.runtimeStatus, "blocked");
   assert.equal(replayBeforeReopen.runStoppedEventRef, stopped.eventId);
   assert.equal(replayBeforeReopen.runStoppedDisposition, "blocked");
+  const beforeStoppedReopen = environment.store.readAll().length;
+  const stoppedReopen = abg.openCall(
+    environment.store,
+    structuredClone(executionBasis),
+    runtimeBasis("correlation://t287/event-calculus/stopped/reopen"),
+  );
+  assert.equal(stoppedReopen.kind, "open_call_refusal", JSON.stringify(stoppedReopen));
+  assert.equal(stoppedReopen.code, "execution_basis_already_opened");
+  assert.equal(environment.store.readAll().length, beforeStoppedReopen);
 
-  const reopenAuthority = environment.store.projectReopenAuthorityAndClose();
-  const reopened = abg.reopenEventStore(reopenAuthority);
+  const closeHandoff = environment.store.projectReopenAuthorityAndClose();
+  const reopened = abg.reopenEventStore(closeHandoff.reopenAuthority);
   assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
   assert.deepEqual(
     runProjection(abg, prefixModule, reopened.store, opened.scope.runId),
@@ -1106,8 +1582,12 @@ test("run_stopped makes runtime failure throw before memory or durable append", 
   reopened.store.closeDurableLog();
 });
 
-test("M5 application preparation refusal is exact across fresh processes until its route consumes it", async () => {
-  const store = new AbgEventStore();
+test("M5 application preparation refusal is exact across fresh processes until its route consumes it", async (context) => {
+  const { store } = await acquireNewEmptyAppendSinkFixture(
+    context,
+    createNewEmptyAppendSink,
+    "abi5-preparation-refusal-",
+  );
   const runId = "run://abiogenesis/m5/preparation-refusal";
   const graphCallId = "graph-call://abiogenesis/m5/preparation-refusal";
   const frameId = "frame://abiogenesis/m5/preparation-refusal";
@@ -1239,8 +1719,12 @@ test("M5 application preparation refusal is exact across fresh processes until i
   assert.equal(firstTruth.currentAfterRoute, false);
 });
 
-test("M5 generic CCall child foldback cannot project as application foldback", () => {
-  const store = new AbgEventStore();
+test("M5 generic CCall child foldback cannot project as application foldback", async (context) => {
+  const { store } = await acquireNewEmptyAppendSinkFixture(
+    context,
+    createNewEmptyAppendSink,
+    "abi5-generic-child-foldback-",
+  );
   const runId = "run://abiogenesis/m5/generic-child-foldback";
   const body = {
     parentCCallRef: "c-call://abiogenesis/m5/generic-child-foldback",
@@ -1288,8 +1772,12 @@ test("M5 generic CCall child foldback cannot project as application foldback", (
   );
 });
 
-test("M5 incomplete application child foldback cannot project through an open payload cast", () => {
-  const store = new AbgEventStore();
+test("M5 incomplete application child foldback cannot project through an open payload cast", async (context) => {
+  const { store } = await acquireNewEmptyAppendSinkFixture(
+    context,
+    createNewEmptyAppendSink,
+    "abi5-incomplete-application-foldback-",
+  );
   const runId = "run://abiogenesis/m5/incomplete-application-foldback";
   const body = {
     applicationRef:
@@ -1338,7 +1826,7 @@ test("M5 incomplete application child foldback cannot project through an open pa
   );
 });
 
-test("M5 application foldback projection rejects every empty semantic reference and malformed digest", () => {
+test("M5 application foldback projection rejects every empty semantic reference and malformed digest", async (context) => {
   const baseBody = {
     applicationRef: "graph-function-application://abiogenesis/m5/closed-foldback",
     applicationFoldbackRef: "application-foldback://abiogenesis/m5/closed-foldback",
@@ -1359,8 +1847,12 @@ test("M5 application foldback projection rejects every empty semantic reference 
     childTerminalEventRef: "event://abiogenesis/m5/closed-foldback/terminal",
     outputDigest: sha256Canonical({ output: true }),
   };
-  const projectBody = (body, suffix) => {
-    const store = new AbgEventStore();
+  const projectBody = async (body, suffix) => {
+    const { store } = await acquireNewEmptyAppendSinkFixture(
+      context,
+      createNewEmptyAppendSink,
+      `abi5-application-foldback-${suffix}-`,
+    );
     const runId = `run://abiogenesis/m5/closed-foldback/${suffix}`;
     const foldbackDigest = sha256Canonical(body);
     const foldbackRef =
@@ -1390,7 +1882,7 @@ test("M5 application foldback projection rejects every empty semantic reference 
     return projectCurrentApplicationChildFoldback(store, { runId, foldbackRef });
   };
 
-  assert.ok(projectBody(baseBody, "valid"));
+  assert.ok(await projectBody(baseBody, "valid"));
   for (const field of [
     "applicationRef",
     "applicationFoldbackRef",
@@ -1407,7 +1899,7 @@ test("M5 application foldback projection rejects every empty semantic reference 
     "childTerminalEventRef",
   ]) {
     assert.equal(
-      projectBody({ ...baseBody, [field]: "" }, `empty-${field}`),
+      await projectBody({ ...baseBody, [field]: "" }, `empty-${field}`),
       null,
       field,
     );
@@ -1419,7 +1911,10 @@ test("M5 application foldback projection rejects every empty semantic reference 
     "outputDigest",
   ]) {
     assert.equal(
-      projectBody({ ...baseBody, [field]: "sha256:not-a-digest" }, `digest-${field}`),
+      await projectBody(
+        { ...baseBody, [field]: "sha256:not-a-digest" },
+        `digest-${field}`,
+      ),
       null,
       field,
     );

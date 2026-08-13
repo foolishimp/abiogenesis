@@ -2,6 +2,7 @@ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { C_TERM_KIND_VALUES } from "../gtl/c_algebra.js";
+import { canonicalizeAuthoredGtlCarrier } from "../gtl/canonicalization.js";
 
 export const RAW_SUBJECT_KIND_VALUES = [
   "module_publication",
@@ -107,8 +108,21 @@ export function rawAdmitValue<S>(
     };
   }
   try {
-    const canonical = canonicalJson(value as JsonValue);
-    const admittedValue = deepFreeze(JSON.parse(canonical) as S);
+    const admittedJson: JsonValue = (() => {
+      switch (expectedKind) {
+        case "module_publication":
+        case "catalog_contribution":
+        case "gtl_program":
+        case "graph_function":
+          return canonicalizeAuthoredGtlCarrier(
+            value as JsonValue,
+            expectedKind,
+          );
+        default:
+          return JSON.parse(canonicalJson(value as JsonValue)) as JsonValue;
+      }
+    })();
+    const admittedValue = deepFreeze(admittedJson as S);
     const subjectDigest = sha256Canonical(admittedValue as unknown as JsonValue);
     const admissionDigest = sha256Canonical({
       contractRef,

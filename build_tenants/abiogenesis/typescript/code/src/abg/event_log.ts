@@ -27,7 +27,6 @@ export async function persistEventLog(
   eventLogPath: string,
   scope?: RuntimeEventScope,
 ): Promise<PersistedEventLog> {
-  store.configureDurableLog(eventLogPath);
   const configuredPath = store.configuredDurableLogPath();
   if (configuredPath === null || configuredPath !== resolve(eventLogPath)) {
     throw new TypeError("ABG persisted log path differs from the configured event sink");

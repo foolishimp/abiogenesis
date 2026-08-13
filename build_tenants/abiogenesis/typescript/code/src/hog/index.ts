@@ -1,12 +1,12 @@
 export {
-  applyRoute,
-  deriveCompletedTraversalStep,
-  deriveGraphSpanReentryStep,
-  deriveRetryTraversalStep,
+  applyAdmittedRoute,
+  deriveCompletedTraversalCursor,
+  deriveGraphSpanReentryCursor,
+  deriveInteractionSuccessorInputCarrierRef,
+  deriveRetryTraversalCursor,
   deriveInteractionResumeCursor,
-  deriveTraversalStep,
+  resolveTraversalTerm,
   rehydrateHeldInteractionCursor,
-  isTraversalStep,
   isTraversalStopRef,
   traverse,
   traverseFromCursor,
@@ -14,7 +14,6 @@ export {
   type ExecutableTraversalStopRef,
   type InteractionTraversalStopRef,
   type TraversalRefusal,
-  type TraversalStep,
   type TraversalStopRef,
   type TraverseInput,
   type TraverseResult,
@@ -86,18 +85,16 @@ export {
   type RestoreDeferredRecursionInput,
 } from "./execute.js";
 export {
-  advanceStructuralTraversal,
-  type AdvanceStructuralTraversalInput,
-  type StructuralTraversalClock,
-  type StructuralTraversalResult,
-} from "./structural_execute.js";
-export {
   executeGraphTraversal,
-  resumeHeldRecursionTraversal,
-  resumeHeldWorkflowTraversal,
   type ExecuteGraphTraversalInput,
-  type ResumeHeldRecursionTraversalInput,
-  type ResumeHeldWorkflowTraversalInput,
+  type ExecuteGraphTraversalRequest,
+  type ProjectedRetryResumeRefusal,
+  type ProjectedRetryResumeRefusalCode,
+  type ProjectedRetryResumeResult,
+  type ProjectedRetryResumeSuccess,
+  type ResumeProjectedRetryRequest,
+  type ResumeProjectedRetryRuntime,
+  type ResumeHeldTraversalInput,
 } from "./graph_execute.js";
 export {
   type ChildTraversalPreparationPort,
@@ -106,3 +103,11 @@ export {
   type ChildTraversalPreparationResult,
   type PreparedChildTraversal,
 } from "./child_traversal.js";
+export {
+  admitProbabilisticResultCandidate,
+  type ContractAdmittedProbabilisticResultCandidate,
+  type ProbabilisticResultAdmissionInput,
+  type ProbabilisticResultAdmissionRefusal,
+  type ProbabilisticResultAdmissionRefusalCode,
+  type ProbabilisticResultAdmissionResult,
+} from "./probabilistic_result_admission.js";

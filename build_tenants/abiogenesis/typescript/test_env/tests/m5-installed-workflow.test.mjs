@@ -31,8 +31,9 @@ test("M5 installed workflow.C opens one transparent parent and folds one child r
     "m5-workflow-c",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: WORKFLOW_REF,
+      catalogHandle: WORKFLOW_REF,
       allowlist: [WORKFLOW_REF, CHILD_REF],
     },
   );
@@ -85,8 +86,9 @@ test("M5 installed workflow.C refuses a CatalogView that omits its declared chil
     "m5-workflow-child-omitted",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: WORKFLOW_REF,
+      catalogHandle: WORKFLOW_REF,
       allowlist: [WORKFLOW_REF],
     },
   );

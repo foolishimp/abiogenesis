@@ -1,4 +1,8 @@
-import type { HelloWorldInput, HelloWorldOutput } from "../gtl/contracts.js";
+import type {
+  HelloWorldInput,
+  HelloWorldOutput,
+  ModulePublication,
+} from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
 
@@ -94,6 +98,14 @@ export interface LeafInvocationPort {
   readonly implementationSetRef: string;
   readonly implementationSetDigest: Sha256Digest;
   readonly publicationDigest: Sha256Digest;
+  readonly publication: Readonly<ModulePublication>;
+  readonly contractValueKindByRef: (
+    contractRef: string,
+  ) => string | null;
+  readonly validateContractValueByRef: (
+    contractRef: string,
+    value: unknown,
+  ) => value is Readonly<Record<string, JsonValue>>;
   readonly contractValueKind: (
     contractRef: string,
     contractKind: "failure" | "output",

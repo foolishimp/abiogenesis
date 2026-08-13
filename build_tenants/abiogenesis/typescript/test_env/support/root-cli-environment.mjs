@@ -19,6 +19,33 @@ import {
 
 const execFileAsync = promisify(execFile);
 
+function selectedFrozenArtifact(options) {
+  const explicit = options.frozenArtifact ?? null;
+  const environment = process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH === undefined &&
+      process.env.ABI5_WAVE1_FROZEN_INSTALL_HOST === undefined &&
+      process.env.ABI5_WAVE1_FROZEN_ARTIFACT_SHA256 === undefined
+    ? null
+    : {
+      artifactPath: process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH,
+      installHost: process.env.ABI5_WAVE1_FROZEN_INSTALL_HOST,
+      artifactSha256: process.env.ABI5_WAVE1_FROZEN_ARTIFACT_SHA256,
+    };
+  const selected = explicit ?? environment;
+  if (selected === null) return null;
+  for (const field of ["artifactPath", "installHost", "artifactSha256"]) {
+    if (typeof selected[field] !== "string" || selected[field].length === 0) {
+      throw new TypeError(`frozen artifact mode requires ${field}`);
+    }
+  }
+  return {
+    artifactPath: selected.artifactPath,
+    installHost: selected.installHost,
+    artifactSha256: selected.artifactSha256.startsWith("sha256:")
+      ? selected.artifactSha256
+      : `sha256:${selected.artifactSha256}`,
+  };
+}
+
 function invocation(operationId, variant, invocationRef, payload) {
   return {
     kind: "public_invocation",
@@ -33,60 +60,45 @@ function invocation(operationId, variant, invocationRef, payload) {
 }
 
 export function constructClosedCatalogReadinessBasis({
-  product,
+  abg,
+  artifactTruth,
   verifiedProducts,
   resolvedLock,
-  installedRoots,
-  workspaceId,
-  canonicalRoot,
-  authorizedActorRef,
-  authorityManifestRef,
-  roots,
+  installInvocationRefs,
+  workspaceBindingInvocationRef,
   publications,
 }) {
-  const installedProducts = verifiedProducts.map((verifiedProduct, index) => {
-    const {
-      artifactRef: _artifactRef,
-      artifactByteLength: _artifactByteLength,
-      checkedPayloadFiles: _checkedPayloadFiles,
-      kind: _verifiedKind,
-      disposition: _verifiedDisposition,
-      ...installedProductFields
-    } = verifiedProduct;
-    return {
-      kind: "product_install_candidate",
-      schemaVersion: "5.0.0",
-      disposition: "materialized",
-      installId: `product-install://${verifiedProduct.packageName}/${verifiedProduct.packageVersion}/${verifiedProduct.productContentDigest.slice("sha256:".length)}/${resolvedLock.lockDigest.slice("sha256:".length)}`,
-      installedRoot: installedRoots[index],
-      ...installedProductFields,
-      resolvedLockId: resolvedLock.lockId,
-      resolvedLockDigest: resolvedLock.lockDigest,
-    };
-  });
-  const productSet = product.constructProductSet(installedProducts, resolvedLock);
-  if (productSet.kind !== "product_set") throw new Error(JSON.stringify(productSet));
-  const authorityManifest = {
-    workspaceId,
-    canonicalRoot,
-    authorityMode: "trusted_developer",
-    authorizedActorRef,
-  };
-  const authority = product.constructWorkspaceAuthorityBasis({
-    ...authorityManifest,
-    authorityManifestRef,
-    authorityManifestDigest: product.sha256Canonical(authorityManifest),
-  });
-  if (authority.kind !== "workspace_authority_basis") throw new Error(JSON.stringify(authority));
-  const workspaceBinding = product.constructWorkspaceBinding(
-    authority,
-    productSet,
-    resolvedLock,
-    roots,
+  if (
+    artifactTruth?.kind !== "exact_prefix_artifact_truth_projection" ||
+    !Array.isArray(installInvocationRefs) ||
+    installInvocationRefs.length !== verifiedProducts.length
+  ) {
+    throw new TypeError(
+      "closed catalog readiness requires exact ABG artifact-owner projections",
+    );
+  }
+  const admittedInstalls = installInvocationRefs.map((invocationRef) =>
+    abg.projectAdmittedProductInstallByInvocationRef(
+      artifactTruth,
+      invocationRef,
+    ));
+  if (admittedInstalls.some((projection) => projection === null)) {
+    throw new TypeError("closed catalog readiness lacks one admitted ProductInstall owner");
+  }
+  const admittedWorkspace =
+    abg.projectAdmittedWorkspaceBindingByInvocationRef(
+      artifactTruth,
+      workspaceBindingInvocationRef,
+      resolvedLock,
+    );
+  if (admittedWorkspace === null) {
+    throw new TypeError("closed catalog readiness lacks its admitted WorkspaceBinding owner");
+  }
+  const installedProducts = admittedInstalls.map((projection) =>
+    projection.candidate
   );
-  if (workspaceBinding.kind !== "workspace_binding_candidate") throw new Error(JSON.stringify(workspaceBinding));
   return {
-    workspaceBinding,
+    workspaceBinding: admittedWorkspace.candidate,
     resolvedLock,
     verifiedProducts,
     installedProducts,
@@ -95,6 +107,7 @@ export function constructClosedCatalogReadinessBasis({
 }
 
 export async function setupInstalledCliHarness(context, packageRoot, options = {}) {
+  const frozenArtifact = selectedFrozenArtifact(options);
   const scratch = options.scratchPath === undefined
     ? await mkdtemp(join(tmpdir(), "abi5-root-cli-"))
     : options.scratchPath;
@@ -103,45 +116,64 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     await mkdir(scratch, { recursive: true });
   }
   context.after(async () => rm(scratch, { force: true, recursive: true }));
-  const artifacts = join(scratch, "artifacts");
-  await mkdir(artifacts);
-  const { stdout: packStdout } = await execFileAsync(
-    "npm",
-    ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
-    { cwd: packageRoot, maxBuffer: 10 * 1024 * 1024 },
+  let artifactPath;
+  let cliHost;
+  let installedPackageRoot;
+  if (frozenArtifact === null) {
+    const artifacts = join(scratch, "artifacts");
+    await mkdir(artifacts);
+    const { stdout: packStdout } = await execFileAsync(
+      "npm",
+      ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
+      { cwd: packageRoot, maxBuffer: 10 * 1024 * 1024 },
+    );
+    const [packResult] = JSON.parse(packStdout);
+    artifactPath = join(artifacts, packResult.filename);
+    cliHost = join(scratch, "cli-host");
+    await mkdir(cliHost);
+    await writeFile(join(cliHost, "package.json"), `${JSON.stringify({
+      name: "abiogenesis-root-cli-host",
+      version: "0.0.0",
+      private: true,
+      type: "module",
+    })}\n`, "utf8");
+    await execFileAsync(
+      "npm",
+      [
+        "install",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--offline",
+        artifactPath,
+      ],
+      { cwd: cliHost, maxBuffer: 10 * 1024 * 1024 },
+    );
+    installedPackageRoot = join(
+      cliHost,
+      "node_modules",
+      "@abiogenesis",
+      "typescript-tenant",
+    );
+  } else {
+    artifactPath = frozenArtifact.artifactPath;
+    cliHost = frozenArtifact.installHost;
+    installedPackageRoot = join(
+      cliHost,
+      "node_modules",
+      "@abiogenesis",
+      "typescript-tenant",
+    );
+  }
+  const packageJson = JSON.parse(
+    await readFile(join(installedPackageRoot, "package.json"), "utf8"),
   );
-  const [packResult] = JSON.parse(packStdout);
-  const artifactPath = join(artifacts, packResult.filename);
-  const packageJson = JSON.parse(await readFile(join(packageRoot, "package.json"), "utf8"));
-  const candidateBasis = await readCandidateBasis(packageRoot);
+  const persistedCandidateBasis = await readCandidateBasis(packageRoot);
   const candidateManifest = JSON.parse(
-    await readFile(join(packageRoot, "product-toolchain-manifest.json"), "utf8"),
-  );
-  const cliHost = join(scratch, "cli-host");
-  await mkdir(cliHost);
-  await writeFile(join(cliHost, "package.json"), `${JSON.stringify({
-    name: "abiogenesis-root-cli-host",
-    version: "0.0.0",
-    private: true,
-    type: "module",
-  })}\n`, "utf8");
-  await execFileAsync(
-    "npm",
-    [
-      "install",
-      "--ignore-scripts",
-      "--no-audit",
-      "--no-fund",
-      "--offline",
-      artifactPath,
-    ],
-    { cwd: cliHost, maxBuffer: 10 * 1024 * 1024 },
-  );
-  const installedPackageRoot = join(
-    cliHost,
-    "node_modules",
-    "@abiogenesis",
-    "typescript-tenant",
+    await readFile(
+      join(installedPackageRoot, "product-toolchain-manifest.json"),
+      "utf8",
+    ),
   );
   const gtl = await importInstalledPackageExport(
     { cliHost },
@@ -153,6 +185,25 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     "@abiogenesis/typescript-tenant/product",
     `harness=${Date.now()}`,
   );
+  if (frozenArtifact !== null) {
+    const artifactDigest = product.sha256Bytes(await readFile(artifactPath));
+    if (artifactDigest !== frozenArtifact.artifactSha256) {
+      throw new TypeError(
+        `frozen artifact digest differs from the authorized subject: ${artifactDigest}`,
+      );
+    }
+  }
+  const candidateBasis = options.candidateBasisSource === "packed_artifact"
+    ? {
+        ...persistedCandidateBasis,
+        artifactDigest: product.sha256Bytes(await readFile(artifactPath)),
+        productContentDigest: candidateManifest.productContentDigest,
+        manifestDigest: product.sha256Canonical(candidateManifest),
+        productId: candidateManifest.productId,
+        packageName: candidateManifest.packageName,
+        packageVersion: candidateManifest.packageVersion,
+      }
+    : persistedCandidateBasis;
   const rootPublication = gtl.constructHelloWorldModulePublication({
     productId: candidateBasis.productId,
     artifactDigest: candidateBasis.artifactDigest,
@@ -176,6 +227,130 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     rootPublication,
     product,
   };
+}
+
+export function constructCliTransportRequest({
+  acquisition,
+  invocation,
+}) {
+  if (
+    typeof acquisition !== "object" ||
+    acquisition === null ||
+    typeof invocation !== "object" ||
+    invocation === null
+  ) {
+    throw new TypeError(
+      "CLI transport request requires explicit acquisition and one Public invocation",
+    );
+  }
+  return {
+    kind: "abg_cli_transport_request",
+    schemaVersion: "5.0.0",
+    acquisition,
+    invocation,
+  };
+}
+
+export async function writeCliTransportRequest(path, input) {
+  const request = constructCliTransportRequest(input);
+  await writeFile(path, `${JSON.stringify(request)}\n`, "utf8");
+  return request;
+}
+
+async function executeTransportProgram(
+  programPath,
+  programArguments,
+  transcriptPath,
+  options = {},
+) {
+  const transportRequest = JSON.parse(await readFile(transcriptPath, "utf8"));
+  let exitCode = 0;
+  let stdout = "";
+  let stderr = "";
+  try {
+    const result = await execFileAsync(
+      programPath,
+      programArguments,
+      {
+        cwd: options.cwd,
+        env: { ...process.env, ...options.environment, NODE_OPTIONS: "" },
+        encoding: "utf8",
+        maxBuffer: 20 * 1024 * 1024,
+      },
+    );
+    stdout = result.stdout;
+    stderr = result.stderr;
+  } catch (error) {
+    exitCode = Number(error.code ?? 1);
+    stdout = String(error.stdout ?? "");
+    stderr = String(error.stderr ?? "");
+  }
+  const lines = stdout.trim().length === 0
+    ? []
+    : stdout.trim().split(/\r?\n/u);
+  let transportResult = null;
+  let transportRefusal = null;
+  if (lines.length === 1) {
+    const decoded = JSON.parse(lines[0]);
+    if (decoded.kind === "abg_cli_transport_result") {
+      transportResult = decoded;
+    } else {
+      transportRefusal = decoded;
+    }
+  } else if (lines.length > 1) {
+    throw new TypeError("installed CLI emitted more than one transport result");
+  }
+  return {
+    exitCode,
+    stdout,
+    stderr,
+    transportRequest,
+    transportResult,
+    transportRefusal,
+    transcriptPath,
+    executor: options.executor,
+  };
+}
+
+async function executeInstalledCliTransport(
+  harness,
+  transcriptPath,
+  options = {},
+) {
+  return executeTransportProgram(
+    harness.cliPath,
+    ["--jsonl", transcriptPath],
+    transcriptPath,
+    { ...options, cwd: harness.cliHost, executor: "abg.cli" },
+  );
+}
+
+async function executeInstalledCodexTransport(
+  harness,
+  transcriptPath,
+  options = {},
+) {
+  return executeTransportProgram(
+    harness.codexPath,
+    [
+      "--cli",
+      options.cliPath ?? harness.cliPath,
+      "--jsonl",
+      transcriptPath,
+    ],
+    transcriptPath,
+    { ...options, cwd: harness.cliHost, executor: "abg.codex" },
+  );
+}
+
+function exactTransportOutcome(run) {
+  const outcome = run.transportResult?.outcome;
+  if (typeof outcome !== "object" || outcome === null) {
+    throw new TypeError(
+      `installed CLI transport did not return one Public outcome: ${run.stdout}${run.stderr}`,
+    );
+  }
+  return outcome;
 }
 
 export async function buildRootCliScenario(
@@ -217,7 +392,7 @@ export async function buildRootCliScenario(
   );
   const programRef = options.programRef ??
     "program://abiogenesis/conformance/hello-world@5";
-  const graphFunctionRef = options.graphFunctionRef ??
+  const catalogHandle = options.catalogHandle ??
     "graph-function://abiogenesis/conformance/hello-world@5";
   const authorizedActorRef = options.authorizedActorRef ??
     "actor://abiogenesis/t286/trusted-developer";
@@ -232,66 +407,211 @@ export async function buildRootCliScenario(
     projectionRoot: join(workspaceRoot, ".ai-workspace/projections"),
     archiveRoot: join(workspaceRoot, ".ai-workspace/archive"),
   };
-  const verifiedProduct = await harness.product.verifyProduct({
-    artifactPath: harness.artifactPath,
-    artifactRef: harness.artifactRef,
-    ...expectedVerificationIdentity(harness.candidateBasis),
-  });
-  if (verifiedProduct.kind !== "verified_product_artifact") {
-    throw new Error(`root CLI readiness verification refused: ${JSON.stringify(verifiedProduct)}`);
+  const allowlist = options.allowlist ?? [catalogHandle];
+  const transportExecutor = options.transportExecutor ?? "cli";
+  if (transportExecutor !== "cli" && transportExecutor !== "codex") {
+    throw new TypeError("root CLI scenario requires one explicit transport executor");
   }
-  const resolvedLock = harness.product.constructResolvedProductLock([verifiedProduct]);
-  if (resolvedLock.kind !== "resolved_product_lock") {
-    throw new Error(`root CLI readiness lock refused: ${JSON.stringify(resolvedLock)}`);
-  }
-  const {
-    artifactRef: _artifactRef,
-    artifactByteLength: _artifactByteLength,
-    checkedPayloadFiles: _checkedPayloadFiles,
-    kind: _verifiedKind,
-    disposition: _verifiedDisposition,
-    ...installedProductFields
-  } = verifiedProduct;
-  const installedProduct = {
-    kind: "product_install_candidate",
-    schemaVersion: "5.0.0",
-    disposition: "materialized",
-    installId: `product-install://${verifiedProduct.packageName}/${verifiedProduct.packageVersion}/${verifiedProduct.productContentDigest.slice("sha256:".length)}/${resolvedLock.lockDigest.slice("sha256:".length)}`,
-    installedRoot,
-    ...installedProductFields,
-    resolvedLockId: resolvedLock.lockId,
-    resolvedLockDigest: resolvedLock.lockDigest,
+  const transportRuns = [];
+  const setupTranscript = [];
+  const setupOutcomes = [];
+  let closeHandoff = null;
+  const runTransport = async (request, ordinal) => {
+    const transcriptPath = join(
+      scenarioRoot,
+      `transport-${String(ordinal).padStart(2, "0")}.jsonl`,
+    );
+    const acquisition = closeHandoff === null
+      ? { kind: "new", eventLogPath }
+      : { kind: "reopen", closeHandoff };
+    await writeCliTransportRequest(transcriptPath, {
+      acquisition,
+      invocation: request,
+    });
+    const transportRun = transportExecutor === "cli"
+      ? await executeInstalledCliTransport(harness, transcriptPath)
+      : await executeInstalledCodexTransport(harness, transcriptPath);
+    if (transportRun.transportResult === null) {
+      throw new Error(
+        `root CLI transport refused: ${transportRun.stdout}${transportRun.stderr}`,
+      );
+    }
+    closeHandoff = transportRun.transportResult.closeHandoff;
+    transportRuns.push(transportRun);
+    return exactTransportOutcome(transportRun);
   };
-  const productSet = harness.product.constructProductSet(
-    [installedProduct],
-    resolvedLock,
+
+  let verifyRequest = invocation("abg.operation.product.verify", "artifact", refs.verify, {
+      artifactPath: harness.artifactPath,
+      artifactRef: harness.artifactRef,
+      ...expectedVerificationIdentity(harness.candidateBasis),
+    });
+  if (options.setupRequestTransform !== undefined) {
+    verifyRequest = options.setupRequestTransform(
+      structuredClone(verifyRequest),
+      0,
+    );
+  }
+  setupTranscript.push(verifyRequest);
+  const prefixBeforeVerify = Buffer.alloc(0);
+  const verifyOutcome = await runTransport(verifyRequest, 0);
+  setupOutcomes.push(verifyOutcome);
+  if (verifyOutcome.disposition !== "succeeded") {
+    if (options.expectedSetupRefusalIndex !== 0) {
+      throw new Error(JSON.stringify(verifyOutcome));
+    }
+    return refusedSetupScenario({
+      index: 0,
+      outcome: verifyOutcome,
+      prefixBefore: prefixBeforeVerify,
+      prefixAfter: await readFile(eventLogPath),
+    });
+  }
+  const verifiedProduct = verifyOutcome.result;
+
+  let resolveRequest = invocation(
+      "abg.operation.product.resolve",
+      "verified_product_set",
+      refs.resolve,
+      {
+        verifiedProductInputs: [{
+          artifactPath: harness.artifactPath,
+          verifiedProduct,
+        }],
+      },
+    );
+  if (options.setupRequestTransform !== undefined) {
+    resolveRequest = options.setupRequestTransform(
+      structuredClone(resolveRequest),
+      1,
+    );
+  }
+  setupTranscript.push(resolveRequest);
+  const resolvePrefixBefore = options.expectedSetupRefusalIndex === 1
+    ? await readFile(eventLogPath)
+    : null;
+  const resolveOutcome = await runTransport(resolveRequest, 1);
+  setupOutcomes.push(resolveOutcome);
+  if (resolveOutcome.disposition !== "succeeded") {
+    if (options.expectedSetupRefusalIndex !== 1) {
+      throw new Error(JSON.stringify(resolveOutcome));
+    }
+    return refusedSetupScenario({
+      index: 1,
+      outcome: resolveOutcome,
+      prefixBefore: resolvePrefixBefore,
+      prefixAfter: await readFile(eventLogPath),
+    });
+  }
+  const resolvedLock = resolveOutcome.result;
+
+  let installRequest = invocation(
+    "abg.operation.product.install",
+    "verified_artifact",
+    refs.install,
+    {
+      artifactPath: harness.artifactPath,
+      verifiedProduct,
+      resolvedLock,
+      targetRoot: productConsumer,
+    },
   );
-  if (productSet.kind !== "product_set") {
-    throw new Error(`root CLI readiness ProductSet refused: ${JSON.stringify(productSet)}`);
+  if (options.setupRequestTransform !== undefined) {
+    installRequest = options.setupRequestTransform(
+      structuredClone(installRequest),
+      2,
+    );
   }
-  const authorityManifest = {
-    workspaceId,
-    canonicalRoot: workspaceRoot,
-    authorityMode: "trusted_developer",
-    authorizedActorRef,
-  };
-  const authority = harness.product.constructWorkspaceAuthorityBasis({
-    ...authorityManifest,
-    authorityManifestRef,
-    authorityManifestDigest: harness.product.sha256Canonical(authorityManifest),
-  });
-  if (authority.kind !== "workspace_authority_basis") {
-    throw new Error(`root CLI readiness authority refused: ${JSON.stringify(authority)}`);
+  setupTranscript.push(installRequest);
+  const installPrefixBefore = options.expectedSetupRefusalIndex === 2
+    ? await readFile(eventLogPath)
+    : null;
+  const installOutcome = await runTransport(installRequest, 2);
+  setupOutcomes.push(installOutcome);
+  if (installOutcome.disposition !== "succeeded") {
+    if (options.expectedSetupRefusalIndex !== 2) {
+      throw new Error(JSON.stringify(installOutcome));
+    }
+    return refusedSetupScenario({
+      index: 2,
+      outcome: installOutcome,
+      prefixBefore: installPrefixBefore,
+      prefixAfter: await readFile(eventLogPath),
+    });
   }
-  const workspaceBinding = harness.product.constructWorkspaceBinding(
-    authority,
-    productSet,
-    resolvedLock,
-    roots,
+
+  let workspaceRequest = invocation(
+    "abg.operation.workspace.bind",
+    "exact_product_set",
+    refs.bind,
+    {
+      installInvocationRef: refs.install,
+      workspaceId,
+      canonicalRoot: workspaceRoot,
+      authorizedActorRef,
+      authorityManifestRef,
+      roots,
+    },
   );
-  if (workspaceBinding.kind !== "workspace_binding_candidate") {
-    throw new Error(`root CLI readiness binding refused: ${JSON.stringify(workspaceBinding)}`);
+  if (options.setupRequestTransform !== undefined) {
+    workspaceRequest = options.setupRequestTransform(
+      structuredClone(workspaceRequest),
+      3,
+    );
   }
+  setupTranscript.push(workspaceRequest);
+  const workspacePrefixBefore = options.expectedSetupRefusalIndex === 3
+    ? await readFile(eventLogPath)
+    : null;
+  const workspaceOutcome = await runTransport(workspaceRequest, 3);
+  setupOutcomes.push(workspaceOutcome);
+  if (workspaceOutcome.disposition !== "succeeded") {
+    if (options.expectedSetupRefusalIndex !== 3) {
+      throw new Error(JSON.stringify(workspaceOutcome));
+    }
+    return refusedSetupScenario({
+      index: 3,
+      outcome: workspaceOutcome,
+      prefixBefore: workspacePrefixBefore,
+      prefixAfter: await readFile(eventLogPath),
+    });
+  }
+  if (options.expectedSetupRefusalIndex !== undefined) {
+    throw new Error(
+      `expected setup refusal at index ${options.expectedSetupRefusalIndex}`,
+    );
+  }
+
+  const installedAbg = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/abg",
+    `root-cli-owner-projection=${encodeURIComponent(label)}`,
+  );
+  const artifactTruth = installedAbg.projectExactPrefixArtifactTruth(
+    closeHandoff.prefix,
+  );
+  if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") {
+    throw new Error(`root CLI artifact truth refused: ${JSON.stringify(artifactTruth)}`);
+  }
+  const admittedInstall =
+    installedAbg.projectAdmittedProductInstallByInvocationRef(
+      artifactTruth,
+      refs.install,
+    );
+  if (admittedInstall === null) {
+    throw new Error("root CLI owner cannot rehydrate its admitted ProductInstall");
+  }
+  const admittedWorkspace =
+    installedAbg.projectAdmittedWorkspaceBindingByInvocationRef(
+      artifactTruth,
+      refs.bind,
+      resolvedLock,
+    );
+  if (admittedWorkspace === null) {
+    throw new Error("root CLI owner cannot rehydrate its admitted WorkspaceBinding");
+  }
+  const installedProduct = admittedInstall.candidate;
+  const workspaceBinding = admittedWorkspace.candidate;
   const readinessBasis = {
     workspaceBinding,
     resolvedLock,
@@ -299,90 +619,71 @@ export async function buildRootCliScenario(
     installedProducts: [installedProduct],
     publications: [harness.rootPublication],
   };
-  const allowlist = options.allowlist ?? [graphFunctionRef];
-  const catalog = harness.product.admitGraphFunctionCatalog(readinessBasis);
-  if (catalog.kind !== "graph_function_catalog") {
-    throw new Error(`root CLI catalog construction refused: ${JSON.stringify(catalog)}`);
+  if (!Array.isArray(options.catalogApplications)) {
+    throw new TypeError(
+      "root CLI scenario requires an explicit catalogApplications array",
+    );
   }
-  const view = harness.product.narrowGraphFunctionCatalog(catalog, allowlist);
-  if (view.kind !== "graph_function_catalog_view") {
-    throw new Error(`root CLI catalog view construction refused: ${JSON.stringify(view)}`);
-  }
-  const applications = (options.catalogApplications ?? []).map((application) => {
-    const target = application.applicationVariant === "node_type"
-      ? application.nodeTypeTarget
-      : { contributorRef: authorizedActorRef };
-    const targetDigest = harness.product.sha256Canonical(target);
-    const valueDigest = harness.product.sha256Canonical(application.value);
-    const result = harness.product.applyCatalogDeclaration(view, {
-      applicationKind: application.applicationVariant,
-      handle: application.handle,
-      targetRef: `catalog-target://abiogenesis/${targetDigest.slice("sha256:".length)}`,
-      targetDigest,
-      appliedValueRef: `catalog-value://abiogenesis/${valueDigest.slice("sha256:".length)}`,
-      appliedValueDigest: valueDigest,
-    });
-    if (result.kind !== "declaration_application") {
-      throw new Error(`root CLI catalog application refused: ${JSON.stringify(result)}`);
+  let operationOrdinal = 4;
+  const executionTranscript = [];
+  const preRunOutcomes = [...setupOutcomes];
+  const executePreRunRequest = async (request) => {
+    const transformed = options.preRunRequestTransform === undefined
+      ? request
+      : options.preRunRequestTransform(
+          structuredClone(request),
+          operationOrdinal,
+        );
+    executionTranscript.push(transformed);
+    const outcome = await runTransport(transformed, operationOrdinal);
+    preRunOutcomes.push(outcome);
+    operationOrdinal += 1;
+    if (outcome.disposition !== "succeeded") {
+      throw new Error(JSON.stringify(outcome));
     }
-    return result;
-  });
-  const catalogBasis = {
-    readinessBasis,
-    allowlist,
-    applications,
+    return outcome;
   };
-  const installRequest = invocation("abg.operation.product.install", "verified_artifact", refs.install, {
-    verifiedInvocationRef: refs.verify,
-    resolvedLockInvocationRef: refs.resolve,
-    artifactPath: harness.artifactPath,
-    targetRoot: productConsumer,
-  });
-  const workspaceRequest = invocation("abg.operation.workspace.bind", "exact_product_set", refs.bind, {
-    installInvocationRef: refs.install,
-    workspaceId,
-    canonicalRoot: workspaceRoot,
-    authorizedActorRef,
-    authorityManifestRef,
-    roots,
-  });
-  const setupTranscript = [
-    invocation("abg.operation.product.verify", "artifact", refs.verify, {
-      artifactPath: harness.artifactPath,
-      artifactRef: harness.artifactRef,
-      ...expectedVerificationIdentity(harness.candidateBasis),
-    }),
-    invocation(
-      "abg.operation.product.resolve",
-      "verified_product_set",
-      refs.resolve,
-      { verifiedInvocationRefs: [refs.verify] },
-    ),
-    installRequest,
-    workspaceRequest,
-  ];
-  const publicApi = await importInstalledPackageExport(
-    harness,
-    "@abiogenesis/typescript-tenant/public",
-    `setup-episode=${Date.now()}-${Math.random()}`,
-  );
-  const setupContext = publicApi.createRootOperationContext(eventLogPath);
-  const setupOutcomes = [];
-  for (const request of setupTranscript) {
-    const outcome = await publicApi.applyRootPublicInvocation(setupContext, request);
-    if (outcome.disposition !== "succeeded") throw new Error(JSON.stringify(outcome));
-    setupOutcomes.push(outcome);
+  const catalogOutcome = await executePreRunRequest(invocation(
+    "abg.operation.catalog.admit",
+    "module_publication",
+    refs.catalog,
+    { readinessBasis },
+  ));
+  const catalog = catalogOutcome.result;
+  const viewOutcome = await executePreRunRequest(invocation(
+    "abg.operation.catalog.view",
+    "allowlist",
+    refs.view,
+    { catalog, allowlist },
+  ));
+  const catalogView = viewOutcome.result;
+  const applications = [];
+  for (const [index, application] of options.catalogApplications.entries()) {
+    const applicationOutcome = await executePreRunRequest(invocation(
+      "abg.operation.catalog.apply",
+      application.applicationVariant,
+      refs.applications[index],
+      {
+        catalog,
+        catalogView,
+        contributorRef: authorizedActorRef,
+        handle: application.handle,
+        ...(application.applicationVariant === "node_type"
+          ? { target: application.nodeTypeTarget }
+          : {}),
+        value: application.value,
+      },
+    ));
+    applications.push(applicationOutcome.result);
   }
-  const runtimePrefixAuthority = publicApi.projectRootOperationContextAuthority(
-    setupContext,
-  );
-  publicApi.closeRootOperationContext(setupContext);
   const runPayload = transformRunPayload({
     installInvocationRef: refs.install,
     workspaceBindingInvocationRef: refs.bind,
-    catalogBasis,
+    catalog,
+    catalogView,
+    applications,
     programRef,
-    graphFunctionRef,
+    catalogHandle,
     actorRef: authorizedActorRef,
     input: options.input ?? {
       kind: "hello_world_input",
@@ -390,39 +691,22 @@ export async function buildRootCliScenario(
       subject: options.subject ?? "World",
     },
     eventLogPath,
-    runtimePrefixAuthority,
+    runtimePrefixAuthority: closeHandoff,
   });
-  const executionTranscript = [
-    invocation("abg.operation.catalog.admit", "module_publication", refs.catalog, {
-      readinessBasis,
-    }),
-    invocation("abg.operation.catalog.view", "allowlist", refs.view, {
-      catalogBasis: { ...catalogBasis, applications: [] },
-    }),
-    ...(options.catalogApplications ?? []).map((application, index) =>
-      invocation(
-        "abg.operation.catalog.apply",
-        application.applicationVariant,
-        refs.applications[index],
-        {
-          catalogBasis: { ...catalogBasis, applications: [] },
-          contributorRef: authorizedActorRef,
-          handle: application.handle,
-          ...(application.applicationVariant === "node_type"
-            ? { target: application.nodeTypeTarget }
-            : {}),
-          value: application.value,
-        },
-      )),
-    invocation("abg.operation.run.invoke", "direct", refs.run, runPayload),
-  ];
+  const runRequest = invocation(
+    "abg.operation.run.invoke",
+    "direct",
+    refs.run,
+    runPayload,
+  );
+  executionTranscript.push(runRequest);
   const transcript = [...setupTranscript, ...executionTranscript];
   const transcriptPath = join(scenarioRoot, "root-transcript.jsonl");
-  await writeFile(
-    transcriptPath,
-    `${executionTranscript.map((row) => JSON.stringify(row)).join("\n")}\n`,
-    "utf8",
-  );
+  const finalTransportRequest = await writeCliTransportRequest(transcriptPath, {
+    acquisition: { kind: "reopen", closeHandoff },
+    invocation: runRequest,
+  });
+
   return {
     label,
     refs,
@@ -434,73 +718,102 @@ export async function buildRootCliScenario(
     transcript,
     executionTranscript,
     setupOutcomes,
+    preRunOutcomes,
+    transportRuns,
+    transportExecutor,
+    transportRequests: transportRuns.map((run) => run.transportRequest),
+    transportResults: transportRuns.map((run) => run.transportResult),
+    ownerProjections: {
+      artifactTruth,
+      admittedInstall,
+      admittedWorkspace,
+    },
+    closeHandoff,
+    finalTransportRequest,
     transcriptPath,
+  };
+
+  function refusedSetupScenario(setupRefusal) {
+    const transcriptPath = transportRuns.at(-1).transcriptPath;
+    return {
+      label,
+      refs,
+      productConsumer,
+      workspaceRoot,
+      eventLogRoot,
+      eventLogPath,
+      installedRoot,
+      transcript: setupTranscript,
+      executionTranscript: [],
+      setupOutcomes,
+      setupRefusal,
+      transportRuns,
+      transportExecutor,
+      transportRequests: transportRuns.map((run) => run.transportRequest),
+      transportResults: transportRuns.map((run) => run.transportResult),
+      closeHandoff,
+      transcriptPath,
+    };
+  }
+}
+
+function projectTransportOutcomes(transportRuns) {
+  return transportRuns.flatMap((run) =>
+    run.transportResult?.outcome === undefined
+      ? []
+      : [run.transportResult.outcome]
+  );
+}
+
+function completeTransportRun(scenario, finalRun) {
+  const transportRuns = [...(scenario.transportRuns ?? []), finalRun];
+  const executors = new Set(transportRuns.map((run) => run.executor));
+  if (executors.size !== 1) {
+    throw new TypeError(
+      "one operation sequence must retain one selected installed transport",
+    );
+  }
+  const multiTransportOutcomeProjection = projectTransportOutcomes(transportRuns);
+  return {
+    ...finalRun,
+    transportRuns,
+    transportRequests: transportRuns.map((run) => run.transportRequest),
+    transportResults: transportRuns
+      .map((run) => run.transportResult)
+      .filter((result) => result !== null),
+    multiTransportOutcomeProjection,
+    outcomes: multiTransportOutcomeProjection,
   };
 }
 
-export function runInstalledCli(harness, scenario, options = {}) {
-  return new Promise((resolveRun) => {
-    execFile(
-      harness.cliPath,
-      ["--jsonl", scenario.transcriptPath],
-      {
-        cwd: harness.cliHost,
-        env: { ...process.env, ...options.environment, NODE_OPTIONS: "" },
-        encoding: "utf8",
-        maxBuffer: 20 * 1024 * 1024,
-      },
-      (error, stdout, stderr) => {
-        const childOutcomes = stdout.trim().length === 0
-          ? []
-          : stdout.trim().split(/\r?\n/u).map((line) => JSON.parse(line));
-        const outcomes = [...(scenario.setupOutcomes ?? []), ...childOutcomes];
-        const combinedStdout = scenario.setupOutcomes === undefined
-          ? stdout
-          : `${outcomes.map((outcome) => JSON.stringify(outcome)).join("\n")}\n`;
-        resolveRun({
-          exitCode: error === null ? 0 : Number(error.code ?? 1),
-          stdout: combinedStdout,
-          stderr,
-          outcomes,
-        });
-      },
-    );
-  });
+export async function runInstalledCli(harness, scenario, options = {}) {
+  if (
+    scenario.transportExecutor !== undefined &&
+    scenario.transportExecutor !== "cli"
+  ) {
+    throw new TypeError("CLI tail cannot follow calls executed through another transport");
+  }
+  const finalRun = await executeInstalledCliTransport(
+    harness,
+    scenario.transcriptPath,
+    options,
+  );
+  return completeTransportRun(scenario, finalRun);
 }
 
-export function runInstalledCodex(harness, scenario, options = {}) {
-  return new Promise((resolveRun) => {
-    execFile(
-      harness.codexPath,
-      [
-        "--cli",
-        options.cliPath ?? harness.cliPath,
-        "--jsonl",
-        scenario.transcriptPath,
-      ],
-      {
-        cwd: harness.cliHost,
-        env: { ...process.env, ...options.environment, NODE_OPTIONS: "" },
-        encoding: "utf8",
-        maxBuffer: 20 * 1024 * 1024,
-      },
-      (error, stdout, stderr) => {
-        const childOutcomes = stdout.trim().length === 0
-          ? []
-          : stdout.trim().split(/\r?\n/u).map((line) => JSON.parse(line));
-        const outcomes = [...(scenario.setupOutcomes ?? []), ...childOutcomes];
-        const combinedStdout = scenario.setupOutcomes === undefined
-          ? stdout
-          : `${outcomes.map((outcome) => JSON.stringify(outcome)).join("\n")}\n`;
-        resolveRun({
-          exitCode: error === null ? 0 : Number(error.code ?? 1),
-          stdout: combinedStdout,
-          stderr,
-          outcomes,
-        });
-      },
-    );
-  });
+export async function runInstalledCodex(harness, scenario, options = {}) {
+  if (
+    scenario.transportExecutor !== undefined &&
+    scenario.transportExecutor !== "codex"
+  ) {
+    throw new TypeError("Codex tail cannot follow calls executed directly through CLI");
+  }
+  const finalRun = await executeInstalledCodexTransport(
+    harness,
+    scenario.transcriptPath,
+    options,
+  );
+  return completeTransportRun(scenario, finalRun);
 }
 
 export function installedCliPackageRoot(harness) {
@@ -559,16 +872,24 @@ export async function applyInstalledTranscriptPrefix(
   scenario,
   count = 6,
 ) {
+  if (
+    count < 4 ||
+    count > (scenario.preRunOutcomes?.length ?? 0) ||
+    scenario.transportRuns?.[count - 1]?.transportResult === null ||
+    scenario.transportRuns?.[count - 1]?.transportResult === undefined
+  ) {
+    throw new TypeError(
+      "installed transcript prefix requires a completed CLI transport boundary",
+    );
+  }
   const publicApi = await importInstalledPackageExport(
     harness,
     "@abiogenesis/typescript-tenant/public",
     `scenario=${encodeURIComponent(scenario.label)}`,
   );
-  const authority = scenario.transcript.at(-1).payload.runtimePrefixAuthority;
+  const authority =
+    scenario.transportRuns[count - 1].transportResult.closeHandoff;
   const operationContext = publicApi.reopenRootOperationContext(authority);
-  const outcomes = [...(scenario.setupOutcomes ?? []).slice(0, Math.min(count, 4))];
-  for (const invocation of scenario.transcript.slice(4, count)) {
-    outcomes.push(await publicApi.applyRootPublicInvocation(operationContext, invocation));
-  }
+  const outcomes = scenario.preRunOutcomes.slice(0, count);
   return { operationContext, outcomes, publicApi };
 }

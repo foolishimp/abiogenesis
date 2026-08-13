@@ -1,100 +1,167 @@
-# ABIogenesis 5.0 Wave 1 Worker Bootstrap
+# ABIogenesis 5.0 Wave 1 Current Bootstrap
 
-Status: active Wave 1 worker bootstrap. This post compresses current operating context;
-it does not outrank specification, accepted design, or T-287.
+Status: sole current restart and worker handoff surface. It contains no
+independent Product authority and intentionally excludes historical dialogue.
 
-## Authority
+## Restart Order
 
-Read and apply in this order:
+Read and apply:
 
-1. `specification/GOALS.md`;
-2. `specification/INTENT.md`;
-3. `specification/PRODUCT.md`;
-4. applicable requirements;
-5. the accepted M03 and M05 TypeScript design basis indexed by
-   `build_tenants/abiogenesis/typescript/design/README.md`;
-6. `build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md`;
-7. `.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md`;
-8. exact 4.6, current-code, donor, external-library, event, projection, and
-   installed evidence.
+1. `AGENTS.md`;
+2. `specification/GOALS.md`;
+3. `specification/INTENT.md`;
+4. `specification/PRODUCT.md`;
+5. requirements applicable to the selected feature and slice;
+6. `build_tenants/abiogenesis/typescript/design/README.md` and its selected
+   accepted design delta;
+7. `build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md`;
+8. `.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md`;
+9. `.ai-workspace/comments/codex/20260804T023036Z_METHOD_consensus_assurance_independent_reasoning_depth_review.md`;
+10. live Git state and live agent state.
 
-This file contains no independent Product or implementation authority. If it
-conflicts with a higher surface, follow the higher surface and report the
-conflict.
+If this bootstrap conflicts with a higher surface, follow the higher surface
+and report the contradiction. Do not use older commentary or rejected design
+as authority.
 
-The held `build_tenants/common/design/` map and module YAML files are
-prior-basis structural evidence, not the selected TypeScript design index.
+## Product Frame
 
-## Governing Constitution
+```text
+fixed 5.0 features:
+  A5-F01..A5-F11 and A5-F13..A5-F17
 
-Read `ABI5_REALIZATION_CONSTITUTION.md` completely before work. It is the sole
-local disambiguation of immutable STDO `v2.2.2` and the sole active entity
-lifecycle, lawful technology, common library, AI coding, and review method
-surface. This bootstrap selects current work only and contains no parallel
-method or catalog.
+active wave:
+  W1 = A5-F10, A5-F02, A5-F03, A5-F04
 
-## Active Outcome
+selected feature and slice:
+  A5-F10 / graph_catalog_contraction_and_runtime_recovery
 
-Wave 1 delivers, in order:
+active increment:
+  setup_invocation_authority_reconstruction
+  = complete verified-carrier revalidation + exact ABG-prefix setup/invocation
+    truth + no process-local semantic authority
 
-1. `A5-F10` event-sourced runtime truth;
-2. `A5-F02` complete GTL authoring and validation;
-3. `A5-F03` complete Graph, C, and direct HoG traversal; and
-4. `A5-F04` probabilistic result integrity.
+semantic source:
+  exact published GTL Program and GraphFunction definitions
 
-The active work is the approved first A5-F10 Run-lifecycle `HoldsAt`
-implementation slice selected and reviewed in
-`.ai-workspace/comments/codex/20260802T024114Z_ASSESSMENT_t287_wave1_phase0_and_first_holdsat_plan.md`.
+tool:
+  one reconstructible, dynamically refreshed HoG GraphFunctionCatalog
 
-## Review Discipline
+execution:
+  HoG traverses the exact GTL definition and selects fibre/plan
 
-Freeze the active reference frame and its direct dependency cone before
-review. Classify adjacent findings rather than enlarging the frame silently.
+runtime truth:
+  ABG events record execution, evidence, and admitted workspace effects
 
-Report each material finding with:
+derived truth:
+  Event Calculus and replay derive execution state and explain workspace change
+```
 
-- evidence;
-- violated Product, requirement, design, or method constraint;
-- global or local classification;
-- smallest correction boundary;
-- explicit non-changes; and
-- advancement effect.
+Catalog, view, and deterministic declaration application are pure tool/value
+relations. They have no runtime lifecycle, event, Event Calculus fluent, replay
+authority, process-object admission, registry ledger, or RootOperationState
+semantic map. Every workspace mutation traces to an owning invocation and exact
+GTL definition.
 
-At every reviewable transition, publish the complete worker evidence and
-verdict as one commentary post with a final `Assessor Disposition` section.
-Product-control assurance independently checks the live authority and code,
-then appends its disposition to that same post before advancement. Chat output
-does not substitute for this review trail, and the post remains commentary
-rather than authority.
+## Active Roles
 
-Design, constructability, implementation, and proof are separate verdicts.
-Current-code failure does not reject a coherent target design, and coherent
-design does not imply implementation or proof.
+```text
+Product authority: Jim
+F_H proxy and executive constitutional/assurance adjudicator: /root
+Max construction worker: /root/wave1_entry203_max_worker
+cold-start Max reviewer: /root/frame_shift_law_cold_review or one fresh successor
+```
 
-After two rejected candidates on one frozen boundary, stop forward repair and
-reassess the frame altitude, overlooked common blocks, and whether remaining
-questions belong in coding plans or tests.
+The F_H proxy maintains constitutional and current coordination consistency but
+does not implement production candidate semantics or run worker qualification.
+The worker does not accept its own candidate. The cold reviewer does not edit
+or direct the worker. The proxy independently adjudicates findings, returns one
+bounded disposition to the worker, and selects checkpoints.
 
-## Current Authorization
+## Consensus And Review Method
 
-Authorized:
+The enduring process is
+`20260804T023036Z_METHOD_consensus_assurance_independent_reasoning_depth_review.md`.
 
-- implementation and proportional proof of the exact first A5-F10
-  Run-lifecycle `HoldsAt` slice approved in the selected transition post;
-- the exact files, catalog additions, migrations, deletions, non-changes, and
-  verification commands in that approved plan; and
-- a worker implementation post followed by independent assessor review.
+Every review starts with the Product Frame above, walks through exact Product
+and requirement grants/prohibitions, then reviews design, modules, functions,
+tests, and installed behavior. Accepted design is not presumed compatible with
+upstream authority.
 
-Not authorized:
+One cold-start Max reviewer inspects each exact frozen subject. Review supplies
+counterexamples, not authority or implementation direction. The F_H proxy
+checks those findings against live authority and code, then accepts the subject,
+authorizes one bounded repair, or escalates a material Product/authority choice
+to Jim. A moving tree is never the review subject.
 
-- Product, requirement, accepted functional-design, constitution, GOALS,
-  ticket, schema, Public, event-family, package-identity, or unrelated fixture
-  changes;
-- promotion of rejected W1.1a candidates; or
-- acceptance of any Wave 1 feature.
+Block 5.0 for competing semantic authority, process-local behavioral truth,
+unexplained workspace mutation, missing capability, fresh-process divergence,
+or redundancy beyond 4.6. Do not block only for deeper pure-helper, cache,
+module-layout, validator-placement, or test-runner compression after behavior
+and single authority are established; that work may be evaluated after the
+functional waves.
 
-## Completion
+## Current Live Cut
 
-Stop after the exact implementation is built, tested, self-reviewed, frozen,
-and posted with an empty `Assessor Disposition`. Do not self-accept the slice,
-`A5-F10`, or Wave 1.
+Accepted construction base:
+`1f6a86074bf995763b4caff286422b5b1501374b`.
+
+The worktree contains the exact uncommitted Entry210 implementation candidate.
+That candidate is frozen, the Max worker is stopped, and no implementation or
+semantic edit is authorized before exact cold review and F_H adjudication. No
+commit is authorized. Existing rejected lineage remains donor evidence only.
+
+Entry209 accepts the completed TV5 increment as historical construction basis.
+Its six-production/five-proof boundary does not authorize or govern the current
+successor increment. Entry210 freezes the separately bounded setup/invocation
+authority reconstruction named in the Product Frame and T-287.
+
+## Frozen Entry210 Boundary
+
+The frozen candidate preserves the accumulated catalog/runtime construction and
+does not reopen the graph-catalog design or optional compression. Its bounded
+setup/invocation authority reconstruction:
+
+- removes reachable `RootOperationState` and process-local setup/invocation
+  semantic authority;
+- independently revalidates complete verified carriers;
+- reconstructs install, bind, and run truth from explicit exact ABG prefixes;
+- projects one common effectful invocation identity for install, bind, run,
+  respond, and continue; and
+- migrates only direct proof/support consumers required by that hard break.
+
+Catalog admission remains a pure eventless Product/HoG tool relation. The
+candidate adds no
+Product operation, event, runtime, catalog, store, controller, Public-authored
+meaning, donor, compatibility path, hidden brand, or process-local semantic
+map.
+
+The existing `scripts/refresh-candidate-basis.mjs` owner refreshed
+`test_env/fixtures/abi5-root-candidate-basis.json` for the exact packed
+candidate before Entry210. Any later authored repair requires prior F_H
+authorization and another owner refresh before a new freeze.
+
+## Next Transition
+
+1. A fresh cold Max reviewer inspects the exact frozen Entry210 implementation
+   candidate without editing it.
+2. The F_H proxy adjudicates the cold findings against live authority and the
+   exact frozen subject.
+3. Only after F_H-proxy acceptance, the worker runs serialized Wave qualification:
+   conservation, R1–R10, full M5, installed/source-blind package, forbidden-path
+   census, `git diff --check`, and exact manifest/package freeze.
+
+No checkpoint or Wave 1 checkbox advances before the applicable disposition.
+
+## Restart Procedure
+
+On a new session:
+
+1. verify branch, HEAD, Entry210 hashes, worktree, and running agents;
+2. if the cold reviewer is active, monitor it and do not edit the frozen subject;
+3. do not restart the stopped worker or change implementation semantics before
+   F_H adjudication;
+4. reconstruct a table of worker, exact subject, owned files, completed gates,
+   failures, and next transition;
+5. preserve the worker/reviewer/F_H separation;
+6. continue the exact cold-review transition without asking Product authority
+   to approve local implementation details already fixed here.

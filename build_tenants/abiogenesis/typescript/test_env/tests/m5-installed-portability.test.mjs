@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { access, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import test from "node:test";
 
@@ -17,10 +17,17 @@ import {
   importInstalledPackageExport,
   runInstalledCli,
   runInstalledCodex,
-  setupInstalledCliHarness,
+  setupInstalledCliHarness as setupInstalledCliHarnessBase,
+  writeCliTransportRequest,
 } from "../support/root-cli-environment.mjs";
 
 const packageRoot = new URL("../..", import.meta.url).pathname;
+
+function setupInstalledCliHarness(context, root) {
+  return setupInstalledCliHarnessBase(context, root, {
+    candidateBasisSource: "packed_artifact",
+  });
+}
 
 function invocation(operationId, variant, invocationRef, payload) {
   return {
@@ -46,19 +53,44 @@ function expectedVerificationIdentity(basis) {
   };
 }
 
-async function eventsAt(path) {
-  return (await readFile(path, "utf8"))
-    .split("\n")
-    .filter(Boolean)
-    .map((line) => JSON.parse(line));
+function assertLiteralCarrierFlow(scenario) {
+  const catalog = scenario.preRunOutcomes[6].result;
+  const catalogView = scenario.preRunOutcomes[7].result;
+  const applications = [
+    scenario.preRunOutcomes[8].result,
+    scenario.preRunOutcomes[9].result,
+  ];
+  assert.deepEqual(scenario.carrierFamily, {
+    catalog,
+    catalogView,
+    applications,
+  });
+  assert.deepEqual(scenario.transcript[7].payload.catalog, catalog);
+  for (const request of scenario.transcript.slice(8, 10)) {
+    assert.deepEqual(request.payload.catalog, catalog);
+    assert.deepEqual(request.payload.catalogView, catalogView);
+  }
+  const runPayload = scenario.transcript[10].payload;
+  assert.deepEqual(runPayload.catalog, catalog);
+  assert.deepEqual(runPayload.catalogView, catalogView);
+  assert.deepEqual(runPayload.applications, applications);
 }
 
-function immutableSnapshot(value) {
-  if (value !== null && typeof value === "object" && !Object.isFrozen(value)) {
-    for (const nested of Object.values(value)) immutableSnapshot(nested);
-    Object.freeze(value);
-  }
-  return value;
+function portableCarrierSemantics(carrierFamily) {
+  return {
+    catalogEntries: carrierFamily.catalog.entries,
+    declarationEntries: carrierFamily.catalog.declarationEntries,
+    viewEntries: carrierFamily.catalogView.entries,
+    viewDeclarationEntries: carrierFamily.catalogView.declarationEntries,
+    applications: carrierFamily.applications.map((application) => ({
+      kind: application.kind,
+      declaration: application.declaration,
+      targetRef: application.targetRef,
+      targetDigest: application.targetDigest,
+      appliedValueRef: application.appliedValueRef,
+      appliedValueDigest: application.appliedValueDigest,
+    })),
+  };
 }
 
 async function portabilityScenario(
@@ -66,8 +98,11 @@ async function portabilityScenario(
   flavored,
   label,
   expectReady = true,
-  runtimeOnly = false,
+  episodeTransport = "sdk",
 ) {
+  if (!["sdk", "cli", "codex"].includes(episodeTransport)) {
+    throw new TypeError("portability scenario requires one explicit transport");
+  }
   const root = join(harness.scratch, label);
   const abiConsumer = join(root, "abiogenesis-product");
   const flavoredConsumer = join(root, "flavored-product");
@@ -105,23 +140,6 @@ async function portabilityScenario(
     flavored.ids.overlayHandle,
     flavored.ids.graphFunctionRef,
   ];
-  const verifiedAbi = await harness.product.verifyProduct({
-    artifactPath: harness.artifactPath,
-    artifactRef: harness.artifactRef,
-    ...expectedVerificationIdentity(harness.candidateBasis),
-  });
-  const verifiedFlavored = await harness.product.verifyProduct({
-    artifactPath: flavored.artifactPath,
-    artifactRef: flavored.artifactRef,
-    ...expectedVerificationIdentity(flavored.basis),
-  });
-  assert.equal(verifiedAbi.kind, "verified_product_artifact");
-  assert.equal(verifiedFlavored.kind, "verified_product_artifact");
-  const resolvedLock = harness.product.constructResolvedProductLock([
-    verifiedAbi,
-    verifiedFlavored,
-  ]);
-  assert.equal(resolvedLock.kind, "resolved_product_lock", JSON.stringify(resolvedLock));
   const workspaceId = `workspace://t281/${label}`;
   const authorizedActorRef = "actor://flavor.example/trusted-developer";
   const authorityManifestRef = `manifest://t281/${label}/workspace-authority`;
@@ -133,76 +151,133 @@ async function portabilityScenario(
     projectionRoot: join(workspaceRoot, ".ai-workspace/projections"),
     archiveRoot: join(workspaceRoot, ".ai-workspace/archive"),
   };
-  const readinessBasis = constructClosedCatalogReadinessBasis({
-    product: harness.product,
-    verifiedProducts: [verifiedAbi, verifiedFlavored],
-    resolvedLock,
-    installedRoots: [abiInstalledRoot, flavoredInstalledRoot],
-    workspaceId,
-    canonicalRoot: workspaceRoot,
-    authorizedActorRef,
-    authorityManifestRef,
-    roots,
-    publications: [flavored.publication],
-  });
-  const catalog = harness.product.admitGraphFunctionCatalog(readinessBasis);
-  assert.equal(catalog.kind, "graph_function_catalog");
-  if (!expectReady) return { readinessBasis };
-  const view = narrowGraphFunctionCatalog(catalog, allowlist);
-  assert.equal(view.kind, "graph_function_catalog_view");
-  const applicationFor = (applicationKind, handle, target, value) => {
-    const targetDigest = sha256Canonical(target);
-    const valueDigest = sha256Canonical(value);
-    const application = applyCatalogDeclaration(view, {
-      applicationKind,
-      handle,
-      targetRef: `catalog-target://abiogenesis/${targetDigest.slice("sha256:".length)}`,
-      targetDigest,
-      appliedValueRef: applicationKind === "node_type"
-        ? value.nodeTypeRef
-        : value.overlayRef,
-      appliedValueDigest: valueDigest,
+  await mkdir(root, { recursive: true });
+  await mkdir(workspaceRoot, { recursive: true });
+
+  const installedPublic = episodeTransport === "sdk"
+    ? await importInstalledPackageExport(
+        harness,
+        "@abiogenesis/typescript-tenant/public",
+        `setup-episode=${Date.now()}-${Math.random()}`,
+      )
+    : null;
+  const setupContext = installedPublic?.createRootOperationContext(eventLogPath);
+  const transportRuns = [];
+  let closeHandoff = null;
+  const executeEpisode = async (request, ordinal) => {
+    if (episodeTransport === "sdk") {
+      return installedPublic.applyRootPublicInvocation(
+        setupContext,
+        request,
+      );
+    }
+    const episodePath = join(
+      root,
+      `portability.episode-${String(ordinal).padStart(2, "0")}.jsonl`,
+    );
+    await writeCliTransportRequest(episodePath, {
+      acquisition: closeHandoff === null
+        ? { kind: "new", eventLogPath }
+        : { kind: "reopen", closeHandoff },
+      invocation: request,
     });
-    assert.equal(application.kind, "declaration_application");
-    return application;
+    const transportRun = episodeTransport === "cli"
+      ? await runInstalledCli(harness, { transcriptPath: episodePath })
+      : await runInstalledCodex(harness, { transcriptPath: episodePath });
+    const exactRun = transportRun.transportRuns.at(-1);
+    assert.notEqual(exactRun.transportResult, null, exactRun.stderr);
+    closeHandoff = exactRun.transportResult.closeHandoff;
+    transportRuns.push(exactRun);
+    return exactRun.transportResult.outcome;
   };
-  const applications = [
-    applicationFor(
-      "node_type",
-      flavored.ids.nodeTypeHandle,
-      { kind: "program", programRef: flavored.ids.programRef },
-      flavored.nodeTypeValue,
-    ),
-    applicationFor(
-      "overlay",
-      flavored.ids.overlayHandle,
-      { contributorRef: flavored.basis.productId },
-      flavored.overlayValue,
-    ),
-  ];
-  const catalogBasis = { readinessBasis, allowlist, applications };
+  const requireSuccess = (outcome) => {
+    assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
+    return outcome.result;
+  };
+
+  const setupTranscript = [];
+  const setupOutcomes = [];
+  const verifyAbiRequest = invocation(
+    "abg.operation.product.verify",
+    "artifact",
+    refs.verifyAbi,
+    {
+      artifactPath: harness.artifactPath,
+      artifactRef: harness.artifactRef,
+      ...expectedVerificationIdentity(harness.candidateBasis),
+    },
+  );
+  setupTranscript.push(verifyAbiRequest);
+  const verifyAbiOutcome = await executeEpisode(verifyAbiRequest, 0);
+  setupOutcomes.push(verifyAbiOutcome);
+  const verifiedAbi = requireSuccess(verifyAbiOutcome);
+
+  const verifyFlavoredRequest = invocation(
+    "abg.operation.product.verify",
+    "artifact",
+    refs.verifyFlavored,
+    {
+      artifactPath: flavored.artifactPath,
+      artifactRef: flavored.artifactRef,
+      ...expectedVerificationIdentity(flavored.basis),
+    },
+  );
+  setupTranscript.push(verifyFlavoredRequest);
+  const verifyFlavoredOutcome = await executeEpisode(verifyFlavoredRequest, 1);
+  setupOutcomes.push(verifyFlavoredOutcome);
+  const verifiedFlavored = requireSuccess(verifyFlavoredOutcome);
+
+  const resolveRequest = invocation(
+    "abg.operation.product.resolve",
+    "verified_product_set",
+    refs.resolve,
+    {
+      verifiedProductInputs: [
+        { artifactPath: harness.artifactPath, verifiedProduct: verifiedAbi },
+        { artifactPath: flavored.artifactPath, verifiedProduct: verifiedFlavored },
+      ],
+    },
+  );
+  setupTranscript.push(resolveRequest);
+  const resolveOutcome = await executeEpisode(resolveRequest, 2);
+  setupOutcomes.push(resolveOutcome);
+  const resolvedLock = requireSuccess(resolveOutcome);
+
   const installAbiRequest = invocation(
     "abg.operation.product.install",
     "verified_artifact",
     refs.installAbi,
     {
-      verifiedInvocationRef: refs.verifyAbi,
-      resolvedLockInvocationRef: refs.resolve,
       artifactPath: harness.artifactPath,
+      verifiedProduct: verifiedAbi,
+      resolvedLock,
       targetRoot: abiConsumer,
     },
   );
+  setupTranscript.push(installAbiRequest);
+  const installAbiOutcome = await executeEpisode(installAbiRequest, 3);
+  setupOutcomes.push(installAbiOutcome);
+  requireSuccess(installAbiOutcome);
+
   const installFlavoredRequest = invocation(
     "abg.operation.product.install",
     "verified_artifact",
     refs.installFlavored,
     {
-      verifiedInvocationRef: refs.verifyFlavored,
-      resolvedLockInvocationRef: refs.resolve,
       artifactPath: flavored.artifactPath,
+      verifiedProduct: verifiedFlavored,
+      resolvedLock,
       targetRoot: flavoredConsumer,
     },
   );
+  setupTranscript.push(installFlavoredRequest);
+  const installFlavoredOutcome = await executeEpisode(
+    installFlavoredRequest,
+    4,
+  );
+  setupOutcomes.push(installFlavoredOutcome);
+  requireSuccess(installFlavoredOutcome);
+
   const workspaceRequest = invocation(
     "abg.operation.workspace.bind",
     "exact_product_set",
@@ -216,71 +291,82 @@ async function portabilityScenario(
       roots,
     },
   );
-  const setupTranscript = [
-    invocation("abg.operation.product.verify", "artifact", refs.verifyAbi, {
-      artifactPath: harness.artifactPath,
-      artifactRef: harness.artifactRef,
-      ...expectedVerificationIdentity(harness.candidateBasis),
-    }),
-    invocation(
-      "abg.operation.product.verify",
-      "artifact",
-      refs.verifyFlavored,
-      {
-        artifactPath: flavored.artifactPath,
-        artifactRef: flavored.artifactRef,
-        ...expectedVerificationIdentity(flavored.basis),
-      },
-    ),
-    invocation(
-      "abg.operation.product.resolve",
-      "verified_product_set",
-      refs.resolve,
-      {
-        verifiedInvocationRefs: [
-          refs.verifyAbi,
-          refs.verifyFlavored,
-        ],
-      },
-    ),
-    installAbiRequest,
-    installFlavoredRequest,
-    workspaceRequest,
-  ];
-  const installedPublic = await importInstalledPackageExport(
-    harness,
-    "@abiogenesis/typescript-tenant/public",
-    `setup-episode=${Date.now()}-${Math.random()}`,
-  );
-  const setupContext = installedPublic.createRootOperationContext(eventLogPath);
-  const setupOutcomes = [];
-  for (const request of setupTranscript) {
-    const outcome = await installedPublic.applyRootPublicInvocation(setupContext, request);
-    assert.equal(outcome.disposition, "succeeded", JSON.stringify(outcome));
-    setupOutcomes.push(outcome);
+  setupTranscript.push(workspaceRequest);
+  const workspaceOutcome = await executeEpisode(workspaceRequest, 5);
+  setupOutcomes.push(workspaceOutcome);
+  requireSuccess(workspaceOutcome);
+  if (episodeTransport === "sdk") {
+    closeHandoff = installedPublic.projectRootOperationContextAuthority(
+      setupContext,
+    );
   }
-  const runtimePrefixAuthority = installedPublic.projectRootOperationContextAuthority(
-    setupContext,
+
+  const installedAbg = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/abg",
+    `portability-owner-projection=${Date.now()}-${Math.random()}`,
   );
-  installedPublic.closeRootOperationContext(setupContext);
-  const executionTranscript = [
-    invocation(
+  const artifactTruth = installedAbg.projectExactPrefixArtifactTruth(
+    closeHandoff.prefix,
+  );
+  assert.equal(
+    artifactTruth.kind,
+    "exact_prefix_artifact_truth_projection",
+    JSON.stringify(artifactTruth),
+  );
+  const readinessBasis = constructClosedCatalogReadinessBasis({
+    abg: installedAbg,
+    artifactTruth,
+    verifiedProducts: [verifiedAbi, verifiedFlavored],
+    resolvedLock,
+    installInvocationRefs: [refs.installAbi, refs.installFlavored],
+    workspaceBindingInvocationRef: refs.bind,
+    publications: [flavored.publication],
+  });
+  if (!expectReady) return { readinessBasis };
+
+  const executionTranscript = [];
+  const preRunOutcomes = [...setupOutcomes];
+  const executePreRun = async (request, ordinal) => {
+    executionTranscript.push(request);
+    const outcome = await executeEpisode(request, ordinal);
+    preRunOutcomes.push(outcome);
+    requireSuccess(outcome);
+    return outcome;
+  };
+  const catalogOutcome = await executePreRun(invocation(
       "abg.operation.catalog.admit",
       "module_publication",
       refs.catalog,
       {
         readinessBasis,
       },
-    ),
-    invocation("abg.operation.catalog.view", "allowlist", refs.view, {
-      catalogBasis: { ...catalogBasis, applications: [] },
-    }),
-    invocation(
+    ), 6);
+  const catalog = catalogOutcome.result;
+  assert.equal(catalog.kind, "graph_function_catalog");
+  assert.deepEqual(
+    catalog,
+    harness.product.admitGraphFunctionCatalog(readinessBasis),
+  );
+  const viewOutcome = await executePreRun(invocation(
+    "abg.operation.catalog.view",
+    "allowlist",
+    refs.view,
+    { catalog, allowlist },
+  ), 7);
+  const catalogView = viewOutcome.result;
+  assert.equal(catalogView.kind, "graph_function_catalog_view");
+  assert.deepEqual(
+    catalogView,
+    harness.product.narrowGraphFunctionCatalog(catalog, allowlist),
+  );
+  const nodeApplicationRequest = invocation(
       "abg.operation.catalog.apply",
       "node_type",
       refs.applyNode,
       {
-        catalogBasis: { ...catalogBasis, applications: [] },
+        catalog,
+        catalogView,
         contributorRef: flavored.basis.productId,
         handle: flavored.ids.nodeTypeHandle,
         target: {
@@ -289,24 +375,44 @@ async function portabilityScenario(
         },
         value: flavored.nodeTypeValue,
       },
-    ),
-    invocation(
+    );
+  const nodeApplicationOutcome = await executePreRun(
+    nodeApplicationRequest,
+    8,
+  );
+  const overlayApplicationRequest = invocation(
       "abg.operation.catalog.apply",
       "overlay",
       refs.applyOverlay,
       {
-        catalogBasis: { ...catalogBasis, applications: [] },
+        catalog,
+        catalogView,
         contributorRef: flavored.basis.productId,
         handle: flavored.ids.overlayHandle,
         value: flavored.overlayValue,
       },
-    ),
-    invocation("abg.operation.run.invoke", "direct", refs.run, {
+    );
+  const overlayApplicationOutcome = await executePreRun(
+    overlayApplicationRequest,
+    9,
+  );
+  const applications = [
+    nodeApplicationOutcome.result,
+    overlayApplicationOutcome.result,
+  ];
+  assert.deepEqual(
+    applications.map((application) => application.kind),
+    ["declaration_application", "declaration_application"],
+  );
+  const runtimePrefixAuthority = closeHandoff;
+  const runRequest = invocation("abg.operation.run.invoke", "direct", refs.run, {
       installInvocationRef: refs.installFlavored,
       workspaceBindingInvocationRef: refs.bind,
-      catalogBasis,
+      catalog,
+      catalogView,
+      applications,
       programRef: flavored.ids.programRef,
-      graphFunctionRef: flavored.ids.graphFunctionRef,
+      catalogHandle: flavored.ids.graphFunctionRef,
       actorRef: "actor://flavor.example/trusted-developer",
       input: {
         kind: "flavored_text_input",
@@ -316,17 +422,14 @@ async function portabilityScenario(
       },
       eventLogPath,
       runtimePrefixAuthority,
-    }),
-  ];
+    });
+  executionTranscript.push(runRequest);
   const transcript = [...setupTranscript, ...executionTranscript];
-  await mkdir(root, { recursive: true });
   const transcriptPath = join(root, "portability.transcript.jsonl");
-  const serializedTranscript = executionTranscript;
-  await writeFile(
-    transcriptPath,
-    `${serializedTranscript.map((row) => JSON.stringify(row)).join("\n")}\n`,
-    "utf8",
-  );
+  const finalTransportRequest = await writeCliTransportRequest(transcriptPath, {
+    acquisition: { kind: "reopen", closeHandoff },
+    invocation: runRequest,
+  });
   return {
     abiConsumer,
     eventLogPath,
@@ -334,13 +437,22 @@ async function portabilityScenario(
     refs,
     transcript,
     setupOutcomes,
-    catalogBasis,
+    preRunOutcomes,
+    transportRuns,
+    transportExecutor: episodeTransport === "sdk" ? undefined : episodeTransport,
+    episodeTransport,
+    transportRequests: transportRuns.map((run) => run.transportRequest),
+    transportResults: transportRuns.map((run) => run.transportResult),
+    ownerProjections: { artifactTruth },
+    closeHandoff,
+    finalTransportRequest,
+    carrierFamily: { catalog, catalogView, applications },
     transcriptPath,
     workspaceRoot,
   };
 }
 
-function assertPortableOutcome(run, flavored, catalogBasis) {
+function assertPortableOutcome(run, flavored, carrierFamily) {
   assert.equal(
     run.exitCode,
     0,
@@ -375,8 +487,8 @@ function assertPortableOutcome(run, flavored, catalogBasis) {
     run.outcomes[2].result.nativeContractClosureDigest,
     /^sha256:[0-9a-f]{64}$/u,
   );
-  if (!runtimeOnly) assert.deepEqual(nodeApplication.result, catalogBasis.applications[0]);
-  if (!runtimeOnly) assert.deepEqual(overlayApplication.result, catalogBasis.applications[1]);
+  if (!runtimeOnly) assert.deepEqual(nodeApplication.result, carrierFamily.applications[0]);
+  if (!runtimeOnly) assert.deepEqual(overlayApplication.result, carrierFamily.applications[1]);
   if (!runtimeOnly) assert.equal(
     nodeApplication.result.declaration.declarationKind,
     "node_type",
@@ -408,23 +520,25 @@ test(
       flavored,
       "flavored-cli",
       true,
-      true,
+      "cli",
     );
-    const admittedPrefixBytes = await readFile(cliScenario.eventLogPath);
     const cliRun = await runInstalledCli(harness, cliScenario);
+    assertLiteralCarrierFlow(cliScenario);
     const cliOutcome = assertPortableOutcome(
       cliRun,
       flavored,
-      cliScenario.catalogBasis,
+      cliScenario.carrierFamily,
     );
-    const cliEvents = await eventsAt(cliScenario.eventLogPath);
     const installedAbg = await importInstalledPackageExport(
       harness,
       "@abiogenesis/typescript-tenant/abg",
       `terminal-quiescence=${Date.now()}`,
     );
+    const cliEvents = installedAbg.readRuntimeEventsAtDurablePrefix(
+      cliRun.transportResults.at(-1).closeHandoff.prefix,
+    );
     const terminalPrefix = installedAbg.selectValidatedRuntimeEventPrefix(
-      immutableSnapshot(cliEvents),
+      cliEvents,
       { runId: cliOutcome.runId },
     );
     const quiescence = installedAbg.projectRunQuiescence(terminalPrefix);
@@ -460,14 +574,22 @@ test(
       "catalog construction, views, and applications must not manufacture runtime-event truth",
     );
 
-    await writeFile(cliScenario.eventLogPath, admittedPrefixBytes);
-    const codexRun = await runInstalledCodex(harness, cliScenario);
+    const codexScenario = await portabilityScenario(
+      harness,
+      flavored,
+      "flavored-codex",
+      true,
+      "codex",
+    );
+    const codexRun = await runInstalledCodex(harness, codexScenario);
+    assertLiteralCarrierFlow(codexScenario);
     const codexOutcome = assertPortableOutcome(
       codexRun,
       flavored,
-      cliScenario.catalogBasis,
+      codexScenario.carrierFamily,
     );
-    assert.equal(codexRun.stdout, cliRun.stdout);
+    assert.ok(codexRun.transportRuns.every((run) => run.executor === "abg.codex"));
+    assert.ok(cliRun.transportRuns.every((run) => run.executor === "abg.cli"));
     assert.deepEqual(codexOutcome.result, cliOutcome.result);
 
     const sdkScenario = await portabilityScenario(
@@ -475,13 +597,14 @@ test(
       flavored,
       "flavored-sdk",
     );
+    assertLiteralCarrierFlow(sdkScenario);
     const installedPublic = await importInstalledPackageExport(
       harness,
       "@abiogenesis/typescript-tenant/public",
       `portability=${Date.now()}`,
     );
     let operationContext;
-    const sdkOutcomes = [...sdkScenario.setupOutcomes];
+    const sdkOutcomes = [...sdkScenario.preRunOutcomes];
     try {
       const unrelatedWorkspaceRun = {
         ...sdkScenario.transcript.at(-1),
@@ -493,14 +616,11 @@ test(
             sdkScenario.workspaceRoot,
             ".ai-workspace/events/unrelated-negative.events.jsonl",
           ),
-          catalogBasis: {
-            ...sdkScenario.catalogBasis,
-            applications: cliScenario.catalogBasis.applications,
-          },
+          applications: cliScenario.carrierFamily.applications,
         },
       };
       const unrelatedContext = installedPublic.reopenRootOperationContext(
-        sdkScenario.transcript.at(-1).payload.runtimePrefixAuthority,
+        sdkScenario.closeHandoff,
       );
       const unrelatedOutcome = await installedPublic.applyRootPublicInvocation(
         unrelatedContext,
@@ -510,16 +630,14 @@ test(
       assert.equal(unrelatedOutcome.disposition, "refused");
       assert.equal(unrelatedOutcome.result.code, "target_mismatch");
       operationContext = installedPublic.reopenRootOperationContext(
-        sdkScenario.transcript.at(-1).payload.runtimePrefixAuthority,
+        sdkScenario.closeHandoff,
       );
-      for (const row of sdkScenario.transcript.slice(6)) {
-        sdkOutcomes.push(
-          await installedPublic.applyRootPublicInvocation(
-            operationContext,
-            row,
-          ),
-        );
-      }
+      sdkOutcomes.push(
+        await installedPublic.applyRootPublicInvocation(
+          operationContext,
+          sdkScenario.transcript.at(-1),
+        ),
+      );
     } finally {
       if (operationContext !== undefined) {
         installedPublic.closeRootOperationContext(operationContext);
@@ -528,11 +646,118 @@ test(
     const sdkOutcome = assertPortableOutcome(
       { exitCode: 0, stderr: "", outcomes: sdkOutcomes },
       flavored,
-      sdkScenario.catalogBasis,
+      sdkScenario.carrierFamily,
     );
     assert.deepEqual(sdkOutcome.result, cliOutcome.result);
+    assert.deepEqual(
+      portableCarrierSemantics(codexScenario.carrierFamily),
+      portableCarrierSemantics(cliScenario.carrierFamily),
+    );
+    assert.deepEqual(
+      portableCarrierSemantics(sdkScenario.carrierFamily),
+      portableCarrierSemantics(cliScenario.carrierFamily),
+    );
   },
 );
+
+test("S06 exact catalog carrier family refuses forged and legacy inputs before runtime truth", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const flavored = await prepareFlavoredCatalogProduct(harness);
+  const scenario = await portabilityScenario(
+    harness,
+    flavored,
+    "carrier-family-negatives",
+  );
+  const installedPublic = await importInstalledPackageExport(
+    harness,
+    "@abiogenesis/typescript-tenant/public",
+    `carrier-family-negatives=${Date.now()}`,
+  );
+  const digestForgery = `sha256:${"f".repeat(64)}`;
+  const forgedCatalog = structuredClone(scenario.transcript[7]);
+  forgedCatalog.invocationRef += "/forged-catalog";
+  forgedCatalog.payload.catalog.basisDigest = digestForgery;
+
+  const forgedView = structuredClone(scenario.transcript[8]);
+  forgedView.invocationRef += "/forged-view";
+  forgedView.payload.catalogView.viewDigest = digestForgery;
+
+  const forgedApplication = structuredClone(scenario.transcript[10]);
+  forgedApplication.invocationRef += "/forged-application";
+  forgedApplication.payload.applications[0].applicationDigest = digestForgery;
+
+  const legacyCombinedCarrier = structuredClone(scenario.transcript[10]);
+  legacyCombinedCarrier.invocationRef += "/legacy-combined-carrier";
+  const {
+    applications,
+    catalog,
+    catalogView,
+    ...runPayload
+  } = legacyCombinedCarrier.payload;
+  const legacyCombinedCarrierKey = ["catalog", "Basis"].join("");
+  legacyCombinedCarrier.payload = {
+    ...runPayload,
+    [legacyCombinedCarrierKey]: {
+      readinessBasis: catalog.readinessBasis,
+      allowlist: catalogView.allowlist,
+      applications,
+    },
+  };
+
+  const cases = [
+    {
+      label: "forged catalog",
+      request: forgedCatalog,
+      operationId: "abg.operation.catalog.view",
+      code: "target_mismatch",
+    },
+    {
+      label: "forged view",
+      request: forgedView,
+      operationId: "abg.operation.catalog.apply",
+      code: "target_mismatch",
+    },
+    {
+      label: "forged application",
+      request: forgedApplication,
+      operationId: "abg.operation.run.invoke",
+      code: "target_mismatch",
+    },
+  ];
+  for (const row of cases) {
+    const eventBytesBefore = await readFile(scenario.eventLogPath);
+    const operationContext = installedPublic.reopenRootOperationContext(
+      scenario.closeHandoff,
+    );
+    const refused = await installedPublic.applyRootPublicInvocation(
+      operationContext,
+      row.request,
+    );
+    installedPublic.closeRootOperationContext(operationContext);
+    assert.equal(refused.kind, "public_outcome", row.label);
+    assert.equal(refused.operationId, row.operationId, row.label);
+    assert.equal(refused.disposition, "refused", row.label);
+    assert.equal(refused.result.code, row.code, row.label);
+    assert.deepEqual(await readFile(scenario.eventLogPath), eventBytesBefore, row.label);
+  }
+
+  const eventBytesBeforeLegacy = await readFile(scenario.eventLogPath);
+  const legacyContext = installedPublic.reopenRootOperationContext(
+    scenario.closeHandoff,
+  );
+  const legacyRefusal = await installedPublic.applyRootPublicInvocation(
+    legacyContext,
+    legacyCombinedCarrier,
+  );
+  installedPublic.closeRootOperationContext(legacyContext);
+  assert.equal(legacyRefusal.kind, "public_invocation_refusal");
+  assert.equal(legacyRefusal.code, "invalid_request");
+  assert.deepEqual(
+    await readFile(scenario.eventLogPath),
+    eventBytesBeforeLegacy,
+    "legacy combined catalog carrier must append no runtime truth",
+  );
+});
 
 test("S06 run ingress refuses valid readiness without exact durable install and workspace admission before runtime effects", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
@@ -576,7 +801,7 @@ test("S06 run ingress refuses valid readiness without exact durable install and 
 
   const admittedBytes = await readFile(scenario.eventLogPath);
   const mismatchContext = installedPublic.reopenRootOperationContext(
-    run.payload.runtimePrefixAuthority,
+    scenario.closeHandoff,
   );
   const mismatch = await installedPublic.applyRootPublicInvocation(mismatchContext, {
     ...run,
@@ -602,7 +827,7 @@ test("S06 run ingress refuses valid readiness without exact durable install and 
     },
   ]) {
     const duplicateContext = installedPublic.reopenRootOperationContext(
-      run.payload.runtimePrefixAuthority,
+      scenario.closeHandoff,
     );
     const duplicate = await installedPublic.applyRootPublicInvocation(
       duplicateContext,
@@ -685,7 +910,10 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
       operationId: "abg.operation.product.resolve",
       variant: "artifact",
       payload: {
-        verifiedInvocationRefs: ["invocation://t281/verified/product"],
+        verifiedProductInputs: [{
+          artifactPath: "/tmp/product.tgz",
+          verifiedProduct: {},
+        }],
       },
     });
     assert.equal(wrongVariant.kind, "public_invocation_refusal");
@@ -706,11 +934,13 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
     harness.scratch,
     "public-contract-refusal.jsonl",
   );
-  await writeFile(
-    transcriptPath,
-    `${JSON.stringify(unknownInvocation)}\n`,
-    "utf8",
-  );
+  await writeCliTransportRequest(transcriptPath, {
+    acquisition: {
+      kind: "new",
+      eventLogPath: join(harness.scratch, "public-contract-cli.events.jsonl"),
+    },
+    invocation: unknownInvocation,
+  });
   const cliRun = await runInstalledCli(harness, { transcriptPath });
   assert.equal(cliRun.exitCode, 2);
   assert.deepEqual(cliRun.outcomes, [sdkRefusal]);
@@ -719,15 +949,20 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
     harness.scratch,
     "public-contract-timestamp-refusal.jsonl",
   );
-  await writeFile(
-    timestampTranscriptPath,
-    `${JSON.stringify({
+  await writeCliTransportRequest(timestampTranscriptPath, {
+    acquisition: {
+      kind: "new",
+      eventLogPath: join(
+        harness.scratch,
+        "public-contract-timestamp-cli.events.jsonl",
+      ),
+    },
+    invocation: {
       ...unknownInvocation,
       operationId: "abg.operation.product.verify",
       eventTime: "2026-07-28",
-    })}\n`,
-    "utf8",
-  );
+    },
+  });
   const timestampCliRun = await runInstalledCli(
     harness,
     { transcriptPath: timestampTranscriptPath },
@@ -765,7 +1000,7 @@ test("S06 SDK and CLI consume one serialized public operation contract", async (
   assert.ok(resolveInvocationSchema);
   assert.deepEqual(
     resolveInvocationSchema.properties.payload.required,
-    ["verifiedInvocationRefs"],
+    ["verifiedProductInputs"],
   );
   assert.equal(
     resolveInvocationSchema.properties.payload.additionalProperties,
@@ -924,7 +1159,7 @@ test("S06 workspace binding rejects caller-authored dependency edges", async (co
     `host-dependency=${Date.now()}`,
   );
   const operationContext = installedPublic.reopenRootOperationContext(
-    scenario.transcript.at(-1).payload.runtimePrefixAuthority,
+    scenario.closeHandoff,
   );
   try {
     const forgedBind = structuredClone(scenario.transcript[5]);
@@ -988,8 +1223,8 @@ test("S06 unresolved dependency lock refuses before Product materialization", as
     const unresolvedResolution = structuredClone(scenario.transcript[2]);
     unresolvedResolution.invocationRef =
       "invocation://t281/flavored-preinstall-lock/unresolved-resolution";
-    unresolvedResolution.payload.verifiedInvocationRefs = [
-      scenario.refs.verifyFlavored,
+    unresolvedResolution.payload.verifiedProductInputs = [
+      unresolvedResolution.payload.verifiedProductInputs[1],
     ];
     const refused = await installedPublic.applyRootPublicInvocation(
       operationContext,
@@ -1338,7 +1573,7 @@ test("S06 catalog admission proves one complete pure readiness basis and refuses
       candidate.publications[0].contributions[0].compatibilityRefs = [
         "compatibility://unrelated/major/99",
       ];
-    }, "incompatible"],
+    }, "rejected"],
   ]) {
     const substituted = structuredClone(basis);
     mutate(substituted);
@@ -1350,6 +1585,12 @@ test("S06 catalog admission proves one complete pure readiness basis and refuses
       disposition,
       label,
     );
+    if (label === "compatibility") {
+      assert.equal(
+        result.rowDispositions.find((row) => row.handle === mutatedHandle)?.reason,
+        "publication_identity_mismatch",
+      );
+    }
     assert.equal(result.entries.some((entry) => entry.handle === mutatedHandle), false);
   }
 
@@ -1393,7 +1634,8 @@ test("S06 catalog admission proves one complete pure readiness basis and refuses
 
     const mixedRequest = structuredClone(request);
     mixedRequest.invocationRef += "/mixed-row-dispositions";
-    const mixedRows = mixedRequest.payload.readinessBasis.publications[0].contributions;
+    const mixedRows = mixedRequest.payload.readinessBasis
+      .publications[0].contributions;
     mixedRows[0].provenanceRefs = [`sha256:${"8".repeat(64)}`];
     mixedRows[1].compatibilityRefs = ["compatibility://unrelated/major/99"];
     mixedRows[2].readinessPrerequisiteRefs = [
@@ -1418,10 +1660,9 @@ test("S06 catalog admission proves one complete pure readiness basis and refuses
 
     const publicationsOnlyView = structuredClone(scenario.transcript[7]);
     publicationsOnlyView.invocationRef += "/publications-only";
-    publicationsOnlyView.payload.catalogBasis = {
-      publications: [flavored.publication],
+    publicationsOnlyView.payload = {
       allowlist: [flavored.ids.graphFunctionRef],
-      applications: [],
+      catalog: { publications: [flavored.publication] },
     };
     const bypass = await installedPublic.applyRootPublicInvocation(
       freshContext,
@@ -1523,7 +1764,7 @@ test("S06 catalog application delegates target and value meaning to Product sema
     `catalog-application-semantics=${Date.now()}`,
   );
   const operationContext = installedPublic.reopenRootOperationContext(
-    scenario.transcript.at(-1).payload.runtimePrefixAuthority,
+    scenario.closeHandoff,
   );
   try {
     const valid = await installedPublic.applyRootPublicInvocation(
@@ -1555,7 +1796,7 @@ test("S06 catalog application delegates target and value meaning to Product sema
 
     const substitutedRun = structuredClone(scenario.transcript.at(-1));
     substitutedRun.invocationRef += "/substituted-readiness";
-    substitutedRun.payload.catalogBasis.readinessBasis.workspaceBinding.workspaceId =
+    substitutedRun.payload.catalog.readinessBasis.workspaceBinding.workspaceId =
       "workspace://unrelated/catalog-readiness";
     const runRefusal = await installedPublic.applyRootPublicInvocation(
       operationContext,
@@ -1571,7 +1812,18 @@ test("S06 catalog application delegates target and value meaning to Product sema
 test("S06 Codex delegate rejects substituted and missing CLI paths", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);
   const transcriptPath = join(harness.scratch, "codex-preflight.jsonl");
-  await writeFile(transcriptPath, "\n", "utf8");
+  await writeCliTransportRequest(transcriptPath, {
+    acquisition: {
+      kind: "new",
+      eventLogPath: join(harness.scratch, "codex-preflight.events.jsonl"),
+    },
+    invocation: invocation(
+      "abg.operation.unknown",
+      "unknown",
+      "invocation://t281/codex-preflight/unknown",
+      {},
+    ),
+  });
   const scenario = { transcriptPath };
 
   const substituted = await runInstalledCodex(harness, scenario, {

@@ -16,7 +16,7 @@ import {
 } from "./event_prefix.js";
 import type { RuntimeEvent } from "./event_store.js";
 import {
-  constructRuntimeFluent,
+  constructScopedRetryFluent,
   deriveRuntimeEventCalculusProjection,
   holdsAt,
 } from "./event_calculus.js";
@@ -815,15 +815,31 @@ function exactTaskCensus(
   );
   if (truths.some((truth) => truth === null)) return null;
   const current = (truths as ExactTaskTruth[]).filter((truth) => {
-    return truth.retryPath.length === 0
-      ? truth.retryAttemptRef === null
-      : truth.retryAttemptRef !== null && holdsAt(
-          calculus,
-          constructRuntimeFluent({
-            name: "retry_attempt_active",
-            identity: truth.retryAttemptRef,
-          }),
-        );
+    if (truth.retryPath.length === 0) return truth.retryAttemptRef === null;
+    if (truth.retryAttemptRef === null) return false;
+    const attemptRows = events.filter((event) =>
+      event.kind === "retry_attempt_opened" &&
+      event.runId === envelope.runId &&
+      event.graphCallId === envelope.graphCallId &&
+      event.frameId === envelope.frameId &&
+      isRecord(event.payload) &&
+      event.payload.attemptRef === truth.retryAttemptRef &&
+      isNonEmptyString(event.payload.retryBoundaryRef)
+    );
+    if (attemptRows.length !== 1) return false;
+    const attemptPayload = attemptRows[0]!.payload;
+    if (!isRecord(attemptPayload) ||
+      !isNonEmptyString(attemptPayload.retryBoundaryRef)) return false;
+    return holdsAt(
+      calculus,
+      constructScopedRetryFluent("retry_attempt_active", {
+        runId: envelope.runId,
+        graphCallId: envelope.graphCallId,
+        frameId: envelope.frameId,
+        retryBoundaryRef: attemptPayload.retryBoundaryRef,
+        authorityRef: truth.retryAttemptRef,
+      }),
+    );
   });
   const historicalByOrdinal = new Map<number, ExactTaskTruth[]>();
   for (const truth of truths as ExactTaskTruth[]) {
@@ -1341,4 +1357,143 @@ export function projectExactFanOutCompletion(
   return request.mode === "candidate"
     ? candidateProjection(prefix, request)
     : canonicalAdmission(prefix, request);
+}
+
+export interface PartialFanOutStopRouteBridgeCoordinates {
+  readonly runId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly cCallRef: string;
+  readonly resultRef: string;
+  readonly judgmentRef: string;
+}
+
+const PARTIAL_FAN_OUT_STOP_ROUTE_BODY_KEYS = Object.freeze([
+  "cCallRef",
+  "consumedAvailabilityRefs",
+  "contractRef",
+  "declarationDigest",
+  "declarationRef",
+  "judgmentRef",
+  "replayStateDigest",
+  "routeKind",
+  "sourceCursorDigest",
+  "sourceCursorRef",
+  "targetCursorDigest",
+  "targetCursorRef",
+] as const);
+
+export function hasExactPartialFanOutStopRouteBridge(
+  prefix: ValidatedRuntimeEventPrefix,
+  routeAdmissionEventRef: string,
+  coordinates: PartialFanOutStopRouteBridgeCoordinates,
+): boolean {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const route = uniqueEvent(events, (event) =>
+    event.eventId === routeAdmissionEventRef &&
+    event.kind === "traversal_route_admitted"
+  );
+  if (
+    route === null ||
+    route.aggregateType !== "frame" ||
+    route.aggregateId !== coordinates.frameId ||
+    route.parentAggregateId !== coordinates.graphCallId ||
+    route.runId !== coordinates.runId ||
+    route.graphCallId !== coordinates.graphCallId ||
+    route.frameId !== coordinates.frameId ||
+    route.causationEventRefs.length !== 1 ||
+    !isNonEmptyString(route.basisId) ||
+    !isNonEmptyString(route.materializationRef)
+  ) return false;
+  const routeBody = exactHashedPayload(
+    route,
+    "routeRef",
+    "routeDigest",
+    "traversal-route://abiogenesis/",
+  );
+  if (
+    routeBody === null ||
+    !exactKeys(routeBody, PARTIAL_FAN_OUT_STOP_ROUTE_BODY_KEYS) ||
+    routeBody.routeKind !== "blocked" ||
+    routeBody.declarationRef !== route.materializationRef ||
+    !isDigest(routeBody.declarationDigest) ||
+    !isNonEmptyString(routeBody.sourceCursorRef) ||
+    !isDigest(routeBody.sourceCursorDigest) ||
+    routeBody.targetCursorRef !== null ||
+    routeBody.targetCursorDigest !== null ||
+    routeBody.cCallRef !== coordinates.cCallRef ||
+    routeBody.judgmentRef !== coordinates.judgmentRef ||
+    !isNonEmptyString(routeBody.contractRef) ||
+    !isDigest(routeBody.replayStateDigest) ||
+    !Array.isArray(routeBody.consumedAvailabilityRefs) ||
+    !routeBody.consumedAvailabilityRefs.every(
+      (value) => typeof value === "string",
+    )
+  ) return false;
+  const completionEvent = uniqueEvent(events, (event) =>
+    event.eventId === route.causationEventRefs[0] &&
+    event.kind === "fan_out_completion_admitted"
+  );
+  if (
+    completionEvent === null ||
+    !isNonEmptyString(completionEvent.basisId) ||
+    !isNonEmptyString(completionEvent.runId) ||
+    !isNonEmptyString(completionEvent.graphCallId) ||
+    !isNonEmptyString(completionEvent.frameId) ||
+    !isNonEmptyString(completionEvent.materializationRef) ||
+    !sameEnvelope(route, {
+      basisId: completionEvent.basisId,
+      runId: completionEvent.runId,
+      graphCallId: completionEvent.graphCallId,
+      frameId: completionEvent.frameId,
+      materializationRef: completionEvent.materializationRef,
+    }) ||
+    route.graphFunctionRef !== completionEvent.graphFunctionRef ||
+    completionEvent.admissionOrdinal >= route.admissionOrdinal
+  ) return false;
+  const completion = canonicalAdmission(prefix, {
+    mode: "event_canonical",
+    admissionEventRef: completionEvent.eventId,
+  });
+  if (
+    completion === null ||
+    completion.completionKind !== "partial_stop" ||
+    completion.stoppingRow.cCallRef !== coordinates.cCallRef ||
+    completion.stoppingRow.resultRef !== coordinates.resultRef ||
+    completion.stoppingRow.judgmentRef !== coordinates.judgmentRef ||
+    completion.stoppingRow.stoppingEventRef.length === 0 ||
+    !sameStrings(
+      routeBody.consumedAvailabilityRefs as string[],
+      [coordinates.judgmentRef, completion.applicationRef],
+    )
+  ) return false;
+  const result = uniqueEvent(events, (event) =>
+    event.kind === "c_call_result_admitted" &&
+    event.aggregateType === "c_call" &&
+    event.aggregateId === coordinates.cCallRef &&
+    event.runId === coordinates.runId &&
+    event.graphCallId === coordinates.graphCallId &&
+    event.frameId === coordinates.frameId &&
+    event.admissionOrdinal < completionEvent.admissionOrdinal &&
+    isRecord(event.payload) &&
+    event.payload.resultRef === coordinates.resultRef
+  );
+  const judgment = uniqueEvent(events, (event) =>
+    event.eventId === completion.stoppingRow.stoppingEventRef &&
+    event.kind === "c_call_judged" &&
+    event.aggregateType === "c_call" &&
+    event.aggregateId === coordinates.cCallRef &&
+    event.runId === coordinates.runId &&
+    event.graphCallId === coordinates.graphCallId &&
+    event.frameId === coordinates.frameId &&
+    event.admissionOrdinal < completionEvent.admissionOrdinal &&
+    isRecord(event.payload) &&
+    event.payload.resultRef === coordinates.resultRef &&
+    event.payload.judgmentRef === coordinates.judgmentRef
+  );
+  return result !== null && isRecord(result.payload) &&
+    result.payload.resultDigest === completion.stoppingRow.resultDigest &&
+    judgment !== null && isRecord(judgment.payload) &&
+    judgment.payload.judgment === "blocked" &&
+    judgment.causationEventRefs[0] === result.eventId;
 }

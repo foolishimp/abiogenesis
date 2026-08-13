@@ -13,9 +13,31 @@ import * as installedProduct from "@abiogenesis/typescript-tenant/product";
 import * as installedValidator from "@abiogenesis/typescript-tenant/validator";
 import * as retryProduct from "@abiogenesis-fixtures/developer-mini-product";
 
+const installedAbgEntryPath = fileURLToPath(
+  import.meta.resolve("@abiogenesis/typescript-tenant/abg"),
+);
+const installedEventCalculus = await import(pathToFileURL(join(
+  dirname(installedAbgEntryPath),
+  "event_calculus.js",
+)).href);
+const installedEventStoreOwner = await import(pathToFileURL(join(
+  dirname(installedAbgEntryPath),
+  "event_store.js",
+)).href);
+const installedChildTraversal = await import(pathToFileURL(join(
+  dirname(installedAbgEntryPath),
+  "../public/child_traversal_port.js",
+)).href);
+const installedHogEntryPath = fileURLToPath(
+  import.meta.resolve("@abiogenesis/typescript-tenant/hog"),
+);
+const installedHogProduct = await import(pathToFileURL(join(
+  dirname(installedHogEntryPath),
+  "installed_product.js",
+)).href);
+
 const EVENT_TIME = "2026-07-31T00:00:00.000Z";
 const RETRY_BUDGET = 3;
-const PLACEHOLDER_DIGEST = `sha256:${"0".repeat(64)}`;
 const TARGET_SUFFIX_COORDINATES = Object.freeze([
   Object.freeze({
     packageName: "@abiogenesis/typescript-tenant/abg",
@@ -25,7 +47,6 @@ const TARGET_SUFFIX_COORDINATES = Object.freeze([
       "graphFunction",
       "prefix",
       "program",
-      "reopenedStore",
       "selector",
     ]),
   }),
@@ -33,10 +54,10 @@ const TARGET_SUFFIX_COORDINATES = Object.freeze([
     packageName: "@abiogenesis/typescript-tenant/hog",
     exportName: "resumeProjectedRetry",
     requestKeys: Object.freeze([
-      "prefix",
-      "reopenedStore",
+      "predecessorPrefix",
       "retry",
       "runtime",
+      "store",
     ]),
   }),
 ]);
@@ -192,6 +213,26 @@ function exactOne(values, predicate, label) {
 
 function isRecord(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function axF09Terms(graphFunction) {
+  const node = graphFunction.template.nodes[0];
+  assert.notEqual(node, undefined, "AX-F09 root node is present");
+  assert.equal(node.term.kind, "c_compose");
+  const [transform, retry, downstream] = node.term.terms;
+  assert.equal(transform?.kind, "c_of");
+  assert.equal(transform.fibre, "F_D");
+  assert.equal(retry?.kind, "c_retry");
+  assert.equal(retry.term.kind, "c_of");
+  assert.equal(retry.term.fibre, "F_P");
+  if (downstream !== undefined) assert.equal(downstream.kind, "c_workflow");
+  return {
+    node,
+    transform,
+    retry,
+    retryLeaf: retry.term,
+    downstream: downstream ?? null,
+  };
 }
 
 function inspectAttemptInputCoverage(
@@ -424,6 +465,42 @@ async function loadInstalledRetryDependencies(
       JSON.parse,
     ),
   ]);
+  const artifactTruth = installedAbg.projectExactPrefixArtifactTruth(
+    reopened.prefix,
+  );
+  assert.equal(
+    artifactTruth.kind,
+    "exact_prefix_artifact_truth_projection",
+    JSON.stringify(artifactTruth),
+  );
+  const fixtureInstallEvent = exactOne(
+    events,
+    (event) =>
+      event.kind === "public_operation_artifact_admitted" &&
+      event.payload.operationId === "abg.operation.product.install" &&
+      isRecord(event.payload.artifact) &&
+      event.payload.artifact.packageName === packageJson.name,
+    "AX-F09 installed fixture Product",
+  );
+  const fixtureInstallCandidate = fixtureInstallEvent.payload.artifact;
+  const admittedInstall = installedAbg.projectAdmittedProductInstall(
+    artifactTruth,
+    fixtureInstallCandidate,
+  );
+  assert.notEqual(admittedInstall, null);
+  const workspaceEvent = exactOne(
+    events,
+    (event) =>
+      event.kind === "public_operation_artifact_admitted" &&
+      event.payload.operationId === "abg.operation.workspace.bind" &&
+      isRecord(event.payload.artifact),
+    "AX-F09 admitted workspace binding",
+  );
+  const workspaceBinding = installedAbg.projectAdmittedWorkspaceBinding(
+    artifactTruth,
+    workspaceEvent.payload.artifact,
+  );
+  assert.notEqual(workspaceBinding, null);
   const payloadInventory = await Promise.all(
     manifest.productRelativeLocators.map(async (path) => ({
       path,
@@ -438,7 +515,7 @@ async function loadInstalledRetryDependencies(
   const productManifestDigest = installedProduct.sha256Canonical(manifest);
   const publication = retryProduct.constructAxF09Publication({
     productId: manifest.productId,
-    artifactDigest: PLACEHOLDER_DIGEST,
+    artifactDigest: fixtureInstallCandidate.artifactDigest,
     productContentDigest: manifest.productContentDigest,
     productManifestDigest,
     packageName: packageJson.name,
@@ -464,6 +541,12 @@ async function loadInstalledRetryDependencies(
       candidate.name === retryProduct.AX_F09_RETRY_IDS.graphFunctionRef,
     "AX-F09 installed GraphFunction",
   );
+  const childGraphFunction = exactOne(
+    publication.graphFunctions,
+    (candidate) =>
+      candidate.name === retryProduct.AX_F09_RETRY_IDS.childGraphFunctionRef,
+    "AX-F09 installed child GraphFunction",
+  );
   const installedDeclarationsImmutable =
     Object.isFrozen(publication) &&
     Object.isFrozen(program) &&
@@ -475,7 +558,11 @@ async function loadInstalledRetryDependencies(
     installedProduct.sha256Canonical(program) ===
       installedProduct.sha256Canonical(retryProduct.AX_F09_PROGRAM) &&
     installedProduct.sha256Canonical(graphFunction) ===
-      installedProduct.sha256Canonical(retryProduct.AX_F09_GRAPH_FUNCTION);
+      installedProduct.sha256Canonical(retryProduct.AX_F09_GRAPH_FUNCTION) &&
+    installedProduct.sha256Canonical(childGraphFunction) ===
+      installedProduct.sha256Canonical(
+        retryProduct.AX_F09_CHILD_GRAPH_FUNCTION,
+      );
   const publicationAdmission = requireRawAdmission(
     installedValidator,
     publication,
@@ -490,10 +577,23 @@ async function loadInstalledRetryDependencies(
     "program_validation",
     JSON.stringify(programValidation),
   );
+  const executionBasis = installedAbg.rehydrateExecutionBasis(
+    reopened.store,
+    basisEvent.payload.basisRef,
+  );
+  assert.notEqual(executionBasis, null);
+  assert.equal(
+    installedProduct.sha256Canonical(executionBasis.rawInputValue),
+    executionBasis.rawInputDigest,
+  );
+  assert.equal(executionBasis.rawInputAdmissionRef,
+    invocation.rawInputAdmissionRef);
+  assert.equal(executionBasis.rawInputDigest, invocation.rawInputDigest);
   const graph = installedGtl.materializeGraph(graphFunction, {
     invocationAdmissionRef: invocation.invocationAdmissionRef,
     admittedInputRef: invocation.rawInputAdmissionRef,
     admittedInputDigest: invocation.rawInputDigest,
+    admittedInput: executionBasis.rawInputValue,
   });
   const graphValidation = installedValidator.validateGraph(
     graph,
@@ -503,6 +603,7 @@ async function loadInstalledRetryDependencies(
       invocationAdmissionRef: invocation.invocationAdmissionRef,
       admittedInputRef: invocation.rawInputAdmissionRef,
       admittedInputDigest: invocation.rawInputDigest,
+      admittedInput: executionBasis.rawInputValue,
     },
   );
   assert.equal(
@@ -511,11 +612,6 @@ async function loadInstalledRetryDependencies(
     JSON.stringify(graphValidation),
   );
   const materializedGraphImmutable = Object.isFrozen(graph);
-  const executionBasis = installedAbg.rehydrateExecutionBasis(
-    reopened.store,
-    basisEvent.payload.basisRef,
-  );
-  assert.notEqual(executionBasis, null);
   const implementationSet = installedAbg.rehydrateAdmittedImplementationSet(
     reopened.store,
     executionBasis.implementationSetRef,
@@ -531,19 +627,28 @@ async function loadInstalledRetryDependencies(
     scopeValueFromEvents(events, selector, executionBasis),
   );
   assert.notEqual(openedTraversalScope, null);
-  const retryNode = graphFunction.template.nodes[0];
-  assert.equal(retryNode.term.kind, "c_retry");
-  assert.equal(retryNode.term.term.kind, "c_of");
-  const leaf = retryNode.term.term;
+  const terms = axF09Terms(graphFunction);
+  const transformResolution =
+    installedAbg.selectAdmittedImplementationResolution(
+      implementationSet,
+      {
+        graphFunctionRef: graph.graphFunctionRef,
+        nodeRef: graph.template.startNodeRef,
+        programLocusRef: terms.transform.programLocusRef,
+        implementationBindingRef:
+          terms.transform.requirement.implementationBindingRef,
+      },
+    );
+  assert.notEqual(transformResolution, null);
   const implementationResolution =
     installedAbg.selectAdmittedImplementationResolution(
       implementationSet,
       {
         graphFunctionRef: graph.graphFunctionRef,
         nodeRef: graph.template.startNodeRef,
-        programLocusRef: leaf.programLocusRef,
+        programLocusRef: terms.retryLeaf.programLocusRef,
         implementationBindingRef:
-          leaf.requirement.implementationBindingRef,
+          terms.retryLeaf.requirement.implementationBindingRef,
       },
     );
   assert.notEqual(implementationResolution, null);
@@ -555,12 +660,19 @@ async function loadInstalledRetryDependencies(
     "AX-F09 installed implementation binding",
   );
   const descriptor = retryProduct.AX_F09_IMPLEMENTATION_DESCRIPTOR;
+  const transformDescriptor =
+    retryProduct.AX_F09_TRANSFORM_IMPLEMENTATION_DESCRIPTOR;
   const implementationDependencyChecks = {
     descriptorAccepted:
-      installedProduct.isPackagedLeafImplementationDescriptor(descriptor),
-    descriptorImmutable: Object.isFrozen(descriptor),
+      installedProduct.isPackagedLeafImplementationDescriptor(descriptor) &&
+      installedProduct.isPackagedLeafImplementationDescriptor(
+        transformDescriptor,
+      ),
+    descriptorImmutable:
+      Object.isFrozen(descriptor) && Object.isFrozen(transformDescriptor),
     implementationCallable:
-      typeof retryProduct.realizeAxF09ProbabilisticPass === "function",
+      typeof retryProduct.realizeAxF09ProbabilisticPass === "function" &&
+      typeof retryProduct.realizeAxF09Transform === "function",
     semanticsImmutable: Object.isFrozen(retryProduct.AX_F09_PRODUCT_SEMANTICS),
     bindingImplementationExact:
       implementationBinding.implementationRef === descriptor.implementationRef,
@@ -568,12 +680,18 @@ async function loadInstalledRetryDependencies(
       implementationBinding.namedSymbol === descriptor.namedSymbol,
     admittedDescriptorExact:
       implementationResolution.implementationDescriptorDigest ===
-        descriptor.descriptorDigest,
+        descriptor.descriptorDigest &&
+      transformResolution.implementationDescriptorDigest ===
+        transformDescriptor.descriptorDigest,
     admittedResolutionExact:
       executionBasis.implementationResolutionRef === null &&
       implementationSet.rows.includes(implementationResolution) &&
+      implementationSet.rows.includes(transformResolution) &&
       executionBasis.localExecutableLeafKeys.includes(
         implementationResolution.requirementKey,
+      ) &&
+      executionBasis.localExecutableLeafKeys.includes(
+        transformResolution.requirementKey,
       ),
   };
   const implementationDependencyVerified = Object.values(
@@ -585,13 +703,34 @@ async function loadInstalledRetryDependencies(
       candidate.closureContractRef === executionBasis.closureContractRef,
     "AX-F09 installed closure contract",
   );
+  const semantics = await installedProduct.loadInstalledProductSemantics({
+    install: admittedInstall,
+    publication,
+    verifyInstallAdmission: (install) =>
+      installedAbg.hasAdmittedProductInstall(artifactTruth, install),
+  });
+  const leafPort = await installedHogProduct.bindInstalledLeafInvocationPort({
+    prefix: installedAbg.selectValidatedRuntimeEventPrefix(events),
+    artifactTruth,
+    install: admittedInstall,
+    implementationSet,
+    publication,
+    semanticsProjection:
+      installedProduct.projectInstalledLeafSemantics(semantics),
+  });
   const requiredContractRefs = new Set([
     graphFunction.inputs[0],
     graphFunction.outputs[0],
-    leaf.requirement.inputContractRef,
-    leaf.requirement.outputContractRef,
-    leaf.requirement.failureContractRef,
-    leaf.requirement.refusalContractRef,
+    childGraphFunction.inputs[0],
+    childGraphFunction.outputs[0],
+    terms.transform.requirement.inputContractRef,
+    terms.transform.requirement.outputContractRef,
+    terms.transform.requirement.failureContractRef,
+    terms.transform.requirement.refusalContractRef,
+    terms.retryLeaf.requirement.inputContractRef,
+    terms.retryLeaf.requirement.outputContractRef,
+    terms.retryLeaf.requirement.failureContractRef,
+    terms.retryLeaf.requirement.refusalContractRef,
     executionBasis.evidenceContractRef,
     executionBasis.resultContractRef,
     executionBasis.refusalContractRef,
@@ -647,16 +786,53 @@ async function loadInstalledRetryDependencies(
     materializedGraphImmutable &&
     installedContractsVerified &&
     implementationDependencyVerified;
+  const catalog = installedProduct.buildGraphFunctionCatalog([publication]);
+  assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
+  const catalogView = installedProduct.narrowGraphFunctionCatalog(catalog, [
+    graphFunction.name,
+    childGraphFunction.name,
+  ]);
+  assert.equal(catalogView.kind, "graph_function_catalog_view",
+    JSON.stringify(catalogView));
+  const childTraversalPreparationPort =
+    installedChildTraversal.bindChildTraversalPreparationPort({
+      store: reopened.store,
+      publication,
+      program,
+      programValidation,
+      rootImplementationSet: implementationSet,
+      rootInteractionSet: interactionSet,
+    });
   return {
+    publication,
     program,
+    programValidation,
     graphFunction,
+    childGraphFunction,
     graph,
     graphValidation,
     executionBasis,
     implementationSet,
     interactionSet,
+    transformResolution,
+    implementationResolution,
     openedTraversalScope,
     closureContract,
+    artifactTruth,
+    admittedInstall,
+    workspaceBinding,
+    leafPort,
+    catalog,
+    catalogView,
+    childTraversalPreparationPort,
+    continuationProductBasis: {
+      artifactTruth,
+      install: admittedInstall,
+      workspaceBinding,
+      catalogView,
+      programValidation,
+      graphValidation,
+    },
     payloadInventoryVerified,
     semanticPublicationVerified,
     installedDeclarationsImmutable,
@@ -758,6 +934,14 @@ async function constructP1Environment(input) {
     environment.installedRoot,
     "build/code/src/abg/retry.js",
   )).href);
+  const eventStoreOwner = await import(pathToFileURL(join(
+    environment.installedRoot,
+    "build/code/src/abg/event_store.js",
+  )).href);
+  const eventCalculusOwner = await import(pathToFileURL(join(
+    environment.installedRoot,
+    "build/code/src/abg/event_calculus.js",
+  )).href);
   const {
     abg,
     gtl,
@@ -830,39 +1014,56 @@ async function constructP1Environment(input) {
     "materialized",
     JSON.stringify(fixtureInstallCandidate),
   );
-  const store = new abg.AbgEventStore();
-  const admittedRootInstall = abg.admitProductInstall(
+  const eventLogPath = join(scratch, "ax-f09.events.jsonl");
+  const acquiredStore = abg.createNewEmptyAppendSink({
+    kind: "new_empty_append_sink_request",
+    schemaVersion: "5.0.0",
+    eventLogPath,
+  });
+  assert.equal("store" in acquiredStore, true, JSON.stringify(acquiredStore));
+  const store = acquiredStore.store;
+  const admittedRootInstallResult = abg.admitProductInstall(
     store,
     rootInstallCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.product.install",
-      rootInstallCandidate.installId,
-      rootInstallCandidate.productContentDigest,
-      "invocation://s06/ax-f09/root-install",
-    ),
+    {
+      ...publicOperationBasis(
+        product,
+        "abg.operation.product.install",
+        rootInstallCandidate.installId,
+        rootInstallCandidate.productContentDigest,
+        "invocation://s06/ax-f09/root-install",
+      ),
+      predecessorPrefix: acquiredStore.prefix,
+    },
+    lock,
   );
-  const admittedInstall = abg.admitProductInstall(
+  const admittedInstallResult = abg.admitProductInstall(
     store,
     fixtureInstallCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.product.install",
-      fixtureInstallCandidate.installId,
-      fixtureInstallCandidate.productContentDigest,
-      "invocation://s06/ax-f09/fixture-install",
-    ),
+    {
+      ...publicOperationBasis(
+        product,
+        "abg.operation.product.install",
+        fixtureInstallCandidate.installId,
+        fixtureInstallCandidate.productContentDigest,
+        "invocation://s06/ax-f09/fixture-install",
+      ),
+      predecessorPrefix: admittedRootInstallResult.successorPrefix,
+    },
+    lock,
   );
   assert.equal(
-    admittedRootInstall.kind,
-    "product_install",
-    JSON.stringify(admittedRootInstall),
+    admittedRootInstallResult.kind,
+    "artifact_owner_result",
+    JSON.stringify(admittedRootInstallResult),
   );
   assert.equal(
-    admittedInstall.kind,
-    "product_install",
-    JSON.stringify(admittedInstall),
+    admittedInstallResult.kind,
+    "artifact_owner_result",
+    JSON.stringify(admittedInstallResult),
   );
+  const admittedRootInstall = admittedRootInstallResult.value;
+  const admittedInstall = admittedInstallResult.value;
   const productSet = product.constructProductSet(
     [admittedRootInstall, admittedInstall],
     lock,
@@ -904,26 +1105,31 @@ async function constructP1Environment(input) {
     "workspace_binding_candidate",
     JSON.stringify(workspaceCandidate),
   );
-  const workspaceBinding = abg.admitWorkspaceBinding(
+  const workspaceBindingResult = abg.admitWorkspaceBinding(
     store,
     workspaceCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.workspace.bind",
-      workspaceCandidate.bindingId,
-      workspaceCandidate.bindingDigest,
-      "invocation://s06/ax-f09/workspace-bind",
-      [
-        admittedRootInstall.admissionEventRef,
-        admittedInstall.admissionEventRef,
-      ],
-    ),
+    {
+      ...publicOperationBasis(
+        product,
+        "abg.operation.workspace.bind",
+        workspaceCandidate.bindingId,
+        workspaceCandidate.bindingDigest,
+        "invocation://s06/ax-f09/workspace-bind",
+        [
+          admittedRootInstall.admissionEventRef,
+          admittedInstall.admissionEventRef,
+        ],
+      ),
+      predecessorPrefix: admittedInstallResult.successorPrefix,
+    },
+    workspaceAuthority,
   );
   assert.equal(
-    workspaceBinding.kind,
-    "workspace_binding",
-    JSON.stringify(workspaceBinding),
+    workspaceBindingResult.kind,
+    "artifact_owner_result",
+    JSON.stringify(workspaceBindingResult),
   );
+  const workspaceBinding = workspaceBindingResult.value;
   const installedRoot = fixtureInstallCandidate.installedRoot;
   const publication = retryProduct.constructAxF09Publication({
     productId: fixtureVerified.productId,
@@ -972,13 +1178,26 @@ async function constructP1Environment(input) {
     (candidate) =>
       candidate.name === retryProduct.AX_F09_RETRY_IDS.graphFunctionRef,
   );
+  const childGraphFunction = publication.graphFunctions.find(
+    (candidate) =>
+      candidate.name === retryProduct.AX_F09_RETRY_IDS.childGraphFunctionRef,
+  );
   assert.notEqual(program, undefined);
   assert.notEqual(graphFunction, undefined);
+  assert.notEqual(childGraphFunction, undefined);
+  const programValidation = programValidations.find(
+    (candidate) => candidate.programRef === program.programRef,
+  );
+  assert.notEqual(programValidation, undefined);
+  const terms = axF09Terms(graphFunction);
   assert.equal(
-    graphFunction.template.nodes[0].term.budget,
+    terms.retry.budget,
     input.retryBudget ?? RETRY_BUDGET,
   );
-  const catalogView = product.narrowGraphFunctionCatalog(catalog, [graphFunction.name]);
+  const catalogView = product.narrowGraphFunctionCatalog(catalog, [
+    graphFunction.name,
+    childGraphFunction.name,
+  ]);
   assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
   const nonceSubject = `restart-private-${randomUUID()}`;
   const invocationInput = {
@@ -1004,28 +1223,59 @@ async function constructP1Environment(input) {
       correlationId: "correlation://s06/ax-f09/run-invoke",
       payload: {
         programRef: program.programRef,
-        graphFunctionRef: graphFunction.name,
+        catalogHandle: graphFunction.name,
       },
     },
     "public_operation_request",
     "contract://abiogenesis/public/run-invoke-request@5",
   );
+  const interactionCapabilities = programValidation.interactionLeafRows.map(
+    (row) => ({
+      requirementKey: row.requirementKey,
+      requirementKeyDigest: row.requirementKeyDigest,
+      actorCapabilityRef: row.requirement.actorCapabilityRef,
+    }),
+  );
   const policy = product.constructRootInvocationPolicy(
     workspaceBinding,
     program,
-    [],
-    ["F_P"],
+    interactionCapabilities,
+    ["F_D", "F_P", "F_H"],
   );
   const actorRef = workspaceBinding.authorizedActorRef;
-  const capabilityGrant = product.constructCapabilityGrant(policy, actorRef);
+  const interactionCapabilityRefs = [
+    ...new Set(interactionCapabilities.map((row) => row.actorCapabilityRef)),
+  ];
+  const capabilityGrants = [
+    product.constructCapabilityGrant(policy, actorRef),
+    ...interactionCapabilityRefs.flatMap((capabilityRef) => [
+      product.constructCapabilityGrant(
+        policy,
+        actorRef,
+        "abg.operation.interaction.respond",
+        capabilityRef,
+      ),
+      product.constructCapabilityGrant(
+        policy,
+        actorRef,
+        "abg.operation.run.continue",
+        capabilityRef,
+      ),
+    ]),
+  ];
+  const selectedRow = product.lookupGraphFunction(
+    catalogView,
+    graphFunction.name,
+  );
+  assert.ok(selectedRow);
   const invocationAuthority = product.constructInvocationAuthority(
     actorRef,
     workspaceBinding,
     catalogView,
     program.programRef,
-    graphFunction.name,
+    selectedRow,
     policy,
-    [capabilityGrant],
+    capabilityGrants,
   );
   assert.equal(
     invocationAuthority.kind,
@@ -1036,11 +1286,11 @@ async function constructP1Environment(input) {
     workspaceBinding,
     catalogView,
     program,
-    graphFunction,
+    selectedRow,
     rawRequest,
     rawInput,
     policy,
-    [capabilityGrant],
+    capabilityGrants,
     invocationAuthority,
   );
   assert.equal(
@@ -1048,10 +1298,6 @@ async function constructP1Environment(input) {
     "public_invocation_candidate",
     JSON.stringify(invocation),
   );
-  const programValidation = programValidations.find(
-    (candidate) => candidate.programRef === program.programRef,
-  );
-  assert.notEqual(programValidation, undefined);
   const invocationAdmission = abg.admitInvocation(
     store,
     {
@@ -1063,9 +1309,10 @@ async function constructP1Environment(input) {
       graphFunction,
       programValidation,
       workspaceBinding,
+      artifactTruth: workspaceBindingResult.artifactTruth,
       catalogView,
       policy,
-      capabilityGrants: [capabilityGrant],
+      capabilityGrants,
       authority: invocationAuthority,
     },
     publicOperationBasis(
@@ -1073,7 +1320,7 @@ async function constructP1Environment(input) {
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
-      invocation.invocationRef,
+      invocation.publicRequestInvocationRef,
       [workspaceBinding.admissionEventRef],
     ),
   );
@@ -1086,6 +1333,7 @@ async function constructP1Environment(input) {
     invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
     admittedInputRef: rawInput.admissionRef,
     admittedInputDigest: rawInput.subjectDigest,
+    admittedInput: invocationInput,
   });
   const graphValidation = validator.validateGraph(
     graph,
@@ -1095,6 +1343,7 @@ async function constructP1Environment(input) {
       invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
       admittedInputRef: rawInput.admissionRef,
       admittedInputDigest: rawInput.subjectDigest,
+      admittedInput: invocationInput,
     },
   );
   assert.equal(
@@ -1136,7 +1385,6 @@ async function constructP1Environment(input) {
     "implementation_resolution_set_validation",
     JSON.stringify(resolutionSetValidation),
   );
-  const node = graphFunction.template.nodes[0];
   const closureContract = publication.closureContracts.find(
     (candidate) => candidate.closureContractRef === program.closureContractRef,
   );
@@ -1145,6 +1393,7 @@ async function constructP1Environment(input) {
     store,
     {
       invocationAdmission,
+      rawInputValue: invocationInput,
       program,
       programValidation,
       graph,
@@ -1160,32 +1409,71 @@ async function constructP1Environment(input) {
     "execution_basis_admission",
     JSON.stringify(executionBasisAdmission),
   );
+  const transformResolution =
+    abg.selectAdmittedImplementationResolution(
+      executionBasisAdmission.implementationSet,
+      {
+        graphFunctionRef: graph.graphFunctionRef,
+        nodeRef: graph.template.startNodeRef,
+        programLocusRef: terms.transform.programLocusRef,
+        implementationBindingRef:
+          terms.transform.requirement.implementationBindingRef,
+      },
+    );
+  assert.notEqual(transformResolution, null);
   const implementationResolution =
     abg.selectAdmittedImplementationResolution(
       executionBasisAdmission.implementationSet,
       {
         graphFunctionRef: graph.graphFunctionRef,
         nodeRef: graph.template.startNodeRef,
-        programLocusRef: node.term.term.programLocusRef,
+        programLocusRef: terms.retryLeaf.programLocusRef,
         implementationBindingRef:
-          node.term.term.requirement.implementationBindingRef,
+          terms.retryLeaf.requirement.implementationBindingRef,
       },
     );
   assert.notEqual(implementationResolution, null);
+  const installedAuthorityPrefix =
+    eventStoreOwner.selectHeldEventStoreDurablePrefix(store);
+  const installedAuthorityEvents = abg.selectValidatedRuntimeEventPrefix(
+    store.readAll(),
+  );
+  const artifactTruth = abg.projectExactPrefixArtifactTruth(
+    installedAuthorityPrefix,
+  );
+  assert.equal(
+    artifactTruth.kind,
+    "exact_prefix_artifact_truth_projection",
+    JSON.stringify(artifactTruth),
+  );
   const semantics = await product.loadInstalledProductSemantics({
     install: admittedInstall,
     publication,
     verifyInstallAdmission: (install) =>
-      abg.hasAdmittedProductInstall(store, install),
+      abg.hasAdmittedProductInstall(artifactTruth, install),
   });
   const semanticsProjection = product.projectInstalledLeafSemantics(semantics);
   const leafPort = await hogInstalledProduct.bindInstalledLeafInvocationPort({
-    store,
+    prefix: installedAuthorityEvents,
+    artifactTruth,
     install: admittedInstall,
     implementationSet: executionBasisAdmission.implementationSet,
     publication,
     semanticsProjection,
   });
+  const childModule = await import(pathToFileURL(join(
+    environment.installedRoot,
+    "build/code/src/public/child_traversal_port.js",
+  )).href);
+  const childTraversalPreparationPort =
+    childModule.bindChildTraversalPreparationPort({
+      store,
+      publication,
+      program,
+      programValidation,
+      rootImplementationSet: executionBasisAdmission.implementationSet,
+      rootInteractionSet: executionBasisAdmission.interactionSet,
+    });
   return {
     ...environment,
     store,
@@ -1197,6 +1485,7 @@ async function constructP1Environment(input) {
     publication,
     program,
     graphFunction,
+    childGraphFunction,
     programValidation,
     catalog,
     catalogView,
@@ -1210,17 +1499,29 @@ async function constructP1Environment(input) {
     implementationSet: executionBasisAdmission.implementationSet,
     interactionSet: executionBasisAdmission.interactionSet,
     implementationResolution,
+    transformResolution,
     leafPort,
+    childTraversalPreparationPort,
+    continuationProductBasis: {
+      artifactTruth,
+      install: admittedInstall,
+      workspaceBinding,
+      catalogView,
+      programValidation,
+      graphValidation,
+    },
     retryOwner,
-    actorRuntimeBinding: { workspaceBinding },
+    eventStoreOwner,
+    eventCalculusOwner,
+    actorRuntimeBinding: { workspaceBinding, artifactTruth },
     nonceSubject,
+    eventLogPath,
   };
 }
 
 async function rejectAttempt(
   environment,
   stop,
-  retryInput,
   inputValue,
   failureClass,
 ) {
@@ -1228,6 +1529,7 @@ async function rejectAttempt(
     abg,
     graph,
     program,
+    graphFunction,
     executionBasis,
     implementationSet,
     implementationResolution,
@@ -1242,6 +1544,7 @@ async function rejectAttempt(
     executionBasis,
     opened.scope,
     program,
+    graphFunction,
     graph,
     stop,
     implementationSet,
@@ -1260,6 +1563,7 @@ async function rejectAttempt(
   );
   assert.notEqual(contracts, null);
   let observation = null;
+  let workerRequest = null;
   const realized = await leafPort.invoke(
     implementationResolution,
     inputValue,
@@ -1274,6 +1578,7 @@ async function rejectAttempt(
         attempt: cCall.attempt,
       },
       invokeWorker: async (request) => {
+        workerRequest = request;
         observation = await abg.invokeActorProcess({
           store,
           executionBasis,
@@ -1300,20 +1605,61 @@ async function rejectAttempt(
     true,
     JSON.stringify(observation),
   );
+  assert.notEqual(workerRequest, null);
+  const resultCarrier = installedHog.admitProbabilisticResultCandidate({
+    leafPort,
+    occurrence: {
+      cCallRef: cCall.cCallRef,
+      runId: cCall.runId,
+      graphCallId: cCall.graphCallId,
+      frameId: cCall.frameId,
+      programLocusRef: cCall.programLocusRef,
+      taskOrdinal: cCall.taskOrdinal,
+      attempt: cCall.attempt,
+    },
+    resolution: implementationResolution,
+    input: inputValue,
+    request: workerRequest,
+    observation,
+  });
+  if (observation.disposition === "success") {
+    assert.equal(
+      resultCarrier.kind,
+      "contract_admitted_probabilistic_result_candidate",
+      JSON.stringify(resultCarrier),
+    );
+  }
   const evidenceCandidate = abg.deriveProbabilisticTransportEvidence(
     cCall,
+    workerRequest,
     observation,
+    resultCarrier.kind === "contract_admitted_probabilistic_result_candidate"
+      ? resultCarrier
+      : null,
     realized.resultCandidate,
     contracts.instructionContractRef,
+    contracts.resultContractRef,
   );
   const evidence = abg.admitEvidence(
     store,
+    graph,
+    graphFunction,
+    stop.cursor,
     cCall,
     evidenceCandidate,
     cCall.evidenceContractRef,
     stop.cursor.inputDigest,
     basis(`attempt-${stop.cursor.attempt}/evidence`),
     contracts.instructionContractRef,
+    contracts.resultContractRef,
+    {
+      request: workerRequest,
+      observation,
+      admittedResultCarrier:
+        resultCarrier.kind === "contract_admitted_probabilistic_result_candidate"
+          ? resultCarrier
+          : null,
+    },
   );
   assert.equal(
     evidence.kind,
@@ -1327,6 +1673,9 @@ async function rejectAttempt(
   assert.notEqual(outputKind, null);
   const resultRejection = abg.admitResult(
     store,
+    graph,
+    graphFunction,
+    stop.cursor,
     cCall,
     realized.resultCandidate,
     "success",
@@ -1348,12 +1697,16 @@ async function rejectAttempt(
     "failure",
   );
   assert.notEqual(failureValueKind, null);
+  const transitionPrefix = abg.selectValidatedRuntimeEventPrefix(
+    store.readAll(),
+  );
   const transition = retryOwner.admitRetryRuntimeFailureTransition(
     store,
+    transitionPrefix,
     executionBasis,
     graph,
+    graphFunction,
     stop.cursor,
-    retryInput,
     cCall,
     failureClass === "no_output" ? evidence : resultRejection,
     realized.resultCandidate,
@@ -1379,73 +1732,253 @@ async function rejectAttempt(
   };
 }
 
-function advanceRetry(environment, stop, attemptResult, retryInput) {
+async function advanceRetry(environment, attemptResult) {
   const { abg, hog, store, executionBasis, graph, opened, program } = environment;
-  const step = hog.deriveRetryTraversalStep(graph, stop.cursor, retryInput);
-  assert.equal(step.kind, "traversal_step", JSON.stringify(step));
-  assert.notEqual(step.targetCursor, null);
-  const replay = abg.replay(store, { runId: opened.scope.runId });
-  const proposal = hog.proposeRetryRoute(
+  const selector = {
+    kind: "retry_frontier_selector",
+    schemaVersion: "5.0.0",
+    runId: opened.scope.runId,
+    graphCallId: opened.scope.graphCallId,
+    frameId: opened.scope.frameId,
+    retryBoundaryRef: attemptResult.progress.retryBoundaryRef,
+    retryProgressRef: attemptResult.progress.progressRef,
+  };
+  const retry = abg.projectExecutableRetryInput({
+    prefix: attemptResult.transition.successorPrefix,
+    selector,
+    program: environment.program,
+    graphFunction: environment.graphFunction,
     graph,
-    step,
-    attemptResult.cCall,
-    attemptResult.progress,
-    replay,
-    attemptResult.cCall.transitionContractRef,
-  );
-  assert.equal(
-    proposal.kind,
-    "traversal_route_candidate",
-    JSON.stringify(proposal),
-  );
-  const route = abg.admitRoute(
+  });
+  assert.equal(retry.kind, "executable_retry_input", JSON.stringify(retry));
+  abg.assertFullRetryAttemptFrontier(retry.retryFrontier);
+  const runtime = {
+    executionBasis,
+    openedTraversalScope: opened.scope,
+    program: environment.program,
+    graphFunction: environment.graphFunction,
+    graph,
+    graphValidation: environment.graphValidation,
+    eventTime: EVENT_TIME,
+    correlationId: `correlation://s06/ax-f09/retry/${retry.nextAttempt}`,
+  };
+  const prefixCount = store.readAll().length;
+  const forgedValidation = hog.resumeProjectedRetry({
+    store,
+    predecessorPrefix: attemptResult.transition.successorPrefix,
+    retry,
+    runtime: {
+      ...runtime,
+      graphValidation: structuredClone(environment.graphValidation),
+    },
+  });
+  assert.equal(forgedValidation.kind, "projected_retry_resume_refusal");
+  assert.equal(forgedValidation.code, "runtime_basis_mismatch");
+  assert.equal(store.readAll().length, prefixCount);
+  const malformedTime = hog.resumeProjectedRetry({
+    store,
+    predecessorPrefix: attemptResult.transition.successorPrefix,
+    retry,
+    runtime: { ...runtime, eventTime: "not-a-timestamp" },
+  });
+  assert.equal(malformedTime.kind, "projected_retry_resume_refusal");
+  assert.equal(malformedTime.code, "runtime_basis_mismatch");
+  assert.equal(store.readAll().length, prefixCount);
+  const originalReadAll = store.readAll;
+  const beforeFailureEvents = originalReadAll.call(store);
+  const beforeFailureDigest = store.digest();
+  const beforeFailureBytes = await readFile(environment.eventLogPath, "utf8");
+  let routeReadCount = 0;
+  store.readAll = function routeFailureRead() {
+    routeReadCount += 1;
+    if (routeReadCount === 3) return Object.freeze([]);
+    return originalReadAll.call(this);
+  };
+  const routeFailure = hog.resumeProjectedRetry({
+    store,
+    predecessorPrefix: attemptResult.transition.successorPrefix,
+    retry,
+    runtime,
+  });
+  store.readAll = originalReadAll;
+  assert.equal(routeFailure.kind, "projected_retry_resume_refusal");
+  assert.equal(routeFailure.code, "retry_route_refused");
+  assert.deepEqual(store.readAll(), beforeFailureEvents);
+  assert.equal(store.digest(), beforeFailureDigest);
+  assert.equal(await readFile(environment.eventLogPath, "utf8"),
+    beforeFailureBytes);
+  store.readAll = function attemptFailureRead() {
+    const rows = originalReadAll.call(this);
+    if (
+      new Error().stack?.includes("admitRetryAttempt") &&
+      rows.length === prefixCount + 1 &&
+      rows.at(-1)?.kind === "traversal_route_admitted"
+    ) {
+      return Object.freeze(rows.slice(0, -1));
+    }
+    return rows;
+  };
+  const attemptFailure = hog.resumeProjectedRetry({
+    store,
+    predecessorPrefix: attemptResult.transition.successorPrefix,
+    retry,
+    runtime,
+  });
+  store.readAll = originalReadAll;
+  assert.equal(attemptFailure.kind, "projected_retry_resume_refusal");
+  assert.equal(attemptFailure.code, "retry_attempt_refused");
+  assert.deepEqual(store.readAll(), beforeFailureEvents);
+  assert.equal(store.digest(), beforeFailureDigest);
+  assert.equal(await readFile(environment.eventLogPath, "utf8"),
+    beforeFailureBytes);
+  const resumed = hog.resumeProjectedRetry({
+    store,
+    predecessorPrefix: attemptResult.transition.successorPrefix,
+    retry,
+    runtime,
+  });
+  assert.equal(resumed.kind, "projected_retry_resume", JSON.stringify(resumed));
+  const projectedPrefixCount = store.readAll().length;
+  const stalePrefix = hog.resumeProjectedRetry({
+    store,
+    predecessorPrefix: attemptResult.transition.successorPrefix,
+    retry,
+    runtime,
+  });
+  assert.equal(stalePrefix.kind, "projected_retry_resume_refusal");
+  assert.equal(stalePrefix.code, "prefix_mismatch");
+  assert.equal(store.readAll().length, projectedPrefixCount);
+  const commonExecution = {
     store,
     executionBasis,
+    openedTraversalScope: opened.scope,
+    program: environment.program,
+    graphFunction: environment.graphFunction,
     graph,
-    stop.cursor,
-    step.targetCursor,
-    replay,
-    proposal,
-    basis(`attempt-${stop.cursor.attempt}/retry-route`),
-    { cCall: attemptResult.cCall, progress: attemptResult.progress },
+    graphValidation: environment.graphValidation,
+    implementationSet: environment.implementationSet,
+    interactionSet: environment.interactionSet,
+    leafPort: environment.leafPort,
+    closureContract: environment.closureContract,
+    actorRuntimeBinding: environment.actorRuntimeBinding,
+    eventTime: EVENT_TIME,
+    correlationId: `correlation://s06/ax-f09/carrier/${retry.nextAttempt}`,
+  };
+  const cyclicInputValue = {};
+  cyclicInputValue.self = cyclicInputValue;
+  await assert.rejects(
+    () => hog.executeGraphTraversal({
+      ...commonExecution,
+      projectedRetryResume: { ...resumed, inputValue: cyclicInputValue },
+    }),
+    (error) =>
+      error instanceof TypeError &&
+      error.message ===
+        "diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5",
   );
-  assert.equal(
-    route.kind,
-    "admitted_traversal_route",
-    JSON.stringify(route),
+  assert.equal(store.readAll().length, projectedPrefixCount);
+  await assert.rejects(
+    () => hog.executeGraphTraversal({
+      ...commonExecution,
+      projectedRetryResume: resumed,
+      input: environment.invocationInput,
+      inputDigest: environment.rawInput.subjectDigest,
+    }),
+    (error) =>
+      error instanceof TypeError &&
+      error.message ===
+        "diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5",
   );
-  const cursor = hog.applyRoute(step, route);
-  assert.equal(cursor.kind, "traversal_cursor", JSON.stringify(cursor));
-  const attempt = abg.admitRetryAttempt(
+  assert.equal(store.readAll().length, projectedPrefixCount);
+  const runEvent = store.readAll().find((event) =>
+    event.kind === "run_segment_opened" &&
+    event.runId === opened.scope.runId);
+  assert.ok(runEvent);
+  const {
+    runId: _originalRunId,
+    runDigest: _originalRunDigest,
+    ...originalRunBody
+  } = runEvent.payload;
+  const unrelatedRunBody = {
+    ...originalRunBody,
+    invocationRef: `${originalRunBody.invocationRef}/unrelated-tail`,
+  };
+  const unrelatedRunDigest = environment.product.sha256Canonical(
+    unrelatedRunBody,
+  );
+  const unrelatedRunId =
+    `run://abiogenesis/${unrelatedRunDigest.slice("sha256:".length)}`;
+  const {
+    eventId: _runEventId,
+    admissionOrdinal: _runAdmissionOrdinal,
+    payloadDigest: _runPayloadDigest,
+    ...runCandidate
+  } = runEvent;
+  const [unrelatedRunEvent] = environment.eventStoreOwner.admitRuntimeEventBatch(
     store,
-    executionBasis,
-    graph,
-    cursor,
-    retryInput.inputValue,
-    route.admissionEventRef,
-    basis(`attempt-${cursor.attempt}/retry-attempt`),
+    [() => ({
+      ...runCandidate,
+      aggregateId: unrelatedRunId,
+      causationEventRefs: [runEvent.causationEventRefs[0]],
+      correlationId:
+        `${runEvent.correlationId}/unrelated-physical-tail`,
+      runId: unrelatedRunId,
+      payload: {
+        runId: unrelatedRunId,
+        runDigest: unrelatedRunDigest,
+        ...unrelatedRunBody,
+      },
+    })],
   );
-  assert.equal(
-    attempt.kind,
-    "retry_attempt_admission",
-    JSON.stringify(attempt),
+  assert.equal(unrelatedRunEvent.runId, unrelatedRunId);
+  const unrelatedTailPrefix =
+    environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(store);
+  const tailBoundCount = store.readAll().length;
+  await assert.rejects(
+    () => hog.executeGraphTraversal({
+      ...commonExecution,
+      projectedRetryResume: {
+        ...resumed,
+        successorPrefix: unrelatedTailPrefix,
+      },
+    }),
+    (error) =>
+      error instanceof TypeError &&
+      error.message ===
+        "diagnostic://abiogenesis/hog/projected-retry-projection-mismatch@5",
   );
+  assert.equal(store.readAll().length, tailBoundCount);
   const nextStop = hog.traverseFromCursor(
     {
       program,
+      graphFunction: environment.graphFunction,
       graph,
       graphValidation: environment.graphValidation,
       executionBasis,
       openedTraversalScope: opened.scope,
     },
-    cursor,
+    resumed.nextCursor,
   );
   assert.equal(
     nextStop.kind,
     "traversal_stop_ref",
     JSON.stringify(nextStop),
   );
-  return nextStop;
+  return {
+    stop: nextStop,
+    retry,
+    resumed,
+    controls: {
+      forgedGraphValidationRefusedPurely: true,
+      malformedEventTimeRefusedPurely: true,
+      stalePrefixRefusedWithoutMutation: true,
+      routeFailureRolledBack: true,
+      attemptFailureRolledBackRoute: true,
+      cyclicCarrierMappedToExactDiagnostic: true,
+      projectedXorRejectsRawIngress: true,
+      unrelatedRunTailSubstitutionRefused: true,
+    },
+  };
 }
 
 async function produceFrontier(input) {
@@ -1461,12 +1994,16 @@ async function produceFrontier(input) {
     ],
   );
   const environment = await constructP1Environment(input);
-  const worker = await installAttemptWorker(environment.scratch);
+  await mkdir(environment.workspaceBinding.roots.runtimeStateRoot, {
+    recursive: true,
+  });
+  const worker = await installAttemptWorker(
+    environment.workspaceBinding.roots.runtimeStateRoot,
+  );
   process.env.ABG_TS_CLAUDE_COMMAND = worker.command;
   process.env.ABG_AX_F09_COUNTER = worker.counterPath;
   process.env.ABG_TS_FP_TIMEOUT_MS = "10000";
-  const eventLogPath = join(environment.scratch, "ax-f09.events.jsonl");
-  environment.store.configureDurableLog(eventLogPath);
+  const eventLogPath = environment.eventLogPath;
   const opened = environment.abg.openCall(
     environment.store,
     environment.executionBasis,
@@ -1474,8 +2011,53 @@ async function produceFrontier(input) {
   );
   assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
   environment.opened = opened;
+  const entryMismatchSnapshot = {
+    events: environment.product.canonicalJson(environment.store.readAll()),
+    digest: environment.store.digest(),
+    bytes: await readFile(eventLogPath, "utf8"),
+  };
+  const forgedEntryInput = {
+    ...environment.invocationInput,
+    message: `${environment.invocationInput.message}::forged-entry`,
+  };
+  await assert.rejects(
+    () => environment.hog.executeGraphTraversal({
+      store: environment.store,
+      executionBasis: environment.executionBasis,
+      openedTraversalScope: opened.scope,
+      program: environment.program,
+      graphFunction: environment.graphFunction,
+      graph: environment.graph,
+      graphValidation: environment.graphValidation,
+      implementationSet: environment.implementationSet,
+      interactionSet: environment.interactionSet,
+      continuationProductBasis: environment.continuationProductBasis,
+      leafPort: environment.leafPort,
+      childTraversalPreparationPort:
+        environment.childTraversalPreparationPort,
+      closureContract: environment.closureContract,
+      actorRuntimeBinding: environment.actorRuntimeBinding,
+      input: forgedEntryInput,
+      inputDigest: environment.product.sha256Canonical(forgedEntryInput),
+      eventTime: EVENT_TIME,
+      correlationId: "correlation://s06/ax-f09/forged-entry",
+    }),
+    (error) =>
+      error instanceof TypeError &&
+      error.message ===
+        "diagnostic://abiogenesis/hog/execution-basis-input-mismatch@5",
+  );
+  assert.deepEqual(
+    {
+      events: environment.product.canonicalJson(environment.store.readAll()),
+      digest: environment.store.digest(),
+      bytes: await readFile(eventLogPath, "utf8"),
+    },
+    entryMismatchSnapshot,
+  );
   const traversal = environment.hog.traverse({
     program: environment.program,
+    graphFunction: environment.graphFunction,
     graph: environment.graph,
     graphValidation: environment.graphValidation,
     executionBasis: environment.executionBasis,
@@ -1500,52 +2082,135 @@ async function produceFrontier(input) {
   let stop = environment.hog.advanceStructuralTraversal({
     store: environment.store,
     program: environment.program,
+    graphFunction: environment.graphFunction,
     graph: environment.graph,
     graphValidation: environment.graphValidation,
     executionBasis: environment.executionBasis,
     openedTraversalScope: opened.scope,
     initial: traversal,
     inputValue: environment.invocationInput,
+    inputAuthority: environment.leafPort,
     clock: {
       eventTime: EVENT_TIME,
       correlationId: "correlation://s06/ax-f09/structural",
     },
   });
   assert.equal(stop.kind, "traversal_stop_ref", JSON.stringify(stop));
-  let retryInput = environment.abg.projectActiveRetryAttempt(
+  assert.equal(stop.programLocusRef,
+    retryProduct.AX_F09_RETRY_IDS.transformLocusRef);
+  const transformed = await environment.hogExecute.completeExecutableTraversal({
+    store: environment.store,
+    executionBasis: environment.executionBasis,
+    openedTraversalScope: opened.scope,
+    program: environment.program,
+    graphFunction: environment.graphFunction,
+    graph: environment.graph,
+    traversalStop: stop,
+    implementationSet: environment.implementationSet,
+    implementationResolution: environment.transformResolution,
+    leafPort: environment.leafPort,
+    input: environment.invocationInput,
+    inputDigest: environment.rawInput.subjectDigest,
+    closureContract: environment.closureContract,
+    clock: {
+      eventTime: EVENT_TIME,
+      correlationId: "correlation://s06/ax-f09/transform",
+    },
+  });
+  assert.equal(transformed.disposition, "advanced", JSON.stringify(transformed));
+  assert.notEqual(transformed.nextCursor, null);
+  assert.notEqual(transformed.resultRef, null);
+  assert.equal(isRecord(transformed.resultValue), true);
+  const transformedInput = transformed.resultValue;
+  const transformedInputDigest = environment.product.sha256Canonical(
+    transformedInput,
+  );
+  assert.notEqual(transformedInputDigest, environment.rawInput.subjectDigest);
+  assert.equal(transformed.nextCursor.inputDigest, transformedInputDigest);
+  const postTransformTraversal = environment.hog.traverseFromCursor(
+    {
+      program: environment.program,
+      graphFunction: environment.graphFunction,
+      graph: environment.graph,
+      graphValidation: environment.graphValidation,
+      executionBasis: environment.executionBasis,
+      openedTraversalScope: opened.scope,
+    },
+    transformed.nextCursor,
+  );
+  stop = environment.hog.advanceStructuralTraversal({
+    store: environment.store,
+    program: environment.program,
+    graphFunction: environment.graphFunction,
+    graph: environment.graph,
+    graphValidation: environment.graphValidation,
+    executionBasis: environment.executionBasis,
+    openedTraversalScope: opened.scope,
+    initial: postTransformTraversal,
+    inputValue: transformedInput,
+    inputAuthority: environment.leafPort,
+    clock: {
+      eventTime: EVENT_TIME,
+      correlationId: "correlation://s06/ax-f09/retry-entry",
+    },
+  });
+  assert.equal(stop.kind, "traversal_stop_ref", JSON.stringify(stop));
+  assert.equal(stop.programLocusRef, retryProduct.AX_F09_RETRY_IDS.locusRef);
+  let activeFrontier = environment.abg.projectDeclaredCRetryFrontier(
     environment.abg.selectValidatedRuntimeEventPrefix(
       environment.store.readAll(),
     ),
     environment.graph,
     stop.cursor,
+    environment.graphFunction,
   );
-  assert.notEqual(retryInput, null);
+  assert.notEqual(activeFrontier, null);
   assert.equal(
-    environment.product.sha256Canonical(retryInput.inputValue),
-    retryInput.inputDigest,
+    activeFrontier.state,
+    "attempt_active",
+    JSON.stringify(activeFrontier),
   );
+  let activeAttempt = activeFrontier.active.attempt;
+  assert.equal(
+    environment.product.sha256Canonical(activeAttempt.inputValue),
+    activeAttempt.inputDigest,
+  );
+  const firstAttemptEvent = environment.store.readAll().find((event) =>
+    event.eventId === activeAttempt.admissionEventRef);
+  assert.equal(firstAttemptEvent?.kind, "retry_attempt_opened");
+  assert.deepEqual(firstAttemptEvent.causationEventRefs, [
+    firstAttemptEvent.causationEventRefs[0],
+  ], "ordinary first retry is sourced and caused by its exact current route");
+  assert.equal(Object.hasOwn(firstAttemptEvent.payload, "inputSourceEventRef"), false);
+  assert.equal(Object.hasOwn(firstAttemptEvent.payload, "inputValueKind"), false);
   const first = await rejectAttempt(
     environment,
     stop,
-    retryInput,
-    environment.invocationInput,
+    transformedInput,
     "no_output",
   );
-  stop = advanceRetry(environment, stop, first, retryInput);
+  const advanced = await advanceRetry(environment, first);
+  stop = advanced.stop;
   assert.equal(stop.cursor.attempt, 2);
-  retryInput = environment.abg.projectActiveRetryAttempt(
+  activeFrontier = environment.abg.projectDeclaredCRetryFrontier(
     environment.abg.selectValidatedRuntimeEventPrefix(
       environment.store.readAll(),
     ),
     environment.graph,
     stop.cursor,
+    environment.graphFunction,
   );
-  assert.notEqual(retryInput, null);
+  assert.notEqual(activeFrontier, null);
+  assert.equal(
+    activeFrontier.state,
+    "attempt_active",
+    JSON.stringify(activeFrontier),
+  );
+  activeAttempt = activeFrontier.active.attempt;
   const second = await rejectAttempt(
     environment,
     stop,
-    retryInput,
-    environment.invocationInput,
+    transformedInput,
     "contract_failure",
   );
   assert.notEqual(first.failureSignalRef, second.failureSignalRef);
@@ -1561,6 +2226,10 @@ async function produceFrontier(input) {
   );
   const cCallEvents = beforeCloseEvents.filter(
     (event) => event.kind === "c_call_opened",
+  );
+  const retryCCallEvents = cCallEvents.filter(
+    (event) =>
+      event.payload.programLocusRef === retryProduct.AX_F09_RETRY_IDS.locusRef,
   );
   const retryRoutes = beforeCloseEvents.filter(
     (event) =>
@@ -1580,8 +2249,17 @@ async function produceFrontier(input) {
       .map((event) => event.kind);
     return completeCCallKinds.every((kind) => kinds.includes(kind));
   });
-  const firstProgressFluent =
-    `retry_progress_available(${first.progress.progressRef})`;
+  const firstProgressFluent = environment.eventCalculusOwner
+    .constructScopedRetryFluent(
+      "retry_progress_available",
+      {
+        runId: environment.opened.scope.runId,
+        graphCallId: environment.opened.scope.graphCallId,
+        frameId: environment.opened.scope.frameId,
+        retryBoundaryRef: first.progress.retryBoundaryRef,
+        authorityRef: first.progress.progressRef,
+      },
+    ).fluentRef;
   const consumedRetryProgressRefs = new Set(
     retryRoutes.flatMap((event) =>
       event.payload.consumedAvailabilityRefs.filter((ref) =>
@@ -1595,11 +2273,15 @@ async function produceFrontier(input) {
   assert.notEqual(firstProgressConsumptionRoute, undefined);
   const firstRouteEffect = environment.abg.eventCalculusEffect(
     firstProgressConsumptionRoute,
+    beforeCloseEvents.filter((event) =>
+      event.admissionOrdinal < firstProgressConsumptionRoute.admissionOrdinal),
   );
   const attemptInputCoverage = inspectAttemptInputCoverage(attempts, {
-    expectedInputRef: environment.rawInput.admissionRef,
-    expectedInputDigest: environment.rawInput.subjectDigest,
-    expectedInputContractRef: environment.graphFunction.inputs[0],
+    expectedInputRef: transformed.resultRef,
+    expectedInputDigest: transformedInputDigest,
+    expectedInputContractRef:
+      axF09Terms(environment.graphFunction).retryLeaf.requirement
+        .inputContractRef,
   });
   const attemptRouteCursorBinding = inspectAttemptRouteCursorBindings(
     beforeCloseEvents,
@@ -1620,7 +2302,10 @@ async function produceFrontier(input) {
     progress.map((event) => event.payload.completedAttempts),
     [[1], [1, 2]],
   );
-  assert.equal(new Set(cCallEvents.map((event) => event.aggregateId)).size, 2);
+  assert.equal(
+    new Set(retryCCallEvents.map((event) => event.aggregateId)).size,
+    2,
+  );
   assert.equal(completeCCallHistories, true);
   assert.equal(retryRoutes.length, 2);
   assert.equal(
@@ -1640,7 +2325,66 @@ async function produceFrontier(input) {
     false,
   );
   assert.equal(await readFile(worker.counterPath, "utf8"), "2");
-  const prefix = environment.store.projectReopenAuthorityAndClose();
+  const selector = {
+    kind: "retry_frontier_selector",
+    schemaVersion: "5.0.0",
+    runId: second.cCall.runId,
+    graphCallId: second.cCall.graphCallId,
+    frameId: second.cCall.frameId,
+    retryBoundaryRef: second.progress.retryBoundaryRef,
+    retryProgressRef: second.progress.progressRef,
+  };
+  const projectedRetry = environment.abg.projectExecutableRetryInput({
+    prefix: second.transition.successorPrefix,
+    selector,
+    program: environment.program,
+    graphFunction: environment.graphFunction,
+    graph: environment.graph,
+  });
+  assert.equal(
+    projectedRetry.kind,
+    "executable_retry_input",
+    JSON.stringify(projectedRetry),
+  );
+  environment.abg.assertFullRetryAttemptFrontier(
+    projectedRetry.retryFrontier,
+  );
+  assert.equal(projectedRetry.nextAttempt, 3);
+  assert.deepEqual(projectedRetry.nextRetryPath, [3]);
+  const retainedAttemptFluent = environment.eventCalculusOwner
+    .constructScopedRetryFluent("retry_attempt_active", {
+      runId: selector.runId,
+      graphCallId: selector.graphCallId,
+      frameId: selector.frameId,
+      retryBoundaryRef: selector.retryBoundaryRef,
+      authorityRef: projectedRetry.sourceAttempt.attemptRef,
+    });
+  const retainedProgressFluent = environment.eventCalculusOwner
+    .constructScopedRetryFluent("retry_progress_available", {
+      runId: selector.runId,
+      graphCallId: selector.graphCallId,
+      frameId: selector.frameId,
+      retryBoundaryRef: selector.retryBoundaryRef,
+      authorityRef: projectedRetry.progress.progressRef,
+    });
+  const retainedAudit = {
+    d17Disposition: projectedRetry.disposition,
+    d17ProjectionRef: projectedRetry.projectionRef,
+    d17ProjectionDigest: projectedRetry.projectionDigest,
+    d17FrontierRowIdentities: projectedRetry.retryFrontier.rows.map((row) => [
+      row.rowRef,
+      row.rowDigest,
+    ]),
+    scopedRetryFluentCanonical: [
+      environment.product.canonicalJson(retainedAttemptFluent),
+      environment.product.canonicalJson(retainedProgressFluent),
+    ],
+  };
+  const closeHandoff = environment.store.projectReopenAuthorityAndClose();
+  assert.deepEqual(
+    closeHandoff.prefix,
+    second.transition.successorPrefix,
+  );
   const durableLogBytes = await readFile(eventLogPath, "utf8");
   const durableEvents = durableLogBytes
     .split("\n")
@@ -1657,16 +2401,18 @@ async function produceFrontier(input) {
       environment.product.sha256Canonical(environment.invocationInput),
     );
   const handoff = {
-    prefix,
-    retry: {
-      runId: second.cCall.runId,
-      graphCallId: second.cCall.graphCallId,
-      frameId: second.cCall.frameId,
-      retryBoundaryRef: second.progress.retryBoundaryRef,
-      retryProgressRef: second.progress.progressRef,
+    prefix: closeHandoff.prefix,
+    reopenAuthority: closeHandoff.reopenAuthority,
+    selector: {
+      runId: selector.runId,
+      graphCallId: selector.graphCallId,
+      frameId: selector.frameId,
+      retryBoundaryRef: selector.retryBoundaryRef,
+      retryProgressRef: selector.retryProgressRef,
     },
+    expectedExecutableRetryInputRef: projectedRetry.projectionRef,
+    expectedExecutableRetryInputDigest: projectedRetry.projectionDigest,
   };
-  const retainedAudit = await inspectHandoff(handoff);
   return {
     action: "produce_frontier",
     pid: process.pid,
@@ -1675,8 +2421,9 @@ async function produceFrontier(input) {
     retainedAudit,
     audit: {
       exactHandoffKeys:
-        Object.keys(handoff).join("\0") === "prefix\0retry" &&
-        Object.keys(handoff.retry).sort().join("\0") ===
+        Object.keys(handoff).join("\0") ===
+          "prefix\0reopenAuthority\0selector\0expectedExecutableRetryInputRef\0expectedExecutableRetryInputDigest" &&
+        Object.keys(handoff.selector).sort().join("\0") ===
           [
             "frameId",
             "graphCallId",
@@ -1687,6 +2434,9 @@ async function produceFrontier(input) {
       handoffContainsInputValue:
         JSON.stringify(handoff).includes(environment.nonceSubject) ||
         hasForbiddenCarrierField(handoff),
+      retainedAuditContainsInputValue:
+        JSON.stringify(retainedAudit).includes(environment.nonceSubject) ||
+        hasForbiddenCarrierField(retainedAudit),
       retryBudget: RETRY_BUDGET,
       attemptOrdinals: attempts.map((event) => event.payload.attempt),
       progressOrdinals: progress.map((event) => event.payload.attempt),
@@ -1697,7 +2447,7 @@ async function produceFrontier(input) {
       failureSignalsDistinct:
         first.failureSignalRef !== second.failureSignalRef,
       cCallIdentityCount:
-        new Set(cCallEvents.map((event) => event.aggregateId)).size,
+        new Set(retryCCallEvents.map((event) => event.aggregateId)).size,
       completeCCallHistories,
       retryRouteCount: retryRoutes.length,
       secondProgressIsSoleHeldRetryFluent:
@@ -1712,7 +2462,7 @@ async function produceFrontier(input) {
           event.kind === "retry_attempt_opened" && event.payload.attempt === 3,
       ),
       attemptThreeRouteAbsent: retryRoutes.length === 2,
-      attemptThreeCCallAbsent: cCallEvents.length === 2,
+      attemptThreeCCallAbsent: retryCCallEvents.length === 2,
       attemptThreeEffectAbsent:
         actorStarts.length === 2 &&
         Number(await readFile(worker.counterPath, "utf8")) === 2,
@@ -1723,28 +2473,49 @@ async function produceFrontier(input) {
       completeDurablePrefixScanned: durableEvents.length === beforeCloseEvents.length,
       durablePrefixContainsNonce,
       durablePrefixContainsCanonicalInputPreimage,
+      graphEntryInputDigest: environment.executionBasis.rawInputDigest,
+      transformedRetryInputDigest: transformedInputDigest,
+      graphEntryAndRetryInputDistinct:
+        environment.executionBasis.rawInputDigest !== transformedInputDigest,
+      initialEntryMismatchExactDiagnosticAndZeroAppend: true,
+      projectedResumeControls: advanced.controls,
     },
   };
 }
 
 async function inspectHandoff(handoff) {
-  assert.deepEqual(Object.keys(handoff).sort(), ["prefix", "retry"]);
-  assert.deepEqual(Object.keys(handoff.retry).sort(), [
+  assert.deepEqual(Object.keys(handoff).sort(), [
+    "expectedExecutableRetryInputDigest",
+    "expectedExecutableRetryInputRef",
+    "prefix",
+    "reopenAuthority",
+    "selector",
+  ]);
+  assert.deepEqual(Object.keys(handoff.selector).sort(), [
     "frameId",
     "graphCallId",
     "retryBoundaryRef",
     "retryProgressRef",
     "runId",
   ]);
-  const reopened = installedAbg.reopenEventStore(handoff.prefix);
+  const reopened = installedAbg.reopenEventStore(handoff.reopenAuthority);
   assert.equal(
     reopened.kind,
     "reopened_event_store_context",
     JSON.stringify(reopened),
   );
   try {
-    const events = reopened.store.readAll();
-    const selector = handoff.retry;
+    assert.deepEqual(reopened.prefix, handoff.prefix);
+    const events = installedAbg.readRuntimeEventsAtDurablePrefix(
+      handoff.prefix,
+    );
+    const exactPrefix = installedAbg.selectValidatedRuntimeEventPrefix(events);
+    const selector = handoff.selector;
+    const retrySelector = {
+      kind: "retry_frontier_selector",
+      schemaVersion: "5.0.0",
+      ...selector,
+    };
     const selected = events.filter(
       (event) =>
         event.kind === "retry_progress_recorded" &&
@@ -1781,8 +2552,8 @@ async function inspectHandoff(handoff) {
           retryProduct.AX_F09_RETRY_IDS.graphFunctionRef,
       "AX-F09 execution-basis event",
     );
-    const invocation = installedAbg.rehydrateInvocationAdmission(
-      reopened.store,
+    const invocation = installedAbg.rehydrateInvocationAdmissionAtPrefix(
+      exactPrefix,
       basisEvent.payload.invocationAdmissionRef,
     );
     assert.notEqual(invocation, null);
@@ -1793,11 +2564,56 @@ async function inspectHandoff(handoff) {
       basisEvent,
       invocation,
     );
+    const projectedRetry = installedAbg.projectExecutableRetryInput({
+      prefix: handoff.prefix,
+      selector: retrySelector,
+      program: dependencies.program,
+      graphFunction: dependencies.graphFunction,
+      graph: dependencies.graph,
+    });
+    assert.equal(
+      projectedRetry.kind,
+      "executable_retry_input",
+      JSON.stringify(projectedRetry),
+    );
+    assert.equal(
+      projectedRetry.projectionRef,
+      handoff.expectedExecutableRetryInputRef,
+    );
+    assert.equal(
+      projectedRetry.projectionDigest,
+      handoff.expectedExecutableRetryInputDigest,
+    );
+    installedAbg.assertFullRetryAttemptFrontier(
+      projectedRetry.retryFrontier,
+    );
+    const attemptFluent = installedEventCalculus.constructScopedRetryFluent(
+      "retry_attempt_active",
+      {
+        runId: selector.runId,
+        graphCallId: selector.graphCallId,
+        frameId: selector.frameId,
+        retryBoundaryRef: selector.retryBoundaryRef,
+        authorityRef: projectedRetry.sourceAttempt.attemptRef,
+      },
+    );
+    const progressFluent = installedEventCalculus.constructScopedRetryFluent(
+      "retry_progress_available",
+      {
+        runId: selector.runId,
+        graphCallId: selector.graphCallId,
+        frameId: selector.frameId,
+        retryBoundaryRef: selector.retryBoundaryRef,
+        authorityRef: projectedRetry.progress.progressRef,
+      },
+    );
     const targetSuffix = await inspectInstalledTargetSuffix(dependencies);
     const attemptInputCoverage = inspectAttemptInputCoverage(attempts, {
-      expectedInputRef: invocation.rawInputAdmissionRef,
-      expectedInputDigest: invocation.rawInputDigest,
-      expectedInputContractRef: dependencies.graphFunction.inputs[0],
+      expectedInputRef: projectedRetry.inputRef,
+      expectedInputDigest: projectedRetry.inputDigest,
+      expectedInputContractRef:
+        axF09Terms(dependencies.graphFunction).retryLeaf.requirement
+          .inputContractRef,
     });
     const attemptRouteCursorBinding = inspectAttemptRouteCursorBindings(
       events,
@@ -1818,6 +2634,244 @@ async function inspectHandoff(handoff) {
       targetSuffix.coordinateCount === 2 &&
       JSON.stringify(targetSuffix.coordinates) ===
         JSON.stringify(TARGET_SUFFIX_COORDINATES);
+    assert.equal(projectedRetry.nextAttempt, 3);
+    assert.deepEqual(projectedRetry.nextRetryPath, [3]);
+    const runtime = {
+      executionBasis: dependencies.executionBasis,
+      openedTraversalScope: dependencies.openedTraversalScope,
+      program: dependencies.program,
+      graphFunction: dependencies.graphFunction,
+      graph: dependencies.graph,
+      graphValidation: dependencies.graphValidation,
+      eventTime: EVENT_TIME,
+      correlationId: "correlation://s06/ax-f09/fresh-process/retry-3",
+    };
+    const resumed = installedHog.resumeProjectedRetry({
+      store: reopened.store,
+      predecessorPrefix: handoff.prefix,
+      retry: projectedRetry,
+      runtime,
+    });
+    assert.equal(
+      resumed.kind,
+      "projected_retry_resume",
+      JSON.stringify(resumed),
+    );
+    const d18Events = reopened.store.readAll();
+    assert.equal(
+      d18Events.at(-2)?.eventId,
+      resumed.routeAdmissionEventRef,
+    );
+    assert.equal(
+      d18Events.at(-1)?.eventId,
+      resumed.retryAttemptAdmissionEventRef,
+    );
+    assert.equal(
+      d18Events.at(-2)?.admissionOrdinal + 1,
+      d18Events.at(-1)?.admissionOrdinal,
+    );
+    const commonExecution = {
+      store: reopened.store,
+      executionBasis: dependencies.executionBasis,
+      openedTraversalScope: dependencies.openedTraversalScope,
+      program: dependencies.program,
+      graphFunction: dependencies.graphFunction,
+      graph: dependencies.graph,
+      graphValidation: dependencies.graphValidation,
+      implementationSet: dependencies.implementationSet,
+      interactionSet: dependencies.interactionSet,
+      continuationProductBasis: dependencies.continuationProductBasis,
+      leafPort: dependencies.leafPort,
+      childTraversalPreparationPort:
+        dependencies.childTraversalPreparationPort,
+      closureContract: dependencies.closureContract,
+      actorRuntimeBinding: {
+        workspaceBinding: dependencies.workspaceBinding,
+        artifactTruth: dependencies.artifactTruth,
+      },
+      eventTime: EVENT_TIME,
+      correlationId: "correlation://s06/ax-f09/fresh-process/execute",
+    };
+    const eventlessSnapshot = () => {
+      const rows = reopened.store.readAll();
+      return {
+        events: installedProduct.canonicalJson(rows),
+        prefix: installedProduct.canonicalJson(
+          installedEventStoreOwner.selectHeldEventStoreDurablePrefix(
+            reopened.store,
+          ),
+        ),
+        runtimeFailureCount: rows.filter((event) =>
+          event.kind === "runtime_failure").length,
+        leafEffectCount: rows.filter((event) =>
+          event.kind === "actor_invocation_started").length,
+      };
+    };
+    const requireEventlessProjectedRefusal = async (
+      carrier,
+      expectedDiagnostic,
+      overrides = {},
+    ) => {
+      const before = eventlessSnapshot();
+      await assert.rejects(
+        () => installedHog.executeGraphTraversal({
+          ...commonExecution,
+          ...overrides,
+          projectedRetryResume: carrier,
+        }),
+        (error) =>
+          error instanceof TypeError &&
+          error.message === expectedDiagnostic,
+      );
+      assert.deepEqual(eventlessSnapshot(), before);
+    };
+    const {
+      retryAttemptRef: _omittedRetryAttemptRef,
+      ...missingFieldCarrier
+    } = resumed;
+    await requireEventlessProjectedRefusal(
+      missingFieldCarrier,
+      "diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5",
+    );
+    await requireEventlessProjectedRefusal(
+      { ...resumed, successorPrefix: handoff.prefix },
+      "diagnostic://abiogenesis/hog/projected-retry-prefix-mismatch@5",
+    );
+    await requireEventlessProjectedRefusal(
+      { ...resumed, routeAdmissionEventRef: projectedRetry.progressEventRef },
+      "diagnostic://abiogenesis/hog/projected-retry-projection-mismatch@5",
+    );
+    const differentGraph = installedGtl.materializeGraph(
+      dependencies.graphFunction,
+      {
+        invocationAdmissionRef:
+          `${invocation.invocationAdmissionRef}/different-graph`,
+        admittedInputRef: invocation.rawInputAdmissionRef,
+        admittedInputDigest: invocation.rawInputDigest,
+        admittedInput: dependencies.executionBasis.rawInputValue,
+      },
+    );
+    const differentGraphValidation = installedValidator.validateGraph(
+      differentGraph,
+      dependencies.programValidation,
+      dependencies.graphFunction,
+      {
+        invocationAdmissionRef: differentGraph.invocationAdmissionRef,
+        admittedInputRef: differentGraph.admittedInputRef,
+        admittedInputDigest: differentGraph.admittedInputDigest,
+        admittedInput: dependencies.executionBasis.rawInputValue,
+      },
+    );
+    assert.equal(
+      differentGraphValidation.kind,
+      "graph_validation",
+      JSON.stringify(differentGraphValidation),
+    );
+    await requireEventlessProjectedRefusal(
+      resumed,
+      "diagnostic://abiogenesis/hog/projected-retry-traversal-mismatch@5",
+      { graphValidation: differentGraphValidation },
+    );
+    const cyclicInputValue = {};
+    cyclicInputValue.self = cyclicInputValue;
+    await requireEventlessProjectedRefusal(
+      { ...resumed, inputValue: cyclicInputValue },
+      "diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5",
+    );
+    await requireEventlessProjectedRefusal(
+      resumed,
+      "diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5",
+      {
+        input: projectedRetry.inputValue,
+        inputDigest: projectedRetry.inputDigest,
+      },
+    );
+    process.env.ABG_TS_CLAUDE_COMMAND = join(
+      dependencies.workspaceBinding.roots.runtimeStateRoot,
+      "ax-f09-worker-command.cjs",
+    );
+    process.env.ABG_AX_F09_COUNTER = join(
+      dependencies.workspaceBinding.roots.runtimeStateRoot,
+      "attempt.count",
+    );
+    process.env.ABG_TS_FP_TIMEOUT_MS = "10000";
+    const completion = await installedHog.executeGraphTraversal({
+      ...commonExecution,
+      projectedRetryResume: resumed,
+    });
+    const finalEvents = reopened.store.readAll();
+    assert.equal(completion.disposition, "held", JSON.stringify(completion));
+    assert.equal(completion.parentSuspensions.length, 1);
+    const [parentSuspension] = completion.parentSuspensions;
+    assert.equal(parentSuspension.kind, "held_workflow_suspension");
+    assert.deepEqual(
+      parentSuspension.parentGraphInput,
+      dependencies.executionBasis.rawInputValue,
+    );
+    assert.equal(
+      parentSuspension.parentGraphInputDigest,
+      dependencies.executionBasis.rawInputDigest,
+    );
+    assert.deepEqual(parentSuspension.parentInput, projectedRetry.inputValue);
+    assert.equal(parentSuspension.parentInputDigest, projectedRetry.inputDigest);
+    assert.deepEqual(parentSuspension.childInput, projectedRetry.inputValue);
+    assert.equal(parentSuspension.childInputDigest, projectedRetry.inputDigest);
+    const childExecutionBasis = installedAbg.rehydrateExecutionBasis(
+      reopened.store,
+      parentSuspension.childExecutionBasisRef,
+    );
+    assert.notEqual(childExecutionBasis, null);
+    assert.equal(childExecutionBasis.basisClass, "child");
+    assert.deepEqual(childExecutionBasis.rawInputValue,
+      projectedRetry.inputValue);
+    assert.equal(childExecutionBasis.rawInputDigest,
+      projectedRetry.inputDigest);
+    const finalAttempts = finalEvents.filter((event) =>
+      event.kind === "retry_attempt_opened" &&
+      event.runId === selector.runId &&
+      event.graphCallId === selector.graphCallId &&
+      event.frameId === selector.frameId &&
+      event.payload.retryBoundaryRef === selector.retryBoundaryRef);
+    const finalProgress = finalEvents.filter((event) =>
+      event.kind === "retry_progress_recorded" &&
+      event.payload.progressClass === "retry" &&
+      event.runId === selector.runId &&
+      event.graphCallId === selector.graphCallId &&
+      event.frameId === selector.frameId &&
+      event.payload.retryBoundaryRef === selector.retryBoundaryRef);
+    const finalEffects = finalEvents.filter((event) =>
+      event.kind === "actor_invocation_started" &&
+      event.runId === selector.runId);
+    assert.deepEqual(
+      finalAttempts.map((event) => event.payload.attempt),
+      [1, 2, 3],
+    );
+    assert.deepEqual(
+      finalProgress.map((event) => event.payload.attempt),
+      [1, 2],
+    );
+    assert.equal(finalEffects.length, 3);
+    assert.equal(finalEffects.at(-1)?.payload.inputDigest, projectedRetry.inputDigest);
+    assert.equal(await readFile(process.env.ABG_AX_F09_COUNTER, "utf8"), "3");
+    const finalPrefix = installedAbg.selectValidatedRuntimeEventPrefix(
+      finalEvents,
+      { runId: selector.runId },
+    );
+    const finalCalculus = installedAbg.deriveRuntimeEventCalculusProjection(
+      finalPrefix,
+    );
+    const finalReplay = installedAbg.replay(reopened.store, {
+      runId: selector.runId,
+    });
+    assert.equal(finalReplay.runtimeStatus, "held");
+    const heldReplay = installedAbg.replay(reopened.store, {
+      runId: completion.heldInteraction.cCall.runId,
+    });
+    assert.equal(heldReplay.runtimeStatus, "held");
+    assert.equal(
+      completion.replayState.replayDigest,
+      heldReplay.replayDigest,
+    );
     return {
       exactInputKeys: true,
       completeDurablePrefixEventCount: events.length,
@@ -1857,7 +2911,7 @@ async function inspectHandoff(handoff) {
           retryProduct.AX_F09_RETRY_IDS.programRef &&
         dependencies.graphFunction.name ===
           retryProduct.AX_F09_RETRY_IDS.graphFunctionRef,
-      retryBudget: dependencies.graphFunction.template.nodes[0].term.budget,
+      retryBudget: axF09Terms(dependencies.graphFunction).retry.budget,
       targetSuffixCoordinatesExact,
       targetSuffixDisposition: targetSuffix.disposition,
       targetSuffixDependenciesReady: targetSuffix.dependenciesReady,
@@ -1869,7 +2923,50 @@ async function inspectHandoff(handoff) {
       fullFrontierAssertionExportPresent:
         targetSuffix.fullFrontierAssertionExportPresent,
       resumeExportPresent: targetSuffix.resumeExportPresent,
+      d17Disposition: projectedRetry.disposition,
+      d17ProjectionRef: projectedRetry.projectionRef,
+      d17ProjectionDigest: projectedRetry.projectionDigest,
+      d17FrontierRowIdentities: projectedRetry.retryFrontier.rows.map((row) => [
+        row.rowRef,
+        row.rowDigest,
+      ]),
+      scopedRetryFluentCanonical: [
+        installedProduct.canonicalJson(attemptFluent),
+        installedProduct.canonicalJson(progressFluent),
+      ],
       completeDurablePrefixContainsCanonicalInputPreimage,
+      d18Disposition: resumed.disposition,
+      d18AtomicTailBound: true,
+      projectedBranchControls: {
+        missingFieldEventless: true,
+        stalePredecessorEventless: true,
+        routeRefMutationEventless: true,
+        differentGraphValidationEventless: true,
+        cyclicCarrierExactDiagnosticEventless: true,
+        rawIngressXorEventless: true,
+      },
+      finalAttemptOrdinals:
+        finalAttempts.map((event) => event.payload.attempt),
+      finalProgressOrdinals:
+        finalProgress.map((event) => event.payload.attempt),
+      finalEffectCount: finalEffects.length,
+      finalWorkerCount: Number(
+        await readFile(process.env.ABG_AX_F09_COUNTER, "utf8"),
+      ),
+      finalCompletionDisposition: completion.disposition,
+      finalRuntimeStatus: finalReplay.runtimeStatus,
+      finalHeldRuntimeStatus: heldReplay.runtimeStatus,
+      graphEntryInputDigest: dependencies.executionBasis.rawInputDigest,
+      projectedRetryInputDigest: projectedRetry.inputDigest,
+      graphEntryAndRetryInputDistinct:
+        dependencies.executionBasis.rawInputDigest !==
+          projectedRetry.inputDigest,
+      parentGraphInputReconstructedFromBasis: true,
+      parentRetryInputRemainsTransformed: true,
+      childBasisInputComesFromRetryLocus: true,
+      finalReplayDigest: finalReplay.replayDigest,
+      finalEventCalculusCanonical:
+        installedProduct.canonicalJson(finalCalculus),
     };
   } finally {
     reopened.store.closeDurableLog();
@@ -1920,7 +3017,9 @@ async function produceAba(input) {
     graphValidation: environment.graphValidation,
     implementationSet: environment.implementationSet,
     interactionSet: environment.interactionSet,
+    continuationProductBasis: environment.continuationProductBasis,
     leafPort: environment.leafPort,
+    childTraversalPreparationPort: environment.childTraversalPreparationPort,
     closureContract: environment.closureContract,
     actorRuntimeBinding: environment.actorRuntimeBinding,
     input: environment.invocationInput,
@@ -1937,44 +3036,441 @@ async function produceAba(input) {
   const signals = failureProgress.map((event) =>
     event.payload.failureSignalRef);
   const workerCount = Number(await readFile(worker.counterPath, "utf8"));
-  const attemptFourCall = events.find((event) =>
-    event.kind === "c_call_opened" && event.payload.attempt === 4);
-  const attemptFourResult = attemptFourCall === undefined
-    ? undefined
-    : events.find((event) =>
+  const stoppedProgress = events.filter((event) =>
+    event.kind === "retry_progress_recorded" &&
+    event.payload.progressClass === "stopped");
+  const terms = axF09Terms(environment.graphFunction);
+  assert.notEqual(terms.downstream, null);
+  const attemptFourAttempt = exactOne(
+    attempts,
+    (event) => event.payload.attempt === 4,
+    "AX-F09 A-B-A attempt-four admission",
+  );
+  const attemptFourCall = exactOne(
+    events,
+    (event) =>
+      event.kind === "c_call_opened" &&
+      event.graphFunctionRef === environment.graphFunction.name &&
+      event.payload.programLocusRef === terms.retryLeaf.programLocusRef &&
+      event.payload.attempt === 4 &&
+      JSON.stringify(event.payload.retryPath) === "[4]",
+    "AX-F09 A-B-A attempt-four CCall",
+  );
+  const attemptFourFibre = exactOne(
+    events,
+    (event) =>
+      event.kind === "c_call_fibre_selected" &&
+      event.aggregateId === attemptFourCall.aggregateId &&
+      event.payload.regime === "F_P",
+    "AX-F09 A-B-A attempt-four F_P fibre",
+  );
+  const attemptFourResult = exactOne(
+    events,
+    (event) =>
       event.kind === "c_call_result_admitted" &&
       event.aggregateId === attemptFourCall.aggregateId &&
-      event.payload.resultClass === "success");
-  const attemptFourTerminalRoute = attemptFourCall === undefined
-    ? undefined
-    : events.find((event) =>
-      event.kind === "traversal_route_admitted" &&
-      event.payload.routeKind === "terminal" &&
-      event.payload.cCallRef === attemptFourCall.aggregateId);
+      event.payload.cCallRef === attemptFourCall.aggregateId &&
+      event.payload.resultClass === "success",
+    "AX-F09 A-B-A attempt-four success result",
+  );
+  const attemptFourJudgment = exactOne(
+    events,
+    (event) =>
+      event.kind === "c_call_judged" &&
+      event.aggregateId === attemptFourCall.aggregateId &&
+      event.payload.cCallRef === attemptFourCall.aggregateId &&
+      event.payload.resultRef === attemptFourResult.payload.resultRef &&
+      event.payload.judgment === "advance",
+    "AX-F09 A-B-A attempt-four advance judgment",
+  );
+  const completedProgresses = events.filter((event) =>
+    event.kind === "retry_progress_recorded" &&
+    event.payload.progressClass === "completed" &&
+    event.payload.retryBoundaryRef ===
+      attemptFourAttempt.payload.retryBoundaryRef);
+  assert.equal(completedProgresses.length, 1);
+  const [completedProgress] = completedProgresses;
+  assert.equal(completedProgress.payload.completionClass, "judged_success");
+  assert.equal(completedProgress.payload.completedRetryDepth, 1);
+  assert.equal(
+    completedProgress.payload.attemptRef,
+    attemptFourAttempt.payload.attemptRef,
+  );
+  assert.equal(completedProgress.payload.attempt, 4);
+  assert.deepEqual(completedProgress.payload.retryPath, [4]);
+  assert.equal(completedProgress.payload.cCallRef, attemptFourCall.aggregateId);
+  assert.equal(
+    completedProgress.payload.resultRef,
+    attemptFourResult.payload.resultRef,
+  );
+  assert.equal(
+    completedProgress.payload.judgmentRef,
+    attemptFourJudgment.payload.judgmentRef,
+  );
+  assert.equal(
+    completedProgress.payload.completionWitnessEventRef,
+    attemptFourJudgment.eventId,
+  );
+  assert.equal(completedProgress.payload.predecessorProgressRef, null);
+  const attemptFourRoutes = events.filter((event) =>
+    event.kind === "traversal_route_admitted" &&
+    event.payload.cCallRef === attemptFourCall.aggregateId);
+  assert.equal(attemptFourRoutes.length, 1);
+  const [attemptFourAdvanceRoute] = attemptFourRoutes;
+  assert.equal(attemptFourAdvanceRoute.payload.routeKind, "advance");
+  assert.equal(
+    attemptFourAdvanceRoute.payload.judgmentRef,
+    attemptFourJudgment.payload.judgmentRef,
+  );
+  assert.equal(
+    attemptFourAdvanceRoute.payload.sourceCursorRef,
+    completedProgress.payload.sourceCursorRef,
+  );
+  assert.equal(
+    attemptFourAdvanceRoute.payload.sourceCursorDigest,
+    completedProgress.payload.sourceCursorDigest,
+  );
+  assert.equal(
+    attemptFourAdvanceRoute.payload.targetCursorRef,
+    completedProgress.payload.targetCursorRef,
+  );
+  assert.equal(
+    attemptFourAdvanceRoute.payload.targetCursorDigest,
+    completedProgress.payload.targetCursorDigest,
+  );
+  assert.notEqual(attemptFourAdvanceRoute.payload.targetCursorRef, null);
+  assert.deepEqual(
+    attemptFourAdvanceRoute.payload.consumedAvailabilityRefs,
+    [
+      attemptFourJudgment.payload.judgmentRef,
+      completedProgress.payload.progressRef,
+    ],
+  );
+  assert.equal(
+    attemptFourAdvanceRoute.causationEventRefs.includes(
+      completedProgress.eventId,
+    ),
+    true,
+  );
+  const attemptFourTerminalRoutes = events.filter((event) =>
+    event.kind === "traversal_route_admitted" &&
+    event.payload.routeKind === "terminal" &&
+    event.payload.cCallRef === attemptFourCall.aggregateId);
+  const rootClosureEvents = events.filter((event) =>
+    (event.kind === "terminal_reached" &&
+      event.frameId === opened.scope.frameId) ||
+    (event.kind === "frame_closed" &&
+      event.frameId === opened.scope.frameId) ||
+    (event.kind === "graph_call_closed" &&
+      event.graphCallId === opened.scope.graphCallId) ||
+    (event.kind === "run_closed" && event.runId === opened.scope.runId));
   assert.deepEqual(attempts.map((event) => event.payload.attempt), [1, 2, 3, 4]);
+  assert.deepEqual(
+    failureProgress.map((event) => event.payload.attempt),
+    [1, 2, 3],
+  );
   assert.equal(failureProgress.length, 3);
   assert.equal(signals[0], signals[2]);
   assert.notEqual(signals[0], signals[1]);
   assert.equal(workerCount, 4);
-  assert.ok(attemptFourCall);
-  assert.ok(attemptFourResult);
-  assert.ok(attemptFourTerminalRoute);
+  assert.equal(stoppedProgress.length, 0);
+  assert.equal(attemptFourFibre.payload.cCallRef, attemptFourCall.aggregateId);
+  assert.equal(
+    attemptFourJudgment.payload.retryAttemptRef,
+    attemptFourAttempt.payload.attemptRef,
+  );
+  assert.equal(attemptFourTerminalRoutes.length, 0);
+  assert.equal(rootClosureEvents.length, 0);
+
+  assert.equal(completion.disposition, "held", JSON.stringify(completion));
+  assert.equal(completion.parentSuspensions.length, 1);
+  const [parentSuspension] = completion.parentSuspensions;
+  assert.equal(parentSuspension.kind, "held_workflow_suspension");
+  assert.equal(
+    parentSuspension.sourceCursor.cursorRef,
+    attemptFourAdvanceRoute.payload.targetCursorRef,
+  );
+  assert.equal(
+    parentSuspension.sourceCursor.cursorDigest,
+    attemptFourAdvanceRoute.payload.targetCursorDigest,
+  );
+  assert.equal(
+    parentSuspension.parentGraph.graphFunctionRef,
+    environment.graphFunction.name,
+  );
+  assert.equal(parentSuspension.parentCCall.callClass, "workflow");
+  assert.equal(
+    parentSuspension.parentCCall.graphFunctionRef,
+    environment.graphFunction.name,
+  );
+  assert.equal(
+    parentSuspension.parentCCall.childGraphFunctionRef,
+    terms.downstream.graphFunctionRef,
+  );
+  assert.equal(
+    terms.downstream.graphFunctionRef,
+    environment.childGraphFunction.name,
+  );
+  assert.equal(
+    parentSuspension.parentExecutionBasisRef,
+    environment.executionBasis.basisRef,
+  );
+  assert.equal(
+    parentSuspension.parentTraversalScope.scopeRef,
+    opened.scope.scopeRef,
+  );
+  assert.equal(
+    parentSuspension.parentGraphInputDigest,
+    environment.executionBasis.rawInputDigest,
+  );
+  assert.equal(
+    environment.product.sha256Canonical(parentSuspension.parentGraphInput),
+    parentSuspension.parentGraphInputDigest,
+  );
+  assert.equal(
+    parentSuspension.parentInputDigest,
+    attemptFourResult.payload.valueDigest,
+  );
+  assert.equal(
+    parentSuspension.childInputDigest,
+    attemptFourResult.payload.valueDigest,
+  );
+  assert.equal(
+    environment.product.sha256Canonical(parentSuspension.parentInput),
+    parentSuspension.parentInputDigest,
+  );
+  assert.equal(
+    environment.product.sha256Canonical(parentSuspension.childInput),
+    parentSuspension.childInputDigest,
+  );
+  assert.deepEqual(parentSuspension.parentInput, parentSuspension.childInput);
+  const workflowStep = environment.hog.traverseFromCursor(
+    {
+      program: environment.program,
+      graphFunction: environment.graphFunction,
+      graph: environment.graph,
+      graphValidation: environment.graphValidation,
+      executionBasis: environment.executionBasis,
+      openedTraversalScope: opened.scope,
+    },
+    parentSuspension.sourceCursor,
+  );
+  assert.equal(workflowStep.kind, "traversal_step", JSON.stringify(workflowStep));
+  assert.equal(workflowStep.directStep.stepKind, "enter_child");
+  assert.equal(
+    workflowStep.directStep.graphFunctionRef,
+    environment.childGraphFunction.name,
+  );
+  const workflowCallEvents = events.filter((event) =>
+    event.kind === "c_call_opened" &&
+    event.aggregateId === parentSuspension.parentCCall.cCallRef);
+  assert.equal(workflowCallEvents.length, 1);
+  const workflowRoutes = events.filter((event) =>
+    event.kind === "traversal_route_admitted" &&
+    event.payload.cCallRef === parentSuspension.parentCCall.cCallRef);
+  assert.equal(workflowRoutes.length, 0);
+
+  const childExecutionBasis = environment.abg.rehydrateExecutionBasis(
+    environment.store,
+    parentSuspension.childExecutionBasisRef,
+  );
+  assert.notEqual(childExecutionBasis, null);
+  assert.equal(childExecutionBasis.basisClass, "child");
+  assert.equal(
+    childExecutionBasis.parentExecutionBasisRef,
+    environment.executionBasis.basisRef,
+  );
+  assert.equal(
+    childExecutionBasis.parentTraversalScopeRef,
+    opened.scope.scopeRef,
+  );
+  assert.equal(
+    childExecutionBasis.graphFunctionRef,
+    environment.childGraphFunction.name,
+  );
+  assert.equal(
+    childExecutionBasis.rawInputDigest,
+    parentSuspension.childInputDigest,
+  );
+  assert.deepEqual(
+    childExecutionBasis.rawInputValue,
+    parentSuspension.childInput,
+  );
+  assert.notEqual(completion.heldInteraction, null);
+  assert.notEqual(completion.heldGraph, null);
+  assert.notEqual(completion.heldClosureContract, null);
+  const heldInteraction = completion.heldInteraction;
+  const heldCCall = heldInteraction.cCall;
+  assert.equal(heldCCall.regime, "F_H");
+  assert.equal(heldCCall.graphFunctionRef, environment.childGraphFunction.name);
+  assert.equal(
+    heldCCall.programLocusRef,
+    retryProduct.AX_F09_RETRY_IDS.childLocusRef,
+  );
+  assert.equal(heldCCall.basisId, childExecutionBasis.basisRef);
+  assert.equal(heldInteraction.result.cCallRef, heldCCall.cCallRef);
+  assert.equal(heldInteraction.judgment.cCallRef, heldCCall.cCallRef);
+  assert.equal(
+    heldInteraction.judgment.resultRef,
+    heldInteraction.result.resultRef,
+  );
+  assert.equal(completion.cCallRef, heldCCall.cCallRef);
+  assert.equal(completion.resultRef, heldInteraction.result.resultRef);
+  assert.equal(completion.judgmentRef, heldInteraction.judgment.judgmentRef);
+  assert.equal(
+    completion.heldGraph.graphFunctionRef,
+    environment.childGraphFunction.name,
+  );
+  assert.equal(
+    completion.heldClosureContract.closureContractRef,
+    retryProduct.AX_F09_RETRY_IDS.childClosureContractRef,
+  );
+  const childGraphCallEvent = exactOne(
+    events,
+    (event) =>
+      event.kind === "graph_call_opened" &&
+      event.basisId === childExecutionBasis.basisRef &&
+      event.graphCallId === heldCCall.graphCallId,
+    "AX-F09 A-B-A child graph call",
+  );
+  const childFrameEvent = exactOne(
+    events,
+    (event) =>
+      event.kind === "frame_opened" &&
+      event.basisId === childExecutionBasis.basisRef &&
+      event.graphCallId === heldCCall.graphCallId &&
+      event.frameId === heldCCall.frameId,
+    "AX-F09 A-B-A child frame",
+  );
+  const childScopeBody = {
+    executionBasisRef: childExecutionBasis.basisRef,
+    executionBasisDigest: childExecutionBasis.basisDigest,
+    invocationAdmissionRef: childExecutionBasis.invocationAdmissionRef,
+    invocationRef: childExecutionBasis.invocationRef,
+    programRef: childExecutionBasis.programRef,
+    graphFunctionRef: childExecutionBasis.graphFunctionRef,
+    graphRef: childExecutionBasis.graphRef,
+    runId: opened.scope.runId,
+    runDigest: opened.scope.runDigest,
+    runOpenEventRef: opened.scope.runOpenEventRef,
+    graphCallId: childGraphCallEvent.graphCallId,
+    graphCallDigest: childGraphCallEvent.payload.graphCallDigest,
+    graphCallOpenEventRef: childGraphCallEvent.eventId,
+    frameId: childFrameEvent.frameId,
+    frameDigest: childFrameEvent.payload.frameDigest,
+    frameLineageId: childFrameEvent.payload.frameLineageId,
+    frameOpenEventRef: childFrameEvent.eventId,
+  };
+  const childScopeDigest = environment.product.sha256Canonical(childScopeBody);
+  const childTraversalScope = environment.abg.rehydrateOpenedTraversalScope(
+    environment.store,
+    {
+      scopeRef:
+        `traversal-scope://abiogenesis/${childScopeDigest.slice("sha256:".length)}`,
+      scopeDigest: childScopeDigest,
+      ...childScopeBody,
+    },
+  );
+  assert.notEqual(childTraversalScope, null);
+  assert.equal(
+    childTraversalScope.scopeRef,
+    parentSuspension.childTraversalScopeRef,
+  );
+  assert.equal(
+    childTraversalScope.executionBasisRef,
+    childExecutionBasis.basisRef,
+  );
+  assert.equal(heldCCall.runId, childTraversalScope.runId);
+  assert.equal(heldCCall.graphCallId, childTraversalScope.graphCallId);
+  assert.equal(heldCCall.frameId, childTraversalScope.frameId);
+  assert.equal(
+    heldInteraction.cursor.traversalScopeRef,
+    childTraversalScope.scopeRef,
+  );
+  assert.equal(
+    heldInteraction.cursor.executionBasisRef,
+    childExecutionBasis.basisRef,
+  );
+  const heldCCallEvents = events.filter((event) =>
+    event.kind === "c_call_opened" &&
+    event.aggregateId === heldCCall.cCallRef);
+  assert.equal(heldCCallEvents.length, 1);
+  const heldRoutes = events.filter((event) =>
+    event.kind === "traversal_route_admitted" &&
+    event.payload.cCallRef === heldCCall.cCallRef);
+  assert.equal(heldRoutes.length, 1);
+  const [heldRoute] = heldRoutes;
+  assert.equal(heldRoute.payload.routeKind, "hold");
+  assert.equal(
+    heldRoute.payload.judgmentRef,
+    heldInteraction.judgment.judgmentRef,
+  );
+  assert.equal(
+    heldRoute.payload.sourceCursorRef,
+    heldInteraction.cursor.cursorRef,
+  );
+  assert.equal(heldRoute.payload.targetCursorRef, null);
+  assert.deepEqual(
+    heldRoute.payload.consumedAvailabilityRefs,
+    [heldInteraction.judgment.judgmentRef],
+  );
+  const heldContinuations = events.filter((event) =>
+    event.kind === "fh_interaction_opened" &&
+    event.payload.cCallRef === heldCCall.cCallRef &&
+    event.payload.continuationRef === completion.continuationRef);
+  assert.equal(heldContinuations.length, 1);
+  const heldReplay = environment.abg.replay(environment.store, {
+    runId: opened.scope.runId,
+  });
+  assert.equal(heldReplay.runtimeStatus, "held");
+  assert.deepEqual(completion.replayState, heldReplay);
   return {
     action: "produce_aba",
     cleanupRoot: environment.scratch,
     audit: {
       disposition: completion.disposition,
       attemptOrdinals: attempts.map((event) => event.payload.attempt),
+      failureProgressOrdinals:
+        failureProgress.map((event) => event.payload.attempt),
       failureSignals: signals,
       failureClasses: failureProgress.map((event) =>
         event.payload.failureClass),
       workerCount,
-      attemptFourDispatchReached: attemptFourCall !== undefined,
-      attemptFourResultReached: attemptFourResult !== undefined,
-      attemptFourTerminalRouteReached: attemptFourTerminalRoute !== undefined,
-      stoppedProgressCount: events.filter((event) =>
-        event.kind === "retry_progress_recorded" &&
-        event.payload.progressClass === "stopped").length,
+      stoppedProgressCount: stoppedProgress.length,
+      attemptFourDispatchReached: true,
+      attemptFourResultClass: attemptFourResult.payload.resultClass,
+      attemptFourJudgment: attemptFourJudgment.payload.judgment,
+      attemptFourCompletedProgressCount: completedProgresses.length,
+      attemptFourCompletedProgressClass:
+        completedProgress.payload.completionClass,
+      attemptFourCompletedRetryDepth:
+        completedProgress.payload.completedRetryDepth,
+      attemptFourCompletedProgressCoordinatesExact: true,
+      attemptFourAdvanceRouteCount: attemptFourRoutes.length,
+      attemptFourRouteKind: attemptFourAdvanceRoute.payload.routeKind,
+      attemptFourRouteCoordinatesExact: true,
+      attemptFourRouteToAuthoredWorkflow: true,
+      attemptFourConsumedRefsExact: true,
+      attemptFourTerminalRouteCount: attemptFourTerminalRoutes.length,
+      rootClosureCount: rootClosureEvents.length,
+      childFhGraphFunctionRef: heldCCall.graphFunctionRef,
+      childFhProgramLocusRef: heldCCall.programLocusRef,
+      childFhCCallCount: heldCCallEvents.length,
+      childFhHoldRouteCount: heldRoutes.length,
+      childFhRouteKind: heldRoute.payload.routeKind,
+      childFhHoldCoordinatesExact: true,
+      childFhContinuationCount: heldContinuations.length,
+      parentSuspensionCount: completion.parentSuspensions.length,
+      parentSuspensionKind: parentSuspension.kind,
+      parentGraphFunctionRef: parentSuspension.parentGraph.graphFunctionRef,
+      childGraphFunctionRef: completion.heldGraph.graphFunctionRef,
+      parentChildInputDigestExact: true,
+      parentChildExecutionBasisLineageExact: true,
+      parentChildTraversalScopeLineageExact: true,
+      parentWorkflowRouteTargetExact: true,
+      parentWorkflowRouteCount: workflowRoutes.length,
+      heldReplayStatus: heldReplay.runtimeStatus,
+      heldReplayExact: true,
     },
   };
 }

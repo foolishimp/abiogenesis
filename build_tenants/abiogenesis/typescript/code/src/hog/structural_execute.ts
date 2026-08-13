@@ -1,5 +1,4 @@
 import {
-  admitRetryAttempt,
   admitRoute,
   replay,
   traversalCursorAdmissionEventRef,
@@ -7,11 +6,15 @@ import {
   type RetryAdmissionRefusal,
   type RouteAdmissionRefusal,
 } from "../abg/index.js";
+import { admitRetryAttempt } from "../abg/retry.js";
+import type { LeafInvocationPort } from "../implementation/contracts.js";
 import {
-  applyRoute,
+  applyAdmittedRoute,
+  deriveStructuralTargetCursor,
+  resolveTraversalTerm,
   traverseFromCursor,
   type TraversalRefusal,
-  type TraversalStep,
+  type TraversalCursor,
   type TraversalStopRef,
   type TraverseInput,
 } from "./traversal.js";
@@ -20,7 +23,11 @@ import {
   type RouteProposalRefusal,
 } from "./traversal_route.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
 import { admitSuccessfulRetryExitRoute } from "./retry_exit.js";
+import { isAdmittedLeafInvocationPort } from "./leaf_invocation_port.js";
+import { Effect } from "effect";
+import type { CProgramNode } from "../gtl/c_algebra.js";
 
 export interface StructuralTraversalClock {
   readonly eventTime: string;
@@ -29,8 +36,9 @@ export interface StructuralTraversalClock {
 
 export interface AdvanceStructuralTraversalInput extends TraverseInput {
   readonly store: AbgEventStore;
-  readonly initial: TraversalStep;
+  readonly initial: TraversalCursor;
   readonly inputValue: Readonly<Record<string, JsonValue>>;
+  readonly inputAuthority: LeafInvocationPort;
   readonly clock: StructuralTraversalClock;
 }
 
@@ -39,32 +47,84 @@ export type StructuralTraversalResult =
   | RouteProposalRefusal
   | RetryAdmissionRefusal
   | TraversalRefusal
-  | TraversalStep
+  | TraversalCursor
   | TraversalStopRef;
 
-function isDescendingStructuralStep(step: TraversalStep): boolean {
-  return step.directStep.stepKind === "enter_term" ||
-    step.directStep.stepKind === "start_task" ||
-    step.directStep.stepKind === "retry" ||
-    (
-      step.directStep.stepKind === "continue_term" &&
-      step.directStep.termKind === "c_identity"
+function isDescendingStructuralTerm(term: CProgramNode): boolean {
+  return term.kind === "c_compose" ||
+    term.kind === "c_edge" ||
+    term.kind === "c_batch" ||
+    term.kind === "c_retry" ||
+    term.kind === "c_identity";
+}
+
+function retryRefusal(
+  code: RetryAdmissionRefusal["code"],
+  message: string,
+): RetryAdmissionRefusal {
+  return {
+    kind: "retry_admission_refusal",
+    schemaVersion: "5.0.0",
+    disposition: "refused",
+    code,
+    message,
+  };
+}
+
+function materializedInputAtCursor(
+  input: AdvanceStructuralTraversalInput,
+  cursor: TraversalCursor,
+): Readonly<Record<string, JsonValue>> | null {
+  for (const materialization of input.graph.fanOutMaterializations) {
+    const member = materialization.members.find((candidate) =>
+      candidate.ordinal === cursor.taskOrdinal &&
+      candidate.memberRef === cursor.inputRef &&
+      candidate.memberDigest === cursor.inputDigest
     );
+    if (member !== undefined) return member.value;
+  }
+  return null;
 }
 
 export function advanceStructuralTraversal(
   input: AdvanceStructuralTraversalInput,
-): StructuralTraversalResult {
-  let current: StructuralTraversalResult = input.initial;
-  let routeOrdinal = 0;
-  while (current.kind === "traversal_step" && isDescendingStructuralStep(current)) {
+): Effect.Effect<StructuralTraversalResult> {
+  return Effect.suspend(() => Effect.gen(function* () {
+  if (
+    !isAdmittedLeafInvocationPort(input.inputAuthority) ||
+    input.inputAuthority.implementationSetRef !==
+      input.executionBasis.implementationSetRef ||
+    input.inputAuthority.implementationSetDigest !==
+      input.executionBasis.implementationSetDigest ||
+    input.inputAuthority.publicationDigest !==
+      sha256Canonical(input.inputAuthority.publication as unknown as JsonValue)
+  ) {
+    return retryRefusal(
+      "basis_mismatch",
+      "structural traversal requires the exact admitted install-bound leaf port",
+    );
+  }
+  const advance = (
+    current: StructuralTraversalResult,
+    routeOrdinal: number,
+  ): Effect.Effect<StructuralTraversalResult> =>
+    Effect.suspend(() => Effect.gen(function* () {
+    if (current.kind !== "traversal_cursor") {
+      return current;
+    }
+    const term = resolveTraversalTerm(input.graph, current);
+    if (term.kind === "traversal_refusal") return term;
+    if (!isDescendingStructuralTerm(term)) {
+      return term.kind === "c_of" ? traverseFromCursor(input, current) : current;
+    }
+    const targetCursor = deriveStructuralTargetCursor(input.graph, current);
+    if (targetCursor === null) return current;
+    if (targetCursor.kind === "traversal_refusal") return targetCursor;
     const structuralIdentityRetryExit =
-      current.directStep.stepKind === "continue_term" &&
-      current.directStep.termKind === "c_identity" &&
-      current.targetCursor !== null &&
-      current.targetCursor.retryPath.length < current.sourceCursor.retryPath.length;
+      term.kind === "c_identity" &&
+      targetCursor.retryPath.length < current.retryPath.length;
     const completionWitnessEventRef = structuralIdentityRetryExit
-      ? traversalCursorAdmissionEventRef(input.store, current.sourceCursor)
+      ? traversalCursorAdmissionEventRef(input.store, current)
       : null;
     if (structuralIdentityRetryExit && completionWitnessEventRef === null) {
       return {
@@ -75,6 +135,46 @@ export function advanceStructuralTraversal(
         message: "structural identity retry exit has no exact source-cursor witness",
       };
     }
+    let retryInputPlan: Readonly<{
+      inputRef: string;
+      inputDigest: `sha256:${string}`;
+      inputContractRef: string;
+      inputValueKind: string;
+      inputValue: Readonly<Record<string, JsonValue>>;
+    }> | null = null;
+    if (term.kind === "c_retry") {
+      const targetValue = materializedInputAtCursor(
+        input,
+        targetCursor,
+      ) ?? input.inputValue;
+      const inputValueKind = input.inputAuthority.contractValueKindByRef(
+        term.inputCarrierRef,
+      );
+      const targetDigest = sha256Canonical(
+        targetValue as unknown as JsonValue,
+      );
+      const targetValid = input.inputAuthority.validateContractValueByRef(
+        term.inputCarrierRef,
+        targetValue,
+      );
+      if (
+        targetCursor.inputDigest !== targetDigest ||
+        inputValueKind === null ||
+        !targetValid
+      ) {
+        return retryRefusal(
+          "basis_mismatch",
+          "structural retry input lacks its exact admitted typed carrier and preimage",
+        );
+      }
+      retryInputPlan = {
+        inputRef: targetCursor.inputRef,
+        inputDigest: targetCursor.inputDigest,
+        inputContractRef: term.inputCarrierRef,
+        inputValueKind,
+        inputValue: targetValue,
+      };
+    }
     const replayState = replay(input.store, {
       runId: input.openedTraversalScope.runId,
     });
@@ -83,10 +183,10 @@ export function advanceStructuralTraversal(
       const successfulRoute = admitSuccessfulRetryExitRoute({
         store: input.store,
         executionBasis: input.executionBasis,
+        graphFunction: input.graphFunction,
         graph: input.graph,
-        sourceCursor: current.sourceCursor,
-        continuationStep: current,
-        targetCursor: current.targetCursor,
+        sourceCursor: current,
+        targetCursor,
         variant: {
           completionClass: "structural_identity_success",
           completionWitnessEventRef: completionWitnessEventRef!,
@@ -110,14 +210,20 @@ export function advanceStructuralTraversal(
       }
       route = successfulRoute.route;
     } else {
-      const candidate = proposeStructuralRoute(input.graph, current, replayState);
+      const candidate = proposeStructuralRoute(
+        input.graph,
+        current,
+        targetCursor,
+        term.kind === "c_retry" ? "retry" : "advance",
+        replayState,
+      );
       if (candidate.kind !== "traversal_route_candidate") return candidate;
       route = admitRoute(
         input.store,
         input.executionBasis,
         input.graph,
-        current.sourceCursor,
-        current.targetCursor,
+        current,
+        targetCursor,
         replayState,
         candidate,
         {
@@ -128,22 +234,20 @@ export function advanceStructuralTraversal(
       );
     }
     if (route.kind !== "admitted_traversal_route") return route;
-    if (current.directStep.stepKind === "retry") {
-      if (current.targetCursor === null) {
-        return {
-          kind: "retry_admission_refusal",
-          schemaVersion: "5.0.0",
-          disposition: "refused",
-          code: "cursor_mismatch",
-          message: "structural retry step has no target cursor",
-        };
+    if (term.kind === "c_retry") {
+      if (retryInputPlan === null) {
+        return retryRefusal(
+          "cursor_mismatch",
+          "structural retry step lost its exact pre-effect input plan",
+        );
       }
       const attempt = admitRetryAttempt(
         input.store,
         input.executionBasis,
         input.graph,
-        current.targetCursor,
-        input.inputValue,
+        input.graphFunction,
+        targetCursor,
+        retryInputPlan.inputValue,
         route.admissionEventRef,
         {
           eventTime: input.clock.eventTime,
@@ -154,10 +258,16 @@ export function advanceStructuralTraversal(
       );
       if (attempt.kind !== "retry_attempt_admission") return attempt;
     }
-    const target = applyRoute(current, route);
+    const target = applyAdmittedRoute(
+      current,
+      targetCursor,
+      term.kind === "c_retry" ? "retry" : "advance",
+      route,
+    );
     if (target.kind === "traversal_refusal") return target;
-    current = traverseFromCursor(input, target);
-    routeOrdinal += 1;
-  }
-  return current;
+    const next = traverseFromCursor(input, target);
+    return yield* advance(next, routeOrdinal + 1);
+  }));
+  return yield* advance(input.initial, 0);
+  }));
 }

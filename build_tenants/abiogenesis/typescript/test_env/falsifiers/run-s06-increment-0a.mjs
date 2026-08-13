@@ -116,8 +116,8 @@ async function main() {
   );
   assert.deepEqual(
     preserved.map((record) => record.relationId),
-    ["AX-F07"],
-    "AX-F07 is the sole accepted preservation lane",
+    ["AX-F04", "AX-F06", "AX-F07"],
+    "AX-F04, AX-F06, and AX-F07 are the accepted preservation lanes",
   );
 
   const evidence = {

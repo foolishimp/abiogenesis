@@ -2,7 +2,11 @@ import { execFile } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { isAbsolute, posix } from "node:path";
 
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import {
+  canonicalJson,
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
 import {
   resolveNativeDeclarationClosures,
   type NativeProductDeclarationEvidence,
@@ -71,13 +75,12 @@ interface PackageJsonView {
 }
 
 const TAR_MAX_BUFFER = 64 * 1024 * 1024;
-const nativeDeclarationEvidence =
-  new WeakMap<object, NativeProductDeclarationEvidence>();
-
 export function nativeDeclarationEvidenceForVerifiedArtifact(
   artifact: VerifiedProductArtifact,
 ): NativeProductDeclarationEvidence | null {
-  return nativeDeclarationEvidence.get(artifact) ?? null;
+  return isVerifiedProductArtifact(artifact)
+    ? artifact.nativeDeclarationEvidence
+    : null;
 }
 
 function refusal(
@@ -114,6 +117,222 @@ function hasExactKeys(
   keys: readonly string[],
 ): boolean {
   return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
+}
+
+function verificationBody(
+  value: Omit<VerifiedProductArtifact, "verificationDigest" | "verificationRef">,
+): JsonValue {
+  return value as unknown as JsonValue;
+}
+
+function isNativeDeclarationEvidence(
+  value: unknown,
+  artifact: Readonly<{
+    productId: string;
+    productContentDigest: Sha256Digest;
+    packageName: string;
+  }>,
+): value is NativeProductDeclarationEvidence {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "closures",
+      "contracts",
+      "packageName",
+      "packageType",
+      "productContentDigest",
+      "productId",
+      "sources",
+    ]) ||
+    value.productId !== artifact.productId ||
+    value.productContentDigest !== artifact.productContentDigest ||
+    value.packageName !== artifact.packageName ||
+    (value.packageType !== "commonjs" && value.packageType !== "module") ||
+    !Array.isArray(value.sources) ||
+    !Array.isArray(value.closures) ||
+    !Array.isArray(value.contracts)
+  ) {
+    return false;
+  }
+  const sources = value.sources as readonly unknown[];
+  if (
+    sources.some((source) =>
+      !isRecord(source) ||
+      !hasExactKeys(source, [
+        "declarationDigest",
+        "declarationPath",
+        "sourceText",
+      ]) ||
+      !isNonblankString(source.declarationPath) ||
+      !isSha256Digest(source.declarationDigest) ||
+      typeof source.sourceText !== "string" ||
+      sha256Bytes(new TextEncoder().encode(source.sourceText)) !==
+        source.declarationDigest
+    ) ||
+    new Set(sources.map((source) =>
+      (source as Readonly<Record<string, unknown>>).declarationPath
+    )).size !== sources.length
+  ) {
+    return false;
+  }
+  const sourceDigests = new Map(
+    sources.map((source) => {
+      const row = source as Readonly<Record<string, unknown>>;
+      return [row.declarationPath as string, row.declarationDigest];
+    }),
+  );
+  const closures = value.closures as readonly unknown[];
+  if (
+    closures.some((closure) => {
+      if (
+        !isRecord(closure) ||
+        !hasExactKeys(closure, [
+          "contributesGlobals",
+          "declarationInventory",
+          "declarationPath",
+          "exportedSymbolOccurrenceRefs",
+          "exportedSymbols",
+          "externalOccurrences",
+          "moduleAugmentations",
+          "packageExportPath",
+        ]) ||
+        !isNonblankString(closure.packageExportPath) ||
+        !isNonblankString(closure.declarationPath) ||
+        typeof closure.contributesGlobals !== "boolean" ||
+        !isUniqueStringArray(closure.exportedSymbols) ||
+        !isRecord(closure.exportedSymbolOccurrenceRefs) ||
+        !Array.isArray(closure.declarationInventory) ||
+        !Array.isArray(closure.externalOccurrences) ||
+        !Array.isArray(closure.moduleAugmentations)
+      ) return true;
+      return closure.declarationInventory.some((entry) =>
+        !isRecord(entry) ||
+        !hasExactKeys(entry, [
+          "declarationDigest",
+          "declarationPath",
+          "packageExportPath",
+        ]) ||
+        entry.packageExportPath !== closure.packageExportPath ||
+        !isNonblankString(entry.declarationPath) ||
+        !isSha256Digest(entry.declarationDigest) ||
+        sourceDigests.get(entry.declarationPath) !== entry.declarationDigest
+      );
+    }) ||
+    new Set(closures.map((closure) =>
+      (closure as Readonly<Record<string, unknown>>).packageExportPath
+    )).size !== closures.length
+  ) {
+    return false;
+  }
+  const contracts = value.contracts as readonly unknown[];
+  return contracts.every((contract) =>
+    isRecord(contract) &&
+    hasExactKeys(contract, [
+      "contractId",
+      "localDisposition",
+      "namedSymbol",
+      "occurrenceRefs",
+      "packageExportPath",
+    ]) &&
+    isNonblankString(contract.contractId) &&
+    isNonblankString(contract.packageExportPath) &&
+    isNonblankString(contract.namedSymbol) &&
+    (contract.localDisposition === "local" ||
+      contract.localDisposition === "pending_external") &&
+    isUniqueStringArray(contract.occurrenceRefs)
+  ) && new Set(contracts.map((contract) =>
+    (contract as Readonly<Record<string, unknown>>).contractId
+  )).size === contracts.length;
+}
+
+export function isVerifiedProductArtifact(
+  value: unknown,
+): value is VerifiedProductArtifact {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "artifactByteLength",
+      "artifactDigest",
+      "artifactRef",
+      "catalogDigest",
+      "catalogId",
+      "checkedPayloadFiles",
+      "compatibilityRefs",
+      "contributionManifest",
+      "contributionManifestDigest",
+      "contributionManifestRef",
+      "declaredCapabilityRefs",
+      "declaredDependencies",
+      "descriptorRef",
+      "disposition",
+      "kind",
+      "manifestDigest",
+      "nativeDeclarationEvidence",
+      "packageName",
+      "packageVersion",
+      "productContentDigest",
+      "productId",
+      "provenanceRef",
+      "publicCapabilityRefs",
+      "publicContractRefs",
+      "publicContracts",
+      "publisherNamespace",
+      "schemaVersion",
+      "verificationDigest",
+      "verificationRef",
+    ]) ||
+    value.kind !== "verified_product_artifact" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.disposition !== "verified" ||
+    !isNonblankString(value.verificationRef) ||
+    !isSha256Digest(value.verificationDigest) ||
+    !isNonblankString(value.artifactRef) ||
+    !isSha256Digest(value.artifactDigest) ||
+    !Number.isSafeInteger(value.artifactByteLength) ||
+    (value.artifactByteLength as number) <= 0 ||
+    !isNonblankString(value.productId) ||
+    !isNonblankString(value.packageName) ||
+    !isNonblankString(value.packageVersion) ||
+    !isSha256Digest(value.productContentDigest) ||
+    !isSha256Digest(value.manifestDigest) ||
+    !isNonblankString(value.descriptorRef) ||
+    !isNonblankString(value.publisherNamespace) ||
+    !isNonblankString(value.contributionManifestRef) ||
+    !isSha256Digest(value.contributionManifestDigest) ||
+    !isProductContributionManifest(value.contributionManifest) ||
+    sha256Canonical(value.contributionManifest as unknown as JsonValue) !==
+      value.contributionManifestDigest ||
+    !isUniqueStringArray(value.compatibilityRefs) ||
+    !Array.isArray(value.declaredDependencies) ||
+    !value.declaredDependencies.every(isDeclaredDependency) ||
+    !isNonblankString(value.provenanceRef) ||
+    !isUniqueStringArray(value.declaredCapabilityRefs) ||
+    !isNonblankString(value.catalogId) ||
+    !isSha256Digest(value.catalogDigest) ||
+    !Array.isArray(value.publicContracts) ||
+    !value.publicContracts.every((contract) =>
+      parseProductPublicContract(contract, value.productId as string) !== null
+    ) ||
+    !isUniqueStringArray(value.publicContractRefs) ||
+    !isUniqueStringArray(value.publicCapabilityRefs) ||
+    !Number.isSafeInteger(value.checkedPayloadFiles) ||
+    (value.checkedPayloadFiles as number) <= 0 ||
+    !isNativeDeclarationEvidence(value.nativeDeclarationEvidence, {
+      productId: value.productId,
+      productContentDigest: value.productContentDigest,
+      packageName: value.packageName,
+    })
+  ) {
+    return false;
+  }
+  const { verificationDigest, verificationRef, ...body } =
+    value as unknown as VerifiedProductArtifact;
+  const expectedDigest = sha256Canonical(
+    verificationBody(body),
+  );
+  return verificationDigest === expectedDigest &&
+    verificationRef ===
+      `product-verification://abiogenesis/${expectedDigest.slice("sha256:".length)}`;
 }
 
 function isDeclaredDependency(value: unknown): value is ProductDeclaredDependency {
@@ -916,11 +1135,14 @@ export async function verifyProduct(
             sourceText: new TextDecoder().decode(source.bytes),
           }))
           .sort((left, right) =>
-            left.declarationPath.localeCompare(right.declarationPath)
+            compareUnicodeCodeUnits(
+              left.declarationPath,
+              right.declarationPath,
+            )
           ),
         closures: selectedClosures,
         contracts: evidenceContracts.sort((left, right) =>
-          left.contractId.localeCompare(right.contractId)
+          compareUnicodeCodeUnits(left.contractId, right.contractId)
         ),
       });
     } else {
@@ -959,7 +1181,7 @@ export async function verifyProduct(
       "native declaration evidence was not established",
     );
   }
-  const verified: VerifiedProductArtifact = deepFreeze({
+  const verifiedBody = {
     kind: "verified_product_artifact",
     schemaVersion: "5.0.0",
     disposition: "verified",
@@ -1002,7 +1224,18 @@ export async function verifyProduct(
     publicContractRefs: [...contractIds].sort(),
     publicCapabilityRefs: [...publicCapabilityRefs].sort(),
     checkedPayloadFiles: inventory.length,
+    nativeDeclarationEvidence: verifiedNativeEvidence,
+  } as const satisfies Omit<
+    VerifiedProductArtifact,
+    "verificationDigest" | "verificationRef"
+  >;
+  const verificationDigest = sha256Canonical(
+    verificationBody(verifiedBody),
+  );
+  return deepFreeze({
+    ...verifiedBody,
+    verificationRef:
+      `product-verification://abiogenesis/${verificationDigest.slice("sha256:".length)}`,
+    verificationDigest,
   });
-  nativeDeclarationEvidence.set(verified, verifiedNativeEvidence);
-  return verified;
 }

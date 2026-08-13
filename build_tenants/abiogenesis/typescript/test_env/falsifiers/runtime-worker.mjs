@@ -15,8 +15,11 @@ function deriveSourceResult(input) {
     throw new TypeError(JSON.stringify(reopened));
   }
   try {
-    const basis = abg.deriveInvocationSourceResultBasis(
-      reopened.store,
+    const prefix = abg.selectValidatedRuntimeEventPrefix(
+      abg.readRuntimeEventsAtDurablePrefix(reopened.prefix),
+    );
+    const basis = abg.deriveInvocationSourceResultBasisAtPrefix(
+      prefix,
       input.derivation,
     );
     return {

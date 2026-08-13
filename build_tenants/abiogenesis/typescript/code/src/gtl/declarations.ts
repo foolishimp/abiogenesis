@@ -1,7 +1,12 @@
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import {
+  canonicalJson,
+  compareUnicodeCodeUnits,
+  type JsonValue,
+} from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { requireRef } from "../shared/references.js";
 import { COMPUTE_REGIME_VALUES } from "./c_algebra.js";
+import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
 import type {
   CatalogContribution,
   ClosureContract,
@@ -31,7 +36,7 @@ function freezeStrings(
   if (values.some((value) => value.trim().length === 0)) {
     throw new TypeError(`${label} cannot contain an empty reference`);
   }
-  return Object.freeze([...values]);
+  return Object.freeze([...values].sort(compareUnicodeCodeUnits));
 }
 
 function cloneJsonObject(
@@ -206,7 +211,7 @@ export function modulePublication(
   ) {
     throw new TypeError("ModulePublication requires the 5.0.0 carrier");
   }
-  return deepFreeze({
+  return canonicalizeAuthoredGtlCarrier({
     ...input,
     productSemanticsBinding: productSemanticsBinding(
       input.productSemanticsBinding,
@@ -220,7 +225,7 @@ export function modulePublication(
     programs: [...input.programs],
     graphFunctions: [...input.graphFunctions],
     contributions: input.contributions.map(catalogContribution),
-  });
+  }, "module_publication");
 }
 
 export const GTL_DECLARATION_CONSTRUCTORS = deepFreeze({

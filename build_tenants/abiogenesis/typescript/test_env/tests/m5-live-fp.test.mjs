@@ -70,8 +70,9 @@ test("M5 installed CLI admits one genuinely live Claude F_P result", {
     "m5-fp-live",
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       input: fpInput("World"),
     },
   );

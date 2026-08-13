@@ -1,13 +1,53 @@
-import type {
-  ProductInstall,
-  ProductInstallCandidate,
-  WorkspaceBinding,
-  WorkspaceBindingCandidate,
+import {
+  constructProductSet,
+  constructWorkspaceBinding,
+  isProductInstallCandidate,
+  isResolvedProductLock,
+  isWorkspaceAuthorityBasis,
+  isWorkspaceBindingCandidate,
+  type ProductInstall,
+  type ProductInstallCandidate,
+  type ResolvedProductLock,
+  type WorkspaceAuthorityBasis,
+  type WorkspaceBinding,
+  type WorkspaceBindingCandidate,
 } from "../product/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import {
+  isSha256Digest,
+  sha256Canonical,
+  type Sha256Digest,
+} from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
+import {
+  isExactOperationInvocationCoordinate,
+  type ExactOperationInvocationCoordinate,
+} from "../shared/operation_definition_coordinate.js";
+import {
+  projectExactPrefixArtifactTruth,
+  projectArtifactTruth,
+  projectValidatedPrefixArtifactTruth,
+  validateExactPrefixArtifactTruthProjection,
+  type AdmittedArtifactTruth,
+  type ExactPrefixArtifactTruthProjection,
+  type ExactPrefixArtifactTruthProjectionRefusal,
+  type ExactPrefixArtifactTruthProjectionResult,
+} from "./artifact_truth.js";
+import {
+  projectEffectfulPublicInvocationTruthAtPrefix,
+  type EffectfulPublicInvocationPriorAdmission,
+  type EffectfulPublicInvocationTruth,
+} from "./effectful_invocation_truth.js";
+import {
+  appendCheckedArtifactEvent,
+  assertHeldEventStoreAtDurablePrefix,
+  projectRuntimeEventFromValidatedHistory,
+  type AbgEventStore,
+  type DurablePrefixCoordinate,
+  type EventStoreAppendRefusal,
+  type RuntimeEventCandidate,
+} from "./event_store.js";
+import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
 
 export type PublicOperationId =
   | "abg.operation.product.install"
@@ -17,13 +57,14 @@ export type PublicOperationId =
   | "abg.operation.catalog.view"
   | "abg.operation.interaction.respond"
   | "abg.operation.project.read"
+  | "abg.operation.result.assess"
   | "abg.operation.run.continue"
-  | "abg.operation.run.invoke";
+  | "abg.operation.run.invoke"
+  | "abg.operation.witness.admit";
 
-export interface PublicOperationAdmissionBasis {
+export interface PublicOperationAdmissionBasis
+  extends ExactOperationInvocationCoordinate {
   readonly operationId: PublicOperationId;
-  readonly definitionKey: string;
-  readonly definitionDigest: Sha256Digest;
   readonly authorityScopeRef: string;
   readonly authorityScopeDigest: Sha256Digest;
   readonly invocationRef: string;
@@ -34,27 +75,77 @@ export interface PublicOperationAdmissionBasis {
   readonly causationEventRefs: readonly string[];
 }
 
-export type ArtifactAdmissionBasis = PublicOperationAdmissionBasis;
+export interface ArtifactAdmissionBasis extends PublicOperationAdmissionBasis {
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+}
 
 export interface ArtifactAdmissionMetadata {
   readonly productSemanticsBasisDigest?: Sha256Digest;
   readonly publicationDigest?: Sha256Digest;
   readonly artifact?: JsonValue;
   readonly resolvedLock?: JsonValue;
+  readonly workspaceAuthorityBasis?: JsonValue;
 }
 
-export interface AbgAdmissionRefusal {
+interface AbgSemanticAdmissionRefusal {
   readonly kind: "abg_admission_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
-  readonly code: "operation_mismatch" | "scope_mismatch";
+  readonly code:
+    | "artifact_truth_conflict"
+    | "operation_mismatch"
+    | "scope_mismatch";
   readonly message: string;
 }
 
+export interface DuplicateArtifactInvocationRefusal {
+  readonly kind: "abg_admission_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: "duplicate_invocation";
+  readonly message: string;
+  readonly priorAdmission: EffectfulPublicInvocationPriorAdmission;
+}
+
+export type AbgAdmissionRefusal =
+  | AbgSemanticAdmissionRefusal
+  | DuplicateArtifactInvocationRefusal;
+
+export type ArtifactOwnerResult<Value> =
+  | Readonly<{
+      kind: "artifact_owner_result";
+      schemaVersion: "5.0.0";
+      disposition: "admitted" | "idempotent";
+      value: Value;
+      admissionEventRef: string;
+      successorPrefix: DurablePrefixCoordinate;
+      artifactTruth: ExactPrefixArtifactTruthProjection;
+    }>
+  | Readonly<{
+      kind: "artifact_owner_refusal";
+      schemaVersion: "5.0.0";
+      disposition: "refused";
+      successorPrefix: DurablePrefixCoordinate;
+      refusal: AbgAdmissionRefusal;
+    }>
+  | Readonly<{
+      kind: "artifact_owner_coordinate_refusal";
+      schemaVersion: "5.0.0";
+      disposition: "refused";
+      successorPrefix: null;
+      suppliedPredecessor: DurablePrefixCoordinate;
+      refusal:
+        | EventStoreAppendRefusal
+        | ExactPrefixArtifactTruthProjectionRefusal
+        | Extract<EffectfulPublicInvocationTruth, {
+            readonly disposition: "invalid_history";
+          }>;
+    }>;
+
 function refusal(
-  code: AbgAdmissionRefusal["code"],
+  code: AbgSemanticAdmissionRefusal["code"],
   message: string,
-): AbgAdmissionRefusal {
+): AbgSemanticAdmissionRefusal {
   return {
     kind: "abg_admission_refusal",
     schemaVersion: "5.0.0",
@@ -64,12 +155,200 @@ function refusal(
   };
 }
 
-function isJsonRecord(value: JsonValue | undefined): value is { readonly [key: string]: JsonValue } {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+function duplicateInvocationRefusal(
+  held: EffectfulPublicInvocationPriorAdmission,
+): DuplicateArtifactInvocationRefusal {
+  return deepFreeze({
+    kind: "abg_admission_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code: "duplicate_invocation" as const,
+    message:
+      "the effectful invocation identity already has one admitted durable fact",
+    priorAdmission: held,
+  });
+}
+
+function artifactMemberKey(
+  operationId: "abg.operation.product.install" | "abg.operation.workspace.bind",
+): "install" | "bind" {
+  return operationId === "abg.operation.product.install" ? "install" : "bind";
+}
+
+function selectExactArtifactTruthRow(
+  projection: ExactPrefixArtifactTruthProjection,
+  identity: Readonly<{
+    operationId: "abg.operation.product.install" | "abg.operation.workspace.bind";
+    authorityScopeRef: string;
+    authorityScopeDigest: Sha256Digest;
+    artifactRef: string;
+    artifactDigest: Sha256Digest;
+    invocationRef?: string;
+    admissionEventRef?: string;
+  }>,
+): AdmittedArtifactTruth | null {
+  if (!validateExactPrefixArtifactTruthProjection(projection)) return null;
+  const scopeRows = projection.rows.filter((row) =>
+    row.operationId === identity.operationId &&
+    row.authorityScopeRef === identity.authorityScopeRef
+  );
+  if (scopeRows.length !== 1) return null;
+  const row = scopeRows[0]!;
+  const exact = row.memberKey === artifactMemberKey(identity.operationId) &&
+    isSha256Digest(row.definitionDigest) &&
+    row.authorityScopeDigest === identity.authorityScopeDigest &&
+    row.artifactRef === identity.artifactRef &&
+    row.artifactDigest === identity.artifactDigest &&
+    (identity.invocationRef === undefined ||
+      row.invocationRef === identity.invocationRef);
+  return exact && (identity.admissionEventRef === undefined ||
+      row.admissionEventRef === identity.admissionEventRef
+    ) ? row : null;
+}
+
+function selectExactArtifactTruthRowByInvocation(
+  projection: ExactPrefixArtifactTruthProjection,
+  operationId:
+    | "abg.operation.product.install"
+    | "abg.operation.workspace.bind",
+  invocationRef: string,
+): AdmittedArtifactTruth | null {
+  if (
+    !validateExactPrefixArtifactTruthProjection(projection) ||
+    invocationRef.length === 0
+  ) return null;
+  const matches = projection.rows.filter((row) =>
+    row.operationId === operationId && row.invocationRef === invocationRef
+  );
+  if (matches.length !== 1) return null;
+  const row = matches[0]!;
+  return row.memberKey === artifactMemberKey(operationId) &&
+      isSha256Digest(row.definitionDigest)
+    ? row
+    : null;
+}
+
+export interface RehydratedProductInstallTruth {
+  readonly candidate: ProductInstallCandidate;
+  readonly install: ProductInstall;
+  readonly resolvedLock: ResolvedProductLock;
+  readonly invocationRef: string;
+}
+
+export interface RehydratedWorkspaceBindingTruth {
+  readonly candidate: WorkspaceBindingCandidate;
+  readonly binding: WorkspaceBinding;
+  readonly installAdmissionEventRefs: readonly string[];
+  readonly invocationRef: string;
+}
+
+function rehydrateProductInstallRow(
+  projection: ExactPrefixArtifactTruthProjection,
+  row: AdmittedArtifactTruth,
+): RehydratedProductInstallTruth | null {
+  if (
+    row.operationId !== "abg.operation.product.install" ||
+    !isResolvedProductLock(row.resolvedLock) ||
+    !isProductInstallCandidate(row.artifact, row.resolvedLock)
+  ) return null;
+  const candidate = row.artifact as ProductInstallCandidate;
+  const resolvedLock = row.resolvedLock as ResolvedProductLock;
+  if (
+    selectExactArtifactTruthRow(projection, {
+      operationId: "abg.operation.product.install",
+      authorityScopeRef: candidate.installId,
+      authorityScopeDigest: candidate.productContentDigest,
+      artifactRef: candidate.installId,
+      artifactDigest: sha256Canonical(candidate as unknown as JsonValue),
+      invocationRef: row.invocationRef,
+      admissionEventRef: row.admissionEventRef,
+    }) === null
+  ) return null;
+  const { kind: _kind, disposition: _disposition, ...body } = candidate;
+  return deepFreeze({
+    candidate,
+    install: {
+      kind: "product_install" as const,
+      disposition: "admitted" as const,
+      ...body,
+      admissionEventRef: row.admissionEventRef,
+    },
+    resolvedLock,
+    invocationRef: row.invocationRef,
+  });
+}
+
+export function projectAdmittedProductInstallByInvocationRef(
+  projection: ExactPrefixArtifactTruthProjection,
+  invocationRef: string,
+): RehydratedProductInstallTruth | null {
+  const row = selectExactArtifactTruthRowByInvocation(
+    projection,
+    "abg.operation.product.install",
+    invocationRef,
+  );
+  return row === null ? null : rehydrateProductInstallRow(projection, row);
+}
+
+export function projectAdmittedProductInstallByAdmissionEventRef(
+  projection: ExactPrefixArtifactTruthProjection,
+  admissionEventRef: string,
+): RehydratedProductInstallTruth | null {
+  if (
+    !validateExactPrefixArtifactTruthProjection(projection) ||
+    admissionEventRef.length === 0
+  ) return null;
+  const matches = projection.rows.filter((row) =>
+    row.operationId === "abg.operation.product.install" &&
+    row.admissionEventRef === admissionEventRef
+  );
+  return matches.length === 1
+    ? rehydrateProductInstallRow(projection, matches[0]!)
+    : null;
+}
+
+export function projectAdmittedWorkspaceBindingByInvocationRef(
+  projection: ExactPrefixArtifactTruthProjection,
+  invocationRef: string,
+  resolvedLock: ResolvedProductLock,
+): RehydratedWorkspaceBindingTruth | null {
+  const row = selectExactArtifactTruthRowByInvocation(
+    projection,
+    "abg.operation.workspace.bind",
+    invocationRef,
+  );
+  if (
+    row === null ||
+    !isResolvedProductLock(resolvedLock) ||
+    !isWorkspaceBindingCandidate(row.artifact, resolvedLock)
+  ) return null;
+  const candidate = row.artifact as WorkspaceBindingCandidate;
+  if (
+    selectExactArtifactTruthRow(projection, {
+      operationId: "abg.operation.workspace.bind",
+      authorityScopeRef: candidate.bindingId,
+      authorityScopeDigest: candidate.bindingDigest,
+      artifactRef: candidate.bindingId,
+      artifactDigest: candidate.bindingDigest,
+      invocationRef,
+      admissionEventRef: row.admissionEventRef,
+    }) === null
+  ) return null;
+  const { kind: _kind, ...body } = candidate;
+  return deepFreeze({
+    candidate,
+    binding: {
+      kind: "workspace_binding" as const,
+      ...body,
+      admissionEventRef: row.admissionEventRef,
+    },
+    installAdmissionEventRefs: [...row.causationEventRefs],
+    invocationRef,
+  });
 }
 
 export function hasAdmittedProductInstall(
-  store: AbgEventStore,
+  projection: ExactPrefixArtifactTruthProjection,
   install: ProductInstall,
 ): boolean {
   const {
@@ -83,99 +362,250 @@ export function hasAdmittedProductInstall(
     disposition: "materialized" as const,
     ...body,
   };
-  const event = store.readAll().find(
-    (row) => row.eventId === install.admissionEventRef,
-  );
-  return event?.kind === "public_operation_artifact_admitted" &&
-    isJsonRecord(event.payload) &&
-    event.payload.operationId === "abg.operation.product.install" &&
-    event.payload.artifactRef === install.installId &&
-    event.payload.artifactDigest === sha256Canonical(candidate as unknown as JsonValue);
+  return selectExactArtifactTruthRow(projection, {
+    operationId: "abg.operation.product.install",
+    authorityScopeRef: install.installId,
+    authorityScopeDigest: install.productContentDigest,
+    artifactRef: install.installId,
+    artifactDigest: sha256Canonical(candidate as unknown as JsonValue),
+    admissionEventRef: install.admissionEventRef,
+  }) !== null;
 }
 
 export function projectAdmittedProductInstall(
-  store: AbgEventStore,
+  projection: ExactPrefixArtifactTruthProjection,
   candidate: ProductInstallCandidate,
   invocationRef?: string,
 ): ProductInstall | null {
   const candidateDigest = sha256Canonical(candidate as unknown as JsonValue);
-  const event = store.readAll().find((row) =>
-    row.kind === "public_operation_artifact_admitted" &&
-    isJsonRecord(row.payload) &&
-    row.payload.operationId === "abg.operation.product.install" &&
-    (invocationRef === undefined || row.payload.invocationRef === invocationRef) &&
-    row.payload.artifactRef === candidate.installId &&
-    row.payload.artifactDigest === candidateDigest
-  );
-  if (event === undefined) return null;
+  const row = selectExactArtifactTruthRow(projection, {
+    operationId: "abg.operation.product.install",
+    authorityScopeRef: candidate.installId,
+    authorityScopeDigest: candidate.productContentDigest,
+    artifactRef: candidate.installId,
+    artifactDigest: candidateDigest,
+    ...(invocationRef === undefined ? {} : { invocationRef }),
+  });
+  if (row === null) return null;
   const { kind: _kind, disposition: _disposition, ...body } = candidate;
   return deepFreeze({
     kind: "product_install" as const,
     disposition: "admitted" as const,
     ...body,
-    admissionEventRef: event.eventId,
+    admissionEventRef: row.admissionEventRef,
   }) as ProductInstall;
 }
 
 export function projectAdmittedWorkspaceBinding(
-  store: AbgEventStore,
+  projection: ExactPrefixArtifactTruthProjection,
   candidate: WorkspaceBindingCandidate,
-  invocationRef: string,
+  invocationRef?: string,
 ): WorkspaceBinding | null {
-  const event = store.readAll().find((row) =>
-    row.kind === "public_operation_artifact_admitted" &&
-    isJsonRecord(row.payload) &&
-    row.payload.operationId === "abg.operation.workspace.bind" &&
-    row.payload.invocationRef === invocationRef &&
-    row.payload.artifactRef === candidate.bindingId &&
-    row.payload.artifactDigest === candidate.bindingDigest
-  );
-  if (event === undefined) return null;
+  const row = selectExactArtifactTruthRow(projection, {
+    operationId: "abg.operation.workspace.bind",
+    authorityScopeRef: candidate.bindingId,
+    authorityScopeDigest: candidate.bindingDigest,
+    artifactRef: candidate.bindingId,
+    artifactDigest: candidate.bindingDigest,
+    ...(invocationRef === undefined ? {} : { invocationRef }),
+  });
+  if (row === null) return null;
   const { kind: _kind, ...body } = candidate;
   return deepFreeze({
     kind: "workspace_binding" as const,
     ...body,
-    admissionEventRef: event.eventId,
+    admissionEventRef: row.admissionEventRef,
   }) as WorkspaceBinding;
 }
 
 export function validatePublicOperationBasis(
   basis: PublicOperationAdmissionBasis,
   expectedOperation: PublicOperationId,
+  expectedMemberKey: string,
 ): AbgAdmissionRefusal | null {
-  if (basis.operationId !== expectedOperation || basis.definitionKey !== expectedOperation) {
-    return refusal("operation_mismatch", "operation identity and definition key must agree");
-  }
-  const expectedDefinitionDigest = sha256Canonical({
-    operationId: expectedOperation,
-    schemaVersion: "5.0.0",
-  });
-  const expectedInvocationDigest = sha256Canonical({
-    invocationRef: basis.invocationRef,
-    operationId: expectedOperation,
-    payloadDigest: basis.invocationPayloadDigest,
-  });
   if (
-    basis.definitionDigest !== expectedDefinitionDigest ||
-    basis.invocationDigest !== expectedInvocationDigest ||
-    Number.isNaN(Date.parse(basis.eventTime))
+    typeof basis !== "object" ||
+    basis === null ||
+    basis.operationId !== expectedOperation ||
+    basis.memberKey !== expectedMemberKey
+  ) {
+    return refusal("operation_mismatch", "operation and member identity must match the selected owner definition");
+  }
+  if (
+    !isExactOperationInvocationCoordinate({
+      operationId: basis.operationId,
+      memberKey: basis.memberKey,
+      definitionDigest: basis.definitionDigest,
+      invocationRef: basis.invocationRef,
+      invocationPayloadDigest: basis.invocationPayloadDigest,
+      invocationDigest: basis.invocationDigest,
+    }) ||
+    typeof basis.authorityScopeRef !== "string" ||
+    basis.authorityScopeRef.length === 0 ||
+    !isSha256Digest(basis.authorityScopeDigest) ||
+    typeof basis.invocationRef !== "string" ||
+    basis.invocationRef.length === 0 ||
+    !isSha256Digest(basis.invocationPayloadDigest) ||
+    !isSha256Digest(basis.invocationDigest) ||
+    typeof basis.correlationId !== "string" ||
+    basis.correlationId.length === 0 ||
+    typeof basis.eventTime !== "string" ||
+    Number.isNaN(Date.parse(basis.eventTime)) ||
+    !Array.isArray(basis.causationEventRefs) ||
+    basis.causationEventRefs.some(
+      (eventRef) => typeof eventRef !== "string" || eventRef.length === 0,
+    ) ||
+    new Set(basis.causationEventRefs).size !== basis.causationEventRefs.length
   ) {
     return refusal("operation_mismatch", "operation definition, invocation, or event-time basis is invalid");
   }
   return null;
 }
 
+type ArtifactOperationId =
+  | "abg.operation.product.install"
+  | "abg.operation.workspace.bind";
+
+type ArtifactAdmissionResult =
+  | Readonly<{
+      disposition: "admitted" | "idempotent";
+      admissionEventRef: string;
+      successorPrefix: DurablePrefixCoordinate;
+      artifactTruth: ExactPrefixArtifactTruthProjection;
+    }>
+  | Readonly<{
+      disposition: "refused";
+      successorPrefix: DurablePrefixCoordinate;
+      refusal: AbgAdmissionRefusal;
+    }>
+  | Readonly<{
+      disposition: "coordinate_refused";
+      successorPrefix: null;
+      refusal:
+        | EventStoreAppendRefusal
+        | ExactPrefixArtifactTruthProjectionRefusal
+        | Extract<EffectfulPublicInvocationTruth, {
+            readonly disposition: "invalid_history";
+          }>;
+    }>;
+
+function projectArtifactTruthAtPrefix(
+  prefix: DurablePrefixCoordinate,
+): ExactPrefixArtifactTruthProjectionResult {
+  return projectExactPrefixArtifactTruth(prefix);
+}
+
+function predecessorCoordinateRefusal(error: unknown): EventStoreAppendRefusal {
+  return deepFreeze({
+    kind: "event_store_append_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code: "prefix_mismatch" as const,
+    message: String(error),
+  });
+}
+
 export function admitArtifact(
   store: AbgEventStore,
-  basis: PublicOperationAdmissionBasis,
-  expectedOperation: PublicOperationId,
+  basis: ArtifactAdmissionBasis,
+  expectedOperation: ArtifactOperationId,
   artifactRef: string,
   artifactDigest: Sha256Digest,
   metadata: ArtifactAdmissionMetadata = {},
-): AbgAdmissionRefusal | string {
-  const invalidBasis = validatePublicOperationBasis(basis, expectedOperation);
-  if (invalidBasis !== null) return invalidBasis;
-  const event = admitRuntimeEvent(store, {
+): ArtifactAdmissionResult {
+  try {
+    assertHeldEventStoreAtDurablePrefix(store, basis.predecessorPrefix);
+  } catch (error) {
+    return {
+      disposition: "coordinate_refused",
+      successorPrefix: null,
+      refusal: predecessorCoordinateRefusal(error),
+    };
+  }
+  if (
+    expectedOperation !== "abg.operation.product.install" &&
+    expectedOperation !== "abg.operation.workspace.bind"
+  ) {
+    return {
+      disposition: "refused",
+      successorPrefix: basis.predecessorPrefix,
+      refusal: refusal(
+        "operation_mismatch",
+        "artifact admission is closed to Product install and workspace binding",
+      ),
+    };
+  }
+  const invalidBasis = validatePublicOperationBasis(
+    basis,
+    expectedOperation,
+    artifactMemberKey(expectedOperation),
+  );
+  if (invalidBasis !== null) {
+    return {
+      disposition: "refused",
+      successorPrefix: basis.predecessorPrefix,
+      refusal: invalidBasis,
+    };
+  }
+  const predecessorProjection = projectArtifactTruthAtPrefix(
+    basis.predecessorPrefix,
+  );
+  if (
+    predecessorProjection.kind ===
+      "exact_prefix_artifact_truth_projection_refusal"
+  ) {
+    return {
+      disposition: "coordinate_refused",
+      successorPrefix: null,
+      refusal: predecessorProjection,
+    };
+  }
+  const predecessorTruth = predecessorProjection;
+  const invocationTruth = projectEffectfulPublicInvocationTruthAtPrefix(
+    basis.predecessorPrefix,
+    basis.invocationRef,
+  );
+  if (invocationTruth.disposition === "invalid_history") {
+    return {
+      disposition: "coordinate_refused",
+      successorPrefix: null,
+      refusal: invocationTruth,
+    };
+  }
+  if (invocationTruth.disposition === "duplicate") {
+    return {
+      disposition: "refused",
+      successorPrefix: basis.predecessorPrefix,
+      refusal: duplicateInvocationRefusal(invocationTruth.priorAdmission),
+    };
+  }
+  const heldAtScope = predecessorTruth.rows.filter(
+    (row) => row.authorityScopeRef === basis.authorityScopeRef,
+  );
+  if (heldAtScope.length > 1) {
+    return {
+      disposition: "refused",
+      successorPrefix: basis.predecessorPrefix,
+      refusal: refusal(
+        "artifact_truth_conflict",
+        "artifact truth contains an ambiguous authority scope",
+      ),
+    };
+  }
+  const held = heldAtScope[0];
+  if (held !== undefined) {
+    return {
+      disposition: "refused",
+      successorPrefix: basis.predecessorPrefix,
+      refusal: refusal(
+        "artifact_truth_conflict",
+        "artifact admission conflicts with held scope truth under another invocation",
+      ),
+    };
+  }
+  const initiatedEvent: RuntimeEventCandidate & Readonly<{
+    kind: "public_operation_artifact_admitted";
+  }> = {
     kind: "public_operation_artifact_admitted",
     eventTime: basis.eventTime,
     aggregateType: "workspace",
@@ -188,7 +618,7 @@ export function admitArtifact(
     basisId: basis.authorityScopeRef,
     payload: {
       operationId: basis.operationId,
-      definitionKey: basis.definitionKey,
+      memberKey: basis.memberKey,
       definitionDigest: basis.definitionDigest,
       authorityScopeRef: basis.authorityScopeRef,
       authorityScopeDigest: basis.authorityScopeDigest,
@@ -202,16 +632,74 @@ export function admitArtifact(
       causationEventRefs: basis.causationEventRefs,
       correlationId: basis.correlationId,
     },
-  });
-  return event.eventId;
+  };
+  try {
+    assertHeldEventStoreAtDurablePrefix(store, basis.predecessorPrefix);
+  } catch (error) {
+    return {
+      disposition: "coordinate_refused",
+      successorPrefix: null,
+      refusal: predecessorCoordinateRefusal(error),
+    };
+  }
+  const predecessorEvents = store.readAll();
+  let preparedEvent: ReturnType<typeof projectRuntimeEventFromValidatedHistory>;
+  let preparedPrefix: ReturnType<typeof selectValidatedRuntimeEventPrefix>;
+  try {
+    preparedEvent = projectRuntimeEventFromValidatedHistory(
+      predecessorEvents,
+      initiatedEvent,
+    );
+    preparedPrefix = selectValidatedRuntimeEventPrefix(
+      Object.freeze([...predecessorEvents, preparedEvent]),
+    );
+    projectArtifactTruth(preparedPrefix);
+  } catch (error) {
+    return {
+      disposition: "refused",
+      successorPrefix: basis.predecessorPrefix,
+      refusal: refusal(
+        "artifact_truth_conflict",
+        `artifact successor semantics refused before append: ${String(error)}`,
+      ),
+    };
+  }
+  const appended = appendCheckedArtifactEvent(
+    store,
+    basis.predecessorPrefix,
+    initiatedEvent,
+  );
+  if (!("event" in appended)) {
+    return {
+      disposition: "coordinate_refused",
+      successorPrefix: null,
+      refusal: appended,
+    };
+  }
+  if (
+    sha256Canonical(appended.event as unknown as JsonValue) !==
+      sha256Canonical(preparedEvent as unknown as JsonValue)
+  ) {
+    throw new TypeError(
+      "artifact append differs from its exact pre-effect semantic projection",
+    );
+  }
+  const artifactTruth = projectValidatedPrefixArtifactTruth(
+    appended.successorPrefix,
+    preparedPrefix,
+  );
+  return {
+    disposition: "admitted",
+    admissionEventRef: appended.event.eventId,
+    successorPrefix: appended.successorPrefix,
+    artifactTruth,
+  };
 }
 
 export function hasAdmittedWorkspaceBinding(
-  store: AbgEventStore,
+  projection: ExactPrefixArtifactTruthProjection,
   binding: WorkspaceBinding,
 ): boolean {
-  const event = store.readAll().find((candidate) => candidate.eventId === binding.admissionEventRef);
-  const payload = event?.payload;
   const bindingDigest = sha256Canonical({
     workspaceId: binding.workspaceId,
     authorityBasisId: binding.authorityBasisId,
@@ -225,11 +713,14 @@ export function hasAdmittedWorkspaceBinding(
   } as unknown as JsonValue);
   return (
     bindingDigest === binding.bindingDigest &&
-    event?.kind === "public_operation_artifact_admitted" &&
-    isJsonRecord(payload) &&
-    payload.operationId === "abg.operation.workspace.bind" &&
-    payload.artifactRef === binding.bindingId &&
-    payload.artifactDigest === binding.bindingDigest
+    selectExactArtifactTruthRow(projection, {
+      operationId: "abg.operation.workspace.bind",
+      authorityScopeRef: binding.bindingId,
+      authorityScopeDigest: binding.bindingDigest,
+      artifactRef: binding.bindingId,
+      artifactDigest: binding.bindingDigest,
+      admissionEventRef: binding.admissionEventRef,
+    }) !== null
   );
 }
 
@@ -237,16 +728,49 @@ export function admitProductInstall(
   store: AbgEventStore,
   candidate: ProductInstallCandidate,
   basis: ArtifactAdmissionBasis,
-  resolvedLock?: JsonValue,
-): AbgAdmissionRefusal | ProductInstall {
+  resolvedLock: ResolvedProductLock,
+): ArtifactOwnerResult<ProductInstall> {
+  try {
+    assertHeldEventStoreAtDurablePrefix(store, basis.predecessorPrefix);
+  } catch (error) {
+    return {
+      kind: "artifact_owner_coordinate_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      successorPrefix: null,
+      suppliedPredecessor: basis.predecessorPrefix,
+      refusal: predecessorCoordinateRefusal(error),
+    };
+  }
+  const invalidBasis = validatePublicOperationBasis(
+    basis,
+    "abg.operation.product.install",
+    "install",
+  );
+  if (invalidBasis !== null) {
+    return {
+      kind: "artifact_owner_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      successorPrefix: basis.predecessorPrefix,
+      refusal: invalidBasis,
+    };
+  }
   if (
+    !isProductInstallCandidate(candidate, resolvedLock) ||
     basis.authorityScopeRef !== candidate.installId ||
     basis.authorityScopeDigest !== candidate.productContentDigest
   ) {
-    return refusal("scope_mismatch", "install admission scope differs from the candidate");
+    return {
+      kind: "artifact_owner_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      successorPrefix: basis.predecessorPrefix,
+      refusal: refusal("scope_mismatch", "install admission scope differs from the candidate"),
+    };
   }
   const candidateDigest = sha256Canonical(candidate as unknown as JsonValue);
-  const admissionEventRef = admitArtifact(
+  const admission = admitArtifact(
     store,
     basis,
     "abg.operation.product.install",
@@ -254,48 +778,191 @@ export function admitProductInstall(
     candidateDigest,
     {
       artifact: candidate as unknown as JsonValue,
-      ...(resolvedLock === undefined ? {} : { resolvedLock }),
+      resolvedLock: resolvedLock as unknown as JsonValue,
     },
   );
-  if (typeof admissionEventRef !== "string") {
-    return admissionEventRef;
+  if (admission.disposition === "coordinate_refused") {
+    return {
+      kind: "artifact_owner_coordinate_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      successorPrefix: null,
+      suppliedPredecessor: basis.predecessorPrefix,
+      refusal: admission.refusal,
+    };
+  }
+  if (admission.disposition === "refused") {
+    return {
+      kind: "artifact_owner_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      successorPrefix: admission.successorPrefix,
+      refusal: admission.refusal,
+    };
   }
   const { kind: _kind, disposition: _disposition, ...body } = candidate;
   const install = deepFreeze({
     kind: "product_install",
     disposition: "admitted",
     ...body,
-    admissionEventRef,
+    admissionEventRef: admission.admissionEventRef,
   }) as ProductInstall;
-  return install;
+  return deepFreeze({
+    kind: "artifact_owner_result" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: admission.disposition,
+    value: install,
+    admissionEventRef: admission.admissionEventRef,
+    successorPrefix: admission.successorPrefix,
+    artifactTruth: admission.artifactTruth,
+  });
 }
 
 export function admitWorkspaceBinding(
   store: AbgEventStore,
   candidate: WorkspaceBindingCandidate,
   basis: ArtifactAdmissionBasis,
-): AbgAdmissionRefusal | WorkspaceBinding {
+  authority: WorkspaceAuthorityBasis,
+): ArtifactOwnerResult<WorkspaceBinding> {
+  try {
+    assertHeldEventStoreAtDurablePrefix(store, basis.predecessorPrefix);
+  } catch (error) {
+    return {
+      kind: "artifact_owner_coordinate_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      successorPrefix: null,
+      suppliedPredecessor: basis.predecessorPrefix,
+      refusal: predecessorCoordinateRefusal(error),
+    };
+  }
+  const invalidBasis = validatePublicOperationBasis(
+    basis,
+    "abg.operation.workspace.bind",
+    "bind",
+  );
+  if (invalidBasis !== null) {
+    return {
+      kind: "artifact_owner_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      successorPrefix: basis.predecessorPrefix,
+      refusal: invalidBasis,
+    };
+  }
+  const predecessorProjection = projectExactPrefixArtifactTruth(
+    basis.predecessorPrefix,
+  );
   if (
+    predecessorProjection.kind ===
+      "exact_prefix_artifact_truth_projection_refusal"
+  ) {
+    return {
+      kind: "artifact_owner_coordinate_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      successorPrefix: null,
+      suppliedPredecessor: basis.predecessorPrefix,
+      refusal: predecessorProjection,
+    };
+  }
+  const causalInstalls = basis.causationEventRefs.map((eventRef) =>
+    projectAdmittedProductInstallByAdmissionEventRef(
+      predecessorProjection,
+      eventRef,
+    )
+  );
+  const resolvedLock = causalInstalls[0]?.resolvedLock;
+  const productSet = resolvedLock === undefined ||
+      causalInstalls.length === 0 ||
+      causalInstalls.some((row) =>
+        row === null ||
+        row.resolvedLock.lockId !== resolvedLock.lockId ||
+        row.resolvedLock.lockDigest !== resolvedLock.lockDigest
+      )
+    ? null
+    : constructProductSet(
+        causalInstalls.map((row) => row!.install),
+        resolvedLock,
+      );
+  const reconstructedCandidate = resolvedLock === undefined ||
+      productSet === null || productSet.kind !== "product_set" ||
+      !isWorkspaceAuthorityBasis(authority)
+    ? null
+    : constructWorkspaceBinding(
+        authority,
+        productSet,
+        resolvedLock,
+        candidate.roots,
+      );
+  if (
+    resolvedLock === undefined ||
+    productSet === null ||
+    productSet.kind !== "product_set" ||
+    reconstructedCandidate === null ||
+    reconstructedCandidate.kind !== "workspace_binding_candidate" ||
+    !isWorkspaceBindingCandidate(
+      candidate,
+      resolvedLock,
+      productSet,
+      authority,
+    ) ||
+    sha256Canonical(reconstructedCandidate as unknown as JsonValue) !==
+      sha256Canonical(candidate as unknown as JsonValue) ||
     basis.authorityScopeRef !== candidate.bindingId ||
     basis.authorityScopeDigest !== candidate.bindingDigest
   ) {
-    return refusal("scope_mismatch", "workspace admission scope differs from the candidate");
+    return {
+      kind: "artifact_owner_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      successorPrefix: basis.predecessorPrefix,
+      refusal: refusal("scope_mismatch", "workspace admission scope differs from the candidate"),
+    };
   }
-  const admissionEventRef = admitArtifact(
+  const admission = admitArtifact(
     store,
     basis,
     "abg.operation.workspace.bind",
     candidate.bindingId,
     candidate.bindingDigest,
-    { artifact: candidate as unknown as JsonValue },
+    {
+      artifact: candidate as unknown as JsonValue,
+      workspaceAuthorityBasis: authority as unknown as JsonValue,
+    },
   );
-  if (typeof admissionEventRef !== "string") {
-    return admissionEventRef;
+  if (admission.disposition === "coordinate_refused") {
+    return {
+      kind: "artifact_owner_coordinate_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      successorPrefix: null,
+      suppliedPredecessor: basis.predecessorPrefix,
+      refusal: admission.refusal,
+    };
+  }
+  if (admission.disposition === "refused") {
+    return {
+      kind: "artifact_owner_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      successorPrefix: admission.successorPrefix,
+      refusal: admission.refusal,
+    };
   }
   const { kind: _kind, ...body } = candidate;
-  return {
+  const binding = deepFreeze({
     kind: "workspace_binding",
     ...body,
-    admissionEventRef,
-  };
+    admissionEventRef: admission.admissionEventRef,
+  }) as WorkspaceBinding;
+  return deepFreeze({
+    kind: "artifact_owner_result" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: admission.disposition,
+    value: binding,
+    admissionEventRef: admission.admissionEventRef,
+    successorPrefix: admission.successorPrefix,
+    artifactTruth: admission.artifactTruth,
+  });
 }

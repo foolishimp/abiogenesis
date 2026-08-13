@@ -16,6 +16,7 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
@@ -34,6 +35,11 @@ export const ROOT_EVENT_KIND_VALUES = [
   "invocation_refused",
   "implementation_admitted",
   "basis_admitted",
+  "declaration_reprice_admitted",
+  "replay_log_attested",
+  "workspace_hygiene_stamped",
+  "defect_intake_admitted",
+  "run_resumed",
   "run_segment_opened",
   "graph_call_opened",
   "frame_opened",
@@ -56,6 +62,7 @@ export const ROOT_EVENT_KIND_VALUES = [
   "c_call_evidenced",
   "c_call_result_admitted",
   "c_call_judged",
+  "assessed",
   "retry_attempt_opened",
   "retry_progress_recorded",
   "child_foldback_admitted",
@@ -233,7 +240,7 @@ const LEGACY_IMPLEMENTATION_PAYLOAD = payloadKeys(
   "catalogViewDigest catalogViewId computeRegime failureContractRef graphFunctionDigest graphFunctionRef graphValidationDigest graphValidationRef implementationBindingDigest implementationBindingRef implementationDescriptorDigest implementationRef inputContractRef modulePath namedSymbol nodeRef outputContractRef packageName packageVersion programValidationRef publicationDigest refusalContractRef resolutionCandidateDigest resolutionCandidateRef resolutionDigest resolutionRef resolutionValidationDigest resolutionValidationRef",
 );
 const BASIS_PAYLOAD = payloadKeys(
-  "actionCatalogDigest actionCatalogRef actionCatalogRows actorRef basisClass basisDigest basisRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId closureContractDigest closureContractRef constructionComposition constructionCompositionDigest constructionCompositionRef entryRef evidenceContractRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef implementationResolutionRef implementationSetDigest implementationSetRef interactionSetDigest interactionSetRef invocationAdmissionRef invocationDigest invocationRef judgmentContractRef localExecutableLeafKeys localImplementationSubsetDigest localInteractionLeafKeys localInteractionSubsetDigest parentExecutionBasisRef parentTraversalScopeRef programDigest programRef programValidationRef rawInputAdmissionRef rawInputDigest refusalContractRef refusalValueKind rejectionContractRef replayProjectionRef resultContractRef rootImplementationSetDigest rootImplementationSetRef rootInteractionSetDigest rootInteractionSetRef terminalKind terminalPredicateRef transitionContractRef workspaceBindingDigest workspaceBindingId",
+  "actionCatalogDigest actionCatalogRef actionCatalogRows actorRef basisClass basisDigest basisRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId closureContractDigest closureContractRef constructionComposition constructionCompositionDigest constructionCompositionRef entryRef evidenceContractRef graphDigest graphFunctionDigest graphFunctionRef graphRef graphValidationRef implementationResolutionRef implementationSetDigest implementationSetRef interactionSetDigest interactionSetRef invocationAdmissionRef invocationDigest invocationRef judgmentContractRef localExecutableLeafKeys localImplementationSubsetDigest localInteractionLeafKeys localInteractionSubsetDigest parentCCallRef parentExecutionBasisRef parentTraversalScopeRef programDigest programRef programValidationRef rawInputAdmissionRef rawInputDigest rawInputValue refusalContractRef refusalValueKind rejectionContractRef replayProjectionRef resultContractRef rootImplementationSetDigest rootImplementationSetRef rootInteractionSetDigest rootInteractionSetRef terminalKind terminalPredicateRef transitionContractRef workspaceBindingDigest workspaceBindingId",
 );
 const GRAPH_OPEN_PAYLOAD = payloadKeys(
   "executionBasisRef graphCallDigest graphCallId graphDigest graphFunctionDigest graphFunctionRef graphRef invocationRef runId",
@@ -254,7 +261,7 @@ const ACTOR_TERMINAL_PAYLOAD = payloadKeys(
   "actorInvocationRef cCallRef disposition failureClass processRef transportBindingDigest transportBindingRef",
 );
 const ACTOR_OBSERVATION_PAYLOAD = payloadKeys(
-  "actorInvocationRef actorRef apiRetryCount artifactDigests cCallRef disposition exitObserved failureClass finalOutput implementationRef inputDigest instructionContractRef materializationPlanRef observedOutputDigest processRef processSignal processStatus progressEventCount promptDigest rendererRef resultContractRef signalSequence stderrByteLength stdoutByteLength structuredEventCount terminationConfirmed timedOut toolCallCount transportBindingDigest transportBindingRef transportDigest transportLane workerBindingRef",
+  "actorInvocationRef actorRef apiRetryCount artifactDigests cCallRef disposition exitObserved failureClass finalOutput implementationRef inputDigest instructionContractRef materializationPlanRef observedOutputDigest processRef processSignal processStatus progressEventCount promptDigest rendererRef requestDigest requestRef resultContractRef signalSequence stderrByteLength stdoutByteLength structuredEventCount terminationConfirmed timedOut toolCallCount transportBindingDigest transportBindingRef transportDigest transportLane workerBindingRef",
 );
 const EVIDENCE_PAYLOAD = payloadKeys(
   "cCallRef contractRef evidenceClass evidenceDigest evidenceRef",
@@ -281,13 +288,16 @@ const RETRY_FAILURE_PROGRESS_PAYLOAD = payloadKeys(
 const RETRY_STOPPED_PROGRESS_PAYLOAD = payloadKeys(
   "attempt attemptRef budget cCallRef completedAttempts failureClass failureSignalRef inputContractRef inputDigest inputRef judgmentRef predecessorProgressRef progressClass progressDigest progressRef remainingBudget resultRef retryBoundaryRef retryPath stopReason",
 );
+const WITNESSED_ACT_PAYLOAD = payloadKeys(
+  "act actorDigest actorRef contentContractDigest contentContractRef contentKind contentValue contentValueDigest contentValueRef context evidence provenance subjectDigest subjectKind subjectRef witnessedActDigest witnessedActRef",
+);
 
 const ROOT_EVENT_CONTRACTS = Object.freeze({
   public_operation_artifact_admitted: {
     variants: [WORKSPACE_EVENT],
     payloadVariants: [payloadVariant(
       payloadKeys(
-        "artifact artifactDigest artifactRef authorityScopeDigest authorityScopeRef causationEventRefs correlationId definitionDigest definitionKey invocationDigest invocationPayloadDigest invocationRef operationId ownerAdmittedDisposition productSemanticsBasisDigest publicationDigest resolvedLock",
+        "artifact artifactDigest artifactRef authorityScopeDigest authorityScopeRef causationEventRefs correlationId definitionDigest invocationDigest invocationPayloadDigest invocationRef memberKey operationId ownerAdmittedDisposition productSemanticsBasisDigest publicationDigest resolvedLock workspaceAuthorityBasis",
       ),
       payloadKeys("operationId artifactRef artifactDigest"),
     )],
@@ -297,7 +307,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     payloadVariants: [
       payloadVariant(
         payloadKeys(
-          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogApplicationDigests catalogApplicationRefs catalogBasisDigest catalogBasisRef catalogViewId definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef selectedDefinitionDigest selectedDefinitionRef selectedFibreDigest selectedFibreRef selectedPlanDigest selectedPlanRef variant workspaceBindingId",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogApplicationDigests catalogApplicationRefs catalogBasisDigest catalogBasisRef catalogHandle catalogViewId definitionDigest graphFunctionRef hogEntryCoordinate hogEntryStep invocationDigest invocationRef memberKey operationId policyDigest policyRef programRef programValidationDigest programValidationRef selectedDefinitionDigest selectedDefinitionRef variant workspaceBindingId",
         ),
         payloadKeys(
           "catalogApplicationDigests catalogApplicationRefs operationId invocationRef invocationDigest variant",
@@ -305,7 +315,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       ),
       payloadVariant(
         payloadKeys(
-          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogBasisDigest catalogBasisRef catalogViewId definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef selectedDefinitionDigest selectedDefinitionRef selectedFibreDigest selectedFibreRef selectedPlanDigest selectedPlanRef variant workspaceBindingId",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogBasisDigest catalogBasisRef catalogHandle catalogViewId definitionDigest graphFunctionRef hogEntryCoordinate hogEntryStep invocationDigest invocationRef memberKey operationId policyDigest policyRef programRef programValidationDigest programValidationRef selectedDefinitionDigest selectedDefinitionRef variant workspaceBindingId",
         ),
         payloadKeys(
           "operationId invocationRef invocationDigest variant",
@@ -313,11 +323,25 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       ),
       payloadVariant(
         payloadKeys(
-          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityRef catalogViewId continuationRef definitionDigest definitionKey graphFunctionRef invocationDigest invocationRef operationId policyDigest policyRef programRef variant workspaceBindingId",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId continuationRef definitionDigest graphFunctionDigest graphFunctionRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId policyDigest policyRef programDigest programRef variant workspaceBindingDigest workspaceBindingId",
         ),
         payloadKeys(
-          "operationId invocationRef invocationDigest variant continuationRef",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId continuationRef definitionDigest graphFunctionDigest graphFunctionRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId policyDigest policyRef programDigest programRef variant workspaceBindingDigest workspaceBindingId",
         ),
+      ),
+      payloadVariant(
+        payloadKeys(
+          "actorDigest actorRef authorityScopeDigest authorityScopeRef capabilityGrantDigest capabilityGrantRef definitionDigest dependencyLockDigest dependencyLockRef executionBasisDigest executionBasisRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId productSetDigest productSetRef workspaceBindingDigest workspaceBindingRef",
+        ),
+        undefined,
+        { operationId: "abg.operation.witness.admit" },
+      ),
+      payloadVariant(
+        payloadKeys(
+          "actorDigest actorRef authorityScopeDigest authorityScopeRef capabilityGrantDigest capabilityGrantRef definitionDigest dependencyLockDigest dependencyLockRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId productSetDigest productSetRef workspaceBindingDigest workspaceBindingRef",
+        ),
+        undefined,
+        { operationId: "abg.operation.witness.admit" },
       ),
     ],
   },
@@ -336,7 +360,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       ),
       payloadVariant(
         payloadKeys(
-          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityGrants catalogApplicationDigests catalogApplicationRefs catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis selectedDefinitionDigest selectedDefinitionRef selectedFibreDigest selectedFibreRef selectedPlanDigest selectedPlanRef sourceResultBasis workspaceBindingDigest workspaceBindingId workspaceId",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityGrants catalogApplicationDigests catalogApplicationRefs catalogBasisDigest catalogBasisRef catalogHandle catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef hogEntryCoordinate hogEntryStep inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis selectedDefinitionDigest selectedDefinitionRef sourceResultBasis workspaceBindingDigest workspaceBindingId workspaceId",
         ),
         payloadKeys(
           "catalogApplicationDigests catalogApplicationRefs invocationAdmissionRef invocationAdmissionDigest invocationRef reentryBasis sourceResultBasis",
@@ -383,15 +407,59 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     payloadVariants: [
       payloadVariant(
         BASIS_PAYLOAD,
-        payloadKeys("basisRef basisDigest basisClass"),
+        payloadKeys("basisRef basisDigest basisClass rawInputValue"),
         { basisClass: "root" },
       ),
       payloadVariant(
         BASIS_PAYLOAD,
-        payloadKeys("basisRef basisDigest basisClass"),
+        payloadKeys("basisRef basisDigest basisClass rawInputValue"),
         { basisClass: "child" },
       ),
     ],
+  },
+  declaration_reprice_admitted: {
+    variants: [WORKSPACE_EVENT, RUN_EVENT],
+    payloadVariants: [payloadVariant(combinePayloadKeys(
+      WITNESSED_ACT_PAYLOAD,
+      payloadKeys(
+        "afterDigest beforeDigest changeClass declarationRef operatorActorRef owningTicketRef reason repriceRef",
+      ),
+    ))],
+  },
+  replay_log_attested: {
+    variants: [WORKSPACE_EVENT, RUN_EVENT],
+    payloadVariants: [payloadVariant(combinePayloadKeys(
+      WITNESSED_ACT_PAYLOAD,
+      payloadKeys("attestationRef attestedBy chainDigest eventCount"),
+    ))],
+  },
+  workspace_hygiene_stamped: {
+    variants: [WORKSPACE_EVENT],
+    payloadVariants: [payloadVariant(
+      combinePayloadKeys(
+        WITNESSED_ACT_PAYLOAD,
+        payloadKeys("hygieneRef observedBy rows segmentRef"),
+      ),
+      undefined,
+      undefined,
+      payloadKeys("segmentRef"),
+    )],
+  },
+  defect_intake_admitted: {
+    variants: [RUN_EVENT],
+    payloadVariants: [payloadVariant(combinePayloadKeys(
+      WITNESSED_ACT_PAYLOAD,
+      payloadKeys(
+        "changeClass haltDiagnosisDigest haltDiagnosisRef intakeRef owner reEntryPoint summary triagedBy",
+      ),
+    ))],
+  },
+  run_resumed: {
+    variants: [RUN_EVENT],
+    payloadVariants: [payloadVariant(combinePayloadKeys(
+      WITNESSED_ACT_PAYLOAD,
+      payloadKeys("operatorActorRef reasonDetail reasonKind"),
+    ))],
   },
   run_segment_opened: {
     variants: [RUN_EVENT],
@@ -446,10 +514,12 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       payloadVariant(
         combinePayloadKeys(
           C_CALL_OPEN_PAYLOAD,
-          payloadKeys("childGraphFunctionRef failureContractRef"),
+          payloadKeys(
+            "childGraphFunctionRef failureContractRef judgmentPredicateRef",
+          ),
         ),
         payloadKeys(
-          "cCallRef cCallDigest callClass childGraphFunctionRef failureContractRef",
+          "cCallRef cCallDigest callClass childGraphFunctionRef failureContractRef judgmentPredicateRef",
         ),
         { callClass: "workflow" },
       ),
@@ -488,7 +558,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     variants: [ACTOR_INVOCATION_EVENT],
     payloadVariants: [payloadVariant(
       payloadKeys(
-        "actorInvocationRef actorRef cCallRef dispatchOrdinal implementationRef inputDigest promptDigest transportBindingDigest transportBindingRef workerBindingRef",
+        "actorInvocationRef actorRef cCallRef dispatchOrdinal implementationRef inputDigest promptDigest requestDigest requestRef transportBindingDigest transportBindingRef workerBindingRef",
       ),
       payloadKeys("actorInvocationRef transportBindingRef cCallRef"),
     )],
@@ -595,7 +665,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
         combinePayloadKeys(
           EVIDENCE_IO_PAYLOAD,
           payloadKeys(
-            "actorInvocationRef actorRef apiRetryCount artifactDigests exitObserved instructionContractRef materializationPlanRef observedOutputDigest processRef processSignal processStatus progressEventCount promptDigest rendererRef resultContractRef signalSequence stderrByteLength stdoutByteLength structuredEventCount terminationConfirmed timedOut toolCallCount transportBindingDigest transportBindingRef transportDigest transportDisposition transportFailureClass transportLane workerBindingRef",
+            "actorInvocationRef actorRef apiRetryCount artifactDigests candidateDigest candidateRef exitObserved instructionContractRef materializationPlanRef observedOutputDigest processRef processSignal processStatus progressEventCount promptDigest rawOutputDigest rendererRef requestDigest requestRef resultContractRef signalSequence stderrByteLength stdoutByteLength structuredEventCount terminationConfirmed timedOut toolCallCount transportBindingDigest transportBindingRef transportDigest transportDisposition transportFailureClass transportLane workerBindingRef",
           ),
         ),
         EVIDENCE_IO_PAYLOAD,
@@ -655,13 +725,23 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       payloadKeys("retryAttemptRef"),
     )],
   },
+  assessed: {
+    variants: [C_CALL_EVENT],
+    payloadVariants: [payloadVariant(
+      payloadKeys(
+        "actorDigest actorRef assessment assessmentContractDigest assessmentContractRef assessmentDigest assessmentRef assessmentValueDigest assessmentValueRef capabilityGrantDigest capabilityGrantRef closureEligible disposition evidence executionBasisDigest executionBasisRef expectedResultDigest expectedResultRef invocationDigest invocationRef residuals",
+      ),
+    )],
+  },
   retry_attempt_opened: {
     variants: [FRAME_EVENT],
     payloadVariants: [payloadVariant(
       payloadKeys(
-        "attempt attemptDigest attemptRef budget inputContractRef inputDigest inputRef inputValue priorJudgmentRef priorRouteRef retryBoundaryRef retryPath retryTermPath retryableFailureClasses taskOrdinal wrappedTermPath",
+        "attempt attemptDigest attemptManifestRef attemptRef budget inputContractRef inputDigest inputRef inputValue priorJudgmentRef priorRouteRef retryBoundaryRef retryPath retryTermPath retryableFailureClasses taskOrdinal wrappedTermPath",
       ),
-      payloadKeys("attemptRef attemptDigest retryBoundaryRef attempt"),
+      payloadKeys(
+        "attemptRef attemptDigest attemptManifestRef retryBoundaryRef attempt",
+      ),
     )],
   },
   retry_progress_recorded: {
@@ -823,9 +903,16 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
   },
   fh_interaction_resume_admitted: {
     variants: [CONTINUATION_EVENT],
-    payloadVariants: [payloadVariant(payloadKeys(
-      "actorRef capabilityRef continuationRef durablePrefixDigest openedEventRef publicOperationEventRef respondedEventRef responseDigest responseRef responseValue successorCursorDigest successorCursorRef successorInputDigest successorInputRef successorInputValue",
-    ))],
+    payloadVariants: [payloadVariant(
+      payloadKeys(
+        "actorRef capabilityRef closureContract continuationRef durablePrefixDigest openedEventRef publicOperationEventRef respondedEventRef responseDigest responseRef responseValue successorCursor successorCursorDigest successorCursorRef successorInputContractRef successorInputDigest successorInputRef successorInputValue successorInputValueKind",
+      ),
+      payloadKeys(
+        "actorRef capabilityRef closureContract continuationRef durablePrefixDigest openedEventRef publicOperationEventRef respondedEventRef responseDigest responseRef responseValue successorCursor successorCursorDigest successorCursorRef successorInputContractRef successorInputDigest successorInputRef successorInputValue successorInputValueKind",
+      ),
+      undefined,
+      payloadKeys("successorInputContractRef"),
+    )],
   },
   continuation_abandoned: {
     variants: [CONTINUATION_EVENT],
@@ -874,10 +961,15 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
   },
   run_stopped: {
     variants: [RUN_EVENT],
-    payloadVariants: [payloadVariant(
-      payloadKeys("cCallRef disposition judgmentRef reasonRef routeRef"),
-      payloadKeys("disposition routeRef reasonRef"),
-    )],
+    payloadVariants: [
+      payloadVariant(
+        payloadKeys("cCallRef disposition judgmentRef reasonRef routeRef"),
+        payloadKeys("disposition routeRef reasonRef"),
+      ),
+      payloadVariant(payloadKeys(
+        "act actorDigest actorRef contentContractDigest contentContractRef contentKind contentValue contentValueDigest contentValueRef context evidence operatorActorRef provenance reasonDetail reasonKind subjectDigest subjectKind subjectRef witnessedActDigest witnessedActRef",
+      )),
+    ],
   },
   terminal_reached: {
     variants: [FRAME_EVENT],
@@ -953,6 +1045,21 @@ export interface RuntimeEvent extends RuntimeEventCandidate {
   readonly payloadDigest: Sha256Digest;
 }
 
+export interface EventStoreAppendRefusal {
+  readonly kind: "event_store_append_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: "prefix_mismatch" | "sink_unavailable";
+  readonly message: string;
+}
+
+export type CheckedArtifactAppendResult =
+  | EventStoreAppendRefusal
+  | Readonly<{
+      event: RuntimeEvent;
+      successorPrefix: DurablePrefixCoordinate;
+    }>;
+
 export interface RuntimeEventScope {
   readonly invocationRef?: string;
   readonly runId?: string;
@@ -974,6 +1081,65 @@ export interface EventStoreReopenAuthority {
   readonly authorityDigest: Sha256Digest;
 }
 
+export interface DurablePrefixCoordinate {
+  readonly kind: "durable_prefix_coordinate";
+  readonly schemaVersion: "5.0.0";
+  readonly eventLogRef: string;
+  readonly prefixLength: number;
+  readonly prefixDigest: Sha256Digest;
+  readonly storeIdentity: {
+    readonly device: number;
+    readonly inode: number;
+    readonly eventContractDigest: Sha256Digest;
+  };
+  readonly coordinateDigest: Sha256Digest;
+}
+
+export type DurablePrefixReadFailureCode =
+  | "file_identity_mismatch"
+  | "prefix_length_mismatch"
+  | "prefix_digest_mismatch"
+  | "event_contract_digest_mismatch"
+  | "event_envelope_invalid"
+  | "admission_ordinal_invalid";
+
+export class DurablePrefixReadError extends TypeError {
+  constructor(
+    readonly code: DurablePrefixReadFailureCode,
+    message: string,
+  ) {
+    super(message);
+  }
+}
+
+export interface NewEmptyAppendSinkRequest {
+  readonly kind: "new_empty_append_sink_request";
+  readonly schemaVersion: "5.0.0";
+  readonly eventLogPath: string;
+}
+
+export interface EventStoreAcquisitionRefusal {
+  readonly kind: "event_store_acquisition_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: "basis_mismatch" | "sink_exists" | "sink_unavailable";
+  readonly message: string;
+}
+
+export interface NewEmptyAppendSinkContext {
+  readonly store: AbgEventStore;
+  readonly prefix: DurablePrefixCoordinate;
+}
+
+export type NewEmptyAppendSinkResult =
+  | EventStoreAcquisitionRefusal
+  | NewEmptyAppendSinkContext;
+
+export interface EventStoreCloseHandoff {
+  readonly prefix: DurablePrefixCoordinate;
+  readonly reopenAuthority: EventStoreReopenAuthority;
+}
+
 export interface ReopenedEventStoreContext {
   readonly kind: "reopened_event_store_context";
   readonly schemaVersion: "5.0.0";
@@ -984,6 +1150,7 @@ export interface ReopenedEventStoreContext {
   readonly maxAdmissionOrdinal: number;
   readonly nextAdmissionOrdinal: number;
   readonly store: AbgEventStore;
+  readonly prefix: DurablePrefixCoordinate;
 }
 
 export interface EventStoreReopenRefusal {
@@ -1320,10 +1487,270 @@ function readDescriptorBytes(
   return bytes;
 }
 
+function durablePrefixCoordinate(
+  path: string,
+  identity: DurableFileIdentity,
+  bytes: Buffer,
+): DurablePrefixCoordinate {
+  const body = {
+    kind: "durable_prefix_coordinate" as const,
+    schemaVersion: "5.0.0" as const,
+    eventLogRef: pathToFileURL(path).href,
+    prefixLength: bytes.byteLength,
+    prefixDigest: sha256Bytes(bytes),
+    storeIdentity: {
+      device: identity.device,
+      inode: identity.inode,
+      eventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
+    },
+  };
+  const coordinate = deepFreeze({
+    ...body,
+    coordinateDigest: sha256Canonical(body),
+  }) as DurablePrefixCoordinate;
+  if (!validateDurablePrefixCoordinate(coordinate)) {
+    throw new TypeError("ABG durable prefix coordinate construction failed validation");
+  }
+  return coordinate;
+}
+
+export function validateDurablePrefixCoordinate(
+  value: unknown,
+): value is DurablePrefixCoordinate {
+  if (!isRecord(value)) return false;
+  const keys = [
+    "coordinateDigest",
+    "eventLogRef",
+    "kind",
+    "prefixDigest",
+    "prefixLength",
+    "schemaVersion",
+    "storeIdentity",
+  ];
+  if (
+    Object.keys(value).length !== keys.length ||
+    Object.keys(value).some((key) => !keys.includes(key)) ||
+    !isRecord(value.storeIdentity)
+  ) {
+    return false;
+  }
+  const identityKeys = ["device", "eventContractDigest", "inode"];
+  if (
+    Object.keys(value.storeIdentity).length !== identityKeys.length ||
+    Object.keys(value.storeIdentity).some((key) => !identityKeys.includes(key))
+  ) {
+    return false;
+  }
+  let canonicalEventLogRef: string;
+  try {
+    const url = new URL(value.eventLogRef as string);
+    if (url.protocol !== "file:" || url.host !== "") return false;
+    canonicalEventLogRef = pathToFileURL(resolve(fileURLToPath(url))).href;
+  } catch {
+    return false;
+  }
+  const identity = value.storeIdentity;
+  const body = {
+    kind: value.kind,
+    schemaVersion: value.schemaVersion,
+    eventLogRef: value.eventLogRef,
+    prefixLength: value.prefixLength,
+    prefixDigest: value.prefixDigest,
+    storeIdentity: {
+      device: identity.device,
+      inode: identity.inode,
+      eventContractDigest: identity.eventContractDigest,
+    },
+  };
+  return value.kind === "durable_prefix_coordinate" &&
+    value.schemaVersion === "5.0.0" &&
+    value.eventLogRef === canonicalEventLogRef &&
+    Number.isSafeInteger(value.prefixLength) &&
+    (value.prefixLength as number) >= 0 &&
+    isSha256Digest(value.prefixDigest) &&
+    Number.isSafeInteger(identity.device) &&
+    (identity.device as number) >= 0 &&
+    Number.isSafeInteger(identity.inode) &&
+    (identity.inode as number) >= 0 &&
+    identity.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
+    isSha256Digest(value.coordinateDigest) &&
+    sha256Canonical(body as unknown as JsonValue) === value.coordinateDigest;
+}
+
+export function validateEventStoreReopenAuthority(
+  value: unknown,
+): value is EventStoreReopenAuthority {
+  if (!isRecord(value)) return false;
+  const keys = [
+    "authorityDigest",
+    "device",
+    "durableByteLength",
+    "eventContractDigest",
+    "eventLogDigest",
+    "eventLogPath",
+    "inode",
+    "kind",
+    "schemaVersion",
+  ];
+  if (
+    Object.keys(value).length !== keys.length ||
+    Object.keys(value).some((key) => !keys.includes(key)) ||
+    value.kind !== "event_store_reopen_authority" ||
+    value.schemaVersion !== "5.0.0" ||
+    typeof value.eventLogPath !== "string" ||
+    resolve(value.eventLogPath) !== value.eventLogPath ||
+    !Number.isSafeInteger(value.device) ||
+    (value.device as number) < 0 ||
+    !Number.isSafeInteger(value.inode) ||
+    (value.inode as number) < 0 ||
+    !Number.isSafeInteger(value.durableByteLength) ||
+    (value.durableByteLength as number) < 0 ||
+    !isSha256Digest(value.eventLogDigest) ||
+    value.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ||
+    !isSha256Digest(value.authorityDigest)
+  ) return false;
+  const body = {
+    kind: value.kind,
+    schemaVersion: value.schemaVersion,
+    eventLogPath: value.eventLogPath,
+    device: value.device,
+    inode: value.inode,
+    eventLogDigest: value.eventLogDigest,
+    durableByteLength: value.durableByteLength,
+    eventContractDigest: value.eventContractDigest,
+  };
+  return sha256Canonical(body as JsonValue) === value.authorityDigest;
+}
+
+export function validateEventStoreCloseHandoff(
+  value: unknown,
+): value is EventStoreCloseHandoff {
+  if (
+    !isRecord(value) ||
+    Object.keys(value).length !== 2 ||
+    !("prefix" in value) ||
+    !("reopenAuthority" in value) ||
+    !validateDurablePrefixCoordinate(value.prefix) ||
+    !validateEventStoreReopenAuthority(value.reopenAuthority)
+  ) return false;
+  const { prefix, reopenAuthority } = value;
+  return prefix.eventLogRef === pathToFileURL(reopenAuthority.eventLogPath).href &&
+    prefix.prefixLength === reopenAuthority.durableByteLength &&
+    prefix.prefixDigest === reopenAuthority.eventLogDigest &&
+    prefix.storeIdentity.device === reopenAuthority.device &&
+    prefix.storeIdentity.inode === reopenAuthority.inode &&
+    prefix.storeIdentity.eventContractDigest === reopenAuthority.eventContractDigest;
+}
+
+export function readRuntimeEventsAtDurablePrefix(
+  prefix: DurablePrefixCoordinate,
+): readonly RuntimeEvent[] {
+  if (!validateDurablePrefixCoordinate(prefix)) {
+    const rawPrefix: unknown = prefix;
+    const suppliedContract = typeof rawPrefix === "object" &&
+        rawPrefix !== null &&
+        "storeIdentity" in rawPrefix &&
+        typeof rawPrefix.storeIdentity === "object" &&
+        rawPrefix.storeIdentity !== null &&
+        "eventContractDigest" in rawPrefix.storeIdentity
+      ? rawPrefix.storeIdentity.eventContractDigest
+      : undefined;
+    throw new DurablePrefixReadError(
+      suppliedContract !== undefined &&
+          suppliedContract !== ROOT_EVENT_CONTRACT_DIGEST
+        ? "event_contract_digest_mismatch"
+        : "event_envelope_invalid",
+      "ABG durable prefix coordinate is invalid",
+    );
+  }
+  const path = resolve(fileURLToPath(prefix.eventLogRef));
+  let descriptor: number | null = null;
+  try {
+    try {
+      descriptor = openSync(path, constants.O_RDONLY);
+    } catch (error) {
+      throw new DurablePrefixReadError(
+        "file_identity_mismatch",
+        `ABG durable prefix file is unavailable: ${String(error)}`,
+      );
+    }
+    const beforePath = statSync(path);
+    const beforeDescriptor = fstatSync(descriptor);
+    if (
+      !beforePath.isFile() ||
+      !beforeDescriptor.isFile() ||
+      beforePath.dev !== prefix.storeIdentity.device ||
+      beforePath.ino !== prefix.storeIdentity.inode ||
+      beforeDescriptor.dev !== prefix.storeIdentity.device ||
+      beforeDescriptor.ino !== prefix.storeIdentity.inode
+    ) {
+      throw new DurablePrefixReadError(
+        "file_identity_mismatch",
+        "ABG durable prefix file identity differs from coordinate",
+      );
+    }
+    if (
+      beforePath.size < prefix.prefixLength ||
+      beforeDescriptor.size < prefix.prefixLength
+    ) {
+      throw new DurablePrefixReadError(
+        "prefix_length_mismatch",
+        "ABG durable prefix file ended before the selected prefix",
+      );
+    }
+    const bytes = readDescriptorBytes(descriptor, prefix.prefixLength);
+    const afterPath = statSync(path);
+    const afterDescriptor = fstatSync(descriptor);
+    if (
+      afterPath.dev !== beforePath.dev ||
+      afterPath.ino !== beforePath.ino ||
+      afterDescriptor.dev !== beforeDescriptor.dev ||
+      afterDescriptor.ino !== beforeDescriptor.ino
+    ) {
+      throw new DurablePrefixReadError(
+        "file_identity_mismatch",
+        "ABG durable prefix file identity changed during read",
+      );
+    }
+    if (
+      afterPath.size < prefix.prefixLength ||
+      afterDescriptor.size < prefix.prefixLength
+    ) {
+      throw new DurablePrefixReadError(
+        "prefix_length_mismatch",
+        "ABG durable prefix file ended during read",
+      );
+    }
+    if (sha256Bytes(bytes) !== prefix.prefixDigest) {
+      throw new DurablePrefixReadError(
+        "prefix_digest_mismatch",
+        "ABG durable prefix bytes differ from coordinate",
+      );
+    }
+    try {
+      return validateHistoricalEvents(bytes);
+    } catch (error) {
+      if (error instanceof DurablePrefixReadError) throw error;
+      throw new DurablePrefixReadError(
+        "event_envelope_invalid",
+        String(error),
+      );
+    }
+  } finally {
+    if (descriptor !== null) closeSync(descriptor);
+  }
+}
+
 function durableEventBytes(events: readonly RuntimeEvent[]): string {
   return events
     .map((event) => `${canonicalJson(event as unknown as JsonValue)}\n`)
     .join("");
+}
+
+export function durableRuntimeEventPrefixDigest(
+  events: readonly RuntimeEvent[],
+): Sha256Digest {
+  return sha256Bytes(Buffer.from(durableEventBytes(events), "utf8"));
 }
 
 function assertDurableSinkUnchanged(state: EventStoreState): number {
@@ -1358,10 +1785,108 @@ function assertDurableSinkUnchanged(state: EventStoreState): number {
   return descriptor;
 }
 
+export function assertHeldEventStoreAtDurablePrefix(
+  store: AbgEventStore,
+  prefix: DurablePrefixCoordinate,
+): void {
+  if (!validateDurablePrefixCoordinate(prefix)) {
+    throw new TypeError("ABG held-store prefix is invalid");
+  }
+  const state = eventState.get(store);
+  if (state === undefined) {
+    throw new TypeError("event store was not constructed by this ABG module");
+  }
+  const descriptor = assertDurableSinkUnchanged(state);
+  if (
+    state.durableLogPath === null ||
+    state.durableFileIdentity === null ||
+    pathToFileURL(state.durableLogPath).href !== prefix.eventLogRef ||
+    state.durableByteLength !== prefix.prefixLength ||
+    state.durableFileIdentity.device !== prefix.storeIdentity.device ||
+    state.durableFileIdentity.inode !== prefix.storeIdentity.inode
+  ) {
+    throw new TypeError("ABG held store differs from the selected durable prefix");
+  }
+  const bytes = readDescriptorBytes(descriptor, state.durableByteLength);
+  const held = durablePrefixCoordinate(
+    state.durableLogPath,
+    state.durableFileIdentity,
+    bytes,
+  );
+  if (held.coordinateDigest !== prefix.coordinateDigest) {
+    throw new TypeError("ABG held store bytes differ from the selected durable prefix");
+  }
+}
+
+export function selectHeldEventStoreDurablePrefix(
+  store: AbgEventStore,
+): DurablePrefixCoordinate {
+  const state = eventState.get(store);
+  if (state === undefined) {
+    throw new TypeError("event store was not constructed by this ABG module");
+  }
+  const descriptor = assertDurableSinkUnchanged(state);
+  return durablePrefixCoordinate(
+    state.durableLogPath!,
+    state.durableFileIdentity!,
+    readDescriptorBytes(descriptor, state.durableByteLength),
+  );
+}
+
+export function assertHeldEventStoreAtRuntimeEventPrefix(
+  store: AbgEventStore,
+  expectedEvents: readonly RuntimeEvent[],
+): DurablePrefixCoordinate {
+  const held = selectHeldEventStoreDurablePrefix(store);
+  const expectedEventDigest = sha256Canonical(
+    expectedEvents as unknown as JsonValue,
+  );
+  const durableEvents = readRuntimeEventsAtDurablePrefix(held);
+  if (
+    store.digest() !== expectedEventDigest ||
+    sha256Canonical(durableEvents as unknown as JsonValue) !==
+      expectedEventDigest ||
+    held.prefixDigest !== durableRuntimeEventPrefixDigest(expectedEvents)
+  ) {
+    throw new TypeError(
+      "ABG held durable predecessor bytes differ from the exact in-memory event prefix",
+    );
+  }
+  return held;
+}
+
+function exactDurableAppendAttemptSuffix(
+  descriptor: number,
+  priorByteLength: number,
+  encoded: Buffer,
+  observedByteLength: number,
+): boolean {
+  const suffixByteLength = observedByteLength - priorByteLength;
+  if (suffixByteLength < 0 || suffixByteLength > encoded.byteLength) {
+    return false;
+  }
+  if (suffixByteLength === 0) return true;
+  const observed = Buffer.alloc(suffixByteLength);
+  let offset = 0;
+  while (offset < observed.byteLength) {
+    const read = readSync(
+      descriptor,
+      observed,
+      offset,
+      observed.byteLength - offset,
+      priorByteLength + offset,
+    );
+    if (read === 0) return false;
+    offset += read;
+  }
+  return observed.equals(encoded.subarray(0, suffixByteLength));
+}
+
 function appendDurablyBatch(
   state: EventStoreState,
   events: readonly RuntimeEvent[],
-): void {
+): DurablePrefixCoordinate | null {
+  if (events.length === 0 || state.durableLogPath === null) return null;
   const descriptor = assertDurableSinkUnchanged(state);
   const priorByteLength = state.durableByteLength;
   const encoded = Buffer.from(durableEventBytes(events), "utf8");
@@ -1397,16 +1922,33 @@ function appendDurablyBatch(
     }
     state.durableByteLength = status.size;
     assertDurableSinkUnchanged(state);
+    return durablePrefixCoordinate(
+      state.durableLogPath,
+      state.durableFileIdentity!,
+      readDescriptorBytes(descriptor, state.durableByteLength),
+    );
   } catch (error) {
+    let rollbackError: unknown;
     try {
       const status = fstatSync(descriptor);
-      if (status.size !== priorByteLength) {
+      if (!exactDurableAppendAttemptSuffix(
+        descriptor,
+        priorByteLength,
+        encoded,
+        status.size,
+      )) {
+        throw new TypeError(
+          "ABG durable event sink contains a foreign or ambiguous suffix; ownership is poisoned without truncation",
+        );
+      }
+      if (status.size > priorByteLength) {
         ftruncateSync(descriptor, priorByteLength);
         fsyncSync(descriptor);
       }
       state.durableByteLength = priorByteLength;
       assertDurableSinkUnchanged(state);
-    } catch (rollbackError) {
+    } catch (caught) {
+      rollbackError = caught;
       try {
         releaseDurableOwnership(state);
       } catch {
@@ -1414,14 +1956,14 @@ function appendDurablyBatch(
       }
       throw new AggregateError(
         [error, rollbackError],
-        "ABG durable event append failed and its unadmitted suffix could not be rolled back",
+        "ABG durable event append failed and its suffix could not be proven safe to roll back",
       );
     }
     throw error;
   }
 }
 
-function constructRuntimeEvent(
+export function projectRuntimeEventFromValidatedHistory(
   events: readonly RuntimeEvent[],
   candidate: RuntimeEventCandidate,
 ): RuntimeEvent {
@@ -1470,8 +2012,15 @@ function constructRuntimeEvent(
   }) as RuntimeEvent;
 }
 
+const EVENT_STORE_CONSTRUCTION_AUTHORITY = Symbol(
+  "event_store_construction_authority",
+);
+
 export class AbgEventStore {
-  constructor() {
+  constructor(authority: typeof EVENT_STORE_CONSTRUCTION_AUTHORITY) {
+    if (authority !== EVENT_STORE_CONSTRUCTION_AUTHORITY) {
+      throw new TypeError("ABG Event Store construction is module-private");
+    }
     eventState.set(this, {
       events: [],
       durableLogPath: null,
@@ -1497,41 +2046,6 @@ export class AbgEventStore {
     return sha256Canonical(events as unknown as JsonValue);
   }
 
-  configureDurableLog(path: string): void {
-    const state = eventState.get(this);
-    if (state === undefined) throw new TypeError("event store state is unavailable");
-    const exactPath = resolve(path);
-    if (state.durableLogPath !== null) {
-      if (state.durableLogPath !== exactPath) {
-        throw new TypeError("ABG event store cannot change its configured durable log");
-      }
-      return;
-    }
-    if (state.durableAppendClosed) {
-      throw new TypeError("ABG durable event sink is unavailable for exclusive append");
-    }
-    mkdirSync(dirname(exactPath), { recursive: true });
-    writeFileSync(exactPath, "", { encoding: "utf8", flag: "wx" });
-    try {
-      const owned = openOwnedDurableSink(exactPath);
-      state.durableLogPath = exactPath;
-      state.durableDescriptor = owned.descriptor;
-      state.durableFileIdentity = owned.identity;
-      state.durableAppendLock = owned.lock;
-      state.durableByteLength = 0;
-      if (state.events.length !== 0) {
-        appendDurablyBatch(state, state.events);
-      }
-    } catch (error) {
-      try {
-        unlinkSync(exactPath);
-      } catch {
-        // Preserve the ownership failure; the empty unowned sink is harmless.
-      }
-      throw error;
-    }
-  }
-
   configuredDurableLogPath(): string | null {
     return eventState.get(this)?.durableLogPath ?? null;
   }
@@ -1544,7 +2058,7 @@ export class AbgEventStore {
     }
   }
 
-  projectReopenAuthorityAndClose(): EventStoreReopenAuthority {
+  projectReopenAuthorityAndClose(): EventStoreCloseHandoff {
     const state = eventState.get(this);
     if (state === undefined) throw new TypeError("event store state is unavailable");
     const descriptor = assertDurableSinkUnchanged(state);
@@ -1552,7 +2066,7 @@ export class AbgEventStore {
     const identity = state.durableFileIdentity!;
     const bytes = readDescriptorBytes(descriptor, state.durableByteLength);
     assertDurableSinkUnchanged(state);
-    const body = {
+    const authorityBody = {
       kind: "event_store_reopen_authority" as const,
       schemaVersion: "5.0.0" as const,
       eventLogPath: path,
@@ -1562,12 +2076,110 @@ export class AbgEventStore {
       durableByteLength: state.durableByteLength,
       eventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
     };
-    const authority = deepFreeze({
-      ...body,
-      authorityDigest: sha256Canonical(body),
+    const reopenAuthority = deepFreeze({
+      ...authorityBody,
+      authorityDigest: sha256Canonical(authorityBody),
     });
+    const prefix = durablePrefixCoordinate(path, identity, bytes);
+    const handoff = Object.freeze({ prefix, reopenAuthority });
+    if (!validateEventStoreCloseHandoff(handoff)) {
+      throw new TypeError("ABG durable close handoff failed validation");
+    }
     releaseDurableOwnership(state);
-    return authority;
+    return handoff;
+  }
+}
+
+function acquisitionRefusal(
+  code: EventStoreAcquisitionRefusal["code"],
+  message: string,
+): EventStoreAcquisitionRefusal {
+  return deepFreeze({
+    kind: "event_store_acquisition_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code,
+    message,
+  });
+}
+
+export function createNewEmptyAppendSink(
+  request: NewEmptyAppendSinkRequest,
+): NewEmptyAppendSinkResult {
+  if (
+    !isRecord(request) ||
+    Object.keys(request).length !== 3 ||
+    !["eventLogPath", "kind", "schemaVersion"].every((key) => key in request) ||
+    request.kind !== "new_empty_append_sink_request" ||
+    request.schemaVersion !== "5.0.0" ||
+    typeof request.eventLogPath !== "string" ||
+    request.eventLogPath.length === 0 ||
+    resolve(request.eventLogPath) !== request.eventLogPath
+  ) {
+    return acquisitionRefusal(
+      "basis_mismatch",
+      "new-empty append acquisition requires one exact canonical request",
+    );
+  }
+  const path = request.eventLogPath;
+  try {
+    mkdirSync(dirname(path), { recursive: true });
+    writeFileSync(path, "", { encoding: "utf8", flag: "wx" });
+  } catch (error) {
+    const code = isRecord(error) && error.code === "EEXIST"
+      ? "sink_exists" as const
+      : "sink_unavailable" as const;
+    return acquisitionRefusal(
+      code,
+      code === "sink_exists"
+        ? `new-empty append acquisition requires an absent target: ${String(error)}`
+        : `new-empty append acquisition cannot create its explicit target: ${String(error)}`,
+    );
+  }
+  let owned:
+    | {
+        readonly descriptor: number;
+        readonly identity: DurableFileIdentity;
+        readonly lock: DurableAppendLock;
+      }
+    | undefined;
+  try {
+    owned = openOwnedDurableSink(path);
+    const store = new AbgEventStore(EVENT_STORE_CONSTRUCTION_AUTHORITY);
+    eventState.set(store, {
+      events: [],
+      durableLogPath: path,
+      durableDescriptor: owned.descriptor,
+      durableFileIdentity: owned.identity,
+      durableAppendLock: owned.lock,
+      durableByteLength: 0,
+      durableAppendClosed: false,
+      transactionStartIndex: null,
+    });
+    const prefix = durablePrefixCoordinate(path, owned.identity, Buffer.alloc(0));
+    return Object.freeze({ store, prefix });
+  } catch (error) {
+    if (owned !== undefined) {
+      try {
+        closeSync(owned.descriptor);
+      } catch {
+        // Preserve the acquisition refusal.
+      }
+      try {
+        releaseDurableAppendLock(owned.lock);
+      } catch {
+        // Preserve the acquisition refusal.
+      }
+    }
+    try {
+      unlinkSync(path);
+    } catch {
+      // Preserve the acquisition refusal.
+    }
+    return acquisitionRefusal(
+      "sink_unavailable",
+      `new-empty append acquisition failed: ${String(error)}`,
+    );
   }
 }
 
@@ -1578,6 +2190,32 @@ export function isEventStoreAdmissionOpen(store: AbgEventStore): boolean {
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isExactReferenceDigestSet(value: unknown): boolean {
+  return Array.isArray(value) &&
+    value.length > 0 &&
+    value.every((entry) =>
+      isRecord(entry) &&
+      Object.keys(entry).length === 2 &&
+      Object.hasOwn(entry, "ref") &&
+      Object.hasOwn(entry, "digest") &&
+      typeof entry.ref === "string" &&
+      entry.ref.length > 0 &&
+      isSha256Digest(entry.digest)
+    ) &&
+    new Set(value.map((entry) => (entry as { readonly ref: string }).ref))
+        .size === value.length;
+}
+
+function exactStringKeys(
+  value: Readonly<Record<string, unknown>>,
+  expected: readonly string[],
+): boolean {
+  const actual = Object.keys(value).sort();
+  const required = [...expected].sort();
+  return actual.length === required.length &&
+    actual.every((key, index) => key === required[index]);
 }
 
 function assertRuntimeEventContract(
@@ -1788,6 +2426,197 @@ function assertRuntimeEventContract(
     throw new TypeError("C-call result event carries an unknown result class");
   }
   if (
+    candidate.kind === "assessed" &&
+    !["admitted", "rejected", "retry", "blocked"].includes(
+      String(payload.disposition),
+    )
+  ) {
+    throw new TypeError("result assessment event carries an unknown disposition");
+  }
+  if (
+    [
+      "declaration_reprice_admitted",
+      "replay_log_attested",
+      "workspace_hygiene_stamped",
+      "defect_intake_admitted",
+      "run_resumed",
+      "run_stopped",
+    ].includes(candidate.kind) &&
+    Object.hasOwn(payload, "witnessedActRef")
+  ) {
+    const expectedAct = candidate.kind === "declaration_reprice_admitted"
+      ? "reprice"
+      : candidate.kind === "replay_log_attested"
+        ? "attest"
+        : candidate.kind === "workspace_hygiene_stamped"
+          ? "hygiene-stamp"
+          : candidate.kind === "defect_intake_admitted"
+            ? "intake"
+            : candidate.kind === "run_resumed"
+              ? "run-resumed"
+              : "run-stopped";
+    const witnessedBody = {
+      act: payload.act,
+      actor: { ref: payload.actorRef, digest: payload.actorDigest },
+      subject: {
+        kind: payload.subjectKind,
+        ref: payload.subjectRef,
+        digest: payload.subjectDigest,
+      },
+      content: {
+        kind: payload.contentKind,
+        contractRef: payload.contentContractRef,
+        contractDigest: payload.contentContractDigest,
+        valueRef: payload.contentValueRef,
+        valueDigest: payload.contentValueDigest,
+        value: payload.contentValue,
+      },
+      context: payload.context,
+      evidence: payload.evidence,
+      provenance: payload.provenance,
+    };
+    const witnessedActDigest = sha256Canonical(
+      witnessedBody as unknown as JsonValue,
+    );
+    if (
+      payload.act !== expectedAct ||
+      !isSha256Digest(payload.actorDigest) ||
+      !isSha256Digest(payload.subjectDigest) ||
+      !isSha256Digest(payload.contentContractDigest) ||
+      !isSha256Digest(payload.contentValueDigest) ||
+      payload.contentValueDigest !== sha256Canonical(payload.contentValue!) ||
+      !isExactReferenceDigestSet(payload.evidence) ||
+      !isExactReferenceDigestSet(payload.provenance) ||
+      payload.witnessedActDigest !== witnessedActDigest ||
+      payload.witnessedActRef !==
+        `witnessed-act://abiogenesis/${witnessedActDigest.slice("sha256:".length)}`
+    ) {
+      throw new TypeError(
+        "witness event payload is not one exact self-certified actor-attributed act",
+      );
+    }
+  }
+  if (
+    candidate.kind === "declaration_reprice_admitted" &&
+    (
+      payload.beforeDigest === payload.afterDigest ||
+      ![
+        "goal_reprice",
+        "intent_reprice",
+        "product_reprice",
+        "requirement_reprice",
+        "design_reframe",
+        "realization_refactor",
+      ].includes(String(payload.changeClass)) ||
+      payload.repriceRef !== `declaration-reprice:${sha256Canonical({
+        declarationRef: payload.declarationRef!,
+        beforeDigest: payload.beforeDigest!,
+        afterDigest: payload.afterDigest!,
+        changeClass: payload.changeClass!,
+        owningTicketRef: payload.owningTicketRef!,
+      } as JsonValue)}`
+    )
+  ) {
+    throw new TypeError("declaration reprice event carries invalid change truth");
+  }
+  if (
+    candidate.kind === "replay_log_attested" &&
+    (
+      !Number.isSafeInteger(payload.eventCount) ||
+      Number(payload.eventCount) < 0 ||
+      payload.attestationRef !== `replay-attestation:${sha256Canonical({
+        basisId: candidate.basisId,
+        chainDigest: payload.chainDigest!,
+        eventCount: payload.eventCount!,
+        attestedBy: payload.attestedBy!,
+      } as JsonValue)}`
+    )
+  ) {
+    throw new TypeError("replay attestation event is not self-certified");
+  }
+  if (
+    candidate.kind === "defect_intake_admitted" &&
+    (
+      ![
+        "goal_reprice",
+        "intent_reprice",
+        "product_reprice",
+        "requirement_reprice",
+        "design_reframe",
+        "realization_refactor",
+      ].includes(String(payload.changeClass)) ||
+      ![
+        "goals",
+        "intent",
+        "product_definition",
+        "requirements",
+        "design_surface",
+        "realization",
+        "proof",
+      ].includes(String(payload.reEntryPoint)) ||
+      payload.intakeRef !== `defect-intake:${sha256Canonical({
+        basisId: candidate.basisId,
+        haltDiagnosisRef: payload.haltDiagnosisRef!,
+        owner: payload.owner!,
+        changeClass: payload.changeClass!,
+        reEntryPoint: payload.reEntryPoint!,
+        summary: payload.summary!,
+        evidenceRefs: (payload.evidence as unknown as readonly {
+          readonly ref: string;
+        }[]).map((row) => row.ref),
+        triagedBy: payload.triagedBy!,
+      } as unknown as JsonValue)}`
+    )
+  ) {
+    throw new TypeError("defect intake event carries an invalid re-entry relation");
+  }
+  if (candidate.kind === "workspace_hygiene_stamped") {
+    if (!Array.isArray(payload.rows) || payload.rows.length === 0) {
+      throw new TypeError("workspace hygiene event requires non-empty rows");
+    }
+    for (const row of payload.rows) {
+      if (
+        !isRecord(row) ||
+        Object.keys(row).length !== 5 ||
+        !exactStringKeys(row, [
+          "artifactRef",
+          "observedDigest",
+          "admittedDigest",
+          "classification",
+          "copyOutRef",
+        ])
+      ) {
+        throw new TypeError("workspace hygiene event carries an invalid row");
+      }
+      const expected = row.observedDigest === null && row.admittedDigest === null
+        ? null
+        : row.observedDigest === null
+          ? "missing"
+          : row.admittedDigest === null
+            ? "untracked"
+            : row.observedDigest === row.admittedDigest
+              ? "clean"
+              : "foreign_write";
+      if (
+        expected === null ||
+        row.classification !== expected ||
+        (expected === "foreign_write" &&
+          (typeof row.copyOutRef !== "string" || row.copyOutRef.length === 0))
+      ) {
+        throw new TypeError("workspace hygiene row differs from digest-pair truth");
+      }
+    }
+    const hygieneDigest = sha256Canonical({
+      basisId: candidate.basisId,
+      segmentRef: payload.segmentRef!,
+      observedBy: payload.observedBy!,
+      rows: payload.rows,
+    } as unknown as JsonValue);
+    if (payload.hygieneRef !== `workspace-hygiene:${hygieneDigest}`) {
+      throw new TypeError("workspace hygiene event is not self-certified");
+    }
+  }
+  if (
     candidate.kind === "traversal_route_admitted" &&
     ![
       "advance",
@@ -1830,6 +2659,7 @@ function assertRuntimeEventContract(
   }
   if (
     candidate.kind === "run_stopped" &&
+    Object.hasOwn(payload, "disposition") &&
     ![
       "blocked",
       "failed",
@@ -1846,6 +2676,29 @@ function assertRuntimeEventContract(
     )
   ) {
     throw new TypeError("run stop event carries an unknown disposition");
+  }
+  if (
+    candidate.kind === "run_stopped" &&
+    Object.hasOwn(payload, "reasonKind") &&
+    ![
+      "operator_stop",
+      "operator_abort",
+      "external_interruption",
+      "campaign_close",
+    ].includes(String(payload.reasonKind))
+  ) {
+    throw new TypeError("operator run stop event carries an unknown reason kind");
+  }
+  if (
+    candidate.kind === "run_resumed" &&
+    ![
+      "operator_resume",
+      "reprice_reentry",
+      "external_recovery",
+      "campaign_continue",
+    ].includes(String(payload.reasonKind))
+  ) {
+    throw new TypeError("operator run resume event carries an unknown reason kind");
   }
 }
 
@@ -1949,14 +2802,22 @@ export function validateHistoricalEvents(
       ...candidateValue
     } = decoded;
     if (
-      typeof eventId !== "string" ||
       !Number.isSafeInteger(admissionOrdinal) ||
+      admissionOrdinal !== admitted.length + 1
+    ) {
+      throw new DurablePrefixReadError(
+        "admission_ordinal_invalid",
+        "durable ABG event log contains an invalid admission ordinal",
+      );
+    }
+    if (
+      typeof eventId !== "string" ||
       !isSha256Digest(payloadDigest) ||
       !isRuntimeEventCandidateShape(candidateValue)
     ) {
       throw new TypeError("durable ABG event log contains an invalid envelope");
     }
-    const reconstructed = constructRuntimeEvent(
+    const reconstructed = projectRuntimeEventFromValidatedHistory(
       admitted,
       candidateValue as unknown as RuntimeEventCandidate,
     );
@@ -1989,67 +2850,22 @@ function reopenRefusal(
 }
 
 export function reopenEventStore(
-  authority: EventStoreReopenAuthority,
+  authority: unknown,
 ): EventStoreReopenResult {
-  if (!isRecord(authority)) {
-    return reopenRefusal(
-      "basis_mismatch",
-      "event-store reopen authority is not one exact carrier",
-    );
-  }
-  const authorityKeys = new Set([
-    "authorityDigest",
-    "device",
-    "durableByteLength",
-    "eventContractDigest",
-    "eventLogDigest",
-    "eventLogPath",
-    "inode",
-    "kind",
-    "schemaVersion",
-  ]);
   if (
-    Object.keys(authority).length !== authorityKeys.size ||
-    Object.keys(authority).some((key) => !authorityKeys.has(key))
+    isRecord(authority) &&
+    isSha256Digest(authority.eventContractDigest) &&
+    authority.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST
   ) {
-    return reopenRefusal(
-      "basis_mismatch",
-      "event-store reopen authority has an open or incomplete shape",
-    );
-  }
-  const authorityDigest = authority.authorityDigest;
-  const authorityBody = {
-    kind: authority.kind,
-    schemaVersion: authority.schemaVersion,
-    eventLogPath: authority.eventLogPath,
-    device: authority.device,
-    inode: authority.inode,
-    eventLogDigest: authority.eventLogDigest,
-    durableByteLength: authority.durableByteLength,
-    eventContractDigest: authority.eventContractDigest,
-  };
-  if (
-    authority.kind !== "event_store_reopen_authority" ||
-    authority.schemaVersion !== "5.0.0" ||
-    resolve(authority.eventLogPath) !== authority.eventLogPath ||
-    !Number.isSafeInteger(authority.device) ||
-    !Number.isSafeInteger(authority.inode) ||
-    !isSha256Digest(authority.eventLogDigest) ||
-    !Number.isSafeInteger(authority.durableByteLength) ||
-    authority.durableByteLength < 0 ||
-    !isSha256Digest(authority.eventContractDigest) ||
-    !isSha256Digest(authorityDigest) ||
-    sha256Canonical(authorityBody) !== authorityDigest
-  ) {
-    return reopenRefusal(
-      "basis_mismatch",
-      "event-store reopen authority is not self-consistent",
-    );
-  }
-  if (authority.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) {
     return reopenRefusal(
       "contract_mismatch",
       "event-store reopen authority names another event contract",
+    );
+  }
+  if (!validateEventStoreReopenAuthority(authority)) {
+    return reopenRefusal(
+      "basis_mismatch",
+      "event-store reopen authority is not self-consistent",
     );
   }
   const exactPath = authority.eventLogPath;
@@ -2111,7 +2927,7 @@ export function reopenEventStore(
     return reopenRefusal("invalid_event_history", String(error));
   }
 
-  const store = new AbgEventStore();
+  const store = new AbgEventStore(EVENT_STORE_CONSTRUCTION_AUTHORITY);
   eventState.set(store, {
     events: [...events],
     durableLogPath: exactPath,
@@ -2122,6 +2938,7 @@ export function reopenEventStore(
     durableAppendClosed: false,
     transactionStartIndex: null,
   });
+  const prefix = durablePrefixCoordinate(exactPath, owned.identity, bytes);
   return Object.freeze({
     kind: "reopened_event_store_context" as const,
     schemaVersion: "5.0.0" as const,
@@ -2132,6 +2949,7 @@ export function reopenEventStore(
     maxAdmissionOrdinal: events.length,
     nextAdmissionOrdinal: events.length + 1,
     store,
+    prefix,
   });
 }
 
@@ -2139,20 +2957,84 @@ export function admitRuntimeEvent(
   store: AbgEventStore,
   candidate: RuntimeEventCandidate,
 ): RuntimeEvent {
+  if (candidate.kind === "public_operation_artifact_admitted") {
+    throw new TypeError(
+      "artifact truth is reachable only through its checked owner ingress",
+    );
+  }
+  return admitRuntimeEventInternal(store, candidate).event;
+}
+
+function admitRuntimeEventInternal(
+  store: AbgEventStore,
+  candidate: RuntimeEventCandidate,
+): Readonly<{
+  event: RuntimeEvent;
+  successorPrefix: DurablePrefixCoordinate | null;
+}> {
   const state = eventState.get(store);
   if (state === undefined) {
     throw new TypeError("event store was not constructed by this ABG module");
   }
   const events = state.events;
-  const event = constructRuntimeEvent(events, candidate);
-  if (
+  const event = projectRuntimeEventFromValidatedHistory(events, candidate);
+  const successorPrefix =
     state.durableLogPath !== null &&
     state.transactionStartIndex === null
-  ) {
-    appendDurablyBatch(state, [event]);
-  }
+      ? appendDurablyBatch(state, [event])
+      : null;
   events.push(event);
-  return event;
+  return Object.freeze({ event, successorPrefix });
+}
+
+function appendRefusal(
+  code: EventStoreAppendRefusal["code"],
+  message: string,
+): EventStoreAppendRefusal {
+  return deepFreeze({
+    kind: "event_store_append_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code,
+    message,
+  });
+}
+
+export function appendCheckedArtifactEvent(
+  store: AbgEventStore,
+  expectedPredecessor: DurablePrefixCoordinate,
+  initiatedEvent: RuntimeEventCandidate & Readonly<{
+    kind: "public_operation_artifact_admitted";
+  }>,
+): CheckedArtifactAppendResult {
+  if (
+    !isRecord(initiatedEvent.payload) ||
+    ![
+      "abg.operation.product.install",
+      "abg.operation.workspace.bind",
+    ].includes(String(initiatedEvent.payload.operationId))
+  ) {
+    throw new TypeError(
+      "checked artifact ingress is closed to Product install and workspace binding",
+    );
+  }
+  try {
+    assertHeldEventStoreAtDurablePrefix(store, expectedPredecessor);
+  } catch (error) {
+    return appendRefusal("prefix_mismatch", String(error));
+  }
+  try {
+    const admitted = admitRuntimeEventInternal(store, initiatedEvent);
+    if (admitted.successorPrefix === null) {
+      throw new TypeError("checked artifact append produced no durable successor");
+    }
+    return Object.freeze({
+      event: admitted.event,
+      successorPrefix: admitted.successorPrefix,
+    });
+  } catch (error) {
+    return appendRefusal("sink_unavailable", String(error));
+  }
 }
 
 export function admitRuntimeEventBatch(
@@ -2168,7 +3050,12 @@ export function admitRuntimeEventBatch(
   const admitted: RuntimeEvent[] = [];
   for (const factory of factories) {
     const candidate = factory(Object.freeze([...admitted]));
-    const event = constructRuntimeEvent(staged, candidate);
+    if (candidate.kind === "public_operation_artifact_admitted") {
+      throw new TypeError(
+        "artifact truth is reachable only through its checked owner ingress",
+      );
+    }
+    const event = projectRuntimeEventFromValidatedHistory(staged, candidate);
     staged.push(event);
     admitted.push(event);
   }
@@ -2182,10 +3069,15 @@ export function admitRuntimeEventBatch(
   return Object.freeze(admitted);
 }
 
-export function admitRuntimeEventTransaction<T>(
+export interface RuntimeEventTransactionResult<T> {
+  readonly value: T;
+  readonly successorPrefix: DurablePrefixCoordinate | null;
+}
+
+function runRuntimeEventTransaction<T>(
   store: AbgEventStore,
   action: () => T,
-): T {
+): RuntimeEventTransactionResult<T> {
   const state = eventState.get(store);
   if (state === undefined) {
     throw new TypeError("event store was not constructed by this ABG module");
@@ -2196,12 +3088,12 @@ export function admitRuntimeEventTransaction<T>(
   const startIndex = state.events.length;
   state.transactionStartIndex = startIndex;
   try {
-    const result = action();
+    const value = action();
     const admitted = state.events.slice(startIndex);
-    if (state.durableLogPath !== null && admitted.length !== 0) {
-      appendDurablyBatch(state, admitted);
-    }
-    return result;
+    const successorPrefix = state.durableLogPath !== null && admitted.length !== 0
+      ? appendDurablyBatch(state, admitted)
+      : null;
+    return Object.freeze({ value, successorPrefix });
   } catch (error) {
     state.events.splice(startIndex);
     throw error;
@@ -2210,17 +3102,48 @@ export function admitRuntimeEventTransaction<T>(
   }
 }
 
+export function admitRuntimeEventTransaction<T>(
+  store: AbgEventStore,
+  action: () => T,
+): T {
+  return runRuntimeEventTransaction(store, action).value;
+}
+
 export function admitRuntimeEventTransactionAtExpectedPrefix<T>(
   store: AbgEventStore,
   expectedPrefixDigest: Sha256Digest,
   action: () => T,
-): T {
+): RuntimeEventTransactionResult<T> {
   if (store.digest() !== expectedPrefixDigest) {
     throw new TypeError(
       "runtime event append requires the exact expected immutable prefix",
     );
   }
-  return admitRuntimeEventTransaction(store, action);
+  return runRuntimeEventTransaction(store, action);
+}
+
+export function assertRuntimeEventTransactionActive(
+  store: AbgEventStore,
+): void {
+  const state = eventState.get(store);
+  if (state === undefined) {
+    throw new TypeError("event store was not constructed by this ABG module");
+  }
+  if (state.transactionStartIndex === null) {
+    throw new TypeError(
+      "planned event admission requires one active outer transaction",
+    );
+  }
+}
+
+export function isRuntimeEventTransactionActive(
+  store: AbgEventStore,
+): boolean {
+  const state = eventState.get(store);
+  if (state === undefined) {
+    throw new TypeError("event store was not constructed by this ABG module");
+  }
+  return state.transactionStartIndex !== null;
 }
 
 export function compareAndAppendExpectedPrefix(

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { join, resolve, dirname } from "node:path";
+import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
@@ -17,7 +17,6 @@ test("M5 exact catalog basis and retained runtime truth reconstruct equally in t
     product,
     executionBasis,
     installedRoot,
-    scratch,
     store,
     verified,
     installCandidate,
@@ -25,7 +24,6 @@ test("M5 exact catalog basis and retained runtime truth reconstruct equally in t
     bindingCandidate,
     publication,
   } = environment;
-  store.configureDurableLog(join(scratch, "t287-fresh-process.events.jsonl"));
   const opened = abg.openCall(store, executionBasis, {
     eventTime: "2026-08-05T00:00:00.000Z",
     correlationId: "correlation://t287/fresh-process/open",
@@ -72,8 +70,8 @@ test("M5 exact catalog basis and retained runtime truth reconstruct equally in t
     },
     {
       rowId: "artifact_projection",
-      exportName: "projectArtifactTruth",
-      input: "validated_run_prefix",
+      exportName: "projectExactPrefixArtifactTruth",
+      input: "durable_prefix",
     },
     {
       rowId: "catalog_reconstruction",

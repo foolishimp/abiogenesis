@@ -63,8 +63,9 @@ async function runFanOut(context, label, subjects, blockedOrdinal = null) {
     label,
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       allowlist: [GRAPH_FUNCTION_REF, ELEMENT_REF, REDUCER_REF],
       input: submittedInput,
     },

@@ -1,6 +1,16 @@
 import type { COfNode, CProgramNode } from "./c_algebra.js";
 import type { GraphTemplate, GtlGraph } from "./contracts.js";
-import type { Sha256Digest } from "../shared/digests.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import {
+  isSha256Digest,
+  sha256Canonical,
+  type Sha256Digest,
+} from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
+import { isNonBlankRef } from "../shared/references.js";
+import type {
+  CanonicalRootedTopologyWitness,
+} from "../shared/rooted_topology_partition.js";
 
 export type CSourcePath = readonly string[];
 
@@ -67,6 +77,16 @@ export interface CEnclosingRetryContext {
   readonly budget: number;
   readonly inputCarrierRef: string;
   readonly outputCarrierRef: string;
+}
+
+export interface CEnclosingRetryTopology {
+  readonly kind: "c_enclosing_retry_topology";
+  readonly schemaVersion: "5.0.0";
+  readonly witness: CanonicalRootedTopologyWitness;
+  readonly entries: readonly Readonly<{
+    readonly segmentRef: string;
+    readonly context: CEnclosingRetryContext;
+  }>[];
 }
 
 export interface CProgramLocus {
@@ -593,6 +613,91 @@ export function resolveEnclosingCRetryContexts(
     currentPath = parentPath;
   }
   return Object.freeze(contexts);
+}
+
+export function deriveCEnclosingRetryTopology(
+  graph: Readonly<GtlGraph>,
+  locus: Readonly<{
+    readonly nodeRef: string;
+    readonly termPath: CSourcePath;
+  }> | null,
+): CEnclosingRetryTopology | CSourcePathRefusal {
+  const topologyRef = graph.template.graphRef;
+  const basisRef = graph.materializationRef;
+  const basisDigest = graph.materializationDigest;
+  const rootRef = graph.materializationRef;
+  if (
+    !isNonBlankRef(topologyRef) ||
+    !isNonBlankRef(basisRef) ||
+    !isSha256Digest(basisDigest) ||
+    !isNonBlankRef(rootRef) ||
+    (locus !== null && !isNonBlankRef(locus.nodeRef))
+  ) {
+    return refusal(
+      "invalid_source_path",
+      "C.retry topology requires one exact materialized Graph root and locus",
+    );
+  }
+  const contexts = locus === null
+    ? Object.freeze([]) as readonly CEnclosingRetryContext[]
+    : resolveEnclosingCRetryContexts(
+        graph.template,
+        locus.nodeRef,
+        locus.termPath,
+      );
+  if ("kind" in contexts) return contexts;
+
+  let parentRef = rootRef;
+  const entries = contexts.map((context) => {
+    const detachedContext = {
+      retryTermPath: [...context.retryTermPath],
+      wrappedTermPath: [...context.wrappedTermPath],
+      retryDepth: context.retryDepth,
+      taskOrdinal: context.taskOrdinal,
+      budget: context.budget,
+      inputCarrierRef: context.inputCarrierRef,
+      outputCarrierRef: context.outputCarrierRef,
+    } satisfies CEnclosingRetryContext;
+    const segmentDigest = sha256Canonical({
+      topologyRef,
+      basisRef,
+      basisDigest,
+      nodeRef: locus!.nodeRef,
+      retryTermPath: detachedContext.retryTermPath,
+      taskOrdinal: detachedContext.taskOrdinal,
+    } as unknown as JsonValue);
+    const segmentRef =
+      `c-retry-topology-segment://abiogenesis/${
+        segmentDigest.slice("sha256:".length)
+      }`;
+    const entry = {
+      segmentRef,
+      context: detachedContext,
+      parentRef,
+    };
+    parentRef = segmentRef;
+    return entry;
+  });
+  return deepFreeze({
+    kind: "c_enclosing_retry_topology" as const,
+    schemaVersion: "5.0.0" as const,
+    witness: {
+      kind: "canonical_rooted_topology_witness" as const,
+      schemaVersion: "5.0.0" as const,
+      topologyRef,
+      basisRef,
+      basisDigest,
+      rootRef,
+      segments: entries.map(({ segmentRef, parentRef: entryParentRef }) => ({
+        segmentRef,
+        parentRef: entryParentRef,
+      })),
+    },
+    entries: entries.map(({ segmentRef, context }) => ({
+      segmentRef,
+      context,
+    })),
+  });
 }
 
 export function deriveCSourceContinuation(

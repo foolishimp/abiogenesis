@@ -35,10 +35,12 @@ or RootOperationState ledger. The immutable catalog result records its complete
 validated construction basis and row dispositions; it is reconstructible and
 does not become persistent runtime truth.
 
-HoG consumes the exact snapshot. The owning invocation validates and records
-the catalog basis, GTL definition, selected fibre, selected plan, and any
-application refs/digests. ABG events and Event Calculus begin at execution and
-own the causal facts and admitted effects that explain workspace mutation.
+HoG consumes the exact snapshot. The owning invocation records exact catalog,
+Program, and GraphFunction selection plus the HoG structural entry witness.
+ExecutionBasis records the complete implementation and interaction sets. Each
+CCall admits its fibre at the actual locus. There is no global execution-plan
+entity. ABG events and Event Calculus begin at execution and own the causal
+facts and admitted effects that explain workspace mutation.
 
 ## Hard Break
 

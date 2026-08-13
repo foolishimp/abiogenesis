@@ -2,7 +2,7 @@
 
 **Product ID**: PROD-001
 **Version target**: 5.0.0
-**Updated**: 2026-07-20
+**Updated**: 2026-08-13
 **Status**: Active - accepted by T-283 F_H closure
 **Derives from**: INT-001 through INT-007
 **Change authority**: T-283 `intent_reprice`
@@ -35,6 +35,13 @@ the Product destination.
 ABIogenesis 5.0 is the feature-complete, source-independent successor to the
 practical ABIogenesis 4.6 product.
 
+ABIogenesis is a direct reference-frame evaluator and realization system. This
+is the joined Product function, not a new named component. It directly
+evaluates and realizes admitted recursive reference-frame declarations and
+material relations through GTL, HoG, exact owners, ABG admission, and
+Event-Calculus/replay projections. GTL remains the sole admitted semantic
+source and topology carrier.
+
 For this release, feature-complete means complete against the 16 selected 5.0
 outcome families and their explicit baseline dispositions below. It does not
 claim the planned 5.1 observer/tuner Product.
@@ -43,16 +50,22 @@ It is an LLM-first programming system in which:
 
 1. developers and LLMs author exhaustive typed graph programs in
    `GTL.TypeScript`;
-2. TypeScript and one GTL validator check local types, raw declarations, and
-   whole-program semantic relations;
+2. Product and Validator owners admit and validate local types, raw
+   declarations, and whole-program semantic relations;
 3. modules publish GTL programs, callable `GraphFunction` values, contracts,
    and implementation bindings into one admitted catalog;
-4. the HoG executor traverses the admitted GTL program directly;
-5. declared `F_D`, `F_P`, and `F_H` boundaries perform deterministic,
-   probabilistic, and human work without exchanging authority;
-6. ABG admits runtime facts and owns events, replay, lineage, continuation,
+4. HoG evaluates the admitted GTL program directly through a small algebraic
+   fold;
+5. exact-pinned Effect `3.22.1` supplies only the internal typed composition,
+   suspension, failure/Cause, stateless-capability, and physical-resource-scope
+   calculus for that fold and installed owner bindings;
+6. exact Product, GTL, HoG, ABG, Validator, and implementation owners supply
+   meaning, including declared `F_D`, `F_P`, and `F_H` work, without
+   exchanging authority;
+7. ABG admits runtime facts and owns events, replay, lineage, continuation,
    correction, and closure; and
-7. a thin SDK and CLI let a user inspect the catalog, call a published
+8. a thin Public family, SDK, CLI, and Codex projection let a user inspect the
+   same exact contracts, call a published
    `GraphFunction`, start a published program, observe its state, respond to a
    human boundary, and continue the same run.
 
@@ -64,14 +77,15 @@ GTL.TypeScript source
   -> GTL validation
   -> module and catalog admission
   -> program start or GraphFunction call
-  -> HoG traversal of the original admitted GTL value
-  -> F_D | F_P | F_H implementation boundary
+  -> one Effect composition of the HoG algebra and exact owner ports
+  -> direct traversal of the original admitted GTL value
+  -> exact F_D | F_P | F_H implementation boundary
   -> ABG event admission and replay
   -> typed result | continuation | hold | gap | block
 ```
 
-ABIogenesis 5.0 does not invent a second source language. It does not compile
-GTL into a second executable program language or intermediate representation.
+ABIogenesis 5.0 does not invent a second source language. It does not lower GTL
+into a second executable program language or intermediate representation.
 
 This is an explicit supersession of one 4.6 mechanism, not a reinterpretation
 of 4.6 history. The 4.6 semantic compiler performed validation and diagnostics,
@@ -80,7 +94,8 @@ and compiled execution-declaration handoff. 5.0 conserves its type checking,
 normalization, diagnostics, repair relations, pre-effect refusal, and complete
 handoff obligations while retiring the lowered declaration as executable
 program authority. The active 5.0 product term is **GTL validator** because HoG
-traverses the admitted GTL value directly.
+traverses the admitted GTL value directly. The joined reference-frame-evaluator
+function does not change that component name or restore retired lowering.
 
 ## Product Lineage
 
@@ -195,6 +210,13 @@ HoG is the graph executor. It traverses the original admitted GTL program and
 its GraphFunctions. It does not author, lower, select, or publish a rival
 program.
 
+HoG's target realization is small carrier and sum types, primitive algebra and
+laws, derived combinators, one Effect fold/interpreter, and exact owner ports.
+Pure case-specific traversal, route, retry, workflow, recursion, fan-out,
+consensus, or continuation coordination is not irreducible merely because it
+is pure. A retained imperative coordinator wrapped by Effect is not this
+evaluator.
+
 HoG may derive invocation-local execution state such as frames, cursors, work
 queues, resolved bindings, and caches. Such state remains subordinate to one
 program and invocation, cannot alter program meaning, and cannot be published or
@@ -282,6 +304,9 @@ terminal projection
 
 One traversal law covers deterministic workflows, LLM work, human work,
 recursion, and mixed programs. Feature-specific controllers are unnecessary.
+Retry, workflow, recursion, fan-out, consensus, and continuation are derived
+frame-transition patterns over this same algebra, not independent imperative
+engines.
 
 ## 4.6 Traversal Conservation Contract
 
@@ -594,6 +619,8 @@ run conformance and installed-product proof
 The public surface derives from one typed contract and catalog authority. Exact
 operation names, schemas, and capability projections are frozen for the release,
 but their count does not define the engine or create separate semantic owners.
+The 18 operations and 56 exact definitions are external projections and
+capabilities of this one joined evaluator; they are not 56 algorithms.
 
 The SDK and CLI may parse, type, transport, ignite, and render. They may not:
 
@@ -895,6 +922,8 @@ ABIogenesis 5.0 does not include:
 
 - a new GTL source language, parser, compiler pipeline, bytecode, or executable
   intermediate representation;
+- a reference-frame subsystem, alternate evaluator, or second realization
+  path distinct from the joined Product function;
 - a generated HoG program, compiled execution plan, or runtime-program catalog
   distinct from admitted GTL;
 - hidden default programs, selectors, stages, instructions, or topology;
@@ -953,7 +982,9 @@ satisfies all of the following:
    evidence.
 2. GTL programs are authored as TypeScript values and validated without
    translation into a rival source language or executable program.
-3. HoG directly traverses every retained graph relation and C constructor.
+3. One small HoG algebra and Effect fold directly evaluate every retained graph
+   relation and C constructor through exact owner ports; no superseded
+   imperative coordinator or prototype wrapper remains reachable.
 4. Every row of the 4.6 traversal conservation contract has a 5.0 declared
    expression, installed execution witness, replay evidence, public outcome,
    and real mutation-negative proof.

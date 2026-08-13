@@ -12,6 +12,7 @@ import type {
 } from "./contracts.js";
 import {
   type ProductInstall,
+  isResolvedProductLock,
   verifiedArtifactMatchesResolvedLock,
 } from "./environment.js";
 import {
@@ -21,7 +22,11 @@ import {
   type PayloadInventoryRow,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { parseProductManifest } from "./verify_product.js";
+import {
+  isVerifiedProductArtifact,
+  parseProductManifest,
+  verifyProduct,
+} from "./verify_product.js";
 
 function refusal(
   code: ProductInstallRefusalCode,
@@ -98,6 +103,10 @@ async function listInstalledPayloadFiles(installedRoot: string): Promise<readonl
   await visit(join(installedRoot, "package.json"));
   await visit(join(installedRoot, "build"));
   await visit(join(installedRoot, "contracts"));
+  const bundledDependenciesRoot = join(installedRoot, "node_modules");
+  if (await exists(bundledDependenciesRoot)) {
+    await visit(bundledDependenciesRoot);
+  }
   return files.sort();
 }
 
@@ -150,6 +159,8 @@ export async function installProduct(
   request: InstallProductRequest,
 ): Promise<ProductInstallResult> {
   if (
+    !isVerifiedProductArtifact(request.verifiedArtifact) ||
+    !isResolvedProductLock(request.resolvedLock) ||
     !verifiedArtifactMatchesResolvedLock(
       request.verifiedArtifact,
       request.resolvedLock,
@@ -158,6 +169,28 @@ export async function installProduct(
     return refusal(
       "dependency_lock_mismatch",
       "installation requires exact membership in one resolved Product lock",
+    );
+  }
+
+  const currentVerification = await verifyProduct({
+    artifactPath: request.artifactPath,
+    artifactRef: request.verifiedArtifact.artifactRef,
+    expectedArtifactDigest: request.verifiedArtifact.artifactDigest,
+    expectedProductContentDigest:
+      request.verifiedArtifact.productContentDigest,
+    expectedManifestDigest: request.verifiedArtifact.manifestDigest,
+    expectedProductId: request.verifiedArtifact.productId,
+    expectedPackageName: request.verifiedArtifact.packageName,
+    expectedPackageVersion: request.verifiedArtifact.packageVersion,
+  });
+  if (
+    currentVerification.kind !== "verified_product_artifact" ||
+    canonicalJson(currentVerification as unknown as JsonValue) !==
+      canonicalJson(request.verifiedArtifact as unknown as JsonValue)
+  ) {
+    return refusal(
+      "artifact_mismatch",
+      "installation requires current bytes equal to the complete verified Product carrier",
     );
   }
 

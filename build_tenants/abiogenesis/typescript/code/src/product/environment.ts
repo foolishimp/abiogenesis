@@ -16,6 +16,7 @@ import {
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
+  isVerifiedProductArtifact,
   isProductContributionManifest,
   nativeDeclarationEvidenceForVerifiedArtifact,
   parseProductPublicContract,
@@ -153,8 +154,6 @@ export interface EnvironmentRefusal {
   readonly code: EnvironmentRefusalCode;
   readonly message: string;
 }
-
-const resolvedProductLocks = new WeakSet<object>();
 
 function refusal(code: EnvironmentRefusalCode, message: string): EnvironmentRefusal {
   return {
@@ -412,9 +411,7 @@ export function constructResolvedProductLock(
   }
   if (
     artifacts.some(
-      (artifact) =>
-        artifact.kind !== "verified_product_artifact" ||
-        artifact.disposition !== "verified",
+      (artifact) => !isVerifiedProductArtifact(artifact),
     )
   ) {
     return refusal(
@@ -497,7 +494,6 @@ export function constructResolvedProductLock(
     rows,
     dependencyEdges,
   });
-  resolvedProductLocks.add(lock);
   return lock;
 }
 
@@ -681,13 +677,71 @@ export function verifiedArtifactMatchesResolvedLock(
   artifact: VerifiedProductArtifact,
   lock: ResolvedProductLock,
 ): boolean {
-  if (!resolvedProductLocks.has(lock) || !isResolvedProductLock(lock)) {
+  if (!isVerifiedProductArtifact(artifact) || !isResolvedProductLock(lock)) {
     return false;
   }
   const matches = lock.rows.filter((row) => row.productId === artifact.productId);
   return matches.length === 1 &&
     canonicalJson(matches[0] as unknown as JsonValue) ===
       canonicalJson(lockRowFor(artifact) as unknown as JsonValue);
+}
+
+export function isProductInstallCandidate(
+  value: unknown,
+  lock: ResolvedProductLock,
+): value is ProductInstallCandidate {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "artifactDigest",
+      "catalogDigest",
+      "catalogId",
+      "compatibilityRefs",
+      "contributionManifest",
+      "contributionManifestDigest",
+      "contributionManifestRef",
+      "declaredCapabilityRefs",
+      "declaredDependencies",
+      "descriptorRef",
+      "disposition",
+      "installId",
+      "installedRoot",
+      "kind",
+      "manifestDigest",
+      "packageName",
+      "packageVersion",
+      "productContentDigest",
+      "productId",
+      "provenanceRef",
+      "publicCapabilityRefs",
+      "publicContractRefs",
+      "publicContracts",
+      "publisherNamespace",
+      "resolvedLockDigest",
+      "resolvedLockId",
+      "schemaVersion",
+    ]) ||
+    value.kind !== "product_install_candidate" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.disposition !== "materialized" ||
+    !nonEmptyString(value.installId) ||
+    !nonEmptyString(value.installedRoot) ||
+    !isAbsolute(value.installedRoot) ||
+    !isResolvedProductLock(lock) ||
+    value.resolvedLockId !== lock.lockId ||
+    value.resolvedLockDigest !== lock.lockDigest
+  ) {
+    return false;
+  }
+  const rows = lock.rows.filter((row) => row.productId === value.productId);
+  if (rows.length !== 1) return false;
+  const candidate = value as unknown as ProductInstallCandidate;
+  const expectedInstallId =
+    `product-install://${candidate.packageName}/${candidate.packageVersion}/${candidate.productContentDigest.slice("sha256:".length)}/${lock.lockDigest.slice("sha256:".length)}`;
+  return candidate.installId === expectedInstallId &&
+    canonicalJson(
+      lockRowFor(candidate as unknown as ProductInstall) as unknown as JsonValue,
+    ) === canonicalJson(rows[0] as unknown as JsonValue);
 }
 
 export function constructProductSet(
@@ -774,11 +828,20 @@ export function isProductSet(
 export function constructWorkspaceAuthorityBasis(
   input: WorkspaceAuthorityBasisInput,
 ): EnvironmentRefusal | WorkspaceAuthorityBasis {
+  const authorityManifest = {
+    workspaceId: input.workspaceId,
+    canonicalRoot: input.canonicalRoot,
+    authorityMode: input.authorityMode,
+    authorizedActorRef: input.authorizedActorRef,
+  };
   if (
     input.workspaceId.length === 0 ||
     !isAbsolute(input.canonicalRoot) ||
     input.authorizedActorRef.length === 0 ||
-    input.authorityManifestRef.length === 0
+    input.authorityManifestRef.length === 0 ||
+    !isSha256Digest(input.authorityManifestDigest) ||
+    input.authorityManifestDigest !==
+      sha256Canonical(authorityManifest as unknown as JsonValue)
   ) {
     return refusal("invalid_workspace_authority", "workspace authority fields must be explicit");
   }
@@ -792,6 +855,48 @@ export function constructWorkspaceAuthorityBasis(
   };
 }
 
+export function isWorkspaceAuthorityBasis(
+  value: unknown,
+): value is WorkspaceAuthorityBasis {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "authorityBasisDigest",
+      "authorityBasisId",
+      "authorityManifestDigest",
+      "authorityManifestRef",
+      "authorityMode",
+      "authorizedActorRef",
+      "canonicalRoot",
+      "kind",
+      "schemaVersion",
+      "workspaceId",
+    ]) ||
+    value.kind !== "workspace_authority_basis" ||
+    value.schemaVersion !== "5.0.0" ||
+    value.authorityMode !== "trusted_developer" ||
+    !nonEmptyString(value.workspaceId) ||
+    !nonEmptyString(value.canonicalRoot) ||
+    !isAbsolute(value.canonicalRoot) ||
+    !nonEmptyString(value.authorizedActorRef) ||
+    !nonEmptyString(value.authorityManifestRef) ||
+    !isSha256Digest(value.authorityManifestDigest) ||
+    !nonEmptyString(value.authorityBasisId) ||
+    !isSha256Digest(value.authorityBasisDigest)
+  ) return false;
+  const reconstructed = constructWorkspaceAuthorityBasis({
+    workspaceId: value.workspaceId as string,
+    canonicalRoot: value.canonicalRoot as string,
+    authorityMode: value.authorityMode,
+    authorizedActorRef: value.authorizedActorRef as string,
+    authorityManifestRef: value.authorityManifestRef as string,
+    authorityManifestDigest: value.authorityManifestDigest as Sha256Digest,
+  });
+  return reconstructed.kind === "workspace_authority_basis" &&
+    canonicalJson(reconstructed as unknown as JsonValue) ===
+      canonicalJson(value as JsonValue);
+}
+
 export function constructWorkspaceBinding(
   authority: WorkspaceAuthorityBasis,
   productSet: ProductSet,
@@ -799,9 +904,25 @@ export function constructWorkspaceBinding(
   roots: WorkspaceDeclaredRoots,
 ): EnvironmentRefusal | WorkspaceBindingCandidate {
   if (
-    Object.values(roots).some((root) => !isAbsolute(root))
+    !isWorkspaceAuthorityBasis(authority) ||
+    !isProductSet(productSet, lock) ||
+    !isRecord(roots) ||
+    !hasExactKeys(roots, [
+      "archiveRoot",
+      "eventLogRoot",
+      "productRoot",
+      "projectionRoot",
+      "runtimeStateRoot",
+      "toolchainRoot",
+    ]) ||
+    Object.values(roots).some(
+      (root) => typeof root !== "string" || !isAbsolute(root),
+    )
   ) {
-    return refusal("invalid_declared_root", "every workspace root must be an explicit absolute path");
+    return refusal(
+      "invalid_declared_root",
+      "workspace authority, ProductSet, and every declared root must be exact",
+    );
   }
   if (productSet.lockId !== lock.lockId || productSet.lockDigest !== lock.lockDigest) {
     return refusal("lock_mismatch", "workspace ProductSet and lock disagree");
@@ -825,4 +946,101 @@ export function constructWorkspaceBinding(
     bindingDigest,
     ...bindingBody,
   };
+}
+
+export function isWorkspaceBindingCandidate(
+  value: unknown,
+  lock: ResolvedProductLock,
+  productSet?: ProductSet,
+  authority?: WorkspaceAuthorityBasis,
+): value is WorkspaceBindingCandidate {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "authorityBasisDigest",
+      "authorityBasisId",
+      "authorizedActorRef",
+      "bindingDigest",
+      "bindingId",
+      "kind",
+      "lockDigest",
+      "lockId",
+      "productSetDigest",
+      "productSetId",
+      "roots",
+      "schemaVersion",
+      "workspaceId",
+    ]) ||
+    value.kind !== "workspace_binding_candidate" ||
+    value.schemaVersion !== "5.0.0" ||
+    !nonEmptyString(value.bindingId) ||
+    !isSha256Digest(value.bindingDigest) ||
+    !nonEmptyString(value.workspaceId) ||
+    !nonEmptyString(value.authorityBasisId) ||
+    !isSha256Digest(value.authorityBasisDigest) ||
+    !nonEmptyString(value.authorizedActorRef) ||
+    !nonEmptyString(value.productSetId) ||
+    !isSha256Digest(value.productSetDigest) ||
+    !isResolvedProductLock(lock) ||
+    value.lockId !== lock.lockId ||
+    value.lockDigest !== lock.lockDigest ||
+    !isRecord(value.roots) ||
+    !hasExactKeys(value.roots, [
+      "archiveRoot",
+      "eventLogRoot",
+      "productRoot",
+      "projectionRoot",
+      "runtimeStateRoot",
+      "toolchainRoot",
+    ]) ||
+    Object.values(value.roots).some(
+      (root) => !nonEmptyString(root) || !isAbsolute(root),
+    ) ||
+    (
+      productSet !== undefined &&
+      (
+        !isProductSet(productSet, lock) ||
+        value.productSetId !== productSet.productSetId ||
+        value.productSetDigest !== productSet.productSetDigest
+      )
+    ) ||
+    (
+      authority !== undefined &&
+      (
+        !isWorkspaceAuthorityBasis(authority) ||
+        value.workspaceId !== authority.workspaceId ||
+        value.authorityBasisId !== authority.authorityBasisId ||
+        value.authorityBasisDigest !== authority.authorityBasisDigest ||
+        value.authorizedActorRef !== authority.authorizedActorRef
+      )
+    )
+  ) {
+    return false;
+  }
+  const body = {
+    workspaceId: value.workspaceId,
+    authorityBasisId: value.authorityBasisId,
+    authorityBasisDigest: value.authorityBasisDigest,
+    authorizedActorRef: value.authorizedActorRef,
+    productSetId: value.productSetId,
+    productSetDigest: value.productSetDigest,
+    lockId: value.lockId,
+    lockDigest: value.lockDigest,
+    roots: value.roots,
+  };
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  if (
+    value.bindingDigest !== digest ||
+    value.bindingId !== identity("workspace-binding://abiogenesis", digest)
+  ) return false;
+  if (authority === undefined || productSet === undefined) return true;
+  const reconstructed = constructWorkspaceBinding(
+    authority,
+    productSet,
+    lock,
+    value.roots as unknown as WorkspaceDeclaredRoots,
+  );
+  return reconstructed.kind === "workspace_binding_candidate" &&
+    canonicalJson(reconstructed as unknown as JsonValue) ===
+      canonicalJson(value as JsonValue);
 }

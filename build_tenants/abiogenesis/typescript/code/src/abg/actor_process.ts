@@ -1,9 +1,17 @@
+import { constants as osConstants } from "node:os";
 import { resolve } from "node:path";
 
 import type { WorkspaceBinding } from "../product/environment.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import {
+  isSha256Digest,
+  sha256Canonical,
+  type Sha256Digest,
+} from "../shared/digests.js";
+import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { isNonBlankRef } from "../shared/references.js";
+import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import type { CCall } from "./c_call.js";
 import { hasAdmittedWorkspaceBinding } from "./environment_admission.js";
 import type { ExecutionBasis, RuntimeAdmissionBasis } from "./execution_basis.js";
@@ -13,7 +21,10 @@ import {
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type { OpenedTraversalScope } from "./open_call.js";
-import { constructKnownWorkerTransportContract } from "./transport_contracts.js";
+import {
+  classifyWorkerTransportFailure,
+  constructKnownWorkerTransportContract,
+} from "./transport_contracts.js";
 import {
   prepareWorkerTransport,
   runPreparedWorkerTransport,
@@ -25,6 +36,7 @@ const actorProcessObservations = new WeakSet<object>();
 
 export interface ActorRuntimeBinding {
   readonly workspaceBinding: WorkspaceBinding;
+  readonly artifactTruth: ExactPrefixArtifactTruthProjection;
 }
 
 export interface ActorProcessRequest {
@@ -80,6 +92,365 @@ export interface ActorProcessObservation {
     stdout: Sha256Digest;
     transport: Sha256Digest;
   }>;
+}
+
+export type ActorProcessCarrierValidationRefusalCode =
+  | "invalid_actor_process_observation"
+  | "invalid_actor_process_request";
+
+export interface ActorProcessCarrierValidation {
+  readonly kind: "actor_process_carrier_validation";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "valid";
+  readonly request: Readonly<ActorProcessRequest>;
+  readonly observation: Readonly<ActorProcessObservation>;
+}
+
+export interface ActorProcessCarrierValidationRefusal {
+  readonly kind: "actor_process_carrier_validation_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: ActorProcessCarrierValidationRefusalCode;
+  readonly message: string;
+}
+
+export type ActorProcessCarrierValidationResult =
+  | ActorProcessCarrierValidation
+  | ActorProcessCarrierValidationRefusal;
+
+const ACTOR_PROCESS_REQUEST_FIELDS = Object.freeze([
+  "actorRef",
+  "implementationRef",
+  "inputDigest",
+  "instructionContractRef",
+  "materializationPlanRef",
+  "prompt",
+  "rendererRef",
+  "responseJsonSchema",
+  "resultContractRef",
+  "transportLane",
+  "workerBindingRef",
+]);
+
+const ACTOR_PROCESS_OBSERVATION_FIELDS = Object.freeze([
+  "actorInvocationRef",
+  "actorRef",
+  "apiRetryCount",
+  "artifactDigests",
+  "disposition",
+  "exitObserved",
+  "failureClass",
+  "finalOutput",
+  "implementationRef",
+  "inputDigest",
+  "instructionContractRef",
+  "materializationPlanRef",
+  "observedOutputDigest",
+  "processRef",
+  "processSignal",
+  "processStatus",
+  "progressEventCount",
+  "promptDigest",
+  "rendererRef",
+  "resultContractRef",
+  "signalSequence",
+  "stderrByteLength",
+  "stdoutByteLength",
+  "structuredEventCount",
+  "terminationConfirmed",
+  "timedOut",
+  "toolCallCount",
+  "transportBindingDigest",
+  "transportBindingRef",
+  "transportDigest",
+  "transportLane",
+  "workerBindingRef",
+]);
+
+const ACTOR_PROCESS_ARTIFACT_DIGEST_FIELDS = Object.freeze([
+  "output",
+  "prompt",
+  "stderr",
+  "stdout",
+  "transport",
+]);
+
+function carrierRef(value: unknown): value is string {
+  return isNonBlankRef(value) && value.trim() === value;
+}
+
+function exactOrdinaryDataRecord(
+  value: unknown,
+  fields: readonly string[],
+): Readonly<Record<string, unknown>> | null {
+  try {
+    if (typeof value !== "object" || value === null || Array.isArray(value)) {
+      return null;
+    }
+    const prototype: unknown = Object.getPrototypeOf(value);
+    if (prototype !== Object.prototype && prototype !== null) return null;
+    const keys = Reflect.ownKeys(value);
+    const expected = [...fields].sort();
+    if (
+      keys.length !== expected.length ||
+      keys.some((key) => typeof key !== "string") ||
+      (keys as string[]).sort().some((key, index) => key !== expected[index])
+    ) {
+      return null;
+    }
+    for (const key of keys as string[]) {
+      const descriptor = Object.getOwnPropertyDescriptor(value, key);
+      if (
+        descriptor === undefined ||
+        !Object.hasOwn(descriptor, "value") ||
+        Object.hasOwn(descriptor, "get") ||
+        Object.hasOwn(descriptor, "set") ||
+        descriptor.enumerable !== true
+      ) {
+        return null;
+      }
+    }
+    return value as Readonly<Record<string, unknown>>;
+  } catch {
+    return null;
+  }
+}
+
+function carrierRefusal(
+  code: ActorProcessCarrierValidationRefusalCode,
+  message: string,
+): ActorProcessCarrierValidationRefusal {
+  return deepFreeze({
+    kind: "actor_process_carrier_validation_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code,
+    message,
+  });
+}
+
+function isNonnegativeSafeInteger(value: unknown): value is number {
+  return Number.isSafeInteger(value) && Number(value) >= 0;
+}
+
+function isNodeProcessSignal(value: unknown): value is NodeJS.Signals {
+  return typeof value === "string" &&
+    Object.hasOwn(osConstants.signals, value);
+}
+
+function isExactRequestedSignalSequence(
+  timedOut: boolean,
+  sequence: readonly string[],
+): boolean {
+  if (!timedOut) return sequence.length === 0;
+  return (
+    sequence.length === 1 && sequence[0] === "SIGTERM"
+  ) || (
+    sequence.length === 2 &&
+    sequence[0] === "SIGTERM" &&
+    sequence[1] === "SIGKILL"
+  );
+}
+
+/**
+ * Pure erased-input validation for actor request/observation carriers.
+ * This proves only structural and locally decidable lifecycle law; it neither
+ * emits runtime events nor establishes durable observation provenance.
+ */
+export function validateActorProcessCarrierPair(
+  requestCandidate: unknown,
+  observationCandidate: unknown,
+): ActorProcessCarrierValidationResult {
+  const requestRecord = exactOrdinaryDataRecord(
+    requestCandidate,
+    ACTOR_PROCESS_REQUEST_FIELDS,
+  );
+  if (requestRecord === null) {
+    return carrierRefusal(
+      "invalid_actor_process_request",
+      "actor process request must be one exact ordinary closed data object",
+    );
+  }
+  let request: Readonly<ActorProcessRequest>;
+  try {
+    request = admitIJsonValue(requestRecord) as unknown as
+      Readonly<ActorProcessRequest>;
+  } catch {
+    return carrierRefusal(
+      "invalid_actor_process_request",
+      "actor process request must contain only exact I-JSON data",
+    );
+  }
+  if (
+    !carrierRef(request.actorRef) ||
+    !carrierRef(request.workerBindingRef) ||
+    !carrierRef(request.implementationRef) ||
+    !isSha256Digest(request.inputDigest) ||
+    !carrierRef(request.materializationPlanRef) ||
+    !carrierRef(request.rendererRef) ||
+    !carrierRef(request.instructionContractRef) ||
+    !carrierRef(request.resultContractRef) ||
+    (request.transportLane !== "closed_prompt_proof" &&
+      request.transportLane !== "worker_executes") ||
+    typeof request.prompt !== "string" ||
+    request.prompt.trim().length === 0 ||
+    typeof request.responseJsonSchema !== "object" ||
+    request.responseJsonSchema === null ||
+    Array.isArray(request.responseJsonSchema)
+  ) {
+    return carrierRefusal(
+      "invalid_actor_process_request",
+      "actor process request contains an invalid identity, digest, lane, prompt, or response schema",
+    );
+  }
+
+  const observationRecord = exactOrdinaryDataRecord(
+    observationCandidate,
+    ACTOR_PROCESS_OBSERVATION_FIELDS,
+  );
+  if (observationRecord === null) {
+    return carrierRefusal(
+      "invalid_actor_process_observation",
+      "actor process observation must be one exact ordinary closed data object",
+    );
+  }
+  let observation: Readonly<ActorProcessObservation>;
+  try {
+    observation = admitIJsonValue(observationRecord) as unknown as
+      Readonly<ActorProcessObservation>;
+  } catch {
+    return carrierRefusal(
+      "invalid_actor_process_observation",
+      "actor process observation must contain only exact I-JSON data",
+    );
+  }
+  const artifacts = exactOrdinaryDataRecord(
+    observation.artifactDigests,
+    ACTOR_PROCESS_ARTIFACT_DIGEST_FIELDS,
+  );
+  const counts = [
+    observation.structuredEventCount,
+    observation.progressEventCount,
+    observation.toolCallCount,
+    observation.apiRetryCount,
+    observation.stdoutByteLength,
+    observation.stderrByteLength,
+  ];
+  const statusValid = observation.processStatus === null ||
+    Number.isSafeInteger(observation.processStatus);
+  const signalValid = observation.processSignal === null ||
+    isNodeProcessSignal(observation.processSignal);
+  if (
+    !carrierRef(observation.actorInvocationRef) ||
+    !carrierRef(observation.actorRef) ||
+    !carrierRef(observation.workerBindingRef) ||
+    !carrierRef(observation.implementationRef) ||
+    !isSha256Digest(observation.inputDigest) ||
+    !carrierRef(observation.materializationPlanRef) ||
+    !carrierRef(observation.rendererRef) ||
+    !carrierRef(observation.instructionContractRef) ||
+    !carrierRef(observation.resultContractRef) ||
+    !carrierRef(observation.processRef) ||
+    !carrierRef(observation.transportBindingRef) ||
+    !isSha256Digest(observation.transportBindingDigest) ||
+    !isSha256Digest(observation.observedOutputDigest) ||
+    !isSha256Digest(observation.promptDigest) ||
+    !isSha256Digest(observation.transportDigest) ||
+    (observation.transportLane !== "closed_prompt_proof" &&
+      observation.transportLane !== "worker_executes") ||
+    (observation.disposition !== "failure" &&
+      observation.disposition !== "success") ||
+    typeof observation.finalOutput !== "string" ||
+    typeof observation.timedOut !== "boolean" ||
+    typeof observation.exitObserved !== "boolean" ||
+    typeof observation.terminationConfirmed !== "boolean" ||
+    !statusValid ||
+    !signalValid ||
+    !Array.isArray(observation.signalSequence) ||
+    observation.signalSequence.some((signal) =>
+      signal !== "SIGTERM" && signal !== "SIGKILL"
+    ) ||
+    counts.some((count) => !isNonnegativeSafeInteger(count)) ||
+    artifacts === null ||
+    ACTOR_PROCESS_ARTIFACT_DIGEST_FIELDS.some(
+      (field) => !isSha256Digest(artifacts[field]),
+    )
+  ) {
+    return carrierRefusal(
+      "invalid_actor_process_observation",
+      "actor process observation contains an invalid identity, digest, value domain, count, or artifact set",
+    );
+  }
+  const terminalPairValid = observation.exitObserved ===
+      observation.terminationConfirmed &&
+    (
+      observation.exitObserved
+        ? (
+          observation.processStatus !== null &&
+          observation.processStatus >= 0 &&
+          observation.processSignal === null
+        ) || (
+          observation.processStatus === null &&
+          observation.processSignal !== null
+        )
+        : observation.processSignal === null &&
+          (
+            observation.processStatus === null ||
+            observation.processStatus < 0
+          )
+    );
+  const requestedSignalSequenceValid = isExactRequestedSignalSequence(
+    observation.timedOut,
+    observation.signalSequence,
+  );
+  const timeoutTerminalValid = !observation.timedOut ||
+    observation.exitObserved ||
+    (
+      observation.processStatus === null &&
+      observation.processSignal === null &&
+      !observation.terminationConfirmed &&
+      observation.signalSequence.length === 2
+    );
+  const expectedFailureClass = classifyWorkerTransportFailure({
+    parser: "claude_stream_json",
+    lane: request.transportLane,
+    processStatus: observation.processStatus,
+    timedOut: observation.timedOut,
+    terminationConfirmed: observation.terminationConfirmed,
+    processSpawnFailed:
+      !observation.timedOut &&
+      !observation.exitObserved &&
+      !observation.terminationConfirmed &&
+      observation.processStatus !== null &&
+      observation.processStatus < 0,
+    structuredEventCount: observation.structuredEventCount,
+    toolCallCount: observation.toolCallCount,
+    apiRetryCount: observation.apiRetryCount,
+    finalOutput: observation.finalOutput,
+  });
+  const transportClassificationValid =
+    observation.transportLane === request.transportLane &&
+    observation.failureClass === expectedFailureClass &&
+    observation.disposition ===
+      (expectedFailureClass === null ? "success" : "failure");
+  if (
+    !terminalPairValid ||
+    !requestedSignalSequenceValid ||
+    !timeoutTerminalValid ||
+    !transportClassificationValid
+  ) {
+    return carrierRefusal(
+      "invalid_actor_process_observation",
+      "actor process observation differs from the owner-classified transport lifecycle",
+    );
+  }
+  return deepFreeze({
+    kind: "actor_process_carrier_validation" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "valid" as const,
+    request,
+    observation,
+  });
 }
 
 export interface ActorProcessLifecycleProjection {
@@ -215,7 +586,7 @@ export async function invokeActorProcess(
     input.request.implementationRef !== input.cCall.implementationRef ||
     input.request.inputDigest !== input.expectedInputDigest ||
     input.expectedInstructionContractRef.length === 0 ||
-    input.expectedResultContractRef !== input.cCall.outputContractRef ||
+    input.expectedResultContractRef.length === 0 ||
     input.request.instructionContractRef !==
       input.expectedInstructionContractRef ||
     input.request.resultContractRef !== input.expectedResultContractRef ||
@@ -224,7 +595,10 @@ export async function invokeActorProcess(
     !Number.isSafeInteger(input.dispatchOrdinal) ||
     input.dispatchOrdinal < 1 ||
     input.request.workerBindingRef.length === 0 ||
-    !hasAdmittedWorkspaceBinding(input.store, input.runtime.workspaceBinding) ||
+    !hasAdmittedWorkspaceBinding(
+      input.runtime.artifactTruth,
+      input.runtime.workspaceBinding,
+    ) ||
     input.runtime.workspaceBinding.bindingId !== input.executionBasis.workspaceBindingId ||
     input.runtime.workspaceBinding.bindingDigest !== input.executionBasis.workspaceBindingDigest
   ) {
@@ -235,6 +609,11 @@ export async function invokeActorProcess(
 
   const environment = Object.freeze({ ...process.env });
   const promptDigest = sha256Canonical(input.request.prompt);
+  const requestDigest = sha256Canonical(
+    input.request as unknown as JsonValue,
+  );
+  const requestRef =
+    `probabilistic-request://abiogenesis/${requestDigest.slice("sha256:".length)}`;
   const attemptDigest = sha256Canonical({
     basisRef: input.executionBasis.basisRef,
     cCallRef: input.cCall.cCallRef,
@@ -380,6 +759,8 @@ export async function invokeActorProcess(
       implementationRef: input.request.implementationRef,
       inputDigest: input.request.inputDigest,
       promptDigest,
+      requestRef,
+      requestDigest,
       dispatchOrdinal: input.dispatchOrdinal,
       transportBindingRef,
       transportBindingDigest,
@@ -523,7 +904,12 @@ export async function invokeActorProcess(
       "actor_invocation",
       actorInvocationRef,
       input.cCall.cCallRef,
-      { cCallRef: input.cCall.cCallRef, ...observationBody },
+      {
+        cCallRef: input.cCall.cCallRef,
+        requestRef,
+        requestDigest,
+        ...observationBody,
+      },
     );
     if (processTerminalConfirmed) {
       append(

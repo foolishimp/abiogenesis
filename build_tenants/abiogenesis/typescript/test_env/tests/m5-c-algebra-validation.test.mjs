@@ -5,14 +5,12 @@ import * as gtl from "../../build/code/src/gtl/index.js";
 import * as product from "../../build/code/src/product/index.js";
 import * as validator from "../../build/code/src/validator/index.js";
 
-const DIGEST = `sha256:${"1".repeat(64)}`;
-
 function artifactBasis() {
   return {
     productId: "product://abiogenesis/m5-c-algebra-test@5",
-    artifactDigest: DIGEST,
-    productContentDigest: DIGEST,
-    productManifestDigest: DIGEST,
+    artifactDigest: `sha256:${"1".repeat(64)}`,
+    productContentDigest: `sha256:${"2".repeat(64)}`,
+    productManifestDigest: `sha256:${"3".repeat(64)}`,
     packageName: "@abiogenesis/typescript-tenant",
     packageVersion: "5.0.0-dev.286",
   };
@@ -60,7 +58,32 @@ function raw(value, kind) {
   return result;
 }
 
-function programValidationResult(publication, program = publication.programs[0]) {
+function helloProgram(publication) {
+  const program = publication.programs.find(
+    (candidate) => candidate.programRef === gtl.HELLO_WORLD_IDS.programRef,
+  );
+  assert.ok(program);
+  return program;
+}
+
+function helloGraphFunction(publication) {
+  const graphFunction = publication.graphFunctions.find(
+    (candidate) => candidate.name === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  assert.ok(graphFunction);
+  return graphFunction;
+}
+
+function helloImplementationBinding(publication) {
+  const binding = publication.implementationBindings.find(
+    (candidate) =>
+      candidate.bindingRef === gtl.HELLO_WORLD_IDS.implementationBindingRef,
+  );
+  assert.ok(binding);
+  return binding;
+}
+
+function programValidationResult(publication, program = helloProgram(publication)) {
   return validator.validateProgram({
     publication: raw(publication, "module_publication"),
     program: raw(program, "gtl_program"),
@@ -81,7 +104,9 @@ function validatePublishedProgram(publication) {
 }
 
 function catalogViewFor(publication) {
-  const contribution = publication.contributions.find((row) => row.kind === "graph_function");
+  const contribution = publication.contributions.find(
+    (row) => row.handle === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
   assert.notEqual(contribution, undefined);
   const catalog = product.buildGraphFunctionCatalog([publication]);
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
@@ -115,7 +140,7 @@ function interactionOnlyPublication() {
   const publication = structuredClone(
     gtl.constructHelloWorldModulePublication(artifactBasis()),
   );
-  const graphFunction = publication.graphFunctions[0];
+  const graphFunction = helloGraphFunction(publication);
   graphFunction.template.nodes[0].term.fibre = "F_H";
   graphFunction.template.nodes[0].term.requirement = {
     kind: "interaction_leaf_requirement",
@@ -277,7 +302,7 @@ test("M5 GraphFunction composition preserves exact left and right identity", () 
       ),
       structuredClone(composed),
     );
-    const baseProgram = candidate.programs[0];
+    const baseProgram = helloProgram(candidate);
     const identityProgram = {
       ...structuredClone(baseProgram),
       programRef: `program://m5/${composed.name.split("/").at(-2)}`,
@@ -286,6 +311,11 @@ test("M5 GraphFunction composition preserves exact left and right identity", () 
         graphFunctionRef: composed.name,
       }],
       callableMembership: [composed.name],
+      policies: {
+        ...baseProgram.policies,
+        "abg.default_start_ref":
+          `start://m5/${composed.name.split("/").at(-2)}`,
+      },
     };
     candidate.programs.push(identityProgram);
     assert.equal(
@@ -341,13 +371,17 @@ test("M5 GraphFunction promotion preserves topology and semantic truth", () => {
   const candidate = structuredClone(publication);
   candidate.graphFunctions.push(structuredClone(promoted));
   const promotedProgram = {
-    ...structuredClone(candidate.programs[0]),
+    ...structuredClone(helloProgram(candidate)),
     programRef: "program://m5/promoted/hello-world",
     starts: [{
       startRef: "start://m5/promoted/hello-world",
       graphFunctionRef: promoted.name,
     }],
     callableMembership: [promoted.name],
+    policies: {
+      ...helloProgram(candidate).policies,
+      "abg.default_start_ref": "start://m5/promoted/hello-world",
+    },
   };
   candidate.programs.push(promotedProgram);
   assert.equal(
@@ -581,7 +615,7 @@ test("M5 same-object relation is one validator-owned canonical identity witness"
   const publication = structuredClone(
     gtl.constructHelloWorldModulePublication(artifactBasis()),
   );
-  const program = publication.programs[0];
+  const program = helloProgram(publication);
   const graphFunction = publication.graphFunctions.find(
     (candidate) => candidate.name === program.starts[0].graphFunctionRef,
   );
@@ -601,7 +635,10 @@ test("M5 same-object relation is one validator-owned canonical identity witness"
   const forgedApplication = forgedGraphFunction.template.applications[0];
   forgedApplication.rightRef = "graph-function://m5/rival";
   forgedApplication.applicationRef = gtl.graphFunctionApplicationRef(forgedApplication);
-  const result = programValidationResult(forged, forged.programs[0]);
+  const result = programValidationResult(
+    forged,
+    forged.programs.find((candidate) => candidate.programRef === program.programRef),
+  );
   assert.equal(result.kind, "static_validation_refusal");
   assert.equal(
     result.diagnostics.some((row) => row.code === "identity_mismatch"),
@@ -698,11 +735,8 @@ test("M5 whole-program validation admits exact recursion law and refuses its sub
   const publication = structuredClone(
     gtl.constructHelloWorldModulePublication(artifactBasis()),
   );
-  const program = publication.programs[0];
-  const graphFunction = publication.graphFunctions.find(
-    (candidate) => candidate.name === program.starts[0].graphFunctionRef,
-  );
-  assert.notEqual(graphFunction, undefined);
+  const program = helloProgram(publication);
+  const graphFunction = helloGraphFunction(publication);
   publication.evaluators = [gtl.evaluatorDeclaration({
     name: "evaluator://abiogenesis/conformance/hello-recursion-terminal@5",
     regime: "F_D",
@@ -765,7 +799,9 @@ test("M5 whole-program validation admits exact recursion law and refuses its sub
     },
   ]) {
     const invalidPublication = structuredClone(publication);
-    mutate(invalidPublication.graphFunctions[0].template.applications[0]);
+    mutate(
+      helloGraphFunction(invalidPublication).template.applications[0],
+    );
     const result = programValidationResult(invalidPublication);
     assert.equal(result.kind, "static_validation_refusal", JSON.stringify(result));
     assert.equal(
@@ -1276,13 +1312,13 @@ test("M5 raw admission and validator reject invented or contradictory C data", (
   assert.equal(unknown.code, "invalid_kind");
 
   const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
-  const graphFunction = publication.graphFunctions[0];
+  const graphFunction = helloGraphFunction(publication);
   const term = structuredClone(graphFunction.template.nodes[0].term);
   term.fibre = "F_H";
   const inspection = validator.inspectCProgramTerm(term, {
     path: "$.term",
     availableGraphFunctionRefs: new Set(publication.graphFunctions.map((value) => value.name)),
-    callableGraphFunctionRefs: new Set(publication.programs[0].callableMembership),
+    callableGraphFunctionRefs: new Set(helloProgram(publication).callableMembership),
     contractRefs: new Set(publication.contracts.map((value) => value.contractRef)),
     bindingByRef: new Map(publication.implementationBindings.map((value) => [value.bindingRef, value])),
   });
@@ -1295,8 +1331,8 @@ test("M5 raw admission and validator reject invented or contradictory C data", (
 
 test("M4 Hello World remains one valid direct C.of Program", () => {
   const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
-  const program = publication.programs[0];
-  const graphFunction = publication.graphFunctions[0];
+  const program = helloProgram(publication);
+  const graphFunction = helloGraphFunction(publication);
   const result = validator.validateProgram({
     publication: raw(publication, "module_publication"),
     program: raw(program, "gtl_program"),
@@ -1334,7 +1370,7 @@ test("M5 resolves and independently validates the complete executable root set",
   const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
   const programValidation = validatePublishedProgram(publication);
   const catalogView = catalogViewFor(publication);
-  const descriptor = descriptorFor(publication.implementationBindings[0]);
+  const descriptor = descriptorFor(helloImplementationBinding(publication));
   const candidate = product.resolveImplementationSet(
     catalogView,
     publication,
@@ -1369,7 +1405,7 @@ test("M5 complete resolution refuses missing, ambiguous, forged, and mismatched 
   const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
   const programValidation = validatePublishedProgram(publication);
   const catalogView = catalogViewFor(publication);
-  const descriptor = descriptorFor(publication.implementationBindings[0]);
+  const descriptor = descriptorFor(helloImplementationBinding(publication));
 
   const missing = product.resolveImplementationSet(
     catalogView,

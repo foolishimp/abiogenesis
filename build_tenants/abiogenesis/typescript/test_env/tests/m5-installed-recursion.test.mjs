@@ -10,6 +10,7 @@ import {
   runInstalledCli,
   setupInstalledCliHarness,
 } from "../support/root-cli-environment.mjs";
+import { cloneEventPrefixFixture } from "../support/new-empty-append-sink.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const PROGRAM_REF =
@@ -67,7 +68,12 @@ async function activeLifecycleFluents(installedRoot, events, label) {
   );
 }
 
-async function pairedChildRouteProjection(installedRoot, events, targetRoute) {
+async function pairedChildRouteProjection(
+  context,
+  installedRoot,
+  events,
+  targetRoute,
+) {
   const abg = await import(
     `${pathToFileURL(resolve(installedRoot, "build/code/src/abg/index.js")).href}?child-route=${Date.now()}`
   );
@@ -80,19 +86,20 @@ async function pairedChildRouteProjection(installedRoot, events, targetRoute) {
       "build/code/src/abg/event_store.js",
     )).href
   );
-  const reopen = (source) => {
-    const store = new abg.AbgEventStore();
-    for (const expected of source) {
-      const candidate = structuredClone(expected);
-      delete candidate.eventId;
-      delete candidate.admissionOrdinal;
-      delete candidate.payloadDigest;
-      eventStore.admitRuntimeEvent(store, candidate);
-    }
-    return store;
-  };
-  const controlStore = reopen(events);
-  const unrelatedRouteStore = reopen(events);
+  const controlStore = (await cloneEventPrefixFixture(
+    context,
+    abg,
+    eventStore,
+    events,
+    "abi5-recursion-control-",
+  )).store;
+  const unrelatedRouteStore = (await cloneEventPrefixFixture(
+    context,
+    abg,
+    eventStore,
+    events,
+    "abi5-recursion-unrelated-route-",
+  )).store;
   const body = {
     ...targetRoute.payload,
     sourceCursorRef: "cursor://abiogenesis/m5/unrelated-r2-source",
@@ -140,6 +147,7 @@ async function pairedChildRouteProjection(installedRoot, events, targetRoute) {
 }
 
 async function terminalizedBlockedChildRouteProjection(
+  context,
   installedRoot,
   events,
   targetRoute,
@@ -159,17 +167,13 @@ async function terminalizedBlockedChildRouteProjection(
     (event) => event.kind === "run_segment_opened",
   );
   assert.ok(stopTemplate && runTemplate);
-  const reopen = () => {
-    const store = new abg.AbgEventStore();
-    for (const expected of prefixEvents) {
-      const candidate = structuredClone(expected);
-      delete candidate.eventId;
-      delete candidate.admissionOrdinal;
-      delete candidate.payloadDigest;
-      eventStore.admitRuntimeEvent(store, candidate);
-    }
-    return store;
-  };
+  const reopen = async (label) => (await cloneEventPrefixFixture(
+    context,
+    abg,
+    eventStore,
+    prefixEvents,
+    label,
+  )).store;
   const coordinates = {
     runId: targetRoute.runId,
     graphCallId: targetRoute.graphCallId,
@@ -198,7 +202,7 @@ async function terminalizedBlockedChildRouteProjection(
     return eventStore.admitRuntimeEvent(store, candidate);
   };
 
-  const positiveStore = reopen();
+  const positiveStore = await reopen("abi5-recursion-blocked-positive-");
   appendStop(positiveStore);
   const positive = abg.projectCurrentApplicationChildRoute(
     positiveStore,
@@ -210,7 +214,7 @@ async function terminalizedBlockedChildRouteProjection(
     }),
   );
 
-  const wrongStopStore = reopen();
+  const wrongStopStore = await reopen("abi5-recursion-blocked-wrong-stop-");
   appendStop(wrongStopStore, {
     routeRef: "traversal-route://abiogenesis/wrong-blocked-child-stop",
   });
@@ -225,7 +229,7 @@ async function terminalizedBlockedChildRouteProjection(
     wrongStopRejected = true;
   }
 
-  const crossRunStore = reopen();
+  const crossRunStore = await reopen("abi5-recursion-blocked-cross-run-");
   const crossRunId = "run://abiogenesis/m5/cross-run-blocked-child-stop";
   const crossGraphCallId =
     "graph-call://abiogenesis/m5/cross-run-blocked-child-stop";
@@ -345,8 +349,9 @@ async function runRecursion(
     label,
     (payload) => payload,
     {
+      catalogApplications: [],
       programRef: PROGRAM_REF,
-      graphFunctionRef: GRAPH_FUNCTION_REF,
+      catalogHandle: GRAPH_FUNCTION_REF,
       allowlist: [GRAPH_FUNCTION_REF, CHILD_GRAPH_FUNCTION_REF],
       input: {
         kind: "bounded_recursion_state",
@@ -426,6 +431,7 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
   );
   assert.ok(firstChildTerminalRoute);
   const pairedChildRoute = await pairedChildRouteProjection(
+    context,
     installedRoot,
     events,
     firstChildTerminalRoute,
@@ -504,6 +510,8 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
   assert.equal(firstDeferredTruth.consumedCompletion, null);
   assert.equal(firstDeferredTruth.currentBeforeRoute, true);
   assert.equal(firstDeferredTruth.currentAfterRoute, false);
+  assert.equal(firstDeferredTruth.reopenedBeforeRoute, true);
+  assert.equal(firstDeferredTruth.reopenedAfterRoute, true);
   const staleRehydrate = await runStaleRehydrateWorker({
     installedPackageRoot: installedRoot,
     coordinates: deferredInput.coordinates,
@@ -657,6 +665,7 @@ test("M5 installed graph recursion propagates one lawfully blocked child", async
   assert.notEqual(foldback, undefined);
   const terminalizedBlockedChild =
     await terminalizedBlockedChildRouteProjection(
+      context,
       installedRoot,
       events,
       childBlockedRoute,

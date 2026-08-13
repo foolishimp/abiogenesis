@@ -9,8 +9,10 @@ import { expectedVerificationIdentity } from "../support/candidate-basis.mjs";
 import {
   importInstalledPackageExport,
   runInstalledCli,
+  writeCliTransportEpisode,
 } from "../support/root-cli-environment.mjs";
 import { setupInstalledRootCatalog } from "../support/root-installed-environment.mjs";
+import { acquireNewEmptyAppendSinkFixture } from "../support/new-empty-append-sink.mjs";
 import { runAxPfcF08 } from "./pfc-f08-lane.mjs";
 
 const ZERO_DIGEST = `sha256:${"0".repeat(64)}`;
@@ -255,22 +257,41 @@ function productInstallCandidate(admittedInstall) {
   };
 }
 
-function constructRuntimeBaseline(environment, label, allowlist) {
+async function constructRuntimeBaseline(
+  environment,
+  ownerFixtureContext,
+  label,
+  allowlist,
+) {
   const { abg, product } = environment;
-  const store = new abg.AbgEventStore();
+  const acquired = await acquireNewEmptyAppendSinkFixture(
+    ownerFixtureContext,
+    abg.createNewEmptyAppendSink,
+    "abi5-contract-runtime-",
+  );
+  const store = acquired.store;
   const installCandidate = productInstallCandidate(environment.admittedInstall);
-  const admittedInstall = abg.admitProductInstall(
+  const admittedInstallResult = abg.admitProductInstall(
     store,
     installCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.product.install",
-      installCandidate.installId,
-      installCandidate.productContentDigest,
-      `invocation://increment-0a/${label}/product-install`,
-    ),
+    {
+      ...publicOperationBasis(
+        product,
+        "abg.operation.product.install",
+        installCandidate.installId,
+        installCandidate.productContentDigest,
+        `invocation://increment-0a/${label}/product-install`,
+      ),
+      predecessorPrefix: acquired.prefix,
+    },
+    environment.lock,
   );
-  assert.equal(admittedInstall.kind, "product_install", JSON.stringify(admittedInstall));
+  assert.equal(
+    admittedInstallResult.kind,
+    "artifact_owner_result",
+    JSON.stringify(admittedInstallResult),
+  );
+  const admittedInstall = admittedInstallResult.value;
   const productSet = product.constructProductSet([admittedInstall], environment.lock);
   assert.equal(productSet.kind, "product_set", JSON.stringify(productSet));
   const bindingCandidate = product.constructWorkspaceBinding(
@@ -284,23 +305,28 @@ function constructRuntimeBaseline(environment, label, allowlist) {
     "workspace_binding_candidate",
     JSON.stringify(bindingCandidate),
   );
-  const workspaceBinding = abg.admitWorkspaceBinding(
+  const workspaceBindingResult = abg.admitWorkspaceBinding(
     store,
     bindingCandidate,
-    publicOperationBasis(
-      product,
-      "abg.operation.workspace.bind",
-      bindingCandidate.bindingId,
-      bindingCandidate.bindingDigest,
-      `invocation://increment-0a/${label}/workspace-bind`,
-      [admittedInstall.admissionEventRef],
-    ),
+    {
+      ...publicOperationBasis(
+        product,
+        "abg.operation.workspace.bind",
+        bindingCandidate.bindingId,
+        bindingCandidate.bindingDigest,
+        `invocation://increment-0a/${label}/workspace-bind`,
+        [admittedInstall.admissionEventRef],
+      ),
+      predecessorPrefix: admittedInstallResult.successorPrefix,
+    },
+    environment.workspaceAuthority,
   );
   assert.equal(
-    workspaceBinding.kind,
-    "workspace_binding",
-    JSON.stringify(workspaceBinding),
+    workspaceBindingResult.kind,
+    "artifact_owner_result",
+    JSON.stringify(workspaceBindingResult),
   );
+  const workspaceBinding = workspaceBindingResult.value;
   const catalog = product.buildGraphFunctionCatalog([environment.publication]);
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
   const catalogView = product.narrowGraphFunctionCatalog(catalog, allowlist);
@@ -310,12 +336,13 @@ function constructRuntimeBaseline(environment, label, allowlist) {
     admittedInstall,
     productSet,
     workspaceBinding,
+    artifactTruth: workspaceBindingResult.artifactTruth,
     catalog,
     catalogView,
   };
 }
 
-async function loadPackagedImplementations(environment) {
+export async function loadPackagedImplementations(environment) {
   const modules = await Promise.all(
     [...new Set(
       environment.publication.implementationBindings.map(
@@ -336,6 +363,7 @@ async function loadPackagedImplementations(environment) {
 
 async function openRuntimePrefix({
   environment,
+  ownerFixtureContext,
   label,
   publication,
   program,
@@ -344,8 +372,9 @@ async function openRuntimePrefix({
   packagedImplementations,
 }) {
   const { abg, gtl, product, validator } = environment;
-  const baseline = constructRuntimeBaseline(
+  const baseline = await constructRuntimeBaseline(
     environment,
+    ownerFixtureContext,
     label,
     [...new Set(program.callableMembership)].sort(),
   );
@@ -369,7 +398,7 @@ async function openRuntimePrefix({
       correlationId: `correlation://increment-0a/${label}/run`,
       payload: {
         programRef: program.programRef,
-        graphFunctionRef: graphFunction.name,
+        catalogHandle: graphFunction.name,
       },
     },
     "public_operation_request",
@@ -382,12 +411,17 @@ async function openRuntimePrefix({
   );
   const actorRef = "actor://abiogenesis/t286/trusted-developer";
   const grant = product.constructCapabilityGrant(policy, actorRef);
+  const selectedRow = product.lookupGraphFunction(
+    baseline.catalogView,
+    graphFunction.name,
+  );
+  assert.ok(selectedRow);
   const authority = product.constructInvocationAuthority(
     actorRef,
     baseline.workspaceBinding,
     baseline.catalogView,
     program.programRef,
-    graphFunction.name,
+    selectedRow,
     policy,
     [grant],
   );
@@ -396,7 +430,7 @@ async function openRuntimePrefix({
     baseline.workspaceBinding,
     baseline.catalogView,
     program,
-    graphFunction,
+    selectedRow,
     rawRequest,
     rawInput,
     policy,
@@ -419,6 +453,7 @@ async function openRuntimePrefix({
       graphFunction,
       programValidation,
       workspaceBinding: baseline.workspaceBinding,
+      artifactTruth: baseline.artifactTruth,
       catalogView: baseline.catalogView,
       policy,
       capabilityGrants: [grant],
@@ -429,7 +464,7 @@ async function openRuntimePrefix({
       "abg.operation.run.invoke",
       baseline.workspaceBinding.bindingId,
       baseline.workspaceBinding.bindingDigest,
-      invocation.invocationRef,
+      invocation.publicRequestInvocationRef,
       [baseline.workspaceBinding.admissionEventRef],
     ),
   );
@@ -488,6 +523,7 @@ async function openRuntimePrefix({
     baseline.store,
     {
       invocationAdmission,
+      rawInputValue: rawInput.value,
       program,
       programValidation,
       graph,
@@ -821,6 +857,7 @@ function replaceGraphFunction(publication, graphFunction) {
 
 async function executeTopologyFixture(
   environment,
+  ownerFixtureContext,
   fixture,
   program,
   validation,
@@ -829,6 +866,7 @@ async function executeTopologyFixture(
 ) {
   const runtime = await openRuntimePrefix({
     environment,
+    ownerFixtureContext,
     label: `f05/${fixture.caseId}`,
     publication,
     program,
@@ -840,11 +878,14 @@ async function executeTopologyFixture(
     install: runtime.admittedInstall,
     publication,
     verifyInstallAdmission: (install) =>
-      environment.abg.hasAdmittedProductInstall(runtime.store, install),
+      environment.abg.hasAdmittedProductInstall(runtime.artifactTruth, install),
   });
   const leafPort =
     await environment.hogInstalledProduct.bindInstalledLeafInvocationPort({
-      store: runtime.store,
+      prefix: environment.abg.selectValidatedRuntimeEventPrefix(
+        runtime.store.readAll(),
+      ),
+      artifactTruth: runtime.artifactTruth,
       install: runtime.admittedInstall,
       implementationSet: runtime.executionAdmission.implementationSet,
       publication,
@@ -919,7 +960,11 @@ async function executeTopologyFixture(
   };
 }
 
-async function runF05(environment, packagedImplementations) {
+export async function runF05(
+  environment,
+  ownerFixtureContext,
+  packagedImplementations,
+) {
   const { gtl, validator } = environment;
   const baseGraphFunction = environment.publication.graphFunctions.find(
     (candidate) => candidate.name === gtl.GRAPH_EDGE_HELLO_IDS.graphFunctionRef,
@@ -965,9 +1010,10 @@ async function runF05(environment, packagedImplementations) {
     const runtimeObservation =
       fixture.caseId === "duplicate-node" ||
           fixture.caseId === "undeclared-cycle"
-        ? await executeTopologyFixture(
-            environment,
-            fixture,
+          ? await executeTopologyFixture(
+              environment,
+              ownerFixtureContext,
+              fixture,
             admittedProgram,
             validation,
             publication,
@@ -1222,6 +1268,7 @@ function f10IdentityProjection(environment, runtime, variant) {
 
 async function runF10Pair(
   environment,
+  ownerFixtureContext,
   label,
   forward,
   reverse,
@@ -1238,6 +1285,7 @@ async function runF10Pair(
   assert.notEqual(reverseGraphFunction, undefined);
   const forwardRuntime = await openRuntimePrefix({
     environment,
+    ownerFixtureContext,
     label,
     publication: forward.publication,
     program: forward.program,
@@ -1247,6 +1295,7 @@ async function runF10Pair(
   });
   const reverseRuntime = await openRuntimePrefix({
     environment,
+    ownerFixtureContext,
     label,
     publication: reverse.publication,
     program: reverse.program,
@@ -1269,7 +1318,11 @@ function f10Equality(left, right) {
   );
 }
 
-async function runF10(environment, packagedImplementations) {
+export async function runF10(
+  environment,
+  ownerFixtureContext,
+  packagedImplementations,
+) {
   const programRef = environment.gtl.WORKFLOW_HELLO_IDS.programRef;
   const graphFunctionRef = environment.gtl.WORKFLOW_HELLO_IDS.graphFunctionRef;
   const baseProgram = environment.publication.programs.find(
@@ -1313,6 +1366,7 @@ async function runF10(environment, packagedImplementations) {
   );
   const semantic = await runF10Pair(
     environment,
+    ownerFixtureContext,
     "f10/semantic-membership",
     semanticForward,
     semanticReverse,
@@ -1321,6 +1375,7 @@ async function runF10(environment, packagedImplementations) {
   );
   const requirement = await runF10Pair(
     environment,
+    ownerFixtureContext,
     "f10/requirement-order",
     requirementForward,
     requirementReverse,
@@ -1329,6 +1384,7 @@ async function runF10(environment, packagedImplementations) {
   );
   const semanticRepeat = await runF10Pair(
     environment,
+    ownerFixtureContext,
     "f10/semantic-membership",
     semanticForward,
     semanticReverse,
@@ -1337,6 +1393,7 @@ async function runF10(environment, packagedImplementations) {
   );
   const requirementRepeat = await runF10Pair(
     environment,
+    ownerFixtureContext,
     "f10/requirement-order",
     requirementForward,
     requirementReverse,
@@ -1603,7 +1660,14 @@ async function runF11(harness) {
   const cliRuns = {};
   for (const [cause, invocation] of Object.entries(cliInvocations)) {
     const transcriptPath = join(fixtureRoot, `${cause}.jsonl`);
-    await writeFile(transcriptPath, `${JSON.stringify(invocation)}\n`, "utf8");
+    await writeCliTransportEpisode(transcriptPath, {
+      episodeRef: `cli-episode://f11/${cause}`,
+      acquisition: {
+        kind: "new",
+        eventLogPath: join(fixtureRoot, `${cause}.events.jsonl`),
+      },
+      invocations: [invocation],
+    });
     cliRuns[cause] = await runInstalledCli(harness, {
       label: `f11-${cause}`,
       transcriptPath,
@@ -1958,8 +2022,8 @@ export async function runContractLanes({ harness, packageRoot }) {
     );
     return [
       await runF03(harness),
-      await runF05(runtimeEnvironment, packagedImplementations),
-      await runF10(runtimeEnvironment, packagedImplementations),
+      await runF05(runtimeEnvironment, context, packagedImplementations),
+      await runF10(runtimeEnvironment, context, packagedImplementations),
       await runF11(harness),
       await runF14(harness),
       await runAxPfcF08({ harness, packageRoot }),

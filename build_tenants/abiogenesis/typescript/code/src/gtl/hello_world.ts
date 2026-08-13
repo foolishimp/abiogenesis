@@ -27,8 +27,10 @@ import {
 import { gateApplication } from "./graph_applications.js";
 import {
   constructFanOutPublicationParts,
+  isFanOutHelloMemberInput,
   isFanOutHelloMemberOutput,
   isFanOutHelloSummary,
+  isFanOutHelloVectorInput,
   isFanOutHelloVectorOutput,
   resolveFanOutJudgmentRelation,
 } from "./fan_out.js";
@@ -43,6 +45,7 @@ import { deepFreeze } from "../shared/immutable.js";
 export const HELLO_WORLD_IDS = Object.freeze({
   moduleRef: "module://abiogenesis/conformance/hello-world@5",
   programRef: "program://abiogenesis/conformance/hello-world@5",
+  startRef: "start://abiogenesis/conformance/hello-world@5",
   graphFunctionRef: "graph-function://abiogenesis/conformance/hello-world@5",
   graphRef: "graph://abiogenesis/conformance/hello-world@5",
   nodeRef: "node://abiogenesis/conformance/hello-world/fd-leaf@5",
@@ -61,6 +64,12 @@ export const HELLO_WORLD_IDS = Object.freeze({
   implementationRef: "implementation://abiogenesis/conformance/hello-world-fd@5",
   armId: "arm://abiogenesis/conformance/hello-world/fd@5",
   judgmentPredicateRef: "predicate://abiogenesis/conformance/hello-world-result@5",
+});
+
+export const HELLO_WORLD_DIRECT_IDS = Object.freeze({
+  programRef:
+    "program://abiogenesis/conformance/hello-world-direct-handle@5",
+  handle: "gtl://abiogenesis/conformance/hello-world/direct-call@5",
 });
 
 export const COMPOSED_HELLO_IDS = Object.freeze({
@@ -475,12 +484,18 @@ export function isDeclaredConformanceValue(
       return isHelloWorldOutput(value);
     case "normalized_hello_input":
       return isNormalizedHelloInput(value);
+    case "fp_hello_instruction":
+      return isFpHelloInstruction(value);
     case "fp_hello_output":
       return isFpHelloOutput(value);
     case "bounded_recursion_state":
       return isBoundedRecursionState(value);
+    case "fan_out_hello_member_input":
+      return isFanOutHelloMemberInput(value);
     case "fan_out_hello_member_output":
       return isFanOutHelloMemberOutput(value);
+    case "fan_out_hello_vector_input":
+      return isFanOutHelloVectorInput(value);
     case "fan_out_hello_vector_output":
       return isFanOutHelloVectorOutput(value);
     case "fan_out_hello_summary":
@@ -930,10 +945,24 @@ export function constructHelloWorldModulePublication(
     moduleRef: HELLO_WORLD_IDS.moduleRef,
     starts: [
       {
-        startRef: "start://abiogenesis/conformance/hello-world@5",
+        startRef: HELLO_WORLD_IDS.startRef,
         graphFunctionRef: HELLO_WORLD_IDS.graphFunctionRef,
       },
     ],
+    callableMembership: [HELLO_WORLD_IDS.graphFunctionRef],
+    closureContractRef: HELLO_WORLD_IDS.closureContractRef,
+    policies: {
+      "abg.root_mode": "direct",
+      "abg.compute_regime": "F_D",
+      "abg.default_start_ref": HELLO_WORLD_IDS.startRef,
+    },
+  };
+  const directHandleProgram: GtlProgram = {
+    kind: "gtl_program",
+    programRef: HELLO_WORLD_DIRECT_IDS.programRef,
+    version: "5.0.0",
+    moduleRef: HELLO_WORLD_IDS.moduleRef,
+    starts: [],
     callableMembership: [HELLO_WORLD_IDS.graphFunctionRef],
     closureContractRef: HELLO_WORLD_IDS.closureContractRef,
     policies: {
@@ -1927,6 +1956,16 @@ export function constructHelloWorldModulePublication(
     compatibilityRefs: ["compatibility://abiogenesis/major/5"],
     provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
   };
+  const directHandleContribution: CatalogContribution = {
+    handle: HELLO_WORLD_DIRECT_IDS.handle,
+    kind: "graph_function",
+    declarationOrContractRef: HELLO_WORLD_IDS.graphFunctionRef,
+    owningProductId: artifact.productId,
+    programMembershipRefs: [HELLO_WORLD_DIRECT_IDS.programRef],
+    readinessPrerequisiteRefs: [HELLO_WORLD_DIRECT_IDS.programRef],
+    compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+    provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+  };
   const workflowContribution: CatalogContribution = {
     handle: WORKFLOW_HELLO_IDS.graphFunctionRef,
     kind: "graph_function",
@@ -2106,6 +2145,7 @@ export function constructHelloWorldModulePublication(
     ],
     programs: [
       program,
+      directHandleProgram,
       workflowProgram,
       gateProgram,
       composedProgram,
@@ -2142,6 +2182,7 @@ export function constructHelloWorldModulePublication(
     ],
     contributions: [
       contribution,
+      directHandleContribution,
       workflowContribution,
       gateContribution,
       gateTargetContribution,

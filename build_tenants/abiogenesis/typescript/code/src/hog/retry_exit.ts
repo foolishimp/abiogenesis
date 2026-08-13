@@ -1,21 +1,34 @@
 import type {
   FanOutApplication,
+  GraphFunction,
   GtlGraph,
+  GtlProgram,
 } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {
   AdmittedCCallJudgment,
   AdmittedCCallResult,
   CCall,
 } from "../abg/c_call.js";
-import type { FhInteractionResumeAdmission } from "../abg/continuation.js";
-import type { ExecutionBasis, RuntimeAdmissionBasis } from "../abg/execution_basis.js";
+import {
+  projectHeldInteractionCCallOutcomeAtPrefix,
+  type FhInteractionResumeAdmission,
+} from "../abg/continuation.js";
+import type {
+  AdmittedInteractionSet,
+  ExecutionBasis,
+  RuntimeAdmissionBasis,
+} from "../abg/execution_basis.js";
 import type { CompleteFanOutAdmission } from "../abg/fan_out.js";
 import {
-  admitRuntimeEventTransaction,
+  admitRuntimeEventTransactionAtExpectedPrefix,
+  isRuntimeEventTransactionActive,
   type AbgEventStore,
 } from "../abg/event_store.js";
+import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
+import type { OpenedTraversalScope } from "../abg/open_call.js";
 import {
   admitCompletedRetryProgress,
   type RetrySuccessfulExitEvidence,
@@ -23,7 +36,6 @@ import {
 import { replay } from "../abg/replay.js";
 import { admitRoute } from "../abg/traversal_route.js";
 import type { TraversalCursorCandidate } from "../abg/traversal_cursor.js";
-import type { TraversalStep } from "./traversal.js";
 import {
   proposeFanOutRoute,
   proposeInteractionResumeRoute,
@@ -55,6 +67,12 @@ export type SuccessfulRetryExitVariant =
     judgment: AdmittedCCallJudgment;
     resume: FhInteractionResumeAdmission;
     transitionContractRef: string;
+    authority: Readonly<{
+      openedTraversalScope: OpenedTraversalScope;
+      program: Readonly<GtlProgram>;
+      interactionSet: AdmittedInteractionSet;
+      heldCursor: TraversalCursorCandidate;
+    }>;
   }>
   | Readonly<{
     completionClass: "structural_identity_success";
@@ -64,9 +82,9 @@ export type SuccessfulRetryExitVariant =
 export interface AdmitSuccessfulRetryExitInput {
   readonly store: AbgEventStore;
   readonly executionBasis: ExecutionBasis;
+  readonly graphFunction: Readonly<GraphFunction>;
   readonly graph: Readonly<GtlGraph>;
   readonly sourceCursor: TraversalCursorCandidate;
-  readonly continuationStep: TraversalStep;
   readonly targetCursor: TraversalCursorCandidate | null;
   readonly variant: SuccessfulRetryExitVariant;
   readonly basis: RuntimeAdmissionBasis;
@@ -84,48 +102,86 @@ class SuccessfulRetryExitRouteError extends TypeError {
 export function admitSuccessfulRetryExitRoute(
   input: AdmitSuccessfulRetryExitInput,
 ) {
+  const transactionEntrySnapshot = input.store.readAll();
+  const transactionEntryDigest = sha256Canonical(
+    transactionEntrySnapshot as unknown as JsonValue,
+  );
+  const transactionEntryPrefix = selectValidatedRuntimeEventPrefix(
+    transactionEntrySnapshot,
+  );
   try {
-    return admitRuntimeEventTransaction(input.store, () => {
-      const retryEvidence: RetrySuccessfulExitEvidence =
-        input.variant.completionClass === "structural_identity_success"
-          ? input.variant
-          : input.variant.completionClass === "fan_out_success"
+    const admit = () => {
+        let variant = input.variant;
+        if (variant.completionClass === "fh_resume_success") {
+          const projected = projectHeldInteractionCCallOutcomeAtPrefix(
+            transactionEntryPrefix,
+            {
+              executionBasis: input.executionBasis,
+              openedTraversalScope: variant.authority.openedTraversalScope,
+              program: variant.authority.program,
+              graph: input.graph,
+              interactionSet: variant.authority.interactionSet,
+              cursor: variant.authority.heldCursor,
+            },
+          );
+          if (
+            projected === null ||
+            sha256Canonical(projected.cCall as unknown as JsonValue) !==
+              sha256Canonical(variant.cCall as unknown as JsonValue) ||
+            sha256Canonical(projected.result as unknown as JsonValue) !==
+              sha256Canonical(variant.result as unknown as JsonValue) ||
+            sha256Canonical(projected.judgment as unknown as JsonValue) !==
+              sha256Canonical(variant.judgment as unknown as JsonValue)
+          ) {
+            throw new SuccessfulRetryExitRouteError(
+              "fh_outcome_mismatch",
+              variant as unknown as JsonValue,
+            );
+          }
+          variant = deepFreeze({
+            ...variant,
+            cCall: projected.cCall,
+            result: projected.result,
+            judgment: projected.judgment,
+          });
+        }
+        const retryEvidence: RetrySuccessfulExitEvidence =
+        variant.completionClass === "structural_identity_success"
+          ? variant
+          : variant.completionClass === "fan_out_success"
             ? {
                 completionClass: "fan_out_success",
-                cCall: input.variant.cCall,
-                result: input.variant.result,
-                judgment: input.variant.judgment,
-                completion: input.variant.completion,
+                cCall: variant.cCall,
+                result: variant.result,
+                judgment: variant.judgment,
+                completion: variant.completion,
               }
-            : input.variant.completionClass === "fh_resume_success"
+            : variant.completionClass === "fh_resume_success"
               ? {
                   completionClass: "fh_resume_success",
-                  cCall: input.variant.cCall,
-                  result: input.variant.result,
-                  judgment: input.variant.judgment,
-                  resume: input.variant.resume,
+                  cCall: variant.cCall,
+                  result: variant.result,
+                  judgment: variant.judgment,
+                  resume: variant.resume,
                 }
               : {
                   completionClass: "judged_success",
-                  cCall: input.variant.cCall,
-                  result: input.variant.result,
-                  judgment: input.variant.judgment,
+                  cCall: variant.cCall,
+                  result: variant.result,
+                  judgment: variant.judgment,
                 };
-      const completedProgresses =
-        (input.targetCursor?.retryPath.length ?? 0) <
-            input.sourceCursor.retryPath.length
-          ? admitCompletedRetryProgress(
-              input.store,
-              input.graph,
-              input.sourceCursor,
-              input.targetCursor,
-              retryEvidence,
-              {
-                ...input.basis,
-                correlationId: `${input.basis.correlationId}/progress`,
-              },
-            )
-          : [];
+      const completedProgresses = admitCompletedRetryProgress(
+        input.store,
+        input.graph,
+        input.graphFunction,
+        input.sourceCursor,
+        input.targetCursor,
+        retryEvidence,
+        {
+          ...input.basis,
+          correlationId: `${input.basis.correlationId}/progress`,
+        },
+      );
       if ("kind" in completedProgresses) {
         throw new SuccessfulRetryExitRouteError(
           completedProgresses.code,
@@ -135,44 +191,49 @@ export function admitSuccessfulRetryExitRoute(
       const routeReplay = replay(input.store, {
         runId: input.sourceCursor.runId,
       });
-      const proposal = input.variant.completionClass ===
+      const proposal = variant.completionClass ===
           "structural_identity_success"
-        ? proposeStructuralRoute(
+          ? proposeStructuralRoute(
             input.graph,
-            input.continuationStep,
+            input.sourceCursor,
+            input.targetCursor!,
+            "advance",
             routeReplay,
             completedProgresses,
           )
-        : input.variant.completionClass === "fan_out_success"
+        : variant.completionClass === "fan_out_success"
           ? proposeFanOutRoute(
               input.graph,
-              input.variant.application,
-              input.continuationStep,
-              input.variant.cCall,
-              input.variant.completion,
+              variant.application,
+              input.sourceCursor,
+              input.targetCursor,
+              variant.cCall,
+              variant.completion,
               routeReplay,
-              input.variant.transitionContractRef,
+              variant.transitionContractRef,
               completedProgresses,
             )
-          : input.variant.completionClass === "fh_resume_success"
+          : variant.completionClass === "fh_resume_success"
             ? proposeInteractionResumeRoute(
                 input.graph,
-                input.continuationStep,
-                input.variant.cCall,
-                input.variant.judgment,
-                input.variant.resume,
+                input.sourceCursor,
+                input.targetCursor,
+                variant.cCall,
+                variant.judgment,
+                variant.resume,
                 routeReplay,
-                input.variant.transitionContractRef,
+                variant.transitionContractRef,
                 completedProgresses,
               )
             : proposeJudgedRoute(
                 input.graph,
-                input.continuationStep,
-                input.variant.cCall,
-                input.variant.result,
-                input.variant.judgment,
+                input.sourceCursor,
+                input.targetCursor,
+                variant.cCall,
+                variant.result,
+                variant.judgment,
                 routeReplay,
-                input.variant.transitionContractRef,
+                variant.transitionContractRef,
                 completedProgresses,
               );
       if (proposal.kind !== "traversal_route_candidate") {
@@ -181,35 +242,39 @@ export function admitSuccessfulRetryExitRoute(
           proposal as unknown as JsonValue,
         );
       }
-      const evidence = input.variant.completionClass ===
+      const evidence = variant.completionClass ===
           "structural_identity_success"
         ? {
+            graphFunction: input.graphFunction,
             completionClass: "structural_identity_success" as const,
             completionWitnessEventRef:
-              input.variant.completionWitnessEventRef,
+              variant.completionWitnessEventRef,
             completedProgresses,
           }
-        : input.variant.completionClass === "fan_out_success"
+        : variant.completionClass === "fan_out_success"
           ? {
-              cCall: input.variant.cCall,
-              result: input.variant.result,
-              judgment: input.variant.judgment,
-              application: input.variant.application,
-              completion: input.variant.completion,
+              graphFunction: input.graphFunction,
+              cCall: variant.cCall,
+              result: variant.result,
+              judgment: variant.judgment,
+              application: variant.application,
+              completion: variant.completion,
               completedProgresses,
             }
-          : input.variant.completionClass === "fh_resume_success"
+          : variant.completionClass === "fh_resume_success"
             ? {
-                cCall: input.variant.cCall,
-                result: input.variant.result,
-                judgment: input.variant.judgment,
-                resume: input.variant.resume,
+                graphFunction: input.graphFunction,
+                cCall: variant.cCall,
+                result: variant.result,
+                judgment: variant.judgment,
+                resume: variant.resume,
                 completedProgresses,
               }
             : {
-                cCall: input.variant.cCall,
-                result: input.variant.result,
-                judgment: input.variant.judgment,
+                graphFunction: input.graphFunction,
+                cCall: variant.cCall,
+                result: variant.result,
+                judgment: variant.judgment,
                 completedProgresses,
               };
       const route = admitRoute(
@@ -223,12 +288,6 @@ export function admitSuccessfulRetryExitRoute(
         {
           ...input.basis,
           correlationId: `${input.basis.correlationId}/route`,
-          causationEventRefs: [
-            ...completedProgresses.slice(0, -1).map((progress) =>
-              progress.admissionEventRef
-            ),
-            ...input.basis.causationEventRefs,
-          ],
         },
         evidence,
       );
@@ -243,7 +302,14 @@ export function admitSuccessfulRetryExitRoute(
         completedProgresses,
         route,
       });
-    });
+    };
+    return isRuntimeEventTransactionActive(input.store)
+      ? admit()
+      : admitRuntimeEventTransactionAtExpectedPrefix(
+          input.store,
+          transactionEntryDigest,
+          admit,
+        ).value;
   } catch (error) {
     if (!(error instanceof SuccessfulRetryExitRouteError)) throw error;
     return deepFreeze({

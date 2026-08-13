@@ -30,6 +30,10 @@ type PayloadFieldDefinition =
   | Readonly<{ readonly kind: "nonblank_string" }>
   | Readonly<{ readonly kind: "record" }>
   | Readonly<{
+    readonly kind: "record_array";
+    readonly minItems: number;
+  }>
+  | Readonly<{
     readonly kind: "string_array";
     readonly minItems: number;
     readonly uniqueItems: boolean;
@@ -55,6 +59,12 @@ function payloadFieldSchema(
       return refSchema;
     case "record":
       return { type: "object" };
+    case "record_array":
+      return {
+        type: "array",
+        minItems: definition.minItems,
+        items: { type: "object" },
+      };
     case "string_array":
       return {
         type: "array",
@@ -332,22 +342,23 @@ export const PUBLIC_OPERATION_SCHEMA = {
       additionalProperties: false,
       required: [
         "kind",
+        "schemaVersion",
         "lockId",
         "lockDigest",
         "nativeContractClosureDigest",
-        "productIds",
+        "rows",
         "dependencyEdges",
       ],
       properties: {
         kind: { const: "resolved_product_lock" },
+        schemaVersion: { const: "5.0.0" },
         lockId: refSchema,
         lockDigest: digestSchema,
         nativeContractClosureDigest: digestSchema,
-        productIds: {
+        rows: {
           type: "array",
           minItems: 1,
-          uniqueItems: true,
-          items: refSchema,
+          items: { type: "object" },
         },
         dependencyEdges: {
           type: "array",

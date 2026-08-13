@@ -1,4 +1,9 @@
-import type { EventStoreReopenAuthority } from "../abg/event_store.js";
+import {
+  validateEventStoreCloseHandoff,
+  type DurablePrefixCoordinate,
+  type EventStoreCloseHandoff,
+  type EventStoreReopenAuthority,
+} from "../abg/event_store.js";
 import type {
   ClosureContract,
   GtlGraph,
@@ -27,6 +32,7 @@ export interface PublicContinuationAuthority {
   readonly kind: "public_continuation_authority";
   readonly schemaVersion: "5.0.0";
   readonly continuationRef: string;
+  readonly prefix: DurablePrefixCoordinate;
   readonly reopenAuthority: EventStoreReopenAuthority;
   readonly runtimeInvocationRef: string;
   readonly outputContractRef: string;
@@ -74,6 +80,7 @@ const AUTHORITY_KEYS = Object.freeze([
   "schemaVersion",
   "workspaceBinding",
   "parentSuspensions",
+  "prefix",
 ]);
 
 function isRecord(
@@ -100,6 +107,12 @@ function authorityBody(input: PublicContinuationAuthorityInput) {
 export function constructPublicContinuationAuthority(
   input: PublicContinuationAuthorityInput,
 ): PublicContinuationAuthority {
+  if (!validateEventStoreCloseHandoff({
+    prefix: input.prefix,
+    reopenAuthority: input.reopenAuthority,
+  })) {
+    throw new TypeError("continuation authority requires one exact durable close pair");
+  }
   const body = authorityBody(input);
   return deepFreeze(
     JSON.parse(canonicalJson({
@@ -111,7 +124,7 @@ export function constructPublicContinuationAuthority(
 
 export function updatePublicContinuationAuthority(
   authority: PublicContinuationAuthority,
-  reopenAuthority: EventStoreReopenAuthority,
+  handoff: EventStoreCloseHandoff,
 ): PublicContinuationAuthority {
   const {
     authorityDigest: _authorityDigest,
@@ -121,7 +134,7 @@ export function updatePublicContinuationAuthority(
   } = authority;
   return constructPublicContinuationAuthority({
     ...input,
-    reopenAuthority,
+    ...handoff,
   });
 }
 
@@ -145,6 +158,10 @@ export function parsePublicContinuationAuthority(
     value.runId.length === 0 ||
     !isRecord(value.reopenAuthority) ||
     value.reopenAuthority.kind !== "event_store_reopen_authority" ||
+    !validateEventStoreCloseHandoff({
+      prefix: value.prefix,
+      reopenAuthority: value.reopenAuthority,
+    }) ||
     !isRecord(value.install) ||
     value.install.kind !== "product_install" ||
     !isRecord(value.workspaceBinding) ||

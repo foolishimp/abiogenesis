@@ -46,7 +46,9 @@ export function projectCurrentDeferredApplication(
     judgmentRef: string;
   }>,
 ): DeferredApplicationProjection | null {
-  const currentPrefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+  const snapshot = store.readAll();
+  const fullPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+  const currentPrefix = selectValidatedRuntimeEventPrefix(snapshot, {
     runId: coordinates.runId,
   });
   const events = runtimeEventsFromValidatedPrefix(currentPrefix);
@@ -85,6 +87,10 @@ export function projectCurrentDeferredApplication(
     currentPrefix,
     judgmentEvent.eventId,
   );
+  const historicalAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
+    fullPrefix,
+    judgmentEvent.eventId,
+  );
   return deepFreeze({
     kind: "deferred_application_projection" as const,
     schemaVersion: "5.0.0" as const,
@@ -96,7 +102,10 @@ export function projectCurrentDeferredApplication(
     judgmentEventRef: judgmentEvent.eventId,
     judgmentAdmissionOrdinal: judgmentEvent.admissionOrdinal,
     resultValue: resultEvent.payload.value ?? null,
-    replayState: replayValidatedRuntimeEventPrefix(historicalPrefix),
+    replayState: replayValidatedRuntimeEventPrefix(
+      historicalPrefix,
+      historicalAuthorityPrefix,
+    ),
   });
 }
 

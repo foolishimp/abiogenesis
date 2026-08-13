@@ -1,4 +1,5 @@
-import type { AbgEventStore } from "../abg/event_store.js";
+import type { ValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
+import type { ExactPrefixArtifactTruthProjection } from "../abg/artifact_truth.js";
 import type { AdmittedImplementationSet } from "../abg/execution_basis.js";
 import type { ModulePublication } from "../gtl/contracts.js";
 import type {
@@ -11,11 +12,11 @@ import {
 } from "./leaf_invocation_port.js";
 
 export interface InstalledLeafInvocationAuthority {
-  readonly store: AbgEventStore;
+  readonly prefix: ValidatedRuntimeEventPrefix;
+  readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly install: LeafInvocationInstall;
   readonly publication: Readonly<ModulePublication>;
   readonly semanticsProjection: InstalledLeafSemanticsProjection;
-  readonly verifyInstallAuthority?: (install: LeafInvocationInstall) => boolean;
 }
 
 export async function bindInstalledLeafInvocationPort(

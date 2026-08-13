@@ -5,6 +5,7 @@ import { isAbsolute, join, relative, resolve, sep } from "node:path";
 
 import { expectedVerificationIdentity } from "../support/candidate-basis.mjs";
 import { importInstalledPackageExport } from "../support/root-cli-environment.mjs";
+import { acquireNewEmptyAppendSinkResource } from "../support/new-empty-append-sink.mjs";
 
 const DIGEST_PATTERN = /^sha256:[0-9a-f]{64}$/u;
 
@@ -414,7 +415,11 @@ export async function runAxPfcF08({ harness, packageRoot }) {
     packageJson,
   );
 
-  const eventStore = new abg.AbgEventStore();
+  const eventStoreResource = await acquireNewEmptyAppendSinkResource(
+    abg.createNewEmptyAppendSink,
+    "abi5-pfc-f08-",
+  );
+  const eventStore = eventStoreResource.store;
   const eventStoreBefore = {
     count: eventStore.readAll().length,
     digest: eventStore.digest(),
@@ -423,6 +428,7 @@ export async function runAxPfcF08({ harness, packageRoot }) {
     count: eventStore.readAll().length,
     digest: eventStore.digest(),
   };
+  await eventStoreResource.dispose();
   assert.deepEqual(eventStoreAfter, eventStoreBefore);
 
   const oracleDigests = DECLARATIVE_ORACLES.map(canonicalDigest);

@@ -22,13 +22,19 @@ construction, donor, proof, review, and non-closure detail.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - first A5-F10 Run `HoldsAt` slice accepted; terminal-quiescence owner-network implementation selected under T-287. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 functional substrate accepted; Wave 2 C2 HoG algebra translation and imperative-debt deletion active. |
 
 ## Current Basis
 
 - Intent and Product are accepted and unchanged.
 - Immutable STDO `v2.2.2` governs ABIogenesis 5.0.
 - The immutable 4.6 Product is the conserved runtime foundation.
+- ABIogenesis is a direct reference-frame evaluator and realization system:
+  GTL carries admitted recursive declarations and topology, one HoG algebra
+  evaluates them through exact owners, and ABG admits and reconstructs runtime
+  truth. This is the joined Product function, not a new named component.
+- Exact-pinned Effect `3.22.1` is the final internal functional-composition
+  calculus. Its selection is not pending further technology review.
 - `build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md`
   is the sole local STDO 2.2.2 realization and AI-review disambiguation.
 - The accepted M03 and M05 TypeScript design basis indexed by
@@ -52,12 +58,12 @@ construction, donor, proof, review, and non-closure detail.
 Every selected feature must cross the same installed path:
 
 ```text
-developer-authored GTL.TypeScript
+developer-authored recursive frames and material relations in GTL.TypeScript
   -> raw admission and non-lowering whole-Program validation
   -> one canonical admitted Program
   -> exact Product, install, workspace, lock, catalog, and implementation basis
-  -> direct HoG traversal
-  -> F_D | F_P | F_H implementation seam
+  -> one Effect fold over the small HoG algebra and exact owner ports
+  -> direct F_D | F_P | F_H implementation seam
   -> ABG events and Event Calculus
   -> replay and typed Public projection
   -> installed SDK, CLI, and independent consumer
@@ -70,30 +76,42 @@ for an installed consumer.
 
 ## Feature-Wave Delivery
 
-The 16 fixed Product feature families are delivered in five ordered
+The 16 fixed Product feature families are delivered in five dependency-ordered
 steel-thread waves. The order reflects dependency leverage, existing
 implementation, coupling, donor value, and the shortest route to installed
-end-to-end behavior.
+end-to-end behavior. Construction may overlap after a producing wave freezes
+the exact interfaces consumed by its successors. Integrated acceptance and
+release qualification remain dependency ordered.
 
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
-| `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Active - A5-F10 graph catalog contraction, runtime recovery, and terminal quiescence selected |
-| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06` | One exact installed Product/catalog boundary exposes the atomic 18-operation/56-key Public family through a thin SDK and CLI with no reachable legacy family. | Pending Wave 1 |
+| `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Accepted - C5 functional substrate; integrated M5 qualification deferred |
+| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06` | One exact installed Product/catalog boundary exposes the 18-operation/56-key external Public family over a recursively factorized minimal execution basis through a thin SDK and CLI with no reachable legacy family. | Active - C1F factorization and Effect selection fixed; C2 HoG algebra translation/deletion cut active |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path without feature-specific runtimes. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and its Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
 
 ## Current Selection
 
-Wave 1 is the active delivery wave. Within it, `A5-F10` is the first feature
-composition. `A5-F02`, `A5-F03`, and `A5-F04` remain its ordered successors.
+Wave 1 is accepted as the functional runtime substrate. Its exact frozen
+artifact is
+`ab6dd512678b873d1ef4f4a07c8286ff3621ea86b39627e6061652110238c878`;
+its accepted interface receipt digest is
+`c8c26047d36b930a820559d276daa17a51c4589605767463a51be2eb2eba0d7d`.
+Integrated M5 and release qualification remain deferred to their selected
+candidate boundaries.
 
-The current bounded selection is A5-F10
-`graph_catalog_contraction_and_runtime_recovery`: pure catalog readiness and
-construction, event-authoritative runtime recovery, and terminal quiescence on
-one installed Public path. T-287 carries the exact composition, function trace,
-migration order, and proof boundary under the sole local realization
-constitution.
+Wave 2 is the active delivery wave. `W2-C0` has consumed the accepted Wave 1
+receipt and frozen the exact 56-row endpoint/contract/dependency/deletion join.
+`W2-C1F` has fixed the recursive factorization, minimal algebraic target, and
+Effect `3.22.1` selection. The current bounded selection is
+`w2_c2_hog_algebra_translation_deletion`: translate established 4.6 and
+accepted 5.0 HoG functions into one small algebra, derived combinators, and one
+Effect fold over exact owner ports, then delete or make unreachable the
+superseded imperative coordinators and prototype scaffolding. This is a pure
+`realization_refactor`; it adds no Product behavior, contract, event, owner,
+refusal, or authority. The frozen 18/56 census remains external Product
+coverage, not an assertion of 56 primitive implementations.
 
 Wave 1 order is:
 
@@ -108,8 +126,26 @@ T-287 defines the selected slice, Wave 1 increments, baseline, recovery rules,
 required proof, installed candidate boundary, worker authority, and assurance
 conditions.
 
-Later waves may be inspected for dependency planning. Their implementation is
-not selected until the preceding wave is accepted.
+Later-wave work whose consumed interfaces are frozen may begin concurrently.
+It may consume but not silently modify those interfaces. A required interface
+change re-enters the producing wave explicitly. Full cross-feature matrices,
+selected scenarios, conservation, and release qualification run against the
+integrated candidate rather than being duplicated at each wave boundary.
+
+Wave 2 retains the accepted 18-operation/56-key external contract map and the
+current eventless Product catalog/workspace-open laws. C2 construction now
+translates the accepted HoG behavior into the selected Effect algebra and
+deletes the superseded imperative and prototype paths; it may not add an
+Effect wrapper over the old HoG coordinators. Factorization maps and ordered
+primitive traces remain non-executable evidence. Acceptance requires exact
+behavioral conservation of results, refusals, ordered events, Event Calculus,
+and replay plus deletion or unreachability of the displaced paths. Wave 2 then
+completes the one generated family, performs the atomic Public hard break, and
+proves two source-blind installed sunny paths through SDK and CLI. No Event
+Calculus redesign is selected. T-287 owns the construction sequence, generated
+projection boundary, legacy deletion set, interface receipt, and proportional
+review gates. Wave 2 may consume but not alter accepted Wave 1 interfaces
+without explicit interface re-entry.
 
 ## Product Scope And Conservation
 
@@ -131,9 +167,11 @@ for delivered behavior.
 ## Work Selection
 
 - T-287 is the sole active execution authority under GOAL-035.
-- The active wave selects implementation; later waves remain pending.
-- Acceptance of one wave selects the next already-defined wave without
-  redefining Product meaning.
+- The active wave selects its producing implementation. A frozen interface
+  boundary may select dependent work in a later wave without claiming that
+  later wave accepted.
+- Acceptance of one wave advances integrated acceptance without redefining
+  Product meaning; dependency-safe construction may already be concurrent.
 - Useful implementation may be recovered as donor stock without retaining an
   invalid closure claim or donor authority.
 - Product, requirement, exact 18/56-family, or materially different authority
