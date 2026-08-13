@@ -19,7 +19,7 @@
 - selected_feature: A5-F01
 - selected_slice: exact_public_family_construction
 - selected_slice_stage: design_reframe
-- selected_increment: w2_c1f_resource_state_binding_correction
+- selected_increment: w2_c1f_leaf_local_resource_binding_repair
 - selected_increment_stage: design
 - accepted_checkpoint: 1f6a86074bf995763b4caff286422b5b1501374b
 - deferred_feature: A5-F12
@@ -73,9 +73,10 @@ selected feature and slice:
   = exact installed Product/catalog basis consumed by one 18-operation/56-key
     Public family, SDK, and CLI
 active increment:
-  w2_c1f_resource_state_binding_correction
-  = replace the incomplete unary installed-call assumption with one common
-    type-indexed DefinitionCall/DefinitionReturn resource-state relation;
+  w2_c1f_leaf_local_resource_binding_repair
+  = retain the common type-indexed DefinitionCall/DefinitionReturn relation,
+    bind exact topology/provider identity for all 56 keys, and make every
+    physical or ABG transition an owner-leaf receipt boundary;
     preserve the accepted HoG translation/deletion and hold D6 production
 Product outcome:
   declared recursive GTL frames/material relations
@@ -520,7 +521,7 @@ primitive basis; it may not manufacture a bespoke callable merely to fill a
 row. Missing owner meaning is a stop, not permission for Public, SDK, CLI, a
 fixture, or a donor to invent it.
 
-### Bounded C1F resource-state binding correction
+### Bounded C1F leaf-local resource-state binding repair
 
 D6 proved one construction defect in the C1F installed-binding relation. The
 unchanged common `PublicInvocation<K>` and owner request packets carry semantic
@@ -530,8 +531,17 @@ artifact locator or an ABG durable-prefix/reopen carrier. The prior unary
 close only by inventing an ambient resolver, process-local store, fixture, or
 schema-specific compatibility path.
 
-F_H has selected the bounded Section 5.6.2A correction in the local
-constitution. This ticket does not restate its algebra. For C1F/D6 accounting:
+The first correction candidate at commit `5d49d748`, tree `891e3d2a`, was held
+by cold review. It correctly selected an explicit resource carrier but falsely
+applied `Rnn` before one late generic commit, lacked exact 56-key topology and
+PFC-F05 identity joins, generalized content addressing, and under-specified
+provider identity, idempotence, residue, and ABG successor threading. F_H
+authorized one bounded repair while retaining the common topology relation and
+Effect `3.22.1` foundation.
+
+Sections 5.6.2A-B, Table 5.6.3-D, and amendment 16.5 in the local constitution
+are the sole repaired relation. This ticket does not restate their algebra. For
+C1F/D6 accounting:
 
 - all 56 definition keys retain their exact owner, request, indexed outcome,
   effect regime, installed coordinate, and ordered factor trace;
@@ -539,10 +549,23 @@ constitution. This ticket does not restate its algebra. For C1F/D6 accounting:
   gaps, not another family or a request for 48 wrappers;
 - one common `DefinitionCall<K, I, O>` joins `PublicInvocation<K>` to exact
   resource bindings and pre-state; one `DefinitionReturn<K, I, O>` joins the
-  owner output to successor resource state and handoff;
-- canonical input/output resource identity topology derives read, same-
-  resource mutation, and distinct-output creation; no mode flag selects
-  access or commit behavior;
+  owner output to ordered leaf receipts, successor resource state, and handoff;
+- Table 5.6.3-D projects all 56 exact keys through the existing `E01-E40`
+  classes and shared `T0-T9` forms; it creates no 56/48 wrapper roster;
+- canonical provider-scoped input/output resource identity topology derives
+  read, same-resource mutation, and owner-allocated distinct-output creation;
+  no mode flag selects access or commit behavior;
+- every physical or ABG resource transition is owned by its exact `L`, `J`, or
+  `X` leaf and returns a typed mechanical receipt before dependent work;
+  existing expected-prefix appends remain independently durable and reissue
+  the exact successor prefix/close handoff;
+- the exact semantic owner consumes committed, no-new-commit idempotent,
+  residue/compensation, or substrate-fault evidence and applies the frozen
+  `Rnn` only at the lawful post-transition/replay locus; no generic provider
+  invents owner meaning;
+- intrinsic definition and callable-contract identity bind the topology
+  ref/digest and required stateless provider capabilities; loaded binding,
+  load receipt, and host receipt preserve the exact same relation;
 - the installed Effect Layer closes stateless provider mechanics only, and the
   resulting callable remains `R = never`; and
 - logical refs never substitute for canonical locators, expected versions,
@@ -610,7 +633,7 @@ retained as wrappers around the imperative HoG path.
 |---:|---|---|---|
 | `W2-C0` | Consume the accepted W1 interface receipt; refresh the exact 56-row endpoint/contract/dependency/deletion join; apply only the catalog/workspace/definition-coordinate reconciliation above. | Exact W1 receipt; refreshed 56-row join; zero key diff; explicit construction dependencies; clean reconciliation diff. | Complete - frozen external-contract/deletion evidence; not a primitive-basis decision |
 | `W2-C1` | Prove one unexported vertical function chain through existing owner relations: create/open -> verify -> resolve -> install -> bind -> catalog admit/view/apply -> invoke -> result/replay. | Direct installed chain proof; JSON round-trip at every boundary; no new Public export or adapter. | Complete as construction evidence at the maximal pre-admission boundary; prior owner-port interpretation superseded |
-| `W2-C1F` | Recursively classify all 56 external definitions as direct primitive, statically composed callable, projection, duplicate, or invalid; close the minimal installed primitive basis; select the bounded Effect 3.22.1 composition foundation; specify source-independent callable and type-indexed resource-state bindings plus install-derived load receipts. | Exact 56-row classification; primitive input/output/refusal/effect/owner/frame/nonfactorability map; non-executable factorization map and ordered primitive trace; one topology-derived `DefinitionCall`/`DefinitionReturn` resource relation; conservation oracle for results, refusals, ordered events, projections, replay, resource pre/post state, and handoff; source-blind callable load/refusal oracle; no executable plan, Public composition, or authority amplification. | Bounded design correction active - factorization and Effect selection retained; unary resource-binding assumption superseded; cold acceptance pending |
+| `W2-C1F` | Recursively classify all 56 external definitions as direct primitive, statically composed callable, projection, duplicate, or invalid; close the minimal installed primitive basis; retain the bounded Effect 3.22.1 composition foundation; specify source-independent callable and leaf-local type-indexed resource-state bindings plus install-derived load receipts. | Exact 56-row classification; primitive input/output/refusal/effect/owner/frame/nonfactorability map; non-executable factorization map and ordered primitive trace; Table 5.6.3-D exact class-to-topology projection; one `DefinitionCall`/`DefinitionReturn` family with ordered mechanical receipts and successor handoffs; intrinsic/callable/load/host topology/provider identity equality; conservation oracle for results, refusals, owner-leaf commits, ordered events, projections, replay, resource pre/post state, residue, and handoff; no executable plan, Public composition, outer transaction, or authority amplification. | One bounded repair active - factorization and Effect selection retained; unary PFC-F05 and rejected late-commit interpretation superseded; cold acceptance pending |
 | `W2-C2` | Translate the established 4.6 and accepted 5.0 HoG functions into small carrier/sum types, one primitive algebra and laws, derived combinators, one Effect fold/interpreter, and exact owner ports; complete the D01-D15 source-independent bindings on that basis; delete or make unreachable displaced imperative coordinators and prototype scaffolding. | Exact behavioral conservation for results, refusals, ordered events, projections, Event Calculus, replay, and exact resource pre/post state; source and packed load/resolve/callability probe for all 56 bindings and dependencies; zero wrapper over the old HoG path; superseded coordinators and prototypes unreachable or deleted. | D2-D5 accepted; D6 held pending C1F resource-state correction acceptance |
 | `W2-C3` | Construct the structural envelope, intrinsic definition family, indexed admission, exact one-binding invocation, indexed outcome projection, schemas, SDK, CLI grammar, Codex sibling transport, PFC-F07 proposals, Product PFC-F08 binding, contract-group exports, and manifest rows from that family. | Exact-set equality and new candidate digest; generator idempotence; projection equality; package dependency closure. | Pending C2 |
 | `W2-C4` | Atomically export the replacement family and delete the legacy carrier, parser, semantic controller, schema synthesis, parallel manifest roster, aliases, compatibility tests, and legacy proof projections. | One installed 18/56 family over the closed primitive basis; zero reachable legacy or new-to-old translation; `git diff --check`. | Pending C3 |
@@ -619,8 +642,8 @@ retained as wrappers around the imperative HoG path.
 | `W2-C7` | Accept the exact Product/Public interface substrate and unlock final Wave 3 Public binding and Wave 4 host projection. | Accepted frozen interface handoff; no M5 or release claim. | Pending C6 review |
 
 The C1F factorization and Effect selection remain fixed; only the resource-
-state call relation is in bounded design re-entry. C2 is held at D6 until this
-one frozen correction passes cold review. After acceptance, C2 returns to pure
+state call/load relation is in one bounded design repair. C2 is held at D6
+until this frozen repair passes cold review. After acceptance, C2 returns to pure
 `realization_refactor` and has no semantic-review interruption before C6.
 Mechanical checks run continuously. One cold review at the current correction
 boundary and one cold review of the frozen C6 candidate are sufficient. A
@@ -654,13 +677,17 @@ family. CLI parses one generated grammar and invokes the same SDK/Public path.
 host-specific behavior is Wave 4 proof, not a second Wave 2 operation family.
 
 Intrinsic definitions contain declarative source-independent execution-binding
-specifications and canonical input/output resource-slot topology, never loaded
-callables or resource values. The installed binding loader resolves each
-specification under the admitted lock and Product set, freezes one real direct,
-statically composed, or projection callable plus its stateless provider Layer,
-and emits a minimal source-blind evidence receipt. The receipt proves only exact
-specification/callable/module/contract resolution and never enters intrinsic
-definition, family, Product-content, invocation, event, or replay identity.
+specifications, canonical input/output resource-slot topology ref/digest, exact
+owner-leaf atomicity references, output allocations, and the required stateless
+provider-capability set, never loaded callables or resource values. Those fields
+enter intrinsic definition and callable-contract identity. The installed
+binding loader resolves each specification under the admitted lock and Product
+set, freezes one real direct, statically composed, or projection callable plus
+its exact stateless provider Layer, and emits a minimal source-blind evidence
+receipt. The receipt proves exact specification/callable/module/contract,
+topology, provider-capability, and resolved-provider equality. The receipt
+itself never enters intrinsic definition, family, Product-content, invocation,
+event, or replay identity.
 Factorization maps and ordered primitive traces are non-executable assurance
 evidence and are never loaded. Public receives the already loaded binding and
 does not resolve modules, sequence factors, interpret a plan, construct owner
@@ -670,10 +697,15 @@ language. Pure relations consume immutable inputs. The one common call carrier
 supplies exact resource identity, locator, expected version, provider, resolved
 grant, and owner refinement. Resource access/commit derives from the
 definition's canonical input/output topology, not an operation mode. Effectful
-primitives consume the exact explicit state, including acquisition/handoff or
-durable prefix where applicable, and return the successor state and handoff.
-Public validates this relation structurally; it neither resolves nor operates
-on a resource.
+owner leaves consume the exact explicit state, including acquisition/handoff or
+durable prefix where applicable, and each returns its typed mechanical receipt,
+successor state, and handoff before dependent work. Each physical or ABG leaf
+owns its existing atomicity boundary; no definition-wide transaction is added.
+The exact semantic owner consumes the receipt and applies its frozen `Rnn` only
+after the transition or replay truth that `Rnn` classifies. Public validates
+the call and loaded-binding relation structurally; it neither resolves nor
+operates on a resource, sequences leaves, interprets receipts, nor applies
+`Rnn`.
 
 The atomic swap deletes or wholesale-replaces at least:
 
@@ -779,6 +811,22 @@ Stop the Wave 2 cut immediately if it introduces or retains:
   translation carrier;
 - an Effect workflow, retry, persistence, state, clock, scheduler, concurrency,
   event, currentness, or replay authority;
+- a definition-wide or provider-created transaction that groups independently
+  durable owner leaves, ABG appends, physical effects, or replay;
+- `Rnn` applied before the mechanical transition/replay truth it classifies,
+  or a transition whose committed, idempotent-no-new-commit, residue,
+  compensation, or substrate-fault evidence is discarded;
+- an intrinsic definition, callable contract, loaded binding, load receipt, or
+  host receipt that omits or disagrees on the exact resource-topology digest,
+  required provider-capability set, resolved provider identities, owner-leaf
+  atomicity refs, allocation law, or successor handoff;
+- a logical owner ref used as a physical resource identity, an unscoped
+  provider identity, an observed version that differs from the expected
+  version, an alias/collision check performed after effects, or a successor
+  binding not issued by the exact owner leaf;
+- universal content-addressed allocation, ambient idempotence, or generic
+  provider semantics for publication, subprocesses, external side effects,
+  deletion, ABG event meaning, or arbitrary GraphFunction effects;
 - an installed load receipt entering intrinsic definition, family,
   Product-content, invocation, event, or replay identity;
 - a catalog runtime event, Event-Calculus catalog fluent, persistent catalog
@@ -801,6 +849,10 @@ The frozen C6 review asks only:
 
 - Is there exactly one 18/56 external definition family, one loaded binding per
   row, and one closed minimal primitive basis rather than 56 presumed atoms?
+- Does Table 5.6.3-D cover every exact definition key with its canonical slots,
+  pre-state, provider capabilities, owner-leaf atomicity, allocation law,
+  successor state, and handoff, with exact equality preserved through the
+  intrinsic definition, callable contract, load receipt, and host receipt?
 - Does Public perform only admit -> select -> call -> project?
 - Are catalog readiness/view/application and workspace open eventless?
 - Do runtime mutation outcomes and runtime reads derive from ABG events and
@@ -810,8 +862,9 @@ The frozen C6 review asks only:
 - Does the clean tarball load and call all 56 definition bindings and execute S1/S2
   across real process restarts?
 - Does every composition preserve exact results, refusals, ordered admitted
-  events, projections, and replay, with one ordinary callable and semantic
-  authority retained by its owner primitives?
+  events, projections, replay, leaf-local receipts, successor bindings,
+  residue/compensation evidence, and handoffs, with no enclosing generic
+  transaction and semantic authority retained by its exact owner primitives?
 - Is every legacy carrier, parser, semantic switch, schema, projection, and
   compatibility test unreachable or deleted?
 
