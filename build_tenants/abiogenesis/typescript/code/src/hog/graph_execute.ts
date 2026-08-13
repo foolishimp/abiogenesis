@@ -85,6 +85,7 @@ import {
 import {
   isChildTraversalPreparationPort,
   type ChildTraversalPreparationPort,
+  type PreparedChildTraversal,
 } from "./child_traversal.js";
 import {
   advanceStructuralTraversal,
@@ -98,6 +99,7 @@ import {
   traverse,
   traverseFromCursor,
   type TraversalCursor,
+  type TraversalStopRef,
 } from "./traversal.js";
 import { proposeRetryRoute } from "./traversal_route.js";
 import { Cause, Effect, Exit } from "effect";
@@ -825,6 +827,77 @@ function activeCursor(
   return value.kind === "traversal_cursor" ? value : null;
 }
 
+function traversalAtCursor(
+  input: ExecuteGraphTraversalCommonInput,
+  cursor: TraversalCursor,
+): ReturnType<typeof traverseFromCursor> {
+  return traverseFromCursor(
+    {
+      program: input.program,
+      graphFunction: input.graphFunction,
+      graph: input.graph,
+      graphValidation: input.graphValidation,
+      executionBasis: input.executionBasis,
+      openedTraversalScope: input.openedTraversalScope,
+    },
+    cursor,
+  );
+}
+
+function isExecutablePosition(
+  graph: Readonly<GtlGraph>,
+  value: StructuralTraversalResult,
+): value is TraversalStopRef | TraversalCursor {
+  return value.kind === "traversal_stop_ref" ||
+    (
+      value.kind === "traversal_cursor" &&
+      resolveTraversalTerm(graph, value).kind === "c_workflow"
+    );
+}
+
+function preparedChildTraversalInput(
+  parent: ExecuteGraphTraversalCommonInput,
+  prepared: PreparedChildTraversal,
+  correlationId: string,
+  deferFailedRunStop: boolean,
+): InitialOrNonRetryExecuteGraphTraversalInput {
+  return {
+    store: parent.store,
+    executionBasis: prepared.executionBasis,
+    openedTraversalScope: prepared.openedTraversalScope,
+    program: prepared.program,
+    graphFunction: prepared.graphFunction,
+    graph: prepared.graph,
+    graphValidation: prepared.graphValidation,
+    implementationSet: prepared.implementationSet,
+    interactionSet: prepared.interactionSet,
+    ...(parent.continuationProductBasis === undefined
+      ? {}
+      : {
+          continuationProductBasis: {
+            ...parent.continuationProductBasis,
+            programValidation: prepared.programValidation,
+            graphValidation: prepared.graphValidation,
+          },
+        }),
+    leafPort: parent.leafPort,
+    ...(parent.childTraversalPreparationPort === undefined
+      ? {}
+      : {
+          childTraversalPreparationPort:
+            parent.childTraversalPreparationPort,
+        }),
+    closureContract: prepared.closureContract,
+    actorRuntimeBinding: parent.actorRuntimeBinding,
+    ...(deferFailedRunStop ? { deferFailedRunStop: true } : {}),
+    input: prepared.input,
+    inputDigest: prepared.inputDigest,
+    eventTime: parent.eventTime,
+    correlationId,
+    terminalMode: "return_to_parent",
+  };
+}
+
 function recurseApplicationAtStop(
   graph: Readonly<GtlGraph>,
   compositionRef: string | null,
@@ -1151,17 +1224,7 @@ function graphTraversalEffect(
     }
     let traversal;
     try {
-      traversal = traverseFromCursor(
-        {
-          program: input.program,
-          graphFunction: input.graphFunction,
-          graph: input.graph,
-          graphValidation: input.graphValidation,
-          executionBasis: input.executionBasis,
-          openedTraversalScope: input.openedTraversalScope,
-        },
-        candidate.nextCursor,
-      );
+      traversal = traversalAtCursor(input, candidate.nextCursor);
     } catch {
       throw new TypeError(
         "diagnostic://abiogenesis/hog/projected-retry-traversal-mismatch@5",
@@ -1252,17 +1315,7 @@ function graphTraversalEffect(
         },
       );
     }
-    stop = traverseFromCursor(
-      {
-        program: input.program,
-        graphFunction: input.graphFunction,
-        graph: input.graph,
-        graphValidation: input.graphValidation,
-        executionBasis: input.executionBasis,
-        openedTraversalScope: input.openedTraversalScope,
-      },
-      initialInput.resume.cursor,
-    );
+    stop = traversalAtCursor(input, initialInput.resume.cursor);
     currentInput =
       materializedInputAtCursor(input.graph, activeCursor(stop))?.value ??
         initialInput.resume.input;
@@ -1341,13 +1394,7 @@ function graphTraversalEffect(
       activeCursor(stop),
     )?.value ?? currentInput;
   }
-  if (
-    stop.kind !== "traversal_stop_ref" &&
-    !(
-      stop.kind === "traversal_cursor" &&
-      resolveTraversalTerm(input.graph, stop).kind === "c_workflow"
-    )
-  ) {
+  if (!isExecutablePosition(input.graph, stop)) {
     return fail(
       input,
       "structural-step",
@@ -1364,13 +1411,7 @@ function graphTraversalEffect(
     Effect.suspend(() => Effect.gen(function* () {
     const stop = currentStop;
     const currentInput = currentValue;
-    if (
-      stop.kind !== "traversal_stop_ref" &&
-      !(
-        stop.kind === "traversal_cursor" &&
-        resolveTraversalTerm(input.graph, stop).kind === "c_workflow"
-      )
-    ) {
+    if (!isExecutablePosition(input.graph, stop)) {
       return fail(
         input,
         `locus-${leafOrdinal}`,
@@ -1532,39 +1573,16 @@ function graphTraversalEffect(
           },
         });
       } else {
-        const childCompletion = yield* graphTraversalEffect({
-          store: input.store,
-          executionBasis: prepared.executionBasis,
-          openedTraversalScope: prepared.openedTraversalScope,
-          program: prepared.program,
-          graphFunction: prepared.graphFunction,
-          graph: prepared.graph,
-          graphValidation: prepared.graphValidation,
-          implementationSet: prepared.implementationSet,
-          interactionSet: prepared.interactionSet,
-          ...(input.continuationProductBasis === undefined
-            ? {}
-            : {
-                continuationProductBasis: {
-                  ...input.continuationProductBasis,
-                  programValidation: prepared.programValidation,
-                  graphValidation: prepared.graphValidation,
-                },
-              }),
-          leafPort: input.leafPort,
-          childTraversalPreparationPort: input.childTraversalPreparationPort,
-          closureContract: prepared.closureContract,
-          actorRuntimeBinding: input.actorRuntimeBinding,
-          deferFailedRunStop:
+        const childCompletion = yield* graphTraversalEffect(
+          preparedChildTraversalInput(
+            input,
+            prepared,
+            `${input.correlationId}/workflow/${leafOrdinal}/child`,
             input.deferFailedRunStop === true ||
-            fanOutApplication?.elementGraphFunctionRef ===
-              workflowTerm.graphFunctionRef,
-          input: prepared.input,
-          inputDigest: prepared.inputDigest,
-          eventTime: input.eventTime,
-          correlationId: `${input.correlationId}/workflow/${leafOrdinal}/child`,
-          terminalMode: "return_to_parent",
-        });
+              fanOutApplication?.elementGraphFunctionRef ===
+                workflowTerm.graphFunctionRef,
+          ),
+        );
         if (childCompletion.disposition === "held") {
           return suspendHeldWorkflowTraversal({
             parentExecutionBasis: input.executionBasis,
@@ -2049,40 +2067,14 @@ function graphTraversalEffect(
               },
             });
           } else {
-            const childCompletion = yield* graphTraversalEffect({
-              store: input.store,
-              executionBasis: prepared.executionBasis,
-              openedTraversalScope: prepared.openedTraversalScope,
-              program: prepared.program,
-              graphFunction: prepared.graphFunction,
-              graph: prepared.graph,
-              graphValidation: prepared.graphValidation,
-              implementationSet: prepared.implementationSet,
-              interactionSet: prepared.interactionSet,
-              ...(input.continuationProductBasis === undefined
-                ? {}
-                : {
-                    continuationProductBasis: {
-                      ...input.continuationProductBasis,
-                      programValidation: prepared.programValidation,
-                      graphValidation: prepared.graphValidation,
-                    },
-                  }),
-              leafPort: input.leafPort,
-              childTraversalPreparationPort:
-                input.childTraversalPreparationPort,
-              closureContract: prepared.closureContract,
-              actorRuntimeBinding: input.actorRuntimeBinding,
-              ...(input.deferFailedRunStop === true
-                ? { deferFailedRunStop: true }
-                : {}),
-              input: prepared.input,
-              inputDigest: prepared.inputDigest,
-              eventTime: input.eventTime,
-              correlationId:
+            const childCompletion = yield* graphTraversalEffect(
+              preparedChildTraversalInput(
+                input,
+                prepared,
                 `${input.correlationId}/recursion/${leafOrdinal}/child`,
-              terminalMode: "return_to_parent",
-            });
+                input.deferFailedRunStop === true,
+              ),
+            );
             if (childCompletion.disposition === "held") {
               return suspendHeldRecursionTraversal({
                 parentGraphInput: graphEntryInput!,
@@ -2171,15 +2163,8 @@ function graphTraversalEffect(
     }
     const nextInput = nextMaterializedInput?.value ??
       completion.resultValue as Readonly<Record<string, JsonValue>>;
-    let nextStop: StructuralTraversalResult = traverseFromCursor(
-      {
-        program: input.program,
-        graphFunction: input.graphFunction,
-        graph: input.graph,
-        graphValidation: input.graphValidation,
-        executionBasis: input.executionBasis,
-        openedTraversalScope: input.openedTraversalScope,
-      },
+    let nextStop: StructuralTraversalResult = traversalAtCursor(
+      input,
       completion.nextCursor,
     );
     nextStop = yield* advanceStructural(
@@ -2192,13 +2177,7 @@ function graphTraversalEffect(
       input.graph,
       activeCursor(nextStop),
     )?.value ?? nextInput;
-    if (
-      nextStop.kind !== "traversal_stop_ref" &&
-      !(
-        nextStop.kind === "traversal_cursor" &&
-        resolveTraversalTerm(input.graph, nextStop).kind === "c_workflow"
-      )
-    ) {
+    if (!isExecutablePosition(input.graph, nextStop)) {
       return fail(
         input,
         `continuation-${leafOrdinal}`,
@@ -2222,6 +2201,56 @@ async function runGraphTraversalProgram(
   const exit = await runEffectProgram(program);
   if (Exit.isSuccess(exit)) return exit.value;
   throw Cause.squash(exit.cause);
+}
+
+function resumeParentAfterChild(
+  parent: InitialOrNonRetryExecuteGraphTraversalInput,
+  parentGraphInput: Readonly<Record<string, JsonValue>>,
+  parentGraphInputDigest: `sha256:${string}`,
+  completion: ExecutableTraversalCompletion,
+  stage: "workflow-resume" | "recursion-resume",
+): Effect.Effect<ExecutableTraversalCompletion> {
+  if (completion.disposition !== "advanced") {
+    return Effect.succeed(completion);
+  }
+  return Effect.suspend(() => {
+    if (
+      completion.nextCursor === null ||
+      completion.resultValue === null ||
+      typeof completion.resultValue !== "object" ||
+      Array.isArray(completion.resultValue)
+    ) {
+      return fail(
+        parent,
+        `${stage}-advance`,
+        `diagnostic://abiogenesis/hog/${stage}-advance-incomplete@5`,
+        completion as unknown as JsonValue,
+      );
+    }
+    const nextInput = completion.resultValue as Readonly<
+      Record<string, JsonValue>
+    >;
+    const nextInputDigest = sha256Canonical(nextInput);
+    if (completion.nextCursor.inputDigest !== nextInputDigest) {
+      return fail(
+        parent,
+        `${stage}-advance-digest`,
+        `diagnostic://abiogenesis/hog/${stage}-advance-digest-mismatch@5`,
+        completion as unknown as JsonValue,
+      );
+    }
+    return graphTraversalEffect({
+      ...parent,
+      input: parentGraphInput,
+      inputDigest: parentGraphInputDigest,
+      correlationId: `${parent.correlationId}/parent`,
+      resume: {
+        cursor: completion.nextCursor,
+        input: nextInput,
+        inputDigest: nextInputDigest,
+      },
+    });
+  });
 }
 
 export type ExecuteGraphTraversalRequest =
@@ -2309,17 +2338,7 @@ function resumeHeldWorkflowEffect(
       input.suspension as unknown as JsonValue,
     );
   }
-  const traversal = traverseFromCursor(
-    {
-      program: parent.program,
-      graphFunction: parent.graphFunction,
-      graph: parent.graph,
-      graphValidation: parent.graphValidation,
-      executionBasis: parent.executionBasis,
-      openedTraversalScope: parent.openedTraversalScope,
-    },
-    input.sourceCursor,
-  );
+  const traversal = traversalAtCursor(parent, input.sourceCursor);
   if (traversal.kind !== "traversal_cursor") {
     return fail(
       parent,
@@ -2414,7 +2433,7 @@ function resumeHeldWorkflowEffect(
     parent.graph,
     input.parentCCall.batchRef,
   );
-  let completion = completeWorkflowTraversal({
+  const completion = completeWorkflowTraversal({
     store: parent.store,
     executionBasis: parent.executionBasis,
     openedTraversalScope: parent.openedTraversalScope,
@@ -2466,45 +2485,13 @@ function resumeHeldWorkflowEffect(
       correlationId: `${parent.correlationId}/workflow/resume-foldback`,
     },
   });
-  if (completion.disposition !== "advanced") {
-    return completion;
-  }
-  if (
-    completion.nextCursor === null ||
-    completion.resultValue === null ||
-    typeof completion.resultValue !== "object" ||
-    Array.isArray(completion.resultValue)
-  ) {
-    return fail(
-      parent,
-      "workflow-resume-advance",
-      "diagnostic://abiogenesis/hog/workflow-resume-advance-incomplete@5",
-      completion as unknown as JsonValue,
-    );
-  }
-  const nextInput =
-    completion.resultValue as Readonly<Record<string, JsonValue>>;
-  const nextInputDigest = sha256Canonical(nextInput as unknown as JsonValue);
-  if (completion.nextCursor.inputDigest !== nextInputDigest) {
-    return fail(
-      parent,
-      "workflow-resume-advance-digest",
-      "diagnostic://abiogenesis/hog/workflow-resume-advance-digest-mismatch@5",
-      completion as unknown as JsonValue,
-    );
-  }
-  completion = yield* graphTraversalEffect({
-    ...parent,
-    input: input.suspension.parentGraphInput,
-    inputDigest: input.suspension.parentGraphInputDigest,
-    correlationId: `${parent.correlationId}/parent`,
-    resume: {
-      cursor: completion.nextCursor,
-      input: nextInput,
-      inputDigest: nextInputDigest,
-    },
-  });
-  return completion;
+  return yield* resumeParentAfterChild(
+    parent,
+    input.suspension.parentGraphInput,
+    input.suspension.parentGraphInputDigest,
+    completion,
+    "workflow-resume",
+  );
   }));
 }
 
@@ -2566,17 +2553,7 @@ function resumeHeldRecursionEffect(
       input.suspension as unknown as JsonValue,
     );
   }
-  const traversalStop = traverseFromCursor(
-    {
-      program: parent.program,
-      graphFunction: parent.graphFunction,
-      graph: parent.graph,
-      graphValidation: parent.graphValidation,
-      executionBasis: parent.executionBasis,
-      openedTraversalScope: parent.openedTraversalScope,
-    },
-    input.sourceCursor,
-  );
+  const traversalStop = traversalAtCursor(parent, input.sourceCursor);
   if (
     traversalStop.kind !== "traversal_stop_ref" ||
     traversalStop.stopClass !== "executable"
@@ -2653,7 +2630,7 @@ function resumeHeldRecursionEffect(
       input.suspension as unknown as JsonValue,
     );
   }
-  let completion = advanceDeferredRecursion({
+  const completion = advanceDeferredRecursion({
     completion: deferred,
     restoration,
     application,
@@ -2665,44 +2642,12 @@ function resumeHeldRecursionEffect(
       correlationId: `${parent.correlationId}/recursion/foldback`,
     },
   });
-  if (completion.disposition !== "advanced") {
-    return completion;
-  }
-  if (
-    completion.nextCursor === null ||
-    completion.resultValue === null ||
-    typeof completion.resultValue !== "object" ||
-    Array.isArray(completion.resultValue)
-  ) {
-    return fail(
-      parent,
-      "recursion-resume-advance",
-      "diagnostic://abiogenesis/hog/recursion-resume-advance-incomplete@5",
-      completion as unknown as JsonValue,
-    );
-  }
-  const nextInput =
-    completion.resultValue as Readonly<Record<string, JsonValue>>;
-  const nextInputDigest = sha256Canonical(nextInput as unknown as JsonValue);
-  if (completion.nextCursor.inputDigest !== nextInputDigest) {
-    return fail(
-      parent,
-      "recursion-resume-advance-digest",
-      "diagnostic://abiogenesis/hog/recursion-resume-advance-digest-mismatch@5",
-      completion as unknown as JsonValue,
-    );
-  }
-  completion = yield* graphTraversalEffect({
-    ...parent,
-    input: input.suspension.parentGraphInput,
-    inputDigest: input.suspension.parentGraphInputDigest,
-    correlationId: `${parent.correlationId}/parent`,
-    resume: {
-      cursor: completion.nextCursor,
-      input: nextInput,
-      inputDigest: nextInputDigest,
-    },
-  });
-  return completion;
+  return yield* resumeParentAfterChild(
+    parent,
+    input.suspension.parentGraphInput,
+    input.suspension.parentGraphInputDigest,
+    completion,
+    "recursion-resume",
+  );
   }));
 }

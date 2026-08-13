@@ -56,6 +56,19 @@ export interface RouteProposalRefusal {
   readonly message: string;
 }
 
+function routeRefusal(
+  code: RouteProposalRefusal["code"],
+  message: string,
+): RouteProposalRefusal {
+  return {
+    kind: "traversal_route_proposal_refusal",
+    schemaVersion: "5.0.0",
+    disposition: "refused",
+    code,
+    message,
+  };
+}
+
 type RouteCandidateBody = Omit<
   RouteCandidate,
   "kind" | "schemaVersion" | "candidateRef" | "candidateDigest"
@@ -71,6 +84,45 @@ function routeCandidate(body: RouteCandidateBody): RouteCandidate {
     candidateDigest,
     ...body,
   }) as RouteCandidate;
+}
+
+type GraphRouteExtras = Partial<Pick<
+  RouteCandidateBody,
+  | "graphSpanReentryProjection"
+  | "graphSpanReentryProjectionDigest"
+  | "graphSpanReentryProjectionRef"
+  | "nextActionProjection"
+  | "nextActionProjectionDigest"
+  | "nextActionProjectionRef"
+>>;
+
+function graphRouteCandidate(input: Readonly<{
+  graph: Readonly<GtlGraph>;
+  routeKind: RouteCandidateBody["routeKind"];
+  sourceCursor: TraversalCursor;
+  targetCursor: TraversalCursor | null;
+  cCallRef: string | null;
+  judgmentRef: string | null;
+  consumedAvailabilityRefs: readonly string[];
+  contractRef: string | null;
+  replayState: ReplayState;
+  extras?: GraphRouteExtras;
+}>): RouteCandidate {
+  return routeCandidate({
+    routeKind: input.routeKind,
+    declarationRef: input.graph.materializationRef,
+    declarationDigest: input.graph.materializationDigest,
+    sourceCursorRef: input.sourceCursor.cursorRef,
+    sourceCursorDigest: input.sourceCursor.cursorDigest,
+    targetCursorRef: input.targetCursor?.cursorRef ?? null,
+    targetCursorDigest: input.targetCursor?.cursorDigest ?? null,
+    cCallRef: input.cCallRef,
+    judgmentRef: input.judgmentRef,
+    consumedAvailabilityRefs: input.consumedAvailabilityRefs,
+    contractRef: input.contractRef,
+    replayStateDigest: input.replayState.replayDigest,
+    ...input.extras,
+  });
 }
 
 function isDeclaredCompletion(
@@ -125,31 +177,24 @@ export function proposeStructuralRoute(
     sourceCursor.frameId !== targetCursor.frameId ||
     (completedProgresses.length !== 0 && routeKind !== "advance")
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "structural_step_missing",
-      message: "structural route requires one HoG-derived target under the original GTL Graph",
-    };
+    return routeRefusal(
+      "structural_step_missing",
+      "structural route requires one HoG-derived target under the original GTL Graph",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: sourceCursor.cursorRef,
-    sourceCursorDigest: sourceCursor.cursorDigest,
-    targetCursorRef: targetCursor.cursorRef,
-    targetCursorDigest: targetCursor.cursorDigest,
+    sourceCursor,
+    targetCursor,
     cCallRef: null,
     judgmentRef: null,
     consumedAvailabilityRefs: completedProgresses.map((progress) =>
       progress.progressRef
     ),
     contractRef: null,
-    replayStateDigest: replayState.replayDigest,
-  };
-  return routeCandidate(body);
+    replayState,
+  });
 }
 
 export function proposeRetryRoute(
@@ -175,22 +220,16 @@ export function proposeRetryRoute(
     progress.judgmentRef.length === 0 ||
     progress.remainingBudget < 1
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "retry_progress_missing",
-      message: "retry route requires one admitted bounded progress row and HoG-derived target",
-    };
+    return routeRefusal(
+      "retry_progress_missing",
+      "retry route requires one admitted bounded progress row and HoG-derived target",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind: "retry" as const,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: sourceCursor.cursorRef,
-    sourceCursorDigest: sourceCursor.cursorDigest,
-    targetCursorRef: targetCursor.cursorRef,
-    targetCursorDigest: targetCursor.cursorDigest,
+    sourceCursor,
+    targetCursor,
     cCallRef: cCall.cCallRef,
     judgmentRef: progress.judgmentRef,
     consumedAvailabilityRefs: [
@@ -198,9 +237,8 @@ export function proposeRetryRoute(
       progress.progressRef,
     ],
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-  };
-  return routeCandidate(body);
+    replayState,
+  });
 }
 
 export function proposeTerminalRoute(
@@ -212,13 +250,10 @@ export function proposeTerminalRoute(
   contractRef: string,
 ): RouteCandidate | RouteProposalRefusal {
   if (judgment.judgment !== "advance") {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "judgment_not_advance",
-      message: "terminal route requires an admitted advance judgment",
-    };
+    return routeRefusal(
+      "judgment_not_advance",
+      "terminal route requires an admitted advance judgment",
+    );
   }
   const continuation = deriveCSourceContinuation(
     graph.template,
@@ -231,29 +266,22 @@ export function proposeTerminalRoute(
     continuation.kind === "c_source_path_refusal" ||
     continuation.disposition !== "terminal"
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "terminal_not_declared",
-      message: "current GTL locus is not a declared terminal node",
-    };
+    return routeRefusal(
+      "terminal_not_declared",
+      "current GTL locus is not a declared terminal node",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind: "terminal" as const,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: stop.cursor.cursorRef,
-    sourceCursorDigest: stop.cursor.cursorDigest,
-    targetCursorRef: null,
-    targetCursorDigest: null,
+    sourceCursor: stop.cursor,
+    targetCursor: null,
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
     consumedAvailabilityRefs: [judgment.judgmentRef],
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-  };
-  return routeCandidate(body);
+    replayState,
+  });
 }
 
 export function proposeJudgedRoute(
@@ -268,13 +296,10 @@ export function proposeJudgedRoute(
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
 ): RouteCandidate | RouteProposalRefusal {
   if (judgment.judgment !== "advance") {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "judgment_not_advance",
-      message: "post-judgment route requires an admitted advance judgment",
-    };
+    return routeRefusal(
+      "judgment_not_advance",
+      "post-judgment route requires an admitted advance judgment",
+    );
   }
   const routeKind = targetCursor === null ? "terminal" as const : "advance" as const;
   if (
@@ -291,22 +316,16 @@ export function proposeJudgedRoute(
     judgment.resultRef !== result.resultRef ||
     judgment.cCallRef !== cCall.cCallRef
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "structural_step_missing",
-      message: "judged route requires HoG's exact declared continuation step",
-    };
+    return routeRefusal(
+      "structural_step_missing",
+      "judged route requires HoG's exact declared continuation step",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: sourceCursor.cursorRef,
-    sourceCursorDigest: sourceCursor.cursorDigest,
-    targetCursorRef: targetCursor?.cursorRef ?? null,
-    targetCursorDigest: targetCursor?.cursorDigest ?? null,
+    sourceCursor,
+    targetCursor,
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
     consumedAvailabilityRefs: [
@@ -314,9 +333,8 @@ export function proposeJudgedRoute(
       ...completedProgresses.map((progress) => progress.progressRef),
     ],
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-  };
-  return routeCandidate(body);
+    replayState,
+  });
 }
 
 export function proposeGraphSpanReentryRoute(
@@ -355,34 +373,28 @@ export function proposeGraphSpanReentryRoute(
     targetCursor.inputRef !== projection.targetInputRef ||
     targetCursor.inputDigest !== projection.targetInputDigest
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "graph_span_reentry_not_declared",
-      message:
-        "graph-span re-entry requires one Product projection and HoG-derived target under the exact declared application",
-    };
+    return routeRefusal(
+      "graph_span_reentry_not_declared",
+      "graph-span re-entry requires one Product projection and HoG-derived target under the exact declared application",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind: "re_enter" as const,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: sourceCursor.cursorRef,
-    sourceCursorDigest: sourceCursor.cursorDigest,
-    targetCursorRef: targetCursor.cursorRef,
-    targetCursorDigest: targetCursor.cursorDigest,
+    sourceCursor,
+    targetCursor,
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
     consumedAvailabilityRefs: [judgment.judgmentRef] as const,
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-    graphSpanReentryProjectionRef: projection.projectionRef,
-    graphSpanReentryProjectionDigest: projection.projectionDigest,
-    graphSpanReentryProjection:
-      projection as unknown as Readonly<Record<string, JsonValue>>,
-  };
-  return routeCandidate(body);
+    replayState,
+    extras: {
+      graphSpanReentryProjectionRef: projection.projectionRef,
+      graphSpanReentryProjectionDigest: projection.projectionDigest,
+      graphSpanReentryProjection:
+        projection as unknown as Readonly<Record<string, JsonValue>>,
+    },
+  });
 }
 
 export function proposeGapStopRoute(
@@ -421,14 +433,10 @@ export function proposeGapStopRoute(
       "escalate",
     ].includes(String(projection.noActionDisposition))
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "gap_stop_not_declared",
-      message:
-        "gap_stop requires the exact judged Product no-action projection at the current cursor",
-    };
+    return routeRefusal(
+      "gap_stop_not_declared",
+      "gap_stop requires the exact judged Product no-action projection at the current cursor",
+    );
   }
   const nextActionProjectionRef = projection.projectionRef;
   const nextActionProjectionDigest = projection.projectionDigest;
@@ -436,33 +444,28 @@ export function proposeGapStopRoute(
     typeof nextActionProjectionRef !== "string" ||
     typeof nextActionProjectionDigest !== "string"
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "gap_stop_not_declared",
-      message: "gap_stop projection lacks its exact Product identity",
-    };
+    return routeRefusal(
+      "gap_stop_not_declared",
+      "gap_stop projection lacks its exact Product identity",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind: "gap_stop" as const,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: stop.cursor.cursorRef,
-    sourceCursorDigest: stop.cursor.cursorDigest,
-    targetCursorRef: null,
-    targetCursorDigest: null,
+    sourceCursor: stop.cursor,
+    targetCursor: null,
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
     consumedAvailabilityRefs: [judgment.judgmentRef] as const,
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-    nextActionProjectionRef,
-    nextActionProjectionDigest:
-      nextActionProjectionDigest as `sha256:${string}`,
-    nextActionProjection: projection,
-  };
-  return routeCandidate(body);
+    replayState,
+    extras: {
+      nextActionProjectionRef,
+      nextActionProjectionDigest:
+        nextActionProjectionDigest as `sha256:${string}`,
+      nextActionProjection: projection,
+    },
+  });
 }
 
 export function proposeBlockedRoute(
@@ -480,29 +483,22 @@ export function proposeBlockedRoute(
     stop.cursor.frameId !== cCall.frameId ||
     stop.programLocusRef !== cCall.programLocusRef
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "structural_step_missing",
-      message: "blocked route requires the exact open CCall and source cursor",
-    };
+    return routeRefusal(
+      "structural_step_missing",
+      "blocked route requires the exact open CCall and source cursor",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind: "blocked" as const,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: stop.cursor.cursorRef,
-    sourceCursorDigest: stop.cursor.cursorDigest,
-    targetCursorRef: null,
-    targetCursorDigest: null,
+    sourceCursor: stop.cursor,
+    targetCursor: null,
     cCallRef: cCall.cCallRef,
     judgmentRef,
     consumedAvailabilityRefs: [judgmentRef, ...stoppedProgressRefs],
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-  };
-  return routeCandidate(body);
+    replayState,
+  });
 }
 
 export function proposeFailedRoute(
@@ -526,30 +522,22 @@ export function proposeFailedRoute(
     judgment.resultDigest !== result.resultDigest ||
     judgment.judgment !== "blocked"
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "structural_step_missing",
-      message:
-        "failed route requires the exact admitted failure result, judgment, and source cursor",
-    };
+    return routeRefusal(
+      "structural_step_missing",
+      "failed route requires the exact admitted failure result, judgment, and source cursor",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind: "failed" as const,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: stop.cursor.cursorRef,
-    sourceCursorDigest: stop.cursor.cursorDigest,
-    targetCursorRef: null,
-    targetCursorDigest: null,
+    sourceCursor: stop.cursor,
+    targetCursor: null,
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
     consumedAvailabilityRefs: [judgment.judgmentRef] as const,
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-  };
-  return routeCandidate(body);
+    replayState,
+  });
 }
 
 export function proposeHoldRoute(
@@ -571,30 +559,22 @@ export function proposeHoldRoute(
     judgment.judgment !== "pending" ||
     contractRef !== cCall.continuationContractRef
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "judgment_not_pending",
-      message:
-        "hold route requires the exact F_H locus and admitted pending judgment",
-    };
+    return routeRefusal(
+      "judgment_not_pending",
+      "hold route requires the exact F_H locus and admitted pending judgment",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind: "hold" as const,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: stop.cursor.cursorRef,
-    sourceCursorDigest: stop.cursor.cursorDigest,
-    targetCursorRef: null,
-    targetCursorDigest: null,
+    sourceCursor: stop.cursor,
+    targetCursor: null,
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
     consumedAvailabilityRefs: [judgment.judgmentRef] as const,
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-  };
-  return routeCandidate(body);
+    replayState,
+  });
 }
 
 export function proposeInteractionResumeTerminalRoute(
@@ -628,23 +608,16 @@ export function proposeInteractionResumeTerminalRoute(
     !graph.template.terminalNodeRefs.includes(cursor.currentNodeRef) ||
     contractRef !== cCall.transitionContractRef
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "resume_not_admitted",
-      message:
-        "F_H resume route requires the exact admitted response cursor at a declared terminal locus",
-    };
+    return routeRefusal(
+      "resume_not_admitted",
+      "F_H resume route requires the exact admitted response cursor at a declared terminal locus",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind: "terminal" as const,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: cursor.cursorRef,
-    sourceCursorDigest: cursor.cursorDigest,
-    targetCursorRef: null,
-    targetCursorDigest: null,
+    sourceCursor: cursor,
+    targetCursor: null,
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
     consumedAvailabilityRefs: [
@@ -652,9 +625,8 @@ export function proposeInteractionResumeTerminalRoute(
       resume.admissionEventRef,
     ] as const,
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-  };
-  return routeCandidate(body);
+    replayState,
+  });
 }
 
 export function proposeInteractionResumeRoute(
@@ -705,23 +677,16 @@ export function proposeInteractionResumeRoute(
     }) ||
     contractRef !== cCall.transitionContractRef
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "resume_not_admitted",
-      message:
-        "F_H resume route requires the exact admitted response and GTL-declared continuation",
-    };
+    return routeRefusal(
+      "resume_not_admitted",
+      "F_H resume route requires the exact admitted response and GTL-declared continuation",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind: terminal ? "terminal" as const : "advance" as const,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: cursor.cursorRef,
-    sourceCursorDigest: cursor.cursorDigest,
-    targetCursorRef: targetCursor?.cursorRef ?? null,
-    targetCursorDigest: targetCursor?.cursorDigest ?? null,
+    sourceCursor: cursor,
+    targetCursor,
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
     consumedAvailabilityRefs: [
@@ -730,9 +695,8 @@ export function proposeInteractionResumeRoute(
       ...completedProgresses.map((progress) => progress.progressRef),
     ],
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-  };
-  return routeCandidate(body);
+    replayState,
+  });
 }
 
 export function proposeWorkflowBlockedRoute(
@@ -757,29 +721,22 @@ export function proposeWorkflowBlockedRoute(
     cCall.callClass !== "workflow" ||
     cCall.childGraphFunctionRef !== workflow.graphFunctionRef
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "structural_step_missing",
-      message: "blocked workflow route requires the exact transparent parent CCall",
-    };
+    return routeRefusal(
+      "structural_step_missing",
+      "blocked workflow route requires the exact transparent parent CCall",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind: "blocked" as const,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: cursor.cursorRef,
-    sourceCursorDigest: cursor.cursorDigest,
-    targetCursorRef: null,
-    targetCursorDigest: null,
+    sourceCursor: cursor,
+    targetCursor: null,
     cCallRef: cCall.cCallRef,
     judgmentRef,
     consumedAvailabilityRefs: [judgmentRef] as const,
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-  };
-  return routeCandidate(body);
+    replayState,
+  });
 }
 
 export function proposeFanOutRoute(
@@ -824,23 +781,16 @@ export function proposeFanOutRoute(
         : targetCursor !== null
     )
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "structural_step_missing",
-      message:
-        "fan-out route requires the exact terminal task cursor and admitted completion variant",
-    };
+    return routeRefusal(
+      "structural_step_missing",
+      "fan-out route requires the exact terminal task cursor and admitted completion variant",
+    );
   }
-  const body = {
+  return graphRouteCandidate({
+    graph,
     routeKind: complete ? "advance" as const : "blocked" as const,
-    declarationRef: graph.materializationRef,
-    declarationDigest: graph.materializationDigest,
-    sourceCursorRef: sourceCursor.cursorRef,
-    sourceCursorDigest: sourceCursor.cursorDigest,
-    targetCursorRef: targetCursor?.cursorRef ?? null,
-    targetCursorDigest: targetCursor?.cursorDigest ?? null,
+    sourceCursor,
+    targetCursor,
     cCallRef: cCall.cCallRef,
     judgmentRef: taskRow.judgmentRef,
     consumedAvailabilityRefs: [
@@ -849,9 +799,8 @@ export function proposeFanOutRoute(
       ...completedProgresses.map((progress) => progress.progressRef),
     ],
     contractRef,
-    replayStateDigest: replayState.replayDigest,
-  };
-  return routeCandidate(body);
+    replayState,
+  });
 }
 
 export function proposeRecursionRoute(
@@ -904,13 +853,10 @@ export function proposeRecursionRoute(
           )
     )
   ) {
-    return {
-      kind: "traversal_route_proposal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "structural_step_missing",
-      message: "recursion route requires one exact declared application, parent judgment, and bounded foldback",
-    };
+    return routeRefusal(
+      "structural_step_missing",
+      "recursion route requires one exact declared application, parent judgment, and bounded foldback",
+    );
   }
   const body = {
     routeKind,
