@@ -874,20 +874,21 @@ async function executeTestGraph(context, constructFixture, options = {}) {
   let store = initialStore;
   const fixture = constructFixture(gtl, environment.publication, environment);
   await options.prepareStore?.({ environment, fixture });
-  const publication = fixture.publication;
-  const program = publication.programs.find((candidate) =>
+  const authoredPublication = fixture.publication;
+  const authoredProgram = authoredPublication.programs.find((candidate) =>
     candidate.programRef === fixture.programRef);
-  const graphFunction = publication.graphFunctions.find((candidate) =>
-    candidate.name === fixture.graphFunctionRef);
-  assert.ok(program);
-  assert.ok(graphFunction);
+  const authoredGraphFunction = authoredPublication.graphFunctions.find(
+    (candidate) => candidate.name === fixture.graphFunctionRef,
+  );
+  assert.ok(authoredProgram);
+  assert.ok(authoredGraphFunction);
   const publicationAdmission = requireRawAdmission(
     validator,
-    publication,
+    authoredPublication,
     "module_publication",
     "contract://abiogenesis/gtl/module-publication@5",
   );
-  const contributionAdmissions = publication.contributions.map((value) =>
+  const contributionAdmissions = authoredPublication.contributions.map((value) =>
     requireRawAdmission(
       validator,
       value,
@@ -900,11 +901,19 @@ async function executeTestGraph(context, constructFixture, options = {}) {
   );
   assert.equal(publicationValidation.kind, "publication_validation",
     JSON.stringify(publicationValidation));
-  const programValidation = validator.validateProgram(
-    rawProgramInput(validator, publicationAdmission, program),
+  const programInput = rawProgramInput(
+    validator,
+    publicationAdmission,
+    authoredProgram,
   );
+  const programValidation = validator.validateProgram(programInput);
   assert.equal(programValidation.kind, "program_validation",
     JSON.stringify(programValidation));
+  const publication = publicationAdmission.value;
+  const program = programInput.program.value;
+  const graphFunction = programInput.graphFunctions.find((candidate) =>
+    candidate.value.name === fixture.graphFunctionRef)?.value;
+  assert.ok(graphFunction);
   const catalog = product.buildGraphFunctionCatalog([publication]);
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
   const catalogView = product.narrowGraphFunctionCatalog(
