@@ -22,7 +22,7 @@ construction, donor, proof, review, and non-closure detail.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 functional substrate accepted; Wave 2 C1F final execution-carrier/topology-arm correction pending acceptance, C2/D6 held. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 functional interfaces retained; Wave 2 C2A HoG Effect hard break selected, C1F/D6 carrier work held. |
 
 ## Current Basis
 
@@ -86,12 +86,27 @@ release qualification remain dependency ordered.
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
 | `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Accepted - C5 functional substrate; integrated M5 qualification deferred |
-| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06` | One exact installed Product/catalog boundary exposes the 18-operation/56-key external Public family over a recursively factorized minimal execution basis through a thin SDK and CLI with no reachable legacy family. | Active - C1F factorization and Effect selection fixed; final execution-carrier/topology-arm correction pending, C2/D6 held |
+| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06` | One exact installed Product/catalog boundary exposes the 18-operation/56-key external Public family over a recursively factorized minimal execution basis through a thin SDK and CLI with no reachable legacy family. | Active - C2A replaces the reachable imperative HoG coordinator with the selected Effect fold; C1F/D6 carrier work held |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path without feature-specific runtimes. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and its Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
 
 ## Current Selection
+
+Intake triage on 2026-08-14 found that the installed traversal path still
+enters an Effect shell that calls the superseded imperative HoG coordinator.
+Product, requirements, and accepted design already require the small HoG
+algebra, one Effect fold, exact owner ports, and no reachable old coordinator.
+The first changed layer is therefore this Goals selection, not Product,
+requirements, or design:
+
+- change class: `goal_reprice`;
+- re-entry point: `GOALS.md` `Current Selection`;
+- selected downstream realization: `w2_c2a_hog_effect_hard_break`;
+- unchanged authority: Intent, Product, requirements, accepted design, the
+  18-operation/56-key family, owner meaning, ABG events, Event Calculus,
+  replay, and Public interfaces; and
+- held work: C1F execution-carrier/topology-arm correction and D6 construction.
 
 Wave 1 is accepted as the functional runtime substrate. Its exact frozen
 artifact is
@@ -103,18 +118,16 @@ candidate boundaries.
 
 Wave 2 is the active delivery wave. `W2-C0` has consumed the accepted Wave 1
 receipt and frozen the exact 56-row endpoint/contract/dependency/deletion join.
-`W2-C1F` has fixed the recursive factorization, minimal algebraic target, and
-Effect `3.22.1` selection. Candidate `f82805ec`, tree `308aa2ae`, is held and
-rejected only for incomplete execution-carrier, closed-arm, recursive-frame,
-exact-ABI, and resource-foundation relations. The current bounded selection is
-`w2_c1f_final_execution_carrier_topology_arm_repair`. It closes one
-serializable ingress around the unchanged semantic envelope, a closed nonempty
-topology-arm family per definition, exact grant/receipt/load identity, and the
-`E29-E32` initial-to-final recursive prefix relation. C2/D6 remains held until
-one frozen correction is independently accepted; acceptance atomically resumes
-the already accepted HoG translation/deletion work. The frozen 18/56 census
-remains external Product coverage, not an assertion of 56 primitive
-implementations.
+The current bounded selection is `w2_c2a_hog_effect_hard_break`: replace the
+reachable
+`Public -> executeGraphTraversal -> Effect shell -> completeExecutableTraversal`
+path with direct evaluation of admitted `CProgramNode` through one Effect fold
+and exact owner ports, then delete or make unreachable the displaced HoG
+coordinators and prototypes. The external interfaces and behavior are
+conserved. Candidate `de506b57` and its C1F predecessors remain unaccepted
+design evidence; their carrier repair and D6 are held and supply no current
+implementation authority. The frozen 18/56 census remains external Product
+coverage, not an assertion of 56 primitive implementations.
 
 Wave 1 order is:
 
@@ -136,20 +149,16 @@ selected scenarios, conservation, and release qualification run against the
 integrated candidate rather than being duplicated at each wave boundary.
 
 Wave 2 retains the accepted 18-operation/56-key external contract map and the
-current eventless Product catalog/workspace-open laws. The final C1F correction
-is design-only. C2/D6 is held and, after acceptance, resumes by translating the
-accepted HoG behavior into the selected Effect algebra and deleting the
-superseded imperative and prototype paths; it may not add an Effect wrapper
-over the old HoG coordinators. Factorization maps and ordered primitive traces
-remain non-executable evidence. Acceptance requires exact
-behavioral conservation of results, refusals, ordered events, Event Calculus,
-and replay plus deletion or unreachability of the displaced paths. Wave 2 then
-completes the one generated family, performs the atomic Public hard break, and
-proves two source-blind installed sunny paths through SDK and CLI. No Event
-Calculus redesign is selected. T-287 owns the construction sequence, generated
-projection boundary, legacy deletion set, interface receipt, and proportional
-review gates. Wave 2 may consume but not alter accepted Wave 1 interfaces
-without explicit interface re-entry.
+current eventless Product catalog/workspace-open laws. C2A is an inside-out
+hard break under T-287: the admitted HoG algebra becomes the operative source,
+the old coordinator seam is severed, consumers are rebound outward, and the
+old path receives negative reachability proof before closure. Green behavior
+through a mixed old/new path is not progress or acceptance. C1F/D6 remains
+held. After C2A closes, the selected work returns to the remaining Wave 2
+construction without changing Product or owner meaning. No Event Calculus
+redesign is selected. T-287 owns the exact migration declaration, break order,
+interface inventory, closure map, and proportional proof. Wave 2 may consume
+but not alter accepted Wave 1 interfaces without explicit interface re-entry.
 
 ## Product Scope And Conservation
 

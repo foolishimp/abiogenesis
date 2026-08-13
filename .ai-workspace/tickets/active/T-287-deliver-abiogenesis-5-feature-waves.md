@@ -9,18 +9,22 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- change_class: design_reframe
-- migration_strategy: 4_6_structural_adoption_then_feature_composition
-- library_usage: extend
+- change_intent: replace_reachable_imperative_hog_coordination_with_the_selected_effect_fold
+- change_class: goal_reprice
+- re_entry_point: specification/GOALS.md#current-selection
+- triaged_at: 2026-08-14
+- migration_strategy: inside_out_hard_break
+- library_usage: consume
+- governing_library: effect@3.22.1
 - selected_method: STDO v2.2.2
 - selected_method_commit: 0519129d63de10822ae6353fa0c5ce05d56f13e9
 - immutable_reference_product: v4.6.0-rc.5
 - selected_wave: W2
 - selected_feature: A5-F01
 - selected_slice: exact_public_family_construction
-- selected_slice_stage: design_reframe
-- selected_increment: w2_c1f_final_execution_carrier_topology_arm_repair
-- selected_increment_stage: design
+- selected_slice_stage: realization_refactor
+- selected_increment: w2_c2a_hog_effect_hard_break
+- selected_increment_stage: implementation_migration
 - accepted_checkpoint: 1f6a86074bf995763b4caff286422b5b1501374b
 - deferred_feature: A5-F12
 
@@ -43,6 +47,12 @@ This ticket is the detailed delivery backlog beneath GOAL-035. Product,
 requirements, and accepted design define meaning. The local realization
 constitution defines the reusable implementation constraints. This ticket
 does not restate either.
+
+The 2026-08-14 intake changes only the bounded work-wave focus. Product,
+requirements, and accepted design already forbid an imperative coordinator
+wrapped by Effect, so the selected downstream change is a realization refactor,
+not another design cycle. Goals is the first changed layer; code and evidence
+are the only affected downstream span.
 
 ## Authority
 
@@ -73,11 +83,10 @@ selected feature and slice:
   = exact installed Product/catalog basis consumed by one 18-operation/56-key
     Public family, SDK, and CLI
 active increment:
-  w2_c1f_final_execution_carrier_topology_arm_repair
-  = retain the common type-indexed DefinitionCall/DefinitionReturn relation,
-    close one serializable execution ingress, every conditional topology arm,
-    exact grant/receipt/load identity, and E29-E32 recursive prefix journaling;
-    preserve the accepted HoG translation/deletion and hold C2/D6 production
+  w2_c2a_hog_effect_hard_break
+  = directly evaluate admitted CProgramNode through one Effect fold and exact
+    owner ports; sever and remove the graph_execute-to-imperative-coordinator
+    seam while C1F/D6 carrier work remains held
 Product outcome:
   declared recursive GTL frames/material relations
     -> one algebraic HoG evaluation and exact-owner transformation path
@@ -103,6 +112,7 @@ prohibited in this slice:
   Public composition, endpoint count treated as primitive count,
   second executable plan/DSL/interpreter/factor registry,
   additive Effect wrapper over an imperative HoG coordinator,
+  direct or indirect reachability of completeExecutableTraversal,
   compatibility path, or mutation of accepted Wave 1 interfaces outside the
   explicit D11/D12 additive event-contract re-entry below
 ```
@@ -149,7 +159,7 @@ GTL.TypeScript
 | Wave | Feature families | Exit | State |
 |---:|---|---|---|
 | W1 | A5-F10, A5-F02, A5-F03, A5-F04 | One event-authoritative installed runtime kernel | Accepted; integrated M5 deferred |
-| W2 | A5-F01, A5-F09, A5-F05, A5-F06 | One exact 18-operation/56-key Public family over a closed installed execution basis | Active at C1F final design repair; C2/D6 held |
+| W2 | A5-F01, A5-F09, A5-F05, A5-F06 | One exact 18-operation/56-key Public family over a closed installed execution basis | Active at C2A HoG Effect hard break; C1F/D6 carrier work held |
 | W3 | A5-F14, A5-F07, A5-F08 | Packed Hello World, probabilistic proof, One Surface, and Consensus on the same path | Pending W2 |
 | W4 | A5-F13, A5-F17, A5-F11 | Native/host projections, downstream Product, and self-conformance | Pending W3 |
 | W5 | A5-F15, A5-F16 | Qualified immutable 5.0 release | Pending W4 |
@@ -526,6 +536,9 @@ fixture, or a donor to invent it.
 
 ### Bounded C1F final execution-carrier and topology-arm repair
 
+This section is retained as unaccepted design evidence. C1F and D6 are held;
+neither is the current selection and neither authorizes implementation.
+
 D6 proved one construction defect in the C1F installed-binding relation. The
 unchanged common `PublicInvocation<K>` and owner request packets carry semantic
 refs and digests, but they do not and must not implicitly supply a physical
@@ -597,10 +610,10 @@ total cost; Git is not inferred as Product state.
 
 This design correction authorizes no production, schema, generator, test,
 Public-family, legacy-deletion, HoG, Event Calculus, replay, or release work.
-The accepted D2-D5 HoG translation, contraction, deletion, and proportional
-proof remain intact. One independently accepted frozen Section 16.6 candidate
-atomically closes C1F and resumes C2/D6. A requirement conflict or missing
-owner meaning remains a stop.
+The D2-D5 checkpoints remain unaccepted conservation and prototype evidence;
+C2A re-authorizes only exact owner relations that survive the hard-break code
+walk. C1F/D6 remains held. A requirement conflict or missing owner meaning
+remains a stop.
 
 D6 carries two already-observed bounded obligations; neither is implemented in
 C1F:
@@ -655,11 +668,11 @@ scaffolding, not production architecture. Effect `3.22.1` is selected; no
 further technology decision remains. The resource-specific FS-18/FS-19 ledger
 selects the current Node/filesystem and ABG Event Store atoms through core
 Effect Scope plus the irreducible local carrier; it rejects Effect `Resource`
-as durable truth and does not select `@effect/platform`. After C1F acceptance,
-C2/D6 resumes translating the established HoG functions into the small algebra
-and one fold, then deletes or makes unreachable the prototypes and displaced
+as durable truth and does not select `@effect/platform`. The active C2A hard
+break translates the established HoG behavior into the small algebra and one
+fold, then deletes or makes unreachable the prototypes and displaced
 imperative coordinators. Event Calculus and replay are unchanged and no
-reduction redesign is selected.
+reduction redesign is selected. C1F/D6 remains held during this cut.
 
 The frozen seven-path PoC aggregate
 `sha256:18e2a602cbe7000b56aec8e1e92eed52dce5ce4af50bd94bf301cf5dd95df241`
@@ -667,30 +680,176 @@ and the installed E29 prototype are conservation evidence for the selected
 foundation. They do not change Product behavior or authority and may not be
 retained as wrappers around the imperative HoG path.
 
+### W2-C2A HoG Effect hard break - active
+
+#### Migration Declaration
+
+- **Strategy:** `inside_out_hard_break` on the existing TypeScript
+  implementation line.
+- **Change boundary:** Goals selects this bounded refactor; Intent, Product,
+  requirements, and accepted design are unchanged.
+- **Affected scope:** the one installed HoG traversal interface family from an
+  admitted `CProgramNode` plus exact cursor/scope through
+  `public/operations.ts`, `hog/index.ts`, `hog/graph_execute.ts`, the HoG
+  coordination modules, exact owner ports, ABG event admission, and the tests
+  and package exports that can invoke or prove that path.
+- **Excluded scope:** Product meaning, the 18-operation/56-key family, owner
+  request/result/refusal meaning, GTL identity, ABG event contracts, Event
+  Calculus, replay, Public/SDK/CLI interfaces, and all C1F/D6 resource-carrier
+  work. No compatibility scope is retained.
+- **Old operative path:** `public executeGraphTraversal -> graph_execute Effect
+  shell -> Effect.promise -> execute.ts::completeExecutableTraversal`, with
+  control-flow coordination also resident in `structural_execute.ts`,
+  `traversal.ts`, and `traversal_route.ts`.
+- **New operative path:** admitted `CProgramNode` plus exact cursor/scope -> one
+  stack-safe `Effect` fold -> exact GTL/Product/HoG/ABG/implementation owner
+  ports -> ABG-admitted events -> unchanged Event Calculus/replay projection.
+- **Old producers:** the `graph_execute.ts` shell and imperative HoG
+  coordinators that procedurally derive traversal progression.
+- **New producers:** the existing GTL validation/materialization and source-path
+  relations supply the admitted algebra; existing ABG projections supply exact
+  runtime prefix, cursor, and scope. Neither is changed by this migration.
+- **Consumers:** the installed Public run/continue call sites, HoG package
+  export, exact leaf/child/judgment/route owner ports, ABG admission owners,
+  replay/Public outcome projection, and traversal proof lanes.
+- **Closure law:** the installed Public call path reaches one fold and exact
+  owner ports without importing, invoking, exporting, packaging, or testing a
+  superseded coordinator; result, refusal, ordered event, Event Calculus, and
+  replay behavior remains exact; no temporary scaffold remains reachable.
+
+Old paths are classified as follows:
+
+| Path | Classification | Closure |
+|---|---|---|
+| `public/operations.ts` call sites and `hog/index.ts::executeGraphTraversal` | `re-authorize` | Preserve their existing external types; bind them only to the final fold. |
+| `hog/graph_execute.ts` Effect shell around `completeExecutableTraversal` | `replace` | Make `executeGraphTraversal` run the direct fold; remove the shell-to-old-engine call. |
+| `hog/execute.ts::completeExecutableTraversal` and its imperative coordination | `remove` | No production import, export, package symbol, or direct proof invocation remains. |
+| Coordinator control flow in `structural_execute.ts`, `traversal.ts`, `traversal_route.ts`, and `retry_exit.ts` | `replace` or `remove` | Each retained pure derivation or owner call is consumed by the fold; competing loops are deleted. |
+| Exact GTL derivations and Product/ABG/implementation owner ports | `re-authorize` | Retain owner meaning unchanged and call each only at its algebraic locus. |
+| `direct_fold.ts`, direct-HoG prototypes, and E29 prototype runners | `temporary scaffolding` | Reuse a pure carrier only if it becomes the final fold input; delete every prototype runner and alternate path before closure. |
+| Tests that import `hog/execute.js` or call `completeExecutableTraversal` | `replace` | Migrate to the installed `executeGraphTraversal` path or delete when they prove only the old engine. |
+
+#### Migration Checklist
+
+- [x] exact affected migration scope is named
+- [x] excluded scopes are named and no compatibility scope is retained
+- [x] old operative path and new authoritative path are named explicitly
+- [x] producer, consumer, projection, package, and proof families are listed
+- [ ] old path is removed from the normal and installed execution closure
+- [x] mixed-state green behavior is explicitly inadmissible as closure evidence
+- [ ] tests proving the mixed or direct old path are removed or repriced
+- [x] recurring sequencing/failure/suspension mechanics consume Effect rather than a local rebuild
+- [x] `library_usage: consume` and `governing_library: effect@3.22.1` are declared
+- [x] this ticket carries only the TypeScript build-tenant lifecycle
+- [ ] ticket wording, live code, package exports, and proof claims are reconciled
+
+#### Functional Review Criteria
+
+1. Walk the installed call path from each `public/operations.ts` invocation to
+   `hog.executeGraphTraversal`, the one fold, each exact owner port, ABG event
+   admission, Event Calculus, and replay. Record every function and file.
+2. Reject the cut if that walk enters `completeExecutableTraversal`, an
+   equivalent imperative coordinator, a nested Effect runner, or a Promise
+   shell around old traversal control flow.
+3. Verify that the fold consumes the closed admitted C algebra and that its
+   main step is readable as a typed transform, not an orchestration loop with
+   topology or semantic policy encoded procedurally.
+4. Verify owner meaning remains in the existing exact owner ports and Effect
+   supplies only composition, typed failure/Cause, suspension, provision, and
+   physical scope.
+5. Verify every retained C constructor and traversal relation reaches the same
+   fold; a green scalar path cannot stand in for complete reachability.
+6. Verify the semantic center was removed rather than renamed, split among
+   helpers, or left behind a wrapper.
+7. Compare exact results, refusals, event order, Event Calculus, and replay;
+   passing counts alone cannot satisfy this review.
+
+#### Impacted Interface Review Checklist
+
+- [ ] `gtl/c_algebra.ts` and `gtl/source_path.ts` supply the admitted node and
+  source coordinate without an executable rival representation.
+- [ ] all `public/operations.ts` traversal call sites consume only the final
+  `hog.executeGraphTraversal` contract.
+- [ ] `hog/index.ts` exposes no old coordinator or alternate evaluator.
+- [ ] `hog/graph_execute.ts` owns the one fold and has no call/import edge to
+  `completeExecutableTraversal` or equivalent coordinator.
+- [ ] coordinator control flow in `hog/execute.ts`, `structural_execute.ts`,
+  `traversal.ts`, `traversal_route.ts`, and `retry_exit.ts` is deleted or
+  reduced to exact pure derivations/owner ports consumed by the fold.
+- [ ] `leaf_invocation_port.ts`, `child_traversal.ts`, judgment/result/route
+  ports, and ABG admission modules retain their owner-local contracts and do
+  not acquire traversal authority.
+- [ ] Event Calculus, replay, continuation, and Public projections consume the
+  same unchanged admitted events and do not rebuild traversal truth.
+- [ ] `rival-authority-mutations.test.mjs`, `r9-causal-result-closure.test.mjs`,
+  and `falsifiers/runtime-f09-worker.mjs` no longer invoke the old coordinator.
+- [ ] installed traversal, conservation, retry, recursion, fan-out, Consensus,
+  substitution, and Public sunny paths all enter the one fold.
+- [ ] packed exports and generated JavaScript contain no reachable old engine
+  or prototype runner.
+
+#### Required Break Order
+
+1. Freeze this best-guess interface inventory before using tests as closure.
+2. Establish the direct Effect fold over the existing admitted C algebra and
+   exact owner ports without calling any old coordinator.
+3. Sever `graph_execute.ts -> completeExecutableTraversal` and keep it broken.
+4. Repair outward through identity/leaf, compose/edge, batch/fan-out,
+   workflow/recursion, retry/continuation, and terminal projection relations.
+5. Rebind all Public/package consumers to the one fold.
+6. Delete the old coordinator paths and prototype runners; migrate or delete
+   direct-old-path tests.
+7. Run structural negative reachability first, then focused behavioral
+   conservation and the source-blind installed sunny paths.
+
+#### Break-To-Closure Map
+
+| Break | Deliberately severed seam | Closure clause |
+|---|---|---|
+| `B1` | New fold may not call the old engine | New authoritative producer and deepest kernel exist without proxy implementation. |
+| `B2` | `graph_execute.ts` loses its import/call to `completeExecutableTraversal` | Public and HoG have one operative evaluator. |
+| `B3` | Structural/retry/workflow/recursion coordination leaves old loops | Every C relation consumes the same fold and exact owner ports. |
+| `B4` | Direct old exports, tests, and prototype runners are removed | No old consumer, temporary scaffold, or package path remains authoritative. |
+| `B5` | Installed proof cannot bypass the new fold | Runtime, events, replay, projection, and proof share one closure law. |
+
+#### Mixed-State Negative Proof
+
+Before behavioral green is considered:
+
+- static import and package scans must find no path from
+  `executeGraphTraversal` to `completeExecutableTraversal`, no exported old
+  coordinator, and no packaged prototype runner;
+- the old symbol must be unavailable to normal and installed consumers rather
+  than merely unused by one test;
+- removing or refusing the new fold must make Public traversal fail closed,
+  proving there is no fallback to the old engine;
+- every direct-old-path test must be deleted or migrated before its result is
+  counted; and
+- an independent reviewer must repeat the complete function-by-function code
+  path walk. A mixed-state green suite, export-count check, or wrapper-level
+  unit test cannot close C2A.
+
 ### Construction sequence
 
 | Step | Functional work | Mechanical evidence | State |
 |---:|---|---|---|
 | `W2-C0` | Consume the accepted W1 interface receipt; refresh the exact 56-row endpoint/contract/dependency/deletion join; apply only the catalog/workspace/definition-coordinate reconciliation above. | Exact W1 receipt; refreshed 56-row join; zero key diff; explicit construction dependencies; clean reconciliation diff. | Complete - frozen external-contract/deletion evidence; not a primitive-basis decision |
 | `W2-C1` | Prove one unexported vertical function chain through existing owner relations: create/open -> verify -> resolve -> install -> bind -> catalog admit/view/apply -> invoke -> result/replay. | Direct installed chain proof; JSON round-trip at every boundary; no new Public export or adapter. | Complete as construction evidence at the maximal pre-admission boundary; prior owner-port interpretation superseded |
-| `W2-C1F` | Recursively classify all 56 external definitions; close the minimal installed basis; retain Effect 3.22.1; specify one serializable execution ingress, closed topology-arm families, exact grant/receipt/load identity, private provider closure, and fixed recursive initial-to-final prefix relations. | Exact 56-row classification and ordered trace; Table 5.6.3-D closed family/arm projection; one outer candidate and arm-indexed `DefinitionCall`/`DefinitionReturn` family; exact definition/family/arm/owner-leaf/occurrence/scope/predecessor identity; complete grant basis; child receipt journals and successor handoffs; Section 10.1.3 foundation ledger; no executable plan, Public composition, outer child transaction, `providerLayer`, or authority amplification. | Final bounded repair active - `f82805ec` held/rejected; factorization, Effect selection, 18/56, owners, and D2-D5 retained; cold acceptance pending |
-| `W2-C2` | Translate the established 4.6 and accepted 5.0 HoG functions into small carrier/sum types, one primitive algebra and laws, derived combinators, one Effect fold/interpreter, and exact owner ports; complete the D01-D15 source-independent bindings on that basis; delete or make unreachable displaced imperative coordinators and prototype scaffolding. | Exact behavioral conservation for results, refusals, ordered events, projections, Event Calculus, replay, and exact resource pre/post state; source and packed load/resolve/callability probe for all 56 bindings and dependencies; zero wrapper over the old HoG path; superseded coordinators and prototypes unreachable or deleted. | D2-D5 accepted; D6 held pending final C1F acceptance and then advances atomically |
+| `W2-C1F` | Recursively classify all 56 external definitions; close the minimal installed basis; retain Effect 3.22.1; specify one serializable execution ingress, closed topology-arm families, exact grant/receipt/load identity, private provider closure, and fixed recursive initial-to-final prefix relations. | Exact 56-row classification and ordered trace; Table 5.6.3-D closed family/arm projection; one outer candidate and arm-indexed `DefinitionCall`/`DefinitionReturn` family; exact definition/family/arm/owner-leaf/occurrence/scope/predecessor identity; complete grant basis; child receipt journals and successor handoffs; Section 10.1.3 foundation ledger; no executable plan, Public composition, outer child transaction, `providerLayer`, or authority amplification. | Held - candidates retained as unaccepted evidence; no current implementation authority |
+| `W2-C2` | First close C2A: directly fold the admitted C algebra through exact owner ports and delete the reachable imperative engine. Then complete the D01-D15 source-independent bindings on that basis after C1F/D6 is lawfully resumed. | C2A code-path walk and negative reachability; exact behavioral conservation for results, refusals, ordered events, projections, Event Calculus, and replay; later source and packed load/callability probe for all 56 bindings; superseded coordinators and prototypes unreachable or deleted. | Active at `w2_c2a_hog_effect_hard_break`; C1F/D6 held |
 | `W2-C3` | Construct the structural envelope, intrinsic definition family, indexed admission, exact one-binding invocation, indexed outcome projection, schemas, SDK, CLI grammar, Codex sibling transport, PFC-F07 proposals, Product PFC-F08 binding, contract-group exports, and manifest rows from that family. | Exact-set equality and new candidate digest; generator idempotence; projection equality; package dependency closure. | Pending C2 |
 | `W2-C4` | Atomically export the replacement family and delete the legacy carrier, parser, semantic controller, schema synthesis, parallel manifest roster, aliases, compatibility tests, and legacy proof projections. | One installed 18/56 family over the closed primitive basis; zero reachable legacy or new-to-old translation; `git diff --check`. | Pending C3 |
 | `W2-C5` | Pack once and execute the two installed sunny paths and compact changed-boundary guards below through both SDK and CLI. | One exact artifact, interface receipt, scenario receipts, event/replay receipts, and guard vector. | Pending C4 |
 | `W2-C6` | Freeze one exact candidate for independent review and Executive disposition. | HEAD/tree or synthetic tree, status hash, patch hash, tarball/package/manifest/family digests, no moving files. | Pending C5 |
 | `W2-C7` | Accept the exact Product/Public interface substrate and unlock final Wave 3 Public binding and Wave 4 host projection. | Accepted frozen interface handoff; no M5 or release claim. | Pending C6 review |
 
-The C1F factorization and Effect selection remain fixed; only the execution-
-carrier/topology-arm/resource call-load relation is in one final bounded design
-repair. C2 is held at D6 until this frozen repair passes cold review. Acceptance
-atomically closes C1F and returns C2/D6 to pure
-`realization_refactor` and has no semantic-review interruption before C6.
-Mechanical checks run continuously. One cold review at the current correction
-boundary and one cold review of the frozen C6 candidate are sufficient. A
-local review finding may receive at most one bounded repair. A materially
-different Product, owner, event lifecycle, 18/56 family, or Wave 1 interface
-decision returns to the Executive.
+The HoG algebra and Effect selection are fixed. C2A is the current inside-out
+hard break and has no semantic-design interruption before its exact code-path,
+negative-reachability, and conservation closure. C1F/D6 remains held. One cold
+code review of the frozen C2A subject must walk the full installed function
+path; it may not accept test counts or a moving tree. A materially different
+Product, owner, event lifecycle, 18/56 family, or Wave 1 interface decision
+returns to the Executive.
 
 At C5 the tarball contains the entire 18/56 family, every direct,
 statically composed, and projection callable and
@@ -905,11 +1064,11 @@ worker decides those HOW relations.
 
 ### Review and acceptance boundary
 
-The current frozen C1F review asks only whether Section 16.6 closes one shared
-outer carrier, a total complete arm family for every K, exact grant/receipt/
-load identity, private one-time Layer provision, `E29-E32` child journaling
-without an outer transaction, and the selected foundation ledger without
-changing Product or owner meaning. Acceptance atomically resumes C2/D6.
+The current C2A review asks whether the installed Public path directly reaches
+one Effect fold and exact owner ports, whether every old coordinator and
+prototype is unreachable, and whether exact behavior is conserved. It must
+inspect the live function call path and the mixed-state negative proof. C1F/D6
+remains held and is outside this review.
 
 The frozen C6 review asks only:
 
@@ -950,60 +1109,26 @@ Executive.
 
 ## Current Slice
 
-The active uncommitted construction is based on accepted checkpoint
-`1f6a86074bf995763b4caff286422b5b1501374b`. Preserve that accumulated
-catalog/runtime construction; do not reset or rebuild it from historical
-candidates. Rejected candidate identities remain donor evidence only. Continue
-the accepted
-[Graph Catalog Contraction](../../../build_tenants/abiogenesis/typescript/design/T287_GRAPH_CATALOG_CONTRACTION_ACCEPTED_DESIGN.md)
-without another design cycle.
+The selected implementation increment is
+`w2_c2a_hog_effect_hard_break`, starting from code basis `de506b57`. Preserve
+the accumulated owner-local Product, GTL, ABG, catalog, event, Event Calculus,
+and replay work. Rejected candidates remain evidence only; do not reset the
+tree or resume C1F/D6.
 
 ```text
-exact published GTL GraphFunctions
-  -> one deterministic HoG GraphFunctionCatalog dictionary
-  -> pure lookup, narrowing, refresh, and application
-  -> invocation records exact catalog/Program/GraphFunction selection and HoG structural entry witness
-  -> ExecutionBasis records complete implementation/interaction sets
-  -> each CCall admits fibre at actual locus; no global execution-plan entity
-  -> admitted effects explain workspace transformation
+admitted CProgramNode + exact cursor/scope
+  -> one Effect fold
+  -> exact owner port at the current locus
+  -> ABG-admitted event
+  -> Event Calculus/replay projection
 ```
 
-Implementation must:
-
-- replace catalog candidate/admission/view/application lifecycles with one
-  reconstructible handle-keyed GraphFunction dictionary returned by the one
-  pure `catalog.admit` readiness operation;
-- require that operation to validate the exact workspace binding, resolved
-  lock, installed/verified Product set, descriptors, contribution manifests,
-  direct dependency edges, compatibility, provenance, and publication basis;
-- delete catalog and view event/EC/replay authority, registry-entry membership
-  truth, catalog semantic WeakMaps/WeakSets, and RootOperationState catalog,
-  view, and application maps;
-- preserve deterministic collision refusal, canonical ordering, dynamic
-  refresh from an exact changed publication set, pure views, and pure
-  declaration application;
-- bind invocation to exact catalog/Program/GraphFunction selection plus the HoG
-  structural entry witness; bind complete implementation/interaction sets in
-  ExecutionBasis; admit fibre at each CCall locus; define no global execution-plan entity;
-- retain ABG/Event Calculus only for execution, observation, evidence, and
-  workspace transformation;
-- recover terminal, CCall, actor/process, retry, traversal, continuation,
-  result, closure, durable-prefix, and fresh-process code only where it remains
-  valid after this contraction;
-- leave no compatibility adapter or reachable old registry/catalog authority.
-
-The retained catalog/runtime construction continues to carry its accepted
-focused evidence. Its complete shuffled-order, refresh, collision, cache-loss,
-cross-basis, dependency, provenance, R1–R10, conservation, and full-M5 matrix
-is rerun once against the integrated M5 candidate. Wave 1 interface closure
-does not repeatedly execute that matrix while authored bytes are moving.
-
-Scope guard: finish this catalog hard break, remove every stale executable and
-proof consumer of its deleted authority, and return to the Wave 1 feature
-sequence. Other audit findings enter this slice only when they are competing
-semantic authority, fresh-process correctness defects, or redundancy beyond
-the 4.6 baseline. Purely structural deeper compression is recorded for 5.1 and
-does not extend this implementation cut.
+Implement the declared break order above. The first accepted code checkpoint
+must sever `graph_execute.ts -> completeExecutableTraversal`; each later
+checkpoint must reduce the remaining old reachability. Do not count a green
+test until the break it claims is structurally closed. Stop only for a required
+change to Product, requirements, accepted design, owner meaning, event law,
+Public interfaces, or the 18/56 family.
 
 ### Retained Construction — Setup And Invocation Authority Reconstruction
 
