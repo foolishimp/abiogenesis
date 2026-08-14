@@ -1643,10 +1643,10 @@ test("F04-A binds distinct raw and target contracts through the existing install
     "@abiogenesis/typescript-tenant/hog",
     `external-f04a-hog=${Date.now()}`,
   );
-  const installedProductPort = await import(
+  const installedLeafPort = await import(
     `${pathToFileURL(join(
       harness.cliHost,
-      "node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/installed_product.js",
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js",
     )).href}?external-f04a-port=${Date.now()}`
   );
   const installedMiniProduct = await import(
@@ -1774,7 +1774,7 @@ test("F04-A binds distinct raw and target contracts through the existing install
       abg.hasAdmittedProductInstall(artifactTruth, install),
   });
   const semanticsProjection = product.projectInstalledLeafSemantics(semantics);
-  const leafPort = await installedProductPort.bindInstalledLeafInvocationPort({
+  const leafPort = await installedLeafPort.constructAdmittedLeafInvocationPort({
     prefix,
     artifactTruth,
     install: miniInstallTruth.install,

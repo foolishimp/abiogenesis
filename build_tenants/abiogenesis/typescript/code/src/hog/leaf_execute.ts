@@ -1,5 +1,6 @@
 import {
   admitRuntimeFailure,
+  bindActorProcessLeafEffectPort,
   openCCall,
   replay,
 } from "../abg/index.js";
@@ -11,9 +12,8 @@ import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { isAdmittedLeafInvocationPort } from "./leaf_invocation_port.js";
+import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
 import { admitLeafOutcome } from "./leaf_admission.js";
-import { invokeLeafOwner } from "./leaf_owner.js";
 import { completeAdmittedLeaf } from "./leaf_route.js";
 import {
   basis,
@@ -144,17 +144,42 @@ export async function executeLeafAtLocus(
       opened as unknown as JsonValue,
     );
   }
-  const invocation = await invokeLeafOwner({
-    ...input,
-    cCall: opened.cCall,
-    failureValueKind,
-    validateSuccessCandidate: (value): value is Readonly<Record<string, JsonValue>> =>
-      input.leafPort.validateContractValue(
-        input.traversalStop.outputContractRef,
-        "output",
-        value,
-      ),
+  const regime = input.traversalStop.computeRegime;
+  const workerContracts = regime === "F_P"
+    ? input.leafPort.resolveProbabilisticWorkerContracts(
+        input.implementationResolution,
+        input.input,
+      )
+    : null;
+  const effects = regime === "F_P" &&
+      input.actorRuntimeBinding !== undefined && workerContracts !== null
+    ? bindActorProcessLeafEffectPort({
+        store: input.store,
+        executionBasis: input.executionBasis,
+        scope: input.openedTraversalScope,
+        cCall: opened.cCall,
+        inputDigest: input.inputDigest,
+        workerContracts,
+        runtime: input.actorRuntimeBinding,
+        basis: basis(input.clock, "actor-process"),
+      })
+    : null;
+  const invocation = await input.leafPort.invoke({
+    resolution: input.implementationResolution,
+    input: input.input,
+    inputDigest: input.inputDigest,
+    failureContractRef: input.traversalStop.failureContractRef,
+    workerContracts,
+    effects,
   });
+  if (invocation.kind === "leaf_invocation_owner_refusal") {
+    return fail(
+      input,
+      "leaf-owner-refusal",
+      invocation.diagnosticRef,
+      invocation as unknown as JsonValue,
+    );
+  }
   const prefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
   if (input.store.configuredDurableLogPath() !== null) {
     assertHeldEventStoreAtRuntimeEventPrefix(input.store, prefix.events);

@@ -865,7 +865,7 @@ async function executeTestGraph(context, constructFixture, options = {}) {
     admittedInstall,
     artifactTruth,
     gtl,
-    hogInstalledProduct,
+    implementationLeafPort,
     product,
     store: initialStore,
     validator,
@@ -1144,7 +1144,7 @@ async function executeTestGraph(context, constructFixture, options = {}) {
     verifyInstallAdmission: (install) =>
       abg.hasAdmittedProductInstall(artifactTruth, install),
   });
-  const leafPort = await hogInstalledProduct.bindInstalledLeafInvocationPort({
+  const leafPort = await implementationLeafPort.constructAdmittedLeafInvocationPort({
     prefix: abg.selectValidatedRuntimeEventPrefix(store.readAll()),
     artifactTruth,
     install: admittedInstall,

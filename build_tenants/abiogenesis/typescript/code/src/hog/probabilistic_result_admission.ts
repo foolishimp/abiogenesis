@@ -26,7 +26,7 @@ import { isNonBlankRef } from "../shared/references.js";
 import {
   isAdmittedLeafInvocationPort,
   isAdmittedLeafInvocationResolution,
-} from "./leaf_invocation_port.js";
+} from "../implementation/leaf_invocation_port.js";
 
 export type ProbabilisticResultAdmissionRefusalCode =
   | IJsonAdmissionFailureCode

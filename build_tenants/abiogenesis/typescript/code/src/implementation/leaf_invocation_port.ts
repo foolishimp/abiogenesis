@@ -17,12 +17,16 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { validateActorProcessCarrierPair } from "../abg/actor_process.js";
 import type {
+  ClosedLeafOwnerReceipt,
   LeafInvocationPort,
+  LeafInvocationOwnerRefusal,
+  LeafInvocationOwnerResult,
   LeafInvocationReceipt,
   LeafInvocationResolution,
+  LeafRealizationCandidate,
   ProbabilisticLeafEffectPort,
   ProbabilisticLeafInvocationReceipt,
-} from "../implementation/contracts.js";
+} from "./contracts.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 
 export type LeafInvocationInstall =
@@ -64,6 +68,101 @@ export function isClosedProbabilisticLeafInvocation(
     validated.kind === "actor_process_carrier_validation" &&
     sha256Canonical(validated as unknown as JsonValue) ===
       sha256Canonical(exchange as unknown as JsonValue);
+}
+
+function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isDeterministicEvidenceCandidate(value: unknown): boolean {
+  return isRecord(value) &&
+    value.kind === "deterministic_evidence_candidate" &&
+    value.schemaVersion === "5.0.0" &&
+    typeof value.implementationRef === "string" &&
+    typeof value.inputDigest === "string" &&
+    /^sha256:[a-f0-9]{64}$/u.test(value.inputDigest) &&
+    typeof value.outputDigest === "string" &&
+    /^sha256:[a-f0-9]{64}$/u.test(value.outputDigest);
+}
+
+function isLeafRealizationCandidate(
+  value: unknown,
+  regime: "F_D" | "F_P",
+  validateSuccess: (value: unknown) => boolean,
+  failureValueKind: string,
+): value is Readonly<LeafRealizationCandidate> {
+  if (!isRecord(value) || !Array.isArray(value.evidenceCandidates)) return false;
+  const evidence = Array.from(value.evidenceCandidates);
+  return value.kind === "leaf_realization_candidate" &&
+    value.schemaVersion === "5.0.0" &&
+    (value.disposition === "success" || value.disposition === "failure") &&
+    (regime === "F_D" ? evidence.length > 0 : evidence.length === 0) &&
+    evidence.every(isDeterministicEvidenceCandidate) &&
+    isRecord(value.resultCandidate) &&
+    value.resultCandidate.schemaVersion === "5.0.0" &&
+    (value.disposition === "success"
+      ? regime === "F_P" || validateSuccess(value.resultCandidate)
+      : value.resultCandidate.kind === failureValueKind &&
+        typeof value.diagnosticRef === "string" &&
+        value.resultCandidate.diagnosticRef === value.diagnosticRef);
+}
+
+export function totalizeLeafImplementationFailure(input: Readonly<{
+  resolution: Readonly<LeafInvocationResolution>;
+  inputDigest: `sha256:${string}`;
+  failureValueKind: string;
+  failureClass: "implementation_exception" | "malformed_return";
+}>,
+): Readonly<LeafRealizationCandidate> {
+  const { resolution, inputDigest, failureValueKind, failureClass } = input;
+  const diagnosticRef =
+    `diagnostic://abiogenesis/implementation/${failureClass.replaceAll("_", "-")}@5`;
+  const resultCandidate = deepFreeze({
+    kind: failureValueKind,
+    schemaVersion: "5.0.0" as const,
+    failureClass,
+    diagnosticRef,
+  }) as Readonly<Record<string, JsonValue>>;
+  return deepFreeze({
+    kind: "leaf_realization_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "failure" as const,
+    evidenceCandidates: [{
+      kind: "deterministic_evidence_candidate" as const,
+      schemaVersion: "5.0.0" as const,
+      implementationRef: resolution.implementationRef,
+      inputDigest,
+      outputDigest: sha256Canonical(resultCandidate),
+    }],
+    resultCandidate,
+    diagnosticRef,
+  });
+}
+
+function closedOwnerReceipt(
+  candidate: Readonly<LeafRealizationCandidate>,
+  receipt: Readonly<LeafInvocationReceipt> | null,
+  workerContracts: ClosedLeafOwnerReceipt["workerContracts"],
+): Readonly<ClosedLeafOwnerReceipt> {
+  return deepFreeze({
+    kind: "closed_leaf_owner_receipt" as const,
+    schemaVersion: "5.0.0" as const,
+    candidate,
+    receipt,
+    workerContracts,
+  });
+}
+
+function ownerRefusal(
+  code: LeafInvocationOwnerRefusal["code"],
+): Readonly<LeafInvocationOwnerRefusal> {
+  return deepFreeze({
+    kind: "leaf_invocation_owner_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    code,
+    diagnosticRef:
+      `diagnostic://abiogenesis/implementation/${code.replaceAll("_", "-")}@5`,
+  });
 }
 
 export function isAdmittedLeafInvocationPort(value: object): boolean {
@@ -266,10 +365,23 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       });
     },
     async invoke(
-      resolution: Readonly<LeafInvocationResolution>,
-      input: Readonly<Record<string, JsonValue>>,
-      effects: ProbabilisticLeafEffectPort | null,
-    ): Promise<Readonly<LeafInvocationReceipt>> {
+      call: Parameters<LeafInvocationPort["invoke"]>[0],
+    ): Promise<Readonly<LeafInvocationOwnerResult>> {
+      const {
+        resolution,
+        input,
+        inputDigest,
+        failureContractRef,
+        workerContracts,
+        effects,
+      } = call;
+      const failureValueKind = port.contractValueKind(
+        failureContractRef,
+        "failure",
+      );
+      if (failureValueKind === null) {
+        return ownerRefusal("failure_contract_absent");
+      }
       if (
         !isAdmittedLeafInvocationPort(port) ||
         !hasAdmittedProductInstall(authority.artifactTruth, authority.install) ||
@@ -278,35 +390,147 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           authority.implementationSet,
         ) ||
         !(await semantics.verifyInstalledContent()) ||
-        !authority.implementationSet.rows.some((row) => row === resolution)
+        sha256Canonical(input) !== inputDigest
       ) {
-        throw new TypeError("leaf invocation differs from the admitted install-bound port");
+        return closedOwnerReceipt(
+          totalizeLeafImplementationFailure({
+            resolution,
+            inputDigest,
+            failureValueKind,
+            failureClass: "implementation_exception",
+          }),
+          null,
+          workerContracts,
+        );
       }
-      const module = await loadModule(resolution.modulePath);
-      const implementation = module[resolution.namedSymbol];
-      if (typeof implementation !== "function") {
-        throw new TypeError("admitted leaf implementation symbol is not callable");
+      if (!authority.implementationSet.rows.some((row) => row === resolution)) {
+        return closedOwnerReceipt(
+          totalizeLeafImplementationFailure({
+            resolution,
+            inputDigest,
+            failureValueKind,
+            failureClass: "implementation_exception",
+          }),
+          null,
+          workerContracts,
+        );
       }
-      if (resolution.computeRegime === "F_P") {
-        if (effects === null) {
-          throw new TypeError("F_P leaf invocation requires the ABG probabilistic effect port");
+      const resolvedWorkerContracts = resolution.computeRegime === "F_P"
+        ? port.resolveProbabilisticWorkerContracts(resolution, input)
+        : null;
+      if (resolution.computeRegime === "F_P" && effects === null) {
+        return closedOwnerReceipt(
+          totalizeLeafImplementationFailure({
+            resolution,
+            inputDigest,
+            failureValueKind,
+            failureClass: "implementation_exception",
+          }),
+          null,
+          workerContracts,
+        );
+      }
+      if (
+        sha256Canonical(resolvedWorkerContracts as unknown as JsonValue) !==
+          sha256Canonical(workerContracts as unknown as JsonValue) ||
+        (resolution.computeRegime === "F_D" && effects !== null)
+      ) {
+        return closedOwnerReceipt(
+          totalizeLeafImplementationFailure({
+            resolution,
+            inputDigest,
+            failureValueKind,
+            failureClass: "implementation_exception",
+          }),
+          null,
+          workerContracts,
+        );
+      }
+      try {
+        const module = await loadModule(resolution.modulePath);
+        const implementation = module[resolution.namedSymbol];
+        if (typeof implementation !== "function") {
+          throw new TypeError("admitted leaf implementation symbol is not callable");
         }
-        const receipt: unknown = await implementation(input, effects);
-        if (!isClosedProbabilisticLeafInvocation(receipt)) {
-          throw new TypeError(
-            "F_P leaf implementation must return one closed invocation receipt",
+        if (resolution.computeRegime === "F_P") {
+          const receipt: unknown = await implementation(input, effects);
+          if (!isClosedProbabilisticLeafInvocation(receipt)) {
+            return closedOwnerReceipt(
+              totalizeLeafImplementationFailure({
+                resolution,
+                inputDigest,
+                failureValueKind,
+                failureClass: "malformed_return",
+              }),
+              null,
+              workerContracts,
+            );
+          }
+          const frozenCandidate = deepFreeze(receipt.candidate);
+          return closedOwnerReceipt(
+            isLeafRealizationCandidate(
+                frozenCandidate,
+                "F_P",
+                (value) => port.validateContractValue(
+                  resolution.outputContractRef,
+                  "output",
+                  value,
+                ),
+                failureValueKind,
+              )
+              ? frozenCandidate
+              : totalizeLeafImplementationFailure({
+                  resolution,
+                  inputDigest,
+                  failureValueKind,
+                  failureClass: "malformed_return",
+                }),
+            receipt,
+            workerContracts,
           );
         }
-        return receipt;
+        const rawCandidate: unknown = await implementation(input);
+        const frozenCandidate = deepFreeze(rawCandidate);
+        const receipt = deepFreeze({
+          kind: "leaf_invocation_receipt" as const,
+          schemaVersion: "5.0.0" as const,
+          computeRegime: "F_D" as const,
+          candidate: frozenCandidate,
+          actorProcessExchange: null,
+        });
+        return closedOwnerReceipt(
+          isLeafRealizationCandidate(
+              frozenCandidate,
+              "F_D",
+              (value) => port.validateContractValue(
+                resolution.outputContractRef,
+                "output",
+                value,
+              ),
+              failureValueKind,
+            )
+            ? frozenCandidate
+            : totalizeLeafImplementationFailure({
+                resolution,
+                inputDigest,
+                failureValueKind,
+                failureClass: "malformed_return",
+              }),
+          receipt,
+          null,
+        );
+      } catch {
+        return closedOwnerReceipt(
+          totalizeLeafImplementationFailure({
+            resolution,
+            inputDigest,
+            failureValueKind,
+            failureClass: "implementation_exception",
+          }),
+          null,
+          workerContracts,
+        );
       }
-      const candidate: unknown = await implementation(input);
-      return deepFreeze({
-        kind: "leaf_invocation_receipt" as const,
-        schemaVersion: "5.0.0" as const,
-        computeRegime: "F_D" as const,
-        candidate,
-        actorProcessExchange: null,
-      });
     },
   }) satisfies LeafInvocationPort;
   return port;

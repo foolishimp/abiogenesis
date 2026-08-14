@@ -4,7 +4,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { admitProbabilisticResultCandidate } from "./probabilistic_result_admission.js";
 import { proposeFailureJudgment, proposeJudgment } from "./judgment.js";
 import { basis, completeBlockedTraversal, completeRuntimeFailureTransition, type CompleteExecutableTraversalInput, type ExecutableTraversalCompletion } from "./execute.js";
-import type { LeafOwnerInvocation } from "./leaf_owner.js";
+import type { ClosedLeafOwnerReceipt } from "../implementation/contracts.js";
 
 export interface AdmittedLeafOutcome {
   readonly kind: "admitted_leaf_outcome"; readonly cCall: CCall;
@@ -23,7 +23,7 @@ export function admitLeafOutcome(
     Readonly<Record<string, JsonValue>>
   >,
   cCall: CCall,
-  invocation: LeafOwnerInvocation,
+  invocation: ClosedLeafOwnerReceipt,
   failureValueKind: string,
   resultValueKind: string,
 ): LeafAdmissionResult {

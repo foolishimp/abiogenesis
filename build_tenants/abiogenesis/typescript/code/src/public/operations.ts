@@ -14,7 +14,7 @@ import type {
   GtlProgram,
   ModulePublication,
 } from "../gtl/contracts.js";
-import { bindInstalledLeafInvocationPort } from "../hog/installed_product.js";
+import { constructAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
 import { compareUnicodeCodeUnits } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -2310,7 +2310,7 @@ async function applyRunInvoke(
     );
   }
   failureScope = opened.scope;
-  const leafPort = await bindInstalledLeafInvocationPort({
+  const leafPort = await constructAdmittedLeafInvocationPort({
     prefix: abg.selectValidatedRuntimeEventPrefix(context.store.readAll()),
     artifactTruth,
     install: installState.install,
@@ -3895,7 +3895,7 @@ async function applyRunContinue(
     verifyInstallAdmission: (install) =>
       abg.hasAdmittedProductInstall(artifactTruth, install),
   });
-  const leafPort = await bindInstalledLeafInvocationPort({
+  const leafPort = await constructAdmittedLeafInvocationPort({
     prefix: authorityProjection.fullPrefix,
     artifactTruth,
     install: state.install,

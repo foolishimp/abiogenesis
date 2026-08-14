@@ -393,6 +393,7 @@ export {
   type RuntimeFailureAdmission,
 } from "./runtime_failure.js";
 export {
+  bindActorProcessLeafEffectPort,
   isActorProcessObservation,
   invokeActorProcess,
   projectActorProcessLifecycle,

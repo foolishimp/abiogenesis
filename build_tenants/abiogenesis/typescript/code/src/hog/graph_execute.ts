@@ -36,7 +36,7 @@ import type {
   GtlProgram,
   RecurseApplication,
 } from "../gtl/contracts.js";
-import { isAdmittedLeafInvocationPort } from "./leaf_invocation_port.js";
+import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import { lookupGraphFunctionDefinition } from "../product/catalog.js";
 import type { JsonValue } from "../shared/canonical_json.js";

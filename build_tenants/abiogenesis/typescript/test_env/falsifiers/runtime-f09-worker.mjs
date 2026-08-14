@@ -32,9 +32,9 @@ const installedChildTraversal = await import(pathToFileURL(join(
 const installedHogEntryPath = fileURLToPath(
   import.meta.resolve("@abiogenesis/typescript-tenant/hog"),
 );
-const installedHogProduct = await import(pathToFileURL(join(
+const installedLeafPortOwner = await import(pathToFileURL(join(
   dirname(installedHogEntryPath),
-  "installed_product.js",
+  "../implementation/leaf_invocation_port.js",
 )).href);
 
 const EVENT_TIME = "2026-07-31T00:00:00.000Z";
@@ -710,7 +710,7 @@ async function loadInstalledRetryDependencies(
     verifyInstallAdmission: (install) =>
       installedAbg.hasAdmittedProductInstall(artifactTruth, install),
   });
-  const leafPort = await installedHogProduct.bindInstalledLeafInvocationPort({
+  const leafPort = await installedLeafPortOwner.constructAdmittedLeafInvocationPort({
     prefix: installedAbg.selectValidatedRuntimeEventPrefix(events),
     artifactTruth,
     install: admittedInstall,
@@ -951,7 +951,7 @@ async function constructP1Environment(input) {
     abg,
     gtl,
     hog,
-    hogInstalledProduct,
+    implementationLeafPort,
     product,
     validator,
     verified: rootVerified,
@@ -1458,7 +1458,7 @@ async function constructP1Environment(input) {
       abg.hasAdmittedProductInstall(artifactTruth, install),
   });
   const semanticsProjection = product.projectInstalledLeafSemantics(semantics);
-  const leafPort = await hogInstalledProduct.bindInstalledLeafInvocationPort({
+  const leafPort = await implementationLeafPort.constructAdmittedLeafInvocationPort({
     prefix: installedAuthorityEvents,
     artifactTruth,
     install: admittedInstall,

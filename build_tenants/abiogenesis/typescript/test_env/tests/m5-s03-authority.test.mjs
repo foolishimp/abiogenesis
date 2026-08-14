@@ -292,7 +292,7 @@ test("S03 HoG accepts one Product-sealed projection and rejects its forged twin"
     artifactTruth,
     abg,
     gtl,
-    hogInstalledProduct,
+    implementationLeafPort,
     implementationSet,
     leafPort,
     publication,
@@ -334,7 +334,7 @@ test("S03 HoG accepts one Product-sealed projection and rejects its forged twin"
   const eventCount = store.readAll().length;
   await assert.rejects(
     () =>
-      hogInstalledProduct.bindInstalledLeafInvocationPort({
+      implementationLeafPort.constructAdmittedLeafInvocationPort({
         prefix: abg.selectValidatedRuntimeEventPrefix(store.readAll()),
         artifactTruth,
         install: admittedInstall,

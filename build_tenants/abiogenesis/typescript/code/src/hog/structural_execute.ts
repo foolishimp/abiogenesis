@@ -11,7 +11,7 @@ import type { LeafInvocationPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import * as Effect from "effect/Effect";
-import { isAdmittedLeafInvocationPort } from "./leaf_invocation_port.js";
+import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
 import type { DirectCTraversalStep } from "./direct_fold.js";
 import { admitSuccessfulRetryExitRoute } from "./retry_exit.js";
 import {

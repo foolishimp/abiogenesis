@@ -881,7 +881,7 @@ async function executeTopologyFixture(
       environment.abg.hasAdmittedProductInstall(runtime.artifactTruth, install),
   });
   const leafPort =
-    await environment.hogInstalledProduct.bindInstalledLeafInvocationPort({
+    await environment.implementationLeafPort.constructAdmittedLeafInvocationPort({
       prefix: environment.abg.selectValidatedRuntimeEventPrefix(
         runtime.store.readAll(),
       ),

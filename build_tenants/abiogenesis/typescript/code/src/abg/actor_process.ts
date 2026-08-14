@@ -2,6 +2,7 @@ import { constants as osConstants } from "node:os";
 import { resolve } from "node:path";
 
 import type { WorkspaceBinding } from "../product/environment.js";
+import type { ProbabilisticLeafEffectPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
@@ -961,4 +962,58 @@ export async function invokeActorProcess(
     }
     throw error;
   }
+}
+
+export function bindActorProcessLeafEffectPort(input: Readonly<{
+  store: AbgEventStore;
+  executionBasis: ExecutionBasis;
+  scope: OpenedTraversalScope;
+  cCall: CCall;
+  inputDigest: Sha256Digest;
+  workerContracts: Readonly<{
+    instructionContractRef: string;
+    resultContractRef: string;
+  }>;
+  runtime: ActorRuntimeBinding;
+  basis: RuntimeAdmissionBasis;
+}>): ProbabilisticLeafEffectPort {
+  let dispatchClaimed = false;
+  return deepFreeze({
+    occurrence: {
+      cCallRef: input.cCall.cCallRef,
+      runId: input.cCall.runId,
+      graphCallId: input.cCall.graphCallId,
+      frameId: input.cCall.frameId,
+      programLocusRef: input.cCall.programLocusRef,
+      taskOrdinal: input.cCall.taskOrdinal,
+      attempt: input.cCall.attempt,
+    },
+    invokeWorker: async (request) => {
+      if (dispatchClaimed) {
+        throw new TypeError(
+          "one F_P C-call may dispatch exactly one actor invocation",
+        );
+      }
+      dispatchClaimed = true;
+      const observation = await invokeActorProcess({
+        store: input.store,
+        executionBasis: input.executionBasis,
+        scope: input.scope,
+        cCall: input.cCall,
+        expectedInputDigest: input.inputDigest,
+        expectedInstructionContractRef:
+          input.workerContracts.instructionContractRef,
+        expectedResultContractRef: input.workerContracts.resultContractRef,
+        runtime: input.runtime,
+        request,
+        dispatchOrdinal: 1,
+        basis: input.basis,
+      });
+      const pair = validateActorProcessCarrierPair(request, observation);
+      if (pair.kind !== "actor_process_carrier_validation") {
+        throw new TypeError(pair.message);
+      }
+      return pair;
+    },
+  });
 }

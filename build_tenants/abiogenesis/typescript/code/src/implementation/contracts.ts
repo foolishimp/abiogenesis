@@ -15,6 +15,33 @@ export interface DeterministicEvidenceCandidate {
   readonly outputDigest: Sha256Digest;
 }
 
+export interface LeafRealizationSuccessCandidate<
+  Output extends Readonly<Record<string, JsonValue>> = Readonly<
+    Record<string, JsonValue>
+  >,
+> {
+  readonly kind: "leaf_realization_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "success";
+  readonly evidenceCandidates: readonly DeterministicEvidenceCandidate[];
+  readonly resultCandidate: Output;
+}
+
+export interface LeafRealizationFailureCandidate {
+  readonly kind: "leaf_realization_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "failure";
+  readonly evidenceCandidates: readonly DeterministicEvidenceCandidate[];
+  readonly resultCandidate: Readonly<Record<string, JsonValue>>;
+  readonly diagnosticRef: string;
+}
+
+export type LeafRealizationCandidate<
+  Output extends Readonly<Record<string, JsonValue>> = Readonly<
+    Record<string, JsonValue>
+  >,
+> = LeafRealizationSuccessCandidate<Output> | LeafRealizationFailureCandidate;
+
 export interface HelloWorldLeafRealizationCandidate {
   readonly kind: "leaf_realization_candidate";
   readonly schemaVersion: "5.0.0";
@@ -104,6 +131,28 @@ export type LeafInvocationReceipt<Candidate = unknown> =
   | DeterministicLeafInvocationReceipt<Candidate>
   | ProbabilisticLeafInvocationReceipt<Candidate>;
 
+export interface ClosedLeafOwnerReceipt {
+  readonly kind: "closed_leaf_owner_receipt";
+  readonly schemaVersion: "5.0.0";
+  readonly candidate: Readonly<LeafRealizationCandidate>;
+  readonly receipt: Readonly<LeafInvocationReceipt> | null;
+  readonly workerContracts: Readonly<{
+    readonly instructionContractRef: string;
+    readonly resultContractRef: string;
+  }> | null;
+}
+
+export interface LeafInvocationOwnerRefusal {
+  readonly kind: "leaf_invocation_owner_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly code: "failure_contract_absent";
+  readonly diagnosticRef: string;
+}
+
+export type LeafInvocationOwnerResult =
+  | ClosedLeafOwnerReceipt
+  | LeafInvocationOwnerRefusal;
+
 export interface LeafInvocationResolution {
   readonly computeRegime: "F_D" | "F_P";
   readonly implementationRef: string;
@@ -157,8 +206,16 @@ export interface LeafInvocationPort {
     readonly resultContractRef: string;
   }> | null;
   readonly invoke: (
-    resolution: Readonly<LeafInvocationResolution>,
-    input: Readonly<Record<string, JsonValue>>,
-    effects: ProbabilisticLeafEffectPort | null,
-  ) => Promise<Readonly<LeafInvocationReceipt>>;
+    call: Readonly<{
+      resolution: Readonly<LeafInvocationResolution>;
+      input: Readonly<Record<string, JsonValue>>;
+      inputDigest: Sha256Digest;
+      failureContractRef: string;
+      workerContracts: Readonly<{
+        readonly instructionContractRef: string;
+        readonly resultContractRef: string;
+      }> | null;
+      effects: ProbabilisticLeafEffectPort | null;
+    }>,
+  ) => Promise<Readonly<LeafInvocationOwnerResult>>;
 }

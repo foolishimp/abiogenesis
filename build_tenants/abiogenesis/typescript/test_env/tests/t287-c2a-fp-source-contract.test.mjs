@@ -17,8 +17,8 @@ function deepFreeze(value) {
 }
 
 test("C2A F_P call capability refuses a second dispatch before another effect", async () => {
-  const { invokeLeafOwner } = await import(
-    `${pathToFileURL(code("hog", "leaf_owner.js")).href}?guard=${Date.now()}`
+  const { bindActorProcessLeafEffectPort } = await import(
+    `${pathToFileURL(code("abg", "actor_process.js")).href}?guard=${Date.now()}`
   );
   const failures = [];
   let storeAccesses = 0;
@@ -31,42 +31,10 @@ test("C2A F_P call capability refuses a second dispatch before another effect", 
   const invalidRequest = deepFreeze({
     implementationRef: "implementation://wrong/fp@5",
   });
-  const leafPort = {
-    resolveProbabilisticWorkerContracts() {
-      return {
-        instructionContractRef: "contract://test/fp/input@5",
-        resultContractRef: "contract://test/fp/output@5",
-      };
-    },
-    async invoke(_resolution, _input, effects) {
-      assert.notEqual(effects, null);
-      for (let ordinal = 0; ordinal < 2; ordinal += 1) {
-        try {
-          await effects.invokeWorker(invalidRequest);
-        } catch (error) {
-          failures.push(error);
-        }
-      }
-      return deepFreeze({
-        kind: "leaf_invocation_receipt",
-        schemaVersion: "5.0.0",
-        computeRegime: "F_P",
-        candidate: {
-          kind: "leaf_realization_candidate",
-          schemaVersion: "5.0.0",
-          disposition: "success",
-          evidenceCandidates: [],
-          resultCandidate: { kind: "test_output", schemaVersion: "5.0.0" },
-        },
-        actorProcessExchange: null,
-      });
-    },
-  };
-
-  await invokeLeafOwner({
+  const effects = bindActorProcessLeafEffectPort({
     store,
     executionBasis: {},
-    openedTraversalScope: {},
+    scope: {},
     cCall: {
       cCallRef: "c-call://test/fp/one",
       runId: "run://test/fp/one",
@@ -75,23 +43,26 @@ test("C2A F_P call capability refuses a second dispatch before another effect", 
       programLocusRef: "locus://test/fp/one",
       taskOrdinal: null,
       attempt: 1,
-      implementationRef: "implementation://test/fp@5",
     },
-    traversalStop: { computeRegime: "F_P" },
-    leafPort,
-    implementationResolution: {
-      implementationRef: "implementation://test/fp@5",
-    },
-    input: {},
     inputDigest: DIGEST,
-    actorRuntimeBinding: {},
-    failureValueKind: "test_failure",
-    validateSuccessCandidate: () => true,
-    clock: {
+    workerContracts: {
+      instructionContractRef: "contract://test/fp/input@5",
+      resultContractRef: "contract://test/fp/output@5",
+    },
+    runtime: {},
+    basis: {
       eventTime: "2026-08-15T00:00:00.000Z",
       correlationId: "correlation://test/fp/one",
+      causationEventRefs: [],
     },
   });
+  for (let ordinal = 0; ordinal < 2; ordinal += 1) {
+    try {
+      await effects.invokeWorker(invalidRequest);
+    } catch (error) {
+      failures.push(error);
+    }
+  }
 
   assert.equal(failures.length, 2);
   assert.match(
@@ -104,7 +75,7 @@ test("C2A F_P call capability refuses a second dispatch before another effect", 
   );
   assert.equal(storeAccesses, 0);
 
-  const source = await readFile(code("hog", "leaf_owner.js"), "utf8");
+  const source = await readFile(code("abg", "actor_process.js"), "utf8");
   assert.match(
     source,
     /dispatchClaimed = true;\s*const observation = await invokeActorProcess\(\{[\s\S]*dispatchOrdinal: 1,/u,
@@ -113,7 +84,7 @@ test("C2A F_P call capability refuses a second dispatch before another effect", 
 
 test("C2A F_P receipt rejects missing and forged carrier pairs", async () => {
   const { isClosedProbabilisticLeafInvocation } = await import(
-    `${pathToFileURL(code("hog", "leaf_invocation_port.js")).href}?receipt=${Date.now()}`
+    `${pathToFileURL(code("implementation", "leaf_invocation_port.js")).href}?receipt=${Date.now()}`
   );
   const candidate = deepFreeze({ kind: "test_candidate", schemaVersion: "5.0.0" });
   const receipt = {
@@ -149,4 +120,57 @@ test("C2A F_P receipt rejects missing and forged carrier pairs", async () => {
     ...receipt,
     actorProcessExchange: deepFreeze(forgedPair),
   }), false);
+});
+
+test("C2A implementation owner preserves exact exception and malformed-return failures", async () => {
+  const { totalizeLeafImplementationFailure } = await import(
+    `${pathToFileURL(code("implementation", "leaf_invocation_port.js")).href}?totalization=${Date.now()}`
+  );
+  const { sha256Canonical } = await import(
+    `${pathToFileURL(code("shared", "digests.js")).href}?totalization=${Date.now()}`
+  );
+  const resolution = {
+    computeRegime: "F_D",
+    implementationRef: "implementation://test/owner-boundary@5",
+    inputContractRef: "contract://test/input@5",
+    outputContractRef: "contract://test/output@5",
+    modulePath: "build/code/src/implementation/test.js",
+    namedSymbol: "execute",
+  };
+  for (const failureClass of ["implementation_exception", "malformed_return"]) {
+    const candidate = totalizeLeafImplementationFailure({
+      resolution,
+      inputDigest: DIGEST,
+      failureValueKind: "test_failure",
+      failureClass,
+    });
+    const suffix = failureClass.replaceAll("_", "-");
+    assert.equal(candidate.kind, "leaf_realization_candidate");
+    assert.equal(candidate.disposition, "failure");
+    assert.equal(
+      candidate.diagnosticRef,
+      `diagnostic://abiogenesis/implementation/${suffix}@5`,
+    );
+    assert.deepEqual(candidate.resultCandidate, {
+      kind: "test_failure",
+      schemaVersion: "5.0.0",
+      failureClass,
+      diagnosticRef: candidate.diagnosticRef,
+    });
+    assert.equal(candidate.evidenceCandidates.length, 1);
+    assert.deepEqual(candidate.evidenceCandidates[0], {
+      kind: "deterministic_evidence_candidate",
+      schemaVersion: "5.0.0",
+      implementationRef: resolution.implementationRef,
+      inputDigest: DIGEST,
+      outputDigest: sha256Canonical(candidate.resultCandidate),
+    });
+    assert.equal(Object.isFrozen(candidate), true);
+    assert.equal(Object.isFrozen(candidate.resultCandidate), true);
+    assert.equal(Object.isFrozen(candidate.evidenceCandidates), true);
+  }
+
+  const hogSource = await readFile(code("hog", "leaf_execute.js"), "utf8");
+  assert.doesNotMatch(hogSource, /leaf_realization_candidate/u);
+  assert.doesNotMatch(hogSource, /implementation_exception|malformed_return/u);
 });

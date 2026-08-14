@@ -213,8 +213,8 @@ export async function setupInstalledRootCatalog(
   const abg = await import(`${pathToFileURL(join(installedRoot, "build/code/src/abg/index.js")).href}?env=${nonce}`);
   const gtl = await import(`${pathToFileURL(join(installedRoot, "build/code/src/gtl/index.js")).href}?env=${nonce}`);
   const hog = await import(`${pathToFileURL(join(installedRoot, "build/code/src/hog/index.js")).href}?env=${nonce}`);
-  const hogInstalledProduct = await import(
-    `${pathToFileURL(join(installedRoot, "build/code/src/hog/installed_product.js")).href}?env=${nonce}`
+  const implementationLeafPort = await import(
+    `${pathToFileURL(join(installedRoot, "build/code/src/implementation/leaf_invocation_port.js")).href}?env=${nonce}`
   );
   const interactionOwner = await import(
     `${pathToFileURL(join(installedRoot, "build/code/src/hog/interaction_resume.js")).href}?env=${nonce}`
@@ -344,7 +344,7 @@ export async function setupInstalledRootCatalog(
     abg,
     gtl,
     hog,
-    hogInstalledProduct,
+    implementationLeafPort,
     interactionOwner,
     implementation,
     validator,
@@ -735,7 +735,7 @@ export async function setupInstalledRootExecutionBasis(
   });
   const semanticsProjection =
     environment.product.projectInstalledLeafSemantics(semantics);
-  const leafPort = await environment.hogInstalledProduct.bindInstalledLeafInvocationPort({
+  const leafPort = await environment.implementationLeafPort.constructAdmittedLeafInvocationPort({
     prefix: abg.selectValidatedRuntimeEventPrefix(store.readAll()),
     artifactTruth: environment.artifactTruth,
     install: environment.admittedInstall,

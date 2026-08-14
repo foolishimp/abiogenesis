@@ -32,7 +32,6 @@ import {
   type AdmittedImplementationSet,
   type AdmittedInteractionContractRow,
   type AdmittedInteractionSet,
-  type CCallEvidenceCandidate,
   type CCall,
   type ExecutionBasis,
   type ContinuationProductBasis,
@@ -60,6 +59,7 @@ import {
   type CCallRuntimeFailureSource,
 } from "../abg/c_call.js";
 import type {
+  LeafRealizationCandidate,
   LeafInvocationPort,
 } from "../implementation/contracts.js";
 import type {
@@ -103,26 +103,9 @@ import {
 } from "./traversal.js";
 import { admitSuccessfulRetryExitRoute } from "./retry_exit.js";
 
-interface ExecutableLeafSuccessCandidate<Output> {
-  readonly kind: "leaf_realization_candidate";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "success";
-  readonly evidenceCandidates: readonly CCallEvidenceCandidate[];
-  readonly resultCandidate: Output;
-}
-
-interface ExecutableLeafFailureCandidate {
-  readonly kind: "leaf_realization_candidate";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "failure";
-  readonly evidenceCandidates: readonly CCallEvidenceCandidate[];
-  readonly resultCandidate: Readonly<Record<string, JsonValue>>;
-  readonly diagnosticRef: string;
-}
-
-export type ExecutableLeafCandidate<Output> =
-  | ExecutableLeafFailureCandidate
-  | ExecutableLeafSuccessCandidate<Output>;
+export type ExecutableLeafCandidate<
+  Output extends Readonly<Record<string, JsonValue>>,
+> = LeafRealizationCandidate<Output>;
 
 export interface ExecutableTraversalClock {
   readonly eventTime: string;
