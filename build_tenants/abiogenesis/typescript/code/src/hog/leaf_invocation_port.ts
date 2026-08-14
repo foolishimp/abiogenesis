@@ -28,7 +28,7 @@ import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 export type LeafInvocationInstall =
   Parameters<typeof hasAdmittedProductInstall>[1];
 
-function isClosedProbabilisticLeafInvocation(
+export function isClosedProbabilisticLeafInvocation(
   value: unknown,
 ): value is Readonly<ProbabilisticLeafInvocationReceipt> {
   if (typeof value !== "object" || value === null || Array.isArray(value)) {
