@@ -50,16 +50,14 @@ export {
   type RouteProposalRefusal,
 } from "./traversal_route.js";
 export {
+  executeGraphTraversal,
+  type ExecuteGraphTraversalInput,
+  type ExecuteGraphTraversalRequest,
   type ExecutableTraversalCompletion,
   type HeldInteractionTraversal,
   type HeldParentTraversalSuspension,
   type HeldRecursionSuspension,
   type HeldWorkflowSuspension,
-} from "./execute.js";
-export {
-  executeGraphTraversal,
-  type ExecuteGraphTraversalInput,
-  type ExecuteGraphTraversalRequest,
   type ProjectedRetryResumeSuccess,
   type ResumeHeldInteractionInput,
   type ResumeHeldTraversalInput,

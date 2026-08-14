@@ -10,7 +10,7 @@ import type {
   GtlProgram,
   ModulePublication,
 } from "../gtl/contracts.js";
-import type { HeldParentTraversalSuspension } from "../hog/execute.js";
+import type { HeldParentTraversalSuspension } from "../hog/graph_execute.js";
 import type {
   ReadyGraphFunctionCatalog,
   GraphFunctionCatalogView,

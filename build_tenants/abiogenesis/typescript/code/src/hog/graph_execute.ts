@@ -11,11 +11,15 @@ import {
   traversalCursorAdmissionEventRef,
   type AbgEventStore,
   type ActorRuntimeBinding,
+  type AdmittedCCallJudgment,
+  type AdmittedCCallResult,
   type AdmittedImplementationSet,
   type AdmittedInteractionSet,
+  type CCall,
   type ContinuationProductBasis,
   type ExecutionBasis,
   type OpenedTraversalScope,
+  type ReplayState,
 } from "../abg/index.js";
 import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
 import {
@@ -47,10 +51,7 @@ import {
   completeWorkflowTraversal,
   restoreDeferredRecursion,
   type CompleteInteractionResumeInput,
-  type ExecutableTraversalCompletion,
   type CompleteExecutableTraversalInput,
-  type HeldRecursionSuspension,
-  type HeldWorkflowSuspension,
   type RestoreDeferredRecursionInput,
 } from "./execute.js";
 import { resumeInteractionOwner } from "./interaction_resume.js";
@@ -149,6 +150,90 @@ export interface ExecuteGraphTraversalCommonInput {
   readonly correlationId: string;
   readonly terminalMode?: "close_run" | "return_to_parent";
 }
+
+export interface ExecutableTraversalCompletion {
+  readonly kind: "executable_traversal_completion";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition:
+    | "advanced"
+    | "application_ready"
+    | "blocked"
+    | "closed"
+    | "failed"
+    | "gap_stop"
+    | "held"
+    | "refused";
+  readonly cCallRef: string | null;
+  readonly resultRef: string | null;
+  readonly judgmentRef: string | null;
+  readonly closureRef: string | null;
+  readonly nextCursor: TraversalCursor | null;
+  readonly resultValue: JsonValue | null;
+  readonly continuationKind: "advance" | "re_enter" | "retry" | null;
+  readonly nextInputContractRef: string | null;
+  readonly replayState: ReplayState;
+  readonly diagnosticRef: string | null;
+  readonly continuationRef: string | null;
+  readonly heldCursor: TraversalCursor | null;
+  readonly heldInteraction: HeldInteractionTraversal | null;
+  readonly heldGraph: Readonly<GtlGraph> | null;
+  readonly heldClosureContract: Readonly<ClosureContract> | null;
+  readonly parentSuspensions: readonly HeldParentTraversalSuspension[];
+}
+
+export interface HeldInteractionTraversal {
+  readonly cCall: CCall;
+  readonly result: AdmittedCCallResult;
+  readonly judgment: AdmittedCCallJudgment;
+  readonly cursor: TraversalCursor;
+}
+
+export interface HeldWorkflowSuspension {
+  readonly kind: "held_workflow_suspension";
+  readonly schemaVersion: "5.0.0";
+  readonly parentExecutionBasisRef: string;
+  readonly parentTraversalScope: OpenedTraversalScope;
+  readonly parentGraph: Readonly<GtlGraph>;
+  readonly parentClosureContract: Readonly<ClosureContract>;
+  readonly parentCCall: CCall;
+  readonly sourceCursor: TraversalCursor;
+  readonly parentGraphInput: Readonly<Record<string, JsonValue>>;
+  readonly parentGraphInputDigest: `sha256:${string}`;
+  readonly parentInput: Readonly<Record<string, JsonValue>>;
+  readonly parentInputDigest: `sha256:${string}`;
+  readonly childExecutionBasisRef: string;
+  readonly childTraversalScopeRef: string;
+  readonly childInput: Readonly<Record<string, JsonValue>>;
+  readonly childInputDigest: `sha256:${string}`;
+  readonly terminalMode: "close_run" | "return_to_parent";
+}
+
+export interface HeldRecursionSuspension {
+  readonly kind: "held_recursion_suspension";
+  readonly schemaVersion: "5.0.0";
+  readonly parentExecutionBasisRef: string;
+  readonly parentTraversalScope: OpenedTraversalScope;
+  readonly parentGraph: Readonly<GtlGraph>;
+  readonly parentClosureContract: Readonly<ClosureContract>;
+  readonly parentGraphInput: Readonly<Record<string, JsonValue>>;
+  readonly parentGraphInputDigest: `sha256:${string}`;
+  readonly application: Readonly<RecurseApplication>;
+  readonly evaluatorCCall: CCall;
+  readonly evaluatorResult: AdmittedCCallResult;
+  readonly evaluatorJudgment: AdmittedCCallJudgment;
+  readonly sourceCursor: TraversalCursor;
+  readonly evaluatorInput: Readonly<Record<string, JsonValue>>;
+  readonly evaluatorInputDigest: `sha256:${string}`;
+  readonly childExecutionBasisRef: string;
+  readonly childTraversalScopeRef: string;
+  readonly childInput: Readonly<Record<string, JsonValue>>;
+  readonly childInputDigest: `sha256:${string}`;
+  readonly terminalMode: "close_run" | "return_to_parent";
+}
+
+export type HeldParentTraversalSuspension =
+  | HeldRecursionSuspension
+  | HeldWorkflowSuspension;
 
 export interface InitialOrNonRetryResumeEntry {
   readonly input: Readonly<Record<string, JsonValue>>;
