@@ -521,21 +521,31 @@ Inside-Out Hard-Break, and Transformation Wave laws. Those installed standards
 own the general law. This subsection fixes only the operative C2A realization;
 it creates no Product, requirement, owner, event, or shared-method meaning.
 
-For one installed Public invocation `o`, let `G(o)` be the transitive production
-control-and-effect graph from the admitted invocation through its projected
-outcome. `G(o)` includes every dynamically reachable call, import, provision,
-Effect bind, owner-port call, ABG admission, Event Calculus read, replay, and
+For one installed Public invocation `o` whose selected concrete owner closure
+invokes HoG, let `G(o)` be the transitive production control-and-effect graph
+from the admitted invocation through its projected outcome. This is the C2A
+domain, currently the run invoke/continue relations; non-traversal definitions
+in the 18/56 family do not enter HoG and are outside this local projection.
+`G(o)` includes every dynamically reachable call, import, provision, Effect
+bind, owner-port call, ABG admission, Event Calculus read, replay, and
 projection edge. Type-only dependencies and unreachable source text are not
 operative vertices.
 
 There must be a bidirectional total correspondence between `G(o)` and the
 accepted closed C algebra for `o`:
 
-- every operative HoG vertex and edge maps exactly to an accepted C atom, an
-  exact owner port, an Effect composition edge, an ABG admission, or an Event
+- every operative HoG vertex and edge has an explicit mapping to an accepted C
+  atom, exact owner port, Effect composition edge, ABG admission, or Event
   Calculus/replay projection; and
-- every accepted relation required by `o` has exactly one dynamically
-  reachable realization in `G(o)`.
+- every accepted relation required by `o` has one admitted operative
+  implementation-and-authority path in `G(o)`.
+
+This is path singularity, not occurrence cardinality or one-to-one source
+decomposition. Batch, retry, recursion, and child traversal may instantiate an
+accepted relation as many times as Product meaning requires. One realization
+unit may explicitly project several accepted atoms and one atom may use several
+realization units as permitted by the selected Design Module Method. An
+unclassified unit or composition/control outside the single fold is invalid.
 
 The correspondence is extensional. Splitting one coordinator across files,
 renaming it, moving it behind an owner, or reaching it through an import,
@@ -551,9 +561,12 @@ The operative laws are:
 2. Effect is the operative composition calculus. `Effect.promise` or
    `Effect.tryPromise` may lift an exact physical/Promise owner port; it may not
    wrap a local HoG coordinator or the prior traversal engine.
-3. The admitted GTL graph plus the explicit ABG prefix and Event Calculus derive
-   next work, currentness, continuation, and terminal truth. Ephemeral fold
-   state is immutable, disposable, and reconstructible from those authorities.
+3. Admitted GTL, the exact ABG prefix and Event Calculus, and the exact explicit
+   admitted call inputs, verified preimages/resource bindings, owner receipts,
+   and successor handoffs required by 5.6.2 derive next work, currentness,
+   continuation, and terminal truth. Events do not reconstruct external
+   physical pre-state; its provider revalidates it. Ephemeral fold state is
+   immutable, disposable, and reconstructible from that complete basis.
 4. Composition cannot close or repair an incomplete owner contract. Owner
    exceptions and malformed returns are totalized at that exact owner boundary;
    HoG neither accepts `unknown` owner returns nor authors owner candidates or
@@ -565,13 +578,17 @@ The operative laws are:
    the correspondence or operative laws invalidates the cut even when behavior
    tests pass.
 
-Contraction is a sentinel for failure to apply the accepted algebra, not a
-substitute for the preceding laws. Production TypeScript under `code/src/hog`
-was 10,175 lines at checkpoint `6d78258b`. C2A closes at no more than 2,550
-total production lines there, with every retained or moved line covered by the
-exact correspondence above. Exceeding that ceiling requires F_H re-entry with
-evidence of an irreducible Product function; moving coordination elsewhere or
-compressing syntax does not satisfy it.
+Contraction is a mandatory drift sentinel for failure to apply the accepted
+algebra, not a substitute for the preceding laws or an independent Product
+completion predicate. Production TypeScript under `code/src/hog` was 10,175
+lines at checkpoint `6d78258b`; the current Executive construction target is no
+more than 2,550 total production lines there, with every retained or moved line
+covered by the exact correspondence above. Exceeding that target stops for F_H
+disposition and requires an explicit irreducible-function mapping. It cannot by
+itself block 5.0 after every authority/control law holds and F_H accepts that
+mapping. Meeting it cannot cure a controller, authority, or correspondence
+violation; moving coordination elsewhere or compressing syntax does not
+satisfy it.
 
 #### 5.6.2 Installed definition-binding ABI
 

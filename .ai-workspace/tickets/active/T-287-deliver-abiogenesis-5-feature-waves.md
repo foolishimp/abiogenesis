@@ -773,6 +773,20 @@ requirements, owner meaning, and external interfaces remain unchanged. Section
 5.6.1A of the ABI5 Realization Constitution is the local operative projection;
 it does not restate or replace the shared method.
 
+Its singularity claim is one admitted implementation-and-authority path per
+accepted relation, not one runtime occurrence or one-to-one source mapping.
+Product-required batch, retry, recursion, and child occurrences remain lawful
+inside the one fold. Reconstruction uses the complete 5.6.2 basis, including
+explicit verified physical preimages/resource bindings and owner-issued
+successor handoffs; events do not recreate external physical state.
+
+This gate applies only to HoG-bearing Public owner closures, currently run
+invoke/continue. Other 18/56 definitions do not enter HoG. The 2,550-line value
+is the current Executive construction target and mandatory F_H drift sentinel,
+not an independent Product predicate: meeting it cannot cure a structural
+violation, and exceeding it requires an irreducible-function mapping and F_H
+disposition rather than silently passing or automatically blocking 5.0.
+
 Structural conformance runs before behavioral proof and must reject every
 counterexample it finds. C2A cannot advance while any of these predicates is
 true:
@@ -786,7 +800,7 @@ true:
 | `OCR-05` | `ExecuteGraphTraversalCommonInput` crosses from the fold into a locus or owner port. |
 | `OCR-06` | An owner port returns `unknown`, or HoG constructs, repairs, validates, or totalizes an owner candidate/refusal. |
 | `OCR-07` | The installed path has zero or multiple outer Effect runners, or a nested runner. |
-| `OCR-08` | Production TypeScript under `code/src/hog` exceeds 2,550 total lines, measured over every `.ts` file; the fixed comparison baseline is 10,175 lines at `6d78258b`. |
+| `OCR-08` | Production TypeScript under `code/src/hog` exceeds the 2,550-line Executive target without an explicit irreducible-function mapping and F_H disposition; the fixed comparison baseline is 10,175 lines at `6d78258b`. |
 
 The current checkpoint is deliberately red. Its expected signature includes:
 recursive `graphTraversalEffect` calls; repeated Public continuation entry;
