@@ -512,6 +512,67 @@ authority, provenance, and regime. It does not collapse `derive`, `admit`, and
 `project` into one semantic atom. Effect supplies the generic bind; it does not
 choose the atoms, their order, topology, or meaning.
 
+#### 5.6.1A Operative computational realization
+
+This is the ABIogenesis-local instantiation of the selected
+`DESIGN_MODULE_METHOD.md` atomic-function, higher-order-composition, and
+whole-family Prime laws and `SPEC_METHOD.md` Core Interface Migration,
+Inside-Out Hard-Break, and Transformation Wave laws. Those installed standards
+own the general law. This subsection fixes only the operative C2A realization;
+it creates no Product, requirement, owner, event, or shared-method meaning.
+
+For one installed Public invocation `o`, let `G(o)` be the transitive production
+control-and-effect graph from the admitted invocation through its projected
+outcome. `G(o)` includes every dynamically reachable call, import, provision,
+Effect bind, owner-port call, ABG admission, Event Calculus read, replay, and
+projection edge. Type-only dependencies and unreachable source text are not
+operative vertices.
+
+There must be a bidirectional total correspondence between `G(o)` and the
+accepted closed C algebra for `o`:
+
+- every operative HoG vertex and edge maps exactly to an accepted C atom, an
+  exact owner port, an Effect composition edge, an ABG admission, or an Event
+  Calculus/replay projection; and
+- every accepted relation required by `o` has exactly one dynamically
+  reachable realization in `G(o)`.
+
+The correspondence is extensional. Splitting one coordinator across files,
+renaming it, moving it behind an owner, or reaching it through an import,
+Promise, callback, Layer, or helper remains the same operative path. A
+top-level HoG production unit is invalid when it mixes selection, validation,
+construction, admission, folding, or projection instead of mapping to one
+accepted atom/port/projection or to the single Effect composition fold.
+
+The operative laws are:
+
+1. One Public invocation enters HoG once, executes one non-recursive dynamic
+   `Effect` fold, and crosses the package's one outer Effect runner once.
+2. Effect is the operative composition calculus. `Effect.promise` or
+   `Effect.tryPromise` may lift an exact physical/Promise owner port; it may not
+   wrap a local HoG coordinator or the prior traversal engine.
+3. The admitted GTL graph plus the explicit ABG prefix and Event Calculus derive
+   next work, currentness, continuation, and terminal truth. Ephemeral fold
+   state is immutable, disposable, and reconstructible from those authorities.
+4. Composition cannot close or repair an incomplete owner contract. Owner
+   exceptions and malformed returns are totalized at that exact owner boundary;
+   HoG neither accepts `unknown` owner returns nor authors owner candidates or
+   refusals.
+5. Hard replacement covers the complete transitive graph. No reachable old
+   coordinator, distributed equivalent coordinator, fallback, nested runner,
+   or direct-old proof path may remain in the promoted acceptance path.
+6. Structural conformance precedes behavioral evidence. Any counterexample to
+   the correspondence or operative laws invalidates the cut even when behavior
+   tests pass.
+
+Contraction is a sentinel for failure to apply the accepted algebra, not a
+substitute for the preceding laws. Production TypeScript under `code/src/hog`
+was 10,175 lines at checkpoint `6d78258b`. C2A closes at no more than 2,550
+total production lines there, with every retained or moved line covered by the
+exact correspondence above. Exceeding that ceiling requires F_H re-entry with
+evidence of an irreducible Product function; moving coordination elsewhere or
+compressing syntax does not satisfy it.
+
 #### 5.6.2 Installed definition-binding ABI
 
 The S06 semantic relation remains `PublicInvocation<K> -> indexed owner

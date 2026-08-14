@@ -765,6 +765,39 @@ Old paths are classified as follows:
 7. Compare exact results, refusals, event order, Event Calculus, and replay;
    passing counts alone cannot satisfy this review.
 
+#### Operative structural closure gate
+
+This is a `design_reframe` under the installed `SPEC_METHOD.md` Core Interface
+Migration, Inside-Out Hard-Break, and Transformation Wave laws. Product,
+requirements, owner meaning, and external interfaces remain unchanged. Section
+5.6.1A of the ABI5 Realization Constitution is the local operative projection;
+it does not restate or replace the shared method.
+
+Structural conformance runs before behavioral proof and must reject every
+counterexample it finds. C2A cannot advance while any of these predicates is
+true:
+
+| Check | Counterexample |
+|---|---|
+| `OCR-01` | The dynamic traversal fold is recursive, belongs to a call-graph SCC, or invokes another evaluator instance. |
+| `OCR-02` | One Public operation invokes HoG more than once or invokes it from a loop. |
+| `OCR-03` | The installed transitive graph reaches `execute.ts`, `completeExecutableTraversal`, or a distributed equivalent coordinator. |
+| `OCR-04` | `Effect.promise` or `Effect.tryPromise` lifts a local HoG coordinator rather than an exact physical/Promise owner port. |
+| `OCR-05` | `ExecuteGraphTraversalCommonInput` crosses from the fold into a locus or owner port. |
+| `OCR-06` | An owner port returns `unknown`, or HoG constructs, repairs, validates, or totalizes an owner candidate/refusal. |
+| `OCR-07` | The installed path has zero or multiple outer Effect runners, or a nested runner. |
+| `OCR-08` | Production TypeScript under `code/src/hog` exceeds 2,550 total lines, measured over every `.ts` file; the fixed comparison baseline is 10,175 lines at `6d78258b`. |
+
+The current checkpoint is deliberately red. Its expected signature includes:
+recursive `graphTraversalEffect` calls; repeated Public continuation entry;
+reachable imports and exports from `execute.ts`; a local leaf coordinator under
+`Effect.promise`; `ExecuteGraphTraversalCommonInput` in locus modules;
+HoG-authored `leaf_realization_candidate` failure totalization; and HoG LOC
+above the ceiling. The sole shared `runEffectProgram` membrane is preserved.
+Each repair must remove the reported operative relation, not rename, relocate,
+or wrap it. The gate turns green only when a function-by-function installed
+path walk and the mechanical predicates agree.
+
 #### Impacted Interface Review Checklist
 
 - [ ] `gtl/c_algebra.ts` and `gtl/source_path.ts` supply the admitted node and
