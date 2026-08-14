@@ -91,10 +91,10 @@ const INTERFACE_EVIDENCE_SELECTION = [
     replayProjections: ["ReplayState"],
   },
   {
-    packageExportPath: "./hog",
-    owner: "HoG",
+    packageExportPath: "./abg",
+    owner: "ABG",
     symbol: "admitProbabilisticResultCandidate",
-    declarationPath: "build/code/src/hog/probabilistic_result_admission.d.ts",
+    declarationPath: "build/code/src/abg/probabilistic_result.d.ts",
     inputCarriers: ["ProbabilisticResultAdmissionInput"],
     successCarriers: ["ContractAdmittedProbabilisticResultCandidate"],
     refusalCarriers: ["ProbabilisticResultAdmissionRefusal"],

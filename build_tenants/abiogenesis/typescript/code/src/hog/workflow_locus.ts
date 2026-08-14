@@ -3,6 +3,7 @@ import {
   openWorkflowCCall,
   rehydrateConstructionIntentForCursor,
 } from "../abg/index.js";
+import type { CCall } from "../abg/index.js";
 import type { FanOutApplication } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
@@ -32,13 +33,39 @@ export interface EvaluateWorkflowLocusInput {
   readonly graphEntryInput: Readonly<Record<string, JsonValue>>;
   readonly graphEntryInputDigest: `sha256:${string}`;
   readonly ordinal: number;
-  readonly evaluateChild: (
-    prepared: PreparedChildTraversal,
-    correlationId: string,
-    deferFailedRunStop: boolean,
-  ) => Effect.Effect<ExecutableTraversalCompletion>;
   readonly fail: TraversalLocusFailure;
 }
+
+type WorkflowTerm = Extract<
+  ReturnType<typeof resolveTraversalTerm>,
+  Readonly<{ kind: "c_workflow" }>
+>;
+
+export interface WorkflowChildFoldFrame {
+  readonly kind: "workflow_child_fold_frame";
+  readonly runtime: ExecuteGraphTraversalCommonInput;
+  readonly cursor: TraversalCursor;
+  readonly value: Readonly<Record<string, JsonValue>>;
+  readonly graphEntryInput: Readonly<Record<string, JsonValue>>;
+  readonly graphEntryInputDigest: `sha256:${string}`;
+  readonly ordinal: number;
+  readonly workflowTerm: WorkflowTerm;
+  readonly parentCCall: CCall;
+  readonly application: Readonly<FanOutApplication> | null;
+  readonly prepared: PreparedChildTraversal;
+}
+
+export type WorkflowLocusStep =
+  | Readonly<{
+      kind: "locus_evaluation";
+      evaluation: TraversalLocusEvaluation;
+    }>
+  | Readonly<{
+      kind: "workflow_child_request";
+      frame: WorkflowChildFoldFrame;
+      correlationId: string;
+      deferFailedRunStop: boolean;
+    }>;
 
 function fanOutApplication(
   runtime: ExecuteGraphTraversalCommonInput,
@@ -51,9 +78,9 @@ function fanOutApplication(
   return selected?.relationKind === "fan_out" ? selected : null;
 }
 
-export function evaluateWorkflowLocus(
+export function beginWorkflowLocus(
   input: EvaluateWorkflowLocusInput,
-): Effect.Effect<TraversalLocusEvaluation> {
+): Effect.Effect<WorkflowLocusStep> {
   return Effect.gen(function* () {
     const { runtime, cursor, ordinal } = input;
     const term = resolveTraversalTerm(runtime.graph, cursor);
@@ -133,7 +160,9 @@ export function evaluateWorkflowLocus(
       correlationId: `${runtime.correlationId}/workflow/${ordinal}/prepare`,
     })));
     if (prepared.kind !== "prepared_child_traversal") {
-      return terminalLocusEvaluation(completeWorkflowPreparationRefusal({
+      return {
+        kind: "locus_evaluation" as const,
+        evaluation: terminalLocusEvaluation(completeWorkflowPreparationRefusal({
         store: runtime.store, executionBasis: runtime.executionBasis,
         openedTraversalScope: runtime.openedTraversalScope,
         graphFunction: runtime.graphFunction, graph: runtime.graph,
@@ -141,21 +170,57 @@ export function evaluateWorkflowLocus(
         parentCCall: opened.cCall, preparationRefusal: prepared,
         clock: { eventTime: runtime.eventTime,
           correlationId: `${runtime.correlationId}/workflow/${ordinal}/prepare-refusal` },
-      }));
+        })),
+      };
     }
-    const child = yield* input.evaluateChild(prepared,
-      `${runtime.correlationId}/workflow/${ordinal}/child`,
-      runtime.deferFailedRunStop === true ||
-        application?.elementGraphFunctionRef === term.graphFunctionRef);
+    return {
+      kind: "workflow_child_request" as const,
+      frame: {
+        kind: "workflow_child_fold_frame" as const,
+        runtime,
+        cursor,
+        value: input.value,
+        graphEntryInput: input.graphEntryInput,
+        graphEntryInputDigest: input.graphEntryInputDigest,
+        ordinal,
+        workflowTerm: term,
+        parentCCall: opened.cCall,
+        application,
+        prepared,
+      },
+      correlationId: `${runtime.correlationId}/workflow/${ordinal}/child`,
+      deferFailedRunStop: runtime.deferFailedRunStop === true ||
+        application?.elementGraphFunctionRef === term.graphFunctionRef,
+    };
+  });
+}
+
+export function completeWorkflowLocus(
+  frame: WorkflowChildFoldFrame,
+  child: ExecutableTraversalCompletion,
+  fail: TraversalLocusFailure,
+): TraversalLocusEvaluation {
+    const {
+      runtime,
+      cursor,
+      value,
+      graphEntryInput,
+      graphEntryInputDigest,
+      ordinal,
+      workflowTerm: term,
+      parentCCall,
+      application,
+      prepared,
+    } = frame;
     if (child.disposition === "held") {
       return terminalLocusEvaluation(suspendHeldWorkflowTraversal({
         parentExecutionBasis: runtime.executionBasis,
         parentTraversalScope: runtime.openedTraversalScope,
         parentGraph: runtime.graph, parentClosureContract: runtime.closureContract,
-        parentCCall: opened.cCall, sourceCursor: cursor,
-        parentGraphInput: input.graphEntryInput,
-        parentGraphInputDigest: input.graphEntryInputDigest,
-        parentInput: input.value, parentInputDigest: cursor.inputDigest,
+        parentCCall, sourceCursor: cursor,
+        parentGraphInput: graphEntryInput,
+        parentGraphInputDigest: graphEntryInputDigest,
+        parentInput: value, parentInputDigest: cursor.inputDigest,
         childExecutionBasis: prepared.executionBasis,
         childTraversalScope: prepared.openedTraversalScope,
         childInput: prepared.input, childInputDigest: prepared.inputDigest,
@@ -166,6 +231,7 @@ export function evaluateWorkflowLocus(
     if (child.disposition === "failed" && child.replayState.runtimeStatus === "failed") {
       return terminalLocusEvaluation(child);
     }
+    const intent = rehydrateConstructionIntentForCursor(runtime.store, cursor);
     const actionBasis = intent?.actionKind === "invoke_graph_function" &&
         child.disposition === "closed" && child.resultRef !== null &&
         child.judgmentRef !== null && child.closureRef !== null &&
@@ -180,34 +246,34 @@ export function evaluateWorkflowLocus(
           }) : null;
     if (intent?.actionKind === "invoke_graph_function" &&
         child.disposition === "closed" && actionBasis === null) {
-      return input.fail(`workflow-action-evaluation-basis-${ordinal}`,
+      return fail(`workflow-action-evaluation-basis-${ordinal}`,
         "diagnostic://abiogenesis/hog/workflow-action-evaluation-basis-absent@5",
         term as unknown as JsonValue);
     }
     const outputKind = runtime.leafPort.contractValueKind(term.outputCarrierRef, "output");
     const failureKind = runtime.leafPort.contractValueKind(
-      opened.cCall.failureContractRef, "failure");
+      parentCCall.failureContractRef, "failure");
     const judgment = runtime.leafPort.resolveJudgmentRelation(
-      opened.cCall.judgmentPredicateRef);
+      parentCCall.judgmentPredicateRef);
     if (outputKind === null || failureKind === null || judgment === null) {
-      return input.fail(`workflow-contract-${ordinal}`,
+      return fail(`workflow-contract-${ordinal}`,
         "diagnostic://abiogenesis/hog/workflow-result-contract-absent@5", {
           outputContractRef: term.outputCarrierRef,
-          predicateRef: opened.cCall.judgmentPredicateRef,
+          predicateRef: parentCCall.judgmentPredicateRef,
         });
     }
     const completion = completeWorkflowTraversal({
       store: runtime.store, executionBasis: runtime.executionBasis,
       openedTraversalScope: runtime.openedTraversalScope, program: runtime.program,
       graphFunction: runtime.graphFunction, graph: runtime.graph,
-      workflowCursor: cursor, workflowTerm: term, parentCCall: opened.cCall,
+      workflowCursor: cursor, workflowTerm: term, parentCCall,
       childExecutionBasis: prepared.executionBasis,
       childTraversalScope: prepared.openedTraversalScope, childCompletion: child,
-      input: input.value, inputDigest: cursor.inputDigest,
+      input: value, inputDigest: cursor.inputDigest,
       resultValueKind: outputKind, failureValueKind: failureKind,
       validateSuccessResult: (value): value is Readonly<Record<string, JsonValue>> =>
         runtime.leafPort.validateContractValue(term.outputCarrierRef, "output", value) &&
-        judgment.evaluate(input.value, value),
+        judgment.evaluate(frame.value, value),
       ...(actionBasis === null ? {} : { successResultValue: actionBasis }),
       closureContract: runtime.closureContract,
       ...(runtime.terminalMode === undefined ? {} : { terminalMode: runtime.terminalMode }),
@@ -221,5 +287,4 @@ export function evaluateWorkflowLocus(
     });
     return { completion, outputValueKind: outputKind,
       outputContractRef: term.outputCarrierRef };
-  });
 }

@@ -332,6 +332,40 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
   assert.equal(malformed.candidate.resultCandidate.failureClass, "malformed_return");
   assert.equal(malformed.receipt, null);
 
+  const openCandidate = {
+    kind: "leaf_realization_candidate",
+    schemaVersion: "5.0.0",
+    disposition: "success",
+    evidenceCandidates: [],
+    resultCandidate: {
+      kind: "expected_success",
+      schemaVersion: "5.0.0",
+    },
+    mutableExtension() {
+      return "must-not-escape";
+    },
+  };
+  const openReceipt = deepFreeze({
+    kind: "leaf_invocation_receipt",
+    schemaVersion: "5.0.0",
+    computeRegime: "F_P",
+    candidate: openCandidate,
+    actorProcessExchange: exchange,
+  });
+  assert.equal(Object.isFrozen(openCandidate.mutableExtension), false);
+  const openOutput = await invokeLeafOwnerBoundary({
+    ...base,
+    loadImplementation: async () => async () => openReceipt,
+  });
+  assert.equal(openOutput.kind, "closed_leaf_owner_receipt");
+  assert.equal(
+    openOutput.candidate.resultCandidate.failureClass,
+    "malformed_return",
+  );
+  assert.equal(openOutput.receipt, null);
+  assert.equal(Object.hasOwn(openOutput.candidate, "mutableExtension"), false);
+  assert.doesNotMatch(JSON.stringify(openOutput), /must-not-escape/u);
+
   let implementationLoaded = false;
   const resolverThrown = await invokeLeafOwnerBoundary({
     ...base,

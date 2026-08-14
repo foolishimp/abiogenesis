@@ -1,7 +1,7 @@
 import { WORKER_TRANSPORT_FAILURE_CLASS_VALUES, admitEvidence, admitJudgment, admitResult, completeRejectedCCall, deriveProbabilisticTransportEvidence, replay, type AdmittedCCallJudgment, type AdmittedCCallEvidence, type AdmittedCCallResult, type CCall, type CCallEvidenceCandidate } from "../abg/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { admitProbabilisticResultCandidate } from "./probabilistic_result_admission.js";
+import { admitProbabilisticResultCandidate } from "../abg/probabilistic_result.js";
 import { proposeFailureJudgment, proposeJudgment } from "./judgment.js";
 import { basis, completeBlockedTraversal, completeRuntimeFailureTransition, type CompleteExecutableTraversalInput, type ExecutableTraversalCompletion } from "./execute.js";
 import type { ClosedLeafOwnerReceipt } from "../implementation/contracts.js";
@@ -49,7 +49,6 @@ export function admitLeafOutcome(
         occurrence,
         resolution: input.implementationResolution,
         input: input.input,
-        workerContracts: invocation.workerContracts!,
         request,
         observation,
       })

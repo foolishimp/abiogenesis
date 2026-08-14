@@ -26,20 +26,40 @@ export interface CompleteRecursionApplicationInput {
   readonly graphEntryInput: Readonly<Record<string, JsonValue>>;
   readonly graphEntryInputDigest: `sha256:${string}`;
   readonly leafOrdinal: number;
-  readonly evaluateChild: (
-    prepared: PreparedChildTraversal,
-    correlationId: string,
-  ) => Effect.Effect<ExecutableTraversalCompletion>;
   readonly fail: (
     stage: string,
     diagnosticRef: string,
     candidate: JsonValue,
-  ) => ExecutableTraversalCompletion;
+  ) => never;
 }
 
-export function completeRecursionApplication(
+export interface RecursionChildFoldFrame {
+  readonly kind: "recursion_child_fold_frame";
+  readonly parent: ExecuteGraphTraversalCommonInput;
+  readonly traversalInput: CompleteExecutableTraversalInput<Readonly<Record<string, JsonValue>>>;
+  readonly application: Readonly<RecurseApplication>;
+  readonly restored: ExecutableTraversalCompletion;
+  readonly restoration: RestoreDeferredRecursionInput;
+  readonly graphEntryInput: Readonly<Record<string, JsonValue>>;
+  readonly graphEntryInputDigest: `sha256:${string}`;
+  readonly leafOrdinal: number;
+  readonly prepared: PreparedChildTraversal;
+}
+
+export type RecursionApplicationStep =
+  | Readonly<{
+      kind: "recursion_completion";
+      completion: ExecutableTraversalCompletion;
+    }>
+  | Readonly<{
+      kind: "recursion_child_request";
+      frame: RecursionChildFoldFrame;
+      correlationId: string;
+    }>;
+
+export function beginRecursionApplication(
   input: CompleteRecursionApplicationInput,
-): Effect.Effect<ExecutableTraversalCompletion> {
+): Effect.Effect<RecursionApplicationStep> {
   return Effect.gen(function* () {
     const { parent, application, traversalInput, leafOrdinal } = input;
     const completion = input.completion;
@@ -88,20 +108,26 @@ export function completeRecursionApplication(
       correlationId: `${parent.correlationId}/recursion/${leafOrdinal}/${stage}`,
     });
     if (termination) {
-      return completeDeferredApplicationTerminal({
-        completion: restored,
-        restoration,
-        application,
-        clock: clock("terminal"),
-      });
+      return {
+        kind: "recursion_completion" as const,
+        completion: completeDeferredApplicationTerminal({
+          completion: restored,
+          restoration,
+          application,
+          clock: clock("terminal"),
+        }),
+      };
     }
     if (traversalInput.traversalStop.cursor.attempt >= application.bound) {
-      return blockDeferredRecursion({
-        completion: restored,
-        restoration,
-        application,
-        clock: clock("bound"),
-      });
+      return {
+        kind: "recursion_completion" as const,
+        completion: blockDeferredRecursion({
+          completion: restored,
+          restoration,
+          application,
+          clock: clock("bound"),
+        }),
+      };
     }
     if (
       parent.childTraversalPreparationPort === undefined ||
@@ -134,22 +160,58 @@ export function completeRecursionApplication(
       }),
     ));
     if (prepared.kind !== "prepared_child_traversal") {
-      return blockDeferredRecursionPreparation({
-        completion: restored,
-        restoration,
-        application,
-        preparationRefusal: prepared,
-        clock: clock("prepare-refusal"),
-      });
+      return {
+        kind: "recursion_completion" as const,
+        completion: blockDeferredRecursionPreparation({
+          completion: restored,
+          restoration,
+          application,
+          preparationRefusal: prepared,
+          clock: clock("prepare-refusal"),
+        }),
+      };
     }
-    const childCompletion = yield* input.evaluateChild(
+    return {
+      kind: "recursion_child_request" as const,
+      frame: {
+        kind: "recursion_child_fold_frame" as const,
+        parent,
+        traversalInput,
+        application,
+        restored,
+        restoration,
+        graphEntryInput: input.graphEntryInput,
+        graphEntryInputDigest: input.graphEntryInputDigest,
+        leafOrdinal,
+        prepared,
+      },
+      correlationId: clock("child").correlationId,
+    };
+  });
+}
+
+export function completeRecursionChild(
+  frame: RecursionChildFoldFrame,
+  childCompletion: ExecutableTraversalCompletion,
+): ExecutableTraversalCompletion {
+    const {
+      parent,
+      application,
+      restored,
+      restoration,
+      graphEntryInput,
+      graphEntryInputDigest,
+      leafOrdinal,
       prepared,
-      clock("child").correlationId,
-    );
+    } = frame;
+    const clock = (stage: string) => ({
+      eventTime: parent.eventTime,
+      correlationId: `${parent.correlationId}/recursion/${leafOrdinal}/${stage}`,
+    });
     if (childCompletion.disposition === "held") {
       return suspendHeldRecursionTraversal({
-        parentGraphInput: input.graphEntryInput,
-        parentGraphInputDigest: input.graphEntryInputDigest,
+        parentGraphInput: graphEntryInput,
+        parentGraphInputDigest: graphEntryInputDigest,
         application,
         deferredCompletion: restored,
         restoration,
@@ -174,5 +236,4 @@ export function completeRecursionApplication(
       childCompletion,
       clock: clock("foldback"),
     });
-  });
 }

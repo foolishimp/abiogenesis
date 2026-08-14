@@ -3,10 +3,8 @@ import { projectExecutableRetryInput } from "../abg/retry.js";
 import type { RecurseApplication } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import * as Effect from "effect/Effect";
-import type { PreparedChildTraversal } from "./child_traversal.js";
 import type {
   CompleteExecutableTraversalInput,
-  ExecutableTraversalCompletion,
 } from "./execute.js";
 import type {
   ExecuteGraphTraversalCommonInput,
@@ -17,7 +15,10 @@ import type {
   TraversalLocusEvaluation,
   TraversalLocusFailure,
 } from "./locus_evaluation.js";
-import { completeRecursionApplication } from "./recursion_execute.js";
+import {
+  beginRecursionApplication,
+  type RecursionChildFoldFrame,
+} from "./recursion_execute.js";
 import { admitProjectedRetryResume } from "./retry_resume_admission.js";
 import type { ExecutableTraversalStopRef } from "./traversal.js";
 
@@ -28,16 +29,26 @@ export interface EvaluateExecutableLocusInput {
   readonly graphEntryInput: Readonly<Record<string, JsonValue>>;
   readonly graphEntryInputDigest: `sha256:${string}`;
   readonly ordinal: number;
-  readonly evaluateRetry: (
-    resume: ProjectedRetryResumeSuccess,
-    correlationId: string,
-  ) => Effect.Effect<ExecutableTraversalCompletion>;
-  readonly evaluateChild: (
-    prepared: PreparedChildTraversal,
-    correlationId: string,
-  ) => Effect.Effect<ExecutableTraversalCompletion>;
   readonly fail: TraversalLocusFailure;
 }
+
+export type ExecutableLocusStep =
+  | Readonly<{
+      kind: "locus_evaluation";
+      evaluation: TraversalLocusEvaluation;
+    }>
+  | Readonly<{
+      kind: "retry_request";
+      resume: ProjectedRetryResumeSuccess;
+      correlationId: string;
+    }>
+  | Readonly<{
+      kind: "recursion_child_request";
+      frame: RecursionChildFoldFrame;
+      correlationId: string;
+      outputValueKind: string;
+      outputContractRef: string;
+    }>;
 
 function recursionApplication(
   runtime: ExecuteGraphTraversalCommonInput,
@@ -50,9 +61,9 @@ function recursionApplication(
   return selected?.relationKind === "recurse" ? selected : null;
 }
 
-export function evaluateExecutableLocus(
+export function beginExecutableLocus(
   input: EvaluateExecutableLocusInput,
-): Effect.Effect<TraversalLocusEvaluation> {
+): Effect.Effect<ExecutableLocusStep> {
   return Effect.gen(function* () {
     const { runtime, stop, ordinal } = input;
     const resolution = selectAdmittedImplementationResolution(
@@ -146,17 +157,15 @@ export function evaluateExecutableLocus(
         },
       });
       return {
-        completion: yield* input.evaluateRetry(
-          resumed,
+        kind: "retry_request" as const,
+        resume: resumed,
+        correlationId:
           `${runtime.correlationId}/retry/${retry.nextAttempt}/execute`,
-        ),
-        outputValueKind: null,
-        outputContractRef: null,
       };
     }
     let completion = leafResult;
     if (application !== null && completion.disposition === "application_ready") {
-      completion = yield* completeRecursionApplication({
+      const recursion = yield* beginRecursionApplication({
         parent: runtime,
         traversalInput,
         application,
@@ -164,14 +173,26 @@ export function evaluateExecutableLocus(
         graphEntryInput: input.graphEntryInput,
         graphEntryInputDigest: input.graphEntryInputDigest,
         leafOrdinal: ordinal,
-        evaluateChild: input.evaluateChild,
         fail: input.fail,
       });
+      if (recursion.kind === "recursion_child_request") {
+        return {
+          kind: "recursion_child_request" as const,
+          frame: recursion.frame,
+          correlationId: recursion.correlationId,
+          outputValueKind: outputKind,
+          outputContractRef: stop.outputContractRef,
+        };
+      }
+      completion = recursion.completion;
     }
     return {
-      completion,
-      outputValueKind: outputKind,
-      outputContractRef: stop.outputContractRef,
+      kind: "locus_evaluation" as const,
+      evaluation: {
+        completion,
+        outputValueKind: outputKind,
+        outputContractRef: stop.outputContractRef,
+      },
     };
   });
 }

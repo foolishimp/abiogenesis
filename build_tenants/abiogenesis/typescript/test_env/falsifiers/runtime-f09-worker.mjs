@@ -1626,7 +1626,7 @@ async function rejectAttempt(
     JSON.stringify(observation),
   );
   assert.notEqual(workerRequest, null);
-  const resultCarrier = installedHog.admitProbabilisticResultCandidate({
+  const resultCarrier = installedAbg.admitProbabilisticResultCandidate({
     leafPort,
     occurrence: {
       cCallRef: cCall.cCallRef,
@@ -1639,7 +1639,6 @@ async function rejectAttempt(
     },
     resolution: implementationResolution,
     input: inputValue,
-    workerContracts: contracts,
     request: workerRequest,
     observation,
   });

@@ -1,8 +1,8 @@
 import {
   validateActorProcessCarrierPair,
   type ActorProcessObservation,
-} from "../abg/actor_process.js";
-import type { AdmittedImplementationResolutionRow } from "../abg/execution_basis.js";
+} from "./actor_process.js";
+import type { AdmittedImplementationResolutionRow } from "./execution_basis.js";
 import type {
   LeafExecutionOccurrence,
   LeafInvocationPort,
@@ -23,10 +23,6 @@ import {
 } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isNonBlankRef } from "../shared/references.js";
-import {
-  isAdmittedLeafInvocationPort,
-  isAdmittedLeafInvocationResolution,
-} from "../implementation/leaf_invocation_port.js";
 
 export type ProbabilisticResultAdmissionRefusalCode =
   | IJsonAdmissionFailureCode
@@ -45,10 +41,6 @@ export interface ProbabilisticResultAdmissionInput {
   readonly occurrence: Readonly<LeafExecutionOccurrence>;
   readonly resolution: Readonly<AdmittedImplementationResolutionRow>;
   readonly input: Readonly<Record<string, JsonValue>>;
-  readonly workerContracts: Readonly<{
-    readonly instructionContractRef: string;
-    readonly resultContractRef: string;
-  }>;
   readonly request: Readonly<ProbabilisticWorkerRequest>;
   readonly observation: Readonly<ActorProcessObservation>;
 }
@@ -156,7 +148,6 @@ const ADMISSION_INPUT_FIELDS = Object.freeze([
   "occurrence",
   "request",
   "resolution",
-  "workerContracts",
 ]);
 
 const OCCURRENCE_FIELDS = Object.freeze([
@@ -231,11 +222,9 @@ export function admitProbabilisticResultCandidate(
     supplied.leafPort === null ||
     typeof supplied.resolution !== "object" ||
     supplied.resolution === null ||
-    !isAdmittedLeafInvocationPort(supplied.leafPort) ||
-    !isAdmittedLeafInvocationResolution(
-      supplied.leafPort,
-      supplied.resolution,
-    )
+    supplied.leafPort.kind !== "admitted_leaf_invocation_port" ||
+    typeof supplied.leafPort.verifyProbabilisticResultContractPreimage !==
+      "function"
   ) {
     return refusal(
       "unadmitted_contract_capability",
@@ -280,21 +269,6 @@ export function admitProbabilisticResultCandidate(
       "probabilistic result request differs from one exact F_P implementation resolution",
     );
   }
-  let inputContractValid = false;
-  try {
-    inputContractValid = supplied.leafPort.validateContractValueByRef(
-      supplied.resolution.inputContractRef,
-      admittedInput,
-    );
-  } catch {
-    inputContractValid = false;
-  }
-  if (!inputContractValid) {
-    return refusal(
-      "input_identity_mismatch",
-      "installed Product input contract refused the exact request input",
-    );
-  }
   if (
     occurrence.programLocusRef !==
       supplied.resolution.programLocusRef
@@ -305,12 +279,8 @@ export function admitProbabilisticResultCandidate(
     );
   }
   if (
-    request.resultContractRef !== supplied.workerContracts.resultContractRef ||
-    observation.resultContractRef !== supplied.workerContracts.resultContractRef ||
-    request.instructionContractRef !==
-      supplied.workerContracts.instructionContractRef ||
-    observation.instructionContractRef !==
-      supplied.workerContracts.instructionContractRef
+    request.resultContractRef !== observation.resultContractRef ||
+    request.instructionContractRef !== observation.instructionContractRef
   ) {
     return refusal(
       "contract_identity_mismatch",
@@ -382,20 +352,52 @@ export function admitProbabilisticResultCandidate(
       "observed output digest differs from the exact admitted raw object",
     );
   }
-  let rawContractValid = false;
+  let contractPreimage: ReturnType<
+    LeafInvocationPort["verifyProbabilisticResultContractPreimage"]
+  >;
   try {
-    rawContractValid = supplied.leafPort.validateContractValueByRef(
-      supplied.workerContracts.resultContractRef,
-      value,
-    );
+    contractPreimage = supplied.leafPort
+      .verifyProbabilisticResultContractPreimage({
+        resolution: supplied.resolution,
+        input: admittedInput,
+        inputDigest,
+        instructionContractRef: request.instructionContractRef,
+        rawResultContractRef: request.resultContractRef,
+        rawResult: value,
+      });
   } catch {
-    rawContractValid = false;
-  }
-  if (!rawContractValid) {
     return refusal(
-      "declared_contract_refused",
-      "installed Product result contract refused the raw object",
+      "unadmitted_contract_capability",
+      "installed implementation owner contract verification raised an exception",
     );
+  }
+  if (
+    contractPreimage.kind ===
+      "probabilistic_result_contract_preimage_refusal"
+  ) {
+    switch (contractPreimage.code) {
+      case "contract_identity_mismatch":
+        return refusal(
+          "contract_identity_mismatch",
+          "request and observation contracts differ from the exact installed Product relation",
+        );
+      case "input_contract_refused":
+        return refusal(
+          "input_identity_mismatch",
+          "installed Product input contract refused the exact request input",
+        );
+      case "result_contract_refused":
+        return refusal(
+          "declared_contract_refused",
+          "installed Product result contract refused the raw object",
+        );
+      case "owner_boundary_exception":
+      case "unadmitted_resolution":
+        return refusal(
+          "unadmitted_contract_capability",
+          "probabilistic result admission requires one exact admitted implementation-owner preimage",
+        );
+    }
   }
   const requestDigest = sha256Canonical(request as unknown as JsonValue);
   const observationDigest = sha256Canonical(
@@ -404,13 +406,26 @@ export function admitProbabilisticResultCandidate(
   const implementationResolutionDigest = sha256Canonical(
     supplied.resolution as unknown as JsonValue,
   );
+  if (
+    contractPreimage.implementationResolutionDigest !==
+      implementationResolutionDigest ||
+    contractPreimage.implementationRef !== supplied.resolution.implementationRef ||
+    contractPreimage.inputContractRef !== supplied.resolution.inputContractRef ||
+    contractPreimage.targetOutputContractRef !==
+      supplied.resolution.outputContractRef ||
+    contractPreimage.instructionContractRef !==
+      request.instructionContractRef ||
+    contractPreimage.rawResultContractRef !== request.resultContractRef ||
+    contractPreimage.inputDigest !== inputDigest ||
+    contractPreimage.rawResultDigest !== valueDigest
+  ) {
+    return refusal(
+      "unadmitted_contract_capability",
+      "implementation-owner preimage differs from the exact admission basis",
+    );
+  }
   const body = deepFreeze({
-    contractCapabilityBasis: {
-      installId: supplied.leafPort.installId,
-      implementationSetRef: supplied.leafPort.implementationSetRef,
-      implementationSetDigest: supplied.leafPort.implementationSetDigest,
-      publicationDigest: supplied.leafPort.publicationDigest,
-    },
+    contractCapabilityBasis: contractPreimage.contractCapabilityBasis,
     occurrence,
     requestRef:
       `probabilistic-request://abiogenesis/${requestDigest.slice("sha256:".length)}`,
@@ -423,9 +438,9 @@ export function admitProbabilisticResultCandidate(
       `implementation-resolution-row://abiogenesis/${implementationResolutionDigest.slice("sha256:".length)}`,
     implementationResolutionDigest,
     inputDigest,
-    instructionContractRef: supplied.workerContracts.instructionContractRef,
-    rawResultContractRef: supplied.workerContracts.resultContractRef,
-    targetOutputContractRef: supplied.resolution.outputContractRef,
+    instructionContractRef: contractPreimage.instructionContractRef,
+    rawResultContractRef: contractPreimage.rawResultContractRef,
+    targetOutputContractRef: contractPreimage.targetOutputContractRef,
     processRef: observation.processRef,
     transportBindingRef: observation.transportBindingRef,
     transportBindingDigest: observation.transportBindingDigest,

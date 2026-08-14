@@ -225,7 +225,7 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
   assert.equal(installedPackage.bundleDependencies.includes("jsonc-parser"), true);
   assert.equal(bundledParser.version, "3.3.1");
 
-  const admit = environment.hog.admitProbabilisticResultCandidate;
+  const admit = environment.abg.admitProbabilisticResultCandidate;
   assert.equal(typeof admit, "function");
   const basis = constructBasis(environment, JSON.stringify(validResult()));
   assert.equal(Object.hasOwn(basis, "resultPredicateRef"), false);
@@ -508,6 +508,22 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
   assert.equal(Object.isFrozen(accepted.contractCapabilityBasis), true);
   assert.deepEqual(environment.store.readAll(), beforeEvents);
 
+  const reconstructedResolution = structuredClone(basis.resolution);
+  const reconstructed = admit({
+    ...basis,
+    resolution: reconstructedResolution,
+  });
+  assert.equal(
+    reconstructed.kind,
+    "contract_admitted_probabilistic_result_candidate",
+    JSON.stringify(reconstructed),
+  );
+  assert.deepEqual(
+    reconstructed,
+    accepted,
+    "an independently reconstructed equal resolution joins by canonical identity",
+  );
+
   const copiedPort = admit({ ...basis, leafPort: { ...basis.leafPort } });
   assertRefusal(copiedPort, "unadmitted_contract_capability");
   const repeated = admit(basis);
@@ -515,7 +531,7 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
   assert.deepEqual(environment.store.readAll(), beforeEvents);
   assert.equal(
     Object.hasOwn(
-      environment.hog,
+      environment.abg,
       "isContractAdmittedProbabilisticResultCandidate",
     ),
     false,
@@ -692,11 +708,22 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
     [{ resultPredicateRef: "predicate://t287/f04a/forbidden@5" }, "request_basis_mismatch"],
     [{ request: { ...basis.request, undeclared: true } }, "request_basis_mismatch"],
     [{ occurrence: { ...basis.occurrence, undeclared: true } }, "request_basis_mismatch"],
-    [{ resolution: { ...basis.resolution } }, "unadmitted_contract_capability"],
     [{
       request: {
         ...basis.request,
         resultContractRef: "contract://t287/f04a/wrong@5",
+      },
+    }, "contract_identity_mismatch"],
+    [{
+      request: {
+        ...basis.request,
+        instructionContractRef: "contract://t287/f04a/forged-instruction@5",
+        resultContractRef: "contract://t287/f04a/forged-result@5",
+      },
+      observation: {
+        ...basis.observation,
+        instructionContractRef: "contract://t287/f04a/forged-instruction@5",
+        resultContractRef: "contract://t287/f04a/forged-result@5",
       },
     }, "contract_identity_mismatch"],
     [{

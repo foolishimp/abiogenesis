@@ -42,7 +42,6 @@ import type {
 } from "../gtl/contracts.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
-import { lookupGraphFunctionDefinition } from "../product/catalog.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { GraphValidation } from "../validator/graph.js";
@@ -59,9 +58,21 @@ import {
   deriveDirectCStepFromGraph,
   type DirectCTraversalStep,
 } from "./direct_fold.js";
-import { evaluateWorkflowLocus } from "./workflow_locus.js";
+import {
+  beginWorkflowLocus,
+  completeWorkflowLocus,
+  type WorkflowChildFoldFrame,
+  type WorkflowLocusStep,
+} from "./workflow_locus.js";
 import { evaluateInteractionLocus } from "./interaction_locus.js";
-import { evaluateExecutableLocus } from "./executable_locus.js";
+import {
+  beginExecutableLocus,
+  type ExecutableLocusStep,
+} from "./executable_locus.js";
+import {
+  completeRecursionChild,
+  type RecursionChildFoldFrame,
+} from "./recursion_execute.js";
 import type { TraversalLocusEvaluation } from "./locus_evaluation.js";
 import {
   type ChildTraversalPreparationPort,
@@ -549,22 +560,61 @@ interface ReprojectedProjectedRetryResume {
   readonly executionBasis: ExecutionBasis;
 }
 
-interface ActiveTraversalFoldState {
-  readonly stateKind: "active";
+interface TraversalEvaluationFrame {
+  readonly runtime: ExecuteGraphTraversalInput;
+  readonly graphEntryInput: Readonly<Record<string, JsonValue>>;
+  readonly graphEntryInputDigest: `sha256:${string}`;
   readonly cursor: TraversalCursor;
   readonly input: Readonly<Record<string, JsonValue>>;
   readonly ordinal: number;
   readonly structuralOrdinal: number;
 }
 
-interface CompletedTraversalFoldState {
-  readonly stateKind: "completed";
+interface WorkflowReturnFoldFrame {
+  readonly kind: "workflow_return";
+  readonly parent: TraversalEvaluationFrame;
+  readonly workflow: WorkflowChildFoldFrame;
+}
+
+interface RecursionReturnFoldFrame {
+  readonly kind: "recursion_return";
+  readonly parent: TraversalEvaluationFrame;
+  readonly recursion: RecursionChildFoldFrame;
+  readonly outputValueKind: string;
+  readonly outputContractRef: string;
+}
+
+type TraversalReturnFoldFrame =
+  | WorkflowReturnFoldFrame
+  | RecursionReturnFoldFrame;
+
+interface EvaluateTraversalFoldState {
+  readonly stateKind: "evaluate";
+  readonly frame: TraversalEvaluationFrame;
+  readonly returns: readonly TraversalReturnFoldFrame[];
+}
+
+interface ReturnTraversalFoldState {
+  readonly stateKind: "return";
+  readonly completion: ExecutableTraversalCompletion;
+  readonly returns: readonly TraversalReturnFoldFrame[];
+}
+
+interface DoneTraversalFoldState {
+  readonly stateKind: "done";
   readonly completion: ExecutableTraversalCompletion;
 }
 
 type TraversalFoldState =
-  | ActiveTraversalFoldState
-  | CompletedTraversalFoldState;
+  | EvaluateTraversalFoldState
+  | ReturnTraversalFoldState
+  | DoneTraversalFoldState;
+
+type OpenTraversalFoldState =
+  | EvaluateTraversalFoldState
+  | ReturnTraversalFoldState;
+
+type TraversalLocusStep = WorkflowLocusStep | ExecutableLocusStep;
 
 function reprojectProjectedRetryResume(
   input: ExecuteGraphTraversalCommonInput,
@@ -685,10 +735,9 @@ function reprojectProjectedRetryResume(
   }
 }
 
-function graphTraversalEffect(
+function initializeTraversalEvaluationFrame(
   input: ExecuteGraphTraversalInput,
-): Effect.Effect<ExecutableTraversalCompletion> {
-  return Effect.suspend(() => Effect.gen(function* () {
+): TraversalEvaluationFrame {
   const projectedBranch = Object.hasOwn(input, "projectedRetryResume");
   const initialInput = projectedBranch
     ? null
@@ -788,30 +837,6 @@ function graphTraversalEffect(
       { implementationSetRef: input.implementationSet.implementationSetRef },
     );
   }
-  if (input.continuationProductBasis !== undefined) {
-    const selected = lookupGraphFunctionDefinition(
-      input.continuationProductBasis.catalogView,
-      input.graphFunction.name,
-      input.program.programRef,
-    );
-    if (
-      selected.kind !== "graph_function_definition_lookup_exact" ||
-      selected.entry.definitionRef !== input.graphFunction.name ||
-      selected.entry.definitionDigest !==
-        sha256Canonical(input.graphFunction as unknown as JsonValue) ||
-      !selected.entry.programMembershipRefs.includes(input.program.programRef)
-    ) {
-      return fail(
-        input,
-        "catalog-selection",
-        "diagnostic://abiogenesis/hog/catalog-selection-mismatch@5",
-        {
-          graphFunctionRef: input.graphFunction.name,
-          lookupDisposition: selected.kind,
-        },
-      );
-    }
-  }
   let stop: TraverseResult;
   let resumedCursor: TraversalCursor | undefined = projectedCursor ?? undefined;
   let currentInput: Readonly<Record<string, JsonValue>>;
@@ -908,17 +933,100 @@ function graphTraversalEffect(
     }
   }
 
+  return {
+    runtime: input,
+    graphEntryInput,
+    graphEntryInputDigest,
+    cursor: initialCursor,
+    input: currentInput,
+    ordinal: 0,
+    structuralOrdinal: 0,
+  };
+}
+
+function continueTraversalFold(
+  frame: TraversalEvaluationFrame,
+  evaluation: TraversalLocusEvaluation,
+  returns: readonly TraversalReturnFoldFrame[],
+): TraversalFoldState {
+  const runtime = frame.runtime;
+  const completion = evaluation.completion;
+  if (completion.disposition !== "advanced") {
+    return {
+      stateKind: "return",
+      completion,
+      returns,
+    };
+  }
+  const nextMaterializedInput = materializedInputAtCursor(
+    runtime.graph,
+    completion.nextCursor,
+  );
+  if (
+    completion.nextCursor === null ||
+    completion.continuationKind === null ||
+    completion.nextInputContractRef === null ||
+    evaluation.outputValueKind === null ||
+    evaluation.outputContractRef === null ||
+    (nextMaterializedInput === null &&
+      (typeof completion.resultValue !== "object" ||
+        completion.resultValue === null ||
+        Array.isArray(completion.resultValue))) ||
+    (nextMaterializedInput === null &&
+      (completion.continuationKind === "retry"
+        ? completion.nextCursor.inputRef.length === 0 ||
+          completion.nextCursor.inputDigest !==
+            sha256Canonical(completion.resultValue)
+        : !runtime.leafPort.validateContractValue(
+            completion.nextInputContractRef,
+            "output",
+            completion.resultValue,
+          )))
+  ) {
+    return fail(
+      runtime,
+      `advanced-result-${frame.ordinal}`,
+      "diagnostic://abiogenesis/hog/advanced-result-basis-absent@5",
+      {
+        leafOrdinal: frame.ordinal,
+        completionDisposition: completion.disposition,
+      },
+    );
+  }
+  const nextInput = nextMaterializedInput?.value ??
+    completion.resultValue as Readonly<Record<string, JsonValue>>;
+  return {
+    stateKind: "evaluate",
+    frame: {
+      ...frame,
+      cursor: completion.nextCursor,
+      input: nextInput,
+      ordinal: frame.ordinal + 1,
+      structuralOrdinal: 0,
+    },
+    returns,
+  };
+}
+
+function graphTraversalEffect(
+  input: ExecuteGraphTraversalInput,
+): Effect.Effect<ExecutableTraversalCompletion> {
+  return Effect.suspend(() => Effect.gen(function* () {
+  const initialFrame = initializeTraversalEvaluationFrame(input);
+
   const evaluateLocusOnce = (
+    runtimeFrame: TraversalEvaluationFrame,
     cursor: TraversalCursor,
     directStep: DirectCTraversalStep,
     currentValue: Readonly<Record<string, JsonValue>>,
     leafOrdinal: number,
-  ): Effect.Effect<TraversalLocusEvaluation> => Effect.suspend(() => {
+  ): Effect.Effect<TraversalLocusStep> => Effect.suspend(() => {
+    const runtime = runtimeFrame.runtime;
     const failLocus = (
       stage: string,
       diagnosticRef: string,
       candidate: JsonValue,
-    ): never => fail(input, stage, diagnosticRef, candidate);
+    ): never => fail(runtime, stage, diagnosticRef, candidate);
     if (directStep.stepKind === "enter_child") {
       if (!isExactLocusStep(cursor, directStep)) {
         return failLocus(
@@ -927,22 +1035,15 @@ function graphTraversalEffect(
           cursor as unknown as JsonValue,
         );
       }
-      return evaluateWorkflowLocus({
-        runtime: input,
+      return beginWorkflowLocus({
+        runtime,
         cursor,
         value: currentValue,
-        graphEntryInput,
-        graphEntryInputDigest,
+        graphEntryInput: runtimeFrame.graphEntryInput,
+        graphEntryInputDigest: runtimeFrame.graphEntryInputDigest,
         ordinal: leafOrdinal,
-        evaluateChild: (prepared, correlationId, deferFailedRunStop) =>
-          graphTraversalEffect(preparedChildTraversalInput(
-            input,
-            prepared,
-            correlationId,
-            deferFailedRunStop,
-          )),
         fail: failLocus,
-      });
+      }) as Effect.Effect<TraversalLocusStep>;
     }
     if (directStep.stepKind !== "open_leaf") {
       return failLocus(
@@ -951,7 +1052,7 @@ function graphTraversalEffect(
         cursor as unknown as JsonValue,
       );
     }
-    const currentStop = traversalAtCursor(input, cursor, directStep);
+    const currentStop = traversalAtCursor(runtime, cursor, directStep);
     if (
       currentStop.kind !== "traversal_stop_ref" ||
       !isExactLocusStep(currentStop, directStep)
@@ -970,13 +1071,16 @@ function graphTraversalEffect(
           currentStop as unknown as JsonValue,
         );
       }
-      return Effect.sync(() => evaluateInteractionLocus({
-        runtime: input,
-        stop: currentStop,
-        value: currentValue,
-        ordinal: leafOrdinal,
-        fail: failLocus,
-      }));
+      return Effect.sync(() => ({
+        kind: "locus_evaluation" as const,
+        evaluation: evaluateInteractionLocus({
+          runtime,
+          stop: currentStop,
+          value: currentValue,
+          ordinal: leafOrdinal,
+          fail: failLocus,
+        }),
+      })) as Effect.Effect<TraversalLocusStep>;
     }
     if (currentStop.stopClass !== "executable") {
       return failLocus(
@@ -985,167 +1089,212 @@ function graphTraversalEffect(
         currentStop as unknown as JsonValue,
       );
     }
-    return evaluateExecutableLocus({
-      runtime: input,
+    return beginExecutableLocus({
+      runtime,
       stop: currentStop,
       value: currentValue,
-      graphEntryInput,
-      graphEntryInputDigest,
+      graphEntryInput: runtimeFrame.graphEntryInput,
+      graphEntryInputDigest: runtimeFrame.graphEntryInputDigest,
       ordinal: leafOrdinal,
-      evaluateRetry: (resume, correlationId) =>
-        graphTraversalEffect(projectedRetryTraversalInput(
-          input,
-          resume,
-          correlationId,
-        )),
-      evaluateChild: (prepared, correlationId) =>
-        graphTraversalEffect(preparedChildTraversalInput(
-          input,
-          prepared,
-          correlationId,
-          input.deferFailedRunStop === true,
-        )),
       fail: failLocus,
-    });
+    }) as Effect.Effect<TraversalLocusStep>;
   });
   const initialFoldState: TraversalFoldState = {
-    stateKind: "active",
-    cursor: initialCursor,
-    input: currentInput,
-    ordinal: 0,
-    structuralOrdinal: 0,
+    stateKind: "evaluate",
+    frame: initialFrame,
+    returns: [],
   };
   const folded = yield* Effect.iterate<
     TraversalFoldState,
-    ActiveTraversalFoldState,
+    OpenTraversalFoldState,
     never,
     never
   >(
     initialFoldState,
     {
-      while: (state): state is ActiveTraversalFoldState =>
-        state.stateKind === "active",
+      while: (state): state is OpenTraversalFoldState =>
+        state.stateKind !== "done",
       body: (state): Effect.Effect<TraversalFoldState> =>
         Effect.suspend(() => Effect.gen(function* () {
-        const directStep = deriveDirectCStepFromGraph(input.graph.template, {
-          nodeRef: state.cursor.currentNodeRef,
-          termPath: state.cursor.termPath,
-          taskOrdinal: state.cursor.taskOrdinal,
-          attempt: state.cursor.attempt,
-          retryPath: state.cursor.retryPath,
-        });
-        if (directStep.kind === "direct_c_traversal_refusal") {
-          return fail(
-            input,
-            `direct-step-${state.ordinal}`,
-            `diagnostic://abiogenesis/hog/${directStep.code}@5`,
-            directStep as unknown as JsonValue,
-          );
-        }
-        if (
-          directStep.stepKind !== "open_leaf" &&
-          directStep.stepKind !== "enter_child"
-        ) {
-          const structural = yield* advanceStructuralTraversal({
-            store: input.store,
-            program: input.program,
-            graphFunction: input.graphFunction,
-            graph: input.graph,
-            graphValidation: input.graphValidation,
-            executionBasis: input.executionBasis,
-            openedTraversalScope: input.openedTraversalScope,
-            initial: state.cursor,
-            step: directStep,
-            inputValue: state.input,
-            inputAuthority: input.leafPort,
-            routeOrdinal: state.structuralOrdinal,
-            clock: {
-              eventTime: input.eventTime,
-              correlationId:
-                `${input.correlationId}/structural/${state.ordinal}`,
-            },
-          });
-          if (
-            structural.kind !== "traversal_cursor" ||
-            structural.cursorRef === state.cursor.cursorRef
-          ) {
-            return fail(
-              input,
-              `structural-step-${state.ordinal}`,
-              "diagnostic://abiogenesis/hog/structural-step-refused@5",
-              structural as unknown as JsonValue,
+          if (state.stateKind === "return") {
+            const continuation = state.returns.at(-1);
+            if (continuation === undefined) {
+              return {
+                stateKind: "done" as const,
+                completion: state.completion,
+              };
+            }
+            const remaining = state.returns.slice(0, -1);
+            const parentRuntime = continuation.parent.runtime;
+            const failLocus = (
+              stage: string,
+              diagnosticRef: string,
+              candidate: JsonValue,
+            ): never => fail(parentRuntime, stage, diagnosticRef, candidate);
+            if (continuation.kind === "workflow_return") {
+              return continueTraversalFold(
+                continuation.parent,
+                completeWorkflowLocus(
+                  continuation.workflow,
+                  state.completion,
+                  failLocus,
+                ),
+                remaining,
+              );
+            }
+            const completion = completeRecursionChild(
+              continuation.recursion,
+              state.completion,
+            );
+            return continueTraversalFold(
+              continuation.parent,
+              {
+                completion,
+                outputValueKind: continuation.outputValueKind,
+                outputContractRef: continuation.outputContractRef,
+              },
+              remaining,
             );
           }
-          return {
-            stateKind: "active" as const,
-            cursor: structural,
-            input: materializedInputAtCursor(input.graph, structural)?.value ??
-              state.input,
-            ordinal: state.ordinal,
-            structuralOrdinal: state.structuralOrdinal + 1,
-          };
-        }
-        const evaluated = yield* evaluateLocusOnce(
-          state.cursor,
-          directStep,
-          state.input,
-          state.ordinal,
-        );
-        const completion = evaluated.completion;
-        if (completion.disposition !== "advanced") {
-          return {
-            stateKind: "completed" as const,
-            completion,
-          };
-        }
-        const nextMaterializedInput = materializedInputAtCursor(
-          input.graph,
-          completion.nextCursor,
-        );
-        if (
-          completion.nextCursor === null ||
-          completion.continuationKind === null ||
-          completion.nextInputContractRef === null ||
-          evaluated.outputValueKind === null ||
-          evaluated.outputContractRef === null ||
-          (nextMaterializedInput === null &&
-            (typeof completion.resultValue !== "object" ||
-              completion.resultValue === null ||
-              Array.isArray(completion.resultValue))) ||
-          (nextMaterializedInput === null &&
-            (completion.continuationKind === "retry"
-              ? completion.nextCursor.inputRef.length === 0 ||
-                completion.nextCursor.inputDigest !==
-                  sha256Canonical(completion.resultValue)
-              : !input.leafPort.validateContractValue(
-                  completion.nextInputContractRef,
-                  "output",
-                  completion.resultValue,
-                )))
-        ) {
-          return fail(
-            input,
-            `advanced-result-${state.ordinal}`,
-            "diagnostic://abiogenesis/hog/advanced-result-basis-absent@5",
-            {
-              leafOrdinal: state.ordinal,
-              completionDisposition: completion.disposition,
-            },
+
+          const frame = state.frame;
+          const runtime = frame.runtime;
+          const directStep = deriveDirectCStepFromGraph(runtime.graph.template, {
+            nodeRef: frame.cursor.currentNodeRef,
+            termPath: frame.cursor.termPath,
+            taskOrdinal: frame.cursor.taskOrdinal,
+            attempt: frame.cursor.attempt,
+            retryPath: frame.cursor.retryPath,
+          });
+          if (directStep.kind === "direct_c_traversal_refusal") {
+            return fail(
+              runtime,
+              `direct-step-${frame.ordinal}`,
+              `diagnostic://abiogenesis/hog/${directStep.code}@5`,
+              directStep as unknown as JsonValue,
+            );
+          }
+          if (
+            directStep.stepKind !== "open_leaf" &&
+            directStep.stepKind !== "enter_child"
+          ) {
+            const structural = yield* advanceStructuralTraversal({
+              store: runtime.store,
+              program: runtime.program,
+              graphFunction: runtime.graphFunction,
+              graph: runtime.graph,
+              graphValidation: runtime.graphValidation,
+              executionBasis: runtime.executionBasis,
+              openedTraversalScope: runtime.openedTraversalScope,
+              initial: frame.cursor,
+              step: directStep,
+              inputValue: frame.input,
+              inputAuthority: runtime.leafPort,
+              routeOrdinal: frame.structuralOrdinal,
+              clock: {
+                eventTime: runtime.eventTime,
+                correlationId:
+                  `${runtime.correlationId}/structural/${frame.ordinal}`,
+              },
+            });
+            if (
+              structural.kind !== "traversal_cursor" ||
+              structural.cursorRef === frame.cursor.cursorRef
+            ) {
+              return fail(
+                runtime,
+                `structural-step-${frame.ordinal}`,
+                "diagnostic://abiogenesis/hog/structural-step-refused@5",
+                structural as unknown as JsonValue,
+              );
+            }
+            return {
+              stateKind: "evaluate" as const,
+              frame: {
+                ...frame,
+                cursor: structural,
+                input: materializedInputAtCursor(
+                  runtime.graph,
+                  structural,
+                )?.value ?? frame.input,
+                structuralOrdinal: frame.structuralOrdinal + 1,
+              },
+              returns: state.returns,
+            };
+          }
+          const locus = yield* evaluateLocusOnce(
+            frame,
+            frame.cursor,
+            directStep,
+            frame.input,
+            frame.ordinal,
           );
-        }
-        const nextInput = nextMaterializedInput?.value ??
-          completion.resultValue as Readonly<Record<string, JsonValue>>;
-        return {
-          stateKind: "active" as const,
-          cursor: completion.nextCursor,
-          input: nextInput,
-          ordinal: state.ordinal + 1,
-          structuralOrdinal: 0,
-        };
+          if (locus.kind === "locus_evaluation") {
+            return continueTraversalFold(
+              frame,
+              locus.evaluation,
+              state.returns,
+            );
+          }
+          if (locus.kind === "retry_request") {
+            return {
+              stateKind: "evaluate" as const,
+              frame: initializeTraversalEvaluationFrame(
+                projectedRetryTraversalInput(
+                  runtime,
+                  locus.resume,
+                  locus.correlationId,
+                ),
+              ),
+              returns: state.returns,
+            };
+          }
+          if (locus.kind === "workflow_child_request") {
+            return {
+              stateKind: "evaluate" as const,
+              frame: initializeTraversalEvaluationFrame(
+                preparedChildTraversalInput(
+                  runtime,
+                  locus.frame.prepared,
+                  locus.correlationId,
+                  locus.deferFailedRunStop,
+                ),
+              ),
+              returns: [
+                ...state.returns,
+                {
+                  kind: "workflow_return" as const,
+                  parent: frame,
+                  workflow: locus.frame,
+                },
+              ],
+            };
+          }
+          return {
+            stateKind: "evaluate" as const,
+            frame: initializeTraversalEvaluationFrame(
+              preparedChildTraversalInput(
+                runtime,
+                locus.frame.prepared,
+                locus.correlationId,
+                runtime.deferFailedRunStop === true,
+              ),
+            ),
+            returns: [
+              ...state.returns,
+              {
+                kind: "recursion_return" as const,
+                parent: frame,
+                recursion: locus.frame,
+                outputValueKind: locus.outputValueKind,
+                outputContractRef: locus.outputContractRef,
+              },
+            ],
+          };
         })),
     },
   );
-  if (folded.stateKind !== "completed") {
+  if (folded.stateKind !== "done") {
     return fail(
       input,
       "fold-incomplete",
@@ -1205,7 +1354,6 @@ function resumeParentAfterChild(
       ...parent,
       input: parentGraphInput,
       inputDigest: parentGraphInputDigest,
-      correlationId: `${parent.correlationId}/parent`,
       resume: {
         cursor: completion.nextCursor,
         input: nextInput,

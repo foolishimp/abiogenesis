@@ -166,8 +166,46 @@ export interface LeafInvocationResolution {
   readonly namedSymbol: string;
 }
 
+export interface VerifiedProbabilisticResultContractPreimage {
+  readonly kind: "verified_probabilistic_result_contract_preimage";
+  readonly schemaVersion: "5.0.0";
+  readonly verificationRef: string;
+  readonly verificationDigest: Sha256Digest;
+  readonly contractCapabilityBasis: Readonly<{
+    readonly installId: string;
+    readonly implementationSetRef: string;
+    readonly implementationSetDigest: Sha256Digest;
+    readonly publicationDigest: Sha256Digest;
+  }>;
+  readonly implementationResolutionDigest: Sha256Digest;
+  readonly implementationRef: string;
+  readonly inputContractRef: string;
+  readonly targetOutputContractRef: string;
+  readonly instructionContractRef: string;
+  readonly rawResultContractRef: string;
+  readonly inputDigest: Sha256Digest;
+  readonly rawResultDigest: Sha256Digest;
+}
+
+export interface ProbabilisticResultContractPreimageRefusal {
+  readonly kind: "probabilistic_result_contract_preimage_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly code:
+    | "contract_identity_mismatch"
+    | "input_contract_refused"
+    | "owner_boundary_exception"
+    | "result_contract_refused"
+    | "unadmitted_resolution";
+  readonly diagnosticRef: string;
+}
+
+export type ProbabilisticResultContractPreimageVerification =
+  | VerifiedProbabilisticResultContractPreimage
+  | ProbabilisticResultContractPreimageRefusal;
+
 export interface LeafInvocationPort {
   readonly kind: "admitted_leaf_invocation_port";
+  readonly isExactLoadedCapability: () => boolean;
   readonly installId: string;
   readonly implementationSetRef: string;
   readonly implementationSetDigest: Sha256Digest;
@@ -202,6 +240,16 @@ export interface LeafInvocationPort {
     value: Readonly<Record<string, JsonValue>>,
     admittedEvidence: readonly Readonly<Record<string, JsonValue>>[],
   ) => boolean;
+  readonly verifyProbabilisticResultContractPreimage: (
+    input: Readonly<{
+      readonly resolution: Readonly<LeafInvocationResolution>;
+      readonly input: Readonly<Record<string, JsonValue>>;
+      readonly inputDigest: Sha256Digest;
+      readonly instructionContractRef: string;
+      readonly rawResultContractRef: string;
+      readonly rawResult: Readonly<Record<string, JsonValue>>;
+    }>,
+  ) => Readonly<ProbabilisticResultContractPreimageVerification>;
   readonly invoke: (
     call: Readonly<{
       resolution: Readonly<LeafInvocationResolution>;

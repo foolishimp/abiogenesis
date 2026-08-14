@@ -408,6 +408,14 @@ export {
   type ActorRuntimeBinding,
 } from "./actor_process.js";
 export {
+  admitProbabilisticResultCandidate,
+  type ContractAdmittedProbabilisticResultCandidate,
+  type ProbabilisticResultAdmissionInput,
+  type ProbabilisticResultAdmissionRefusal,
+  type ProbabilisticResultAdmissionRefusalCode,
+  type ProbabilisticResultAdmissionResult,
+} from "./probabilistic_result.js";
+export {
   TRANSPORT_PROTOCOL_OWNED_FLAGS,
   WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
   classifyWorkerTransportFailure,

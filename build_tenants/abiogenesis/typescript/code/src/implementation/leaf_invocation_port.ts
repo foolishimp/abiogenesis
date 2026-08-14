@@ -15,6 +15,7 @@ import {
 } from "../product/semantics.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
+import { admitIJsonValue } from "../shared/i_json.js";
 import { validateActorProcessCarrierPair } from "../abg/actor_process.js";
 import type {
   ClosedLeafInvocationReceipt,
@@ -26,6 +27,8 @@ import type {
   LeafRealizationCandidate,
   ProbabilisticLeafEffectPort,
   ProbabilisticLeafInvocationReceipt,
+  ProbabilisticResultContractPreimageRefusal,
+  ProbabilisticResultContractPreimageVerification,
 } from "./contracts.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 
@@ -74,8 +77,33 @@ function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function hasExactDataFields(
+  value: Readonly<Record<string, unknown>>,
+  fields: readonly string[],
+): boolean {
+  const keys = Reflect.ownKeys(value);
+  if (keys.some((key) => typeof key !== "string")) return false;
+  const actual = (keys as string[]).sort();
+  const expected = [...fields].sort();
+  return actual.length === expected.length &&
+    actual.every((key, index) => key === expected[index]) &&
+    actual.every((key) => {
+      const descriptor = Object.getOwnPropertyDescriptor(value, key);
+      return descriptor !== undefined &&
+        Object.hasOwn(descriptor, "value") &&
+        descriptor.enumerable === true;
+    });
+}
+
 function isDeterministicEvidenceCandidate(value: unknown): boolean {
   return isRecord(value) &&
+    hasExactDataFields(value, [
+      "implementationRef",
+      "inputDigest",
+      "kind",
+      "outputDigest",
+      "schemaVersion",
+    ]) &&
     value.kind === "deterministic_evidence_candidate" &&
     value.schemaVersion === "5.0.0" &&
     typeof value.implementationRef === "string" &&
@@ -92,6 +120,25 @@ function isLeafRealizationCandidate(
   failureValueKind: string,
 ): value is Readonly<LeafRealizationCandidate> {
   if (!isRecord(value) || !Array.isArray(value.evidenceCandidates)) return false;
+  if (!hasExactDataFields(
+    value,
+    value.disposition === "failure"
+      ? [
+        "diagnosticRef",
+        "disposition",
+        "evidenceCandidates",
+        "kind",
+        "resultCandidate",
+        "schemaVersion",
+      ]
+      : [
+        "disposition",
+        "evidenceCandidates",
+        "kind",
+        "resultCandidate",
+        "schemaVersion",
+      ],
+  )) return false;
   const evidence = Array.from(value.evidenceCandidates);
   return value.kind === "leaf_realization_candidate" &&
     value.schemaVersion === "5.0.0" &&
@@ -203,6 +250,18 @@ function ownerRefusal(
 
 type WorkerContracts = NonNullable<ClosedLeafOwnerReceipt["workerContracts"]>;
 
+function preimageRefusal(
+  code: ProbabilisticResultContractPreimageRefusal["code"],
+): Readonly<ProbabilisticResultContractPreimageRefusal> {
+  return deepFreeze({
+    kind: "probabilistic_result_contract_preimage_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    code,
+    diagnosticRef:
+      `diagnostic://abiogenesis/implementation/${code.replaceAll("_", "-")}@5`,
+  });
+}
+
 export async function invokeLeafOwnerBoundary(input: Readonly<{
   resolution: Readonly<LeafInvocationResolution>;
   value: Readonly<Record<string, JsonValue>>;
@@ -269,11 +328,20 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       return totalized("implementation_exception");
     }
     if (resolution.computeRegime === "F_P") {
-      const rawReceipt: unknown = await implementation(input.value, effects);
+      const implementationOutput: unknown = await implementation(input.value, effects);
+      let rawReceipt: unknown;
+      try {
+        rawReceipt = admitIJsonValue(
+          implementationOutput,
+          "probabilistic leaf owner output",
+        );
+      } catch {
+        return totalized("malformed_return");
+      }
       if (!isClosedProbabilisticLeafInvocation(rawReceipt)) {
         return totalized("malformed_return");
       }
-      const rawCandidate = deepFreeze(rawReceipt.candidate);
+      const rawCandidate = rawReceipt.candidate;
       const safeRawReceipt = closedInvocationReceipt(
         "F_P",
         totalizeLeafImplementationFailure({
@@ -307,12 +375,20 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
         workerContracts,
       );
     }
-    const rawCandidate: unknown = await implementation(input.value);
-    const frozenCandidate = deepFreeze(rawCandidate);
+    const implementationOutput: unknown = await implementation(input.value);
+    let admittedCandidate: unknown;
+    try {
+      admittedCandidate = admitIJsonValue(
+        implementationOutput,
+        "deterministic leaf owner output",
+      );
+    } catch {
+      admittedCandidate = null;
+    }
     let valid = false;
     try {
       valid = isLeafRealizationCandidate(
-        frozenCandidate,
+        admittedCandidate,
         "F_D",
         input.validateSuccess,
         failureValueKind,
@@ -333,7 +409,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
         null,
       );
     }
-    const candidate = frozenCandidate as Readonly<LeafRealizationCandidate>;
+    const candidate = admittedCandidate as Readonly<LeafRealizationCandidate>;
     return closedOwnerReceipt(
       candidate,
       closedInvocationReceipt("F_D", candidate, null),
@@ -350,7 +426,16 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
 
 export function isAdmittedLeafInvocationPort(value: object): boolean {
   const candidate = value as Partial<LeafInvocationPort>;
-  return candidate.kind === "admitted_leaf_invocation_port" &&
+  let exactLoadedCapability = false;
+  try {
+    exactLoadedCapability =
+      typeof candidate.isExactLoadedCapability === "function" &&
+      candidate.isExactLoadedCapability.call(value) === true;
+  } catch {
+    exactLoadedCapability = false;
+  }
+  return exactLoadedCapability &&
+    candidate.kind === "admitted_leaf_invocation_port" &&
     typeof candidate.installId === "string" && candidate.installId.length > 0 &&
     typeof candidate.implementationSetRef === "string" &&
       candidate.implementationSetRef.length > 0 &&
@@ -358,10 +443,13 @@ export function isAdmittedLeafInvocationPort(value: object): boolean {
       candidate.implementationSetDigest.startsWith("sha256:") &&
     typeof candidate.publicationDigest === "string" &&
       candidate.publicationDigest.startsWith("sha256:") &&
+    typeof candidate.contractValueKindByRef === "function" &&
+    typeof candidate.validateContractValueByRef === "function" &&
     typeof candidate.contractValueKind === "function" &&
     typeof candidate.validateContractValue === "function" &&
     typeof candidate.resolveJudgmentRelation === "function" &&
     typeof candidate.validateResultEvidenceLineage === "function" &&
+    typeof candidate.verifyProbabilisticResultContractPreimage === "function" &&
     typeof candidate.invoke === "function";
 }
 
@@ -476,22 +564,37 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     return loaded;
   }
 
+  function exactAdmittedResolution(
+    resolution: Readonly<LeafInvocationResolution>,
+  ): AdmittedImplementationSet["rows"][number] | null {
+    const resolutionDigest = sha256Canonical(
+      resolution as unknown as JsonValue,
+    );
+    const matches = authority.implementationSet.rows.filter(
+      (row) =>
+        sha256Canonical(row as unknown as JsonValue) === resolutionDigest,
+    );
+    return matches.length === 1 ? matches[0]! : null;
+  }
+
   function resolveWorkerContracts(
     resolution: Readonly<LeafInvocationResolution>,
     input: Readonly<Record<string, JsonValue>>,
   ): Readonly<WorkerContracts> | null {
-    if (!authority.implementationSet.rows.some((row) => row === resolution)) {
-      return null;
-    }
+    const admittedResolution = exactAdmittedResolution(resolution);
+    if (admittedResolution === null) return null;
     return semantics.resolveProbabilisticWorkerContracts({
-      inputContractRef: resolution.inputContractRef,
-      outputContractRef: resolution.outputContractRef,
+      inputContractRef: admittedResolution.inputContractRef,
+      outputContractRef: admittedResolution.outputContractRef,
       input,
     });
   }
 
   const port = Object.freeze({
     kind: "admitted_leaf_invocation_port" as const,
+    isExactLoadedCapability(): boolean {
+      return this === port;
+    },
     installId: authority.install.installId,
     implementationSetRef: authority.implementationSet.implementationSetRef,
     implementationSetDigest: authority.implementationSet.implementationSetDigest,
@@ -545,10 +648,92 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         admittedEvidence,
       });
     },
+    verifyProbabilisticResultContractPreimage(
+      input: Parameters<
+        LeafInvocationPort["verifyProbabilisticResultContractPreimage"]
+      >[0],
+    ): Readonly<ProbabilisticResultContractPreimageVerification> {
+      try {
+        const admittedResolution = exactAdmittedResolution(input.resolution);
+        if (
+          this !== port ||
+          !isAdmittedLeafInvocationPort(port) ||
+          input.resolution.computeRegime !== "F_P" ||
+          !hasAdmittedProductInstall(authority.artifactTruth, authority.install) ||
+          !hasAdmittedImplementationSetAtPrefix(
+            authority.prefix,
+            authority.implementationSet,
+          ) ||
+          admittedResolution === null
+        ) {
+          return preimageRefusal("unadmitted_resolution");
+        }
+        if (
+          sha256Canonical(input.input as unknown as JsonValue) !==
+            input.inputDigest ||
+          !port.validateContractValueByRef(
+            input.resolution.inputContractRef,
+            input.input,
+          )
+        ) {
+          return preimageRefusal("input_contract_refused");
+        }
+        const workerContracts = resolveWorkerContracts(
+          input.resolution,
+          input.input,
+        );
+        if (
+          workerContracts === null ||
+          workerContracts.instructionContractRef !==
+            input.instructionContractRef ||
+          workerContracts.resultContractRef !== input.rawResultContractRef
+        ) {
+          return preimageRefusal("contract_identity_mismatch");
+        }
+        if (!port.validateContractValueByRef(
+          workerContracts.resultContractRef,
+          input.rawResult,
+        )) {
+          return preimageRefusal("result_contract_refused");
+        }
+        const body = deepFreeze({
+          contractCapabilityBasis: {
+            installId: port.installId,
+            implementationSetRef: port.implementationSetRef,
+            implementationSetDigest: port.implementationSetDigest,
+            publicationDigest: port.publicationDigest,
+          },
+          implementationResolutionDigest: sha256Canonical(
+            admittedResolution as unknown as JsonValue,
+          ),
+          implementationRef: admittedResolution.implementationRef,
+          inputContractRef: admittedResolution.inputContractRef,
+          targetOutputContractRef: admittedResolution.outputContractRef,
+          instructionContractRef: workerContracts.instructionContractRef,
+          rawResultContractRef: workerContracts.resultContractRef,
+          inputDigest: input.inputDigest,
+          rawResultDigest: sha256Canonical(
+            input.rawResult as unknown as JsonValue,
+          ),
+        });
+        const verificationDigest = sha256Canonical(body as unknown as JsonValue);
+        return deepFreeze({
+          kind: "verified_probabilistic_result_contract_preimage" as const,
+          schemaVersion: "5.0.0" as const,
+          verificationRef:
+            `probabilistic-result-contract-preimage://abiogenesis/${verificationDigest.slice("sha256:".length)}`,
+          verificationDigest,
+          ...body,
+        });
+      } catch {
+        return preimageRefusal("owner_boundary_exception");
+      }
+    },
     async invoke(
       call: Parameters<LeafInvocationPort["invoke"]>[0],
     ): Promise<Readonly<LeafInvocationOwnerResult>> {
       try {
+        if (this !== port) return ownerRefusal("owner_boundary_exception");
         const failureValueKind = port.contractValueKind(
           call.failureContractRef,
           "failure",
@@ -568,9 +753,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
               authority.prefix,
               authority.implementationSet,
             ) &&
-            authority.implementationSet.rows.some(
-              (row) => row === call.resolution,
-            ) &&
+            exactAdmittedResolution(call.resolution) !== null &&
             await semantics.verifyInstalledContent(),
           validateSuccess: (value) => port.validateContractValue(
             call.resolution.outputContractRef,

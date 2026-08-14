@@ -69,11 +69,3 @@ export {
   type ChildTraversalPreparationResult,
   type PreparedChildTraversal,
 } from "./child_traversal.js";
-export {
-  admitProbabilisticResultCandidate,
-  type ContractAdmittedProbabilisticResultCandidate,
-  type ProbabilisticResultAdmissionInput,
-  type ProbabilisticResultAdmissionRefusal,
-  type ProbabilisticResultAdmissionRefusalCode,
-  type ProbabilisticResultAdmissionResult,
-} from "./probabilistic_result_admission.js";

@@ -1638,11 +1638,6 @@ test("F04-A binds distinct raw and target contracts through the existing install
     "@abiogenesis/typescript-tenant/product",
     `external-f04a-product=${Date.now()}`,
   );
-  const hog = await importInstalledPackageExport(
-    harness,
-    "@abiogenesis/typescript-tenant/hog",
-    `external-f04a-hog=${Date.now()}`,
-  );
   const installedLeafPort = await import(
     `${pathToFileURL(join(
       harness.cliHost,
@@ -1835,12 +1830,11 @@ test("F04-A binds distinct raw and target contracts through the existing install
     },
     resolution: implementationRow,
     input,
-    workerContracts: declared,
     request,
     observation,
   };
   const beforeAdmission = await readFile(scenario.eventLogPath, "utf8");
-  const admitted = hog.admitProbabilisticResultCandidate(basis);
+  const admitted = abg.admitProbabilisticResultCandidate(basis);
   assert.equal(
     admitted.kind,
     "contract_admitted_probabilistic_result_candidate",
@@ -1871,7 +1865,7 @@ test("F04-A binds distinct raw and target contracts through the existing install
     admittedEvidenceRows[0].payload.rawOutputDigest,
     admitted.rawOutputDigest,
   );
-  const substituted = hog.admitProbabilisticResultCandidate({
+  const substituted = abg.admitProbabilisticResultCandidate({
     ...basis,
     request: {
       ...basis.request,

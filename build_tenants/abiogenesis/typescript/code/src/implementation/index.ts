@@ -39,8 +39,11 @@ export type {
   LeafRealizationSuccessCandidate,
   ProbabilisticLeafEffectPort,
   ProbabilisticLeafInvocationReceipt,
+  ProbabilisticResultContractPreimageRefusal,
+  ProbabilisticResultContractPreimageVerification,
   ProbabilisticWorkerObservation,
   ProbabilisticWorkerRequest,
+  VerifiedProbabilisticResultContractPreimage,
 } from "./contracts.js";
 export {
   CONSENSUS_ESCALATION_FINALIZER_IMPLEMENTATION_DESCRIPTOR,
