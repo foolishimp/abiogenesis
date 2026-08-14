@@ -216,8 +216,8 @@ export async function setupInstalledRootCatalog(
   const hogInstalledProduct = await import(
     `${pathToFileURL(join(installedRoot, "build/code/src/hog/installed_product.js")).href}?env=${nonce}`
   );
-  const hogExecute = await import(
-    `${pathToFileURL(join(installedRoot, "build/code/src/hog/execute.js")).href}?env=${nonce}`
+  const interactionOwner = await import(
+    `${pathToFileURL(join(installedRoot, "build/code/src/hog/interaction_resume.js")).href}?env=${nonce}`
   );
   const implementation = await import(
     `${pathToFileURL(join(installedRoot, "build/code/src/implementation/index.js")).href}?env=${nonce}`
@@ -345,7 +345,7 @@ export async function setupInstalledRootCatalog(
     gtl,
     hog,
     hogInstalledProduct,
-    hogExecute,
+    interactionOwner,
     implementation,
     validator,
     store,

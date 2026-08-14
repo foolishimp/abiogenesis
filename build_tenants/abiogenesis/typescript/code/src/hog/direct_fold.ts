@@ -1,4 +1,5 @@
 import type {
+  CLeafRequirement,
   CProgramNode,
   CTermKind,
 } from "../gtl/c_algebra.js";
@@ -42,6 +43,7 @@ interface OpenLeafStep extends DirectCTraversalStepBase {
   readonly judgmentPredicateRef: string;
   readonly inputCarrierRef: string;
   readonly outputCarrierRef: string;
+  readonly requirement: CLeafRequirement;
 }
 
 interface PassIdentityStep extends DirectCTraversalStepBase {
@@ -78,6 +80,7 @@ interface EnterRetryStep extends DirectCTraversalStepBase {
   readonly stepKind: "retry";
   readonly termKind: "c_retry";
   readonly budget: number;
+  readonly inputCarrierRef: string;
   readonly target: CTraversalCoordinate;
 }
 
@@ -232,6 +235,7 @@ export function deriveDirectCStep(
         judgmentPredicateRef: term.judgmentPredicateRef,
         inputCarrierRef: term.inputCarrierRef,
         outputCarrierRef: term.outputCarrierRef,
+        requirement: term.requirement,
       });
     case "c_identity":
       return deepFreeze({
@@ -293,6 +297,7 @@ export function deriveDirectCStep(
         source,
         termKind: term.kind,
         budget: term.budget,
+        inputCarrierRef: term.inputCarrierRef,
         target: targetCoordinate(source, ["term"], {
           attempt: 1,
           retryPath: [...source.retryPath, 1],

@@ -696,7 +696,8 @@ retained as wrappers around the imperative HoG path.
 - **Excluded scope:** Product meaning, the 18-operation/56-key family, owner
   request/result/refusal meaning, GTL identity, ABG event contracts, Event
   Calculus, replay, Public/SDK/CLI interfaces, and all C1F/D6 resource-carrier
-  work. No compatibility scope is retained.
+  work. The sole producing-interface re-entry is the F_H-authorized closed F_P
+  leaf receipt below. No compatibility scope is retained.
 - **Old operative path:** `public executeGraphTraversal -> graph_execute Effect
   shell -> Effect.promise -> execute.ts::completeExecutableTraversal`, with
   control-flow coordination also resident in `structural_execute.ts`,
@@ -725,7 +726,7 @@ Old paths are classified as follows:
 | `hog/graph_execute.ts` Effect shell around `completeExecutableTraversal` | `replace` | Make `executeGraphTraversal` run the direct fold; remove the shell-to-old-engine call. |
 | `hog/execute.ts::completeExecutableTraversal` and its imperative coordination | `remove` | No production import, export, package symbol, or direct proof invocation remains. |
 | Coordinator control flow in `structural_execute.ts`, `traversal.ts`, `traversal_route.ts`, and `retry_exit.ts` | `replace` or `remove` | Each retained pure derivation or owner call is consumed by the fold; competing loops are deleted. |
-| Exact GTL derivations and Product/ABG/implementation owner ports | `re-authorize` | Retain owner meaning unchanged and call each only at its algebraic locus. |
+| Exact GTL derivations and Product/ABG/implementation owner ports | `re-authorize` | Retain owner meaning unchanged; hard-break the observation-only F_P handoff into one closed leaf receipt, then call each port only at its algebraic locus. |
 | `direct_fold.ts`, direct-HoG prototypes, and E29 prototype runners | `temporary scaffolding` | Reuse a pure carrier only if it becomes the final fold input; delete every prototype runner and alternate path before closure. |
 | Tests that import `hog/execute.js` or call `completeExecutableTraversal` | `replace` | Migrate to the installed `executeGraphTraversal` path or delete when they prove only the old engine. |
 
@@ -791,15 +792,21 @@ Old paths are classified as follows:
 #### Required Break Order
 
 1. Freeze this best-guess interface inventory before using tests as closure.
-2. Establish the direct Effect fold over the existing admitted C algebra and
+2. Change the F_P source contract first: worker execution returns the existing
+   ABG-validated request/observation relation; the owner returns that relation
+   with the unchanged semantic candidate as one closed immutable leaf receipt;
+   remove observation-only, unknown-return, mutable-capture, and Deferred/Ref
+   handoffs across every direct producer and consumer. Freeze this interface
+   cut before B1/B2.
+3. Establish the direct Effect fold over the existing admitted C algebra and
    exact owner ports without calling any old coordinator.
-3. Sever `graph_execute.ts -> completeExecutableTraversal` and keep it broken.
-4. Repair outward through identity/leaf, compose/edge, batch/fan-out,
+4. Sever `graph_execute.ts -> completeExecutableTraversal` and keep it broken.
+5. Repair outward through identity/leaf, compose/edge, batch/fan-out,
    workflow/recursion, retry/continuation, and terminal projection relations.
-5. Rebind all Public/package consumers to the one fold.
-6. Delete the old coordinator paths and prototype runners; migrate or delete
+6. Rebind all Public/package consumers to the one fold.
+7. Delete the old coordinator paths and prototype runners; migrate or delete
    direct-old-path tests.
-7. Run structural negative reachability first, then focused behavioral
+8. Run structural negative reachability first, then focused behavioral
    conservation and the source-blind installed sunny paths.
 
 #### Break-To-Closure Map
@@ -1053,8 +1060,9 @@ Stop the Wave 2 cut immediately if it introduces or retains:
 - an SDK, CLI, schema, manifest, PFC-F07, or test fixture with an independently
   authored operation/key roster or semantic default;
 - a schema library transform or projection that changes owner meaning;
-- a Wave 1 owner/carrier/event/handoff/projection change outside the three
-  explicitly excluded legacy Public relations; or
+- a Wave 1 owner/carrier/event/handoff/projection change outside the exact
+  F_H-authorized closed F_P leaf receipt and the three explicitly excluded
+  legacy Public relations; or
 - donor code that imports, constructs, or assumes the rejected Public family.
 
 Do not stop for owner-local callable names, exact carrier fields, helper
@@ -1123,12 +1131,14 @@ admitted CProgramNode + exact cursor/scope
   -> Event Calculus/replay projection
 ```
 
-Implement the declared break order above. The first accepted code checkpoint
-must sever `graph_execute.ts -> completeExecutableTraversal`; each later
-checkpoint must reduce the remaining old reachability. Do not count a green
-test until the break it claims is structurally closed. Stop only for a required
-change to Product, requirements, accepted design, owner meaning, event law,
-Public interfaces, or the 18/56 family.
+Implement the declared break order above. First freeze the bounded F_P
+source-contract migration with the old observation-only and unknown-return
+signatures rejected. The next accepted checkpoint must sever
+`graph_execute.ts -> completeExecutableTraversal`; each later checkpoint must
+reduce the remaining old reachability. Do not count a green test until the
+break it claims is structurally closed. Stop only for a required change beyond
+the authorized F_P receipt to Product, requirements, accepted design, owner
+meaning, event law, Public interfaces, or the 18/56 family.
 
 ### Retained Construction — Setup And Invocation Authority Reconstruction
 

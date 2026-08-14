@@ -15,14 +15,56 @@ import {
 } from "../product/semantics.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
+import { validateActorProcessCarrierPair } from "../abg/actor_process.js";
 import type {
   LeafInvocationPort,
+  LeafInvocationReceipt,
   LeafInvocationResolution,
   ProbabilisticLeafEffectPort,
+  ProbabilisticLeafInvocationReceipt,
 } from "../implementation/contracts.js";
+import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 
 export type LeafInvocationInstall =
   Parameters<typeof hasAdmittedProductInstall>[1];
+
+function isClosedProbabilisticLeafInvocation(
+  value: unknown,
+): value is Readonly<ProbabilisticLeafInvocationReceipt> {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    return false;
+  }
+  const receipt = value as Partial<ProbabilisticLeafInvocationReceipt>;
+  const exchange = receipt.actorProcessExchange;
+  const receiptKeys = Reflect.ownKeys(value);
+  const exchangeKeys = typeof exchange === "object" && exchange !== null
+    ? Reflect.ownKeys(exchange)
+    : [];
+  if (
+    receiptKeys.length !== 5 ||
+    !["actorProcessExchange", "candidate", "computeRegime", "kind", "schemaVersion"]
+      .every((key) => receiptKeys.includes(key)) ||
+    exchangeKeys.length !== 5 ||
+    !["disposition", "kind", "observation", "request", "schemaVersion"]
+      .every((key) => exchangeKeys.includes(key)) ||
+    !isDeeplyFrozen(value)
+  ) return false;
+  const validated = validateActorProcessCarrierPair(
+    exchange?.request,
+    exchange?.observation,
+  );
+  return receipt.kind === "leaf_invocation_receipt" &&
+    receipt.schemaVersion === "5.0.0" &&
+    receipt.computeRegime === "F_P" &&
+    Object.hasOwn(receipt, "candidate") &&
+    typeof exchange === "object" && exchange !== null &&
+    exchange.kind === "actor_process_carrier_validation" &&
+    exchange.schemaVersion === "5.0.0" &&
+    exchange.disposition === "valid" &&
+    validated.kind === "actor_process_carrier_validation" &&
+    sha256Canonical(validated as unknown as JsonValue) ===
+      sha256Canonical(exchange as unknown as JsonValue);
+}
 
 export function isAdmittedLeafInvocationPort(value: object): boolean {
   const candidate = value as Partial<LeafInvocationPort>;
@@ -227,7 +269,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       resolution: Readonly<LeafInvocationResolution>,
       input: Readonly<Record<string, JsonValue>>,
       effects: ProbabilisticLeafEffectPort | null,
-    ): Promise<unknown> {
+    ): Promise<Readonly<LeafInvocationReceipt>> {
       if (
         !isAdmittedLeafInvocationPort(port) ||
         !hasAdmittedProductInstall(authority.artifactTruth, authority.install) ||
@@ -249,9 +291,22 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         if (effects === null) {
           throw new TypeError("F_P leaf invocation requires the ABG probabilistic effect port");
         }
-        return implementation(input, effects);
+        const receipt: unknown = await implementation(input, effects);
+        if (!isClosedProbabilisticLeafInvocation(receipt)) {
+          throw new TypeError(
+            "F_P leaf implementation must return one closed invocation receipt",
+          );
+        }
+        return receipt;
       }
-      return implementation(input);
+      const candidate: unknown = await implementation(input);
+      return deepFreeze({
+        kind: "leaf_invocation_receipt" as const,
+        schemaVersion: "5.0.0" as const,
+        computeRegime: "F_D" as const,
+        candidate,
+        actorProcessExchange: null,
+      });
     },
   }) satisfies LeafInvocationPort;
   return port;

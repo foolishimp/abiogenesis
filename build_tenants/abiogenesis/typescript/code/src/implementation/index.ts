@@ -23,12 +23,15 @@ export {
 } from "./hello_compose.js";
 export type {
   DeterministicEvidenceCandidate,
+  DeterministicLeafInvocationReceipt,
   HelloWorldLeafImplementation,
   HelloWorldLeafRealizationCandidate,
   LeafExecutionOccurrence,
   LeafInvocationPort,
+  LeafInvocationReceipt,
   LeafInvocationResolution,
   ProbabilisticLeafEffectPort,
+  ProbabilisticLeafInvocationReceipt,
   ProbabilisticWorkerObservation,
   ProbabilisticWorkerRequest,
 } from "./contracts.js";

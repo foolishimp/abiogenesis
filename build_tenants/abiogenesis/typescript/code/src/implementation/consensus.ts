@@ -53,6 +53,7 @@ import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type {
   ProbabilisticLeafEffectPort,
+  ProbabilisticLeafInvocationReceipt,
   ProbabilisticWorkerObservation,
 } from "./contracts.js";
 
@@ -572,7 +573,7 @@ function roleFailure(
 export async function realizeConsensusRole(
   input: Readonly<ConsensusRoleTask>,
   effects: Readonly<ProbabilisticLeafEffectPort>,
-): Promise<Readonly<ConsensusLeafCandidate>> {
+): Promise<Readonly<ProbabilisticLeafInvocationReceipt<ConsensusLeafCandidate>>> {
   const role: ConsensusRole | null = isConsensusRoleTask("reviewer", input)
     ? "reviewer"
     : isConsensusRoleTask("submitter", input)
@@ -589,7 +590,7 @@ export async function realizeConsensusRole(
   const promptKind = role === "reviewer"
     ? "reviewer-prompt"
     : "submitter-response";
-  const transport = await effects.invokeWorker({
+  const actorProcessExchange = await effects.invokeWorker({
     actorRef: input.profile.actorRef,
     workerBindingRef: input.profile.workerBindingRef,
     implementationRef,
@@ -603,17 +604,17 @@ export async function realizeConsensusRole(
     prompt: rolePrompt(role, input),
     responseJsonSchema: input.instruction.responseSchema,
   });
+  const transport = actorProcessExchange.observation;
   const semantic = parseRoleCandidate(role, transport.finalOutput);
   const salvaged = transport.disposition === "failure" &&
     transport.failureClass === "transport_failure" &&
     semantic !== null;
-  if (transport.disposition !== "success" && !salvaged) {
-    return roleFailure(
+  const candidate = transport.disposition !== "success" && !salvaged
+    ? roleFailure(
       role,
       transport.failureClass ?? "transport_failure",
-    );
-  }
-  return role === "reviewer"
+    )
+    : role === "reviewer"
     ? projectReviewerRoleResult(
       input as Readonly<ConsensusReviewerTask>,
       effects,
@@ -625,12 +626,19 @@ export async function realizeConsensusRole(
       transport,
       semantic as ConsensusSubmitterResponseCandidate | null,
     );
+  return deepFreeze({
+    kind: "leaf_invocation_receipt" as const,
+    schemaVersion: "5.0.0" as const,
+    computeRegime: "F_P" as const,
+    candidate,
+    actorProcessExchange,
+  });
 }
 
 export async function realizeConsensusReviewer(
   input: Readonly<ConsensusReviewerTask>,
   effects: Readonly<ProbabilisticLeafEffectPort>,
-): Promise<Readonly<ConsensusLeafCandidate>> {
+): Promise<Readonly<ProbabilisticLeafInvocationReceipt<ConsensusLeafCandidate>>> {
   if (!isConsensusReviewerTask(input)) {
     throw new TypeError(
       "Consensus reviewer requires one exact attributed reviewer task",
@@ -642,7 +650,7 @@ export async function realizeConsensusReviewer(
 export async function realizeConsensusSubmitter(
   input: Readonly<ConsensusSubmitterTask>,
   effects: Readonly<ProbabilisticLeafEffectPort>,
-): Promise<Readonly<ConsensusLeafCandidate>> {
+): Promise<Readonly<ProbabilisticLeafInvocationReceipt<ConsensusLeafCandidate>>> {
   if (!isConsensusSubmitterTask(input)) {
     throw new TypeError(
       "Consensus submitter requires one exact attributed response task",

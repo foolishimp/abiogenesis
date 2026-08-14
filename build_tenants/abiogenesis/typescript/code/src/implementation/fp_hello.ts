@@ -14,7 +14,10 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
-import type { ProbabilisticLeafEffectPort } from "./contracts.js";
+import type {
+  ProbabilisticLeafEffectPort,
+  ProbabilisticLeafInvocationReceipt,
+} from "./contracts.js";
 
 interface FpHelloLeafCandidate {
   readonly kind: "leaf_realization_candidate";
@@ -134,13 +137,13 @@ function parseCandidate(output: string): Readonly<Record<string, JsonValue>> {
 export async function realizeFpHello(
   input: Readonly<FpHelloInstruction>,
   effects: Readonly<ProbabilisticLeafEffectPort>,
-): Promise<Readonly<FpHelloLeafCandidate>> {
+): Promise<Readonly<ProbabilisticLeafInvocationReceipt<FpHelloLeafCandidate>>> {
   if (!isFpHelloInstruction(input)) {
     throw new TypeError("F_P Hello implementation requires the exact admitted instruction envelope");
   }
   const prompt = renderInstruction(input);
   const inputDigest = sha256Canonical(input);
-  const transport = await effects.invokeWorker({
+  const actorProcessExchange = await effects.invokeWorker({
     actorRef: input.workerActorRef,
     workerBindingRef: input.workerBindingRef,
     implementationRef: FP_HELLO_IDS.implementationRef,
@@ -153,6 +156,7 @@ export async function realizeFpHello(
     prompt,
     responseJsonSchema: responseSchema(input),
   });
+  const transport = actorProcessExchange.observation;
   const parsedCandidate = parseCandidate(transport.finalOutput);
   const salvaged = transport.disposition === "failure" &&
     transport.failureClass === "transport_failure" &&
@@ -171,7 +175,7 @@ export async function realizeFpHello(
       failureClass: transport.failureClass ?? "transport_failure",
       diagnosticRef: diagnosticRef ?? "diagnostic://abiogenesis/transport/failure@5",
     });
-  return deepFreeze({
+  const candidate = deepFreeze({
     kind: "leaf_realization_candidate" as const,
     schemaVersion: "5.0.0" as const,
     disposition,
@@ -179,6 +183,13 @@ export async function realizeFpHello(
     resultCandidate,
     ...(diagnosticRef === null ? {} : { diagnosticRef }),
   }) as Readonly<FpHelloLeafCandidate>;
+  return deepFreeze({
+    kind: "leaf_invocation_receipt" as const,
+    schemaVersion: "5.0.0" as const,
+    computeRegime: "F_P" as const,
+    candidate,
+    actorProcessExchange,
+  });
 }
 
 export function realizeDeterministicFpHello(

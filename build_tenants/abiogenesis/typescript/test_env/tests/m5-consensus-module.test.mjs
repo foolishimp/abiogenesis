@@ -345,6 +345,52 @@ function workerObservation(finalOutput, suffix) {
   };
 }
 
+function workerExchange(request, observation) {
+  let outputValue = observation.finalOutput;
+  try {
+    outputValue = JSON.parse(observation.finalOutput);
+  } catch {
+    // The ABG carrier law digests non-JSON output as its exact string value.
+  }
+  const exactObservation = {
+    ...observation,
+    actorRef: request.actorRef,
+    workerBindingRef: request.workerBindingRef,
+    implementationRef: request.implementationRef,
+    inputDigest: request.inputDigest,
+    materializationPlanRef: request.materializationPlanRef,
+    rendererRef: request.rendererRef,
+    instructionContractRef: request.instructionContractRef,
+    resultContractRef: request.resultContractRef,
+    processRef: "process://developer/module-proof",
+    observedOutputDigest: product.sha256Canonical(outputValue),
+    promptDigest: product.sha256Canonical(request.prompt),
+    signalSequence: [],
+    structuredEventCount: 1,
+    apiRetryCount: 0,
+    stdoutByteLength: 0,
+    stderrByteLength: 0,
+    artifactDigests: {
+      ...observation.artifactDigests,
+      output:
+        `sha256:${createHash("sha256").update(observation.finalOutput).digest("hex")}`,
+      prompt:
+        `sha256:${createHash("sha256").update(request.prompt).digest("hex")}`,
+      transport: observation.transportDigest,
+    },
+  };
+  const exchange = abg.validateActorProcessCarrierPair(
+    request,
+    exactObservation,
+  );
+  assert.equal(
+    exchange.kind,
+    "actor_process_carrier_validation",
+    JSON.stringify(exchange),
+  );
+  return exchange;
+}
+
 function occurrence(suffix, attempt = 1) {
   return {
     cCallRef: `c-call://developer/module-proof/${suffix}/${attempt}`,
@@ -360,17 +406,17 @@ function occurrence(suffix, attempt = 1) {
 async function findingsVectorFor(state, recommendation = "revise") {
   const members = await Promise.all(
     state.members.map(async (member, ordinal) => {
-      const realized = await realizeConsensusReviewer(member.value, {
+      const realized = (await realizeConsensusReviewer(member.value, {
         occurrence: occurrence(
           `reviewer-${state.roundOrdinal}-${ordinal}`,
         ),
-        async invokeWorker() {
-          return workerObservation(
+        async invokeWorker(request) {
+          return workerExchange(request, workerObservation(
             JSON.stringify(reviewerCandidate(recommendation)),
             `reviewer-${state.roundOrdinal}-${ordinal}`,
-          );
+          ));
         },
-      });
+      })).candidate;
       assert.equal(realized.disposition, "success");
       assert.equal(gtl.isReviewFindings(realized.resultCandidate), true);
       return {
@@ -396,20 +442,20 @@ async function responseFor(vector, disposition = "address_findings") {
   const findingRefs = vector.members.flatMap((member) =>
     member.value.findings.map((finding) => finding.findingRef)
   );
-  const realized = await realizeConsensusSubmitter(
+  const realized = (await realizeConsensusSubmitter(
     prepared.resultCandidate,
     {
       occurrence: occurrence(
         `submitter-${prepared.resultCandidate.roundOrdinal}`,
       ),
-      async invokeWorker() {
-        return workerObservation(
+      async invokeWorker(request) {
+        return workerExchange(request, workerObservation(
           JSON.stringify(submitterCandidate(disposition, findingRefs)),
           `submitter-${prepared.resultCandidate.roundOrdinal}`,
-        );
+        ));
       },
     },
-  );
+  )).candidate;
   assert.equal(realized.disposition, "success");
   assert.equal(
     gtl.isConsensusSubmitterResponse(realized.resultCandidate),
@@ -1096,15 +1142,15 @@ test("S05 reviewer and submitter project through one role-parameterized Prime at
   const reviewerTask = state.members[0].value;
   assert.equal(gtl.isConsensusRoleTask("reviewer", reviewerTask), true);
   assert.equal(gtl.isConsensusRoleTask("submitter", reviewerTask), false);
-  const reviewerResult = await realizeConsensusRole(reviewerTask, {
+  const reviewerResult = (await realizeConsensusRole(reviewerTask, {
     occurrence: occurrence("role-prime-reviewer"),
-    async invokeWorker() {
-      return workerObservation(
+    async invokeWorker(request) {
+      return workerExchange(request, workerObservation(
         JSON.stringify(reviewerCandidate("revise")),
         "role-prime-reviewer",
-      );
+      ));
     },
-  });
+  })).candidate;
   assert.equal(
     gtl.isConsensusRoleOccurrence(
       "reviewer",
@@ -1124,17 +1170,17 @@ test("S05 reviewer and submitter project through one role-parameterized Prime at
   const findingRefs = vector.members.flatMap((member) =>
     member.value.findings.map((finding) => finding.findingRef)
   );
-  const submitterResult = await realizeConsensusRole(submitterTask, {
+  const submitterResult = (await realizeConsensusRole(submitterTask, {
     occurrence: occurrence("role-prime-submitter"),
-    async invokeWorker() {
-      return workerObservation(
+    async invokeWorker(request) {
+      return workerExchange(request, workerObservation(
         JSON.stringify(
           submitterCandidate("address_findings", findingRefs),
         ),
         "role-prime-submitter",
-      );
+      ));
     },
-  });
+  })).candidate;
   assert.equal(
     gtl.isConsensusRoleOccurrence(
       "submitter",
@@ -1623,11 +1669,11 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     resultContractRef: task.profile.resultContractRef,
   });
   let request = null;
-  const candidate = await realizeConsensusReviewer(task, {
+  const candidate = (await realizeConsensusReviewer(task, {
     occurrence: occurrence("reviewer-instruction"),
     async invokeWorker(value) {
       request = value;
-      return {
+      return workerExchange(value, {
         actorInvocationRef: "actor-invocation://developer/module-proof",
         transportBindingRef: "transport-binding://developer/module-proof",
         transportBindingDigest: DIGEST,
@@ -1651,9 +1697,9 @@ test("S05 reviewer realization carries the Product-declared instruction contract
           stdout: DIGEST,
           transport: DIGEST,
         },
-      };
+      });
     },
-  });
+  })).candidate;
   assert.equal(candidate.disposition, "success");
   assert.equal(
     request.instructionContractRef,
@@ -1706,10 +1752,10 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     );
   }
 
-  const refusedCandidate = await realizeConsensusReviewer(task, {
+  const refusedCandidate = (await realizeConsensusReviewer(task, {
     occurrence: occurrence("reviewer-refused"),
-    async invokeWorker() {
-      return {
+    async invokeWorker(request) {
+      return workerExchange(request, {
         actorInvocationRef: "actor-invocation://developer/module-proof/refused",
         transportBindingRef: "transport-binding://developer/module-proof",
         transportBindingDigest: DIGEST,
@@ -1733,9 +1779,9 @@ test("S05 reviewer realization carries the Product-declared instruction contract
           stdout: DIGEST,
           transport: DIGEST,
         },
-      };
+      });
     },
-  });
+  })).candidate;
   assert.equal(refusedCandidate.disposition, "success");
   assert.equal(
     gtl.isReviewFindings(refusedCandidate.resultCandidate),
@@ -1746,12 +1792,12 @@ test("S05 reviewer realization carries the Product-declared instruction contract
   refusedVector.members[0].value = refusedCandidate.resultCandidate;
   const submitterTaskCandidate =
     realizeConsensusSubmitterTaskPreparation(refusedVector);
-  const submitterResponseCandidate = await realizeConsensusSubmitter(
+  const submitterResponseCandidate = (await realizeConsensusSubmitter(
     submitterTaskCandidate.resultCandidate,
     {
       occurrence: occurrence("submitter-refused-vector"),
-      async invokeWorker() {
-        return {
+      async invokeWorker(request) {
+        return workerExchange(request, {
           actorInvocationRef:
             "actor-invocation://developer/module-proof/submitter",
           transportBindingRef:
@@ -1777,10 +1823,10 @@ test("S05 reviewer realization carries the Product-declared instruction contract
             stdout: DIGEST,
             transport: DIGEST,
           },
-        };
+        });
       },
     },
-  );
+  )).candidate;
   assert.equal(submitterResponseCandidate.disposition, "success");
   const terminalState = gtl.reduceConsensusRound(
     submitterResponseCandidate.resultCandidate,
@@ -1804,10 +1850,10 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     null,
   );
 
-  const transportFailure = await realizeConsensusReviewer(task, {
+  const transportFailure = (await realizeConsensusReviewer(task, {
     occurrence: occurrence("reviewer-transport-failure"),
-    async invokeWorker() {
-      return {
+    async invokeWorker(request) {
+      return workerExchange(request, {
         actorInvocationRef:
           "actor-invocation://developer/module-proof/transport-failure",
         transportBindingRef: "transport-binding://developer/module-proof",
@@ -1832,9 +1878,9 @@ test("S05 reviewer realization carries the Product-declared instruction contract
           stdout: DIGEST,
           transport: DIGEST,
         },
-      };
+      });
     },
-  });
+  })).candidate;
   assert.equal(transportFailure.disposition, "failure");
   assert.equal(transportFailure.resultCandidate.kind, "consensus_failure");
   assert.equal(transportFailure.resultCandidate.failureClass, "no_output");
@@ -1844,10 +1890,10 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     "transport failure must not become a semantic contract-failure finding",
   );
 
-  const salvagedCandidate = await realizeConsensusReviewer(task, {
+  const salvagedCandidate = (await realizeConsensusReviewer(task, {
     occurrence: occurrence("reviewer-salvaged"),
-    async invokeWorker() {
-      return {
+    async invokeWorker(request) {
+      return workerExchange(request, {
         actorInvocationRef:
           "actor-invocation://developer/module-proof/salvaged",
         transportBindingRef: "transport-binding://developer/module-proof",
@@ -1872,9 +1918,9 @@ test("S05 reviewer realization carries the Product-declared instruction contract
           stdout: DIGEST,
           transport: DIGEST,
         },
-      };
+      });
     },
-  });
+  })).candidate;
   assert.equal(salvagedCandidate.disposition, "success");
   assert.equal(
     gtl.isReviewFindings(salvagedCandidate.resultCandidate),
@@ -2071,18 +2117,18 @@ test("S05 Product judgment binds reviewer and submitter output to the exact inpu
     invocationFor("workspace://developer/consensus/cross-pair-b"),
   );
   const firstReviewerTask = firstState.members[0].value;
-  const secondReviewerResult = await realizeConsensusReviewer(
+  const secondReviewerResult = (await realizeConsensusReviewer(
     secondState.members[0].value,
     {
       occurrence: occurrence("reviewer-cross-pair"),
-      async invokeWorker() {
-        return workerObservation(
+      async invokeWorker(request) {
+        return workerExchange(request, workerObservation(
           JSON.stringify(reviewerCandidate("revise")),
           "reviewer-cross-pair",
-        );
+        ));
       },
     },
-  );
+  )).candidate;
   assert.equal(secondReviewerResult.disposition, "success");
   assert.equal(
     gtl.resolveConsensusJudgmentRelation(
@@ -2212,7 +2258,7 @@ test("S05 generic Public and ABG invocation basis contain no Consensus branch", 
     "utf8",
   );
   const hogExecutionSource = await readFile(
-    resolve(packageRoot, "code/src/hog/execute.ts"),
+    resolve(packageRoot, "code/src/hog/leaf_admission.ts"),
     "utf8",
   );
   for (const source of [publicSource, executionBasisSource]) {
@@ -2235,7 +2281,7 @@ test("S05 generic Public and ABG invocation basis contain no Consensus branch", 
   );
   assert.match(
     resultAdmission,
-    /validateSuccessResult\(value\)\s*&&\s*input\.leafPort\.validateResultEvidenceLineage\(/u,
+    /input\.leafPort\.validateResultEvidenceLineage\(/u,
     "generic HoG result admission must invoke the Product evidence-lineage relation",
   );
   assert.match(

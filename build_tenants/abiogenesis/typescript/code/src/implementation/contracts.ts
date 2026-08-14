@@ -3,6 +3,7 @@ import type {
   HelloWorldOutput,
   ModulePublication,
 } from "../gtl/contracts.js";
+import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
 
@@ -80,8 +81,28 @@ export interface ProbabilisticLeafEffectPort {
   readonly occurrence: Readonly<LeafExecutionOccurrence>;
   readonly invokeWorker: (
     request: Readonly<ProbabilisticWorkerRequest>,
-  ) => Promise<Readonly<ProbabilisticWorkerObservation>>;
+  ) => Promise<Readonly<ActorProcessCarrierValidation>>;
 }
+
+export interface DeterministicLeafInvocationReceipt<Candidate = unknown> {
+  readonly kind: "leaf_invocation_receipt";
+  readonly schemaVersion: "5.0.0";
+  readonly computeRegime: "F_D";
+  readonly candidate: Candidate;
+  readonly actorProcessExchange: null;
+}
+
+export interface ProbabilisticLeafInvocationReceipt<Candidate = unknown> {
+  readonly kind: "leaf_invocation_receipt";
+  readonly schemaVersion: "5.0.0";
+  readonly computeRegime: "F_P";
+  readonly candidate: Candidate;
+  readonly actorProcessExchange: Readonly<ActorProcessCarrierValidation>;
+}
+
+export type LeafInvocationReceipt<Candidate = unknown> =
+  | DeterministicLeafInvocationReceipt<Candidate>
+  | ProbabilisticLeafInvocationReceipt<Candidate>;
 
 export interface LeafInvocationResolution {
   readonly computeRegime: "F_D" | "F_P";
@@ -139,5 +160,5 @@ export interface LeafInvocationPort {
     resolution: Readonly<LeafInvocationResolution>,
     input: Readonly<Record<string, JsonValue>>,
     effects: ProbabilisticLeafEffectPort | null,
-  ) => Promise<unknown>;
+  ) => Promise<Readonly<LeafInvocationReceipt>>;
 }

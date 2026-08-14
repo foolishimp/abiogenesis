@@ -461,9 +461,9 @@ test("B8 HoG hides low-level completion and rejects a forged leaf port", async (
   const {
     abg,
     hog,
-    hogExecute,
     store,
     program,
+    graphFunction,
     graph,
     graphValidation,
     input,
@@ -472,7 +472,10 @@ test("B8 HoG hides low-level completion and rejects a forged leaf port", async (
     implementationRow,
     leafPort,
     executionBasis,
+    executionBasisAdmission,
     closureContract,
+    workspaceBinding,
+    artifactTruth,
   } = environment;
   assert.equal("completeExecutableTraversal" in hog, false);
   assert.equal("constructChildTraversalPreparationPort" in hog, false);
@@ -484,41 +487,23 @@ test("B8 HoG hides low-level completion and rejects a forged leaf port", async (
   });
   const opened = abg.openCall(store, executionBasis, runtimeBasis("open"));
   assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
-  const traversalStop = hog.traverse({
-    program,
-    graph,
-    graphValidation,
-    executionBasis,
-    openedTraversalScope: opened.scope,
-  });
-  assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
-  const cursor = abg.admitInitialTraversalCursor(
-    store,
-    executionBasis,
-    opened.scope,
-    graph,
-    graphValidation,
-    traversalStop.cursor,
-    runtimeBasis("cursor"),
-  );
-  assert.equal(cursor.kind, "traversal_cursor_admission", JSON.stringify(cursor));
-  const completion = await hogExecute.completeExecutableTraversal({
+  const completion = await hog.executeGraphTraversal({
     store,
     executionBasis,
     openedTraversalScope: opened.scope,
     program,
+    graphFunction,
     graph,
-    traversalStop,
+    graphValidation,
     implementationSet,
-    implementationResolution: implementationRow,
+    interactionSet: executionBasisAdmission.interactionSet,
     leafPort: { ...leafPort },
+    actorRuntimeBinding: { workspaceBinding, artifactTruth },
     input,
     inputDigest: rawInput.subjectDigest,
     closureContract,
-    clock: {
-      eventTime: "2026-07-21T00:00:00.000Z",
-      correlationId: "correlation://t286/b8/forged-leaf-port/hog",
-    },
+    eventTime: "2026-07-21T00:00:00.000Z",
+    correlationId: "correlation://t286/b8/forged-leaf-port/hog",
   });
   assert.equal(completion.disposition, "failed", JSON.stringify(completion));
   assert.equal(

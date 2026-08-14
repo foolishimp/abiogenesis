@@ -24,10 +24,7 @@ import type {
   ReenterApplication,
   RecurseApplication,
 } from "../gtl/contracts.js";
-import {
-  isExecutableCLeaf,
-  isInteractionCLeaf,
-} from "../gtl/c_algebra.js";
+import { isInteractionCLeaf } from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import {
   deriveCBatchTaskInput,
@@ -44,6 +41,10 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isGraphValidation, type GraphValidation } from "../validator/graph.js";
+import {
+  deriveDirectCStepFromGraph,
+  type DirectCTraversalStep,
+} from "./direct_fold.js";
 
 export type TraversalCursor = TraversalCursorCandidate;
 
@@ -305,17 +306,30 @@ export function resolveTraversalTerm(
 export function deriveStructuralTargetCursor(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursor,
+  step: DirectCTraversalStep,
 ): TraversalCursor | TraversalRefusal | null {
-  const term = resolveTraversalTerm(graph, sourceCursor);
-  if (term.kind === "traversal_refusal") return term;
   const source = cursorCoordinate(sourceCursor);
+  if (
+    step.source.nodeRef !== source.nodeRef ||
+    sha256Canonical(step.source.termPath as unknown as JsonValue) !==
+      sha256Canonical(source.termPath as unknown as JsonValue) ||
+    step.source.taskOrdinal !== source.taskOrdinal ||
+    step.source.attempt !== source.attempt ||
+    sha256Canonical(step.source.retryPath as unknown as JsonValue) !==
+      sha256Canonical(source.retryPath as unknown as JsonValue)
+  ) {
+    return refusal(
+      "traversal_cursor_mismatch",
+      "direct C step differs from its exact traversal cursor",
+    );
+  }
+  if (step.stepKind === "open_leaf" || step.stepKind === "enter_child") {
+    return null;
+  }
   let target: TraversalCoordinate | null = null;
   let targetInput: TraversalInputBasis = sourceCursor;
-  switch (term.kind) {
-    case "c_of":
-    case "c_workflow":
-      return null;
-    case "c_identity": {
+  switch (step.stepKind) {
+    case "pass_identity": {
       const continuation = deriveCContinuationTarget(
         graph,
         { ...source, inputRef: sourceCursor.inputRef, inputDigest: sourceCursor.inputDigest },
@@ -338,27 +352,17 @@ export function deriveStructuralTargetCursor(
       };
       break;
     }
-    case "c_compose":
-      target = { ...source, termPath: [...source.termPath, "terms", "0"] };
+    case "enter_term":
+    case "retry":
+      target = step.target;
       break;
-    case "c_edge":
-      target = { ...source, termPath: [...source.termPath, "transform"] };
-      break;
-    case "c_batch": {
-      target = {
-        ...source,
-        termPath: [...source.termPath, "tasks", "0"],
-        taskOrdinal: 0,
-      };
+    case "start_task": {
+      target = step.target;
       const batchInput = deriveCBatchTaskInput(
         graph,
-        {
-          ...source,
-          inputRef: sourceCursor.inputRef,
-          inputDigest: sourceCursor.inputDigest,
-        },
+        { ...source, inputRef: sourceCursor.inputRef, inputDigest: sourceCursor.inputDigest },
         "enter_batch",
-        term.batchRef,
+        step.batchRef,
         0,
       );
       if (batchInput.kind === "c_source_path_refusal") {
@@ -367,14 +371,12 @@ export function deriveStructuralTargetCursor(
       targetInput = batchInput;
       break;
     }
-    case "c_retry":
-      target = {
-        ...source,
-        termPath: [...source.termPath, "term"],
-        attempt: 1,
-        retryPath: [...source.retryPath, 1],
-      };
-      break;
+    case "complete_term":
+    case "continue_term":
+      return refusal(
+        "traversal_cursor_mismatch",
+        "active structural traversal cannot consume a post-term continuation step",
+      );
   }
   return target === null
     ? null
@@ -728,6 +730,7 @@ function validateTraverseInput(input: TraverseInput): TraversalRefusal | null {
 function traversalResultAtCursor(
   input: TraverseInput,
   cursor: TraversalCursor,
+  suppliedStep?: DirectCTraversalStep,
 ): TraverseResult {
   if (
     !isTraversalCursorCandidate(cursor) ||
@@ -748,8 +751,33 @@ function traversalResultAtCursor(
     );
   }
 
-  const term = resolveTraversalTerm(input.graph, cursor);
-  if (term.kind === "traversal_refusal") return term;
+  const step = suppliedStep ?? deriveDirectCStepFromGraph(
+    input.graph.template,
+    cursorCoordinate(cursor),
+  );
+  if (step.kind === "direct_c_traversal_refusal") {
+    return refusal(
+      step.code === "term_path_missing"
+        ? "locus_missing"
+        : "traversal_cursor_mismatch",
+      step.message,
+    );
+  }
+  if (
+    step.source.nodeRef !== cursor.currentNodeRef ||
+    sha256Canonical(step.source.termPath as unknown as JsonValue) !==
+      sha256Canonical(cursor.termPath as unknown as JsonValue) ||
+    step.source.taskOrdinal !== cursor.taskOrdinal ||
+    step.source.attempt !== cursor.attempt ||
+    sha256Canonical(step.source.retryPath as unknown as JsonValue) !==
+      sha256Canonical(cursor.retryPath as unknown as JsonValue)
+  ) {
+    return refusal(
+      "traversal_cursor_mismatch",
+      "direct C step differs from its exact traversal cursor",
+    );
+  }
+  if (step.stepKind !== "open_leaf") return cursor;
   const batchRef = resolveEnclosingCBatchRef(
     input.graph.template,
     cursor.currentNodeRef,
@@ -758,7 +786,6 @@ function traversalResultAtCursor(
   if (typeof batchRef === "object" && batchRef?.kind === "c_source_path_refusal") {
     return refusal("locus_missing", batchRef.message);
   }
-  if (!isExecutableCLeaf(term) && !isInteractionCLeaf(term)) return cursor;
   const commonStopBody = {
     stopKind: "compute_locus" as const,
     cursor,
@@ -767,41 +794,52 @@ function traversalResultAtCursor(
     graphCallId: input.openedTraversalScope.graphCallId,
     frameId: input.openedTraversalScope.frameId,
     nodeRef: cursor.currentNodeRef,
-    programLocusRef: term.programLocusRef,
+    programLocusRef: step.programLocusRef,
     edgeRef: input.executionBasis.entryRef,
-    vectorIndex: term.vectorIndex,
-    judgmentPredicateRef: term.judgmentPredicateRef,
-    stageRole: term.stageRole,
+    vectorIndex: step.vectorIndex,
+    judgmentPredicateRef: step.judgmentPredicateRef,
+    stageRole: step.stageRole,
     batchRef,
     taskOrdinal: cursor.taskOrdinal,
     attempt: cursor.attempt,
     retryPath: [...cursor.retryPath],
-    computeRegime: term.fibre,
-    armId: term.armId,
-    compositionRef: term.compositionRef,
+    computeRegime: step.fibre,
+    armId: step.armId,
+    compositionRef: step.compositionRef,
   };
-  const stopBody = isExecutableCLeaf(term)
+  if (
+    (step.leafKind === "executable" &&
+      step.requirement.kind !== "executable_leaf_requirement") ||
+    (step.leafKind === "interaction" &&
+      step.requirement.kind !== "interaction_leaf_requirement")
+  ) {
+    return refusal(
+      "locus_missing",
+      "direct C leaf kind differs from its admitted leaf requirement",
+    );
+  }
+  const stopBody = step.requirement.kind === "executable_leaf_requirement"
     ? {
         ...commonStopBody,
         stopClass: "executable" as const,
-        computeRegime: term.fibre,
-        implementationBindingRef: term.requirement.implementationBindingRef,
-        inputContractRef: term.requirement.inputContractRef,
-        outputContractRef: term.requirement.outputContractRef,
-        evidenceContractRef: term.requirement.evidenceContractRef,
-        failureContractRef: term.requirement.failureContractRef,
-        refusalContractRef: term.requirement.refusalContractRef,
-        judgmentContractRef: term.requirement.judgmentContractRef,
+        computeRegime: step.fibre as "F_D" | "F_P",
+        implementationBindingRef: step.requirement.implementationBindingRef,
+        inputContractRef: step.requirement.inputContractRef,
+        outputContractRef: step.requirement.outputContractRef,
+        evidenceContractRef: step.requirement.evidenceContractRef,
+        failureContractRef: step.requirement.failureContractRef,
+        refusalContractRef: step.requirement.refusalContractRef,
+        judgmentContractRef: step.requirement.judgmentContractRef,
       }
     : {
         ...commonStopBody,
         stopClass: "interaction" as const,
         computeRegime: "F_H" as const,
-        interactionKind: term.requirement.interactionKind,
-        actorCapabilityRef: term.requirement.actorCapabilityRef,
-        requestContractRef: term.requirement.requestContractRef,
-        responseContractRef: term.requirement.responseContractRef,
-        continuationContractRef: term.requirement.continuationContractRef,
+        interactionKind: step.requirement.interactionKind,
+        actorCapabilityRef: step.requirement.actorCapabilityRef,
+        requestContractRef: step.requirement.requestContractRef,
+        responseContractRef: step.requirement.responseContractRef,
+        continuationContractRef: step.requirement.continuationContractRef,
       };
   const stopDigest = sha256Canonical(stopBody as unknown as JsonValue);
   const stop = deepFreeze({
@@ -821,6 +859,15 @@ export function traverseFromCursor(
 ): TraverseResult {
   const invalid = validateTraverseInput(input);
   return invalid ?? traversalResultAtCursor(input, cursor);
+}
+
+export function traverseFromDirectStep(
+  input: TraverseInput,
+  cursor: TraversalCursor,
+  step: DirectCTraversalStep,
+): TraverseResult {
+  const invalid = validateTraverseInput(input);
+  return invalid ?? traversalResultAtCursor(input, cursor, step);
 }
 
 export function applyAdmittedRoute(

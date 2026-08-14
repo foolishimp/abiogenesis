@@ -50,36 +50,18 @@ export {
   type RouteProposalRefusal,
 } from "./traversal_route.js";
 export {
-  completeWorkflowPreparationRefusal,
-  completeInteractionResume,
-  completeInteractionTraversal,
-  completeWorkflowTraversal,
-  restoreDeferredRecursion,
-  suspendHeldRecursionTraversal,
-  suspendHeldWorkflowTraversal,
-  type CompleteWorkflowPreparationRefusalInput,
-  type CompleteWorkflowTraversalInput,
-  type CompleteInteractionResumeInput,
-  type CompleteInteractionTraversalInput,
-  type ExecutableLeafCandidate,
-  type ExecutableTraversalClock,
   type ExecutableTraversalCompletion,
   type HeldInteractionTraversal,
   type HeldParentTraversalSuspension,
   type HeldRecursionSuspension,
   type HeldWorkflowSuspension,
-  type RestoreDeferredRecursionInput,
 } from "./execute.js";
 export {
   executeGraphTraversal,
   type ExecuteGraphTraversalInput,
   type ExecuteGraphTraversalRequest,
-  type ProjectedRetryResumeRefusal,
-  type ProjectedRetryResumeRefusalCode,
-  type ProjectedRetryResumeResult,
   type ProjectedRetryResumeSuccess,
-  type ResumeProjectedRetryRequest,
-  type ResumeProjectedRetryRuntime,
+  type ResumeHeldInteractionInput,
   type ResumeHeldTraversalInput,
 } from "./graph_execute.js";
 export {

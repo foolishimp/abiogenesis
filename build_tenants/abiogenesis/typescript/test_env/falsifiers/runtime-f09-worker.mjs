@@ -12,6 +12,7 @@ import * as installedHog from "@abiogenesis/typescript-tenant/hog";
 import * as installedProduct from "@abiogenesis/typescript-tenant/product";
 import * as installedValidator from "@abiogenesis/typescript-tenant/validator";
 import * as retryProduct from "@abiogenesis-fixtures/developer-mini-product";
+import * as Effect from "effect/Effect";
 
 const installedAbgEntryPath = fileURLToPath(
   import.meta.resolve("@abiogenesis/typescript-tenant/abg"),
@@ -934,6 +935,10 @@ async function constructP1Environment(input) {
     environment.installedRoot,
     "build/code/src/abg/retry.js",
   )).href);
+  const leafOwner = await import(pathToFileURL(join(
+    environment.installedRoot,
+    "build/code/src/hog/leaf_execute.js",
+  )).href);
   const eventStoreOwner = await import(pathToFileURL(join(
     environment.installedRoot,
     "build/code/src/abg/event_store.js",
@@ -1511,6 +1516,7 @@ async function constructP1Environment(input) {
       graphValidation,
     },
     retryOwner,
+    leafOwner,
     eventStoreOwner,
     eventCalculusOwner,
     actorRuntimeBinding: { workspaceBinding, artifactTruth },
@@ -1562,9 +1568,7 @@ async function rejectAttempt(
     inputValue,
   );
   assert.notEqual(contracts, null);
-  let observation = null;
-  let workerRequest = null;
-  const realized = await leafPort.invoke(
+  const receipt = await leafPort.invoke(
     implementationResolution,
     inputValue,
     {
@@ -1578,8 +1582,7 @@ async function rejectAttempt(
         attempt: cCall.attempt,
       },
       invokeWorker: async (request) => {
-        workerRequest = request;
-        observation = await abg.invokeActorProcess({
+        const observation = await abg.invokeActorProcess({
           store,
           executionBasis,
           scope: opened.scope,
@@ -1592,10 +1595,20 @@ async function rejectAttempt(
           dispatchOrdinal: 1,
           basis: basis(`attempt-${stop.cursor.attempt}/actor`),
         });
-        return observation;
+        const exchange = abg.validateActorProcessCarrierPair(request, observation);
+        assert.equal(
+          exchange.kind,
+          "actor_process_carrier_validation",
+          JSON.stringify(exchange),
+        );
+        return exchange;
       },
     },
   );
+  assert.equal(receipt.computeRegime, "F_P");
+  const realized = receipt.candidate;
+  const workerRequest = receipt.actorProcessExchange.request;
+  const observation = receipt.actorProcessExchange.observation;
   assert.notEqual(observation, null);
   assert.equal(
     failureClass === "no_output"
@@ -1981,6 +1994,63 @@ async function advanceRetry(environment, attemptResult) {
   };
 }
 
+async function advanceOwnerToLocus(
+  environment,
+  opened,
+  initial,
+  inputValue,
+  correlationId,
+) {
+  let cursor = initial.kind === "traversal_stop_ref"
+    ? initial.cursor
+    : initial;
+  for (let routeOrdinal = 0; routeOrdinal < 64; routeOrdinal += 1) {
+    assert.equal(cursor.kind, "traversal_cursor", JSON.stringify(cursor));
+    const step = environment.hog.deriveDirectCStepFromGraph(
+      environment.graph.template,
+      {
+        nodeRef: cursor.currentNodeRef,
+        termPath: cursor.termPath,
+        taskOrdinal: cursor.taskOrdinal,
+        attempt: cursor.attempt,
+        retryPath: cursor.retryPath,
+      },
+    );
+    assert.equal(step.kind, "direct_c_traversal_step", JSON.stringify(step));
+    if (step.stepKind === "open_leaf" || step.stepKind === "enter_child") {
+      return environment.hog.traverseFromCursor(
+        {
+          program: environment.program,
+          graphFunction: environment.graphFunction,
+          graph: environment.graph,
+          graphValidation: environment.graphValidation,
+          executionBasis: environment.executionBasis,
+          openedTraversalScope: opened.scope,
+        },
+        cursor,
+      );
+    }
+    cursor = await Effect.runPromise(
+      environment.hog.advanceStructuralTraversal({
+        store: environment.store,
+        program: environment.program,
+        graphFunction: environment.graphFunction,
+        graph: environment.graph,
+        graphValidation: environment.graphValidation,
+        executionBasis: environment.executionBasis,
+        openedTraversalScope: opened.scope,
+        initial: cursor,
+        step,
+        inputValue,
+        inputAuthority: environment.leafPort,
+        routeOrdinal,
+        clock: { eventTime: EVENT_TIME, correlationId },
+      }),
+    );
+  }
+  assert.fail("structural owner did not reach one exact executable locus");
+}
+
 async function produceFrontier(input) {
   assert.deepEqual(
     Object.keys(input).sort(),
@@ -2063,8 +2133,8 @@ async function produceFrontier(input) {
     executionBasis: environment.executionBasis,
     openedTraversalScope: opened.scope,
   });
-  assert.equal(traversal.kind, "traversal_step", JSON.stringify(traversal));
-  const initialCursor = traversal.sourceCursor;
+  assert.equal(traversal.kind, "traversal_cursor", JSON.stringify(traversal));
+  const initialCursor = traversal;
   const cursorAdmission = environment.abg.admitInitialTraversalCursor(
     environment.store,
     environment.executionBasis,
@@ -2079,26 +2149,17 @@ async function produceFrontier(input) {
     "traversal_cursor_admission",
     JSON.stringify(cursorAdmission),
   );
-  let stop = environment.hog.advanceStructuralTraversal({
-    store: environment.store,
-    program: environment.program,
-    graphFunction: environment.graphFunction,
-    graph: environment.graph,
-    graphValidation: environment.graphValidation,
-    executionBasis: environment.executionBasis,
-    openedTraversalScope: opened.scope,
-    initial: traversal,
-    inputValue: environment.invocationInput,
-    inputAuthority: environment.leafPort,
-    clock: {
-      eventTime: EVENT_TIME,
-      correlationId: "correlation://s06/ax-f09/structural",
-    },
-  });
+  let stop = await advanceOwnerToLocus(
+    environment,
+    opened,
+    traversal,
+    environment.invocationInput,
+    "correlation://s06/ax-f09/structural",
+  );
   assert.equal(stop.kind, "traversal_stop_ref", JSON.stringify(stop));
   assert.equal(stop.programLocusRef,
     retryProduct.AX_F09_RETRY_IDS.transformLocusRef);
-  const transformed = await environment.hogExecute.completeExecutableTraversal({
+  const transformed = await environment.leafOwner.executeLeafAtLocus({
     store: environment.store,
     executionBasis: environment.executionBasis,
     openedTraversalScope: opened.scope,
@@ -2127,33 +2188,13 @@ async function produceFrontier(input) {
   );
   assert.notEqual(transformedInputDigest, environment.rawInput.subjectDigest);
   assert.equal(transformed.nextCursor.inputDigest, transformedInputDigest);
-  const postTransformTraversal = environment.hog.traverseFromCursor(
-    {
-      program: environment.program,
-      graphFunction: environment.graphFunction,
-      graph: environment.graph,
-      graphValidation: environment.graphValidation,
-      executionBasis: environment.executionBasis,
-      openedTraversalScope: opened.scope,
-    },
+  stop = await advanceOwnerToLocus(
+    environment,
+    opened,
     transformed.nextCursor,
+    transformedInput,
+    "correlation://s06/ax-f09/retry-entry",
   );
-  stop = environment.hog.advanceStructuralTraversal({
-    store: environment.store,
-    program: environment.program,
-    graphFunction: environment.graphFunction,
-    graph: environment.graph,
-    graphValidation: environment.graphValidation,
-    executionBasis: environment.executionBasis,
-    openedTraversalScope: opened.scope,
-    initial: postTransformTraversal,
-    inputValue: transformedInput,
-    inputAuthority: environment.leafPort,
-    clock: {
-      eventTime: EVENT_TIME,
-      correlationId: "correlation://s06/ax-f09/retry-entry",
-    },
-  });
   assert.equal(stop.kind, "traversal_stop_ref", JSON.stringify(stop));
   assert.equal(stop.programLocusRef, retryProduct.AX_F09_RETRY_IDS.locusRef);
   let activeFrontier = environment.abg.projectDeclaredCRetryFrontier(
@@ -3255,10 +3296,21 @@ async function produceAba(input) {
     },
     parentSuspension.sourceCursor,
   );
-  assert.equal(workflowStep.kind, "traversal_step", JSON.stringify(workflowStep));
-  assert.equal(workflowStep.directStep.stepKind, "enter_child");
+  assert.equal(workflowStep.kind, "traversal_cursor", JSON.stringify(workflowStep));
+  const workflowDirectStep = environment.hog.deriveDirectCStepFromGraph(
+    environment.graph.template,
+    {
+      nodeRef: workflowStep.currentNodeRef,
+      termPath: workflowStep.termPath,
+      taskOrdinal: workflowStep.taskOrdinal,
+      attempt: workflowStep.attempt,
+      retryPath: workflowStep.retryPath,
+    },
+  );
+  assert.equal(workflowDirectStep.kind, "direct_c_traversal_step");
+  assert.equal(workflowDirectStep.stepKind, "enter_child");
   assert.equal(
-    workflowStep.directStep.graphFunctionRef,
+    workflowDirectStep.graphFunctionRef,
     environment.childGraphFunction.name,
   );
   const workflowCallEvents = events.filter((event) =>

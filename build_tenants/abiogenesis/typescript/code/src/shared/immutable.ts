@@ -7,3 +7,14 @@ export function deepFreeze<T>(value: T): Readonly<T> {
   }
   return Object.freeze(value);
 }
+
+export function isDeeplyFrozen(
+  value: unknown,
+  visited: Set<object> = new Set(),
+): boolean {
+  if (typeof value !== "object" || value === null) return true;
+  if (!Object.isFrozen(value)) return false;
+  if (visited.has(value)) return true;
+  visited.add(value);
+  return Object.values(value).every((child) => isDeeplyFrozen(child, visited));
+}

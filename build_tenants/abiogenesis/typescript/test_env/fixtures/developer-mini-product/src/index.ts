@@ -2038,9 +2038,15 @@ interface ProbabilisticEffectPort {
   readonly invokeWorker: (
     request: Readonly<Record<string, JsonValue>>,
   ) => Promise<Readonly<{
-    disposition: "failure" | "success";
-    failureClass: string | null;
-    finalOutput: string;
+    kind: "actor_process_carrier_validation";
+    schemaVersion: "5.0.0";
+    disposition: "valid";
+    request: Readonly<Record<string, JsonValue>>;
+    observation: Readonly<{
+      disposition: "failure" | "success";
+      failureClass: string | null;
+      finalOutput: string;
+    }>;
   }>>;
 }
 
@@ -2104,13 +2110,14 @@ export async function realizeDeveloperProbabilisticPass(
     schemaVersion: "5.0.0";
     message: string;
   }>;
-  const transport = await effects.invokeWorker(request);
+  const actorProcessExchange = await effects.invokeWorker(request);
+  const transport = actorProcessExchange.observation;
   const resultCandidate = parseGreetingCandidate(transport.finalOutput);
   const success =
     transport.disposition === "success" &&
     isGreetingOutput(resultCandidate) &&
     resultCandidate.message === admittedInput.message;
-  return deepFreeze({
+  const candidate = deepFreeze({
     kind: "leaf_realization_candidate" as const,
     schemaVersion: "5.0.0" as const,
     disposition: success ? "success" as const : "failure" as const,
@@ -2125,6 +2132,13 @@ export async function realizeDeveloperProbabilisticPass(
               ? "diagnostic://developer.example/greeting/worker-output-refused@5"
               : `diagnostic://developer.example/greeting/${transport.failureClass}@5`,
         },
+  });
+  return deepFreeze({
+    kind: "leaf_invocation_receipt" as const,
+    schemaVersion: "5.0.0" as const,
+    computeRegime: "F_P" as const,
+    candidate,
+    actorProcessExchange,
   });
 }
 

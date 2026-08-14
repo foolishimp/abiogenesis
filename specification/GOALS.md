@@ -129,6 +129,15 @@ design evidence; their carrier repair and D6 are held and supply no current
 implementation authority. The frozen 18/56 census remains external Product
 coverage, not an assertion of 56 primitive implementations.
 
+The C2A code walk exposed one observation-only F_P handoff that prevented the
+exact request/observation relation from crossing its existing owner port without
+mutable capture. F_H has authorized one bounded producing-interface re-entry:
+F_P leaf invocation returns the unchanged semantic candidate together with the
+existing ABG-validated request/observation relation as one closed immutable
+receipt. Product meaning, owner request/result/refusal meaning, ABG events,
+admission, Event Calculus, replay, Public, and the 18/56 family remain unchanged.
+This source-contract break closes before the B1/B2 fold break resumes.
+
 Wave 1 order is:
 
 ```text

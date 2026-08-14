@@ -1,20 +1,14 @@
 import {
   admitInitialTraversalCursor,
-  admitRoute,
   admitRuntimeFailure,
   deriveGraphFunctionActionEvaluationBasis,
   hasAdmittedTraversalCursor,
   isExecutionBasis,
-  isOpenedTraversalScope,
   isTraversalCursorCandidate,
-  openWorkflowCCall,
   rehydrateExecutionBasisAtPrefix,
-  rehydrateOpenedTraversalScopeAtPrefix,
   rehydrateConstructionIntentForCursor,
-  selectAdmittedInteractionContract,
   selectAdmittedImplementationResolution,
   traversalCursorAdmissionEventRef,
-  WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
   type AbgEventStore,
   type ActorRuntimeBinding,
   type AdmittedImplementationSet,
@@ -25,24 +19,15 @@ import {
 } from "../abg/index.js";
 import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
 import {
-  admitRetryAttempt,
-  assertFullRetryAttemptFrontier,
-  deriveRetryAttemptManifestRef,
   projectDeclaredCRetryFrontier,
-  projectDeclaredRetryAttemptCoordinates,
-  projectExecutableRetryInput,
-  projectRetryAttempt,
-  type ExecutableRetryInput,
 } from "../abg/retry.js";
 import {
-  admitRuntimeEventTransactionAtExpectedPrefix,
   assertHeldEventStoreAtDurablePrefix,
   readRuntimeEventsAtDurablePrefix,
   validateDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
 } from "../abg/event_store.js";
 import { projectAdmittedRetryRouteAtPrefix } from "../abg/traversal_route.js";
-import { replayValidatedRuntimeEventPrefix } from "../abg/replay.js";
 import type {
   ClosureContract,
   FanOutApplication,
@@ -51,39 +36,33 @@ import type {
   GtlProgram,
   RecurseApplication,
 } from "../gtl/contracts.js";
-import { recursionTerminationDecision } from "../gtl/graph_applications.js";
-import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import { isAdmittedLeafInvocationPort } from "./leaf_invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import { lookupGraphFunctionDefinition } from "../product/catalog.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
-import {
-  isGraphValidation,
-  type GraphValidation,
-} from "../validator/graph.js";
+import type { GraphValidation } from "../validator/graph.js";
 import {
   advanceDeferredRecursion,
-  blockDeferredRecursion,
-  blockDeferredRecursionPreparation,
-  completeDeferredApplicationTerminal,
-  completeExecutableTraversal,
-  completeInteractionTraversal,
-  completeWorkflowPreparationRefusal,
   completeWorkflowTraversal,
   restoreDeferredRecursion,
-  suspendHeldRecursionTraversal,
-  suspendHeldWorkflowTraversal,
+  type CompleteInteractionResumeInput,
   type ExecutableTraversalCompletion,
-  type CompleteExecutableTraversalResult,
   type CompleteExecutableTraversalInput,
   type HeldRecursionSuspension,
   type HeldWorkflowSuspension,
   type RestoreDeferredRecursionInput,
 } from "./execute.js";
+import { resumeInteractionOwner } from "./interaction_resume.js";
 import {
-  isChildTraversalPreparationPort,
+  deriveDirectCStepFromGraph,
+  type DirectCTraversalStep,
+} from "./direct_fold.js";
+import { evaluateWorkflowLocus } from "./workflow_locus.js";
+import { evaluateInteractionLocus } from "./interaction_locus.js";
+import { evaluateExecutableLocus } from "./executable_locus.js";
+import type { TraversalLocusEvaluation } from "./locus_evaluation.js";
+import {
   type ChildTraversalPreparationPort,
   type PreparedChildTraversal,
 } from "./child_traversal.js";
@@ -97,31 +76,16 @@ import {
   rehydrateHeldInteractionCursor,
   resolveTraversalTerm,
   traverse,
+  traverseFromDirectStep,
   traverseFromCursor,
   type TraversalCursor,
   type TraversalStopRef,
+  type TraverseResult,
 } from "./traversal.js";
-import { proposeRetryRoute } from "./traversal_route.js";
-import { Cause, Effect, Exit } from "effect";
+import * as Cause from "effect/Cause";
+import * as Effect from "effect/Effect";
+import * as Exit from "effect/Exit";
 import { runEffectProgram } from "../shared/effect_definition.js";
-
-export interface ResumeProjectedRetryRuntime {
-  readonly executionBasis: ExecutionBasis;
-  readonly openedTraversalScope: OpenedTraversalScope;
-  readonly program: Readonly<GtlProgram>;
-  readonly graphFunction: Readonly<GraphFunction>;
-  readonly graph: Readonly<GtlGraph>;
-  readonly graphValidation: GraphValidation;
-  readonly eventTime: string;
-  readonly correlationId: string;
-}
-
-export interface ResumeProjectedRetryRequest {
-  readonly store: AbgEventStore;
-  readonly predecessorPrefix: DurablePrefixCoordinate;
-  readonly retry: ExecutableRetryInput;
-  readonly runtime: ResumeProjectedRetryRuntime;
-}
 
 export interface ProjectedRetryResumeSuccess {
   readonly kind: "projected_retry_resume";
@@ -148,67 +112,6 @@ export interface ProjectedRetryResumeSuccess {
   readonly successorPrefix: DurablePrefixCoordinate;
 }
 
-export type ProjectedRetryResumeRefusalCode =
-  | "projection_mismatch"
-  | "prefix_mismatch"
-  | "runtime_basis_mismatch"
-  | "retry_step_refused"
-  | "retry_route_refused"
-  | "retry_attempt_refused";
-
-export interface ProjectedRetryResumeRefusal {
-  readonly kind: "projected_retry_resume_refusal";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "refused";
-  readonly code: ProjectedRetryResumeRefusalCode;
-  readonly message: string;
-  readonly executableRetryInputRef: string | null;
-  readonly executableRetryInputDigest: `sha256:${string}` | null;
-  readonly lowerCause: JsonValue;
-}
-
-export type ProjectedRetryResumeResult =
-  | ProjectedRetryResumeSuccess
-  | ProjectedRetryResumeRefusal;
-
-function projectedRetryRefusal(
-  request: ResumeProjectedRetryRequest,
-  code: ProjectedRetryResumeRefusalCode,
-  message: string,
-  lowerCause: JsonValue,
-): ProjectedRetryResumeRefusal {
-  const ref = typeof request.retry?.projectionRef === "string" &&
-      request.retry.projectionRef.length > 0
-    ? request.retry.projectionRef
-    : null;
-  const digest = typeof request.retry?.projectionDigest === "string" &&
-      request.retry.projectionDigest.startsWith("sha256:")
-    ? request.retry.projectionDigest
-    : null;
-  return deepFreeze({
-    kind: "projected_retry_resume_refusal" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "refused" as const,
-    code,
-    message,
-    executableRetryInputRef: ref,
-    executableRetryInputDigest: digest,
-    lowerCause,
-  });
-}
-
-class ProjectedRetryTransactionAbort extends TypeError {
-  constructor(
-    readonly code: Extract<
-      ProjectedRetryResumeRefusalCode,
-      "retry_step_refused" | "retry_route_refused" | "retry_attempt_refused"
-    >,
-    readonly lowerCause: JsonValue,
-  ) {
-    super(`projected retry transaction aborted: ${code}`);
-  }
-}
-
 function sameCanonical(left: unknown, right: unknown): boolean {
   try {
     return sha256Canonical(left as JsonValue) ===
@@ -223,498 +126,6 @@ function canonicalDigest(value: unknown): `sha256:${string}` | null {
     return sha256Canonical(value as JsonValue);
   } catch {
     return null;
-  }
-}
-
-function retryRuntimeDeclarationsMatch(
-  fresh: ExecutableRetryInput,
-  runtime: ResumeProjectedRetryRuntime,
-  executionBasis: ExecutionBasis,
-  scope: OpenedTraversalScope,
-): boolean {
-  try {
-    return isExecutionBasis(runtime.executionBasis) &&
-      isOpenedTraversalScope(runtime.openedTraversalScope) &&
-      isMaterializedGtlGraph(runtime.graph) &&
-      isGraphValidation(runtime.graphValidation) &&
-      sameCanonical(runtime.executionBasis, executionBasis) &&
-      sameCanonical(runtime.openedTraversalScope, scope) &&
-      runtime.program.programRef === fresh.programRef &&
-      runtime.program.programRef === executionBasis.programRef &&
-      sha256Canonical(runtime.program as unknown as JsonValue) ===
-        fresh.programDigest &&
-      fresh.programDigest === executionBasis.programDigest &&
-      runtime.program.callableMembership.includes(
-        executionBasis.graphFunctionRef,
-      ) &&
-      runtime.graphFunction.name === fresh.graphFunctionRef &&
-      runtime.graphFunction.name === executionBasis.graphFunctionRef &&
-      sha256Canonical(runtime.graphFunction as unknown as JsonValue) ===
-        fresh.graphFunctionDigest &&
-      fresh.graphFunctionDigest === executionBasis.graphFunctionDigest &&
-      runtime.graph.materializationRef === fresh.graphRef &&
-      runtime.graph.materializationRef === executionBasis.graphRef &&
-      runtime.graph.materializationDigest === fresh.graphDigest &&
-      runtime.graph.materializationDigest === executionBasis.graphDigest &&
-      runtime.graph.graphFunctionRef === fresh.graphFunctionRef &&
-      runtime.graph.graphFunctionRef === executionBasis.graphFunctionRef &&
-      runtime.graph.graphFunctionDigest === fresh.graphFunctionDigest &&
-      runtime.graph.graphFunctionDigest === executionBasis.graphFunctionDigest &&
-      runtime.graph.invocationAdmissionRef ===
-        executionBasis.invocationAdmissionRef &&
-      runtime.graph.admittedInputRef === executionBasis.rawInputAdmissionRef &&
-      runtime.graph.admittedInputDigest === executionBasis.rawInputDigest &&
-      runtime.graphValidation.disposition === "valid" &&
-      runtime.graphValidation.validationRef ===
-        executionBasis.graphValidationRef &&
-      runtime.graphValidation.graphRef === fresh.graphRef &&
-      runtime.graphValidation.graphRef === runtime.graph.materializationRef &&
-      runtime.graphValidation.graphDigest === fresh.graphDigest &&
-      runtime.graphValidation.graphDigest ===
-        runtime.graph.materializationDigest &&
-      runtime.graphValidation.graphFunctionRef === fresh.graphFunctionRef &&
-      runtime.graphValidation.graphFunctionRef ===
-        executionBasis.graphFunctionRef &&
-      runtime.graphValidation.graphFunctionDigest ===
-        fresh.graphFunctionDigest &&
-      runtime.graphValidation.graphFunctionDigest ===
-        executionBasis.graphFunctionDigest &&
-      runtime.graphValidation.programValidationRef ===
-        executionBasis.programValidationRef &&
-      runtime.graphValidation.invocationAdmissionRef ===
-        executionBasis.invocationAdmissionRef &&
-      runtime.graphValidation.admittedInputRef ===
-        executionBasis.rawInputAdmissionRef &&
-      runtime.graphValidation.admittedInputDigest ===
-        executionBasis.rawInputDigest &&
-      executionBasis.basisRef === fresh.executionBasisRef &&
-      executionBasis.basisDigest === fresh.executionBasisDigest &&
-      scope.scopeRef === fresh.traversalScopeRef &&
-      scope.scopeDigest === fresh.traversalScopeDigest &&
-      scope.executionBasisRef === executionBasis.basisRef &&
-      scope.executionBasisDigest === executionBasis.basisDigest &&
-      scope.invocationAdmissionRef === executionBasis.invocationAdmissionRef &&
-      scope.invocationRef === executionBasis.invocationRef &&
-      scope.programRef === executionBasis.programRef &&
-      scope.graphFunctionRef === executionBasis.graphFunctionRef &&
-      scope.graphRef === executionBasis.graphRef &&
-      scope.runId === fresh.selector.runId &&
-      scope.graphCallId === fresh.selector.graphCallId &&
-      scope.frameId === fresh.selector.frameId &&
-      typeof runtime.eventTime === "string" &&
-      !Number.isNaN(Date.parse(runtime.eventTime)) &&
-      typeof runtime.correlationId === "string" &&
-      runtime.correlationId.length > 0;
-  } catch {
-    return false;
-  }
-}
-
-function resumeProjectedRetry(
-  request: ResumeProjectedRetryRequest,
-): ProjectedRetryResumeResult {
-  let fresh;
-  try {
-    fresh = projectExecutableRetryInput({
-      prefix: request.predecessorPrefix,
-      selector: request.retry.selector,
-      program: request.runtime.program,
-      graphFunction: request.runtime.graphFunction,
-      graph: request.runtime.graph,
-    });
-  } catch (error) {
-    return projectedRetryRefusal(
-      request,
-      "projection_mismatch",
-      "projected retry input could not be independently reconstructed",
-      { error: String(error) },
-    );
-  }
-  if (
-    fresh.kind !== "executable_retry_input" ||
-    !sameCanonical(fresh, request.retry)
-  ) {
-    return projectedRetryRefusal(
-      request,
-      "projection_mismatch",
-      "supplied retry input differs from fresh D17 projection",
-      fresh as unknown as JsonValue,
-    );
-  }
-  try {
-    assertFullRetryAttemptFrontier(fresh.retryFrontier);
-  } catch (error) {
-    return projectedRetryRefusal(
-      request,
-      "projection_mismatch",
-      "fresh retry projection does not carry one full frontier",
-      { error: String(error) },
-    );
-  }
-
-  let prefix;
-  let authorityPrefix;
-  try {
-    const durableEvents = readRuntimeEventsAtDurablePrefix(
-      request.predecessorPrefix,
-    );
-    authorityPrefix = selectValidatedRuntimeEventPrefix(durableEvents);
-    prefix = selectValidatedRuntimeEventPrefix(
-      durableEvents,
-      { runId: fresh.selector.runId },
-    );
-  } catch (error) {
-    return projectedRetryRefusal(
-      request,
-      "prefix_mismatch",
-      "D17 predecessor prefix cannot be read as one immutable runtime basis",
-      { error: String(error) },
-    );
-  }
-
-  const executionBasis = rehydrateExecutionBasisAtPrefix(
-    prefix,
-    fresh.executionBasisRef,
-  );
-  const scope = rehydrateOpenedTraversalScopeAtPrefix(
-    prefix,
-    request.runtime.openedTraversalScope as unknown as Readonly<
-      Record<string, JsonValue>
-    >,
-  );
-  if (
-    executionBasis === null || scope === null ||
-    !retryRuntimeDeclarationsMatch(
-      fresh,
-      request.runtime,
-      executionBasis,
-      scope,
-    )
-  ) {
-    return projectedRetryRefusal(
-      request,
-      "runtime_basis_mismatch",
-      "retry runtime declarations differ from the D17 execution basis",
-      {
-        executionBasisRef: fresh.executionBasisRef,
-        traversalScopeRef: fresh.traversalScopeRef,
-      },
-    );
-  }
-
-  const sourceCursor = rehydrateHeldInteractionCursor(
-    prefix,
-    fresh.sourceCursor,
-  );
-  if (sourceCursor === null) {
-    return projectedRetryRefusal(
-      request,
-      "runtime_basis_mismatch",
-      "D17 source cursor does not rehydrate at the predecessor prefix",
-      { sourceCursorRef: fresh.sourceCursor.cursorRef },
-    );
-  }
-  const targetCursor = deriveRetryTraversalCursor(request.runtime.graph, sourceCursor, {
-    inputRef: fresh.inputRef,
-    inputDigest: fresh.inputDigest,
-  });
-  if (
-    targetCursor.kind !== "traversal_cursor" ||
-    targetCursor.attempt !== fresh.nextAttempt ||
-    !sameCanonical(targetCursor.retryPath, fresh.nextRetryPath) ||
-    targetCursor.inputRef !== fresh.inputRef ||
-    targetCursor.inputDigest !== fresh.inputDigest
-  ) {
-    return projectedRetryRefusal(
-      request,
-      "retry_step_refused",
-      "HoG could not derive the exact D17 retry successor step",
-      targetCursor as unknown as JsonValue,
-    );
-  }
-  const replayState = replayValidatedRuntimeEventPrefix(
-    prefix,
-    authorityPrefix,
-  );
-  const candidate = proposeRetryRoute(
-    request.runtime.graph,
-    sourceCursor,
-    targetCursor,
-    fresh.cCall,
-    fresh.progress,
-    replayState,
-    fresh.cCall.transitionContractRef,
-  );
-  if (candidate.kind !== "traversal_route_candidate") {
-    return projectedRetryRefusal(
-      request,
-      "retry_route_refused",
-      "HoG could not propose the exact D17 retry route",
-      candidate as unknown as JsonValue,
-    );
-  }
-  const declaration = projectDeclaredRetryAttemptCoordinates(
-    request.runtime.graph,
-    targetCursor,
-  );
-  const expectedRouteDigest = candidate.candidateDigest;
-  const expectedRouteRef =
-    `traversal-route://abiogenesis/${expectedRouteDigest.slice("sha256:".length)}`;
-  if (
-    declaration === null ||
-    declaration.retryBoundaryRef !== fresh.selector.retryBoundaryRef ||
-    declaration.inputCarrierRef !== fresh.inputContractRef ||
-    declaration.retryDepth !== fresh.nextRetryPath.length ||
-    declaration.budget < fresh.nextAttempt ||
-    !sameCanonical(targetCursor.retryPath, fresh.nextRetryPath) ||
-    candidate.declarationRef !== request.runtime.graph.materializationRef ||
-    candidate.declarationDigest !== request.runtime.graph.materializationDigest ||
-    candidate.sourceCursorRef !== sourceCursor.cursorRef ||
-    candidate.sourceCursorDigest !== sourceCursor.cursorDigest ||
-    candidate.targetCursorRef !== targetCursor.cursorRef ||
-    candidate.targetCursorDigest !== targetCursor.cursorDigest ||
-    candidate.cCallRef !== fresh.cCall.cCallRef ||
-    candidate.judgmentRef !== fresh.progress.judgmentRef ||
-    !sameCanonical(candidate.consumedAvailabilityRefs, [
-      fresh.progress.judgmentRef,
-      fresh.progress.progressRef,
-    ]) ||
-    candidate.contractRef !== fresh.cCall.transitionContractRef ||
-    candidate.replayStateDigest !== replayState.replayDigest ||
-    targetCursor.inputRef !== fresh.inputRef ||
-    targetCursor.inputDigest !== fresh.inputDigest ||
-    sha256Canonical(fresh.inputValue as unknown as JsonValue) !==
-      fresh.inputDigest
-  ) {
-    return projectedRetryRefusal(
-      request,
-      "retry_step_refused",
-      "HoG retry route and attempt preflight differ from the exact D17 successor",
-      {
-        sourceCursorRef: sourceCursor.cursorRef,
-        targetCursorRef: targetCursor.cursorRef,
-      },
-    );
-  }
-  const expectedAttemptBody = {
-    attemptManifestRef: deriveRetryAttemptManifestRef({
-      retryBoundaryRef: declaration.retryBoundaryRef,
-      executionBasisRef: targetCursor.executionBasisRef,
-      inputContractRef: declaration.inputCarrierRef,
-      inputRef: targetCursor.inputRef,
-      inputDigest: targetCursor.inputDigest,
-      attempt: targetCursor.attempt,
-      retryPath: targetCursor.retryPath,
-    }),
-    retryBoundaryRef: declaration.retryBoundaryRef,
-    retryTermPath: declaration.retryTermPath,
-    wrappedTermPath: declaration.wrappedTermPath,
-    taskOrdinal: declaration.taskOrdinal,
-    attempt: targetCursor.attempt,
-    retryPath: targetCursor.retryPath,
-    budget: declaration.budget,
-    retryableFailureClasses: WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
-    priorJudgmentRef: candidate.judgmentRef,
-    priorRouteRef: expectedRouteRef,
-    inputRef: targetCursor.inputRef,
-    inputDigest: targetCursor.inputDigest,
-    inputContractRef: declaration.inputCarrierRef,
-    inputValue: fresh.inputValue,
-  };
-  const expectedAttemptDigest = sha256Canonical(
-    expectedAttemptBody as unknown as JsonValue,
-  );
-  const expectedAttemptRef =
-    `retry-attempt://abiogenesis/${expectedAttemptDigest.slice("sha256:".length)}`;
-
-  let expectedPrefixDigest;
-  try {
-    assertHeldEventStoreAtDurablePrefix(
-      request.store,
-      request.predecessorPrefix,
-    );
-    expectedPrefixDigest = request.store.digest();
-  } catch (error) {
-    return projectedRetryRefusal(
-      request,
-      "prefix_mismatch",
-      "retry predecessor prefix changed before atomic admission",
-      { error: String(error) },
-    );
-  }
-
-  try {
-    const transaction = admitRuntimeEventTransactionAtExpectedPrefix(
-      request.store,
-      expectedPrefixDigest,
-      () => {
-        const route = admitRoute(
-          request.store,
-          executionBasis,
-          request.runtime.graph,
-          sourceCursor,
-          targetCursor,
-          replayState,
-          candidate,
-          {
-            eventTime: request.runtime.eventTime,
-            correlationId: `${request.runtime.correlationId}/retry-route`,
-            causationEventRefs: [],
-          },
-          {
-            graphFunction: request.runtime.graphFunction,
-            cCall: fresh.cCall,
-            progress: fresh.progress,
-          },
-        );
-        if (
-          route.kind !== "admitted_traversal_route" ||
-          route.routeRef !== expectedRouteRef ||
-          route.routeDigest !== expectedRouteDigest
-        ) {
-          throw new ProjectedRetryTransactionAbort(
-            "retry_route_refused",
-            route as unknown as JsonValue,
-          );
-        }
-        const nextCursor = applyAdmittedRoute(
-          sourceCursor,
-          targetCursor,
-          "retry",
-          route,
-        );
-        if (
-          nextCursor.kind === "traversal_refusal" ||
-          !sameCanonical(nextCursor, targetCursor)
-        ) {
-          throw new ProjectedRetryTransactionAbort(
-            "retry_step_refused",
-            nextCursor as unknown as JsonValue,
-          );
-        }
-        const attempt = admitRetryAttempt(
-          request.store,
-          executionBasis,
-          request.runtime.graph,
-          request.runtime.graphFunction,
-          nextCursor,
-          fresh.inputValue,
-          route.admissionEventRef,
-          {
-            eventTime: request.runtime.eventTime,
-            correlationId: `${request.runtime.correlationId}/retry-attempt`,
-            causationEventRefs: [],
-          },
-        );
-        if (attempt.kind !== "retry_attempt_admission") {
-          throw new ProjectedRetryTransactionAbort(
-            "retry_attempt_refused",
-            attempt as unknown as JsonValue,
-          );
-        }
-        const {
-          kind: _attemptKind,
-          schemaVersion: _attemptSchemaVersion,
-          disposition: _attemptDisposition,
-          attemptRef: _attemptRef,
-          attemptDigest: _attemptDigest,
-          admissionEventRef: _attemptAdmissionEventRef,
-          ...admittedAttemptBody
-        } = attempt;
-        if (
-          attempt.attemptRef !== expectedAttemptRef ||
-          attempt.attemptDigest !== expectedAttemptDigest ||
-          !sameCanonical(admittedAttemptBody, expectedAttemptBody)
-        ) {
-          throw new ProjectedRetryTransactionAbort(
-            "retry_attempt_refused",
-            {
-              expectedAttemptRef,
-              admittedAttemptRef: attempt.attemptRef,
-            },
-          );
-        }
-        const successorEvents = request.store.readAll().filter((event) =>
-          event.admissionOrdinal > fresh.lastAdmissionOrdinal
-        );
-        if (
-          successorEvents.length !== 2 ||
-          successorEvents[0]?.kind !== "traversal_route_admitted" ||
-          successorEvents[0]?.eventId !== route.admissionEventRef ||
-          successorEvents[1]?.kind !== "retry_attempt_opened" ||
-          successorEvents[1]?.eventId !== attempt.admissionEventRef
-        ) {
-          throw new ProjectedRetryTransactionAbort(
-            "retry_attempt_refused",
-            { successorEventRefs: successorEvents.map((event) => event.eventId) },
-          );
-        }
-        const admittedPrefix = selectValidatedRuntimeEventPrefix(
-          request.store.readAll(),
-          { runId: fresh.selector.runId },
-        );
-        const projectedAttempt = projectRetryAttempt(
-          admittedPrefix,
-          request.runtime.graph,
-          attempt.admissionEventRef,
-        );
-        if (!sameCanonical(projectedAttempt, attempt)) {
-          throw new ProjectedRetryTransactionAbort(
-            "retry_attempt_refused",
-            { retryAttemptAdmissionEventRef: attempt.admissionEventRef },
-          );
-        }
-        return { route, nextCursor, attempt };
-      },
-    );
-    if (transaction.successorPrefix === null) {
-      return projectedRetryRefusal(
-        request,
-        "prefix_mismatch",
-        "atomic retry admission produced no durable successor prefix",
-        { predecessorPrefixDigest: request.predecessorPrefix.prefixDigest },
-      );
-    }
-    return deepFreeze({
-      kind: "projected_retry_resume" as const,
-      schemaVersion: "5.0.0" as const,
-      disposition: "resumed" as const,
-      executableRetryInputRef: fresh.projectionRef,
-      executableRetryInputDigest: fresh.projectionDigest,
-      retryFrontierRef: fresh.retryFrontier.frontierRef,
-      retryFrontierDigest: fresh.retryFrontier.frontierDigest,
-      selectedFrontierRowRef: fresh.selectedFrontierRowRef,
-      progressEventRef: fresh.progressEventRef,
-      routeAdmissionEventRef: transaction.value.route.admissionEventRef,
-      routeRef: transaction.value.route.routeRef,
-      routeDigest: transaction.value.route.routeDigest,
-      nextCursor: transaction.value.nextCursor,
-      retryAttemptAdmissionEventRef:
-        transaction.value.attempt.admissionEventRef,
-      retryAttemptRef: transaction.value.attempt.attemptRef,
-      retryAttemptDigest: transaction.value.attempt.attemptDigest,
-      nextAttempt: fresh.nextAttempt,
-      inputContractRef: fresh.inputContractRef,
-      inputRef: fresh.inputRef,
-      inputDigest: fresh.inputDigest,
-      inputValue: fresh.inputValue,
-      successorPrefix: transaction.successorPrefix,
-    });
-  } catch (error) {
-    if (error instanceof ProjectedRetryTransactionAbort) {
-      return projectedRetryRefusal(
-        request,
-        error.code,
-        error.message,
-        error.lowerCause,
-      );
-    }
-    return projectedRetryRefusal(
-      request,
-      "prefix_mismatch",
-      "atomic retry admission lost its expected predecessor prefix",
-      { error: String(error) },
-    );
   }
 }
 
@@ -773,6 +184,11 @@ export interface ResumeHeldTraversalInput {
   readonly childCompletion: ExecutableTraversalCompletion;
 }
 
+export interface ResumeHeldInteractionInput {
+  readonly parent: InitialOrNonRetryExecuteGraphTraversalInput;
+  readonly interaction: CompleteInteractionResumeInput;
+}
+
 function fail(
   input: ExecuteGraphTraversalCommonInput,
   stage: string,
@@ -795,33 +211,8 @@ function fail(
   throw new TypeError(diagnosticRef);
 }
 
-function advanceStructural(
-  input: ExecuteGraphTraversalCommonInput,
-  value: StructuralTraversalResult,
-  ordinal: number,
-  inputValue: Readonly<Record<string, JsonValue>>,
-): Effect.Effect<StructuralTraversalResult> {
-  if (value.kind !== "traversal_cursor") return Effect.succeed(value);
-  return advanceStructuralTraversal({
-    store: input.store,
-    program: input.program,
-    graphFunction: input.graphFunction,
-    graph: input.graph,
-    graphValidation: input.graphValidation,
-    executionBasis: input.executionBasis,
-    openedTraversalScope: input.openedTraversalScope,
-    initial: value,
-    inputValue,
-    inputAuthority: input.leafPort,
-    clock: {
-      eventTime: input.eventTime,
-      correlationId: `${input.correlationId}/structural/${ordinal}`,
-    },
-  });
-}
-
 function activeCursor(
-  value: StructuralTraversalResult,
+  value: StructuralTraversalResult | TraverseResult,
 ): TraversalCursor | null {
   if (value.kind === "traversal_stop_ref") return value.cursor;
   return value.kind === "traversal_cursor" ? value : null;
@@ -830,29 +221,39 @@ function activeCursor(
 function traversalAtCursor(
   input: ExecuteGraphTraversalCommonInput,
   cursor: TraversalCursor,
+  directStep?: DirectCTraversalStep,
 ): ReturnType<typeof traverseFromCursor> {
-  return traverseFromCursor(
-    {
-      program: input.program,
-      graphFunction: input.graphFunction,
-      graph: input.graph,
-      graphValidation: input.graphValidation,
-      executionBasis: input.executionBasis,
-      openedTraversalScope: input.openedTraversalScope,
-    },
-    cursor,
-  );
+  const traversalInput = {
+    program: input.program,
+    graphFunction: input.graphFunction,
+    graph: input.graph,
+    graphValidation: input.graphValidation,
+    executionBasis: input.executionBasis,
+    openedTraversalScope: input.openedTraversalScope,
+  };
+  return directStep === undefined
+    ? traverseFromCursor(traversalInput, cursor)
+    : traverseFromDirectStep(traversalInput, cursor, directStep);
 }
 
-function isExecutablePosition(
-  graph: Readonly<GtlGraph>,
-  value: StructuralTraversalResult,
-): value is TraversalStopRef | TraversalCursor {
-  return value.kind === "traversal_stop_ref" ||
-    (
-      value.kind === "traversal_cursor" &&
-      resolveTraversalTerm(graph, value).kind === "c_workflow"
-    );
+function isExactLocusStep(
+  stop: TraversalStopRef | TraversalCursor,
+  step: DirectCTraversalStep,
+): boolean {
+  if (stop.kind === "traversal_cursor") {
+    return step.stepKind === "enter_child";
+  }
+  return step.stepKind === "open_leaf" &&
+    step.fibre === stop.computeRegime &&
+    step.programLocusRef === stop.programLocusRef &&
+    step.armId === stop.armId &&
+    step.compositionRef === stop.compositionRef &&
+    step.inputCarrierRef === (stop.stopClass === "executable"
+      ? stop.inputContractRef
+      : stop.requestContractRef) &&
+    step.outputCarrierRef === (stop.stopClass === "executable"
+      ? stop.outputContractRef
+      : stop.responseContractRef);
 }
 
 function preparedChildTraversalInput(
@@ -898,15 +299,38 @@ function preparedChildTraversalInput(
   };
 }
 
-function recurseApplicationAtStop(
-  graph: Readonly<GtlGraph>,
-  compositionRef: string | null,
-): Readonly<RecurseApplication> | null {
-  if (compositionRef === null) return null;
-  const application = graph.template.applications.find(
-    (candidate) => candidate.applicationRef === compositionRef,
-  );
-  return application?.relationKind === "recurse" ? application : null;
+function projectedRetryTraversalInput(
+  parent: ExecuteGraphTraversalCommonInput,
+  projectedRetryResume: ProjectedRetryResumeSuccess,
+  correlationId: string,
+): ExecuteGraphTraversalInput {
+  return {
+    store: parent.store,
+    executionBasis: parent.executionBasis,
+    openedTraversalScope: parent.openedTraversalScope,
+    program: parent.program,
+    graphFunction: parent.graphFunction,
+    graph: parent.graph,
+    graphValidation: parent.graphValidation,
+    implementationSet: parent.implementationSet,
+    interactionSet: parent.interactionSet,
+    ...(parent.continuationProductBasis === undefined
+      ? {}
+      : { continuationProductBasis: parent.continuationProductBasis }),
+    leafPort: parent.leafPort,
+    ...(parent.childTraversalPreparationPort === undefined
+      ? {}
+      : { childTraversalPreparationPort: parent.childTraversalPreparationPort }),
+    closureContract: parent.closureContract,
+    actorRuntimeBinding: parent.actorRuntimeBinding,
+    ...(parent.deferFailedRunStop === true ? { deferFailedRunStop: true } : {}),
+    eventTime: parent.eventTime,
+    correlationId,
+    ...(parent.terminalMode === undefined
+      ? {}
+      : { terminalMode: parent.terminalMode }),
+    projectedRetryResume,
+  };
 }
 
 function fanOutApplicationForBatch(
@@ -1039,6 +463,23 @@ interface ReprojectedProjectedRetryResume {
   readonly cursor: TraversalCursor;
   readonly executionBasis: ExecutionBasis;
 }
+
+interface ActiveTraversalFoldState {
+  readonly stateKind: "active";
+  readonly cursor: TraversalCursor;
+  readonly input: Readonly<Record<string, JsonValue>>;
+  readonly ordinal: number;
+  readonly structuralOrdinal: number;
+}
+
+interface CompletedTraversalFoldState {
+  readonly stateKind: "completed";
+  readonly completion: ExecutableTraversalCompletion;
+}
+
+type TraversalFoldState =
+  | ActiveTraversalFoldState
+  | CompletedTraversalFoldState;
 
 function reprojectProjectedRetryResume(
   input: ExecuteGraphTraversalCommonInput,
@@ -1192,7 +633,7 @@ function graphTraversalEffect(
       "diagnostic://abiogenesis/hog/execution-basis-input-mismatch@5",
     );
   }
-  let projectedStop: StructuralTraversalResult | null = null;
+  let projectedStop: TraverseResult | null = null;
   let projectedInput: Readonly<Record<string, JsonValue>> | null = null;
   let projectedCursor: TraversalCursor | null = null;
   let projectedExecutionBasis: ExecutionBasis | null = null;
@@ -1286,7 +727,7 @@ function graphTraversalEffect(
       );
     }
   }
-  let stop: StructuralTraversalResult;
+  let stop: TraverseResult;
   let resumedCursor: TraversalCursor | undefined = projectedCursor ?? undefined;
   let currentInput: Readonly<Record<string, JsonValue>>;
   if (projectedStop !== null && projectedInput !== null) {
@@ -1382,815 +823,252 @@ function graphTraversalEffect(
     }
   }
 
-  if (!projectedBranch) {
-    stop = yield* advanceStructural(
-      input,
-      stop,
-      0,
-      currentInput,
-    );
-    currentInput = materializedInputAtCursor(
-      input.graph,
-      activeCursor(stop),
-    )?.value ?? currentInput;
-  }
-  if (!isExecutablePosition(input.graph, stop)) {
-    return fail(
-      input,
-      "structural-step",
-      "diagnostic://abiogenesis/hog/structural-step-not-yet-executable@5",
-      stop as unknown as JsonValue,
-    );
-  }
-
-  const evaluateLocus = (
-    currentStop: StructuralTraversalResult,
+  const evaluateLocusOnce = (
+    cursor: TraversalCursor,
+    directStep: DirectCTraversalStep,
     currentValue: Readonly<Record<string, JsonValue>>,
     leafOrdinal: number,
-  ): Effect.Effect<ExecutableTraversalCompletion> =>
-    Effect.suspend(() => Effect.gen(function* () {
-    const stop = currentStop;
-    const currentInput = currentValue;
-    if (!isExecutablePosition(input.graph, stop)) {
-      return fail(
-        input,
-        `locus-${leafOrdinal}`,
-        "diagnostic://abiogenesis/hog/continuation-not-executable@5",
-        stop as unknown as JsonValue,
-      );
-    }
-    let completion: ExecutableTraversalCompletion | null = null;
-    let completionValueKind: string | null = null;
-    let completionContractRef: string | null = null;
-    if (stop.kind === "traversal_cursor") {
-      const workflowTerm = resolveTraversalTerm(input.graph, stop);
-      if (workflowTerm.kind !== "c_workflow") {
-        return fail(
-          input,
+  ): Effect.Effect<TraversalLocusEvaluation> => Effect.suspend(() => {
+    const failLocus = (
+      stage: string,
+      diagnosticRef: string,
+      candidate: JsonValue,
+    ): never => fail(input, stage, diagnosticRef, candidate);
+    if (directStep.stepKind === "enter_child") {
+      if (!isExactLocusStep(cursor, directStep)) {
+        return failLocus(
           `workflow-step-${leafOrdinal}`,
           "diagnostic://abiogenesis/hog/workflow-step-mismatch@5",
-          workflowTerm as unknown as JsonValue,
+          cursor as unknown as JsonValue,
         );
       }
-      if (
-        input.childTraversalPreparationPort === undefined ||
-        !isChildTraversalPreparationPort(input.childTraversalPreparationPort)
-      ) {
-        return fail(
-          input,
-          `child-port-${leafOrdinal}`,
-          "diagnostic://abiogenesis/hog/child-preparation-port-absent@5",
-          workflowTerm as unknown as JsonValue,
-        );
-      }
-      const childFailureContractRefs = new Set(
-        input.implementationSet.rows
-          .filter((row) => row.graphFunctionRef === workflowTerm.graphFunctionRef)
-          .map((row) => row.failureContractRef),
-      );
-      const childFailureContractRef = [...childFailureContractRefs][0];
-      if (
-        childFailureContractRefs.size !== 1 ||
-        childFailureContractRef === undefined
-      ) {
-        return fail(
-          input,
-          `workflow-failure-contract-${leafOrdinal}`,
-          "diagnostic://abiogenesis/hog/workflow-failure-contract-ambiguous@5",
-          {
-            childGraphFunctionRef: workflowTerm.graphFunctionRef,
-            failureContractRefs: [...childFailureContractRefs].sort(),
-          },
-        );
-      }
-      const openedParent = openWorkflowCCall(
-        input.store,
-        input.executionBasis,
-        input.implementationSet,
-        input.openedTraversalScope,
-        input.program,
-        input.graphFunction,
-        input.graph,
-        {
-          kind: "workflow_c_call_proposal",
-          schemaVersion: "5.0.0",
-          cursor: stop,
-          traversalScopeRef: input.openedTraversalScope.scopeRef,
-          runId: input.openedTraversalScope.runId,
-          graphCallId: input.openedTraversalScope.graphCallId,
-          frameId: input.openedTraversalScope.frameId,
-          childGraphFunctionRef: workflowTerm.graphFunctionRef,
-          inputContractRef: workflowTerm.inputCarrierRef,
-          outputContractRef: workflowTerm.outputCarrierRef,
-          failureContractRef: childFailureContractRef,
-          judgmentPredicateRef:
-            input.graphFunction.declarations["abg.judgment_predicate"] ?? "",
-        },
-        {
-          eventTime: input.eventTime,
-          correlationId: `${input.correlationId}/workflow/${leafOrdinal}/parent`,
-          causationEventRefs: [],
-        },
-      );
-      if (openedParent.kind !== "c_call_admission") {
-        return fail(
-          input,
-          `workflow-parent-${leafOrdinal}`,
-          `diagnostic://abiogenesis/hog/${openedParent.code}@5`,
-          openedParent as unknown as JsonValue,
-        );
-      }
-      const fanOutApplication = fanOutApplicationForBatch(
-        input.graph,
-        openedParent.cCall.batchRef,
-      );
-      const constructionIntent = rehydrateConstructionIntentForCursor(
-        input.store,
-        stop,
-      );
-      const selectedChildInput =
-        constructionIntent?.actionKind === "invoke_graph_function"
-          ? constructionIntent.targetInput
-          : currentInput;
-      const selectedChildInputRef =
-        constructionIntent?.actionKind === "invoke_graph_function"
-          ? constructionIntent.targetInputRef
-          : stop.inputRef;
-      const selectedChildInputDigest =
-        constructionIntent?.actionKind === "invoke_graph_function"
-          ? constructionIntent.targetInputDigest
-          : stop.inputDigest;
-      if (
-        selectedChildInput === null ||
-        selectedChildInputRef === null ||
-        selectedChildInputDigest === null ||
-        (
-          constructionIntent?.actionKind === "invoke_graph_function" &&
-          (
-            constructionIntent.selectedGraphFunctionRef !==
-              workflowTerm.graphFunctionRef ||
-            constructionIntent.targetProgramLocusRef !==
-              workflowTerm.graphFunctionRef ||
-            sha256Canonical(selectedChildInput) !==
-              selectedChildInputDigest
-          )
-        )
-      ) {
-        return fail(
-          input,
-          `workflow-selected-input-${leafOrdinal}`,
-          "diagnostic://abiogenesis/hog/workflow-selected-input-mismatch@5",
-          workflowTerm as unknown as JsonValue,
-        );
-      }
-      const prepared = yield* Effect.promise(() => Promise.resolve(
-        input.childTraversalPreparationPort!.prepare({
-        parentExecutionBasis: input.executionBasis,
-        parentTraversalScope: input.openedTraversalScope,
-        parentCCallRef: openedParent.cCall.cCallRef,
-        childGraphFunctionRef: workflowTerm.graphFunctionRef,
-        inputRef: selectedChildInputRef,
-        inputDigest: selectedChildInputDigest,
-        input: selectedChildInput,
-        eventTime: input.eventTime,
-        correlationId: `${input.correlationId}/workflow/${leafOrdinal}/prepare`,
-        }),
-      ));
-      if (prepared.kind !== "prepared_child_traversal") {
-        completion = completeWorkflowPreparationRefusal({
-          store: input.store,
-          executionBasis: input.executionBasis,
-          openedTraversalScope: input.openedTraversalScope,
-          graphFunction: input.graphFunction,
-          graph: input.graph,
-          workflowCursor: stop,
-          workflowTerm,
-          parentCCall: openedParent.cCall,
-          preparationRefusal: prepared,
-          clock: {
-            eventTime: input.eventTime,
-            correlationId: `${input.correlationId}/workflow/${leafOrdinal}/prepare-refusal`,
-          },
-        });
-      } else {
-        const childCompletion = yield* graphTraversalEffect(
-          preparedChildTraversalInput(
+      return evaluateWorkflowLocus({
+        runtime: input,
+        cursor,
+        value: currentValue,
+        graphEntryInput,
+        graphEntryInputDigest,
+        ordinal: leafOrdinal,
+        evaluateChild: (prepared, correlationId, deferFailedRunStop) =>
+          graphTraversalEffect(preparedChildTraversalInput(
             input,
             prepared,
-            `${input.correlationId}/workflow/${leafOrdinal}/child`,
-            input.deferFailedRunStop === true ||
-              fanOutApplication?.elementGraphFunctionRef ===
-                workflowTerm.graphFunctionRef,
-          ),
-        );
-        if (childCompletion.disposition === "held") {
-          return suspendHeldWorkflowTraversal({
-            parentExecutionBasis: input.executionBasis,
-            parentTraversalScope: input.openedTraversalScope,
-            parentGraph: input.graph,
-            parentClosureContract: input.closureContract,
-            parentCCall: openedParent.cCall,
-            sourceCursor: stop,
-            parentGraphInput: graphEntryInput!,
-            parentGraphInputDigest: graphEntryInputDigest,
-            parentInput: currentInput,
-            parentInputDigest: stop.inputDigest,
-            childExecutionBasis: prepared.executionBasis,
-            childTraversalScope: prepared.openedTraversalScope,
-            childInput: prepared.input,
-            childInputDigest: prepared.inputDigest,
-            childCompletion,
-            terminalMode: input.terminalMode ?? "close_run",
-          });
-        }
-        if (
-          childCompletion.disposition === "failed" &&
-          childCompletion.replayState.runtimeStatus === "failed"
-        ) {
-          return childCompletion;
-        }
-        const selectedActionEvaluationBasis =
-          constructionIntent?.actionKind === "invoke_graph_function" &&
-            childCompletion.disposition === "closed" &&
-            childCompletion.resultRef !== null &&
-            childCompletion.judgmentRef !== null &&
-            childCompletion.closureRef !== null &&
-            typeof childCompletion.resultValue === "object" &&
-            childCompletion.resultValue !== null &&
-            !Array.isArray(childCompletion.resultValue)
-            ? deriveGraphFunctionActionEvaluationBasis(
-                input.store,
-                input.executionBasis,
-                stop,
-                {
-                  childGraphFunctionRef: workflowTerm.graphFunctionRef,
-                  childResultRef: childCompletion.resultRef,
-                  childResultValue:
-                    childCompletion.resultValue as Readonly<
-                      Record<string, JsonValue>
-                    >,
-                  childJudgmentRef: childCompletion.judgmentRef,
-                  childClosureRef: childCompletion.closureRef,
-                },
-              )
-            : null;
-        if (
-          constructionIntent?.actionKind === "invoke_graph_function" &&
-          childCompletion.disposition === "closed" &&
-          selectedActionEvaluationBasis === null
-        ) {
-          return fail(
-            input,
-            `workflow-action-evaluation-basis-${leafOrdinal}`,
-            "diagnostic://abiogenesis/hog/workflow-action-evaluation-basis-absent@5",
-            workflowTerm as unknown as JsonValue,
-          );
-        }
-        const outputValueKind = input.leafPort.contractValueKind(
-          workflowTerm.outputCarrierRef,
-          "output",
-        );
-        const failureValueKind = input.leafPort.contractValueKind(
-          openedParent.cCall.failureContractRef,
-          "failure",
-        );
-        const judgmentRelation = input.leafPort.resolveJudgmentRelation(
-          openedParent.cCall.judgmentPredicateRef,
-        );
-        if (
-          outputValueKind === null ||
-          failureValueKind === null ||
-          judgmentRelation === null
-        ) {
-          return fail(
-            input,
-            `workflow-contract-${leafOrdinal}`,
-            "diagnostic://abiogenesis/hog/workflow-result-contract-absent@5",
-            {
-              outputContractRef: workflowTerm.outputCarrierRef,
-              predicateRef: openedParent.cCall.judgmentPredicateRef,
-            },
-          );
-        }
-        completionValueKind = outputValueKind;
-        completionContractRef = workflowTerm.outputCarrierRef;
-        completion = completeWorkflowTraversal({
-          store: input.store,
-          executionBasis: input.executionBasis,
-          openedTraversalScope: input.openedTraversalScope,
-          program: input.program,
-          graphFunction: input.graphFunction,
-          graph: input.graph,
-          workflowCursor: stop,
-          workflowTerm,
-          parentCCall: openedParent.cCall,
-          childExecutionBasis: prepared.executionBasis,
-          childTraversalScope: prepared.openedTraversalScope,
-          childCompletion,
-          input: currentInput,
-          inputDigest: stop.inputDigest,
-          resultValueKind: outputValueKind,
-          failureValueKind,
-          validateSuccessResult: (value): value is Readonly<Record<string, JsonValue>> =>
-            input.leafPort.validateContractValue(
-              workflowTerm.outputCarrierRef,
-              "output",
-              value,
-            ) && judgmentRelation.evaluate(currentInput, value),
-          ...(selectedActionEvaluationBasis === null
-            ? {}
-            : { successResultValue: selectedActionEvaluationBasis }),
-          closureContract: input.closureContract,
-          ...(input.terminalMode === undefined
-            ? {}
-            : { terminalMode: input.terminalMode }),
-          judgmentRelation,
-          ...(fanOutApplication === null
-            ? {}
-            : {
-                fanOutApplication,
-                validateFanOutVector: (
-                  value: unknown,
-                ): value is Readonly<Record<string, JsonValue>> =>
-                  input.leafPort.validateContractValue(
-                    fanOutApplication.outputVectorRef,
-                    "output",
-                    value,
-                  ),
-              }),
-          clock: {
-            eventTime: input.eventTime,
-            correlationId: `${input.correlationId}/workflow/${leafOrdinal}/foldback`,
-          },
-        });
-      }
-    } else {
-      if (stop.stopClass === "interaction") {
-        if (input.continuationProductBasis === undefined) {
-          return fail(
-            input,
-            `interaction-basis-${leafOrdinal}`,
-            "diagnostic://abiogenesis/interaction/product-basis-absent@5",
-            stop as unknown as JsonValue,
-          );
-        }
-        const interaction = selectAdmittedInteractionContract(
-          input.interactionSet,
-          {
-            graphFunctionRef: input.graph.graphFunctionRef,
-            nodeRef: stop.nodeRef,
-            programLocusRef: stop.programLocusRef,
-            interactionKind: stop.interactionKind,
-            actorCapabilityRef: stop.actorCapabilityRef,
-            requestContractRef: stop.requestContractRef,
-            responseContractRef: stop.responseContractRef,
-            continuationContractRef: stop.continuationContractRef,
-          },
-        );
-        if (interaction === null) {
-          return fail(
-            input,
-            `interaction-${leafOrdinal}`,
-            "diagnostic://abiogenesis/interaction/admitted-row-absent@5",
-            stop as unknown as JsonValue,
-          );
-        }
-        return completeInteractionTraversal({
-          store: input.store,
-          executionBasis: input.executionBasis,
-          openedTraversalScope: input.openedTraversalScope,
-          program: input.program,
-          graphFunction: input.graphFunction,
-          graph: input.graph,
-          traversalStop: stop,
-          interactionSet: input.interactionSet,
-          interaction,
-          productBasis: input.continuationProductBasis,
-          input: currentInput,
-          inputDigest: stop.cursor.inputDigest,
-          closureContract: input.closureContract,
-          clock: {
-            eventTime: input.eventTime,
-            correlationId: `${input.correlationId}/interaction/${leafOrdinal}`,
-          },
-        });
-      }
-      const exactStop = stop;
-      const resolution = selectAdmittedImplementationResolution(
-        input.implementationSet,
-        {
-          graphFunctionRef: input.graph.graphFunctionRef,
-          nodeRef: exactStop.nodeRef,
-          programLocusRef: exactStop.programLocusRef,
-          implementationBindingRef: exactStop.implementationBindingRef,
-        },
+            correlationId,
+            deferFailedRunStop,
+          )),
+        fail: failLocus,
+      });
+    }
+    if (directStep.stepKind !== "open_leaf") {
+      return failLocus(
+        `direct-step-${leafOrdinal}`,
+        "diagnostic://abiogenesis/hog/direct-c-step-mismatch@5",
+        cursor as unknown as JsonValue,
       );
-      if (resolution === null) {
-        return fail(
+    }
+    const currentStop = traversalAtCursor(input, cursor, directStep);
+    if (
+      currentStop.kind !== "traversal_stop_ref" ||
+      !isExactLocusStep(currentStop, directStep)
+    ) {
+      return failLocus(
+        `direct-step-${leafOrdinal}`,
+        "diagnostic://abiogenesis/hog/direct-c-step-mismatch@5",
+        currentStop as unknown as JsonValue,
+      );
+    }
+    if (directStep.leafKind === "interaction") {
+      if (currentStop.stopClass !== "interaction") {
+        return failLocus(
+          `interaction-step-${leafOrdinal}`,
+          "diagnostic://abiogenesis/hog/interaction-step-mismatch@5",
+          currentStop as unknown as JsonValue,
+        );
+      }
+      return Effect.sync(() => evaluateInteractionLocus({
+        runtime: input,
+        stop: currentStop,
+        value: currentValue,
+        ordinal: leafOrdinal,
+        fail: failLocus,
+      }));
+    }
+    if (currentStop.stopClass !== "executable") {
+      return failLocus(
+        `executable-step-${leafOrdinal}`,
+        "diagnostic://abiogenesis/hog/executable-step-mismatch@5",
+        currentStop as unknown as JsonValue,
+      );
+    }
+    return evaluateExecutableLocus({
+      runtime: input,
+      stop: currentStop,
+      value: currentValue,
+      graphEntryInput,
+      graphEntryInputDigest,
+      ordinal: leafOrdinal,
+      evaluateRetry: (resume, correlationId) =>
+        graphTraversalEffect(projectedRetryTraversalInput(
           input,
-          `resolution-${leafOrdinal}`,
-          "diagnostic://abiogenesis/implementation-resolution/admitted-row-absent@5",
-          {
-            nodeRef: exactStop.nodeRef,
-            programLocusRef: exactStop.programLocusRef,
-            implementationBindingRef: exactStop.implementationBindingRef,
-          },
-        );
-      }
-      const outputValueKind = input.leafPort.contractValueKind(
-        exactStop.outputContractRef,
-        "output",
-      );
-      if (outputValueKind === null) {
-        return fail(
+          resume,
+          correlationId,
+        )),
+      evaluateChild: (prepared, correlationId) =>
+        graphTraversalEffect(preparedChildTraversalInput(
           input,
-          `contract-${leafOrdinal}`,
-          "diagnostic://abiogenesis/implementation/result-contract-absent@5",
-          {
-            failureContractRef: exactStop.failureContractRef,
-            judgmentPredicateRef: exactStop.judgmentPredicateRef,
-            outputContractRef: exactStop.outputContractRef,
-          },
-        );
-      }
-      completionValueKind = outputValueKind;
-      completionContractRef = exactStop.outputContractRef;
-      const recursionApplication = recurseApplicationAtStop(
-        input.graph,
-        exactStop.compositionRef,
-      );
-      const traversalInput: CompleteExecutableTraversalInput<
-        Readonly<Record<string, JsonValue>>
-      > = {
-        store: input.store,
-        executionBasis: input.executionBasis,
-        openedTraversalScope: input.openedTraversalScope,
-        program: input.program,
-        graphFunction: input.graphFunction,
-        graph: input.graph,
-        traversalStop: exactStop,
-        implementationSet: input.implementationSet,
-        implementationResolution: resolution,
-        leafPort: input.leafPort,
-        input: currentInput,
-        inputDigest: exactStop.cursor.inputDigest,
-        closureContract: input.closureContract,
-        actorRuntimeBinding: input.actorRuntimeBinding,
-        ...(input.deferFailedRunStop === true
-          ? { deferFailedRunStop: true }
-          : {}),
-        terminalMode: recursionApplication === null
-          ? input.terminalMode ?? "close_run"
-          : "return_to_application",
-        ...(recursionApplication === null
-          ? {}
-          : {
-              applicationCompletionMode:
-                input.terminalMode ?? "close_run",
-            }),
-        clock: {
-          eventTime: input.eventTime,
-          correlationId: `${input.correlationId}/leaf/${leafOrdinal}`,
-        },
-      };
-      const leafResult: CompleteExecutableTraversalResult =
-        yield* Effect.promise(() => completeExecutableTraversal(traversalInput));
-      if (leafResult.kind === "retry_runtime_failure_transition_admission") {
-        if (
-          leafResult.disposition !== "retry" ||
-          leafResult.progress.progressClass !== "retry"
-        ) {
-          throw new TypeError(
-            "retry transition entered projected execution without retry progress",
-          );
-        }
-        const retry = projectExecutableRetryInput({
-          prefix: leafResult.successorPrefix,
-          selector: {
-            kind: "retry_frontier_selector",
-            schemaVersion: "5.0.0",
-            runId: input.openedTraversalScope.runId,
-            graphCallId: input.openedTraversalScope.graphCallId,
-            frameId: input.openedTraversalScope.frameId,
-            retryBoundaryRef: leafResult.progress.retryBoundaryRef,
-            retryProgressRef: leafResult.progress.progressRef,
-          },
-          program: input.program,
-          graphFunction: input.graphFunction,
-          graph: input.graph,
+          prepared,
+          correlationId,
+          input.deferFailedRunStop === true,
+        )),
+      fail: failLocus,
+    });
+  });
+  const initialFoldState: TraversalFoldState = {
+    stateKind: "active",
+    cursor: initialCursor,
+    input: currentInput,
+    ordinal: 0,
+    structuralOrdinal: 0,
+  };
+  const folded = yield* Effect.iterate<
+    TraversalFoldState,
+    ActiveTraversalFoldState,
+    never,
+    never
+  >(
+    initialFoldState,
+    {
+      while: (state): state is ActiveTraversalFoldState =>
+        state.stateKind === "active",
+      body: (state): Effect.Effect<TraversalFoldState> =>
+        Effect.suspend(() => Effect.gen(function* () {
+        const directStep = deriveDirectCStepFromGraph(input.graph.template, {
+          nodeRef: state.cursor.currentNodeRef,
+          termPath: state.cursor.termPath,
+          taskOrdinal: state.cursor.taskOrdinal,
+          attempt: state.cursor.attempt,
+          retryPath: state.cursor.retryPath,
         });
-        if (retry.kind !== "executable_retry_input") {
-          throw new TypeError(
-            `projected retry input refused: ${retry.code}`,
+        if (directStep.kind === "direct_c_traversal_refusal") {
+          return fail(
+            input,
+            `direct-step-${state.ordinal}`,
+            `diagnostic://abiogenesis/hog/${directStep.code}@5`,
+            directStep as unknown as JsonValue,
           );
         }
-        const resumed = resumeProjectedRetry({
-          store: input.store,
-          predecessorPrefix: leafResult.successorPrefix,
-          retry,
-          runtime: {
-            executionBasis: input.executionBasis,
-            openedTraversalScope: input.openedTraversalScope,
+        if (
+          directStep.stepKind !== "open_leaf" &&
+          directStep.stepKind !== "enter_child"
+        ) {
+          const structural = yield* advanceStructuralTraversal({
+            store: input.store,
             program: input.program,
             graphFunction: input.graphFunction,
             graph: input.graph,
             graphValidation: input.graphValidation,
-            eventTime: input.eventTime,
-            correlationId:
-              `${input.correlationId}/retry/${retry.nextAttempt}`,
-          },
-        });
-        if (resumed.kind !== "projected_retry_resume") {
-          throw new TypeError(
-            `projected retry resume refused: ${resumed.code}`,
-          );
-        }
-        return yield* graphTraversalEffect({
-          store: input.store,
-          executionBasis: input.executionBasis,
-          openedTraversalScope: input.openedTraversalScope,
-          program: input.program,
-          graphFunction: input.graphFunction,
-          graph: input.graph,
-          graphValidation: input.graphValidation,
-          implementationSet: input.implementationSet,
-          interactionSet: input.interactionSet,
-          ...(input.continuationProductBasis === undefined
-            ? {}
-            : { continuationProductBasis: input.continuationProductBasis }),
-          leafPort: input.leafPort,
-          ...(input.childTraversalPreparationPort === undefined
-            ? {}
-            : {
-                childTraversalPreparationPort:
-                  input.childTraversalPreparationPort,
-              }),
-          closureContract: input.closureContract,
-          actorRuntimeBinding: input.actorRuntimeBinding,
-          ...(input.deferFailedRunStop === true
-            ? { deferFailedRunStop: true }
-            : {}),
-          eventTime: input.eventTime,
-          correlationId:
-            `${input.correlationId}/retry/${retry.nextAttempt}/execute`,
-          ...(input.terminalMode === undefined
-            ? {}
-            : { terminalMode: input.terminalMode }),
-          projectedRetryResume: resumed,
-        });
-      }
-      completion = leafResult;
-      if (
-        recursionApplication !== null &&
-        completion.disposition === "application_ready"
-      ) {
-        if (
-          completion.cCallRef === null ||
-          completion.resultRef === null ||
-          completion.judgmentRef === null
-        ) {
-          return fail(
-            input,
-            `recursion-restoration-coordinates-${leafOrdinal}`,
-            "diagnostic://abiogenesis/hog/recursion-restoration-coordinates-absent@5",
-            completion as unknown as JsonValue,
-          );
-        }
-        const restoration: RestoreDeferredRecursionInput = {
-          traversalInput,
-          application: recursionApplication,
-          cCallRef: completion.cCallRef,
-          resultRef: completion.resultRef,
-          judgmentRef: completion.judgmentRef,
-        };
-        const reconstructed = restoreDeferredRecursion(restoration);
-        if (
-          reconstructed === null ||
-          sha256Canonical(reconstructed as unknown as JsonValue) !==
-            sha256Canonical(completion as unknown as JsonValue)
-        ) {
-          return fail(
-            input,
-            `recursion-restoration-${leafOrdinal}`,
-            "diagnostic://abiogenesis/hog/recursion-restoration-mismatch@5",
-            completion as unknown as JsonValue,
-          );
-        }
-        completion = reconstructed;
-        const termination = completion.resultValue === null
-          ? null
-          : recursionTerminationDecision(
-            recursionApplication,
-            completion.resultValue,
-          );
-        if (termination === null) {
-          return fail(
-            input,
-            `recursion-termination-${leafOrdinal}`,
-            "diagnostic://abiogenesis/hog/recursion-termination-value-invalid@5",
-            {
-              applicationRef: recursionApplication.applicationRef,
-              resultRef: completion.resultRef,
-            },
-          );
-        }
-        if (termination) {
-          completion = completeDeferredApplicationTerminal({
-            completion,
-            restoration,
-            application: recursionApplication,
+            executionBasis: input.executionBasis,
+            openedTraversalScope: input.openedTraversalScope,
+            initial: state.cursor,
+            step: directStep,
+            inputValue: state.input,
+            inputAuthority: input.leafPort,
+            routeOrdinal: state.structuralOrdinal,
             clock: {
               eventTime: input.eventTime,
               correlationId:
-                `${input.correlationId}/recursion/${leafOrdinal}/terminal`,
+                `${input.correlationId}/structural/${state.ordinal}`,
             },
           });
-        } else if (exactStop.cursor.attempt >= recursionApplication.bound) {
-          completion = blockDeferredRecursion({
-            completion,
-            restoration,
-            application: recursionApplication,
-            clock: {
-              eventTime: input.eventTime,
-              correlationId:
-                `${input.correlationId}/recursion/${leafOrdinal}/bound`,
-            },
-          });
-        } else {
           if (
-            input.childTraversalPreparationPort === undefined ||
-            !isChildTraversalPreparationPort(input.childTraversalPreparationPort) ||
-            completion.cCallRef === null ||
-            completion.resultRef === null ||
-            typeof completion.resultValue !== "object" ||
-            completion.resultValue === null ||
-            Array.isArray(completion.resultValue)
+            structural.kind !== "traversal_cursor" ||
+            structural.cursorRef === state.cursor.cursorRef
           ) {
             return fail(
               input,
-              `recursion-child-port-${leafOrdinal}`,
-              "diagnostic://abiogenesis/hog/recursion-child-preparation-absent@5",
-              { applicationRef: recursionApplication.applicationRef },
+              `structural-step-${state.ordinal}`,
+              "diagnostic://abiogenesis/hog/structural-step-refused@5",
+              structural as unknown as JsonValue,
             );
           }
-          const recursionInput = completion.resultValue as Readonly<
-            Record<string, JsonValue>
-          >;
-          const recursionInputDigest = sha256Canonical(recursionInput);
-          const parentCCallRef = completion.cCallRef;
-          const parentResultRef = completion.resultRef;
-          const prepared = yield* Effect.promise(() => Promise.resolve(
-            input.childTraversalPreparationPort!.prepare({
-            parentExecutionBasis: input.executionBasis,
-            parentTraversalScope: input.openedTraversalScope,
-            parentCCallRef,
-            childGraphFunctionRef: recursionApplication.graphFunctionRef,
-            inputRef: parentResultRef,
-            inputDigest: recursionInputDigest,
-            input: recursionInput,
-            eventTime: input.eventTime,
-            correlationId:
-              `${input.correlationId}/recursion/${leafOrdinal}/prepare`,
-            }),
-          ));
-          if (prepared.kind !== "prepared_child_traversal") {
-            completion = blockDeferredRecursionPreparation({
-              completion,
-              restoration,
-              application: recursionApplication,
-              preparationRefusal: prepared,
-              clock: {
-                eventTime: input.eventTime,
-                correlationId:
-                  `${input.correlationId}/recursion/${leafOrdinal}/prepare-refusal`,
-              },
-            });
-          } else {
-            const childCompletion = yield* graphTraversalEffect(
-              preparedChildTraversalInput(
-                input,
-                prepared,
-                `${input.correlationId}/recursion/${leafOrdinal}/child`,
-                input.deferFailedRunStop === true,
-              ),
-            );
-            if (childCompletion.disposition === "held") {
-              return suspendHeldRecursionTraversal({
-                parentGraphInput: graphEntryInput!,
-                parentGraphInputDigest: graphEntryInputDigest,
-                application: recursionApplication,
-                deferredCompletion: completion,
-                restoration,
-                childExecutionBasis: prepared.executionBasis,
-                childTraversalScope: prepared.openedTraversalScope,
-                childInput: prepared.input,
-                childInputDigest: prepared.inputDigest,
-                childCompletion,
-                terminalMode: input.terminalMode ?? "close_run",
-              });
-            }
-            if (
-              childCompletion.disposition === "failed" &&
-              childCompletion.replayState.runtimeStatus === "failed"
-            ) {
-              return childCompletion;
-            }
-            completion = advanceDeferredRecursion({
-              completion,
-              restoration,
-              application: recursionApplication,
-              childExecutionBasis: prepared.executionBasis,
-              childTraversalScope: prepared.openedTraversalScope,
-              childCompletion,
-              clock: {
-                eventTime: input.eventTime,
-                correlationId:
-                  `${input.correlationId}/recursion/${leafOrdinal}/foldback`,
-              },
-            });
-          }
+          return {
+            stateKind: "active" as const,
+            cursor: structural,
+            input: materializedInputAtCursor(input.graph, structural)?.value ??
+              state.input,
+            ordinal: state.ordinal,
+            structuralOrdinal: state.structuralOrdinal + 1,
+          };
         }
-      }
-    }
-    if (completion === null) {
-      return fail(
-        input,
-        "empty-traversal",
-        "diagnostic://abiogenesis/hog/no-executable-completion@5",
-        { cursorAdmissionEventRef: traversalCursorAdmissionEventRef(input.store, initialCursor) },
-      );
-    }
-    if (completion.disposition !== "advanced") return completion;
-    const nextMaterializedInput = materializedInputAtCursor(
-      input.graph,
-      completion.nextCursor,
-    );
-    if (
-      completion.nextCursor === null ||
-      completion.continuationKind === null ||
-      completion.nextInputContractRef === null ||
-      completionValueKind === null ||
-      completionContractRef === null ||
-      (
-        nextMaterializedInput === null &&
-        (
-          typeof completion.resultValue !== "object" ||
-          completion.resultValue === null ||
-          Array.isArray(completion.resultValue)
-        )
-      ) ||
-      (
-        nextMaterializedInput !== null
-          ? false
-          : completion.continuationKind === "retry"
-          ? completion.nextCursor.inputRef.length === 0 ||
-            completion.nextCursor.inputDigest !==
-              sha256Canonical(completion.resultValue)
-          : !input.leafPort.validateContractValue(
-            completion.nextInputContractRef,
-            "output",
-            completion.resultValue,
-          )
-      )
-    ) {
-      return fail(
-        input,
-        `advanced-result-${leafOrdinal}`,
-        "diagnostic://abiogenesis/hog/advanced-result-basis-absent@5",
-        { leafOrdinal, completionDisposition: completion.disposition },
-      );
-    }
-    const nextInput = nextMaterializedInput?.value ??
-      completion.resultValue as Readonly<Record<string, JsonValue>>;
-    let nextStop: StructuralTraversalResult = traversalAtCursor(
+        const evaluated = yield* evaluateLocusOnce(
+          state.cursor,
+          directStep,
+          state.input,
+          state.ordinal,
+        );
+        const completion = evaluated.completion;
+        if (completion.disposition !== "advanced") {
+          return {
+            stateKind: "completed" as const,
+            completion,
+          };
+        }
+        const nextMaterializedInput = materializedInputAtCursor(
+          input.graph,
+          completion.nextCursor,
+        );
+        if (
+          completion.nextCursor === null ||
+          completion.continuationKind === null ||
+          completion.nextInputContractRef === null ||
+          evaluated.outputValueKind === null ||
+          evaluated.outputContractRef === null ||
+          (nextMaterializedInput === null &&
+            (typeof completion.resultValue !== "object" ||
+              completion.resultValue === null ||
+              Array.isArray(completion.resultValue))) ||
+          (nextMaterializedInput === null &&
+            (completion.continuationKind === "retry"
+              ? completion.nextCursor.inputRef.length === 0 ||
+                completion.nextCursor.inputDigest !==
+                  sha256Canonical(completion.resultValue)
+              : !input.leafPort.validateContractValue(
+                  completion.nextInputContractRef,
+                  "output",
+                  completion.resultValue,
+                )))
+        ) {
+          return fail(
+            input,
+            `advanced-result-${state.ordinal}`,
+            "diagnostic://abiogenesis/hog/advanced-result-basis-absent@5",
+            {
+              leafOrdinal: state.ordinal,
+              completionDisposition: completion.disposition,
+            },
+          );
+        }
+        const nextInput = nextMaterializedInput?.value ??
+          completion.resultValue as Readonly<Record<string, JsonValue>>;
+        return {
+          stateKind: "active" as const,
+          cursor: completion.nextCursor,
+          input: nextInput,
+          ordinal: state.ordinal + 1,
+          structuralOrdinal: 0,
+        };
+        })),
+    },
+  );
+  if (folded.stateKind !== "completed") {
+    return fail(
       input,
-      completion.nextCursor,
+      "fold-incomplete",
+      "diagnostic://abiogenesis/hog/effect-fold-incomplete@5",
+      { stateKind: folded.stateKind },
     );
-    nextStop = yield* advanceStructural(
-      input,
-      nextStop,
-      leafOrdinal + 1,
-      nextInput,
-    );
-    const materializedNextInput = materializedInputAtCursor(
-      input.graph,
-      activeCursor(nextStop),
-    )?.value ?? nextInput;
-    if (!isExecutablePosition(input.graph, nextStop)) {
-      return fail(
-        input,
-        `continuation-${leafOrdinal}`,
-        "diagnostic://abiogenesis/hog/continuation-not-executable@5",
-        nextStop as unknown as JsonValue,
-      );
-    }
-    return yield* evaluateLocus(
-      nextStop,
-      materializedNextInput,
-      leafOrdinal + 1,
-    );
-  }));
-  return yield* evaluateLocus(stop, currentInput, 0);
+  }
+  return folded.completion;
   }));
 }
 
@@ -2207,7 +1085,7 @@ function resumeParentAfterChild(
   parentGraphInput: Readonly<Record<string, JsonValue>>,
   parentGraphInputDigest: `sha256:${string}`,
   completion: ExecutableTraversalCompletion,
-  stage: "workflow-resume" | "recursion-resume",
+  stage: "interaction-resume" | "workflow-resume" | "recursion-resume",
 ): Effect.Effect<ExecutableTraversalCompletion> {
   if (completion.disposition !== "advanced") {
     return Effect.succeed(completion);
@@ -2254,11 +1132,24 @@ function resumeParentAfterChild(
 
 export type ExecuteGraphTraversalRequest =
   | ExecuteGraphTraversalInput
+  | ResumeHeldInteractionInput
   | ResumeHeldTraversalInput;
 
 function traversalProgram(
   input: ExecuteGraphTraversalRequest,
 ): Effect.Effect<ExecutableTraversalCompletion> {
+  if ("interaction" in input) {
+    return Effect.flatMap(
+      Effect.sync(() => resumeInteractionOwner(input.interaction)),
+      (completion) => resumeParentAfterChild(
+        input.parent,
+        input.parent.input,
+        input.parent.inputDigest,
+        completion,
+        "interaction-resume",
+      ),
+    );
+  }
   if (!("suspension" in input)) return graphTraversalEffect(input);
   if (input.suspension.kind === "held_workflow_suspension") {
     if (input.parentCCall === null) {

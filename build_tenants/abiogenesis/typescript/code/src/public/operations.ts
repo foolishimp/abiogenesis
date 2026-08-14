@@ -4171,26 +4171,6 @@ async function applyRunContinue(
       scope: rehydrated.openedTraversalScope,
       resumeEventRef: resume.admissionEventRef,
     };
-    let completion = hog.completeInteractionResume({
-      store: effectContext.store,
-      executionBasis: rehydrated.executionBasis,
-      openedTraversalScope: rehydrated.openedTraversalScope,
-      program: state.program,
-      graphFunction: heldRuntime.graphFunction,
-      graph: state.heldGraph,
-      interactionSet,
-      heldInteraction: {
-        ...rehydrated.heldInteraction,
-        cursor: heldCursor,
-      },
-      successorCursor,
-      resume,
-      closureContract: state.heldClosureContract,
-      clock: {
-        eventTime: invocation.eventTime,
-        correlationId: `${invocation.correlationId}/hog`,
-      },
-    });
     const childTraversalPreparationPort = bindChildTraversalPreparationPort({
       store: effectContext.store,
       publication,
@@ -4236,38 +4216,29 @@ async function applyRunContinue(
           : {}),
       };
     };
-    if (completion.disposition === "advanced") {
-      if (
-        completion.nextCursor === null ||
-        completion.resultValue === null ||
-        typeof completion.resultValue !== "object" ||
-        Array.isArray(completion.resultValue)
-      ) {
-        throw new ApplicationRefusal(
-          "owner_refusal",
-          "advanced interaction resume lacks its GTL-derived cursor and admitted response",
-        );
-      }
-      const resumedInput =
-        completion.resultValue as Readonly<Record<string, product.JsonValue>>;
-      const resumedInputDigest = sha256Canonical(
-        resumedInput as unknown as product.JsonValue,
-      );
-      if (completion.nextCursor.inputDigest !== resumedInputDigest) {
-        throw new ApplicationRefusal(
-          "owner_refusal",
-          "advanced interaction response differs from its admitted cursor",
-        );
-      }
-      completion = await hog.executeGraphTraversal({
-        ...traversalInput(heldRuntime),
-        resume: {
-          cursor: completion.nextCursor,
-          input: resumedInput,
-          inputDigest: resumedInputDigest,
+    let completion = await hog.executeGraphTraversal({
+      parent: traversalInput(heldRuntime),
+      interaction: {
+        store: effectContext.store,
+        executionBasis: rehydrated.executionBasis,
+        openedTraversalScope: rehydrated.openedTraversalScope,
+        program: state.program,
+        graphFunction: heldRuntime.graphFunction,
+        graph: state.heldGraph,
+        interactionSet,
+        heldInteraction: {
+          ...rehydrated.heldInteraction,
+          cursor: heldCursor,
         },
-      });
-    }
+        successorCursor,
+        resume,
+        closureContract: state.heldClosureContract,
+        clock: {
+          eventTime: invocation.eventTime,
+          correlationId: `${invocation.correlationId}/hog`,
+        },
+      },
+    });
     let childExecutionBasis = rehydrated.executionBasis;
     let childTraversalScope = rehydrated.openedTraversalScope;
     for (const preparedParent of parentRuntimes) {

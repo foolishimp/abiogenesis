@@ -79,7 +79,7 @@ export async function realizeAxF09ProbabilisticPass(input, effects) {
       "AX-F09 probabilistic pass requires its exact greeting input",
     );
   }
-  const transport = await effects.invokeWorker({
+  const actorProcessExchange = await effects.invokeWorker({
     actorRef: DEVELOPER_MINI_IDS.workerActorRef,
     workerBindingRef: DEVELOPER_MINI_IDS.workerBindingRef,
     implementationRef: AX_F09_RETRY_IDS.implementationRef,
@@ -104,6 +104,7 @@ export async function realizeAxF09ProbabilisticPass(input, effects) {
       },
     },
   });
+  const transport = actorProcessExchange.observation;
   const resultCandidate = parseGreetingCandidate(transport.finalOutput);
   const success =
     transport.disposition === "success" &&
@@ -120,7 +121,7 @@ export async function realizeAxF09ProbabilisticPass(input, effects) {
           sha256Canonical(transport.finalOutput),
       }
     : resultCandidate;
-  return deepFreeze({
+  const candidate = deepFreeze({
     kind: "leaf_realization_candidate",
     schemaVersion: "5.0.0",
     disposition: success || abaContractFailure ? "success" : "failure",
@@ -139,6 +140,13 @@ export async function realizeAxF09ProbabilisticPass(input, effects) {
               : "diagnostic://developer.example/greeting/" +
                 transport.failureClass + "@5",
         },
+  });
+  return deepFreeze({
+    kind: "leaf_invocation_receipt",
+    schemaVersion: "5.0.0",
+    computeRegime: "F_P",
+    candidate,
+    actorProcessExchange,
   });
 }
 

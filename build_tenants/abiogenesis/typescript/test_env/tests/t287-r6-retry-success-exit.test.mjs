@@ -1407,7 +1407,7 @@ async function completeFhInteraction(runtime) {
     graphExecute,
     graphFunction,
     hog,
-    hogExecute,
+    interactionOwner,
     installedRoot,
     invocationAdmission,
     product,
@@ -2168,7 +2168,7 @@ async function completeFhInteraction(runtime) {
     },
   };
   assertOwnerRefusalWithoutMutation(
-    () => hogExecute.completeInteractionResume({
+    () => interactionOwner.resumeInteractionOwner({
       ...resumeCompletionInput,
       heldInteraction: {
         ...resumeCompletionInput.heldInteraction,
@@ -2188,7 +2188,7 @@ async function completeFhInteraction(runtime) {
       `${resumeCompletionInput.heldInteraction.cCall.transitionContractRef}/paired-forged`,
   };
   assertOwnerRefusalWithoutMutation(
-    () => hogExecute.completeInteractionResume({
+    () => interactionOwner.resumeInteractionOwner({
       ...resumeCompletionInput,
       heldInteraction: {
         ...resumeCompletionInput.heldInteraction,
@@ -2203,7 +2203,7 @@ async function completeFhInteraction(runtime) {
     /fh_outcome_mismatch/u,
     "F_H resume admission rejects paired forged legacy carriers",
   );
-  let resumed = hogExecute.completeInteractionResume(resumeCompletionInput);
+  let resumed = interactionOwner.resumeInteractionOwner(resumeCompletionInput);
   if (
     resumed.disposition === "advanced" &&
     fixture.deferResumeTraversal !== true

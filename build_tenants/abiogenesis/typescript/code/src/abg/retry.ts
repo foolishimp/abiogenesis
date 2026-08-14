@@ -313,7 +313,7 @@ export interface RetryRuntimeFailureTransitionAdmission {
   readonly successorPrefix: DurablePrefixCoordinate;
 }
 
-interface StagedRetryRuntimeFailureTransitionAdmission {
+export interface StagedRetryRuntimeFailureTransitionAdmission {
   readonly kind: "retry_runtime_failure_transition_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "blocked" | "retry";
