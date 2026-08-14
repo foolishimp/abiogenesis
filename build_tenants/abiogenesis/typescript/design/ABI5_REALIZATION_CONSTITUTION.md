@@ -550,9 +550,10 @@ unclassified unit or composition/control outside the single fold is invalid.
 The correspondence is extensional. Splitting one coordinator across files,
 renaming it, moving it behind an owner, or reaching it through an import,
 Promise, callback, Layer, or helper remains the same operative path. A
-top-level HoG production unit is invalid when it mixes selection, validation,
-construction, admission, folding, or projection instead of mapping to one
-accepted atom/port/projection or to the single Effect composition fold.
+A top-level HoG production unit may explicitly map to one or more accepted
+atoms, exact ports, Effect edges, or projections. It is invalid when any
+material vertex or edge is unmapped or when it introduces traversal
+composition or control outside the single Effect fold.
 
 The operative laws are:
 
