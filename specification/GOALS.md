@@ -95,15 +95,17 @@ release qualification remain dependency ordered.
 
 Intake triage on 2026-08-14 found that the installed traversal path still
 enters an Effect shell that calls the superseded imperative HoG coordinator.
-Product, requirements, and accepted design already require the small HoG
-algebra, one Effect fold, exact owner ports, and no reachable old coordinator.
-The first changed layer is therefore this Goals selection, not Product,
-requirements, or design:
+Goals selects `w2_c2a_hog_effect_hard_break`; it does not define that
+replacement's structural HOW. The current cut is a bounded `design_reframe`
+under the installed `SPEC_METHOD.md` Core Interface Migration, Inside-Out
+Hard-Break, and Transformation Wave laws:
 
-- change class: `goal_reprice`;
-- re-entry point: `GOALS.md` `Current Selection`;
-- selected downstream realization: `w2_c2a_hog_effect_hard_break`;
-- unchanged authority: Intent, Product, requirements, accepted design, the
+- change class: `design_reframe`;
+- re-entry point:
+  `build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md`
+  Section 5.6.1A;
+- affected downstream span: accepted local Design -> Code -> Evidence;
+- unchanged authority: Intent, Product, requirements, the
   18-operation/56-key family, owner meaning, ABG events, Event Calculus,
   replay, and Public interfaces; and
 - held work: C1F execution-carrier/topology-arm correction and D6 construction.

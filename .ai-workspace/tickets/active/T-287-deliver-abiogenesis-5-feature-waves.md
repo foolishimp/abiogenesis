@@ -10,8 +10,8 @@
 - pen_holder: codex
 - build_tenant: typescript
 - change_intent: replace_reachable_imperative_hog_coordination_with_the_selected_effect_fold
-- change_class: goal_reprice
-- re_entry_point: specification/GOALS.md#current-selection
+- change_class: design_reframe
+- re_entry_point: build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#561a-operative-computational-realization
 - triaged_at: 2026-08-14
 - migration_strategy: inside_out_hard_break
 - library_usage: consume
@@ -22,7 +22,7 @@
 - selected_wave: W2
 - selected_feature: A5-F01
 - selected_slice: exact_public_family_construction
-- selected_slice_stage: realization_refactor
+- selected_slice_stage: design_reframe
 - selected_increment: w2_c2a_hog_effect_hard_break
 - selected_increment_stage: implementation_migration
 - accepted_checkpoint: 1f6a86074bf995763b4caff286422b5b1501374b
@@ -48,11 +48,12 @@ requirements, and accepted design define meaning. The local realization
 constitution defines the reusable implementation constraints. This ticket
 does not restate either.
 
-The 2026-08-14 intake changes only the bounded work-wave focus. Product,
-requirements, and accepted design already forbid an imperative coordinator
-wrapped by Effect, so the selected downstream change is a realization refactor,
-not another design cycle. Goals is the first changed layer; code and evidence
-are the only affected downstream span.
+The current C2A cut changes the load-bearing realization structure while
+Product and requirement truth remain stable. It is therefore a bounded
+`design_reframe`, not a local `realization_refactor`. Section 5.6.1A of the
+ABI5 Realization Constitution is the accepted re-entry surface; Code and
+Evidence are its affected downstream span. No further design cycle is selected
+because that causally closed design relation is now decision-complete.
 
 ## Authority
 
@@ -686,8 +687,9 @@ retained as wrappers around the imperative HoG path.
 
 - **Strategy:** `inside_out_hard_break` on the existing TypeScript
   implementation line.
-- **Change boundary:** Goals selects this bounded refactor; Intent, Product,
-  requirements, and accepted design are unchanged.
+- **Change boundary:** Goals selects this bounded transformation wave; the
+  accepted ABI5 Realization Constitution Section 5.6.1A owns its changed
+  structural HOW. Intent, Product, and requirements are unchanged.
 - **Affected scope:** the one installed HoG traversal interface family from an
   admitted `CProgramNode` plus exact cursor/scope through
   `public/operations.ts`, `hog/index.ts`, `hog/graph_execute.ts`, the HoG
