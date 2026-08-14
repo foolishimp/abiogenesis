@@ -45,6 +45,10 @@ export interface ProbabilisticResultAdmissionInput {
   readonly occurrence: Readonly<LeafExecutionOccurrence>;
   readonly resolution: Readonly<AdmittedImplementationResolutionRow>;
   readonly input: Readonly<Record<string, JsonValue>>;
+  readonly workerContracts: Readonly<{
+    readonly instructionContractRef: string;
+    readonly resultContractRef: string;
+  }>;
   readonly request: Readonly<ProbabilisticWorkerRequest>;
   readonly observation: Readonly<ActorProcessObservation>;
 }
@@ -152,6 +156,7 @@ const ADMISSION_INPUT_FIELDS = Object.freeze([
   "occurrence",
   "request",
   "resolution",
+  "workerContracts",
 ]);
 
 const OCCURRENCE_FIELDS = Object.freeze([
@@ -299,29 +304,13 @@ export function admitProbabilisticResultCandidate(
       "execution occurrence locus differs from the admitted implementation resolution",
     );
   }
-  let declared: Readonly<{
-    readonly instructionContractRef: string;
-    readonly resultContractRef: string;
-  }> | null;
-  try {
-    declared = supplied.leafPort.resolveProbabilisticWorkerContracts(
-      supplied.resolution,
-      admittedInput,
-    );
-  } catch {
-    declared = null;
-  }
-  if (declared === null) {
-    return refusal(
-      "unadmitted_contract_capability",
-      "installed Product did not resolve one declared probabilistic result contract",
-    );
-  }
   if (
-    request.resultContractRef !== declared.resultContractRef ||
-    observation.resultContractRef !== declared.resultContractRef ||
-    request.instructionContractRef !== declared.instructionContractRef ||
-    observation.instructionContractRef !== declared.instructionContractRef
+    request.resultContractRef !== supplied.workerContracts.resultContractRef ||
+    observation.resultContractRef !== supplied.workerContracts.resultContractRef ||
+    request.instructionContractRef !==
+      supplied.workerContracts.instructionContractRef ||
+    observation.instructionContractRef !==
+      supplied.workerContracts.instructionContractRef
   ) {
     return refusal(
       "contract_identity_mismatch",
@@ -396,7 +385,7 @@ export function admitProbabilisticResultCandidate(
   let rawContractValid = false;
   try {
     rawContractValid = supplied.leafPort.validateContractValueByRef(
-      declared.resultContractRef,
+      supplied.workerContracts.resultContractRef,
       value,
     );
   } catch {
@@ -434,8 +423,8 @@ export function admitProbabilisticResultCandidate(
       `implementation-resolution-row://abiogenesis/${implementationResolutionDigest.slice("sha256:".length)}`,
     implementationResolutionDigest,
     inputDigest,
-    instructionContractRef: declared.instructionContractRef,
-    rawResultContractRef: declared.resultContractRef,
+    instructionContractRef: supplied.workerContracts.instructionContractRef,
+    rawResultContractRef: supplied.workerContracts.resultContractRef,
     targetOutputContractRef: supplied.resolution.outputContractRef,
     processRef: observation.processRef,
     transportBindingRef: observation.transportBindingRef,

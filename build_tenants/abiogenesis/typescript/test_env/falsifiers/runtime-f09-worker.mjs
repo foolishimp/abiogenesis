@@ -1563,15 +1563,15 @@ async function rejectAttempt(
     JSON.stringify(openedCCall),
   );
   const cCall = openedCCall.cCall;
-  const contracts = leafPort.resolveProbabilisticWorkerContracts(
-    implementationResolution,
-    inputValue,
-  );
-  assert.notEqual(contracts, null);
-  const receipt = await leafPort.invoke(
-    implementationResolution,
-    inputValue,
-    {
+  let ownerContracts = null;
+  const ownerResult = await leafPort.invoke({
+    resolution: implementationResolution,
+    input: inputValue,
+    inputDigest: stop.cursor.inputDigest,
+    failureContractRef: stop.failureContractRef,
+    bindProbabilisticEffects: (contracts) => {
+      ownerContracts = contracts;
+      return {
       occurrence: {
         cCallRef: cCall.cCallRef,
         runId: cCall.runId,
@@ -1603,8 +1603,15 @@ async function rejectAttempt(
         );
         return exchange;
       },
+      };
     },
-  );
+  });
+  assert.equal(ownerResult.kind, "closed_leaf_owner_receipt");
+  assert.notEqual(ownerContracts, null);
+  const contracts = ownerResult.workerContracts;
+  assert.notEqual(contracts, null);
+  const receipt = ownerResult.receipt;
+  assert.notEqual(receipt, null);
   assert.equal(receipt.computeRegime, "F_P");
   const realized = receipt.candidate;
   const workerRequest = receipt.actorProcessExchange.request;
@@ -1632,6 +1639,7 @@ async function rejectAttempt(
     },
     resolution: implementationResolution,
     input: inputValue,
+    workerContracts: contracts,
     request: workerRequest,
     observation,
   });

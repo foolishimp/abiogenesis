@@ -22,6 +22,7 @@ export {
   renderNormalizedHello,
 } from "./hello_compose.js";
 export type {
+  ClosedLeafInvocationReceipt,
   ClosedLeafOwnerReceipt,
   DeterministicEvidenceCandidate,
   DeterministicLeafInvocationReceipt,

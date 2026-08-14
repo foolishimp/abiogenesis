@@ -145,32 +145,28 @@ export async function executeLeafAtLocus(
     );
   }
   const regime = input.traversalStop.computeRegime;
-  const workerContracts = regime === "F_P"
-    ? input.leafPort.resolveProbabilisticWorkerContracts(
-        input.implementationResolution,
-        input.input,
-      )
-    : null;
-  const effects = regime === "F_P" &&
-      input.actorRuntimeBinding !== undefined && workerContracts !== null
-    ? bindActorProcessLeafEffectPort({
-        store: input.store,
-        executionBasis: input.executionBasis,
-        scope: input.openedTraversalScope,
-        cCall: opened.cCall,
-        inputDigest: input.inputDigest,
-        workerContracts,
-        runtime: input.actorRuntimeBinding,
-        basis: basis(input.clock, "actor-process"),
-      })
+  const bindProbabilisticEffects = regime === "F_P" &&
+      input.actorRuntimeBinding !== undefined
+    ? (workerContracts: Readonly<{
+        instructionContractRef: string;
+        resultContractRef: string;
+      }>) => bindActorProcessLeafEffectPort({
+          store: input.store,
+          executionBasis: input.executionBasis,
+          scope: input.openedTraversalScope,
+          cCall: opened.cCall,
+          inputDigest: input.inputDigest,
+          workerContracts,
+          runtime: input.actorRuntimeBinding!,
+          basis: basis(input.clock, "actor-process"),
+        })
     : null;
   const invocation = await input.leafPort.invoke({
     resolution: input.implementationResolution,
     input: input.input,
     inputDigest: input.inputDigest,
     failureContractRef: input.traversalStop.failureContractRef,
-    workerContracts,
-    effects,
+    bindProbabilisticEffects,
   });
   if (invocation.kind === "leaf_invocation_owner_refusal") {
     return fail(

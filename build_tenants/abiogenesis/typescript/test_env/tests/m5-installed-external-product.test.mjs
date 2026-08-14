@@ -1782,10 +1782,11 @@ test("F04-A binds distinct raw and target contracts through the existing install
     publication: selectedPublication,
     semanticsProjection,
   });
-  const declared = leafPort.resolveProbabilisticWorkerContracts(
-    implementationRow,
+  const declared = semantics.resolveProbabilisticWorkerContracts?.({
+    inputContractRef: implementationRow.inputContractRef,
+    outputContractRef: implementationRow.outputContractRef,
     input,
-  );
+  }) ?? null;
   assert.notEqual(declared, null);
   assert.equal(
     declared.resultContractRef,
@@ -1834,6 +1835,7 @@ test("F04-A binds distinct raw and target contracts through the existing install
     },
     resolution: implementationRow,
     input,
+    workerContracts: declared,
     request,
     observation,
   };

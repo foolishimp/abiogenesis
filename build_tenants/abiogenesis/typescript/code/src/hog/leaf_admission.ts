@@ -49,6 +49,7 @@ export function admitLeafOutcome(
         occurrence,
         resolution: input.implementationResolution,
         input: input.input,
+        workerContracts: invocation.workerContracts!,
         request,
         observation,
       })

@@ -111,7 +111,7 @@ export interface ProbabilisticLeafEffectPort {
   ) => Promise<Readonly<ActorProcessCarrierValidation>>;
 }
 
-export interface DeterministicLeafInvocationReceipt<Candidate = unknown> {
+export interface DeterministicLeafInvocationReceipt<Candidate> {
   readonly kind: "leaf_invocation_receipt";
   readonly schemaVersion: "5.0.0";
   readonly computeRegime: "F_D";
@@ -119,7 +119,7 @@ export interface DeterministicLeafInvocationReceipt<Candidate = unknown> {
   readonly actorProcessExchange: null;
 }
 
-export interface ProbabilisticLeafInvocationReceipt<Candidate = unknown> {
+export interface ProbabilisticLeafInvocationReceipt<Candidate> {
   readonly kind: "leaf_invocation_receipt";
   readonly schemaVersion: "5.0.0";
   readonly computeRegime: "F_P";
@@ -127,15 +127,19 @@ export interface ProbabilisticLeafInvocationReceipt<Candidate = unknown> {
   readonly actorProcessExchange: Readonly<ActorProcessCarrierValidation>;
 }
 
-export type LeafInvocationReceipt<Candidate = unknown> =
+export type LeafInvocationReceipt<Candidate> =
   | DeterministicLeafInvocationReceipt<Candidate>
   | ProbabilisticLeafInvocationReceipt<Candidate>;
+
+export type ClosedLeafInvocationReceipt = LeafInvocationReceipt<
+  Readonly<LeafRealizationCandidate>
+>;
 
 export interface ClosedLeafOwnerReceipt {
   readonly kind: "closed_leaf_owner_receipt";
   readonly schemaVersion: "5.0.0";
   readonly candidate: Readonly<LeafRealizationCandidate>;
-  readonly receipt: Readonly<LeafInvocationReceipt> | null;
+  readonly receipt: Readonly<ClosedLeafInvocationReceipt> | null;
   readonly workerContracts: Readonly<{
     readonly instructionContractRef: string;
     readonly resultContractRef: string;
@@ -145,7 +149,7 @@ export interface ClosedLeafOwnerReceipt {
 export interface LeafInvocationOwnerRefusal {
   readonly kind: "leaf_invocation_owner_refusal";
   readonly schemaVersion: "5.0.0";
-  readonly code: "failure_contract_absent";
+  readonly code: "failure_contract_absent" | "owner_boundary_exception";
   readonly diagnosticRef: string;
 }
 
@@ -198,24 +202,18 @@ export interface LeafInvocationPort {
     value: Readonly<Record<string, JsonValue>>,
     admittedEvidence: readonly Readonly<Record<string, JsonValue>>[],
   ) => boolean;
-  readonly resolveProbabilisticWorkerContracts: (
-    resolution: Readonly<LeafInvocationResolution>,
-    input: Readonly<Record<string, JsonValue>>,
-  ) => Readonly<{
-    readonly instructionContractRef: string;
-    readonly resultContractRef: string;
-  }> | null;
   readonly invoke: (
     call: Readonly<{
       resolution: Readonly<LeafInvocationResolution>;
       input: Readonly<Record<string, JsonValue>>;
       inputDigest: Sha256Digest;
       failureContractRef: string;
-      workerContracts: Readonly<{
-        readonly instructionContractRef: string;
-        readonly resultContractRef: string;
-      }> | null;
-      effects: ProbabilisticLeafEffectPort | null;
+      bindProbabilisticEffects: ((
+        workerContracts: Readonly<{
+          readonly instructionContractRef: string;
+          readonly resultContractRef: string;
+        }>,
+      ) => ProbabilisticLeafEffectPort) | null;
     }>,
   ) => Promise<Readonly<LeafInvocationOwnerResult>>;
 }
