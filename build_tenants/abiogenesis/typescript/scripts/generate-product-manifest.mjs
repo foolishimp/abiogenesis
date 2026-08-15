@@ -607,7 +607,10 @@ const rows = [
       "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-010",
     ],
     capabilityIdentities: ["abg.capability.runtime.open-root-call@5"],
-    nativeTypedLocator: nativeTypedLocator(abgNativeInventory, "openCall"),
+    nativeTypedLocator: nativeTypedLocator(
+      abgNativeInventory,
+      "openTraversalScope",
+    ),
   },
   {
     contractId: "abg.contract.hog.traversal-root",
@@ -661,7 +664,7 @@ const rows = [
     capabilityIdentities: ["abg.capability.hog.judge-transition-root@5"],
     nativeTypedLocator: nativeTypedLocator(
       hogNativeInventory,
-      "proposeJudgment",
+      "proposeJudgmentCandidate",
     ),
   },
   {

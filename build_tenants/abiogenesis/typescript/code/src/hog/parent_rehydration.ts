@@ -34,7 +34,7 @@ import type { ProgramValidation } from "../validator/validation.js";
 import {
   projectParentSuspensions,
   type HogReturnFrame,
-} from "./evaluator.js";
+} from "./evaluation_frame.js";
 import {
   rehydrateHeldInteractionCursor,
   resolveTraversalTerm,
