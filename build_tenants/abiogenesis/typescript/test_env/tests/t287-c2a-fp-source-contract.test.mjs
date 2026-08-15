@@ -17,70 +17,31 @@ function deepFreeze(value) {
   return Object.freeze(value);
 }
 
-test("C2A F_P call capability refuses a second dispatch before another effect", async () => {
-  const { bindActorProcessLeafEffectPort } = await import(
-    `${pathToFileURL(code("abg", "actor_process.js")).href}?guard=${Date.now()}`
-  );
-  const failures = [];
-  let storeAccesses = 0;
-  const store = new Proxy({}, {
-    get() {
-      storeAccesses += 1;
-      throw new TypeError("actor process touched the store");
-    },
-  });
-  const invalidRequest = deepFreeze({
-    implementationRef: "implementation://wrong/fp@5",
-  });
-  const effects = bindActorProcessLeafEffectPort({
-    store,
-    executionBasis: {},
-    scope: {},
-    cCall: {
-      cCallRef: "c-call://test/fp/one",
-      runId: "run://test/fp/one",
-      graphCallId: "graph-call://test/fp/one",
-      frameId: "frame://test/fp/one",
-      programLocusRef: "locus://test/fp/one",
-      taskOrdinal: null,
-      attempt: 1,
-    },
-    inputDigest: DIGEST,
-    workerContracts: {
-      instructionContractRef: "contract://test/fp/input@5",
-      resultContractRef: "contract://test/fp/output@5",
-    },
-    runtime: {},
-    basis: {
-      eventTime: "2026-08-15T00:00:00.000Z",
-      correlationId: "correlation://test/fp/one",
-      causationEventRefs: [],
-    },
-  });
-  for (let ordinal = 0; ordinal < 2; ordinal += 1) {
-    try {
-      await effects.invokeWorker(invalidRequest);
-    } catch (error) {
-      failures.push(error);
-    }
-  }
-
-  assert.equal(failures.length, 2);
+test("C2A F_P effect handoff is one direct exact-prefix ABG invocation", async () => {
+  const actorSource = await readFile(code("abg", "actor_process.js"), "utf8");
+  const hogSource = await readFile(code("hog", "ccall_lifecycle.js"), "utf8");
+  assert.doesNotMatch(actorSource, /bindActorProcessLeafEffectPort|dispatchClaimed|already_dispatched/u);
   assert.match(
-    failures[0].message,
-    /actor process request or workspace differs from the admitted execution basis/u,
+    actorSource,
+    /admitNonEmptyRuntimeEventTransactionAtDurablePrefix\(\s*input\.store,\s*successorPrefix,/u,
   );
-  assert.equal(
-    failures[1].message,
-    "one F_P C-call may dispatch exactly one actor invocation",
-  );
-  assert.equal(storeAccesses, 0);
-
-  const source = await readFile(code("abg", "actor_process.js"), "utf8");
+  const intentAdmission = actorSource.match(
+    /const intentAdmission = admitNonEmptyRuntimeEventTransactionAtDurablePrefix\([\s\S]*?const \{ startedEvent \} = intentAdmission\.value;/u,
+  )?.[0];
+  assert.ok(intentAdmission, "actor intent has one exact-prefix transaction segment");
   assert.match(
-    source,
-    /dispatchClaimed = true;\s*const observation = await invokeActorProcess\(\{[\s\S]*dispatchOrdinal: 1,/u,
+    intentAdmission,
+    /const bindingEvent = admitRuntimeEvent\([\s\S]*?kind: "actor_transport_binding_admitted"[\s\S]*?const startedEvent = admitRuntimeEvent\([\s\S]*?kind: "actor_invocation_started"/u,
   );
+  assert.match(
+    hogSource,
+    /predecessorPrefix: opened\.successorPrefix,[\s\S]*workerContracts: invocation\.workerContracts,[\s\S]*request: invocation\.workerRequest,/u,
+  );
+  assert.match(
+    hogSource,
+    /effectResult\.kind === "actor_process_effect_refusal"[\s\S]*effectResult\.successorPrefix/u,
+  );
+  assert.doesNotMatch(hogSource, /bindProbabilisticEffects|effectAuthority/u);
 });
 
 test("C2A F_P receipt rejects missing and forged carrier pairs", async () => {
@@ -171,7 +132,7 @@ test("C2A implementation owner preserves exact exception and malformed-return fa
     assert.equal(Object.isFrozen(candidate.evidenceCandidates), true);
   }
 
-  const hogSource = await readFile(code("hog", "leaf_execute.js"), "utf8");
+  const hogSource = await readFile(code("hog", "ccall_lifecycle.js"), "utf8");
   assert.doesNotMatch(hogSource, /leaf_realization_candidate/u);
   assert.doesNotMatch(hogSource, /implementation_exception|malformed_return/u);
 });
@@ -270,12 +231,20 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
       secretRawValue: "must-not-escape",
     },
   });
-  const validRawReceipt = deepFreeze({
-    kind: "leaf_invocation_receipt",
+  const occurrence = deepFreeze({
+    cCallRef: "c-call://test/fp-owner/1",
+    runId: "run://test/fp-owner/1",
+    graphCallId: "graph-call://test/fp-owner/1",
+    frameId: "frame://test/fp-owner/1",
+    programLocusRef: "locus://test/fp-owner/1",
+    taskOrdinal: null,
+    attempt: 1,
+  });
+  const prepared = (complete) => deepFreeze({
+    kind: "prepared_probabilistic_leaf_invocation",
     schemaVersion: "5.0.0",
-    computeRegime: "F_P",
-    candidate: invalidRawCandidate,
-    actorProcessExchange: exchange,
+    workerRequest: request,
+    complete,
   });
   const base = {
     resolution,
@@ -285,24 +254,18 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
     verifyAuthority: () => true,
     validateSuccess: (candidate) => candidate?.kind === "expected_success",
     resolveWorkerContracts: () => workerContracts,
-    bindProbabilisticEffects: () => deepFreeze({
-      occurrence: {
-        cCallRef: "c-call://test/fp-owner/1",
-        runId: "run://test/fp-owner/1",
-        graphCallId: "graph-call://test/fp-owner/1",
-        frameId: "frame://test/fp-owner/1",
-        programLocusRef: "locus://test/fp-owner/1",
-        taskOrdinal: null,
-        attempt: 1,
-      },
-      invokeWorker: async () => exchange,
-    }),
+    occurrence,
   };
 
-  const invalidSuccess = await invokeLeafOwnerBoundary({
+  const invalidPrepared = await invokeLeafOwnerBoundary({
     ...base,
-    loadImplementation: async () => async () => validRawReceipt,
+    loadImplementation: async () => () => prepared(() => invalidRawCandidate),
   });
+  assert.equal(
+    invalidPrepared.kind,
+    "prepared_probabilistic_leaf_owner_invocation",
+  );
+  const invalidSuccess = invalidPrepared.complete(exchange);
   assert.equal(invalidSuccess.kind, "closed_leaf_owner_receipt");
   assert.equal(invalidSuccess.candidate.disposition, "failure");
   assert.equal(invalidSuccess.candidate.resultCandidate.failureClass, "malformed_return");
@@ -313,9 +276,31 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
   assert.equal(Object.isFrozen(invalidSuccess.receipt), true);
   assert.equal(Object.isFrozen(invalidSuccess.candidate), true);
 
+  const completionPrepared = await invokeLeafOwnerBoundary({
+    ...base,
+    loadImplementation: async () => () => prepared(() => {
+      throw new Error("completion failed after the effect");
+    }),
+  });
+  assert.equal(
+    completionPrepared.kind,
+    "prepared_probabilistic_leaf_owner_invocation",
+  );
+  const completionThrown = completionPrepared.complete(exchange);
+  assert.equal(completionThrown.kind, "closed_leaf_owner_receipt");
+  assert.equal(completionThrown.effectDisposition, "completed");
+  assert.equal(
+    completionThrown.candidate.resultCandidate.failureClass,
+    "implementation_exception",
+  );
+  assert.equal(
+    completionThrown.receipt.actorProcessExchange,
+    exchange,
+  );
+
   const thrown = await invokeLeafOwnerBoundary({
     ...base,
-    loadImplementation: async () => async () => {
+    loadImplementation: async () => () => {
       throw new Error("raw F_P exception");
     },
   });
@@ -326,7 +311,7 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
 
   const malformed = await invokeLeafOwnerBoundary({
     ...base,
-    loadImplementation: async () => async () => ({ raw: "unclosed" }),
+    loadImplementation: async () => () => ({ raw: "unclosed" }),
   });
   assert.equal(malformed.kind, "closed_leaf_owner_receipt");
   assert.equal(malformed.candidate.resultCandidate.failureClass, "malformed_return");
@@ -345,24 +330,20 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
       return "must-not-escape";
     },
   };
-  const openReceipt = deepFreeze({
-    kind: "leaf_invocation_receipt",
-    schemaVersion: "5.0.0",
-    computeRegime: "F_P",
-    candidate: openCandidate,
-    actorProcessExchange: exchange,
-  });
   assert.equal(Object.isFrozen(openCandidate.mutableExtension), false);
-  const openOutput = await invokeLeafOwnerBoundary({
+  const openPrepared = await invokeLeafOwnerBoundary({
     ...base,
-    loadImplementation: async () => async () => openReceipt,
+    loadImplementation: async () => () => prepared(() => openCandidate),
   });
+  assert.equal(openPrepared.kind, "prepared_probabilistic_leaf_owner_invocation");
+  const openOutput = openPrepared.complete(exchange);
   assert.equal(openOutput.kind, "closed_leaf_owner_receipt");
   assert.equal(
     openOutput.candidate.resultCandidate.failureClass,
     "malformed_return",
   );
-  assert.equal(openOutput.receipt, null);
+  assert.equal(openOutput.effectDisposition, "completed");
+  assert.equal(openOutput.receipt.candidate, openOutput.candidate);
   assert.equal(Object.hasOwn(openOutput.candidate, "mutableExtension"), false);
   assert.doesNotMatch(JSON.stringify(openOutput), /must-not-escape/u);
 
@@ -374,7 +355,7 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
     },
     loadImplementation: async () => {
       implementationLoaded = true;
-      return async () => validRawReceipt;
+      return () => prepared(() => invalidRawCandidate);
     },
   });
   assert.equal(resolverThrown.kind, "closed_leaf_owner_receipt");
@@ -389,7 +370,7 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
     ...base,
     value: deepFreeze({ invalidIJson: 1n }),
     inputDigest: DIGEST,
-    loadImplementation: async () => async () => validRawReceipt,
+    loadImplementation: async () => () => prepared(() => invalidRawCandidate),
   });
   assert.equal(canonicalThrown.kind, "closed_leaf_owner_receipt");
   assert.equal(
@@ -411,13 +392,18 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
   );
   assert.equal(loadThrown.receipt, null);
 
-  const validatorThrown = await invokeLeafOwnerBoundary({
+  const validatorPrepared = await invokeLeafOwnerBoundary({
     ...base,
     validateSuccess: () => {
       throw new Error("output validator exception");
     },
-    loadImplementation: async () => async () => validRawReceipt,
+    loadImplementation: async () => () => prepared(() => invalidRawCandidate),
   });
+  assert.equal(
+    validatorPrepared.kind,
+    "prepared_probabilistic_leaf_owner_invocation",
+  );
+  const validatorThrown = validatorPrepared.complete(exchange);
   assert.equal(validatorThrown.kind, "closed_leaf_owner_receipt");
   assert.equal(
     validatorThrown.candidate.resultCandidate.failureClass,
@@ -426,6 +412,6 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
   assert.equal(validatorThrown.receipt.candidate, validatorThrown.candidate);
   assert.doesNotMatch(JSON.stringify(validatorThrown), /must-not-escape/u);
 
-  const hogSource = await readFile(code("hog", "leaf_execute.js"), "utf8");
+  const hogSource = await readFile(code("hog", "ccall_lifecycle.js"), "utf8");
   assert.doesNotMatch(hogSource, /resolveProbabilisticWorkerContracts/u);
 });

@@ -1565,51 +1565,44 @@ async function rejectAttempt(
     JSON.stringify(openedCCall),
   );
   const cCall = openedCCall.cCall;
-  let ownerContracts = null;
-  const ownerResult = await leafPort.invoke({
+  const occurrence = Object.freeze({
+    cCallRef: cCall.cCallRef,
+    runId: cCall.runId,
+    graphCallId: cCall.graphCallId,
+    frameId: cCall.frameId,
+    programLocusRef: cCall.programLocusRef,
+    taskOrdinal: cCall.taskOrdinal,
+    attempt: cCall.attempt,
+  });
+  const preparedOwner = await leafPort.invoke({
     resolution: implementationResolution,
     input: inputValue,
     inputDigest: stop.cursor.inputDigest,
     failureContractRef: stop.failureContractRef,
-    bindProbabilisticEffects: (contracts) => {
-      ownerContracts = contracts;
-      return {
-      occurrence: {
-        cCallRef: cCall.cCallRef,
-        runId: cCall.runId,
-        graphCallId: cCall.graphCallId,
-        frameId: cCall.frameId,
-        programLocusRef: cCall.programLocusRef,
-        taskOrdinal: cCall.taskOrdinal,
-        attempt: cCall.attempt,
-      },
-      invokeWorker: async (request) => {
-        const observation = await abg.invokeActorProcess({
-          store,
-          executionBasis,
-          scope: opened.scope,
-          cCall,
-          expectedInputDigest: stop.cursor.inputDigest,
-          expectedInstructionContractRef: contracts.instructionContractRef,
-          expectedResultContractRef: contracts.resultContractRef,
-          runtime: actorRuntimeBinding,
-          request,
-          dispatchOrdinal: 1,
-          basis: basis(`attempt-${stop.cursor.attempt}/actor`),
-        });
-        const exchange = abg.validateActorProcessCarrierPair(request, observation);
-        assert.equal(
-          exchange.kind,
-          "actor_process_carrier_validation",
-          JSON.stringify(exchange),
-        );
-        return exchange;
-      },
-      };
-    },
+    occurrence,
   });
+  assert.equal(
+    preparedOwner.kind,
+    "prepared_probabilistic_leaf_owner_invocation",
+  );
+  const effectResult = await abg.invokeActorProcess({
+    store,
+    predecessorPrefix: openedCCall.successorPrefix,
+    executionBasis,
+    scope: opened.scope,
+    cCall,
+    expectedInputDigest: stop.cursor.inputDigest,
+    occurrence,
+    workerContracts: preparedOwner.workerContracts,
+    runtime: actorRuntimeBinding,
+    request: preparedOwner.workerRequest,
+    dispatchOrdinal: 1,
+    basis: basis(`attempt-${stop.cursor.attempt}/actor`),
+  });
+  assert.equal(effectResult.kind, "actor_process_effect_receipt");
+  const ownerResult = preparedOwner.complete(effectResult.exchange);
   assert.equal(ownerResult.kind, "closed_leaf_owner_receipt");
-  assert.notEqual(ownerContracts, null);
+  assert.equal(ownerResult.effectDisposition, "completed");
   const contracts = ownerResult.workerContracts;
   assert.notEqual(contracts, null);
   const receipt = ownerResult.receipt;

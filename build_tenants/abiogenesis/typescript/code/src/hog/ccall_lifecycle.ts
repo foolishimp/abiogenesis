@@ -19,7 +19,10 @@ import type {
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
-import type { LeafInvocationPort } from "../implementation/contracts.js";
+import type {
+  ClosedLeafOwnerReceipt,
+  LeafInvocationPort,
+} from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { proposeJudgmentCandidate } from "./judgment.js";
 import {
@@ -298,28 +301,22 @@ export function evaluateExecutableCCall(
         opened as unknown as JsonValue,
       );
     }
-    const bindProbabilisticEffects = input.stop.computeRegime === "F_P"
-      ? (contracts: Readonly<{
-          instructionContractRef: string;
-          resultContractRef: string;
-        }>) => Abg.bindActorProcessLeafEffectPort({
-          store: input.store,
-          executionBasis: input.executionBasis,
-          scope: input.openedTraversalScope,
-          cCall: opened.cCall,
-          inputDigest: input.stop.cursor.inputDigest,
-          workerContracts: contracts,
-          runtime: input.actorRuntimeBinding,
-          basis: admissionBasis(input.clock, "actor-process"),
-        })
-      : null;
+    const occurrence = Object.freeze({
+      cCallRef: opened.cCall.cCallRef,
+      runId: opened.cCall.runId,
+      graphCallId: opened.cCall.graphCallId,
+      frameId: opened.cCall.frameId,
+      programLocusRef: opened.cCall.programLocusRef,
+      taskOrdinal: opened.cCall.taskOrdinal,
+      attempt: opened.cCall.attempt,
+    });
     const invocation = yield* Effect.promise(() =>
       input.leafPort.invoke({
         resolution,
         input: input.input,
         inputDigest: input.stop.cursor.inputDigest,
         failureContractRef: input.stop.failureContractRef,
-        bindProbabilisticEffects,
+        occurrence,
       }));
     if (invocation.kind === "leaf_invocation_owner_refusal") {
       return failCCall(
@@ -330,10 +327,53 @@ export function evaluateExecutableCCall(
         invocation as unknown as JsonValue,
       );
     }
+    let completedOwner: Readonly<ClosedLeafOwnerReceipt>;
+    let outcomePredecessor = opened.successorPrefix;
+    if (invocation.kind === "prepared_probabilistic_leaf_owner_invocation") {
+      const effectResult = yield* Effect.promise(() =>
+        Abg.invokeActorProcess({
+          store: input.store,
+          predecessorPrefix: opened.successorPrefix,
+          executionBasis: input.executionBasis,
+          scope: input.openedTraversalScope,
+          cCall: opened.cCall,
+          expectedInputDigest: input.stop.cursor.inputDigest,
+          occurrence,
+          workerContracts: invocation.workerContracts,
+          runtime: input.actorRuntimeBinding,
+          request: invocation.workerRequest,
+          dispatchOrdinal: 1,
+          basis: admissionBasis(input.clock, "actor-process"),
+        }));
+      if (effectResult.kind === "actor_process_effect_refusal") {
+        return failCCall(
+          input,
+          effectResult.successorPrefix,
+          `leaf-effect-${input.ordinal}`,
+          effectResult.diagnosticRef,
+          effectResult as unknown as JsonValue,
+        );
+      }
+      const effectReceipt = effectResult;
+      try {
+        completedOwner = invocation.complete(effectReceipt.exchange);
+      } catch {
+        return failCCall(
+          input,
+          effectReceipt.successorPrefix,
+          `leaf-completion-${input.ordinal}`,
+          "diagnostic://abiogenesis/implementation/owner-boundary-exception@5",
+          effectReceipt as unknown as JsonValue,
+        );
+      }
+      outcomePredecessor = effectReceipt.successorPrefix;
+    } else {
+      completedOwner = invocation;
+    }
     const outcomeInput = {
       outcomeClass: "leaf",
       store: input.store,
-      predecessorPrefix: opened.successorPrefix,
+      predecessorPrefix: outcomePredecessor,
       executionBasis: input.executionBasis,
       implementationSet: input.implementationSet,
       graph: input.graph,
@@ -344,7 +384,7 @@ export function evaluateExecutableCCall(
       leafPort: input.leafPort,
       input: input.input,
       inputDigest: input.stop.cursor.inputDigest,
-      ownerReceipt: invocation,
+      ownerReceipt: completedOwner,
       outputValueKind,
       failureValueKind,
       basis: admissionBasis(input.clock, "outcome"),
@@ -376,12 +416,12 @@ export function evaluateExecutableCCall(
             result: resultOutcome.result,
             replayState: resultOutcome.replayState,
             contractRef: resultOutcome.cCall.judgmentContractRef,
-            decision: invocation.candidate.disposition === "success"
+            decision: completedOwner.candidate.disposition === "success"
               ? { decisionClass: "evaluate", input: input.input, relation }
               : {
                   decisionClass: "refuse",
                   predicateRef: resultOutcome.cCall.judgmentPredicateRef,
-                  reasonRef: invocation.candidate.diagnosticRef,
+                  reasonRef: completedOwner.candidate.diagnosticRef,
                 },
           });
           return Abg.admitCCallJudgment({

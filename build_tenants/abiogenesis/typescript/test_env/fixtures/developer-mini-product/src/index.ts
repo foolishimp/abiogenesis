@@ -2034,20 +2034,26 @@ export function realizeDeveloperTicketWork(
   });
 }
 
-interface ProbabilisticEffectPort {
-  readonly invokeWorker: (
-    request: Readonly<Record<string, JsonValue>>,
-  ) => Promise<Readonly<{
-    kind: "actor_process_carrier_validation";
-    schemaVersion: "5.0.0";
-    disposition: "valid";
-    request: Readonly<Record<string, JsonValue>>;
-    observation: Readonly<{
-      disposition: "failure" | "success";
-      failureClass: string | null;
-      finalOutput: string;
-    }>;
-  }>>;
+interface LeafExecutionOccurrence {
+  readonly cCallRef: string;
+  readonly runId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly programLocusRef: string;
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
+}
+
+interface ActorProcessCarrierValidation {
+  readonly kind: "actor_process_carrier_validation";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "valid";
+  readonly request: Readonly<Record<string, JsonValue>>;
+  readonly observation: Readonly<{
+    readonly disposition: "failure" | "success";
+    readonly failureClass: string | null;
+    readonly finalOutput: string;
+  }>;
 }
 
 function parseGreetingCandidate(value: string): Readonly<Record<string, JsonValue>> {
@@ -2100,45 +2106,44 @@ export function constructDeveloperProbabilisticPassRequest(
   });
 }
 
-export async function realizeDeveloperProbabilisticPass(
+export function realizeDeveloperProbabilisticPass(
   input: unknown,
-  effects: Readonly<ProbabilisticEffectPort>,
-): Promise<Readonly<object>> {
-  const request = constructDeveloperProbabilisticPassRequest(input);
+  _occurrence: Readonly<LeafExecutionOccurrence>,
+): Readonly<object> {
+  const workerRequest = constructDeveloperProbabilisticPassRequest(input);
   const admittedInput = input as Readonly<{
     kind: "developer_greeting_output";
     schemaVersion: "5.0.0";
     message: string;
   }>;
-  const actorProcessExchange = await effects.invokeWorker(request);
-  const transport = actorProcessExchange.observation;
-  const resultCandidate = parseGreetingCandidate(transport.finalOutput);
-  const success =
-    transport.disposition === "success" &&
-    isGreetingOutput(resultCandidate) &&
-    resultCandidate.message === admittedInput.message;
-  const candidate = deepFreeze({
-    kind: "leaf_realization_candidate" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: success ? "success" as const : "failure" as const,
-    evidenceCandidates: [] as const,
-    resultCandidate: success
-      ? resultCandidate
-      : {
-          kind: "developer_greeting_failure",
-          schemaVersion: "5.0.0",
-          diagnosticRef:
-            transport.failureClass === null
-              ? "diagnostic://developer.example/greeting/worker-output-refused@5"
-              : `diagnostic://developer.example/greeting/${transport.failureClass}@5`,
-        },
-  });
   return deepFreeze({
-    kind: "leaf_invocation_receipt" as const,
+    kind: "prepared_probabilistic_leaf_invocation" as const,
     schemaVersion: "5.0.0" as const,
-    computeRegime: "F_P" as const,
-    candidate,
-    actorProcessExchange,
+    workerRequest,
+    complete(actorProcessExchange: Readonly<ActorProcessCarrierValidation>) {
+      const transport = actorProcessExchange.observation;
+      const resultCandidate = parseGreetingCandidate(transport.finalOutput);
+      const success =
+        transport.disposition === "success" &&
+        isGreetingOutput(resultCandidate) &&
+        resultCandidate.message === admittedInput.message;
+      return deepFreeze({
+        kind: "leaf_realization_candidate" as const,
+        schemaVersion: "5.0.0" as const,
+        disposition: success ? "success" as const : "failure" as const,
+        evidenceCandidates: [] as const,
+        resultCandidate: success
+          ? resultCandidate
+          : {
+              kind: "developer_greeting_failure",
+              schemaVersion: "5.0.0",
+              diagnosticRef:
+                transport.failureClass === null
+                  ? "diagnostic://developer.example/greeting/worker-output-refused@5"
+                  : `diagnostic://developer.example/greeting/${transport.failureClass}@5`,
+            },
+      });
+    },
   });
 }
 

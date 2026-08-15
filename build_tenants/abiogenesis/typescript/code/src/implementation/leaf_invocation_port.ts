@@ -16,19 +16,26 @@ import {
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
-import { validateActorProcessCarrierPair } from "../abg/actor_process.js";
+import {
+  validateActorProcessCarrierPair,
+} from "../abg/actor_process.js";
 import type {
   ClosedLeafInvocationReceipt,
   ClosedLeafOwnerReceipt,
+  ClosedProbabilisticLeafOwnerReceipt,
+  LeafExecutionOccurrence,
   LeafInvocationPort,
   LeafInvocationOwnerRefusal,
   LeafInvocationOwnerResult,
   LeafInvocationResolution,
   LeafRealizationCandidate,
-  ProbabilisticLeafEffectPort,
+  LeafRealizationFailureCandidate,
+  PreparedProbabilisticLeafInvocation,
+  PreparedProbabilisticLeafOwnerInvocation,
   ProbabilisticLeafInvocationReceipt,
   ProbabilisticResultContractPreimageRefusal,
   ProbabilisticResultContractPreimageVerification,
+  ProbabilisticWorkerContracts,
 } from "./contracts.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 
@@ -201,6 +208,16 @@ export function totalizeLeafImplementationFailure(input: Readonly<{
 }
 
 function closedInvocationReceipt(
+  regime: "F_D",
+  candidate: Readonly<LeafRealizationCandidate>,
+  exchange: null,
+): Readonly<Extract<ClosedLeafInvocationReceipt, { computeRegime: "F_D" }>>;
+function closedInvocationReceipt(
+  regime: "F_P",
+  candidate: Readonly<LeafRealizationCandidate>,
+  exchange: Readonly<ProbabilisticLeafInvocationReceipt<unknown>>["actorProcessExchange"],
+): Readonly<Extract<ClosedLeafInvocationReceipt, { computeRegime: "F_P" }>>;
+function closedInvocationReceipt(
   regime: "F_D" | "F_P",
   candidate: Readonly<LeafRealizationCandidate>,
   exchange: Readonly<ProbabilisticLeafInvocationReceipt<unknown>>["actorProcessExchange"] | null,
@@ -222,16 +239,50 @@ function closedInvocationReceipt(
       });
 }
 
-function closedOwnerReceipt(
+function closedDeterministicOwnerReceipt(
   candidate: Readonly<LeafRealizationCandidate>,
-  receipt: Readonly<ClosedLeafInvocationReceipt> | null,
-  workerContracts: ClosedLeafOwnerReceipt["workerContracts"],
+  invoked: boolean,
 ): Readonly<ClosedLeafOwnerReceipt> {
   return deepFreeze({
     kind: "closed_leaf_owner_receipt" as const,
     schemaVersion: "5.0.0" as const,
+    computeRegime: "F_D" as const,
     candidate,
-    receipt,
+    receipt: invoked ? closedInvocationReceipt("F_D", candidate, null) : null,
+    workerContracts: null,
+  });
+}
+
+function closedUndispatchedProbabilisticOwnerReceipt(
+  candidate: Readonly<LeafRealizationFailureCandidate>,
+): Readonly<ClosedLeafOwnerReceipt> {
+  return deepFreeze({
+    kind: "closed_leaf_owner_receipt" as const,
+    schemaVersion: "5.0.0" as const,
+    computeRegime: "F_P" as const,
+    effectDisposition: "not_dispatched" as const,
+    candidate,
+    receipt: null,
+    workerContracts: null,
+  });
+}
+
+function closedProbabilisticOwnerReceipt(
+  candidate: Readonly<LeafRealizationCandidate>,
+  workerContracts: Readonly<ProbabilisticWorkerContracts>,
+  exchange: Readonly<ProbabilisticLeafInvocationReceipt<unknown>>["actorProcessExchange"],
+): Readonly<ClosedProbabilisticLeafOwnerReceipt> {
+  return deepFreeze({
+    kind: "closed_leaf_owner_receipt" as const,
+    schemaVersion: "5.0.0" as const,
+    computeRegime: "F_P" as const,
+    effectDisposition: "completed" as const,
+    candidate,
+    receipt: closedInvocationReceipt(
+      "F_P",
+      candidate,
+      exchange,
+    ),
     workerContracts,
   });
 }
@@ -248,7 +299,34 @@ function ownerRefusal(
   });
 }
 
-type WorkerContracts = NonNullable<ClosedLeafOwnerReceipt["workerContracts"]>;
+type WorkerContracts = ProbabilisticWorkerContracts;
+
+const PROBABILISTIC_WORKER_REQUEST_FIELDS = Object.freeze([
+  "actorRef",
+  "implementationRef",
+  "inputDigest",
+  "instructionContractRef",
+  "materializationPlanRef",
+  "prompt",
+  "rendererRef",
+  "responseJsonSchema",
+  "resultContractRef",
+  "transportLane",
+  "workerBindingRef",
+]);
+
+function isPreparedProbabilisticLeafInvocation(
+  value: unknown,
+): value is Readonly<PreparedProbabilisticLeafInvocation<unknown>> {
+  return isRecord(value) &&
+    hasExactDataFields(value, ["complete", "kind", "schemaVersion", "workerRequest"]) &&
+    value.kind === "prepared_probabilistic_leaf_invocation" &&
+    value.schemaVersion === "5.0.0" &&
+    typeof value.complete === "function" &&
+    isRecord(value.workerRequest) &&
+    hasExactDataFields(value.workerRequest, PROBABILISTIC_WORKER_REQUEST_FIELDS) &&
+    isDeeplyFrozen(value);
+}
 
 function preimageRefusal(
   code: ProbabilisticResultContractPreimageRefusal["code"],
@@ -273,109 +351,62 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
     resolution: Readonly<LeafInvocationResolution>,
     value: Readonly<Record<string, JsonValue>>,
   ) => Readonly<WorkerContracts> | null;
-  bindProbabilisticEffects: ((
-    workerContracts: Readonly<WorkerContracts>,
-  ) => ProbabilisticLeafEffectPort) | null;
+  occurrence: Readonly<LeafExecutionOccurrence>;
   loadImplementation: () => Promise<unknown>;
 }>): Promise<Readonly<LeafInvocationOwnerResult>> {
   const { resolution, inputDigest, failureValueKind } = input;
-  let workerContracts: Readonly<WorkerContracts> | null = null;
-  const totalized = (
+  const totalizedFailure = (
     failureClass: "implementation_exception" | "malformed_return",
-    receipt: Readonly<ClosedLeafInvocationReceipt> | null = null,
-  ): Readonly<ClosedLeafOwnerReceipt> => {
-    const candidate = totalizeLeafImplementationFailure({
+  ): Readonly<LeafRealizationFailureCandidate> =>
+    totalizeLeafImplementationFailure({
       resolution,
       inputDigest,
       failureValueKind,
       failureClass,
-    });
-    const sanitizedReceipt = receipt === null
-      ? null
-      : closedInvocationReceipt(
-          resolution.computeRegime,
-          candidate,
-          receipt.computeRegime === "F_P"
-            ? receipt.actorProcessExchange
-            : null,
-        );
-    return closedOwnerReceipt(candidate, sanitizedReceipt, workerContracts);
-  };
-
+    }) as Readonly<LeafRealizationFailureCandidate>;
+  const undispatched = (
+    failureClass: "implementation_exception" | "malformed_return",
+  ) => closedUndispatchedProbabilisticOwnerReceipt(
+    totalizedFailure(failureClass),
+  );
+  let authorityValid = false;
   try {
-    if (
-      !(await input.verifyAuthority()) ||
-      sha256Canonical(input.value) !== inputDigest
-    ) {
-      return totalized("implementation_exception");
+    authorityValid = await input.verifyAuthority() &&
+      sha256Canonical(input.value) === inputDigest;
+  } catch {
+    authorityValid = false;
+  }
+  if (!authorityValid) {
+    return resolution.computeRegime === "F_D"
+      ? closedDeterministicOwnerReceipt(
+          totalizedFailure("implementation_exception"),
+          false,
+        )
+      : undispatched("implementation_exception");
+  }
+
+  if (resolution.computeRegime === "F_D") {
+    let implementation: unknown;
+    try {
+      implementation = await input.loadImplementation();
+    } catch {
+      implementation = null;
     }
-    workerContracts = resolution.computeRegime === "F_P"
-      ? input.resolveWorkerContracts(resolution, input.value)
-      : null;
-    const effects = resolution.computeRegime === "F_P" && workerContracts !== null
-      ? input.bindProbabilisticEffects?.(workerContracts) ?? null
-      : null;
-    if (
-      (resolution.computeRegime === "F_P" &&
-        (workerContracts === null || effects === null)) ||
-      (resolution.computeRegime === "F_D" &&
-        (workerContracts !== null || input.bindProbabilisticEffects !== null))
-    ) {
-      return totalized("implementation_exception");
-    }
-    const implementation = await input.loadImplementation();
     if (typeof implementation !== "function") {
-      return totalized("implementation_exception");
-    }
-    if (resolution.computeRegime === "F_P") {
-      const implementationOutput: unknown = await implementation(input.value, effects);
-      let rawReceipt: unknown;
-      try {
-        rawReceipt = admitIJsonValue(
-          implementationOutput,
-          "probabilistic leaf owner output",
-        );
-      } catch {
-        return totalized("malformed_return");
-      }
-      if (!isClosedProbabilisticLeafInvocation(rawReceipt)) {
-        return totalized("malformed_return");
-      }
-      const rawCandidate = rawReceipt.candidate;
-      const safeRawReceipt = closedInvocationReceipt(
-        "F_P",
-        totalizeLeafImplementationFailure({
-          resolution,
-          inputDigest,
-          failureValueKind,
-          failureClass: "malformed_return",
-        }),
-        rawReceipt.actorProcessExchange,
-      );
-      let valid = false;
-      try {
-        valid = isLeafRealizationCandidate(
-          rawCandidate,
-          "F_P",
-          input.validateSuccess,
-          failureValueKind,
-        );
-      } catch {
-        valid = false;
-      }
-      if (!valid) return totalized("malformed_return", safeRawReceipt);
-      const candidate = rawCandidate as Readonly<LeafRealizationCandidate>;
-      return closedOwnerReceipt(
-        candidate,
-        closedInvocationReceipt(
-          "F_P",
-          candidate,
-          rawReceipt.actorProcessExchange,
-        ),
-        workerContracts,
+      return closedDeterministicOwnerReceipt(
+        totalizedFailure("implementation_exception"),
+        false,
       );
     }
-    const implementationOutput: unknown = await implementation(input.value);
+    let implementationOutput: unknown;
+    try {
+      implementationOutput = await implementation(input.value);
+    } catch {
+      return closedDeterministicOwnerReceipt(
+        totalizedFailure("implementation_exception"),
+        false,
+      );
+    }
     let admittedCandidate: unknown;
     try {
       admittedCandidate = admitIJsonValue(
@@ -396,32 +427,88 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
     } catch {
       valid = false;
     }
-    if (!valid) {
-      const sanitized = totalizeLeafImplementationFailure({
-        resolution,
-        inputDigest,
-        failureValueKind,
-        failureClass: "malformed_return",
-      });
-      return closedOwnerReceipt(
-        sanitized,
-        closedInvocationReceipt("F_D", sanitized, null),
-        null,
-      );
-    }
-    const candidate = admittedCandidate as Readonly<LeafRealizationCandidate>;
-    return closedOwnerReceipt(
-      candidate,
-      closedInvocationReceipt("F_D", candidate, null),
-      null,
+    return closedDeterministicOwnerReceipt(
+      valid
+        ? admittedCandidate as Readonly<LeafRealizationCandidate>
+        : totalizedFailure("malformed_return"),
+      true,
+    );
+  }
+
+  let workerContracts: Readonly<WorkerContracts> | null;
+  try {
+    workerContracts = input.resolveWorkerContracts(resolution, input.value);
+  } catch {
+    workerContracts = null;
+  }
+  if (workerContracts === null) {
+    return undispatched("implementation_exception");
+  }
+  let implementation: unknown;
+  try {
+    implementation = await input.loadImplementation();
+  } catch {
+    implementation = null;
+  }
+  if (typeof implementation !== "function") {
+    return undispatched("implementation_exception");
+  }
+  let preparedOutput: unknown;
+  try {
+    preparedOutput = implementation(
+      input.value,
+      input.occurrence,
     );
   } catch {
-    try {
-      return totalized("implementation_exception");
-    } catch {
-      return ownerRefusal("owner_boundary_exception");
-    }
+    return undispatched("implementation_exception");
   }
+  if (!isPreparedProbabilisticLeafInvocation(preparedOutput)) {
+    return undispatched("malformed_return");
+  }
+  const prepared = preparedOutput;
+  return deepFreeze({
+    kind: "prepared_probabilistic_leaf_owner_invocation" as const,
+    schemaVersion: "5.0.0" as const,
+    workerRequest: prepared.workerRequest,
+    workerContracts,
+    complete(exchange) {
+      let completedOutput: unknown;
+      try {
+        completedOutput = prepared.complete(exchange);
+      } catch {
+        return closedProbabilisticOwnerReceipt(
+          totalizedFailure("implementation_exception"),
+          workerContracts,
+          exchange,
+        );
+      }
+      try {
+        const admittedCandidate = admitIJsonValue(
+          completedOutput,
+          "probabilistic leaf completion output",
+        );
+        const valid = isLeafRealizationCandidate(
+          admittedCandidate,
+          "F_P",
+          input.validateSuccess,
+          failureValueKind,
+        );
+        return closedProbabilisticOwnerReceipt(
+          valid
+            ? admittedCandidate as Readonly<LeafRealizationCandidate>
+            : totalizedFailure("malformed_return"),
+          workerContracts,
+          exchange,
+        );
+      } catch {
+        return closedProbabilisticOwnerReceipt(
+          totalizedFailure("malformed_return"),
+          workerContracts,
+          exchange,
+        );
+      }
+    },
+  }) satisfies Readonly<PreparedProbabilisticLeafOwnerInvocation>;
 }
 
 export function isAdmittedLeafInvocationPort(value: object): boolean {
@@ -768,7 +855,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           ),
           resolveWorkerContracts: (_resolution, value) =>
             resolveWorkerContracts(admittedResolution, value),
-          bindProbabilisticEffects: call.bindProbabilisticEffects,
+          occurrence: call.occurrence,
           loadImplementation: async () => {
             const module = await loadModule(admittedResolution.modulePath);
             return module[admittedResolution.namedSymbol];

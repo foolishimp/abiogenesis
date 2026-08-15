@@ -19,8 +19,6 @@ import {
   CONSENSUS_REVIEWER_IMPLEMENTATION_DESCRIPTOR,
   CONSENSUS_SUBMITTER_IMPLEMENTATION_DESCRIPTOR,
   realizeConsensusRole,
-  realizeConsensusReviewer,
-  realizeConsensusSubmitter,
   realizeConsensusSubmitterTaskPreparation,
 } from "../../build/code/src/implementation/consensus.js";
 import { ABI5_SYSTEM_PRODUCT_SEMANTICS } from "../../build/code/src/product/builtin_semantics.js";
@@ -403,20 +401,27 @@ function occurrence(suffix, attempt = 1) {
   };
 }
 
+function completeConsensusRole(input, executionOccurrence, observe) {
+  const prepared = realizeConsensusRole(input, executionOccurrence);
+  return prepared.complete(workerExchange(
+    prepared.workerRequest,
+    observe(prepared.workerRequest),
+  ));
+}
+
 async function findingsVectorFor(state, recommendation = "revise") {
   const members = await Promise.all(
     state.members.map(async (member, ordinal) => {
-      const realized = (await realizeConsensusReviewer(member.value, {
-        occurrence: occurrence(
+      const realized = completeConsensusRole(
+        member.value,
+        occurrence(
           `reviewer-${state.roundOrdinal}-${ordinal}`,
         ),
-        async invokeWorker(request) {
-          return workerExchange(request, workerObservation(
+        () => workerObservation(
             JSON.stringify(reviewerCandidate(recommendation)),
             `reviewer-${state.roundOrdinal}-${ordinal}`,
-          ));
-        },
-      })).candidate;
+          ),
+      );
       assert.equal(realized.disposition, "success");
       assert.equal(gtl.isReviewFindings(realized.resultCandidate), true);
       return {
@@ -442,20 +447,16 @@ async function responseFor(vector, disposition = "address_findings") {
   const findingRefs = vector.members.flatMap((member) =>
     member.value.findings.map((finding) => finding.findingRef)
   );
-  const realized = (await realizeConsensusSubmitter(
+  const realized = completeConsensusRole(
     prepared.resultCandidate,
-    {
-      occurrence: occurrence(
+      occurrence(
         `submitter-${prepared.resultCandidate.roundOrdinal}`,
       ),
-      async invokeWorker(request) {
-        return workerExchange(request, workerObservation(
+      () => workerObservation(
           JSON.stringify(submitterCandidate(disposition, findingRefs)),
           `submitter-${prepared.resultCandidate.roundOrdinal}`,
-        ));
-      },
-    },
-  )).candidate;
+        ),
+  );
   assert.equal(realized.disposition, "success");
   assert.equal(
     gtl.isConsensusSubmitterResponse(realized.resultCandidate),
@@ -1142,15 +1143,14 @@ test("S05 reviewer and submitter project through one role-parameterized Prime at
   const reviewerTask = state.members[0].value;
   assert.equal(gtl.isConsensusRoleTask("reviewer", reviewerTask), true);
   assert.equal(gtl.isConsensusRoleTask("submitter", reviewerTask), false);
-  const reviewerResult = (await realizeConsensusRole(reviewerTask, {
-    occurrence: occurrence("role-prime-reviewer"),
-    async invokeWorker(request) {
-      return workerExchange(request, workerObservation(
+  const reviewerResult = completeConsensusRole(
+    reviewerTask,
+    occurrence("role-prime-reviewer"),
+    () => workerObservation(
         JSON.stringify(reviewerCandidate("revise")),
         "role-prime-reviewer",
-      ));
-    },
-  })).candidate;
+      ),
+  );
   assert.equal(
     gtl.isConsensusRoleOccurrence(
       "reviewer",
@@ -1170,17 +1170,16 @@ test("S05 reviewer and submitter project through one role-parameterized Prime at
   const findingRefs = vector.members.flatMap((member) =>
     member.value.findings.map((finding) => finding.findingRef)
   );
-  const submitterResult = (await realizeConsensusRole(submitterTask, {
-    occurrence: occurrence("role-prime-submitter"),
-    async invokeWorker(request) {
-      return workerExchange(request, workerObservation(
+  const submitterResult = completeConsensusRole(
+    submitterTask,
+    occurrence("role-prime-submitter"),
+    () => workerObservation(
         JSON.stringify(
           submitterCandidate("address_findings", findingRefs),
         ),
         "role-prime-submitter",
-      ));
-    },
-  })).candidate;
+      ),
+  );
   assert.equal(
     gtl.isConsensusRoleOccurrence(
       "submitter",
@@ -1215,9 +1214,9 @@ test("S05 reviewer and submitter project through one role-parameterized Prime at
     "utf8",
   );
   assert.equal(
-    [...source.matchAll(/effects\.invokeWorker\(/gu)].length,
+    [...source.matchAll(/prepared_probabilistic_leaf_invocation/gu)].length,
     1,
-    "the role family must retain one worker effect seam",
+    "the role family must expose one prepare/complete source contract",
   );
 });
 
@@ -1669,11 +1668,12 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     resultContractRef: task.profile.resultContractRef,
   });
   let request = null;
-  const candidate = (await realizeConsensusReviewer(task, {
-    occurrence: occurrence("reviewer-instruction"),
-    async invokeWorker(value) {
+  const candidate = completeConsensusRole(
+    task,
+    occurrence("reviewer-instruction"),
+    (value) => {
       request = value;
-      return workerExchange(value, {
+      return {
         actorInvocationRef: "actor-invocation://developer/module-proof",
         transportBindingRef: "transport-binding://developer/module-proof",
         transportBindingDigest: DIGEST,
@@ -1697,9 +1697,9 @@ test("S05 reviewer realization carries the Product-declared instruction contract
           stdout: DIGEST,
           transport: DIGEST,
         },
-      });
+      };
     },
-  })).candidate;
+  );
   assert.equal(candidate.disposition, "success");
   assert.equal(
     request.instructionContractRef,
@@ -1752,10 +1752,10 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     );
   }
 
-  const refusedCandidate = (await realizeConsensusReviewer(task, {
-    occurrence: occurrence("reviewer-refused"),
-    async invokeWorker(request) {
-      return workerExchange(request, {
+  const refusedCandidate = completeConsensusRole(
+    task,
+    occurrence("reviewer-refused"),
+    () => ({
         actorInvocationRef: "actor-invocation://developer/module-proof/refused",
         transportBindingRef: "transport-binding://developer/module-proof",
         transportBindingDigest: DIGEST,
@@ -1779,9 +1779,8 @@ test("S05 reviewer realization carries the Product-declared instruction contract
           stdout: DIGEST,
           transport: DIGEST,
         },
-      });
-    },
-  })).candidate;
+      }),
+  );
   assert.equal(refusedCandidate.disposition, "success");
   assert.equal(
     gtl.isReviewFindings(refusedCandidate.resultCandidate),
@@ -1792,12 +1791,10 @@ test("S05 reviewer realization carries the Product-declared instruction contract
   refusedVector.members[0].value = refusedCandidate.resultCandidate;
   const submitterTaskCandidate =
     realizeConsensusSubmitterTaskPreparation(refusedVector);
-  const submitterResponseCandidate = (await realizeConsensusSubmitter(
+  const submitterResponseCandidate = completeConsensusRole(
     submitterTaskCandidate.resultCandidate,
-    {
-      occurrence: occurrence("submitter-refused-vector"),
-      async invokeWorker(request) {
-        return workerExchange(request, {
+      occurrence("submitter-refused-vector"),
+      () => ({
           actorInvocationRef:
             "actor-invocation://developer/module-proof/submitter",
           transportBindingRef:
@@ -1823,10 +1820,8 @@ test("S05 reviewer realization carries the Product-declared instruction contract
             stdout: DIGEST,
             transport: DIGEST,
           },
-        });
-      },
-    },
-  )).candidate;
+        }),
+  );
   assert.equal(submitterResponseCandidate.disposition, "success");
   const terminalState = gtl.reduceConsensusRound(
     submitterResponseCandidate.resultCandidate,
@@ -1850,10 +1845,10 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     null,
   );
 
-  const transportFailure = (await realizeConsensusReviewer(task, {
-    occurrence: occurrence("reviewer-transport-failure"),
-    async invokeWorker(request) {
-      return workerExchange(request, {
+  const transportFailure = completeConsensusRole(
+    task,
+    occurrence("reviewer-transport-failure"),
+    () => ({
         actorInvocationRef:
           "actor-invocation://developer/module-proof/transport-failure",
         transportBindingRef: "transport-binding://developer/module-proof",
@@ -1878,9 +1873,8 @@ test("S05 reviewer realization carries the Product-declared instruction contract
           stdout: DIGEST,
           transport: DIGEST,
         },
-      });
-    },
-  })).candidate;
+      }),
+  );
   assert.equal(transportFailure.disposition, "failure");
   assert.equal(transportFailure.resultCandidate.kind, "consensus_failure");
   assert.equal(transportFailure.resultCandidate.failureClass, "no_output");
@@ -1890,10 +1884,10 @@ test("S05 reviewer realization carries the Product-declared instruction contract
     "transport failure must not become a semantic contract-failure finding",
   );
 
-  const salvagedCandidate = (await realizeConsensusReviewer(task, {
-    occurrence: occurrence("reviewer-salvaged"),
-    async invokeWorker(request) {
-      return workerExchange(request, {
+  const salvagedCandidate = completeConsensusRole(
+    task,
+    occurrence("reviewer-salvaged"),
+    () => ({
         actorInvocationRef:
           "actor-invocation://developer/module-proof/salvaged",
         transportBindingRef: "transport-binding://developer/module-proof",
@@ -1918,9 +1912,8 @@ test("S05 reviewer realization carries the Product-declared instruction contract
           stdout: DIGEST,
           transport: DIGEST,
         },
-      });
-    },
-  })).candidate;
+      }),
+  );
   assert.equal(salvagedCandidate.disposition, "success");
   assert.equal(
     gtl.isReviewFindings(salvagedCandidate.resultCandidate),
@@ -2117,18 +2110,14 @@ test("S05 Product judgment binds reviewer and submitter output to the exact inpu
     invocationFor("workspace://developer/consensus/cross-pair-b"),
   );
   const firstReviewerTask = firstState.members[0].value;
-  const secondReviewerResult = (await realizeConsensusReviewer(
+  const secondReviewerResult = completeConsensusRole(
     secondState.members[0].value,
-    {
-      occurrence: occurrence("reviewer-cross-pair"),
-      async invokeWorker(request) {
-        return workerExchange(request, workerObservation(
+      occurrence("reviewer-cross-pair"),
+      () => workerObservation(
           JSON.stringify(reviewerCandidate("revise")),
           "reviewer-cross-pair",
-        ));
-      },
-    },
-  )).candidate;
+        ),
+  );
   assert.equal(secondReviewerResult.disposition, "success");
   assert.equal(
     gtl.resolveConsensusJudgmentRelation(

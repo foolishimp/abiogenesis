@@ -435,8 +435,6 @@ export {
   type RuntimeFailureAdmissionReceipt,
 } from "./runtime_failure.js";
 export {
-  bindActorProcessLeafEffectPort,
-  isActorProcessObservation,
   invokeActorProcess,
   projectActorProcessLifecycle,
   validateActorProcessCarrierPair,
@@ -444,8 +442,13 @@ export {
   type ActorProcessCarrierValidationRefusal,
   type ActorProcessCarrierValidationRefusalCode,
   type ActorProcessCarrierValidationResult,
+  type ActorProcessEffectReceipt,
+  type ActorProcessEffectRefusal,
+  type ActorProcessEffectRefusalCode,
+  type ActorProcessEffectResult,
   type ActorProcessLifecycleProjection,
   type ActorProcessObservation,
+  type ActorProcessInvocationInput,
   type ActorProcessRequest,
   type ActorRuntimeBinding,
 } from "./actor_process.js";

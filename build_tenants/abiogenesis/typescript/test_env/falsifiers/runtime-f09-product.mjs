@@ -73,13 +73,13 @@ export function realizeAxF09Transform(input) {
   });
 }
 
-export async function realizeAxF09ProbabilisticPass(input, effects) {
+export function realizeAxF09ProbabilisticPass(input, occurrence) {
   if (!isGreetingOutput(input)) {
     throw new TypeError(
       "AX-F09 probabilistic pass requires its exact greeting input",
     );
   }
-  const actorProcessExchange = await effects.invokeWorker({
+  const workerRequest = deepFreeze({
     actorRef: DEVELOPER_MINI_IDS.workerActorRef,
     workerBindingRef: DEVELOPER_MINI_IDS.workerBindingRef,
     implementationRef: AX_F09_RETRY_IDS.implementationRef,
@@ -104,49 +104,49 @@ export async function realizeAxF09ProbabilisticPass(input, effects) {
       },
     },
   });
-  const transport = actorProcessExchange.observation;
-  const resultCandidate = parseGreetingCandidate(transport.finalOutput);
-  const success =
-    transport.disposition === "success" &&
-    isGreetingOutput(resultCandidate) &&
-    resultCandidate.message === input.message;
-  const abaContractFailure =
-    process.env.ABG_AX_F09_MODE === "aba" && !success;
-  const selectedCandidate = abaContractFailure
-    ? {
-        kind: "developer_greeting_failure",
-        schemaVersion: "5.0.0",
-        diagnosticRef:
-          "diagnostic://developer.example/greeting/aba/" +
-          sha256Canonical(transport.finalOutput),
-      }
-    : resultCandidate;
-  const candidate = deepFreeze({
-    kind: "leaf_realization_candidate",
-    schemaVersion: "5.0.0",
-    disposition: success || abaContractFailure ? "success" : "failure",
-    evidenceCandidates: [],
-    resultCandidate: success || abaContractFailure
-      ? selectedCandidate
-      : {
-          kind: "developer_greeting_failure",
-          schemaVersion: "5.0.0",
-          ...(transport.failureClass === null
-            ? {}
-            : { failureClass: transport.failureClass }),
-          diagnosticRef:
-            transport.failureClass === null
-              ? "diagnostic://developer.example/greeting/worker-output-refused@5"
-              : "diagnostic://developer.example/greeting/" +
-                transport.failureClass + "@5",
-        },
-  });
   return deepFreeze({
-    kind: "leaf_invocation_receipt",
+    kind: "prepared_probabilistic_leaf_invocation",
     schemaVersion: "5.0.0",
-    computeRegime: "F_P",
-    candidate,
-    actorProcessExchange,
+    workerRequest,
+    complete(actorProcessExchange) {
+      const transport = actorProcessExchange.observation;
+      const resultCandidate = parseGreetingCandidate(transport.finalOutput);
+      const success =
+        transport.disposition === "success" &&
+        isGreetingOutput(resultCandidate) &&
+        resultCandidate.message === input.message;
+      const abaContractFailure =
+        process.env.ABG_AX_F09_MODE === "aba" && !success;
+      const selectedCandidate = abaContractFailure
+        ? {
+            kind: "developer_greeting_failure",
+            schemaVersion: "5.0.0",
+            diagnosticRef:
+              "diagnostic://developer.example/greeting/aba/" +
+              sha256Canonical(transport.finalOutput),
+          }
+        : resultCandidate;
+      return deepFreeze({
+        kind: "leaf_realization_candidate",
+        schemaVersion: "5.0.0",
+        disposition: success || abaContractFailure ? "success" : "failure",
+        evidenceCandidates: [],
+        resultCandidate: success || abaContractFailure
+          ? selectedCandidate
+          : {
+              kind: "developer_greeting_failure",
+              schemaVersion: "5.0.0",
+              ...(transport.failureClass === null
+                ? {}
+                : { failureClass: transport.failureClass }),
+              diagnosticRef:
+                transport.failureClass === null
+                  ? "diagnostic://developer.example/greeting/worker-output-refused@5"
+                  : "diagnostic://developer.example/greeting/" +
+                    transport.failureClass + "@5",
+            },
+      });
+    },
   });
 }
 
@@ -545,8 +545,8 @@ export declare function realizeAxF09Transform(
 ): Readonly<Record<string, unknown>>;
 export declare function realizeAxF09ProbabilisticPass(
   input: unknown,
-  effects: Readonly<Record<string, unknown>>,
-): Promise<Readonly<Record<string, unknown>>>;
+  occurrence: Readonly<Record<string, unknown>>,
+): Readonly<Record<string, unknown>>;
 export declare const AX_F09_PRODUCT_SEMANTICS: Readonly<Record<string, unknown>>;
 export declare const AX_F09_GRAPH_FUNCTION: Readonly<Record<string, unknown>>;
 export declare const AX_F09_CHILD_GRAPH_FUNCTION: Readonly<Record<string, unknown>>;

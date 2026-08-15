@@ -17,6 +17,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import {
+  admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   admitRuntimeEvent,
   admitRuntimeEventBatch,
   admitRuntimeEventTransaction,
@@ -941,6 +942,48 @@ test("M5 rolls back an incomplete atomic F_H hold admission without a replay-vis
     invocationRef: "invocation://m5/reopen/after-rollback",
   }));
   assert.equal(admitted.admissionOrdinal, 2);
+  reopened.store.closeDurableLog();
+});
+
+test("M5 exact-prefix two-stage transaction rolls back its first stage when second staging fails", async (context) => {
+  const prefix = await durablePrefix(context);
+  const reopened = reopenEventStore(prefix.authority);
+  assert.equal(reopened.kind, "reopened_event_store_context");
+  const beforeEvents = reopened.store.readAll();
+  const beforeDigest = reopened.store.digest();
+  const beforeBytes = await readFile(prefix.eventLogPath);
+  let stagedBindingEvent = null;
+
+  assert.throws(
+    () => admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
+      reopened.store,
+      prefix.prefix,
+      () => {
+        stagedBindingEvent = admitRuntimeEvent(reopened.store, workspaceEvent({
+          causationEventRefs: [prefix.first.eventId],
+          correlationId: "correlation://m5/reopen/actor-binding-stage",
+          eventTime: "2026-07-24T00:00:01.000Z",
+          invocationRef: "invocation://m5/reopen/actor-binding-stage",
+        }));
+        admitRuntimeEvent(reopened.store, {
+          ...workspaceEvent({
+            causationEventRefs: [stagedBindingEvent.eventId],
+            correlationId: "correlation://m5/reopen/actor-start-stage",
+            eventTime: "2026-07-24T00:00:02.000Z",
+            invocationRef: "invocation://m5/reopen/actor-start-stage",
+          }),
+          payload: {},
+        });
+        return Object.freeze({ stagedBindingEvent });
+      },
+    ),
+    /payload/u,
+  );
+
+  assert.equal(stagedBindingEvent?.admissionOrdinal, 2);
+  assert.deepEqual(reopened.store.readAll(), beforeEvents);
+  assert.equal(reopened.store.digest(), beforeDigest);
+  assert.deepEqual(await readFile(prefix.eventLogPath), beforeBytes);
   reopened.store.closeDurableLog();
 });
 

@@ -188,7 +188,7 @@ function runProcess(input: {
   readonly terminationGraceMs: number;
   readonly observer?: WorkerProcessObserver;
 }): Promise<ProcessObservation> {
-  return new Promise((resolveProcess) => {
+  return new Promise((resolveProcess, rejectProcess) => {
     let stdout = "";
     let stderr = "";
     let timedOut = false;
@@ -202,6 +202,8 @@ function runProcess(input: {
       readonly status: number | null;
       readonly signal: NodeJS.Signals | null;
     } | null = null;
+    let observerActive = true;
+    let pendingObserverError: Error | null = null;
     const snapshotResultBearingStdout = (): void => {
       if (resultBearingStdout === null) resultBearingStdout = stdout;
     };
@@ -218,6 +220,7 @@ function runProcess(input: {
     ): void => {
       if (settled) return;
       settled = true;
+      observerActive = false;
       clearTimeout(timeout);
       if (forceTimer !== null) clearTimeout(forceTimer);
       if (confirmationTimer !== null) clearTimeout(confirmationTimer);
@@ -234,17 +237,66 @@ function runProcess(input: {
         stderr,
       });
     };
+    const settleObserverFailure = (): void => {
+      if (settled) return;
+      settled = true;
+      observerActive = false;
+      clearTimeout(timeout);
+      if (forceTimer !== null) clearTimeout(forceTimer);
+      if (confirmationTimer !== null) clearTimeout(confirmationTimer);
+      if (drainTimer !== null) clearTimeout(drainTimer);
+      child.stdout.destroy();
+      child.stderr.destroy();
+      child.stdin.destroy();
+      rejectProcess(pendingObserverError ?? new TypeError(
+        "worker process observer failed without one captured error",
+      ));
+    };
+    const beginObserverFailure = (error: unknown): void => {
+      if (settled || pendingObserverError !== null) return;
+      pendingObserverError = error instanceof Error
+        ? error
+        : new TypeError(String(error));
+      observerActive = false;
+      clearTimeout(timeout);
+      if (forceTimer !== null) clearTimeout(forceTimer);
+      if (confirmationTimer !== null) clearTimeout(confirmationTimer);
+      if (drainTimer !== null) clearTimeout(drainTimer);
+      child.stdin.destroy();
+      child.kill("SIGKILL");
+      confirmationTimer = setTimeout(() => {
+        try {
+          input.observer?.onTerminationUnconfirmed?.();
+        } catch {
+          // Preserve the first observer failure and the last admitted prefix.
+        }
+        settleObserverFailure();
+      }, input.terminationGraceMs);
+    };
+    const notifyObserver = (action: (() => void) | undefined): boolean => {
+      if (!observerActive || action === undefined) return !settled;
+      try {
+        action();
+        return true;
+      } catch (error) {
+        beginObserverFailure(error);
+        return false;
+      }
+    };
     const timeout = setTimeout(() => {
+      if (settled) return;
       timedOut = true;
       snapshotResultBearingStdout();
-      input.observer?.onTimeoutObserved?.();
-      input.observer?.onSignalRequested?.("SIGTERM");
+      if (!notifyObserver(input.observer?.onTimeoutObserved)) return;
+      if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGTERM"))) return;
       child.kill("SIGTERM");
       forceTimer = setTimeout(() => {
-        input.observer?.onSignalRequested?.("SIGKILL");
+        if (settled) return;
+        if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGKILL"))) return;
         child.kill("SIGKILL");
         confirmationTimer = setTimeout(() => {
-          input.observer?.onTerminationUnconfirmed?.();
+          if (settled) return;
+          if (!notifyObserver(input.observer?.onTerminationUnconfirmed)) return;
           child.stdout.destroy();
           child.stderr.destroy();
           child.stdin.destroy();
@@ -253,28 +305,48 @@ function runProcess(input: {
       }, input.terminationGraceMs);
     }, input.timeoutMs);
     child.once("spawn", () => {
-      if (child.pid !== undefined) input.observer?.onProcessStarted?.(child.pid);
+      if (settled) return;
+      if (child.pid !== undefined) {
+        notifyObserver(() => input.observer?.onProcessStarted?.(child.pid!));
+      }
     });
     child.stdout.setEncoding("utf8");
     child.stderr.setEncoding("utf8");
     child.stdout.on("data", (chunk: string) => {
+      if (settled) return;
       stdout += chunk;
-      input.observer?.onStdoutObserved?.(chunk);
+      notifyObserver(() => input.observer?.onStdoutObserved?.(chunk));
     });
     child.stderr.on("data", (chunk: string) => {
+      if (settled) return;
       stderr += chunk;
-      input.observer?.onStderrObserved?.(chunk);
+      notifyObserver(() => input.observer?.onStderrObserved?.(chunk));
     });
     child.once("error", (error) => {
+      if (settled) return;
       snapshotResultBearingStdout();
       launchError = error.message;
-      input.observer?.onSpawnFailed?.(error.message);
+      notifyObserver(() => input.observer?.onSpawnFailed?.(error.message));
     });
     child.once("exit", (status, signal) => {
+      if (settled) return;
       clearTimeout(timeout);
       snapshotResultBearingStdout();
       observedExit = { status, signal };
-      input.observer?.onProcessExited?.(status, signal);
+      if (pendingObserverError !== null) {
+        if (confirmationTimer !== null) clearTimeout(confirmationTimer);
+        try {
+          input.observer?.onProcessExited?.(status, signal);
+        } catch {
+          // Preserve the first observer failure and the last admitted prefix.
+        }
+        drainTimer = setTimeout(
+          settleObserverFailure,
+          Math.min(input.terminationGraceMs, 250),
+        );
+        return;
+      }
+      if (!notifyObserver(() => input.observer?.onProcessExited?.(status, signal))) return;
       if (forceTimer !== null) clearTimeout(forceTimer);
       if (confirmationTimer !== null) clearTimeout(confirmationTimer);
       drainTimer = setTimeout(() => {
@@ -285,7 +357,19 @@ function runProcess(input: {
       }, Math.min(input.terminationGraceMs, 250));
     });
     child.once("close", (status, signal) => {
+      if (settled) return;
       snapshotResultBearingStdout();
+      if (pendingObserverError !== null) {
+        if (observedExit === null && launchError !== null) {
+          try {
+            input.observer?.onSpawnFailed?.(launchError);
+          } catch {
+            // Preserve the first observer failure and the last admitted prefix.
+          }
+        }
+        settleObserverFailure();
+        return;
+      }
       if (observedExit !== null) {
         settle(observedExit.status, observedExit.signal, true, true);
         return;
@@ -312,7 +396,7 @@ async function executeWorkerTransport(
     throw new TypeError("worker transport termination grace must be one positive safe integer");
   }
   await mkdir(input.archiveRoot, { recursive: true });
-  const archiveRoot = await realpath(input.archiveRoot);
+  const archiveRoot = resolve(input.archiveRoot);
   const paths = {
     prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
     output: resolve(archiveRoot, `${input.label}-output.txt`),
@@ -479,8 +563,7 @@ export async function prepareWorkerTransport(
   if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
     throw new TypeError("worker transport termination grace must be one positive safe integer");
   }
-  await mkdir(input.archiveRoot, { recursive: true });
-  const archiveRoot = await realpath(input.archiveRoot);
+  const archiveRoot = resolve(input.archiveRoot);
   const cwd = await realpath(input.cwd);
   const sourceEnvironment = exactEnvironment(input.environment ?? process.env);
   const contract = input.contract;

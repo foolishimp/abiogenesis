@@ -2,7 +2,6 @@ import { constants as osConstants } from "node:os";
 import { resolve } from "node:path";
 
 import type { WorkspaceBinding } from "../product/environment.js";
-import type { ProbabilisticLeafEffectPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
@@ -16,7 +15,13 @@ import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import type { CCall } from "./c_call.js";
 import { hasAdmittedWorkspaceBinding } from "./environment_admission.js";
 import type { ExecutionBasis, RuntimeAdmissionBasis } from "./execution_basis.js";
-import { admitRuntimeEvent, type AbgEventStore, type RootEventKind } from "./event_store.js";
+import {
+  admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
+  admitRuntimeEvent,
+  type AbgEventStore,
+  type DurablePrefixCoordinate,
+  type RootEventKind,
+} from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
   type ValidatedRuntimeEventPrefix,
@@ -33,7 +38,6 @@ import {
 
 const PROCESS_TIMEOUT_MS = 60_000;
 const PROCESS_TERMINATION_GRACE_MS = 1_000;
-const actorProcessObservations = new WeakSet<object>();
 
 export interface ActorRuntimeBinding {
   readonly workspaceBinding: WorkspaceBinding;
@@ -118,6 +122,52 @@ export interface ActorProcessCarrierValidationRefusal {
 export type ActorProcessCarrierValidationResult =
   | ActorProcessCarrierValidation
   | ActorProcessCarrierValidationRefusal;
+
+export type ActorProcessEffectRefusalCode =
+  | "actor_process_carrier_refused"
+  | "actor_process_invocation_refused";
+
+export interface ActorProcessEffectReceipt {
+  readonly kind: "actor_process_effect_receipt";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "admitted";
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+  readonly successorPrefix: DurablePrefixCoordinate;
+  readonly exchange: Readonly<ActorProcessCarrierValidation>;
+}
+
+export interface ActorProcessEffectRefusal {
+  readonly kind: "actor_process_effect_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: ActorProcessEffectRefusalCode;
+  readonly diagnosticRef: string;
+  readonly message: string;
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+  readonly successorPrefix: DurablePrefixCoordinate;
+}
+
+export type ActorProcessEffectResult =
+  | ActorProcessEffectReceipt
+  | ActorProcessEffectRefusal;
+
+function refuseActorProcessEffect(
+  code: ActorProcessEffectRefusalCode,
+  message: string,
+  predecessorPrefix: DurablePrefixCoordinate,
+  successorPrefix: DurablePrefixCoordinate,
+): Readonly<ActorProcessEffectRefusal> {
+  return deepFreeze({
+    kind: "actor_process_effect_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code,
+    diagnosticRef: `diagnostic://abiogenesis/actor-process/${code}@5`,
+    message,
+    predecessorPrefix,
+    successorPrefix,
+  });
+}
 
 const ACTOR_PROCESS_REQUEST_FIELDS = Object.freeze([
   "actorRef",
@@ -540,14 +590,26 @@ export function projectActorProcessLifecycle(
   });
 }
 
-interface ActorProcessInvocationInput {
+export interface ActorProcessInvocationInput {
   readonly store: AbgEventStore;
+  readonly predecessorPrefix: DurablePrefixCoordinate;
   readonly executionBasis: ExecutionBasis;
   readonly scope: OpenedTraversalScope;
   readonly cCall: CCall;
   readonly expectedInputDigest: Sha256Digest;
-  readonly expectedInstructionContractRef: string;
-  readonly expectedResultContractRef: string;
+  readonly occurrence: Readonly<{
+    readonly cCallRef: string;
+    readonly runId: string;
+    readonly graphCallId: string;
+    readonly frameId: string;
+    readonly programLocusRef: string;
+    readonly taskOrdinal: number | null;
+    readonly attempt: number;
+  }>;
+  readonly workerContracts: Readonly<{
+    readonly instructionContractRef: string;
+    readonly resultContractRef: string;
+  }>;
   readonly runtime: ActorRuntimeBinding;
   readonly request: Readonly<ActorProcessRequest>;
   readonly dispatchOrdinal: number;
@@ -576,21 +638,27 @@ function outputDigest(output: string): Sha256Digest {
   }
 }
 
-export function isActorProcessObservation(value: object): boolean {
-  return actorProcessObservations.has(value);
-}
-
 export async function invokeActorProcess(
   input: ActorProcessInvocationInput,
-): Promise<Readonly<ActorProcessObservation>> {
+): Promise<Readonly<ActorProcessEffectResult>> {
+  const predecessorPrefix = input.predecessorPrefix;
+  let successorPrefix = predecessorPrefix;
+  try {
   if (
     input.request.implementationRef !== input.cCall.implementationRef ||
     input.request.inputDigest !== input.expectedInputDigest ||
-    input.expectedInstructionContractRef.length === 0 ||
-    input.expectedResultContractRef.length === 0 ||
+    input.workerContracts.instructionContractRef.length === 0 ||
+    input.workerContracts.resultContractRef.length === 0 ||
     input.request.instructionContractRef !==
-      input.expectedInstructionContractRef ||
-    input.request.resultContractRef !== input.expectedResultContractRef ||
+      input.workerContracts.instructionContractRef ||
+    input.request.resultContractRef !== input.workerContracts.resultContractRef ||
+    input.occurrence.cCallRef !== input.cCall.cCallRef ||
+    input.occurrence.runId !== input.cCall.runId ||
+    input.occurrence.graphCallId !== input.cCall.graphCallId ||
+    input.occurrence.frameId !== input.cCall.frameId ||
+    input.occurrence.programLocusRef !== input.cCall.programLocusRef ||
+    input.occurrence.taskOrdinal !== input.cCall.taskOrdinal ||
+    input.occurrence.attempt !== input.cCall.attempt ||
     (input.request.transportLane !== "closed_prompt_proof" &&
       input.request.transportLane !== "worker_executes") ||
     !Number.isSafeInteger(input.dispatchOrdinal) ||
@@ -697,19 +765,6 @@ export async function invokeActorProcess(
     graphCallId: input.scope.graphCallId,
     frameId: input.scope.frameId,
   };
-  const bindingEvent = admitRuntimeEvent(input.store, {
-    kind: "actor_transport_binding_admitted",
-    ...common,
-    aggregateType: "transport_binding",
-    aggregateId: transportBindingRef,
-    parentAggregateId: input.cCall.cCallRef,
-    causationEventRefs: [input.cCall.fibreSelectedEventRef],
-    payload: {
-      transportBindingRef,
-      transportBindingDigest,
-      ...transportBindingBody,
-    },
-  });
   const identityDigest = sha256Canonical({
     attemptDigest,
     transportBindingRef,
@@ -719,13 +774,59 @@ export async function invokeActorProcess(
     `actor-invocation://abiogenesis/${identityDigest.slice("sha256:".length)}`;
   const processRef =
     `process://abiogenesis/${sha256Canonical({ actorInvocationRef }).slice("sha256:".length)}`;
-  let previousEventRef = bindingEvent.eventId;
+  const intentAdmission = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
+    input.store,
+    successorPrefix,
+    () => {
+      const bindingEvent = admitRuntimeEvent(input.store, {
+        kind: "actor_transport_binding_admitted",
+        ...common,
+        aggregateType: "transport_binding",
+        aggregateId: transportBindingRef,
+        parentAggregateId: input.cCall.cCallRef,
+        causationEventRefs: [input.cCall.fibreSelectedEventRef],
+        payload: {
+          transportBindingRef,
+          transportBindingDigest,
+          ...transportBindingBody,
+        },
+      });
+      const startedEvent = admitRuntimeEvent(input.store, {
+        kind: "actor_invocation_started",
+        ...common,
+        aggregateType: "actor_invocation",
+        aggregateId: actorInvocationRef,
+        parentAggregateId: input.cCall.cCallRef,
+        causationEventRefs: [bindingEvent.eventId],
+        payload: {
+          actorInvocationRef,
+          actorRef: input.request.actorRef,
+          workerBindingRef: input.request.workerBindingRef,
+          cCallRef: input.cCall.cCallRef,
+          implementationRef: input.request.implementationRef,
+          inputDigest: input.request.inputDigest,
+          promptDigest,
+          requestRef,
+          requestDigest,
+          dispatchOrdinal: input.dispatchOrdinal,
+          transportBindingRef,
+          transportBindingDigest,
+        },
+      });
+      return Object.freeze({ bindingEvent, startedEvent });
+    },
+  );
+  const { startedEvent } = intentAdmission.value;
+  successorPrefix = intentAdmission.successorPrefix;
+  let previousEventRef = startedEvent.eventId;
   let streamOrdinal = 0;
   let stdoutByteLength = 0;
   let stderrByteLength = 0;
   const stdoutEventRefs: string[] = [];
   const stderrEventRefs: string[] = [];
+  let processStarted = false;
   let processTerminalConfirmed = false;
+  let actorTerminalAdmitted = false;
   const signalSequence: string[] = [];
   const append = (
     kind: RootEventKind,
@@ -734,49 +835,37 @@ export async function invokeActorProcess(
     parentAggregateId: string,
     payload: Readonly<Record<string, JsonValue>>,
   ) => {
-    const event = admitRuntimeEvent(input.store, {
-      kind,
-      ...common,
-      aggregateType,
-      aggregateId,
-      parentAggregateId,
-      causationEventRefs: [previousEventRef],
-      payload,
-    });
+    const admission = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
+      input.store,
+      successorPrefix,
+      () => admitRuntimeEvent(input.store, {
+        kind,
+        ...common,
+        aggregateType,
+        aggregateId,
+        parentAggregateId,
+        causationEventRefs: [previousEventRef],
+        payload,
+      }),
+    );
+    const event = admission.value;
+    successorPrefix = admission.successorPrefix;
     previousEventRef = event.eventId;
     return event;
   };
 
-  append(
-    "actor_invocation_started",
-    "actor_invocation",
-    actorInvocationRef,
-    input.cCall.cCallRef,
-    {
-      actorInvocationRef,
-      actorRef: input.request.actorRef,
-      workerBindingRef: input.request.workerBindingRef,
-      cCallRef: input.cCall.cCallRef,
-      implementationRef: input.request.implementationRef,
-      inputDigest: input.request.inputDigest,
-      promptDigest,
-      requestRef,
-      requestDigest,
-      dispatchOrdinal: input.dispatchOrdinal,
-      transportBindingRef,
-      transportBindingDigest,
-    },
-  );
-
   try {
     const transport = await runPreparedWorkerTransport(plan, {
-      onProcessStarted: (pid) => append(
-        "actor_process_started",
-        "process",
-        processRef,
-        actorInvocationRef,
-        { actorInvocationRef, processRef, processId: pid, cCallRef: input.cCall.cCallRef },
-      ),
+      onProcessStarted: (pid) => {
+        append(
+          "actor_process_started",
+          "process",
+          processRef,
+          actorInvocationRef,
+          { actorInvocationRef, processRef, processId: pid, cCallRef: input.cCall.cCallRef },
+        );
+        processStarted = true;
+      },
       onStdoutObserved: (chunk) => {
         const byteLength = Buffer.byteLength(chunk);
         stdoutByteLength += byteLength;
@@ -831,7 +920,6 @@ export async function invokeActorProcess(
         );
       },
       onSpawnFailed: (message) => {
-        processTerminalConfirmed = true;
         append(
           "actor_process_spawn_failed",
           "process",
@@ -839,16 +927,31 @@ export async function invokeActorProcess(
           actorInvocationRef,
           { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(message) },
         );
+        processTerminalConfirmed = true;
       },
       onProcessExited: (status, signal) => {
+        if (processStarted) {
+          append(
+            "actor_process_exited",
+            "process",
+            processRef,
+            actorInvocationRef,
+            { actorInvocationRef, processRef, status, signal },
+          );
+        } else {
+          append(
+            "actor_process_spawn_failed",
+            "process",
+            processRef,
+            actorInvocationRef,
+            {
+              actorInvocationRef,
+              processRef,
+              diagnosticDigest: sha256Canonical({ status, signal }),
+            },
+          );
+        }
         processTerminalConfirmed = true;
-        append(
-          "actor_process_exited",
-          "process",
-          processRef,
-          actorInvocationRef,
-          { actorInvocationRef, processRef, status, signal },
-        );
       },
       onTerminationUnconfirmed: () => append(
         "actor_process_termination_unconfirmed",
@@ -935,12 +1038,44 @@ export async function invokeActorProcess(
           consumedArtifactEventRef: artifactEvent.eventId,
         },
       );
+      actorTerminalAdmitted = true;
     }
     const observation = deepFreeze(observationBody) as ActorProcessObservation;
-    actorProcessObservations.add(observation);
-    return observation;
+    const exchange = validateActorProcessCarrierPair(input.request, observation);
+    if (exchange.kind !== "actor_process_carrier_validation") {
+      return refuseActorProcessEffect(
+        "actor_process_carrier_refused",
+        exchange.message,
+        predecessorPrefix,
+        successorPrefix,
+      );
+    }
+    return deepFreeze({
+      kind: "actor_process_effect_receipt" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      predecessorPrefix,
+      successorPrefix,
+      exchange,
+    });
   } catch (error) {
-    if (processTerminalConfirmed) {
+    if (!processStarted && !processTerminalConfirmed) {
+      append(
+        "actor_process_spawn_failed",
+        "process",
+        processRef,
+        actorInvocationRef,
+        {
+          actorInvocationRef,
+          processRef,
+          diagnosticDigest: sha256Canonical(
+            error instanceof Error ? error.message : String(error),
+          ),
+        },
+      );
+      processTerminalConfirmed = true;
+    }
+    if (!actorTerminalAdmitted && processTerminalConfirmed) {
       append(
         "actor_invocation_failed",
         "actor_invocation",
@@ -959,61 +1094,16 @@ export async function invokeActorProcess(
           ),
         },
       );
+      actorTerminalAdmitted = true;
     }
     throw error;
   }
-}
-
-export function bindActorProcessLeafEffectPort(input: Readonly<{
-  store: AbgEventStore;
-  executionBasis: ExecutionBasis;
-  scope: OpenedTraversalScope;
-  cCall: CCall;
-  inputDigest: Sha256Digest;
-  workerContracts: Readonly<{
-    instructionContractRef: string;
-    resultContractRef: string;
-  }>;
-  runtime: ActorRuntimeBinding;
-  basis: RuntimeAdmissionBasis;
-}>): ProbabilisticLeafEffectPort {
-  let dispatchClaimed = false;
-  return deepFreeze({
-    occurrence: {
-      cCallRef: input.cCall.cCallRef,
-      runId: input.cCall.runId,
-      graphCallId: input.cCall.graphCallId,
-      frameId: input.cCall.frameId,
-      programLocusRef: input.cCall.programLocusRef,
-      taskOrdinal: input.cCall.taskOrdinal,
-      attempt: input.cCall.attempt,
-    },
-    invokeWorker: async (request) => {
-      if (dispatchClaimed) {
-        throw new TypeError(
-          "one F_P C-call may dispatch exactly one actor invocation",
-        );
-      }
-      dispatchClaimed = true;
-      const observation = await invokeActorProcess({
-        store: input.store,
-        executionBasis: input.executionBasis,
-        scope: input.scope,
-        cCall: input.cCall,
-        expectedInputDigest: input.inputDigest,
-        expectedInstructionContractRef:
-          input.workerContracts.instructionContractRef,
-        expectedResultContractRef: input.workerContracts.resultContractRef,
-        runtime: input.runtime,
-        request,
-        dispatchOrdinal: 1,
-        basis: input.basis,
-      });
-      const pair = validateActorProcessCarrierPair(request, observation);
-      if (pair.kind !== "actor_process_carrier_validation") {
-        throw new TypeError(pair.message);
-      }
-      return pair;
-    },
-  });
+  } catch (error) {
+    return refuseActorProcessEffect(
+      "actor_process_invocation_refused",
+      error instanceof Error ? error.message : String(error),
+      predecessorPrefix,
+      successorPrefix,
+    );
+  }
 }

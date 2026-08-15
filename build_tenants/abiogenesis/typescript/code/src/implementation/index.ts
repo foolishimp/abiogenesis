@@ -37,11 +37,13 @@ export type {
   LeafRealizationCandidate,
   LeafRealizationFailureCandidate,
   LeafRealizationSuccessCandidate,
-  ProbabilisticLeafEffectPort,
+  PreparedProbabilisticLeafInvocation,
+  PreparedProbabilisticLeafOwnerInvocation,
   ProbabilisticLeafInvocationReceipt,
   ProbabilisticResultContractPreimageRefusal,
   ProbabilisticResultContractPreimageVerification,
   ProbabilisticWorkerObservation,
+  ProbabilisticWorkerContracts,
   ProbabilisticWorkerRequest,
   VerifiedProbabilisticResultContractPreimage,
 } from "./contracts.js";
@@ -76,9 +78,8 @@ export {
   realizeConsensusNextActionSelection,
   realizeConsensusReduction,
   realizeConsensusResultProjection,
-  realizeConsensusReviewer,
+  realizeConsensusRole,
   realizeConsensusRoundEvaluation,
-  realizeConsensusSubmitter,
   realizeConsensusSubmitterTaskPreparation,
 } from "./consensus.js";
 export type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";

@@ -15,9 +15,10 @@ import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
 import type {
-  ProbabilisticLeafEffectPort,
-  ProbabilisticLeafInvocationReceipt,
+  LeafExecutionOccurrence,
+  PreparedProbabilisticLeafInvocation,
 } from "./contracts.js";
+import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
 
 interface FpHelloLeafCandidate {
   readonly kind: "leaf_realization_candidate";
@@ -134,16 +135,16 @@ function parseCandidate(output: string): Readonly<Record<string, JsonValue>> {
   });
 }
 
-export async function realizeFpHello(
+export function realizeFpHello(
   input: Readonly<FpHelloInstruction>,
-  effects: Readonly<ProbabilisticLeafEffectPort>,
-): Promise<Readonly<ProbabilisticLeafInvocationReceipt<FpHelloLeafCandidate>>> {
+  _occurrence: Readonly<LeafExecutionOccurrence>,
+): Readonly<PreparedProbabilisticLeafInvocation<FpHelloLeafCandidate>> {
   if (!isFpHelloInstruction(input)) {
     throw new TypeError("F_P Hello implementation requires the exact admitted instruction envelope");
   }
   const prompt = renderInstruction(input);
   const inputDigest = sha256Canonical(input);
-  const actorProcessExchange = await effects.invokeWorker({
+  const workerRequest = deepFreeze({
     actorRef: input.workerActorRef,
     workerBindingRef: input.workerBindingRef,
     implementationRef: FP_HELLO_IDS.implementationRef,
@@ -156,39 +157,39 @@ export async function realizeFpHello(
     prompt,
     responseJsonSchema: responseSchema(input),
   });
-  const transport = actorProcessExchange.observation;
-  const parsedCandidate = parseCandidate(transport.finalOutput);
-  const salvaged = transport.disposition === "failure" &&
-    transport.failureClass === "transport_failure" &&
-    isFpHelloOutput(parsedCandidate);
-  const disposition = transport.disposition === "success" || salvaged
-    ? "success" as const
-    : "failure" as const;
-  const diagnosticRef = disposition === "success" || transport.failureClass === null
-    ? null
-    : `diagnostic://abiogenesis/transport/${transport.failureClass.replaceAll("_", "-")}@5`;
-  const resultCandidate = disposition === "success"
-    ? parsedCandidate
-    : deepFreeze({
-      kind: "fp_hello_failure",
-      schemaVersion: "5.0.0",
-      failureClass: transport.failureClass ?? "transport_failure",
-      diagnosticRef: diagnosticRef ?? "diagnostic://abiogenesis/transport/failure@5",
-    });
-  const candidate = deepFreeze({
-    kind: "leaf_realization_candidate" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition,
-    evidenceCandidates: [] as const,
-    resultCandidate,
-    ...(diagnosticRef === null ? {} : { diagnosticRef }),
-  }) as Readonly<FpHelloLeafCandidate>;
   return deepFreeze({
-    kind: "leaf_invocation_receipt" as const,
+    kind: "prepared_probabilistic_leaf_invocation" as const,
     schemaVersion: "5.0.0" as const,
-    computeRegime: "F_P" as const,
-    candidate,
-    actorProcessExchange,
+    workerRequest,
+    complete(actorProcessExchange: Readonly<ActorProcessCarrierValidation>) {
+      const transport = actorProcessExchange.observation;
+      const parsedCandidate = parseCandidate(transport.finalOutput);
+      const salvaged = transport.disposition === "failure" &&
+        transport.failureClass === "transport_failure" &&
+        isFpHelloOutput(parsedCandidate);
+      const disposition = transport.disposition === "success" || salvaged
+        ? "success" as const
+        : "failure" as const;
+      const diagnosticRef = disposition === "success" || transport.failureClass === null
+        ? null
+        : `diagnostic://abiogenesis/transport/${transport.failureClass.replaceAll("_", "-")}@5`;
+      const resultCandidate = disposition === "success"
+        ? parsedCandidate
+        : deepFreeze({
+          kind: "fp_hello_failure",
+          schemaVersion: "5.0.0",
+          failureClass: transport.failureClass ?? "transport_failure",
+          diagnosticRef: diagnosticRef ?? "diagnostic://abiogenesis/transport/failure@5",
+        });
+      return deepFreeze({
+        kind: "leaf_realization_candidate" as const,
+        schemaVersion: "5.0.0" as const,
+        disposition,
+        evidenceCandidates: [] as const,
+        resultCandidate,
+        ...(diagnosticRef === null ? {} : { diagnosticRef }),
+      }) as Readonly<FpHelloLeafCandidate>;
+    },
   });
 }
 
