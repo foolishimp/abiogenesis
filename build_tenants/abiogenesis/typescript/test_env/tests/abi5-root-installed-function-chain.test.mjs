@@ -77,7 +77,11 @@ test("ABI5-ROOT-001 composes seven installed Public owners into ABG replay", asy
     assert.equal(request.invocation.operationId, operationOrder[index]);
     assert.equal(result.outcome.operationId, request.invocation.operationId);
     assert.equal(result.outcome.invocationRef, request.invocation.invocationRef);
-    assert.equal(result.outcome.disposition, "succeeded");
+    assert.equal(
+      result.outcome.disposition,
+      "succeeded",
+      JSON.stringify(result.outcome),
+    );
     assert.equal(result.acquisitionKind, request.acquisition.kind);
     if (index === 0) {
       assert.equal(request.acquisition.kind, "new");
