@@ -1,10 +1,17 @@
 import type * as Effect from "effect/Effect";
 
 import type {
+  AdmittedCCallJudgment,
+  AdmittedCCallResult,
   CCall,
   CCallAdmission,
+  CCallOpenRefusal,
   CCallLocusCandidate,
   ChildFoldbackAdmission,
+  ChildFoldbackRefusal,
+  ChildPreparationRefusalAdmission,
+  ChildPreparationRefusalCandidate,
+  ChildPreparationRefusalRefusal,
   ExecutableCCallLocusCandidate,
   InteractionCCallLocusCandidate,
   JudgmentCandidate,
@@ -14,6 +21,7 @@ import type {
 import type {
   BlockedCCallOutcomeReceipt,
   CCallCompletionAdmission,
+  CCallCompletionResult,
   JudgedCCallOutcomeReceipt,
   ResultCCallOutcomeReceipt,
   RetryCCallOutcomeReceipt,
@@ -27,26 +35,31 @@ import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import type { ApplicationChildFoldbackReceipt } from "../abg/graph_application.js";
 import type {
   CompletedRetryProgressPlan,
-  ExecutableRetryInput,
+  ProjectExecutableRetryInputResult,
   ProjectExecutableRetryInputRequest,
-  RetryRuntimeFailureTransitionAdmission,
+  RetryAdmissionRefusal,
+  RetryAttemptFrontier,
   RetryRuntimeFailureTransitionPlan,
+  RetryRuntimeFailureTransitionResult,
   RetrySuccessfulExitEvidence,
 } from "../abg/retry.js";
 import type { ReplayState } from "../abg/replay.js";
-import type { RouteTransitionAdmission } from "../abg/traversal_route.js";
+import type {
+  AdmittedRoute,
+  ConstructionIntentAdmission,
+  RouteTransitionResult,
+} from "../abg/traversal_route.js";
 import type {
   TraversalCursorAdmission,
+  TraversalCursorAdmissionRefusal,
   TraversalCursorCandidate,
 } from "../abg/traversal_cursor.js";
 import type { TraversalTransitionCandidate } from "../abg/traversal_transition.js";
 import type {
   ChildTraversalPreparationRequest,
+  ChildTraversalPreparationResult,
   PreparedChildTraversal,
 } from "./child_traversal.js";
-import type {
-  CompleteInteractionResumeInput,
-} from "./interaction_resume.js";
 import type {
   ExecutableTraversalCompletion,
 } from "./traversal_completion.js";
@@ -62,14 +75,23 @@ import type {
 import type {
   GraphFunction,
   GtlGraph,
+  FanOutApplication,
   RecurseApplication,
 } from "../gtl/contracts.js";
 import type {
-  ClosedLeafOwnerReceipt,
+  LeafInvocationOwnerResult,
   LeafInvocationPort,
   ProbabilisticLeafEffectPort,
 } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import type {
+  ApplicationChildFoldbackResult,
+  ApplicationChildPreparationRefusalResult,
+} from "../abg/graph_application.js";
+import type { FanOutCompletionResult } from "../abg/fan_out.js";
+import type { RuntimeFailureAdmissionReceipt } from "../abg/runtime_failure.js";
+import type { DeferredApplicationProjection } from "../abg/deferred_application.js";
+import type { TraversalRefusal } from "./traversal.js";
 
 type TraversalValue = Readonly<Record<string, JsonValue>>;
 
@@ -78,64 +100,87 @@ export type ProjectReplayPort<Error> = (
   cursor: TraversalCursorCandidate,
 ) => Effect.Effect<ReplayState, Error>;
 
-export type ResolveTraversalValuePort<Error> = (
+export type MaterializedInputAtCursorPort = (
   graph: Readonly<GtlGraph>,
+  cursor: TraversalCursorCandidate | null,
+) => Readonly<{
+  inputContractRef: string;
+  value: TraversalValue;
+}> | null;
+
+export type ResolveConstructionIntentPort<Error> = (
+  predecessorPrefix: DurablePrefixCoordinate,
   cursor: TraversalCursorCandidate,
-) => Effect.Effect<TraversalValue, Error>;
+) => Effect.Effect<ConstructionIntentAdmission | null, Error>;
 
 export type ResolveInitialChildCursorPort<Error> = (
   prepared: PreparedChildTraversal,
-) => Effect.Effect<TraversalCursorCandidate, Error>;
+) => Effect.Effect<TraversalCursorCandidate | TraversalRefusal, Error>;
 
 export type ResolveCCallLocusPort<Error> = (
   graph: Readonly<GtlGraph>,
   cursor: TraversalCursorCandidate,
   term: Readonly<COfNode>,
-) => Effect.Effect<CCallLocusCandidate, Error>;
+) => Effect.Effect<CCallLocusCandidate | TraversalRefusal, Error>;
 
 export type AdmitInitialTraversalCursorPort<Error> = (
   cursor: TraversalCursorCandidate,
   predecessorPrefix: DurablePrefixCoordinate,
-) => Effect.Effect<TraversalCursorAdmission, Error>;
+) => Effect.Effect<
+  TraversalCursorAdmission | TraversalCursorAdmissionRefusal,
+  Error
+>;
 
 export type AdmitTraversalTransitionPort<Error> = (
   source: TraversalCursorCandidate,
   target: TraversalCursorCandidate | null,
   candidate: TraversalTransitionCandidate,
   predecessorPrefix: DurablePrefixCoordinate,
-) => Effect.Effect<RouteTransitionAdmission, Error>;
+) => Effect.Effect<RouteTransitionResult, Error>;
+
+export type ApplyAdmittedRoutePort<Error> = (
+  successorPrefix: DurablePrefixCoordinate,
+  source: TraversalCursorCandidate,
+  target: TraversalCursorCandidate,
+  expectedKind: "advance" | "retry",
+  route: AdmittedRoute,
+) => Effect.Effect<TraversalCursorCandidate | TraversalRefusal, Error>;
 
 export type ResolveExecutableImplementationPort<Error> = (
   locus: ExecutableCCallLocusCandidate,
-) => Effect.Effect<AdmittedImplementationResolutionRow, Error>;
+) => Effect.Effect<AdmittedImplementationResolutionRow | null, Error>;
 
 export type ResolveInteractionContractPort<Error> = (
   locus: InteractionCCallLocusCandidate,
-) => Effect.Effect<AdmittedInteractionContractRow, Error>;
+) => Effect.Effect<AdmittedInteractionContractRow | null, Error>;
 
 export type OpenExecutableCCallPort<Error> = (
   locus: ExecutableCCallLocusCandidate,
   resolution: AdmittedImplementationResolutionRow,
   predecessorPrefix: DurablePrefixCoordinate,
-) => Effect.Effect<CCallAdmission, Error>;
+) => Effect.Effect<CCallAdmission | CCallOpenRefusal, Error>;
 
 export type OpenInteractionCCallPort<Error> = (
   locus: InteractionCCallLocusCandidate,
   interaction: AdmittedInteractionContractRow,
   predecessorPrefix: DurablePrefixCoordinate,
-) => Effect.Effect<CCallAdmission, Error>;
+) => Effect.Effect<CCallAdmission | CCallOpenRefusal, Error>;
 
 export type OpenWorkflowCCallPort<Error> = (
   term: Readonly<CWorkflowNode>,
   proposal: WorkflowCCallProposal,
   cursor: TraversalCursorCandidate,
   predecessorPrefix: DurablePrefixCoordinate,
-) => Effect.Effect<CCallAdmission, Error>;
+) => Effect.Effect<CCallAdmission | CCallOpenRefusal, Error>;
 
-export type BindProbabilisticLeafEffectsPort<Error> = (
+export type BindProbabilisticLeafEffectsPort = (
   locus: ExecutableCCallLocusCandidate & Readonly<{ computeRegime: "F_P" }>,
   opened: CCallAdmission,
-) => Effect.Effect<ProbabilisticLeafEffectPort, Error>;
+  workerContracts: Readonly<{
+    instructionContractRef: string;
+    resultContractRef: string;
+  }>,
+) => ProbabilisticLeafEffectPort;
 
 export type InvokeLeafOwnerPort<Error> = (
   locus: ExecutableCCallLocusCandidate,
@@ -143,8 +188,11 @@ export type InvokeLeafOwnerPort<Error> = (
   resolution: AdmittedImplementationResolutionRow,
   leafPort: LeafInvocationPort,
   input: TraversalValue,
-  probabilisticEffects: ProbabilisticLeafEffectPort | null,
-) => Effect.Effect<ClosedLeafOwnerReceipt, Error>;
+  bindProbabilisticEffects: ((workerContracts: Readonly<{
+    instructionContractRef: string;
+    resultContractRef: string;
+  }>) => ProbabilisticLeafEffectPort) | null,
+) => Effect.Effect<LeafInvocationOwnerResult, Error>;
 
 export type AdmitLeafResultPort<Error> = (
   locus: ExecutableCCallLocusCandidate,
@@ -152,7 +200,9 @@ export type AdmitLeafResultPort<Error> = (
   resolution: AdmittedImplementationResolutionRow,
   leafPort: LeafInvocationPort,
   input: TraversalValue,
-  ownerReceipt: ClosedLeafOwnerReceipt,
+  ownerReceipt: Exclude<LeafInvocationOwnerResult, Readonly<{
+    kind: "leaf_invocation_owner_refusal";
+  }>>,
 ) => Effect.Effect<
   ResultCCallOutcomeReceipt | RetryCCallOutcomeReceipt |
     BlockedCCallOutcomeReceipt,
@@ -187,17 +237,24 @@ export type AdmitInteractionHoldPort<Error> = (
 export type PlanRetryRuntimeFailurePort<Error> = (
   locus: ExecutableCCallLocusCandidate,
   outcome: RetryCCallOutcomeReceipt,
-) => Effect.Effect<RetryRuntimeFailureTransitionPlan, Error>;
+) => Effect.Effect<
+  RetryRuntimeFailureTransitionPlan | RetryAdmissionRefusal,
+  Error
+>;
 
 export type AdmitRetryRuntimeFailurePort<Error> = (
   locus: ExecutableCCallLocusCandidate,
   outcome: RetryCCallOutcomeReceipt,
   plan: RetryRuntimeFailureTransitionPlan,
-) => Effect.Effect<RetryRuntimeFailureTransitionAdmission, Error>;
+) => Effect.Effect<RetryRuntimeFailureTransitionResult, Error>;
 
 export type ProjectExecutableRetryInputPort<Error> = (
   request: ProjectExecutableRetryInputRequest,
-) => Effect.Effect<ExecutableRetryInput, Error>;
+) => Effect.Effect<ProjectExecutableRetryInputResult, Error>;
+
+export type AssertFullRetryAttemptFrontierPort<Error> = (
+  frontier: RetryAttemptFrontier,
+) => Effect.Effect<void, Error>;
 
 export type AdmitBlockedRetryTraversalTransitionPort<Error> = (
   locus: ExecutableCCallLocusCandidate,
@@ -205,7 +262,7 @@ export type AdmitBlockedRetryTraversalTransitionPort<Error> = (
   plan: RetryRuntimeFailureTransitionPlan,
   candidate: TraversalTransitionCandidate,
   predecessorPrefix: DurablePrefixCoordinate,
-) => Effect.Effect<RouteTransitionAdmission, Error>;
+) => Effect.Effect<RouteTransitionResult, Error>;
 
 export type ResolveTraversalCursorAdmissionEventRefPort<Error> = (
   predecessorPrefix: DurablePrefixCoordinate,
@@ -217,7 +274,7 @@ export type PlanCompletedRetryProgressPort<Error> = (
   source: TraversalCursorCandidate,
   target: TraversalCursorCandidate,
   completion: RetrySuccessfulExitEvidence,
-) => Effect.Effect<CompletedRetryProgressPlan, Error>;
+) => Effect.Effect<CompletedRetryProgressPlan | RetryAdmissionRefusal, Error>;
 
 export type AdmitCompletedRetryTraversalTransitionPort<Error> = (
   predecessorPrefix: DurablePrefixCoordinate,
@@ -226,7 +283,7 @@ export type AdmitCompletedRetryTraversalTransitionPort<Error> = (
   candidate: TraversalTransitionCandidate,
   progressPlan: CompletedRetryProgressPlan,
   completion: RetrySuccessfulExitEvidence,
-) => Effect.Effect<RouteTransitionAdmission, Error>;
+) => Effect.Effect<RouteTransitionResult, Error>;
 
 export type AdmitCCallCompletionPort<Error> = (
   source: TraversalCursorCandidate,
@@ -234,11 +291,29 @@ export type AdmitCCallCompletionPort<Error> = (
   outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
   candidate: TraversalTransitionCandidate,
   predecessorPrefix: DurablePrefixCoordinate,
-) => Effect.Effect<CCallCompletionAdmission, Error>;
+  terminalMode: "close_run" | "return_to_parent",
+) => Effect.Effect<CCallCompletionResult, Error>;
 
 export type PrepareChildTraversalPort<Error> = (
   request: ChildTraversalPreparationRequest,
-) => Effect.Effect<PreparedChildTraversal, Error>;
+) => Effect.Effect<ChildTraversalPreparationResult, Error>;
+
+export type AdmitWorkflowChildPreparationRefusalPort<Error> = (
+  parentCursor: TraversalCursorCandidate,
+  parentCall: CCall,
+  candidate: ChildPreparationRefusalCandidate,
+  predecessorPrefix: DurablePrefixCoordinate,
+) => Effect.Effect<
+  ChildPreparationRefusalAdmission | ChildPreparationRefusalRefusal,
+  Error
+>;
+
+export type AdmitCCallRejectionPort<Error> = (
+  parentCursor: TraversalCursorCandidate,
+  parentCall: CCall,
+  rejection: ChildPreparationRefusalAdmission["admissionRejection"],
+  predecessorPrefix: DurablePrefixCoordinate,
+) => Effect.Effect<BlockedCCallOutcomeReceipt, Error>;
 
 export type AdmitWorkflowChildFoldbackPort<Error> = (
   parentCursor: TraversalCursorCandidate,
@@ -246,14 +321,58 @@ export type AdmitWorkflowChildFoldbackPort<Error> = (
   childExecutionBasis: ExecutionBasis,
   childTraversalScope: OpenedTraversalScope,
   childCompletion: ExecutableTraversalCompletion,
-) => Effect.Effect<ChildFoldbackAdmission, Error>;
+) => Effect.Effect<ChildFoldbackAdmission | ChildFoldbackRefusal, Error>;
 
 export type AdmitWorkflowResultPort<Error> = (
   parentCursor: TraversalCursorCandidate,
   parentCall: CCall,
   parentInput: TraversalValue,
   foldback: ChildFoldbackAdmission,
-) => Effect.Effect<ResultCCallOutcomeReceipt, Error>;
+  childCompletion: ExecutableTraversalCompletion,
+) => Effect.Effect<
+  ResultCCallOutcomeReceipt | RetryCCallOutcomeReceipt |
+    BlockedCCallOutcomeReceipt,
+  Error
+>;
+
+export type ResolveFanOutApplicationPort = (
+  graph: Readonly<GtlGraph>,
+  batchRef: string | null,
+) => Readonly<FanOutApplication> | null;
+
+export type AdmitFanOutCompletionPort<Error> = (
+  application: Readonly<FanOutApplication>,
+  source: TraversalCursorCandidate,
+  outcome: JudgedCCallOutcomeReceipt,
+  completionKind: "complete_vector" | "partial_stop",
+) => Effect.Effect<FanOutCompletionResult, Error>;
+
+export type ProjectJudgedCCallOutcomePort<Error> = (
+  predecessorPrefix: DurablePrefixCoordinate,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+) => Effect.Effect<JudgedCCallOutcomeReceipt | null, Error>;
+
+export type ProjectDeferredApplicationPort<Error> = (
+  predecessorPrefix: DurablePrefixCoordinate,
+  coordinates: Readonly<{
+    runId: string;
+    frameId: string;
+    sourceCursorRef: string;
+    cCallRef: string;
+    resultRef: string;
+    judgmentRef: string;
+  }>,
+) => Effect.Effect<DeferredApplicationProjection | null, Error>;
+
+export type AdmitRecursionChildPreparationRefusalPort<Error> = (
+  application: Readonly<RecurseApplication>,
+  source: TraversalCursorCandidate,
+  parentOutcome: JudgedCCallOutcomeReceipt,
+  candidate: ChildPreparationRefusalCandidate,
+  predecessorPrefix: DurablePrefixCoordinate,
+) => Effect.Effect<ApplicationChildPreparationRefusalResult, Error>;
 
 export type AdmitRecursionChildFoldbackPort<Error> = (
   application: Readonly<RecurseApplication>,
@@ -262,7 +381,7 @@ export type AdmitRecursionChildFoldbackPort<Error> = (
   childExecutionBasis: ExecutionBasis,
   childTraversalScope: OpenedTraversalScope,
   childCompletion: ExecutableTraversalCompletion,
-) => Effect.Effect<ApplicationChildFoldbackReceipt, Error>;
+) => Effect.Effect<ApplicationChildFoldbackResult, Error>;
 
 export type AdmitRecursionCompletionPort<Error> = (
   application: Readonly<RecurseApplication>,
@@ -271,17 +390,24 @@ export type AdmitRecursionCompletionPort<Error> = (
   parentOutcome: JudgedCCallOutcomeReceipt,
   foldback: ApplicationChildFoldbackReceipt,
   candidate: TraversalTransitionCandidate,
-) => Effect.Effect<CCallCompletionAdmission, Error>;
+) => Effect.Effect<CCallCompletionResult, Error>;
 
 export type ProjectCCallCompletionPort<Error> = (
   source: TraversalCursorCandidate,
   admission: CCallCompletionAdmission,
-  target: TraversalCursorCandidate | null,
+  appliedTarget: TraversalCursorCandidate | null,
 ) => Effect.Effect<ExecutableTraversalCompletion, Error>;
 
-export type ResumeInteractionOwnerPort<Error> = (
-  input: CompleteInteractionResumeInput,
-) => Effect.Effect<ExecutableTraversalCompletion, Error>;
+export type AdmitRuntimeFailurePort<Error> = (
+  executionBasis: ExecutionBasis,
+  scope: OpenedTraversalScope,
+  predecessorPrefix: DurablePrefixCoordinate,
+  stage: "c_call_open" | "hog_traversal" | "implementation_load" |
+    "operation_application" | "output_contract" | "route",
+  subject: JsonValue,
+  diagnosticRef: string,
+  causationEventRefs: readonly string[],
+) => Effect.Effect<RuntimeFailureAdmissionReceipt, Error>;
 
 export type StructuralTerm = Exclude<
   CProgramNode,

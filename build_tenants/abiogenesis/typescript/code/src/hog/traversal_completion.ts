@@ -11,6 +11,7 @@ import type { RouteTransitionAdmission } from "../abg/traversal_route.js";
 import type { TraversalCursorCandidate } from "../abg/traversal_cursor.js";
 import type {
   ClosureContract,
+  FanOutApplication,
   GtlGraph,
   RecurseApplication,
 } from "../gtl/contracts.js";
@@ -33,6 +34,7 @@ export interface HeldWorkflowSuspension {
   readonly parentGraph: Readonly<GtlGraph>;
   readonly parentClosureContract: Readonly<ClosureContract>;
   readonly parentCCall: CCall;
+  readonly application: Readonly<FanOutApplication> | null;
   readonly sourceCursor: TraversalCursorCandidate;
   readonly parentGraphInput: Readonly<Record<string, JsonValue>>;
   readonly parentGraphInputDigest: `sha256:${string}`;

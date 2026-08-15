@@ -19,7 +19,11 @@ import {
   rehydrateOpenedTraversalScopeAtPrefix,
   type OpenedTraversalScope,
 } from "../abg/open_call.js";
-import type { GtlProgram, RecurseApplication } from "../gtl/contracts.js";
+import type {
+  FanOutApplication,
+  GtlProgram,
+  RecurseApplication,
+} from "../gtl/contracts.js";
 import { recursionTerminationDecision } from "../gtl/graph_applications.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
@@ -59,10 +63,8 @@ function sameCanonical(left: object, right: object): boolean {
     sha256Canonical(right as unknown as JsonValue);
 }
 
-function rehydrationFailure(stage: string): never {
-  throw new TypeError(
-    `diagnostic://abiogenesis/hog/parent-rehydration-${stage}@5`,
-  );
+function rehydrationFailure(_stage: string): null {
+  return null;
 }
 
 function exactParentTraversal(
@@ -71,7 +73,7 @@ function exactParentTraversal(
   suspension: HeldParentTraversalSuspension,
   executionBasis: ExecutionBasis,
   scope: OpenedTraversalScope,
-): TraverseInput {
+): TraverseInput | null {
   const graphFunctions = input.leafPort.publication.graphFunctions.filter(
     (candidate) => candidate.name === suspension.parentGraph.graphFunctionRef,
   );
@@ -134,7 +136,7 @@ function exactWorkflowReturn(
   childExecutionBasis: ExecutionBasis,
   childScope: OpenedTraversalScope,
   terminalMode: "close_run" | "return_to_parent",
-): HogReturnFrame {
+): HogReturnFrame | null {
   const traversal = exactParentTraversal(
     input,
     prefix,
@@ -142,6 +144,7 @@ function exactWorkflowReturn(
     parentExecutionBasis,
     parentScope,
   );
+  if (traversal === null) return rehydrationFailure("workflow-parent");
   const sourceCursor = rehydrateHeldInteractionCursor(
     prefix,
     suspension.sourceCursor,
@@ -161,11 +164,24 @@ function exactWorkflowReturn(
     sourceCursor,
     suspension.parentCCall as unknown as Readonly<Record<string, JsonValue>>,
   );
+  const application = suspension.application === null
+    ? null
+    : traversal.graph.template.applications.find(
+        (candidate): candidate is FanOutApplication =>
+          candidate.relationKind === "fan_out" &&
+          candidate.applicationRef === suspension.application!.applicationRef &&
+          candidate.batchRef === suspension.application!.batchRef,
+      ) ?? null;
   if (
     term?.kind !== "c_workflow" ||
     term.graphFunctionRef !== childExecutionBasis.graphFunctionRef ||
     parentCCall === null ||
     parentCCall.cCallRef !== suspension.parentCCall.cCallRef ||
+    (suspension.application === null
+      ? application !== null || parentCCall.batchRef !== null
+      : application === null ||
+        !sameCanonical(application, suspension.application) ||
+        parentCCall.batchRef !== application.batchRef) ||
     sha256Canonical(
         suspension.parentInput as unknown as JsonValue,
       ) !== suspension.parentInputDigest ||
@@ -187,6 +203,7 @@ function exactWorkflowReturn(
       terminalMode,
     }),
     parentCall: parentCCall,
+    application,
     childExecutionBasis,
     childTraversalScope: childScope,
     childInput: suspension.childInput,
@@ -203,7 +220,7 @@ function exactRecursionReturn(
   childExecutionBasis: ExecutionBasis,
   childScope: OpenedTraversalScope,
   terminalMode: "close_run" | "return_to_parent",
-): HogReturnFrame {
+): HogReturnFrame | null {
   const traversal = exactParentTraversal(
     input,
     prefix,
@@ -211,6 +228,7 @@ function exactRecursionReturn(
     parentExecutionBasis,
     parentScope,
   );
+  if (traversal === null) return rehydrationFailure("recursion-parent");
   const sourceCursor = rehydrateHeldInteractionCursor(
     prefix,
     suspension.sourceCursor,
@@ -274,7 +292,7 @@ function exactRecursionReturn(
 
 export function rehydrateParentReturnFrames(
   input: RehydrateParentReturnFramesInput,
-): readonly HogReturnFrame[] {
+): readonly HogReturnFrame[] | null {
   const prefix = selectValidatedRuntimeEventPrefix(
     readRuntimeEventsAtDurablePrefix(input.predecessorPrefix),
   );
@@ -353,9 +371,8 @@ export function rehydrateParentReturnFrames(
     ) {
       return rehydrationFailure("parent-owner");
     }
-    inward.push(
-      suspension.kind === "held_workflow_suspension"
-        ? exactWorkflowReturn(
+    const frame = suspension.kind === "held_workflow_suspension"
+      ? exactWorkflowReturn(
             input,
             prefix,
             suspension,
@@ -365,7 +382,7 @@ export function rehydrateParentReturnFrames(
             childScope,
             terminalMode,
           )
-        : exactRecursionReturn(
+      : exactRecursionReturn(
             input,
             prefix,
             suspension,
@@ -374,8 +391,9 @@ export function rehydrateParentReturnFrames(
             childExecutionBasis,
             childScope,
             terminalMode,
-          ),
-    );
+          );
+    if (frame === null) return rehydrationFailure("parent-frame");
+    inward.push(frame);
     childExecutionBasis = parentExecutionBasis;
     childScope = parentScope;
   }

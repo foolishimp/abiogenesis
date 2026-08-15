@@ -1204,6 +1204,7 @@ function completeWorkflowLocus(
       parentGraph: runtime.graph,
       parentClosureContract: runtime.closureContract,
       parentCCall,
+      application: frame.application,
       sourceCursor: cursor,
       parentGraphInput: frame.graphEntryInput,
       parentGraphInputDigest: frame.graphEntryInputDigest,
