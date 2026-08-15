@@ -1407,6 +1407,7 @@ function isChildFoldbackAdmission(
     foldbackRef: _foldbackRef,
     foldbackDigest: _foldbackDigest,
     admissionEventRef: _admissionEventRef,
+    successorPrefix: _successorPrefix,
     ...body
   } = foldback;
   return foldback.foldbackDigest ===

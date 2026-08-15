@@ -6,10 +6,7 @@ import type {
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
-import {
-  resolveCProgramTermAtSourcePath,
-  rootCTraversalCoordinate,
-} from "../gtl/source_path.js";
+import { rootCTraversalCoordinate } from "../gtl/source_path.js";
 import {
   type ImplementationResolutionCandidate,
   type ImplementationResolutionSetCandidate,
@@ -837,6 +834,13 @@ export function admitExecutionBasis(
     !isGraphValidation(input.graphValidation) ||
     input.graphValidation.graphRef !== input.graph.materializationRef ||
     input.graphValidation.graphDigest !== input.graph.materializationDigest ||
+    input.graphValidation.graphFunctionRef !==
+      input.invocationAdmission.graphFunctionRef ||
+    input.graphValidation.graphFunctionDigest !==
+      input.invocationAdmission.graphFunctionDigest ||
+    input.graph.graphFunctionRef !== input.invocationAdmission.graphFunctionRef ||
+    input.graph.graphFunctionDigest !==
+      input.invocationAdmission.graphFunctionDigest ||
     input.graphValidation.invocationAdmissionRef !== input.invocationAdmission.invocationAdmissionRef ||
     input.graphValidation.programValidationRef !== input.invocationAdmission.programValidationRef
   ) {
@@ -845,19 +849,10 @@ export function admitExecutionBasis(
   const gtlEntryCoordinate = rootCTraversalCoordinate(
     input.graph.template.startNodeRef,
   );
-  const gtlEntryTerm = resolveCProgramTermAtSourcePath(
-    input.graph.template,
-    gtlEntryCoordinate.nodeRef,
-    gtlEntryCoordinate.termPath,
-  );
   if (
-    gtlEntryTerm.kind === "c_source_path_refusal" ||
     sha256Canonical(
       input.invocationAdmission.gtlEntryCoordinate as unknown as JsonValue,
-    ) !== sha256Canonical(gtlEntryCoordinate as unknown as JsonValue) ||
-    sha256Canonical(
-      input.invocationAdmission.gtlEntryTerm as unknown as JsonValue,
-    ) !== sha256Canonical(gtlEntryTerm as unknown as JsonValue)
+    ) !== sha256Canonical(gtlEntryCoordinate as unknown as JsonValue)
   ) {
     return reject(
       input.graph.materializationDigest,

@@ -56,7 +56,9 @@ function input(subjects, blockedOrdinal = null) {
 }
 
 async function runFanOut(context, label, subjects, blockedOrdinal = null) {
-  const harness = await setupInstalledCliHarness(context, root);
+  const harness = await setupInstalledCliHarness(context, root, {
+    candidateBasisSource: "packed_artifact",
+  });
   const submittedInput = input(subjects, blockedOrdinal);
   const scenario = await buildRootCliScenario(
     harness,
