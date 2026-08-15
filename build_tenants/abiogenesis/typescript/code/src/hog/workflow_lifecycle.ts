@@ -721,7 +721,18 @@ export function completeWorkflowLocus(
   }
   const { result, judgment } = outcome.admitted;
   const fanOut = frame.application;
-  if (fanOut === null) {
+  const sourceContinuation = fanOut === null
+    ? null
+    : deriveCSourceContinuation(
+        runtime.graph.template,
+        cursor.currentNodeRef,
+        cursor.termPath,
+      );
+  const advancesToNextFanOutMember = judgment.judgment === "advance" &&
+    sourceContinuation?.kind === "c_source_continuation" &&
+    sourceContinuation.disposition === "advance" &&
+    sourceContinuation.relation === "batch_next";
+  if (fanOut === null || advancesToNextFanOutMember) {
     let target: TraversalCursor | null = null;
     if (result.resultClass === "success" && judgment.judgment === "advance") {
       const derived = deriveCompletedTraversalCursor(runtime.graph, cursor, {
@@ -786,15 +797,18 @@ export function completeWorkflowLocus(
       outputContractRef: workflowTerm.outputCarrierRef,
     };
   }
-  const sourceContinuation = deriveCSourceContinuation(
-    runtime.graph.template,
-    cursor.currentNodeRef,
-    cursor.termPath,
-  );
   const completeVector = judgment.judgment === "advance" &&
-    sourceContinuation.kind === "c_source_continuation" &&
+    sourceContinuation?.kind === "c_source_continuation" &&
     sourceContinuation.disposition === "advance" &&
     sourceContinuation.relation === "compose_next";
+  if (judgment.judgment === "advance" && !completeVector) {
+    return failWorkflow(frame,
+      outcome.successorPrefix,
+      `fan-out-continuation-${ordinal}`,
+      "diagnostic://abiogenesis/hog/fan-out-continuation-mismatch@5",
+      sourceContinuation as unknown as JsonValue,
+    );
+  }
   const fanOutCompletion = Abg.admitFanOutCompletion({
     store: runtime.store,
     predecessorPrefix: outcome.successorPrefix,

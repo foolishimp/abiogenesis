@@ -7,7 +7,10 @@ import {
 } from "../gtl/graph_applications.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import type { Sha256Digest } from "../shared/digests.js";
+import {
+  sha256Canonical,
+  type Sha256Digest,
+} from "../shared/digests.js";
 import {
   hasAdmittedExecutionBasisAtPrefix,
   type ExecutionBasis,
@@ -16,7 +19,7 @@ import {
 import {
   AbgEventStore,
   admitRuntimeEvent,
-  admitRuntimeEventTransactionAtExpectedPrefix,
+  admitRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
@@ -212,11 +215,13 @@ export function admitFanOutCompletion(
     graphCallId: input.sourceCursor.graphCallId,
     frameId: input.sourceCursor.frameId,
   };
-  const expectedPrefixDigest = input.predecessorPrefix.prefixDigest;
+  const expectedPrefixDigest = sha256Canonical(
+    predecessorEvents as unknown as JsonValue,
+  );
   try {
-    const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+    const committed = admitRuntimeEventTransactionAtDurablePrefix(
       input.store,
-      expectedPrefixDigest,
+      input.predecessorPrefix,
       () => {
         const snapshot = input.store.readAll();
         const prefix = selectValidatedRuntimeEventPrefix(snapshot);
@@ -310,7 +315,7 @@ export function admitFanOutCompletion(
     if (
       error instanceof FanOutCompletionProjectionError ||
       (error instanceof TypeError && error.message ===
-        "runtime event append requires the exact expected immutable prefix")
+        "runtime event transaction requires the exact durable event predecessor")
     ) {
       return refusal(
         "replay_mismatch",
