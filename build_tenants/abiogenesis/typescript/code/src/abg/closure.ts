@@ -31,6 +31,7 @@ import {
   holdsAt,
 } from "./event_calculus.js";
 import {
+  projectOpenedTraversalScopeClassAtPrefix,
   rehydrateOpenedTraversalScopeAtPrefix,
   type OpenedTraversalScope,
 } from "./open_call.js";
@@ -177,24 +178,19 @@ function isExactPreClosureQuiescence(
 
 export type ScopeClosureSubject =
   | Readonly<{
-      kind: "run";
+      kind: "ordinary";
+      scope: OpenedTraversalScope;
       cCall: CCall;
       result: AdmittedCCallResult;
       judgment: AdmittedCCallJudgment;
     }>
   | Readonly<{
       kind: "interaction";
+      scope: OpenedTraversalScope;
       cCall: CCall;
       pendingResult: AdmittedCCallResult;
       pendingJudgment: AdmittedCCallJudgment;
       resume: FhInteractionResumeAdmission;
-    }>
-  | Readonly<{
-      kind: "child";
-      scope: OpenedTraversalScope;
-      cCall: CCall;
-      result: AdmittedCCallResult;
-      judgment: AdmittedCCallJudgment;
     }>;
 
 interface CurrentClosureTruth {
@@ -381,15 +377,20 @@ export function admitScopeClosure(
     sourceResult as unknown as Readonly<Record<string, JsonValue>>,
     sourceJudgment as unknown as Readonly<Record<string, JsonValue>>,
   );
-  const childScope = subject.kind === "child"
-    ? rehydrateOpenedTraversalScopeAtPrefix(
+  const exactScope = rehydrateOpenedTraversalScopeAtPrefix(
+    exactPrefix.runPrefix,
+    subject.scope as unknown as Readonly<Record<string, JsonValue>>,
+  );
+  const scopeClass = exactScope === null
+    ? null
+    : projectOpenedTraversalScopeClassAtPrefix(
         exactPrefix.runPrefix,
-        subject.scope as unknown as Readonly<Record<string, JsonValue>>,
-      )
-    : null;
+        exactScope,
+      );
   if (
     projectedCCall === null ||
-    (subject.kind === "child" && childScope === null)
+    exactScope === null ||
+    scopeClass === null
   ) {
     return refuseClosureWithoutEffects(
       "runtime_basis_mismatch",
@@ -400,6 +401,7 @@ export function admitScopeClosure(
   const result = projectedCCall.result;
   const judgment = projectedCCall.judgment;
   const resume = subject.kind === "interaction" ? subject.resume : null;
+  const childScope = scopeClass === "child" ? exactScope : null;
   const resultRef = resume?.responseRef ?? result.resultRef;
   const closureContractDigest = sha256Canonical(
     closureContract as unknown as JsonValue,
@@ -429,6 +431,18 @@ export function admitScopeClosure(
     return refuseClosureWithoutEffects(
       "runtime_basis_mismatch",
       "scope closure requires one exact terminal route over its current CCall outcome",
+    );
+  }
+
+  if (
+    cCall.runId !== exactScope.runId ||
+    cCall.graphCallId !== exactScope.graphCallId ||
+    cCall.frameId !== exactScope.frameId ||
+    cCall.basisId !== exactScope.executionBasisRef
+  ) {
+    return refuseClosureWithoutEffects(
+      "runtime_basis_mismatch",
+      "scope closure CCall differs from its exact admitted traversal scope",
     );
   }
 
@@ -485,8 +499,8 @@ export function admitScopeClosure(
   const expectedJudgmentContractRef = subject.kind === "interaction"
     ? cCall.continuationContractRef
     : judgment.contractRef;
-  const expectedScope = subject.kind === "child" ? "graph_call" : "run";
-  const expectedEventKinds = subject.kind === "child"
+  const expectedScope = scopeClass === "child" ? "graph_call" : "run";
+  const expectedEventKinds = scopeClass === "child"
     ? ["terminal_reached", "frame_closed", "graph_call_closed"]
     : [
         "terminal_reached",
@@ -494,7 +508,7 @@ export function admitScopeClosure(
         "graph_call_closed",
         "run_closed",
       ];
-  const alreadyClosed = subject.kind === "child"
+  const alreadyClosed = scopeClass === "child"
     ? [
         `terminal_admitted(${cCall.frameId})`,
         `frame_closed(${cCall.frameId})`,
@@ -525,7 +539,7 @@ export function admitScopeClosure(
     );
   }
 
-  if (subject.kind !== "child") {
+  if (scopeClass === "root") {
     const quiescence = projectExactPreClosureQuiescence(exactPrefix.runPrefix);
     if (!isExactPreClosureQuiescence(quiescence, cCall, route)) {
       return refuseClosureWithoutEffects(
@@ -620,7 +634,7 @@ export function admitScopeClosure(
       },
     }),
   ];
-  if (subject.kind !== "child") {
+  if (scopeClass === "root") {
     factories.push((batch) => ({
       kind: "run_closed",
       eventTime: basis.eventTime,

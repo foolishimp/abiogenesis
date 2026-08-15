@@ -2323,14 +2323,7 @@ async function applyRunInvoke(
     semanticsProjection:
       product.projectInstalledLeafSemantics(productSemantics),
   });
-  const childTraversalBasis = hog.constructChildTraversalBasis({
-    publication: viewState.catalogState.publication,
-    program: programValue,
-    programValidation,
-    rootImplementationSet: implementationSet,
-    rootInteractionSet: executionAdmission.interactionSet,
-  });
-  const traversalCompletion = await hog.executeGraphTraversal({
+  const traversalResult = await hog.executeGraphTraversal({
     store: context.store,
     predecessorPrefix: opened.successorPrefix,
     executionBasis: executionAdmission.executionBasis,
@@ -2339,6 +2332,7 @@ async function applyRunInvoke(
     graphFunction,
     graph,
     graphValidation,
+    programValidation,
     implementationSet,
     interactionSet: executionAdmission.interactionSet,
     continuationProductBasis: {
@@ -2350,7 +2344,6 @@ async function applyRunInvoke(
       graphValidation,
     },
     leafPort,
-    childTraversalBasis,
     closureContract,
     actorRuntimeBinding: {
       workspaceBinding: workspaceState.binding,
@@ -2361,6 +2354,28 @@ async function applyRunInvoke(
     eventTime: invocation.eventTime,
     correlationId: `${invocation.correlationId}/hog`,
   });
+  if (traversalResult.kind === "graph_traversal_entry_refusal") {
+    throw new ApplicationRefusal(
+      traversalResult.code,
+      traversalResult.message,
+      traversalResult.priorAdmission,
+    );
+  }
+  if (traversalResult.kind === "graph_traversal_failure_result") {
+    context.prefix = traversalResult.successorPrefix;
+    return projectCurrentOutcome(
+      context,
+      invocation,
+      graphFunction.outputs[0] ?? "",
+      candidate.invocationRef,
+      durableEventLogPath,
+      runProjectionProductBasis,
+      projectRunResult,
+      opened.scope.runId,
+      invocationAdmission.invocationAdmissionRef,
+    );
+  }
+  const traversalCompletion = traversalResult;
   context.prefix = traversalCompletion.successorPrefix;
   const replayScope = {
     invocationRef: candidate.invocationRef,
@@ -3865,16 +3880,6 @@ async function applyRunContinue(
       "run continuation durable authority reconstruction failed",
     );
   }
-  const heldCursor = hog.rehydrateHeldInteractionCursor(
-    preparedOperation.projectedPrefix,
-    rehydrated.heldInteraction.cursor,
-  );
-  if (heldCursor === null) {
-    throw new ApplicationRefusal(
-      "owner_refusal",
-      "run continuation could not rehydrate its exact HoG cursor",
-    );
-  }
   const publication = publicationForProgram(
     state.publications,
     state.program.programRef,
@@ -3922,292 +3927,26 @@ async function applyRunContinue(
     semanticsProjection:
       product.projectInstalledLeafSemantics(productSemantics),
   });
-  let successorInputContractRef: string | null;
-  try {
-    successorInputContractRef =
-      hog.deriveInteractionSuccessorInputCarrierRef(
-        state.heldGraph,
-        heldCursor,
-      );
-  } catch (error) {
-    throw new ApplicationRefusal(
-      "owner_refusal",
-      `run continuation successor carrier derivation failed: ${String(error)}`,
-    );
-  }
-  const successorInputValueKind = successorInputContractRef === null
-    ? null
-    : leafPort.contractValueKindByRef(successorInputContractRef);
-  if (
-    (successorInputContractRef === null) !==
-      (successorInputValueKind === null) ||
-    (continuation.constructionIntentRef !== null &&
-      (
-        successorInputContractRef === null ||
-        successorInputValueKind !== "action_evaluation_basis"
-      )) ||
-    (continuation.constructionIntentRef === null &&
-      successorInputContractRef !== null &&
-      (
-        successorInputContractRef !== continuation.responseContractRef ||
-        typeof continuation.responseValue !== "object" ||
-        continuation.responseValue === null ||
-        Array.isArray(continuation.responseValue) ||
-        !leafPort.validateContractValueByRef(
-          successorInputContractRef,
-          continuation.responseValue,
-        )
-      ))
-  ) {
-    throw new ApplicationRefusal(
-      "target_mismatch",
-      "run continuation target carrier, response contract, or admitted value kind differs",
-    );
-  }
-  const successorInput = abg.deriveFhResumeSuccessorInputAtPrefix(
-    preparedOperation.projectedPrefix,
-    continuation,
-    preparedOperation.operation,
-    rehydrated.executionBasis,
-    state.heldClosureContract,
-    {
-      inputContractRef: successorInputContractRef,
-      inputValueKind: successorInputValueKind,
-    },
-  );
-  if (
-    successorInputContractRef !== null &&
-    !leafPort.validateContractValueByRef(
-      successorInputContractRef,
-      successorInput.inputValue,
-    )
-  ) {
-    throw new ApplicationRefusal(
-      "target_mismatch",
-      "run continuation successor value fails its exact admitted contract",
-    );
-  }
-  const successorCursor = hog.deriveInteractionResumeCursor(
-    heldCursor,
-    {
-      inputRef: successorInput.inputRef,
-      inputDigest: successorInput.inputDigest,
-    },
-  );
-  if (successorCursor.kind !== "traversal_cursor") {
-    throw new ApplicationRefusal(
-      "owner_refusal",
-      `interaction resume cursor refused: ${successorCursor.message}`,
-    );
-  }
   const resumeBasis = {
     eventTime: invocation.eventTime,
     correlationId: invocation.correlationId,
     causationEventRefs: [],
   } as const;
-  abg.prepareFhInteractionResume(
-    preparedOperation,
-    continuation,
-    rehydrated.executionBasis,
-    state.heldClosureContract,
-    successorInput,
-    successorCursor,
-    state.prefix.prefixDigest,
-    resumeBasis,
-  );
-  const prepareTraversalRuntime = (
-    executionBasis: abg.ExecutionBasis,
-    openedTraversalScope: abg.OpenedTraversalScope,
-    graph: Readonly<GtlGraph>,
-    closureContract: Readonly<ClosureContract>,
-    graphInput: Readonly<Record<string, product.JsonValue>>,
-    terminalMode: "close_run" | "return_to_parent",
-    correlationId: string,
-  ) => {
-    const graphFunctionMatch = resolveExactMatch(
-      publication.graphFunctions,
-      (value) => value.name === graph.graphFunctionRef,
-    );
-    const graphValidation = graphFunctionMatch.kind !== "one"
-      ? null
-      : validator.validateGraph(
-          graph,
-          programValidation,
-          graphFunctionMatch.value,
-          {
-            invocationAdmissionRef:
-              authorityProjection.rootInvocation.invocationAdmissionRef,
-            admittedInputRef: graph.admittedInputRef,
-            admittedInputDigest: graph.admittedInputDigest,
-            admittedInput: graphInput,
-          },
-        );
-    if (
-      graphFunctionMatch.kind !== "one" ||
-      graphValidation === null ||
-      graphValidation.kind !== "graph_validation" ||
-      graphValidation.validationRef !== executionBasis.graphValidationRef ||
-      executionBasis.graphRef !== graph.materializationRef ||
-      executionBasis.graphDigest !== graph.materializationDigest ||
-      executionBasis.closureContractRef !==
-        closureContract.closureContractRef ||
-      sha256Canonical(graphInput as unknown as product.JsonValue) !==
-        graph.admittedInputDigest
-    ) {
-      throw new ApplicationRefusal(
-        "owner_refusal",
-        "continued run could not reproduce an admitted Graph boundary",
-      );
-    }
-    return {
-      executionBasis,
-      openedTraversalScope,
-      graph,
-      closureContract,
-      graphInput,
-      terminalMode,
-      correlationId,
-      graphFunction: graphFunctionMatch.value,
-      graphValidation,
-    } as const;
-  };
-  const immediateSuspension = state.parentSuspensions[0];
-  const heldGraphInput = immediateSuspension === undefined
-    ? state.invocationInput
-    : immediateSuspension.childInput;
-  const heldRuntime = prepareTraversalRuntime(
-    rehydrated.executionBasis,
-    rehydrated.openedTraversalScope,
-    state.heldGraph,
-    state.heldClosureContract,
-    heldGraphInput,
-    state.parentSuspensions.length === 0
-      ? "close_run"
-      : "return_to_parent",
-    `${invocation.correlationId}/hog/resumed`,
-  );
-  let expectedChildExecutionBasis = rehydrated.executionBasis;
-  let expectedChildTraversalScope = rehydrated.openedTraversalScope;
-  const parentRuntimes = state.parentSuspensions.map((suspension, ordinal) => {
-    const parentExecutionBasis = abg.rehydrateExecutionBasisAtPrefix(
-      authorityProjection.fullPrefix,
-      suspension.parentExecutionBasisRef,
-    );
-    const parentTraversalScope = abg.rehydrateOpenedTraversalScopeAtPrefix(
-      authorityProjection.fullPrefix,
-      suspension.parentTraversalScope as unknown as Readonly<
-        Record<string, product.JsonValue>
-      >,
-    );
-    const sourceCursor = hog.rehydrateHeldInteractionCursor(
-      authorityProjection.fullPrefix,
-      suspension.sourceCursor,
-    );
-    if (
-      parentExecutionBasis === null ||
-      parentTraversalScope === null ||
-      sourceCursor === null ||
-      suspension.childExecutionBasisRef !==
-        expectedChildExecutionBasis.basisRef ||
-      suspension.childTraversalScopeRef !== expectedChildTraversalScope.scopeRef
-    ) {
-      throw new ApplicationRefusal(
-        "owner_refusal",
-        "continued run could not rehydrate its suspended workflow lineage",
-      );
-    }
-    const runtime = prepareTraversalRuntime(
-      parentExecutionBasis,
-      parentTraversalScope,
-      suspension.parentGraph,
-      suspension.parentClosureContract,
-      suspension.parentGraphInput,
-      suspension.terminalMode,
-      `${invocation.correlationId}/hog/parent/${ordinal}`,
-    );
-    const parentCCall = suspension.kind === "held_workflow_suspension"
-      ? abg.rehydrateWorkflowCCallAtPrefix(
-          authorityProjection.fullPrefix,
-          parentExecutionBasis,
-          implementationSet,
-          parentTraversalScope,
-          runtime.graphFunction,
-          suspension.parentGraph,
-          sourceCursor,
-          suspension.parentCCall as unknown as Readonly<
-            Record<string, product.JsonValue>
-          >,
-        )
-      : null;
-    if (
-      suspension.kind === "held_workflow_suspension" &&
-      parentCCall === null
-    ) {
-      throw new ApplicationRefusal(
-        "owner_refusal",
-        "continued run could not rehydrate its parent workflow call",
-      );
-    }
-    expectedChildExecutionBasis = parentExecutionBasis;
-    expectedChildTraversalScope = parentTraversalScope;
-    return {
-      suspension,
-      runtime,
-      sourceCursor,
-      parentCCall,
-    } as const;
-  });
   let heldContext: RootOperationContext | null = context;
   const effectContext = context;
-  let resumedFailureBasis: {
-    readonly executionBasis: abg.ExecutionBasis;
-    readonly scope: abg.OpenedTraversalScope;
-    readonly resumeEventRef: string;
-  } | null = null;
   try {
-    const committedTransition = requireEffectfulOwnerResult(
-      abg.commitFhInteractionResumeAtExpectedPrefix(
-        effectContext.store,
-        state.prefix,
-        authorityProjection.rootInvocation,
-        continuation,
-        invocation.variant,
-        actorRef,
-        capabilityRef,
-        publicOperationBasis,
-        rehydrated.executionBasis,
-        state.heldClosureContract,
-        successorInput,
-        successorCursor,
-        resumeBasis,
-      ),
-    );
-    effectContext.prefix = committedTransition.successorPrefix;
-    const resume = committedTransition.resume;
-    resumedFailureBasis = {
-      executionBasis: rehydrated.executionBasis,
-      scope: rehydrated.openedTraversalScope,
-      resumeEventRef: resume.admissionEventRef,
-    };
-    const childTraversalBasis = hog.constructChildTraversalBasis({
-      publication,
-      program: state.program,
-      programValidation,
-      rootImplementationSet: implementationSet,
-      rootInteractionSet: interactionSet,
-    });
-    const traversalInput = (
-      runtime: typeof heldRuntime,
-    ) => {
-      return {
+    const heldGraphInput =
+      state.parentSuspensions[0]?.childInput ?? state.invocationInput;
+    const traversalResult = await hog.executeGraphTraversal({
+      current: {
         store: effectContext.store,
         predecessorPrefix: effectContext.prefix,
-        executionBasis: runtime.executionBasis,
-        openedTraversalScope: runtime.openedTraversalScope,
+        executionBasis: rehydrated.executionBasis,
+        openedTraversalScope: rehydrated.openedTraversalScope,
         program: state.program,
-        graphFunction: runtime.graphFunction,
-        graph: runtime.graph,
-        graphValidation: runtime.graphValidation,
+        programValidation,
+        graph: state.heldGraph,
+        graphInput: heldGraphInput,
         implementationSet,
         interactionSet,
         continuationProductBasis: {
@@ -4215,77 +3954,44 @@ async function applyRunContinue(
           workspaceBinding: state.workspaceBinding,
           artifactTruth,
           catalogView: state.catalogView,
-          programValidation,
-          graphValidation: runtime.graphValidation,
         },
         leafPort,
-        childTraversalBasis,
-        closureContract: runtime.closureContract,
+        closureContract: state.heldClosureContract,
         actorRuntimeBinding: {
           workspaceBinding: state.workspaceBinding,
           artifactTruth,
         },
-        input: runtime.graphInput,
-        inputDigest: runtime.graph.admittedInputDigest,
         eventTime: invocation.eventTime,
-        correlationId: runtime.correlationId,
-        ...(runtime.terminalMode === "return_to_parent"
-          ? { terminalMode: runtime.terminalMode }
-          : {}),
-      };
-    };
-    let childExecutionBasis = rehydrated.executionBasis;
-    let childTraversalScope = rehydrated.openedTraversalScope;
-    const parentFrames = parentRuntimes.map((preparedParent) => {
-      const {
-        suspension,
-        runtime,
-        sourceCursor,
-        parentCCall,
-      } = preparedParent;
-      const frame = {
-        parent: traversalInput(runtime),
-        suspension,
-        parentCCall,
-        sourceCursor,
-        childExecutionBasis,
-        childTraversalScope,
-      };
-      childExecutionBasis = runtime.executionBasis;
-      childTraversalScope = runtime.openedTraversalScope;
-      return frame;
-    });
-    const outermostParent = parentRuntimes.at(-1)?.runtime;
-    if (outermostParent !== undefined) {
-      resumedFailureBasis = {
-        executionBasis: outermostParent.executionBasis,
-        scope: outermostParent.openedTraversalScope,
-        resumeEventRef: resume.admissionEventRef,
-      };
-    }
-    const completion = await hog.executeGraphTraversal({
-      parent: traversalInput(heldRuntime),
-      interaction: {
-        store: effectContext.store,
-        predecessorPrefix: effectContext.prefix,
-        executionBasis: rehydrated.executionBasis,
-        openedTraversalScope: rehydrated.openedTraversalScope,
-        graphFunction: heldRuntime.graphFunction,
-        graph: state.heldGraph,
-        heldInteraction: {
-          ...rehydrated.heldInteraction,
-          cursor: heldCursor,
-        },
-        successorCursor,
-        resume,
-        closureContract: state.heldClosureContract,
-        clock: {
-          eventTime: invocation.eventTime,
-          correlationId: `${invocation.correlationId}/hog`,
-        },
+        correlationId: `${invocation.correlationId}/hog/resumed`,
       },
-      parents: parentFrames,
+      interactionResume: {
+        preparedOperation,
+        rootInvocation: authorityProjection.rootInvocation,
+        continuation,
+        heldInteraction: rehydrated.heldInteraction,
+        variant: invocation.variant,
+        actorRef,
+        capabilityRef,
+        operationBasis: publicOperationBasis,
+        resumeBasis,
+      },
+      parentSuspensions: state.parentSuspensions,
     });
+    if (traversalResult.kind === "graph_traversal_entry_refusal") {
+      throw new ApplicationRefusal(
+        traversalResult.code,
+        traversalResult.message,
+        traversalResult.priorAdmission,
+      );
+    }
+    if (traversalResult.kind === "graph_traversal_failure_result") {
+      effectContext.prefix = traversalResult.successorPrefix;
+      throw new ApplicationRefusal(
+        traversalResult.code,
+        traversalResult.message,
+      );
+    }
+    const completion = traversalResult;
     effectContext.prefix = completion.successorPrefix;
     const updatedAuthority = closeContinuationContext(effectContext, state);
     heldContext = null;
@@ -4341,33 +4047,9 @@ async function applyRunContinue(
     }
     return completedOutcome;
   } catch (error) {
-    if (heldContext !== null && resumedFailureBasis !== null) {
+    if (heldContext !== null) {
       if (error instanceof hog.GraphTraversalFailure) {
         heldContext.prefix = error.receipt.successorPrefix;
-      } else {
-        try {
-          const failureReceipt = abg.admitRuntimeFailure({
-            store: heldContext.store,
-            predecessorPrefix: heldContext.prefix,
-            executionBasis: resumedFailureBasis.executionBasis,
-            scope: resumedFailureBasis.scope,
-            stage: "operation_application",
-            subject: {
-              continuationRef,
-              error: String(error),
-            },
-            diagnosticRef:
-              "diagnostic://abiogenesis/continuation/post-resume-failure@5",
-            basis: {
-              eventTime: invocation.eventTime,
-              correlationId: `${invocation.correlationId}/post-resume-failure`,
-              causationEventRefs: [resumedFailureBasis.resumeEventRef],
-            },
-          });
-          heldContext.prefix = failureReceipt.successorPrefix;
-        } catch {
-          // Preserve the primary post-resume failure and close the exact suffix.
-        }
       }
     }
     const updatedAuthority = heldContext === null

@@ -304,6 +304,91 @@ export function hasOpenedTraversalScopeAtPrefix(
   );
 }
 
+/**
+ * Projects root/child class only from the exact admitted scope lineage.
+ * Callers cannot select closure scope with an imperative mode flag.
+ */
+export function projectOpenedTraversalScopeClassAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  scope: OpenedTraversalScope,
+): "root" | "child" | null {
+  if (!hasOpenedTraversalScopeAtPrefix(prefix, scope)) return null;
+  const basis = rehydrateExecutionBasisAtPrefix(
+    prefix,
+    scope.executionBasisRef,
+  );
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const graphCallOpen = events.find((event) =>
+    event.kind === "graph_call_opened" &&
+    event.eventId === scope.graphCallOpenEventRef &&
+    event.aggregateId === scope.graphCallId &&
+    event.basisId === scope.executionBasisRef &&
+    event.runId === scope.runId
+  );
+  const frameOpen = events.find((event) =>
+    event.kind === "frame_opened" &&
+    event.eventId === scope.frameOpenEventRef &&
+    event.aggregateId === scope.frameId &&
+    event.graphCallId === scope.graphCallId &&
+    event.basisId === scope.executionBasisRef &&
+    event.runId === scope.runId
+  );
+  if (
+    basis === null ||
+    graphCallOpen === undefined ||
+    frameOpen === undefined ||
+    !isRecord(graphCallOpen.payload) ||
+    !isRecord(frameOpen.payload)
+  ) return null;
+  const graphParentFrameId = typeof graphCallOpen.payload.parentFrameId ===
+      "string"
+    ? graphCallOpen.payload.parentFrameId
+    : null;
+  const frameParentFrameId = typeof frameOpen.payload.parentFrameId ===
+      "string"
+    ? frameOpen.payload.parentFrameId
+    : frameOpen.payload.parentFrameId === null
+    ? null
+    : undefined;
+  if (
+    basis.basisClass === "root" &&
+    basis.parentExecutionBasisRef === null &&
+    basis.parentTraversalScopeRef === null &&
+    basis.parentCCallRef === null &&
+    graphParentFrameId === null &&
+    frameParentFrameId === null
+  ) return "root";
+  if (
+    basis.basisClass === "child" &&
+    basis.parentExecutionBasisRef !== null &&
+    basis.parentTraversalScopeRef !== null &&
+    basis.parentCCallRef !== null &&
+    graphParentFrameId !== null &&
+    frameParentFrameId === graphParentFrameId &&
+    graphCallOpen.causationEventRefs.includes(basis.admissionEventRef) &&
+    graphCallOpen.causationEventRefs.some((eventRef) =>
+      events.some((event) =>
+        event.eventId === eventRef &&
+        event.kind === "frame_opened" &&
+        event.aggregateId === graphParentFrameId &&
+        event.basisId === basis.parentExecutionBasisRef
+      ))
+  ) return "child";
+  return null;
+}
+
+export function projectOpenedTraversalScopeClassAtDurablePrefix(
+  predecessorPrefix: DurablePrefixCoordinate,
+  scope: OpenedTraversalScope,
+): "root" | "child" | null {
+  return projectOpenedTraversalScopeClassAtPrefix(
+    selectValidatedRuntimeEventPrefix(
+      readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+    ),
+    scope,
+  );
+}
+
 export function rehydrateOpenedTraversalScope(
   store: AbgEventStore,
   value: Readonly<Record<string, JsonValue>>,

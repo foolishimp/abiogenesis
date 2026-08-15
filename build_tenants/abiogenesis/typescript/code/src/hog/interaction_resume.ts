@@ -119,7 +119,7 @@ export function completeInteractionResume(
       resume: input.resume,
       completedProgresses: [],
     },
-    terminalizeRun: proposal.routeKind === "terminal",
+    terminalizeRun: false,
   });
   const admitted = Abg.admitCCallCompletion({
     store: input.store,
@@ -134,7 +134,6 @@ export function completeInteractionResume(
     openedTraversalScope: input.openedTraversalScope,
     closureContract: input.closureContract,
     basis: admissionBasis(input.clock, "interaction/resume"),
-    terminalMode: "close_run",
   });
   if (admitted.kind !== "c_call_completion_admission") {
     throw new TypeError(`interaction transition refused: ${admitted.code}`);
@@ -180,7 +179,9 @@ export function completeInteractionResume(
     throw new TypeError(`interaction admitted ${route.routeKind}`);
   }
   if (admitted.disposition !== "closed") {
-    throw new TypeError("terminal interaction transition did not close its Run");
+    throw new TypeError(
+      "terminal interaction transition did not close its admitted scope",
+    );
   }
   return projectExecutableTraversalCompletion(
     "closed",

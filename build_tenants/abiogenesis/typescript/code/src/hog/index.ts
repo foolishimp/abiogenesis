@@ -46,14 +46,16 @@ export {
   GraphTraversalFailure,
   type ExecuteGraphTraversalInput,
   type ExecuteGraphTraversalRequest,
+  type ExecuteGraphTraversalResult,
   type ExecutableTraversalCompletion,
   type HeldInteractionTraversal,
   type HeldParentTraversalSuspension,
   type HeldRecursionSuspension,
   type HeldWorkflowSuspension,
+  type GraphTraversalEntryRefusal,
+  type GraphTraversalFailureResult,
   type ProjectedRetryResumeSuccess,
   type ResumeHeldInteractionInput,
-  type ResumeHeldParentFrameInput,
 } from "./graph_execute.js";
 export {
   constructChildTraversalBasis,

@@ -25,6 +25,20 @@ import type {
   HeldRecursionSuspension,
   HeldWorkflowSuspension,
 } from "./traversal_completion.js";
+import type {
+  ExecuteGraphTraversalCommonInput,
+  GraphTraversalFailureResult,
+} from "./traversal_contract.js";
+import type { TraversalCursor } from "./traversal.js";
+import type {
+  RecursionChildFoldFrame,
+} from "./recursion_lifecycle.js";
+import type {
+  TraversalLocusEvaluation,
+  WorkflowChildFoldFrame,
+} from "./workflow_lifecycle.js";
+import type { ExecutableTraversalCompletion } from
+  "./traversal_completion.js";
 
 export type TraversalValue = Readonly<Record<string, JsonValue>>;
 
@@ -63,6 +77,58 @@ export interface RecursionReturnFrame {
 }
 
 export type HogReturnFrame = WorkflowReturnFrame | RecursionReturnFrame;
+
+/** Fold-internal position. Entity operators never receive this carrier. */
+export interface MachineEvaluationFrame {
+  readonly runtime: ExecuteGraphTraversalCommonInput;
+  readonly scopeClass: "root" | "child";
+  readonly graphEntryInput: TraversalValue;
+  readonly graphEntryInputDigest: `sha256:${string}`;
+  readonly cursor: TraversalCursor;
+  readonly input: TraversalValue;
+  readonly ordinal: number;
+  readonly structuralOrdinal: number;
+}
+
+export interface MachineWorkflowReturnFrame {
+  readonly kind: "workflow_return";
+  readonly parent: MachineEvaluationFrame;
+  readonly workflow: WorkflowChildFoldFrame;
+}
+
+export interface MachineRecursionReturnFrame {
+  readonly kind: "recursion_return";
+  readonly parent: MachineEvaluationFrame;
+  readonly recursion: RecursionChildFoldFrame;
+  readonly outputValueKind: string;
+  readonly outputContractRef: string;
+}
+
+export type MachineReturnFrame =
+  | MachineWorkflowReturnFrame
+  | MachineRecursionReturnFrame;
+
+export type TraversalMachineState =
+  | Readonly<{
+      stateKind: "evaluate";
+      frame: MachineEvaluationFrame;
+      returns: readonly MachineReturnFrame[];
+    }>
+  | Readonly<{
+      stateKind: "return";
+      completion: ExecutableTraversalCompletion;
+      returns: readonly MachineReturnFrame[];
+    }>
+  | Readonly<{
+      stateKind: "done";
+      completion: ExecutableTraversalCompletion;
+    }>
+  | Readonly<{
+      stateKind: "failure";
+      failure: GraphTraversalFailureResult;
+    }>;
+
+export interface MachineLocusEvaluation extends TraversalLocusEvaluation {}
 
 export function projectParentSuspensions(
   returns: readonly HogReturnFrame[],

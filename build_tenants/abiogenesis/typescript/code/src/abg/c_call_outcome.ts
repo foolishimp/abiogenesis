@@ -197,10 +197,7 @@ export interface AdmitCCallCompletionInput {
   readonly openedTraversalScope: OpenedTraversalScope;
   readonly closureContract: Readonly<ClosureContract>;
   readonly basis: RuntimeAdmissionBasis;
-  readonly terminalMode:
-    | "close_run"
-    | "return_to_application"
-    | "return_to_parent";
+  readonly deferToApplication?: true;
 }
 
 type CCallCompletionPayload =
@@ -856,7 +853,7 @@ export function admitCCallCompletion(
   input: AdmitCCallCompletionInput,
 ): CCallCompletionResult {
   if (
-    input.terminalMode === "return_to_application" &&
+    input.deferToApplication === true &&
     input.outcome.disposition === "judged" &&
     input.outcome.admitted.result.resultClass === "success" &&
     input.outcome.admitted.judgment.judgment === "advance"
@@ -953,32 +950,26 @@ export function admitCCallCompletion(
               "interaction_resume"
             ? input.candidate!.evidence.resume
             : null;
-          const closureBasis = stageBasis(
-            input.basis,
-            input.terminalMode === "return_to_parent"
-              ? "child-closure"
-              : "closure",
-          );
+          const closureBasis = stageBasis(input.basis, "closure");
           const admittedClosure = admitScopeClosure(
             input.store,
             input.predecessorPrefix,
             interactionResume !== null
               ? {
                   kind: "interaction",
+                  scope: input.openedTraversalScope,
                   cCall,
                   pendingResult: result,
                   pendingJudgment: judgment,
                   resume: interactionResume,
                 }
-              : input.terminalMode === "return_to_parent"
-              ? {
-                  kind: "child",
+              : {
+                  kind: "ordinary",
                   scope: input.openedTraversalScope,
                   cCall,
                   result,
                   judgment,
-                }
-              : { kind: "run", cCall, result, judgment },
+                },
             staged.route,
             input.closureContract,
             closureBasis,

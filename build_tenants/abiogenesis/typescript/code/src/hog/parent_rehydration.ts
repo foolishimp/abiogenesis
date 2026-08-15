@@ -16,6 +16,7 @@ import {
 } from "../abg/event_store.js";
 import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
 import {
+  projectOpenedTraversalScopeClassAtPrefix,
   rehydrateOpenedTraversalScopeAtPrefix,
   type OpenedTraversalScope,
 } from "../abg/open_call.js";
@@ -63,8 +64,39 @@ function sameCanonical(left: object, right: object): boolean {
     sha256Canonical(right as unknown as JsonValue);
 }
 
-function rehydrationFailure(_stage: string): null {
-  return null;
+export interface ParentRehydrationRefusal {
+  readonly kind: "parent_rehydration_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly stage: string;
+  readonly diagnosticRef: string;
+}
+
+interface Rehydrated<T> {
+  readonly kind: "rehydrated";
+  readonly value: T;
+}
+
+type RehydrationStep<T> = Rehydrated<T> | ParentRehydrationRefusal;
+
+export type ParentReturnFramesRehydration =
+  | Readonly<{
+      kind: "rehydrated_parent_return_frames";
+      frames: readonly HogReturnFrame[];
+    }>
+  | ParentRehydrationRefusal;
+
+function rehydrated<T>(value: T): Rehydrated<T> {
+  return Object.freeze({ kind: "rehydrated", value });
+}
+
+function rehydrationFailure(stage: string): ParentRehydrationRefusal {
+  return Object.freeze({
+    kind: "parent_rehydration_refusal",
+    schemaVersion: "5.0.0",
+    stage,
+    diagnosticRef:
+      `diagnostic://abiogenesis/hog/parent-rehydration-${stage}@5`,
+  });
 }
 
 function exactParentTraversal(
@@ -73,7 +105,7 @@ function exactParentTraversal(
   suspension: HeldParentTraversalSuspension,
   executionBasis: ExecutionBasis,
   scope: OpenedTraversalScope,
-): TraverseInput | null {
+): RehydrationStep<TraverseInput> {
   const graphFunctions = input.leafPort.publication.graphFunctions.filter(
     (candidate) => candidate.name === suspension.parentGraph.graphFunctionRef,
   );
@@ -117,14 +149,14 @@ function exactParentTraversal(
   ) {
     return rehydrationFailure("parent-runtime");
   }
-  return Object.freeze({
+  return rehydrated(Object.freeze({
     program: input.program,
     graphFunction,
     graph: suspension.parentGraph,
     graphValidation,
     executionBasis,
     openedTraversalScope: scope,
-  });
+  }));
 }
 
 function exactWorkflowReturn(
@@ -136,15 +168,18 @@ function exactWorkflowReturn(
   childExecutionBasis: ExecutionBasis,
   childScope: OpenedTraversalScope,
   terminalMode: "close_run" | "return_to_parent",
-): HogReturnFrame | null {
-  const traversal = exactParentTraversal(
+): RehydrationStep<HogReturnFrame> {
+  const traversalResult = exactParentTraversal(
     input,
     prefix,
     suspension,
     parentExecutionBasis,
     parentScope,
   );
-  if (traversal === null) return rehydrationFailure("workflow-parent");
+  if (traversalResult.kind === "parent_rehydration_refusal") {
+    return traversalResult;
+  }
+  const traversal = traversalResult.value;
   const sourceCursor = rehydrateHeldInteractionCursor(
     prefix,
     suspension.sourceCursor,
@@ -189,7 +224,7 @@ function exactWorkflowReturn(
   ) {
     return rehydrationFailure("workflow-relation");
   }
-  return Object.freeze({
+  return rehydrated(Object.freeze({
     relation: "workflow" as const,
     parent: Object.freeze({
       traversal,
@@ -208,7 +243,7 @@ function exactWorkflowReturn(
     childTraversalScope: childScope,
     childInput: suspension.childInput,
     childInputDigest: suspension.childInputDigest,
-  });
+  }));
 }
 
 function exactRecursionReturn(
@@ -220,15 +255,18 @@ function exactRecursionReturn(
   childExecutionBasis: ExecutionBasis,
   childScope: OpenedTraversalScope,
   terminalMode: "close_run" | "return_to_parent",
-): HogReturnFrame | null {
-  const traversal = exactParentTraversal(
+): RehydrationStep<HogReturnFrame> {
+  const traversalResult = exactParentTraversal(
     input,
     prefix,
     suspension,
     parentExecutionBasis,
     parentScope,
   );
-  if (traversal === null) return rehydrationFailure("recursion-parent");
+  if (traversalResult.kind === "parent_rehydration_refusal") {
+    return traversalResult;
+  }
+  const traversal = traversalResult.value;
   const sourceCursor = rehydrateHeldInteractionCursor(
     prefix,
     suspension.sourceCursor,
@@ -268,7 +306,7 @@ function exactRecursionReturn(
   ) {
     return rehydrationFailure("recursion-relation");
   }
-  return Object.freeze({
+  return rehydrated(Object.freeze({
     relation: "recursion" as const,
     parent: Object.freeze({
       traversal,
@@ -287,12 +325,12 @@ function exactRecursionReturn(
     childTraversalScope: childScope,
     childInput: suspension.childInput,
     childInputDigest: suspension.childInputDigest,
-  });
+  }));
 }
 
 export function rehydrateParentReturnFrames(
   input: RehydrateParentReturnFramesInput,
-): readonly HogReturnFrame[] | null {
+): ParentReturnFramesRehydration {
   const prefix = selectValidatedRuntimeEventPrefix(
     readRuntimeEventsAtDurablePrefix(input.predecessorPrefix),
   );
@@ -329,12 +367,16 @@ export function rehydrateParentReturnFrames(
     const parentCCallRef = suspension.kind === "held_workflow_suspension"
       ? suspension.parentCCall.cCallRef
       : suspension.evaluatorCCall.cCallRef;
-    const terminalMode = index === input.suspensions.length - 1
+    const parentScopeClass = parentScope === null
+      ? null
+      : projectOpenedTraversalScopeClassAtPrefix(prefix, parentScope);
+    const terminalMode = parentScopeClass === "root"
       ? "close_run" as const
       : "return_to_parent" as const;
     if (
       parentExecutionBasis === null ||
       parentScope === null ||
+      parentScopeClass === null ||
       suspension.childExecutionBasisRef !== childExecutionBasis.basisRef ||
       suspension.childTraversalScopeRef !== childScope.scopeRef ||
       childExecutionBasis.parentCCallRef !== parentCCallRef ||
@@ -392,8 +434,8 @@ export function rehydrateParentReturnFrames(
             childScope,
             terminalMode,
           );
-    if (frame === null) return rehydrationFailure("parent-frame");
-    inward.push(frame);
+    if (frame.kind === "parent_rehydration_refusal") return frame;
+    inward.push(frame.value);
     childExecutionBasis = parentExecutionBasis;
     childScope = parentScope;
   }
@@ -405,5 +447,8 @@ export function rehydrateParentReturnFrames(
   ) {
     return rehydrationFailure("outward-projection");
   }
-  return returns;
+  return Object.freeze({
+    kind: "rehydrated_parent_return_frames" as const,
+    frames: returns,
+  });
 }

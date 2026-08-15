@@ -1,0 +1,547 @@
+import * as Effect from "effect/Effect";
+import * as Cause from "effect/Cause";
+import * as Exit from "effect/Exit";
+
+import * as Abg from "../abg/index.js";
+import type {
+  AbgEventStore,
+  ActorRuntimeBinding,
+  AdmittedImplementationSet,
+  BlockedCCallOutcomeReceipt,
+  ExecutableCCallLocusCandidate,
+  ExecutionBasis,
+  JudgedCCallOutcomeReceipt,
+  OpenedTraversalScope,
+  RetryCCallOutcomeReceipt,
+} from "../abg/index.js";
+import type { DurablePrefixCoordinate } from "../abg/event_store.js";
+import type {
+  ClosureContract,
+  GraphFunction,
+  GtlGraph,
+  GtlProgram,
+} from "../gtl/contracts.js";
+import type { LeafInvocationPort } from "../implementation/contracts.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { proposeJudgmentCandidate } from "./judgment.js";
+import {
+  admissionBasis,
+  runtimePrefixAtDurable,
+  type ExecutionClock,
+} from "./operator_support.js";
+import * as Routes from "./route_proposal.js";
+import {
+  applyAdmittedRoute,
+  deriveCompletedTraversalCursor,
+  type TraversalCursor,
+} from "./traversal.js";
+import { failTraversal } from "./traversal_failure.js";
+import {
+  projectExecutableTraversalCompletion,
+  type ExecutableTraversalCompletion,
+} from "./traversal_completion.js";
+
+export interface ExecutableCCallContext {
+  readonly store: AbgEventStore;
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+  readonly executionBasis: ExecutionBasis;
+  readonly openedTraversalScope: OpenedTraversalScope;
+  readonly program: Readonly<GtlProgram>;
+  readonly graphFunction: Readonly<GraphFunction>;
+  readonly graph: Readonly<GtlGraph>;
+  readonly stop: ExecutableCCallLocusCandidate;
+  readonly implementationSet: AdmittedImplementationSet;
+  readonly leafPort: LeafInvocationPort;
+  readonly input: Readonly<Record<string, JsonValue>>;
+  readonly closureContract: Readonly<ClosureContract>;
+  readonly actorRuntimeBinding: ActorRuntimeBinding;
+  readonly scopeClass: "root" | "child";
+  readonly deferToApplication?: true;
+  readonly clock: ExecutionClock;
+  readonly ordinal: number;
+}
+
+export interface CCallLifecycleEvaluation {
+  readonly kind: "c_call_evaluation";
+  readonly completion: ExecutableTraversalCompletion;
+  readonly outputValueKind: string;
+  readonly outputContractRef: string;
+}
+
+export interface CCallRetryRequest {
+  readonly kind: "c_call_retry";
+  readonly context: ExecutableCCallContext;
+  readonly outcome: RetryCCallOutcomeReceipt;
+  readonly outputValueKind: string;
+  readonly outputContractRef: string;
+}
+
+export type CCallLifecycleStep =
+  | CCallLifecycleEvaluation
+  | CCallRetryRequest;
+
+function failCCall(
+  input: ExecutableCCallContext,
+  predecessorPrefix: DurablePrefixCoordinate,
+  stage: string,
+  diagnosticRef: string,
+  candidate: JsonValue,
+): never {
+  return failTraversal({
+    store: input.store,
+    predecessorPrefix,
+    executionBasis: input.executionBasis,
+    openedTraversalScope: input.openedTraversalScope,
+    eventTime: input.clock.eventTime,
+    correlationId: input.clock.correlationId,
+    stage,
+    diagnosticRef,
+    candidate,
+  });
+}
+
+function projectBlockedCCallCompletion(
+  replayState: Abg.ReplayState,
+  successorPrefix: DurablePrefixCoordinate,
+  cCall: Abg.CCall,
+  resultRef: string,
+  judgmentRef: string,
+  reasonRef: string,
+  resultValue: JsonValue,
+): ExecutableTraversalCompletion {
+  return projectExecutableTraversalCompletion(
+    "blocked",
+    replayState,
+    successorPrefix,
+    {
+      cCallRef: cCall.cCallRef,
+      resultRef,
+      judgmentRef,
+      resultValue,
+      diagnosticRef: reasonRef,
+    },
+  );
+}
+
+export function projectCCallCompletion(
+  source: TraversalCursor,
+  admitted: Abg.CCallCompletionAdmission,
+  target: TraversalCursor | null,
+): ExecutableTraversalCompletion {
+  if (admitted.disposition === "blocked") {
+    const outcome = admitted.outcome;
+    const cCall = outcome.disposition === "blocked"
+      ? outcome.cCall
+      : outcome.admitted.cCall;
+    const result = outcome.disposition === "blocked"
+      ? outcome.result
+      : outcome.admitted.result;
+    return projectBlockedCCallCompletion(
+      admitted.transition.replayState,
+      admitted.transition.successorPrefix,
+      cCall,
+      result.resultRef,
+      outcome.disposition === "blocked"
+        ? outcome.completion.rejectionJudgmentRef
+        : outcome.admitted.judgment.judgmentRef,
+      outcome.disposition === "blocked"
+        ? outcome.diagnosticRef
+        : outcome.admitted.judgment.reasonRef,
+      result.value,
+    );
+  }
+  const { cCall, result, judgment } = admitted.outcome.admitted;
+  if (admitted.disposition === "failed") {
+    if (result.resultClass !== "failure") {
+      throw new TypeError("failed CCall completion lacks a failure candidate");
+    }
+    return projectExecutableTraversalCompletion(
+      "failed",
+      admitted.transition.replayState,
+      admitted.transition.successorPrefix,
+      {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        resultValue: result.value,
+        diagnosticRef: judgment.reasonRef,
+      },
+    );
+  }
+  if (admitted.disposition === "application_ready") {
+    return projectExecutableTraversalCompletion(
+      "application_ready",
+      admitted.replayState,
+      admitted.outcome.successorPrefix,
+      {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        resultValue: result.value,
+      },
+    );
+  }
+  if (admitted.disposition === "advanced") {
+    if (target === null) {
+      throw new TypeError("advanced CCall completion lacks its HoG target");
+    }
+    const nextCursor = applyAdmittedRoute(
+      runtimePrefixAtDurable(admitted.transition.successorPrefix, source.runId),
+      source,
+      target,
+      "advance",
+      admitted.transition.route,
+    );
+    if (nextCursor.kind === "traversal_refusal") {
+      throw new TypeError(`leaf route application refused: ${nextCursor.code}`);
+    }
+    return projectExecutableTraversalCompletion(
+      "advanced",
+      admitted.transition.replayState,
+      admitted.transition.successorPrefix,
+      {
+        cCallRef: cCall.cCallRef,
+        resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef,
+        nextCursor,
+        resultValue: result.value,
+        continuationKind: "advance",
+        nextInputContractRef: cCall.outputContractRef,
+      },
+    );
+  }
+  if (admitted.disposition !== "closed") {
+    throw new TypeError("unknown CCall completion");
+  }
+  return projectExecutableTraversalCompletion(
+    "closed",
+    admitted.closure.replayState,
+    admitted.transition.successorPrefix,
+    {
+      cCallRef: cCall.cCallRef,
+      resultRef: result.resultRef,
+      judgmentRef: judgment.judgmentRef,
+      closureRef: admitted.closure.closureRef,
+      resultValue: result.value,
+    },
+  );
+}
+
+export function evaluateExecutableCCall(
+  input: ExecutableCCallContext,
+): Effect.Effect<CCallLifecycleStep> {
+  return Effect.gen(function* () {
+    const resolution = Abg.selectAdmittedImplementationResolution(
+      input.implementationSet,
+      {
+        graphFunctionRef: input.graph.graphFunctionRef,
+        nodeRef: input.stop.nodeRef,
+        programLocusRef: input.stop.programLocusRef,
+        implementationBindingRef: input.stop.implementationBindingRef,
+      },
+    );
+    const outputValueKind = input.leafPort.contractValueKind(
+      input.stop.outputContractRef,
+      "output",
+    );
+    const failureValueKind = input.leafPort.contractValueKind(
+      input.stop.failureContractRef,
+      "failure",
+    );
+    if (
+      resolution === null || outputValueKind === null ||
+      failureValueKind === null
+    ) {
+      return failCCall(
+        input,
+        input.predecessorPrefix,
+        `leaf-resolution-${input.ordinal}`,
+        "diagnostic://abiogenesis/implementation/admitted-row-absent@5",
+        input.stop as unknown as JsonValue,
+      );
+    }
+    let opened: ReturnType<typeof Abg.openCCall>;
+    try {
+      opened = Abg.openCCall({
+        locusClass: "implementation",
+        store: input.store,
+        predecessorPrefix: input.predecessorPrefix,
+        executionBasis: input.executionBasis,
+        scope: input.openedTraversalScope,
+        program: input.program,
+        graphFunction: input.graphFunction,
+        graph: input.graph,
+        stop: input.stop,
+        implementationSet: input.implementationSet,
+        resolution,
+        basis: admissionBasis(input.clock, "open"),
+      });
+    } catch (error) {
+      return failCCall(
+        input,
+        input.predecessorPrefix,
+        `leaf-open-${input.ordinal}`,
+        "diagnostic://abiogenesis/hog/leaf-open-owner-fault@5",
+        { error: String(error) },
+      );
+    }
+    if (opened.kind !== "c_call_admission") {
+      return failCCall(
+        input,
+        input.predecessorPrefix,
+        `leaf-open-${input.ordinal}`,
+        `diagnostic://abiogenesis/c-call/${opened.code}@5`,
+        opened as unknown as JsonValue,
+      );
+    }
+    const bindProbabilisticEffects = input.stop.computeRegime === "F_P"
+      ? (contracts: Readonly<{
+          instructionContractRef: string;
+          resultContractRef: string;
+        }>) => Abg.bindActorProcessLeafEffectPort({
+          store: input.store,
+          executionBasis: input.executionBasis,
+          scope: input.openedTraversalScope,
+          cCall: opened.cCall,
+          inputDigest: input.stop.cursor.inputDigest,
+          workerContracts: contracts,
+          runtime: input.actorRuntimeBinding,
+          basis: admissionBasis(input.clock, "actor-process"),
+        })
+      : null;
+    const invocationExit = yield* Effect.exit(Effect.promise(() =>
+      input.leafPort.invoke({
+      resolution,
+      input: input.input,
+      inputDigest: input.stop.cursor.inputDigest,
+      failureContractRef: input.stop.failureContractRef,
+      bindProbabilisticEffects,
+      })));
+    if (Exit.isFailure(invocationExit)) {
+      return failCCall(
+        input,
+        opened.successorPrefix,
+        `leaf-owner-${input.ordinal}`,
+        "diagnostic://abiogenesis/hog/leaf-owner-effect-fault@5",
+        { cause: Cause.pretty(invocationExit.cause) },
+      );
+    }
+    const invocation = invocationExit.value;
+    if (invocation.kind === "leaf_invocation_owner_refusal") {
+      return failCCall(
+        input,
+        opened.successorPrefix,
+        `leaf-owner-${input.ordinal}`,
+        invocation.diagnosticRef,
+        invocation as unknown as JsonValue,
+      );
+    }
+    const outcomeInput = {
+      outcomeClass: "leaf",
+      store: input.store,
+      predecessorPrefix: opened.successorPrefix,
+      executionBasis: input.executionBasis,
+      implementationSet: input.implementationSet,
+      graph: input.graph,
+      graphFunction: input.graphFunction,
+      cursor: input.stop.cursor,
+      cCall: opened.cCall,
+      resolution,
+      leafPort: input.leafPort,
+      input: input.input,
+      inputDigest: input.stop.cursor.inputDigest,
+      ownerReceipt: invocation,
+      outputValueKind,
+      failureValueKind,
+      basis: admissionBasis(input.clock, "outcome"),
+    } as const;
+    let resultOutcome: ReturnType<typeof Abg.admitCCallResult>;
+    try {
+      resultOutcome = input.stop.computeRegime === "F_P"
+        ? Abg.admitCCallResult({
+            ...outcomeInput,
+            regime: "F_P",
+            actorRuntimeBinding: input.actorRuntimeBinding,
+          })
+        : Abg.admitCCallResult({ ...outcomeInput, regime: "F_D" });
+    } catch (error) {
+      return failCCall(
+        input,
+        opened.successorPrefix,
+        `leaf-result-${input.ordinal}`,
+        "diagnostic://abiogenesis/hog/leaf-result-owner-fault@5",
+        { error: String(error) },
+      );
+    }
+    const admitted = resultOutcome.disposition !== "result"
+      ? resultOutcome
+      : (() => {
+          const relation = input.leafPort.resolveJudgmentRelation(
+            resultOutcome.cCall.judgmentPredicateRef,
+          );
+          if (relation === null) {
+            return failCCall(
+              input,
+              resultOutcome.successorPrefix,
+              `leaf-judgment-relation-${input.ordinal}`,
+              "diagnostic://abiogenesis/hog/judgment-relation-absent@5",
+              resultOutcome.cCall as unknown as JsonValue,
+            );
+          }
+          const candidate = proposeJudgmentCandidate({
+            cCall: resultOutcome.cCall,
+            result: resultOutcome.result,
+            replayState: resultOutcome.replayState,
+            contractRef: resultOutcome.cCall.judgmentContractRef,
+            decision: invocation.candidate.disposition === "success"
+              ? { decisionClass: "evaluate", input: input.input, relation }
+              : {
+                  decisionClass: "refuse",
+                  predicateRef: resultOutcome.cCall.judgmentPredicateRef,
+                  reasonRef: invocation.candidate.diagnosticRef,
+                },
+          });
+          try {
+            return Abg.admitCCallJudgment({
+              store: input.store,
+              graph: input.graph,
+              graphFunction: input.graphFunction,
+              cursor: input.stop.cursor,
+              outcome: resultOutcome,
+              candidate,
+              basis: admissionBasis(input.clock, "judgment"),
+            });
+          } catch (error) {
+            return failCCall(
+              input,
+              resultOutcome.successorPrefix,
+              `leaf-judgment-${input.ordinal}`,
+              "diagnostic://abiogenesis/hog/leaf-judgment-owner-fault@5",
+              { error: String(error) },
+            );
+          }
+        })();
+    if (admitted.disposition === "retry") {
+      return {
+        kind: "c_call_retry" as const,
+        context: input,
+        outcome: admitted,
+        outputValueKind,
+        outputContractRef: input.stop.outputContractRef,
+      };
+    }
+    let target: TraversalCursor | null = null;
+    if (
+      admitted.disposition === "judged" &&
+      admitted.admitted.result.resultClass === "success" &&
+      admitted.admitted.judgment.judgment === "advance" &&
+      input.deferToApplication !== true
+    ) {
+      const derived = deriveCompletedTraversalCursor(
+        input.graph,
+        input.stop.cursor,
+        {
+          inputRef: admitted.admitted.result.resultRef,
+          inputDigest: admitted.admitted.result.valueDigest,
+        },
+      );
+      if (derived?.kind === "traversal_refusal") {
+        return failCCall(
+          input,
+          admitted.successorPrefix,
+          `leaf-continuation-${input.ordinal}`,
+          `diagnostic://abiogenesis/hog/${derived.code}@5`,
+          derived as unknown as JsonValue,
+        );
+      }
+      target = derived;
+    }
+    const applicationReady = admitted.disposition === "judged" &&
+      input.deferToApplication === true &&
+      admitted.admitted.result.resultClass === "success" &&
+      admitted.admitted.judgment.judgment === "advance";
+    const proposedTransition = applicationReady
+      ? null
+      : Routes.proposeCCallOutcomeTransition({
+          graph: input.graph,
+          graphFunction: input.graphFunction,
+          sourceCursor: input.stop.cursor,
+          targetCursor: admitted.disposition === "blocked" ? null : target,
+          outcome: admitted,
+          terminalizeNonAdvance: input.scopeClass === "root",
+        });
+    if (
+      proposedTransition !== null &&
+      proposedTransition.kind !== "traversal_transition_candidate"
+    ) {
+      return failCCall(
+        input,
+        admitted.successorPrefix,
+        `leaf-route-${input.ordinal}`,
+        `diagnostic://abiogenesis/hog/${proposedTransition.code}@5`,
+        proposedTransition as unknown as JsonValue,
+      );
+    }
+    let completionAdmission: ReturnType<typeof Abg.admitCCallCompletion>;
+    try {
+      completionAdmission = Abg.admitCCallCompletion({
+        store: input.store,
+        predecessorPrefix: admitted.successorPrefix,
+        executionBasis: input.executionBasis,
+        graph: input.graph,
+        graphFunction: input.graphFunction,
+        source: input.stop.cursor,
+        target: admitted.disposition === "blocked" ? null : target,
+        outcome: admitted as JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
+        candidate: proposedTransition,
+        openedTraversalScope: input.openedTraversalScope,
+        closureContract: input.closureContract,
+        basis: admissionBasis(input.clock, "completion"),
+        ...(input.deferToApplication === true
+          ? { deferToApplication: true as const }
+          : {}),
+      });
+    } catch (error) {
+      return failCCall(
+        input,
+        admitted.successorPrefix,
+        `leaf-completion-${input.ordinal}`,
+        "diagnostic://abiogenesis/hog/leaf-completion-owner-fault@5",
+        { error: String(error) },
+      );
+    }
+    if (completionAdmission.kind !== "c_call_completion_admission") {
+      return failCCall(
+        input,
+        admitted.successorPrefix,
+        `leaf-completion-${input.ordinal}`,
+        `diagnostic://abiogenesis/hog/${completionAdmission.code}@5`,
+        completionAdmission as unknown as JsonValue,
+      );
+    }
+    try {
+      return {
+        kind: "c_call_evaluation" as const,
+        completion: projectCCallCompletion(
+          input.stop.cursor,
+          completionAdmission,
+          target,
+        ),
+        outputValueKind,
+        outputContractRef: input.stop.outputContractRef,
+      };
+    } catch (error) {
+      const completionPrefix =
+        completionAdmission.disposition === "application_ready"
+          ? completionAdmission.outcome.successorPrefix
+          : completionAdmission.transition.successorPrefix;
+      return failCCall(
+        input,
+        completionPrefix,
+        `leaf-projection-${input.ordinal}`,
+        "diagnostic://abiogenesis/hog/leaf-completion-projection-fault@5",
+        { error: String(error) },
+      );
+    }
+  });
+}

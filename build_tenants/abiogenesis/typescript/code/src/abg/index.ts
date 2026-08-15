@@ -121,6 +121,8 @@ export {
   hasOpenedTraversalScopeAtPrefix,
   isOpenedTraversalScope,
   openTraversalScope,
+  projectOpenedTraversalScopeClassAtPrefix,
+  projectOpenedTraversalScopeClassAtDurablePrefix,
   rehydrateOpenedTraversalScope,
   rehydrateOpenedTraversalScopeAtPrefix,
   type OpenTraversalScopeAdmission,
