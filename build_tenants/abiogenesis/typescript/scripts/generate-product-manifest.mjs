@@ -654,7 +654,7 @@ const rows = [
   {
     contractId: "abg.contract.hog.judgment-transition-root",
     contractVersion: "5.0.0",
-    contractDigest: nativeContractDigest(abgNativeInventory),
+    contractDigest: nativeContractDigest(hogNativeInventory),
     contractKind: "native_typed_group",
     owningProduct: productId,
     requirementAuthorityRefs: [
