@@ -326,6 +326,54 @@ The concern lenses of authority, capability/reuse, temporal behavior,
 transport, composition, and proof are applied across these frames. They do not
 create more frames or more implementation authority.
 
+#### 5.3.2 Compounded-frame scenario proof law
+
+ABIogenesis acceptance evidence follows the realistic installed Product path.
+An isolated component can be locally lawful while its composition violates a
+coordinate, value, lifecycle-scope, prefix, owner, or projection relation.
+Consequently, component-unit success cannot establish an integrated Product,
+feature, wave, interface, or release claim.
+
+Applicable reference frames contribute partial observations over one bounded
+material-relation manifold. Coverage is the union of those observations;
+admissibility is the intersection of their constraints. A bounded claim closes
+only when every material relation and every touched cross-frame seam is
+covered, or an uncovered relation is returned explicitly as a residual or
+`out_of_frame`.
+
+Every touched seam conserves or lawfully transforms this proof coordinate:
+
+```text
+entity identity
+  + topology coordinate
+  + carried value and digest
+  + lifecycle scope
+  + durable or artifact predecessor
+  -> exact owner operation
+  -> candidate or typed refusal
+  -> owner admission or deterministic construction
+  -> successor coordinate, value, scope, and prefix or artifact identity
+```
+
+The following local axioms govern proof selection:
+
+| Axiom | Law |
+|---|---|
+| **SP-01 Installed reachability** | A Product, feature, wave, interface, or release claim is proved only by a source-independent installed scenario that enters through the selected public transport and reaches the actual definition binding, owner operations, effects, events, Event Calculus/replay, and Product projection. A direct source import, unbound replacement core, wrapper test, or component test cannot establish reachability. |
+| **SP-02 Compounded-frame coverage** | A scenario activates every reference frame material to its path and evaluates every touched seam. Passing components do not imply a passing composition. Frame-local observations are combined by coverage union and constraint intersection; no frame, reviewer, or test count is presumed complete alone. |
+| **SP-03 Seam conservation** | At each cross-frame transition, entity identity, topology coordinate, carried value/digest, lifecycle scope, authority, and predecessor/successor identity are compared together. A transition refuses when any coordinate is absent, ambiguous, stale, foreign, or associated with a different scope. |
+| **SP-04 Lifecycle-path closure** | Applicable entry, advance, suspend, resume, retry, child-return, root-close, block, refusal, and failure relations are exercised through the real composed path. Root and nested-child scope, and initial and continued entry, remain distinct whenever the Product relation can observe that distinction. |
+| **SP-05 Unit-proof boundary** | A unit test is required only for an irreducible local algebra, a novel pure invariant, or a decision-exact local falsifier that cannot be observed proportionally through a scenario. Unit tests for wrappers, renamed carriers, port forwarding, copied orchestration branches, generated rosters, or already-proved owner atoms add no acceptance authority. |
+| **SP-06 Proportional evidence** | A new irreducible atom receives focused unit evidence; a changed owner seam receives a focused integration scenario and only the material changed-boundary negatives; a Product claim receives an installed end-to-end scenario. Exhaustive permutations, stable-atom reruns, and broad matrices run once at the applicable integrated qualification boundary unless a changed relation makes them immediately material. |
+| **SP-07 No proof-authored meaning** | Scenarios consume installed bindings, canonical transports, owner receipts, admitted events, Event Calculus/replay, and Product projections. Fixtures, mocks, expected-value builders, Governors, and test harnesses may supply physical-world boundaries and compare evidence; they may not recreate Product, GTL, HoG, ABG, catalog, lifecycle, identity, admission, or replay meaning. |
+| **SP-08 Reachability before volume** | One complete function-by-function walk and one representative installed scenario outrank any number of disconnected unit successes. Removing or refusing the selected implementation must make that scenario fail closed, proving that no predecessor, compatibility path, fixture substitute, or alternate runtime remains reachable. |
+| **SP-09 Failure localization** | A scenario failure returns to the first violated owner operation or seam coordinate. It does not authorize broader test expansion, compatibility repair, another controller, or reinterpretation of unchanged upstream meaning. |
+
+Unit evidence remains valuable where the subject is genuinely atomic. Scenario
+evidence remains mandatory where the claim is compositional. The purpose of
+this law is not to eliminate unit tests; it is to prevent repeated local proof
+from substituting for the realistic Product execution path.
+
 ### 5.4 Abstract Relation
 
 Let `W_s` and `W_t` be immutable canonical topology witnesses for source and
