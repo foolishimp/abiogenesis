@@ -4270,10 +4270,8 @@ async function applyRunContinue(
         predecessorPrefix: effectContext.prefix,
         executionBasis: rehydrated.executionBasis,
         openedTraversalScope: rehydrated.openedTraversalScope,
-        program: state.program,
         graphFunction: heldRuntime.graphFunction,
         graph: state.heldGraph,
-        interactionSet,
         heldInteraction: {
           ...rehydrated.heldInteraction,
           cursor: heldCursor,

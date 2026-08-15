@@ -1,903 +1,1417 @@
 import * as Effect from "effect/Effect";
 
-import { isInteractionCLeaf } from "../gtl/c_algebra.js";
-import { isMaterializedGtlGraph } from "../gtl/materialize.js";
-import {
-  deriveCContinuationTarget,
-  deriveCRetryTarget,
-  deriveCStructuralTarget,
-  resolveCProgramTermAtSourcePath,
-  resolveEnclosingCRetryContexts,
-  type CContinuationTarget,
-  type CTraversalSource,
-  type CTraversalTarget,
-} from "../gtl/source_path.js";
-import type { Sha256Digest } from "../shared/digests.js";
 import type {
-  ChildFoldbackAdmissionPort,
-  ChildFrameAdmissionPort,
-  DeterministicInvocationPort,
-  DeterministicResultAdmissionPort,
-  ExecutableOccurrenceAdmissionPort,
-  HogAdmittedDisposition,
-  HogAdmittedJudgment,
-  HogAdmittedResult,
-  HogChildRequest,
-  HogFrame,
-  HogLeafOccurrence,
-  HogOpenedOccurrence,
-  HogPreparedChild,
-  HogStructuralOccurrence,
-  HogTransitionProposal,
-  HogValue,
-  HogWorkflowOccurrence,
-  InteractionInvocationPort,
-  InteractionOccurrenceAdmissionPort,
-  InteractionResultAdmissionPort,
-  JudgmentAdmissionPort,
-  JudgmentEvaluationPort,
-  ProbabilisticInvocationPort,
-  ProbabilisticResultAdmissionPort,
-  StructuralAdmissionPort,
-  TerminalAdmissionPort,
-  TransitionAdmissionPort,
+  AdmittedCCallResult,
+  CCall,
+  CCallAdmission,
+  ExecutableCCallLocusCandidate,
+  InteractionCCallLocusCandidate,
+  PendingInteractionAdmissionPlan,
+  WorkflowCCallProposal,
+} from "../abg/c_call.js";
+import type {
+  BlockedCCallOutcomeReceipt,
+  JudgedCCallOutcomeReceipt,
+  ResultCCallOutcomeReceipt,
+  RetryCCallOutcomeReceipt,
+} from "../abg/c_call_outcome.js";
+import type {
+  AdmittedImplementationSet,
+  ExecutionBasis,
+} from "../abg/execution_basis.js";
+import type { DurablePrefixCoordinate } from "../abg/event_store.js";
+import type { ApplicationChildFoldbackReceipt } from "../abg/graph_application.js";
+import type {
+  CompletedRetryProgressPlan,
+  ExecutableRetryInput,
+  RetryCompletedProgressAdmission,
+} from "../abg/retry.js";
+import type { ReplayState } from "../abg/replay.js";
+import type { TraversalCursorCandidate } from "../abg/traversal_cursor.js";
+import {
+  completeTraversalTransitionCandidate,
+} from "../abg/traversal_transition.js";
+import type { CWorkflowNode } from "../gtl/c_algebra.js";
+import type {
+  ClosureContract,
+  GraphFunction,
+  GtlGraph,
+  GtlProgram,
+  RecurseApplication,
+} from "../gtl/contracts.js";
+import { recursionTerminationDecision } from "../gtl/graph_applications.js";
+import type {
+  ClosedLeafOwnerReceipt,
+  LeafInvocationPort,
+} from "../implementation/contracts.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
+import type { PreparedChildTraversal } from "./child_traversal.js";
+import type {
+  CompleteInteractionResumeInput,
+} from "./interaction_resume.js";
+import { proposeJudgmentCandidate } from "./judgment.js";
+import type {
+  AdmitCCallCompletionPort,
+  AdmitCCallJudgmentPort,
+  AdmitBlockedRetryTraversalTransitionPort,
+  AdmitCompletedRetryTraversalTransitionPort,
+  AdmitInitialTraversalCursorPort,
+  AdmitInteractionHoldPort,
+  AdmitLeafResultPort,
+  AdmitRecursionChildFoldbackPort,
+  AdmitRecursionCompletionPort,
+  AdmitRetryRuntimeFailurePort,
+  AdmitTraversalTransitionPort,
+  AdmitWorkflowChildFoldbackPort,
+  AdmitWorkflowResultPort,
+  BindProbabilisticLeafEffectsPort,
+  InvokeLeafOwnerPort,
+  OpenExecutableCCallPort,
+  OpenInteractionCCallPort,
+  OpenWorkflowCCallPort,
+  PlanInteractionPort,
+  PlanCompletedRetryProgressPort,
+  PlanRetryRuntimeFailurePort,
+  PrepareChildTraversalPort,
+  ProjectExecutableRetryInputPort,
+  ProjectCCallCompletionPort,
+  ProjectReplayPort,
+  ResolveExecutableImplementationPort,
+  ResolveCCallLocusPort,
+  ResolveInitialChildCursorPort,
+  ResolveInteractionContractPort,
+  ResolveTraversalCursorAdmissionEventRefPort,
+  ResolveTraversalValuePort,
+  ResumeInteractionOwnerPort,
+  StructuralTerm,
 } from "./ports.js";
+import {
+  deriveCompletedTraversalCursor,
+  deriveRecursionReentryCursor,
+  deriveRetryTraversalCursor,
+  deriveStructuralTargetCursor,
+  resolveTraversalTerm,
+  type TraversalRefusal,
+  type TraverseInput,
+} from "./traversal.js";
+import {
+  proposeBlockedRoute,
+  proposeCCallOutcomeTransition,
+  proposeHoldRoute,
+  proposeRecursionRoute,
+  proposeRetryRoute,
+  proposeStructuralRoute,
+  type RouteProposalRefusal,
+} from "./route_proposal.js";
+import type { OpenedTraversalScope } from "../abg/open_call.js";
+import type { GraphValidation } from "../validator/graph.js";
+import {
+  projectBlockedRetryTraversalCompletion,
+  projectHeldTraversalCompletion,
+  type ExecutableTraversalCompletion,
+  type HeldParentTraversalSuspension,
+  type HeldRecursionSuspension,
+  type HeldWorkflowSuspension,
+} from "./traversal_completion.js";
 
-export interface HogReturnFrame<Prefix, Value> {
-  readonly kind: "hog_return_frame";
-  readonly parent: HogFrame<Value>;
-  readonly child: HogPreparedChild<Prefix, Value>;
+type TraversalValue = Readonly<Record<string, JsonValue>>;
+
+interface EvaluationFrame {
+  readonly traversal: TraverseInput;
+  readonly implementationSet: AdmittedImplementationSet;
+  readonly leafPort: LeafInvocationPort;
+  readonly closureContract: Readonly<ClosureContract>;
+  readonly graphEntryInput: TraversalValue;
+  readonly graphEntryInputDigest: `sha256:${string}`;
+  readonly cursor: TraversalCursorCandidate;
+  readonly input: TraversalValue;
+  readonly terminalMode: "close_run" | "return_to_parent";
 }
 
-export interface HogEvaluationInput<Prefix, Value> {
-  readonly frame: HogFrame<Value>;
-  readonly predecessorPrefix: Readonly<Prefix>;
-  readonly returns?: readonly HogReturnFrame<Prefix, Value>[];
+interface WorkflowReturnFrame {
+  readonly relation: "workflow";
+  readonly parent: EvaluationFrame;
+  readonly parentCall: CCall;
+  readonly childExecutionBasis: ExecutionBasis;
+  readonly childTraversalScope: OpenedTraversalScope;
+  readonly childInput: TraversalValue;
+  readonly childInputDigest: `sha256:${string}`;
 }
 
-interface HogTraversalReceiptBase<Prefix, Value> {
-  readonly kind: "hog_traversal_receipt";
-  readonly frame: HogFrame<Value>;
-  readonly predecessorPrefix: Readonly<Prefix>;
-  readonly returns: readonly HogReturnFrame<Prefix, Value>[];
+interface RecursionReturnFrame {
+  readonly relation: "recursion";
+  readonly parent: EvaluationFrame;
+  readonly parentOutcome: JudgedCCallOutcomeReceipt;
+  readonly application: Readonly<RecurseApplication>;
+  readonly childExecutionBasis: ExecutionBasis;
+  readonly childTraversalScope: OpenedTraversalScope;
+  readonly childInput: TraversalValue;
+  readonly childInputDigest: `sha256:${string}`;
 }
 
-export type HogTraversalReceipt<Prefix, Value> =
-  | (HogTraversalReceiptBase<Prefix, Value> & Readonly<{
-      disposition: "complete" | "hold";
-      dispositionRef: string;
-      dispositionDigest: Sha256Digest;
-      value: HogValue<Value>;
-    }>)
-  | (HogTraversalReceiptBase<Prefix, Value> & Readonly<{
-      disposition: "fail" | "refuse";
-      dispositionRef: string;
-      dispositionDigest: Sha256Digest;
-      diagnosticRef: string;
-      value: HogValue<Value>;
-    }>)
-  | (HogTraversalReceiptBase<Prefix, Value> & Readonly<{
-      disposition: "out_of_frame";
-      diagnosticRef: string;
-      message: string;
-      value: HogValue<Value>;
-    }>);
+export type HogReturnFrame = WorkflowReturnFrame | RecursionReturnFrame;
 
-interface EvaluateState<Prefix, Value> {
+interface EvaluationInputBase {
+  readonly traversal: TraverseInput;
+  readonly implementationSet: AdmittedImplementationSet;
+  readonly leafPort: LeafInvocationPort;
+  readonly closureContract: Readonly<ClosureContract>;
+  readonly graphEntryInput: TraversalValue;
+  readonly graphEntryInputDigest: `sha256:${string}`;
+  readonly cursor: TraversalCursorCandidate;
+  readonly input: TraversalValue;
+  readonly eventTime: string;
+  readonly correlationId: string;
+  readonly terminalMode: "close_run" | "return_to_parent";
+}
+
+export interface HogFreshEvaluationInput extends EvaluationInputBase {
+  readonly entry: "fresh";
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+}
+
+export interface HogFhInteractionResumeInput {
+  readonly entry: "fh_interaction_resume";
+  readonly interaction: CompleteInteractionResumeInput;
+  readonly program: Readonly<GtlProgram>;
+  readonly graphValidation: GraphValidation;
+  readonly implementationSet: AdmittedImplementationSet;
+  readonly leafPort: LeafInvocationPort;
+  readonly graphEntryInput: TraversalValue;
+  readonly graphEntryInputDigest: `sha256:${string}`;
+  readonly terminalMode: "close_run" | "return_to_parent";
+  readonly parentSuspensions: readonly HeldParentTraversalSuspension[];
+}
+
+export type HogEvaluationInput =
+  | HogFreshEvaluationInput
+  | HogFhInteractionResumeInput;
+
+export type HogEvaluationResult = ExecutableTraversalCompletion;
+
+export type HogEvaluationError<OwnerError> =
+  | OwnerError
+  | RouteProposalRefusal
+  | TraversalRefusal;
+
+interface EvaluateState {
   readonly stateKind: "evaluate";
-  readonly frame: HogFrame<Value>;
-  readonly predecessorPrefix: Readonly<Prefix>;
-  readonly returns: readonly HogReturnFrame<Prefix, Value>[];
+  readonly frame: EvaluationFrame;
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+  readonly returns: readonly HogReturnFrame[];
 }
 
-interface PrepareChildState<Prefix, Value> {
-  readonly stateKind: "prepare_child";
-  readonly parent: HogFrame<Value>;
-  readonly request: HogWorkflowOccurrence<Value> | HogChildRequest<Value>;
-  readonly predecessorPrefix: Readonly<Prefix>;
-  readonly returns: readonly HogReturnFrame<Prefix, Value>[];
+interface RehydrateInteractionState {
+  readonly stateKind: "rehydrate_interaction";
+  readonly input: HogFhInteractionResumeInput;
 }
 
-type ChildTerminalDisposition<Prefix, Value> = Extract<
-  HogAdmittedDisposition<Prefix, Value>,
-  Readonly<{ disposition: "complete" | "fail" | "refuse" }>
->;
+interface PrepareWorkflowState {
+  readonly stateKind: "prepare_workflow";
+  readonly parent: EvaluationFrame;
+  readonly term: Readonly<CWorkflowNode>;
+  readonly parentCall: CCallAdmission;
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+  readonly returns: readonly HogReturnFrame[];
+}
 
-interface FoldbackState<Prefix, Value> {
+interface PrepareRecursionState {
+  readonly stateKind: "prepare_recursion";
+  readonly parent: EvaluationFrame;
+  readonly application: Readonly<RecurseApplication>;
+  readonly parentOutcome: JudgedCCallOutcomeReceipt;
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+  readonly returns: readonly HogReturnFrame[];
+}
+
+interface FoldbackState {
   readonly stateKind: "foldback";
-  readonly parentReturn: HogReturnFrame<Prefix, Value>;
-  readonly childDisposition: ChildTerminalDisposition<Prefix, Value>;
-  readonly returns: readonly HogReturnFrame<Prefix, Value>[];
+  readonly parentReturn: HogReturnFrame;
+  readonly childCompletion: ExecutableTraversalCompletion;
+  readonly returns: readonly HogReturnFrame[];
 }
 
-interface DoneState<Prefix, Value> {
+interface DoneState {
   readonly stateKind: "done";
-  readonly receipt: HogTraversalReceipt<Prefix, Value>;
+  readonly result: HogEvaluationResult;
 }
 
-type OpenState<Prefix, Value> =
-  | EvaluateState<Prefix, Value>
-  | PrepareChildState<Prefix, Value>
-  | FoldbackState<Prefix, Value>;
+type OpenState =
+  | EvaluateState
+  | FoldbackState
+  | PrepareRecursionState
+  | PrepareWorkflowState
+  | RehydrateInteractionState;
+type State = DoneState | OpenState;
 
-type EvaluationState<Prefix, Value> =
-  | OpenState<Prefix, Value>
-  | DoneState<Prefix, Value>;
+export type HogEvaluatorServices<OwnerError> = Readonly<{
+  projectReplay: ProjectReplayPort<OwnerError>;
+  resolveTraversalValue: ResolveTraversalValuePort<OwnerError>;
+  resolveInitialChildCursor: ResolveInitialChildCursorPort<OwnerError>;
+  resolveCCallLocus: ResolveCCallLocusPort<OwnerError>;
+  admitInitialCursor: AdmitInitialTraversalCursorPort<OwnerError>;
+  admitTransition: AdmitTraversalTransitionPort<OwnerError>;
+  resolveExecutable: ResolveExecutableImplementationPort<OwnerError>;
+  resolveInteraction: ResolveInteractionContractPort<OwnerError>;
+  openExecutable: OpenExecutableCCallPort<OwnerError>;
+  openInteraction: OpenInteractionCCallPort<OwnerError>;
+  openWorkflow: OpenWorkflowCCallPort<OwnerError>;
+  bindProbabilistic: BindProbabilisticLeafEffectsPort<OwnerError>;
+  invokeLeaf: InvokeLeafOwnerPort<OwnerError>;
+  admitLeafResult: AdmitLeafResultPort<OwnerError>;
+  admitJudgment: AdmitCCallJudgmentPort<OwnerError>;
+  planInteraction: PlanInteractionPort<OwnerError>;
+  admitInteractionHold: AdmitInteractionHoldPort<OwnerError>;
+  planRetryFailure: PlanRetryRuntimeFailurePort<OwnerError>;
+  admitRetryFailure: AdmitRetryRuntimeFailurePort<OwnerError>;
+  projectRetryInput: ProjectExecutableRetryInputPort<OwnerError>;
+  admitBlockedRetryTransition:
+    AdmitBlockedRetryTraversalTransitionPort<OwnerError>;
+  resolveCursorAdmissionEventRef:
+    ResolveTraversalCursorAdmissionEventRefPort<OwnerError>;
+  planCompletedRetryProgress: PlanCompletedRetryProgressPort<OwnerError>;
+  admitCompletedRetryTransition:
+    AdmitCompletedRetryTraversalTransitionPort<OwnerError>;
+  admitCompletion: AdmitCCallCompletionPort<OwnerError>;
+  projectCompletion: ProjectCCallCompletionPort<OwnerError>;
+  prepareChild: PrepareChildTraversalPort<OwnerError>;
+  admitWorkflowFoldback: AdmitWorkflowChildFoldbackPort<OwnerError>;
+  admitWorkflowResult: AdmitWorkflowResultPort<OwnerError>;
+  admitRecursionFoldback: AdmitRecursionChildFoldbackPort<OwnerError>;
+  admitRecursionCompletion: AdmitRecursionCompletionPort<OwnerError>;
+  resumeInteractionOwner: ResumeInteractionOwnerPort<OwnerError>;
+  rehydrateParentReturns: (
+    predecessorPrefix: DurablePrefixCoordinate,
+    suspensions: readonly HeldParentTraversalSuspension[],
+  ) => Effect.Effect<readonly HogReturnFrame[], OwnerError>;
+}>;
 
-function freezeReturns<Prefix, Value>(
-  returns: readonly HogReturnFrame<Prefix, Value>[],
-): readonly HogReturnFrame<Prefix, Value>[] {
+function freezeReturns(
+  returns: readonly HogReturnFrame[],
+): readonly HogReturnFrame[] {
   return Object.freeze([...returns]);
 }
 
-function isDigest(value: string): value is Sha256Digest {
-  return /^sha256:[a-f0-9]{64}$/u.test(value);
-}
-
-function samePath(left: readonly string[], right: readonly string[]): boolean {
-  return left.length === right.length &&
-    left.every((segment, index) => segment === right[index]);
-}
-
-function sameRetryPath(left: readonly number[], right: readonly number[]): boolean {
-  return left.length === right.length &&
-    left.every((attempt, index) => attempt === right[index]);
-}
-
-function sameSource(
-  left: CTraversalSource,
-  right: CTraversalSource,
-): boolean {
-  return left.nodeRef === right.nodeRef &&
-    samePath(left.termPath, right.termPath) &&
-    left.taskOrdinal === right.taskOrdinal &&
-    left.attempt === right.attempt &&
-    sameRetryPath(left.retryPath, right.retryPath) &&
-    left.inputRef === right.inputRef &&
-    left.inputDigest === right.inputDigest;
-}
-
-function targetSource(target: CTraversalTarget): CTraversalSource {
+function frameFromInput(input: EvaluationInputBase): EvaluationFrame {
   return Object.freeze({
-    nodeRef: target.nodeRef,
-    termPath: Object.freeze([...target.termPath]),
-    taskOrdinal: target.taskOrdinal,
-    attempt: target.attempt,
-    retryPath: Object.freeze([...target.retryPath]),
-    inputRef: target.inputRef,
-    inputDigest: target.inputDigest,
+    traversal: input.traversal,
+    implementationSet: input.implementationSet,
+    leafPort: input.leafPort,
+    closureContract: input.closureContract,
+    graphEntryInput: input.graphEntryInput,
+    graphEntryInputDigest: input.graphEntryInputDigest,
+    cursor: input.cursor,
+    input: input.input,
+    terminalMode: input.terminalMode,
   });
 }
 
-function continuationSource(
-  target: CContinuationTarget & Readonly<{ disposition: "advance" }>,
-): CTraversalSource | null {
-  return target.nodeRef === null || target.termPath === null ||
-      target.attempt === null || target.inputRef === null ||
-      target.inputDigest === null
-    ? null
-    : Object.freeze({
-        nodeRef: target.nodeRef,
-        termPath: Object.freeze([...target.termPath]),
-        taskOrdinal: target.taskOrdinal,
-        attempt: target.attempt,
-        retryPath: Object.freeze([...target.retryPath]),
-        inputRef: target.inputRef,
-        inputDigest: target.inputDigest,
-      });
-}
-
-function exactFrame<Value>(frame: HogFrame<Value>): boolean {
-  const identity = frame.identity;
-  return isMaterializedGtlGraph(frame.graph) &&
-    frame.graph.materializationRef.length > 0 &&
-    isDigest(frame.graph.materializationDigest) &&
-    identity.programRef.length > 0 && isDigest(identity.programDigest) &&
-    identity.executionBasisRef.length > 0 &&
-    isDigest(identity.executionBasisDigest) &&
-    identity.traversalScopeRef.length > 0 &&
-    isDigest(identity.traversalScopeDigest) &&
-    identity.runId.length > 0 && isDigest(identity.runDigest) &&
-    identity.graphCallId.length > 0 && isDigest(identity.graphCallDigest) &&
-    identity.frameId.length > 0 && isDigest(identity.frameDigest) &&
-    frame.cursor.nodeRef.length > 0 &&
-    frame.cursor.termPath.length >= 3 &&
-    frame.cursor.termPath[0] === "node" &&
-    frame.cursor.termPath[1] === frame.cursor.nodeRef &&
-    frame.cursor.termPath[2] === "c" &&
-    frame.cursor.inputRef === frame.value.valueRef &&
-    frame.cursor.inputDigest === frame.value.valueDigest &&
-    isDigest(frame.cursor.inputDigest) &&
-    frame.cursor.attempt >= 1 && Number.isSafeInteger(frame.cursor.attempt) &&
-    frame.cursor.retryPath.every(
-      (attempt) => Number.isSafeInteger(attempt) && attempt >= 1,
-    );
-}
-
-function outOfFrame<Prefix, Value>(
-  frame: HogFrame<Value>,
-  predecessorPrefix: Readonly<Prefix>,
-  returns: readonly HogReturnFrame<Prefix, Value>[],
-  diagnosticRef: string,
-  message: string,
-): DoneState<Prefix, Value> {
+function frameFromInteractionResume(
+  input: HogFhInteractionResumeInput,
+): EvaluationFrame {
+  const interaction = input.interaction;
   return Object.freeze({
-    stateKind: "done" as const,
-    receipt: Object.freeze({
-      kind: "hog_traversal_receipt" as const,
-      disposition: "out_of_frame" as const,
-      frame,
-      predecessorPrefix,
-      returns: freezeReturns(returns),
-      diagnosticRef,
-      message,
-      value: frame.value,
+    traversal: Object.freeze({
+      program: input.program,
+      graphFunction: interaction.graphFunction,
+      graph: interaction.graph,
+      graphValidation: input.graphValidation,
+      executionBasis: interaction.executionBasis,
+      openedTraversalScope: interaction.openedTraversalScope,
     }),
+    implementationSet: input.implementationSet,
+    leafPort: input.leafPort,
+    closureContract: interaction.closureContract,
+    graphEntryInput: input.graphEntryInput,
+    graphEntryInputDigest: input.graphEntryInputDigest,
+    cursor: interaction.successorCursor,
+    input: interaction.resume.successorInputValue,
+    terminalMode: input.terminalMode,
   });
 }
 
-function doneFromDisposition<Prefix, Value>(
-  frame: HogFrame<Value>,
-  disposition: Exclude<
-    HogAdmittedDisposition<Prefix, Value>,
-    Readonly<{
-      disposition: "advance" | "retry" | "enter_child";
-    }>
-  >,
-  returns: readonly HogReturnFrame<Prefix, Value>[],
-): DoneState<Prefix, Value> {
-  return Object.freeze({
-    stateKind: "done" as const,
-    receipt: disposition.disposition === "fail" ||
-        disposition.disposition === "refuse"
-      ? Object.freeze({
-          kind: "hog_traversal_receipt" as const,
-          disposition: disposition.disposition,
-          frame,
-          predecessorPrefix: disposition.successorPrefix,
-          returns: freezeReturns(returns),
-          dispositionRef: disposition.dispositionRef,
-          dispositionDigest: disposition.dispositionDigest,
-          diagnosticRef: disposition.diagnosticRef,
-          value: disposition.value,
-        })
-      : Object.freeze({
-          kind: "hog_traversal_receipt" as const,
-          disposition: disposition.disposition,
-          frame,
-          predecessorPrefix: disposition.successorPrefix,
-          returns: freezeReturns(returns),
-          dispositionRef: disposition.dispositionRef,
-          dispositionDigest: disposition.dispositionDigest,
-          value: disposition.value,
-        }),
-  });
+function isTraversalValue(value: JsonValue): value is TraversalValue {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function terminalState<Prefix, Value>(
-  frame: HogFrame<Value>,
-  disposition: ChildTerminalDisposition<Prefix, Value>,
-  returns: readonly HogReturnFrame<Prefix, Value>[],
-): EvaluationState<Prefix, Value> {
+function isProbabilisticLocus(
+  locus: ExecutableCCallLocusCandidate,
+): locus is ExecutableCCallLocusCandidate &
+  Readonly<{ computeRegime: "F_P" }> {
+  return locus.computeRegime === "F_P";
+}
+
+function resultFromOutcome(
+  outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
+): AdmittedCCallResult {
+  return outcome.disposition === "judged"
+    ? outcome.admitted.result
+    : outcome.result;
+}
+
+function recursionApplication(
+  graph: Readonly<GtlGraph>,
+  compositionRef: string | null,
+): Readonly<RecurseApplication> | null {
+  const application = compositionRef === null
+    ? undefined
+    : graph.template.applications.find(
+        (candidate) => candidate.applicationRef === compositionRef,
+      );
+  return application?.relationKind === "recurse" ? application : null;
+}
+
+function terminalState(
+  completion: ExecutableTraversalCompletion,
+  returns: readonly HogReturnFrame[],
+): State {
   const parentReturn = returns.at(-1);
   return parentReturn === undefined
-    ? doneFromDisposition(frame, disposition, returns)
+    ? Object.freeze({ stateKind: "done" as const, result: completion })
     : Object.freeze({
         stateKind: "foldback" as const,
         parentReturn,
-        childDisposition: disposition,
+        childCompletion: completion,
         returns: freezeReturns(returns.slice(0, -1)),
       });
 }
 
-function validateDispositionIdentity<Prefix, Value>(
-  disposition: HogAdmittedDisposition<Prefix, Value>,
-): boolean {
-  return disposition.dispositionRef.length > 0 &&
-    isDigest(disposition.dispositionDigest) &&
-    (disposition.disposition === "enter_child" ||
-      (disposition.value.valueRef.length > 0 &&
-        isDigest(disposition.value.valueDigest)));
-}
-
-function applyDisposition<Prefix, Value>(
-  frame: HogFrame<Value>,
-  disposition: HogAdmittedDisposition<Prefix, Value>,
-  returns: readonly HogReturnFrame<Prefix, Value>[],
-  expected: HogTransitionProposal | CTraversalTarget | CContinuationTarget,
-): EvaluationState<Prefix, Value> {
-  if (!validateDispositionIdentity(disposition)) {
-    return outOfFrame(
-      frame,
-      disposition.successorPrefix,
-      returns,
-      "diagnostic://abiogenesis/hog/admission-identity-mismatch@5",
-      "owner disposition lacks one exact admitted ref and digest",
-    );
-  }
-  if (disposition.disposition === "advance" ||
-      disposition.disposition === "retry") {
-    const expectedSource = "kind" in expected &&
-        expected.kind === "hog_transition_proposal"
-      ? expected.disposition === "advance"
-        ? continuationSource(expected.target)
-        : expected.disposition === "retry"
-          ? targetSource(expected.target)
-          : null
-      : expected.kind === "c_traversal_target"
-        ? targetSource(expected)
-        : expected.disposition === "advance"
-          ? continuationSource(
-              expected as CContinuationTarget & Readonly<{
-                disposition: "advance";
-              }>,
-            )
-          : null;
-    if (
-      expectedSource === null ||
-      !sameSource(disposition.target, expectedSource) ||
-      disposition.target.inputRef !== disposition.value.valueRef ||
-      disposition.target.inputDigest !== disposition.value.valueDigest
-    ) {
-      return outOfFrame(
-        frame,
-        disposition.successorPrefix,
-        returns,
-        "diagnostic://abiogenesis/hog/admitted-target-mismatch@5",
-        "owner disposition differs from the exact GTL-derived target",
+function continueAfterCompletion(
+  frame: EvaluationFrame,
+  target: TraversalCursorCandidate | null,
+  completion: ExecutableTraversalCompletion,
+  returns: readonly HogReturnFrame[],
+): State {
+  if (completion.disposition !== "advanced" || target === null) {
+    if (completion.disposition === "advanced") {
+      throw new TypeError(
+        "advanced HoG completion lacks its exact target cursor",
       );
     }
-    return Object.freeze({
-      stateKind: "evaluate" as const,
-      frame: Object.freeze({
-        ...frame,
-        cursor: disposition.target,
-        value: disposition.value,
-      }),
-      predecessorPrefix: disposition.successorPrefix,
-      returns: freezeReturns(returns),
-    });
+    return terminalState(completion, returns);
   }
-  if (disposition.disposition === "enter_child") {
-    const declared = frame.graph.template.applications.filter(
-      (application) => application.relationKind === "recurse" &&
-        application.applicationRef === disposition.child.declarationRef &&
-        application.graphFunctionRef === disposition.child.graphFunctionRef,
-    );
-    if (
-      disposition.child.relation !== "recursion" ||
-      declared.length !== 1
-    ) {
-      return outOfFrame(
-        frame,
-        disposition.successorPrefix,
-        returns,
-        "diagnostic://abiogenesis/hog/child-declaration-mismatch@5",
-        "admitted child disposition lacks one exact declared recursion",
-      );
-    }
-    return Object.freeze({
-      stateKind: "prepare_child" as const,
-      parent: frame,
-      request: disposition.child,
-      predecessorPrefix: disposition.successorPrefix,
-      returns: freezeReturns(returns),
-    });
-  }
-  if (disposition.disposition === "hold") {
-    return "kind" in expected &&
-        expected.kind === "hog_transition_proposal" &&
-        expected.disposition === "hold"
-      ? doneFromDisposition(frame, disposition, returns)
-      : outOfFrame(
-          frame,
-          disposition.successorPrefix,
-          returns,
-          "diagnostic://abiogenesis/hog/hold-topology-mismatch@5",
-          "owner hold differs from the declared interaction boundary",
-        );
-  }
-  if (disposition.disposition === "complete") {
-    const terminal = "kind" in expected &&
-      (expected.kind === "c_continuation_target"
-        ? expected.disposition === "terminal" && expected.relation === "root_complete"
-        : expected.kind === "hog_transition_proposal" &&
-          expected.disposition === "terminal");
-    return terminal
-      ? terminalState(frame, disposition, returns)
-      : outOfFrame(
-          frame,
-          disposition.successorPrefix,
-          returns,
-          "diagnostic://abiogenesis/hog/terminal-topology-mismatch@5",
-          "owner completion differs from GTL root completion",
-        );
-  }
-  return terminalState(frame, disposition, returns);
-}
-
-function transitionProposal<Prefix, Value>(
-  occurrence: HogLeafOccurrence<Value>,
-  result: HogAdmittedResult<Prefix, Value>,
-  judgment: HogAdmittedJudgment<Prefix>,
-): HogTransitionProposal | Readonly<{ diagnosticRef: string; message: string }> {
-  const continuation = deriveCContinuationTarget(
-    occurrence.frame.graph,
-    occurrence.frame.cursor,
-    {
-      inputRef: result.value.valueRef,
-      inputDigest: result.value.valueDigest,
-    },
-  );
-  if (continuation.kind === "c_source_path_refusal") {
-    return Object.freeze({
-      diagnosticRef: "diagnostic://abiogenesis/hog/continuation-refused@5",
-      message: continuation.message,
-    });
-  }
-  if (judgment.decision === "advance") {
-    if (continuation.disposition === "terminal" &&
-        continuation.relation === "root_complete") {
-      return Object.freeze({
-        kind: "hog_transition_proposal" as const,
-        disposition: "terminal" as const,
-        relation: "root_complete" as const,
-        source: occurrence.frame.cursor,
-      });
-    }
-    return continuation.disposition === "advance" &&
-          continuation.nodeRef !== null && continuation.termPath !== null &&
-          continuation.attempt !== null && continuation.inputRef !== null &&
-          continuation.inputDigest !== null
-        ? Object.freeze({
-            kind: "hog_transition_proposal" as const,
-            disposition: "advance" as const,
-            relation: continuation.relation,
-            target: Object.freeze({
-              ...continuation,
-              disposition: "advance" as const,
-            }),
-          })
-        : Object.freeze({
-            diagnosticRef: "diagnostic://abiogenesis/hog/advance-target-absent@5",
-            message: "admitted advance lacks one GTL continuation target",
-          });
-  }
-  if (occurrence.term.fibre === "F_H" && isInteractionCLeaf(occurrence.term)) {
-    return Object.freeze({
-      kind: "hog_transition_proposal" as const,
-      disposition: "hold" as const,
-      relation: "interaction_hold" as const,
-      declarationRef: occurrence.term.requirement.continuationContractRef,
-      source: occurrence.frame.cursor,
-    });
-  }
-  const retryContexts = resolveEnclosingCRetryContexts(
-    occurrence.frame.graph.template,
-    occurrence.frame.cursor.nodeRef,
-    occurrence.frame.cursor.termPath,
-  );
-  if ("kind" in retryContexts) {
-    return Object.freeze({
-      diagnosticRef: "diagnostic://abiogenesis/hog/retry-context-refused@5",
-      message: retryContexts.message,
-    });
-  }
-  const retryContext = retryContexts.at(-1);
+  const nextCursor = completion.nextCursor;
+  const resultValue = completion.resultValue;
   if (
-    retryContext !== undefined &&
-    retryContext.retryDepth === occurrence.frame.cursor.retryPath.length &&
-    occurrence.frame.cursor.attempt < retryContext.budget
+    nextCursor === null ||
+    nextCursor.cursorRef !== target.cursorRef ||
+    nextCursor.cursorDigest !== target.cursorDigest ||
+    !isTraversalValue(resultValue) ||
+    sha256Canonical(resultValue) !== nextCursor.inputDigest ||
+    completion.nextInputContractRef === null ||
+    !frame.leafPort.validateContractValueByRef(
+      completion.nextInputContractRef,
+      resultValue,
+    )
   ) {
-      const retry = deriveCRetryTarget(
-        occurrence.frame.graph,
-        occurrence.frame.cursor,
-        occurrence.frame.cursor,
-      );
-      return retry.kind === "c_source_path_refusal"
-        ? Object.freeze({
-            diagnosticRef: "diagnostic://abiogenesis/hog/retry-target-refused@5",
-            message: retry.message,
-          })
-        : Object.freeze({
-            kind: "hog_transition_proposal" as const,
-            disposition: "retry" as const,
-            relation: "retry_same_edge" as const,
-            target: retry,
-          });
+    throw new TypeError(
+      "advanced HoG completion lacks its exact cursor/input basis",
+    );
   }
   return Object.freeze({
-    kind: "hog_transition_proposal" as const,
-    disposition: "hold" as const,
-    relation: "judgment_blocked" as const,
-    declarationRef: occurrence.term.judgmentPredicateRef,
-    source: occurrence.frame.cursor,
+    stateKind: "evaluate" as const,
+    frame: Object.freeze({
+      ...frame,
+      cursor: nextCursor,
+      input: resultValue,
+    }),
+    predecessorPrefix: completion.successorPrefix,
+    returns: freezeReturns(returns),
   });
 }
 
-export function evaluateHog<
-  Prefix,
-  Value,
-  DeterministicCandidate,
-  ProbabilisticCandidate,
-  InteractionCandidate,
-  Error,
->(
-  input: HogEvaluationInput<Prefix, Value>,
-  structuralPort: StructuralAdmissionPort<Prefix, Value, Error>,
-  executableOccurrencePort: ExecutableOccurrenceAdmissionPort<
-    Prefix,
-    Value,
-    Error
-  >,
-  interactionOccurrencePort: InteractionOccurrenceAdmissionPort<
-    Prefix,
-    Value,
-    Error
-  >,
-  deterministicPort: DeterministicInvocationPort<
-    Prefix,
-    Value,
-    DeterministicCandidate,
-    Error
-  >,
-  probabilisticPort: ProbabilisticInvocationPort<
-    Prefix,
-    Value,
-    ProbabilisticCandidate,
-    Error
-  >,
-  interactionPort: InteractionInvocationPort<
-    Prefix,
-    Value,
-    InteractionCandidate,
-    Error
-  >,
-  deterministicResultPort: DeterministicResultAdmissionPort<
-    Prefix,
-    Value,
-    DeterministicCandidate,
-    Error
-  >,
-  probabilisticResultPort: ProbabilisticResultAdmissionPort<
-    Prefix,
-    Value,
-    ProbabilisticCandidate,
-    Error
-  >,
-  interactionResultPort: InteractionResultAdmissionPort<
-    Prefix,
-    Value,
-    InteractionCandidate,
-    Error
-  >,
-  judgmentEvaluationPort: JudgmentEvaluationPort<Prefix, Value, Error>,
-  judgmentAdmissionPort: JudgmentAdmissionPort<Prefix, Value, Error>,
-  transitionAdmissionPort: TransitionAdmissionPort<Prefix, Value, Error>,
-  terminalAdmissionPort: TerminalAdmissionPort<Prefix, Value, Error>,
-  childFrameAdmissionPort: ChildFrameAdmissionPort<Prefix, Value, Error>,
-  childFoldbackAdmissionPort: ChildFoldbackAdmissionPort<Prefix, Value, Error>,
-): Effect.Effect<HogTraversalReceipt<Prefix, Value>, Error> {
-  type State = EvaluationState<Prefix, Value>;
-  type Open = OpenState<Prefix, Value>;
-
-  const initial: Open = Object.freeze({
-    stateKind: "evaluate" as const,
-    frame: input.frame,
-    predecessorPrefix: input.predecessorPrefix,
-    returns: freezeReturns(input.returns ?? []),
+function preparedFrame(
+  prepared: PreparedChildTraversal,
+  cursor: TraversalCursorCandidate,
+  leafPort: LeafInvocationPort,
+): EvaluationFrame {
+  return Object.freeze({
+    traversal: Object.freeze({
+      program: prepared.program,
+      graphFunction: prepared.graphFunction,
+      graph: prepared.graph,
+      graphValidation: prepared.graphValidation,
+      executionBasis: prepared.executionBasis,
+      openedTraversalScope: prepared.openedTraversalScope,
+    }),
+    implementationSet: prepared.implementationSet,
+    leafPort,
+    closureContract: prepared.closureContract,
+    graphEntryInput: prepared.input,
+    graphEntryInputDigest: prepared.inputDigest,
+    cursor,
+    input: prepared.input,
+    terminalMode: "return_to_parent",
   });
+}
 
-  const afterResult = (
-    state: EvaluateState<Prefix, Value>,
-    occurrence: HogLeafOccurrence<Value>,
-    opened: HogOpenedOccurrence<Prefix>,
-    result: HogAdmittedResult<Prefix, Value>,
-  ): Effect.Effect<State, Error> =>
-    Effect.flatMap(
-      judgmentEvaluationPort.evaluateJudgment(occurrence, opened, result),
-      (decision) => Effect.flatMap(
-        judgmentAdmissionPort.admitJudgment(
-          occurrence,
-          opened,
-          result,
-          decision,
+export function projectParentSuspensions(
+  returns: readonly HogReturnFrame[],
+): readonly HeldParentTraversalSuspension[] {
+  return Object.freeze([...returns].reverse().map((frame) => {
+    const parent = frame.parent;
+    if (frame.relation === "workflow") {
+      const suspension: HeldWorkflowSuspension = Object.freeze({
+        kind: "held_workflow_suspension",
+        schemaVersion: "5.0.0",
+        parentExecutionBasisRef: parent.traversal.executionBasis.basisRef,
+        parentTraversalScope: parent.traversal.openedTraversalScope,
+        parentGraph: parent.traversal.graph,
+        parentClosureContract: parent.closureContract,
+        parentCCall: frame.parentCall,
+        sourceCursor: parent.cursor,
+        parentGraphInput: parent.graphEntryInput,
+        parentGraphInputDigest: parent.graphEntryInputDigest,
+        parentInput: parent.input,
+        parentInputDigest: parent.cursor.inputDigest,
+        childExecutionBasisRef: frame.childExecutionBasis.basisRef,
+        childTraversalScopeRef: frame.childTraversalScope.scopeRef,
+        childInput: frame.childInput,
+        childInputDigest: frame.childInputDigest,
+        terminalMode: parent.terminalMode,
+      });
+      return suspension;
+    }
+    const admitted = frame.parentOutcome.admitted;
+    const suspension: HeldRecursionSuspension = Object.freeze({
+      kind: "held_recursion_suspension",
+      schemaVersion: "5.0.0",
+      parentExecutionBasisRef: parent.traversal.executionBasis.basisRef,
+      parentTraversalScope: parent.traversal.openedTraversalScope,
+      parentGraph: parent.traversal.graph,
+      parentClosureContract: parent.closureContract,
+      parentGraphInput: parent.graphEntryInput,
+      parentGraphInputDigest: parent.graphEntryInputDigest,
+      application: frame.application,
+      evaluatorCCall: admitted.cCall,
+      evaluatorResult: admitted.result,
+      evaluatorJudgment: admitted.judgment,
+      sourceCursor: parent.cursor,
+      evaluatorInput: parent.input,
+      evaluatorInputDigest: parent.cursor.inputDigest,
+      childExecutionBasisRef: frame.childExecutionBasis.basisRef,
+      childTraversalScopeRef: frame.childTraversalScope.scopeRef,
+      childInput: frame.childInput,
+      childInputDigest: frame.childInputDigest,
+      terminalMode: parent.terminalMode,
+    });
+    return suspension;
+  }));
+}
+
+export function evaluateHog<OwnerError>(
+  input: HogEvaluationInput,
+  services: HogEvaluatorServices<OwnerError>,
+): Effect.Effect<HogEvaluationResult, HogEvaluationError<OwnerError>> {
+  const {
+    projectReplay,
+    resolveTraversalValue,
+    resolveInitialChildCursor,
+    resolveCCallLocus,
+    admitInitialCursor,
+    admitTransition,
+    resolveExecutable,
+    resolveInteraction,
+    openExecutable,
+    openInteraction,
+    openWorkflow,
+    bindProbabilistic,
+    invokeLeaf,
+    admitLeafResult,
+    admitJudgment,
+    planInteraction,
+    admitInteractionHold,
+    planRetryFailure,
+    admitRetryFailure,
+    projectRetryInput,
+    admitBlockedRetryTransition,
+    resolveCursorAdmissionEventRef,
+    planCompletedRetryProgress,
+    admitCompletedRetryTransition,
+    admitCompletion,
+    projectCompletion,
+    prepareChild,
+    admitWorkflowFoldback,
+    admitWorkflowResult,
+    admitRecursionFoldback,
+    admitRecursionCompletion,
+    resumeInteractionOwner,
+    rehydrateParentReturns,
+  } = services;
+  const evaluationClock = input.entry === "fresh"
+    ? { eventTime: input.eventTime, correlationId: input.correlationId }
+    : input.interaction.clock;
+  const initial: OpenState = input.entry === "fresh"
+    ? Object.freeze({
+        stateKind: "evaluate" as const,
+        frame: frameFromInput(input),
+        predecessorPrefix: input.predecessorPrefix,
+        returns: freezeReturns([]),
+      })
+    : Object.freeze({
+        stateKind: "rehydrate_interaction" as const,
+        input,
+      });
+
+  const afterOutcome = (
+    frame: EvaluationFrame,
+    outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
+    returns: readonly HogReturnFrame[],
+  ): Effect.Effect<State, HogEvaluationError<OwnerError>> => {
+    const admitted = outcome.disposition === "judged" ? outcome.admitted : null;
+    const result = resultFromOutcome(outcome);
+    const target = admitted?.judgment.judgment === "advance"
+      ? deriveCompletedTraversalCursor(frame.traversal.graph, frame.cursor, {
+          inputRef: result.resultRef,
+          inputDigest: result.valueDigest,
+        })
+      : null;
+    if (target?.kind === "traversal_refusal") return Effect.fail(target);
+    const application = admitted === null
+      ? null
+      : recursionApplication(
+          frame.traversal.graph,
+          admitted.cCall.compositionRef,
+        );
+    if (application !== null &&
+        admitted!.judgment.judgment === "advance") {
+      const termination = recursionTerminationDecision(application, result.value);
+      if (termination === null) {
+        return Effect.die(new TypeError(
+          "admitted recursion termination relation has no exact Boolean result",
+        ));
+      }
+      if (!termination) {
+        return Effect.succeed(Object.freeze({
+          stateKind: "prepare_recursion" as const,
+          parent: frame,
+          application,
+          parentOutcome: outcome as JudgedCCallOutcomeReceipt,
+          predecessorPrefix: outcome.successorPrefix,
+          returns: freezeReturns(returns),
+        }));
+      }
+    }
+    const proposal = proposeCCallOutcomeTransition({
+      graph: frame.traversal.graph,
+      graphFunction: frame.traversal.graphFunction,
+      sourceCursor: frame.cursor,
+      targetCursor: target,
+      outcome,
+      terminalizeNonAdvance: frame.terminalMode !== "return_to_parent",
+    });
+    if (proposal.kind !== "traversal_transition_candidate") {
+      return Effect.fail(proposal);
+    }
+    return Effect.flatMap(
+      admitCompletion(
+        frame.cursor,
+        target,
+        outcome,
+        proposal,
+        outcome.successorPrefix,
+      ),
+      (admission) => Effect.map(
+        projectCompletion(frame.cursor, admission, target),
+        (completion) => continueAfterCompletion(
+          frame,
+          target,
+          completion,
+          returns,
         ),
-        (judgment) => {
-          const proposal = transitionProposal(
-            occurrence,
-            result,
-            judgment,
-          );
-          if (!("kind" in proposal)) {
-            return Effect.succeed(outOfFrame(
-              state.frame,
-              judgment.successorPrefix,
-              state.returns,
-              proposal.diagnosticRef,
-              proposal.message,
-            ));
-          }
-          return proposal.disposition === "terminal"
-            ? Effect.map(
-                terminalAdmissionPort.admitTerminal(
-                  occurrence,
-                  opened,
-                  result,
-                  judgment,
-                  proposal,
-                ),
-                (disposition) => applyDisposition(
-                  state.frame,
-                  disposition,
-                  state.returns,
-                  proposal,
-                ),
-              )
-            : Effect.map(
-                transitionAdmissionPort.admitTransition(
-                  occurrence,
-                  opened,
-                  result,
-                  judgment,
-                  proposal,
-                ),
-                (disposition) => applyDisposition(
-                  state.frame,
-                  disposition,
-                  state.returns,
-                  proposal,
-                ),
-              );
-        },
       ),
     );
+  };
 
-  return Effect.suspend(() =>
-    Effect.map(
-      Effect.iterate<State, Open, never, Error>(initial, {
-        while: (state): state is Open => state.stateKind !== "done",
-        body: (state): Effect.Effect<State, Error> => Effect.suspend(() => {
-          if (state.stateKind === "prepare_child") {
-            return Effect.map(
-              childFrameAdmissionPort.prepareChild(
-                state.request,
-                state.parent,
-                state.predecessorPrefix,
-              ),
-              (prepared) => {
-                if (prepared.kind === "hog_admitted_disposition") {
-                  return applyDisposition(
-                    state.parent,
-                    prepared,
-                    state.returns,
-                    "kind" in state.request &&
-                        state.request.kind === "hog_workflow_occurrence"
-                      ? Object.freeze({
-                          kind: "hog_transition_proposal" as const,
-                          disposition: "hold" as const,
-                          relation: "interaction_hold" as const,
-                          declarationRef: state.request.term.graphFunctionRef,
-                          source: state.parent.cursor,
-                        })
-                      : Object.freeze({
-                          kind: "hog_transition_proposal" as const,
-                          disposition: "hold" as const,
-                          relation: "interaction_hold" as const,
-                          declarationRef: state.request.declarationRef,
-                          source: state.parent.cursor,
-                        }),
-                  );
-                }
-                if (
-                  !exactFrame(prepared.child) ||
-                  prepared.child.graph.graphFunctionRef !==
-                    (state.request.kind === "hog_workflow_occurrence"
-                      ? state.request.term.graphFunctionRef
-                      : state.request.graphFunctionRef)
-                ) {
-                  return outOfFrame(
-                    state.parent,
-                    prepared.successorPrefix,
-                    state.returns,
-                    "diagnostic://abiogenesis/hog/prepared-child-mismatch@5",
-                    "prepared child differs from the exact declared GraphFunction",
-                  );
-                }
-                const parentReturn = Object.freeze({
-                  kind: "hog_return_frame" as const,
-                  parent: state.parent,
-                  child: prepared,
-                });
-                return Object.freeze({
-                  stateKind: "evaluate" as const,
-                  frame: prepared.child,
-                  predecessorPrefix: prepared.successorPrefix,
-                  returns: freezeReturns([...state.returns, parentReturn]),
-                });
-              },
-            );
+  const afterResult = (
+    frame: EvaluationFrame,
+    locus: ExecutableCCallLocusCandidate,
+    ownerReceipt: ClosedLeafOwnerReceipt,
+    outcome: ResultCCallOutcomeReceipt,
+    returns: readonly HogReturnFrame[],
+  ): Effect.Effect<State, HogEvaluationError<OwnerError>> => {
+    const relation = frame.leafPort.resolveJudgmentRelation(
+      outcome.cCall.judgmentPredicateRef,
+    );
+    if (relation === null) {
+      return Effect.die(new TypeError(
+        "admitted C leaf lacks its exact declared judgment relation",
+      ));
+    }
+    const candidate = proposeJudgmentCandidate({
+      cCall: outcome.cCall,
+      result: outcome.result,
+      replayState: outcome.replayState,
+      contractRef: outcome.cCall.judgmentContractRef,
+      decision: ownerReceipt.candidate.disposition === "success"
+        ? {
+            decisionClass: "evaluate" as const,
+            input: frame.input,
+            relation,
           }
-          if (state.stateKind === "foldback") {
-            return Effect.map(
-              childFoldbackAdmissionPort.admitChildFoldback(
-                state.parentReturn.parent,
-                state.parentReturn.child,
-                state.childDisposition,
+        : {
+            decisionClass: "refuse" as const,
+            predicateRef: outcome.cCall.judgmentPredicateRef,
+            reasonRef: ownerReceipt.candidate.diagnosticRef,
+          },
+    });
+    return Effect.flatMap(
+      admitJudgment(
+        frame.traversal.graph,
+        frame.traversal.graphFunction,
+        locus.cursor,
+        outcome,
+        candidate,
+      ),
+      (judged) => afterOutcome(frame, judged, returns),
+    );
+  };
+
+  const evaluateExecutable = (
+    state: EvaluateState,
+    locus: ExecutableCCallLocusCandidate,
+  ): Effect.Effect<State, HogEvaluationError<OwnerError>> =>
+    Effect.flatMap(resolveExecutable(locus), (resolution) =>
+      Effect.flatMap(
+        openExecutable(locus, resolution, state.predecessorPrefix),
+        (opened) => Effect.flatMap(
+          isProbabilisticLocus(locus)
+            ? bindProbabilistic(locus, opened)
+            : Effect.succeed(null),
+          (probabilisticEffects) => Effect.flatMap(
+            invokeLeaf(
+              locus,
+              opened,
+              resolution,
+              state.frame.leafPort,
+              state.frame.input,
+              probabilisticEffects,
+            ),
+            (ownerReceipt) => Effect.flatMap(
+              admitLeafResult(
+                locus,
+                opened,
+                resolution,
+                state.frame.leafPort,
+                state.frame.input,
+                ownerReceipt,
               ),
-              (disposition) => applyDisposition(
-                state.parentReturn.parent,
-                disposition,
-                state.returns,
-                Object.freeze({
-                  kind: "hog_transition_proposal" as const,
-                  disposition: "advance" as const,
-                  relation: "root_complete" as const,
-                  target: Object.freeze({
-                    kind: "c_continuation_target" as const,
-                    schemaVersion: "5.0.0" as const,
-                    disposition: "advance" as const,
-                    relation: "root_complete" as const,
-                    nodeRef: state.parentReturn.parent.cursor.nodeRef,
-                    termPath: state.parentReturn.parent.cursor.termPath,
-                    taskOrdinal: state.parentReturn.parent.cursor.taskOrdinal,
-                    attempt: state.parentReturn.parent.cursor.attempt,
-                    retryPath: state.parentReturn.parent.cursor.retryPath,
-                    inputRef: disposition.disposition === "enter_child"
-                      ? state.parentReturn.parent.value.valueRef
-                      : disposition.value.valueRef,
-                    inputDigest: disposition.disposition === "enter_child"
-                      ? state.parentReturn.parent.value.valueDigest
-                      : disposition.value.valueDigest,
+              (outcome) => {
+                if (outcome.disposition === "blocked") {
+                  return afterOutcome(state.frame, outcome, state.returns);
+                }
+                if (outcome.disposition === "result") {
+                  return afterResult(
+                    state.frame,
+                    locus,
+                    ownerReceipt,
+                    outcome,
+                    state.returns,
+                  );
+                }
+                return Effect.flatMap(
+                  planRetryFailure(locus, outcome),
+                  (plan) => {
+                    const planned = plan.transition;
+                    if (planned.disposition === "blocked") {
+                      const route = proposeBlockedRoute(
+                        state.frame.traversal.graph,
+                        locus,
+                        outcome.cCall,
+                        planned.close.judgment.judgmentRef,
+                        plan.replayState,
+                        outcome.cCall.transitionContractRef,
+                        planned.stoppedProgresses.map(
+                          (progress) => progress.progressRef,
+                        ),
+                      );
+                      if (route.kind !== "traversal_route_candidate") {
+                        return Effect.fail(route);
+                      }
+                      const candidate = completeTraversalTransitionCandidate({
+                        kind: "traversal_transition_candidate",
+                        schemaVersion: "5.0.0",
+                        transitionClass: "route",
+                        route,
+                        evidence: {
+                          evidenceClass: "blocked",
+                          graphFunction: state.frame.traversal.graphFunction,
+                          cCall: outcome.cCall,
+                          resultRef: planned.close.result.resultRef,
+                          judgmentRef: planned.close.judgment.judgmentRef,
+                          judgmentEventRef:
+                            planned.close.judgment.admissionEventRef,
+                          reasonRef: planned.close.judgment.reasonRef,
+                          stoppedProgresses: planned.stoppedProgresses,
+                        },
+                        terminalizeRun:
+                          state.frame.terminalMode !== "return_to_parent",
+                      });
+                      return Effect.map(
+                        admitBlockedRetryTransition(
+                          locus,
+                          outcome,
+                          plan,
+                          candidate,
+                          outcome.successorPrefix,
+                        ),
+                        (routeAdmission) => terminalState(
+                          projectBlockedRetryTraversalCompletion({
+                            plan,
+                            route: routeAdmission,
+                          }),
+                          state.returns,
+                        ),
+                      );
+                    }
+                    if (planned.eligibility.disposition !== "retry") {
+                      return Effect.die(new TypeError(
+                        "retry plan has no exact admitted retry disposition",
+                      ));
+                    }
+                    return Effect.flatMap(
+                      admitRetryFailure(locus, outcome, plan),
+                      (transition) => Effect.flatMap(
+                        projectRetryInput({
+                          prefix: transition.successorPrefix,
+                          selector: {
+                            kind: "retry_frontier_selector",
+                            schemaVersion: "5.0.0",
+                            runId:
+                              state.frame.traversal.openedTraversalScope.runId,
+                            graphCallId:
+                              state.frame.traversal.openedTraversalScope
+                                .graphCallId,
+                            frameId:
+                              state.frame.traversal.openedTraversalScope.frameId,
+                            retryBoundaryRef:
+                              transition.progress.retryBoundaryRef,
+                            retryProgressRef: transition.progress.progressRef,
+                          },
+                          program: state.frame.traversal.program,
+                          graphFunction: state.frame.traversal.graphFunction,
+                          graph: state.frame.traversal.graph,
+                        }),
+                        (
+                          retryInput: ExecutableRetryInput,
+                        ): Effect.Effect<
+                          State,
+                          HogEvaluationError<OwnerError>
+                        > => {
+                          const target = deriveRetryTraversalCursor(
+                            state.frame.traversal.graph,
+                            state.frame.cursor,
+                            {
+                              inputRef: retryInput.inputRef,
+                              inputDigest: retryInput.inputDigest,
+                            },
+                          );
+                          if (target.kind === "traversal_refusal") {
+                            return Effect.fail(target);
+                          }
+                          return Effect.flatMap(
+                            projectReplay(
+                              transition.successorPrefix,
+                              state.frame.cursor,
+                            ),
+                            (replay): Effect.Effect<
+                              State,
+                              HogEvaluationError<OwnerError>
+                            > => {
+                              const route = proposeRetryRoute(
+                                state.frame.traversal.graph,
+                                state.frame.cursor,
+                                target,
+                                outcome.cCall,
+                                transition.progress,
+                                replay,
+                                outcome.cCall.transitionContractRef,
+                              );
+                              if (route.kind !== "traversal_route_candidate") {
+                                return Effect.fail(route);
+                              }
+                              const candidate =
+                                completeTraversalTransitionCandidate({
+                                  kind: "traversal_transition_candidate",
+                                  schemaVersion: "5.0.0",
+                                  transitionClass: "retry",
+                                  route,
+                                  evidence: {
+                                    evidenceClass: "retry",
+                                    graphFunction:
+                                      state.frame.traversal.graphFunction,
+                                    cCall: outcome.cCall,
+                                    progress: transition.progress,
+                                  },
+                                  retryInput: retryInput.inputValue,
+                                  terminalizeRun: false,
+                                });
+                              return Effect.map(
+                                admitTransition(
+                                  state.frame.cursor,
+                                  target,
+                                  candidate,
+                                  transition.successorPrefix,
+                                ),
+                                (admission) => {
+                                  if (admission.retryAttempt === null) {
+                                    throw new TypeError(
+                                      "retry route lacks its exact attempt admission",
+                                    );
+                                  }
+                                  return Object.freeze({
+                                    stateKind: "evaluate" as const,
+                                    frame: Object.freeze({
+                                      ...state.frame,
+                                      cursor: target,
+                                      input: retryInput.inputValue,
+                                    }),
+                                    predecessorPrefix:
+                                      admission.successorPrefix,
+                                    returns: freezeReturns(state.returns),
+                                  });
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ),
+      ));
+
+  const evaluateInteraction = (
+    state: EvaluateState,
+    locus: InteractionCCallLocusCandidate,
+  ): Effect.Effect<State, HogEvaluationError<OwnerError>> =>
+    Effect.flatMap(resolveInteraction(locus), (interaction) =>
+      Effect.flatMap(
+        openInteraction(locus, interaction, state.predecessorPrefix),
+        (opened) => Effect.flatMap(
+          planInteraction(locus, opened, state.frame.input),
+          (
+            plan: PendingInteractionAdmissionPlan,
+          ): Effect.Effect<State, HogEvaluationError<OwnerError>> => {
+            const route = proposeHoldRoute(
+              state.frame.traversal.graph,
+              locus,
+              opened.cCall,
+              plan.pending.judgment,
+              plan.replayState,
+              locus.continuationContractRef,
+            );
+            if (route.kind !== "traversal_route_candidate") {
+              return Effect.fail(route);
+            }
+            const candidate = completeTraversalTransitionCandidate({
+              kind: "traversal_transition_candidate",
+              schemaVersion: "5.0.0",
+              transitionClass: "route",
+              route,
+              evidence: {
+                evidenceClass: "hold",
+                graphFunction: state.frame.traversal.graphFunction,
+                cCall: opened.cCall,
+                result: plan.pending.result,
+                judgment: plan.pending.judgment,
+              },
+              terminalizeRun: false,
+            });
+            return Effect.flatMap(
+              admitInteractionHold(
+                locus,
+                opened,
+                state.frame.input,
+                plan,
+                candidate,
+              ),
+              (hold) => Effect.map(
+                projectReplay(hold.successorPrefix, state.frame.cursor),
+                (replay) => Object.freeze({
+                  stateKind: "done" as const,
+                  result: projectHeldTraversalCompletion({
+                    hold,
+                    cursor: state.frame.cursor,
+                    graph: state.frame.traversal.graph,
+                    closureContract: state.frame.closureContract,
+                    replayState: replay,
+                    parentSuspensions:
+                      projectParentSuspensions(state.returns),
                   }),
                 }),
               ),
             );
-          }
+          },
+        ),
+      ));
 
-          if (!exactFrame(state.frame)) {
-            return Effect.succeed(outOfFrame(
-              state.frame,
-              state.predecessorPrefix,
-              state.returns,
-              "diagnostic://abiogenesis/hog/frame-mismatch@5",
-              "HoG requires one exact admitted materialized frame and value",
-            ));
-          }
-          const term = resolveCProgramTermAtSourcePath(
-            state.frame.graph.template,
-            state.frame.cursor.nodeRef,
-            state.frame.cursor.termPath,
+  const evaluateStructural = (
+    state: EvaluateState,
+    term: StructuralTerm,
+  ): Effect.Effect<State, HogEvaluationError<OwnerError>> => {
+    const target = deriveStructuralTargetCursor(
+      state.frame.traversal.graph,
+      state.frame.cursor,
+      term,
+    );
+    if (target?.kind === "traversal_refusal") return Effect.fail(target);
+    if (target === null) {
+      return Effect.die(new TypeError(
+        "diagnostic://abiogenesis/hog/structural-step-refused@5",
+      ));
+    }
+    return Effect.flatMap(
+      resolveTraversalValue(state.frame.traversal.graph, target),
+      (value): Effect.Effect<State, HogEvaluationError<OwnerError>> => {
+        const advance = (
+          replay: ReplayState,
+          completedProgresses:
+            readonly RetryCompletedProgressAdmission[],
+          completedRetry: Readonly<{
+            plan: CompletedRetryProgressPlan;
+            completion: Readonly<{
+              completionClass: "structural_identity_success";
+              completionWitnessEventRef: string;
+            }>;
+          }> | null,
+        ): Effect.Effect<State, HogEvaluationError<OwnerError>> => {
+          const route = proposeStructuralRoute(
+            state.frame.traversal.graph,
+            state.frame.cursor,
+            target,
+            term.kind === "c_retry" ? "retry" : "advance",
+            replay,
+            completedProgresses,
           );
-          if (term.kind === "c_source_path_refusal") {
-            return Effect.succeed(outOfFrame(
-              state.frame,
-              state.predecessorPrefix,
-              state.returns,
-              "diagnostic://abiogenesis/hog/source-path-refused@5",
-              term.message,
-            ));
+          if (route.kind !== "traversal_route_candidate") {
+            return Effect.fail(route);
           }
-          if (term.kind === "c_workflow") {
-            const occurrence: HogWorkflowOccurrence<Value> = Object.freeze({
-              kind: "hog_workflow_occurrence" as const,
-              frame: state.frame,
-              term,
-            });
-            return Effect.succeed(Object.freeze({
-              stateKind: "prepare_child" as const,
-              parent: state.frame,
-              request: occurrence,
-              predecessorPrefix: state.predecessorPrefix,
-              returns: state.returns,
-            }));
-          }
-          if (term.kind !== "c_of") {
-            const target = term.kind === "c_identity"
-              ? deriveCContinuationTarget(
-                  state.frame.graph,
-                  state.frame.cursor,
-                  state.frame.cursor,
-                )
-              : deriveCStructuralTarget(
-                  state.frame.graph,
-                  state.frame.cursor,
-                  term.kind === "c_retry" ? "retry" : "advance",
-                );
-            if (target === null || target.kind === "c_source_path_refusal") {
-              return Effect.succeed(outOfFrame(
-                state.frame,
+          const candidate = term.kind === "c_retry"
+            ? completeTraversalTransitionCandidate({
+                kind: "traversal_transition_candidate",
+                schemaVersion: "5.0.0",
+                transitionClass: "retry",
+                route,
+                evidence: null,
+                retryInput: value,
+                terminalizeRun: false,
+              })
+            : completeTraversalTransitionCandidate({
+                kind: "traversal_transition_candidate",
+                schemaVersion: "5.0.0",
+                transitionClass: "route",
+                route,
+                evidence: completedRetry === null
+                  ? null
+                  : {
+                      evidenceClass: "structural_identity",
+                      graphFunction: state.frame.traversal.graphFunction,
+                      completionClass: "structural_identity_success",
+                      completionWitnessEventRef:
+                        completedRetry.completion.completionWitnessEventRef,
+                      completedProgresses,
+                    },
+                terminalizeRun: false,
+              });
+          const admitted = completedRetry === null
+            ? admitTransition(
+                state.frame.cursor,
+                target,
+                candidate,
                 state.predecessorPrefix,
-                state.returns,
-                "diagnostic://abiogenesis/hog/structural-target-refused@5",
-                target === null
-                  ? "GTL structural term has no declared target"
-                  : target.message,
+              )
+            : admitCompletedRetryTransition(
+                state.predecessorPrefix,
+                state.frame.cursor,
+                target,
+                candidate,
+                completedRetry.plan,
+                completedRetry.completion,
+              );
+          return Effect.map(admitted, (admission) => {
+            if (term.kind === "c_retry" && admission.retryAttempt === null) {
+              throw new TypeError(
+                "structural retry route lacks its exact attempt admission",
+              );
+            }
+            return Object.freeze({
+              stateKind: "evaluate" as const,
+              frame: Object.freeze({
+                ...state.frame,
+                cursor: target,
+                input: value,
+              }),
+              predecessorPrefix: admission.successorPrefix,
+              returns: freezeReturns(state.returns),
+            });
+          });
+        };
+        const exitsRetry = term.kind === "c_identity" &&
+          target.retryPath.length < state.frame.cursor.retryPath.length;
+        if (!exitsRetry) {
+          return Effect.flatMap(
+            projectReplay(state.predecessorPrefix, state.frame.cursor),
+            (replay) => advance(replay, [], null),
+          );
+        }
+        return Effect.flatMap(
+          resolveCursorAdmissionEventRef(
+            state.predecessorPrefix,
+            state.frame.cursor,
+          ),
+          (completionWitnessEventRef) => {
+            if (completionWitnessEventRef === null) {
+              return Effect.die(new TypeError(
+                "retry exit lacks its exact source cursor admission event",
               ));
             }
-            const occurrence: HogStructuralOccurrence<Value> = Object.freeze({
-              kind: "hog_structural_occurrence" as const,
-              frame: state.frame,
-              term,
-              target,
+            const completion = Object.freeze({
+              completionClass: "structural_identity_success" as const,
+              completionWitnessEventRef,
             });
-            return Effect.map(
-              structuralPort.admitStructural(
-                occurrence,
+            return Effect.flatMap(
+              planCompletedRetryProgress(
                 state.predecessorPrefix,
-              ),
-              (disposition) => applyDisposition(
-                state.frame,
-                disposition,
-                state.returns,
+                state.frame.cursor,
                 target,
+                completion,
+              ),
+              (plan) => advance(
+                plan.replayState,
+                plan.progresses,
+                { plan, completion },
               ),
             );
-          }
+          },
+        );
+      },
+    );
+  };
+  const prepareChildFrame = (
+    prepared: PreparedChildTraversal,
+    parentReturn: HogReturnFrame,
+    returns: readonly HogReturnFrame[],
+  ): Effect.Effect<State, HogEvaluationError<OwnerError>> => {
+    return Effect.flatMap(
+      resolveInitialChildCursor(prepared),
+      (cursor) => Effect.map(
+        admitInitialCursor(cursor, prepared.successorPrefix),
+        (admission) => Object.freeze({
+          stateKind: "evaluate" as const,
+          frame: preparedFrame(
+            prepared,
+            cursor,
+            parentReturn.parent.leafPort,
+          ),
+          predecessorPrefix: admission.successorPrefix,
+          returns: freezeReturns([...returns, parentReturn]),
+        }),
+      ),
+    );
+  };
 
-          const occurrence: HogLeafOccurrence<Value> = Object.freeze({
-            kind: "hog_leaf_occurrence" as const,
-            frame: state.frame,
-            term,
-          });
-          if (term.fibre === "F_D") {
-            return Effect.flatMap(
-              executableOccurrencePort.openExecutable(
-                occurrence,
-                state.predecessorPrefix,
+  const program = Effect.iterate<State, OpenState, never,
+    HogEvaluationError<OwnerError>>(initial, {
+    while: (state): state is OpenState => state.stateKind !== "done",
+    body: (state): Effect.Effect<State, HogEvaluationError<OwnerError>> =>
+      Effect.suspend(() => {
+        if (state.stateKind === "rehydrate_interaction") {
+          return Effect.flatMap(
+            rehydrateParentReturns(
+              state.input.interaction.predecessorPrefix,
+              state.input.parentSuspensions,
+            ),
+            (returns) => Effect.map(
+              resumeInteractionOwner(state.input.interaction),
+              (completion) => continueAfterCompletion(
+                frameFromInteractionResume(state.input),
+                completion.nextCursor,
+                completion,
+                returns,
               ),
-              (opened) => Effect.flatMap(
-                deterministicPort.invokeDeterministic(opened, state.frame.value),
-                (candidate) => Effect.flatMap(
-                  deterministicResultPort.admitDeterministicResult(
-                    occurrence,
-                    opened,
-                    candidate,
-                  ),
-                  (result) => afterResult(state, occurrence, opened, result),
-                ),
-              ),
-            );
+            ),
+          );
+        }
+        if (state.stateKind === "prepare_workflow") {
+          const request = {
+            predecessorPrefix: state.predecessorPrefix,
+            parentExecutionBasis: state.parent.traversal.executionBasis,
+            parentTraversalScope: state.parent.traversal.openedTraversalScope,
+            parentCCallRef: state.parentCall.cCall.cCallRef,
+            childGraphFunctionRef: state.term.graphFunctionRef,
+            inputRef: state.parent.cursor.inputRef,
+            inputDigest: state.parent.cursor.inputDigest,
+            input: state.parent.input,
+            eventTime: evaluationClock.eventTime,
+            correlationId:
+              `${evaluationClock.correlationId}/workflow/prepare`,
+          } as const;
+          return Effect.flatMap(prepareChild(request), (prepared) =>
+            prepareChildFrame(prepared, Object.freeze({
+              relation: "workflow" as const,
+              parent: state.parent,
+              parentCall: state.parentCall.cCall,
+              childExecutionBasis: prepared.executionBasis,
+              childTraversalScope: prepared.openedTraversalScope,
+              childInput: prepared.input,
+              childInputDigest: prepared.inputDigest,
+            }), state.returns));
+        }
+        if (state.stateKind === "prepare_recursion") {
+          const result = state.parentOutcome.admitted.result;
+          if (!isTraversalValue(result.value)) {
+            return Effect.die(new TypeError(
+              "admitted recursion result lacks its exact child input preimage",
+            ));
           }
-          if (term.fibre === "F_P") {
+          const request = {
+            predecessorPrefix: state.predecessorPrefix,
+            parentExecutionBasis: state.parent.traversal.executionBasis,
+            parentTraversalScope: state.parent.traversal.openedTraversalScope,
+            parentCCallRef: state.parentOutcome.admitted.cCall.cCallRef,
+            childGraphFunctionRef: state.application.graphFunctionRef,
+            inputRef: result.resultRef,
+            inputDigest: result.valueDigest,
+            input: result.value,
+            eventTime: evaluationClock.eventTime,
+            correlationId:
+              `${evaluationClock.correlationId}/recursion/prepare`,
+          } as const;
+          return Effect.flatMap(prepareChild(request), (prepared) =>
+            prepareChildFrame(prepared, Object.freeze({
+              relation: "recursion" as const,
+              parent: state.parent,
+              parentOutcome: state.parentOutcome,
+              application: state.application,
+              childExecutionBasis: prepared.executionBasis,
+              childTraversalScope: prepared.openedTraversalScope,
+              childInput: prepared.input,
+              childInputDigest: prepared.inputDigest,
+            }), state.returns));
+        }
+        if (state.stateKind === "foldback") {
+          const frame = state.parentReturn;
+          if (frame.relation === "workflow") {
             return Effect.flatMap(
-              executableOccurrencePort.openExecutable(
-                occurrence,
-                state.predecessorPrefix,
+              admitWorkflowFoldback(
+                frame.parent.cursor,
+                frame.parentCall,
+                frame.childExecutionBasis,
+                frame.childTraversalScope,
+                state.childCompletion,
               ),
-              (opened) => Effect.flatMap(
-                probabilisticPort.invokeProbabilistic(opened, state.frame.value),
-                (candidate) => Effect.flatMap(
-                  probabilisticResultPort.admitProbabilisticResult(
-                    occurrence,
-                    opened,
-                    candidate,
-                  ),
-                  (result) => afterResult(state, occurrence, opened, result),
+              (foldback) => Effect.flatMap(
+                admitWorkflowResult(
+                  frame.parent.cursor,
+                  frame.parentCall,
+                  frame.parent.input,
+                  foldback,
                 ),
+                (outcome) => {
+                  const relation = frame.parent.leafPort.resolveJudgmentRelation(
+                    outcome.cCall.judgmentPredicateRef,
+                  );
+                  if (relation === null) {
+                    return Effect.die(new TypeError(
+                      "workflow CCall lacks its exact judgment relation",
+                    ));
+                  }
+                  const candidate = proposeJudgmentCandidate({
+                    cCall: outcome.cCall,
+                    result: outcome.result,
+                    replayState: outcome.replayState,
+                    contractRef: outcome.cCall.judgmentContractRef,
+                    decision: {
+                      decisionClass: "evaluate" as const,
+                      input: frame.parent.input,
+                      relation,
+                    },
+                  });
+                  return Effect.flatMap(
+                    admitJudgment(
+                      frame.parent.traversal.graph,
+                      frame.parent.traversal.graphFunction,
+                      frame.parent.cursor,
+                      outcome,
+                      candidate,
+                    ),
+                    (judged) => afterOutcome(
+                      frame.parent,
+                      judged,
+                      state.returns,
+                    ),
+                  );
+                },
               ),
             );
           }
           return Effect.flatMap(
-            interactionOccurrencePort.openInteraction(
-              occurrence,
+            admitRecursionFoldback(
+              frame.application,
+              frame.parent.cursor,
+              frame.parentOutcome,
+              frame.childExecutionBasis,
+              frame.childTraversalScope,
+              state.childCompletion,
+            ),
+            (foldback: ApplicationChildFoldbackReceipt) => {
+              const blocked = foldback.admission.childDisposition === "blocked";
+              const target = blocked
+                ? null
+                : deriveRecursionReentryCursor(
+                    frame.parent.traversal.graph,
+                    frame.application,
+                    frame.parent.cursor,
+                    {
+                      inputRef: foldback.admission.childResultRef,
+                      inputDigest: foldback.admission.outputDigest,
+                    },
+                  );
+              if (target?.kind === "traversal_refusal") {
+                return Effect.fail(target);
+              }
+              return Effect.flatMap(
+                projectReplay(foldback.successorPrefix, frame.parent.cursor),
+                (
+                  replay: ReplayState,
+                ): Effect.Effect<State, HogEvaluationError<OwnerError>> => {
+                  const admitted = frame.parentOutcome.admitted;
+                  const route = proposeRecursionRoute(
+                    frame.parent.traversal.graph,
+                    frame.application,
+                    frame.parent.cursor,
+                    target,
+                    admitted.cCall,
+                    admitted.judgment,
+                    foldback.admission,
+                    replay,
+                    admitted.cCall.transitionContractRef,
+                    blocked ? "blocked" : "advance",
+                  );
+                  if (route.kind !== "traversal_route_candidate") {
+                    return Effect.fail(route);
+                  }
+                  const candidate = completeTraversalTransitionCandidate({
+                    kind: "traversal_transition_candidate",
+                    schemaVersion: "5.0.0",
+                    transitionClass: "route",
+                    route,
+                    evidence: {
+                      evidenceClass: "recursion",
+                      application: frame.application,
+                      cCall: admitted.cCall,
+                      result: admitted.result,
+                      judgment: admitted.judgment,
+                      foldback: foldback.admission,
+                      preparationRefusal: null,
+                    },
+                    terminalizeRun: blocked &&
+                      frame.parent.terminalMode !== "return_to_parent",
+                  });
+                  return Effect.flatMap(
+                    admitRecursionCompletion(
+                      frame.application,
+                      frame.parent.cursor,
+                      target,
+                      frame.parentOutcome,
+                      foldback,
+                      candidate,
+                    ),
+                    (admission) => Effect.map(
+                      projectCompletion(
+                        frame.parent.cursor,
+                        admission,
+                        target,
+                      ),
+                      (completion) => continueAfterCompletion(
+                        frame.parent,
+                        target,
+                        completion,
+                        state.returns,
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        }
+
+        const term = resolveTraversalTerm(
+          state.frame.traversal.graph,
+          state.frame.cursor,
+        );
+        if (term.kind === "traversal_refusal") return Effect.fail(term);
+        if (term.kind === "c_workflow") {
+          const failureContracts = [...new Set(
+            state.frame.implementationSet.rows
+              .filter((row) => row.graphFunctionRef === term.graphFunctionRef)
+              .map((row) => row.failureContractRef),
+          )];
+          if (failureContracts.length !== 1) {
+            return Effect.die(new TypeError(
+              "workflow CCall requires one exact admitted failure contract",
+            ));
+          }
+          const proposal: WorkflowCCallProposal = Object.freeze({
+            kind: "workflow_c_call_proposal",
+            schemaVersion: "5.0.0",
+            cursor: state.frame.cursor,
+            traversalScopeRef:
+              state.frame.traversal.openedTraversalScope.scopeRef,
+            runId: state.frame.traversal.openedTraversalScope.runId,
+            graphCallId:
+              state.frame.traversal.openedTraversalScope.graphCallId,
+            frameId: state.frame.traversal.openedTraversalScope.frameId,
+            childGraphFunctionRef: term.graphFunctionRef,
+            inputContractRef: term.inputCarrierRef,
+            outputContractRef: term.outputCarrierRef,
+            failureContractRef: failureContracts[0]!,
+            judgmentPredicateRef:
+              state.frame.traversal.graphFunction.declarations[
+                "abg.judgment_predicate"
+              ] ?? "",
+          });
+          return Effect.map(
+            openWorkflow(
+              term,
+              proposal,
+              state.frame.cursor,
               state.predecessorPrefix,
             ),
-            (opened) => Effect.flatMap(
-              interactionPort.invokeInteraction(opened, state.frame.value),
-              (candidate) => Effect.flatMap(
-                interactionResultPort.admitInteractionResult(
-                  occurrence,
-                  opened,
-                  candidate,
-                ),
-                (result) => afterResult(state, occurrence, opened, result),
-              ),
-            ),
+            (opened) => Object.freeze({
+              stateKind: "prepare_workflow" as const,
+              parent: state.frame,
+              term,
+              parentCall: opened,
+              predecessorPrefix: opened.successorPrefix,
+              returns: freezeReturns(state.returns),
+            }),
           );
-        }),
+        }
+        if (term.kind !== "c_of") {
+          return evaluateStructural(state, term);
+        }
+        return Effect.flatMap(resolveCCallLocus(
+          state.frame.traversal.graph,
+          state.frame.cursor,
+          term,
+        ), (locus) => locus.stopClass === "interaction"
+          ? evaluateInteraction(state, locus)
+          : evaluateExecutable(state, locus));
       }),
-      (state) => (state as DoneState<Prefix, Value>).receipt,
-    )
-  );
+  });
+
+  return Effect.map(program, (state) => {
+    if (state.stateKind !== "done") {
+      throw new TypeError("HoG Effect fold terminated before its done state");
+    }
+    return state.result;
+  });
 }

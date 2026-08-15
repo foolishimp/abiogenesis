@@ -21,7 +21,6 @@ import {
   type ContinuationProductBasis,
   type ExecutableCCallLocusCandidate,
   type ExecutionBasis,
-  type FhInteractionResumeAdmission,
   type InteractionCCallLocusCandidate,
   type OpenedTraversalScope,
   type ReplayState,
@@ -57,6 +56,25 @@ import {
   type ChildTraversalPreparationRefusal,
   type PreparedChildTraversal,
 } from "./child_traversal.js";
+import {
+  completeInteractionResume as resumeInteractionOwner,
+  type CompleteInteractionResumeInput,
+} from "./interaction_resume.js";
+import {
+  projectExecutableTraversalCompletion as completion,
+  type ExecutableTraversalCompletion,
+  type HeldInteractionTraversal,
+  type HeldParentTraversalSuspension,
+  type HeldRecursionSuspension,
+  type HeldWorkflowSuspension,
+} from "./traversal_completion.js";
+export type {
+  ExecutableTraversalCompletion,
+  HeldInteractionTraversal,
+  HeldParentTraversalSuspension,
+  HeldRecursionSuspension,
+  HeldWorkflowSuspension,
+} from "./traversal_completion.js";
 import {
   applyAdmittedRoute,
   applyRecursionRoute,
@@ -191,37 +209,6 @@ interface ExecutableLocusAuthority {
   readonly terminalMode?: "close_run" | "return_to_parent";
 }
 
-export interface ExecutableTraversalCompletion {
-  readonly kind: "executable_traversal_completion";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition:
-    | "advanced"
-    | "application_ready"
-    | "blocked"
-    | "closed"
-    | "failed"
-    | "gap_stop"
-    | "held"
-    | "refused";
-  readonly cCallRef: string | null;
-  readonly resultRef: string | null;
-  readonly judgmentRef: string | null;
-  readonly closureRef: string | null;
-  readonly nextCursor: TraversalCursor | null;
-  readonly resultValue: JsonValue | null;
-  readonly continuationKind: "advance" | "re_enter" | "retry" | null;
-  readonly nextInputContractRef: string | null;
-  readonly replayState: ReplayState;
-  readonly successorPrefix: DurablePrefixCoordinate;
-  readonly diagnosticRef: string | null;
-  readonly continuationRef: string | null;
-  readonly heldCursor: TraversalCursor | null;
-  readonly heldInteraction: HeldInteractionTraversal | null;
-  readonly heldGraph: Readonly<GtlGraph> | null;
-  readonly heldClosureContract: Readonly<ClosureContract> | null;
-  readonly parentSuspensions: readonly HeldParentTraversalSuspension[];
-}
-
 interface ExecutableTraversalClock {
   readonly eventTime: string;
   readonly correlationId: string;
@@ -249,22 +236,6 @@ interface CompleteExecutableTraversalInput<Input> {
   readonly clock: ExecutableTraversalClock;
 }
 
-interface CompleteInteractionResumeInput {
-  readonly store: AbgEventStore;
-  readonly predecessorPrefix: DurablePrefixCoordinate;
-  readonly executionBasis: ExecutionBasis;
-  readonly openedTraversalScope: OpenedTraversalScope;
-  readonly program: Readonly<GtlProgram>;
-  readonly graphFunction: Readonly<GraphFunction>;
-  readonly graph: Readonly<GtlGraph>;
-  readonly interactionSet: AdmittedInteractionSet;
-  readonly heldInteraction: HeldInteractionTraversal;
-  readonly successorCursor: TraversalCursor;
-  readonly resume: FhInteractionResumeAdmission;
-  readonly closureContract: Readonly<ClosureContract>;
-  readonly clock: ExecutableTraversalClock;
-}
-
 interface RestoreDeferredRecursionInput {
   readonly traversalInput: CompleteExecutableTraversalInput<
     Readonly<Record<string, JsonValue>>
@@ -274,60 +245,6 @@ interface RestoreDeferredRecursionInput {
   readonly resultRef: string;
   readonly judgmentRef: string;
 }
-
-export interface HeldInteractionTraversal {
-  readonly cCall: CCall;
-  readonly result: AdmittedCCallResult;
-  readonly judgment: AdmittedCCallJudgment;
-  readonly cursor: TraversalCursor;
-}
-
-export interface HeldWorkflowSuspension {
-  readonly kind: "held_workflow_suspension";
-  readonly schemaVersion: "5.0.0";
-  readonly parentExecutionBasisRef: string;
-  readonly parentTraversalScope: OpenedTraversalScope;
-  readonly parentGraph: Readonly<GtlGraph>;
-  readonly parentClosureContract: Readonly<ClosureContract>;
-  readonly parentCCall: CCall;
-  readonly sourceCursor: TraversalCursor;
-  readonly parentGraphInput: Readonly<Record<string, JsonValue>>;
-  readonly parentGraphInputDigest: `sha256:${string}`;
-  readonly parentInput: Readonly<Record<string, JsonValue>>;
-  readonly parentInputDigest: `sha256:${string}`;
-  readonly childExecutionBasisRef: string;
-  readonly childTraversalScopeRef: string;
-  readonly childInput: Readonly<Record<string, JsonValue>>;
-  readonly childInputDigest: `sha256:${string}`;
-  readonly terminalMode: "close_run" | "return_to_parent";
-}
-
-export interface HeldRecursionSuspension {
-  readonly kind: "held_recursion_suspension";
-  readonly schemaVersion: "5.0.0";
-  readonly parentExecutionBasisRef: string;
-  readonly parentTraversalScope: OpenedTraversalScope;
-  readonly parentGraph: Readonly<GtlGraph>;
-  readonly parentClosureContract: Readonly<ClosureContract>;
-  readonly parentGraphInput: Readonly<Record<string, JsonValue>>;
-  readonly parentGraphInputDigest: `sha256:${string}`;
-  readonly application: Readonly<RecurseApplication>;
-  readonly evaluatorCCall: CCall;
-  readonly evaluatorResult: AdmittedCCallResult;
-  readonly evaluatorJudgment: AdmittedCCallJudgment;
-  readonly sourceCursor: TraversalCursor;
-  readonly evaluatorInput: Readonly<Record<string, JsonValue>>;
-  readonly evaluatorInputDigest: `sha256:${string}`;
-  readonly childExecutionBasisRef: string;
-  readonly childTraversalScopeRef: string;
-  readonly childInput: Readonly<Record<string, JsonValue>>;
-  readonly childInputDigest: `sha256:${string}`;
-  readonly terminalMode: "close_run" | "return_to_parent";
-}
-
-export type HeldParentTraversalSuspension =
-  | HeldRecursionSuspension
-  | HeldWorkflowSuspension;
 
 export interface InitialOrNonRetryResumeEntry {
   readonly input: Readonly<Record<string, JsonValue>>;
@@ -413,52 +330,6 @@ function admissionBasis(
     correlationId: `${clock.correlationId}/${stage}`,
     causationEventRefs: [],
   };
-}
-
-function completion(
-  disposition: ExecutableTraversalCompletion["disposition"],
-  replayState: ReplayState,
-  successorPrefix: DurablePrefixCoordinate,
-  values: Partial<Readonly<{
-    cCallRef: string;
-    resultRef: string;
-    judgmentRef: string;
-    closureRef: string;
-    nextCursor: TraversalCursor;
-    resultValue: JsonValue;
-    continuationKind: "advance" | "re_enter" | "retry";
-    nextInputContractRef: string;
-    diagnosticRef: string;
-    continuationRef: string;
-    heldCursor: TraversalCursor;
-    heldInteraction: HeldInteractionTraversal;
-    heldGraph: Readonly<GtlGraph>;
-    heldClosureContract: Readonly<ClosureContract>;
-    parentSuspensions: readonly HeldParentTraversalSuspension[];
-  }>> = {},
-): ExecutableTraversalCompletion {
-  return deepFreeze({
-    kind: "executable_traversal_completion" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition,
-    cCallRef: values.cCallRef ?? null,
-    resultRef: values.resultRef ?? null,
-    judgmentRef: values.judgmentRef ?? null,
-    closureRef: values.closureRef ?? null,
-    nextCursor: values.nextCursor ?? null,
-    resultValue: values.resultValue ?? null,
-    continuationKind: values.continuationKind ?? null,
-    nextInputContractRef: values.nextInputContractRef ?? null,
-    replayState,
-    successorPrefix,
-    diagnosticRef: values.diagnosticRef ?? null,
-    continuationRef: values.continuationRef ?? null,
-    heldCursor: values.heldCursor ?? null,
-    heldInteraction: values.heldInteraction ?? null,
-    heldGraph: values.heldGraph ?? null,
-    heldClosureContract: values.heldClosureContract ?? null,
-    parentSuspensions: values.parentSuspensions ?? [],
-  }) as ExecutableTraversalCompletion;
 }
 
 function isExactLocusStep(
@@ -747,131 +618,6 @@ function evaluateInteractionLocus(input: Readonly<{
     outputValueKind: null,
     outputContractRef: null,
   };
-}
-
-function resumeInteractionOwner(
-  input: CompleteInteractionResumeInput,
-): ExecutableTraversalCompletion {
-  const { cCall, result, judgment } = input.heldInteraction;
-  const successorContract = deriveInteractionSuccessorInputCarrierRef(
-    input.graph,
-    input.heldInteraction.cursor,
-  );
-  if (successorContract !== input.resume.successorInputContractRef) {
-    throw new TypeError("interaction successor differs from GTL");
-  }
-  const target = deriveCompletedTraversalCursor(input.graph, input.successorCursor, {
-    inputRef: input.resume.successorInputRef,
-    inputDigest: input.resume.successorInputDigest,
-  });
-  if (target?.kind === "traversal_refusal") {
-    throw new TypeError(`interaction continuation refused: ${target.code}`);
-  }
-  const outcome = Abg.projectCCallOutcomeReceiptAtPrefix(
-    input.predecessorPrefix,
-    {
-      disposition: "judged",
-      admitted: { cCall, result, judgment },
-    },
-  );
-  if (outcome?.disposition !== "judged") {
-    throw new TypeError("interaction resume lacks its exact durable pending CCall");
-  }
-  const proposal = Routes.proposeInteractionResumeRoute(
-    input.graph,
-    input.successorCursor,
-    target,
-    cCall,
-    judgment,
-    input.resume,
-    outcome.replayState,
-    cCall.transitionContractRef,
-  );
-  if (proposal.kind !== "traversal_route_candidate") {
-    throw new TypeError(`interaction route refused: ${proposal.code}`);
-  }
-  const candidate = Abg.completeTraversalTransitionCandidate({
-    kind: "traversal_transition_candidate",
-    schemaVersion: "5.0.0",
-    transitionClass: "route",
-    route: proposal,
-    evidence: {
-      evidenceClass: "interaction_resume",
-      graphFunction: input.graphFunction,
-      cCall,
-      result,
-      judgment,
-      resume: input.resume,
-      completedProgresses: [],
-    },
-    terminalizeRun: proposal.routeKind === "terminal",
-  });
-  const admitted = Abg.admitCCallCompletion({
-    store: input.store,
-    predecessorPrefix: input.predecessorPrefix,
-    executionBasis: input.executionBasis,
-    graph: input.graph,
-    graphFunction: input.graphFunction,
-    source: input.successorCursor,
-    target,
-    outcome,
-    candidate,
-    openedTraversalScope: input.openedTraversalScope,
-    closureContract: input.closureContract,
-    basis: admissionBasis(input.clock, "interaction/resume"),
-    terminalMode: "close_run",
-  });
-  if (admitted.kind !== "c_call_completion_admission") {
-    throw new TypeError(`interaction transition refused: ${admitted.code}`);
-  }
-  if (admitted.disposition === "application_ready") {
-    throw new TypeError("interaction transition cannot defer an application");
-  }
-  const route = admitted.transition.route;
-  if (route.routeKind === "advance" && target !== null && successorContract !== null) {
-    const nextCursor = applyAdmittedRoute(
-      runtimePrefixAtDurable(admitted.transition.successorPrefix, cCall.runId),
-      input.successorCursor,
-      target,
-      "advance",
-      route,
-    );
-    if (nextCursor.kind === "traversal_refusal") {
-      throw new TypeError(`interaction route refused: ${nextCursor.code}`);
-    }
-    return completion(
-      "advanced",
-      admitted.transition.replayState,
-      admitted.transition.successorPrefix,
-      {
-      cCallRef: cCall.cCallRef,
-      resultRef: input.resume.successorInputRef,
-      judgmentRef: judgment.judgmentRef,
-      nextCursor,
-      resultValue: input.resume.successorInputValue,
-      continuationKind: "advance",
-      nextInputContractRef: successorContract,
-      },
-    );
-  }
-  if (route.routeKind !== "terminal") {
-    throw new TypeError(`interaction admitted ${route.routeKind}`);
-  }
-  if (admitted.disposition !== "closed") {
-    throw new TypeError("terminal interaction transition did not close its Run");
-  }
-  return completion(
-    "closed",
-    admitted.closure.replayState,
-    admitted.transition.successorPrefix,
-    {
-    cCallRef: cCall.cCallRef,
-    resultRef: input.resume.responseRef,
-    judgmentRef: judgment.judgmentRef,
-    closureRef: admitted.closure.closureRef,
-    resultValue: input.resume.responseValue,
-    },
-  );
 }
 
 function projectBlockedCCallCompletion(
