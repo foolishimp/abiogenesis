@@ -1,8 +1,15 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import * as Effect from "effect/Effect";
 
 import * as gtl from "../../build/code/src/gtl/index.js";
 import * as hog from "../../build/code/src/hog/index.js";
+import {
+  completeDirectEffectFold,
+  directEffectFold,
+  evaluateDirectEffectFold,
+  returnDirectEffectFold,
+} from "../../build/code/src/hog/effect_fold_core.js";
 
 function executableRequirement(ref, inputContractRef, outputContractRef) {
   return {
@@ -128,6 +135,239 @@ test("M5 HoG derives one direct structural step for every C constructor", () => 
     assert.equal("schedule" in step, false);
     assert.equal("steps" in step, false);
   }
+});
+
+test("M5 HoG folds one actual nested C tree with one immutable return stack", async () => {
+  const carrier = gtl.cCarrier("contract://m5/core/value");
+  const exactLeaf = (stageRole, fibre = "F_D") => gtl.C.of({
+    input: carrier,
+    output: carrier,
+    programLocusRef: `locus://m5/core/${stageRole}`,
+    stageRole,
+    fibre,
+    armId: `arm://m5/core/${stageRole}`,
+    compositionRef: null,
+    vectorIndex: 0,
+    judgmentPredicateRef: `predicate://m5/core/${stageRole}`,
+    resultBearing: stageRole === "consequence" || stageRole === "child",
+    requirement: fibre === "F_H"
+      ? {
+          kind: "interaction_leaf_requirement",
+          interactionKind: "human_assurance",
+          actorCapabilityRef: "capability://m5/core/human-assurance",
+          requestContractRef: carrier.ref,
+          responseContractRef: carrier.ref,
+          continuationContractRef: "contract://m5/core/continuation",
+        }
+      : executableRequirement(
+          `binding://m5/core/${stageRole}`,
+          carrier.ref,
+          carrier.ref,
+        ),
+  });
+  const childGraphFunctionRef = "graph-function://m5/core/child";
+  const childTemplate = {
+    ...template(exactLeaf("child")),
+    graphRef: "graph://m5/core/child",
+    startNodeRef: "node://m5/core/child",
+    terminalNodeRefs: ["node://m5/core/child"],
+    nodes: [{
+      nodeRef: "node://m5/core/child",
+      nodeKind: "c_locus",
+      term: exactLeaf("child"),
+    }],
+  };
+  const workflowRef = gtl.cGraphFunctionRef({
+    graphFunctionRef: childGraphFunctionRef,
+    input: carrier,
+    output: carrier,
+  });
+  const rootTerms = [
+    gtl.C.edge({
+      transform: exactLeaf("transform"),
+      evaluate: exactLeaf("evaluate"),
+      consequence: exactLeaf("consequence"),
+    }),
+    gtl.C.batch([
+      exactLeaf("batch_member"),
+      gtl.C.retry(exactLeaf("retry_member"), 2),
+    ], "batch://m5/core"),
+    gtl.workflow.C(workflowRef),
+    exactLeaf("interaction", "F_H"),
+  ];
+  const rootTerm = rootTerms.slice(1).reduce(
+    (left, right) => gtl.C.compose(left, right),
+    rootTerms[0],
+  );
+  const rootStartNodeRef = "node://m5/core/root-identity";
+  const rootBodyNodeRef = "node://m5/core/root-body";
+  const rootTemplate = {
+    kind: "inline_graph",
+    graphRef: "graph://m5/core/root",
+    startNodeRef: rootStartNodeRef,
+    terminalNodeRefs: [rootBodyNodeRef],
+    nodes: [{
+      nodeRef: rootStartNodeRef,
+      nodeKind: "c_locus",
+      term: gtl.C.id(carrier),
+    }, {
+      nodeRef: rootBodyNodeRef,
+      nodeKind: "c_locus",
+      term: rootTerm,
+    }],
+    edges: [gtl.graphEdge({
+      fromNodeRef: rootStartNodeRef,
+      toNodeRef: rootBodyNodeRef,
+    })],
+    applications: [],
+  };
+  const templatesByNode = new Map([
+    [rootStartNodeRef, rootTemplate],
+    [rootBodyNodeRef, rootTemplate],
+    [childTemplate.startNodeRef, childTemplate],
+  ]);
+  const childTemplates = new Map([[childGraphFunctionRef, childTemplate]]);
+  const initialCoordinate = hog.rootCTraversalCoordinate(rootTemplate.startNodeRef);
+  const initialStep = hog.deriveDirectCStepFromGraph(
+    rootTemplate,
+    initialCoordinate,
+  );
+  assert.equal(initialStep.kind, "direct_c_traversal_step");
+
+  const visitedStates = [];
+  const initial = evaluateDirectEffectFold({
+    coordinate: initialCoordinate,
+    value: Object.freeze([]),
+    returns: Object.freeze([]),
+    step: initialStep,
+  });
+  const receipt = await Effect.runPromise(directEffectFold(
+    initial,
+    (state) => Effect.sync(() => {
+      visitedStates.push(state);
+      if (state.stateKind === "return") {
+        if (state.receipt.done) {
+          return completeDirectEffectFold(state.receipt);
+        }
+        return evaluateDirectEffectFold({
+          coordinate: state.receipt.nextStep.source,
+          value: state.receipt.observed,
+          returns: state.returns,
+          step: state.receipt.nextStep,
+        });
+      }
+
+      const templateAtCoordinate = templatesByNode.get(state.coordinate.nodeRef);
+      assert.notEqual(templateAtCoordinate, undefined);
+      const relation = "relation" in state.step ? state.step.relation : null;
+      const observation = Object.freeze({
+        nodeRef: state.coordinate.nodeRef,
+        termKind: state.step.termKind,
+        stepKind: state.step.stepKind,
+        relation,
+        leafKind: state.step.stepKind === "open_leaf"
+          ? state.step.leafKind
+          : null,
+      });
+      const observed = Object.freeze([...state.value, observation]);
+      let returns = state.returns;
+      let nextStep;
+      if (state.step.stepKind === "enter_child") {
+        const child = childTemplates.get(state.step.graphFunctionRef);
+        assert.notEqual(child, undefined);
+        returns = Object.freeze([...state.returns, Object.freeze({
+          parentNodeRef: state.coordinate.nodeRef,
+          parentSource: state.step.source,
+        })]);
+        nextStep = hog.deriveDirectCStepFromGraph(
+          child,
+          hog.rootCTraversalCoordinate(child.startNodeRef),
+        );
+      } else if (
+        state.step.stepKind === "enter_term" ||
+        state.step.stepKind === "start_task" ||
+        state.step.stepKind === "retry" ||
+        state.step.stepKind === "continue_term"
+      ) {
+        nextStep = hog.deriveDirectCStepFromGraph(
+          templateAtCoordinate,
+          state.step.target,
+        );
+      } else if (state.step.stepKind === "complete_term") {
+        const parent = state.returns.at(-1);
+        if (parent === undefined) {
+          return completeDirectEffectFold(Object.freeze({
+            done: true,
+            nextStep: null,
+            observed,
+          }));
+        }
+        returns = state.returns.slice(0, -1);
+        const parentTemplate = templatesByNode.get(parent.parentNodeRef);
+        assert.notEqual(parentTemplate, undefined);
+        nextStep = hog.deriveDirectCContinuationStepFromGraph(
+          parentTemplate,
+          parent.parentSource,
+        );
+      } else {
+        nextStep = hog.deriveDirectCContinuationStepFromGraph(
+          templateAtCoordinate,
+          state.step.source,
+        );
+      }
+      assert.equal(nextStep.kind, "direct_c_traversal_step");
+      return returnDirectEffectFold({
+        coordinate: state.coordinate,
+        value: observed,
+        returns,
+        receipt: Object.freeze({
+          done: false,
+          nextStep,
+          observed,
+        }),
+      });
+    }),
+  ));
+
+  assert.equal(receipt.done, true);
+  assert.deepEqual(
+    [...new Set(receipt.observed.map(({ termKind }) => termKind))].sort(),
+    [
+      "c_batch",
+      "c_compose",
+      "c_edge",
+      "c_identity",
+      "c_of",
+      "c_retry",
+      "c_workflow",
+    ],
+  );
+  assert.equal(
+    receipt.observed.some(({ leafKind }) => leafKind === "executable"),
+    true,
+  );
+  assert.equal(
+    receipt.observed.some(({ leafKind }) => leafKind === "interaction"),
+    true,
+  );
+  assert.equal(
+    receipt.observed.some(({ nodeRef }) => nodeRef === childTemplate.startNodeRef),
+    true,
+  );
+  assert.equal(
+    receipt.observed.some(({ relation }) => relation === "batch_next"),
+    true,
+  );
+  assert.equal(
+    receipt.observed.some(({ relation }) => relation === "edge_next"),
+    true,
+  );
+  assert.equal(
+    receipt.observed.some(({ relation }) => relation === "compose_next"),
+    true,
+  );
+  assert.equal(visitedStates.every(Object.isFrozen), true);
+  assert.equal(visitedStates.every((state) => Object.isFrozen(state.returns)), true);
 });
 
 test("M5 HoG re-reads the original GTL term at each source path", () => {
