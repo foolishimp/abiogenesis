@@ -45,6 +45,7 @@ export type ExecutableLocusStep =
   | Readonly<{
       kind: "recursion_child_request";
       frame: RecursionChildFoldFrame;
+      prepared: import("./child_traversal.js").PreparedChildTraversal;
       correlationId: string;
       outputValueKind: string;
       outputContractRef: string;
@@ -179,6 +180,7 @@ export function beginExecutableLocus(
         return {
           kind: "recursion_child_request" as const,
           frame: recursion.frame,
+          prepared: recursion.prepared,
           correlationId: recursion.correlationId,
           outputValueKind: outputKind,
           outputContractRef: stop.outputContractRef,

@@ -43,7 +43,10 @@ export interface RecursionChildFoldFrame {
   readonly graphEntryInput: Readonly<Record<string, JsonValue>>;
   readonly graphEntryInputDigest: `sha256:${string}`;
   readonly leafOrdinal: number;
-  readonly prepared: PreparedChildTraversal;
+  readonly childExecutionBasis: PreparedChildTraversal["executionBasis"];
+  readonly childTraversalScope: PreparedChildTraversal["openedTraversalScope"];
+  readonly childInput: PreparedChildTraversal["input"];
+  readonly childInputDigest: PreparedChildTraversal["inputDigest"];
 }
 
 export type RecursionApplicationStep =
@@ -54,6 +57,7 @@ export type RecursionApplicationStep =
   | Readonly<{
       kind: "recursion_child_request";
       frame: RecursionChildFoldFrame;
+      prepared: PreparedChildTraversal;
       correlationId: string;
     }>;
 
@@ -183,8 +187,12 @@ export function beginRecursionApplication(
         graphEntryInput: input.graphEntryInput,
         graphEntryInputDigest: input.graphEntryInputDigest,
         leafOrdinal,
-        prepared,
+        childExecutionBasis: prepared.executionBasis,
+        childTraversalScope: prepared.openedTraversalScope,
+        childInput: prepared.input,
+        childInputDigest: prepared.inputDigest,
       },
+      prepared,
       correlationId: clock("child").correlationId,
     };
   });
@@ -202,7 +210,10 @@ export function completeRecursionChild(
       graphEntryInput,
       graphEntryInputDigest,
       leafOrdinal,
-      prepared,
+      childExecutionBasis,
+      childTraversalScope,
+      childInput,
+      childInputDigest,
     } = frame;
     const clock = (stage: string) => ({
       eventTime: parent.eventTime,
@@ -215,10 +226,10 @@ export function completeRecursionChild(
         application,
         deferredCompletion: restored,
         restoration,
-        childExecutionBasis: prepared.executionBasis,
-        childTraversalScope: prepared.openedTraversalScope,
-        childInput: prepared.input,
-        childInputDigest: prepared.inputDigest,
+        childExecutionBasis,
+        childTraversalScope,
+        childInput,
+        childInputDigest,
         childCompletion,
         terminalMode: parent.terminalMode ?? "close_run",
       });
@@ -231,8 +242,8 @@ export function completeRecursionChild(
       completion: restored,
       restoration,
       application,
-      childExecutionBasis: prepared.executionBasis,
-      childTraversalScope: prepared.openedTraversalScope,
+      childExecutionBasis,
+      childTraversalScope,
       childCompletion,
       clock: clock("foldback"),
     });

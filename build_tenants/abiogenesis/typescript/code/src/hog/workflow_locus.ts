@@ -52,7 +52,11 @@ export interface WorkflowChildFoldFrame {
   readonly workflowTerm: WorkflowTerm;
   readonly parentCCall: CCall;
   readonly application: Readonly<FanOutApplication> | null;
-  readonly prepared: PreparedChildTraversal;
+  readonly childExecutionBasis: PreparedChildTraversal["executionBasis"];
+  readonly childTraversalScope: PreparedChildTraversal["openedTraversalScope"];
+  readonly childInput: PreparedChildTraversal["input"];
+  readonly childInputDigest: PreparedChildTraversal["inputDigest"];
+  readonly foldbackCorrelationId: string;
 }
 
 export type WorkflowLocusStep =
@@ -63,6 +67,7 @@ export type WorkflowLocusStep =
   | Readonly<{
       kind: "workflow_child_request";
       frame: WorkflowChildFoldFrame;
+      prepared: PreparedChildTraversal;
       correlationId: string;
       deferFailedRunStop: boolean;
     }>;
@@ -186,8 +191,14 @@ export function beginWorkflowLocus(
         workflowTerm: term,
         parentCCall: opened.cCall,
         application,
-        prepared,
+        childExecutionBasis: prepared.executionBasis,
+        childTraversalScope: prepared.openedTraversalScope,
+        childInput: prepared.input,
+        childInputDigest: prepared.inputDigest,
+        foldbackCorrelationId:
+          `${runtime.correlationId}/workflow/${ordinal}/foldback`,
       },
+      prepared,
       correlationId: `${runtime.correlationId}/workflow/${ordinal}/child`,
       deferFailedRunStop: runtime.deferFailedRunStop === true ||
         application?.elementGraphFunctionRef === term.graphFunctionRef,
@@ -210,7 +221,11 @@ export function completeWorkflowLocus(
       workflowTerm: term,
       parentCCall,
       application,
-      prepared,
+      childExecutionBasis,
+      childTraversalScope,
+      childInput,
+      childInputDigest,
+      foldbackCorrelationId,
     } = frame;
     if (child.disposition === "held") {
       return terminalLocusEvaluation(suspendHeldWorkflowTraversal({
@@ -221,9 +236,9 @@ export function completeWorkflowLocus(
         parentGraphInput: graphEntryInput,
         parentGraphInputDigest: graphEntryInputDigest,
         parentInput: value, parentInputDigest: cursor.inputDigest,
-        childExecutionBasis: prepared.executionBasis,
-        childTraversalScope: prepared.openedTraversalScope,
-        childInput: prepared.input, childInputDigest: prepared.inputDigest,
+        childExecutionBasis,
+        childTraversalScope,
+        childInput, childInputDigest,
         childCompletion: child,
         terminalMode: runtime.terminalMode ?? "close_run",
       }));
@@ -267,8 +282,8 @@ export function completeWorkflowLocus(
       openedTraversalScope: runtime.openedTraversalScope, program: runtime.program,
       graphFunction: runtime.graphFunction, graph: runtime.graph,
       workflowCursor: cursor, workflowTerm: term, parentCCall,
-      childExecutionBasis: prepared.executionBasis,
-      childTraversalScope: prepared.openedTraversalScope, childCompletion: child,
+      childExecutionBasis,
+      childTraversalScope, childCompletion: child,
       input: value, inputDigest: cursor.inputDigest,
       resultValueKind: outputKind, failureValueKind: failureKind,
       validateSuccessResult: (value): value is Readonly<Record<string, JsonValue>> =>
@@ -283,7 +298,7 @@ export function completeWorkflowLocus(
           runtime.leafPort.validateContractValue(
             application.outputVectorRef, "output", value) }),
       clock: { eventTime: runtime.eventTime,
-        correlationId: `${runtime.correlationId}/workflow/${ordinal}/foldback` },
+        correlationId: foldbackCorrelationId },
     });
     return { completion, outputValueKind: outputKind,
       outputContractRef: term.outputCarrierRef };

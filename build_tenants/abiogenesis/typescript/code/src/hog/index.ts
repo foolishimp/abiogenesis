@@ -60,7 +60,7 @@ export {
   type HeldWorkflowSuspension,
   type ProjectedRetryResumeSuccess,
   type ResumeHeldInteractionInput,
-  type ResumeHeldTraversalInput,
+  type ResumeHeldParentFrameInput,
 } from "./graph_execute.js";
 export {
   type ChildTraversalPreparationPort,

@@ -4216,7 +4216,36 @@ async function applyRunContinue(
           : {}),
       };
     };
-    let completion = await hog.executeGraphTraversal({
+    let childExecutionBasis = rehydrated.executionBasis;
+    let childTraversalScope = rehydrated.openedTraversalScope;
+    const parentFrames = parentRuntimes.map((preparedParent) => {
+      const {
+        suspension,
+        runtime,
+        sourceCursor,
+        parentCCall,
+      } = preparedParent;
+      const frame = {
+        parent: traversalInput(runtime),
+        suspension,
+        parentCCall,
+        sourceCursor,
+        childExecutionBasis,
+        childTraversalScope,
+      };
+      childExecutionBasis = runtime.executionBasis;
+      childTraversalScope = runtime.openedTraversalScope;
+      return frame;
+    });
+    const outermostParent = parentRuntimes.at(-1)?.runtime;
+    if (outermostParent !== undefined) {
+      resumedFailureBasis = {
+        executionBasis: outermostParent.executionBasis,
+        scope: outermostParent.openedTraversalScope,
+        resumeEventRef: resume.admissionEventRef,
+      };
+    }
+    const completion = await hog.executeGraphTraversal({
       parent: traversalInput(heldRuntime),
       interaction: {
         store: effectContext.store,
@@ -4238,36 +4267,8 @@ async function applyRunContinue(
           correlationId: `${invocation.correlationId}/hog`,
         },
       },
+      parents: parentFrames,
     });
-    let childExecutionBasis = rehydrated.executionBasis;
-    let childTraversalScope = rehydrated.openedTraversalScope;
-    for (const preparedParent of parentRuntimes) {
-      const {
-        suspension,
-        runtime,
-        sourceCursor,
-        parentCCall,
-      } = preparedParent;
-      const parentRuntime = traversalInput(runtime);
-      const parentExecutionBasis = runtime.executionBasis;
-      const parentTraversalScope = runtime.openedTraversalScope;
-      resumedFailureBasis = {
-        executionBasis: parentExecutionBasis,
-        scope: parentTraversalScope,
-        resumeEventRef: resume.admissionEventRef,
-      };
-      completion = await hog.executeGraphTraversal({
-        parent: parentRuntime,
-        suspension,
-        parentCCall,
-        sourceCursor,
-        childExecutionBasis,
-        childTraversalScope,
-        childCompletion: completion,
-      });
-      childExecutionBasis = parentExecutionBasis;
-      childTraversalScope = parentTraversalScope;
-    }
     const updatedAuthority = closeContinuationContext(effectContext, state);
     heldContext = null;
     latestAuthority = updatedAuthority;

@@ -270,19 +270,19 @@ export type InitialOrNonRetryExecuteGraphTraversalInput =
 export type ExecuteGraphTraversalInput = ExecuteGraphTraversalCommonInput &
   (InitialOrNonRetryResumeEntry | ProjectedRetryResumeEntry);
 
-export interface ResumeHeldTraversalInput {
+export interface ResumeHeldParentFrameInput {
   readonly parent: InitialOrNonRetryExecuteGraphTraversalInput;
   readonly suspension: HeldRecursionSuspension | HeldWorkflowSuspension;
   readonly parentCCall: import("../abg/index.js").CCall | null;
   readonly sourceCursor: TraversalCursor;
   readonly childExecutionBasis: ExecutionBasis;
   readonly childTraversalScope: OpenedTraversalScope;
-  readonly childCompletion: ExecutableTraversalCompletion;
 }
 
 export interface ResumeHeldInteractionInput {
   readonly parent: InitialOrNonRetryExecuteGraphTraversalInput;
   readonly interaction: CompleteInteractionResumeInput;
+  readonly parents: readonly ResumeHeldParentFrameInput[];
 }
 
 function fail(
@@ -1008,12 +1008,11 @@ function continueTraversalFold(
   };
 }
 
-function graphTraversalEffect(
-  input: ExecuteGraphTraversalInput,
+function traversalFoldProgram(
+  initialFoldState: TraversalFoldState,
+  failureRuntime: ExecuteGraphTraversalCommonInput,
 ): Effect.Effect<ExecutableTraversalCompletion> {
   return Effect.suspend(() => Effect.gen(function* () {
-  const initialFrame = initializeTraversalEvaluationFrame(input);
-
   const evaluateLocusOnce = (
     runtimeFrame: TraversalEvaluationFrame,
     cursor: TraversalCursor,
@@ -1099,11 +1098,6 @@ function graphTraversalEffect(
       fail: failLocus,
     }) as Effect.Effect<TraversalLocusStep>;
   });
-  const initialFoldState: TraversalFoldState = {
-    stateKind: "evaluate",
-    frame: initialFrame,
-    returns: [],
-  };
   const folded = yield* Effect.iterate<
     TraversalFoldState,
     OpenTraversalFoldState,
@@ -1255,7 +1249,7 @@ function graphTraversalEffect(
               frame: initializeTraversalEvaluationFrame(
                 preparedChildTraversalInput(
                   runtime,
-                  locus.frame.prepared,
+                  locus.prepared,
                   locus.correlationId,
                   locus.deferFailedRunStop,
                 ),
@@ -1275,7 +1269,7 @@ function graphTraversalEffect(
             frame: initializeTraversalEvaluationFrame(
               preparedChildTraversalInput(
                 runtime,
-                locus.frame.prepared,
+                locus.prepared,
                 locus.correlationId,
                 runtime.deferFailedRunStop === true,
               ),
@@ -1296,7 +1290,7 @@ function graphTraversalEffect(
   );
   if (folded.stateKind !== "done") {
     return fail(
-      input,
+      failureRuntime,
       "fold-incomplete",
       "diagnostic://abiogenesis/hog/effect-fold-incomplete@5",
       { stateKind: folded.stateKind },
@@ -1304,6 +1298,19 @@ function graphTraversalEffect(
   }
   return folded.completion;
   }));
+}
+
+function graphTraversalEffect(
+  input: ExecuteGraphTraversalInput,
+): Effect.Effect<ExecutableTraversalCompletion> {
+  return traversalFoldProgram(
+    {
+      stateKind: "evaluate",
+      frame: initializeTraversalEvaluationFrame(input),
+      returns: [],
+    },
+    input,
+  );
 }
 
 async function runGraphTraversalProgram(
@@ -1314,43 +1321,45 @@ async function runGraphTraversalProgram(
   throw Cause.squash(exit.cause);
 }
 
-function resumeParentAfterChild(
+function seedParentContinuation(
   parent: InitialOrNonRetryExecuteGraphTraversalInput,
   parentGraphInput: Readonly<Record<string, JsonValue>>,
   parentGraphInputDigest: `sha256:${string}`,
   completion: ExecutableTraversalCompletion,
+  returns: readonly TraversalReturnFoldFrame[],
   stage: "interaction-resume" | "workflow-resume" | "recursion-resume",
-): Effect.Effect<ExecutableTraversalCompletion> {
+): TraversalFoldState {
   if (completion.disposition !== "advanced") {
-    return Effect.succeed(completion);
+    return { stateKind: "return", completion, returns };
   }
-  return Effect.suspend(() => {
-    if (
+  if (
       completion.nextCursor === null ||
       completion.resultValue === null ||
       typeof completion.resultValue !== "object" ||
       Array.isArray(completion.resultValue)
-    ) {
-      return fail(
+  ) {
+    return fail(
         parent,
         `${stage}-advance`,
         `diagnostic://abiogenesis/hog/${stage}-advance-incomplete@5`,
         completion as unknown as JsonValue,
-      );
-    }
-    const nextInput = completion.resultValue as Readonly<
-      Record<string, JsonValue>
-    >;
-    const nextInputDigest = sha256Canonical(nextInput);
-    if (completion.nextCursor.inputDigest !== nextInputDigest) {
-      return fail(
+    );
+  }
+  const nextInput = completion.resultValue as Readonly<
+    Record<string, JsonValue>
+  >;
+  const nextInputDigest = sha256Canonical(nextInput);
+  if (completion.nextCursor.inputDigest !== nextInputDigest) {
+    return fail(
         parent,
         `${stage}-advance-digest`,
         `diagnostic://abiogenesis/hog/${stage}-advance-digest-mismatch@5`,
         completion as unknown as JsonValue,
-      );
-    }
-    return graphTraversalEffect({
+    );
+  }
+  return {
+    stateKind: "evaluate",
+    frame: initializeTraversalEvaluationFrame({
       ...parent,
       input: parentGraphInput,
       inputDigest: parentGraphInputDigest,
@@ -1359,106 +1368,55 @@ function resumeParentAfterChild(
         input: nextInput,
         inputDigest: nextInputDigest,
       },
-    });
-  });
+    }),
+    returns,
+  };
 }
 
 export type ExecuteGraphTraversalRequest =
   | ExecuteGraphTraversalInput
-  | ResumeHeldInteractionInput
-  | ResumeHeldTraversalInput;
+  | ResumeHeldInteractionInput;
 
-function traversalProgram(
-  input: ExecuteGraphTraversalRequest,
-): Effect.Effect<ExecutableTraversalCompletion> {
-  if ("interaction" in input) {
-    return Effect.flatMap(
-      Effect.sync(() => resumeInteractionOwner(input.interaction)),
-      (completion) => resumeParentAfterChild(
-        input.parent,
-        input.parent.input,
-        input.parent.inputDigest,
-        completion,
-        "interaction-resume",
-      ),
-    );
-  }
-  if (!("suspension" in input)) return graphTraversalEffect(input);
-  if (input.suspension.kind === "held_workflow_suspension") {
-    if (input.parentCCall === null) {
-      return Effect.die(
-        new TypeError(
-          "diagnostic://abiogenesis/hog/workflow-resume-parent-call-absent@5",
-        ),
-      );
-    }
-    return resumeHeldWorkflowEffect({
-      ...input,
-      suspension: input.suspension,
-      parentCCall: input.parentCCall,
-    });
-  }
-  return resumeHeldRecursionEffect({
-    ...input,
-    suspension: input.suspension,
-  });
-}
-
-export function executeGraphTraversal(
-  input: ExecuteGraphTraversalRequest,
-): Promise<ExecutableTraversalCompletion> {
-  return runGraphTraversalProgram(traversalProgram(input));
-}
-
-function resumeHeldWorkflowEffect(
-  input: ResumeHeldTraversalInput & Readonly<{
+function rehydrateWorkflowReturnFrame(
+  input: ResumeHeldParentFrameInput & Readonly<{
     suspension: HeldWorkflowSuspension;
-    parentCCall: import("../abg/index.js").CCall;
+    parentCCall: CCall;
   }>,
-): Effect.Effect<ExecutableTraversalCompletion> {
-  return Effect.suspend(() => Effect.gen(function* () {
+): WorkflowReturnFoldFrame {
   const parent = input.parent;
+  const suspension = input.suspension;
   if (
-    input.suspension.parentExecutionBasisRef !==
-      parent.executionBasis.basisRef ||
-    input.suspension.parentTraversalScope.scopeRef !==
+    suspension.parentExecutionBasisRef !== parent.executionBasis.basisRef ||
+    suspension.parentTraversalScope.scopeRef !==
       parent.openedTraversalScope.scopeRef ||
-    input.suspension.parentGraph.materializationRef !==
+    suspension.parentGraph.materializationRef !==
       parent.graph.materializationRef ||
-    input.suspension.parentCCall.cCallRef !==
-      input.parentCCall.cCallRef ||
-    input.suspension.sourceCursor.cursorRef !==
-      input.sourceCursor.cursorRef ||
-    input.suspension.childExecutionBasisRef !==
-      input.childExecutionBasis.basisRef ||
-    input.suspension.childTraversalScopeRef !==
-      input.childTraversalScope.scopeRef ||
-    input.suspension.terminalMode !==
-      (parent.terminalMode ?? "close_run") ||
+    suspension.parentCCall.cCallRef !== input.parentCCall.cCallRef ||
+    suspension.sourceCursor.cursorRef !== input.sourceCursor.cursorRef ||
+    suspension.childExecutionBasisRef !== input.childExecutionBasis.basisRef ||
+    suspension.childTraversalScopeRef !== input.childTraversalScope.scopeRef ||
+    suspension.terminalMode !== (parent.terminalMode ?? "close_run") ||
     input.childExecutionBasis.parentExecutionBasisRef !==
       parent.executionBasis.basisRef ||
     input.childExecutionBasis.parentTraversalScopeRef !==
       parent.openedTraversalScope.scopeRef ||
     input.childTraversalScope.executionBasisRef !==
       input.childExecutionBasis.basisRef ||
-    sha256Canonical(
-      input.suspension.parentGraphInput as unknown as JsonValue,
-    ) !== input.suspension.parentGraphInputDigest ||
+    sha256Canonical(suspension.parentGraphInput as unknown as JsonValue) !==
+      suspension.parentGraphInputDigest ||
     sha256Canonical(parent.input as unknown as JsonValue) !==
       parent.inputDigest ||
-    parent.inputDigest !== input.suspension.parentGraphInputDigest ||
-    sha256Canonical(
-      input.suspension.parentInput as unknown as JsonValue,
-    ) !== input.suspension.parentInputDigest ||
-    sha256Canonical(
-      input.suspension.childInput as unknown as JsonValue,
-    ) !== input.suspension.childInputDigest
+    parent.inputDigest !== suspension.parentGraphInputDigest ||
+    sha256Canonical(suspension.parentInput as unknown as JsonValue) !==
+      suspension.parentInputDigest ||
+    sha256Canonical(suspension.childInput as unknown as JsonValue) !==
+      suspension.childInputDigest
   ) {
     return fail(
       parent,
       "workflow-resume-lineage",
       "diagnostic://abiogenesis/hog/workflow-resume-lineage-mismatch@5",
-      input.suspension as unknown as JsonValue,
+      suspension as unknown as JsonValue,
     );
   }
   const traversal = traversalAtCursor(parent, input.sourceCursor);
@@ -1470,12 +1428,10 @@ function resumeHeldWorkflowEffect(
       traversal as unknown as JsonValue,
     );
   }
-  const workflowCursor = traversal;
-  const workflowTerm = resolveTraversalTerm(parent.graph, workflowCursor);
+  const workflowTerm = resolveTraversalTerm(parent.graph, traversal);
   if (
     workflowTerm.kind !== "c_workflow" ||
-    workflowTerm.graphFunctionRef !==
-      input.childExecutionBasis.graphFunctionRef
+    workflowTerm.graphFunctionRef !== input.childExecutionBasis.graphFunctionRef
   ) {
     return fail(
       parent,
@@ -1484,196 +1440,87 @@ function resumeHeldWorkflowEffect(
       workflowTerm as unknown as JsonValue,
     );
   }
-  const constructionIntent = rehydrateConstructionIntentForCursor(
-    parent.store,
-    workflowCursor,
-  );
-  const selectedActionEvaluationBasis =
-    constructionIntent?.actionKind === "invoke_graph_function" &&
-      input.childCompletion.disposition === "closed" &&
-      input.childCompletion.resultRef !== null &&
-      input.childCompletion.judgmentRef !== null &&
-      input.childCompletion.closureRef !== null &&
-      typeof input.childCompletion.resultValue === "object" &&
-      input.childCompletion.resultValue !== null &&
-      !Array.isArray(input.childCompletion.resultValue)
-      ? deriveGraphFunctionActionEvaluationBasis(
-          parent.store,
-          parent.executionBasis,
-          workflowCursor,
-          {
-            childGraphFunctionRef: workflowTerm.graphFunctionRef,
-            childResultRef: input.childCompletion.resultRef,
-            childResultValue:
-              input.childCompletion.resultValue as Readonly<
-                Record<string, JsonValue>
-              >,
-            childJudgmentRef: input.childCompletion.judgmentRef,
-            childClosureRef: input.childCompletion.closureRef,
-          },
-        )
-      : null;
-  if (
-    constructionIntent?.actionKind === "invoke_graph_function" &&
-    input.childCompletion.disposition === "closed" &&
-    selectedActionEvaluationBasis === null
-  ) {
-    return fail(
-      parent,
-      "workflow-resume-action-evaluation",
-      "diagnostic://abiogenesis/hog/workflow-action-evaluation-basis-absent@5",
-      workflowTerm as unknown as JsonValue,
-    );
-  }
-  const outputValueKind = parent.leafPort.contractValueKind(
-    workflowTerm.outputCarrierRef,
-    "output",
-  );
-  const failureValueKind = parent.leafPort.contractValueKind(
-    input.parentCCall.failureContractRef,
-    "failure",
-  );
-  const judgmentRelation = parent.leafPort.resolveJudgmentRelation(
-    input.parentCCall.judgmentPredicateRef,
-  );
-  if (
-    outputValueKind === null ||
-    failureValueKind === null ||
-    judgmentRelation === null
-  ) {
-    return fail(
-      parent,
-      "workflow-resume-contract",
-      "diagnostic://abiogenesis/hog/workflow-result-contract-absent@5",
-      {
-        outputContractRef: workflowTerm.outputCarrierRef,
-        failureContractRef: input.parentCCall.failureContractRef,
-        predicateRef: input.parentCCall.judgmentPredicateRef,
-      },
-    );
-  }
-  const fanOutApplication = fanOutApplicationForBatch(
-    parent.graph,
-    input.parentCCall.batchRef,
-  );
-  const completion = completeWorkflowTraversal({
-    store: parent.store,
-    executionBasis: parent.executionBasis,
-    openedTraversalScope: parent.openedTraversalScope,
-    program: parent.program,
-    graphFunction: parent.graphFunction,
-    graph: parent.graph,
-    workflowCursor,
-    workflowTerm,
-    parentCCall: input.parentCCall,
-    childExecutionBasis: input.childExecutionBasis,
-    childTraversalScope: input.childTraversalScope,
-    childCompletion: input.childCompletion,
-    input: input.suspension.parentInput,
-    inputDigest: input.suspension.parentInputDigest,
-    resultValueKind: outputValueKind,
-    failureValueKind,
-    validateSuccessResult: (
-      value,
-    ): value is Readonly<Record<string, JsonValue>> =>
-      parent.leafPort.validateContractValue(
-        workflowTerm.outputCarrierRef,
-        "output",
-        value,
-      ) &&
-      judgmentRelation.evaluate(input.suspension.parentInput, value),
-    ...(selectedActionEvaluationBasis === null
-      ? {}
-      : { successResultValue: selectedActionEvaluationBasis }),
-    closureContract: parent.closureContract,
-    ...(parent.terminalMode === undefined
-      ? {}
-      : { terminalMode: parent.terminalMode }),
-    judgmentRelation,
-    ...(fanOutApplication === null
-      ? {}
-      : {
-          fanOutApplication,
-          validateFanOutVector: (
-            value: unknown,
-          ): value is Readonly<Record<string, JsonValue>> =>
-            parent.leafPort.validateContractValue(
-              fanOutApplication.outputVectorRef,
-              "output",
-              value,
-            ),
-        }),
-    clock: {
-      eventTime: parent.eventTime,
-      correlationId: `${parent.correlationId}/workflow/resume-foldback`,
+  return {
+    kind: "workflow_return",
+    parent: {
+      runtime: parent,
+      graphEntryInput: suspension.parentGraphInput,
+      graphEntryInputDigest: suspension.parentGraphInputDigest,
+      cursor: input.sourceCursor,
+      input: suspension.parentInput,
+      ordinal: input.sourceCursor.taskOrdinal ?? 0,
+      structuralOrdinal: 0,
     },
-  });
-  return yield* resumeParentAfterChild(
-    parent,
-    input.suspension.parentGraphInput,
-    input.suspension.parentGraphInputDigest,
-    completion,
-    "workflow-resume",
-  );
-  }));
+    workflow: {
+      kind: "workflow_child_fold_frame",
+      runtime: parent,
+      cursor: input.sourceCursor,
+      value: suspension.parentInput,
+      graphEntryInput: suspension.parentGraphInput,
+      graphEntryInputDigest: suspension.parentGraphInputDigest,
+      ordinal: input.sourceCursor.taskOrdinal ?? 0,
+      workflowTerm,
+      parentCCall: input.parentCCall,
+      application: fanOutApplicationForBatch(
+        parent.graph,
+        input.parentCCall.batchRef,
+      ),
+      childExecutionBasis: input.childExecutionBasis,
+      childTraversalScope: input.childTraversalScope,
+      childInput: suspension.childInput,
+      childInputDigest: suspension.childInputDigest,
+      foldbackCorrelationId:
+        `${parent.correlationId}/workflow/resume-foldback`,
+    },
+  };
 }
 
-function resumeHeldRecursionEffect(
-  input: ResumeHeldTraversalInput & Readonly<{
+function rehydrateRecursionReturnFrame(
+  input: ResumeHeldParentFrameInput & Readonly<{
     suspension: HeldRecursionSuspension;
   }>,
-): Effect.Effect<ExecutableTraversalCompletion> {
-  return Effect.suspend(() => Effect.gen(function* () {
+): RecursionReturnFoldFrame {
   const parent = input.parent;
+  const suspension = input.suspension;
   const application = parent.graph.template.applications.find(
     (candidate): candidate is RecurseApplication =>
       candidate.relationKind === "recurse" &&
-      candidate.applicationRef === input.suspension.application.applicationRef,
+      candidate.applicationRef === suspension.application.applicationRef,
   );
   if (
     application === undefined ||
     sha256Canonical(application as unknown as JsonValue) !==
-      sha256Canonical(
-        input.suspension.application as unknown as JsonValue,
-      ) ||
-    input.suspension.parentExecutionBasisRef !==
-      parent.executionBasis.basisRef ||
-    input.suspension.parentTraversalScope.scopeRef !==
+      sha256Canonical(suspension.application as unknown as JsonValue) ||
+    suspension.parentExecutionBasisRef !== parent.executionBasis.basisRef ||
+    suspension.parentTraversalScope.scopeRef !==
       parent.openedTraversalScope.scopeRef ||
-    input.suspension.parentGraph.materializationRef !==
+    suspension.parentGraph.materializationRef !==
       parent.graph.materializationRef ||
-    input.suspension.sourceCursor.cursorRef !==
-      input.sourceCursor.cursorRef ||
-    input.suspension.childExecutionBasisRef !==
-      input.childExecutionBasis.basisRef ||
-    input.suspension.childTraversalScopeRef !==
-      input.childTraversalScope.scopeRef ||
-    input.suspension.terminalMode !==
-      (parent.terminalMode ?? "close_run") ||
+    suspension.sourceCursor.cursorRef !== input.sourceCursor.cursorRef ||
+    suspension.childExecutionBasisRef !== input.childExecutionBasis.basisRef ||
+    suspension.childTraversalScopeRef !== input.childTraversalScope.scopeRef ||
+    suspension.terminalMode !== (parent.terminalMode ?? "close_run") ||
     input.childExecutionBasis.parentExecutionBasisRef !==
       parent.executionBasis.basisRef ||
     input.childExecutionBasis.parentTraversalScopeRef !==
       parent.openedTraversalScope.scopeRef ||
     input.childTraversalScope.executionBasisRef !==
       input.childExecutionBasis.basisRef ||
-    sha256Canonical(
-      input.suspension.parentGraphInput as unknown as JsonValue,
-    ) !== input.suspension.parentGraphInputDigest ||
-    parent.inputDigest !== input.suspension.parentGraphInputDigest ||
+    sha256Canonical(suspension.parentGraphInput as unknown as JsonValue) !==
+      suspension.parentGraphInputDigest ||
+    parent.inputDigest !== suspension.parentGraphInputDigest ||
     sha256Canonical(parent.input as unknown as JsonValue) !==
       parent.inputDigest ||
-    sha256Canonical(
-      input.suspension.evaluatorInput as unknown as JsonValue,
-    ) !== input.suspension.evaluatorInputDigest ||
-    sha256Canonical(
-      input.suspension.childInput as unknown as JsonValue,
-    ) !== input.suspension.childInputDigest
+    sha256Canonical(suspension.evaluatorInput as unknown as JsonValue) !==
+      suspension.evaluatorInputDigest ||
+    sha256Canonical(suspension.childInput as unknown as JsonValue) !==
+      suspension.childInputDigest
   ) {
     return fail(
       parent,
       "recursion-resume-lineage",
       "diagnostic://abiogenesis/hog/recursion-resume-lineage-mismatch@5",
-      input.suspension as unknown as JsonValue,
+      suspension as unknown as JsonValue,
     );
   }
   const traversalStop = traversalAtCursor(parent, input.sourceCursor);
@@ -1697,7 +1544,11 @@ function resumeHeldRecursionEffect(
       implementationBindingRef: traversalStop.implementationBindingRef,
     },
   );
-  if (resolution === null) {
+  const outputValueKind = parent.leafPort.contractValueKind(
+    traversalStop.outputContractRef,
+    "output",
+  );
+  if (resolution === null || outputValueKind === null) {
     return fail(
       parent,
       "recursion-resume-resolution",
@@ -1705,72 +1556,132 @@ function resumeHeldRecursionEffect(
       traversalStop as unknown as JsonValue,
     );
   }
-  const restoration: RestoreDeferredRecursionInput = {
-    traversalInput: {
-      store: parent.store,
-      executionBasis: parent.executionBasis,
-      openedTraversalScope: parent.openedTraversalScope,
-      program: parent.program,
-      graphFunction: parent.graphFunction,
-      graph: parent.graph,
-      traversalStop,
-      implementationSet: parent.implementationSet,
-      implementationResolution: resolution,
-      leafPort: parent.leafPort,
-      input: input.suspension.evaluatorInput,
-      inputDigest: input.suspension.evaluatorInputDigest,
-      closureContract: parent.closureContract,
-      actorRuntimeBinding: parent.actorRuntimeBinding,
-      ...(parent.deferFailedRunStop === true
-        ? { deferFailedRunStop: true }
-        : {}),
-      terminalMode: "return_to_application",
-      applicationCompletionMode: input.suspension.terminalMode,
-      clock: {
-        eventTime: parent.eventTime,
-        correlationId: `${parent.correlationId}/recursion/restore`,
-      },
+  const traversalInput: CompleteExecutableTraversalInput<
+    Readonly<Record<string, JsonValue>>
+  > = {
+    store: parent.store,
+    executionBasis: parent.executionBasis,
+    openedTraversalScope: parent.openedTraversalScope,
+    program: parent.program,
+    graphFunction: parent.graphFunction,
+    graph: parent.graph,
+    traversalStop,
+    implementationSet: parent.implementationSet,
+    implementationResolution: resolution,
+    leafPort: parent.leafPort,
+    input: suspension.evaluatorInput,
+    inputDigest: suspension.evaluatorInputDigest,
+    closureContract: parent.closureContract,
+    actorRuntimeBinding: parent.actorRuntimeBinding,
+    ...(parent.deferFailedRunStop === true ? { deferFailedRunStop: true } : {}),
+    terminalMode: "return_to_application",
+    applicationCompletionMode: suspension.terminalMode,
+    clock: {
+      eventTime: parent.eventTime,
+      correlationId: `${parent.correlationId}/recursion/restore`,
     },
+  };
+  const restoration: RestoreDeferredRecursionInput = {
+    traversalInput,
     application,
-    cCallRef: input.suspension.evaluatorCCall.cCallRef,
-    resultRef: input.suspension.evaluatorResult.resultRef,
-    judgmentRef: input.suspension.evaluatorJudgment.judgmentRef,
+    cCallRef: suspension.evaluatorCCall.cCallRef,
+    resultRef: suspension.evaluatorResult.resultRef,
+    judgmentRef: suspension.evaluatorJudgment.judgmentRef,
   };
   const deferred = restoreDeferredRecursion(restoration);
   if (
     deferred === null ||
-    deferred.cCallRef !== input.suspension.evaluatorCCall.cCallRef ||
-    deferred.resultRef !== input.suspension.evaluatorResult.resultRef ||
-    deferred.judgmentRef !==
-      input.suspension.evaluatorJudgment.judgmentRef ||
+    deferred.cCallRef !== suspension.evaluatorCCall.cCallRef ||
+    deferred.resultRef !== suspension.evaluatorResult.resultRef ||
+    deferred.judgmentRef !== suspension.evaluatorJudgment.judgmentRef ||
     sha256Canonical(deferred.resultValue as JsonValue) !==
-      input.suspension.evaluatorResult.valueDigest
+      suspension.evaluatorResult.valueDigest
   ) {
     return fail(
       parent,
       "recursion-resume-deferred",
       "diagnostic://abiogenesis/hog/recursion-resume-deferred-mismatch@5",
-      input.suspension as unknown as JsonValue,
+      suspension as unknown as JsonValue,
     );
   }
-  const completion = advanceDeferredRecursion({
-    completion: deferred,
-    restoration,
-    application,
-    childExecutionBasis: input.childExecutionBasis,
-    childTraversalScope: input.childTraversalScope,
-    childCompletion: input.childCompletion,
-    clock: {
-      eventTime: parent.eventTime,
-      correlationId: `${parent.correlationId}/recursion/foldback`,
+  return {
+    kind: "recursion_return",
+    parent: {
+      runtime: parent,
+      graphEntryInput: suspension.parentGraphInput,
+      graphEntryInputDigest: suspension.parentGraphInputDigest,
+      cursor: input.sourceCursor,
+      input: suspension.evaluatorInput,
+      ordinal: input.sourceCursor.taskOrdinal ?? 0,
+      structuralOrdinal: 0,
     },
-  });
-  return yield* resumeParentAfterChild(
-    parent,
-    input.suspension.parentGraphInput,
-    input.suspension.parentGraphInputDigest,
-    completion,
-    "recursion-resume",
-  );
-  }));
+    recursion: {
+      kind: "recursion_child_fold_frame",
+      parent,
+      traversalInput,
+      application,
+      restored: deferred,
+      restoration,
+      graphEntryInput: suspension.parentGraphInput,
+      graphEntryInputDigest: suspension.parentGraphInputDigest,
+      leafOrdinal: input.sourceCursor.taskOrdinal ?? 0,
+      childExecutionBasis: input.childExecutionBasis,
+      childTraversalScope: input.childTraversalScope,
+      childInput: suspension.childInput,
+      childInputDigest: suspension.childInputDigest,
+    },
+    outputValueKind,
+    outputContractRef: traversalStop.outputContractRef,
+  };
+}
+
+function rehydrateParentReturnFrames(
+  inputs: readonly ResumeHeldParentFrameInput[],
+): readonly TraversalReturnFoldFrame[] {
+  return Object.freeze(inputs.map((input) => {
+    if (input.suspension.kind === "held_workflow_suspension") {
+      if (input.parentCCall === null) {
+        return fail(
+          input.parent,
+          "workflow-resume-parent-call",
+          "diagnostic://abiogenesis/hog/workflow-resume-parent-call-absent@5",
+          input.suspension as unknown as JsonValue,
+        );
+      }
+      return rehydrateWorkflowReturnFrame({
+        ...input,
+        suspension: input.suspension,
+        parentCCall: input.parentCCall,
+      });
+    }
+    return rehydrateRecursionReturnFrame({
+      ...input,
+      suspension: input.suspension,
+    });
+  }).reverse());
+}
+
+function traversalProgram(
+  input: ExecuteGraphTraversalRequest,
+): Effect.Effect<ExecutableTraversalCompletion> {
+  if ("interaction" in input) {
+    return traversalFoldProgram(
+      seedParentContinuation(
+        input.parent,
+        input.parent.input,
+        input.parent.inputDigest,
+        resumeInteractionOwner(input.interaction),
+        rehydrateParentReturnFrames(input.parents),
+        "interaction-resume",
+      ),
+      input.parent,
+    );
+  }
+  return graphTraversalEffect(input);
+}
+
+export function executeGraphTraversal(
+  input: ExecuteGraphTraversalRequest,
+): Promise<ExecutableTraversalCompletion> {
+  return runGraphTraversalProgram(traversalProgram(input));
 }
