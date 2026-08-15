@@ -128,7 +128,9 @@ function eventCandidate(event, overrides = {}) {
 }
 
 test("M5 installed C.retry re-enters one failed F_P edge with fresh ABG attempt truth", async (context) => {
-  const harness = await setupInstalledCliHarness(context, root);
+  const harness = await setupInstalledCliHarness(context, root, {
+    candidateBasisSource: "packed_artifact",
+  });
   const installedAbg = await import(pathToFileURL(join(
     harness.installedPackageRoot,
     "build/code/src/abg/index.js",
