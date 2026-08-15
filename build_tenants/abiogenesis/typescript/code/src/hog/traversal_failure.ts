@@ -55,23 +55,6 @@ export function projectGraphTraversalFailure(
   });
 }
 
-export function projectGraphTraversalFault(input: Readonly<{
-  predecessorPrefix: DurablePrefixCoordinate;
-  message: string;
-  diagnosticRef: string;
-}>): GraphTraversalFailureResult {
-  return deepFreeze({
-    kind: "graph_traversal_failure_result" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "failed" as const,
-    code: "owner_refusal" as const,
-    message: input.message,
-    diagnosticRef: input.diagnosticRef,
-    successorPrefix: input.predecessorPrefix,
-    receipt: null,
-  });
-}
-
 export class GraphTraversalFailure extends TypeError {
   readonly kind = "graph_traversal_failure" as const;
   readonly schemaVersion = "5.0.0" as const;

@@ -15,6 +15,7 @@ import type {
   GraphFunction,
   GtlGraph,
 } from "../gtl/contracts.js";
+import type { JsonValue } from "../shared/canonical_json.js";
 import {
   applyAdmittedRoute,
   deriveCompletedTraversalCursor,
@@ -29,6 +30,9 @@ import {
   type ExecutableTraversalCompletion,
   type HeldInteractionTraversal,
 } from "./traversal_completion.js";
+import {
+  failTraversal,
+} from "./traversal_failure.js";
 
 export interface CompleteInteractionResumeInput {
   readonly store: AbgEventStore;
@@ -61,13 +65,32 @@ function admissionBasis(
 export function completeInteractionResume(
   input: CompleteInteractionResumeInput,
 ): ExecutableTraversalCompletion {
+  const fail = (
+    stage: string,
+    diagnosticRef: string,
+    candidate: JsonValue,
+  ): never => failTraversal({
+    store: input.store,
+    predecessorPrefix: input.predecessorPrefix,
+    executionBasis: input.executionBasis,
+    openedTraversalScope: input.openedTraversalScope,
+    eventTime: input.clock.eventTime,
+    correlationId: input.clock.correlationId,
+    stage,
+    diagnosticRef,
+    candidate,
+  });
   const { cCall, result, judgment } = input.heldInteraction;
   const successorContract = deriveInteractionSuccessorInputCarrierRef(
     input.graph,
     input.heldInteraction.cursor,
   );
   if (successorContract !== input.resume.successorInputContractRef) {
-    throw new TypeError("interaction successor differs from GTL");
+    return fail(
+      "interaction-resume-successor",
+      "diagnostic://abiogenesis/hog/interaction-resume-successor@5",
+      { successorContract },
+    );
   }
   const target = deriveCompletedTraversalCursor(
     input.graph,
@@ -78,7 +101,11 @@ export function completeInteractionResume(
     },
   );
   if (target?.kind === "traversal_refusal") {
-    throw new TypeError(`interaction continuation refused: ${target.code}`);
+    return fail(
+      "interaction-resume-continuation",
+      `diagnostic://abiogenesis/hog/${target.code}@5`,
+      target as unknown as JsonValue,
+    );
   }
   const outcome = Abg.projectCCallOutcomeReceiptAtPrefix(
     input.predecessorPrefix,
@@ -88,8 +115,10 @@ export function completeInteractionResume(
     },
   );
   if (outcome?.disposition !== "judged") {
-    throw new TypeError(
-      "interaction resume lacks its exact durable pending CCall",
+    return fail(
+      "interaction-resume-outcome",
+      "diagnostic://abiogenesis/hog/interaction-resume-outcome@5",
+      { cCallRef: cCall.cCallRef },
     );
   }
   const proposal = proposeInteractionResumeRoute(
@@ -103,40 +132,48 @@ export function completeInteractionResume(
     cCall.transitionContractRef,
   );
   if (proposal.kind !== "traversal_route_candidate") {
-    throw new TypeError(`interaction route refused: ${proposal.code}`);
+    return fail(
+      "interaction-resume-route",
+      `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+      proposal as unknown as JsonValue,
+    );
   }
   const candidate = Abg.completeTraversalTransitionCandidate({
-    kind: "traversal_transition_candidate",
-    schemaVersion: "5.0.0",
-    transitionClass: "route",
-    route: proposal,
-    evidence: {
-      evidenceClass: "interaction_resume",
-      graphFunction: input.graphFunction,
-      cCall,
-      result,
-      judgment,
-      resume: input.resume,
-      completedProgresses: [],
-    },
-    terminalizeRun: false,
-  });
+      kind: "traversal_transition_candidate",
+      schemaVersion: "5.0.0",
+      transitionClass: "route",
+      route: proposal,
+      evidence: {
+        evidenceClass: "interaction_resume",
+        graphFunction: input.graphFunction,
+        cCall,
+        result,
+        judgment,
+        resume: input.resume,
+        completedProgresses: [],
+      },
+      terminalizeRun: false,
+    });
   const admitted = Abg.admitCCallCompletion({
-    store: input.store,
-    predecessorPrefix: input.predecessorPrefix,
-    executionBasis: input.executionBasis,
-    graph: input.graph,
-    graphFunction: input.graphFunction,
-    source: input.successorCursor,
-    target,
-    outcome,
-    candidate,
-    openedTraversalScope: input.openedTraversalScope,
-    closureContract: input.closureContract,
-    basis: admissionBasis(input.clock, "interaction/resume"),
-  });
+      store: input.store,
+      predecessorPrefix: input.predecessorPrefix,
+      executionBasis: input.executionBasis,
+      graph: input.graph,
+      graphFunction: input.graphFunction,
+      source: input.successorCursor,
+      target,
+      outcome,
+      candidate,
+      openedTraversalScope: input.openedTraversalScope,
+      closureContract: input.closureContract,
+      basis: admissionBasis(input.clock, "interaction/resume"),
+    });
   if (admitted.kind !== "c_call_completion_admission") {
-    throw new TypeError(`interaction transition refused: ${admitted.code}`);
+    return fail(
+      "interaction-resume-transition",
+      `diagnostic://abiogenesis/hog/${admitted.code}@5`,
+      admitted as unknown as JsonValue,
+    );
   }
   if (admitted.disposition === "application_ready") {
     throw new TypeError("interaction transition cannot defer an application");

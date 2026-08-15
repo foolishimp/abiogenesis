@@ -764,6 +764,7 @@ function continuationRefusalOutcome(
   authority: PublicContinuationAuthority,
   error: unknown,
 ): PublicOutcome {
+  if (!(error instanceof ApplicationRefusal)) throw error;
   const outcome = refusalOutcome(
     invocation,
     error instanceof ApplicationRefusal ? error.code : "owner_refusal",
@@ -2546,6 +2547,12 @@ async function applyRunInvoke(
   }
   return outcome;
   } catch (error) {
+    if (
+      !(error instanceof ApplicationRefusal) &&
+      !(error instanceof hog.GraphTraversalFailure)
+    ) {
+      throw error;
+    }
     const failureSubject = {
       errorClass: error instanceof Error ? error.name : typeof error,
       stage: activeRefusalStage,
@@ -3684,6 +3691,7 @@ async function applyInteractionRespond(
     );
     response = evaluated;
   } catch (error) {
+    if (!(error instanceof ApplicationRefusal)) throw error;
     const code =
       error instanceof ApplicationRefusal ? error.code : "owner_refusal";
     const message =
@@ -3758,6 +3766,7 @@ async function applyInteractionRespond(
       : closeContinuationContext(heldContext, state);
     heldContext = null;
     latestAuthority = updated;
+    if (!(error instanceof ApplicationRefusal)) throw error;
     const successorProjection = projectContinuationAuthority(updated);
     const continuationAfter = successorProjection.replayState.continuations.find(
       (row) => row.continuationRef === continuationRef,
@@ -4057,6 +4066,12 @@ async function applyRunContinue(
       : closeContinuationContext(heldContext, state);
     heldContext = null;
     latestAuthority = updatedAuthority;
+    if (
+      !(error instanceof ApplicationRefusal) &&
+      !(error instanceof hog.GraphTraversalFailure)
+    ) {
+      throw error;
+    }
     const successorProjection = projectContinuationAuthority(updatedAuthority);
     const replayAfterFailure = successorProjection.replayState;
     const continuationAfterFailure = replayAfterFailure.continuations.find(
@@ -4144,6 +4159,10 @@ export async function applyRootPublicInvocation(
           : { priorAdmission: error.priorAdmission }),
       });
     }
-    return refusalOutcome(invocation, "owner_refusal", String(error));
+    if (error instanceof hog.GraphTraversalFailure) {
+      context.prefix = error.receipt.successorPrefix;
+      return refusalOutcome(invocation, "owner_refusal", error.message);
+    }
+    throw error;
   }
 }

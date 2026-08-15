@@ -40,7 +40,7 @@ import type {
 } from "./execution_basis.js";
 import type { AbgEventStore } from "./event_store.js";
 import {
-  admitRuntimeEventTransactionAtExpectedPrefix,
+  admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   isRuntimeEventTransactionActive,
   readRuntimeEventsAtDurablePrefix,
@@ -53,7 +53,10 @@ import {
 import type { ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { admitProbabilisticResultCandidate } from "./probabilistic_result.js";
 import {
+  projectActiveRuntimeTransaction,
+  projectRuntimeTruthAtDurablePrefix,
   replayValidatedRuntimeEventPrefix,
+  type ActiveRuntimeTransactionProjection,
   type ReplayState,
 } from "./replay.js";
 import type { TraversalCursorCandidate } from "./traversal_cursor.js";
@@ -165,6 +168,22 @@ export type AdmittedCCallOutcomeReceipt =
   | RetryCCallOutcomeReceipt
   | BlockedCCallOutcomeReceipt;
 
+type ResultCCallOutcomeReceiptBody = Omit<
+  ResultCCallOutcomeReceipt,
+  "successorPrefix"
+>;
+type JudgedCCallOutcomeReceiptBody = Omit<
+  JudgedCCallOutcomeReceipt,
+  "successorPrefix"
+>;
+type RetryCCallOutcomeReceiptBody = Omit<
+  RetryCCallOutcomeReceipt,
+  "successorPrefix"
+>;
+type BlockedCCallOutcomeReceiptBody = Omit<
+  BlockedCCallOutcomeReceipt,
+  "successorPrefix"
+>;
 export interface AdmitCCallJudgmentInput {
   readonly store: AbgEventStore;
   readonly graph: Readonly<GtlGraph>;
@@ -225,6 +244,34 @@ type CCallCompletionPayload =
       disposition: "closed";
       outcome: JudgedCCallOutcomeReceipt;
       transition: RouteTransitionAdmission;
+      closure: ScopeClosureAdmission;
+    }>;
+
+type RouteTransitionAdmissionBody = Omit<
+  RouteTransitionAdmission,
+  "successorPrefix"
+>;
+
+type StagedCCallCompletionPayload =
+  | Readonly<{
+      disposition: "advanced";
+      outcome: JudgedCCallOutcomeReceipt;
+      transition: RouteTransitionAdmissionBody;
+    }>
+  | Readonly<{
+      disposition: "blocked";
+      outcome: BlockedCCallOutcomeReceipt | JudgedCCallOutcomeReceipt;
+      transition: RouteTransitionAdmissionBody;
+    }>
+  | Readonly<{
+      disposition: "failed";
+      outcome: JudgedCCallOutcomeReceipt;
+      transition: RouteTransitionAdmissionBody;
+    }>
+  | Readonly<{
+      disposition: "closed";
+      outcome: JudgedCCallOutcomeReceipt;
+      transition: RouteTransitionAdmissionBody;
       closure: ScopeClosureAdmission;
     }>;
 
@@ -295,22 +342,14 @@ type StagedCCallJudgmentOutcome =
     }>
   | Extract<StagedCCallOutcome, { disposition: "blocked" }>;
 
-function exactOutcomeProjection(
-  successorPrefix: DurablePrefixCoordinate,
-  runId: string,
-): CCallOutcomeReceiptBase {
-  const events = readRuntimeEventsAtDurablePrefix(successorPrefix);
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(events);
-  const runtimePrefix = selectValidatedRuntimeEventPrefix(events, { runId });
+function outcomeProjectionFromTruth(
+  truth: ActiveRuntimeTransactionProjection,
+): Omit<CCallOutcomeReceiptBase, "successorPrefix"> {
   return deepFreeze({
     kind: "admitted_c_call_outcome" as const,
     schemaVersion: "5.0.0" as const,
-    replayState: replayValidatedRuntimeEventPrefix(
-      runtimePrefix,
-      authorityPrefix,
-    ),
-    runtimePrefix,
-    successorPrefix,
+    replayState: truth.replayState,
+    runtimePrefix: truth.runtimePrefix,
   });
 }
 
@@ -326,26 +365,11 @@ export type CCallOutcomeProjectionBasis =
       diagnosticRef: string;
     }>;
 
-/**
- * Rehydrates a judged or blocked outcome from its exact durable successor.
- * Replay and runtime-prefix authority are always projected here, never
- * supplied by a caller.
- */
-export function projectCCallOutcomeReceiptAtPrefix(
-  successorPrefix: DurablePrefixCoordinate,
+function projectCCallOutcomeReceiptFromTruth(
+  truth: ActiveRuntimeTransactionProjection,
   basis: CCallOutcomeProjectionBasis,
-): JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt | null {
-  let projection: CCallOutcomeReceiptBase;
-  try {
-    projection = exactOutcomeProjection(
-      successorPrefix,
-      basis.disposition === "judged"
-        ? basis.admitted.cCall.runId
-        : basis.cCall.runId,
-    );
-  } catch {
-    return null;
-  }
+): JudgedCCallOutcomeReceiptBody | BlockedCCallOutcomeReceiptBody | null {
+  const projection = outcomeProjectionFromTruth(truth);
   if (basis.disposition === "judged") {
     const admitted = projectAdmittedCCallStateAtPrefix(
       projection.runtimePrefix,
@@ -422,13 +446,39 @@ export function projectCCallOutcomeReceiptAtPrefix(
   });
 }
 
-function completeOutcomeReceipt(
-  staged: StagedCCallOutcome,
+/**
+ * Rehydrates a judged or blocked outcome from its exact durable successor.
+ * Replay and runtime-prefix authority are always projected here, never
+ * supplied by a caller.
+ */
+export function projectCCallOutcomeReceiptAtPrefix(
   successorPrefix: DurablePrefixCoordinate,
-): ResultCCallOutcomeReceipt | RetryCCallOutcomeReceipt |
-  BlockedCCallOutcomeReceipt {
+  basis: CCallOutcomeProjectionBasis,
+): JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt | null {
+  let truth: ActiveRuntimeTransactionProjection;
+  try {
+    truth = projectRuntimeTruthAtDurablePrefix(
+      successorPrefix,
+      basis.disposition === "judged"
+        ? basis.admitted.cCall.runId
+        : basis.cCall.runId,
+    );
+  } catch {
+    return null;
+  }
+  const receipt = projectCCallOutcomeReceiptFromTruth(truth, basis);
+  return receipt === null
+    ? null
+    : deepFreeze({ ...receipt, successorPrefix });
+}
+
+function completeOutcomeReceiptBody(
+  staged: StagedCCallOutcome,
+  truth: ActiveRuntimeTransactionProjection,
+): ResultCCallOutcomeReceiptBody | RetryCCallOutcomeReceiptBody |
+  BlockedCCallOutcomeReceiptBody {
   if (staged.disposition === "blocked") {
-    const receipt = projectCCallOutcomeReceiptAtPrefix(successorPrefix, {
+    const receipt = projectCCallOutcomeReceiptFromTruth(truth, {
       disposition: "blocked",
       cCall: staged.cCall,
       completion: staged.completion,
@@ -439,15 +489,11 @@ function completeOutcomeReceipt(
     }
     return receipt;
   }
-  const projection = exactOutcomeProjection(
-    successorPrefix,
-    staged.cCall.runId,
-  );
+  const projection = outcomeProjectionFromTruth(truth);
   return deepFreeze({
     ...projection,
     ...staged,
-  }) as ResultCCallOutcomeReceipt | RetryCCallOutcomeReceipt |
-    BlockedCCallOutcomeReceipt;
+  }) as ResultCCallOutcomeReceiptBody | RetryCCallOutcomeReceiptBody;
 }
 
 function stageBlockedOutcome(
@@ -685,17 +731,24 @@ export function admitCCallResult(
   if (isRuntimeEventTransactionActive(input.store)) {
     throw new TypeError("CCall result admission owns its ABG transaction");
   }
-  assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
-  const events = readRuntimeEventsAtDurablePrefix(input.predecessorPrefix);
-  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     input.store,
-    sha256Canonical(events as unknown as JsonValue),
-    () => stageCCallResult(input),
+    input.predecessorPrefix,
+    () => {
+      const staged = stageCCallResult(input);
+      const truth = projectActiveRuntimeTransaction(
+        input.store,
+        input.predecessorPrefix,
+        staged.cCall.runId,
+      );
+      return completeOutcomeReceiptBody(staged, truth);
+    },
   );
-  if (committed.successorPrefix === null) {
-    throw new TypeError("CCall result admission produced no durable successor");
-  }
-  return completeOutcomeReceipt(committed.value, committed.successorPrefix);
+  return deepFreeze({
+    ...committed.value,
+    successorPrefix: committed.successorPrefix,
+  }) as ResultCCallOutcomeReceipt | RetryCCallOutcomeReceipt |
+    BlockedCCallOutcomeReceipt;
 }
 
 /**
@@ -730,10 +783,10 @@ export function admitCCallJudgment(
   ) {
     throw new TypeError("CCall result receipt differs from its durable prefix");
   }
-  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     input.store,
-    sha256Canonical(events as unknown as JsonValue),
-    (): StagedCCallJudgmentOutcome => {
+    input.outcome.successorPrefix,
+    (): JudgedCCallOutcomeReceiptBody | BlockedCCallOutcomeReceiptBody => {
       const judgment = admitJudgment(
         input.store,
         authorityPrefix,
@@ -746,11 +799,12 @@ export function admitCCallJudgment(
         replayState,
         stageBasis(input.basis, "judgment"),
       );
+      let staged: StagedCCallJudgmentOutcome;
       if (judgment.kind === "c_call_admission_rejection") {
         const rejectionPrefix = selectValidatedRuntimeEventPrefix(
           input.store.readAll(),
         );
-        return stageBlockedOutcome({
+        staged = stageBlockedOutcome({
           store: input.store,
           graph: input.graph,
           graphFunction: input.graphFunction,
@@ -758,44 +812,44 @@ export function admitCCallJudgment(
           cCall: input.outcome.cCall,
           basis: input.basis,
         }, rejectionPrefix, judgment);
+      } else {
+        staged = deepFreeze({
+          disposition: "judged" as const,
+          cCall: input.outcome.cCall,
+          result: input.outcome.result,
+          judgment,
+        });
       }
-      return deepFreeze({
-        disposition: "judged" as const,
-        cCall: input.outcome.cCall,
-        result: input.outcome.result,
-        judgment,
-      });
+      const truth = projectActiveRuntimeTransaction(
+        input.store,
+        input.outcome.successorPrefix,
+        input.outcome.cCall.runId,
+      );
+      const receipt = projectCCallOutcomeReceiptFromTruth(
+        truth,
+        staged.disposition === "blocked"
+          ? staged
+          : {
+              disposition: "judged",
+              admitted: {
+                cCall: staged.cCall,
+                result: staged.result,
+                judgment: staged.judgment,
+              },
+            },
+      );
+      if (receipt?.disposition !== staged.disposition) {
+        throw new TypeError(
+          `CCall ${staged.disposition} differs from its staged prefix`,
+        );
+      }
+      return receipt;
     },
   );
-  if (committed.successorPrefix === null) {
-    throw new TypeError("CCall judgment admission produced no durable successor");
-  }
-  if (committed.value.disposition === "blocked") {
-    const receipt = projectCCallOutcomeReceiptAtPrefix(
-      committed.successorPrefix,
-      committed.value,
-    );
-    if (receipt?.disposition !== "blocked") {
-      throw new TypeError("CCall rejection differs from its durable prefix");
-    }
-    return receipt;
-  }
-  const admitted = committed.value;
-  const receipt = projectCCallOutcomeReceiptAtPrefix(
-    committed.successorPrefix,
-    {
-      disposition: "judged",
-      admitted: {
-        cCall: admitted.cCall,
-        result: admitted.result,
-        judgment: admitted.judgment,
-      },
-    },
-  );
-  if (receipt?.disposition !== "judged") {
-    throw new TypeError("CCall judgment differs from its durable prefix");
-  }
-  return receipt;
+  return deepFreeze({
+    ...committed.value,
+    successorPrefix: committed.successorPrefix,
+  });
 }
 
 /**
@@ -813,36 +867,43 @@ export function admitCCallRejection(
   const runPrefix = selectValidatedRuntimeEventPrefix(events, {
     runId: input.cCall.runId,
   });
-  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     input.store,
-    sha256Canonical(events as unknown as JsonValue),
-    () => completeRejectedCCall(
-      input.store,
-      runPrefix,
-      input.graph,
-      input.graphFunction,
-      input.cursor,
-      input.cCall,
-      input.rejection,
-      stageBasis(input.basis, "rejected-call"),
-    ),
-  );
-  if (committed.successorPrefix === null) {
-    throw new TypeError("CCall rejection admission produced no durable successor");
-  }
-  const receipt = projectCCallOutcomeReceiptAtPrefix(
-    committed.successorPrefix,
-    {
-      disposition: "blocked",
-      cCall: input.cCall,
-      completion: committed.value,
-      diagnosticRef: input.rejection.diagnosticRef,
+    input.predecessorPrefix,
+    (): BlockedCCallOutcomeReceiptBody => {
+      const completion = completeRejectedCCall(
+        input.store,
+        runPrefix,
+        input.graph,
+        input.graphFunction,
+        input.cursor,
+        input.cCall,
+        input.rejection,
+        stageBasis(input.basis, "rejected-call"),
+      );
+      const receipt = projectCCallOutcomeReceiptFromTruth(
+        projectActiveRuntimeTransaction(
+          input.store,
+          input.predecessorPrefix,
+          input.cCall.runId,
+        ),
+        {
+          disposition: "blocked",
+          cCall: input.cCall,
+          completion,
+          diagnosticRef: input.rejection.diagnosticRef,
+        },
+      );
+      if (receipt?.disposition !== "blocked") {
+        throw new TypeError("CCall rejection differs from its staged prefix");
+      }
+      return receipt;
     },
   );
-  if (receipt?.disposition !== "blocked") {
-    throw new TypeError("CCall rejection differs from its durable successor");
-  }
-  return receipt;
+  return deepFreeze({
+    ...committed.value,
+    successorPrefix: committed.successorPrefix,
+  });
 }
 
 /**
@@ -907,10 +968,10 @@ export function admitCCallCompletion(
     throw new TypeError("CCall completion outcome differs from its predecessor");
   }
   try {
-    const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+    const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
       input.store,
-      sha256Canonical(predecessorEvents as unknown as JsonValue),
-      () => {
+      input.predecessorPrefix,
+      (): StagedCCallCompletionPayload => {
         const staged = admitTraversalTransitionInActiveTransaction({
           durablePredecessorPrefix: input.predecessorPrefix,
           stagedPrefix: selectValidatedRuntimeEventPrefix(predecessorEvents),
@@ -979,65 +1040,65 @@ export function admitCCallCompletion(
           }
           closure = admittedClosure;
         }
-        return deepFreeze({ staged, closure });
+        const truth = projectActiveRuntimeTransaction(
+          input.store,
+          input.predecessorPrefix,
+          input.source.runId,
+        );
+        const transition = deepFreeze({
+          kind: "route_transition_admission" as const,
+          route: staged.route,
+          retryAttempt: staged.retryAttempt,
+          replayState: truth.replayState,
+        });
+        if (routeKind === "terminal") {
+          if (input.outcome.disposition !== "judged" || closure === null) {
+            throw new TypeError(
+              "terminal route requires one judged outcome and admitted closure",
+            );
+          }
+          return deepFreeze({
+            disposition: "closed" as const,
+            outcome: input.outcome,
+            transition,
+            closure,
+          });
+        }
+        if (routeKind === "blocked") {
+          return deepFreeze({
+            disposition: "blocked" as const,
+            outcome: input.outcome,
+            transition,
+          });
+        }
+        if (routeKind === "failed") {
+          if (input.outcome.disposition !== "judged") {
+            throw new TypeError("failed route requires one judged CCall outcome");
+          }
+          return deepFreeze({
+            disposition: "failed" as const,
+            outcome: input.outcome,
+            transition,
+          });
+        }
+        if (input.outcome.disposition !== "judged") {
+          throw new TypeError("advancing route requires one judged CCall outcome");
+        }
+        return deepFreeze({
+          disposition: "advanced" as const,
+          outcome: input.outcome,
+          transition,
+        });
       },
     );
-    if (committed.successorPrefix === null) {
-      throw new TypeError("CCall completion produced no durable successor");
-    }
-    const finalProjection = exactOutcomeProjection(
-      committed.successorPrefix,
-      input.source.runId,
-    );
     const transition = deepFreeze({
-      kind: "route_transition_admission" as const,
-      route: committed.value.staged.route,
-      retryAttempt: committed.value.staged.retryAttempt,
-      replayState: finalProjection.replayState,
+      ...committed.value.transition,
       successorPrefix: committed.successorPrefix,
     });
-    const routeKind = transition.route.routeKind;
-    if (routeKind === "terminal") {
-      if (
-        input.outcome.disposition !== "judged" ||
-        committed.value.closure === null
-      ) {
-        throw new TypeError(
-          "terminal route requires one judged outcome and admitted closure",
-        );
-      }
-      return completionAdmission({
-        disposition: "closed",
-        outcome: input.outcome,
-        transition,
-        closure: committed.value.closure,
-      });
-    }
-    if (routeKind === "blocked") {
-      return completionAdmission({
-        disposition: "blocked",
-        outcome: input.outcome,
-        transition,
-      });
-    }
-    if (routeKind === "failed") {
-      if (input.outcome.disposition !== "judged") {
-        throw new TypeError("failed route requires one judged CCall outcome");
-      }
-      return completionAdmission({
-        disposition: "failed",
-        outcome: input.outcome,
-        transition,
-      });
-    }
-    if (input.outcome.disposition !== "judged") {
-      throw new TypeError("advancing route requires one judged CCall outcome");
-    }
     return completionAdmission({
-      disposition: "advanced",
-      outcome: input.outcome,
+      ...committed.value,
       transition,
-    });
+    } as CCallCompletionPayload);
   } catch (error) {
     if (error instanceof CCallCompletionAbort) return error.result;
     throw error;

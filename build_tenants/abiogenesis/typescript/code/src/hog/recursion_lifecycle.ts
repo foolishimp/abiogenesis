@@ -841,15 +841,19 @@ export function completeRecursionChild(
     );
   }
   if (blocked) {
+    const requiresRunStop =
+      state.input.completionScopeClass === "root";
     if (
       admitted.disposition !== "blocked" ||
-      admitted.transition.route.runStoppedEventRef === null
+      (requiresRunStop &&
+        admitted.transition.route.runStoppedEventRef === null)
     ) {
+      const successorPrefix = admitted.disposition === "application_ready"
+        ? admitted.outcome.successorPrefix
+        : admitted.transition.successorPrefix;
       return recursionFailure(
         state,
-        admitted.disposition === "blocked"
-          ? admitted.transition.successorPrefix
-          : foldbackReceipt.successorPrefix,
+        successorPrefix,
         clock,
         "blocked-route",
         "diagnostic://abiogenesis/hog/application-run-stop-absent@5",

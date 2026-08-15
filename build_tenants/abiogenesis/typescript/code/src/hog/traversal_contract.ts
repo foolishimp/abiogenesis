@@ -147,5 +147,5 @@ export interface GraphTraversalFailureResult {
   readonly message: string;
   readonly diagnosticRef: string;
   readonly successorPrefix: DurablePrefixCoordinate;
-  readonly receipt: RuntimeFailureAdmissionReceipt | null;
+  readonly receipt: RuntimeFailureAdmissionReceipt;
 }

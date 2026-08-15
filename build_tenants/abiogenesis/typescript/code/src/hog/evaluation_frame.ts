@@ -27,7 +27,6 @@ import type {
 } from "./traversal_completion.js";
 import type {
   ExecuteGraphTraversalCommonInput,
-  GraphTraversalFailureResult,
 } from "./traversal_contract.js";
 import type { TraversalCursor } from "./traversal.js";
 import type {
@@ -122,10 +121,6 @@ export type TraversalMachineState =
   | Readonly<{
       stateKind: "done";
       completion: ExecutableTraversalCompletion;
-    }>
-  | Readonly<{
-      stateKind: "failure";
-      failure: GraphTraversalFailureResult;
     }>;
 
 export interface MachineLocusEvaluation extends TraversalLocusEvaluation {}

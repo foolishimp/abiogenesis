@@ -1,5 +1,4 @@
 import * as Effect from "effect/Effect";
-import * as Cause from "effect/Cause";
 import * as Exit from "effect/Exit";
 
 import * as Abg from "../abg/index.js";
@@ -152,9 +151,6 @@ export function projectCCallCompletion(
   }
   const { cCall, result, judgment } = admitted.outcome.admitted;
   if (admitted.disposition === "failed") {
-    if (result.resultClass !== "failure") {
-      throw new TypeError("failed CCall completion lacks a failure candidate");
-    }
     return projectExecutableTraversalCompletion(
       "failed",
       admitted.transition.replayState,
@@ -183,7 +179,19 @@ export function projectCCallCompletion(
   }
   if (admitted.disposition === "advanced") {
     if (target === null) {
-      throw new TypeError("advanced CCall completion lacks its HoG target");
+      return projectExecutableTraversalCompletion(
+        "refused",
+        admitted.transition.replayState,
+        admitted.transition.successorPrefix,
+        {
+          cCallRef: cCall.cCallRef,
+          resultRef: result.resultRef,
+          judgmentRef: judgment.judgmentRef,
+          resultValue: result.value,
+          diagnosticRef:
+            "diagnostic://abiogenesis/hog/advanced-target-absent@5",
+        },
+      );
     }
     const nextCursor = applyAdmittedRoute(
       runtimePrefixAtDurable(admitted.transition.successorPrefix, source.runId),
@@ -193,7 +201,18 @@ export function projectCCallCompletion(
       admitted.transition.route,
     );
     if (nextCursor.kind === "traversal_refusal") {
-      throw new TypeError(`leaf route application refused: ${nextCursor.code}`);
+      return projectExecutableTraversalCompletion(
+        "refused",
+        admitted.transition.replayState,
+        admitted.transition.successorPrefix,
+        {
+          cCallRef: cCall.cCallRef,
+          resultRef: result.resultRef,
+          judgmentRef: judgment.judgmentRef,
+          resultValue: result.value,
+          diagnosticRef: `diagnostic://abiogenesis/hog/${nextCursor.code}@5`,
+        },
+      );
     }
     return projectExecutableTraversalCompletion(
       "advanced",
@@ -209,9 +228,6 @@ export function projectCCallCompletion(
         nextInputContractRef: cCall.outputContractRef,
       },
     );
-  }
-  if (admitted.disposition !== "closed") {
-    throw new TypeError("unknown CCall completion");
   }
   return projectExecutableTraversalCompletion(
     "closed",
@@ -260,31 +276,20 @@ export function evaluateExecutableCCall(
         input.stop as unknown as JsonValue,
       );
     }
-    let opened: ReturnType<typeof Abg.openCCall>;
-    try {
-      opened = Abg.openCCall({
-        locusClass: "implementation",
-        store: input.store,
-        predecessorPrefix: input.predecessorPrefix,
-        executionBasis: input.executionBasis,
-        scope: input.openedTraversalScope,
-        program: input.program,
-        graphFunction: input.graphFunction,
-        graph: input.graph,
-        stop: input.stop,
-        implementationSet: input.implementationSet,
-        resolution,
-        basis: admissionBasis(input.clock, "open"),
-      });
-    } catch (error) {
-      return failCCall(
-        input,
-        input.predecessorPrefix,
-        `leaf-open-${input.ordinal}`,
-        "diagnostic://abiogenesis/hog/leaf-open-owner-fault@5",
-        { error: String(error) },
-      );
-    }
+    const opened = Abg.openCCall({
+      locusClass: "implementation",
+      store: input.store,
+      predecessorPrefix: input.predecessorPrefix,
+      executionBasis: input.executionBasis,
+      scope: input.openedTraversalScope,
+      program: input.program,
+      graphFunction: input.graphFunction,
+      graph: input.graph,
+      stop: input.stop,
+      implementationSet: input.implementationSet,
+      resolution,
+      basis: admissionBasis(input.clock, "open"),
+    });
     if (opened.kind !== "c_call_admission") {
       return failCCall(
         input,
@@ -311,11 +316,11 @@ export function evaluateExecutableCCall(
       : null;
     const invocationExit = yield* Effect.exit(Effect.promise(() =>
       input.leafPort.invoke({
-      resolution,
-      input: input.input,
-      inputDigest: input.stop.cursor.inputDigest,
-      failureContractRef: input.stop.failureContractRef,
-      bindProbabilisticEffects,
+        resolution,
+        input: input.input,
+        inputDigest: input.stop.cursor.inputDigest,
+        failureContractRef: input.stop.failureContractRef,
+        bindProbabilisticEffects,
       })));
     if (Exit.isFailure(invocationExit)) {
       return failCCall(
@@ -323,7 +328,7 @@ export function evaluateExecutableCCall(
         opened.successorPrefix,
         `leaf-owner-${input.ordinal}`,
         "diagnostic://abiogenesis/hog/leaf-owner-effect-fault@5",
-        { cause: Cause.pretty(invocationExit.cause) },
+        { faultClass: "leaf_invocation_effect_rejected" },
       );
     }
     const invocation = invocationExit.value;
@@ -355,24 +360,13 @@ export function evaluateExecutableCCall(
       failureValueKind,
       basis: admissionBasis(input.clock, "outcome"),
     } as const;
-    let resultOutcome: ReturnType<typeof Abg.admitCCallResult>;
-    try {
-      resultOutcome = input.stop.computeRegime === "F_P"
-        ? Abg.admitCCallResult({
-            ...outcomeInput,
-            regime: "F_P",
-            actorRuntimeBinding: input.actorRuntimeBinding,
-          })
-        : Abg.admitCCallResult({ ...outcomeInput, regime: "F_D" });
-    } catch (error) {
-      return failCCall(
-        input,
-        opened.successorPrefix,
-        `leaf-result-${input.ordinal}`,
-        "diagnostic://abiogenesis/hog/leaf-result-owner-fault@5",
-        { error: String(error) },
-      );
-    }
+    const resultOutcome = input.stop.computeRegime === "F_P"
+      ? Abg.admitCCallResult({
+          ...outcomeInput,
+          regime: "F_P",
+          actorRuntimeBinding: input.actorRuntimeBinding,
+        })
+      : Abg.admitCCallResult({ ...outcomeInput, regime: "F_D" });
     const admitted = resultOutcome.disposition !== "result"
       ? resultOutcome
       : (() => {
@@ -401,25 +395,15 @@ export function evaluateExecutableCCall(
                   reasonRef: invocation.candidate.diagnosticRef,
                 },
           });
-          try {
-            return Abg.admitCCallJudgment({
-              store: input.store,
-              graph: input.graph,
-              graphFunction: input.graphFunction,
-              cursor: input.stop.cursor,
-              outcome: resultOutcome,
-              candidate,
-              basis: admissionBasis(input.clock, "judgment"),
-            });
-          } catch (error) {
-            return failCCall(
-              input,
-              resultOutcome.successorPrefix,
-              `leaf-judgment-${input.ordinal}`,
-              "diagnostic://abiogenesis/hog/leaf-judgment-owner-fault@5",
-              { error: String(error) },
-            );
-          }
+          return Abg.admitCCallJudgment({
+            store: input.store,
+            graph: input.graph,
+            graphFunction: input.graphFunction,
+            cursor: input.stop.cursor,
+            outcome: resultOutcome,
+            candidate,
+            basis: admissionBasis(input.clock, "judgment"),
+          });
         })();
     if (admitted.disposition === "retry") {
       return {
@@ -482,34 +466,23 @@ export function evaluateExecutableCCall(
         proposedTransition as unknown as JsonValue,
       );
     }
-    let completionAdmission: ReturnType<typeof Abg.admitCCallCompletion>;
-    try {
-      completionAdmission = Abg.admitCCallCompletion({
-        store: input.store,
-        predecessorPrefix: admitted.successorPrefix,
-        executionBasis: input.executionBasis,
-        graph: input.graph,
-        graphFunction: input.graphFunction,
-        source: input.stop.cursor,
-        target: admitted.disposition === "blocked" ? null : target,
-        outcome: admitted as JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
-        candidate: proposedTransition,
-        openedTraversalScope: input.openedTraversalScope,
-        closureContract: input.closureContract,
-        basis: admissionBasis(input.clock, "completion"),
-        ...(input.deferToApplication === true
-          ? { deferToApplication: true as const }
-          : {}),
-      });
-    } catch (error) {
-      return failCCall(
-        input,
-        admitted.successorPrefix,
-        `leaf-completion-${input.ordinal}`,
-        "diagnostic://abiogenesis/hog/leaf-completion-owner-fault@5",
-        { error: String(error) },
-      );
-    }
+    const completionAdmission = Abg.admitCCallCompletion({
+      store: input.store,
+      predecessorPrefix: admitted.successorPrefix,
+      executionBasis: input.executionBasis,
+      graph: input.graph,
+      graphFunction: input.graphFunction,
+      source: input.stop.cursor,
+      target: admitted.disposition === "blocked" ? null : target,
+      outcome: admitted as JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
+      candidate: proposedTransition,
+      openedTraversalScope: input.openedTraversalScope,
+      closureContract: input.closureContract,
+      basis: admissionBasis(input.clock, "completion"),
+      ...(input.deferToApplication === true
+        ? { deferToApplication: true as const }
+        : {}),
+    });
     if (completionAdmission.kind !== "c_call_completion_admission") {
       return failCCall(
         input,
@@ -519,29 +492,15 @@ export function evaluateExecutableCCall(
         completionAdmission as unknown as JsonValue,
       );
     }
-    try {
-      return {
-        kind: "c_call_evaluation" as const,
-        completion: projectCCallCompletion(
-          input.stop.cursor,
-          completionAdmission,
-          target,
-        ),
-        outputValueKind,
-        outputContractRef: input.stop.outputContractRef,
-      };
-    } catch (error) {
-      const completionPrefix =
-        completionAdmission.disposition === "application_ready"
-          ? completionAdmission.outcome.successorPrefix
-          : completionAdmission.transition.successorPrefix;
-      return failCCall(
-        input,
-        completionPrefix,
-        `leaf-projection-${input.ordinal}`,
-        "diagnostic://abiogenesis/hog/leaf-completion-projection-fault@5",
-        { error: String(error) },
-      );
-    }
+    return {
+      kind: "c_call_evaluation" as const,
+      completion: projectCCallCompletion(
+        input.stop.cursor,
+        completionAdmission,
+        target,
+      ),
+      outputValueKind,
+      outputContractRef: input.stop.outputContractRef,
+    };
   });
 }

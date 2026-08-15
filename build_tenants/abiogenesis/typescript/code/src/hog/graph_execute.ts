@@ -1,6 +1,7 @@
 import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
 import * as Exit from "effect/Exit";
+import * as Option from "effect/Option";
 
 import {
   commitFhInteractionResumeAtExpectedPrefix,
@@ -63,7 +64,6 @@ import {
   GraphTraversalFailure,
   isGraphTraversalEntryRefusal,
   projectGraphTraversalFailure,
-  projectGraphTraversalFault,
   refuseTraversalEntry,
 } from "./traversal_failure.js";
 import {
@@ -538,28 +538,52 @@ type ActiveTraversalMachineState = Extract<
   Readonly<{ stateKind: "evaluate" | "return" }>
 >;
 
+function liftGraphTraversalFailure<A, E>(
+  program: Effect.Effect<A, E, never>,
+): Effect.Effect<A, E | GraphTraversalFailure, never> {
+  return Effect.catchAllCause(program, (
+    cause,
+  ): Effect.Effect<never, E | GraphTraversalFailure, never> => {
+    const failure = Cause.failureOption(cause);
+    if (
+      Option.isSome(failure) &&
+      failure.value instanceof GraphTraversalFailure
+    ) {
+      return Effect.fail(failure.value);
+    }
+    const defect = Cause.dieOption(cause);
+    return Option.isSome(defect) &&
+        defect.value instanceof GraphTraversalFailure
+      ? Effect.fail(defect.value)
+      : Effect.failCause(cause);
+  });
+}
+
 function evaluateTraversalProgram(
   initial: ActiveTraversalMachineState,
-): Effect.Effect<ExecutableTraversalCompletion | GraphTraversalFailureResult> {
+): Effect.Effect<ExecutableTraversalCompletion, GraphTraversalFailure> {
   const program = Effect.iterate<
     TraversalMachineState,
     ActiveTraversalMachineState,
     never,
-    never
+    GraphTraversalFailure
   >(Object.freeze(initial), {
     while: (
       state,
-    ): state is ActiveTraversalMachineState =>
-      state.stateKind !== "done" && state.stateKind !== "failure",
-    body: (state) => Effect.catchAllCause(Effect.suspend(() => {
+    ): state is ActiveTraversalMachineState => state.stateKind !== "done",
+    body: (state) => {
+      const returnOwner = state.stateKind === "return"
+        ? state.returns.at(-1)
+        : null;
+      if (state.stateKind === "return" && returnOwner === undefined) {
+        return Effect.succeed(Object.freeze({
+          stateKind: "done" as const,
+          completion: state.completion,
+        }));
+      }
+      return liftGraphTraversalFailure(Effect.suspend(() => {
       if (state.stateKind === "return") {
-        const owner = state.returns.at(-1);
-        if (owner === undefined) {
-          return Effect.succeed(Object.freeze({
-            stateKind: "done" as const,
-            completion: state.completion,
-          }));
-        }
+        const owner = returnOwner!;
         const evaluation: TraversalLocusEvaluation =
           owner.kind === "workflow_return"
             ? completeWorkflowLocus(owner.workflow, state.completion)
@@ -677,27 +701,10 @@ function evaluateTraversalProgram(
         }
         return nextFromEvaluation(frame, owner.evaluation, state.returns);
       });
-    }), (cause) => {
-      const error = Cause.squash(cause);
-      if (error instanceof GraphTraversalFailure) {
-        return Effect.failCause(cause);
-      }
-      const predecessorPrefix = state.stateKind === "evaluate"
-        ? state.frame.runtime.predecessorPrefix
-        : state.completion.successorPrefix;
-      return Effect.succeed(Object.freeze({
-        stateKind: "failure" as const,
-        failure: projectGraphTraversalFault({
-          predecessorPrefix,
-          message: error instanceof Error ? error.message : String(error),
-          diagnosticRef:
-            "diagnostic://abiogenesis/hog/evaluator-owner-fault@5",
-        }),
       }));
-    }),
+    },
   });
   return Effect.map(program, (state) => {
-    if (state.stateKind === "failure") return state.failure;
     if (state.stateKind !== "done") {
       throw new TypeError(
         "diagnostic://abiogenesis/hog/fold-final-state-mismatch@5",
@@ -1234,16 +1241,34 @@ function seedParentContinuation(
       completion.resultValue === null ||
       typeof completion.resultValue !== "object" ||
       Array.isArray(completion.resultValue)) {
-    throw new TypeError(
-      "diagnostic://abiogenesis/hog/interaction-resume-advance-incomplete@5",
-    );
+    return failTraversal({
+      store: parent.store,
+      predecessorPrefix: completion.successorPrefix,
+      executionBasis: parent.executionBasis,
+      openedTraversalScope: parent.openedTraversalScope,
+      eventTime: parent.eventTime,
+      correlationId: parent.correlationId,
+      stage: "interaction-resume-advance",
+      diagnosticRef:
+        "diagnostic://abiogenesis/hog/interaction-resume-advance-incomplete@5",
+      candidate: { faultClass: "interaction_resume_advance_incomplete" },
+    });
   }
   const input = completion.resultValue as Readonly<Record<string, JsonValue>>;
   const inputDigest = sha256Canonical(input);
   if (completion.nextCursor.inputDigest !== inputDigest) {
-    throw new TypeError(
-      "diagnostic://abiogenesis/hog/interaction-resume-advance-digest-mismatch@5",
-    );
+    return failTraversal({
+      store: parent.store,
+      predecessorPrefix: completion.successorPrefix,
+      executionBasis: parent.executionBasis,
+      openedTraversalScope: parent.openedTraversalScope,
+      eventTime: parent.eventTime,
+      correlationId: parent.correlationId,
+      stage: "interaction-resume-advance-digest",
+      diagnosticRef:
+        "diagnostic://abiogenesis/hog/interaction-resume-advance-digest-mismatch@5",
+      candidate: { faultClass: "interaction_resume_advance_digest_mismatch" },
+    });
   }
   return Object.freeze({
     stateKind: "evaluate" as const,
@@ -1264,8 +1289,11 @@ function seedParentContinuation(
 
 function traversalProgram(
   input: ExecuteGraphTraversalRequest,
-): Effect.Effect<ExecuteGraphTraversalResult> {
-  return Effect.suspend((): Effect.Effect<ExecuteGraphTraversalResult> => {
+): Effect.Effect<ExecuteGraphTraversalResult, GraphTraversalFailure> {
+  return liftGraphTraversalFailure(Effect.suspend((): Effect.Effect<
+    ExecuteGraphTraversalResult,
+    GraphTraversalFailure
+  > => {
     if ("interactionResume" in input) {
       const prepared = prepareHeldInteractionResume(input);
       if (isGraphTraversalEntryRefusal(prepared)) {
@@ -1287,7 +1315,7 @@ function traversalProgram(
       frame: enterTraversal(input),
       returns: Object.freeze([]),
     }));
-  });
+  }));
 }
 
 export async function executeGraphTraversal(
@@ -1295,21 +1323,12 @@ export async function executeGraphTraversal(
 ): Promise<ExecuteGraphTraversalResult> {
   const exit = await runEffectProgram(traversalProgram(input));
   if (Exit.isSuccess(exit)) return exit.value;
-  const error = Cause.squash(exit.cause);
-  if (error instanceof GraphTraversalFailure) {
-    return projectGraphTraversalFailure(error);
+  const failure = Cause.failureOption(exit.cause);
+  if (
+    Option.isSome(failure) &&
+    failure.value instanceof GraphTraversalFailure
+  ) {
+    return projectGraphTraversalFailure(failure.value);
   }
-  if ("interactionResume" in input) {
-    return resumeEntryRefusal(
-      "owner_refusal",
-      error instanceof Error ? error.message : String(error),
-      "diagnostic://abiogenesis/hog/entry-owner-fault@5",
-      { error: String(error) },
-    );
-  }
-  return projectGraphTraversalFault({
-    predecessorPrefix: input.predecessorPrefix,
-    message: error instanceof Error ? error.message : String(error),
-    diagnosticRef: "diagnostic://abiogenesis/hog/entry-owner-fault@5",
-  });
+  throw exit.cause;
 }

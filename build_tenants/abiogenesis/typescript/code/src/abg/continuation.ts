@@ -61,6 +61,7 @@ import {
 } from "./effectful_invocation_truth.js";
 import {
   AbgEventStore,
+  admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   admitRuntimeEvent,
   admitRuntimeEventTransactionAtExpectedPrefix,
   assertHeldEventStoreAtDurablePrefix,
@@ -1674,9 +1675,9 @@ export function admitFhInteractionHold(
       "F_H hold candidate differs from its exact pending interaction plan",
     );
   }
-  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     input.store,
-    input.pendingPlan.expectedPrefixDigest,
+    input.predecessorPrefix,
     () => {
       const pending = admitPlannedPendingInteraction(
         input.store,
@@ -1720,15 +1721,16 @@ export function admitFhInteractionHold(
         input.inputValue,
         input.continuationBasis,
       );
-      return { pending, route: transition.route, continuation };
+      return deepFreeze({
+        kind: "fh_interaction_hold_admission" as const,
+        schemaVersion: "5.0.0" as const,
+        pending,
+        route: transition.route,
+        continuation,
+      });
     },
   );
-  if (committed.successorPrefix === null) {
-    throw new TypeError("F_H hold transaction produced no durable successor");
-  }
   return deepFreeze({
-    kind: "fh_interaction_hold_admission" as const,
-    schemaVersion: "5.0.0" as const,
     ...committed.value,
     successorPrefix: committed.successorPrefix,
   });
@@ -1935,9 +1937,6 @@ export function commitFhInteractionResponseAtExpectedPrefix(
   const prefix = selectValidatedRuntimeEventPrefix(
     readRuntimeEventsAtDurablePrefix(predecessorPrefix),
   );
-  const expectedLogicalDigest = sha256Canonical(
-    runtimeEventsFromValidatedPrefix(prefix) as unknown as JsonValue,
-  );
   const preparedOperation = prepareContinuationPublicOperation(
     prefix,
     rootInvocation,
@@ -1958,9 +1957,9 @@ export function commitFhInteractionResponseAtExpectedPrefix(
     responseValue,
     responseBasis,
   );
-  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     store,
-    expectedLogicalDigest,
+    predecessorPrefix,
     () => {
       const operationEvent = admitRuntimeEvent(
         store,
@@ -1988,9 +1987,6 @@ export function commitFhInteractionResponseAtExpectedPrefix(
       });
     },
   );
-  if (committed.successorPrefix === null) {
-    throw new TypeError("F_H response requires one durable successor prefix");
-  }
   return deepFreeze({
     ...committed.value,
     successorPrefix: committed.successorPrefix,
@@ -2215,9 +2211,6 @@ export function commitFhInteractionResumeAtExpectedPrefix(
   const prefix = selectValidatedRuntimeEventPrefix(
     readRuntimeEventsAtDurablePrefix(predecessorPrefix),
   );
-  const expectedLogicalDigest = sha256Canonical(
-    runtimeEventsFromValidatedPrefix(prefix) as unknown as JsonValue,
-  );
   const preparedOperation = prepareContinuationPublicOperation(
     prefix,
     rootInvocation,
@@ -2241,9 +2234,9 @@ export function commitFhInteractionResumeAtExpectedPrefix(
     predecessorPrefix.prefixDigest,
     resumeBasis,
   );
-  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     store,
-    expectedLogicalDigest,
+    predecessorPrefix,
     () => {
       const operationEvent = admitRuntimeEvent(
         store,
@@ -2271,9 +2264,6 @@ export function commitFhInteractionResumeAtExpectedPrefix(
       });
     },
   );
-  if (committed.successorPrefix === null) {
-    throw new TypeError("F_H resume requires one durable successor prefix");
-  }
   return deepFreeze({
     ...committed.value,
     successorPrefix: committed.successorPrefix,

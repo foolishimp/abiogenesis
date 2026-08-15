@@ -31,9 +31,9 @@ import {
 } from "./execution_basis.js";
 import {
   AbgEventStore,
+  admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   admitRuntimeEvent,
   admitRuntimeEventBatch,
-  admitRuntimeEventTransactionAtDurablePrefix,
   admitRuntimeEventTransactionAtExpectedPrefix,
   assertHeldEventStoreAtDurablePrefix,
   assertRuntimeEventTransactionActive,
@@ -4612,7 +4612,7 @@ function admitPreparedCCallOpening(input: Readonly<{
       "retry CCall open requires the exact declared active retry frontier",
     );
   }
-  const transaction = admitRuntimeEventTransactionAtDurablePrefix(
+  const transaction = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     store,
     predecessorPrefix,
     () => {
@@ -4657,24 +4657,23 @@ function admitPreparedCCallOpening(input: Readonly<{
         frameLineageId: scope.frameLineageId,
         payload: prepared.fibreBody,
       });
-      return { openedEvent, fibreEvent };
+      const cCall = deepFreeze({
+        kind: "c_call" as const,
+        schemaVersion: "5.0.0" as const,
+        ...body,
+        openedEventRef: openedEvent.eventId,
+        fibreSelectedEventRef: fibreEvent.eventId,
+      }) as CCall;
+      return deepFreeze({
+        kind: "c_call_admission" as const,
+        schemaVersion: "5.0.0" as const,
+        disposition: "opened" as const,
+        cCall,
+      });
     },
   );
-  if (transaction.successorPrefix === null) {
-    throw new TypeError("CCall opening did not produce a durable successor");
-  }
-  const cCall = deepFreeze({
-    kind: "c_call" as const,
-    schemaVersion: "5.0.0" as const,
-    ...body,
-    openedEventRef: transaction.value.openedEvent.eventId,
-    fibreSelectedEventRef: transaction.value.fibreEvent.eventId,
-  }) as CCall;
   return deepFreeze({
-    kind: "c_call_admission" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "opened" as const,
-    cCall,
+    ...transaction.value,
     successorPrefix: transaction.successorPrefix,
   }) as CCallAdmission;
 }

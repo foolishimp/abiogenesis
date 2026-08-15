@@ -3074,9 +3074,15 @@ export interface RuntimeEventTransactionResult<T> {
   readonly successorPrefix: DurablePrefixCoordinate | null;
 }
 
+export interface NonEmptyRuntimeEventTransactionResult<T> {
+  readonly value: T;
+  readonly successorPrefix: DurablePrefixCoordinate;
+}
+
 function runRuntimeEventTransaction<T>(
   store: AbgEventStore,
   action: () => T,
+  requireDurableSuccessor = false,
 ): RuntimeEventTransactionResult<T> {
   const state = eventState.get(store);
   if (state === undefined) {
@@ -3090,6 +3096,14 @@ function runRuntimeEventTransaction<T>(
   try {
     const value = action();
     const admitted = state.events.slice(startIndex);
+    if (
+      requireDurableSuccessor &&
+      (state.durableLogPath === null || admitted.length === 0)
+    ) {
+      throw new TypeError(
+        "non-empty durable ABG transaction admitted no durable events",
+      );
+    }
     const successorPrefix = state.durableLogPath !== null && admitted.length !== 0
       ? appendDurablyBatch(state, admitted)
       : null;
@@ -3143,6 +3157,33 @@ export function admitRuntimeEventTransactionAtDurablePrefix<T>(
     );
   }
   return runRuntimeEventTransaction(store, action);
+}
+
+/**
+ * Admits at least one event at an exact durable predecessor. Receipt validation
+ * belongs inside `action`; once this returns, the successor is non-null by
+ * construction and callers may only attach it to the completed receipt body.
+ */
+export function admitNonEmptyRuntimeEventTransactionAtDurablePrefix<T>(
+  store: AbgEventStore,
+  expectedPredecessor: DurablePrefixCoordinate,
+  action: () => T,
+): NonEmptyRuntimeEventTransactionResult<T> {
+  assertHeldEventStoreAtDurablePrefix(store, expectedPredecessor);
+  const durableEvents = readRuntimeEventsAtDurablePrefix(expectedPredecessor);
+  const expectedEventDigest = sha256Canonical(
+    durableEvents as unknown as JsonValue,
+  );
+  if (store.digest() !== expectedEventDigest) {
+    throw new TypeError(
+      "runtime event transaction requires the exact durable event predecessor",
+    );
+  }
+  return runRuntimeEventTransaction(
+    store,
+    action,
+    true,
+  ) as NonEmptyRuntimeEventTransactionResult<T>;
 }
 
 export function assertRuntimeEventTransactionActive(
