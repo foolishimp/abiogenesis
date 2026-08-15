@@ -2090,6 +2090,7 @@ async function applyRunInvoke(
       reentryState === null
         ? []
         : [workspaceState.binding.admissionEventRef],
+      invocation.variant === "direct" ? "invoke" : "start",
     ),
   );
   if (invocationAdmission.kind !== "invocation_admission") {
