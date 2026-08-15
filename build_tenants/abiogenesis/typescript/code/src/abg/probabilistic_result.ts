@@ -7,9 +7,11 @@ import type {
   LeafExecutionOccurrence,
   LeafInvocationPort,
   ProbabilisticWorkerRequest,
+  VerifiedProbabilisticResultContractPreimage,
 } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import {
+  isSha256Digest,
   sha256Bytes,
   sha256Canonical,
   type Sha256Digest,
@@ -23,6 +25,15 @@ import {
 } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isNonBlankRef } from "../shared/references.js";
+import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
+import { projectAdmittedWorkspaceProductInstall } from "./environment_admission.js";
+import {
+  hasAdmittedExecutionBasisAtPrefix,
+  hasAdmittedImplementationSetAtPrefix,
+  type AdmittedImplementationSet,
+  type ExecutionBasis,
+} from "./execution_basis.js";
+import type { ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 
 export type ProbabilisticResultAdmissionRefusalCode =
   | IJsonAdmissionFailureCode
@@ -37,8 +48,12 @@ export type ProbabilisticResultAdmissionRefusalCode =
   | "worker_identity_mismatch";
 
 export interface ProbabilisticResultAdmissionInput {
+  readonly artifactTruth: ExactPrefixArtifactTruthProjection;
+  readonly executionBasis: ExecutionBasis;
+  readonly implementationSet: AdmittedImplementationSet;
   readonly leafPort: LeafInvocationPort;
   readonly occurrence: Readonly<LeafExecutionOccurrence>;
+  readonly prefix: ValidatedRuntimeEventPrefix;
   readonly resolution: Readonly<AdmittedImplementationResolutionRow>;
   readonly input: Readonly<Record<string, JsonValue>>;
   readonly request: Readonly<ProbabilisticWorkerRequest>;
@@ -142,10 +157,14 @@ function hasExactDataFields(
 }
 
 const ADMISSION_INPUT_FIELDS = Object.freeze([
+  "artifactTruth",
+  "executionBasis",
   "input",
+  "implementationSet",
   "leafPort",
   "observation",
   "occurrence",
+  "prefix",
   "request",
   "resolution",
 ]);
@@ -160,6 +179,29 @@ const OCCURRENCE_FIELDS = Object.freeze([
   "taskOrdinal",
 ]);
 
+const VERIFIED_PREIMAGE_FIELDS = Object.freeze([
+  "contractCapabilityBasis",
+  "implementationRef",
+  "implementationResolutionDigest",
+  "inputContractRef",
+  "inputDigest",
+  "instructionContractRef",
+  "kind",
+  "rawResultContractRef",
+  "rawResultDigest",
+  "schemaVersion",
+  "targetOutputContractRef",
+  "verificationDigest",
+  "verificationRef",
+]);
+
+const CONTRACT_CAPABILITY_BASIS_FIELDS = Object.freeze([
+  "implementationSetDigest",
+  "implementationSetRef",
+  "installId",
+  "publicationDigest",
+]);
+
 function exactOccurrence(
   value: Readonly<LeafExecutionOccurrence>,
 ): boolean {
@@ -172,6 +214,52 @@ function exactOccurrence(
     value.attempt >= 1 &&
     (value.taskOrdinal === null ||
       (Number.isSafeInteger(value.taskOrdinal) && value.taskOrdinal >= 0));
+}
+
+function exactVerifiedContractPreimage(
+  value: unknown,
+): value is Readonly<VerifiedProbabilisticResultContractPreimage> {
+  if (
+    typeof value !== "object" ||
+    value === null ||
+    !hasExactDataFields(value, VERIFIED_PREIMAGE_FIELDS)
+  ) return false;
+  const candidate = value as Partial<
+    VerifiedProbabilisticResultContractPreimage
+  >;
+  const capability = candidate.contractCapabilityBasis;
+  if (
+    candidate.kind !== "verified_probabilistic_result_contract_preimage" ||
+    candidate.schemaVersion !== "5.0.0" ||
+    !exactRef(candidate.verificationRef) ||
+    !isSha256Digest(candidate.verificationDigest) ||
+    typeof capability !== "object" ||
+    capability === null ||
+    !hasExactDataFields(capability, CONTRACT_CAPABILITY_BASIS_FIELDS) ||
+    !exactRef(capability.installId) ||
+    !exactRef(capability.implementationSetRef) ||
+    !isSha256Digest(capability.implementationSetDigest) ||
+    !isSha256Digest(capability.publicationDigest) ||
+    !isSha256Digest(candidate.implementationResolutionDigest) ||
+    !exactRef(candidate.implementationRef) ||
+    !exactRef(candidate.inputContractRef) ||
+    !exactRef(candidate.targetOutputContractRef) ||
+    !exactRef(candidate.instructionContractRef) ||
+    !exactRef(candidate.rawResultContractRef) ||
+    !isSha256Digest(candidate.inputDigest) ||
+    !isSha256Digest(candidate.rawResultDigest)
+  ) return false;
+  const {
+    kind: _kind,
+    schemaVersion: _schemaVersion,
+    verificationRef: _verificationRef,
+    verificationDigest: _verificationDigest,
+    ...body
+  } = candidate as VerifiedProbabilisticResultContractPreimage;
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  return candidate.verificationDigest === digest &&
+    candidate.verificationRef ===
+      `probabilistic-result-contract-preimage://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 
 function asIJsonObject(value: JsonValue): IJsonObject | null {
@@ -218,6 +306,10 @@ export function admitProbabilisticResultCandidate(
   }
 
   if (
+    typeof supplied.executionBasis !== "object" ||
+    supplied.executionBasis === null ||
+    typeof supplied.implementationSet !== "object" ||
+    supplied.implementationSet === null ||
     typeof supplied.leafPort !== "object" ||
     supplied.leafPort === null ||
     typeof supplied.resolution !== "object" ||
@@ -229,6 +321,50 @@ export function admitProbabilisticResultCandidate(
     return refusal(
       "unadmitted_contract_capability",
       "probabilistic result admission requires one admitted installed leaf port and resolution row",
+    );
+  }
+  let implementationResolutionDigest: Sha256Digest;
+  try {
+    implementationResolutionDigest = sha256Canonical(
+      supplied.resolution as unknown as JsonValue,
+    );
+  } catch {
+    return refusal(
+      "unadmitted_contract_capability",
+      "probabilistic result admission requires one canonical implementation resolution",
+    );
+  }
+  const resolutionMatches = supplied.implementationSet.rows.filter((row) =>
+    sha256Canonical(row as unknown as JsonValue) ===
+      implementationResolutionDigest
+  );
+  const admittedResolution = resolutionMatches.length === 1
+    ? resolutionMatches[0]!
+    : null;
+  if (
+    admittedResolution === null ||
+    !hasAdmittedImplementationSetAtPrefix(
+      supplied.prefix,
+      supplied.implementationSet,
+    ) ||
+    !hasAdmittedExecutionBasisAtPrefix(
+      supplied.prefix,
+      supplied.executionBasis,
+    ) ||
+    supplied.executionBasis.implementationSetRef !==
+      supplied.implementationSet.implementationSetRef ||
+    supplied.executionBasis.implementationSetDigest !==
+      supplied.implementationSet.implementationSetDigest ||
+    supplied.executionBasis.invocationAdmissionRef !==
+      supplied.implementationSet.invocationAdmissionRef ||
+    supplied.executionBasis.invocationRef !==
+      supplied.implementationSet.invocationRef ||
+    supplied.executionBasis.graphFunctionRef !==
+      admittedResolution.graphFunctionRef
+  ) {
+    return refusal(
+      "unadmitted_contract_capability",
+      "probabilistic result admission requires one exact event-admitted execution, implementation set, and resolution join",
     );
   }
   const carrierValidation = validateActorProcessCarrierPair(
@@ -263,7 +399,7 @@ export function admitProbabilisticResultCandidate(
       "probabilistic result request requires one exact execution occurrence",
     );
   }
-  if (supplied.resolution.computeRegime !== "F_P") {
+  if (admittedResolution.computeRegime !== "F_P") {
     return refusal(
       "request_basis_mismatch",
       "probabilistic result request differs from one exact F_P implementation resolution",
@@ -271,7 +407,7 @@ export function admitProbabilisticResultCandidate(
   }
   if (
     occurrence.programLocusRef !==
-      supplied.resolution.programLocusRef
+      admittedResolution.programLocusRef
   ) {
     return refusal(
       "request_basis_mismatch",
@@ -310,7 +446,7 @@ export function admitProbabilisticResultCandidate(
     );
   }
   if (
-    request.implementationRef !== supplied.resolution.implementationRef ||
+    request.implementationRef !== admittedResolution.implementationRef ||
     observation.implementationRef !== request.implementationRef ||
     observation.materializationPlanRef !== request.materializationPlanRef ||
     observation.rendererRef !== request.rendererRef
@@ -358,7 +494,7 @@ export function admitProbabilisticResultCandidate(
   try {
     contractPreimage = supplied.leafPort
       .verifyProbabilisticResultContractPreimage({
-        resolution: supplied.resolution,
+        resolution: admittedResolution,
         input: admittedInput,
         inputDigest,
         instructionContractRef: request.instructionContractRef,
@@ -403,16 +539,14 @@ export function admitProbabilisticResultCandidate(
   const observationDigest = sha256Canonical(
     observation as unknown as JsonValue,
   );
-  const implementationResolutionDigest = sha256Canonical(
-    supplied.resolution as unknown as JsonValue,
-  );
   if (
+    !exactVerifiedContractPreimage(contractPreimage) ||
     contractPreimage.implementationResolutionDigest !==
       implementationResolutionDigest ||
-    contractPreimage.implementationRef !== supplied.resolution.implementationRef ||
-    contractPreimage.inputContractRef !== supplied.resolution.inputContractRef ||
+    contractPreimage.implementationRef !== admittedResolution.implementationRef ||
+    contractPreimage.inputContractRef !== admittedResolution.inputContractRef ||
     contractPreimage.targetOutputContractRef !==
-      supplied.resolution.outputContractRef ||
+      admittedResolution.outputContractRef ||
     contractPreimage.instructionContractRef !==
       request.instructionContractRef ||
     contractPreimage.rawResultContractRef !== request.resultContractRef ||
@@ -422,6 +556,35 @@ export function admitProbabilisticResultCandidate(
     return refusal(
       "unadmitted_contract_capability",
       "implementation-owner preimage differs from the exact admission basis",
+    );
+  }
+  const capability = contractPreimage.contractCapabilityBasis;
+  const installed = projectAdmittedWorkspaceProductInstall(
+    supplied.artifactTruth,
+    supplied.executionBasis.workspaceBindingId,
+    capability.installId,
+  );
+  if (
+    installed === null ||
+    installed.install.packageName !== admittedResolution.packageName ||
+    installed.install.packageVersion !== admittedResolution.packageVersion ||
+    capability.installId !== supplied.leafPort.installId ||
+    capability.implementationSetRef !==
+      supplied.implementationSet.implementationSetRef ||
+    capability.implementationSetDigest !==
+      supplied.implementationSet.implementationSetDigest ||
+    capability.publicationDigest !==
+      supplied.implementationSet.publicationDigest ||
+    supplied.leafPort.implementationSetRef !==
+      supplied.implementationSet.implementationSetRef ||
+    supplied.leafPort.implementationSetDigest !==
+      supplied.implementationSet.implementationSetDigest ||
+    supplied.leafPort.publicationDigest !==
+      supplied.implementationSet.publicationDigest
+  ) {
+    return refusal(
+      "unadmitted_contract_capability",
+      "implementation-owner preimage does not join one admitted workspace install, publication, implementation set, and resolution",
     );
   }
   const body = deepFreeze({

@@ -47,6 +47,7 @@ export {
   projectAdmittedProductInstall,
   projectAdmittedProductInstallByAdmissionEventRef,
   projectAdmittedProductInstallByInvocationRef,
+  projectAdmittedWorkspaceProductInstall,
   projectAdmittedWorkspaceBinding,
   projectAdmittedWorkspaceBindingByInvocationRef,
   type AbgAdmissionRefusal,

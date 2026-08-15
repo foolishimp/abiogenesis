@@ -307,6 +307,33 @@ export function projectAdmittedProductInstallByAdmissionEventRef(
     : null;
 }
 
+export function projectAdmittedWorkspaceProductInstall(
+  projection: ExactPrefixArtifactTruthProjection,
+  workspaceBindingId: string,
+  installId: string,
+): RehydratedProductInstallTruth | null {
+  if (
+    !validateExactPrefixArtifactTruthProjection(projection) ||
+    workspaceBindingId.length === 0 ||
+    installId.length === 0
+  ) return null;
+  const installRows = projection.rows.filter((row) =>
+    row.operationId === "abg.operation.product.install" &&
+    row.authorityScopeRef === installId &&
+    row.artifactRef === installId
+  );
+  if (installRows.length !== 1) return null;
+  const install = rehydrateProductInstallRow(projection, installRows[0]!);
+  if (install === null) return null;
+  const workspaceRows = projection.rows.filter((row) =>
+    row.operationId === "abg.operation.workspace.bind" &&
+    row.authorityScopeRef === workspaceBindingId &&
+    row.artifactRef === workspaceBindingId &&
+    row.causationEventRefs.includes(install.install.admissionEventRef)
+  );
+  return workspaceRows.length === 1 ? install : null;
+}
+
 export function projectAdmittedWorkspaceBindingByInvocationRef(
   projection: ExactPrefixArtifactTruthProjection,
   invocationRef: string,

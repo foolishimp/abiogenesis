@@ -1447,8 +1447,14 @@ function admitLeafOutcome(
     : null;
   const request = exchange?.request ?? null;
   const observation = exchange?.observation ?? null;
-  const probabilistic = regime === "F_P" && request !== null && observation !== null
+  const probabilistic = regime === "F_P" &&
+      request !== null &&
+      observation !== null &&
+      input.actorRuntimeBinding !== undefined
     ? Abg.admitProbabilisticResultCandidate({
+        artifactTruth: input.actorRuntimeBinding.artifactTruth,
+        executionBasis: input.executionBasis,
+        implementationSet: input.implementationSet,
         leafPort: input.leafPort,
         occurrence: {
           cCallRef: cCall.cCallRef,
@@ -1459,6 +1465,7 @@ function admitLeafOutcome(
           taskOrdinal: cCall.taskOrdinal,
           attempt: cCall.attempt,
         },
+        prefix: selectValidatedRuntimeEventPrefix(input.store.readAll()),
         resolution: input.implementationResolution,
         input: input.input,
         request,

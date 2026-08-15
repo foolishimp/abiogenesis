@@ -734,15 +734,22 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     ): Promise<Readonly<LeafInvocationOwnerResult>> {
       try {
         if (this !== port) return ownerRefusal("owner_boundary_exception");
+        const admittedResolution = exactAdmittedResolution(call.resolution);
+        if (
+          admittedResolution === null ||
+          call.failureContractRef !== admittedResolution.failureContractRef
+        ) {
+          return ownerRefusal("owner_boundary_exception");
+        }
         const failureValueKind = port.contractValueKind(
-          call.failureContractRef,
+          admittedResolution.failureContractRef,
           "failure",
         );
         if (failureValueKind === null) {
           return ownerRefusal("failure_contract_absent");
         }
         return invokeLeafOwnerBoundary({
-          resolution: call.resolution,
+          resolution: admittedResolution,
           value: call.input,
           inputDigest: call.inputDigest,
           failureValueKind,
@@ -753,18 +760,18 @@ export async function constructAdmittedLeafInvocationPort(authority: {
               authority.prefix,
               authority.implementationSet,
             ) &&
-            exactAdmittedResolution(call.resolution) !== null &&
             await semantics.verifyInstalledContent(),
           validateSuccess: (value) => port.validateContractValue(
-            call.resolution.outputContractRef,
+            admittedResolution.outputContractRef,
             "output",
             value,
           ),
-          resolveWorkerContracts,
+          resolveWorkerContracts: (_resolution, value) =>
+            resolveWorkerContracts(admittedResolution, value),
           bindProbabilisticEffects: call.bindProbabilisticEffects,
           loadImplementation: async () => {
-            const module = await loadModule(call.resolution.modulePath);
-            return module[call.resolution.namedSymbol];
+            const module = await loadModule(admittedResolution.modulePath);
+            return module[admittedResolution.namedSymbol];
           },
         });
       } catch {
