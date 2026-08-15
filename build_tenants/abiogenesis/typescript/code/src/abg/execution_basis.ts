@@ -42,12 +42,13 @@ import {
   type ValidatedInteractionLeaf,
 } from "../validator/validation.js";
 import {
-  hasAdmittedInvocation,
+  hasAdmittedInvocationAtPrefix,
   type InvocationAdmission,
 } from "./invocation_admission.js";
 import { projectCurrentChildParentCCallAtPrefix } from "./c_call.js";
 import {
   AbgEventStore,
+  admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   admitRuntimeEvent,
   assertHeldEventStoreAtDurablePrefix,
   compareAndAppendExpectedPrefix,
@@ -87,6 +88,13 @@ export interface InvocationRefusalAdmission {
   readonly subjectDigest: Sha256Digest;
   readonly contractOrDiagnosticRefs: readonly string[];
   readonly admissionEventRef: string;
+}
+
+export interface InvocationRefusalAdmissionReceipt {
+  readonly kind: "invocation_refusal_admission_receipt";
+  readonly schemaVersion: "5.0.0";
+  readonly admission: InvocationRefusalAdmission;
+  readonly successorPrefix: DurablePrefixCoordinate;
 }
 
 export interface AdmittedImplementationResolutionRow
@@ -253,6 +261,7 @@ export interface ExecutionBasisAdmission {
   readonly interactionSet: AdmittedInteractionSet;
   readonly implementationResolution: AdmittedImplementationResolution | null;
   readonly executionBasis: ExecutionBasis;
+  readonly successorPrefix: DurablePrefixCoordinate;
 }
 
 export interface ExecutionBasisInput {
@@ -269,7 +278,9 @@ export interface ExecutionBasisInput {
   readonly closureContract: Readonly<ClosureContract>;
 }
 
-export type ExecutionBasisAdmissionResult = ExecutionBasisAdmission | InvocationRefusalAdmission;
+export type ExecutionBasisAdmissionResult =
+  | ExecutionBasisAdmission
+  | InvocationRefusalAdmissionReceipt;
 
 export interface ChildExecutionBasisInput {
   readonly parentExecutionBasis: ExecutionBasis;
@@ -715,13 +726,18 @@ export function rehydrateExecutionBasisAtPrefix(
 
 export function admitInvocationRefusal(
   store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
   invocationAdmission: InvocationAdmission,
   stage: InvocationRefusalAdmission["stage"],
   subjectDigest: Sha256Digest,
   contractOrDiagnosticRefs: readonly string[],
   basis: RuntimeAdmissionBasis,
-): InvocationRefusalAdmission {
-  if (!hasAdmittedInvocation(store, invocationAdmission)) {
+): InvocationRefusalAdmissionReceipt {
+  assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+  const authorityPrefix = selectValidatedRuntimeEventPrefix(
+    readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+  );
+  if (!hasAdmittedInvocationAtPrefix(authorityPrefix, invocationAdmission)) {
     throw new TypeError("invocation refusal requires one exact admitted InvocationAdmission");
   }
   if (contractOrDiagnosticRefs.length === 0) {
@@ -735,45 +751,67 @@ export function admitInvocationRefusal(
   };
   const refusalDigest = sha256Canonical(body as unknown as JsonValue);
   const refusalRef = `invocation-refusal://abiogenesis/${refusalDigest.slice("sha256:".length)}`;
-  const event = admitRuntimeEvent(store, {
-    kind: "invocation_refused",
-    eventTime: basis.eventTime,
-    aggregateType: "workspace",
-    aggregateId: invocationAdmission.workspaceBindingId,
-    parentAggregateId: invocationAdmission.invocationRef,
-    causationEventRefs: [invocationAdmission.admissionEventRef, ...basis.causationEventRefs],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "workspace",
-    basisId: invocationAdmission.invocationAdmissionRef,
-    payload: { refusalRef, refusalDigest, ...body },
-  });
-  return deepFreeze({
+  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
+    store,
+    predecessorPrefix,
+    () => admitRuntimeEvent(store, {
+      kind: "invocation_refused",
+      eventTime: basis.eventTime,
+      aggregateType: "workspace",
+      aggregateId: invocationAdmission.workspaceBindingId,
+      parentAggregateId: invocationAdmission.invocationRef,
+      causationEventRefs: [
+        invocationAdmission.admissionEventRef,
+        ...basis.causationEventRefs,
+      ],
+      correlationId: basis.correlationId,
+      workflowVersion: "5.0.0",
+      scopeClass: "workspace",
+      basisId: invocationAdmission.invocationAdmissionRef,
+      payload: { refusalRef, refusalDigest, ...body },
+    }),
+  );
+  const admission = deepFreeze({
     kind: "invocation_refusal_admission" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "refused" as const,
     refusalRef,
     refusalDigest,
     ...body,
-    admissionEventRef: event.eventId,
+    admissionEventRef: committed.value.eventId,
   }) as InvocationRefusalAdmission;
+  return deepFreeze({
+    kind: "invocation_refusal_admission_receipt" as const,
+    schemaVersion: "5.0.0" as const,
+    admission,
+    successorPrefix: committed.successorPrefix,
+  });
 }
 
 export function admitExecutionBasis(
   store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
   input: ExecutionBasisInput,
   basis: RuntimeAdmissionBasis,
 ): ExecutionBasisAdmissionResult {
-  const reject = (subjectDigest: Sha256Digest, diagnosticRef: string): InvocationRefusalAdmission =>
+  assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+  const authorityPrefix = selectValidatedRuntimeEventPrefix(
+    readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+  );
+  const reject = (
+    subjectDigest: Sha256Digest,
+    diagnosticRef: string,
+  ): InvocationRefusalAdmissionReceipt =>
     admitInvocationRefusal(
       store,
+      predecessorPrefix,
       input.invocationAdmission,
       "execution_basis",
       subjectDigest,
       [diagnosticRef],
       basis,
     );
-  if (!hasAdmittedInvocation(store, input.invocationAdmission)) {
+  if (!hasAdmittedInvocationAtPrefix(authorityPrefix, input.invocationAdmission)) {
     throw new TypeError("ExecutionBasis requires one exact admitted invocation");
   }
   const rawInputValue = detachJsonRecord(input.rawInputValue);
@@ -986,6 +1024,10 @@ export function admitExecutionBasis(
   const resolutionRef = resolutionDigest === null
     ? null
     : `implementation-resolution://abiogenesis/${resolutionDigest.slice("sha256:".length)}`;
+  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
+    store,
+    predecessorPrefix,
+    () => {
   const setEvent = admitRuntimeEvent(store, {
     kind: "implementation_admitted",
     eventTime: basis.eventTime,
@@ -1024,7 +1066,6 @@ export function admitExecutionBasis(
     ...implementationSetBody,
     admissionEventRef: setEvent.eventId,
   }) as AdmittedImplementationSet;
-  implementationSets.add(implementationSet);
   const interactionSet = deepFreeze({
     kind: "admitted_interaction_set" as const,
     schemaVersion: "5.0.0" as const,
@@ -1034,7 +1075,6 @@ export function admitExecutionBasis(
     ...interactionSetBody,
     admissionEventRef: setEvent.eventId,
   }) as AdmittedInteractionSet;
-  interactionSets.add(interactionSet);
   const implementationResolution = resolutionBody === null || resolutionRef === null || resolutionDigest === null
     ? null
     : deepFreeze({
@@ -1046,7 +1086,6 @@ export function admitExecutionBasis(
       ...resolutionBody,
       admissionEventRef: setEvent.eventId,
     }) as AdmittedImplementationResolution;
-  if (implementationResolution !== null) implementationResolutions.add(implementationResolution);
   const closureContractDigest = sha256Canonical(input.closureContract as unknown as JsonValue);
   const localImplementationSubsetDigest = sha256Canonical({
     rootImplementationSetRef: implementationSet.implementationSetRef,
@@ -1151,7 +1190,6 @@ export function admitExecutionBasis(
     ...executionBody,
     admissionEventRef: basisEvent.eventId,
   }) as ExecutionBasis;
-  executionBases.add(executionBasis);
   return deepFreeze({
     kind: "execution_basis_admission" as const,
     schemaVersion: "5.0.0" as const,
@@ -1160,7 +1198,20 @@ export function admitExecutionBasis(
     interactionSet,
     implementationResolution,
     executionBasis,
+  });
+    },
+  );
+  const admission = deepFreeze({
+    ...committed.value,
+    successorPrefix: committed.successorPrefix,
   }) as ExecutionBasisAdmission;
+  implementationSets.add(admission.implementationSet);
+  interactionSets.add(admission.interactionSet);
+  if (admission.implementationResolution !== null) {
+    implementationResolutions.add(admission.implementationResolution);
+  }
+  executionBases.add(admission.executionBasis);
+  return admission;
 }
 
 function childRefusal(

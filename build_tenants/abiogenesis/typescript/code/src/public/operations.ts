@@ -2034,7 +2034,7 @@ async function applyRunInvoke(
       "run.invoke must append to the explicitly acquired durable source log",
     );
   }
-  const invocationAdmission = abg.admitInvocation(
+  const invocationAdmissionResult = abg.admitInvocation(
     context.store,
     {
       invocation: candidate,
@@ -2093,22 +2093,27 @@ async function applyRunInvoke(
       invocation.variant === "direct" ? "invoke" : "start",
     ),
   );
-  if (invocationAdmission.kind !== "invocation_admission") {
-    if (invocationAdmission.code === "duplicate_invocation") {
+  if (invocationAdmissionResult.kind !== "invocation_admission_receipt") {
+    if (invocationAdmissionResult.code === "duplicate_invocation") {
       throw new ApplicationRefusal(
         "duplicate_invocation",
-        invocationAdmission.message,
-        invocationAdmission.priorAdmission,
+        invocationAdmissionResult.message,
+        invocationAdmissionResult.priorAdmission,
       );
     }
-    if (invocationAdmission.disposition === "invalid_history") {
+    if (invocationAdmissionResult.disposition === "invalid_history") {
       throw new ApplicationRefusal(
         "owner_refusal",
-        `Invocation admission predecessor history refused: ${invocationAdmission.code}`,
+        `Invocation admission predecessor history refused: ${invocationAdmissionResult.code}`,
       );
     }
-    throw new ApplicationRefusal("owner_refusal", `Invocation admission refused: ${invocationAdmission.message}`);
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `Invocation admission refused: ${invocationAdmissionResult.message}`,
+    );
   }
+  context.prefix = invocationAdmissionResult.successorPrefix;
+  const invocationAdmission = invocationAdmissionResult.admission;
   let activeRefusalStage: abg.InvocationRefusalAdmission["stage"] = "graph_validation";
   let failureExecutionBasis: abg.ExecutionBasis | null = null;
   let failureScope: abg.OpenedTraversalScope | null = null;
@@ -2135,14 +2140,16 @@ async function applyRunInvoke(
     },
   );
   if (graphValidation.kind !== "graph_validation") {
-    abg.admitInvocationRefusal(
+    const refusalReceipt = abg.admitInvocationRefusal(
       context.store,
+      context.prefix,
       invocationAdmission,
       "graph_validation",
       graphValidation.subjectDigest,
       graphValidation.diagnostics.map((row) => `diagnostic://abiogenesis/validator/${row.code}@5`),
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/graph-validation`, causationEventRefs: [] },
     );
+    context.prefix = refusalReceipt.successorPrefix;
     return projectCurrentOutcome(
       context,
       invocation,
@@ -2160,14 +2167,16 @@ async function applyRunInvoke(
   );
   if (!Array.isArray(packagedImplementations)) {
     const descriptorRefusal = packagedImplementations as product.ImplementationResolutionSetRefusal;
-    abg.admitInvocationRefusal(
+    const refusalReceipt = abg.admitInvocationRefusal(
       context.store,
+      context.prefix,
       invocationAdmission,
       "implementation_resolution",
       product.sha256Canonical(descriptorRefusal as unknown as product.JsonValue),
       [`diagnostic://abiogenesis/implementation-resolution/${descriptorRefusal.code}@5`],
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/implementation-load`, causationEventRefs: [] },
     );
+    context.prefix = refusalReceipt.successorPrefix;
     return projectCurrentOutcome(
       context,
       invocation,
@@ -2185,14 +2194,16 @@ async function applyRunInvoke(
     packagedImplementations,
   );
   if (resolutionSetCandidate.kind !== "implementation_resolution_set_candidate") {
-    abg.admitInvocationRefusal(
+    const refusalReceipt = abg.admitInvocationRefusal(
       context.store,
+      context.prefix,
       invocationAdmission,
       "implementation_resolution",
       product.sha256Canonical(resolutionSetCandidate as unknown as product.JsonValue),
       [`diagnostic://abiogenesis/implementation-resolution/${resolutionSetCandidate.code}@5`],
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution-set`, causationEventRefs: [] },
     );
+    context.prefix = refusalReceipt.successorPrefix;
     return projectCurrentOutcome(
       context,
       invocation,
@@ -2211,8 +2222,9 @@ async function applyRunInvoke(
     packagedImplementations,
   );
   if (resolutionSetValidation.kind !== "implementation_resolution_set_validation") {
-    abg.admitInvocationRefusal(
+    const refusalReceipt = abg.admitInvocationRefusal(
       context.store,
+      context.prefix,
       invocationAdmission,
       "implementation_resolution",
       resolutionSetValidation.subjectDigest,
@@ -2220,6 +2232,7 @@ async function applyRunInvoke(
         `diagnostic://abiogenesis/validator/${row.code}@5`),
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution-set-validation`, causationEventRefs: [] },
     );
+    context.prefix = refusalReceipt.successorPrefix;
     return projectCurrentOutcome(
       context,
       invocation,
@@ -2235,14 +2248,16 @@ async function applyRunInvoke(
     (value) => value.closureContractRef === programValue.closureContractRef,
   );
   if (closureContractMatch.kind !== "one") {
-    abg.admitInvocationRefusal(
+    const refusalReceipt = abg.admitInvocationRefusal(
       context.store,
+      context.prefix,
       invocationAdmission,
       "execution_basis",
       product.sha256Canonical(programValue as unknown as product.JsonValue),
       ["diagnostic://abiogenesis/execution-basis/closure-contract-absent@5"],
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/missing-closure-contract`, causationEventRefs: [] },
     );
+    context.prefix = refusalReceipt.successorPrefix;
     return projectCurrentOutcome(
       context,
       invocation,
@@ -2257,6 +2272,7 @@ async function applyRunInvoke(
   activeRefusalStage = "execution_basis";
   const executionAdmission = abg.admitExecutionBasis(
     context.store,
+    context.prefix,
     {
       invocationAdmission,
       rawInputValue: admittedInput as unknown as Readonly<
@@ -2273,6 +2289,7 @@ async function applyRunInvoke(
     { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/execution-basis`, causationEventRefs: [] },
   );
   if (executionAdmission.kind !== "execution_basis_admission") {
+    context.prefix = executionAdmission.successorPrefix;
     return projectCurrentOutcome(
       context,
       invocation,
@@ -2283,6 +2300,7 @@ async function applyRunInvoke(
       projectRunResult,
     );
   }
+  context.prefix = executionAdmission.successorPrefix;
   failureExecutionBasis = executionAdmission.executionBasis;
   const implementationSet = executionAdmission.implementationSet;
   activeRefusalStage = "open_call";
@@ -2296,14 +2314,16 @@ async function applyRunInvoke(
     { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/open`, causationEventRefs: [] },
   );
   if (opened.kind !== "traversal_scope_open_admission") {
-    abg.admitInvocationRefusal(
+    const refusalReceipt = abg.admitInvocationRefusal(
       context.store,
+      context.prefix,
       invocationAdmission,
       "open_call",
       product.sha256Canonical(opened as unknown as product.JsonValue),
       [`diagnostic://abiogenesis/open-call/${opened.code}@5`],
       { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/open-refusal`, causationEventRefs: [] },
     );
+    context.prefix = refusalReceipt.successorPrefix;
     return projectCurrentOutcome(
       context,
       invocation,
@@ -2317,7 +2337,9 @@ async function applyRunInvoke(
   failureScope = opened.scope;
   context.prefix = opened.successorPrefix;
   const leafPort = await constructAdmittedLeafInvocationPort({
-    prefix: abg.selectValidatedRuntimeEventPrefix(context.store.readAll()),
+    prefix: abg.selectValidatedRuntimeEventPrefix(
+      abg.readRuntimeEventsAtDurablePrefix(context.prefix),
+    ),
     artifactTruth,
     install: installState.install,
     implementationSet,
@@ -2602,8 +2624,9 @@ async function applyRunInvoke(
         invocationAdmission.invocationAdmissionRef,
       );
     }
-    abg.admitInvocationRefusal(
+    const refusalReceipt = abg.admitInvocationRefusal(
       context.store,
+      context.prefix,
       invocationAdmission,
       activeRefusalStage,
       product.sha256Canonical(failureSubject),
@@ -2614,6 +2637,7 @@ async function applyRunInvoke(
         causationEventRefs: [],
       },
     );
+    context.prefix = refusalReceipt.successorPrefix;
     return projectCurrentOutcome(
       context,
       invocation,

@@ -666,8 +666,12 @@ async function consume(input) {
           handoff: finalHandoff,
           firstHandoff,
           carrierIdentity,
-          firstResult,
-          retryResult,
+          firstResult: firstResult.kind === "invocation_admission_receipt"
+            ? firstResult.admission
+            : firstResult,
+          retryResult: retryResult.kind === "invocation_admission_receipt"
+            ? retryResult.admission
+            : retryResult,
           audit: {
             exactInputKeys: true,
             initialPrefixReopened: true,
@@ -781,13 +785,15 @@ async function consume(input) {
       event.kind === "invocation_admitted");
     const expectedRefs = [application.applicationRef];
     const expectedDigests = [application.applicationDigest];
-    const resultAdmitted =
-      result.kind === "invocation_admission" &&
-      result.disposition === "admitted";
+    const resultAdmission =
+      result.kind === "invocation_admission_receipt"
+        ? result.admission
+        : null;
+    const resultAdmitted = resultAdmission?.disposition === "admitted";
     const resultRefDigestExact = resultAdmitted &&
-      installedProduct.canonicalJson(result.catalogApplicationRefs) ===
+      installedProduct.canonicalJson(resultAdmission.catalogApplicationRefs) ===
         installedProduct.canonicalJson(expectedRefs) &&
-      installedProduct.canonicalJson(result.catalogApplicationDigests) ===
+      installedProduct.canonicalJson(resultAdmission.catalogApplicationDigests) ===
         installedProduct.canonicalJson(expectedDigests);
     const publicAtomRefDigestExact =
       installedProduct.canonicalJson(
@@ -812,7 +818,7 @@ async function consume(input) {
       resultRefDigestExact &&
       publicAtomRefDigestExact &&
       invocationAtomRefDigestExact &&
-      installedAbg.hasAdmittedInvocationAtPrefix(finalPrefix, result);
+      installedAbg.hasAdmittedInvocationAtPrefix(finalPrefix, resultAdmission);
     const eventsUnchanged =
       installedProduct.canonicalJson(eventsAfter) ===
         installedProduct.canonicalJson(eventsBefore);
@@ -857,7 +863,10 @@ async function consume(input) {
       invocationAtomRefDigestExact,
       admittedAtFinalPrefix:
         resultAdmitted &&
-        installedAbg.hasAdmittedInvocationAtPrefix(finalPrefix, result),
+        installedAbg.hasAdmittedInvocationAtPrefix(
+          finalPrefix,
+          resultAdmission,
+        ),
       appendedAtoms: appendedEvents.map((event) => ({
         kind: event.kind,
         eventId: event.eventId,
@@ -883,7 +892,7 @@ async function consume(input) {
         pid: process.pid,
         handoff: finalHandoff,
         carrierIdentity,
-        result,
+        result: resultAdmission ?? result,
         audit,
       };
     }
@@ -891,7 +900,7 @@ async function consume(input) {
       action: input.action,
       caseId: input.caseId,
       pid: process.pid,
-      result,
+      result: resultAdmission ?? result,
       audit,
     };
   } finally {

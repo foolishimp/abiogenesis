@@ -65,10 +65,11 @@ import {
 } from "./environment_admission.js";
 import {
   AbgEventStore,
+  admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   admitRuntimeEvent,
-  admitRuntimeEventTransactionAtExpectedPrefix,
   assertHeldEventStoreAtDurablePrefix,
   readRuntimeEventsAtDurablePrefix,
+  type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
@@ -198,6 +199,13 @@ export interface InvocationAdmission {
   readonly admissionEventRef: string;
 }
 
+export interface InvocationAdmissionReceipt {
+  readonly kind: "invocation_admission_receipt";
+  readonly schemaVersion: "5.0.0";
+  readonly admission: InvocationAdmission;
+  readonly successorPrefix: DurablePrefixCoordinate;
+}
+
 type InvocationAdmissionSemanticRefusalCode =
   | "authority_mismatch"
   | "capability_mismatch"
@@ -230,7 +238,7 @@ export type InvocationAdmissionRefusal =
   | DuplicateInvocationAdmissionRefusal;
 
 export type InvocationAdmissionResult =
-  | InvocationAdmission
+  | InvocationAdmissionReceipt
   | InvocationAdmissionRefusal
   | AbgAdmissionRefusal
   | Extract<EffectfulPublicInvocationTruth, {
@@ -678,13 +686,11 @@ function admitInvocationWithRequest(
     return refusal("workspace_not_admitted", "invocation workspace binding lacks ABG admission truth");
   }
   let predecessorPrefix: ValidatedRuntimeEventPrefix;
-  let expectedPrefixDigest: Sha256Digest;
   try {
     assertHeldEventStoreAtDurablePrefix(store, input.artifactTruth.prefix);
     predecessorPrefix = selectValidatedRuntimeEventPrefix(
       readRuntimeEventsAtDurablePrefix(input.artifactTruth.prefix),
     );
-    expectedPrefixDigest = store.digest();
   } catch {
     return refusal(
       "authority_mismatch",
@@ -1219,9 +1225,9 @@ function admitInvocationWithRequest(
   };
   const invocationAdmissionDigest = sha256Canonical(admissionBody as unknown as JsonValue);
   const invocationAdmissionRef = `invocation-admission://abiogenesis/${invocationAdmissionDigest.slice("sha256:".length)}`;
-  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     store,
-    expectedPrefixDigest,
+    input.artifactTruth.prefix,
     () => {
       const publicOperationEvent = admitRuntimeEvent(store, {
         kind: "public_operation_admitted",
@@ -1286,13 +1292,8 @@ function admitInvocationWithRequest(
       return { publicOperationEvent, admissionEvent };
     },
   );
-  if (committed.successorPrefix === null) {
-    throw new TypeError(
-      "atomic invocation admission produced no durable successor prefix",
-    );
-  }
   const { publicOperationEvent, admissionEvent } = committed.value;
-  return deepFreeze({
+  const admission = deepFreeze({
     kind: "invocation_admission" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
@@ -1302,6 +1303,12 @@ function admitInvocationWithRequest(
     publicOperationEventRef: publicOperationEvent.eventId,
     admissionEventRef: admissionEvent.eventId,
   }) as InvocationAdmission;
+  return deepFreeze({
+    kind: "invocation_admission_receipt" as const,
+    schemaVersion: "5.0.0" as const,
+    admission,
+    successorPrefix: committed.successorPrefix,
+  });
 }
 
 export function admitInvocation(

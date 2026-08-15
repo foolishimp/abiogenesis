@@ -32,6 +32,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     input,
     rawInput,
     invocationAdmission,
+    durablePrefix,
     publication,
     programValidation,
     resolutionSetCandidate,
@@ -68,6 +69,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
   );
   const basisAdmission = abg.admitExecutionBasis(
     store,
+    durablePrefix,
     {
       invocationAdmission,
       rawInputValue: input,
@@ -167,6 +169,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
   );
   const setOnlyAdmission = setOnlyEnvironment.abg.admitExecutionBasis(
     setOnlyEnvironment.store,
+    setOnlyEnvironment.durablePrefix,
     {
       invocationAdmission: setOnlyEnvironment.invocationAdmission,
       rawInputValue: setOnlyEnvironment.input,
@@ -214,6 +217,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
   assert.equal(alteredGraphValidation.kind, "static_validation_refusal");
   const refusal = rejectedEnvironment.abg.admitInvocationRefusal(
     rejectedEnvironment.store,
+    rejectedEnvironment.durablePrefix,
     rejectedEnvironment.invocationAdmission,
     "graph_validation",
     alteredGraph.materializationDigest,
@@ -221,7 +225,8 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
       `diagnostic://abiogenesis/graph-validation/${diagnostic.code}@5`),
     runtimeBasis("correlation://t286/r7/rejected"),
   );
-  assert.equal(refusal.kind, "invocation_refusal_admission");
+  assert.equal(refusal.kind, "invocation_refusal_admission_receipt");
+  assert.equal(refusal.admission.kind, "invocation_refusal_admission");
   assert.equal(rejectedEnvironment.store.readAll().at(-1).kind, "invocation_refused");
   assert.equal(rejectedEnvironment.store.readAll().some((event) => event.kind === "implementation_admitted"), false);
   assert.equal(rejectedEnvironment.store.readAll().some((event) => event.kind === "basis_admitted"), false);
@@ -256,6 +261,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
   );
   const forgedBasisAdmission = forgedBasisEnvironment.abg.admitExecutionBasis(
     forgedBasisEnvironment.store,
+    forgedBasisEnvironment.durablePrefix,
     {
       invocationAdmission: forgedBasisEnvironment.invocationAdmission,
       rawInputValue: forgedBasisEnvironment.input,
@@ -271,8 +277,11 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     },
     runtimeBasis("correlation://t286/r7/forged-basis"),
   );
-  assert.equal(forgedBasisAdmission.kind, "invocation_refusal_admission");
-  assert.equal(forgedBasisAdmission.stage, "execution_basis");
+  assert.equal(
+    forgedBasisAdmission.kind,
+    "invocation_refusal_admission_receipt",
+  );
+  assert.equal(forgedBasisAdmission.admission.stage, "execution_basis");
   assert.equal(forgedBasisEnvironment.store.readAll().at(-1).kind, "invocation_refused");
   assert.equal(forgedBasisEnvironment.store.readAll().some((event) => event.kind === "implementation_admitted"), false);
   assert.equal(forgedBasisEnvironment.store.readAll().some((event) => event.kind === "basis_admitted"), false);
@@ -311,9 +320,11 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
       eventKinds: events.map((event) => event.kind),
       mutation: {
         changedGraphValidation: alteredGraphValidation.diagnostics.map((diagnostic) => diagnostic.code),
-        admittedRefusalRef: refusal.refusalRef,
-        admittedRefusalEventRef: refusal.admissionEventRef,
-        forgedResolutionSetValidationRefused: forgedBasisAdmission.kind === "invocation_refusal_admission",
+        admittedRefusalRef: refusal.admission.refusalRef,
+        admittedRefusalEventRef: refusal.admission.admissionEventRef,
+        forgedResolutionSetValidationRefused:
+          forgedBasisAdmission.kind ===
+            "invocation_refusal_admission_receipt",
         implementationNotAdmitted: true,
         basisNotAdmitted: true,
       },

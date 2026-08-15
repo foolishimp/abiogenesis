@@ -1015,7 +1015,7 @@ async function executeTestGraph(context, constructFixture, options = {}) {
   );
   assert.equal(invocation.kind, "public_invocation_candidate",
     JSON.stringify(invocation));
-  const invocationAdmission = abg.admitInvocation(store, {
+  const invocationAdmissionReceipt = abg.admitInvocation(store, {
     invocation,
     rawRequest,
     rawInput,
@@ -1037,8 +1037,9 @@ async function executeTestGraph(context, constructFixture, options = {}) {
     invocation.publicRequestInvocationRef,
     [workspaceBinding.admissionEventRef],
   ));
-  assert.equal(invocationAdmission.kind, "invocation_admission",
-    JSON.stringify(invocationAdmission));
+  assert.equal(invocationAdmissionReceipt.kind, "invocation_admission_receipt",
+    JSON.stringify(invocationAdmissionReceipt));
+  const invocationAdmission = invocationAdmissionReceipt.admission;
   await options.afterInvocationAdmitted?.({
     abg,
     artifactTruth,
@@ -1115,7 +1116,10 @@ async function executeTestGraph(context, constructFixture, options = {}) {
   const closureContract = publication.closureContracts.find((candidate) =>
     candidate.closureContractRef === program.closureContractRef);
   assert.ok(closureContract);
-  const execution = abg.admitExecutionBasis(store, {
+  const execution = abg.admitExecutionBasis(
+    store,
+    invocationAdmissionReceipt.successorPrefix,
+    {
     invocationAdmission,
     rawInputValue: input,
     program,
@@ -1125,11 +1129,11 @@ async function executeTestGraph(context, constructFixture, options = {}) {
     resolutionSetCandidate,
     resolutionSetValidation,
     closureContract,
-  }, {
+    }, {
     eventTime: requestValue.eventTime,
     correlationId: requestValue.correlationId,
     causationEventRefs: [],
-  });
+    });
   assert.equal(execution.kind, "execution_basis_admission",
     JSON.stringify(execution));
   const opened = abg.openCall(store, execution.executionBasis, {
@@ -1301,7 +1305,7 @@ function admitUnrelatedInvocationBeforeTargetRun(runtime) {
     "exact_prefix_artifact_truth_projection",
     JSON.stringify(currentArtifactTruth),
   );
-  const unrelatedInvocationAdmission = abg.admitInvocation(store, {
+  const unrelatedInvocationAdmissionReceipt = abg.admitInvocation(store, {
     invocation: unrelatedInvocation,
     rawRequest: unrelatedRawRequest,
     rawInput,
@@ -1324,10 +1328,12 @@ function admitUnrelatedInvocationBeforeTargetRun(runtime) {
     [workspaceBinding.admissionEventRef],
   ));
   assert.equal(
-    unrelatedInvocationAdmission.kind,
-    "invocation_admission",
-    JSON.stringify(unrelatedInvocationAdmission),
+    unrelatedInvocationAdmissionReceipt.kind,
+    "invocation_admission_receipt",
+    JSON.stringify(unrelatedInvocationAdmissionReceipt),
   );
+  const unrelatedInvocationAdmission =
+    unrelatedInvocationAdmissionReceipt.admission;
   assert.notEqual(
     unrelatedInvocationAdmission.invocationAdmissionRef,
     targetInvocationAdmission.invocationAdmissionRef,

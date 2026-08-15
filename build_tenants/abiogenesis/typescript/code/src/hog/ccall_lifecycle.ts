@@ -1,5 +1,4 @@
 import * as Effect from "effect/Effect";
-import * as Exit from "effect/Exit";
 
 import * as Abg from "../abg/index.js";
 import type {
@@ -314,24 +313,14 @@ export function evaluateExecutableCCall(
           basis: admissionBasis(input.clock, "actor-process"),
         })
       : null;
-    const invocationExit = yield* Effect.exit(Effect.promise(() =>
+    const invocation = yield* Effect.promise(() =>
       input.leafPort.invoke({
         resolution,
         input: input.input,
         inputDigest: input.stop.cursor.inputDigest,
         failureContractRef: input.stop.failureContractRef,
         bindProbabilisticEffects,
-      })));
-    if (Exit.isFailure(invocationExit)) {
-      return failCCall(
-        input,
-        opened.successorPrefix,
-        `leaf-owner-${input.ordinal}`,
-        "diagnostic://abiogenesis/hog/leaf-owner-effect-fault@5",
-        { faultClass: "leaf_invocation_effect_rejected" },
-      );
-    }
-    const invocation = invocationExit.value;
+      }));
     if (invocation.kind === "leaf_invocation_owner_refusal") {
       return failCCall(
         input,

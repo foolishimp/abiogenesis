@@ -497,7 +497,7 @@ export async function setupInstalledRootInvocation(
     capabilityGrants,
     invocationAuthority,
   );
-  const invocationAdmission = abg.admitInvocation(
+  const invocationAdmissionReceipt = abg.admitInvocation(
     store,
     {
       invocation,
@@ -523,9 +523,15 @@ export async function setupInstalledRootInvocation(
       [workspaceBinding.admissionEventRef],
     ),
   );
-  assert.equal(invocationAdmission.kind, "invocation_admission", JSON.stringify(invocationAdmission));
+  assert.equal(
+    invocationAdmissionReceipt.kind,
+    "invocation_admission_receipt",
+    JSON.stringify(invocationAdmissionReceipt),
+  );
+  const invocationAdmission = invocationAdmissionReceipt.admission;
   return {
     ...environment,
+    durablePrefix: invocationAdmissionReceipt.successorPrefix,
     program,
     graphFunction,
     input,
@@ -681,6 +687,7 @@ export async function setupInstalledRootExecutionBasis(
     program,
     programValidation,
     invocationAdmission,
+    durablePrefix,
     input,
     publication,
     node,
@@ -696,6 +703,7 @@ export async function setupInstalledRootExecutionBasis(
   );
   const executionBasisAdmission = abg.admitExecutionBasis(
     store,
+    durablePrefix,
     {
       invocationAdmission,
       rawInputValue: input,
@@ -736,7 +744,11 @@ export async function setupInstalledRootExecutionBasis(
   const semanticsProjection =
     environment.product.projectInstalledLeafSemantics(semantics);
   const leafPort = await environment.implementationLeafPort.constructAdmittedLeafInvocationPort({
-    prefix: abg.selectValidatedRuntimeEventPrefix(store.readAll()),
+    prefix: abg.selectValidatedRuntimeEventPrefix(
+      abg.readRuntimeEventsAtDurablePrefix(
+        executionBasisAdmission.successorPrefix,
+      ),
+    ),
     artifactTruth: environment.artifactTruth,
     install: environment.admittedInstall,
     implementationSet: executionBasisAdmission.implementationSet,
@@ -749,6 +761,7 @@ export async function setupInstalledRootExecutionBasis(
     graphValidation,
     closureContract,
     executionBasisAdmission,
+    durablePrefix: executionBasisAdmission.successorPrefix,
     implementationSet: executionBasisAdmission.implementationSet,
     implementationRow,
     semantics,

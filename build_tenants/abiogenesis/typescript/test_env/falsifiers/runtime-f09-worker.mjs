@@ -1303,7 +1303,7 @@ async function constructP1Environment(input) {
     "public_invocation_candidate",
     JSON.stringify(invocation),
   );
-  const invocationAdmission = abg.admitInvocation(
+  const invocationAdmissionReceipt = abg.admitInvocation(
     store,
     {
       invocation,
@@ -1330,10 +1330,11 @@ async function constructP1Environment(input) {
     ),
   );
   assert.equal(
-    invocationAdmission.kind,
-    "invocation_admission",
-    JSON.stringify(invocationAdmission),
+    invocationAdmissionReceipt.kind,
+    "invocation_admission_receipt",
+    JSON.stringify(invocationAdmissionReceipt),
   );
+  const invocationAdmission = invocationAdmissionReceipt.admission;
   const graph = gtl.materializeGraph(graphFunction, {
     invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
     admittedInputRef: rawInput.admissionRef,
@@ -1396,6 +1397,7 @@ async function constructP1Environment(input) {
   assert.notEqual(closureContract, undefined);
   const executionBasisAdmission = abg.admitExecutionBasis(
     store,
+    invocationAdmissionReceipt.successorPrefix,
     {
       invocationAdmission,
       rawInputValue: invocationInput,

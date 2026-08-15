@@ -367,7 +367,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
   );
   assert.equal(changedWorkspaceRefusal.code, "workspace_not_admitted");
 
-  const invocationAdmission = abg.admitInvocation(
+  const invocationAdmissionReceipt = abg.admitInvocation(
     store,
     admissionInput,
     publicOperationBasis(
@@ -379,7 +379,12 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
       [workspaceBinding.admissionEventRef],
     ),
   );
-  assert.equal(invocationAdmission.kind, "invocation_admission", JSON.stringify(invocationAdmission));
+  assert.equal(
+    invocationAdmissionReceipt.kind,
+    "invocation_admission_receipt",
+    JSON.stringify(invocationAdmissionReceipt),
+  );
+  const invocationAdmission = invocationAdmissionReceipt.admission;
   assert.equal(invocationAdmission.disposition, "admitted");
   assert.equal(
     invocationAdmission.programRef,
@@ -416,7 +421,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
   assert.equal("rootMode" in invocation, false);
   assert.equal("until" in invocation, false);
 
-  const admittedPrefix = abg.selectHeldEventStoreDurablePrefix(store);
+  const admittedPrefix = invocationAdmissionReceipt.successorPrefix;
   const admittedArtifactTruth = abg.projectExactPrefixArtifactTruth(
     admittedPrefix,
   );
@@ -676,7 +681,7 @@ test("R5 start admission resolves one exact Product start before its catalog def
     "contract://abiogenesis/public/run-invoke-request@5",
   );
   const exact = admitCandidate(exactRequest);
-  const admission = abg.admitInvocation(
+  const admissionReceipt = abg.admitInvocation(
     store,
     exact.input,
     publicOperationBasis(
@@ -688,7 +693,12 @@ test("R5 start admission resolves one exact Product start before its catalog def
       [workspaceBinding.admissionEventRef],
     ),
   );
-  assert.equal(admission.kind, "invocation_admission", JSON.stringify(admission));
+  assert.equal(
+    admissionReceipt.kind,
+    "invocation_admission_receipt",
+    JSON.stringify(admissionReceipt),
+  );
+  const admission = admissionReceipt.admission;
   assert.equal(admission.publicStart.startRef, start.startRef);
   assert.equal(admission.publicStart.graphFunctionRef, start.graphFunctionRef);
   assert.equal(admission.selectedDefinitionRef, start.graphFunctionRef);

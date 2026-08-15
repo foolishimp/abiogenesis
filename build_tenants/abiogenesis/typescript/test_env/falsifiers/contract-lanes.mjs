@@ -337,6 +337,7 @@ async function constructRuntimeBaseline(
     productSet,
     workspaceBinding,
     artifactTruth: workspaceBindingResult.artifactTruth,
+    durablePrefix: workspaceBindingResult.successorPrefix,
     catalog,
     catalogView,
   };
@@ -442,7 +443,7 @@ async function openRuntimePrefix({
     "public_invocation_candidate",
     JSON.stringify(invocation),
   );
-  const invocationAdmission = abg.admitInvocation(
+  const invocationAdmissionReceipt = abg.admitInvocation(
     baseline.store,
     {
       invocation,
@@ -469,10 +470,11 @@ async function openRuntimePrefix({
     ),
   );
   assert.equal(
-    invocationAdmission.kind,
-    "invocation_admission",
-    JSON.stringify(invocationAdmission),
+    invocationAdmissionReceipt.kind,
+    "invocation_admission_receipt",
+    JSON.stringify(invocationAdmissionReceipt),
   );
+  const invocationAdmission = invocationAdmissionReceipt.admission;
   const materializationBasis = {
     invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
     admittedInputRef: rawInput.admissionRef,
@@ -521,6 +523,7 @@ async function openRuntimePrefix({
   assert.notEqual(closureContract, undefined);
   const executionAdmission = abg.admitExecutionBasis(
     baseline.store,
+    invocationAdmissionReceipt.successorPrefix,
     {
       invocationAdmission,
       rawInputValue: rawInput.value,

@@ -34,6 +34,23 @@ test("ABI5-ROOT-001 composes seven installed Public owners into ABG replay", asy
     `abi5-root-chain-gtl=${Date.now()}`,
   );
   const canonicalHandle = gtl.HELLO_WORLD_IDS.graphFunctionRef;
+  const rootGraphFunction = harness.rootPublication.graphFunctions.find(
+    (graphFunction) => graphFunction.name === canonicalHandle,
+  );
+  assert.ok(rootGraphFunction);
+  const expectedRootCoordinate = gtl.rootCTraversalCoordinate(
+    rootGraphFunction.template.startNodeRef,
+  );
+  const expectedRootTerm = gtl.resolveCProgramTermAtSourcePath(
+    rootGraphFunction.template,
+    expectedRootCoordinate.nodeRef,
+    expectedRootCoordinate.termPath,
+  );
+  assert.notEqual(
+    expectedRootTerm.kind,
+    "c_source_path_refusal",
+    JSON.stringify(expectedRootTerm),
+  );
   const callableContribution = harness.rootPublication.contributions.find(
     (row) => row.handle === canonicalHandle,
   );
@@ -162,11 +179,15 @@ test("ABI5-ROOT-001 composes seven installed Public owners into ABG replay", asy
   assert.equal(callableProgram.starts.length, 1);
   assert.equal(
     basisEvent.payload.entryRef,
-    invocationEvent.payload.hogEntryCoordinate.nodeRef,
+    expectedRootCoordinate.nodeRef,
   );
   assert.deepEqual(
-    invocationEvent.payload.hogEntryStep.source,
-    invocationEvent.payload.hogEntryCoordinate,
+    invocationEvent.payload.gtlEntryCoordinate,
+    expectedRootCoordinate,
+  );
+  assert.deepEqual(
+    invocationEvent.payload.gtlEntryTerm,
+    expectedRootTerm,
   );
   assert.equal(
     JSON.stringify(durableEvents).includes("fibre-selection://"),
