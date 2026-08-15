@@ -22,7 +22,7 @@ construction, donor, proof, review, and non-closure detail.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 functional interfaces retained; Wave 2 C2A HoG Effect hard break selected, C1F/D6 carrier work held. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 acceptance suspended pending C2A requalification; Wave 2 C2A HoG Effect hard break selected, C1F/D6 carrier work held. |
 
 ## Current Basis
 
@@ -110,16 +110,18 @@ Hard-Break, and Transformation Wave laws:
   replay, and Public interfaces; and
 - held work: C1F execution-carrier/topology-arm correction and D6 construction.
 
-Wave 1 is accepted as the functional runtime substrate. Its exact frozen
-artifact is
-`ab6dd512678b873d1ef4f4a07c8286ff3621ea86b39627e6061652110238c878`;
-its accepted interface receipt digest is
-`c8c26047d36b930a820559d276daa17a51c4589605767463a51be2eb2eba0d7d`.
-Integrated M5 and release qualification remain deferred to their selected
-candidate boundaries.
+Wave 1 Product meaning remains selected, but its prior realization acceptance
+is suspended because C2A explicitly supersedes the traversal basis on which its
+former interface receipt depended. That historical artifact and receipt do not
+authorize the moving cut. Wave 1 requalification occurs only after the
+inside-out hard break has one structurally conforming installed path. Integrated
+M5 and release qualification remain deferred to their selected candidate
+boundaries.
 
-Wave 2 is the active delivery wave. `W2-C0` has consumed the accepted Wave 1
-receipt and frozen the exact 56-row endpoint/contract/dependency/deletion join.
+Wave 2 is the active delivery wave. `W2-C0` froze the exact 56-row
+endpoint/contract/dependency/deletion join from the prior Wave 1 evidence; that
+map remains construction input, while the superseded receipt supplies no
+current acceptance claim.
 The current bounded selection is `w2_c2a_hog_effect_hard_break`: replace the
 reachable
 `Public -> executeGraphTraversal -> Effect shell -> completeExecutableTraversal`

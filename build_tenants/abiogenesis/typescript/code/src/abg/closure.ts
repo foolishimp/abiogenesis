@@ -36,18 +36,21 @@ import {
 } from "./open_call.js";
 import {
   projectRunQuiescence,
+  replay,
   replayValidatedRuntimeEventPrefix,
   type ReplayState,
 } from "./replay.js";
 import {
   type AdmittedRoute,
 } from "./traversal_route.js";
+import { projectTraversalRouteBody } from "./traversal_transition.js";
 import type { FhInteractionResumeAdmission } from "./continuation.js";
 
-export interface ClosureAdmission {
-  readonly kind: "closure_admission";
+export interface ScopeClosureAdmission {
+  readonly kind: "scope_closure_admission";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "closed";
+  readonly scopeClass: "run" | "graph_call";
   readonly closureRef: string;
   readonly closureDigest: Sha256Digest;
   readonly cCallRef: string;
@@ -58,11 +61,14 @@ export interface ClosureAdmission {
   readonly terminalReachedEventRef: string;
   readonly frameClosedEventRef: string;
   readonly graphCallClosedEventRef: string;
-  readonly runClosedEventRef: string;
+  readonly runClosedEventRef: string | null;
+  readonly childGraphCallId: string | null;
+  readonly childFrameId: string | null;
+  readonly replayState: ReplayState;
 }
 
-export interface ClosureAdmissionRefusal {
-  readonly kind: "closure_admission_refusal";
+export interface ScopeClosureAdmissionRefusal {
+  readonly kind: "scope_closure_admission_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
   readonly code:
@@ -74,14 +80,16 @@ export interface ClosureAdmissionRefusal {
   readonly failureEventRef: string | null;
 }
 
-export type ClosureAdmissionResult = ClosureAdmission | ClosureAdmissionRefusal;
+export type ScopeClosureAdmissionResult =
+  | ScopeClosureAdmission
+  | ScopeClosureAdmissionRefusal;
 
 function refuseClosureWithoutEffects(
-  code: ClosureAdmissionRefusal["code"],
+  code: ScopeClosureAdmissionRefusal["code"],
   message: string,
-): ClosureAdmissionRefusal {
+): ScopeClosureAdmissionRefusal {
   return deepFreeze({
-    kind: "closure_admission_refusal" as const,
+    kind: "scope_closure_admission_refusal" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "refused" as const,
     code,
@@ -167,52 +175,27 @@ function isExactPreClosureQuiescence(
     quiescence.terminalCCallRef === cCall.cCallRef;
 }
 
-export interface ChildClosureAdmission {
-  readonly kind: "child_closure_admission";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "closed";
-  readonly closureRef: string;
-  readonly closureDigest: Sha256Digest;
-  readonly cCallRef: string;
-  readonly resultRef: string;
-  readonly judgmentRef: string;
-  readonly routeRef: string;
-  readonly closureContractRef: string;
-  readonly childGraphCallId: string;
-  readonly childFrameId: string;
-  readonly terminalReachedEventRef: string;
-  readonly frameClosedEventRef: string;
-  readonly graphCallClosedEventRef: string;
-}
-
-export interface ChildClosureAdmissionRefusal {
-  readonly kind: "child_closure_admission_refusal";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "refused";
-  readonly code:
-    | "closure_contract_mismatch"
-    | "replay_mismatch"
-    | "runtime_basis_mismatch"
-    | "stale_prefix";
-  readonly message: string;
-}
-
-export type ChildClosureAdmissionResult =
-  | ChildClosureAdmission
-  | ChildClosureAdmissionRefusal;
-
-function refuseChildClosureWithoutEffects(
-  code: ChildClosureAdmissionRefusal["code"],
-  message: string,
-): ChildClosureAdmissionRefusal {
-  return deepFreeze({
-    kind: "child_closure_admission_refusal" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "refused" as const,
-    code,
-    message,
-  });
-}
+export type ScopeClosureSubject =
+  | Readonly<{
+      kind: "run";
+      cCall: CCall;
+      result: AdmittedCCallResult;
+      judgment: AdmittedCCallJudgment;
+    }>
+  | Readonly<{
+      kind: "interaction";
+      cCall: CCall;
+      pendingResult: AdmittedCCallResult;
+      pendingJudgment: AdmittedCCallJudgment;
+      resume: FhInteractionResumeAdmission;
+    }>
+  | Readonly<{
+      kind: "child";
+      scope: OpenedTraversalScope;
+      cCall: CCall;
+      result: AdmittedCCallResult;
+      judgment: AdmittedCCallJudgment;
+    }>;
 
 interface CurrentClosureTruth {
   readonly events: ReturnType<typeof runtimeEventsFromValidatedPrefix>;
@@ -242,23 +225,6 @@ function exactAdmissionPayload(
     isRecord(event.payload) &&
     sha256Canonical(event.payload) ===
       sha256Canonical(payload as unknown as JsonValue);
-}
-
-function routeBody(route: AdmittedRoute): Readonly<Record<string, JsonValue>> {
-  return {
-    routeKind: route.routeKind,
-    declarationRef: route.declarationRef,
-    declarationDigest: route.declarationDigest,
-    sourceCursorRef: route.sourceCursorRef,
-    sourceCursorDigest: route.sourceCursorDigest,
-    targetCursorRef: route.targetCursorRef,
-    targetCursorDigest: route.targetCursorDigest,
-    cCallRef: route.cCallRef,
-    judgmentRef: route.judgmentRef,
-    consumedAvailabilityRefs: route.consumedAvailabilityRefs,
-    contractRef: route.contractRef,
-    replayStateDigest: route.replayStateDigest,
-  };
 }
 
 function projectCurrentClosureTruth(
@@ -315,7 +281,8 @@ function projectCurrentClosureTruth(
     replayStateDigest: judgment.replayStateDigest,
     retryAttemptRef: judgment.retryAttemptRef,
   };
-  const exactRouteBody = routeBody(route);
+  const exactRouteBody = projectTraversalRouteBody(route);
+  if (exactRouteBody === null) return null;
   const resumeTruth = resume === null
     ? null
     : currentReplay.continuations.find(
@@ -381,600 +348,221 @@ function projectCurrentClosureTruth(
   return { events, replay: currentReplay };
 }
 
-export function admitClosure(
+export function admitScopeClosure(
   store: AbgEventStore,
   predecessorPrefix: DurablePrefixCoordinate,
-  cCall: CCall,
-  result: AdmittedCCallResult,
-  judgment: AdmittedCCallJudgment,
+  subject: ScopeClosureSubject,
   route: AdmittedRoute,
   closureContract: Readonly<ClosureContract>,
   basis: RuntimeAdmissionBasis,
-): ClosureAdmissionResult {
+): ScopeClosureAdmissionResult {
+  const sourceCCall = subject.cCall;
+  const sourceResult = subject.kind === "interaction"
+    ? subject.pendingResult
+    : subject.result;
+  const sourceJudgment = subject.kind === "interaction"
+    ? subject.pendingJudgment
+    : subject.judgment;
   const exactPrefix = selectExactClosurePrefix(
     store,
     predecessorPrefix,
-    cCall.runId,
+    sourceCCall.runId,
   );
   if (exactPrefix === null) {
     return refuseClosureWithoutEffects(
       "stale_prefix",
-      "closure requires the exact held durable predecessor prefix",
+      "scope closure requires the exact held durable predecessor prefix",
     );
   }
+
   const projectedCCall = projectAdmittedCCallStateAtPrefix(
     exactPrefix.runPrefix,
-    cCall as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
-    judgment as unknown as Readonly<Record<string, JsonValue>>,
+    sourceCCall as unknown as Readonly<Record<string, JsonValue>>,
+    sourceResult as unknown as Readonly<Record<string, JsonValue>>,
+    sourceJudgment as unknown as Readonly<Record<string, JsonValue>>,
   );
-  if (projectedCCall === null) {
-    return refuseClosureWithoutEffects(
-      "runtime_basis_mismatch",
-      "closure requires one exact prefix-admitted CCall, result, and judgment",
-    );
-  }
-  cCall = projectedCCall.cCall;
-  result = projectedCCall.result;
-  judgment = projectedCCall.judgment;
-  const closureContractDigest = sha256Canonical(closureContract as unknown as JsonValue);
+  const childScope = subject.kind === "child"
+    ? rehydrateOpenedTraversalScopeAtPrefix(
+        exactPrefix.runPrefix,
+        subject.scope as unknown as Readonly<Record<string, JsonValue>>,
+      )
+    : null;
   if (
-    result.cCallRef !== cCall.cCallRef ||
-    judgment.cCallRef !== cCall.cCallRef ||
-    route.cCallRef !== cCall.cCallRef ||
-    judgment.resultRef !== result.resultRef ||
-    route.judgmentRef !== judgment.judgmentRef ||
-    judgment.judgment !== "advance" ||
-    route.routeKind !== "terminal"
+    projectedCCall === null ||
+    (subject.kind === "child" && childScope === null)
   ) {
     return refuseClosureWithoutEffects(
       "runtime_basis_mismatch",
-      "closure requires one exact judged CCall and admitted terminal route",
+      "scope closure requires its exact prefix-admitted scope and CCall outcome",
     );
   }
+  const cCall = projectedCCall.cCall;
+  const result = projectedCCall.result;
+  const judgment = projectedCCall.judgment;
+  const resume = subject.kind === "interaction" ? subject.resume : null;
+  const resultRef = resume?.responseRef ?? result.resultRef;
+  const closureContractDigest = sha256Canonical(
+    closureContract as unknown as JsonValue,
+  );
+
+  const commonOutcomeIsExact =
+    result.cCallRef === cCall.cCallRef &&
+    judgment.cCallRef === cCall.cCallRef &&
+    route.cCallRef === cCall.cCallRef &&
+    judgment.resultRef === result.resultRef &&
+    route.judgmentRef === judgment.judgmentRef &&
+    route.routeKind === "terminal";
+  const subjectOutcomeIsExact = subject.kind === "interaction"
+    ? cCall.regime === "F_H" &&
+      cCall.responseContractRef !== null &&
+      cCall.continuationContractRef !== null &&
+      result.resultClass === "pending" &&
+      judgment.judgment === "pending" &&
+      resume !== null &&
+      resume.responseDigest === sha256Canonical(
+        resume.responseValue as unknown as JsonValue,
+      ) &&
+      route.sourceCursorRef === resume.successorCursorRef &&
+      route.sourceCursorDigest === resume.successorCursorDigest
+    : judgment.judgment === "advance";
+  if (!commonOutcomeIsExact || !subjectOutcomeIsExact) {
+    return refuseClosureWithoutEffects(
+      "runtime_basis_mismatch",
+      "scope closure requires one exact terminal route over its current CCall outcome",
+    );
+  }
+
+  let childParentFrameId: string | null = null;
+  if (childScope !== null) {
+    const childGraphCallOpen = runtimeEventsFromValidatedPrefix(
+      exactPrefix.runPrefix,
+    ).find((event) =>
+      event.kind === "graph_call_opened" &&
+      event.eventId === childScope.graphCallOpenEventRef &&
+      event.graphCallId === childScope.graphCallId
+    );
+    const childGraphCallPayload =
+      childGraphCallOpen !== undefined &&
+        isRecord(childGraphCallOpen.payload)
+        ? childGraphCallOpen.payload
+        : null;
+    childParentFrameId =
+      typeof childGraphCallPayload?.parentFrameId === "string"
+        ? childGraphCallPayload.parentFrameId
+        : null;
+    if (
+      childParentFrameId === null ||
+      cCall.runId !== childScope.runId ||
+      cCall.graphCallId !== childScope.graphCallId ||
+      cCall.frameId !== childScope.frameId
+    ) {
+      return refuseClosureWithoutEffects(
+        "runtime_basis_mismatch",
+        "child closure requires one exact active child GraphCall and Frame",
+      );
+    }
+  }
+
   const currentTruth = projectCurrentClosureTruth(
     exactPrefix.runPrefix,
     exactPrefix.fullPrefix,
     cCall,
     result,
     judgment,
-    route,
-  );
-  if (currentTruth === null) {
-    return refuseClosureWithoutEffects(
-      "replay_mismatch",
-      "closure basis is not current replay truth",
-    );
-  }
-  if (
-    closureContract.closureContractRef !== cCall.closureContractRef ||
-    closureContractDigest !== cCall.closureContractDigest ||
-    closureContract.predicateRef !== cCall.terminalPredicateRef ||
-    closureContract.replayProjectionRef !== cCall.replayProjectionRef ||
-    closureContract.terminalKind !== cCall.terminalKind ||
-    closureContract.evidenceContractRef !== cCall.evidenceContractRef ||
-    closureContract.resultContractRef !== result.contractRef ||
-    closureContract.refusalContractRef !== cCall.refusalContractRef ||
-    closureContract.judgmentContractRef !== judgment.contractRef ||
-    closureContract.transitionContractRef !== route.contractRef ||
-    closureContract.terminalKind !== "completed" ||
-    closureContract.closureScope !== "run" ||
-    closureContract.eventKindRefs.join("\0") !==
-      ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"].join("\0") ||
-    currentTruth.replay.activeFluents.includes(
-      `terminal_admitted(${cCall.frameId})`,
-    )
-  ) {
-    return refuseClosureWithoutEffects(
-      "closure_contract_mismatch",
-      "closure contract, result, judgment, route, or uniqueness check failed",
-    );
-  }
-
-  const quiescence = projectExactPreClosureQuiescence(exactPrefix.runPrefix);
-  if (!isExactPreClosureQuiescence(quiescence, cCall, route)) {
-    return refuseClosureWithoutEffects(
-      "runtime_basis_mismatch",
-      `closure requires the exact immutable quiescent pre-closure Run prefix: ${quiescence.disposition}; ${quiescence.blockingFluents.join(",")}`,
-    );
-  }
-
-  const closureBody = {
-    cCallRef: cCall.cCallRef,
-    resultRef: result.resultRef,
-    judgmentRef: judgment.judgmentRef,
-    routeRef: route.routeRef,
-    closureContractRef: closureContract.closureContractRef,
-    closureContractDigest,
-    terminalKind: closureContract.terminalKind,
-  };
-  const closureDigest = sha256Canonical(closureBody as unknown as JsonValue);
-  const closureRef = `closure://abiogenesis/${closureDigest.slice("sha256:".length)}`;
-  const events = appendClosureBatchAtExpectedPrefix(
-    store,
-    predecessorPrefix,
-    exactPrefix.expectedStorePrefixDigest,
-    [
-    () => ({
-    kind: "terminal_reached",
-    eventTime: basis.eventTime,
-    aggregateType: "frame",
-    aggregateId: cCall.frameId,
-    parentAggregateId: cCall.graphCallId,
-    causationEventRefs: [route.admissionEventRef, ...basis.causationEventRefs],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: cCall.basisId,
-    runId: cCall.runId,
-    graphFunctionRef: cCall.graphFunctionRef,
-    graphCallId: cCall.graphCallId,
-    frameId: cCall.frameId,
-    payload: { closureRef, closureDigest, ...closureBody },
-    }),
-    (batch) => ({
-    kind: "frame_closed",
-    eventTime: basis.eventTime,
-    aggregateType: "frame",
-    aggregateId: cCall.frameId,
-    parentAggregateId: cCall.graphCallId,
-    causationEventRefs: [batch[0]!.eventId],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: cCall.basisId,
-    runId: cCall.runId,
-    graphFunctionRef: cCall.graphFunctionRef,
-    graphCallId: cCall.graphCallId,
-    frameId: cCall.frameId,
-    payload: {
-      frameId: cCall.frameId,
-      terminalReachedEventRef: batch[0]!.eventId,
-      closureContractRef: closureContract.closureContractRef,
-    },
-    }),
-    (batch) => ({
-    kind: "graph_call_closed",
-    eventTime: basis.eventTime,
-    aggregateType: "graph_call",
-    aggregateId: cCall.graphCallId,
-    parentAggregateId: cCall.runId,
-    causationEventRefs: [batch[1]!.eventId],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: cCall.basisId,
-    runId: cCall.runId,
-    graphFunctionRef: cCall.graphFunctionRef,
-    graphCallId: cCall.graphCallId,
-    payload: {
-      graphCallId: cCall.graphCallId,
-      frameClosedEventRef: batch[1]!.eventId,
-      closureContractRef: closureContract.closureContractRef,
-    },
-    }),
-    (batch) => ({
-    kind: "run_closed",
-    eventTime: basis.eventTime,
-    aggregateType: "run",
-    aggregateId: cCall.runId,
-    parentAggregateId: null,
-    causationEventRefs: [batch[2]!.eventId],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: cCall.basisId,
-    runId: cCall.runId,
-    graphFunctionRef: cCall.graphFunctionRef,
-    graphCallId: cCall.graphCallId,
-    payload: {
-      runId: cCall.runId,
-      graphCallClosedEventRef: batch[2]!.eventId,
-      closureContractRef: closureContract.closureContractRef,
-    },
-    }),
-    ],
-  );
-  if (events === null) {
-    return refuseClosureWithoutEffects(
-      "stale_prefix",
-      "closure predecessor became stale before its atomic append",
-    );
-  }
-  return deepFreeze({
-    kind: "closure_admission" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "closed" as const,
-    closureRef,
-    closureDigest,
-    cCallRef: cCall.cCallRef,
-    resultRef: result.resultRef,
-    judgmentRef: judgment.judgmentRef,
-    routeRef: route.routeRef,
-    closureContractRef: closureContract.closureContractRef,
-    terminalReachedEventRef: events[0]!.eventId,
-    frameClosedEventRef: events[1]!.eventId,
-    graphCallClosedEventRef: events[2]!.eventId,
-    runClosedEventRef: events[3]!.eventId,
-  }) as ClosureAdmission;
-}
-
-export function admitInteractionClosure(
-  store: AbgEventStore,
-  predecessorPrefix: DurablePrefixCoordinate,
-  cCall: CCall,
-  pendingResult: AdmittedCCallResult,
-  pendingJudgment: AdmittedCCallJudgment,
-  resume: FhInteractionResumeAdmission,
-  route: AdmittedRoute,
-  closureContract: Readonly<ClosureContract>,
-  basis: RuntimeAdmissionBasis,
-): ClosureAdmissionResult {
-  const exactPrefix = selectExactClosurePrefix(
-    store,
-    predecessorPrefix,
-    cCall.runId,
-  );
-  if (exactPrefix === null) {
-    return refuseClosureWithoutEffects(
-      "stale_prefix",
-      "F_H closure requires the exact held durable predecessor prefix",
-    );
-  }
-  const projectedCCall = projectAdmittedCCallStateAtPrefix(
-    exactPrefix.runPrefix,
-    cCall as unknown as Readonly<Record<string, JsonValue>>,
-    pendingResult as unknown as Readonly<Record<string, JsonValue>>,
-    pendingJudgment as unknown as Readonly<Record<string, JsonValue>>,
-  );
-  if (projectedCCall === null) {
-    return refuseClosureWithoutEffects(
-      "runtime_basis_mismatch",
-      "F_H closure requires one exact prefix-admitted CCall, result, and judgment",
-    );
-  }
-  cCall = projectedCCall.cCall;
-  pendingResult = projectedCCall.result;
-  pendingJudgment = projectedCCall.judgment;
-  const closureContractDigest = sha256Canonical(
-    closureContract as unknown as JsonValue,
-  );
-  if (
-    cCall.regime !== "F_H" ||
-    cCall.responseContractRef === null ||
-    cCall.continuationContractRef === null ||
-    pendingResult.cCallRef !== cCall.cCallRef ||
-    pendingResult.resultClass !== "pending" ||
-    pendingJudgment.cCallRef !== cCall.cCallRef ||
-    pendingJudgment.resultRef !== pendingResult.resultRef ||
-    pendingJudgment.judgment !== "pending" ||
-    resume.responseDigest !== sha256Canonical(
-      resume.responseValue as unknown as JsonValue,
-    ) ||
-    route.cCallRef !== cCall.cCallRef ||
-    route.judgmentRef !== pendingJudgment.judgmentRef ||
-    route.sourceCursorRef !== resume.successorCursorRef ||
-    route.sourceCursorDigest !== resume.successorCursorDigest ||
-    route.routeKind !== "terminal"
-  ) {
-    return refuseClosureWithoutEffects(
-      "runtime_basis_mismatch",
-      "F_H closure requires one exact pending CCall, admitted response, resume, and terminal route",
-    );
-  }
-  const currentTruth = projectCurrentClosureTruth(
-    exactPrefix.runPrefix,
-    exactPrefix.fullPrefix,
-    cCall,
-    pendingResult,
-    pendingJudgment,
     route,
     resume,
   );
   if (currentTruth === null) {
     return refuseClosureWithoutEffects(
       "replay_mismatch",
-      "F_H closure basis is not the current resumed replay truth",
+      "scope closure basis is not current replay and Event Calculus truth",
     );
   }
+
+  const expectedResultContractRef = subject.kind === "interaction"
+    ? cCall.responseContractRef
+    : result.contractRef;
+  const expectedJudgmentContractRef = subject.kind === "interaction"
+    ? cCall.continuationContractRef
+    : judgment.contractRef;
+  const expectedScope = subject.kind === "child" ? "graph_call" : "run";
+  const expectedEventKinds = subject.kind === "child"
+    ? ["terminal_reached", "frame_closed", "graph_call_closed"]
+    : [
+        "terminal_reached",
+        "frame_closed",
+        "graph_call_closed",
+        "run_closed",
+      ];
+  const alreadyClosed = subject.kind === "child"
+    ? [
+        `terminal_admitted(${cCall.frameId})`,
+        `frame_closed(${cCall.frameId})`,
+        `graph_call_closed(${cCall.graphCallId})`,
+      ].some((fluent) => currentTruth.replay.activeFluents.includes(fluent))
+    : currentTruth.replay.activeFluents.includes(
+        `terminal_admitted(${cCall.frameId})`,
+      );
   if (
     closureContract.closureContractRef !== cCall.closureContractRef ||
     closureContractDigest !== cCall.closureContractDigest ||
     closureContract.predicateRef !== cCall.terminalPredicateRef ||
     closureContract.replayProjectionRef !== cCall.replayProjectionRef ||
     closureContract.terminalKind !== cCall.terminalKind ||
-    closureContract.evidenceContractRef !== cCall.evidenceContractRef ||
-    closureContract.resultContractRef !== cCall.responseContractRef ||
-    closureContract.refusalContractRef !== cCall.refusalContractRef ||
-    closureContract.judgmentContractRef !== cCall.continuationContractRef ||
-    closureContract.transitionContractRef !== route.contractRef ||
     closureContract.terminalKind !== "completed" ||
-    closureContract.closureScope !== "run" ||
-    closureContract.eventKindRefs.join("\0") !==
-      ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"]
-        .join("\0") ||
-    currentTruth.replay.activeFluents.includes(
-      `terminal_admitted(${cCall.frameId})`,
-    )
+    closureContract.evidenceContractRef !== cCall.evidenceContractRef ||
+    closureContract.resultContractRef !== expectedResultContractRef ||
+    closureContract.refusalContractRef !== cCall.refusalContractRef ||
+    closureContract.judgmentContractRef !== expectedJudgmentContractRef ||
+    closureContract.transitionContractRef !== route.contractRef ||
+    closureContract.closureScope !== expectedScope ||
+    closureContract.eventKindRefs.join("\0") !== expectedEventKinds.join("\0") ||
+    alreadyClosed
   ) {
     return refuseClosureWithoutEffects(
       "closure_contract_mismatch",
-      "F_H closure contract, response, route, or uniqueness check failed",
+      "scope closure contract or lifecycle uniqueness check failed",
     );
   }
 
-  const quiescence = projectExactPreClosureQuiescence(exactPrefix.runPrefix);
-  if (!isExactPreClosureQuiescence(quiescence, cCall, route)) {
-    return refuseClosureWithoutEffects(
-      "runtime_basis_mismatch",
-      `F_H closure requires the exact immutable quiescent pre-closure Run prefix: ${quiescence.disposition}; ${quiescence.blockingFluents.join(",")}`,
-    );
+  if (subject.kind !== "child") {
+    const quiescence = projectExactPreClosureQuiescence(exactPrefix.runPrefix);
+    if (!isExactPreClosureQuiescence(quiescence, cCall, route)) {
+      return refuseClosureWithoutEffects(
+        "runtime_basis_mismatch",
+        `run closure requires the exact quiescent prefix: ${quiescence.disposition}; ${quiescence.blockingFluents.join(",")}`,
+      );
+    }
   }
 
   const closureBody = {
     cCallRef: cCall.cCallRef,
-    resultRef: resume.responseRef,
-    judgmentRef: pendingJudgment.judgmentRef,
-    routeRef: route.routeRef,
-    closureContractRef: closureContract.closureContractRef,
-    closureContractDigest,
-    terminalKind: closureContract.terminalKind,
-  };
-  const closureDigest = sha256Canonical(closureBody as unknown as JsonValue);
-  const closureRef =
-    `closure://abiogenesis/${closureDigest.slice("sha256:".length)}`;
-  const events = appendClosureBatchAtExpectedPrefix(
-    store,
-    predecessorPrefix,
-    exactPrefix.expectedStorePrefixDigest,
-    [
-    () => ({
-    kind: "terminal_reached",
-    eventTime: basis.eventTime,
-    aggregateType: "frame",
-    aggregateId: cCall.frameId,
-    parentAggregateId: cCall.graphCallId,
-    causationEventRefs: [route.admissionEventRef, ...basis.causationEventRefs],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: cCall.basisId,
-    runId: cCall.runId,
-    graphFunctionRef: cCall.graphFunctionRef,
-    graphCallId: cCall.graphCallId,
-    frameId: cCall.frameId,
-    payload: { closureRef, closureDigest, ...closureBody },
-    }),
-    (batch) => ({
-    kind: "frame_closed",
-    eventTime: basis.eventTime,
-    aggregateType: "frame",
-    aggregateId: cCall.frameId,
-    parentAggregateId: cCall.graphCallId,
-    causationEventRefs: [batch[0]!.eventId],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: cCall.basisId,
-    runId: cCall.runId,
-    graphFunctionRef: cCall.graphFunctionRef,
-    graphCallId: cCall.graphCallId,
-    frameId: cCall.frameId,
-    payload: {
-      frameId: cCall.frameId,
-      terminalReachedEventRef: batch[0]!.eventId,
-      closureContractRef: closureContract.closureContractRef,
-    },
-    }),
-    (batch) => ({
-    kind: "graph_call_closed",
-    eventTime: basis.eventTime,
-    aggregateType: "graph_call",
-    aggregateId: cCall.graphCallId,
-    parentAggregateId: cCall.runId,
-    causationEventRefs: [batch[1]!.eventId],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: cCall.basisId,
-    runId: cCall.runId,
-    graphFunctionRef: cCall.graphFunctionRef,
-    graphCallId: cCall.graphCallId,
-    payload: {
-      graphCallId: cCall.graphCallId,
-      frameClosedEventRef: batch[1]!.eventId,
-      closureContractRef: closureContract.closureContractRef,
-    },
-    }),
-    (batch) => ({
-    kind: "run_closed",
-    eventTime: basis.eventTime,
-    aggregateType: "run",
-    aggregateId: cCall.runId,
-    parentAggregateId: null,
-    causationEventRefs: [batch[2]!.eventId],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: cCall.basisId,
-    runId: cCall.runId,
-    graphFunctionRef: cCall.graphFunctionRef,
-    graphCallId: cCall.graphCallId,
-    payload: {
-      runId: cCall.runId,
-      graphCallClosedEventRef: batch[2]!.eventId,
-      closureContractRef: closureContract.closureContractRef,
-    },
-    }),
-    ],
-  );
-  if (events === null) {
-    return refuseClosureWithoutEffects(
-      "stale_prefix",
-      "F_H closure predecessor became stale before its atomic append",
-    );
-  }
-  return deepFreeze({
-    kind: "closure_admission" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "closed" as const,
-    closureRef,
-    closureDigest,
-    cCallRef: cCall.cCallRef,
-    resultRef: resume.responseRef,
-    judgmentRef: pendingJudgment.judgmentRef,
-    routeRef: route.routeRef,
-    closureContractRef: closureContract.closureContractRef,
-    terminalReachedEventRef: events[0]!.eventId,
-    frameClosedEventRef: events[1]!.eventId,
-    graphCallClosedEventRef: events[2]!.eventId,
-    runClosedEventRef: events[3]!.eventId,
-  }) as ClosureAdmission;
-}
-
-export function admitChildClosure(
-  store: AbgEventStore,
-  predecessorPrefix: DurablePrefixCoordinate,
-  childScope: OpenedTraversalScope,
-  cCall: CCall,
-  result: AdmittedCCallResult,
-  judgment: AdmittedCCallJudgment,
-  route: AdmittedRoute,
-  closureContract: Readonly<ClosureContract>,
-  basis: RuntimeAdmissionBasis,
-): ChildClosureAdmissionResult {
-  const exactPrefix = selectExactClosurePrefix(
-    store,
-    predecessorPrefix,
-    childScope.runId,
-  );
-  if (exactPrefix === null) {
-    return refuseChildClosureWithoutEffects(
-      "stale_prefix",
-      "child closure requires the exact held durable predecessor prefix",
-    );
-  }
-  const projectedScope = rehydrateOpenedTraversalScopeAtPrefix(
-    exactPrefix.runPrefix,
-    childScope as unknown as Readonly<Record<string, JsonValue>>,
-  );
-  const projectedCCall = projectAdmittedCCallStateAtPrefix(
-    exactPrefix.runPrefix,
-    cCall as unknown as Readonly<Record<string, JsonValue>>,
-    result as unknown as Readonly<Record<string, JsonValue>>,
-    judgment as unknown as Readonly<Record<string, JsonValue>>,
-  );
-  if (projectedScope === null || projectedCCall === null) {
-    return refuseChildClosureWithoutEffects(
-      "runtime_basis_mismatch",
-      "child closure requires one exact prefix-admitted scope, CCall, result, and judgment",
-    );
-  }
-  childScope = projectedScope;
-  cCall = projectedCCall.cCall;
-  result = projectedCCall.result;
-  judgment = projectedCCall.judgment;
-  const closureContractDigest = sha256Canonical(
-    closureContract as unknown as JsonValue,
-  );
-  const childEvents = runtimeEventsFromValidatedPrefix(exactPrefix.runPrefix);
-  const childGraphCallOpen = childEvents.find(
-    (event) =>
-      event.kind === "graph_call_opened" &&
-      event.eventId === childScope.graphCallOpenEventRef &&
-      event.graphCallId === childScope.graphCallId,
-  );
-  const childGraphCallPayload =
-    childGraphCallOpen !== undefined &&
-      typeof childGraphCallOpen.payload === "object" &&
-      childGraphCallOpen.payload !== null &&
-      !Array.isArray(childGraphCallOpen.payload)
-      ? childGraphCallOpen.payload as Readonly<Record<string, JsonValue>>
-      : null;
-  if (
-    typeof childGraphCallPayload?.parentFrameId !== "string" ||
-    cCall.runId !== childScope.runId ||
-    cCall.graphCallId !== childScope.graphCallId ||
-    cCall.frameId !== childScope.frameId ||
-    result.cCallRef !== cCall.cCallRef ||
-    judgment.cCallRef !== cCall.cCallRef ||
-    route.cCallRef !== cCall.cCallRef ||
-    judgment.resultRef !== result.resultRef ||
-    route.judgmentRef !== judgment.judgmentRef ||
-    judgment.judgment !== "advance" ||
-    route.routeKind !== "terminal"
-  ) {
-    return refuseChildClosureWithoutEffects(
-      "runtime_basis_mismatch",
-      "child closure requires one exact child scope, judged CCall, and terminal route",
-    );
-  }
-  const currentTruth = projectCurrentClosureTruth(
-    exactPrefix.runPrefix,
-    exactPrefix.fullPrefix,
-    cCall,
-    result,
-    judgment,
-    route,
-  );
-  if (currentTruth === null) {
-    return refuseChildClosureWithoutEffects(
-      "replay_mismatch",
-      "child closure basis is not current replay truth",
-    );
-  }
-  if (
-    closureContract.closureContractRef !== cCall.closureContractRef ||
-    closureContractDigest !== cCall.closureContractDigest ||
-    closureContract.predicateRef !== cCall.terminalPredicateRef ||
-    closureContract.replayProjectionRef !== cCall.replayProjectionRef ||
-    closureContract.terminalKind !== "completed" ||
-    closureContract.evidenceContractRef !== cCall.evidenceContractRef ||
-    closureContract.resultContractRef !== result.contractRef ||
-    closureContract.refusalContractRef !== cCall.refusalContractRef ||
-    closureContract.judgmentContractRef !== judgment.contractRef ||
-    closureContract.transitionContractRef !== route.contractRef ||
-    closureContract.closureScope !== "graph_call" ||
-    closureContract.eventKindRefs.join("\0") !==
-      ["terminal_reached", "frame_closed", "graph_call_closed"]
-        .join("\0") ||
-    [
-      `terminal_admitted(${childScope.frameId})`,
-      `frame_closed(${childScope.frameId})`,
-      `graph_call_closed(${childScope.graphCallId})`,
-    ].some((fluent) => currentTruth.replay.activeFluents.includes(fluent))
-  ) {
-    return refuseChildClosureWithoutEffects(
-      "closure_contract_mismatch",
-      "child closure contract, lifecycle identity, or uniqueness check failed",
-    );
-  }
-
-  const closureBody = {
-    cCallRef: cCall.cCallRef,
-    resultRef: result.resultRef,
+    resultRef,
     judgmentRef: judgment.judgmentRef,
     routeRef: route.routeRef,
     closureContractRef: closureContract.closureContractRef,
     closureContractDigest,
-    childGraphCallId: childScope.graphCallId,
-    childFrameId: childScope.frameId,
+    ...(childScope === null
+      ? {}
+      : {
+          childGraphCallId: childScope.graphCallId,
+          childFrameId: childScope.frameId,
+        }),
     terminalKind: closureContract.terminalKind,
   };
   const closureDigest = sha256Canonical(closureBody as unknown as JsonValue);
   const closureRef =
     `closure://abiogenesis/${closureDigest.slice("sha256:".length)}`;
-  const events = appendClosureBatchAtExpectedPrefix(
-    store,
-    predecessorPrefix,
-    exactPrefix.expectedStorePrefixDigest,
-    [
+  const graphCallId = childScope?.graphCallId ?? cCall.graphCallId;
+  const frameId = childScope?.frameId ?? cCall.frameId;
+  const runId = childScope?.runId ?? cCall.runId;
+  const factories: RuntimeEventCandidateFactory[] = [
     () => ({
       kind: "terminal_reached",
       eventTime: basis.eventTime,
       aggregateType: "frame",
-      aggregateId: childScope.frameId,
-      parentAggregateId: childScope.graphCallId,
+      aggregateId: frameId,
+      parentAggregateId: graphCallId,
       causationEventRefs: [
         route.admissionEventRef,
         ...basis.causationEventRefs,
@@ -983,29 +571,29 @@ export function admitChildClosure(
       workflowVersion: "5.0.0",
       scopeClass: "run",
       basisId: cCall.basisId,
-      runId: childScope.runId,
+      runId,
       graphFunctionRef: cCall.graphFunctionRef,
-      graphCallId: childScope.graphCallId,
-      frameId: childScope.frameId,
+      graphCallId,
+      frameId,
       payload: { closureRef, closureDigest, ...closureBody },
     }),
     (batch) => ({
       kind: "frame_closed",
       eventTime: basis.eventTime,
       aggregateType: "frame",
-      aggregateId: childScope.frameId,
-      parentAggregateId: childScope.graphCallId,
+      aggregateId: frameId,
+      parentAggregateId: graphCallId,
       causationEventRefs: [batch[0]!.eventId],
       correlationId: basis.correlationId,
       workflowVersion: "5.0.0",
       scopeClass: "run",
       basisId: cCall.basisId,
-      runId: childScope.runId,
+      runId,
       graphFunctionRef: cCall.graphFunctionRef,
-      graphCallId: childScope.graphCallId,
-      frameId: childScope.frameId,
+      graphCallId,
+      frameId,
       payload: {
-        frameId: childScope.frameId,
+        frameId,
         terminalReachedEventRef: batch[0]!.eventId,
         closureContractRef: closureContract.closureContractRef,
       },
@@ -1014,46 +602,76 @@ export function admitChildClosure(
       kind: "graph_call_closed",
       eventTime: basis.eventTime,
       aggregateType: "graph_call",
-      aggregateId: childScope.graphCallId,
-      parentAggregateId: childScope.runId,
+      aggregateId: graphCallId,
+      parentAggregateId: runId,
       causationEventRefs: [batch[1]!.eventId],
       correlationId: basis.correlationId,
       workflowVersion: "5.0.0",
       scopeClass: "run",
       basisId: cCall.basisId,
-      runId: childScope.runId,
+      runId,
       graphFunctionRef: cCall.graphFunctionRef,
-      graphCallId: childScope.graphCallId,
-      frameId: childScope.frameId,
+      graphCallId,
+      ...(childScope === null ? {} : { frameId }),
       payload: {
-        graphCallId: childScope.graphCallId,
+        graphCallId,
         frameClosedEventRef: batch[1]!.eventId,
         closureContractRef: closureContract.closureContractRef,
       },
     }),
-    ],
+  ];
+  if (subject.kind !== "child") {
+    factories.push((batch) => ({
+      kind: "run_closed",
+      eventTime: basis.eventTime,
+      aggregateType: "run",
+      aggregateId: runId,
+      parentAggregateId: null,
+      causationEventRefs: [batch[2]!.eventId],
+      correlationId: basis.correlationId,
+      workflowVersion: "5.0.0",
+      scopeClass: "run",
+      basisId: cCall.basisId,
+      runId,
+      graphFunctionRef: cCall.graphFunctionRef,
+      graphCallId,
+      payload: {
+        runId,
+        graphCallClosedEventRef: batch[2]!.eventId,
+        closureContractRef: closureContract.closureContractRef,
+      },
+    }));
+  }
+  const events = appendClosureBatchAtExpectedPrefix(
+    store,
+    predecessorPrefix,
+    exactPrefix.expectedStorePrefixDigest,
+    factories,
   );
   if (events === null) {
-    return refuseChildClosureWithoutEffects(
+    return refuseClosureWithoutEffects(
       "stale_prefix",
-      "child closure predecessor became stale before its atomic append",
+      "scope closure predecessor became stale before its atomic append",
     );
   }
   return deepFreeze({
-    kind: "child_closure_admission",
-    schemaVersion: "5.0.0",
-    disposition: "closed",
+    kind: "scope_closure_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "closed" as const,
+    scopeClass: expectedScope,
     closureRef,
     closureDigest,
     cCallRef: cCall.cCallRef,
-    resultRef: result.resultRef,
+    resultRef,
     judgmentRef: judgment.judgmentRef,
     routeRef: route.routeRef,
     closureContractRef: closureContract.closureContractRef,
-    childGraphCallId: childScope.graphCallId,
-    childFrameId: childScope.frameId,
     terminalReachedEventRef: events[0]!.eventId,
     frameClosedEventRef: events[1]!.eventId,
     graphCallClosedEventRef: events[2]!.eventId,
-  }) as ChildClosureAdmission;
+    runClosedEventRef: events[3]?.eventId ?? null,
+    childGraphCallId: childScope?.graphCallId ?? null,
+    childFrameId: childScope?.frameId ?? null,
+    replayState: replay(store, { runId }),
+  });
 }

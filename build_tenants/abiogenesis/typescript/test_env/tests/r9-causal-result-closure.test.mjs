@@ -213,7 +213,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
 
   const replayScope = { runId: cCall.runId };
   const resultReplay = abg.replay(store, replayScope);
-  const judgmentCandidate = hog.proposeJudgment(
+  const judgmentCandidate = abg.proposeJudgment(
     cCall,
     result,
     resultReplay,
@@ -313,7 +313,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
   }
 
   const judgedReplay = abg.replay(store, replayScope);
-  const routeCandidate = hog.proposeTerminalRoute(
+  const routeCandidate = abg.proposeTerminalRoute(
     graph,
     traversalStop,
     cCall,

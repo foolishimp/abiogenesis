@@ -307,7 +307,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     payloadVariants: [
       payloadVariant(
         payloadKeys(
-          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogApplicationDigests catalogApplicationRefs catalogBasisDigest catalogBasisRef catalogHandle catalogViewId definitionDigest graphFunctionRef hogEntryCoordinate hogEntryStep invocationDigest invocationRef memberKey operationId policyDigest policyRef programRef programValidationDigest programValidationRef selectedDefinitionDigest selectedDefinitionRef variant workspaceBindingId",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogApplicationDigests catalogApplicationRefs catalogBasisDigest catalogBasisRef catalogHandle catalogViewId definitionDigest graphFunctionRef gtlEntryCoordinate gtlEntryTerm invocationDigest invocationRef memberKey operationId policyDigest policyRef programRef programValidationDigest programValidationRef selectedDefinitionDigest selectedDefinitionRef variant workspaceBindingId",
         ),
         payloadKeys(
           "catalogApplicationDigests catalogApplicationRefs operationId invocationRef invocationDigest variant",
@@ -315,7 +315,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       ),
       payloadVariant(
         payloadKeys(
-          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogBasisDigest catalogBasisRef catalogHandle catalogViewId definitionDigest graphFunctionRef hogEntryCoordinate hogEntryStep invocationDigest invocationRef memberKey operationId policyDigest policyRef programRef programValidationDigest programValidationRef selectedDefinitionDigest selectedDefinitionRef variant workspaceBindingId",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs catalogBasisDigest catalogBasisRef catalogHandle catalogViewId definitionDigest graphFunctionRef gtlEntryCoordinate gtlEntryTerm invocationDigest invocationRef memberKey operationId policyDigest policyRef programRef programValidationDigest programValidationRef selectedDefinitionDigest selectedDefinitionRef variant workspaceBindingId",
         ),
         payloadKeys(
           "operationId invocationRef invocationDigest variant",
@@ -360,7 +360,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       ),
       payloadVariant(
         payloadKeys(
-          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityGrants catalogApplicationDigests catalogApplicationRefs catalogBasisDigest catalogBasisRef catalogHandle catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef hogEntryCoordinate hogEntryStep inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis selectedDefinitionDigest selectedDefinitionRef sourceResultBasis workspaceBindingDigest workspaceBindingId workspaceId",
+          "actorRef authorityDigest authorityRef capabilityGrantRefs capabilityGrants catalogApplicationDigests catalogApplicationRefs catalogBasisDigest catalogBasisRef catalogHandle catalogViewDigest catalogViewId graphFunctionDigest graphFunctionRef gtlEntryCoordinate gtlEntryTerm inputContractRef invocationAdmissionDigest invocationAdmissionRef invocationDigest invocationRef invocationVariant outputContractRef policyDigest policyRef programDigest programRef programValidationDigest programValidationRef publicRequestAdmissionRef publicRequestDigest publicRequestInvocationRef publicStart rawInputAdmissionRef rawInputDigest reentryBasis selectedDefinitionDigest selectedDefinitionRef sourceResultBasis workspaceBindingDigest workspaceBindingId workspaceId",
         ),
         payloadKeys(
           "catalogApplicationDigests catalogApplicationRefs invocationAdmissionRef invocationAdmissionDigest invocationRef reentryBasis sourceResultBasis",
@@ -3117,6 +3117,29 @@ export function admitRuntimeEventTransactionAtExpectedPrefix<T>(
   if (store.digest() !== expectedPrefixDigest) {
     throw new TypeError(
       "runtime event append requires the exact expected immutable prefix",
+    );
+  }
+  return runRuntimeEventTransaction(store, action);
+}
+
+/**
+ * The only cross-owner transaction ingress. The durable coordinate is the
+ * caller's authority; ABG alone translates it to the in-memory event digest
+ * used by its transaction guard.
+ */
+export function admitRuntimeEventTransactionAtDurablePrefix<T>(
+  store: AbgEventStore,
+  expectedPredecessor: DurablePrefixCoordinate,
+  action: () => T,
+): RuntimeEventTransactionResult<T> {
+  assertHeldEventStoreAtDurablePrefix(store, expectedPredecessor);
+  const durableEvents = readRuntimeEventsAtDurablePrefix(expectedPredecessor);
+  const expectedEventDigest = sha256Canonical(
+    durableEvents as unknown as JsonValue,
+  );
+  if (store.digest() !== expectedEventDigest) {
+    throw new TypeError(
+      "runtime event transaction requires the exact durable event predecessor",
     );
   }
   return runRuntimeEventTransaction(store, action);

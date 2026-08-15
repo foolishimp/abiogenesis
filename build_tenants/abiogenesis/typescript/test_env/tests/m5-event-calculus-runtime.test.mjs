@@ -247,7 +247,7 @@ async function admitStandardClosure(environment, store, opened, correlationRoot)
   );
   assert.equal(result.kind, "admitted_c_call_result", JSON.stringify(result));
   const resultReplay = abg.replay(store, { runId: opened.scope.runId });
-  const judgmentCandidate = hog.proposeJudgment(
+  const judgmentCandidate = abg.proposeJudgment(
     cCall,
     result,
     resultReplay,
@@ -273,7 +273,7 @@ async function admitStandardClosure(environment, store, opened, correlationRoot)
   );
   assert.equal(judgment.kind, "admitted_c_call_judgment", JSON.stringify(judgment));
   const judgedReplay = abg.replay(store, { runId: opened.scope.runId });
-  const routeCandidate = hog.proposeTerminalRoute(
+  const routeCandidate = abg.proposeTerminalRoute(
     graph,
     traversalStop,
     cCall,

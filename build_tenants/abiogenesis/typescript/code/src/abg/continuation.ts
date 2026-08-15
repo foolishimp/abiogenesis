@@ -1,5 +1,6 @@
 import type {
   ClosureContract,
+  GraphFunction,
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
@@ -23,12 +24,14 @@ import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import {
   isAdmittedCCallJudgment,
   isAdmittedCCallResult,
+  admitPlannedPendingInteraction,
   projectPendingInteractionCarrier,
   rehydratePendingInteraction,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
   type CCall,
   type PendingInteractionAdmission,
+  type PendingInteractionAdmissionPlan,
   type RehydratedAdmittedCCallState,
 } from "./c_call.js";
 
@@ -37,9 +40,7 @@ function graphFunctionCatalogViewRef(view: GraphFunctionCatalogView): string {
 }
 import {
   admittedConstructionComposition,
-  hasAdmittedExecutionBasis,
   hasAdmittedExecutionBasisAtPrefix,
-  hasAdmittedInteractionSet,
   hasAdmittedInteractionSetAtPrefix,
   isAdmittedConstructionInteractionLocus,
   rehydrateExecutionBasis,
@@ -146,7 +147,6 @@ import {
   type InvocationAdmission,
 } from "./invocation_admission.js";
 import {
-  hasOpenedTraversalScope,
   hasOpenedTraversalScopeAtPrefix,
   rehydrateOpenedTraversalScope,
   rehydrateOpenedTraversalScopeAtPrefix,
@@ -154,13 +154,13 @@ import {
 } from "./open_call.js";
 import {
   isAdmittedRoute,
-  rehydrateConstructionIntentForCursor,
+  admitTraversalTransitionInActiveTransaction,
   rehydrateConstructionIntentForCursorAtPrefix,
   type AdmittedRoute,
   type ConstructionIntentAdmission,
 } from "./traversal_route.js";
+import type { TraversalTransitionCandidate } from "./traversal_transition.js";
 import {
-  hasAdmittedTraversalCursor,
   hasAdmittedTraversalCursorAtPrefix,
   isInteractionResumeCursorSuccessorAtPrefix,
   isTraversalCursorCandidate,
@@ -1418,9 +1418,10 @@ export function admitFhInteractionOpen(
   inputValue: Readonly<Record<string, JsonValue>>,
   basis: RuntimeAdmissionBasis,
 ): FhInteractionContinuation {
+  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
   const cCall = pending.cCall;
   const constructionIntent: ConstructionIntentAdmission | null =
-    rehydrateConstructionIntentForCursor(store, cursor);
+    rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor);
   const requiresConstructionIntent =
     isAdmittedConstructionInteractionLocus(
       executionBasis,
@@ -1428,13 +1429,13 @@ export function admitFhInteractionOpen(
       cCall.compositionRef,
     );
   if (
-    !hasAdmittedExecutionBasis(store, executionBasis) ||
-    !hasOpenedTraversalScope(store, scope) ||
-    !hasAdmittedInteractionSet(store, interactionSet) ||
-    !hasAdmittedTraversalCursor(store, cursor) ||
+    !hasAdmittedExecutionBasisAtPrefix(prefix, executionBasis) ||
+    !hasOpenedTraversalScopeAtPrefix(prefix, scope) ||
+    !hasAdmittedInteractionSetAtPrefix(prefix, interactionSet) ||
+    !hasAdmittedTraversalCursorAtPrefix(prefix, cursor) ||
     !isAdmittedCCallResult(pending.result) ||
     !isAdmittedCCallJudgment(pending.judgment) ||
-    !isAdmittedRoute(route) ||
+    !isAdmittedRoute(prefix, route) ||
     !hasAdmittedProductInstall(productBasis.artifactTruth, productBasis.install) ||
     !hasAdmittedWorkspaceBinding(
       productBasis.artifactTruth,
@@ -1606,6 +1607,130 @@ export function admitFhInteractionOpen(
     constructionIntentDigest:
       constructionIntent?.constructionIntentDigest ?? null,
     openedEventRef: event.eventId,
+  });
+}
+
+export interface AdmitFhInteractionHoldInput {
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+  readonly store: AbgEventStore;
+  readonly executionBasis: ExecutionBasis;
+  readonly scope: OpenedTraversalScope;
+  readonly program: Readonly<GtlProgram>;
+  readonly graphFunction: Readonly<GraphFunction>;
+  readonly graph: Readonly<GtlGraph>;
+  readonly interactionSet: AdmittedInteractionSet;
+  readonly cursor: TraversalCursorCandidate;
+  readonly request: Readonly<Record<string, JsonValue>>;
+  readonly expectedInputDigest: Sha256Digest;
+  readonly pendingPlan: PendingInteractionAdmissionPlan;
+  readonly routeCandidate: TraversalTransitionCandidate;
+  readonly productBasis: ContinuationProductBasis;
+  readonly inputValue: Readonly<Record<string, JsonValue>>;
+  readonly pendingBasis: RuntimeAdmissionBasis;
+  readonly routeBasis: RuntimeAdmissionBasis;
+  readonly continuationBasis: RuntimeAdmissionBasis;
+}
+
+export interface FhInteractionHoldAdmission {
+  readonly kind: "fh_interaction_hold_admission";
+  readonly schemaVersion: "5.0.0";
+  readonly pending: PendingInteractionAdmission;
+  readonly route: AdmittedRoute;
+  readonly continuation: FhInteractionContinuation;
+  readonly successorPrefix: DurablePrefixCoordinate;
+}
+
+/**
+ * Owns the complete pending-result, hold-route, continuation-open transaction.
+ * HoG supplies the selected route candidate; ABG revalidates every event owner
+ * relation and commits the conjunction at one exact durable predecessor.
+ */
+export function admitFhInteractionHold(
+  input: Readonly<AdmitFhInteractionHoldInput>,
+): FhInteractionHoldAdmission {
+  assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
+  const predecessorEvents = readRuntimeEventsAtDurablePrefix(
+    input.predecessorPrefix,
+  );
+  const cCall = input.pendingPlan.pending.cCall;
+  const evidence = input.routeCandidate.transitionClass === "route"
+    ? input.routeCandidate.evidence
+    : null;
+  if (
+    input.pendingPlan.expectedPrefixDigest !==
+      sha256Canonical(predecessorEvents as unknown as JsonValue) ||
+    evidence?.evidenceClass !== "hold" ||
+    evidence.cCall.cCallRef !== cCall.cCallRef ||
+    sha256Canonical(evidence.result as unknown as JsonValue) !==
+      sha256Canonical(
+        input.pendingPlan.pending.result as unknown as JsonValue,
+      ) ||
+    sha256Canonical(evidence.judgment as unknown as JsonValue) !==
+      sha256Canonical(
+        input.pendingPlan.pending.judgment as unknown as JsonValue,
+      )
+  ) {
+    throw new TypeError(
+      "F_H hold candidate differs from its exact pending interaction plan",
+    );
+  }
+  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+    input.store,
+    input.pendingPlan.expectedPrefixDigest,
+    () => {
+      const pending = admitPlannedPendingInteraction(
+        input.store,
+        input.graph,
+        input.graphFunction,
+        input.cursor,
+        cCall,
+        input.request,
+        input.expectedInputDigest,
+        input.pendingPlan,
+        input.pendingBasis,
+      );
+      const transition = admitTraversalTransitionInActiveTransaction({
+        durablePredecessorPrefix: input.predecessorPrefix,
+        stagedPrefix: selectValidatedRuntimeEventPrefix(input.store.readAll()),
+        store: input.store,
+        executionBasis: input.executionBasis,
+        graph: input.graph,
+        graphFunction: input.graphFunction,
+        source: input.cursor,
+        target: null,
+        candidate: input.routeCandidate,
+        basis: input.routeBasis,
+      });
+      if (transition.kind !== "staged_route_transition_admission") {
+        throw new TypeError(
+          `F_H hold route refused: ${transition.code}`,
+        );
+      }
+      const continuation = admitFhInteractionOpen(
+        input.store,
+        input.executionBasis,
+        input.scope,
+        input.program,
+        input.graph,
+        input.interactionSet,
+        input.cursor,
+        pending,
+        transition.route,
+        input.productBasis,
+        input.inputValue,
+        input.continuationBasis,
+      );
+      return { pending, route: transition.route, continuation };
+    },
+  );
+  if (committed.successorPrefix === null) {
+    throw new TypeError("F_H hold transaction produced no durable successor");
+  }
+  return deepFreeze({
+    kind: "fh_interaction_hold_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    ...committed.value,
+    successorPrefix: committed.successorPrefix,
   });
 }
 

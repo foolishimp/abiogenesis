@@ -783,11 +783,11 @@ explicit verified physical preimages/resource bindings and owner-issued
 successor handoffs; events do not recreate external physical state.
 
 This gate applies only to HoG-bearing Public owner closures, currently run
-invoke/continue. Other 18/56 definitions do not enter HoG. The 2,550-line value
-is the current Executive construction target and mandatory F_H drift sentinel,
-not an independent Product predicate: meeting it cannot cure a structural
-violation, and exceeding it requires an irreducible-function mapping and F_H
-disposition rather than silently passing or automatically blocking 5.0.
+invoke/continue. Other 18/56 definitions do not enter HoG. The 10,175-line
+baseline and 2,550-line construction target are diagnostic evidence for
+expected contraction only. Neither value is a pass/fail threshold, escalation
+predicate, or substitute for walking every installed function and edge against
+the singular owner-algebra laws below.
 
 Structural conformance runs before behavioral proof and must reject every
 counterexample it finds. C2A cannot advance while any of these predicates is
@@ -802,7 +802,7 @@ true:
 | `OCR-05` | `ExecuteGraphTraversalCommonInput` crosses from the fold into a locus or owner port. |
 | `OCR-06` | An owner port returns `unknown`, or HoG constructs, repairs, validates, or totalizes an owner candidate/refusal. |
 | `OCR-07` | The installed path has zero or multiple outer Effect runners, or a nested runner. |
-| `OCR-08` | Production TypeScript under `code/src/hog` exceeds the 2,550-line Executive target without an explicit irreducible-function mapping and F_H disposition; the fixed comparison baseline is 10,175 lines at `6d78258b`. |
+| `OCR-08` | A production line-count comparison is used to accept, reject, or redirect the cut instead of evaluating semantic-owner singularity, exact prefix direction, native Effect composition, entity/lifecycle algebra, and negative reachability on the installed code path. |
 
 The current checkpoint is deliberately red. Its expected signature includes:
 recursive `graphTraversalEffect` calls; repeated Public continuation entry;

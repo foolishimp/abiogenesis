@@ -51,6 +51,50 @@ export interface CContinuationTarget {
   readonly inputDigest: Sha256Digest | null;
 }
 
+export interface CTraversalTarget {
+  readonly kind: "c_traversal_target";
+  readonly schemaVersion: "5.0.0";
+  readonly relation:
+    | "batch_enter"
+    | "compose_enter"
+    | "edge_enter"
+    | "identity_continue"
+    | "retry_enter"
+    | "retry_same_edge";
+  readonly nodeRef: string;
+  readonly termPath: CSourcePath;
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
+  readonly retryPath: readonly number[];
+  readonly inputRef: string;
+  readonly inputDigest: Sha256Digest;
+}
+
+export interface CTraversalCoordinate {
+  readonly nodeRef: string;
+  readonly termPath: CSourcePath;
+  readonly taskOrdinal: number | null;
+  readonly attempt: number;
+  readonly retryPath: readonly number[];
+}
+
+export interface CTraversalSource extends CTraversalCoordinate {
+  readonly inputRef: string;
+  readonly inputDigest: Sha256Digest;
+}
+
+export function rootCTraversalCoordinate(
+  nodeRef: string,
+): CTraversalCoordinate {
+  return deepFreeze({
+    nodeRef,
+    termPath: rootCSourcePath(nodeRef),
+    taskOrdinal: null,
+    attempt: 1,
+    retryPath: Object.freeze([]) as readonly number[],
+  });
+}
+
 export interface CBatchTaskInput {
   readonly kind: "c_batch_task_input";
   readonly schemaVersion: "5.0.0";
@@ -901,5 +945,157 @@ export function deriveCContinuationTarget(
     retryPath: Object.freeze([...retryPath]),
     inputRef,
     inputDigest,
+  });
+}
+
+function traversalTarget(
+  relation: CTraversalTarget["relation"],
+  coordinate: Readonly<{
+    nodeRef: string;
+    termPath: CSourcePath;
+    taskOrdinal: number | null;
+    attempt: number;
+    retryPath: readonly number[];
+    inputRef: string;
+    inputDigest: Sha256Digest;
+  }>,
+): CTraversalTarget {
+  return deepFreeze({
+    kind: "c_traversal_target" as const,
+    schemaVersion: "5.0.0" as const,
+    relation,
+    nodeRef: coordinate.nodeRef,
+    termPath: [...coordinate.termPath],
+    taskOrdinal: coordinate.taskOrdinal,
+    attempt: coordinate.attempt,
+    retryPath: [...coordinate.retryPath],
+    inputRef: coordinate.inputRef,
+    inputDigest: coordinate.inputDigest,
+  });
+}
+
+/**
+ * GTL's single structural-topology projection. HoG constructs a runtime cursor
+ * from this value; ABG may compare it with an admitted cursor but may not
+ * independently derive another structural successor.
+ */
+export function deriveCStructuralTarget(
+  graph: Readonly<GtlGraph>,
+  source: CTraversalSource,
+  routeKind: "advance" | "retry",
+): CTraversalTarget | CSourcePathRefusal | null {
+  const term = resolveCProgramTermAtSourcePath(
+    graph.template,
+    source.nodeRef,
+    source.termPath,
+  );
+  if (term.kind === "c_source_path_refusal") return term;
+  switch (term.kind) {
+    case "c_compose":
+      return routeKind === "advance"
+        ? traversalTarget("compose_enter", {
+            ...source,
+            termPath: [...source.termPath, "terms", "0"],
+          })
+        : null;
+    case "c_edge":
+      return routeKind === "advance"
+        ? traversalTarget("edge_enter", {
+            ...source,
+            termPath: [...source.termPath, "transform"],
+          })
+        : null;
+    case "c_batch": {
+      if (routeKind !== "advance") return null;
+      const input = deriveCBatchTaskInput(
+        graph,
+        source,
+        "enter_batch",
+        term.batchRef,
+        0,
+      );
+      return input.kind === "c_source_path_refusal"
+        ? input
+        : traversalTarget("batch_enter", {
+            ...source,
+            termPath: [...source.termPath, "tasks", "0"],
+            taskOrdinal: 0,
+            inputRef: input.inputRef,
+            inputDigest: input.inputDigest,
+          });
+    }
+    case "c_identity": {
+      if (routeKind !== "advance") return null;
+      const continuation = deriveCContinuationTarget(graph, source, source);
+      if (
+        continuation.kind === "c_source_path_refusal" ||
+        continuation.disposition === "terminal" ||
+        continuation.nodeRef === null ||
+        continuation.termPath === null ||
+        continuation.attempt === null ||
+        continuation.inputRef === null ||
+        continuation.inputDigest === null
+      ) return continuation.kind === "c_source_path_refusal" ? continuation : null;
+      return traversalTarget("identity_continue", {
+        nodeRef: continuation.nodeRef,
+        termPath: continuation.termPath,
+        taskOrdinal: continuation.taskOrdinal,
+        attempt: continuation.attempt,
+        retryPath: continuation.retryPath,
+        inputRef: continuation.inputRef,
+        inputDigest: continuation.inputDigest,
+      });
+    }
+    case "c_retry":
+      return routeKind === "retry"
+        ? traversalTarget("retry_enter", {
+            ...source,
+            termPath: [...source.termPath, "term"],
+            attempt: 1,
+            retryPath: [...source.retryPath, 1],
+          })
+        : null;
+    case "c_of":
+    case "c_workflow":
+      return null;
+  }
+}
+
+/** GTL's single same-boundary retry target projection. */
+export function deriveCRetryTarget(
+  graph: Readonly<GtlGraph>,
+  source: CTraversalSource,
+  retryInput: Readonly<{
+    inputRef: string;
+    inputDigest: Sha256Digest;
+  }>,
+): CTraversalTarget | CSourcePathRefusal {
+  const contexts = resolveEnclosingCRetryContexts(
+    graph.template,
+    source.nodeRef,
+    source.termPath,
+  );
+  if ("kind" in contexts) return contexts;
+  const context = contexts.at(-1);
+  if (
+    context === undefined ||
+    context.retryDepth !== source.retryPath.length ||
+    source.attempt !== source.retryPath.at(-1) ||
+    source.attempt >= context.budget
+  ) {
+    return refusal(
+      "invalid_source_path",
+      "same-edge retry requires one active declared retry boundary with remaining budget",
+    );
+  }
+  const nextAttempt = source.attempt + 1;
+  return traversalTarget("retry_same_edge", {
+    nodeRef: source.nodeRef,
+    termPath: context.wrappedTermPath,
+    taskOrdinal: context.taskOrdinal,
+    attempt: nextAttempt,
+    retryPath: [...source.retryPath.slice(0, -1), nextAttempt],
+    inputRef: retryInput.inputRef,
+    inputDigest: retryInput.inputDigest,
   });
 }

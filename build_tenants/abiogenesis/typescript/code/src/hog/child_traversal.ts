@@ -1,22 +1,56 @@
-import type {
-  AdmittedImplementationSet,
-  AdmittedInteractionSet,
-  ExecutionBasis,
-  OpenedTraversalScope,
+import {
+  admitChildExecutionBasis,
+  openTraversalScope,
+  type AbgEventStore,
+  type AdmittedImplementationSet,
+  type AdmittedInteractionSet,
+  type ExecutionBasis,
+  type OpenedTraversalScope,
 } from "../abg/index.js";
-import type {
-  ClosureContract,
-  GraphFunction,
-  GtlGraph,
-  GtlProgram,
-} from "../gtl/contracts.js";
+import type { DurablePrefixCoordinate } from "../abg/event_store.js";
+import {
+  materializeGraph,
+  type ModulePublication,
+  type ClosureContract,
+  type GraphFunction,
+  type GtlGraph,
+  type GtlProgram,
+} from "../gtl/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type { GraphValidation } from "../validator/graph.js";
-import type { ProgramValidation } from "../validator/validation.js";
+import {
+  validateGraph,
+  type GraphValidation,
+  type ProgramValidation,
+} from "../validator/index.js";
+
+export interface ChildTraversalBasis {
+  readonly kind: "child_traversal_basis";
+  readonly schemaVersion: "5.0.0";
+  readonly publication: Readonly<ModulePublication>;
+  readonly program: Readonly<GtlProgram>;
+  readonly programValidation: ProgramValidation;
+  readonly rootImplementationSet: AdmittedImplementationSet;
+  readonly rootInteractionSet: AdmittedInteractionSet;
+}
+
+export function constructChildTraversalBasis(input: Readonly<{
+  publication: Readonly<ModulePublication>;
+  program: Readonly<GtlProgram>;
+  programValidation: ProgramValidation;
+  rootImplementationSet: AdmittedImplementationSet;
+  rootInteractionSet: AdmittedInteractionSet;
+}>): ChildTraversalBasis {
+  return deepFreeze({
+    kind: "child_traversal_basis" as const,
+    schemaVersion: "5.0.0" as const,
+    ...input,
+  });
+}
 
 export interface ChildTraversalPreparationRequest {
+  readonly predecessorPrefix: DurablePrefixCoordinate;
   readonly parentExecutionBasis: ExecutionBasis;
   readonly parentTraversalScope: OpenedTraversalScope;
   readonly parentCCallRef: string;
@@ -45,6 +79,7 @@ export interface PreparedChildTraversal {
   readonly inputRef: string;
   readonly inputDigest: Sha256Digest;
   readonly input: Readonly<Record<string, JsonValue>>;
+  readonly successorPrefix: DurablePrefixCoordinate;
 }
 
 export interface ChildTraversalPreparationRefusal {
@@ -59,36 +94,178 @@ export interface ChildTraversalPreparationRefusal {
     | "scope_open";
   readonly diagnosticRef: string;
   readonly message: string;
+  readonly successorPrefix: DurablePrefixCoordinate;
 }
 
 export type ChildTraversalPreparationResult =
   | ChildTraversalPreparationRefusal
   | PreparedChildTraversal;
 
-export interface ChildTraversalPreparationPort {
-  readonly kind: "child_traversal_preparation_port";
-  readonly schemaVersion: "5.0.0";
-  readonly prepare: (
-    request: ChildTraversalPreparationRequest,
-  ) => ChildTraversalPreparationResult | Promise<ChildTraversalPreparationResult>;
-}
-
-export function constructChildTraversalPreparationPort(
-  prepare: ChildTraversalPreparationPort["prepare"],
-): ChildTraversalPreparationPort {
-  const port = deepFreeze({
-    kind: "child_traversal_preparation_port" as const,
+function refusal(
+  stage: ChildTraversalPreparationRefusal["stage"],
+  diagnosticRef: string,
+  message: string,
+  successorPrefix: DurablePrefixCoordinate,
+): ChildTraversalPreparationRefusal {
+  return deepFreeze({
+    kind: "child_traversal_preparation_refusal" as const,
     schemaVersion: "5.0.0" as const,
-    prepare,
-  }) as ChildTraversalPreparationPort;
-  return port;
+    disposition: "refused" as const,
+    stage,
+    diagnosticRef,
+    message,
+    successorPrefix,
+  });
 }
 
-export function isChildTraversalPreparationPort(
-  value: object,
-): value is ChildTraversalPreparationPort {
-  const candidate = value as Partial<ChildTraversalPreparationPort>;
-  return candidate.kind === "child_traversal_preparation_port" &&
-    candidate.schemaVersion === "5.0.0" &&
-    typeof candidate.prepare === "function";
+/**
+ * Exact synchronous owner composition for one child traversal. The immutable
+ * basis supplies installed definition data; GTL, Validator, and ABG retain
+ * their existing semantic and admission authority.
+ */
+export function prepareChildTraversal(
+  store: AbgEventStore,
+  basis: ChildTraversalBasis,
+  request: ChildTraversalPreparationRequest,
+): ChildTraversalPreparationResult {
+  if (
+    basis.kind !== "child_traversal_basis" ||
+    basis.schemaVersion !== "5.0.0" ||
+    request.parentExecutionBasis.programRef !== basis.program.programRef ||
+    request.parentExecutionBasis.programValidationRef !==
+      basis.programValidation.validationRef ||
+    request.parentTraversalScope.executionBasisRef !==
+      request.parentExecutionBasis.basisRef ||
+    !basis.program.callableMembership.includes(request.childGraphFunctionRef)
+  ) {
+    return refusal(
+      "membership",
+      "diagnostic://abiogenesis/child-traversal/program-membership-mismatch@5",
+      "child traversal request differs from the installed admitted Program root",
+      request.predecessorPrefix,
+    );
+  }
+  const graphFunction = basis.publication.graphFunctions.find(
+    (candidate) => candidate.name === request.childGraphFunctionRef,
+  );
+  if (graphFunction === undefined) {
+    return refusal(
+      "membership",
+      "diagnostic://abiogenesis/child-traversal/graph-function-absent@5",
+      "declared child GraphFunction is absent from the installed publication",
+      request.predecessorPrefix,
+    );
+  }
+  const closureContractRef =
+    graphFunction.declarations["abg.child_closure_contract"];
+  const closureContract = basis.publication.closureContracts.find(
+    (candidate) => candidate.closureContractRef === closureContractRef,
+  );
+  if (closureContract === undefined) {
+    return refusal(
+      "membership",
+      "diagnostic://abiogenesis/child-traversal/closure-contract-absent@5",
+      "declared child closure contract is absent from the installed publication",
+      request.predecessorPrefix,
+    );
+  }
+  const graph = materializeGraph(graphFunction, {
+    invocationAdmissionRef: request.parentExecutionBasis.invocationAdmissionRef,
+    admittedInputRef: request.inputRef,
+    admittedInputDigest: request.inputDigest,
+    admittedInput: request.input,
+  });
+  const graphValidation = validateGraph(
+    graph,
+    basis.programValidation,
+    graphFunction,
+    {
+      invocationAdmissionRef: request.parentExecutionBasis.invocationAdmissionRef,
+      admittedInputRef: request.inputRef,
+      admittedInputDigest: request.inputDigest,
+      admittedInput: request.input,
+    },
+  );
+  if (graphValidation.kind !== "graph_validation") {
+    return refusal(
+      "graph_validation",
+      `diagnostic://abiogenesis/child-traversal/${graphValidation.diagnostics[0]?.code ?? "invalid-graph"}@5`,
+      "child Graph failed exact non-lowering validation",
+      request.predecessorPrefix,
+    );
+  }
+  const childBasis = admitChildExecutionBasis(
+    store,
+    request.predecessorPrefix,
+    {
+      parentExecutionBasis: request.parentExecutionBasis,
+      parentTraversalScope: request.parentTraversalScope,
+      parentCCallRef: request.parentCCallRef,
+      program: basis.program,
+      programValidation: basis.programValidation,
+      graphFunction,
+      graph,
+      graphValidation,
+      rootImplementationSet: basis.rootImplementationSet,
+      rootInteractionSet: basis.rootInteractionSet,
+      closureContract,
+      admittedInputRef: request.inputRef,
+      admittedInputDigest: request.inputDigest,
+      rawInputValue: request.input,
+    },
+    {
+      eventTime: request.eventTime,
+      correlationId: `${request.correlationId}/basis`,
+      causationEventRefs: [],
+    },
+  );
+  if (childBasis.kind !== "child_execution_basis_admission") {
+    return refusal(
+      "basis_admission",
+      `diagnostic://abiogenesis/child-traversal/${childBasis.code}@5`,
+      childBasis.message,
+      request.predecessorPrefix,
+    );
+  }
+  const opened = openTraversalScope(
+    store,
+    childBasis.successorPrefix,
+    {
+      kind: "child",
+      executionBasis: childBasis.executionBasis,
+      parentScope: request.parentTraversalScope,
+    },
+    {
+      eventTime: request.eventTime,
+      correlationId: `${request.correlationId}/open`,
+      causationEventRefs: [],
+    },
+  );
+  if (opened.kind !== "traversal_scope_open_admission") {
+    return refusal(
+      "scope_open",
+      `diagnostic://abiogenesis/child-traversal/${opened.code}@5`,
+      opened.message,
+      childBasis.successorPrefix,
+    );
+  }
+  return deepFreeze({
+    kind: "prepared_child_traversal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "prepared" as const,
+    program: basis.program,
+    programValidation: basis.programValidation,
+    graphFunction,
+    graph,
+    graphValidation,
+    executionBasis: childBasis.executionBasis,
+    openedTraversalScope: opened.scope,
+    implementationSet: basis.rootImplementationSet,
+    interactionSet: basis.rootInteractionSet,
+    closureContract,
+    inputRef: request.inputRef,
+    inputDigest: request.inputDigest,
+    input: request.input,
+    successorPrefix: opened.successorPrefix,
+  });
 }

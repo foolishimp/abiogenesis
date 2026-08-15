@@ -10,47 +10,40 @@ export {
   traverse,
   traverseFromCursor,
   type TraversalCursor,
-  type ExecutableTraversalStopRef,
-  type InteractionTraversalStopRef,
   type TraversalRefusal,
-  type TraversalStopRef,
   type TraverseInput,
   type TraverseResult,
 } from "./traversal.js";
+export type {
+  CCallLocusCandidate,
+  ExecutableCCallLocusCandidate,
+  InteractionCCallLocusCandidate,
+} from "../abg/c_call.js";
 export {
-  deriveDirectCStep,
-  deriveDirectCContinuationStepFromGraph,
-  deriveDirectCStepFromGraph,
-  resolveCProgramTermAtPath,
-  rootCSourcePath,
-  rootCTraversalCoordinate,
-  type CSourcePath,
-  type CTraversalCoordinate,
-  type DirectCTraversalRefusal,
-  type DirectCTraversalResult,
-  type DirectCTraversalStep,
-} from "./direct_fold.js";
-export {
-  proposeJudgment,
+  proposeJudgmentCandidate,
   type DeclaredJudgmentRelation,
+  type JudgmentDecision,
 } from "./judgment.js";
 export {
   proposeBlockedRoute,
   proposeFailedRoute,
+  proposeFanOutRoute,
   proposeGapStopRoute,
   proposeGraphSpanReentryRoute,
-  proposeWorkflowBlockedRoute,
-  proposeJudgedRoute,
   proposeHoldRoute,
   proposeInteractionResumeRoute,
   proposeInteractionResumeTerminalRoute,
+  proposeJudgedRoute,
+  proposeRecursionRoute,
   proposeRetryRoute,
   proposeStructuralRoute,
   proposeTerminalRoute,
+  proposeCCallOutcomeTransition,
   type RouteProposalRefusal,
-} from "./traversal_route.js";
+} from "./route_proposal.js";
 export {
   executeGraphTraversal,
+  GraphTraversalFailure,
   type ExecuteGraphTraversalInput,
   type ExecuteGraphTraversalRequest,
   type ExecutableTraversalCompletion,
@@ -63,7 +56,8 @@ export {
   type ResumeHeldParentFrameInput,
 } from "./graph_execute.js";
 export {
-  type ChildTraversalPreparationPort,
+  constructChildTraversalBasis,
+  type ChildTraversalBasis,
   type ChildTraversalPreparationRefusal,
   type ChildTraversalPreparationRequest,
   type ChildTraversalPreparationResult,

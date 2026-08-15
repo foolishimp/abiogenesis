@@ -1,15 +1,19 @@
 import { isExecutionBasis, type ExecutionBasis } from "../abg/execution_basis.js";
 import {
+  constructCCallLocusCandidate,
+  type CCallLocusCandidate,
+} from "../abg/c_call.js";
+import {
   isOpenedTraversalScope,
   type OpenedTraversalScope,
 } from "../abg/open_call.js";
 import {
   isAdmittedRoute,
-  isCurrentAdmittedRecursionRoute,
+  isCurrentRecursionRouteSourceAtPrefix,
   type AdmittedRoute,
 } from "../abg/traversal_route.js";
 import {
-  hasAdmittedTraversalCursor,
+  constructTraversalCursorCandidate,
   hasAdmittedTraversalCursorAtPrefix,
   isTraversalCursorCandidate,
   type TraversalCursorCandidate,
@@ -17,7 +21,6 @@ import {
 import type { AbgEventStore } from "../abg/event_store.js";
 import type { ValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
 import type {
-  ComputeRegime,
   GraphFunction,
   GtlGraph,
   GtlProgram,
@@ -27,9 +30,9 @@ import type {
 import { isInteractionCLeaf } from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import {
-  deriveCBatchTaskInput,
   deriveCContinuationTarget,
-  resolveEnclosingCRetryContexts,
+  deriveCRetryTarget,
+  deriveCStructuralTarget,
   rootCSourcePath,
   resolveCProgramLocus,
   resolveCProgramTermAtSourcePath,
@@ -41,65 +44,8 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isGraphValidation, type GraphValidation } from "../validator/graph.js";
-import {
-  deriveDirectCStepFromGraph,
-  type DirectCTraversalStep,
-} from "./direct_fold.js";
 
 export type TraversalCursor = TraversalCursorCandidate;
-
-interface TraversalStopBase {
-  readonly kind: "traversal_stop_ref";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "at_compute_locus";
-  readonly stopRef: string;
-  readonly stopDigest: Sha256Digest;
-  readonly stopKind: "compute_locus";
-  readonly cursor: TraversalCursor;
-  readonly traversalScopeRef: string;
-  readonly runId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly nodeRef: string;
-  readonly programLocusRef: string;
-  readonly edgeRef: string;
-  readonly vectorIndex: number;
-  readonly judgmentPredicateRef: string;
-  readonly stageRole: string;
-  readonly batchRef: string | null;
-  readonly taskOrdinal: number | null;
-  readonly attempt: number;
-  readonly retryPath: readonly number[];
-  readonly computeRegime: ComputeRegime;
-  readonly armId: string;
-  readonly compositionRef: string | null;
-}
-
-export interface ExecutableTraversalStopRef extends TraversalStopBase {
-  readonly stopClass: "executable";
-  readonly computeRegime: "F_D" | "F_P";
-  readonly implementationBindingRef: string;
-  readonly inputContractRef: string;
-  readonly outputContractRef: string;
-  readonly evidenceContractRef: string;
-  readonly failureContractRef: string;
-  readonly refusalContractRef: string;
-  readonly judgmentContractRef: string;
-}
-
-export interface InteractionTraversalStopRef extends TraversalStopBase {
-  readonly stopClass: "interaction";
-  readonly computeRegime: "F_H";
-  readonly interactionKind: string;
-  readonly actorCapabilityRef: string;
-  readonly requestContractRef: string;
-  readonly responseContractRef: string;
-  readonly continuationContractRef: string;
-}
-
-export type TraversalStopRef =
-  | ExecutableTraversalStopRef
-  | InteractionTraversalStopRef;
 
 export interface TraversalRefusal {
   readonly kind: "traversal_refusal";
@@ -125,7 +71,10 @@ export interface TraverseInput {
   readonly openedTraversalScope: OpenedTraversalScope;
 }
 
-export type TraverseResult = TraversalCursor | TraversalStopRef | TraversalRefusal;
+export type TraverseResult =
+  | TraversalCursor
+  | CCallLocusCandidate
+  | TraversalRefusal;
 
 function refusal(
   code: TraversalRefusal["code"],
@@ -169,7 +118,7 @@ function createCursor(
   position: TraversalCursor["position"],
   input: TraversalInputBasis,
 ): TraversalCursor {
-  const cursorBody = {
+  return constructTraversalCursorCandidate({
     ...lineage,
     inputRef: input.inputRef,
     inputDigest: input.inputDigest,
@@ -179,23 +128,14 @@ function createCursor(
     taskOrdinal: coordinate.taskOrdinal,
     attempt: coordinate.attempt,
     retryPath: [...coordinate.retryPath],
-  };
-  const cursorDigest = sha256Canonical(cursorBody as unknown as JsonValue);
-  const cursor = deepFreeze({
-    kind: "traversal_cursor" as const,
-    schemaVersion: "5.0.0" as const,
-    cursorRef: `traversal-cursor://abiogenesis/${cursorDigest.slice("sha256:".length)}`,
-    cursorDigest,
-    ...cursorBody,
-  }) as TraversalCursor;
-  return cursor;
+  });
 }
 
 export function rehydrateHeldInteractionCursor(
   prefix: ValidatedRuntimeEventPrefix,
   candidate: TraversalCursorCandidate,
 ): TraversalCursor | null {
-  const cursorBody = {
+  const cursor = constructTraversalCursorCandidate({
     programRef: candidate.programRef,
     executionBasisRef: candidate.executionBasisRef,
     traversalScopeRef: candidate.traversalScopeRef,
@@ -211,16 +151,13 @@ export function rehydrateHeldInteractionCursor(
     taskOrdinal: candidate.taskOrdinal,
     attempt: candidate.attempt,
     retryPath: [...candidate.retryPath],
-  };
-  const cursorDigest = sha256Canonical(cursorBody as unknown as JsonValue);
+  });
   if (
     !hasAdmittedTraversalCursorAtPrefix(prefix, candidate) ||
-    candidate.kind !== "traversal_cursor" ||
-    candidate.schemaVersion !== "5.0.0" ||
+    !isTraversalCursorCandidate(candidate) ||
+    sha256Canonical(cursor as unknown as JsonValue) !==
+      sha256Canonical(candidate as unknown as JsonValue) ||
     candidate.position !== "at_term" ||
-    candidate.cursorDigest !== cursorDigest ||
-    candidate.cursorRef !==
-      `traversal-cursor://abiogenesis/${cursorDigest.slice("sha256:".length)}` ||
     candidate.programRef.length === 0 ||
     candidate.executionBasisRef.length === 0 ||
     candidate.traversalScopeRef.length === 0 ||
@@ -246,13 +183,6 @@ export function rehydrateHeldInteractionCursor(
   ) {
     return null;
   }
-  const cursor = deepFreeze({
-    kind: "traversal_cursor" as const,
-    schemaVersion: "5.0.0" as const,
-    cursorRef: candidate.cursorRef,
-    cursorDigest,
-    ...cursorBody,
-  }) as TraversalCursor;
   return cursor;
 }
 
@@ -306,81 +236,60 @@ export function resolveTraversalTerm(
 export function deriveStructuralTargetCursor(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursor,
-  step: DirectCTraversalStep,
+  term: Readonly<CProgramNode>,
 ): TraversalCursor | TraversalRefusal | null {
   const source = cursorCoordinate(sourceCursor);
+  const declaredTerm = resolveTraversalTerm(graph, sourceCursor);
   if (
-    step.source.nodeRef !== source.nodeRef ||
-    sha256Canonical(step.source.termPath as unknown as JsonValue) !==
-      sha256Canonical(source.termPath as unknown as JsonValue) ||
-    step.source.taskOrdinal !== source.taskOrdinal ||
-    step.source.attempt !== source.attempt ||
-    sha256Canonical(step.source.retryPath as unknown as JsonValue) !==
-      sha256Canonical(source.retryPath as unknown as JsonValue)
+    declaredTerm.kind === "traversal_refusal" ||
+    sha256Canonical(declaredTerm as unknown as JsonValue) !==
+      sha256Canonical(term as unknown as JsonValue)
   ) {
     return refusal(
       "traversal_cursor_mismatch",
       "direct C step differs from its exact traversal cursor",
     );
   }
-  if (step.stepKind === "open_leaf" || step.stepKind === "enter_child") {
+  if (term.kind === "c_of" || term.kind === "c_workflow") {
     return null;
   }
-  let target: TraversalCoordinate | null = null;
-  let targetInput: TraversalInputBasis = sourceCursor;
-  switch (step.stepKind) {
-    case "pass_identity": {
-      const continuation = deriveCContinuationTarget(
-        graph,
-        { ...source, inputRef: sourceCursor.inputRef, inputDigest: sourceCursor.inputDigest },
-        sourceCursor,
-      );
-      if (continuation.kind === "c_source_path_refusal") {
-        return refusal("locus_missing", continuation.message);
-      }
-      if (continuation.disposition === "terminal") return null;
-      target = {
-        nodeRef: continuation.nodeRef!,
-        termPath: continuation.termPath!,
-        taskOrdinal: continuation.taskOrdinal,
-        attempt: continuation.attempt!,
-        retryPath: continuation.retryPath,
-      };
-      targetInput = {
-        inputRef: continuation.inputRef!,
-        inputDigest: continuation.inputDigest!,
-      };
-      break;
-    }
-    case "enter_term":
-    case "retry":
-      target = step.target;
-      break;
-    case "start_task": {
-      target = step.target;
-      const batchInput = deriveCBatchTaskInput(
-        graph,
-        { ...source, inputRef: sourceCursor.inputRef, inputDigest: sourceCursor.inputDigest },
-        "enter_batch",
-        step.batchRef,
-        0,
-      );
-      if (batchInput.kind === "c_source_path_refusal") {
-        return refusal("locus_missing", batchInput.message);
-      }
-      targetInput = batchInput;
-      break;
-    }
-    case "complete_term":
-    case "continue_term":
-      return refusal(
-        "traversal_cursor_mismatch",
-        "active structural traversal cannot consume a post-term continuation step",
-      );
+  const routeKind = term.kind === "c_retry" ? "retry" as const : "advance" as const;
+  const target = deriveCStructuralTarget(
+    graph,
+    {
+      ...source,
+      inputRef: sourceCursor.inputRef,
+      inputDigest: sourceCursor.inputDigest,
+    },
+    routeKind,
+  );
+  if (target?.kind === "c_source_path_refusal") {
+    return refusal("locus_missing", target.message);
   }
-  return target === null
-    ? null
-    : createCursor(cursorLineage(sourceCursor), target, "at_term", targetInput);
+  if (target === null) return null;
+  const expectedRelation = term.kind === "c_identity"
+    ? "identity_continue"
+    : term.kind === "c_compose"
+      ? "compose_enter"
+      : term.kind === "c_edge"
+        ? "edge_enter"
+      : term.kind === "c_batch"
+        ? "batch_enter"
+        : term.kind === "c_retry"
+          ? "retry_enter"
+          : null;
+  if (target.relation !== expectedRelation) {
+    return refusal(
+      "traversal_cursor_mismatch",
+      "active structural traversal step differs from GTL topology",
+    );
+  }
+  return createCursor(
+    cursorLineage(sourceCursor),
+    target,
+    "at_term",
+    target,
+  );
 }
 
 export function deriveCompletedTraversalCursor(
@@ -419,39 +328,24 @@ export function deriveRetryTraversalCursor(
   sourceCursor: TraversalCursor,
   retryInput: TraversalInputBasis,
 ): TraversalCursor | TraversalRefusal {
-  const term = resolveTraversalTerm(graph, sourceCursor);
-  if (term.kind === "traversal_refusal") return term;
   const source = cursorCoordinate(sourceCursor);
-  const contexts = resolveEnclosingCRetryContexts(
-    graph.template,
-    source.nodeRef,
-    source.termPath,
+  const target = deriveCRetryTarget(
+    graph,
+    {
+      ...source,
+      inputRef: sourceCursor.inputRef,
+      inputDigest: sourceCursor.inputDigest,
+    },
+    retryInput,
   );
-  if ("kind" in contexts) return refusal("locus_missing", contexts.message);
-  const context = contexts.at(-1);
-  if (
-    context === undefined ||
-    context.retryDepth !== source.retryPath.length ||
-    source.attempt !== source.retryPath.at(-1) ||
-    source.attempt >= context.budget
-  ) {
-    return refusal(
-      "traversal_cursor_mismatch",
-      "same-edge retry requires one active declared retry boundary with remaining budget",
-    );
+  if (target.kind === "c_source_path_refusal") {
+    return refusal("traversal_cursor_mismatch", target.message);
   }
-  const nextAttempt = source.attempt + 1;
   return createCursor(
     cursorLineage(sourceCursor),
-    {
-      nodeRef: source.nodeRef,
-      termPath: context.wrappedTermPath,
-      taskOrdinal: context.taskOrdinal,
-      attempt: nextAttempt,
-      retryPath: [...source.retryPath.slice(0, -1), nextAttempt],
-    },
+    target,
     "at_term",
-    retryInput,
+    target,
   );
 }
 
@@ -640,7 +534,7 @@ export function deriveRecursionReentryCursor(
 }
 
 export function applyRecursionRoute(
-  store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
   sourceCursor: TraversalCursor,
   targetCursor: TraversalCursor,
   route: AdmittedRoute,
@@ -648,9 +542,14 @@ export function applyRecursionRoute(
   if (
     !isTraversalCursorCandidate(sourceCursor) ||
     !isTraversalCursorCandidate(targetCursor) ||
-    !hasAdmittedTraversalCursor(store, sourceCursor) ||
-    !hasAdmittedTraversalCursor(store, targetCursor) ||
-    !isCurrentAdmittedRecursionRoute(store, route) ||
+    !hasAdmittedTraversalCursorAtPrefix(prefix, sourceCursor) ||
+    !hasAdmittedTraversalCursorAtPrefix(prefix, targetCursor) ||
+    !isAdmittedRoute(prefix, route) ||
+    !isCurrentRecursionRouteSourceAtPrefix(prefix, {
+      runId: sourceCursor.runId,
+      frameId: sourceCursor.frameId,
+      sourceCursorRef: sourceCursor.cursorRef,
+    }) ||
     route.routeKind !== "advance" ||
     route.sourceCursorRef !== sourceCursor.cursorRef ||
     route.sourceCursorDigest !== sourceCursor.cursorDigest ||
@@ -730,7 +629,7 @@ function validateTraverseInput(input: TraverseInput): TraversalRefusal | null {
 function traversalResultAtCursor(
   input: TraverseInput,
   cursor: TraversalCursor,
-  suppliedStep?: DirectCTraversalStep,
+  suppliedTerm?: Readonly<CProgramNode>,
 ): TraverseResult {
   if (
     !isTraversalCursorCandidate(cursor) ||
@@ -751,39 +650,25 @@ function traversalResultAtCursor(
     );
   }
 
-  const step = suppliedStep ?? deriveDirectCStepFromGraph(
-    input.graph.template,
-    cursorCoordinate(cursor),
-  );
-  if (step.kind === "direct_c_traversal_refusal") {
-    return refusal(
-      step.code === "term_path_missing"
-        ? "locus_missing"
-        : "traversal_cursor_mismatch",
-      step.message,
-    );
-  }
+  const declaredTerm = resolveTraversalTerm(input.graph, cursor);
+  if (declaredTerm.kind === "traversal_refusal") return declaredTerm;
+  const term = suppliedTerm ?? declaredTerm;
   if (
-    step.source.nodeRef !== cursor.currentNodeRef ||
-    sha256Canonical(step.source.termPath as unknown as JsonValue) !==
-      sha256Canonical(cursor.termPath as unknown as JsonValue) ||
-    step.source.taskOrdinal !== cursor.taskOrdinal ||
-    step.source.attempt !== cursor.attempt ||
-    sha256Canonical(step.source.retryPath as unknown as JsonValue) !==
-      sha256Canonical(cursor.retryPath as unknown as JsonValue)
+    sha256Canonical(term as unknown as JsonValue) !==
+      sha256Canonical(declaredTerm as unknown as JsonValue)
   ) {
     return refusal(
       "traversal_cursor_mismatch",
       "direct C step differs from its exact traversal cursor",
     );
   }
-  if (step.stepKind !== "open_leaf") return cursor;
+  if (term.kind !== "c_of") return cursor;
   const batchRef = resolveEnclosingCBatchRef(
     input.graph.template,
     cursor.currentNodeRef,
     cursor.termPath,
   );
-  if (typeof batchRef === "object" && batchRef?.kind === "c_source_path_refusal") {
+  if (batchRef !== null && typeof batchRef !== "string") {
     return refusal("locus_missing", batchRef.message);
   }
   const commonStopBody = {
@@ -794,90 +679,74 @@ function traversalResultAtCursor(
     graphCallId: input.openedTraversalScope.graphCallId,
     frameId: input.openedTraversalScope.frameId,
     nodeRef: cursor.currentNodeRef,
-    programLocusRef: step.programLocusRef,
+    programLocusRef: term.programLocusRef,
     edgeRef: input.executionBasis.entryRef,
-    vectorIndex: step.vectorIndex,
-    judgmentPredicateRef: step.judgmentPredicateRef,
-    stageRole: step.stageRole,
+    vectorIndex: term.vectorIndex,
+    judgmentPredicateRef: term.judgmentPredicateRef,
+    stageRole: term.stageRole,
     batchRef,
     taskOrdinal: cursor.taskOrdinal,
     attempt: cursor.attempt,
     retryPath: [...cursor.retryPath],
-    computeRegime: step.fibre,
-    armId: step.armId,
-    compositionRef: step.compositionRef,
+    computeRegime: term.fibre,
+    armId: term.armId,
+    compositionRef: term.compositionRef,
   };
   if (
-    (step.leafKind === "executable" &&
-      step.requirement.kind !== "executable_leaf_requirement") ||
-    (step.leafKind === "interaction" &&
-      step.requirement.kind !== "interaction_leaf_requirement")
+    (term.fibre !== "F_H" &&
+      term.requirement.kind !== "executable_leaf_requirement") ||
+    (term.fibre === "F_H" &&
+      term.requirement.kind !== "interaction_leaf_requirement")
   ) {
     return refusal(
       "locus_missing",
       "direct C leaf kind differs from its admitted leaf requirement",
     );
   }
-  const stopBody = step.requirement.kind === "executable_leaf_requirement"
+  const stopBody = term.requirement.kind === "executable_leaf_requirement"
     ? {
         ...commonStopBody,
         stopClass: "executable" as const,
-        computeRegime: step.fibre as "F_D" | "F_P",
-        implementationBindingRef: step.requirement.implementationBindingRef,
-        inputContractRef: step.requirement.inputContractRef,
-        outputContractRef: step.requirement.outputContractRef,
-        evidenceContractRef: step.requirement.evidenceContractRef,
-        failureContractRef: step.requirement.failureContractRef,
-        refusalContractRef: step.requirement.refusalContractRef,
-        judgmentContractRef: step.requirement.judgmentContractRef,
+        computeRegime: term.fibre as "F_D" | "F_P",
+        implementationBindingRef: term.requirement.implementationBindingRef,
+        inputContractRef: term.requirement.inputContractRef,
+        outputContractRef: term.requirement.outputContractRef,
+        evidenceContractRef: term.requirement.evidenceContractRef,
+        failureContractRef: term.requirement.failureContractRef,
+        refusalContractRef: term.requirement.refusalContractRef,
+        judgmentContractRef: term.requirement.judgmentContractRef,
       }
     : {
         ...commonStopBody,
         stopClass: "interaction" as const,
         computeRegime: "F_H" as const,
-        interactionKind: step.requirement.interactionKind,
-        actorCapabilityRef: step.requirement.actorCapabilityRef,
-        requestContractRef: step.requirement.requestContractRef,
-        responseContractRef: step.requirement.responseContractRef,
-        continuationContractRef: step.requirement.continuationContractRef,
+        interactionKind: term.requirement.interactionKind,
+        actorCapabilityRef: term.requirement.actorCapabilityRef,
+        requestContractRef: term.requirement.requestContractRef,
+        responseContractRef: term.requirement.responseContractRef,
+        continuationContractRef: term.requirement.continuationContractRef,
       };
-  const stopDigest = sha256Canonical(stopBody as unknown as JsonValue);
-  const stop = deepFreeze({
-    kind: "traversal_stop_ref" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "at_compute_locus" as const,
-    stopRef: `traversal-stop://abiogenesis/${stopDigest.slice("sha256:".length)}`,
-    stopDigest,
-    ...stopBody,
-  }) as TraversalStopRef;
-  return stop;
+  return constructCCallLocusCandidate(stopBody);
 }
 
 export function traverseFromCursor(
   input: TraverseInput,
   cursor: TraversalCursor,
+  term?: Readonly<CProgramNode>,
 ): TraverseResult {
   const invalid = validateTraverseInput(input);
-  return invalid ?? traversalResultAtCursor(input, cursor);
-}
-
-export function traverseFromDirectStep(
-  input: TraverseInput,
-  cursor: TraversalCursor,
-  step: DirectCTraversalStep,
-): TraverseResult {
-  const invalid = validateTraverseInput(input);
-  return invalid ?? traversalResultAtCursor(input, cursor, step);
+  return invalid ?? traversalResultAtCursor(input, cursor, term);
 }
 
 export function applyAdmittedRoute(
+  prefix: ValidatedRuntimeEventPrefix,
   sourceCursor: TraversalCursor,
   targetCursor: TraversalCursor,
   expectedKind: "advance" | "re_enter" | "retry",
   route: AdmittedRoute,
 ): TraversalCursor | TraversalRefusal {
   if (
-    !isAdmittedRoute(route) ||
+    !isAdmittedRoute(prefix, route) ||
     route.routeKind !== expectedKind ||
     route.sourceCursorRef !== sourceCursor.cursorRef ||
     route.sourceCursorDigest !== sourceCursor.cursorDigest ||

@@ -16,11 +16,15 @@ import {
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
-import type {
-  AbgEventStore,
-  RootEventKind,
-  RuntimeEvent,
-  RuntimeEventScope,
+import {
+  assertHeldEventStoreAtDurablePrefix,
+  assertRuntimeEventTransactionActive,
+  readRuntimeEventsAtDurablePrefix,
+  type AbgEventStore,
+  type DurablePrefixCoordinate,
+  type RootEventKind,
+  type RuntimeEvent,
+  type RuntimeEventScope,
 } from "./event_store.js";
 import { ROOT_EVENT_CONTRACT_DIGEST } from "./event_store.js";
 import { projectCCallPhase } from "./c_call.js";
@@ -55,6 +59,50 @@ export interface ReplayCCallState {
   readonly judgmentRef: string | null;
   readonly judgment: string | null;
   readonly status: "fibre_selected" | "judged" | "opened" | "result_admitted";
+}
+
+export interface ActiveRuntimeTransactionProjection {
+  readonly authorityPrefix: ValidatedRuntimeEventPrefix;
+  readonly runtimePrefix: ValidatedRuntimeEventPrefix;
+  readonly replayState: ReplayState;
+}
+
+export function projectRuntimeTruthAtDurablePrefix(
+  predecessorPrefix: DurablePrefixCoordinate,
+  runId: string,
+): ActiveRuntimeTransactionProjection {
+  const events = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
+  const authorityPrefix = selectValidatedRuntimeEventPrefix(events);
+  const runtimePrefix = selectValidatedRuntimeEventPrefix(events, { runId });
+  return deepFreeze({
+    authorityPrefix,
+    runtimePrefix,
+    replayState: replayValidatedRuntimeEventPrefix(
+      runtimePrefix,
+      authorityPrefix,
+    ),
+  });
+}
+
+/** Projects staged transaction truth without exposing raw mutable store reads. */
+export function projectActiveRuntimeTransaction(
+  store: AbgEventStore,
+  durablePredecessor: DurablePrefixCoordinate,
+  runId: string,
+): ActiveRuntimeTransactionProjection {
+  assertRuntimeEventTransactionActive(store);
+  assertHeldEventStoreAtDurablePrefix(store, durablePredecessor);
+  const events = store.readAll();
+  const authorityPrefix = selectValidatedRuntimeEventPrefix(events);
+  const runtimePrefix = selectValidatedRuntimeEventPrefix(events, { runId });
+  return deepFreeze({
+    authorityPrefix,
+    runtimePrefix,
+    replayState: replayValidatedRuntimeEventPrefix(
+      runtimePrefix,
+      authorityPrefix,
+    ),
+  });
 }
 
 export interface ReplayRouteState {

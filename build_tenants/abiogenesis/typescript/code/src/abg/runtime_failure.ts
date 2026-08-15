@@ -3,7 +3,7 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
-  hasAdmittedExecutionBasis,
+  hasAdmittedExecutionBasisAtPrefix,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
@@ -13,11 +13,21 @@ import {
   holdsAt,
 } from "./event_calculus.js";
 import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
-import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
 import {
-  hasOpenedTraversalScope,
+  AbgEventStore,
+  admitRuntimeEvent,
+  admitRuntimeEventTransactionAtDurablePrefix,
+  readRuntimeEventsAtDurablePrefix,
+  type DurablePrefixCoordinate,
+} from "./event_store.js";
+import {
+  hasOpenedTraversalScopeAtPrefix,
   type OpenedTraversalScope,
 } from "./open_call.js";
+import {
+  replayValidatedRuntimeEventPrefix,
+  type ReplayState,
+} from "./replay.js";
 
 export interface RuntimeFailureAdmission {
   readonly kind: "runtime_failure_admission";
@@ -41,26 +51,50 @@ export interface RuntimeFailureAdmission {
   readonly admissionEventRef: string;
 }
 
+export interface RuntimeFailureAdmissionReceipt {
+  readonly kind: "runtime_failure_admission_receipt";
+  readonly schemaVersion: "5.0.0";
+  readonly admission: RuntimeFailureAdmission;
+  readonly replayState: ReplayState;
+  readonly successorPrefix: DurablePrefixCoordinate;
+}
+
+export interface AdmitRuntimeFailureInput {
+  readonly store: AbgEventStore;
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+  readonly executionBasis: ExecutionBasis;
+  readonly scope: OpenedTraversalScope;
+  readonly stage: RuntimeFailureAdmission["stage"];
+  readonly subject: JsonValue;
+  readonly diagnosticRef: string;
+  readonly basis: RuntimeAdmissionBasis;
+}
+
 export function admitRuntimeFailure(
-  store: AbgEventStore,
-  executionBasis: ExecutionBasis,
-  scope: OpenedTraversalScope,
-  stage: RuntimeFailureAdmission["stage"],
-  subject: JsonValue,
-  diagnosticRef: string,
-  basis: RuntimeAdmissionBasis,
-): RuntimeFailureAdmission {
+  input: Readonly<AdmitRuntimeFailureInput>,
+): RuntimeFailureAdmissionReceipt {
+  const {
+    store,
+    predecessorPrefix,
+    executionBasis,
+    scope,
+    stage,
+    subject,
+    diagnosticRef,
+    basis,
+  } = input;
+  const predecessorEvents = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
+  const authorityPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
+  const runPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents, {
+    runId: scope.runId,
+  });
   if (
-    !hasAdmittedExecutionBasis(store, executionBasis) ||
-    !hasOpenedTraversalScope(store, scope) ||
+    !hasAdmittedExecutionBasisAtPrefix(authorityPrefix, executionBasis) ||
+    !hasOpenedTraversalScopeAtPrefix(authorityPrefix, scope) ||
     scope.executionBasisRef !== executionBasis.basisRef ||
     diagnosticRef.length === 0 ||
     !holdsAt(
-      deriveRuntimeEventCalculusProjection(
-        selectValidatedRuntimeEventPrefix(store.readAll(), {
-          runId: scope.runId,
-        }),
-      ),
+      deriveRuntimeEventCalculusProjection(runPrefix),
       constructRunActiveFluent(scope.runId),
     )
   ) {
@@ -81,7 +115,10 @@ export function admitRuntimeFailure(
   const causationEventRefs = basis.causationEventRefs.length === 0
     ? [scope.frameOpenEventRef]
     : basis.causationEventRefs;
-  const event = admitRuntimeEvent(store, {
+  const transaction = admitRuntimeEventTransactionAtDurablePrefix(
+    store,
+    predecessorPrefix,
+    () => admitRuntimeEvent(store, {
     kind: "runtime_failure_observed",
     eventTime: basis.eventTime,
     aggregateType: "run",
@@ -99,14 +136,31 @@ export function admitRuntimeFailure(
     frameId: scope.frameId,
     frameLineageId: scope.frameLineageId,
     payload: { failureRef, failureDigest, ...body },
-  });
-  return deepFreeze({
+    }),
+  );
+  if (transaction.successorPrefix === null) {
+    throw new TypeError("runtime failure admission did not produce a durable successor");
+  }
+  const admission = deepFreeze({
     kind: "runtime_failure_admission" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "failed" as const,
     failureRef,
     failureDigest,
     ...body,
-    admissionEventRef: event.eventId,
+    admissionEventRef: transaction.value.eventId,
   }) as RuntimeFailureAdmission;
+  const successorEvents = readRuntimeEventsAtDurablePrefix(
+    transaction.successorPrefix,
+  );
+  return deepFreeze({
+    kind: "runtime_failure_admission_receipt" as const,
+    schemaVersion: "5.0.0" as const,
+    admission,
+    replayState: replayValidatedRuntimeEventPrefix(
+      selectValidatedRuntimeEventPrefix(successorEvents, { runId: scope.runId }),
+      selectValidatedRuntimeEventPrefix(successorEvents),
+    ),
+    successorPrefix: transaction.successorPrefix,
+  });
 }

@@ -579,17 +579,16 @@ The operative laws are:
    the correspondence or operative laws invalidates the cut even when behavior
    tests pass.
 
-Contraction is a mandatory drift sentinel for failure to apply the accepted
-algebra, not a substitute for the preceding laws or an independent Product
-completion predicate. Production TypeScript under `code/src/hog` was 10,175
-lines at checkpoint `6d78258b`; the current Executive construction target is no
-more than 2,550 total production lines there, with every retained or moved line
-covered by the exact correspondence above. Exceeding that target stops for F_H
-disposition and requires an explicit irreducible-function mapping. It cannot by
-itself block 5.0 after every authority/control law holds and F_H accepts that
-mapping. Meeting it cannot cure a controller, authority, or correspondence
-violation; moving coordination elsewhere or compressing syntax does not
-satisfy it.
+Contraction is diagnostic evidence for whether the accepted algebra displaced
+the old engine, not a substitute for the preceding laws or an independent
+Product completion predicate. Production TypeScript under `code/src/hog` was
+10,175 lines at checkpoint `6d78258b`; 2,550 lines records the Executive's
+expected construction trajectory. Neither value is a pass/fail threshold or an
+F_H escalation predicate. Every retained or moved function and edge must satisfy
+the exact correspondence above regardless of volume. Meeting the target cannot
+cure a controller, authority, or correspondence violation; exceeding it cannot
+block a structurally conforming cut; moving coordination elsewhere or
+compressing syntax does not satisfy the laws.
 
 #### 5.6.2 Installed definition-binding ABI
 

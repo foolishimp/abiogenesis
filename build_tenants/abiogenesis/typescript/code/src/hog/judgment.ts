@@ -15,21 +15,47 @@ export interface DeclaredJudgmentRelation<Input, Output> {
   readonly evaluate: (input: Readonly<Input>, output: Readonly<Output>) => boolean;
 }
 
-export function proposeJudgment<Input, Output>(
-  cCall: CCall,
-  result: AdmittedCCallResult,
-  replayState: ReplayState,
-  input: Readonly<Input>,
-  relation: DeclaredJudgmentRelation<Input, Output>,
-  contractRef: string,
-): JudgmentCandidate {
+export type JudgmentDecision<Input, Output> =
+  | Readonly<{
+      decisionClass: "evaluate";
+      input: Readonly<Input>;
+      relation: DeclaredJudgmentRelation<Input, Output>;
+    }>
+  | Readonly<{
+      decisionClass: "refuse";
+      predicateRef: string;
+      reasonRef: string;
+    }>;
+
+export function proposeJudgmentCandidate<Input, Output>(input: Readonly<{
+  cCall: CCall;
+  result: AdmittedCCallResult;
+  replayState: ReplayState;
+  contractRef: string;
+  decision: JudgmentDecision<Input, Output>;
+}>): JudgmentCandidate {
+  const { cCall, result, replayState, contractRef, decision } = input;
   let accepted = false;
-  let reasonRef = relation.rejectionReasonRef;
-  try {
-    accepted = relation.evaluate(input, result.value as unknown as Readonly<Output>);
-    reasonRef = accepted ? relation.advanceReasonRef : relation.rejectionReasonRef;
-  } catch {
-    reasonRef = "diagnostic://abiogenesis/hog/judgment-evaluation-exception@5";
+  let reasonRef = decision.decisionClass === "evaluate"
+    ? decision.relation.rejectionReasonRef
+    : decision.reasonRef;
+  const predicateRef = decision.decisionClass === "evaluate"
+    ? decision.relation.predicateRef
+    : decision.predicateRef;
+  if (decision.decisionClass === "evaluate") {
+    reasonRef = decision.relation.rejectionReasonRef;
+    try {
+      accepted = decision.relation.evaluate(
+        decision.input,
+        result.value as unknown as Readonly<Output>,
+      );
+      reasonRef = accepted
+        ? decision.relation.advanceReasonRef
+        : decision.relation.rejectionReasonRef;
+    } catch {
+      reasonRef =
+        "diagnostic://abiogenesis/hog/judgment-evaluation-exception@5";
+    }
   }
   const body = {
     cCallRef: cCall.cCallRef,
@@ -38,34 +64,7 @@ export function proposeJudgment<Input, Output>(
     judgment: accepted ? "advance" as const : "blocked" as const,
     reasonRef,
     contractRef,
-    predicateRef: relation.predicateRef,
-    replayStateDigest: replayState.replayDigest,
-  };
-  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
-  return deepFreeze({
-    kind: "judgment_candidate" as const,
-    schemaVersion: "5.0.0" as const,
-    candidateRef: `judgment-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
-    candidateDigest,
-    ...body,
-  }) as JudgmentCandidate;
-}
-
-export function proposeFailureJudgment(
-  cCall: CCall,
-  result: AdmittedCCallResult,
-  replayState: ReplayState,
-  reasonRef: string,
-  contractRef: string,
-): JudgmentCandidate {
-  const body = {
-    cCallRef: cCall.cCallRef,
-    resultRef: result.resultRef,
-    resultDigest: result.resultDigest,
-    judgment: "blocked" as const,
-    reasonRef,
-    contractRef,
-    predicateRef: cCall.judgmentPredicateRef,
+    predicateRef,
     replayStateDigest: replayState.replayDigest,
   };
   const candidateDigest = sha256Canonical(body as unknown as JsonValue);

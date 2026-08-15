@@ -102,8 +102,8 @@ export function projectExactInvocationAdmissionAtPrefix(
     graphFunctionDigest: admission.graphFunctionDigest,
     selectedDefinitionRef: admission.selectedDefinitionRef,
     selectedDefinitionDigest: admission.selectedDefinitionDigest,
-    hogEntryCoordinate: admission.hogEntryCoordinate,
-    hogEntryStep: admission.hogEntryStep,
+    gtlEntryCoordinate: admission.gtlEntryCoordinate,
+    gtlEntryTerm: admission.gtlEntryTerm,
     inputContractRef: admission.inputContractRef,
     outputContractRef: admission.outputContractRef,
     programValidationRef: admission.programValidationRef,
@@ -188,14 +188,14 @@ export function projectExactInvocationAdmissionAtPrefix(
         admission.programValidationRef &&
       publicEvent.payload.programValidationDigest ===
         admission.programValidationDigest &&
-      isRecord(publicEvent.payload.hogEntryCoordinate) &&
-      isRecord(publicEvent.payload.hogEntryStep) &&
-      sha256Canonical(publicEvent.payload.hogEntryCoordinate) ===
+      isRecord(publicEvent.payload.gtlEntryCoordinate) &&
+      isRecord(publicEvent.payload.gtlEntryTerm) &&
+      sha256Canonical(publicEvent.payload.gtlEntryCoordinate) ===
         sha256Canonical(
-          admission.hogEntryCoordinate as unknown as JsonValue,
+          admission.gtlEntryCoordinate as unknown as JsonValue,
         ) &&
-      sha256Canonical(publicEvent.payload.hogEntryStep) ===
-        sha256Canonical(admission.hogEntryStep as unknown as JsonValue) &&
+      sha256Canonical(publicEvent.payload.gtlEntryTerm) ===
+        sha256Canonical(admission.gtlEntryTerm as unknown as JsonValue) &&
       event.payload.invocationAdmissionRef === admission.invocationAdmissionRef &&
       event.payload.invocationAdmissionDigest ===
         admission.invocationAdmissionDigest

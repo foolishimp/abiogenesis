@@ -1,12 +1,14 @@
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   constructRuntimeFluent,
   deriveRuntimeEventCalculusProjection,
   holdsAt,
 } from "./event_calculus.js";
-import type { AbgEventStore } from "./event_store.js";
+import {
+  readRuntimeEventsAtDurablePrefix,
+  type DurablePrefixCoordinate,
+} from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
@@ -37,16 +39,18 @@ function isRecord(
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-export function projectCurrentDeferredApplication(
-  store: AbgEventStore,
+export function projectDeferredApplicationAtPrefix(
+  predecessorPrefix: DurablePrefixCoordinate,
   coordinates: Readonly<{
     runId: string;
+    frameId: string;
+    sourceCursorRef: string;
     cCallRef: string;
     resultRef: string;
     judgmentRef: string;
   }>,
 ): DeferredApplicationProjection | null {
-  const snapshot = store.readAll();
+  const snapshot = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
   const fullPrefix = selectValidatedRuntimeEventPrefix(snapshot);
   const currentPrefix = selectValidatedRuntimeEventPrefix(snapshot, {
     runId: coordinates.runId,
@@ -74,13 +78,18 @@ export function projectCurrentDeferredApplication(
   );
   if (resultEvent === undefined || !isRecord(resultEvent.payload)) return null;
   const eventCalculus = deriveRuntimeEventCalculusProjection(currentPrefix);
-  if (!holdsAt(
-    eventCalculus,
+  if (![
+    constructRuntimeFluent({ name: "run_active", identity: coordinates.runId }),
+    constructRuntimeFluent({ name: "frame_active", identity: coordinates.frameId }),
+    constructRuntimeFluent({
+      name: "locus_active",
+      identity: coordinates.sourceCursorRef,
+    }),
     constructRuntimeFluent({
       name: "c_call_judgment_available",
       identity: coordinates.judgmentRef,
     }),
-  )) {
+  ].every((fluent) => holdsAt(eventCalculus, fluent))) {
     return null;
   }
   const historicalPrefix = validatedRuntimeEventPrefixThroughEvent(
@@ -107,43 +116,4 @@ export function projectCurrentDeferredApplication(
       historicalAuthorityPrefix,
     ),
   });
-}
-
-export function isCurrentDeferredApplicationProjection(
-  store: AbgEventStore,
-  value: DeferredApplicationProjection,
-): boolean {
-  const projected = projectCurrentDeferredApplication(store, {
-    runId: value.runId,
-    cCallRef: value.cCallRef,
-    resultRef: value.resultRef,
-    judgmentRef: value.judgmentRef,
-  });
-  return projected !== null &&
-    sha256Canonical(projected as unknown as JsonValue) ===
-      sha256Canonical(value as unknown as JsonValue);
-}
-
-export function hasCurrentDeferredApplicationAuthority(
-  store: AbgEventStore,
-  coordinates: Readonly<{
-    runId: string;
-    frameId: string;
-    sourceCursorRef: string;
-    judgmentRef: string;
-  }>,
-): boolean {
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
-    runId: coordinates.runId,
-  });
-  const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
-  return [
-    constructRuntimeFluent({ name: "run_active", identity: coordinates.runId }),
-    constructRuntimeFluent({ name: "frame_active", identity: coordinates.frameId }),
-    constructRuntimeFluent({ name: "locus_active", identity: coordinates.sourceCursorRef }),
-    constructRuntimeFluent({
-      name: "c_call_judgment_available",
-      identity: coordinates.judgmentRef,
-    }),
-  ].every((fluent) => holdsAt(eventCalculus, fluent));
 }

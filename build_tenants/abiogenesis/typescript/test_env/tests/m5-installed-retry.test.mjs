@@ -1681,7 +1681,7 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
           };
           const [{ rehydrateAdmittedCCallState, projectOpenedCCallCarrier },
             { rehydrateExecutionBasis },
-            { materializeGraph }, retryApi, routeApi, replayApi, hogRouteApi] =
+            { materializeGraph }, retryApi, routeApi, replayApi, routeProposalApi] =
             await Promise.all([
               import(pathToFileURL(join(root,
                 "build/code/src/abg/c_call.js")).href),
@@ -1696,7 +1696,7 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
               import(pathToFileURL(join(root,
                 "build/code/src/abg/replay.js")).href),
               import(pathToFileURL(join(root,
-                "build/code/src/hog/traversal_route.js")).href),
+                "build/code/src/abg/route_proposal.js")).href),
             ]);
           const catalogEntry = run.outcomes[4].result.entries
             .find((entry) => entry.handle === GRAPH_FUNCTION_REF);
@@ -1844,7 +1844,7 @@ test("M5 installed C.retry closes stationary and budget-stopped runtime failures
           const lateReplay = replayApi.replay(lateStore.store, {
             runId: childCall.runId,
           });
-          const proposal = hogRouteApi.proposeBlockedRoute(
+          const proposal = routeProposalApi.proposeBlockedRoute(
             graph,
             {
               cursor: childCursor,

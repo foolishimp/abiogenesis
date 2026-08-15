@@ -3,6 +3,10 @@ import type {
   AdmittedCCallResult,
   CCall,
 } from "../abg/c_call.js";
+import type {
+  BlockedCCallOutcomeReceipt,
+  JudgedCCallOutcomeReceipt,
+} from "../abg/c_call_outcome.js";
 import type { FanOutCompletionAdmission } from "../abg/fan_out.js";
 import type { FhInteractionResumeAdmission } from "../abg/continuation.js";
 import type {
@@ -20,25 +24,35 @@ import {
 } from "../abg/graph_application.js";
 import type {
   FanOutApplication,
+  GraphFunction,
   GtlGraph,
   RecurseApplication,
 } from "../gtl/contracts.js";
-import type { CWorkflowNode } from "../gtl/c_algebra.js";
 import { graphFunctionApplicationRef } from "../gtl/graph_applications.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import {
   deriveCContinuationTarget,
   deriveCSourceContinuation,
-  resolveCProgramTermAtSourcePath,
 } from "../gtl/source_path.js";
-import { isTraversalCursorCandidate } from "../abg/traversal_cursor.js";
+import {
+  isTraversalCursorCandidate,
+  type TraversalCursorCandidate as TraversalCursor,
+} from "../abg/traversal_cursor.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
 import {
-  type TraversalCursor,
-  type TraversalStopRef,
-} from "./traversal.js";
+  completeRouteCandidate,
+  completeTraversalTransitionCandidate,
+  type RouteCandidateBody,
+  type TraversalTransitionCandidate,
+} from "../abg/traversal_transition.js";
+
+type RouteSourceLocus = Readonly<{
+  stopClass: "executable" | "interaction";
+  nodeRef: string;
+  programLocusRef: string;
+  cursor: TraversalCursor;
+}>;
 
 export interface RouteProposalRefusal {
   readonly kind: "traversal_route_proposal_refusal";
@@ -69,23 +83,6 @@ function routeRefusal(
   };
 }
 
-type RouteCandidateBody = Omit<
-  RouteCandidate,
-  "kind" | "schemaVersion" | "candidateRef" | "candidateDigest"
->;
-
-function routeCandidate(body: RouteCandidateBody): RouteCandidate {
-  const candidateDigest = sha256Canonical(body as unknown as JsonValue);
-  return deepFreeze({
-    kind: "traversal_route_candidate" as const,
-    schemaVersion: "5.0.0" as const,
-    candidateRef:
-      `route-candidate://abiogenesis/${candidateDigest.slice("sha256:".length)}`,
-    candidateDigest,
-    ...body,
-  }) as RouteCandidate;
-}
-
 type GraphRouteExtras = Partial<Pick<
   RouteCandidateBody,
   | "graphSpanReentryProjection"
@@ -108,7 +105,7 @@ function graphRouteCandidate(input: Readonly<{
   replayState: ReplayState;
   extras?: GraphRouteExtras;
 }>): RouteCandidate {
-  return routeCandidate({
+  return completeRouteCandidate({
     routeKind: input.routeKind,
     declarationRef: input.graph.materializationRef,
     declarationDigest: input.graph.materializationDigest,
@@ -243,7 +240,7 @@ export function proposeRetryRoute(
 
 export function proposeTerminalRoute(
   graph: Readonly<GtlGraph>,
-  stop: TraversalStopRef,
+  stop: RouteSourceLocus,
   cCall: CCall,
   judgment: AdmittedCCallJudgment,
   replayState: ReplayState,
@@ -399,7 +396,7 @@ export function proposeGraphSpanReentryRoute(
 
 export function proposeGapStopRoute(
   graph: Readonly<GtlGraph>,
-  stop: TraversalStopRef,
+  stop: RouteSourceLocus,
   cCall: CCall,
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
@@ -470,7 +467,7 @@ export function proposeGapStopRoute(
 
 export function proposeBlockedRoute(
   graph: Readonly<GtlGraph>,
-  stop: TraversalStopRef,
+  stop: RouteSourceLocus,
   cCall: CCall,
   judgmentRef: string,
   replayState: ReplayState,
@@ -503,7 +500,7 @@ export function proposeBlockedRoute(
 
 export function proposeFailedRoute(
   graph: Readonly<GtlGraph>,
-  stop: TraversalStopRef,
+  stop: RouteSourceLocus,
   cCall: CCall,
   result: AdmittedCCallResult,
   judgment: AdmittedCCallJudgment,
@@ -540,9 +537,116 @@ export function proposeFailedRoute(
   });
 }
 
+/**
+ * HoG's single ordinary CCall transition relation. Result and judgment truth
+ * are already admitted by ABG; this function derives only the exact structural
+ * route candidate and binds the corresponding admitted evidence.
+ */
+export function proposeCCallOutcomeTransition(input: Readonly<{
+  graph: Readonly<GtlGraph>;
+  graphFunction: Readonly<GraphFunction>;
+  sourceCursor: TraversalCursor;
+  targetCursor: TraversalCursor | null;
+  outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt;
+  completedProgresses?: readonly RetryCompletedProgressAdmission[];
+  terminalizeNonAdvance: boolean;
+}>): TraversalTransitionCandidate | RouteProposalRefusal {
+  const outcome = input.outcome;
+  const blocked = outcome.disposition === "blocked";
+  const admitted = blocked ? null : outcome.admitted;
+  const cCall = blocked ? outcome.cCall : admitted!.cCall;
+  const stop: RouteSourceLocus = {
+    stopClass: cCall.regime === "F_H" ? "interaction" : "executable",
+    nodeRef: input.sourceCursor.currentNodeRef,
+    programLocusRef: cCall.programLocusRef,
+    cursor: input.sourceCursor,
+  };
+  const completedProgresses = input.completedProgresses ?? [];
+  const proposal = blocked
+    ? proposeBlockedRoute(
+        input.graph,
+        stop,
+        cCall,
+        outcome.completion.rejectionJudgmentRef,
+        outcome.replayState,
+        cCall.transitionContractRef,
+      )
+    : admitted!.result.resultClass === "failure"
+      ? proposeFailedRoute(
+          input.graph,
+          stop,
+          cCall,
+          admitted!.result,
+          admitted!.judgment,
+          outcome.replayState,
+          cCall.transitionContractRef,
+        )
+      : admitted!.judgment.judgment === "blocked"
+        ? proposeBlockedRoute(
+            input.graph,
+            stop,
+            cCall,
+            admitted!.judgment.judgmentRef,
+            outcome.replayState,
+            cCall.transitionContractRef,
+          )
+        : proposeJudgedRoute(
+            input.graph,
+            input.sourceCursor,
+            input.targetCursor,
+            cCall,
+            admitted!.result,
+            admitted!.judgment,
+            outcome.replayState,
+            cCall.transitionContractRef,
+            completedProgresses,
+          );
+  if (proposal.kind !== "traversal_route_candidate") return proposal;
+  const evidence = blocked
+    ? {
+        evidenceClass: "blocked" as const,
+        graphFunction: input.graphFunction,
+        cCall,
+        resultRef: outcome.completion.refusalResultRef,
+        judgmentRef: outcome.completion.rejectionJudgmentRef,
+        judgmentEventRef: outcome.completion.judgmentEventRef,
+        reasonRef: outcome.diagnosticRef,
+        stoppedProgresses: [],
+      }
+    : admitted!.judgment.judgment === "blocked" &&
+        admitted!.result.resultClass !== "failure"
+      ? {
+          evidenceClass: "blocked" as const,
+          graphFunction: input.graphFunction,
+          cCall,
+          resultRef: admitted!.result.resultRef,
+          judgmentRef: admitted!.judgment.judgmentRef,
+          judgmentEventRef: admitted!.judgment.admissionEventRef,
+          reasonRef: admitted!.judgment.reasonRef,
+          stoppedProgresses: [],
+        }
+      : {
+          evidenceClass: "judged" as const,
+          graphFunction: input.graphFunction,
+          cCall,
+          result: admitted!.result,
+          judgment: admitted!.judgment,
+          completedProgresses,
+        };
+  return completeTraversalTransitionCandidate({
+    kind: "traversal_transition_candidate",
+    schemaVersion: "5.0.0",
+    transitionClass: "route",
+    route: proposal,
+    evidence,
+    terminalizeRun: proposal.routeKind !== "advance" &&
+      input.terminalizeNonAdvance,
+  });
+}
+
 export function proposeHoldRoute(
   graph: Readonly<GtlGraph>,
-  stop: TraversalStopRef,
+  stop: RouteSourceLocus,
   cCall: CCall,
   judgment: AdmittedCCallJudgment,
   replayState: ReplayState,
@@ -579,7 +683,7 @@ export function proposeHoldRoute(
 
 export function proposeInteractionResumeTerminalRoute(
   graph: Readonly<GtlGraph>,
-  cursor: TraversalStopRef["cursor"],
+  cursor: RouteSourceLocus["cursor"],
   cCall: CCall,
   judgment: AdmittedCCallJudgment,
   resume: FhInteractionResumeAdmission,
@@ -699,46 +803,6 @@ export function proposeInteractionResumeRoute(
   });
 }
 
-export function proposeWorkflowBlockedRoute(
-  graph: Readonly<GtlGraph>,
-  cursor: TraversalCursor,
-  workflow: Readonly<CWorkflowNode>,
-  cCall: CCall,
-  judgmentRef: string,
-  replayState: ReplayState,
-  contractRef: string,
-): RouteCandidate | RouteProposalRefusal {
-  if (
-    !isMaterializedGtlGraph(graph) ||
-    !isTraversalCursorCandidate(cursor) ||
-    cursor.graphRef !== graph.materializationRef ||
-    cursor.frameId !== cCall.frameId ||
-    resolveCProgramTermAtSourcePath(
-      graph.template,
-      cursor.currentNodeRef,
-      cursor.termPath,
-    ) !== workflow ||
-    cCall.callClass !== "workflow" ||
-    cCall.childGraphFunctionRef !== workflow.graphFunctionRef
-  ) {
-    return routeRefusal(
-      "structural_step_missing",
-      "blocked workflow route requires the exact transparent parent CCall",
-    );
-  }
-  return graphRouteCandidate({
-    graph,
-    routeKind: "blocked" as const,
-    sourceCursor: cursor,
-    targetCursor: null,
-    cCallRef: cCall.cCallRef,
-    judgmentRef,
-    consumedAvailabilityRefs: [judgmentRef] as const,
-    contractRef,
-    replayState,
-  });
-}
-
 export function proposeFanOutRoute(
   graph: Readonly<GtlGraph>,
   application: Readonly<FanOutApplication>,
@@ -806,8 +870,8 @@ export function proposeFanOutRoute(
 export function proposeRecursionRoute(
   graph: Readonly<GtlGraph>,
   application: Readonly<RecurseApplication>,
-  sourceCursor: TraversalStopRef["cursor"],
-  targetCursor: TraversalStopRef["cursor"] | null,
+  sourceCursor: RouteSourceLocus["cursor"],
+  targetCursor: RouteSourceLocus["cursor"] | null,
   cCall: CCall,
   judgment: AdmittedCCallJudgment,
   foldback: ApplicationChildFoldbackAdmission | null,
@@ -878,5 +942,5 @@ export function proposeRecursionRoute(
     contractRef,
     replayStateDigest: replayState.replayDigest,
   };
-  return routeCandidate(body);
+  return completeRouteCandidate(body);
 }

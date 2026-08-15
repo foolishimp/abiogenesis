@@ -3,13 +3,13 @@ import type {
   GtlProgram,
   ModulePublication,
 } from "../gtl/contracts.js";
+import type { CProgramNode } from "../gtl/c_algebra.js";
 import { resolveProgramStart } from "../gtl/public_start.js";
 import {
-  deriveDirectCStepFromGraph,
+  resolveCProgramTermAtSourcePath,
   rootCTraversalCoordinate,
   type CTraversalCoordinate,
-  type DirectCTraversalStep,
-} from "../hog/direct_fold.js";
+} from "../gtl/source_path.js";
 import {
   DIRECT_INVOKE_CAPABILITY,
   type CapabilityGrant,
@@ -178,8 +178,8 @@ export interface InvocationAdmission {
   readonly graphFunctionDigest: Sha256Digest;
   readonly selectedDefinitionRef: string;
   readonly selectedDefinitionDigest: Sha256Digest;
-  readonly hogEntryCoordinate: CTraversalCoordinate;
-  readonly hogEntryStep: DirectCTraversalStep;
+  readonly gtlEntryCoordinate: CTraversalCoordinate;
+  readonly gtlEntryTerm: Readonly<CProgramNode>;
   readonly inputContractRef: string;
   readonly outputContractRef: string;
   readonly programValidationRef: string;
@@ -865,14 +865,15 @@ function admitInvocationWithRequest(
       "selected catalog handle, definition, and Program lack exact admitted membership",
     );
   }
-  const hogEntryCoordinate = rootCTraversalCoordinate(
+  const gtlEntryCoordinate = rootCTraversalCoordinate(
     input.graphFunction.template.startNodeRef,
   );
-  const hogEntryResult = deriveDirectCStepFromGraph(
+  const gtlEntryTerm = resolveCProgramTermAtSourcePath(
     input.graphFunction.template,
-    hogEntryCoordinate,
+    gtlEntryCoordinate.nodeRef,
+    gtlEntryCoordinate.termPath,
   );
-  if (hogEntryResult.kind !== "direct_c_traversal_step") {
+  if (gtlEntryTerm.kind === "c_source_path_refusal") {
     return refusal(
       "selection_mismatch",
       "selected GraphFunction lacks one exact HoG root C entry",
@@ -1199,8 +1200,8 @@ function admitInvocationWithRequest(
     graphFunctionDigest: input.invocation.graphFunctionDigest,
     selectedDefinitionRef: selectedRow.definitionRef,
     selectedDefinitionDigest: selectedRow.definitionDigest,
-    hogEntryCoordinate,
-    hogEntryStep: hogEntryResult,
+    gtlEntryCoordinate,
+    gtlEntryTerm,
     inputContractRef: input.invocation.inputContractRef,
     outputContractRef: input.invocation.outputContractRef,
     programValidationRef: input.programValidation.validationRef,
@@ -1261,8 +1262,8 @@ function admitInvocationWithRequest(
           selectedDefinitionDigest: admissionBody.selectedDefinitionDigest,
           programValidationRef: admissionBody.programValidationRef,
           programValidationDigest: admissionBody.programValidationDigest,
-          hogEntryCoordinate: admissionBody.hogEntryCoordinate,
-          hogEntryStep: admissionBody.hogEntryStep,
+          gtlEntryCoordinate: admissionBody.gtlEntryCoordinate,
+          gtlEntryTerm: admissionBody.gtlEntryTerm,
         } as unknown as JsonValue,
       });
       const admissionEvent = admitRuntimeEvent(store, {

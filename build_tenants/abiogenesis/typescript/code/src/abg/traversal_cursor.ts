@@ -5,7 +5,7 @@ import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isGraphValidation, type GraphValidation } from "../validator/graph.js";
 import {
-  hasAdmittedExecutionBasis,
+  hasAdmittedExecutionBasisAtPrefix,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
@@ -15,14 +15,20 @@ import {
   deriveRuntimeEventCalculusProjection,
   holdsAt,
 } from "./event_calculus.js";
-import { AbgEventStore, admitRuntimeEvent } from "./event_store.js";
+import {
+  AbgEventStore,
+  admitRuntimeEvent,
+  admitRuntimeEventTransactionAtDurablePrefix,
+  readRuntimeEventsAtDurablePrefix,
+  type DurablePrefixCoordinate,
+} from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
-  hasOpenedTraversalScope,
+  hasOpenedTraversalScopeAtPrefix,
   type OpenedTraversalScope,
 } from "./open_call.js";
 
@@ -48,6 +54,11 @@ export interface TraversalCursorCandidate {
   readonly retryPath: readonly number[];
 }
 
+export type TraversalCursorBody = Omit<
+  TraversalCursorCandidate,
+  "kind" | "schemaVersion" | "cursorRef" | "cursorDigest"
+>;
+
 export interface TraversalCursorAdmission {
   readonly kind: "traversal_cursor_admission";
   readonly schemaVersion: "5.0.0";
@@ -57,6 +68,7 @@ export interface TraversalCursorAdmission {
   readonly traversalScopeRef: string;
   readonly executionBasisRef: string;
   readonly admissionEventRef: string;
+  readonly successorPrefix: DurablePrefixCoordinate;
 }
 
 export interface TraversalCursorAdmissionRefusal {
@@ -98,7 +110,7 @@ function refusal(
   };
 }
 
-function cursorBody(cursor: TraversalCursorCandidate): JsonValue {
+function cursorBody(cursor: TraversalCursorBody): JsonValue {
   return {
     programRef: cursor.programRef,
     executionBasisRef: cursor.executionBasisRef,
@@ -116,6 +128,22 @@ function cursorBody(cursor: TraversalCursorCandidate): JsonValue {
     attempt: cursor.attempt,
     retryPath: cursor.retryPath,
   };
+}
+
+export function constructTraversalCursorCandidate(
+  body: TraversalCursorBody,
+): TraversalCursorCandidate {
+  const cursorDigest = sha256Canonical(cursorBody(body));
+  return deepFreeze({
+    kind: "traversal_cursor" as const,
+    schemaVersion: "5.0.0" as const,
+    cursorRef:
+      `traversal-cursor://abiogenesis/${cursorDigest.slice("sha256:".length)}`,
+    cursorDigest,
+    ...body,
+    termPath: [...body.termPath],
+    retryPath: [...body.retryPath],
+  });
 }
 
 export function traversalCursorAdmissionEventRefAtPrefix(
@@ -152,16 +180,6 @@ export function traversalCursorAdmissionEventRefAtPrefix(
   return event?.eventId ?? null;
 }
 
-export function traversalCursorAdmissionEventRef(
-  store: AbgEventStore,
-  cursor: TraversalCursorCandidate,
-): string | null {
-  return traversalCursorAdmissionEventRefAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
-    cursor,
-  );
-}
-
 export function isTraversalCursorCandidate(
   cursor: TraversalCursorCandidate,
 ): boolean {
@@ -171,16 +189,6 @@ export function isTraversalCursorCandidate(
     cursor.cursorDigest === expectedDigest &&
     cursor.cursorRef ===
       `traversal-cursor://abiogenesis/${expectedDigest.slice("sha256:".length)}`;
-}
-
-export function hasAdmittedTraversalCursor(
-  store: AbgEventStore,
-  cursor: TraversalCursorCandidate,
-): boolean {
-  return hasAdmittedTraversalCursorAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
-    cursor,
-  );
 }
 
 export function hasAdmittedTraversalCursorAtPrefix(
@@ -234,6 +242,7 @@ export function isTraversalCursorAdmission(value: object): boolean {
 
 export function admitInitialTraversalCursor(
   store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
   executionBasis: ExecutionBasis,
   scope: OpenedTraversalScope,
   graph: Readonly<GtlGraph>,
@@ -241,11 +250,17 @@ export function admitInitialTraversalCursor(
   cursor: TraversalCursorCandidate,
   basis: RuntimeAdmissionBasis,
 ): TraversalCursorAdmissionResult {
-  if (!hasAdmittedExecutionBasis(store, executionBasis)) {
+  const durableEvents = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
+  const authorityPrefix = selectValidatedRuntimeEventPrefix(durableEvents);
+  const transaction = admitRuntimeEventTransactionAtDurablePrefix(
+    store,
+    predecessorPrefix,
+    () => {
+  if (!hasAdmittedExecutionBasisAtPrefix(authorityPrefix, executionBasis)) {
     return refusal("basis_mismatch", "cursor admission requires the exact admitted ExecutionBasis");
   }
   if (
-    !hasOpenedTraversalScope(store, scope) ||
+    !hasOpenedTraversalScopeAtPrefix(authorityPrefix, scope) ||
     scope.executionBasisRef !== executionBasis.basisRef ||
     scope.executionBasisDigest !== executionBasis.basisDigest
   ) {
@@ -292,13 +307,13 @@ export function admitInitialTraversalCursor(
     return refusal("cursor_not_initial", "initial cursor must name the exact root C term and initial coordinates");
   }
   if (
-    traversalCursorAdmissionEventRef(store, cursor) !== null ||
-    store.readAll().some((event) =>
+    traversalCursorAdmissionEventRefAtPrefix(authorityPrefix, cursor) !== null ||
+    durableEvents.some((event) =>
       event.kind === "traversal_cursor_entered" && event.aggregateId === scope.frameId)
   ) {
     return refusal("cursor_repeated", "one frame cannot admit a second initial traversal cursor");
   }
-  const runPrefix = selectValidatedRuntimeEventPrefix(store.readAll(), {
+  const runPrefix = selectValidatedRuntimeEventPrefix(durableEvents, {
     runId: scope.runId,
   });
   const currentRunTruth = deriveRuntimeEventCalculusProjection(runPrefix);
@@ -360,7 +375,7 @@ export function admitInitialTraversalCursor(
       executionBasisDigest: executionBasis.basisDigest,
     },
   });
-  const admission = deepFreeze({
+  return deepFreeze({
     kind: "traversal_cursor_admission" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
@@ -369,6 +384,20 @@ export function admitInitialTraversalCursor(
     traversalScopeRef: scope.scopeRef,
     executionBasisRef: executionBasis.basisRef,
     admissionEventRef: event.eventId,
+  });
+    },
+  );
+  if (transaction.value.kind !== "traversal_cursor_admission") {
+    return transaction.value;
+  }
+  if (transaction.successorPrefix === null) {
+    throw new TypeError(
+      "initial traversal cursor admission did not produce a durable successor",
+    );
+  }
+  const admission = deepFreeze({
+    ...transaction.value,
+    successorPrefix: transaction.successorPrefix,
   }) as TraversalCursorAdmission;
   cursorAdmissions.add(admission);
   return admission;

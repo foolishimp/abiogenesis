@@ -7,9 +7,9 @@ import type {
   GtlProgram,
 } from "../gtl/contracts.js";
 import {
-  deriveDirectCStepFromGraph,
+  resolveCProgramTermAtSourcePath,
   rootCTraversalCoordinate,
-} from "../hog/direct_fold.js";
+} from "../gtl/source_path.js";
 import {
   type ImplementationResolutionCandidate,
   type ImplementationResolutionSetCandidate,
@@ -49,7 +49,11 @@ import { projectCurrentChildParentCCallAtPrefix } from "./c_call.js";
 import {
   AbgEventStore,
   admitRuntimeEvent,
+  assertHeldEventStoreAtDurablePrefix,
   compareAndAppendExpectedPrefix,
+  readRuntimeEventsAtDurablePrefix,
+  selectHeldEventStoreDurablePrefix,
+  type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
@@ -289,6 +293,7 @@ export interface ChildExecutionBasisAdmission {
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
   readonly executionBasis: ExecutionBasis;
+  readonly successorPrefix: DurablePrefixCoordinate;
 }
 
 export interface ChildExecutionBasisRefusal {
@@ -526,16 +531,6 @@ export function selectAdmittedInteractionContract(
   return matches.length === 1 ? matches[0] ?? null : null;
 }
 
-export function hasAdmittedInteractionSet(
-  store: AbgEventStore,
-  set: AdmittedInteractionSet,
-): boolean {
-  return hasAdmittedInteractionSetAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
-    set,
-  );
-}
-
 export function hasAdmittedInteractionSetAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   set: AdmittedInteractionSet,
@@ -684,16 +679,6 @@ export function hasAdmittedImplementationResolution(
   );
 }
 
-export function hasAdmittedExecutionBasis(
-  store: AbgEventStore,
-  basis: ExecutionBasis,
-): boolean {
-  return hasAdmittedExecutionBasisAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
-    basis,
-  );
-}
-
 export function hasAdmittedExecutionBasisAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   basis: ExecutionBasis,
@@ -819,21 +804,22 @@ export function admitExecutionBasis(
   ) {
     return reject(input.graph.materializationDigest, "diagnostic://abiogenesis/execution-basis/graph-mismatch@5");
   }
-  const hogEntryCoordinate = rootCTraversalCoordinate(
+  const gtlEntryCoordinate = rootCTraversalCoordinate(
     input.graph.template.startNodeRef,
   );
-  const hogEntryStep = deriveDirectCStepFromGraph(
+  const gtlEntryTerm = resolveCProgramTermAtSourcePath(
     input.graph.template,
-    hogEntryCoordinate,
+    gtlEntryCoordinate.nodeRef,
+    gtlEntryCoordinate.termPath,
   );
   if (
-    hogEntryStep.kind !== "direct_c_traversal_step" ||
+    gtlEntryTerm.kind === "c_source_path_refusal" ||
     sha256Canonical(
-      input.invocationAdmission.hogEntryCoordinate as unknown as JsonValue,
-    ) !== sha256Canonical(hogEntryCoordinate as unknown as JsonValue) ||
+      input.invocationAdmission.gtlEntryCoordinate as unknown as JsonValue,
+    ) !== sha256Canonical(gtlEntryCoordinate as unknown as JsonValue) ||
     sha256Canonical(
-      input.invocationAdmission.hogEntryStep as unknown as JsonValue,
-    ) !== sha256Canonical(hogEntryStep as unknown as JsonValue)
+      input.invocationAdmission.gtlEntryTerm as unknown as JsonValue,
+    ) !== sha256Canonical(gtlEntryTerm as unknown as JsonValue)
   ) {
     return reject(
       input.graph.materializationDigest,
@@ -1105,7 +1091,7 @@ export function admitExecutionBasis(
     parentTraversalScopeRef: null,
     parentCCallRef: null,
     entryRef: input.invocationAdmission.publicStart === null
-      ? hogEntryCoordinate.nodeRef
+      ? gtlEntryCoordinate.nodeRef
       : input.invocationAdmission.publicStart.startRef,
     programValidationRef: input.invocationAdmission.programValidationRef,
     graphValidationRef: input.graphValidation.validationRef,
@@ -1196,13 +1182,15 @@ function sameOrderedValues(left: readonly string[], right: readonly string[]): b
 
 export function admitChildExecutionBasis(
   store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
   input: ChildExecutionBasisInput,
   basis: RuntimeAdmissionBasis,
 ): ChildExecutionBasisResult {
   const rawInputValue = detachJsonRecord(input.rawInputValue);
   const current = (() => {
     try {
-      const snapshot = store.readAll();
+      assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+      const snapshot = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
       const expectedStorePrefixDigest = sha256Canonical(
         snapshot as unknown as JsonValue,
       );
@@ -1520,5 +1508,6 @@ export function admitChildExecutionBasis(
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
     executionBasis,
+    successorPrefix: selectHeldEventStoreDurablePrefix(store),
   }) as ChildExecutionBasisAdmission;
 }

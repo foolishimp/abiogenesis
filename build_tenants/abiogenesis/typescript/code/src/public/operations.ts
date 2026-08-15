@@ -25,7 +25,6 @@ import type {
   RootPublicInvocation,
 } from "./contracts.js";
 import { parseRootPublicInvocation } from "./contracts.js";
-import { bindChildTraversalPreparationPort } from "./child_traversal_port.js";
 import {
   constructPublicContinuationAuthority,
   parsePublicContinuationAuthority,
@@ -2285,12 +2284,16 @@ async function applyRunInvoke(
   failureExecutionBasis = executionAdmission.executionBasis;
   const implementationSet = executionAdmission.implementationSet;
   activeRefusalStage = "open_call";
-  const opened = abg.openCall(
+  const opened = abg.openTraversalScope(
     context.store,
-    executionAdmission.executionBasis,
+    context.prefix,
+    {
+      kind: "root",
+      executionBasis: executionAdmission.executionBasis,
+    },
     { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/open`, causationEventRefs: [] },
   );
-  if (opened.kind !== "open_call_admission") {
+  if (opened.kind !== "traversal_scope_open_admission") {
     abg.admitInvocationRefusal(
       context.store,
       invocationAdmission,
@@ -2310,6 +2313,7 @@ async function applyRunInvoke(
     );
   }
   failureScope = opened.scope;
+  context.prefix = opened.successorPrefix;
   const leafPort = await constructAdmittedLeafInvocationPort({
     prefix: abg.selectValidatedRuntimeEventPrefix(context.store.readAll()),
     artifactTruth,
@@ -2319,8 +2323,7 @@ async function applyRunInvoke(
     semanticsProjection:
       product.projectInstalledLeafSemantics(productSemantics),
   });
-  const childTraversalPreparationPort = bindChildTraversalPreparationPort({
-    store: context.store,
+  const childTraversalBasis = hog.constructChildTraversalBasis({
     publication: viewState.catalogState.publication,
     program: programValue,
     programValidation,
@@ -2329,6 +2332,7 @@ async function applyRunInvoke(
   });
   const traversalCompletion = await hog.executeGraphTraversal({
     store: context.store,
+    predecessorPrefix: opened.successorPrefix,
     executionBasis: executionAdmission.executionBasis,
     openedTraversalScope: opened.scope,
     program: programValue,
@@ -2346,7 +2350,7 @@ async function applyRunInvoke(
       graphValidation,
     },
     leafPort,
-    childTraversalPreparationPort,
+    childTraversalBasis,
     closureContract,
     actorRuntimeBinding: {
       workspaceBinding: workspaceState.binding,
@@ -2357,6 +2361,7 @@ async function applyRunInvoke(
     eventTime: invocation.eventTime,
     correlationId: `${invocation.correlationId}/hog`,
   });
+  context.prefix = traversalCompletion.successorPrefix;
   const replayScope = {
     invocationRef: candidate.invocationRef,
     runId: opened.scope.runId,
@@ -2533,21 +2538,34 @@ async function applyRunInvoke(
     const diagnosticRef =
       `diagnostic://abiogenesis/operation-application/${activeRefusalStage}-exception@5`;
     if (failureExecutionBasis !== null && failureScope !== null) {
-      const replayState = abg.replay(context.store, { runId: failureScope.runId });
-      if (replayState.runtimeStatus === "active") {
-        abg.admitRuntimeFailure(
-          context.store,
-          failureExecutionBasis,
-          failureScope,
-          "operation_application",
-          failureSubject,
-          diagnosticRef,
-          {
-            eventTime: invocation.eventTime,
-            correlationId: `${invocation.correlationId}/operation-application-failure`,
-            causationEventRefs: [],
-          },
-        );
+      if (error instanceof hog.GraphTraversalFailure) {
+        context.prefix = error.receipt.successorPrefix;
+      } else {
+        const replayState = projectDurablePrefix(context.prefix, {
+          runId: failureScope.runId,
+        }).replayState;
+        if (replayState.runtimeStatus === "active") {
+          let failureReceipt: abg.RuntimeFailureAdmissionReceipt;
+          try {
+            failureReceipt = abg.admitRuntimeFailure({
+              store: context.store,
+              predecessorPrefix: context.prefix,
+              executionBasis: failureExecutionBasis,
+              scope: failureScope,
+              stage: "operation_application",
+              subject: failureSubject,
+              diagnosticRef,
+              basis: {
+              eventTime: invocation.eventTime,
+              correlationId: `${invocation.correlationId}/operation-application-failure`,
+              causationEventRefs: [],
+              },
+            });
+          } catch {
+            throw error;
+          }
+          context.prefix = failureReceipt.successorPrefix;
+        }
       }
       return projectCurrentOutcome(
         context,
@@ -4171,8 +4189,7 @@ async function applyRunContinue(
       scope: rehydrated.openedTraversalScope,
       resumeEventRef: resume.admissionEventRef,
     };
-    const childTraversalPreparationPort = bindChildTraversalPreparationPort({
-      store: effectContext.store,
+    const childTraversalBasis = hog.constructChildTraversalBasis({
       publication,
       program: state.program,
       programValidation,
@@ -4184,6 +4201,7 @@ async function applyRunContinue(
     ) => {
       return {
         store: effectContext.store,
+        predecessorPrefix: effectContext.prefix,
         executionBasis: runtime.executionBasis,
         openedTraversalScope: runtime.openedTraversalScope,
         program: state.program,
@@ -4201,7 +4219,7 @@ async function applyRunContinue(
           graphValidation: runtime.graphValidation,
         },
         leafPort,
-        childTraversalPreparationPort,
+        childTraversalBasis,
         closureContract: runtime.closureContract,
         actorRuntimeBinding: {
           workspaceBinding: state.workspaceBinding,
@@ -4249,6 +4267,7 @@ async function applyRunContinue(
       parent: traversalInput(heldRuntime),
       interaction: {
         store: effectContext.store,
+        predecessorPrefix: effectContext.prefix,
         executionBasis: rehydrated.executionBasis,
         openedTraversalScope: rehydrated.openedTraversalScope,
         program: state.program,
@@ -4269,6 +4288,7 @@ async function applyRunContinue(
       },
       parents: parentFrames,
     });
+    effectContext.prefix = completion.successorPrefix;
     const updatedAuthority = closeContinuationContext(effectContext, state);
     heldContext = null;
     latestAuthority = updatedAuthority;
@@ -4324,25 +4344,32 @@ async function applyRunContinue(
     return completedOutcome;
   } catch (error) {
     if (heldContext !== null && resumedFailureBasis !== null) {
-      try {
-        abg.admitRuntimeFailure(
-          heldContext.store,
-          resumedFailureBasis.executionBasis,
-          resumedFailureBasis.scope,
-          "operation_application",
-          {
-            continuationRef,
-            error: String(error),
-          },
-          "diagnostic://abiogenesis/continuation/post-resume-failure@5",
-          {
-            eventTime: invocation.eventTime,
-            correlationId: `${invocation.correlationId}/post-resume-failure`,
-            causationEventRefs: [resumedFailureBasis.resumeEventRef],
-          },
-        );
-      } catch {
-        // Preserve the primary post-resume failure and close the exact suffix.
+      if (error instanceof hog.GraphTraversalFailure) {
+        heldContext.prefix = error.receipt.successorPrefix;
+      } else {
+        try {
+          const failureReceipt = abg.admitRuntimeFailure({
+            store: heldContext.store,
+            predecessorPrefix: heldContext.prefix,
+            executionBasis: resumedFailureBasis.executionBasis,
+            scope: resumedFailureBasis.scope,
+            stage: "operation_application",
+            subject: {
+              continuationRef,
+              error: String(error),
+            },
+            diagnosticRef:
+              "diagnostic://abiogenesis/continuation/post-resume-failure@5",
+            basis: {
+              eventTime: invocation.eventTime,
+              correlationId: `${invocation.correlationId}/post-resume-failure`,
+              causationEventRefs: [resumedFailureBasis.resumeEventRef],
+            },
+          });
+          heldContext.prefix = failureReceipt.successorPrefix;
+        } catch {
+          // Preserve the primary post-resume failure and close the exact suffix.
+        }
       }
     }
     const updatedAuthority = heldContext === null

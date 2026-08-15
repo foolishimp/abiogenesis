@@ -9,7 +9,7 @@ import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import {
-  hasAdmittedExecutionBasis,
+  hasAdmittedExecutionBasisAtPrefix,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
 } from "./execution_basis.js";
@@ -17,6 +17,9 @@ import {
   AbgEventStore,
   admitRuntimeEvent,
   admitRuntimeEventTransactionAtExpectedPrefix,
+  assertHeldEventStoreAtDurablePrefix,
+  readRuntimeEventsAtDurablePrefix,
+  type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
   selectValidatedRuntimeEventPrefix,
@@ -25,9 +28,12 @@ import {
   projectExactFanOutCompletion,
   type FanOutCompletionCandidateProjection,
 } from "./fan_out_projection.js";
-import { replay, type ReplayState } from "./replay.js";
 import {
-  hasAdmittedTraversalCursor,
+  replayValidatedRuntimeEventPrefix,
+  type ReplayState,
+} from "./replay.js";
+import {
+  hasAdmittedTraversalCursorAtPrefix,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
 
@@ -98,6 +104,14 @@ export type FanOutCompletionAdmission =
   | CompleteFanOutAdmission
   | PartialFanOutAdmission;
 
+export interface FanOutCompletionReceipt {
+  readonly kind: "fan_out_completion_receipt";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "admitted";
+  readonly admission: FanOutCompletionAdmission;
+  readonly successorPrefix: DurablePrefixCoordinate;
+}
+
 export interface FanOutCompletionRefusal {
   readonly kind: "fan_out_completion_refusal";
   readonly schemaVersion: "5.0.0";
@@ -112,11 +126,12 @@ export interface FanOutCompletionRefusal {
 }
 
 export type FanOutCompletionResult =
-  | FanOutCompletionAdmission
+  | FanOutCompletionReceipt
   | FanOutCompletionRefusal;
 
 export interface AdmitFanOutCompletionInput {
   readonly store: AbgEventStore;
+  readonly predecessorPrefix: DurablePrefixCoordinate;
   readonly executionBasis: ExecutionBasis;
   readonly graph: Readonly<GtlGraph>;
   readonly application: Readonly<FanOutApplication>;
@@ -153,8 +168,23 @@ class FanOutCompletionProjectionError extends TypeError {}
 export function admitFanOutCompletion(
   input: AdmitFanOutCompletionInput,
 ): FanOutCompletionResult {
+  try {
+    assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
+  } catch {
+    return refusal(
+      "replay_mismatch",
+      "fan-out completion requires its exact durable predecessor",
+    );
+  }
+  const predecessorEvents = readRuntimeEventsAtDurablePrefix(
+    input.predecessorPrefix,
+  );
+  const authorityPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
   if (
-    !hasAdmittedExecutionBasis(input.store, input.executionBasis) ||
+    !hasAdmittedExecutionBasisAtPrefix(
+      authorityPrefix,
+      input.executionBasis,
+    ) ||
     !isMaterializedGtlGraph(input.graph) ||
     input.executionBasis.graphRef !== input.graph.materializationRef ||
     input.graph.template.applications.find(
@@ -162,7 +192,10 @@ export function admitFanOutCompletion(
     ) !== input.application ||
     input.application.relationKind !== "fan_out" ||
     input.application.applicationRef !== graphFunctionApplicationRef(input.application) ||
-    !hasAdmittedTraversalCursor(input.store, input.sourceCursor) ||
+    !hasAdmittedTraversalCursorAtPrefix(
+      authorityPrefix,
+      input.sourceCursor,
+    ) ||
     input.sourceCursor.executionBasisRef !== input.executionBasis.basisRef ||
     input.sourceCursor.frameId.length === 0
   ) {
@@ -179,17 +212,20 @@ export function admitFanOutCompletion(
     graphCallId: input.sourceCursor.graphCallId,
     frameId: input.sourceCursor.frameId,
   };
-  const expectedPrefixDigest = input.store.digest();
+  const expectedPrefixDigest = input.predecessorPrefix.prefixDigest;
   try {
-    return admitRuntimeEventTransactionAtExpectedPrefix(
+    const committed = admitRuntimeEventTransactionAtExpectedPrefix(
       input.store,
       expectedPrefixDigest,
       () => {
         const snapshot = input.store.readAll();
         const prefix = selectValidatedRuntimeEventPrefix(snapshot);
-        const currentReplay = replay(input.store, {
+        const currentReplay = replayValidatedRuntimeEventPrefix(
+          selectValidatedRuntimeEventPrefix(snapshot, {
           runId: input.sourceCursor.runId,
-        });
+          }),
+          selectValidatedRuntimeEventPrefix(snapshot),
+        );
         if (currentReplay.replayDigest !== input.replayState.replayDigest) {
           return refusal(
             "replay_mismatch",
@@ -253,7 +289,23 @@ export function admitFanOutCompletion(
         }
         return projected;
       },
-    ).value;
+    );
+    if (committed.value.kind !== "fan_out_completion_admission") {
+      return committed.value;
+    }
+    if (committed.successorPrefix === null) {
+      return refusal(
+        "replay_mismatch",
+        "fan-out completion produced no durable successor",
+      );
+    }
+    return Object.freeze({
+      kind: "fan_out_completion_receipt" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      admission: committed.value,
+      successorPrefix: committed.successorPrefix,
+    });
   } catch (error) {
     if (
       error instanceof FanOutCompletionProjectionError ||
