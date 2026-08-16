@@ -220,16 +220,17 @@ export function completeInteractionResume(
     route.routeKind === "advance" && target !== null &&
     successorContract !== null
   ) {
-    const runtimePrefix = Abg.projectRuntimeTruthAtDurablePrefix(
+    const { runtimePrefix, authorityPrefix } = Abg.projectRuntimeTruthAtDurablePrefix(
       admitted.transition.successorPrefix,
       cCall.runId,
-    ).runtimePrefix;
+    );
     const nextCursor = applyAdmittedRoute(
       runtimePrefix,
       input.successorCursor,
       target,
       "advance",
       route,
+      authorityPrefix,
     );
     if (nextCursor.kind === "traversal_refusal") {
       throw new TypeError(`interaction route refused: ${nextCursor.code}`);

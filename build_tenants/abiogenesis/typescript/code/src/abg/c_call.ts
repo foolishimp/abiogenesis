@@ -5349,10 +5349,10 @@ export function planPendingInteractionAdmission(
     admissionEventRef: resultEvent.eventId,
   }) as AdmittedCCallResult;
   const resultAuthorityPrefix = selectValidatedRuntimeEventPrefix(
-    projectedHistory,
+    Object.freeze([...projectedHistory]),
   );
   const resultRunPrefix = selectValidatedRuntimeEventPrefix(
-    projectedHistory,
+    Object.freeze([...projectedHistory]),
     { runId: cCall.runId },
   );
   const resultReplayState = replayValidatedRuntimeEventPrefix(
@@ -5412,9 +5412,11 @@ export function planPendingInteractionAdmission(
     requestRef,
     requestDigest,
   }) as PendingInteractionAdmission;
-  const projectedPrefix = selectValidatedRuntimeEventPrefix(projectedHistory);
+  const projectedPrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze([...projectedHistory]),
+  );
   const projectedRunPrefix = selectValidatedRuntimeEventPrefix(
-    projectedHistory,
+    Object.freeze([...projectedHistory]),
     { runId: cCall.runId },
   );
   const replayState = replayValidatedRuntimeEventPrefix(

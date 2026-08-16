@@ -738,9 +738,10 @@ export function applyAdmittedRoute(
   targetCursor: TraversalCursor,
   expectedKind: "advance" | "re_enter" | "retry",
   route: AdmittedRoute,
+  authorityPrefix: ValidatedRuntimeEventPrefix = prefix,
 ): TraversalCursor | TraversalRefusal {
   if (
-    !isAdmittedRoute(prefix, route) ||
+    !isAdmittedRoute(prefix, route, authorityPrefix) ||
     route.routeKind !== expectedKind ||
     route.sourceCursorRef !== sourceCursor.cursorRef ||
     route.sourceCursorDigest !== sourceCursor.cursorDigest ||

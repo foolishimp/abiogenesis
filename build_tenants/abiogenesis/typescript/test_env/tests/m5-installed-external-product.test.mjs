@@ -1,13 +1,12 @@
 import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
 import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 
 import { prepareDeveloperMiniProduct } from "../support/developer-mini-product.mjs";
-import { proveFreshProcessRuntimeProjectionEquality } from
-  "../support/fresh-process-runtime-proof.mjs";
 import {
   constructClosedCatalogReadinessBasis,
   importInstalledPackageExport,
@@ -18,7 +17,43 @@ import {
 import { sha256Canonical } from "../../build/code/src/product/index.js";
 
 const packageRoot = new URL("../..", import.meta.url).pathname;
+const runtimePublicFhWorker = fileURLToPath(new URL(
+  "../falsifiers/runtime-public-fh-worker.mjs",
+  import.meta.url,
+));
 let publicEpisodeOrdinal = 0;
+
+function runRuntimePublicFhWorker(input) {
+  return new Promise((resolveResult, reject) => {
+    const child = spawn(process.execPath, [runtimePublicFhWorker], {
+      env: { ...process.env, NODE_OPTIONS: "" },
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+    let stdout = "";
+    let stderr = "";
+    child.stdout.setEncoding("utf8");
+    child.stderr.setEncoding("utf8");
+    child.stdout.on("data", (chunk) => { stdout += chunk; });
+    child.stderr.on("data", (chunk) => { stderr += chunk; });
+    child.on("error", reject);
+    child.on("close", (code) => {
+      if (code !== 0) {
+        reject(new Error(
+          `runtime Public F_H worker failed ${code}: ${stderr}`,
+        ));
+        return;
+      }
+      try {
+        resolveResult(JSON.parse(stdout));
+      } catch (error) {
+        reject(new Error(
+          `runtime Public F_H worker returned invalid JSON: ${String(error)}\n${stdout}\n${stderr}`,
+        ));
+      }
+    });
+    child.stdin.end(JSON.stringify(input));
+  });
+}
 
 function setupInstalledCliHarness(context, root) {
   return setupInstalledCliHarnessBase(context, root, {
@@ -1983,20 +2018,27 @@ test("Wave 1 S2 composes installed transformation, live F_P, and reopened contin
       respondedAuthority.prefix.prefixLength > openAuthority.prefix.prefixLength,
       true,
     );
-    const completed = await applyInFreshContext(
-      publicApi,
-      invocation(
-        "abg.operation.run.continue",
-        "current_intent",
-        "invocation://t287/wave1-s2/continue",
-        {
-          actorRef: "actor://developer.example/trusted-developer",
-          capabilityRef: mini.ids.actorCapabilityRef,
-          continuationAuthority: respondedAuthority,
-          continuationRef: held.continuationRef,
-        },
-      ),
+    const continueInvocation = invocation(
+      "abg.operation.run.continue",
+      "current_intent",
+      "invocation://t287/wave1-s2/continue",
+      {
+        actorRef: "actor://developer.example/trusted-developer",
+        capabilityRef: mini.ids.actorCapabilityRef,
+        continuationAuthority: respondedAuthority,
+        continuationRef: held.continuationRef,
+      },
     );
+    const continued = await runRuntimePublicFhWorker({
+      action: "continue",
+      originProcessId: process.pid,
+      installedPackageRoot: harness.installedPackageRoot,
+      authority: respondedAuthority,
+      invocation: continueInvocation,
+    });
+    assert.notEqual(continued.processId, process.pid);
+    assert.deepEqual(continued.entryPrefix, respondedAuthority.prefix);
+    const completed = continued.outcome;
     assert.equal(completed.disposition, "succeeded", JSON.stringify(completed));
     assert.equal(completed.continuationStatus, "resolved");
     assert.equal(completed.replayAgreement, true);
@@ -2010,6 +2052,10 @@ test("Wave 1 S2 composes installed transformation, live F_P, and reopened contin
         respondedAuthority.prefix.prefixLength,
       true,
     );
+    assert.deepEqual(continued.closeHandoff, {
+      prefix: completed.continuationAuthority.prefix,
+      reopenAuthority: completed.continuationAuthority.reopenAuthority,
+    });
 
     const durableEvents = abg.readRuntimeEventsAtDurablePrefix(
       completed.continuationAuthority.prefix,
@@ -2121,32 +2167,34 @@ test("Wave 1 S2 composes installed transformation, live F_P, and reopened contin
     );
     const retainedResult = replay.cCalls.at(-1)?.resultValue;
     assert.deepEqual(retainedResult, completed.result);
-    const reopened = abg.reopenEventStore(
-      completed.continuationAuthority.reopenAuthority,
-    );
-    assert.equal(
-      reopened.kind,
-      "reopened_event_store_context",
-      JSON.stringify(reopened),
-    );
-    const freshProof = await proveFreshProcessRuntimeProjectionEquality({
-      abg,
-      product,
+    const terminal = await runRuntimePublicFhWorker({
+      action: "terminal",
+      originProcessId: process.pid,
       installedPackageRoot: harness.installedPackageRoot,
-      requests: [{
-        rowId: "wave1_s2_runtime_replay_and_result",
-        exportName: "replay",
-        args: [{ runId: completed.runId }],
-      }],
-      store: reopened.store,
+      closeHandoff: continued.closeHandoff,
+      runId: completed.runId,
+      expectedResult: completed.result,
     });
-    assert.equal(freshProof.retainedRows.length, 1);
-    const freshReplay = freshProof.retainedRows[0].projection;
-    assert.equal(freshReplay.runtimeStatus, "closed");
-    assert.equal(freshReplay.replayRef, completed.replayRef);
-    assert.equal(freshReplay.replayDigest, completed.replayDigest);
-    assert.deepEqual(freshReplay.cCalls.at(-1)?.resultValue, completed.result);
-    assert.equal(new Set(freshProof.freshProcessIds).size, 2);
+    assert.notEqual(terminal.processId, process.pid);
+    assert.notEqual(terminal.processId, continued.processId);
+    assert.equal(
+      terminal.eventLogDigest,
+      continued.closeHandoff.reopenAuthority.eventLogDigest,
+    );
+    assert.equal(terminal.runtimeStatus, "closed");
+    assert.equal(terminal.replayRef, completed.replayRef);
+    assert.equal(terminal.replayDigest, completed.replayDigest);
+    assert.deepEqual(terminal.resultValue, completed.result);
+    assert.deepEqual(
+      terminal.replayActiveFluents,
+      terminal.eventCalculusFluents,
+    );
+    assert.equal(terminal.quiescenceDisposition, "quiescent_for_close");
+    assert.deepEqual(terminal.blockingFluents, []);
+    assert.equal(typeof terminal.terminalReachedEventRef, "string");
+    assert.equal(typeof terminal.frameClosedEventRef, "string");
+    assert.equal(typeof terminal.graphCallClosedEventRef, "string");
+    assert.equal(typeof terminal.runClosedEventRef, "string");
     assert.equal(
       durableEvents.filter((event) => event.kind === "run_closed").length,
       1,
