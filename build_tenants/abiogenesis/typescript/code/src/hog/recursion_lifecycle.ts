@@ -357,49 +357,27 @@ function finishRecursionTerminal(
       retryExit as unknown as JsonValue,
     );
   }
-  const route = Routes.proposeJudgedRoute(
-    state.input.graph,
-    state.input.traversalStop.cursor,
-    state.targetCursor,
-    state.cCall,
-    state.result,
-    state.judgment,
-    retryExit?.kind === "successful_retry_exit_plan"
-      ? retryExit.plan.replayState
-      : outcome.replayState,
-    state.cCall.transitionContractRef,
-    retryExit?.kind === "successful_retry_exit_plan"
-      ? retryExit.plan.progresses
-      : [],
-  );
-  if (route.kind !== "traversal_route_candidate") {
+  const candidate = Routes.proposeCCallOutcomeTransition({
+    graph: state.input.graph,
+    graphFunction: state.input.graphFunction,
+    sourceCursor: state.input.traversalStop.cursor,
+    targetCursor: state.targetCursor,
+    outcome,
+    ...(retryExit?.kind === "successful_retry_exit_plan"
+      ? { completedRetryProgress: retryExit.plan }
+      : {}),
+    terminalizeNonAdvance: state.input.completionScopeClass === "root",
+  });
+  if (candidate.kind !== "traversal_transition_candidate") {
     return recursionFailure(
       state,
       outcome.successorPrefix,
       clock,
       "terminal-route",
-      `diagnostic://abiogenesis/hog/${route.code}@5`,
-      route as unknown as JsonValue,
+      `diagnostic://abiogenesis/hog/${candidate.code}@5`,
+      candidate as unknown as JsonValue,
     );
   }
-  const candidate = Abg.completeTraversalTransitionCandidate({
-    kind: "traversal_transition_candidate",
-    schemaVersion: "5.0.0",
-    transitionClass: "route",
-    route,
-    evidence: {
-      evidenceClass: "judged",
-      graphFunction: state.input.graphFunction,
-      cCall: state.cCall,
-      result: state.result,
-      judgment: state.judgment,
-      completedProgresses: retryExit?.kind === "successful_retry_exit_plan"
-        ? retryExit.plan.progresses
-        : [],
-    },
-    terminalizeRun: route.routeKind !== "advance" &&
-      state.input.completionScopeClass === "root",
-  });
   const admitted = Abg.admitCCallCompletion({
     store: state.input.store,
     predecessorPrefix: outcome.successorPrefix,

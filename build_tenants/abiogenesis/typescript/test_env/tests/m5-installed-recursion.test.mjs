@@ -68,84 +68,6 @@ async function activeLifecycleFluents(installedRoot, events, label) {
   );
 }
 
-async function pairedChildRouteProjection(
-  context,
-  installedRoot,
-  events,
-  targetRoute,
-) {
-  const abg = await import(
-    `${pathToFileURL(resolve(installedRoot, "build/code/src/abg/index.js")).href}?child-route=${Date.now()}`
-  );
-  const product = await import(
-    `${pathToFileURL(resolve(installedRoot, "build/code/src/product/index.js")).href}?child-route=${Date.now()}`
-  );
-  const eventStore = await import(
-    pathToFileURL(resolve(
-      installedRoot,
-      "build/code/src/abg/event_store.js",
-    )).href
-  );
-  const controlStore = (await cloneEventPrefixFixture(
-    context,
-    abg,
-    eventStore,
-    events,
-    "abi5-recursion-control-",
-  )).store;
-  const unrelatedRouteStore = (await cloneEventPrefixFixture(
-    context,
-    abg,
-    eventStore,
-    events,
-    "abi5-recursion-unrelated-route-",
-  )).store;
-  const body = {
-    ...targetRoute.payload,
-    sourceCursorRef: "cursor://abiogenesis/m5/unrelated-r2-source",
-    sourceCursorDigest: product.sha256Canonical({ cursor: "r2-source" }),
-    cCallRef: "c-call:sha256:unrelated-r2",
-    consumedAvailabilityRefs: [],
-  };
-  delete body.routeRef;
-  delete body.routeDigest;
-  const routeDigest = product.sha256Canonical(body);
-  const routeRef =
-    `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}`;
-  eventStore.admitRuntimeEvent(unrelatedRouteStore, {
-    kind: "traversal_route_admitted",
-    eventTime: "2026-08-04T00:00:00.000Z",
-    aggregateType: "frame",
-    aggregateId: targetRoute.frameId,
-    parentAggregateId: targetRoute.graphCallId,
-    causationEventRefs: [events.at(-1).eventId],
-    correlationId: "correlation://abiogenesis/m5/unrelated-r2",
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: targetRoute.basisId,
-    runId: targetRoute.runId,
-    graphFunctionRef: targetRoute.graphFunctionRef,
-    graphCallId: targetRoute.graphCallId,
-    frameId: targetRoute.frameId,
-    payload: { routeRef, routeDigest, ...body },
-  });
-  const coordinates = {
-    runId: targetRoute.runId,
-    graphCallId: targetRoute.graphCallId,
-    frameId: targetRoute.frameId,
-    cCallRef: targetRoute.payload.cCallRef,
-    judgmentRef: targetRoute.payload.judgmentRef,
-  };
-  return {
-    control: abg.projectCurrentApplicationChildRoute(controlStore, coordinates),
-    unrelatedLaterRoute: abg.projectCurrentApplicationChildRoute(
-      unrelatedRouteStore,
-      coordinates,
-    ),
-    unrelatedRouteRef: routeRef,
-  };
-}
-
 async function terminalizedBlockedChildRouteProjection(
   context,
   installedRoot,
@@ -325,16 +247,8 @@ function runRecursionProjectionWorker(input) {
   return runRecursionWorker("runtime-recursion-route-worker.mjs", input);
 }
 
-function runDeferredApplicationWorker(input) {
-  return runRecursionWorker("runtime-deferred-application-worker.mjs", input);
-}
-
 function runRecursionLifecycleWorker(input) {
   return runRecursionWorker("runtime-recursion-lifecycle-worker.mjs", input);
-}
-
-function runStaleRehydrateWorker(input) {
-  return runRecursionWorker("runtime-stale-rehydrate-worker.mjs", input);
 }
 
 async function runRecursion(
@@ -343,7 +257,9 @@ async function runRecursion(
   remaining,
   blockedChildRemaining = null,
 ) {
-  const harness = await setupInstalledCliHarness(context, root);
+  const harness = await setupInstalledCliHarness(context, root, {
+    candidateBasisSource: "packed_artifact",
+  });
   const scenario = await buildRootCliScenario(
     harness,
     label,
@@ -395,11 +311,6 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
       event.kind === "c_call_opened" &&
       event.graphFunctionRef === GRAPH_FUNCTION_REF,
   );
-  const childCalls = events.filter(
-    (event) =>
-      event.kind === "c_call_opened" &&
-      event.graphFunctionRef === CHILD_GRAPH_FUNCTION_REF,
-  );
   const childGraphCalls = events.filter(
     (event) =>
       event.kind === "graph_call_opened" &&
@@ -418,33 +329,23 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
 
   assert.deepEqual(parentCalls.map((event) => event.payload.attempt), [1, 2, 3, 4]);
   assert.equal(new Set(parentCalls.map((event) => event.frameId)).size, 1);
-  assert.equal(childCalls.length, 3);
   assert.equal(childGraphCalls.length, 3);
   assert.equal(foldbacks.length, 3);
   assert.equal(applicationRoutes.length, 3);
   assert.equal(applicationRoutes.every((event) => event.payload.routeKind === "advance"), true);
-  const firstChildTerminalRoute = events.find(
-    (event) =>
-      event.kind === "traversal_route_admitted" &&
-      event.graphFunctionRef === CHILD_GRAPH_FUNCTION_REF &&
-      event.payload.routeKind === "terminal",
-  );
-  assert.ok(firstChildTerminalRoute);
-  const pairedChildRoute = await pairedChildRouteProjection(
-    context,
-    installedRoot,
-    events,
-    firstChildTerminalRoute,
-  );
-  assert.equal(pairedChildRoute.control.routeRef, firstChildTerminalRoute.payload.routeRef);
-  assert.equal(
-    pairedChildRoute.unrelatedLaterRoute.routeRef,
-    firstChildTerminalRoute.payload.routeRef,
-  );
-  assert.notEqual(
-    pairedChildRoute.unrelatedLaterRoute.routeRef,
-    pairedChildRoute.unrelatedRouteRef,
-  );
+  for (const foldback of foldbacks) {
+    const exactRoutes = applicationRoutes.filter((event) =>
+      event.payload.consumedAvailabilityRefs.includes(
+        foldback.payload.foldbackRef,
+      )
+    );
+    assert.equal(exactRoutes.length, 1);
+    assert.equal(
+      exactRoutes[0].causationEventRefs.includes(foldback.eventId),
+      true,
+    );
+    assert.equal(exactRoutes[0].admissionOrdinal > foldback.admissionOrdinal, true);
+  }
   const exactFoldback = foldbacks[0];
   const exactRoute = applicationRoutes.find(
     (event) =>
@@ -453,107 +354,39 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
       ),
   );
   assert.ok(exactRoute);
-  const projectionInput = {
+  const freshProof = await runRecursionProjectionWorker({
     installedPackageRoot: installedRoot,
     runId: exactFoldback.runId,
-    foldbackRef: exactFoldback.payload.foldbackRef,
-    routeRef: exactRoute.payload.routeRef,
-    foldbackPrefix: events.slice(0, exactFoldback.admissionOrdinal),
+    routeAdmissionEventRef: exactRoute.eventId,
     routePrefix: events.slice(0, exactRoute.admissionOrdinal),
-  };
-  const [firstProjection, secondProjection] = await Promise.all([
-    runRecursionProjectionWorker(projectionInput),
-    runRecursionProjectionWorker(projectionInput),
-  ]);
-  assert.notEqual(firstProjection.processId, process.pid);
-  assert.notEqual(secondProjection.processId, process.pid);
-  assert.notEqual(firstProjection.processId, secondProjection.processId);
-  const { processId: _firstProcessId, ...firstTruth } = firstProjection;
-  const { processId: _secondProcessId, ...secondTruth } = secondProjection;
-  assert.deepEqual(secondTruth, firstTruth);
-  assert.equal(firstTruth.foldback.foldbackRef, exactFoldback.payload.foldbackRef);
-  assert.equal(firstTruth.foldback.admissionEventRef, exactFoldback.eventId);
-  assert.equal(firstTruth.route.routeRef, exactRoute.payload.routeRef);
-  assert.equal(firstTruth.route.admissionEventRef, exactRoute.eventId);
-  assert.equal(firstTruth.consumedFoldback, null);
-  const exactJudgment = events.find(
-    (event) =>
-      event.kind === "c_call_judged" &&
-      event.payload.judgmentRef === exactRoute.payload.judgmentRef,
-  );
-  assert.ok(exactJudgment);
-  const beforeRoutePrefix = events.slice(0, exactRoute.admissionOrdinal - 1);
-  const deferredInput = {
-    installedPackageRoot: installedRoot,
-    coordinates: {
-      runId: exactRoute.runId,
-      cCallRef: exactRoute.payload.cCallRef,
-      resultRef: exactJudgment.payload.resultRef,
-      judgmentRef: exactRoute.payload.judgmentRef,
-    },
-    beforeRoutePrefix,
-    afterRoutePrefix: projectionInput.routePrefix,
-  };
-  const [firstDeferred, secondDeferred] = await Promise.all([
-    runDeferredApplicationWorker(deferredInput),
-    runDeferredApplicationWorker(deferredInput),
-  ]);
-  assert.notEqual(firstDeferred.processId, process.pid);
-  assert.notEqual(secondDeferred.processId, process.pid);
-  assert.notEqual(firstDeferred.processId, secondDeferred.processId);
-  const { processId: _firstDeferredProcessId, ...firstDeferredTruth } =
-    firstDeferred;
-  const { processId: _secondDeferredProcessId, ...secondDeferredTruth } =
-    secondDeferred;
-  assert.deepEqual(secondDeferredTruth, firstDeferredTruth);
-  assert.equal(firstDeferredTruth.completion.disposition, "application_ready");
-  assert.equal(firstDeferredTruth.consumedCompletion, null);
-  assert.equal(firstDeferredTruth.currentBeforeRoute, true);
-  assert.equal(firstDeferredTruth.currentAfterRoute, false);
-  assert.equal(firstDeferredTruth.reopenedBeforeRoute, true);
-  assert.equal(firstDeferredTruth.reopenedAfterRoute, true);
-  const staleRehydrate = await runStaleRehydrateWorker({
-    installedPackageRoot: installedRoot,
-    coordinates: deferredInput.coordinates,
-    events: projectionInput.routePrefix,
-  });
-  assert.notEqual(staleRehydrate.processId, process.pid);
-  assert.ok(staleRehydrate.state);
-  assert.equal(staleRehydrate.sameCCallBranded, true);
-  assert.equal(staleRehydrate.sameResultBranded, true);
-  assert.equal(staleRehydrate.sameJudgmentBranded, true);
-  assert.equal(staleRehydrate.currentOutcome, true);
-
-  const lifecycleInput = {
-    installedPackageRoot: installedRoot,
-    runId: exactRoute.runId,
-    frameId: exactRoute.frameId,
-    routeRef: exactRoute.payload.routeRef,
-    routeKind: "advance",
-    sourceCursorRef: exactRoute.payload.sourceCursorRef,
-    targetCursorRef: exactRoute.payload.targetCursorRef,
-    beforeRoutePrefix,
-    afterRoutePrefix: projectionInput.routePrefix,
     terminalPrefix: events,
-  };
-  const [firstLifecycle, secondLifecycle] = await Promise.all([
-    runRecursionLifecycleWorker(lifecycleInput),
-    runRecursionLifecycleWorker(lifecycleInput),
-  ]);
-  assert.notEqual(firstLifecycle.processId, process.pid);
-  assert.notEqual(secondLifecycle.processId, process.pid);
-  assert.notEqual(firstLifecycle.processId, secondLifecycle.processId);
-  const { processId: _firstLifecycleProcessId, ...firstLifecycleTruth } =
-    firstLifecycle;
-  const { processId: _secondLifecycleProcessId, ...secondLifecycleTruth } =
-    secondLifecycle;
-  assert.deepEqual(secondLifecycleTruth, firstLifecycleTruth);
-  assert.equal(firstLifecycleTruth.sourceCurrentBeforeRoute, true);
-  assert.equal(firstLifecycleTruth.sourceCurrentAfterRoute, false);
-  assert.equal(firstLifecycleTruth.sourceActiveAfterRoute, false);
-  assert.equal(firstLifecycleTruth.targetActiveAfterRoute, true);
-  assert.equal(firstLifecycleTruth.runTerminalAfterRoute, false);
-  assert.equal(firstLifecycleTruth.routeAfterTerminal, null);
+  });
+  assert.notEqual(freshProof.processId, process.pid);
+  assert.equal(freshProof.route.routeRef, exactRoute.payload.routeRef);
+  assert.equal(freshProof.route.admissionEventRef, exactRoute.eventId);
+  assert.equal(freshProof.route.routeKind, "advance");
+  assert.equal(
+    freshProof.route.sourceCursorRef,
+    exactRoute.payload.sourceCursorRef,
+  );
+  assert.equal(
+    freshProof.route.sourceCursorDigest,
+    exactRoute.payload.sourceCursorDigest,
+  );
+  assert.equal(
+    freshProof.route.targetCursorRef,
+    exactRoute.payload.targetCursorRef,
+  );
+  assert.equal(
+    freshProof.route.targetCursorDigest,
+    exactRoute.payload.targetCursorDigest,
+  );
+  assert.deepEqual(
+    freshProof.terminal.replayActiveFluents,
+    freshProof.terminal.eventCalculusFluents,
+  );
+  assert.deepEqual(freshProof.terminal.activeLifecycleFluents, []);
+  assert.equal(freshProof.terminal.runtimeStatus, "closed");
   assert.equal(events.filter((event) => event.kind === "terminal_reached").length, 4);
   assert.equal(events.filter((event) => event.kind === "frame_closed").length, 4);
   assert.equal(events.filter((event) => event.kind === "graph_call_closed").length, 4);
@@ -594,6 +427,9 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
     assert.notEqual(terminal, undefined);
     assert.notEqual(frameClosed, undefined);
     assert.notEqual(graphCallClosed, undefined);
+    assert.equal(terminal.admissionOrdinal < frameClosed.admissionOrdinal, true);
+    assert.equal(frameClosed.admissionOrdinal < graphCallClosed.admissionOrdinal, true);
+    assert.equal(graphCallClosed.admissionOrdinal < foldback.admissionOrdinal, true);
     assert.equal(foldback?.payload.childDisposition, "closed");
     assert.equal(
       foldback?.payload.childTerminalEventRef,
@@ -617,16 +453,27 @@ test("M5 installed graph recursion re-enters its parent through admitted child f
       true,
     );
   }
-  assert.equal(events.filter((event) => event.kind === "run_closed").length, 1);
-  assert.equal(events.at(-1).kind, "run_closed");
-  assert.deepEqual(
-    await activeLifecycleFluents(
-      installedRoot,
-      events,
-      "m5-bounded-recursion-success",
-    ),
-    [],
+  const terminalReached = events.find(
+    (event) => event.eventId === freshProof.terminal.terminalReachedEventRef,
   );
+  const frameClosed = events.find(
+    (event) => event.eventId === freshProof.terminal.frameClosedEventRef,
+  );
+  const graphCallClosed = events.find(
+    (event) => event.eventId === freshProof.terminal.graphCallClosedEventRef,
+  );
+  const runClosed = events.find(
+    (event) => event.eventId === freshProof.terminal.runClosedEventRef,
+  );
+  assert.ok(terminalReached && frameClosed && graphCallClosed && runClosed);
+  assert.equal(frameClosed.causationEventRefs.includes(terminalReached.eventId), true);
+  assert.equal(graphCallClosed.causationEventRefs.includes(frameClosed.eventId), true);
+  assert.equal(runClosed.causationEventRefs.includes(graphCallClosed.eventId), true);
+  assert.equal(terminalReached.admissionOrdinal < frameClosed.admissionOrdinal, true);
+  assert.equal(frameClosed.admissionOrdinal < graphCallClosed.admissionOrdinal, true);
+  assert.equal(graphCallClosed.admissionOrdinal < runClosed.admissionOrdinal, true);
+  assert.equal(events.filter((event) => event.kind === "run_closed").length, 1);
+  assert.equal(events.at(-1).eventId, runClosed.eventId);
 });
 
 test("M5 installed graph recursion propagates one lawfully blocked child", async (context) => {

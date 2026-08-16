@@ -17,10 +17,10 @@ import {
 } from "./execution_basis.js";
 import {
   AbgEventStore,
+  admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
+  admitRuntimeEvent,
   assertHeldEventStoreAtDurablePrefix,
-  compareAndAppendExpectedPrefix,
   readRuntimeEventsAtDurablePrefix,
-  selectHeldEventStoreDurablePrefix,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
@@ -696,59 +696,64 @@ function admitRecursiveApplicationChildPreparationRefusal(
   const refusalDigest = sha256Canonical(body as unknown as JsonValue);
   const refusalRef =
     `child-preparation-refusal://abiogenesis/${refusalDigest.slice("sha256:".length)}`;
-  const event = compareAndAppendExpectedPrefix(store, predecessorPrefix.prefixDigest, [() => ({
-    kind: "child_preparation_refused",
-    eventTime: basis.eventTime,
-    aggregateType: "frame",
-    aggregateId: sourceCursor.frameId,
-    parentAggregateId: sourceCursor.graphCallId,
-    causationEventRefs: [
-      parentJudgment.admissionEventRef,
-      ...basis.causationEventRefs,
-    ],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: executionBasis.basisRef,
-    runId: sourceCursor.runId,
-    graphFunctionRef: executionBasis.graphFunctionRef,
-    materializationRef: graph.materializationRef,
-    graphCallId: sourceCursor.graphCallId,
-    frameId: sourceCursor.frameId,
-    payload: { refusalRef, refusalDigest, ...body },
-  })])[0]!;
-  const admitted = deepFreeze({
-    kind: "application_child_preparation_refusal_admission" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    refusalRef,
-    refusalDigest,
-    ...body,
-    admissionEventRef: event.eventId,
-  }) as ApplicationChildPreparationRefusalAdmission;
-  const successorPrefix = selectHeldEventStoreDurablePrefix(store);
-  const projected = projectApplicationChildPreparationRefusalAtPrefix(
-    selectValidatedRuntimeEventPrefix(
-      readRuntimeEventsAtDurablePrefix(successorPrefix),
-      { runId: sourceCursor.runId },
-    ),
-    { runId: sourceCursor.runId, refusalRef },
+  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
+    store,
+    predecessorPrefix,
+    () => {
+      const event = admitRuntimeEvent(store, {
+        kind: "child_preparation_refused",
+        eventTime: basis.eventTime,
+        aggregateType: "frame",
+        aggregateId: sourceCursor.frameId,
+        parentAggregateId: sourceCursor.graphCallId,
+        causationEventRefs: [
+          parentJudgment.admissionEventRef,
+          ...basis.causationEventRefs,
+        ],
+        correlationId: basis.correlationId,
+        workflowVersion: "5.0.0",
+        scopeClass: "run",
+        basisId: executionBasis.basisRef,
+        runId: sourceCursor.runId,
+        graphFunctionRef: executionBasis.graphFunctionRef,
+        materializationRef: graph.materializationRef,
+        graphCallId: sourceCursor.graphCallId,
+        frameId: sourceCursor.frameId,
+        payload: { refusalRef, refusalDigest, ...body },
+      });
+      const admitted = deepFreeze({
+        kind: "application_child_preparation_refusal_admission" as const,
+        schemaVersion: "5.0.0" as const,
+        disposition: "admitted" as const,
+        refusalRef,
+        refusalDigest,
+        ...body,
+        admissionEventRef: event.eventId,
+      }) as ApplicationChildPreparationRefusalAdmission;
+      const projected = projectApplicationChildPreparationRefusalAtPrefix(
+        selectValidatedRuntimeEventPrefix(store.readAll(), {
+          runId: sourceCursor.runId,
+        }),
+        { runId: sourceCursor.runId, refusalRef },
+      );
+      if (
+        projected === null ||
+        sha256Canonical(projected as unknown as JsonValue) !==
+          sha256Canonical(admitted as unknown as JsonValue)
+      ) {
+        throw new TypeError(
+          "application child preparation refusal admission must equal its validated Event Calculus projection",
+        );
+      }
+      return projected;
+    },
   );
-  if (
-    projected === null ||
-    sha256Canonical(projected as unknown as JsonValue) !==
-      sha256Canonical(admitted as unknown as JsonValue)
-  ) {
-    throw new TypeError(
-      "application child preparation refusal admission must equal its validated Event Calculus projection",
-    );
-  }
   return deepFreeze({
     kind: "application_child_preparation_refusal_receipt" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
-    admission: projected,
-    successorPrefix,
+    admission: committed.value,
+    successorPrefix: committed.successorPrefix,
   });
 }
 
@@ -1009,60 +1014,65 @@ function admitRecursiveApplicationChildFoldback(
   const foldbackDigest = sha256Canonical(body as unknown as JsonValue);
   const foldbackRef =
     `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}`;
-  const event = compareAndAppendExpectedPrefix(store, predecessorPrefix.prefixDigest, [() => ({
-    kind: "child_foldback_admitted",
-    eventTime: basis.eventTime,
-    aggregateType: "frame",
-    aggregateId: sourceCursor.frameId,
-    parentAggregateId: sourceCursor.graphCallId,
-    causationEventRefs: [
-      childLifecycleEvent.eventId,
-      parentJudgmentEvent.eventId,
-      ...basis.causationEventRefs,
-    ],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: parentExecutionBasis.basisRef,
-    runId: sourceCursor.runId,
-    graphFunctionRef: parentExecutionBasis.graphFunctionRef,
-    materializationRef: graph.materializationRef,
-    graphCallId: sourceCursor.graphCallId,
-    frameId: sourceCursor.frameId,
-    payload: { foldbackRef, foldbackDigest, ...body },
-  })])[0]!;
-  const admitted = deepFreeze({
-    kind: "application_child_foldback_admission" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    foldbackRef,
-    foldbackDigest,
-    ...body,
-    admissionEventRef: event.eventId,
-  }) as ApplicationChildFoldbackAdmission;
-  const successorPrefix = selectHeldEventStoreDurablePrefix(store);
-  const projected = projectApplicationChildFoldbackAtPrefix(
-    selectValidatedRuntimeEventPrefix(
-      readRuntimeEventsAtDurablePrefix(successorPrefix),
-      { runId: sourceCursor.runId },
-    ),
-    { runId: sourceCursor.runId, foldbackRef },
+  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
+    store,
+    predecessorPrefix,
+    () => {
+      const event = admitRuntimeEvent(store, {
+        kind: "child_foldback_admitted",
+        eventTime: basis.eventTime,
+        aggregateType: "frame",
+        aggregateId: sourceCursor.frameId,
+        parentAggregateId: sourceCursor.graphCallId,
+        causationEventRefs: [
+          childLifecycleEvent.eventId,
+          parentJudgmentEvent.eventId,
+          ...basis.causationEventRefs,
+        ],
+        correlationId: basis.correlationId,
+        workflowVersion: "5.0.0",
+        scopeClass: "run",
+        basisId: parentExecutionBasis.basisRef,
+        runId: sourceCursor.runId,
+        graphFunctionRef: parentExecutionBasis.graphFunctionRef,
+        materializationRef: graph.materializationRef,
+        graphCallId: sourceCursor.graphCallId,
+        frameId: sourceCursor.frameId,
+        payload: { foldbackRef, foldbackDigest, ...body },
+      });
+      const admitted = deepFreeze({
+        kind: "application_child_foldback_admission" as const,
+        schemaVersion: "5.0.0" as const,
+        disposition: "admitted" as const,
+        foldbackRef,
+        foldbackDigest,
+        ...body,
+        admissionEventRef: event.eventId,
+      }) as ApplicationChildFoldbackAdmission;
+      const projected = projectApplicationChildFoldbackAtPrefix(
+        selectValidatedRuntimeEventPrefix(store.readAll(), {
+          runId: sourceCursor.runId,
+        }),
+        { runId: sourceCursor.runId, foldbackRef },
+      );
+      if (
+        projected === null ||
+        sha256Canonical(projected as unknown as JsonValue) !==
+          sha256Canonical(admitted as unknown as JsonValue)
+      ) {
+        throw new TypeError(
+          "application child foldback admission must equal its exact Event Calculus projection",
+        );
+      }
+      return projected;
+    },
   );
-  if (
-    projected === null ||
-    sha256Canonical(projected as unknown as JsonValue) !==
-      sha256Canonical(admitted as unknown as JsonValue)
-  ) {
-    throw new TypeError(
-      "application child foldback admission must equal its exact Event Calculus projection",
-    );
-  }
   return deepFreeze({
     kind: "application_child_foldback_receipt" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
-    admission: projected,
-    successorPrefix,
+    admission: committed.value,
+    successorPrefix: committed.successorPrefix,
   });
 }
 

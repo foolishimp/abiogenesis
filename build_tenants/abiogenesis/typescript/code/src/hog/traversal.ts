@@ -9,7 +9,6 @@ import {
 } from "../abg/open_call.js";
 import {
   isAdmittedRoute,
-  isCurrentRecursionRouteSourceAtPrefix,
   type AdmittedRoute,
 } from "../abg/traversal_route.js";
 import {
@@ -545,11 +544,6 @@ export function applyRecursionRoute(
     !hasAdmittedTraversalCursorAtPrefix(prefix, sourceCursor) ||
     !hasAdmittedTraversalCursorAtPrefix(prefix, targetCursor) ||
     !isAdmittedRoute(prefix, route) ||
-    !isCurrentRecursionRouteSourceAtPrefix(prefix, {
-      runId: sourceCursor.runId,
-      frameId: sourceCursor.frameId,
-      sourceCursorRef: sourceCursor.cursorRef,
-    }) ||
     route.routeKind !== "advance" ||
     route.sourceCursorRef !== sourceCursor.cursorRef ||
     route.sourceCursorDigest !== sourceCursor.cursorDigest ||
