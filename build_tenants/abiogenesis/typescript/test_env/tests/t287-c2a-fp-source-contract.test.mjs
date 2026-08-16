@@ -137,7 +137,7 @@ test("C2A implementation owner preserves exact exception and malformed-return fa
   assert.doesNotMatch(hogSource, /implementation_exception|malformed_return/u);
 });
 
-test("C2A owner boundary totalizes F_P resolution and invocation without raw escape", async () => {
+test("C2A owner boundary preserves structural F_P proposals and totalizes exceptions", async () => {
   const { invokeLeafOwnerBoundary } = await import(
     `${pathToFileURL(code("implementation", "leaf_invocation_port.js")).href}?owner=${Date.now()}`
   );
@@ -228,7 +228,7 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
     resultCandidate: {
       kind: "invalid_success",
       schemaVersion: "5.0.0",
-      secretRawValue: "must-not-escape",
+      unvalidatedRawValue: "must-reach-f04",
     },
   });
   const occurrence = deepFreeze({
@@ -267,11 +267,15 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
   );
   const invalidSuccess = invalidPrepared.complete(exchange);
   assert.equal(invalidSuccess.kind, "closed_leaf_owner_receipt");
-  assert.equal(invalidSuccess.candidate.disposition, "failure");
-  assert.equal(invalidSuccess.candidate.resultCandidate.failureClass, "malformed_return");
+  assert.equal(invalidSuccess.candidate.disposition, "success");
+  assert.deepEqual(invalidSuccess.candidate.resultCandidate, {
+    kind: "invalid_success",
+    schemaVersion: "5.0.0",
+    unvalidatedRawValue: "must-reach-f04",
+  });
   assert.equal(invalidSuccess.candidate.evidenceCandidates.length, 0);
   assert.equal(invalidSuccess.receipt.candidate, invalidSuccess.candidate);
-  assert.doesNotMatch(JSON.stringify(invalidSuccess), /must-not-escape/u);
+  assert.match(JSON.stringify(invalidSuccess), /must-reach-f04/u);
   assert.equal(Object.isFrozen(invalidSuccess), true);
   assert.equal(Object.isFrozen(invalidSuccess.receipt), true);
   assert.equal(Object.isFrozen(invalidSuccess.candidate), true);
@@ -405,12 +409,13 @@ test("C2A owner boundary totalizes F_P resolution and invocation without raw esc
   );
   const validatorThrown = validatorPrepared.complete(exchange);
   assert.equal(validatorThrown.kind, "closed_leaf_owner_receipt");
-  assert.equal(
-    validatorThrown.candidate.resultCandidate.failureClass,
-    "malformed_return",
+  assert.equal(validatorThrown.candidate.disposition, "success");
+  assert.deepEqual(
+    validatorThrown.candidate.resultCandidate,
+    invalidRawCandidate.resultCandidate,
   );
   assert.equal(validatorThrown.receipt.candidate, validatorThrown.candidate);
-  assert.doesNotMatch(JSON.stringify(validatorThrown), /must-not-escape/u);
+  assert.match(JSON.stringify(validatorThrown), /must-reach-f04/u);
 
   const hogSource = await readFile(code("hog", "ccall_lifecycle.js"), "utf8");
   assert.doesNotMatch(hogSource, /resolveProbabilisticWorkerContracts/u);

@@ -155,7 +155,7 @@ function isLeafRealizationCandidate(
     isRecord(value.resultCandidate) &&
     value.resultCandidate.schemaVersion === "5.0.0" &&
     (value.disposition === "success"
-      ? validateSuccess(value.resultCandidate)
+      ? regime === "F_P" || validateSuccess(value.resultCandidate)
       : value.resultCandidate.kind === failureValueKind &&
         typeof value.diagnosticRef === "string" &&
         value.resultCandidate.diagnosticRef === value.diagnosticRef);

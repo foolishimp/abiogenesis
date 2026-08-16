@@ -31,6 +31,7 @@ import {
   type ExecutionClock,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
+import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
 import {
   applyAdmittedRoute,
   deriveCompletedTraversalCursor,
@@ -749,12 +750,44 @@ export function completeWorkflowLocus(
       }
       target = derived;
     }
+    const retryProgressBasis = workflowBasis(
+      frame,
+      "retry-progress",
+    );
+    const retryExit = result.resultClass === "success" &&
+        judgment.judgment === "advance"
+      ? planSuccessfulRetryExit({
+          predecessorPrefix: outcome.successorPrefix,
+          graph: runtime.graph,
+          graphFunction: runtime.graphFunction,
+          source: cursor,
+          target,
+          completion: {
+            completionClass: "judged_success",
+            cCall: outcome.admitted.cCall,
+            result,
+            judgment,
+          },
+          basis: retryProgressBasis,
+        })
+      : null;
+    if (retryExit?.kind === "successful_retry_exit_plan_refusal") {
+      return failWorkflow(frame,
+        outcome.successorPrefix,
+        `workflow-retry-progress-${ordinal}`,
+        `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
+        retryExit as unknown as JsonValue,
+      );
+    }
     const candidate = Routes.proposeCCallOutcomeTransition({
       graph: runtime.graph,
       graphFunction: runtime.graphFunction,
       sourceCursor: cursor,
       targetCursor: target,
       outcome,
+      ...(retryExit?.kind === "successful_retry_exit_plan"
+        ? { completedRetryProgress: retryExit.plan }
+        : {}),
       terminalizeNonAdvance: runtime.scopeClass === "root",
     });
     if (candidate.kind !== "traversal_transition_candidate") {
@@ -778,6 +811,9 @@ export function completeWorkflowLocus(
       openedTraversalScope: runtime.openedTraversalScope,
       closureContract: runtime.closureContract,
       basis: workflowBasis(frame, "completion"),
+      ...(retryExit?.kind === "successful_retry_exit_plan"
+        ? { completedRetryProgress: retryExit }
+        : {}),
     });
     if (admitted.kind !== "c_call_completion_admission") {
       return failWorkflow(frame,
@@ -851,10 +887,41 @@ export function completeWorkflowLocus(
     }
     target = derived;
   }
-  const fanOutReplay = Abg.projectRuntimeTruthAtDurablePrefix(
-    fanOutCompletion.successorPrefix,
-    runtime.openedTraversalScope.runId,
-  ).replayState;
+  const retryProgressBasis = workflowBasis(
+    frame,
+    "fan-out-retry-progress",
+  );
+  const retryExit = fanOutAdmission.completionKind === "complete_vector"
+    ? planSuccessfulRetryExit({
+        predecessorPrefix: fanOutCompletion.successorPrefix,
+        graph: runtime.graph,
+        graphFunction: runtime.graphFunction,
+        source: cursor,
+        target,
+        completion: {
+          completionClass: "fan_out_success",
+          cCall: parentCCall,
+          result,
+          judgment,
+          completion: fanOutAdmission,
+        },
+        basis: retryProgressBasis,
+      })
+    : null;
+  if (retryExit?.kind === "successful_retry_exit_plan_refusal") {
+    return failWorkflow(frame,
+      fanOutCompletion.successorPrefix,
+      `fan-out-retry-progress-${ordinal}`,
+      `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
+      retryExit as unknown as JsonValue,
+    );
+  }
+  const fanOutReplay = retryExit?.kind === "successful_retry_exit_plan"
+    ? retryExit.plan.replayState
+    : Abg.projectRuntimeTruthAtDurablePrefix(
+        fanOutCompletion.successorPrefix,
+        runtime.openedTraversalScope.runId,
+      ).replayState;
   const route = Routes.proposeFanOutRoute(
     runtime.graph,
     fanOut,
@@ -864,6 +931,9 @@ export function completeWorkflowLocus(
     fanOutAdmission,
     fanOutReplay,
     parentCCall.transitionContractRef,
+    retryExit?.kind === "successful_retry_exit_plan"
+      ? retryExit.plan.progresses
+      : [],
   );
   if (route.kind !== "traversal_route_candidate") {
     return failWorkflow(frame,
@@ -886,7 +956,9 @@ export function completeWorkflowLocus(
       judgment,
       application: fanOut,
       completion: fanOutAdmission,
-      completedProgresses: [],
+      completedProgresses: retryExit?.kind === "successful_retry_exit_plan"
+        ? retryExit.plan.progresses
+        : [],
     },
     terminalizeRun: route.routeKind !== "advance" &&
       runtime.scopeClass === "root",
@@ -904,6 +976,9 @@ export function completeWorkflowLocus(
     openedTraversalScope: runtime.openedTraversalScope,
     closureContract: runtime.closureContract,
     basis: workflowBasis(frame, "fan-out-completion-route"),
+    ...(retryExit?.kind === "successful_retry_exit_plan"
+      ? { completedRetryProgress: retryExit }
+      : {}),
   });
   if (admitted.kind !== "c_call_completion_admission") {
     return failWorkflow(frame,

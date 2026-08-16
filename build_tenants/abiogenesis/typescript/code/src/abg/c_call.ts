@@ -2660,6 +2660,9 @@ export function planCCallRuntimeFailureClose(
     cCall,
     phase.phase,
   );
+  const exactSourcePhase = source.kind === "c_call_admission_rejection"
+    ? phase.phase === "selected_no_evidence" || phase.phase === "evidencing"
+    : phase.phase === "evidencing";
   if (
     store.digest() !== expectedPrefixDigest ||
     store.readAll().length !== events.length ||
@@ -2675,7 +2678,7 @@ export function planCCallRuntimeFailureClose(
           sha256Canonical(cCall as unknown as JsonValue);
     })() === false ||
     cCall.callClass !== "leaf" ||
-    cCall.retryPath.length === 0 || phase.phase !== "evidencing" ||
+    cCall.retryPath.length === 0 || !exactSourcePhase ||
     (disposition !== "blocked" && disposition !== "retry") ||
     failureValueKind.length === 0 || retryOwner === null
   ) {
@@ -2771,7 +2774,9 @@ export function planCCallRuntimeFailureClose(
       "runtime failure source event is absent",
     );
   }
-  const projectedPrefix = selectValidatedRuntimeEventPrefix(projectedHistory);
+  const projectedPrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze([...projectedHistory]),
+  );
   const evidenceRefs = exactCCallRows(
     projectedPrefix,
     cCall.cCallRef,
@@ -2841,12 +2846,13 @@ export function planCCallRuntimeFailureClose(
     ...resultBody,
     admissionEventRef: resultEvent.eventId,
   }) as AdmittedCCallResult;
-  const runPrefix = selectValidatedRuntimeEventPrefix(projectedHistory, {
-    runId: cCall.runId,
-  });
+  const runPrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze([...projectedHistory]),
+    { runId: cCall.runId },
+  );
   const replayState = replayValidatedRuntimeEventPrefix(
     runPrefix,
-    selectValidatedRuntimeEventPrefix(projectedHistory),
+    selectValidatedRuntimeEventPrefix(Object.freeze([...projectedHistory])),
   );
   const judgmentBody = {
     cCallRef: cCall.cCallRef,

@@ -178,9 +178,10 @@ const FH_INPUT_CONTRACT_REF =
 const FH_ROOT_CLOSURE_CONTRACT_REF =
   "closure://t287/test/retry-fh-root@5";
 
-async function installFailOnceFpRetryWorker(scratch, gtl) {
-  const counterPath = join(scratch, "t287-tv5-fp-retry.count");
-  const command = join(scratch, "t287-tv5-fp-retry-worker.cjs");
+async function installFpRetryWorker(scratch, gtl, mode = "fail_once") {
+  assert.ok(mode === "fail_once" || mode === "always_fail");
+  const counterPath = join(scratch, `t287-tv5-fp-retry-${mode}.count`);
+  const command = join(scratch, `t287-tv5-fp-retry-${mode}-worker.cjs`);
   await writeFile(
     command,
     [
@@ -194,6 +195,8 @@ async function installFailOnceFpRetryWorker(scratch, gtl) {
       "  const prior = existsSync(counterPath) ? Number(readFileSync(counterPath, 'utf8')) : 0;",
       "  const attempt = prior + 1;",
       "  writeFileSync(counterPath, String(attempt));",
+      `  const mode = ${JSON.stringify(mode)};`,
+      "  const failed = mode === 'always_fail' || attempt === 1;",
       "  const subjectLine = prompt.split(/\\r?\\n/).find((line) => line.startsWith('Subject: '));",
       "  const subject = subjectLine === undefined ? 'Unknown' : JSON.parse(subjectLine.slice('Subject: '.length));",
       "  const result = {",
@@ -205,8 +208,8 @@ async function installFailOnceFpRetryWorker(scratch, gtl) {
       "  };",
       "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
       "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: `attempt ${attempt}` }] } }));",
-      "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: attempt === 1 ? '{not-json' : JSON.stringify(result) }));",
-      "  if (attempt === 1) process.exitCode = 17;",
+      "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: failed ? '{not-json' : JSON.stringify(result) }));",
+      "  if (failed) process.exitCode = 17;",
       "});",
       "",
     ].join("\n"),
@@ -1136,12 +1139,21 @@ async function executeTestGraph(context, constructFixture, options = {}) {
     });
   assert.equal(execution.kind, "execution_basis_admission",
     JSON.stringify(execution));
-  const opened = abg.openCall(store, execution.executionBasis, {
-    eventTime: requestValue.eventTime,
-    correlationId: `${requestValue.correlationId}/open`,
-    causationEventRefs: [],
-  });
-  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  const opened = abg.openTraversalScope(
+    store,
+    execution.successorPrefix,
+    {
+      kind: "root",
+      executionBasis: execution.executionBasis,
+    },
+    {
+      eventTime: requestValue.eventTime,
+      correlationId: `${requestValue.correlationId}/open`,
+      causationEventRefs: [],
+    },
+  );
+  assert.equal(opened.kind, "traversal_scope_open_admission",
+    JSON.stringify(opened));
   const semantics = await product.loadInstalledProductSemantics({
     install: admittedInstall,
     publication,
@@ -1156,25 +1168,13 @@ async function executeTestGraph(context, constructFixture, options = {}) {
     publication,
     semanticsProjection: product.projectInstalledLeafSemantics(semantics),
   });
-  const childModule = await import(pathToFileURL(join(
-    environment.installedRoot,
-    "build/code/src/public/child_traversal_port.js",
-  )).href);
   const graphExecute = await import(pathToFileURL(join(
     environment.installedRoot,
     "build/code/src/hog/graph_execute.js",
   )).href);
-  const childTraversalPreparationPort =
-    childModule.bindChildTraversalPreparationPort({
-      store,
-      publication,
-      program,
-      programValidation,
-      rootImplementationSet: execution.implementationSet,
-      rootInteractionSet: execution.interactionSet,
-    });
   let traversalExecutionInput = {
     store,
+    predecessorPrefix: opened.successorPrefix,
     executionBasis: execution.executionBasis,
     openedTraversalScope: opened.scope,
     program,
@@ -1192,7 +1192,6 @@ async function executeTestGraph(context, constructFixture, options = {}) {
       graphValidation,
     },
     leafPort,
-    childTraversalPreparationPort,
     closureContract,
     actorRuntimeBinding: { workspaceBinding, artifactTruth },
     input,
@@ -1229,8 +1228,6 @@ async function executeTestGraph(context, constructFixture, options = {}) {
     traversalExecutionInput = {
       ...traversalExecutionInput,
       store,
-      childTraversalPreparationPort:
-        completedInteraction.childTraversalPreparationPort,
     };
   }
   return {
@@ -1639,19 +1636,6 @@ async function completeFhInteraction(runtime) {
   );
   assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
   store = reopened.store;
-  const resumedChildModule = await import(pathToFileURL(join(
-    installedRoot,
-    "build/code/src/public/child_traversal_port.js",
-  )).href);
-  const resumedChildTraversalPreparationPort =
-    resumedChildModule.bindChildTraversalPreparationPort({
-      store,
-      publication: fixture.publication,
-      program,
-      programValidation,
-      rootImplementationSet: execution.implementationSet,
-      rootInteractionSet: execution.interactionSet,
-    });
   const assertOwnerRefusalWithoutMutation = (apply, pattern, message) => {
     const eventLogUrl = new URL(handoff.prefix.eventLogRef);
     const beforeBytes = readFileSync(eventLogUrl);
@@ -2220,7 +2204,6 @@ async function completeFhInteraction(runtime) {
     resumed = await graphExecute.executeGraphTraversal({
       ...traversalExecutionInput,
       store,
-      childTraversalPreparationPort: resumedChildTraversalPreparationPort,
       resume: {
         cursor: resumed.nextCursor,
         input: resumed.resultValue,
@@ -2232,7 +2215,6 @@ async function completeFhInteraction(runtime) {
   return {
     completion: resumed,
     store,
-    childTraversalPreparationPort: resumedChildTraversalPreparationPort,
   };
 }
 
@@ -4698,7 +4680,7 @@ test("T-287 TV5 published F_P retry crosses the real gap and reconstructs D17 re
     retryFpHelloPublication,
     {
       async prepareStore({ environment }) {
-        worker = await installFailOnceFpRetryWorker(
+        worker = await installFpRetryWorker(
           environment.scratch,
           environment.gtl,
         );
@@ -5289,43 +5271,185 @@ test("T-287 R6 nested structural identity exits both retry depths without fabric
   );
 });
 
-test("T-287 R6 post-staging route refusal rolls back both nested progress rows in memory and durable reopen", async (context) => {
+test("T-287 R6 installed F_P post-staging exception rolls back completed progress, route, and closure", async (context) => {
   let control;
+  let worker = null;
+  const priorCommand = process.env.ABG_TS_CLAUDE_COMMAND;
+  const priorCounter = process.env.ABG_T287_FP_RETRY_COUNTER;
+  context.after(() => {
+    if (priorCommand === undefined) delete process.env.ABG_TS_CLAUDE_COMMAND;
+    else process.env.ABG_TS_CLAUDE_COMMAND = priorCommand;
+    if (priorCounter === undefined) {
+      delete process.env.ABG_T287_FP_RETRY_COUNTER;
+    } else {
+      process.env.ABG_T287_FP_RETRY_COUNTER = priorCounter;
+    }
+  });
+  await assert.rejects(
+    () => executeTestGraph(
+      context,
+      retryFpHelloPublication,
+      {
+        async prepareStore({ environment }) {
+          worker = await installFpRetryWorker(
+            environment.scratch,
+            environment.gtl,
+          );
+          process.env.ABG_TS_CLAUDE_COMMAND = worker.command;
+          process.env.ABG_T287_FP_RETRY_COUNTER = worker.counterPath;
+          const path = fileURLToPath(environment.durablePrefix.eventLogRef);
+          const nativeReadAll = environment.store.readAll.bind(environment.store);
+          control = {
+            durableAtInjection: [],
+            durableBytesAtInjection: "",
+            environment,
+            injected: false,
+            path,
+            runId: null,
+            stagedEventRefs: [],
+            stagedProgressRefs: [],
+            nativeReadAll,
+          };
+          Object.defineProperty(environment.store, "readAll", {
+            configurable: true,
+            value() {
+              const events = nativeReadAll();
+              const staged = events.filter((event) =>
+                event.kind === "retry_progress_recorded" &&
+                event.payload.progressClass === "completed" &&
+                event.payload.completionClass === "judged_success");
+              if (!control.injected && staged.length >= 2) {
+                control.injected = true;
+                control.runId = staged[0].runId;
+                control.stagedEventRefs = staged.map((event) => event.eventId);
+                control.stagedProgressRefs = staged.map((event) =>
+                  event.payload.progressRef);
+                control.durableAtInjection = durableEvents(path);
+                control.durableBytesAtInjection = readFileSync(path, "utf8");
+                return Object.freeze(events.filter((event) =>
+                  !control.stagedEventRefs.includes(event.eventId)));
+              }
+              return events;
+            },
+          });
+        },
+      },
+    ),
+    /staged retry progress differs from its exact projected prefix/u,
+  );
+  assert.ok(worker);
+  assert.equal(control.injected, true,
+    "the falsifier intervenes only after both progress rows are staged");
+  assert.equal(control.stagedProgressRefs.length, 2);
+  assert.equal(await readFile(worker.counterPath, "utf8"), "2");
+  assert.deepEqual(control.durableAtInjection.filter((event) =>
+    event.kind === "retry_progress_recorded" &&
+    event.payload.progressClass === "completed"), [],
+    "uncommitted transaction rows never reach the durable log");
+  const inMemory = control.nativeReadAll();
+  assert.deepEqual(inMemory, control.durableAtInjection,
+    "the exceptional owner transaction leaves no in-memory suffix");
+  assert.equal(readFileSync(control.path, "utf8"),
+    control.durableBytesAtInjection,
+    "the exceptional owner transaction appends no durable byte");
+  assert.equal(inMemory.some((event) =>
+    control.stagedEventRefs.includes(event.eventId)), false);
+  assert.equal(inMemory.some((event) =>
+    event.kind === "traversal_route_admitted" &&
+    control.stagedProgressRefs.some((ref) =>
+      event.payload.consumedAvailabilityRefs.includes(ref))), false);
+  assert.equal(inMemory.some((event) =>
+    event.runId === control.runId &&
+    ["frame_closed", "graph_call_closed", "run_closed"].includes(event.kind)),
+  false);
+
+  const handoff = control.environment.store.projectReopenAuthorityAndClose();
+  const reopened = control.environment.abg.reopenEventStore(
+    handoff.reopenAuthority,
+    handoff.prefix,
+  );
+  assert.equal(reopened.kind, "reopened_event_store_context",
+    JSON.stringify(reopened));
+  const durable = reopened.store.readAll();
+  assert.deepEqual(durable, control.durableAtInjection,
+    "fresh reopen contains no exceptional owner suffix");
+  assert.equal(durable.some((event) =>
+    control.stagedEventRefs.includes(event.eventId)), false);
+  assert.equal(durable.some((event) =>
+    event.kind === "traversal_route_admitted" &&
+    control.stagedProgressRefs.some((ref) =>
+      event.payload.consumedAvailabilityRefs.includes(ref))), false);
+  assert.equal(durable.some((event) =>
+    event.runId === control.runId &&
+    ["frame_closed", "graph_call_closed", "run_closed"].includes(event.kind)),
+  false);
+  reopened.store.closeDurableLog();
+});
+
+test("T-287 TV5 installed F_P stopped rollback projects one exact GraphTraversalFailure", async (context) => {
+  let control;
+  let worker = null;
+  const priorCommand = process.env.ABG_TS_CLAUDE_COMMAND;
+  const priorCounter = process.env.ABG_T287_FP_RETRY_COUNTER;
+  context.after(() => {
+    if (priorCommand === undefined) delete process.env.ABG_TS_CLAUDE_COMMAND;
+    else process.env.ABG_TS_CLAUDE_COMMAND = priorCommand;
+    if (priorCounter === undefined) {
+      delete process.env.ABG_T287_FP_RETRY_COUNTER;
+    } else {
+      process.env.ABG_T287_FP_RETRY_COUNTER = priorCounter;
+    }
+  });
   const execution = await executeTestGraph(
     context,
-    retryFanOutPublication,
+    retryFpHelloPublication,
     {
-      prepareStore({ environment }) {
+      async prepareStore({ environment }) {
+        worker = await installFpRetryWorker(
+          environment.scratch,
+          environment.gtl,
+          "always_fail",
+        );
+        process.env.ABG_TS_CLAUDE_COMMAND = worker.command;
+        process.env.ABG_T287_FP_RETRY_COUNTER = worker.counterPath;
         const path = fileURLToPath(environment.durablePrefix.eventLogRef);
         const nativeReadAll = environment.store.readAll.bind(environment.store);
         control = {
+          durableAtInjection: [],
+          durableBytesAtInjection: "",
           environment,
           injected: false,
           path,
+          runId: null,
           stagedEventRefs: [],
+          stagedKinds: [],
           stagedProgressRefs: [],
-          durableProgressAtInjection: [],
           nativeReadAll,
         };
         Object.defineProperty(environment.store, "readAll", {
           configurable: true,
           value() {
             const events = nativeReadAll();
-            const staged = events.filter((event) =>
+            const stopped = events.filter((event) =>
               event.kind === "retry_progress_recorded" &&
-              event.payload.progressClass === "completed" &&
-              event.payload.completionClass === "fan_out_success");
-            if (!control.injected && staged.length >= 2) {
-              control.injected = true;
-              control.stagedEventRefs = staged.map((event) => event.eventId);
-              control.stagedProgressRefs = staged.map((event) =>
-                event.payload.progressRef);
-              control.durableProgressAtInjection = durableEvents(path).filter(
-                (event) => event.kind === "retry_progress_recorded" &&
-                  event.payload.progressClass === "completed",
+              event.payload.progressClass === "stopped");
+            if (!control.injected && stopped.length >= 2) {
+              const durableAtInjection = durableEvents(path);
+              const durableEventRefs = new Set(
+                durableAtInjection.map((event) => event.eventId),
               );
+              const staged = events.filter((event) =>
+                !durableEventRefs.has(event.eventId));
+              control.injected = true;
+              control.runId = stopped[0].runId;
+              control.stagedEventRefs = staged.map((event) => event.eventId);
+              control.stagedKinds = staged.map((event) => event.kind);
+              control.stagedProgressRefs = stopped.map((event) =>
+                event.payload.progressRef);
+              control.durableAtInjection = durableAtInjection;
+              control.durableBytesAtInjection = readFileSync(path, "utf8");
               return Object.freeze(events.filter((event) =>
-                !control.stagedEventRefs.includes(event.eventId)));
+                !stopped.some((progress) => progress.eventId === event.eventId)));
             }
             return events;
           },
@@ -5333,32 +5457,100 @@ test("T-287 R6 post-staging route refusal rolls back both nested progress rows i
       },
     },
   );
+  assert.ok(worker);
   assert.equal(control.injected, true,
-    "the falsifier intervenes only after both progress rows are staged");
+    "the falsifier intervenes only after both stopped rows are staged");
   assert.equal(control.stagedProgressRefs.length, 2);
-  assert.deepEqual(control.durableProgressAtInjection, [],
-    "uncommitted transaction rows never reach the durable log");
+  assert.deepEqual(control.stagedKinds, [
+    "c_call_result_admitted",
+    "c_call_judged",
+    "retry_progress_recorded",
+    "retry_progress_recorded",
+  ]);
+  assert.equal(await readFile(worker.counterPath, "utf8"), "2");
+  assert.equal(execution.completion.kind, "graph_traversal_failure_result",
+    JSON.stringify(execution.completion));
   assert.equal(execution.completion.disposition, "failed");
+  assert.equal(execution.completion.code, "owner_refusal");
+  assert.equal(
+    execution.completion.diagnosticRef,
+    "diagnostic://abiogenesis/hog/replay_mismatch@5",
+  );
+  assert.equal(
+    execution.completion.receipt.admission.diagnosticRef,
+    execution.completion.diagnosticRef,
+  );
+  assert.equal(execution.completion.receipt.admission.stage, "hog_traversal");
+  assert.deepEqual(
+    execution.completion.successorPrefix,
+    execution.completion.receipt.successorPrefix,
+  );
+
   const inMemory = control.nativeReadAll();
+  assert.deepEqual(
+    inMemory.slice(0, control.durableAtInjection.length),
+    control.durableAtInjection,
+    "the lawful failure extends the exact pre-injection durable prefix",
+  );
+  const lawfulSuffix = inMemory.slice(control.durableAtInjection.length);
+  assert.deepEqual(lawfulSuffix.map((event) => event.kind), [
+    "runtime_failure_observed",
+  ]);
+  const runtimeFailure = lawfulSuffix[0];
+  assert.equal(
+    runtimeFailure.eventId,
+    execution.completion.receipt.admission.admissionEventRef,
+  );
+  assert.equal(runtimeFailure.runId, control.runId);
+  assert.equal(runtimeFailure.payload.diagnosticRef,
+    "diagnostic://abiogenesis/hog/replay_mismatch@5");
+  assert.match(runtimeFailure.correlationId,
+    /\/retry-blocked-transition$/u);
   assert.equal(inMemory.some((event) =>
     control.stagedEventRefs.includes(event.eventId)), false);
   assert.equal(inMemory.some((event) =>
     event.kind === "traversal_route_admitted" &&
     control.stagedProgressRefs.some((ref) =>
       event.payload.consumedAvailabilityRefs.includes(ref))), false);
+  assert.equal(inMemory.some((event) =>
+    event.runId === control.runId &&
+    event.kind === "traversal_route_admitted" &&
+    event.payload.routeKind === "blocked"), false);
+  assert.equal(inMemory.some((event) =>
+    event.runId === control.runId && event.kind === "run_stopped"), false);
+  assert.equal(
+    readFileSync(control.path, "utf8").startsWith(
+      control.durableBytesAtInjection,
+    ),
+    true,
+    "the durable log extends the pre-injection bytes",
+  );
+  const successorEvents = control.environment.abg
+    .readRuntimeEventsAtDurablePrefix(execution.completion.successorPrefix);
+  assert.deepEqual(successorEvents, inMemory,
+    "the GraphTraversalFailure successor is the one-event lawful suffix");
 
   const handoff = control.environment.store.projectReopenAuthorityAndClose();
   const reopened = control.environment.abg.reopenEventStore(
     handoff.reopenAuthority,
+    handoff.prefix,
   );
   assert.equal(reopened.kind, "reopened_event_store_context",
     JSON.stringify(reopened));
   const durable = reopened.store.readAll();
+  assert.deepEqual(durable, inMemory,
+    "fresh reopen preserves only the lawful runtime-failure suffix");
   assert.equal(durable.some((event) =>
     control.stagedEventRefs.includes(event.eventId)), false);
   assert.equal(durable.some((event) =>
     event.kind === "traversal_route_admitted" &&
     control.stagedProgressRefs.some((ref) =>
       event.payload.consumedAvailabilityRefs.includes(ref))), false);
+  assert.equal(durable.some((event) =>
+    event.runId === control.runId &&
+    event.kind === "traversal_route_admitted" &&
+    event.payload.routeKind === "blocked"), false);
+  assert.equal(durable.some((event) =>
+    event.runId === control.runId && event.kind === "run_stopped"), false);
   reopened.store.closeDurableLog();
 });

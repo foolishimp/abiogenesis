@@ -25,6 +25,7 @@ import {
 import {
   proposeInteractionResumeRoute,
 } from "./route_proposal.js";
+import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
 import {
   projectExecutableTraversalCompletion,
   type ExecutableTraversalCompletion,
@@ -121,6 +122,32 @@ export function completeInteractionResume(
       { cCallRef: cCall.cCallRef },
     );
   }
+  const retryProgressBasis = admissionBasis(
+    input.clock,
+    "interaction/retry-progress",
+  );
+  const retryExit = planSuccessfulRetryExit({
+    predecessorPrefix: input.predecessorPrefix,
+    graph: input.graph,
+    graphFunction: input.graphFunction,
+    source: input.successorCursor,
+    target,
+    completion: {
+      completionClass: "fh_resume_success",
+      cCall,
+      result,
+      judgment,
+      resume: input.resume,
+    },
+    basis: retryProgressBasis,
+  });
+  if (retryExit.kind === "successful_retry_exit_plan_refusal") {
+    return fail(
+      "interaction-resume-retry-progress",
+      `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
+      retryExit as unknown as JsonValue,
+    );
+  }
   const proposal = proposeInteractionResumeRoute(
     input.graph,
     input.successorCursor,
@@ -128,8 +155,13 @@ export function completeInteractionResume(
     cCall,
     judgment,
     input.resume,
-    outcome.replayState,
+    retryExit.kind === "successful_retry_exit_plan"
+      ? retryExit.plan.replayState
+      : outcome.replayState,
     cCall.transitionContractRef,
+    retryExit.kind === "successful_retry_exit_plan"
+      ? retryExit.plan.progresses
+      : [],
   );
   if (proposal.kind !== "traversal_route_candidate") {
     return fail(
@@ -150,7 +182,9 @@ export function completeInteractionResume(
         result,
         judgment,
         resume: input.resume,
-        completedProgresses: [],
+        completedProgresses: retryExit.kind === "successful_retry_exit_plan"
+          ? retryExit.plan.progresses
+          : [],
       },
       terminalizeRun: false,
     });
@@ -167,6 +201,9 @@ export function completeInteractionResume(
       openedTraversalScope: input.openedTraversalScope,
       closureContract: input.closureContract,
       basis: admissionBasis(input.clock, "interaction/resume"),
+      ...(retryExit.kind === "successful_retry_exit_plan"
+        ? { completedRetryProgress: retryExit }
+        : {}),
     });
   if (admitted.kind !== "c_call_completion_admission") {
     return fail(

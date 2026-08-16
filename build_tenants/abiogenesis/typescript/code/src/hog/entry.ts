@@ -153,6 +153,27 @@ function failEntry(
 export function enterTraversal(
   input: ExecuteGraphTraversalInput,
 ): MachineEvaluationFrame {
+  let projectedRetryResume: AbgRetry.ProjectedRetryResumeSuccess | null = null;
+  if (Object.hasOwn(input, "projectedRetryResume")) {
+    const candidate = (input as unknown as Readonly<Record<string, unknown>>)
+      .projectedRetryResume;
+    if (
+      Object.hasOwn(input, "input") ||
+      Object.hasOwn(input, "inputDigest") ||
+      Object.hasOwn(input, "resume") ||
+      !AbgRetry.isProjectedRetryResumeCarrier(candidate)
+    ) {
+      throw new TypeError(
+        "diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5",
+      );
+    }
+    if (!sameCanonical(input.predecessorPrefix, candidate.successorPrefix)) {
+      throw new TypeError(
+        "diagnostic://abiogenesis/hog/projected-retry-prefix-mismatch@5",
+      );
+    }
+    projectedRetryResume = candidate;
+  }
   const scopeClass = projectOpenedTraversalScopeClassAtDurablePrefix(
     input.predecessorPrefix,
     input.openedTraversalScope,
@@ -166,7 +187,7 @@ export function enterTraversal(
       { scopeRef: input.openedTraversalScope.scopeRef },
     );
   }
-  const projectedBranch = Object.hasOwn(input, "projectedRetryResume");
+  const projectedBranch = projectedRetryResume !== null;
   const initialInput = projectedBranch
     ? null
     : input as InitialOrNonRetryExecuteGraphTraversalInput;
@@ -196,19 +217,8 @@ export function enterTraversal(
   let projectedInput: Readonly<Record<string, JsonValue>> | null = null;
   let projectedCursor: TraversalCursor | null = null;
   let projectedExecutionBasis: ExecutionBasis | null = null;
-  if (projectedBranch) {
-    const candidate = (input as unknown as Readonly<Record<string, unknown>>)
-      .projectedRetryResume;
-    if (
-      Object.hasOwn(input, "input") ||
-      Object.hasOwn(input, "inputDigest") ||
-      Object.hasOwn(input, "resume") ||
-      !AbgRetry.isProjectedRetryResumeCarrier(candidate)
-    ) {
-      throw new TypeError(
-        "diagnostic://abiogenesis/hog/projected-retry-carrier-mismatch@5",
-      );
-    }
+  if (projectedRetryResume !== null) {
+    const candidate = projectedRetryResume;
     try {
       assertHeldEventStoreAtDurablePrefix(input.store, candidate.successorPrefix);
     } catch {
@@ -347,7 +357,31 @@ export function enterTraversal(
     );
   }
   const initialCursor = stop.kind === "traversal_stop_ref" ? stop.cursor : stop;
-  let activeRuntime: ExecuteGraphTraversalCommonInput = input;
+  const commonRuntime: ExecuteGraphTraversalCommonInput = Object.freeze({
+    store: input.store,
+    predecessorPrefix: input.predecessorPrefix,
+    executionBasis: input.executionBasis,
+    openedTraversalScope: input.openedTraversalScope,
+    program: input.program,
+    graphFunction: input.graphFunction,
+    graph: input.graph,
+    graphValidation: input.graphValidation,
+    programValidation: input.programValidation,
+    implementationSet: input.implementationSet,
+    interactionSet: input.interactionSet,
+    ...(input.continuationProductBasis === undefined
+      ? {}
+      : { continuationProductBasis: input.continuationProductBasis }),
+    leafPort: input.leafPort,
+    closureContract: input.closureContract,
+    actorRuntimeBinding: input.actorRuntimeBinding,
+    ...(input.deferFailedRunStop === undefined
+      ? {}
+      : { deferFailedRunStop: input.deferFailedRunStop }),
+    eventTime: input.eventTime,
+    correlationId: input.correlationId,
+  });
+  let activeRuntime = commonRuntime;
   if (resumedCursor === undefined) {
     const cursorAdmission = admitInitialTraversalCursor(
       input.store,
@@ -372,10 +406,10 @@ export function enterTraversal(
         cursorAdmission as unknown as JsonValue,
       );
     }
-    activeRuntime = {
-      ...input,
+    activeRuntime = Object.freeze({
+      ...commonRuntime,
       predecessorPrefix: cursorAdmission.successorPrefix,
-    };
+    });
   }
   return {
     runtime: activeRuntime,

@@ -31,6 +31,7 @@ import {
   type ExecutionClock,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
+import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
 import {
   applyAdmittedRoute,
   deriveCompletedTraversalCursor,
@@ -473,6 +474,35 @@ export function evaluateExecutableCCall(
       input.deferToApplication === true &&
       admitted.admitted.result.resultClass === "success" &&
       admitted.admitted.judgment.judgment === "advance";
+    const retryProgressBasis = admissionBasis(input.clock, "retry-progress");
+    const retryExit = admitted.disposition === "judged" &&
+        !applicationReady &&
+        admitted.admitted.result.resultClass === "success" &&
+        admitted.admitted.judgment.judgment === "advance"
+      ? planSuccessfulRetryExit({
+          predecessorPrefix: admitted.successorPrefix,
+          graph: input.graph,
+          graphFunction: input.graphFunction,
+          source: input.stop.cursor,
+          target,
+          completion: {
+            completionClass: "judged_success",
+            cCall: admitted.admitted.cCall,
+            result: admitted.admitted.result,
+            judgment: admitted.admitted.judgment,
+          },
+          basis: retryProgressBasis,
+        })
+      : null;
+    if (retryExit?.kind === "successful_retry_exit_plan_refusal") {
+      return failCCall(
+        input,
+        admitted.successorPrefix,
+        `leaf-retry-progress-${input.ordinal}`,
+        `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
+        retryExit as unknown as JsonValue,
+      );
+    }
     const proposedTransition = applicationReady
       ? null
       : Routes.proposeCCallOutcomeTransition({
@@ -481,6 +511,9 @@ export function evaluateExecutableCCall(
           sourceCursor: input.stop.cursor,
           targetCursor: admitted.disposition === "blocked" ? null : target,
           outcome: admitted,
+          ...(retryExit?.kind === "successful_retry_exit_plan"
+            ? { completedRetryProgress: retryExit.plan }
+            : {}),
           terminalizeNonAdvance: input.scopeClass === "root",
         });
     if (
@@ -508,6 +541,9 @@ export function evaluateExecutableCCall(
       openedTraversalScope: input.openedTraversalScope,
       closureContract: input.closureContract,
       basis: admissionBasis(input.clock, "completion"),
+      ...(retryExit?.kind === "successful_retry_exit_plan"
+        ? { completedRetryProgress: retryExit }
+        : {}),
       ...(input.deferToApplication === true
         ? { deferToApplication: true as const }
         : {}),

@@ -51,7 +51,10 @@ import {
   selectValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type { ValidatedRuntimeEventPrefix } from "./event_prefix.js";
-import { admitProbabilisticResultCandidate } from "./probabilistic_result.js";
+import {
+  admitProbabilisticResultCandidate,
+  type ProbabilisticResultAdmissionResult,
+} from "./probabilistic_result.js";
 import {
   projectActiveRuntimeTransaction,
   projectRuntimeTruthAtDurablePrefix,
@@ -59,6 +62,12 @@ import {
   type ActiveRuntimeTransactionProjection,
   type ReplayState,
 } from "./replay.js";
+import {
+  admitPlannedCompletedRetryProgressInActiveTransaction,
+  type CompletedRetryProgressPlan,
+  type RetryAdmissionRefusal,
+  type RetrySuccessfulExitEvidence,
+} from "./retry.js";
 import type { TraversalCursorCandidate } from "./traversal_cursor.js";
 import type { OpenedTraversalScope } from "./open_call.js";
 import {
@@ -216,6 +225,11 @@ export interface AdmitCCallCompletionInput {
   readonly openedTraversalScope: OpenedTraversalScope;
   readonly closureContract: Readonly<ClosureContract>;
   readonly basis: RuntimeAdmissionBasis;
+  readonly completedRetryProgress?: Readonly<{
+    readonly plan: CompletedRetryProgressPlan;
+    readonly completion: RetrySuccessfulExitEvidence;
+    readonly basis: RuntimeAdmissionBasis;
+  }>;
   readonly deferToApplication?: true;
 }
 
@@ -283,6 +297,7 @@ export type CCallCompletionAdmission = Readonly<{
 export type CCallCompletionResult =
   | CCallCompletionAdmission
   | Exclude<RouteTransitionResult, RouteTransitionAdmission>
+  | RetryAdmissionRefusal
   | ScopeClosureAdmissionRefusal;
 
 class CCallCompletionAbort extends Error {
@@ -311,6 +326,86 @@ function stageBasis(
     ...basis,
     correlationId: `${basis.correlationId}/${stage}`,
   };
+}
+
+function isRetryEligibleProbabilisticPayloadRefusal(
+  result: ProbabilisticResultAdmissionResult,
+): boolean {
+  if (result.kind !== "probabilistic_result_admission_refusal") return false;
+  switch (result.code) {
+    case "duplicate_object_key":
+    case "invalid_json_framing":
+    case "invalid_unicode_scalar":
+    case "malformed_json":
+    case "non_finite_number":
+    case "non_ijson_value":
+    case "unsafe_integral_number":
+    case "non_object_result":
+    case "declared_contract_refused":
+      return true;
+    default:
+      return false;
+  }
+}
+
+function projectProbabilisticResultAtPrefix(
+  input: AdmitCCallResultInput,
+  prefix: ValidatedRuntimeEventPrefix,
+): ProbabilisticResultAdmissionResult | null {
+  if (input.outcomeClass !== "leaf" || input.regime !== "F_P") return null;
+  const receipt = input.ownerReceipt.receipt;
+  if (receipt?.computeRegime !== "F_P") return null;
+  const exchange = receipt.actorProcessExchange;
+  return admitProbabilisticResultCandidate({
+    artifactTruth: input.actorRuntimeBinding.artifactTruth,
+    executionBasis: input.executionBasis,
+    implementationSet: input.implementationSet,
+    leafPort: input.leafPort,
+    occurrence: {
+      cCallRef: input.cCall.cCallRef,
+      runId: input.cCall.runId,
+      graphCallId: input.cCall.graphCallId,
+      frameId: input.cCall.frameId,
+      programLocusRef: input.cCall.programLocusRef,
+      taskOrdinal: input.cCall.taskOrdinal,
+      attempt: input.cCall.attempt,
+    },
+    prefix,
+    resolution: input.resolution,
+    input: input.input,
+    request: exchange.request,
+    observation: exchange.observation,
+  });
+}
+
+function admitProbabilisticPayloadRejection(
+  input: Extract<
+    AdmitCCallResultInput,
+    { readonly outcomeClass: "leaf"; readonly regime: "F_P" }
+  >,
+  prefix: ValidatedRuntimeEventPrefix,
+): CCallAdmissionRejection {
+  const result = admitResult(
+    input.store,
+    prefix,
+    input.graph,
+    input.graphFunction,
+    input.cursor,
+    input.cCall,
+    input.ownerReceipt.candidate.resultCandidate,
+    "success",
+    input.cCall.outputContractRef,
+    input.outputValueKind,
+    () => false,
+    [],
+    stageBasis(input.basis, "result"),
+  );
+  if (result.kind !== "c_call_admission_rejection") {
+    throw new TypeError(
+      "F04 payload refusal must remain one pure CCall result rejection",
+    );
+  }
+  return result;
 }
 
 type StagedCCallOutcome =
@@ -521,6 +616,8 @@ function stageBlockedOutcome(
 
 function stageCCallResult(
   input: AdmitCCallResultInput,
+  probabilistic: ProbabilisticResultAdmissionResult | null,
+  payloadRejection: CCallAdmissionRejection | null,
 ): StagedCCallOutcome {
   if (!isRuntimeEventTransactionActive(input.store)) {
     throw new TypeError("CCall result admission requires one ABG transaction");
@@ -548,29 +645,6 @@ function stageCCallResult(
     : null;
   const request = exchange?.request ?? null;
   const observation = exchange?.observation ?? null;
-  const probabilistic = leafInput?.regime === "F_P" &&
-      request !== null && observation !== null
-    ? admitProbabilisticResultCandidate({
-        artifactTruth: leafInput.actorRuntimeBinding.artifactTruth,
-        executionBasis: input.executionBasis,
-        implementationSet: leafInput.implementationSet,
-        leafPort: input.leafPort,
-        occurrence: {
-          cCallRef: input.cCall.cCallRef,
-          runId: input.cCall.runId,
-          graphCallId: input.cCall.graphCallId,
-          frameId: input.cCall.frameId,
-          programLocusRef: input.cCall.programLocusRef,
-          taskOrdinal: input.cCall.taskOrdinal,
-          attempt: input.cCall.attempt,
-        },
-        prefix: authorityPrefix,
-        resolution: leafInput.resolution,
-        input: input.input,
-        request,
-        observation,
-      })
-    : null;
   const evidenceCandidates: readonly CCallEvidenceCandidate[] =
     input.outcomeClass === "workflow"
       ? [deriveSubTraversalEvidence(
@@ -581,6 +655,8 @@ function stageCCallResult(
         )]
       : input.regime === "F_D"
         ? leafCandidate!.evidenceCandidates
+        : payloadRejection !== null
+          ? []
         : request === null || observation === null ||
             input.ownerReceipt.workerContracts === null
           ? []
@@ -649,7 +725,7 @@ function stageCCallResult(
       failureValueKind: input.failureValueKind,
     });
   }
-  const result = admitResult(
+  const result = payloadRejection ?? admitResult(
     input.store,
     authorityPrefix,
     input.graph,
@@ -731,11 +807,64 @@ export function admitCCallResult(
   if (isRuntimeEventTransactionActive(input.store)) {
     throw new TypeError("CCall result admission owns its ABG transaction");
   }
+  assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
+  const predecessorPrefix = selectValidatedRuntimeEventPrefix(
+    readRuntimeEventsAtDurablePrefix(input.predecessorPrefix),
+  );
+  const probabilistic = projectProbabilisticResultAtPrefix(
+    input,
+    predecessorPrefix,
+  );
+  if (
+    probabilistic?.kind === "probabilistic_result_admission_refusal" &&
+    !isRetryEligibleProbabilisticPayloadRefusal(probabilistic)
+  ) {
+    throw new TypeError(
+      `F04 probabilistic result authority refused: ${probabilistic.code}`,
+    );
+  }
+  const probabilisticInput = input.outcomeClass === "leaf" &&
+      input.regime === "F_P"
+    ? input
+    : null;
+  const payloadRejection = probabilisticInput !== null &&
+      probabilistic !== null &&
+      isRetryEligibleProbabilisticPayloadRefusal(probabilistic) &&
+      probabilisticInput.ownerReceipt.receipt?.computeRegime === "F_P" &&
+      probabilisticInput.ownerReceipt.receipt.actorProcessExchange.observation
+          .disposition === "success"
+    ? admitProbabilisticPayloadRejection(probabilisticInput, predecessorPrefix)
+    : null;
+  if (
+    payloadRejection !== null && probabilisticInput !== null &&
+    input.cCall.retryPath.length > 0
+  ) {
+    const staged = deepFreeze({
+      disposition: "retry" as const,
+      cCall: input.cCall,
+      source: payloadRejection,
+      failureCandidate:
+        probabilisticInput.ownerReceipt.candidate.resultCandidate,
+      failureValueKind: input.failureValueKind,
+    });
+    const truth = projectRuntimeTruthAtDurablePrefix(
+      input.predecessorPrefix,
+      input.cCall.runId,
+    );
+    return deepFreeze({
+      ...completeOutcomeReceiptBody(staged, truth),
+      successorPrefix: input.predecessorPrefix,
+    }) as RetryCCallOutcomeReceipt;
+  }
   const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     input.store,
     input.predecessorPrefix,
     () => {
-      const staged = stageCCallResult(input);
+      const staged = stageCCallResult(
+        input,
+        probabilistic,
+        payloadRejection,
+      );
       const truth = projectActiveRuntimeTransaction(
         input.store,
         input.predecessorPrefix,
@@ -919,6 +1048,11 @@ export function admitCCallCompletion(
     input.outcome.admitted.result.resultClass === "success" &&
     input.outcome.admitted.judgment.judgment === "advance"
   ) {
+    if (input.completedRetryProgress !== undefined) {
+      throw new TypeError(
+        "application return cannot consume completed retry progress",
+      );
+    }
     if (input.target !== null || input.candidate !== null) {
       throw new TypeError(
         "application return consumes neither a topology target nor a route candidate",
@@ -972,9 +1106,43 @@ export function admitCCallCompletion(
       input.store,
       input.predecessorPrefix,
       (): StagedCCallCompletionPayload => {
+        let stagedPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
+        if (input.completedRetryProgress !== undefined) {
+          const retryProgress = input.completedRetryProgress;
+          const completedProgresses =
+            admitPlannedCompletedRetryProgressInActiveTransaction(
+              input.store,
+              input.predecessorPrefix,
+              input.graph,
+              input.graphFunction,
+              input.source,
+              input.target,
+              retryProgress.completion,
+              retryProgress.basis,
+              retryProgress.plan,
+            );
+          if (!Array.isArray(completedProgresses)) {
+            throw new CCallCompletionAbort(
+              completedProgresses as RetryAdmissionRefusal,
+            );
+          }
+          stagedPrefix = selectValidatedRuntimeEventPrefix(
+            input.store.readAll(),
+          );
+          if (
+            sha256Canonical(stagedPrefix as unknown as JsonValue) !==
+              sha256Canonical(
+                retryProgress.plan.projectedPrefix as unknown as JsonValue,
+              )
+          ) {
+            throw new TypeError(
+              "staged retry progress differs from its exact projected prefix",
+            );
+          }
+        }
         const staged = admitTraversalTransitionInActiveTransaction({
           durablePredecessorPrefix: input.predecessorPrefix,
-          stagedPrefix: selectValidatedRuntimeEventPrefix(predecessorEvents),
+          stagedPrefix,
           store: input.store,
           executionBasis: input.executionBasis,
           graph: input.graph,

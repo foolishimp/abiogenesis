@@ -38,6 +38,7 @@ import {
   type ExecutionClock,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
+import { planSuccessfulRetryExit } from "./retry_lifecycle.js";
 import {
   applyRecursionRoute,
   deriveCompletedTraversalCursor,
@@ -325,6 +326,37 @@ function finishRecursionTerminal(
     );
   }
   const outcome = admittedDeferredCCallOutcome(state);
+  const retryProgressBasis = admissionBasis(
+    clock,
+    "terminal-retry-progress",
+  );
+  const retryExit = state.result.resultClass === "success" &&
+      state.judgment.judgment === "advance"
+    ? planSuccessfulRetryExit({
+        predecessorPrefix: outcome.successorPrefix,
+        graph: state.input.graph,
+        graphFunction: state.input.graphFunction,
+        source: state.input.traversalStop.cursor,
+        target: state.targetCursor,
+        completion: {
+          completionClass: "judged_success",
+          cCall: state.cCall,
+          result: state.result,
+          judgment: state.judgment,
+        },
+        basis: retryProgressBasis,
+      })
+    : null;
+  if (retryExit?.kind === "successful_retry_exit_plan_refusal") {
+    return recursionFailure(
+      state,
+      outcome.successorPrefix,
+      clock,
+      "terminal-retry-progress",
+      `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
+      retryExit as unknown as JsonValue,
+    );
+  }
   const route = Routes.proposeJudgedRoute(
     state.input.graph,
     state.input.traversalStop.cursor,
@@ -332,8 +364,13 @@ function finishRecursionTerminal(
     state.cCall,
     state.result,
     state.judgment,
-    outcome.replayState,
+    retryExit?.kind === "successful_retry_exit_plan"
+      ? retryExit.plan.replayState
+      : outcome.replayState,
     state.cCall.transitionContractRef,
+    retryExit?.kind === "successful_retry_exit_plan"
+      ? retryExit.plan.progresses
+      : [],
   );
   if (route.kind !== "traversal_route_candidate") {
     return recursionFailure(
@@ -356,7 +393,9 @@ function finishRecursionTerminal(
       cCall: state.cCall,
       result: state.result,
       judgment: state.judgment,
-      completedProgresses: [],
+      completedProgresses: retryExit?.kind === "successful_retry_exit_plan"
+        ? retryExit.plan.progresses
+        : [],
     },
     terminalizeRun: route.routeKind !== "advance" &&
       state.input.completionScopeClass === "root",
@@ -374,6 +413,9 @@ function finishRecursionTerminal(
     openedTraversalScope: state.input.openedTraversalScope,
     closureContract: state.input.closureContract,
     basis: admissionBasis(clock, "terminal-completion"),
+    ...(retryExit?.kind === "successful_retry_exit_plan"
+      ? { completedRetryProgress: retryExit }
+      : {}),
   });
   if (admitted.kind !== "c_call_completion_admission") {
     return recursionFailure(

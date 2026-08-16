@@ -5323,7 +5323,9 @@ export function planRetryRuntimeFailureTransition(
       predecessorEvent = cascadeEvent;
     }
   }
-  const admittedPrefix = selectValidatedRuntimeEventPrefix(projectedHistory);
+  const admittedPrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze([...projectedHistory]),
+  );
   const projectedSignal = projectCCallRuntimeFailureSignal(
     admittedPrefix,
     cCall.cCallRef,
@@ -5376,9 +5378,10 @@ export function planRetryRuntimeFailureTransition(
     stoppedProgresses,
     eligibility,
   });
-  const runPrefix = selectValidatedRuntimeEventPrefix(projectedHistory, {
-    runId: cursor.runId,
-  });
+  const runPrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze([...projectedHistory]),
+    { runId: cursor.runId },
+  );
   return deepFreeze({
     kind: "retry_runtime_failure_transition_plan" as const,
     schemaVersion: "5.0.0" as const,
@@ -6031,7 +6034,9 @@ export function planCompletedRetryProgress(
       admissionEventRef: projectedEvents[index]!.eventId,
     }) as RetryCompletedProgressAdmission
   );
-  const projectedPrefix = selectValidatedRuntimeEventPrefix(projectedHistory);
+  const projectedPrefix = selectValidatedRuntimeEventPrefix(
+    Object.freeze([...projectedHistory]),
+  );
   const ownerMismatch = plannedAttempts.some((attempt, index) => {
     const owner = projectDeclaredCRetryFrontier(
       projectedPrefix,
@@ -6056,7 +6061,7 @@ export function planCompletedRetryProgress(
     );
   }
   const projectedRunPrefix = selectValidatedRuntimeEventPrefix(
-    projectedHistory,
+    Object.freeze([...projectedHistory]),
     { runId: sourceCursor.runId },
   );
   return deepFreeze({

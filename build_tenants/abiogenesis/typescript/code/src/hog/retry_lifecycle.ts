@@ -1,6 +1,8 @@
 import * as Abg from "../abg/index.js";
+import type { RuntimeAdmissionBasis } from "../abg/execution_basis.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import * as AbgRetry from "../abg/retry.js";
+import type { GraphFunction, GtlGraph } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { CCallRetryRequest } from "./ccall_lifecycle.js";
@@ -14,6 +16,7 @@ import {
   applyAdmittedRoute,
   deriveRetryTraversalCursor,
   rehydrateHeldInteractionCursor,
+  type TraversalCursor,
 } from "./traversal.js";
 import {
   projectExecutableTraversalCompletion,
@@ -35,6 +38,62 @@ export interface RetryBlockedStep {
 }
 
 export type RetryLifecycleStep = RetryResumeStep | RetryBlockedStep;
+
+export type SuccessfulRetryExitPlan =
+  | Readonly<{
+      kind: "successful_retry_exit_not_applicable";
+    }>
+  | Readonly<{
+      kind: "successful_retry_exit_plan";
+      plan: AbgRetry.CompletedRetryProgressPlan;
+      completion: AbgRetry.RetrySuccessfulExitEvidence;
+      basis: RuntimeAdmissionBasis;
+    }>
+  | Readonly<{
+      kind: "successful_retry_exit_plan_refusal";
+      code: AbgRetry.RetryAdmissionRefusal["code"];
+      message: string;
+      refusal: AbgRetry.RetryAdmissionRefusal;
+    }>;
+
+export function planSuccessfulRetryExit(input: Readonly<{
+  predecessorPrefix: DurablePrefixCoordinate;
+  graph: Readonly<GtlGraph>;
+  graphFunction: Readonly<GraphFunction>;
+  source: TraversalCursor;
+  target: TraversalCursor | null;
+  completion: AbgRetry.RetrySuccessfulExitEvidence;
+  basis: RuntimeAdmissionBasis;
+}>): SuccessfulRetryExitPlan {
+  const plan = AbgRetry.planCompletedRetryProgress(
+    input.predecessorPrefix,
+    input.graph,
+    input.graphFunction,
+    input.source,
+    input.target,
+    input.completion,
+    input.basis,
+  );
+  if (plan.kind !== "completed_retry_progress_plan") {
+    return Object.freeze({
+      kind: "successful_retry_exit_plan_refusal" as const,
+      code: plan.code,
+      message: plan.message,
+      refusal: plan,
+    });
+  }
+  if (plan.progresses.length === 0) {
+    return Object.freeze({
+      kind: "successful_retry_exit_not_applicable" as const,
+    });
+  }
+  return Object.freeze({
+    kind: "successful_retry_exit_plan" as const,
+    plan,
+    completion: input.completion,
+    basis: input.basis,
+  });
+}
 
 function failRetry(
   request: CCallRetryRequest,

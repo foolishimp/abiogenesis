@@ -10,6 +10,7 @@ import type {
 import type { FanOutCompletionAdmission } from "../abg/fan_out.js";
 import type { FhInteractionResumeAdmission } from "../abg/continuation.js";
 import type {
+  CompletedRetryProgressPlan,
   RetryCompletedProgressAdmission,
   RetryProgressAdmission,
 } from "../abg/retry.js";
@@ -548,7 +549,7 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
   sourceCursor: TraversalCursor;
   targetCursor: TraversalCursor | null;
   outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt;
-  completedProgresses?: readonly RetryCompletedProgressAdmission[];
+  completedRetryProgress?: CompletedRetryProgressPlan;
   terminalizeNonAdvance: boolean;
 }>): TraversalTransitionCandidate | RouteProposalRefusal {
   const outcome = input.outcome;
@@ -561,14 +562,22 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
     programLocusRef: cCall.programLocusRef,
     cursor: input.sourceCursor,
   };
-  const completedProgresses = input.completedProgresses ?? [];
+  const completedRetryProgress = input.completedRetryProgress;
+  if (completedRetryProgress?.progresses.length === 0) {
+    return routeRefusal(
+      "retry_progress_missing",
+      "completed retry progress requires one or more exact progress rows",
+    );
+  }
+  const completedProgresses = completedRetryProgress?.progresses ?? [];
+  const replayState = completedRetryProgress?.replayState ?? outcome.replayState;
   const proposal = blocked
     ? proposeBlockedRoute(
         input.graph,
         stop,
         cCall,
         outcome.completion.rejectionJudgmentRef,
-        outcome.replayState,
+        replayState,
         cCall.transitionContractRef,
       )
     : admitted!.result.resultClass === "failure"
@@ -578,7 +587,7 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
           cCall,
           admitted!.result,
           admitted!.judgment,
-          outcome.replayState,
+          replayState,
           cCall.transitionContractRef,
         )
       : admitted!.judgment.judgment === "blocked"
@@ -587,7 +596,7 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
             stop,
             cCall,
             admitted!.judgment.judgmentRef,
-            outcome.replayState,
+            replayState,
             cCall.transitionContractRef,
           )
         : proposeJudgedRoute(
@@ -597,7 +606,7 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
             cCall,
             admitted!.result,
             admitted!.judgment,
-            outcome.replayState,
+            replayState,
             cCall.transitionContractRef,
             completedProgresses,
           );

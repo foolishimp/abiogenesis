@@ -650,6 +650,7 @@ function evaluateTraversalProgram(
             stateKind: "evaluate" as const,
             frame: enterTraversal({
               ...frame.runtime,
+              predecessorPrefix: owner.resume.successorPrefix,
               correlationId: owner.correlationId,
               projectedRetryResume: owner.resume,
             }),

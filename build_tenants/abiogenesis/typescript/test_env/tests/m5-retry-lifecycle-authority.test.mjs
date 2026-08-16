@@ -4,6 +4,10 @@ import { join, resolve } from "node:path";
 import test from "node:test";
 import { pathToFileURL } from "node:url";
 
+import {
+  acquireNewEmptyAppendSinkFixture,
+} from "../support/new-empty-append-sink.mjs";
+
 const root = resolve(import.meta.dirname, "../..");
 
 function sourceSlice(source, start, end) {
@@ -331,4 +335,389 @@ test("raw executor resume remains closed to every retry cursor", async () => {
     /initialInput\.resume\.cursor\.retryPath\.length !== 0/u,
   );
   assert.doesNotMatch(rawResumeBranch, /projectedRetryResume/u);
+});
+
+test("entry frame runtime is an exact common projection and retry composition stays disjoint", async () => {
+  const entrySource = await readFile(
+    join(root, "code/src/hog/entry.ts"),
+    "utf8",
+  );
+  const traversalContractSource = await readFile(
+    join(root, "code/src/hog/traversal_contract.ts"),
+    "utf8",
+  );
+  const graphExecuteSource = await readFile(
+    join(root, "code/src/hog/graph_execute.ts"),
+    "utf8",
+  );
+  const commonContract = sourceSlice(
+    traversalContractSource,
+    "export interface ExecuteGraphTraversalCommonInput {",
+    "\n}\n\nexport interface InitialOrNonRetryResumeEntry",
+  );
+  const declaredCommonFields = [...commonContract.matchAll(
+    /^\s*readonly ([A-Za-z][A-Za-z0-9]*)(?:\?)?:/gmu,
+  )].map((match) => match[1]);
+  const commonProjection = sourceSlice(
+    entrySource,
+    "const commonRuntime: ExecuteGraphTraversalCommonInput = Object.freeze({",
+    "  let activeRuntime = commonRuntime;",
+  );
+  const projectedCommonFields = [...commonProjection.matchAll(
+    /\b([A-Za-z][A-Za-z0-9]*): input\.\1\b/gu,
+  )].map((match) => match[1]);
+  assert.deepEqual(projectedCommonFields, declaredCommonFields);
+  assert.doesNotMatch(commonProjection, /\.\.\.input\b/u);
+
+  const variantFields = [
+    "input",
+    "inputDigest",
+    "resume",
+    "projectedRetryResume",
+  ];
+  const initialEntry = Object.fromEntries([
+    ...declaredCommonFields.map((field) => [field, `common:${field}`]),
+    ...variantFields.map((field) => [field, `variant:${field}`]),
+  ]);
+  const frameRuntime = Object.freeze(Object.fromEntries(
+    projectedCommonFields.map((field) => [field, initialEntry[field]]),
+  ));
+  assert.equal(Object.isFrozen(frameRuntime), true);
+  for (const field of variantFields) {
+    assert.equal(Object.hasOwn(frameRuntime, field), false, field);
+  }
+
+  const cursorUpdate = sourceSlice(
+    entrySource,
+    "activeRuntime = Object.freeze({",
+    "  }\n  return {",
+  );
+  assert.match(cursorUpdate, /\.\.\.commonRuntime,/u);
+  assert.doesNotMatch(cursorUpdate, /\.\.\.input\b/u);
+  const retryComposition = sourceSlice(
+    graphExecuteSource,
+    'if (owner.kind === "retry_request") {',
+    'if (owner.kind === "workflow_child_request" ||',
+  );
+  assert.match(retryComposition, /\.\.\.frame\.runtime,/u);
+  assert.match(retryComposition, /projectedRetryResume: owner\.resume,/u);
+  assert.doesNotMatch(
+    retryComposition,
+    /^\s*(?:input|inputDigest|resume):/mu,
+  );
+  const projectedRetryInput = {
+    ...frameRuntime,
+    predecessorPrefix: "retry-prefix",
+    correlationId: "retry-correlation",
+    projectedRetryResume: "retry-resume",
+  };
+  assert.deepEqual(
+    variantFields.filter((field) => Object.hasOwn(projectedRetryInput, field)),
+    ["projectedRetryResume"],
+  );
+});
+
+test("projected retry entry consumes only its exact admitted successor prefix without effects", async (context) => {
+  const abg = await import(pathToFileURL(join(
+    root,
+    "build/code/src/abg/index.js",
+  )).href);
+  const cursorOwner = await import(pathToFileURL(join(
+    root,
+    "build/code/src/abg/traversal_cursor.js",
+  )).href);
+  const entry = await import(pathToFileURL(join(
+    root,
+    "build/code/src/hog/entry.js",
+  )).href);
+  const product = await import(pathToFileURL(join(
+    root,
+    "build/code/src/product/index.js",
+  )).href);
+  const predecessor = await acquireNewEmptyAppendSinkFixture(
+    context,
+    abg.createNewEmptyAppendSink,
+    "abi5-retry-entry-predecessor-",
+  );
+  const successor = await acquireNewEmptyAppendSinkFixture(
+    context,
+    abg.createNewEmptyAppendSink,
+    "abi5-retry-entry-successor-",
+  );
+  const inputValue = Object.freeze({ retryEntry: "exact-successor" });
+  const inputDigest = product.sha256Canonical(inputValue);
+  const nextCursor = cursorOwner.constructTraversalCursorCandidate({
+    programRef: "program://m5/retry-entry-currentness@5",
+    executionBasisRef: "execution-basis://m5/retry-entry-currentness",
+    traversalScopeRef: "traversal-scope://m5/retry-entry-currentness",
+    runId: "run://m5/retry-entry-currentness",
+    graphCallId: "graph-call://m5/retry-entry-currentness",
+    frameId: "frame://m5/retry-entry-currentness",
+    graphRef: "graph://m5/retry-entry-currentness@5",
+    inputRef: "input://m5/retry-entry-currentness",
+    inputDigest,
+    currentNodeRef: "node://m5/retry-entry-currentness@5",
+    position: "at_term",
+    termPath: ["node", "node://m5/retry-entry-currentness@5", "c"],
+    taskOrdinal: null,
+    attempt: 2,
+    retryPath: [1, 2],
+  });
+  const executableRetryInputDigest = product.sha256Canonical({
+    owner: "executable-retry-input",
+  });
+  const retryFrontierDigest = product.sha256Canonical({
+    owner: "retry-frontier",
+  });
+  const routeDigest = product.sha256Canonical({ owner: "retry-route" });
+  const retryAttemptDigest = product.sha256Canonical({
+    owner: "retry-attempt",
+  });
+  const carrier = Object.freeze({
+    kind: "projected_retry_resume",
+    schemaVersion: "5.0.0",
+    disposition: "resumed",
+    executableRetryInputRef:
+      `executable-retry-input://abiogenesis/${
+        executableRetryInputDigest.slice("sha256:".length)
+      }`,
+    executableRetryInputDigest,
+    retryFrontierRef:
+      `retry-attempt-frontier://abiogenesis/${
+        retryFrontierDigest.slice("sha256:".length)
+      }`,
+    retryFrontierDigest,
+    selectedFrontierRowRef: "retry-frontier-row://m5/currentness",
+    progressEventRef: "event://m5/retry-entry/progress",
+    routeAdmissionEventRef: "event://m5/retry-entry/route",
+    routeRef:
+      `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}`,
+    routeDigest,
+    nextCursor,
+    retryAttemptAdmissionEventRef: "event://m5/retry-entry/attempt",
+    retryAttemptRef:
+      `retry-attempt://abiogenesis/${
+        retryAttemptDigest.slice("sha256:".length)
+      }`,
+    retryAttemptDigest,
+    nextAttempt: 2,
+    inputContractRef: "contract://m5/retry-entry-input@5",
+    inputRef: nextCursor.inputRef,
+    inputDigest,
+    inputValue,
+    successorPrefix: successor.prefix,
+  });
+  const beforeEvents = predecessor.store.readAll();
+  const beforeDigest = predecessor.store.digest();
+  const beforeBytes = await readFile(new URL(predecessor.prefix.eventLogRef));
+
+  assert.throws(
+    () => entry.enterTraversal({
+      store: predecessor.store,
+      predecessorPrefix: predecessor.prefix,
+      projectedRetryResume: carrier,
+    }),
+    (error) =>
+      error instanceof TypeError &&
+      error.message ===
+        "diagnostic://abiogenesis/hog/projected-retry-prefix-mismatch@5",
+  );
+  assert.deepEqual(predecessor.store.readAll(), beforeEvents);
+  assert.equal(predecessor.store.digest(), beforeDigest);
+  assert.deepEqual(
+    await readFile(new URL(predecessor.prefix.eventLogRef)),
+    beforeBytes,
+  );
+});
+
+test("F04 payload refusal composes one pure result rejection while authority refusal cannot retry", async (context) => {
+  const outcomeSource = await readFile(
+    join(root, "code/src/abg/c_call_outcome.ts"),
+    "utf8",
+  );
+  const cCallSource = await readFile(
+    join(root, "code/src/abg/c_call.ts"),
+    "utf8",
+  );
+  const retrySource = await readFile(
+    join(root, "code/src/abg/retry.ts"),
+    "utf8",
+  );
+  const eligibility = sourceSlice(
+    outcomeSource,
+    "function isRetryEligibleProbabilisticPayloadRefusal(",
+    "function projectProbabilisticResultAtPrefix(",
+  );
+  assert.deepEqual(
+    [...eligibility.matchAll(/case "([^"]+)":/gu)].map((match) => match[1]),
+    [
+      "duplicate_object_key",
+      "invalid_json_framing",
+      "invalid_unicode_scalar",
+      "malformed_json",
+      "non_finite_number",
+      "non_ijson_value",
+      "unsafe_integral_number",
+      "non_object_result",
+      "declared_contract_refused",
+    ],
+  );
+  const stage = sourceSlice(
+    outcomeSource,
+    "function stageCCallResult(",
+    "/**\n * Admits owner evidence and one result at the caller-selected predecessor.",
+  );
+  assert.match(stage, /payloadRejection !== null\s*\? \[\]/u);
+  assert.match(stage, /const result = payloadRejection \?\? admitResult\(/u);
+  const admission = sourceSlice(
+    outcomeSource,
+    "export function admitCCallResult(",
+    "/**\n * Admits only the judgment candidate already derived by HoG",
+  );
+  assert.match(
+    admission,
+    /failureCandidate:\s*probabilisticInput\.ownerReceipt\.candidate\.resultCandidate,/u,
+  );
+  assert.match(admission, /source: payloadRejection,/u);
+  assert.match(admission, /successorPrefix: input\.predecessorPrefix,/u);
+  assert.ok(
+    admission.indexOf("F04 probabilistic result authority refused:") <
+      admission.indexOf("admitNonEmptyRuntimeEventTransactionAtDurablePrefix("),
+    "authority refusal must fail before transaction entry",
+  );
+  const closePlan = sourceSlice(
+    cCallSource,
+    "export function planCCallRuntimeFailureClose(",
+    "function runtimeFailureCloseError(",
+  );
+  assert.match(
+    closePlan,
+    /source\.kind === "c_call_admission_rejection"\s*\? phase\.phase === "selected_no_evidence" \|\| phase\.phase === "evidencing"\s*:\s*phase\.phase === "evidencing"/u,
+  );
+  const frozenScratchSelections = (source) => [
+    ...source.matchAll(
+      /selectValidatedRuntimeEventPrefix\(\s*Object\.freeze\(\[\.\.\.projectedHistory\]\)/gu,
+    ),
+  ].length;
+  assert.equal(frozenScratchSelections(closePlan), 3);
+  assert.equal(frozenScratchSelections(sourceSlice(
+    retrySource,
+    "export function planRetryRuntimeFailureTransition(",
+    "export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(",
+  )), 2);
+  assert.equal(frozenScratchSelections(sourceSlice(
+    retrySource,
+    "export function planCompletedRetryProgress(",
+    "export function admitPlannedCompletedRetryProgressInActiveTransaction(",
+  )), 2);
+
+  const abg = await import(pathToFileURL(join(
+    root,
+    "build/code/src/abg/index.js",
+  )).href);
+  const acquired = await acquireNewEmptyAppendSinkFixture(
+    context,
+    abg.createNewEmptyAppendSink,
+    "abi5-f04-pure-rejection-",
+  );
+  const prefix = abg.selectValidatedRuntimeEventPrefix(
+    abg.readRuntimeEventsAtDurablePrefix(acquired.prefix),
+  );
+  const cCall = Object.freeze({
+    cCallRef: "c-call://m5/f04-pure-rejection",
+    runId: "run://m5/f04-pure-rejection",
+    graphCallId: "graph-call://m5/f04-pure-rejection",
+    frameId: "frame://m5/f04-pure-rejection",
+    programLocusRef: "locus://m5/f04-pure-rejection",
+    taskOrdinal: null,
+    attempt: 1,
+    retryPath: [1],
+    outputContractRef: "contract://m5/f04-output@5",
+    failureContractRef: "contract://m5/f04-failure@5",
+  });
+  const malformed = Object.freeze({
+    kind: "malformed_fp_output",
+    schemaVersion: "5.0.0",
+    rawOutputDigest: `sha256:${"a".repeat(64)}`,
+  });
+  const changed = Object.freeze({
+    ...malformed,
+    rawOutputDigest: `sha256:${"b".repeat(64)}`,
+  });
+  const reject = (candidate) => abg.admitResult(
+    acquired.store,
+    prefix,
+    {},
+    {},
+    {},
+    cCall,
+    candidate,
+    "success",
+    cCall.outputContractRef,
+    "fp_hello_output",
+    () => false,
+    [],
+    {
+      eventTime: "2026-08-16T00:00:00.000Z",
+      correlationId: "correlation://m5/f04-pure-rejection",
+      causationEventRefs: [],
+    },
+  );
+  const first = reject(malformed);
+  const stationary = reject(structuredClone(malformed));
+  const different = reject(changed);
+  for (const rejection of [first, stationary, different]) {
+    assert.equal(rejection.kind, "c_call_admission_rejection");
+    assert.equal(rejection.stage, "result");
+    assert.equal(rejection.contractRef, cCall.outputContractRef);
+  }
+  assert.equal(first.candidateDigest, stationary.candidateDigest);
+  assert.notEqual(first.candidateDigest, different.candidateDigest);
+
+  const beforeEvents = acquired.store.readAll();
+  const beforeDigest = acquired.store.digest();
+  const beforeBytes = await readFile(new URL(acquired.prefix.eventLogRef));
+  assert.throws(
+    () => abg.admitCCallResult({
+      outcomeClass: "leaf",
+      regime: "F_P",
+      store: acquired.store,
+      predecessorPrefix: acquired.prefix,
+      executionBasis: {},
+      implementationSet: {},
+      graph: {},
+      graphFunction: {},
+      cursor: {},
+      cCall,
+      resolution: {},
+      leafPort: {},
+      input: {},
+      inputDigest: `sha256:${"c".repeat(64)}`,
+      ownerReceipt: {
+        candidate: { resultCandidate: malformed },
+        receipt: {
+          computeRegime: "F_P",
+          actorProcessExchange: { request: {}, observation: {} },
+        },
+      },
+      outputValueKind: "fp_hello_output",
+      failureValueKind: "fp_hello_failure",
+      actorRuntimeBinding: { artifactTruth: {} },
+      basis: {
+        eventTime: "2026-08-16T00:00:00.000Z",
+        correlationId: "correlation://m5/f04-authority-refusal",
+        causationEventRefs: [],
+      },
+    }),
+    (error) =>
+      error instanceof TypeError &&
+      error.message ===
+        "F04 probabilistic result authority refused: unadmitted_contract_capability",
+  );
+  assert.deepEqual(acquired.store.readAll(), beforeEvents);
+  assert.equal(acquired.store.digest(), beforeDigest);
+  assert.deepEqual(
+    await readFile(new URL(acquired.prefix.eventLogRef)),
+    beforeBytes,
+  );
 });
