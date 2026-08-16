@@ -43,7 +43,6 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     product,
     abg,
     gtl,
-    hog,
     validator,
     store,
     artifactTruth,
@@ -400,15 +399,17 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     invocationAdmission.programValidationRef,
     programValidation.validationRef,
   );
-  const rootCoordinate = hog.rootCTraversalCoordinate(
+  const rootCoordinate = gtl.rootCTraversalCoordinate(
     graphFunction.template.startNodeRef,
   );
-  const rootStep = hog.deriveDirectCStepFromGraph(
+  const rootTerm = gtl.resolveCProgramTermAtSourcePath(
     graphFunction.template,
-    rootCoordinate,
+    rootCoordinate.nodeRef,
+    rootCoordinate.termPath,
   );
-  assert.deepEqual(invocationAdmission.hogEntryCoordinate, rootCoordinate);
-  assert.deepEqual(invocationAdmission.hogEntryStep, rootStep);
+  assert.notEqual(rootTerm.kind, "c_source_path_refusal");
+  assert.deepEqual(invocationAdmission.gtlEntryCoordinate, rootCoordinate);
+  assert.deepEqual(invocationAdmission.gtlEntryTerm, rootTerm);
   assert.equal("selectedFibreRef" in invocationAdmission, false);
   assert.equal("selectedFibreDigest" in invocationAdmission, false);
   assert.equal("selectedPlanRef" in invocationAdmission, false);

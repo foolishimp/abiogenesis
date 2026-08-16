@@ -20,6 +20,7 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const {
     abg,
+    gtl,
     hog,
     store,
     verified,
@@ -34,7 +35,7 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
   assert.equal(abg.hasAdmittedExecutionBasis(store, executionBasis), true);
   assert.equal(
     executionBasis.entryRef,
-    invocationAdmission.hogEntryCoordinate.nodeRef,
+    invocationAdmission.gtlEntryCoordinate.nodeRef,
   );
 
   const opened = abg.openCall(
@@ -65,19 +66,19 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
   assert.equal(traversalStop.nodeRef, graph.template.startNodeRef);
   assert.deepEqual(
     traversalStop.cursor.termPath,
-    invocationAdmission.hogEntryCoordinate.termPath,
+    invocationAdmission.gtlEntryCoordinate.termPath,
   );
   assert.equal(
     traversalStop.cursor.currentNodeRef,
-    invocationAdmission.hogEntryCoordinate.nodeRef,
+    invocationAdmission.gtlEntryCoordinate.nodeRef,
   );
-  assert.deepEqual(
-    hog.deriveDirectCStepFromGraph(
-      graph.template,
-      invocationAdmission.hogEntryCoordinate,
-    ),
-    invocationAdmission.hogEntryStep,
+  const entryTerm = gtl.resolveCProgramTermAtSourcePath(
+    graph.template,
+    invocationAdmission.gtlEntryCoordinate.nodeRef,
+    invocationAdmission.gtlEntryCoordinate.termPath,
   );
+  assert.notEqual(entryTerm.kind, "c_source_path_refusal");
+  assert.deepEqual(entryTerm, invocationAdmission.gtlEntryTerm);
   assert.equal(traversalStop.computeRegime, "F_D");
   assert.equal(traversalStop.frameId, opened.frame.frameId);
   assert.equal(traversalStop.cursor.frameId, opened.frame.frameId);

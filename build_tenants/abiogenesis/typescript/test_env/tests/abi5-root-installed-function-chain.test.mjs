@@ -1,13 +1,16 @@
 import assert from "node:assert/strict";
-import { dirname, resolve } from "node:path";
+import { readFile, writeFile } from "node:fs/promises";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 import {
   buildRootCliScenario,
   importInstalledPackageExport,
+  installedCliPackageRoot,
   runInstalledCli,
   setupInstalledCliHarness,
+  writeCliTransportRequest,
 } from "../support/root-cli-environment.mjs";
 import { proveFreshProcessRuntimeProjectionEquality } from
   "../support/fresh-process-runtime-proof.mjs";
@@ -24,7 +27,7 @@ const operationOrder = [
   "abg.operation.run.invoke",
 ];
 
-test("ABI5-ROOT-001 composes seven installed Public owners into ABG replay", async (context) => {
+test("ABI5-ROOT-001 composes installed Public owners and fails closed without the HoG fold", async (context) => {
   const harness = await setupInstalledCliHarness(context, root, {
     candidateBasisSource: "packed_artifact",
   });
@@ -251,6 +254,139 @@ test("ABI5-ROOT-001 composes seven installed Public owners into ABG replay", asy
     freshProof.retainedRows[0].projection.runtimeStatus,
     "closed",
   );
+
+  const successfulEventLogBytes = await readFile(scenario.eventLogPath);
+  assert.equal(successfulEventLogBytes.byteLength, finalPrefix.prefixLength);
+  assert.equal(
+    product.sha256Bytes(successfulEventLogBytes),
+    finalPrefix.prefixDigest,
+  );
+  const successorAuthority = run.transportResults.at(-1).closeHandoff;
+  const failureInvocation = {
+    ...scenario.finalTransportRequest.invocation,
+    invocationRef: `${scenario.refs.run}/fold-refusal`,
+    correlationId: "correlation://t286/root-cli/fold-refusal",
+    payload: {
+      ...scenario.finalTransportRequest.invocation.payload,
+      runtimePrefixAuthority: successorAuthority,
+    },
+  };
+  const failureTranscriptPath = join(
+    harness.scratch,
+    "abi5-root-fold-refusal.transport.jsonl",
+  );
+  await writeCliTransportRequest(failureTranscriptPath, {
+    acquisition: { kind: "reopen", closeHandoff: successorAuthority },
+    invocation: failureInvocation,
+  });
+  const foldProbePath = join(harness.scratch, "c2a-fold-probe.jsonl");
+  const installedFoldPath = join(
+    installedCliPackageRoot(harness),
+    "build/code/src/hog/graph_execute.js",
+  );
+  await writeFile(
+    installedFoldPath,
+    [
+      'import { appendFile } from "node:fs/promises";',
+      'export { GraphTraversalFailure } from "./traversal_failure.js";',
+      "export async function executeGraphTraversal() {",
+      "  const probePath = process.env.ABI5_C2A_FOLD_PROBE_PATH;",
+      "  if (typeof probePath !== \"string\" || probePath.length === 0) {",
+      '    throw new TypeError("C2A fold probe path is absent");',
+      "  }",
+      '  await appendFile(probePath, "{\\\"kind\\\":\\\"fold_invoked\\\"}\\n", "utf8");',
+      "  return Object.freeze({",
+      '    kind: "graph_traversal_entry_refusal",',
+      '    schemaVersion: "5.0.0",',
+      '    disposition: "refused",',
+      '    code: "owner_refusal",',
+      '    message: "installed HoG fold refused entry",',
+      '    diagnosticRef: "diagnostic://abiogenesis/hog/fold-disabled@5",',
+      '    candidate: Object.freeze({ fold: "disabled" }),',
+      "    priorAdmission: null,",
+      "  });",
+      "}",
+      "",
+    ].join("\n"),
+    "utf8",
+  );
+  const failedRun = await runInstalledCli(
+    harness,
+    {
+      transportExecutor: "cli",
+      transportRuns: [],
+      transcriptPath: failureTranscriptPath,
+    },
+    { environment: { ABI5_C2A_FOLD_PROBE_PATH: foldProbePath } },
+  );
+  assert.equal(failedRun.transportRuns.length, 1);
+  assert.equal(failedRun.transportResults.length, 1);
+  assert.equal(failedRun.exitCode, 2, failedRun.stdout);
+  const failedOutcome = failedRun.transportResults[0].outcome;
+  assert.equal(failedOutcome.kind, "public_outcome");
+  assert.equal(failedOutcome.disposition, "failed");
+  assert.equal(failedOutcome.result, null);
+  assert.equal(failedOutcome.resultRef, null);
+  assert.equal(typeof failedOutcome.runId, "string");
+  assert.equal(typeof failedOutcome.replayRef, "string");
+  assert.equal(typeof failedOutcome.replayDigest, "string");
+  assert.equal(failedOutcome.replayAgreement, true);
+  const foldProbeRows = (await readFile(foldProbePath, "utf8"))
+    .trim()
+    .split(/\r?\n/u)
+    .map((line) => JSON.parse(line));
+  assert.deepEqual(foldProbeRows, [{ kind: "fold_invoked" }]);
+  const failureEventLogBytes = await readFile(scenario.eventLogPath);
+  const failureHandoff = failedRun.transportResults[0].closeHandoff;
+  assert.equal(
+    failureHandoff.reopenAuthority.eventLogPath,
+    scenario.eventLogPath,
+  );
+  assert.equal(failureHandoff.prefix.eventLogRef, finalPrefix.eventLogRef);
+  assert.ok(failureHandoff.prefix.prefixLength > finalPrefix.prefixLength);
+  assert.equal(
+    failureEventLogBytes.subarray(0, successfulEventLogBytes.byteLength)
+      .equals(successfulEventLogBytes),
+    true,
+  );
+  assert.equal(
+    failureEventLogBytes.byteLength,
+    failureHandoff.prefix.prefixLength,
+  );
+  assert.equal(
+    product.sha256Bytes(failureEventLogBytes),
+    failureHandoff.prefix.prefixDigest,
+  );
+  const failureEvents = failureEventLogBytes
+    .toString("utf8")
+    .trim()
+    .split(/\r?\n/u)
+    .filter((line) => line.length > 0)
+    .map((line) => JSON.parse(line));
+  const failureDurableEvents = abg.readRuntimeEventsAtDurablePrefix(
+    failureHandoff.prefix,
+  );
+  assert.deepEqual(failureEvents, failureDurableEvents);
+  assert.deepEqual(failureEvents.slice(0, durableEvents.length), durableEvents);
+  assert.ok(failureEvents.length > durableEvents.length);
+  const failurePrefix = abg.selectValidatedRuntimeEventPrefix(
+    failureDurableEvents,
+  );
+  const failureReplay = abg.projectRunSemanticReplayProjection(
+    failurePrefix,
+    failedOutcome.runId,
+  );
+  assert.equal(failureReplay.runtimeStatus, "failed");
+  assert.equal(failureReplay.lifecycle.runtimeFailed, true);
+  assert.equal(
+    failureReplay.eventKinds.filter(
+      (kind) => kind === "runtime_failure_observed",
+    ).length,
+    1,
+  );
+  assert.deepEqual(failureReplay.outcome.cCallStatuses, []);
+  assert.equal(failureReplay.lifecycle.terminalReached, false);
+  assert.equal(failureReplay.lifecycle.runClosed, false);
   context.diagnostic(JSON.stringify({
     operations: run.transportRequests.map((request, index) => ({
       operationId: request.invocation.operationId,
@@ -276,6 +412,17 @@ test("ABI5-ROOT-001 composes seven installed Public owners into ABG replay", asy
       replayRef: outcome.replayRef,
       replayDigest: outcome.replayDigest,
       replayAgreement: outcome.replayAgreement,
+    },
+    foldRefusal: {
+      invocationCount: foldProbeRows.length,
+      disposition: failedOutcome.disposition,
+      runtimeStatus: failureReplay.runtimeStatus,
+      runtimeFailed: failureReplay.lifecycle.runtimeFailed,
+      resultRef: failedOutcome.resultRef,
+      replayRef: failedOutcome.replayRef,
+      cCallOpened: failureReplay.outcome.cCallStatuses.length > 0,
+      terminalReached: failureReplay.lifecycle.terminalReached,
+      runClosed: failureReplay.lifecycle.runClosed,
     },
   }));
 });
