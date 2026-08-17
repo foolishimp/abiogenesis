@@ -22,7 +22,7 @@ construction, donor, proof, review, and non-closure detail.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 acceptance suspended pending C2A requalification; Wave 2 C2A HoG Effect hard break selected, C1F/D6 carrier work held. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 complete; Wave 2 selects the installed odd_glc Program-only Hello sentinel over an exact ABIogenesis 5.0 partial development Product. |
 
 ## Current Basis
 
@@ -86,92 +86,167 @@ release qualification remain dependency ordered.
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
 | `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Accepted - C5 functional substrate; integrated M5 qualification deferred |
-| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06` | One exact installed Product/catalog boundary exposes the 18-operation/56-key external Public family over a recursively factorized minimal execution basis through a thin SDK and CLI with no reachable legacy family. | Active - C2A replaces the reachable imperative HoG coordinator with the selected Effect fold; C1F/D6 carrier work held |
+| `2` | Bounded `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` substrate plus one early `A5-F17` consumer sentinel | One source-independent ABIogenesis 5.0 partial development Product admits and starts one data-only odd_glc GTL Program, HoG traverses its odd_glc-owned GraphFunction topology, the ABI-owned deterministic Hello leaf executes, and fresh replay reproduces the result. | Active - `W2-ODD-GLC-PROGRAM-ONLY-HELLO` selected; full 18/56 completion remains required for 5.0 but is not this Wave 2 exit |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path without feature-specific runtimes. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and its Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
 
 ## Current Selection
 
-Intake triage on 2026-08-14 found that the installed traversal path still
-enters an Effect shell that calls the superseded imperative HoG coordinator.
-Goals selects `w2_c2a_hog_effect_hard_break`; it does not define that
-replacement's structural HOW. The current cut is a bounded `design_reframe`
-under the installed `SPEC_METHOD.md` Core Interface Migration, Inside-Out
-Hard-Break, and Transformation Wave laws:
-
-- change class: `design_reframe`;
-- re-entry point:
-  `build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md`
-  Section 5.6.1A;
-- affected downstream span: accepted local Design -> Code -> Evidence;
-- unchanged authority: Intent, Product, requirements, the
-  18-operation/56-key family, owner meaning, ABG events, Event Calculus,
-  replay, and Public interfaces; and
-- held work: C1F execution-carrier/topology-arm correction and D6 construction.
-
-Wave 1 Product meaning remains selected, but its prior realization acceptance
-is suspended because C2A explicitly supersedes the traversal basis on which its
-former interface receipt depended. That historical artifact and receipt do not
-authorize the moving cut. Wave 1 requalification occurs only after the
-inside-out hard break has one structurally conforming installed path. Integrated
-M5 and release qualification remain deferred to their selected candidate
-boundaries.
-
-Wave 2 is the active delivery wave. `W2-C0` froze the exact 56-row
-endpoint/contract/dependency/deletion join from the prior Wave 1 evidence; that
-map remains construction input, while the superseded receipt supplies no
-current acceptance claim.
-The current bounded selection is `w2_c2a_hog_effect_hard_break`: replace the
-reachable
-`Public -> executeGraphTraversal -> Effect shell -> completeExecutableTraversal`
-path with direct evaluation of admitted `CProgramNode` through one Effect fold
-and exact owner ports, then delete or make unreachable the displaced HoG
-coordinators and prototypes. The external interfaces and behavior are
-conserved. Candidate `de506b57` and its C1F predecessors remain unaccepted
-design evidence; their carrier repair and D6 are held and supply no current
-implementation authority. The frozen 18/56 census remains external Product
-coverage, not an assertion of 56 primitive implementations.
-
-The C2A code walk exposed one observation-only F_P handoff that prevented the
-exact request/observation relation from crossing its existing owner port without
-mutable capture. F_H has authorized one bounded producing-interface re-entry:
-F_P leaf invocation returns the unchanged semantic candidate together with the
-existing ABG-validated request/observation relation as one closed immutable
-receipt. Product meaning, owner request/result/refusal meaning, ABG events,
-admission, Event Calculus, replay, Public, and the 18/56 family remain unchanged.
-This source-contract break closes before the B1/B2 fold break resumes.
-
-Wave 1 order is:
+Direct F_H intake on 2026-08-17 reprices the bounded Wave 2 outcome without
+changing Intent, Product, requirements, or the final 18-operation/56-key 5.0
+family. The selected ticket-local sentinel is
+`W2-ODD-GLC-PROGRAM-ONLY-HELLO`:
 
 ```text
-A5-F10 event-sourced runtime truth
-  -> A5-F02 complete GTL authoring and validation
-  -> A5-F03 complete graph, C, and traversal execution
-  -> A5-F04 probabilistic result integrity
+one immutable odd_glc GTL Program publication as declarative data
+  -> exact source-independent ABIogenesis 5.0 partial Product install
+  -> Product workspace and eventless catalog admit/view
+  -> run.start selects the odd_glc-owned GraphFunction
+  -> HoG traverses its graph topology through the accepted Effect fold
+  -> the exact ABI-owned deterministic Hello leaf executes
+  -> ABG-admitted events and Event Calculus truth
+  -> typed result and fresh-process replay
 ```
 
-T-287 defines the selected slice, Wave 1 increments, baseline, recovery rules,
-required proof, installed candidate boundary, worker authority, and assurance
-conditions.
+This is a `goal_reprice`. Wave 1 remains complete. D17/D18 is a reviewed
+candidate that must be checkpointed before Wave 2 implementation; it is not
+yet checkpointed and is not a Wave 1 reopening. Implementation remains held
+until that checkpoint and acceptance of this plan.
 
-Later-wave work whose consumed interfaces are frozen may begin concurrently.
-It may consume but not silently modify those interfaces. A required interface
-change re-enters the producing wave explicitly. Full cross-feature matrices,
-selected scenarios, conservation, and release qualification run against the
-integrated candidate rather than being duplicated at each wave boundary.
+For this sentinel, odd_glc supplies one immutable GTL Program publication as
+data: its Program record, odd_glc-owned GraphFunction definition and topology,
+and only the declarative contracts, policies, overlays, and package metadata
+that topology requires. It supplies no executable TypeScript
+Product-semantics provider, evaluator, implementation binding, leaf
+implementation, semantic implementation, read-only lifecycle interpreter,
+dispatcher, event writer, raw-event walker, evidence binder, fold,
+residualizer, controller, compatibility adapter, or ABI mechanism.
+ABIogenesis owns admission, validation, Product verification/resolution/install,
+workspace, the one GraphFunction Catalog, bundled base GraphFunctions and
+standard owner ports including deterministic Hello, HoG traversal, ABG
+admission/events/Event Calculus, replay, result projection, SDK, and CLI.
 
-Wave 2 retains the accepted 18-operation/56-key external contract map and the
-current eventless Product catalog/workspace-open laws. C2A is an inside-out
-hard break under T-287: the admitted HoG algebra becomes the operative source,
-the old coordinator seam is severed, consumers are rebound outward, and the
-old path receives negative reachability proof before closure. Green behavior
-through a mixed old/new path is not progress or acceptance. C1F/D6 remains
-held. After C2A closes, the selected work returns to the remaining Wave 2
-construction without changing Product or owner meaning. No Event Calculus
-redesign is selected. T-287 owns the exact migration declaration, break order,
-interface inventory, closure map, and proportional proof. Wave 2 may consume
-but not alter accepted Wave 1 interfaces without explicit interface re-entry.
+Wave 2 restores the Catalog's generic library law:
+
+```text
+installed Product/library GraphFunction publications
+  -> one deterministic Catalog
+  -> exact GraphFunction identities, definitions, and dependency closure
+  -> any admitted Program composition
+```
+
+The current same-publication validation and implementation lookup is the
+defect: it collapses the Catalog into a publication-local table. The corrected
+Product/Validator relation resolves the complete GraphFunction closure through
+the ready Catalog/View, installed ProductSet, resolved lock, dependency,
+compatibility, provenance, collision, and ambiguity law. Its immutable derived
+execution projection carries Program, GraphFunction, contract, evaluator,
+customization, fibre, and Implementation owners separately; it is not another
+catalog or authority. Typed refusals distinguish absent, ambiguous, missing
+dependency, incompatible/provenance, and owner-binding mismatch.
+
+An odd_glc publication may declare external Product-semantics, contract,
+evaluator, binding, and Implementation references as immutable data, but it
+supplies none of those executable providers. The single
+`ProductExecutionResolutionPort.resolve` resolves the Program/GraphFunction
+owner separately from every referenced executable owner through the exact
+Catalog/View, ProductSet, lock, compatibility, and provenance basis, then loads
+each callable from that owner's exact admitted install. This replaces the live
+same-install coupling at `ModulePublication.productSemanticsBinding`,
+`loadInstalledProductSemantics`, and `applyRunInvoke`; Public may pass the
+selected Program relation but may neither reuse the odd_glc install for every
+loader nor special-case its ABI.
+
+The Catalog supports immutable base GraphFunctions bundled by ABIogenesis/ABG,
+downstream GraphFunction compositions, compatible owner-local Implementations
+or fibres at declared extension points, and explicit customization overlays or
+policies. A downstream Product never mutates or silently overrides a base
+definition. For this sentinel, odd_glc publishes its GraphFunction composition
+and no custom executable Implementation; it consumes the catalogued base Hello
+capability.
+
+Public structurally admits the run request, selects
+`run.invoke#start`, calls the concrete Product resolution port, calls the
+selected concrete owner ports, and projects their outcomes. Product/Validator
+resolves and validates the Catalog closure; each GraphFunction owner supplies
+its declarative topology; each contract/evaluator/customization owner supplies
+its declared relation; primitive base GraphFunctions resolve to exact
+owner-local Implementations/ports; ABG revalidates and admits the runtime
+tuple/prefix; and HoG traverses the resolved GraphFunction closure. Executable
+leaves are Implementations/owner ports, not another GraphFunction kind. Public
+contains no owner-selection algorithm or semantic switch. No second catalog,
+runtime, execution-basis registry, or downstream adapter is introduced.
+
+Consensus is the architectural falsifier: Consensus is one published
+GraphFunction whose round topology, fan-out, aggregation, dispute recursion,
+stop, and escalation are declared composition. ABG only admits/projects it and
+HoG only traverses it. Removing that GraphFunction must remove Consensus
+behavior; no consensus-specific ABG, HoG, or Public production branch may
+remain reachable. Consensus itself is not part of this sentinel.
+
+The mechanically traced Public consumer map is:
+`workspace.create#clean`, `workspace.open#open`,
+`product.verify#verify`, `product.resolve#resolve`,
+`product.install#install`, `workspace.bind#bind`, `catalog.admit#admit`,
+`catalog.view#allowlist`, `run.invoke#start`, `project.read#run_status`,
+`project.read#run_result`, and `project.read#run_replay`. The consumer map, not
+the count, governs. ABIogenesis 5.0p packages the one exact 18-operation/56-key
+Public family. Wave 2 qualifies only this traced path; unused rows remain
+outside its evidence claim. It creates no partial roster, second API, or second
+catalog.
+
+Package constructability is nevertheless whole-family and decision-complete:
+all 56 definitions have concrete runtime-callable owner closures; the installed
+tarball contains every required owner module, runtime dependency, schema, and
+static catalog row; and one installed exact-set load/resolve probe proves all
+56 closures resolve from packed bytes. This is mechanical constructability,
+not 56-definition behavioral qualification. Scenario behavior remains limited
+to the twelve-key sentinel path.
+
+Transport is one installed CLI episode chain with exactly one
+`run.invoke#start`. SDK, schema, catalog, and CLI surfaces are mechanically
+proved exact-set/equality projections of the same contracts; they do not
+execute a second semantic path or issue a second start.
+
+The closure comparison runs immutable odd_glc 0.1 on ABIogenesis 4.6.0-rc.3
+and the odd_glc 0.2 development candidate on ABIogenesis 5.0 partial in
+separate clean processes and workspaces. No carrier translation, shared
+runtime, compatibility path, or source import joins the runs. Both unmodified
+raw observations are persisted. The 4.6 observation retains its real subject
+execution stdout `Hello, world!\n`; the 5.0 observation retains the existing
+typed `hello_world_output` with `message: "Hello World"` inside the canonical
+JSON CLI receipt. The comparator reduces them only to: source-independent
+installed execution, one top-level start, minimal Hello operation succeeded,
+one terminal result, expected version-local greeting, fresh-process replay
+agreement, no private/source imports, and no legacy fallback. It does not
+rewrite either observation. ABIogenesis 4.6 `converged` versus 5.0
+`closed_success` remain version-local authenticated evidence. The 5.0 run
+independently proves selection of the odd_glc-owned GraphFunction plus its
+exact ABI-owned Hello leaf binding. Raw identifiers, digests, events, Programs,
+GraphFunctions, leaf bindings, greeting punctuation, and transport forms are
+not compared across versions. Hello World is steel-thread shorthand here, not
+a Product-parity claim.
+
+Proportional closure is one installed sunny path, one fresh-process replay,
+the package/source/private negative census, and seam negatives only for
+absent or ambiguous catalogued GraphFunction/dependency, missing or wrong dependency or
+owner, absent/ambiguous/wrong-owner executable binding, and replay divergence.
+One installed owner-load probe proves each selected semantic callable came from
+its resolved owner install. The 4.6 comparison remains independent and
+semantic: no 4.6 code or carrier enters 5.0p, and internal event or identity
+equality is not required.
+
+The existing native ABI Hello Program, GraphFunction, leaf, judgment, and
+canonical JSON CLI receipt are retained unchanged. This sentinel neither
+redesigns them nor invents another base operator or formatter.
+
+This sentinel does not close `SCN-GLC-HELLO-WORLD-MINIMAL`. Requirement
+algebra, instruction assembly, F_P, evidence binding, assurance fold,
+residuals, lifecycle disposition, retry, continuation, fan-out, service,
+data-mapper, One Surface, Consensus, and the remaining Public definitions are
+deferred. Broader odd_glc tests become later-wave gap discovery after this
+sentinel closes and cannot enlarge Wave 2 retroactively.
 
 ## Product Scope And Conservation
 
@@ -211,7 +286,7 @@ for delivered behavior.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | Waves 1 through 4 place all 14 pre-qualification feature families, required installed negatives, selected scenarios, publication truth, and conservation evidence on one exact candidate. | Active - Wave 1 selected |
+| `M5` | Waves 1 through 4 place all 14 pre-qualification feature families, required installed negatives, selected scenarios, publication truth, and conservation evidence on one exact candidate. | Active - Wave 2 Program-only odd_glc sentinel selected |
 | `M6` | Wave 5 `A5-F15` accepts selected-method binding, self-conformance, selected pre-RC scenarios, and complete 4.6 conservation against one exact pre-RC candidate. | Pending M5 |
 | `M7` | Wave 5 `A5-F16` accepts distinct immutable RC, installed RC, final-tap, released Product, and post-publication install subjects as stable `5.0.0`. | Pending M6 |
 

@@ -9,10 +9,10 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- change_intent: replace_reachable_imperative_hog_coordination_with_the_selected_effect_fold
-- change_class: design_reframe
-- re_entry_point: build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#561a-operative-computational-realization
-- triaged_at: 2026-08-14
+- change_intent: deliver_one_installed_odd_glc_program_only_hello_path_over_an_exact_abiogenesis_5_partial_product
+- change_class: goal_reprice
+- re_entry_point: specification/GOALS.md#current-selection
+- triaged_at: 2026-08-17
 - migration_strategy: inside_out_hard_break
 - library_usage: consume
 - governing_library: effect@3.22.1
@@ -21,10 +21,10 @@
 - immutable_reference_product: v4.6.0-rc.5
 - selected_wave: W2
 - selected_feature: A5-F01
-- selected_slice: exact_public_family_construction
-- selected_slice_stage: design_reframe
-- selected_increment: w2_c2a_hog_effect_hard_break
-- selected_increment_stage: implementation_migration
+- selected_slice: odd_glc_program_only_sentinel
+- selected_slice_stage: installed_construction
+- selected_increment: w2_odd_glc_program_only_hello
+- selected_increment_stage: implementation_planning
 - accepted_checkpoint: 1f6a86074bf995763b4caff286422b5b1501374b
 - deferred_feature: A5-F12
 
@@ -48,12 +48,258 @@ requirements, and accepted design define meaning. The local realization
 constitution defines the reusable implementation constraints. This ticket
 does not restate either.
 
-The current C2A cut changes the load-bearing realization structure while
-Product and requirement truth remain stable. It is therefore a bounded
-`design_reframe`, not a local `realization_refactor`. Section 5.6.1A of the
-ABI5 Realization Constitution is the accepted re-entry surface; Code and
-Evidence are its affected downstream span. No further design cycle is selected
-because that causally closed design relation is now decision-complete.
+The current goal reprice selects a downstream Product outcome as the Wave 2
+closure boundary. It changes no Product, requirement, owner, event, or final
+18/56-family meaning.
+
+## Current Wave 2 Target — Program-Only odd_glc Hello
+
+`W2-ODD-GLC-PROGRAM-ONLY-HELLO` is the sole current Wave 2 closure target:
+
+```text
+odd_glc immutable GTL Program publication data
+  -> installed ABIogenesis 5.0 partial Product
+  -> verify -> resolve -> install -> bind
+  -> eventless catalog admit -> view
+  -> Program start selects the odd_glc-owned GraphFunction
+  -> HoG traverses its graph topology through one Effect fold
+  -> ABI-owned deterministic Hello leaf implementation
+  -> ABG events -> Event Calculus -> result -> fresh replay
+```
+
+The odd_glc package supplies exactly one immutable GTL Program publication as
+data: its Program record, odd_glc-owned GraphFunction definition and topology,
+and only the declarative contracts, policies, overlays, and package metadata
+that Program requires. It supplies no executable TypeScript Product-semantics
+provider, evaluator, implementation binding, leaf implementation, semantic
+implementation, lifecycle interpreter, dispatcher, event writer, raw-event
+walker, evidence binder, fold, residualizer, controller, or ABI mechanism. Its current
+`abi5_program` provider/leaf/`no_disposition` candidate is superseded
+diagnostic evidence and is deleted or excluded rather than adapted.
+
+ABIogenesis owns raw admission, validation, Product verification, resolution,
+install, workspace, catalog, the standard Hello contracts/evaluators/leaf
+implementation, dependency-closure resolution, HoG traversal, ABG admission/
+events/Event Calculus, replay, result projection, SDK, and CLI.
+
+### Generic GraphFunction-library resolution
+
+Current code assumes that a Program and every referenced GraphFunction,
+contract, evaluator, and Implementation share one publication/install. That
+collapses the Catalog into a publication-local table. Wave 2 restores its
+generic law:
+
+```text
+installed Product/library GraphFunction publications
+  -> one deterministic Catalog
+  -> exact GraphFunction identities, definitions, and dependency closure
+  -> any admitted Program composition
+```
+
+Product/Validator resolves the complete GraphFunction closure through the
+exact ready Catalog/View, installed ProductSet, resolved dependency lock,
+compatibility, provenance, collision, and ambiguity law. The derived immutable
+execution projection carries Program, GraphFunction, contract, evaluator,
+customization, fibre, and Implementation owners separately with exact
+identities, digests, installs, and dependency edges. It is not another catalog
+or authored authority. Refusals are typed as absent, ambiguous, missing
+dependency, incompatible/provenance, or owner-binding mismatch.
+
+The odd_glc publication may declare external Product-semantics, contract,
+evaluator, binding, and Implementation references as data, but it supplies no
+provider for them. The sole `ProductExecutionResolutionPort.resolve` resolves
+the Program/GraphFunction owner independently from every referenced semantic
+owner through the exact Catalog/View, ProductSet, lock, compatibility, and
+provenance basis. It then loads each callable from that owner's exact admitted
+install. `ModulePublication.productSemanticsBinding` therefore becomes an
+external owner/binding coordinate rather than a claim that the Program install
+contains the provider; `loadInstalledProductSemantics` consumes the resolved
+binding plus its resolved owner install; and `applyRunInvoke` stops threading
+the odd_glc Program publication/install into every semantic loader. Public
+passes the selected Program relation to the Product port and neither selects
+owners nor special-cases an ABI. Refusals distinguish absent, ambiguous, and
+wrong-owner semantic bindings after the common Catalog parse.
+
+The Catalog supports immutable base GraphFunctions and Implementations bundled
+by ABIogenesis/ABG, downstream GraphFunction compositions, compatible
+owner-local Implementations/fibres at declared extension points, and explicit
+customization overlays/policies. A downstream Product never mutates or
+silently overrides a base definition. This sentinel publishes an odd_glc-owned
+GraphFunction composition over the catalogued base Hello capability and no
+custom executable Implementation.
+
+Public structurally admits the exact run request, selects
+`run.invoke#start`, calls the concrete Product resolution port, calls the
+selected concrete owner ports, and projects their outcomes. Product/Validator
+resolves and validates the Catalog closure; each GraphFunction owner supplies
+declarative topology; each contract/evaluator/customization owner supplies its
+declared relation; primitive base GraphFunctions resolve to exact owner-local
+Implementations/ports; ABG revalidates and admits the runtime tuple/prefix; and
+HoG traverses the resolved GraphFunction closure. Executable leaves are
+Implementations/owner ports, not another GraphFunction kind. Public contains
+no owner-selection algorithm or semantic switch. This adds no catalog,
+runtime, execution-basis registry, or downstream adapter.
+
+Consensus is the structural falsifier for this shared architecture. Consensus
+is one GraphFunction; its rounds, fan-out, aggregation, dispute recursion,
+stop, and escalation are declared composition. ABG may only generically admit
+and project it, and HoG may only generically traverse it. Removing the
+published Consensus GraphFunction must remove Consensus behavior; no
+consensus-specific production branch may remain reachable in ABG, HoG, or
+Public. Consensus is not added to this sentinel.
+
+The exact final-form consumer map is:
+
+```text
+workspace.create#clean
+workspace.open#open
+product.verify#verify
+product.resolve#resolve
+product.install#install
+workspace.bind#bind
+catalog.admit#admit
+catalog.view#allowlist
+run.invoke#start
+project.read#run_status
+project.read#run_result
+project.read#run_replay
+```
+
+The traced path, not its twelve-key count, governs. ABIogenesis 5.0p packages
+the one exact 18-operation/56-key Public family. Wave 2 qualifies only these
+twelve consumed definitions; the other rows are outside this wave's evidence
+claim, not absent, replaced, stubbed, or routed through another roster. No
+partial Public family, second API, or second catalog is created.
+
+### Whole-family package constructability
+
+Before the sentinel executes, every one of the 56 definitions must have a
+concrete runtime-callable owner closure. The installed tarball contains the
+entire 18/56 family, every owner module and runtime dependency required by
+those closures, and every schema and static catalog row required to admit the
+exact keys. One installed mechanical exact-set probe loads and resolves all 56
+owner closures from packed bytes. It does not invoke their semantics and does
+not enlarge behavioral qualification beyond the twelve-key sentinel.
+
+The transport subject is one installed CLI episode chain containing exactly
+one `run.invoke#start`. SDK, schema, catalog, and CLI projections receive
+mechanical exact-set/equality proof against the same 18/56 contracts. They are
+not additional semantic executions and must not issue another start.
+
+Closure runs the immutable odd_glc 0.1/ABIogenesis 4.6.0-rc.3 pair and the
+odd_glc 0.2 development candidate/ABIogenesis 5.0p pair independently in clean
+processes and workspaces. There is no translation or shared runtime. Both raw
+observations are persisted unchanged. The 4.6 observation retains its genuine
+subject-execution stdout `Hello, world!\n`; the 5.0 observation retains the
+existing typed `hello_world_output` with `message: "Hello World"` inside the
+canonical JSON CLI receipt. The comparator reduces them only to:
+source-independent installed execution; one top-level start; minimal Hello
+operation succeeded; one terminal result; expected version-local greeting;
+fresh-process replay agreement; no source/private import; and no legacy
+fallback. It may not rewrite either raw observation. Each Product internally
+validates its own IDs, digests, events, provenance, Program, and GraphFunction
+selection. ABIogenesis 4.6 `converged` versus 5.0 `closed_success` are
+version-local evidence. The 5.0 run authenticates selection of the odd_glc-owned
+GraphFunction plus the ABI-owned Hello leaf binding; those identities,
+punctuation, and transport forms are not cross-version equality fields. Hello
+World is steel-thread shorthand, not Product parity.
+
+This target does not claim `SCN-GLC-HELLO-WORLD-MINIMAL`. F_P, requirements,
+instruction assembly, evidence binding, assurance fold, residuals, lifecycle
+disposition, retry, continuation, fan-out, service, data mapper, One Surface,
+Consensus, and the remaining Public definitions are excluded. Broader odd_glc
+tests become later-wave gap discovery and cannot expand Wave 2 retroactively.
+
+Proportional closure contains one installed sunny path, one fresh-process
+replay, package/source/private negative census, and seam negatives only for an
+absent or ambiguous catalogued GraphFunction/dependency, missing or wrong dependency or
+owner, absent/ambiguous/wrong-owner executable binding, and replay divergence.
+One installed owner-load probe proves each selected semantic callable was
+loaded from its resolved owner install. No exhaustive matrix or broader odd_glc
+scenario enters the gate.
+
+The existing native ABI Hello Program, GraphFunction, leaf, judgment, and
+canonical JSON CLI receipt are retained unchanged. No new formatter, base
+operator, or output mode is required.
+
+D17/D18 is a reviewed candidate that must be checkpointed before Wave 2
+implementation. It is not yet checkpointed. Implementation remains held until
+that prerequisite and this plan are accepted. This does not reopen Wave 1.
+
+### Current construction sequence
+
+1. Checkpoint the reviewed D17/D18 candidate without changing its accepted
+   function chain.
+2. Freeze one clean installed 4.6.0-rc.3/odd_glc 0.1 baseline receipt for the
+   normalized Hello observation.
+3. Restore the generic GraphFunction-library and owner-separated semantic
+   resolution above; package every owner closure, dependency, schema, and
+   static row; and mechanically load/resolve the exact 56 from installed bytes.
+4. Execute and qualify the traced twelve definitions through that one packaged
+   18/56 Public family; atomically exclude the legacy family from the packed
+   path.
+5. Pack the data-only odd_glc 0.2 Program candidate and prove that its package
+   contains no executable or ABI authority.
+6. Execute one installed CLI episode chain with one start, then reopen and
+   replay it from another process; prove SDK/schema/catalog equality
+   mechanically without another execution.
+7. Compare the normalized observations, freeze the exact artifacts and
+   receipts, obtain one cold code-path review, and return the candidate for
+   Executive disposition.
+
+### Function-boundary realization map
+
+The implementation pass is bounded to this existing owner chain:
+
+1. `product/catalog.ts::admitGraphFunctionCatalog`,
+   `buildGraphFunctionCatalog`, `lookupGraphFunctionDefinition`, and
+   `narrowGraphFunctionCatalog` construct and select the one ready Catalog/View
+   over all installed publications. The repair removes the assumption that a
+   Program and every referenced GraphFunction come from one publication.
+2. `validator/validation.ts::validateProgram` validates the odd_glc Program and
+   its transitive GraphFunction/contract/evaluator dependencies against that
+   resolved Catalog closure rather than requiring the raw sets to equal the
+   Program publication's local declarations.
+3. `product/implementation_resolution.ts::resolveImplementationSet` resolves
+   every reachable executable leaf through the selected Catalog row and exact
+   owner publication, binding, descriptor, lock edge, compatibility, and
+   provenance. It no longer reads GraphFunctions, contracts, or bindings only
+   from the Program publication.
+4. The planned
+   `product/execution_resolution.ts::ProductExecutionResolutionPort.resolve`
+   composes those existing pure constructors into the immutable
+   owner-separated execution projection. It resolves
+   `ModulePublication.productSemanticsBinding` and every other external
+   executable reference to an exact owner install before calling
+   `product/semantics.ts::loadInstalledProductSemantics`. This is the sole
+   Product selection relation; it adds no catalog or registry.
+5. `public/operations.ts::applyRunInvoke` becomes the thin call: admit the
+   request, select `run.invoke#start`, call the Product resolution port, call
+   the selected concrete owner ports, pass the admitted basis to HoG/ABG, and
+   project the outcome. It removes the current same-install threading of the
+   Program publication/install into semantic loaders and contains no
+   cross-publication selection algorithm.
+
+The deletion boundary is every same-publication lookup and Public-local join
+superseded by that Product port, the diagnostic odd_glc provider/evaluator/
+binding/leaf candidate, and any packed legacy/fallback path. The native ABI
+Hello Program, GraphFunction, leaf, Catalog, HoG fold, ABG event admission,
+Event Calculus, replay, and singular 18/56 family are retained.
+
+Stop immediately if the pass requires a second Catalog or roster, a Public
+semantic/owner switch, an odd_glc executable, a compatibility adapter, a
+source/private import, process-local run/read truth, a stubbed 18/56 binding,
+an unresolved or wrong-owner semantic callable, or test-side manufacture of
+either raw observation. Missing exact owner meaning or two materially
+different lawful architectures returns to F_H.
+
+Structural closure requires the odd_glc package census to contain declarative
+GTL publication data only and to contain no executable contract evaluator,
+dispatcher, Product-semantics provider, implementation binding, leaf
+implementation, event name/writer, raw-event walker, evidence binder, fold,
+residualizer, controller, ABI private import, or source-tree dependency. The ABIogenesis
+packed path contains no `RootPublicInvocation`, `legacyRequest`, compatibility
+translation, fallback, second Public family, or process-local run/read truth.
 
 ## Authority
 
@@ -69,7 +315,30 @@ because that causally closed design relation is now decision-complete.
 T-270 and T-281 are superseded. Commentary and rejected branches are evidence,
 not active instruction.
 
-## Mandatory Review Preamble
+## Mandatory Current Review Preamble
+
+Every Wave 2 worker handoff and review starts from this frame:
+
+```text
+Product: fixed ABIogenesis 5.0 scope; Wave 1 complete
+Wave 2 sentinel: W2-ODD-GLC-PROGRAM-ONLY-HELLO
+odd_glc authority: one immutable GTL Program publication as data, including
+  odd_glc-owned GraphFunction topology and required declarative dependencies;
+  no executable provider, evaluator, implementation binding, leaf, or interpreter
+ABIogenesis authority: all admission, installed Product/catalog mechanics,
+  standard Hello implementation, traversal, events, Event Calculus, replay,
+  Public, SDK, and CLI
+5.0p: source-independent development Product packaging the one exact 18/56
+  family; Wave 2 evidence traces only its twelve consumed definitions
+prohibited: odd_glc provider or executable implementation, lifecycle
+  interpreter, ABI mechanism, legacy fallback, compatibility facade, second
+  Public family, source import, or expansion into deferred lifecycle features
+```
+
+## Historical C2A Review Preamble
+
+The following preamble governed the prerequisite C2A work. It is retained as
+history and does not select the current Wave 2 subject.
 
 Every worker handoff and independent review starts by stating this Product
 frame before discussing design or code:
@@ -160,7 +429,7 @@ GTL.TypeScript
 | Wave | Feature families | Exit | State |
 |---:|---|---|---|
 | W1 | A5-F10, A5-F02, A5-F03, A5-F04 | One event-authoritative installed runtime kernel | Accepted; integrated M5 deferred |
-| W2 | A5-F01, A5-F09, A5-F05, A5-F06 | One exact 18-operation/56-key Public family over a closed installed execution basis | Active at C2A HoG Effect hard break; C1F/D6 carrier work held |
+| W2 | Bounded A5-F01/A5-F09/A5-F05/A5-F06 plus an early A5-F17 consumer sentinel | One installed Program-only odd_glc Hello path over exact ABIogenesis 5.0p contracts, owners, events, result, and fresh replay | Active at `W2-ODD-GLC-PROGRAM-ONLY-HELLO` |
 | W3 | A5-F14, A5-F07, A5-F08 | Packed Hello World, probabilistic proof, One Surface, and Consensus on the same path | Pending W2 |
 | W4 | A5-F13, A5-F17, A5-F11 | Native/host projections, downstream Product, and self-conformance | Pending W3 |
 | W5 | A5-F15, A5-F16 | Qualified immutable 5.0 release | Pending W4 |
@@ -224,7 +493,7 @@ two sunny-day tests do not infer a row's implementation state.
 - [ ] fail-closed probabilistic outcomes
 - [ ] no rival controller, registry, ledger, fold, runtime, or source-tree dependency
 
-### Wave 1 functional interface closure — current
+### Wave 1 functional interface closure — historical accepted record
 
 Wave 1 now closes a functional substrate rather than repeating final-product
 qualification. The exact interfaces frozen by this boundary are:
@@ -341,7 +610,8 @@ change the frozen four exports, refresh broad proof, or begin Wave 2. After the
 focused rerun, C4 independently checks the receipt and exact new proof bytes;
 C5 then receives one disposition.
 
-After `W1-C5`, the concrete parallel lanes are:
+The following post-`W1-C5` parallel-lane table is historical planning evidence.
+It is non-operative for the current Program-only sentinel:
 
 | Lane | May start | Must wait | Upstream guard |
 |---|---|---|---|
@@ -363,7 +633,12 @@ Disposition is functional:
   recorded for the integrated M5/M6 qualification family, not expanded inside
   Wave 1.
 
-## Wave 2 Delivery Plan - active
+## Full 18/56 Delivery Plan - deferred beyond the current Wave 2 sentinel
+
+**DEFERRED/HISTORICAL — NON-OPERATIVE.** Every heading, gate, state, checkbox,
+construction step, proof condition, and present-tense instruction in this
+retained section is later 5.0 backlog. None defines current Wave 2 closure or
+may enlarge `W2-ODD-GLC-PROGRAM-ONLY-HELLO`.
 
 Wave 2 delivers `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` as one installed
 function:
@@ -669,8 +944,8 @@ scaffolding, not production architecture. Effect `3.22.1` is selected; no
 further technology decision remains. The resource-specific FS-18/FS-19 ledger
 selects the current Node/filesystem and ABG Event Store atoms through core
 Effect Scope plus the irreducible local carrier; it rejects Effect `Resource`
-as durable truth and does not select `@effect/platform`. The active C2A hard
-break translates the established HoG behavior into the small algebra and one
+as durable truth and does not select `@effect/platform`. The historical C2A
+hard break translated the established HoG behavior into the small algebra and one
 fold, then deletes or makes unreachable the prototypes and displaced
 imperative coordinators. Event Calculus and replay are unchanged and no
 reduction redesign is selected. C1F/D6 remains held during this cut.
@@ -681,7 +956,7 @@ and the installed E29 prototype are conservation evidence for the selected
 foundation. They do not change Product behavior or authority and may not be
 retained as wrappers around the imperative HoG path.
 
-### W2-C2A HoG Effect hard break - active
+### Historical W2-C2A HoG Effect hard break - non-operative
 
 #### Migration Declaration
 
@@ -891,17 +1166,17 @@ Before behavioral green is considered:
 |---:|---|---|---|
 | `W2-C0` | Consume the accepted W1 interface receipt; refresh the exact 56-row endpoint/contract/dependency/deletion join; apply only the catalog/workspace/definition-coordinate reconciliation above. | Exact W1 receipt; refreshed 56-row join; zero key diff; explicit construction dependencies; clean reconciliation diff. | Complete - frozen external-contract/deletion evidence; not a primitive-basis decision |
 | `W2-C1` | Prove one unexported vertical function chain through existing owner relations: create/open -> verify -> resolve -> install -> bind -> catalog admit/view/apply -> invoke -> result/replay. | Direct installed chain proof; JSON round-trip at every boundary; no new Public export or adapter. | Complete as construction evidence at the maximal pre-admission boundary; prior owner-port interpretation superseded |
-| `W2-C1F` | Recursively classify all 56 external definitions; close the minimal installed basis; retain Effect 3.22.1; specify one serializable execution ingress, closed topology-arm families, exact grant/receipt/load identity, private provider closure, and fixed recursive initial-to-final prefix relations. | Exact 56-row classification and ordered trace; Table 5.6.3-D closed family/arm projection; one outer candidate and arm-indexed `DefinitionCall`/`DefinitionReturn` family; exact definition/family/arm/owner-leaf/occurrence/scope/predecessor identity; complete grant basis; child receipt journals and successor handoffs; Section 10.1.3 foundation ledger; no executable plan, Public composition, outer child transaction, `providerLayer`, or authority amplification. | Held - candidates retained as unaccepted evidence; no current implementation authority |
-| `W2-C2` | First close C2A: directly fold the admitted C algebra through exact owner ports and delete the reachable imperative engine. Then complete the D01-D15 source-independent bindings on that basis after C1F/D6 is lawfully resumed. | C2A code-path walk and negative reachability; exact behavioral conservation for results, refusals, ordered events, projections, Event Calculus, and replay; later source and packed load/callability probe for all 56 bindings; superseded coordinators and prototypes unreachable or deleted. | Active at `w2_c2a_hog_effect_hard_break`; C1F/D6 held |
-| `W2-C3` | Construct the structural envelope, intrinsic definition family, indexed admission, exact one-binding invocation, indexed outcome projection, schemas, SDK, CLI grammar, Codex sibling transport, PFC-F07 proposals, Product PFC-F08 binding, contract-group exports, and manifest rows from that family. | Exact-set equality and new candidate digest; generator idempotence; projection equality; package dependency closure. | Pending C2 |
-| `W2-C4` | Atomically export the replacement family and delete the legacy carrier, parser, semantic controller, schema synthesis, parallel manifest roster, aliases, compatibility tests, and legacy proof projections. | One installed 18/56 family over the closed primitive basis; zero reachable legacy or new-to-old translation; `git diff --check`. | Pending C3 |
-| `W2-C5` | Pack once and execute the two installed sunny paths and compact changed-boundary guards below through both SDK and CLI. | One exact artifact, interface receipt, scenario receipts, event/replay receipts, and guard vector. | Pending C4 |
-| `W2-C6` | Freeze one exact candidate for independent review and Executive disposition. | HEAD/tree or synthetic tree, status hash, patch hash, tarball/package/manifest/family digests, no moving files. | Pending C5 |
-| `W2-C7` | Accept the exact Product/Public interface substrate and unlock final Wave 3 Public binding and Wave 4 host projection. | Accepted frozen interface handoff; no M5 or release claim. | Pending C6 review |
+| `W2-C1F` | Recursively classify all 56 external definitions; close the minimal installed basis; retain Effect 3.22.1; specify one serializable execution ingress, closed topology-arm families, exact grant/receipt/load identity, private provider closure, and fixed recursive initial-to-final prefix relations. | Exact 56-row classification and ordered trace; Table 5.6.3-D closed family/arm projection; one outer candidate and arm-indexed `DefinitionCall`/`DefinitionReturn` family; exact definition/family/arm/owner-leaf/occurrence/scope/predecessor identity; complete grant basis; child receipt journals and successor handoffs; Section 10.1.3 foundation ledger; no executable plan, Public composition, outer child transaction, `providerLayer`, or authority amplification. | Historical held candidate; non-operative |
+| `W2-C2` | First close C2A: directly fold the admitted C algebra through exact owner ports and delete the reachable imperative engine. Then complete the D01-D15 source-independent bindings on that basis after C1F/D6 is lawfully resumed. | C2A code-path walk and negative reachability; exact behavioral conservation for results, refusals, ordered events, projections, Event Calculus, and replay; later source and packed load/callability probe for all 56 bindings; superseded coordinators and prototypes unreachable or deleted. | Historical checkpoint evidence; non-operative |
+| `W2-C3` | Construct the structural envelope, intrinsic definition family, indexed admission, exact one-binding invocation, indexed outcome projection, schemas, SDK, CLI grammar, Codex sibling transport, PFC-F07 proposals, Product PFC-F08 binding, contract-group exports, and manifest rows from that family. | Exact-set equality and new candidate digest; generator idempotence; projection equality; package dependency closure. | Deferred historical backlog; non-operative |
+| `W2-C4` | Atomically export the replacement family and delete the legacy carrier, parser, semantic controller, schema synthesis, parallel manifest roster, aliases, compatibility tests, and legacy proof projections. | One installed 18/56 family over the closed primitive basis; zero reachable legacy or new-to-old translation; `git diff --check`. | Deferred historical backlog; non-operative |
+| `W2-C5` | Pack once and execute the two installed sunny paths and compact changed-boundary guards below through both SDK and CLI. | One exact artifact, interface receipt, scenario receipts, event/replay receipts, and guard vector. | Deferred historical backlog; non-operative |
+| `W2-C6` | Freeze one exact candidate for independent review and Executive disposition. | HEAD/tree or synthetic tree, status hash, patch hash, tarball/package/manifest/family digests, no moving files. | Deferred historical backlog; non-operative |
+| `W2-C7` | Accept the exact Product/Public interface substrate and unlock final Wave 3 Public binding and Wave 4 host projection. | Accepted frozen interface handoff; no M5 or release claim. | Deferred historical backlog; non-operative |
 
-The HoG algebra and Effect selection are fixed. C2A is the current inside-out
-hard break and has no semantic-design interruption before its exact code-path,
-negative-reachability, and conservation closure. C1F/D6 remains held. One cold
+The HoG algebra and Effect selection were fixed for this historical cut. C2A
+was the inside-out hard break. This paragraph supplies no current construction
+authority. One cold
 code review of the frozen C2A subject must walk the full installed function
 path; it may not accept test counts or a moving tree. A materially different
 Product, owner, event lifecycle, 18/56 family, or Wave 1 interface decision
@@ -1119,9 +1394,9 @@ placement, Valibot/Effect composition inside their accepted bounded roles, or
 one obvious implementation algorithm inside the accepted owner boundary. The
 worker decides those HOW relations.
 
-### Review and acceptance boundary
+### Historical review and acceptance boundary - non-operative
 
-The current C2A review asks whether the installed Public path directly reaches
+The historical C2A review asked whether the installed Public path directly reached
 one Effect fold and exact owner ports, whether every old coordinator and
 prototype is unreachable, and whether exact behavior is conserved. It must
 inspect the live function call path and the mixed-state negative proof. C1F/D6
@@ -1164,7 +1439,10 @@ rows. Package footprint is optimization evidence only; it does not reopen the
 selected Effect foundation. Any further Wave 1 interface change returns to the
 Executive.
 
-## Current Slice
+## Prior C2A Slice — prerequisite checkpoint history
+
+This section records the producing refactor that precedes the current sentinel.
+It does not select current work or reopen Wave 1.
 
 The selected implementation increment is
 `w2_c2a_hog_effect_hard_break`, starting from code basis `de506b57`. Preserve
@@ -1433,9 +1711,6 @@ owner-local to retry admission and projection.
 
 ## Closure
 
-Wave 1 functional interface closure occurs when its delivery checkboxes map to
-one frozen installed implementation, S1 and S2 pass, the three known coupling
-guards pass, and cold review finds no interface-owner or coupling defect. This
-closure unlocks dependency-safe parallel construction; it is not exhaustive
-M5, pre-RC, or release qualification. T-287 closes only when all five waves and
+Wave 1 functional interface closure is the accepted historical record above;
+it is not reopened by this ticket. T-287 closes only when all five waves and
 the immutable 5.0 release close.
