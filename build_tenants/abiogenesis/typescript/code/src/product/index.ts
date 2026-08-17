@@ -208,6 +208,11 @@ export {
   type ProductInstallPacket,
 } from "./install_operation.js";
 export {
+  PRODUCT_INSTALL_DEFINITION_BINDINGS,
+  type ProductInstallResourceAssertion,
+  type ProductInstallResourceReceipt,
+} from "./install_definition_bindings.js";
+export {
   CATALOG_OPERATION_CONTRACTS,
   CatalogOperationPort,
   constructCatalogProgramValidationInput,
@@ -220,6 +225,15 @@ export {
   type CatalogValidationRefusal,
   type CatalogViewPacket,
 } from "./catalog_operations.js";
+export {
+  CATALOG_DEFINITION_BINDINGS,
+  type CatalogAdmissionResourceAssertion,
+  type CatalogAdmissionResourceReceipt,
+  type CatalogApplicationResourceAssertion,
+  type CatalogApplicationResourceReceipt,
+  type CatalogViewResourceAssertion,
+  type CatalogViewResourceReceipt,
+} from "./catalog_definition_bindings.js";
 export {
   RUN_OPERATION_CONTRACTS,
   type RunContinuationPort,
