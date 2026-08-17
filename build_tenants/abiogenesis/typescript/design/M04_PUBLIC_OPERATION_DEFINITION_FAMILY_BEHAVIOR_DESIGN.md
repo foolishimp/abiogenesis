@@ -802,7 +802,7 @@ coordinate laws below.
 | `product.verify` | `abg.capability.install.bind-products@5` | verification provenance | `verified`, `installed_unbound` | none | `terminal_only` |
 | `product.resolve` | `abg.capability.install.bind-products@5` | resolved-lock admission | `resolved` | none | `terminal_only` |
 | `product.install` | `abg.capability.install.bind-products@5` | install and installer manifests | `installed` | none | `terminal_only` |
-| `workspace.bind` | `abg.capability.install.bind-products@5` | workspace-binding manifest | `bound` | none | `terminal_only` |
+| `workspace.bind` | `abg.capability.install.bind-products@5` | admitted immutable `WorkspaceBinding` truth | `bound` | none | `terminal_only` |
 | `catalog.admit` | `abg.capability.catalog.contribute@5` | catalog admission events | `admitted` | none | `terminal_only` |
 | `catalog.view` | `abg.capability.operator.public-contract@5` | catalog-view admission | `viewed` | none | `terminal_only` |
 | `catalog.apply` | variant selects `abg.capability.catalog.apply-node-type@5` or `abg.capability.catalog.apply-overlay@5` | declaration-application admission | `applied` | none | `terminal_only` |

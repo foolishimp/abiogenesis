@@ -436,7 +436,6 @@ const bind = ownerContractPacket(
   }),
   v.strictObject({
     binding: refDigestSchema,
-    bindingManifest: refDigestSchema,
     installedSet: nonemptyRefDigestSetSchema,
     resolvedLock: refDigestSchema,
     declaredRoots: nonemptyUniqueArray(declaredWorkspaceRootSchema),

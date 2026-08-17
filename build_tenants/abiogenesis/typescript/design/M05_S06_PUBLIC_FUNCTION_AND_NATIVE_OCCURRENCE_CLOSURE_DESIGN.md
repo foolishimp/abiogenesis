@@ -1558,7 +1558,6 @@ WorkspaceBindRequest = {
 }
 WorkspaceBindResult = {
   binding: RD<WorkspaceBinding>
-  bindingManifest: RD<WorkspaceBindingManifest>
   installedSet: NonEmptyUnique<RD<InstalledProduct>>
   resolvedLock: RD<ResolvedProductLock>
   declaredRoots: NonEmptyUnique<DeclaredWorkspaceRoot>

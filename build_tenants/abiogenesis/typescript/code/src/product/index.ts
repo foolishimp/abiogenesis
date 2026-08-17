@@ -199,6 +199,9 @@ export {
   type WorkspaceBindingPacket,
 } from "./environment_operations.js";
 export {
+  PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS,
+} from "./environment_definition_bindings.js";
+export {
   PRODUCT_INSTALL_CONTRACTS,
   ProductInstallPort,
   materializeProductInstall,
