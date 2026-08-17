@@ -497,3 +497,4 @@ export {
   type WorkerTransportRequest,
   type WorkerTransportResult,
 } from "./worker_transport.js";
+export { ABG_PROJECT_READ_DEFINITION_BINDINGS } from "./project_read_definition_bindings.js";
