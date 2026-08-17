@@ -182,6 +182,7 @@ export {
   type WorkspaceOperationRefusalCode,
   type WorkspaceProvenanceCoordinate,
 } from "./workspace_operations.js";
+export { WORKSPACE_DEFINITION_BINDINGS } from "./workspace_definition_bindings.js";
 export {
   PRODUCT_VERIFICATION_CONTRACTS,
   ProductVerificationPort,
