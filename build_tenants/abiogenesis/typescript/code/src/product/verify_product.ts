@@ -43,6 +43,7 @@ import type {
   ProductPublicContract,
   ProductPublicContractCatalog,
   ProductPublicContractKind,
+  ProductVerificationCoordinates,
   ProductVerificationRefusal,
   ProductVerificationRefusalCode,
   ProductVerificationResult,
@@ -149,6 +150,101 @@ function verificationBody(
   value: Omit<VerifiedProductArtifact, "verificationDigest" | "verificationRef">,
 ): JsonValue {
   return value as unknown as JsonValue;
+}
+
+function coordinateRef(prefix: string, digest: Sha256Digest): string {
+  return `${prefix}/${digest.slice("sha256:".length)}`;
+}
+
+export function productVerificationCoordinates(
+  artifact: VerifiedProductArtifact,
+): ProductVerificationCoordinates {
+  const descriptorBody = {
+    kind: "product_descriptor_relation",
+    schemaVersion: "5.0.0",
+    descriptorRef: artifact.descriptorRef,
+    productId: artifact.productId,
+    packageName: artifact.packageName,
+    packageVersion: artifact.packageVersion,
+    publisherNamespace: artifact.publisherNamespace,
+    productContentDigest: artifact.productContentDigest,
+    manifestDigest: artifact.manifestDigest,
+    contributionManifestRef: artifact.contributionManifestRef,
+    contributionManifestDigest: artifact.contributionManifestDigest,
+    compatibilityRefs: artifact.compatibilityRefs,
+    declaredDependencies: artifact.declaredDependencies,
+    provenanceRef: artifact.provenanceRef,
+    declaredCapabilityRefs: artifact.declaredCapabilityRefs,
+    catalogId: artifact.catalogId,
+    catalogDigest: artifact.catalogDigest,
+    publicContractRefs: artifact.publicContractRefs,
+    publicCapabilityRefs: artifact.publicCapabilityRefs,
+  } as const;
+  const descriptorDigest = sha256Canonical(
+    descriptorBody as unknown as JsonValue,
+  );
+
+  const localNativeEvidenceBody = {
+    kind: "local_native_contract_evidence",
+    schemaVersion: "5.0.0",
+    verificationRef: artifact.verificationRef,
+    verificationDigest: artifact.verificationDigest,
+    productId: artifact.productId,
+    productContentDigest: artifact.productContentDigest,
+    packageName: artifact.packageName,
+    nativeDeclarationEvidence: artifact.nativeDeclarationEvidence,
+  } as const;
+  const localNativeEvidenceDigest = sha256Canonical(
+    localNativeEvidenceBody as unknown as JsonValue,
+  );
+
+  const provenanceBody = {
+    kind: "product_verification_provenance",
+    schemaVersion: "5.0.0",
+    disposition: artifact.disposition,
+    verificationRef: artifact.verificationRef,
+    verificationDigest: artifact.verificationDigest,
+    artifactRef: artifact.artifactRef,
+    artifactDigest: artifact.artifactDigest,
+    productId: artifact.productId,
+    packageName: artifact.packageName,
+    packageVersion: artifact.packageVersion,
+    productContentDigest: artifact.productContentDigest,
+    manifestDigest: artifact.manifestDigest,
+    descriptorRef: artifact.descriptorRef,
+    contributionManifestRef: artifact.contributionManifestRef,
+    contributionManifestDigest: artifact.contributionManifestDigest,
+    sourceProvenanceRef: artifact.provenanceRef,
+    checkedPayloadFiles: artifact.checkedPayloadFiles,
+  } as const;
+  const provenanceDigest = sha256Canonical(
+    provenanceBody as unknown as JsonValue,
+  );
+
+  return deepFreeze({
+    verifiedArtifact: {
+      ref: artifact.verificationRef,
+      digest: artifact.verificationDigest,
+    },
+    descriptor: {
+      ref: artifact.descriptorRef,
+      digest: descriptorDigest,
+    },
+    localNativeEvidence: {
+      ref: coordinateRef(
+        "local-native-evidence://abiogenesis/product-verification",
+        localNativeEvidenceDigest,
+      ),
+      digest: localNativeEvidenceDigest,
+    },
+    provenance: {
+      ref: coordinateRef(
+        "provenance://abiogenesis/product-verification",
+        provenanceDigest,
+      ),
+      digest: provenanceDigest,
+    },
+  });
 }
 
 function isNativeDeclarationEvidence(

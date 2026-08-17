@@ -1,6 +1,7 @@
 import type { Sha256Digest } from "../shared/digests.js";
 import type { CompleteDefinitionContractCoordinateMap } from "../shared/public_function_contracts.js";
-import type { ResolvedProductLock } from "./environment.js";
+import type { ReferenceDigest } from "../shared/public_invocation.js";
+import type { ProductInstall, ResolvedProductLock } from "./environment.js";
 
 export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-dev.286";
 export const ABI5_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
@@ -180,6 +181,108 @@ export interface ProductVerificationRefusal {
 export type ProductVerificationResult =
   | ProductVerificationRefusal
   | VerifiedProductArtifact;
+
+export interface ProductVerificationCoordinate<T = unknown> {
+  readonly ref: string;
+  readonly digest: Sha256Digest;
+}
+
+export interface ProductVerificationCoordinates {
+  readonly verifiedArtifact:
+    ProductVerificationCoordinate<"VerifiedProductArtifact">;
+  readonly descriptor: ProductVerificationCoordinate<"ProductDescriptor">;
+  readonly localNativeEvidence:
+    ProductVerificationCoordinate<"LocalNativeContractEvidence">;
+  readonly provenance:
+    ProductVerificationCoordinate<"ProductVerificationProvenance">;
+}
+
+export interface ProductVerificationSuccess {
+  readonly kind: "product_verification_success";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "verified";
+  readonly verifiedArtifact: VerifiedProductArtifact;
+  readonly coordinates: ProductVerificationCoordinates;
+  readonly pendingExternalSelectors: readonly import("./declaration_exports.js").ContractIndexedPendingExternalSelector[];
+  readonly definitionContractCoordinates:
+    CompleteDefinitionContractCoordinateMap | null;
+}
+
+export interface ProductVerificationInstalledStateRefusal {
+  readonly kind: "product_verification_installed_state_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly targetKind: "installed_artifact";
+  readonly disposition: "refused";
+  readonly code: "stale_installed_state";
+  readonly message: string;
+  readonly installedProductRef: string;
+}
+
+export type ProductVerificationOperationResult =
+  | ProductVerificationRefusal
+  | ProductVerificationInstalledStateRefusal
+  | ProductVerificationSuccess;
+
+export interface ProductVerificationArtifactResource {
+  readonly kind: "product_verification_artifact_resource";
+  readonly schemaVersion: "5.0.0";
+  readonly artifactPath: string;
+  readonly artifact: ReferenceDigest<"PackedProductArtifact">;
+  readonly productContent: ReferenceDigest<"ProductContent">;
+  readonly descriptor: ReferenceDigest<"ProductDescriptor">;
+  readonly contributionManifest: ReferenceDigest<"ContributionManifest">;
+  readonly manifestDigest: Sha256Digest;
+  readonly productId: string;
+  readonly packageName: string;
+  readonly packageVersion: string;
+}
+
+export interface ProductVerificationInstallManifestResource {
+  readonly kind: "product_verification_install_manifest_resource";
+  readonly schemaVersion: "5.0.0";
+  readonly manifestPath: string;
+  readonly manifest: ReferenceDigest<"InstallManifest">;
+}
+
+export interface PackedProductVerificationResources {
+  readonly kind: "product_verification_resources";
+  readonly schemaVersion: "5.0.0";
+  readonly targetKind: "packed_artifact";
+  readonly packedArtifact: ProductVerificationArtifactResource;
+}
+
+export interface InstalledProductVerificationResources {
+  readonly kind: "product_verification_resources";
+  readonly schemaVersion: "5.0.0";
+  readonly targetKind: "installed_artifact";
+  readonly installedArtifact: ProductVerificationArtifactResource;
+  readonly resolvedLock: ResolvedProductLock;
+  readonly installedProduct: ProductInstall;
+  readonly installManifest: ProductVerificationInstallManifestResource;
+}
+
+export type ProductVerificationResources =
+  | PackedProductVerificationResources
+  | InstalledProductVerificationResources;
+
+export type ProductVerificationResourceDisposition =
+  | Readonly<{
+      kind: "product_verification_resource_disposition";
+      schemaVersion: "5.0.0";
+      targetKind: "packed_artifact";
+      disposition: "read_only_unchanged";
+      packedArtifact: ReferenceDigest<"PackedProductArtifact">;
+    }>
+  | Readonly<{
+      kind: "product_verification_resource_disposition";
+      schemaVersion: "5.0.0";
+      targetKind: "installed_artifact";
+      disposition: "read_only_unchanged";
+      installedArtifact: ReferenceDigest<"PackedProductArtifact">;
+      resolvedLock: ReferenceDigest<"ResolvedProductLock">;
+      installedProduct: ReferenceDigest<"InstalledProduct">;
+      installManifest: ReferenceDigest<"InstallManifest">;
+    }>;
 
 export interface InstallProductRequest {
   readonly artifactPath: string;

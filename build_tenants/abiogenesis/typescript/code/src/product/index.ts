@@ -19,8 +19,14 @@ export {
   type ProductNativeTypedLocator,
   type ProductPublicContract,
   type ProductPublicContractCatalog,
+  type InstalledProductVerificationResources,
+  type PackedProductVerificationResources,
+  type ProductVerificationArtifactResource,
+  type ProductVerificationInstallManifestResource,
   type ProductVerificationRefusal,
   type ProductVerificationRefusalCode,
+  type ProductVerificationResourceDisposition,
+  type ProductVerificationResources,
   type ProductVerificationResult,
   type VerifiedProductArtifact,
   type VerifyProductRequest,
@@ -182,6 +188,7 @@ export {
   verifyProductArtifact,
   type ProductVerificationPacket,
 } from "./verification_operation.js";
+export { PRODUCT_VERIFICATION_DEFINITION_BINDINGS } from "./verification_definition_bindings.js";
 export {
   PRODUCT_ENVIRONMENT_CONTRACTS,
   ProductEnvironmentPort,

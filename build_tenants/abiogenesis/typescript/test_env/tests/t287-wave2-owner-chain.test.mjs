@@ -66,6 +66,15 @@ test("W2-C1 composes owner-produced workspace, verification, lock, and install c
       ownerResults.manifestBytesAfterOpen,
       ownerResults.manifestBytesBeforeOpen,
     );
+    assert.equal(
+      ownerResults.verificationSuccess.kind,
+      "product_verification_success",
+    );
+    assert.equal(ownerResults.verificationSuccess.disposition, "verified");
+    assert.deepEqual(
+      ownerResults.verificationSuccess.verifiedArtifact,
+      ownerResults.verified,
+    );
     assert.equal(ownerResults.verified.kind, "verified_product_artifact");
     assert.equal(ownerResults.resolved.kind, "resolved_product_lock");
     assert.equal(ownerResults.installCandidate.kind, "product_install_candidate");

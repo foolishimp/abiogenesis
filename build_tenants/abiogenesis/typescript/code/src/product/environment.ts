@@ -15,6 +15,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import type { ReferenceDigest } from "../shared/public_invocation.js";
 import {
   isVerifiedProductArtifact,
   isProductContributionManifest,
@@ -742,6 +743,51 @@ export function isProductInstallCandidate(
     canonicalJson(
       lockRowFor(candidate as unknown as ProductInstall) as unknown as JsonValue,
     ) === canonicalJson(rows[0] as unknown as JsonValue);
+}
+
+function productInstallCandidateProjection(
+  install: ProductInstall,
+): ProductInstallCandidate {
+  const {
+    admissionEventRef: _admissionEventRef,
+    kind: _kind,
+    disposition: _disposition,
+    ...body
+  } = install;
+  return {
+    ...body,
+    kind: "product_install_candidate",
+    disposition: "materialized",
+  };
+}
+
+/** Structural carrier guard only; ABG admission/currentness is not inferred. */
+export function isProductInstall(
+  value: unknown,
+  lock: ResolvedProductLock,
+): value is ProductInstall {
+  if (
+    !isRecord(value) ||
+    value.kind !== "product_install" ||
+    value.disposition !== "admitted" ||
+    !nonEmptyString(value.admissionEventRef)
+  ) {
+    return false;
+  }
+  return isProductInstallCandidate(
+    productInstallCandidateProjection(value as unknown as ProductInstall),
+    lock,
+  );
+}
+
+export function productInstallCoordinate(
+  install: ProductInstall,
+): ReferenceDigest<"InstalledProduct"> {
+  const candidate = productInstallCandidateProjection(install);
+  return deepFreeze({
+    ref: install.installId,
+    digest: sha256Canonical(candidate as unknown as JsonValue),
+  });
 }
 
 export function constructProductSet(

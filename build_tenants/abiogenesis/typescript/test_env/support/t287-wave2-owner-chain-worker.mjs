@@ -1,9 +1,10 @@
-import { readFile } from "node:fs/promises";
-import { basename, join, resolve } from "node:path";
+import { execFile } from "node:child_process";
+import { mkdir, readFile } from "node:fs/promises";
+import { basename, join } from "node:path";
 import { pathToFileURL } from "node:url";
+import { promisify } from "node:util";
 
-const DEFAULT_WAVE1_RECEIPT =
-  "/private/tmp/abi5-wave1-freeze.yIRMJu/wave1-interface-receipt-v2.json";
+const execFileAsync = promisify(execFile);
 
 export function jsonRoundTrip(value) {
   return JSON.parse(JSON.stringify(value));
@@ -19,10 +20,18 @@ async function loadProduct(root) {
 
 export async function runWave2OwnerCandidateChain({ root, temporaryRoot }) {
   const product = await loadProduct(root);
-  const receiptPath = resolve(
-    process.env.ABI5_WAVE1_RECEIPT ?? DEFAULT_WAVE1_RECEIPT,
+  const artifacts = join(temporaryRoot, "artifacts");
+  await mkdir(artifacts);
+  const { stdout } = await execFileAsync(
+    "npm",
+    ["pack", "--ignore-scripts", "--json", "--pack-destination", artifacts],
+    { cwd: root, maxBuffer: 10 * 1024 * 1024 },
   );
-  const receipt = JSON.parse(await readFile(receiptPath, "utf8"));
+  const [packResult] = JSON.parse(stdout);
+  const artifactPath = join(artifacts, packResult.filename);
+  const productManifest = JSON.parse(
+    await readFile(join(root, "product-toolchain-manifest.json"), "utf8"),
+  );
 
   const createPacket = jsonRoundTrip({
     kind: "workspace_create_packet",
@@ -49,27 +58,26 @@ export async function runWave2OwnerCandidateChain({ root, temporaryRoot }) {
   );
   const manifestBytesAfterOpen = await readFile(created.manifestPath, "utf8");
 
-  const artifactPath = resolve(receipt.artifact.artifactPath);
   const verifyPacket = jsonRoundTrip({
     kind: "product_verification_packet",
     schemaVersion: "5.0.0",
     memberKey: "verify",
+    targetKind: "packed_artifact",
     request: {
       artifactPath,
       artifactRef: basename(artifactPath),
-      expectedArtifactDigest: receipt.artifact.sha256,
-      expectedProductContentDigest:
-        receipt.productManifest.productContentDigest,
-      expectedManifestDigest:
-        receipt.productManifest.manifestCanonicalDigest,
-      expectedProductId: receipt.productManifest.productId,
-      expectedPackageName: receipt.installedPackage.packageName,
-      expectedPackageVersion: receipt.installedPackage.packageVersion,
+      expectedArtifactDigest: await product.sha256File(artifactPath),
+      expectedProductContentDigest: productManifest.productContentDigest,
+      expectedManifestDigest: product.sha256Canonical(productManifest),
+      expectedProductId: productManifest.productId,
+      expectedPackageName: productManifest.packageName,
+      expectedPackageVersion: productManifest.packageVersion,
     },
   });
-  const verified = jsonRoundTrip(
+  const verificationSuccess = jsonRoundTrip(
     await product.ProductVerificationPort.verify(verifyPacket),
   );
+  const verified = verificationSuccess.verifiedArtifact;
 
   const resolvePacket = jsonRoundTrip({
     kind: "product_resolution_packet",
@@ -110,6 +118,7 @@ export async function runWave2OwnerCandidateChain({ root, temporaryRoot }) {
       opened,
       manifestBytesBeforeOpen,
       manifestBytesAfterOpen,
+      verificationSuccess,
       verified,
       resolved,
       installCandidate,
