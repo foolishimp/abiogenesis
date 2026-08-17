@@ -166,7 +166,8 @@ function childTraversalBasis(
   runtime: ExecuteGraphTraversalCommonInput,
 ): ChildTraversalBasis {
   return constructChildTraversalBasis({
-    publication: runtime.leafPort.publication,
+    graphFunctionByRef: runtime.leafPort.graphFunctionByRef,
+    closureContractByRef: runtime.leafPort.closureContractByRef,
     program: runtime.program,
     programValidation: runtime.programValidation,
     rootImplementationSet: runtime.implementationSet,

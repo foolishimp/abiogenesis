@@ -166,10 +166,13 @@ function rawInput(
     value.kind === "raw_admission_refusal");
   if (rawRefusal !== undefined) return rawRefusal;
   return {
-    publication: publicationAdmission,
+    declarationBasisDigest: publicationAdmission.subjectDigest,
+    programPublication: publicationAdmission,
     program: programAdmission,
     graphFunctions: graphFunctions as readonly RawAdmittedValue<GraphFunction>[],
     contracts: contracts as readonly RawAdmittedValue<ContractDeclaration>[],
+    evaluators: publication.evaluators,
+    rules: publication.rules,
     implementationBindings:
       implementationBindings as readonly RawAdmittedValue<ImplementationBinding>[],
     closureContracts:
@@ -243,7 +246,7 @@ export function evaluateGtlProgramConformance(
         ...input.contracts.map((row) => row.value.contractRef),
         ...input.closureContracts.map((row) => row.value.closureContractRef),
       ])].sort(),
-      [input.program.admissionRef, input.publication.admissionRef],
+      [input.program.admissionRef, input.programPublication.admissionRef],
     );
   }
   const evidenceBody = {

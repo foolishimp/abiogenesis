@@ -568,19 +568,20 @@ export function admitProbabilisticResultCandidate(
     installed === null ||
     installed.install.packageName !== admittedResolution.packageName ||
     installed.install.packageVersion !== admittedResolution.packageVersion ||
-    capability.installId !== supplied.leafPort.installId ||
+    capability.publicationDigest !==
+      admittedResolution.implementationPublicationDigest ||
+    !supplied.leafPort.hasOwnerCapability(
+      capability.installId,
+      capability.publicationDigest,
+    ) ||
     capability.implementationSetRef !==
       supplied.implementationSet.implementationSetRef ||
     capability.implementationSetDigest !==
       supplied.implementationSet.implementationSetDigest ||
-    capability.publicationDigest !==
-      supplied.implementationSet.publicationDigest ||
     supplied.leafPort.implementationSetRef !==
       supplied.implementationSet.implementationSetRef ||
     supplied.leafPort.implementationSetDigest !==
-      supplied.implementationSet.implementationSetDigest ||
-    supplied.leafPort.publicationDigest !==
-      supplied.implementationSet.publicationDigest
+      supplied.implementationSet.implementationSetDigest
   ) {
     return refusal(
       "unadmitted_contract_capability",

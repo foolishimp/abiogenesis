@@ -109,10 +109,10 @@ one immutable odd_glc GTL Program publication as declarative data
   -> typed result and fresh-process replay
 ```
 
-This is a `goal_reprice`. Wave 1 remains complete. D17/D18 is a reviewed
-candidate that must be checkpointed before Wave 2 implementation; it is not
-yet checkpointed and is not a Wave 1 reopening. Implementation remains held
-until that checkpoint and acceptance of this plan.
+This is a `goal_reprice`. Wave 1 remains complete. D17/D18 is checkpointed at
+`e4a9be06b89fbbc733bff6cd1b08c8fec9cd76ac`; the accepted Wave 2 plan is
+checkpointed at `4b9dfabd53f6c58b4a0af7062d4730f3491f5f08`. Neither checkpoint reopens
+Wave 1.
 
 For this sentinel, odd_glc supplies one immutable GTL Program publication as
 data: its Program record, odd_glc-owned GraphFunction definition and topology,

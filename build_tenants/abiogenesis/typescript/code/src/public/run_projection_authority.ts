@@ -8,6 +8,7 @@ import type { ModulePublication } from "../gtl/index.js";
 import type { CatalogReadinessBasis, ProductInstall } from "../product/index.js";
 import {
   canonicalJson,
+  compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
 import {
@@ -34,6 +35,7 @@ export interface PublicRunProjectionAuthority {
   readonly workspaceBindingDigest: Sha256Digest;
   readonly catalogBasisDigest: Sha256Digest;
   readonly catalogReadinessBasis: CatalogReadinessBasis;
+  readonly catalogViewAllowlist: readonly string[];
   readonly catalogViewDigest: Sha256Digest;
   readonly publicationDigests: readonly Sha256Digest[];
   readonly publications: readonly Readonly<ModulePublication>[];
@@ -49,6 +51,7 @@ const AUTHORITY_KEYS = Object.freeze([
   "authorityDigest",
   "catalogBasisDigest",
   "catalogReadinessBasis",
+  "catalogViewAllowlist",
   "catalogViewDigest",
   "graphCallId",
   "install",
@@ -81,6 +84,17 @@ function hasExactKeys(
   return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
 }
 
+function isCanonicalCatalogViewAllowlist(
+  value: unknown,
+): value is readonly string[] {
+  return Array.isArray(value) &&
+    value.length > 0 &&
+    value.every((entry) => typeof entry === "string" && entry.length > 0) &&
+    value.every((entry, index) =>
+      index === 0 || compareUnicodeCodeUnits(value[index - 1]!, entry) < 0
+    );
+}
+
 function authorityBody(input: PublicRunProjectionAuthorityInput) {
   return {
     kind: "public_run_projection_authority" as const,
@@ -97,6 +111,11 @@ export function constructPublicRunProjectionAuthority(
     reopenAuthority: input.reopenAuthority,
   })) {
     throw new TypeError("run projection authority requires one exact durable close pair");
+  }
+  if (!isCanonicalCatalogViewAllowlist(input.catalogViewAllowlist)) {
+    throw new TypeError(
+      "run projection authority requires one canonical non-empty CatalogView allowlist",
+    );
   }
   const body = authorityBody(input);
   return deepFreeze(
@@ -159,6 +178,7 @@ export function parsePublicRunProjectionAuthority(
     !isSha256Digest(value.workspaceBindingDigest) ||
     !isSha256Digest(value.catalogBasisDigest) ||
     !isRecord(value.catalogReadinessBasis) ||
+    !isCanonicalCatalogViewAllowlist(value.catalogViewAllowlist) ||
     !isSha256Digest(value.catalogViewDigest) ||
     !Array.isArray(value.publicationDigests) ||
     value.publicationDigests.length === 0 ||

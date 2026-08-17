@@ -91,6 +91,7 @@ export interface ReadyGraphFunctionCatalog extends GraphFunctionCatalog {
   readonly productSetId: string;
   readonly productSetDigest: Sha256Digest;
   readonly readinessBasis: CatalogReadinessBasis;
+  readonly boundPublications: readonly Readonly<ModulePublication>[];
   readonly rowDispositions: readonly CatalogReadinessRowDisposition[];
 }
 
@@ -498,6 +499,7 @@ export function admitGraphFunctionCatalog(
   }
   const rowDispositions: CatalogReadinessRowDisposition[] = [];
   const admittedPublications: ModulePublication[] = [];
+  const boundPublications: ModulePublication[] = [];
   const submittedContributions = publications.flatMap((publication) =>
     publication.contributions.map((contribution) => ({ publication, contribution }))
   );
@@ -528,7 +530,6 @@ export function admitGraphFunctionCatalog(
     if (lockRows.length !== 1) {
       publication.contributions.forEach((contribution) =>
         pushDisposition(publication, contribution, "unresolved", "publication_owner_unresolved"));
-      admittedPublications.push({ ...publication, contributions: [] });
       continue;
     }
     const lockRow = lockRows[0]!;
@@ -642,7 +643,10 @@ export function admitGraphFunctionCatalog(
       pushDisposition(publication, contribution, "admitted", null);
       admittedContributions.push(contribution);
     }
-    admittedPublications.push({ ...publication, contributions: admittedContributions });
+    if (!publicationIdentityMismatch) {
+      boundPublications.push(publication);
+      admittedPublications.push({ ...publication, contributions: admittedContributions });
+    }
   }
   const catalog = buildGraphFunctionCatalog(admittedPublications);
   if (catalog.kind !== "graph_function_catalog") return catalog;
@@ -658,6 +662,7 @@ export function admitGraphFunctionCatalog(
     productSetId: productSet.productSetId,
     productSetDigest: productSet.productSetDigest,
     readinessBasis: canonicalBasis,
+    boundPublications,
     rowDispositions: rowDispositions.sort((left, right) =>
       compareUnicodeCodeUnits(left.handle, right.handle) ||
       compareUnicodeCodeUnits(left.rowDigest, right.rowDigest)),

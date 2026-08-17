@@ -106,11 +106,10 @@ function exactParentTraversal(
   executionBasis: ExecutionBasis,
   scope: OpenedTraversalScope,
 ): RehydrationStep<TraverseInput> {
-  const graphFunctions = input.leafPort.publication.graphFunctions.filter(
-    (candidate) => candidate.name === suspension.parentGraph.graphFunctionRef,
+  const graphFunction = input.leafPort.graphFunctionByRef(
+    suspension.parentGraph.graphFunctionRef,
   );
-  if (graphFunctions.length !== 1) return rehydrationFailure("graph-function");
-  const graphFunction = graphFunctions[0]!;
+  if (graphFunction === null) return rehydrationFailure("graph-function");
   const graphValidation = validateGraph(
     suspension.parentGraph,
     input.programValidation,

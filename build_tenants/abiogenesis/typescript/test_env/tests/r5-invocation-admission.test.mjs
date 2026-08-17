@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
@@ -11,6 +11,66 @@ import {
 } from "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+
+test("W2-03 request selection is owned only by ProductExecutionResolutionPort", async () => {
+  const publicSource = await readFile(
+    join(root, "code/src/public/operations.ts"),
+    "utf8",
+  );
+  const productSource = await readFile(
+    join(root, "code/src/product/execution_resolution.ts"),
+    "utf8",
+  );
+  const publicStart = publicSource.indexOf("async function applyRunInvoke(");
+  const publicEnd = publicSource.indexOf(
+    "\nasync function projectCurrentOutcome(",
+    publicStart,
+  );
+  const productStart = productSource.indexOf(
+    "async function resolveProductExecution(",
+  );
+  const productEnd = productSource.indexOf(
+    "\nexport const ProductExecutionResolutionPort",
+    productStart,
+  );
+  assert.notEqual(publicStart, -1);
+  assert.notEqual(publicEnd, -1);
+  assert.notEqual(productStart, -1);
+  assert.notEqual(productEnd, -1);
+  const publicInvoke = publicSource.slice(publicStart, publicEnd);
+  const productResolution = productSource.slice(productStart, productEnd);
+
+  assert.match(publicInvoke, /selection: executionSelection/u);
+  assert.match(publicInvoke, /executionResolution\.program/u);
+  assert.match(publicInvoke, /executionResolution\.selectedCatalogEntry/u);
+  assert.match(publicInvoke, /executionResolution\.resolvedProgramStart/u);
+  assert.match(publicInvoke, /executionResolution\.programInstall/u);
+  assert.doesNotMatch(publicInvoke, /resolveProgramStart\s*\(/u);
+  assert.doesNotMatch(
+    publicInvoke,
+    /lookupGraphFunction(?:Definition)?\s*\(/u,
+  );
+  assert.doesNotMatch(publicInvoke, /resolveExactMatch\s*\(/u);
+  assert.doesNotMatch(publicInvoke, /publicationMatches|readinessInstallMatches/u);
+
+  assert.match(
+    productResolution,
+    /resolveProgramDeclarationClosure\([\s\S]*input\.selection\.kind === "direct"/u,
+  );
+  assert.match(
+    productResolution,
+    /lookupGraphFunction\([\s\S]*input\.selection\.catalogHandle/u,
+  );
+  assert.match(productResolution, /resolveProgramStart\(program,/u);
+  assert.match(
+    productResolution,
+    /lookupGraphFunctionDefinition\([\s\S]*resolved\.start\.graphFunctionRef/u,
+  );
+  assert.match(
+    productResolution,
+    /input\.selection\.kind === "admitted"[\s\S]*input\.selection\.graphFunctionRef/u,
+  );
+});
 
 function readinessCatalogView(environment, allowlist) {
   const catalog = environment.product.admitGraphFunctionCatalog({
@@ -48,6 +108,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     artifactTruth,
     verified,
     installCandidate,
+    admittedInstall,
     lock,
     bindingCandidate,
     workspaceBinding,
@@ -92,19 +153,43 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
   const graphFunction = publication.graphFunctions.find(
     (row) => row.name === gtl.HELLO_WORLD_IDS.graphFunctionRef,
   );
-  const programValidation = programValidations.find(
+  const priorProgramValidation = programValidations.find(
     (row) => row.programRef === gtl.HELLO_WORLD_DIRECT_IDS.programRef,
   );
   assert.ok(program);
   assert.ok(graphFunction);
-  assert.ok(programValidation);
-  assert.equal(programValidation.kind, "program_validation");
+  assert.ok(priorProgramValidation);
+  assert.equal(priorProgramValidation.kind, "program_validation");
   assert.equal(program.starts.length, 0);
   assert.equal(program.publicAssetTargets, undefined);
-  const { view: catalogView } = readinessCatalogView(
+  const { catalog, view: catalogView } = readinessCatalogView(
     environment,
     [gtl.HELLO_WORLD_DIRECT_IDS.handle],
   );
+  const executionResolution = await product.ProductExecutionResolutionPort.resolve({
+    catalog,
+    catalogView,
+    admittedInstalls: [admittedInstall],
+    verifyInstallAdmission: (install) =>
+      abg.hasAdmittedProductInstall(artifactTruth, install),
+    programRef: program.programRef,
+    selection: {
+      kind: "direct",
+      catalogHandle: gtl.HELLO_WORLD_DIRECT_IDS.handle,
+    },
+  });
+  assert.equal(
+    executionResolution.kind,
+    "loaded_product_execution_resolution",
+    JSON.stringify(executionResolution),
+  );
+  assert.equal(
+    executionResolution.selectedCatalogEntry.handle,
+    gtl.HELLO_WORLD_DIRECT_IDS.handle,
+  );
+  assert.equal(executionResolution.resolvedProgramStart, null);
+  assert.deepEqual(executionResolution.programInstall, admittedInstall);
+  const programValidation = executionResolution.programValidation;
   const selectedRow = product.lookupGraphFunction(
     catalogView,
     gtl.HELLO_WORLD_DIRECT_IDS.handle,
@@ -174,7 +259,8 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     invocation,
     rawRequest,
     rawInput,
-    modulePublication: publication,
+    programPublication: executionResolution.programPublication,
+    executionResolution: executionResolution.resolution,
     program,
     graphFunction,
     programValidation,
@@ -518,6 +604,7 @@ test("R5 start admission resolves one exact Product start before its catalog def
     validator,
     store,
     artifactTruth,
+    admittedInstall,
     workspaceBinding,
     publication,
     programValidations,
@@ -528,13 +615,13 @@ test("R5 start admission resolves one exact Product start before its catalog def
   const graphFunction = publication.graphFunctions.find(
     (row) => row.name === gtl.HELLO_WORLD_IDS.graphFunctionRef,
   );
-  const programValidation = programValidations.find(
+  const priorProgramValidation = programValidations.find(
     (row) => row.programRef === gtl.HELLO_WORLD_IDS.programRef,
   );
   assert.ok(program);
   assert.ok(graphFunction);
-  assert.ok(programValidation);
-  assert.equal(programValidation.kind, "program_validation");
+  assert.ok(priorProgramValidation);
+  assert.equal(priorProgramValidation.kind, "program_validation");
   assert.equal(program.starts.length, 1);
   assert.equal(
     program.policies["abg.default_start_ref"],
@@ -563,17 +650,39 @@ test("R5 start admission resolves one exact Product start before its catalog def
   assert.equal(directLookup.kind, "graph_function_definition_lookup_exact");
   assert.equal(directLookup.entry.handle, gtl.HELLO_WORLD_DIRECT_IDS.handle);
   assert.ok(catalog.readinessBasis);
-  const resolvedStart = gtl.resolveProgramStart(program, {
-    scope: "program",
-    target: "next",
-    until: "converged",
-    rootMode: "direct",
+  const executionResolution = await product.ProductExecutionResolutionPort.resolve({
+    catalog,
+    catalogView,
+    admittedInstalls: [admittedInstall],
+    verifyInstallAdmission: (install) =>
+      abg.hasAdmittedProductInstall(artifactTruth, install),
+    programRef: program.programRef,
+    selection: {
+      kind: "start",
+      scope: "program",
+      target: "next",
+      until: "converged",
+      rootMode: "direct",
+    },
   });
+  assert.equal(
+    executionResolution.kind,
+    "loaded_product_execution_resolution",
+    JSON.stringify(executionResolution),
+  );
+  const programValidation = executionResolution.programValidation;
+  const resolvedStart = executionResolution.resolvedProgramStart;
+  assert.ok(resolvedStart);
   assert.equal(
     resolvedStart.kind,
     "resolved_program_start",
     JSON.stringify(resolvedStart),
   );
+  assert.equal(
+    executionResolution.selectedCatalogEntry.handle,
+    gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  assert.deepEqual(executionResolution.programInstall, admittedInstall);
   const start = resolvedStart.start;
   assert.equal(start.startRef, gtl.HELLO_WORLD_IDS.startRef);
   const input = gtl.constructHelloWorldInput("World");
@@ -637,7 +746,8 @@ test("R5 start admission resolves one exact Product start before its catalog def
         invocation,
         rawRequest,
         rawInput,
-        modulePublication: publication,
+        programPublication: executionResolution.programPublication,
+        executionResolution: executionResolution.resolution,
         program,
         graphFunction,
         programValidation,
@@ -670,6 +780,8 @@ test("R5 start admission resolves one exact Product start before its catalog def
       workspaceBinding.bindingId,
       workspaceBinding.bindingDigest,
       wrong.invocation.publicRequestInvocationRef,
+      [],
+      "start",
     ),
   );
   assert.equal(wrongStartRefusal.code, "selection_mismatch");
@@ -692,6 +804,7 @@ test("R5 start admission resolves one exact Product start before its catalog def
       workspaceBinding.bindingDigest,
       exact.invocation.publicRequestInvocationRef,
       [workspaceBinding.admissionEventRef],
+      "start",
     ),
   );
   assert.equal(

@@ -131,6 +131,11 @@ export {
   substituteApplication,
   type RecurseApplicationInput,
 } from "./graph_applications.js";
+export {
+  projectCProgramNodeDeclarationReferences,
+  projectGraphFunctionApplicationDeclarationReferences,
+  type GtlDeclarationReferenceProjection,
+} from "./declaration_references.js";
 export type {
   CatalogContribution,
   CatalogContributionKind,

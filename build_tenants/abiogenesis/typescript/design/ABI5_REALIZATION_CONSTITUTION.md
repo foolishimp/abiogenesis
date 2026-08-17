@@ -374,6 +374,28 @@ evidence remains mandatory where the claim is compositional. The purpose of
 this law is not to eliminate unit tests; it is to prevent repeated local proof
 from substituting for the realistic Product execution path.
 
+#### 5.3.3 Functional delivery status axiom
+
+ABIogenesis locally tracks delivery by accepted functional outcomes. The
+active ticket instantiates the ledger; this constitution owns the following
+constraints:
+
+| Axiom | Law |
+|---|---|
+| **DS-01 Functional unit** | A story-point row names one bounded Product function, installed owner relation, packaged capability, or scenario outcome with an exact acceptance boundary. Files, commits, tests, reviews, meetings, commentary, and elapsed effort are not story-point units. |
+| **DS-02 Fixed relative scale** | Functional rows use the Fibonacci scale `1, 2, 3, 5, 8, 13` to estimate relative integration complexity, including the proportional proof needed to accept the function. Evidence-only, review-only, and disposition-only rows carry `0` delivery points and cannot inflate Product progress. |
+| **DS-03 Binary earning** | A functional row earns all its points only when its exact exit is accepted against a frozen subject. In-progress work earns zero points. A percentage-complete estimate may forecast remaining work but cannot earn fractional points or establish acceptance. |
+| **DS-04 Timestamped status** | Every executive status ledger records an as-of timestamp and, for each row, its start timestamp, wall-clock elapsed time, point value, state, percentage forecast, and ETA or actual completion timestamp. Unknown times are marked unknown rather than invented. |
+| **DS-05 Evidence-bound completion** | Points, percent, ETA, test count, line count, and a green local command are management observations. Only the row's declared installed functional evidence and required assurance disposition establish completion. |
+| **DS-06 No silent scope absorption** | Story points and the functional exit freeze when construction starts. A newly discovered implementation detail inside the same accepted relation does not add points or broaden the row. A materially larger Product function, owner boundary, authority path, or architecture pauses construction for Executive re-estimation or lawful re-entry. |
+| **DS-07 Churn sentinel** | If elapsed time or ETA grows across two status boundaries without a new function-chain boundary closing, or if work repeatedly recreates an existing capability, the Executive pauses the worker and performs a function-level root-cause review before authorizing continuation. Process activity cannot explain away non-delivery. |
+| **DS-08 Wave burn-up** | Wave progress is `accepted functional points / total selected functional points`. Forecast progress may be reported separately, but it must include its as-of timestamp and cannot be presented as accepted burn-up. Gate completion with zero points is reported separately. |
+
+Story points are a local delivery-control projection over the accepted Product
+plan. They do not author Product meaning, decompose an endpoint into semantic
+atoms, select implementation authority, or replace the function-by-function
+code-path walk required by `SP-08`.
+
 ### 5.4 Abstract Relation
 
 Let `W_s` and `W_t` be immutable canonical topology witnesses for source and

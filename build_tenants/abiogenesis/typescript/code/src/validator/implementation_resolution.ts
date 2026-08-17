@@ -15,6 +15,12 @@ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
+  isResolvedExecutionDeclarationClosure,
+  type ResolvedExecutionDeclarationClosure,
+} from "../product/declaration_closure.js";
+import { modulePublicationSemanticDigest } from
+  "../product/publication.js";
+import {
   isGraphValidation,
   type GraphValidation,
 } from "./graph.js";
@@ -117,6 +123,8 @@ export function validateImplementationResolution(
     graphValidationDigest: candidate.graphValidationDigest,
     graphFunctionRef: candidate.graphFunctionRef,
     graphFunctionDigest: candidate.graphFunctionDigest,
+    graphFunctionOwnerProductId: candidate.graphFunctionOwnerProductId,
+    graphFunctionPublicationDigest: candidate.graphFunctionPublicationDigest,
     nodeRef: candidate.nodeRef,
     implementationBindingRef: candidate.implementationBindingRef,
     implementationRef: candidate.implementationRef,
@@ -131,6 +139,8 @@ export function validateImplementationResolution(
     refusalContractRef: candidate.refusalContractRef,
     implementationBindingDigest: candidate.implementationBindingDigest,
     implementationDescriptorDigest: candidate.implementationDescriptorDigest,
+    implementationOwnerProductId: candidate.implementationOwnerProductId,
+    implementationPublicationDigest: candidate.implementationPublicationDigest,
   };
   if (
     !isProgramValidation(programValidation) ||
@@ -212,6 +222,8 @@ function leafCandidateBody(candidate: LeafImplementationResolutionCandidate): Re
     programValidationRef: candidate.programValidationRef,
     graphFunctionRef: candidate.graphFunctionRef,
     graphFunctionDigest: candidate.graphFunctionDigest,
+    graphFunctionOwnerProductId: candidate.graphFunctionOwnerProductId,
+    graphFunctionPublicationDigest: candidate.graphFunctionPublicationDigest,
     nodeRef: candidate.nodeRef,
     programLocusRef: candidate.programLocusRef,
     implementationBindingRef: candidate.implementationBindingRef,
@@ -227,16 +239,25 @@ function leafCandidateBody(candidate: LeafImplementationResolutionCandidate): Re
     refusalContractRef: candidate.refusalContractRef,
     implementationBindingDigest: candidate.implementationBindingDigest,
     implementationDescriptorDigest: candidate.implementationDescriptorDigest,
+    implementationOwnerProductId: candidate.implementationOwnerProductId,
+    implementationPublicationDigest: candidate.implementationPublicationDigest,
   };
 }
 
 export function validateImplementationResolutionSet(
   candidate: ImplementationResolutionSetCandidate,
   catalogView: GraphFunctionCatalogView,
-  publication: Readonly<ModulePublication>,
+  declarationClosure: ResolvedExecutionDeclarationClosure,
   programValidation: ProgramValidation,
   descriptors: readonly Readonly<PackagedLeafImplementationDescriptor>[],
 ): ImplementationResolutionSetValidationResult {
+  const publications = declarationClosure.publications;
+  const selectedGraphFunctionRefs = new Set(
+    declarationClosure.graphFunctionOwners.map((owner) => owner.declarationRef),
+  );
+  const selectedExecutableRows = programValidation.executableLeafRows.filter(
+    (row) => selectedGraphFunctionRefs.has(row.graphFunctionRef),
+  );
   const subjectDigest = candidate.setCandidateDigest;
   if (
     !isImplementationResolutionSetCandidate(candidate) ||
@@ -266,16 +287,24 @@ export function validateImplementationResolutionSet(
   } as unknown as JsonValue);
   if (
     !isProgramValidation(programValidation) ||
+    !isResolvedExecutionDeclarationClosure(declarationClosure) ||
+    declarationClosure.catalogViewDigest !== catalogView.viewDigest ||
+    declarationClosure.programRef !== programValidation.programRef ||
     candidate.setCandidateDigest !== sha256Canonical(setBody as unknown as JsonValue) ||
-    candidate.publicationDigest !== sha256Canonical(publication as unknown as JsonValue) ||
+    publications.filter((publication) =>
+      candidate.publicationDigest ===
+        sha256Canonical(publication as unknown as JsonValue)
+    ).length !== 1 ||
     candidate.publicationDigest !== programValidation.publicationDigest ||
     candidate.programValidationRef !== programValidation.validationRef ||
     candidate.catalogBasisDigest !== catalogView.catalogBasisDigest ||
     candidate.catalogViewDigest !== catalogView.viewDigest ||
     catalogViewDigest !== catalogView.viewDigest ||
     canonicalJson(candidate.executableLeafKeys as unknown as JsonValue) !==
-      canonicalJson(programValidation.transitiveReachableExecutableLeafKeys as unknown as JsonValue) ||
-    candidate.rows.length !== programValidation.executableLeafRows.length
+      canonicalJson(selectedExecutableRows.map((row) =>
+        row.requirementKey
+      ) as unknown as JsonValue) ||
+    candidate.rows.length !== selectedExecutableRows.length
   ) {
     return invalid(subjectDigest, {
       code: "invalid_reference",
@@ -284,16 +313,47 @@ export function validateImplementationResolutionSet(
     });
   }
 
-  const contractRefs = new Set(publication.contracts.map((contract) => contract.contractRef));
+  const contracts = publications.flatMap((publication) =>
+    publication.contracts.filter((contract) =>
+      declarationClosure.contractOwners.some((owner) =>
+        owner.declarationRef === contract.contractRef &&
+        owner.productId === publication.owningProductId &&
+        owner.moduleRef === publication.moduleRef &&
+        owner.publicationDigest ===
+          modulePublicationSemanticDigest(publication)
+      )
+    )
+  );
   for (const [index, row] of candidate.rows.entries()) {
-    const declaration = programValidation.executableLeafRows[index];
-    const graphFunction = publication.graphFunctions.find(
+    const declaration = selectedExecutableRows[index];
+    const graphFunctions = publications.flatMap(
+      (publication) => publication.graphFunctions,
+    ).filter(
       (value) => value.name === row.graphFunctionRef,
     );
-    const bindings = publication.implementationBindings.filter(
+    const graphFunction = graphFunctions[0];
+    const graphFunctionOwners = publications.filter((publication) =>
+      publication.graphFunctions.some((value) =>
+        value.name === row.graphFunctionRef &&
+        sha256Canonical(value as unknown as JsonValue) ===
+          row.graphFunctionDigest
+      )
+    );
+    const bindings = publications.flatMap(
+      (publication) => publication.implementationBindings,
+    ).filter(
       (value) => value.bindingRef === row.implementationBindingRef,
     );
     const binding = bindings[0];
+    const implementationOwners = binding === undefined
+      ? []
+      : publications.filter((publication) =>
+          publication.implementationBindings.some((value) =>
+            value.bindingRef === binding.bindingRef &&
+            sha256Canonical(value as unknown as JsonValue) ===
+              sha256Canonical(binding as unknown as JsonValue)
+          )
+        );
     const matchingDescriptors = descriptors.filter((descriptor) =>
       isPackagedLeafImplementationDescriptor(descriptor) &&
       descriptor.descriptorDigest === row.implementationDescriptorDigest &&
@@ -318,10 +378,22 @@ export function validateImplementationResolutionSet(
       row.publicationDigest !== candidate.publicationDigest ||
       row.leafResolutionCandidateDigest !==
         sha256Canonical(leafCandidateBody(row) as unknown as JsonValue) ||
+      graphFunctions.length !== 1 ||
       graphFunction === undefined ||
       row.graphFunctionRef !== declaration.graphFunctionRef ||
       row.graphFunctionDigest !== declaration.graphFunctionDigest ||
       row.graphFunctionDigest !== sha256Canonical(graphFunction as unknown as JsonValue) ||
+      graphFunctionOwners.length !== 1 ||
+      row.graphFunctionOwnerProductId !==
+        graphFunctionOwners[0]!.owningProductId ||
+      row.graphFunctionPublicationDigest !==
+        modulePublicationSemanticDigest(graphFunctionOwners[0]!) ||
+      declarationClosure.graphFunctionOwners.filter((owner) =>
+        owner.declarationRef === row.graphFunctionRef &&
+        owner.productId === graphFunctionOwners[0]!.owningProductId &&
+        owner.moduleRef === graphFunctionOwners[0]!.moduleRef &&
+        owner.publicationDigest === row.graphFunctionPublicationDigest
+      ).length !== 1 ||
       row.nodeRef !== declaration.nodeRef ||
       row.programLocusRef !== declaration.programLocusRef ||
       bindings.length !== 1 ||
@@ -343,6 +415,17 @@ export function validateImplementationResolutionSet(
       binding.failureContractRef !== row.failureContractRef ||
       binding.refusalContractRef !== declaration.requirement.refusalContractRef ||
       binding.refusalContractRef !== row.refusalContractRef ||
+      implementationOwners.length !== 1 ||
+      row.implementationOwnerProductId !==
+        implementationOwners[0]!.owningProductId ||
+      row.implementationPublicationDigest !==
+        modulePublicationSemanticDigest(implementationOwners[0]!) ||
+      declarationClosure.implementationBindingOwners.filter((owner) =>
+        owner.declarationRef === row.implementationBindingRef &&
+        owner.productId === implementationOwners[0]!.owningProductId &&
+        owner.moduleRef === implementationOwners[0]!.moduleRef &&
+        owner.publicationDigest === row.implementationPublicationDigest
+      ).length !== 1 ||
       matchingDescriptors.length !== 1 ||
       [
         declaration.requirement.inputContractRef,
@@ -351,11 +434,21 @@ export function validateImplementationResolutionSet(
         declaration.requirement.failureContractRef,
         declaration.requirement.refusalContractRef,
         declaration.requirement.judgmentContractRef,
-      ].some((contractRef) => !contractRefs.has(contractRef)) ||
-      catalogView.entries.filter((selected) =>
-        selected.kind === "graph_function_catalog_entry" &&
-        selected.definitionRef === declaration.graphFunctionRef &&
-        selected.programMembershipRefs.includes(programValidation.programRef)).length !== 1
+      ].some((contractRef) =>
+        contracts.filter((contract) => contract.contractRef === contractRef)
+          .length !== 1
+      ) ||
+      (declaration.graphFunctionRef ===
+          declarationClosure.selectedGraphFunctionRef &&
+        catalogView.entries.filter((selected) =>
+          selected.kind === "graph_function_catalog_entry" &&
+          selected.definitionRef === declaration.graphFunctionRef &&
+          selected.programMembershipRefs.includes(
+            programValidation.programRef,
+          ) &&
+          selected.owningProductId === row.graphFunctionOwnerProductId &&
+          selected.publicationDigest === row.graphFunctionPublicationDigest)
+          .length !== 1)
     ) {
       return invalid(subjectDigest, {
         code: "invalid_reference",

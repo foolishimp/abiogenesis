@@ -222,30 +222,35 @@ The existing native ABI Hello Program, GraphFunction, leaf, judgment, and
 canonical JSON CLI receipt are retained unchanged. No new formatter, base
 operator, or output mode is required.
 
-D17/D18 is a reviewed candidate that must be checkpointed before Wave 2
-implementation. It is not yet checkpointed. Implementation remains held until
-that prerequisite and this plan are accepted. This does not reopen Wave 1.
+D17/D18 is checkpointed at
+`e4a9be06b89fbbc733bff6cd1b08c8fec9cd76ac`. The accepted Wave 2 plan is
+checkpointed at `4b9dfabd53f6c58b4a0af7062d4730f3491f5f08`. Neither checkpoint reopens
+Wave 1.
 
 ### Current construction sequence
 
-1. Checkpoint the reviewed D17/D18 candidate without changing its accepted
-   function chain.
-2. Freeze one clean installed 4.6.0-rc.3/odd_glc 0.1 baseline receipt for the
-   normalized Hello observation.
-3. Restore the generic GraphFunction-library and owner-separated semantic
-   resolution above; package every owner closure, dependency, schema, and
-   static row; and mechanically load/resolve the exact 56 from installed bytes.
-4. Execute and qualify the traced twelve definitions through that one packaged
-   18/56 Public family; atomically exclude the legacy family from the packed
-   path.
-5. Pack the data-only odd_glc 0.2 Program candidate and prove that its package
-   contains no executable or ABI authority.
-6. Execute one installed CLI episode chain with one start, then reopen and
-   replay it from another process; prove SDK/schema/catalog equality
-   mechanically without another execution.
-7. Compare the normalized observations, freeze the exact artifacts and
-   receipts, obtain one cold code-path review, and return the candidate for
-   Executive disposition.
+Functional story points use the Fibonacci scale `1, 2, 3, 5, 8, 13`. They
+estimate relative Product-integration complexity, including the proof required
+to accept that function, not duration. A separate evidence, review, or
+disposition row carries `0` delivery points so ceremony cannot inflate Product
+progress. Points are earned only when the line's exact functional exit is
+accepted; work in progress earns zero partial points. Elapsed time, tests, or
+percentage estimates cannot substitute for the exit.
+
+| Line | Construction outcome | Story points | State | Started | Accepted/completion boundary |
+|---|---|---:|---|---|---|
+| `W2-01` | Checkpoint reviewed D17/D18 and the accepted Wave 2 plan without changing their function chains. | 3 | Complete | 2026-08-16 22:03 AEST | D17/D18 `e4a9be06` and plan `4b9dfabd`, completed 2026-08-17 14:45 AEST |
+| `W2-02` | Preserve the immutable 4.6.0-rc.3/odd_glc 0.1 observation without synthesizing a fresh receipt when the unchanged historical transports cannot execute. | 0 | Complete | 2026-08-17 14:45 AEST | Immutable observation retained; fresh rerun correctly remained unclaimed on 2026-08-17 |
+| `W2-03` | Install one `ProductExecutionResolutionPort` that resolves the selected Program, GraphFunction, declarations, contracts, semantics, and Implementations through exact admitted owners; remove Public-local joins; prove one cross-owner Hello call. | 8 | In progress | 2026-08-17 15:16 AEST | One installed odd/mini-owned Program and GraphFunction selects the ABI-owned Hello leaf and returns the typed result without a rival selector or runtime |
+| `W2-04` | Freeze W2-A and obtain one cold Max code-path review, with at most one bounded repair. | 0 | Pending `W2-03` | - | Frozen candidate accepted by Executive disposition |
+| `W2-05` | Package the singular 18/56 family, every owner closure and dependency, and mechanically load/resolve the exact 56; exclude the packed legacy family atomically. | 8 | Pending `W2-04` | - | Installed exact-set, loadability, projection-equality, and legacy-exclusion evidence |
+| `W2-06` | Pack odd_glc 0.2 as one immutable data-only GTL Program publication with no executable or ABI authority. | 5 | Pending `W2-05` | - | Package census and installed admission prove data-only ownership |
+| `W2-07` | Execute the traced twelve definitions through one installed CLI episode chain with one start, then reopen and replay from a fresh process. | 8 | Pending `W2-06` | - | Typed Hello result, exact owner evidence, prefix continuity, and byte-stable replay projection |
+| `W2-08` | Compare the immutable version-local observations, freeze exact artifacts and receipts, obtain cold review, and return the candidate for Executive disposition. | 0 | Pending `W2-07` | - | Exact Wave 2 MVP candidate accepted |
+
+Wave 2 totals 32 functional story points. Accepted work is currently 3/32
+points. The active eight-point line remains unearned until its installed
+cross-owner exit passes and freezes.
 
 ### Function-boundary realization map
 

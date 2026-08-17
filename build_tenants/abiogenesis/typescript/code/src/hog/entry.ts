@@ -60,10 +60,10 @@ import {
 export function prepareInteractionResumeTraversalEntry(
   input: InteractionResumeTraversalEntryInput,
 ): InitialOrNonRetryExecuteGraphTraversalInput | GraphTraversalEntryRefusal {
-  const graphFunctions = input.leafPort.publication.graphFunctions.filter(
-    (candidate) => candidate.name === input.graph.graphFunctionRef,
+  const graphFunction = input.leafPort.graphFunctionByRef(
+    input.graph.graphFunctionRef,
   );
-  if (graphFunctions.length !== 1) {
+  if (graphFunction === null) {
     return refuseTraversalEntry({
       code: "owner_refusal",
       message:
@@ -73,7 +73,6 @@ export function prepareInteractionResumeTraversalEntry(
       candidate: { graphFunctionRef: input.graph.graphFunctionRef },
     });
   }
-  const graphFunction = graphFunctions[0]!;
   const graphValidation = validateGraph(
     input.graph,
     input.programValidation,

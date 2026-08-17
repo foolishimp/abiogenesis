@@ -12,6 +12,7 @@ import {
 } from "../gtl/source_path.js";
 import {
   DIRECT_INVOKE_CAPABILITY,
+  isProductExecutionResolution,
   type CapabilityGrant,
   type DeclarationApplication,
   type GraphFunctionCatalogView,
@@ -19,6 +20,8 @@ import {
   type InvocationInteractionCapability,
   type InvocationPolicyBasis,
   type ProductInvocationSourceResultBasis,
+  type ProductExecutionResolution,
+  type ExecutionDeclarationOwnerCoordinate,
   type PublicInvocationCandidate,
   type RunInvocationVariant,
   type WorkspaceBinding,
@@ -87,7 +90,8 @@ export interface InvocationAdmissionInput {
   readonly invocation: PublicInvocationCandidate;
   readonly rawRequest: RawAdmittedValue<unknown>;
   readonly rawInput: RawAdmittedValue<unknown>;
-  readonly modulePublication: Readonly<ModulePublication>;
+  readonly programPublication: Readonly<ModulePublication>;
+  readonly executionResolution: ProductExecutionResolution;
   readonly program: Readonly<GtlProgram>;
   readonly graphFunction: Readonly<GraphFunction>;
   readonly programValidation: ProgramValidation;
@@ -182,7 +186,13 @@ export interface InvocationAdmission {
   readonly gtlEntryCoordinate: CTraversalCoordinate;
   readonly gtlEntryTerm: Readonly<CProgramNode>;
   readonly inputContractRef: string;
+  readonly inputContractDigest: Sha256Digest;
+  readonly inputContractOwner: ExecutionDeclarationOwnerCoordinate;
   readonly outputContractRef: string;
+  readonly outputContractDigest: Sha256Digest;
+  readonly outputContractOwner: ExecutionDeclarationOwnerCoordinate;
+  readonly productExecutionResolutionRef: string;
+  readonly productExecutionResolutionDigest: Sha256Digest;
   readonly programValidationRef: string;
   readonly programValidationDigest: Sha256Digest;
   readonly policyRef: string;
@@ -748,18 +758,59 @@ function admitInvocationWithRequest(
     !isProgramValidation(input.programValidation) ||
     input.programValidation.programRef !== input.program.programRef ||
     input.programValidation.programDigest !== input.invocation.programDigest ||
-    input.programValidation.publicationDigest !== sha256Canonical(input.modulePublication as unknown as JsonValue) ||
+    input.programValidation.publicationDigest !== sha256Canonical(input.programPublication as unknown as JsonValue) ||
     !input.programValidation.graphFunctionDigests.includes(input.invocation.graphFunctionDigest)
   ) {
     return refusal("validation_mismatch", "Invocation requires the exact non-lowering ProgramValidation");
   }
-  const inputContract = input.modulePublication.contracts.find(
-    (contract) => contract.contractRef === input.invocation.inputContractRef,
+  const executionResolution = input.executionResolution;
+  if (!isProductExecutionResolution(executionResolution)) {
+    return refusal(
+      "contract_mismatch",
+      "invocation requires one exact Product execution resolution",
+    );
+  }
+  const inputContract = executionResolution.inputContract;
+  const outputContract = executionResolution.outputContract;
+  const inputOwnerMatches = executionResolution.declarationOwners.filter(
+    (owner) => canonicalJson(owner as unknown as JsonValue) === canonicalJson(
+      executionResolution.inputContractOwner as unknown as JsonValue,
+    ),
   );
-  const outputContract = input.modulePublication.contracts.find(
-    (contract) => contract.contractRef === input.invocation.outputContractRef,
+  const outputOwnerMatches = executionResolution.declarationOwners.filter(
+    (owner) => canonicalJson(owner as unknown as JsonValue) === canonicalJson(
+      executionResolution.outputContractOwner as unknown as JsonValue,
+    ),
   );
   if (
+    executionResolution.catalogBasisDigest !==
+      input.invocation.catalogBasisDigest ||
+    executionResolution.catalogViewDigest !== input.catalogView.viewDigest ||
+    executionResolution.programRef !== input.program.programRef ||
+    executionResolution.programDigest !== input.invocation.programDigest ||
+    executionResolution.graphFunctionRef !== input.graphFunction.name ||
+    executionResolution.graphFunctionDigest !==
+      input.invocation.graphFunctionDigest ||
+    executionResolution.programValidationRef !==
+      input.programValidation.validationRef ||
+    executionResolution.inputContractOwner.declarationKind !== "contract" ||
+    executionResolution.inputContractOwner.declarationRef !==
+      input.invocation.inputContractRef ||
+    executionResolution.outputContractOwner.declarationKind !== "contract" ||
+    executionResolution.outputContractOwner.declarationRef !==
+      input.invocation.outputContractRef ||
+    inputOwnerMatches.length !== 1 ||
+    outputOwnerMatches.length !== 1 ||
+    executionResolution.inputContractDigest !== sha256Canonical(
+      inputContract as unknown as JsonValue,
+    ) ||
+    executionResolution.outputContractDigest !== sha256Canonical(
+      outputContract as unknown as JsonValue,
+    ) ||
+    input.graphFunction.inputs.length !== 1 ||
+    input.graphFunction.inputs[0] !== inputContract.contractRef ||
+    input.graphFunction.outputs.length !== 1 ||
+    input.graphFunction.outputs[0] !== outputContract.contractRef ||
     !isRawAdmittedValue(input.rawInput) ||
     input.rawInput.subjectKind !== "invocation_input" ||
     input.rawInput.admissionRef !== input.invocation.rawInputAdmissionRef ||
@@ -1209,7 +1260,13 @@ function admitInvocationWithRequest(
     gtlEntryCoordinate,
     gtlEntryTerm,
     inputContractRef: input.invocation.inputContractRef,
+    inputContractDigest: executionResolution.inputContractDigest,
+    inputContractOwner: executionResolution.inputContractOwner,
     outputContractRef: input.invocation.outputContractRef,
+    outputContractDigest: executionResolution.outputContractDigest,
+    outputContractOwner: executionResolution.outputContractOwner,
+    productExecutionResolutionRef: executionResolution.resolutionRef,
+    productExecutionResolutionDigest: executionResolution.resolutionDigest,
     programValidationRef: input.programValidation.validationRef,
     programValidationDigest,
     policyRef: input.policy.policyRef,

@@ -14,6 +14,7 @@ import {
   setupInstalledCliHarness as setupInstalledCliHarnessBase,
   writeCliTransportRequest,
 } from "../support/root-cli-environment.mjs";
+import * as gtl from "../../build/code/src/gtl/index.js";
 import { sha256Canonical } from "../../build/code/src/product/index.js";
 
 const packageRoot = new URL("../..", import.meta.url).pathname;
@@ -103,6 +104,88 @@ function deepFreezeJson(value) {
   }
   for (const child of Object.values(value)) deepFreezeJson(child);
   return Object.freeze(value);
+}
+
+function projectMiniHelloTopology(mini, abiPublication) {
+  const abiGraphFunction = abiPublication.graphFunctions.find(
+    (candidate) => candidate.name === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+  );
+  const abiProgram = abiPublication.programs.find(
+    (candidate) => candidate.programRef === gtl.HELLO_WORLD_IDS.programRef,
+  );
+  assert.notEqual(abiGraphFunction, undefined);
+  assert.notEqual(abiProgram, undefined);
+  const sourceLeaf = abiGraphFunction.template.nodes[0].term;
+  const input = gtl.cCarrier(sourceLeaf.inputCarrierRef);
+  const output = gtl.cCarrier(sourceLeaf.outputCarrierRef);
+  const graphFunction = {
+    ...abiGraphFunction,
+    name: mini.ids.graphFunctionRef,
+    template: {
+      ...abiGraphFunction.template,
+      graphRef: mini.ids.graphRef,
+      startNodeRef: mini.ids.nodeRef,
+      terminalNodeRefs: [mini.ids.nodeRef],
+      nodes: [{
+        nodeRef: mini.ids.nodeRef,
+        nodeKind: "c_locus",
+        term: gtl.C.of({
+          input,
+          output,
+          programLocusRef: mini.ids.nodeRef,
+          stageRole: sourceLeaf.stageRole,
+          fibre: sourceLeaf.fibre,
+          armId: `arm://developer.example/greeting/abi-hello@5`,
+          compositionRef: sourceLeaf.compositionRef,
+          vectorIndex: sourceLeaf.vectorIndex,
+          judgmentPredicateRef: sourceLeaf.judgmentPredicateRef,
+          resultBearing: sourceLeaf.resultBearing,
+          requirement: sourceLeaf.requirement,
+        }),
+      }],
+      edges: [],
+      applications: [],
+    },
+    tags: ["developer.example", "abi-hello-topology"],
+  };
+  const program = {
+    ...abiProgram,
+    programRef: mini.ids.programRef,
+    moduleRef: mini.ids.moduleRef,
+    starts: [{
+      startRef: mini.ids.startRef,
+      graphFunctionRef: mini.ids.graphFunctionRef,
+    }],
+    callableMembership: [mini.ids.graphFunctionRef],
+    policies: {
+      ...abiProgram.policies,
+      "abg.default_start_ref": mini.ids.startRef,
+    },
+  };
+  return deepFreezeJson({
+    ...mini.publication,
+    productSemanticsBinding: abiPublication.productSemanticsBinding,
+    contracts: [],
+    evaluators: [],
+    rules: [],
+    implementationBindings: [],
+    closureContracts: [],
+    programs: [program],
+    graphFunctions: [graphFunction],
+    contributions: [{
+      handle: mini.ids.graphFunctionRef,
+      kind: "graph_function",
+      declarationOrContractRef: mini.ids.graphFunctionRef,
+      owningProductId: mini.basis.productId,
+      programMembershipRefs: [mini.ids.programRef],
+      readinessPrerequisiteRefs: [mini.ids.programRef],
+      compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+      provenanceRefs: [
+        mini.basis.artifactDigest,
+        mini.basis.manifestDigest,
+      ],
+    }],
+  });
 }
 
 function acquireInvocationContext(publicApi, row) {
@@ -891,7 +974,7 @@ async function externalScenario(
     resolvedLock,
     installInvocationRefs: [refs.installAbi, refs.installMini],
     workspaceBindingInvocationRef: refs.bind,
-    publications: [publication],
+    publications: [...(target.additionalPublications ?? []), publication],
   });
   const allowlist = [catalogHandle];
   const runtimePrefixAuthority = closeHandoff;
@@ -1057,6 +1140,164 @@ function assertExternalOutcome(outcomes, harness, mini) {
   assert.equal(result.outputContractRef, mini.ids.outputContractRef);
   return result;
 }
+
+test("W2-A resolves mini-owned Hello topology to the installed ABI owner through one SDK path", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const miniTopologyPublication = projectMiniHelloTopology(
+    mini,
+    harness.rootPublication,
+  );
+  const scenario = await externalScenario(
+    harness,
+    mini,
+    "w2-a-cross-owner-hello",
+    miniTopologyPublication,
+    {
+      episodeTransport: "sdk",
+      additionalPublications: [harness.rootPublication],
+      input: gtl.constructHelloWorldInput("World"),
+    },
+  );
+  const publicApi = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/public/index.js",
+    )).href}?w2-a-sdk=${Date.now()}`
+  );
+  const operationContext = reopenScenario(publicApi, scenario);
+  const outcomes = [...scenario.setupOutcomes];
+  for (const row of scenario.transcript.slice(6)) {
+    outcomes.push(await publicApi.applyRootPublicInvocation(operationContext, row));
+  }
+  publicApi.closeRootOperationContext(operationContext);
+
+  assert.equal(outcomes.length, 9);
+  assert.equal(
+    outcomes.every((outcome) => outcome.disposition === "succeeded"),
+    true,
+    JSON.stringify(outcomes),
+  );
+  assert.deepEqual(outcomes[8].result, {
+    kind: "hello_world_output",
+    schemaVersion: "5.0.0",
+    message: "Hello World",
+  });
+  assert.equal(outcomes[8].outputContractRef, gtl.HELLO_WORLD_IDS.outputContractRef);
+  assert.equal(outcomes[8].replayAgreement, true);
+
+  const projectionAuthority = structuredClone(outcomes[8].projectionAuthority);
+  assert.equal(
+    projectionAuthority.kind,
+    "public_run_projection_authority",
+  );
+  const durableBytesBeforeReads = await readFile(scenario.eventLogPath, "utf8");
+  const status = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "status",
+      "invocation://t287/w2-a-cross-owner-hello/read-status",
+      {
+        projectionAuthority,
+        targetRef: outcomes[8].runId,
+      },
+    ),
+  );
+  const result = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "result",
+      "invocation://t287/w2-a-cross-owner-hello/read-result",
+      {
+        projectionAuthority,
+        targetRef: outcomes[8].graphCallId,
+      },
+    ),
+  );
+  const replay = await applyInFreshContext(
+    publicApi,
+    invocation(
+      "abg.operation.project.read",
+      "replay",
+      "invocation://t287/w2-a-cross-owner-hello/read-replay",
+      {
+        projectionAuthority,
+        targetRef: outcomes[8].runId,
+      },
+    ),
+  );
+  assert.equal(status.disposition, "succeeded", JSON.stringify(status));
+  assert.equal(status.result.kind, "public_run_status_projection");
+  assert.equal(status.result.runtimeStatus, "closed");
+  assert.equal(status.result.resultRef, outcomes[8].resultRef);
+  assert.equal(result.disposition, "succeeded", JSON.stringify(result));
+  assert.equal(result.result.kind, "public_result_projection");
+  assert.equal(
+    result.result.resultContractRef,
+    gtl.HELLO_WORLD_IDS.outputContractRef,
+  );
+  assert.deepEqual(result.result.value, {
+    kind: "hello_world_output",
+    schemaVersion: "5.0.0",
+    message: "Hello World",
+  });
+  assert.equal(replay.disposition, "succeeded", JSON.stringify(replay));
+  assert.equal(replay.result.kind, "public_replay_projection");
+  assert.equal(replay.result.runId, outcomes[8].runId);
+  assert.equal(
+    replay.result.events.some((event) => event.kind === "run_closed"),
+    true,
+  );
+  assert.equal(status.result.replayDigest, result.result.replayDigest);
+  assert.equal(result.result.replayDigest, replay.result.replayDigest);
+  assert.equal(replay.result.replayDigest, outcomes[8].replayDigest);
+  assert.equal(
+    await readFile(scenario.eventLogPath, "utf8"),
+    durableBytesBeforeReads,
+  );
+
+  const events = (await readFile(scenario.eventLogPath, "utf8"))
+    .trim()
+    .split("\n")
+    .map((line) => JSON.parse(line));
+  const invocationAdmission = events.find(
+    (event) => event.kind === "invocation_admitted",
+  );
+  assert.equal(invocationAdmission.payload.programRef, mini.ids.programRef);
+  assert.equal(
+    invocationAdmission.payload.graphFunctionRef,
+    mini.ids.graphFunctionRef,
+  );
+  const implementationAdmission = events.find(
+    (event) => event.kind === "implementation_admitted",
+  );
+  assert.notEqual(implementationAdmission, undefined);
+  assert.equal(implementationAdmission.payload.implementationSet.rows.length, 1);
+  assert.deepEqual(
+    {
+      graphFunctionRef:
+        implementationAdmission.payload.implementationSet.rows[0].graphFunctionRef,
+      graphFunctionOwnerProductId:
+        implementationAdmission.payload.implementationSet.rows[0]
+          .graphFunctionOwnerProductId,
+      implementationRef:
+        implementationAdmission.payload.implementationSet.rows[0]
+          .implementationRef,
+      implementationOwnerProductId:
+        implementationAdmission.payload.implementationSet.rows[0]
+          .implementationOwnerProductId,
+    },
+    {
+      graphFunctionRef: mini.ids.graphFunctionRef,
+      graphFunctionOwnerProductId: mini.basis.productId,
+      implementationRef: gtl.HELLO_WORLD_IDS.implementationRef,
+      implementationOwnerProductId: harness.candidateBasis.productId,
+    },
+  );
+  assert.equal(events.some((event) => event.kind === "run_closed"), true);
+});
 
 test("M5 installs and executes one independent developer-authored GTL Product through SDK and CLI", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot);

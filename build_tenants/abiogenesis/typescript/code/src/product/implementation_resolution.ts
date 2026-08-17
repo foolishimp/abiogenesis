@@ -9,13 +9,21 @@ import {
   type ValidatedExecutableLeaf,
 } from "../validator/validation.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import type { GraphFunctionCatalogView } from "./catalog.js";
+import {
+  lookupGraphFunctionDefinition,
+  type GraphFunctionCatalogView,
+} from "./catalog.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { ProductInstall } from "./environment.js";
 import { resolveExactMatch } from "./exact_match.js";
 import { installedProductContentMatches } from "./install_product.js";
 import { loadVerifiedInstalledModule } from "./installed_module.js";
+import {
+  isResolvedExecutionDeclarationClosure,
+  type ResolvedExecutionDeclarationClosure,
+} from "./declaration_closure.js";
+import { modulePublicationSemanticDigest } from "./publication.js";
 
 export interface PackagedLeafImplementationDescriptor {
   readonly kind: "packaged_leaf_implementation_descriptor";
@@ -47,6 +55,8 @@ export interface ImplementationResolutionCandidate {
   readonly graphValidationDigest: Sha256Digest;
   readonly graphFunctionRef: string;
   readonly graphFunctionDigest: Sha256Digest;
+  readonly graphFunctionOwnerProductId: string;
+  readonly graphFunctionPublicationDigest: Sha256Digest;
   readonly nodeRef: string;
   readonly implementationBindingRef: string;
   readonly implementationRef: string;
@@ -61,6 +71,8 @@ export interface ImplementationResolutionCandidate {
   readonly refusalContractRef: string;
   readonly implementationBindingDigest: Sha256Digest;
   readonly implementationDescriptorDigest: Sha256Digest;
+  readonly implementationOwnerProductId: string;
+  readonly implementationPublicationDigest: Sha256Digest;
 }
 
 export interface ImplementationResolutionRefusal {
@@ -90,6 +102,8 @@ export interface LeafImplementationResolutionCandidate {
   readonly programValidationRef: string;
   readonly graphFunctionRef: string;
   readonly graphFunctionDigest: Sha256Digest;
+  readonly graphFunctionOwnerProductId: string;
+  readonly graphFunctionPublicationDigest: Sha256Digest;
   readonly nodeRef: string;
   readonly programLocusRef: string;
   readonly implementationBindingRef: string;
@@ -105,6 +119,8 @@ export interface LeafImplementationResolutionCandidate {
   readonly refusalContractRef: string;
   readonly implementationBindingDigest: Sha256Digest;
   readonly implementationDescriptorDigest: Sha256Digest;
+  readonly implementationOwnerProductId: string;
+  readonly implementationPublicationDigest: Sha256Digest;
 }
 
 export interface ImplementationResolutionSetCandidate {
@@ -269,33 +285,35 @@ function setRefusal(
 
 function resolveValidatedLeaf(
   catalogView: GraphFunctionCatalogView,
-  publication: Readonly<ModulePublication>,
+  declarationClosure: ResolvedExecutionDeclarationClosure,
   programValidation: ProgramValidation,
   declaration: ValidatedExecutableLeaf,
   packagedImplementations: readonly Readonly<PackagedLeafImplementationDescriptor>[],
 ): LeafImplementationResolutionCandidate | ImplementationResolutionSetRefusal {
-  const selectedRowMatch = resolveExactMatch(
-    catalogView.entries,
-    (row) =>
-      (
-        row.handle === declaration.graphFunctionRef ||
-        row.definitionRef === declaration.graphFunctionRef
-      ) &&
-      row.programMembershipRefs.includes(programValidation.programRef),
-  );
+  const publications = declarationClosure.publications;
+  const requiresCallerSelection = declaration.graphFunctionRef ===
+    declarationClosure.selectedGraphFunctionRef;
+  const selectedRowLookup = requiresCallerSelection
+    ? lookupGraphFunctionDefinition(
+        catalogView,
+        declaration.graphFunctionRef,
+        programValidation.programRef,
+      )
+    : null;
+  const selectedRow = selectedRowLookup?.kind ===
+      "graph_function_definition_lookup_exact"
+    ? selectedRowLookup.entry
+    : null;
   const graphFunctionMatch = resolveExactMatch(
-    publication.graphFunctions,
+    publications.flatMap((publication) => publication.graphFunctions),
     (value) => value.name === declaration.graphFunctionRef,
   );
   if (
-    selectedRowMatch.kind !== "one" ||
+    (requiresCallerSelection && selectedRow === null) ||
     graphFunctionMatch.kind !== "one" ||
-    selectedRowMatch.value.kind !== "graph_function_catalog_entry" ||
-    selectedRowMatch.value.definitionRef !==
-      declaration.graphFunctionRef ||
-    !selectedRowMatch.value.programMembershipRefs.includes(
-      programValidation.programRef,
-    ) ||
+    (selectedRow !== null &&
+      (selectedRow.kind !== "graph_function_catalog_entry" ||
+        selectedRow.definitionRef !== declaration.graphFunctionRef)) ||
     sha256Canonical(graphFunctionMatch.value as unknown as JsonValue) !==
       declaration.graphFunctionDigest
   ) {
@@ -305,7 +323,37 @@ function resolveValidatedLeaf(
       "validated executable leaf is not selected under the exact catalog and Program basis",
     );
   }
-  const matchingBindings = publication.implementationBindings.filter(
+  const graphFunctionOwnerMatches = publications.filter((publication) =>
+    publication.graphFunctions.some((value) =>
+      value.name === declaration.graphFunctionRef &&
+      sha256Canonical(value as unknown as JsonValue) ===
+        declaration.graphFunctionDigest
+    )
+  );
+  if (
+    graphFunctionOwnerMatches.length !== 1 ||
+    (selectedRow !== null &&
+      (selectedRow.owningProductId !==
+          graphFunctionOwnerMatches[0]!.owningProductId ||
+        selectedRow.publicationDigest !==
+          modulePublicationSemanticDigest(graphFunctionOwnerMatches[0]!))) ||
+    declarationClosure.graphFunctionOwners.filter((owner) =>
+      owner.declarationRef === declaration.graphFunctionRef &&
+      owner.productId === graphFunctionOwnerMatches[0]!.owningProductId &&
+      owner.moduleRef === graphFunctionOwnerMatches[0]!.moduleRef &&
+      owner.publicationDigest ===
+        modulePublicationSemanticDigest(graphFunctionOwnerMatches[0]!)
+    ).length !== 1
+  ) {
+    return setRefusal(
+      "selection_mismatch",
+      declaration.requirementKey,
+      "catalog selection and GraphFunction publication owner disagree",
+    );
+  }
+  const matchingBindings = publications.flatMap((publication) =>
+    publication.implementationBindings,
+  ).filter(
     (binding) => binding.bindingRef === declaration.requirement.implementationBindingRef,
   );
   if (matchingBindings.length === 0) {
@@ -323,7 +371,30 @@ function resolveValidatedLeaf(
     );
   }
   const binding = matchingBindings[0]!;
+  const implementationOwnerMatches = publications.filter((publication) =>
+    publication.implementationBindings.some((candidate) =>
+      candidate.bindingRef === binding.bindingRef &&
+      sha256Canonical(candidate as unknown as JsonValue) ===
+        sha256Canonical(binding as unknown as JsonValue)
+    )
+  );
+  if (implementationOwnerMatches.length !== 1) {
+    return setRefusal(
+      "ambiguous_implementation",
+      declaration.requirementKey,
+      "ImplementationBinding does not resolve to one exact publication owner",
+    );
+  }
+  const graphFunctionOwner = graphFunctionOwnerMatches[0]!;
+  const implementationOwner = implementationOwnerMatches[0]!;
   if (
+    declarationClosure.implementationBindingOwners.filter((owner) =>
+      owner.declarationRef === binding.bindingRef &&
+      owner.productId === implementationOwner.owningProductId &&
+      owner.moduleRef === implementationOwner.moduleRef &&
+      owner.publicationDigest ===
+        modulePublicationSemanticDigest(implementationOwner)
+    ).length !== 1 ||
     binding.computeRegime !== declaration.fibre ||
     binding.inputContractRef !== declaration.requirement.inputContractRef ||
     binding.outputContractRef !== declaration.requirement.outputContractRef ||
@@ -363,7 +434,17 @@ function resolveValidatedLeaf(
     );
   }
   const descriptor = descriptors[0]!;
-  const contractRefs = new Set(publication.contracts.map((contract) => contract.contractRef));
+  const allContracts = publications.flatMap((publication) =>
+    publication.contracts.filter((contract) =>
+      declarationClosure.contractOwners.some((owner) =>
+        owner.declarationRef === contract.contractRef &&
+        owner.productId === publication.owningProductId &&
+        owner.moduleRef === publication.moduleRef &&
+        owner.publicationDigest ===
+          modulePublicationSemanticDigest(publication)
+      )
+    )
+  );
   if ([
     declaration.requirement.inputContractRef,
     declaration.requirement.outputContractRef,
@@ -371,7 +452,10 @@ function resolveValidatedLeaf(
     declaration.requirement.failureContractRef,
     declaration.requirement.refusalContractRef,
     declaration.requirement.judgmentContractRef,
-  ].some((contractRef) => !contractRefs.has(contractRef))) {
+  ].some((contractRef) =>
+    allContracts.filter((contract) => contract.contractRef === contractRef)
+      .length !== 1
+  )) {
     return setRefusal(
       "contract_mismatch",
       declaration.requirementKey,
@@ -387,6 +471,9 @@ function resolveValidatedLeaf(
     programValidationRef: programValidation.validationRef,
     graphFunctionRef: declaration.graphFunctionRef,
     graphFunctionDigest: declaration.graphFunctionDigest,
+    graphFunctionOwnerProductId: graphFunctionOwner.owningProductId,
+    graphFunctionPublicationDigest:
+      modulePublicationSemanticDigest(graphFunctionOwner),
     nodeRef: declaration.nodeRef,
     programLocusRef: declaration.programLocusRef,
     implementationBindingRef: binding.bindingRef,
@@ -402,6 +489,9 @@ function resolveValidatedLeaf(
     refusalContractRef: binding.refusalContractRef,
     implementationBindingDigest: sha256Canonical(binding as unknown as JsonValue),
     implementationDescriptorDigest: descriptor.descriptorDigest,
+    implementationOwnerProductId: implementationOwner.owningProductId,
+    implementationPublicationDigest:
+      modulePublicationSemanticDigest(implementationOwner),
   };
   const leafResolutionCandidateDigest = sha256Canonical(body as unknown as JsonValue);
   const candidate = deepFreeze({
@@ -418,13 +508,27 @@ function resolveValidatedLeaf(
 
 export function resolveImplementationSet(
   catalogView: GraphFunctionCatalogView,
-  publication: Readonly<ModulePublication>,
+  declarationClosure: ResolvedExecutionDeclarationClosure,
   programValidation: ProgramValidation,
   packagedImplementations: readonly Readonly<PackagedLeafImplementationDescriptor>[],
 ): ImplementationResolutionSetResult {
+  const publications = declarationClosure.publications;
+  const rootPublicationMatches = publications.filter((publication) =>
+    sha256Canonical(publication as unknown as JsonValue) ===
+      programValidation.publicationDigest
+  );
+  const selectedGraphFunctionRefs = new Set(
+    declarationClosure.graphFunctionOwners.map((owner) => owner.declarationRef),
+  );
+  const selectedExecutableRows = programValidation.executableLeafRows.filter(
+    (row) => selectedGraphFunctionRefs.has(row.graphFunctionRef),
+  );
   if (
     !isProgramValidation(programValidation) ||
-    programValidation.publicationDigest !== sha256Canonical(publication as unknown as JsonValue)
+    !isResolvedExecutionDeclarationClosure(declarationClosure) ||
+    declarationClosure.catalogViewDigest !== catalogView.viewDigest ||
+    declarationClosure.programRef !== programValidation.programRef ||
+    rootPublicationMatches.length !== 1
   ) {
     return setRefusal(
       "invalid_program_validation",
@@ -432,23 +536,11 @@ export function resolveImplementationSet(
       "implementation-set resolution requires exact ProgramValidation and publication",
     );
   }
-  if (
-    programValidation.executableLeafRows.length !==
-      programValidation.transitiveReachableExecutableLeafKeys.length ||
-    programValidation.executableLeafRows.some((row, index) =>
-      row.requirementKey !== programValidation.transitiveReachableExecutableLeafKeys[index])
-  ) {
-    return setRefusal(
-      "set_mismatch",
-      null,
-      "validated executable rows differ from the complete reachable key set",
-    );
-  }
   const rows: LeafImplementationResolutionCandidate[] = [];
-  for (const declaration of programValidation.executableLeafRows) {
+  for (const declaration of selectedExecutableRows) {
     const resolved = resolveValidatedLeaf(
       catalogView,
-      publication,
+      declarationClosure,
       programValidation,
       declaration,
       packagedImplementations,
@@ -461,7 +553,7 @@ export function resolveImplementationSet(
     catalogViewDigest: catalogView.viewDigest,
     publicationDigest: programValidation.publicationDigest,
     programValidationRef: programValidation.validationRef,
-    executableLeafKeys: programValidation.transitiveReachableExecutableLeafKeys,
+    executableLeafKeys: selectedExecutableRows.map((row) => row.requirementKey),
     rows,
   };
   const setCandidateDigest = sha256Canonical(body as unknown as JsonValue);
@@ -479,16 +571,22 @@ export function resolveImplementationSet(
 
 export function resolveImplementation(
   catalogView: GraphFunctionCatalogView,
-  publication: Readonly<ModulePublication>,
+  declarationClosure: ResolvedExecutionDeclarationClosure,
   programValidation: ProgramValidation,
   graphValidation: GraphValidation,
   graphFunctionRef: string,
   nodeRef: string,
   packagedImplementations: readonly Readonly<PackagedLeafImplementationDescriptor>[],
 ): ImplementationResolutionResult {
+  const publications = declarationClosure.publications;
   if (
     !isProgramValidation(programValidation) ||
-    programValidation.publicationDigest !== sha256Canonical(publication as unknown as JsonValue) ||
+    !isResolvedExecutionDeclarationClosure(declarationClosure) ||
+    declarationClosure.catalogViewDigest !== catalogView.viewDigest ||
+    publications.filter((publication) =>
+      programValidation.publicationDigest ===
+        sha256Canonical(publication as unknown as JsonValue)
+    ).length !== 1 ||
     !isGraphValidation(graphValidation) ||
     graphValidation.programValidationRef !== programValidation.validationRef ||
     graphValidation.graphFunctionRef !== graphFunctionRef
@@ -496,7 +594,7 @@ export function resolveImplementation(
     return refusal("invalid_program_validation", "implementation resolution requires exact ProgramValidation");
   }
   const graphFunctionMatch = resolveExactMatch(
-    publication.graphFunctions,
+    publications.flatMap((publication) => publication.graphFunctions),
     (value) => value.name === graphFunctionRef,
   );
   if (
@@ -508,7 +606,7 @@ export function resolveImplementation(
   }
   const set = resolveImplementationSet(
     catalogView,
-    publication,
+    declarationClosure,
     programValidation,
     packagedImplementations,
   );
@@ -538,6 +636,8 @@ export function resolveImplementation(
     graphValidationDigest: graphValidation.validationDigest,
     graphFunctionRef: leaf.graphFunctionRef,
     graphFunctionDigest: leaf.graphFunctionDigest,
+    graphFunctionOwnerProductId: leaf.graphFunctionOwnerProductId,
+    graphFunctionPublicationDigest: leaf.graphFunctionPublicationDigest,
     nodeRef: leaf.nodeRef,
     implementationBindingRef: leaf.implementationBindingRef,
     implementationRef: leaf.implementationRef,
@@ -552,6 +652,8 @@ export function resolveImplementation(
     refusalContractRef: leaf.refusalContractRef,
     implementationBindingDigest: leaf.implementationBindingDigest,
     implementationDescriptorDigest: leaf.implementationDescriptorDigest,
+    implementationOwnerProductId: leaf.implementationOwnerProductId,
+    implementationPublicationDigest: leaf.implementationPublicationDigest,
   };
   const resolutionCandidateDigest = sha256Canonical(body as unknown as JsonValue);
   const candidate = deepFreeze({

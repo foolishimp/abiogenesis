@@ -1,7 +1,8 @@
 import type {
+  ClosureContract,
+  GraphFunction,
   HelloWorldInput,
   HelloWorldOutput,
-  ModulePublication,
 } from "../gtl/contracts.js";
 import type {
   ActorProcessCarrierValidation,
@@ -257,11 +258,23 @@ export type ProbabilisticResultContractPreimageVerification =
 export interface LeafInvocationPort {
   readonly kind: "admitted_leaf_invocation_port";
   readonly isExactLoadedCapability: () => boolean;
-  readonly installId: string;
+  readonly ownerInstallIds: readonly string[];
   readonly implementationSetRef: string;
   readonly implementationSetDigest: Sha256Digest;
-  readonly publicationDigest: Sha256Digest;
-  readonly publication: Readonly<ModulePublication>;
+  readonly publicationDigests: readonly Sha256Digest[];
+  readonly hasOwnerCapability: (
+    installId: string,
+    publicationDigest: Sha256Digest,
+  ) => boolean;
+  readonly isAdmittedResolution: (
+    resolution: Readonly<LeafInvocationResolution>,
+  ) => boolean;
+  readonly graphFunctionByRef: (
+    graphFunctionRef: string,
+  ) => Readonly<GraphFunction> | null;
+  readonly closureContractByRef: (
+    closureContractRef: string,
+  ) => Readonly<ClosureContract> | null;
   readonly contractValueKindByRef: (
     contractRef: string,
   ) => string | null;

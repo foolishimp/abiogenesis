@@ -105,7 +105,15 @@ export function projectExactInvocationAdmissionAtPrefix(
     gtlEntryCoordinate: admission.gtlEntryCoordinate,
     gtlEntryTerm: admission.gtlEntryTerm,
     inputContractRef: admission.inputContractRef,
+    inputContractDigest: admission.inputContractDigest,
+    inputContractOwner: admission.inputContractOwner,
     outputContractRef: admission.outputContractRef,
+    outputContractDigest: admission.outputContractDigest,
+    outputContractOwner: admission.outputContractOwner,
+    productExecutionResolutionRef:
+      admission.productExecutionResolutionRef,
+    productExecutionResolutionDigest:
+      admission.productExecutionResolutionDigest,
     programValidationRef: admission.programValidationRef,
     programValidationDigest: admission.programValidationDigest,
     policyRef: admission.policyRef,

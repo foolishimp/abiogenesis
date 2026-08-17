@@ -270,6 +270,7 @@ type RunProjectionProductBasis = Readonly<{
   workspaceBindingDigest: product.Sha256Digest;
   catalogBasisDigest: product.Sha256Digest;
   catalogReadinessBasis: product.CatalogReadinessBasis;
+  catalogViewAllowlist: readonly string[];
   catalogViewDigest: product.Sha256Digest;
   publicationDigests: readonly product.Sha256Digest[];
   publications: readonly Readonly<ModulePublication>[];
@@ -586,43 +587,6 @@ function rawAdmission<S>(
     throw new ApplicationRefusal("owner_refusal", `GTL raw admission refused: ${JSON.stringify(admitted)}`);
   }
   return admitted;
-}
-
-function rawProgramInput(
-  publicationAdmission: validator.RawAdmittedValue<ModulePublication>,
-  program: Readonly<GtlProgram>,
-): validator.ProgramValidationInput {
-  const publication = publicationAdmission.value;
-  return {
-    publication: publicationAdmission,
-    program: rawAdmission(
-      program,
-      "gtl_program",
-      "contract://abiogenesis/gtl/program@5",
-    ),
-    graphFunctions: publication.graphFunctions
-      .filter((value) => program.callableMembership.includes(value.name))
-      .map((value) => rawAdmission(
-        value,
-        "graph_function",
-        "contract://abiogenesis/gtl/graph-function@5",
-      )),
-    contracts: publication.contracts.map((value) => rawAdmission(
-      value,
-      "contract_declaration",
-      "contract://abiogenesis/gtl/contract-declaration@5",
-    )),
-    implementationBindings: publication.implementationBindings.map((value) => rawAdmission(
-      value,
-      "implementation_binding",
-      "contract://abiogenesis/gtl/implementation-binding@5",
-    )),
-    closureContracts: publication.closureContracts.map((value) => rawAdmission(
-      value,
-      "closure_contract",
-      "contract://abiogenesis/gtl/closure-contract@5",
-    )),
-  };
 }
 
 function successOutcome(
@@ -1185,14 +1149,6 @@ async function applyCatalogAdmit(
     if (publicationValidation.kind !== "publication_validation") {
       throw new ApplicationRefusal("owner_refusal", `Publication validation refused: ${JSON.stringify(publicationValidation)}`);
     }
-    const invalidProgram = publication.programs
-      .map((program) => validator.validateProgram(
-        rawProgramInput(publicationAdmission, program),
-      ))
-      .find((validation) => validation.kind !== "program_validation");
-    if (invalidProgram !== undefined) {
-      throw new ApplicationRefusal("owner_refusal", `Program validation refused: ${JSON.stringify(invalidProgram)}`);
-    }
   }
   const catalog = product.admitGraphFunctionCatalog(readinessBasis);
   if (catalog.kind !== "graph_function_catalog") {
@@ -1517,28 +1473,7 @@ async function applyRunInvoke(
     );
   }
   const programRef = stringField(invocation.payload, "programRef");
-  const publicationMatches = reconstructedCatalog.publications.filter(
-    (publication) => publication.programs.some(
-      (program) => program.programRef === programRef,
-    ),
-  );
-  if (publicationMatches.length !== 1) {
-    throw new ApplicationRefusal(
-      "target_mismatch",
-      "run.invoke program must belong to one exact catalog publication",
-    );
-  }
-  const publication = publicationMatches[0]!;
   const readinessBasis = reconstructedCatalog.catalog.readinessBasis;
-  const readinessInstallMatches = readinessBasis.installedProducts.filter(
-    (candidate) => candidate.productId === publication.owningProductId,
-  );
-  if (readinessInstallMatches.length !== 1) {
-    throw new ApplicationRefusal(
-      "target_mismatch",
-      "run.invoke publication must resolve one exact ProductInstall from catalog readiness",
-    );
-  }
   const installInvocationRef = stringField(
     invocation.payload,
     "installInvocationRef",
@@ -1627,16 +1562,11 @@ async function applyRunInvoke(
     declaredInstall === null ||
     !orderedInstallStates.some((state) =>
       state.install.admissionEventRef === declaredInstall.install.admissionEventRef
-    ) ||
-    product.canonicalJson(
-      declaredInstall.candidate as unknown as product.JsonValue,
-    ) !== product.canonicalJson(
-      readinessInstallMatches[0]! as unknown as product.JsonValue,
     )
   ) {
     throw new ApplicationRefusal(
       "missing_prerequisite",
-      "run.invoke installInvocationRef does not select the exact publication-owning admitted install",
+      "run.invoke installInvocationRef does not select one causal admitted install",
     );
   }
   const readinessProductSet = product.constructProductSet(
@@ -1670,19 +1600,74 @@ async function applyRunInvoke(
       "run.invoke readiness workspace differs from exact binding event metadata",
     );
   }
-  const installState = declaredInstall;
   const workspaceState = {
     lock: readinessBasis.resolvedLock,
     productSet: readinessProductSet,
     binding: projectedWorkspace.binding,
   };
+  const executionSelection: product.ProductExecutionSelection =
+    invocation.variant === "direct"
+      ? {
+          kind: "direct",
+          catalogHandle: stringField(invocation.payload, "catalogHandle"),
+        }
+      : {
+          kind: "start",
+          scope: stringField(invocation.payload, "scope") as "program",
+          target: stringField(invocation.payload, "target"),
+          until: stringField(invocation.payload, "until") as "converged",
+          rootMode: stringField(invocation.payload, "rootMode") as
+            | "direct"
+            | "supervised",
+          ...(typeof invocation.payload.startRef === "string"
+            ? { startRef: invocation.payload.startRef }
+            : {}),
+        };
+  const executionResolution = await product.ProductExecutionResolutionPort.resolve({
+    catalog: reconstructedCatalog.catalog,
+    catalogView: reconstructedCatalog.view,
+    admittedInstalls: orderedInstallStates.map((state) => state.install),
+    verifyInstallAdmission: (install) =>
+      abg.hasAdmittedProductInstall(artifactTruth, install),
+    programRef,
+    selection: executionSelection,
+  });
+  if (executionResolution.kind !== "loaded_product_execution_resolution") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `run.invoke Product execution resolution refused: ${executionResolution.message}`,
+    );
+  }
+  const programValue = executionResolution.program;
+  const graphFunction = executionResolution.graphFunction;
+  const selectedRow = executionResolution.selectedCatalogEntry;
+  const resolvedStart = executionResolution.resolvedProgramStart;
+  const start = resolvedStart?.start;
+  const programInstall = executionResolution.programInstall;
+  const programOwner = executionResolution.resolution.programOwner;
+  if (
+    product.canonicalJson(
+      declaredInstall.install as unknown as product.JsonValue,
+    ) !== product.canonicalJson(
+      programInstall as unknown as product.JsonValue,
+    ) ||
+    declaredInstall.install.installId !== programOwner.installId ||
+    declaredInstall.install.productId !== programOwner.productId ||
+    declaredInstall.install.packageName !== programOwner.packageName ||
+    declaredInstall.install.packageVersion !== programOwner.packageVersion
+  ) {
+    throw new ApplicationRefusal(
+      "missing_prerequisite",
+      "run.invoke installInvocationRef differs from the Product-resolved Program owner install",
+    );
+  }
   if (
     reentryState !== null &&
     (
       product.canonicalJson(
         reentryState.install as unknown as product.JsonValue,
       ) !== product.canonicalJson(
-        installState.install as unknown as product.JsonValue,
+        programInstall as unknown as product.JsonValue,
       ) ||
       product.canonicalJson(
         reentryState.resolvedProductLock as unknown as product.JsonValue,
@@ -1706,89 +1691,16 @@ async function applyRunInvoke(
       "run.invoke durable gap setup differs from exact reopened artifact truth",
     );
   }
-  const publicationAdmission = rawAdmission<ModulePublication>(
-    publication,
-    "module_publication",
-    "contract://abiogenesis/gtl/module-publication@5",
-  );
-  const viewState = {
-    catalogState: {
-      publication,
-      catalog: reconstructedCatalog.catalog,
-    },
-    view: reconstructedCatalog.view,
-  };
-  const catalogApplications = reconstructedCatalog.applications;
-  const runProjectionProductBasis = {
-    install: installState.install,
-    workspaceId: workspaceState.binding.workspaceId,
-    workspaceBindingId: workspaceState.binding.bindingId,
-    workspaceBindingDigest: workspaceState.binding.bindingDigest,
-    catalogBasisDigest: viewState.catalogState.catalog.basisDigest,
-    catalogReadinessBasis: viewState.catalogState.catalog.readinessBasis,
-    catalogViewDigest: viewState.view.viewDigest,
-    publicationDigests: viewState.catalogState.catalog.publicationDigests,
-    publications: reconstructedCatalog.publications,
-  };
   if (
-    !workspaceState.productSet.orderedInstallRefs.includes(installState.install.installId) ||
-    workspaceState.binding.roots.productRoot !== installState.candidate.installedRoot ||
-    !viewState.catalogState.catalog.publicationDigests.includes(
-      product.modulePublicationSemanticDigest(publication),
+    !workspaceState.productSet.orderedInstallRefs.includes(programOwner.installId) ||
+    workspaceState.binding.roots.productRoot !== programInstall.installedRoot ||
+    !reconstructedCatalog.catalog.publicationDigests.includes(
+      programOwner.publicationDigest,
     )
   ) {
     throw new ApplicationRefusal(
       "target_mismatch",
-      "run.invoke ProductInstall, WorkspaceBinding, and CatalogView do not share one exact environment",
-    );
-  }
-  const programMatch = resolveExactMatch(
-    viewState.catalogState.publication.programs,
-    (value) => value.programRef === programRef,
-  );
-  if (programMatch.kind !== "one") {
-    throw new ApplicationRefusal(
-      "target_mismatch",
-      programMatch.kind === "absent"
-        ? "run.invoke Program is absent from the admitted publication"
-        : "run.invoke Program is ambiguous in the admitted publication",
-    );
-  }
-  const programValue = programMatch.value;
-  const selectedProgramValidation = validator.validateProgram(
-    rawProgramInput(publicationAdmission, programValue),
-  );
-  if (selectedProgramValidation.kind !== "program_validation") {
-    throw new ApplicationRefusal(
-      "target_mismatch",
-      "run.invoke selected Program is not valid under its complete callable inventory",
-    );
-  }
-  const resolvedStart = invocation.variant === "start"
-    ? gtl.resolveProgramStart(programValue, {
-        scope: stringField(invocation.payload, "scope") as "program",
-        target: stringField(invocation.payload, "target"),
-        until: stringField(invocation.payload, "until") as "converged",
-        rootMode: stringField(invocation.payload, "rootMode") as
-          | "direct"
-          | "supervised",
-        ...(typeof invocation.payload.startRef === "string"
-          ? { startRef: invocation.payload.startRef }
-          : {}),
-      })
-    : null;
-  const start =
-    resolvedStart?.kind === "resolved_program_start"
-      ? resolvedStart.start
-      : undefined;
-  if (
-    invocation.variant === "start" &&
-    resolvedStart?.kind !== "resolved_program_start"
-  ) {
-    throw new ApplicationRefusal(
-      "target_mismatch",
-      resolvedStart?.message ??
-        "run.invoke start requires one Product-resolved Program start",
+      "run.invoke Product-resolved Program owner, WorkspaceBinding, and CatalogView do not share one exact environment",
     );
   }
   if (
@@ -1811,67 +1723,35 @@ async function applyRunInvoke(
   ) {
     throw new ApplicationRefusal(
       "target_mismatch",
-      "run.invoke re-entry must preserve the exact admitted public start identity",
+      "run.invoke re-entry must preserve the exact Product-resolved public start identity",
     );
   }
-  const definitionLookup = invocation.variant === "start"
-    ? product.lookupGraphFunctionDefinition(
-        viewState.view,
-        start!.graphFunctionRef,
-        programRef,
-      )
-    : null;
-  const selectedRow = invocation.variant === "direct"
-    ? product.lookupGraphFunction(
-        viewState.view,
-        stringField(invocation.payload, "catalogHandle"),
-      )
-    : definitionLookup?.kind === "graph_function_definition_lookup_exact"
-      ? definitionLookup.entry
-      : null;
+  const catalogApplications = reconstructedCatalog.applications;
+  const runProjectionProductBasis = {
+    install: programInstall,
+    workspaceId: workspaceState.binding.workspaceId,
+    workspaceBindingId: workspaceState.binding.bindingId,
+    workspaceBindingDigest: workspaceState.binding.bindingDigest,
+    catalogBasisDigest: reconstructedCatalog.catalog.basisDigest,
+    catalogReadinessBasis: reconstructedCatalog.catalog.readinessBasis,
+    catalogViewAllowlist: reconstructedCatalog.view.allowlist,
+    catalogViewDigest: reconstructedCatalog.view.viewDigest,
+    publicationDigests: reconstructedCatalog.catalog.publicationDigests,
+    publications: reconstructedCatalog.publications,
+  };
   if (
-    selectedRow === null ||
-    !selectedRow.programMembershipRefs.includes(programRef) ||
-    !programValue.callableMembership.includes(selectedRow.definitionRef)
+    product.canonicalJson(
+      selectedRow.definition as unknown as product.JsonValue,
+    ) !== product.canonicalJson(
+      graphFunction as unknown as product.JsonValue,
+    )
   ) {
     throw new ApplicationRefusal(
-      "target_mismatch",
-      invocation.variant === "direct"
-        ? "run.invoke canonical catalog handle must select one readiness-qualified callable in the exact Program"
-        : definitionLookup?.kind ===
-            "graph_function_definition_lookup_ambiguous"
-          ? "run.invoke Program start ambiguously selects multiple readiness-qualified catalog definitions"
-          : "run.invoke Program start has no exact readiness-qualified catalog definition",
+      "owner_refusal",
+      "run.invoke Product execution result does not carry its exact selected GraphFunction row",
     );
   }
-  const graphFunction = selectedRow.definition;
-  let programValidation: validator.ProgramValidation =
-    selectedProgramValidation;
-  if (reentryState !== null) {
-    const publicationAdmission = rawAdmission<ModulePublication>(
-      viewState.catalogState.publication,
-      "module_publication",
-      "contract://abiogenesis/gtl/module-publication@5",
-    );
-    const revalidated = validator.validateProgram(
-      rawProgramInput(publicationAdmission, programValue),
-    );
-    if (
-      revalidated.kind !== "program_validation" ||
-      product.sha256Canonical(
-        revalidated as unknown as product.JsonValue,
-      ) !==
-        product.sha256Canonical(
-          selectedProgramValidation as unknown as product.JsonValue,
-        )
-    ) {
-      throw new ApplicationRefusal(
-        "owner_refusal",
-        "run.invoke re-entry could not reproduce its admitted non-lowering Program validation",
-      );
-    }
-    programValidation = revalidated;
-  }
+  const programValidation = executionResolution.programValidation;
   const inputValue = recordField(invocation.payload, "input");
   if (graphFunction.inputs.length !== 1) {
     throw new ApplicationRefusal(
@@ -1880,18 +1760,10 @@ async function applyRunInvoke(
     );
   }
   const inputContractRef = graphFunction.inputs[0]!;
-  let productSemantics: product.ProductSemanticsProvider;
+  const productSemantics = executionResolution.productSemantics;
   let admittedInput: Readonly<Record<string, product.JsonValue>> | null;
   let sourceResultBasis: product.ProductInvocationSourceResultBasis | null;
   try {
-    productSemantics = await product.loadInstalledProductSemantics(
-      {
-        install: installState.install,
-        publication: viewState.catalogState.publication,
-        verifyInstallAdmission: (install) =>
-          abg.hasAdmittedProductInstall(artifactTruth, install),
-      },
-    );
     admittedInput = product.admitInstalledProductInput(
       productSemantics,
       inputContractRef,
@@ -1925,7 +1797,7 @@ async function applyRunInvoke(
       actionCatalog: programValue.actionCatalog === undefined
         ? null
         : programValue.actionCatalog as unknown as product.JsonValue,
-      catalogView: viewState.view,
+      catalogView: reconstructedCatalog.view,
       catalogApplications,
       sourceResultBasis,
     })
@@ -2002,7 +1874,7 @@ async function applyRunInvoke(
   const authority = product.constructInvocationAuthority(
     actorRef,
     workspaceState.binding,
-    viewState.view,
+    reconstructedCatalog.view,
     programValue.programRef,
     selectedRow,
     policy,
@@ -2015,7 +1887,7 @@ async function applyRunInvoke(
     ? product.constructDirectInvocation
     : product.constructStartInvocation)(
     workspaceState.binding,
-    viewState.view,
+    reconstructedCatalog.view,
     programValue,
     selectedRow,
     rawRequest,
@@ -2040,13 +1912,14 @@ async function applyRunInvoke(
       invocation: candidate,
       rawRequest,
       rawInput,
-      modulePublication: viewState.catalogState.publication,
+      programPublication: executionResolution.programPublication,
+      executionResolution: executionResolution.resolution,
       program: programValue,
       graphFunction,
       programValidation,
       workspaceBinding: workspaceState.binding,
       artifactTruth,
-      catalogView: viewState.view,
+      catalogView: reconstructedCatalog.view,
       catalogApplications,
       policy,
       capabilityGrants: grants,
@@ -2160,115 +2033,12 @@ async function applyRunInvoke(
       projectRunResult,
     );
   }
-  activeRefusalStage = "implementation_resolution";
-  const packagedImplementations = await product.loadInstalledImplementationDescriptors(
-    installState.install,
-    viewState.catalogState.publication,
-  );
-  if (!Array.isArray(packagedImplementations)) {
-    const descriptorRefusal = packagedImplementations as product.ImplementationResolutionSetRefusal;
-    const refusalReceipt = abg.admitInvocationRefusal(
-      context.store,
-      context.prefix,
-      invocationAdmission,
-      "implementation_resolution",
-      product.sha256Canonical(descriptorRefusal as unknown as product.JsonValue),
-      [`diagnostic://abiogenesis/implementation-resolution/${descriptorRefusal.code}@5`],
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/implementation-load`, causationEventRefs: [] },
-    );
-    context.prefix = refusalReceipt.successorPrefix;
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-      runProjectionProductBasis,
-      projectRunResult,
-    );
-  }
-  const resolutionSetCandidate = product.resolveImplementationSet(
-    viewState.view,
-    viewState.catalogState.publication,
-    programValidation,
-    packagedImplementations,
-  );
-  if (resolutionSetCandidate.kind !== "implementation_resolution_set_candidate") {
-    const refusalReceipt = abg.admitInvocationRefusal(
-      context.store,
-      context.prefix,
-      invocationAdmission,
-      "implementation_resolution",
-      product.sha256Canonical(resolutionSetCandidate as unknown as product.JsonValue),
-      [`diagnostic://abiogenesis/implementation-resolution/${resolutionSetCandidate.code}@5`],
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution-set`, causationEventRefs: [] },
-    );
-    context.prefix = refusalReceipt.successorPrefix;
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-      runProjectionProductBasis,
-      projectRunResult,
-    );
-  }
-  const resolutionSetValidation = validator.validateImplementationResolutionSet(
-    resolutionSetCandidate,
-    viewState.view,
-    viewState.catalogState.publication,
-    programValidation,
-    packagedImplementations,
-  );
-  if (resolutionSetValidation.kind !== "implementation_resolution_set_validation") {
-    const refusalReceipt = abg.admitInvocationRefusal(
-      context.store,
-      context.prefix,
-      invocationAdmission,
-      "implementation_resolution",
-      resolutionSetValidation.subjectDigest,
-      resolutionSetValidation.diagnostics.map((row) =>
-        `diagnostic://abiogenesis/validator/${row.code}@5`),
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/resolution-set-validation`, causationEventRefs: [] },
-    );
-    context.prefix = refusalReceipt.successorPrefix;
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-      runProjectionProductBasis,
-      projectRunResult,
-    );
-  }
-  const closureContractMatch = resolveExactMatch(
-    viewState.catalogState.publication.closureContracts,
-    (value) => value.closureContractRef === programValue.closureContractRef,
-  );
-  if (closureContractMatch.kind !== "one") {
-    const refusalReceipt = abg.admitInvocationRefusal(
-      context.store,
-      context.prefix,
-      invocationAdmission,
-      "execution_basis",
-      product.sha256Canonical(programValue as unknown as product.JsonValue),
-      ["diagnostic://abiogenesis/execution-basis/closure-contract-absent@5"],
-      { eventTime: invocation.eventTime, correlationId: `${invocation.correlationId}/missing-closure-contract`, causationEventRefs: [] },
-    );
-    context.prefix = refusalReceipt.successorPrefix;
-    return projectCurrentOutcome(
-      context,
-      invocation,
-      graphFunction.outputs[0] ?? "",
-      candidate.invocationRef,
-      durableEventLogPath,
-      runProjectionProductBasis,
-      projectRunResult,
-    );
-  }
-  const closureContract = closureContractMatch.value;
+  const packagedImplementations = executionResolution.packagedImplementations;
+  const resolutionSetCandidate =
+    executionResolution.implementationSetCandidate;
+  const resolutionSetValidation =
+    executionResolution.implementationSetValidation;
+  const closureContract = executionResolution.closureContract;
   activeRefusalStage = "execution_basis";
   const executionAdmission = abg.admitExecutionBasis(
     context.store,
@@ -2341,9 +2111,8 @@ async function applyRunInvoke(
       abg.readRuntimeEventsAtDurablePrefix(context.prefix),
     ),
     artifactTruth,
-    install: installState.install,
     implementationSet,
-    publication: viewState.catalogState.publication,
+    executionResolution,
     semanticsProjection:
       product.projectInstalledLeafSemantics(productSemantics),
   });
@@ -2360,10 +2129,10 @@ async function applyRunInvoke(
     implementationSet,
     interactionSet: executionAdmission.interactionSet,
     continuationProductBasis: {
-      install: installState.install,
+      install: programInstall,
       workspaceBinding: workspaceState.binding,
       artifactTruth,
-      catalogView: viewState.view,
+      catalogView: reconstructedCatalog.view,
       programValidation,
       graphValidation,
     },
@@ -2459,12 +2228,12 @@ async function applyRunInvoke(
         stringField(invocation.payload, "installInvocationRef"),
       workspaceBindingInvocationRef:
         stringField(invocation.payload, "workspaceBindingInvocationRef"),
-      install: installState.install,
+      install: programInstall,
       resolvedProductLock: workspaceState.lock,
       productSet: workspaceState.productSet,
       workspaceBinding: workspaceState.binding,
-      catalog: viewState.catalogState.catalog,
-      catalogView: viewState.view,
+      catalog: reconstructedCatalog.catalog,
+      catalogView: reconstructedCatalog.view,
       publications: reconstructedCatalog.publications,
       publicStart: {
         kind: "public_start_identity",
@@ -2528,10 +2297,10 @@ async function applyRunInvoke(
       outputContractRef: graphFunction.outputs[0] ?? "",
       invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
       runId: traversalCompletion.heldInteraction.cCall.runId,
-      install: installState.install,
+      install: programInstall,
       workspaceBinding: workspaceState.binding,
-      catalog: viewState.catalogState.catalog,
-      catalogView: viewState.view,
+      catalog: reconstructedCatalog.catalog,
+      catalogView: reconstructedCatalog.view,
       publications: reconstructedCatalog.publications,
       program: programValue,
       graph,
@@ -2936,6 +2705,10 @@ function closeGapAuthority(
 function projectRunProjectionAuthority(
   state: PublicRunProjectionAuthority,
 ): {
+  readonly artifactTruth: abg.ExactPrefixArtifactTruthProjection;
+  readonly catalog: product.ReadyGraphFunctionCatalog;
+  readonly catalogView: product.GraphFunctionCatalogView;
+  readonly admittedInstalls: readonly product.ProductInstall[];
   readonly rootInvocation: abg.InvocationAdmission;
   readonly replayState: abg.ReplayState;
   readonly eventLog: abg.PersistedEventLog;
@@ -2951,6 +2724,19 @@ function projectRunProjectionAuthority(
   const reconstructedCatalog = product.admitGraphFunctionCatalog(
     state.catalogReadinessBasis,
   );
+  const reconstructedView = reconstructedCatalog.kind ===
+      "graph_function_catalog"
+    ? product.narrowGraphFunctionCatalog(
+        reconstructedCatalog,
+        state.catalogViewAllowlist,
+      )
+    : null;
+  const admittedInstalls = reconstructedCatalog.kind ===
+      "graph_function_catalog"
+    ? reconstructedCatalog.readinessBasis.installedProducts.map((candidate) =>
+        abg.projectAdmittedProductInstall(artifactTruth, candidate)
+      )
+    : [];
   const resultExists = state.resultRef === null ||
     replayState.cCalls.some((cCall) => cCall.resultRef === state.resultRef);
   if (
@@ -2965,10 +2751,20 @@ function projectRunProjectionAuthority(
     rootInvocation.catalogViewDigest !== state.catalogViewDigest ||
     reconstructedCatalog.kind !== "graph_function_catalog" ||
     reconstructedCatalog.basisDigest !== state.catalogBasisDigest ||
+    reconstructedView === null ||
+    reconstructedView.kind !== "graph_function_catalog_view" ||
+    reconstructedView.viewDigest !== state.catalogViewDigest ||
     product.sha256Canonical(
       reconstructedCatalog.publicationDigests as unknown as product.JsonValue,
     ) !== product.sha256Canonical(
       state.publicationDigests as unknown as product.JsonValue,
+    ) ||
+    admittedInstalls.length !==
+      reconstructedCatalog.readinessBasis.installedProducts.length ||
+    admittedInstalls.some((install) => install === null) ||
+    !admittedInstalls.some((install) =>
+      install?.installId === state.install.installId &&
+      install.admissionEventRef === state.install.admissionEventRef
     ) ||
     !abg.hasAdmittedProductInstall(artifactTruth, state.install) ||
     !abg.hasInvocationRunBindingAtPrefix(
@@ -2986,6 +2782,10 @@ function projectRunProjectionAuthority(
     );
   }
   return {
+    artifactTruth,
+    catalog: reconstructedCatalog,
+    catalogView: reconstructedView,
+    admittedInstalls: admittedInstalls as readonly product.ProductInstall[],
     rootInvocation,
     replayState,
     eventLog: durable.eventLog,
@@ -3068,16 +2868,58 @@ async function applyRunProjectionRead(
       "project.read requires one exact self-consistent public run projection authority",
     );
   }
-  const artifactTruth = exactArtifactTruth(state.prefix);
   const targetRef = stringField(invocation.payload, "targetRef");
   const authorityProjection = projectRunProjectionAuthority(state);
+  const artifactTruth = authorityProjection.artifactTruth;
   const replayState = authorityProjection.replayState;
   const secondReplay = projectDurablePrefix(state.prefix, {
     runId: state.runId,
   }).replayState;
   const eventLog = authorityProjection.eventLog;
     let productSemantics: product.ProductSemanticsProvider | null = null;
-    if (!isCoreRunProjectionVariant(invocation.variant)) {
+    if (invocation.variant === "result") {
+      const executionResolution =
+        await product.ProductExecutionResolutionPort.resolve({
+          catalog: authorityProjection.catalog,
+          catalogView: authorityProjection.catalogView,
+          admittedInstalls: authorityProjection.admittedInstalls,
+          verifyInstallAdmission: (install) =>
+            abg.hasAdmittedProductInstall(artifactTruth, install),
+          programRef: authorityProjection.rootInvocation.programRef,
+          selection: {
+            kind: "admitted",
+            graphFunctionRef:
+              authorityProjection.rootInvocation.graphFunctionRef,
+          },
+        });
+      if (executionResolution.kind !== "loaded_product_execution_resolution") {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          `project.read Product execution resolution refused: ${executionResolution.message}`,
+        );
+      }
+      const admittedResolution = authorityProjection.rootInvocation;
+      if (
+        executionResolution.resolution.resolutionRef !==
+          admittedResolution.productExecutionResolutionRef ||
+        executionResolution.resolution.resolutionDigest !==
+          admittedResolution.productExecutionResolutionDigest ||
+        executionResolution.resolution.programRef !==
+          admittedResolution.programRef ||
+        executionResolution.resolution.programDigest !==
+          admittedResolution.programDigest ||
+        executionResolution.resolution.graphFunctionRef !==
+          admittedResolution.graphFunctionRef ||
+        executionResolution.resolution.graphFunctionDigest !==
+          admittedResolution.graphFunctionDigest
+      ) {
+        throw new ApplicationRefusal(
+          "owner_refusal",
+          "project.read Product execution resolution differs from the ABG-admitted invocation coordinates",
+        );
+      }
+      productSemantics = executionResolution.productSemantics;
+    } else if (!isCoreRunProjectionVariant(invocation.variant)) {
       try {
         productSemantics = await product.loadInstalledProductSemantics({
           install: state.install,
@@ -3914,18 +3756,34 @@ async function applyRunContinue(
       "run continuation durable authority reconstruction failed",
     );
   }
-  const publication = publicationForProgram(
-    state.publications,
-    state.program.programRef,
+  const admittedInstalls = state.catalog.readinessBasis.installedProducts.map(
+    (candidate) => abg.projectAdmittedProductInstall(artifactTruth, candidate),
   );
-  const publicationAdmission = rawAdmission<ModulePublication>(
-    publication,
-    "module_publication",
-    "contract://abiogenesis/gtl/module-publication@5",
-  );
-  const programValidation = validator.validateProgram(
-    rawProgramInput(publicationAdmission, state.program),
-  );
+  if (admittedInstalls.some((install) => install === null)) {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      "continued run catalog readiness cannot reconstruct every exact admitted Product install",
+    );
+  }
+  const executionResolution = await product.ProductExecutionResolutionPort.resolve({
+    catalog: state.catalog,
+    catalogView: state.catalogView,
+    admittedInstalls: admittedInstalls as readonly product.ProductInstall[],
+    verifyInstallAdmission: (install) =>
+      abg.hasAdmittedProductInstall(artifactTruth, install),
+    programRef: state.program.programRef,
+    selection: {
+      kind: "admitted",
+      graphFunctionRef: rehydrated.executionBasis.graphFunctionRef,
+    },
+  });
+  if (executionResolution.kind !== "loaded_product_execution_resolution") {
+    throw new ApplicationRefusal(
+      "owner_refusal",
+      `continued run Product execution resolution refused: ${executionResolution.message}`,
+    );
+  }
+  const programValidation = executionResolution.programValidation;
   const implementationSet = abg.rehydrateAdmittedImplementationSetAtPrefix(
     authorityProjection.fullPrefix,
     rehydrated.executionBasis.rootImplementationSetRef,
@@ -3935,7 +3793,6 @@ async function applyRunContinue(
     rehydrated.executionBasis.rootInteractionSetRef,
   );
   if (
-    programValidation.kind !== "program_validation" ||
     programValidation.validationRef !==
       rehydrated.executionBasis.programValidationRef ||
     implementationSet === null ||
@@ -3946,18 +3803,12 @@ async function applyRunContinue(
       "continued run could not reproduce its admitted Program and execution sets",
     );
   }
-  const productSemantics = await product.loadInstalledProductSemantics({
-    install: state.install,
-    publication,
-    verifyInstallAdmission: (install) =>
-      abg.hasAdmittedProductInstall(artifactTruth, install),
-  });
+  const productSemantics = executionResolution.productSemantics;
   const leafPort = await constructAdmittedLeafInvocationPort({
     prefix: authorityProjection.fullPrefix,
     artifactTruth,
-    install: state.install,
     implementationSet,
-    publication,
+    executionResolution,
     semanticsProjection:
       product.projectInstalledLeafSemantics(productSemantics),
   });
@@ -4070,6 +3921,7 @@ async function applyRunContinue(
         workspaceBindingDigest: state.workspaceBinding.bindingDigest,
         catalogBasisDigest: state.catalog.basisDigest,
         catalogReadinessBasis: state.catalog.readinessBasis,
+        catalogViewAllowlist: state.catalogView.allowlist,
         catalogViewDigest: state.catalogView.viewDigest,
         publicationDigests: state.catalog.publicationDigests,
         publications: state.publications,

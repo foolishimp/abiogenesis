@@ -2220,6 +2220,7 @@ test("S05 public result binds real replay while its authority rejects digest tam
     workspaceBindingDigest: DIGEST,
     catalogBasisDigest: catalog.basisDigest,
     catalogReadinessBasis: { kind: "module-proof-readiness-basis" },
+    catalogViewAllowlist: catalogView.allowlist,
     catalogViewDigest: catalogView.viewDigest,
     publicationDigests: catalog.publicationDigests,
     publications: [publication],

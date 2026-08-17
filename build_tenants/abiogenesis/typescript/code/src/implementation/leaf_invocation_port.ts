@@ -9,6 +9,11 @@ import {
 } from "../abg/execution_basis.js";
 import type { ValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
 import type { ModulePublication } from "../gtl/contracts.js";
+import type {
+  ExecutionDeclarationOwnerCoordinate,
+  LoadedProductExecutionResolution,
+} from "../product/index.js";
+import { modulePublicationSemanticDigest } from "../product/publication.js";
 import {
   inspectProductLeafSemanticsProjection,
   type InstalledLeafSemanticsProjection,
@@ -41,6 +46,13 @@ import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 
 export type LeafInvocationInstall =
   Parameters<typeof hasAdmittedProductInstall>[1];
+
+type LoadedLeafExecutionAuthority = Pick<
+  LoadedProductExecutionResolution,
+  | "declarationClosure"
+  | "declarationPublications"
+  | "ownerInstalls"
+>;
 
 export function isClosedProbabilisticLeafInvocation(
   value: unknown,
@@ -523,13 +535,24 @@ export function isAdmittedLeafInvocationPort(value: object): boolean {
   }
   return exactLoadedCapability &&
     candidate.kind === "admitted_leaf_invocation_port" &&
-    typeof candidate.installId === "string" && candidate.installId.length > 0 &&
+    Array.isArray(candidate.ownerInstallIds) &&
+    candidate.ownerInstallIds.length > 0 &&
+    candidate.ownerInstallIds.every(
+      (installId) => typeof installId === "string" && installId.length > 0,
+    ) &&
     typeof candidate.implementationSetRef === "string" &&
       candidate.implementationSetRef.length > 0 &&
     typeof candidate.implementationSetDigest === "string" &&
       candidate.implementationSetDigest.startsWith("sha256:") &&
-    typeof candidate.publicationDigest === "string" &&
-      candidate.publicationDigest.startsWith("sha256:") &&
+    Array.isArray(candidate.publicationDigests) &&
+    candidate.publicationDigests.length > 0 &&
+    candidate.publicationDigests.every(
+      (digest) => typeof digest === "string" && digest.startsWith("sha256:"),
+    ) &&
+    typeof candidate.hasOwnerCapability === "function" &&
+    typeof candidate.isAdmittedResolution === "function" &&
+    typeof candidate.graphFunctionByRef === "function" &&
+    typeof candidate.closureContractByRef === "function" &&
     typeof candidate.contractValueKindByRef === "function" &&
     typeof candidate.validateContractValueByRef === "function" &&
     typeof candidate.contractValueKind === "function" &&
@@ -546,89 +569,110 @@ export function isAdmittedLeafInvocationResolution(
 ): boolean {
   if (!isAdmittedLeafInvocationPort(port)) return false;
   const candidate = port as LeafInvocationPort;
-  return candidate.publication.implementationBindings.some((binding) =>
-    binding.implementationRef ===
-      (resolution as LeafInvocationResolution).implementationRef &&
-    binding.inputContractRef ===
-      (resolution as LeafInvocationResolution).inputContractRef &&
-    binding.outputContractRef ===
-      (resolution as LeafInvocationResolution).outputContractRef
+  return candidate.isAdmittedResolution(
+    resolution as LeafInvocationResolution,
   );
 }
 
-function leafInvocationBindingMatches(authority: Readonly<{
-  install: Pick<
-    LeafInvocationInstall,
-    | "installId"
-    | "manifestDigest"
-    | "packageName"
-    | "packageVersion"
-    | "productContentDigest"
-  >;
-  implementationSet: Pick<
-    AdmittedImplementationSet,
-    "publicationDigest" | "rows"
-  >;
+function exactOwnerPublication(
+  resolution: LoadedLeafExecutionAuthority,
+  coordinate: ExecutionDeclarationOwnerCoordinate,
+): Readonly<ModulePublication> | null {
+  const matches = resolution.declarationPublications.filter((publication) =>
+    publication.owningProductId === coordinate.productId &&
+    publication.moduleRef === coordinate.moduleRef &&
+    modulePublicationSemanticDigest(publication) ===
+      coordinate.publicationDigest
+  );
+  return matches.length === 1 ? matches[0]! : null;
+}
+
+function exactOwnerInstall(
+  resolution: LoadedLeafExecutionAuthority,
+  coordinate: ExecutionDeclarationOwnerCoordinate,
+): LeafInvocationInstall | null {
+  const matches = resolution.ownerInstalls.filter((install) =>
+    install.installId === coordinate.installId &&
+    install.productId === coordinate.productId
+  );
+  return matches.length === 1 ? matches[0]! : null;
+}
+
+function exactOwnerBinding(
+  resolution: LoadedLeafExecutionAuthority,
+  coordinate: ExecutionDeclarationOwnerCoordinate,
+): Readonly<{
+  install: LeafInvocationInstall;
   publication: Readonly<ModulePublication>;
-  semanticsProjection: unknown;
-}>): boolean {
-  const publicationDigest = sha256Canonical(
-    authority.publication as unknown as JsonValue,
-  );
-  const semanticsBinding = authority.publication.productSemanticsBinding;
-  const inspected = inspectProductLeafSemanticsProjection(
-    authority.semanticsProjection,
-  );
-  return (
-    inspected !== null &&
-    authority.implementationSet.publicationDigest === publicationDigest &&
-    authority.implementationSet.rows.every(
-      (row) =>
-        row.packageName === authority.install.packageName &&
-        row.packageVersion === authority.install.packageVersion,
-    ) &&
-    inspected.projection.installId === authority.install.installId &&
-    inspected.projection.productContentDigest ===
-      authority.install.productContentDigest &&
-    inspected.projection.manifestDigest === authority.install.manifestDigest &&
-    inspected.projection.publicationDigest === publicationDigest &&
-    inspected.projection.bindingRef === semanticsBinding.bindingRef &&
-    inspected.projection.packageName === semanticsBinding.packageName &&
-    inspected.projection.packageVersion === semanticsBinding.packageVersion
-  );
+}> | null {
+  const install = exactOwnerInstall(resolution, coordinate);
+  const publication = exactOwnerPublication(resolution, coordinate);
+  return install !== null && publication !== null &&
+      install.productContentDigest === publication.productContentDigest &&
+      install.manifestDigest === publication.productManifestDigest
+    ? { install, publication }
+    : null;
 }
 
 export async function constructAdmittedLeafInvocationPort(authority: {
   readonly prefix: ValidatedRuntimeEventPrefix;
   readonly artifactTruth: ExactPrefixArtifactTruthProjection;
-  readonly install: LeafInvocationInstall;
   readonly implementationSet: AdmittedImplementationSet;
-  readonly publication: Readonly<ModulePublication>;
+  readonly executionResolution: LoadedLeafExecutionAuthority;
   readonly semanticsProjection: InstalledLeafSemanticsProjection;
 }): Promise<LeafInvocationPort> {
-  const publicationDigest = sha256Canonical(authority.publication as unknown as JsonValue);
   const inspected = inspectProductLeafSemanticsProjection(
     authority.semanticsProjection,
   );
+  const semanticsOwner = authority.executionResolution.declarationClosure
+    .semanticsOwner;
+  const semanticsBinding = exactOwnerBinding(
+    authority.executionResolution,
+    semanticsOwner,
+  );
+  const everyOwnerIsAdmitted = authority.executionResolution.ownerInstalls
+    .every((install) =>
+      hasAdmittedProductInstall(authority.artifactTruth, install)
+    );
   if (
     inspected === null ||
-    !hasAdmittedProductInstall(authority.artifactTruth, authority.install) ||
+    semanticsBinding === null ||
+    !everyOwnerIsAdmitted ||
     !hasAdmittedImplementationSetAtPrefix(
       authority.prefix,
       authority.implementationSet,
     ) ||
-    !leafInvocationBindingMatches(authority) ||
+    inspected.projection.installId !== semanticsBinding.install.installId ||
+    inspected.projection.productContentDigest !==
+      semanticsBinding.install.productContentDigest ||
+    inspected.projection.manifestDigest !==
+      semanticsBinding.install.manifestDigest ||
+    inspected.projection.publicationDigest !==
+      semanticsOwner.publicationDigest ||
+    inspected.projection.bindingRef !== semanticsOwner.declarationRef ||
+    inspected.projection.packageName !==
+      semanticsBinding.install.packageName ||
+    inspected.projection.packageVersion !==
+      semanticsBinding.install.packageVersion ||
     !(await inspected.runtime.verifyInstalledContent())
   ) {
     throw new TypeError(
-      "leaf invocation port requires one exact admitted install, publication, and implementation set",
+      "leaf invocation port requires the exact owner-selected admitted execution closure",
     );
   }
   const semantics = inspected.runtime;
   const modules = new Map<string, Promise<Record<string, unknown>>>();
 
   function uniqueContractByRef(contractRef: string) {
-    const matches = authority.publication.contracts.filter(
+    const ownerMatches = authority.executionResolution.declarationClosure
+      .contractOwners.filter((owner) => owner.declarationRef === contractRef);
+    if (ownerMatches.length !== 1) return null;
+    const owner = exactOwnerBinding(
+      authority.executionResolution,
+      ownerMatches[0]!,
+    );
+    if (owner === null) return null;
+    const matches = owner.publication.contracts.filter(
       (contract) => contract.contractRef === contractRef,
     );
     const contract = matches.length === 1 ? matches[0] : undefined;
@@ -637,9 +681,86 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       : null;
   }
 
-  async function loadModule(modulePath: string): Promise<Record<string, unknown>> {
-    const exactPath = resolve(authority.install.installedRoot, modulePath);
-    const relation = relative(authority.install.installedRoot, exactPath);
+  function graphFunctionByRef(graphFunctionRef: string) {
+    const ownerMatches = authority.executionResolution.declarationClosure
+      .graphFunctionOwners.filter(
+        (owner) => owner.declarationRef === graphFunctionRef,
+      );
+    if (ownerMatches.length !== 1) return null;
+    const owner = exactOwnerBinding(
+      authority.executionResolution,
+      ownerMatches[0]!,
+    );
+    if (owner === null) return null;
+    const matches = owner.publication.graphFunctions.filter(
+      (candidate) => candidate.name === graphFunctionRef,
+    );
+    return matches.length === 1 ? matches[0]! : null;
+  }
+
+  function closureContractByRef(closureContractRef: string) {
+    const ownerMatches = authority.executionResolution.declarationClosure
+      .closureContractOwners.filter(
+        (owner) => owner.declarationRef === closureContractRef,
+      );
+    if (ownerMatches.length !== 1) return null;
+    const owner = exactOwnerBinding(
+      authority.executionResolution,
+      ownerMatches[0]!,
+    );
+    if (owner === null) return null;
+    const matches = owner.publication.closureContracts.filter(
+      (candidate) =>
+        candidate.closureContractRef === closureContractRef,
+    );
+    return matches.length === 1 ? matches[0]! : null;
+  }
+
+  function implementationOwner(
+    resolution: AdmittedImplementationSet["rows"][number],
+  ): Readonly<{
+    coordinate: ExecutionDeclarationOwnerCoordinate;
+    install: LeafInvocationInstall;
+    publication: Readonly<ModulePublication>;
+  }> | null {
+    const coordinates = authority.executionResolution.declarationClosure
+      .implementationBindingOwners.filter((coordinate) =>
+        coordinate.declarationRef === resolution.implementationBindingRef &&
+        coordinate.productId === resolution.implementationOwnerProductId &&
+        coordinate.publicationDigest ===
+          resolution.implementationPublicationDigest
+      );
+    if (coordinates.length !== 1) return null;
+    const binding = exactOwnerBinding(
+      authority.executionResolution,
+      coordinates[0]!,
+    );
+    if (binding === null) return null;
+    const publishedBindings = binding.publication.implementationBindings.filter(
+      (candidate) =>
+        candidate.bindingRef === resolution.implementationBindingRef &&
+        candidate.implementationRef === resolution.implementationRef &&
+        candidate.packageName === resolution.packageName &&
+        candidate.packageVersion === resolution.packageVersion &&
+        candidate.modulePath === resolution.modulePath &&
+        candidate.namedSymbol === resolution.namedSymbol,
+    );
+    return publishedBindings.length === 1 &&
+        binding.install.packageName === resolution.packageName &&
+        binding.install.packageVersion === resolution.packageVersion
+      ? { coordinate: coordinates[0]!, ...binding }
+      : null;
+  }
+
+  async function loadModule(
+    resolution: AdmittedImplementationSet["rows"][number],
+  ): Promise<Record<string, unknown>> {
+    const owner = implementationOwner(resolution);
+    if (owner === null) {
+      throw new TypeError("leaf implementation lacks its selected owner");
+    }
+    const exactPath = resolve(owner.install.installedRoot, resolution.modulePath);
+    const relation = relative(owner.install.installedRoot, exactPath);
     if (relation.length === 0 || relation.startsWith("..") || isAbsolute(relation)) {
       throw new TypeError("leaf implementation module escapes the admitted Product install");
     }
@@ -682,11 +803,41 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     isExactLoadedCapability(): boolean {
       return this === port;
     },
-    installId: authority.install.installId,
+    ownerInstallIds: Object.freeze(
+      authority.executionResolution.ownerInstalls.map(
+        (install) => install.installId,
+      ),
+    ),
     implementationSetRef: authority.implementationSet.implementationSetRef,
     implementationSetDigest: authority.implementationSet.implementationSetDigest,
-    publicationDigest,
-    publication: authority.publication,
+    publicationDigests: Object.freeze(
+      authority.executionResolution.declarationPublications.map(
+        modulePublicationSemanticDigest,
+      ),
+    ),
+    hasOwnerCapability(
+      installId: string,
+      publicationDigest: `sha256:${string}`,
+    ): boolean {
+      return authority.executionResolution.declarationClosure.publications.some(
+        (publication) =>
+          modulePublicationSemanticDigest(publication) === publicationDigest &&
+          authority.executionResolution.ownerInstalls.some((install) =>
+            install.installId === installId &&
+            install.productId === publication.owningProductId &&
+            install.productContentDigest === publication.productContentDigest &&
+            install.manifestDigest === publication.productManifestDigest &&
+            hasAdmittedProductInstall(authority.artifactTruth, install)
+          ),
+      );
+    },
+    isAdmittedResolution(
+      resolution: Readonly<LeafInvocationResolution>,
+    ): boolean {
+      return exactAdmittedResolution(resolution) !== null;
+    },
+    graphFunctionByRef,
+    closureContractByRef,
     contractValueKindByRef(contractRef: string): string | null {
       return uniqueContractByRef(contractRef)?.valueKind ?? null;
     },
@@ -702,22 +853,20 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       contractRef: string,
       contractKind: "failure" | "output",
     ): string | null {
-      return authority.publication.contracts.find(
-        (contract) =>
-          contract.contractRef === contractRef &&
-          contract.contractKind === contractKind,
-      )?.valueKind ?? null;
+      const contract = uniqueContractByRef(contractRef);
+      return contract?.contractKind === contractKind
+        ? contract.valueKind
+        : null;
     },
     validateContractValue(
       contractRef: string,
       contractKind: "failure" | "output",
       value: unknown,
     ): value is Readonly<Record<string, JsonValue>> {
-      const valueKind = authority.publication.contracts.find(
-        (contract) =>
-          contract.contractRef === contractRef &&
-          contract.contractKind === contractKind,
-      )?.valueKind;
+      const contract = uniqueContractByRef(contractRef);
+      const valueKind = contract?.contractKind === contractKind
+        ? contract.valueKind
+        : undefined;
       return valueKind !== undefined &&
         semantics.validateContractValue(valueKind, value);
     },
@@ -746,7 +895,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           this !== port ||
           !isAdmittedLeafInvocationPort(port) ||
           input.resolution.computeRegime !== "F_P" ||
-          !hasAdmittedProductInstall(authority.artifactTruth, authority.install) ||
+          !everyOwnerIsAdmitted ||
           !hasAdmittedImplementationSetAtPrefix(
             authority.prefix,
             authority.implementationSet,
@@ -783,12 +932,16 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         )) {
           return preimageRefusal("result_contract_refused");
         }
+        const owner = implementationOwner(admittedResolution);
+        if (owner === null) {
+          return preimageRefusal("unadmitted_resolution");
+        }
         const body = deepFreeze({
           contractCapabilityBasis: {
-            installId: port.installId,
+            installId: owner.install.installId,
             implementationSetRef: port.implementationSetRef,
             implementationSetDigest: port.implementationSetDigest,
-            publicationDigest: port.publicationDigest,
+            publicationDigest: owner.coordinate.publicationDigest,
           },
           implementationResolutionDigest: sha256Canonical(
             admittedResolution as unknown as JsonValue,
@@ -842,7 +995,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           failureValueKind,
           verifyAuthority: async () =>
             isAdmittedLeafInvocationPort(port) &&
-            hasAdmittedProductInstall(authority.artifactTruth, authority.install) &&
+            implementationOwner(admittedResolution) !== null &&
             hasAdmittedImplementationSetAtPrefix(
               authority.prefix,
               authority.implementationSet,
@@ -857,7 +1010,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
             resolveWorkerContracts(admittedResolution, value),
           occurrence: call.occurrence,
           loadImplementation: async () => {
-            const module = await loadModule(admittedResolution.modulePath);
+            const module = await loadModule(admittedResolution);
             return module[admittedResolution.namedSymbol];
           },
         });

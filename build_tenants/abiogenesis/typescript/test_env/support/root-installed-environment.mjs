@@ -47,15 +47,17 @@ export function publicOperationBasis(
   scopeDigest,
   invocationRef,
   causationEventRefs = [],
+  selectedMemberKey = null,
 ) {
   const invocationPayloadDigest = product.sha256Canonical({});
-  const memberKey = operationId === "abg.operation.product.install"
-    ? "install"
-    : operationId === "abg.operation.workspace.bind"
-      ? "bind"
-      : operationId === "abg.operation.run.invoke"
-        ? "invoke"
-      : operationId;
+  const memberKey = selectedMemberKey ??
+    (operationId === "abg.operation.product.install"
+      ? "install"
+      : operationId === "abg.operation.workspace.bind"
+        ? "bind"
+        : operationId === "abg.operation.run.invoke"
+          ? "invoke"
+        : operationId);
   const definitionDigest = product.sha256Canonical({
     operationId,
     memberKey,
@@ -92,7 +94,8 @@ export function rawProgramInput(validator, publicationAdmission, program) {
   assert.ok(program, "raw Program input requires one exact selected Program");
   const publication = publicationAdmission.value;
   return {
-    publication: publicationAdmission,
+    declarationBasisDigest: publicationAdmission.subjectDigest,
+    programPublication: publicationAdmission,
     program: requireRawAdmission(
       validator,
       program,
@@ -105,6 +108,8 @@ export function rawProgramInput(validator, publicationAdmission, program) {
         requireRawAdmission(validator, value, "graph_function", "contract://abiogenesis/gtl/graph-function@5")),
     contracts: publication.contracts.map((value) =>
       requireRawAdmission(validator, value, "contract_declaration", "contract://abiogenesis/gtl/contract-declaration@5")),
+    evaluators: publication.evaluators,
+    rules: publication.rules,
     implementationBindings: publication.implementationBindings.map((value) =>
       requireRawAdmission(validator, value, "implementation_binding", "contract://abiogenesis/gtl/implementation-binding@5")),
     closureContracts: publication.closureContracts.map((value) =>
@@ -318,8 +323,16 @@ export async function setupInstalledRootCatalog(
   const contributionAdmissions = publication.contributions.map((value) =>
     requireRawAdmission(validator, value, "catalog_contribution", "contract://abiogenesis/gtl/catalog-contribution@5"));
   const publicationValidation = validator.validatePublication(publicationAdmission, contributionAdmissions);
-  const programValidations = publication.programs.map((program) =>
-    validator.validateProgram(rawProgramInput(validator, publicationAdmission, program)));
+  const selectedProgramRefs = new Set([
+    options.programRef ?? gtl.HELLO_WORLD_IDS.programRef,
+    gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+  ]);
+  const programValidations = publication.programs
+    .filter((program) => selectedProgramRefs.has(program.programRef))
+    .map((program) =>
+      validator.validateProgram(
+        rawProgramInput(validator, publicationAdmission, program),
+      ));
   const programValidation = programValidations.find(
     (value) => value.programRef ===
       (options.programRef ?? gtl.HELLO_WORLD_IDS.programRef),

@@ -445,7 +445,9 @@ export function hasInstalledPublicResultProjection(
       "Product public-result capability requires the exact loaded Product semantics provider",
     );
   }
-  return semantics.projectPublicResult !== undefined;
+  return (semantics.publicResultProjectionKinds ?? ["result"]).includes(
+    "result",
+  );
 }
 
 export function supportsInstalledPublicResultProjection(

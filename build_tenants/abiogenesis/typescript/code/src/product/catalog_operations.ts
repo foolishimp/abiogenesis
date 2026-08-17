@@ -9,7 +9,6 @@ import type {
 } from "../gtl/contracts.js";
 import {
   rawAdmitValue,
-  validateProgram,
   validatePublication,
   type ProgramValidationInput,
   type RawAdmissionRefusal,
@@ -26,8 +25,14 @@ import {
   type GraphFunctionCatalog,
   type GraphFunctionCatalogView,
   type GraphFunctionCatalogViewResult,
+  type ReadyGraphFunctionCatalog,
   type ReadyGraphFunctionCatalogResult,
 } from "./catalog.js";
+import {
+  isResolvedProgramDeclarationClosure,
+  validateResolvedProgramDeclarationClosure,
+  type ResolvedProgramDeclarationClosure,
+} from "./declaration_closure.js";
 
 export interface CatalogAdmitPacket {
   readonly kind: "catalog_admit_packet";
@@ -74,50 +79,99 @@ function catalogValidationRefusal(
   };
 }
 
-function isRawAdmissionRefusal(
-  value: ProgramValidationInput | RawAdmissionRefusal,
-): value is RawAdmissionRefusal {
-  return "kind" in value && value.kind === "raw_admission_refusal";
-}
-
 export function constructCatalogProgramValidationInput(
-  publicationAdmission: RawAdmittedValue<ModulePublication>,
+  catalog: ReadyGraphFunctionCatalog,
+  catalogView: GraphFunctionCatalogView,
+  declarationClosure: ResolvedProgramDeclarationClosure,
   program: Readonly<GtlProgram>,
 ): ProgramValidationInput | RawAdmissionRefusal {
-  const publication = publicationAdmission.value;
+  if (
+    !isResolvedProgramDeclarationClosure(declarationClosure) ||
+    !validateResolvedProgramDeclarationClosure(
+      declarationClosure,
+      catalog,
+      catalogView,
+    )
+  ) {
+    return {
+      kind: "raw_admission_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "invalid_kind",
+      message: "Program validation input requires one Product-resolved declaration closure",
+    } as RawAdmissionRefusal;
+  }
+  const declarationPublications = declarationClosure.publications;
+  const graphFunctionRefs = new Set(
+    declarationClosure.graphFunctionOwners.map((owner) => owner.declarationRef),
+  );
+  const contractRefs = new Set(
+    declarationClosure.contractOwners.map((owner) => owner.declarationRef),
+  );
+  const implementationBindingRefs = new Set(
+    declarationClosure.implementationBindingOwners.map(
+      (owner) => owner.declarationRef,
+    ),
+  );
+  const closureContractRefs = new Set(
+    declarationClosure.closureContractOwners.map(
+      (owner) => owner.declarationRef,
+    ),
+  );
   const programAdmission = rawAdmitValue<GtlProgram>(
     program,
     "gtl_program",
     "contract://abiogenesis/gtl/program@5",
   );
   if (programAdmission.kind !== "raw_admitted_value") return programAdmission;
+  const programPublicationAdmission = rawAdmitValue<ModulePublication>(
+    declarationClosure.programPublication,
+    "module_publication",
+    "contract://abiogenesis/gtl/module-publication@5",
+  );
+  if (programPublicationAdmission.kind !== "raw_admitted_value") {
+    return programPublicationAdmission;
+  }
 
-  const graphFunctions = publication.graphFunctions
-    .filter((value) => program.callableMembership.includes(value.name))
+  const graphFunctions = declarationPublications
+    .flatMap((publication) => publication.graphFunctions)
+    .filter((value) => graphFunctionRefs.has(value.name))
     .map((value) => rawAdmitValue<GraphFunction>(
       value,
       "graph_function",
       "contract://abiogenesis/gtl/graph-function@5",
     ));
-  const contracts = publication.contracts.map((value) =>
+  const contracts = declarationPublications.flatMap((publication) =>
+    publication.contracts.filter((value) =>
+      contractRefs.has(value.contractRef)
+    ).map((value) =>
     rawAdmitValue<ContractDeclaration>(
       value,
       "contract_declaration",
       "contract://abiogenesis/gtl/contract-declaration@5",
-    ));
-  const implementationBindings = publication.implementationBindings.map(
-    (value) => rawAdmitValue<ImplementationBinding>(
+    )),
+  );
+  const implementationBindings = declarationPublications.flatMap(
+    (publication) => publication.implementationBindings.filter((value) =>
+      implementationBindingRefs.has(value.bindingRef)
+    ).map(
+      (value) => rawAdmitValue<ImplementationBinding>(
       value,
       "implementation_binding",
       "contract://abiogenesis/gtl/implementation-binding@5",
+      ),
     ),
   );
-  const closureContracts = publication.closureContracts.map((value) =>
+  const closureContracts = declarationPublications.flatMap((publication) =>
+    publication.closureContracts.filter((value) =>
+      closureContractRefs.has(value.closureContractRef)
+    ).map((value) =>
     rawAdmitValue<ClosureContract>(
       value,
       "closure_contract",
       "contract://abiogenesis/gtl/closure-contract@5",
-    ));
+    )),
+  );
   const refusal = [
     ...graphFunctions,
     ...contracts,
@@ -127,10 +181,29 @@ export function constructCatalogProgramValidationInput(
     value.kind === "raw_admission_refusal");
   if (refusal !== undefined) return refusal;
   return {
-    publication: publicationAdmission,
+    declarationBasisDigest: declarationClosure.closureDigest,
+    programPublication: programPublicationAdmission,
     program: programAdmission,
     graphFunctions: graphFunctions as readonly RawAdmittedValue<GraphFunction>[],
     contracts: contracts as readonly RawAdmittedValue<ContractDeclaration>[],
+    evaluators: declarationPublications.flatMap((publication) =>
+      publication.evaluators.filter((value) =>
+        declarationClosure.evaluatorOwners.some((owner) =>
+          owner.declarationRef === value.name &&
+          owner.productId === publication.owningProductId &&
+          owner.moduleRef === publication.moduleRef
+        )
+      )
+    ),
+    rules: declarationPublications.flatMap((publication) =>
+      publication.rules.filter((value) =>
+        declarationClosure.ruleOwners.some((owner) =>
+          owner.declarationRef === value.name &&
+          owner.productId === publication.owningProductId &&
+          owner.moduleRef === publication.moduleRef
+        )
+      )
+    ),
     implementationBindings:
       implementationBindings as readonly RawAdmittedValue<ImplementationBinding>[],
     closureContracts:
@@ -170,21 +243,9 @@ export function constructReadyCatalog(
     if (publicationValidation.kind !== "publication_validation") {
       return catalogValidationRefusal(publicationValidation);
     }
-    for (const program of publication.programs) {
-      const input = constructCatalogProgramValidationInput(
-        publicationAdmission,
-        program,
-      );
-      if (isRawAdmissionRefusal(input)) {
-        return catalogValidationRefusal(input);
-      }
-      const validation = validateProgram(input);
-      if (validation.kind !== "program_validation") {
-        return catalogValidationRefusal(validation);
-      }
-    }
   }
-  return admitGraphFunctionCatalog(packet.readinessBasis);
+  const catalog = admitGraphFunctionCatalog(packet.readinessBasis);
+  return catalog;
 }
 
 export function constructCatalogView(

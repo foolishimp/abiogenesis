@@ -26,6 +26,10 @@ import {
   sameObjectWitnessRef,
 } from "../gtl/graph_applications.js";
 import {
+  projectCProgramNodeDeclarationReferences,
+  projectGraphFunctionApplicationDeclarationReferences,
+} from "../gtl/declaration_references.js";
+import {
   cLeafTerms,
   isExecutableCLeaf,
   isInteractionCLeaf,
@@ -79,28 +83,6 @@ function hasExactKeys(value: object, expected: readonly string[]): boolean {
 function hasExactGraphEdgeShape(edge: Readonly<GtlEdge>): boolean {
   return hasExactKeys(edge, ["edgeRef", "fromNodeRef", "toNodeRef"]) &&
     edge.edgeRef === graphEdgeRef(edge);
-}
-
-function workflowGraphFunctionRefs(term: Readonly<CProgramNode>): readonly string[] {
-  switch (term.kind) {
-    case "c_workflow":
-      return [term.graphFunctionRef];
-    case "c_compose":
-      return term.terms.flatMap((child) => workflowGraphFunctionRefs(child));
-    case "c_edge":
-      return [
-        ...workflowGraphFunctionRefs(term.transform),
-        ...workflowGraphFunctionRefs(term.evaluate),
-        ...workflowGraphFunctionRefs(term.consequence),
-      ];
-    case "c_batch":
-      return term.tasks.flatMap((child) => workflowGraphFunctionRefs(child));
-    case "c_retry":
-      return workflowGraphFunctionRefs(term.term);
-    case "c_identity":
-    case "c_of":
-      return [];
-  }
 }
 
 function compositionTerms(
@@ -482,10 +464,13 @@ export interface ValidatedInteractionLeaf extends ValidatedLeafBase {
 }
 
 export interface ProgramValidationInput {
-  readonly publication: RawAdmittedValue<ModulePublication>;
+  readonly declarationBasisDigest: Sha256Digest;
+  readonly programPublication: RawAdmittedValue<ModulePublication>;
   readonly program: RawAdmittedValue<GtlProgram>;
   readonly graphFunctions: readonly RawAdmittedValue<GraphFunction>[];
   readonly contracts: readonly RawAdmittedValue<ContractDeclaration>[];
+  readonly evaluators: readonly Readonly<EvaluatorDeclaration>[];
+  readonly rules: readonly Readonly<RuleDeclaration>[];
   readonly implementationBindings: readonly RawAdmittedValue<ImplementationBinding>[];
   readonly closureContracts: readonly RawAdmittedValue<ClosureContract>[];
 }
@@ -680,8 +665,9 @@ export function validatePublication(
 function validateProgramSubject(input: ProgramValidationInput): ProgramValidationResult {
   const diagnostics: StaticDiagnostic[] = [];
   if (
-    !isRawAdmittedValue(input.publication) ||
-    input.publication.subjectKind !== "module_publication" ||
+    typeof input.declarationBasisDigest !== "string" ||
+    !isRawAdmittedValue(input.programPublication) ||
+    input.programPublication.subjectKind !== "module_publication" ||
     !isRawAdmittedValue(input.program) ||
     input.program.subjectKind !== "gtl_program" ||
     input.graphFunctions.some((value) => !isRawAdmittedValue(value) || value.subjectKind !== "graph_function") ||
@@ -692,7 +678,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     diagnostics.push({ code: "raw_subject_mismatch", path: "$", message: "Program validation accepts package-admitted raw values only" });
     return invalid("program", input.program.subjectDigest, diagnostics);
   }
-  const publication = input.publication.value;
+  const publication = input.programPublication.value;
   const program = input.program.value;
   const graphFunctionAdmissions = orderedRawAdmissions(
     input.graphFunctions,
@@ -714,7 +700,17 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const contracts = contractAdmissions.map((raw) => raw.value);
   const bindings = implementationBindingAdmissions.map((raw) => raw.value);
   const closureContracts = closureContractAdmissions.map((raw) => raw.value);
-  diagnostics.push(...validatePublishedDeclarations(publication));
+  if (
+    publication.programs.filter((candidate) =>
+      candidate.programRef === input.program.value.programRef
+    ).length !== 1
+  ) {
+    diagnostics.push({
+      code: "raw_subject_mismatch",
+      path: "$.programPublication",
+      message: "Program publication does not own one exact Program declaration",
+    });
+  }
 
   const publishedProgram = publication.programs.find((candidate) => candidate.programRef === program.programRef);
   if (publishedProgram === undefined || !sameValue(publishedProgram, program)) {
@@ -723,24 +719,30 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   if (program.moduleRef !== publication.moduleRef) {
     diagnostics.push({ code: "identity_mismatch", path: "$.program.moduleRef", message: "Program module differs from publication" });
   }
-  const publishedGraphByRef = new Map(publication.graphFunctions.map((value) => [value.name, value]));
+  const publishedGraphs = graphFunctions;
+  const publishedGraphByRef = new Map(
+    publishedGraphs.map((value) => [value.name, value]),
+  );
   const rawGraphByRef = new Map(graphFunctions.map((value) => [value.name, value]));
+  const programGraphFunctions: GraphFunction[] = [];
+  const programGraphFunctionRefs = new Set<string>();
   for (const graphFunctionRef of program.callableMembership) {
-    const published = publishedGraphByRef.get(graphFunctionRef);
+    const publishedMatches = publishedGraphs.filter(
+      (candidate) => candidate.name === graphFunctionRef,
+    );
+    const published = publishedMatches[0];
     const raw = rawGraphByRef.get(graphFunctionRef);
-    if (published === undefined || raw === undefined || !sameValue(published, raw)) {
+    if (
+      publishedMatches.length !== 1 ||
+      published === undefined ||
+      raw === undefined ||
+      !sameValue(published, raw)
+    ) {
       diagnostics.push({ code: "missing_membership", path: "$.program.callableMembership", message: `missing exact GraphFunction ${graphFunctionRef}` });
+    } else if (!programGraphFunctionRefs.has(graphFunctionRef)) {
+      programGraphFunctions.push(published);
     }
-  }
-  if (
-    graphFunctions.length !== program.callableMembership.length ||
-    graphFunctions.some((graphFunction) => !program.callableMembership.includes(graphFunction.name))
-  ) {
-    diagnostics.push({
-      code: "missing_membership",
-      path: "$.graphFunctions",
-      message: "raw GraphFunction set must equal the complete Program callable membership",
-    });
+    programGraphFunctionRefs.add(graphFunctionRef);
   }
   for (const start of program.starts) {
     if (!program.callableMembership.includes(start.graphFunctionRef)) {
@@ -821,16 +823,32 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const contractRefs = new Set(contracts.map((contract) => contract.contractRef));
   const bindingByRef = new Map(bindings.map((binding) => [binding.bindingRef, binding]));
   const availableGraphFunctionRefs = new Set(graphFunctions.map((value) => value.name));
+  const publishedEvaluators = input.evaluators;
+  const publishedRules = input.rules;
+  if (publishedEvaluators.some((value) => !hasExactEvaluatorShape(value))) {
+    diagnostics.push({
+      code: "invalid_reference",
+      path: "$.evaluators",
+      message: "Evaluator declaration differs from its exact static contract",
+    });
+  }
+  if (publishedRules.some((value) => !hasExactRuleShape(value))) {
+    diagnostics.push({
+      code: "invalid_reference",
+      path: "$.rules",
+      message: "Rule declaration differs from its exact static contract",
+    });
+  }
   const publishedEvaluatorByRef = new Map(
-    publication.evaluators.map((value) => [value.name, value]),
+    publishedEvaluators.map((value) => [value.name, value]),
   );
-  const publishedEvaluatorRefs = new Set(publication.evaluators.map((value) => value.name));
-  const publishedRuleRefs = new Set(publication.rules.map((value) => value.name));
+  const publishedEvaluatorRefs = new Set(publishedEvaluators.map((value) => value.name));
+  const publishedRuleRefs = new Set(publishedRules.map((value) => value.name));
   const callableGraphFunctionRefs = new Set(program.callableMembership);
   const programLocusRefs: string[] = [];
   const executableLeafRows: ValidatedExecutableLeaf[] = [];
   const interactionLeafRows: ValidatedInteractionLeaf[] = [];
-  for (const graphFunction of graphFunctions) {
+  for (const graphFunction of programGraphFunctions) {
     const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
     const nodes = new Map(graphFunction.template.nodes.map((node) => [node.nodeRef, node]));
     if (!nodes.has(graphFunction.template.startNodeRef) || graphFunction.template.terminalNodeRefs.some((ref) => !nodes.has(ref))) {
@@ -984,28 +1002,9 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           message: "GraphFunction application identity must derive from its complete declaration",
         });
       }
-      const referencedGraphFunctions: readonly string[] = (() => {
-        switch (application.relationKind) {
-          case "compose":
-            return [application.leftGraphFunctionRef, application.rightGraphFunctionRef];
-          case "substitute":
-            return [application.outerGraphFunctionRef, application.innerGraphFunctionRef];
-          case "recurse":
-            return [application.graphFunctionRef];
-          case "fan_out":
-            return [application.elementGraphFunctionRef];
-          case "fan_in":
-            return [application.reducerGraphFunctionRef];
-          case "gate":
-            return [application.targetRef];
-          case "re_enter":
-            return [application.graphFunctionRef];
-          case "identity":
-          case "promote":
-          case "same_object":
-            return [];
-        }
-      })();
+      const referencedGraphFunctions =
+        projectGraphFunctionApplicationDeclarationReferences(application)
+          .graphFunctionRefs;
       const staticallyResolvedApplication =
         application.relationKind === "compose" ||
         application.relationKind === "substitute";
@@ -1080,7 +1079,10 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           .flatMap((node) => cLeafTerms(node.term))
           .filter((leaf) => leaf.compositionRef === application.applicationRef);
         const workflowTargets = graphFunction.template.nodes
-          .flatMap((node) => workflowGraphFunctionRefs(node.term));
+          .flatMap((node) =>
+            projectCProgramNodeDeclarationReferences(node.term)
+              .graphFunctionRefs
+          );
         const expectedExecutableBindings = application.evaluatorRefs
           .flatMap((ref) => {
             const evaluator = publishedEvaluatorByRef.get(ref);
@@ -1672,16 +1674,6 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       });
     }
   }
-  const expectedRawValues: readonly [readonly unknown[], readonly unknown[], string][] = [
-    [publication.contracts, contracts, "contracts"],
-    [publication.implementationBindings, bindings, "implementationBindings"],
-    [publication.closureContracts, closureContracts, "closureContracts"],
-  ];
-  for (const [published, raw, path] of expectedRawValues) {
-    if (published.length !== raw.length || published.some((value, index) => !sameValue(value, raw[index]))) {
-      diagnostics.push({ code: "raw_subject_mismatch", path: `$.${path}`, message: `raw ${path} differ from publication` });
-    }
-  }
   if (diagnostics.length !== 0) return invalid("program", input.program.subjectDigest, diagnostics);
 
   const graphFunctionDigests = graphFunctionAdmissions.map((value) => value.subjectDigest);
@@ -1697,7 +1689,8 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const transitiveReachableExecutableLeafKeys = executableLeafRows.map((row) => row.requirementKey);
   const transitiveReachableInteractionLeafKeys = interactionLeafRows.map((row) => row.requirementKey);
   const sourceDigest = sha256Canonical({
-    publicationDigest: input.publication.subjectDigest,
+    publicationDigest: sha256Canonical(publication as unknown as JsonValue),
+    declarationBasisDigest: input.declarationBasisDigest,
     programDigest: input.program.subjectDigest,
     graphFunctionDigests,
     contractDigests,
@@ -1712,7 +1705,7 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     disposition: "valid",
     validationRef: `program-validation://abiogenesis/${sourceDigest.slice("sha256:".length)}`,
     sourceDigest,
-    publicationDigest: input.publication.subjectDigest,
+    publicationDigest: sha256Canonical(publication as unknown as JsonValue),
     programRef: program.programRef,
     programDigest: input.program.subjectDigest,
     graphFunctionDigests,

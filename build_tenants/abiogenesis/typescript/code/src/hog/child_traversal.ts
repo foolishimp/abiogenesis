@@ -10,12 +10,12 @@ import {
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import {
   materializeGraph,
-  type ModulePublication,
   type ClosureContract,
   type GraphFunction,
   type GtlGraph,
   type GtlProgram,
 } from "../gtl/index.js";
+import type { LeafInvocationPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -28,7 +28,8 @@ import {
 export interface ChildTraversalBasis {
   readonly kind: "child_traversal_basis";
   readonly schemaVersion: "5.0.0";
-  readonly publication: Readonly<ModulePublication>;
+  readonly graphFunctionByRef: LeafInvocationPort["graphFunctionByRef"];
+  readonly closureContractByRef: LeafInvocationPort["closureContractByRef"];
   readonly program: Readonly<GtlProgram>;
   readonly programValidation: ProgramValidation;
   readonly rootImplementationSet: AdmittedImplementationSet;
@@ -36,7 +37,8 @@ export interface ChildTraversalBasis {
 }
 
 export function constructChildTraversalBasis(input: Readonly<{
-  publication: Readonly<ModulePublication>;
+  graphFunctionByRef: LeafInvocationPort["graphFunctionByRef"];
+  closureContractByRef: LeafInvocationPort["closureContractByRef"];
   program: Readonly<GtlProgram>;
   programValidation: ProgramValidation;
   rootImplementationSet: AdmittedImplementationSet;
@@ -145,10 +147,10 @@ export function prepareChildTraversal(
       request.predecessorPrefix,
     );
   }
-  const graphFunction = basis.publication.graphFunctions.find(
-    (candidate) => candidate.name === request.childGraphFunctionRef,
+  const graphFunction = basis.graphFunctionByRef(
+    request.childGraphFunctionRef,
   );
-  if (graphFunction === undefined) {
+  if (graphFunction === null) {
     return refusal(
       "membership",
       "diagnostic://abiogenesis/child-traversal/graph-function-absent@5",
@@ -158,10 +160,10 @@ export function prepareChildTraversal(
   }
   const closureContractRef =
     graphFunction.declarations["abg.child_closure_contract"];
-  const closureContract = basis.publication.closureContracts.find(
-    (candidate) => candidate.closureContractRef === closureContractRef,
-  );
-  if (closureContract === undefined) {
+  const closureContract = closureContractRef === undefined
+    ? null
+    : basis.closureContractByRef(closureContractRef);
+  if (closureContract === null) {
     return refusal(
       "membership",
       "diagnostic://abiogenesis/child-traversal/closure-contract-absent@5",
