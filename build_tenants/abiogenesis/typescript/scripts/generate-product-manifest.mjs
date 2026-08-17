@@ -320,6 +320,7 @@ const payloadInventory = [];
 for (const path of productRelativeLocators) {
   payloadInventory.push({ path, sha256: await sha256File(join(root, path)) });
 }
+const productContentDigest = payloadInventoryDigest(payloadInventory);
 
 const manifestSchemaPath = "contracts/schemas/product-toolchain-manifest.schema.json";
 const catalogSchemaDigest = await sha256File(join(root, catalogSchemaPath));
@@ -347,6 +348,7 @@ const nativeDeclarationClosures = await resolveNativeDeclarationClosures({
   packageType: packageJson.type === "module" ? "module" : "commonjs",
   packageExports: packageJson.exports,
   declarationSources,
+  sourceProductContentDigest: productContentDigest,
 });
 if (nativeDeclarationClosures === null) {
   throw new Error("packed native declaration closure is invalid");
@@ -731,7 +733,6 @@ const catalogWithoutDigest = {
   rows: extantRows,
 };
 
-const productContentDigest = payloadInventoryDigest(payloadInventory);
 const extantPublicContractCatalog = {
   ...catalogWithoutDigest,
   catalogDigest: sha256Canonical(catalogWithoutDigest),

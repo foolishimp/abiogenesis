@@ -5,7 +5,10 @@ import { fileURLToPath } from "node:url";
 
 import type * as TypeScript from "typescript";
 
-import type { JsonValue } from "../shared/canonical_json.js";
+import {
+  canonicalJson,
+  type JsonValue,
+} from "../shared/canonical_json.js";
 import {
   isSha256Digest,
   sha256Bytes,
@@ -30,12 +33,6 @@ export interface NativeDeclarationRoot {
 }
 
 export type NativePackageType = "commonjs" | "module";
-
-export type NativeExternalSelectorKind =
-  | "all"
-  | "module"
-  | "name"
-  | "namespace";
 
 export type ExternalRelationOrigin =
   | Readonly<{
@@ -71,17 +68,32 @@ export type ExternalSelection =
   }>
   | Readonly<{ readonly kind: "all" }>;
 
-export interface NativeExternalOccurrence {
-  readonly occurrenceRef: string;
-  readonly packageExportPath: string;
+export interface PhysicalDeclarationRelation {
+  readonly physicalRelationRef: string;
+  readonly physicalRelationDigest: Sha256Digest;
+  readonly sourceProductContentDigest: Sha256Digest;
   readonly declarationPath: string;
   readonly declarationDigest: Sha256Digest;
-  readonly sourceOffset: number;
+  readonly sourceStart: number;
   readonly sourceEnd: number;
   readonly moduleSpecifier: string;
-  readonly selectorKind: NativeExternalSelectorKind;
-  readonly selectedName: string | null;
-  readonly visibleName: string | null;
+  readonly origin: ExternalRelationOrigin;
+  readonly selection: ExternalSelection;
+}
+
+export interface ContractIndexedPendingExternalSelector {
+  readonly selectorRef: Sha256Digest;
+  readonly sourceProductContentDigest: Sha256Digest;
+  readonly sourceContractRef: string;
+  readonly sourceContractDigest: Sha256Digest;
+  readonly sourcePackageExportPath: string;
+  readonly sourceNamedSymbol: string;
+  readonly physicalRelationRef: string;
+  readonly externalPackageName: string;
+  readonly externalModuleSpecifier: string;
+  readonly origin: ExternalRelationOrigin;
+  readonly selection: ExternalSelection;
+  readonly localAccessPath: readonly string[];
 }
 
 export interface NativeModuleAugmentation {
@@ -96,12 +108,12 @@ export interface NativeDeclarationClosure {
   readonly packageExportPath: string;
   readonly declarationPath: string;
   readonly exportedSymbols: readonly string[];
-  readonly exportedSymbolOccurrenceRefs: Readonly<
+  readonly exportedSymbolPhysicalRelationRefs: Readonly<
     Record<string, readonly string[]>
   >;
   readonly declarationInventory:
     readonly ProductNativeDeclarationInventoryRow[];
-  readonly externalOccurrences: readonly NativeExternalOccurrence[];
+  readonly physicalRelations: readonly PhysicalDeclarationRelation[];
   readonly moduleAugmentations: readonly NativeModuleAugmentation[];
   readonly contributesGlobals: boolean;
 }
@@ -111,6 +123,7 @@ export interface NativeDeclarationClosureRequest {
   readonly packageType: NativePackageType;
   readonly packageExports: Readonly<Record<string, unknown>>;
   readonly declarationSources: readonly DeclarationSource[];
+  readonly sourceProductContentDigest: Sha256Digest;
 }
 
 export interface NativeDeclarationEvidenceSource {
@@ -121,10 +134,11 @@ export interface NativeDeclarationEvidenceSource {
 
 export interface NativeContractEvidence {
   readonly contractId: string;
+  readonly contractDigest: Sha256Digest;
   readonly packageExportPath: string;
   readonly namedSymbol: string;
   readonly localDisposition: "local" | "pending_external";
-  readonly occurrenceRefs: readonly string[];
+  readonly pendingSelectors: readonly ContractIndexedPendingExternalSelector[];
 }
 
 export interface NativeProductDeclarationEvidence {
@@ -144,23 +158,6 @@ export interface NativeLinkProduct {
   readonly declaredDependencies: readonly ProductDeclaredDependency[];
   readonly publicContracts: readonly ProductPublicContract[];
   readonly evidence: NativeProductDeclarationEvidence;
-}
-
-interface LegacyNativeContractBinding {
-  readonly kind: "external_binding";
-  readonly sourceProductContentDigest: Sha256Digest;
-  readonly sourceContractRef: string;
-  readonly sourcePackageExportPath: string;
-  readonly sourceDeclarationPath: string;
-  readonly sourceDeclarationDigest: Sha256Digest;
-  readonly occurrenceRef: string;
-  readonly moduleSpecifier: string;
-  readonly selectorKind: NativeExternalSelectorKind;
-  readonly selectedName: string;
-  readonly targetProductContentDigest: Sha256Digest;
-  readonly targetContractRef: string;
-  readonly targetPackageExportPath: string;
-  readonly targetNamedSymbol: string;
 }
 
 export interface CanonicalSourceWitness {
@@ -254,13 +251,15 @@ export interface NativeContractSymbolAdmission {
 }
 
 export type NativeContractClosureRow =
-  | LegacyNativeContractBinding
+  | NativeContractBinding
   | NativeContractSymbolAdmission;
 
 export type NativeContractLinkResult =
   | Readonly<{
     kind: "linked";
     bindings: readonly NativeContractClosureRow[];
+    selectorDispositions: readonly PendingSelectorDisposition[];
+    occurrences: readonly ContractExternalOccurrence[];
     nativeContractClosureDigest: Sha256Digest;
   }>
   | Readonly<{
@@ -276,6 +275,29 @@ const VIRTUAL_PACKAGE_ROOT = "/package";
 
 function compareText(left: string, right: string): number {
   return left < right ? -1 : left > right ? 1 : 0;
+}
+
+function compareStructuredFields(
+  left: readonly (string | number | null)[],
+  right: readonly (string | number | null)[],
+): number {
+  const length = Math.min(left.length, right.length);
+  for (let index = 0; index < length; index += 1) {
+    const leftValue = left[index]!;
+    const rightValue = right[index]!;
+    const comparison = typeof leftValue === "number" &&
+        typeof rightValue === "number"
+      ? leftValue - rightValue
+      : compareText(String(leftValue ?? ""), String(rightValue ?? ""));
+    if (comparison !== 0) return comparison;
+  }
+  return left.length - right.length;
+}
+
+function structuredKey(
+  fields: readonly (string | number | null)[],
+): string {
+  return canonicalJson(fields);
 }
 
 function isNonblank(value: unknown): value is string {
@@ -370,10 +392,10 @@ function nodeAtPosition(
   return match;
 }
 
-function diagnosticModuleSpecifier(
+function diagnosticModuleSpecifierNode(
   typescript: typeof TypeScript,
   diagnostic: TypeScript.Diagnostic,
-): string | null {
+): TypeScript.StringLiteralLike | null {
   if (
     diagnostic.file === undefined ||
     diagnostic.start === undefined
@@ -391,7 +413,7 @@ function diagnosticModuleSpecifier(
     ) {
       return node.moduleSpecifier !== undefined &&
           typescript.isStringLiteralLike(node.moduleSpecifier)
-        ? node.moduleSpecifier.text
+        ? node.moduleSpecifier
         : null;
     }
     if (
@@ -400,24 +422,31 @@ function diagnosticModuleSpecifier(
       node.moduleReference.expression !== undefined &&
       typescript.isStringLiteralLike(node.moduleReference.expression)
     ) {
-      return node.moduleReference.expression.text;
+      return node.moduleReference.expression;
     }
     if (
       typescript.isImportTypeNode(node) &&
       typescript.isLiteralTypeNode(node.argument) &&
       typescript.isStringLiteralLike(node.argument.literal)
     ) {
-      return node.argument.literal.text;
+      return node.argument.literal;
     }
     if (
       typescript.isModuleDeclaration(node) &&
       typescript.isStringLiteralLike(node.name)
     ) {
-      return node.name.text;
+      return node.name;
     }
     node = node.parent;
   }
   return null;
+}
+
+function diagnosticModuleSpecifier(
+  typescript: typeof TypeScript,
+  diagnostic: TypeScript.Diagnostic,
+): string | null {
+  return diagnosticModuleSpecifierNode(typescript, diagnostic)?.text ?? null;
 }
 
 export function packageImportCoordinate(
@@ -633,13 +662,20 @@ function productDeclarationFormat(
     : ts.ModuleKind.CommonJS;
 }
 
-function occurrence(
-  basis: Omit<NativeExternalOccurrence, "occurrenceRef">,
-): NativeExternalOccurrence {
+function physicalRelation(
+  basis: Omit<
+    PhysicalDeclarationRelation,
+    "physicalRelationRef" | "physicalRelationDigest"
+  >,
+): PhysicalDeclarationRelation {
+  const physicalRelationDigest = sha256Canonical(
+    basis as unknown as JsonValue,
+  );
+  const physicalRelationRef =
+    `ts-relation://${physicalRelationDigest.slice("sha256:".length)}`;
   return {
-    occurrenceRef: `native-occurrence://${sha256Canonical(
-      basis as unknown as JsonValue,
-    ).slice("sha256:".length)}`,
+    physicalRelationRef,
+    physicalRelationDigest,
     ...basis,
   };
 }
@@ -651,18 +687,18 @@ function externalRelations(
   packageExportPath: string,
   declarationPath: string,
   declarationDigest: Sha256Digest,
+  sourceProductContentDigest: Sha256Digest,
 ): Readonly<{
-  occurrences: readonly NativeExternalOccurrence[];
+  relations: readonly PhysicalDeclarationRelation[];
   augmentations: readonly NativeModuleAugmentation[];
   contributesGlobals: boolean;
 }> {
-  const occurrences: NativeExternalOccurrence[] = [];
+  const relations: PhysicalDeclarationRelation[] = [];
   const augmentations: NativeModuleAugmentation[] = [];
   const add = (
     moduleSpecifier: TypeScript.StringLiteralLike,
-    selectorKind: NativeExternalSelectorKind,
-    selectedName: string | null,
-    visibleName: string | null,
+    origin: ExternalRelationOrigin,
+    selection: ExternalSelection,
   ): void => {
     const specifier = moduleSpecifier.text;
     if (
@@ -672,16 +708,15 @@ function externalRelations(
     ) {
       return;
     }
-    occurrences.push(occurrence({
-      packageExportPath,
+    relations.push(physicalRelation({
+      sourceProductContentDigest,
       declarationPath,
       declarationDigest,
-      sourceOffset: moduleSpecifier.getStart(sourceFile),
+      sourceStart: moduleSpecifier.getStart(sourceFile),
       sourceEnd: moduleSpecifier.getEnd(),
       moduleSpecifier: specifier,
-      selectorKind,
-      selectedName,
-      visibleName,
+      origin,
+      selection,
     }));
   };
   const visit = (node: TypeScript.Node): void => {
@@ -703,21 +738,51 @@ function externalRelations(
     ) {
       const clause = node.importClause;
       if (clause === undefined) {
-        add(node.moduleSpecifier, "module", null, null);
+        add(node.moduleSpecifier, {
+          kind: "import_declaration",
+          clause: "side_effect",
+          declarationTypeOnly: false,
+          specifierTypeOnly: false,
+        }, { kind: "module" });
       } else {
         if (clause.name !== undefined) {
-          add(node.moduleSpecifier, "name", "default", clause.name.text);
+          add(node.moduleSpecifier, {
+            kind: "import_declaration",
+            clause: "default",
+            declarationTypeOnly: clause.isTypeOnly,
+            specifierTypeOnly: false,
+          }, {
+            kind: "name",
+            targetName: "default",
+            exposedName: clause.name.text,
+          });
         }
         const bindings = clause.namedBindings;
         if (bindings !== undefined && ts.isNamespaceImport(bindings)) {
-          add(node.moduleSpecifier, "namespace", null, bindings.name.text);
+          add(node.moduleSpecifier, {
+            kind: "import_declaration",
+            clause: "namespace",
+            declarationTypeOnly: clause.isTypeOnly,
+            specifierTypeOnly: false,
+          }, {
+            kind: "namespace",
+            exposedName: bindings.name.text,
+          });
         } else if (bindings !== undefined) {
           for (const element of bindings.elements) {
             add(
               node.moduleSpecifier,
-              "name",
-              (element.propertyName ?? element.name).text,
-              element.name.text,
+              {
+                kind: "import_declaration",
+                clause: "named",
+                declarationTypeOnly: clause.isTypeOnly,
+                specifierTypeOnly: element.isTypeOnly,
+              },
+              {
+                kind: "name",
+                targetName: (element.propertyName ?? element.name).text,
+                exposedName: element.name.text,
+              },
             );
           }
         }
@@ -730,21 +795,41 @@ function externalRelations(
       ts.isStringLiteralLike(node.moduleSpecifier)
     ) {
       if (node.exportClause === undefined) {
-        add(node.moduleSpecifier, "all", null, null);
+        add(node.moduleSpecifier, {
+          kind: "export_declaration",
+          clause: "star",
+          declarationTypeOnly: node.isTypeOnly,
+          specifierTypeOnly: false,
+        }, { kind: "all" });
       } else if (ts.isNamespaceExport(node.exportClause)) {
         add(
           node.moduleSpecifier,
-          "namespace",
-          null,
-          node.exportClause.name.text,
+          {
+            kind: "export_declaration",
+            clause: "namespace",
+            declarationTypeOnly: node.isTypeOnly,
+            specifierTypeOnly: false,
+          },
+          {
+            kind: "namespace",
+            exposedName: node.exportClause.name.text,
+          },
         );
       } else {
         for (const element of node.exportClause.elements) {
           add(
             node.moduleSpecifier,
-            "name",
-            (element.propertyName ?? element.name).text,
-            element.name.text,
+            {
+              kind: "export_declaration",
+              clause: "named",
+              declarationTypeOnly: node.isTypeOnly,
+              specifierTypeOnly: element.isTypeOnly,
+            },
+            {
+              kind: "name",
+              targetName: (element.propertyName ?? element.name).text,
+              exposedName: element.name.text,
+            },
           );
         }
       }
@@ -758,9 +843,8 @@ function externalRelations(
     ) {
       add(
         node.moduleReference.expression,
-        "namespace",
-        null,
-        node.name.text,
+        { kind: "import_equals_declaration" },
+        { kind: "namespace", exposedName: node.name.text },
       );
       return;
     }
@@ -777,9 +861,17 @@ function externalRelations(
       }
       add(
         node.argument.literal,
-        selectedName === null ? "namespace" : "name",
-        selectedName,
-        selectedName,
+        {
+          kind: "import_type_expression",
+          operator: node.isTypeOf ? "typeof" : "type",
+        },
+        selectedName === null
+          ? { kind: "module" }
+          : {
+            kind: "name",
+            targetName: selectedName,
+            exposedName: selectedName,
+          },
       );
       return;
     }
@@ -793,16 +885,15 @@ function externalRelations(
       packageImportCoordinate(directive.fileName) !== null &&
       selfPackageExportPath(packageName, directive.fileName) === null
     ) {
-      occurrences.push(occurrence({
-        packageExportPath,
+      relations.push(physicalRelation({
+        sourceProductContentDigest,
         declarationPath,
         declarationDigest,
-        sourceOffset: directive.pos,
+        sourceStart: directive.pos,
         sourceEnd: directive.end,
         moduleSpecifier: directive.fileName,
-        selectorKind: "all",
-        selectedName: null,
-        visibleName: null,
+        origin: { kind: "type_reference_directive" },
+        selection: { kind: "module" },
       }));
     }
   }
@@ -822,19 +913,29 @@ function externalRelations(
           )
         ),
     );
-  occurrences.sort((left, right) =>
-    compareText(
-      `${left.declarationPath}\0${left.sourceOffset.toString().padStart(12, "0")}\0${left.selectorKind}\0${left.selectedName ?? ""}`,
-      `${right.declarationPath}\0${right.sourceOffset.toString().padStart(12, "0")}\0${right.selectorKind}\0${right.selectedName ?? ""}`,
+  relations.sort((left, right) =>
+    compareStructuredFields(
+      [
+        left.declarationPath,
+        left.sourceStart,
+        left.sourceEnd,
+        left.physicalRelationRef,
+      ],
+      [
+        right.declarationPath,
+        right.sourceStart,
+        right.sourceEnd,
+        right.physicalRelationRef,
+      ],
     )
   );
   augmentations.sort((left, right) =>
-    compareText(
-      `${left.declarationPath}\0${left.sourceOffset.toString().padStart(12, "0")}`,
-      `${right.declarationPath}\0${right.sourceOffset.toString().padStart(12, "0")}`,
+    compareStructuredFields(
+      [left.declarationPath, left.sourceOffset],
+      [right.declarationPath, right.sourceOffset],
     )
   );
-  return { occurrences, augmentations, contributesGlobals };
+  return { relations, augmentations, contributesGlobals };
 }
 
 function ancestorOfKind<T extends TypeScript.Node>(
@@ -849,15 +950,15 @@ function ancestorOfKind<T extends TypeScript.Node>(
   return null;
 }
 
-function relationOccurrenceRefs(
+function physicalRelationRefsForNode(
   ts: typeof TypeScript,
   node: TypeScript.Node,
   declarationPath: string,
-  occurrences: readonly NativeExternalOccurrence[],
+  relations: readonly PhysicalDeclarationRelation[],
 ): readonly string[] {
   let moduleSpecifier: TypeScript.StringLiteralLike | null = null;
-  let selectorKind: NativeExternalSelectorKind | null = null;
-  let visibleName: string | null = null;
+  let selectionKind: ExternalSelection["kind"] | null = null;
+  let exposedName: string | null = null;
 
   if (ts.isImportSpecifier(node)) {
     const declaration = ancestorOfKind(node, ts.isImportDeclaration);
@@ -866,8 +967,8 @@ function relationOccurrenceRefs(
       ts.isStringLiteralLike(declaration.moduleSpecifier)
     ) {
       moduleSpecifier = declaration.moduleSpecifier;
-      selectorKind = "name";
-      visibleName = node.name.text;
+      selectionKind = "name";
+      exposedName = node.name.text;
     }
   } else if (ts.isNamespaceImport(node)) {
     const declaration = ancestorOfKind(node, ts.isImportDeclaration);
@@ -876,8 +977,8 @@ function relationOccurrenceRefs(
       ts.isStringLiteralLike(declaration.moduleSpecifier)
     ) {
       moduleSpecifier = declaration.moduleSpecifier;
-      selectorKind = "namespace";
-      visibleName = node.name.text;
+      selectionKind = "namespace";
+      exposedName = node.name.text;
     }
   } else if (ts.isImportClause(node) && node.name !== undefined) {
     const declaration = ancestorOfKind(node, ts.isImportDeclaration);
@@ -886,8 +987,8 @@ function relationOccurrenceRefs(
       ts.isStringLiteralLike(declaration.moduleSpecifier)
     ) {
       moduleSpecifier = declaration.moduleSpecifier;
-      selectorKind = "name";
-      visibleName = node.name.text;
+      selectionKind = "name";
+      exposedName = node.name.text;
     }
   } else if (ts.isExportSpecifier(node)) {
     const declaration = ancestorOfKind(node, ts.isExportDeclaration);
@@ -897,8 +998,8 @@ function relationOccurrenceRefs(
       ts.isStringLiteralLike(declaration.moduleSpecifier)
     ) {
       moduleSpecifier = declaration.moduleSpecifier;
-      selectorKind = "name";
-      visibleName = node.name.text;
+      selectionKind = "name";
+      exposedName = node.name.text;
     }
   } else if (ts.isNamespaceExport(node)) {
     const declaration = ancestorOfKind(node, ts.isExportDeclaration);
@@ -908,8 +1009,8 @@ function relationOccurrenceRefs(
       ts.isStringLiteralLike(declaration.moduleSpecifier)
     ) {
       moduleSpecifier = declaration.moduleSpecifier;
-      selectorKind = "namespace";
-      visibleName = node.name.text;
+      selectionKind = "namespace";
+      exposedName = node.name.text;
     }
   } else if (ts.isImportEqualsDeclaration(node)) {
     if (
@@ -918,8 +1019,8 @@ function relationOccurrenceRefs(
       ts.isStringLiteralLike(node.moduleReference.expression)
     ) {
       moduleSpecifier = node.moduleReference.expression;
-      selectorKind = "namespace";
-      visibleName = node.name.text;
+      selectionKind = "namespace";
+      exposedName = node.name.text;
     }
   } else if (
     ts.isImportTypeNode(node) &&
@@ -927,46 +1028,56 @@ function relationOccurrenceRefs(
     ts.isStringLiteralLike(node.argument.literal)
   ) {
     moduleSpecifier = node.argument.literal;
-    selectorKind = node.qualifier === undefined ? "namespace" : "name";
+    selectionKind = node.qualifier === undefined ? "module" : "name";
     if (node.qualifier !== undefined) {
       let qualifier: TypeScript.EntityName = node.qualifier;
       while (ts.isQualifiedName(qualifier)) qualifier = qualifier.left;
-      visibleName = qualifier.text;
+      exposedName = qualifier.text;
     }
   }
 
-  if (moduleSpecifier === null || selectorKind === null) return [];
-  const sourceOffset = moduleSpecifier.getStart(moduleSpecifier.getSourceFile());
-  return occurrences
+  if (moduleSpecifier === null || selectionKind === null) return [];
+  const sourceStart = moduleSpecifier.getStart(moduleSpecifier.getSourceFile());
+  const sourceEnd = moduleSpecifier.getEnd();
+  return relations
     .filter(
       (candidate) =>
         candidate.declarationPath === declarationPath &&
-        candidate.sourceOffset === sourceOffset &&
-        candidate.selectorKind === selectorKind &&
+        candidate.sourceStart === sourceStart &&
+        candidate.sourceEnd === sourceEnd &&
+        candidate.moduleSpecifier === moduleSpecifier.text &&
+        candidate.selection.kind === selectionKind &&
         (
-          visibleName === null ||
-          candidate.visibleName === visibleName
+          exposedName === null ||
+          (
+            (candidate.selection.kind === "name" ||
+              candidate.selection.kind === "namespace") &&
+            candidate.selection.exposedName === exposedName
+          )
         ),
     )
-    .map((candidate) => candidate.occurrenceRef);
+    .map((candidate) => candidate.physicalRelationRef);
 }
 
-function exportedSymbolOccurrenceRefs(
+function exportedSymbolPhysicalRelationRefs(
   ts: typeof TypeScript,
   checker: TypeScript.TypeChecker,
   moduleSymbol: TypeScript.Symbol | undefined,
   reachable: ReadonlySet<string>,
   relativePaths: ReadonlyMap<string, string>,
-  occurrences: readonly NativeExternalOccurrence[],
+  relations: readonly PhysicalDeclarationRelation[],
 ): Readonly<Record<string, readonly string[]>> {
   if (moduleSymbol === undefined) return {};
-  const relationByDeclarationPath = new Map<string, NativeExternalOccurrence[]>();
-  for (const occurrence of occurrences) {
-    const existing = relationByDeclarationPath.get(occurrence.declarationPath);
+  const relationByDeclarationPath = new Map<
+    string,
+    PhysicalDeclarationRelation[]
+  >();
+  for (const relation of relations) {
+    const existing = relationByDeclarationPath.get(relation.declarationPath);
     if (existing === undefined) {
-      relationByDeclarationPath.set(occurrence.declarationPath, [occurrence]);
+      relationByDeclarationPath.set(relation.declarationPath, [relation]);
     } else {
-      existing.push(occurrence);
+      existing.push(relation);
     }
   }
   const result: Record<string, readonly string[]> = {};
@@ -989,15 +1100,15 @@ function exportedSymbolOccurrenceRefs(
         if (!reachable.has(sourcePath)) continue;
         const declarationPath = relativePaths.get(sourcePath);
         if (declarationPath === undefined) continue;
-        const sourceOccurrences =
+        const sourceRelations =
           relationByDeclarationPath.get(declarationPath) ?? [];
-        for (const occurrence of sourceOccurrences) {
+        for (const relation of sourceRelations) {
           if (
-            occurrence.selectorKind === "all" &&
+            relation.selection.kind === "all" &&
             ancestorOfKind(
               nodeAtPosition(
                 declaration.getSourceFile(),
-                occurrence.sourceOffset,
+                relation.sourceStart,
               ),
               (candidate): candidate is TypeScript.ImportDeclaration |
                 TypeScript.ExportDeclaration |
@@ -1007,19 +1118,19 @@ function exportedSymbolOccurrenceRefs(
                 ts.isImportTypeNode(candidate),
             ) === null
           ) {
-            refs.add(occurrence.occurrenceRef);
+            refs.add(relation.physicalRelationRef);
           }
         }
         const visit = (node: TypeScript.Node): void => {
           for (
-            const occurrenceRef of relationOccurrenceRefs(
+            const physicalRelationRef of physicalRelationRefsForNode(
               ts,
               node,
               declarationPath,
-              sourceOccurrences,
+              sourceRelations,
             )
           ) {
-            refs.add(occurrenceRef);
+            refs.add(physicalRelationRef);
           }
           if (ts.isIdentifier(node)) {
             const referenced = checker.getSymbolAtLocation(node);
@@ -1048,9 +1159,15 @@ function exportedSymbolOccurrenceRefs(
 export async function resolveNativeDeclarationClosures(
   request: NativeDeclarationClosureRequest,
 ): Promise<readonly NativeDeclarationClosure[] | null> {
-  if (!isNonblank(request.packageName)) return null;
+  if (
+    !isNonblank(request.packageName) ||
+    !isSha256Digest(request.sourceProductContentDigest)
+  ) {
+    return null;
+  }
   const roots = nativeDeclarationRoots(request.packageExports);
   if (roots === null) return null;
+  const sourceProductContentDigest = request.sourceProductContentDigest;
 
   const sourceText = new Map<string, string>();
   const sourceBytes = new Map<string, Uint8Array>();
@@ -1338,7 +1455,7 @@ export async function resolveNativeDeclarationClosures(
       );
     if (declarationInventory.some((entry) => entry === null)) return null;
 
-    const occurrences: NativeExternalOccurrence[] = [];
+    const physicalRelations: PhysicalDeclarationRelation[] = [];
     const augmentations: NativeModuleAugmentation[] = [];
     let contributesGlobals = false;
     for (const virtualPath of reachable) {
@@ -1359,18 +1476,19 @@ export async function resolveNativeDeclarationClosures(
         root.packageExportPath,
         declarationPath,
         sha256Bytes(bytes),
+        sourceProductContentDigest,
       );
-      occurrences.push(...relations.occurrences);
+      physicalRelations.push(...relations.relations);
       augmentations.push(...relations.augmentations);
       contributesGlobals ||= relations.contributesGlobals;
     }
-    occurrences.sort((left, right) =>
-      compareText(left.occurrenceRef, right.occurrenceRef)
+    physicalRelations.sort((left, right) =>
+      compareText(left.physicalRelationRef, right.physicalRelationRef)
     );
     augmentations.sort((left, right) =>
-      compareText(
-        `${left.declarationPath}\0${left.sourceOffset.toString().padStart(12, "0")}`,
-        `${right.declarationPath}\0${right.sourceOffset.toString().padStart(12, "0")}`,
+      compareStructuredFields(
+        [left.declarationPath, left.sourceOffset],
+        [right.declarationPath, right.sourceOffset],
       )
     );
     const exportedSymbols = moduleSymbol === undefined
@@ -1382,22 +1500,92 @@ export async function resolveNativeDeclarationClosures(
       packageExportPath: root.packageExportPath,
       declarationPath: root.declarationPath,
       exportedSymbols,
-      exportedSymbolOccurrenceRefs: exportedSymbolOccurrenceRefs(
+      exportedSymbolPhysicalRelationRefs:
+        exportedSymbolPhysicalRelationRefs(
         ts,
         checker,
         moduleSymbol,
         reachable,
         relativePaths,
-        occurrences,
+        physicalRelations,
       ),
       declarationInventory:
         declarationInventory as ProductNativeDeclarationInventoryRow[],
-      externalOccurrences: occurrences,
+      physicalRelations,
       moduleAugmentations: augmentations,
       contributesGlobals,
     });
   }
   return closures;
+}
+
+export function contractIndexedPendingSelectors(
+  productContentDigest: Sha256Digest,
+  contract: ProductPublicContract,
+  closure: NativeDeclarationClosure,
+): readonly ContractIndexedPendingExternalSelector[] | null {
+  const locator = contract.nativeTypedLocator;
+  if (
+    !isSha256Digest(productContentDigest) ||
+    !isSha256Digest(contract.contractDigest) ||
+    locator === undefined ||
+    locator.packageExportPath !== closure.packageExportPath
+  ) {
+    return null;
+  }
+  const physicalByRef = new Map(
+    closure.physicalRelations.map((relation) => [
+      relation.physicalRelationRef,
+      relation,
+    ]),
+  );
+  if (physicalByRef.size !== closure.physicalRelations.length) return null;
+  const checkerDerivedRefs =
+    closure.exportedSymbolPhysicalRelationRefs[locator.namedSymbol];
+  const relationRefs = checkerDerivedRefs ??
+    closure.physicalRelations
+      .filter((relation) =>
+        relation.selection.kind === "all" ||
+        (
+          relation.selection.kind === "name" &&
+          relation.selection.exposedName === locator.namedSymbol
+        )
+      )
+      .map((relation) => relation.physicalRelationRef);
+
+  const selectors: ContractIndexedPendingExternalSelector[] = [];
+  for (
+    const physicalRelationRef of
+      [...new Set(relationRefs)].sort(compareText)
+  ) {
+    const relation = physicalByRef.get(physicalRelationRef);
+    if (
+      relation === undefined ||
+      relation.sourceProductContentDigest !== productContentDigest
+    ) {
+      return null;
+    }
+    const coordinate = packageImportCoordinate(relation.moduleSpecifier);
+    if (coordinate === null) return null;
+    const body = {
+      sourceProductContentDigest: productContentDigest,
+      sourceContractRef: contract.contractId,
+      sourceContractDigest: contract.contractDigest,
+      sourcePackageExportPath: locator.packageExportPath,
+      sourceNamedSymbol: locator.namedSymbol,
+      physicalRelationRef,
+      externalPackageName: coordinate.packageName,
+      externalModuleSpecifier: relation.moduleSpecifier,
+      origin: relation.origin,
+      selection: relation.selection,
+      localAccessPath: [locator.namedSymbol],
+    } as const;
+    selectors.push({
+      selectorRef: sha256Canonical(body as unknown as JsonValue),
+      ...body,
+    });
+  }
+  return selectors;
 }
 
 function linkedRefusal(
@@ -1448,7 +1636,7 @@ export function linkNativeContractSet(
       sourceText.set(virtualPath, source.sourceText);
       sourceOwner.set(virtualPath, product);
       sourcePath.set(
-        `${product.productId}\0${source.declarationPath}`,
+        structuredKey([product.productId, source.declarationPath]),
         virtualPath,
       );
     }
@@ -1459,7 +1647,7 @@ export function linkNativeContractSet(
       );
       if (virtualPath !== null) {
         rootPath.set(
-          `${product.productId}\0${closure.packageExportPath}`,
+          structuredKey([product.productId, closure.packageExportPath]),
           virtualPath,
         );
       }
@@ -1512,13 +1700,27 @@ export function linkNativeContractSet(
       );
     }
     for (const closure of product.evidence.closures) {
-      const occurrenceRefs = new Set(
-        closure.externalOccurrences.map((occurrence) => occurrence.occurrenceRef),
+      const physicalRelationRefs = new Set(
+        closure.physicalRelations.map(
+          (relation) => relation.physicalRelationRef,
+        ),
       );
-      if (occurrenceRefs.size !== closure.externalOccurrences.length) {
+      if (
+        closure.physicalRelations.some(
+          (relation) =>
+            relation.origin.kind === "import_declaration" &&
+            relation.origin.clause === "side_effect",
+        )
+      ) {
         return linkedRefusal(
           "incompatible_dependency",
-          `${product.productId} contains duplicate external occurrence identity`,
+          `${product.productId} reaches an external side-effect-only declaration import`,
+        );
+      }
+      if (physicalRelationRefs.size !== closure.physicalRelations.length) {
+        return linkedRefusal(
+          "incompatible_dependency",
+          `${product.productId} contains duplicate physical declaration relation identity`,
         );
       }
       for (
@@ -1527,36 +1729,70 @@ export function linkNativeContractSet(
             candidate.packageExportPath === closure.packageExportPath,
         )
       ) {
+        const selectorRefs = contract.pendingSelectors.map(
+          (selector) => selector.selectorRef,
+        );
         if (
-          new Set(contract.occurrenceRefs).size !==
-            contract.occurrenceRefs.length ||
-          contract.occurrenceRefs.some(
-            (occurrenceRef) => !occurrenceRefs.has(occurrenceRef),
+          new Set(selectorRefs).size !== selectorRefs.length ||
+          contract.pendingSelectors.some(
+            (selector) =>
+              selector.sourceProductContentDigest !==
+                product.productContentDigest ||
+              selector.sourceContractRef !== contract.contractId ||
+              selector.sourceContractDigest !== contract.contractDigest ||
+              selector.sourcePackageExportPath !==
+                contract.packageExportPath ||
+              selector.sourceNamedSymbol !== contract.namedSymbol ||
+              !physicalRelationRefs.has(selector.physicalRelationRef),
           ) ||
           (
             contract.localDisposition === "local" &&
-            contract.occurrenceRefs.length !== 0
+            contract.pendingSelectors.length !== 0
           ) ||
           (
             contract.localDisposition === "pending_external" &&
-            contract.occurrenceRefs.length === 0
+            contract.pendingSelectors.length === 0
           )
         ) {
           return linkedRefusal(
             "incompatible_dependency",
-            `${contract.contractId} has invalid local or pending occurrence evidence`,
+            `${contract.contractId} has invalid local or pending selector evidence`,
           );
         }
-      }
-      if (
-        closure.externalOccurrences.some(
-          (candidate) => candidate.selectorKind === "module",
-        )
-      ) {
-        return linkedRefusal(
-          "incompatible_dependency",
-          `${product.productId} contains an external side-effect-only declaration import`,
-        );
+        for (const selector of contract.pendingSelectors) {
+          if (
+            selector.origin.kind === "import_declaration" &&
+            selector.origin.clause === "side_effect"
+          ) {
+            return linkedRefusal(
+              "incompatible_dependency",
+              `${contract.contractId} reaches an external side-effect-only declaration import`,
+            );
+          }
+          const coordinate = packageImportCoordinate(
+            selector.externalModuleSpecifier,
+          );
+          if (
+            coordinate === null ||
+            coordinate.packageName !== selector.externalPackageName
+          ) {
+            return linkedRefusal(
+              "incompatible_dependency",
+              `external declaration coordinate ${selector.externalModuleSpecifier} is invalid`,
+            );
+          }
+          const selected = directTarget(product, coordinate.packageName);
+          if ("kind" in selected) return selected;
+          if (
+            contractRoot(selected.target, coordinate.packageExportPath) ===
+              null
+          ) {
+            return linkedRefusal(
+              "unresolved_dependency",
+              `${selector.externalModuleSpecifier} has no exact target declaration root`,
+            );
+          }
+        }
       }
       for (const augmentation of closure.moduleAugmentations) {
         const target = augmentation.moduleSpecifier;
@@ -1575,25 +1811,6 @@ export function linkNativeContractSet(
           return linkedRefusal(
             "incompatible_dependency",
             `${product.productId} augments another Product declaration`,
-          );
-        }
-      }
-      for (const external of closure.externalOccurrences) {
-        const coordinate = packageImportCoordinate(external.moduleSpecifier);
-        if (coordinate === null) {
-          return linkedRefusal(
-            "incompatible_dependency",
-            `external declaration coordinate ${external.moduleSpecifier} is invalid`,
-          );
-        }
-        const selected = directTarget(product, coordinate.packageName);
-        if ("kind" in selected) return selected;
-        if (
-          contractRoot(selected.target, coordinate.packageExportPath) === null
-        ) {
-          return linkedRefusal(
-            "unresolved_dependency",
-            `${external.moduleSpecifier} has no exact target declaration root`,
           );
         }
       }
@@ -1633,7 +1850,7 @@ export function linkNativeContractSet(
         const selfExport = selfPackageExportPath(owner.packageName, specifier);
         if (selfExport !== null) {
           const resolvedFileName = rootPath.get(
-            `${owner.productId}\0${selfExport}`,
+            structuredKey([owner.productId, selfExport]),
           );
           return resolvedFileName === undefined
             ? undefined
@@ -1648,7 +1865,10 @@ export function linkNativeContractSet(
           const selected = directTarget(owner, coordinate.packageName);
           if ("kind" in selected) return undefined;
           const resolvedFileName = rootPath.get(
-            `${selected.target.productId}\0${coordinate.packageExportPath}`,
+            structuredKey([
+              selected.target.productId,
+              coordinate.packageExportPath,
+            ]),
           );
           return resolvedFileName === undefined
             ? undefined
@@ -1681,7 +1901,7 @@ export function linkNativeContractSet(
         const selfExport = selfPackageExportPath(owner.packageName, specifier);
         if (selfExport !== null) {
           const resolvedFileName = rootPath.get(
-            `${owner.productId}\0${selfExport}`,
+            structuredKey([owner.productId, selfExport]),
           );
           return resolvedFileName === undefined
             ? undefined
@@ -1696,7 +1916,10 @@ export function linkNativeContractSet(
           const selected = directTarget(owner, coordinate.packageName);
           if ("kind" in selected) return undefined;
           const resolvedFileName = rootPath.get(
-            `${selected.target.productId}\0${coordinate.packageExportPath}`,
+            structuredKey([
+              selected.target.productId,
+              coordinate.packageExportPath,
+            ]),
           );
           return resolvedFileName === undefined
             ? undefined
@@ -1714,6 +1937,58 @@ export function linkNativeContractSet(
         ).resolvedTypeReferenceDirective;
       }),
   };
+  const selectorPhysicalRelationRefs = new Set(
+    products.flatMap((product) =>
+      product.evidence.contracts.flatMap((contract) =>
+        contract.pendingSelectors.map(
+          (selector) => selector.physicalRelationRef,
+        )
+      )
+    ),
+  );
+  const physicalRelationsBySource = new Map<
+    string,
+    PhysicalDeclarationRelation[]
+  >();
+  for (const product of products) {
+    for (const closure of product.evidence.closures) {
+      for (const relation of closure.physicalRelations) {
+        const path = sourcePath.get(
+          structuredKey([product.productId, relation.declarationPath]),
+        );
+        if (path === undefined) continue;
+        const relations = physicalRelationsBySource.get(path) ?? [];
+        relations.push(relation);
+        physicalRelationsBySource.set(path, relations);
+      }
+    }
+  }
+  const isZeroOwnerPhysicalRelationDiagnostic = (
+    diagnostic: TypeScript.Diagnostic,
+  ): boolean => {
+    if (
+      diagnostic.file === undefined ||
+      diagnostic.start === undefined
+    ) {
+      return false;
+    }
+    const specifierNode = diagnosticModuleSpecifierNode(ts, diagnostic);
+    if (specifierNode === null) return false;
+    const sourceStart = specifierNode.getStart(diagnostic.file);
+    const sourceEnd = specifierNode.getEnd();
+    const matches = (
+      physicalRelationsBySource.get(
+        posix.normalize(diagnostic.file.fileName),
+      ) ?? []
+    ).filter((relation) =>
+      relation.moduleSpecifier === specifierNode.text &&
+      relation.sourceStart === sourceStart &&
+      relation.sourceEnd === sourceEnd
+    );
+    return matches.length > 0 && matches.every((relation) =>
+      !selectorPhysicalRelationRefs.has(relation.physicalRelationRef)
+    );
+  };
   const program = ts.createProgram({
     rootNames: [...rootPath.values()].sort(),
     options: basis.options,
@@ -1723,12 +1998,26 @@ export function linkNativeContractSet(
     ...program.getConfigFileParsingDiagnostics(),
     ...program.getOptionsDiagnostics(),
     ...program.getSyntacticDiagnostics(),
-    ...program.getSemanticDiagnostics(),
+    ...program.getSemanticDiagnostics().filter(
+      (diagnostic) => !isZeroOwnerPhysicalRelationDiagnostic(diagnostic),
+    ),
   ];
   if (diagnostics.length > 0) {
+    const diagnostic = diagnostics[0]!;
+    const location = diagnostic.file !== undefined && diagnostic.start !== undefined
+      ? (() => {
+          const position = diagnostic.file!.getLineAndCharacterOfPosition(
+            diagnostic.start!,
+          );
+          return `${diagnostic.file!.fileName}:${position.line + 1}:${position.character + 1} `;
+        })()
+      : "";
     return linkedRefusal(
       "incompatible_dependency",
-      "linked native declaration closure has a compiler diagnostic",
+      `linked native declaration closure has ${location}TS${diagnostic.code}: ${ts.flattenDiagnosticMessageText(
+        diagnostic.messageText,
+        "\n",
+      )}`,
     );
   }
   const checker = program.getTypeChecker();
@@ -1736,7 +2025,9 @@ export function linkNativeContractSet(
     product: NativeLinkProduct,
     packageExportPath: string,
   ): ReadonlyMap<string, TypeScript.Symbol> | null => {
-    const path = rootPath.get(`${product.productId}\0${packageExportPath}`);
+    const path = rootPath.get(
+      structuredKey([product.productId, packageExportPath]),
+    );
     if (path === undefined) return null;
     const source = program.getSourceFile(path);
     const symbol = source === undefined
@@ -1767,15 +2058,15 @@ export function linkNativeContractSet(
   };
   const relationFor = (
     product: NativeLinkProduct,
-    external: NativeExternalOccurrence,
+    external: PhysicalDeclarationRelation,
   ): TypeScript.Node | null => {
     const path = sourcePath.get(
-      `${product.productId}\0${external.declarationPath}`,
+      structuredKey([product.productId, external.declarationPath]),
     );
     const source = path === undefined ? undefined : program.getSourceFile(path);
     if (source === undefined) return null;
     return ancestorOfKind(
-      nodeAtPosition(source, external.sourceOffset),
+      nodeAtPosition(source, external.sourceStart),
       (candidate): candidate is TypeScript.ImportDeclaration |
         TypeScript.ExportDeclaration |
         TypeScript.ImportEqualsDeclaration |
@@ -1788,9 +2079,24 @@ export function linkNativeContractSet(
   };
   const isTypeOnlyRelation = (
     relation: TypeScript.Node | null,
-    external: NativeExternalOccurrence,
+    external: PhysicalDeclarationRelation,
   ): boolean => {
-    if (relation === null) return external.selectorKind === "all";
+    const exposedName = external.selection.kind === "name"
+      ? external.selection.exposedName
+      : null;
+    if (relation === null) {
+      if (external.origin.kind === "import_type_expression") {
+        return external.origin.operator === "type";
+      }
+      if (
+        external.origin.kind === "import_declaration" ||
+        external.origin.kind === "export_declaration"
+      ) {
+        return external.origin.declarationTypeOnly ||
+          external.origin.specifierTypeOnly;
+      }
+      return external.origin.kind === "type_reference_directive";
+    }
     if (ts.isImportTypeNode(relation)) return !relation.isTypeOf;
     if (ts.isImportEqualsDeclaration(relation)) return false;
     if (ts.isImportDeclaration(relation)) {
@@ -1798,11 +2104,12 @@ export function linkNativeContractSet(
       if (clause?.isTypeOnly === true) return true;
       if (
         clause?.namedBindings !== undefined &&
-        ts.isNamedImports(clause.namedBindings)
+        ts.isNamedImports(clause.namedBindings) &&
+        exposedName !== null
       ) {
         return clause.namedBindings.elements.some(
           (element) =>
-            element.name.text === external.visibleName &&
+            element.name.text === exposedName &&
             element.isTypeOnly,
         );
       }
@@ -1811,35 +2118,299 @@ export function linkNativeContractSet(
     if (!ts.isExportDeclaration(relation)) return false;
     if (relation.isTypeOnly) return true;
     return relation.exportClause !== undefined &&
-        ts.isNamedExports(relation.exportClause)
+        ts.isNamedExports(relation.exportClause) &&
+        exposedName !== null
       ? relation.exportClause.elements.some(
         (element) =>
-          element.name.text === external.visibleName &&
+          element.name.text === exposedName &&
           element.isTypeOnly,
       )
       : false;
   };
 
+  const sourceWitnessFor = (
+    selector: ContractIndexedPendingExternalSelector,
+    relation: PhysicalDeclarationRelation,
+  ): CanonicalSourceWitness => {
+    const body = {
+      selectorRef: selector.selectorRef,
+      physicalRelationRef: relation.physicalRelationRef,
+      declarationPath: relation.declarationPath,
+      declarationDigest: relation.declarationDigest,
+      sourceStart: relation.sourceStart,
+      sourceEnd: relation.sourceEnd,
+      origin: relation.origin,
+      selection: relation.selection,
+    } as const;
+    return {
+      witnessDigest: sha256Canonical(body as unknown as JsonValue),
+      ...body,
+    };
+  };
+  const semanticUseAt = (
+    node: TypeScript.Node,
+  ): ResolvedSemanticSelection["semanticUse"] => {
+    let current: TypeScript.Node | undefined = node;
+    while (current !== undefined && !ts.isSourceFile(current)) {
+      if (ts.isTypeQueryNode(current)) return "type_query";
+      if (ts.isImportTypeNode(current)) {
+        return current.isTypeOf ? "type_query" : "type_reference";
+      }
+      if (ts.isTypeNode(current)) return "type_reference";
+      current = current.parent;
+    }
+    return "value_reference";
+  };
+  const relationBindingIdentifier = (
+    relation: TypeScript.Node | null,
+    selector: ContractIndexedPendingExternalSelector,
+  ): TypeScript.Node | null => {
+    if (relation === null) return null;
+    const exposedName = selector.selection.kind === "name" ||
+        selector.selection.kind === "namespace"
+      ? selector.selection.exposedName
+      : null;
+    if (exposedName === null) return null;
+    if (ts.isImportDeclaration(relation)) {
+      const clause = relation.importClause;
+      if (clause?.name?.text === exposedName) return clause.name;
+      const bindings = clause?.namedBindings;
+      if (bindings !== undefined && ts.isNamespaceImport(bindings)) {
+        return bindings.name.text === exposedName ? bindings.name : null;
+      }
+      if (bindings !== undefined && ts.isNamedImports(bindings)) {
+        return bindings.elements.find(
+          (element) => element.name.text === exposedName,
+        )?.name ?? null;
+      }
+    }
+    if (ts.isExportDeclaration(relation)) {
+      const clause = relation.exportClause;
+      if (clause !== undefined && ts.isNamespaceExport(clause)) {
+        return clause.name.text === exposedName ? clause.name : null;
+      }
+      if (clause !== undefined && ts.isNamedExports(clause)) {
+        return clause.elements.find(
+          (element) => element.name.text === exposedName,
+        )?.name ?? null;
+      }
+    }
+    if (ts.isImportEqualsDeclaration(relation)) {
+      return relation.name.text === exposedName ? relation.name : null;
+    }
+    return null;
+  };
+  const accessPath = (
+    node: TypeScript.Node,
+  ): readonly TypeScript.Identifier[] | null => {
+    if (ts.isIdentifier(node)) return [node];
+    if (ts.isQualifiedName(node)) {
+      const left = accessPath(node.left);
+      return left === null || !ts.isIdentifier(node.right)
+        ? null
+        : [...left, node.right];
+    }
+    if (ts.isPropertyAccessExpression(node)) {
+      const left = accessPath(node.expression);
+      return left === null || !ts.isIdentifier(node.name)
+        ? null
+        : [...left, node.name];
+    }
+    return null;
+  };
+  const semanticUsesFor = (
+    sourceSymbol: TypeScript.Symbol,
+    targetSymbol: TypeScript.Symbol,
+    targetName: string,
+    relation: TypeScript.Node | null,
+    relationEvidence: PhysicalDeclarationRelation,
+    selector: ContractIndexedPendingExternalSelector,
+  ): readonly ResolvedSemanticSelection["semanticUse"][] => {
+    if (
+      selector.origin.kind === "import_type_expression" &&
+      selector.origin.operator === "typeof"
+    ) {
+      return ["type_query"];
+    }
+    if (selector.origin.kind === "import_type_expression") {
+      return ["type_reference"];
+    }
+    const bindingIdentifier = relationBindingIdentifier(relation, selector);
+    const bindingSymbol = bindingIdentifier === null
+      ? undefined
+      : checker.getSymbolAtLocation(bindingIdentifier);
+    const uses = new Set<ResolvedSemanticSelection["semanticUse"]>();
+    for (const declaration of sourceSymbol.declarations ?? []) {
+      const visit = (node: TypeScript.Node): void => {
+        if (ts.isIdentifier(node) && bindingSymbol !== undefined) {
+          const referenced = checker.getSymbolAtLocation(node);
+          if (referenced === bindingSymbol) uses.add(semanticUseAt(node));
+        }
+        if (
+          selector.selection.kind === "namespace" ||
+          selector.origin.kind === "import_equals_declaration"
+        ) {
+          const path = accessPath(node);
+          if (
+            path !== null &&
+            path.length >= 2 &&
+            path[1]!.text === targetName &&
+            bindingSymbol !== undefined &&
+            checker.getSymbolAtLocation(path[0]!) === bindingSymbol
+          ) {
+            uses.add(semanticUseAt(node));
+          }
+        }
+        node.forEachChild(visit);
+      };
+      visit(declaration);
+    }
+    if (uses.size === 0) {
+      if (
+        selector.selection.kind === "namespace" ||
+        selector.origin.kind === "import_equals_declaration"
+      ) {
+        uses.add("namespace_reference");
+      } else if (isTypeOnlyRelation(relation, relationEvidence)) {
+        uses.add("type_reference");
+      } else {
+        const target = unaliasedSymbol(targetSymbol);
+        uses.add(
+          (target.flags & ts.SymbolFlags.Value) !== 0
+            ? "value_reference"
+            : "type_reference",
+        );
+      }
+    }
+    return [...uses].sort(compareText);
+  };
+  const relationDerivation = (
+    selector: ContractIndexedPendingExternalSelector,
+  ): ResolvedSemanticSelection["derivation"] => {
+    if (selector.origin.kind === "import_equals_declaration") {
+      return "import_equals_member";
+    }
+    if (selector.origin.kind === "import_type_expression") {
+      return "import_type_member";
+    }
+    if (selector.selection.kind === "namespace") return "namespace_member";
+    if (selector.selection.kind === "all") return "star_member";
+    return "named";
+  };
+  const boundaryWitnessesFor = (
+    target: NativeLinkProduct,
+    symbol: TypeScript.Symbol,
+    exportedName: string,
+  ): CanonicalCheckerTargetIdentity["boundaryDeclarationWitnesses"] => {
+    const inventory = new Map(
+      target.evidence.closures.flatMap((closure) =>
+        closure.declarationInventory.map((entry) => [
+          entry.declarationPath,
+          entry.declarationDigest,
+        ] as const)
+      ),
+    );
+    const rows = (symbol.declarations ?? []).flatMap((declaration) => {
+      const virtualPath = posix.normalize(declaration.getSourceFile().fileName);
+      if (sourceOwner.get(virtualPath) !== target) return [];
+      const declarationPath = target.evidence.sources.find(
+        (source) =>
+          sourcePath.get(
+            structuredKey([target.productId, source.declarationPath]),
+          ) === virtualPath,
+      )?.declarationPath;
+      if (declarationPath === undefined) return [];
+      const source = target.evidence.sources.find(
+        (candidate) => candidate.declarationPath === declarationPath,
+      );
+      if (
+        source === undefined ||
+        inventory.get(declarationPath) !== source.declarationDigest
+      ) {
+        return [];
+      }
+      return [{
+        declarationPath,
+        declarationDigest: source.declarationDigest,
+        declarationKind: ts.SyntaxKind[declaration.kind] ?? "Unknown",
+        exportedName,
+      }];
+    });
+    const unique = new Map(
+      rows.map((row) => [
+        sha256Canonical(row as unknown as JsonValue),
+        row,
+      ]),
+    );
+    return [...unique.values()].sort((left, right) =>
+      compareStructuredFields(
+        [
+          left.declarationPath,
+          left.exportedName,
+          left.declarationKind,
+        ],
+        [
+          right.declarationPath,
+          right.exportedName,
+          right.declarationKind,
+        ],
+      )
+    );
+  };
+  type OccurrenceCandidate = Readonly<{
+    source: NativeLinkProduct;
+    sourceContract: NativeContractEvidence;
+    selector: ContractIndexedPendingExternalSelector;
+    witness: CanonicalSourceWitness;
+    semanticSelection: ResolvedSemanticSelection;
+    checkerTarget: CanonicalCheckerTargetIdentity;
+    targetContract: ProductPublicContract;
+    dependency: ProductDeclaredDependency;
+    occurrenceKey: Sha256Digest;
+  }>;
+  const occurrenceCandidates: OccurrenceCandidate[] = [];
+  const selectorOccurrenceKeys = new Map<string, Set<Sha256Digest>>();
+  const selectorDispositions: PendingSelectorDisposition[] = [];
   const bindings: NativeContractClosureRow[] = [];
   for (const source of products) {
-    for (const closure of source.evidence.closures) {
-      for (const external of closure.externalOccurrences) {
-        const sourceContracts = source.evidence.contracts.filter(
-          (contract) =>
-            contract.packageExportPath === closure.packageExportPath &&
-            contract.occurrenceRefs.includes(external.occurrenceRef),
+    for (const sourceContract of source.evidence.contracts) {
+      const closure = contractRoot(source, sourceContract.packageExportPath);
+      const sourceSymbols = exportSymbolsFor(
+        source,
+        sourceContract.packageExportPath,
+      );
+      const sourceSymbol = sourceSymbols?.get(sourceContract.namedSymbol);
+      if (
+        closure === null ||
+        sourceSymbols === null ||
+        sourceSymbol === undefined
+      ) {
+        return linkedRefusal(
+          "incompatible_dependency",
+          `${sourceContract.contractId} does not resolve its exact named symbol`,
         );
-        if (sourceContracts.length === 0) {
+      }
+      const physicalByRef = new Map(
+        closure.physicalRelations.map((relation) => [
+          relation.physicalRelationRef,
+          relation,
+        ]),
+      );
+      for (const selector of sourceContract.pendingSelectors) {
+        const relationEvidence = physicalByRef.get(selector.physicalRelationRef);
+        if (relationEvidence === undefined) {
           return linkedRefusal(
-            "unresolved_dependency",
-            `${external.occurrenceRef} has no exact owning source contract`,
+            "incompatible_dependency",
+            `${selector.selectorRef} has no exact physical relation`,
           );
         }
-        const coordinate = packageImportCoordinate(external.moduleSpecifier);
+        const coordinate = packageImportCoordinate(
+          selector.externalModuleSpecifier,
+        );
         if (coordinate === null) {
           return linkedRefusal(
             "incompatible_dependency",
-            `external declaration coordinate ${external.moduleSpecifier} is invalid`,
+            `${selector.externalModuleSpecifier} is not a package coordinate`,
           );
         }
         const selected = directTarget(source, coordinate.packageName);
@@ -1849,75 +2420,87 @@ export function linkNativeContractSet(
           target,
           coordinate.packageExportPath,
         );
-        if (targetRoot === null) {
-          return linkedRefusal(
-            "unresolved_dependency",
-            `${external.moduleSpecifier} has no exact target declaration root`,
-          );
-        }
         const targetSymbols = exportSymbolsFor(
           target,
           coordinate.packageExportPath,
         );
-        if (targetSymbols === null) {
+        if (targetRoot === null || targetSymbols === null) {
           return linkedRefusal(
             "unresolved_dependency",
-            `${external.moduleSpecifier} exposes no checker-visible module`,
+            `${selector.externalModuleSpecifier} has no exact linked declaration root`,
           );
         }
-        const relation = relationFor(source, external);
-        const typeOnly = isTypeOnlyRelation(relation, external);
-        let visibleSymbols: readonly [string, TypeScript.Symbol][];
-        if (external.selectorKind === "name") {
-          const selectedName = external.selectedName!;
-          const selectedSymbol = targetSymbols.get(selectedName);
-          visibleSymbols = selectedSymbol === undefined
+        const relation = relationFor(source, relationEvidence);
+        let selectedSymbols: readonly [string, TypeScript.Symbol][] = [];
+        if (selector.selection.kind === "name") {
+          const symbol = targetSymbols.get(selector.selection.targetName);
+          selectedSymbols = symbol === undefined
             ? []
-            : [[selectedName, selectedSymbol]];
+            : [[selector.selection.targetName, symbol]];
+        } else if (selector.selection.kind === "all") {
+          const symbol = targetSymbols.get(sourceContract.namedSymbol);
+          const sourceExport = sourceSymbols.get(sourceContract.namedSymbol);
+          selectedSymbols =
+            symbol !== undefined &&
+              sourceExport !== undefined &&
+              unaliasedSymbol(sourceExport) === unaliasedSymbol(symbol)
+              ? [[sourceContract.namedSymbol, symbol]]
+              : [];
         } else {
-          visibleSymbols = [...targetSymbols.entries()].filter(
-            ([name, symbol]) =>
-              (external.selectorKind !== "all" || name !== "default") &&
-              (
-                !typeOnly ||
-                (unaliasedSymbol(symbol).flags & ts.SymbolFlags.Type) !== 0
-              ),
-          );
-          if (
-            external.selectorKind === "all" &&
-            relation !== null &&
-            ts.isExportDeclaration(relation)
-          ) {
-            const sourceSymbols = exportSymbolsFor(
-              source,
-              closure.packageExportPath,
-            );
-            visibleSymbols = sourceSymbols === null
-              ? []
-              : visibleSymbols.filter(([name, targetSymbol]) => {
-                const sourceSymbol = sourceSymbols.get(name);
-                return sourceSymbol !== undefined &&
-                  unaliasedSymbol(sourceSymbol) ===
-                    unaliasedSymbol(targetSymbol);
-              });
+          const names = new Set<string>();
+          const exposedName = selector.selection.kind === "namespace"
+            ? selector.selection.exposedName
+            : null;
+          for (const declaration of sourceSymbol.declarations ?? []) {
+            const visit = (node: TypeScript.Node): void => {
+              if (
+                exposedName !== null &&
+                (
+                  ts.isQualifiedName(node) ||
+                  ts.isPropertyAccessExpression(node)
+                )
+              ) {
+                const left = ts.isQualifiedName(node) ? node.left : node.expression;
+                const right = ts.isQualifiedName(node) ? node.right : node.name;
+                if (
+                  ts.isIdentifier(left) &&
+                  left.text === exposedName
+                ) {
+                  names.add(right.text);
+                }
+              }
+              node.forEachChild(visit);
+            };
+            visit(declaration);
           }
+          if (
+            names.size === 0 &&
+            unaliasedSymbol(sourceSymbol).flags & ts.SymbolFlags.Module
+          ) {
+            for (const name of targetSymbols.keys()) names.add(name);
+          }
+          selectedSymbols = [...names].sort(compareText).flatMap((name) => {
+            const symbol = targetSymbols.get(name);
+            return symbol === undefined ? [] : [[name, symbol] as const];
+          });
         }
-        if (typeOnly && external.selectorKind !== "name") {
-          visibleSymbols = visibleSymbols.filter(
-            ([, symbol]) =>
-              (unaliasedSymbol(symbol).flags & ts.SymbolFlags.Type) !== 0,
-          );
+        if (selectedSymbols.length === 0) {
+          selectorDispositions.push({
+            kind: "no_external_contribution",
+            selectorRef: selector.selectorRef,
+            reason: selector.selection.kind === "all"
+              ? "locally_shadowed"
+              : "not_in_source_contract_meaning",
+            checkerWitnessDigest: sha256Canonical({
+              selectorRef: selector.selectorRef,
+              sourceContractRef: sourceContract.contractId,
+              disposition: "no_external_contribution",
+            }),
+          });
+          continue;
         }
-        const visibleNames = visibleSymbols.map(([name]) => name).sort(
-          compareText,
-        );
-        if (visibleNames.length === 0) {
-          return linkedRefusal(
-            "unresolved_dependency",
-            `${external.moduleSpecifier} exposes no checker-visible symbol`,
-          );
-        }
-        for (const selectedName of visibleNames) {
+        const occurrenceKeys = new Set<Sha256Digest>();
+        for (const [targetName, targetSymbol] of selectedSymbols) {
           const targetContracts = target.publicContracts.filter(
             (contract) =>
               dependency.requiredContractRefs.includes(contract.contractId) &&
@@ -1925,47 +2508,92 @@ export function linkNativeContractSet(
                 coordinate.packageName &&
               contract.nativeTypedLocator.packageExportPath ===
                 coordinate.packageExportPath &&
-              contract.nativeTypedLocator.namedSymbol === selectedName,
+              contract.nativeTypedLocator.namedSymbol === targetName,
           );
-          if (targetContracts.length === 0) {
+          if (targetContracts.length !== 1) {
+            return linkedRefusal(
+              targetContracts.length === 0
+                ? "unresolved_dependency"
+                : "ambiguous_dependency",
+              `${selector.externalModuleSpecifier} symbol ${targetName} requires one direct target contract`,
+            );
+          }
+          const semanticUses = semanticUsesFor(
+            sourceSymbol,
+            targetSymbol,
+            targetName,
+            relation,
+            relationEvidence,
+            selector,
+          );
+          const boundaryDeclarationWitnesses = boundaryWitnessesFor(
+            target,
+            targetSymbol,
+            targetName,
+          );
+          if (boundaryDeclarationWitnesses.length === 0) {
             return linkedRefusal(
               "unresolved_dependency",
-              `${external.moduleSpecifier} symbol ${selectedName} lacks direct required-contract coverage`,
+              `${selector.externalModuleSpecifier} symbol ${targetName} has no target-owned boundary declaration`,
             );
           }
-          if (targetContracts.length > 1) {
-            return linkedRefusal(
-              "ambiguous_dependency",
-              `${external.moduleSpecifier} symbol ${selectedName} has ambiguous required-contract coverage`,
-            );
-          }
-          if (
-            !targetSymbols.has(selectedName)
-          ) {
-            return linkedRefusal(
-              "incompatible_dependency",
-              `${external.moduleSpecifier} contract names a missing checker symbol ${selectedName}`,
-            );
-          }
-          for (const sourceContract of sourceContracts) {
-            bindings.push({
-              kind: "external_binding",
+          for (const semanticUse of semanticUses) {
+            const requiredSymbolSpace =
+              semanticUse === "type_query" ||
+                semanticUse === "value_reference"
+                ? "value"
+                : semanticUse === "namespace_reference"
+                ? "namespace"
+                : "type";
+            const semanticSelection: ResolvedSemanticSelection = {
+              derivation: relationDerivation(selector),
+              targetExportedSymbol: targetName,
+              exposedMemberPath: selector.selection.kind === "namespace"
+                ? [selector.selection.exposedName, targetName]
+                : [selector.selection.kind === "name"
+                  ? selector.selection.exposedName
+                  : targetName],
+              semanticUse,
+              requiredSymbolSpace,
+            };
+            const checkerTargetBody = {
+              targetProductContentDigest: target.productContentDigest,
+              targetPackageName: coordinate.packageName,
+              targetPackageExportPath: coordinate.packageExportPath,
+              targetExportedSymbol: targetName,
+              requiredSymbolSpace,
+              boundaryDeclarationWitnesses,
+            } as const;
+            const checkerTarget: CanonicalCheckerTargetIdentity = {
+              ...checkerTargetBody,
+              targetIdentityDigest: sha256Canonical(
+                checkerTargetBody as unknown as JsonValue,
+              ),
+            };
+            const occurrenceKey = sha256Canonical({
               sourceProductContentDigest: source.productContentDigest,
               sourceContractRef: sourceContract.contractId,
-              sourcePackageExportPath: closure.packageExportPath,
-              sourceDeclarationPath: external.declarationPath,
-              sourceDeclarationDigest: external.declarationDigest,
-              occurrenceRef: external.occurrenceRef,
-              moduleSpecifier: external.moduleSpecifier,
-              selectorKind: external.selectorKind,
-              selectedName,
-              targetProductContentDigest: target.productContentDigest,
-              targetContractRef: targetContracts[0]!.contractId,
-              targetPackageExportPath: coordinate.packageExportPath,
-              targetNamedSymbol: selectedName,
+              sourceContractDigest: sourceContract.contractDigest,
+              sourcePackageExportPath: sourceContract.packageExportPath,
+              sourceNamedSymbol: sourceContract.namedSymbol,
+              semanticSelection,
+              checkerTarget,
+            } as unknown as JsonValue);
+            occurrenceKeys.add(occurrenceKey);
+            occurrenceCandidates.push({
+              source,
+              sourceContract,
+              selector,
+              witness: sourceWitnessFor(selector, relationEvidence),
+              semanticSelection,
+              checkerTarget,
+              targetContract: targetContracts[0]!,
+              dependency,
+              occurrenceKey,
             });
           }
         }
+        selectorOccurrenceKeys.set(selector.selectorRef, occurrenceKeys);
       }
     }
     for (const contract of source.evidence.contracts) {
@@ -2003,6 +2631,131 @@ export function linkNativeContractSet(
     }
   }
 
+  const occurrenceGroups = new Map<Sha256Digest, OccurrenceCandidate[]>();
+  for (const candidate of occurrenceCandidates) {
+    const group = occurrenceGroups.get(candidate.occurrenceKey) ?? [];
+    group.push(candidate);
+    occurrenceGroups.set(candidate.occurrenceKey, group);
+  }
+  const occurrences: ContractExternalOccurrence[] = [];
+  const occurrenceRefByKey = new Map<Sha256Digest, string>();
+  for (
+    const [occurrenceKey, candidates] of
+      [...occurrenceGroups.entries()].sort(([left], [right]) =>
+        compareText(left, right)
+      )
+  ) {
+    const representative = candidates[0]!;
+    const sourceWitnesses = [...new Map(
+      candidates.map((candidate) => [
+        candidate.witness.witnessDigest,
+        candidate.witness,
+      ]),
+    ).values()].sort((left, right) =>
+      compareText(left.witnessDigest, right.witnessDigest)
+    );
+    const occurrenceBody = {
+      sourceProductContentDigest:
+        representative.source.productContentDigest,
+      sourceContractRef: representative.sourceContract.contractId,
+      sourceContractDigest: representative.sourceContract.contractDigest,
+      sourcePackageExportPath:
+        representative.sourceContract.packageExportPath,
+      sourceNamedSymbol: representative.sourceContract.namedSymbol,
+      sourceWitnesses,
+      semanticSelection: representative.semanticSelection,
+      checkerTarget: representative.checkerTarget,
+    } as const;
+    const occurrenceRef = sha256Canonical(
+      occurrenceBody as unknown as JsonValue,
+    );
+    const targetCoordinates = new Set(
+      candidates.map((candidate) =>
+        structuredKey([
+          candidate.targetContract.contractId,
+          candidate.targetContract.contractDigest,
+          sha256Canonical(candidate.dependency as unknown as JsonValue),
+        ])
+      ),
+    );
+    if (targetCoordinates.size !== 1) {
+      return linkedRefusal(
+        "ambiguous_dependency",
+        `${occurrenceRef} has multiple direct target contracts`,
+      );
+    }
+    occurrences.push({ occurrenceRef, ...occurrenceBody });
+    occurrenceRefByKey.set(occurrenceKey, occurrenceRef);
+    bindings.push({
+      kind: "external_binding",
+      sourceOccurrenceRef: occurrenceRef,
+      directDependencyEdge: representative.dependency,
+      targetProductContentDigest:
+        representative.checkerTarget.targetProductContentDigest,
+      targetContractRef: representative.targetContract.contractId,
+      targetContractDigest: representative.targetContract.contractDigest,
+      targetPackageExportPath:
+        representative.targetContract.nativeTypedLocator!.packageExportPath,
+      targetNamedSymbol:
+        representative.targetContract.nativeTypedLocator!.namedSymbol,
+      checkerTarget: representative.checkerTarget,
+    });
+  }
+
+  for (
+    const [selectorRef, occurrenceKeys] of
+      [...selectorOccurrenceKeys.entries()].sort(([left], [right]) =>
+        compareText(left, right)
+      )
+  ) {
+    const occurrenceRefs = [...occurrenceKeys]
+      .map((key) => occurrenceRefByKey.get(key))
+      .filter((value): value is string => value !== undefined)
+      .sort(compareText);
+    if (occurrenceRefs.length !== occurrenceKeys.size) {
+      return linkedRefusal(
+        "incompatible_dependency",
+        `${selectorRef} does not resolve its complete occurrence set`,
+      );
+    }
+    selectorDispositions.push({
+      kind: "semantic_occurrences",
+      selectorRef,
+      occurrenceRefs,
+    });
+  }
+  selectorDispositions.sort((left, right) =>
+    compareText(left.selectorRef, right.selectorRef)
+  );
+  occurrences.sort((left, right) =>
+    compareText(left.occurrenceRef, right.occurrenceRef)
+  );
+  const pendingSelectorRefs = products.flatMap((product) =>
+    product.evidence.contracts.flatMap((contract) =>
+      contract.pendingSelectors.map((selector) => selector.selectorRef)
+    )
+  );
+  if (
+    new Set(pendingSelectorRefs).size !== pendingSelectorRefs.length ||
+    selectorDispositions.length !== pendingSelectorRefs.length ||
+    new Set(selectorDispositions.map((row) => row.selectorRef)).size !==
+      selectorDispositions.length ||
+    occurrences.length !==
+      bindings.filter((row) => row.kind === "external_binding").length ||
+    new Set(occurrences.map((row) => row.occurrenceRef)).size !==
+      occurrences.length ||
+    new Set(
+      bindings.flatMap((row) =>
+        row.kind === "external_binding" ? [row.sourceOccurrenceRef] : []
+      ),
+    ).size !== occurrences.length
+  ) {
+    return linkedRefusal(
+      "incompatible_dependency",
+      "native selector, occurrence, and binding conservation failed",
+    );
+  }
+
   for (const sourceFile of program.getSourceFiles()) {
     const owner = sourceOwner.get(posix.normalize(sourceFile.fileName));
     if (owner === undefined) continue;
@@ -2031,20 +2784,46 @@ export function linkNativeContractSet(
   }
 
   bindings.sort((left, right) =>
-    compareText(
+    compareStructuredFields(
       left.kind === "external_binding"
-        ? `external\0${left.sourceProductContentDigest}\0${left.sourceContractRef}\0${left.occurrenceRef}\0${left.targetContractRef}\0${left.targetNamedSymbol}`
-        : `symbol\0${left.productContentDigest}\0${left.contractRef}\0${left.packageExportPath}\0${left.namedSymbol}`,
+        ? [
+            "external",
+            left.sourceOccurrenceRef,
+            left.targetContractRef,
+            left.targetNamedSymbol,
+          ]
+        : [
+            "symbol",
+            left.productContentDigest,
+            left.contractRef,
+            left.packageExportPath,
+            left.namedSymbol,
+          ],
       right.kind === "external_binding"
-        ? `external\0${right.sourceProductContentDigest}\0${right.sourceContractRef}\0${right.occurrenceRef}\0${right.targetContractRef}\0${right.targetNamedSymbol}`
-        : `symbol\0${right.productContentDigest}\0${right.contractRef}\0${right.packageExportPath}\0${right.namedSymbol}`,
+        ? [
+            "external",
+            right.sourceOccurrenceRef,
+            right.targetContractRef,
+            right.targetNamedSymbol,
+          ]
+        : [
+            "symbol",
+            right.productContentDigest,
+            right.contractRef,
+            right.packageExportPath,
+            right.namedSymbol,
+          ],
     )
   );
   return {
     kind: "linked",
     bindings,
+    selectorDispositions,
+    occurrences,
     nativeContractClosureDigest: sha256Canonical({
       toolchainProductContentDigest,
+      selectorDispositions,
+      occurrences,
       bindings,
     } as unknown as JsonValue),
   };
@@ -2053,12 +2832,14 @@ export function linkNativeContractSet(
 export async function declarationExportSymbols(
   rootPath: string,
   declarationSources: readonly DeclarationSource[],
+  sourceProductContentDigest: Sha256Digest,
 ): Promise<ReadonlySet<string> | null> {
   const closures = await resolveNativeDeclarationClosures({
     packageName: "@abiogenesis/declaration-probe",
     packageType: "commonjs",
     packageExports: { ".": { types: `./${rootPath}` } },
     declarationSources,
+    sourceProductContentDigest,
   });
   return closures === null || closures.length !== 1
     ? null

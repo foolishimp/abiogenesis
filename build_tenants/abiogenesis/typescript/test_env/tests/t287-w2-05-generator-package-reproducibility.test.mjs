@@ -94,6 +94,7 @@ async function exactPublicDeclarationClosure(manifest, declarations) {
     packageType: packageJson.type === "module" ? "module" : "commonjs",
     packageExports: packageJson.exports,
     declarationSources,
+    sourceProductContentDigest: manifest.productContentDigest,
   });
   assert.ok(closures, "generated declarations must form exact export closures");
   const publicClosures = closures.filter(

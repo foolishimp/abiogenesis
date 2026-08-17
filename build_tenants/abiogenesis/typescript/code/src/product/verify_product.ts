@@ -28,6 +28,7 @@ import type {
   PublicDefinitionKeyLike,
 } from "../shared/public_invocation.js";
 import {
+  contractIndexedPendingSelectors,
   resolveNativeDeclarationClosures,
   type NativeProductDeclarationEvidence,
 } from "./declaration_exports.js";
@@ -158,6 +159,71 @@ function isNativeDeclarationEvidence(
     packageName: string;
   }>,
 ): value is NativeProductDeclarationEvidence {
+  const isSafeOffset = (candidate: unknown): candidate is number =>
+    typeof candidate === "number" &&
+    Number.isSafeInteger(candidate) &&
+    candidate >= 0;
+  const isOrigin = (candidate: unknown): boolean => {
+    if (!isRecord(candidate) || !isNonblankString(candidate.kind)) return false;
+    if (candidate.kind === "import_declaration") {
+      return hasExactKeys(candidate, [
+        "clause",
+        "declarationTypeOnly",
+        "kind",
+        "specifierTypeOnly",
+      ]) &&
+        (
+          candidate.clause === "side_effect" ||
+          candidate.clause === "default" ||
+          candidate.clause === "named" ||
+          candidate.clause === "namespace"
+        ) &&
+        typeof candidate.declarationTypeOnly === "boolean" &&
+        typeof candidate.specifierTypeOnly === "boolean";
+    }
+    if (candidate.kind === "export_declaration") {
+      return hasExactKeys(candidate, [
+        "clause",
+        "declarationTypeOnly",
+        "kind",
+        "specifierTypeOnly",
+      ]) &&
+        (
+          candidate.clause === "named" ||
+          candidate.clause === "star" ||
+          candidate.clause === "namespace"
+        ) &&
+        typeof candidate.declarationTypeOnly === "boolean" &&
+        typeof candidate.specifierTypeOnly === "boolean";
+    }
+    if (candidate.kind === "import_type_expression") {
+      return hasExactKeys(candidate, ["kind", "operator"]) &&
+        (candidate.operator === "type" || candidate.operator === "typeof");
+    }
+    return (
+      candidate.kind === "import_equals_declaration" ||
+      candidate.kind === "type_reference_directive" ||
+      candidate.kind === "module_augmentation"
+    ) && hasExactKeys(candidate, ["kind"]);
+  };
+  const isSelection = (candidate: unknown): boolean => {
+    if (!isRecord(candidate) || !isNonblankString(candidate.kind)) return false;
+    if (candidate.kind === "module" || candidate.kind === "all") {
+      return hasExactKeys(candidate, ["kind"]);
+    }
+    if (candidate.kind === "name") {
+      return hasExactKeys(candidate, [
+        "exposedName",
+        "kind",
+        "targetName",
+      ]) &&
+        isNonblankString(candidate.targetName) &&
+        isNonblankString(candidate.exposedName);
+    }
+    return candidate.kind === "namespace" &&
+      hasExactKeys(candidate, ["exposedName", "kind"]) &&
+      isNonblankString(candidate.exposedName);
+  };
   if (
     !isRecord(value) ||
     !hasExactKeys(value, [
@@ -179,6 +245,7 @@ function isNativeDeclarationEvidence(
   ) {
     return false;
   }
+
   const sources = value.sources as readonly unknown[];
   if (
     sources.some((source) =>
@@ -206,70 +273,265 @@ function isNativeDeclarationEvidence(
       return [row.declarationPath as string, row.declarationDigest];
     }),
   );
-  const closures = value.closures as readonly unknown[];
-  if (
-    closures.some((closure) => {
-      if (
-        !isRecord(closure) ||
-        !hasExactKeys(closure, [
-          "contributesGlobals",
-          "declarationInventory",
-          "declarationPath",
-          "exportedSymbolOccurrenceRefs",
-          "exportedSymbols",
-          "externalOccurrences",
-          "moduleAugmentations",
-          "packageExportPath",
-        ]) ||
-        !isNonblankString(closure.packageExportPath) ||
-        !isNonblankString(closure.declarationPath) ||
-        typeof closure.contributesGlobals !== "boolean" ||
-        !isUniqueStringArray(closure.exportedSymbols) ||
-        !isRecord(closure.exportedSymbolOccurrenceRefs) ||
-        !Array.isArray(closure.declarationInventory) ||
-        !Array.isArray(closure.externalOccurrences) ||
-        !Array.isArray(closure.moduleAugmentations)
-      ) return true;
-      return closure.declarationInventory.some((entry) =>
+
+  const closureByExport = new Map<string, Readonly<Record<string, unknown>>>();
+  for (const candidate of value.closures as readonly unknown[]) {
+    if (
+      !isRecord(candidate) ||
+      !hasExactKeys(candidate, [
+        "contributesGlobals",
+        "declarationInventory",
+        "declarationPath",
+        "exportedSymbolPhysicalRelationRefs",
+        "exportedSymbols",
+        "moduleAugmentations",
+        "packageExportPath",
+        "physicalRelations",
+      ]) ||
+      !isNonblankString(candidate.packageExportPath) ||
+      !isNonblankString(candidate.declarationPath) ||
+      typeof candidate.contributesGlobals !== "boolean" ||
+      !isUniqueStringArray(candidate.exportedSymbols) ||
+      !isRecord(candidate.exportedSymbolPhysicalRelationRefs) ||
+      !Array.isArray(candidate.declarationInventory) ||
+      !Array.isArray(candidate.physicalRelations) ||
+      !Array.isArray(candidate.moduleAugmentations) ||
+      closureByExport.has(candidate.packageExportPath)
+    ) {
+      return false;
+    }
+    const inventory = candidate.declarationInventory as readonly unknown[];
+    if (
+      inventory.some((entry) =>
         !isRecord(entry) ||
         !hasExactKeys(entry, [
           "declarationDigest",
           "declarationPath",
           "packageExportPath",
         ]) ||
-        entry.packageExportPath !== closure.packageExportPath ||
+        entry.packageExportPath !== candidate.packageExportPath ||
         !isNonblankString(entry.declarationPath) ||
         !isSha256Digest(entry.declarationDigest) ||
         sourceDigests.get(entry.declarationPath) !== entry.declarationDigest
-      );
-    }) ||
-    new Set(closures.map((closure) =>
-      (closure as Readonly<Record<string, unknown>>).packageExportPath
-    )).size !== closures.length
-  ) {
-    return false;
-  }
-  const contracts = value.contracts as readonly unknown[];
-  return contracts.every((contract) =>
-    isRecord(contract) &&
-    hasExactKeys(contract, [
-      "contractId",
-      "localDisposition",
-      "namedSymbol",
-      "occurrenceRefs",
-      "packageExportPath",
-    ]) &&
-    isNonblankString(contract.contractId) &&
-    isNonblankString(contract.packageExportPath) &&
-    isNonblankString(contract.namedSymbol) &&
-    (contract.localDisposition === "local" ||
-      contract.localDisposition === "pending_external") &&
-    isUniqueStringArray(contract.occurrenceRefs)
-  ) && new Set(contracts.map((contract) =>
-    (contract as Readonly<Record<string, unknown>>).contractId
-  )).size === contracts.length;
-}
+      ) ||
+      new Set(inventory.map((entry) =>
+        (entry as Readonly<Record<string, unknown>>).declarationPath
+      )).size !== inventory.length
+    ) {
+      return false;
+    }
 
+    const physicalRelations = new Map<string, Readonly<Record<string, unknown>>>();
+    for (const relationCandidate of candidate.physicalRelations) {
+      if (
+        !isRecord(relationCandidate) ||
+        !hasExactKeys(relationCandidate, [
+          "declarationDigest",
+          "declarationPath",
+          "moduleSpecifier",
+          "origin",
+          "physicalRelationDigest",
+          "physicalRelationRef",
+          "selection",
+          "sourceEnd",
+          "sourceProductContentDigest",
+          "sourceStart",
+        ]) ||
+        relationCandidate.sourceProductContentDigest !==
+          artifact.productContentDigest ||
+        !isNonblankString(relationCandidate.declarationPath) ||
+        sourceDigests.get(relationCandidate.declarationPath) !==
+          relationCandidate.declarationDigest ||
+        !isSha256Digest(relationCandidate.declarationDigest) ||
+        !isSafeOffset(relationCandidate.sourceStart) ||
+        !isSafeOffset(relationCandidate.sourceEnd) ||
+        relationCandidate.sourceEnd < relationCandidate.sourceStart ||
+        !isNonblankString(relationCandidate.moduleSpecifier) ||
+        !isOrigin(relationCandidate.origin) ||
+        !isSelection(relationCandidate.selection) ||
+        !isSha256Digest(relationCandidate.physicalRelationDigest) ||
+        !isNonblankString(relationCandidate.physicalRelationRef) ||
+        physicalRelations.has(relationCandidate.physicalRelationRef)
+      ) {
+        return false;
+      }
+      const physicalBody = {
+        sourceProductContentDigest: relationCandidate.sourceProductContentDigest,
+        declarationPath: relationCandidate.declarationPath,
+        declarationDigest: relationCandidate.declarationDigest,
+        sourceStart: relationCandidate.sourceStart,
+        sourceEnd: relationCandidate.sourceEnd,
+        moduleSpecifier: relationCandidate.moduleSpecifier,
+        origin: relationCandidate.origin,
+        selection: relationCandidate.selection,
+      };
+      const expectedDigest = sha256Canonical(
+        physicalBody as unknown as JsonValue,
+      );
+      if (
+        relationCandidate.physicalRelationDigest !== expectedDigest ||
+        relationCandidate.physicalRelationRef !==
+          `ts-relation://${expectedDigest.slice("sha256:".length)}`
+      ) {
+        return false;
+      }
+      physicalRelations.set(
+        relationCandidate.physicalRelationRef,
+        relationCandidate,
+      );
+    }
+
+    const exportedRefs = candidate.exportedSymbolPhysicalRelationRefs;
+    if (
+      canonicalJson(Object.keys(exportedRefs).sort()) !==
+        canonicalJson([...(candidate.exportedSymbols as readonly string[])].sort()) ||
+      Object.values(exportedRefs).some((refs) =>
+        !isUniqueStringArray(refs) ||
+        refs.some((ref) => !physicalRelations.has(ref))
+      )
+    ) {
+      return false;
+    }
+    if (
+      candidate.moduleAugmentations.some((augmentation) =>
+        !isRecord(augmentation) ||
+        !hasExactKeys(augmentation, [
+          "declarationPath",
+          "moduleSpecifier",
+          "packageExportPath",
+          "sourceEnd",
+          "sourceOffset",
+        ]) ||
+        augmentation.packageExportPath !== candidate.packageExportPath ||
+        !isNonblankString(augmentation.declarationPath) ||
+        !sourceDigests.has(augmentation.declarationPath) ||
+        !isSafeOffset(augmentation.sourceOffset) ||
+        !isSafeOffset(augmentation.sourceEnd) ||
+        augmentation.sourceEnd < augmentation.sourceOffset ||
+        !isNonblankString(augmentation.moduleSpecifier)
+      )
+    ) {
+      return false;
+    }
+    closureByExport.set(candidate.packageExportPath, candidate);
+  }
+
+  const contractIds = new Set<string>();
+  for (const contractCandidate of value.contracts as readonly unknown[]) {
+    if (
+      !isRecord(contractCandidate) ||
+      !hasExactKeys(contractCandidate, [
+        "contractDigest",
+        "contractId",
+        "localDisposition",
+        "namedSymbol",
+        "packageExportPath",
+        "pendingSelectors",
+      ]) ||
+      !isNonblankString(contractCandidate.contractId) ||
+      !isSha256Digest(contractCandidate.contractDigest) ||
+      !isNonblankString(contractCandidate.packageExportPath) ||
+      !isNonblankString(contractCandidate.namedSymbol) ||
+      (
+        contractCandidate.localDisposition !== "local" &&
+        contractCandidate.localDisposition !== "pending_external"
+      ) ||
+      !Array.isArray(contractCandidate.pendingSelectors) ||
+      contractIds.has(contractCandidate.contractId)
+    ) {
+      return false;
+    }
+    const closure = closureByExport.get(contractCandidate.packageExportPath);
+    if (closure === undefined) return false;
+    const physicalRelations = new Map(
+      (closure.physicalRelations as readonly Readonly<Record<string, unknown>>[])
+        .map((relation) => [relation.physicalRelationRef as string, relation]),
+    );
+    const selectorRefs = new Set<string>();
+    for (const selectorCandidate of contractCandidate.pendingSelectors) {
+      if (
+        !isRecord(selectorCandidate) ||
+        !hasExactKeys(selectorCandidate, [
+          "externalModuleSpecifier",
+          "externalPackageName",
+          "localAccessPath",
+          "origin",
+          "physicalRelationRef",
+          "selection",
+          "selectorRef",
+          "sourceContractDigest",
+          "sourceContractRef",
+          "sourceNamedSymbol",
+          "sourcePackageExportPath",
+          "sourceProductContentDigest",
+        ]) ||
+        !isSha256Digest(selectorCandidate.selectorRef) ||
+        selectorCandidate.sourceProductContentDigest !==
+          artifact.productContentDigest ||
+        selectorCandidate.sourceContractRef !== contractCandidate.contractId ||
+        selectorCandidate.sourceContractDigest !==
+          contractCandidate.contractDigest ||
+        selectorCandidate.sourcePackageExportPath !==
+          contractCandidate.packageExportPath ||
+        selectorCandidate.sourceNamedSymbol !== contractCandidate.namedSymbol ||
+        !isNonblankString(selectorCandidate.physicalRelationRef) ||
+        !isNonblankString(selectorCandidate.externalPackageName) ||
+        !isNonblankString(selectorCandidate.externalModuleSpecifier) ||
+        !isOrigin(selectorCandidate.origin) ||
+        !isSelection(selectorCandidate.selection) ||
+        !Array.isArray(selectorCandidate.localAccessPath) ||
+        selectorCandidate.localAccessPath.length === 0 ||
+        !selectorCandidate.localAccessPath.every(isNonblankString) ||
+        selectorRefs.has(selectorCandidate.selectorRef)
+      ) {
+        return false;
+      }
+      const relation = physicalRelations.get(
+        selectorCandidate.physicalRelationRef,
+      );
+      if (
+        relation === undefined ||
+        selectorCandidate.externalModuleSpecifier !== relation.moduleSpecifier ||
+        canonicalJson(selectorCandidate.origin as JsonValue) !==
+          canonicalJson(relation.origin as JsonValue) ||
+        canonicalJson(selectorCandidate.selection as JsonValue) !==
+          canonicalJson(relation.selection as JsonValue)
+      ) {
+        return false;
+      }
+      const selectorBody = {
+        sourceProductContentDigest: selectorCandidate.sourceProductContentDigest,
+        sourceContractRef: selectorCandidate.sourceContractRef,
+        sourceContractDigest: selectorCandidate.sourceContractDigest,
+        sourcePackageExportPath: selectorCandidate.sourcePackageExportPath,
+        sourceNamedSymbol: selectorCandidate.sourceNamedSymbol,
+        physicalRelationRef: selectorCandidate.physicalRelationRef,
+        externalPackageName: selectorCandidate.externalPackageName,
+        externalModuleSpecifier: selectorCandidate.externalModuleSpecifier,
+        origin: selectorCandidate.origin,
+        selection: selectorCandidate.selection,
+        localAccessPath: selectorCandidate.localAccessPath,
+      };
+      if (
+        selectorCandidate.selectorRef !==
+          sha256Canonical(selectorBody as unknown as JsonValue)
+      ) {
+        return false;
+      }
+      selectorRefs.add(selectorCandidate.selectorRef);
+    }
+    if (
+      (contractCandidate.localDisposition === "local" &&
+        contractCandidate.pendingSelectors.length !== 0) ||
+      (contractCandidate.localDisposition === "pending_external" &&
+        contractCandidate.pendingSelectors.length === 0)
+    ) {
+      return false;
+    }
+    contractIds.add(contractCandidate.contractId);
+  }
+  return true;
+}
 export function isVerifiedProductArtifact(
   value: unknown,
 ): value is VerifiedProductArtifact {
@@ -1522,6 +1784,7 @@ export async function verifyProduct(
         packageType: packageJson.packageType,
         packageExports: packageJson.exports,
         declarationSources,
+        sourceProductContentDigest: productContentDigest,
       });
       if (declarationClosures === null) {
         return refusal(
@@ -1578,16 +1841,19 @@ export async function verifyProduct(
           return refusal(request, "catalog_mismatch", "native typed locator is invalid");
         }
         const exportedSymbols = new Set(declarationClosure.exportedSymbols);
-        const occurrenceRefs =
-          declarationClosure.exportedSymbolOccurrenceRefs[
-            nativeLocator.namedSymbol
-          ] ??
-          declarationClosure.externalOccurrences.filter(
-            (candidate) =>
-              candidate.selectorKind === "all" ||
-              candidate.visibleName === nativeLocator.namedSymbol,
-          ).map((candidate) => candidate.occurrenceRef);
-        const mayBeExternallyProjected = occurrenceRefs.length > 0;
+        const pendingSelectors = contractIndexedPendingSelectors(
+          productContentDigest,
+          contract,
+          declarationClosure,
+        );
+        if (pendingSelectors === null) {
+          return refusal(
+            request,
+            "catalog_mismatch",
+            "native contract pending-selector projection is invalid",
+          );
+        }
+        const mayBeExternallyProjected = pendingSelectors.length > 0;
         if (
           !exportedSymbols.has(nativeLocator.namedSymbol) &&
           !mayBeExternallyProjected
@@ -1607,14 +1873,15 @@ export async function verifyProduct(
         selectedExportPaths.add(nativeLocator.packageExportPath);
         evidenceContracts.push({
           contractId: contract.contractId,
+          contractDigest: contract.contractDigest,
           packageExportPath: nativeLocator.packageExportPath,
           namedSymbol: nativeLocator.namedSymbol,
           localDisposition:
-            occurrenceRefs.length === 0 &&
+            pendingSelectors.length === 0 &&
               exportedSymbols.has(nativeLocator.namedSymbol)
               ? "local"
               : "pending_external",
-          occurrenceRefs,
+          pendingSelectors,
         });
       }
       const selectedPaths = new Set(

@@ -19,6 +19,7 @@ import {
   sha256Canonical,
 } from "../../build/code/src/product/index.js";
 import {
+  contractIndexedPendingSelectors,
   declarationExportSymbols,
   linkNativeContractSet,
   resolveNativeDeclarationClosures,
@@ -283,7 +284,7 @@ test("S06 native export resolution is TypeScript-program derived", async () => {
       ].join("\n"),
     ),
     encode("types.d.ts", "export type T = string"),
-  ]);
+  ], digest("0"));
   assert.notEqual(valid, null);
   assert.equal(valid.has("Kind"), true);
   assert.equal(valid.has("\u03A9"), true);
@@ -293,7 +294,7 @@ test("S06 native export resolution is TypeScript-program derived", async () => {
   assert.equal(
     await declarationExportSymbols("index.d.ts", [
       encode("index.d.ts", "export declare const Forged:;"),
-    ]),
+    ], digest("0")),
     null,
     "syntactically invalid declaration exports must refuse",
   );
@@ -303,7 +304,7 @@ test("S06 native export resolution is TypeScript-program derived", async () => {
         "index.d.ts",
         "export { Missing } from \"./missing.js\";",
       ),
-    ]),
+    ], digest("0")),
     null,
     "unresolved declaration re-exports must refuse",
   );
@@ -313,7 +314,7 @@ test("S06 native export resolution is TypeScript-program derived", async () => {
         "index.d.ts",
         "import { Missing as } from \"@s06-prime/dependency/product\";",
       ),
-    ]),
+    ], digest("0")),
     null,
     "syntax diagnostics on external relations must never be deferred",
   );
@@ -323,7 +324,7 @@ test("S06 native export resolution is TypeScript-program derived", async () => {
       "index.d.ts",
       "declare const Foo: unique symbol;\nexport = Foo;",
     ),
-  ]);
+  ], digest("0"));
   assert.notEqual(exportAssignment, null);
   assert.equal(
     exportAssignment.has("default"),
@@ -343,6 +344,7 @@ test("S06 native export resolution is TypeScript-program derived", async () => {
           "declare const Foo: unique symbol;\nexport = Foo;",
         ),
       ],
+      sourceProductContentDigest: digest("0"),
     }),
     null,
     "package type module must preserve TypeScript's TS1203 export-assignment refusal",
@@ -376,6 +378,7 @@ test("S06 native declaration closure binds package roots and reachable bytes", a
           `export interface Contract { value: ${valueType}; }`,
         ),
       ],
+      sourceProductContentDigest: digest("1"),
     });
   const stringClosure = await resolve("string");
   const numberClosure = await resolve("number");
@@ -389,7 +392,7 @@ test("S06 native declaration closure binds package roots and reachable bytes", a
   assert.deepEqual(
     [
       ...new Set(
-        stringClosure[0].externalOccurrences.map(
+        stringClosure[0].physicalRelations.map(
           (occurrence) => occurrence.moduleSpecifier,
         ),
       ),
@@ -425,6 +428,7 @@ test("S06 native declaration closure binds package roots and reachable bytes", a
           ].join("\n"),
         ),
       ],
+      sourceProductContentDigest: digest("2"),
     });
   const stringSelfDirective = await resolveSelfDirective("string");
   const numberSelfDirective = await resolveSelfDirective("number");
@@ -440,7 +444,7 @@ test("S06 native declaration closure binds package roots and reachable bytes", a
     stringSelfRoot.declarationInventory.map((row) => row.declarationPath),
     ["build/index.d.ts", "build/shared.d.ts"],
   );
-  assert.equal(stringSelfRoot.externalOccurrences.length, 0);
+  assert.equal(stringSelfRoot.physicalRelations.length, 0);
   assert.notEqual(
     sha256Canonical(stringSelfRoot.declarationInventory),
     sha256Canonical(numberSelfRoot.declarationInventory),
@@ -462,13 +466,199 @@ test("S06 native declaration closure binds package roots and reachable bytes", a
         ].join("\n"),
       ),
     ],
+    sourceProductContentDigest: digest("3"),
   });
   assert.notEqual(perSymbol, null);
-  assert.deepEqual(perSymbol[0].exportedSymbolOccurrenceRefs.Local, []);
   assert.deepEqual(
-    perSymbol[0].exportedSymbolOccurrenceRefs.UsesRemote,
-    [perSymbol[0].externalOccurrences[0].occurrenceRef],
+    perSymbol[0].exportedSymbolPhysicalRelationRefs.Local,
+    [],
+  );
+  assert.deepEqual(
+    perSymbol[0].exportedSymbolPhysicalRelationRefs.UsesRemote,
+    [perSymbol[0].physicalRelations[0].physicalRelationRef],
     "pending evidence must follow the named symbol closure, not its whole root",
+  );
+});
+
+test("Product native analysis preserves exact contract-indexed pending selectors", async () => {
+  const productId = "product://s06-prime/native-analysis@5";
+  const packageName = "@s06-prime/native-analysis";
+  const productContentDigest = digest("7");
+  const encode = (path, source) => ({
+    path,
+    bytes: new TextEncoder().encode(source),
+  });
+  const declarationSources = [
+    encode(
+      "build/index.d.ts",
+      [
+        "export { Local } from \"./local.js\";",
+        "export type { Remote as External } from \"@s06-prime/dependency/product\";",
+      ].join("\n"),
+    ),
+    encode(
+      "build/local.d.ts",
+      "export interface Local { readonly value: string; }\n",
+    ),
+  ];
+  const analyze = (sources) =>
+    resolveNativeDeclarationClosures({
+      packageName,
+      packageType: "module",
+      packageExports: {
+        ".": { types: "./build/index.d.ts" },
+      },
+      declarationSources: sources,
+      sourceProductContentDigest: productContentDigest,
+    });
+  const analysisRequestWithoutDigest = {
+    packageName,
+    packageType: "module",
+    packageExports: {
+      ".": { types: "./build/index.d.ts" },
+    },
+    declarationSources,
+  };
+  assert.equal(
+    await resolveNativeDeclarationClosures(analysisRequestWithoutDigest),
+    null,
+    "a missing Product content digest must fail closed",
+  );
+  assert.equal(
+    await resolveNativeDeclarationClosures({
+      ...analysisRequestWithoutDigest,
+      sourceProductContentDigest: "sha256:not-a-digest",
+    }),
+    null,
+    "an invalid Product content digest must fail closed",
+  );
+  const first = await analyze(declarationSources);
+  const repeated = await analyze(declarationSources);
+  const permuted = await analyze([...declarationSources].reverse());
+  assert.ok(first);
+  assert.deepEqual(repeated, first);
+  assert.deepEqual(
+    permuted,
+    first,
+    "set-like declaration input order must not change native evidence",
+  );
+  assert.equal(first.length, 1);
+  const closure = first[0];
+  const contractFor = (contractId, namedSymbol) => ({
+    contractId,
+    contractVersion: "5.0.0",
+    contractDigest: sha256Canonical(closure.declarationInventory),
+    contractKind: "native_typed_group",
+    owningProduct: productId,
+    requirementAuthorityRefs: ["requirement://s06-prime/native-analysis@5"],
+    capabilityIdentities: ["capability://s06-prime/native-analysis@5"],
+    nativeTypedLocator: {
+      packageName,
+      packageExportPath: ".",
+      namedSymbol,
+      declarationPath: closure.declarationPath,
+      declarationInventory: closure.declarationInventory,
+    },
+  });
+
+  const local = contractIndexedPendingSelectors(
+    productContentDigest,
+    contractFor("contract://s06-prime/local@5", "Local"),
+    closure,
+  );
+  assert.deepEqual(local, []);
+
+  const externalContract = contractFor(
+    "contract://s06-prime/external@5",
+    "External",
+  );
+  const external = contractIndexedPendingSelectors(
+    productContentDigest,
+    externalContract,
+    closure,
+  );
+  assert.ok(external);
+  assert.equal(external.length, 1);
+  const selector = external[0];
+  const relation = closure.physicalRelations.find(
+    (candidate) => candidate.physicalRelationRef === selector.physicalRelationRef,
+  );
+  assert.ok(relation);
+  assert.equal(selector.sourceProductContentDigest, productContentDigest);
+  assert.equal(selector.sourceContractRef, externalContract.contractId);
+  assert.equal(selector.sourceContractDigest, externalContract.contractDigest);
+  assert.equal(selector.sourcePackageExportPath, ".");
+  assert.equal(selector.sourceNamedSymbol, "External");
+  assert.equal(selector.externalPackageName, "@s06-prime/dependency");
+  assert.equal(
+    selector.externalModuleSpecifier,
+    "@s06-prime/dependency/product",
+  );
+  assert.deepEqual(selector.origin, {
+    kind: "export_declaration",
+    clause: "named",
+    declarationTypeOnly: true,
+    specifierTypeOnly: false,
+  });
+  assert.deepEqual(selector.selection, {
+    kind: "name",
+    targetName: "Remote",
+    exposedName: "External",
+  });
+  assert.deepEqual(selector.localAccessPath, ["External"]);
+  assert.equal(relation.sourceProductContentDigest, productContentDigest);
+  assert.equal(relation.declarationPath, "build/index.d.ts");
+  assert.equal(relation.sourceStart < relation.sourceEnd, true);
+  assert.deepEqual(Object.keys(relation).sort(), [
+    "declarationDigest",
+    "declarationPath",
+    "moduleSpecifier",
+    "origin",
+    "physicalRelationDigest",
+    "physicalRelationRef",
+    "selection",
+    "sourceEnd",
+    "sourceProductContentDigest",
+    "sourceStart",
+  ]);
+  const {
+    physicalRelationDigest: _physicalRelationDigest,
+    physicalRelationRef: _physicalRelationRef,
+    ...physicalRelationBody
+  } = relation;
+  assert.equal(
+    relation.physicalRelationDigest,
+    sha256Canonical(physicalRelationBody),
+  );
+  assert.equal(
+    relation.physicalRelationRef,
+    `ts-relation://${relation.physicalRelationDigest.slice("sha256:".length)}`,
+  );
+  assert.match(relation.physicalRelationRef, /^ts-relation:\/\/[0-9a-f]{64}$/u);
+  const {
+    selectorRef: _selectorRef,
+    ...selectorBody
+  } = selector;
+  assert.equal(selector.selectorRef, sha256Canonical(selectorBody));
+
+  assert.equal(
+    await analyze([
+      encode("build/index.d.ts", "export type { Remote as } from \"@s06-prime/dependency/product\";"),
+    ]),
+    null,
+    "malformed typed relations must fail closed",
+  );
+  assert.equal(
+    contractIndexedPendingSelectors(
+      productContentDigest,
+      externalContract,
+      {
+        ...closure,
+        physicalRelations: [relation, relation],
+      },
+    ),
+    null,
+    "ambiguous duplicate physical relation identity must fail closed",
   );
 });
 
@@ -479,8 +669,11 @@ test("S06 native external meaning requires one direct named-symbol contract", as
   });
   const targetPackage = "@s06-prime/native-dependency";
   const sourcePackage = "@s06-prime/native-source";
+  const targetProductContentDigest = digest("a");
+  const sourceProductContentDigest = digest("b");
   const targetClosures = await resolveNativeDeclarationClosures({
     packageName: targetPackage,
+    packageType: "commonjs",
     packageExports: {
       "./product": { types: "./build/product.d.ts" },
     },
@@ -490,9 +683,11 @@ test("S06 native external meaning requires one direct named-symbol contract", as
         "export interface Target { readonly value: string; }\n",
       ),
     ],
+    sourceProductContentDigest: targetProductContentDigest,
   });
   const sourceClosures = await resolveNativeDeclarationClosures({
     packageName: sourcePackage,
+    packageType: "commonjs",
     packageExports: {
       "./product": { types: "./build/product.d.ts" },
     },
@@ -502,6 +697,7 @@ test("S06 native external meaning requires one direct named-symbol contract", as
         `export { Target as Source } from "${targetPackage}/product";\n`,
       ),
     ],
+    sourceProductContentDigest,
   });
   assert.notEqual(targetClosures, null);
   assert.notEqual(sourceClosures, null);
@@ -532,7 +728,7 @@ test("S06 native external meaning requires one direct named-symbol contract", as
   });
   const targetProduct = {
     productId: "product://s06-prime/native-dependency@5",
-    productContentDigest: digest("a"),
+    productContentDigest: targetProductContentDigest,
     packageName: targetPackage,
     declaredDependencies: [],
     publicContracts: [
@@ -546,8 +742,9 @@ test("S06 native external meaning requires one direct named-symbol contract", as
     ],
     evidence: {
       productId: "product://s06-prime/native-dependency@5",
-      productContentDigest: digest("a"),
+      productContentDigest: targetProductContentDigest,
       packageName: targetPackage,
+      packageType: "commonjs",
       sources: [{
         declarationPath: "build/product.d.ts",
         declarationDigest:
@@ -558,10 +755,13 @@ test("S06 native external meaning requires one direct named-symbol contract", as
       closures: targetClosures,
       contracts: [{
         contractId: targetContractRef,
+        contractDigest: sha256Canonical(
+          targetClosures[0].declarationInventory,
+        ),
         packageExportPath: "./product",
         namedSymbol: "Target",
         localDisposition: "local",
-        occurrenceRefs: [],
+        pendingSelectors: [],
       }],
     },
   };
@@ -575,7 +775,7 @@ test("S06 native external meaning requires one direct named-symbol contract", as
   };
   const sourceProduct = {
     productId: "product://s06-prime/native-source@5",
-    productContentDigest: digest("b"),
+    productContentDigest: sourceProductContentDigest,
     packageName: sourcePackage,
     declaredDependencies: [sourceDependency],
     publicContracts: [
@@ -589,8 +789,9 @@ test("S06 native external meaning requires one direct named-symbol contract", as
     ],
     evidence: {
       productId: "product://s06-prime/native-source@5",
-      productContentDigest: digest("b"),
+      productContentDigest: sourceProductContentDigest,
       packageName: sourcePackage,
+      packageType: "commonjs",
       sources: [{
         declarationPath: "build/product.d.ts",
         declarationDigest:
@@ -601,11 +802,22 @@ test("S06 native external meaning requires one direct named-symbol contract", as
       closures: sourceClosures,
       contracts: [{
         contractId: sourceContractRef,
+        contractDigest: sha256Canonical(
+          sourceClosures[0].declarationInventory,
+        ),
         packageExportPath: "./product",
         namedSymbol: "Source",
         localDisposition: "pending_external",
-        occurrenceRefs: sourceClosures[0].externalOccurrences.map(
-          (occurrence) => occurrence.occurrenceRef,
+        pendingSelectors: contractIndexedPendingSelectors(
+          sourceProductContentDigest,
+          nativeContract(
+            sourceContractRef,
+            "product://s06-prime/native-source@5",
+            sourcePackage,
+            "Source",
+            sourceClosures[0],
+          ),
+          sourceClosures[0],
         ),
       }],
     },
@@ -627,20 +839,87 @@ test("S06 native external meaning requires one direct named-symbol contract", as
     ).map((binding) => binding.namedSymbol).sort(),
     ["Source", "Target"],
   );
+  const unownedPhysicalRelation = linkNativeContractSet(
+    [{
+      ...sourceProduct,
+      declaredDependencies: [],
+      publicContracts: [],
+      evidence: {
+        ...sourceProduct.evidence,
+        contracts: [],
+      },
+    }],
+    toolchain.productContentDigest,
+  );
+  assert.equal(unownedPhysicalRelation.kind, "linked");
+  assert.deepEqual(unownedPhysicalRelation.selectorDispositions, []);
+  assert.deepEqual(unownedPhysicalRelation.occurrences, []);
+  assert.deepEqual(
+    unownedPhysicalRelation.bindings.filter(
+      (binding) => binding.kind === "external_binding",
+    ),
+    [],
+    "a zero-owner physical relation must not acquire contract authority",
+  );
+  const collisionSourceText = [
+    `export { Missing as Source } from "${targetPackage}/product";`,
+    `export { Target as Unowned } from "${targetPackage}/product";`,
+  ].join("\n");
+  const collisionClosures = await resolveNativeDeclarationClosures({
+    packageName: sourcePackage,
+    packageType: "commonjs",
+    packageExports: {
+      "./product": { types: "./build/product.d.ts" },
+    },
+    declarationSources: [encode("build/product.d.ts", collisionSourceText)],
+    sourceProductContentDigest,
+  });
+  assert.ok(collisionClosures);
+  const collisionContract = nativeContract(
+    sourceContractRef,
+    sourceProduct.productId,
+    sourcePackage,
+    "Source",
+    collisionClosures[0],
+  );
+  const collisionSelectors = contractIndexedPendingSelectors(
+    sourceProductContentDigest,
+    collisionContract,
+    collisionClosures[0],
+  );
+  assert.ok(collisionSelectors);
+  assert.equal(collisionSelectors.length, 1);
+  assert.equal(collisionClosures[0].physicalRelations.length, 2);
+  const ownedAndUnownedSameSpecifier = linkNativeContractSet(
+    [{
+      ...sourceProduct,
+      publicContracts: [collisionContract],
+      evidence: {
+        ...sourceProduct.evidence,
+        sources: [{
+          declarationPath: "build/product.d.ts",
+          declarationDigest:
+            collisionClosures[0].declarationInventory[0].declarationDigest,
+          sourceText: collisionSourceText,
+        }],
+        closures: collisionClosures,
+        contracts: [{
+          contractId: sourceContractRef,
+          contractDigest: collisionContract.contractDigest,
+          packageExportPath: "./product",
+          namedSymbol: "Source",
+          localDisposition: "pending_external",
+          pendingSelectors: collisionSelectors,
+        }],
+      },
+    }, targetProduct],
+    toolchain.productContentDigest,
+  );
+  assert.equal(ownedAndUnownedSameSpecifier.kind, "refused");
   assert.equal(
-    linkNativeContractSet(
-      [{
-        ...sourceProduct,
-        publicContracts: [],
-        evidence: {
-          ...sourceProduct.evidence,
-          contracts: [],
-        },
-      }, targetProduct],
-      toolchain.productContentDigest,
-    ).code,
-    "unresolved_dependency",
-    "an external occurrence without one owning source-contract relation must refuse",
+    ownedAndUnownedSameSpecifier.code,
+    "incompatible_dependency",
+    "an unowned relation with the same module specifier must not suppress the exact owned failure",
   );
   const changedTargetIdentity = linkNativeContractSet(
     [sourceProduct, {
@@ -691,6 +970,7 @@ test("S06 native external meaning requires one direct named-symbol contract", as
       productId: "product://s06-prime/native-intermediate@5",
       productContentDigest: targetProduct.productContentDigest,
       packageName: "@s06-prime/native-intermediate",
+      packageType: "commonjs",
       sources: [],
       closures: [],
       contracts: [],
@@ -718,13 +998,15 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     path: "build/product.d.ts",
     bytes: new TextEncoder().encode(source),
   }];
-  const analyze = async (packageName, source) => {
+  const analyze = async (packageName, source, productContentDigest) => {
     const closures = await resolveNativeDeclarationClosures({
       packageName,
+      packageType: "commonjs",
       packageExports: {
         "./product": { types: "./build/product.d.ts" },
       },
       declarationSources: encode(source),
+      sourceProductContentDigest: productContentDigest,
     });
     assert.notEqual(closures, null);
     return closures;
@@ -762,6 +1044,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     productId,
     productContentDigest,
     packageName,
+    packageType: "commonjs",
     sources: [{
       declarationPath: "build/product.d.ts",
       declarationDigest:
@@ -771,23 +1054,23 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     closures,
     contracts: contracts.map((contract) => {
       const namedSymbol = contract.nativeTypedLocator.namedSymbol;
-      const occurrenceRefs =
-        closures[0].exportedSymbolOccurrenceRefs[namedSymbol] ??
-        closures[0].externalOccurrences.filter(
-          (occurrence) =>
-            occurrence.selectorKind === "all" ||
-            occurrence.visibleName === namedSymbol,
-        ).map((occurrence) => occurrence.occurrenceRef);
+      const pendingSelectors = contractIndexedPendingSelectors(
+        productContentDigest,
+        contract,
+        closures[0],
+      );
+      assert.ok(pendingSelectors);
       return {
         contractId: contract.contractId,
+        contractDigest: contract.contractDigest,
         packageExportPath: "./product",
         namedSymbol,
         localDisposition:
-          occurrenceRefs.length === 0 &&
+          pendingSelectors.length === 0 &&
             closures[0].exportedSymbols.includes(namedSymbol)
             ? "local"
             : "pending_external",
-        occurrenceRefs,
+        pendingSelectors,
       };
     }),
   });
@@ -800,7 +1083,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     "export interface Hidden { readonly target: string; }",
     "export declare const RuntimeOnly: unique symbol;",
   ].join("\n");
-  const targetClosures = await analyze(targetPackage, targetSource);
+  const targetClosures = await analyze(targetPackage, targetSource, digest("4"));
   const alpha = makeContract(
     "contract://s06-prime/alpha@5",
     targetId,
@@ -848,7 +1131,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
   const sourcePackage = "@s06-prime/coverage-source";
   const sourceId = "product://s06-prime/coverage-source@5";
   const sourceText = `export * from "${targetPackage}/product";\n`;
-  const sourceClosures = await analyze(sourcePackage, sourceText);
+  const sourceClosures = await analyze(sourcePackage, sourceText, digest("5"));
   const sourceContract = makeContract(
     "contract://s06-prime/source-alpha@5",
     sourceId,
@@ -893,29 +1176,39 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     ).kind,
     "linked",
   );
-  assert.equal(
-    linkNativeContractSet(
-      [{
-        ...source,
-        declaredDependencies: [
-          dependencyFor([
-            alpha.contractId,
-            hidden.contractId,
-            runtimeOnly.contractId,
-          ]),
-        ],
-      }, target],
-      toolchain.productContentDigest,
-    ).code,
-    "unresolved_dependency",
-    "export-star requires direct contract coverage for every visible symbol",
+  const contractIndexedStar = linkNativeContractSet(
+    [{
+      ...source,
+      declaredDependencies: [
+        dependencyFor([
+          alpha.contractId,
+          hidden.contractId,
+          runtimeOnly.contractId,
+        ]),
+      ],
+    }, target],
+    toolchain.productContentDigest,
+  );
+  assert.equal(contractIndexedStar.kind, "linked");
+  assert.deepEqual(
+    contractIndexedStar.bindings.flatMap((binding) =>
+      binding.kind === "external_binding"
+        ? [binding.targetContractRef]
+        : []
+    ),
+    [alpha.contractId],
+    "an export-star selector is narrowed by its exact source contract",
   );
 
   const shadowSourceText = [
     "export interface Hidden { readonly local: string; }",
     `export * from "${targetPackage}/product";`,
   ].join("\n");
-  const shadowClosures = await analyze(sourcePackage, shadowSourceText);
+  const shadowClosures = await analyze(
+    sourcePackage,
+    shadowSourceText,
+    digest("5"),
+  );
   const shadowAlpha = makeContract(
     "contract://s06-prime/shadow-alpha@5",
     sourceId,
@@ -960,7 +1253,11 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
 
   const typeStarSourceText =
     `export type * from "${targetPackage}/product";\n`;
-  const typeStarClosures = await analyze(sourcePackage, typeStarSourceText);
+  const typeStarClosures = await analyze(
+    sourcePackage,
+    typeStarSourceText,
+    digest("5"),
+  );
   const typeStarAlpha = makeContract(
     "contract://s06-prime/type-star-alpha@5",
     sourceId,
@@ -1003,6 +1300,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
   const typeValueClosures = await analyze(
     sourcePackage,
     typeValueSourceText,
+    digest("5"),
   );
   const runtimeType = makeContract(
     "contract://s06-prime/runtime-type@5",
@@ -1044,6 +1342,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
   const directiveClosures = await analyze(
     directivePackage,
     directiveSource,
+    digest("6"),
   );
   const directiveContract = makeContract(
     "contract://s06-prime/type-directive-source@5",
@@ -1081,23 +1380,29 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     "linked",
     "triple-slash type references use the same direct per-symbol authority",
   );
-  assert.equal(
-    linkNativeContractSet(
-      [{
-        ...directiveProduct,
-        declaredDependencies: [
-          dependencyFor([alpha.contractId, hidden.contractId]),
-        ],
-      }, target],
-      toolchain.productContentDigest,
-    ).code,
-    "unresolved_dependency",
-    "triple-slash type references cannot bypass complete symbol coverage",
+  const contractIndexedDirective = linkNativeContractSet(
+    [{
+      ...directiveProduct,
+      declaredDependencies: [
+        dependencyFor([alpha.contractId, hidden.contractId]),
+      ],
+    }, target],
+    toolchain.productContentDigest,
+  );
+  assert.equal(contractIndexedDirective.kind, "linked");
+  assert.deepEqual(
+    contractIndexedDirective.bindings.flatMap((binding) =>
+      binding.kind === "external_binding"
+        ? [binding.targetContractRef]
+        : []
+    ),
+    [alpha.contractId],
+    "type-reference evidence is narrowed by its exact source contract",
   );
 
-  const duplicateBeta = {
-    ...beta,
-    contractId: "contract://s06-prime/beta-duplicate@5",
+  const duplicateAlpha = {
+    ...alpha,
+    contractId: "contract://s06-prime/alpha-duplicate@5",
   };
   assert.equal(
     linkNativeContractSet(
@@ -1106,20 +1411,20 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
         declaredDependencies: [
           dependencyFor([
             alpha.contractId,
+            duplicateAlpha.contractId,
             beta.contractId,
             hidden.contractId,
             runtimeOnly.contractId,
-            duplicateBeta.contractId,
           ]),
         ],
       }, {
         ...target,
         publicContracts: [
           alpha,
+          duplicateAlpha,
           beta,
           hidden,
           runtimeOnly,
-          duplicateBeta,
         ],
       }],
       toolchain.productContentDigest,
@@ -1134,7 +1439,11 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     "  interface Alpha { readonly forged: true; }",
     "}",
   ].join("\n");
-  const augmentingClosures = await analyze(sourcePackage, augmentingSource);
+  const augmentingClosures = await analyze(
+    sourcePackage,
+    augmentingSource,
+    digest("5"),
+  );
   const augmentingContract = makeContract(
     "contract://s06-prime/augmenting-local@5",
     sourceId,
@@ -1170,7 +1479,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     "  interface Local { readonly extended: true; }",
     "}",
   ].join("\n");
-  const selfClosures = await analyze(selfPackage, selfSource);
+  const selfClosures = await analyze(selfPackage, selfSource, digest("6"));
   const selfContract = makeContract(
     "contract://s06-prime/self-augmentation@5",
     selfId,
@@ -1202,7 +1511,11 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     "export interface Local { readonly value: string; }",
     "declare global { interface ProductGlobal { readonly leaked: true; } }",
   ].join("\n");
-  const globalClosures = await analyze(sourcePackage, globalSource);
+  const globalClosures = await analyze(
+    sourcePackage,
+    globalSource,
+    digest("5"),
+  );
   const globalContract = makeContract(
     "contract://s06-prime/global-local@5",
     sourceId,
@@ -1235,7 +1548,11 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
     "export as namespace ProductGlobal;",
     "export interface Local { readonly value: string; }",
   ].join("\n");
-  const umdClosures = await analyze(sourcePackage, umdSource);
+  const umdClosures = await analyze(
+    sourcePackage,
+    umdSource,
+    digest("5"),
+  );
   const umdContract = makeContract(
     "contract://s06-prime/umd-local@5",
     sourceId,

@@ -73,11 +73,19 @@ async function nativeClosures(packageDirectory) {
   const declarationSources = [...files.entries()]
     .filter(([path]) => /\.d\.(?:c|m)?ts$/u.test(path))
     .map(([path, bytes]) => ({ path, bytes }));
+  const sourceProductContentDigest = sha256Canonical({
+    kind: "pfc_f08a_native_declaration_probe",
+    declarations: declarationSources.map(({ path, bytes }) => ({
+      path,
+      declarationDigest: sha256Bytes(bytes),
+    })).sort((left, right) => left.path < right.path ? -1 : left.path > right.path ? 1 : 0),
+  });
   const closures = await resolveNativeDeclarationClosures({
     packageName: packageJson.name,
     packageType: packageJson.type === "module" ? "module" : "commonjs",
     packageExports: packageJson.exports,
     declarationSources,
+    sourceProductContentDigest,
   });
   assert.ok(closures, "temporary package declarations must form a program");
   return { closures, packageJson };
@@ -397,6 +405,28 @@ test("PFC-F08A is minted only by verifyProduct over exact artifact bytes", async
       ).length,
       56,
     );
+    assert.ok(verified.nativeDeclarationEvidence.contracts.length > 0);
+    for (const evidence of verified.nativeDeclarationEvidence.contracts) {
+      const publicContract = verified.publicContracts.find(
+        (contract) => contract.contractId === evidence.contractId,
+      );
+      assert.ok(publicContract);
+      assert.equal(evidence.contractDigest, publicContract.contractDigest);
+      assert.deepEqual(evidence.pendingSelectors, []);
+      assert.equal("occurrenceRefs" in evidence, false);
+    }
+    for (const closure of verified.nativeDeclarationEvidence.closures) {
+      assert.equal("externalOccurrences" in closure, false);
+      assert.equal("exportedSymbolOccurrenceRefs" in closure, false);
+      for (const relation of closure.physicalRelations) {
+        assert.equal("occurrenceRef" in relation, false);
+        assert.equal("packageExportPath" in relation, false);
+        assert.equal("selectorKind" in relation, false);
+        assert.equal("selectedName" in relation, false);
+        assert.equal("visibleName" in relation, false);
+        assert.equal("sourceOffset" in relation, false);
+      }
+    }
 
     const refusalCases = [
       ["altered-family-bytes", async (packageDirectory) => {
