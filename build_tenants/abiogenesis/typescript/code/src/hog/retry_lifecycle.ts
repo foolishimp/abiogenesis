@@ -8,16 +8,18 @@ import { deepFreeze } from "../shared/immutable.js";
 import type { CCallRetryRequest } from "./ccall_lifecycle.js";
 import {
   admissionBasis,
-  runtimePrefixAtDurable,
   sameCanonical,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
 import {
-  applyAdmittedRoute,
   deriveRetryTraversalCursor,
   rehydrateHeldInteractionCursor,
+  traverseFromCursor,
   type TraversalCursor,
 } from "./traversal.js";
+import type {
+  ExecuteGraphTraversalCommonInput,
+} from "./traversal_contract.js";
 import {
   projectExecutableTraversalCompletion,
   type ExecutableTraversalCompletion,
@@ -38,6 +40,48 @@ export interface RetryBlockedStep {
 }
 
 export type RetryLifecycleStep = RetryResumeStep | RetryBlockedStep;
+
+export type ResumeProjectedRetryRuntime = Pick<
+  ExecuteGraphTraversalCommonInput,
+  | "executionBasis"
+  | "openedTraversalScope"
+  | "program"
+  | "graphFunction"
+  | "graph"
+  | "graphValidation"
+  | "eventTime"
+  | "correlationId"
+>;
+
+export interface ResumeProjectedRetryRequest {
+  readonly store: ExecuteGraphTraversalCommonInput["store"];
+  readonly predecessorPrefix: DurablePrefixCoordinate;
+  readonly retry: AbgRetry.ExecutableRetryInput;
+  readonly runtime: ResumeProjectedRetryRuntime;
+}
+
+export type ProjectedRetryResumeRefusalCode =
+  | "projection_mismatch"
+  | "prefix_mismatch"
+  | "runtime_basis_mismatch"
+  | "retry_step_refused"
+  | "retry_route_refused"
+  | "retry_attempt_refused";
+
+export interface ProjectedRetryResumeRefusal {
+  readonly kind: "projected_retry_resume_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: ProjectedRetryResumeRefusalCode;
+  readonly message: string;
+  readonly executableRetryInputRef: string | null;
+  readonly executableRetryInputDigest: `sha256:${string}` | null;
+  readonly lowerCause: JsonValue;
+}
+
+export type ProjectedRetryResumeResult =
+  | AbgRetry.ProjectedRetryResumeSuccess
+  | ProjectedRetryResumeRefusal;
 
 export type SuccessfulRetryExitPlan =
   | Readonly<{
@@ -116,74 +160,215 @@ function failRetry(
   });
 }
 
-function admitRetryResume(input: Readonly<{
-  request: CCallRetryRequest;
-  predecessorPrefix: DurablePrefixCoordinate;
-  retry: AbgRetry.ExecutableRetryInput;
-}>): AbgRetry.ProjectedRetryResumeSuccess {
-  const runtime = input.request.context;
-  const fresh = AbgRetry.projectExecutableRetryInput({
-    prefix: input.predecessorPrefix,
-    selector: input.retry.selector,
-    program: runtime.program,
-    graphFunction: runtime.graphFunction,
-    graph: runtime.graph,
+function projectedRetryRefusal(
+  request: ResumeProjectedRetryRequest,
+  code: ProjectedRetryResumeRefusalCode,
+  message: string,
+  lowerCause: JsonValue,
+): ProjectedRetryResumeRefusal {
+  const ref = typeof request.retry?.projectionRef === "string" &&
+      request.retry.projectionRef.length > 0
+    ? request.retry.projectionRef
+    : null;
+  const digest = typeof request.retry?.projectionDigest === "string" &&
+      request.retry.projectionDigest.startsWith("sha256:")
+    ? request.retry.projectionDigest
+    : null;
+  return deepFreeze({
+    kind: "projected_retry_resume_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code,
+    message,
+    executableRetryInputRef: ref,
+    executableRetryInputDigest: digest,
+    lowerCause,
   });
+}
+
+export function resumeProjectedRetry(
+  request: ResumeProjectedRetryRequest,
+): ProjectedRetryResumeResult {
+  let fresh: AbgRetry.ProjectExecutableRetryInputResult;
+  try {
+    fresh = AbgRetry.projectExecutableRetryInput({
+      prefix: request.predecessorPrefix,
+      selector: request.retry.selector,
+      program: request.runtime.program,
+      graphFunction: request.runtime.graphFunction,
+      graph: request.runtime.graph,
+    });
+  } catch (error) {
+    return projectedRetryRefusal(
+      request,
+      "projection_mismatch",
+      "projected retry input could not be independently reconstructed",
+      { error: String(error) },
+    );
+  }
   if (
     fresh.kind !== "executable_retry_input" ||
-    !sameCanonical(fresh, input.retry)
+    !sameCanonical(fresh, request.retry)
   ) {
-    return failRetry(
-      input.request,
-      input.predecessorPrefix,
-      "retry-projection-currentness",
-      "diagnostic://abiogenesis/hog/retry-projection-changed@5",
+    return projectedRetryRefusal(
+      request,
+      "projection_mismatch",
+      "supplied retry input differs from fresh D17 projection",
       fresh as unknown as JsonValue,
     );
   }
   try {
     AbgRetry.assertFullRetryAttemptFrontier(fresh.retryFrontier);
-  } catch {
-    return failRetry(
-      input.request,
-      input.predecessorPrefix,
-      "retry-frontier",
-      "diagnostic://abiogenesis/hog/retry-frontier-incomplete@5",
-      fresh.retryFrontier as unknown as JsonValue,
+  } catch (error) {
+    return projectedRetryRefusal(
+      request,
+      "projection_mismatch",
+      "fresh retry projection does not carry one full frontier",
+      { error: String(error) },
     );
   }
-  const truth = Abg.projectRuntimeTruthAtDurablePrefix(
-    input.predecessorPrefix,
-    fresh.selector.runId,
-  );
+
+  let truth: ReturnType<typeof Abg.projectRuntimeTruthAtDurablePrefix>;
+  try {
+    truth = Abg.projectRuntimeTruthAtDurablePrefix(
+      request.predecessorPrefix,
+      fresh.selector.runId,
+    );
+  } catch (error) {
+    return projectedRetryRefusal(
+      request,
+      "prefix_mismatch",
+      "D17 predecessor prefix cannot be read as immutable runtime truth",
+      { error: String(error) },
+    );
+  }
+  let executionBasis;
+  let openedTraversalScope;
+  let sourceTraversal;
+  try {
+    executionBasis = Abg.rehydrateExecutionBasisAtPrefix(
+      truth.runtimePrefix,
+      fresh.executionBasisRef,
+    );
+    openedTraversalScope = Abg.rehydrateOpenedTraversalScopeAtPrefix(
+      truth.runtimePrefix,
+      request.runtime.openedTraversalScope as unknown as Readonly<
+        Record<string, JsonValue>
+      >,
+    );
+    sourceTraversal = traverseFromCursor({
+      program: request.runtime.program,
+      graphFunction: request.runtime.graphFunction,
+      graph: request.runtime.graph,
+      graphValidation: request.runtime.graphValidation,
+      executionBasis: request.runtime.executionBasis,
+      openedTraversalScope: request.runtime.openedTraversalScope,
+    }, fresh.sourceCursor);
+  } catch (error) {
+    return projectedRetryRefusal(
+      request,
+      "runtime_basis_mismatch",
+      "retry runtime declarations could not be validated at the D17 prefix",
+      { error: String(error) },
+    );
+  }
+  if (
+    executionBasis === null ||
+    openedTraversalScope === null ||
+    !sameCanonical(executionBasis, request.runtime.executionBasis) ||
+    !sameCanonical(openedTraversalScope, request.runtime.openedTraversalScope) ||
+    executionBasis.basisRef !== fresh.executionBasisRef ||
+    executionBasis.basisDigest !== fresh.executionBasisDigest ||
+    openedTraversalScope.scopeRef !== fresh.traversalScopeRef ||
+    openedTraversalScope.scopeDigest !== fresh.traversalScopeDigest ||
+    openedTraversalScope.runId !== fresh.selector.runId ||
+    openedTraversalScope.graphCallId !== fresh.selector.graphCallId ||
+    openedTraversalScope.frameId !== fresh.selector.frameId ||
+    sourceTraversal.kind === "traversal_refusal" ||
+    typeof request.runtime.eventTime !== "string" ||
+    Number.isNaN(Date.parse(request.runtime.eventTime)) ||
+    typeof request.runtime.correlationId !== "string" ||
+    request.runtime.correlationId.length === 0
+  ) {
+    return projectedRetryRefusal(
+      request,
+      "runtime_basis_mismatch",
+      "retry runtime declarations differ from the D17 execution basis",
+      {
+        executionBasisRef: fresh.executionBasisRef,
+        traversalScopeRef: fresh.traversalScopeRef,
+      },
+    );
+  }
   const source = rehydrateHeldInteractionCursor(
     truth.runtimePrefix,
     fresh.sourceCursor,
   );
   if (source === null) {
-    return failRetry(
-      input.request,
-      input.predecessorPrefix,
-      "retry-source",
-      "diagnostic://abiogenesis/hog/retry-source-not-admitted@5",
-      fresh.sourceCursor as unknown as JsonValue,
+    return projectedRetryRefusal(
+      request,
+      "runtime_basis_mismatch",
+      "D17 source cursor does not rehydrate at the predecessor prefix",
+      { sourceCursorRef: fresh.sourceCursor.cursorRef },
     );
   }
-  const target = deriveRetryTraversalCursor(runtime.graph, source, {
+  const target = deriveRetryTraversalCursor(request.runtime.graph, source, {
     inputRef: fresh.inputRef,
     inputDigest: fresh.inputDigest,
   });
-  if (target.kind !== "traversal_cursor") {
-    return failRetry(
-      input.request,
-      input.predecessorPrefix,
-      "retry-target",
-      "diagnostic://abiogenesis/hog/retry-target-not-derivable@5",
+  if (
+    target.kind !== "traversal_cursor" ||
+    target.attempt !== fresh.nextAttempt ||
+    !sameCanonical(target.retryPath, fresh.nextRetryPath) ||
+    target.inputRef !== fresh.inputRef ||
+    target.inputDigest !== fresh.inputDigest
+  ) {
+    return projectedRetryRefusal(
+      request,
+      "retry_step_refused",
+      "HoG could not derive the exact D17 retry successor step",
       target as unknown as JsonValue,
     );
   }
+  let targetTraversal;
+  try {
+    targetTraversal = traverseFromCursor({
+      program: request.runtime.program,
+      graphFunction: request.runtime.graphFunction,
+      graph: request.runtime.graph,
+      graphValidation: request.runtime.graphValidation,
+      executionBasis: request.runtime.executionBasis,
+      openedTraversalScope: request.runtime.openedTraversalScope,
+    }, target);
+  } catch (error) {
+    return projectedRetryRefusal(
+      request,
+      "retry_step_refused",
+      "HoG could not preflight the exact D17 retry successor step",
+      { error: String(error) },
+    );
+  }
+  if (targetTraversal.kind === "traversal_refusal") {
+    return projectedRetryRefusal(
+      request,
+      "retry_step_refused",
+      "D17 retry successor differs from its current traversal preflight",
+      targetTraversal as unknown as JsonValue,
+    );
+  }
+  const projectedTarget = targetTraversal.kind === "traversal_cursor"
+    ? targetTraversal
+    : targetTraversal.cursor;
+  if (!sameCanonical(projectedTarget, target)) {
+    return projectedRetryRefusal(
+      request,
+      "retry_step_refused",
+      "D17 retry successor differs from its current traversal preflight",
+      targetTraversal as unknown as JsonValue,
+    );
+  }
   const proposal = Routes.proposeRetryRoute(
-    runtime.graph,
+    request.runtime.graph,
     source,
     target,
     fresh.cCall,
@@ -192,72 +377,109 @@ function admitRetryResume(input: Readonly<{
     fresh.cCall.transitionContractRef,
   );
   if (proposal.kind !== "traversal_route_candidate") {
-    return failRetry(
-      input.request,
-      input.predecessorPrefix,
-      "retry-route",
-      `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+    return projectedRetryRefusal(
+      request,
+      "retry_route_refused",
+      "HoG could not propose the exact D17 retry route",
       proposal as unknown as JsonValue,
     );
   }
-  const candidate = Abg.completeTraversalTransitionCandidate({
-    kind: "traversal_transition_candidate",
-    schemaVersion: "5.0.0",
-    transitionClass: "retry",
-    route: proposal,
-    evidence: {
-      evidenceClass: "retry",
-      graphFunction: runtime.graphFunction,
-      cCall: fresh.cCall,
-      progress: fresh.progress,
-    },
-    retryInput: fresh.inputValue,
-    terminalizeRun: false,
-  });
-  const transition = Abg.admitTraversalTransition({
-    predecessorPrefix: input.predecessorPrefix,
-    store: runtime.store,
-    executionBasis: runtime.executionBasis,
-    graph: runtime.graph,
-    graphFunction: runtime.graphFunction,
-    source,
-    target,
-    candidate,
-    basis: admissionBasis(runtime.clock, "retry"),
-  });
-  if (transition.kind !== "route_transition_admission") {
-    return failRetry(
-      input.request,
-      input.predecessorPrefix,
-      "retry-transition",
-      `diagnostic://abiogenesis/hog/${transition.code}@5`,
+  let candidate;
+  try {
+    candidate = Abg.completeTraversalTransitionCandidate({
+      kind: "traversal_transition_candidate",
+      schemaVersion: "5.0.0",
+      transitionClass: "retry",
+      route: proposal,
+      evidence: {
+        evidenceClass: "retry",
+        graphFunction: request.runtime.graphFunction,
+        cCall: fresh.cCall,
+        progress: fresh.progress,
+      },
+      retryInput: fresh.inputValue,
+      terminalizeRun: false,
+    });
+  } catch (error) {
+    return projectedRetryRefusal(
+      request,
+      "retry_route_refused",
+      "HoG could not close the exact D17 retry transition candidate",
+      { error: String(error) },
+    );
+  }
+  try {
+    Abg.assertHeldEventStoreAtDurablePrefix(
+      request.store,
+      request.predecessorPrefix,
+    );
+  } catch (error) {
+    return projectedRetryRefusal(
+      request,
+      "prefix_mismatch",
+      "retry predecessor prefix changed before atomic admission",
+      { error: String(error) },
+    );
+  }
+  let transition;
+  try {
+    transition = Abg.admitTraversalTransition({
+      predecessorPrefix: request.predecessorPrefix,
+      store: request.store,
+      executionBasis: request.runtime.executionBasis,
+      graph: request.runtime.graph,
+      graphFunction: request.runtime.graphFunction,
+      source,
+      target,
+      candidate,
+      basis: admissionBasis(request.runtime, "retry"),
+    });
+  } catch (error) {
+    try {
+      Abg.assertHeldEventStoreAtDurablePrefix(
+        request.store,
+        request.predecessorPrefix,
+      );
+    } catch (prefixError) {
+      return projectedRetryRefusal(
+        request,
+        "prefix_mismatch",
+        "atomic retry admission lost its expected predecessor prefix",
+        {
+          error: String(error),
+          prefixError: String(prefixError),
+        },
+      );
+    }
+    return projectedRetryRefusal(
+      request,
+      "retry_route_refused",
+      "atomic retry route admission failed and rolled back",
+      { error: String(error) },
+    );
+  }
+  if (transition.kind === "traversal_route_admission_refusal") {
+    return projectedRetryRefusal(
+      request,
+      transition.code === "replay_mismatch"
+        ? "prefix_mismatch"
+        : "retry_route_refused",
+      "ABG refused the exact D17 retry route",
       transition as unknown as JsonValue,
     );
   }
-  const cursor = applyAdmittedRoute(
-    runtimePrefixAtDurable(transition.successorPrefix, source.runId),
-    source,
-    target,
-    "retry",
-    transition.route,
-  );
-  if (cursor.kind !== "traversal_cursor") {
-    return failRetry(
-      input.request,
-      transition.successorPrefix,
-      "retry-route-application",
-      "diagnostic://abiogenesis/hog/retry-route-application-refused@5",
-      cursor as unknown as JsonValue,
+  if (transition.kind === "retry_admission_refusal") {
+    return projectedRetryRefusal(
+      request,
+      "retry_attempt_refused",
+      "ABG refused the exact D17 retry attempt",
+      transition as unknown as JsonValue,
     );
   }
   const attempt = transition.retryAttempt;
   if (attempt === null) {
-    return failRetry(
-      input.request,
-      transition.successorPrefix,
-      "retry-attempt",
-      "diagnostic://abiogenesis/hog/retry-attempt-absent@5",
-      transition as unknown as JsonValue,
+    throw new TypeError(
+      "ABG admitted a retry transition without its atomic retry attempt",
     );
   }
   return deepFreeze({
@@ -273,19 +495,20 @@ function admitRetryResume(input: Readonly<{
     routeAdmissionEventRef: transition.route.admissionEventRef,
     routeRef: transition.route.routeRef,
     routeDigest: transition.route.routeDigest,
-    nextCursor: cursor,
+    nextCursor: target,
     retryAttemptAdmissionEventRef: attempt.admissionEventRef,
     retryAttemptRef: attempt.attemptRef,
     retryAttemptDigest: attempt.attemptDigest,
-    nextAttempt: fresh.nextAttempt,
-    inputContractRef: fresh.inputContractRef,
-    inputRef: fresh.inputRef,
-    inputDigest: fresh.inputDigest,
-    inputValue: fresh.inputValue,
+    nextAttempt: attempt.attempt,
+    inputContractRef: attempt.inputContractRef,
+    inputRef: attempt.inputRef,
+    inputDigest: attempt.inputDigest,
+    inputValue: attempt.inputValue,
     successorPrefix: transition.successorPrefix,
   });
 }
 
+/** @internal */
 export function advanceRetryLifecycle(
   request: CCallRetryRequest,
 ): RetryLifecycleStep {
@@ -445,13 +668,33 @@ export function advanceRetryLifecycle(
       retry as unknown as JsonValue,
     );
   }
+  const resume = resumeProjectedRetry({
+    store: runtime.store,
+    predecessorPrefix: retryTransition.successorPrefix,
+    retry,
+    runtime: {
+      executionBasis: runtime.executionBasis,
+      openedTraversalScope: runtime.openedTraversalScope,
+      program: runtime.program,
+      graphFunction: runtime.graphFunction,
+      graph: runtime.graph,
+      graphValidation: runtime.graphValidation,
+      eventTime: runtime.clock.eventTime,
+      correlationId: runtime.clock.correlationId,
+    },
+  });
+  if (resume.kind === "projected_retry_resume_refusal") {
+    return failRetry(
+      request,
+      retryTransition.successorPrefix,
+      "retry-resume",
+      `diagnostic://abiogenesis/hog/${resume.code}@5`,
+      resume as unknown as JsonValue,
+    );
+  }
   return {
     kind: "retry_resume",
-    resume: admitRetryResume({
-      request,
-      predecessorPrefix: retryTransition.successorPrefix,
-      retry,
-    }),
+    resume,
     correlationId:
       `${runtime.clock.correlationId}/retry/${retry.nextAttempt}`,
   };

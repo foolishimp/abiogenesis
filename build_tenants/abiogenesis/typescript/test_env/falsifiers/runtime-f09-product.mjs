@@ -87,7 +87,7 @@ export function realizeAxF09ProbabilisticPass(input, occurrence) {
     materializationPlanRef: DEVELOPER_MINI_IDS.materializationPlanRef,
     rendererRef: DEVELOPER_MINI_IDS.rendererRef,
     instructionContractRef: DEVELOPER_MINI_IDS.outputContractRef,
-    resultContractRef: DEVELOPER_MINI_IDS.outputContractRef,
+    resultContractRef: DEVELOPER_MINI_IDS.probabilisticRawResultContractRef,
     transportLane: "closed_prompt_proof",
     prompt: [
       "Return the declared developer greeting output unchanged.",
@@ -126,11 +126,18 @@ export function realizeAxF09ProbabilisticPass(input, occurrence) {
               sha256Canonical(transport.finalOutput),
           }
         : resultCandidate;
+      const failureDiagnosticRef = transport.failureClass === null
+        ? "diagnostic://developer.example/greeting/worker-output-refused@5"
+        : "diagnostic://developer.example/greeting/" +
+          transport.failureClass + "@5";
       return deepFreeze({
         kind: "leaf_realization_candidate",
         schemaVersion: "5.0.0",
         disposition: success || abaContractFailure ? "success" : "failure",
         evidenceCandidates: [],
+        ...(success || abaContractFailure
+          ? {}
+          : { diagnosticRef: failureDiagnosticRef }),
         resultCandidate: success || abaContractFailure
           ? selectedCandidate
           : {
@@ -139,11 +146,7 @@ export function realizeAxF09ProbabilisticPass(input, occurrence) {
               ...(transport.failureClass === null
                 ? {}
                 : { failureClass: transport.failureClass }),
-              diagnosticRef:
-                transport.failureClass === null
-                  ? "diagnostic://developer.example/greeting/worker-output-refused@5"
-                  : "diagnostic://developer.example/greeting/" +
-                    transport.failureClass + "@5",
+              diagnosticRef: failureDiagnosticRef,
             },
       });
     },

@@ -3,7 +3,8 @@
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
-import { basename, dirname, join } from "node:path";
+import { createRequire } from "node:module";
+import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import * as installedAbg from "@abiogenesis/typescript-tenant/abg";
@@ -12,7 +13,6 @@ import * as installedHog from "@abiogenesis/typescript-tenant/hog";
 import * as installedProduct from "@abiogenesis/typescript-tenant/product";
 import * as installedValidator from "@abiogenesis/typescript-tenant/validator";
 import * as retryProduct from "@abiogenesis-fixtures/developer-mini-product";
-import * as Effect from "effect/Effect";
 
 const installedAbgEntryPath = fileURLToPath(
   import.meta.resolve("@abiogenesis/typescript-tenant/abg"),
@@ -25,13 +25,13 @@ const installedEventStoreOwner = await import(pathToFileURL(join(
   dirname(installedAbgEntryPath),
   "event_store.js",
 )).href);
-const installedChildTraversal = await import(pathToFileURL(join(
-  dirname(installedAbgEntryPath),
-  "../public/child_traversal_port.js",
-)).href);
 const installedHogEntryPath = fileURLToPath(
   import.meta.resolve("@abiogenesis/typescript-tenant/hog"),
 );
+const installedRequire = createRequire(installedHogEntryPath);
+const Effect = await import(pathToFileURL(
+  installedRequire.resolve("effect/Effect"),
+).href);
 const installedLeafPortOwner = await import(pathToFileURL(join(
   dirname(installedHogEntryPath),
   "../implementation/leaf_invocation_port.js",
@@ -74,37 +74,6 @@ function basis(label, causationEventRefs = []) {
   return {
     eventTime: EVENT_TIME,
     correlationId: `correlation://s06/ax-f09/${label}`,
-    causationEventRefs,
-  };
-}
-
-function publicOperationBasis(
-  product,
-  operationId,
-  scopeRef,
-  scopeDigest,
-  invocationRef,
-  causationEventRefs = [],
-) {
-  const invocationPayloadDigest = product.sha256Canonical({});
-  return {
-    operationId,
-    definitionKey: operationId,
-    definitionDigest: product.sha256Canonical({
-      operationId,
-      schemaVersion: "5.0.0",
-    }),
-    authorityScopeRef: scopeRef,
-    authorityScopeDigest: scopeDigest,
-    invocationRef,
-    invocationPayloadDigest,
-    invocationDigest: product.sha256Canonical({
-      invocationRef,
-      operationId,
-      payloadDigest: invocationPayloadDigest,
-    }),
-    correlationId: `correlation://s06/ax-f09/${operationId}`,
-    eventTime: EVENT_TIME,
     causationEventRefs,
   };
 }
@@ -514,7 +483,7 @@ async function loadInstalledRetryDependencies(
     installedProduct.payloadInventoryDigest(payloadInventory) ===
       manifest.productContentDigest;
   const productManifestDigest = installedProduct.sha256Canonical(manifest);
-  const publication = retryProduct.constructAxF09Publication({
+  const authoredPublication = retryProduct.constructAxF09Publication({
     productId: manifest.productId,
     artifactDigest: fixtureInstallCandidate.artifactDigest,
     productContentDigest: manifest.productContentDigest,
@@ -522,6 +491,13 @@ async function loadInstalledRetryDependencies(
     packageName: packageJson.name,
     packageVersion: packageJson.version,
   });
+  const publicationAdmission = requireRawAdmission(
+    installedValidator,
+    authoredPublication,
+    "module_publication",
+    "contract://abiogenesis/gtl/module-publication@5",
+  );
+  const publication = publicationAdmission.value;
   const publicationBinding = exactOne(
     manifest.contributionManifest.publicationBindings,
     (binding) => binding.moduleRef === publication.moduleRef,
@@ -555,21 +531,31 @@ async function loadInstalledRetryDependencies(
     publication.contracts.every(Object.isFrozen) &&
     publication.implementationBindings.every(Object.isFrozen) &&
     publication.closureContracts.every(Object.isFrozen);
+  const admittedExportedProgram = requireRawAdmission(
+    installedValidator,
+    retryProduct.AX_F09_PROGRAM,
+    "gtl_program",
+    "contract://abiogenesis/gtl/program@5",
+  ).value;
+  const admittedExportedGraphFunction = requireRawAdmission(
+    installedValidator,
+    retryProduct.AX_F09_GRAPH_FUNCTION,
+    "graph_function",
+    "contract://abiogenesis/gtl/graph-function@5",
+  ).value;
+  const admittedExportedChildGraphFunction = requireRawAdmission(
+    installedValidator,
+    retryProduct.AX_F09_CHILD_GRAPH_FUNCTION,
+    "graph_function",
+    "contract://abiogenesis/gtl/graph-function@5",
+  ).value;
   const exportedDeclarationsMatchPublication =
     installedProduct.sha256Canonical(program) ===
-      installedProduct.sha256Canonical(retryProduct.AX_F09_PROGRAM) &&
+      installedProduct.sha256Canonical(admittedExportedProgram) &&
     installedProduct.sha256Canonical(graphFunction) ===
-      installedProduct.sha256Canonical(retryProduct.AX_F09_GRAPH_FUNCTION) &&
+      installedProduct.sha256Canonical(admittedExportedGraphFunction) &&
     installedProduct.sha256Canonical(childGraphFunction) ===
-      installedProduct.sha256Canonical(
-        retryProduct.AX_F09_CHILD_GRAPH_FUNCTION,
-      );
-  const publicationAdmission = requireRawAdmission(
-    installedValidator,
-    publication,
-    "module_publication",
-    "contract://abiogenesis/gtl/module-publication@5",
-  );
+      installedProduct.sha256Canonical(admittedExportedChildGraphFunction);
   const programValidation = installedValidator.validateProgram(
     rawProgramInput(installedValidator, publicationAdmission, program),
   );
@@ -795,15 +781,6 @@ async function loadInstalledRetryDependencies(
   ]);
   assert.equal(catalogView.kind, "graph_function_catalog_view",
     JSON.stringify(catalogView));
-  const childTraversalPreparationPort =
-    installedChildTraversal.bindChildTraversalPreparationPort({
-      store: reopened.store,
-      publication,
-      program,
-      programValidation,
-      rootImplementationSet: implementationSet,
-      rootInteractionSet: interactionSet,
-    });
   return {
     publication,
     program,
@@ -825,7 +802,6 @@ async function loadInstalledRetryDependencies(
     leafPort,
     catalog,
     catalogView,
-    childTraversalPreparationPort,
     continuationProductBasis: {
       artifactTruth,
       install: admittedInstall,
@@ -927,6 +903,7 @@ async function constructP1Environment(input) {
   const environment = await support.setupInstalledRootCatalog(
     { after() {} },
     input.packageRoot,
+    { frozenArtifact: input.frozenArtifact },
   );
   // Fixture-only access to the same installed owner-internal module imported
   // by this environment's HoG. The package barrel intentionally exposes no
@@ -935,9 +912,13 @@ async function constructP1Environment(input) {
     environment.installedRoot,
     "build/code/src/abg/retry.js",
   )).href);
-  const leafOwner = await import(pathToFileURL(join(
+  const cCallOwner = await import(pathToFileURL(join(
     environment.installedRoot,
-    "build/code/src/hog/leaf_execute.js",
+    "build/code/src/hog/ccall_lifecycle.js",
+  )).href);
+  const structuralOwner = await import(pathToFileURL(join(
+    environment.installedRoot,
+    "build/code/src/hog/structural_transition.js",
   )).href);
   const eventStoreOwner = await import(pathToFileURL(join(
     environment.installedRoot,
@@ -958,21 +939,6 @@ async function constructP1Environment(input) {
     artifactPath: rootArtifactPath,
     scratch,
   } = environment;
-  const rootReverified = await product.verifyProduct({
-    artifactPath: rootArtifactPath,
-    artifactRef: basename(rootArtifactPath),
-    expectedArtifactDigest: rootVerified.artifactDigest,
-    expectedProductContentDigest: rootVerified.productContentDigest,
-    expectedManifestDigest: rootVerified.manifestDigest,
-    expectedProductId: rootVerified.productId,
-    expectedPackageName: rootVerified.packageName,
-    expectedPackageVersion: rootVerified.packageVersion,
-  });
-  assert.equal(
-    rootReverified.disposition,
-    "verified",
-    JSON.stringify(rootReverified),
-  );
   const fixtureVerified = await product.verifyProduct({
     artifactPath: input.fixtureArtifactPath,
     artifactRef: input.fixtureArtifactRef,
@@ -989,7 +955,7 @@ async function constructP1Environment(input) {
     JSON.stringify(fixtureVerified),
   );
   const lock = product.constructResolvedProductLock([
-    rootReverified,
+    rootVerified,
     fixtureVerified,
   ]);
   assert.equal(lock.kind, "resolved_product_lock", JSON.stringify(lock));
@@ -999,7 +965,7 @@ async function constructP1Environment(input) {
     product.installProduct({
       artifactPath: rootArtifactPath,
       targetRoot: rootConsumer,
-      verifiedArtifact: rootReverified,
+      verifiedArtifact: rootVerified,
       resolvedLock: lock,
     }),
     product.installProduct({
@@ -1031,7 +997,7 @@ async function constructP1Environment(input) {
     store,
     rootInstallCandidate,
     {
-      ...publicOperationBasis(
+      ...support.publicOperationBasis(
         product,
         "abg.operation.product.install",
         rootInstallCandidate.installId,
@@ -1046,7 +1012,7 @@ async function constructP1Environment(input) {
     store,
     fixtureInstallCandidate,
     {
-      ...publicOperationBasis(
+      ...support.publicOperationBasis(
         product,
         "abg.operation.product.install",
         fixtureInstallCandidate.installId,
@@ -1114,7 +1080,7 @@ async function constructP1Environment(input) {
     store,
     workspaceCandidate,
     {
-      ...publicOperationBasis(
+      ...support.publicOperationBasis(
         product,
         "abg.operation.workspace.bind",
         workspaceCandidate.bindingId,
@@ -1136,7 +1102,7 @@ async function constructP1Environment(input) {
   );
   const workspaceBinding = workspaceBindingResult.value;
   const installedRoot = fixtureInstallCandidate.installedRoot;
-  const publication = retryProduct.constructAxF09Publication({
+  const authoredPublication = retryProduct.constructAxF09Publication({
     productId: fixtureVerified.productId,
     artifactDigest: fixtureVerified.artifactDigest,
     productContentDigest: fixtureVerified.productContentDigest,
@@ -1146,10 +1112,11 @@ async function constructP1Environment(input) {
   });
   const publicationAdmission = requireRawAdmission(
     validator,
-    publication,
+    authoredPublication,
     "module_publication",
     "contract://abiogenesis/gtl/module-publication@5",
   );
+  const publication = publicationAdmission.value;
   const contributionAdmissions = publication.contributions.map((value) =>
     requireRawAdmission(
       validator,
@@ -1320,7 +1287,7 @@ async function constructP1Environment(input) {
       capabilityGrants,
       authority: invocationAuthority,
     },
-    publicOperationBasis(
+    support.publicOperationBasis(
       product,
       "abg.operation.run.invoke",
       workspaceBinding.bindingId,
@@ -1468,19 +1435,6 @@ async function constructP1Environment(input) {
     publication,
     semanticsProjection,
   });
-  const childModule = await import(pathToFileURL(join(
-    environment.installedRoot,
-    "build/code/src/public/child_traversal_port.js",
-  )).href);
-  const childTraversalPreparationPort =
-    childModule.bindChildTraversalPreparationPort({
-      store,
-      publication,
-      program,
-      programValidation,
-      rootImplementationSet: executionBasisAdmission.implementationSet,
-      rootInteractionSet: executionBasisAdmission.interactionSet,
-    });
   return {
     ...environment,
     store,
@@ -1508,7 +1462,6 @@ async function constructP1Environment(input) {
     implementationResolution,
     transformResolution,
     leafPort,
-    childTraversalPreparationPort,
     continuationProductBasis: {
       artifactTruth,
       install: admittedInstall,
@@ -1518,7 +1471,8 @@ async function constructP1Environment(input) {
       graphValidation,
     },
     retryOwner,
-    leafOwner,
+    cCallOwner,
+    structuralOwner,
     eventStoreOwner,
     eventCalculusOwner,
     actorRuntimeBinding: { workspaceBinding, artifactTruth },
@@ -1535,186 +1489,57 @@ async function rejectAttempt(
 ) {
   const {
     abg,
+    cCallOwner,
     graph,
     program,
     graphFunction,
+    graphValidation,
     executionBasis,
     implementationSet,
-    implementationResolution,
     leafPort,
     retryOwner,
     actorRuntimeBinding,
+    closureContract,
     opened,
     store,
   } = environment;
-  const openedCCall = abg.openCCall(
-    store,
-    executionBasis,
-    opened.scope,
-    program,
-    graphFunction,
-    graph,
-    stop,
-    implementationSet,
-    implementationResolution,
-    basis(`attempt-${stop.cursor.attempt}/c-call-open`),
+  const lifecycle = await Effect.runPromise(
+    cCallOwner.evaluateExecutableCCall({
+      store,
+      predecessorPrefix:
+        environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(store),
+      executionBasis,
+      openedTraversalScope: opened.scope,
+      program,
+      graphFunction,
+      graph,
+      graphValidation,
+      stop,
+      implementationSet,
+      leafPort,
+      input: inputValue,
+      closureContract,
+      actorRuntimeBinding,
+      scopeClass: "root",
+      clock: {
+        eventTime: EVENT_TIME,
+        correlationId: `correlation://s06/ax-f09/attempt-${
+          stop.cursor.attempt
+        }`,
+      },
+      ordinal: stop.cursor.attempt,
+    }),
   );
   assert.equal(
-    openedCCall.kind,
-    "c_call_admission",
-    JSON.stringify(openedCCall),
+    lifecycle.kind,
+    "c_call_retry",
+    JSON.stringify(lifecycle),
   );
-  const cCall = openedCCall.cCall;
-  const occurrence = Object.freeze({
-    cCallRef: cCall.cCallRef,
-    runId: cCall.runId,
-    graphCallId: cCall.graphCallId,
-    frameId: cCall.frameId,
-    programLocusRef: cCall.programLocusRef,
-    taskOrdinal: cCall.taskOrdinal,
-    attempt: cCall.attempt,
-  });
-  const preparedOwner = await leafPort.invoke({
-    resolution: implementationResolution,
-    input: inputValue,
-    inputDigest: stop.cursor.inputDigest,
-    failureContractRef: stop.failureContractRef,
-    occurrence,
-  });
-  assert.equal(
-    preparedOwner.kind,
-    "prepared_probabilistic_leaf_owner_invocation",
-  );
-  const effectResult = await abg.invokeActorProcess({
-    store,
-    predecessorPrefix: openedCCall.successorPrefix,
-    executionBasis,
-    scope: opened.scope,
-    cCall,
-    expectedInputDigest: stop.cursor.inputDigest,
-    occurrence,
-    workerContracts: preparedOwner.workerContracts,
-    runtime: actorRuntimeBinding,
-    request: preparedOwner.workerRequest,
-    dispatchOrdinal: 1,
-    basis: basis(`attempt-${stop.cursor.attempt}/actor`),
-  });
-  assert.equal(effectResult.kind, "actor_process_effect_receipt");
-  const ownerResult = preparedOwner.complete(effectResult.exchange);
-  assert.equal(ownerResult.kind, "closed_leaf_owner_receipt");
-  assert.equal(ownerResult.effectDisposition, "completed");
-  const contracts = ownerResult.workerContracts;
-  assert.notEqual(contracts, null);
-  const receipt = ownerResult.receipt;
-  assert.notEqual(receipt, null);
-  assert.equal(receipt.computeRegime, "F_P");
-  const realized = receipt.candidate;
-  const workerRequest = receipt.actorProcessExchange.request;
-  const observation = receipt.actorProcessExchange.observation;
-  assert.notEqual(observation, null);
-  assert.equal(
-    failureClass === "no_output"
-      ? observation.failureClass === "no_output" &&
-        observation.disposition === "failure"
-      : observation.disposition === "success",
-    true,
-    JSON.stringify(observation),
-  );
-  assert.notEqual(workerRequest, null);
-  const resultCarrier = installedAbg.admitProbabilisticResultCandidate({
-    leafPort,
-    occurrence: {
-      cCallRef: cCall.cCallRef,
-      runId: cCall.runId,
-      graphCallId: cCall.graphCallId,
-      frameId: cCall.frameId,
-      programLocusRef: cCall.programLocusRef,
-      taskOrdinal: cCall.taskOrdinal,
-      attempt: cCall.attempt,
-    },
-    resolution: implementationResolution,
-    input: inputValue,
-    request: workerRequest,
-    observation,
-  });
-  if (observation.disposition === "success") {
-    assert.equal(
-      resultCarrier.kind,
-      "contract_admitted_probabilistic_result_candidate",
-      JSON.stringify(resultCarrier),
-    );
-  }
-  const evidenceCandidate = abg.deriveProbabilisticTransportEvidence(
-    cCall,
-    workerRequest,
-    observation,
-    resultCarrier.kind === "contract_admitted_probabilistic_result_candidate"
-      ? resultCarrier
-      : null,
-    realized.resultCandidate,
-    contracts.instructionContractRef,
-    contracts.resultContractRef,
-  );
-  const evidence = abg.admitEvidence(
-    store,
-    graph,
-    graphFunction,
-    stop.cursor,
-    cCall,
-    evidenceCandidate,
-    cCall.evidenceContractRef,
-    stop.cursor.inputDigest,
-    basis(`attempt-${stop.cursor.attempt}/evidence`),
-    contracts.instructionContractRef,
-    contracts.resultContractRef,
-    {
-      request: workerRequest,
-      observation,
-      admittedResultCarrier:
-        resultCarrier.kind === "contract_admitted_probabilistic_result_candidate"
-          ? resultCarrier
-          : null,
-    },
-  );
-  assert.equal(
-    evidence.kind,
-    "admitted_c_call_evidence",
-    JSON.stringify(evidence),
-  );
-  const outputKind = leafPort.contractValueKind(
-    cCall.outputContractRef,
-    "output",
-  );
-  assert.notEqual(outputKind, null);
-  const resultRejection = abg.admitResult(
-    store,
-    graph,
-    graphFunction,
-    stop.cursor,
-    cCall,
-    realized.resultCandidate,
-    "success",
-    cCall.outputContractRef,
-    outputKind,
-    (value) =>
-      leafPort.validateContractValue(cCall.outputContractRef, "output", value),
-    [evidence],
-    basis(`attempt-${stop.cursor.attempt}/result`),
-  );
-  assert.equal(
-    resultRejection.kind,
-    "c_call_admission_rejection",
-    JSON.stringify(resultRejection),
-  );
-  assert.equal(resultRejection.stage, "result");
-  const failureValueKind = leafPort.contractValueKind(
-    cCall.failureContractRef,
-    "failure",
-  );
-  assert.notEqual(failureValueKind, null);
-  const transitionPrefix = abg.selectValidatedRuntimeEventPrefix(
-    store.readAll(),
-  );
+  const admitted = lifecycle.outcome;
+  const transitionPrefix = abg.projectRuntimeTruthAtDurablePrefix(
+    admitted.successorPrefix,
+    stop.cursor.runId,
+  ).authorityPrefix;
   const transition = retryOwner.admitRetryRuntimeFailureTransition(
     store,
     transitionPrefix,
@@ -1722,10 +1547,10 @@ async function rejectAttempt(
     graph,
     graphFunction,
     stop.cursor,
-    cCall,
-    failureClass === "no_output" ? evidence : resultRejection,
-    realized.resultCandidate,
-    failureValueKind,
+    admitted.cCall,
+    admitted.source,
+    admitted.failureCandidate,
+    admitted.failureValueKind,
     basis(`attempt-${stop.cursor.attempt}/retry-transition`),
   );
   assert.equal(
@@ -1735,12 +1560,10 @@ async function rejectAttempt(
   );
   assert.equal(transition.disposition, "retry");
   assert.equal(transition.progress.progressClass, "retry");
+  assert.equal(transition.progress.failureClass, failureClass);
   const failureSignalRef = transition.close.signal.failureSignalRef;
   return {
-    cCall,
-    observation,
-    realized,
-    resultRejection,
+    cCall: admitted.cCall,
     transition,
     failureSignalRef,
     progress: transition.progress,
@@ -1865,14 +1688,17 @@ async function advanceRetry(environment, attemptResult) {
   assert.equal(store.readAll().length, projectedPrefixCount);
   const commonExecution = {
     store,
+    predecessorPrefix: resumed.successorPrefix,
     executionBasis,
     openedTraversalScope: opened.scope,
     program: environment.program,
     graphFunction: environment.graphFunction,
     graph,
     graphValidation: environment.graphValidation,
+    programValidation: environment.programValidation,
     implementationSet: environment.implementationSet,
     interactionSet: environment.interactionSet,
+    continuationProductBasis: environment.continuationProductBasis,
     leafPort: environment.leafPort,
     closureContract: environment.closureContract,
     actorRuntimeBinding: environment.actorRuntimeBinding,
@@ -1952,6 +1778,7 @@ async function advanceRetry(environment, attemptResult) {
   await assert.rejects(
     () => hog.executeGraphTraversal({
       ...commonExecution,
+      predecessorPrefix: unrelatedTailPrefix,
       projectedRetryResume: {
         ...resumed,
         successorPrefix: unrelatedTailPrefix,
@@ -2008,47 +1835,57 @@ async function advanceOwnerToLocus(
     : initial;
   for (let routeOrdinal = 0; routeOrdinal < 64; routeOrdinal += 1) {
     assert.equal(cursor.kind, "traversal_cursor", JSON.stringify(cursor));
-    const step = environment.hog.deriveDirectCStepFromGraph(
-      environment.graph.template,
+    const traversed = environment.hog.traverseFromCursor(
       {
-        nodeRef: cursor.currentNodeRef,
-        termPath: cursor.termPath,
-        taskOrdinal: cursor.taskOrdinal,
-        attempt: cursor.attempt,
-        retryPath: cursor.retryPath,
-      },
-    );
-    assert.equal(step.kind, "direct_c_traversal_step", JSON.stringify(step));
-    if (step.stepKind === "open_leaf" || step.stepKind === "enter_child") {
-      return environment.hog.traverseFromCursor(
-        {
-          program: environment.program,
-          graphFunction: environment.graphFunction,
-          graph: environment.graph,
-          graphValidation: environment.graphValidation,
-          executionBasis: environment.executionBasis,
-          openedTraversalScope: opened.scope,
-        },
-        cursor,
-      );
-    }
-    cursor = await Effect.runPromise(
-      environment.hog.advanceStructuralTraversal({
-        store: environment.store,
         program: environment.program,
         graphFunction: environment.graphFunction,
         graph: environment.graph,
         graphValidation: environment.graphValidation,
         executionBasis: environment.executionBasis,
         openedTraversalScope: opened.scope,
-        initial: cursor,
-        step,
-        inputValue,
-        inputAuthority: environment.leafPort,
-        routeOrdinal,
-        clock: { eventTime: EVENT_TIME, correlationId },
-      }),
+      },
+      cursor,
     );
+    if (traversed.kind === "traversal_stop_ref") {
+      return traversed;
+    }
+    assert.equal(
+      traversed.kind,
+      "traversal_cursor",
+      JSON.stringify(traversed),
+    );
+    const term = environment.hog.resolveTraversalTerm(
+      environment.graph,
+      cursor,
+    );
+    assert.notEqual(term.kind, "traversal_refusal", JSON.stringify(term));
+    assert.notEqual(term.kind, "c_of");
+    assert.notEqual(term.kind, "c_workflow");
+    const advanced = environment.structuralOwner.advanceStructuralTransition({
+      store: environment.store,
+      predecessorPrefix:
+        environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(
+          environment.store,
+        ),
+      executionBasis: environment.executionBasis,
+      openedTraversalScope: opened.scope,
+      graph: environment.graph,
+      graphFunction: environment.graphFunction,
+      leafPort: environment.leafPort,
+      cursor,
+      input: inputValue,
+      term,
+      ordinal: routeOrdinal,
+      structuralOrdinal: routeOrdinal,
+      eventTime: EVENT_TIME,
+      correlationId,
+    });
+    assert.equal(
+      advanced.kind,
+      "structural_advance",
+      JSON.stringify(advanced),
+    );
+    cursor = advanced.cursor;
   }
   assert.fail("structural owner did not reach one exact executable locus");
 }
@@ -2061,6 +1898,7 @@ async function produceFrontier(input) {
       "fixtureArtifactPath",
       "fixtureArtifactRef",
       "fixtureBasis",
+      "frozenArtifact",
       "packageRoot",
       "supportPath",
     ],
@@ -2076,12 +1914,22 @@ async function produceFrontier(input) {
   process.env.ABG_AX_F09_COUNTER = worker.counterPath;
   process.env.ABG_TS_FP_TIMEOUT_MS = "10000";
   const eventLogPath = environment.eventLogPath;
-  const opened = environment.abg.openCall(
+  const opened = environment.abg.openTraversalScope(
     environment.store,
-    environment.executionBasis,
+    environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(
+      environment.store,
+    ),
+    {
+      kind: "root",
+      executionBasis: environment.executionBasis,
+    },
     basis("open"),
   );
-  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  assert.equal(
+    opened.kind,
+    "traversal_scope_open_admission",
+    JSON.stringify(opened),
+  );
   environment.opened = opened;
   const entryMismatchSnapshot = {
     events: environment.product.canonicalJson(environment.store.readAll()),
@@ -2095,18 +1943,21 @@ async function produceFrontier(input) {
   await assert.rejects(
     () => environment.hog.executeGraphTraversal({
       store: environment.store,
+      predecessorPrefix:
+        environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(
+          environment.store,
+        ),
       executionBasis: environment.executionBasis,
       openedTraversalScope: opened.scope,
       program: environment.program,
       graphFunction: environment.graphFunction,
       graph: environment.graph,
       graphValidation: environment.graphValidation,
+      programValidation: environment.programValidation,
       implementationSet: environment.implementationSet,
       interactionSet: environment.interactionSet,
       continuationProductBasis: environment.continuationProductBasis,
       leafPort: environment.leafPort,
-      childTraversalPreparationPort:
-        environment.childTraversalPreparationPort,
       closureContract: environment.closureContract,
       actorRuntimeBinding: environment.actorRuntimeBinding,
       input: forgedEntryInput,
@@ -2139,6 +1990,9 @@ async function produceFrontier(input) {
   const initialCursor = traversal;
   const cursorAdmission = environment.abg.admitInitialTraversalCursor(
     environment.store,
+    environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(
+      environment.store,
+    ),
     environment.executionBasis,
     opened.scope,
     environment.graph,
@@ -2161,25 +2015,39 @@ async function produceFrontier(input) {
   assert.equal(stop.kind, "traversal_stop_ref", JSON.stringify(stop));
   assert.equal(stop.programLocusRef,
     retryProduct.AX_F09_RETRY_IDS.transformLocusRef);
-  const transformed = await environment.leafOwner.executeLeafAtLocus({
+  const transformedLifecycle = await Effect.runPromise(
+    environment.cCallOwner.evaluateExecutableCCall({
     store: environment.store,
+    predecessorPrefix:
+      environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(
+        environment.store,
+      ),
     executionBasis: environment.executionBasis,
     openedTraversalScope: opened.scope,
     program: environment.program,
     graphFunction: environment.graphFunction,
     graph: environment.graph,
-    traversalStop: stop,
+    graphValidation: environment.graphValidation,
+    stop,
     implementationSet: environment.implementationSet,
-    implementationResolution: environment.transformResolution,
     leafPort: environment.leafPort,
     input: environment.invocationInput,
-    inputDigest: environment.rawInput.subjectDigest,
     closureContract: environment.closureContract,
+    actorRuntimeBinding: environment.actorRuntimeBinding,
+    scopeClass: "root",
     clock: {
       eventTime: EVENT_TIME,
       correlationId: "correlation://s06/ax-f09/transform",
     },
-  });
+    ordinal: 0,
+  }),
+  );
+  assert.equal(
+    transformedLifecycle.kind,
+    "c_call_evaluation",
+    JSON.stringify(transformedLifecycle),
+  );
+  const transformed = transformedLifecycle.completion;
   assert.equal(transformed.disposition, "advanced", JSON.stringify(transformed));
   assert.notEqual(transformed.nextCursor, null);
   assert.notEqual(transformed.resultRef, null);
@@ -2715,18 +2583,18 @@ async function inspectHandoff(handoff) {
     );
     const commonExecution = {
       store: reopened.store,
+      predecessorPrefix: resumed.successorPrefix,
       executionBasis: dependencies.executionBasis,
       openedTraversalScope: dependencies.openedTraversalScope,
       program: dependencies.program,
       graphFunction: dependencies.graphFunction,
       graph: dependencies.graph,
       graphValidation: dependencies.graphValidation,
+      programValidation: dependencies.programValidation,
       implementationSet: dependencies.implementationSet,
       interactionSet: dependencies.interactionSet,
       continuationProductBasis: dependencies.continuationProductBasis,
       leafPort: dependencies.leafPort,
-      childTraversalPreparationPort:
-        dependencies.childTraversalPreparationPort,
       closureContract: dependencies.closureContract,
       actorRuntimeBinding: {
         workspaceBinding: dependencies.workspaceBinding,
@@ -3033,6 +2901,7 @@ async function produceAba(input) {
       "fixtureArtifactPath",
       "fixtureArtifactRef",
       "fixtureBasis",
+      "frozenArtifact",
       "packageRoot",
       "retryBudget",
       "supportPath",
@@ -3044,25 +2913,39 @@ async function produceAba(input) {
   process.env.ABG_AX_F09_COUNTER = worker.counterPath;
   process.env.ABG_AX_F09_MODE = "aba";
   process.env.ABG_TS_FP_TIMEOUT_MS = "10000";
-  const opened = environment.abg.openCall(
+  const opened = environment.abg.openTraversalScope(
     environment.store,
-    environment.executionBasis,
+    environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(
+      environment.store,
+    ),
+    {
+      kind: "root",
+      executionBasis: environment.executionBasis,
+    },
     basis("aba-open"),
   );
-  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  assert.equal(
+    opened.kind,
+    "traversal_scope_open_admission",
+    JSON.stringify(opened),
+  );
   const completion = await environment.hog.executeGraphTraversal({
     store: environment.store,
+    predecessorPrefix:
+      environment.eventStoreOwner.selectHeldEventStoreDurablePrefix(
+        environment.store,
+      ),
     executionBasis: environment.executionBasis,
     openedTraversalScope: opened.scope,
     program: environment.program,
     graphFunction: environment.graphFunction,
     graph: environment.graph,
     graphValidation: environment.graphValidation,
+    programValidation: environment.programValidation,
     implementationSet: environment.implementationSet,
     interactionSet: environment.interactionSet,
     continuationProductBasis: environment.continuationProductBasis,
     leafPort: environment.leafPort,
-    childTraversalPreparationPort: environment.childTraversalPreparationPort,
     closureContract: environment.closureContract,
     actorRuntimeBinding: environment.actorRuntimeBinding,
     input: environment.invocationInput,
@@ -3070,6 +2953,7 @@ async function produceAba(input) {
     eventTime: EVENT_TIME,
     correlationId: "correlation://s06/ax-f09/aba",
   });
+  assert.equal(completion.disposition, "held", JSON.stringify(completion));
   const events = environment.store.readAll();
   const attempts = events.filter((event) =>
     event.kind === "retry_attempt_opened");
@@ -3225,7 +3109,6 @@ async function produceAba(input) {
   assert.equal(attemptFourTerminalRoutes.length, 0);
   assert.equal(rootClosureEvents.length, 0);
 
-  assert.equal(completion.disposition, "held", JSON.stringify(completion));
   assert.equal(completion.parentSuspensions.length, 1);
   const [parentSuspension] = completion.parentSuspensions;
   assert.equal(parentSuspension.kind, "held_workflow_suspension");
@@ -3299,20 +3182,13 @@ async function produceAba(input) {
     parentSuspension.sourceCursor,
   );
   assert.equal(workflowStep.kind, "traversal_cursor", JSON.stringify(workflowStep));
-  const workflowDirectStep = environment.hog.deriveDirectCStepFromGraph(
-    environment.graph.template,
-    {
-      nodeRef: workflowStep.currentNodeRef,
-      termPath: workflowStep.termPath,
-      taskOrdinal: workflowStep.taskOrdinal,
-      attempt: workflowStep.attempt,
-      retryPath: workflowStep.retryPath,
-    },
+  const workflowTerm = environment.hog.resolveTraversalTerm(
+    environment.graph,
+    workflowStep,
   );
-  assert.equal(workflowDirectStep.kind, "direct_c_traversal_step");
-  assert.equal(workflowDirectStep.stepKind, "enter_child");
+  assert.equal(workflowTerm.kind, "c_workflow", JSON.stringify(workflowTerm));
   assert.equal(
-    workflowDirectStep.graphFunctionRef,
+    workflowTerm.graphFunctionRef,
     environment.childGraphFunction.name,
   );
   const workflowCallEvents = events.filter((event) =>

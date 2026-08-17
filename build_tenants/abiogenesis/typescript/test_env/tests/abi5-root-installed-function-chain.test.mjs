@@ -289,6 +289,9 @@ test("ABI5-ROOT-001 composes installed Public owners and fails closed without th
     [
       'import { appendFile } from "node:fs/promises";',
       'export { GraphTraversalFailure } from "./traversal_failure.js";',
+      "export function resumeProjectedRetry() {",
+      '  throw new TypeError("installed HoG fold probe cannot resume retry");',
+      "}",
       "export async function executeGraphTraversal() {",
       "  const probePath = process.env.ABI5_C2A_FOLD_PROBE_PATH;",
       "  if (typeof probePath !== \"string\" || probePath.length === 0) {",

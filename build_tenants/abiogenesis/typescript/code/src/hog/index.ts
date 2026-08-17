@@ -44,6 +44,7 @@ export {
 export {
   executeGraphTraversal,
   GraphTraversalFailure,
+  resumeProjectedRetry,
   type ExecuteGraphTraversalInput,
   type ExecuteGraphTraversalRequest,
   type ExecuteGraphTraversalResult,
@@ -55,6 +56,11 @@ export {
   type GraphTraversalEntryRefusal,
   type GraphTraversalFailureResult,
   type ProjectedRetryResumeSuccess,
+  type ProjectedRetryResumeRefusal,
+  type ProjectedRetryResumeRefusalCode,
+  type ProjectedRetryResumeResult,
+  type ResumeProjectedRetryRequest,
+  type ResumeProjectedRetryRuntime,
   type ResumeHeldInteractionInput,
 } from "./graph_execute.js";
 export {

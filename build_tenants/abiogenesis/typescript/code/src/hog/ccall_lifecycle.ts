@@ -24,6 +24,7 @@ import type {
   LeafInvocationPort,
 } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import type { GraphValidation } from "../validator/graph.js";
 import { proposeJudgmentCandidate } from "./judgment.js";
 import {
   admissionBasis,
@@ -51,6 +52,7 @@ export interface ExecutableCCallContext {
   readonly program: Readonly<GtlProgram>;
   readonly graphFunction: Readonly<GraphFunction>;
   readonly graph: Readonly<GtlGraph>;
+  readonly graphValidation: GraphValidation;
   readonly stop: ExecutableCCallLocusCandidate;
   readonly implementationSet: AdmittedImplementationSet;
   readonly leafPort: LeafInvocationPort;

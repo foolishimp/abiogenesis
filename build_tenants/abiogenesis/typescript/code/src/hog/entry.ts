@@ -46,6 +46,7 @@ import {
   traversalBasis,
 } from "./operator_support.js";
 import {
+  resolveTraversalTerm,
   traverse,
   traverseFromCursor,
   type TraversalCursor,
@@ -238,23 +239,39 @@ export function enterTraversal(
       );
     }
     let traversal;
+    let targetTerm;
+    let materializedTargetInput;
     try {
       traversal = traverseFromCursor(traversalBasis(input), candidate.nextCursor);
+      targetTerm = resolveTraversalTerm(input.graph, candidate.nextCursor);
+      materializedTargetInput = materializedInputAtCursor(
+        input.graph,
+        candidate.nextCursor,
+      );
     } catch {
       throw new TypeError(
         "diagnostic://abiogenesis/hog/projected-retry-traversal-mismatch@5",
       );
     }
+    const traversalCursor = traversal.kind === "traversal_cursor"
+      ? traversal
+      : traversal.kind === "traversal_stop_ref"
+        ? traversal.cursor
+        : null;
     if (
-      traversal.kind !== "traversal_stop_ref" ||
-      traversal.stopClass !== "executable" ||
-      !sameCanonical(traversal.cursor, candidate.nextCursor) ||
+      traversalCursor === null ||
+      targetTerm.kind === "traversal_refusal" ||
+      !sameCanonical(traversalCursor, candidate.nextCursor) ||
       !sameCanonical(reprojected.cursor, candidate.nextCursor) ||
-      traversal.cursor.inputRef !== candidate.inputRef ||
-      traversal.cursor.inputDigest !== candidate.inputDigest ||
-      traversal.inputContractRef !== candidate.inputContractRef ||
+      traversalCursor.inputRef !== candidate.inputRef ||
+      traversalCursor.inputDigest !== candidate.inputDigest ||
+      targetTerm.inputCarrierRef !== candidate.inputContractRef ||
       sha256Canonical(candidate.inputValue as unknown as JsonValue) !==
-        candidate.inputDigest
+        candidate.inputDigest ||
+      (
+        materializedTargetInput !== null &&
+        !sameCanonical(materializedTargetInput.value, candidate.inputValue)
+      )
     ) {
       throw new TypeError(
         "diagnostic://abiogenesis/hog/projected-retry-traversal-mismatch@5",

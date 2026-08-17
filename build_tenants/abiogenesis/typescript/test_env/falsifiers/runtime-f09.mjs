@@ -29,7 +29,8 @@ function runJsonWorker(workerPath, cwd, input) {
         env: { ...process.env, NODE_OPTIONS: "" },
         encoding: "utf8",
         maxBuffer: 40 * 1024 * 1024,
-        timeout: 120_000,
+        // Encloses three full installed Product verification passes.
+        timeout: 900_000,
       },
       (error, stdout, stderr) => {
         if (error !== null) {
@@ -79,6 +80,11 @@ export async function runAxF09Aba({ harness, packageRoot }) {
   try {
     produced = await runJsonWorker(workerPath, harness.cliHost, {
       action: "produce_aba",
+      frozenArtifact: {
+        artifactPath: harness.artifactPath,
+        installHost: harness.cliHost,
+        artifactSha256: harness.candidateBasis.artifactDigest,
+      },
       packageRoot,
       supportPath: join(
         packageRoot,
@@ -241,6 +247,11 @@ export async function runAxF09({ harness, packageRoot }) {
   try {
     producer = await runJsonWorker(workerPath, harness.cliHost, {
       action: "produce_frontier",
+      frozenArtifact: {
+        artifactPath: harness.artifactPath,
+        installHost: harness.cliHost,
+        artifactSha256: harness.candidateBasis.artifactDigest,
+      },
       packageRoot,
       supportPath: join(
         packageRoot,
@@ -567,9 +578,9 @@ export async function runAxF09({ harness, packageRoot }) {
       relationId: "AX-F09",
       disposition: "preserved_green",
       claim:
-        "the admitted graph-entry value survives a real transform and two authentic retry failures, then a fresh process reconstructs D17/D18, executes attempt three at the transformed retry locus, and reaches a downstream hold whose parent graph input comes only from the rehydrated ExecutionBasis",
+        "the admitted graph-entry value survives a real transform and two authentic retry failures, then a fresh process projects D17, invokes D18, enters executeGraphTraversal with only projectedRetryResume, executes attempt three at the transformed retry locus, and reaches a downstream hold whose parent graph input comes only from the rehydrated ExecutionBasis",
       ingress:
-        "installed ./abg::projectExecutableRetryInput then ./hog::resumeProjectedRetry, followed by the exact projected executor branch",
+        "installed ./abg::projectExecutableRetryInput -> ./hog::resumeProjectedRetry -> ./hog::executeGraphTraversal({ projectedRetryResume })",
       fixtureSource:
         "authored packed and installed test Product composing an F_D input transform, budget-three F_P retry, and downstream child F_H hold, with nonce graph-entry input, no-output attempt one, malformed-result attempt two, and unopened attempt three",
       processBoundary:

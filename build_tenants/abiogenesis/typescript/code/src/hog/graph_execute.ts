@@ -57,7 +57,15 @@ import {
   type RecursionChildFoldFrame,
   type RestoreDeferredRecursionInput,
 } from "./recursion_lifecycle.js";
-import { advanceRetryLifecycle } from "./retry_lifecycle.js";
+import {
+  advanceRetryLifecycle,
+  resumeProjectedRetry,
+  type ProjectedRetryResumeRefusal,
+  type ProjectedRetryResumeRefusalCode,
+  type ProjectedRetryResumeResult,
+  type ResumeProjectedRetryRequest,
+  type ResumeProjectedRetryRuntime,
+} from "./retry_lifecycle.js";
 import { advanceStructuralTransition } from "./structural_transition.js";
 import {
   failTraversal,
@@ -100,6 +108,7 @@ import {
 } from "./workflow_lifecycle.js";
 
 export { GraphTraversalFailure };
+export { resumeProjectedRetry };
 export type {
   ExecuteGraphTraversalCommonInput,
   ExecuteGraphTraversalInput,
@@ -114,6 +123,11 @@ export type {
   InitialOrNonRetryExecuteGraphTraversalInput,
   InteractionResumeTraversalEntryInput,
   ResumeHeldInteractionInput,
+  ProjectedRetryResumeRefusal,
+  ProjectedRetryResumeRefusalCode,
+  ProjectedRetryResumeResult,
+  ResumeProjectedRetryRequest,
+  ResumeProjectedRetryRuntime,
 };
 export type ProjectedRetryResumeSuccess =
   import("../abg/retry.js").ProjectedRetryResumeSuccess;
@@ -236,6 +250,7 @@ function executableContext(
     program: runtime.program,
     graphFunction: runtime.graphFunction,
     graph: runtime.graph,
+    graphValidation: runtime.graphValidation,
     stop,
     implementationSet: runtime.implementationSet,
     leafPort: runtime.leafPort,
@@ -1331,5 +1346,7 @@ export async function executeGraphTraversal(
   ) {
     return projectGraphTraversalFailure(failure.value);
   }
+  const defect = Cause.dieOption(exit.cause);
+  if (Option.isSome(defect)) throw defect.value;
   throw exit.cause;
 }

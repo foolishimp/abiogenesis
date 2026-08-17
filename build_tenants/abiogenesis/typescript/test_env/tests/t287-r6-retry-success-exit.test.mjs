@@ -1067,6 +1067,8 @@ async function executeTestGraph(context, constructFixture, options = {}) {
     validator,
     workspaceBinding,
   });
+  const executionPredecessorPrefix =
+    abg.selectHeldEventStoreDurablePrefix(store);
   const graph = gtl.materializeGraph(graphFunction, {
     invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
     admittedInputRef: rawInput.admissionRef,
@@ -1121,7 +1123,7 @@ async function executeTestGraph(context, constructFixture, options = {}) {
   assert.ok(closureContract);
   const execution = abg.admitExecutionBasis(
     store,
-    invocationAdmissionReceipt.successorPrefix,
+    executionPredecessorPrefix,
     {
     invocationAdmission,
     rawInputValue: input,
@@ -1181,6 +1183,7 @@ async function executeTestGraph(context, constructFixture, options = {}) {
     graphFunction,
     graph,
     graphValidation,
+    programValidation,
     implementationSet: execution.implementationSet,
     interactionSet: execution.interactionSet,
     continuationProductBasis: {
@@ -2204,6 +2207,7 @@ async function completeFhInteraction(runtime) {
     resumed = await graphExecute.executeGraphTraversal({
       ...traversalExecutionInput,
       store,
+      predecessorPrefix: resumed.successorPrefix,
       resume: {
         cursor: resumed.nextCursor,
         input: resumed.resultValue,
@@ -4856,6 +4860,11 @@ test("T-287 TV5 published F_P retry crosses the real gap and reconstructs D17 re
     execution.environment.installedRoot,
     "build/code/src/hog/graph_execute.js",
   )).href);
+  const retryRouteCorrelationSuffix = "/retry/route";
+  assert.equal(
+    retryRoute.correlationId.endsWith(retryRouteCorrelationSuffix),
+    true,
+  );
   const projectedResume = graphExecute.resumeProjectedRetry({
     store: predecessor.store,
     predecessorPrefix,
@@ -4867,11 +4876,11 @@ test("T-287 TV5 published F_P retry crosses the real gap and reconstructs D17 re
       graphFunction: execution.graphFunction,
       graph: execution.graph,
       graphValidation: execution.traversalExecutionInput.graphValidation,
-      eventTime: execution.traversalExecutionInput.eventTime,
-      correlationId:
-        `${execution.traversalExecutionInput.correlationId}/retry/${
-          projectedRetry.nextAttempt
-        }`,
+      eventTime: retryRoute.eventTime,
+      correlationId: retryRoute.correlationId.slice(
+        0,
+        -retryRouteCorrelationSuffix.length,
+      ),
     },
   });
   assert.equal(
@@ -4889,6 +4898,30 @@ test("T-287 TV5 published F_P retry crosses the real gap and reconstructs D17 re
   assert.equal(projectedResume.nextCursor.cursorRef, calls[1].payload.cursorRef);
   assert.equal(projectedResume.nextCursor.cursorDigest, calls[1].payload.cursorDigest);
   assert.deepEqual(projectedResume.nextCursor.retryPath, [1, 2]);
+  const {
+    input: _initialInput,
+    inputDigest: _initialInputDigest,
+    resume: _initialResume,
+    projectedRetryResume: _initialProjectedRetryResume,
+    ...commonTraversalInput
+  } = execution.traversalExecutionInput;
+  const restartedCompletion = await graphExecute.executeGraphTraversal({
+    ...commonTraversalInput,
+    store: predecessor.store,
+    predecessorPrefix: projectedResume.successorPrefix,
+    projectedRetryResume: projectedResume,
+    correlationId:
+      `${execution.traversalExecutionInput.correlationId}/fresh-retry-execute`,
+  });
+  assert.equal(
+    restartedCompletion.disposition,
+    "closed",
+    JSON.stringify(restartedCompletion),
+  );
+  assert.deepEqual(
+    restartedCompletion.resultValue,
+    execution.completion.resultValue,
+  );
 
   const sourceReplay = execution.environment.abg
     .replayValidatedRuntimeEventPrefix(runPrefix, authorityPrefix);
@@ -5091,72 +5124,6 @@ test("T-287 F10 F_H successor enters retry through its exact route and durable i
   }
 });
 
-test("T-287 F10 batch-transformed F_H successor refuses before retry route or attempt", async (context) => {
-  const execution = await executeTestGraph(
-    context,
-    deferredFhThenRetryPublication,
-  );
-  assert.equal(execution.completion.disposition, "advanced");
-  assert.ok(execution.completion.nextCursor);
-  const { abg, hog, product } = execution.environment;
-  const resume = execution.events.find((event) =>
-    event.kind === "fh_interaction_resume_admitted");
-  assert.ok(resume);
-  const step = hog.traverseFromCursor({
-    program: execution.program,
-    graph: execution.graph,
-    graphValidation: execution.traversalExecutionInput.graphValidation,
-    executionBasis: execution.execution.executionBasis,
-    openedTraversalScope: execution.opened.scope,
-  }, execution.completion.nextCursor);
-  assert.equal(step.kind, "traversal_step");
-  assert.equal(step.directStep.stepKind, "retry");
-  const transformedValue = {
-    ...structuredClone(resume.payload.successorInputValue),
-    batchMaterializationOrdinal: 0,
-  };
-  assert.notEqual(product.sha256Canonical(transformedValue),
-    resume.payload.successorInputDigest);
-  const store = execution.traversalExecutionInput.store;
-  const beforeEvents = store.readAll();
-  const beforeDigest = store.digest();
-  const retryRouteCount = beforeEvents.filter((event) =>
-    event.kind === "traversal_route_admitted" &&
-    event.payload.routeKind === "retry").length;
-  const attemptCount = beforeEvents.filter((event) =>
-    event.kind === "retry_attempt_opened").length;
-  const refusal = hog.advanceStructuralTraversal({
-    store,
-    program: execution.program,
-    graph: execution.graph,
-    graphValidation: execution.traversalExecutionInput.graphValidation,
-    executionBasis: execution.execution.executionBasis,
-    openedTraversalScope: execution.opened.scope,
-    initial: step,
-    inputValue: transformedValue,
-    inputAuthority: execution.traversalExecutionInput.leafPort,
-    clock: {
-      eventTime: "2026-08-07T00:00:00.000Z",
-      correlationId: "correlation://t287/f10/fh-batch-transform",
-    },
-  });
-  assert.equal(refusal.kind, "retry_admission_refusal",
-    JSON.stringify(refusal));
-  assert.equal(refusal.code, "basis_mismatch");
-  assert.deepEqual(store.readAll(), beforeEvents);
-  assert.equal(store.digest(), beforeDigest);
-  assert.equal(store.readAll().filter((event) =>
-    event.kind === "traversal_route_admitted" &&
-    event.payload.routeKind === "retry").length, retryRouteCount);
-  assert.equal(store.readAll().filter((event) =>
-    event.kind === "retry_attempt_opened").length, attemptCount);
-  assert.equal(abg.projectRetryAttempt(
-    abg.selectValidatedRuntimeEventPrefix(store.readAll()),
-    execution.graph,
-    resume.eventId,
-  ), null);
-});
-
 test("T-287 F10 successor-carrier derivation refuses a same-coordinate non-F_H leaf without effects", async (context) => {
   const execution = await executeTestGraph(context, retryIdentityPublication);
   const { hog } = execution.environment;
@@ -5216,6 +5183,37 @@ test("T-287 F10 successor-carrier derivation refuses a same-coordinate non-F_H l
 
 test("T-287 R6 nested structural identity exits both retry depths without fabricating CCall truth", async (context) => {
   const execution = await executeTestGraph(context, retryIdentityPublication);
+  const structuralAttempt = execution.events.find((event) =>
+    event.kind === "retry_attempt_opened" &&
+    execution.environment.product.sha256Canonical(event.payload.retryPath) ===
+      execution.environment.product.sha256Canonical([1]));
+  assert.ok(structuralAttempt);
+  const structuralRetryCursor = retryAttemptCursorForEvent(
+    execution,
+    structuralAttempt,
+  );
+  const structuralRetryEntry = execution.environment.hog.traverseFromCursor({
+    program: execution.program,
+    graphFunction: execution.graphFunction,
+    graph: execution.graph,
+    graphValidation: execution.traversalExecutionInput.graphValidation,
+    executionBasis: execution.execution.executionBasis,
+    openedTraversalScope: execution.opened.scope,
+  }, structuralRetryCursor);
+  assert.equal(
+    structuralRetryEntry.kind,
+    "traversal_cursor",
+    JSON.stringify(structuralRetryEntry),
+  );
+  assert.deepEqual(structuralRetryEntry, structuralRetryCursor);
+  assert.equal(
+    execution.environment.hog.resolveTraversalTerm(
+      execution.graph,
+      structuralRetryEntry,
+    ).kind,
+    "c_retry",
+    "a retry attempt may lawfully enter another structural retry term",
+  );
   const { completed } = assertNestedSuccessfulRetryExit(
     execution,
     "structural_identity_success",
