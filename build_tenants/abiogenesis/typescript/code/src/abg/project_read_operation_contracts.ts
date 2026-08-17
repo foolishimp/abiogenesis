@@ -148,7 +148,6 @@ function abgReadContract<
   selector: TSelector;
   projection: TProjection;
   abstractModule: string;
-  port: string;
   replay?: boolean;
   capabilityRef?: string;
 }>) {
@@ -184,7 +183,6 @@ function abgReadContract<
       abstractModule: input.abstractModule,
       exportName: "ABG_PROJECT_READ_CONTRACTS",
       memberPath: [input.caseKey],
-      port: input.port,
       authorityRef,
       authorityDigest: ownerAuthorityDigest(authorityRef),
     },
@@ -222,7 +220,6 @@ const runStatus = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectStatusProjectionSchema("run_status_projection"),
   abstractModule: "ABG.RunProjection",
-  port: "RunProjectionPort.run_status",
 });
 const graphCallStatus = abgReadContract({
   caseKey: "graph_call_status",
@@ -230,7 +227,6 @@ const graphCallStatus = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectStatusProjectionSchema("graph_call_status_projection"),
   abstractModule: "ABG.GraphCallProjection",
-  port: "GraphCallProjectionPort.graph_call_status",
 });
 const runResult = abgReadContract({
   caseKey: "run_result",
@@ -238,7 +234,6 @@ const runResult = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectResultProjectionSchema("run_result_projection"),
   abstractModule: "ABG.RunProjection",
-  port: "RunProjectionPort.run_result",
 });
 const graphCallResult = abgReadContract({
   caseKey: "graph_call_result",
@@ -246,7 +241,6 @@ const graphCallResult = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectResultProjectionSchema("graph_call_result_projection"),
   abstractModule: "ABG.GraphCallProjection",
-  port: "GraphCallProjectionPort.graph_call_result",
 });
 
 const runEvidence = abgReadContract({
@@ -255,7 +249,6 @@ const runEvidence = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectEvidenceProjectionSchema("run_evidence_projection"),
   abstractModule: "ABG.RunProjection",
-  port: "RunProjectionPort.run_evidence",
 });
 const graphCallEvidence = abgReadContract({
   caseKey: "graph_call_evidence",
@@ -263,7 +256,6 @@ const graphCallEvidence = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectEvidenceProjectionSchema("graph_call_evidence_projection"),
   abstractModule: "ABG.GraphCallProjection",
-  port: "GraphCallProjectionPort.graph_call_evidence",
 });
 const resultEvidence = abgReadContract({
   caseKey: "result_evidence",
@@ -271,7 +263,6 @@ const resultEvidence = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectEvidenceProjectionSchema("result_evidence_projection"),
   abstractModule: "ABG.ResultProjection",
-  port: "ResultProjectionPort.evidence",
 });
 const assessmentEvidence = abgReadContract({
   caseKey: "assessment_evidence",
@@ -279,7 +270,6 @@ const assessmentEvidence = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectEvidenceProjectionSchema("assessment_evidence_projection"),
   abstractModule: "ABG.AssessmentProjection",
-  port: "AssessmentProjectionPort.evidence",
   capabilityRef: "abg.capability.runtime.admit-fp-result@5",
 });
 const witnessEvidence = abgReadContract({
@@ -288,7 +278,6 @@ const witnessEvidence = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectEvidenceProjectionSchema("witness_evidence_projection"),
   abstractModule: "ABG.WitnessProjection",
-  port: "WitnessProjectionPort.evidence",
   capabilityRef: "abg.capability.operator.public-contract@5",
 });
 
@@ -298,7 +287,6 @@ const workspaceReplay = abgReadContract({
   selector: replaySelectorSchema,
   projection: subjectReplayProjectionSchema("workspace_replay_projection"),
   abstractModule: "ABG.WorkspaceProjection",
-  port: "WorkspaceProjectionPort.workspace_replay",
   replay: true,
 });
 const runReplay = abgReadContract({
@@ -307,7 +295,6 @@ const runReplay = abgReadContract({
   selector: replaySelectorSchema,
   projection: subjectReplayProjectionSchema("run_replay_projection"),
   abstractModule: "ABG.RunProjection",
-  port: "RunProjectionPort.run_replay",
   replay: true,
 });
 const graphCallReplay = abgReadContract({
@@ -316,7 +303,6 @@ const graphCallReplay = abgReadContract({
   selector: replaySelectorSchema,
   projection: subjectReplayProjectionSchema("graph_call_replay_projection"),
   abstractModule: "ABG.GraphCallProjection",
-  port: "GraphCallProjectionPort.graph_call_replay",
   replay: true,
 });
 const interactionReplay = abgReadContract({
@@ -325,7 +311,6 @@ const interactionReplay = abgReadContract({
   selector: replaySelectorSchema,
   projection: subjectReplayProjectionSchema("interaction_replay_projection"),
   abstractModule: "ABG.InteractionProjection",
-  port: "InteractionProjectionPort.replay",
   replay: true,
 });
 const continuationReplay = abgReadContract({
@@ -334,7 +319,6 @@ const continuationReplay = abgReadContract({
   selector: replaySelectorSchema,
   projection: subjectReplayProjectionSchema("continuation_replay_projection"),
   abstractModule: "ABG.ContinuationProjection",
-  port: "ContinuationProjectionPort.replay",
   replay: true,
 });
 const cCallReplay = abgReadContract({
@@ -343,7 +327,6 @@ const cCallReplay = abgReadContract({
   selector: cCallReplaySelectorSchema,
   projection: subjectReplayProjectionSchema("c_call_replay_projection"),
   abstractModule: "ABG.CCallProjection",
-  port: "CCallProjectionPort.replay",
   replay: true,
 });
 
@@ -356,7 +339,6 @@ const workspaceGaps = abgReadContract({
   }),
   projection: subjectGapProjectionSchema("workspace_gap_projection"),
   abstractModule: "ABG.WorkspaceProjection",
-  port: "WorkspaceProjectionPort.workspace_gaps",
   capabilityRef: "abg.capability.operator.public-contract@5",
 });
 const runGaps = abgReadContract({
@@ -365,7 +347,6 @@ const runGaps = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectGapProjectionSchema("run_gap_projection"),
   abstractModule: "ABG.RunProjection",
-  port: "RunProjectionPort.run_gaps",
 });
 const runLawfulActions = abgReadContract({
   caseKey: "run_lawful_actions",
@@ -376,7 +357,6 @@ const runLawfulActions = abgReadContract({
   }),
   projection: lawfulActionProjectionSchema,
   abstractModule: "ABG.RunProjection",
-  port: "RunProjectionPort.run_lawful_actions",
 });
 
 export const ABG_PROJECT_READ_CONTRACTS = Object.freeze({

@@ -194,9 +194,22 @@ export interface ProductExecutionDirectSelection {
   readonly catalogHandle: string;
 }
 
-export interface ProductExecutionStartSelection extends ProgramStartRequest {
+export interface ProductExecutionProgramStartSelection extends ProgramStartRequest {
   readonly kind: "start";
 }
+
+export interface ProductExecutionGraphFunctionStartSelection {
+  readonly kind: "start";
+  readonly scope: "program";
+  readonly target: "graph_function";
+  readonly graphFunctionHandle: string;
+  readonly until: "converged";
+  readonly rootMode: "direct" | "supervised";
+}
+
+export type ProductExecutionStartSelection =
+  | ProductExecutionProgramStartSelection
+  | ProductExecutionGraphFunctionStartSelection;
 
 export interface ProductExecutionAdmittedSelection {
   readonly kind: "admitted";
@@ -423,6 +436,22 @@ async function resolveProductExecution(
         "absent",
         "catalog",
         "direct execution selection requires one exact canonical CatalogView handle",
+      );
+    }
+    selectedCatalogEntry = selected;
+  } else if (
+    input.selection.kind === "start" &&
+    "graphFunctionHandle" in input.selection
+  ) {
+    const selected = lookupGraphFunction(
+      reconstructedView,
+      input.selection.graphFunctionHandle,
+    );
+    if (selected === null) {
+      return refusal(
+        "absent",
+        "catalog",
+        "GraphFunction start requires one exact CatalogView handle",
       );
     }
     selectedCatalogEntry = selected;

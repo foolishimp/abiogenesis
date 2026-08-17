@@ -109,7 +109,6 @@ function witnessContract<const TAct extends WitnessAct>(act: TAct) {
       abstractModule: "ABG.WitnessAdmission",
       exportName: "WITNESS_OPERATION_CONTRACTS",
       memberPath: ["admit", act],
-      port: "WitnessAdmissionPort.admit",
       authorityRef: WITNESS_AUTHORITY,
       authorityDigest: ownerAuthorityDigest(WITNESS_AUTHORITY),
     },

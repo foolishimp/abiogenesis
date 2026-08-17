@@ -414,7 +414,7 @@ export function resultWithEvidence<
   });
 }
 
-export interface OwnerContractPacket<
+export interface OwnerContractSourceDeclaration<
   TDefinitionKey extends PublicDefinitionKeyLike = PublicDefinitionKeyLike,
   TRequestSchema extends RuntimeContractSchema = RuntimeContractSchema,
   TResultSchema extends RuntimeContractSchema = RuntimeContractSchema,
@@ -431,7 +431,6 @@ export interface OwnerContractPacket<
     abstractModule: string;
     exportName: string;
     memberPath: readonly string[];
-    port: string;
     authorityRef: string;
     authorityDigest: `sha256:${string}`;
   }>;
@@ -472,7 +471,7 @@ export interface CompleteDefinitionContractCoordinateMap {
   }>[];
 }
 
-export type OwnerDefinitionMetadata = OwnerContractPacket["metadata"] &
+export type OwnerDefinitionMetadata = OwnerContractSourceDeclaration["metadata"] &
   Readonly<{
     readonly ownerAuthorityRef: string;
     readonly ownerAuthorityDigest: `sha256:${string}`;
@@ -491,18 +490,18 @@ export interface OwnerContractSchemas<
   readonly nonTerminal: TNonTerminalSchema;
 }
 
-export type OwnerRequestOf<TPacket extends OwnerContractPacket> =
+export type OwnerRequestOf<TPacket extends OwnerContractSourceDeclaration> =
   RuntimeContractOutput<TPacket["requestSchema"]>;
-export type OwnerResultOf<TPacket extends OwnerContractPacket> =
+export type OwnerResultOf<TPacket extends OwnerContractSourceDeclaration> =
   RuntimeContractOutput<TPacket["resultSchema"]>;
-export type OwnerRefusalOf<TPacket extends OwnerContractPacket> =
+export type OwnerRefusalOf<TPacket extends OwnerContractSourceDeclaration> =
   RuntimeContractOutput<TPacket["refusalSchema"]>;
-export type OwnerNonTerminalOf<TPacket extends OwnerContractPacket> =
+export type OwnerNonTerminalOf<TPacket extends OwnerContractSourceDeclaration> =
   TPacket["nonTerminalSchema"] extends RuntimeContractSchema
     ? RuntimeContractOutput<TPacket["nonTerminalSchema"]>
     : never;
 
-export type OwnerSemanticOutput<TPacket extends OwnerContractPacket> =
+export type OwnerSemanticOutput<TPacket extends OwnerContractSourceDeclaration> =
   | Readonly<{
     outcomeKind: "result";
     value: OwnerResultOf<TPacket>;
@@ -517,7 +516,7 @@ export type OwnerSemanticOutput<TPacket extends OwnerContractPacket> =
       value: OwnerNonTerminalOf<TPacket>;
     }>);
 
-export type ExactOwnerOperationPort<TPacket extends OwnerContractPacket> = (
+export type ExactOwnerOperationPort<TPacket extends OwnerContractSourceDeclaration> = (
   invocation: AdmittedPublicInvocation<
     TPacket["definitionKey"],
     OwnerRequestOf<TPacket> & Readonly<Record<string, JsonValue>>
@@ -531,7 +530,7 @@ function requirementSlot(
 }
 
 function assertMetadata(
-  metadata: OwnerContractPacket["metadata"],
+  metadata: OwnerContractSourceDeclaration["metadata"],
 ): void {
   const slots = metadata.authoritySlotRequirements.map(requirementSlot);
   if (
@@ -561,9 +560,9 @@ export function ownerContractPacket<
   resultSchema: TResultSchema,
   refusal: TRefusalSchema,
   nonTerminalSchema: TNonTerminalSchema,
-  owner: OwnerContractPacket["owner"],
-  metadata: OwnerContractPacket["metadata"],
-): OwnerContractPacket<
+  owner: OwnerContractSourceDeclaration["owner"],
+  metadata: OwnerContractSourceDeclaration["metadata"],
+): OwnerContractSourceDeclaration<
   TDefinitionKey,
   RuntimeContractSchema<
     RuntimeContractInput<TRequestSchema>,
@@ -609,7 +608,7 @@ export function ownerContractPacket<
         : `${contractBase}/non-terminal@5`,
     }),
     metadata: ownerMetadata(metadata),
-  }) as unknown as OwnerContractPacket<
+  }) as unknown as OwnerContractSourceDeclaration<
     TDefinitionKey,
     RuntimeContractSchema<
       RuntimeContractInput<TRequestSchema>,
@@ -633,8 +632,8 @@ export function ownerContractPacket<
 }
 
 export function ownerMetadata(
-  input: OwnerContractPacket["metadata"],
-): OwnerContractPacket["metadata"] {
+  input: OwnerContractSourceDeclaration["metadata"],
+): OwnerContractSourceDeclaration["metadata"] {
   assertMetadata(input);
   return Object.freeze({
     ...input,
@@ -701,7 +700,7 @@ export function admitRuntimeContract(
 export function projectStrictJsonSchema(
   schema: RuntimeContractSchema,
 ): PublicJsonSchema {
-  return toJsonSchema(schema as v.GenericSchema, {
+  const projected = toJsonSchema(schema as v.GenericSchema, {
     target: "draft-2020-12",
     overrideAction: ({ valibotAction, jsonSchema }) => {
       // I-JSON excludes non-finite numbers at the native admission boundary;
@@ -721,4 +720,98 @@ export function projectStrictJsonSchema(
       return undefined;
     },
   }) as PublicJsonSchema;
+  return normalizeGeneratedDefinitionRefs(projected);
+}
+
+function normalizeGeneratedDefinitionRefs(
+  schema: PublicJsonSchema,
+): PublicJsonSchema {
+  const definitions = schema.$defs;
+  if (
+    typeof definitions !== "object" ||
+    definitions === null ||
+    Array.isArray(definitions)
+  ) return schema;
+  const sourceDefinitions = definitions as Readonly<Record<string, JsonValue>>;
+  const assigned = new Map<string, string>();
+  const pending: string[] = [];
+  const assign = (sourceKey: string): void => {
+    if (!Object.hasOwn(sourceDefinitions, sourceKey) || assigned.has(sourceKey)) {
+      return;
+    }
+    assigned.set(sourceKey, `d${assigned.size}`);
+    pending.push(sourceKey);
+  };
+  const visit = (value: JsonValue): void => {
+    if (Array.isArray(value)) {
+      for (const entry of value) visit(entry);
+      return;
+    }
+    if (typeof value !== "object" || value === null) return;
+    const record = value as Readonly<Record<string, JsonValue>>;
+    const reference = record.$ref;
+    if (typeof reference === "string") {
+      const match = /^#\/\$defs\/([^/]+)$/u.exec(reference);
+      if (match !== null) assign(match[1]!);
+    }
+    for (const key of Object.keys(record).sort()) {
+      if (key !== "$defs") visit(record[key]!);
+    }
+  };
+  const rootWithoutDefinitions = Object.fromEntries(
+    Object.entries(schema).filter(([key]) => key !== "$defs"),
+  ) as JsonValue;
+  visit(rootWithoutDefinitions);
+  for (let index = 0; index < pending.length; index += 1) {
+    visit(sourceDefinitions[pending[index]!]!);
+  }
+  const neutral = (value: JsonValue): JsonValue => {
+    if (Array.isArray(value)) return value.map(neutral);
+    if (typeof value !== "object" || value === null) return value;
+    const record = value as Readonly<Record<string, JsonValue>>;
+    return Object.fromEntries(Object.keys(record).sort().map((key) => [
+      key,
+      key === "$ref" &&
+          typeof record[key] === "string" &&
+          /^#\/\$defs\/[^/]+$/u.test(record[key])
+        ? "#/$defs/_"
+        : neutral(record[key]!),
+    ])) as JsonValue;
+  };
+  const remaining = Object.keys(sourceDefinitions)
+    .filter((key) => !assigned.has(key))
+    .sort((left, right) => {
+      const leftProjection = canonicalJson(neutral(sourceDefinitions[left]!));
+      const rightProjection = canonicalJson(neutral(sourceDefinitions[right]!));
+      return leftProjection < rightProjection
+        ? -1
+        : leftProjection > rightProjection
+        ? 1
+        : 0;
+    });
+  for (const key of remaining) assign(key);
+
+  const rewrite = (value: JsonValue): JsonValue => {
+    if (Array.isArray(value)) return value.map(rewrite);
+    if (typeof value !== "object" || value === null) return value;
+    const record = value as Readonly<Record<string, JsonValue>>;
+    return Object.fromEntries(Object.entries(record).map(([key, child]) => {
+      if (key === "$ref" && typeof child === "string") {
+        const match = /^#\/\$defs\/([^/]+)$/u.exec(child);
+        const replacement = match === null ? undefined : assigned.get(match[1]!);
+        if (replacement !== undefined) return [key, `#/$defs/${replacement}`];
+      }
+      return [key, rewrite(child)];
+    })) as JsonValue;
+  };
+  const normalizedDefinitions = Object.fromEntries(
+    [...assigned.entries()].map(([sourceKey, targetKey]) => [
+      targetKey,
+      rewrite(sourceDefinitions[sourceKey]!),
+    ]),
+  );
+  return {
+    ...(rewrite(rootWithoutDefinitions) as PublicJsonSchema),
+    $defs: normalizedDefinitions,
+  };
 }

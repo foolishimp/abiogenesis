@@ -61,6 +61,7 @@ export {
   admitExactInvocation,
   admitInvocation,
   deriveInvocationSourceResultBasisAtPrefix,
+  rehydrateInvocationSourceResultBasisAtDurablePrefix,
   isInvocationSourceResultBasis,
   hasInvocationRunBindingAtPrefix,
   rehydrateInvocationAdmissionAtPrefix,
@@ -376,6 +377,13 @@ export {
   persistEventLog,
   type PersistedEventLog,
 } from "./event_log.js";
+export {
+  projectRunTruthAtDurablePrefix,
+  type AbgRunTruthCoordinate,
+  type AbgRunTruthProjection,
+  type AbgRunTruthRefusal,
+  type AbgRunTruthResult,
+} from "./project_read_ports.js";
 export {
   admitBlockedRetryTraversalTransition,
   admitCompletedRetryTraversalTransition,

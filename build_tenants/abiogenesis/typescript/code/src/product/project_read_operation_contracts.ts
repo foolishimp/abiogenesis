@@ -130,7 +130,6 @@ function productReadContract<
   selector: TSelector;
   projection: TProjection;
   abstractModule: string;
-  port: string;
   bindingRequired: boolean;
   capabilityRef: string;
   catalogRefusals?: boolean;
@@ -167,7 +166,6 @@ function productReadContract<
       abstractModule: input.abstractModule,
       exportName: "PRODUCT_PROJECT_READ_CONTRACTS",
       memberPath: [input.caseKey],
-      port: input.port,
       authorityRef,
       authorityDigest: ownerAuthorityDigest(authorityRef),
     },
@@ -213,7 +211,6 @@ const catalogList = productReadContract({
   }),
   projection: catalogListProjectionSchema,
   abstractModule: "Product.CatalogProjection",
-  port: "CatalogProjectionPort.list",
   bindingRequired: true,
   capabilityRef: "abg.capability.operator.public-contract@5",
   catalogRefusals: true,
@@ -229,7 +226,6 @@ const catalogDescribe = productReadContract({
   }),
   projection: catalogDescriptionProjectionSchema,
   abstractModule: "Product.CatalogProjection",
-  port: "CatalogProjectionPort.describe",
   bindingRequired: true,
   capabilityRef: "abg.capability.operator.public-contract@5",
   catalogRefusals: true,
@@ -241,7 +237,6 @@ const workspaceStatus = productReadContract({
   selector: noSelectorSchema,
   projection: workspaceStatusProjectionSchema,
   abstractModule: "Product.WorkspaceProjection",
-  port: "WorkspaceProjectionPort.status",
   bindingRequired: true,
   capabilityRef: "abg.capability.operator.public-contract@5",
 });
@@ -255,7 +250,6 @@ const installEvidence = productReadContract({
   }),
   projection: installEvidenceProjectionSchema,
   abstractModule: "Product.InstallProjection",
-  port: "InstallProjectionPort.evidence",
   bindingRequired: false,
   capabilityRef: "abg.capability.install.bind-products@5",
 });
@@ -269,7 +263,6 @@ const releaseEvidence = productReadContract({
   }),
   projection: releaseEvidenceProjectionSchema,
   abstractModule: "Product.ReleaseProjection",
-  port: "ReleaseProjectionPort.evidence",
   bindingRequired: false,
   capabilityRef: "abg.capability.operator.public-contract@5",
 });
@@ -285,7 +278,6 @@ const ticketConsensus = productReadContract({
   }),
   projection: ticketConsensusProjectionSchema,
   abstractModule: "Product.ConsensusProjection",
-  port: "ConsensusProjectionPort.ticketConsensus",
   bindingRequired: true,
   capabilityRef: "abg.capability.operator.public-contract@5",
 });

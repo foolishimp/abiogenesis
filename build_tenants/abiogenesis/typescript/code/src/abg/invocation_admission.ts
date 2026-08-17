@@ -26,7 +26,10 @@ import {
   type RunInvocationVariant,
   type WorkspaceBinding,
 } from "../product/index.js";
-import type { ExactDirectRunInvocation } from "../product/invocation.js";
+import type {
+  ExactDirectRunInvocation,
+  ExactStartRunInvocation,
+} from "../product/invocation.js";
 import {
   applyCatalogDeclaration,
   lookupGraphFunction,
@@ -108,7 +111,9 @@ export interface InvocationAdmissionInput {
 
 export interface ExactInvocationAdmissionInput
   extends Omit<InvocationAdmissionInput, "rawRequest"> {
-  readonly publicInvocation: ExactDirectRunInvocation;
+  readonly publicInvocation:
+    | ExactDirectRunInvocation
+    | ExactStartRunInvocation;
 }
 
 type InvocationRequestBasis =
@@ -118,7 +123,9 @@ type InvocationRequestBasis =
   }>
   | Readonly<{
     readonly family: "exact_public_definition";
-    readonly publicInvocation: ExactDirectRunInvocation;
+    readonly publicInvocation:
+      | ExactDirectRunInvocation
+      | ExactStartRunInvocation;
   }>;
 
 export interface InvocationReentryBasis {
@@ -501,6 +508,37 @@ export function deriveInvocationSourceResultBasisAtPrefix(
   return basis;
 }
 
+/** Reopens no authority: it reidentifies one asserted source basis in-place. */
+export function rehydrateInvocationSourceResultBasisAtDurablePrefix(
+  prefix: DurablePrefixCoordinate,
+  asserted: ProductInvocationSourceResultBasis,
+): ProductInvocationSourceResultBasis | null {
+  if (!isInvocationSourceResultBasis(asserted)) return null;
+  let validatedPrefix: ValidatedRuntimeEventPrefix;
+  try {
+    validatedPrefix = selectValidatedRuntimeEventPrefix(
+      readRuntimeEventsAtDurablePrefix(prefix),
+    );
+  } catch {
+    return null;
+  }
+  const projected = deriveInvocationSourceResultBasisAtPrefix(
+    validatedPrefix,
+    {
+      publicAuthorityDigest: asserted.publicAuthorityDigest,
+      runtimeInvocationRef: asserted.sourceInvocationRef,
+      invocationAdmissionRef: asserted.sourceInvocationAdmissionRef,
+      runId: asserted.sourceRunId,
+      resultRef: asserted.sourceResultRef,
+    },
+  );
+  return projected !== null &&
+      canonicalJson(projected as unknown as JsonValue) ===
+        canonicalJson(asserted as unknown as JsonValue)
+    ? projected
+    : null;
+}
+
 function validatedComputeRegimes(
   validation: ProgramValidation,
 ): readonly ("F_D" | "F_H" | "F_P")[] {
@@ -841,14 +879,63 @@ function admitInvocationWithRequest(
     requestPayload !== null &&
       isRecord(requestPayload.sourceProjectionAuthority)
       ? requestPayload.sourceProjectionAuthority
+      : exactRequest !== null && isRecord(exactRequest.sourceBasis) &&
+          exactRequest.sourceBasis.kind === "admitted_source_result" &&
+          isRecord(exactRequest.sourceBasis.projectionAuthority) &&
+          typeof exactRequest.sourceBasis.projectionAuthority.digest === "string"
+      ? { authorityDigest: exactRequest.sourceBasis.projectionAuthority.digest }
       : null;
   const suppliedSourceResultRef =
     requestPayload !== null &&
       typeof requestPayload.sourceResultRef === "string"
       ? requestPayload.sourceResultRef
+      : exactRequest !== null && isRecord(exactRequest.sourceBasis) &&
+          exactRequest.sourceBasis.kind === "admitted_source_result" &&
+          isRecord(exactRequest.sourceBasis.sourceResult) &&
+          typeof exactRequest.sourceBasis.sourceResult.ref === "string"
+      ? exactRequest.sourceBasis.sourceResult.ref
       : null;
+  const exactStartTarget = input.invocation.variant === "start" &&
+      exactRequest !== null && isRecord(exactRequest.target)
+    ? exactRequest.target.kind === "next"
+      ? { target: "next" as const }
+      : exactRequest.target.kind === "graph_function" &&
+          typeof exactRequest.target.handle === "string"
+      ? {
+          target: "graph_function" as const,
+          graphFunctionHandle: exactRequest.target.handle,
+        }
+      : exactRequest.target.kind === "asset" &&
+          typeof exactRequest.target.handle === "string"
+      ? { target: `asset:${exactRequest.target.handle}` }
+      : exactRequest.target.kind === "declared_start" &&
+          isRecord(exactRequest.target.start) &&
+          typeof exactRequest.target.start.ref === "string"
+      ? {
+          target: exactRequest.target.start.ref,
+          startRef: exactRequest.target.start.ref,
+        }
+      : null
+    : null;
   const resolvedPublicStart =
     input.invocation.variant === "start" &&
+      exactRequest !== null &&
+      exactStartTarget !== null &&
+      !("graphFunctionHandle" in exactStartTarget) &&
+      exactRequest.scope === "program" &&
+      exactRequest.until === "converged" &&
+      (exactRequest.rootMode === "direct" ||
+        exactRequest.rootMode === "supervised")
+      ? resolveProgramStart(input.program, {
+          scope: "program",
+          target: exactStartTarget.target,
+          until: "converged",
+          rootMode: exactRequest.rootMode,
+          ...("startRef" in exactStartTarget
+            ? { startRef: exactStartTarget.startRef }
+            : {}),
+        })
+    : input.invocation.variant === "start" &&
       requestPayload !== null &&
       typeof requestPayload.scope === "string" &&
       typeof requestPayload.target === "string" &&
@@ -882,15 +969,25 @@ function admitInvocationWithRequest(
         input.program.programRef,
       )
     : null;
+  const graphFunctionStartRow = input.invocation.variant === "start" &&
+      exactStartTarget !== null &&
+      "graphFunctionHandle" in exactStartTarget
+    ? lookupGraphFunction(
+        input.catalogView,
+        exactStartTarget.graphFunctionHandle,
+      )
+    : null;
   const selectedRow = input.invocation.variant === "direct"
     ? directCatalogHandle === null
       ? null
       : lookupGraphFunction(input.catalogView, directCatalogHandle)
-    : definitionLookup?.kind === "graph_function_definition_lookup_exact"
-      ? definitionLookup.entry
-      : null;
+    : graphFunctionStartRow ??
+        (definitionLookup?.kind === "graph_function_definition_lookup_exact"
+          ? definitionLookup.entry
+          : null);
   if (
     input.invocation.variant === "start" &&
+    graphFunctionStartRow === null &&
     definitionLookup?.kind !== "graph_function_definition_lookup_exact"
   ) {
     return refusal(
@@ -952,9 +1049,18 @@ function admitInvocationWithRequest(
       ) ||
       (
         input.invocation.variant === "start" &&
-        resolvedPublicStart?.kind === "resolved_program_start" &&
-        resolvedPublicStart.start.graphFunctionRef ===
-          input.invocation.graphFunctionRef
+        (
+          (
+            graphFunctionStartRow !== null &&
+            graphFunctionStartRow.definitionRef ===
+              input.invocation.graphFunctionRef
+          ) ||
+          (
+            resolvedPublicStart?.kind === "resolved_program_start" &&
+            resolvedPublicStart.start.graphFunctionRef ===
+              input.invocation.graphFunctionRef
+          )
+        )
       )
     );
   if (
@@ -976,7 +1082,8 @@ function admitInvocationWithRequest(
           requestBasis.publicInvocation.schemaVersion !== "5.0.0" ||
           requestBasis.publicInvocation.definitionKey.operationId !==
             "abg.operation.run.invoke" ||
-          requestBasis.publicInvocation.definitionKey.memberKey !== "invoke" ||
+          requestBasis.publicInvocation.definitionKey.memberKey !==
+            (input.invocation.variant === "direct" ? "invoke" : "start") ||
           requestBasis.publicInvocation.requestRef !==
             input.invocation.publicRequestAdmissionRef ||
           requestBasis.publicInvocation.requestDigest !==
@@ -1006,6 +1113,46 @@ function admitInvocationWithRequest(
       : null;
   const publicStart: PublicStartAdmissionIdentity | null =
     input.invocation.variant === "start" &&
+      exactRequest !== null &&
+      exactStartTarget !== null &&
+      "graphFunctionHandle" in exactStartTarget &&
+      exactRequest.scope === "program" &&
+      exactRequest.until === "converged" &&
+      (exactRequest.rootMode === "direct" ||
+        exactRequest.rootMode === "supervised") &&
+      graphFunctionStartRow !== null
+      ? {
+          kind: "public_start_identity",
+          schemaVersion: "5.0.0",
+          programRef: input.program.programRef,
+          graphFunctionRef: input.graphFunction.name,
+          startRef: graphFunctionStartRow.definitionRef,
+          scope: "program",
+          target: `graph_function:${exactStartTarget.graphFunctionHandle}`,
+          until: "converged",
+          rootMode: exactRequest.rootMode,
+        }
+    : input.invocation.variant === "start" &&
+      exactRequest !== null &&
+      exactStartTarget !== null &&
+      !("graphFunctionHandle" in exactStartTarget) &&
+      exactRequest.scope === "program" &&
+      exactRequest.until === "converged" &&
+      (exactRequest.rootMode === "direct" ||
+        exactRequest.rootMode === "supervised") &&
+      resolvedPublicStart?.kind === "resolved_program_start"
+      ? {
+          kind: "public_start_identity",
+          schemaVersion: "5.0.0",
+          programRef: input.program.programRef,
+          graphFunctionRef: input.graphFunction.name,
+          startRef: resolvedPublicStart.start.startRef,
+          scope: "program",
+          target: exactStartTarget.target,
+          until: "converged",
+          rootMode: exactRequest.rootMode,
+        }
+    : input.invocation.variant === "start" &&
       requestPayload !== null &&
       typeof requestPayload.programRef === "string" &&
       typeof requestPayload.scope === "string" &&

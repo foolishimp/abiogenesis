@@ -164,6 +164,39 @@ export type ExactDirectRunInvocation = AdmittedPublicInvocation<
   ExactDirectRunInvocationRequest
 >;
 
+export interface ExactStartRunInvocationRequest
+  extends Readonly<Record<string, JsonValue>> {
+  readonly program: Readonly<{ readonly ref: string; readonly digest: Sha256Digest }>;
+  readonly scope: "program";
+  readonly target: Readonly<Record<string, JsonValue>>;
+  readonly until: "converged";
+  readonly catalogView: Readonly<{
+    readonly ref: string;
+    readonly digest: Sha256Digest;
+  }>;
+  readonly allowlist: readonly string[];
+  readonly input: Readonly<{
+    readonly contract: Readonly<{
+      readonly ref: string;
+      readonly digest: Sha256Digest;
+    }>;
+    readonly valueRef: string;
+    readonly valueDigest: Sha256Digest;
+    readonly value: JsonValue;
+  }>;
+  readonly fhMode: "direct" | "human-proxy";
+  readonly rootMode: "direct" | "supervised";
+  readonly sourceBasis: Readonly<Record<string, JsonValue>>;
+}
+
+export type ExactStartRunInvocation = AdmittedPublicInvocation<
+  Readonly<{
+    readonly operationId: "abg.operation.run.invoke";
+    readonly memberKey: "start";
+  }>,
+  ExactStartRunInvocationRequest
+>;
+
 interface PublicRequestAdmissionCoordinates {
   readonly admissionRef: string;
   readonly subjectDigest: Sha256Digest;
@@ -957,6 +990,59 @@ export function constructExactDirectInvocation(
   }
   return constructInvocation(
     "direct",
+    workspaceBinding,
+    catalogView,
+    program,
+    selectedRow,
+    {
+      admissionRef: publicInvocation.requestRef,
+      subjectDigest: publicInvocation.requestDigest,
+      invocationRef: publicInvocation.invocationRef,
+    },
+    rawInput,
+    policy,
+    capabilityGrants,
+    authority,
+  );
+}
+
+/** Native exact-family start construction; no legacy request is manufactured. */
+export function constructExactStartInvocation(
+  publicInvocation: ExactStartRunInvocation,
+  workspaceBinding: WorkspaceBinding,
+  catalogView: GraphFunctionCatalogView,
+  program: Readonly<GtlProgram>,
+  selectedRow: GraphFunctionCatalogEntry,
+  rawInput: RawAdmittedValue<unknown>,
+  policy: InvocationPolicyBasis,
+  capabilityGrants: readonly CapabilityGrant[],
+  authority: InvocationAuthority,
+): PublicInvocationCandidate | InvocationConstructionRefusal {
+  const request = publicInvocation.request;
+  if (
+    publicInvocation.kind !== "public_invocation" ||
+    publicInvocation.schemaVersion !== "5.0.0" ||
+    publicInvocation.definitionKey.operationId !== "abg.operation.run.invoke" ||
+    publicInvocation.definitionKey.memberKey !== "start" ||
+    publicInvocation.requestRef.length === 0 ||
+    publicInvocation.invocationRef.length === 0 ||
+    !isSha256Digest(publicInvocation.requestDigest) ||
+    publicInvocation.requestDigest !==
+      sha256Canonical(request as unknown as JsonValue) ||
+    !isRecord(request.program) ||
+    request.program.ref !== program.programRef ||
+    !isRecord(request.input) ||
+    !isRecord(request.input.contract) ||
+    request.input.contract.ref !== rawInput.contractRef ||
+    selectedRow.definitionRef.length === 0
+  ) {
+    return refusal(
+      "authority_mismatch",
+      "start invocation requires one exact admitted definition request",
+    );
+  }
+  return constructInvocation(
+    "start",
     workspaceBinding,
     catalogView,
     program,

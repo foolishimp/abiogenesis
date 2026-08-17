@@ -61,7 +61,6 @@ const gtlProgram = ownerContractPacket(
     abstractModule: "Validator.Conformance",
     exportName: "CONFORMANCE_OPERATION_CONTRACTS",
     memberPath: ["evaluate", "gtl_program"],
-    port: "ConformancePort.evaluateGtlProgram",
     authorityRef: CONFORMANCE_AUTHORITY,
     authorityDigest: ownerAuthorityDigest(CONFORMANCE_AUTHORITY),
   },

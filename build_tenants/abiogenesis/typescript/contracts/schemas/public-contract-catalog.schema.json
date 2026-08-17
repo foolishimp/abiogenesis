@@ -22,8 +22,7 @@
       "minLength": 1
     },
     "catalogVersion": {
-      "type": "string",
-      "minLength": 1
+      "const": "5.0.0"
     },
     "catalogDigest": {
       "$ref": "#/$defs/sha256"
@@ -54,7 +53,7 @@
             "$ref": "#/$defs/ref"
           },
           "contractVersion": {
-            "$ref": "#/$defs/ref"
+            "const": "5.0.0"
           },
           "contractDigest": {
             "$ref": "#/$defs/sha256"
@@ -243,6 +242,475 @@
           "$ref": "#/$defs/ref"
         }
       }
+    },
+    "PublicCatalogBindingAttempt": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "extantCatalog": {
+          "type": "object",
+          "properties": {
+            "productId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "productContentDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "catalogId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "catalogVersion": {
+              "const": "5.0.0"
+            },
+            "catalogDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "productId",
+            "productContentDigest",
+            "catalogId",
+            "catalogVersion",
+            "catalogDigest"
+          ],
+          "additionalProperties": false
+        },
+        "family": {
+          "type": "object",
+          "properties": {
+            "requirementAuthorityRefs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "\\S"
+              },
+              "uniqueItems": true,
+              "minItems": 1
+            },
+            "familyRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "familyVersion": {
+              "const": "5.0.0"
+            },
+            "familyDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "requirementAuthorityRefs",
+            "familyRef",
+            "familyVersion",
+            "familyDigest"
+          ],
+          "additionalProperties": false
+        },
+        "proposalSetRef": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "proposalSetDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "productId": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "productContentDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "attemptRef": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "attemptDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "extantCatalog",
+        "family",
+        "proposalSetRef",
+        "proposalSetDigest",
+        "productId",
+        "productContentDigest",
+        "attemptRef",
+        "attemptDigest"
+      ],
+      "additionalProperties": false
+    },
+    "PublicCatalogBindingRefusal": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "public_catalog_binding_refusal"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "refusalContract": {
+          "type": "object",
+          "properties": {
+            "contractCatalog": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "productContentDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "catalogId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "catalogVersion": {
+                  "const": "5.0.0"
+                },
+                "catalogDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "productId",
+                "productContentDigest",
+                "catalogId",
+                "catalogVersion",
+                "catalogDigest"
+              ],
+              "additionalProperties": false
+            },
+            "flatRow": {
+              "type": "object",
+              "properties": {
+                "contractId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "contractVersion": {
+                  "const": "5.0.0"
+                },
+                "contractDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "contractId",
+                "contractVersion",
+                "contractDigest"
+              ],
+              "additionalProperties": false
+            },
+            "nestedSelector": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "selectorKind": {
+                      "const": "flat_contract"
+                    },
+                    "definitionKey": {
+                      "type": "null"
+                    },
+                    "slot": {
+                      "type": "null"
+                    },
+                    "definitionRef": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "selectorKind",
+                    "definitionKey",
+                    "slot",
+                    "definitionRef"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "selectorKind": {
+                      "const": "operation_definition_slot"
+                    },
+                    "definitionKey": {
+                      "type": "object",
+                      "properties": {
+                        "operationId": {
+                          "type": "string",
+                          "pattern": "\\S"
+                        },
+                        "memberKey": {
+                          "type": "string",
+                          "pattern": "\\S"
+                        }
+                      },
+                      "required": [
+                        "operationId",
+                        "memberKey"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "slot": {
+                      "enum": [
+                        "request",
+                        "result",
+                        "refusal",
+                        "non_terminal"
+                      ],
+                      "type": "string"
+                    },
+                    "definitionRef": {
+                      "type": "string",
+                      "pattern": "^#(?:\\/(?:[^~/]|~[01])*)*$"
+                    }
+                  },
+                  "required": [
+                    "selectorKind",
+                    "definitionKey",
+                    "slot",
+                    "definitionRef"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "selectorKind": {
+                      "const": "schema_definition"
+                    },
+                    "definitionKey": {
+                      "type": "null"
+                    },
+                    "slot": {
+                      "type": "null"
+                    },
+                    "definitionRef": {
+                      "type": "string",
+                      "pattern": "^#(?:\\/(?:[^~/]|~[01])*)*$"
+                    }
+                  },
+                  "required": [
+                    "selectorKind",
+                    "definitionKey",
+                    "slot",
+                    "definitionRef"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "required": [
+            "contractCatalog",
+            "flatRow",
+            "nestedSelector"
+          ],
+          "additionalProperties": false
+        },
+        "nativeContractSource": {
+          "type": "object",
+          "properties": {
+            "abstractModule": {
+              "const": "Product.PublicContractPublication"
+            },
+            "exportName": {
+              "const": "PUBLIC_CATALOG_BINDING_CONTRACTS"
+            },
+            "memberPath": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "const": "refusal"
+                }
+              ],
+              "minItems": 1
+            },
+            "sourceModuleDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "memberDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "abstractModule",
+            "exportName",
+            "memberPath",
+            "sourceModuleDigest",
+            "memberDigest"
+          ],
+          "additionalProperties": false
+        },
+        "attempt": {
+          "type": "object",
+          "properties": {
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "extantCatalog": {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "productContentDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                },
+                "catalogId": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "catalogVersion": {
+                  "const": "5.0.0"
+                },
+                "catalogDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "productId",
+                "productContentDigest",
+                "catalogId",
+                "catalogVersion",
+                "catalogDigest"
+              ],
+              "additionalProperties": false
+            },
+            "family": {
+              "type": "object",
+              "properties": {
+                "requirementAuthorityRefs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "\\S"
+                  },
+                  "uniqueItems": true,
+                  "minItems": 1
+                },
+                "familyRef": {
+                  "type": "string",
+                  "pattern": "\\S"
+                },
+                "familyVersion": {
+                  "const": "5.0.0"
+                },
+                "familyDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[0-9a-f]{64}$"
+                }
+              },
+              "required": [
+                "requirementAuthorityRefs",
+                "familyRef",
+                "familyVersion",
+                "familyDigest"
+              ],
+              "additionalProperties": false
+            },
+            "proposalSetRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "proposalSetDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "productId": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "productContentDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            "attemptRef": {
+              "type": "string",
+              "pattern": "\\S"
+            },
+            "attemptDigest": {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "schemaVersion",
+            "extantCatalog",
+            "family",
+            "proposalSetRef",
+            "proposalSetDigest",
+            "productId",
+            "productContentDigest",
+            "attemptRef",
+            "attemptDigest"
+          ],
+          "additionalProperties": false
+        },
+        "refusalRef": {
+          "type": "string",
+          "pattern": "\\S"
+        },
+        "refusalDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "failureClass": {
+          "enum": [
+            "forbidden_operation_identity",
+            "duplicate_contract_identity",
+            "missing_projected_identity",
+            "unexpected_projected_identity",
+            "retained_row_changed",
+            "owning_product_mismatch",
+            "unresolved_locator",
+            "content_digest_mismatch"
+          ],
+          "type": "string"
+        },
+        "issuePaths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(?:\\/(?:[^~/]|~[01])*)*$"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "refusalContract",
+        "nativeContractSource",
+        "attempt",
+        "refusalRef",
+        "refusalDigest",
+        "failureClass",
+        "issuePaths"
+      ],
+      "additionalProperties": false
     }
   }
 }

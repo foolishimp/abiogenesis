@@ -4,6 +4,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
+import { toJsonSchema } from "@valibot/to-json-schema";
+
 import {
   EXACT_OWNER_CONTRACT_KEY_SET_DIGEST,
   OWNER_CONTRACT_KEY_SET_DIGEST,
@@ -21,6 +23,17 @@ import {
   sha256Canonical,
 } from "../../build/code/src/shared/digests.js";
 import {
+  isDeeplyFrozen,
+} from "../../build/code/src/shared/immutable.js";
+import {
+  PUBLIC_FUNCTION_DEFINITION_FAMILY,
+  PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
+  derivePublicOperationContractProjections,
+} from "../../build/code/src/shared/public_function_family.js";
+import {
+  canonicalJson,
+} from "../../build/code/src/shared/canonical_json.js";
+import {
   admitCatalogAdmissionResult,
   constructCatalogAdmissionConservationWitness,
 } from "../../build/code/src/product/catalog_operation_contracts.js";
@@ -28,9 +41,8 @@ import {
   admitResolvedNativeContractClosure,
   resolvedNativeContractBindingSchema,
 } from "../../build/code/src/product/environment_operation_contracts.js";
-import {
-  joinExpectedOwnerContractSet,
-} from "../../build/code/src/product/verification_operation_contracts.js";
+import * as verificationContractModule from
+  "../../build/code/src/product/verification_operation_contracts.js";
 import {
   ReleaseSnapshotPort,
 } from "../../build/code/src/product/release_snapshot_operations.js";
@@ -80,7 +92,32 @@ const releaseVerdict = Object.freeze({
 function packet(operationId, memberKey) {
   const selected = OWNER_CONTRACT_SOURCE_MAP[operationId]?.[memberKey];
   assert.ok(selected, `missing owner packet ${operationId}/${memberKey}`);
-  return selected.packet;
+  return selected.declaration;
+}
+
+function ownerSource(operationId, memberKey) {
+  const selected = OWNER_CONTRACT_SOURCE_MAP[operationId]?.[memberKey];
+  assert.ok(selected, `missing owner source ${operationId}/${memberKey}`);
+  return selected;
+}
+
+function rawStrictJsonSchema(schema) {
+  return toJsonSchema(schema, {
+    target: "draft-2020-12",
+    overrideAction: ({ valibotAction, jsonSchema }) => {
+      if (valibotAction.type === "finite") return jsonSchema;
+      const message = valibotAction.message;
+      if (
+        valibotAction.type === "check" &&
+        (message === "unique_items" || message === "rfc3339_instant")
+      ) {
+        return message === "unique_items"
+          ? { ...jsonSchema, uniqueItems: true }
+          : { ...jsonSchema, format: "date-time" };
+      }
+      return undefined;
+    },
+  });
 }
 
 const representativeRequests = Object.freeze([
@@ -403,11 +440,47 @@ test("one owner source relation derives the exact frozen 18/56 key set", () => {
   assert.equal(new Set(OWNER_CONTRACT_SOURCES.map(({ memberDigest }) =>
     memberDigest)).size, 56);
   for (const source of OWNER_CONTRACT_SOURCES) {
-    assert.match(source.packet.owner.authorityDigest, /^sha256:[0-9a-f]{64}$/);
+    assert.deepEqual(Object.keys(source.packet).sort(), [
+      "definitionKey",
+      "executionBindingSpecification",
+      "executionBindingSpecificationDigest",
+      "metadata",
+      "nonTerminalContract",
+      "refusalContract",
+      "requestContract",
+      "resultContract",
+    ]);
+    assert.match(source.sourceModuleDigest, /^sha256:[0-9a-f]{64}$/);
     assert.match(source.memberDigest, /^sha256:[0-9a-f]{64}$/);
-    assert.match(source.nativeSchemaIdentities.request, /^sha256:[0-9a-f]{64}$/);
-    assert.match(source.nativeSchemaIdentities.result, /^sha256:[0-9a-f]{64}$/);
-    assert.match(source.nativeSchemaIdentities.refusal, /^sha256:[0-9a-f]{64}$/);
+    assert.equal(
+      source.packet.executionBindingSpecificationDigest,
+      sha256Canonical(source.packet.executionBindingSpecification),
+    );
+    assert.notEqual(
+      source.packet.executionBindingSpecification.callable.namedExport,
+      source.declaration.owner.exportName,
+    );
+    assert.match(
+      source.packet.executionBindingSpecification.callable.namedExport,
+      /_DEFINITION_BINDINGS$/,
+    );
+    for (const slot of ["request", "result", "refusal", "nonTerminal"]) {
+      const binding = source.contracts[slot];
+      const reference = source.packet[`${slot}Contract`];
+      if (binding === null) {
+        assert.equal(reference, null);
+        continue;
+      }
+      assert.ok(binding.schema);
+      assert.equal("schema" in reference, false);
+      assert.deepEqual(binding.source, reference.source);
+      assert.equal(binding.source.sourceModuleDigest, source.sourceModuleDigest);
+      assert.equal(binding.source.memberDigest, source.memberDigest);
+      assert.deepEqual(
+        binding.nativeSchemaIdentity.ownerMember,
+        binding.source,
+      );
+    }
   }
 });
 
@@ -418,22 +491,303 @@ test("every owner module source is present and content-addressed", () => {
   }
 });
 
+function sourceSchema(declaration, slot) {
+  if (slot === "request") return declaration.requestSchema;
+  if (slot === "result") return declaration.resultSchema;
+  if (slot === "refusal") return declaration.refusalSchema;
+  return declaration.nonTerminalSchema;
+}
+
+function sourceSchemaDigest(declaration, slot) {
+  const schema = sourceSchema(declaration, slot);
+  if (schema === null) return null;
+  return sha256Canonical({
+    schemaVersion: "5.0.0",
+    definitionKey: declaration.definitionKey,
+    slot,
+    ownerAuthorityRef: declaration.owner.authorityRef,
+    ownerAuthorityDigest: declaration.owner.authorityDigest,
+    schema: projectStrictJsonSchema(schema),
+  });
+}
+
+function compareDefinitionKey(left, right) {
+  const leftDefinition = left.definitionKey ?? left.declaration.definitionKey;
+  const rightDefinition = right.definitionKey ?? right.declaration.definitionKey;
+  const leftKey = `${leftDefinition.operationId}\0${leftDefinition.memberKey}`;
+  const rightKey = `${rightDefinition.operationId}\0${rightDefinition.memberKey}`;
+  return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
+}
+
+test("owner member and abstract-module digests exclude physical and port identity", () => {
+  for (const source of OWNER_CONTRACT_SOURCES) {
+    const declaration = source.declaration;
+    assert.equal("port" in declaration.owner, false);
+    const nativeSchemaDigests = {
+      request: sourceSchemaDigest(declaration, "request"),
+      result: sourceSchemaDigest(declaration, "result"),
+      refusal: sourceSchemaDigest(declaration, "refusal"),
+      nonTerminal: sourceSchemaDigest(declaration, "non_terminal"),
+    };
+    assert.equal(source.memberDigest, sha256Canonical({
+      definitionKey: declaration.definitionKey,
+      contractIds: declaration.contractIds,
+      owner: declaration.owner,
+      metadata: declaration.metadata,
+      nativeSchemaDigests,
+    }));
+    assert.equal(
+      source.contracts.request.nativeSchemaIdentity.schemaRef,
+      `native-schema://abiogenesis/${nativeSchemaDigests.request.slice(7)}`,
+    );
+  }
+
+  for (const abstractModule of [...new Set(
+    OWNER_CONTRACT_SOURCES.map(({ declaration }) =>
+      declaration.owner.abstractModule),
+  )].sort()) {
+    const moduleSources = OWNER_CONTRACT_SOURCES
+      .filter(({ declaration }) =>
+        declaration.owner.abstractModule === abstractModule)
+      .sort(compareDefinitionKey);
+    const moduleDigest = sha256Canonical({
+      abstractModule,
+      members: moduleSources.map(({ declaration, memberDigest }) => ({
+        definitionKey: declaration.definitionKey,
+        memberDigest,
+      })),
+    });
+    for (const source of moduleSources) {
+      assert.equal(source.sourceModuleDigest, moduleDigest);
+      assert.equal(
+        source.packet.requestContract.source.sourceModuleDigest,
+        moduleDigest,
+      );
+    }
+  }
+});
+
+function bindingIdentity(binding) {
+  const { schema: _schema, source: _source, ...identity } = binding;
+  return identity;
+}
+
+function definitionDigestProjection(definition) {
+  const {
+    definitionDigest: _definitionDigest,
+    requestContract,
+    resultContract,
+    refusalContract,
+    nonTerminalContract,
+    ...fields
+  } = definition;
+  return {
+    ...fields,
+    requestContract: bindingIdentity(requestContract),
+    resultContract: bindingIdentity(resultContract),
+    refusalContract: bindingIdentity(refusalContract),
+    nonTerminalContract: nonTerminalContract === null
+      ? null
+      : bindingIdentity(nonTerminalContract),
+  };
+}
+
+function familyDigestProjection(definitions) {
+  return {
+    operations: [...new Set(definitions.map(({ definitionKey }) =>
+      definitionKey.operationId))].sort().map((operationId) => ({
+      operationId,
+      members: definitions.filter(({ definitionKey }) =>
+        definitionKey.operationId === operationId).map((definition) => ({
+          memberKey: definition.definitionKey.memberKey,
+          definitionDigest: definition.definitionDigest,
+        })),
+    })),
+  };
+}
+
+test("the deeply frozen intrinsic family closes exact schemas and schema-free digests", () => {
+  const family = PUBLIC_FUNCTION_DEFINITION_FAMILY;
+  assert.equal(isDeeplyFrozen(family), true);
+  assert.equal(family.definitions.length, 56);
+  assert.equal(
+    new Set(family.definitions.map(({ definitionKey }) =>
+      definitionKey.operationId)).size,
+    18,
+  );
+  assert.equal(family.keySetDigest, EXACT_OWNER_CONTRACT_KEY_SET_DIGEST);
+  assert.deepEqual(Object.keys(family.definitions[0]).sort(), [
+    "actorRequirement",
+    "adapterExitMap",
+    "authorityClass",
+    "authoritySlotRequirements",
+    "capabilityRefs",
+    "cliCoordinate",
+    "closedDomains",
+    "defaults",
+    "definitionDigest",
+    "definitionKey",
+    "definitionRef",
+    "effectClass",
+    "eventAdmission",
+    "executionBindingSpecification",
+    "executionBindingSpecificationDigest",
+    "nonTerminalContract",
+    "refusalContract",
+    "requestContract",
+    "resultContract",
+    "schemaCoordinates",
+    "sdkCoordinate",
+    "semanticAuthorityDigest",
+    "semanticAuthorityRef",
+    "version",
+    "workspaceBindingRequirement",
+  ].sort());
+
+  for (const definition of family.definitions) {
+    const source = ownerSource(
+      definition.definitionKey.operationId,
+      definition.definitionKey.memberKey,
+    );
+    assert.equal(
+      definition.definitionDigest,
+      sha256Canonical(definitionDigestProjection(definition)),
+    );
+    assert.equal(
+      definition.executionBindingSpecificationDigest,
+      sha256Canonical(definition.executionBindingSpecification),
+    );
+    const slots = [
+      ["request", definition.requestContract, source.contracts.request],
+      ["result", definition.resultContract, source.contracts.result],
+      ["refusal", definition.refusalContract, source.contracts.refusal],
+      ["nonTerminal", definition.nonTerminalContract, source.contracts.nonTerminal],
+    ];
+    for (const [slot, binding, resolved] of slots) {
+      assert.equal(binding, resolved, `${definition.definitionRef}/${slot}`);
+      if (binding === null) continue;
+      assert.equal(isDeeplyFrozen(binding), true);
+      assert.equal(isDeeplyFrozen(binding.schema), true);
+      if (binding.schema.entries !== undefined) {
+        assert.equal(isDeeplyFrozen(binding.schema.entries), true);
+      }
+      assert.doesNotThrow(() => projectStrictJsonSchema(binding.schema));
+      const identity = bindingIdentity(binding);
+      assert.equal("schema" in identity, false);
+      assert.equal("source" in identity, false);
+      assert.match(
+        identity.nativeSchemaIdentity.ownerMember.sourceModuleDigest,
+        /^sha256:[0-9a-f]{64}$/,
+      );
+      assert.match(
+        identity.nativeSchemaIdentity.ownerMember.memberDigest,
+        /^sha256:[0-9a-f]{64}$/,
+      );
+    }
+  }
+  assert.equal(
+    family.familyDigest,
+    sha256Canonical(familyDigestProjection(family.definitions)),
+  );
+
+  const derived = derivePublicOperationContractProjections(family);
+  assert.deepEqual(derived, PUBLIC_OPERATION_CONTRACT_PROJECTIONS);
+  assert.equal(derived.length, 18);
+  assert.equal(
+    derived.flatMap(({ definitions }) => definitions).length,
+    56,
+  );
+  for (const projection of derived) {
+    const { rowRef, rowDigest, ...body } = projection;
+    assert.equal(rowDigest, sha256Canonical(body));
+    assert.ok(rowRef.endsWith(rowDigest.slice(7)));
+    for (const projected of projection.definitions) {
+      const definition = family.definitions.find(({ definitionKey }) =>
+        definitionKey.operationId === projected.definitionKey.operationId &&
+        definitionKey.memberKey === projected.definitionKey.memberKey);
+      assert.ok(definition);
+      for (const [slot, selected, binding] of [
+        ["request", projected.requestContract, definition.requestContract],
+        ["result", projected.resultContract, definition.resultContract],
+        ["refusal", projected.refusalContract, definition.refusalContract],
+        ["nonTerminal", projected.nonTerminalContract, definition.nonTerminalContract],
+      ]) {
+        assert.equal(selected === null, binding === null, `${projection.operationId}/${slot}`);
+        if (selected === null || binding === null) continue;
+        assert.deepEqual(selected.identity, bindingIdentity(binding));
+        assert.equal("schema" in selected.identity, false);
+        assert.equal("source" in selected.identity, false);
+      }
+    }
+  }
+});
+
+test("recursive family schema normalization survives refCount perturbation", () => {
+  const requestSchema = (operationId, memberKey) => {
+    const definition = PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(
+      ({ definitionKey }) =>
+        definitionKey.operationId === operationId &&
+        definitionKey.memberKey === memberKey,
+    );
+    assert.ok(definition, `missing family definition ${operationId}/${memberKey}`);
+    return definition.requestContract.schema;
+  };
+  const selected = requestSchema("abg.operation.run.invoke", "start");
+  const rawBefore = rawStrictJsonSchema(selected);
+  const rawBeforeKeys = Object.keys(rawBefore.$defs ?? {});
+  assert.ok(rawBeforeKeys.length > 0, "selected schema must generate $defs");
+  assert.ok(rawBeforeKeys.every((key) => /^\d+$/u.test(key)));
+
+  const normalizedBefore = canonicalJson(projectStrictJsonSchema(selected));
+  const perturbationCoordinates = [
+    ["abg.operation.interaction.respond", "approve"],
+    ["abg.operation.product.materialize", "configuration"],
+    ["abg.operation.witness.admit", "run-stopped"],
+  ];
+  const perturbationKeys = perturbationCoordinates.map(
+    ([operationId, memberKey]) => {
+      const raw = rawStrictJsonSchema(requestSchema(operationId, memberKey));
+      const keys = Object.keys(raw.$defs ?? {});
+      assert.ok(
+        keys.length > 0,
+        `${operationId}/${memberKey} must perturb recursive refCount`,
+      );
+      assert.ok(keys.every((key) => /^\d+$/u.test(key)));
+      return keys;
+    },
+  );
+  const rawAfter = rawStrictJsonSchema(selected);
+  const rawAfterKeys = Object.keys(rawAfter.$defs ?? {});
+  assert.ok(rawAfterKeys.length > 0);
+  assert.notDeepEqual(rawAfterKeys, rawBeforeKeys);
+  const observedRefCounts = [
+    ...rawBeforeKeys,
+    ...perturbationKeys.flat(),
+    ...rawAfterKeys,
+  ].map(Number);
+  assert.ok(observedRefCounts.every((value, index) =>
+    index === 0 || value > observedRefCounts[index - 1]));
+
+  const normalizedAfter = canonicalJson(projectStrictJsonSchema(selected));
+  assert.equal(normalizedAfter, normalizedBefore);
+});
+
 test("all 56 packets preserve exact capability and authority-slot vectors", () => {
-  for (const { packet: selected } of OWNER_CONTRACT_SOURCES) {
-    const { operationId, memberKey } = selected.definitionKey;
+  for (const source of OWNER_CONTRACT_SOURCES) {
+    const { operationId, memberKey } = source.packet.definitionKey;
     assert.deepEqual(
-      selected.metadata.capabilityRefs,
+      source.metadata.capabilityRefs,
       capabilityRefs(operationId, memberKey),
       `${operationId}/${memberKey} capabilities`,
     );
     assert.deepEqual(
-      selected.metadata.authoritySlotRequirements.map(renderedSlot),
+      source.metadata.authoritySlotRequirements.map(renderedSlot),
       slots(operationId, memberKey),
       `${operationId}/${memberKey} authority slots`,
     );
     assert.equal(
-      selected.owner.authorityDigest,
-      ownerAuthorityDigest(selected.owner.authorityRef),
+      source.metadata.ownerAuthorityDigest,
+      ownerAuthorityDigest(source.metadata.ownerAuthorityRef),
       `${operationId}/${memberKey} authority digest`,
     );
   }
@@ -468,7 +822,7 @@ test("D01-D15 reject the superseded wrapper and construction-issue shapes", () =
 });
 
 test("all 56 result contracts project closed schemas rather than open JSON", () => {
-  for (const { packet: selected } of OWNER_CONTRACT_SOURCES) {
+  for (const { declaration: selected } of OWNER_CONTRACT_SOURCES) {
     const schema = projectStrictJsonSchema(selected.resultSchema);
     assert.equal(
       containsOpenObjectSchema(schema),
@@ -478,210 +832,13 @@ test("all 56 result contracts project closed schemas rather than open JSON", () 
   }
 });
 
-function ownerIdentity(source, slot) {
-  const contractId = slot === "non_terminal"
-    ? source.packet.contractIds.nonTerminal
-    : source.packet.contractIds[slot];
-  const nativeSchemaIdentity = slot === "non_terminal"
-    ? source.nativeSchemaIdentities.nonTerminal
-    : source.nativeSchemaIdentities[slot];
-  assert.ok(contractId);
-  assert.ok(nativeSchemaIdentity);
-  return {
-    definitionKey: source.packet.definitionKey,
-    slot,
-    contractId,
-    contractVersion: "5.0.0",
-    ownerAuthorityRef: source.packet.owner.authorityRef,
-    ownerAuthorityDigest: source.packet.owner.authorityDigest,
-    nativeSchemaIdentity,
-  };
-}
-
-function declaredDefinition(source) {
-  return {
-    definitionKey: source.packet.definitionKey,
-    requestContract: ownerIdentity(source, "request"),
-    resultContract: ownerIdentity(source, "result"),
-    refusalContract: ownerIdentity(source, "refusal"),
-    nonTerminalContract: source.packet.nonTerminalSchema === null
-      ? null
-      : ownerIdentity(source, "non_terminal"),
-  };
-}
-
-function pfcF08aFixture() {
-  const declaredFamily = OWNER_CONTRACT_SOURCES.map(declaredDefinition);
-  const byOperation = new Map();
-  for (const definition of declaredFamily) {
-    const operationId = definition.definitionKey.operationId;
-    byOperation.set(operationId, [
-      ...(byOperation.get(operationId) ?? []),
-      definition,
-    ]);
-  }
-  const assets = [...byOperation.entries()].map(([operationId, definitions]) => {
-    const projectedDefinitions = definitions.map((definition, memberIndex) => {
-      const prefix = `#/$defs/member_${memberIndex}`;
-      return {
-        definitionKey: definition.definitionKey,
-        requestContract: {
-          identity: definition.requestContract,
-          definitionRef: `${prefix}_request`,
-        },
-        resultContract: {
-          identity: definition.resultContract,
-          definitionRef: `${prefix}_result`,
-        },
-        refusalContract: {
-          identity: definition.refusalContract,
-          definitionRef: `${prefix}_refusal`,
-        },
-        nonTerminalContract: definition.nonTerminalContract === null
-          ? null
-          : {
-            identity: definition.nonTerminalContract,
-            definitionRef: `${prefix}_non_terminal`,
-          },
-      };
-    });
-    const body = {
-      rowKind: "public_operation_contract",
-      operationId,
-      operationVersion: "5.0.0",
-      definitions: projectedDefinitions,
-    };
-    const rowDigest = sha256Canonical(body);
-    const projection = {
-      rowKind: body.rowKind,
-      rowRef: `public-operation-contract://${rowDigest.slice(7)}`,
-      rowDigest,
-      operationId,
-      operationVersion: body.operationVersion,
-      definitions: projectedDefinitions,
-    };
-    return { payloadDigest: sha256Canonical(projection), projection };
-  });
-  const coordinate = {
-    productId: "product://abiogenesis/typescript-tenant@5",
-    productContentDigest: sha256Canonical({ content: "verified" }),
-    catalogId: "catalog://abiogenesis/public-contracts@5",
-    catalogVersion: "5.0.0",
-    catalogDigest: sha256Canonical({ catalog: "verified" }),
-  };
-  const catalogBasis = {
-    coordinate,
-    rows: assets.map(({ payloadDigest, projection }) => ({
-      contractId: projection.operationId,
-      contractVersion: "5.0.0",
-      contractDigest: projection.rowDigest,
-      owningProduct: coordinate.productId,
-      assetLocator: { contentDigest: payloadDigest },
-    })),
-  };
-  return { declaredFamily, assets, catalogBasis };
-}
-
-function refreshPfcF08aAsset(fixture, index) {
-  const projection = fixture.assets[index].projection;
-  const body = {
-    rowKind: projection.rowKind,
-    operationId: projection.operationId,
-    operationVersion: projection.operationVersion,
-    definitions: projection.definitions,
-  };
-  projection.rowDigest = sha256Canonical(body);
-  projection.rowRef = `public-operation-contract://${projection.rowDigest.slice(7)}`;
-  fixture.assets[index].payloadDigest = sha256Canonical(projection);
-  const catalogRow = fixture.catalogBasis.rows.find(
-    ({ contractId }) => contractId === projection.operationId,
-  );
-  catalogRow.contractDigest = projection.rowDigest;
-  catalogRow.assetLocator.contentDigest = fixture.assets[index].payloadDigest;
-}
-
-test("D04 PFC-F08A constructs one complete nested map from family projections", () => {
-  const { declaredFamily, assets, catalogBasis } = pfcF08aFixture();
-  const result = joinExpectedOwnerContractSet(
-    declaredFamily,
-    assets,
-    catalogBasis,
-  );
-  assert.equal("kind" in result, false, JSON.stringify(result));
-  assert.equal(result.operations.length, 18);
+test("PFC-F08A exposes no coordinate-map constructor from verification contracts", () => {
+  assert.equal("joinExpectedOwnerContractSet" in verificationContractModule, false);
   assert.equal(
-    result.operations.flatMap(({ members }) => members).length,
-    56,
-  );
-  assert.equal(
-    admitRuntimeContract(
-      packet("abg.operation.product.verify", "verify").resultSchema,
-      {
-        targetKind: "packed_artifact",
-        disposition: "locally_verified",
-        verifiedArtifact: rd("verified-artifact://accepted"),
-        localNativeEvidence: rd("native-evidence://accepted"),
-        pendingExternalSelectors: [],
-        definitionContractCoordinates: result,
-        residuals: [],
-        provenance: evidence,
-      },
-    ).disposition,
-    "admitted",
-  );
-});
-
-test("D04 PFC-F08A refuses partial, extra and cross-slot projections", () => {
-  const fixture = pfcF08aFixture();
-  assert.equal(
-    joinExpectedOwnerContractSet(
-      fixture.declaredFamily,
-      fixture.assets.slice(1),
-      fixture.catalogBasis,
-    ).kind,
-    "product_contract_binding_refusal",
-  );
-
-  const extra = structuredClone(fixture.assets);
-  extra[0].projection.definitions.push({
-    ...extra[0].projection.definitions[0],
-    definitionKey: {
-      operationId: extra[0].projection.operationId,
-      memberKey: "extra",
-    },
-  });
-  const extraFixture = {
-    ...fixture,
-    assets: extra,
-    catalogBasis: structuredClone(fixture.catalogBasis),
-  };
-  refreshPfcF08aAsset(extraFixture, 0);
-  assert.equal(
-    joinExpectedOwnerContractSet(
-      fixture.declaredFamily,
-      extraFixture.assets,
-      extraFixture.catalogBasis,
-    ).kind,
-    "product_contract_binding_refusal",
-  );
-
-  const crossed = structuredClone(fixture.assets);
-  const definition = crossed[0].projection.definitions[0];
-  [definition.requestContract, definition.resultContract] =
-    [definition.resultContract, definition.requestContract];
-  const crossedFixture = {
-    ...fixture,
-    assets: crossed,
-    catalogBasis: structuredClone(fixture.catalogBasis),
-  };
-  refreshPfcF08aAsset(crossedFixture, 0);
-  assert.equal(
-    joinExpectedOwnerContractSet(
-      fixture.declaredFamily,
-      crossedFixture.assets,
-      crossedFixture.catalogBasis,
-    ).kind,
-    "product_contract_binding_refusal",
+    Object.keys(verificationContractModule).some((name) =>
+      /(?:mint|construct|join).*coordinate/iu.test(name)
+    ),
+    false,
   );
 });
 

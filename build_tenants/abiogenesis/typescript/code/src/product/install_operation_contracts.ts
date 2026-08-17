@@ -50,7 +50,6 @@ const install = ownerContractPacket(
     abstractModule: "Product.Installation",
     exportName: "PRODUCT_INSTALL_CONTRACTS",
     memberPath: ["install"],
-    port: "ProductInstallPort.install",
     authorityRef: INSTALL_AUTHORITY,
     authorityDigest: ownerAuthorityDigest(INSTALL_AUTHORITY),
   },

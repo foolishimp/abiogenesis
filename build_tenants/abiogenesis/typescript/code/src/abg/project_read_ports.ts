@@ -115,6 +115,45 @@ interface RunReadContext {
   readonly semanticReplay: RunSemanticReplayProjection;
 }
 
+export interface AbgRunTruthCoordinate {
+  readonly ref: string;
+  readonly digest: Sha256Digest;
+}
+
+/**
+ * Canonical typed ABG truth for one Run. Product owners consume this carrier;
+ * it contains no Product result/nonterminal/refusal meaning.
+ */
+export interface AbgRunTruthProjection {
+  readonly kind: "abg_run_truth_projection";
+  readonly schemaVersion: "5.0.0";
+  readonly prefixCoordinateDigest: Sha256Digest;
+  readonly runtimeStatus: ReplayState["runtimeStatus"];
+  readonly run: AbgRunTruthCoordinate;
+  readonly graphCall: AbgRunTruthCoordinate | null;
+  readonly result: AbgRunTruthCoordinate | null;
+  readonly stop: AbgRunTruthCoordinate | null;
+  readonly gap: AbgRunTruthCoordinate | null;
+  readonly interaction: AbgRunTruthCoordinate | null;
+  readonly evidence: readonly AbgRunTruthCoordinate[];
+  readonly replay: AbgRunTruthCoordinate;
+}
+
+export interface AbgRunTruthRefusal {
+  readonly kind: "abg_run_truth_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly code: ProjectReadRefusalCode;
+  readonly targetRef: string;
+  readonly message: string;
+}
+
+export type AbgRunTruthResult = AbgRunTruthProjection | AbgRunTruthRefusal;
+
+interface CanonicalRunReadContext extends RunReadContext {
+  readonly truth: AbgRunTruthProjection;
+  readonly terminal: ReturnType<typeof terminalResult>;
+}
+
 interface GraphCallReadContext extends RunReadContext {
   readonly graphCallId: string;
   readonly eventAtoms: RunSemanticReplayProjection["eventAtoms"];
@@ -273,7 +312,7 @@ function graphCallContext(
 ): GraphCallReadContext | null {
   const runId = runIdForGraphCall(prepared, graphCallId);
   if (runId === null) return null;
-  const context = runContext(prepared, runId);
+  const context = canonicalRunContext(prepared, runId);
   if (context === null) return null;
   const eventAtoms = context.semanticReplay.eventAtoms.filter((event) =>
     event.graphCallId === graphCallId
@@ -318,17 +357,153 @@ function terminalResult(
     : null;
 }
 
+function truthCoordinate(
+  ref: string,
+  digest: Sha256Digest,
+): AbgRunTruthCoordinate {
+  return deepFreeze({ ref, digest });
+}
+
+function physicalEventCoordinate(
+  context: RunReadContext,
+  eventId: string | null,
+): AbgRunTruthCoordinate | null {
+  if (eventId === null) return null;
+  const physical = context.semanticReplay.physicalCoordinates.events.find(
+    (event) => event.eventId === eventId,
+  );
+  return physical === undefined
+    ? null
+    : truthCoordinate(physical.eventId, physical.payloadDigest);
+}
+
+function canonicalRunContext(
+  prepared: PreparedRead<AbgProjectReadMemberKey>,
+  targetRef: string,
+): CanonicalRunReadContext | null {
+  const context = runContext(prepared, targetRef);
+  if (context === null) return null;
+  const runAtoms = context.semanticReplay.eventAtoms.filter((atom) =>
+    atom.eventKind === "run_segment_opened" &&
+    atom.aggregateType === "run" && atom.aggregateId === targetRef
+  );
+  if (runAtoms.length !== 1) return null;
+  const graphCallAtoms = context.replay.graphCallId === null
+    ? []
+    : context.semanticReplay.eventAtoms.filter((atom) =>
+        atom.eventKind === "graph_call_opened" &&
+        atom.aggregateType === "graph_call" &&
+        atom.aggregateId === context.replay.graphCallId
+      );
+  if (context.replay.graphCallId !== null && graphCallAtoms.length !== 1) {
+    return null;
+  }
+  const terminal = terminalResult(context.replay.routes, context.replay.cCalls);
+  const gapRoute = [...context.replay.routes].reverse().find((route) =>
+    route.routeKind === "gap_stop" &&
+    route.nextActionProjectionRef !== undefined &&
+    route.nextActionProjectionDigest !== undefined
+  );
+  const continuation = [...context.replay.continuations].reverse().find((row) =>
+    row.status === "open" || row.status === "responded"
+  );
+  const evidence = context.semanticReplay.physicalCoordinates.events.map((event) =>
+    truthCoordinate(event.eventId, event.payloadDigest)
+  );
+  if (evidence.length === 0) return null;
+  const truth = deepFreeze({
+    kind: "abg_run_truth_projection" as const,
+    schemaVersion: "5.0.0" as const,
+    prefixCoordinateDigest: prepared.packet.prefix.coordinateDigest,
+    runtimeStatus: context.replay.runtimeStatus,
+    run: truthCoordinate(targetRef, runAtoms[0]!.semanticPayloadDigest),
+    graphCall: context.replay.graphCallId === null
+      ? null
+      : truthCoordinate(
+          context.replay.graphCallId,
+          graphCallAtoms[0]!.semanticPayloadDigest,
+        ),
+    result: terminal === null || terminal.result.resultRef === null ||
+        terminal.result.resultDigest === null
+      ? null
+      : truthCoordinate(
+          terminal.result.resultRef,
+          terminal.result.resultDigest,
+        ),
+    stop: physicalEventCoordinate(
+      context,
+      context.replay.runStoppedEventRef ??
+        context.replay.runtimeFailureEventRef,
+    ),
+    gap: gapRoute?.nextActionProjectionRef === undefined ||
+        gapRoute.nextActionProjectionDigest === undefined
+      ? null
+      : truthCoordinate(
+          gapRoute.nextActionProjectionRef,
+          gapRoute.nextActionProjectionDigest,
+        ),
+    interaction: continuation === undefined
+      ? null
+      : truthCoordinate(continuation.requestRef, continuation.requestDigest),
+    evidence,
+    replay: truthCoordinate(
+      context.replay.replayRef,
+      context.replay.replayDigest,
+    ),
+  });
+  return deepFreeze({ ...context, truth, terminal });
+}
+
+/**
+ * Direct owner entry to the same canonical Run atom used by run project-read
+ * members. The durable packet is admitted by the existing read path first.
+ */
+export function projectRunTruthAtDurablePrefix(
+  prefix: DurablePrefixCoordinate,
+  runId: string,
+): AbgRunTruthResult {
+  const prepared = prepareRead("run_replay", {
+    kind: "abg_project_read_packet",
+    schemaVersion: "5.0.0",
+    memberKey: "run_replay",
+    prefix,
+    targetRef: runId,
+  });
+  if ("code" in prepared) {
+    return deepFreeze({
+      kind: "abg_run_truth_refusal" as const,
+      schemaVersion: "5.0.0" as const,
+      code: prepared.code,
+      targetRef: runId,
+      message: prepared.message,
+    });
+  }
+  const context = canonicalRunContext(
+    prepared as PreparedRead<AbgProjectReadMemberKey>,
+    runId,
+  );
+  return context === null
+    ? deepFreeze({
+        kind: "abg_run_truth_refusal" as const,
+        schemaVersion: "5.0.0" as const,
+        code: "target_absent" as const,
+        targetRef: runId,
+        message: "ABG Run truth is absent from the selected admitted history",
+      })
+    : context.truth;
+}
+
 function projectRunStatus(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
 ): ProjectedValue {
-  const context = runContext(prepared, targetRef);
+  const context = canonicalRunContext(prepared, targetRef);
   if (context === null) return ABSENT;
   return {
     runId: targetRef,
-    runtimeStatus: context.replay.runtimeStatus,
-    replayRef: context.replay.replayRef,
-    replayDigest: context.replay.replayDigest,
+    runtimeStatus: context.truth.runtimeStatus,
+    replayRef: context.truth.replay.ref,
+    replayDigest: context.truth.replay.digest,
     quiescence: projectRunQuiescence(context.prefix),
     holdsAt: context.calculus.holds,
   } as unknown as JsonValue;
@@ -365,18 +540,17 @@ function projectRunResult(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
 ): ProjectedValue {
-  const context = runContext(prepared, targetRef);
+  const context = canonicalRunContext(prepared, targetRef);
   if (context === null) return ABSENT;
-  const terminal = terminalResult(context.replay.routes, context.replay.cCalls);
-  return terminal === null
+  return context.terminal === null
     ? ABSENT
     : {
         runId: targetRef,
-        runtimeStatus: context.replay.runtimeStatus,
-        terminalRoute: terminal.route,
-        admittedResult: terminal.result,
-        replayRef: context.replay.replayRef,
-        replayDigest: context.replay.replayDigest,
+        runtimeStatus: context.truth.runtimeStatus,
+        terminalRoute: context.terminal.route,
+        admittedResult: context.terminal.result,
+        replayRef: context.truth.replay.ref,
+        replayDigest: context.truth.replay.digest,
       } as unknown as JsonValue;
 }
 
@@ -427,7 +601,7 @@ function projectRunEvidence(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
 ): ProjectedValue {
-  const context = runContext(prepared, targetRef);
+  const context = canonicalRunContext(prepared, targetRef);
   return context === null
     ? ABSENT
     : evidenceProjection(context, context.replay.cCalls);
@@ -448,7 +622,7 @@ function projectResultEvidence(
   targetRef: string,
 ): ProjectedValue {
   const matches = runIds(prepared).flatMap((runId) => {
-    const context = runContext(prepared, runId);
+    const context = canonicalRunContext(prepared, runId);
     if (context === null) return [];
     const cCalls = context.replay.cCalls.filter((row) => row.resultRef === targetRef);
     return cCalls.length === 0 ? [] : [{ context, cCalls }];
@@ -481,7 +655,7 @@ function projectRunReplay(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
 ): ProjectedValue {
-  const semanticReplay = runContext(prepared, targetRef)?.semanticReplay;
+  const semanticReplay = canonicalRunContext(prepared, targetRef)?.semanticReplay;
   return semanticReplay === undefined
     ? ABSENT
     : semanticReplay as unknown as JsonValue;
@@ -517,7 +691,7 @@ function projectInteractionReplay(
   targetRef: string,
 ): ProjectedValue {
   const matches = runIds(prepared).flatMap((runId) => {
-    const context = runContext(prepared, runId);
+    const context = canonicalRunContext(prepared, runId);
     if (context === null) return [];
     return context.replay.continuations
       .filter((row) => row.requestRef === targetRef)
@@ -538,7 +712,7 @@ function projectContinuationReplay(
   targetRef: string,
 ): ProjectedValue {
   const matches = runIds(prepared).flatMap((runId) => {
-    const context = runContext(prepared, runId);
+    const context = canonicalRunContext(prepared, runId);
     if (context === null) return [];
     return context.replay.continuations
       .filter((row) => row.continuationRef === targetRef)
@@ -559,7 +733,7 @@ function projectCCallReplay(
   targetRef: string,
 ): ProjectedValue {
   const matches = runIds(prepared).flatMap((runId) => {
-    const context = runContext(prepared, runId);
+    const context = canonicalRunContext(prepared, runId);
     if (context === null) return [];
     return context.replay.cCalls
       .filter((row) => row.cCallRef === targetRef)
@@ -595,7 +769,7 @@ function projectWorkspaceGaps(
   return {
     workspaceRef: targetRef,
     runs: runIds(prepared).flatMap((runId) => {
-      const context = runContext(prepared, runId);
+      const context = canonicalRunContext(prepared, runId);
       return context === null ? [] : [{ runId, gaps: gapRows(context) }];
     }),
   } as unknown as JsonValue;
@@ -605,7 +779,7 @@ function projectRunGaps(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
 ): ProjectedValue {
-  const context = runContext(prepared, targetRef);
+  const context = canonicalRunContext(prepared, targetRef);
   return context === null
     ? ABSENT
     : { runId: targetRef, gaps: gapRows(context) } as unknown as JsonValue;
@@ -615,7 +789,7 @@ function projectRunLawfulActions(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
 ): ProjectedValue {
-  const context = runContext(prepared, targetRef);
+  const context = canonicalRunContext(prepared, targetRef);
   if (context === null) return ABSENT;
   return {
     runId: targetRef,

@@ -93,7 +93,6 @@ function interactionContract<const TKind extends InteractionResponseKind>(
       abstractModule: "Product.InteractionResponse",
       exportName: "INTERACTION_OPERATION_CONTRACTS",
       memberPath: ["respond", responseKind],
-      port: "InteractionResponsePort.respond",
       authorityRef: INTERACTION_AUTHORITY,
       authorityDigest: ownerAuthorityDigest(INTERACTION_AUTHORITY),
     },
@@ -225,7 +224,6 @@ const assess = ownerContractPacket(
     abstractModule: "Product.ResultAssessment",
     exportName: "RESULT_OPERATION_CONTRACTS",
     memberPath: ["assess"],
-    port: "ResultAssessmentPort.assess",
     authorityRef: "authority://abiogenesis/product/result-assessment@5",
     authorityDigest: ownerAuthorityDigest(
       "authority://abiogenesis/product/result-assessment@5",

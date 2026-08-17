@@ -5,6 +5,7 @@ import {
   mkdir,
   readFile,
   readdir,
+  rm,
   writeFile,
 } from "node:fs/promises";
 import { createRequire } from "node:module";
@@ -15,7 +16,10 @@ import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
   ABI5_PRODUCT_ID,
+  PUBLIC_CATALOG_BINDING_CONTRACTS,
+  bindS06PublicFunctionCatalog,
   canonicalJson,
+  derivePublicCatalogRowProposals,
   payloadInventoryDigest,
   modulePublicationSemanticDigest,
   sha256Canonical,
@@ -36,8 +40,11 @@ import {
   constructHelloWorldModulePublication,
 } from "../build/code/src/gtl/index.js";
 import {
-  PUBLIC_OPERATION_SCHEMA,
-} from "../build/code/src/public/index.js";
+  PUBLIC_PROJECTION_PAYLOADS,
+} from "../build/code/src/shared/public_function_projections.js";
+import {
+  projectStrictJsonSchema,
+} from "../build/code/src/shared/public_function_contracts.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(import.meta.url);
@@ -57,7 +64,7 @@ if (
 
 const consensusSchemaPath = "contracts/schemas/consensus.schema.json";
 const publicOperationSchemaPath =
-  "contracts/schemas/public-operation.schema.json";
+  PUBLIC_PROJECTION_PAYLOADS.commonSchemaAsset.path;
 const reviewRulingVocabularyPath =
   "contracts/vocabularies/review-ruling-kind.json";
 const consensusRoundOutcomeVocabularyPath =
@@ -78,6 +85,27 @@ await Promise.all([
   mkdir(dirname(join(root, consensusSchemaPath)), { recursive: true }),
   mkdir(dirname(join(root, reviewRulingVocabularyPath)), { recursive: true }),
 ]);
+
+await Promise.all([
+  rm(join(root, "contracts/public-functions"), { force: true, recursive: true }),
+  rm(join(root, "contracts/public-operations"), { force: true, recursive: true }),
+  rm(join(root, "contracts/schemas/operations"), { force: true, recursive: true }),
+]);
+
+const catalogSchemaPath = "contracts/schemas/public-contract-catalog.schema.json";
+const catalogSchema = JSON.parse(
+  await readFile(join(root, catalogSchemaPath), "utf8"),
+);
+function nestedProjectedSchema(schema) {
+  const { $schema: _schema, ...projection } = projectStrictJsonSchema(schema);
+  return projection;
+}
+catalogSchema.$defs.PublicCatalogBindingAttempt = nestedProjectedSchema(
+  PUBLIC_CATALOG_BINDING_CONTRACTS.attempt,
+);
+catalogSchema.$defs.PublicCatalogBindingRefusal = nestedProjectedSchema(
+  PUBLIC_CATALOG_BINDING_CONTRACTS.refusal,
+);
 
 const toolchainRoot = join(root, "build/toolchain");
 const typescriptRoot = dirname(require.resolve("typescript/package.json"));
@@ -122,7 +150,12 @@ await Promise.all([
   ),
   writeFile(
     join(root, publicOperationSchemaPath),
-    `${JSON.stringify(PUBLIC_OPERATION_SCHEMA, null, 2)}\n`,
+    PUBLIC_PROJECTION_PAYLOADS.commonSchemaAsset.bytes,
+    "utf8",
+  ),
+  writeFile(
+    join(root, catalogSchemaPath),
+    `${JSON.stringify(catalogSchema, null, 2)}\n`,
     "utf8",
   ),
   writeFile(
@@ -150,6 +183,13 @@ await Promise.all([
     "utf8",
   ),
 ]);
+
+await Promise.all(PUBLIC_PROJECTION_PAYLOADS.assets
+  .filter(({ path }) => path !== publicOperationSchemaPath)
+  .map(async ({ path, bytes }) => {
+    await mkdir(dirname(join(root, path)), { recursive: true });
+    await writeFile(join(root, path), bytes, "utf8");
+  }));
 
 async function listFiles(path) {
   const files = [];
@@ -281,7 +321,6 @@ for (const path of productRelativeLocators) {
   payloadInventory.push({ path, sha256: await sha256File(join(root, path)) });
 }
 
-const catalogSchemaPath = "contracts/schemas/public-contract-catalog.schema.json";
 const manifestSchemaPath = "contracts/schemas/product-toolchain-manifest.schema.json";
 const catalogSchemaDigest = await sha256File(join(root, catalogSchemaPath));
 const manifestSchemaDigest = await sha256File(join(root, manifestSchemaPath));
@@ -318,12 +357,16 @@ const nativeClosureByExport = new Map(
     closure,
   ]),
 );
-function nativeInventoryFor(packageExportPath) {
+function nativeClosureFor(packageExportPath) {
   const closure = nativeClosureByExport.get(packageExportPath);
   if (closure === undefined) {
     throw new Error(`missing native declaration closure: ${packageExportPath}`);
   }
-  return [closure];
+  return closure;
+}
+
+function nativeInventoryFor(packageExportPath) {
+  return [nativeClosureFor(packageExportPath)];
 }
 
 const nativeInventory = nativeInventoryFor("./product");
@@ -331,7 +374,7 @@ const abgNativeInventory = nativeInventoryFor("./abg");
 const gtlNativeInventory = nativeInventoryFor("./gtl");
 const validatorNativeInventory = nativeInventoryFor("./validator");
 const hogNativeInventory = nativeInventoryFor("./hog");
-const publicNativeInventory = nativeInventoryFor("./public");
+const publicNativeClosure = nativeClosureFor("./public");
 
 function nativeContractDigest(inventory) {
   if (inventory.length !== 1) {
@@ -414,49 +457,9 @@ const consensusVocabularyRows = [
   },
 }));
 
-const publicOperationRows = [
-  [
-    "abg.schema.public-operation-contract",
-    undefined,
-    "PUBLIC_OPERATION_SCHEMA",
-  ],
-  [
-    "abg.schema.public-operation-invocation",
-    "RootPublicInvocation",
-    "parseRootPublicInvocation",
-  ],
-  [
-    "abg.schema.public-operation-outcome",
-    "PublicOutcome",
-    "applyRootPublicInvocation",
-  ],
-].map(([contractId, definitionName, namedSymbol]) => ({
-  contractId,
-  contractVersion: "5.0.0",
-  contractDigest: publicOperationSchemaDigest,
-  contractKind: "serialized_native_contract",
-  owningProduct: productId,
-  requirementAuthorityRefs: [
-    "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-009",
-    "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-010",
-  ],
-  capabilityIdentities: ["abg.capability.operator.public-contract@5"],
-  nativeTypedLocator: nativeTypedLocator(publicNativeInventory, namedSymbol),
-  assetLocator: {
-    path: publicOperationSchemaPath,
-    mediaType: "application/schema+json",
-    schemaVersion: "5.0.0",
-    contentDigest: publicOperationSchemaDigest,
-    ...(definitionName === undefined
-      ? {}
-      : { definitionRef: `#/$defs/${definitionName}` }),
-  },
-}));
-
-const rows = [
+const extantRows = [
   ...consensusContractRows,
   ...consensusVocabularyRows,
-  ...publicOperationRows,
   {
     contractId: "abg.contract.product.verification",
     contractVersion: "5.0.0",
@@ -722,13 +725,45 @@ const rows = [
 const catalogWithoutDigest = {
   schemaVersion: "5.0.0",
   catalogId: `catalog://abiogenesis/typescript-tenant/public-contracts@${packageJson.version}`,
-  catalogVersion: packageJson.version,
+  catalogVersion: "5.0.0",
   catalogSchemaPath,
   catalogSchemaDigest,
-  rows,
+  rows: extantRows,
 };
 
 const productContentDigest = payloadInventoryDigest(payloadInventory);
+const extantPublicContractCatalog = {
+  ...catalogWithoutDigest,
+  catalogDigest: sha256Canonical(catalogWithoutDigest),
+};
+const extantCatalogCoordinate = {
+  productId,
+  productContentDigest,
+  catalogId: extantPublicContractCatalog.catalogId,
+  catalogVersion: extantPublicContractCatalog.catalogVersion,
+  catalogDigest: extantPublicContractCatalog.catalogDigest,
+};
+const publicProposalSet = derivePublicCatalogRowProposals(
+  productId,
+  packageJson.name,
+  publicNativeClosure,
+);
+const catalogBinding = bindS06PublicFunctionCatalog({
+  extantCatalog: extantPublicContractCatalog,
+  extantCatalogCoordinate,
+  productId,
+  productContentDigest,
+  proposalSequence: publicProposalSet.proposals,
+  publicPackageName: packageJson.name,
+  publicDeclarationClosure: publicNativeClosure,
+});
+if (catalogBinding.disposition !== "bound") {
+  throw new Error(
+    `PFC-F08 refused generated catalog: ${catalogBinding.failureClass} ${catalogBinding.issuePaths.join(", ")}`,
+  );
+}
+const publicContractCatalog = catalogBinding.catalog;
+const rows = publicContractCatalog.rows;
 const contentIdentity = productContentDigest.slice("sha256:".length);
 const descriptorRef =
   `descriptor://abiogenesis/typescript-tenant/${contentIdentity}`;
@@ -736,10 +771,6 @@ const contributionManifestRef =
   `contribution-manifest://abiogenesis/conformance/${contentIdentity}`;
 const provenanceRef =
   `provenance://abiogenesis/typescript-tenant/${contentIdentity}`;
-const publicContractCatalog = {
-  ...catalogWithoutDigest,
-  catalogDigest: sha256Canonical(catalogWithoutDigest),
-};
 const placeholderDigest = `sha256:${"0".repeat(64)}`;
 const publicationBasis = {
   productId,

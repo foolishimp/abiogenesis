@@ -1,12 +1,32 @@
 import { execFile } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { isAbsolute, posix } from "node:path";
+import { safeParse } from "valibot";
 
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
+import {
+  completeDefinitionContractCoordinateMapSchema,
+  type CompleteDefinitionContractCoordinateMap,
+} from "../shared/public_function_contracts.js";
+import type {
+  IntrinsicPublicFunctionFamilyCoordinate,
+  IntrinsicPublicOperationContractProjection,
+} from "../shared/public_function_family.js";
+import {
+  PUBLIC_PROJECTION_PAYLOADS,
+  type PublicCliGrammarProjection,
+  type PublicDocumentationInventoryRow,
+  type PublicSdkMemberProjection,
+} from "../shared/public_function_projections.js";
+import type {
+  PublicContractCatalogCoordinate,
+  PublicContractCoordinate,
+  PublicDefinitionKeyLike,
+} from "../shared/public_invocation.js";
 import {
   resolveNativeDeclarationClosures,
   type NativeProductDeclarationEvidence,
@@ -20,12 +40,17 @@ import type {
   ProductNativeDeclarationInventoryRow,
   ProductNativeTypedLocator,
   ProductPublicContract,
+  ProductPublicContractCatalog,
   ProductPublicContractKind,
   ProductVerificationRefusal,
   ProductVerificationRefusalCode,
   ProductVerificationResult,
   VerifiedProductArtifact,
   VerifyProductRequest,
+} from "./contracts.js";
+import {
+  ABI5_PACKAGE_NAME,
+  ABI5_PRODUCT_ID,
 } from "./contracts.js";
 import {
   isSha256Digest,
@@ -263,6 +288,7 @@ export function isVerifiedProductArtifact(
       "contributionManifestRef",
       "declaredCapabilityRefs",
       "declaredDependencies",
+      "definitionContractCoordinates",
       "descriptorRef",
       "disposition",
       "kind",
@@ -315,6 +341,13 @@ export function isVerifiedProductArtifact(
     ) ||
     !isUniqueStringArray(value.publicContractRefs) ||
     !isUniqueStringArray(value.publicCapabilityRefs) ||
+    !(
+      value.definitionContractCoordinates === null ||
+      safeParse(
+        completeDefinitionContractCoordinateMapSchema,
+        value.definitionContractCoordinates,
+      ).success
+    ) ||
     !Number.isSafeInteger(value.checkedPayloadFiles) ||
     (value.checkedPayloadFiles as number) <= 0 ||
     !isNativeDeclarationEvidence(value.nativeDeclarationEvidence, {
@@ -660,7 +693,7 @@ export function parseProductPublicContract(
   const row = value as JsonRecord;
   if (
     !isNonblankString(row.contractId) ||
-    !isNonblankString(row.contractVersion) ||
+    row.contractVersion !== "5.0.0" ||
     !isSha256Digest(row.contractDigest) ||
     !isNonblankString(row.contractKind) ||
     row.owningProduct !== productId ||
@@ -710,6 +743,471 @@ export function parseProductPublicContract(
     ...(nativeTypedLocator === null ? {} : { nativeTypedLocator }),
     ...(assetLocator === null ? {} : { assetLocator }),
   };
+}
+
+interface ArtifactPublicAdapterProjection {
+  readonly kind: "public_adapter_projection";
+  readonly schemaVersion: "5.0.0";
+  readonly family: IntrinsicPublicFunctionFamilyCoordinate;
+  readonly sdkMembers: readonly PublicSdkMemberProjection[];
+  readonly cliGrammar: readonly PublicCliGrammarProjection[];
+  readonly documentationInventory: readonly PublicDocumentationInventoryRow[];
+}
+
+interface DefinitionContractBindingFailure {
+  readonly message: string;
+}
+
+type DefinitionContractBindingResult =
+  | CompleteDefinitionContractCoordinateMap
+  | DefinitionContractBindingFailure
+  | null;
+
+const PUBLIC_OPERATOR_CAPABILITY =
+  "abg.capability.operator.public-contract@5";
+const PUBLIC_ADAPTER_PROJECTION_PATH =
+  "contracts/public-functions/adapter-projection.json";
+const PUBLIC_OPERATION_PROJECTION_PATH =
+  /^contracts\/public-operations\/.+\/operation-contract\.json$/u;
+
+function bindingFailure(message: string): DefinitionContractBindingFailure {
+  return { message };
+}
+
+function sameCanonical(left: unknown, right: unknown): boolean {
+  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
+}
+
+function parseCanonicalPayload(bytes: Uint8Array): unknown | null {
+  let value: unknown;
+  const sourceText = new TextDecoder().decode(bytes);
+  try {
+    value = JSON.parse(sourceText);
+  } catch {
+    return null;
+  }
+  return isRecord(value) && `${canonicalJson(value as JsonValue)}\n` === sourceText
+    ? value
+    : null;
+}
+
+function definitionKeyToken(key: PublicDefinitionKeyLike): string {
+  return `${key.operationId}\0${key.memberKey}`;
+}
+
+function readDefinitionKey(value: unknown): PublicDefinitionKeyLike | null {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, ["memberKey", "operationId"]) ||
+    !isNonblankString(value.operationId) ||
+    !isNonblankString(value.memberKey)
+  ) {
+    return null;
+  }
+  return { operationId: value.operationId, memberKey: value.memberKey };
+}
+
+function resolveJsonFragment(root: unknown, fragment: string): unknown {
+  if (!fragment.startsWith("#")) return undefined;
+  const pointer = fragment.slice(1);
+  if (pointer.length === 0) return root;
+  if (!pointer.startsWith("/")) return undefined;
+  let current = root;
+  for (const encodedSegment of pointer.slice(1).split("/")) {
+    if (/~(?:[^01]|$)/u.test(encodedSegment)) return undefined;
+    const segment = encodedSegment.replace(/~1/gu, "/").replace(/~0/gu, "~");
+    if (Array.isArray(current)) {
+      if (!/^(?:0|[1-9][0-9]*)$/u.test(segment)) return undefined;
+      const index = Number(segment);
+      if (!Number.isSafeInteger(index) || !Object.hasOwn(current, index)) {
+        return undefined;
+      }
+      current = current[index];
+      continue;
+    }
+    if (!isRecord(current) || !Object.hasOwn(current, segment)) {
+      return undefined;
+    }
+    current = current[segment];
+  }
+  return current;
+}
+
+function projectionRowDigest(
+  projection: IntrinsicPublicOperationContractProjection,
+): Sha256Digest {
+  const { rowRef: _rowRef, rowDigest: _rowDigest, ...body } = projection;
+  return sha256Canonical(body as unknown as JsonValue);
+}
+
+function parseOperationProjection(
+  bytes: Uint8Array,
+): IntrinsicPublicOperationContractProjection | null {
+  const value = parseCanonicalPayload(bytes);
+  if (
+    !isRecord(value) ||
+    value.rowKind !== "public_operation_contract" ||
+    value.operationVersion !== "5.0.0" ||
+    !isNonblankString(value.operationId) ||
+    !isSha256Digest(value.rowDigest) ||
+    !isNonblankString(value.rowRef) ||
+    !Array.isArray(value.definitions)
+  ) {
+    return null;
+  }
+  const projection = value as unknown as IntrinsicPublicOperationContractProjection;
+  return projection.rowDigest === projectionRowDigest(projection)
+    ? projection
+    : null;
+}
+
+function parseAdapterProjection(
+  bytes: Uint8Array,
+): ArtifactPublicAdapterProjection | null {
+  const value = parseCanonicalPayload(bytes);
+  if (
+    !isRecord(value) ||
+    value.kind !== "public_adapter_projection" ||
+    value.schemaVersion !== "5.0.0" ||
+    !isRecord(value.family) ||
+    !Array.isArray(value.sdkMembers) ||
+    !Array.isArray(value.cliGrammar) ||
+    !Array.isArray(value.documentationInventory)
+  ) {
+    return null;
+  }
+  return value as unknown as ArtifactPublicAdapterProjection;
+}
+
+function operationProjectionClaims(
+  manifest: ProductManifestView,
+  publicContracts: readonly ProductPublicContract[],
+  payloadFiles: ReadonlyMap<string, Uint8Array>,
+): boolean {
+  return (
+    manifest.productId === ABI5_PRODUCT_ID &&
+    manifest.packageName === ABI5_PACKAGE_NAME
+  ) ||
+    manifest.declaredCapabilityRefs.includes(PUBLIC_OPERATOR_CAPABILITY) ||
+    payloadFiles.has(PUBLIC_ADAPTER_PROJECTION_PATH) ||
+    [...payloadFiles.keys()].some((path) =>
+      PUBLIC_OPERATION_PROJECTION_PATH.test(path)
+    ) ||
+    publicContracts.some(({ contractId }) =>
+      contractId.startsWith("abg.operation.")
+    );
+}
+
+/**
+ * PFC-F08A is deliberately private to Product verification. Its only family,
+ * catalog, and operation inputs are the bytes and rows already admitted above.
+ */
+function bindDefinitionContractCoordinates(
+  manifest: ProductManifestView,
+  publicContracts: readonly ProductPublicContract[],
+  payloadFiles: ReadonlyMap<string, Uint8Array>,
+  productContentDigest: Sha256Digest,
+): DefinitionContractBindingResult {
+  if (!operationProjectionClaims(manifest, publicContracts, payloadFiles)) {
+    return null;
+  }
+  if (
+    manifest.productId !== ABI5_PRODUCT_ID ||
+    manifest.packageName !== ABI5_PACKAGE_NAME
+  ) {
+    return bindingFailure(
+      "public-function projections are not selected for this Product identity",
+    );
+  }
+  const manifestCatalog = manifest.publicContractCatalog;
+  if (
+    manifestCatalog.schemaVersion !== "5.0.0" ||
+    manifestCatalog.catalogVersion !== "5.0.0" ||
+    !sameCanonical(manifestCatalog.rows, publicContracts)
+  ) {
+    return bindingFailure(
+      "the verified public catalog is not the selected 5.0 Product catalog",
+    );
+  }
+  const catalog: ProductPublicContractCatalog = {
+    schemaVersion: "5.0.0",
+    catalogId: manifestCatalog.catalogId,
+    catalogVersion: "5.0.0",
+    catalogSchemaPath: manifestCatalog.catalogSchemaPath,
+    catalogSchemaDigest: manifestCatalog.catalogSchemaDigest,
+    rows: publicContracts,
+    catalogDigest: manifestCatalog.catalogDigest,
+  };
+  const { catalogDigest: _catalogDigest, ...catalogBody } = catalog;
+  if (
+    sha256Canonical(catalogBody as unknown as JsonValue) !==
+      catalog.catalogDigest
+  ) {
+    return bindingFailure("the verified public catalog identity diverged");
+  }
+
+  const adapterBytes = payloadFiles.get(PUBLIC_ADAPTER_PROJECTION_PATH);
+  const adapter = adapterBytes === undefined
+    ? null
+    : parseAdapterProjection(adapterBytes);
+  if (adapter === null) {
+    return bindingFailure(
+      "the content-verified public-function adapter projection is absent or malformed",
+    );
+  }
+
+  const hostAdapter = PUBLIC_PROJECTION_PAYLOADS.adapterAsset.content;
+  if (!sameCanonical(adapter, hostAdapter)) {
+    return bindingFailure(
+      "the artifact does not declare the selected exact 18/56 public-function family",
+    );
+  }
+
+  const declaredKeys = new Map<string, PublicDocumentationInventoryRow>();
+  for (const row of adapter.documentationInventory) {
+    const key = readDefinitionKey(row.definitionKey);
+    if (key === null) {
+      return bindingFailure("the declared public-function family key is malformed");
+    }
+    const token = definitionKeyToken(key);
+    if (declaredKeys.has(token)) {
+      return bindingFailure("the declared public-function family contains a duplicate key");
+    }
+    declaredKeys.set(token, row);
+  }
+  const declaredSdkKeys = adapter.sdkMembers.map(({ definitionKey }) =>
+    definitionKeyToken(definitionKey)
+  );
+  const declaredCliKeys = adapter.cliGrammar.map(({ definitionKey }) =>
+    definitionKeyToken(definitionKey)
+  );
+  if (
+    declaredKeys.size !== 56 ||
+    new Set(declaredSdkKeys).size !== 56 ||
+    new Set(declaredCliKeys).size !== 56 ||
+    [...declaredKeys.keys()].some((key) =>
+      !declaredSdkKeys.includes(key) || !declaredCliKeys.includes(key)
+    )
+  ) {
+    return bindingFailure(
+      "the content-verified adapter projection does not close all 56 definitions",
+    );
+  }
+  const declaredOperationIds = new Set(
+    [...declaredKeys.values()].map(({ definitionKey }) =>
+      definitionKey.operationId
+    ),
+  );
+  if (declaredOperationIds.size !== 18) {
+    return bindingFailure(
+      "the content-verified adapter projection does not close all 18 operations",
+    );
+  }
+
+  const operationRows = catalog.rows.filter((row) =>
+    row.contractId.startsWith("abg.operation.") ||
+    (
+      row.assetLocator !== undefined &&
+      PUBLIC_OPERATION_PROJECTION_PATH.test(row.assetLocator.path)
+    )
+  );
+  const operationAssetPaths = [...payloadFiles.keys()].filter((path) =>
+    PUBLIC_OPERATION_PROJECTION_PATH.test(path)
+  );
+  if (
+    operationRows.length !== declaredOperationIds.size ||
+    operationAssetPaths.length !== declaredOperationIds.size ||
+    new Set(operationRows.map(({ contractId }) => contractId)).size !==
+      operationRows.length ||
+    new Set(operationAssetPaths).size !== operationAssetPaths.length ||
+    [...declaredOperationIds].some((operationId) =>
+      !operationRows.some(({ contractId }) => contractId === operationId)
+    ) ||
+    operationRows.some(({ assetLocator }) =>
+      assetLocator === undefined ||
+      !operationAssetPaths.includes(assetLocator.path)
+    ) ||
+    operationAssetPaths.some((path) =>
+      !operationRows.some(({ assetLocator }) => assetLocator?.path === path)
+    )
+  ) {
+    return bindingFailure(
+      "the verified catalog and operation-projection payload set are not exact",
+    );
+  }
+
+  const hostProjectionByOperation = new Map(
+    PUBLIC_PROJECTION_PAYLOADS.operationContractAssets.map((asset) => [
+      asset.operationId!,
+      asset.content as unknown as IntrinsicPublicOperationContractProjection,
+    ]),
+  );
+  const catalogCoordinate: PublicContractCatalogCoordinate = {
+    productId: manifest.productId,
+    productContentDigest,
+    catalogId: catalog.catalogId,
+    catalogVersion: catalog.catalogVersion,
+    catalogDigest: catalog.catalogDigest,
+  };
+  const operations: CompleteDefinitionContractCoordinateMap["operations"][number][] = [];
+  for (const operationId of [...declaredOperationIds].sort(compareUnicodeCodeUnits)) {
+    const row = operationRows.find(({ contractId }) => contractId === operationId)!;
+    const locator = row.assetLocator;
+    if (
+      row.contractVersion !== "5.0.0" ||
+      row.contractKind !== "serialized_native_contract" ||
+      row.owningProduct !== manifest.productId ||
+      row.nativeTypedLocator === undefined ||
+      locator === undefined ||
+      locator.definitionRef !== undefined ||
+      locator.schemaVersion !== "5.0.0"
+    ) {
+      return bindingFailure(
+        `the verified catalog operation row is invalid: ${operationId}`,
+      );
+    }
+    const bytes = payloadFiles.get(locator.path)!;
+    const payloadDigest = sha256Bytes(bytes);
+    if (
+      payloadDigest !== row.contractDigest ||
+      payloadDigest !== locator.contentDigest
+    ) {
+      return bindingFailure(
+        `the verified operation projection digest diverged: ${operationId}`,
+      );
+    }
+    const projection = parseOperationProjection(bytes);
+    const hostProjection = hostProjectionByOperation.get(operationId);
+    if (
+      projection === null ||
+      projection.operationId !== operationId ||
+      !sameCanonical(projection.family, adapter.family) ||
+      hostProjection === undefined
+    ) {
+      return bindingFailure(
+        `the content-verified operation projection is not selected: ${operationId}`,
+      );
+    }
+
+    const projectedMembers = new Map<string, typeof projection.definitions[number]>();
+    for (const definition of projection.definitions) {
+      const key = readDefinitionKey(definition.definitionKey);
+      if (
+        key === null ||
+        key.operationId !== operationId ||
+        projectedMembers.has(key.memberKey)
+      ) {
+        return bindingFailure(
+          `the operation projection contains an invalid definition key: ${operationId}`,
+        );
+      }
+      const declared = declaredKeys.get(definitionKeyToken(key));
+      if (
+        declared === undefined ||
+        definition.definitionRef !== declared.definitionRef ||
+        definition.definitionDigest !== declared.definitionDigest
+      ) {
+        return bindingFailure(
+          `the operation projection diverges from the adapter family: ${operationId}/${key.memberKey}`,
+        );
+      }
+      projectedMembers.set(key.memberKey, definition);
+    }
+    const declaredMemberKeys = [...declaredKeys.values()]
+      .filter(({ definitionKey }) => definitionKey.operationId === operationId)
+      .map(({ definitionKey }) => definitionKey.memberKey);
+    if (
+      projectedMembers.size !== declaredMemberKeys.length ||
+      declaredMemberKeys.some((memberKey) => !projectedMembers.has(memberKey))
+    ) {
+      return bindingFailure(
+        `the operation projection is partial or extra: ${operationId}`,
+      );
+    }
+
+    const members: CompleteDefinitionContractCoordinateMap["operations"][number]["members"][number][] = [];
+    for (const memberKey of [...projectedMembers.keys()].sort(compareUnicodeCodeUnits)) {
+      const definition = projectedMembers.get(memberKey)!;
+      const definitionKey = definition.definitionKey;
+      const seenPointers = new Set<string>();
+      const makeCoordinate = (
+        slot: "request" | "result" | "refusal" | "non_terminal",
+        selected: typeof definition.requestContract,
+      ): PublicContractCoordinate | null => {
+        if (
+          selected.identity.slot !== slot ||
+          !sameCanonical(selected.identity.definitionKey, definitionKey) ||
+          seenPointers.has(selected.definitionRef) ||
+          !sameCanonical(
+            resolveJsonFragment(projection, selected.definitionRef),
+            selected.identity,
+          )
+        ) {
+          return null;
+        }
+        seenPointers.add(selected.definitionRef);
+        return {
+          contractCatalog: catalogCoordinate,
+          flatRow: {
+            contractId: row.contractId,
+            contractVersion: row.contractVersion,
+            contractDigest: row.contractDigest,
+          },
+          nestedSelector: {
+            selectorKind: "operation_definition_slot",
+            definitionKey,
+            slot,
+            definitionRef: selected.definitionRef,
+          },
+        };
+      };
+      const request = makeCoordinate("request", definition.requestContract);
+      const result = makeCoordinate("result", definition.resultContract);
+      const refusalCoordinate = makeCoordinate(
+        "refusal",
+        definition.refusalContract,
+      );
+      const nonTerminal = definition.nonTerminalContract === null
+        ? null
+        : makeCoordinate("non_terminal", definition.nonTerminalContract);
+      if (
+        request === null ||
+        result === null ||
+        refusalCoordinate === null ||
+        (
+          definition.nonTerminalContract !== null &&
+          nonTerminal === null
+        )
+      ) {
+        return bindingFailure(
+          `the operation projection contains a cross-slot pointer: ${operationId}/${memberKey}`,
+        );
+      }
+      members.push({
+        memberKey,
+        slots: {
+          request,
+          result,
+          refusal: refusalCoordinate,
+          nonTerminal,
+        },
+      });
+    }
+    if (!sameCanonical(projection, hostProjection)) {
+      return bindingFailure(
+        `the content-verified operation projection is not selected: ${operationId}`,
+      );
+    }
+    operations.push({ operationId, members });
+  }
+
+  const admitted = safeParse(
+    completeDefinitionContractCoordinateMapSchema,
+    { operations },
+  );
+  return admitted.success
+    ? deepFreeze(admitted.output)
+    : bindingFailure("the complete definition-contract coordinate map is malformed");
 }
 
 function listArchiveEntries(artifactPath: string): Promise<readonly string[]> {
@@ -1016,7 +1514,7 @@ export async function verifyProduct(
     const nativeContracts = publicContracts.filter(
       (contract) => contract.nativeTypedLocator !== undefined,
     );
-    const nativeContractCoordinates = new Set<string>();
+    const nativeContractByCoordinate = new Map<string, ProductPublicContract>();
     const nativeDigestByContract = new Map<string, Sha256Digest>();
     if (nativeContracts.length > 0) {
       const declarationClosures = await resolveNativeDeclarationClosures({
@@ -1045,14 +1543,24 @@ export async function verifyProduct(
         const nativeLocator = contract.nativeTypedLocator!;
         const nativeCoordinate =
           `${nativeLocator.packageExportPath}\0${nativeLocator.namedSymbol}`;
-        if (nativeContractCoordinates.has(nativeCoordinate)) {
+        const existingNativeContract = nativeContractByCoordinate.get(
+          nativeCoordinate,
+        );
+        if (
+          existingNativeContract !== undefined &&
+          (
+            existingNativeContract.contractKind !==
+              "serialized_native_contract" ||
+            contract.contractKind !== "serialized_native_contract"
+          )
+        ) {
           return refusal(
             request,
             "catalog_mismatch",
             "one Product cannot assign one native symbol to multiple contracts",
           );
         }
-        nativeContractCoordinates.add(nativeCoordinate);
+        nativeContractByCoordinate.set(nativeCoordinate, contract);
         const declarationClosure = declarationClosureByExport.get(
           nativeLocator.packageExportPath,
         ) ?? null;
@@ -1181,6 +1689,16 @@ export async function verifyProduct(
       "native declaration evidence was not established",
     );
   }
+  const coordinateBinding = bindDefinitionContractCoordinates(
+    manifest,
+    publicContracts,
+    payloadFiles,
+    productContentDigest,
+  );
+  if (coordinateBinding !== null && "message" in coordinateBinding) {
+    return refusal(request, "catalog_mismatch", coordinateBinding.message);
+  }
+  const definitionContractCoordinates = coordinateBinding;
   const verifiedBody = {
     kind: "verified_product_artifact",
     schemaVersion: "5.0.0",
@@ -1223,6 +1741,7 @@ export async function verifyProduct(
     publicContracts,
     publicContractRefs: [...contractIds].sort(),
     publicCapabilityRefs: [...publicCapabilityRefs].sort(),
+    definitionContractCoordinates,
     checkedPayloadFiles: inventory.length,
     nativeDeclarationEvidence: verifiedNativeEvidence,
   } as const satisfies Omit<

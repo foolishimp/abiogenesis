@@ -1,4 +1,5 @@
 import type { Sha256Digest } from "../shared/digests.js";
+import type { CompleteDefinitionContractCoordinateMap } from "../shared/public_function_contracts.js";
 import type { ResolvedProductLock } from "./environment.js";
 
 export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-dev.286";
@@ -81,7 +82,7 @@ export type ProductPublicContractKind =
 
 export interface ProductPublicContract {
   readonly contractId: string;
-  readonly contractVersion: string;
+  readonly contractVersion: "5.0.0";
   readonly contractDigest: Sha256Digest;
   readonly contractKind: ProductPublicContractKind;
   readonly owningProduct: string;
@@ -89,6 +90,17 @@ export interface ProductPublicContract {
   readonly capabilityIdentities: readonly string[];
   readonly nativeTypedLocator?: ProductNativeTypedLocator;
   readonly assetLocator?: ProductAssetLocator;
+}
+
+/** The one flat public-contract catalog embedded in the Product manifest. */
+export interface ProductPublicContractCatalog {
+  readonly schemaVersion: "5.0.0";
+  readonly catalogId: string;
+  readonly catalogVersion: "5.0.0";
+  readonly catalogSchemaPath: string;
+  readonly catalogSchemaDigest: Sha256Digest;
+  readonly rows: readonly ProductPublicContract[];
+  readonly catalogDigest: Sha256Digest;
 }
 
 export interface VerifyProductRequest {
@@ -130,6 +142,8 @@ export interface VerifiedProductArtifact {
   readonly publicContracts: readonly ProductPublicContract[];
   readonly publicContractRefs: readonly string[];
   readonly publicCapabilityRefs: readonly string[];
+  readonly definitionContractCoordinates:
+    CompleteDefinitionContractCoordinateMap | null;
   readonly checkedPayloadFiles: number;
   readonly nativeDeclarationEvidence:
     import("./declaration_exports.js").NativeProductDeclarationEvidence;
