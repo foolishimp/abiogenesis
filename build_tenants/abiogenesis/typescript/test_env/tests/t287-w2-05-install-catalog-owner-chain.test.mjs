@@ -20,10 +20,16 @@ const selectedAdditions = Object.freeze([
   "abg.operation.catalog.apply#node_type",
   "abg.operation.catalog.apply#overlay",
   "abg.operation.catalog.view#allowlist",
+  "abg.operation.conformance.evaluate#gtl_program",
   "abg.operation.product.install#install",
+  "abg.operation.project.read#catalog_describe",
+  "abg.operation.project.read#catalog_list",
+  "abg.operation.project.read#install_evidence",
+  "abg.operation.project.read#release_evidence",
+  "abg.operation.project.read#ticket_consensus",
+  "abg.operation.project.read#workspace_status",
 ]);
 const remainingKeys = Object.freeze([
-  "abg.operation.conformance.evaluate#gtl_program",
   "abg.operation.interaction.respond#answer_escalation",
   "abg.operation.interaction.respond#approve",
   "abg.operation.interaction.respond#assess",
@@ -31,12 +37,6 @@ const remainingKeys = Object.freeze([
   "abg.operation.interaction.respond#select",
   "abg.operation.product.materialize#configuration",
   "abg.operation.product.materialize#context_bootstrap",
-  "abg.operation.project.read#catalog_describe",
-  "abg.operation.project.read#catalog_list",
-  "abg.operation.project.read#install_evidence",
-  "abg.operation.project.read#release_evidence",
-  "abg.operation.project.read#ticket_consensus",
-  "abg.operation.project.read#workspace_status",
   "abg.operation.result.assess#assess",
   "abg.operation.run.continue#current_intent",
   "abg.operation.run.continue#selected_action",
@@ -232,7 +232,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   const harness = await setupInstalledCliHarness(context, packageRoot, {
     candidateBasisSource: "packed_artifact",
   });
-  const [publicApi, abg, gtl] = await Promise.all([
+  const [publicApi, abg, gtl, validator] = await Promise.all([
     importInstalledPackageExport(
       harness,
       "@abiogenesis/typescript-tenant/public",
@@ -247,6 +247,11 @@ test("W2-05 installed Product install and catalog owners compose without catalog
       harness,
       "@abiogenesis/typescript-tenant/gtl",
       "w2-05-gtl",
+    ),
+    importInstalledPackageExport(
+      harness,
+      "@abiogenesis/typescript-tenant/validator",
+      "w2-05-validator",
     ),
   ]);
   const product = harness.product;
@@ -265,7 +270,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     .map(({ definitionKey }) => definitionKey)
     .sort();
   assert.equal(census.report.definitionCount, 56);
-  assert.equal(census.report.callableCount, 31);
+  assert.equal(census.report.callableCount, 38);
   assert.deepEqual(missingKeys, remainingKeys);
   assert.deepEqual(
     loadedKeys.filter((key) => selectedAdditions.includes(key)),
@@ -738,6 +743,414 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     overlayApplication.ownerOutput.value.application.digest,
   );
 
+  const projectionBasis = (memberKey, value) => Object.freeze({
+    basisRef: `projection-basis://abiogenesis/t287/w2-05/${memberKey}`,
+    basisDigest: product.sha256Canonical(value),
+    value: Object.freeze(value),
+  });
+  const readResources = (packet) => Object.freeze({
+    kind: "product_project_read_resource_assertion",
+    schemaVersion,
+    packet: Object.freeze(packet),
+  });
+  const readRequest = (caseKey, sourceKind, source, basis, selector) =>
+    Object.freeze({
+      caseKey,
+      source: Object.freeze({
+        sourceKind,
+        sourceRef: source.ref,
+        sourceDigest: source.digest,
+      }),
+      projectionBasis: Object.freeze({
+        projectionBasisRef: basis.basisRef,
+        projectionBasisDigest: basis.basisDigest,
+      }),
+      selector,
+    });
+
+  const catalogBasis = projectionBasis("catalog", {
+    catalog: admittedCatalog.ownerOutput.value.catalog,
+  });
+  const catalogListRequest = readRequest(
+    "catalog_list",
+    "catalog",
+    admittedCatalog.ownerOutput.value.catalog,
+    catalogBasis,
+    Object.freeze({
+      kind: "catalog_list",
+      visibility: Object.freeze({ kind: "workspace_catalog" }),
+    }),
+  );
+  const catalogListCall = definitionCall({
+    publicApi,
+    product,
+    operationId: "abg.operation.project.read",
+    memberKey: "catalog_list",
+    ordinal: 20,
+    request: catalogListRequest,
+    slots: applicationSlots,
+    resources: readResources({
+      kind: "product_project_read_packet",
+      schemaVersion,
+      memberKey: "catalog_list",
+      sourceRef: admittedCatalog.ownerOutput.value.catalog.ref,
+      sourceDigest: admittedCatalog.ownerOutput.value.catalog.digest,
+      projectionBasis: catalogBasis,
+      catalog,
+      selector: Object.freeze({
+        kind: "catalog_list",
+        visibility: Object.freeze({ kind: "workspace_catalog" }),
+      }),
+    }),
+  });
+  const catalogListRead = await runBinding(
+    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_list,
+    catalogListCall,
+    "project.read#catalog_list",
+  );
+  assert.equal(catalogListRead.ownerOutput.value.projection.rows.length, 35);
+
+  const describedHandle = catalogListRead.ownerOutput.value.projection.rows[0].handle;
+  const catalogDescribeCall = definitionCall({
+    publicApi,
+    product,
+    operationId: "abg.operation.project.read",
+    memberKey: "catalog_describe",
+    ordinal: 21,
+    request: readRequest(
+      "catalog_describe",
+      "catalog",
+      admittedCatalog.ownerOutput.value.catalog,
+      catalogBasis,
+      Object.freeze({
+        kind: "catalog_describe",
+        handle: describedHandle,
+        visibilityBasis: admittedCatalog.ownerOutput.value.catalog,
+      }),
+    ),
+    slots: applicationSlots,
+    resources: readResources({
+      kind: "product_project_read_packet",
+      schemaVersion,
+      memberKey: "catalog_describe",
+      sourceRef: admittedCatalog.ownerOutput.value.catalog.ref,
+      sourceDigest: admittedCatalog.ownerOutput.value.catalog.digest,
+      projectionBasis: catalogBasis,
+      catalog,
+      selector: Object.freeze({
+        kind: "catalog_describe",
+        handle: describedHandle,
+        visibility: Object.freeze({ kind: "workspace_catalog" }),
+      }),
+    }),
+  });
+  const catalogDescription = await runBinding(
+    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_describe,
+    catalogDescribeCall,
+    "project.read#catalog_describe",
+  );
+  assert.equal(
+    catalogDescription.ownerOutput.value.projection.handle,
+    describedHandle,
+  );
+
+  const productSet = product.constructProductSet(
+    [installedTruth.install],
+    resolvedLock,
+  );
+  assert.equal(productSet.kind, "product_set", JSON.stringify(productSet));
+  const workspaceBasis = projectionBasis("workspace_status", {
+    binding: binding.ownerOutput.value.binding,
+  });
+  const workspaceStatusCall = definitionCall({
+    publicApi,
+    product,
+    operationId: "abg.operation.project.read",
+    memberKey: "workspace_status",
+    ordinal: 22,
+    request: readRequest(
+      "workspace_status",
+      "workspace_binding",
+      binding.ownerOutput.value.binding,
+      workspaceBasis,
+      Object.freeze({ kind: "none" }),
+    ),
+    slots: applicationSlots,
+    resources: readResources({
+      kind: "product_project_read_packet",
+      schemaVersion,
+      memberKey: "workspace_status",
+      sourceRef: binding.ownerOutput.value.binding.ref,
+      sourceDigest: binding.ownerOutput.value.binding.digest,
+      projectionBasis: workspaceBasis,
+      binding: workspaceTruth.binding,
+      resolvedLock,
+      productSet,
+      configurationCoordinates: Object.freeze([]),
+      catalogCoordinate: admittedCatalog.ownerOutput.value.catalog,
+      selector: Object.freeze({ kind: "none" }),
+    }),
+  });
+  const workspaceStatus = await runBinding(
+    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.workspace_status,
+    workspaceStatusCall,
+    "project.read#workspace_status",
+  );
+  assert.equal(workspaceStatus.ownerOutput.value.projection.readiness, "ready");
+
+  const installSource = Object.freeze({
+    ref: installedTruth.install.installId,
+    digest: product.sha256Canonical(installedTruth.install),
+  });
+  const manifestValue = Object.freeze({
+    installId: installedTruth.install.installId,
+    manifestDigest: installedTruth.install.manifestDigest,
+  });
+  const manifest = Object.freeze({
+    manifestRef: install.resources.installManifest.ref,
+    manifestDigest: product.sha256Canonical(manifestValue),
+    value: manifestValue,
+  });
+  const installBasis = projectionBasis("install_evidence", {
+    install: installSource,
+  });
+  const installEvidenceCall = definitionCall({
+    publicApi,
+    product,
+    operationId: "abg.operation.project.read",
+    memberKey: "install_evidence",
+    ordinal: 23,
+    request: readRequest(
+      "install_evidence",
+      "installed_product",
+      installSource,
+      installBasis,
+      Object.freeze({
+        kind: "install_manifest",
+        manifest: Object.freeze({
+          ref: manifest.manifestRef,
+          digest: manifest.manifestDigest,
+        }),
+      }),
+    ),
+    resources: readResources({
+      kind: "product_project_read_packet",
+      schemaVersion,
+      memberKey: "install_evidence",
+      sourceRef: installSource.ref,
+      sourceDigest: installSource.digest,
+      projectionBasis: installBasis,
+      install: installedTruth.install,
+      selector: Object.freeze({ kind: "install_manifest", manifest }),
+    }),
+  });
+  const installEvidence = await runBinding(
+    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.install_evidence,
+    installEvidenceCall,
+    "project.read#install_evidence",
+  );
+  assert.deepEqual(
+    installEvidence.ownerOutput.value.projection.manifest,
+    installEvidenceCall.invocation.request.selector.manifest,
+  );
+
+  const releaseSource = coordinate(
+    product,
+    "release-cut://abiogenesis/t287/w2-05/unavailable",
+  );
+  const releaseBasis = projectionBasis("release_evidence", {
+    releaseCut: releaseSource,
+  });
+  const releaseEvidenceCall = definitionCall({
+    publicApi,
+    product,
+    operationId: "abg.operation.project.read",
+    memberKey: "release_evidence",
+    ordinal: 24,
+    request: readRequest(
+      "release_evidence",
+      "release_cut",
+      releaseSource,
+      releaseBasis,
+      Object.freeze({
+        kind: "release_snapshot_manifest",
+        manifest: coordinate(
+          product,
+          "manifest://abiogenesis/t287/w2-05/unavailable",
+        ),
+      }),
+    ),
+    resources: readResources({
+      kind: "product_project_read_packet",
+      schemaVersion,
+      memberKey: "release_evidence",
+      sourceRef: releaseSource.ref,
+      sourceDigest: releaseSource.digest,
+      projectionBasis: releaseBasis,
+      releaseSnapshotRefusal: Object.freeze({
+        kind: "release_snapshot_refusal",
+        schemaVersion,
+        disposition: "refused",
+        memberKey: "qualify",
+        code: "wrong_subject_kind",
+        message: "no immutable release cut is published",
+        requestedIdentity: null,
+        qualificationBasisRef: null,
+        qualificationBasisDigest: null,
+        lawBasisRef: null,
+        lawBasisDigest: null,
+        verdictRef: null,
+        verdictDigest: null,
+      }),
+      selector: Object.freeze({ kind: "release_snapshot_unavailable" }),
+    }),
+  });
+  const releaseEvidence = await Effect.runPromise(
+    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.release_evidence(
+      releaseEvidenceCall,
+    ),
+  );
+  assert.equal(releaseEvidence.ownerOutput.outcomeKind, "refusal");
+  assert.equal(releaseEvidence.ownerOutput.value.code, "not_ready");
+
+  const invalidConsensusResult = Object.freeze({
+    kind: "consensus_result",
+    schemaVersion,
+    subjectRef: "ticket://abiogenesis/T-287",
+    subjectDigest: product.sha256Canonical({ ticket: "T-287" }),
+    resultRef: "consensus-result://abiogenesis/t287/w2-05",
+    replayRef: "replay://abiogenesis/t287/w2-05",
+  });
+  const consensusSource = Object.freeze({
+    ref: invalidConsensusResult.resultRef,
+    digest: product.sha256Canonical(invalidConsensusResult),
+  });
+  const consensusBasis = projectionBasis("ticket_consensus", {
+    result: consensusSource,
+  });
+  const ticketSelector = Object.freeze({
+    kind: "ticket_consensus",
+    ticket: Object.freeze({
+      ref: invalidConsensusResult.subjectRef,
+      digest: invalidConsensusResult.subjectDigest,
+    }),
+    outputAuthority: coordinate(
+      product,
+      "authority://abiogenesis/t287/w2-05/consensus-output",
+    ),
+    replayBasis: coordinate(product, invalidConsensusResult.replayRef),
+  });
+  const ticketConsensusCall = definitionCall({
+    publicApi,
+    product,
+    operationId: "abg.operation.project.read",
+    memberKey: "ticket_consensus",
+    ordinal: 25,
+    request: readRequest(
+      "ticket_consensus",
+      "consensus_result",
+      consensusSource,
+      consensusBasis,
+      ticketSelector,
+    ),
+    slots: applicationSlots,
+    resources: readResources({
+      kind: "product_project_read_packet",
+      schemaVersion,
+      memberKey: "ticket_consensus",
+      sourceRef: consensusSource.ref,
+      sourceDigest: consensusSource.digest,
+      projectionBasis: consensusBasis,
+      consensusResult: invalidConsensusResult,
+      selector: ticketSelector,
+    }),
+  });
+  const ticketConsensus = await Effect.runPromise(
+    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.ticket_consensus(
+      ticketConsensusCall,
+    ),
+  );
+  assert.equal(ticketConsensus.ownerOutput.outcomeKind, "refusal");
+  assert.equal(ticketConsensus.ownerOutput.value.code, "source_digest_mismatch");
+
+  const forgedCatalogBasisCall = structuredClone(catalogListCall);
+  forgedCatalogBasisCall.invocation.request.projectionBasis.projectionBasisDigest =
+    product.sha256Canonical({ forged: "projection-basis" });
+  const forgedCatalogBasisFault = await Effect.runPromise(Effect.flip(
+    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_list(
+      forgedCatalogBasisCall,
+    ),
+  ));
+  assert.equal(forgedCatalogBasisFault.kind, "definition_execution_fault");
+  assert.equal(forgedCatalogBasisFault.stage, "resource_admission");
+
+  const conformanceProgram = harness.rootPublication.programs[0];
+  assert.ok(conformanceProgram);
+  const conformanceProgramCoordinate = Object.freeze({
+    ref: conformanceProgram.programRef,
+    digest: product.sha256Canonical(conformanceProgram),
+  });
+  const conformancePublicationCoordinate = Object.freeze({
+    ref: harness.rootPublication.moduleRef,
+    digest: product.sha256Canonical(harness.rootPublication),
+  });
+  const conformanceLaw = coordinate(
+    product,
+    "law://abiogenesis/validator/gtl-program@5",
+  );
+  const conformanceRequest = Object.freeze({
+    program: conformanceProgramCoordinate,
+    conformanceLaw,
+    inventoryBasis: Object.freeze({
+      kind: "declared_inventory",
+      inventory: Object.freeze([conformancePublicationCoordinate]),
+    }),
+  });
+  const conformanceCall = definitionCall({
+    publicApi,
+    product,
+    operationId: "abg.operation.conformance.evaluate",
+    memberKey: "gtl_program",
+    ordinal: 26,
+    request: conformanceRequest,
+    slots: {
+      workspace_binding: binding.ownerOutput.value.binding,
+      product_set: [install.ownerOutput.value.installedProduct],
+      dependency_lock: lockCoordinate,
+      actor: actorAuthority(product),
+    },
+    resources: Object.freeze({
+      kind: "conformance_evaluation_resource_assertion",
+      schemaVersion,
+      packet: Object.freeze({
+        kind: "conformance_evaluate_packet",
+        schemaVersion,
+        memberKey: "gtl_program",
+        publication: harness.rootPublication,
+        program: conformanceProgram,
+      }),
+      conformanceLaw,
+    }),
+  });
+  const conformance = await runBinding(
+    validator.CONFORMANCE_DEFINITION_BINDINGS.evaluate.gtl_program,
+    conformanceCall,
+    "conformance.evaluate#gtl_program",
+  );
+  assert.ok(["passed", "failed"].includes(conformance.ownerOutput.value.disposition));
+
+  const forgedProgramCall = structuredClone(conformanceCall);
+  forgedProgramCall.invocation.request.program.digest = product.sha256Canonical({
+    forged: "program",
+  });
+  const forgedProgramFault = await Effect.runPromise(Effect.flip(
+    validator.CONFORMANCE_DEFINITION_BINDINGS.evaluate.gtl_program(
+      forgedProgramCall,
+    ),
+  ));
+  assert.equal(forgedProgramFault.kind, "definition_execution_fault");
+  assert.equal(forgedProgramFault.stage, "resource_admission");
+
   const forgedView = structuredClone(view);
   const forgedOverlay = {
     ...forgedView.declarationsByHandle[overlayRow.handle],
@@ -791,6 +1204,8 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   for (const path of [
     "build/code/src/product/install_definition_bindings.js",
     "build/code/src/product/catalog_definition_bindings.js",
+    "build/code/src/product/project_read_definition_bindings.js",
+    "build/code/src/validator/conformance_definition_bindings.js",
     "build/code/src/shared/definition_binding_mechanics.js",
   ]) {
     const source = await readFile(join(harness.installedPackageRoot, path), "utf8");

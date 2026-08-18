@@ -42,3 +42,7 @@ export {
   type GraphValidationBasis,
   type GraphValidationResult,
 } from "./graph.js";
+export {
+  CONFORMANCE_DEFINITION_BINDINGS,
+  type ConformanceEvaluationResourceAssertion,
+} from "./conformance_definition_bindings.js";

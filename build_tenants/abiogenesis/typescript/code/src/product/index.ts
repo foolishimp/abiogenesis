@@ -213,6 +213,10 @@ export {
   type ProductInstallResourceReceipt,
 } from "./install_definition_bindings.js";
 export {
+  PRODUCT_PROJECT_READ_DEFINITION_BINDINGS,
+  type ProductProjectReadResourceAssertion,
+} from "./project_read_definition_bindings.js";
+export {
   CATALOG_OPERATION_CONTRACTS,
   CatalogOperationPort,
   constructCatalogProgramValidationInput,
