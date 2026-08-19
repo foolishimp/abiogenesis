@@ -25,7 +25,6 @@ const selectedAdditions = Object.freeze([
   "abg.operation.project.read#catalog_describe",
   "abg.operation.project.read#catalog_list",
   "abg.operation.project.read#install_evidence",
-  "abg.operation.project.read#release_evidence",
   "abg.operation.project.read#ticket_consensus",
   "abg.operation.project.read#workspace_status",
 ]);
@@ -37,6 +36,7 @@ const remainingKeys = Object.freeze([
   "abg.operation.interaction.respond#select",
   "abg.operation.product.materialize#configuration",
   "abg.operation.product.materialize#context_bootstrap",
+  "abg.operation.project.read#release_evidence",
   "abg.operation.result.assess#assess",
   "abg.operation.run.continue#current_intent",
   "abg.operation.run.continue#selected_action",
@@ -322,8 +322,12 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     .map(({ definitionKey }) => definitionKey)
     .sort();
   assert.equal(census.report.definitionCount, 56);
-  assert.equal(census.report.callableCount, 38);
+  assert.equal(census.report.callableCount, 37);
   assert.deepEqual(missingKeys, remainingKeys);
+  assert.equal(
+    "release_evidence" in product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS,
+    false,
+  );
   assert.deepEqual(
     loadedKeys.filter((key) => selectedAdditions.includes(key)),
     selectedAdditions,
@@ -888,7 +892,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
         kind: "catalog_list",
         visibility: Object.freeze({ kind: "workspace_catalog" }),
       }),
-    }),
+    }, { artifactTruth }),
   });
   const catalogListRead = await runBinding(
     product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_list,
@@ -943,7 +947,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
         kind: "catalog_list",
         visibility: Object.freeze({ kind: "session_view", view }),
       }),
-    }),
+    }, { artifactTruth }),
   });
   const sessionCatalogList = await runBinding(
     product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_list,
@@ -987,7 +991,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
         handle: describedHandle,
         visibility: Object.freeze({ kind: "workspace_catalog" }),
       }),
-    }),
+    }, { artifactTruth }),
   });
   const catalogDescription = await runBinding(
     product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_describe,
@@ -1098,76 +1102,6 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     installEvidence.ownerOutput.value.projection.manifest,
     installEvidenceCall.invocation.request.selector.manifest,
   );
-
-  const releaseSource = coordinate(
-    product,
-    "release-cut://abiogenesis/t287/w2-05/unavailable",
-  );
-  const releaseBasis = projectionBasis("release_evidence", {
-    releaseCut: releaseSource,
-  });
-  const releaseManifestValue = Object.freeze({
-    kind: "unavailable_release_snapshot_manifest",
-    releaseCut: releaseSource,
-  });
-  const releaseManifest = Object.freeze({
-    manifestRef: "manifest://abiogenesis/t287/w2-05/unavailable",
-    manifestDigest: product.sha256Canonical(releaseManifestValue),
-    value: releaseManifestValue,
-  });
-  const releaseManifestCoordinate = Object.freeze({
-    ref: releaseManifest.manifestRef,
-    digest: releaseManifest.manifestDigest,
-  });
-  const releaseSnapshotRefusal = Object.freeze({
-    kind: "release_snapshot_refusal",
-    schemaVersion,
-    disposition: "refused",
-    memberKey: "published_rc",
-    code: "basis_mismatch",
-    message: "release snapshot requires one exact qualification basis",
-    requestedIdentity: null,
-    qualificationBasisRef: null,
-    qualificationBasisDigest: null,
-    lawBasisRef: null,
-    lawBasisDigest: null,
-    verdictRef: null,
-    verdictDigest: null,
-  });
-  const releaseEvidenceCall = definitionCall({
-    publicApi,
-    product,
-    operationId: "abg.operation.project.read",
-    memberKey: "release_evidence",
-    ordinal: 24,
-    request: readRequest(
-      "release_evidence",
-      "release_cut",
-      releaseSource,
-      releaseBasis,
-      Object.freeze({
-        kind: "release_snapshot_manifest",
-        manifest: releaseManifestCoordinate,
-      }),
-    ),
-    resources: readResources({
-      kind: "product_project_read_packet",
-      schemaVersion,
-      memberKey: "release_evidence",
-      sourceRef: releaseSource.ref,
-      sourceDigest: releaseSource.digest,
-      projectionBasis: releaseBasis,
-      releaseSnapshotRefusal,
-      selector: Object.freeze({ kind: "release_snapshot_unavailable" }),
-    }, { releaseManifest }),
-  });
-  const releaseEvidence = await Effect.runPromise(
-    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.release_evidence(
-      releaseEvidenceCall,
-    ),
-  );
-  assert.equal(releaseEvidence.ownerOutput.outcomeKind, "refusal");
-  assert.equal(releaseEvidence.ownerOutput.value.code, "not_ready");
 
   const unavailableRunId = "run://abiogenesis/t287/w2-05/not-issued";
   const unavailableGraphCallId =
@@ -1323,6 +1257,34 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     );
   }
 
+  const preBindingArtifactTruth = abg.projectExactPrefixArtifactTruth(
+    install.resources.eventResource.closeHandoff.prefix,
+  );
+  assert.equal(preBindingArtifactTruth.rows.length, 1);
+  for (const [label, sourceCall, bindingUnderTest] of [
+    [
+      "catalog list unadmitted environment basis",
+      catalogListCall,
+      product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_list,
+    ],
+    [
+      "catalog describe unadmitted environment basis",
+      catalogDescribeCall,
+      product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_describe,
+    ],
+  ]) {
+    const unadmittedCatalogCall = structuredClone(sourceCall);
+    unadmittedCatalogCall.resources.artifactTruth = preBindingArtifactTruth;
+    const unadmittedCatalogFault = await Effect.runPromise(Effect.flip(
+      bindingUnderTest(unadmittedCatalogCall),
+    ));
+    assert.equal(
+      unadmittedCatalogFault.code,
+      "resource_relation_mismatch",
+      label,
+    );
+  }
+
   const hiddenCatalogRow = [
     ...catalog.entries,
     ...catalog.declarationEntries,
@@ -1378,48 +1340,6 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   ));
   assert.equal(
     alternateInstallManifestFault.code,
-    "resource_relation_mismatch",
-  );
-
-  const fakeReleaseRefusalCall = structuredClone(releaseEvidenceCall);
-  fakeReleaseRefusalCall.resources.packet.releaseSnapshotRefusal = {
-    kind: "release_snapshot_refusal",
-    disposition: "refused",
-  };
-  const fakeReleaseRefusalFault = await Effect.runPromise(Effect.flip(
-    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.release_evidence(
-      fakeReleaseRefusalCall,
-    ),
-  ));
-  assert.equal(fakeReleaseRefusalFault.code, "resource_relation_mismatch");
-
-  const alternateReleaseManifestCall = structuredClone(releaseEvidenceCall);
-  const alternateReleaseManifestValue = {
-    kind: "unavailable_release_snapshot_manifest",
-    releaseCut: coordinate(
-      product,
-      "release-cut://abiogenesis/t287/w2-05/unrelated",
-    ),
-  };
-  const alternateReleaseManifest = {
-    manifestRef: `${releaseManifest.manifestRef}.alternate`,
-    manifestDigest: product.sha256Canonical(alternateReleaseManifestValue),
-    value: alternateReleaseManifestValue,
-  };
-  alternateReleaseManifestCall.resources.releaseManifest =
-    alternateReleaseManifest;
-  alternateReleaseManifestCall.invocation.request.selector.manifest = {
-    ref: alternateReleaseManifest.manifestRef,
-    digest: alternateReleaseManifest.manifestDigest,
-  };
-  rehashInvocation(product, alternateReleaseManifestCall);
-  const alternateReleaseManifestFault = await Effect.runPromise(Effect.flip(
-    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.release_evidence(
-      alternateReleaseManifestCall,
-    ),
-  ));
-  assert.equal(
-    alternateReleaseManifestFault.code,
     "resource_relation_mismatch",
   );
 
@@ -1525,27 +1445,6 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     ),
   ));
   assert.equal(forgedSessionRefFault.code, "resource_relation_mismatch");
-
-  for (const mismatch of ["ref", "digest"]) {
-    const forgedReleaseManifestCall = structuredClone(releaseEvidenceCall);
-    if (mismatch === "ref") {
-      forgedReleaseManifestCall.resources.releaseManifest.manifestRef +=
-        "/forged";
-    } else {
-      forgedReleaseManifestCall.resources.releaseManifest.manifestDigest =
-        product.sha256Canonical({ forged: "release-manifest" });
-    }
-    const forgedReleaseManifestFault = await Effect.runPromise(Effect.flip(
-      product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.release_evidence(
-        forgedReleaseManifestCall,
-      ),
-    ));
-    assert.equal(
-      forgedReleaseManifestFault.code,
-      "resource_relation_mismatch",
-      mismatch,
-    );
-  }
 
   const conformanceProgram = harness.rootPublication.programs[0];
   assert.ok(conformanceProgram);

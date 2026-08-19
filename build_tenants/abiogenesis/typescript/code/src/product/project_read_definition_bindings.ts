@@ -11,7 +11,9 @@ import { GraphCallProjectionPort as AbgGraphCallProjectionPort } from
 import {
   hasAdmittedProductInstall,
   hasAdmittedWorkspaceBinding,
+  projectAdmittedProductInstall,
   projectAdmittedProductInstallByAdmissionEventRef,
+  projectAdmittedWorkspaceBinding,
   projectAdmittedWorkspaceBindingByInvocationRef,
   projectAdmittedWorkspaceProductInstall,
 } from "../abg/environment_admission.js";
@@ -35,10 +37,8 @@ import type {
   ExactDefinitionCallable,
 } from "../shared/effect_definition.js";
 import { deepFreeze } from "../shared/immutable.js";
-import {
-  admitRuntimeContract,
-  type OwnerSemanticOutput,
-} from "../shared/public_function_contracts.js";
+import type { OwnerSemanticOutput } from
+  "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import { ABI5_SYSTEM_PRODUCT_SEMANTICS } from "./builtin_semantics.js";
 import type {
@@ -56,7 +56,6 @@ import {
   CatalogProjectionPort,
   ConsensusProjectionPort,
   InstallProjectionPort,
-  ReleaseProjectionPort,
   WorkspaceProjectionPort,
   type CatalogDescribeProjectReadPacket,
   type CatalogListProjectReadPacket,
@@ -70,10 +69,6 @@ import {
   reconstructWorkspaceManifest,
   type WorkspaceManifest,
 } from "./workspace_operations.js";
-import {
-  RELEASE_OPERATION_CONTRACTS,
-  type ReleaseSnapshotRefusal,
-} from "./release_snapshot_operations.js";
 
 type ProjectReadPacket =
   | CatalogListProjectReadPacket
@@ -94,11 +89,6 @@ export interface ProductProjectReadResourceAssertion<
   readonly packet: TPacket;
   readonly artifactTruth?: ExactPrefixArtifactTruthProjection;
   readonly workspaceManifest?: WorkspaceManifest;
-  readonly releaseManifest?: Readonly<{
-    readonly manifestRef: string;
-    readonly manifestDigest: ReferenceDigest["digest"];
-    readonly value: unknown;
-  }>;
   readonly runtime?: Readonly<{
     readonly prefix: DurablePrefixCoordinate;
     readonly runId: string;
@@ -122,7 +112,7 @@ function fault<TContract extends ProjectReadContract>(
 function validResources<TPacket extends ProjectReadPacket>(
   value: unknown,
   additionalKeys: readonly (
-    "artifactTruth" | "releaseManifest" | "runtime" | "workspaceManifest"
+    "artifactTruth" | "runtime" | "workspaceManifest"
   )[] = [],
 ): value is ProductProjectReadResourceAssertion<TPacket> {
   return isRecord(value) &&
@@ -315,6 +305,40 @@ function reconstructCatalogSelection(
     : null;
 }
 
+function catalogEnvironmentMatches(
+  catalog: ReadyGraphFunctionCatalog,
+  artifactTruth: ExactPrefixArtifactTruthProjection,
+): boolean {
+  const basis = catalog.readinessBasis;
+  const binding = projectAdmittedWorkspaceBinding(
+    artifactTruth,
+    basis.workspaceBinding,
+  );
+  if (
+    binding === null ||
+    basis.installedProducts.length === 0 ||
+    catalog.workspaceBindingId !== binding.bindingId ||
+    catalog.workspaceBindingDigest !== binding.bindingDigest ||
+    catalog.productSetId !== binding.productSetId ||
+    catalog.productSetDigest !== binding.productSetDigest ||
+    catalog.lockId !== basis.resolvedLock.lockId ||
+    catalog.lockDigest !== basis.resolvedLock.lockDigest ||
+    binding.lockId !== basis.resolvedLock.lockId ||
+    binding.lockDigest !== basis.resolvedLock.lockDigest
+  ) return false;
+  return basis.installedProducts.every((candidate) => {
+    const admitted = projectAdmittedProductInstall(artifactTruth, candidate);
+    const bound = projectAdmittedWorkspaceProductInstall(
+      artifactTruth,
+      binding.bindingId,
+      candidate.installId,
+    );
+    return admitted !== null && bound !== null &&
+      sameJson(admitted, bound.install) &&
+      sameJson(bound.resolvedLock, basis.resolvedLock);
+  });
+}
+
 function catalogAuthorityMatches(
   call: Readonly<{ readonly invocation: unknown }>,
   packet: CatalogListProjectReadPacket | CatalogDescribeProjectReadPacket,
@@ -419,40 +443,6 @@ function catalogDescribeOwnerPacket(
   });
 }
 
-function admittedReleaseSnapshotRefusal(
-  candidate: unknown,
-): candidate is ReleaseSnapshotRefusal {
-  if (!isRecord(candidate)) return false;
-  const memberKey = candidate.memberKey;
-  if (memberKey !== "published_rc" && memberKey !== "tapped_release") {
-    return false;
-  }
-  return admitRuntimeContract(
-    RELEASE_OPERATION_CONTRACTS.snapshot[memberKey].refusalSchema,
-    candidate,
-  ).disposition === "admitted";
-}
-
-function exactUnavailableReleaseManifest(
-  manifest: ProductProjectReadResourceAssertion["releaseManifest"],
-  source: ReferenceDigest,
-): boolean {
-  return isRecord(manifest) &&
-    hasExactKeys(manifest, ["manifestDigest", "manifestRef", "value"]) &&
-    typeof manifest.manifestRef === "string" &&
-    manifest.manifestRef.length > 0 &&
-    manifest.manifestDigest === sha256Canonical(manifest.value as never) &&
-    isRecord(manifest.value) &&
-    hasExactKeys(manifest.value, ["kind", "releaseCut"]) &&
-    manifest.value.kind === "unavailable_release_snapshot_manifest" &&
-    isRecord(manifest.value.releaseCut) &&
-    hasExactKeys(manifest.value.releaseCut, ["digest", "ref"]) &&
-    sameCoordinate(
-      manifest.value.releaseCut as unknown as ReferenceDigest,
-      source,
-    );
-}
-
 function entryCoordinate(
   entry: Readonly<{ readonly handle: string; readonly entryDigest: ReferenceDigest["digest"] }>,
 ): ReferenceDigest {
@@ -503,10 +493,13 @@ const catalog_list: ExactDefinitionCallable<
     typeof PRODUCT_PROJECT_READ_CONTRACTS.catalog_list,
     ProductProjectReadResourceAssertion<CatalogListProjectReadPacket>
   > => {
-    if (!validResources<CatalogListProjectReadPacket>(call.resources)) {
+    if (!validResources<CatalogListProjectReadPacket>(call.resources, [
+      "artifactTruth",
+    ])) {
       throw fault(call, "invalid_resource_assertion", "catalog list requires one exact typed owner packet");
     }
     const packet = call.resources.packet;
+    const artifactTruth = call.resources.artifactTruth!;
     const request = call.invocation.request;
     if (!exactDefinitionCallMatches(
       call,
@@ -523,7 +516,9 @@ const catalog_list: ExactDefinitionCallable<
             `graph-function-catalog-view://abiogenesis/${packet.selector.visibility.view.viewDigest.slice("sha256:".length)}` &&
           request.selector.visibility.view.digest ===
             packet.selector.visibility.view.viewDigest));
-    if (selection === null || !baseRelationMatches(call) || !selectorMatches ||
+    if (selection === null ||
+      !catalogEnvironmentMatches(selection.catalog, artifactTruth) ||
+      !baseRelationMatches(call) || !selectorMatches ||
       !catalogAuthorityMatches(
         call,
         packet,
@@ -572,10 +567,13 @@ const catalog_describe: ExactDefinitionCallable<
     typeof PRODUCT_PROJECT_READ_CONTRACTS.catalog_describe,
     ProductProjectReadResourceAssertion<CatalogDescribeProjectReadPacket>
   > => {
-    if (!validResources<CatalogDescribeProjectReadPacket>(call.resources)) {
+    if (!validResources<CatalogDescribeProjectReadPacket>(call.resources, [
+      "artifactTruth",
+    ])) {
       throw fault(call, "invalid_resource_assertion", "catalog describe requires one exact typed owner packet");
     }
     const packet = call.resources.packet;
+    const artifactTruth = call.resources.artifactTruth!;
     const request = call.invocation.request;
     if (!exactDefinitionCallMatches(
       call,
@@ -596,6 +594,7 @@ const catalog_describe: ExactDefinitionCallable<
           `graph-function-catalog-view://abiogenesis/${packet.selector.visibility.view.viewDigest.slice("sha256:".length)}`;
     if (
       selection === null ||
+      !catalogEnvironmentMatches(selection.catalog, artifactTruth) ||
       !baseRelationMatches(call) ||
       request.selector.handle !== packet.selector.handle ||
       !visibilityMatches ||
@@ -861,56 +860,6 @@ const install_evidence: ExactDefinitionCallable<
     : fault(call, "owner_execution_failure", String(cause)),
 });
 
-const release_evidence: ExactDefinitionCallable<
-  typeof PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,
-  ProductProjectReadResourceAssertion<ReleaseEvidenceProjectReadPacket>,
-  ProductProjectReadResourceAssertion<ReleaseEvidenceProjectReadPacket>
-> = (call) => Effect.try({
-  try: (): DefinitionReturn<
-    typeof PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,
-    ProductProjectReadResourceAssertion<ReleaseEvidenceProjectReadPacket>
-  > => {
-    if (!validResources<ReleaseEvidenceProjectReadPacket>(call.resources, ["releaseManifest"])) {
-      throw fault(call, "invalid_resource_assertion", "release evidence requires one exact typed owner packet");
-    }
-    const manifest = call.resources.releaseManifest!;
-    const packet = call.resources.packet;
-    if (!exactDefinitionCallMatches(
-      call,
-      PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,
-    )) {
-      throw fault(call, "call_identity_mismatch", "release evidence call differs from its fixed definition, contracts, request digest, or authority topology");
-    }
-    if (
-      !baseRelationMatches(call) ||
-      !admittedReleaseSnapshotRefusal(packet.releaseSnapshotRefusal) ||
-      !exactUnavailableReleaseManifest(manifest, {
-        ref: packet.sourceRef,
-        digest: packet.sourceDigest,
-      }) ||
-      !sameCoordinate(call.invocation.request.selector.manifest, {
-        ref: manifest.manifestRef,
-        digest: manifest.manifestDigest,
-      })
-    ) {
-      throw fault(call, "resource_relation_mismatch", "release evidence packet differs from the public source or basis coordinates");
-    }
-    const output = ReleaseProjectionPort.evidence(packet);
-    return deepFreeze({
-      ownerOutput: nativeRefusal(
-        PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,
-        output,
-      ),
-      resources: call.resources,
-    });
-  },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.release_evidence.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
-});
-
 const ticket_consensus: ExactDefinitionCallable<
   typeof PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus,
   ProductProjectReadResourceAssertion<TicketConsensusProjectReadPacket>,
@@ -1045,6 +994,5 @@ export const PRODUCT_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze({
   catalog_describe,
   workspace_status,
   install_evidence,
-  release_evidence,
   ticket_consensus,
 });
