@@ -70,17 +70,34 @@ export function isExactLocusStep(
   term: Readonly<CProgramNode>,
 ): boolean {
   if (stop.kind === "traversal_cursor") return term.kind === "c_workflow";
-  return term.kind === "c_of" &&
-    term.fibre === stop.computeRegime &&
-    term.programLocusRef === stop.programLocusRef &&
-    term.armId === stop.armId &&
-    term.compositionRef === stop.compositionRef &&
-    term.inputCarrierRef === (stop.stopClass === "executable"
-      ? stop.inputContractRef
-      : stop.requestContractRef) &&
-    term.outputCarrierRef === (stop.stopClass === "executable"
-      ? stop.outputContractRef
-      : stop.responseContractRef);
+  if (
+    term.kind !== "c_of" ||
+    term.fibre !== stop.computeRegime ||
+    term.programLocusRef !== stop.programLocusRef ||
+    term.armId !== stop.armId ||
+    term.compositionRef !== stop.compositionRef
+  ) return false;
+  if (stop.stopClass === "executable") {
+    return term.requirement.kind === "executable_leaf_requirement" &&
+      term.inputCarrierRef === stop.inputContractRef &&
+      term.outputCarrierRef === stop.outputContractRef &&
+      term.requirement.implementationBindingRef ===
+        stop.implementationBindingRef &&
+      term.requirement.inputContractRef === stop.inputContractRef &&
+      term.requirement.outputContractRef === stop.outputContractRef &&
+      term.requirement.evidenceContractRef === stop.evidenceContractRef &&
+      term.requirement.failureContractRef === stop.failureContractRef &&
+      term.requirement.refusalContractRef === stop.refusalContractRef &&
+      term.requirement.judgmentContractRef === stop.judgmentContractRef;
+  }
+  return term.requirement.kind === "interaction_leaf_requirement" &&
+    term.inputCarrierRef === stop.requestContractRef &&
+    term.requirement.interactionKind === stop.interactionKind &&
+    term.requirement.actorCapabilityRef === stop.actorCapabilityRef &&
+    term.requirement.requestContractRef === stop.requestContractRef &&
+    term.requirement.responseContractRef === stop.responseContractRef &&
+    term.requirement.continuationContractRef ===
+      stop.continuationContractRef;
 }
 
 export function materializedInputAtCursor(

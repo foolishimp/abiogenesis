@@ -28,7 +28,6 @@ import type { GraphValidation } from "../validator/graph.js";
 import { proposeJudgmentCandidate } from "./judgment.js";
 import {
   admissionBasis,
-  runtimePrefixAtDurable,
   type ExecutionClock,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
@@ -198,12 +197,18 @@ export function projectCCallCompletion(
         },
       );
     }
+    const { runtimePrefix, authorityPrefix } =
+      Abg.projectRuntimeTruthAtDurablePrefix(
+        admitted.transition.successorPrefix,
+        source.runId,
+      );
     const nextCursor = applyAdmittedRoute(
-      runtimePrefixAtDurable(admitted.transition.successorPrefix, source.runId),
+      runtimePrefix,
       source,
       target,
       "advance",
       admitted.transition.route,
+      authorityPrefix,
     );
     if (nextCursor.kind === "traversal_refusal") {
       return projectExecutableTraversalCompletion(
