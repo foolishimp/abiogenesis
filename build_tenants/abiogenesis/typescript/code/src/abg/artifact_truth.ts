@@ -42,7 +42,8 @@ export type ArtifactTruthConflictField =
   | "authorityScopeRef"
   | "authorityScopeDigest"
   | "artifactRef"
-  | "artifactDigest";
+  | "artifactDigest"
+  | "admissionEventDigest";
 
 export interface ArtifactTruthRow {
   readonly operationId: string;
@@ -59,6 +60,7 @@ export interface ArtifactTruthRow {
   readonly resolvedLock: JsonValue | null;
   readonly workspaceAuthorityBasis: JsonValue | null;
   readonly admissionEventRef: string;
+  readonly admissionEventDigest: Sha256Digest;
   readonly admissionOrdinal: number;
   readonly causationEventRefs: readonly string[];
 }
@@ -370,6 +372,7 @@ export function projectArtifactTruth(
       resolvedLock: payload.resolvedLock ?? null,
       workspaceAuthorityBasis: payload.workspaceAuthorityBasis ?? null,
       admissionEventRef: event.eventId,
+      admissionEventDigest: event.payloadDigest,
       admissionOrdinal: event.admissionOrdinal,
       causationEventRefs: [...event.causationEventRefs],
       ownerAdmittedDisposition: "admitted" as const,
@@ -394,6 +397,7 @@ export function projectArtifactTruth(
     "authorityScopeDigest",
     "artifactRef",
     "artifactDigest",
+    "admissionEventDigest",
   ];
   const assertUniqueFact = (
     previous: FoldedArtifactTruthRow,
@@ -482,6 +486,7 @@ export function projectValidatedPrefixArtifactTruth(
     resolvedLock: row.resolvedLock,
     workspaceAuthorityBasis: row.workspaceAuthorityBasis,
     admissionEventRef: row.admissionEventRef,
+    admissionEventDigest: row.admissionEventDigest,
     admissionOrdinal: row.admissionOrdinal,
     causationEventRefs: [...row.causationEventRefs],
   }));

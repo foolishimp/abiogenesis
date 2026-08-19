@@ -164,6 +164,7 @@ export {
   WorkspaceOperationPort,
   createWorkspace,
   openWorkspace,
+  reconstructWorkspaceManifest,
   type CleanWorkspaceCreatePacket,
   type ImportedWorkspaceCreatePacket,
   type WorkspaceManifestAuthorityBasis,

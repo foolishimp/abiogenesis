@@ -1,9 +1,22 @@
 import * as Effect from "effect/Effect";
 
+import {
+  projectAdmittedProductInstallByAdmissionEventRef,
+  projectAdmittedWorkspaceBindingByInvocationRef,
+  type ExactPrefixArtifactTruthProjection,
+} from "../abg/index.js";
+import { canonicalizeAuthoredGtlCarrier } from "../gtl/canonicalization.js";
+import type {
+  ClosureContract,
+  ContractDeclaration,
+  GtlProgram,
+  ModulePublication,
+} from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
+import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import {
   definitionFault,
+  exactDefinitionCallMatches,
   hasExactKeys,
   isDefinitionFault,
   isRecord,
@@ -22,12 +35,21 @@ import type { OwnerSemanticOutput } from
   "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import {
+  isWorkspaceAuthorityBasis,
+  productInstallCoordinate,
+} from "../product/environment.js";
+import {
   ConformancePort,
   type ConformanceEvaluatePacket,
   type GtlProgramConformanceOperationResult,
 } from "./conformance_operation.js";
 import { CONFORMANCE_OPERATION_CONTRACTS } from
   "./conformance_operation_contracts.js";
+import {
+  rawAdmitValue,
+  type RawAdmittedValue,
+  type RawSubjectKind,
+} from "./raw_admission.js";
 
 type ConformanceContract =
   typeof CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program;
@@ -37,6 +59,8 @@ export interface ConformanceEvaluationResourceAssertion {
   readonly schemaVersion: "5.0.0";
   readonly packet: ConformanceEvaluatePacket;
   readonly conformanceLaw: ReferenceDigest<"GtlConformanceLaw">;
+  readonly artifactTruth: ExactPrefixArtifactTruthProjection;
+  readonly declaredInventory: readonly ModulePublication[];
 }
 
 function fault(
@@ -50,10 +74,6 @@ function fault(
     code,
     message,
   );
-}
-
-function opaqueCoordinate(ref: string): ReferenceDigest {
-  return reference(ref, sha256Canonical({ ref }));
 }
 
 function nativeRefusal(
@@ -78,6 +98,135 @@ function nativeRefusal(
   );
 }
 
+function exactCoordinateSet(
+  actual: unknown,
+  expected: readonly ReferenceDigest[],
+): boolean {
+  return Array.isArray(actual) && actual.length === expected.length &&
+    actual.every((coordinate, index) =>
+      isRecord(coordinate) &&
+      sameCoordinate(
+        coordinate as unknown as ReferenceDigest,
+        expected[index]!,
+      )
+    );
+}
+
+function compareCoordinates(
+  left: ReferenceDigest,
+  right: ReferenceDigest,
+): number {
+  return left.ref < right.ref
+    ? -1
+    : left.ref > right.ref
+    ? 1
+    : left.digest < right.digest
+    ? -1
+    : left.digest > right.digest ? 1 : 0;
+}
+
+function canonicalCoordinateSet(
+  value: unknown,
+): readonly ReferenceDigest[] | null {
+  if (
+    !Array.isArray(value) ||
+    value.some((coordinate) =>
+      !isRecord(coordinate) ||
+      !hasExactKeys(coordinate, ["digest", "ref"]) ||
+      typeof coordinate.ref !== "string" ||
+      !isSha256Digest(coordinate.digest)
+    )
+  ) return null;
+  return ([...value] as ReferenceDigest[]).sort(compareCoordinates);
+}
+
+function exactRawAdmission<S>(
+  value: S,
+  subjectKind: RawSubjectKind,
+  contractRef: string,
+): RawAdmittedValue<S> {
+  const admitted = rawAdmitValue<S>(value, subjectKind, contractRef);
+  if (admitted.kind !== "raw_admitted_value") {
+    throw new TypeError(
+      "Validator resource differs from its raw admission contract",
+    );
+  }
+  return admitted;
+}
+
+function rawAdmissionCoordinate(
+  admitted: RawAdmittedValue<unknown>,
+): ReferenceDigest<"RawAdmission"> {
+  const prefix = "raw-admission://abiogenesis/";
+  const suffix = admitted.admissionRef.startsWith(prefix)
+    ? admitted.admissionRef.slice(prefix.length)
+    : "";
+  const digest = `sha256:${suffix}`;
+  if (!isSha256Digest(digest)) {
+    throw new TypeError(
+      "Validator emitted a malformed raw-admission coordinate",
+    );
+  }
+  return reference(admitted.admissionRef, digest);
+}
+
+function conformanceAuthorityMatches(
+  call: Parameters<
+    ExactDefinitionCallable<
+      ConformanceContract,
+      ConformanceEvaluationResourceAssertion,
+      ConformanceEvaluationResourceAssertion
+    >
+  >[0],
+  artifactTruth: ExactPrefixArtifactTruthProjection,
+): boolean {
+  const slots = call.invocation.invocationAuthority.slots;
+  if (
+    !isRecord(slots.workspace_binding) ||
+    !isRecord(slots.dependency_lock) ||
+    !Array.isArray(slots.product_set) ||
+    !isRecord(slots.actor) ||
+    !isRecord(slots.actor.actor)
+  ) return false;
+  const bindingRow = artifactTruth.rows.find((row) =>
+    row.operationId === "abg.operation.workspace.bind" &&
+    row.artifactRef === slots.workspace_binding!.ref &&
+    row.artifactDigest === slots.workspace_binding!.digest
+  );
+  if (
+    bindingRow === undefined ||
+    !isWorkspaceAuthorityBasis(bindingRow.workspaceAuthorityBasis) ||
+    slots.actor.actor.ref !==
+      bindingRow.workspaceAuthorityBasis.authorizedActorRef
+  ) return false;
+  const installs = bindingRow.causationEventRefs.map((eventRef) =>
+    projectAdmittedProductInstallByAdmissionEventRef(artifactTruth, eventRef)
+  );
+  if (installs.length === 0 || installs.some((install) => install === null)) {
+    return false;
+  }
+  const lock = installs[0]!.resolvedLock;
+  if (
+    installs.some((install) => !sameJson(install!.resolvedLock, lock)) ||
+    !sameCoordinate(slots.dependency_lock, {
+      ref: lock.lockId,
+      digest: lock.lockDigest,
+    }) ||
+    !exactCoordinateSet(
+      slots.product_set,
+      installs.map((install) => productInstallCoordinate(install!.install)),
+    )
+  ) return false;
+  const binding = projectAdmittedWorkspaceBindingByInvocationRef(
+    artifactTruth,
+    bindingRow.invocationRef,
+    lock,
+  );
+  return binding !== null &&
+    binding.binding.bindingId === slots.workspace_binding.ref &&
+    binding.binding.bindingDigest === slots.workspace_binding.digest;
+}
+
 const gtl_program: ExactDefinitionCallable<
   ConformanceContract,
   ConformanceEvaluationResourceAssertion,
@@ -91,7 +240,9 @@ const gtl_program: ExactDefinitionCallable<
     if (
       !isRecord(resources) ||
       !hasExactKeys(resources, [
+        "artifactTruth",
         "conformanceLaw",
+        "declaredInventory",
         "kind",
         "packet",
         "schemaVersion",
@@ -100,6 +251,8 @@ const gtl_program: ExactDefinitionCallable<
       resources.schemaVersion !== "5.0.0" ||
       !isRecord(resources.packet) ||
       !isRecord(resources.conformanceLaw) ||
+      !Array.isArray(resources.declaredInventory) ||
+      resources.declaredInventory.length === 0 ||
       !sameJson(resources, resources)
     ) {
       throw fault(
@@ -110,6 +263,16 @@ const gtl_program: ExactDefinitionCallable<
     }
     const request = call.invocation.request;
     const packet = resources.packet;
+    if (!exactDefinitionCallMatches(
+      call,
+      CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,
+    )) {
+      throw fault(
+        call.invocation.definitionKey,
+        "call_identity_mismatch",
+        "conformance call differs from its fixed definition, contracts, request digest, or authority topology",
+      );
+    }
     const program = reference(
       packet.program.programRef,
       sha256Canonical(packet.program as unknown as JsonValue),
@@ -118,15 +281,40 @@ const gtl_program: ExactDefinitionCallable<
       packet.publication.moduleRef,
       sha256Canonical(packet.publication as unknown as JsonValue),
     );
+    const inventory = resources.declaredInventory.map((entry) => {
+      const canonical = canonicalizeAuthoredGtlCarrier(
+        entry,
+        "module_publication",
+      );
+      if (!sameJson(canonical, entry)) {
+        throw fault(
+          call.invocation.definitionKey,
+          "invalid_resource_assertion",
+          "declared inventory contains a noncanonical Module publication",
+        );
+      }
+      return reference(
+        entry.moduleRef,
+        sha256Canonical(entry as unknown as JsonValue),
+      );
+    }).sort(compareCoordinates);
+    const requestedInventory = request.inventoryBasis.kind ===
+        "declared_inventory"
+      ? canonicalCoordinateSet(request.inventoryBasis.inventory)
+      : null;
     const inventoryMatches = request.inventoryBasis.kind === "program_only" ||
-      sameJson(request.inventoryBasis.inventory, [publication]);
+      (inventory.length === new Set(inventory.map(({ ref }) => ref)).size &&
+        requestedInventory !== null &&
+        exactCoordinateSet(requestedInventory, inventory) &&
+        inventory.some((coordinate) => sameCoordinate(coordinate, publication)));
     if (
       packet.kind !== "conformance_evaluate_packet" ||
       packet.schemaVersion !== "5.0.0" ||
       packet.memberKey !== "gtl_program" ||
       !sameCoordinate(request.program, program) ||
       !sameCoordinate(request.conformanceLaw, resources.conformanceLaw) ||
-      !inventoryMatches
+      !inventoryMatches ||
+      !conformanceAuthorityMatches(call, resources.artifactTruth)
     ) {
       throw fault(
         call.invocation.definitionKey,
@@ -147,24 +335,89 @@ const gtl_program: ExactDefinitionCallable<
         native.diagnosticRef,
         sha256Canonical(native as unknown as JsonValue),
       );
+    const publicationAdmission = exactRawAdmission<ModulePublication>(
+      packet.publication,
+      "module_publication",
+      "contract://abiogenesis/gtl/module-publication@5",
+    );
+    const programAdmission = exactRawAdmission<GtlProgram>(
+      packet.program,
+      "gtl_program",
+      "contract://abiogenesis/gtl/program@5",
+    );
+    const authorityAdmissions = [
+      ...packet.publication.contracts.map((value) =>
+        exactRawAdmission<ContractDeclaration>(
+          value,
+          "contract_declaration",
+          "contract://abiogenesis/gtl/contract-declaration@5",
+        )
+      ),
+      ...packet.publication.closureContracts.map((value) =>
+        exactRawAdmission<ClosureContract>(
+          value,
+          "closure_contract",
+          "contract://abiogenesis/gtl/closure-contract@5",
+        )
+      ),
+    ];
+    const violatedAuthorities = native.disposition === "failed"
+      ? native.violatedContractRefs.map((ref) => {
+        const matches = authorityAdmissions.filter((admitted) =>
+          (admitted.subjectKind === "contract_declaration" &&
+            (admitted.value as ContractDeclaration).contractRef === ref) ||
+          (admitted.subjectKind === "closure_contract" &&
+            (admitted.value as ClosureContract).closureContractRef === ref)
+        );
+        if (matches.length !== 1) {
+          throw new TypeError(
+            "Validator emitted an unbound violated authority reference",
+          );
+        }
+        return reference(ref, matches[0]!.subjectDigest);
+      })
+      : [];
+    const rawEvidence = [
+      rawAdmissionCoordinate(programAdmission),
+      rawAdmissionCoordinate(publicationAdmission),
+    ];
+    const failedEvidence = native.disposition === "failed"
+      ? native.evidenceRefs.map((ref) => {
+        const matches = rawEvidence.filter((coordinate) =>
+          coordinate.ref === ref
+        );
+        if (matches.length !== 1) {
+          throw new TypeError(
+            "Validator emitted an unbound raw-admission evidence reference",
+          );
+        }
+        return matches[0]!;
+      })
+      : [];
+    const inventoryCoordinate = request.inventoryBasis.kind ===
+        "declared_inventory"
+      ? (() => {
+        const digest = sha256Canonical(inventory as unknown as JsonValue);
+        return reference(
+          `gtl-inventory://abiogenesis/${digest.slice("sha256:".length)}`,
+          digest,
+        );
+      })()
+      : null;
     const ownerOutput = validatedOwnerOutput(
       CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,
       {
         outcomeKind: "result",
         value: {
           program,
-          inventory: request.inventoryBasis.kind === "declared_inventory"
-            ? publication
-            : null,
+          inventory: inventoryCoordinate,
           assessment,
           disposition: native.disposition,
           diagnostics: native.diagnostics,
-          violatedAuthorities: native.disposition === "failed"
-            ? native.violatedContractRefs.map(opaqueCoordinate)
-            : [],
+          violatedAuthorities,
           evidence: native.disposition === "passed"
             ? [assessment]
-            : [assessment, ...native.evidenceRefs.map(opaqueCoordinate)],
+            : [assessment, ...failedEvidence],
           repairAffordances: [],
         },
       } as OwnerSemanticOutput<ConformanceContract>,

@@ -1,9 +1,24 @@
 import * as Effect from "effect/Effect";
 
+import {
+  projectRunTruthAtDurablePrefix,
+  type DurablePrefixCoordinate,
+  type ExactPrefixArtifactTruthProjection,
+} from "../abg/index.js";
+import { GraphCallProjectionPort as AbgGraphCallProjectionPort } from
+  "../abg/project_read_ports.js";
+import {
+  hasAdmittedProductInstall,
+  hasAdmittedWorkspaceBinding,
+  projectAdmittedProductInstallByAdmissionEventRef,
+  projectAdmittedWorkspaceBindingByInvocationRef,
+  projectAdmittedWorkspaceProductInstall,
+} from "../abg/environment_admission.js";
 import { compareUnicodeCodeUnits } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import {
   definitionFault,
+  exactDefinitionCallMatches,
   hasExactKeys,
   isDefinitionFault,
   isRecord,
@@ -22,6 +37,12 @@ import { deepFreeze } from "../shared/immutable.js";
 import type { OwnerSemanticOutput } from
   "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
+import { ABI5_SYSTEM_PRODUCT_SEMANTICS } from "./builtin_semantics.js";
+import type { ReadyGraphFunctionCatalog } from "./catalog.js";
+import {
+  isWorkspaceAuthorityBasis,
+  productInstallCoordinate,
+} from "./environment.js";
 import { PRODUCT_PROJECT_READ_CONTRACTS } from
   "./project_read_operation_contracts.js";
 import {
@@ -38,6 +59,10 @@ import {
   type TicketConsensusProjectReadPacket,
   type WorkspaceStatusProjectReadPacket,
 } from "./project_read_ports.js";
+import {
+  reconstructWorkspaceManifest,
+  type WorkspaceManifest,
+} from "./workspace_operations.js";
 
 type ProjectReadPacket =
   | CatalogListProjectReadPacket
@@ -56,6 +81,18 @@ export interface ProductProjectReadResourceAssertion<
   readonly kind: "product_project_read_resource_assertion";
   readonly schemaVersion: "5.0.0";
   readonly packet: TPacket;
+  readonly artifactTruth?: ExactPrefixArtifactTruthProjection;
+  readonly workspaceManifest?: WorkspaceManifest;
+  readonly releaseManifest?: Readonly<{
+    readonly manifestRef: string;
+    readonly manifestDigest: ReferenceDigest["digest"];
+    readonly value: unknown;
+  }>;
+  readonly runtime?: Readonly<{
+    readonly prefix: DurablePrefixCoordinate;
+    readonly runId: string;
+    readonly graphCallId: string;
+  }>;
 }
 
 function fault<TContract extends ProjectReadContract>(
@@ -73,9 +110,12 @@ function fault<TContract extends ProjectReadContract>(
 
 function validResources<TPacket extends ProjectReadPacket>(
   value: unknown,
+  additionalKeys: readonly (
+    "artifactTruth" | "releaseManifest" | "runtime" | "workspaceManifest"
+  )[] = [],
 ): value is ProductProjectReadResourceAssertion<TPacket> {
   return isRecord(value) &&
-    hasExactKeys(value, ["kind", "packet", "schemaVersion"]) &&
+    hasExactKeys(value, ["kind", "packet", "schemaVersion", ...additionalKeys]) &&
     value.kind === "product_project_read_resource_assertion" &&
     value.schemaVersion === "5.0.0" &&
     isRecord(value.packet) &&
@@ -96,10 +136,6 @@ function baseRelationMatches<TContract extends ProjectReadContract>(
       packet.projectionBasis.basisDigest;
 }
 
-function opaqueCoordinate(ref: string): ReferenceDigest {
-  return reference(ref, sha256Canonical({ ref }));
-}
-
 function nativeRefusal<TContract extends ProjectReadContract>(
   contract: TContract,
   refusal: ProductProjectReadRefusal,
@@ -116,10 +152,11 @@ function nativeRefusal<TContract extends ProjectReadContract>(
 
 function commonResult<TContract extends ProjectReadContract>(
   call: DefinitionCall<TContract, ProductProjectReadResourceAssertion>,
+  contract: TContract,
   projection: unknown,
 ): OwnerSemanticOutput<TContract> {
   const request = call.invocation.request;
-  return validatedOwnerOutput(callContract(call), {
+  return validatedOwnerOutput(contract, {
     outcomeKind: "result",
     value: {
       caseKey: request.caseKey,
@@ -136,12 +173,161 @@ function commonResult<TContract extends ProjectReadContract>(
   } as OwnerSemanticOutput<TContract>, "Product project read");
 }
 
-function callContract<TContract extends ProjectReadContract>(
-  call: DefinitionCall<TContract, unknown>,
-): TContract {
-  return PRODUCT_PROJECT_READ_CONTRACTS[
-    call.invocation.definitionKey.memberKey
-  ] as TContract;
+function exactCoordinateSet(
+  actual: unknown,
+  expected: readonly ReferenceDigest[],
+): boolean {
+  return Array.isArray(actual) && actual.length === expected.length &&
+    actual.every((coordinate, index) =>
+      isRecord(coordinate) &&
+      sameCoordinate(coordinate as unknown as ReferenceDigest, expected[index]!)
+    );
+}
+
+function authoritySlots(
+  call: Readonly<{ readonly invocation: unknown }>,
+): Readonly<Record<string, unknown>> | null {
+  if (!isRecord(call.invocation) ||
+    !isRecord(call.invocation.invocationAuthority) ||
+    !isRecord(call.invocation.invocationAuthority.slots)) return null;
+  return call.invocation.invocationAuthority.slots;
+}
+
+function bindingAuthorityMatches(
+  call: Readonly<{ readonly invocation: unknown }>,
+  binding: ReferenceDigest,
+  products: readonly ReferenceDigest[],
+  lock: ReferenceDigest,
+): boolean {
+  const slots = authoritySlots(call);
+  if (slots === null) return false;
+  return isRecord(slots.workspace_binding) &&
+    sameCoordinate(
+      slots.workspace_binding as unknown as ReferenceDigest,
+      binding,
+    ) &&
+    exactCoordinateSet(slots.product_set, products) &&
+    isRecord(slots.dependency_lock) &&
+    sameCoordinate(
+      slots.dependency_lock as unknown as ReferenceDigest,
+      lock,
+    );
+}
+
+function admittedAuthorityBinding(
+  call: Readonly<{ readonly invocation: unknown }>,
+  artifactTruth: ExactPrefixArtifactTruthProjection,
+): Readonly<{ readonly bindingId: string; readonly canonicalRoot: string }> | null {
+  const slots = authoritySlots(call);
+  if (slots === null) return null;
+  if (
+    !isRecord(slots.workspace_binding) ||
+    !isRecord(slots.dependency_lock) ||
+    !Array.isArray(slots.product_set)
+  ) return null;
+  const workspaceCoordinate =
+    slots.workspace_binding as unknown as ReferenceDigest;
+  const lockCoordinate = slots.dependency_lock as unknown as ReferenceDigest;
+  const bindingRow = artifactTruth.rows.find((row) =>
+    row.operationId === "abg.operation.workspace.bind" &&
+    row.artifactRef === workspaceCoordinate.ref &&
+    row.artifactDigest === workspaceCoordinate.digest
+  );
+  if (bindingRow === undefined || !isWorkspaceAuthorityBasis(
+    bindingRow.workspaceAuthorityBasis,
+  )) return null;
+  const installs = bindingRow.causationEventRefs.map((eventRef) =>
+    projectAdmittedProductInstallByAdmissionEventRef(artifactTruth, eventRef)
+  );
+  if (installs.length === 0 || installs.some((install) => install === null)) {
+    return null;
+  }
+  const lock = installs[0]!.resolvedLock;
+  if (
+    installs.some((install) => !sameJson(install!.resolvedLock, lock)) ||
+    !sameCoordinate(lockCoordinate, {
+      ref: lock.lockId,
+      digest: lock.lockDigest,
+    }) ||
+    !exactCoordinateSet(
+      slots.product_set,
+      installs.map((install) => productInstallCoordinate(install!.install)),
+    )
+  ) return null;
+  const binding = projectAdmittedWorkspaceBindingByInvocationRef(
+    artifactTruth,
+    bindingRow.invocationRef,
+    lock,
+  );
+  return binding === null ||
+      binding.binding.bindingId !== workspaceCoordinate.ref ||
+      binding.binding.bindingDigest !== workspaceCoordinate.digest
+    ? null
+    : deepFreeze({
+      bindingId: binding.binding.bindingId,
+      canonicalRoot: bindingRow.workspaceAuthorityBasis.canonicalRoot,
+    });
+}
+
+function catalogAuthorityMatches(
+  call: Readonly<{ readonly invocation: unknown }>,
+  packet: CatalogListProjectReadPacket | CatalogDescribeProjectReadPacket,
+): boolean {
+  const catalog = packet.catalog;
+  if (!("readinessBasis" in catalog)) return false;
+  const readyCatalog = catalog as ReadyGraphFunctionCatalog;
+  const products = readyCatalog.readinessBasis.installedProducts.map((install) =>
+    reference(install.installId, sha256Canonical(install as never))
+  );
+  if (!bindingAuthorityMatches(
+    call,
+    reference(
+      readyCatalog.workspaceBindingId,
+      readyCatalog.workspaceBindingDigest,
+    ),
+    products,
+    reference(readyCatalog.lockId, readyCatalog.lockDigest),
+  )) return false;
+  const slots = authoritySlots(call);
+  if (slots === null) return false;
+  const scope = slots.catalog_scope;
+  if (packet.selector.visibility.kind === "workspace_catalog") {
+    return isRecord(scope) &&
+      hasExactKeys(scope, ["digest", "ref"]) &&
+      sameCoordinate(scope as unknown as ReferenceDigest, {
+        ref: packet.sourceRef,
+        digest: packet.sourceDigest,
+      });
+  }
+  const request = isRecord(call.invocation) && isRecord(call.invocation.request)
+    ? call.invocation.request
+    : null;
+  const selector = request !== null && isRecord(request.selector)
+    ? request.selector
+    : null;
+  const visibility = selector !== null && isRecord(selector.visibility)
+    ? selector.visibility
+    : null;
+  const viewCoordinate = request?.caseKey === "catalog_list"
+    ? visibility?.kind === "session_view" && isRecord(visibility.view)
+      ? visibility.view as unknown as ReferenceDigest
+      : null
+    : selector !== null && isRecord(selector.visibilityBasis)
+    ? selector.visibilityBasis as unknown as ReferenceDigest
+    : null;
+  const ownerViewCoordinate = reference(
+    `graph-function-catalog-view://abiogenesis/${packet.selector.visibility.view.viewDigest.slice("sha256:".length)}`,
+    packet.selector.visibility.view.viewDigest,
+  );
+  return viewCoordinate !== null && isRecord(scope) &&
+    isRecord(scope.catalog) && isRecord(scope.view) &&
+    sameCoordinate(scope.catalog as unknown as ReferenceDigest, {
+      ref: packet.sourceRef,
+      digest: packet.sourceDigest,
+    }) &&
+    sameCoordinate(viewCoordinate, ownerViewCoordinate) &&
+    sameCoordinate(scope.view as unknown as ReferenceDigest, ownerViewCoordinate) &&
+    sameJson(scope.allowlist, packet.selector.visibility.view.allowlist);
 }
 
 function entryCoordinate(
@@ -199,13 +385,22 @@ const catalog_list: ExactDefinitionCallable<
     }
     const packet = call.resources.packet;
     const request = call.invocation.request;
+    if (!exactDefinitionCallMatches(
+      call,
+      PRODUCT_PROJECT_READ_CONTRACTS.catalog_list,
+    )) {
+      throw fault(call, "call_identity_mismatch", "catalog list call differs from its fixed definition, contracts, request digest, or authority topology");
+    }
     const selectorMatches = request.selector.visibility.kind ===
         packet.selector.visibility.kind &&
       (request.selector.visibility.kind === "workspace_catalog" ||
         (packet.selector.visibility.kind === "session_view" &&
+          request.selector.visibility.view.ref ===
+            `graph-function-catalog-view://abiogenesis/${packet.selector.visibility.view.viewDigest.slice("sha256:".length)}` &&
           request.selector.visibility.view.digest ===
             packet.selector.visibility.view.viewDigest));
-    if (!baseRelationMatches(call) || !selectorMatches) {
+    if (!baseRelationMatches(call) || !selectorMatches ||
+      !catalogAuthorityMatches(call, packet)) {
       throw fault(call, "resource_relation_mismatch", "catalog list packet differs from the public source, basis, or selector coordinates");
     }
     const output = CatalogProjectionPort.list(packet);
@@ -216,7 +411,7 @@ const catalog_list: ExactDefinitionCallable<
       });
     }
     const projection = output.projection;
-    const ownerOutput = commonResult(call, {
+    const ownerOutput = commonResult(call, PRODUCT_PROJECT_READ_CONTRACTS.catalog_list, {
       kind: "catalog_list_projection",
       catalog: reference(packet.sourceRef, projection.catalogBasisDigest),
       visibility: projection.visibility,
@@ -251,6 +446,12 @@ const catalog_describe: ExactDefinitionCallable<
     }
     const packet = call.resources.packet;
     const request = call.invocation.request;
+    if (!exactDefinitionCallMatches(
+      call,
+      PRODUCT_PROJECT_READ_CONTRACTS.catalog_describe,
+    )) {
+      throw fault(call, "call_identity_mismatch", "catalog describe call differs from its fixed definition, contracts, request digest, or authority topology");
+    }
     const visibilityMatches = packet.selector.visibility.kind ===
       "workspace_catalog"
       ? sameCoordinate(request.selector.visibilityBasis, {
@@ -258,11 +459,14 @@ const catalog_describe: ExactDefinitionCallable<
         digest: packet.sourceDigest,
       })
       : request.selector.visibilityBasis.digest ===
-        packet.selector.visibility.view.viewDigest;
+          packet.selector.visibility.view.viewDigest &&
+        request.selector.visibilityBasis.ref ===
+          `graph-function-catalog-view://abiogenesis/${packet.selector.visibility.view.viewDigest.slice("sha256:".length)}`;
     if (
       !baseRelationMatches(call) ||
       request.selector.handle !== packet.selector.handle ||
-      !visibilityMatches
+      !visibilityMatches ||
+      !catalogAuthorityMatches(call, packet)
     ) {
       throw fault(call, "resource_relation_mismatch", "catalog describe packet differs from the public source, basis, or selector coordinates");
     }
@@ -274,7 +478,7 @@ const catalog_describe: ExactDefinitionCallable<
       });
     }
     const projection = output.projection;
-    const ownerOutput = commonResult(call, {
+    const ownerOutput = commonResult(call, PRODUCT_PROJECT_READ_CONTRACTS.catalog_describe, {
       kind: "catalog_description_projection",
       catalog: reference(packet.sourceRef, projection.catalogBasisDigest),
       visibility: projection.visibility,
@@ -302,11 +506,66 @@ const workspace_status: ExactDefinitionCallable<
     typeof PRODUCT_PROJECT_READ_CONTRACTS.workspace_status,
     ProductProjectReadResourceAssertion<WorkspaceStatusProjectReadPacket>
   > => {
-    if (!validResources<WorkspaceStatusProjectReadPacket>(call.resources)) {
+    if (!validResources<WorkspaceStatusProjectReadPacket>(call.resources, [
+      "artifactTruth",
+      "workspaceManifest",
+    ])) {
       throw fault(call, "invalid_resource_assertion", "workspace status requires one exact typed owner packet");
     }
     const packet = call.resources.packet;
-    if (!baseRelationMatches(call) || !sameJson(call.invocation.request.selector, packet.selector)) {
+    const artifactTruth = call.resources.artifactTruth!;
+    const workspaceManifest = reconstructWorkspaceManifest(
+      call.resources.workspaceManifest,
+    );
+    if (!exactDefinitionCallMatches(
+      call,
+      PRODUCT_PROJECT_READ_CONTRACTS.workspace_status,
+    )) {
+      throw fault(call, "call_identity_mismatch", "workspace status call differs from its fixed definition, contracts, request digest, or authority topology");
+    }
+    const admittedProducts = packet.productSet.orderedInstallRefs.map((installId) =>
+      projectAdmittedWorkspaceProductInstall(
+        artifactTruth,
+        packet.binding.bindingId,
+        installId,
+      )
+    );
+    const admissionRow = artifactTruth.rows.find((row) =>
+      row.operationId === "abg.operation.workspace.bind" &&
+      row.artifactRef === packet.binding.bindingId &&
+      row.artifactDigest === packet.binding.bindingDigest &&
+      row.admissionEventRef === packet.binding.admissionEventRef
+    );
+    const admittedEnvironmentAuthority = admissionRow !== undefined &&
+        isWorkspaceAuthorityBasis(admissionRow.workspaceAuthorityBasis)
+      ? admissionRow.workspaceAuthorityBasis
+      : null;
+    if (
+      !baseRelationMatches(call) ||
+      !sameJson(call.invocation.request.selector, packet.selector) ||
+      !hasAdmittedWorkspaceBinding(artifactTruth, packet.binding) ||
+      admittedProducts.some((product) => product === null) ||
+      admissionRow === undefined ||
+      workspaceManifest === null ||
+      admittedEnvironmentAuthority === null ||
+      workspaceManifest.workspaceRef !== packet.binding.workspaceId ||
+      workspaceManifest.canonicalRoot !==
+        admittedEnvironmentAuthority.canonicalRoot ||
+      packet.binding.authorityBasisId !==
+        admittedEnvironmentAuthority.authorityBasisId ||
+      packet.binding.authorityBasisDigest !==
+        admittedEnvironmentAuthority.authorityBasisDigest ||
+      packet.binding.authorizedActorRef !==
+        admittedEnvironmentAuthority.authorizedActorRef ||
+      !bindingAuthorityMatches(
+        call as DefinitionCall<ProjectReadContract, unknown>,
+        reference(packet.binding.bindingId, packet.binding.bindingDigest),
+        admittedProducts.map((product) =>
+          productInstallCoordinate(product!.install)
+        ),
+        reference(packet.resolvedLock.lockId, packet.resolvedLock.lockDigest),
+      )
+    ) {
       throw fault(call, "resource_relation_mismatch", "workspace status packet differs from the public source, basis, or selector coordinates");
     }
     const output = WorkspaceProjectionPort.status(packet);
@@ -323,9 +582,12 @@ const workspace_status: ExactDefinitionCallable<
         path,
         sha256Canonical({ rootKind, path }),
       ));
-    const ownerOutput = commonResult(call, {
+    const ownerOutput = commonResult(call, PRODUCT_PROJECT_READ_CONTRACTS.workspace_status, {
       kind: "workspace_status_projection",
-      workspace: opaqueCoordinate(projection.workspaceRef),
+      workspace: reference(
+        workspaceManifest.workspaceRef,
+        workspaceManifest.workspaceDigest,
+      ),
       workspaceAuthority: reference(
         projection.workspaceAuthorityRef,
         projection.workspaceAuthorityDigest,
@@ -336,13 +598,18 @@ const workspace_status: ExactDefinitionCallable<
         projection.resolvedLockRef,
         projection.resolvedLockDigest,
       ),
-      boundProducts: projection.boundProductRefs.map(opaqueCoordinate),
+      boundProducts: admittedProducts.map((product) =>
+        productInstallCoordinate(product!.install)
+      ),
       declaredRoots: roots,
       configurations: projection.configurationCoordinates,
       catalog: projection.catalogCoordinate,
       readiness: projection.readiness,
       residuals: projection.residuals,
-      admissionEvent: opaqueCoordinate(projection.admissionEventRef),
+      admissionEvent: reference(
+        projection.admissionEventRef,
+        admissionRow.admissionEventDigest,
+      ),
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
@@ -362,17 +629,35 @@ const install_evidence: ExactDefinitionCallable<
     typeof PRODUCT_PROJECT_READ_CONTRACTS.install_evidence,
     ProductProjectReadResourceAssertion<InstallEvidenceProjectReadPacket>
   > => {
-    if (!validResources<InstallEvidenceProjectReadPacket>(call.resources)) {
+    if (!validResources<InstallEvidenceProjectReadPacket>(call.resources, ["artifactTruth"])) {
       throw fault(call, "invalid_resource_assertion", "install evidence requires one exact typed owner packet");
     }
     const packet = call.resources.packet;
+    const artifactTruth = call.resources.artifactTruth!;
+    const manifestValue = packet.selector.manifest.value;
+    if (!exactDefinitionCallMatches(
+      call,
+      PRODUCT_PROJECT_READ_CONTRACTS.install_evidence,
+    )) {
+      throw fault(call, "call_identity_mismatch", "install evidence call differs from its fixed definition, contracts, request digest, or authority topology");
+    }
+    const admissionRow = artifactTruth.rows.find((row) =>
+      row.operationId === "abg.operation.product.install" &&
+      row.artifactRef === packet.install.installId &&
+      row.admissionEventRef === packet.install.admissionEventRef
+    );
     if (
       !baseRelationMatches(call) ||
       call.invocation.request.selector.kind !== packet.selector.kind ||
       !sameCoordinate(call.invocation.request.selector.manifest, {
         ref: packet.selector.manifest.manifestRef,
         digest: packet.selector.manifest.manifestDigest,
-      })
+      }) ||
+      !isRecord(manifestValue) ||
+      manifestValue.provenanceRef !== packet.install.provenanceRef ||
+      manifestValue.productContentDigest !== packet.install.productContentDigest ||
+      !hasAdmittedProductInstall(artifactTruth, packet.install) ||
+      admissionRow === undefined
     ) {
       throw fault(call, "resource_relation_mismatch", "install evidence packet differs from the public source, basis, or manifest coordinates");
     }
@@ -384,7 +669,7 @@ const install_evidence: ExactDefinitionCallable<
       });
     }
     const projection = output.projection;
-    const ownerOutput = commonResult(call, {
+    const ownerOutput = commonResult(call, PRODUCT_PROJECT_READ_CONTRACTS.install_evidence, {
       kind: "install_evidence_projection",
       subject: reference(projection.subjectRef, projection.subjectDigest),
       product: reference(projection.productId, projection.productContentDigest),
@@ -398,12 +683,27 @@ const install_evidence: ExactDefinitionCallable<
         projection.manifest.manifestDigest,
       ),
       producer: projection.producer,
-      basis: projection.basisRefs.map((ref) =>
-        ref === packet.projectionBasis.basisRef
-          ? reference(ref, packet.projectionBasis.basisDigest)
-          : opaqueCoordinate(ref)
-      ),
-      provenance: projection.provenanceRefs.map(opaqueCoordinate),
+      basis: projection.basisRefs.map((ref) => {
+        if (ref === packet.projectionBasis.basisRef) {
+          return reference(ref, packet.projectionBasis.basisDigest);
+        }
+        if (ref === packet.install.resolvedLockId) {
+          return reference(ref, packet.install.resolvedLockDigest);
+        }
+        throw new TypeError("Install evidence owner emitted an unknown basis coordinate");
+      }),
+      provenance: projection.provenanceRefs.map((ref) => {
+        if (ref === packet.install.provenanceRef) {
+          return reference(ref, packet.install.productContentDigest);
+        }
+        if (ref === packet.install.admissionEventRef) {
+          return reference(ref, admissionRow.admissionEventDigest);
+        }
+        if (ref === packet.selector.manifest.manifestRef) {
+          return reference(ref, packet.selector.manifest.manifestDigest);
+        }
+        throw new TypeError("Install evidence owner emitted an unknown provenance coordinate");
+      }),
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
@@ -423,10 +723,26 @@ const release_evidence: ExactDefinitionCallable<
     typeof PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,
     ProductProjectReadResourceAssertion<ReleaseEvidenceProjectReadPacket>
   > => {
-    if (!validResources<ReleaseEvidenceProjectReadPacket>(call.resources)) {
+    if (!validResources<ReleaseEvidenceProjectReadPacket>(call.resources, ["releaseManifest"])) {
       throw fault(call, "invalid_resource_assertion", "release evidence requires one exact typed owner packet");
     }
-    if (!baseRelationMatches(call)) {
+    const manifest = call.resources.releaseManifest!;
+    if (!exactDefinitionCallMatches(
+      call,
+      PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,
+    )) {
+      throw fault(call, "call_identity_mismatch", "release evidence call differs from its fixed definition, contracts, request digest, or authority topology");
+    }
+    if (
+      !baseRelationMatches(call) ||
+      !isRecord(manifest) ||
+      !hasExactKeys(manifest, ["manifestDigest", "manifestRef", "value"]) ||
+      manifest.manifestDigest !== sha256Canonical(manifest.value as never) ||
+      !sameCoordinate(call.invocation.request.selector.manifest, {
+        ref: manifest.manifestRef,
+        digest: manifest.manifestDigest,
+      })
+    ) {
       throw fault(call, "resource_relation_mismatch", "release evidence packet differs from the public source or basis coordinates");
     }
     const output = ReleaseProjectionPort.evidence(call.resources.packet);
@@ -454,11 +770,99 @@ const ticket_consensus: ExactDefinitionCallable<
     typeof PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus,
     ProductProjectReadResourceAssertion<TicketConsensusProjectReadPacket>
   > => {
-    if (!validResources<TicketConsensusProjectReadPacket>(call.resources)) {
+    if (!validResources<TicketConsensusProjectReadPacket>(call.resources, [
+      "artifactTruth",
+      "runtime",
+    ])) {
       throw fault(call, "invalid_resource_assertion", "ticket consensus requires one exact typed owner packet");
     }
     const packet = call.resources.packet;
-    if (!baseRelationMatches(call) || !sameJson(call.invocation.request.selector, packet.selector)) {
+    const runtime = call.resources.runtime!;
+    const artifactTruth = call.resources.artifactTruth!;
+    if (!exactDefinitionCallMatches(
+      call,
+      PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus,
+    )) {
+      throw fault(call, "call_identity_mismatch", "ticket consensus call differs from its fixed definition, contracts, request digest, or authority topology");
+    }
+    const authorityBinding = admittedAuthorityBinding(
+      call as DefinitionCall<ProjectReadContract, unknown>,
+      artifactTruth,
+    );
+    const truth = projectRunTruthAtDurablePrefix(runtime.prefix, runtime.runId);
+    const graphResult = AbgGraphCallProjectionPort.graph_call_result({
+      kind: "abg_project_read_packet",
+      schemaVersion: "5.0.0",
+      memberKey: "graph_call_result",
+      prefix: runtime.prefix,
+      targetRef: runtime.graphCallId,
+    });
+    const graphReplay = AbgGraphCallProjectionPort.graph_call_replay({
+      kind: "abg_project_read_packet",
+      schemaVersion: "5.0.0",
+      memberKey: "graph_call_replay",
+      prefix: runtime.prefix,
+      targetRef: runtime.graphCallId,
+    });
+    const resultValue = graphResult.kind === "abg_project_read_projection" &&
+        isRecord(graphResult.value)
+      ? graphResult.value
+      : null;
+    const admittedResult = resultValue !== null &&
+        isRecord(resultValue.admittedResult)
+      ? resultValue.admittedResult
+      : null;
+    const replayValue = graphReplay.kind === "abg_project_read_projection" &&
+        isRecord(graphReplay.value)
+      ? graphReplay.value
+      : null;
+    const runOpenAtom = replayValue !== null &&
+        Array.isArray(replayValue.eventAtoms)
+      ? replayValue.eventAtoms.find((atom: unknown) =>
+        isRecord(atom) && atom.eventKind === "run_segment_opened" &&
+        atom.aggregateId === runtime.runId
+      )
+      : undefined;
+    const productResult = admittedResult !== null &&
+        typeof admittedResult.resultRef === "string" &&
+        typeof admittedResult.resultContractRef === "string" &&
+        admittedResult.resultValue !== null
+      ? ABI5_SYSTEM_PRODUCT_SEMANTICS.projectPublicResult({
+        value: admittedResult.resultValue as never,
+        admittedResultRef: admittedResult.resultRef,
+        admittedResultContractRef: admittedResult.resultContractRef,
+        replayRef: truth.kind === "abg_run_truth_projection"
+          ? truth.replay.ref
+          : "",
+        projectionKind: "result",
+      })
+      : null;
+    if (
+      !baseRelationMatches(call) ||
+      !sameJson(call.invocation.request.selector, packet.selector) ||
+      !sameJson(artifactTruth.prefix, runtime.prefix) ||
+      authorityBinding === null ||
+      truth.kind !== "abg_run_truth_projection" ||
+      truth.graphCall?.ref !== runtime.graphCallId ||
+      truth.result === null ||
+      graphResult.kind !== "abg_project_read_projection" ||
+      graphReplay.kind !== "abg_project_read_projection" ||
+      graphResult.prefixCoordinateDigest !== runtime.prefix.coordinateDigest ||
+      graphReplay.prefixCoordinateDigest !== runtime.prefix.coordinateDigest ||
+      admittedResult === null ||
+      admittedResult.resultRef !== truth.result.ref ||
+      admittedResult.resultDigest !== truth.result.digest ||
+      resultValue?.runId !== runtime.runId ||
+      replayValue?.runId !== runtime.runId ||
+      replayValue?.replayRef !== truth.replay.ref ||
+      replayValue?.replayDigest !== truth.replay.digest ||
+      !isRecord(runOpenAtom) ||
+      runOpenAtom.parentAggregateId !== authorityBinding.bindingId ||
+      productResult === null ||
+      !sameJson(productResult.value, packet.consensusResult) ||
+      !sameCoordinate(packet.selector.outputAuthority, truth.result) ||
+      !sameCoordinate(packet.selector.replayBasis, truth.replay)
+    ) {
       throw fault(call, "resource_relation_mismatch", "ticket consensus packet differs from the public source, basis, or selector coordinates");
     }
     const output = ConsensusProjectionPort.ticketConsensus(packet);
@@ -469,10 +873,10 @@ const ticket_consensus: ExactDefinitionCallable<
       });
     }
     const projection = output.projection;
-    const ownerOutput = commonResult(call, {
+    const ownerOutput = commonResult(call, PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus, {
       kind: "ticket_consensus_projection",
       ticket: call.invocation.request.selector.ticket,
-      consensus: reference(packet.sourceRef, packet.sourceDigest),
+      consensus: truth.result,
       outputAuthority: call.invocation.request.selector.outputAuthority,
       replayBasis: call.invocation.request.selector.replayBasis,
       evidence: [reference(projection.projectionRef, projection.projectionDigest)],

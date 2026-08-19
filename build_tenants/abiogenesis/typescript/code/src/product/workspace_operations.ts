@@ -345,7 +345,10 @@ function constructManifest(
   });
 }
 
-function reconstructedManifest(value: unknown): WorkspaceManifest | null {
+/** Pure Product owner reconstruction shared by open and read projections. */
+export function reconstructWorkspaceManifest(
+  value: unknown,
+): WorkspaceManifest | null {
   if (!isRecord(value) || !hasExactKeys(value, [
     "authorityBasis",
     "authorityMode",
@@ -642,7 +645,7 @@ export async function openWorkspace(
       message: "workspace binding or configuration coordinate is incomplete",
     }]);
   }
-  const manifest = reconstructedManifest(parsed);
+  const manifest = reconstructWorkspaceManifest(parsed);
   if (manifest === null) {
     return openProjection(manifestPath, "malformed", null, [{
       code: "manifest_shape_malformed",
