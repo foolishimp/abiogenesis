@@ -1,3 +1,5 @@
+import * as v from "valibot";
+
 import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from
   "./canonical_json.js";
 import type {
@@ -6,7 +8,16 @@ import type {
 import { deepFreeze } from "./immutable.js";
 import {
   admitRuntimeContract,
-  PUBLIC_AUTHORITY_SLOTS,
+  contractBoundValueSchema,
+  digestSchema,
+  nonblankSchema,
+  nonemptyRefDigestSetSchema,
+  nonemptyUniqueArray,
+  publicContractCatalogCoordinateSchema,
+  publicContractCoordinateSchema,
+  refDigestSchema,
+  rfc3339Schema,
+  uniqueArray,
   type PublicAuthoritySlot,
   type PublicAuthoritySlotRequirement,
   type OwnerContractSourceDeclaration,
@@ -197,6 +208,120 @@ function expectedContractCoordinates(
   });
 }
 
+function authorityValueRuntimeSchema(
+  slot: PublicAuthoritySlot,
+  definition: IntrinsicPublicFunctionDefinition,
+): v.GenericSchema {
+  switch (slot) {
+    case "product_set":
+      return nonemptyRefDigestSetSchema;
+    case "catalog_scope":
+      return v.union([
+        refDigestSchema,
+        v.strictObject({
+          catalog: refDigestSchema,
+          view: refDigestSchema,
+          allowlist: uniqueArray(nonblankSchema),
+        }),
+      ]);
+    case "graph_function":
+      return v.strictObject({
+        graphFunction: refDigestSchema,
+        membership: refDigestSchema,
+      });
+    case "input_contract":
+      return contractBoundValueSchema;
+    case "capability_grants":
+      return v.strictObject({
+        requiredCapabilityRefs: v.pipe(
+          uniqueArray(nonblankSchema),
+          v.check(
+            (refs) => sameJson(refs, definition.capabilityRefs),
+            "required_capability_refs",
+          ),
+        ),
+        grants: nonemptyRefDigestSetSchema,
+      });
+    case "actor":
+      return v.strictObject({
+        actor: refDigestSchema,
+        attribution: refDigestSchema,
+      });
+    case "verification_references":
+      return nonemptyUniqueArray(v.strictObject({
+        invocation: refDigestSchema,
+        outcome: refDigestSchema,
+      }));
+    default:
+      return refDigestSchema;
+  }
+}
+
+function admittedInvocationRuntimeSchema(
+  packet: OwnerContractSourceDeclaration,
+  definition: IntrinsicPublicFunctionDefinition,
+  request: unknown,
+): v.GenericSchema {
+  const required = new Set(
+    definition.authoritySlotRequirements.flatMap((requirement) => {
+      const slot = requiredSlot(requirement, request);
+      return slot === null ? [] : [slot];
+    }),
+  );
+  const slotSchema = (slot: PublicAuthoritySlot): v.GenericSchema =>
+    required.has(slot)
+      ? authorityValueRuntimeSchema(slot, definition)
+      : v.null();
+  const definitionKeySchema = v.strictObject({
+    operationId: v.literal(definition.definitionKey.operationId),
+    memberKey: v.literal(definition.definitionKey.memberKey),
+  });
+  return v.strictObject({
+    kind: v.literal("public_invocation"),
+    schemaVersion: v.literal("5.0.0"),
+    invocationContract: publicContractCoordinateSchema,
+    invocationRef: nonblankSchema,
+    invocationDigest: digestSchema,
+    definitionRef: v.literal(definition.definitionRef),
+    definitionVersion: v.literal("5.0.0"),
+    definitionDigest: v.literal(definition.definitionDigest),
+    definitionKey: definitionKeySchema,
+    contractCatalog: publicContractCatalogCoordinateSchema,
+    invocationAuthority: v.strictObject({
+      kind: v.literal("invocation_authority"),
+      definitionKey: definitionKeySchema,
+      authorityDigest: digestSchema,
+      slots: v.strictObject({
+        workspace_binding: slotSchema("workspace_binding"),
+        product_set: slotSchema("product_set"),
+        dependency_lock: slotSchema("dependency_lock"),
+        catalog_scope: slotSchema("catalog_scope"),
+        execution_program: slotSchema("execution_program"),
+        graph_function: slotSchema("graph_function"),
+        input_contract: slotSchema("input_contract"),
+        session_policy: slotSchema("session_policy"),
+        capability_grants: slotSchema("capability_grants"),
+        actor: slotSchema("actor"),
+        transport_steering: slotSchema("transport_steering"),
+        verification_references: slotSchema("verification_references"),
+        execution_basis: slotSchema("execution_basis"),
+      }),
+    }),
+    requestContract: publicContractCoordinateSchema,
+    requestRef: nonblankSchema,
+    requestDigest: digestSchema,
+    request: packet.requestSchema as v.GenericSchema,
+    expectedResultContract: publicContractCoordinateSchema,
+    expectedRefusalContract: publicContractCoordinateSchema,
+    expectedNonTerminalContract: definition.nonTerminalContract === null
+      ? v.null()
+      : publicContractCoordinateSchema,
+    correlationRef: nonblankSchema,
+    eventTime: rfc3339Schema,
+    provenanceRefs: uniqueArray(nonblankSchema),
+  });
+}
+
 /** Revalidates the complete admitted call identity at a definition boundary. */
 export function exactDefinitionCallMatches(
   call: Readonly<{ readonly invocation: unknown }>,
@@ -210,55 +335,11 @@ export function exactDefinitionCallMatches(
   const definition = selectedDefinition(packet);
   if (
     definition === null ||
-    !hasExactKeys(invocation as unknown as Readonly<Record<string, unknown>>, [
-      "contractCatalog",
-      "correlationRef",
-      "definitionDigest",
-      "definitionKey",
-      "definitionRef",
-      "definitionVersion",
-      "eventTime",
-      "expectedNonTerminalContract",
-      "expectedRefusalContract",
-      "expectedResultContract",
-      "invocationAuthority",
-      "invocationContract",
-      "invocationDigest",
-      "invocationRef",
-      "kind",
-      "provenanceRefs",
-      "request",
-      "requestContract",
-      "requestDigest",
-      "requestRef",
-      "schemaVersion",
-    ]) ||
-    invocation.kind !== "public_invocation" ||
-    invocation.schemaVersion !== "5.0.0" ||
-    invocation.definitionVersion !== "5.0.0" ||
-    invocation.definitionRef !== definition.definitionRef ||
-    invocation.definitionDigest !== definition.definitionDigest ||
-    !sameJson(invocation.definitionKey, definition.definitionKey) ||
+    admitRuntimeContract(
+      admittedInvocationRuntimeSchema(packet, definition, invocation.request),
+      invocation,
+    ).disposition !== "admitted" ||
     invocation.requestDigest !== sha256Canonical(invocation.request) ||
-    admitRuntimeContract(packet.requestSchema, invocation.request).disposition !==
-      "admitted" ||
-    !isRecord(invocation.invocationAuthority) ||
-    !hasExactKeys(invocation.invocationAuthority, [
-      "authorityDigest",
-      "definitionKey",
-      "kind",
-      "slots",
-    ]) ||
-    invocation.invocationAuthority.kind !== "invocation_authority" ||
-    !sameJson(
-      invocation.invocationAuthority.definitionKey,
-      definition.definitionKey,
-    ) ||
-    !isRecord(invocation.invocationAuthority.slots) ||
-    !hasExactKeys(
-      invocation.invocationAuthority.slots,
-      PUBLIC_AUTHORITY_SLOTS,
-    ) ||
     invocation.invocationAuthority.authorityDigest !==
       sha256Canonical(
         invocation.invocationAuthority.slots as unknown as JsonValue,
@@ -311,24 +392,5 @@ export function exactDefinitionCallMatches(
     ) ||
     !sameJson(invocation.expectedNonTerminalContract, expected.nonTerminal)
   ) return false;
-
-  const required = new Set(
-    definition.authoritySlotRequirements
-      .flatMap((requirement) => {
-        const slot = requiredSlot(requirement, invocation.request);
-        return slot === null ? [] : [slot];
-      }),
-  );
-  for (const slot of PUBLIC_AUTHORITY_SLOTS) {
-    const value = invocation.invocationAuthority.slots[slot];
-    if ((value !== null) !== required.has(slot)) return false;
-  }
-  const capability = invocation.invocationAuthority.slots.capability_grants;
-  return isRecord(capability) &&
-    sameJson(
-      capability.requiredCapabilityRefs,
-      definition.capabilityRefs,
-    ) &&
-    Array.isArray(capability.grants) &&
-    capability.grants.length > 0;
+  return true;
 }

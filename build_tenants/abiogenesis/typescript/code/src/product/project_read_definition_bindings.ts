@@ -1,4 +1,5 @@
 import * as Effect from "effect/Effect";
+import { join } from "node:path";
 
 import {
   projectRunTruthAtDurablePrefix,
@@ -34,11 +35,17 @@ import type {
   ExactDefinitionCallable,
 } from "../shared/effect_definition.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type { OwnerSemanticOutput } from
-  "../shared/public_function_contracts.js";
+import {
+  admitRuntimeContract,
+  type OwnerSemanticOutput,
+} from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import { ABI5_SYSTEM_PRODUCT_SEMANTICS } from "./builtin_semantics.js";
-import type { ReadyGraphFunctionCatalog } from "./catalog.js";
+import type {
+  GraphFunctionCatalogView,
+  ReadyGraphFunctionCatalog,
+} from "./catalog.js";
+import { CatalogOperationPort } from "./catalog_operations.js";
 import {
   isWorkspaceAuthorityBasis,
   productInstallCoordinate,
@@ -63,6 +70,10 @@ import {
   reconstructWorkspaceManifest,
   type WorkspaceManifest,
 } from "./workspace_operations.js";
+import {
+  RELEASE_OPERATION_CONTRACTS,
+  type ReleaseSnapshotRefusal,
+} from "./release_snapshot_operations.js";
 
 type ProjectReadPacket =
   | CatalogListProjectReadPacket
@@ -269,24 +280,66 @@ function admittedAuthorityBinding(
     });
 }
 
+function reconstructCatalogSelection(
+  packet: CatalogListProjectReadPacket | CatalogDescribeProjectReadPacket,
+): Readonly<{
+  readonly catalog: ReadyGraphFunctionCatalog;
+  readonly view: GraphFunctionCatalogView | null;
+}> | null {
+  const candidate = packet.catalog;
+  if (!("readinessBasis" in candidate) ||
+    !isRecord(candidate.readinessBasis)) return null;
+  const readyCandidate = candidate as ReadyGraphFunctionCatalog;
+  const reconstructed = CatalogOperationPort.admit({
+    kind: "catalog_admit_packet",
+    schemaVersion: "5.0.0",
+    memberKey: "admit",
+    readinessBasis: readyCandidate.readinessBasis,
+  });
+  if (reconstructed.kind !== "graph_function_catalog" ||
+    !sameJson(reconstructed, readyCandidate)) return null;
+  if (packet.selector.visibility.kind === "workspace_catalog") {
+    return deepFreeze({ catalog: reconstructed, view: null });
+  }
+  const candidateView = packet.selector.visibility.view;
+  const reconstructedView = CatalogOperationPort.constructView({
+    kind: "catalog_view_packet",
+    schemaVersion: "5.0.0",
+    memberKey: "allowlist",
+    catalog: reconstructed,
+    allowlist: candidateView.allowlist,
+  });
+  return reconstructedView.kind === "graph_function_catalog_view" &&
+      sameJson(reconstructedView, candidateView)
+    ? deepFreeze({ catalog: reconstructed, view: reconstructedView })
+    : null;
+}
+
 function catalogAuthorityMatches(
   call: Readonly<{ readonly invocation: unknown }>,
   packet: CatalogListProjectReadPacket | CatalogDescribeProjectReadPacket,
+  catalog: ReadyGraphFunctionCatalog,
+  view: GraphFunctionCatalogView | null,
 ): boolean {
-  const catalog = packet.catalog;
-  if (!("readinessBasis" in catalog)) return false;
-  const readyCatalog = catalog as ReadyGraphFunctionCatalog;
-  const products = readyCatalog.readinessBasis.installedProducts.map((install) =>
+  const catalogCoordinate = reference(
+    `graph-function-catalog://abiogenesis/${catalog.basisDigest.slice("sha256:".length)}`,
+    catalog.basisDigest,
+  );
+  if (!sameCoordinate({
+    ref: packet.sourceRef,
+    digest: packet.sourceDigest,
+  }, catalogCoordinate)) return false;
+  const products = catalog.readinessBasis.installedProducts.map((install) =>
     reference(install.installId, sha256Canonical(install as never))
   );
   if (!bindingAuthorityMatches(
     call,
     reference(
-      readyCatalog.workspaceBindingId,
-      readyCatalog.workspaceBindingDigest,
+      catalog.workspaceBindingId,
+      catalog.workspaceBindingDigest,
     ),
     products,
-    reference(readyCatalog.lockId, readyCatalog.lockDigest),
+    reference(catalog.lockId, catalog.lockDigest),
   )) return false;
   const slots = authoritySlots(call);
   if (slots === null) return false;
@@ -294,10 +347,7 @@ function catalogAuthorityMatches(
   if (packet.selector.visibility.kind === "workspace_catalog") {
     return isRecord(scope) &&
       hasExactKeys(scope, ["digest", "ref"]) &&
-      sameCoordinate(scope as unknown as ReferenceDigest, {
-        ref: packet.sourceRef,
-        digest: packet.sourceDigest,
-      });
+      sameCoordinate(scope as unknown as ReferenceDigest, catalogCoordinate);
   }
   const request = isRecord(call.invocation) && isRecord(call.invocation.request)
     ? call.invocation.request
@@ -315,19 +365,92 @@ function catalogAuthorityMatches(
     : selector !== null && isRecord(selector.visibilityBasis)
     ? selector.visibilityBasis as unknown as ReferenceDigest
     : null;
+  if (view === null) return false;
   const ownerViewCoordinate = reference(
-    `graph-function-catalog-view://abiogenesis/${packet.selector.visibility.view.viewDigest.slice("sha256:".length)}`,
-    packet.selector.visibility.view.viewDigest,
+    `graph-function-catalog-view://abiogenesis/${view.viewDigest.slice("sha256:".length)}`,
+    view.viewDigest,
   );
   return viewCoordinate !== null && isRecord(scope) &&
     isRecord(scope.catalog) && isRecord(scope.view) &&
-    sameCoordinate(scope.catalog as unknown as ReferenceDigest, {
-      ref: packet.sourceRef,
-      digest: packet.sourceDigest,
-    }) &&
+    sameCoordinate(
+      scope.catalog as unknown as ReferenceDigest,
+      catalogCoordinate,
+    ) &&
     sameCoordinate(viewCoordinate, ownerViewCoordinate) &&
     sameCoordinate(scope.view as unknown as ReferenceDigest, ownerViewCoordinate) &&
-    sameJson(scope.allowlist, packet.selector.visibility.view.allowlist);
+    sameJson(scope.allowlist, view.allowlist);
+}
+
+function catalogListOwnerPacket(
+  packet: CatalogListProjectReadPacket,
+  selection: NonNullable<ReturnType<typeof reconstructCatalogSelection>>,
+): CatalogListProjectReadPacket {
+  return deepFreeze({
+    ...packet,
+    catalog: selection.catalog,
+    selector: packet.selector.visibility.kind === "workspace_catalog"
+      ? packet.selector
+      : {
+        ...packet.selector,
+        visibility: {
+          kind: "session_view" as const,
+          view: selection.view!,
+        },
+      },
+  });
+}
+
+function catalogDescribeOwnerPacket(
+  packet: CatalogDescribeProjectReadPacket,
+  selection: NonNullable<ReturnType<typeof reconstructCatalogSelection>>,
+): CatalogDescribeProjectReadPacket {
+  return deepFreeze({
+    ...packet,
+    catalog: selection.catalog,
+    selector: packet.selector.visibility.kind === "workspace_catalog"
+      ? packet.selector
+      : {
+        ...packet.selector,
+        visibility: {
+          kind: "session_view" as const,
+          view: selection.view!,
+        },
+      },
+  });
+}
+
+function admittedReleaseSnapshotRefusal(
+  candidate: unknown,
+): candidate is ReleaseSnapshotRefusal {
+  if (!isRecord(candidate)) return false;
+  const memberKey = candidate.memberKey;
+  if (memberKey !== "published_rc" && memberKey !== "tapped_release") {
+    return false;
+  }
+  return admitRuntimeContract(
+    RELEASE_OPERATION_CONTRACTS.snapshot[memberKey].refusalSchema,
+    candidate,
+  ).disposition === "admitted";
+}
+
+function exactUnavailableReleaseManifest(
+  manifest: ProductProjectReadResourceAssertion["releaseManifest"],
+  source: ReferenceDigest,
+): boolean {
+  return isRecord(manifest) &&
+    hasExactKeys(manifest, ["manifestDigest", "manifestRef", "value"]) &&
+    typeof manifest.manifestRef === "string" &&
+    manifest.manifestRef.length > 0 &&
+    manifest.manifestDigest === sha256Canonical(manifest.value as never) &&
+    isRecord(manifest.value) &&
+    hasExactKeys(manifest.value, ["kind", "releaseCut"]) &&
+    manifest.value.kind === "unavailable_release_snapshot_manifest" &&
+    isRecord(manifest.value.releaseCut) &&
+    hasExactKeys(manifest.value.releaseCut, ["digest", "ref"]) &&
+    sameCoordinate(
+      manifest.value.releaseCut as unknown as ReferenceDigest,
+      source,
+    );
 }
 
 function entryCoordinate(
@@ -391,6 +514,7 @@ const catalog_list: ExactDefinitionCallable<
     )) {
       throw fault(call, "call_identity_mismatch", "catalog list call differs from its fixed definition, contracts, request digest, or authority topology");
     }
+    const selection = reconstructCatalogSelection(packet);
     const selectorMatches = request.selector.visibility.kind ===
         packet.selector.visibility.kind &&
       (request.selector.visibility.kind === "workspace_catalog" ||
@@ -399,11 +523,18 @@ const catalog_list: ExactDefinitionCallable<
             `graph-function-catalog-view://abiogenesis/${packet.selector.visibility.view.viewDigest.slice("sha256:".length)}` &&
           request.selector.visibility.view.digest ===
             packet.selector.visibility.view.viewDigest));
-    if (!baseRelationMatches(call) || !selectorMatches ||
-      !catalogAuthorityMatches(call, packet)) {
+    if (selection === null || !baseRelationMatches(call) || !selectorMatches ||
+      !catalogAuthorityMatches(
+        call,
+        packet,
+        selection.catalog,
+        selection.view,
+      )) {
       throw fault(call, "resource_relation_mismatch", "catalog list packet differs from the public source, basis, or selector coordinates");
     }
-    const output = CatalogProjectionPort.list(packet);
+    const output = CatalogProjectionPort.list(
+      catalogListOwnerPacket(packet, selection),
+    );
     if (output.kind === "product_project_read_refusal") {
       return deepFreeze({
         ownerOutput: nativeRefusal(PRODUCT_PROJECT_READ_CONTRACTS.catalog_list, output),
@@ -452,6 +583,7 @@ const catalog_describe: ExactDefinitionCallable<
     )) {
       throw fault(call, "call_identity_mismatch", "catalog describe call differs from its fixed definition, contracts, request digest, or authority topology");
     }
+    const selection = reconstructCatalogSelection(packet);
     const visibilityMatches = packet.selector.visibility.kind ===
       "workspace_catalog"
       ? sameCoordinate(request.selector.visibilityBasis, {
@@ -463,14 +595,22 @@ const catalog_describe: ExactDefinitionCallable<
         request.selector.visibilityBasis.ref ===
           `graph-function-catalog-view://abiogenesis/${packet.selector.visibility.view.viewDigest.slice("sha256:".length)}`;
     if (
+      selection === null ||
       !baseRelationMatches(call) ||
       request.selector.handle !== packet.selector.handle ||
       !visibilityMatches ||
-      !catalogAuthorityMatches(call, packet)
+      !catalogAuthorityMatches(
+        call,
+        packet,
+        selection.catalog,
+        selection.view,
+      )
     ) {
       throw fault(call, "resource_relation_mismatch", "catalog describe packet differs from the public source, basis, or selector coordinates");
     }
-    const output = CatalogProjectionPort.describe(packet);
+    const output = CatalogProjectionPort.describe(
+      catalogDescribeOwnerPacket(packet, selection),
+    );
     if (output.kind === "product_project_read_refusal") {
       return deepFreeze({
         ownerOutput: nativeRefusal(PRODUCT_PROJECT_READ_CONTRACTS.catalog_describe, output),
@@ -653,6 +793,13 @@ const install_evidence: ExactDefinitionCallable<
         ref: packet.selector.manifest.manifestRef,
         digest: packet.selector.manifest.manifestDigest,
       }) ||
+      packet.selector.manifest.manifestRef !== join(
+        packet.install.installedRoot,
+        "product-toolchain-manifest.json",
+      ) ||
+      packet.selector.manifest.manifestDigest !== packet.install.manifestDigest ||
+      sha256Canonical(packet.selector.manifest.value) !==
+        packet.install.manifestDigest ||
       !isRecord(manifestValue) ||
       manifestValue.provenanceRef !== packet.install.provenanceRef ||
       manifestValue.productContentDigest !== packet.install.productContentDigest ||
@@ -727,6 +874,7 @@ const release_evidence: ExactDefinitionCallable<
       throw fault(call, "invalid_resource_assertion", "release evidence requires one exact typed owner packet");
     }
     const manifest = call.resources.releaseManifest!;
+    const packet = call.resources.packet;
     if (!exactDefinitionCallMatches(
       call,
       PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,
@@ -735,9 +883,11 @@ const release_evidence: ExactDefinitionCallable<
     }
     if (
       !baseRelationMatches(call) ||
-      !isRecord(manifest) ||
-      !hasExactKeys(manifest, ["manifestDigest", "manifestRef", "value"]) ||
-      manifest.manifestDigest !== sha256Canonical(manifest.value as never) ||
+      !admittedReleaseSnapshotRefusal(packet.releaseSnapshotRefusal) ||
+      !exactUnavailableReleaseManifest(manifest, {
+        ref: packet.sourceRef,
+        digest: packet.sourceDigest,
+      }) ||
       !sameCoordinate(call.invocation.request.selector.manifest, {
         ref: manifest.manifestRef,
         digest: manifest.manifestDigest,
@@ -745,7 +895,7 @@ const release_evidence: ExactDefinitionCallable<
     ) {
       throw fault(call, "resource_relation_mismatch", "release evidence packet differs from the public source or basis coordinates");
     }
-    const output = ReleaseProjectionPort.evidence(call.resources.packet);
+    const output = ReleaseProjectionPort.evidence(packet);
     return deepFreeze({
       ownerOutput: nativeRefusal(
         PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,

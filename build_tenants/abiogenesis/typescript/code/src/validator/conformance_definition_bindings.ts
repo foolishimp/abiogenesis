@@ -54,6 +54,13 @@ import {
 type ConformanceContract =
   typeof CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program;
 
+const GTL_PROGRAM_CONFORMANCE_LAW_REF =
+  "law://abiogenesis/validator/gtl-program@5";
+const GTL_PROGRAM_CONFORMANCE_LAW = reference(
+  GTL_PROGRAM_CONFORMANCE_LAW_REF,
+  sha256Canonical({ ref: GTL_PROGRAM_CONFORMANCE_LAW_REF }),
+);
+
 export interface ConformanceEvaluationResourceAssertion {
   readonly kind: "conformance_evaluation_resource_assertion";
   readonly schemaVersion: "5.0.0";
@@ -92,6 +99,21 @@ function nativeRefusal(
           : "invalid_program",
         issuePaths: ["/program"],
         evidenceRefs: output.evidenceRefs,
+      },
+    } as OwnerSemanticOutput<ConformanceContract>,
+    "Validator conformance",
+  );
+}
+
+function lawMismatchRefusal(): OwnerSemanticOutput<ConformanceContract> {
+  return validatedOwnerOutput(
+    CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,
+    {
+      outcomeKind: "refusal",
+      value: {
+        code: "law_mismatch",
+        issuePaths: ["/conformanceLaw"],
+        evidenceRefs: [],
       },
     } as OwnerSemanticOutput<ConformanceContract>,
     "Validator conformance",
@@ -321,6 +343,12 @@ const gtl_program: ExactDefinitionCallable<
         "resource_relation_mismatch",
         "conformance packet differs from the public Program, law, or inventory coordinates",
       );
+    }
+    if (!sameCoordinate(request.conformanceLaw, GTL_PROGRAM_CONFORMANCE_LAW)) {
+      return deepFreeze({
+        ownerOutput: lawMismatchRefusal(),
+        resources,
+      });
     }
     const native = ConformancePort.evaluateGtlProgram(packet);
     if (native.disposition === "failed" && native.code !== "validation_failed") {

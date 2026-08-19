@@ -1119,6 +1119,21 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     ref: releaseManifest.manifestRef,
     digest: releaseManifest.manifestDigest,
   });
+  const releaseSnapshotRefusal = Object.freeze({
+    kind: "release_snapshot_refusal",
+    schemaVersion,
+    disposition: "refused",
+    memberKey: "published_rc",
+    code: "basis_mismatch",
+    message: "release snapshot requires one exact qualification basis",
+    requestedIdentity: null,
+    qualificationBasisRef: null,
+    qualificationBasisDigest: null,
+    lawBasisRef: null,
+    lawBasisDigest: null,
+    verdictRef: null,
+    verdictDigest: null,
+  });
   const releaseEvidenceCall = definitionCall({
     publicApi,
     product,
@@ -1142,21 +1157,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
       sourceRef: releaseSource.ref,
       sourceDigest: releaseSource.digest,
       projectionBasis: releaseBasis,
-      releaseSnapshotRefusal: Object.freeze({
-        kind: "release_snapshot_refusal",
-        schemaVersion,
-        disposition: "refused",
-        memberKey: "qualify",
-        code: "wrong_subject_kind",
-        message: "no immutable release cut is published",
-        requestedIdentity: null,
-        qualificationBasisRef: null,
-        qualificationBasisDigest: null,
-        lawBasisRef: null,
-        lawBasisDigest: null,
-        verdictRef: null,
-        verdictDigest: null,
-      }),
+      releaseSnapshotRefusal,
       selector: Object.freeze({ kind: "release_snapshot_unavailable" }),
     }, { releaseManifest }),
   });
@@ -1259,6 +1260,167 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   assert.equal(
     ticketConsensusUnavailableFault.message,
     "ticket consensus packet differs from the public source, basis, or selector coordinates",
+  );
+
+  for (const [label, mutate] of [
+    ["blank request ref", (call) => {
+      call.invocation.requestRef = "";
+    }],
+    ["blank correlation ref", (call) => {
+      call.invocation.correlationRef = "";
+    }],
+    ["invalid event time", (call) => {
+      call.invocation.eventTime = "18 August 2026";
+    }],
+    ["blank provenance ref", (call) => {
+      call.invocation.provenanceRefs = [""];
+    }],
+    ["unstructured capability grant", (call) => {
+      call.invocation.invocationAuthority.slots.capability_grants.grants = [{}];
+    }],
+  ]) {
+    const malformedInvocationCall = structuredClone(catalogListCall);
+    mutate(malformedInvocationCall);
+    rehashInvocation(product, malformedInvocationCall);
+    const malformedInvocationFault = await Effect.runPromise(Effect.flip(
+      product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_list(
+        malformedInvocationCall,
+      ),
+    ));
+    assert.equal(
+      malformedInvocationFault.code,
+      "call_identity_mismatch",
+      label,
+    );
+  }
+
+  for (const [label, sourceCall, bindingUnderTest] of [
+    [
+      "catalog list synchronized entry forgery",
+      catalogListCall,
+      product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_list,
+    ],
+    [
+      "catalog describe synchronized entry forgery",
+      catalogDescribeCall,
+      product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_describe,
+    ],
+  ]) {
+    const forgedCatalogCall = structuredClone(sourceCall);
+    const forgedEntry = forgedCatalogCall.resources.packet.catalog.entries[0];
+    forgedEntry.entryDigest = product.sha256Canonical({
+      forgedCatalogHandle: forgedEntry.handle,
+    });
+    forgedCatalogCall.resources.packet.catalog.byHandle[forgedEntry.handle]
+      .entryDigest = forgedEntry.entryDigest;
+    const forgedCatalogFault = await Effect.runPromise(Effect.flip(
+      bindingUnderTest(forgedCatalogCall),
+    ));
+    assert.equal(
+      forgedCatalogFault.code,
+      "resource_relation_mismatch",
+      label,
+    );
+  }
+
+  const hiddenCatalogRow = [
+    ...catalog.entries,
+    ...catalog.declarationEntries,
+  ].find((row) => !allowlist.includes(row.handle));
+  assert.ok(hiddenCatalogRow, "catalog contains a row hidden by the session view");
+  const expandedView = product.CatalogOperationPort.constructView({
+    kind: "catalog_view_packet",
+    schemaVersion,
+    memberKey: "allowlist",
+    catalog,
+    allowlist: [...allowlist, hiddenCatalogRow.handle],
+  });
+  assert.equal(expandedView.kind, "graph_function_catalog_view");
+  const forgedExpandedView = structuredClone(expandedView);
+  forgedExpandedView.viewDigest = view.viewDigest;
+  const forgedSessionAllowlistCall = structuredClone(sessionCatalogListCall);
+  forgedSessionAllowlistCall.resources.packet.selector.visibility.view =
+    forgedExpandedView;
+  forgedSessionAllowlistCall.invocation.invocationAuthority.slots
+    .catalog_scope.allowlist = [...forgedExpandedView.allowlist];
+  rehashInvocation(product, forgedSessionAllowlistCall);
+  const forgedSessionAllowlistFault = await Effect.runPromise(Effect.flip(
+    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.catalog_list(
+      forgedSessionAllowlistCall,
+    ),
+  ));
+  assert.equal(
+    forgedSessionAllowlistFault.code,
+    "resource_relation_mismatch",
+  );
+
+  const alternateInstallManifestCall = structuredClone(installEvidenceCall);
+  const alternateInstallManifestValue = {
+    ...alternateInstallManifestCall.resources.packet.selector.manifest.value,
+    forgedManifest: true,
+  };
+  const alternateInstallManifest = {
+    manifestRef: `${manifest.manifestRef}.alternate`,
+    manifestDigest: product.sha256Canonical(alternateInstallManifestValue),
+    value: alternateInstallManifestValue,
+  };
+  alternateInstallManifestCall.resources.packet.selector.manifest =
+    alternateInstallManifest;
+  alternateInstallManifestCall.invocation.request.selector.manifest = {
+    ref: alternateInstallManifest.manifestRef,
+    digest: alternateInstallManifest.manifestDigest,
+  };
+  rehashInvocation(product, alternateInstallManifestCall);
+  const alternateInstallManifestFault = await Effect.runPromise(Effect.flip(
+    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.install_evidence(
+      alternateInstallManifestCall,
+    ),
+  ));
+  assert.equal(
+    alternateInstallManifestFault.code,
+    "resource_relation_mismatch",
+  );
+
+  const fakeReleaseRefusalCall = structuredClone(releaseEvidenceCall);
+  fakeReleaseRefusalCall.resources.packet.releaseSnapshotRefusal = {
+    kind: "release_snapshot_refusal",
+    disposition: "refused",
+  };
+  const fakeReleaseRefusalFault = await Effect.runPromise(Effect.flip(
+    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.release_evidence(
+      fakeReleaseRefusalCall,
+    ),
+  ));
+  assert.equal(fakeReleaseRefusalFault.code, "resource_relation_mismatch");
+
+  const alternateReleaseManifestCall = structuredClone(releaseEvidenceCall);
+  const alternateReleaseManifestValue = {
+    kind: "unavailable_release_snapshot_manifest",
+    releaseCut: coordinate(
+      product,
+      "release-cut://abiogenesis/t287/w2-05/unrelated",
+    ),
+  };
+  const alternateReleaseManifest = {
+    manifestRef: `${releaseManifest.manifestRef}.alternate`,
+    manifestDigest: product.sha256Canonical(alternateReleaseManifestValue),
+    value: alternateReleaseManifestValue,
+  };
+  alternateReleaseManifestCall.resources.releaseManifest =
+    alternateReleaseManifest;
+  alternateReleaseManifestCall.invocation.request.selector.manifest = {
+    ref: alternateReleaseManifest.manifestRef,
+    digest: alternateReleaseManifest.manifestDigest,
+  };
+  rehashInvocation(product, alternateReleaseManifestCall);
+  const alternateReleaseManifestFault = await Effect.runPromise(Effect.flip(
+    product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.release_evidence(
+      alternateReleaseManifestCall,
+    ),
+  ));
+  assert.equal(
+    alternateReleaseManifestFault.code,
+    "resource_relation_mismatch",
   );
 
   const forgedCatalogBasisCall = structuredClone(catalogListCall);
@@ -1450,7 +1612,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     conformanceCall,
     "conformance.evaluate#gtl_program",
   );
-  assert.ok(["passed", "failed"].includes(conformance.ownerOutput.value.disposition));
+  assert.equal(conformance.ownerOutput.value.disposition, "passed");
 
   const forgedProgramCall = structuredClone(conformanceCall);
   forgedProgramCall.invocation.request.program.digest = product.sha256Canonical({
@@ -1480,6 +1642,22 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     forgedConformanceBasisFault.code,
     "resource_relation_mismatch",
   );
+
+  const synchronizedUnrelatedLawCall = structuredClone(conformanceCall);
+  const unrelatedLaw = coordinate(
+    product,
+    "law://abiogenesis/validator/unrelated@5",
+  );
+  synchronizedUnrelatedLawCall.invocation.request.conformanceLaw = unrelatedLaw;
+  synchronizedUnrelatedLawCall.resources.conformanceLaw = unrelatedLaw;
+  rehashInvocation(product, synchronizedUnrelatedLawCall);
+  const synchronizedUnrelatedLaw = await Effect.runPromise(
+    validator.CONFORMANCE_DEFINITION_BINDINGS.evaluate.gtl_program(
+      synchronizedUnrelatedLawCall,
+    ),
+  );
+  assert.equal(synchronizedUnrelatedLaw.ownerOutput.outcomeKind, "refusal");
+  assert.equal(synchronizedUnrelatedLaw.ownerOutput.value.code, "law_mismatch");
 
   const duplicateInventoryCall = structuredClone(conformanceCall);
   duplicateInventoryCall.resources.declaredInventory.push(
