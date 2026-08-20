@@ -31,28 +31,39 @@ Each static shell receives its exact owner-authored strict Valibot resource-
 assertion and receipt contracts with the fixed packet and typed owner import.
 Those module-static contracts are not runtime callbacks or another
 combinator. They preserve exact `TResources` and `TResourceReceipt` generics;
-the shell performs structural admission only, while resource meaning,
-authorization, and currentness remain owner law. The verified manifest and
-dependency lock must resolve each declared module/export/member coordinate to
-one callable. That installed static resolution is required; semantic string
-dispatch, ambient lookup, and invocation-selected handlers remain prohibited.
+the same exact receipt type indexes the singular
+`DefinitionExecutionFault<K,TResourceReceipt>` branch. Its three closed
+variants carry no receipt before acquisition/append, carry the latest exact
+owner- or ABG-issued receipt after separately durable work, or conserve an
+already-issued exact receipt when enclosing output/receipt validation later
+fails. Owner semantic refusal remains an owner output. The canonical host
+transports the variant and receipt losslessly; it does not roll back, inspect a
+store tail, synthesize a generic receipt, or use a side channel. The shell
+performs structural admission only, while resource meaning, authorization, and
+currentness remain owner law. The verified manifest and dependency lock must
+resolve each declared module/export/member coordinate to one callable. That
+installed static resolution is required; semantic string dispatch, ambient
+lookup, and invocation-selected handlers remain prohibited.
 
 Constitution Sections 5.6.2, 5.6.2A, 5.6.2B, and 16.6 retain historical
 classification evidence only. Their `PublicExecutionCandidate`, topology-arm,
 generic resource-provider, and C1F/D6 advancement design is superseded and is
-non-operative implementation authority. Sections 5.6.2C and 16.7 are the
-operative Wave 2 binding law. The accepted census, owner classifications,
-indexed outcomes, Effect `3.22.1` ABI, HoG/ABG durability boundaries, and legacy
-deletion target remain conserved without turning `E`, `L`, `J`, `R`, `X`, or
-`T0-T9` proof maps into runtime types or implementation budgets.
+non-operative implementation authority. Sections 5.6.2C and 16.7, as amended
+by receipt-conservation record 16.10, are the operative Wave 2 binding law. The
+accepted census, owner classifications, indexed outcomes, Effect `3.22.1`
+composition, HoG/ABG durability boundaries, and legacy deletion target remain
+conserved without turning `E`, `L`, `J`, `R`, `X`, or `T0-T9` proof maps into
+runtime types or implementation budgets.
 
 Constitution Section 5.6.5A activates Proof-frame `SP-05` and `SP-06` for
 W2-05. Each changed common combinator and irreducible owner kernel/seam receives
 one deep review. Fixed equivalent packets receive exhaustive mechanical
 schema, digest, coordinate, manifest, installed-resolution, and legacy-
-exclusion checks across all 56 coordinates. Review reuse requires exact byte
-identity and unchanged governing contracts. This compresses repeated reasoning
-without sampling, reduced assurance, code acceptance, or partial points.
+exclusion checks across all 56 coordinates, including all three fault variants
+and lossless receipt transport. Review reuse requires exact byte identity and
+unchanged governing contracts, including the same receipt/currentness and
+fault-boundary law. This compresses repeated reasoning without sampling,
+reduced assurance, code acceptance, or partial points.
 
 `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen design
 remains non-operative future input under backlogged T-268.
@@ -116,9 +127,11 @@ projection; Git and the T-284 correction vector preserve that inventory.
 ## Implementation Gate
 
 T-287 currently selects the bounded `W2-05` static-binding `design_reframe`.
-The next implementation cut first installs the shared three-combinator
-foundation, then wires `run.invoke` and the twelve-key sentinel path. It next
-binds the other owner-ready materialize, result, and witness definitions;
+The next implementation cut first installs the singular receipt-indexed fault
+ABI and lossless host transport, then the shared three-combinator foundation.
+It next wires `run.invoke` and proves post-append receipt conservation on the
+twelve-key sentinel path, then binds the other owner-ready materialize, result,
+and witness definitions;
 holds both `run.continue` members for one accepted shared continuation carrier;
 implements the five interaction exports from one E33 kernel only after exact
 choice/evidence/grant/publication carriers exist; binds held
@@ -126,5 +139,6 @@ choice/evidence/grant/publication carriers exist; binds held
 both banked release snapshots while retaining refusal-only Wave 2 behavior and
 Wave 5 publication authority; and only then proves 56/56 packed loadability
 plus legacy exclusion.
-No dirty rejected interaction closure, per-key wrapper, stub, runtime registry,
+No dirty rejected interaction closure, per-key wrapper, fourth combinator,
+generic receipt, side channel, enclosing transaction, stub, runtime registry,
 or old C1F/D6 topology-arm carrier may cross this gate.

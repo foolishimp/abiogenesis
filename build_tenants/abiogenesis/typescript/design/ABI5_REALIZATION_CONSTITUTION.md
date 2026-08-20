@@ -1821,7 +1821,9 @@ lock must resolve each declared module/package-export/named-export/member
 coordinate to one callable and verify its export digest before module-static
 construction. That exact installed resolution is lawful and required.
 
-The existing outer ABI remains singular and unchanged:
+The outer ABI remains singular. `DefinitionCall` and `DefinitionReturn` are
+unchanged; the fault branch is indexed by the same exact owner-authored
+resource-receipt type as the return branch:
 
 ```text
 DefinitionCall<TPacket, TResources> = {
@@ -1834,11 +1836,37 @@ DefinitionReturn<TPacket, TResourceReceipt> = {
   resources: TResourceReceipt
 }
 
+DefinitionExecutionFault<K, TResourceReceipt> = {
+  kind: "definition_execution_fault",
+  schemaVersion: "5.0.0",
+  definitionKey: K,
+  stage: string,
+  code: string,
+  message: string,
+  evidence: Readonly<Record<string, JsonValue>>
+} & (
+  | {
+      faultBoundary: "pre_acquisition_or_pre_append",
+      resourceReceipt: null
+    }
+  | {
+      faultBoundary: "post_append",
+      resourceReceipt: TResourceReceipt
+    }
+  | {
+      faultBoundary: "post_owner_output_or_receipt_validation",
+      resourceReceipt: TResourceReceipt
+    }
+)
+
 ExactDefinitionCallable<TPacket, TResources, TResourceReceipt> =
   DefinitionCall<TPacket, TResources>
     -> Effect.Effect<
          DefinitionReturn<TPacket, TResourceReceipt>,
-         DefinitionExecutionFault<TPacket["definitionKey"]>,
+         DefinitionExecutionFault<
+           TPacket["definitionKey"],
+           TResourceReceipt
+         >,
          never
        >
 ```
@@ -1850,14 +1878,68 @@ Implementation refusal remains an owner value. Only substrate failure crosses
 `DefinitionExecutionFault`; the package-internal Effect host membrane remains
 the sole Effect-to-Promise boundary.
 
+The fault union has one receipt-conservation law:
+
+1. `pre_acquisition_or_pre_append` is lawful only when no exact owner receipt
+   has been issued and no separately durable append or corresponding owner
+   commit occurred. It carries `resourceReceipt: null` and cannot advance a
+   resource or prefix.
+2. `post_append` is mandatory when at least one separately durable append or
+   corresponding owner commit occurred before the fault. It carries the exact
+   owner- or ABG-issued `TResourceReceipt` at the latest durable prefix,
+   including the owner contract's complete journal or handoff where that type
+   requires it. Earlier durable facts remain visible and are never rolled back
+   or hidden.
+3. `post_owner_output_or_receipt_validation` is mandatory when an owner has
+   already issued an exact `TResourceReceipt` and a wider owner-output,
+   receipt-envelope, equality, or structural projection check then fails. The
+   already-issued receipt is conserved unchanged; the enclosing validator may
+   not replace it with `null` or a newly constructed approximation.
+
+This is one discriminated fault ABI, not three error systems. The observable
+relation does not prescribe imperative control flow. The exact receipt is
+validated independently against the binding's owner-authored static receipt
+contract. The third variant never promotes a malformed receipt candidate to
+`TResourceReceipt`: it applies only after the exact owner receipt has been
+independently issued and admitted. A binding that may durably append but cannot
+supply or owner-derive its exact `TResourceReceipt` for every later typed fault
+is not constructable; it may not downgrade that state to the receipt-less
+variant, inspect an ambient store tail, or introduce a generic receipt.
+
+The package-internal host membrane and every SDK, CLI, or host projection
+transport the discriminant and exact receipt losslessly. If an outward host
+receipt also projects a `resources` field, it is `null` only for
+`pre_acquisition_or_pre_append`; for either receipt-bearing variant it is
+structurally equal to `fault.resourceReceipt`. Transport may not move the
+receipt into a side channel or reclassify the fault as owner refusal. The exact
+receipt remains the only lawful successor/currentness input to a later call;
+the next owner revalidates it under its existing law.
+
+The fault ABI is falsified by any of the following:
+
+- a durable append or corresponding owner commit followed by a receipt-less
+  typed fault;
+- a pre-append variant carrying or advancing a receipt;
+- a stale, predecessor, store-tail-derived, host-synthesized, or generic JSON
+  receipt in either receipt-bearing variant;
+- an enclosing output or receipt validation failure discarding an exact
+  owner-issued receipt;
+- Public or a host adapter interpreting receipt meaning, rolling back an
+  append, or transporting a different receipt;
+- an expected owner refusal entering the fault channel, or a substrate fault
+  being relabeled as owner refusal; or
+- a fourth wrapper/combinator, callback, registry, controller, enclosing
+  transaction, or process-local side channel introduced to conserve the
+  receipt.
+
 The complete common binding algebra is exactly three module-static
 higher-order combinators:
 
 | Combinator | Module-static input | Exact responsibility |
 |---|---|---|
-| `bindStaticOwner` | one fixed contract packet; one imported typed owner function closed over owner-local dependencies; one owner-authored module-static strict Valibot resource-assertion schema/admitter; and one owner-authored strict receipt schema/validator, or one typed static contract object containing those exact contracts | structurally admit the exact resource assertion, invoke the owner function once, structurally validate its exact receipt, and construct one frozen `ExactDefinitionCallable`; conserve owner output and typed substrate fault without adding semantic policy |
-| `bindExactPrefixRead` | one fixed packet and imported ABG read/project function plus the fixed strict ABG event-resource assertion and unchanged-read receipt contracts | specialize `bindStaticOwner` for an unchanged exact-prefix read and receipt; never read a raw event array or fold events inside the binding |
-| `bindExactPrefixTransition` | one fixed packet and imported ABG expected-prefix transition function plus the fixed strict ABG event-resource assertion and successor-receipt contracts | specialize `bindStaticOwner` for one owner-admitted transition, exact successor prefix, handoff, and receipt; never create a definition-wide transaction |
+| `bindStaticOwner` | one fixed contract packet; one imported typed owner function closed over owner-local dependencies; one owner-authored module-static strict Valibot resource-assertion schema/admitter; and one owner-authored strict receipt schema/validator, or one typed static contract object containing those exact contracts | structurally admit the exact resource assertion, invoke the owner function once, structurally validate its exact receipt, and construct one frozen `ExactDefinitionCallable`; conserve owner output, exact receipt, and typed substrate fault without adding semantic policy; any fault after exact receipt issuance carries that same receipt |
+| `bindExactPrefixRead` | one fixed packet and imported ABG read/project function plus the fixed strict ABG event-resource assertion and unchanged-read receipt contracts | specialize `bindStaticOwner` for an unchanged exact-prefix read and receipt; preserve that exact receipt through any later enclosing validation fault; never read a raw event array or fold events inside the binding |
+| `bindExactPrefixTransition` | one fixed packet and imported ABG expected-prefix transition function plus the fixed strict ABG event-resource assertion and successor-receipt contracts | specialize `bindStaticOwner` for one owner-admitted transition, exact successor prefix, handoff, and receipt; every typed fault after append carries the exact latest successor receipt; never create a definition-wide transaction |
 
 These are higher-order only at module construction. Their owner functions,
 strict schemas/admitters/validators, packets, and typed static contract objects
@@ -1867,7 +1949,8 @@ captures them once; no function value appears in a public carrier, runtime
 resource, catalog request, or invocation input. `TResources` and
 `TResourceReceipt` remain exact generics fixed by each binding. They are never
 erased into `unknown`, a universal resource union, an optional-slot bag, or a
-common topology type. The shell performs structural admission only. Resource
+common topology type. The same `TResourceReceipt` indexes both success and
+typed-fault branches. The shell performs structural admission only. Resource
 identity, semantic validity, authorization, currentness, owner refusal,
 transition choice, and receipt meaning remain inside the imported owner
 function. The algebra has no fourth generic combinator and no hidden equivalent
@@ -1909,7 +1992,8 @@ Public remains exactly:
 admit the common invocation carrier
   -> select one exact installed definition binding
   -> call that binding once
-  -> structurally project its indexed owner output and receipt
+  -> structurally project either its indexed owner output and exact receipt
+     or its receipt-indexed typed fault
 ```
 
 Public does not call a Product resolution port and then separately call Product,
@@ -2020,7 +2104,10 @@ compositions of the three combinators, not additional primitives:
   assertion and successor-receipt contracts. Recursive `run.invoke` and `run.continue`
   retain separately durable HoG/ABG child appends. Every child consumes the
   prior successor and reissues its own successor/handoff before the next child;
-  no enclosing Public, Effect, or definition transaction groups them.
+  no enclosing Public, Effect, or definition transaction groups them. A later
+  pre-open, traversal, close, or enclosing-validation fault carries the exact
+  owner-issued receipt at the latest already-durable prefix; a void cleanup
+  result alone cannot satisfy that outward fault relation.
 
 The interaction family `E33` has one static kernel and five fixed contract
 packets for `select`, `approve`, `reject`, `assess`, and
@@ -2808,9 +2895,15 @@ W2-05 closes only when one frozen candidate proves all of the following:
 7. recursive `run.invoke` and `run.continue` child appends remain separately
    durable and consume/reissue exact successor prefixes and handoffs without an
    enclosing definition transaction;
-8. the two release snapshots retain refusal-only Wave 2 behavior while their
+8. the singular `DefinitionExecutionFault<K,TResourceReceipt>` branch proves
+   its closed pre-acquisition/pre-append, post-append, and post-owner-
+   validation variants; carries no receipt only before acquisition/append;
+   conserves the latest exact owner- or ABG-issued receipt after durable work;
+   and transports that discriminant and receipt losslessly through the common
+   host and every outward projection;
+9. the two release snapshots retain refusal-only Wave 2 behavior while their
    future-capable success result contracts become exact; and
-9. Public contains no owner sequencing, semantic switch, carrier rehydration,
+10. Public contains no owner sequencing, semantic switch, carrier rehydration,
    event interpretation, catalog aggregation, compatibility translation,
    ambient lookup, invocation-selected handler, or process-local run/read
    authority.
@@ -2863,6 +2956,7 @@ The operative binding gaps are:
 | Gap | W2-05 resolution or hold |
 |---|---|
 | banked callable behavior predates 5.6.2C | reconcile each closure to the three-combinator algebra or prove exact conformance; behavior alone is insufficient |
+| typed faults cannot conserve an exact receipt after separately durable work | index the singular fault branch by the binding's exact `TResourceReceipt`; implement the three closed fault boundaries; validate and transport a receipt losslessly after append or enclosing post-owner validation; prohibit rollback, store-tail synthesis, generic receipts, enclosing transactions, and side channels |
 | owner-ready materialize/result/witness/run-invoke definitions are unwired | bind through the exact static owner or prefix specialization with strict static resource/receipt contracts |
 | continuation carrier is incomplete | hold both `run.continue` exports until one shared Product/ABG carrier is accepted |
 | E33 carriers are incomplete | hold until exact choice/evidence/grant/environment/install/publication carriers exist, then bind one kernel to five packets |
@@ -2907,8 +3001,10 @@ all of these conditions hold:
 3. both preserve the same owner output, nonterminal, and refusal algebra;
 4. both use the same effect, currentness, commit, handoff, and installed causal-
    topology regime;
-5. neither has a member body, branch, callback, or per-member logic; and
-6. only frozen packet constants differ.
+5. both preserve the same fault-boundary, exact-receipt conservation,
+   validation, and host-transport law;
+6. neither has a member body, branch, callback, or per-member logic; and
+7. only frozen packet constants differ.
 
 Failure of any condition creates a separate review unit. A fixed same-kernel
 packet family receives exhaustive mechanical packet, schema, digest,
@@ -2917,34 +3013,37 @@ semantic review.
 
 Every one of the 56 coordinates still receives exhaustive, non-sampled proof
 of exact-set membership; invocation, packet, resource, receipt, and outcome
-type/schema agreement; definition and export digests; manifest, lock, module,
-package-export, named-export, and member coordinates; packed installed
-resolution; projection equality; and legacy exclusion. This law compresses
-repeated reasoning. It never samples the family or reduces assurance.
+type/schema agreement; all three indexed fault variants and host-transport
+agreement; definition and export digests; manifest, lock, module, package-
+export, named-export, and member coordinates; packed installed resolution;
+projection equality; and legacy exclusion. This law compresses repeated
+reasoning. It never samples the family or reduces assurance.
 
 Reviews are banked against one exact frozen combinator or kernel subject. A
 bank is reusable only while those bytes are identical and the governing
 Product, requirement, design, input/output, resource/receipt, effect,
-currentness, commit, handoff, and installed-topology contracts are unchanged.
-The invalidation cone is:
+currentness, commit, handoff, fault-boundary/transport, and installed-topology
+contracts are unchanged. The invalidation cone is:
 
 | Change | Invalidated review/evidence |
 |---|---|
 | shared combinator | every dependent family seam |
+| shared fault ABI, validator, or host projection | every `ExactDefinitionCallable` fault producer and consumer, all three combinators, every dependent family seam, and the packed SDK/CLI/host schema and projection proof; deep review still factors by materially distinct receipt/currentness law while all 56 coordinates receive mechanical proof |
 | owner kernel or seam | that family and every touched cross-frame seam |
 | packet-only constant | that packet plus its manifest, coordinate, digest, and census proof; the family review stays banked while the equivalence predicate holds, and any failed condition widens the cone to a separate review unit |
 | byte-conserved accepted owner atom | retains accepted evidence unless a governing contract changes or a new counterexample crosses its seam |
 
 For each frozen W2-05 subject, long installed tests run once per materially
-distinct causal topology/effect regime. They rerun on that same proportional
-basis at each applicable integrated and final boundary, never once per
-coordinate. Decision-exact local falsifiers remain mandatory for each changed
-seam.
+distinct causal topology, effect, and receipt/currentness regime. They rerun
+on that same proportional basis at each applicable integrated and final
+boundary, never once per coordinate. Decision-exact local falsifiers remain
+mandatory for each changed seam.
 
 The W2-05 family application is:
 
 | Family | Proportional review factorization |
 |---|---|
+| shared fault ABI and host transport | one common ABI/validator/transport subject, plus a separate semantic unit for each materially distinct receipt/currentness law; all 56 coordinates retain exhaustive type/schema/projection checks |
 | `run.invoke` | one shared owner kernel plus two frozen packets |
 | `witness.admit` | one owner kernel plus six frozen packets while the equivalence predicate holds |
 | `run.continue` | one shared continuation carrier/kernel plus two frozen packets; both remain held until that carrier is accepted and preserves current-intent versus selected-action meaning |
@@ -3582,7 +3681,8 @@ foundation comparison is incomplete.
 - Concrete functional owners remain directly composed inside the one Effect
   calculus and retain every semantic refusal/output relation.
 - One canonical host/SDK runner executes closed Effects and maps execution
-  faults/Cause to transport exit `70`; all outward adapters reuse it.
+  faults/Cause to transport exit `70`; it preserves the indexed fault
+  discriminant and exact receipt losslessly, and all outward adapters reuse it.
 - One semantic fact has one admission and one projection path.
 
 ### 12.2 Proportional completeness
@@ -3751,7 +3851,7 @@ rationale remains classification evidence only.
 | **clauses corrected** | Sections 3 and 4 no longer require every transformation to become a runtime event. They distinguish pure immutable, ABG runtime-mutation, and physical artifact regimes. |
 | **clauses extended** | Section 5.3 adds Product, Public, Entity, Operator, Owner, Effect, Reuse, Install, and Proof frames. Section 5.6 adds the closed operator algebra, installed binding ABI law, orthogonal factorization evidence, exact 56-key map, exact indexed output-closure catalog, current gap register, release law, and C1F closure criteria. |
 | **external coverage** | Fixed at 18 operation identities and 56 exact definition keys. The exact 41 literal-insensitive structural schema shapes remain orthogonal structural evidence. Table 5.6.3-A supplies the exact 40-class membership relation; Tables 5.6.3-B/B2/C/D supply its selected semantic leaves, joins, `R01-R40` output relations, physical boundaries, neutral mechanics, ordered traces, and exact reusable resource-topology families. The unsupported preliminary `22` semantic-relation and `71` reusable-callable estimates are withdrawn rather than constitutionalized. No count is a primitive or implementation budget. |
-| **binding decision** | **Superseded implementation relation.** The conserved semantic relation is `PublicInvocation<K> -> indexed owner output`. Section 5.6.2C now realizes it through one unchanged `DefinitionCall -> Effect<DefinitionReturn, DefinitionExecutionFault, never>` ABI and exactly three module-static combinators over manifest/lock-resolved typed owner imports and strict static resource/receipt contracts. No `PublicExecutionCandidate`, topology arm, generic provider runtime, or C1F/C2 stage remains operative. |
+| **binding decision** | **Superseded implementation relation.** The conserved semantic relation is `PublicInvocation<K> -> indexed owner output`. Section 5.6.2C, as amended by Section 16.10, now realizes it through the singular `DefinitionCall<TPacket,TResources> -> Effect<DefinitionReturn<TPacket,TResourceReceipt>, DefinitionExecutionFault<TPacket["definitionKey"],TResourceReceipt>, never>` ABI and exactly three module-static combinators over manifest/lock-resolved typed owner imports and strict static resource/receipt contracts. No `PublicExecutionCandidate`, topology arm, generic provider runtime, or C1F/C2 stage remains operative. |
 | **output decision** | The `R01-R40` rows remain proof that each expression ends in one exact semantic-owner output relation before structural `O_K`; they are not binding work packages. Each active family preserves its owner decision union. The two release rows preserve refusal-only behavior but remain contract-final held for future-capable success schemas. Public never invents, classifies, translates, or maps owner meaning. |
 | **Effect decision** | **Historical implementation interpretation superseded by Sections 5.6.2C and 16.7.** Exact-pinned Effect `3.22.1` remains the selected common execution-composition foundation through Sections 9, 10.1, 16.3, and 16.7, within the singular existing ABI and three-combinator static algebra. The scalar and installed E29 prototypes remain evidence-only reconciliation or deletion targets. Effect owns no topology, semantic retry/workflow/Saga, runtime currentness, admission, transaction, event, replay, schema, state, clock, scheduler, or concurrency truth. No Event Calculus refactor is selected. |
 | **release decision** | Freeze future-capable `published_rc` and `tapped_release` success result schemas in the 5.0 family now. Wave 2 behavior remains refusal-only through the existing exact `ReleaseSnapshotRefusal`; Wave 5 supplies qualification authority and publication mechanics without changing definition or family identity. |
@@ -3794,7 +3894,7 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **review disposition** | Rejected as the exact candidate at commit `5d49d748676f2a4114e1f61eddf51d14afa64dd3`, tree `891e3d2ab8aecd41ec0d4c3e8cb9c45f06a0a49f`. It correctly identifies the missing explicit resource carrier but incorrectly places `Rnn` before one late generic commit, lacks an exact 56-key topology projection and PFC-F05 identity join, assumes universal content addressing, and under-specifies provider-scoped identity, idempotence, residue, and ABG successor threading. Section 16.5 supersedes those defective relations without reopening the accepted foundation. |
 | **upstream basis** | `PRODUCT.md` executable-boundary input/output/write-territory law; `REQ-P-PUBLIC-CONTRACTS-009..011`; `REQ-P-INSTALL-043..048`; `REQ-R-ABG3-BINDING-003..006` and `-015..018`; `REQ-R-ABG3-WORKER-003..008`; `REQ-R-ABG3-SAGA-FRONTIER-001..014`; ABG expected-prefix, event, Event Calculus, and replay requirements; accepted S06 singular Public path; C1F owner/factor map; and exact-pinned Effect `3.22.1`. No requirement conflict was found. |
 | **clauses superseded** | Supersedes Section 5.6.2's unary `ExactDefinitionCallable<K>(PublicInvocation<K>)` execution carrier; its claim that a binding could rehydrate a full carrier or validated prefix from semantic coordinates alone; Section 5.6.5's corresponding coordinate-only reconstruction clause; Section 16.2's unary binding-decision row; Section 16.3's unary binding-decision row and claim that C1F was unconditionally fixed; and T-287's C1F-complete/D6-uninterrupted interpretation. Historical semantic, factorization, Effect, and deletion decisions in those sections remain operative. |
-| **replacement relation** | `DefinitionCall<K, I, O>` joins the unchanged `PublicInvocation<K>` to one canonical explicit resource pre-state; `DefinitionReturn<K, I, O>` joins the unchanged indexed owner output to exact successor state and handoff. `ExactDefinitionCallable<K, I, O>` returns the same closed `Effect<..., DefinitionExecutionFault<K>, never>` after the installed host supplies stateless provider Layers. |
+| **replacement relation** | **Historical rejected relation; its receipt-unindexed fault shorthand is superseded by Section 16.10.** `DefinitionCall<K, I, O>` joined the unchanged `PublicInvocation<K>` to one canonical explicit resource pre-state; `DefinitionReturn<K, I, O>` joined the unchanged indexed owner output to exact successor state and handoff. This candidate's `ExactDefinitionCallable<K, I, O>` returned a closed Effect after the installed host supplied stateless provider Layers. |
 | **access/commit decision** | **Rejected candidate relation, superseded by Section 16.5.** Input/output identity topology still derives read, mutation, and creation, but the candidate's universal content-addressing and one outer commit were false. The operative law uses provider-scoped identity, exact owner-selected allocation, preflight, and one receipt per owner-leaf atomicity boundary. |
 | **resource binding decision** | Every binding carries exact resource identity, canonical locator, expected version or `Absent`, provider identity, resolved capability-grant reference, and owner refinement. Git retains commit/tree; ABG retains `DurablePrefixCoordinate` plus reopen/close handoff; immutable object/artifact retains digest/version; database/API retains transaction/version token. Logical semantic refs never substitute for these fields. |
 | **provider and security decision** | Effect Context/Layer supplies only stateless `identify/read/create/write/compareAndSwap/commit/compensate` mechanics. OS, Git, IAM, database, and API systems authenticate and enforce physical access. ABIogenesis validates declared capability and records actor/resource pre/post/GraphFunction/invocation/provider/causation/provenance truth without widening security. Credentials and secrets are neither resource bindings nor event/projection/evidence content. |
@@ -3850,7 +3950,7 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **upstream basis** | `PRODUCT.md` SDK/CLI singular-call law, exact 18/56 external-projection law, Definition/Tool/Runtime authority split, compression boundary, and completion predicate; `REQ-P-PUBLIC-CONTRACTS-005`, `-008..011`, and `-013`; `REQ-R-ABG3-BINDING-002..005`; `REQ-R-ABG3-CONTINUATION-011..014`; `REQ-R-ABG3-EVENTS-024`, `-031`, and `-032`; `REQ-R-ABG3-PROJECTION-001..006`, `-011`, `-019`, and `-022..024`; and the live exact owner functions at HEAD `e7e252ed`. |
 | **clauses superseded** | Sections 5.6.2, 5.6.2A, and 5.6.2B are superseded in full as implementation authority. Their `PublicExecutionCandidate`, intrinsic resource-topology family/arm, generic provider/load, and per-key resource-runtime interpretations are non-operative. Section 16.6 is superseded in full as advancement and implementation authority, including its rule that acceptance atomically closes C1F or advances C2/D6. Sections 16.4-16.6 remain rejection history and classification evidence only. Any Section 10.1.1-10.1.3 or ticket reading that mandates C2, a shared identity/version/grant/topology-arm/receipt ABI, provider tag/adaptor, common Layer runtime, or topology-arm execution is likewise superseded. |
 | **conserved evidence** | The exact 18/56 census, installed coordinate identities, semantic owners, indexed outputs/refusals, Effect `3.22.1` outer ABI, expected-prefix durability, owner-local staging/compensation, explicit artifact admission, E01-E40/L/J/R/X classifications, T0-T9 proof partition, and legacy exclusion target remain evidence. None is a runtime type set, primitive count, wrapper count, or implementation budget. |
-| **replacement algebra** | Section 5.6.2C is operative. Exactly three module-static higher-order combinators construct all bindings from direct typed imports: `bindStaticOwner`, `bindExactPrefixRead`, and `bindExactPrefixTransition`. The existing `DefinitionCall -> Effect<DefinitionReturn, DefinitionExecutionFault, never>` carrier remains singular. No runtime callback, registry, controller, mode selector, universal resource union/topology engine, per-key semantic dispatch, or fourth equivalent combinator is lawful. |
+| **replacement algebra** | Section 5.6.2C is operative. Exactly three module-static higher-order combinators construct all bindings from direct typed imports: `bindStaticOwner`, `bindExactPrefixRead`, and `bindExactPrefixTransition`. Section 16.10 supersedes this record's former receipt-unindexed shorthand; the singular operative carrier is `DefinitionCall<TPacket,TResources> -> Effect<DefinitionReturn<TPacket,TResourceReceipt>, DefinitionExecutionFault<TPacket["definitionKey"],TResourceReceipt>, never>`. No runtime callback, registry, controller, mode selector, universal resource union/topology engine, per-key semantic dispatch, or fourth equivalent combinator is lawful. |
 | **semantic authority decision** | Product semantic leaves remain irreducible and each semantic family owns one plain immutable decision union. The common shell carries no policy. Public admits and selects one exact installed binding, calls it once, and projects structurally. It neither calls multiple owner ports nor sequences Product, GTL, HoG, ABG, Validator, or Implementation relations. |
 | **filesystem and runtime decision** | Filesystem and held forms are instances or owner-local compositions, not primitives. Filesystem/artifact work retains Product-owned staging and compensation plus explicit ABG artifact admission where runtime consumption requires it. Recursive `run.invoke` and `run.continue` retain separately durable HoG/ABG child appends and successor handoffs; no enclosing Public, Effect, or definition transaction is added. |
 | **E33 decision** | One module-static kernel serves five fixed interaction packets. Its relation is exact ABG L53 current-basis projection with no binding-local raw-event fold, exact environment/install/publication join, Product L54 over `{basis,responseKind,choice,value,evidence}`, existing ABG L55/L56 transition, then Product R33 closure. The five exports contain no member logic. Missing exact choice, evidence, grant, environment, install, or publication carriers holds the family for bounded reframe; callers and fixtures cannot mint them. |
@@ -3889,4 +3989,22 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **migration consequence** | Migrate only Product execution resolution to issue the coordinate, downstream execution binding to compare `execution_program`, `graph_function.graphFunction`, and `graph_function.membership` with the issued values, and tests to obtain positive evidence from Product resolution and exercise substitution/crossed-pair falsifiers with zero owner call/append. Public, bindings, and tests may not mint it; operation-indexed forbidden `graph_function` remains `null`. This frozen design-worker subject contains no code, test, Public, Catalog, or ambient edit. |
 | **current disposition** | External counts remain 18 operations and 56 definitions; the twelve-key Wave 2 behavioral boundary and all W2 points remain unchanged. Banked behavior remains 37/56 at `e7e252ed`, demonstrated 5.6.2C conformance remains 0/56, W2-05 remains eight unearned points, and accepted Wave 2 progress remains 11/32. `bf193b3d` remains rejected evidence and gains no count, conformance, review-bank, or point credit. |
 | **prohibited growth** | No new entity, Catalog row, runtime fact/event, registry, lifecycle, owner, shared identity framework, Public helper issuer, test issuer, or fourth binding combinator may arise from this coordinate. |
+| **promotion status** | ABIogenesis-local W2-05 design law under immutable STDO `v2.2.2`. Shared-method promotion requires separate methodology re-entry and representative evidence. |
+
+### 16.10 T-287 Receipt-Conserving Definition Fault ABI Amendment Record
+
+| Field | Record |
+|---|---|
+| **reason** | Cold implementation review of exact base subject `1e4cbbbd25d9dfba0cf34d4dddcb28dbc6b5a7ee` found a genuine carrier omission. `run.invoke` can durably append before a later pre-open failure, while close can derive the latest exact handoff but abandon returns no receipt. `bindStaticOwner` can likewise receive an admitted exact owner receipt and then discard it when enclosing output or receipt-envelope validation fails. The receipt-unindexed fault branch cannot represent either lawful state without erasing separately durable work. |
+| **change class and scope** | One bounded ABIogenesis-local `design_reframe` over the singular definition-fault ABI, its exact static validation, lossless host transport, successor currentness, falsifiers, and proportional invalidation cone. Product, requirements, operation identities, 56 definition keys, owners, owner outputs/refusals, Effect composition, durable append law, runtime truth, events, replay, feature-wave scope, code, and tests do not change in this design-only subject. |
+| **upstream basis** | `PRODUCT.md` thin-Public, owner authority, singular installed call, separately durable runtime-truth, and exact-contract laws; `REQ-P-PUBLIC-CONTRACTS-005`, `-008..011`, and `-013`; `REQ-P-POLICY-020`, `-022`, `-042`, and `-063`; `REQ-R-ABG3-EVENTS-024`, `-031`, and `-032`; `REQ-R-ABG3-PROJECTION-001..006`, `-019`, and `-022..024`; and Constitution Sections 5.6.2C, 5.6.5, 5.6.5A, and 12.1. No WHAT-level contradiction was found. |
+| **clauses extended** | Section 5.6.2C defines the indexed union and its conservation, validation, transport, currentness, and falsifier laws. Sections 5.6.5 and 5.6.5A add the W2-05 closure gate, equivalence predicate, exhaustive proof, and invalidation cone. Section 12.1 makes exact receipt preservation part of the one canonical host membrane. T-287 and the design README project this operative law. |
+| **superseded clause** | The receipt-less or receipt-unindexed `DefinitionExecutionFault<K>` instantiation and `DefinitionCall -> Effect<DefinitionReturn, DefinitionExecutionFault, never>` shorthand are not operative wherever they could govern W2-05. Section 16.7's replacement-algebra row now names the indexed form. Sections 5.6.2, 5.6.2A-B, and 16.4-16.6 remain expressly historical rejection/classification evidence and gain no implementation authority. |
+| **affected catalog/entity rows** | None. `TResourceReceipt` is the exact receipt type already authored by each owner contract and already indexing `DefinitionReturn`; adding it to the singular fault branch creates no entity, event, operation, definition key, catalog row, runtime registry, or generic receipt family. The 18/56 external coordinates remain proof and publication coordinates, not implementation atoms. |
+| **exact ABI decision** | `DefinitionExecutionFault<K,TResourceReceipt>` is one closed discriminated union. `pre_acquisition_or_pre_append` carries `resourceReceipt: null` and proves no receipt was issued and no append/commit occurred. `post_append` carries the exact owner- or ABG-issued receipt at the latest durable prefix after any append/commit. `post_owner_output_or_receipt_validation` conserves unchanged an independently issued and admitted exact receipt when wider owner-output, receipt-envelope/equality, or structural projection validation later fails. Expected owner semantic refusal remains an owner output and never enters this substrate/definition-fault union. |
+| **validation, transport, and currentness decision** | Each binding's owner-authored static receipt contract independently admits a receipt before either receipt-bearing variant may carry it; malformed raw candidates are never promoted. The canonical Effect host and every SDK/CLI/host projection carry the discriminant and exact receipt losslessly, with outward `resources` equal to the fault receipt except in the null pre-append variant. The latest exact receipt is the sole lawful successor input and is revalidated by the next owner. No store-tail scan, host synthesis, generic JSON receipt, rollback, enclosing transaction, imperative implementation prescription, or side channel is selected. |
+| **falsifiers** | The law fails if a durable append/commit is followed by a receipt-less typed fault; a pre-append fault carries or advances a receipt; a stale, predecessor, synthesized, store-tail-derived, malformed, or generic receipt is transported; enclosing validation discards or replaces an exact issued receipt; Public or an adapter interprets receipt meaning, rolls back durable truth, or relabels owner refusal and substrate fault; or receipt conservation introduces a fourth wrapper/combinator, callback, registry, controller, runtime, transaction, or side channel. |
+| **migration and invalidation consequence** | Implementation must migrate the shared fault type/schema and host receipt/projection, common definition-binding mechanics, all three static combinators, and every concrete fault producer/consumer. `run.invoke` and its ABG event-resource close/abandon boundary require explicit post-append proof; `bindStaticOwner` requires explicit post-owner-validation conservation proof. The shared ABI change mechanically invalidates all 56 type/schema/load/projection receipts and every dependent family seam. Deep semantic review and long installed tests remain proportional by materially distinct receipt/currentness/effect/causal-topology equivalence class, not by 56 coordinate names. |
+| **current disposition** | Base subject `1e4cbbbd25d9dfba0cf34d4dddcb28dbc6b5a7ee` cannot satisfy W2-05 while its fault branch can erase an exact receipt after durable work. This finding changes no accepted behavior ledger, conformance count, external operation/key count, story points, or later-wave authority. Implementation resumes only from this corrected design and must freeze a new exact candidate for assurance. |
+| **prohibited growth** | Exactly the existing three module-static combinators remain lawful. No fourth wrapper, registry, controller, runtime callback, side channel, generic JSON receipt, rollback, enclosing transaction, rival catalog, or Public-owned receipt semantics may arise from this repair. |
 | **promotion status** | ABIogenesis-local W2-05 design law under immutable STDO `v2.2.2`. Shared-method promotion requires separate methodology re-entry and representative evidence. |
