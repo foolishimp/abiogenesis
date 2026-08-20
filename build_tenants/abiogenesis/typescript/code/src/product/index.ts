@@ -291,6 +291,11 @@ export {
   type RunInvocationMemberKey,
 } from "./run_invocation_operation.js";
 export {
+  RUN_DEFINITION_BINDINGS,
+  type RunInvocationResourceAssertion,
+  type RunInvocationResourceReceipt,
+} from "../owner_bindings/run_invocation.js";
+export {
   RELEASE_SNAPSHOT_DEFINITION_BINDINGS,
 } from "./release_snapshot_definition_bindings.js";
 export {

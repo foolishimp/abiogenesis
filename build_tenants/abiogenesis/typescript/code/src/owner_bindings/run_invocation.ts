@@ -1,6 +1,10 @@
 import * as Effect from "effect/Effect";
+import * as v from "valibot";
 
-import * as abg from "../abg/index.js";
+import {
+  projectExactPrefixArtifactTruth,
+  type ExactPrefixArtifactTruthProjection,
+} from "../abg/artifact_truth.js";
 import {
   acquireAbgEventResource,
   abandonAbgEventResource,
@@ -9,33 +13,91 @@ import {
   type AbgEventResourceReceipt,
   type AcquiredAbgEventResource,
 } from "../abg/definition_event_resource.js";
-import * as gtl from "../gtl/index.js";
-import * as hog from "../hog/index.js";
+import {
+  hasAdmittedProductInstall,
+  projectAdmittedProductInstall,
+  projectAdmittedWorkspaceBinding,
+  type PublicOperationAdmissionBasis,
+} from "../abg/environment_admission.js";
+import {
+  admitExecutionBasis,
+  admitInvocationRefusal,
+  hasExactInvocationObservationBasis,
+} from "../abg/execution_basis.js";
+import {
+  type DurablePrefixCoordinate,
+  type EventStoreCloseHandoff,
+  validateDurablePrefixCoordinate,
+  validateEventStoreCloseHandoff,
+} from "../abg/event_store.js";
+import {
+  admitExactInvocation,
+  rehydrateInvocationSourceResultBasisAtDurablePrefix,
+  type InvocationAdmission,
+} from "../abg/invocation_admission.js";
+import { openTraversalScope } from "../abg/open_call.js";
+import {
+  projectRunTruthAtDurablePrefix,
+  type AbgRunTruthCoordinate,
+  type AbgRunTruthProjection,
+} from "../abg/project_read_ports.js";
+import { projectRuntimeTruthAtDurablePrefix } from "../abg/replay.js";
+import { materializeGraph } from "../gtl/materialize.js";
+import { executeGraphTraversal } from "../hog/graph_execute.js";
 import { constructAdmittedLeafInvocationPort } from
   "../implementation/leaf_invocation_port.js";
-import * as product from "../product/index.js";
+import type {
+  DeclarationApplication,
+  GraphFunctionCatalogView,
+  ReadyGraphFunctionCatalog,
+} from "../product/catalog.js";
+import type {
+  ProductInstall,
+  WorkspaceBinding,
+  WorkspaceBindingCandidate,
+} from "../product/environment.js";
+import {
+  ProductRunInvocationPort,
+  type PreparedProductRunInvocation,
+  type ProductRunInvocationResourceAssertion,
+  type ProductRunInvocationSourceAssertion,
+  type RunInvocationMemberKey,
+} from "../product/run_invocation_operation.js";
 import { RUN_OPERATION_CONTRACTS } from
   "../product/run_operation_contracts.js";
+import {
+  projectInstalledLeafSemantics,
+  type ProductInvocationSourceResultBasis,
+} from "../product/semantics.js";
 import { canonicalJson, type JsonValue } from
   "../shared/canonical_json.js";
+import { isRecord } from "../shared/definition_binding_mechanics.js";
+import { bindExactPrefixTransition } from
+  "../shared/static_definition_bindings.js";
 import {
   type DefinitionCall,
   type DefinitionExecutionFault,
   type DefinitionReturn,
   type ExactDefinitionCallable,
 } from "../shared/effect_definition.js";
-import type { Sha256Digest } from "../shared/digests.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type { OwnerSemanticOutput } from
-  "../shared/public_function_contracts.js";
-import * as validator from "../validator/index.js";
+import {
+  absolutePathSchema,
+  digestSchema,
+  jsonValueSchema,
+  nonblankSchema,
+  refDigestSchema,
+  type OwnerSemanticOutput,
+} from "../shared/public_function_contracts.js";
+import { validateGraph } from "../validator/graph.js";
 
 type InvokePacket = typeof RUN_OPERATION_CONTRACTS.invoke.invoke;
 type StartPacket = typeof RUN_OPERATION_CONTRACTS.invoke.start;
 type RunPacket = InvokePacket | StartPacket;
 
 export interface RunInvocationResourceAssertion
-  extends product.ProductRunInvocationResourceAssertion {
+  extends ProductRunInvocationResourceAssertion {
   readonly kind: "run_invocation_resource_assertion";
   readonly schemaVersion: "5.0.0";
   readonly eventResource: AbgEventResourceAssertion;
@@ -53,8 +115,8 @@ export interface RunInvocationResourceReceipt {
     readonly ref: string;
     readonly digest: Sha256Digest;
   }> | null;
-  readonly run: abg.AbgRunTruthCoordinate | null;
-  readonly replay: abg.AbgRunTruthCoordinate | null;
+  readonly run: AbgRunTruthCoordinate | null;
+  readonly replay: AbgRunTruthCoordinate | null;
 }
 
 type RunCallable<TPacket extends RunPacket> = ExactDefinitionCallable<
@@ -64,9 +126,9 @@ type RunCallable<TPacket extends RunPacket> = ExactDefinitionCallable<
 >;
 
 interface AdmittedSetupTruth {
-  readonly artifactTruth: abg.ExactPrefixArtifactTruthProjection;
-  readonly admittedInstalls: readonly product.ProductInstall[];
-  readonly workspaceBinding: product.WorkspaceBinding;
+  readonly artifactTruth: ExactPrefixArtifactTruthProjection;
+  readonly admittedInstalls: readonly ProductInstall[];
+  readonly workspaceBinding: WorkspaceBinding;
 }
 
 function fault<TPacket extends RunPacket>(
@@ -118,38 +180,267 @@ function asyncStage<TPacket extends RunPacket, A>(
   });
 }
 
-function exactResources(resources: RunInvocationResourceAssertion): boolean {
+function exactIJson(value: unknown): boolean {
   try {
-    return Object.keys(resources).sort().join("\0") === [
-      "applications",
-      "catalog",
-      "catalogView",
-      "eventResource",
-      "kind",
-      "schemaVersion",
-      "source",
-    ].sort().join("\0") &&
-      resources.kind === "run_invocation_resource_assertion" &&
-      resources.schemaVersion === "5.0.0" &&
-      Array.isArray(resources.applications) &&
-      canonicalJson(resources as unknown as JsonValue).length > 0;
+    canonicalJson(value as JsonValue);
+    return true;
   } catch {
     return false;
   }
 }
 
+const I_JSON_OBJECT_SCHEMA = v.custom<Readonly<Record<string, JsonValue>>>(
+  (value) => isRecord(value) && exactIJson(value),
+  "exact_i_json_object",
+);
+
+const GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA = v.strictObject({
+  kind: v.literal("graph_function_catalog_entry"),
+  handle: nonblankSchema,
+  definitionRef: nonblankSchema,
+  definitionDigest: digestSchema,
+  definition: I_JSON_OBJECT_SCHEMA,
+  owningProductId: nonblankSchema,
+  moduleRef: nonblankSchema,
+  publicationDigest: digestSchema,
+  programMembershipRefs: v.array(nonblankSchema),
+  compatibilityRefs: v.array(nonblankSchema),
+  provenanceRefs: v.array(nonblankSchema),
+  entryDigest: digestSchema,
+});
+
+const DECLARATION_CATALOG_ENTRY_SCHEMA = v.strictObject({
+  kind: v.literal("declaration_catalog_entry"),
+  handle: nonblankSchema,
+  declarationKind: v.union([v.literal("node_type"), v.literal("overlay")]),
+  declarationOrContractRef: nonblankSchema,
+  owningProductId: nonblankSchema,
+  moduleRef: nonblankSchema,
+  publicationDigest: digestSchema,
+  programMembershipRefs: v.array(nonblankSchema),
+  compatibilityRefs: v.array(nonblankSchema),
+  provenanceRefs: v.array(nonblankSchema),
+  entryDigest: digestSchema,
+});
+
+const WORKSPACE_BINDING_CANDIDATE_SCHEMA = v.strictObject({
+  kind: v.literal("workspace_binding_candidate"),
+  schemaVersion: v.literal("5.0.0"),
+  bindingId: nonblankSchema,
+  bindingDigest: digestSchema,
+  workspaceId: nonblankSchema,
+  authorityBasisId: nonblankSchema,
+  authorityBasisDigest: digestSchema,
+  authorizedActorRef: nonblankSchema,
+  productSetId: nonblankSchema,
+  productSetDigest: digestSchema,
+  lockId: nonblankSchema,
+  lockDigest: digestSchema,
+  roots: v.strictObject({
+    toolchainRoot: absolutePathSchema,
+    productRoot: absolutePathSchema,
+    eventLogRoot: absolutePathSchema,
+    runtimeStateRoot: absolutePathSchema,
+    projectionRoot: absolutePathSchema,
+    archiveRoot: absolutePathSchema,
+  }),
+}) as v.GenericSchema<WorkspaceBindingCandidate, WorkspaceBindingCandidate>;
+
+const CATALOG_READINESS_ROW_SCHEMA = v.strictObject({
+  handle: nonblankSchema,
+  owningProductId: nonblankSchema,
+  moduleRef: nonblankSchema,
+  disposition: v.picklist([
+    "admitted",
+    "rejected",
+    "incompatible",
+    "conflicting",
+    "unready",
+    "unresolved",
+  ]),
+  readiness: v.picklist(["ready", "not_ready"]),
+  reason: v.nullable(v.string()),
+  readinessPrerequisiteRefs: v.array(nonblankSchema),
+  rowDigest: digestSchema,
+});
+
+const READY_GRAPH_FUNCTION_CATALOG_SCHEMA = v.strictObject({
+  kind: v.literal("graph_function_catalog"),
+  schemaVersion: v.literal("5.0.0"),
+  basisDigest: digestSchema,
+  publicationDigests: v.array(digestSchema),
+  entries: v.array(GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
+  byHandle: v.record(v.string(), GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
+  declarationEntries: v.array(DECLARATION_CATALOG_ENTRY_SCHEMA),
+  declarationsByHandle: v.record(
+    v.string(),
+    DECLARATION_CATALOG_ENTRY_SCHEMA,
+  ),
+  readinessBasisDigest: digestSchema,
+  workspaceBindingId: nonblankSchema,
+  workspaceBindingDigest: digestSchema,
+  lockId: nonblankSchema,
+  lockDigest: digestSchema,
+  productSetId: nonblankSchema,
+  productSetDigest: digestSchema,
+  readinessBasis: v.strictObject({
+    workspaceBinding: WORKSPACE_BINDING_CANDIDATE_SCHEMA,
+    resolvedLock: I_JSON_OBJECT_SCHEMA,
+    verifiedProducts: v.array(I_JSON_OBJECT_SCHEMA),
+    installedProducts: v.array(I_JSON_OBJECT_SCHEMA),
+    publications: v.array(I_JSON_OBJECT_SCHEMA),
+  }),
+  boundPublications: v.array(I_JSON_OBJECT_SCHEMA),
+  rowDispositions: v.array(CATALOG_READINESS_ROW_SCHEMA),
+}) as unknown as v.GenericSchema<
+  ReadyGraphFunctionCatalog,
+  ReadyGraphFunctionCatalog
+>;
+
+const GRAPH_FUNCTION_CATALOG_VIEW_SCHEMA = v.strictObject({
+  kind: v.literal("graph_function_catalog_view"),
+  catalogBasisDigest: digestSchema,
+  allowlist: v.array(nonblankSchema),
+  entries: v.array(GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
+  byHandle: v.record(v.string(), GRAPH_FUNCTION_CATALOG_ENTRY_SCHEMA),
+  declarationEntries: v.array(DECLARATION_CATALOG_ENTRY_SCHEMA),
+  declarationsByHandle: v.record(
+    v.string(),
+    DECLARATION_CATALOG_ENTRY_SCHEMA,
+  ),
+  viewDigest: digestSchema,
+}) as unknown as v.GenericSchema<
+  GraphFunctionCatalogView,
+  GraphFunctionCatalogView
+>;
+
+const DECLARATION_APPLICATION_SCHEMA = v.strictObject({
+  kind: v.literal("declaration_application"),
+  catalogBasisDigest: digestSchema,
+  viewDigest: digestSchema,
+  declaration: DECLARATION_CATALOG_ENTRY_SCHEMA,
+  targetRef: nonblankSchema,
+  targetDigest: digestSchema,
+  appliedValueRef: nonblankSchema,
+  appliedValueDigest: digestSchema,
+  applicationRef: nonblankSchema,
+  applicationDigest: digestSchema,
+}) as v.GenericSchema<DeclarationApplication, DeclarationApplication>;
+
+const EVENT_RESOURCE_ASSERTION_SCHEMA = v.union([
+  v.strictObject({
+    kind: v.literal("new_abg_event_resource"),
+    schemaVersion: v.literal("5.0.0"),
+    eventLogPath: absolutePathSchema,
+    locatorDigest: digestSchema,
+  }),
+  v.strictObject({
+    kind: v.literal("reopen_abg_event_resource"),
+    schemaVersion: v.literal("5.0.0"),
+    closeHandoff: v.custom<EventStoreCloseHandoff>(
+      validateEventStoreCloseHandoff,
+      "event_store_close_handoff",
+    ),
+    handoffDigest: digestSchema,
+  }),
+]) as v.GenericSchema<
+  AbgEventResourceAssertion,
+  AbgEventResourceAssertion
+>;
+
+const EVENT_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+  kind: v.literal("abg_event_resource_receipt"),
+  schemaVersion: v.literal("5.0.0"),
+  acquisitionKind: v.union([v.literal("new"), v.literal("reopen")]),
+  entryPrefix: v.custom<DurablePrefixCoordinate>(
+    validateDurablePrefixCoordinate,
+    "durable_prefix_coordinate",
+  ),
+  closeHandoff: v.custom<EventStoreCloseHandoff>(
+    validateEventStoreCloseHandoff,
+    "event_store_close_handoff",
+  ),
+  receiptDigest: digestSchema,
+}) as v.GenericSchema<AbgEventResourceReceipt, AbgEventResourceReceipt>;
+
+const RUN_TRUTH_COORDINATE_SCHEMA = v.strictObject({
+  ref: nonblankSchema,
+  digest: digestSchema,
+}) as v.GenericSchema<AbgRunTruthCoordinate, AbgRunTruthCoordinate>;
+
+const RUN_INVOCATION_SOURCE_ASSERTION_SCHEMA = v.union([
+  v.strictObject({ kind: v.literal("none") }),
+  v.strictObject({
+    kind: v.literal("admitted_source_result"),
+    basis: v.strictObject({
+      kind: v.literal("invocation_source_result_basis"),
+      schemaVersion: v.literal("5.0.0"),
+      basisRef: nonblankSchema,
+      basisDigest: digestSchema,
+      publicAuthorityDigest: digestSchema,
+      sourceInvocationAdmissionRef: nonblankSchema,
+      sourceInvocationRef: nonblankSchema,
+      sourceRunId: nonblankSchema,
+      sourceGraphCallId: nonblankSchema,
+      sourceGraphFunctionRef: nonblankSchema,
+      sourceCCallRef: nonblankSchema,
+      sourceResultAdmissionEventRef: nonblankSchema,
+      sourceResultJudgmentEventRef: nonblankSchema,
+      sourceResultRef: nonblankSchema,
+      sourceResultDigest: digestSchema,
+      sourceResultValueDigest: digestSchema,
+      sourceResultContractRef: nonblankSchema,
+      sourceResultValue: jsonValueSchema,
+      sourceReplayRef: nonblankSchema,
+      sourceReplayDigest: digestSchema,
+      sourceWorkspaceId: nonblankSchema,
+      workspaceBindingId: nonblankSchema,
+      workspaceBindingDigest: digestSchema,
+    }),
+  }),
+]) as v.GenericSchema<
+  ProductRunInvocationSourceAssertion,
+  ProductRunInvocationSourceAssertion
+>;
+
+const RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
+  kind: v.literal("run_invocation_resource_assertion"),
+  schemaVersion: v.literal("5.0.0"),
+  eventResource: EVENT_RESOURCE_ASSERTION_SCHEMA,
+  catalog: READY_GRAPH_FUNCTION_CATALOG_SCHEMA,
+  catalogView: GRAPH_FUNCTION_CATALOG_VIEW_SCHEMA,
+  applications: v.array(DECLARATION_APPLICATION_SCHEMA),
+  source: RUN_INVOCATION_SOURCE_ASSERTION_SCHEMA,
+}) as v.GenericSchema<
+  RunInvocationResourceAssertion,
+  RunInvocationResourceAssertion
+>;
+
+const RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+  kind: v.literal("run_invocation_resource_receipt"),
+  schemaVersion: v.literal("5.0.0"),
+  eventResource: EVENT_RESOURCE_RECEIPT_SCHEMA,
+  productExecutionResolution: v.nullable(refDigestSchema),
+  invocationAdmission: v.nullable(refDigestSchema),
+  run: v.nullable(RUN_TRUTH_COORDINATE_SCHEMA),
+  replay: v.nullable(RUN_TRUTH_COORDINATE_SCHEMA),
+}) as v.GenericSchema<
+  RunInvocationResourceReceipt,
+  RunInvocationResourceReceipt
+>;
+
 function projectSetupTruth(
-  prefix: abg.DurablePrefixCoordinate,
-  catalog: product.ReadyGraphFunctionCatalog,
+  prefix: DurablePrefixCoordinate,
+  catalog: ReadyGraphFunctionCatalog,
 ): AdmittedSetupTruth | null {
-  const artifactTruth = abg.projectExactPrefixArtifactTruth(prefix);
+  const artifactTruth = projectExactPrefixArtifactTruth(prefix);
   if (artifactTruth.kind === "exact_prefix_artifact_truth_projection_refusal") {
     return null;
   }
   const admittedInstalls = catalog.readinessBasis.installedProducts.map(
-    (candidate) => abg.projectAdmittedProductInstall(artifactTruth, candidate),
+    (candidate) => projectAdmittedProductInstall(artifactTruth, candidate),
   );
-  const workspaceBinding = abg.projectAdmittedWorkspaceBinding(
+  const workspaceBinding = projectAdmittedWorkspaceBinding(
     artifactTruth,
     catalog.readinessBasis.workspaceBinding,
   );
@@ -158,15 +449,15 @@ function projectSetupTruth(
     ? null
     : deepFreeze({
         artifactTruth,
-        admittedInstalls: admittedInstalls as readonly product.ProductInstall[],
+        admittedInstalls: admittedInstalls as readonly ProductInstall[],
         workspaceBinding,
       });
 }
 
 function operationBasis<TPacket extends RunPacket>(
   call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
-  binding: product.WorkspaceBinding,
-): abg.PublicOperationAdmissionBasis {
+  binding: WorkspaceBinding,
+): PublicOperationAdmissionBasis {
   return {
     operationId: "abg.operation.run.invoke",
     memberKey: call.invocation.definitionKey.memberKey,
@@ -184,11 +475,9 @@ function operationBasis<TPacket extends RunPacket>(
 
 function resourceReceipt(
   eventResource: AbgEventResourceReceipt,
-  prepared: product.PreparedProductRunInvocation<
-    product.RunInvocationMemberKey
-  > | null,
-  admission: abg.InvocationAdmission | null,
-  truth: abg.AbgRunTruthProjection | null,
+  prepared: PreparedProductRunInvocation<RunInvocationMemberKey> | null,
+  admission: InvocationAdmission | null,
+  truth: AbgRunTruthProjection | null,
 ): RunInvocationResourceReceipt {
   return deepFreeze({
     kind: "run_invocation_resource_receipt" as const,
@@ -214,13 +503,11 @@ function resourceReceipt(
 function finish<TPacket extends RunPacket>(
   call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
   resource: AcquiredAbgEventResource,
-  finalPrefix: abg.DurablePrefixCoordinate,
+  finalPrefix: DurablePrefixCoordinate,
   ownerOutput: OwnerSemanticOutput<TPacket>,
-  prepared: product.PreparedProductRunInvocation<
-    product.RunInvocationMemberKey
-  > | null,
-  admission: abg.InvocationAdmission | null,
-  truth: abg.AbgRunTruthProjection | null,
+  prepared: PreparedProductRunInvocation<RunInvocationMemberKey> | null,
+  admission: InvocationAdmission | null,
+  truth: AbgRunTruthProjection | null,
 ): Effect.Effect<
   DefinitionReturn<TPacket, RunInvocationResourceReceipt>,
   DefinitionExecutionFault<TPacket["definitionKey"]>
@@ -234,16 +521,10 @@ function finish<TPacket extends RunPacket>(
   });
 }
 
-function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacket> {
-  return (call) => Effect.scoped(Effect.gen(function* () {
-    if (!exactResources(call.resources)) {
-      return yield* Effect.fail(fault(
-        call,
-        "resource_admission",
-        "invalid_resource_assertion",
-        "run invocation requires one exact Product assertion and ABG resource",
-      ));
-    }
+function runInvocationOwner<TPacket extends RunPacket>(
+  call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
+): ReturnType<RunCallable<TPacket>> {
+  return Effect.scoped(Effect.gen(function* () {
     const resource = yield* Effect.acquireRelease(
       Effect.suspend(() => {
         const acquired = acquireAbgEventResource(call.resources.eventResource);
@@ -269,7 +550,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
         call,
         resource,
         entryPrefix,
-        product.ProductRunInvocationPort.projectOwnerRefusal(
+        ProductRunInvocationPort.projectOwnerRefusal(
           call.invocation.definitionKey.memberKey,
           { stage: "setup", code: "admitted_setup_absent" },
         ) as OwnerSemanticOutput<TPacket>,
@@ -281,7 +562,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
     const source = call.resources.source.kind === "none"
       ? call.resources.source
       : (() => {
-          const basis = abg.rehydrateInvocationSourceResultBasisAtDurablePrefix(
+          const basis = rehydrateInvocationSourceResultBasisAtDurablePrefix(
             entryPrefix,
             call.resources.source.basis,
           );
@@ -297,7 +578,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
         call,
         resource,
         entryPrefix,
-        product.ProductRunInvocationPort.projectOwnerRefusal(
+        ProductRunInvocationPort.projectOwnerRefusal(
           call.invocation.definitionKey.memberKey,
           { stage: "observation", code: "source_result_absent" },
         ) as OwnerSemanticOutput<TPacket>,
@@ -315,14 +596,14 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
     const preparedResult = yield* asyncStage(
       call,
       "product_prepare",
-      () => product.ProductRunInvocationPort.prepare({
+      () => ProductRunInvocationPort.prepare({
         memberKey: call.invocation.definitionKey.memberKey,
         invocation: call.invocation as never,
         resources: productResources,
         admittedInstalls: setup.admittedInstalls,
         workspaceBinding: setup.workspaceBinding,
         verifyInstallAdmission: (install) =>
-          abg.hasAdmittedProductInstall(setup.artifactTruth, install),
+          hasAdmittedProductInstall(setup.artifactTruth, install),
         transportResourceAssertion:
           call.resources.eventResource as unknown as JsonValue,
       }),
@@ -338,10 +619,10 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
         null,
       );
     }
-    const prepared = preparedResult as product.PreparedProductRunInvocation<
-      product.RunInvocationMemberKey
+    const prepared = preparedResult as PreparedProductRunInvocation<
+      RunInvocationMemberKey
     >;
-    if (!abg.hasExactInvocationObservationBasis(
+    if (!hasExactInvocationObservationBasis(
       prepared.admittedInput,
       setup.workspaceBinding.bindingId,
       setup.workspaceBinding.bindingDigest,
@@ -351,7 +632,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
         call,
         resource,
         entryPrefix,
-        product.ProductRunInvocationPort.projectOwnerRefusal(
+        ProductRunInvocationPort.projectOwnerRefusal(
           call.invocation.definitionKey.memberKey,
           { stage: "observation", code: "observation_basis_mismatch" },
         ) as OwnerSemanticOutput<TPacket>,
@@ -361,7 +642,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
       );
     }
     const admitted = yield* syncStage(call, "invocation_admission", () =>
-      abg.admitExactInvocation(
+      admitExactInvocation(
         resource.store,
         {
           invocation: prepared.candidate,
@@ -391,7 +672,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
         call,
         resource,
         entryPrefix,
-        product.ProductRunInvocationPort.projectOwnerRefusal(
+        ProductRunInvocationPort.projectOwnerRefusal(
           call.invocation.definitionKey.memberKey,
           {
             stage: "invocation_admission",
@@ -409,7 +690,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
     }
     const admission = admitted.admission;
     const graph = yield* syncStage(call, "graph_materialization", () =>
-      gtl.materializeGraph(prepared.resolution.graphFunction, {
+      materializeGraph(prepared.resolution.graphFunction, {
         invocationAdmissionRef: admission.invocationAdmissionRef,
         admittedInputRef: prepared.rawInput.admissionRef,
         admittedInputDigest: prepared.rawInput.subjectDigest,
@@ -417,7 +698,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
       })
     );
     const graphValidation = yield* syncStage(call, "graph_validation", () =>
-      validator.validateGraph(
+      validateGraph(
         graph,
         prepared.resolution.programValidation,
         prepared.resolution.graphFunction,
@@ -434,7 +715,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
         `diagnostic://abiogenesis/validator/${row.code}@5`
       );
       const refused = yield* syncStage(call, "graph_refusal_admission", () =>
-        abg.admitInvocationRefusal(
+        admitInvocationRefusal(
           resource.store,
           admitted.successorPrefix,
           admission,
@@ -452,7 +733,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
         call,
         resource,
         refused.successorPrefix,
-        product.ProductRunInvocationPort.projectOwnerRefusal(
+        ProductRunInvocationPort.projectOwnerRefusal(
           call.invocation.definitionKey.memberKey,
           {
             stage: "graph_validation",
@@ -466,7 +747,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
       );
     }
     const execution = yield* syncStage(call, "execution_basis", () =>
-      abg.admitExecutionBasis(
+      admitExecutionBasis(
         resource.store,
         admitted.successorPrefix,
         {
@@ -494,7 +775,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
         call,
         resource,
         execution.successorPrefix,
-        product.ProductRunInvocationPort.projectOwnerRefusal(
+        ProductRunInvocationPort.projectOwnerRefusal(
           call.invocation.definitionKey.memberKey,
           { stage: "execution_basis", code: execution.admission.stage },
         ) as OwnerSemanticOutput<TPacket>,
@@ -504,7 +785,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
       );
     }
     const opened = yield* syncStage(call, "open_call", () =>
-      abg.openTraversalScope(
+      openTraversalScope(
         resource.store,
         execution.successorPrefix,
         { kind: "root", executionBasis: execution.executionBasis },
@@ -517,12 +798,12 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
     );
     if (opened.kind !== "traversal_scope_open_admission") {
       const refused = yield* syncStage(call, "open_refusal_admission", () =>
-        abg.admitInvocationRefusal(
+        admitInvocationRefusal(
           resource.store,
           execution.successorPrefix,
           admission,
           "open_call",
-          product.sha256Canonical(opened as unknown as product.JsonValue),
+          sha256Canonical(opened as unknown as JsonValue),
           [`diagnostic://abiogenesis/open-call/${opened.code}@5`],
           {
             eventTime: call.invocation.eventTime,
@@ -535,7 +816,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
         call,
         resource,
         refused.successorPrefix,
-        product.ProductRunInvocationPort.projectOwnerRefusal(
+        ProductRunInvocationPort.projectOwnerRefusal(
           call.invocation.definitionKey.memberKey,
           {
             stage: "open_call",
@@ -549,7 +830,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
       );
     }
     const authorityPrefix = yield* syncStage(call, "runtime_truth", () =>
-      abg.projectRuntimeTruthAtDurablePrefix(
+      projectRuntimeTruthAtDurablePrefix(
         opened.successorPrefix,
         opened.scope.runId,
       ).authorityPrefix
@@ -560,13 +841,13 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
         artifactTruth: setup.artifactTruth,
         implementationSet: execution.implementationSet,
         executionResolution: prepared.resolution,
-        semanticsProjection: product.projectInstalledLeafSemantics(
+        semanticsProjection: projectInstalledLeafSemantics(
           prepared.resolution.productSemantics,
         ),
       })
     );
     const traversal = yield* asyncStage(call, "hog_traversal", () =>
-      hog.executeGraphTraversal({
+      executeGraphTraversal({
         store: resource.store,
         predecessorPrefix: opened.successorPrefix,
         executionBasis: execution.executionBasis,
@@ -603,7 +884,7 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
         call,
         resource,
         opened.successorPrefix,
-        product.ProductRunInvocationPort.projectOwnerRefusal(
+        ProductRunInvocationPort.projectOwnerRefusal(
           call.invocation.definitionKey.memberKey,
           {
             stage: "traversal",
@@ -618,9 +899,9 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
     }
     const finalPrefix = traversal.successorPrefix;
     const truth = yield* syncStage(call, "run_truth", () =>
-      abg.projectRunTruthAtDurablePrefix(finalPrefix, opened.scope.runId)
+      projectRunTruthAtDurablePrefix(finalPrefix, opened.scope.runId)
     );
-    const ownerOutput = product.ProductRunInvocationPort.projectOutcome(
+    const ownerOutput = ProductRunInvocationPort.projectOutcome(
       call.invocation.definitionKey.memberKey,
       truth,
     ) as OwnerSemanticOutput<TPacket>;
@@ -636,7 +917,20 @@ function binding<TPacket extends RunPacket>(packet: TPacket): RunCallable<TPacke
   }));
 }
 
-export const RUN_INVOCATION_DEFINITION_BINDINGS = Object.freeze({
-  invoke: binding(RUN_OPERATION_CONTRACTS.invoke.invoke),
-  start: binding(RUN_OPERATION_CONTRACTS.invoke.start),
+const invoke = bindExactPrefixTransition(
+  RUN_OPERATION_CONTRACTS.invoke.invoke,
+  runInvocationOwner<InvokePacket>,
+  RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA,
+  RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA,
+);
+
+const start = bindExactPrefixTransition(
+  RUN_OPERATION_CONTRACTS.invoke.start,
+  runInvocationOwner<StartPacket>,
+  RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA,
+  RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA,
+);
+
+export const RUN_DEFINITION_BINDINGS = Object.freeze({
+  invoke: Object.freeze({ invoke, start }),
 });
