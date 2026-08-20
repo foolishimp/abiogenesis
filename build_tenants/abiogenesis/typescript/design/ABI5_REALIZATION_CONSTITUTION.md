@@ -1917,6 +1917,90 @@ GTL, HoG, ABG, Validator, or Implementation ports. It does not sequence their
 relations. The one installed callable is already statically closed over the
 exact imported owner composition for its definition.
 
+##### Product-issued `ProgramGraphFunctionMembership` coordinate
+
+The semantic membership relation remains owner-authored in two reciprocal
+declarations: the resolved GTL `Program.callableMembership` names the selected
+GraphFunction definition, and its published Catalog contribution
+`programMembershipRefs` names the resolved Program. The Validator validates
+that whole-Program relation. Product execution resolution alone issues the
+deterministic evidence coordinate after exact installed selection; issuing
+evidence does not transfer semantic ownership from GTL or the publisher to
+Product.
+
+The canonical preimage is exactly the two-field object whose `programRef` is
+the resolved `Program.programRef` and whose `graphFunctionRef` is the selected
+Catalog entry's `definitionRef`. No kind, schema, owner, catalog, install,
+validation, or runtime field enters this membership preimage. Its construction
+is:
+
+```text
+membershipPreimage = {
+  programRef: resolvedProgram.programRef,
+  graphFunctionRef: selectedCatalogEntry.definitionRef
+}
+membershipDigest = sha256Canonical(membershipPreimage)
+membershipRef =
+  "program-graph-function-membership://abiogenesis/" +
+  membershipDigest.slice("sha256:".length)
+programGraphFunctionMembership = {
+  ref: membershipRef,
+  digest: membershipDigest
+}
+```
+
+The immutable `ProductExecutionResolution` adds this field immediately after
+`graphFunctionOwner` in its existing Program/GraphFunction coordinate block:
+
+```ts
+readonly programGraphFunctionMembership:
+  ReferenceDigest<ProgramGraphFunctionMembership>;
+```
+
+Product constructs the coordinate only on successful
+`ProductExecutionResolution`, after all of these relations hold: reciprocal
+`Program.callableMembership` and contribution `programMembershipRefs`;
+byte-exact reproduction of the selected Catalog entry's GraphFunction from one
+exact declaration-owner publication; agreement of the GraphFunction bytes,
+definition digest, declaration owner, and publication coordinate; resolution
+of that publication to one exact ABG-admitted owner install; and one valid
+`ProgramValidation`. Catalog presence, one-sided membership, validation alone,
+or a pre-resolution candidate cannot issue it.
+
+The coordinate is part of the resolution body before `resolutionDigest` is
+computed, so the enclosing digest and ref cover it. On validation,
+`isProductExecutionResolution` reconstructs the exact two-field preimage from
+`candidate.programRef` and `candidate.graphFunctionRef`, recomputes the
+membership digest and ref, requires both to equal
+`candidate.programGraphFunctionMembership`, and then recomputes the existing
+resolution digest and ref over the complete body including that coordinate.
+Recomputation verifies Product-issued evidence; it is not another issuance
+path.
+
+Every downstream execution binding that consumes the resolution compares the
+supplied `execution_program` ref/digest to the resolution's
+`programRef`/`programDigest`, the supplied
+`graph_function.graphFunction` ref/digest to its
+`graphFunctionRef`/`graphFunctionDigest`, and the supplied
+`graph_function.membership` ref/digest to
+`programGraphFunctionMembership`. The binding, Public, and tests may consume,
+compare, or corrupt an issued coordinate for proof; they may not mint one. If
+the operation-indexed authority carrier forbids `graph_function`, that slot
+remains `null` and neither Public nor a binding injects the coordinate.
+
+The existing reference frames and concern lenses classify this one relation:
+
+| Frame or lens | Coordinate law |
+|---|---|
+| **Owner / Authority** | GTL Program and the reciprocal publisher contribution own semantic membership; Validator owns whole-Program judgment; Product resolution alone issues the derived evidence. Evidence issuance moves no semantic authority. |
+| **Operator** | One pure `derive` maps the exact two-ref preimage to its ref/digest. It performs no selection, validation, transition, admission, traversal, or projection and is not a fourth binding combinator. |
+| **Temporal / Install** | Derivation occurs only after the exact installed Product resolution has closed reciprocal membership, GraphFunction bytes/digest/owner/publication/admitted-install identity, and valid `ProgramValidation`. It cannot exist as earlier Catalog, validation, or process-local truth. |
+| **Proof** | One positive installed path must consume the Product-issued coordinate. Holding the selected GraphFunction fixed while substituting a sibling Program, holding the Program fixed while substituting a sibling GraphFunction, and crossing a sibling membership ref with the selected digest or the selected ref with a sibling digest must each refuse before any semantic owner call and with zero ABG append. |
+
+`ProgramGraphFunctionMembership` is pure immutable evidence. It is not a new
+entity, Catalog row, runtime fact, event, registry, lifecycle, semantic owner,
+or fourth combinator, and it creates no shared identity framework.
+
 Filesystem, artifact, and held-runtime forms are instances or owner-local
 compositions of the three combinators, not additional primitives:
 
@@ -3789,4 +3873,20 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **migration consequence** | T-287 and the design README migrate their review/evidence decomposition to exact frozen combinator/kernel subjects, the equivalence predicate, and the invalidation cone. No code, test, runtime, catalog, entity, owner, definition, accepted-evidence, or story-point migration occurs. All 56 mechanical checks, changed-seam falsifiers, and existing behavioral qualification remain required. |
 | **current disposition** | No code is accepted. Banked behavior remains 37/56 at `e7e252ed`, 5.6.2C conformance remains 0/56, and W2-05 points remain unearned. `bf193b3d` and its 39/56 claim remain rejected evidence. |
 | **prohibited growth** | No runtime review engine, review registry, frame object, runtime evidence dispatcher, generated semantic dispatcher, per-coordinate semantic review roster, or fourth binding combinator may arise from this law. |
+| **promotion status** | ABIogenesis-local W2-05 design law under immutable STDO `v2.2.2`. Shared-method promotion requires separate methodology re-entry and representative evidence. |
+
+### 16.9 T-287 Product-Issued Program/GraphFunction Membership Coordinate Amendment Record
+
+| Field | Record |
+|---|---|
+| **reason** | The operation-indexed execution carrier already requires Program identity, GraphFunction identity, and membership evidence, but the accepted resolution/binding law did not fix one issuer or canonical coordinate. Allowing Public, a binding, or a test to manufacture that evidence would duplicate Product selection and permit crossed Program/GraphFunction authority. |
+| **change class and scope** | One bounded ABIogenesis-local `design_reframe`. Product and requirements are unchanged and sufficient. The amendment adds only the `ProgramGraphFunctionMembership` coordinate law and the downstream Product-resolution, binding, and test migration required to consume it. |
+| **upstream basis** | `PRODUCT.md` GTL Program membership, whole-Program validation, exact installed Catalog/invocation basis, thin Public, and Definition/Tool/Runtime authority laws; `REQ-L-GTL3-CONTRACT-LAW-API-003`, `-009`, and `-016`; `REQ-L-GTL3-GRAPHFUNCTION-026`; `REQ-M-GTL3-PROGRAM-TRAVERSAL-002`, `-004`, and `-009`; `REQ-R-ABG3-BINDING-002..005`; and `REQ-P-CATALOG-003`, `-005`, `-015..017`, and `-029`. |
+| **clauses extended** | Section 5.6.2C now fixes one Product-issued membership evidence coordinate, its exact two-ref preimage and digest/ref law, its successful installed-resolution construction boundary, downstream comparison, and proportional proof falsifiers. Section 5.6.5A review compression remains unchanged. |
+| **superseded clause** | None. GTL and publisher semantic ownership, Validator whole-Program judgment, Product installed resolution, the exact three-combinator algebra, singular Public call, Graph Catalog accepted design, and proportional review law remain operative. |
+| **affected catalog/entity rows** | None. The coordinate is pure immutable derived evidence, not an entity, Catalog contribution or row, runtime fact, event, registry, lifecycle, owner, or shared identity framework. The Graph Catalog accepted design is unchanged. |
+| **authority and construction decision** | Product execution resolution alone derives the coordinate after reciprocal authored membership, exact GraphFunction bytes/digest/declaration owner/publication/admitted install, and valid `ProgramValidation`. `ProductExecutionResolution` carries `programGraphFunctionMembership: ReferenceDigest<ProgramGraphFunctionMembership>` adjacent to its Program/GraphFunction coordinates; its enclosing digest covers the field, and validation recomputes both membership and resolution digest/ref relations. |
+| **migration consequence** | Migrate only Product execution resolution to issue the coordinate, downstream execution binding to compare `execution_program`, `graph_function.graphFunction`, and `graph_function.membership` with the issued values, and tests to obtain positive evidence from Product resolution and exercise substitution/crossed-pair falsifiers with zero owner call/append. Public, bindings, and tests may not mint it; operation-indexed forbidden `graph_function` remains `null`. This frozen design-worker subject contains no code, test, Public, Catalog, or ambient edit. |
+| **current disposition** | External counts remain 18 operations and 56 definitions; the twelve-key Wave 2 behavioral boundary and all W2 points remain unchanged. Banked behavior remains 37/56 at `e7e252ed`, demonstrated 5.6.2C conformance remains 0/56, W2-05 remains eight unearned points, and accepted Wave 2 progress remains 11/32. `bf193b3d` remains rejected evidence and gains no count, conformance, review-bank, or point credit. |
+| **prohibited growth** | No new entity, Catalog row, runtime fact/event, registry, lifecycle, owner, shared identity framework, Public helper issuer, test issuer, or fourth binding combinator may arise from this coordinate. |
 | **promotion status** | ABIogenesis-local W2-05 design law under immutable STDO `v2.2.2`. Shared-method promotion requires separate methodology re-entry and representative evidence. |
