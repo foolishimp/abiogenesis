@@ -6,12 +6,12 @@ import {
   isWorkspaceAuthorityBasis,
   isWorkspaceBindingCandidate,
   type ProductInstall,
-  type ProductInstallCandidate,
   type ResolvedProductLock,
   type WorkspaceAuthorityBasis,
   type WorkspaceBinding,
   type WorkspaceBindingCandidate,
-} from "../product/index.js";
+} from "../product/environment.js";
+import type { ProductInstallCandidate } from "../product/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import {
   isSha256Digest,

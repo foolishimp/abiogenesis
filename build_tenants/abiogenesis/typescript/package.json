@@ -20,6 +20,10 @@
       "types": "./build/code/src/product/index.d.ts",
       "import": "./build/code/src/product/index.js"
     },
+    "./installed-loader": {
+      "types": "./build/code/src/product/installed_module.d.ts",
+      "import": "./build/code/src/product/installed_module.js"
+    },
     "./abg": {
       "types": "./build/code/src/abg/index.d.ts",
       "import": "./build/code/src/abg/index.js"

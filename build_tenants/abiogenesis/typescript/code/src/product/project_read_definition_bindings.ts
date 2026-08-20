@@ -30,11 +30,13 @@ import {
   sameJson,
   validatedOwnerOutput,
 } from "../shared/definition_binding_mechanics.js";
-import type {
-  DefinitionCall,
-  DefinitionExecutionFault,
-  DefinitionReturn,
-  ExactDefinitionCallable,
+import {
+  admitDefinitionExecutionFault,
+  type DefinitionCall,
+  type DefinitionExecutionFault,
+  type DefinitionReturn,
+  type ExactDefinitionCallable,
+  type PreDefinitionExecutionFault,
 } from "../shared/effect_definition.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { OwnerSemanticOutput } from
@@ -100,7 +102,7 @@ function fault<TContract extends ProjectReadContract>(
   call: DefinitionCall<TContract, unknown>,
   code: string,
   message: string,
-): DefinitionExecutionFault<TContract["definitionKey"]> {
+): PreDefinitionExecutionFault<TContract["definitionKey"]> {
   return definitionFault(
     call.invocation.definitionKey,
     "resource_admission",
@@ -121,6 +123,33 @@ function validResources<TPacket extends ProjectReadPacket>(
     value.schemaVersion === "5.0.0" &&
     isRecord(value.packet) &&
     sameJson(value, value);
+}
+
+function admittedProjectReadFault<
+  TContract extends ProjectReadContract,
+  TPacket extends ProjectReadPacket,
+>(
+  cause: unknown,
+  call: DefinitionCall<
+    TContract,
+    ProductProjectReadResourceAssertion<TPacket>
+  >,
+  additionalKeys: readonly (
+    "artifactTruth" | "runtime" | "workspaceManifest"
+  )[],
+): DefinitionExecutionFault<
+  TContract["definitionKey"],
+  ProductProjectReadResourceAssertion<TPacket>
+> | null {
+  return admitDefinitionExecutionFault(
+    cause,
+    call.invocation.definitionKey,
+    (candidate) =>
+      validResources<TPacket>(candidate, additionalKeys) &&
+        sameJson(candidate, call.resources)
+        ? { resourceReceipt: candidate }
+        : null,
+  );
 }
 
 function baseRelationMatches<TContract extends ProjectReadContract>(
@@ -551,11 +580,18 @@ const catalog_list: ExactDefinitionCallable<
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.catalog_list.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admittedProjectReadFault(cause, call, [
+      "artifactTruth",
+    ]);
+    if (admittedFault !== null) return admittedFault;
+    if (isDefinitionFault(cause)) {
+      throw new TypeError(
+        "Product catalog-list owner emitted a malformed execution fault",
+      );
+    }
+    return fault(call, "owner_execution_failure", String(cause));
+  },
 });
 
 const catalog_describe: ExactDefinitionCallable<
@@ -629,11 +665,18 @@ const catalog_describe: ExactDefinitionCallable<
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.catalog_describe.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admittedProjectReadFault(cause, call, [
+      "artifactTruth",
+    ]);
+    if (admittedFault !== null) return admittedFault;
+    if (isDefinitionFault(cause)) {
+      throw new TypeError(
+        "Product catalog-describe owner emitted a malformed execution fault",
+      );
+    }
+    return fault(call, "owner_execution_failure", String(cause));
+  },
 });
 
 const workspace_status: ExactDefinitionCallable<
@@ -752,11 +795,19 @@ const workspace_status: ExactDefinitionCallable<
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.workspace_status.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admittedProjectReadFault(cause, call, [
+      "artifactTruth",
+      "workspaceManifest",
+    ]);
+    if (admittedFault !== null) return admittedFault;
+    if (isDefinitionFault(cause)) {
+      throw new TypeError(
+        "Product workspace-status owner emitted a malformed execution fault",
+      );
+    }
+    return fault(call, "owner_execution_failure", String(cause));
+  },
 });
 
 const install_evidence: ExactDefinitionCallable<
@@ -853,11 +904,18 @@ const install_evidence: ExactDefinitionCallable<
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.install_evidence.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admittedProjectReadFault(cause, call, [
+      "artifactTruth",
+    ]);
+    if (admittedFault !== null) return admittedFault;
+    if (isDefinitionFault(cause)) {
+      throw new TypeError(
+        "Product install-evidence owner emitted a malformed execution fault",
+      );
+    }
+    return fault(call, "owner_execution_failure", String(cause));
+  },
 });
 
 const ticket_consensus: ExactDefinitionCallable<
@@ -982,11 +1040,19 @@ const ticket_consensus: ExactDefinitionCallable<
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admittedProjectReadFault(cause, call, [
+      "artifactTruth",
+      "runtime",
+    ]);
+    if (admittedFault !== null) return admittedFault;
+    if (isDefinitionFault(cause)) {
+      throw new TypeError(
+        "Product ticket-consensus owner emitted a malformed execution fault",
+      );
+    }
+    return fault(call, "owner_execution_failure", String(cause));
+  },
 });
 
 export const PRODUCT_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze({

@@ -2,6 +2,7 @@ import * as Effect from "effect/Effect";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
+  preDefinitionFault,
   type DefinitionCall,
   type DefinitionExecutionFault,
   type DefinitionReturn,
@@ -53,21 +54,21 @@ function fault<K extends CleanPacket["definitionKey"] | ImportedPacket["definiti
   definitionKey: K,
   code: string,
   message: string,
-): DefinitionExecutionFault<K> {
-  return deepFreeze({
-    kind: "definition_execution_fault" as const,
-    schemaVersion: "5.0.0" as const,
+): DefinitionExecutionFault<K, WorkspaceResourceReceipt> {
+  return preDefinitionFault(
     definitionKey,
-    stage: "resource_admission",
+    "resource_admission",
     code,
     message,
-    evidence: {},
-  });
+  );
 }
 
 function validateResources<TPacket extends CleanPacket | ImportedPacket | OpenPacket>(
   call: DefinitionCall<TPacket, WorkspaceResourceAssertion>,
-): DefinitionExecutionFault<TPacket["definitionKey"]> | null {
+): DefinitionExecutionFault<
+  TPacket["definitionKey"],
+  WorkspaceResourceReceipt
+> | null {
   let encoded: string;
   try {
     encoded = canonicalJson(call.resources as unknown as JsonValue);

@@ -7,6 +7,7 @@ import type {
   DefinitionCall, DefinitionExecutionFault, DefinitionReturn,
   ExactDefinitionCallable,
 } from "../shared/effect_definition.js";
+import { preDefinitionFault } from "../shared/effect_definition.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   absolutePathSchema, admitRuntimeContract, digestSchema, nonblankSchema,
@@ -73,16 +74,16 @@ type AdmittedResources = Readonly<{
 function fault(
   call: DefinitionCall<VerifyPacket, ProductVerificationResources>,
   stage: string, code: string, message: string,
-): DefinitionExecutionFault<VerifyPacket["definitionKey"]> {
-  return deepFreeze({
-    kind: "definition_execution_fault" as const,
-    schemaVersion: "5.0.0" as const,
-    definitionKey: call.invocation.definitionKey,
+): DefinitionExecutionFault<
+  VerifyPacket["definitionKey"],
+  ProductVerificationResourceDisposition
+> {
+  return preDefinitionFault(
+    call.invocation.definitionKey,
     stage,
     code,
     message,
-    evidence: {},
-  });
+  );
 }
 
 function sameCoordinate(left: ReferenceDigest, right: ReferenceDigest): boolean {
@@ -102,7 +103,10 @@ function artifactMatchesRequest(
 
 function admitResources(
   call: DefinitionCall<VerifyPacket, ProductVerificationResources>,
-): DefinitionExecutionFault<VerifyPacket["definitionKey"]> | AdmittedResources {
+): DefinitionExecutionFault<
+  VerifyPacket["definitionKey"],
+  ProductVerificationResourceDisposition
+> | AdmittedResources {
   const request = call.invocation.request;
   const schema = request.targetKind === "packed_artifact"
     ? packedResourcesSchema

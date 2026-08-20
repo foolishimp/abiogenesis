@@ -1,6 +1,6 @@
 import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
-import * as Option from "effect/Option";
+import * as Exit from "effect/Exit";
 import * as v from "valibot";
 
 import {
@@ -95,6 +95,8 @@ import {
   type DefinitionExecutionFault,
   type DefinitionReturn,
   type ExactDefinitionCallable,
+  postAppendDefinitionFault,
+  preDefinitionFault,
 } from "../shared/effect_definition.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -154,23 +156,29 @@ function fault<TPacket extends RunPacket>(
   stage: string,
   code: string,
   message: string,
-): DefinitionExecutionFault<TPacket["definitionKey"]> {
-  return deepFreeze({
-    kind: "definition_execution_fault" as const,
-    schemaVersion: "5.0.0" as const,
-    definitionKey: call.invocation.definitionKey,
+): DefinitionExecutionFault<
+  TPacket["definitionKey"],
+  RunInvocationResourceReceipt
+> {
+  return preDefinitionFault(
+    call.invocation.definitionKey,
     stage,
     code,
     message,
-    evidence: {},
-  });
+  );
 }
 
 function syncStage<TPacket extends RunPacket, A>(
   call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
   stage: string,
   action: () => A,
-): Effect.Effect<A, DefinitionExecutionFault<TPacket["definitionKey"]>> {
+): Effect.Effect<
+  A,
+  DefinitionExecutionFault<
+    TPacket["definitionKey"],
+    RunInvocationResourceReceipt
+  >
+> {
   return Effect.try({
     try: action,
     catch: (cause) => fault(
@@ -186,7 +194,13 @@ function asyncStage<TPacket extends RunPacket, A>(
   call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
   stage: string,
   action: () => Promise<A>,
-): Effect.Effect<A, DefinitionExecutionFault<TPacket["definitionKey"]>> {
+): Effect.Effect<
+  A,
+  DefinitionExecutionFault<
+    TPacket["definitionKey"],
+    RunInvocationResourceReceipt
+  >
+> {
   return Effect.tryPromise({
     try: action,
     catch: (cause) => fault(
@@ -1152,6 +1166,83 @@ function resourceReceipt(
   });
 }
 
+function postAppendStage<TPacket extends RunPacket, A>(
+  call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
+  resource: AcquiredAbgEventResource,
+  finalPrefix: DurablePrefixCoordinate,
+  prepared: PreparedProductRunInvocation<RunInvocationMemberKey>,
+  admission: InvocationAdmission,
+  truth: AbgRunTruthProjection | null,
+  stage: string,
+  program: Effect.Effect<
+    A,
+    never,
+    never
+  >,
+): Effect.Effect<
+  A,
+  DefinitionExecutionFault<
+    TPacket["definitionKey"],
+    RunInvocationResourceReceipt
+  >,
+  never
+> {
+  return Effect.catchAllCause(program, (cause) => {
+    const interrupted = Cause.isInterrupted(cause);
+    return Effect.suspend(() => {
+      const latestPrefix = selectHeldEventStoreDurablePrefix(resource.store);
+      if (
+        latestPrefix.eventLogRef !== finalPrefix.eventLogRef ||
+        latestPrefix.storeIdentity.device !== finalPrefix.storeIdentity.device ||
+        latestPrefix.storeIdentity.inode !== finalPrefix.storeIdentity.inode ||
+        latestPrefix.storeIdentity.eventContractDigest !==
+          finalPrefix.storeIdentity.eventContractDigest ||
+        latestPrefix.prefixLength < finalPrefix.prefixLength
+      ) {
+        throw new TypeError(
+          "held ABG post-append scope does not descend from its latest owner-issued prefix",
+        );
+      }
+      const eventResource = closeAbgEventResource(resource, latestPrefix);
+      const receipt = resourceReceipt(
+        eventResource,
+        prepared,
+        admission,
+        truth,
+      );
+      return Effect.fail(postAppendDefinitionFault(
+        call.invocation.definitionKey,
+        interrupted ? "interruption" : stage,
+        interrupted ? "interrupted" : `${stage}_defect`,
+        Cause.pretty(cause),
+        receipt,
+      ));
+    });
+  });
+}
+
+function postAppendSyncStage<TPacket extends RunPacket, A>(
+  call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
+  resource: AcquiredAbgEventResource,
+  finalPrefix: DurablePrefixCoordinate,
+  prepared: PreparedProductRunInvocation<RunInvocationMemberKey>,
+  admission: InvocationAdmission,
+  truth: AbgRunTruthProjection | null,
+  stage: string,
+  action: () => A,
+): ReturnType<typeof postAppendStage<TPacket, A>> {
+  return postAppendStage(
+    call,
+    resource,
+    finalPrefix,
+    prepared,
+    admission,
+    truth,
+    stage,
+    Effect.sync(action),
+  );
+}
+
 function finish<TPacket extends RunPacket>(
   call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
   resource: AcquiredAbgEventResource,
@@ -1162,7 +1253,10 @@ function finish<TPacket extends RunPacket>(
   truth: AbgRunTruthProjection | null,
 ): Effect.Effect<
   DefinitionReturn<TPacket, RunInvocationResourceReceipt>,
-  DefinitionExecutionFault<TPacket["definitionKey"]>
+  DefinitionExecutionFault<
+    TPacket["definitionKey"],
+    RunInvocationResourceReceipt
+  >
 > {
   return syncStage(call, "resource_close", () => {
     const eventResource = closeAbgEventResource(resource, finalPrefix);
@@ -1171,6 +1265,44 @@ function finish<TPacket extends RunPacket>(
       resources: resourceReceipt(eventResource, prepared, admission, truth),
     });
   });
+}
+
+function finishPostAppend<TPacket extends RunPacket>(
+  call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
+  resource: AcquiredAbgEventResource,
+  finalPrefix: DurablePrefixCoordinate,
+  ownerOutput: OwnerSemanticOutput<TPacket>,
+  prepared: PreparedProductRunInvocation<RunInvocationMemberKey>,
+  admission: InvocationAdmission,
+  truth: AbgRunTruthProjection | null,
+): Effect.Effect<
+  DefinitionReturn<TPacket, RunInvocationResourceReceipt>,
+  DefinitionExecutionFault<
+    TPacket["definitionKey"],
+    RunInvocationResourceReceipt
+  >
+> {
+  return postAppendSyncStage(
+    call,
+    resource,
+    finalPrefix,
+    prepared,
+    admission,
+    truth,
+    "resource_close",
+    () => {
+      const eventResource = closeAbgEventResource(resource, finalPrefix);
+      return deepFreeze({
+        ownerOutput,
+        resources: resourceReceipt(
+          eventResource,
+          prepared,
+          admission,
+          truth,
+        ),
+      });
+    },
+  );
 }
 
 function runInvocationOwner<TPacket extends RunPacket>(
@@ -1341,47 +1473,72 @@ function runInvocationOwner<TPacket extends RunPacket>(
       );
     }
     const admission = admitted.admission;
-    const graph = yield* syncStage(call, "graph_materialization", () =>
-      materializeGraph(prepared.resolution.graphFunction, {
-        invocationAdmissionRef: admission.invocationAdmissionRef,
-        admittedInputRef: prepared.rawInput.admissionRef,
-        admittedInputDigest: prepared.rawInput.subjectDigest,
-        admittedInput: prepared.rawInput.value,
-      })
-    );
-    const graphValidation = yield* syncStage(call, "graph_validation", () =>
-      validateGraph(
-        graph,
-        prepared.resolution.programValidation,
-        prepared.resolution.graphFunction,
-        {
+    const graph = yield* postAppendSyncStage(
+      call,
+      resource,
+      admitted.successorPrefix,
+      prepared,
+      admission,
+      null,
+      "graph_materialization",
+      () =>
+        materializeGraph(prepared.resolution.graphFunction, {
           invocationAdmissionRef: admission.invocationAdmissionRef,
           admittedInputRef: prepared.rawInput.admissionRef,
           admittedInputDigest: prepared.rawInput.subjectDigest,
           admittedInput: prepared.rawInput.value,
-        },
-      )
+        })
+    );
+    const graphValidation = yield* postAppendSyncStage(
+      call,
+      resource,
+      admitted.successorPrefix,
+      prepared,
+      admission,
+      null,
+      "graph_validation",
+      () =>
+        validateGraph(
+          graph,
+          prepared.resolution.programValidation,
+          prepared.resolution.graphFunction,
+          {
+            invocationAdmissionRef: admission.invocationAdmissionRef,
+            admittedInputRef: prepared.rawInput.admissionRef,
+            admittedInputDigest: prepared.rawInput.subjectDigest,
+            admittedInput: prepared.rawInput.value,
+          },
+        )
     );
     if (graphValidation.kind !== "graph_validation") {
       const diagnosticRefs = graphValidation.diagnostics.map((row) =>
         `diagnostic://abiogenesis/validator/${row.code}@5`
       );
-      const refused = yield* syncStage(call, "graph_refusal_admission", () =>
-        admitInvocationRefusal(
-          resource.store,
-          admitted.successorPrefix,
-          admission,
-          "graph_validation",
-          graphValidation.subjectDigest,
-          diagnosticRefs,
-          {
-            eventTime: call.invocation.eventTime,
-            correlationId: `${call.invocation.correlationRef}/graph-validation`,
-            causationEventRefs: [],
-          },
-        )
+      const refused = yield* postAppendSyncStage(
+        call,
+        resource,
+        admitted.successorPrefix,
+        prepared,
+        admission,
+        null,
+        "graph_refusal_admission",
+        () =>
+          admitInvocationRefusal(
+            resource.store,
+            admitted.successorPrefix,
+            admission,
+            "graph_validation",
+            graphValidation.subjectDigest,
+            diagnosticRefs,
+            {
+              eventTime: call.invocation.eventTime,
+              correlationId:
+                `${call.invocation.correlationRef}/graph-validation`,
+              causationEventRefs: [],
+            },
+          )
       );
-      return yield* finish(
+      return yield* finishPostAppend(
         call,
         resource,
         refused.successorPrefix,
@@ -1398,32 +1555,40 @@ function runInvocationOwner<TPacket extends RunPacket>(
         null,
       );
     }
-    const execution = yield* syncStage(call, "execution_basis", () =>
-      admitExecutionBasis(
-        resource.store,
-        admitted.successorPrefix,
-        {
-          invocationAdmission: admission,
-          rawInputValue: prepared.admittedInput,
-          program: prepared.resolution.program,
-          programValidation: prepared.resolution.programValidation,
-          graph,
-          graphValidation,
-          resolutionSetCandidate:
-            prepared.resolution.implementationSetCandidate,
-          resolutionSetValidation:
-            prepared.resolution.implementationSetValidation,
-          closureContract: prepared.resolution.closureContract,
-        },
-        {
-          eventTime: call.invocation.eventTime,
-          correlationId: `${call.invocation.correlationRef}/execution-basis`,
-          causationEventRefs: [],
-        },
-      )
+    const execution = yield* postAppendSyncStage(
+      call,
+      resource,
+      admitted.successorPrefix,
+      prepared,
+      admission,
+      null,
+      "execution_basis",
+      () =>
+        admitExecutionBasis(
+          resource.store,
+          admitted.successorPrefix,
+          {
+            invocationAdmission: admission,
+            rawInputValue: prepared.admittedInput,
+            program: prepared.resolution.program,
+            programValidation: prepared.resolution.programValidation,
+            graph,
+            graphValidation,
+            resolutionSetCandidate:
+              prepared.resolution.implementationSetCandidate,
+            resolutionSetValidation:
+              prepared.resolution.implementationSetValidation,
+            closureContract: prepared.resolution.closureContract,
+          },
+          {
+            eventTime: call.invocation.eventTime,
+            correlationId: `${call.invocation.correlationRef}/execution-basis`,
+            causationEventRefs: [],
+          },
+        )
     );
     if (execution.kind !== "execution_basis_admission") {
-      return yield* finish(
+      return yield* finishPostAppend(
         call,
         resource,
         execution.successorPrefix,
@@ -1436,35 +1601,51 @@ function runInvocationOwner<TPacket extends RunPacket>(
         null,
       );
     }
-    const opened = yield* syncStage(call, "open_call", () =>
-      openTraversalScope(
-        resource.store,
-        execution.successorPrefix,
-        { kind: "root", executionBasis: execution.executionBasis },
-        {
-          eventTime: call.invocation.eventTime,
-          correlationId: `${call.invocation.correlationRef}/open`,
-          causationEventRefs: [],
-        },
-      )
-    );
-    if (opened.kind !== "traversal_scope_open_admission") {
-      const refused = yield* syncStage(call, "open_refusal_admission", () =>
-        admitInvocationRefusal(
+    const opened = yield* postAppendSyncStage(
+      call,
+      resource,
+      execution.successorPrefix,
+      prepared,
+      admission,
+      null,
+      "open_call",
+      () =>
+        openTraversalScope(
           resource.store,
           execution.successorPrefix,
-          admission,
-          "open_call",
-          sha256Canonical(opened as unknown as JsonValue),
-          [`diagnostic://abiogenesis/open-call/${opened.code}@5`],
+          { kind: "root", executionBasis: execution.executionBasis },
           {
             eventTime: call.invocation.eventTime,
-            correlationId: `${call.invocation.correlationRef}/open-refusal`,
+            correlationId: `${call.invocation.correlationRef}/open`,
             causationEventRefs: [],
           },
         )
+    );
+    if (opened.kind !== "traversal_scope_open_admission") {
+      const refused = yield* postAppendSyncStage(
+        call,
+        resource,
+        execution.successorPrefix,
+        prepared,
+        admission,
+        null,
+        "open_refusal_admission",
+        () =>
+          admitInvocationRefusal(
+            resource.store,
+            execution.successorPrefix,
+            admission,
+            "open_call",
+            sha256Canonical(opened as unknown as JsonValue),
+            [`diagnostic://abiogenesis/open-call/${opened.code}@5`],
+            {
+              eventTime: call.invocation.eventTime,
+              correlationId: `${call.invocation.correlationRef}/open-refusal`,
+              causationEventRefs: [],
+            },
+          )
       );
-      return yield* finish(
+      return yield* finishPostAppend(
         call,
         resource,
         refused.successorPrefix,
@@ -1481,186 +1662,229 @@ function runInvocationOwner<TPacket extends RunPacket>(
         null,
       );
     }
-    const completePostOpen = Effect.gen(function* () {
-      const authorityPrefix = yield* syncStage(call, "runtime_truth", () =>
-        projectRuntimeTruthAtDurablePrefix(
-          opened.successorPrefix,
-          opened.scope.runId,
-        ).authorityPrefix
-      );
-      const leafPort = yield* asyncStage(call, "leaf_port", () =>
-        constructAdmittedLeafInvocationPort({
-          prefix: authorityPrefix,
-          artifactTruth: setup.artifactTruth,
-          implementationSet: execution.implementationSet,
-          executionResolution: prepared.resolution,
-          semanticsProjection: projectInstalledLeafSemantics(
-            prepared.resolution.productSemantics,
-          ),
-        })
-      );
-      const traversal = yield* executeGraphTraversalEffect({
-        store: resource.store,
-        predecessorPrefix: opened.successorPrefix,
-        executionBasis: execution.executionBasis,
-        openedTraversalScope: opened.scope,
-        program: prepared.resolution.program,
-        graphFunction: prepared.resolution.graphFunction,
-        graph,
-        graphValidation,
-        programValidation: prepared.resolution.programValidation,
-        implementationSet: execution.implementationSet,
-        interactionSet: execution.interactionSet,
-        continuationProductBasis: {
-          install: prepared.resolution.programInstall,
-          workspaceBinding: setup.workspaceBinding,
-          artifactTruth: setup.artifactTruth,
-          catalogView: productResources.catalogView,
-          programValidation: prepared.resolution.programValidation,
-          graphValidation,
-        },
-        leafPort,
-        closureContract: prepared.resolution.closureContract,
-        actorRuntimeBinding: {
-          workspaceBinding: setup.workspaceBinding,
-          artifactTruth: setup.artifactTruth,
-        },
-        input: prepared.admittedInput,
-        inputDigest: prepared.rawInput.subjectDigest,
-        eventTime: call.invocation.eventTime,
-        correlationId: `${call.invocation.correlationRef}/hog`,
-      });
-      if (traversal.kind === "graph_traversal_entry_refusal") {
-        const ownerOutput = yield* syncStage(
-          call,
-          "output_contract",
-          () => ProductRunInvocationPort.projectOwnerRefusal(
-            call.invocation.definitionKey.memberKey,
-            {
-              stage: "traversal",
-              code: traversal.code,
-              evidenceRefs: [traversal.diagnosticRef],
-            },
-          ) as OwnerSemanticOutput<TPacket>,
+    const recoverPostOpen = (
+      stage:
+        | "implementation_load"
+        | "hog_traversal"
+        | "operation_application"
+        | "output_contract",
+      cause: Cause.Cause<never>,
+    ): ReturnType<typeof finishPostAppend<TPacket>> =>
+      Effect.gen(function* () {
+        // This is the existing held ABG recovery relation: it selects the
+        // resource's in-scope current coordinate before issuing any outer
+        // receipt. The selected coordinate is then passed explicitly through
+        // every remaining admission and close.
+        const predecessorPrefix = selectHeldEventStoreDurablePrefix(
+          resource.store,
         );
-        return yield* finish(
+        let finalPrefix = predecessorPrefix;
+        let truth = yield* postAppendSyncStage(
           call,
           resource,
-          opened.successorPrefix,
-          ownerOutput,
+          finalPrefix,
           prepared,
           admission,
           null,
+          "post_open_runtime_truth",
+          () => projectRunTruthAtDurablePrefix(
+            finalPrefix,
+            opened.scope.runId,
+          ),
         );
-      }
-      const finalPrefix = traversal.successorPrefix;
-      const truth = yield* syncStage(call, "run_truth", () =>
-        projectRunTruthAtDurablePrefix(finalPrefix, opened.scope.runId)
-      );
-      const ownerOutput = yield* syncStage(
-        call,
-        "output_contract",
-        () => ProductRunInvocationPort.projectOutcome(
-          call.invocation.definitionKey.memberKey,
-          truth,
-        ) as OwnerSemanticOutput<TPacket>,
-      );
-      return yield* finish(
-        call,
-        resource,
-        finalPrefix,
-        ownerOutput,
-        prepared,
-        admission,
-        truth.kind === "abg_run_truth_projection" ? truth : null,
-      );
-    }).pipe(Effect.catchAllCause((cause) =>
-      (() => {
-        const failureOption = Cause.failureOption(cause);
-        const executionFault = Option.isSome(failureOption)
-          ? failureOption.value
-          : null;
-        const interrupted = Cause.isInterrupted(cause);
-        const stage = executionFault?.stage === "leaf_port"
-          ? "implementation_load" as const
-          : executionFault?.stage === "output_contract"
-          ? "output_contract" as const
-          : executionFault !== null || interrupted
-          ? "operation_application" as const
-          : "hog_traversal" as const;
-        const recoverAndFinish = () =>
-          syncStage(call, "post_open_runtime_failure", () => {
-            const predecessorPrefix = selectHeldEventStoreDurablePrefix(
-              resource.store,
-            );
-            let finalPrefix = predecessorPrefix;
-            let truth = projectRunTruthAtDurablePrefix(
-              finalPrefix,
-              opened.scope.runId,
-            );
-            if (
-              truth.kind !== "abg_run_truth_projection" ||
-              truth.runtimeStatus === "active"
-            ) {
-              const failureReceipt = admitRuntimeFailure({
-                store: resource.store,
-                predecessorPrefix,
-                executionBasis: execution.executionBasis,
-                scope: opened.scope,
-                stage,
-                subject: {
-                  definitionKey: call.invocation.definitionKey,
-                  stage: executionFault?.stage ??
-                    (interrupted ? "interruption" : "hog_traversal"),
-                  code: executionFault?.code ??
-                    (interrupted ? "interrupted" : "defect"),
-                  message: executionFault?.message ?? Cause.pretty(cause),
-                },
-                diagnosticRef: stage === "implementation_load"
-                  ? "diagnostic://abiogenesis/implementation/admitted-leaf-port-construction-failure@5"
-                  : stage === "hog_traversal"
-                  ? "diagnostic://abiogenesis/hog/traversal-defect@5"
-                  : stage === "output_contract"
-                  ? "diagnostic://abiogenesis/run/output-contract@5"
-                  : interrupted
-                  ? "diagnostic://abiogenesis/run/post-open-interruption@5"
-                  : "diagnostic://abiogenesis/run/post-open-operation@5",
-                basis: {
-                  eventTime: call.invocation.eventTime,
-                  correlationId:
-                    `${call.invocation.correlationRef}/post-open-runtime-failure`,
-                  causationEventRefs: [],
-                },
-              });
-              finalPrefix = failureReceipt.successorPrefix;
-              truth = projectRunTruthAtDurablePrefix(
-                finalPrefix,
-                opened.scope.runId,
-              );
-            }
-            return {
-              finalPrefix,
-              ownerOutput: ProductRunInvocationPort.projectOutcome(
-                call.invocation.definitionKey.memberKey,
-                truth,
-              ) as OwnerSemanticOutput<TPacket>,
-              truth: truth.kind === "abg_run_truth_projection" ? truth : null,
-            };
-          }).pipe(Effect.flatMap((recovered) => finish(
+        if (
+          truth.kind !== "abg_run_truth_projection" ||
+          truth.runtimeStatus === "active"
+        ) {
+          const interrupted = Cause.isInterrupted(cause);
+          const failureReceipt = yield* postAppendSyncStage(
             call,
             resource,
-            recovered.finalPrefix,
-            recovered.ownerOutput,
+            finalPrefix,
             prepared,
             admission,
-            recovered.truth,
-          )));
-        return recoverAndFinish().pipe(
-          Effect.catchAllCause(() => recoverAndFinish()),
+            null,
+            "post_open_runtime_failure",
+            () => admitRuntimeFailure({
+              store: resource.store,
+              predecessorPrefix: finalPrefix,
+              executionBasis: execution.executionBasis,
+              scope: opened.scope,
+              stage,
+              subject: {
+                definitionKey: call.invocation.definitionKey,
+                stage: interrupted ? "interruption" : stage,
+                code: interrupted ? "interrupted" : "defect",
+                message: Cause.pretty(cause),
+              },
+              diagnosticRef: stage === "implementation_load"
+                ? "diagnostic://abiogenesis/implementation/admitted-leaf-port-construction-failure@5"
+                : stage === "hog_traversal"
+                ? "diagnostic://abiogenesis/hog/traversal-defect@5"
+                : stage === "output_contract"
+                ? "diagnostic://abiogenesis/run/output-contract@5"
+                : interrupted
+                ? "diagnostic://abiogenesis/run/post-open-interruption@5"
+                : "diagnostic://abiogenesis/run/post-open-operation@5",
+              basis: {
+                eventTime: call.invocation.eventTime,
+                correlationId:
+                  `${call.invocation.correlationRef}/post-open-runtime-failure`,
+                causationEventRefs: [],
+              },
+            }),
+          );
+          finalPrefix = failureReceipt.successorPrefix;
+          truth = yield* postAppendSyncStage(
+            call,
+            resource,
+            finalPrefix,
+            prepared,
+            admission,
+            null,
+            "post_open_failure_truth",
+            () => projectRunTruthAtDurablePrefix(
+              finalPrefix,
+              opened.scope.runId,
+            ),
+          );
+        }
+        const ownerOutput = yield* postAppendSyncStage(
+          call,
+          resource,
+          finalPrefix,
+          prepared,
+          admission,
+          truth.kind === "abg_run_truth_projection" ? truth : null,
+          "output_contract",
+          () => ProductRunInvocationPort.projectOutcome(
+            call.invocation.definitionKey.memberKey,
+            truth,
+          ) as OwnerSemanticOutput<TPacket>,
         );
-      })()
+        return yield* finishPostAppend(
+          call,
+          resource,
+          finalPrefix,
+          ownerOutput,
+          prepared,
+          admission,
+          truth.kind === "abg_run_truth_projection" ? truth : null,
+        );
+      });
+
+    const authorityPrefixExit = yield* Effect.exit(Effect.sync(() =>
+      projectRuntimeTruthAtDurablePrefix(
+        opened.successorPrefix,
+        opened.scope.runId,
+      ).authorityPrefix
     ));
-    return yield* completePostOpen;
+    if (Exit.isFailure(authorityPrefixExit)) {
+      return yield* recoverPostOpen(
+        "operation_application",
+        authorityPrefixExit.cause,
+      );
+    }
+    const leafPortExit = yield* Effect.exit(Effect.promise(() =>
+      constructAdmittedLeafInvocationPort({
+        prefix: authorityPrefixExit.value,
+        artifactTruth: setup.artifactTruth,
+        implementationSet: execution.implementationSet,
+        executionResolution: prepared.resolution,
+        semanticsProjection: projectInstalledLeafSemantics(
+          prepared.resolution.productSemantics,
+        ),
+      })
+    ));
+    if (Exit.isFailure(leafPortExit)) {
+      return yield* recoverPostOpen("implementation_load", leafPortExit.cause);
+    }
+    const traversalExit = yield* Effect.exit(executeGraphTraversalEffect({
+      store: resource.store,
+      predecessorPrefix: opened.successorPrefix,
+      executionBasis: execution.executionBasis,
+      openedTraversalScope: opened.scope,
+      program: prepared.resolution.program,
+      graphFunction: prepared.resolution.graphFunction,
+      graph,
+      graphValidation,
+      programValidation: prepared.resolution.programValidation,
+      implementationSet: execution.implementationSet,
+      interactionSet: execution.interactionSet,
+      continuationProductBasis: {
+        install: prepared.resolution.programInstall,
+        workspaceBinding: setup.workspaceBinding,
+        artifactTruth: setup.artifactTruth,
+        catalogView: productResources.catalogView,
+        programValidation: prepared.resolution.programValidation,
+        graphValidation,
+      },
+      leafPort: leafPortExit.value,
+      closureContract: prepared.resolution.closureContract,
+      actorRuntimeBinding: {
+        workspaceBinding: setup.workspaceBinding,
+        artifactTruth: setup.artifactTruth,
+      },
+      input: prepared.admittedInput,
+      inputDigest: prepared.rawInput.subjectDigest,
+      eventTime: call.invocation.eventTime,
+      correlationId: `${call.invocation.correlationRef}/hog`,
+    }));
+    if (Exit.isFailure(traversalExit)) {
+      return yield* recoverPostOpen("hog_traversal", traversalExit.cause);
+    }
+    const traversal = traversalExit.value;
+    if (traversal.kind === "graph_traversal_entry_refusal") {
+      const ownerOutputExit = yield* Effect.exit(Effect.sync(() =>
+        ProductRunInvocationPort.projectOwnerRefusal(
+          call.invocation.definitionKey.memberKey,
+          {
+            stage: "traversal",
+            code: traversal.code,
+            evidenceRefs: [traversal.diagnosticRef],
+          },
+        ) as OwnerSemanticOutput<TPacket>
+      ));
+      if (Exit.isFailure(ownerOutputExit)) {
+        return yield* recoverPostOpen("output_contract", ownerOutputExit.cause);
+      }
+      return yield* finishPostAppend(
+        call,
+        resource,
+        opened.successorPrefix,
+        ownerOutputExit.value,
+        prepared,
+        admission,
+        null,
+      );
+    }
+    const finalPrefix = traversal.successorPrefix;
+    const truthExit = yield* Effect.exit(Effect.sync(() =>
+      projectRunTruthAtDurablePrefix(finalPrefix, opened.scope.runId)
+    ));
+    if (Exit.isFailure(truthExit)) {
+      return yield* recoverPostOpen("operation_application", truthExit.cause);
+    }
+    const ownerOutputExit = yield* Effect.exit(Effect.sync(() =>
+      ProductRunInvocationPort.projectOutcome(
+        call.invocation.definitionKey.memberKey,
+        truthExit.value,
+      ) as OwnerSemanticOutput<TPacket>
+    ));
+    if (Exit.isFailure(ownerOutputExit)) {
+      return yield* recoverPostOpen("output_contract", ownerOutputExit.cause);
+    }
+    return yield* finishPostAppend(
+      call,
+      resource,
+      finalPrefix,
+      ownerOutputExit.value,
+      prepared,
+      admission,
+      truthExit.value.kind === "abg_run_truth_projection"
+        ? truthExit.value
+        : null,
+    );
   }));
 }
 

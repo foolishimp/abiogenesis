@@ -1,6 +1,7 @@
 import * as Effect from "effect/Effect";
 
 import {
+  preDefinitionFault,
   type DefinitionCall,
   type DefinitionExecutionFault,
   type DefinitionReturn,
@@ -28,16 +29,13 @@ function fault<TPacket extends ReleaseSnapshotPacket>(
   stage: string,
   code: string,
   message: string,
-): DefinitionExecutionFault<TPacket["definitionKey"]> {
-  return deepFreeze({
-    kind: "definition_execution_fault" as const,
-    schemaVersion: "5.0.0" as const,
-    definitionKey: call.invocation.definitionKey,
+): DefinitionExecutionFault<TPacket["definitionKey"], null> {
+  return preDefinitionFault(
+    call.invocation.definitionKey,
     stage,
     code,
     message,
-    evidence: {},
-  });
+  );
 }
 
 function publishedRcOutput(

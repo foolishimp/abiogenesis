@@ -1,11 +1,14 @@
 import * as Effect from "effect/Effect";
+import * as v from "valibot";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
+  admitDefinitionExecutionFault,
+  preDefinitionFault,
   type DefinitionCall,
-  type DefinitionExecutionFault,
   type DefinitionReturn,
   type ExactDefinitionCallable,
+  type PreDefinitionExecutionFault,
 } from "../shared/effect_definition.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -17,6 +20,7 @@ import {
   acquireAbgEventResource,
   abandonAbgEventResource,
   closeAbgEventResource,
+  validateAbgEventResourceReceipt,
   type AbgEventResourceAssertion,
   type AbgEventResourceReceipt,
 } from "./definition_event_resource.js";
@@ -41,6 +45,18 @@ export interface AbgProjectReadResourceReceipt {
   readonly eventResource: AbgEventResourceReceipt;
 }
 
+const ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+  kind: v.literal("abg_project_read_resource_receipt"),
+  schemaVersion: v.literal("5.0.0"),
+  eventResource: v.custom<AbgEventResourceReceipt>(
+    validateAbgEventResourceReceipt,
+    "abg_event_resource_receipt",
+  ),
+}) as v.GenericSchema<
+  AbgProjectReadResourceReceipt,
+  AbgProjectReadResourceReceipt
+>;
+
 type AnyReadPacket = (typeof ABG_PROJECT_READ_CONTRACTS)[keyof typeof ABG_PROJECT_READ_CONTRACTS];
 type AnyReadCallable = ExactDefinitionCallable<
   AnyReadPacket,
@@ -53,16 +69,13 @@ function fault(
   stage: string,
   code: string,
   message: string,
-): DefinitionExecutionFault<AnyReadPacket["definitionKey"]> {
-  return deepFreeze({
-    kind: "definition_execution_fault" as const,
-    schemaVersion: "5.0.0" as const,
-    definitionKey: call.invocation.definitionKey,
+): PreDefinitionExecutionFault<AnyReadPacket["definitionKey"]> {
+  return preDefinitionFault(
+    call.invocation.definitionKey,
     stage,
     code,
     message,
-    evidence: {},
-  });
+  );
 }
 
 function asRecord(value: unknown): Readonly<Record<string, JsonValue>> | null {
@@ -460,10 +473,22 @@ function binding(
       }
     },
     catch: (cause) => {
+      const admittedFault = admitDefinitionExecutionFault(
+        cause,
+        call.invocation.definitionKey,
+        (candidate) => v.is(ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA, candidate)
+          ? { resourceReceipt: candidate }
+          : null,
+      );
+      if (admittedFault !== null) return admittedFault;
       if (
         typeof cause === "object" && cause !== null &&
         (cause as { kind?: unknown }).kind === "definition_execution_fault"
-      ) return cause as DefinitionExecutionFault<AnyReadPacket["definitionKey"]>;
+      ) {
+        throw new TypeError(
+          "ABG project-read owner emitted a malformed execution fault",
+        );
+      }
       return fault(
         call,
         "owner_projection",

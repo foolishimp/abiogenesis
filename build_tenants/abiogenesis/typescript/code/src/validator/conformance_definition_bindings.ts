@@ -25,10 +25,11 @@ import {
   sameJson,
   validatedOwnerOutput,
 } from "../shared/definition_binding_mechanics.js";
-import type {
-  DefinitionExecutionFault,
-  DefinitionReturn,
-  ExactDefinitionCallable,
+import {
+  admitDefinitionExecutionFault,
+  type DefinitionReturn,
+  type ExactDefinitionCallable,
+  type PreDefinitionExecutionFault,
 } from "../shared/effect_definition.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { OwnerSemanticOutput } from
@@ -70,11 +71,32 @@ export interface ConformanceEvaluationResourceAssertion {
   readonly declaredInventory: readonly ModulePublication[];
 }
 
+function validConformanceResources(
+  value: unknown,
+): value is ConformanceEvaluationResourceAssertion {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "artifactTruth",
+      "conformanceLaw",
+      "declaredInventory",
+      "kind",
+      "packet",
+      "schemaVersion",
+    ]) &&
+    value.kind === "conformance_evaluation_resource_assertion" &&
+    value.schemaVersion === "5.0.0" &&
+    isRecord(value.packet) &&
+    isRecord(value.conformanceLaw) &&
+    Array.isArray(value.declaredInventory) &&
+    value.declaredInventory.length > 0 &&
+    sameJson(value, value);
+}
+
 function fault(
   definitionKey: ConformanceContract["definitionKey"],
   code: string,
   message: string,
-): DefinitionExecutionFault<ConformanceContract["definitionKey"]> {
+): PreDefinitionExecutionFault<ConformanceContract["definitionKey"]> {
   return definitionFault(
     definitionKey,
     "resource_admission",
@@ -259,24 +281,7 @@ const gtl_program: ExactDefinitionCallable<
     ConformanceEvaluationResourceAssertion
   > => {
     const resources = call.resources;
-    if (
-      !isRecord(resources) ||
-      !hasExactKeys(resources, [
-        "artifactTruth",
-        "conformanceLaw",
-        "declaredInventory",
-        "kind",
-        "packet",
-        "schemaVersion",
-      ]) ||
-      resources.kind !== "conformance_evaluation_resource_assertion" ||
-      resources.schemaVersion !== "5.0.0" ||
-      !isRecord(resources.packet) ||
-      !isRecord(resources.conformanceLaw) ||
-      !Array.isArray(resources.declaredInventory) ||
-      resources.declaredInventory.length === 0 ||
-      !sameJson(resources, resources)
-    ) {
+    if (!validConformanceResources(resources)) {
       throw fault(
         call.invocation.definitionKey,
         "invalid_resource_assertion",
@@ -453,13 +458,28 @@ const gtl_program: ExactDefinitionCallable<
     );
     return deepFreeze({ ownerOutput, resources });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<ConformanceContract["definitionKey"]>
-    : fault(
+  catch: (cause) => {
+    const admittedFault = admitDefinitionExecutionFault(
+      cause,
+      call.invocation.definitionKey,
+      (candidate) =>
+        validConformanceResources(candidate) &&
+          sameJson(candidate, call.resources)
+          ? { resourceReceipt: candidate }
+          : null,
+    );
+    if (admittedFault !== null) return admittedFault;
+    if (isDefinitionFault(cause)) {
+      throw new TypeError(
+        "Validator conformance owner emitted a malformed execution fault",
+      );
+    }
+    return fault(
       call.invocation.definitionKey,
       "owner_execution_failure",
       String(cause),
-    ),
+    );
+  },
 });
 
 export const CONFORMANCE_DEFINITION_BINDINGS = Object.freeze({

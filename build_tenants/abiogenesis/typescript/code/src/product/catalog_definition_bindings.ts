@@ -1,9 +1,11 @@
 import * as Effect from "effect/Effect";
+import * as v from "valibot";
 
 import {
   abandonAbgEventResource,
   acquireAbgEventResource,
   closeAbgEventResource,
+  validateAbgEventResourceReceipt,
   type AbgEventResourceAssertion,
   type AbgEventResourceReceipt,
 } from "../abg/definition_event_resource.js";
@@ -34,17 +36,19 @@ import {
   sameJson,
   validatedOwnerOutput,
 } from "../shared/definition_binding_mechanics.js";
-import type {
-  DefinitionCall,
-  DefinitionExecutionFault,
-  DefinitionReturn,
-  ExactDefinitionCallable,
+import {
+  admitDefinitionExecutionFault,
+  type DefinitionCall,
+  type DefinitionReturn,
+  type ExactDefinitionCallable,
+  type PreDefinitionExecutionFault,
 } from "../shared/effect_definition.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type {
-  OwnerRefusalOf,
-  OwnerSemanticOutput,
+import {
+  refDigestSchema,
+  type OwnerRefusalOf,
+  type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import type {
@@ -158,12 +162,59 @@ export interface CatalogApplicationResourceReceipt {
   readonly application: ReferenceDigest<"CatalogApplication"> | null;
 }
 
+const CATALOG_ADMISSION_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+  kind: v.literal("catalog_admission_resource_receipt"),
+  schemaVersion: v.literal("5.0.0"),
+  disposition: v.literal("read_only_unchanged"),
+  eventResource: v.custom<AbgEventResourceReceipt>(
+    validateAbgEventResourceReceipt,
+    "abg_event_resource_receipt",
+  ),
+  workspaceBinding: refDigestSchema,
+  resolvedLock: refDigestSchema,
+  installedProducts: v.array(refDigestSchema),
+  descriptors: v.array(refDigestSchema),
+  contributionManifests: v.array(refDigestSchema),
+  publishedGtl: v.array(refDigestSchema),
+  catalog: v.nullable(refDigestSchema),
+}) as v.GenericSchema<
+  CatalogAdmissionResourceReceipt,
+  CatalogAdmissionResourceReceipt
+>;
+
+const CATALOG_VIEW_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+  kind: v.literal("catalog_view_resource_receipt"),
+  schemaVersion: v.literal("5.0.0"),
+  disposition: v.literal("read_only_unchanged"),
+  catalog: refDigestSchema,
+  view: v.nullable(refDigestSchema),
+}) as v.GenericSchema<
+  CatalogViewResourceReceipt,
+  CatalogViewResourceReceipt
+>;
+
+const CATALOG_APPLICATION_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+  kind: v.literal("catalog_application_resource_receipt"),
+  schemaVersion: v.literal("5.0.0"),
+  disposition: v.literal("read_only_unchanged"),
+  catalog: refDigestSchema,
+  catalogRow: refDigestSchema,
+  catalogView: refDigestSchema,
+  applicationBasis: refDigestSchema,
+  validationReceipt: refDigestSchema,
+  contributor: refDigestSchema,
+  application: v.nullable(refDigestSchema),
+}) as v.GenericSchema<
+  CatalogApplicationResourceReceipt,
+  CatalogApplicationResourceReceipt
+>;
+
 function fault<TPacket extends AdmitPacket | ViewPacket | ApplyPacket>(
   call: DefinitionCall<TPacket, unknown>,
   stage: string,
   code: string,
   message: string,
-): DefinitionExecutionFault<TPacket["definitionKey"]> {
+): PreDefinitionExecutionFault<TPacket["definitionKey"]> {
   return definitionFault(call.invocation.definitionKey, stage, code, message);
 }
 
@@ -268,7 +319,7 @@ function candidateCoordinate(
 
 function validateAdmissionStructure(
   call: DefinitionCall<AdmitPacket, CatalogAdmissionResourceAssertion>,
-): DefinitionExecutionFault<AdmitPacket["definitionKey"]> | null {
+): PreDefinitionExecutionFault<AdmitPacket["definitionKey"]> | null {
   const resources = call.resources;
   if (
     !isRecord(resources) ||
@@ -314,7 +365,9 @@ function validateAdmissionStructure(
 function reconstructReadinessBasis(
   call: DefinitionCall<AdmitPacket, CatalogAdmissionResourceAssertion>,
   prefix: DurablePrefixCoordinate,
-): CatalogReadinessBasis | DefinitionExecutionFault<AdmitPacket["definitionKey"]> {
+): CatalogReadinessBasis | PreDefinitionExecutionFault<
+  AdmitPacket["definitionKey"]
+> {
   const resources = call.resources;
   const truth = projectExactPrefixArtifactTruth(prefix);
   if (truth.kind !== "exact_prefix_artifact_truth_projection") {
@@ -672,14 +725,30 @@ const admit: ExactDefinitionCallable<
         throw cause;
       }
     },
-    catch: (cause) => isDefinitionFault(cause)
-      ? cause as DefinitionExecutionFault<AdmitPacket["definitionKey"]>
-      : fault(
-          call,
-          "owner_execution",
-          "catalog_admission_execution_failure",
-          String(cause),
-        ),
+    catch: (cause) => {
+      const admittedFault = admitDefinitionExecutionFault(
+        cause,
+        call.invocation.definitionKey,
+        (candidate) => v.is(
+            CATALOG_ADMISSION_RESOURCE_RECEIPT_SCHEMA,
+            candidate,
+          )
+          ? { resourceReceipt: candidate }
+          : null,
+      );
+      if (admittedFault !== null) return admittedFault;
+      if (isDefinitionFault(cause)) {
+        throw new TypeError(
+          "Product catalog admission owner emitted a malformed execution fault",
+        );
+      }
+      return fault(
+        call,
+        "owner_execution",
+        "catalog_admission_execution_failure",
+        String(cause),
+      );
+    },
   });
 };
 
@@ -788,9 +857,27 @@ const allowlist: ExactDefinitionCallable<
       },
     });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<ViewPacket["definitionKey"]>
-    : fault(call, "owner_execution", "catalog_view_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admitDefinitionExecutionFault(
+      cause,
+      call.invocation.definitionKey,
+      (candidate) => v.is(CATALOG_VIEW_RESOURCE_RECEIPT_SCHEMA, candidate)
+        ? { resourceReceipt: candidate }
+        : null,
+    );
+    if (admittedFault !== null) return admittedFault;
+    if (isDefinitionFault(cause)) {
+      throw new TypeError(
+        "Product catalog view owner emitted a malformed execution fault",
+      );
+    }
+    return fault(
+      call,
+      "owner_execution",
+      "catalog_view_execution_failure",
+      String(cause),
+    );
+  },
 });
 
 function reconstructCatalogView(
@@ -957,9 +1044,30 @@ function createApplyBinding<TPacket extends ApplyPacket>(
         resources: applyReceipt(resources, native),
       });
     },
-    catch: (cause) => isDefinitionFault(cause)
-      ? cause as DefinitionExecutionFault<TPacket["definitionKey"]>
-      : fault(call, "owner_execution", "catalog_application_execution_failure", String(cause)),
+    catch: (cause) => {
+      const admittedFault = admitDefinitionExecutionFault(
+        cause,
+        call.invocation.definitionKey,
+        (candidate) => v.is(
+            CATALOG_APPLICATION_RESOURCE_RECEIPT_SCHEMA,
+            candidate,
+          )
+          ? { resourceReceipt: candidate }
+          : null,
+      );
+      if (admittedFault !== null) return admittedFault;
+      if (isDefinitionFault(cause)) {
+        throw new TypeError(
+          "Product catalog application owner emitted a malformed execution fault",
+        );
+      }
+      return fault(
+        call,
+        "owner_execution",
+        "catalog_application_execution_failure",
+        String(cause),
+      );
+    },
   });
 }
 
