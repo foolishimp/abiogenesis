@@ -49,8 +49,6 @@ import {
 } from "../abg/project_read_ports.js";
 import { projectRuntimeTruthAtDurablePrefix } from "../abg/replay.js";
 import { materializeGraph } from "../gtl/materialize.js";
-import { canonicalizeAuthoredGtlCarrier } from
-  "../gtl/canonicalization.js";
 import type {
   GraphFunction,
   ModulePublication,
@@ -59,17 +57,11 @@ import { executeGraphTraversalEffect } from "../hog/graph_execute.js";
 import { constructAdmittedLeafInvocationPort } from
   "../implementation/leaf_invocation_port.js";
 import {
-  admitGraphFunctionCatalog,
-  narrowGraphFunctionCatalog,
-  type CatalogReadinessBasis,
   type DeclarationApplication,
   type GraphFunctionCatalogView,
   type ReadyGraphFunctionCatalog,
 } from "../product/catalog.js";
 import {
-  isProductInstallCandidate,
-  isResolvedProductLock,
-  isWorkspaceBindingCandidate,
   type ProductInstall,
   type ResolvedProductLock,
   type WorkspaceBinding,
@@ -92,11 +84,9 @@ import {
   projectInstalledLeafSemantics,
   type ProductInvocationSourceResultBasis,
 } from "../product/semantics.js";
-import { canonicalJson, type JsonValue } from
-  "../shared/canonical_json.js";
+import type { JsonValue } from "../shared/canonical_json.js";
 import {
   isRecord,
-  sameJson,
 } from "../shared/definition_binding_mechanics.js";
 import { bindExactPrefixTransition } from
   "../shared/static_definition_bindings.js";
@@ -119,10 +109,6 @@ import {
   type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
 import { validateGraph } from "../validator/graph.js";
-import { rawAdmitValue, type RawAdmittedValue } from
-  "../validator/raw_admission.js";
-import { validatePublication } from "../validator/validation.js";
-import { isVerifiedProductArtifact } from "../product/verify_product.js";
 
 type InvokePacket = typeof RUN_OPERATION_CONTRACTS.invoke.invoke;
 type StartPacket = typeof RUN_OPERATION_CONTRACTS.invoke.start;
@@ -210,15 +196,6 @@ function asyncStage<TPacket extends RunPacket, A>(
       cause instanceof Error ? cause.message : String(cause),
     ),
   });
-}
-
-function exactIJson(value: unknown): boolean {
-  try {
-    canonicalJson(value as JsonValue);
-    return true;
-  } catch {
-    return false;
-  }
 }
 
 const REF_ARRAY_SCHEMA = v.array(nonblankSchema);
@@ -434,8 +411,7 @@ const GRAPH_TEMPLATE_SCHEMA = v.strictObject({
   applications: v.array(GRAPH_FUNCTION_APPLICATION_SCHEMA),
 });
 
-const GRAPH_FUNCTION_SCHEMA = v.pipe(
-  v.strictObject({
+const GRAPH_FUNCTION_SCHEMA = v.strictObject({
     kind: v.literal("graph_function"),
     name: nonblankSchema,
     version: v.literal("5.0.0"),
@@ -450,15 +426,7 @@ const GRAPH_FUNCTION_SCHEMA = v.pipe(
     effects: REF_ARRAY_SCHEMA,
     declarations: v.record(v.string(), nonblankSchema),
     tags: REF_ARRAY_SCHEMA,
-  }),
-  v.check(
-    (value) => sameJson(
-      canonicalizeAuthoredGtlCarrier(value as Readonly<GraphFunction>, "graph_function"),
-      value,
-    ),
-    "canonical_graph_function",
-  ),
-) as unknown as v.GenericSchema<GraphFunction, GraphFunction>;
+  }) as unknown as v.GenericSchema<GraphFunction, GraphFunction>;
 
 const CONTRACT_DECLARATION_SCHEMA = v.strictObject({
   contractRef: nonblankSchema,
@@ -591,36 +559,7 @@ const CATALOG_CONTRIBUTION_SCHEMA = v.strictObject({
   provenanceRefs: REF_ARRAY_SCHEMA,
 });
 
-function exactModulePublication(value: Readonly<ModulePublication>): boolean {
-  const publication = rawAdmitValue<ModulePublication>(
-    value,
-    "module_publication",
-    "contract://abiogenesis/gtl/module-publication@5",
-  );
-  if (
-    publication.kind !== "raw_admitted_value" ||
-    !sameJson(publication.value, value)
-  ) return false;
-  const contributions = value.contributions.map((candidate) =>
-    rawAdmitValue(
-      candidate,
-      "catalog_contribution",
-      "contract://abiogenesis/gtl/catalog-contribution@5",
-    )
-  );
-  if (contributions.some((candidate) => candidate.kind !== "raw_admitted_value")) {
-    return false;
-  }
-  return validatePublication(
-    publication,
-    contributions as readonly RawAdmittedValue<
-      ModulePublication["contributions"][number]
-    >[],
-  ).kind === "publication_validation";
-}
-
-const MODULE_PUBLICATION_SCHEMA = v.pipe(
-  v.strictObject({
+const MODULE_PUBLICATION_SCHEMA = v.strictObject({
     kind: v.literal("module_publication"),
     moduleRef: nonblankSchema,
     moduleVersion: v.literal("5.0.0"),
@@ -713,22 +652,7 @@ const MODULE_PUBLICATION_SCHEMA = v.pipe(
     programs: v.array(GTL_PROGRAM_SCHEMA),
     graphFunctions: v.array(GRAPH_FUNCTION_SCHEMA),
     contributions: v.array(CATALOG_CONTRIBUTION_SCHEMA),
-  }),
-  v.check(
-    (value) => exactModulePublication(value as unknown as ModulePublication),
-    "canonical_module_publication",
-  ),
-) as unknown as v.GenericSchema<ModulePublication, ModulePublication>;
-
-const RESOLVED_PRODUCT_LOCK_SCHEMA = v.custom<ResolvedProductLock>(
-  isResolvedProductLock,
-  "resolved_product_lock",
-);
-
-const VERIFIED_PRODUCT_SCHEMA = v.custom<VerifiedProductArtifact>(
-  isVerifiedProductArtifact,
-  "verified_product_artifact",
-);
+  }) as unknown as v.GenericSchema<ModulePublication, ModulePublication>;
 
 const PRODUCT_DECLARED_DEPENDENCY_SCHEMA = v.strictObject({
   kind: v.literal("requires"),
@@ -802,6 +726,86 @@ const PRODUCT_PUBLIC_CONTRACT_SCHEMA = v.strictObject({
   nativeTypedLocator: v.optional(PRODUCT_NATIVE_TYPED_LOCATOR_SCHEMA),
   assetLocator: v.optional(PRODUCT_ASSET_LOCATOR_SCHEMA),
 });
+
+const RESOLVED_PRODUCT_LOCK_ROW_SCHEMA = v.strictObject({
+  productId: nonblankSchema,
+  packageName: nonblankSchema,
+  packageVersion: nonblankSchema,
+  artifactDigest: digestSchema,
+  productContentDigest: digestSchema,
+  manifestDigest: digestSchema,
+  descriptorRef: nonblankSchema,
+  publisherNamespace: nonblankSchema,
+  catalogId: nonblankSchema,
+  catalogDigest: digestSchema,
+  contributionManifestRef: nonblankSchema,
+  contributionManifestDigest: digestSchema,
+  contributionManifest: PRODUCT_CONTRIBUTION_MANIFEST_SCHEMA,
+  compatibilityRefs: REF_ARRAY_SCHEMA,
+  declaredDependencies: v.array(PRODUCT_DECLARED_DEPENDENCY_SCHEMA),
+  provenanceRef: nonblankSchema,
+  declaredCapabilityRefs: REF_ARRAY_SCHEMA,
+  publicContracts: v.array(PRODUCT_PUBLIC_CONTRACT_SCHEMA),
+  publicContractRefs: REF_ARRAY_SCHEMA,
+  publicCapabilityRefs: REF_ARRAY_SCHEMA,
+});
+
+const RESOLVED_PRODUCT_LOCK_SCHEMA = v.strictObject({
+  kind: v.literal("resolved_product_lock"),
+  schemaVersion: v.literal("5.0.0"),
+  lockId: nonblankSchema,
+  lockDigest: digestSchema,
+  nativeContractClosureDigest: digestSchema,
+  rows: v.array(RESOLVED_PRODUCT_LOCK_ROW_SCHEMA),
+  dependencyEdges: v.array(v.strictObject({
+    kind: v.literal("requires"),
+    fromProductId: nonblankSchema,
+    toProductId: nonblankSchema,
+    packageVersion: nonblankSchema,
+    compatibilityRef: nonblankSchema,
+    compatibilityDisposition: v.literal("compatible"),
+    requiredContractRefs: REF_ARRAY_SCHEMA,
+    requiredCapabilityRefs: REF_ARRAY_SCHEMA,
+  })),
+}) as v.GenericSchema<ResolvedProductLock, ResolvedProductLock>;
+
+const VERIFIED_PRODUCT_SCHEMA = v.strictObject({
+  kind: v.literal("verified_product_artifact"),
+  schemaVersion: v.literal("5.0.0"),
+  disposition: v.literal("verified"),
+  verificationRef: nonblankSchema,
+  verificationDigest: digestSchema,
+  artifactRef: nonblankSchema,
+  artifactDigest: digestSchema,
+  artifactByteLength: v.pipe(v.number(), v.safeInteger(), v.minValue(0)),
+  productId: nonblankSchema,
+  packageName: nonblankSchema,
+  packageVersion: nonblankSchema,
+  productContentDigest: digestSchema,
+  manifestDigest: digestSchema,
+  descriptorRef: nonblankSchema,
+  publisherNamespace: nonblankSchema,
+  contributionManifestRef: nonblankSchema,
+  contributionManifestDigest: digestSchema,
+  contributionManifest: PRODUCT_CONTRIBUTION_MANIFEST_SCHEMA,
+  compatibilityRefs: REF_ARRAY_SCHEMA,
+  declaredDependencies: v.array(PRODUCT_DECLARED_DEPENDENCY_SCHEMA),
+  provenanceRef: nonblankSchema,
+  declaredCapabilityRefs: REF_ARRAY_SCHEMA,
+  catalogId: nonblankSchema,
+  catalogDigest: digestSchema,
+  publicContracts: v.array(PRODUCT_PUBLIC_CONTRACT_SCHEMA),
+  publicContractRefs: REF_ARRAY_SCHEMA,
+  publicCapabilityRefs: REF_ARRAY_SCHEMA,
+  definitionContractCoordinates: v.nullable(
+    v.record(v.string(), jsonValueSchema),
+  ),
+  checkedPayloadFiles: v.pipe(v.number(), v.safeInteger(), v.minValue(0)),
+  nativeDeclarationEvidence: v.record(v.string(), jsonValueSchema),
+}) as unknown as v.GenericSchema<
+  VerifiedProductArtifact,
+  VerifiedProductArtifact
+>;
 
 const PRODUCT_INSTALL_CANDIDATE_SCHEMA = v.strictObject({
   kind: v.literal("product_install_candidate"),
@@ -903,35 +907,7 @@ const CATALOG_READINESS_ROW_SCHEMA = v.strictObject({
   rowDigest: digestSchema,
 });
 
-function exactReadyGraphFunctionCatalog(
-  value: ReadyGraphFunctionCatalog,
-): boolean {
-  try {
-    const basis = value.readinessBasis;
-    if (
-      !isResolvedProductLock(basis.resolvedLock) ||
-      !isWorkspaceBindingCandidate(
-        basis.workspaceBinding,
-        basis.resolvedLock,
-      ) ||
-      basis.verifiedProducts.some((candidate) =>
-        !isVerifiedProductArtifact(candidate)
-      ) ||
-      basis.installedProducts.some((candidate) =>
-        !isProductInstallCandidate(candidate, basis.resolvedLock)
-      )
-    ) return false;
-    const reconstructed = admitGraphFunctionCatalog(
-      basis as CatalogReadinessBasis,
-    );
-    return reconstructed.kind === "graph_function_catalog" &&
-      sameJson(reconstructed, value);
-  } catch {
-    return false;
-  }
-}
-
-const READY_GRAPH_FUNCTION_CATALOG_SCHEMA = v.pipe(v.strictObject({
+const READY_GRAPH_FUNCTION_CATALOG_SCHEMA = v.strictObject({
   kind: v.literal("graph_function_catalog"),
   schemaVersion: v.literal("5.0.0"),
   basisDigest: digestSchema,
@@ -959,12 +935,7 @@ const READY_GRAPH_FUNCTION_CATALOG_SCHEMA = v.pipe(v.strictObject({
   }),
   boundPublications: v.array(MODULE_PUBLICATION_SCHEMA),
   rowDispositions: v.array(CATALOG_READINESS_ROW_SCHEMA),
-}), v.check(
-  (value) => exactReadyGraphFunctionCatalog(
-    value as unknown as ReadyGraphFunctionCatalog,
-  ),
-  "exact_ready_graph_function_catalog",
-)) as unknown as v.GenericSchema<
+}) as unknown as v.GenericSchema<
   ReadyGraphFunctionCatalog,
   ReadyGraphFunctionCatalog
 >;
@@ -1075,22 +1046,7 @@ const RUN_INVOCATION_SOURCE_ASSERTION_SCHEMA = v.union([
   ProductRunInvocationSourceAssertion
 >;
 
-function exactCatalogViewRelation(
-  value: RunInvocationResourceAssertion,
-): boolean {
-  try {
-    const view = narrowGraphFunctionCatalog(
-      value.catalog,
-      value.catalogView.allowlist,
-    );
-    return view.kind === "graph_function_catalog_view" &&
-      sameJson(view, value.catalogView);
-  } catch {
-    return false;
-  }
-}
-
-const RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA = v.pipe(v.strictObject({
+const RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
   kind: v.literal("run_invocation_resource_assertion"),
   schemaVersion: v.literal("5.0.0"),
   eventResource: EVENT_RESOURCE_ASSERTION_SCHEMA,
@@ -1098,12 +1054,7 @@ const RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA = v.pipe(v.strictObject({
   catalogView: GRAPH_FUNCTION_CATALOG_VIEW_SCHEMA,
   applications: v.array(DECLARATION_APPLICATION_SCHEMA),
   source: RUN_INVOCATION_SOURCE_ASSERTION_SCHEMA,
-}), v.check(
-  (value) => exactCatalogViewRelation(
-    value as unknown as RunInvocationResourceAssertion,
-  ),
-  "exact_catalog_view_relation",
-)) as unknown as v.GenericSchema<
+}) as unknown as v.GenericSchema<
   RunInvocationResourceAssertion,
   RunInvocationResourceAssertion
 >;
@@ -1125,25 +1076,29 @@ function projectSetupTruth(
   prefix: DurablePrefixCoordinate,
   catalog: ReadyGraphFunctionCatalog,
 ): AdmittedSetupTruth | null {
-  const artifactTruth = projectExactPrefixArtifactTruth(prefix);
-  if (artifactTruth.kind === "exact_prefix_artifact_truth_projection_refusal") {
+  try {
+    const artifactTruth = projectExactPrefixArtifactTruth(prefix);
+    if (artifactTruth.kind === "exact_prefix_artifact_truth_projection_refusal") {
+      return null;
+    }
+    const admittedInstalls = catalog.readinessBasis.installedProducts.map(
+      (candidate) => projectAdmittedProductInstall(artifactTruth, candidate),
+    );
+    const workspaceBinding = projectAdmittedWorkspaceBinding(
+      artifactTruth,
+      catalog.readinessBasis.workspaceBinding,
+    );
+    return admittedInstalls.some((install) => install === null) ||
+        workspaceBinding === null
+      ? null
+      : deepFreeze({
+          artifactTruth,
+          admittedInstalls: admittedInstalls as readonly ProductInstall[],
+          workspaceBinding,
+        });
+  } catch {
     return null;
   }
-  const admittedInstalls = catalog.readinessBasis.installedProducts.map(
-    (candidate) => projectAdmittedProductInstall(artifactTruth, candidate),
-  );
-  const workspaceBinding = projectAdmittedWorkspaceBinding(
-    artifactTruth,
-    catalog.readinessBasis.workspaceBinding,
-  );
-  return admittedInstalls.some((install) => install === null) ||
-      workspaceBinding === null
-    ? null
-    : deepFreeze({
-        artifactTruth,
-        admittedInstalls: admittedInstalls as readonly ProductInstall[],
-        workspaceBinding,
-      });
 }
 
 function operationBasis<TPacket extends RunPacket>(

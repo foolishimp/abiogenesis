@@ -41,25 +41,6 @@ const sentinel = Object.freeze([
   ["abg.operation.project.read#run_result", "./abg", "ABG_PROJECT_READ_DEFINITION_BINDINGS", ["run_result"]],
   ["abg.operation.project.read#run_replay", "./abg", "ABG_PROJECT_READ_DEFINITION_BINDINGS", ["run_replay"]],
 ]);
-const remainingKeys = Object.freeze([
-  "abg.operation.interaction.respond#answer_escalation",
-  "abg.operation.interaction.respond#approve",
-  "abg.operation.interaction.respond#assess",
-  "abg.operation.interaction.respond#reject",
-  "abg.operation.interaction.respond#select",
-  "abg.operation.product.materialize#configuration",
-  "abg.operation.product.materialize#context_bootstrap",
-  "abg.operation.project.read#release_evidence",
-  "abg.operation.result.assess#assess",
-  "abg.operation.run.continue#current_intent",
-  "abg.operation.run.continue#selected_action",
-  "abg.operation.witness.admit#attest",
-  "abg.operation.witness.admit#hygiene-stamp",
-  "abg.operation.witness.admit#intake",
-  "abg.operation.witness.admit#reprice",
-  "abg.operation.witness.admit#run-resumed",
-  "abg.operation.witness.admit#run-stopped",
-]);
 
 function keyOf(definition) {
   return `${definition.definitionKey.operationId}#${definition.definitionKey.memberKey}`;
@@ -75,56 +56,15 @@ function valueAtPath(value, path) {
   return path.reduce((selected, part) => selected?.[part], value);
 }
 
-async function installedCallableCensus(harness, publicApi, product) {
-  const modules = new Map();
-  const rows = [];
-  for (const definition of publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions) {
-    const callable = definition.executionBindingSpecification.callable;
-    const specifier = installedSpecifier(
-      callable.packageName,
-      callable.packageExportPath,
-    );
-    let loaded = modules.get(specifier);
-    if (loaded === undefined) {
-      loaded = await importInstalledPackageExport(
-        harness,
-        specifier,
-        `w2-05-run-census=${encodeURIComponent(specifier)}`,
-      );
-      modules.set(specifier, loaded);
-    }
-    const value = valueAtPath(
-      loaded[callable.namedExport],
-      callable.memberPath,
-    );
-    rows.push(Object.freeze({
-      definitionKey: keyOf(definition),
-      callable: typeof value === "function",
-    }));
-  }
-  return Object.freeze({
-    definitionCount: rows.length,
-    callableCount: rows.filter((row) => row.callable).length,
-    missingKeys: Object.freeze(rows
-      .filter((row) => !row.callable)
-      .map((row) => row.definitionKey)
-      .sort()),
-    censusSha256: product.sha256Bytes(
-      `${rows.filter((row) => row.callable)
-        .map((row) => row.definitionKey)
-        .join("\n")}\n`,
-    ),
-  });
-}
-
 function coordinate(product, ref, value = { ref }) {
   return Object.freeze({ ref, digest: product.sha256Canonical(value) });
 }
 
-function admittedInvocation(product, body) {
+function admittedInvocation(product, body, rawRequest = body.request) {
   const invocationDigest = product.sha256Canonical(body);
   return Object.freeze({
     ...body,
+    request: rawRequest,
     invocationRef:
       `invocation://abiogenesis/${invocationDigest.slice("sha256:".length)}`,
     invocationDigest,
@@ -201,6 +141,7 @@ function runCall(publicApi, product, memberKey, ordinal, exact = {}) {
         rootMode: "supervised",
         sourceBasis: Object.freeze({ kind: "none" }),
       }));
+  const identityRequest = exact.identityRequest ?? request;
   const slots = exact.slots ?? Object.freeze({
     workspace_binding: coordinate(product, `workspace-binding://w2-05/${memberKey}`),
     product_set: Object.freeze([coordinate(product, `product-set://w2-05/${memberKey}`)]),
@@ -231,11 +172,14 @@ function runCall(publicApi, product, memberKey, ordinal, exact = {}) {
     verification_references: null,
     execution_basis: null,
   });
-  const invocationAuthority = Object.freeze({
+  const authorityBody = Object.freeze({
     kind: "invocation_authority",
     definitionKey: definition.definitionKey,
-    authorityDigest: product.sha256Canonical(slots),
     slots,
+  });
+  const invocationAuthority = Object.freeze({
+    ...authorityBody,
+    authorityDigest: product.sha256Canonical(authorityBody),
   });
   const catalog = Object.freeze({
     productId: "product://abiogenesis/typescript-tenant@5",
@@ -244,7 +188,7 @@ function runCall(publicApi, product, memberKey, ordinal, exact = {}) {
     catalogVersion: schemaVersion,
     catalogDigest: product.sha256Canonical({ catalog: "run-binding-proof" }),
   });
-  const requestDigest = product.sha256Canonical(request);
+  const requestDigest = product.sha256Canonical(identityRequest);
   const body = Object.freeze({
     kind: "public_invocation",
     schemaVersion,
@@ -279,7 +223,7 @@ function runCall(publicApi, product, memberKey, ordinal, exact = {}) {
     requestRef:
       `public-request://abiogenesis/t287/w2-05/${String(ordinal).padStart(2, "0")}-${memberKey}`,
     requestDigest,
-    request,
+    request: identityRequest,
     expectedResultContract: contractCoordinate(
       publicApi,
       definition,
@@ -307,7 +251,56 @@ function runCall(publicApi, product, memberKey, ordinal, exact = {}) {
       "provenance://abiogenesis/t287/w2-05-worker",
     ]),
   });
-  return admittedInvocation(product, body);
+  return admittedInvocation(product, body, request);
+}
+
+function reissueRunInvocation(product, invocation, replacement = {}) {
+  const slots = replacement.slots ?? invocation.invocationAuthority.slots;
+  const authorityBody = Object.freeze({
+    kind: invocation.invocationAuthority.kind,
+    definitionKey: invocation.invocationAuthority.definitionKey,
+    slots,
+  });
+  const invocationAuthority = Object.freeze({
+    ...authorityBody,
+    authorityDigest: product.sha256Canonical(authorityBody),
+  });
+  const rawRequest = replacement.rawRequest ?? invocation.request;
+  const identityRequest = replacement.identityRequest ?? rawRequest;
+  const requestDigest = product.sha256Canonical(identityRequest);
+  const {
+    invocationRef: _invocationRef,
+    invocationDigest: _invocationDigest,
+    ...priorBody
+  } = invocation;
+  return admittedInvocation(product, Object.freeze({
+    ...priorBody,
+    invocationAuthority,
+    requestDigest,
+    request: identityRequest,
+  }), rawRequest);
+}
+
+function recomputeCorruptResolution(product, resolution, replacement) {
+  const {
+    kind,
+    schemaVersion: resolutionSchemaVersion,
+    disposition,
+    resolutionRef: _resolutionRef,
+    resolutionDigest: _resolutionDigest,
+    ...priorBody
+  } = resolution;
+  const body = Object.freeze({ ...priorBody, ...replacement });
+  const resolutionDigest = product.sha256Canonical(body);
+  return Object.freeze({
+    kind,
+    schemaVersion: resolutionSchemaVersion,
+    disposition,
+    resolutionRef:
+      `product-execution-resolution://abiogenesis/${resolutionDigest.slice("sha256:".length)}`,
+    resolutionDigest,
+    ...body,
+  });
 }
 
 function newEventResource(product, eventLogPath) {
@@ -428,6 +421,7 @@ async function exactInstalledRunCall({
   programRef,
   eventResource,
   ordinal,
+  omitFhMode = false,
 }) {
   const admittedInstall = scenario.ownerProjections.admittedInstall.install;
   const workspaceBinding = scenario.ownerProjections.admittedWorkspace.binding;
@@ -523,8 +517,8 @@ async function exactInstalledRunCall({
   );
   assert.ok(definition);
   const program = Object.freeze({
-    ref: resolution.program.programRef,
-    digest: product.sha256Canonical(resolution.program),
+    ref: resolution.resolution.programRef,
+    digest: resolution.resolution.programDigest,
   });
   const view = Object.freeze({
     ref: `graph-function-catalog-view://abiogenesis/${catalogView.viewDigest.slice("sha256:".length)}`,
@@ -552,11 +546,19 @@ async function exactInstalledRunCall({
         rootMode: "direct",
         sourceBasis: Object.freeze({ kind: "none" }),
       });
-  const membershipBody = Object.freeze({
+  const membershipPreimage = Object.freeze({
     programRef: resolution.program.programRef,
     graphFunctionRef: resolution.selectedCatalogEntry.definitionRef,
   });
-  const membershipDigest = product.sha256Canonical(membershipBody);
+  const expectedMembershipDigest = product.sha256Canonical(membershipPreimage);
+  assert.equal(
+    resolution.resolution.programGraphFunctionMembership.digest,
+    expectedMembershipDigest,
+  );
+  assert.equal(
+    resolution.resolution.programGraphFunctionMembership.ref,
+    `program-graph-function-membership://abiogenesis/${expectedMembershipDigest.slice("sha256:".length)}`,
+  );
   const steeringDigest = product.sha256Canonical(eventResource);
   const slots = Object.freeze({
     workspace_binding: Object.freeze({
@@ -583,14 +585,10 @@ async function exactInstalledRunCall({
     graph_function: memberKey === "invoke"
       ? Object.freeze({
           graphFunction: Object.freeze({
-            ref: resolution.selectedCatalogEntry.definitionRef,
-            digest: resolution.selectedCatalogEntry.definitionDigest,
+            ref: resolution.resolution.graphFunctionRef,
+            digest: resolution.resolution.graphFunctionDigest,
           }),
-          membership: Object.freeze({
-            ref:
-              `program-graph-function-membership://abiogenesis/${membershipDigest.slice("sha256:".length)}`,
-            digest: membershipDigest,
-          }),
+          membership: resolution.resolution.programGraphFunctionMembership,
         })
       : null,
     input_contract: contractBoundInput,
@@ -623,26 +621,30 @@ async function exactInstalledRunCall({
     execution_basis: null,
   });
   if (memberKey === "invoke") {
-    assert.deepEqual(resolution.program.starts, []);
     assert.deepEqual(slots.graph_function?.graphFunction, {
-      ref: resolution.selectedCatalogEntry.definitionRef,
-      digest: resolution.selectedCatalogEntry.definitionDigest,
+      ref: resolution.resolution.graphFunctionRef,
+      digest: resolution.resolution.graphFunctionDigest,
     });
     assert.deepEqual(slots.graph_function?.membership, {
-      ref:
-        `program-graph-function-membership://abiogenesis/${membershipDigest.slice("sha256:".length)}`,
-      digest: membershipDigest,
+      ref: resolution.resolution.programGraphFunctionMembership.ref,
+      digest: resolution.resolution.programGraphFunctionMembership.digest,
     });
   } else {
     assert.equal(slots.graph_function, null);
   }
+  const rawRequest = memberKey === "start" && omitFhMode
+    ? Object.freeze((({ fhMode: _fhMode, ...rest }) => rest)(request))
+    : request;
   const invocation = runCall(
     publicApi,
     product,
     memberKey,
     ordinal,
-    { request, slots },
+    { request: rawRequest, identityRequest: request, slots },
   );
+  const admittedInvocation = rawRequest === request
+    ? invocation
+    : Object.freeze({ ...invocation, request });
   const rawInput = validator.rawAdmitValue(
     admittedInput,
     "invocation_input",
@@ -651,7 +653,7 @@ async function exactInstalledRunCall({
   assert.equal(rawInput.kind, "raw_admitted_value");
   const candidate = memberKey === "invoke"
     ? product.constructExactDirectInvocation(
-        invocation,
+        admittedInvocation,
         workspaceBinding,
         catalogView,
         resolution.program,
@@ -662,7 +664,7 @@ async function exactInstalledRunCall({
         authority,
       )
     : product.constructExactStartInvocation(
-        invocation,
+        admittedInvocation,
         workspaceBinding,
         catalogView,
         resolution.program,
@@ -690,6 +692,7 @@ async function exactInstalledRunCall({
     grants,
     authority,
     candidate,
+    admittedRequest: request,
   });
 }
 
@@ -784,6 +787,7 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
       allowlist: [
         gtl.HELLO_WORLD_DIRECT_IDS.handle,
         gtl.HELLO_WORLD_IDS.graphFunctionRef,
+        gtl.COMPOSED_HELLO_IDS.graphFunctionRef,
       ],
       catalogApplications: [],
       catalogHandle,
@@ -1136,6 +1140,36 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
   assert.equal(malformedDeepFault.code, "invalid_resource_assertion");
   assert.equal(await exists(malformedDeepPath), false);
 
+  const semanticInvalidCatalog = structuredClone(catalog);
+  semanticInvalidCatalog.basisDigest = product.sha256Canonical({
+    semanticCatalog: "wrong-basis",
+  });
+  const semanticCatalogPrefixBytes = await readFile(scenario.eventLogPath);
+  const semanticCatalogRefusal = await Effect.runPromise(invoke(
+    callWithResources(
+      invokeInvocation,
+      admittedRunResources(
+        reopenEventResource(product, scenario.closeHandoff),
+        semanticInvalidCatalog,
+        catalogView,
+      ),
+    ),
+  ));
+  assert.equal(semanticCatalogRefusal.ownerOutput.outcomeKind, "refusal");
+  assert.equal(semanticCatalogRefusal.ownerOutput.value.code, "invalid_target");
+  assert.deepEqual(
+    semanticCatalogRefusal.resources.eventResource.entryPrefix,
+    scenario.closeHandoff.prefix,
+  );
+  assert.deepEqual(
+    semanticCatalogRefusal.resources.eventResource.closeHandoff.prefix,
+    scenario.closeHandoff.prefix,
+  );
+  assert.deepEqual(
+    await readFile(scenario.eventLogPath),
+    semanticCatalogPrefixBytes,
+  );
+
   const crossInvokePath = join(harness.scratch, "cross-invoke.events.jsonl");
   const crossStartPath = join(harness.scratch, "cross-start.events.jsonl");
   const invokeCoordinateFault = await faultOf(invoke(callWithResources(
@@ -1208,6 +1242,144 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
     programRef: gtl.HELLO_WORLD_DIRECT_IDS.programRef,
     eventResource: reopenEventResource(product, scenario.closeHandoff),
     ordinal: 10,
+  });
+  const siblingProgramBasis = await exactInstalledRunCall({
+    publicApi,
+    product,
+    validator,
+    scenario,
+    catalog,
+    catalogView,
+    memberKey: "invoke",
+    catalogHandle: gtl.HELLO_WORLD_IDS.graphFunctionRef,
+    programRef: gtl.HELLO_WORLD_IDS.programRef,
+    eventResource: reopenEventResource(product, scenario.closeHandoff),
+    ordinal: 9,
+  });
+  const siblingGraphFunctionBasis = await exactInstalledRunCall({
+    publicApi,
+    product,
+    validator,
+    scenario,
+    catalog,
+    catalogView,
+    memberKey: "invoke",
+    catalogHandle: gtl.COMPOSED_HELLO_IDS.graphFunctionRef,
+    programRef: gtl.COMPOSED_HELLO_IDS.programRef,
+    eventResource: reopenEventResource(product, scenario.closeHandoff),
+    ordinal: 8,
+  });
+  assert.deepEqual(directBasis.resolution.program.starts, []);
+  assert.equal(
+    product.isProductExecutionResolution(directBasis.resolution.resolution),
+    true,
+  );
+  assert.equal(
+    product.isProductExecutionResolution(
+      siblingProgramBasis.resolution.resolution,
+    ),
+    true,
+  );
+  assert.equal(
+    product.isProductExecutionResolution(
+      siblingGraphFunctionBasis.resolution.resolution,
+    ),
+    true,
+  );
+  const directMembership =
+    directBasis.resolution.resolution.programGraphFunctionMembership;
+  const siblingMembership =
+    siblingProgramBasis.resolution.resolution.programGraphFunctionMembership;
+  assert.notDeepEqual(directMembership, siblingMembership);
+  assert.equal(
+    product.isProductExecutionResolution(Object.freeze({
+      ...directBasis.resolution.resolution,
+      programGraphFunctionMembership: siblingMembership,
+    })),
+    false,
+    "membership substitution invalidates the unchanged enclosing digest",
+  );
+  assert.equal(
+    product.isProductExecutionResolution(recomputeCorruptResolution(
+      product,
+      directBasis.resolution.resolution,
+      { programGraphFunctionMembership: siblingMembership },
+    )),
+    false,
+    "recomputing the enclosing resolution cannot cover a wrong membership",
+  );
+
+  const directSlots = directBasis.call.invocation.invocationAuthority.slots;
+  const siblingProgramSlots =
+    siblingProgramBasis.call.invocation.invocationAuthority.slots;
+  const siblingGraphFunctionSlots =
+    siblingGraphFunctionBasis.call.invocation.invocationAuthority.slots;
+  assert.notDeepEqual(
+    directSlots.execution_program,
+    siblingProgramSlots.execution_program,
+  );
+  assert.deepEqual(
+    directSlots.graph_function.graphFunction,
+    siblingProgramSlots.graph_function.graphFunction,
+  );
+  assert.notDeepEqual(
+    directSlots.graph_function.graphFunction,
+    siblingGraphFunctionSlots.graph_function.graphFunction,
+  );
+  const preAuthorityFalsifierBytes = await readFile(scenario.eventLogPath);
+  const assertAuthorityRefusal = async (label, slots) => {
+    const invocation = reissueRunInvocation(
+      product,
+      directBasis.call.invocation,
+      { slots: Object.freeze(slots) },
+    );
+    const result = await Effect.runPromise(invoke(Object.freeze({
+      ...directBasis.call,
+      invocation,
+    })));
+    assert.equal(result.ownerOutput.outcomeKind, "refusal", label);
+    assert.equal(result.ownerOutput.value.code, "invalid_capability", label);
+    assert.deepEqual(
+      result.resources.eventResource.entryPrefix,
+      result.resources.eventResource.closeHandoff.prefix,
+      `${label} leaves the exact prefix unchanged`,
+    );
+    assert.deepEqual(
+      await readFile(scenario.eventLogPath),
+      preAuthorityFalsifierBytes,
+      `${label} admits no ABG append`,
+    );
+  };
+  await assertAuthorityRefusal("coherent sibling Program", {
+    ...directSlots,
+    execution_program: siblingProgramSlots.execution_program,
+  });
+  await assertAuthorityRefusal("coherent sibling GraphFunction", {
+    ...directSlots,
+    graph_function: Object.freeze({
+      ...directSlots.graph_function,
+      graphFunction: siblingGraphFunctionSlots.graph_function.graphFunction,
+    }),
+  });
+  await assertAuthorityRefusal("crossed membership ref", {
+    ...directSlots,
+    graph_function: Object.freeze({
+      ...directSlots.graph_function,
+      membership: Object.freeze({
+        ref: siblingMembership.ref,
+        digest: directMembership.digest,
+      }),
+    }),
+  });
+  await assertAuthorityRefusal("crossed membership digest", {
+    ...directSlots,
+    graph_function: Object.freeze({
+      ...directSlots.graph_function,
+      membership: Object.freeze({
+        ref: directMembership.ref,
+        digest: siblingMembership.digest,
+      }),
+    }),
   });
   const directInvocation = directBasis.call.invocation;
   const operationCoordinateBody = Object.freeze({
@@ -1344,7 +1516,22 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
       direct.resources.eventResource.closeHandoff,
     ),
     ordinal: 11,
+    omitFhMode: true,
   });
+  assert.equal(
+    Object.hasOwn(startBasis.call.invocation.request, "fhMode"),
+    false,
+  );
+  assert.equal(startBasis.admittedRequest.fhMode, "direct");
+  assert.equal(
+    startBasis.call.invocation.requestDigest,
+    product.sha256Canonical(startBasis.admittedRequest),
+  );
+  assert.notEqual(
+    startBasis.call.invocation.requestDigest,
+    product.sha256Canonical(startBasis.call.invocation.request),
+    "the raw request is not permitted to author the admitted default identity",
+  );
   const started = await Effect.runPromise(start(startBasis.call));
   assert.equal(started.ownerOutput.outcomeKind, "result");
   assert.equal(started.ownerOutput.value.disposition, "completed");
@@ -1363,6 +1550,13 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
   assert.ok(startedSuffix.some((row) => row.kind === "invocation_admitted"));
   assert.ok(startedSuffix.some((row) => row.kind === "frame_opened"));
   assert.ok(startedSuffix.some((row) => row.kind === "run_closed"));
+  const startedAdmission = startedSuffix.find(
+    (row) => row.kind === "invocation_admitted",
+  );
+  assert.equal(
+    startedAdmission?.payload.publicRequestDigest,
+    product.sha256Canonical(startBasis.admittedRequest),
+  );
 
   const failureBasis = await exactInstalledRunCall({
     publicApi,
@@ -1574,19 +1768,9 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
     }
   }
 
-  const census = await installedCallableCensus(harness, publicApi, product);
-  assert.equal(census.definitionCount, 56);
-  assert.equal(census.callableCount, 39);
-  assert.deepEqual(census.missingKeys, remainingKeys);
-  assert.equal(
-    census.censusSha256,
-    "sha256:f678c07a43f273a1dab4ba414652bf3c31fd046782245a065de2ee6e97762218",
-  );
   process.stdout.write(`W2_05_RUN_PROOF ${JSON.stringify({
-    definitionCount: census.definitionCount,
-    callableCount: census.callableCount,
-    missingKeys: census.missingKeys,
-    censusSha256: census.censusSha256,
+    bankedBehaviorHeld: 37,
+    demonstratedConformanceHeld: 0,
     directRunRef: direct.ownerOutput.value.run.ref,
     startRunRef: started.ownerOutput.value.run.ref,
     failedRunRef: failed.ownerOutput.value.run.ref,

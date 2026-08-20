@@ -11,8 +11,8 @@ import {
 } from "../abg/definition_event_resource.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import {
+  admitExactDefinitionCall,
   definitionFault,
-  exactDefinitionCallMatches,
   validatedOwnerOutput,
 } from "./definition_binding_mechanics.js";
 import type {
@@ -118,7 +118,8 @@ export function bindStaticOwner<
     TResources,
     TResourceReceipt
   > = (call) => {
-    if (!exactDefinitionCallMatches(call, packet)) {
+    const admittedInvocation = admitExactDefinitionCall(call, packet);
+    if (admittedInvocation === null) {
       return Effect.fail(definitionFault(
         packet.definitionKey,
         "call_admission",
@@ -141,7 +142,7 @@ export function bindStaticOwner<
     }
 
     const admittedCall: DefinitionCall<TPacket, TResources> = deepFreeze({
-      invocation: call.invocation,
+      invocation: admittedInvocation,
       resources: admittedResources.output,
     });
     return Effect.suspend(() => owner(admittedCall)).pipe(

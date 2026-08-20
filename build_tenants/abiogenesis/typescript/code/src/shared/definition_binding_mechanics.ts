@@ -3,6 +3,7 @@ import * as v from "valibot";
 import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from
   "./canonical_json.js";
 import type {
+  DefinitionCall,
   DefinitionExecutionFault,
 } from "./effect_definition.js";
 import { deepFreeze } from "./immutable.js";
@@ -332,28 +333,46 @@ function admittedInvocationRuntimeSchema(
   });
 }
 
-/** Revalidates the complete admitted call identity at a definition boundary. */
-export function exactDefinitionCallMatches(
+/** Admits and revalidates the complete call identity at a definition boundary. */
+export function admitExactDefinitionCall<
+  TPacket extends OwnerContractSourceDeclaration,
+>(
   call: Readonly<{ readonly invocation: unknown }>,
-  packet: OwnerContractSourceDeclaration,
-): boolean {
-  if (!isRecord(call.invocation)) return false;
-  const invocation = call.invocation as unknown as AdmittedPublicInvocation<
+  packet: TPacket,
+): DefinitionCall<TPacket, never>["invocation"] | null {
+  if (!isRecord(call.invocation)) return null;
+  const rawInvocation = call.invocation as unknown as AdmittedPublicInvocation<
     PublicDefinitionKeyLike,
     Readonly<Record<string, JsonValue>>
   >;
   const definition = selectedDefinition(packet);
+  if (definition === null) return null;
+  const admittedRequest = admitRuntimeContract(
+    packet.requestSchema,
+    rawInvocation.request,
+  );
+  if (admittedRequest.disposition !== "admitted") return null;
+  const admitted = admitRuntimeContract(
+    admittedInvocationRuntimeSchema(
+      packet,
+      definition,
+      admittedRequest.value,
+    ),
+    rawInvocation,
+  );
+  if (admitted.disposition !== "admitted") return null;
+  const invocation = admitted.value as AdmittedPublicInvocation<
+    PublicDefinitionKeyLike,
+    Readonly<Record<string, JsonValue>>
+  >;
+  const {
+    authorityDigest: _authorityDigest,
+    ...authorityBody
+  } = invocation.invocationAuthority;
   if (
-    definition === null ||
-    admitRuntimeContract(
-      admittedInvocationRuntimeSchema(packet, definition, invocation.request),
-      invocation,
-    ).disposition !== "admitted" ||
     invocation.requestDigest !== sha256Canonical(invocation.request) ||
     invocation.invocationAuthority.authorityDigest !==
-      sha256Canonical(
-        invocation.invocationAuthority.slots as unknown as JsonValue,
-      ) ||
+      sha256Canonical(authorityBody as unknown as JsonValue) ||
     (() => {
       const {
         invocationRef,
@@ -367,7 +386,7 @@ export function exactDefinitionCallMatches(
         invocationRef !==
           `invocation://abiogenesis/${expectedDigest.slice("sha256:".length)}`;
     })()
-  ) return false;
+  ) return null;
 
   const operationProjection = PUBLIC_OPERATION_CONTRACT_PROJECTIONS.find(
     (candidate) =>
@@ -407,6 +426,14 @@ export function exactDefinitionCallMatches(
       expected.refusal,
     ) ||
     !sameJson(invocation.expectedNonTerminalContract, expected.nonTerminal)
-  ) return false;
-  return true;
+  ) return null;
+  return deepFreeze(invocation) as DefinitionCall<TPacket, never>["invocation"];
+}
+
+/** Revalidates the complete admitted call identity at a definition boundary. */
+export function exactDefinitionCallMatches(
+  call: Readonly<{ readonly invocation: unknown }>,
+  packet: OwnerContractSourceDeclaration,
+): boolean {
+  return admitExactDefinitionCall(call, packet) !== null;
 }

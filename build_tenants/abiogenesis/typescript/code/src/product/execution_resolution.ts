@@ -14,6 +14,7 @@ import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from
   "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import type { ReferenceDigest } from "../shared/public_invocation.js";
 import {
   validateImplementationResolutionSet,
   validateProgram,
@@ -82,6 +83,11 @@ export interface ProductExecutionOwnerCoordinate {
   readonly publicationDigest: Sha256Digest;
 }
 
+export interface ProgramGraphFunctionMembership {
+  readonly programRef: string;
+  readonly graphFunctionRef: string;
+}
+
 export interface ProductExecutionResolution {
   readonly kind: "product_execution_resolution";
   readonly schemaVersion: "5.0.0";
@@ -96,6 +102,8 @@ export interface ProductExecutionResolution {
   readonly graphFunctionRef: string;
   readonly graphFunctionDigest: Sha256Digest;
   readonly graphFunctionOwner: ProductExecutionOwnerCoordinate;
+  readonly programGraphFunctionMembership:
+    ReferenceDigest<ProgramGraphFunctionMembership>;
   readonly inputContract: Readonly<ContractDeclaration>;
   readonly inputContractDigest: Sha256Digest;
   readonly inputContractOwner: ExecutionDeclarationOwnerCoordinate;
@@ -154,6 +162,13 @@ export function isProductExecutionResolution(
       candidate.disposition !== "resolved" ||
       typeof candidate.resolutionRef !== "string" ||
       typeof candidate.resolutionDigest !== "string" ||
+      typeof candidate.programRef !== "string" ||
+      typeof candidate.graphFunctionRef !== "string" ||
+      typeof candidate.programGraphFunctionMembership !== "object" ||
+      candidate.programGraphFunctionMembership === null ||
+      Array.isArray(candidate.programGraphFunctionMembership) ||
+      Object.keys(candidate.programGraphFunctionMembership).sort().join("\0") !==
+        "digest\0ref" ||
       candidate.inputContract === undefined ||
       candidate.inputContractOwner === undefined ||
       candidate.outputContract === undefined ||
@@ -167,7 +182,16 @@ export function isProductExecutionResolution(
       resolutionDigest: _resolutionDigest,
       ...body
     } = candidate;
-    return candidate.inputContractDigest === sha256Canonical(
+    const membershipDigest = sha256Canonical({
+      programRef: candidate.programRef,
+      graphFunctionRef: candidate.graphFunctionRef,
+    });
+    const membershipRef =
+      `program-graph-function-membership://abiogenesis/${membershipDigest.slice("sha256:".length)}`;
+    return candidate.programGraphFunctionMembership.digest ===
+        membershipDigest &&
+      candidate.programGraphFunctionMembership.ref === membershipRef &&
+      candidate.inputContractDigest === sha256Canonical(
       candidate.inputContract as unknown as JsonValue,
     ) && candidate.outputContractDigest === sha256Canonical(
       candidate.outputContract as unknown as JsonValue,
@@ -342,10 +366,15 @@ function closureRefusal(
 async function resolveProductExecution(
   input: ProductExecutionResolutionInput,
 ): Promise<ProductExecutionResolutionResult> {
-  const reconstructedCatalog = admitGraphFunctionCatalog(
-    input.catalog.readinessBasis,
-  );
+  const reconstructedCatalog = (() => {
+    try {
+      return admitGraphFunctionCatalog(input.catalog.readinessBasis);
+    } catch {
+      return null;
+    }
+  })();
   if (
+    reconstructedCatalog === null ||
     reconstructedCatalog.kind !== "graph_function_catalog" ||
     canonicalJson(reconstructedCatalog as unknown as JsonValue) !==
       canonicalJson(input.catalog as unknown as JsonValue)
@@ -356,11 +385,18 @@ async function resolveProductExecution(
       "execution resolution requires the exact reconstructed ready Catalog",
     );
   }
-  const reconstructedView = narrowGraphFunctionCatalog(
-    reconstructedCatalog,
-    input.catalogView.allowlist,
-  );
+  const reconstructedView = (() => {
+    try {
+      return narrowGraphFunctionCatalog(
+        reconstructedCatalog,
+        input.catalogView.allowlist,
+      );
+    } catch {
+      return null;
+    }
+  })();
   if (
+    reconstructedView === null ||
     reconstructedView.kind !== "graph_function_catalog_view" ||
     canonicalJson(reconstructedView as unknown as JsonValue) !==
       canonicalJson(input.catalogView as unknown as JsonValue)
@@ -856,6 +892,15 @@ async function resolveProductExecution(
     compareUnicodeCodeUnits(left.productId, right.productId) ||
     compareUnicodeCodeUnits(left.moduleRef, right.moduleRef)
   ));
+  const membershipDigest = sha256Canonical({
+    programRef: program.programRef,
+    graphFunctionRef: selectedCatalogEntry.definitionRef,
+  });
+  const programGraphFunctionMembership = deepFreeze({
+    ref:
+      `program-graph-function-membership://abiogenesis/${membershipDigest.slice("sha256:".length)}`,
+    digest: membershipDigest,
+  }) as ReferenceDigest<ProgramGraphFunctionMembership>;
   const body = deepFreeze({
     catalogBasisDigest: reconstructedCatalog.basisDigest,
     catalogViewDigest: reconstructedView.viewDigest,
@@ -868,6 +913,7 @@ async function resolveProductExecution(
       graphFunctionInstallMatch.value,
       graphFunctionPublication,
     ),
+    programGraphFunctionMembership,
     inputContract: inputContract.contract,
     inputContractDigest: sha256Canonical(
       inputContract.contract as unknown as JsonValue,

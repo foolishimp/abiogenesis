@@ -69,8 +69,8 @@ function contractCoordinate(definition, slot, definitionRef) {
   });
 }
 
-function exactInvokeCall(resources) {
-  const packet = RUN_OPERATION_CONTRACTS.invoke.invoke;
+function exactRunCall(memberKey, resources, options = {}) {
+  const packet = RUN_OPERATION_CONTRACTS.invoke[memberKey];
   const definition = PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(
     (candidate) =>
       candidate.definitionKey.operationId === packet.definitionKey.operationId &&
@@ -84,21 +84,38 @@ function exactInvokeCall(resources) {
     candidate.definitionKey.memberKey === definition.definitionKey.memberKey
   );
   assert.ok(member);
-  const request = Object.freeze({
-    program: coordinate("program://binding-algebra"),
-    catalogHandle: "graph-function://binding-algebra",
-    inputContract: coordinate("contract://binding-algebra/input"),
-    input: Object.freeze({ value: "admitted" }),
-    catalogView: coordinate("catalog-view://binding-algebra"),
-    allowlist: Object.freeze([]),
-    sourceBasis: Object.freeze({ kind: "none" }),
-  });
+  const inputValue = Object.freeze({ value: "admitted" });
+  const inputContract = coordinate("contract://binding-algebra/input");
   const inputAuthority = Object.freeze({
-    contract: request.inputContract,
+    contract: inputContract,
     valueRef: "value://binding-algebra/input",
-    valueDigest: sha256Canonical(request.input),
-    value: request.input,
+    valueDigest: sha256Canonical(inputValue),
+    value: inputValue,
   });
+  const defaultRequest = memberKey === "invoke"
+    ? Object.freeze({
+        program: coordinate("program://binding-algebra"),
+        catalogHandle: "graph-function://binding-algebra",
+        inputContract,
+        input: inputValue,
+        catalogView: coordinate("catalog-view://binding-algebra"),
+        allowlist: Object.freeze([]),
+        sourceBasis: Object.freeze({ kind: "none" }),
+      })
+    : Object.freeze({
+        program: coordinate("program://binding-algebra"),
+        scope: "program",
+        target: Object.freeze({ kind: "next" }),
+        until: "converged",
+        catalogView: coordinate("catalog-view://binding-algebra"),
+        allowlist: Object.freeze([]),
+        input: inputAuthority,
+        fhMode: "direct",
+        rootMode: "supervised",
+        sourceBasis: Object.freeze({ kind: "none" }),
+      });
+  const request = options.rawRequest ?? defaultRequest;
+  const identityRequest = options.identityRequest ?? request;
   const slots = Object.freeze({
     workspace_binding: coordinate("workspace-binding://binding-algebra"),
     product_set: Object.freeze([coordinate("product-set://binding-algebra")]),
@@ -108,11 +125,14 @@ function exactInvokeCall(resources) {
       view: request.catalogView,
       allowlist: Object.freeze([]),
     }),
-    execution_program: request.program,
-    graph_function: Object.freeze({
-      graphFunction: coordinate("graph-function://binding-algebra"),
-      membership: coordinate("program-membership://binding-algebra"),
-    }),
+    execution_program: identityRequest.program,
+    graph_function: memberKey === "invoke" ||
+        identityRequest.target?.kind === "graph_function"
+      ? Object.freeze({
+          graphFunction: coordinate("graph-function://binding-algebra"),
+          membership: coordinate("program-membership://binding-algebra"),
+        })
+      : null,
     input_contract: inputAuthority,
     session_policy: coordinate("session-policy://binding-algebra"),
     capability_grants: Object.freeze({
@@ -127,14 +147,17 @@ function exactInvokeCall(resources) {
     verification_references: null,
     execution_basis: null,
   });
-  const invocationAuthority = Object.freeze({
+  const authorityBody = Object.freeze({
     kind: "invocation_authority",
     definitionKey: definition.definitionKey,
-    authorityDigest: sha256Canonical(slots),
     slots,
   });
-  const requestDigest = sha256Canonical(request);
-  const invocationBody = Object.freeze({
+  const invocationAuthority = Object.freeze({
+    ...authorityBody,
+    authorityDigest: sha256Canonical(authorityBody),
+  });
+  const requestDigest = sha256Canonical(identityRequest);
+  const invocationIdentityBody = Object.freeze({
     kind: "public_invocation",
     schemaVersion,
     invocationContract: Object.freeze({
@@ -166,7 +189,7 @@ function exactInvokeCall(resources) {
     requestRef:
       `public-request://abiogenesis/${requestDigest.slice("sha256:".length)}`,
     requestDigest,
-    request,
+    request: identityRequest,
     expectedResultContract: contractCoordinate(
       definition,
       "result",
@@ -188,14 +211,19 @@ function exactInvokeCall(resources) {
       "provenance://abiogenesis/t287/w2-05-worker",
     ]),
   });
-  const invocationDigest = sha256Canonical(invocationBody);
+  const invocationDigest = sha256Canonical(invocationIdentityBody);
   const invocation = Object.freeze({
-    ...invocationBody,
+    ...invocationIdentityBody,
+    request,
     invocationRef:
       `invocation://abiogenesis/${invocationDigest.slice("sha256:".length)}`,
     invocationDigest,
   });
   return Object.freeze({ invocation, resources });
+}
+
+function exactInvokeCall(resources) {
+  return exactRunCall("invoke", resources);
 }
 
 const assertionSchema = v.strictObject({
@@ -250,6 +278,56 @@ test("W2-05 three-function static binding algebra admits once and fails closed",
   assert.equal(staticCalls, 1);
   assert.deepEqual(returned, { ownerOutput: refusal, resources: receipt });
   assert.equal(Object.isFrozen(returned), true);
+  const {
+    authorityDigest,
+    ...authorityBody
+  } = call.invocation.invocationAuthority;
+  assert.equal(authorityDigest, sha256Canonical(authorityBody));
+  assert.notEqual(
+    authorityDigest,
+    sha256Canonical(call.invocation.invocationAuthority.slots),
+    "the authority identity covers kind and definitionKey as well as every slot",
+  );
+
+  const completeStart = exactRunCall("start", resources).invocation.request;
+  const { fhMode: _fhMode, ...withoutFhMode } = completeStart;
+  const rawDefaultedRequest = Object.freeze(withoutFhMode);
+  const defaultedStartCall = exactRunCall("start", resources, {
+    rawRequest: rawDefaultedRequest,
+    identityRequest: completeStart,
+  });
+  let defaultedStartCalls = 0;
+  let ownerRequest = null;
+  const defaultedStartBinding = bindings.bindStaticOwner(
+    RUN_OPERATION_CONTRACTS.invoke.start,
+    (ownerCall) => {
+      defaultedStartCalls += 1;
+      ownerRequest = ownerCall.invocation.request;
+      return Effect.succeed(Object.freeze({ ownerOutput: refusal, resources: receipt }));
+    },
+    assertionSchema,
+    receiptSchema,
+  );
+  await Effect.runPromise(defaultedStartBinding(defaultedStartCall));
+  assert.equal(defaultedStartCalls, 1);
+  assert.equal(ownerRequest.fhMode, "direct");
+  assert.equal(
+    defaultedStartCall.invocation.requestDigest,
+    sha256Canonical(ownerRequest),
+    "request identity and owner execution use the same default-applied value",
+  );
+  const rawIdentityFault = await faultOf(defaultedStartBinding(
+    exactRunCall("start", resources, {
+      rawRequest: rawDefaultedRequest,
+      identityRequest: rawDefaultedRequest,
+    }),
+  ));
+  assert.equal(rawIdentityFault.code, "call_identity_mismatch");
+  assert.equal(
+    defaultedStartCalls,
+    1,
+    "a raw/defaulted request identity divergence never reaches the owner",
+  );
 
   const invocationCoordinate = constructExactOperationInvocationCoordinate(
     {

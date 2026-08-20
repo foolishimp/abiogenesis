@@ -191,19 +191,23 @@ function exactApplications(
   view: GraphFunctionCatalogView,
   applications: readonly DeclarationApplication[],
 ): boolean {
-  return new Set(applications.map((row) => row.applicationRef)).size ===
-      applications.length && applications.every((application) => {
-        const reconstructed = applyCatalogDeclaration(view, {
-          applicationKind: application.declaration.declarationKind,
-          handle: application.declaration.handle,
-          targetRef: application.targetRef,
-          targetDigest: application.targetDigest,
-          appliedValueRef: application.appliedValueRef,
-          appliedValueDigest: application.appliedValueDigest,
+  try {
+    return new Set(applications.map((row) => row.applicationRef)).size ===
+        applications.length && applications.every((application) => {
+          const reconstructed = applyCatalogDeclaration(view, {
+            applicationKind: application.declaration.declarationKind,
+            handle: application.declaration.handle,
+            targetRef: application.targetRef,
+            targetDigest: application.targetDigest,
+            appliedValueRef: application.appliedValueRef,
+            appliedValueDigest: application.appliedValueDigest,
+          });
+          return reconstructed.kind === "declaration_application" &&
+            exactJson(reconstructed, application);
         });
-        return reconstructed.kind === "declaration_application" &&
-          exactJson(reconstructed, application);
-      });
+  } catch {
+    return false;
+  }
 }
 
 function startSelection(
@@ -314,6 +318,7 @@ function authorityMatches<M extends RunInvocationMemberKey>(
   const productSet = slots.product_set;
   const catalogScope = slots.catalog_scope;
   const program = slots.execution_program;
+  const graphFunction = slots.graph_function;
   const actor = slots.actor;
   const sessionPolicy = slots.session_policy;
   const capabilities = slots.capability_grants;
@@ -321,6 +326,25 @@ function authorityMatches<M extends RunInvocationMemberKey>(
   const requiredCapabilities = packet(invocation.definitionKey.memberKey)
     .metadata.capabilityRefs;
   const steeringDigest = sha256Canonical(transportResourceAssertion);
+  const authorityRequest = invocation.request as Readonly<
+    Record<string, JsonValue>
+  >;
+  const requestTarget = isRecord(authorityRequest.target)
+    ? authorityRequest.target
+    : null;
+  const requiresGraphFunction = invocation.definitionKey.memberKey ===
+      "invoke" || requestTarget?.kind === "graph_function";
+  const exactGraphFunctionAuthority = requiresGraphFunction
+    ? graphFunction !== null &&
+      graphFunction.graphFunction.ref ===
+        resolution.resolution.graphFunctionRef &&
+      graphFunction.graphFunction.digest ===
+        resolution.resolution.graphFunctionDigest &&
+      graphFunction.membership.ref ===
+        resolution.resolution.programGraphFunctionMembership.ref &&
+      graphFunction.membership.digest ===
+        resolution.resolution.programGraphFunctionMembership.digest
+    : graphFunction === null;
   return workspace !== null && workspace.ref === workspaceBinding.bindingId &&
     workspace.digest === workspaceBinding.bindingDigest &&
     lock !== null && lock.ref === workspaceBinding.lockId &&
@@ -335,8 +359,9 @@ function authorityMatches<M extends RunInvocationMemberKey>(
     catalogScope.view.ref === catalogViewRef(resources.catalogView.viewDigest) &&
     catalogScope.view.digest === resources.catalogView.viewDigest &&
     exactJson(catalogScope.allowlist, resources.catalogView.allowlist) &&
-    program !== null && program.ref === resolution.program.programRef &&
-    program.digest === sha256Canonical(resolution.program as unknown as JsonValue) &&
+    program !== null && program.ref === resolution.resolution.programRef &&
+    program.digest === resolution.resolution.programDigest &&
+    exactGraphFunctionAuthority &&
     sessionPolicy !== null && sessionPolicy.ref === policy.policyRef &&
     sessionPolicy.digest === policy.policyDigest &&
     capabilities !== null &&
@@ -379,6 +404,7 @@ export async function prepareProductRunInvocation<
   if (!isRecord(programCoordinate) || typeof programCoordinate.ref !== "string") {
     return preparationRefusal(memberKey, "invalid_program", ["/program"]);
   }
+  const programRef = programCoordinate.ref;
   const selection: ProductExecutionSelection = memberKey === "invoke"
     ? typeof request.catalogHandle === "string"
       ? { kind: "direct", catalogHandle: request.catalogHandle }
@@ -403,7 +429,7 @@ export async function prepareProductRunInvocation<
     catalogView: resources.catalogView,
     admittedInstalls: input.admittedInstalls,
     verifyInstallAdmission: input.verifyInstallAdmission,
-    programRef: programCoordinate.ref,
+    programRef,
     selection,
   });
   if (resolution.kind !== "loaded_product_execution_resolution") {
