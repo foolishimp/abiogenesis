@@ -1919,14 +1919,14 @@ exact imported owner composition for its definition.
 
 ##### Product-issued `ProgramGraphFunctionMembership` coordinate
 
-The semantic membership relation remains owner-authored in two reciprocal
-declarations: the resolved GTL `Program.callableMembership` names the selected
-GraphFunction definition, and its published Catalog contribution
-`programMembershipRefs` names the resolved Program. The Validator validates
-that whole-Program relation. Product execution resolution alone issues the
-deterministic evidence coordinate after exact installed selection; issuing
-evidence does not transfer semantic ownership from GTL or the publisher to
-Product.
+The resolved GTL Program alone owns semantic callable membership:
+`Program.callableMembership` names the selected GraphFunction definition. The
+published Catalog contribution owns only the reciprocal publication/eligibility
+assertion: `programMembershipRefs` names the resolved Program. The Validator
+requires exact agreement between the Program-owned membership and the
+publisher-owned assertion as a whole-Program relation. Product execution
+resolution alone issues the derived deterministic evidence coordinate after
+current installed resolution; issuance transfers no semantic ownership.
 
 The canonical preimage is exactly the two-field object whose `programRef` is
 the resolved `Program.programRef` and whose `graphFunctionRef` is the selected
@@ -1992,7 +1992,7 @@ The existing reference frames and concern lenses classify this one relation:
 
 | Frame or lens | Coordinate law |
 |---|---|
-| **Owner / Authority** | GTL Program and the reciprocal publisher contribution own semantic membership; Validator owns whole-Program judgment; Product resolution alone issues the derived evidence. Evidence issuance moves no semantic authority. |
+| **Owner / Authority** | The GTL Program alone owns semantic callable membership. The publisher contribution owns only the reciprocal publication/eligibility assertion; Validator requires exact agreement; Product resolution alone issues the derived evidence after current installed resolution. Evidence issuance moves no semantic authority. |
 | **Operator** | One pure `derive` maps the exact two-ref preimage to its ref/digest. It performs no selection, validation, transition, admission, traversal, or projection and is not a fourth binding combinator. |
 | **Temporal / Install** | Derivation occurs only after the exact installed Product resolution has closed reciprocal membership, GraphFunction bytes/digest/owner/publication/admitted-install identity, and valid `ProgramValidation`. It cannot exist as earlier Catalog, validation, or process-local truth. |
 | **Proof** | One positive installed path must consume the Product-issued coordinate. Holding the selected GraphFunction fixed while substituting a sibling Program, holding the Program fixed while substituting a sibling GraphFunction, and crossing a sibling membership ref with the selected digest or the selected ref with a sibling digest must each refuse before any semantic owner call and with zero ABG append. |
@@ -3883,9 +3883,9 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **change class and scope** | One bounded ABIogenesis-local `design_reframe`. Product and requirements are unchanged and sufficient. The amendment adds only the `ProgramGraphFunctionMembership` coordinate law and the downstream Product-resolution, binding, and test migration required to consume it. |
 | **upstream basis** | `PRODUCT.md` GTL Program membership, whole-Program validation, exact installed Catalog/invocation basis, thin Public, and Definition/Tool/Runtime authority laws; `REQ-L-GTL3-CONTRACT-LAW-API-003`, `-009`, and `-016`; `REQ-L-GTL3-GRAPHFUNCTION-026`; `REQ-M-GTL3-PROGRAM-TRAVERSAL-002`, `-004`, and `-009`; `REQ-R-ABG3-BINDING-002..005`; and `REQ-P-CATALOG-003`, `-005`, `-015..017`, and `-029`. |
 | **clauses extended** | Section 5.6.2C now fixes one Product-issued membership evidence coordinate, its exact two-ref preimage and digest/ref law, its successful installed-resolution construction boundary, downstream comparison, and proportional proof falsifiers. Section 5.6.5A review compression remains unchanged. |
-| **superseded clause** | None. GTL and publisher semantic ownership, Validator whole-Program judgment, Product installed resolution, the exact three-combinator algebra, singular Public call, Graph Catalog accepted design, and proportional review law remain operative. |
+| **superseded clause** | None. The GTL Program's sole ownership of semantic callable membership, the publisher contribution's reciprocal publication/eligibility assertion, Validator exact-agreement judgment, Product installed resolution, the exact three-combinator algebra, singular Public call, Graph Catalog accepted design, and proportional review law remain operative. |
 | **affected catalog/entity rows** | None. The coordinate is pure immutable derived evidence, not an entity, Catalog contribution or row, runtime fact, event, registry, lifecycle, owner, or shared identity framework. The Graph Catalog accepted design is unchanged. |
-| **authority and construction decision** | Product execution resolution alone derives the coordinate after reciprocal authored membership, exact GraphFunction bytes/digest/declaration owner/publication/admitted install, and valid `ProgramValidation`. `ProductExecutionResolution` carries `programGraphFunctionMembership: ReferenceDigest<ProgramGraphFunctionMembership>` adjacent to its Program/GraphFunction coordinates; its enclosing digest covers the field, and validation recomputes both membership and resolution digest/ref relations. |
+| **authority and construction decision** | Product execution resolution alone issues the derived coordinate after current installed resolution establishes exact agreement between Program-owned callable membership and the publisher contribution's reciprocal publication/eligibility assertion, exact GraphFunction bytes/digest/declaration owner/publication/admitted install, and valid `ProgramValidation`. `ProductExecutionResolution` carries `programGraphFunctionMembership: ReferenceDigest<ProgramGraphFunctionMembership>` adjacent to its Program/GraphFunction coordinates; its enclosing digest covers the field, and validation recomputes both membership and resolution digest/ref relations. |
 | **migration consequence** | Migrate only Product execution resolution to issue the coordinate, downstream execution binding to compare `execution_program`, `graph_function.graphFunction`, and `graph_function.membership` with the issued values, and tests to obtain positive evidence from Product resolution and exercise substitution/crossed-pair falsifiers with zero owner call/append. Public, bindings, and tests may not mint it; operation-indexed forbidden `graph_function` remains `null`. This frozen design-worker subject contains no code, test, Public, Catalog, or ambient edit. |
 | **current disposition** | External counts remain 18 operations and 56 definitions; the twelve-key Wave 2 behavioral boundary and all W2 points remain unchanged. Banked behavior remains 37/56 at `e7e252ed`, demonstrated 5.6.2C conformance remains 0/56, W2-05 remains eight unearned points, and accepted Wave 2 progress remains 11/32. `bf193b3d` remains rejected evidence and gains no count, conformance, review-bank, or point credit. |
 | **prohibited growth** | No new entity, Catalog row, runtime fact/event, registry, lifecycle, owner, shared identity framework, Public helper issuer, test issuer, or fourth binding combinator may arise from this coordinate. |
