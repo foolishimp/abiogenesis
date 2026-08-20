@@ -1,13 +1,30 @@
 import assert from "node:assert/strict";
+import { mkdtemp, rm } from "node:fs/promises";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
 import test from "node:test";
 
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
 
+import {
+  abgEventLocatorDigest,
+  acquireAbgEventResource,
+  closeAbgEventResource,
+  validateAbgEventResourceAssertion,
+  validateAbgEventResourceReceipt,
+} from "../../build/code/src/abg/definition_event_resource.js";
+import { validatePublicOperationBasis } from
+  "../../build/code/src/abg/environment_admission.js";
+
 import { RUN_OPERATION_CONTRACTS } from
   "../../build/code/src/product/run_operation_contracts.js";
 import { sha256Canonical } from
   "../../build/code/src/shared/digests.js";
+import {
+  constructExactOperationInvocationCoordinate,
+  isExactOperationInvocationCoordinate,
+} from "../../build/code/src/shared/operation_definition_coordinate.js";
 import {
   PUBLIC_FUNCTION_DEFINITION_FAMILY,
   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
@@ -116,9 +133,8 @@ function exactInvokeCall(resources) {
     authorityDigest: sha256Canonical(slots),
     slots,
   });
-  const invocationRef = "invocation://abiogenesis/t287/w2-05/binding-algebra";
   const requestDigest = sha256Canonical(request);
-  const invocation = Object.freeze({
+  const invocationBody = Object.freeze({
     kind: "public_invocation",
     schemaVersion,
     invocationContract: Object.freeze({
@@ -136,14 +152,6 @@ function exactInvokeCall(resources) {
         definitionRef: "#/$defs/PublicInvocation",
       }),
     }),
-    invocationRef,
-    invocationDigest: sha256Canonical({
-      definitionKey: definition.definitionKey,
-      definitionDigest: definition.definitionDigest,
-      invocationRef,
-      requestDigest,
-      authorityDigest: invocationAuthority.authorityDigest,
-    }),
     definitionRef: definition.definitionRef,
     definitionVersion: schemaVersion,
     definitionDigest: definition.definitionDigest,
@@ -155,7 +163,8 @@ function exactInvokeCall(resources) {
       "request",
       member.requestContract.definitionRef,
     ),
-    requestRef: `${invocationRef}/request`,
+    requestRef:
+      `public-request://abiogenesis/${requestDigest.slice("sha256:".length)}`,
     requestDigest,
     request,
     expectedResultContract: contractCoordinate(
@@ -178,6 +187,13 @@ function exactInvokeCall(resources) {
     provenanceRefs: Object.freeze([
       "provenance://abiogenesis/t287/w2-05-worker",
     ]),
+  });
+  const invocationDigest = sha256Canonical(invocationBody);
+  const invocation = Object.freeze({
+    ...invocationBody,
+    invocationRef:
+      `invocation://abiogenesis/${invocationDigest.slice("sha256:".length)}`,
+    invocationDigest,
   });
   return Object.freeze({ invocation, resources });
 }
@@ -211,7 +227,7 @@ async function faultOf(program) {
   return Effect.runPromise(Effect.flip(program));
 }
 
-test("W2-05 three-function static binding algebra admits once and fails closed", async () => {
+test("W2-05 three-function static binding algebra admits once and fails closed", async (context) => {
   assert.deepEqual(Object.keys(bindings).sort(), [
     "bindExactPrefixRead",
     "bindExactPrefixTransition",
@@ -234,6 +250,84 @@ test("W2-05 three-function static binding algebra admits once and fails closed",
   assert.equal(staticCalls, 1);
   assert.deepEqual(returned, { ownerOutput: refusal, resources: receipt });
   assert.equal(Object.isFrozen(returned), true);
+
+  const invocationCoordinate = constructExactOperationInvocationCoordinate(
+    {
+      operationId: call.invocation.definitionKey.operationId,
+      memberKey: call.invocation.definitionKey.memberKey,
+      definitionDigest: call.invocation.definitionDigest,
+    },
+    call.invocation.invocationRef,
+    call.invocation.requestDigest,
+  );
+  assert.equal(isExactOperationInvocationCoordinate(invocationCoordinate), true);
+  assert.equal(
+    invocationCoordinate.invocationRef,
+    call.invocation.invocationRef,
+    "C links to E by ref without taking E's digest authority",
+  );
+  assert.equal(
+    invocationCoordinate.invocationPayloadDigest,
+    call.invocation.requestDigest,
+  );
+  assert.notEqual(
+    invocationCoordinate.invocationDigest,
+    call.invocation.invocationDigest,
+    "C and E have distinct digest domains",
+  );
+  const operationBasis = Object.freeze({
+    ...invocationCoordinate,
+    authorityScopeRef: "workspace-binding://binding-algebra",
+    authorityScopeDigest: sha256Canonical({ scope: "binding-algebra" }),
+    correlationId: call.invocation.correlationRef,
+    eventTime: call.invocation.eventTime,
+    causationEventRefs: Object.freeze([]),
+  });
+  assert.equal(
+    validatePublicOperationBasis(
+      operationBasis,
+      call.invocation.definitionKey.operationId,
+      call.invocation.definitionKey.memberKey,
+    ),
+    null,
+    "C is independently valid",
+  );
+  assert.equal(
+    validatePublicOperationBasis(
+      Object.freeze({
+        ...operationBasis,
+        invocationDigest: call.invocation.invocationDigest,
+      }),
+      call.invocation.definitionKey.operationId,
+      call.invocation.definitionKey.memberKey,
+    )?.code,
+    "operation_mismatch",
+    "substituting E for C fails",
+  );
+
+  const cForEFault = await faultOf(staticBinding(Object.freeze({
+    ...call,
+    invocation: Object.freeze({
+      ...call.invocation,
+      invocationDigest: invocationCoordinate.invocationDigest,
+    }),
+  })));
+  assert.equal(cForEFault.code, "call_identity_mismatch");
+  assert.equal(staticCalls, 1, "substituting C for E fails before the owner");
+
+  const incompleteEDigestFault = await faultOf(staticBinding(Object.freeze({
+    ...call,
+    invocation: Object.freeze({
+      ...call.invocation,
+      correlationRef: `${call.invocation.correlationRef}/mutated`,
+    }),
+  })));
+  assert.equal(incompleteEDigestFault.code, "call_identity_mismatch");
+  assert.equal(
+    staticCalls,
+    1,
+    "every admitted E body field participates in its identity",
+  );
 
   const malformedResourceFault = await faultOf(staticBinding(Object.freeze({
     invocation: call.invocation,
@@ -296,6 +390,30 @@ test("W2-05 three-function static binding algebra admits once and fails closed",
   assert.equal(malformedOutputFault.code, "invalid_owner_output");
   assert.equal(malformedOutputCalls, 1);
 
+  const validNonterminal = Object.freeze({
+    invocationKind: "invoke",
+    disposition: "held",
+    run: coordinate("run://binding-algebra"),
+    graphCall: coordinate("graph-call://binding-algebra"),
+    interaction: null,
+    gap: null,
+    evidence: Object.freeze([coordinate("evidence://binding-algebra")]),
+    replay: coordinate("replay://binding-algebra"),
+  });
+  for (const ownerOutput of [
+    Object.freeze({ outcomeKind: "wrong", value: validNonterminal }),
+    Object.freeze({ ...refusal, unexpected: true }),
+  ]) {
+    const invalidEnvelope = bindings.bindStaticOwner(
+      RUN_OPERATION_CONTRACTS.invoke.invoke,
+      () => Effect.succeed(Object.freeze({ ownerOutput, resources: receipt })),
+      assertionSchema,
+      receiptSchema,
+    );
+    const invalidEnvelopeFault = await faultOf(invalidEnvelope(call));
+    assert.equal(invalidEnvelopeFault.code, "invalid_owner_output");
+  }
+
   for (const [label, bind] of [
     ["read", bindings.bindExactPrefixRead],
     ["transition", bindings.bindExactPrefixTransition],
@@ -310,7 +428,95 @@ test("W2-05 three-function static binding algebra admits once and fails closed",
       assertionSchema,
       receiptSchema,
     );
-    await Effect.runPromise(bound(call));
-    assert.equal(calls, 1, `${label} specialization calls its owner once`);
+    const regimeFault = await faultOf(bound(call));
+    assert.equal(regimeFault.code, "invalid_resource_assertion", label);
+    assert.equal(calls, 0, `${label} rejects a shared synthetic regime pre-owner`);
   }
+
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-w2-05-binding-"));
+  context.after(() => rm(scratch, { recursive: true, force: true }));
+  const eventLogPath = join(scratch, "events.jsonl");
+  const eventAssertionSchema = v.strictObject({
+    eventResource: v.custom(validateAbgEventResourceAssertion),
+    token: v.literal("admitted"),
+  });
+  const eventReceiptSchema = v.strictObject({
+    eventResource: v.custom(validateAbgEventResourceReceipt),
+    token: v.literal("closed"),
+  });
+  const transitionResources = Object.freeze({
+    eventResource: Object.freeze({
+      kind: "new_abg_event_resource",
+      schemaVersion,
+      eventLogPath,
+      locatorDigest: abgEventLocatorDigest(eventLogPath),
+    }),
+    token: "admitted",
+  });
+  const exactOwner = (ownerCall) => {
+    const acquired = acquireAbgEventResource(ownerCall.resources.eventResource);
+    assert.equal(acquired.kind, "acquired_abg_event_resource");
+    return Effect.succeed(Object.freeze({
+      ownerOutput: refusal,
+      resources: Object.freeze({
+        eventResource: closeAbgEventResource(
+          acquired.resource,
+          acquired.resource.entryPrefix,
+        ),
+        token: "closed",
+      }),
+    }));
+  };
+  const transition = bindings.bindExactPrefixTransition(
+    RUN_OPERATION_CONTRACTS.invoke.invoke,
+    exactOwner,
+    eventAssertionSchema,
+    eventReceiptSchema,
+  );
+  const transitioned = await Effect.runPromise(
+    transition(exactInvokeCall(transitionResources)),
+  );
+  assert.equal(transitioned.resources.eventResource.acquisitionKind, "new");
+  assert.equal(
+    transitioned.resources.eventResource.entryPrefix.coordinateDigest,
+    transitioned.resources.eventResource.closeHandoff.prefix.coordinateDigest,
+  );
+
+  const readResources = Object.freeze({
+    eventResource: Object.freeze({
+      kind: "reopen_abg_event_resource",
+      schemaVersion,
+      closeHandoff: transitioned.resources.eventResource.closeHandoff,
+      handoffDigest: sha256Canonical(
+        transitioned.resources.eventResource.closeHandoff,
+      ),
+    }),
+    token: "admitted",
+  });
+  const read = bindings.bindExactPrefixRead(
+    RUN_OPERATION_CONTRACTS.invoke.invoke,
+    exactOwner,
+    eventAssertionSchema,
+    eventReceiptSchema,
+  );
+  const readResult = await Effect.runPromise(read(exactInvokeCall(readResources)));
+  assert.equal(readResult.resources.eventResource.acquisitionKind, "reopen");
+  assert.equal(
+    readResult.resources.eventResource.entryPrefix.coordinateDigest,
+    readResult.resources.eventResource.closeHandoff.prefix.coordinateDigest,
+  );
+
+  const malformedReadReceipt = bindings.bindExactPrefixRead(
+    RUN_OPERATION_CONTRACTS.invoke.invoke,
+    () => Effect.succeed(Object.freeze({
+      ownerOutput: refusal,
+      resources: null,
+    })),
+    eventAssertionSchema,
+    eventReceiptSchema,
+  );
+  const malformedReadReceiptFault = await faultOf(
+    malformedReadReceipt(exactInvokeCall(readResources)),
+  );
+  assert.equal(malformedReadReceiptFault.code, "invalid_resource_receipt");
 });

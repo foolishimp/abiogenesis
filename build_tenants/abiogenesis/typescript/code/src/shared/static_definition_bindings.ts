@@ -1,10 +1,15 @@
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
+import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
-import type {
-  AbgEventResourceAssertion,
-  AbgEventResourceReceipt,
+import {
+  validateAbgEventResourceAssertion,
+  validateAbgEventResourceReceipt,
+  type AbgEventResourceAssertion,
+  type AbgEventResourceReceipt,
 } from "../abg/definition_event_resource.js";
+import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import {
   definitionFault,
   exactDefinitionCallMatches,
@@ -15,9 +20,84 @@ import type {
   DefinitionReturn,
   ExactDefinitionCallable,
 } from "./effect_definition.js";
+import { sha256Bytes } from "./digests.js";
 import { deepFreeze } from "./immutable.js";
 import type { OwnerContractSourceDeclaration } from
   "./public_function_contracts.js";
+
+function samePrefix(
+  left: DurablePrefixCoordinate,
+  right: DurablePrefixCoordinate,
+): boolean {
+  return left.coordinateDigest === right.coordinateDigest;
+}
+
+function sameStore(
+  left: DurablePrefixCoordinate,
+  right: DurablePrefixCoordinate,
+): boolean {
+  return left.eventLogRef === right.eventLogRef &&
+    left.storeIdentity.device === right.storeIdentity.device &&
+    left.storeIdentity.inode === right.storeIdentity.inode &&
+    left.storeIdentity.eventContractDigest ===
+      right.storeIdentity.eventContractDigest;
+}
+
+type ReopenAbgEventResourceAssertion = Extract<
+  AbgEventResourceAssertion,
+  { readonly kind: "reopen_abg_event_resource" }
+>;
+
+type ReopenAbgEventResourceReceipt = AbgEventResourceReceipt & Readonly<{
+  readonly acquisitionKind: "reopen";
+}>;
+
+const EMPTY_PREFIX_DIGEST = sha256Bytes(new Uint8Array());
+
+function admittedEventReceipt(value: unknown): AbgEventResourceReceipt | null {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    return null;
+  }
+  const eventResource = (value as Readonly<Record<string, unknown>>).eventResource;
+  return validateAbgEventResourceReceipt(eventResource) ? eventResource : null;
+}
+
+function exactReadReceipt(
+  assertion: AbgEventResourceAssertion,
+  receipt: AbgEventResourceReceipt,
+): boolean {
+  return assertion.kind === "reopen_abg_event_resource" &&
+    validateAbgEventResourceAssertion(assertion) &&
+    validateAbgEventResourceReceipt(receipt) &&
+    receipt.acquisitionKind === "reopen" &&
+    samePrefix(receipt.entryPrefix, assertion.closeHandoff.prefix) &&
+    samePrefix(receipt.closeHandoff.prefix, receipt.entryPrefix);
+}
+
+function exactTransitionReceipt(
+  assertion: AbgEventResourceAssertion,
+  receipt: AbgEventResourceReceipt,
+): boolean {
+  if (
+    !validateAbgEventResourceAssertion(assertion) ||
+    !validateAbgEventResourceReceipt(receipt) ||
+    receipt.acquisitionKind !==
+      (assertion.kind === "new_abg_event_resource" ? "new" : "reopen")
+  ) return false;
+  if (
+    assertion.kind === "new_abg_event_resource"
+      ? receipt.entryPrefix.prefixLength !== 0 ||
+        receipt.entryPrefix.prefixDigest !== EMPTY_PREFIX_DIGEST ||
+        receipt.entryPrefix.eventLogRef !==
+          pathToFileURL(resolve(assertion.eventLogPath)).href
+      : !samePrefix(receipt.entryPrefix, assertion.closeHandoff.prefix)
+  ) return false;
+  const successor = receipt.closeHandoff.prefix;
+  return sameStore(receipt.entryPrefix, successor) &&
+    successor.prefixLength >= receipt.entryPrefix.prefixLength &&
+    (successor.prefixLength !== receipt.entryPrefix.prefixLength ||
+      samePrefix(receipt.entryPrefix, successor));
+}
 
 /**
  * Constructs one module-static definition closure over an exact owner and its
@@ -104,10 +184,10 @@ export function bindStaticOwner<
 export function bindExactPrefixRead<
   TPacket extends OwnerContractSourceDeclaration,
   TResources extends Readonly<{
-    readonly eventResource: AbgEventResourceAssertion;
+    readonly eventResource: ReopenAbgEventResourceAssertion;
   }>,
   TResourceReceipt extends Readonly<{
-    readonly eventResource: AbgEventResourceReceipt;
+    readonly eventResource: ReopenAbgEventResourceReceipt;
   }>,
 >(
   packet: TPacket,
@@ -115,9 +195,42 @@ export function bindExactPrefixRead<
   resourceAssertionSchema: v.GenericSchema<TResources, TResources>,
   resourceReceiptSchema: v.GenericSchema<TResourceReceipt, TResourceReceipt>,
 ): ExactDefinitionCallable<TPacket, TResources, TResourceReceipt> {
+  const readOwner: ExactDefinitionCallable<
+    TPacket,
+    TResources,
+    TResourceReceipt
+  > = (call) => {
+    if (
+      call.resources.eventResource.kind !== "reopen_abg_event_resource" ||
+      !validateAbgEventResourceAssertion(call.resources.eventResource)
+    ) {
+      return Effect.fail(definitionFault(
+        packet.definitionKey,
+        "resource_admission",
+        "invalid_resource_assertion",
+        "exact-prefix reads require one exact reopened ABG entry prefix",
+      ));
+    }
+    return Effect.suspend(() => owner(call)).pipe(
+      Effect.flatMap((result) => {
+        const eventReceipt = admittedEventReceipt(result.resources);
+        return eventReceipt !== null && exactReadReceipt(
+            call.resources.eventResource,
+            eventReceipt,
+          )
+          ? Effect.succeed(result)
+          : Effect.fail(definitionFault(
+              packet.definitionKey,
+              "receipt_admission",
+              "invalid_resource_receipt",
+              "exact-prefix reads must return the unchanged owner-issued ABG prefix",
+            ));
+      }),
+    );
+  };
   return bindStaticOwner(
     packet,
-    owner,
+    readOwner,
     resourceAssertionSchema,
     resourceReceiptSchema,
   );
@@ -138,9 +251,39 @@ export function bindExactPrefixTransition<
   resourceAssertionSchema: v.GenericSchema<TResources, TResources>,
   resourceReceiptSchema: v.GenericSchema<TResourceReceipt, TResourceReceipt>,
 ): ExactDefinitionCallable<TPacket, TResources, TResourceReceipt> {
+  const transitionOwner: ExactDefinitionCallable<
+    TPacket,
+    TResources,
+    TResourceReceipt
+  > = (call) => {
+    if (!validateAbgEventResourceAssertion(call.resources.eventResource)) {
+      return Effect.fail(definitionFault(
+        packet.definitionKey,
+        "resource_admission",
+        "invalid_resource_assertion",
+        "exact-prefix transitions require one exact new or reopened ABG resource",
+      ));
+    }
+    return Effect.suspend(() => owner(call)).pipe(
+      Effect.flatMap((result) => {
+        const eventReceipt = admittedEventReceipt(result.resources);
+        return eventReceipt !== null && exactTransitionReceipt(
+            call.resources.eventResource,
+            eventReceipt,
+          )
+          ? Effect.succeed(result)
+          : Effect.fail(definitionFault(
+              packet.definitionKey,
+              "receipt_admission",
+              "invalid_resource_receipt",
+              "exact-prefix transitions must return the matching owner-issued ABG successor",
+            ));
+      }),
+    );
+  };
   return bindStaticOwner(
     packet,
-    owner,
+    transitionOwner,
     resourceAssertionSchema,
     resourceReceiptSchema,
   );

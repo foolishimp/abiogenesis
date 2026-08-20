@@ -1335,18 +1335,21 @@ function traversalProgram(
   }));
 }
 
+/** Effect-native HoG entry used by definition programs before the host membrane. */
+export function executeGraphTraversalEffect(
+  input: ExecuteGraphTraversalRequest,
+): Effect.Effect<ExecuteGraphTraversalResult, never> {
+  return Effect.catchAll(
+    traversalProgram(input),
+    (failure) => Effect.succeed(projectGraphTraversalFailure(failure)),
+  );
+}
+
 export async function executeGraphTraversal(
   input: ExecuteGraphTraversalRequest,
 ): Promise<ExecuteGraphTraversalResult> {
-  const exit = await runEffectProgram(traversalProgram(input));
+  const exit = await runEffectProgram(executeGraphTraversalEffect(input));
   if (Exit.isSuccess(exit)) return exit.value;
-  const failure = Cause.failureOption(exit.cause);
-  if (
-    Option.isSome(failure) &&
-    failure.value instanceof GraphTraversalFailure
-  ) {
-    return projectGraphTraversalFailure(failure.value);
-  }
   const defect = Cause.dieOption(exit.cause);
   if (Option.isSome(defect)) throw defect.value;
   throw exit.cause;

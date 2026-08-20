@@ -103,15 +103,25 @@ export function validatedOwnerOutput<
   output: OwnerSemanticOutput<TPacket>,
   ownerLabel: string,
 ): OwnerSemanticOutput<TPacket> {
-  const schema = output.outcomeKind === "result"
-    ? packet.resultSchema
-    : output.outcomeKind === "refusal"
-    ? packet.refusalSchema
-    : packet.nonTerminalSchema;
-  if (
-    schema === null ||
-    admitRuntimeContract(schema, output.value).disposition !== "admitted"
-  ) {
+  const resultEnvelope = v.strictObject({
+    outcomeKind: v.literal("result"),
+    value: packet.resultSchema as v.GenericSchema,
+  });
+  const refusalEnvelope = v.strictObject({
+    outcomeKind: v.literal("refusal"),
+    value: packet.refusalSchema as v.GenericSchema,
+  });
+  const envelope = packet.nonTerminalSchema === null
+    ? v.union([resultEnvelope, refusalEnvelope])
+    : v.union([
+        resultEnvelope,
+        refusalEnvelope,
+        v.strictObject({
+          outcomeKind: v.literal("nonterminal"),
+          value: packet.nonTerminalSchema as v.GenericSchema,
+        }),
+      ]);
+  if (admitRuntimeContract(envelope, output).disposition !== "admitted") {
     throw new TypeError(`${ownerLabel} output differs from its exact contract`);
   }
   return output;
@@ -344,13 +354,19 @@ export function exactDefinitionCallMatches(
       sha256Canonical(
         invocation.invocationAuthority.slots as unknown as JsonValue,
       ) ||
-    invocation.invocationDigest !== sha256Canonical({
-      definitionKey: definition.definitionKey,
-      definitionDigest: definition.definitionDigest,
-      invocationRef: invocation.invocationRef,
-      requestDigest: invocation.requestDigest,
-      authorityDigest: invocation.invocationAuthority.authorityDigest,
-    } as unknown as JsonValue)
+    (() => {
+      const {
+        invocationRef,
+        invocationDigest,
+        ...invocationBody
+      } = invocation;
+      const expectedDigest = sha256Canonical(
+        invocationBody as unknown as JsonValue,
+      );
+      return invocationDigest !== expectedDigest ||
+        invocationRef !==
+          `invocation://abiogenesis/${expectedDigest.slice("sha256:".length)}`;
+    })()
   ) return false;
 
   const operationProjection = PUBLIC_OPERATION_CONTRACT_PROJECTIONS.find(

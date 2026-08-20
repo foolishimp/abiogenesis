@@ -1095,9 +1095,7 @@ function admitInvocationWithRequest(
           basis.definitionDigest !==
             requestBasis.publicInvocation.definitionDigest ||
           basis.invocationPayloadDigest !==
-            requestBasis.publicInvocation.requestDigest ||
-          basis.invocationDigest !==
-            requestBasis.publicInvocation.invocationDigest
+            requestBasis.publicInvocation.requestDigest
     ) ||
     !requestTargetMatches
   ) {

@@ -43,6 +43,7 @@ export {
 } from "./route_proposal.js";
 export {
   executeGraphTraversal,
+  executeGraphTraversalEffect,
   GraphTraversalFailure,
   resumeProjectedRetry,
   type ExecuteGraphTraversalInput,

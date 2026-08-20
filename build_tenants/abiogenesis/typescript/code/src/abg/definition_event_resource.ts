@@ -7,6 +7,7 @@ import {
   assertHeldEventStoreAtDurablePrefix,
   createNewEmptyAppendSink,
   reopenEventStore,
+  validateDurablePrefixCoordinate,
   validateEventStoreCloseHandoff,
   type AbgEventStore,
   type DurablePrefixCoordinate,
@@ -89,6 +90,67 @@ function exactIJson(value: unknown): boolean {
   } catch {
     return false;
   }
+}
+
+function isRecord(
+  value: unknown,
+): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/** Pure structural admission for an ABG event-resource assertion. */
+export function validateAbgEventResourceAssertion(
+  value: unknown,
+): value is AbgEventResourceAssertion {
+  if (!isRecord(value) || !exactIJson(value)) return false;
+  if (value.kind === "new_abg_event_resource") {
+    return value.schemaVersion === "5.0.0" &&
+      Object.keys(value).sort().join("\0") ===
+        ["eventLogPath", "kind", "locatorDigest", "schemaVersion"].sort()
+          .join("\0") &&
+      typeof value.eventLogPath === "string" &&
+      isAbsolute(value.eventLogPath) &&
+      value.locatorDigest === abgEventLocatorDigest(value.eventLogPath);
+  }
+  return value.kind === "reopen_abg_event_resource" &&
+    value.schemaVersion === "5.0.0" &&
+    Object.keys(value).sort().join("\0") ===
+      ["closeHandoff", "handoffDigest", "kind", "schemaVersion"].sort()
+        .join("\0") &&
+    validateEventStoreCloseHandoff(value.closeHandoff) &&
+    value.handoffDigest === abgEventHandoffDigest(value.closeHandoff);
+}
+
+/** Pure structural admission for an owner-issued ABG resource receipt. */
+export function validateAbgEventResourceReceipt(
+  value: unknown,
+): value is AbgEventResourceReceipt {
+  if (
+    !isRecord(value) ||
+    !exactIJson(value) ||
+    Object.keys(value).sort().join("\0") !==
+      [
+        "acquisitionKind",
+        "closeHandoff",
+        "entryPrefix",
+        "kind",
+        "receiptDigest",
+        "schemaVersion",
+      ].sort().join("\0") ||
+    value.kind !== "abg_event_resource_receipt" ||
+    value.schemaVersion !== "5.0.0" ||
+    (value.acquisitionKind !== "new" && value.acquisitionKind !== "reopen") ||
+    !validateDurablePrefixCoordinate(value.entryPrefix) ||
+    !validateEventStoreCloseHandoff(value.closeHandoff)
+  ) return false;
+  const body = {
+    kind: value.kind,
+    schemaVersion: value.schemaVersion,
+    acquisitionKind: value.acquisitionKind,
+    entryPrefix: value.entryPrefix,
+    closeHandoff: value.closeHandoff,
+  };
+  return value.receiptDigest === sha256Canonical(body as unknown as JsonValue);
 }
 
 export function acquireAbgEventResource(
@@ -176,14 +238,6 @@ export function closeAbgEventResource(
 ): AbgEventResourceReceipt {
   assertHeldEventStoreAtDurablePrefix(resource.store, finalPrefix);
   const closeHandoff = resource.store.projectReopenAuthorityAndClose();
-  if (
-    sha256Canonical(closeHandoff.prefix as unknown as JsonValue) !==
-      sha256Canonical(finalPrefix as unknown as JsonValue)
-  ) {
-    throw new TypeError(
-      "ABG resource close differs from its explicit final durable prefix",
-    );
-  }
   const body = {
     kind: "abg_event_resource_receipt" as const,
     schemaVersion: "5.0.0" as const,
