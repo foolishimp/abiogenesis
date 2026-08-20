@@ -273,6 +273,12 @@ also contract-final held because their current success result schemas are
 evidence. It remains outside the ledger and does not authorize a partial
 transplant.
 
+Accepted design authority `08595af6918196d8d208dfc0c2ff0e91ec8f3b67`
+preserves the three-combinator direction. The exact `bf193b3d` implementation
+subject is rejected evidence and does not promote its reported 39/56 state.
+The accepted behavior ledger remains 37/56, demonstrated 5.6.2C conformance
+remains 0/56, and the W2-05 eight-point line remains wholly unearned.
+
 The absent/non-callable 19/56 definitions partition exactly:
 
 | Group | Count | Disposition |
@@ -307,6 +313,33 @@ Execute in this order:
    and the legacy Public family is absent; and
 9. advance to W2-06, W2-07, and W2-08 only after the release-contract and
    mechanical exits both close.
+
+#### W2-05 proportional evidence and review plan
+
+The existing Proof frame owns this plan through Constitution Section 5.6.5A
+and activates `SP-05` and `SP-06`. A family shares one deep review only when
+every member imports the identical typed owner/kernel callable, uses the same
+structural resource/receipt contracts, preserves the same owner output/
+nonterminal/refusal algebra, uses the same effect/currentness/commit/handoff/
+installed causal-topology regime, contains no member body, branch, callback, or
+per-member logic, and differs only in frozen packet constants. Any failed
+condition creates another review unit. A review bank requires byte identity
+plus unchanged governing contracts.
+
+| Subject | Cold review unit | Exhaustive evidence and invalidation |
+|---|---|---|
+| exact 18/56 family | no semantic unit by coordinate name | all 56 receive exact-set, type/schema, digest, manifest/member-coordinate, packed installed-resolution, projection-equality, and legacy-exclusion checks; rerun the whole census at freeze |
+| three shared combinators | once per changed combinator | verify exact generic/resource/receipt law; a change invalidates every dependent family seam |
+| `run.invoke` | one shared owner kernel plus two packets | check both packets and coordinates; a kernel change invalidates the family and touched seams |
+| `witness.admit` | one owner kernel plus six packets while the equivalence predicate holds | check all six packets and coordinates; any predicate failure creates a separate unit |
+| `run.continue` | one shared continuation carrier/kernel plus two packets | preserve current-intent versus selected-action meaning; a distinct currentness or continuation law creates a separate unit |
+| `interaction.respond` | one E33 kernel plus five packets | check all five fixed packets and coordinates; a kernel or carrier change invalidates all five seams |
+| materializers and release | separate only for irreducible owner/effect/currentness/commit laws | keep artifact effects, release-owner refusal/success contracts, and the release read separate where their actual laws differ |
+| installed scenarios | once per materially distinct causal topology/effect regime for each frozen W2-05 subject; rerun on that basis at each applicable integrated/final boundary | retain decision-exact local falsifiers for changed seams; never repeat a long test solely because a coordinate name differs |
+
+This is exhaustive mechanical coverage with compressed repeated reasoning. It
+is never sampling, reduced assurance, 56 behavioral executions, code
+acceptance, or partial story-point acceptance.
 
 No step may introduce a runtime callback, registry, generic controller, mode
 selector, universal resource union/topology engine, per-key semantic dispatch,
@@ -707,6 +740,12 @@ constitution Sections 5.6.2C and 16.7. Product and requirements are unchanged.
 The exact 18 operation identities and 56 `{operationId, memberKey}` definitions
 are static external coordinates and exports. They are not implementation atoms,
 wrapper counts, or runtime dispatch entries.
+
+Review and proof follow Constitution Section 5.6.5A. The review unit is a
+changed irreducible atom, owner seam, common combinator, or materially distinct
+effect, currentness, commit, or installed causal topology, never the coordinate
+name. Fixed same-kernel packets receive exhaustive mechanical coverage across
+all 56 coordinates rather than duplicated semantic review.
 
 The installed relation is singular:
 

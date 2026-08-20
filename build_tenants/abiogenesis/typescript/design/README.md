@@ -12,8 +12,10 @@ refusals. Conformance to the new Section 5.6.2C algebra is 0/56 until each
 binding is reconciled, migrated, or exactly proven conforming; 19/56 remain
 absent and non-callable. The two callable release snapshots are also contract-
 final held because their current success result schemas are `v.never()`. The
-dirty five-member interaction experiment is rejected evidence and advances
-none of those axes.
+exact `bf193b3d` code subject is rejected evidence and does not promote a 39/56
+ledger. The dirty five-member interaction experiment is distinct rejected
+evidence. Neither advances the accepted counts, conformance axis, or story
+points.
 
 The 18 operation identities and 56 definition keys are static external
 coordinates and exports, not 56 semantic implementations. The operative shared
@@ -43,6 +45,14 @@ operative Wave 2 binding law. The accepted census, owner classifications,
 indexed outcomes, Effect `3.22.1` ABI, HoG/ABG durability boundaries, and legacy
 deletion target remain conserved without turning `E`, `L`, `J`, `R`, `X`, or
 `T0-T9` proof maps into runtime types or implementation budgets.
+
+Constitution Section 5.6.5A activates Proof-frame `SP-05` and `SP-06` for
+W2-05. Each changed common combinator and irreducible owner kernel/seam receives
+one deep review. Fixed equivalent packets receive exhaustive mechanical
+schema, digest, coordinate, manifest, installed-resolution, and legacy-
+exclusion checks across all 56 coordinates. Review reuse requires exact byte
+identity and unchanged governing contracts. This compresses repeated reasoning
+without sampling, reduced assurance, code acceptance, or partial points.
 
 `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen design
 remains non-operative future input under backlogged T-268.

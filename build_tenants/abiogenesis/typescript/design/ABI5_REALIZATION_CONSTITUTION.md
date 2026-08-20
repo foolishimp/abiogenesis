@@ -2793,6 +2793,86 @@ legacy exclusion on one packed subject. It does not require 56 behavioral
 executions; exact behavior qualification remains the twelve-key odd_glc
 sentinel.
 
+#### 5.6.5A Operative W2-05 proportional review-compression law
+
+The existing **Proof** frame is the primary owner of review proportionality for
+W2-05 and explicitly activates `SP-05` and `SP-06`. It selects review units and
+evidence breadth after the other existing frames classify the subject. It does
+not create a Review frame, runtime object, registry, or authority.
+
+| Coordinating frame | W2-05 review decision |
+|---|---|
+| **Operator** | Recursively determine irreducibility and factorization. An endpoint, export, or definition-key name does not establish an atom. |
+| **Reuse** | Apply `FS-18` through `FS-20` to project, language/native-library, immutable-lineage, and maintained open-source foundations before accepting a local remainder. |
+| **Effect** | Distinguish `pure`, `read`, `artifact-effect`, and `runtime-mutation`, including materially different currentness and commit laws. |
+| **Owner** | Identify the exact semantic owner and owner seam for each Operator-classified atom or kernel. A frozen constant packet does not create another semantic owner. |
+| **Install** | Distinguish each materially different installed causal topology and bind review to its exact source-independent callable coordinates and resolution. |
+
+A review unit is a changed irreducible atom, changed owner seam, changed shared
+combinator, or materially distinct effect, currentness, commit, or installed
+causal topology. An endpoint, export, operation identity, or definition-key name
+is not a review unit. Deep cold review occurs once per changed common combinator
+and once per irreducible owner kernel or seam. Exact reusable banked evidence
+satisfies the latter while its reuse conditions hold.
+
+For two coordinates `a` and `b`, one family review is reusable if and only if
+all of these conditions hold:
+
+1. both import the identical typed owner/kernel callable;
+2. both use the same structural resource and receipt contracts;
+3. both preserve the same owner output, nonterminal, and refusal algebra;
+4. both use the same effect, currentness, commit, handoff, and installed causal-
+   topology regime;
+5. neither has a member body, branch, callback, or per-member logic; and
+6. only frozen packet constants differ.
+
+Failure of any condition creates a separate review unit. A fixed same-kernel
+packet family receives exhaustive mechanical packet, schema, digest,
+coordinate, manifest, and installed-resolution checks instead of repeated
+semantic review.
+
+Every one of the 56 coordinates still receives exhaustive, non-sampled proof
+of exact-set membership; invocation, packet, resource, receipt, and outcome
+type/schema agreement; definition and export digests; manifest, lock, module,
+package-export, named-export, and member coordinates; packed installed
+resolution; projection equality; and legacy exclusion. This law compresses
+repeated reasoning. It never samples the family or reduces assurance.
+
+Reviews are banked against one exact frozen combinator or kernel subject. A
+bank is reusable only while those bytes are identical and the governing
+Product, requirement, design, input/output, resource/receipt, effect,
+currentness, commit, handoff, and installed-topology contracts are unchanged.
+The invalidation cone is:
+
+| Change | Invalidated review/evidence |
+|---|---|
+| shared combinator | every dependent family seam |
+| owner kernel or seam | that family and every touched cross-frame seam |
+| packet-only constant | that packet plus its manifest, coordinate, digest, and census proof; the family review stays banked while the equivalence predicate holds, and any failed condition widens the cone to a separate review unit |
+| byte-conserved accepted owner atom | retains accepted evidence unless a governing contract changes or a new counterexample crosses its seam |
+
+For each frozen W2-05 subject, long installed tests run once per materially
+distinct causal topology/effect regime. They rerun on that same proportional
+basis at each applicable integrated and final boundary, never once per
+coordinate. Decision-exact local falsifiers remain mandatory for each changed
+seam.
+
+The W2-05 family application is:
+
+| Family | Proportional review factorization |
+|---|---|
+| `run.invoke` | one shared owner kernel plus two frozen packets |
+| `witness.admit` | one owner kernel plus six frozen packets while the equivalence predicate holds |
+| `run.continue` | one shared continuation carrier/kernel plus two frozen packets; both remain held until that carrier is accepted and preserves current-intent versus selected-action meaning |
+| `interaction.respond` | one E33 kernel plus five frozen packets |
+| materializers | separate review units only where owner, effect, currentness, or commit law is irreducible |
+| release read and contracts | separate according to their actual read versus release-owner artifact/refusal effect and commit laws |
+
+This law changes no acceptance axis. The banked behavior ledger remains 37/56
+at `e7e252ed`, demonstrated 5.6.2C conformance remains 0/56, and W2-05 story
+points remain unearned. The exact `bf193b3d` implementation subject is rejected
+evidence; it does not establish 39/56 or bank a kernel or combinator review.
+
 ### 5.7 Temporal-Algebra Specialization
 
 The generic temporal mechanic is:
@@ -3505,14 +3585,15 @@ accepted interface receipt is
 
 Wave 2 is active at `W2-05` whole-family static constructability for the exact
 Program-only odd_glc Hello sentinel. W2-03 is frozen at `8e288391`; W2-04 is
-complete; and HEAD `e7e252ed` banks legacy/current behavior and callability for
-37/56 definitions. That behavior set is 35 active definitions plus two release-
-snapshot definitions whose only lawful Wave 2 behavior is their frozen
-qualification refusal. It is not proof of the newly operative Section 5.6.2C
-algebra: demonstrated conformance is 0/56 pending reconciliation, migration, or
-exact proof for every banked closure. The dirty five-member interaction
-experiment is rejected evidence and advances none of these axes or story
-points.
+complete; and banked commit `e7e252ed` records legacy/current behavior and
+callability for 37/56 definitions. That behavior set is 35 active definitions
+plus two release-snapshot definitions whose only lawful Wave 2 behavior is
+their frozen qualification refusal. It is not proof of the newly operative
+Section 5.6.2C algebra: demonstrated conformance is 0/56 pending reconciliation,
+migration, or exact proof for every banked closure. The dirty five-member
+interaction experiment and exact implementation subject `bf193b3d` are
+distinct rejected evidence. Neither advances these axes or story points, and
+`bf193b3d` does not promote the ledger to 39/56.
 
 The remaining exact binding disposition is:
 
@@ -3694,3 +3775,18 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **current application** | At banked commit `e7e252ed`, legacy/current behavior and callability evidence exists for 37/56 definitions: 35 active plus two refusal-only release-snapshot bindings. Demonstrated 5.6.2C conformance is 0/56 until every banked binding is reconciled, migrated, or exactly proven conforming. The absent/non-callable 19/56 are eleven owner-ready definitions, two definitions sharing the held continuation-carrier gap, five rejected dirty interaction definitions, and held unbound `project.read#release_evidence`. The two banked release snapshots are outside that 19 but remain contract-final held because their success result schemas are `v.never()`. The operative order is the three-combinator foundation, `run.invoke` and sentinel first, the owner-ready group, continuation carrier resolution, one E33 kernel/five packets, held release evidence, release-contract closure, 56/56 packed loadability and legacy exclusion, then W2-06 through W2-08. |
 | **constructability and qualification decision** | Whole-family constructability requires all 56 static exports to load from packed bytes with real owner closures and no stub, source import, or legacy fallback. That proof is mechanical. Behavioral qualification remains the exact twelve-key odd_glc sentinel and does not expand to 56 semantic executions. |
 | **promotion status** | ABIogenesis-local constitutional law under immutable STDO `v2.2.2`. Promotion to a later shared methodology release requires separate re-entry and representative cross-product evidence. |
+
+### 16.8 T-287 W2-05 Proportional Review-Compression Amendment Record
+
+| Field | Record |
+|---|---|
+| **reason** | W2-05 repeats static coordinates over shared combinators and owner kernels. Treating each of 56 names as a semantic review unit would duplicate reasoning, obscure irreducibility, and contradict the existing Proof, Prime, and proportional-evidence laws. |
+| **change class and scope** | One bounded ABIogenesis-local `design_reframe` over W2-05 review and evidence decomposition. Product, requirements, operations, keys, owner semantics, effects, contracts, code, tests, and feature-wave scope do not change. |
+| **upstream basis** | `PRODUCT.md` exact external-projection and compression law; `REQ-P-PUBLIC-CONTRACTS-005`, `-008..011`, and `-013`; immutable STDO `v2.2.2` proportional method, Prime, and proof-target law; Sections 5.3.1, 5.3.2 `SP-05`/`SP-06`, 5.5 `FS-18..20`, 5.6.2C, and 5.6.5. |
+| **clauses extended** | Section 5.6.5A makes the existing Proof frame's proportional review relation decision-complete for W2-05 and coordinates Operator, Reuse, Effect, Owner, and Install classifications. Section 15 corrects the stale `HEAD e7e252ed` wording and records the rejected `bf193b3d` subject. |
+| **superseded clause** | None. `SP-05`, `SP-06`, the three-combinator algebra, exact 56-coordinate constructability, and twelve-key behavioral qualification remain unchanged and are applied together. |
+| **affected catalog/entity rows** | None. The amendment groups review evidence around existing combinators, kernels, seams, effects, and installed topologies; it creates no Product, catalog, runtime, entity, owner, or definition row. |
+| **migration consequence** | T-287 and the design README migrate their review/evidence decomposition to exact frozen combinator/kernel subjects, the equivalence predicate, and the invalidation cone. No code, test, runtime, catalog, entity, owner, definition, accepted-evidence, or story-point migration occurs. All 56 mechanical checks, changed-seam falsifiers, and existing behavioral qualification remain required. |
+| **current disposition** | No code is accepted. Banked behavior remains 37/56 at `e7e252ed`, 5.6.2C conformance remains 0/56, and W2-05 points remain unearned. `bf193b3d` and its 39/56 claim remain rejected evidence. |
+| **prohibited growth** | No runtime review engine, review registry, frame object, runtime evidence dispatcher, generated semantic dispatcher, per-coordinate semantic review roster, or fourth binding combinator may arise from this law. |
+| **promotion status** | ABIogenesis-local W2-05 design law under immutable STDO `v2.2.2`. Shared-method promotion requires separate methodology re-entry and representative evidence. |
