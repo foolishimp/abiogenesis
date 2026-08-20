@@ -2,32 +2,47 @@
 
 ## Current Boundary
 
-The ABIogenesis 5.0 Product and direct-GTL M3 architecture are accepted.
-S03 and S05 are accepted. Wave 1 functional interface closure is accepted at
-artifact `ab6dd512...c878` and receipt `c8c26047...a0d7d`. GOALS and T-287 now
-select Wave 2 C1F final execution-carrier/topology-arm correction; C2/D6 is
-held. Direct F_H
-accepted exact census blob `efe88cac` and the exact S06 Gate 1 construction
-subject at commit `3f80ba23`, tree `04906b1c`. That Git object is the retained
-18-operation/56-key structural owner map for Wave 2. Its Public algebra,
-concrete-port law, refusal/outcome law, projection graph, PFC-F08 relation, and
-atomic deletion boundary remain operative when Wave 2 is selected.
+The ABIogenesis 5.0 Product, requirements, direct-GTL M3 architecture, S03,
+S05, and Wave 1 functional interface remain accepted. GOALS and T-287 select
+Wave 2 `W2-05` whole-family static constructability for the Program-only
+odd_glc Hello sentinel. At banked commit `e7e252ed`, legacy/current behavior and
+callability evidence exists for 37/56 definitions: 35 active definitions and
+two release snapshots that intentionally return their frozen qualification
+refusals. Conformance to the new Section 5.6.2C algebra is 0/56 until each
+binding is reconciled, migrated, or exactly proven conforming; 19/56 remain
+absent and non-callable. The two callable release snapshots are also contract-
+final held because their current success result schemas are `v.never()`. The
+dirty five-member interaction experiment is rejected evidence and advances
+none of those axes.
 
-Current Product requirements and the accepted T-287 catalog contraction
-supersede Gate 1's older catalog and workspace effect dispositions:
-`workspace.open`, catalog readiness, catalog view, catalog application, and
-catalog reads are eventless Product relations; workspace creation creates no
-ABG runtime event merely for creating the boundary; invocation alone records
-exact catalog use in ABG runtime truth. T-287 carries the bounded Wave 2
-reconciliation and execution plan. The mutable S06 design file is historical
-working text; the accepted Git object plus these explicit supersessions are the
-selected construction basis.
+The 18 operation identities and 56 definition keys are static external
+coordinates and exports, not 56 semantic implementations. The operative shared
+binding algebra is exactly three module-static higher-order combinators over
+imported typed owner functions: one static owner shell, one exact-prefix read
+specialization, and one exact-prefix transition specialization. Every export is
+constructed at module initialization as one real `ExactDefinitionCallable`
+Effect closure. Public admits and selects one exact installed binding, calls it
+once, and projects structurally; Product, GTL, HoG, ABG, Validator, and
+Implementation owners retain all semantic and runtime decisions.
 
-The prior C1F candidate `f82805ec`, tree `308aa2ae`, is held and rejected only
-for the incomplete relations recorded in constitution Section 16.6. The exact
-18/56 map, Effect `3.22.1` selection, owners, indexed outcomes, and accepted
-D2-D5 HoG translation/deletion remain fixed. One accepted Section 16.6
-candidate atomically closes C1F and advances C2/D6.
+Each static shell receives its exact owner-authored strict Valibot resource-
+assertion and receipt contracts with the fixed packet and typed owner import.
+Those module-static contracts are not runtime callbacks or another
+combinator. They preserve exact `TResources` and `TResourceReceipt` generics;
+the shell performs structural admission only, while resource meaning,
+authorization, and currentness remain owner law. The verified manifest and
+dependency lock must resolve each declared module/export/member coordinate to
+one callable. That installed static resolution is required; semantic string
+dispatch, ambient lookup, and invocation-selected handlers remain prohibited.
+
+Constitution Sections 5.6.2, 5.6.2A, 5.6.2B, and 16.6 retain historical
+classification evidence only. Their `PublicExecutionCandidate`, topology-arm,
+generic resource-provider, and C1F/D6 advancement design is superseded and is
+non-operative implementation authority. Sections 5.6.2C and 16.7 are the
+operative Wave 2 binding law. The accepted census, owner classifications,
+indexed outcomes, Effect `3.22.1` ABI, HoG/ABG durability boundaries, and legacy
+deletion target remain conserved without turning `E`, `L`, `J`, `R`, `X`, or
+`T0-T9` proof maps into runtime types or implementation budgets.
 
 `A5-F12` and `ABG5-S04` are deferred to planned 5.1 work. Their frozen design
 remains non-operative future input under backlogged T-268.
@@ -90,10 +105,16 @@ projection; Git and the T-284 correction vector preserve that inventory.
 
 ## Implementation Gate
 
-T-287 currently selects Wave 2 `exact_public_family_construction` at
-`W2-C1F`: freeze the final design-only correction for one serializable
-execution ingress, closed nonempty resource-topology arm families, exact
-grant/receipt/load identity, private Effect Layer closure, and the recursive
-initial-to-final ABG prefix relation. No production/schema/test/deletion work
-is active. After independent acceptance, the existing C2/D6 construction
-sequence resumes without altering accepted Wave 1 interfaces.
+T-287 currently selects the bounded `W2-05` static-binding `design_reframe`.
+The next implementation cut first installs the shared three-combinator
+foundation, then wires `run.invoke` and the twelve-key sentinel path. It next
+binds the other owner-ready materialize, result, and witness definitions;
+holds both `run.continue` members for one accepted shared continuation carrier;
+implements the five interaction exports from one E33 kernel only after exact
+choice/evidence/grant/publication carriers exist; binds held
+`release_evidence`; closes exact future-capable success result contracts for
+both banked release snapshots while retaining refusal-only Wave 2 behavior and
+Wave 5 publication authority; and only then proves 56/56 packed loadability
+plus legacy exclusion.
+No dirty rejected interaction closure, per-key wrapper, stub, runtime registry,
+or old C1F/D6 topology-arm carrier may cross this gate.

@@ -166,17 +166,18 @@ definition. For this sentinel, odd_glc publishes its GraphFunction composition
 and no custom executable Implementation; it consumes the catalogued base Hello
 capability.
 
-Public structurally admits the run request, selects
-`run.invoke#start`, calls the concrete Product resolution port, calls the
-selected concrete owner ports, and projects their outcomes. Product/Validator
-resolves and validates the Catalog closure; each GraphFunction owner supplies
-its declarative topology; each contract/evaluator/customization owner supplies
-its declared relation; primitive base GraphFunctions resolve to exact
-owner-local Implementations/ports; ABG revalidates and admits the runtime
-tuple/prefix; and HoG traverses the resolved GraphFunction closure. Executable
-leaves are Implementations/owner ports, not another GraphFunction kind. Public
-contains no owner-selection algorithm or semantic switch. No second catalog,
-runtime, execution-basis registry, or downstream adapter is introduced.
+Public structurally admits the run request, selects `run.invoke#start` and its
+one exact installed binding, calls that binding once, and projects its indexed
+outcome. The installed binding is statically closed over the typed Product,
+Validator, GTL, HoG, ABG, and Implementation owner functions required by that
+definition. Product/Validator resolves and validates the Catalog closure;
+GraphFunction owners supply declarative topology; contract, evaluator, and
+customization owners supply their declared relations; primitive base
+GraphFunctions resolve to exact owner-local Implementations; HoG traverses the
+resolved closure; and ABG revalidates and admits runtime truth. Public neither
+calls those owners separately nor sequences their relations. Executable leaves
+remain Implementations/owner ports, not another GraphFunction kind. No second
+catalog, runtime, execution-basis registry, or downstream adapter is introduced.
 
 Consensus is the architectural falsifier: Consensus is one published
 GraphFunction whose round topology, fan-out, aggregation, dispute recursion,
@@ -190,19 +191,26 @@ The mechanically traced Public consumer map is:
 `product.verify#verify`, `product.resolve#resolve`,
 `product.install#install`, `workspace.bind#bind`, `catalog.admit#admit`,
 `catalog.view#allowlist`, `run.invoke#start`, `project.read#run_status`,
-`project.read#run_result`, and `project.read#run_replay`. The consumer map, not
-the count, governs. ABIogenesis 5.0p packages the one exact 18-operation/56-key
-Public family. Wave 2 qualifies only this traced path; unused rows remain
-outside its evidence claim. It creates no partial roster, second API, or second
-catalog.
+`project.read#run_result`, and `project.read#run_replay`. These are static
+external coordinates and exports, not separate semantic implementations. The
+consumer map, not the count, governs. ABIogenesis 5.0p packages the one exact
+18-operation/56-key Public family through the compressed static whole-family
+construction ratified by Realization Constitution Section 5.6.2C. Product
+semantic leaves remain irreducible owner functions. Public admits and selects
+one exact installed binding, calls it once, and structurally projects its owner
+output and resource receipt. There is no per-key semantic implementation,
+runtime callback map, registry, rival controller, mode selector, or universal
+resource/topology engine.
 
 Package constructability is nevertheless whole-family and decision-complete:
-all 56 definitions have concrete runtime-callable owner closures; the installed
-tarball contains every required owner module, runtime dependency, schema, and
-static catalog row; and one installed exact-set load/resolve probe proves all
-56 closures resolve from packed bytes. This is mechanical constructability,
-not 56-definition behavioral qualification. Scenario behavior remains limited
-to the twelve-key sentinel path.
+all 56 static exports load from packed bytes with real owner closures rather
+than stubs or interface-only bindings; the installed tarball contains every
+required owner module, runtime dependency, schema, and static catalog row; and
+one installed exact-set load/resolve probe proves the complete set. This is
+mechanical constructability, not 56-definition behavioral qualification. Wave 2
+behavioral qualification remains the exact twelve-key odd_glc sentinel path;
+unused rows remain outside its evidence claim without forming a partial roster,
+second API, or second catalog.
 
 Transport is one installed CLI episode chain with exactly one
 `run.invoke#start`. SDK, schema, catalog, and CLI surfaces are mechanically
