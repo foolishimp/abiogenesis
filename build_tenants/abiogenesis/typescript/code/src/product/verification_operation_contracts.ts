@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import {
   completeDefinitionContractCoordinateMapSchema,
   contractIndexedPendingExternalSelectorSchema,
@@ -18,7 +20,6 @@ import {
   uniqueArray,
 } from "../shared/public_function_contracts.js";
 
-const VERIFY_CAPABILITY = "abg.capability.install.bind-products@5";
 const VERIFY_AUTHORITY =
   "authority://abiogenesis/product/verification@5";
 
@@ -125,7 +126,7 @@ const verify = ownerContractPacket(
         ["installed_artifact"],
       ),
     ],
-    capabilityRefs: [VERIFY_CAPABILITY],
+    capabilityRefs: capabilityRefsForContract("abg.operation.product.verify"),
     defaults: {},
     closedDomains: {
       targetKind: ["packed_artifact", "installed_artifact"],

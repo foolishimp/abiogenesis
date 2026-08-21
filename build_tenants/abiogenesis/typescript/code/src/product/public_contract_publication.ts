@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
@@ -136,8 +138,6 @@ const PUBLIC_REQUIREMENT_AUTHORITY_REFS = Object.freeze([
   "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-009",
   "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-010",
 ]);
-const PUBLIC_OPERATOR_CAPABILITY =
-  "abg.capability.operator.public-contract@5";
 const PUBLIC_PACKAGE_EXPORT = "./public";
 const PUBLIC_NATIVE_SCHEMA_EXPORT = "PUBLIC_OPERATION_SCHEMAS";
 const PUBLIC_OPERATION_PROJECTION_EXPORT =
@@ -216,7 +216,7 @@ export function derivePublicCatalogRowProposals(
         contractKind: "serialized_native_contract",
         owningProduct: productId,
         requirementAuthorityRefs: PUBLIC_REQUIREMENT_AUTHORITY_REFS,
-        capabilityIdentities: Object.freeze([PUBLIC_OPERATOR_CAPABILITY]),
+        capabilityIdentities: capabilityRefsForContract(contractId),
         nativeTypedLocator: exactNativeLocator(
           packageName,
           closure,

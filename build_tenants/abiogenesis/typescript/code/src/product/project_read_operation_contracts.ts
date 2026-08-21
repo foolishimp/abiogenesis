@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import {
   type ExactOwnerOperationPort,
   nonblankSchema,
@@ -131,7 +133,6 @@ function productReadContract<
   projection: TProjection;
   abstractModule: string;
   bindingRequired: boolean;
-  capabilityRef: string;
   catalogRefusals?: boolean;
 }>) {
   const authorityRef =
@@ -186,7 +187,7 @@ function productReadContract<
           ...(input.catalogRefusals ? ["catalog_scope" as const] : []),
         ]
         : ["capability_grants"],
-      capabilityRefs: [input.capabilityRef],
+      capabilityRefs: capabilityRefsForContract("abg.operation.project.read"),
       defaults: {},
       closedDomains: {
         caseKey: [input.caseKey],
@@ -212,7 +213,6 @@ const catalogList = productReadContract({
   projection: catalogListProjectionSchema,
   abstractModule: "Product.CatalogProjection",
   bindingRequired: true,
-  capabilityRef: "abg.capability.operator.public-contract@5",
   catalogRefusals: true,
 });
 
@@ -227,7 +227,6 @@ const catalogDescribe = productReadContract({
   projection: catalogDescriptionProjectionSchema,
   abstractModule: "Product.CatalogProjection",
   bindingRequired: true,
-  capabilityRef: "abg.capability.operator.public-contract@5",
   catalogRefusals: true,
 });
 
@@ -238,7 +237,6 @@ const workspaceStatus = productReadContract({
   projection: workspaceStatusProjectionSchema,
   abstractModule: "Product.WorkspaceProjection",
   bindingRequired: true,
-  capabilityRef: "abg.capability.operator.public-contract@5",
 });
 
 const installEvidence = productReadContract({
@@ -251,7 +249,6 @@ const installEvidence = productReadContract({
   projection: installEvidenceProjectionSchema,
   abstractModule: "Product.InstallProjection",
   bindingRequired: false,
-  capabilityRef: "abg.capability.install.bind-products@5",
 });
 
 const releaseEvidence = productReadContract({
@@ -264,7 +261,6 @@ const releaseEvidence = productReadContract({
   projection: releaseEvidenceProjectionSchema,
   abstractModule: "Product.ReleaseProjection",
   bindingRequired: false,
-  capabilityRef: "abg.capability.operator.public-contract@5",
 });
 
 const ticketConsensus = productReadContract({
@@ -279,7 +275,6 @@ const ticketConsensus = productReadContract({
   projection: ticketConsensusProjectionSchema,
   abstractModule: "Product.ConsensusProjection",
   bindingRequired: true,
-  capabilityRef: "abg.capability.operator.public-contract@5",
 });
 
 export const PRODUCT_PROJECT_READ_CONTRACTS = Object.freeze({

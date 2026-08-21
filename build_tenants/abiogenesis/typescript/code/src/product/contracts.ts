@@ -1,4 +1,8 @@
 import type { Sha256Digest } from "../shared/digests.js";
+import type {
+  CapabilityDefinitionGraph,
+  CapabilityDefinitionGraphCoordinate,
+} from "../shared/capability_contracts.js";
 import type { CompleteDefinitionContractCoordinateMap } from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import type { ProductInstall, ResolvedProductLock } from "./environment.js";
@@ -48,6 +52,7 @@ export interface ProductContributionManifest {
   readonly productContentDigest: Sha256Digest;
   readonly publicContractCatalogId: string;
   readonly publicContractCatalogDigest: Sha256Digest;
+  readonly capabilityDefinitionGraph: CapabilityDefinitionGraphCoordinate;
   readonly publicationBindings: readonly ProductModulePublicationBinding[];
   readonly rows: readonly ProductContributionManifestRow[];
 }
@@ -73,6 +78,11 @@ export interface ProductAssetLocator {
   readonly schemaVersion: string;
   readonly contentDigest: Sha256Digest;
   readonly definitionRef?: string;
+}
+
+export interface ProductCapabilityDefinitionGraphManifestCoordinate
+  extends CapabilityDefinitionGraphCoordinate {
+  readonly assetLocator: ProductAssetLocator;
 }
 
 export type ProductPublicContractKind =
@@ -140,6 +150,8 @@ export interface VerifiedProductArtifact {
   readonly declaredCapabilityRefs: readonly string[];
   readonly catalogId: string;
   readonly catalogDigest: Sha256Digest;
+  readonly capabilityDefinitionGraph: CapabilityDefinitionGraph;
+  readonly capabilityDefinitionGraphAsset: ProductAssetLocator;
   readonly publicContracts: readonly ProductPublicContract[];
   readonly publicContractRefs: readonly string[];
   readonly publicCapabilityRefs: readonly string[];
@@ -314,6 +326,8 @@ export interface ProductInstallCandidate {
   readonly declaredCapabilityRefs: readonly string[];
   readonly catalogId: string;
   readonly catalogDigest: Sha256Digest;
+  readonly capabilityDefinitionGraph: CapabilityDefinitionGraph;
+  readonly capabilityDefinitionGraphAsset: ProductAssetLocator;
   readonly publicContracts: readonly ProductPublicContract[];
   readonly publicContractRefs: readonly string[];
   readonly publicCapabilityRefs: readonly string[];

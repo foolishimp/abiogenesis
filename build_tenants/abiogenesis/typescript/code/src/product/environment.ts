@@ -1,6 +1,13 @@
 import { isAbsolute } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import {
+  capabilityDefinitionGraphAssetBytes,
+  capabilityRefsForContract,
+  constructCapabilityDefinitionGraph,
+  isCapabilityDefinitionGraph,
+  type CapabilityDefinitionGraph,
+} from "../shared/capability_contracts.js";
 import type {
   ProductContributionManifest,
   ProductDeclaredDependency,
@@ -11,6 +18,7 @@ import type {
 import { ABI5_PRODUCT_ID } from "./contracts.js";
 import {
   isSha256Digest,
+  sha256Bytes,
   sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
@@ -44,6 +52,8 @@ export interface ResolvedProductLockRow {
   readonly publisherNamespace: string;
   readonly catalogId: string;
   readonly catalogDigest: Sha256Digest;
+  readonly capabilityDefinitionGraph: CapabilityDefinitionGraph;
+  readonly capabilityDefinitionGraphAsset: import("./contracts.js").ProductAssetLocator;
   readonly contributionManifestRef: string;
   readonly contributionManifestDigest: Sha256Digest;
   readonly contributionManifest: ProductContributionManifest;
@@ -276,6 +286,8 @@ function lockRowFor(
     publisherNamespace: artifact.publisherNamespace,
     catalogId: artifact.catalogId,
     catalogDigest: artifact.catalogDigest,
+    capabilityDefinitionGraph: artifact.capabilityDefinitionGraph,
+    capabilityDefinitionGraphAsset: { ...artifact.capabilityDefinitionGraphAsset },
     contributionManifestRef: artifact.contributionManifestRef,
     contributionManifestDigest: artifact.contributionManifestDigest,
     contributionManifest: copyContributionManifest(
@@ -532,6 +544,8 @@ export function isResolvedProductLock(
           "artifactDigest",
           "catalogDigest",
           "catalogId",
+          "capabilityDefinitionGraph",
+          "capabilityDefinitionGraphAsset",
           "compatibilityRefs",
           "contributionManifest",
           "contributionManifestDigest",
@@ -560,6 +574,12 @@ export function isResolvedProductLock(
         !nonEmptyString(row.publisherNamespace) ||
         !nonEmptyString(row.catalogId) ||
         !isSha256Digest(row.catalogDigest) ||
+        !isCapabilityDefinitionGraph(row.capabilityDefinitionGraph) ||
+        !isRecord(row.capabilityDefinitionGraphAsset) ||
+        !nonEmptyString(row.capabilityDefinitionGraphAsset.path) ||
+        !nonEmptyString(row.capabilityDefinitionGraphAsset.mediaType) ||
+        row.capabilityDefinitionGraphAsset.schemaVersion !== "5.0.0" ||
+        !isSha256Digest(row.capabilityDefinitionGraphAsset.contentDigest) ||
         !nonEmptyString(row.contributionManifestRef) ||
         !isSha256Digest(row.contributionManifestDigest) ||
         !isProductContributionManifest(row.contributionManifest) ||
@@ -575,6 +595,19 @@ export function isResolvedProductLock(
         row.contributionManifest.publicContractCatalogId !== row.catalogId ||
         row.contributionManifest.publicContractCatalogDigest !==
           row.catalogDigest ||
+        canonicalJson(
+          row.contributionManifest.capabilityDefinitionGraph as unknown as JsonValue,
+        ) !== canonicalJson({
+          graphId: row.capabilityDefinitionGraph.graphId,
+          graphVersion: row.capabilityDefinitionGraph.graphVersion,
+          graphDigest: row.capabilityDefinitionGraph.graphDigest,
+        } as unknown as JsonValue) ||
+        row.capabilityDefinitionGraphAsset.path !==
+          "contracts/capabilities/capability-definition-graph.json" ||
+        row.capabilityDefinitionGraphAsset.mediaType !== "application/json" ||
+        row.capabilityDefinitionGraphAsset.contentDigest !== sha256Bytes(
+          capabilityDefinitionGraphAssetBytes(row.capabilityDefinitionGraph),
+        ) ||
         !isUniqueStringArray(row.compatibilityRefs) ||
         !Array.isArray(row.declaredDependencies) ||
         !row.declaredDependencies.every(isDeclaredDependency) ||
@@ -597,7 +630,19 @@ export function isResolvedProductLock(
           [...new Set(
             (row.publicContracts as readonly ProductPublicContract[])
               .flatMap((contract) => contract.capabilityIdentities),
-          )].sort().join("\0"),
+          )].sort().join("\0") ||
+        row.declaredCapabilityRefs.join("\0") !==
+          row.capabilityDefinitionGraph.rows
+            .map(({ capabilityId }) => capabilityId)
+            .join("\0") ||
+        (row.publicContracts as readonly ProductPublicContract[]).some(
+          (contract) =>
+            contract.capabilityIdentities.join("\0") !==
+              capabilityRefsForContract(contract.contractId).join("\0"),
+        ) ||
+        !lockRowGraphMatchesCatalog(
+          row as unknown as ResolvedProductLockRow,
+        ),
     )
   ) {
     return false;
@@ -674,6 +719,38 @@ export function isResolvedProductLock(
     value.lockId === identity("product-lock://abiogenesis", expectedDigest);
 }
 
+function lockRowGraphMatchesCatalog(row: ResolvedProductLockRow): boolean {
+  try {
+    const contractCatalog = {
+      productId: row.productId,
+      productContentDigest: row.productContentDigest,
+      catalogId: row.catalogId,
+      catalogVersion: "5.0.0" as const,
+      catalogDigest: row.catalogDigest,
+    };
+    const expected = constructCapabilityDefinitionGraph(
+      row.publicContracts.map((contract) => ({
+        contractCatalog,
+        flatRow: {
+          contractId: contract.contractId,
+          contractVersion: contract.contractVersion,
+          contractDigest: contract.contractDigest,
+        },
+        nestedSelector: {
+          selectorKind: "flat_contract" as const,
+          definitionKey: null,
+          slot: null,
+          definitionRef: null,
+        },
+      })),
+    );
+    return canonicalJson(expected as unknown as JsonValue) ===
+      canonicalJson(row.capabilityDefinitionGraph as unknown as JsonValue);
+  } catch {
+    return false;
+  }
+}
+
 export function verifiedArtifactMatchesResolvedLock(
   artifact: VerifiedProductArtifact,
   lock: ResolvedProductLock,
@@ -697,6 +774,8 @@ export function isProductInstallCandidate(
       "artifactDigest",
       "catalogDigest",
       "catalogId",
+      "capabilityDefinitionGraph",
+      "capabilityDefinitionGraphAsset",
       "compatibilityRefs",
       "contributionManifest",
       "contributionManifestDigest",

@@ -6,6 +6,7 @@ export {
   PRODUCT_VERIFICATION_REFUSAL_CODES,
   type InstallProductRequest,
   type ProductAssetLocator,
+  type ProductCapabilityDefinitionGraphManifestCoordinate,
   type ProductContributionKind,
   type ProductContributionManifest,
   type ProductContributionManifestRow,
@@ -31,6 +32,24 @@ export {
   type VerifiedProductArtifact,
   type VerifyProductRequest,
 } from "./contracts.js";
+export {
+  CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
+  CAPABILITY_DEFINITION_GRAPH_ID,
+  CAPABILITY_DEFINITION_GRAPH_VERSION,
+  DS1_CAPABILITY_CONTRACT_REGISTER,
+  MANDATORY_ABI5_CAPABILITY_IDS,
+  capabilityDefinitionGraphAssetBytes,
+  capabilityDefinitionGraphCoordinate,
+  capabilityDefinitionGraphDigest,
+  capabilityRefsForContract,
+  constructCapabilityDefinitionGraph,
+  isCapabilityDefinitionGraph,
+  type CapabilityContractRegisterRow,
+  type CapabilityDefinitionDependencyCoordinate,
+  type CapabilityDefinitionGraph,
+  type CapabilityDefinitionGraphCoordinate,
+  type CapabilityDefinitionGraphRow,
+} from "../shared/capability_contracts.js";
 export { modulePublicationSemanticDigest } from "./publication.js";
 // Compatibility projection: shared primitives are not Product-owned.
 export { canonicalJson, type JsonValue } from "../shared/canonical_json.js";

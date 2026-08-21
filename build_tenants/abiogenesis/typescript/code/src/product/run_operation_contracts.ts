@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import {
   contractBoundValueSchema,
   type ExactOwnerOperationPort,
@@ -96,10 +98,7 @@ function runMetadata(member: "invoke" | "start") {
       "actor",
       "transport_steering",
     ],
-    capabilityRefs: [
-      "abg.capability.catalog.invoke-graph-function@5",
-      "abg.capability.runtime.execute-seven-term-c@5",
-    ],
+    capabilityRefs: capabilityRefsForContract("abg.operation.run.invoke"),
     defaults: member === "start"
       ? { fhMode: "direct", rootMode: "supervised" }
       : {},
@@ -256,7 +255,7 @@ function continueContract<const TMember extends
         "transport_steering",
         "execution_basis",
       ],
-      capabilityRefs: ["abg.capability.runtime.replay-continuation@5"],
+      capabilityRefs: capabilityRefsForContract("abg.operation.run.continue"),
       defaults: {},
       closedDomains: { continuationKind: [member] },
       sdkCoordinate: "sdk.run.continue",

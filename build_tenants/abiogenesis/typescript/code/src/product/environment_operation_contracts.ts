@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import type {
   CanonicalCheckerTargetIdentity,
   CanonicalSourceWitness,
@@ -31,7 +33,6 @@ import {
   uniqueArray,
 } from "../shared/public_function_contracts.js";
 
-const ENVIRONMENT_CAPABILITY = "abg.capability.install.bind-products@5";
 const ENVIRONMENT_AUTHORITY =
   "authority://abiogenesis/product/environment-resolution@5";
 
@@ -405,7 +406,7 @@ const resolve = ownerContractPacket(
       "capability_grants",
       "verification_references",
     ],
-    capabilityRefs: [ENVIRONMENT_CAPABILITY],
+    capabilityRefs: capabilityRefsForContract("abg.operation.product.resolve"),
     defaults: {},
     closedDomains: {},
     sdkCoordinate: "sdk.product.resolve",
@@ -470,7 +471,7 @@ const bind = ownerContractPacket(
       "dependency_lock",
       "actor",
     ],
-    capabilityRefs: [ENVIRONMENT_CAPABILITY],
+    capabilityRefs: capabilityRefsForContract("abg.operation.workspace.bind"),
     defaults: {},
     closedDomains: {
       rootKind: [

@@ -21,6 +21,7 @@
     "declaredDependencies",
     "provenanceRef",
     "declaredCapabilityRefs",
+    "capabilityDefinitionGraph",
     "publicContractCatalog"
   ],
   "properties": {
@@ -83,6 +84,9 @@
     },
     "declaredCapabilityRefs": {
       "$ref": "#/$defs/refs"
+    },
+    "capabilityDefinitionGraph": {
+      "$ref": "#/$defs/capabilityDefinitionGraphManifestCoordinate"
     },
     "publicContractCatalog": {
       "type": "object"
@@ -149,6 +153,7 @@
         "productContentDigest",
         "publicContractCatalogId",
         "publicContractCatalogDigest",
+        "capabilityDefinitionGraph",
         "publicationBindings",
         "rows"
       ],
@@ -180,6 +185,9 @@
         "publicContractCatalogDigest": {
           "$ref": "#/$defs/sha256"
         },
+        "capabilityDefinitionGraph": {
+          "$ref": "#/$defs/capabilityDefinitionGraphCoordinate"
+        },
         "publicationBindings": {
           "type": "array",
           "minItems": 1,
@@ -192,6 +200,49 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/contributionRow"
+          }
+        }
+      }
+    },
+    "capabilityDefinitionGraphCoordinate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graphId", "graphVersion", "graphDigest"],
+      "properties": {
+        "graphId": {
+          "const": "capability-definition-graph://abiogenesis/abg-5"
+        },
+        "graphVersion": {
+          "const": "5.0.0"
+        },
+        "graphDigest": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "capabilityDefinitionGraphManifestCoordinate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graphId", "graphVersion", "graphDigest", "assetLocator"],
+      "properties": {
+        "graphId": {
+          "const": "capability-definition-graph://abiogenesis/abg-5"
+        },
+        "graphVersion": {
+          "const": "5.0.0"
+        },
+        "graphDigest": {
+          "$ref": "#/$defs/sha256"
+        },
+        "assetLocator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "mediaType", "schemaVersion", "contentDigest"],
+          "properties": {
+            "path": { "type": "string", "minLength": 1 },
+            "mediaType": { "const": "application/json" },
+            "schemaVersion": { "const": "5.0.0" },
+            "contentDigest": { "$ref": "#/$defs/sha256" }
           }
         }
       }

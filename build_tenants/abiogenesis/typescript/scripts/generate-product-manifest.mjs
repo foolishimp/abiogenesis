@@ -16,13 +16,19 @@ import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
   ABI5_PRODUCT_ID,
+  CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
   PUBLIC_CATALOG_BINDING_CONTRACTS,
   bindS06PublicFunctionCatalog,
+  capabilityDefinitionGraphAssetBytes,
+  capabilityDefinitionGraphCoordinate,
+  capabilityRefsForContract,
   canonicalJson,
+  constructCapabilityDefinitionGraph,
   derivePublicCatalogRowProposals,
   payloadInventoryDigest,
   modulePublicationSemanticDigest,
   sha256Canonical,
+  sha256Bytes,
   sha256File,
 } from "../build/code/src/product/index.js";
 import {
@@ -90,6 +96,7 @@ await Promise.all([
   rm(join(root, "contracts/public-functions"), { force: true, recursive: true }),
   rm(join(root, "contracts/public-operations"), { force: true, recursive: true }),
   rm(join(root, "contracts/schemas/operations"), { force: true, recursive: true }),
+  rm(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH), { force: true }),
 ]);
 
 const catalogSchemaPath = "contracts/schemas/public-contract-catalog.schema.json";
@@ -414,7 +421,7 @@ const consensusContractRows = CONSENSUS_SCHEMA_ASSET_BINDINGS.map(
   requirementAuthorityRefs: [
     "specification/requirements/product/REQ-P-CONSENSUS.md#REQ-P-CONSENSUS-004",
   ],
-  capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
+  capabilityIdentities: capabilityRefsForContract(contractId),
   assetLocator: {
     path: consensusSchemaPath,
     mediaType: "application/schema+json",
@@ -450,7 +457,7 @@ const consensusVocabularyRows = [
   contractKind: "vocabulary_asset",
   owningProduct: productId,
   requirementAuthorityRefs: [requirementAuthorityRef],
-  capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
+  capabilityIdentities: capabilityRefsForContract(contractId),
   assetLocator: {
     path,
     mediaType: "application/json",
@@ -472,7 +479,9 @@ const extantRows = [
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-049",
       "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-003",
     ],
-    capabilityIdentities: ["abg.capability.product.verify@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.product.verification",
+    ),
     nativeTypedLocator: nativeTypedLocator(nativeInventory, "verifyProduct"),
   },
   {
@@ -485,7 +494,9 @@ const extantRows = [
       "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-032",
       "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-005",
     ],
-    capabilityIdentities: ["abg.capability.runtime.admit-artifact@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.environment-admission",
+    ),
     nativeTypedLocator: nativeTypedLocator(
       abgNativeInventory,
       "AbgEventStore",
@@ -501,7 +512,9 @@ const extantRows = [
       "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
       "specification/requirements/product/REQ-P-CATALOG.md#REQ-P-CATALOG-029",
     ],
-    capabilityIdentities: ["abg.capability.gtl.declare@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.gtl.root-declaration",
+    ),
     nativeTypedLocator: nativeTypedLocator(
       gtlNativeInventory,
       "GTL_DECLARATION_CONSTRUCTORS",
@@ -518,7 +531,9 @@ const extantRows = [
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-051A",
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-053",
     ],
-    capabilityIdentities: ["abg.capability.catalog.index-graph-function@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.hog.graph-function-catalog",
+    ),
     nativeTypedLocator: nativeTypedLocator(nativeInventory, "buildGraphFunctionCatalog"),
   },
   {
@@ -531,7 +546,9 @@ const extantRows = [
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-062",
     ],
-    capabilityIdentities: ["abg.capability.catalog.invoke-graph-function@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.product.invocation-root",
+    ),
     nativeTypedLocator: nativeTypedLocator(
       nativeInventory,
       "constructDirectInvocation",
@@ -547,7 +564,9 @@ const extantRows = [
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-002",
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
     ],
-    capabilityIdentities: ["abg.capability.runtime.admit-root-invocation@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.invocation-root-admission",
+    ),
     nativeTypedLocator: nativeTypedLocator(
       abgNativeInventory,
       "admitInvocation",
@@ -563,7 +582,9 @@ const extantRows = [
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-010",
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
     ],
-    capabilityIdentities: ["abg.capability.runtime.resolve-root-implementation@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.product.implementation-resolution-root",
+    ),
     nativeTypedLocator: nativeTypedLocator(
       nativeInventory,
       "resolveImplementation",
@@ -579,7 +600,9 @@ const extantRows = [
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-003",
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-006",
     ],
-    capabilityIdentities: ["abg.capability.gtl.materialize-root@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.gtl.materialization-root",
+    ),
     nativeTypedLocator: nativeTypedLocator(
       gtlNativeInventory,
       "materializeGraph",
@@ -595,7 +618,9 @@ const extantRows = [
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-004",
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-010",
     ],
-    capabilityIdentities: ["abg.capability.runtime.admit-root-basis@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.execution-basis-root",
+    ),
     nativeTypedLocator: nativeTypedLocator(
       abgNativeInventory,
       "admitExecutionBasis",
@@ -611,7 +636,9 @@ const extantRows = [
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-004",
       "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-010",
     ],
-    capabilityIdentities: ["abg.capability.runtime.open-root-call@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.open-call-root",
+    ),
     nativeTypedLocator: nativeTypedLocator(
       abgNativeInventory,
       "openTraversalScope",
@@ -627,7 +654,9 @@ const extantRows = [
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-005",
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-006",
     ],
-    capabilityIdentities: ["abg.capability.hog.traverse-root@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.hog.traversal-root",
+    ),
     nativeTypedLocator: nativeTypedLocator(hogNativeInventory, "traverse"),
   },
   {
@@ -640,7 +669,9 @@ const extantRows = [
       "specification/requirements/abg/REQ-R-ABG3-CCALL.md#-001-uniformity",
       "specification/requirements/abg/REQ-R-ABG3-CCALL.md#-007-shape-preservation",
     ],
-    capabilityIdentities: ["abg.capability.runtime.admit-root-c-call@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.c-call-root",
+    ),
     nativeTypedLocator: nativeTypedLocator(abgNativeInventory, "openCCall"),
   },
   {
@@ -653,7 +684,9 @@ const extantRows = [
       "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-002",
       "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-018",
     ],
-    capabilityIdentities: ["abg.capability.runtime.replay-root@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.abg.replay-root",
+    ),
     nativeTypedLocator: nativeTypedLocator(abgNativeInventory, "replay"),
   },
   {
@@ -666,7 +699,9 @@ const extantRows = [
       "specification/requirements/abg/REQ-R-ABG3-CCALL.md#-008-judgment-vocabulary",
       "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md#REQ-R-ABG3-INTERPRET-005",
     ],
-    capabilityIdentities: ["abg.capability.hog.judge-transition-root@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.hog.judgment-transition-root",
+    ),
     nativeTypedLocator: nativeTypedLocator(
       hogNativeInventory,
       "proposeJudgmentCandidate",
@@ -682,7 +717,9 @@ const extantRows = [
       "specification/PRODUCT.md#validation-contract",
       "specification/requirements/product/REQ-P-POLICY.md#REQ-P-POLICY-054",
     ],
-    capabilityIdentities: ["abg.capability.gtl.validate@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.contract.gtl.validation-root",
+    ),
     nativeTypedLocator: nativeTypedLocator(
       validatorNativeInventory,
       "rawAdmitValue",
@@ -697,7 +734,9 @@ const extantRows = [
     requirementAuthorityRefs: [
       "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-001",
     ],
-    capabilityIdentities: ["abg.capability.product.verify@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.schema.product-toolchain-manifest",
+    ),
     assetLocator: {
       path: manifestSchemaPath,
       mediaType: "application/schema+json",
@@ -714,7 +753,9 @@ const extantRows = [
     requirementAuthorityRefs: [
       "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-002",
     ],
-    capabilityIdentities: ["abg.capability.product.verify@5"],
+    capabilityIdentities: capabilityRefsForContract(
+      "abg.schema.public-contract-catalog",
+    ),
     assetLocator: {
       path: catalogSchemaPath,
       mediaType: "application/schema+json",
@@ -765,6 +806,64 @@ if (catalogBinding.disposition !== "bound") {
 }
 const publicContractCatalog = catalogBinding.catalog;
 const rows = publicContractCatalog.rows;
+for (const row of rows) {
+  if (
+    canonicalJson(row.capabilityIdentities) !==
+      canonicalJson(capabilityRefsForContract(row.contractId))
+  ) {
+    throw new Error(
+      `public contract capability projection diverged for ${row.contractId}`,
+    );
+  }
+}
+const finalCatalogCoordinate = {
+  productId,
+  productContentDigest,
+  catalogId: publicContractCatalog.catalogId,
+  catalogVersion: publicContractCatalog.catalogVersion,
+  catalogDigest: publicContractCatalog.catalogDigest,
+};
+const capabilityDefinitionGraph = constructCapabilityDefinitionGraph(
+  rows.map((row) => ({
+    contractCatalog: finalCatalogCoordinate,
+    flatRow: {
+      contractId: row.contractId,
+      contractVersion: row.contractVersion,
+      contractDigest: row.contractDigest,
+    },
+    nestedSelector: {
+      selectorKind: "flat_contract",
+      definitionKey: null,
+      slot: null,
+      definitionRef: null,
+    },
+  })),
+);
+const capabilityDefinitionGraphBytes = capabilityDefinitionGraphAssetBytes(
+  capabilityDefinitionGraph,
+);
+const capabilityDefinitionGraphAssetDigest = sha256Bytes(
+  capabilityDefinitionGraphBytes,
+);
+await mkdir(dirname(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)), {
+  recursive: true,
+});
+await writeFile(
+  join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH),
+  capabilityDefinitionGraphBytes,
+);
+const graphCoordinate = capabilityDefinitionGraphCoordinate(
+  capabilityDefinitionGraph,
+);
+const graphManifestCoordinate = {
+  ...graphCoordinate,
+  assetLocator: {
+    path: CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
+    mediaType: "application/json",
+    schemaVersion: "5.0.0",
+    contentDigest: capabilityDefinitionGraphAssetDigest,
+  },
+};
 const contentIdentity = productContentDigest.slice("sha256:".length);
 const descriptorRef =
   `descriptor://abiogenesis/typescript-tenant/${contentIdentity}`;
@@ -816,6 +915,7 @@ const contributionManifest = {
   productContentDigest,
   publicContractCatalogId: publicContractCatalog.catalogId,
   publicContractCatalogDigest: publicContractCatalog.catalogDigest,
+  capabilityDefinitionGraph: graphCoordinate,
   publicationBindings,
   rows: contributionRows,
 };
@@ -836,8 +936,9 @@ const manifest = {
   declaredDependencies: [],
   provenanceRef,
   declaredCapabilityRefs: [
-    ...new Set(rows.flatMap((row) => row.capabilityIdentities)),
-  ].sort(),
+    ...capabilityDefinitionGraph.rows.map((row) => row.capabilityId),
+  ],
+  capabilityDefinitionGraph: graphManifestCoordinate,
   publicContractCatalog,
 };
 

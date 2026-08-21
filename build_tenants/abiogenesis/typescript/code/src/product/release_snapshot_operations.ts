@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import {
   compareUnicodeCodeUnits,
   type JsonValue,
@@ -230,10 +232,7 @@ function releaseMetadata(snapshotKind: ReleaseSnapshotMember) {
       "dependency_lock",
       "actor",
     ],
-    capabilityRefs: [
-      "abg.capability.operator.public-contract@5",
-      "abg.capability.qualification.self-conformance@5",
-    ],
+    capabilityRefs: capabilityRefsForContract("abg.operation.release.snapshot"),
     defaults: {},
     closedDomains: { snapshotKind: [snapshotKind] },
     sdkCoordinate: "sdk.release.snapshot",

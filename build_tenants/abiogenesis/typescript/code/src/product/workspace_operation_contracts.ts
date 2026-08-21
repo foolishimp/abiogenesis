@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import {
   absolutePathSchema,
   type ExactOwnerOperationPort,
@@ -13,8 +15,6 @@ import {
   TERMINAL_ONLY_ADAPTER_EXIT_MAP,
 } from "../shared/public_function_contracts.js";
 
-const WORKSPACE_CAPABILITY =
-  "abg.capability.operator.public-contract@5";
 const WORKSPACE_AUTHORITY =
   "authority://abiogenesis/product/workspace-operations@5";
 
@@ -36,7 +36,9 @@ function workspaceCreateMetadata(createPolicy: "clean" | "imported") {
     actorRequirement: "required",
     workspaceBindingRequirement: "forbidden",
     authoritySlotRequirements: ["capability_grants", "actor"],
-    capabilityRefs: [WORKSPACE_CAPABILITY],
+    capabilityRefs: capabilityRefsForContract(
+      "abg.operation.workspace.create",
+    ),
     defaults: {},
     closedDomains: { createPolicy: [createPolicy] },
     sdkCoordinate: "sdk.workspace.create",
@@ -137,7 +139,9 @@ const open = ownerContractPacket(
     actorRequirement: "forbidden",
     workspaceBindingRequirement: "forbidden",
     authoritySlotRequirements: ["capability_grants"],
-    capabilityRefs: [WORKSPACE_CAPABILITY],
+    capabilityRefs: capabilityRefsForContract(
+      "abg.operation.workspace.open",
+    ),
     defaults: {},
     closedDomains: {
       disposition: ["ready", "unbound", "stale", "malformed", "incompatible"],

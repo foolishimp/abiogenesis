@@ -3,6 +3,10 @@ import { access, lstat, mkdir, readFile, readdir, writeFile } from "node:fs/prom
 import { join, relative, resolve, sep } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import {
+  capabilityDefinitionGraphAssetBytes,
+  isCapabilityDefinitionGraph,
+} from "../shared/capability_contracts.js";
 import type {
   InstallProductRequest,
   ProductInstallCandidate,
@@ -17,6 +21,7 @@ import {
 } from "./environment.js";
 import {
   payloadInventoryDigest,
+  sha256Bytes,
   sha256Canonical,
   sha256File,
   type PayloadInventoryRow,
@@ -110,6 +115,47 @@ async function listInstalledPayloadFiles(installedRoot: string): Promise<readonl
   return files.sort();
 }
 
+async function installedPayloadMatchesGraphCarrier(
+  installedRoot: string,
+  installedManifest: NonNullable<ReturnType<typeof parseProductManifest>>,
+  expectedProductContentDigest: string,
+  expectedGraph: ProductInstallCandidate["capabilityDefinitionGraph"],
+  expectedGraphAsset: ProductInstallCandidate["capabilityDefinitionGraphAsset"],
+): Promise<boolean> {
+  try {
+    const graphAsset = installedManifest.capabilityDefinitionGraph.assetLocator;
+    const actualFiles = await listInstalledPayloadFiles(installedRoot);
+    const expectedFiles = [
+      ...installedManifest.productRelativeLocators,
+      graphAsset.path,
+    ].sort();
+    if (canonicalJson(actualFiles) !== canonicalJson(expectedFiles)) return false;
+    const graphBytes = await readFile(join(installedRoot, graphAsset.path));
+    const graph = JSON.parse(graphBytes.toString("utf8")) as unknown;
+    if (
+      !isCapabilityDefinitionGraph(graph) ||
+      canonicalJson(graph as unknown as JsonValue) !== graphBytes.toString("utf8") ||
+      sha256Bytes(graphBytes) !== graphAsset.contentDigest ||
+      canonicalJson(graph as unknown as JsonValue) !==
+        canonicalJson(expectedGraph as unknown as JsonValue) ||
+      sha256Bytes(capabilityDefinitionGraphAssetBytes(graph)) !==
+        expectedGraphAsset.contentDigest
+    ) {
+      return false;
+    }
+    const inventory: PayloadInventoryRow[] = [];
+    for (const path of [...installedManifest.productRelativeLocators].sort()) {
+      inventory.push({
+        path,
+        sha256: await sha256File(join(installedRoot, path)),
+      });
+    }
+    return payloadInventoryDigest(inventory) === expectedProductContentDigest;
+  } catch {
+    return false;
+  }
+}
+
 export async function installedProductContentMatches(
   install: ProductInstallCandidate | ProductInstall,
 ): Promise<boolean> {
@@ -139,17 +185,13 @@ export async function installedProductContentMatches(
     ) {
       return false;
     }
-    const actualFiles = await listInstalledPayloadFiles(install.installedRoot);
-    const expectedFiles = [...installedManifest.productRelativeLocators].sort();
-    if (canonicalJson(actualFiles) !== canonicalJson(expectedFiles)) return false;
-    const inventory: PayloadInventoryRow[] = [];
-    for (const path of expectedFiles) {
-      inventory.push({
-        path,
-        sha256: await sha256File(join(install.installedRoot, path)),
-      });
-    }
-    return payloadInventoryDigest(inventory) === install.productContentDigest;
+    return installedPayloadMatchesGraphCarrier(
+      install.installedRoot,
+      installedManifest,
+      install.productContentDigest,
+      install.capabilityDefinitionGraph,
+      install.capabilityDefinitionGraphAsset,
+    );
   } catch {
     return false;
   }
@@ -265,21 +307,17 @@ export async function installProduct(
     return refusal("installed_manifest_mismatch", "installed manifest is not the verified manifest");
   }
 
-  try {
-    const actualFiles = await listInstalledPayloadFiles(installedRoot);
-    const expectedFiles = [...installedManifest.productRelativeLocators].sort();
-    if (canonicalJson(actualFiles) !== canonicalJson(expectedFiles)) {
-      return refusal("installed_manifest_mismatch", "installed payload file set differs from the manifest");
-    }
-    const inventory: PayloadInventoryRow[] = [];
-    for (const path of expectedFiles) {
-      inventory.push({ path, sha256: await sha256File(join(installedRoot, path)) });
-    }
-    if (payloadInventoryDigest(inventory) !== request.verifiedArtifact.productContentDigest) {
-      return refusal("installed_manifest_mismatch", "installed payload bytes differ from the verified artifact");
-    }
-  } catch (error) {
-    return refusal("installed_manifest_mismatch", String(error));
+  if (!await installedPayloadMatchesGraphCarrier(
+    installedRoot,
+    installedManifest,
+    request.verifiedArtifact.productContentDigest,
+    request.verifiedArtifact.capabilityDefinitionGraph,
+    request.verifiedArtifact.capabilityDefinitionGraphAsset,
+  )) {
+    return refusal(
+      "installed_manifest_mismatch",
+      "installed payload or capability graph differs from the verified artifact",
+    );
   }
 
   const prohibitedPaths = ["code", "scripts", "test_env", "tsconfig.json"];
@@ -336,6 +374,10 @@ export async function installProduct(
     ],
     catalogId: request.verifiedArtifact.catalogId,
     catalogDigest: request.verifiedArtifact.catalogDigest,
+    capabilityDefinitionGraph: request.verifiedArtifact.capabilityDefinitionGraph,
+    capabilityDefinitionGraphAsset: {
+      ...request.verifiedArtifact.capabilityDefinitionGraphAsset,
+    },
     publicContracts: request.verifiedArtifact.publicContracts.map(
       (contract) => ({
         ...contract,

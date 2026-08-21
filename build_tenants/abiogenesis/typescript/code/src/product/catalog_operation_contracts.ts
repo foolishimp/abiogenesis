@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import {
   admitRuntimeContract,
   type ExactOwnerOperationPort,
@@ -218,7 +220,7 @@ const admit = ownerContractPacket(
       "dependency_lock",
       "actor",
     ],
-    capabilityRefs: ["abg.capability.catalog.contribute@5"],
+    capabilityRefs: capabilityRefsForContract("abg.operation.catalog.admit"),
     defaults: {},
     closedDomains: {
       rowDisposition: [
@@ -276,7 +278,7 @@ const allowlist = ownerContractPacket(
       "dependency_lock",
       "actor",
     ],
-    capabilityRefs: ["abg.capability.operator.public-contract@5"],
+    capabilityRefs: capabilityRefsForContract("abg.operation.catalog.view"),
     defaults: {},
     closedDomains: {},
     sdkCoordinate: "sdk.catalog.view",
@@ -348,11 +350,7 @@ function applyContract<const TKind extends "node_type" | "overlay">(
         "catalog_scope",
         "actor",
       ],
-      capabilityRefs: [
-        applicationKind === "node_type"
-          ? "abg.capability.catalog.apply-node-type@5"
-          : "abg.capability.catalog.apply-overlay@5",
-      ],
+      capabilityRefs: capabilityRefsForContract("abg.operation.catalog.apply"),
       defaults: {},
       closedDomains: { applicationKind: [applicationKind] },
       sdkCoordinate: "sdk.catalog.apply",

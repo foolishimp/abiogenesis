@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import {
   type ExactOwnerOperationPort,
   jsonValueSchema,
@@ -55,7 +57,9 @@ function materializationMetadata(
       "dependency_lock",
       "actor",
     ],
-    capabilityRefs: ["abg.capability.install.bind-products@5"],
+    capabilityRefs: capabilityRefsForContract(
+      "abg.operation.product.materialize",
+    ),
     defaults: {},
     closedDomains: { materializationKind: [materializationKind] },
     sdkCoordinate: "sdk.product.materialize",

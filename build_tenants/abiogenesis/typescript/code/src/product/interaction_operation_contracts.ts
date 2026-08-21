@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import type { ResultAssessmentResidual } from "./result_assessment_operation.js";
 
 import {
@@ -110,10 +112,9 @@ function interactionContract<const TKind extends InteractionResponseKind>(
         "actor",
         "execution_basis",
       ],
-      capabilityRefs: [
-        "abg.capability.operator.public-contract@5",
-        "abg.capability.runtime.replay-continuation@5",
-      ],
+      capabilityRefs: capabilityRefsForContract(
+        "abg.operation.interaction.respond",
+      ),
       defaults: {},
       closedDomains: { responseKind: [responseKind] },
       sdkCoordinate: "sdk.interaction.respond",
@@ -243,7 +244,7 @@ const assess = ownerContractPacket(
       "actor",
       "execution_basis",
     ],
-    capabilityRefs: ["abg.capability.runtime.admit-fp-result@5"],
+    capabilityRefs: capabilityRefsForContract("abg.operation.result.assess"),
     defaults: {},
     closedDomains: {
       terminalDisposition: ["admitted", "rejected"],

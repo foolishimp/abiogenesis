@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import {
   type ExactOwnerOperationPort,
   jsonValueSchema,
@@ -126,7 +128,9 @@ function witnessContract<const TAct extends WitnessAct>(act: TAct) {
         "actor",
         ...(executionScoped ? ["execution_basis" as const] : []),
       ],
-      capabilityRefs: ["abg.capability.operator.public-contract@5"],
+      capabilityRefs: capabilityRefsForContract(
+        "abg.operation.witness.admit",
+      ),
       defaults: {},
       closedDomains: { act: [act], subjectKind: [subjectKind] },
       sdkCoordinate: "sdk.witness.admit",

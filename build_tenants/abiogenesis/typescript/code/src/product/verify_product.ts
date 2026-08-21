@@ -9,6 +9,17 @@ import {
   type JsonValue,
 } from "../shared/canonical_json.js";
 import {
+  CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
+  CAPABILITY_DEFINITION_GRAPH_ID,
+  CAPABILITY_DEFINITION_GRAPH_VERSION,
+  capabilityDefinitionGraphAssetBytes,
+  capabilityRefsForContract,
+  constructCapabilityDefinitionGraph,
+  isCapabilityDefinitionGraph,
+  type CapabilityDefinitionGraph,
+  type CapabilityDefinitionGraphCoordinate,
+} from "../shared/capability_contracts.js";
+import {
   completeDefinitionContractCoordinateMapSchema,
   type CompleteDefinitionContractCoordinateMap,
 } from "../shared/public_function_contracts.js";
@@ -43,6 +54,7 @@ import type {
   ProductPublicContract,
   ProductPublicContractCatalog,
   ProductPublicContractKind,
+  ProductCapabilityDefinitionGraphManifestCoordinate,
   ProductVerificationCoordinates,
   ProductVerificationRefusal,
   ProductVerificationRefusalCode,
@@ -83,6 +95,8 @@ export interface ProductManifestView {
   readonly declaredDependencies: readonly ProductDeclaredDependency[];
   readonly provenanceRef: string;
   readonly declaredCapabilityRefs: readonly string[];
+  readonly capabilityDefinitionGraph:
+    ProductCapabilityDefinitionGraphManifestCoordinate;
   readonly publicContractCatalog: JsonRecord & {
     readonly schemaVersion: string;
     readonly catalogId: string;
@@ -127,6 +141,44 @@ function refusal(
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isCapabilityDefinitionGraphCoordinate(
+  value: unknown,
+): value is CapabilityDefinitionGraphCoordinate {
+  return isRecord(value) &&
+    hasExactKeys(value, ["graphDigest", "graphId", "graphVersion"]) &&
+    value.graphId === CAPABILITY_DEFINITION_GRAPH_ID &&
+    value.graphVersion === CAPABILITY_DEFINITION_GRAPH_VERSION &&
+    isSha256Digest(value.graphDigest);
+}
+
+function isProductAssetLocator(value: unknown): value is ProductAssetLocator {
+  return isRecord(value) &&
+    hasExactKeys(value, ["contentDigest", "mediaType", "path", "schemaVersion"]) &&
+    isNonblankString(value.path) &&
+    isNonblankString(value.mediaType) &&
+    isNonblankString(value.schemaVersion) &&
+    isSha256Digest(value.contentDigest);
+}
+
+function isCapabilityDefinitionGraphManifestCoordinate(
+  value: unknown,
+): value is ProductCapabilityDefinitionGraphManifestCoordinate {
+  return isRecord(value) &&
+    hasExactKeys(value, [
+      "assetLocator",
+      "graphDigest",
+      "graphId",
+      "graphVersion",
+    ]) &&
+    value.graphId === CAPABILITY_DEFINITION_GRAPH_ID &&
+    value.graphVersion === CAPABILITY_DEFINITION_GRAPH_VERSION &&
+    isSha256Digest(value.graphDigest) &&
+    isProductAssetLocator(value.assetLocator) &&
+    value.assetLocator.path === CAPABILITY_DEFINITION_GRAPH_ASSET_PATH &&
+    value.assetLocator.mediaType === "application/json" &&
+    value.assetLocator.schemaVersion === "5.0.0";
 }
 
 function isNonblankString(value: unknown): value is string {
@@ -177,6 +229,11 @@ export function productVerificationCoordinates(
     declaredCapabilityRefs: artifact.declaredCapabilityRefs,
     catalogId: artifact.catalogId,
     catalogDigest: artifact.catalogDigest,
+    capabilityDefinitionGraph: {
+      graphId: artifact.capabilityDefinitionGraph.graphId,
+      graphVersion: artifact.capabilityDefinitionGraph.graphVersion,
+      graphDigest: artifact.capabilityDefinitionGraph.graphDigest,
+    },
     publicContractRefs: artifact.publicContractRefs,
     publicCapabilityRefs: artifact.publicCapabilityRefs,
   } as const;
@@ -214,6 +271,12 @@ export function productVerificationCoordinates(
     descriptorRef: artifact.descriptorRef,
     contributionManifestRef: artifact.contributionManifestRef,
     contributionManifestDigest: artifact.contributionManifestDigest,
+    capabilityDefinitionGraph: {
+      graphId: artifact.capabilityDefinitionGraph.graphId,
+      graphVersion: artifact.capabilityDefinitionGraph.graphVersion,
+      graphDigest: artifact.capabilityDefinitionGraph.graphDigest,
+      asset: artifact.capabilityDefinitionGraphAsset,
+    },
     sourceProvenanceRef: artifact.provenanceRef,
     checkedPayloadFiles: artifact.checkedPayloadFiles,
   } as const;
@@ -639,6 +702,8 @@ export function isVerifiedProductArtifact(
       "artifactRef",
       "catalogDigest",
       "catalogId",
+      "capabilityDefinitionGraph",
+      "capabilityDefinitionGraphAsset",
       "checkedPayloadFiles",
       "compatibilityRefs",
       "contributionManifest",
@@ -693,6 +758,10 @@ export function isVerifiedProductArtifact(
     !isUniqueStringArray(value.declaredCapabilityRefs) ||
     !isNonblankString(value.catalogId) ||
     !isSha256Digest(value.catalogDigest) ||
+    !isCapabilityDefinitionGraph(value.capabilityDefinitionGraph) ||
+    !isProductAssetLocator(value.capabilityDefinitionGraphAsset) ||
+    value.capabilityDefinitionGraphAsset.path !==
+      CAPABILITY_DEFINITION_GRAPH_ASSET_PATH ||
     !Array.isArray(value.publicContracts) ||
     !value.publicContracts.every((contract) =>
       parseProductPublicContract(contract, value.productId as string) !== null
@@ -718,6 +787,81 @@ export function isVerifiedProductArtifact(
   }
   const { verificationDigest, verificationRef, ...body } =
     value as unknown as VerifiedProductArtifact;
+  const artifact = value as unknown as VerifiedProductArtifact;
+  const graphIds = artifact.capabilityDefinitionGraph.rows.map(
+    ({ capabilityId }) => capabilityId,
+  );
+  const catalogCoordinate: PublicContractCatalogCoordinate = {
+    productId: artifact.productId,
+    productContentDigest: artifact.productContentDigest,
+    catalogId: artifact.catalogId,
+    catalogVersion: "5.0.0",
+    catalogDigest: artifact.catalogDigest,
+  };
+  const graphBasis: PublicContractCoordinate[] = artifact.publicContracts.map(
+    (contract) => ({
+      contractCatalog: catalogCoordinate,
+      flatRow: {
+        contractId: contract.contractId,
+        contractVersion: contract.contractVersion,
+        contractDigest: contract.contractDigest,
+      },
+      nestedSelector: {
+        selectorKind: "flat_contract",
+        definitionKey: null,
+        slot: null,
+        definitionRef: null,
+      },
+    }),
+  );
+  if (artifact.definitionContractCoordinates !== null) {
+    for (const operation of artifact.definitionContractCoordinates.operations) {
+      for (const member of operation.members) {
+        graphBasis.push(
+          member.slots.request,
+          member.slots.result,
+          member.slots.refusal,
+          ...(member.slots.nonTerminal === null
+            ? []
+            : [member.slots.nonTerminal]),
+        );
+      }
+    }
+  }
+  let expectedGraph: CapabilityDefinitionGraph;
+  try {
+    expectedGraph = constructCapabilityDefinitionGraph(graphBasis);
+  } catch {
+    return false;
+  }
+  if (
+    canonicalJson(expectedGraph as unknown as JsonValue) !==
+      canonicalJson(artifact.capabilityDefinitionGraph as unknown as JsonValue) ||
+    artifact.capabilityDefinitionGraphAsset.mediaType !== "application/json" ||
+    artifact.capabilityDefinitionGraphAsset.schemaVersion !== "5.0.0" ||
+    artifact.capabilityDefinitionGraphAsset.contentDigest !== sha256Bytes(
+      capabilityDefinitionGraphAssetBytes(artifact.capabilityDefinitionGraph),
+    ) ||
+    canonicalJson(
+      artifact.contributionManifest.capabilityDefinitionGraph as unknown as JsonValue,
+    ) !== canonicalJson({
+      graphId: artifact.capabilityDefinitionGraph.graphId,
+      graphVersion: artifact.capabilityDefinitionGraph.graphVersion,
+      graphDigest: artifact.capabilityDefinitionGraph.graphDigest,
+    } as unknown as JsonValue) ||
+    canonicalJson(graphIds as unknown as JsonValue) !==
+      canonicalJson(artifact.declaredCapabilityRefs as unknown as JsonValue) ||
+    canonicalJson(graphIds as unknown as JsonValue) !==
+      canonicalJson(artifact.publicCapabilityRefs as unknown as JsonValue) ||
+    artifact.publicContracts.some((contract) =>
+      canonicalJson(contract.capabilityIdentities as unknown as JsonValue) !==
+        canonicalJson(
+          capabilityRefsForContract(contract.contractId) as unknown as JsonValue,
+        )
+    )
+  ) {
+    return false;
+  }
   const expectedDigest = sha256Canonical(
     verificationBody(body),
   );
@@ -798,6 +942,7 @@ export function isProductContributionManifest(
       "publicationBindings",
       "publicContractCatalogDigest",
       "publicContractCatalogId",
+      "capabilityDefinitionGraph",
       "rows",
       "schemaVersion",
     ]) ||
@@ -810,6 +955,7 @@ export function isProductContributionManifest(
     !isSha256Digest(value.productContentDigest) ||
     !isNonblankString(value.publicContractCatalogId) ||
     !isSha256Digest(value.publicContractCatalogDigest) ||
+    !isCapabilityDefinitionGraphCoordinate(value.capabilityDefinitionGraph) ||
     !Array.isArray(value.publicationBindings) ||
     !value.publicationBindings.every(isPublicationBinding) ||
     !Array.isArray(value.rows) ||
@@ -863,6 +1009,9 @@ export function parseProductManifest(value: unknown): ProductManifestView | null
     !value.declaredDependencies.every(isDeclaredDependency) ||
     !isNonblankString(value.provenanceRef) ||
     !isUniqueStringArray(value.declaredCapabilityRefs) ||
+    !isCapabilityDefinitionGraphManifestCoordinate(
+      value.capabilityDefinitionGraph,
+    ) ||
     typeof catalog.schemaVersion !== "string" ||
     typeof catalog.catalogId !== "string" ||
     typeof catalog.catalogVersion !== "string" ||
@@ -888,6 +1037,13 @@ export function parseProductManifest(value: unknown): ProductManifestView | null
     contributionManifest.productContentDigest !== value.productContentDigest ||
     contributionManifest.publicContractCatalogId !== catalog.catalogId ||
     contributionManifest.publicContractCatalogDigest !== catalog.catalogDigest ||
+    canonicalJson(
+      contributionManifest.capabilityDefinitionGraph as unknown as JsonValue,
+    ) !== canonicalJson({
+      graphId: value.capabilityDefinitionGraph.graphId,
+      graphVersion: value.capabilityDefinitionGraph.graphVersion,
+      graphDigest: value.capabilityDefinitionGraph.graphDigest,
+    }) ||
     contributionManifest.rows.some(
       (row) => row.owningProductId !== value.productId,
     )
@@ -1734,6 +1890,7 @@ export async function verifyProduct(
   const locators = [...manifest.productRelativeLocators];
   if (
     locators.some((locator) => !isSafeProductPath(locator)) ||
+    locators.includes(CAPABILITY_DEFINITION_GRAPH_ASSET_PATH) ||
     new Set(locators).size !== locators.length
   ) {
     return refusal(request, "unsafe_locator", "payload inventory contains an unsafe or duplicate path");
@@ -1741,6 +1898,7 @@ export async function verifyProduct(
 
   const expectedArchiveEntries = [
     "package/product-toolchain-manifest.json",
+    `package/${CAPABILITY_DEFINITION_GRAPH_ASSET_PATH}`,
     ...locators.map((locator) => `package/${locator}`),
   ].sort();
   const archiveFileEntries = archiveEntries.filter((entry) => !entry.endsWith("/")).sort();
@@ -2062,6 +2220,125 @@ export async function verifyProduct(
     return refusal(request, "catalog_mismatch", coordinateBinding.message);
   }
   const definitionContractCoordinates = coordinateBinding;
+
+  let verifiedCapabilityDefinitionGraph: CapabilityDefinitionGraph;
+  const graphAssetLocator = manifest.capabilityDefinitionGraph.assetLocator;
+  try {
+    if (!isSafeProductPath(graphAssetLocator.path)) {
+      return refusal(request, "unsafe_locator", "capability graph path is unsafe");
+    }
+    const graphBytes = await readArchiveEntry(
+      request.artifactPath,
+      `package/${graphAssetLocator.path}`,
+    );
+    if (
+      sha256Bytes(graphBytes) !== graphAssetLocator.contentDigest
+    ) {
+      return refusal(
+        request,
+        "contract_asset_mismatch",
+        "capability graph asset digest is invalid",
+      );
+    }
+    const decodedGraph = new TextDecoder("utf-8", { fatal: true }).decode(
+      graphBytes,
+    );
+    const graphUnknown = JSON.parse(decodedGraph) as unknown;
+    if (
+      !isCapabilityDefinitionGraph(graphUnknown) ||
+      canonicalJson(graphUnknown as unknown as JsonValue) !== decodedGraph
+    ) {
+      return refusal(
+        request,
+        "catalog_mismatch",
+        "capability graph is not canonical admitted graph truth",
+      );
+    }
+    const graph = graphUnknown;
+    if (
+      graph.graphId !== manifest.capabilityDefinitionGraph.graphId ||
+      graph.graphVersion !== manifest.capabilityDefinitionGraph.graphVersion ||
+      graph.graphDigest !== manifest.capabilityDefinitionGraph.graphDigest
+    ) {
+      return refusal(
+        request,
+        "catalog_mismatch",
+        "capability graph coordinate differs from the Product manifest",
+      );
+    }
+    const catalogCoordinate: PublicContractCatalogCoordinate = {
+      productId: manifest.productId,
+      productContentDigest,
+      catalogId: manifest.publicContractCatalog.catalogId,
+      catalogVersion: "5.0.0",
+      catalogDigest: manifest.publicContractCatalog.catalogDigest,
+    };
+    const flatCoordinates: PublicContractCoordinate[] = publicContracts.map(
+      (contract) => ({
+        contractCatalog: catalogCoordinate,
+        flatRow: {
+          contractId: contract.contractId,
+          contractVersion: contract.contractVersion,
+          contractDigest: contract.contractDigest,
+        },
+        nestedSelector: {
+          selectorKind: "flat_contract",
+          definitionKey: null,
+          slot: null,
+          definitionRef: null,
+        },
+      }),
+    );
+    const definitionCoordinates = definitionContractCoordinates === null
+      ? []
+      : definitionContractCoordinates.operations.flatMap((operation) =>
+        operation.members.flatMap((member) => [
+          member.slots.request,
+          member.slots.result,
+          member.slots.refusal,
+          ...(member.slots.nonTerminal === null
+            ? []
+            : [member.slots.nonTerminal]),
+        ])
+      );
+    const expectedGraph = constructCapabilityDefinitionGraph([
+      ...flatCoordinates,
+      ...definitionCoordinates,
+    ]);
+    if (
+      canonicalJson(expectedGraph as unknown as JsonValue) !==
+        canonicalJson(graph as unknown as JsonValue) ||
+      publicContracts.some((contract) =>
+        canonicalJson(contract.capabilityIdentities as unknown as JsonValue) !==
+          canonicalJson(
+            capabilityRefsForContract(contract.contractId) as unknown as JsonValue,
+          )
+      )
+    ) {
+      return refusal(
+        request,
+        "catalog_mismatch",
+        "capability graph ownership or catalog projection is crossed",
+      );
+    }
+    const graphCapabilityIds = graph.rows.map(({ capabilityId }) => capabilityId);
+    if (
+      canonicalJson(graphCapabilityIds as unknown as JsonValue) !==
+        canonicalJson(manifest.declaredCapabilityRefs as unknown as JsonValue) ||
+      canonicalJson(graphCapabilityIds as unknown as JsonValue) !==
+        canonicalJson([...publicCapabilityRefs].sort() as unknown as JsonValue)
+    ) {
+      return refusal(
+        request,
+        "catalog_mismatch",
+        "capability graph, manifest, and catalog capability rosters differ",
+      );
+    }
+    verifiedCapabilityDefinitionGraph = graph;
+  } catch (error) {
+    return refusal(request, "catalog_mismatch", String(error));
+  }
+
   const verifiedBody = {
     kind: "verified_product_artifact",
     schemaVersion: "5.0.0",
@@ -2101,6 +2378,8 @@ export async function verifyProduct(
     declaredCapabilityRefs: [...manifest.declaredCapabilityRefs],
     catalogId: manifest.publicContractCatalog.catalogId,
     catalogDigest: manifest.publicContractCatalog.catalogDigest,
+    capabilityDefinitionGraph: verifiedCapabilityDefinitionGraph,
+    capabilityDefinitionGraphAsset: { ...graphAssetLocator },
     publicContracts,
     publicContractRefs: [...contractIds].sort(),
     publicCapabilityRefs: [...publicCapabilityRefs].sort(),

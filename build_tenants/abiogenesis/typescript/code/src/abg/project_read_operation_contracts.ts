@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import {
   type ExactOwnerOperationPort,
   nonblankSchema,
@@ -149,7 +151,6 @@ function abgReadContract<
   projection: TProjection;
   abstractModule: string;
   replay?: boolean;
-  capabilityRef?: string;
 }>) {
   const authorityRef =
     `authority://abiogenesis/project-read/${input.caseKey}@5`;
@@ -198,10 +199,9 @@ function abgReadContract<
         "product_set",
         "dependency_lock",
       ],
-      capabilityRefs: [
-        input.capabilityRef ??
-          "abg.capability.runtime.replay-continuation@5",
-      ],
+      capabilityRefs: capabilityRefsForContract(
+        "abg.operation.project.read",
+      ),
       defaults: {},
       closedDomains: {
         caseKey: [input.caseKey],
@@ -270,7 +270,6 @@ const assessmentEvidence = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectEvidenceProjectionSchema("assessment_evidence_projection"),
   abstractModule: "ABG.AssessmentProjection",
-  capabilityRef: "abg.capability.runtime.admit-fp-result@5",
 });
 const witnessEvidence = abgReadContract({
   caseKey: "witness_evidence",
@@ -278,7 +277,6 @@ const witnessEvidence = abgReadContract({
   selector: noSelectorSchema,
   projection: subjectEvidenceProjectionSchema("witness_evidence_projection"),
   abstractModule: "ABG.WitnessProjection",
-  capabilityRef: "abg.capability.operator.public-contract@5",
 });
 
 const workspaceReplay = abgReadContract({
@@ -339,7 +337,6 @@ const workspaceGaps = abgReadContract({
   }),
   projection: subjectGapProjectionSchema("workspace_gap_projection"),
   abstractModule: "ABG.WorkspaceProjection",
-  capabilityRef: "abg.capability.operator.public-contract@5",
 });
 const runGaps = abgReadContract({
   caseKey: "run_gaps",

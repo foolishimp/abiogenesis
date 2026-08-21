@@ -1,5 +1,7 @@
 import * as v from "valibot";
 
+import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+
 import {
   absolutePathSchema,
   type ExactOwnerOperationPort,
@@ -12,7 +14,6 @@ import {
   TERMINAL_ONLY_ADAPTER_EXIT_MAP,
 } from "../shared/public_function_contracts.js";
 
-const INSTALL_CAPABILITY = "abg.capability.install.bind-products@5";
 const INSTALL_AUTHORITY =
   "authority://abiogenesis/product/installation@5";
 
@@ -65,7 +66,7 @@ const install = ownerContractPacket(
       "verification_references",
       "actor",
     ],
-    capabilityRefs: [INSTALL_CAPABILITY],
+    capabilityRefs: capabilityRefsForContract("abg.operation.product.install"),
     defaults: {},
     closedDomains: {
       installPolicy: ["clean", "idempotent"],

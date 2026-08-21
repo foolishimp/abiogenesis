@@ -4,6 +4,13 @@ import * as Option from "effect/Option";
 import * as v from "valibot";
 
 import {
+  CAPABILITY_DEFINITION_GRAPH_ID,
+  CAPABILITY_DEFINITION_GRAPH_VERSION,
+  capabilityDefinitionGraphSchema,
+  type CapabilityDefinitionGraph,
+} from "../shared/capability_contracts.js";
+
+import {
   projectExactPrefixArtifactTruth,
   type ExactPrefixArtifactTruthProjection,
 } from "../abg/artifact_truth.js";
@@ -663,6 +670,18 @@ const PRODUCT_DECLARED_DEPENDENCY_SCHEMA = v.strictObject({
   requiredCapabilityRefs: REF_ARRAY_SCHEMA,
 });
 
+const CAPABILITY_DEFINITION_GRAPH_COORDINATE_SCHEMA = v.strictObject({
+  graphId: v.literal(CAPABILITY_DEFINITION_GRAPH_ID),
+  graphVersion: v.literal(CAPABILITY_DEFINITION_GRAPH_VERSION),
+  graphDigest: digestSchema,
+});
+
+const CAPABILITY_DEFINITION_GRAPH_SCHEMA =
+  capabilityDefinitionGraphSchema as unknown as v.GenericSchema<
+    CapabilityDefinitionGraph,
+    CapabilityDefinitionGraph
+  >;
+
 const PRODUCT_CONTRIBUTION_MANIFEST_SCHEMA = v.strictObject({
   kind: v.literal("product_contribution_manifest"),
   schemaVersion: v.literal("5.0.0"),
@@ -673,6 +692,7 @@ const PRODUCT_CONTRIBUTION_MANIFEST_SCHEMA = v.strictObject({
   productContentDigest: digestSchema,
   publicContractCatalogId: nonblankSchema,
   publicContractCatalogDigest: digestSchema,
+  capabilityDefinitionGraph: CAPABILITY_DEFINITION_GRAPH_COORDINATE_SCHEMA,
   publicationBindings: v.array(v.strictObject({
     moduleRef: nonblankSchema,
     publicationDigest: digestSchema,
@@ -738,6 +758,8 @@ const RESOLVED_PRODUCT_LOCK_ROW_SCHEMA = v.strictObject({
   publisherNamespace: nonblankSchema,
   catalogId: nonblankSchema,
   catalogDigest: digestSchema,
+  capabilityDefinitionGraph: CAPABILITY_DEFINITION_GRAPH_SCHEMA,
+  capabilityDefinitionGraphAsset: PRODUCT_ASSET_LOCATOR_SCHEMA,
   contributionManifestRef: nonblankSchema,
   contributionManifestDigest: digestSchema,
   contributionManifest: PRODUCT_CONTRIBUTION_MANIFEST_SCHEMA,
@@ -794,6 +816,8 @@ const VERIFIED_PRODUCT_SCHEMA = v.strictObject({
   declaredCapabilityRefs: REF_ARRAY_SCHEMA,
   catalogId: nonblankSchema,
   catalogDigest: digestSchema,
+  capabilityDefinitionGraph: CAPABILITY_DEFINITION_GRAPH_SCHEMA,
+  capabilityDefinitionGraphAsset: PRODUCT_ASSET_LOCATOR_SCHEMA,
   publicContracts: v.array(PRODUCT_PUBLIC_CONTRACT_SCHEMA),
   publicContractRefs: REF_ARRAY_SCHEMA,
   publicCapabilityRefs: REF_ARRAY_SCHEMA,
@@ -830,6 +854,8 @@ const PRODUCT_INSTALL_CANDIDATE_SCHEMA = v.strictObject({
   declaredCapabilityRefs: REF_ARRAY_SCHEMA,
   catalogId: nonblankSchema,
   catalogDigest: digestSchema,
+  capabilityDefinitionGraph: CAPABILITY_DEFINITION_GRAPH_SCHEMA,
+  capabilityDefinitionGraphAsset: PRODUCT_ASSET_LOCATOR_SCHEMA,
   publicContracts: v.array(PRODUCT_PUBLIC_CONTRACT_SCHEMA),
   publicContractRefs: REF_ARRAY_SCHEMA,
   publicCapabilityRefs: REF_ARRAY_SCHEMA,
