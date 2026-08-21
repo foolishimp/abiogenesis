@@ -251,7 +251,7 @@ percentage estimates cannot substitute for the exit.
 | `W2-02` | Preserve the immutable 4.6.0-rc.3/odd_glc 0.1 observation without synthesizing a fresh receipt when the unchanged historical transports cannot execute. | 0 | Complete | 2026-08-17 14:45 AEST | Immutable observation retained; fresh rerun correctly remained unclaimed on 2026-08-17 |
 | `W2-03` | Install one Product execution-resolution relation that resolves the selected Program, GraphFunction, declarations, contracts, semantics, and Implementations through exact admitted owners; remove Public-local joins; prove one cross-owner Hello call. | 8 | Complete | 2026-08-17 15:16 AEST | Frozen at `8e288391`: one installed odd/mini-owned Program and GraphFunction selects the ABI-owned Hello leaf and returns the typed result without a rival selector or runtime |
 | `W2-04` | Freeze W2-A and obtain one cold Max code-path review, with at most one bounded repair. | 0 | Complete | 2026-08-17 | The frozen W2-03 boundary cleared entry to bounded W2-05 owner-binding construction; this row makes no W2-05 acceptance claim |
-| `W2-05` | Construct the singular 18/56 static export family from the exact three-combinator binding algebra, package every real owner closure and dependency, mechanically load/resolve all 56 from packed bytes, and exclude the packed legacy family atomically. | 8 | In progress — bounded design reframe | 2026-08-18 | Banked legacy/current behavior and callability is 37/56 at `e7e252ed` (35 active plus two refusal-only release snapshots); Section 5.6.2C conformance is 0/56 pending reconciliation or proof; 19/56 remain absent/non-callable; the two banked release bindings are additionally contract-final held; rejected dirty five-interaction attempt excluded; exact base `1e4cbbbd` is invalidated by its receipt-less post-append/post-owner fault carrier; exit requires the receipt-indexed fault ABI, future-capable release success contracts with refusal-only Wave 2 behavior, 56/56 packed loadability, projection equality, and legacy exclusion |
+| `W2-05` | Construct the singular 18/56 static export family from the exact three-combinator binding algebra, package every real owner closure and dependency, mechanically load/resolve all 56 from packed bytes, and exclude the packed legacy family atomically. | 8 | In progress — bounded design reframe | 2026-08-18 | Banked legacy/current behavior and callability is 37/56 at `e7e252ed` (35 active plus two refusal-only release snapshots); Section 5.6.2C conformance is 0/56 pending reconciliation or proof; 19/56 remain absent/non-callable; `release_evidence` is held on its authenticated originating-request/owner-outcome/publication-receipt relation and both snapshots are held on separate future result/refusal/resource/receipt contracts; rejected dirty five-interaction attempt excluded; exact base `1e4cbbbd` is invalidated by its receipt-less post-append/post-owner fault carrier; the two continuation definitions are design-closed by Constitution 16.12 but remain non-callable; exit requires the receipt-indexed fault ABI, one shared cross-family definition/grant authority composition with no family-local copies, the one shared `RunContinuation` kernel/two fixed leaves, the separate future-capable `published_rc` and `tapped_release` result/refusal/resource/receipt contracts with refusal-only Wave 2 behavior and Wave-5 publication authority, 56/56 packed loadability, projection equality, and legacy exclusion |
 | `W2-06` | Pack odd_glc 0.2 as one immutable data-only GTL Program publication with no executable or ABI authority. | 5 | Pending `W2-05` | - | Package census and installed admission prove data-only ownership |
 | `W2-07` | Execute the traced twelve definitions through one installed CLI episode chain with one start, then reopen and replay from a fresh process. | 8 | Pending `W2-06` | - | Typed Hello result, exact owner evidence, prefix continuity, and byte-stable replay projection |
 | `W2-08` | Compare the immutable version-local observations, freeze exact artifacts and receipts, obtain cold review, and return the candidate for Executive disposition. | 0 | Pending `W2-07` | - | Exact Wave 2 MVP candidate accepted |
@@ -269,7 +269,9 @@ definitions: 35 active definitions and two release snapshots whose exact Wave
 conformance is 0/56 until every one of those bindings is reconciled, migrated,
 or receives exact conformance proof. The two callable release snapshots are
 also contract-final held because their current success result schemas are
-`v.never()`. The dirty five-member interaction closure experiment is rejected
+`v.never()` and their bindings use null resource/receipt contracts. The held
+release read separately lacks its authenticated origin/outcome/member-receipt
+carrier. The dirty five-member interaction closure experiment is rejected
 evidence. It remains outside the ledger and does not authorize a partial
 transplant.
 
@@ -292,10 +294,11 @@ The absent/non-callable 19/56 definitions partition exactly:
 
 | Group | Count | Disposition |
 |---|---:|---|
-| owner-ready, unwired | 11 | materialize 2, result assess 1, witness admit 6, run invoke 2 |
-| shared continuation carrier gap | 2 | hold both `run.continue` members until one exact Product/ABG carrier is accepted |
+| `run.invoke` bounded repair | 2 | continue the already-authorized receipt-conserving owner-kernel repair and sentinel proof |
+| shared-carrier consumers | 9 | result assess 1, witness admit 6, materialize 2; owner mechanics may proceed independently, but binding waits for the shared carrier |
+| ratified run-continuation construction | 2 | design-closed as one branch-neutral ABG frontier, one owner-local kernel, two module-static packets, and two irreducible Product decision leaves; both exports remain non-callable until implementation and earn no conformance or point credit |
 | interaction E33 | 5 | implement once from one static kernel and five fixed packets after exact choice/evidence/grant/publication carriers exist |
-| held Product read | 1 | bind `project.read#release_evidence` from its existing owner relation |
+| held Product read | 1 | implement `project.read#release_evidence` through the accepted pure Product `bindStaticOwner` relation over one authenticated originating snapshot invocation/request, its exact same-member owner outcome, and its owner-issued publication receipt; never use an ABG prefix |
 
 Execute in this order:
 
@@ -310,26 +313,177 @@ Execute in this order:
    schema/validator or equivalent typed static contract object; conserve an
    independently admitted exact receipt through any later enclosing
    validation fault;
-3. wire both `run.invoke` definitions first and prove the exact twelve-key
-   sentinel route against the existing HoG/ABG child-append boundaries,
-   including a latest-prefix exact receipt after a later fault;
-4. close the complete owner-ready group: materialize 2, result assess 1,
-   witness admit 6, and the already-prioritized run invoke 2;
-5. resolve one shared Product/ABG continuation carrier, then bind
-   `current_intent` and `selected_action` without relabeling one as the other;
-6. implement E33 once as L53 exact current basis, exact environment/install/
-   publication join, Product L54 over
-   `{basis,responseKind,choice,value,evidence}`, existing ABG L55/L56, and
-   Product R33; the five exports contain packet selection only;
-7. bind held `release_evidence`;
-8. close the exact future-capable success result contracts for both banked
-   release snapshots while keeping their Wave 2 behavior refusal-only and
-   publication authority held for Wave 5;
-9. prove all 56 static exports load from the packed artifact with real closures,
+3. continue both already-authorized `run.invoke` definitions and prove the exact
+   twelve-key sentinel route against the existing HoG/ABG child-append
+   boundaries, including a latest-prefix exact receipt after a later fault;
+4. extend the sole existing `CapabilityGrant` body across the complete 18-
+   operation union; separately constrain the two-factor carrier to its six-
+   operation/18-key consumer subset; implement exactly one pure immutable-input
+   Product definition/grant exact-set resolver with family/catalog identity,
+   one ABG immutable-prefix historical projector, their transient exact-equality/
+   refusal composition, and the reused held-store/expected-prefix pre-effect
+   guard; pass the complete owner-issued family/catalog/verified-artifact and
+   direct environment/install bodies, plus complete ABG invocation/grant/event/
+   basis bodies; add only the distinct Product materialization candidate/ingress
+   relation, and split existing continuation/respond/witness typed ingress from
+   its later semantic append with pending-P1 replay, as fixed in Constitution
+   5.6.2C; require
+   `grantSet == requiredGrantSubset ==` exact
+   `MetadataOf<K>.capabilityRefs`, reject every surplus, and add no family-local
+   grant or authority body;
+5. implement `result.assess#assess` from the shared carrier through pure Product
+   judgment and ABG currentness/candidate/admission, then specialize shared E10
+   for `assessment_evidence`;
+6. bind the six `witness.admit` packets through their one owner kernel;
+7. implement E33 once from the shared carrier plus its family-specific pending
+   interaction/response/choice/value/evidence/continuation inputs; the five
+   exports contain packet selection only;
+8. allow the two materialization owner-mechanics regimes to proceed
+   independently, but bind neither export before the shared carrier;
+9. implement the ratified owner-local `RunContinuation` kernel through
+   `bindExactPrefixTransition`: consume Section 16.11 authority and the one
+   branch-neutral ABG frontier; bind `current_intent` and `selected_action` from
+   two static packets to two irreducible Product decision leaves; preserve
+   Section 16.10 receipts across every separately durable child append; and
+   delete the legacy Public continuation controller/carriers when both native
+   bindings replace it;
+10. implement held `release_evidence` through one pure Product
+   `bindStaticOwner` origin/outcome/member-receipt relation, projecting
+   `not_ready` only from an authentic same-member refusal plus its exact
+   no-publication receipt and never from absence or an ABG prefix;
+11. independently migrate the `published_rc` and `tapped_release` member
+   result identities from `v.never()` and null resources/receipts to their
+   separate exact future result/resource/publication-receipt contracts while
+   keeping all success construction and effects unreachable and Wave-5-held;
+12. prove all 56 static exports load from the packed artifact with real closures,
    all three indexed fault variants and host projections agree with their exact
    schemas, and the legacy Public family is absent; and
-10. advance to W2-06, W2-07, and W2-08 only after the release-contract and
+13. advance to W2-06, W2-07, and W2-08 only after the release-contract and
    mechanical exits both close.
+
+#### Ratified release-family design re-entry
+
+Constitution Sections 5.6.5 and 16.13 are the complete local authority for
+these three held coordinates. They classify `ReleaseCut` and
+`ReleaseSnapshotManifest` as immutable release-owner publication/read-model
+truth, the two snapshot members as separate artifact effects, and
+`release_evidence` as a pure, eventless Product read. Public only transports one
+selected callable once. No ABG event, prefix, replay, Event Calculus, registry,
+or “latest release” state participates.
+
+| Coordinate | Exact future carrier and currentness | Wave 2 disposition |
+|---|---|---|
+| `project.read#release_evidence` | one strict `PublishedRcReleaseEvidenceOrigin | TappedReleaseEvidenceOrigin` resource carrying the authenticated originating snapshot invocation/request ref+digest, exact same-member owner outcome, and exact owner-issued member publication receipt; Product verifies equality with requested `release_cut` and `release_snapshot_manifest` through `bindStaticOwner` | owner refusal plus exact `not_published` receipt may project `not_ready`; absence, null receipt, and success projection are unreachable |
+| `release.snapshot#published_rc` | distinct `PublishedRcSnapshotResult`, `PublishedRcSnapshotRefusal`, `PublishedRcPublicationResources`, and `PublishedRcPublicationReceipt`; currentness is exact pre-RC basis, law basis, same-basis green non-bypassed verdict, basis-bound prospective RC identity/version, and unchanged qualified bytes | full refusal algebra is exactly `{wrong_subject_kind, basis_mismatch, law_basis_mismatch, verdict_not_green, bypass_nonempty, identity_mismatch, bytes_mismatch, publication_failure}`; Wave 2 reaches exactly the first six, while byte-currentness `bytes_mismatch`, publication-effect `publication_failure`, success construction, committed receipt, and publication are unreachable and Wave-5-held |
+| `release.snapshot#tapped_release` | distinct `TappedReleaseSnapshotResult`, `TappedReleaseSnapshotRefusal`, `TappedReleasePublicationResources`, and `TappedReleasePublicationReceipt`; currentness is exact final-tap basis/law/verdict, accepted RC, installed-RC basis and green non-bypassed verdict, typed `FinalTapDelta`, affected-gate vector, requested stable identity, and prospective final bytes | full refusal algebra is exactly the published eight plus `{accepted_rc_mismatch, installed_rc_authorization_missing, final_delta_incomplete, affected_gate_failed}`; Wave 2 reaches exactly the common first six plus accepted-RC, install-authorization, and delta causes, while byte-currentness `bytes_mismatch`, publication-effect `publication_failure`, gate-authorization `affected_gate_failed`, success construction, committed receipt, and publication are unreachable and Wave-5-held |
+
+Both success results retain their existing member/result-contract identities and
+strictly carry member kind, immutable release cut, nonempty exact artifacts,
+authoritative snapshot manifest, exact qualification authorization, green
+disposition, no residuals, and provenance. The tapped authorization additionally
+carries accepted-RC, installed-RC, delta, and affected-gate refs/digests. The
+current generic `ReleaseEvidenceCoordinate.value: JsonValue` inputs migrate to
+exact typed accepted-RC, installed-RC basis/verdict, and `FinalTapDelta`
+coordinates. Shared ref/digest, canonicalization, validation, and low-level
+artifact primitives may be reused; the two results, resources, receipts, owner
+functions, currentness/effect/commit laws, and deep-review units may not be
+collapsed into one release kernel with two packets.
+
+Each member publication receipt is its own discriminated union. The
+`not_published` arm binds the exact object-keyed admitted invocation and request,
+the narrowed same-member refusal, requested cut/manifest, independently nullable
+existing member resource fields, empty-or-nonempty exact residue/compensation,
+and provenance; its committed cut and manifest are null and its artifact set is
+empty. It does not require success-only authorization, qualification,
+accepted-RC, installed-RC, delta, gate, or artifact fields. The `committed` arm
+instead narrows the outcome to that exact member success, makes both existing
+resource members non-null, and fully binds the member qualification/artifact/
+currentness relation and the exact corresponding request/result/receipt cut,
+artifact, manifest, target, and provenance relations. The live non-generic
+`ReleaseSnapshotRefusal` is narrowed by literal member and code aliases;
+`AdmittedPublicInvocation<K,R>` receives the exact
+`{operationId, memberKey}` object key and JSON-record-compatible member request.
+The release-evidence read conserves either exact member receipt unchanged and
+cannot mint another release receipt.
+
+The current shared twelve-code refusal schema, member-parameter refusal
+constructor, and broad operation-result type are migration inputs, not the
+contract-final member admission. Add separate strict
+`publishedRcSnapshotRefusalSchema` and `tappedReleaseSnapshotRefusalSchema`
+values over the unchanged thirteen refusal fields, literal member keys, and
+their exact eight- and twelve-code picklists. Wire each owner packet's
+`refusalSchema` to its member schema; keep the existing packet-selected
+`admitRuntimeContract` path; and give construction and port outputs exact
+member-dependent types. Shared field mechanics are lawful, but a fallback
+schema or any signature whose member and code vary independently is not.
+
+Section 16.10 applies without specialization: before receipt issuance/commit a
+substrate fault is `pre_acquisition_or_pre_append` with null receipt; after a
+commit it is `post_append` with the exact latest member receipt; after that
+receipt is admitted, an enclosing output/receipt/projection validation fault is
+`post_owner_output_or_receipt_validation` with the identical receipt. Expected
+release refusal stays in `OwnerSemanticOutput` and returns its exact
+no-publication receipt. No rollback, store/directory scan, synthesis, generic
+receipt, side channel, or refusal/fault relabel is lawful.
+
+The implementation cut replaces each generated `{not:{}}`/`v.never()` result
+body independently; replaces the shared broad refusal schema and result inputs
+with two exact member refusal schemas, member-dependent construction and port
+decisions, and owner-packet schema bindings; replaces the two null
+resource/receipt binding forms; and adds the release-evidence carrier/binding.
+It then regenerates the affected native result and refusal schemas,
+source/member/module digests, packet and definition contract digests, result and
+refusal JSON schemas, operation-contract/catalog/toolchain rows,
+SDK/CLI/documentation/host outcome and fault projections, packed member/export
+coordinates, and the complete 56-family digest. All 56 mechanical exact-set,
+type/schema, fault-variant, digest, packed-load/projection-equality, and legacy-
+exclusion checks rerun. A shared
+fault ABI, host, or `bindStaticOwner` change widens invalidation to every
+dependent family; member semantic review remains separate for the pure read,
+published-RC effect, and tapped-release effect.
+
+Reject the cut for fabricated refusal/success; one shared or cross-member
+refusal set; a tapped-only code admitted to `published_rc`; either member
+refusal alias treating non-generic `ReleaseSnapshotRefusal` as generic; a
+string-key or one-argument `AdmittedPublicInvocation` in either release receipt
+alias; missing or mismatched origin, request, outcome, or receipt; a
+`not_published` arm that requires success-only fields; untruthful
+acquired-resource/residue facts; null/generic/stale/synthesized receipt; cross-
+release source/cut/manifest/basis/result/receipt; loss or replacement of the
+exact receipt after commit or output/receipt validation; ABG-prefix currentness;
+RC/tap or installed-RC-verdict relabel; incomplete delta; omitted affected-gate
+rerun; source/private fallback; `v.never()` cast/fixture/bypass; Wave 2
+publication; or another release result, cut, manifest, evidence model, AF-25
+owner, registry, ledger, store, service, event fold, runtime, or framework.
+
+
+
+Dependency-safe parallel execution is allowed only under this operative law.
+Every lane binds the tuple `{exact base commit, exact base tree, digests of every
+consumed interface, exactly one equivalence seam, exclusive writable paths}`.
+The numbered order above controls dependency, acceptance, and merge priority;
+it is not blanket execution serialization. Only lanes with disjoint paths,
+seams, dependency edges, and Constitution 5.6.5A invalidation cones may execute
+concurrently.
+
+The following are single-writer surfaces: shared fault ABI/validator/canonical
+host/all three combinators; the sole `CapabilityGrant`, Product resolver, ABG
+historical projector, and transient composition/refusal mapper;
+`materializeContextBootstrap`, `materializeConfiguration`, and
+`persistManifest`; the `run.invoke` owner kernel and two packets; and every
+generated/index/schema/manifest/Public integration, packed-export integration,
+and legacy-deletion surface. Overlapping paths, seams, dependencies, or
+invalidation cones cannot run concurrently. Before the shared carrier freezes,
+run and materialization lanes may change owner-local mechanics only and may not
+bind exports or edit shared authority/integration surfaces. Any upstream byte or
+interface change stops dependents; they must rebase to the new exact commit/tree
+and renew all consumed-interface digests before resuming.
+
+Parallel reviewers use frozen bytes and disjoint equivalence units. A shared-
+unit verdict gates its dependents. One final integration review then covers all
+joins, the exact 56-coordinate mechanical census, packed resolution/projection
+equality, and legacy exclusion. No shared unit has multiple concurrent worker or
+verdict owners.
 
 #### W2-05 proportional evidence and review plan
 
@@ -349,11 +503,16 @@ requires byte identity plus unchanged governing contracts.
 | exact 18/56 family | no semantic unit by coordinate name | all 56 receive exact-set, type/schema, all-three-fault-variant, digest, manifest/member-coordinate, packed installed-resolution, host-projection-equality, and legacy-exclusion checks; rerun the whole census at freeze |
 | singular fault ABI and host transport | once for the common ABI/validator/transport, then once per materially distinct receipt/currentness law | a shared ABI change invalidates every fault producer/consumer, all three combinators, every dependent family seam, and packed SDK/CLI/host schema/projection proof; all 56 mechanical checks rerun |
 | three shared combinators | once per changed combinator | verify exact generic/resource/receipt and receipt-conservation law; a change invalidates every dependent family seam |
+| shared definition/grant authority | once for the actual Product family/catalog/verified-artifact/PFC-F08A and direct environment/install inputs, complete ABG invocation/grant/event/basis bodies, the distinct materialization candidate/ingress, the pure immutable-input Product exact-set resolver, ABG immutable-prefix historical projector, transient equality/refusal composition, split existing continuation/respond/witness ingress, and reused held-store guard | exercise constructibility without ambient reads, the complete 18-operation grant union, exhaustive 18-key mapping, order permutation, exact no-surplus grant equality, family/catalog/digest binding, source-only P1 replay, cross-prefix history, live held-store mismatch, and closed refusal/fault mapping; a shared change invalidates dependent result, witness, interaction, materialization, and migrated run/continuation seams, but not unchanged combinators or unrelated owner semantics |
 | `run.invoke` | one shared owner kernel plus two packets | check both packets and coordinates; a kernel change invalidates the family and touched seams |
+| result assessment | one pure Product judgment seam and one ABG currentness/candidate/admission seam; `assessment_evidence` is a separate shared-E10 read seam | invalidate only the result kernel/read specialization, their contracts/exports/projections, and focused falsifiers unless the shared carrier or combinator changed |
 | `witness.admit` | one owner kernel plus six packets while the equivalence predicate holds | check all six packets and coordinates; any predicate failure creates a separate unit |
-| `run.continue` | one shared continuation carrier/kernel plus two packets | preserve current-intent versus selected-action meaning; a distinct currentness or continuation law creates a separate unit |
+| `run.continue` | one branch-neutral ABG frontier projector and one shared receipt-conserving owner kernel; separate deep review for the irreducible current-intent and selected-action Product leaves; two packet-only mechanical subjects | a frontier/kernel/receipt-contract change invalidates both bindings and their schemas/projections/host receipts; a leaf change invalidates only that branch plus its causal seams; a packet-only change invalidates its coordinate/digest/manifest proof while the other banks remain if byte- and contract-identical |
 | `interaction.respond` | one E33 kernel plus five packets | check all five fixed packets and coordinates; a kernel or carrier change invalidates all five seams |
-| materializers and release | separate only for irreducible owner/effect/currentness/commit laws | keep artifact effects, release-owner refusal/success contracts, and the release read separate where their actual laws differ |
+| materializers | shared authority resolution is reviewed once; the two Product packets and physical-effect regimes remain separate where owner, effect, currentness, or commit law is irreducible | keep both artifact effects separate where their actual laws differ; a shared-authority change invalidates both bindings, while an owner/effect/currentness/commit-only change invalidates its corresponding unit |
+| `release_evidence` | one pure Product `bindStaticOwner` origin/outcome/member-receipt join | immutable requested cut/manifest currentness, authenticated refusal-to-`not_ready`, no ABG prefix; invalidate its packet/projector/binding/read receipt, both member joins, public projections, and packed equality proof |
+| `published_rc` | one pre-RC owner/result/refusal/resource/receipt artifact-effect unit | exact eight-code packet refusal admission, pre-RC basis/law/verdict, prospective identity, and unchanged qualified bytes; invalidate that member's result/refusal/resource/receipt schemas, packet, binding and projections plus release-evidence and downstream RC projections |
+| `tapped_release` | one separate final-tap owner/result/refusal/resource/receipt artifact-effect unit | exact twelve-code packet refusal admission, accepted RC, installed-RC basis/green verdict, `FinalTapDelta`, affected gates, and prospective final bytes; invalidate that member's result/refusal/resource/receipt schemas, packet, binding and projections plus release-evidence, final qualification, `ReleasedProduct`, and post-publication proof |
 | installed scenarios | once per materially distinct causal topology/effect regime for each frozen W2-05 subject; rerun on that basis at each applicable integrated/final boundary | retain decision-exact local falsifiers for changed seams; never repeat a long test solely because a coordinate name differs |
 
 This is exhaustive mechanical coverage with compressed repeated reasoning. It
@@ -366,7 +525,9 @@ fourth wrapper/combinator, generic JSON receipt, side channel, rollback,
 enclosing transaction, stub, source import, or compatibility fallback. A
 missing exact owner or choice/evidence/grant/publication carrier is a bounded
 design hold, not permission for Public, a caller, or a fixture to mint
-authority.
+authority. Release work additionally forbids an ABG-prefix read, generic
+release result/receipt/kernel, mutable latest pointer, directory/store scan,
+early success effect, or duplicate release framework.
 
 ### Completed W2-03 function-boundary realization map
 
@@ -757,7 +918,8 @@ Disposition is functional:
 ## Operative W2-05 Compressed Static-Binding Design
 
 This section is the authoritative ticket-level execution design under
-constitution Sections 5.6.2C, 5.6.5A, 16.7, and 16.10. Product and requirements
+constitution Sections 5.6.2C, 5.6.5, 5.6.5A, 16.7, 16.10, 16.11, 16.12, and
+16.13. Product and requirements
 are unchanged. The exact 18 operation identities and 56
 `{operationId, memberKey}` definitions are static external coordinates and
 exports. They are not implementation atoms, wrapper counts, or runtime dispatch
@@ -869,16 +1031,299 @@ Filesystem and held forms are instances/compositions, not common primitives:
   or enclosing-validation fault carries the latest exact issued receipt; void
   cleanup alone cannot satisfy the outward fault relation.
 
+The independent closed cross-family carrier is:
+
+```text
+ProductDefinitionGrantResolution<K>
+  × ABGExactAuthorityAtPrefix<K>
+  -> owner-local DefinitionInvocationAuthority<K>
+```
+
+Product alone resolves the exact direct installed-definition relation, actual
+WorkspaceBinding/ProductSet/admitted ProductInstall/ResolvedProductLock bodies,
+the accepted `ActorAuthority` coordinate pair, complete family identity,
+`PublicContractCatalogCoordinate`, and grants from one immutable direct owner-
+output input set and issues the Product resolution ref/digest. The resolver directly
+receives the complete actual owner-issued `IntrinsicPublicFunctionFamily` body
+and `IntrinsicPublicFunctionFamilyCoordinate`, complete actual
+`ProductPublicContractCatalog` body and `PublicContractCatalogCoordinate`, and
+the complete existing digest-valid `VerifiedProductArtifact`. The family digest
+is the accepted 18-operation/56-member operation/member-to-definition-digest
+projection. The catalog digest is the accepted digest of the actual catalog with
+only top-level `catalogDigest` omitted. The artifact's existing PFC-F08A-issued
+`CompleteDefinitionContractCoordinateMap`, not the catalog body, supplies the
+exact 56 definition-contract coordinate sets; it receives no new coordinate.
+The resolver selects K directly from that map, retains the definition's accepted
+execution-binding specification, and joins it to the verified native declaration
+evidence and unique admitted Product. No intermediate installed-definition
+snapshot or coordinate exists. Family/catalog coordinates are adjacent resolver
+relations, never intrinsic definition fields. `OwnerIssued` is only a transport
+pairing, not a generic body-digest law, and no equation hashes a body containing
+its own digest. The resolver validates the actual environment/install bodies with their accepted Product verifiers,
+derives installed coordinates only through `productInstallCoordinate`,
+reconstructs the supplied ProductSet in its declared `orderedInstallRefs` order,
+and validates the admitted WorkspaceBinding through its candidate projection
+without placing `admissionEventRef` in the binding-digest preimage. Actor and
+attribution remain the actual invocation-authority coordinates; no nonexistent
+actor body is introduced. Resolution identity uses the accepted family
+operation/member projection, actual catalog coordinate/body, verified-artifact
+identity, selected definition/specification/contract-slot identity, accepted environment/install
+identity projections with each admission-event ref separately carried,
+actor/attribution coordinates, and canonical grant identities; it does not
+serialize the raw runtime-schema-bearing family body or alter an owner digest
+preimage.
+
+ABG's declared projector input carries the complete PFC-F04-admitted invocation
+and complete current-K grant bodies, one full `ValidatedRuntimeEventPrefix`, and
+the actual non-materialization `PublicOperationAdmissionBasis` body when
+applicable. Except for run invoke it also carries the exact event id and returns
+the unique full actual `public_operation_admitted` RuntimeEvent selected from
+that prefix. It validates the coordinate/body pair with
+`validateDurablePrefixCoordinate`, the current root contract digest, and exact
+canonical-event-line UTF-8 byte length plus
+`durableRuntimeEventPrefixDigest(runtimeEventsFromValidatedPrefix(body))` before
+selection; crossed pairs refuse without a file or store read. For run invoke,
+the event id and source are null. The projector instead reuses
+`projectEffectfulPublicInvocationTruthAtPrefix` on the PFC invocation ref and
+returns the complete accepted `available` value. That value is historical only:
+L69 plus L38's repeated held-prefix/availability check admits the later actual
+Product-owner pair. L35/L37 independently construct the Program/policy root
+grant set and Product invocation through the existing transient
+`PreparedProductRunInvocation`; their shared-authority repair removes the live
+`authorityMatches` equality/subset between that root set and the distinct exact
+PFC/L66 current-K set. The domains join only through their actual actor,
+WorkspaceBinding, Program, and session-policy relations. L38 retains the full
+J03 artifact-truth and J04 CatalogView/application bodies alongside the
+prepared output and passes them directly to `admitExactInvocation`; it does not
+reconstruct them from a digest. For the two continuation
+and five interaction-response keys the projector also receives the complete
+accepted root `InvocationAdmission`, projects that exact body from the supplied
+prefix by `invocationAdmissionRef`, and carries it unchanged. The root body
+joins the distinct current PFC-F04 invocation through workspace and actor while
+the basis binds current invocation ref/request digest. Root catalog/program
+fields and the Program-declared singleton source grant instead validate against
+the accepted root projection and source event. The current-K grant set remains
+independently exact under PFC/L66/Metadata and need not contain that root
+capability. The continuation/respond source stays in the current PFC basis/request-
+digest domain and is never equated to the root Product-owner invocation digest.
+Result assessment binds the full PFC invocation digest, while continuation/
+respond/witness variants bind the basis digest plus request digest. Those digest
+domains are never equated.
+That is
+historical prefix consistency, not a mutable-tail currentness claim. Composition
+requires
+exact equality across family, catalog, definition, invocation, actor,
+WorkspaceBinding, Product set, lock, direct installed-definition/native-
+declaration evidence, prefix, and either run availability or the K-required
+source, plus
+`grantSet == requiredGrantSubset ==` the exact current-K grant bodies whose capability
+projection is `MetadataOf<K>.capabilityRefs`; every surplus grant/body/ref is
+rejected. The result is transient owner-kernel input evidence, not a Public/
+persisted carrier, entity/event, registry, optional bag, universal resource ABI,
+controller, fourth combinator, or authority owner.
+
+`CapabilityOperationId` is the complete 18-operation union: workspace create/
+open, project read, product verify/resolve/install, workspace bind, catalog
+admit/view/apply, run invoke/continue, interaction respond, result assess,
+witness admit, conformance evaluate, product materialize, and release snapshot.
+The existing operation-indexed `CapabilityGrant` remains the sole grant body for
+that complete union. A separate `DefinitionInvocationAuthorityOperationId`
+contains only run invoke/continue, interaction respond, result assess, witness
+admit, and product materialize; its exact key census is `2+2+5+1+6+2=18`.
+
+Implement exactly one pure
+`ProductDefinitionGrantResolutionPort.resolve(ReadonlyDeep<Input<K>>)` and one
+parameterized `ABGExactAuthorityProjectionPort.projectAtPrefix`. The Product
+resolver reads no mutable manifest/catalog/store, ambient registry, callback, or
+loader. Constitution 5.6.2C defines the Product-owned
+`ProposedProductMaterializationAuthorityBasisOf<K>` as the only bounded new
+coordinate/body relation here. Actual family, catalog, verified-artifact,
+definition/specification, PFC-F08A map, Product environment/install,
+RuntimeEvent, invocation, grant, and non-materialization basis types are reused
+directly. The ABG projector reads no mutable tail, reconstructs no digest
+preimage, and authors no body or event.
+Complete-set resolution is order-independent and rejects missing, extra,
+duplicate, ambiguous, crossed-digest, wrong-family/catalog/operation/capability/
+actor/owner/publication, caller-authored-body, cross-prefix, and crossed
+environment/actor/invocation cases. First/singleton selection, more than one
+resolver, and family-local grant/authority/projector copies are prohibited.
+
+The K mapping is total with no default or union fallback: invoke/start carry no
+source event or future `InvocationAdmission`; they require the exact accepted
+`available` truth for the PFC invocation ref plus their invocation/run/start
+basis, then L69/L38 admit the Product-owner pair. Current_intent/selected_action and the five
+interaction members additionally carry the complete accepted root
+`InvocationAdmission`, project it canonically from the same historical prefix,
+and otherwise use their exact continuation/selected-action or pending-
+interaction execution basis; result assess uses its RuntimeResult execution
+basis; reprice/attest/hygiene-stamp/intake use their exact witness subject/
+context basis; run-resumed/run-stopped use their exact Run lifecycle/execution
+basis. Those 16 non-materialization keys carry the complete actual
+`PublicOperationAdmissionBasis` body. The 14 source-bearing keys match it to the
+full admitted event; the two run keys match it to the PFC invocation and
+availability projection before L38. Their family-specific bases remain outside
+the shared carrier.
+
+The two continuation, five interaction, and six witness keys cannot use their
+live compound append as that source: today it admits
+`public_operation_admitted` and the later owner event in one transaction, so no
+durable prefix contains the source before L67. Split only that ABG HOW. For
+continuation/respond, reuse `prepareContinuationPublicOperation`, admit its
+exact existing event alone through
+`admitNonEmptyRuntimeEventTransactionAtDurablePrefix`, require canonical
+equality with the actual event and `preparedOperation.projectedPrefix`, then
+feed the actual event id and successor through J05/L11/L67. Preparation takes
+the complete root `InvocationAdmission`, never the distinct current PFC-F04
+invocation; before append its accepted prefix projector must return a canonical-
+equal root body. Its complete grant set remains root-owned. Only the event's
+single grant must equal the uniquely matching root body; the independently exact
+current-K grant set remains bound through PFC/L66 and is never equated to or
+derived from the root set. After L68,
+reconstitute the prepared operation from the admitted event and prefix, reuse
+`prepareFhInteractionResponse` or `prepareFhInteractionResume`, and append only
+the semantic event at an L69 guard on that successor. Resume retains the
+original predecessor digest and existing adjacency law; E33 retains exact
+`L55 -> L69 -> L56` ordering.
+
+For witness, run the existing packet/authority/duplicate checks and
+`publicOperationCandidate`, admit only that exact existing candidate at the
+packet predecessor, and feed its actual event/successor through J05/L11/L67.
+Require the packet to equal the complete PFC-F04 request and every authority
+coordinate to equal the L66 owner-body projection, invocation slot, and unique
+required complete grant before append.
+After L68, reuse `prepareSemanticEvent` with the original predecessor events and
+admitted source id, preserving existing subject/replay/lifecycle bytes, then
+append only its semantic candidate at the guarded successor. A retry consumes
+the conserved ingress receipt and never appends a duplicate source. Extend
+`projectFhEffectfulPublicInvocationFacts` only enough to validate an exact
+source-only continuation prefix as pending prior admission, using the source
+event id for both fact refs, and upgrade it to the existing paired fact when the
+adjacent semantic event arrives. This changes no payload variant, root-contract
+digest, event kind/fluent, owner meaning, port, combinator, or L leaf.
+`result.assess#assess` has no live typed-ingress producer, so its binding adds
+one exact nine-key event-candidate projection on the existing
+`public_operation_admitted` full-invocation-digest payload variant. It carries
+K/definition, full invocation ref/digest, actor ref, canonical grant refs, and
+workspace-binding ref; its workspace envelope comes only from the supplied
+actual basis and PFC-F04-admitted invocation. Existing non-empty expected-prefix
+admission returns the event id and successor consumed by J05/L11/L67. The later
+`assessed` event alone carries assessment meaning; this ingress adds no payload
+variant, root-contract digest change, event kind, fluent, port, or L leaf. The two
+materializers instead carry the complete canonical Product-issued
+`ProposedProductMaterializationAuthorityBasisOf<K>`, whose coordinate-free body
+is exactly the full admitted invocation plus canonical complete grant bodies.
+One closed twelve-key payload variant of the existing
+`public_operation_admitted` event embeds that body/ref/digest and fixes exact K,
+workspace authority scope, full-invocation digest, and request digest. Its
+workspace envelope fixes event time, aggregate/parent/basis identities,
+correlation, and empty causation from the candidate. Admission is exactly
+`admitNonEmptyRuntimeEventTransactionAtDurablePrefix` composed with
+`admitRuntimeEvent`; it supplies the held-store/expected-predecessor check and a
+non-null successor. The trace is `L66 + complete PFC-F04 admitted invocation ->
+Product candidate -> L69 -> existing non-empty expected-prefix ABG transaction
+-> successor prefix -> J05 -> L11 -> L67`; L67 remains pure and adds no L70.
+The later materialization result, not this pre-effect candidate, remains
+obligated to cross the existing `public_operation_artifact_admitted` carrier.
+That later callable is not currently implemented: live artifact admission and
+truth are closed to Product install/workspace bind. L62/L63 therefore remain
+C2-pending on the bounded ABG HOW extension authorized by EVENTS-032. Before
+runtime use it must admit the full owner-returned result against the held
+predecessor with `artifactRef = result.manifest.manifestRef` and
+`artifactDigest = result.manifest.manifestDigest`. It adds no event kind,
+Product meaning, or top-level result coordinate, and it never substitutes for
+the pre-effect candidate. This shared-carrier repair claims no post-effect
+materialization callability.
+
+The materialization payload addition changes `ROOT_EVENT_CONTRACT_DIGEST`. Its invalidation cone
+includes durable-prefix coordinates, reopen authorities and close handoffs,
+event-resource receipts/static binding equalities, replay semantic-view
+identities, downstream packed Product/catalog identities, and fixtures or
+persisted restart/reopen proof carrying the former digest. Existing event bytes,
+event ids, payload digests, event-kind roster, and Event Calculus meaning remain
+unchanged when their inputs are unchanged; old authorities fail closed and may
+not be silently restamped.
+The continuation/respond/witness split has a separate non-root-digest cone:
+regenerate their compound-transaction shape, independently durable P1 receipt,
+pending-prefix replay, retry/duplicate/interleaving/failure proof, packed module
+identity, and installed binding proof. It is not family-local because
+`projectEffectfulPublicInvocationTruthAtPrefix` folds the changed F_H fact
+projection before selecting any queried ref. Regenerate its global available/
+duplicate/invalid-history contract and every direct or installed/Public
+consumer, including Product-install/workspace-bind E24/L22 and E25/L27 through
+`admitArtifact`, run invocation admission, continuation preparation, and cross-
+operation pending-P1 available/duplicate/malformed/interleaving falsifiers. An
+exact P1 makes its own ref duplicate and an unrelated fresh ref available; a
+malformed pending source invalidates every query. This is no pending-state lock
+or owner meaning. Those existing payload variants do not change
+`ROOT_EVENT_CONTRACT_DIGEST`; for equal inputs without an intervening append,
+existing event bytes/ids/ordinals, causal relations, and final raw-log prefix
+remain unchanged. Only the exact intermediate prefix/receipt is added, and post-
+ingress faults conserve it under Section 16.10.
+The exact Table 5.6.3-C E31-E35/E37-E38 trace rows are revised only to expose
+that fixed preparation -> first L69 -> typed-ingress transaction -> successor
+order before J05/L11/L67. No factor identifier, L01-L69 member, owner leaf, or
+result closure changes, and E33 retains its later exact
+`L55 -> L69 -> L56` subsequence.
+The run shared-authority repair separately invalidates the current
+`authorityMatches` grant comparison, Product run preparation/admission grant
+proof, L67 availability and L68 join proof, and E29/E30 packed bindings. It does
+not change the availability projector implementation, event payloads/ids/order,
+the L35/L37/L38 leaf meanings, or the E29/E30 expression order. E29/E30 retain
+their complete J03 artifact-truth and J04 CatalogView/application bodies
+object-identically across Product preparation into L38; those inputs are not
+recovered from the prepared candidate or a digest.
+The operative selected factor basis is therefore Constitution `L01..L69`
+(69 leaves), not the former 65-leaf basis; `L66-L69` are current basis members.
+
+Product resolution, ABG historical projection, and equality composition have
+the three closed discriminated refusal unions fixed by Constitution 5.6.2C.
+Before an admitted invocation exists, exact candidate-side failure maps only to
+the existing `IndexedInvocationAdmissionRefusal<K>` code. After invocation
+admission, construction/invariant failure maps only to the receipt-appropriate
+Section 16.10 `DefinitionExecutionFault`. Only successful composition followed
+by family-owner judgment may return `RefusalOf<K>` object-identically. No
+infrastructure failure becomes owner `basis_mismatch`, and no owner refusal maps
+back to ingress or substrate fault. Immediately before the first effect/append,
+and before each later child append, the exact held `AbgEventStore` is compared
+to the expected predecessor by `assertHeldEventStoreAtDurablePrefix`; stale live
+state refuses there, never in the historical projector.
+
+Interaction keeps pending identity, response contract/kind, choice,
+value/evidence, and continuation/execution basis outside the shared carrier.
+Result keeps admitted RuntimeResult and assessment contract/value/evidence/
+disposition outside it. Witness keeps kind, subject, content, context,
+evidence/provenance, and kind-specific basis outside it. Run keeps Catalog,
+Program/GraphFunction membership, implementation, steering/input, and root
+policy outside it. Materialization keeps its two Product packet and physical-
+effect regimes outside it and consumes, rather than rebuilds, shared
+environment/grant resolution.
+
+The D11 donor contributes only pure Product assessment judgment, ABG
+historical projection/candidate/admission, the separate held-store currentness
+guard, typed substrate faults under Section 16.10, and `assessment_evidence` as
+a shared E10 specialization. Its D11-specific grant and authority bodies are
+superseded. The carrier-dependent order is
+shared carrier, result assessment, six witness packets, then one E33 kernel and
+five packets. Materialization mechanics may proceed independently but binding
+waits for the carrier. The already-authorized `run.invoke` repair continues.
+
 E33 is one static interaction kernel plus five fixed packets:
 
 ```text
-ABG L53 exact current basis at the validated prefix
+shared L66-L68 exact authority and immutable-prefix consistency
+  -> ABG L53 exact historical basis at the validated prefix
   -> exact environment/install/publication join
   -> Product L54({basis,responseKind,choice,value,evidence})
   -> existing ABG L55
+  -> exact held-store/expected-prefix guard
   -> existing ABG L56 expected-prefix admission
   -> Product R33
 ```
+
+L53, the Product/environment join, L54, and L55 are immutable-prefix
+projection/decision/candidate construction. L69 occurs exactly after L55 and
+immediately before the L56 admission/effect; a stale held store refuses there
+before effect.
 
 The binding never receives raw events and never folds them to reconstruct L53.
 The five `select | approve | reject | assess | answer_escalation` exports bind
@@ -888,17 +1333,175 @@ environment, installed-Product, or publication carriers holds this family for
 one bounded design reframe. Public, callers, fixtures, and tests cannot mint or
 infer them.
 
-`run.continue#current_intent` and `run.continue#selected_action` remain held on
-one shared Product/ABG continuation-carrier gap. The accepted carrier must
-preserve continuation of the current admitted intent separately from admission
-of a newly selected action. No per-member substitute, caller-selected action,
-hard-coded allowlist, or semantic relabeling is permitted.
+Constitution Section 16.12 ratifies the complete local `run.continue` design.
+One owner-local `RunContinuation` kernel is fixed at module initialization
+behind exactly `RUN_OPERATION_CONTRACTS.continue.current_intent` and
+`.selected_action`, their two exact packets, and existing
+`bindExactPrefixTransition`. The kernel is not a fourth combinator. Each binding
+fixes one leaf statically; the member discriminant is exact contract identity,
+not a runtime `mode` or handler selector.
 
-Reuse exact-pinned Effect `3.22.1`, current Valibot schema mechanics, canonical
-JSON/digests, immutable owner carriers, and the existing ABG event resource,
-exact-prefix projections, and expected-prefix admissions. Add no dependency,
-resource framework, schema engine, registry, persistence layer, Event Calculus
-fold, or runtime.
+The common kernel consumes the exact transient
+`DefinitionInvocationAuthority<K>` constructed under Section 16.11 and one
+branch-neutral ABG projection from the same immutable prefix:
+
+```text
+ABGRunContinuationFrontierAtPrefix = {
+  authorityPrefix, runPrefix, replay,
+  exact replay-derived Run and run-local Continuation,
+  root InvocationAdmission,
+  exact ExecutionBasis,
+  run/GraphCall/frame/cursor/current-intent lineage
+}
+```
+
+The frontier is pure transient readonly data. It has no independent identity,
+ref/digest authority, lifecycle, persistence, serialization, Public field,
+grant body, raw-event input, or mutable-tail access. Before either leaf runs,
+the kernel requires exact equality among the frontier, the Section 16.11
+Product/ABG authority product, and the `DefinitionCall` resource prefix for
+definition, operation, invocation, actor, WorkspaceBinding, Product set, lock,
+publication, complete grant set/subset, source, and prefix. No continuation-
+local grant, resolution, projector, or authority body is permitted.
+
+Only `run` and `continuation` are universal semantic request fields. Exact
+branch inputs are disjoint:
+
+```text
+current_intent = {
+  exact replay-derived admitted current intent,
+  exact admitted response or post-yield continuation input,
+  exact expected ExecutionBasis
+}
+
+selected_action = {
+  exact admitted SelectedNextActionProjection and its admitted basis,
+  same_basis | authority_changed + exact covering reprice,
+  exact Product target resolution,
+  matching Product-issued ProgramGraphFunctionMembership
+}
+```
+
+No nullable carrier contains both sets. The current-intent leaf reuses the
+existing continuation projection/rehydration, F_H successor derivation and
+expected-prefix resume, and HoG interaction-resume traversal. It resumes only
+the replay-derived admitted intent through `continueExecution`, admits no new ConstructionIntent, and
+returns `admittedIntent: null`.
+
+The selected-action leaf accepts one current admitted
+`NextActionProjection` with `disposition: selected`, never `no_action` or a
+caller selection. Same-basis authority must agree exactly. An authority crossing
+requires the applicable separately admitted binding plus an exact covering
+declaration reprice naming the crossed basis pair. Product execution resolution
+alone resolves the projection-declared Program/GraphFunction and supplies the
+matching `ProgramGraphFunctionMembership`. The kernel factors the existing ABG
+selected-action validation/admission relation so ABG admits exactly one new
+ConstructionIntent under the existing `construction_intent_selected` meaning;
+only then does it invoke the declared target through ordinary GTL/Validator/HoG
+execution, realizing only `evaluateNext -> admitConstructionIntent ->
+invokeGraphFunction`. It never evaluates another action or accepts caller-authored Program,
+GraphFunction, membership, target input, or cursor.
+
+One Product-owned plain immutable `RunContinuationDecisionPort`, distinct from
+the interface-only `RunContinuationPort`, has exact `current_intent` and
+`selected_action` pure functions over closed readonly branch records. It
+constructs only the existing packet-indexed result/nonterminal/refusal union and
+has no Effect, resource, store, event writer, callback, lookup, or fallback.
+ABG typed `basis_fork_detected` remains the lower truth; the Product decision
+maps it explicitly to the existing public `reprice_mismatch` refusal with exact
+evidence rather than silently renaming it `basis_mismatch`.
+
+The owner-local causal sequence is fixed:
+
+```text
+Section 16.11 authority + exact DefinitionCall
+  -> ABG frontier at the same exact prefix
+  -> existing ABG public-operation admission
+  -> statically fixed current_intent | selected_action leaf
+  -> existing separately durable ABG/HoG child transactions
+  -> replay at the latest durable prefix
+  -> pure Product RunContinuation decision
+  -> exact resource close and DefinitionReturn
+```
+
+Existing child atomicity and event meaning do not change, including the existing
+route-plus-ConstructionIntent batch. Each later child consumes the predecessor's
+exact successor and reissues its own successor/handoff. The fixed resource
+contract is existing `T9 recursive_abg_prefix_frame`: one provider-scoped ABG
+store, exact initial prefix, and reopen/prior-close handoff enter; the same
+store, complete ordered child-receipt journal, latest successor prefix, and
+owner-issued close handoff return. Section 16.10 governs
+without reinterpretation: before acquisition/append a typed substrate fault has
+`resourceReceipt: null`; after any public-operation, continuation, intent,
+target-open, traversal, or other durable child append it carries the exact
+owner-issued receipt at the latest durable prefix; and after wider owner-output
+or receipt validation it conserves an already admitted exact receipt unchanged.
+Owner refusal stays an owner output. No enclosing transaction, rollback,
+store-tail synthesis, generic receipt, side channel, or Public receipt
+interpretation is lawful.
+
+When both native bindings replace it in the complete-family swap, delete the
+legacy `public/contracts.ts` current-intent-only row and caller
+`continuationAuthority`; `public/operations.ts::applyRunContinue` and its root
+switch arm; run-continuation use of `PublicContinuationAuthority` and its
+construct/parse/update round trip; and any independently authored contract,
+schema, SDK, CLI, or compatibility fallback. Public then admits and selects one
+exact installed binding, calls it once, and transports its outcome/receipt.
+
+The invalidation cone is proportional. A common frontier projector, kernel,
+decision port, equality/currentness law, or continuation resource/receipt-
+contract change invalidates both leaves and packets/bindings, their schemas and
+projections, legacy-deletion proof, and both installed causal-topology proofs.
+A `current_intent` leaf-only change invalidates that branch plus shared
+downstream receipt/replay proof. A `selected_action`, action/basis, reprice,
+membership, ConstructionIntent-admission, or target-invocation change
+invalidates that branch plus shared downstream receipt/replay proof. A packet-
+only change invalidates its coordinate/digest/manifest/census proof while the
+common review and other branch remain banked if byte- and contract-identical.
+Sections 16.10 and 16.11 retain their wider invalidation cones.
+
+Mandatory falsifiers are stale predecessor prefix; crossed run, continuation,
+GraphCall, frame, cursor, ref, or digest; wrong current intent/input/basis;
+absent, `no_action`, stale, duplicate, crossed, or wrong selected projection,
+action, basis, target, or obligation; changed authority under `same_basis`;
+missing, wrong, or non-covering reprice; caller-/Public-/binding-/fixture-/test-
+authored Program, GraphFunction, membership, grant, binding, target input,
+cursor, or topology; zero or multiple new intents; invocation of a target other
+than the admitted projection target; a fault after each separately durable
+child without the exact latest receipt; duplicate/resolved continuation
+producing a second resume, intent, GraphCall, or route; member/key/digest or
+`admittedIntent` nullability relabeling; raw-event folding; new event meaning;
+or a fourth combinator, registry, controller, runtime, or compatibility path.
+
+Foundation/Technology disposition is closed:
+
+| Classification | Exact selection | FS-18/FS-19 decision |
+|---|---|---|
+| `catalog_reuse` | `shared/canonical_json.ts::{canonicalJson,compareUnicodeCodeUnits}`, `shared/digests.ts::sha256Canonical`, `shared/immutable.ts::deepFreeze`, and `product/exact_match.ts` | reuse canonicalization, ordering, digest, immutability, and cardinality mechanics |
+| `catalog_reuse` | `product/catalog.ts::{admitGraphFunctionCatalog,buildGraphFunctionCatalog,lookupGraphFunctionDefinition,narrowGraphFunctionCatalog}`, `product/implementation_resolution.ts::resolveImplementationSet`, `product/environment.ts::{isResolvedProductLock,isProductInstall,productInstallCoordinate,isProductSet,constructProductSet,isWorkspaceBindingCandidate}`, and `product/semantics.ts::loadInstalledProductSemantics` | reuse exact Product selection/environment/implementation/semantic callables and actual bodies; do not duplicate them or invent actor/install bodies in the resolver |
+| `catalog_reuse` | actual `IntrinsicPublicFunctionFamily` constructor/operation-member digest projection and execution-binding specification, actual `ProductPublicContractCatalog` digest/body, `isVerifiedProductArtifact`, native declaration evidence, and PFC-F08A `CompleteDefinitionContractCoordinateMap` output | reuse owner outputs and their domain-specific nonrecursive identities; join the unique definition/contract slot/install directly; no rival family/catalog/56-map, installed-definition snapshot, or repurposed coordinate |
+| `catalog_reuse` | `abg/event_prefix.ts::{selectValidatedRuntimeEventPrefix,runtimeEventsFromValidatedPrefix}`, `abg/replay.ts::replayValidatedRuntimeEventPrefix`, `abg/effectful_invocation_truth.ts::projectEffectfulPublicInvocationTruthAtPrefix`, `abg/invocation_execution_truth.ts::projectExactInvocationAdmissionAtPrefix`, actual `RuntimeEvent`, `InvocationAdmission`, and non-materialization `PublicOperationAdmissionBasis`, PFC-F04 invocation admission/self-contained invocation identity equations, accepted grant verification/admission, `product/run_invocation_operation.ts::ProductRunInvocationPort.prepare` and `PreparedProductRunInvocation`, and `abg/event_store.ts::{validateDurablePrefixCoordinate,durableRuntimeEventPrefixDigest,admitNonEmptyRuntimeEventTransactionAtDurablePrefix,admitRuntimeEvent,assertHeldEventStoreAtDurablePrefix}` | reuse full admitted invocation/event/grant bodies, run no-prior-admission truth plus later owner admission, the complete seven-key continuation root admission, exact coordinate/body prefix equality, durable admission, historical projection, and live expected-prefix mechanics; keep current-K and Program/root grant domains distinct without a fictional invocation-only verifier or source/basis identity |
+| `catalog_reuse` | `abg/continuation.ts::{prepareContinuationPublicOperation,prepareFhInteractionResponse,prepareFhInteractionResume}`, existing witness `publicOperationCandidate`/`prepareSemanticEvent`, and their exact payload/semantic-event forms | reuse existing constructors on either side of independently durable source admission; add no carrier, payload, event, or owner meaning |
+| `catalog_reuse` | exact-pinned Valibot `1.4.2` and Effect `3.22.1` through their existing schema and outer typed execution seams | reuse maintained generic admission/composition; no Product or ABG semantics move into a library |
+| `catalog_extension` | the sole existing `CapabilityGrant` constructor/validator/digest and operation index, plus the run preparation `authorityMatches` shared-authority check | extend one body across all 18 operations and remove the false equality/subset between the exact current-K set and the independently constructed Program/root set; no subset carrier or family-local body |
+| `catalog_extension` | existing continuation-response, continuation-resume, and witness compound admissions plus `projectFhEffectfulPublicInvocationFacts` | split each source/semantic pair into guarded one-row transactions around L67 and recognize the exact source-only P1 as pending prior admission; preserve payload variants, root-contract digest, event/owner meaning, and final equal-input bytes |
+| `catalog_addition_proposal` | one exact nine-key `result.assess` event-candidate projection on the existing full-invocation-digest `public_operation_admitted` variant | close the missing typed-ingress source through the existing expected-prefix transaction; the later `assessed` append retains all owner meaning |
+| `catalog_addition_proposal` | `ProposedProductMaterializationAuthorityBasisCandidate<K>`, Product-issued `ProposedProductMaterializationAuthorityBasisOf<K>`, and one closed candidate-bearing payload/event-candidate projection on existing `public_operation_admitted` | carry the complete invocation/grant candidate through the existing non-empty expected-prefix transaction and recover it by prefix replay; no new event kind/entity/registry and no use of the post-effect artifact slot |
+| `catalog_addition_proposal` | one Product immutable-input exact-set resolver | minimal composition over reused Product callables |
+| `catalog_addition_proposal` | one ABG immutable-prefix historical projector | recheck the PFC-F04-admitted invocation's self-contained identity, validate complete supplied grant bodies, select the actual full event and basis, and replay the embedded materialization candidate without repeating owner-packet/schema admission |
+| `catalog_addition_proposal` | one pure transient equality/refusal mapper | no ref, serialization, persistence, registry, or lifecycle |
+
+Native/current owner mechanics plus those exact-pinned libraries cover the
+generic work. The bounded carrier additions make Product exact-set resolution,
+ABG immutable-prefix projection, the missing result-assessment ingress,
+candidate-bearing materialization typed ingress, and pure equality/refusal
+mapping constructible; the existing continuation/respond/witness candidates
+are split into independently durable ingress and owner-event admissions around
+L67, with replay-valid pending P1, at the lowest
+migration, proof, package, and lifecycle cost. Add no dependency, duplicated
+project/library callable, resource framework, schema/digest engine, grant
+family, event kind, registry, persistence layer, Event Calculus fold, store, or
+runtime.
 
 Whole-family constructability closes only when the clean packed artifact loads
 all 56 static exports with real owner closures and complete dependency closure,
@@ -1031,7 +1634,12 @@ statically composed installed TypeScript callable. A type interface, symbol stri
 specification, test stub, or Public handler is not executable authority. The
 release definitions resolve to real installed bindings in Wave 2, but return
 their exact qualification/basis refusal until Wave 5 supplies a same-subject
-green non-bypassed release basis. They may not publish success early.
+green non-bypassed release basis. Their two member/result-contract identities
+now target separate strict future result/resource/publication-receipt contracts;
+they do not share one semantic kernel or currentness law. They may not construct
+or publish success early. The distinct Product `release_evidence` read consumes
+only an authenticated originating request, exact owner outcome, and matching
+owner-issued receipt through `bindStaticOwner`; it is never an ABG-prefix read.
 
 The read family is one projection/composition problem, not 24 independent
 runtimes or presumed primitives.
@@ -1983,6 +2591,9 @@ owner-local to retry admission and projection.
   runtime entity, registry authority, event family, or replay projection.
 - Event Calculus over an explicit validated immutable prefix is the sole
   runtime-currentness relation.
+- Release currentness is the exact immutable requested/committed cut, manifest,
+  originating request, owner outcome, and owner-issued publication receipt; it
+  is not runtime currentness and never consumes an ABG prefix.
 - Replay and Public are reconstructive projections; they do not author truth.
 - Every domain entity keeps one identity, lifecycle, admission owner, and
   competing-path disposition.
