@@ -20,6 +20,88 @@ const packageRoot = new URL("../..", import.meta.url).pathname;
 const operationId = "abg.operation.run.invoke";
 const schemaVersion = "5.0.0";
 
+function rehashGrant(product, grant, patch) {
+  const {
+    kind,
+    schemaVersion: grantSchemaVersion,
+    grantRef: _grantRef,
+    grantDigest: _grantDigest,
+    ...originalBody
+  } = grant;
+  const body = Object.freeze({ ...originalBody, ...patch });
+  const grantDigest = product.sha256Canonical(body);
+  return Object.freeze({
+    kind,
+    schemaVersion: grantSchemaVersion,
+    grantRef:
+      `capability-grant://abiogenesis/${grantDigest.slice("sha256:".length)}`,
+    grantDigest,
+    ...body,
+  });
+}
+
+function forgeDependencyGraph(product, installs) {
+  return Object.freeze(installs.map((install) => {
+    const rowIndex = install.capabilityDefinitionGraph.rows.findIndex(
+      (row) => row.capabilityId === product.DIRECT_INVOKE_CAPABILITY,
+    );
+    if (rowIndex < 0) return install;
+    const originalRow = install.capabilityDefinitionGraph.rows[rowIndex];
+    const originalDependency = originalRow.dependentCapabilities[0];
+    const crossedDependency = originalDependency === undefined
+      ? Object.freeze({
+          capabilityId: "abg.capability.forged-dependency@5",
+          capabilityDefinitionRef:
+            "capability-definition://abiogenesis/forged-dependency",
+          capabilityDefinitionDigest: product.sha256Canonical({
+            dependency: "forged",
+          }),
+        })
+      : Object.freeze({
+          ...originalDependency,
+          capabilityDefinitionDigest: product.sha256Canonical({
+            dependency: originalDependency.capabilityId,
+            crossed: true,
+          }),
+        });
+    const rowBody = Object.freeze({
+      capabilityId: originalRow.capabilityId,
+      capabilityVersion: originalRow.capabilityVersion,
+      owningPublicContracts: originalRow.owningPublicContracts,
+      dependentCapabilities: Object.freeze([
+        crossedDependency,
+        ...originalRow.dependentCapabilities.slice(1),
+      ]),
+      effectRefs: originalRow.effectRefs,
+      boundedProofRefs: originalRow.boundedProofRefs,
+    });
+    const capabilityDefinitionDigest = product.sha256Canonical(rowBody);
+    const crossedRow = Object.freeze({
+      ...rowBody,
+      capabilityDefinitionRef:
+        `capability-definition://abiogenesis/${capabilityDefinitionDigest.slice("sha256:".length)}`,
+      capabilityDefinitionDigest,
+    });
+    const rows = Object.freeze(install.capabilityDefinitionGraph.rows.map(
+      (row, index) => index === rowIndex ? crossedRow : row,
+    ));
+    const graphBody = Object.freeze({
+      kind: install.capabilityDefinitionGraph.kind,
+      schemaVersion: install.capabilityDefinitionGraph.schemaVersion,
+      graphId: install.capabilityDefinitionGraph.graphId,
+      graphVersion: install.capabilityDefinitionGraph.graphVersion,
+      rows,
+    });
+    return Object.freeze({
+      ...install,
+      capabilityDefinitionGraph: Object.freeze({
+        ...graphBody,
+        graphDigest: product.sha256Canonical(graphBody),
+      }),
+    });
+  }));
+}
+
 async function constructInstalledStartCall({
   environment,
   publicApi,
@@ -87,24 +169,19 @@ async function constructInstalledStartCall({
     [],
   );
   const actorRef = workspaceBinding.authorizedActorRef;
+  const fixedPacket = product.RUN_OPERATION_CONTRACTS.invoke.start;
   const grants = Object.freeze([
-    product.constructCapabilityGrant(policy, actorRef),
-    ...[...new Set(resolution.programValidation.interactionLeafRows.map(
-      (row) => row.requirement.actorCapabilityRef,
-    ))].sort().flatMap((capabilityRef) => [
-      product.constructCapabilityGrant(
-        policy,
-        actorRef,
-        "abg.operation.interaction.respond",
-        capabilityRef,
-      ),
-      product.constructCapabilityGrant(
-        policy,
-        actorRef,
-        "abg.operation.run.continue",
-        capabilityRef,
-      ),
-    ]),
+    product.constructCapabilityGrant(
+      policy,
+      actorRef,
+      operationId,
+      product.DIRECT_INVOKE_CAPABILITY,
+      {
+        admittedInstalls,
+        workspaceBinding,
+        fixedPacket,
+      },
+    ),
   ]);
   const authority = product.constructInvocationAuthority(
     actorRef,
@@ -114,6 +191,11 @@ async function constructInstalledStartCall({
     resolution.selectedCatalogEntry,
     policy,
     grants,
+    {
+      admittedInstalls,
+      workspaceBinding,
+      fixedPacket,
+    },
   );
   const program = Object.freeze({
     ref: resolution.resolution.programRef,
@@ -225,6 +307,15 @@ async function constructInstalledStartCall({
       provenanceRefs: ["provenance://odd-glc/st-1-worker"],
     }),
     resolution,
+    capabilityBasis: Object.freeze({
+      actorRef,
+      capabilityGrants: grants,
+      policy,
+      productInstalls: admittedInstalls,
+      program: resolution.program,
+      programValidation: resolution.programValidation,
+      workspaceBinding,
+    }),
   };
 }
 
@@ -254,6 +345,66 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     additionalProducts: [oddGlc],
     additionalPublications: [oddPublication],
   } = environment;
+  const projectReadContracts = await import(
+    `${pathToFileURL(join(
+      environment.installedRoot,
+      "build/code/src/abg/project_read_operation_contracts.js",
+    )).href}?st2ac=${Date.now()}`
+  );
+  const runStatusPacket = projectReadContracts.ABG_PROJECT_READ_CONTRACTS
+    .run_status;
+  const [runStatusCapabilityRef] = runStatusPacket.metadata.capabilityRefs;
+  assert.equal(
+    runStatusCapabilityRef,
+    "abg.capability.runtime.replay-continuation@5",
+  );
+  const runStatusGrantBasis = Object.freeze({
+    admittedInstalls,
+    workspaceBinding,
+    fixedPacket: runStatusPacket,
+  });
+  const runStatusGrant = product.constructCapabilityGrant(
+    environment.workspaceAuthority,
+    workspaceBinding.authorizedActorRef,
+    runStatusPacket.definitionKey.operationId,
+    runStatusCapabilityRef,
+    runStatusGrantBasis,
+  );
+  assert.equal(
+    runStatusGrant.policyRef,
+    environment.workspaceAuthority.authorityBasisId,
+  );
+  assert.equal(
+    runStatusGrant.policyDigest,
+    environment.workspaceAuthority.authorityBasisDigest,
+  );
+  assert.equal(
+    product.validateCapabilityGrantForProductBasis(
+      runStatusGrant,
+      environment.workspaceAuthority,
+      workspaceBinding.authorizedActorRef,
+      runStatusCapabilityRef,
+      runStatusGrantBasis,
+    ),
+    true,
+  );
+  const mismatchedRunStatusGrant = rehashGrant(product, runStatusGrant, {
+    policyDigest: product.sha256Canonical({
+      authorityBasisDigest:
+        environment.workspaceAuthority.authorityBasisDigest,
+      mismatch: "workspace-authority-policy",
+    }),
+  });
+  assert.equal(
+    product.validateCapabilityGrantForProductBasis(
+      mismatchedRunStatusGrant,
+      environment.workspaceAuthority,
+      workspaceBinding.authorizedActorRef,
+      runStatusCapabilityRef,
+      runStatusGrantBasis,
+    ),
+    false,
+  );
   assert.equal(verifiedProducts.length, 2);
   assert.equal(installCandidates.length, 2);
   assert.equal(admittedInstalls.length, 2);
@@ -362,12 +513,23 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     handoffDigest: product.sha256Canonical(setupHandoff),
   });
   const input = gtl.constructHelloWorldInput("World");
-  const { call, resolution } = await constructInstalledStartCall({
+  const { call, resolution, capabilityBasis } = await constructInstalledStartCall({
     environment,
     publicApi,
     eventResource,
     input,
   });
+  assert.throws(
+    () => product.constructCapabilityGrant(
+      capabilityBasis.policy,
+      workspaceBinding.authorizedActorRef,
+      runStatusPacket.definitionKey.operationId,
+      runStatusCapabilityRef,
+      runStatusGrantBasis,
+    ),
+    /exact workspace, policy, actor, and definition authority/u,
+    "project.read must not accept an invocation policy basis",
+  );
   assert.equal(resolution.resolution.programOwner.productId, oddGlc.basis.productId);
   assert.equal(
     resolution.resolution.graphFunctionOwner.productId,
@@ -389,6 +551,88 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     resolution.implementationSetCandidate.rows[0].computeRegime,
     "F_D",
   );
+
+  const [grant] = capabilityBasis.capabilityGrants;
+  const forgedDigest = product.sha256Canonical({ forged: true });
+  const crossedProductInstalls = capabilityBasis.productInstalls.filter(
+    (install) => !install.capabilityDefinitionGraph.rows.some(
+      (row) => row.capabilityId === product.DIRECT_INVOKE_CAPABILITY,
+    ),
+  );
+  const matrix = [
+    ["self-rehashed intrinsic definition", {
+      capabilityGrants: [rehashGrant(product, grant, {
+        definitionRef: "public-function://forged/run/start@5",
+        definitionDigest: forgedDigest,
+      })],
+    }],
+    ["graph/row", {
+      capabilityGrants: [rehashGrant(product, grant, {
+        capabilityDefinition: Object.freeze({
+          ...grant.capabilityDefinition,
+          capabilityDefinitionDigest: forgedDigest,
+        }),
+      })],
+    }],
+    ["contract/catalog", {
+      capabilityGrants: [rehashGrant(product, grant, {
+        operationContract: Object.freeze({
+          ...grant.operationContract,
+          contractCatalog: Object.freeze({
+            ...grant.operationContract.contractCatalog,
+            catalogDigest: forgedDigest,
+          }),
+        }),
+      })],
+    }],
+    ["dependency", {
+      productInstalls: forgeDependencyGraph(
+        product,
+        capabilityBasis.productInstalls,
+      ),
+    }],
+    ["actor", {
+      capabilityGrants: [rehashGrant(product, grant, {
+        actorRef: "actor://forged",
+      })],
+    }],
+    ["policy", {
+      capabilityGrants: [rehashGrant(product, grant, {
+        policyDigest: forgedDigest,
+      })],
+    }],
+    ["scope", {
+      capabilityGrants: [rehashGrant(product, grant, {
+        scopeDigest: forgedDigest,
+      })],
+    }],
+    ["basis", {
+      capabilityGrants: [rehashGrant(product, grant, {
+        authorityBasisDigest: forgedDigest,
+      })],
+    }],
+    ["crossed environment", {
+      productInstalls: crossedProductInstalls,
+    }],
+  ];
+  const eventCountBeforeForgeryMatrix = abg.readRuntimeEventsAtDurablePrefix(
+    eventResource.closeHandoff.prefix,
+  ).length;
+  for (const [label, mutation] of matrix) {
+    const refusal = abg.validateInvocationCapabilityBasis({
+      ...capabilityBasis,
+      memberKey: "start",
+      catalogApplications: [],
+      ...mutation,
+    });
+    assert.equal(refusal?.kind, "invocation_admission_refusal", label);
+    assert.equal(
+      abg.readRuntimeEventsAtDurablePrefix(eventResource.closeHandoff.prefix)
+        .length,
+      eventCountBeforeForgeryMatrix,
+      `${label} must emit zero events`,
+    );
+  }
 
   const outcome = await Effect.runPromise(
     product.RUN_DEFINITION_BINDINGS.invoke.start(call),

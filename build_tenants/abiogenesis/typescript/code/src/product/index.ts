@@ -150,6 +150,8 @@ export {
   constructRootInvocationPolicy,
   constructStartInvocation,
   isCapabilityGrantValue,
+  validateCapabilityGrantForProductBasis,
+  type CapabilityGrantConstructionBasis,
   type CapabilityGrant,
   type CapabilityOperationId,
   type InvocationAuthority,

@@ -30,6 +30,7 @@ import {
   constructExactStartInvocation,
   constructInvocationAuthority,
   constructRootInvocationPolicy,
+  DIRECT_INVOKE_CAPABILITY,
   type CapabilityGrant,
   type ExactDirectRunInvocation,
   type ExactStartRunInvocation,
@@ -513,27 +514,19 @@ export async function prepareProductRunInvocation<
     resources.applications,
   );
   const actorRef = invocation.invocationAuthority.slots.actor?.actor.ref ?? "";
-  const interactionCapabilityRefs = [
-    ...new Set(resolution.programValidation.interactionLeafRows.map(
-      (row) => row.requirement.actorCapabilityRef,
-    )),
-  ].sort();
+  const fixedPacket = packet(memberKey);
   const grants = Object.freeze([
-    constructCapabilityGrant(policy, actorRef),
-    ...interactionCapabilityRefs.flatMap((capabilityRef) => [
-      constructCapabilityGrant(
-        policy,
-        actorRef,
-        "abg.operation.interaction.respond",
-        capabilityRef,
-      ),
-      constructCapabilityGrant(
-        policy,
-        actorRef,
-        "abg.operation.run.continue",
-        capabilityRef,
-      ),
-    ]),
+    constructCapabilityGrant(
+      policy,
+      actorRef,
+      "abg.operation.run.invoke",
+      DIRECT_INVOKE_CAPABILITY,
+      {
+        admittedInstalls: input.admittedInstalls,
+        workspaceBinding: input.workspaceBinding,
+        fixedPacket,
+      },
+    ),
   ]);
   const authority = constructInvocationAuthority(
     actorRef,
@@ -543,6 +536,11 @@ export async function prepareProductRunInvocation<
     resolution.selectedCatalogEntry,
     policy,
     grants,
+    {
+      admittedInstalls: input.admittedInstalls,
+      workspaceBinding: input.workspaceBinding,
+      fixedPacket,
+    },
   );
   if (
     authority.kind !== "invocation_authority" ||

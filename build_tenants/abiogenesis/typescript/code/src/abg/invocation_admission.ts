@@ -13,6 +13,7 @@ import {
 import {
   DIRECT_INVOKE_CAPABILITY,
   isProductExecutionResolution,
+  RUN_OPERATION_CONTRACTS,
   type CapabilityGrant,
   type DeclarationApplication,
   type GraphFunctionCatalogView,
@@ -21,6 +22,7 @@ import {
   type InvocationPolicyBasis,
   type ProductInvocationSourceResultBasis,
   type ProductExecutionResolution,
+  type ProductInstall,
   type ExecutionDeclarationOwnerCoordinate,
   type PublicInvocationCandidate,
   type RunInvocationVariant,
@@ -40,6 +42,7 @@ import {
   isInvocationAuthority,
   isInvocationPolicyBasis,
   isPublicInvocationCandidate,
+  validateCapabilityGrantForProductBasis,
 } from "../product/invocation.js";
 import {
   canonicalJson,
@@ -64,7 +67,7 @@ import {
   type EffectfulPublicInvocationTruth,
 } from "./effectful_invocation_truth.js";
 import {
-  hasAdmittedWorkspaceBinding,
+  projectExactPrefixWorkspaceEnvironment,
   validatePublicOperationBasis,
   type AbgAdmissionRefusal,
   type PublicOperationAdmissionBasis,
@@ -566,7 +569,9 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
   actorRef: string;
   capabilityGrants: readonly CapabilityGrant[];
   catalogApplications?: readonly DeclarationApplication[];
+  memberKey: "invoke" | "start";
   policy: InvocationPolicyBasis;
+  productInstalls: readonly ProductInstall[];
   program: Readonly<GtlProgram>;
   programValidation: ProgramValidation;
   workspaceBinding: WorkspaceBinding;
@@ -579,6 +584,7 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
     .sort((left, right) =>
       compareUnicodeCodeUnits(left.applicationRef, right.applicationRef)
     );
+  const fixedPacket = RUN_OPERATION_CONTRACTS.invoke[input.memberKey];
   if (
     !isInvocationPolicyBasis(input.policy) ||
     input.policy.authorityMode !== "trusted_developer" ||
@@ -614,52 +620,23 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
       "root invocation policy differs from the admitted workspace, Program, compute fibres, or interaction requirements",
     );
   }
-  const expectedGrantRows = [
-    {
-      operationId: "abg.operation.run.invoke",
-      capabilityRef: DIRECT_INVOKE_CAPABILITY,
-      interactionRequirementKeys: [] as readonly string[],
-    },
-    ...[
-      ...new Set(
-        exactInteractionCapabilities.map((row) => row.actorCapabilityRef),
-      ),
-    ].sort().flatMap((capabilityRef) => {
-      const interactionRequirementKeys = exactInteractionCapabilities
-        .filter((row) => row.actorCapabilityRef === capabilityRef)
-        .map((row) => row.requirementKey);
-      return [
-        {
-          operationId: "abg.operation.interaction.respond",
-          capabilityRef,
-          interactionRequirementKeys,
-        },
-        {
-          operationId: "abg.operation.run.continue",
-          capabilityRef,
-          interactionRequirementKeys,
-        },
-      ];
-    }),
-  ];
   if (
-    input.capabilityGrants.length !== expectedGrantRows.length ||
+    input.capabilityGrants.length !== 1 ||
     new Set(input.capabilityGrants.map((grant) => grant.grantRef)).size !==
       input.capabilityGrants.length ||
-    input.capabilityGrants.some((grant, index) => {
-      const expected = expectedGrantRows[index];
-      return (
-        expected === undefined ||
-        !isCapabilityGrant(grant) ||
-        grant.actorRef !== input.actorRef ||
-        grant.policyRef !== input.policy.policyRef ||
-        grant.policyDigest !== input.policy.policyDigest ||
-        grant.operationId !== expected.operationId ||
-        grant.capabilityRef !== expected.capabilityRef ||
-        grant.interactionRequirementKeys.join("\0") !==
-          expected.interactionRequirementKeys.join("\0")
-      );
-    })
+    input.capabilityGrants.some((grant) =>
+        !validateCapabilityGrantForProductBasis(
+          grant,
+          input.policy,
+          input.actorRef,
+          DIRECT_INVOKE_CAPABILITY,
+          {
+            admittedInstalls: input.productInstalls,
+            workspaceBinding: input.workspaceBinding,
+            fixedPacket,
+          },
+        )
+    )
   ) {
     return refusal(
       "capability_mismatch",
@@ -730,8 +707,24 @@ function admitInvocationWithRequest(
   ) {
     return refusal("authority_mismatch", "public operation basis differs from invocation or workspace authority");
   }
-  if (!hasAdmittedWorkspaceBinding(input.artifactTruth, input.workspaceBinding)) {
-    return refusal("workspace_not_admitted", "invocation workspace binding lacks ABG admission truth");
+  const environment = projectExactPrefixWorkspaceEnvironment(
+    input.artifactTruth.prefix,
+    {
+      ref: input.workspaceBinding.bindingId,
+      digest: input.workspaceBinding.bindingDigest,
+    },
+  );
+  if (
+    environment.kind !== "exact_prefix_workspace_environment" ||
+    canonicalJson(environment.artifactTruth as unknown as JsonValue) !==
+      canonicalJson(input.artifactTruth as unknown as JsonValue) ||
+    canonicalJson(environment.workspaceBinding as unknown as JsonValue) !==
+      canonicalJson(input.workspaceBinding as unknown as JsonValue)
+  ) {
+    return refusal(
+      "workspace_not_admitted",
+      "invocation workspace and artifact truth differ from the exact ABG-owned prefix environment",
+    );
   }
   let predecessorPrefix: ValidatedRuntimeEventPrefix;
   try {
@@ -1321,7 +1314,9 @@ function admitInvocationWithRequest(
     actorRef: input.invocation.actorAttributionRef,
     capabilityGrants: input.capabilityGrants,
     catalogApplications,
+    memberKey: expectedMemberKey,
     policy: input.policy,
+    productInstalls: environment.productInstalls,
     program: input.program,
     programValidation: input.programValidation,
     workspaceBinding: input.workspaceBinding,

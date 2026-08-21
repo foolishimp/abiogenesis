@@ -466,6 +466,15 @@ function constructOperationProjection(
 /** Exact intrinsic 18-operation/56-definition family closure. */
 export const PUBLIC_FUNCTION_DEFINITION_FAMILY = constructFamily();
 
+export function selectIntrinsicPublicFunctionDefinition(
+  definitionKey: PublicDefinitionKeyLike,
+): IntrinsicPublicFunctionDefinition | null {
+  const matches = PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.filter(
+    (definition) => sameCanonical(definition.definitionKey, definitionKey),
+  );
+  return matches.length === 1 ? matches[0]! : null;
+}
+
 /** PFC-F07's deterministic operation projection over only the closed family. */
 export function derivePublicOperationContractProjections(
   family: IntrinsicPublicFunctionFamily,

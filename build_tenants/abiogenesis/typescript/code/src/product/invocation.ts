@@ -7,6 +7,7 @@ import {
   type RawAdmittedValue,
 } from "../validator/raw_admission.js";
 import {
+  canonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
@@ -22,17 +23,37 @@ import {
   sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
-import type { WorkspaceBinding } from "./environment.js";
+import {
+  isWorkspaceAuthorityBasis,
+  type ProductInstall,
+  type WorkspaceAuthorityBasis,
+  type WorkspaceBinding,
+} from "./environment.js";
 import { deepFreeze } from "../shared/immutable.js";
+import {
+  admitRuntimeContract,
+  publicContractCoordinateSchema,
+  type OwnerContractSourceDeclaration,
+} from "../shared/public_function_contracts.js";
+import {
+  selectIntrinsicPublicFunctionDefinition,
+  type IntrinsicPublicFunctionDefinition,
+} from "../shared/public_function_family.js";
 
 export const DIRECT_INVOKE_CAPABILITY =
   "abg.capability.catalog.invoke-graph-function@5";
 
+import {
+  isCapabilityDefinitionGraph,
+  type CapabilityDefinitionGraph,
+} from "../shared/capability_contracts.js";
+import type {
+  PublicContractCoordinate,
+  PublicDefinitionKeyLike,
+} from "../shared/public_invocation.js";
+
 export type RunInvocationVariant = "direct" | "start";
-export type CapabilityOperationId =
-  | "abg.operation.interaction.respond"
-  | "abg.operation.run.continue"
-  | "abg.operation.run.invoke";
+export type CapabilityOperationId = PublicDefinitionKeyLike["operationId"];
 
 export interface InvocationInteractionCapability {
   readonly requirementKey: string;
@@ -65,12 +86,37 @@ export interface CapabilityGrant {
   readonly schemaVersion: "5.0.0";
   readonly grantRef: string;
   readonly grantDigest: Sha256Digest;
-  readonly actorRef: string;
+  readonly definitionKey: PublicDefinitionKeyLike;
+  readonly definitionRef: string;
+  readonly definitionDigest: Sha256Digest;
+  readonly capabilityDefinition: CapabilityDefinitionCoordinate;
+  readonly operationContract: PublicContractCoordinate;
   readonly operationId: CapabilityOperationId;
   readonly capabilityRef: string;
+  readonly actorRef: string;
+  readonly approvalRef: string;
+  readonly approvalDigest: Sha256Digest;
   readonly policyRef: string;
   readonly policyDigest: Sha256Digest;
-  readonly interactionRequirementKeys: readonly string[];
+  readonly scopeRef: string;
+  readonly scopeDigest: Sha256Digest;
+  readonly authorityBasisRef: string;
+  readonly authorityBasisDigest: Sha256Digest;
+}
+
+export interface CapabilityDefinitionCoordinate {
+  readonly graphId: string;
+  readonly graphVersion: "5.0.0";
+  readonly graphDigest: Sha256Digest;
+  readonly capabilityId: string;
+  readonly capabilityDefinitionRef: string;
+  readonly capabilityDefinitionDigest: Sha256Digest;
+}
+
+export interface CapabilityGrantConstructionBasis {
+  readonly admittedInstalls: readonly ProductInstall[];
+  readonly workspaceBinding: WorkspaceBinding;
+  readonly fixedPacket: OwnerContractSourceDeclaration;
 }
 
 export interface InvocationAuthority {
@@ -576,44 +622,85 @@ export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant
     !isRecord(value) ||
     !hasExactKeys(value, [
       "actorRef",
+      "approvalDigest",
+      "approvalRef",
+      "authorityBasisDigest",
+      "authorityBasisRef",
+      "capabilityDefinition",
       "capabilityRef",
+      "definitionDigest",
+      "definitionKey",
+      "definitionRef",
       "grantDigest",
       "grantRef",
-      "interactionRequirementKeys",
       "kind",
+      "operationContract",
       "operationId",
       "policyDigest",
       "policyRef",
       "schemaVersion",
+      "scopeDigest",
+      "scopeRef",
     ]) ||
     value.kind !== "capability_grant" ||
     value.schemaVersion !== "5.0.0" ||
     !nonEmptyString(value.grantRef) ||
     !isSha256Digest(value.grantDigest) ||
     !nonEmptyString(value.actorRef) ||
-    ![
-      "abg.operation.interaction.respond",
-      "abg.operation.run.continue",
-      "abg.operation.run.invoke",
-    ].includes(String(value.operationId)) ||
+    !isRecord(value.definitionKey) ||
+    !hasExactKeys(value.definitionKey, ["memberKey", "operationId"]) ||
+    !nonEmptyString(value.definitionKey.operationId) ||
+    !nonEmptyString(value.definitionKey.memberKey) ||
+    !nonEmptyString(value.definitionRef) ||
+    !isSha256Digest(value.definitionDigest) ||
+    !isRecord(value.capabilityDefinition) ||
+    !hasExactKeys(value.capabilityDefinition, [
+      "capabilityDefinitionDigest",
+      "capabilityDefinitionRef",
+      "capabilityId",
+      "graphDigest",
+      "graphId",
+      "graphVersion",
+    ]) ||
+    !nonEmptyString(value.capabilityDefinition.graphId) ||
+    value.capabilityDefinition.graphVersion !== "5.0.0" ||
+    !isSha256Digest(value.capabilityDefinition.graphDigest) ||
+    !nonEmptyString(value.capabilityDefinition.capabilityId) ||
+    !nonEmptyString(value.capabilityDefinition.capabilityDefinitionRef) ||
+    !isSha256Digest(value.capabilityDefinition.capabilityDefinitionDigest) ||
+    !isRecord(value.operationContract) ||
+    admitRuntimeContract(publicContractCoordinateSchema, value.operationContract)
+        .disposition !== "admitted" ||
+    value.operationId !== value.definitionKey.operationId ||
     !nonEmptyString(value.capabilityRef) ||
+    !nonEmptyString(value.approvalRef) ||
+    !isSha256Digest(value.approvalDigest) ||
     !nonEmptyString(value.policyRef) ||
     !isSha256Digest(value.policyDigest) ||
-    !uniqueStrings(value.interactionRequirementKeys) ||
-    value.interactionRequirementKeys.join("\0") !==
-      [...value.interactionRequirementKeys]
-        .sort(compareUnicodeCodeUnits)
-        .join("\0")
+    !nonEmptyString(value.scopeRef) ||
+    !isSha256Digest(value.scopeDigest) ||
+    !nonEmptyString(value.authorityBasisRef) ||
+    !isSha256Digest(value.authorityBasisDigest)
   ) {
     return false;
   }
   const body = {
-    actorRef: value.actorRef,
+    definitionKey: value.definitionKey,
+    definitionRef: value.definitionRef,
+    definitionDigest: value.definitionDigest,
+    capabilityDefinition: value.capabilityDefinition,
+    operationContract: value.operationContract,
     operationId: value.operationId,
     capabilityRef: value.capabilityRef,
+    actorRef: value.actorRef,
+    approvalRef: value.approvalRef,
+    approvalDigest: value.approvalDigest,
     policyRef: value.policyRef,
     policyDigest: value.policyDigest,
-    interactionRequirementKeys: value.interactionRequirementKeys,
+    scopeRef: value.scopeRef,
+    scopeDigest: value.scopeDigest,
+    authorityBasisRef: value.authorityBasisRef,
+    authorityBasisDigest: value.authorityBasisDigest,
   };
   const digest = sha256Canonical(body as unknown as JsonValue);
   return (
@@ -622,43 +709,217 @@ export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant
   );
 }
 
+function exactIntrinsicDefinition(
+  basis: CapabilityGrantConstructionBasis,
+): IntrinsicPublicFunctionDefinition {
+  const definition = selectIntrinsicPublicFunctionDefinition(
+    basis.fixedPacket.definitionKey,
+  );
+  if (
+    definition === null ||
+    definition.semanticAuthorityRef !== basis.fixedPacket.owner.authorityRef ||
+    definition.semanticAuthorityDigest !==
+      basis.fixedPacket.owner.authorityDigest ||
+    definition.requestContract.contractId !==
+      basis.fixedPacket.contractIds.request ||
+    definition.resultContract.contractId !==
+      basis.fixedPacket.contractIds.result ||
+    definition.refusalContract.contractId !==
+      basis.fixedPacket.contractIds.refusal ||
+    (definition.nonTerminalContract?.contractId ?? null) !==
+      basis.fixedPacket.contractIds.nonTerminal
+  ) {
+    throw new TypeError(
+      "capability grant requires the selected intrinsic definition and fixed owner packet",
+    );
+  }
+  return definition;
+}
+
+function selectedCapabilityOwner(
+  admittedInstalls: readonly ProductInstall[],
+  definition: IntrinsicPublicFunctionDefinition,
+  capabilityRef: string,
+): Readonly<{
+  graph: CapabilityDefinitionGraph;
+  operationContract: PublicContractCoordinate;
+  row: CapabilityDefinitionGraph["rows"][number];
+}> {
+  const expectedSlots = [
+    "request",
+    "result",
+    "refusal",
+    ...(definition.nonTerminalContract === null
+      ? []
+      : ["non_terminal"]),
+  ] as const;
+  const owners = admittedInstalls.flatMap((install) => {
+    const graph = install.capabilityDefinitionGraph;
+    if (!isCapabilityDefinitionGraph(graph)) return [];
+    const rows = graph.rows.filter((candidate) =>
+      candidate.capabilityId === capabilityRef
+    );
+    if (rows.length !== 1) return [];
+    const row = rows[0]!;
+    const exactCatalog = {
+      productId: install.productId,
+      productContentDigest: install.productContentDigest,
+      catalogId: install.catalogId,
+      catalogVersion: "5.0.0" as const,
+      catalogDigest: install.catalogDigest,
+    };
+    if (row.owningPublicContracts.some((coordinate) =>
+      canonicalJson(coordinate.contractCatalog as unknown as JsonValue) !==
+        canonicalJson(exactCatalog as unknown as JsonValue)
+    )) return [];
+    const coordinates = row.owningPublicContracts;
+    const definitionCoordinates = coordinates.filter((coordinate) =>
+      coordinate.nestedSelector.selectorKind === "operation_definition_slot" &&
+      coordinate.nestedSelector.definitionKey.operationId ===
+        definition.definitionKey.operationId &&
+      coordinate.nestedSelector.definitionKey.memberKey ===
+        definition.definitionKey.memberKey
+    );
+    const operationContracts = coordinates.filter((coordinate) =>
+      coordinate.nestedSelector.selectorKind === "flat_contract" &&
+      coordinate.flatRow.contractId === definition.definitionKey.operationId &&
+      admitRuntimeContract(publicContractCoordinateSchema, coordinate)
+        .disposition === "admitted"
+    );
+    const exactSlots = expectedSlots.every((slot) =>
+      definitionCoordinates.filter((coordinate) =>
+        coordinate.nestedSelector.selectorKind ===
+          "operation_definition_slot" &&
+        coordinate.nestedSelector.slot === slot &&
+        operationContracts.length === 1 &&
+        canonicalJson(coordinate.flatRow as unknown as JsonValue) ===
+          canonicalJson(
+            operationContracts[0]!.flatRow as unknown as JsonValue,
+          ) &&
+        install.publicContracts.some((contract) =>
+          contract.contractId === coordinate.flatRow.contractId &&
+          contract.contractVersion === coordinate.flatRow.contractVersion &&
+          contract.contractDigest === coordinate.flatRow.contractDigest
+        ) &&
+        admitRuntimeContract(publicContractCoordinateSchema, coordinate)
+          .disposition === "admitted"
+      ).length === 1
+    );
+    if (
+      definitionCoordinates.length !== expectedSlots.length ||
+      !exactSlots ||
+      operationContracts.length !== 1 ||
+      !install.publicContracts.some((contract) =>
+        contract.contractId === operationContracts[0]!.flatRow.contractId &&
+        contract.contractVersion ===
+          operationContracts[0]!.flatRow.contractVersion &&
+        contract.contractDigest === operationContracts[0]!.flatRow.contractDigest
+      )
+    ) return [];
+    return [{ graph, operationContract: operationContracts[0]!, row }];
+  });
+  if (owners.length !== 1) {
+    throw new TypeError(
+      "capability grant requires one unambiguous installed Product owner",
+    );
+  }
+  return owners[0]!;
+}
+
 export function constructCapabilityGrant(
-  policy: InvocationPolicyBasis,
+  policy: InvocationPolicyBasis | WorkspaceAuthorityBasis,
   actorRef: string,
   operationId: CapabilityOperationId = "abg.operation.run.invoke",
   capabilityRef: string = DIRECT_INVOKE_CAPABILITY,
+  basis?: CapabilityGrantConstructionBasis,
 ): CapabilityGrant {
-  const interactionRequirementKeys =
-    operationId === "abg.operation.run.invoke"
-      ? []
-      : policy.interactionCapabilities
-          .filter((row) => row.actorCapabilityRef === capabilityRef)
-          .map((row) => row.requirementKey);
+  const invocationPolicy = isInvocationPolicyBasis(policy) ? policy : null;
+  const workspaceAuthority = isWorkspaceAuthorityBasis(policy) ? policy : null;
+  const workspaceRead = operationId === "abg.operation.project.read";
+  const invocationOperation = [
+    "abg.operation.interaction.respond",
+    "abg.operation.run.continue",
+    "abg.operation.run.invoke",
+  ].includes(operationId);
   if (
-    !isInvocationPolicyBasis(policy) ||
+    (invocationPolicy === null && workspaceAuthority === null) ||
+    (!workspaceRead && !invocationOperation) ||
+    (workspaceRead
+      ? workspaceAuthority === null
+      : invocationPolicy === null) ||
+    basis === undefined ||
     actorRef.length === 0 ||
     actorRef !== policy.authorizedActorRef ||
+    actorRef !== basis.workspaceBinding.authorizedActorRef ||
+    policy.authorityBasisId !== basis.workspaceBinding.authorityBasisId ||
+    policy.authorityBasisDigest !== basis.workspaceBinding.authorityBasisDigest ||
+    (invocationPolicy !== null
+      ? invocationPolicy.workspaceBindingId !== basis.workspaceBinding.bindingId ||
+        invocationPolicy.workspaceBindingDigest !==
+          basis.workspaceBinding.bindingDigest
+      : workspaceAuthority!.workspaceId !== basis.workspaceBinding.workspaceId) ||
     capabilityRef.length === 0 ||
-    (
-      operationId === "abg.operation.run.invoke" &&
-      capabilityRef !== DIRECT_INVOKE_CAPABILITY
-    ) ||
-    (
-      operationId !== "abg.operation.run.invoke" &&
-      interactionRequirementKeys.length === 0
-    )
+    operationId !== basis.fixedPacket.definitionKey.operationId
   ) {
     throw new TypeError(
-      "capability grant requires one actor, operation, and exact capability",
+      "capability grant requires exact workspace, policy, actor, and definition authority",
     );
   }
+  const definition = exactIntrinsicDefinition(basis);
+  const { graph, operationContract, row: capabilityRow } =
+    selectedCapabilityOwner(
+      basis.admittedInstalls,
+      definition,
+      capabilityRef,
+    );
+  const graphRows = new Map(graph.rows.map((row) => [row.capabilityId, row]));
+  const closed = new Set<string>();
+  const closeDependencies = (capabilityId: string): void => {
+    if (closed.has(capabilityId)) return;
+    const row = graphRows.get(capabilityId);
+    if (row === undefined) {
+      throw new TypeError("capability dependency is absent from installed graph");
+    }
+    closed.add(capabilityId);
+    for (const dependency of row.dependentCapabilities) {
+      const installed = graphRows.get(dependency.capabilityId);
+      if (
+        installed === undefined ||
+        installed.capabilityDefinitionRef !== dependency.capabilityDefinitionRef ||
+        installed.capabilityDefinitionDigest !== dependency.capabilityDefinitionDigest
+      ) {
+        throw new TypeError("capability dependency coordinate is crossed");
+      }
+      closeDependencies(dependency.capabilityId);
+    }
+  };
+  closeDependencies(capabilityRef);
+  const capabilityDefinition = deepFreeze({
+    graphId: graph.graphId,
+    graphVersion: graph.graphVersion,
+    graphDigest: graph.graphDigest,
+    capabilityId: capabilityRow.capabilityId,
+    capabilityDefinitionRef: capabilityRow.capabilityDefinitionRef,
+    capabilityDefinitionDigest: capabilityRow.capabilityDefinitionDigest,
+  });
   const body = {
-    actorRef,
+    definitionKey: deepFreeze({ ...definition.definitionKey }),
+    definitionRef: definition.definitionRef,
+    definitionDigest: definition.definitionDigest,
+    capabilityDefinition,
+    operationContract,
     operationId,
     capabilityRef,
-    policyRef: policy.policyRef,
-    policyDigest: policy.policyDigest,
-    interactionRequirementKeys,
+    actorRef,
+    approvalRef: basis.workspaceBinding.authorityBasisId,
+    approvalDigest: basis.workspaceBinding.authorityBasisDigest,
+    policyRef: invocationPolicy?.policyRef ?? workspaceAuthority!.authorityBasisId,
+    policyDigest:
+      invocationPolicy?.policyDigest ?? workspaceAuthority!.authorityBasisDigest,
+    scopeRef: basis.workspaceBinding.bindingId,
+    scopeDigest: basis.workspaceBinding.bindingDigest,
+    authorityBasisRef: basis.workspaceBinding.authorityBasisId,
+    authorityBasisDigest: basis.workspaceBinding.authorityBasisDigest,
   };
   const grantDigest = sha256Canonical(body as unknown as JsonValue);
   const value = deepFreeze({
@@ -671,6 +932,29 @@ export function constructCapabilityGrant(
   return value;
 }
 
+export function validateCapabilityGrantForProductBasis(
+  grant: unknown,
+  policy: InvocationPolicyBasis | WorkspaceAuthorityBasis,
+  actorRef: string,
+  capabilityRef: string,
+  basis: CapabilityGrantConstructionBasis,
+): grant is CapabilityGrant {
+  if (!isCapabilityGrantValue(grant)) return false;
+  try {
+    const expected = constructCapabilityGrant(
+      policy,
+      actorRef,
+      basis.fixedPacket.definitionKey.operationId,
+      capabilityRef,
+      basis,
+    );
+    return canonicalJson(grant as unknown as JsonValue) ===
+      canonicalJson(expected as unknown as JsonValue);
+  } catch {
+    return false;
+  }
+}
+
 export function constructInvocationAuthority(
   actorRef: string,
   workspaceBinding: WorkspaceBinding,
@@ -679,6 +963,7 @@ export function constructInvocationAuthority(
   selectedRow: GraphFunctionCatalogEntry,
   policy: InvocationPolicyBasis,
   capabilityGrants: readonly CapabilityGrant[],
+  capabilityGrantBasis?: CapabilityGrantConstructionBasis,
 ): InvocationAuthority | InvocationConstructionRefusal {
   const exactSelectedRow = lookupGraphFunction(catalogView, selectedRow.handle);
   if (
@@ -687,15 +972,14 @@ export function constructInvocationAuthority(
     capabilityGrants.length === 0 ||
     new Set(capabilityGrants.map((grant) => grant.grantRef)).size !==
       capabilityGrants.length ||
-    capabilityGrants.some((grant) =>
-      !isCapabilityGrant(grant) ||
-      grant.actorRef !== actorRef ||
-      grant.policyRef !== policy.policyRef ||
-      grant.policyDigest !== policy.policyDigest) ||
-    !capabilityGrants.some(
-      (grant) =>
-        grant.operationId === "abg.operation.run.invoke" &&
-        grant.capabilityRef === DIRECT_INVOKE_CAPABILITY,
+    capabilityGrantBasis === undefined ||
+    capabilityGrants.length !== 1 ||
+    !validateCapabilityGrantForProductBasis(
+      capabilityGrants[0],
+      policy,
+      actorRef,
+      DIRECT_INVOKE_CAPABILITY,
+      capabilityGrantBasis,
     )
   ) {
     return refusal(
