@@ -4,8 +4,9 @@ import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from
   "./canonical_json.js";
 import type {
   DefinitionCall,
-  DefinitionExecutionFault,
+  PreDefinitionExecutionFault,
 } from "./effect_definition.js";
+import { preDefinitionFault } from "./effect_definition.js";
 import { deepFreeze } from "./immutable.js";
 import {
   admitRuntimeContract,
@@ -79,22 +80,13 @@ export function definitionFault<K extends PublicDefinitionKeyLike>(
   stage: string,
   code: string,
   message: string,
-): DefinitionExecutionFault<K> {
-  return deepFreeze({
-    kind: "definition_execution_fault" as const,
-    schemaVersion: "5.0.0" as const,
+): PreDefinitionExecutionFault<K> {
+  return preDefinitionFault(
     definitionKey,
     stage,
     code,
     message,
-    evidence: {},
-  });
-}
-
-export function isDefinitionFault(
-  value: unknown,
-): value is DefinitionExecutionFault {
-  return isRecord(value) && value.kind === "definition_execution_fault";
+  );
 }
 
 export function validatedOwnerOutput<

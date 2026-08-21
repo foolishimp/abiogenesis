@@ -1,11 +1,14 @@
 import * as Effect from "effect/Effect";
+import * as v from "valibot";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
+  admitDefinitionExecutionFault,
+  preDefinitionFault,
   type DefinitionCall,
-  type DefinitionExecutionFault,
   type DefinitionReturn,
   type ExactDefinitionCallable,
+  type PreDefinitionExecutionFault,
 } from "../shared/effect_definition.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -13,10 +16,15 @@ import {
   admitRuntimeContract,
   type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
+import { bindExactPrefixRead } from
+  "../shared/static_definition_bindings.js";
 import {
   acquireAbgEventResource,
   abandonAbgEventResource,
   closeAbgEventResource,
+  validateAbgEventResourceAssertion,
+  validateAbgEventResourceReceipt,
+  type AcquiredAbgEventResource,
   type AbgEventResourceAssertion,
   type AbgEventResourceReceipt,
 } from "./definition_event_resource.js";
@@ -24,6 +32,7 @@ import { ABG_PROJECT_READ_CONTRACTS } from "./project_read_operation_contracts.j
 import {
   ABG_PROJECT_READ_OWNER_PORTS,
   type AbgProjectReadMemberKey,
+  type AbgProjectReadPacket,
   type AbgProjectReadProjection,
   type AbgProjectReadRefusal,
   type AbgProjectReadResult,
@@ -32,37 +41,75 @@ import {
 export interface AbgProjectReadResourceAssertion {
   readonly kind: "abg_project_read_resource_assertion";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceAssertion;
+  readonly eventResource: Extract<
+    AbgEventResourceAssertion,
+    { readonly kind: "reopen_abg_event_resource" }
+  >;
 }
 
 export interface AbgProjectReadResourceReceipt {
   readonly kind: "abg_project_read_resource_receipt";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceReceipt;
+  readonly eventResource: AbgEventResourceReceipt & Readonly<{
+    readonly acquisitionKind: "reopen";
+  }>;
 }
 
-type AnyReadPacket = (typeof ABG_PROJECT_READ_CONTRACTS)[keyof typeof ABG_PROJECT_READ_CONTRACTS];
-type AnyReadCallable = ExactDefinitionCallable<
-  AnyReadPacket,
+const ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
+  kind: v.literal("abg_project_read_resource_assertion"),
+  schemaVersion: v.literal("5.0.0"),
+  eventResource: v.custom<AbgProjectReadResourceAssertion["eventResource"]>(
+    (candidate) => validateAbgEventResourceAssertion(candidate) &&
+      candidate.kind === "reopen_abg_event_resource",
+    "abg_event_resource_assertion",
+  ),
+}) as v.GenericSchema<
   AbgProjectReadResourceAssertion,
+  AbgProjectReadResourceAssertion
+>;
+
+const ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+  kind: v.literal("abg_project_read_resource_receipt"),
+  schemaVersion: v.literal("5.0.0"),
+  eventResource: v.custom<AbgProjectReadResourceReceipt["eventResource"]>(
+    (candidate) => validateAbgEventResourceReceipt(candidate) &&
+      candidate.acquisitionKind === "reopen",
+    "abg_event_resource_receipt",
+  ),
+}) as v.GenericSchema<
+  AbgProjectReadResourceReceipt,
   AbgProjectReadResourceReceipt
 >;
 
-function fault(
-  call: DefinitionCall<AnyReadPacket, AbgProjectReadResourceAssertion>,
+type AnyReadPacket = (typeof ABG_PROJECT_READ_CONTRACTS)[keyof typeof ABG_PROJECT_READ_CONTRACTS];
+function fault<TPacket extends AnyReadPacket>(
+  call: DefinitionCall<TPacket, AbgProjectReadResourceAssertion>,
   stage: string,
   code: string,
   message: string,
-): DefinitionExecutionFault<AnyReadPacket["definitionKey"]> {
-  return deepFreeze({
-    kind: "definition_execution_fault" as const,
-    schemaVersion: "5.0.0" as const,
-    definitionKey: call.invocation.definitionKey,
+): PreDefinitionExecutionFault<TPacket["definitionKey"]> {
+  return preDefinitionFault(
+    call.invocation.definitionKey,
     stage,
     code,
     message,
-    evidence: {},
-  });
+  );
+}
+
+function closeReadEventResource(
+  resource: AcquiredAbgEventResource,
+): AbgProjectReadResourceReceipt["eventResource"] {
+  const receipt = closeAbgEventResource(resource, resource.entryPrefix);
+  if (!isReadEventResourceReceipt(receipt)) {
+    throw new TypeError("ABG project read closed a non-reopened event resource");
+  }
+  return receipt;
+}
+
+function isReadEventResourceReceipt(
+  receipt: AbgEventResourceReceipt,
+): receipt is AbgProjectReadResourceReceipt["eventResource"] {
+  return receipt.acquisitionKind === "reopen";
 }
 
 function asRecord(value: unknown): Readonly<Record<string, JsonValue>> | null {
@@ -335,12 +382,12 @@ function nativeRefusalCode(
     : "projection_basis_mismatch";
 }
 
-function outputFor(
-  packet: AnyReadPacket,
+function outputFor<TPacket extends AnyReadPacket>(
+  packet: TPacket,
   request: Readonly<Record<string, JsonValue>>,
   memberKey: AbgProjectReadMemberKey,
   native: AbgProjectReadResult,
-): OwnerSemanticOutput<AnyReadPacket> {
+): OwnerSemanticOutput<TPacket> {
   const output = native.kind ===
       "abg_project_read_refusal"
     ? {
@@ -366,36 +413,40 @@ function outputFor(
   if (admitRuntimeContract(schema, output.value).disposition !== "admitted") {
     throw new TypeError(`ABG ${memberKey} output differs from its exact owner contract`);
   }
-  return output as unknown as OwnerSemanticOutput<AnyReadPacket>;
+  return output as unknown as OwnerSemanticOutput<TPacket>;
 }
 
-function binding(
-  packet: AnyReadPacket,
-  memberKey: AbgProjectReadMemberKey,
-): AnyReadCallable {
-  return (call) => Effect.try({
-    try: (): DefinitionReturn<AnyReadPacket, AbgProjectReadResourceReceipt> => {
+function projectRead<
+  TPacket extends AnyReadPacket,
+  TMemberKey extends AbgProjectReadMemberKey,
+>(
+  packet: TPacket,
+  memberKey: TMemberKey,
+  project: (
+    input: AbgProjectReadPacket<TMemberKey>,
+  ) => AbgProjectReadResult<TMemberKey>,
+  call: DefinitionCall<TPacket, AbgProjectReadResourceAssertion>,
+): ReturnType<ExactDefinitionCallable<
+  TPacket,
+  AbgProjectReadResourceAssertion,
+  AbgProjectReadResourceReceipt
+>> {
+  return Effect.try({
+    try: (): DefinitionReturn<TPacket, AbgProjectReadResourceReceipt> => {
+      const acquired = acquireAbgEventResource(call.resources.eventResource);
       if (
-        Object.keys(call.resources).sort().join("\0") !==
-          ["eventResource", "kind", "schemaVersion"].sort().join("\0") ||
-        call.resources.kind !== "abg_project_read_resource_assertion" ||
-        call.resources.schemaVersion !== "5.0.0" ||
-        call.resources.eventResource.kind !== "reopen_abg_event_resource"
+        acquired.kind !== "acquired_abg_event_resource" ||
+        acquired.resource.acquisitionKind !== "reopen"
       ) {
         throw fault(
           call,
-          "resource_admission",
-          "invalid_resource_assertion",
-          "ABG reads require one exact reopened event-resource assertion",
-        );
-      }
-      const acquired = acquireAbgEventResource(call.resources.eventResource);
-      if (acquired.kind !== "acquired_abg_event_resource") {
-        throw fault(
-          call,
           "resource_acquisition",
-          acquired.code,
-          acquired.message,
+          acquired.kind === "abg_event_resource_refusal"
+            ? acquired.code
+            : "invalid_resource_assertion",
+          acquired.kind === "abg_event_resource_refusal"
+            ? acquired.message
+            : "ABG project reads require a reopened event resource",
         );
       }
       const resource = acquired.resource;
@@ -406,36 +457,24 @@ function binding(
           basis.ref !== resource.entryPrefix.eventLogRef ||
           basis.digest !== resource.entryPrefix.coordinateDigest
         ) {
-          const ownerOutput: OwnerSemanticOutput<AnyReadPacket> = {
+          const ownerOutput = {
             outcomeKind: "refusal",
             value: {
               code: "projection_basis_mismatch",
               issuePaths: ["/projectionBasis"],
               evidenceRefs: [],
             },
-          };
+          } as OwnerSemanticOutput<TPacket>;
           return deepFreeze({
             ownerOutput,
             resources: {
               kind: "abg_project_read_resource_receipt",
               schemaVersion: "5.0.0",
-              eventResource: closeAbgEventResource(
-                resource,
-                resource.entryPrefix,
-              ),
+              eventResource: closeReadEventResource(resource),
             },
           });
         }
-        const port = ABG_PROJECT_READ_OWNER_PORTS[memberKey].project as (
-          input: Readonly<{
-            kind: "abg_project_read_packet";
-            schemaVersion: "5.0.0";
-            memberKey: AbgProjectReadMemberKey;
-            prefix: typeof resource.entryPrefix;
-            targetRef: string;
-          }>,
-        ) => AbgProjectReadResult;
-        const native = port({
+        const native = project({
           kind: "abg_project_read_packet",
           schemaVersion: "5.0.0",
           memberKey,
@@ -448,10 +487,7 @@ function binding(
           resources: {
             kind: "abg_project_read_resource_receipt",
             schemaVersion: "5.0.0",
-            eventResource: closeAbgEventResource(
-              resource,
-              resource.entryPrefix,
-            ),
+            eventResource: closeReadEventResource(resource),
           },
         });
       } catch (cause) {
@@ -460,25 +496,235 @@ function binding(
       }
     },
     catch: (cause) => {
-      if (
-        typeof cause === "object" && cause !== null &&
-        (cause as { kind?: unknown }).kind === "definition_execution_fault"
-      ) return cause as DefinitionExecutionFault<AnyReadPacket["definitionKey"]>;
-      return fault(
-        call,
-        "owner_projection",
-        "projection_failure",
-        String(cause),
+      const admittedFault = admitDefinitionExecutionFault(
+        cause,
+        call.invocation.definitionKey,
+        (candidate) => v.is(ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA, candidate)
+          ? { resourceReceipt: candidate }
+          : null,
       );
+      if (admittedFault !== null) return admittedFault;
+      throw cause;
     },
   });
 }
 
-const bindings = Object.fromEntries(
-  Object.entries(ABG_PROJECT_READ_CONTRACTS).map(([memberKey, packet]) => [
-    memberKey,
-    binding(packet, memberKey as AbgProjectReadMemberKey),
-  ]),
-) as Readonly<Record<AbgProjectReadMemberKey, AnyReadCallable>>;
+const run_status = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.run_status,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.run_status,
+    "run_status",
+    ABG_PROJECT_READ_OWNER_PORTS.run_status.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const graph_call_status = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.graph_call_status,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.graph_call_status,
+    "graph_call_status",
+    ABG_PROJECT_READ_OWNER_PORTS.graph_call_status.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const run_result = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.run_result,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.run_result,
+    "run_result",
+    ABG_PROJECT_READ_OWNER_PORTS.run_result.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const graph_call_result = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.graph_call_result,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.graph_call_result,
+    "graph_call_result",
+    ABG_PROJECT_READ_OWNER_PORTS.graph_call_result.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const run_evidence = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.run_evidence,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.run_evidence,
+    "run_evidence",
+    ABG_PROJECT_READ_OWNER_PORTS.run_evidence.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const graph_call_evidence = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.graph_call_evidence,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.graph_call_evidence,
+    "graph_call_evidence",
+    ABG_PROJECT_READ_OWNER_PORTS.graph_call_evidence.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const result_evidence = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.result_evidence,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.result_evidence,
+    "result_evidence",
+    ABG_PROJECT_READ_OWNER_PORTS.result_evidence.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const assessment_evidence = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.assessment_evidence,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.assessment_evidence,
+    "assessment_evidence",
+    ABG_PROJECT_READ_OWNER_PORTS.assessment_evidence.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const witness_evidence = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.witness_evidence,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.witness_evidence,
+    "witness_evidence",
+    ABG_PROJECT_READ_OWNER_PORTS.witness_evidence.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const workspace_replay = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.workspace_replay,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.workspace_replay,
+    "workspace_replay",
+    ABG_PROJECT_READ_OWNER_PORTS.workspace_replay.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const run_replay = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.run_replay,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.run_replay,
+    "run_replay",
+    ABG_PROJECT_READ_OWNER_PORTS.run_replay.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const graph_call_replay = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.graph_call_replay,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.graph_call_replay,
+    "graph_call_replay",
+    ABG_PROJECT_READ_OWNER_PORTS.graph_call_replay.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const interaction_replay = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.interaction_replay,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.interaction_replay,
+    "interaction_replay",
+    ABG_PROJECT_READ_OWNER_PORTS.interaction_replay.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const continuation_replay = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.continuation_replay,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.continuation_replay,
+    "continuation_replay",
+    ABG_PROJECT_READ_OWNER_PORTS.continuation_replay.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const c_call_replay = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.c_call_replay,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.c_call_replay,
+    "c_call_replay",
+    ABG_PROJECT_READ_OWNER_PORTS.c_call_replay.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const workspace_gaps = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.workspace_gaps,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.workspace_gaps,
+    "workspace_gaps",
+    ABG_PROJECT_READ_OWNER_PORTS.workspace_gaps.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const run_gaps = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.run_gaps,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.run_gaps,
+    "run_gaps",
+    ABG_PROJECT_READ_OWNER_PORTS.run_gaps.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
+const run_lawful_actions = bindExactPrefixRead(
+  ABG_PROJECT_READ_CONTRACTS.run_lawful_actions,
+  (call) => projectRead(
+    ABG_PROJECT_READ_CONTRACTS.run_lawful_actions,
+    "run_lawful_actions",
+    ABG_PROJECT_READ_OWNER_PORTS.run_lawful_actions.project,
+    call,
+  ),
+  ABG_PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+  ABG_PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+);
 
-export const ABG_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze(bindings);
+export const ABG_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze({
+  run_status,
+  graph_call_status,
+  run_result,
+  graph_call_result,
+  run_evidence,
+  graph_call_evidence,
+  result_evidence,
+  assessment_evidence,
+  witness_evidence,
+  workspace_replay,
+  run_replay,
+  graph_call_replay,
+  interaction_replay,
+  continuation_replay,
+  c_call_replay,
+  workspace_gaps,
+  run_gaps,
+  run_lawful_actions,
+});

@@ -12,18 +12,21 @@ import {
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import {
   admitExactDefinitionCall,
-  definitionFault,
   validatedOwnerOutput,
 } from "./definition_binding_mechanics.js";
-import type {
-  DefinitionCall,
-  DefinitionReturn,
-  ExactDefinitionCallable,
+import {
+  admitDefinitionExecutionFault,
+  postOwnerValidationDefinitionFault,
+  preDefinitionFault,
+  type DefinitionCall,
+  type DefinitionReturn,
+  type ExactDefinitionCallable,
 } from "./effect_definition.js";
 import { sha256Bytes } from "./digests.js";
 import { deepFreeze } from "./immutable.js";
 import type { OwnerContractSourceDeclaration } from
   "./public_function_contracts.js";
+import type { PublicDefinitionKeyLike } from "./public_invocation.js";
 
 function samePrefix(
   left: DurablePrefixCoordinate,
@@ -99,6 +102,23 @@ function exactTransitionReceipt(
       samePrefix(receipt.entryPrefix, successor));
 }
 
+function admittedOwnerFault<
+  K extends PublicDefinitionKeyLike,
+  TResourceReceipt,
+>(
+  fault: unknown,
+  expectedDefinitionKey: K,
+  resourceReceiptSchema: v.GenericSchema<TResourceReceipt, TResourceReceipt>,
+): ReturnType<typeof admitDefinitionExecutionFault<K, TResourceReceipt>> {
+  return admitDefinitionExecutionFault(
+    fault,
+    expectedDefinitionKey,
+    (candidate) => v.is(resourceReceiptSchema, candidate)
+      ? { resourceReceipt: candidate }
+      : null,
+  );
+}
+
 /**
  * Constructs one module-static definition closure over an exact owner and its
  * owner-authored structural resource contracts.
@@ -120,7 +140,7 @@ export function bindStaticOwner<
   > = (call) => {
     const admittedInvocation = admitExactDefinitionCall(call, packet);
     if (admittedInvocation === null) {
-      return Effect.fail(definitionFault(
+      return Effect.fail(preDefinitionFault(
         packet.definitionKey,
         "call_admission",
         "call_identity_mismatch",
@@ -133,7 +153,7 @@ export function bindStaticOwner<
       call.resources,
     );
     if (!admittedResources.success) {
-      return Effect.fail(definitionFault(
+      return Effect.fail(preDefinitionFault(
         packet.definitionKey,
         "resource_admission",
         "invalid_resource_assertion",
@@ -146,35 +166,50 @@ export function bindStaticOwner<
       resources: admittedResources.output,
     });
     return Effect.suspend(() => owner(admittedCall)).pipe(
+      Effect.catchAll((fault) => {
+        const admittedFault = admittedOwnerFault(
+          fault,
+          packet.definitionKey,
+          resourceReceiptSchema,
+        );
+        return admittedFault === null
+          ? Effect.die(new TypeError(
+              "owner emitted a malformed definition fault envelope or resource receipt",
+            ))
+          : Effect.fail(admittedFault);
+      }),
       Effect.flatMap((result) => {
         const admittedReceipt = v.safeParse(
           resourceReceiptSchema,
           result.resources,
         );
         if (!admittedReceipt.success) {
-          return Effect.fail(definitionFault(
-            packet.definitionKey,
-            "receipt_admission",
-            "invalid_resource_receipt",
-            "owner receipt differs from its module-static structural contract",
+          return Effect.die(new TypeError(
+            "owner returned a malformed resource receipt",
           ));
         }
         return Effect.try({
-          try: (): DefinitionReturn<TPacket, TResourceReceipt> => deepFreeze({
-            ownerOutput: validatedOwnerOutput(
-              packet,
-              result.ownerOutput,
-              "module-static definition owner",
-            ),
-            resources: admittedReceipt.output,
-          }),
-          catch: () => definitionFault(
+          try: () => validatedOwnerOutput(
+            packet,
+            result.ownerOutput,
+            "module-static definition owner",
+          ),
+          catch: () => postOwnerValidationDefinitionFault(
             packet.definitionKey,
             "owner_output_admission",
             "invalid_owner_output",
             "owner output differs from its exact fixed-packet contract",
+            result.resources,
           ),
-        });
+        }).pipe(
+          Effect.map((ownerOutput): DefinitionReturn<
+            TPacket,
+            TResourceReceipt
+          > => deepFreeze({
+            ownerOutput,
+            resources: result.resources,
+          })),
+        );
       }),
     );
   };
@@ -196,45 +231,62 @@ export function bindExactPrefixRead<
   resourceAssertionSchema: v.GenericSchema<TResources, TResources>,
   resourceReceiptSchema: v.GenericSchema<TResourceReceipt, TResourceReceipt>,
 ): ExactDefinitionCallable<TPacket, TResources, TResourceReceipt> {
-  const readOwner: ExactDefinitionCallable<
+  const staticOwner = bindStaticOwner(
+    packet,
+    owner,
+    resourceAssertionSchema,
+    resourceReceiptSchema,
+  );
+  const readCallable: ExactDefinitionCallable<
     TPacket,
     TResources,
     TResourceReceipt
   > = (call) => {
+    const admittedResources = v.safeParse(
+      resourceAssertionSchema,
+      call.resources,
+    );
     if (
-      call.resources.eventResource.kind !== "reopen_abg_event_resource" ||
-      !validateAbgEventResourceAssertion(call.resources.eventResource)
+      !admittedResources.success ||
+      admittedResources.output.eventResource.kind !==
+        "reopen_abg_event_resource" ||
+      !validateAbgEventResourceAssertion(
+        admittedResources.output.eventResource,
+      )
     ) {
-      return Effect.fail(definitionFault(
+      return Effect.fail(preDefinitionFault(
         packet.definitionKey,
         "resource_admission",
         "invalid_resource_assertion",
         "exact-prefix reads require one exact reopened ABG entry prefix",
       ));
     }
-    return Effect.suspend(() => owner(call)).pipe(
+    const eventAssertion = admittedResources.output.eventResource;
+    return staticOwner(call).pipe(
       Effect.flatMap((result) => {
         const eventReceipt = admittedEventReceipt(result.resources);
-        return eventReceipt !== null && exactReadReceipt(
-            call.resources.eventResource,
-            eventReceipt,
-          )
+        if (eventReceipt === null) {
+          return Effect.fail(postOwnerValidationDefinitionFault(
+            packet.definitionKey,
+            "receipt_admission",
+            "invalid_resource_receipt",
+            "exact-prefix reads require one structurally admitted ABG receipt",
+            result.resources,
+          ));
+        }
+        return exactReadReceipt(eventAssertion, eventReceipt)
           ? Effect.succeed(result)
-          : Effect.fail(definitionFault(
+          : Effect.fail(postOwnerValidationDefinitionFault(
               packet.definitionKey,
               "receipt_admission",
               "invalid_resource_receipt",
               "exact-prefix reads must return the unchanged owner-issued ABG prefix",
+              result.resources,
             ));
       }),
     );
   };
-  return bindStaticOwner(
-    packet,
-    readOwner,
-    resourceAssertionSchema,
-    resourceReceiptSchema,
-  );
+  return Object.freeze(readCallable);
 }
 
 /** Module-static specialization for an owner-admitted prefix transition. */
@@ -252,40 +304,58 @@ export function bindExactPrefixTransition<
   resourceAssertionSchema: v.GenericSchema<TResources, TResources>,
   resourceReceiptSchema: v.GenericSchema<TResourceReceipt, TResourceReceipt>,
 ): ExactDefinitionCallable<TPacket, TResources, TResourceReceipt> {
-  const transitionOwner: ExactDefinitionCallable<
+  const staticOwner = bindStaticOwner(
+    packet,
+    owner,
+    resourceAssertionSchema,
+    resourceReceiptSchema,
+  );
+  const transitionCallable: ExactDefinitionCallable<
     TPacket,
     TResources,
     TResourceReceipt
   > = (call) => {
-    if (!validateAbgEventResourceAssertion(call.resources.eventResource)) {
-      return Effect.fail(definitionFault(
+    const admittedResources = v.safeParse(
+      resourceAssertionSchema,
+      call.resources,
+    );
+    if (
+      !admittedResources.success ||
+      !validateAbgEventResourceAssertion(
+        admittedResources.output.eventResource,
+      )
+    ) {
+      return Effect.fail(preDefinitionFault(
         packet.definitionKey,
         "resource_admission",
         "invalid_resource_assertion",
         "exact-prefix transitions require one exact new or reopened ABG resource",
       ));
     }
-    return Effect.suspend(() => owner(call)).pipe(
+    const eventAssertion = admittedResources.output.eventResource;
+    return staticOwner(call).pipe(
       Effect.flatMap((result) => {
         const eventReceipt = admittedEventReceipt(result.resources);
-        return eventReceipt !== null && exactTransitionReceipt(
-            call.resources.eventResource,
-            eventReceipt,
-          )
+        if (eventReceipt === null) {
+          return Effect.fail(postOwnerValidationDefinitionFault(
+            packet.definitionKey,
+            "receipt_admission",
+            "invalid_resource_receipt",
+            "exact-prefix transitions require one structurally admitted ABG receipt",
+            result.resources,
+          ));
+        }
+        return exactTransitionReceipt(eventAssertion, eventReceipt)
           ? Effect.succeed(result)
-          : Effect.fail(definitionFault(
+          : Effect.fail(postOwnerValidationDefinitionFault(
               packet.definitionKey,
               "receipt_admission",
               "invalid_resource_receipt",
               "exact-prefix transitions must return the matching owner-issued ABG successor",
+              result.resources,
             ));
       }),
     );
   };
-  return bindStaticOwner(
-    packet,
-    transitionOwner,
-    resourceAssertionSchema,
-    resourceReceiptSchema,
-  );
+  return Object.freeze(transitionCallable);
 }

@@ -1,8 +1,11 @@
 import * as Effect from "effect/Effect";
+import * as v from "valibot";
 import { join } from "node:path";
 
 import {
   projectRunTruthAtDurablePrefix,
+  validateDurablePrefixCoordinate,
+  validateExactPrefixArtifactTruthProjection,
   type DurablePrefixCoordinate,
   type ExactPrefixArtifactTruthProjection,
 } from "../abg/index.js";
@@ -23,23 +26,26 @@ import {
   definitionFault,
   exactDefinitionCallMatches,
   hasExactKeys,
-  isDefinitionFault,
   isRecord,
   reference,
   sameCoordinate,
   sameJson,
   validatedOwnerOutput,
 } from "../shared/definition_binding_mechanics.js";
-import type {
-  DefinitionCall,
-  DefinitionExecutionFault,
-  DefinitionReturn,
-  ExactDefinitionCallable,
+import {
+  admitDefinitionExecutionFault,
+  type DefinitionCall,
+  type DefinitionExecutionFault,
+  type DefinitionReturn,
+  type ExactDefinitionCallable,
+  type PreDefinitionExecutionFault,
 } from "../shared/effect_definition.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { OwnerSemanticOutput } from
   "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
+import { bindStaticOwner } from
+  "../shared/static_definition_bindings.js";
 import { ABI5_SYSTEM_PRODUCT_SEMANTICS } from "./builtin_semantics.js";
 import type {
   GraphFunctionCatalogView,
@@ -100,7 +106,7 @@ function fault<TContract extends ProjectReadContract>(
   call: DefinitionCall<TContract, unknown>,
   code: string,
   message: string,
-): DefinitionExecutionFault<TContract["definitionKey"]> {
+): PreDefinitionExecutionFault<TContract["definitionKey"]> {
   return definitionFault(
     call.invocation.definitionKey,
     "resource_admission",
@@ -121,6 +127,98 @@ function validResources<TPacket extends ProjectReadPacket>(
     value.schemaVersion === "5.0.0" &&
     isRecord(value.packet) &&
     sameJson(value, value);
+}
+
+const CATALOG_LIST_RESOURCE_SCHEMA = v.custom<
+  ProductProjectReadResourceAssertion<CatalogListProjectReadPacket>
+>(
+  (candidate) => validResources<CatalogListProjectReadPacket>(candidate, [
+    "artifactTruth",
+  ]) &&
+    candidate.packet.memberKey === "catalog_list" &&
+    validateExactPrefixArtifactTruthProjection(candidate.artifactTruth),
+  "catalog_list_project_read_resource",
+);
+
+const CATALOG_DESCRIBE_RESOURCE_SCHEMA = v.custom<
+  ProductProjectReadResourceAssertion<CatalogDescribeProjectReadPacket>
+>(
+  (candidate) => validResources<CatalogDescribeProjectReadPacket>(candidate, [
+    "artifactTruth",
+  ]) &&
+    candidate.packet.memberKey === "catalog_describe" &&
+    validateExactPrefixArtifactTruthProjection(candidate.artifactTruth),
+  "catalog_describe_project_read_resource",
+);
+
+const WORKSPACE_STATUS_RESOURCE_SCHEMA = v.custom<
+  ProductProjectReadResourceAssertion<WorkspaceStatusProjectReadPacket>
+>(
+  (candidate) => validResources<WorkspaceStatusProjectReadPacket>(candidate, [
+    "artifactTruth",
+    "workspaceManifest",
+  ]) &&
+    candidate.packet.memberKey === "workspace_status" &&
+    validateExactPrefixArtifactTruthProjection(candidate.artifactTruth) &&
+    reconstructWorkspaceManifest(candidate.workspaceManifest) !== null,
+  "workspace_status_project_read_resource",
+);
+
+const INSTALL_EVIDENCE_RESOURCE_SCHEMA = v.custom<
+  ProductProjectReadResourceAssertion<InstallEvidenceProjectReadPacket>
+>(
+  (candidate) => validResources<InstallEvidenceProjectReadPacket>(candidate, [
+    "artifactTruth",
+  ]) &&
+    candidate.packet.memberKey === "install_evidence" &&
+    validateExactPrefixArtifactTruthProjection(candidate.artifactTruth),
+  "install_evidence_project_read_resource",
+);
+
+const TICKET_CONSENSUS_RESOURCE_SCHEMA = v.custom<
+  ProductProjectReadResourceAssertion<TicketConsensusProjectReadPacket>
+>(
+  (candidate) => validResources<TicketConsensusProjectReadPacket>(candidate, [
+    "artifactTruth",
+    "runtime",
+  ]) &&
+    candidate.packet.memberKey === "ticket_consensus" &&
+    validateExactPrefixArtifactTruthProjection(candidate.artifactTruth) &&
+    isRecord(candidate.runtime) &&
+    hasExactKeys(candidate.runtime, ["graphCallId", "prefix", "runId"]) &&
+    typeof candidate.runtime.runId === "string" &&
+    candidate.runtime.runId.length > 0 &&
+    typeof candidate.runtime.graphCallId === "string" &&
+    candidate.runtime.graphCallId.length > 0 &&
+    validateDurablePrefixCoordinate(candidate.runtime.prefix),
+  "ticket_consensus_project_read_resource",
+);
+
+function admittedProjectReadFault<
+  TContract extends ProjectReadContract,
+  TPacket extends ProjectReadPacket,
+>(
+  cause: unknown,
+  call: DefinitionCall<
+    TContract,
+    ProductProjectReadResourceAssertion<TPacket>
+  >,
+  additionalKeys: readonly (
+    "artifactTruth" | "runtime" | "workspaceManifest"
+  )[],
+): DefinitionExecutionFault<
+  TContract["definitionKey"],
+  ProductProjectReadResourceAssertion<TPacket>
+> | null {
+  return admitDefinitionExecutionFault(
+    cause,
+    call.invocation.definitionKey,
+    (candidate) =>
+      validResources<TPacket>(candidate, additionalKeys) &&
+        sameJson(candidate, call.resources)
+        ? { resourceReceipt: candidate }
+        : null,
+  );
 }
 
 function baseRelationMatches<TContract extends ProjectReadContract>(
@@ -484,7 +582,7 @@ function catalogViewCoordinate(
   return null;
 }
 
-const catalog_list: ExactDefinitionCallable<
+const catalogListOwner: ExactDefinitionCallable<
   typeof PRODUCT_PROJECT_READ_CONTRACTS.catalog_list,
   ProductProjectReadResourceAssertion<CatalogListProjectReadPacket>,
   ProductProjectReadResourceAssertion<CatalogListProjectReadPacket>
@@ -551,14 +649,16 @@ const catalog_list: ExactDefinitionCallable<
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.catalog_list.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admittedProjectReadFault(cause, call, [
+      "artifactTruth",
+    ]);
+    if (admittedFault !== null) return admittedFault;
+    throw cause;
+  },
 });
 
-const catalog_describe: ExactDefinitionCallable<
+const catalogDescribeOwner: ExactDefinitionCallable<
   typeof PRODUCT_PROJECT_READ_CONTRACTS.catalog_describe,
   ProductProjectReadResourceAssertion<CatalogDescribeProjectReadPacket>,
   ProductProjectReadResourceAssertion<CatalogDescribeProjectReadPacket>
@@ -629,14 +729,16 @@ const catalog_describe: ExactDefinitionCallable<
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.catalog_describe.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admittedProjectReadFault(cause, call, [
+      "artifactTruth",
+    ]);
+    if (admittedFault !== null) return admittedFault;
+    throw cause;
+  },
 });
 
-const workspace_status: ExactDefinitionCallable<
+const workspaceStatusOwner: ExactDefinitionCallable<
   typeof PRODUCT_PROJECT_READ_CONTRACTS.workspace_status,
   ProductProjectReadResourceAssertion<WorkspaceStatusProjectReadPacket>,
   ProductProjectReadResourceAssertion<WorkspaceStatusProjectReadPacket>
@@ -752,14 +854,17 @@ const workspace_status: ExactDefinitionCallable<
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.workspace_status.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admittedProjectReadFault(cause, call, [
+      "artifactTruth",
+      "workspaceManifest",
+    ]);
+    if (admittedFault !== null) return admittedFault;
+    throw cause;
+  },
 });
 
-const install_evidence: ExactDefinitionCallable<
+const installEvidenceOwner: ExactDefinitionCallable<
   typeof PRODUCT_PROJECT_READ_CONTRACTS.install_evidence,
   ProductProjectReadResourceAssertion<InstallEvidenceProjectReadPacket>,
   ProductProjectReadResourceAssertion<InstallEvidenceProjectReadPacket>
@@ -853,14 +958,16 @@ const install_evidence: ExactDefinitionCallable<
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.install_evidence.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admittedProjectReadFault(cause, call, [
+      "artifactTruth",
+    ]);
+    if (admittedFault !== null) return admittedFault;
+    throw cause;
+  },
 });
 
-const ticket_consensus: ExactDefinitionCallable<
+const ticketConsensusOwner: ExactDefinitionCallable<
   typeof PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus,
   ProductProjectReadResourceAssertion<TicketConsensusProjectReadPacket>,
   ProductProjectReadResourceAssertion<TicketConsensusProjectReadPacket>
@@ -982,12 +1089,46 @@ const ticket_consensus: ExactDefinitionCallable<
     });
     return deepFreeze({ ownerOutput, resources: call.resources });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<
-      typeof PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus.definitionKey
-    >
-    : fault(call, "owner_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admittedProjectReadFault(cause, call, [
+      "artifactTruth",
+      "runtime",
+    ]);
+    if (admittedFault !== null) return admittedFault;
+    throw cause;
+  },
 });
+
+const catalog_list = bindStaticOwner(
+  PRODUCT_PROJECT_READ_CONTRACTS.catalog_list,
+  catalogListOwner,
+  CATALOG_LIST_RESOURCE_SCHEMA,
+  CATALOG_LIST_RESOURCE_SCHEMA,
+);
+const catalog_describe = bindStaticOwner(
+  PRODUCT_PROJECT_READ_CONTRACTS.catalog_describe,
+  catalogDescribeOwner,
+  CATALOG_DESCRIBE_RESOURCE_SCHEMA,
+  CATALOG_DESCRIBE_RESOURCE_SCHEMA,
+);
+const workspace_status = bindStaticOwner(
+  PRODUCT_PROJECT_READ_CONTRACTS.workspace_status,
+  workspaceStatusOwner,
+  WORKSPACE_STATUS_RESOURCE_SCHEMA,
+  WORKSPACE_STATUS_RESOURCE_SCHEMA,
+);
+const install_evidence = bindStaticOwner(
+  PRODUCT_PROJECT_READ_CONTRACTS.install_evidence,
+  installEvidenceOwner,
+  INSTALL_EVIDENCE_RESOURCE_SCHEMA,
+  INSTALL_EVIDENCE_RESOURCE_SCHEMA,
+);
+const ticket_consensus = bindStaticOwner(
+  PRODUCT_PROJECT_READ_CONTRACTS.ticket_consensus,
+  ticketConsensusOwner,
+  TICKET_CONSENSUS_RESOURCE_SCHEMA,
+  TICKET_CONSENSUS_RESOURCE_SCHEMA,
+);
 
 export const PRODUCT_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze({
   catalog_list,

@@ -1198,7 +1198,7 @@ function projectionRowDigest(
   return sha256Canonical(body as unknown as JsonValue);
 }
 
-function parseOperationProjection(
+export function parseOperationProjection(
   bytes: Uint8Array,
 ): IntrinsicPublicOperationContractProjection | null {
   const value = parseCanonicalPayload(bytes);

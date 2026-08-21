@@ -6,12 +6,12 @@ import {
   isWorkspaceAuthorityBasis,
   isWorkspaceBindingCandidate,
   type ProductInstall,
-  type ProductInstallCandidate,
   type ResolvedProductLock,
   type WorkspaceAuthorityBasis,
   type WorkspaceBinding,
   type WorkspaceBindingCandidate,
-} from "../product/index.js";
+} from "../product/environment.js";
+import type { ProductInstallCandidate } from "../product/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
@@ -41,6 +41,7 @@ import {
 import {
   appendCheckedArtifactEvent,
   assertHeldEventStoreAtDurablePrefix,
+  EventStorePostAppendFailure,
   projectRuntimeEventFromValidatedHistory,
   type AbgEventStore,
   type DurablePrefixCoordinate,
@@ -516,6 +517,30 @@ type ArtifactAdmissionResult =
           }>;
     }>;
 
+/**
+ * ABG-local failure after the checked artifact event already returned its exact
+ * durable successor. Consumers must close that successor into their concrete
+ * receipt rather than inspecting the mutable store tail.
+ */
+export class ArtifactAdmissionPostAppendFailure extends TypeError {
+  readonly successorPrefix: DurablePrefixCoordinate;
+  readonly admissionEventRef: string;
+  readonly failureMessage: string;
+
+  constructor(
+    successorPrefix: DurablePrefixCoordinate,
+    admissionEventRef: string,
+    cause: unknown,
+  ) {
+    const failureMessage = String(cause);
+    super(`artifact admission failed after durable append: ${failureMessage}`);
+    this.name = "ArtifactAdmissionPostAppendFailure";
+    this.successorPrefix = successorPrefix;
+    this.admissionEventRef = admissionEventRef;
+    this.failureMessage = failureMessage;
+  }
+}
+
 function projectArtifactTruthAtPrefix(
   prefix: DurablePrefixCoordinate,
 ): ExactPrefixArtifactTruthProjectionResult {
@@ -691,11 +716,21 @@ export function admitArtifact(
       ),
     };
   }
-  const appended = appendCheckedArtifactEvent(
-    store,
-    basis.predecessorPrefix,
-    initiatedEvent,
-  );
+  let appended: ReturnType<typeof appendCheckedArtifactEvent>;
+  try {
+    appended = appendCheckedArtifactEvent(
+      store,
+      basis.predecessorPrefix,
+      initiatedEvent,
+    );
+  } catch (cause) {
+    if (!(cause instanceof EventStorePostAppendFailure)) throw cause;
+    throw new ArtifactAdmissionPostAppendFailure(
+      cause.successorPrefix,
+      cause.admissionEventRef,
+      cause,
+    );
+  }
   if (!("event" in appended)) {
     return {
       disposition: "coordinate_refused",
@@ -703,24 +738,32 @@ export function admitArtifact(
       refusal: appended,
     };
   }
-  if (
-    sha256Canonical(appended.event as unknown as JsonValue) !==
-      sha256Canonical(preparedEvent as unknown as JsonValue)
-  ) {
-    throw new TypeError(
-      "artifact append differs from its exact pre-effect semantic projection",
+  try {
+    if (
+      sha256Canonical(appended.event as unknown as JsonValue) !==
+        sha256Canonical(preparedEvent as unknown as JsonValue)
+    ) {
+      throw new TypeError(
+        "artifact append differs from its exact pre-effect semantic projection",
+      );
+    }
+    const artifactTruth = projectValidatedPrefixArtifactTruth(
+      appended.successorPrefix,
+      preparedPrefix,
+    );
+    return {
+      disposition: "admitted",
+      admissionEventRef: appended.event.eventId,
+      successorPrefix: appended.successorPrefix,
+      artifactTruth,
+    };
+  } catch (cause) {
+    throw new ArtifactAdmissionPostAppendFailure(
+      appended.successorPrefix,
+      appended.event.eventId,
+      cause,
     );
   }
-  const artifactTruth = projectValidatedPrefixArtifactTruth(
-    appended.successorPrefix,
-    preparedPrefix,
-  );
-  return {
-    disposition: "admitted",
-    admissionEventRef: appended.event.eventId,
-    successorPrefix: appended.successorPrefix,
-    artifactTruth,
-  };
 }
 
 export function hasAdmittedWorkspaceBinding(
@@ -827,22 +870,30 @@ export function admitProductInstall(
       refusal: admission.refusal,
     };
   }
-  const { kind: _kind, disposition: _disposition, ...body } = candidate;
-  const install = deepFreeze({
-    kind: "product_install",
-    disposition: "admitted",
-    ...body,
-    admissionEventRef: admission.admissionEventRef,
-  }) as ProductInstall;
-  return deepFreeze({
-    kind: "artifact_owner_result" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: admission.disposition,
-    value: install,
-    admissionEventRef: admission.admissionEventRef,
-    successorPrefix: admission.successorPrefix,
-    artifactTruth: admission.artifactTruth,
-  });
+  try {
+    const { kind: _kind, disposition: _disposition, ...body } = candidate;
+    const install = deepFreeze({
+      kind: "product_install",
+      disposition: "admitted",
+      ...body,
+      admissionEventRef: admission.admissionEventRef,
+    }) as ProductInstall;
+    return deepFreeze({
+      kind: "artifact_owner_result" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: admission.disposition,
+      value: install,
+      admissionEventRef: admission.admissionEventRef,
+      successorPrefix: admission.successorPrefix,
+      artifactTruth: admission.artifactTruth,
+    });
+  } catch (cause) {
+    throw new ArtifactAdmissionPostAppendFailure(
+      admission.successorPrefix,
+      admission.admissionEventRef,
+      cause,
+    );
+  }
 }
 
 export function admitWorkspaceBinding(
@@ -977,19 +1028,27 @@ export function admitWorkspaceBinding(
       refusal: admission.refusal,
     };
   }
-  const { kind: _kind, ...body } = candidate;
-  const binding = deepFreeze({
-    kind: "workspace_binding",
-    ...body,
-    admissionEventRef: admission.admissionEventRef,
-  }) as WorkspaceBinding;
-  return deepFreeze({
-    kind: "artifact_owner_result" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: admission.disposition,
-    value: binding,
-    admissionEventRef: admission.admissionEventRef,
-    successorPrefix: admission.successorPrefix,
-    artifactTruth: admission.artifactTruth,
-  });
+  try {
+    const { kind: _kind, ...body } = candidate;
+    const binding = deepFreeze({
+      kind: "workspace_binding",
+      ...body,
+      admissionEventRef: admission.admissionEventRef,
+    }) as WorkspaceBinding;
+    return deepFreeze({
+      kind: "artifact_owner_result" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: admission.disposition,
+      value: binding,
+      admissionEventRef: admission.admissionEventRef,
+      successorPrefix: admission.successorPrefix,
+      artifactTruth: admission.artifactTruth,
+    });
+  } catch (cause) {
+    throw new ArtifactAdmissionPostAppendFailure(
+      admission.successorPrefix,
+      admission.admissionEventRef,
+      cause,
+    );
+  }
 }

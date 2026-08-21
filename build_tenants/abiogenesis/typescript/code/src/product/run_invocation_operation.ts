@@ -23,7 +23,12 @@ import {
   type ProductExecutionResolutionRefusal,
   type ProductExecutionSelection,
 } from "./execution_resolution.js";
-import type { ProductInstall, WorkspaceBinding } from "./environment.js";
+import {
+  isProductInstall,
+  verifiedArtifactMatchesResolvedLock,
+  type ProductInstall,
+  type WorkspaceBinding,
+} from "./environment.js";
 import {
   constructCapabilityGrant,
   constructExactDirectInvocation,
@@ -210,6 +215,69 @@ function exactApplications(
   }
 }
 
+function exactInstalledDefinitionContracts<M extends RunInvocationMemberKey>(
+  invocation: ExactRunInvocation<M>,
+  resources: ProductRunInvocationResourceAssertion,
+  admittedInstalls: readonly ProductInstall[],
+  verifyInstallAdmission: (install: ProductInstall) => boolean,
+): boolean {
+  const lock = resources.catalog.readinessBasis.resolvedLock;
+  const matches = resources.catalog.readinessBasis.verifiedProducts.flatMap(
+    (verified) => {
+      const operation = verified.definitionContractCoordinates?.operations.find(
+        (candidate) =>
+          candidate.operationId === invocation.definitionKey.operationId,
+      );
+      const member = operation?.members.find(
+        (candidate) =>
+          candidate.memberKey === invocation.definitionKey.memberKey,
+      );
+      return member === undefined ? [] : [{ verified, slots: member.slots }];
+    },
+  );
+  if (matches.length !== 1) return false;
+  const { verified, slots } = matches[0]!;
+  const catalog = slots.request.contractCatalog;
+  const installs = admittedInstalls.filter(
+    (install) => install.productId === verified.productId,
+  );
+  if (installs.length !== 1) return false;
+  const install = installs[0]!;
+  if (
+    catalog.productId !== verified.productId ||
+    catalog.productContentDigest !== verified.productContentDigest ||
+    catalog.catalogId !== verified.catalogId ||
+    catalog.catalogDigest !== verified.catalogDigest ||
+    !verifiedArtifactMatchesResolvedLock(verified, lock) ||
+    !isProductInstall(install, lock) ||
+    !verifyInstallAdmission(install) ||
+    install.manifestDigest !== verified.manifestDigest ||
+    install.productContentDigest !== verified.productContentDigest ||
+    install.catalogId !== verified.catalogId ||
+    install.catalogDigest !== verified.catalogDigest
+  ) return false;
+  return exactJson(invocation.contractCatalog, catalog) &&
+    exactJson(invocation.invocationContract.contractCatalog, catalog) &&
+    exactJson(invocation.requestContract, slots.request) &&
+    exactJson(invocation.expectedResultContract, slots.result) &&
+    exactJson(invocation.expectedRefusalContract, slots.refusal) &&
+    exactJson(invocation.expectedNonTerminalContract, slots.nonTerminal);
+}
+
+function exactContractBoundInput(
+  value: unknown,
+  resolution: LoadedProductExecutionResolution,
+  rawInput: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+): boolean {
+  return isRecord(value) &&
+    isRecord(value.contract) &&
+    value.contract.ref === resolution.resolution.inputContract.contractRef &&
+    value.contract.digest === resolution.resolution.inputContractDigest &&
+    value.valueRef === rawInput.admissionRef &&
+    value.valueDigest === rawInput.subjectDigest &&
+    exactJson(value.value, rawInput.value);
+}
+
 function startSelection(
   request: ExactStartRunInvocation["request"],
 ): ProductExecutionSelection | null {
@@ -310,6 +378,7 @@ function authorityMatches<M extends RunInvocationMemberKey>(
   policy: ReturnType<typeof constructRootInvocationPolicy>,
   grants: readonly CapabilityGrant[],
   authority: InvocationAuthority,
+  rawInput: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
   transportResourceAssertion: JsonValue,
 ): boolean {
   const slots = invocation.invocationAuthority.slots;
@@ -319,6 +388,7 @@ function authorityMatches<M extends RunInvocationMemberKey>(
   const catalogScope = slots.catalog_scope;
   const program = slots.execution_program;
   const graphFunction = slots.graph_function;
+  const inputContract = slots.input_contract;
   const actor = slots.actor;
   const sessionPolicy = slots.session_policy;
   const capabilities = slots.capability_grants;
@@ -362,6 +432,7 @@ function authorityMatches<M extends RunInvocationMemberKey>(
     program !== null && program.ref === resolution.resolution.programRef &&
     program.digest === resolution.resolution.programDigest &&
     exactGraphFunctionAuthority &&
+    exactContractBoundInput(inputContract, resolution, rawInput) &&
     sessionPolicy !== null && sessionPolicy.ref === policy.policyRef &&
     sessionPolicy.digest === policy.policyDigest &&
     capabilities !== null &&
@@ -440,6 +511,20 @@ export async function prepareProductRunInvocation<
     );
   }
   if (
+    !exactInstalledDefinitionContracts(
+      invocation,
+      resources,
+      input.admittedInstalls,
+      input.verifyInstallAdmission,
+    )
+  ) {
+    return preparationRefusal(
+      memberKey,
+      "invalid_view",
+      ["/contractCatalog"],
+    );
+  }
+  if (
     programCoordinate.digest !==
       sha256Canonical(resolution.program as unknown as JsonValue) ||
     !isRecord(request.catalogView) ||
@@ -495,6 +580,19 @@ export async function prepareProductRunInvocation<
   if (rawInput.kind !== "raw_admitted_value") {
     return preparationRefusal(memberKey, "invalid_input", ["/input"]);
   }
+  if (
+    !exactContractBoundInput(
+      invocation.invocationAuthority.slots.input_contract,
+      resolution,
+      rawInput,
+    ) ||
+    (
+      memberKey === "start" &&
+      !exactContractBoundInput(request.input, resolution, rawInput)
+    )
+  ) {
+    return preparationRefusal(memberKey, "invalid_input", ["/input"]);
+  }
   const declaredRegimes = new Set<ComputeRegime>([
     ...resolution.programValidation.executableLeafRows.map((row) => row.fibre),
     ...resolution.programValidation.interactionLeafRows.map((row) => row.fibre),
@@ -512,7 +610,7 @@ export async function prepareProductRunInvocation<
     ),
     resources.applications,
   );
-  const actorRef = invocation.invocationAuthority.slots.actor?.actor.ref ?? "";
+  const actorRef = input.workspaceBinding.authorizedActorRef;
   const interactionCapabilityRefs = [
     ...new Set(resolution.programValidation.interactionLeafRows.map(
       (row) => row.requirement.actorCapabilityRef,
@@ -555,6 +653,7 @@ export async function prepareProductRunInvocation<
       policy,
       grants,
       authority,
+      rawInput,
       input.transportResourceAssertion,
     )
   ) {

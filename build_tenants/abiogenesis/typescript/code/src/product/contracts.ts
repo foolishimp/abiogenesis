@@ -2,6 +2,8 @@ import type { Sha256Digest } from "../shared/digests.js";
 import type { CompleteDefinitionContractCoordinateMap } from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import type { ProductInstall, ResolvedProductLock } from "./environment.js";
+import type { PhysicalArtifactEffectEvidence } from
+  "./physical_artifact_effect.js";
 
 export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-dev.286";
 export const ABI5_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
@@ -340,6 +342,7 @@ export interface ProductInstallRefusal {
   readonly disposition: "refused";
   readonly code: ProductInstallRefusalCode;
   readonly message: string;
+  readonly physicalEffect: PhysicalArtifactEffectEvidence | null;
 }
 
 export type ProductInstallResult = ProductInstallCandidate | ProductInstallRefusal;

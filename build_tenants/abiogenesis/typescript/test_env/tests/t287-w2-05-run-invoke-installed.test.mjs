@@ -4,6 +4,7 @@ import {
   access,
   readFile,
   rename,
+  writeFile,
 } from "node:fs/promises";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -16,6 +17,7 @@ import {
   buildRootCliScenario,
   importInstalledPackageExport,
   installedCliPackageRoot,
+  probeInstalledDefinitionBindingInFreshProcess,
   resolveInstalledPackageExport,
   setupInstalledCliHarness,
 } from "../support/root-cli-environment.mjs";
@@ -106,6 +108,13 @@ function runCall(publicApi, product, memberKey, ordinal, exact = {}) {
     (candidate) => candidate.definitionKey.memberKey === memberKey,
   );
   assert.ok(member);
+  const catalog = exact.contractCatalog ?? Object.freeze({
+    productId: "product://abiogenesis/typescript-tenant@5",
+    productContentDigest: product.sha256Canonical({ product: "run-binding-proof" }),
+    catalogId: "catalog://abiogenesis/public-contracts@5",
+    catalogVersion: schemaVersion,
+    catalogDigest: product.sha256Canonical({ catalog: "run-binding-proof" }),
+  });
   const program = coordinate(product, `program://w2-05/${memberKey}`);
   const catalogView = coordinate(product, `catalog-view://w2-05/${memberKey}`);
   const inputValue = Object.freeze({ admitted: memberKey });
@@ -181,13 +190,6 @@ function runCall(publicApi, product, memberKey, ordinal, exact = {}) {
     ...authorityBody,
     authorityDigest: product.sha256Canonical(authorityBody),
   });
-  const catalog = Object.freeze({
-    productId: "product://abiogenesis/typescript-tenant@5",
-    productContentDigest: product.sha256Canonical({ product: "run-binding-proof" }),
-    catalogId: "catalog://abiogenesis/public-contracts@5",
-    catalogVersion: schemaVersion,
-    catalogDigest: product.sha256Canonical({ catalog: "run-binding-proof" }),
-  });
   const requestDigest = product.sha256Canonical(identityRequest);
   const body = Object.freeze({
     kind: "public_invocation",
@@ -213,7 +215,7 @@ function runCall(publicApi, product, memberKey, ordinal, exact = {}) {
     definitionKey: definition.definitionKey,
     contractCatalog: catalog,
     invocationAuthority,
-    requestContract: contractCoordinate(
+    requestContract: exact.definitionContracts?.request ?? contractCoordinate(
       publicApi,
       definition,
       catalog,
@@ -224,27 +226,30 @@ function runCall(publicApi, product, memberKey, ordinal, exact = {}) {
       `public-request://abiogenesis/t287/w2-05/${String(ordinal).padStart(2, "0")}-${memberKey}`,
     requestDigest,
     request: identityRequest,
-    expectedResultContract: contractCoordinate(
-      publicApi,
-      definition,
-      catalog,
-      "result",
-      member.resultContract.definitionRef,
-    ),
-    expectedRefusalContract: contractCoordinate(
-      publicApi,
-      definition,
-      catalog,
-      "refusal",
-      member.refusalContract.definitionRef,
-    ),
-    expectedNonTerminalContract: contractCoordinate(
-      publicApi,
-      definition,
-      catalog,
-      "non_terminal",
-      member.nonTerminalContract.definitionRef,
-    ),
+    expectedResultContract: exact.definitionContracts?.result ??
+      contractCoordinate(
+        publicApi,
+        definition,
+        catalog,
+        "result",
+        member.resultContract.definitionRef,
+      ),
+    expectedRefusalContract: exact.definitionContracts?.refusal ??
+      contractCoordinate(
+        publicApi,
+        definition,
+        catalog,
+        "refusal",
+        member.refusalContract.definitionRef,
+      ),
+    expectedNonTerminalContract:
+      exact.definitionContracts?.nonTerminal ?? contractCoordinate(
+        publicApi,
+        definition,
+        catalog,
+        "non_terminal",
+        member.nonTerminalContract.definitionRef,
+      ),
     correlationRef: `correlation://abiogenesis/t287/w2-05/${memberKey}`,
     eventTime: "2026-08-20T00:00:00.000Z",
     provenanceRefs: Object.freeze([
@@ -279,6 +284,44 @@ function reissueRunInvocation(product, invocation, replacement = {}) {
     requestDigest,
     request: identityRequest,
   }), rawRequest);
+}
+
+function coordinateWithCatalog(coordinateValue, contractCatalog) {
+  return coordinateValue === null
+    ? null
+    : Object.freeze({ ...coordinateValue, contractCatalog });
+}
+
+function reissueRunContractCatalog(product, invocation, contractCatalog) {
+  const {
+    invocationRef: _invocationRef,
+    invocationDigest: _invocationDigest,
+    ...priorBody
+  } = invocation;
+  return admittedInvocation(product, Object.freeze({
+    ...priorBody,
+    invocationContract: coordinateWithCatalog(
+      invocation.invocationContract,
+      contractCatalog,
+    ),
+    contractCatalog,
+    requestContract: coordinateWithCatalog(
+      invocation.requestContract,
+      contractCatalog,
+    ),
+    expectedResultContract: coordinateWithCatalog(
+      invocation.expectedResultContract,
+      contractCatalog,
+    ),
+    expectedRefusalContract: coordinateWithCatalog(
+      invocation.expectedRefusalContract,
+      contractCatalog,
+    ),
+    expectedNonTerminalContract: coordinateWithCatalog(
+      invocation.expectedNonTerminalContract,
+      contractCatalog,
+    ),
+  }), invocation.request);
 }
 
 function recomputeCorruptResolution(product, resolution, replacement) {
@@ -409,6 +452,187 @@ async function waitForAdditionalFrameOpen(path, baselineCount) {
   throw new Error("timed out waiting for the post-append frame_opened event");
 }
 
+async function invokeWithInjectedPreOpenFailure(
+  harness,
+  bindingBasis,
+  call,
+) {
+  const requestPath = join(
+    harness.scratch,
+    "run-invoke-pre-open-failure-request.json",
+  );
+  const loaderPath = join(
+    harness.scratch,
+    "run-invoke-pre-open-failure-loader.mjs",
+  );
+  await writeFile(
+    requestPath,
+    `${JSON.stringify({ bindingBasis, call })}\n`,
+    "utf8",
+  );
+  await writeFile(
+    loaderPath,
+    [
+      "export async function load(url, context, nextLoad) {",
+      "  const loaded = await nextLoad(url, context);",
+      '  if (!url.endsWith("/build/code/src/gtl/materialize.js")) return loaded;',
+      "  const source = String(loaded.source);",
+      '  const declaration = "export function materializeGraph(";',
+      "  if (!source.includes(declaration)) throw new TypeError(\"materialize export absent\");",
+      "  return {",
+      "    ...loaded,",
+      "    shortCircuit: true,",
+      "    source: source.replace(declaration, \"function admittedMaterializeGraph(\") +",
+      '      "\\nexport function materializeGraph() { throw new TypeError(\\\"injected pre-open materialization failure\\\"); }\\n",',
+      "  };",
+      "}",
+    ].join("\n"),
+    "utf8",
+  );
+  const probe = [
+    'import { readFile } from "node:fs/promises";',
+    'import { createRequire } from "node:module";',
+    'import { pathToFileURL } from "node:url";',
+    'import { loadVerifiedInstalledDefinitionBinding } from "@abiogenesis/typescript-tenant/installed-loader";',
+    `const request = JSON.parse(await readFile(${JSON.stringify(requestPath)}, "utf8"));`,
+    "const binding = await loadVerifiedInstalledDefinitionBinding(request.bindingBasis);",
+    'if (binding.kind !== "verified_installed_definition_binding") throw new TypeError(JSON.stringify(binding));',
+    "const installedRequire = createRequire(pathToFileURL(binding.resolvedModulePath));",
+    "const installedEffectModule = (specifier) => import(pathToFileURL(installedRequire.resolve(specifier)).href);",
+    'const [Cause, Effect, Exit, Option] = await Promise.all(["effect/Cause", "effect/Effect", "effect/Exit", "effect/Option"].map(installedEffectModule));',
+    "const exit = await Effect.runPromiseExit(binding.invoke(request.call));",
+    'if (Exit.isSuccess(exit)) throw new TypeError("injected pre-open call unexpectedly succeeded");',
+    "const failure = Cause.failureOption(exit.cause);",
+    "console.log(JSON.stringify({",
+    '  kind: "injected_pre_open_failure",',
+    "  fault: Option.isSome(failure) ? failure.value : null,",
+    "  cause: Cause.pretty(exit.cause),",
+    "}));",
+  ].join("\n");
+  const { stdout } = await execFileAsync(
+    process.execPath,
+    ["--loader", loaderPath, "--input-type=module", "--eval", probe],
+    {
+      cwd: harness.cliHost,
+      env: { ...process.env, NODE_OPTIONS: "" },
+      maxBuffer: 4 * 1024 * 1024,
+    },
+  );
+  return JSON.parse(stdout.trim().split("\n").at(-1));
+}
+
+async function invokeWithInjectedExecutionBasisPostCommitFailure(
+  harness,
+  bindingBasis,
+  call,
+) {
+  const requestPath = join(
+    harness.scratch,
+    "run-invoke-execution-basis-post-commit-failure-request.json",
+  );
+  const loaderPath = join(
+    harness.scratch,
+    "run-invoke-execution-basis-post-commit-failure-loader.mjs",
+  );
+  await writeFile(
+    requestPath,
+    `${JSON.stringify({ bindingBasis, call })}\n`,
+    "utf8",
+  );
+  await writeFile(
+    loaderPath,
+    [
+      "export async function load(url, context, nextLoad) {",
+      "  const loaded = await nextLoad(url, context);",
+      '  if (!url.endsWith("/build/code/src/abg/execution_basis.js")) return loaded;',
+      "  const source = String(loaded.source);",
+      '  const declaration = "export function admitExecutionBasis(";',
+      "  if (!source.includes(declaration)) throw new TypeError(\"execution basis export absent\");",
+      "  return {",
+      "    ...loaded,",
+      "    shortCircuit: true,",
+      "    source: source.replace(declaration, \"function admittedExecutionBasis(\") +",
+      '      "\\nexport function admitExecutionBasis(...args) { const result = admittedExecutionBasis(...args); if (result.kind === \\\"execution_basis_admission\\\") throw new TypeError(\\\"injected post-commit execution-basis failure\\\"); return result; }\\n",',
+      "  };",
+      "}",
+    ].join("\n"),
+    "utf8",
+  );
+  const probe = [
+    'import { readFile } from "node:fs/promises";',
+    'import { createRequire } from "node:module";',
+    'import { pathToFileURL } from "node:url";',
+    'import { loadVerifiedInstalledDefinitionBinding } from "@abiogenesis/typescript-tenant/installed-loader";',
+    `const request = JSON.parse(await readFile(${JSON.stringify(requestPath)}, "utf8"));`,
+    "const binding = await loadVerifiedInstalledDefinitionBinding(request.bindingBasis);",
+    'if (binding.kind !== "verified_installed_definition_binding") throw new TypeError(JSON.stringify(binding));',
+    "const installedRequire = createRequire(pathToFileURL(binding.resolvedModulePath));",
+    "const installedEffectModule = (specifier) => import(pathToFileURL(installedRequire.resolve(specifier)).href);",
+    'const [Cause, Effect, Exit, Option] = await Promise.all(["effect/Cause", "effect/Effect", "effect/Exit", "effect/Option"].map(installedEffectModule));',
+    "const exit = await Effect.runPromiseExit(binding.invoke(request.call));",
+    'if (Exit.isSuccess(exit)) throw new TypeError("injected execution-basis call unexpectedly succeeded");',
+    "const failure = Cause.failureOption(exit.cause);",
+    "console.log(JSON.stringify({",
+    '  kind: "injected_execution_basis_post_commit_failure",',
+    "  fault: Option.isSome(failure) ? failure.value : null,",
+    "  cause: Cause.pretty(exit.cause),",
+    "}));",
+  ].join("\n");
+  const { stdout } = await execFileAsync(
+    process.execPath,
+    ["--loader", loaderPath, "--input-type=module", "--eval", probe],
+    {
+      cwd: harness.cliHost,
+      env: { ...process.env, NODE_OPTIONS: "" },
+      maxBuffer: 4 * 1024 * 1024,
+    },
+  );
+  return JSON.parse(stdout.trim().split("\n").at(-1));
+}
+
+async function runVerifiedInstalledDefinitionInFreshProcess(
+  harness,
+  bindingBasis,
+  call,
+  label,
+) {
+  const requestPath = join(
+    harness.scratch,
+    `verified-installed-definition-${label}.json`,
+  );
+  await writeFile(
+    requestPath,
+    `${JSON.stringify({ bindingBasis, call })}\n`,
+    "utf8",
+  );
+  const probe = [
+    'import { readFile } from "node:fs/promises";',
+    'import { createRequire } from "node:module";',
+    'import { pathToFileURL } from "node:url";',
+    'import { loadVerifiedInstalledDefinitionBinding } from "@abiogenesis/typescript-tenant/installed-loader";',
+    `const request = JSON.parse(await readFile(${JSON.stringify(requestPath)}, "utf8"));`,
+    "const binding = await loadVerifiedInstalledDefinitionBinding(request.bindingBasis);",
+    'if (binding.kind !== "verified_installed_definition_binding") throw new TypeError(JSON.stringify(binding));',
+    "const installedRequire = createRequire(pathToFileURL(binding.resolvedModulePath));",
+    'const Effect = await import(pathToFileURL(installedRequire.resolve("effect/Effect")).href);',
+    "const result = await Effect.runPromise(binding.invoke(request.call));",
+    "console.log(JSON.stringify(result));",
+  ].join("\n");
+  const { stdout, stderr } = await execFileAsync(
+    process.execPath,
+    ["--input-type=module", "--eval", probe],
+    {
+      cwd: harness.cliHost,
+      env: { ...process.env, NODE_OPTIONS: "" },
+      maxBuffer: 4 * 1024 * 1024,
+    },
+  );
+  if (stderr.trim().length !== 0) {
+    throw new TypeError(`verified installed definition execution failed: ${stderr}`);
+  }
+  return JSON.parse(stdout.trim().split("\n").at(-1));
+}
+
 async function exactInstalledRunCall({
   publicApi,
   product,
@@ -461,11 +685,34 @@ async function exactInstalledRunCall({
     input,
   );
   assert.ok(admittedInput);
+  const rawInput = validator.rawAdmitValue(
+    admittedInput,
+    "invocation_input",
+    inputContract.ref,
+  );
+  assert.equal(rawInput.kind, "raw_admitted_value");
+  const definitionContractMatches = catalog.readinessBasis.verifiedProducts
+    .flatMap((verified) =>
+      verified.definitionContractCoordinates?.operations
+        .filter((operation) => operation.operationId === operationId)
+        .flatMap((operation) => operation.members)
+        .filter((member) => member.memberKey === memberKey) ?? []
+    );
+  assert.equal(definitionContractMatches.length, 1);
+  const definitionContracts = definitionContractMatches[0].slots;
+  const contractCatalog = definitionContracts.request.contractCatalog;
+  for (const coordinate of [
+    definitionContracts.result,
+    definitionContracts.refusal,
+    definitionContracts.nonTerminal,
+  ]) {
+    assert.deepEqual(coordinate?.contractCatalog ?? contractCatalog, contractCatalog);
+  }
   const contractBoundInput = Object.freeze({
     contract: inputContract,
-    valueRef: `value://w2-05/${ordinal}/input`,
-    valueDigest: product.sha256Canonical(input),
-    value: input,
+    valueRef: rawInput.admissionRef,
+    valueDigest: rawInput.subjectDigest,
+    value: rawInput.value,
   });
   const declaredRegimes = new Set([
     ...resolution.programValidation.executableLeafRows.map((row) => row.fibre),
@@ -640,17 +887,17 @@ async function exactInstalledRunCall({
     product,
     memberKey,
     ordinal,
-    { request: rawRequest, identityRequest: request, slots },
+    {
+      request: rawRequest,
+      identityRequest: request,
+      slots,
+      contractCatalog,
+      definitionContracts,
+    },
   );
   const admittedInvocation = rawRequest === request
     ? invocation
     : Object.freeze({ ...invocation, request });
-  const rawInput = validator.rawAdmitValue(
-    admittedInput,
-    "invocation_input",
-    inputContract.ref,
-  );
-  assert.equal(rawInput.kind, "raw_admitted_value");
   const candidate = memberKey === "invoke"
     ? product.constructExactDirectInvocation(
         admittedInvocation,
@@ -857,6 +1104,109 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
   ]) {
     assert.equal(digest, packedArtifactDigest, `${label} artifact digest`);
   }
+  const installedInvokeBasis = Object.freeze({
+    install: scenario.ownerProjections.admittedInstall.install,
+    artifactTruth: scenario.ownerProjections.artifactTruth,
+    verifiedProduct,
+    resolvedLock: catalog.readinessBasis.resolvedLock,
+    definitionKey: Object.freeze({ operationId, memberKey: "invoke" }),
+  });
+  const installedStartBasis = Object.freeze({
+    ...installedInvokeBasis,
+    definitionKey: Object.freeze({ operationId, memberKey: "start" }),
+  });
+  const preconstructedInvoke = await probeInstalledDefinitionBindingInFreshProcess(
+    harness,
+    installedInvokeBasis,
+    "invoke-positive",
+  );
+  assert.equal(preconstructedInvoke.kind, "verified_installed_definition_binding");
+  assert.equal(preconstructedInvoke.callableType, "function");
+  assert.equal(preconstructedInvoke.installId, installedProduct.installId);
+  assert.equal(
+    preconstructedInvoke.lockDigest,
+    catalog.readinessBasis.resolvedLock.lockDigest,
+  );
+  assert.equal(
+    preconstructedInvoke.callable.packageExportPath,
+    "./product",
+  );
+  assert.equal(
+    preconstructedInvoke.callable.namedExport,
+    "RUN_DEFINITION_BINDINGS",
+  );
+  assert.deepEqual(preconstructedInvoke.callable.memberPath, ["invoke", "invoke"]);
+  const installedProductTarget = await resolveInstalledPackageExport(
+    { installedPackageRoot: installedInvokeBasis.install.installedRoot },
+    "@abiogenesis/typescript-tenant/product",
+  );
+  const installedProductTargetBytes = await readFile(installedProductTarget);
+  const constructionMarker = join(
+    harness.scratch,
+    "forbidden-preverified-product-construction.marker",
+  );
+  const markerPrelude = Buffer.from(
+    `import { writeFileSync as __w2WriteMarker } from "node:fs";\n` +
+      `__w2WriteMarker(${JSON.stringify(constructionMarker)}, "evaluated");\n`,
+  );
+  const siblingClosureDigest = product.sha256Canonical({
+    sibling: "native-contract-closure",
+  });
+  const siblingLockBody = Object.freeze({
+    rows: catalog.readinessBasis.resolvedLock.rows,
+    dependencyEdges: catalog.readinessBasis.resolvedLock.dependencyEdges,
+    nativeContractClosureDigest: siblingClosureDigest,
+  });
+  const siblingLockDigest = product.sha256Canonical(siblingLockBody);
+  const siblingLock = Object.freeze({
+    kind: "resolved_product_lock",
+    schemaVersion,
+    lockId:
+      `product-lock://abiogenesis/${siblingLockDigest.slice("sha256:".length)}`,
+    lockDigest: siblingLockDigest,
+    ...siblingLockBody,
+  });
+  await writeFile(
+    installedProductTarget,
+    Buffer.concat([markerPrelude, installedProductTargetBytes]),
+  );
+  try {
+    const forgedAdmission = await probeInstalledDefinitionBindingInFreshProcess(
+      harness,
+      {
+        ...installedInvokeBasis,
+        install: {
+          ...installedInvokeBasis.install,
+          admissionEventRef:
+            "event://abiogenesis/product-install/coherent-sibling",
+        },
+      },
+      "invoke-wrong-install-admission",
+    );
+    assert.equal(forgedAdmission.kind, "installed_definition_binding_load_refusal");
+    assert.equal(forgedAdmission.code, "installed_product_mismatch");
+    await assert.rejects(access(constructionMarker));
+
+    const rehashedWrongLock = await probeInstalledDefinitionBindingInFreshProcess(
+      harness,
+      { ...installedInvokeBasis, resolvedLock: siblingLock },
+      "invoke-wrong-lock",
+    );
+    assert.equal(rehashedWrongLock.kind, "installed_definition_binding_load_refusal");
+    assert.equal(rehashedWrongLock.code, "installed_product_mismatch");
+    await assert.rejects(access(constructionMarker));
+
+    const changedExport = await probeInstalledDefinitionBindingInFreshProcess(
+      harness,
+      installedInvokeBasis,
+      "invoke-changed-export",
+    );
+    assert.equal(changedExport.kind, "installed_definition_binding_load_refusal");
+    assert.equal(changedExport.code, "export_digest_mismatch");
+    await assert.rejects(access(constructionMarker));
+  } finally {
+    await writeFile(installedProductTarget, installedProductTargetBytes);
+  }
   const installedModules = new Map();
   const installedTargetProofs = new Map();
   for (const [key, exportPath, namedExport, memberPath] of sentinel) {
@@ -1053,28 +1403,42 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
   const startInvocation = runCall(publicApi, product, "start", 2);
   const invokeLog = join(harness.scratch, "run-invoke-binding.events.jsonl");
   const startLog = join(harness.scratch, "run-start-binding.events.jsonl");
-  const invokeResult = await Effect.runPromise(invoke(callWithResources(
-    invokeInvocation,
-    admittedRunResources(
-      newEventResource(product, invokeLog),
-      catalog,
-      catalogView,
+  const invokeResult = await runVerifiedInstalledDefinitionInFreshProcess(
+    harness,
+    installedInvokeBasis,
+    callWithResources(
+      invokeInvocation,
+      admittedRunResources(
+        newEventResource(product, invokeLog),
+        catalog,
+        catalogView,
+      ),
     ),
-  )));
-  const startResult = await Effect.runPromise(start(callWithResources(
-    startInvocation,
-    admittedRunResources(
-      newEventResource(product, startLog),
-      catalog,
-      catalogView,
+    "invoke-synthetic-refusal",
+  );
+  const startResult = await runVerifiedInstalledDefinitionInFreshProcess(
+    harness,
+    installedStartBasis,
+    callWithResources(
+      startInvocation,
+      admittedRunResources(
+        newEventResource(product, startLog),
+        catalog,
+        catalogView,
+      ),
     ),
-  )));
+    "start-synthetic-refusal",
+  );
   for (const [label, result, eventLogPath] of [
     ["invoke", invokeResult, invokeLog],
     ["start", startResult, startLog],
   ]) {
     assert.equal(result.ownerOutput.outcomeKind, "refusal", label);
-    assert.equal(result.ownerOutput.value.code, "invalid_program", label);
+    assert.equal(
+      result.ownerOutput.value.code,
+      "invalid_program",
+      `${label} synthetic unresolved program is rejected before append`,
+    );
     assert.equal(result.resources.eventResource.entryPrefix.prefixLength, 0, label);
     assert.equal(
       result.resources.eventResource.closeHandoff.prefix.prefixLength,
@@ -1326,19 +1690,22 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
     directSlots.graph_function.graphFunction,
     siblingGraphFunctionSlots.graph_function.graphFunction,
   );
+  const directInvocation = directBasis.call.invocation;
   const preAuthorityFalsifierBytes = await readFile(scenario.eventLogPath);
-  const assertAuthorityRefusal = async (label, slots) => {
-    const invocation = reissueRunInvocation(
-      product,
-      directBasis.call.invocation,
-      { slots: Object.freeze(slots) },
-    );
-    const result = await Effect.runPromise(invoke(Object.freeze({
-      ...directBasis.call,
+  const assertPreappendRefusal = async (
+    label,
+    binding,
+    basis,
+    invocation,
+    code,
+    expectedBytes,
+  ) => {
+    const result = await Effect.runPromise(binding(Object.freeze({
+      ...basis.call,
       invocation,
     })));
     assert.equal(result.ownerOutput.outcomeKind, "refusal", label);
-    assert.equal(result.ownerOutput.value.code, "invalid_capability", label);
+    assert.equal(result.ownerOutput.value.code, code, label);
     assert.deepEqual(
       result.resources.eventResource.entryPrefix,
       result.resources.eventResource.closeHandoff.prefix,
@@ -1346,8 +1713,23 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
     );
     assert.deepEqual(
       await readFile(scenario.eventLogPath),
-      preAuthorityFalsifierBytes,
+      expectedBytes,
       `${label} admits no ABG append`,
+    );
+  };
+  const assertAuthorityRefusal = async (label, slots) => {
+    const invocation = reissueRunInvocation(
+      product,
+      directInvocation,
+      { slots: Object.freeze(slots) },
+    );
+    await assertPreappendRefusal(
+      label,
+      invoke,
+      directBasis,
+      invocation,
+      "invalid_capability",
+      preAuthorityFalsifierBytes,
     );
   };
   await assertAuthorityRefusal("coherent sibling Program", {
@@ -1381,7 +1763,153 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
       }),
     }),
   });
-  const directInvocation = directBasis.call.invocation;
+  const siblingInputContractDigest = product.sha256Canonical({
+    contract: "coherent sibling invoke input",
+  });
+  const siblingInputContract = Object.freeze({
+    ref: `contract://w2-05/sibling/${siblingInputContractDigest.slice("sha256:".length)}`,
+    digest: siblingInputContractDigest,
+  });
+  await assertPreappendRefusal(
+    "invoke coherent wrong input_contract authority slot",
+    invoke,
+    directBasis,
+    reissueRunInvocation(product, directInvocation, {
+      slots: Object.freeze({
+        ...directSlots,
+        input_contract: Object.freeze({
+          ...directSlots.input_contract,
+          contract: siblingInputContract,
+        }),
+      }),
+    }),
+    "invalid_input",
+    preAuthorityFalsifierBytes,
+  );
+  await assertPreappendRefusal(
+    "invoke coherent wrong request input contract",
+    invoke,
+    directBasis,
+    reissueRunInvocation(product, directInvocation, {
+      rawRequest: Object.freeze({
+        ...directInvocation.request,
+        inputContract: siblingInputContract,
+      }),
+    }),
+    "invalid_input",
+    preAuthorityFalsifierBytes,
+  );
+  const substitutedInputDigest = product.sha256Canonical({
+    input: "substituted authority value",
+  });
+  const substitutedInputValue = Object.freeze({
+    kind: "hello_world_input",
+    schemaVersion,
+    subject: "substituted authority value",
+  });
+  const coherentSubstitutedValueDigest = product.sha256Canonical(
+    substitutedInputValue,
+  );
+  const coherentSubstitutedAdmissionDigest = product.sha256Canonical({
+    contractRef: directSlots.input_contract.contract.ref,
+    expectedKind: "invocation_input",
+    subjectDigest: coherentSubstitutedValueDigest,
+  });
+  for (const [label, inputContractAuthority] of [
+    [
+      "invoke wrong input valueRef",
+      Object.freeze({
+        ...directSlots.input_contract,
+        valueRef:
+          `raw-admission://abiogenesis/${substitutedInputDigest.slice("sha256:".length)}`,
+      }),
+    ],
+    [
+      "invoke wrong input valueDigest",
+      Object.freeze({
+        ...directSlots.input_contract,
+        valueDigest: substitutedInputDigest,
+      }),
+    ],
+    [
+      "invoke coherent substituted authority value",
+      Object.freeze({
+        ...directSlots.input_contract,
+        valueRef:
+          `raw-admission://abiogenesis/${coherentSubstitutedAdmissionDigest.slice("sha256:".length)}`,
+        valueDigest: coherentSubstitutedValueDigest,
+        value: substitutedInputValue,
+      }),
+    ],
+  ]) {
+    await assertPreappendRefusal(
+      label,
+      invoke,
+      directBasis,
+      reissueRunInvocation(product, directInvocation, {
+        slots: Object.freeze({
+          ...directSlots,
+          input_contract: inputContractAuthority,
+        }),
+      }),
+      "invalid_input",
+      preAuthorityFalsifierBytes,
+    );
+  }
+  const {
+    catalogDigest: _installedCatalogDigest,
+    ...installedCatalogBody
+  } = harness.candidateManifest.publicContractCatalog;
+  const siblingCatalogBody = Object.freeze({
+    ...installedCatalogBody,
+    catalogId: `${installedCatalogBody.catalogId}/sibling`,
+  });
+  const siblingCatalogDigest = product.sha256Canonical(siblingCatalogBody);
+  const siblingContractCatalog = Object.freeze({
+    ...directInvocation.contractCatalog,
+    catalogId: siblingCatalogBody.catalogId,
+    catalogDigest: siblingCatalogDigest,
+  });
+  await assertPreappendRefusal(
+    "invoke coherent wrong installed contract catalog",
+    invoke,
+    directBasis,
+    reissueRunContractCatalog(
+      product,
+      directInvocation,
+      siblingContractCatalog,
+    ),
+    "invalid_view",
+    preAuthorityFalsifierBytes,
+  );
+  const substitutedActorRef = "actor://w2-05/substituted";
+  await assertAuthorityRefusal("invoke substituted actor", {
+    ...directSlots,
+    actor: Object.freeze({
+      ...directSlots.actor,
+      actor: Object.freeze({
+        ref: substitutedActorRef,
+        digest: product.sha256Canonical({ actorRef: substitutedActorRef }),
+      }),
+    }),
+  });
+  const substitutedGrantDigest = product.sha256Canonical({
+    grant: "coherent substituted run grant",
+  });
+  await assertAuthorityRefusal("invoke substituted grant", {
+    ...directSlots,
+    capability_grants: Object.freeze({
+      ...directSlots.capability_grants,
+      grants: Object.freeze([
+        Object.freeze({
+          ref:
+            `capability-grant://abiogenesis/${substitutedGrantDigest.slice("sha256:".length)}`,
+          digest: substitutedGrantDigest,
+        }),
+        ...directSlots.capability_grants.grants.slice(1),
+      ]),
+    }),
+  });
   const operationCoordinateBody = Object.freeze({
     operationId,
     memberKey: "invoke",
@@ -1471,7 +1999,12 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
   const setupEvents = abg.readRuntimeEventsAtDurablePrefix(
     scenario.closeHandoff.prefix,
   );
-  const direct = await Effect.runPromise(invoke(directBasis.call));
+  const direct = await runVerifiedInstalledDefinitionInFreshProcess(
+    harness,
+    installedInvokeBasis,
+    directBasis.call,
+    "invoke-completed",
+  );
   assert.equal(direct.ownerOutput.outcomeKind, "result");
   assert.equal(direct.ownerOutput.value.disposition, "completed");
   assert.deepEqual(
@@ -1532,7 +2065,283 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
     product.sha256Canonical(startBasis.call.invocation.request),
     "the raw request is not permitted to author the admitted default identity",
   );
-  const started = await Effect.runPromise(start(startBasis.call));
+  const stalePrefixBytes = await readFile(scenario.eventLogPath);
+  for (const [label, binding, basis] of [
+    ["invoke", invoke, directBasis],
+    ["start", start, startBasis],
+  ]) {
+    const staleFault = await faultOf(binding(Object.freeze({
+      ...basis.call,
+      resources: Object.freeze({
+        ...basis.call.resources,
+        eventResource: reopenEventResource(product, scenario.closeHandoff),
+      }),
+    })));
+    assert.equal(staleFault.faultBoundary, "pre_acquisition_or_pre_append", label);
+    assert.equal(staleFault.resourceReceipt, null, label);
+    assert.equal(staleFault.stage, "resource_acquisition", label);
+    assert.deepEqual(
+      await readFile(scenario.eventLogPath),
+      stalePrefixBytes,
+      `${label} refuses a valid stale predecessor without append`,
+    );
+  }
+  for (const [label, binding, basis, crossHandoff, crossPath] of [
+    ["invoke", invoke, directBasis, closeHandoff, invokeLog],
+    [
+      "start",
+      start,
+      startBasis,
+      startResult.resources.eventResource.closeHandoff,
+      startLog,
+    ],
+  ]) {
+    const crossBytes = await readFile(crossPath);
+    const crossed = await Effect.runPromise(binding(Object.freeze({
+      ...basis.call,
+      resources: Object.freeze({
+        ...basis.call.resources,
+        eventResource: reopenEventResource(product, crossHandoff),
+      }),
+    })));
+    assert.equal(crossed.ownerOutput.outcomeKind, "refusal", label);
+    assert.equal(crossed.ownerOutput.value.code, "invalid_target", label);
+    assert.deepEqual(
+      crossed.resources.eventResource.entryPrefix,
+      crossHandoff.prefix,
+      label,
+    );
+    assert.deepEqual(
+      crossed.resources.eventResource.closeHandoff.prefix,
+      crossHandoff.prefix,
+      label,
+    );
+    assert.deepEqual(
+      await readFile(crossPath),
+      crossBytes,
+      `${label} refuses a valid cross-store prefix without append`,
+    );
+  }
+  const startAuthorityInvocation = startBasis.call.invocation;
+  const startSlots = startAuthorityInvocation.invocationAuthority.slots;
+  const coherentStartAdmissionDigest = product.sha256Canonical({
+    contractRef: startSlots.input_contract.contract.ref,
+    expectedKind: "invocation_input",
+    subjectDigest: coherentSubstitutedValueDigest,
+  });
+  const preStartAuthorityBytes = await readFile(scenario.eventLogPath);
+  const reissueStart = ({
+    slots = startSlots,
+    rawRequest = startAuthorityInvocation.request,
+    identityRequest = startBasis.admittedRequest,
+  } = {}) => reissueRunInvocation(product, startAuthorityInvocation, {
+    slots: Object.freeze(slots),
+    rawRequest: Object.freeze(rawRequest),
+    identityRequest: Object.freeze(identityRequest),
+  });
+  const startRequestWithInput = (input) => Object.freeze({
+    rawRequest: Object.freeze({
+      ...startAuthorityInvocation.request,
+      input,
+    }),
+    identityRequest: Object.freeze({
+      ...startBasis.admittedRequest,
+      input,
+    }),
+  });
+  const assertStartRefusal = async (label, invocation, code) =>
+    assertPreappendRefusal(
+      label,
+      start,
+      startBasis,
+      invocation,
+      code,
+      preStartAuthorityBytes,
+    );
+  const wrongStartContractInput = Object.freeze({
+    ...startSlots.input_contract,
+    contract: siblingInputContract,
+  });
+  await assertStartRefusal(
+    "start coherent wrong input_contract authority slot",
+    reissueStart({
+      slots: { ...startSlots, input_contract: wrongStartContractInput },
+    }),
+    "invalid_input",
+  );
+  await assertStartRefusal(
+    "start coherent wrong request input contract",
+    reissueStart(startRequestWithInput(wrongStartContractInput)),
+    "invalid_input",
+  );
+  for (const [label, replacement] of [
+    [
+      "start wrong input valueRef",
+      Object.freeze({
+        ...startSlots.input_contract,
+        valueRef:
+          `raw-admission://abiogenesis/${substitutedInputDigest.slice("sha256:".length)}`,
+      }),
+    ],
+    [
+      "start wrong input valueDigest",
+      Object.freeze({
+        ...startSlots.input_contract,
+        valueDigest: substitutedInputDigest,
+      }),
+    ],
+    [
+      "start coherent substituted input value",
+      Object.freeze({
+        ...startSlots.input_contract,
+        valueRef:
+          `raw-admission://abiogenesis/${coherentStartAdmissionDigest.slice("sha256:".length)}`,
+        valueDigest: coherentSubstitutedValueDigest,
+        value: substitutedInputValue,
+      }),
+    ],
+  ]) {
+    await assertStartRefusal(
+      `${label} authority slot`,
+      reissueStart({
+        slots: { ...startSlots, input_contract: replacement },
+      }),
+      "invalid_input",
+    );
+    await assertStartRefusal(
+      `${label} request input`,
+      reissueStart(startRequestWithInput(replacement)),
+      "invalid_input",
+    );
+  }
+  await assertStartRefusal(
+    "start coherent wrong installed contract catalog",
+    reissueRunContractCatalog(
+      product,
+      startAuthorityInvocation,
+      siblingContractCatalog,
+    ),
+    "invalid_view",
+  );
+  await assertStartRefusal(
+    "start substituted actor",
+    reissueStart({
+      slots: {
+        ...startSlots,
+        actor: Object.freeze({
+          ...startSlots.actor,
+          actor: Object.freeze({
+            ref: substitutedActorRef,
+            digest: product.sha256Canonical({ actorRef: substitutedActorRef }),
+          }),
+        }),
+      },
+    }),
+    "invalid_capability",
+  );
+  await assertStartRefusal(
+    "start substituted grant",
+    reissueStart({
+      slots: {
+        ...startSlots,
+        capability_grants: Object.freeze({
+          ...startSlots.capability_grants,
+          grants: Object.freeze([
+            Object.freeze({
+              ref:
+                `capability-grant://abiogenesis/${substitutedGrantDigest.slice("sha256:".length)}`,
+              digest: substitutedGrantDigest,
+            }),
+            ...startSlots.capability_grants.grants.slice(1),
+          ]),
+        }),
+      },
+    }),
+    "invalid_capability",
+  );
+  const startOperationCoordinateBody = Object.freeze({
+    operationId,
+    memberKey: "start",
+    definitionDigest: startAuthorityInvocation.definitionDigest,
+    invocationRef: startAuthorityInvocation.invocationRef,
+    invocationPayloadDigest: startAuthorityInvocation.requestDigest,
+  });
+  const startOperationCoordinateDigest = product.sha256Canonical(
+    startOperationCoordinateBody,
+  );
+  const startCForEFault = await faultOf(start(Object.freeze({
+    ...startBasis.call,
+    invocation: Object.freeze({
+      ...startAuthorityInvocation,
+      invocationDigest: startOperationCoordinateDigest,
+    }),
+  })));
+  assert.equal(startCForEFault.code, "call_identity_mismatch");
+  assert.deepEqual(await readFile(scenario.eventLogPath), preStartAuthorityBytes);
+
+  const reopenedForStartCoordinateRefusal = abg.reopenEventStore(
+    direct.resources.eventResource.closeHandoff.reopenAuthority,
+  );
+  assert.equal(
+    reopenedForStartCoordinateRefusal.kind,
+    "reopened_event_store_context",
+    JSON.stringify(reopenedForStartCoordinateRefusal),
+  );
+  const startCoordinateArtifactTruth = abg.projectExactPrefixArtifactTruth(
+    direct.resources.eventResource.closeHandoff.prefix,
+  );
+  assert.equal(
+    startCoordinateArtifactTruth.kind,
+    "exact_prefix_artifact_truth_projection",
+    JSON.stringify(startCoordinateArtifactTruth),
+  );
+  const admittedStartInvocation = Object.freeze({
+    ...startAuthorityInvocation,
+    request: startBasis.admittedRequest,
+  });
+  const startEForCRefusal = abg.admitExactInvocation(
+    reopenedForStartCoordinateRefusal.store,
+    {
+      invocation: startBasis.candidate,
+      publicInvocation: admittedStartInvocation,
+      rawInput: startBasis.rawInput,
+      programPublication: startBasis.resolution.programPublication,
+      executionResolution: startBasis.resolution.resolution,
+      program: startBasis.resolution.program,
+      graphFunction: startBasis.resolution.selectedCatalogEntry.definition,
+      programValidation: startBasis.resolution.programValidation,
+      workspaceBinding: startBasis.workspaceBinding,
+      artifactTruth: startCoordinateArtifactTruth,
+      catalogView,
+      catalogApplications: [],
+      policy: startBasis.policy,
+      capabilityGrants: startBasis.grants,
+      authority: startBasis.authority,
+    },
+    Object.freeze({
+      ...startOperationCoordinateBody,
+      invocationDigest: startAuthorityInvocation.invocationDigest,
+      authorityScopeRef: startBasis.workspaceBinding.bindingId,
+      authorityScopeDigest: startBasis.workspaceBinding.bindingDigest,
+      correlationId: startAuthorityInvocation.correlationRef,
+      eventTime: startAuthorityInvocation.eventTime,
+      causationEventRefs: Object.freeze([]),
+    }),
+  );
+  assert.equal(startEForCRefusal.code, "operation_mismatch");
+  assert.deepEqual(
+    reopenedForStartCoordinateRefusal.store.projectReopenAuthorityAndClose(),
+    direct.resources.eventResource.closeHandoff,
+    "start E-for-C refusal closes at the unchanged exact prefix",
+  );
+  assert.deepEqual(await readFile(scenario.eventLogPath), preStartAuthorityBytes);
+
+  const started = await runVerifiedInstalledDefinitionInFreshProcess(
+    harness,
+    installedStartBasis,
+    startBasis.call,
+    "start-completed",
+  );
   assert.equal(started.ownerOutput.outcomeKind, "result");
   assert.equal(started.ownerOutput.value.disposition, "completed");
   assert.deepEqual(
@@ -1558,6 +2367,106 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
     product.sha256Canonical(startBasis.admittedRequest),
   );
 
+  const preOpenFailureBasis = await exactInstalledRunCall({
+    publicApi,
+    product,
+    validator,
+    scenario,
+    catalog,
+    catalogView,
+    memberKey: "invoke",
+    catalogHandle: gtl.HELLO_WORLD_DIRECT_IDS.handle,
+    programRef: gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+    eventResource: reopenEventResource(
+      product,
+      started.resources.eventResource.closeHandoff,
+    ),
+    ordinal: 12,
+  });
+  const preOpenFailure = await invokeWithInjectedPreOpenFailure(
+    harness,
+    installedInvokeBasis,
+    preOpenFailureBasis.call,
+  );
+  assert.equal(preOpenFailure.kind, "injected_pre_open_failure");
+  assert.equal(preOpenFailure.fault.kind, "definition_execution_fault");
+  assert.equal(preOpenFailure.fault.faultBoundary, "post_append");
+  assert.equal(preOpenFailure.fault.stage, "graph_materialization");
+  assert.deepEqual(
+    preOpenFailure.fault.resourceReceipt.eventResource.entryPrefix,
+    started.resources.eventResource.closeHandoff.prefix,
+  );
+  const preOpenHandoff =
+    preOpenFailure.fault.resourceReceipt.eventResource.closeHandoff;
+  assert.ok(
+    preOpenHandoff.prefix.prefixLength >
+      started.resources.eventResource.closeHandoff.prefix.prefixLength,
+  );
+  const preOpenBytes = await readFile(scenario.eventLogPath);
+  assert.equal(preOpenBytes.byteLength, preOpenHandoff.prefix.prefixLength);
+  const preOpenEvents = abg.readRuntimeEventsAtDurablePrefix(
+    preOpenHandoff.prefix,
+  );
+  const preOpenSuffix = preOpenEvents.slice(startedEvents.length);
+  assert.deepEqual(
+    preOpenSuffix.map((row) => row.kind),
+    ["public_operation_admitted", "invocation_admitted"],
+    "pre-open failure returns the exact latest durable invocation prefix",
+  );
+
+  const executionBasisFailureBasis = await exactInstalledRunCall({
+    publicApi,
+    product,
+    validator,
+    scenario,
+    catalog,
+    catalogView,
+    memberKey: "invoke",
+    catalogHandle: gtl.HELLO_WORLD_DIRECT_IDS.handle,
+    programRef: gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+    eventResource: reopenEventResource(product, preOpenHandoff),
+    ordinal: 13,
+  });
+  const executionBasisFailure =
+    await invokeWithInjectedExecutionBasisPostCommitFailure(
+      harness,
+      installedInvokeBasis,
+      executionBasisFailureBasis.call,
+    );
+  assert.equal(
+    executionBasisFailure.kind,
+    "injected_execution_basis_post_commit_failure",
+  );
+  assert.equal(executionBasisFailure.fault.kind, "definition_execution_fault");
+  assert.equal(executionBasisFailure.fault.faultBoundary, "post_append");
+  assert.equal(executionBasisFailure.fault.stage, "execution_basis");
+  assert.deepEqual(
+    executionBasisFailure.fault.resourceReceipt.eventResource.entryPrefix,
+    preOpenHandoff.prefix,
+  );
+  const executionBasisFailureHandoff =
+    executionBasisFailure.fault.resourceReceipt.eventResource.closeHandoff;
+  assert.ok(
+    executionBasisFailureHandoff.prefix.prefixLength >
+      preOpenHandoff.prefix.prefixLength,
+  );
+  const executionBasisFailureEvents = abg.readRuntimeEventsAtDurablePrefix(
+    executionBasisFailureHandoff.prefix,
+  );
+  const executionBasisFailureSuffix = executionBasisFailureEvents.slice(
+    preOpenEvents.length,
+  );
+  assert.ok(
+    executionBasisFailureSuffix.some((row) => row.kind === "invocation_admitted"),
+  );
+  assert.ok(
+    executionBasisFailureSuffix.some((row) => row.kind === "basis_admitted"),
+  );
+  assert.equal(
+    executionBasisFailureSuffix.some((row) => row.kind === "frame_opened"),
+    false,
+  );
+
   const failureBasis = await exactInstalledRunCall({
     publicApi,
     product,
@@ -1570,9 +2479,9 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
     programRef: gtl.HELLO_WORLD_IDS.programRef,
     eventResource: reopenEventResource(
       product,
-      started.resources.eventResource.closeHandoff,
+      executionBasisFailureHandoff,
     ),
-    ordinal: 12,
+    ordinal: 14,
   });
   const installedManifest = JSON.parse(await readFile(
     join(
@@ -1593,7 +2502,12 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
   const baselineFrameCount = startedEvents.filter(
     (row) => row.kind === "frame_opened",
   ).length;
-  const failedProgram = Effect.runPromise(start(failureBasis.call));
+  const failedProgram = runVerifiedInstalledDefinitionInFreshProcess(
+    harness,
+    installedStartBasis,
+    failureBasis.call,
+    "start-post-open-failure",
+  );
   await waitForAdditionalFrameOpen(scenario.eventLogPath, baselineFrameCount);
   await rename(mutationTarget, heldMutationTarget);
   let failed;
@@ -1606,7 +2520,7 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
   assert.equal(failed.ownerOutput.value.disposition, "runtime_failed");
   assert.deepEqual(
     failed.resources.eventResource.entryPrefix,
-    started.resources.eventResource.closeHandoff.prefix,
+    executionBasisFailureHandoff.prefix,
   );
   assert.equal(
     failed.resources.eventResource.closeHandoff.reopenAuthority.durableByteLength,
@@ -1620,7 +2534,7 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
   const failedEvents = abg.readRuntimeEventsAtDurablePrefix(
     failed.resources.eventResource.closeHandoff.prefix,
   );
-  const failureSuffix = failedEvents.slice(startedEvents.length);
+  const failureSuffix = failedEvents.slice(executionBasisFailureEvents.length);
   assert.deepEqual(
     failureSuffix.filter((row) => row.kind === "runtime_failure_observed")
       .map((row) => row.payload.stage),
@@ -1648,9 +2562,14 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
       product,
       failed.resources.eventResource.closeHandoff,
     ),
-    ordinal: 13,
+    ordinal: 15,
   });
-  const recovered = await Effect.runPromise(start(recoveryBasis.call));
+  const recovered = await runVerifiedInstalledDefinitionInFreshProcess(
+    harness,
+    installedStartBasis,
+    recoveryBasis.call,
+    "start-recovery",
+  );
   assert.equal(recovered.ownerOutput.outcomeKind, "result");
   assert.equal(recovered.ownerOutput.value.disposition, "completed");
   assert.deepEqual(

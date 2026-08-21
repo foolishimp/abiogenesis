@@ -1,9 +1,13 @@
 import * as Effect from "effect/Effect";
+import * as v from "valibot";
 
 import {
   abandonAbgEventResource,
   acquireAbgEventResource,
   closeAbgEventResource,
+  validateAbgEventResourceAssertion,
+  validateAbgEventResourceReceipt,
+  type AcquiredAbgEventResource,
   type AbgEventResourceAssertion,
   type AbgEventResourceReceipt,
 } from "../abg/definition_event_resource.js";
@@ -27,26 +31,31 @@ import {
 import {
   definitionFault,
   hasExactKeys,
-  isDefinitionFault,
   isRecord,
   reference,
   sameCoordinate,
   sameJson,
   validatedOwnerOutput,
 } from "../shared/definition_binding_mechanics.js";
-import type {
-  DefinitionCall,
-  DefinitionExecutionFault,
-  DefinitionReturn,
-  ExactDefinitionCallable,
+import {
+  admitDefinitionExecutionFault,
+  type DefinitionCall,
+  type DefinitionReturn,
+  type ExactDefinitionCallable,
+  type PreDefinitionExecutionFault,
 } from "../shared/effect_definition.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type {
-  OwnerRefusalOf,
-  OwnerSemanticOutput,
+import {
+  refDigestSchema,
+  type OwnerRefusalOf,
+  type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
+import {
+  bindExactPrefixRead,
+  bindStaticOwner,
+} from "../shared/static_definition_bindings.js";
 import type {
   CatalogConstructionRefusal,
   CatalogReadinessBasis,
@@ -97,7 +106,10 @@ type ApplyPacket = NodeTypePacket | OverlayPacket;
 export interface CatalogAdmissionResourceAssertion {
   readonly kind: "catalog_admission_resource_assertion";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceAssertion;
+  readonly eventResource: Extract<
+    AbgEventResourceAssertion,
+    { readonly kind: "reopen_abg_event_resource" }
+  >;
   readonly workspaceBinding: WorkspaceBinding;
   readonly resolvedLock: ResolvedProductLock;
   readonly verifiedProducts: readonly VerifiedProductArtifact[];
@@ -109,7 +121,9 @@ export interface CatalogAdmissionResourceReceipt {
   readonly kind: "catalog_admission_resource_receipt";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "read_only_unchanged";
-  readonly eventResource: AbgEventResourceReceipt;
+  readonly eventResource: AbgEventResourceReceipt & Readonly<{
+    readonly acquisitionKind: "reopen";
+  }>;
   readonly workspaceBinding: ReferenceDigest<"WorkspaceBinding">;
   readonly resolvedLock: ReferenceDigest<"ResolvedProductLock">;
   readonly installedProducts: readonly ReferenceDigest<"InstalledProduct">[];
@@ -158,13 +172,89 @@ export interface CatalogApplicationResourceReceipt {
   readonly application: ReferenceDigest<"CatalogApplication"> | null;
 }
 
+const CATALOG_ADMISSION_RESOURCE_ASSERTION_SCHEMA = v.custom<
+  CatalogAdmissionResourceAssertion
+>(validAdmissionStructure, "catalog_admission_resource_assertion");
+
+const CATALOG_VIEW_RESOURCE_ASSERTION_SCHEMA = v.custom<
+  CatalogViewResourceAssertion
+>(validCatalogViewResourceAssertion, "catalog_view_resource_assertion");
+
+const CATALOG_APPLICATION_RESOURCE_ASSERTION_SCHEMA = v.custom<
+  CatalogApplicationResourceAssertion
+>(validCatalogApplicationResourceAssertion, "catalog_application_resource_assertion");
+
+const CATALOG_ADMISSION_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+  kind: v.literal("catalog_admission_resource_receipt"),
+  schemaVersion: v.literal("5.0.0"),
+  disposition: v.literal("read_only_unchanged"),
+  eventResource: v.custom<CatalogAdmissionResourceReceipt["eventResource"]>(
+    (candidate) => validateAbgEventResourceReceipt(candidate) &&
+      candidate.acquisitionKind === "reopen",
+    "abg_event_resource_receipt",
+  ),
+  workspaceBinding: refDigestSchema,
+  resolvedLock: refDigestSchema,
+  installedProducts: v.array(refDigestSchema),
+  descriptors: v.array(refDigestSchema),
+  contributionManifests: v.array(refDigestSchema),
+  publishedGtl: v.array(refDigestSchema),
+  catalog: v.nullable(refDigestSchema),
+}) as v.GenericSchema<
+  CatalogAdmissionResourceReceipt,
+  CatalogAdmissionResourceReceipt
+>;
+
+const CATALOG_VIEW_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+  kind: v.literal("catalog_view_resource_receipt"),
+  schemaVersion: v.literal("5.0.0"),
+  disposition: v.literal("read_only_unchanged"),
+  catalog: refDigestSchema,
+  view: v.nullable(refDigestSchema),
+}) as v.GenericSchema<
+  CatalogViewResourceReceipt,
+  CatalogViewResourceReceipt
+>;
+
+const CATALOG_APPLICATION_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+  kind: v.literal("catalog_application_resource_receipt"),
+  schemaVersion: v.literal("5.0.0"),
+  disposition: v.literal("read_only_unchanged"),
+  catalog: refDigestSchema,
+  catalogRow: refDigestSchema,
+  catalogView: refDigestSchema,
+  applicationBasis: refDigestSchema,
+  validationReceipt: refDigestSchema,
+  contributor: refDigestSchema,
+  application: v.nullable(refDigestSchema),
+}) as v.GenericSchema<
+  CatalogApplicationResourceReceipt,
+  CatalogApplicationResourceReceipt
+>;
+
 function fault<TPacket extends AdmitPacket | ViewPacket | ApplyPacket>(
   call: DefinitionCall<TPacket, unknown>,
   stage: string,
   code: string,
   message: string,
-): DefinitionExecutionFault<TPacket["definitionKey"]> {
+): PreDefinitionExecutionFault<TPacket["definitionKey"]> {
   return definitionFault(call.invocation.definitionKey, stage, code, message);
+}
+
+function isCatalogReadEventResourceReceipt(
+  receipt: AbgEventResourceReceipt,
+): receipt is CatalogAdmissionResourceReceipt["eventResource"] {
+  return receipt.acquisitionKind === "reopen";
+}
+
+function closeCatalogReadEventResource(
+  resource: AcquiredAbgEventResource,
+): CatalogAdmissionResourceReceipt["eventResource"] {
+  const receipt = closeAbgEventResource(resource, resource.entryPrefix);
+  if (!isCatalogReadEventResourceReceipt(receipt)) {
+    throw new TypeError("Product catalog admission closed a non-reopened event resource");
+  }
+  return receipt;
 }
 
 function workspaceCoordinate(
@@ -266,10 +356,9 @@ function candidateCoordinate(
   );
 }
 
-function validateAdmissionStructure(
-  call: DefinitionCall<AdmitPacket, CatalogAdmissionResourceAssertion>,
-): DefinitionExecutionFault<AdmitPacket["definitionKey"]> | null {
-  const resources = call.resources;
+function validAdmissionStructure(
+  resources: unknown,
+): resources is CatalogAdmissionResourceAssertion {
   if (
     !isRecord(resources) ||
     !hasExactKeys(resources, [
@@ -284,23 +373,67 @@ function validateAdmissionStructure(
     ]) ||
     resources.kind !== "catalog_admission_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
+    !validateAbgEventResourceAssertion(resources.eventResource) ||
     resources.eventResource.kind !== "reopen_abg_event_resource" ||
     !sameJson(resources, resources) ||
-    !isResolvedProductLock(resources.resolvedLock) ||
-    !Array.isArray(resources.verifiedProducts) ||
-    resources.verifiedProducts.length === 0 ||
-    resources.verifiedProducts.some((value) => !isVerifiedProductArtifact(value)) ||
-    !Array.isArray(resources.admittedInstalls) ||
-    resources.admittedInstalls.length === 0 ||
-    resources.admittedInstalls.some((value) =>
-      !isProductInstall(value, resources.resolvedLock)
-    ) ||
-    !Array.isArray(resources.publications) ||
-    resources.publications.length === 0 ||
-    !isRecord(resources.workspaceBinding) ||
-    resources.workspaceBinding.kind !== "workspace_binding" ||
-    typeof resources.workspaceBinding.admissionEventRef !== "string"
-  ) {
+    !isResolvedProductLock(resources.resolvedLock)
+  ) return false;
+  const resolvedLock = resources.resolvedLock;
+  return Array.isArray(resources.verifiedProducts) &&
+    resources.verifiedProducts.length > 0 &&
+    resources.verifiedProducts.every(isVerifiedProductArtifact) &&
+    Array.isArray(resources.admittedInstalls) &&
+    resources.admittedInstalls.length > 0 &&
+    resources.admittedInstalls.every((value) =>
+      isProductInstall(value, resolvedLock)
+    ) &&
+    Array.isArray(resources.publications) &&
+    resources.publications.length > 0 &&
+    isRecord(resources.workspaceBinding) &&
+    resources.workspaceBinding.kind === "workspace_binding" &&
+    typeof resources.workspaceBinding.admissionEventRef === "string";
+}
+
+function validCatalogViewResourceAssertion(
+  resources: unknown,
+): resources is CatalogViewResourceAssertion {
+  return isRecord(resources) &&
+    hasExactKeys(resources, ["catalog", "kind", "schemaVersion"]) &&
+    resources.kind === "catalog_view_resource_assertion" &&
+    resources.schemaVersion === "5.0.0" &&
+    isRecord(resources.catalog) &&
+    sameJson(resources, resources);
+}
+
+function validCatalogApplicationResourceAssertion(
+  resources: unknown,
+): resources is CatalogApplicationResourceAssertion {
+  return isRecord(resources) &&
+    hasExactKeys(resources, [
+      "applicationBasis",
+      "catalog",
+      "catalogRow",
+      "catalogView",
+      "contributor",
+      "kind",
+      "schemaVersion",
+      "validationReceipt",
+    ]) &&
+    resources.kind === "catalog_application_resource_assertion" &&
+    resources.schemaVersion === "5.0.0" &&
+    isRecord(resources.catalog) &&
+    isRecord(resources.catalogRow) &&
+    isRecord(resources.catalogView) &&
+    v.is(refDigestSchema, resources.applicationBasis) &&
+    v.is(refDigestSchema, resources.validationReceipt) &&
+    v.is(refDigestSchema, resources.contributor) &&
+    sameJson(resources, resources);
+}
+
+function validateAdmissionStructure(
+  call: DefinitionCall<AdmitPacket, CatalogAdmissionResourceAssertion>,
+): PreDefinitionExecutionFault<AdmitPacket["definitionKey"]> | null {
+  if (!validAdmissionStructure(call.resources)) {
     return fault(
       call,
       "resource_admission",
@@ -311,19 +444,32 @@ function validateAdmissionStructure(
   return null;
 }
 
+type CatalogReadinessBasisAdmission =
+  | Readonly<{
+      readonly disposition: "admitted";
+      readonly basis: CatalogReadinessBasis;
+    }>
+  | Readonly<{
+      readonly disposition: "refused";
+      readonly fault: PreDefinitionExecutionFault<AdmitPacket["definitionKey"]>;
+    }>;
+
 function reconstructReadinessBasis(
   call: DefinitionCall<AdmitPacket, CatalogAdmissionResourceAssertion>,
   prefix: DurablePrefixCoordinate,
-): CatalogReadinessBasis | DefinitionExecutionFault<AdmitPacket["definitionKey"]> {
+): CatalogReadinessBasisAdmission {
   const resources = call.resources;
   const truth = projectExactPrefixArtifactTruth(prefix);
   if (truth.kind !== "exact_prefix_artifact_truth_projection") {
-    return fault(
-      call,
-      "resource_admission",
-      "environment_prefix_refusal",
-      canonicalJson(truth as unknown as JsonValue),
-    );
+    return deepFreeze({
+      disposition: "refused" as const,
+      fault: fault(
+        call,
+        "resource_admission",
+        "environment_prefix_refusal",
+        canonicalJson(truth as unknown as JsonValue),
+      ),
+    });
   }
   if (
     !hasAdmittedWorkspaceBinding(truth, resources.workspaceBinding) ||
@@ -331,12 +477,15 @@ function reconstructReadinessBasis(
       !hasAdmittedProductInstall(truth, install)
     )
   ) {
-    return fault(
-      call,
-      "resource_admission",
-      "unadmitted_catalog_basis",
-      "catalog readiness resources are absent from the supplied exact ABG environment prefix",
-    );
+    return deepFreeze({
+      disposition: "refused" as const,
+      fault: fault(
+        call,
+        "resource_admission",
+        "unadmitted_catalog_basis",
+        "catalog readiness resources are absent from the supplied exact ABG environment prefix",
+      ),
+    });
   }
   const workspaceRow = truth.rows.find((row) =>
     row.admissionEventRef === resources.workspaceBinding.admissionEventRef
@@ -363,12 +512,15 @@ function reconstructReadinessBasis(
       !sameJson(value!.resolvedLock, resources.resolvedLock)
     )
   ) {
-    return fault(
-      call,
-      "resource_admission",
-      "catalog_basis_projection_mismatch",
-      "catalog readiness inputs differ from independently reconstructed ABG artifact truth",
-    );
+    return deepFreeze({
+      disposition: "refused" as const,
+      fault: fault(
+        call,
+        "resource_admission",
+        "catalog_basis_projection_mismatch",
+        "catalog readiness inputs differ from independently reconstructed ABG artifact truth",
+      ),
+    });
   }
   const basis: CatalogReadinessBasis = {
     workspaceBinding: workspace.candidate,
@@ -398,14 +550,17 @@ function reconstructReadinessBasis(
       resources.admittedInstalls.map(productInstallCoordinate),
     )
   ) {
-    return fault(
-      call,
-      "resource_admission",
-      "resource_relation_mismatch",
-      "catalog readiness resources differ from the admitted request or invocation authority",
-    );
+    return deepFreeze({
+      disposition: "refused" as const,
+      fault: fault(
+        call,
+        "resource_admission",
+        "resource_relation_mismatch",
+        "catalog readiness resources differ from the admitted request or invocation authority",
+      ),
+    });
   }
-  return basis;
+  return deepFreeze({ disposition: "admitted" as const, basis });
 }
 
 function catalogRefusal(
@@ -569,7 +724,7 @@ function projectAdmissionRows(
 
 function admissionReceipt(
   resources: CatalogAdmissionResourceAssertion,
-  eventResource: AbgEventResourceReceipt,
+  eventResource: CatalogAdmissionResourceReceipt["eventResource"],
   catalog: ReadyGraphFunctionCatalog | null,
 ): CatalogAdmissionResourceReceipt {
   return deepFreeze({
@@ -591,7 +746,7 @@ function admissionReceipt(
   });
 }
 
-const admit: ExactDefinitionCallable<
+const admitOwner: ExactDefinitionCallable<
   AdmitPacket,
   CatalogAdmissionResourceAssertion,
   CatalogAdmissionResourceReceipt
@@ -601,18 +756,35 @@ const admit: ExactDefinitionCallable<
   return Effect.try({
     try: (): DefinitionReturn<AdmitPacket, CatalogAdmissionResourceReceipt> => {
       const acquired = acquireAbgEventResource(call.resources.eventResource);
-      if (acquired.kind !== "acquired_abg_event_resource") {
-        throw fault(call, "resource_acquisition", acquired.code, acquired.message);
+      if (
+        acquired.kind !== "acquired_abg_event_resource" ||
+        acquired.resource.acquisitionKind !== "reopen"
+      ) {
+        throw fault(
+          call,
+          "resource_acquisition",
+          acquired.kind === "abg_event_resource_refusal"
+            ? acquired.code
+            : "invalid_resource_assertion",
+          acquired.kind === "abg_event_resource_refusal"
+            ? acquired.message
+            : "Product catalog admission requires a reopened event resource",
+        );
       }
       const resource = acquired.resource;
       try {
-        const basis = reconstructReadinessBasis(call, resource.entryPrefix);
-        if (isDefinitionFault(basis)) throw basis;
+        const basisAdmission = reconstructReadinessBasis(
+          call,
+          resource.entryPrefix,
+        );
+        if (basisAdmission.disposition === "refused") {
+          throw basisAdmission.fault;
+        }
         const nativePacket: CatalogAdmitPacket = {
           kind: "catalog_admit_packet",
           schemaVersion: "5.0.0",
           memberKey: "admit",
-          readinessBasis: basis,
+          readinessBasis: basisAdmission.basis,
         };
         const native = CatalogOperationPort.admit(nativePacket);
         if (native.kind !== "graph_function_catalog") {
@@ -620,7 +792,7 @@ const admit: ExactDefinitionCallable<
             ownerOutput: projectCatalogRefusal(native),
             resources: admissionReceipt(
               call.resources,
-              closeAbgEventResource(resource, resource.entryPrefix),
+              closeCatalogReadEventResource(resource),
               null,
             ),
           });
@@ -634,7 +806,7 @@ const admit: ExactDefinitionCallable<
             ),
             resources: admissionReceipt(
               call.resources,
-              closeAbgEventResource(resource, resource.entryPrefix),
+              closeCatalogReadEventResource(resource),
               null,
             ),
           });
@@ -663,7 +835,7 @@ const admit: ExactDefinitionCallable<
           ownerOutput,
           resources: admissionReceipt(
             call.resources,
-            closeAbgEventResource(resource, resource.entryPrefix),
+            closeCatalogReadEventResource(resource),
             native,
           ),
         });
@@ -672,16 +844,29 @@ const admit: ExactDefinitionCallable<
         throw cause;
       }
     },
-    catch: (cause) => isDefinitionFault(cause)
-      ? cause as DefinitionExecutionFault<AdmitPacket["definitionKey"]>
-      : fault(
-          call,
-          "owner_execution",
-          "catalog_admission_execution_failure",
-          String(cause),
-        ),
+    catch: (cause) => {
+      const admittedFault = admitDefinitionExecutionFault(
+        cause,
+        call.invocation.definitionKey,
+        (candidate) => v.is(
+            CATALOG_ADMISSION_RESOURCE_RECEIPT_SCHEMA,
+            candidate,
+          )
+          ? { resourceReceipt: candidate }
+          : null,
+      );
+      if (admittedFault !== null) return admittedFault;
+      throw cause;
+    },
   });
 };
+
+const admit = bindExactPrefixRead(
+  CATALOG_OPERATION_CONTRACTS.admit,
+  admitOwner,
+  CATALOG_ADMISSION_RESOURCE_ASSERTION_SCHEMA,
+  CATALOG_ADMISSION_RESOURCE_RECEIPT_SCHEMA,
+);
 
 function reconstructCatalog(
   candidate: ReadyGraphFunctionCatalog,
@@ -712,20 +897,14 @@ function viewRefusal(
   } as OwnerSemanticOutput<ViewPacket>, "Product catalog view");
 }
 
-const allowlist: ExactDefinitionCallable<
+const allowlistOwner: ExactDefinitionCallable<
   ViewPacket,
   CatalogViewResourceAssertion,
   CatalogViewResourceReceipt
 > = (call) => Effect.try({
   try: (): DefinitionReturn<ViewPacket, CatalogViewResourceReceipt> => {
     const resources = call.resources;
-    if (
-      !isRecord(resources) ||
-      !hasExactKeys(resources, ["catalog", "kind", "schemaVersion"]) ||
-      resources.kind !== "catalog_view_resource_assertion" ||
-      resources.schemaVersion !== "5.0.0" ||
-      !sameJson(resources, resources)
-    ) {
+    if (!validCatalogViewResourceAssertion(resources)) {
       throw fault(call, "resource_admission", "invalid_resource_assertion", "catalog view requires one exact immutable catalog resource");
     }
     const catalog = reconstructCatalog(resources.catalog);
@@ -788,10 +967,25 @@ const allowlist: ExactDefinitionCallable<
       },
     });
   },
-  catch: (cause) => isDefinitionFault(cause)
-    ? cause as DefinitionExecutionFault<ViewPacket["definitionKey"]>
-    : fault(call, "owner_execution", "catalog_view_execution_failure", String(cause)),
+  catch: (cause) => {
+    const admittedFault = admitDefinitionExecutionFault(
+      cause,
+      call.invocation.definitionKey,
+      (candidate) => v.is(CATALOG_VIEW_RESOURCE_RECEIPT_SCHEMA, candidate)
+        ? { resourceReceipt: candidate }
+        : null,
+    );
+    if (admittedFault !== null) return admittedFault;
+    throw cause;
+  },
 });
+
+const allowlist = bindStaticOwner(
+  CATALOG_OPERATION_CONTRACTS.view.allowlist,
+  allowlistOwner,
+  CATALOG_VIEW_RESOURCE_ASSERTION_SCHEMA,
+  CATALOG_VIEW_RESOURCE_RECEIPT_SCHEMA,
+);
 
 function reconstructCatalogView(
   catalogCandidate: ReadyGraphFunctionCatalog,
@@ -844,33 +1038,19 @@ function applyReceipt(
   });
 }
 
-function createApplyBinding<TPacket extends ApplyPacket>(
+function applyCatalog<TPacket extends ApplyPacket>(
   packet: TPacket,
-): ExactDefinitionCallable<
+  call: DefinitionCall<TPacket, CatalogApplicationResourceAssertion>,
+): ReturnType<ExactDefinitionCallable<
   TPacket,
   CatalogApplicationResourceAssertion,
   CatalogApplicationResourceReceipt
-> {
-  return (call) => Effect.try({
+>> {
+  return Effect.try({
     try: (): DefinitionReturn<TPacket, CatalogApplicationResourceReceipt> => {
       const resources = call.resources;
       const request = call.invocation.request;
-      if (
-        !isRecord(resources) ||
-        !hasExactKeys(resources, [
-          "applicationBasis",
-          "catalog",
-          "catalogRow",
-          "catalogView",
-          "contributor",
-          "kind",
-          "schemaVersion",
-          "validationReceipt",
-        ]) ||
-        resources.kind !== "catalog_application_resource_assertion" ||
-        resources.schemaVersion !== "5.0.0" ||
-        !sameJson(resources, resources)
-      ) {
+      if (!validCatalogApplicationResourceAssertion(resources)) {
         throw fault(call, "resource_admission", "invalid_resource_assertion", "catalog application requires exact immutable catalog, view, row, application, validation, and contributor resources");
       }
       const reconstructed = reconstructCatalogView(
@@ -957,14 +1137,41 @@ function createApplyBinding<TPacket extends ApplyPacket>(
         resources: applyReceipt(resources, native),
       });
     },
-    catch: (cause) => isDefinitionFault(cause)
-      ? cause as DefinitionExecutionFault<TPacket["definitionKey"]>
-      : fault(call, "owner_execution", "catalog_application_execution_failure", String(cause)),
+    catch: (cause) => {
+      const admittedFault = admitDefinitionExecutionFault(
+        cause,
+        call.invocation.definitionKey,
+        (candidate) => v.is(
+            CATALOG_APPLICATION_RESOURCE_RECEIPT_SCHEMA,
+            candidate,
+          )
+          ? { resourceReceipt: candidate }
+          : null,
+      );
+      if (admittedFault !== null) return admittedFault;
+      throw cause;
+    },
   });
 }
 
-const node_type = createApplyBinding(CATALOG_OPERATION_CONTRACTS.apply.node_type);
-const overlay = createApplyBinding(CATALOG_OPERATION_CONTRACTS.apply.overlay);
+const node_type = bindStaticOwner(
+  CATALOG_OPERATION_CONTRACTS.apply.node_type,
+  (call) => applyCatalog(
+    CATALOG_OPERATION_CONTRACTS.apply.node_type,
+    call,
+  ),
+  CATALOG_APPLICATION_RESOURCE_ASSERTION_SCHEMA,
+  CATALOG_APPLICATION_RESOURCE_RECEIPT_SCHEMA,
+);
+const overlay = bindStaticOwner(
+  CATALOG_OPERATION_CONTRACTS.apply.overlay,
+  (call) => applyCatalog(
+    CATALOG_OPERATION_CONTRACTS.apply.overlay,
+    call,
+  ),
+  CATALOG_APPLICATION_RESOURCE_ASSERTION_SCHEMA,
+  CATALOG_APPLICATION_RESOURCE_RECEIPT_SCHEMA,
+);
 
 export const CATALOG_DEFINITION_BINDINGS = Object.freeze({
   admit,

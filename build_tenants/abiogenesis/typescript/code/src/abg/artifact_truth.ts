@@ -6,11 +6,11 @@ import {
   isWorkspaceAuthorityBasis,
   isWorkspaceBindingCandidate,
   type ProductInstall,
-  type ProductInstallCandidate,
   type ResolvedProductLock,
   type WorkspaceAuthorityBasis,
   type WorkspaceBindingCandidate,
-} from "../product/index.js";
+} from "../product/environment.js";
+import type { ProductInstallCandidate } from "../product/contracts.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";

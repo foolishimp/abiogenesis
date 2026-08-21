@@ -1,35 +1,41 @@
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import * as Effect from "effect/Effect";
+import * as v from "valibot";
 
 import {
+  AbgEventResourceCloseFailure,
   abandonAbgEventResource,
   acquireAbgEventResource,
   closeAbgEventResource,
+  validateAbgEventResourceAssertion,
+  validateAbgEventResourceReceipt,
   type AbgEventResourceAssertion,
   type AbgEventResourceReceipt,
 } from "../abg/definition_event_resource.js";
 import {
+  ArtifactAdmissionPostAppendFailure,
   admitProductInstall,
   projectAdmittedProductInstall,
   type ArtifactAdmissionBasis,
 } from "../abg/environment_admission.js";
-import type { JsonValue } from "../shared/canonical_json.js";
+import type { DurablePrefixCoordinate } from "../abg/event_store.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import {
   definitionFault,
   hasExactKeys,
-  isDefinitionFault,
   isRecord,
   reference,
   sameCoordinate,
   sameJson,
-  validatedOwnerOutput,
 } from "../shared/definition_binding_mechanics.js";
-import type {
-  DefinitionCall,
-  DefinitionExecutionFault,
-  DefinitionReturn,
-  ExactDefinitionCallable,
+import {
+  admitDefinitionExecutionFault,
+  postAppendDefinitionFault,
+  type DefinitionCall,
+  type DefinitionExecutionFault,
+  type DefinitionReturn,
+  type ExactDefinitionCallable,
 } from "../shared/effect_definition.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { constructExactOperationInvocationCoordinate } from
@@ -38,7 +44,15 @@ import type {
   OwnerRefusalOf,
   OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
+import {
+  absolutePathSchema,
+  digestSchema,
+  nonblankSchema,
+  refDigestSchema,
+} from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
+import { bindExactPrefixTransition } from
+  "../shared/static_definition_bindings.js";
 import type {
   ProductInstallCandidate,
   ProductInstallRefusal,
@@ -58,6 +72,10 @@ import {
   ProductInstallPort,
   type ProductInstallPacket,
 } from "./install_operation.js";
+import {
+  validatePhysicalArtifactEffectEvidence,
+  type PhysicalArtifactEffectEvidence,
+} from "./physical_artifact_effect.js";
 import {
   isVerifiedProductArtifact,
   productVerificationCoordinates,
@@ -86,6 +104,90 @@ export interface ProductInstallResourceReceipt {
   readonly installedProduct: ReferenceDigest<"InstalledProduct"> | null;
   readonly installManifest: ReferenceDigest<"InstallManifest"> | null;
   readonly installerManifest: ReferenceDigest<"InstallerManifest"> | null;
+  readonly physicalEffect: PhysicalArtifactEffectEvidence | null;
+}
+
+const PRODUCT_VERIFICATION_ARTIFACT_RESOURCE_SCHEMA = v.strictObject({
+  kind: v.literal("product_verification_artifact_resource"),
+  schemaVersion: v.literal("5.0.0"),
+  artifactPath: absolutePathSchema,
+  artifact: refDigestSchema,
+  productContent: refDigestSchema,
+  descriptor: refDigestSchema,
+  contributionManifest: refDigestSchema,
+  manifestDigest: digestSchema,
+  productId: nonblankSchema,
+  packageName: nonblankSchema,
+  packageVersion: nonblankSchema,
+});
+
+const PRODUCT_INSTALL_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
+  kind: v.literal("product_install_resource_assertion"),
+  schemaVersion: v.literal("5.0.0"),
+  eventResource: v.custom<AbgEventResourceAssertion>(
+    validateAbgEventResourceAssertion,
+    "abg_event_resource_assertion",
+  ),
+  packedArtifact: PRODUCT_VERIFICATION_ARTIFACT_RESOURCE_SCHEMA,
+  verifiedArtifact: v.custom<VerifiedProductArtifact>(
+    isVerifiedProductArtifact,
+    "verified_product_artifact",
+  ),
+  resolvedLock: v.custom<ResolvedProductLock>(
+    isResolvedProductLock,
+    "resolved_product_lock",
+  ),
+}) as v.GenericSchema<
+  ProductInstallResourceAssertion,
+  ProductInstallResourceAssertion
+>;
+
+const PRODUCT_INSTALL_RESOURCE_RECEIPT_SCHEMA = v.pipe(
+  v.strictObject({
+    kind: v.literal("product_install_resource_receipt"),
+    schemaVersion: v.literal("5.0.0"),
+    eventResource: v.custom<AbgEventResourceReceipt>(
+      validateAbgEventResourceReceipt,
+    ),
+    packedArtifact: refDigestSchema,
+    resolvedLock: refDigestSchema,
+    targetRoot: absolutePathSchema,
+    installCandidate: v.nullable(refDigestSchema),
+    installedProduct: v.nullable(refDigestSchema),
+    installManifest: v.nullable(refDigestSchema),
+    installerManifest: v.nullable(refDigestSchema),
+    physicalEffect: v.nullable(
+      v.custom<PhysicalArtifactEffectEvidence>(
+        validatePhysicalArtifactEffectEvidence,
+      ),
+    ),
+  }),
+  v.check(
+    (candidate) => candidate.physicalEffect === null ||
+      (candidate.physicalEffect.owner === "product_install" &&
+        candidate.physicalEffect.targetRoot === resolve(candidate.targetRoot)),
+    "product_install_physical_effect_relation",
+  ),
+) as v.GenericSchema<
+  ProductInstallResourceReceipt,
+  ProductInstallResourceReceipt
+>;
+
+function admittedInstallFault(
+  candidate: unknown,
+  expectedDefinitionKey: InstallPacket["definitionKey"],
+): DefinitionExecutionFault<
+  InstallPacket["definitionKey"],
+  ProductInstallResourceReceipt
+> | null {
+  return admitDefinitionExecutionFault(
+    candidate,
+    expectedDefinitionKey,
+    (receiptCandidate) =>
+      v.is(PRODUCT_INSTALL_RESOURCE_RECEIPT_SCHEMA, receiptCandidate)
+        ? { resourceReceipt: receiptCandidate }
+        : null,
+  );
 }
 
 function installFault(
@@ -93,7 +195,10 @@ function installFault(
   stage: string,
   code: string,
   message: string,
-): DefinitionExecutionFault<InstallPacket["definitionKey"]> {
+): DefinitionExecutionFault<
+  InstallPacket["definitionKey"],
+  ProductInstallResourceReceipt
+> {
   return definitionFault(call.invocation.definitionKey, stage, code, message);
 }
 
@@ -123,7 +228,10 @@ function installManifestCoordinate(
 
 function validateResources(
   call: DefinitionCall<InstallPacket, ProductInstallResourceAssertion>,
-): DefinitionExecutionFault<InstallPacket["definitionKey"]> | null {
+): DefinitionExecutionFault<
+  InstallPacket["definitionKey"],
+  ProductInstallResourceReceipt
+> | null {
   const resources = call.resources;
   if (
     !isRecord(resources) ||
@@ -203,10 +311,10 @@ function refusalOutput(
   issuePath: string,
   evidenceRefs: readonly string[] = [],
 ): OwnerSemanticOutput<InstallPacket> {
-  return validatedOwnerOutput(PRODUCT_INSTALL_CONTRACTS.install, {
+  return {
     outcomeKind: "refusal",
     value: { code, issuePaths: [issuePath], evidenceRefs },
-  } as OwnerSemanticOutput<InstallPacket>, "Product installation");
+  } as OwnerSemanticOutput<InstallPacket>;
 }
 
 function nativeRefusalOutput(
@@ -222,6 +330,7 @@ function receipt(
   candidate: ProductInstallCandidate | null,
   install: ProductInstall | null,
   installerManifest: ReferenceDigest<"InstallerManifest"> | null,
+  physicalEffect: PhysicalArtifactEffectEvidence | null = null,
 ): ProductInstallResourceReceipt {
   return deepFreeze({
     kind: "product_install_resource_receipt" as const,
@@ -234,10 +343,48 @@ function receipt(
     installedProduct: install === null ? null : productInstallCoordinate(install),
     installManifest: install === null ? null : installManifestCoordinate(install),
     installerManifest,
+    physicalEffect,
   });
 }
 
-const install: ExactDefinitionCallable<
+function postInstallCommitFault(
+  call: DefinitionCall<InstallPacket, ProductInstallResourceAssertion>,
+  resource: Parameters<typeof closeAbgEventResource>[0],
+  finalPrefix: DurablePrefixCoordinate,
+  candidate: ProductInstallCandidate,
+  install: ProductInstall | null,
+  installerManifest: ReferenceDigest<"InstallerManifest"> | null,
+  stage: string,
+  code: string,
+  message: string,
+  beforeClose: () => void,
+): DefinitionExecutionFault<
+  InstallPacket["definitionKey"],
+  ProductInstallResourceReceipt
+> {
+  let eventResource: AbgEventResourceReceipt;
+  let closeEvidence: Readonly<Record<string, JsonValue>> = {};
+  beforeClose();
+  try {
+    eventResource = closeAbgEventResource(resource, finalPrefix);
+  } catch (cause) {
+    if (!(cause instanceof AbgEventResourceCloseFailure)) throw cause;
+    eventResource = cause.resourceReceipt;
+    closeEvidence = {
+      closeFailure: cause.failureMessage,
+    };
+  }
+  return postAppendDefinitionFault(
+    call.invocation.definitionKey,
+    stage,
+    code,
+    message,
+    receipt(call, eventResource, candidate, install, installerManifest),
+    closeEvidence,
+  );
+}
+
+const installOwner: ExactDefinitionCallable<
   InstallPacket,
   ProductInstallResourceAssertion,
   ProductInstallResourceReceipt
@@ -260,6 +407,17 @@ const install: ExactDefinitionCallable<
         );
       }
       const resource = acquired.resource;
+      let committedCandidate: ProductInstallCandidate | null = null;
+      let nativeRefusal: ProductInstallRefusal | null = null;
+      let committedInstall: ProductInstall | null = null;
+      let committedInstallerManifest:
+        ReferenceDigest<"InstallerManifest"> | null = null;
+      let latestPrefix = resource.entryPrefix;
+      let issuedEventResource: AbgEventResourceReceipt | null = null;
+      let closeAttempted = false;
+      const markCloseAttempt = (): void => {
+        closeAttempted = true;
+      };
       try {
         const nativePacket: ProductInstallPacket = {
           kind: "product_install_packet",
@@ -274,17 +432,26 @@ const install: ExactDefinitionCallable<
         };
         const candidate = await ProductInstallPort.install(nativePacket);
         if (candidate.kind === "product_install_refusal") {
+          nativeRefusal = candidate;
+          const ownerOutput = nativeRefusalOutput(candidate);
+          markCloseAttempt();
+          issuedEventResource = closeAbgEventResource(
+            resource,
+            resource.entryPrefix,
+          );
           return deepFreeze({
-            ownerOutput: nativeRefusalOutput(candidate),
+            ownerOutput,
             resources: receipt(
               call,
-              closeAbgEventResource(resource, resource.entryPrefix),
+              issuedEventResource,
               null,
               null,
               null,
+              candidate.physicalEffect,
             ),
           });
         }
+        committedCandidate = candidate;
 
         const invocationCoordinate = constructExactOperationInvocationCoordinate(
           {
@@ -313,11 +480,17 @@ const install: ExactDefinitionCallable<
           call.resources.resolvedLock,
         );
         if (admitted.kind === "artifact_owner_coordinate_refusal") {
-          throw installFault(
+          throw postInstallCommitFault(
             call,
+            resource,
+            resource.entryPrefix,
+            candidate,
+            null,
+            null,
             "abg_admission",
             "product_install_coordinate_refusal",
             JSON.stringify(admitted.refusal),
+            markCloseAttempt,
           );
         }
         if (admitted.kind === "artifact_owner_refusal") {
@@ -328,35 +501,49 @@ const install: ExactDefinitionCallable<
             ? "target_failure"
             : null;
           if (code === null) {
-            throw installFault(
+            throw postInstallCommitFault(
               call,
+              resource,
+              admitted.successorPrefix,
+              candidate,
+              null,
+              null,
               "abg_admission",
               "product_install_admission_relation_failure",
               admitted.refusal.message,
+              markCloseAttempt,
             );
           }
+          markCloseAttempt();
+          issuedEventResource = closeAbgEventResource(
+            resource,
+            admitted.successorPrefix,
+          );
           return deepFreeze({
             ownerOutput: refusalOutput(code, "/targetRoot"),
             resources: receipt(
               call,
-              closeAbgEventResource(resource, admitted.successorPrefix),
+              issuedEventResource,
               candidate,
               null,
               null,
             ),
           });
         }
+        latestPrefix = admitted.successorPrefix;
+        committedInstall = admitted.value;
 
         const projected = projectAdmittedProductInstall(
           admitted.artifactTruth,
           candidate,
           call.invocation.invocationRef,
         );
-        if (projected === null || !sameJson(projected, admitted.value)) {
-          throw installFault(
-            call,
-            "abg_projection",
-            "product_install_projection_mismatch",
+        if (
+          projected === null ||
+          canonicalJson(projected as unknown as JsonValue) !==
+            canonicalJson(admitted.value as unknown as JsonValue)
+        ) {
+          throw new TypeError(
             "admitted ProductInstall differs from exact-prefix ABG projection truth",
           );
         }
@@ -364,47 +551,113 @@ const install: ExactDefinitionCallable<
           admitted.artifactTruth.projectionRef,
           admitted.artifactTruth.projectionDigest,
         );
-        const ownerOutput = validatedOwnerOutput(
-          PRODUCT_INSTALL_CONTRACTS.install,
-          {
-            outcomeKind: "result",
-            value: {
-              disposition: admitted.disposition === "idempotent"
-                ? "idempotent"
-                : "materialized",
-              installedProduct: productInstallCoordinate(projected),
-              installManifest: installManifestCoordinate(projected),
-              installerManifest,
-              resolvedLock: resolvedLockCoordinate(call.resources.resolvedLock),
-              provenance: [installerManifest],
-            },
-          } as OwnerSemanticOutput<InstallPacket>,
-          "Product installation",
+        committedInstallerManifest = installerManifest;
+        const ownerOutput = {
+          outcomeKind: "result",
+          value: {
+            disposition: admitted.disposition === "idempotent"
+              ? "idempotent"
+              : "materialized",
+            installedProduct: productInstallCoordinate(projected),
+            installManifest: installManifestCoordinate(projected),
+            installerManifest,
+            resolvedLock: resolvedLockCoordinate(call.resources.resolvedLock),
+            provenance: [installerManifest],
+          },
+        } as OwnerSemanticOutput<InstallPacket>;
+        markCloseAttempt();
+        const eventResource = closeAbgEventResource(
+          resource,
+          admitted.successorPrefix,
         );
+        issuedEventResource = eventResource;
         return deepFreeze({
           ownerOutput,
           resources: receipt(
             call,
-            closeAbgEventResource(resource, admitted.successorPrefix),
+            eventResource,
             candidate,
             projected,
             installerManifest,
           ),
         });
       } catch (cause) {
+        const admittedFault = admittedInstallFault(
+          cause,
+          call.invocation.definitionKey,
+        );
+        if (
+          admittedFault !== null &&
+          admittedFault.faultBoundary !== "pre_acquisition_or_pre_append"
+        ) {
+          throw admittedFault;
+        }
+        if (cause instanceof AbgEventResourceCloseFailure) {
+          throw postAppendDefinitionFault(
+            call.invocation.definitionKey,
+            "resource_close",
+            "product_install_resource_close_failure",
+            cause.failureMessage,
+            receipt(
+              call,
+              cause.resourceReceipt,
+              committedCandidate,
+              committedInstall,
+              committedInstallerManifest,
+              nativeRefusal?.physicalEffect ?? null,
+            ),
+          );
+        }
+        if (closeAttempted || issuedEventResource !== null) throw cause;
+        if (nativeRefusal !== null) {
+          markCloseAttempt();
+          try {
+            closeAbgEventResource(resource, resource.entryPrefix);
+          } catch (closeCause) {
+            throw new AggregateError(
+              [cause, closeCause],
+              "Product install Cause and ABG cleanup close both failed",
+            );
+          }
+          throw cause;
+        }
+        if (committedCandidate !== null) {
+          markCloseAttempt();
+          try {
+            closeAbgEventResource(
+              resource,
+              cause instanceof ArtifactAdmissionPostAppendFailure
+                ? cause.successorPrefix
+                : latestPrefix,
+            );
+          } catch (closeCause) {
+            throw new AggregateError(
+              [cause, closeCause],
+              "Product install Cause and ABG cleanup close both failed",
+            );
+          }
+          throw cause;
+        }
         abandonAbgEventResource(resource);
         throw cause;
       }
     },
-    catch: (cause) => isDefinitionFault(cause)
-      ? cause as DefinitionExecutionFault<InstallPacket["definitionKey"]>
-      : installFault(
-          call,
-          "owner_execution",
-          "product_install_execution_failure",
-          String(cause),
-        ),
+    catch: (cause) => {
+      const admittedFault = admittedInstallFault(
+        cause,
+        call.invocation.definitionKey,
+      );
+      if (admittedFault !== null) return admittedFault;
+      throw cause;
+    },
   });
 };
+
+const install = bindExactPrefixTransition(
+  PRODUCT_INSTALL_CONTRACTS.install,
+  installOwner,
+  PRODUCT_INSTALL_RESOURCE_ASSERTION_SCHEMA,
+  PRODUCT_INSTALL_RESOURCE_RECEIPT_SCHEMA,
+);
 
 export const PRODUCT_INSTALL_DEFINITION_BINDINGS = Object.freeze({ install });

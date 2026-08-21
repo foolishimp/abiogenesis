@@ -1,6 +1,9 @@
 import * as Effect from "effect/Effect";
+import * as v from "valibot";
 
 import {
+  admitDefinitionExecutionFault,
+  preDefinitionFault,
   type DefinitionCall,
   type DefinitionExecutionFault,
   type DefinitionReturn,
@@ -11,6 +14,8 @@ import {
   admitRuntimeContract,
   type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
+import { bindStaticOwner } from
+  "../shared/static_definition_bindings.js";
 import {
   RELEASE_OPERATION_CONTRACTS,
   ReleaseSnapshotPort,
@@ -23,21 +28,31 @@ type TappedReleasePacket =
   typeof RELEASE_OPERATION_CONTRACTS.snapshot.tapped_release;
 type ReleaseSnapshotPacket = PublishedRcPacket | TappedReleasePacket;
 
+const NULL_RESOURCE_SCHEMA = v.null() as v.GenericSchema<null, null>;
+
 function fault<TPacket extends ReleaseSnapshotPacket>(
   call: DefinitionCall<TPacket, null>,
   stage: string,
   code: string,
   message: string,
-): DefinitionExecutionFault<TPacket["definitionKey"]> {
-  return deepFreeze({
-    kind: "definition_execution_fault" as const,
-    schemaVersion: "5.0.0" as const,
-    definitionKey: call.invocation.definitionKey,
+): DefinitionExecutionFault<TPacket["definitionKey"], null> {
+  return preDefinitionFault(
+    call.invocation.definitionKey,
     stage,
     code,
     message,
-    evidence: {},
-  });
+  );
+}
+
+function admittedReleaseFault<TPacket extends ReleaseSnapshotPacket>(
+  cause: unknown,
+  call: DefinitionCall<TPacket, null>,
+): DefinitionExecutionFault<TPacket["definitionKey"], null> | null {
+  return admitDefinitionExecutionFault(
+    cause,
+    call.invocation.definitionKey,
+    (candidate) => candidate === null ? { resourceReceipt: null } : null,
+  );
 }
 
 function publishedRcOutput(
@@ -116,7 +131,7 @@ function tappedReleaseOutput(
   }
 }
 
-const published_rc: ExactDefinitionCallable<PublishedRcPacket, null, null> =
+const publishedRcOwner: ExactDefinitionCallable<PublishedRcPacket, null, null> =
   (call) => {
     if (call.resources !== null) {
       return Effect.fail(fault(
@@ -128,27 +143,25 @@ const published_rc: ExactDefinitionCallable<PublishedRcPacket, null, null> =
     }
     return Effect.tryPromise({
       try: () => Promise.resolve(ReleaseSnapshotPort.published_rc(call.invocation)),
-      catch: (cause) => fault(
-        call,
-        "owner_execution",
-        "release_snapshot_execution_failure",
-        String(cause),
-      ),
+      catch: (cause) => {
+        const admittedFault = admittedReleaseFault(cause, call);
+        if (admittedFault !== null) return admittedFault;
+        throw cause;
+      },
     }).pipe(Effect.flatMap((nativeOutput) => Effect.try({
       try: (): DefinitionReturn<PublishedRcPacket, null> => deepFreeze({
         ownerOutput: publishedRcOutput(nativeOutput),
         resources: null,
       }),
-      catch: (cause) => fault(
-        call,
-        "owner_projection",
-        "invalid_release_snapshot_owner_output",
-        String(cause),
-      ),
+      catch: (cause) => {
+        const admittedFault = admittedReleaseFault(cause, call);
+        if (admittedFault !== null) return admittedFault;
+        throw cause;
+      },
     })));
   };
 
-const tapped_release: ExactDefinitionCallable<TappedReleasePacket, null, null> =
+const tappedReleaseOwner: ExactDefinitionCallable<TappedReleasePacket, null, null> =
   (call) => {
     if (call.resources !== null) {
       return Effect.fail(fault(
@@ -160,25 +173,36 @@ const tapped_release: ExactDefinitionCallable<TappedReleasePacket, null, null> =
     }
     return Effect.tryPromise({
       try: () => Promise.resolve(ReleaseSnapshotPort.tapped_release(call.invocation)),
-      catch: (cause) => fault(
-        call,
-        "owner_execution",
-        "release_snapshot_execution_failure",
-        String(cause),
-      ),
+      catch: (cause) => {
+        const admittedFault = admittedReleaseFault(cause, call);
+        if (admittedFault !== null) return admittedFault;
+        throw cause;
+      },
     }).pipe(Effect.flatMap((nativeOutput) => Effect.try({
       try: (): DefinitionReturn<TappedReleasePacket, null> => deepFreeze({
         ownerOutput: tappedReleaseOutput(nativeOutput),
         resources: null,
       }),
-      catch: (cause) => fault(
-        call,
-        "owner_projection",
-        "invalid_release_snapshot_owner_output",
-        String(cause),
-      ),
+      catch: (cause) => {
+        const admittedFault = admittedReleaseFault(cause, call);
+        if (admittedFault !== null) return admittedFault;
+        throw cause;
+      },
     })));
   };
+
+const published_rc = bindStaticOwner(
+  RELEASE_OPERATION_CONTRACTS.snapshot.published_rc,
+  publishedRcOwner,
+  NULL_RESOURCE_SCHEMA,
+  NULL_RESOURCE_SCHEMA,
+);
+const tapped_release = bindStaticOwner(
+  RELEASE_OPERATION_CONTRACTS.snapshot.tapped_release,
+  tappedReleaseOwner,
+  NULL_RESOURCE_SCHEMA,
+  NULL_RESOURCE_SCHEMA,
+);
 
 export const RELEASE_SNAPSHOT_DEFINITION_BINDINGS = Object.freeze({
   snapshot: Object.freeze({

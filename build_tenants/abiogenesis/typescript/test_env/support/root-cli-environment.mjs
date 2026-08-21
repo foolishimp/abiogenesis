@@ -867,6 +867,39 @@ export async function importInstalledPackageExport(
   return import(`${pathToFileURL(resolved).href}?${query}`);
 }
 
+export async function probeInstalledDefinitionBindingInFreshProcess(
+  harness,
+  basis,
+  label,
+) {
+  const requestPath = join(
+    harness.scratch,
+    `installed-definition-binding-${label}.json`,
+  );
+  await writeFile(requestPath, `${JSON.stringify(basis)}\n`, "utf8");
+  const probe = [
+    'import { readFile } from "node:fs/promises";',
+    'import { loadVerifiedInstalledDefinitionBinding } from "@abiogenesis/typescript-tenant/installed-loader";',
+    `const basis = JSON.parse(await readFile(${JSON.stringify(requestPath)}, "utf8"));`,
+    "const result = await loadVerifiedInstalledDefinitionBinding(basis);",
+    "const { invoke, ...receipt } = result;",
+    "console.log(JSON.stringify({ ...receipt, callableType: typeof invoke }));",
+  ].join("\n");
+  const { stdout, stderr } = await execFileAsync(
+    process.execPath,
+    ["--input-type=module", "--eval", probe],
+    {
+      cwd: harness.cliHost,
+      env: { ...process.env, NODE_OPTIONS: "" },
+      maxBuffer: 2 * 1024 * 1024,
+    },
+  );
+  if (stderr.trim().length !== 0) {
+    throw new TypeError(`installed definition binding probe failed: ${stderr}`);
+  }
+  return JSON.parse(stdout);
+}
+
 export async function applyInstalledTranscriptPrefix(
   harness,
   scenario,
