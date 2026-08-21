@@ -1,8 +1,10 @@
 import * as Effect from "effect/Effect";
+import * as v from "valibot";
 
 import {
   projectAdmittedProductInstallByAdmissionEventRef,
   projectAdmittedWorkspaceBindingByInvocationRef,
+  validateExactPrefixArtifactTruthProjection,
   type ExactPrefixArtifactTruthProjection,
 } from "../abg/index.js";
 import { canonicalizeAuthoredGtlCarrier } from "../gtl/canonicalization.js";
@@ -18,7 +20,6 @@ import {
   definitionFault,
   exactDefinitionCallMatches,
   hasExactKeys,
-  isDefinitionFault,
   isRecord,
   reference,
   sameCoordinate,
@@ -32,9 +33,13 @@ import {
   type PreDefinitionExecutionFault,
 } from "../shared/effect_definition.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type { OwnerSemanticOutput } from
-  "../shared/public_function_contracts.js";
+import {
+  refDigestSchema,
+  type OwnerSemanticOutput,
+} from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
+import { bindStaticOwner } from
+  "../shared/static_definition_bindings.js";
 import {
   isWorkspaceAuthorityBasis,
   productInstallCoordinate,
@@ -86,11 +91,29 @@ function validConformanceResources(
     value.kind === "conformance_evaluation_resource_assertion" &&
     value.schemaVersion === "5.0.0" &&
     isRecord(value.packet) &&
-    isRecord(value.conformanceLaw) &&
+    hasExactKeys(value.packet, [
+      "kind",
+      "memberKey",
+      "program",
+      "publication",
+      "schemaVersion",
+    ]) &&
+    value.packet.kind === "conformance_evaluate_packet" &&
+    value.packet.schemaVersion === "5.0.0" &&
+    value.packet.memberKey === "gtl_program" &&
+    isRecord(value.packet.publication) &&
+    isRecord(value.packet.program) &&
+    v.is(refDigestSchema, value.conformanceLaw) &&
+    validateExactPrefixArtifactTruthProjection(value.artifactTruth) &&
     Array.isArray(value.declaredInventory) &&
     value.declaredInventory.length > 0 &&
+    value.declaredInventory.every(isRecord) &&
     sameJson(value, value);
 }
+
+const CONFORMANCE_EVALUATION_RESOURCE_SCHEMA = v.custom<
+  ConformanceEvaluationResourceAssertion
+>(validConformanceResources, "conformance_evaluation_resource_assertion");
 
 function fault(
   definitionKey: ConformanceContract["definitionKey"],
@@ -271,7 +294,7 @@ function conformanceAuthorityMatches(
     binding.binding.bindingDigest === slots.workspace_binding.digest;
 }
 
-const gtl_program: ExactDefinitionCallable<
+const gtlProgramOwner: ExactDefinitionCallable<
   ConformanceContract,
   ConformanceEvaluationResourceAssertion,
   ConformanceEvaluationResourceAssertion
@@ -469,18 +492,16 @@ const gtl_program: ExactDefinitionCallable<
           : null,
     );
     if (admittedFault !== null) return admittedFault;
-    if (isDefinitionFault(cause)) {
-      throw new TypeError(
-        "Validator conformance owner emitted a malformed execution fault",
-      );
-    }
-    return fault(
-      call.invocation.definitionKey,
-      "owner_execution_failure",
-      String(cause),
-    );
+    throw cause;
   },
 });
+
+const gtl_program = bindStaticOwner(
+  CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,
+  gtlProgramOwner,
+  CONFORMANCE_EVALUATION_RESOURCE_SCHEMA,
+  CONFORMANCE_EVALUATION_RESOURCE_SCHEMA,
+);
 
 export const CONFORMANCE_DEFINITION_BINDINGS = Object.freeze({
   evaluate: Object.freeze({ gtl_program }),

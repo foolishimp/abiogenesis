@@ -23,12 +23,21 @@ import {
   admitRuntimeEventTransaction,
   assertHeldEventStoreAtRuntimeEventPrefix,
   createNewEmptyAppendSink,
+  EventStoreCloseFailure,
   projectRuntimeEventFromValidatedHistory,
   readRuntimeEventsAtDurablePrefix,
   reopenEventStore,
+  selectHeldEventStoreDurablePrefix,
   validateDurablePrefixCoordinate,
   validateHistoricalEvents,
 } from "../../build/code/src/abg/event_store.js";
+import {
+  AbgEventResourceCloseFailure,
+  abgEventLocatorDigest,
+  acquireAbgEventResource,
+  closeAbgEventResource,
+  validateAbgEventResourceReceipt,
+} from "../../build/code/src/abg/definition_event_resource.js";
 import {
   projectExactPrefixArtifactTruth,
 } from "../../build/code/src/abg/artifact_truth.js";
@@ -228,7 +237,9 @@ function forgedArtifactEventCandidate({
       causationEventRefs,
       correlationId,
       definitionDigest,
-      definitionKey: operationId,
+      memberKey: operationId === "abg.operation.product.install"
+        ? "install"
+        : "bind",
       invocationDigest,
       invocationPayloadDigest,
       invocationRef,
@@ -265,6 +276,90 @@ test("M5 new-empty acquisition returns one genuine readable zero prefix", async 
   assert.equal(closed.reopenAuthority.eventLogPath, eventLogPath);
 });
 
+test("M5 ABG close failure after append carries the exact owner-issued receipt", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-close-receipt-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const eventLogPath = join(scratch, "events.jsonl");
+  const admission = acquireAbgEventResource({
+    kind: "new_abg_event_resource",
+    schemaVersion: "5.0.0",
+    eventLogPath,
+    locatorDigest: abgEventLocatorDigest(eventLogPath),
+  });
+  assert.equal(admission.kind, "acquired_abg_event_resource", JSON.stringify(admission));
+  if (admission.kind !== "acquired_abg_event_resource") return;
+
+  const event = admitRuntimeEvent(admission.resource.store, workspaceEvent({
+    correlationId: "correlation://m5/close-receipt/append",
+    eventTime: "2026-08-21T00:00:00.000Z",
+    invocationRef: "invocation://m5/close-receipt/append",
+  }));
+  const successorPrefix = selectHeldEventStoreDurablePrefix(
+    admission.resource.store,
+  );
+  assert.throws(
+    () => closeAbgEventResource(
+      admission.resource,
+      admission.resource.entryPrefix,
+    ),
+    (cause) =>
+      cause instanceof TypeError &&
+      !(cause instanceof AbgEventResourceCloseFailure) &&
+      /selected exact final prefix/u.test(cause.message),
+    "a stale predecessor cannot be promoted into a close receipt",
+  );
+  const identity = await stat(eventLogPath);
+  const lockPath = join(
+    tmpdir(),
+    "abiogenesis-event-store-locks-v5",
+    `${identity.dev}-${identity.ino}.lock`,
+  );
+  context.after(async () => rm(lockPath, { force: true }));
+
+  const originalUnlinkSync = fs.unlinkSync;
+  let closeReleaseAttempts = 0;
+  fs.unlinkSync = (path) => {
+    if (resolve(String(path)) === resolve(lockPath)) {
+      closeReleaseAttempts += 1;
+      throw new Error("injected durable ownership release failure");
+    }
+    return originalUnlinkSync(path);
+  };
+  syncBuiltinESMExports();
+  let failure;
+  try {
+    closeAbgEventResource(admission.resource, successorPrefix);
+    assert.fail("close should carry its receipt when ownership release fails");
+  } catch (cause) {
+    failure = cause;
+  } finally {
+    fs.unlinkSync = originalUnlinkSync;
+    syncBuiltinESMExports();
+  }
+
+  assert.equal(
+    closeReleaseAttempts,
+    1,
+    "the exact Event Store close path releases durable ownership once",
+  );
+  assert.ok(failure instanceof AbgEventResourceCloseFailure, String(failure));
+  assert.equal(validateAbgEventResourceReceipt(failure.resourceReceipt), true);
+  assert.deepEqual(failure.resourceReceipt.entryPrefix, admission.resource.entryPrefix);
+  assert.deepEqual(failure.resourceReceipt.closeHandoff.prefix, successorPrefix);
+  assert.equal(failure.resourceReceipt.closeHandoff.prefix.prefixLength > 0, true);
+  assert.deepEqual(admission.resource.store.readAll(), [event]);
+
+  await rm(lockPath, { force: true });
+  const reopened = reopenEventStore(
+    failure.resourceReceipt.closeHandoff.reopenAuthority,
+  );
+  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
+  if (reopened.kind !== "reopened_event_store_context") return;
+  assert.deepEqual(reopened.prefix, successorPrefix);
+  assert.deepEqual(reopened.store.readAll(), [event]);
+  reopened.store.closeDurableLog();
+});
+
 test("M5 EventStore batch factory interruption leaves the exact prefix unchanged", async (context) => {
   const { store } = await acquireNewEmptyAppendSinkFixture(
     context,
@@ -299,6 +394,7 @@ test("M5 refuses a same-length durable predecessor mutation before expected-pref
     eventTime: "2026-08-12T00:00:00.000Z",
     invocationRef: "invocation://m5/prefix-mutation/first",
   }));
+  const selectedPrefix = selectHeldEventStoreDurablePrefix(store);
   const expectedEvents = store.readAll();
   const eventLogPath = store.configuredDurableLogPath();
   assert.notEqual(eventLogPath, null);
@@ -313,6 +409,14 @@ test("M5 refuses a same-length durable predecessor mutation before expected-pref
   assert.throws(
     () => assertHeldEventStoreAtRuntimeEventPrefix(store, expectedEvents),
     /durable prefix|payload digest|event identity|restamped or inconsistent history/u,
+  );
+  assert.throws(
+    () => store.projectReopenAuthorityAndClose(selectedPrefix),
+    (cause) =>
+      cause instanceof TypeError &&
+      !(cause instanceof EventStoreCloseFailure) &&
+      /selected exact final prefix/u.test(cause.message),
+    "same-length byte drift cannot be promoted into an exact close carrier",
   );
   assert.deepEqual(store.readAll(), expectedEvents);
 });
@@ -440,7 +544,9 @@ test("M5 effectful truth rejects forged artifact operation identity before query
 });
 
 test("M5 exact owner projections preserve valid facts, conflicts, and whole-prefix masking", async (context) => {
-  const environment = await setupInstalledRootInvocation(context, packageRoot);
+  const environment = await setupInstalledRootInvocation(context, packageRoot, {
+    candidateBasisSource: "packed_artifact",
+  });
   const events = environment.store.readAll();
   const [
     installEvent,

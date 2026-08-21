@@ -89,12 +89,6 @@ export function definitionFault<K extends PublicDefinitionKeyLike>(
   );
 }
 
-export function isDefinitionFault(
-  value: unknown,
-): value is Readonly<{ readonly kind: "definition_execution_fault" }> {
-  return isRecord(value) && value.kind === "definition_execution_fault";
-}
-
 export function validatedOwnerOutput<
   TPacket extends OwnerContractSourceDeclaration,
 >(

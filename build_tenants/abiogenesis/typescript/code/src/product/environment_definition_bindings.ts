@@ -2,19 +2,21 @@ import * as Effect from "effect/Effect";
 import * as v from "valibot";
 
 import {
+  AbgEventResourceCloseFailure,
   abandonAbgEventResource,
   acquireAbgEventResource,
   closeAbgEventResource,
+  validateAbgEventResourceAssertion,
   validateAbgEventResourceReceipt,
   type AbgEventResourceAssertion,
   type AbgEventResourceReceipt,
 } from "../abg/definition_event_resource.js";
 import {
+  ArtifactAdmissionPostAppendFailure,
   admitWorkspaceBinding,
   projectAdmittedWorkspaceBinding,
   type ArtifactAdmissionBasis,
 } from "../abg/environment_admission.js";
-import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
@@ -43,6 +45,10 @@ import {
   type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
+import {
+  bindExactPrefixTransition,
+  bindStaticOwner,
+} from "../shared/static_definition_bindings.js";
 import type { VerifiedProductArtifact } from "./contracts.js";
 import {
   isProductInstall,
@@ -60,6 +66,7 @@ import {
 import {
   admitResolvedNativeContractClosure,
   PRODUCT_ENVIRONMENT_CONTRACTS,
+  resolvedNativeContractClosureSchema,
   type ResolvedNativeContractClosure,
 } from "./environment_operation_contracts.js";
 import {
@@ -122,6 +129,11 @@ export interface ProductWorkspaceBindingResourceReceipt {
   readonly binding: ReferenceDigest<"WorkspaceBinding"> | null;
 }
 
+const SUCCESSFUL_VERIFICATION_REFERENCE_SCHEMA = v.strictObject({
+  invocation: refDigestSchema,
+  outcome: refDigestSchema,
+});
+
 const PRODUCT_RESOLUTION_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
   kind: v.literal("product_resolution_resource_receipt"),
   schemaVersion: v.literal("5.0.0"),
@@ -151,9 +163,6 @@ const PRODUCT_WORKSPACE_BINDING_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
 
 type ResolveRefusalCode = OwnerRefusalOf<ResolvePacket>["code"];
 type BindRefusalCode = OwnerRefusalOf<BindPacket>["code"];
-
-/* A thrown ABG admission after its closed refusal paths is an invariant defect. */
-class PostWorkspaceBindingAppendInvariantDefect extends TypeError {}
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -191,12 +200,6 @@ function fault<K extends ResolvePacket["definitionKey"] | BindPacket["definition
     code,
     message,
   );
-}
-
-function isExecutionFault(
-  value: unknown,
-): value is Readonly<{ readonly kind: "definition_execution_fault" }> {
-  return isRecord(value) && value.kind === "definition_execution_fault";
 }
 
 function admittedEnvironmentFault<
@@ -241,7 +244,7 @@ function workspaceAuthorityCoordinate(
 }
 
 function workspaceBindingCoordinate(
-  binding: WorkspaceBinding,
+  binding: Pick<WorkspaceBinding, "bindingId" | "bindingDigest">,
 ): ReferenceDigest<"WorkspaceBinding"> {
   return deepFreeze({ ref: binding.bindingId, digest: binding.bindingDigest });
 }
@@ -277,22 +280,58 @@ function invalidVerifiedPreimage(
     !isVerifiedProductArtifact(preimage.verifiedArtifact)
   ) return true;
   const output = preimage.verificationOutput;
-  if (
-    !isRecord(output) ||
-    !hasExactKeys(output, ["outcomeKind", "value"]) ||
-    output.outcomeKind !== "result" ||
-    admitRuntimeContract(
-      PRODUCT_VERIFICATION_CONTRACTS.verify.resultSchema,
-      output.value,
-    ).disposition !== "admitted" ||
-    output.value.targetKind !== "packed_artifact"
-  ) return true;
+  if (!isSuccessfulVerificationOutput(output)) return true;
   return output.value.disposition !== "locally_verified" ||
     !sameCoordinate(
       output.value.verifiedArtifact,
       verifiedArtifactCoordinate(preimage.verifiedArtifact),
     );
 }
+
+function isSuccessfulVerificationOutput(
+  value: unknown,
+): value is SuccessfulVerificationOutput {
+  return isRecord(value) &&
+    hasExactKeys(value, ["outcomeKind", "value"]) &&
+    value.outcomeKind === "result" &&
+    admitRuntimeContract(
+        PRODUCT_VERIFICATION_CONTRACTS.verify.resultSchema,
+        value.value,
+      ).disposition === "admitted" &&
+    isRecord(value.value) &&
+    value.value.targetKind === "packed_artifact";
+}
+
+const PRODUCT_RESOLUTION_VERIFIED_PREIMAGE_SCHEMA = v.pipe(
+  v.strictObject({
+    verification: SUCCESSFUL_VERIFICATION_REFERENCE_SCHEMA,
+    verifiedArtifact: v.custom<VerifiedProductArtifact>(
+      isVerifiedProductArtifact,
+      "verified_product_artifact",
+    ),
+    verificationOutput: v.custom<SuccessfulVerificationOutput>(
+      isSuccessfulVerificationOutput,
+      "successful_verification_output",
+    ),
+  }),
+  v.check(
+    (candidate) => !invalidVerifiedPreimage(candidate),
+    "successful_verified_product_preimage",
+  ),
+);
+
+const PRODUCT_RESOLUTION_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
+  kind: v.literal("product_resolution_resource_assertion"),
+  schemaVersion: v.literal("5.0.0"),
+  verifiedPreimages: v.pipe(
+    v.array(PRODUCT_RESOLUTION_VERIFIED_PREIMAGE_SCHEMA),
+    v.minLength(1),
+  ),
+  nativeContractClosure: resolvedNativeContractClosureSchema,
+}) as v.GenericSchema<
+  ProductResolutionResourceAssertion,
+  ProductResolutionResourceAssertion
+>;
 
 function validateResolveResources(
   call: DefinitionCall<ResolvePacket, ProductResolutionResourceAssertion>,
@@ -510,7 +549,7 @@ function projectResolutionSuccess(
   } as unknown as OwnerSemanticOutput<ResolvePacket>);
 }
 
-const resolve: ExactDefinitionCallable<
+const resolveOwner: ExactDefinitionCallable<
   ResolvePacket,
   ProductResolutionResourceAssertion,
   ProductResolutionResourceReceipt
@@ -553,20 +592,17 @@ const resolve: ExactDefinitionCallable<
         PRODUCT_RESOLUTION_RESOURCE_RECEIPT_SCHEMA,
       );
       if (admittedFault !== null) return admittedFault;
-      if (isExecutionFault(cause)) {
-        throw new TypeError(
-          "Product resolution owner emitted a malformed definition fault",
-        );
-      }
-      return fault(
-        call.invocation.definitionKey,
-        "owner_projection",
-        "product_resolution_execution_failure",
-        String(cause),
-      );
+      throw cause;
     },
   });
 };
+
+const resolve = bindStaticOwner(
+  PRODUCT_ENVIRONMENT_CONTRACTS.resolve,
+  resolveOwner,
+  PRODUCT_RESOLUTION_RESOURCE_ASSERTION_SCHEMA,
+  PRODUCT_RESOLUTION_RESOURCE_RECEIPT_SCHEMA,
+);
 
 const ROOT_FIELDS = Object.freeze([
   ["toolchain", "toolchainRoot"],
@@ -590,10 +626,28 @@ function bindFault(
   return fault(call.invocation.definitionKey, stage, code, message);
 }
 
-function validateBindResources(
-  call: DefinitionCall<BindPacket, ProductWorkspaceBindingResourceAssertion>,
-): PreDefinitionExecutionFault<BindPacket["definitionKey"]> | null {
-  const resources = call.resources;
+function validWorkspaceDeclaredRoots(
+  value: unknown,
+): value is WorkspaceDeclaredRoots {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, [
+      "archiveRoot",
+      "eventLogRoot",
+      "productRoot",
+      "projectionRoot",
+      "runtimeStateRoot",
+      "toolchainRoot",
+    ])
+  ) return false;
+  return Object.values(value).every((root) =>
+    typeof root === "string" && root.trim().length > 0
+  );
+}
+
+function validBindResourceStructure(
+  resources: unknown,
+): resources is ProductWorkspaceBindingResourceAssertion {
   if (
     !isRecord(resources) ||
     !hasExactKeys(resources, [
@@ -607,16 +661,30 @@ function validateBindResources(
     ]) ||
     resources.kind !== "product_workspace_binding_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
+    !validateAbgEventResourceAssertion(resources.eventResource) ||
     resources.eventResource.kind !== "reopen_abg_event_resource" ||
     !sameJson(resources, resources) ||
     !isResolvedProductLock(resources.resolvedLock) ||
     !isWorkspaceAuthorityBasis(resources.workspaceAuthority) ||
+    !validWorkspaceDeclaredRoots(resources.declaredRoots) ||
     !Array.isArray(resources.admittedInstalls) ||
-    resources.admittedInstalls.length === 0 ||
-    resources.admittedInstalls.some((install) =>
-      !isProductInstall(install, resources.resolvedLock)
-    )
-  ) {
+    resources.admittedInstalls.length === 0
+  ) return false;
+  const resolvedLock = resources.resolvedLock;
+  return resources.admittedInstalls.every((install) =>
+    isProductInstall(install, resolvedLock)
+  );
+}
+
+const PRODUCT_WORKSPACE_BINDING_RESOURCE_ASSERTION_SCHEMA = v.custom<
+  ProductWorkspaceBindingResourceAssertion
+>(validBindResourceStructure, "product_workspace_binding_resource_assertion");
+
+function validateBindResources(
+  call: DefinitionCall<BindPacket, ProductWorkspaceBindingResourceAssertion>,
+): PreDefinitionExecutionFault<BindPacket["definitionKey"]> | null {
+  const resources = call.resources;
+  if (!validBindResourceStructure(resources)) {
     return bindFault(
       call,
       "resource_admission",
@@ -673,33 +741,21 @@ function bindRefusalCode(refusal: EnvironmentRefusal): BindRefusalCode {
   }
 }
 
-function validateBindOutput(
-  output: OwnerSemanticOutput<BindPacket>,
-): OwnerSemanticOutput<BindPacket> {
-  const schema = output.outcomeKind === "result"
-    ? PRODUCT_ENVIRONMENT_CONTRACTS.bind.resultSchema
-    : PRODUCT_ENVIRONMENT_CONTRACTS.bind.refusalSchema;
-  if (admitRuntimeContract(schema, output.value).disposition !== "admitted") {
-    throw new TypeError("workspace binding output differs from its exact contract");
-  }
-  return output;
-}
-
 function bindingRefusal(
   code: BindRefusalCode,
   issuePath: string,
   evidenceRefs: readonly string[] = [],
 ): OwnerSemanticOutput<BindPacket> {
-  return validateBindOutput({
+  return {
     outcomeKind: "refusal",
     value: { code, issuePaths: [issuePath], evidenceRefs },
-  } as OwnerSemanticOutput<BindPacket>);
+  } as OwnerSemanticOutput<BindPacket>;
 }
 
 function bindReceipt(
   resources: ProductWorkspaceBindingResourceAssertion,
   eventResource: AbgEventResourceReceipt,
-  binding: WorkspaceBinding | null,
+  binding: WorkspaceBinding | WorkspaceBindingCandidate | null,
 ): ProductWorkspaceBindingResourceReceipt {
   return deepFreeze({
     kind: "product_workspace_binding_resource_receipt" as const,
@@ -712,36 +768,7 @@ function bindReceipt(
   });
 }
 
-function postWorkspaceBindingAppendFault(
-  call: DefinitionCall<BindPacket, ProductWorkspaceBindingResourceAssertion>,
-  resource: Parameters<typeof closeAbgEventResource>[0],
-  finalPrefix: DurablePrefixCoordinate,
-  binding: WorkspaceBinding,
-  stage: string,
-  code: string,
-  message: string,
-): DefinitionExecutionFault<
-  BindPacket["definitionKey"],
-  ProductWorkspaceBindingResourceReceipt
-> {
-  let eventResource: AbgEventResourceReceipt;
-  try {
-    eventResource = closeAbgEventResource(resource, finalPrefix);
-  } catch (cause) {
-    throw new PostWorkspaceBindingAppendInvariantDefect(
-      `post-workspace-binding append could not issue its exact ABG receipt: ${String(cause)}`,
-    );
-  }
-  return postAppendDefinitionFault(
-    call.invocation.definitionKey,
-    stage,
-    code,
-    message,
-    bindReceipt(call.resources, eventResource, binding),
-  );
-}
-
-const bind: ExactDefinitionCallable<
+const bindOwner: ExactDefinitionCallable<
   BindPacket,
   ProductWorkspaceBindingResourceAssertion,
   ProductWorkspaceBindingResourceReceipt
@@ -760,9 +787,14 @@ const bind: ExactDefinitionCallable<
         );
       }
       const resource = acquired.resource;
+      let admissionCandidate: WorkspaceBindingCandidate | null = null;
       let admittedBinding: WorkspaceBinding | null = null;
       let latestPrefix = resource.entryPrefix;
       let issuedEventResource: AbgEventResourceReceipt | null = null;
+      let closeAttempted = false;
+      const markCloseAttempt = (): void => {
+        closeAttempted = true;
+      };
       try {
         const nativePacket: WorkspaceBindingPacket = {
           kind: "workspace_binding_packet",
@@ -783,15 +815,26 @@ const bind: ExactDefinitionCallable<
         };
         const candidate = ProductEnvironmentPort.bindWorkspace(nativePacket);
         if (candidate.kind === "environment_refusal") {
+          const ownerOutput = bindingRefusal(
+            bindRefusalCode(candidate),
+            "/request",
+          );
+          markCloseAttempt();
+          const eventResource = closeAbgEventResource(
+            resource,
+            resource.entryPrefix,
+          );
+          issuedEventResource = eventResource;
           return deepFreeze({
-            ownerOutput: bindingRefusal(bindRefusalCode(candidate), "/request"),
+            ownerOutput,
             resources: bindReceipt(
               call.resources,
-              closeAbgEventResource(resource, resource.entryPrefix),
+              eventResource,
               null,
             ),
           });
         }
+        admissionCandidate = candidate;
         const invocationCoordinate = constructExactOperationInvocationCoordinate(
           {
             operationId: "abg.operation.workspace.bind",
@@ -814,19 +857,12 @@ const bind: ExactDefinitionCallable<
           ),
           predecessorPrefix: resource.entryPrefix,
         });
-        let admitted: ReturnType<typeof admitWorkspaceBinding>;
-        try {
-          admitted = admitWorkspaceBinding(
-            resource.store,
-            candidate,
-            admissionBasis,
-            call.resources.workspaceAuthority,
-          );
-        } catch (cause) {
-          throw new PostWorkspaceBindingAppendInvariantDefect(
-            `workspace binding admission appended without returning its successor: ${String(cause)}`,
-          );
-        }
+        const admitted = admitWorkspaceBinding(
+          resource.store,
+          candidate,
+          admissionBasis,
+          call.resources.workspaceAuthority,
+        );
         if (admitted.kind === "artifact_owner_coordinate_refusal") {
           throw bindFault(
             call,
@@ -850,87 +886,60 @@ const bind: ExactDefinitionCallable<
               admitted.refusal.message,
             );
           }
+          const ownerOutput = bindingRefusal(
+            code,
+            code === "binding_conflict" ? "/binding" : "/installedSet",
+          );
+          markCloseAttempt();
+          const eventResource = closeAbgEventResource(
+            resource,
+            admitted.successorPrefix,
+          );
+          issuedEventResource = eventResource;
           return deepFreeze({
-            ownerOutput: bindingRefusal(
-              code,
-              code === "binding_conflict" ? "/binding" : "/installedSet",
-            ),
+            ownerOutput,
             resources: bindReceipt(
               call.resources,
-              closeAbgEventResource(resource, admitted.successorPrefix),
+              eventResource,
               null,
             ),
           });
         }
         admittedBinding = admitted.value;
         latestPrefix = admitted.successorPrefix;
-        let binding: WorkspaceBinding | null;
-        try {
-          binding = projectAdmittedWorkspaceBinding(
-            admitted.artifactTruth,
-            candidate,
-            call.invocation.invocationRef,
-          );
-        } catch (cause) {
-          throw postWorkspaceBindingAppendFault(
-            call,
-            resource,
-            admitted.successorPrefix,
-            admitted.value,
-            "abg_projection",
-            "workspace_binding_projection_failure",
-            String(cause),
-          );
-        }
-        if (binding === null || !sameJson(binding, admitted.value)) {
-          throw postWorkspaceBindingAppendFault(
-            call,
-            resource,
-            admitted.successorPrefix,
-            admitted.value,
-            "abg_projection",
-            "workspace_binding_projection_mismatch",
+        const binding = projectAdmittedWorkspaceBinding(
+          admitted.artifactTruth,
+          candidate,
+          call.invocation.invocationRef,
+        );
+        if (
+          binding === null ||
+          canonicalJson(binding as unknown as JsonValue) !==
+            canonicalJson(admitted.value as unknown as JsonValue)
+        ) {
+          throw new TypeError(
             "admitted workspace binding differs from exact-prefix ABG projection truth",
           );
         }
-        let ownerOutput: OwnerSemanticOutput<BindPacket>;
-        try {
-          ownerOutput = validateBindOutput({
-            outcomeKind: "result",
-            value: {
-              binding: workspaceBindingCoordinate(binding),
-              installedSet: call.invocation.request.installedSet,
-              resolvedLock: call.invocation.request.resolvedLock,
-              declaredRoots: call.invocation.request.declaredRoots,
-              provenance: [{
-                ref: admitted.artifactTruth.projectionRef,
-                digest: admitted.artifactTruth.projectionDigest,
-              }],
-            },
-          } as OwnerSemanticOutput<BindPacket>);
-        } catch (cause) {
-          throw postWorkspaceBindingAppendFault(
-            call,
-            resource,
-            admitted.successorPrefix,
-            binding,
-            "owner_projection",
-            "invalid_workspace_binding_owner_output",
-            String(cause),
-          );
-        }
-        let eventResource: AbgEventResourceReceipt;
-        try {
-          eventResource = closeAbgEventResource(
-            resource,
-            admitted.successorPrefix,
-          );
-          issuedEventResource = eventResource;
-        } catch (cause) {
-          throw new PostWorkspaceBindingAppendInvariantDefect(
-            `post-workspace-binding append could not issue its exact ABG receipt: ${String(cause)}`,
-          );
-        }
+        const ownerOutput = {
+          outcomeKind: "result",
+          value: {
+            binding: workspaceBindingCoordinate(binding),
+            installedSet: call.invocation.request.installedSet,
+            resolvedLock: call.invocation.request.resolvedLock,
+            declaredRoots: call.invocation.request.declaredRoots,
+            provenance: [{
+              ref: admitted.artifactTruth.projectionRef,
+              digest: admitted.artifactTruth.projectionDigest,
+            }],
+          },
+        } as OwnerSemanticOutput<BindPacket>;
+        markCloseAttempt();
+        const eventResource = closeAbgEventResource(
+          resource,
+          admitted.successorPrefix,
+        );
+        issuedEventResource = eventResource;
         return deepFreeze({
           ownerOutput,
           resources: bindReceipt(
@@ -951,62 +960,63 @@ const bind: ExactDefinitionCallable<
         ) {
           throw admittedFault;
         }
-        if (cause instanceof PostWorkspaceBindingAppendInvariantDefect) {
-          abandonAbgEventResource(resource);
-          throw cause;
-        }
-        if (isExecutionFault(cause) && admittedFault === null) {
-          abandonAbgEventResource(resource);
-          throw new PostWorkspaceBindingAppendInvariantDefect(
-            "workspace binding owner emitted a malformed definition fault",
+        if (cause instanceof AbgEventResourceCloseFailure) {
+          throw postAppendDefinitionFault(
+            call.invocation.definitionKey,
+            "resource_close",
+            "workspace_binding_resource_close_failure",
+            cause.failureMessage,
+            bindReceipt(
+              call.resources,
+              cause.resourceReceipt,
+              admittedBinding,
+            ),
           );
         }
-        if (admittedBinding !== null) {
-          if (issuedEventResource !== null) {
-            throw postAppendDefinitionFault(
-              call.invocation.definitionKey,
-              "owner_execution",
-              "workspace_binding_execution_failure",
-              String(cause),
-              bindReceipt(call.resources, issuedEventResource, admittedBinding),
+        if (closeAttempted || issuedEventResource !== null) throw cause;
+        if (
+          admittedBinding !== null ||
+          (cause instanceof ArtifactAdmissionPostAppendFailure &&
+            admissionCandidate !== null)
+        ) {
+          markCloseAttempt();
+          try {
+            closeAbgEventResource(
+              resource,
+              cause instanceof ArtifactAdmissionPostAppendFailure
+                ? cause.successorPrefix
+                : latestPrefix,
+            );
+          } catch (closeCause) {
+            throw new AggregateError(
+              [cause, closeCause],
+              "Workspace binding Cause and ABG cleanup close both failed",
             );
           }
-          throw postWorkspaceBindingAppendFault(
-            call,
-            resource,
-            latestPrefix,
-            admittedBinding,
-            "owner_execution",
-            "workspace_binding_execution_failure",
-            String(cause),
-          );
+          throw cause;
         }
         abandonAbgEventResource(resource);
         throw cause;
       }
     },
     catch: (cause) => {
-      if (cause instanceof PostWorkspaceBindingAppendInvariantDefect) throw cause;
       const admittedFault = admittedEnvironmentFault(
         cause,
         call.invocation.definitionKey,
         PRODUCT_WORKSPACE_BINDING_RESOURCE_RECEIPT_SCHEMA,
       );
       if (admittedFault !== null) return admittedFault;
-      if (isExecutionFault(cause)) {
-        throw new PostWorkspaceBindingAppendInvariantDefect(
-          "workspace binding owner emitted a malformed definition fault",
-        );
-      }
-      return bindFault(
-        call,
-        "owner_execution",
-        "workspace_binding_execution_failure",
-        String(cause),
-      );
+      throw cause;
     },
   });
 };
+
+const bind = bindExactPrefixTransition(
+  PRODUCT_ENVIRONMENT_CONTRACTS.bind,
+  bindOwner,
+  PRODUCT_WORKSPACE_BINDING_RESOURCE_ASSERTION_SCHEMA,
+  PRODUCT_WORKSPACE_BINDING_RESOURCE_RECEIPT_SCHEMA,
+);
 
 export const PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS = Object.freeze({
   resolve,

@@ -4,8 +4,8 @@ import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
-  assertHeldEventStoreAtDurablePrefix,
   createNewEmptyAppendSink,
+  EventStoreCloseFailure,
   reopenEventStore,
   validateDurablePrefixCoordinate,
   validateEventStoreCloseHandoff,
@@ -35,6 +35,22 @@ export interface AbgEventResourceReceipt {
   readonly entryPrefix: DurablePrefixCoordinate;
   readonly closeHandoff: EventStoreCloseHandoff;
   readonly receiptDigest: Sha256Digest;
+}
+
+/** Exact close failure carrying the already owner-issued ABG receipt. */
+export class AbgEventResourceCloseFailure extends TypeError {
+  readonly resourceReceipt: AbgEventResourceReceipt;
+  readonly failureMessage: string;
+
+  constructor(
+    resourceReceipt: AbgEventResourceReceipt,
+    cause: EventStoreCloseFailure,
+  ) {
+    super(`ABG event resource close failed: ${cause.failureMessage}`);
+    this.name = "AbgEventResourceCloseFailure";
+    this.resourceReceipt = resourceReceipt;
+    this.failureMessage = cause.failureMessage;
+  }
 }
 
 export interface AcquiredAbgEventResource {
@@ -232,12 +248,10 @@ export function acquireAbgEventResource(
   };
 }
 
-export function closeAbgEventResource(
+function eventResourceReceipt(
   resource: AcquiredAbgEventResource,
-  finalPrefix: DurablePrefixCoordinate,
+  closeHandoff: EventStoreCloseHandoff,
 ): AbgEventResourceReceipt {
-  assertHeldEventStoreAtDurablePrefix(resource.store, finalPrefix);
-  const closeHandoff = resource.store.projectReopenAuthorityAndClose();
   const body = {
     kind: "abg_event_resource_receipt" as const,
     schemaVersion: "5.0.0" as const,
@@ -249,6 +263,26 @@ export function closeAbgEventResource(
     ...body,
     receiptDigest: sha256Canonical(body as unknown as JsonValue),
   });
+}
+
+export function closeAbgEventResource(
+  resource: AcquiredAbgEventResource,
+  finalPrefix: DurablePrefixCoordinate,
+): AbgEventResourceReceipt {
+  let closeHandoff: EventStoreCloseHandoff;
+  let closeFailure: EventStoreCloseFailure | null = null;
+  try {
+    closeHandoff = resource.store.projectReopenAuthorityAndClose(finalPrefix);
+  } catch (cause) {
+    if (!(cause instanceof EventStoreCloseFailure)) throw cause;
+    closeHandoff = cause.closeHandoff;
+    closeFailure = cause;
+  }
+  const receipt = eventResourceReceipt(resource, closeHandoff);
+  if (closeFailure !== null) {
+    throw new AbgEventResourceCloseFailure(receipt, closeFailure);
+  }
+  return receipt;
 }
 
 export function abandonAbgEventResource(resource: AcquiredAbgEventResource): void {

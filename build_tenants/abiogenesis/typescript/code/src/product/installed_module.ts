@@ -15,6 +15,15 @@ import type { ExactPrefixArtifactTruthProjection } from
   "../abg/artifact_truth.js";
 import { hasAdmittedProductInstall } from
   "../abg/environment_admission.js";
+import type { ABG_PROJECT_READ_DEFINITION_BINDINGS } from
+  "../abg/project_read_definition_bindings.js";
+import type { RUN_DEFINITION_BINDINGS } from
+  "../owner_bindings/run_invocation.js";
+import type {
+  DefinitionCall,
+  DefinitionHostReceipt,
+  ExactDefinitionCallable,
+} from "../shared/effect_definition.js";
 import type {
   ExactOwnerCallableCoordinate,
   ExecutionBindingSpecification,
@@ -32,12 +41,28 @@ import {
   type ResolvedProductLock,
 } from "./environment.js";
 import { installedProductContentMatches } from "./install_product.js";
+import type { CATALOG_DEFINITION_BINDINGS } from
+  "./catalog_definition_bindings.js";
+import type { PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS } from
+  "./environment_definition_bindings.js";
+import type { PRODUCT_INSTALL_DEFINITION_BINDINGS } from
+  "./install_definition_bindings.js";
+import type { PRODUCT_PROJECT_READ_DEFINITION_BINDINGS } from
+  "./project_read_definition_bindings.js";
+import type { RELEASE_SNAPSHOT_DEFINITION_BINDINGS } from
+  "./release_snapshot_definition_bindings.js";
+import type { PRODUCT_VERIFICATION_DEFINITION_BINDINGS } from
+  "./verification_definition_bindings.js";
 import {
   isVerifiedProductArtifact,
   parseOperationProjection,
   parseProductManifest,
   parseProductPublicContract,
 } from "./verify_product.js";
+import type { WORKSPACE_DEFINITION_BINDINGS } from
+  "./workspace_definition_bindings.js";
+import type { CONFORMANCE_DEFINITION_BINDINGS } from
+  "../validator/conformance_definition_bindings.js";
 
 export type InstalledModuleLoadResult =
   | Readonly<{
@@ -60,20 +85,124 @@ export type InstalledDefinitionBindingLoadRefusalCode =
   | "member_absent"
   | "load_failed";
 
-export interface InstalledDefinitionBindingLoadRefusal {
+export interface InstalledDefinitionBindingLoadRefusal<
+  K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike,
+> {
   readonly kind: "installed_definition_binding_load_refusal";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
-  readonly definitionKey: PublicDefinitionKeyLike;
+  readonly definitionKey: K;
   readonly code: InstalledDefinitionBindingLoadRefusalCode;
   readonly message: string;
 }
 
-export interface VerifiedInstalledDefinitionBinding {
+type DefinitionCallableLeaves<T> =
+  T extends ExactDefinitionCallable<
+    infer _TPacket,
+    infer _TResources,
+    infer _TResourceReceipt
+  > ? T
+  : T extends object ? DefinitionCallableLeaves<T[keyof T]>
+  : never;
+
+type InstalledDefinitionBindingTrees =
+  | typeof ABG_PROJECT_READ_DEFINITION_BINDINGS
+  | typeof RUN_DEFINITION_BINDINGS
+  | typeof CATALOG_DEFINITION_BINDINGS
+  | typeof PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS
+  | typeof PRODUCT_INSTALL_DEFINITION_BINDINGS
+  | typeof PRODUCT_PROJECT_READ_DEFINITION_BINDINGS
+  | typeof RELEASE_SNAPSHOT_DEFINITION_BINDINGS
+  | typeof PRODUCT_VERIFICATION_DEFINITION_BINDINGS
+  | typeof WORKSPACE_DEFINITION_BINDINGS
+  | typeof CONFORMANCE_DEFINITION_BINDINGS;
+
+/** The exact, module-static callable leaves currently constructable in-package. */
+export type InstalledExactDefinitionCallable = DefinitionCallableLeaves<
+  InstalledDefinitionBindingTrees
+>;
+
+type CallableDefinitionKey<TCallable> =
+  TCallable extends ExactDefinitionCallable<
+    infer TPacket,
+    infer _TResources,
+    infer _TResourceReceipt
+  > ? TPacket["definitionKey"]
+  : never;
+
+export type InstalledDefinitionKey = CallableDefinitionKey<
+  InstalledExactDefinitionCallable
+>;
+
+type InstalledDefinitionCallableLeafFor<
+  K extends PublicDefinitionKeyLike,
+> = InstalledExactDefinitionCallable extends infer TCallable
+  ? TCallable extends ExactDefinitionCallable<
+      infer TPacket,
+      infer _TResources,
+      infer _TResourceReceipt
+    > ? TPacket["definitionKey"] extends K
+      ? TCallable
+    : never
+  : never
+  : never;
+
+type InstalledDefinitionPacketFor<
+  K extends PublicDefinitionKeyLike,
+> = InstalledDefinitionCallableLeafFor<K> extends ExactDefinitionCallable<
+  infer TPacket,
+  infer _TResources,
+  infer _TResourceReceipt
+> ? TPacket
+  : never;
+
+type InstalledDefinitionResourcesFor<
+  K extends PublicDefinitionKeyLike,
+> = InstalledDefinitionCallableLeafFor<K> extends ExactDefinitionCallable<
+  infer _TPacket,
+  infer TResources,
+  infer _TResourceReceipt
+> ? TResources
+  : never;
+
+type InstalledDefinitionResourceReceiptFor<
+  K extends PublicDefinitionKeyLike,
+> = InstalledDefinitionCallableLeafFor<K> extends ExactDefinitionCallable<
+  infer _TPacket,
+  infer _TResources,
+  infer TResourceReceipt
+> ? TResourceReceipt
+  : never;
+
+export type InstalledDefinitionCallableFor<
+  K extends PublicDefinitionKeyLike,
+> = ExactDefinitionCallable<
+  InstalledDefinitionPacketFor<K>,
+  InstalledDefinitionResourcesFor<K>,
+  InstalledDefinitionResourceReceiptFor<K>
+>;
+
+export type InstalledDefinitionCallFor<
+  K extends PublicDefinitionKeyLike,
+> = DefinitionCall<
+  InstalledDefinitionPacketFor<K>,
+  InstalledDefinitionResourcesFor<K>
+>;
+
+export type InstalledDefinitionHostReceiptFor<
+  K extends PublicDefinitionKeyLike,
+> = DefinitionHostReceipt<
+  InstalledDefinitionPacketFor<K>,
+  InstalledDefinitionResourceReceiptFor<K>
+>;
+
+export interface VerifiedInstalledDefinitionBinding<
+  K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike,
+> {
   readonly kind: "verified_installed_definition_binding";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "loaded";
-  readonly definitionKey: PublicDefinitionKeyLike;
+  readonly definitionKey: K;
   readonly definitionRef: string;
   readonly definitionDigest: Sha256Digest;
   readonly installId: string;
@@ -86,19 +215,23 @@ export interface VerifiedInstalledDefinitionBinding {
   readonly callable: ExactOwnerCallableCoordinate;
   readonly resolvedModulePath: string;
   readonly resolvedExportDigest: Sha256Digest;
-  readonly invoke: (...args: unknown[]) => unknown;
+  readonly invoke: InstalledDefinitionCallableFor<K>;
 }
 
-export type InstalledDefinitionBindingLoadResult =
-  | VerifiedInstalledDefinitionBinding
-  | InstalledDefinitionBindingLoadRefusal;
+export type InstalledDefinitionBindingLoadResult<
+  K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike,
+> =
+  | VerifiedInstalledDefinitionBinding<K>
+  | InstalledDefinitionBindingLoadRefusal<K>;
 
-export interface InstalledDefinitionBindingLoadBasis {
+export interface InstalledDefinitionBindingLoadBasis<
+  K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike,
+> {
   readonly install: ProductInstall;
   readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly verifiedProduct: VerifiedProductArtifact;
   readonly resolvedLock: ResolvedProductLock;
-  readonly definitionKey: PublicDefinitionKeyLike;
+  readonly definitionKey: K;
 }
 
 function sameJson(left: unknown, right: unknown): boolean {
@@ -128,11 +261,11 @@ function safeMemberPath(value: unknown): value is readonly string[] {
     );
 }
 
-function loadRefusal(
-  definitionKey: PublicDefinitionKeyLike,
+function loadRefusal<K extends PublicDefinitionKeyLike>(
+  definitionKey: K,
   code: InstalledDefinitionBindingLoadRefusalCode,
   message: string,
-): InstalledDefinitionBindingLoadRefusal {
+): InstalledDefinitionBindingLoadRefusal<K> {
   return deepFreeze({
     kind: "installed_definition_binding_load_refusal" as const,
     schemaVersion: "5.0.0" as const,
@@ -273,9 +406,11 @@ export async function loadVerifiedInstalledModule(
  * No target module is evaluated until the complete static coordinate below has
  * been admitted.
  */
-export async function loadVerifiedInstalledDefinitionBinding(
-  basis: InstalledDefinitionBindingLoadBasis,
-): Promise<InstalledDefinitionBindingLoadResult> {
+export async function loadVerifiedInstalledDefinitionBinding<
+  const K extends PublicDefinitionKeyLike,
+>(
+  basis: InstalledDefinitionBindingLoadBasis<K>,
+): Promise<InstalledDefinitionBindingLoadResult<K>> {
   const { definitionKey, install, verifiedProduct, resolvedLock } = basis;
   if (
     !isResolvedProductLock(resolvedLock) ||
@@ -550,6 +685,6 @@ export async function loadVerifiedInstalledDefinitionBinding(
     callable,
     resolvedModulePath,
     resolvedExportDigest,
-    invoke: selected as (...args: unknown[]) => unknown,
-  });
+    invoke: selected as InstalledDefinitionCallableFor<K>,
+  }) as VerifiedInstalledDefinitionBinding<K>;
 }

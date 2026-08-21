@@ -3,10 +3,12 @@ import {
   readFile,
   readdir,
   realpath,
+  rename,
+  rmdir,
   stat,
   writeFile,
 } from "node:fs/promises";
-import { isAbsolute, join, resolve } from "node:path";
+import { basename, isAbsolute, join, resolve } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
@@ -15,6 +17,13 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import {
+  createPhysicalArtifactStagingRoot,
+  observePhysicalArtifact,
+  physicalArtifactEffectEvidence,
+  preserveOwnedPhysicalResidue,
+  type PhysicalArtifactEffectEvidence,
+} from "./physical_artifact_effect.js";
 
 const WORKSPACE_MANIFEST_FILE = "workspace-manifest.json";
 
@@ -163,6 +172,7 @@ export interface WorkspaceOperationRefusal {
   readonly disposition: "refused";
   readonly code: WorkspaceOperationRefusalCode;
   readonly message: string;
+  readonly physicalEffect: PhysicalArtifactEffectEvidence | null;
 }
 
 export type WorkspaceCreateOperationResult =
@@ -173,9 +183,20 @@ export type WorkspaceOpenOperationResult =
   | WorkspaceOpenProjection
   | WorkspaceOperationRefusal;
 
+class WorkspaceCreatePhysicalRefusal extends TypeError {
+  constructor(
+    readonly code: Extract<WorkspaceOperationRefusalCode, "target_not_clean">,
+    message: string,
+  ) {
+    super(message);
+    this.name = "WorkspaceCreatePhysicalRefusal";
+  }
+}
+
 function refusal(
   code: WorkspaceOperationRefusalCode,
   message: string,
+  physicalEffect: PhysicalArtifactEffectEvidence | null = null,
 ): WorkspaceOperationRefusal {
   return deepFreeze({
     kind: "workspace_operation_refusal" as const,
@@ -183,6 +204,7 @@ function refusal(
     disposition: "refused" as const,
     code,
     message,
+    physicalEffect,
   });
 }
 
@@ -520,46 +542,192 @@ export async function createWorkspace(
   if (packet.memberKey === "imported" && disposition === "absent") {
     return refusal("target_missing", "an imported workspace target must already exist");
   }
-  if (
-    packet.memberKey === "clean" &&
-    disposition === "directory" &&
-    (await readdir(targetRoot)).length !== 0
-  ) {
-    return refusal("target_not_clean", "a clean workspace target must be absent or empty");
+  const targetBefore = await observePhysicalArtifact(targetRoot);
+  if (targetBefore.disposition === "observation_refused") {
+    return refusal(
+      "workspace_io_refusal",
+      `workspace target could not be observed: ${targetBefore.observationFailure}`,
+    );
   }
+  if (
+    targetBefore.disposition === "observed" &&
+    targetBefore.inventory[0]?.artifactKind !== "directory"
+  ) {
+    return refusal(
+      "target_not_directory",
+      "workspace target must be one exact physical directory",
+    );
+  }
+  let stagingRoot: string | null = null;
+  let substrateRoot: string | null = null;
+  let commitDisposition: "refused" | "committed" = "refused";
+  let committedManifest: WorkspaceManifest | null = null;
+  let committedManifestPath: string | null = null;
+  const directEntriesBefore = targetBefore.disposition === "observed"
+    ? targetBefore.inventory.flatMap((entry) =>
+      entry.relativeLocator !== "." &&
+        !entry.relativeLocator.includes("/")
+        ? [entry.relativeLocator]
+        : []
+    ).sort()
+    : [];
+  if (directEntriesBefore.includes(".abiogenesis")) {
+    return refusal(
+      "workspace_already_exists",
+      "workspace target already contains an ABIogenesis substrate",
+    );
+  }
+  const physicalRefusal = async (
+    error: unknown,
+  ): Promise<WorkspaceOperationRefusal> => {
+    const code = (error as NodeJS.ErrnoException).code;
+    const ownedResidue = [
+      ...(substrateRoot === null || commitDisposition !== "committed"
+        ? []
+        : [substrateRoot]),
+      ...(stagingRoot === null ? [] : [stagingRoot]),
+    ];
+    const targetAtFailure = await observePhysicalArtifact(targetRoot);
+    const stagingAtFailure = stagingRoot === null
+      ? null
+      : await observePhysicalArtifact(stagingRoot);
+    const compensation = await preserveOwnedPhysicalResidue({
+      owner: "workspace_create",
+      targetRoot,
+      stagingRoot,
+      targetBefore,
+      targetAtFailure,
+      stagingAtFailure,
+      ownedLocators: ownedResidue,
+    });
+    const targetAfter = await observePhysicalArtifact(targetRoot);
+    const stagingAfter = stagingRoot === null
+      ? null
+      : await observePhysicalArtifact(stagingRoot);
+    return refusal(
+      error instanceof WorkspaceCreatePhysicalRefusal
+        ? error.code
+        : code === "EEXIST"
+        ? "workspace_already_exists"
+        : "workspace_io_refusal",
+      error instanceof WorkspaceCreatePhysicalRefusal
+        ? error.message
+        : `workspace manifest construction failed: ${String(error)}`,
+      physicalArtifactEffectEvidence(
+        "workspace_create",
+        targetRoot,
+        stagingRoot,
+        targetBefore,
+        targetAtFailure,
+        stagingAtFailure,
+        compensation,
+        targetAfter,
+        stagingAfter,
+      ),
+    );
+  };
+  let canonicalRoot: string | null = null;
   try {
-    await mkdir(targetRoot, { recursive: true });
-    const canonicalRoot = await realpath(targetRoot);
-    const substrateRoot = join(canonicalRoot, ".abiogenesis");
-    await mkdir(substrateRoot, { recursive: false });
-    const manifest = constructManifest(canonicalRoot, packet);
-    const manifestPath = join(substrateRoot, WORKSPACE_MANIFEST_FILE);
+    if (
+      packet.memberKey === "clean" &&
+      disposition === "directory" &&
+      (await readdir(targetRoot)).length !== 0
+    ) {
+      throw new WorkspaceCreatePhysicalRefusal(
+        "target_not_clean",
+        "a clean workspace target must be absent or empty",
+      );
+    }
+    if (targetBefore.disposition === "absent") {
+      await mkdir(targetRoot, { recursive: false });
+    }
+    canonicalRoot = await realpath(targetRoot);
+    substrateRoot = join(targetRoot, ".abiogenesis");
+    stagingRoot = await createPhysicalArtifactStagingRoot(
+      targetRoot,
+      "workspace_create",
+    );
+    const stagedSubstrateRoot = join(stagingRoot, ".abiogenesis");
+    await mkdir(stagedSubstrateRoot, { recursive: false });
+  } catch (error) {
+    return await physicalRefusal(error);
+  }
+  if (canonicalRoot === null || stagingRoot === null || substrateRoot === null) {
+    throw new TypeError("workspace staging completed without its exact projection basis");
+  }
+
+  const manifest = constructManifest(canonicalRoot, packet);
+  const stagedSubstrateRoot = join(stagingRoot, ".abiogenesis");
+  const stagedManifestPath = join(stagedSubstrateRoot, WORKSPACE_MANIFEST_FILE);
+  const manifestPath = join(
+    canonicalRoot,
+    ".abiogenesis",
+    WORKSPACE_MANIFEST_FILE,
+  );
+  const manifestBytes = `${canonicalJson(manifest as unknown as JsonValue)}\n`;
+  try {
     await writeFile(
-      manifestPath,
-      `${canonicalJson(manifest as unknown as JsonValue)}\n`,
+      stagedManifestPath,
+      manifestBytes,
       { encoding: "utf8", flag: "wx" },
     );
-    return deepFreeze({
-      kind: "workspace_create_result" as const,
-      schemaVersion: "5.0.0" as const,
-      disposition: "created" as const,
-      manifestPath,
-      workspaceRef: manifest.workspaceRef,
-      workspaceDigest: manifest.workspaceDigest,
-      workspaceAuthorityRef: manifest.authorityBasis.authorityRef,
-      workspaceAuthorityDigest: manifest.authorityBasis.authorityDigest,
-      creationManifestRef: manifest.creationManifestRef,
-      creationManifestDigest: manifest.creationManifestDigest,
-      provenance: manifest.provenance,
-      manifest,
-    });
+    const currentTargetEntries = (await readdir(targetRoot)).sort();
+    const expectedTargetEntries = [
+      ...directEntriesBefore,
+      basename(stagingRoot),
+    ].sort();
+    const currentStageEntries = (await readdir(stagingRoot)).sort();
+    const currentSubstrateEntries = (await readdir(stagedSubstrateRoot)).sort();
+    if (
+      currentTargetEntries.join("\0") !== expectedTargetEntries.join("\0") ||
+      currentStageEntries.join("\0") !== ".abiogenesis" ||
+      currentSubstrateEntries.join("\0") !== WORKSPACE_MANIFEST_FILE ||
+      await realpath(targetRoot) !== canonicalRoot
+    ) {
+      throw new WorkspaceCreatePhysicalRefusal(
+        "target_not_clean",
+        "workspace target or staging content changed before commit",
+      );
+    }
+    await rename(stagedSubstrateRoot, substrateRoot);
+    commitDisposition = "committed";
+    await rmdir(stagingRoot);
+    const committedEntries = (await readdir(targetRoot)).sort();
+    const expectedCommittedEntries = [
+      ...directEntriesBefore,
+      ".abiogenesis",
+    ].sort();
+    if (
+      committedEntries.join("\0") !== expectedCommittedEntries.join("\0") ||
+      (await readdir(substrateRoot)).join("\0") !== WORKSPACE_MANIFEST_FILE
+    ) {
+      throw new WorkspaceCreatePhysicalRefusal(
+        "target_not_clean",
+        "workspace target changed during commit",
+      );
+    }
+    committedManifest = manifest;
+    committedManifestPath = manifestPath;
   } catch (error) {
-    const code = (error as NodeJS.ErrnoException).code;
-    return refusal(
-      code === "EEXIST" ? "workspace_already_exists" : "workspace_io_refusal",
-      `workspace manifest construction failed: ${String(error)}`,
-    );
+    return await physicalRefusal(error);
   }
+  if (committedManifest === null || committedManifestPath === null) {
+    throw new TypeError("workspace commit completed without its Product result basis");
+  }
+  return deepFreeze({
+    kind: "workspace_create_result" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "created" as const,
+    manifestPath: committedManifestPath,
+    workspaceRef: committedManifest.workspaceRef,
+    workspaceDigest: committedManifest.workspaceDigest,
+    workspaceAuthorityRef: committedManifest.authorityBasis.authorityRef,
+    workspaceAuthorityDigest: committedManifest.authorityBasis.authorityDigest,
+    creationManifestRef: committedManifest.creationManifestRef,
+    creationManifestDigest: committedManifest.creationManifestDigest,
+    provenance: committedManifest.provenance,
+    manifest: committedManifest,
+  });
 }
 
 export async function openWorkspace(

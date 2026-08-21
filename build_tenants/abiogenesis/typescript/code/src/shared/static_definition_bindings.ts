@@ -189,14 +189,11 @@ export function bindStaticOwner<
           ));
         }
         return Effect.try({
-          try: (): DefinitionReturn<TPacket, TResourceReceipt> => deepFreeze({
-            ownerOutput: validatedOwnerOutput(
-              packet,
-              result.ownerOutput,
-              "module-static definition owner",
-            ),
-            resources: result.resources,
-          }),
+          try: () => validatedOwnerOutput(
+            packet,
+            result.ownerOutput,
+            "module-static definition owner",
+          ),
           catch: () => postOwnerValidationDefinitionFault(
             packet.definitionKey,
             "owner_output_admission",
@@ -204,7 +201,15 @@ export function bindStaticOwner<
             "owner output differs from its exact fixed-packet contract",
             result.resources,
           ),
-        });
+        }).pipe(
+          Effect.map((ownerOutput): DefinitionReturn<
+            TPacket,
+            TResourceReceipt
+          > => deepFreeze({
+            ownerOutput,
+            resources: result.resources,
+          })),
+        );
       }),
     );
   };
@@ -237,9 +242,17 @@ export function bindExactPrefixRead<
     TResources,
     TResourceReceipt
   > = (call) => {
+    const admittedResources = v.safeParse(
+      resourceAssertionSchema,
+      call.resources,
+    );
     if (
-      call.resources.eventResource.kind !== "reopen_abg_event_resource" ||
-      !validateAbgEventResourceAssertion(call.resources.eventResource)
+      !admittedResources.success ||
+      admittedResources.output.eventResource.kind !==
+        "reopen_abg_event_resource" ||
+      !validateAbgEventResourceAssertion(
+        admittedResources.output.eventResource,
+      )
     ) {
       return Effect.fail(preDefinitionFault(
         packet.definitionKey,
@@ -248,6 +261,7 @@ export function bindExactPrefixRead<
         "exact-prefix reads require one exact reopened ABG entry prefix",
       ));
     }
+    const eventAssertion = admittedResources.output.eventResource;
     return staticOwner(call).pipe(
       Effect.flatMap((result) => {
         const eventReceipt = admittedEventReceipt(result.resources);
@@ -260,7 +274,7 @@ export function bindExactPrefixRead<
             result.resources,
           ));
         }
-        return exactReadReceipt(call.resources.eventResource, eventReceipt)
+        return exactReadReceipt(eventAssertion, eventReceipt)
           ? Effect.succeed(result)
           : Effect.fail(postOwnerValidationDefinitionFault(
               packet.definitionKey,
@@ -301,7 +315,16 @@ export function bindExactPrefixTransition<
     TResources,
     TResourceReceipt
   > = (call) => {
-    if (!validateAbgEventResourceAssertion(call.resources.eventResource)) {
+    const admittedResources = v.safeParse(
+      resourceAssertionSchema,
+      call.resources,
+    );
+    if (
+      !admittedResources.success ||
+      !validateAbgEventResourceAssertion(
+        admittedResources.output.eventResource,
+      )
+    ) {
       return Effect.fail(preDefinitionFault(
         packet.definitionKey,
         "resource_admission",
@@ -309,6 +332,7 @@ export function bindExactPrefixTransition<
         "exact-prefix transitions require one exact new or reopened ABG resource",
       ));
     }
+    const eventAssertion = admittedResources.output.eventResource;
     return staticOwner(call).pipe(
       Effect.flatMap((result) => {
         const eventReceipt = admittedEventReceipt(result.resources);
@@ -321,7 +345,7 @@ export function bindExactPrefixTransition<
             result.resources,
           ));
         }
-        return exactTransitionReceipt(call.resources.eventResource, eventReceipt)
+        return exactTransitionReceipt(eventAssertion, eventReceipt)
           ? Effect.succeed(result)
           : Effect.fail(postOwnerValidationDefinitionFault(
               packet.definitionKey,

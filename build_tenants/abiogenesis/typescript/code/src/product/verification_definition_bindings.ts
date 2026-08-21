@@ -7,13 +7,18 @@ import type {
   DefinitionCall, DefinitionExecutionFault, DefinitionReturn,
   ExactDefinitionCallable,
 } from "../shared/effect_definition.js";
-import { preDefinitionFault } from "../shared/effect_definition.js";
+import {
+  admitDefinitionExecutionFault,
+  preDefinitionFault,
+} from "../shared/effect_definition.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   absolutePathSchema, admitRuntimeContract, digestSchema, nonblankSchema,
   refDigestSchema, type OwnerRefusalOf, type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
+import { bindStaticOwner } from
+  "../shared/static_definition_bindings.js";
 import type {
   InstalledProductVerificationResources, PackedProductVerificationResources,
   ProductVerificationArtifactResource, ProductVerificationOperationResult,
@@ -66,6 +71,37 @@ const installedResourcesSchema = v.strictObject({
   installManifest: installManifestResourceSchema,
 });
 
+const PRODUCT_VERIFICATION_RESOURCE_ASSERTION_SCHEMA = v.union([
+  packedResourcesSchema,
+  installedResourcesSchema,
+]) as v.GenericSchema<
+  ProductVerificationResources,
+  ProductVerificationResources
+>;
+
+const PRODUCT_VERIFICATION_RESOURCE_RECEIPT_SCHEMA = v.variant("targetKind", [
+  v.strictObject({
+    kind: v.literal("product_verification_resource_disposition"),
+    schemaVersion: v.literal("5.0.0"),
+    targetKind: v.literal("packed_artifact"),
+    disposition: v.literal("read_only_unchanged"),
+    packedArtifact: refDigestSchema,
+  }),
+  v.strictObject({
+    kind: v.literal("product_verification_resource_disposition"),
+    schemaVersion: v.literal("5.0.0"),
+    targetKind: v.literal("installed_artifact"),
+    disposition: v.literal("read_only_unchanged"),
+    installedArtifact: refDigestSchema,
+    resolvedLock: refDigestSchema,
+    installedProduct: refDigestSchema,
+    installManifest: refDigestSchema,
+  }),
+]) as v.GenericSchema<
+  ProductVerificationResourceDisposition,
+  ProductVerificationResourceDisposition
+>;
+
 type AdmittedResources = Readonly<{
   resources: ProductVerificationResources;
   installedProductCoordinate: ReferenceDigest<"InstalledProduct"> | null;
@@ -83,6 +119,25 @@ function fault(
     stage,
     code,
     message,
+  );
+}
+
+function admittedVerificationFault(
+  cause: unknown,
+  call: DefinitionCall<VerifyPacket, ProductVerificationResources>,
+): DefinitionExecutionFault<
+  VerifyPacket["definitionKey"],
+  ProductVerificationResourceDisposition
+> | null {
+  return admitDefinitionExecutionFault(
+    cause,
+    call.invocation.definitionKey,
+    (candidate) => v.is(
+        PRODUCT_VERIFICATION_RESOURCE_RECEIPT_SCHEMA,
+        candidate,
+      )
+      ? { resourceReceipt: candidate }
+      : null,
   );
 }
 
@@ -349,20 +404,35 @@ function resourceDisposition(admitted: AdmittedResources): ProductVerificationRe
   });
 }
 
-const verify: ExactDefinitionCallable<VerifyPacket, ProductVerificationResources,
+const verifyOwner: ExactDefinitionCallable<VerifyPacket, ProductVerificationResources,
   ProductVerificationResourceDisposition> = (call) => {
   const admitted = admitResources(call);
   if ("kind" in admitted) return Effect.fail(admitted);
   return Effect.tryPromise({
     try: () => ProductVerificationPort.verify(nativePacket(admitted.resources)),
-    catch: (cause) => fault(call, "owner_execution", "product_verification_execution_failure", String(cause)),
+    catch: (cause) => {
+      const admittedFault = admittedVerificationFault(cause, call);
+      if (admittedFault !== null) return admittedFault;
+      throw cause;
+    },
   }).pipe(Effect.flatMap((ownerResult) => Effect.try({
     try: (): DefinitionReturn<VerifyPacket, ProductVerificationResourceDisposition> => deepFreeze({
       ownerOutput: validatedOutput(projectOwnerOutput(call, admitted, ownerResult)),
       resources: resourceDisposition(admitted),
     }),
-    catch: (cause) => fault(call, "owner_projection", "invalid_product_verification_owner_output", String(cause)),
+    catch: (cause) => {
+      const admittedFault = admittedVerificationFault(cause, call);
+      if (admittedFault !== null) return admittedFault;
+      throw cause;
+    },
   })));
 };
+
+const verify = bindStaticOwner(
+  PRODUCT_VERIFICATION_CONTRACTS.verify,
+  verifyOwner,
+  PRODUCT_VERIFICATION_RESOURCE_ASSERTION_SCHEMA,
+  PRODUCT_VERIFICATION_RESOURCE_RECEIPT_SCHEMA,
+);
 
 export const PRODUCT_VERIFICATION_DEFINITION_BINDINGS = Object.freeze({ verify });

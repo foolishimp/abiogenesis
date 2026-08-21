@@ -1060,6 +1060,36 @@ export type CheckedArtifactAppendResult =
       successorPrefix: DurablePrefixCoordinate;
     }>;
 
+/** Exact Event Store carrier for a failure after one durable append. */
+export class EventStorePostAppendFailure extends TypeError {
+  readonly successorPrefix: DurablePrefixCoordinate;
+  readonly admissionEventRef: string;
+  readonly failureMessage: string;
+
+  constructor(
+    successorPrefix: DurablePrefixCoordinate,
+    admissionEventRef: string,
+    cause: unknown,
+  ) {
+    const failureMessage = String(cause);
+    super(`ABG event store failed after durable append: ${failureMessage}`);
+    this.name = "EventStorePostAppendFailure";
+    this.successorPrefix = successorPrefix;
+    this.admissionEventRef = admissionEventRef;
+    this.failureMessage = failureMessage;
+  }
+}
+
+class EventStoreDurableAppendFailure extends TypeError {
+  readonly appendCause: unknown;
+
+  constructor(cause: unknown) {
+    super(`ABG durable event append failed: ${String(cause)}`);
+    this.name = "EventStoreDurableAppendFailure";
+    this.appendCause = cause;
+  }
+}
+
 export interface RuntimeEventScope {
   readonly invocationRef?: string;
   readonly runId?: string;
@@ -1138,6 +1168,27 @@ export type NewEmptyAppendSinkResult =
 export interface EventStoreCloseHandoff {
   readonly prefix: DurablePrefixCoordinate;
   readonly reopenAuthority: EventStoreReopenAuthority;
+}
+
+/**
+ * Exact owner failure after a selected durable prefix already exists. The
+ * handoff is projected only from that owner-issued prefix; it is not recovered
+ * from a mutable store tail.
+ */
+export class EventStoreCloseFailure extends TypeError {
+  readonly closeHandoff: EventStoreCloseHandoff;
+  readonly failureMessage: string;
+
+  constructor(
+    closeHandoff: EventStoreCloseHandoff,
+    cause: unknown,
+  ) {
+    const failureMessage = String(cause);
+    super(`ABG durable close failed after issuing its exact handoff: ${failureMessage}`);
+    this.name = "EventStoreCloseFailure";
+    this.closeHandoff = closeHandoff;
+    this.failureMessage = failureMessage;
+  }
 }
 
 export interface ReopenedEventStoreContext {
@@ -1642,6 +1693,37 @@ export function validateEventStoreCloseHandoff(
     prefix.storeIdentity.eventContractDigest === reopenAuthority.eventContractDigest;
 }
 
+export function projectEventStoreCloseHandoff(
+  prefix: DurablePrefixCoordinate,
+): EventStoreCloseHandoff {
+  if (!validateDurablePrefixCoordinate(prefix)) {
+    throw new TypeError(
+      "ABG close handoff requires one exact owner-issued durable prefix",
+    );
+  }
+  const authorityBody = {
+    kind: "event_store_reopen_authority" as const,
+    schemaVersion: "5.0.0" as const,
+    eventLogPath: fileURLToPath(prefix.eventLogRef),
+    device: prefix.storeIdentity.device,
+    inode: prefix.storeIdentity.inode,
+    eventLogDigest: prefix.prefixDigest,
+    durableByteLength: prefix.prefixLength,
+    eventContractDigest: prefix.storeIdentity.eventContractDigest,
+  };
+  const handoff = deepFreeze({
+    prefix,
+    reopenAuthority: {
+      ...authorityBody,
+      authorityDigest: sha256Canonical(authorityBody),
+    },
+  });
+  if (!validateEventStoreCloseHandoff(handoff)) {
+    throw new TypeError("ABG durable close handoff failed validation");
+  }
+  return handoff;
+}
+
 export function readRuntimeEventsAtDurablePrefix(
   prefix: DurablePrefixCoordinate,
 ): readonly RuntimeEvent[] {
@@ -2058,35 +2140,70 @@ export class AbgEventStore {
     }
   }
 
-  projectReopenAuthorityAndClose(): EventStoreCloseHandoff {
+  projectReopenAuthorityAndClose(
+    selectedPrefix?: DurablePrefixCoordinate,
+  ): EventStoreCloseHandoff {
+    const selectedHandoff = selectedPrefix === undefined
+      ? null
+      : projectEventStoreCloseHandoff(selectedPrefix);
     const state = eventState.get(this);
-    if (state === undefined) throw new TypeError("event store state is unavailable");
-    const descriptor = assertDurableSinkUnchanged(state);
-    const path = state.durableLogPath!;
-    const identity = state.durableFileIdentity!;
-    const bytes = readDescriptorBytes(descriptor, state.durableByteLength);
-    assertDurableSinkUnchanged(state);
-    const authorityBody = {
-      kind: "event_store_reopen_authority" as const,
-      schemaVersion: "5.0.0" as const,
-      eventLogPath: path,
-      device: identity.device,
-      inode: identity.inode,
-      eventLogDigest: sha256Bytes(bytes),
-      durableByteLength: state.durableByteLength,
-      eventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
-    };
-    const reopenAuthority = deepFreeze({
-      ...authorityBody,
-      authorityDigest: sha256Canonical(authorityBody),
-    });
-    const prefix = durablePrefixCoordinate(path, identity, bytes);
-    const handoff = Object.freeze({ prefix, reopenAuthority });
-    if (!validateEventStoreCloseHandoff(handoff)) {
-      throw new TypeError("ABG durable close handoff failed validation");
+    const selectedMatchesOwnedState = selectedHandoff !== null &&
+      state !== undefined &&
+      state.durableLogPath !== null &&
+      state.durableFileIdentity !== null &&
+      !state.durableAppendClosed &&
+      selectedHandoff.prefix.eventLogRef ===
+        pathToFileURL(state.durableLogPath).href &&
+      selectedHandoff.prefix.prefixLength === state.durableByteLength &&
+      selectedHandoff.prefix.storeIdentity.device ===
+        state.durableFileIdentity.device &&
+      selectedHandoff.prefix.storeIdentity.inode ===
+        state.durableFileIdentity.inode;
+    let selectedMatchesCurrentHandoff = false;
+    try {
+      if (state === undefined) {
+        throw new TypeError("event store state is unavailable");
+      }
+      const descriptor = assertDurableSinkUnchanged(state);
+      const path = state.durableLogPath!;
+      const identity = state.durableFileIdentity!;
+      const bytes = readDescriptorBytes(descriptor, state.durableByteLength);
+      assertDurableSinkUnchanged(state);
+      const currentHandoff = projectEventStoreCloseHandoff(
+        durablePrefixCoordinate(path, identity, bytes),
+      );
+      if (
+        selectedHandoff !== null &&
+        selectedHandoff.prefix.coordinateDigest !==
+          currentHandoff.prefix.coordinateDigest
+      ) {
+        throw new TypeError(
+          "ABG durable close differs from its selected exact final prefix",
+        );
+      }
+      selectedMatchesCurrentHandoff = selectedHandoff !== null;
+      const handoff = selectedHandoff ?? currentHandoff;
+      releaseDurableOwnership(state);
+      return handoff;
+    } catch (cause) {
+      if (
+        selectedHandoff === null ||
+        !selectedMatchesOwnedState ||
+        !selectedMatchesCurrentHandoff
+      ) throw cause;
+      let failure: unknown = cause;
+      if (state !== undefined && !state.durableAppendClosed) {
+        try {
+          releaseDurableOwnership(state);
+        } catch (releaseCause) {
+          failure = new AggregateError(
+            [cause, releaseCause],
+            "ABG durable close and ownership release both failed",
+          );
+        }
+      }
+      throw new EventStoreCloseFailure(selectedHandoff, failure);
     }
-    releaseDurableOwnership(state);
-    return handoff;
   }
 }
 
@@ -2978,13 +3095,28 @@ function admitRuntimeEventInternal(
   }
   const events = state.events;
   const event = projectRuntimeEventFromValidatedHistory(events, candidate);
-  const successorPrefix =
+  let successorPrefix: DurablePrefixCoordinate | null = null;
+  if (
     state.durableLogPath !== null &&
     state.transactionStartIndex === null
-      ? appendDurablyBatch(state, [event])
-      : null;
-  events.push(event);
-  return Object.freeze({ event, successorPrefix });
+  ) {
+    try {
+      successorPrefix = appendDurablyBatch(state, [event]);
+    } catch (cause) {
+      throw new EventStoreDurableAppendFailure(cause);
+    }
+  }
+  try {
+    events.push(event);
+    return Object.freeze({ event, successorPrefix });
+  } catch (cause) {
+    if (successorPrefix === null) throw cause;
+    throw new EventStorePostAppendFailure(
+      successorPrefix,
+      event.eventId,
+      cause,
+    );
+  }
 }
 
 function appendRefusal(
@@ -3023,8 +3155,9 @@ export function appendCheckedArtifactEvent(
   } catch (error) {
     return appendRefusal("prefix_mismatch", String(error));
   }
+  let admitted: ReturnType<typeof admitRuntimeEventInternal> | null = null;
   try {
-    const admitted = admitRuntimeEventInternal(store, initiatedEvent);
+    admitted = admitRuntimeEventInternal(store, initiatedEvent);
     if (admitted.successorPrefix === null) {
       throw new TypeError("checked artifact append produced no durable successor");
     }
@@ -3033,7 +3166,16 @@ export function appendCheckedArtifactEvent(
       successorPrefix: admitted.successorPrefix,
     });
   } catch (error) {
-    return appendRefusal("sink_unavailable", String(error));
+    if (error instanceof EventStorePostAppendFailure) throw error;
+    if (admitted !== null && admitted.successorPrefix !== null) {
+      throw new EventStorePostAppendFailure(
+        admitted.successorPrefix,
+        admitted.event.eventId,
+        error,
+      );
+    }
+    if (!(error instanceof EventStoreDurableAppendFailure)) throw error;
+    return appendRefusal("sink_unavailable", String(error.appendCause));
   }
 }
 

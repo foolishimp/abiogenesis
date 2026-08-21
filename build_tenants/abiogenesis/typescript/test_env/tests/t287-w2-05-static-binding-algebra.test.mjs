@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtemp, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
@@ -261,6 +261,75 @@ async function faultOf(program) {
   return Effect.runPromise(Effect.flip(program));
 }
 
+test("W2-05 touched owners have no hidden binding factory, registry, or kind-only fault cast", async () => {
+  const sourceFiles = [
+    "../../code/src/product/workspace_definition_bindings.ts",
+    "../../code/src/product/install_definition_bindings.ts",
+    "../../code/src/product/environment_definition_bindings.ts",
+    "../../code/src/abg/project_read_definition_bindings.ts",
+    "../../code/src/product/catalog_definition_bindings.ts",
+    "../../code/src/product/project_read_definition_bindings.ts",
+    "../../code/src/product/release_snapshot_definition_bindings.ts",
+    "../../code/src/product/verification_definition_bindings.ts",
+    "../../code/src/validator/conformance_definition_bindings.ts",
+    "../../code/src/shared/definition_binding_mechanics.ts",
+  ];
+  const sources = new Map();
+  for (const relativePath of sourceFiles) {
+    const source = await readFile(new URL(relativePath, import.meta.url), "utf8");
+    sources.set(relativePath, source);
+    assert.doesNotMatch(
+      source,
+      /function\s+(?:createBinding|binding|createApplyBinding)\b/u,
+      relativePath,
+    );
+    assert.doesNotMatch(
+      source,
+      /(?:isDefinitionFault|isExecutionFault|\(cause\s+as\s+\{\s*kind\?:\s*unknown\s*\}\)\.kind)/u,
+      relativePath,
+    );
+    if (relativePath.includes("abg/project_read_definition_bindings")) {
+      assert.doesNotMatch(source, /Object\.fromEntries\(/u, relativePath);
+    }
+  }
+  for (const [relativePath, relations] of [
+    ["../../code/src/product/workspace_definition_bindings.ts", [
+      /candidate\.physicalEffect\.owner === "workspace_create"/u,
+      /candidate\.physicalEffect\.targetRoot === resolve\(candidate\.targetRoot\)/u,
+    ]],
+    ["../../code/src/product/install_definition_bindings.ts", [
+      /const install = bindExactPrefixTransition\(/u,
+      /candidate\.physicalEffect\.owner === "product_install"/u,
+      /candidate\.physicalEffect\.targetRoot === resolve\(candidate\.targetRoot\)/u,
+    ]],
+    ["../../code/src/product/environment_definition_bindings.ts", [
+      /const resolve = bindStaticOwner\(/u,
+      /const bind = bindExactPrefixTransition\(/u,
+    ]],
+    ["../../code/src/product/project_read_definition_bindings.ts", [
+      /const catalog_list = bindStaticOwner\(/u,
+      /const catalog_describe = bindStaticOwner\(/u,
+      /const workspace_status = bindStaticOwner\(/u,
+      /const install_evidence = bindStaticOwner\(/u,
+      /const ticket_consensus = bindStaticOwner\(/u,
+    ]],
+    ["../../code/src/product/release_snapshot_definition_bindings.ts", [
+      /const published_rc = bindStaticOwner\(/u,
+      /const tapped_release = bindStaticOwner\(/u,
+    ]],
+    ["../../code/src/product/verification_definition_bindings.ts", [
+      /const verify = bindStaticOwner\(/u,
+    ]],
+    ["../../code/src/validator/conformance_definition_bindings.ts", [
+      /const gtl_program = bindStaticOwner\(/u,
+    ]],
+  ]) {
+    const source = sources.get(relativePath);
+    assert.equal(typeof source, "string", relativePath);
+    for (const relation of relations) assert.match(source, relation, relativePath);
+  }
+});
+
 test("W2-05 three-function static binding algebra admits once and fails closed", async (context) => {
   assert.deepEqual(Object.keys(bindings).sort(), [
     "bindExactPrefixRead",
@@ -419,6 +488,26 @@ test("W2-05 three-function static binding algebra admits once and fails closed",
   })));
   assert.equal(malformedResourceFault.code, "invalid_resource_assertion");
   assert.equal(staticCalls, 1, "malformed resources do not enter the owner");
+
+  const throwingResourceCall = {
+    invocation: call.invocation,
+    get resources() {
+      throw new Error("injected resource projection defect");
+    },
+  };
+  const throwingResourceHost = await runExactDefinition(
+    throwingResourceCall,
+    Effect.suspend(() => staticBinding(throwingResourceCall)),
+  );
+  assert.equal(
+    throwingResourceHost.failure.failureKind,
+    "defect_or_interruption",
+  );
+  assert.match(
+    throwingResourceHost.failure.cause,
+    /injected resource projection defect/u,
+  );
+  assert.equal(staticCalls, 1, "projection defects do not enter the owner");
 
   const wrongCoordinateBinding = bindings.bindStaticOwner(
     RUN_OPERATION_CONTRACTS.invoke.start,
@@ -807,6 +896,46 @@ test("W2-05 three-function static binding algebra admits once and fails closed",
     assert.equal(calls, 0, `${label} rejects a shared synthetic regime pre-owner`);
   }
 
+  for (const [label, bind] of [
+    ["read", bindings.bindExactPrefixRead],
+    ["transition", bindings.bindExactPrefixTransition],
+  ]) {
+    let calls = 0;
+    const bound = bind(
+      RUN_OPERATION_CONTRACTS.invoke.invoke,
+      () => {
+        calls += 1;
+        return Effect.succeed(Object.freeze({ ownerOutput: refusal, resources: receipt }));
+      },
+      assertionSchema,
+      receiptSchema,
+    );
+    for (const malformedResources of [
+      null,
+      undefined,
+      false,
+      0,
+      "",
+      Object.freeze([]),
+      Object.freeze({ eventResource: null, token: "admitted" }),
+    ]) {
+      const malformedResourceFault = await faultOf(
+        bound(exactInvokeCall(malformedResources)),
+      );
+      assert.equal(
+        malformedResourceFault.code,
+        "invalid_resource_assertion",
+        `${label} structurally refuses ${String(malformedResources)}`,
+      );
+      assert.equal(
+        malformedResourceFault.faultBoundary,
+        "pre_acquisition_or_pre_append",
+      );
+      assert.equal(malformedResourceFault.resourceReceipt, null);
+    }
+    assert.equal(calls, 0, `${label} never dereferences or calls through malformed resources`);
+  }
+
   const scratch = await mkdtemp(join(tmpdir(), "abi5-w2-05-binding-"));
   context.after(() => rm(scratch, { recursive: true, force: true }));
   const eventLogPath = join(scratch, "events.jsonl");
@@ -879,6 +1008,36 @@ test("W2-05 three-function static binding algebra admits once and fails closed",
     readResult.resources.eventResource.entryPrefix.coordinateDigest,
     readResult.resources.eventResource.closeHandoff.prefix.coordinateDigest,
   );
+
+  for (const [label, bind, inputResources] of [
+    ["read", bindings.bindExactPrefixRead, readResources],
+    ["transition", bindings.bindExactPrefixTransition, transitionResources],
+  ]) {
+    const malformedFaultBinding = bind(
+      RUN_OPERATION_CONTRACTS.invoke.invoke,
+      () => Effect.fail(Object.freeze({ kind: "definition_execution_fault" })),
+      eventAssertionSchema,
+      eventReceiptSchema,
+    );
+    const malformedFaultCall = exactInvokeCall(inputResources);
+    const malformedFaultHost = await runExactDefinition(
+      malformedFaultCall,
+      malformedFaultBinding(malformedFaultCall),
+    );
+    assert.equal(malformedFaultHost.exitCode, 70, label);
+    assert.equal(
+      malformedFaultHost.failure.failureKind,
+      "defect_or_interruption",
+      `${label} leaves a malformed fault-shaped owner cause to the shared shell`,
+    );
+    assert.equal(malformedFaultHost.failure.fault, null, label);
+    assert.equal(malformedFaultHost.resources, null, label);
+    assert.match(
+      malformedFaultHost.failure.cause,
+      /owner emitted a malformed definition fault/,
+      label,
+    );
+  }
 
   const wrongReadReceipt = Object.freeze({
     eventResource: transitioned.resources.eventResource,

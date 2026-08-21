@@ -1,6 +1,15 @@
 import { execFile } from "node:child_process";
-import { access, lstat, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
-import { join, relative, resolve, sep } from "node:path";
+import {
+  access,
+  lstat,
+  mkdir,
+  readFile,
+  readdir,
+  rename,
+  rmdir,
+  writeFile,
+} from "node:fs/promises";
+import { basename, join, relative, resolve, sep } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type {
@@ -27,10 +36,18 @@ import {
   parseProductManifest,
   verifyProduct,
 } from "./verify_product.js";
+import {
+  createPhysicalArtifactStagingRoot,
+  observePhysicalArtifact,
+  physicalArtifactEffectEvidence,
+  preserveOwnedPhysicalResidue,
+  type PhysicalArtifactEffectEvidence,
+} from "./physical_artifact_effect.js";
 
 function refusal(
   code: ProductInstallRefusalCode,
   message: string,
+  physicalEffect: PhysicalArtifactEffectEvidence | null = null,
 ): ProductInstallRefusal {
   return {
     kind: "product_install_refusal",
@@ -38,7 +55,17 @@ function refusal(
     disposition: "refused",
     code,
     message,
+    physicalEffect,
   };
+}
+
+class ProductInstallPhysicalRefusal extends Error {
+  constructor(
+    readonly code: ProductInstallRefusalCode,
+    message: string,
+  ) {
+    super(message);
+  }
 }
 
 function runNpmInstall(targetRoot: string, artifactPath: string): Promise<void> {
@@ -75,6 +102,16 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
+async function isAbsent(path: string): Promise<boolean> {
+  try {
+    await lstat(path);
+    return false;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") return true;
+    throw error;
+  }
+}
+
 function installedPackageRoot(targetRoot: string, packageName: string): string | null {
   if (!/^(?:@[a-z0-9._-]+\/)?[a-z0-9._-]+$/u.test(packageName)) {
     return null;
@@ -82,32 +119,56 @@ function installedPackageRoot(targetRoot: string, packageName: string): string |
   return join(targetRoot, "node_modules", ...packageName.split("/"));
 }
 
-async function listInstalledPayloadFiles(installedRoot: string): Promise<readonly string[]> {
+interface InstalledPayloadLayout {
+  readonly files: readonly string[];
+  readonly directories: readonly string[];
+}
+
+async function installedPayloadLayout(
+  installedRoot: string,
+): Promise<InstalledPayloadLayout> {
   const files: string[] = [];
+  const directories: string[] = [];
   const visit = async (absolute: string): Promise<void> => {
     const stat = await lstat(absolute);
     if (stat.isSymbolicLink()) {
       throw new Error(`installed payload contains a symbolic link: ${absolute}`);
     }
     if (stat.isDirectory()) {
+      directories.push(
+        relative(installedRoot, absolute).split(sep).join("/") || ".",
+      );
       for (const entry of (await readdir(absolute)).sort()) {
         await visit(join(absolute, entry));
       }
       return;
     }
     if (stat.isFile()) {
-      files.push(relative(installedRoot, absolute).split(sep).join("/"));
+      const locator = relative(installedRoot, absolute).split(sep).join("/");
+      if (locator !== "product-toolchain-manifest.json") files.push(locator);
+      return;
     }
+    throw new Error(`installed payload contains an unsupported entry: ${absolute}`);
   };
 
-  await visit(join(installedRoot, "package.json"));
-  await visit(join(installedRoot, "build"));
-  await visit(join(installedRoot, "contracts"));
-  const bundledDependenciesRoot = join(installedRoot, "node_modules");
-  if (await exists(bundledDependenciesRoot)) {
-    await visit(bundledDependenciesRoot);
+  await visit(installedRoot);
+  return { files: files.sort(), directories: directories.sort() };
+}
+
+function exactPayloadLayout(
+  layout: InstalledPayloadLayout,
+  expectedFiles: readonly string[],
+): boolean {
+  const expectedDirectories = new Set(["."]);
+  for (const file of expectedFiles) {
+    const parts = file.split("/");
+    for (let index = 1; index < parts.length; index += 1) {
+      expectedDirectories.add(parts.slice(0, index).join("/"));
+    }
   }
-  return files.sort();
+  return canonicalJson(layout.files) === canonicalJson([...expectedFiles].sort()) &&
+    canonicalJson(layout.directories) ===
+      canonicalJson([...expectedDirectories].sort());
 }
 
 export async function installedProductContentMatches(
@@ -139,9 +200,9 @@ export async function installedProductContentMatches(
     ) {
       return false;
     }
-    const actualFiles = await listInstalledPayloadFiles(install.installedRoot);
     const expectedFiles = [...installedManifest.productRelativeLocators].sort();
-    if (canonicalJson(actualFiles) !== canonicalJson(expectedFiles)) return false;
+    const layout = await installedPayloadLayout(install.installedRoot);
+    if (!exactPayloadLayout(layout, expectedFiles)) return false;
     const inventory: PayloadInventoryRow[] = [];
     for (const path of expectedFiles) {
       inventory.push({
@@ -204,89 +265,274 @@ export async function installProduct(
     return refusal("artifact_mismatch", "artifact bytes differ from the verified artifact");
   }
 
-  await mkdir(request.targetRoot, { recursive: true });
-  if ((await readdir(request.targetRoot)).length !== 0) {
+  const targetRoot = resolve(request.targetRoot);
+  const targetBefore = await observePhysicalArtifact(targetRoot);
+  if (targetBefore.disposition === "observation_refused") {
+    return refusal(
+      "install_failed",
+      `installation target could not be observed: ${targetBefore.observationFailure}`,
+    );
+  }
+  if (
+    targetBefore.disposition === "observed" &&
+    targetBefore.inventory[0]?.artifactKind !== "directory"
+  ) {
+    return refusal("install_failed", "installation target must be a directory");
+  }
+  if (
+    targetBefore.disposition === "observed" &&
+    targetBefore.inventory.length !== 1
+  ) {
     return refusal("target_not_empty", "installation target must be empty");
   }
 
-  const consumerPackage = {
-    name: "abiogenesis-installed-product-consumer",
-    version: "0.0.0",
-    private: true,
-    type: "module",
-  };
-  await writeFile(
-    join(request.targetRoot, "package.json"),
-    `${canonicalJson(consumerPackage)}\n`,
-    "utf8",
-  );
-
+  let stagingRoot: string | null = null;
+  const movedLocators: string[] = [];
+  let installedRoot: string;
   try {
-    await runNpmInstall(request.targetRoot, resolve(request.artifactPath));
-  } catch (error) {
-    return refusal("install_failed", String(error));
-  }
-
-  const installedRoot = installedPackageRoot(
-    request.targetRoot,
-    request.verifiedArtifact.packageName,
-  );
-  if (installedRoot === null) {
-    return refusal("installed_identity_mismatch", "verified package name is not an installable package identity");
-  }
-  let installedPackage: unknown;
-  let installedManifestUnknown: unknown;
-  try {
-    installedPackage = JSON.parse(await readFile(join(installedRoot, "package.json"), "utf8"));
-    installedManifestUnknown = JSON.parse(
-      await readFile(join(installedRoot, "product-toolchain-manifest.json"), "utf8"),
+    if (targetBefore.disposition === "absent") {
+      await mkdir(targetRoot, { recursive: false });
+    }
+    if ((await readdir(targetRoot)).length !== 0) {
+      throw new ProductInstallPhysicalRefusal(
+        "target_not_empty",
+        "installation target changed before staging",
+      );
+    }
+    stagingRoot = await createPhysicalArtifactStagingRoot(
+      targetRoot,
+      "product_install",
     );
+    const consumerPackage = {
+      name: "abiogenesis-installed-product-consumer",
+      version: "0.0.0",
+      private: true,
+      type: "module",
+    };
+    await writeFile(
+      join(stagingRoot, "package.json"),
+      `${canonicalJson(consumerPackage)}\n`,
+      "utf8",
+    );
+    try {
+      await runNpmInstall(stagingRoot, resolve(request.artifactPath));
+    } catch (error) {
+      throw new ProductInstallPhysicalRefusal("install_failed", String(error));
+    }
+
+    const stagedInstalledRoot = installedPackageRoot(
+      stagingRoot,
+      request.verifiedArtifact.packageName,
+    );
+    if (stagedInstalledRoot === null) {
+      throw new ProductInstallPhysicalRefusal(
+        "installed_identity_mismatch",
+        "verified package name is not an installable package identity",
+      );
+    }
+    let installedPackage: unknown;
+    let installedManifestUnknown: unknown;
+    try {
+      installedPackage = JSON.parse(
+        await readFile(join(stagedInstalledRoot, "package.json"), "utf8"),
+      );
+      installedManifestUnknown = JSON.parse(
+        await readFile(
+          join(stagedInstalledRoot, "product-toolchain-manifest.json"),
+          "utf8",
+        ),
+      );
+    } catch (error) {
+      throw new ProductInstallPhysicalRefusal(
+        "installed_identity_mismatch",
+        String(error),
+      );
+    }
+    if (
+      typeof installedPackage !== "object" ||
+      installedPackage === null ||
+      !("name" in installedPackage) ||
+      !("version" in installedPackage) ||
+      installedPackage.name !== request.verifiedArtifact.packageName ||
+      installedPackage.version !== request.verifiedArtifact.packageVersion
+    ) {
+      throw new ProductInstallPhysicalRefusal(
+        "installed_identity_mismatch",
+        "installed package identity is not the verified identity",
+      );
+    }
+
+    const installedManifest = parseProductManifest(installedManifestUnknown);
+    if (installedManifest === null) {
+      throw new ProductInstallPhysicalRefusal(
+        "installed_manifest_mismatch",
+        "installed manifest shape is invalid",
+      );
+    }
+    const installedManifestDigest = sha256Canonical(
+      installedManifest as unknown as JsonValue,
+    );
+    if (installedManifestDigest !== request.verifiedArtifact.manifestDigest) {
+      throw new ProductInstallPhysicalRefusal(
+        "installed_manifest_mismatch",
+        "installed manifest is not the verified manifest",
+      );
+    }
+
+    try {
+      const expectedFiles = [...installedManifest.productRelativeLocators].sort();
+      const layout = await installedPayloadLayout(stagedInstalledRoot);
+      if (!exactPayloadLayout(layout, expectedFiles)) {
+        throw new ProductInstallPhysicalRefusal(
+          "installed_manifest_mismatch",
+          "installed payload file set differs from the manifest",
+        );
+      }
+      const inventory: PayloadInventoryRow[] = [];
+      for (const path of expectedFiles) {
+        inventory.push({
+          path,
+          sha256: await sha256File(join(stagedInstalledRoot, path)),
+        });
+      }
+      if (
+        payloadInventoryDigest(inventory) !==
+          request.verifiedArtifact.productContentDigest
+      ) {
+        throw new ProductInstallPhysicalRefusal(
+          "installed_manifest_mismatch",
+          "installed payload bytes differ from the verified artifact",
+        );
+      }
+    } catch (error) {
+      if (error instanceof ProductInstallPhysicalRefusal) throw error;
+      throw new ProductInstallPhysicalRefusal(
+        "installed_manifest_mismatch",
+        String(error),
+      );
+    }
+
+    const prohibitedPaths = ["code", "scripts", "test_env", "tsconfig.json"];
+    for (const path of prohibitedPaths) {
+      if (await exists(join(stagedInstalledRoot, path))) {
+        throw new ProductInstallPhysicalRefusal(
+          "unexpected_source_surface",
+          `installed package contains source-only path: ${path}`,
+        );
+      }
+    }
+
+    const stagedEntries = await readdir(stagingRoot);
+    const targetEntries = await readdir(targetRoot);
+    if (
+      canonicalJson([...stagedEntries].sort()) !== canonicalJson([
+        "node_modules",
+        "package-lock.json",
+        "package.json",
+      ]) ||
+      targetEntries.length !== 1 ||
+      targetEntries[0] !== basename(stagingRoot)
+    ) {
+      throw new ProductInstallPhysicalRefusal(
+        "target_not_empty",
+        "installation target changed before commit",
+      );
+    }
+    for (const entry of stagedEntries.sort()) {
+      const committedLocator = join(targetRoot, entry);
+      if (!(await isAbsent(committedLocator))) {
+        throw new ProductInstallPhysicalRefusal(
+          "target_not_empty",
+          `installation target acquired foreign content before commit: ${entry}`,
+        );
+      }
+      await rename(join(stagingRoot, entry), committedLocator);
+      movedLocators.unshift(committedLocator);
+    }
+    await rmdir(stagingRoot);
+    if (
+      canonicalJson((await readdir(targetRoot)).sort()) !==
+        canonicalJson([...stagedEntries].sort())
+    ) {
+      throw new ProductInstallPhysicalRefusal(
+        "target_not_empty",
+        "installation target changed during commit",
+      );
+    }
+    const finalInstalledRoot = installedPackageRoot(
+      targetRoot,
+      request.verifiedArtifact.packageName,
+    );
+    if (finalInstalledRoot === null) {
+      throw new ProductInstallPhysicalRefusal(
+        "installed_identity_mismatch",
+        "committed package identity has no lawful installed locator",
+      );
+    }
+    installedRoot = finalInstalledRoot;
+    const committedFiles = [...installedManifest.productRelativeLocators].sort();
+    const committedLayout = await installedPayloadLayout(installedRoot);
+    if (!exactPayloadLayout(committedLayout, committedFiles)) {
+      throw new ProductInstallPhysicalRefusal(
+        "installed_manifest_mismatch",
+        "committed payload file set differs from the verified manifest",
+      );
+    }
+    const committedInventory: PayloadInventoryRow[] = [];
+    for (const path of committedFiles) {
+      committedInventory.push({
+        path,
+        sha256: await sha256File(join(installedRoot, path)),
+      });
+    }
+    if (
+      payloadInventoryDigest(committedInventory) !==
+        request.verifiedArtifact.productContentDigest
+    ) {
+      throw new ProductInstallPhysicalRefusal(
+        "installed_manifest_mismatch",
+        "committed payload bytes differ from the verified artifact",
+      );
+    }
   } catch (error) {
-    return refusal("installed_identity_mismatch", String(error));
-  }
-
-  if (
-    typeof installedPackage !== "object" ||
-    installedPackage === null ||
-    !("name" in installedPackage) ||
-    !("version" in installedPackage) ||
-    installedPackage.name !== request.verifiedArtifact.packageName ||
-    installedPackage.version !== request.verifiedArtifact.packageVersion
-  ) {
-    return refusal("installed_identity_mismatch", "installed package identity is not the verified identity");
-  }
-
-  const installedManifest = parseProductManifest(installedManifestUnknown);
-  if (installedManifest === null) {
-    return refusal("installed_manifest_mismatch", "installed manifest shape is invalid");
-  }
-  const installedManifestDigest = sha256Canonical(installedManifest as unknown as JsonValue);
-  if (installedManifestDigest !== request.verifiedArtifact.manifestDigest) {
-    return refusal("installed_manifest_mismatch", "installed manifest is not the verified manifest");
-  }
-
-  try {
-    const actualFiles = await listInstalledPayloadFiles(installedRoot);
-    const expectedFiles = [...installedManifest.productRelativeLocators].sort();
-    if (canonicalJson(actualFiles) !== canonicalJson(expectedFiles)) {
-      return refusal("installed_manifest_mismatch", "installed payload file set differs from the manifest");
-    }
-    const inventory: PayloadInventoryRow[] = [];
-    for (const path of expectedFiles) {
-      inventory.push({ path, sha256: await sha256File(join(installedRoot, path)) });
-    }
-    if (payloadInventoryDigest(inventory) !== request.verifiedArtifact.productContentDigest) {
-      return refusal("installed_manifest_mismatch", "installed payload bytes differ from the verified artifact");
-    }
-  } catch (error) {
-    return refusal("installed_manifest_mismatch", String(error));
-  }
-
-  const prohibitedPaths = ["code", "scripts", "test_env", "tsconfig.json"];
-  for (const path of prohibitedPaths) {
-    if (await exists(join(installedRoot, path))) {
-      return refusal("unexpected_source_surface", `installed package contains source-only path: ${path}`);
-    }
+    const targetAtFailure = await observePhysicalArtifact(targetRoot);
+    const stagingAtFailure = stagingRoot === null
+      ? null
+      : await observePhysicalArtifact(stagingRoot);
+    const compensation = await preserveOwnedPhysicalResidue({
+      owner: "product_install",
+      targetRoot,
+      stagingRoot,
+      targetBefore,
+      targetAtFailure,
+      stagingAtFailure,
+      ownedLocators: [
+        ...movedLocators,
+        ...(stagingRoot === null ? [] : [stagingRoot]),
+      ],
+    });
+    const targetAfter = await observePhysicalArtifact(targetRoot);
+    const stagingAfter = stagingRoot === null
+      ? null
+      : await observePhysicalArtifact(stagingRoot);
+    const cause = error instanceof ProductInstallPhysicalRefusal
+      ? error
+      : new ProductInstallPhysicalRefusal("install_failed", String(error));
+    return refusal(
+      cause.code,
+      cause.message,
+      physicalArtifactEffectEvidence(
+        "product_install",
+        targetRoot,
+        stagingRoot,
+        targetBefore,
+        targetAtFailure,
+        stagingAtFailure,
+        compensation,
+        targetAfter,
+        stagingAfter,
+      ),
+    );
   }
   const contentSuffix = request.verifiedArtifact.productContentDigest.slice("sha256:".length);
   const lockSuffix = request.resolvedLock.lockDigest.slice("sha256:".length);
