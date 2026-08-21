@@ -28,6 +28,14 @@ export type {
 export { projectOutcome } from "./outcome.js";
 export { PUBLIC_OPERATION_SCHEMA } from "./schema.js";
 export {
+  isInstalledDefinitionCallCandidate,
+  runInstalledDefinitionCallTransport,
+  type InstalledDefinitionCallAcquisition,
+  type InstalledDefinitionCallTransportOutcome,
+  type InstalledDefinitionCallTransportRefusal,
+  type InstalledDefinitionCallTransportResult,
+} from "./installed_definition_call_transport.js";
+export {
   PUBLIC_FUNCTION_DEFINITION_FAMILY,
   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
   projectOwnerContractIdentity,

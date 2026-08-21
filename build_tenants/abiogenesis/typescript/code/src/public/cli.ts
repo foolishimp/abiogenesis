@@ -15,6 +15,10 @@ import {
   projectRootOperationContextAuthority,
   reopenRootOperationContext,
 } from "./operations.js";
+import {
+  isInstalledDefinitionCallCandidate,
+  runInstalledDefinitionCallTransport,
+} from "./installed_definition_call_transport.js";
 
 interface NewCliTransportAcquisition {
   readonly kind: "new";
@@ -164,45 +168,59 @@ if (args.length !== 2 || args[0] !== "--jsonl" || args[1] === undefined) {
           process.exitCode = 2;
         }
       } else {
-        const context = request.acquisition.kind === "new"
-          ? createRootOperationContext(request.acquisition.eventLogPath)
-          : reopenRootOperationContext(request.acquisition.closeHandoff);
-        const entryPrefix = context.prefix;
-        let closeHandoff: EventStoreCloseHandoff | null = null;
-        try {
-          const parsed = parseRootPublicInvocation(request.invocation);
-          let outcome: JsonValue;
-          if (parsed.kind === "public_invocation_refusal") {
-            outcome = parsed as unknown as JsonValue;
-            process.exitCode = 2;
-          } else {
-            const publicOutcome = await applyRootPublicInvocation(context, parsed);
-            outcome = publicOutcome as unknown as JsonValue;
-            closeHandoff = ownerIssuedCloseHandoff(publicOutcome);
-            if (
-              publicOutcome.disposition !== "succeeded" &&
-              publicOutcome.disposition !== "held"
-            ) {
+        if (isInstalledDefinitionCallCandidate(request.invocation)) {
+          const outcome = await runInstalledDefinitionCallTransport(
+            request.acquisition as unknown as Parameters<
+              typeof runInstalledDefinitionCallTransport
+            >[0],
+            request.invocation,
+          );
+          writeJsonLine(outcome as unknown as JsonValue);
+          process.exitCode = outcome.kind ===
+              "installed_definition_call_transport_refusal"
+            ? 2
+            : outcome.receipt.exitCode;
+        } else {
+          const context = request.acquisition.kind === "new"
+            ? createRootOperationContext(request.acquisition.eventLogPath)
+            : reopenRootOperationContext(request.acquisition.closeHandoff);
+          const entryPrefix = context.prefix;
+          let closeHandoff: EventStoreCloseHandoff | null = null;
+          try {
+            const parsed = parseRootPublicInvocation(request.invocation);
+            let outcome: JsonValue;
+            if (parsed.kind === "public_invocation_refusal") {
+              outcome = parsed as unknown as JsonValue;
               process.exitCode = 2;
+            } else {
+              const publicOutcome = await applyRootPublicInvocation(context, parsed);
+              outcome = publicOutcome as unknown as JsonValue;
+              closeHandoff = ownerIssuedCloseHandoff(publicOutcome);
+              if (
+                publicOutcome.disposition !== "succeeded" &&
+                publicOutcome.disposition !== "held"
+              ) {
+                process.exitCode = 2;
+              }
             }
+            if (closeHandoff === null) {
+              closeHandoff = projectRootOperationContextAuthority(context);
+            }
+            const completed = isRecord(outcome) &&
+              (outcome.disposition === "succeeded" ||
+                outcome.disposition === "held");
+            writeJsonLine({
+              kind: "abg_cli_transport_result",
+              schemaVersion: "5.0.0",
+              disposition: completed ? "completed" : "refused",
+              acquisitionKind: request.acquisition.kind,
+              entryPrefix: entryPrefix as unknown as JsonValue,
+              outcome,
+              closeHandoff: closeHandoff as unknown as JsonValue,
+            });
+          } finally {
+            closeRootOperationContext(context);
           }
-          if (closeHandoff === null) {
-            closeHandoff = projectRootOperationContextAuthority(context);
-          }
-          const completed = isRecord(outcome) &&
-            (outcome.disposition === "succeeded" ||
-              outcome.disposition === "held");
-          writeJsonLine({
-            kind: "abg_cli_transport_result",
-            schemaVersion: "5.0.0",
-            disposition: completed ? "completed" : "refused",
-            acquisitionKind: request.acquisition.kind,
-            entryPrefix: entryPrefix as unknown as JsonValue,
-            outcome,
-            closeHandoff: closeHandoff as unknown as JsonValue,
-          });
-        } finally {
-          closeRootOperationContext(context);
         }
       }
     }
