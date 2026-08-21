@@ -50,12 +50,17 @@ export {
   projectAdmittedWorkspaceProductInstall,
   projectAdmittedWorkspaceBinding,
   projectAdmittedWorkspaceBindingByInvocationRef,
+  projectExactPrefixWorkspaceEnvironment,
   type AbgAdmissionRefusal,
   type ArtifactAdmissionBasis,
   type PublicOperationAdmissionBasis,
   type PublicOperationId,
   type RehydratedProductInstallTruth,
   type RehydratedWorkspaceBindingTruth,
+  type ExactPrefixWorkspaceEnvironment,
+  type ExactPrefixWorkspaceEnvironmentProjectionResult,
+  type ExactPrefixWorkspaceEnvironmentRefusal,
+  type ExactPrefixWorkspaceEnvironmentRefusalCode,
 } from "./environment_admission.js";
 export {
   admitExactInvocation,

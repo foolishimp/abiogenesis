@@ -7,12 +7,14 @@ import {
   isWorkspaceBindingCandidate,
   type ProductInstall,
   type ProductInstallCandidate,
+  type ProductSet,
   type ResolvedProductLock,
   type WorkspaceAuthorityBasis,
   type WorkspaceBinding,
   type WorkspaceBindingCandidate,
 } from "../product/index.js";
-import type { JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import type { ReferenceDigest } from "../shared/public_invocation.js";
 import {
   isSha256Digest,
   sha256Canonical,
@@ -29,6 +31,7 @@ import {
   projectValidatedPrefixArtifactTruth,
   validateExactPrefixArtifactTruthProjection,
   type AdmittedArtifactTruth,
+  type ArtifactTruthProjection,
   type ExactPrefixArtifactTruthProjection,
   type ExactPrefixArtifactTruthProjectionRefusal,
   type ExactPrefixArtifactTruthProjectionResult,
@@ -47,7 +50,10 @@ import {
   type EventStoreAppendRefusal,
   type RuntimeEventCandidate,
 } from "./event_store.js";
-import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import {
+  selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
 
 export type PublicOperationId =
   | "abg.operation.product.install"
@@ -175,8 +181,8 @@ function artifactMemberKey(
   return operationId === "abg.operation.product.install" ? "install" : "bind";
 }
 
-function selectExactArtifactTruthRow(
-  projection: ExactPrefixArtifactTruthProjection,
+function selectArtifactTruthRow(
+  rows: readonly AdmittedArtifactTruth[],
   identity: Readonly<{
     operationId: "abg.operation.product.install" | "abg.operation.workspace.bind";
     authorityScopeRef: string;
@@ -187,8 +193,7 @@ function selectExactArtifactTruthRow(
     admissionEventRef?: string;
   }>,
 ): AdmittedArtifactTruth | null {
-  if (!validateExactPrefixArtifactTruthProjection(projection)) return null;
-  const scopeRows = projection.rows.filter((row) =>
+  const scopeRows = rows.filter((row) =>
     row.operationId === identity.operationId &&
     row.authorityScopeRef === identity.authorityScopeRef
   );
@@ -204,6 +209,22 @@ function selectExactArtifactTruthRow(
   return exact && (identity.admissionEventRef === undefined ||
       row.admissionEventRef === identity.admissionEventRef
     ) ? row : null;
+}
+
+function selectExactArtifactTruthRow(
+  projection: ExactPrefixArtifactTruthProjection,
+  identity: Readonly<{
+    operationId: "abg.operation.product.install" | "abg.operation.workspace.bind";
+    authorityScopeRef: string;
+    authorityScopeDigest: Sha256Digest;
+    artifactRef: string;
+    artifactDigest: Sha256Digest;
+    invocationRef?: string;
+    admissionEventRef?: string;
+  }>,
+): AdmittedArtifactTruth | null {
+  if (!validateExactPrefixArtifactTruthProjection(projection)) return null;
+  return selectArtifactTruthRow(projection.rows, identity);
 }
 
 function selectExactArtifactTruthRowByInvocation(
@@ -246,6 +267,13 @@ function rehydrateProductInstallRow(
   projection: ExactPrefixArtifactTruthProjection,
   row: AdmittedArtifactTruth,
 ): RehydratedProductInstallTruth | null {
+  return rehydrateProductInstallRowFromRows(projection.rows, row);
+}
+
+function rehydrateProductInstallRowFromRows(
+  rows: readonly AdmittedArtifactTruth[],
+  row: AdmittedArtifactTruth,
+): RehydratedProductInstallTruth | null {
   if (
     row.operationId !== "abg.operation.product.install" ||
     !isResolvedProductLock(row.resolvedLock) ||
@@ -254,7 +282,7 @@ function rehydrateProductInstallRow(
   const candidate = row.artifact as ProductInstallCandidate;
   const resolvedLock = row.resolvedLock as ResolvedProductLock;
   if (
-    selectExactArtifactTruthRow(projection, {
+    selectArtifactTruthRow(rows, {
       operationId: "abg.operation.product.install",
       authorityScopeRef: candidate.installId,
       authorityScopeDigest: candidate.productContentDigest,
@@ -344,20 +372,29 @@ export function projectAdmittedWorkspaceBindingByInvocationRef(
     "abg.operation.workspace.bind",
     invocationRef,
   );
+  return row === null
+    ? null
+    : rehydrateWorkspaceBindingRowFromRows(projection.rows, row, resolvedLock);
+}
+
+function rehydrateWorkspaceBindingRowFromRows(
+  rows: readonly AdmittedArtifactTruth[],
+  row: AdmittedArtifactTruth,
+  resolvedLock: ResolvedProductLock,
+): RehydratedWorkspaceBindingTruth | null {
   if (
-    row === null ||
     !isResolvedProductLock(resolvedLock) ||
     !isWorkspaceBindingCandidate(row.artifact, resolvedLock)
   ) return null;
   const candidate = row.artifact as WorkspaceBindingCandidate;
   if (
-    selectExactArtifactTruthRow(projection, {
+    selectArtifactTruthRow(rows, {
       operationId: "abg.operation.workspace.bind",
       authorityScopeRef: candidate.bindingId,
       authorityScopeDigest: candidate.bindingDigest,
       artifactRef: candidate.bindingId,
       artifactDigest: candidate.bindingDigest,
-      invocationRef,
+      invocationRef: row.invocationRef,
       admissionEventRef: row.admissionEventRef,
     }) === null
   ) return null;
@@ -370,7 +407,219 @@ export function projectAdmittedWorkspaceBindingByInvocationRef(
       admissionEventRef: row.admissionEventRef,
     },
     installAdmissionEventRefs: [...row.causationEventRefs],
-    invocationRef,
+    invocationRef: row.invocationRef,
+  });
+}
+
+export type ExactPrefixWorkspaceEnvironmentRefusalCode =
+  | "artifact_truth_invalid"
+  | "workspace_binding_coordinate_invalid"
+  | "workspace_binding_missing"
+  | "workspace_binding_mismatch"
+  | "workspace_authority_invalid"
+  | "causal_install_missing"
+  | "causal_lock_mismatch"
+  | "product_set_invalid"
+  | "workspace_binding_invalid";
+
+export interface ExactPrefixWorkspaceEnvironment {
+  readonly kind: "exact_prefix_workspace_environment";
+  readonly schemaVersion: "5.0.0";
+  readonly prefix: ValidatedRuntimeEventPrefix;
+  readonly artifactTruth: ArtifactTruthProjection;
+  readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
+  readonly workspaceBindingCandidate: WorkspaceBindingCandidate;
+  readonly workspaceBinding: WorkspaceBinding;
+  readonly productInstalls: readonly ProductInstall[];
+  readonly resolvedProductLock: ResolvedProductLock;
+  readonly productSet: ProductSet;
+}
+
+export interface ExactPrefixWorkspaceEnvironmentRefusal {
+  readonly kind: "exact_prefix_workspace_environment_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: ExactPrefixWorkspaceEnvironmentRefusalCode;
+  readonly message: string;
+  readonly eventRefs: readonly string[];
+}
+
+export type ExactPrefixWorkspaceEnvironmentProjectionResult =
+  | ExactPrefixWorkspaceEnvironment
+  | ExactPrefixWorkspaceEnvironmentRefusal;
+
+function exactPrefixEnvironmentRefusal(
+  code: ExactPrefixWorkspaceEnvironmentRefusalCode,
+  message: string,
+  eventRefs: readonly string[] = [],
+): ExactPrefixWorkspaceEnvironmentRefusal {
+  return deepFreeze({
+    kind: "exact_prefix_workspace_environment_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code,
+    message,
+    eventRefs: [...new Set(eventRefs)],
+  });
+}
+
+/**
+ * Pure exact-prefix projection of the one admitted workspace environment.
+ * Event meaning remains owned by artifact truth; Product reconstructs the
+ * lock-bound ProductSet and revalidates the binding candidate.
+ */
+export function projectExactPrefixWorkspaceEnvironment(
+  prefix: ValidatedRuntimeEventPrefix,
+  workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
+): ExactPrefixWorkspaceEnvironmentProjectionResult {
+  let artifactTruth: ArtifactTruthProjection;
+  try {
+    artifactTruth = projectArtifactTruth(prefix);
+  } catch {
+    return exactPrefixEnvironmentRefusal(
+      "artifact_truth_invalid",
+      "the validated prefix does not project one lawful artifact history",
+    );
+  }
+  const rows: readonly AdmittedArtifactTruth[] = artifactTruth.artifacts;
+  if (
+    typeof workspaceBindingCoordinate !== "object" ||
+    workspaceBindingCoordinate === null ||
+    typeof workspaceBindingCoordinate.ref !== "string" ||
+    workspaceBindingCoordinate.ref.length === 0 ||
+    !isSha256Digest(workspaceBindingCoordinate.digest)
+  ) {
+    return exactPrefixEnvironmentRefusal(
+      "workspace_binding_coordinate_invalid",
+      "workspace environment projection requires one exact WorkspaceBinding ref and digest",
+    );
+  }
+  const bindingRows = rows.filter((row) =>
+    row.operationId === "abg.operation.workspace.bind" &&
+    row.authorityScopeRef === workspaceBindingCoordinate.ref &&
+    row.artifactRef === workspaceBindingCoordinate.ref
+  );
+  if (bindingRows.length === 0) {
+    return exactPrefixEnvironmentRefusal(
+      "workspace_binding_missing",
+      "the validated prefix contains no admitted WorkspaceBinding at the selected ref",
+    );
+  }
+  if (bindingRows.length !== 1) {
+    return exactPrefixEnvironmentRefusal(
+      "artifact_truth_invalid",
+      "the validated prefix contains conflicting WorkspaceBinding truth at the selected ref",
+      bindingRows.map((row) => row.admissionEventRef),
+    );
+  }
+  const bindingRow = bindingRows[0]!;
+  if (
+    bindingRow.authorityScopeDigest !== workspaceBindingCoordinate.digest ||
+    bindingRow.artifactDigest !== workspaceBindingCoordinate.digest
+  ) {
+    return exactPrefixEnvironmentRefusal(
+      "workspace_binding_mismatch",
+      "the selected WorkspaceBinding digest differs from admitted artifact truth",
+      [bindingRow.admissionEventRef],
+    );
+  }
+  if (!isWorkspaceAuthorityBasis(bindingRow.workspaceAuthorityBasis)) {
+    return exactPrefixEnvironmentRefusal(
+      "workspace_authority_invalid",
+      "the admitted WorkspaceBinding lacks its exact Product-valid authority basis",
+      [bindingRow.admissionEventRef],
+    );
+  }
+  const productInstalls: ProductInstall[] = [];
+  const resolvedLocks: ResolvedProductLock[] = [];
+  for (const eventRef of bindingRow.causationEventRefs) {
+    const matches = rows.filter((row) =>
+      row.operationId === "abg.operation.product.install" &&
+      row.admissionEventRef === eventRef
+    );
+    const truth = matches.length === 1
+      ? rehydrateProductInstallRowFromRows(rows, matches[0]!)
+      : null;
+    if (truth === null) {
+      return exactPrefixEnvironmentRefusal(
+        "causal_install_missing",
+        "the admitted WorkspaceBinding lacks one exact causal ProductInstall",
+        [bindingRow.admissionEventRef, eventRef],
+      );
+    }
+    productInstalls.push(truth.install);
+    resolvedLocks.push(truth.resolvedLock);
+  }
+  const resolvedProductLock = resolvedLocks[0];
+  if (
+    resolvedProductLock === undefined ||
+    resolvedLocks.some((lock) =>
+      canonicalJson(lock as unknown as JsonValue) !==
+        canonicalJson(resolvedProductLock as unknown as JsonValue)
+    )
+  ) {
+    return exactPrefixEnvironmentRefusal(
+      "causal_lock_mismatch",
+      "the causal ProductInstall set does not reproduce one exact ResolvedProductLock",
+      bindingRow.causationEventRefs,
+    );
+  }
+  const productSet = constructProductSet(productInstalls, resolvedProductLock);
+  if (productSet.kind !== "product_set") {
+    return exactPrefixEnvironmentRefusal(
+      "product_set_invalid",
+      "Product refused the exact causal ProductInstall set and resolved lock",
+      bindingRow.causationEventRefs,
+    );
+  }
+  const bindingTruth = rehydrateWorkspaceBindingRowFromRows(
+    rows,
+    bindingRow,
+    resolvedProductLock,
+  );
+  if (
+    bindingTruth === null ||
+    !isWorkspaceBindingCandidate(
+      bindingTruth.candidate,
+      resolvedProductLock,
+      productSet,
+      bindingRow.workspaceAuthorityBasis,
+    )
+  ) {
+    return exactPrefixEnvironmentRefusal(
+      "workspace_binding_invalid",
+      "the admitted WorkspaceBinding differs from its causal Product environment",
+      [bindingRow.admissionEventRef],
+    );
+  }
+  const reconstructed = constructWorkspaceBinding(
+    bindingRow.workspaceAuthorityBasis,
+    productSet,
+    resolvedProductLock,
+    bindingTruth.candidate.roots,
+  );
+  if (
+    reconstructed.kind !== "workspace_binding_candidate" ||
+    canonicalJson(reconstructed as unknown as JsonValue) !==
+      canonicalJson(bindingTruth.candidate as unknown as JsonValue)
+  ) {
+    return exactPrefixEnvironmentRefusal(
+      "workspace_binding_invalid",
+      "Product could not reproduce the admitted WorkspaceBinding candidate",
+      [bindingRow.admissionEventRef],
+    );
+  }
+  return deepFreeze({
+    kind: "exact_prefix_workspace_environment" as const,
+    schemaVersion: "5.0.0" as const,
+    prefix,
+    artifactTruth,
+    workspaceAuthorityBasis: bindingRow.workspaceAuthorityBasis,
+    workspaceBindingCandidate: bindingTruth.candidate,
+    workspaceBinding: bindingTruth.binding,
+    productInstalls,
+    resolvedProductLock,
+    productSet,
   });
 }
 
