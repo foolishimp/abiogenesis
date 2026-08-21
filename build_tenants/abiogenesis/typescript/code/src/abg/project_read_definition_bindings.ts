@@ -291,11 +291,15 @@ function statusProjection(
     status,
     replay,
     activeFluents: active.map((row) => {
+      const fluent = asRecord(row);
+      const fluentRef = fluent === null
+        ? null
+        : stringValue(fluent, "fluentRef");
+      if (fluentRef === null) {
+        throw new TypeError("status projection lacks owner fluent identity");
+      }
       const digest = sha256Canonical(row as JsonValue);
-      return reference(
-        `runtime-fluent://abiogenesis/${digest.slice("sha256:".length)}`,
-        digest,
-      );
+      return reference(fluentRef, digest);
     }),
   };
 }
@@ -561,6 +565,17 @@ function runReadKernel(
             grantBasis,
           ),
         );
+        if (expectedGrants.some((grant) =>
+          !sameJson(
+            grant.operationContract.contractCatalog,
+            call.invocation.contractCatalog,
+          )
+        )) {
+          return finishRead(
+            resource,
+            refusalOutput(packet, "projection_basis_mismatch", "/contractCatalog"),
+          );
+        }
         const expectedAuthority = {
           workspace_binding: {
             ref: environment.workspaceBinding.bindingId,
@@ -624,6 +639,20 @@ function runReadKernel(
           return finishRead(
             resource,
             refusalOutput(packet, "source_digest_mismatch", "/source/sourceDigest"),
+          );
+        }
+        if (
+          truth.workspaceBinding.ref !== environment.workspaceBinding.bindingId ||
+          truth.workspaceBinding.digest !==
+            environment.workspaceBinding.bindingDigest
+        ) {
+          return finishRead(
+            resource,
+            refusalOutput(
+              packet,
+              "projection_basis_mismatch",
+              "/invocationAuthority/slots/workspace_binding",
+            ),
           );
         }
         const native = port({

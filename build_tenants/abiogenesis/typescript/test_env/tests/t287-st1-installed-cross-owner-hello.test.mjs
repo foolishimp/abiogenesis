@@ -12,7 +12,10 @@ import { prepareOddGlcDataProduct } from
   "../support/developer-mini-product.mjs";
 import { constructInstalledPublicDefinitionCall } from
   "../support/installed-public-definition-call.mjs";
-import { setupInstalledRootCatalog } from
+import {
+  publicOperationBasis,
+  setupInstalledRootCatalog,
+} from
   "../support/root-installed-environment.mjs";
 
 const execFileAsync = promisify(execFile);
@@ -37,6 +40,42 @@ function rehashGrant(product, grant, patch) {
       `capability-grant://abiogenesis/${grantDigest.slice("sha256:".length)}`,
     grantDigest,
     ...body,
+  });
+}
+
+function rebaseDefinitionContractCatalog(
+  coordinates,
+  operationId,
+  memberKey,
+  contractCatalog,
+) {
+  return Object.freeze({
+    ...coordinates,
+    operations: Object.freeze(coordinates.operations.map((operation) =>
+      operation.operationId !== operationId
+        ? operation
+        : Object.freeze({
+            ...operation,
+            members: Object.freeze(operation.members.map((member) =>
+              member.memberKey !== memberKey
+                ? member
+                : Object.freeze({
+                    ...member,
+                    slots: Object.freeze(Object.fromEntries(
+                      Object.entries(member.slots).map(([slot, coordinate]) => [
+                        slot,
+                        coordinate === null
+                          ? null
+                          : Object.freeze({
+                              ...coordinate,
+                              contractCatalog,
+                            }),
+                      ]),
+                    )),
+                  })
+            )),
+          })
+    )),
   });
 }
 
@@ -371,6 +410,8 @@ function constructInstalledRunReadCall({
   source,
   eventResource,
   identity,
+  contractCatalogOverride = null,
+  definitionContractCoordinatesOverride = null,
   mutateRequest = (request) => request,
   mutateSlots = (slots) => slots,
 }) {
@@ -408,16 +449,18 @@ function constructInstalledRunReadCall({
     readAuthoritySlots(environment, packet, grants),
     grants,
   );
-  const contractCatalog = environment.verified.definitionContractCoordinates
+  const installedContractCatalog =
+    environment.verified.definitionContractCoordinates
     ?.operations.find((candidate) =>
       candidate.operationId === packet.definitionKey.operationId
     )
     ?.members.find((candidate) => candidate.memberKey === memberKey)
     ?.slots.request.contractCatalog;
   assert.ok(
-    contractCatalog,
+    installedContractCatalog,
     `${memberKey} requires its installed contract catalog coordinate`,
   );
+  const contractCatalog = contractCatalogOverride ?? installedContractCatalog;
   return Object.freeze({
     packet,
     grants,
@@ -425,7 +468,8 @@ function constructInstalledRunReadCall({
       product,
       installedPublic: publicApi,
       definitionContractCoordinates:
-        environment.verified.definitionContractCoordinates,
+        definitionContractCoordinatesOverride ??
+          environment.verified.definitionContractCoordinates,
       contractCatalog,
       operationId: packet.definitionKey.operationId,
       memberKey,
@@ -467,6 +511,7 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     publications,
     catalog,
     catalogView,
+    scratch,
     additionalProducts: [oddGlc],
     additionalPublications: [oddPublication],
   } = environment;
@@ -475,6 +520,12 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
       environment.installedRoot,
       "build/code/src/abg/project_read_operation_contracts.js",
     )).href}?st2ac=${Date.now()}`
+  );
+  const projectReadPorts = await import(
+    `${pathToFileURL(join(
+      environment.installedRoot,
+      "build/code/src/abg/project_read_ports.js",
+    )).href}?st2bp=${Date.now()}`
   );
   const runStatusPacket = projectReadContracts.ABG_PROJECT_READ_CONTRACTS
     .run_status;
@@ -810,11 +861,75 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     true,
   );
 
-  const terminalPrefix = outcome.resources.eventResource.closeHandoff.prefix;
+  const runTerminalHandoff = outcome.resources.eventResource.closeHandoff;
+  const runTerminalPrefix = runTerminalHandoff.prefix;
   const terminalRun = outcome.resources.run;
   const terminalReplay = outcome.resources.replay;
   assert.ok(terminalRun);
   assert.ok(terminalReplay);
+  const siblingManifest = {
+    workspaceId: "workspace://t287/st2b/sibling",
+    canonicalRoot: join(scratch, "workspace-st2b-sibling"),
+    authorityMode: "trusted_developer",
+    authorizedActorRef: "actor://t287/st2b/sibling",
+  };
+  const siblingAuthority = product.constructWorkspaceAuthorityBasis({
+    ...siblingManifest,
+    authorityManifestRef: "manifest://t287/st2b/sibling",
+    authorityManifestDigest: product.sha256Canonical(siblingManifest),
+  });
+  const siblingBindingCandidate = product.constructWorkspaceBinding(
+    siblingAuthority,
+    productSet,
+    lock,
+    Object.fromEntries(Object.entries(bindingCandidate.roots).map(
+      ([key, root]) => [key, join(root, "st2b-sibling")],
+    )),
+  );
+  const siblingStore = abg.reopenEventStore(
+    runTerminalHandoff.reopenAuthority,
+  );
+  assert.equal(siblingStore.kind, "reopened_event_store_context");
+  assert.deepEqual(siblingStore.prefix, runTerminalPrefix);
+  const siblingAdmission = abg.admitWorkspaceBinding(
+    siblingStore.store,
+    siblingBindingCandidate,
+    {
+      ...publicOperationBasis(
+        product,
+        "abg.operation.workspace.bind",
+        siblingBindingCandidate.bindingId,
+        siblingBindingCandidate.bindingDigest,
+        "invocation://t287/st2b/sibling-bind",
+        admittedInstalls.map((install) => install.admissionEventRef),
+      ),
+      predecessorPrefix: runTerminalPrefix,
+    },
+    siblingAuthority,
+  );
+  assert.equal(siblingAdmission.kind, "artifact_owner_result");
+  const siblingHandoff = siblingStore.store.projectReopenAuthorityAndClose();
+  const terminalPrefix = siblingAdmission.successorPrefix;
+  assert.deepEqual(siblingHandoff.prefix, terminalPrefix);
+  const siblingEnvironmentProjection =
+    abg.projectExactPrefixWorkspaceEnvironment(
+      terminalPrefix,
+      Object.freeze({
+        ref: siblingAdmission.value.bindingId,
+        digest: siblingAdmission.value.bindingDigest,
+      }),
+    );
+  assert.equal(
+    siblingEnvironmentProjection.kind,
+    "exact_prefix_workspace_environment",
+  );
+  const siblingReadEnvironment = Object.freeze({
+    ...environment,
+    admittedInstalls: siblingEnvironmentProjection.productInstalls,
+    workspaceAuthority:
+      siblingEnvironmentProjection.workspaceAuthorityBasis,
+    workspaceBinding: siblingEnvironmentProjection.workspaceBinding,
+  });
   const terminalLogBytes = await readFile(new URL(terminalPrefix.eventLogRef));
   const runReadRows = [
     ["run_status", Object.freeze({ kind: "none" })],
@@ -826,7 +941,7 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     })],
   ];
   const readProjections = new Map();
-  let readHandoff = outcome.resources.eventResource.closeHandoff;
+  let readHandoff = siblingHandoff;
   for (const [memberKey, selector] of runReadRows) {
     const eventResource = reopenedReadResource(product, readHandoff);
     const { packet, call: readCall } = constructInstalledRunReadCall({
@@ -885,11 +1000,38 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
   assert.equal(replayedTruth.kind, "abg_run_truth_projection");
   assert.equal(replayedTruth.runtimeStatus, "closed");
   assert.deepEqual(replayedTruth.run, terminalRun);
+  assert.deepEqual(replayedTruth.workspaceBinding, {
+    ref: workspaceBinding.bindingId,
+    digest: workspaceBinding.bindingDigest,
+  });
   assert.deepEqual(replayedTruth.result, outcome.ownerOutput.value.result);
   assert.deepEqual(replayedTruth.replay, terminalReplay);
+  const ownerStatus = projectReadPorts.RunProjectionPort.run_status({
+    kind: "abg_project_read_packet",
+    schemaVersion,
+    memberKey: "run_status",
+    prefix: terminalPrefix,
+    targetRef: terminalRun.ref,
+  });
+  assert.equal(ownerStatus.disposition, "projected");
+  const expectedActiveFluents = ownerStatus.value.holdsAt.map((fluent) => ({
+    ref: fluent.fluentRef,
+    digest: product.sha256Canonical(fluent),
+  }));
+  assert.ok(expectedActiveFluents.length > 0);
   assert.equal(readProjections.get("run_status").status, "closed");
   assert.deepEqual(readProjections.get("run_status").subject, terminalRun);
   assert.deepEqual(readProjections.get("run_status").replay, terminalReplay);
+  assert.deepEqual(
+    readProjections.get("run_status").activeFluents,
+    expectedActiveFluents,
+  );
+  assert.equal(
+    readProjections.get("run_status").activeFluents.some((fluent) =>
+      fluent.ref.startsWith("runtime-fluent://")
+    ),
+    false,
+  );
   assert.deepEqual(
     readProjections.get("run_result").result,
     outcome.ownerOutput.value.result,
@@ -914,6 +1056,30 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
   const readFalsifierDigest = product.sha256Canonical({
     kind: "st-2b-pre-owner-falsifier",
   });
+  const installedReadCatalog =
+    environment.verified.definitionContractCoordinates
+      ?.operations.find((candidate) =>
+        candidate.operationId === runStatusPacket.definitionKey.operationId
+      )
+      ?.members.find((candidate) => candidate.memberKey === "run_status")
+      ?.slots.request.contractCatalog;
+  assert.ok(installedReadCatalog);
+  const alternateCatalogDigest = product.sha256Canonical({
+    kind: "st-2b-alternate-contract-catalog",
+    installedCatalogDigest: installedReadCatalog.catalogDigest,
+  });
+  const alternateContractCatalog = Object.freeze({
+    ...installedReadCatalog,
+    catalogId: "catalog://abiogenesis/st2b-alternate-public-contracts",
+    catalogDigest: alternateCatalogDigest,
+  });
+  const alternateDefinitionContractCoordinates =
+    rebaseDefinitionContractCatalog(
+      environment.verified.definitionContractCoordinates,
+      runStatusPacket.definitionKey.operationId,
+      "run_status",
+      alternateContractCatalog,
+    );
   const kernelFalsifiers = [
     ["caller-minted-grant", {
       mutateSlots: (slots, grants) => {
@@ -960,11 +1126,35 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
       }),
       expectedCode: "source_digest_mismatch",
     }],
+    ["cross-workspace-run", {
+      callEnvironment: siblingReadEnvironment,
+      expectedCode: "projection_basis_mismatch",
+      expectedIssuePaths: [
+        "/invocationAuthority/slots/workspace_binding",
+      ],
+    }],
+    ["alternate-installed-contract-catalog", {
+      contractCatalogOverride: alternateContractCatalog,
+      definitionContractCoordinatesOverride:
+        alternateDefinitionContractCoordinates,
+      source: Object.freeze({
+        ref: "run://abiogenesis/st2b-catalog-owner-must-not-run",
+        digest: readFalsifierDigest,
+      }),
+      expectedCode: "projection_basis_mismatch",
+      expectedIssuePaths: ["/contractCatalog"],
+    }],
   ];
   for (const [identity, falsifier] of kernelFalsifiers) {
+    const {
+      callEnvironment = environment,
+      expectedCode,
+      expectedIssuePaths = null,
+      ...callMutation
+    } = falsifier;
     const eventResource = reopenedReadResource(product, readHandoff);
     const { call: falsifiedCall } = constructInstalledRunReadCall({
-      environment,
+      environment: callEnvironment,
       publicApi,
       projectReadContracts,
       memberKey: "run_status",
@@ -972,13 +1162,20 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
       source: terminalRun,
       eventResource,
       identity,
-      ...falsifier,
+      ...callMutation,
     });
     const refused = await Effect.runPromise(
       abg.ABG_PROJECT_READ_DEFINITION_BINDINGS.run_status(falsifiedCall),
     );
     assert.equal(refused.ownerOutput.outcomeKind, "refusal", identity);
-    assert.equal(refused.ownerOutput.value.code, falsifier.expectedCode, identity);
+    assert.equal(refused.ownerOutput.value.code, expectedCode, identity);
+    if (expectedIssuePaths !== null) {
+      assert.deepEqual(
+        refused.ownerOutput.value.issuePaths,
+        expectedIssuePaths,
+        identity,
+      );
+    }
     assert.equal(
       product.canonicalJson(refused.resources.eventResource.entryPrefix),
       product.canonicalJson(terminalPrefix),
@@ -1024,6 +1221,6 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     "stale resource refusal must append zero bytes",
   );
   context.diagnostic(
-    "ST-2B: 3 installed fixed packets, 4 shared-kernel refusals, 1 stale-prefix fault, 0 appended bytes",
+    "ST-2B: 3 installed fixed packets, 6 shared-kernel refusals, 1 stale-prefix fault, 0 appended bytes",
   );
 });

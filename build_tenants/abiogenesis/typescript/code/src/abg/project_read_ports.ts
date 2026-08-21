@@ -18,6 +18,8 @@ import {
   type DurablePrefixCoordinate,
   type RuntimeEvent,
 } from "./event_store.js";
+import { projectExactExecutionBasisAtPrefix } from
+  "./invocation_execution_truth.js";
 import {
   projectRunQuiescence,
   projectRunSemanticReplayProjection,
@@ -130,6 +132,7 @@ export interface AbgRunTruthProjection {
   readonly prefixCoordinateDigest: Sha256Digest;
   readonly runtimeStatus: ReplayState["runtimeStatus"];
   readonly run: AbgRunTruthCoordinate;
+  readonly workspaceBinding: AbgRunTruthCoordinate;
   readonly graphCall: AbgRunTruthCoordinate | null;
   readonly result: AbgRunTruthCoordinate | null;
   readonly stop: AbgRunTruthCoordinate | null;
@@ -388,6 +391,17 @@ function canonicalRunContext(
     atom.aggregateType === "run" && atom.aggregateId === targetRef
   );
   if (runAtoms.length !== 1) return null;
+  const runAtom = runAtoms[0]!;
+  const executionBasis = runAtom.basisId === null
+    ? null
+    : projectExactExecutionBasisAtPrefix(
+        prepared.fullPrefix,
+        runAtom.basisId,
+      );
+  if (
+    executionBasis === null || executionBasis.basisClass !== "root" ||
+    runAtom.parentAggregateId !== executionBasis.workspaceBindingId
+  ) return null;
   const graphCallAtoms = context.replay.graphCallId === null
     ? []
     : context.semanticReplay.eventAtoms.filter((atom) =>
@@ -417,6 +431,10 @@ function canonicalRunContext(
     prefixCoordinateDigest: prepared.packet.prefix.coordinateDigest,
     runtimeStatus: context.replay.runtimeStatus,
     run: truthCoordinate(targetRef, runAtoms[0]!.semanticPayloadDigest),
+    workspaceBinding: truthCoordinate(
+      executionBasis.workspaceBindingId,
+      executionBasis.workspaceBindingDigest,
+    ),
     graphCall: context.replay.graphCallId === null
       ? null
       : truthCoordinate(
