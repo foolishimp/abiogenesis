@@ -32,7 +32,6 @@ import {
 import {
   type DurablePrefixCoordinate,
   type EventStoreCloseHandoff,
-  selectHeldEventStoreDurablePrefix,
   validateDurablePrefixCoordinate,
   validateEventStoreCloseHandoff,
 } from "../abg/event_store.js";
@@ -1190,20 +1189,7 @@ function postAppendStage<TPacket extends RunPacket, A>(
   return Effect.catchAllCause(program, (cause) => {
     const interrupted = Cause.isInterrupted(cause);
     return Effect.suspend(() => {
-      const latestPrefix = selectHeldEventStoreDurablePrefix(resource.store);
-      if (
-        latestPrefix.eventLogRef !== finalPrefix.eventLogRef ||
-        latestPrefix.storeIdentity.device !== finalPrefix.storeIdentity.device ||
-        latestPrefix.storeIdentity.inode !== finalPrefix.storeIdentity.inode ||
-        latestPrefix.storeIdentity.eventContractDigest !==
-          finalPrefix.storeIdentity.eventContractDigest ||
-        latestPrefix.prefixLength < finalPrefix.prefixLength
-      ) {
-        throw new TypeError(
-          "held ABG post-append scope does not descend from its latest owner-issued prefix",
-        );
-      }
-      const eventResource = closeAbgEventResource(resource, latestPrefix);
+      const eventResource = closeAbgEventResource(resource, finalPrefix);
       const receipt = resourceReceipt(
         eventResource,
         prepared,
@@ -1665,19 +1651,12 @@ function runInvocationOwner<TPacket extends RunPacket>(
     const recoverPostOpen = (
       stage:
         | "implementation_load"
-        | "hog_traversal"
         | "operation_application"
         | "output_contract",
+      predecessorPrefix: DurablePrefixCoordinate,
       cause: Cause.Cause<never>,
     ): ReturnType<typeof finishPostAppend<TPacket>> =>
       Effect.gen(function* () {
-        // This is the existing held ABG recovery relation: it selects the
-        // resource's in-scope current coordinate before issuing any outer
-        // receipt. The selected coordinate is then passed explicitly through
-        // every remaining admission and close.
-        const predecessorPrefix = selectHeldEventStoreDurablePrefix(
-          resource.store,
-        );
         let finalPrefix = predecessorPrefix;
         let truth = yield* postAppendSyncStage(
           call,
@@ -1719,8 +1698,6 @@ function runInvocationOwner<TPacket extends RunPacket>(
               },
               diagnosticRef: stage === "implementation_load"
                 ? "diagnostic://abiogenesis/implementation/admitted-leaf-port-construction-failure@5"
-                : stage === "hog_traversal"
-                ? "diagnostic://abiogenesis/hog/traversal-defect@5"
                 : stage === "output_contract"
                 ? "diagnostic://abiogenesis/run/output-contract@5"
                 : interrupted
@@ -1782,6 +1759,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
     if (Exit.isFailure(authorityPrefixExit)) {
       return yield* recoverPostOpen(
         "operation_application",
+        opened.successorPrefix,
         authorityPrefixExit.cause,
       );
     }
@@ -1797,9 +1775,13 @@ function runInvocationOwner<TPacket extends RunPacket>(
       })
     ));
     if (Exit.isFailure(leafPortExit)) {
-      return yield* recoverPostOpen("implementation_load", leafPortExit.cause);
+      return yield* recoverPostOpen(
+        "implementation_load",
+        opened.successorPrefix,
+        leafPortExit.cause,
+      );
     }
-    const traversalExit = yield* Effect.exit(executeGraphTraversalEffect({
+    const traversal = yield* executeGraphTraversalEffect({
       store: resource.store,
       predecessorPrefix: opened.successorPrefix,
       executionBasis: execution.executionBasis,
@@ -1829,11 +1811,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
       inputDigest: prepared.rawInput.subjectDigest,
       eventTime: call.invocation.eventTime,
       correlationId: `${call.invocation.correlationRef}/hog`,
-    }));
-    if (Exit.isFailure(traversalExit)) {
-      return yield* recoverPostOpen("hog_traversal", traversalExit.cause);
-    }
-    const traversal = traversalExit.value;
+    });
     if (traversal.kind === "graph_traversal_entry_refusal") {
       const ownerOutputExit = yield* Effect.exit(Effect.sync(() =>
         ProductRunInvocationPort.projectOwnerRefusal(
@@ -1846,7 +1824,11 @@ function runInvocationOwner<TPacket extends RunPacket>(
         ) as OwnerSemanticOutput<TPacket>
       ));
       if (Exit.isFailure(ownerOutputExit)) {
-        return yield* recoverPostOpen("output_contract", ownerOutputExit.cause);
+        return yield* recoverPostOpen(
+          "output_contract",
+          opened.successorPrefix,
+          ownerOutputExit.cause,
+        );
       }
       return yield* finishPostAppend(
         call,
@@ -1858,12 +1840,18 @@ function runInvocationOwner<TPacket extends RunPacket>(
         null,
       );
     }
-    const finalPrefix = traversal.successorPrefix;
+    const finalPrefix = traversal.kind === "graph_traversal_failure_result"
+      ? traversal.receipt.successorPrefix
+      : traversal.successorPrefix;
     const truthExit = yield* Effect.exit(Effect.sync(() =>
       projectRunTruthAtDurablePrefix(finalPrefix, opened.scope.runId)
     ));
     if (Exit.isFailure(truthExit)) {
-      return yield* recoverPostOpen("operation_application", truthExit.cause);
+      return yield* recoverPostOpen(
+        "operation_application",
+        finalPrefix,
+        truthExit.cause,
+      );
     }
     const ownerOutputExit = yield* Effect.exit(Effect.sync(() =>
       ProductRunInvocationPort.projectOutcome(
@@ -1872,7 +1860,11 @@ function runInvocationOwner<TPacket extends RunPacket>(
       ) as OwnerSemanticOutput<TPacket>
     ));
     if (Exit.isFailure(ownerOutputExit)) {
-      return yield* recoverPostOpen("output_contract", ownerOutputExit.cause);
+      return yield* recoverPostOpen(
+        "output_contract",
+        finalPrefix,
+        ownerOutputExit.cause,
+      );
     }
     return yield* finishPostAppend(
       call,

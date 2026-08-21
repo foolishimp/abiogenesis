@@ -292,7 +292,12 @@ function coordinateWithCatalog(coordinateValue, contractCatalog) {
     : Object.freeze({ ...coordinateValue, contractCatalog });
 }
 
-function reissueRunContractCatalog(product, invocation, contractCatalog) {
+function reissueRunContractCatalog(
+  product,
+  invocation,
+  contractCatalog,
+  identityRequest = invocation.request,
+) {
   const {
     invocationRef: _invocationRef,
     invocationDigest: _invocationDigest,
@@ -300,6 +305,7 @@ function reissueRunContractCatalog(product, invocation, contractCatalog) {
   } = invocation;
   return admittedInvocation(product, Object.freeze({
     ...priorBody,
+    request: identityRequest,
     invocationContract: coordinateWithCatalog(
       invocation.invocationContract,
       contractCatalog,
@@ -544,16 +550,28 @@ async function invokeWithInjectedExecutionBasisPostCommitFailure(
     [
       "export async function load(url, context, nextLoad) {",
       "  const loaded = await nextLoad(url, context);",
-      '  if (!url.endsWith("/build/code/src/abg/execution_basis.js")) return loaded;',
       "  const source = String(loaded.source);",
-      '  const declaration = "export function admitExecutionBasis(";',
-      "  if (!source.includes(declaration)) throw new TypeError(\"execution basis export absent\");",
-      "  return {",
-      "    ...loaded,",
-      "    shortCircuit: true,",
-      "    source: source.replace(declaration, \"function admittedExecutionBasis(\") +",
-      '      "\\nexport function admitExecutionBasis(...args) { const result = admittedExecutionBasis(...args); if (result.kind === \\\"execution_basis_admission\\\") throw new TypeError(\\\"injected post-commit execution-basis failure\\\"); return result; }\\n",',
-      "  };",
+      '  if (url.endsWith("/build/code/src/abg/execution_basis.js")) {',
+      '    const declaration = "export function admitExecutionBasis(";',
+      '    if (!source.includes(declaration)) throw new TypeError("execution basis export absent");',
+      "    return {",
+      "      ...loaded,",
+      "      shortCircuit: true,",
+      "      source: source.replace(declaration, \"function admittedExecutionBasis(\") +",
+      '        "\\nexport function admitExecutionBasis(...args) { const result = admittedExecutionBasis(...args); assertHeldEventStoreAtDurablePrefix(args[0], result.successorPrefix); return result; }\\n",',
+      "    };",
+      "  }",
+      '  if (url.endsWith("/build/code/src/abg/open_call.js")) {',
+      '    const declaration = "export function openTraversalScope(";',
+      '    if (!source.includes(declaration)) throw new TypeError("open traversal export absent");',
+      "    return {",
+      "      ...loaded,",
+      "      shortCircuit: true,",
+      "      source: source.replace(declaration, \"function admittedOpenTraversalScope(\") +",
+      '        "\\nexport function openTraversalScope(...args) { assertHeldEventStoreAtDurablePrefix(args[0], args[1]); throw new TypeError(\\\"injected pre-open failure after execution-basis admission\\\"); }\\n",',
+      "    };",
+      "  }",
+      "  return loaded;",
       "}",
     ].join("\n"),
     "utf8",
@@ -576,6 +594,107 @@ async function invokeWithInjectedExecutionBasisPostCommitFailure(
     '  kind: "injected_execution_basis_post_commit_failure",',
     "  fault: Option.isSome(failure) ? failure.value : null,",
     "  cause: Cause.pretty(exit.cause),",
+    "}));",
+  ].join("\n");
+  const { stdout } = await execFileAsync(
+    process.execPath,
+    ["--loader", loaderPath, "--input-type=module", "--eval", probe],
+    {
+      cwd: harness.cliHost,
+      env: { ...process.env, NODE_OPTIONS: "" },
+      maxBuffer: 4 * 1024 * 1024,
+    },
+  );
+  return JSON.parse(stdout.trim().split("\n").at(-1));
+}
+
+async function invokeWithInjectedAmbientDescendantBeforeRecovery(
+  harness,
+  bindingBasis,
+  call,
+) {
+  const requestPath = join(
+    harness.scratch,
+    "run-invoke-ambient-descendant-request.json",
+  );
+  const loaderPath = join(
+    harness.scratch,
+    "run-invoke-ambient-descendant-loader.mjs",
+  );
+  await writeFile(
+    requestPath,
+    `${JSON.stringify({ bindingBasis, call })}\n`,
+    "utf8",
+  );
+  await writeFile(
+    loaderPath,
+    [
+      "export async function load(url, context, nextLoad) {",
+      "  const loaded = await nextLoad(url, context);",
+      "  const source = String(loaded.source);",
+      '  if (url.endsWith("/build/code/src/owner_bindings/run_invocation.js")) {',
+      '    const anchor = "        const recoverPostOpen = (";',
+      '    if (source.indexOf(anchor) < 0 || source.indexOf(anchor) !== source.lastIndexOf(anchor)) throw new TypeError("post-open recovery anchor is not exact");',
+      "    const injection = [",
+      '      "        const issuedSuccessor = opened.successorPrefix;",',
+      '      "        const ambientDescendant = admitRuntimeFailure({",',
+      '      "            store: resource.store,",',
+      '      "            predecessorPrefix: issuedSuccessor,",',
+      '      "            executionBasis: execution.executionBasis,",',
+      '      "            scope: opened.scope,",',
+      '      "            stage: \\\"operation_application\\\",",',
+      '      "            subject: { definitionKey: call.invocation.definitionKey, code: \\\"injected_ambient_descendant\\\" },",',
+      '      "            diagnosticRef: \\\"diagnostic://abiogenesis/test/ambient-descendant@5\\\",",',
+      '      "            basis: {",',
+      '      "                eventTime: call.invocation.eventTime,",',
+      '      "                correlationId: call.invocation.correlationRef + \\\"/injected-ambient-descendant\\\",",',
+      '      "                causationEventRefs: [],",',
+      '      "            },",',
+      '      "        });",',
+      '      "        if (ambientDescendant.successorPrefix.coordinateDigest === issuedSuccessor.coordinateDigest) throw new TypeError(\\\"injected ambient descendant did not advance the owner-issued successor\\\");",',
+      "    ].join(\"\\n\");",
+      "    return {",
+      "      ...loaded,",
+      "      shortCircuit: true,",
+      '      source: source.replace(anchor, `${injection}\\n${anchor}`),',
+      "    };",
+      "  }",
+      '  if (url.endsWith("/build/code/src/implementation/leaf_invocation_port.js")) {',
+      '    const declaration = "export async function constructAdmittedLeafInvocationPort(";',
+      '    if (!source.includes(declaration)) throw new TypeError("leaf invocation port export absent");',
+      "    return {",
+      "      ...loaded,",
+      "      shortCircuit: true,",
+      "      source: source.replace(declaration, \"async function admittedConstructAdmittedLeafInvocationPort(\") +",
+      '        "\\nexport async function constructAdmittedLeafInvocationPort(...args) { throw new TypeError(\\\"injected leaf construction failure after ambient descendant\\\"); }\\n",',
+      "    };",
+      "  }",
+      "  return loaded;",
+      "}",
+    ].join("\n"),
+    "utf8",
+  );
+  const probe = [
+    'import { readFile } from "node:fs/promises";',
+    'import { createRequire } from "node:module";',
+    'import { pathToFileURL } from "node:url";',
+    'import { loadVerifiedInstalledDefinitionBinding } from "@abiogenesis/typescript-tenant/installed-loader";',
+    `const request = JSON.parse(await readFile(${JSON.stringify(requestPath)}, "utf8"));`,
+    "const binding = await loadVerifiedInstalledDefinitionBinding(request.bindingBasis);",
+    'if (binding.kind !== "verified_installed_definition_binding") throw new TypeError(JSON.stringify(binding));',
+    "const installedRequire = createRequire(pathToFileURL(binding.resolvedModulePath));",
+    "const installedEffectModule = (specifier) => import(pathToFileURL(installedRequire.resolve(specifier)).href);",
+    'const [Cause, Effect, Exit, Option] = await Promise.all(["effect/Cause", "effect/Effect", "effect/Exit", "effect/Option"].map(installedEffectModule));',
+    "const exit = await Effect.runPromiseExit(binding.invoke(request.call));",
+    "const failure = Exit.isFailure(exit) ? Cause.failureOption(exit.cause) : null;",
+    "const defect = Exit.isFailure(exit) ? Cause.dieOption(exit.cause) : null;",
+    "const defectValue = defect !== null && Option.isSome(defect) ? defect.value : null;",
+    "console.log(JSON.stringify({",
+    '  kind: "injected_ambient_descendant_before_recovery",',
+    "  succeeded: Exit.isSuccess(exit),",
+    "  fault: failure !== null && Option.isSome(failure) ? failure.value : null,",
+    "  defect: defectValue === null ? null : { name: defectValue?.name ?? typeof defectValue, message: String(defectValue?.message ?? defectValue) },",
+    "  cause: Exit.isFailure(exit) ? Cause.pretty(exit.cause) : null,",
     "}));",
   ].join("\n");
   const { stdout } = await execFileAsync(
@@ -977,6 +1096,23 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
   assert.equal(harness.packageJson.dependencies.effect, "3.22.1");
   assert.equal(harness.packageJson.dependencies.valibot, "1.4.2");
   const installedRoot = installedCliPackageRoot(harness);
+  const installedRunKernelRelation =
+    "build/code/src/owner_bindings/run_invocation.js";
+  assert.ok(
+    harness.candidateManifest.productRelativeLocators.includes(
+      installedRunKernelRelation,
+    ),
+    "packed manifest contains the shared run invocation kernel",
+  );
+  const installedRunKernelSource = await readFile(
+    join(installedRoot, installedRunKernelRelation),
+    "utf8",
+  );
+  assert.doesNotMatch(
+    installedRunKernelSource,
+    /selectHeldEventStoreDurablePrefix/u,
+    "packed run invocation consumes owner-issued successors without a store-tail selector",
+  );
   const runManifestRows =
     harness.candidateManifest.publicContractCatalog.rows.filter(
       (row) => row.contractId === operationId,
@@ -2105,7 +2241,7 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
       }),
     })));
     assert.equal(crossed.ownerOutput.outcomeKind, "refusal", label);
-    assert.equal(crossed.ownerOutput.value.code, "invalid_target", label);
+    assert.equal(crossed.ownerOutput.value.code, "invalid_program", label);
     assert.deepEqual(
       crossed.resources.eventResource.entryPrefix,
       crossHandoff.prefix,
@@ -2220,6 +2356,7 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
       product,
       startAuthorityInvocation,
       siblingContractCatalog,
+      startBasis.admittedRequest,
     ),
     "invalid_view",
   );
@@ -2439,7 +2576,7 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
   );
   assert.equal(executionBasisFailure.fault.kind, "definition_execution_fault");
   assert.equal(executionBasisFailure.fault.faultBoundary, "post_append");
-  assert.equal(executionBasisFailure.fault.stage, "execution_basis");
+  assert.equal(executionBasisFailure.fault.stage, "open_call");
   assert.deepEqual(
     executionBasisFailure.fault.resourceReceipt.eventResource.entryPrefix,
     preOpenHandoff.prefix,
@@ -2456,15 +2593,23 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
   const executionBasisFailureSuffix = executionBasisFailureEvents.slice(
     preOpenEvents.length,
   );
-  assert.ok(
-    executionBasisFailureSuffix.some((row) => row.kind === "invocation_admitted"),
-  );
-  assert.ok(
-    executionBasisFailureSuffix.some((row) => row.kind === "basis_admitted"),
+  assert.deepEqual(
+    executionBasisFailureSuffix.map((row) => row.kind),
+    [
+      "public_operation_admitted",
+      "invocation_admitted",
+      "implementation_admitted",
+      "basis_admitted",
+    ],
+    "the unchanged execution-basis successor reaches the next child and the fault receipt",
   );
   assert.equal(
     executionBasisFailureSuffix.some((row) => row.kind === "frame_opened"),
     false,
+  );
+  assert.equal(
+    (await readFile(scenario.eventLogPath)).byteLength,
+    executionBasisFailureHandoff.prefix.prefixLength,
   );
 
   const failureBasis = await exactInstalledRunCall({
@@ -2686,6 +2831,74 @@ test("W2-05 packed run.invoke bindings are exact, source-blind, and close one pr
       await rename(heldTarget, targetProof.target);
     }
   }
+
+  const ambientDescendantBasis = await exactInstalledRunCall({
+    publicApi,
+    product,
+    validator,
+    scenario,
+    catalog,
+    catalogView,
+    memberKey: "invoke",
+    catalogHandle: gtl.HELLO_WORLD_DIRECT_IDS.handle,
+    programRef: gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+    eventResource: reopenEventResource(
+      product,
+      recovered.resources.eventResource.closeHandoff,
+    ),
+    ordinal: 16,
+  });
+  const ambientRowsBefore = await readEventRows(scenario.eventLogPath);
+  assert.equal(ambientRowsBefore.length, recoveredEvents.length);
+  assert.equal(
+    (await readFile(scenario.eventLogPath)).byteLength,
+    recovered.resources.eventResource.closeHandoff.prefix.prefixLength,
+  );
+  const ambientDescendantFailure =
+    await invokeWithInjectedAmbientDescendantBeforeRecovery(
+      harness,
+      installedInvokeBasis,
+      ambientDescendantBasis.call,
+    );
+  assert.equal(
+    ambientDescendantFailure.kind,
+    "injected_ambient_descendant_before_recovery",
+  );
+  assert.equal(ambientDescendantFailure.succeeded, false);
+  assert.equal(
+    ambientDescendantFailure.fault,
+    null,
+    "an ambient descendant cannot be laundered into a DefinitionExecutionFault receipt",
+  );
+  assert.equal(ambientDescendantFailure.defect?.name, "TypeError");
+  assert.match(
+    ambientDescendantFailure.defect?.message ?? "",
+    /ABG held store differs from the selected durable prefix/u,
+  );
+  const ambientRowsAfter = await readEventRows(scenario.eventLogPath);
+  const ambientSuffix = ambientRowsAfter.slice(ambientRowsBefore.length);
+  assert.ok(ambientSuffix.some((row) => row.kind === "frame_opened"));
+  assert.equal(
+    ambientSuffix.some((row) => row.kind === "run_closed"),
+    false,
+  );
+  const ambientFailureRows = ambientSuffix.filter(
+    (row) => row.kind === "runtime_failure_observed",
+  );
+  assert.equal(ambientFailureRows.length, 1);
+  assert.equal(
+    ambientFailureRows[0].payload.diagnosticRef,
+    "diagnostic://abiogenesis/test/ambient-descendant@5",
+  );
+  assert.equal(
+    ambientFailureRows[0].payload.stage,
+    "operation_application",
+  );
+  assert.ok(
+    (await readFile(scenario.eventLogPath)).byteLength >
+      recovered.resources.eventResource.closeHandoff.prefix.prefixLength,
+    "the owner-issued ambient descendant was durably appended on the same held resource",
+  );
 
   process.stdout.write(`W2_05_RUN_PROOF ${JSON.stringify({
     bankedBehaviorHeld: 37,
