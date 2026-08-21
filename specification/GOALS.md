@@ -22,7 +22,7 @@ construction, donor, proof, review, and non-closure detail.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 complete; Wave 2 selects the installed odd_glc Program-only Hello sentinel over an exact ABIogenesis 5.0 partial development Product. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 complete; Wave 2 is repriced as four cumulative sunny-day odd_glc steel threads ending at one installed CLI MVP. |
 
 ## Current Basis
 
@@ -77,7 +77,7 @@ for an installed consumer.
 ## Feature-Wave Delivery
 
 The 16 fixed Product feature families are delivered in five dependency-ordered
-steel-thread waves. The order reflects dependency leverage, existing
+feature waves. The order reflects dependency leverage, existing
 implementation, coupling, donor value, and the shortest route to installed
 end-to-end behavior. Construction may overlap after a producing wave freezes
 the exact interfaces consumed by its successors. Integrated acceptance and
@@ -86,175 +86,126 @@ release qualification remain dependency ordered.
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
 | `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Accepted - C5 functional substrate; integrated M5 qualification deferred |
-| `2` | Bounded `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` substrate plus one early `A5-F17` consumer sentinel | One source-independent ABIogenesis 5.0 partial development Product admits and starts one data-only odd_glc GTL Program, HoG traverses its odd_glc-owned GraphFunction topology, the ABI-owned deterministic Hello leaf executes, and fresh replay reproduces the result. | Active - `W2-ODD-GLC-PROGRAM-ONLY-HELLO` selected; full 18/56 completion remains required for 5.0 but is not this Wave 2 exit |
+| `2` | Bounded `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` substrate plus one early `A5-F17` consumer path | Four cumulative sunny-day threads verify independently packed ABIogenesis and data-only odd_glc artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`. The existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and one ABG-admitted typed result before exact-prefix ABG observation, fresh-process replay, and one installed CLI episode; post-MVP work then closes the remaining 56-key constructability, held contracts, required negatives, and broader Wave 2 qualification. | Active at `ST-1`; `ST-4` is the usable odd_glc-building MVP, not the Wave 2 or 5.0 completion boundary |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path without feature-specific runtimes. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and its Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
 
 ## Current Selection
 
-Direct F_H intake on 2026-08-17 reprices the bounded Wave 2 outcome without
-changing Intent, Product, requirements, or the final 18-operation/56-key 5.0
-family. The selected ticket-local sentinel is
-`W2-ODD-GLC-PROGRAM-ONLY-HELLO`:
+Direct F_H intake on 2026-08-21 reprices the bounded Wave 2 work to the shortest
+usable MVP for building odd_glc. This is a `goal_reprice`: Intent, Product,
+requirements, the accepted 18-operation/56-key family, semantic owners, and the
+final 5.0 completion predicate do not change. Wave 1 remains accepted at its
+functional-interface boundary.
 
-```text
-one immutable odd_glc GTL Program publication as declarative data
-  -> exact source-independent ABIogenesis 5.0 partial Product install
-  -> Product workspace and eventless catalog admit/view
-  -> run.start selects the odd_glc-owned GraphFunction
-  -> HoG traverses its graph topology through the accepted Effect fold
-  -> the exact ABI-owned deterministic Hello leaf executes
-  -> ABG-admitted events and Event Calculus truth
-  -> typed result and fresh-process replay
-```
+No Product or requirement clause requires every one of the 56 final definitions
+to be callable before the first odd_glc outcome. Product fixes the one final
+family and release predicate; `REQ-P-SCENARIOS-007` expressly separates
+definition coverage from realized proof and rejects requiring an earlier
+scenario to implement behavior assigned later. The complete-family clauses in
+`REQ-P-PUBLIC-CONTRACTS` and `REQ-P-POLICY` govern the complete 5.0 Product and
+its conformance, not development-cut ordering. No Product, requirement, or
+exact-family re-entry is therefore selected.
 
-This is a `goal_reprice`. Wave 1 remains complete. D17/D18 is checkpointed at
-`e4a9be06b89fbbc733bff6cd1b08c8fec9cd76ac`; the accepted Wave 2 plan is
-checkpointed at `4b9dfabd53f6c58b4a0af7062d4730f3491f5f08`. Neither checkpoint reopens
-Wave 1.
+`ABI5-ROOT-001` and the `ABG5-S01` through `ABG5-S07` scenario identities,
+subjects, paths, and predicates remain unchanged. The threads are cumulative
+development subjects, not a replacement root or weaker scenario. No thread may
+claim root, scenario, Product, qualification, or release closure.
 
-For this sentinel, odd_glc supplies one immutable GTL Program publication as
-data: its Program record, odd_glc-owned GraphFunction definition and topology,
-and only the declarative contracts, policies, overlays, and package metadata
-that topology requires. It supplies no executable TypeScript
-Product-semantics provider, evaluator, implementation binding, leaf
-implementation, semantic implementation, read-only lifecycle interpreter,
-dispatcher, event writer, raw-event walker, evidence binder, fold,
-residualizer, controller, compatibility adapter, or ABI mechanism.
-ABIogenesis owns admission, validation, Product verification/resolution/install,
-workspace, the one GraphFunction Catalog, bundled base GraphFunctions and
-standard owner ports including deterministic Hello, HoG traversal, ABG
-admission/events/Event Calculus, replay, result projection, SDK, and CLI.
+The selected Wave 2 delivery unit is four cumulative sunny-day steel threads:
 
-Wave 2 restores the Catalog's generic library law:
+| Thread | Added boundary | Exact cumulative sunny outcome |
+|---|---|---|
+| `ST-1` | Installed cross-owner Hello typed result | Verify independently packed ABIogenesis and data-only odd_glc artifacts. Product constructs the `ResolvedProductLock` before installation or binding. Product materializes and verifies each install candidate; ABG admits each `ProductInstall`. Product constructs the `ProductSet`. Product constructs the `WorkspaceBindingCandidate`; ABG admits the `WorkspaceBinding`. Product and Validator construct the eventless ready `Catalog`; Product derives the pure narrowed `View`. Then the existing production Product resolution selects the odd_glc Program/GraphFunction; HoG traverses that admitted Program to the ABI-owned `F_D` Hello callable; and ABG admits one typed Hello result. |
+| `ST-2` | Exact-prefix ABG observation | The same installed execution produces ABG-owned durable truth; exact-prefix status, result, and replay projections agree on the one run and typed terminal result. |
+| `ST-3` | Fresh-process reopen | A distinct process reopens only from installed artifacts and owner-issued durable prefix/handoff truth and reconstructs the same status, result, and replay without source-tree or process-local authority. |
+| `ST-4` | Installed CLI transport | One installed CLI episode uses exactly one `run.invoke#start` to ignite one fresh owner-issued run through the installed causal path; it does not reuse or project the terminal `ST-3` run. Within that fresh CLI episode, run, result, durable prefix, and replay identities agree and yield the same typed user-result meaning. This is the usable odd_glc-building MVP. |
 
-```text
-installed Product/library GraphFunction publications
-  -> one deterministic Catalog
-  -> exact GraphFunction identities, definitions, and dependency closure
-  -> any admitted Program composition
-```
+`ST-1` enters from the accepted owner-separated W2-03 resolution relation. Each
+later thread enters from its preceding accepted thread, adds only its named
+cumulative boundary, freezes one exact subject, and makes no claim for a later
+boundary. `ST-2` and `ST-3` retain the predecessor identity and outcome conservation
+stated in their rows. Across `ST-3` and `ST-4`, only stable Program,
+GraphFunction, owner, and contract identities and typed-result meaning are
+preserved and compared. The fresh `ST-4` run has its own episode-local runtime
+identities; no cross-thread runtime identity equality is required. A correct
+result through a bypass, fallback, fixture-authored path, compatibility carrier,
+in-memory resolver, direct ABI Hello call, second catalog, or source-tree import
+is not the thread outcome.
 
-The current same-publication validation and implementation lookup is the
-defect: it collapses the Catalog into a publication-local table. The corrected
-Product/Validator relation resolves the complete GraphFunction closure through
-the ready Catalog/View, installed ProductSet, resolved lock, dependency,
-compatibility, provenance, collision, and ambiguity law. Its immutable derived
-execution projection carries Program, GraphFunction, contract, evaluator,
-customization, fibre, and Implementation owners separately; it is not another
-catalog or authority. Typed refusals distinguish absent, ambiguous, missing
-dependency, incompatible/provenance, and owner-binding mismatch.
+### Superseded Wave 2 ordering
 
-An odd_glc publication may declare external Product-semantics, contract,
-evaluator, binding, and Implementation references as immutable data, but it
-supplies none of those executable providers. The single
-`ProductExecutionResolutionPort.resolve` resolves the Program/GraphFunction
-owner separately from every referenced executable owner through the exact
-Catalog/View, ProductSet, lock, compatibility, and provenance basis, then loads
-each callable from that owner's exact admitted install. This replaces the live
-same-install coupling at `ModulePublication.productSemanticsBinding`,
-`loadInstalledProductSemantics`, and `applyRunInvoke`; Public may pass the
-selected Program relation but may neither reuse the odd_glc install for every
-loader nor special-case its ABI.
+For work selection and advancement, this reprice supersedes every prior active
+reading that makes complete 56/56 packed loadability or the remaining definition
+closures a precondition for `ST-1` through `ST-4`. In particular, the
+whole-family-before-sentinel ordering formerly stated in the TypeScript design
+README, T-287 `W2-05` through `W2-08`, and Realization Constitution Sections
+5.6.5, 15, and 16.7 is non-operative as development sequencing. Those
+Constitution sections continue to govern the static binding algebra, owner
+boundaries, final-family constructability, and proportional proof; they do not
+retain stage-advancement authority against this Goal.
 
-The Catalog supports immutable base GraphFunctions bundled by ABIogenesis/ABG,
-downstream GraphFunction compositions, compatible owner-local Implementations
-or fibres at declared extension points, and explicit customization overlays or
-policies. A downstream Product never mutates or silently overrides a base
-definition. For this sentinel, odd_glc publishes its GraphFunction composition
-and no custom executable Implementation; it consumes the catalogued base Hello
-capability.
+The prior single horizontal Wave 2 sentinel and its pre-sentinel package gate
+are replaced by `ST-1` through `ST-4`. The prior 4.6 comparison, exhaustive
+negative census, and broader qualification remain useful later evidence but do
+not gate this sunny-day MVP.
 
-Public structurally admits the run request, selects `run.invoke#start` and its
-one exact installed binding, calls that binding once, and projects its indexed
-outcome. The installed binding is statically closed over the typed Product,
-Validator, GTL, HoG, ABG, and Implementation owner functions required by that
-definition. Product/Validator resolves and validates the Catalog closure;
-GraphFunction owners supply declarative topology; contract, evaluator, and
-customization owners supply their declared relations; primitive base
-GraphFunctions resolve to exact owner-local Implementations; HoG traverses the
-resolved closure; and ABG revalidates and admits runtime truth. Public neither
-calls those owners separately nor sequences their relations. Executable leaves
-remain Implementations/owner ports, not another GraphFunction kind. No second
-catalog, runtime, execution-basis registry, or downstream adapter is introduced.
+### One family and one authority path
 
-Consensus is the architectural falsifier: Consensus is one published
-GraphFunction whose round topology, fan-out, aggregation, dispute recursion,
-stop, and escalation are declared composition. ABG only admits/projects it and
-HoG only traverses it. Removing that GraphFunction must remove Consensus
-behavior; no consensus-specific ABG, HoG, or Public production branch may
-remain reachable. Consensus itself is not part of this sentinel.
+The canonical roster remains exactly 18 operation identities and 56 definition
+keys. The cumulative MVP consumer path uses these twelve existing coordinates:
+`workspace.create#clean`, `workspace.open#open`, `product.verify#verify`,
+`product.resolve#resolve`, `product.install#install`, `workspace.bind#bind`,
+`catalog.admit#admit`, `catalog.view#allowlist`, `run.invoke#start`,
+`project.read#run_status`, `project.read#run_result`, and
+`project.read#run_replay`.
 
-The mechanically traced Public consumer map is:
-`workspace.create#clean`, `workspace.open#open`,
-`product.verify#verify`, `product.resolve#resolve`,
-`product.install#install`, `workspace.bind#bind`, `catalog.admit#admit`,
-`catalog.view#allowlist`, `run.invoke#start`, `project.read#run_status`,
-`project.read#run_result`, and `project.read#run_replay`. These are static
-external coordinates and exports, not separate semantic implementations. The
-consumer map, not the count, governs. ABIogenesis 5.0p packages the one exact
-18-operation/56-key Public family through the compressed static whole-family
-construction ratified by Realization Constitution Section 5.6.2C. Product
-semantic leaves remain irreducible owner functions. Public admits and selects
-one exact installed binding, calls it once, and structurally projects its owner
-output and resource receipt. There is no per-key semantic implementation,
-runtime callback map, registry, rival controller, mode selector, or universal
-resource/topology engine.
+That twelve-key trace is a consumer and behavioral gate, not a 12-key family,
+partial API, new roster, or claim that twelve names are twelve semantic
+implementations. Development cuts may honestly leave unused coordinates
+unqualified and non-callable until after MVP. They may not publish a stub,
+semantic adapter, compatibility layer, second catalog, parallel contract
+register, fixture authority, or substitute definition for any unused
+coordinate, and they may not claim ABIogenesis 5.0 completeness.
 
-Package constructability is nevertheless whole-family and decision-complete:
-all 56 static exports load from packed bytes with real owner closures rather
-than stubs or interface-only bindings; the installed tarball contains every
-required owner module, runtime dependency, schema, and static catalog row; and
-one installed exact-set load/resolve probe proves the complete set. This is
-mechanical constructability, not 56-definition behavioral qualification. Wave 2
-behavioral qualification remains the exact twelve-key odd_glc sentinel path;
-unused rows remain outside its evidence claim without forming a partial roster,
-second API, or second catalog.
+odd_glc supplies one immutable GTL Program publication as data: its Program
+record, odd_glc-owned GraphFunction definition and topology, and only the
+declarative contracts, policies, overlays, and package metadata that topology
+requires. It supplies no executable Product-semantics provider, evaluator,
+implementation binding, leaf implementation, lifecycle interpreter, dispatcher,
+event writer, replay fold, controller, compatibility adapter, or ABI mechanism.
+ABIogenesis owns admission, validation, exact Product/install/workspace/catalog
+resolution, the ABI-owned Hello leaf, HoG traversal, ABG event admission and
+Event Calculus truth, replay, Public, SDK, and CLI.
 
-Transport is one installed CLI episode chain with exactly one
-`run.invoke#start`. SDK, schema, catalog, and CLI surfaces are mechanically
-proved exact-set/equality projections of the same contracts; they do not
-execute a second semantic path or issue a second start.
+The one Catalog retains generic library law over independently owned
+publications. Product resolution selects the Program/GraphFunction owner and
+each referenced executable owner through the exact Catalog/View, installed
+ProductSet, resolved lock, compatibility, provenance, collision, and ambiguity
+relations. Public admits and selects one exact installed binding, calls it once,
+and structurally projects its indexed owner output. It does not select or
+sequence semantic owners.
 
-The closure comparison runs immutable odd_glc 0.1 on ABIogenesis 4.6.0-rc.3
-and the odd_glc 0.2 development candidate on ABIogenesis 5.0 partial in
-separate clean processes and workspaces. No carrier translation, shared
-runtime, compatibility path, or source import joins the runs. Both unmodified
-raw observations are persisted. The 4.6 observation retains its real subject
-execution stdout `Hello, world!\n`; the 5.0 observation retains the existing
-typed `hello_world_output` with `message: "Hello World"` inside the canonical
-JSON CLI receipt. The comparator reduces them only to: source-independent
-installed execution, one top-level start, minimal Hello operation succeeded,
-one terminal result, expected version-local greeting, fresh-process replay
-agreement, no private/source imports, and no legacy fallback. It does not
-rewrite either observation. ABIogenesis 4.6 `converged` versus 5.0
-`closed_success` remain version-local authenticated evidence. The 5.0 run
-independently proves selection of the odd_glc-owned GraphFunction plus its
-exact ABI-owned Hello leaf binding. Raw identifiers, digests, events, Programs,
-GraphFunctions, leaf bindings, greeting punctuation, and transport forms are
-not compared across versions. Hello World is steel-thread shorthand here, not
-a Product-parity claim.
+### MVP and post-MVP boundary
 
-Proportional closure is one installed sunny path, one fresh-process replay,
-the package/source/private negative census, and seam negatives only for
-absent or ambiguous catalogued GraphFunction/dependency, missing or wrong dependency or
-owner, absent/ambiguous/wrong-owner executable binding, and replay divergence.
-One installed owner-load probe proves each selected semantic callable came from
-its resolved owner install. The 4.6 comparison remains independent and
-semantic: no 4.6 code or carrier enters 5.0p, and internal event or identity
-equality is not required.
+`ST-4` is a usable development MVP, not `ABI5-ROOT-001`, the ABIogenesis 5.0
+Product, or a release.
+After MVP, Wave 2 completes the remaining 56-key package constructability,
+held contract closure, future-capable release contracts, legacy exclusion,
+required negative cases, and broader qualification in dependency order. The
+final Product must still
+publish the complete one-family contract, load all 56 real owner closures from
+packed bytes, satisfy every selected feature and scenario, qualify one exact
+candidate, and close the immutable release lifecycle.
 
-The existing native ABI Hello Program, GraphFunction, leaf, judgment, and
-canonical JSON CLI receipt are retained unchanged. This sentinel neither
-redesigns them nor invents another base operator or formatter.
-
-This sentinel does not close `SCN-GLC-HELLO-WORLD-MINIMAL`. Requirement
-algebra, instruction assembly, F_P, evidence binding, assurance fold,
-residuals, lifecycle disposition, retry, continuation, fan-out, service,
-data-mapper, One Surface, Consensus, and the remaining Public definitions are
-deferred. Broader odd_glc tests become later-wave gap discovery after this
-sentinel closes and cannot enlarge Wave 2 retroactively.
+The MVP does not close `SCN-GLC-HELLO-WORLD-MINIMAL`, `ABG5-S01`, or
+`ABG5-S06`. Requirement algebra, instruction assembly, `F_P`, evidence binding,
+assurance, residuals, lifecycle disposition, retry, continuation, fan-out,
+service, data-mapper, One Surface, Consensus, comprehensive negatives,
+self-conformance, qualification, and release remain deferred to their owning
+post-MVP work. The existing ABI-owned Hello leaf and typed result contract are
+retained; the threads do not invent another base operator or formatter.
 
 ## Product Scope And Conservation
 
@@ -294,7 +245,7 @@ for delivered behavior.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | Waves 1 through 4 place all 14 pre-qualification feature families, required installed negatives, selected scenarios, publication truth, and conservation evidence on one exact candidate. | Active - Wave 2 Program-only odd_glc sentinel selected |
+| `M5` | Waves 1 through 4 place all 14 pre-qualification feature families, required installed negatives, selected scenarios, publication truth, and conservation evidence on one exact candidate. | Active - Wave 2 `ST-1` through `ST-4` selected; post-MVP Wave 2 completion remains pending |
 | `M6` | Wave 5 `A5-F15` accepts selected-method binding, self-conformance, selected pre-RC scenarios, and complete 4.6 conservation against one exact pre-RC candidate. | Pending M5 |
 | `M7` | Wave 5 `A5-F16` accepts distinct immutable RC, installed RC, final-tap, released Product, and post-publication install subjects as stable `5.0.0`. | Pending M6 |
 

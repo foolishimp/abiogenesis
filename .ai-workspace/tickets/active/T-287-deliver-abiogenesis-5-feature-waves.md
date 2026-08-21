@@ -9,11 +9,11 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- change_intent: compress_static_definition_bindings_for_whole_family_constructability
-- change_class: design_reframe
-- re_entry_point: build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#562c-operative-static-definition-binding-algebra
+- change_intent: reprice_wave2_to_cumulative_odd_glc_mvp_steel_threads
+- change_class: goal_reprice
+- re_entry_point: specification/GOALS.md#current-selection
 - triaged_at: 2026-08-17
-- retriaged_at: 2026-08-20
+- retriaged_at: 2026-08-21
 - migration_strategy: inside_out_hard_break
 - library_usage: consume
 - governing_library: effect@3.22.1
@@ -22,10 +22,10 @@
 - immutable_reference_product: v4.6.0-rc.5
 - selected_wave: W2
 - selected_feature: A5-F01
-- selected_slice: odd_glc_program_only_sentinel
-- selected_slice_stage: whole_family_constructability
-- selected_increment: w2_05_static_binding_algebra
-- selected_increment_stage: bounded_design_reframe
+- selected_slice: odd_glc_mvp_steel_threads
+- selected_slice_stage: ST-1
+- selected_increment: st_1_in_process_hello
+- selected_increment_stage: authority_selected
 - accepted_checkpoint: 1f6a86074bf995763b4caff286422b5b1501374b
 - banked_callable_checkpoint: e7e252ed7c0f950c49f606e1c0fd8d61743af71a
 - deferred_feature: A5-F12
@@ -50,108 +50,85 @@ requirements, and accepted design define meaning. The local realization
 constitution defines the reusable implementation constraints. This ticket
 does not restate either.
 
-The current goal reprice selects a downstream Product outcome as the Wave 2
-closure boundary. It changes no Product, requirement, owner, event, or final
-18/56-family meaning.
+The current goal reprice selects the shortest cumulative sunny-day route to an
+installed odd_glc-building MVP. It changes no Product, requirement, semantic
+owner, event law, exact 18/56-family identity, or final 5.0 obligation.
 
-## Current Wave 2 Target — Program-Only odd_glc Hello
+## Current Wave 2 Target — Cumulative odd_glc MVP Steel Threads
 
-`W2-ODD-GLC-PROGRAM-ONLY-HELLO` is the sole current Wave 2 closure target:
+The selected sequence is `ST-1 -> ST-2 -> ST-3 -> ST-4`. `ST-1` starts from the
+accepted owner-separated W2-03 resolution relation. Each later thread starts
+from the exact accepted subject of its predecessor, adds only its named
+cumulative boundary, proves the same positive user result through that boundary,
+freezes one exact subject, and stops. `ST-4` is the usable development MVP; it
+is not ABIogenesis 5.0 completion or release.
+
+### Re-entry disposition
+
+The classification is `goal_reprice`, with no unresolved higher re-entry:
+
+- Product fixes the final one-family Public contract and full 5.0 completion
+  predicate but does not prescribe development-cut ordering;
+- `REQ-P-PUBLIC-CONTRACTS-005`, `-008`, and `-010` require one closed family and
+  one invocation/outcome authority, not all 56 callables before an earlier
+  developmental outcome;
+- `REQ-P-POLICY-019` through `-023` and `-026` through `-028` fix the final
+  operation and run/read semantics without imposing the prior `W2-05` gate; and
+- `REQ-P-SCENARIOS-007` explicitly distinguishes definition coverage from
+  realized proof and says an earlier scenario need not implement behavior
+  constitutionally assigned later.
+
+The prior all-56-before-sentinel rule is therefore design/ticket ordering, not
+constitutional Product or requirement law. If implementation discovers that a
+thread requires a Product outcome, operation/key identity, semantic owner,
+event kind, or authority exchange not already fixed above, stop and return to
+the owning re-entry instead of extending this ticket.
+
+`ABI5-ROOT-001` and every `ABG5-S01` through `ABG5-S07` scenario subject, path,
+and predicate remain unchanged. The threads are intermediate development
+subjects; none replaces the root, weakens a scenario, or claims Product,
+qualification, or release closure.
+
+### Product and ownership frame
 
 ```text
-odd_glc immutable GTL Program publication data
-  -> installed ABIogenesis 5.0 partial Product
-  -> verify -> resolve -> install -> bind
-  -> eventless catalog admit -> view
-  -> Program start selects the odd_glc-owned GraphFunction
-  -> HoG traverses its graph topology through one Effect fold
-  -> ABI-owned deterministic Hello leaf implementation
-  -> ABG events -> Event Calculus -> result -> fresh replay
+fixed Product: ABIogenesis 5.0, with Wave 1 functional interface accepted
+active Wave 2 work: ST-1 through ST-4 cumulative odd_glc sunny path
+odd_glc authority: one immutable GTL Program publication as data, including
+  odd_glc-owned GraphFunction topology and required declarative dependencies
+ABIogenesis authority: admission, Validator, Product/install/workspace/catalog
+  resolution, ABI-owned Hello leaf, HoG, ABG, Event Calculus, replay, Public,
+  SDK, and CLI
+MVP result: the same typed Hello result through one progressively strengthened
+  causal path, ending in one installed CLI episode
+prohibited: odd_glc executable provider or leaf, partial/rival Public family,
+  second catalog, stub, compatibility layer, source import, hidden default,
+  fixture-authored result, or process-local runtime authority
 ```
 
-The odd_glc package supplies exactly one immutable GTL Program publication as
-data: its Program record, odd_glc-owned GraphFunction definition and topology,
-and only the declarative contracts, policies, overlays, and package metadata
-that Program requires. It supplies no executable TypeScript Product-semantics
-provider, evaluator, implementation binding, leaf implementation, semantic
-implementation, lifecycle interpreter, dispatcher, event writer, raw-event
-walker, evidence binder, fold, residualizer, controller, or ABI mechanism. Its current
-`abi5_program` provider/leaf/`no_disposition` candidate is superseded
-diagnostic evidence and is deleted or excluded rather than adapted.
+The odd_glc artifact supplies no executable Product-semantics provider,
+evaluator, implementation binding, lifecycle interpreter, dispatcher, event
+writer, raw-event walker, evidence binder, fold, residualizer, controller, or
+ABI mechanism. Its prior provider/leaf candidate is diagnostic evidence only
+and is excluded, never adapted.
 
-ABIogenesis owns raw admission, validation, Product verification, resolution,
-install, workspace, catalog, the standard Hello contracts/evaluators/leaf
-implementation, dependency-closure resolution, HoG traversal, ABG admission/
-events/Event Calculus, replay, result projection, SDK, and CLI.
+After the independently packed artifacts are verified, Product constructs the
+exact `ResolvedProductLock` before installation or binding. Product then
+materializes and verifies each install candidate; ABG admits each
+`ProductInstall`. Product constructs the `ProductSet`, then constructs the
+`WorkspaceBindingCandidate`; ABG admits the `WorkspaceBinding`. Product and
+Validator construct the eventless ready `Catalog`, and Product derives the pure
+narrowed `View`. Production Product resolution then selects the Program,
+odd_glc-owned GraphFunction, contracts, and ABI-owned Hello Implementation
+through those exact compatibility, provenance, collision, ambiguity, and
+owner-binding relations. Public admits and selects one exact binding, calls it
+once, and projects its indexed outcome. It neither owns nor sequences those
+semantic relations.
 
-### Generic GraphFunction-library resolution
+### Canonical family and cumulative consumer map
 
-Current code assumes that a Program and every referenced GraphFunction,
-contract, evaluator, and Implementation share one publication/install. That
-collapses the Catalog into a publication-local table. Wave 2 restores its
-generic law:
-
-```text
-installed Product/library GraphFunction publications
-  -> one deterministic Catalog
-  -> exact GraphFunction identities, definitions, and dependency closure
-  -> any admitted Program composition
-```
-
-Product/Validator resolves the complete GraphFunction closure through the
-exact ready Catalog/View, installed ProductSet, resolved dependency lock,
-compatibility, provenance, collision, and ambiguity law. The derived immutable
-execution projection carries Program, GraphFunction, contract, evaluator,
-customization, fibre, and Implementation owners separately with exact
-identities, digests, installs, and dependency edges. It is not another catalog
-or authored authority. Refusals are typed as absent, ambiguous, missing
-dependency, incompatible/provenance, or owner-binding mismatch.
-
-The odd_glc publication may declare external Product-semantics, contract,
-evaluator, binding, and Implementation references as data, but it supplies no
-provider for them. The `run.invoke#start` installed owner function resolves the
-Program/GraphFunction owner independently from every referenced semantic owner
-through the exact Catalog/View, ProductSet, lock, compatibility, and provenance
-basis and loads each callable from that owner's exact admitted install.
-`ModulePublication.productSemanticsBinding` is therefore an external
-owner/binding coordinate rather than a claim that the Program install contains
-the provider. `loadInstalledProductSemantics` consumes the resolved binding and
-owner install. Public does not call `ProductExecutionResolutionPort.resolve`
-and then call the selected owner ports; its one exact installed
-`ExactDefinitionCallable` is statically closed over that typed owner relation.
-Refusals distinguish absent, ambiguous, and wrong-owner semantic bindings after
-the common Catalog parse.
-
-The Catalog supports immutable base GraphFunctions and Implementations bundled
-by ABIogenesis/ABG, downstream GraphFunction compositions, compatible
-owner-local Implementations/fibres at declared extension points, and explicit
-customization overlays/policies. A downstream Product never mutates or
-silently overrides a base definition. This sentinel publishes an odd_glc-owned
-GraphFunction composition over the catalogued base Hello capability and no
-custom executable Implementation.
-
-Public structurally admits the exact run request, selects `run.invoke#start`
-and its one exact installed binding, calls that binding once, and projects its
-indexed outcome. The installed binding is constructed at module initialization
-from direct typed Product, Validator, GTL, HoG, ABG, and Implementation owner
-imports. Product/Validator resolves and validates the Catalog closure;
-GraphFunction owners supply declarative topology; contract, evaluator, and
-customization owners supply their declared relations; primitive base
-GraphFunctions resolve to owner-local Implementations; HoG traverses the
-resolved closure; and ABG revalidates and admits runtime truth. Public neither
-calls those owners separately nor sequences their relations. Executable leaves
-remain Implementations/owner ports, not another GraphFunction kind. This adds
-no catalog, runtime, execution-basis registry, or downstream adapter.
-
-Consensus is the structural falsifier for this shared architecture. Consensus
-is one GraphFunction; its rounds, fan-out, aggregation, dispute recursion,
-stop, and escalation are declared composition. ABG may only generically admit
-and project it, and HoG may only generically traverse it. Removing the
-published Consensus GraphFunction must remove Consensus behavior; no
-consensus-specific production branch may remain reachable in ABG, HoG, or
-Public. Consensus is not added to this sentinel.
-
-The exact final-form consumer map is:
+The only roster remains the canonical 18 operations and 56 exact definition
+keys. The MVP cumulatively consumes these twelve existing coordinates:
 
 ```text
 workspace.create#clean
@@ -168,189 +145,176 @@ project.read#run_result
 project.read#run_replay
 ```
 
-The traced path, not its twelve-key count, governs. ABIogenesis 5.0p packages
-the one exact 18-operation/56-key Public family. Wave 2 qualifies only these
-twelve consumed definitions; the other rows are outside this wave's evidence
-claim, not absent, replaced, stubbed, or routed through another roster. No
-partial Public family, second API, or second catalog is created.
+The trace, not its count, governs. It is not a 12-key family, partial API,
+parallel roster, or claim of final completeness. Unused coordinates may remain
+unqualified and non-callable in a development cut. They may not be published as
+stubs, aliases, compatibility bindings, or a second contract/catalog authority.
 
-### Whole-family package constructability
+### Thread contracts
 
-Before the sentinel executes, every one of the 56 static definition exports
-must load from packed bytes with a real owner closure. The installed tarball
-contains the entire 18/56 family, every owner module and runtime dependency
-required by those closures, and every schema and static catalog row required to
-admit the exact keys. Exactly three module-static higher-order combinators build
-the closures from imported typed owner functions: the static owner shell,
-exact-prefix read specialization, and exact-prefix transition specialization.
-A stub, interface-only binding, test callback, per-key semantic wrapper,
-runtime registry, source import, or legacy fallback does not count. One
-installed mechanical exact-set probe loads and resolves all 56 closures. It
-does not invoke their semantics and does not enlarge behavioral qualification
-beyond the twelve-key sentinel.
+#### `ST-1` — installed cross-owner Hello typed result
 
-The transport subject is one installed CLI episode chain containing exactly
-one `run.invoke#start`. SDK, schema, catalog, and CLI projections receive
-mechanical exact-set/equality proof against the same 18/56 contracts. They are
-not additional semantic executions and must not issue another start.
+- **Entry:** the accepted W2-03 owner-separated Product execution-resolution
+  relation and the existing canonical odd_glc/Hello contracts.
+- **Added boundary:** pack and verify ABIogenesis and data-only odd_glc
+  independently. Product constructs the `ResolvedProductLock` before
+  installation or binding. Product materializes and verifies each install
+  candidate; ABG admits each `ProductInstall`. Product constructs the
+  `ProductSet`. Product constructs the `WorkspaceBindingCandidate`; ABG admits
+  the `WorkspaceBinding`. Product and Validator construct the eventless ready
+  `Catalog`; Product derives the pure narrowed `View`. Only then may the
+  production `ProductExecutionResolutionPort` resolve the installed odd_glc
+  Program, odd_glc-owned GraphFunction, and membership for direct HoG traversal
+  to the ABI-owned `F_D` Hello callable and ABG result admission.
+- **Exact sunny outcome:** one ABG-admitted typed Hello result carrying the
+  exact installed Program, GraphFunction, membership, and ABI `F_D` Hello owner
+  identities through the cross-owner production path.
+- **Consumed interfaces:** canonical `workspace.create#clean`,
+  `workspace.open#open`, `product.verify#verify`, `product.resolve#resolve`,
+  `product.install#install`, `workspace.bind#bind`, `catalog.admit#admit`, and
+  `catalog.view#allowlist`, plus `run.invoke#start` and its internal GTL
+  admission/Validator, production Product resolution, HoG, ABG-admission, and
+  Implementation owner seams.
+- **Evidence:** verified artifact/package/content identities and independent
+  install roots; Product-constructed `ResolvedProductLock`; Product-materialized
+  and verified install candidates and exact ABG-admitted `ProductInstall`
+  values; Product-constructed `ProductSet` and `WorkspaceBindingCandidate`;
+  ABG-admitted `WorkspaceBinding`; Product-and-Validator-constructed eventless
+  ready `Catalog`; Product-derived pure narrowed `View`; data-only odd_glc
+  package census; exact module/export/member and owner-install coordinates;
+  admitted Program and validation identities; Product-issued membership;
+  selected owner relation; HoG entry/leaf trace; and ABG-admitted typed owner
+  result on one frozen subject.
+- **Prohibited path:** no source-tree or same-install authority, in-memory
+  resolver, fixture authority, adapter, second catalog, or direct ABI Hello
+  bypass can satisfy this thread.
+- **Deferred:** exact-prefix status/result/replay equality, process reopen, CLI,
+  comprehensive negatives, and unused definitions.
 
-Closure runs the immutable odd_glc 0.1/ABIogenesis 4.6.0-rc.3 pair and the
-odd_glc 0.2 development candidate/ABIogenesis 5.0p pair independently in clean
-processes and workspaces. There is no translation or shared runtime. Both raw
-observations are persisted unchanged. The 4.6 observation retains its genuine
-subject-execution stdout `Hello, world!\n`; the 5.0 observation retains the
-existing typed `hello_world_output` with `message: "Hello World"` inside the
-canonical JSON CLI receipt. The comparator reduces them only to:
-source-independent installed execution; one top-level start; minimal Hello
-operation succeeded; one terminal result; expected version-local greeting;
-fresh-process replay agreement; no source/private import; and no legacy
-fallback. It may not rewrite either raw observation. Each Product internally
-validates its own IDs, digests, events, provenance, Program, and GraphFunction
-selection. ABIogenesis 4.6 `converged` versus 5.0 `closed_success` are
-version-local evidence. The 5.0 run authenticates selection of the odd_glc-owned
-GraphFunction plus the ABI-owned Hello leaf binding; those identities,
-punctuation, and transport forms are not cross-version equality fields. Hello
-World is steel-thread shorthand, not Product parity.
+#### `ST-2` — exact-prefix ABG status/result/replay equality
 
-This target does not claim `SCN-GLC-HELLO-WORLD-MINIMAL`. F_P, requirements,
-instruction assembly, evidence binding, assurance fold, residuals, lifecycle
-disposition, retry, continuation, fan-out, service, data mapper, One Surface,
-Consensus, and the remaining Public definitions are excluded. Broader odd_glc
-tests become later-wave gap discovery and cannot expand Wave 2 retroactively.
+- **Entry:** accepted `ST-1` and its exact installed run.
+- **Added boundary:** preserve the owner-issued successor prefix and close
+  handoff, then read status, result, and replay only through ABG exact-prefix
+  projections over the same validated durable event resource.
+- **Exact sunny outcome:** status names the one terminal run; result preserves
+  the typed Hello contract; replay derives the same typed terminal result and
+  terminal state from the exact prefix.
+- **Consumed interfaces:** add `project.read#run_status`,
+  `project.read#run_result`, and `project.read#run_replay` through
+  `bindExactPrefixRead`; `run.invoke#start` retains the exact successor/handoff.
+- **Evidence:** one durable prefix chain, owner-issued receipt/handoff,
+  operation/run/result/replay identities, canonical result equality, terminal
+  state equality, and no read-side append.
+- **Deferred:** distinct-process reopen, CLI, comprehensive negatives, and
+  unused definitions.
 
-Proportional closure contains one installed sunny path, one fresh-process
-replay, package/source/private negative census, and seam negatives only for an
-absent or ambiguous catalogued GraphFunction/dependency, missing or wrong dependency or
-owner, absent/ambiguous/wrong-owner executable binding, and replay divergence.
-One installed owner-load probe proves each selected semantic callable was
-loaded from its resolved owner install. No exhaustive matrix or broader odd_glc
-scenario enters the gate.
+#### `ST-3` — fresh-process reopen and replay
 
-The existing native ABI Hello Program, GraphFunction, leaf, judgment, and
-canonical JSON CLI receipt are retained unchanged. No new formatter, base
-operator, or output mode is required.
+- **Entry:** accepted `ST-2`, its packed installs, and its owner-issued durable
+  prefix/reopen authority or close handoff.
+- **Added boundary:** close the producing process and reconstruct in a distinct
+  process using only installed artifacts, explicit workspace binding, exact
+  durable prefix, and Event Store reopen authority.
+- **Exact sunny outcome:** canonically equal status, typed result, terminal
+  state, and replay with no source-tree import, ambient package lookup, caller
+  event array, or required process-local object.
+- **Consumed interfaces:** no new Public definition; reuse the cumulative
+  twelve-key path and the existing Event Store reopen/read relations.
+- **Evidence:** distinct process identity, exact installed selectors, serialized
+  prefix and handoff round-trip, reopened event-resource identity, and equal
+  status/result/replay bytes or their contractually canonical forms.
+- **Deferred:** installed CLI transport, comprehensive negatives, and unused
+  definitions.
 
-D17/D18 is checkpointed at
-`e4a9be06b89fbbc733bff6cd1b08c8fec9cd76ac`. The accepted Wave 2 plan is
-checkpointed at `4b9dfabd53f6c58b4a0af7062d4730f3491f5f08`. Neither checkpoint reopens
-Wave 1.
+#### `ST-4` — installed CLI episode: usable MVP
 
-### Current construction sequence
+- **Entry:** accepted `ST-3` exact artifacts and binding plus its stable Program,
+  GraphFunction, owner, and contract identities and typed-result meaning.
+- **Added boundary:** the installed CLI parses and transports the same canonical
+  invocation/outcome contracts through the same installed causal path, using
+  exactly one `run.invoke#start` to ignite one fresh owner-issued run. It does
+  not reuse or project the terminal `ST-3` run.
+- **Exact sunny outcome:** the fresh installed CLI episode yields the same typed
+  user-result meaning, and its run, result, durable prefix, and replay identities
+  agree within that episode. Across `ST-3` and `ST-4`, preserve and compare only
+  the stable Program, GraphFunction, owner, and contract identities and
+  typed-result meaning; do not require cross-thread runtime identity equality.
+  This is the usable MVP for building odd_glc.
+- **Consumed interfaces:** the cumulative twelve canonical definitions only;
+  CLI adds no operation identity, selection, semantic owner, event writer, or
+  continuation authority.
+- **Evidence:** installed CLI/package identity, one-start episode trace naming
+  the fresh owner-issued run, canonical public invocation/outcome receipt, typed
+  rendered result, the episode-local identity join among the run, result,
+  durable prefix, and replay, and the bounded stable-meaning comparison to
+  accepted `ST-3`.
+- **Deferred:** the remaining 56-key package constructability and held contract
+  closure, future-capable release contracts, legacy exclusion, comprehensive
+  negative matrices, broader odd_glc and Product scenarios, self-conformance,
+  qualification, and release.
 
-Functional story points use the Fibonacci scale `1, 2, 3, 5, 8, 13`. They
-estimate relative Product-integration complexity, including the proof required
-to accept that function, not duration. A separate evidence, review, or
-disposition row carries `0` delivery points so ceremony cannot inflate Product
-progress. Points are earned only when the line's exact functional exit is
-accepted; work in progress earns zero partial points. Elapsed time, tests, or
-percentage estimates cannot substitute for the exit.
+### Receipt-repair prerequisite
 
-| Line | Construction outcome | Story points | State | Started | Accepted/completion boundary |
-|---|---|---:|---|---|---|
-| `W2-01` | Checkpoint reviewed D17/D18 and the accepted Wave 2 plan without changing their function chains. | 3 | Complete | 2026-08-16 22:03 AEST | D17/D18 `e4a9be06` and plan `4b9dfabd`, completed 2026-08-17 14:45 AEST |
-| `W2-02` | Preserve the immutable 4.6.0-rc.3/odd_glc 0.1 observation without synthesizing a fresh receipt when the unchanged historical transports cannot execute. | 0 | Complete | 2026-08-17 14:45 AEST | Immutable observation retained; fresh rerun correctly remained unclaimed on 2026-08-17 |
-| `W2-03` | Install one Product execution-resolution relation that resolves the selected Program, GraphFunction, declarations, contracts, semantics, and Implementations through exact admitted owners; remove Public-local joins; prove one cross-owner Hello call. | 8 | Complete | 2026-08-17 15:16 AEST | Frozen at `8e288391`: one installed odd/mini-owned Program and GraphFunction selects the ABI-owned Hello leaf and returns the typed result without a rival selector or runtime |
-| `W2-04` | Freeze W2-A and obtain one cold Max code-path review, with at most one bounded repair. | 0 | Complete | 2026-08-17 | The frozen W2-03 boundary cleared entry to bounded W2-05 owner-binding construction; this row makes no W2-05 acceptance claim |
-| `W2-05` | Construct the singular 18/56 static export family from the exact three-combinator binding algebra, package every real owner closure and dependency, mechanically load/resolve all 56 from packed bytes, and exclude the packed legacy family atomically. | 8 | In progress — bounded design reframe | 2026-08-18 | Banked legacy/current behavior and callability is 37/56 at `e7e252ed` (35 active plus two refusal-only release snapshots); Section 5.6.2C conformance is 0/56 pending reconciliation or proof; 19/56 remain absent/non-callable; the two banked release bindings are additionally contract-final held; rejected dirty five-interaction attempt excluded; exit requires future-capable release success contracts with refusal-only Wave 2 behavior, 56/56 packed loadability, projection equality, and legacy exclusion |
-| `W2-06` | Pack odd_glc 0.2 as one immutable data-only GTL Program publication with no executable or ABI authority. | 5 | Pending `W2-05` | - | Package census and installed admission prove data-only ownership |
-| `W2-07` | Execute the traced twelve definitions through one installed CLI episode chain with one start, then reopen and replay from a fresh process. | 8 | Pending `W2-06` | - | Typed Hello result, exact owner evidence, prefix continuity, and byte-stable replay projection |
-| `W2-08` | Compare the immutable version-local observations, freeze exact artifacts and receipts, obtain cold review, and return the candidate for Executive disposition. | 0 | Pending `W2-07` | - | Exact Wave 2 MVP candidate accepted |
+The current static `run.invoke` resource/receipt repair is retained as candidate
+prerequisite input, not as accepted implementation or thread closure. It is
+consumed directly by `ST-1`, `ST-2`, and `ST-3`, where installed binding,
+successor-prefix, and reopen receipts enter the outcome. `ST-4` consumes the
+accepted cumulative result of the prior threads rather than establishing a
+separate receipt-repair gate.
 
-Wave 2 totals 32 functional story points. Accepted work is currently 11/32
-points. The active W2-05 eight-point line remains unearned until its complete
-installed 56/56 exit passes and freezes.
+### Current construction sequence and supersession
 
-### Detailed W2-05 subplan
-
-The banked legacy/current behavior ledger at commit `e7e252ed` is evidence, not
-acceptance of the new binding algebra. It records callable behavior for 37/56
-definitions: 35 active definitions and two release snapshots whose exact Wave
-2 owner behavior is intentional qualification refusal. Section 5.6.2C
-conformance is 0/56 until every one of those bindings is reconciled, migrated,
-or receives exact conformance proof. The two callable release snapshots are
-also contract-final held because their current success result schemas are
-`v.never()`. The dirty five-member interaction closure experiment is rejected
-evidence. It remains outside the ledger and does not authorize a partial
-transplant.
-
-Accepted design authority `08595af6918196d8d208dfc0c2ff0e91ec8f3b67`
-preserves the three-combinator direction. The exact `bf193b3d` implementation
-subject is rejected evidence and does not promote its reported 39/56 state.
-The accepted behavior ledger remains 37/56, demonstrated 5.6.2C conformance
-remains 0/56, and the W2-05 eight-point line remains wholly unearned.
-
-The absent/non-callable 19/56 definitions partition exactly:
-
-| Group | Count | Disposition |
-|---|---:|---|
-| owner-ready, unwired | 11 | materialize 2, result assess 1, witness admit 6, run invoke 2 |
-| shared continuation carrier gap | 2 | hold both `run.continue` members until one exact Product/ABG carrier is accepted |
-| interaction E33 | 5 | implement once from one static kernel and five fixed packets after exact choice/evidence/grant/publication carriers exist |
-| held Product read | 1 | bind `project.read#release_evidence` from its existing owner relation |
-
-Execute in this order:
-
-1. establish exactly three module-static higher-order combinators over direct
-   typed owner imports: `bindStaticOwner`, `bindExactPrefixRead`, and
-   `bindExactPrefixTransition`; give the static shell each owner's fixed packet,
-   owner-authored strict Valibot resource assertion/admitter, and strict receipt
-   schema/validator or equivalent typed static contract object;
-2. wire both `run.invoke` definitions first and prove the exact twelve-key
-   sentinel route against the existing HoG/ABG child-append boundaries;
-3. close the complete owner-ready group: materialize 2, result assess 1,
-   witness admit 6, and the already-prioritized run invoke 2;
-4. resolve one shared Product/ABG continuation carrier, then bind
-   `current_intent` and `selected_action` without relabeling one as the other;
-5. implement E33 once as L53 exact current basis, exact environment/install/
-   publication join, Product L54 over
-   `{basis,responseKind,choice,value,evidence}`, existing ABG L55/L56, and
-   Product R33; the five exports contain packet selection only;
-6. bind held `release_evidence`;
-7. close the exact future-capable success result contracts for both banked
-   release snapshots while keeping their Wave 2 behavior refusal-only and
-   publication authority held for Wave 5;
-8. prove all 56 static exports load from the packed artifact with real closures
-   and the legacy Public family is absent; and
-9. advance to W2-06, W2-07, and W2-08 only after the release-contract and
-   mechanical exits both close.
-
-#### W2-05 proportional evidence and review plan
-
-The existing Proof frame owns this plan through Constitution Section 5.6.5A
-and activates `SP-05` and `SP-06`. A family shares one deep review only when
-every member imports the identical typed owner/kernel callable, uses the same
-structural resource/receipt contracts, preserves the same owner output/
-nonterminal/refusal algebra, uses the same effect/currentness/commit/handoff/
-installed causal-topology regime, contains no member body, branch, callback, or
-per-member logic, and differs only in frozen packet constants. Any failed
-condition creates another review unit. A review bank requires byte identity
-plus unchanged governing contracts.
-
-| Subject | Cold review unit | Exhaustive evidence and invalidation |
+| Line | Exact outcome | State |
 |---|---|---|
-| exact 18/56 family | no semantic unit by coordinate name | all 56 receive exact-set, type/schema, digest, manifest/member-coordinate, packed installed-resolution, projection-equality, and legacy-exclusion checks; rerun the whole census at freeze |
-| three shared combinators | once per changed combinator | verify exact generic/resource/receipt law; a change invalidates every dependent family seam |
-| `run.invoke` | one shared owner kernel plus two packets | check both packets and coordinates; a kernel change invalidates the family and touched seams |
-| `witness.admit` | one owner kernel plus six packets while the equivalence predicate holds | check all six packets and coordinates; any predicate failure creates a separate unit |
-| `run.continue` | one shared continuation carrier/kernel plus two packets | preserve current-intent versus selected-action meaning; a distinct currentness or continuation law creates a separate unit |
-| `interaction.respond` | one E33 kernel plus five packets | check all five fixed packets and coordinates; a kernel or carrier change invalidates all five seams |
-| materializers and release | separate only for irreducible owner/effect/currentness/commit laws | keep artifact effects, release-owner refusal/success contracts, and the release read separate where their actual laws differ |
-| installed scenarios | once per materially distinct causal topology/effect regime for each frozen W2-05 subject; rerun on that basis at each applicable integrated/final boundary | retain decision-exact local falsifiers for changed seams; never repeat a long test solely because a coordinate name differs |
+| `W2-01` through `W2-04` | Retained D17/D18 checkpoint `e4a9be06`, superseded prior Wave 2 plan `4b9dfabd`, comparison evidence, W2-03 owner-separated resolution, and bounded review history. | Complete history; no prior ordering is a current advancement gate |
+| `ST-1` | Verify independently packed ABIogenesis and data-only odd_glc artifacts. Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`. Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`. Product and Validator construct the eventless ready `Catalog`; Product derives the pure narrowed `View`. Then the existing production Product resolution reaches HoG, the ABI-owned `F_D` Hello callable, and an ABG-admitted typed result. | Selected; not yet accepted by this design candidate |
+| `ST-2` | Same run/result under exact-prefix status/result/replay equality. | Pending accepted `ST-1` |
+| `ST-3` | Same projections after source-blind fresh-process reopen. | Pending accepted `ST-2` |
+| `ST-4` | One installed CLI episode ignites a fresh owner-issued run and yields the same typed user-result meaning. | Pending accepted `ST-3`; usable MVP exit |
+| post-MVP | Complete remaining 56-key constructability, held contract closure, negatives, broader qualification, and final 5.0 obligations. | Pending `ST-4` |
 
-This is exhaustive mechanical coverage with compressed repeated reasoning. It
-is never sampling, reduced assurance, 56 behavioral executions, code
-acceptance, or partial story-point acceptance.
+This sequence supersedes the prior active `W2-05` through `W2-08` ordering and
+all current text that required whole-family packed loadability before the first
+odd_glc outcome. Specifically, Realization Constitution Sections 5.6.5, 15,
+and 16.7 no longer supply pre-MVP stage order or advancement gates. Their exact
+three-combinator law, owner boundaries, final-family constructability,
+proportional review law, and historical ledgers remain conserved. The retained
+historical full-18/56 section below remains non-operative.
 
-No step may introduce a runtime callback, registry, generic controller, mode
+The prior 4.6 comparison, package/source/private negative census, legacy
+exclusion, future-capable release contracts, and exhaustive 56-coordinate probe
+move after `ST-4`; they do not disappear and they cannot be claimed by an MVP
+thread.
+
+### Proportional thread review
+
+Review is selected by changed irreducible seam and reference-frame class, not by
+operation or definition coordinate. Classify each changed subject first as
+immutable definition, derived tool, pure projection, deterministic
+construction, runtime execution entity, observation/evidence, or workspace
+transformation. Then review each changed common combinator, irreducible owner
+kernel/seam, materially distinct effect/currentness/commit/handoff law, and
+installed causal topology once per exact frozen subject.
+
+Fixed same-kernel packets may share a deep review only when their typed owner,
+resource/receipt contracts, output/refusal algebra, effect/currentness/commit/
+handoff law, installed topology, and bytes are identical and only frozen packet
+constants differ. Every consumed coordinate still receives mechanical schema,
+digest, manifest, installed-resolution, and projection checks appropriate to
+the thread claim. The post-MVP whole-family gate applies those mechanical checks
+to all 56. No coordinate count creates a semantic review unit or partial credit.
+
+No thread may introduce a runtime callback, registry, generic controller, mode
 selector, universal resource union/topology engine, per-key semantic dispatch,
-stub, source import, or compatibility fallback. A missing exact owner or
-choice/evidence/grant/publication carrier is a bounded design hold, not
-permission for Public, a caller, or a fixture to mint authority.
+stub, source import, compatibility fallback, partial API, second catalog, or
+fixture-minted authority. A missing exact owner or carrier is a bounded hold,
+not permission to enlarge the thread.
 
 ### Completed W2-03 function-boundary realization map
 
 This retained map records the completed W2-03 owner chain. It does not override
-the operative W2-05 static-binding design below:
+the conserved static-binding law or the current steel-thread contracts below:
 
 1. `product/catalog.ts::admitGraphFunctionCatalog`,
    `buildGraphFunctionCatalog`, `lookupGraphFunctionDefinition`, and
@@ -421,18 +385,20 @@ Every Wave 2 worker handoff and review starts from this frame:
 
 ```text
 Product: fixed ABIogenesis 5.0 scope; Wave 1 complete
-Wave 2 sentinel: W2-ODD-GLC-PROGRAM-ONLY-HELLO
+Wave 2 selection: cumulative sunny-day ST-1 -> ST-4; current thread ST-1
 odd_glc authority: one immutable GTL Program publication as data, including
   odd_glc-owned GraphFunction topology and required declarative dependencies;
   no executable provider, evaluator, implementation binding, leaf, or interpreter
 ABIogenesis authority: all admission, installed Product/catalog mechanics,
   standard Hello implementation, traversal, events, Event Calculus, replay,
   Public, SDK, and CLI
-5.0p: source-independent development Product packaging the one exact 18/56
-  family; Wave 2 evidence traces only its twelve consumed definitions
+MVP: the same typed Hello result crosses one added boundary per thread and ends
+  in one installed CLI episode; unused coordinates may remain unqualified and
+  non-callable without forming another family
+final 5.0: one exact 18/56 family, complete scenarios, qualification, and release
 prohibited: odd_glc provider or executable implementation, lifecycle
   interpreter, ABI mechanism, legacy fallback, compatibility facade, second
-  Public family, source import, or expansion into deferred lifecycle features
+  Public family, source import, stub, or expansion into deferred lifecycle features
 ```
 
 ## Historical C2A Review Preamble
@@ -529,7 +495,7 @@ GTL.TypeScript
 | Wave | Feature families | Exit | State |
 |---:|---|---|---|
 | W1 | A5-F10, A5-F02, A5-F03, A5-F04 | One event-authoritative installed runtime kernel | Accepted; integrated M5 deferred |
-| W2 | Bounded A5-F01/A5-F09/A5-F05/A5-F06 plus an early A5-F17 consumer sentinel | One installed Program-only odd_glc Hello path over exact ABIogenesis 5.0p contracts, owners, events, result, and fresh replay | Active at `W2-ODD-GLC-PROGRAM-ONLY-HELLO` |
+| W2 | Bounded A5-F01/A5-F09/A5-F05/A5-F06 plus one early A5-F17 consumer path | `ST-1` through `ST-4` cumulatively verify independently packed artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then the `WorkspaceBindingCandidate`, and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`; the existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and an ABG-admitted typed result before exact-prefix observation, fresh-process replay, and one installed CLI episode; post-MVP work closes remaining constructability, held contract closure, negatives, and broader qualification | Active at `ST-1`; `ST-4` is the usable development MVP, not Wave 2 completion |
 | W3 | A5-F14, A5-F07, A5-F08 | Packed Hello World, probabilistic proof, One Surface, and Consensus on the same path | Pending W2 |
 | W4 | A5-F13, A5-F17, A5-F11 | Native/host projections, downstream Product, and self-conformance | Pending W3 |
 | W5 | A5-F15, A5-F16 | Qualified immutable 5.0 release | Pending W4 |
@@ -711,7 +677,7 @@ focused rerun, C4 independently checks the receipt and exact new proof bytes;
 C5 then receives one disposition.
 
 The following post-`W1-C5` parallel-lane table is historical planning evidence.
-It is non-operative for the current Program-only sentinel:
+It is non-operative for the current steel-thread sequence:
 
 | Lane | May start | Must wait | Upstream guard |
 |---|---|---|---|
@@ -733,19 +699,22 @@ Disposition is functional:
   recorded for the integrated M5/M6 qualification family, not expanded inside
   Wave 1.
 
-## Operative W2-05 Compressed Static-Binding Design
+## Conserved Compressed Static-Binding Law — Operative Per Consumed Definition
 
-This section is the authoritative ticket-level execution design under
-constitution Sections 5.6.2C and 16.7. Product and requirements are unchanged.
-The exact 18 operation identities and 56 `{operationId, memberKey}` definitions
-are static external coordinates and exports. They are not implementation atoms,
-wrapper counts, or runtime dispatch entries.
+This section is the authoritative ticket-level binding design under Constitution
+Section 5.6.2C. Section 16.7 remains binding-algebra evidence but no longer
+supplies pre-MVP sequencing. Product and requirements are unchanged. The exact
+18 operation identities and 56 `{operationId, memberKey}` definitions are static
+external coordinates and exports. They are not implementation atoms, wrapper
+counts, runtime dispatch entries, or a requirement to implement an unconsumed
+coordinate before `ST-4`.
 
 Review and proof follow Constitution Section 5.6.5A. The review unit is a
 changed irreducible atom, owner seam, common combinator, or materially distinct
 effect, currentness, commit, or installed causal topology, never the coordinate
 name. Fixed same-kernel packets receive exhaustive mechanical coverage across
-all 56 coordinates rather than duplicated semantic review.
+the coordinates in the exact frozen claim rather than duplicated semantic
+review. The post-MVP whole-family claim applies that coverage across all 56.
 
 The installed relation is singular:
 
@@ -844,12 +813,13 @@ exact-prefix projections, and expected-prefix admissions. Add no dependency,
 resource framework, schema engine, registry, persistence layer, Event Calculus
 fold, or runtime.
 
-Whole-family constructability closes only when the clean packed artifact loads
-all 56 static exports with real owner closures and complete dependency closure,
-and the legacy Public family and all fallbacks are absent. Stubs,
-interface-only bindings, test callbacks, source imports, and refusal values
-invented to conceal missing owner meaning do not count. Behavioral
-qualification remains the exact twelve-key odd_glc sentinel.
+Each MVP thread must load every definition it consumes from its claimed boundary
+with a real owner closure; stubs, interface-only bindings, test callbacks,
+source imports, and refusal values invented to conceal missing owner meaning do
+not count. After `ST-4`, whole-family constructability still closes only when a
+clean packed artifact loads all 56 static exports with complete dependency
+closure and the legacy Public family and all fallbacks are absent. The twelve
+consumed keys remain only the MVP behavioral trace.
 
 The historical `E01-E40`, `L`, `J`, `R`, `X`, and `T0-T9` maps may still prove
 coverage, owner placement, order, or durability. They are not runtime types,
@@ -863,7 +833,7 @@ this retained section is evidence only. In particular, the old C1F/D6
 `PublicExecutionCandidate`, resource-topology-arm, generic provider/load, and
 atomic C2/D6 advancement design is superseded. It may not define current
 implementation, stage advancement, or Wave 2 closure and may not enlarge
-`W2-ODD-GLC-PROGRAM-ONLY-HELLO`.
+`ST-1` through `ST-4`.
 
 Wave 2 delivers `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` as one installed
 function:
@@ -1116,8 +1086,8 @@ This design correction authorizes no production, schema, generator, test,
 Public-family, legacy-deletion, HoG, Event Calculus, replay, or release work.
 The D2-D5 checkpoints remain unaccepted conservation and prototype evidence.
 The old C1F/D6 hold/advance relation has no current effect. A requirement
-conflict or missing owner meaning remains a stop under the operative W2-05
-design.
+conflict or missing owner meaning remains a stop under the conserved binding
+law; the historical W2-05 stage ordering has no current effect.
 
 D6 carries two already-observed bounded obligations; neither is implemented in
 C1F:
@@ -1630,6 +1600,9 @@ prototype is unreachable, and whether exact behavior is conserved. It must
 inspect the live function call path and the mixed-state negative proof. C1F/D6
 remains held and is outside this review.
 
+The retained all-56 questions below do not gate `ST-1` through `ST-4`. They are
+historical evidence available to the post-MVP whole-family closure.
+
 The frozen C6 review asks only:
 
 - Is there exactly one 18/56 external definition family, one loaded binding per
@@ -1654,7 +1627,7 @@ The frozen C6 review asks only:
 - Is every legacy carrier, parser, semantic switch, schema, projection, and
   compatibility test unreachable or deleted?
 
-Wave 2 acceptance freezes the Public definition, invocation, outcome, SDK, CLI,
+The historical Wave 2 acceptance proposal froze the Public definition, invocation, outcome, SDK, CLI,
 schema, manifest, PFC-F08, execution-binding specification/load, primitive
 basis, non-executable factorization evidence, statically composed callable,
 and transport receipt interfaces. Wave 3
@@ -1669,7 +1642,7 @@ Executive.
 
 ## Prior C2A Slice — prerequisite checkpoint history
 
-This section records the producing refactor that precedes the current sentinel.
+This section records the producing refactor that precedes the current threads.
 It does not select current work or reopen Wave 1.
 
 The selected implementation increment is
