@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { readFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 import { promisify } from "node:util";
 
@@ -20,8 +20,40 @@ import {
 
 const execFileAsync = promisify(execFile);
 const packageRoot = new URL("../..", import.meta.url).pathname;
+const freshProcessReadWorker = fileURLToPath(new URL(
+  "../support/t287-st3-fresh-process-read-worker.mjs",
+  import.meta.url,
+));
 const operationId = "abg.operation.run.invoke";
 const schemaVersion = "5.0.0";
+
+async function runFreshProcessRead({
+  scratch,
+  installedRoot,
+  identity,
+  readCalls,
+  expectation,
+}) {
+  const requestPath = join(scratch, `st3-${identity}-request.json`);
+  await writeFile(requestPath, JSON.stringify({
+    kind: "st3_fresh_process_read_request",
+    schemaVersion,
+    installedRoot,
+    readCalls,
+    expectation,
+  }));
+  const { stdout, stderr } = await execFileAsync(
+    process.execPath,
+    [freshProcessReadWorker, requestPath],
+    {
+      cwd: scratch,
+      env: {},
+      maxBuffer: 10 * 1024 * 1024,
+    },
+  );
+  assert.equal(stderr, "", `${identity} child must not emit stderr`);
+  return JSON.parse(stdout);
+}
 
 function rehashGrant(product, grant, patch) {
   const {
@@ -941,6 +973,8 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     })],
   ];
   const readProjections = new Map();
+  const readOwnerOutputs = new Map();
+  const freshProcessReadCalls = [];
   let readHandoff = siblingHandoff;
   for (const [memberKey, selector] of runReadRows) {
     const eventResource = reopenedReadResource(product, readHandoff);
@@ -954,6 +988,7 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
       eventResource,
       identity: memberKey,
     });
+    freshProcessReadCalls.push(readCall);
     const callable = abg.ABG_PROJECT_READ_DEFINITION_BINDINGS[memberKey];
     assert.equal(typeof callable, "function", `${memberKey} installed export`);
     assert.equal(Object.isFrozen(callable), true, `${memberKey} static binding`);
@@ -990,6 +1025,7 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
       `${memberKey} must append zero bytes`,
     );
     readProjections.set(memberKey, read.ownerOutput.value.projection);
+    readOwnerOutputs.set(memberKey, read.ownerOutput);
     readHandoff = read.resources.eventResource.closeHandoff;
   }
 
@@ -1052,6 +1088,68 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     schemaVersion,
     message: "Hello World",
   });
+
+  const freshProcessResult = await runFreshProcessRead({
+    scratch,
+    installedRoot: environment.installedRoot,
+    identity: "owner-equality",
+    readCalls: freshProcessReadCalls,
+    expectation: "owner_outputs",
+  });
+  assert.equal(freshProcessResult.kind, "st3_fresh_process_read_result");
+  assert.notEqual(freshProcessResult.processId, process.pid);
+  assert.deepEqual(
+    freshProcessResult.outputs.map((output) => output.memberKey),
+    runReadRows.map(([memberKey]) => memberKey),
+  );
+  assert.deepEqual(freshProcessResult.moduleRefs, {
+    abg: pathToFileURL(join(
+      environment.installedRoot,
+      "build/code/src/abg/index.js",
+    )).href,
+    effect: freshProcessResult.moduleRefs.effect,
+  });
+  assert.equal(
+    freshProcessResult.moduleRefs.effect.startsWith(
+      `${pathToFileURL(environment.installedRoot).href}/`,
+    ),
+    true,
+    "fresh child Effect must resolve from the packed installed package",
+  );
+  assert.equal(
+    Object.values(freshProcessResult.moduleRefs).some((moduleRef) =>
+      moduleRef.startsWith(pathToFileURL(packageRoot).href)
+    ),
+    false,
+    "fresh child must not load implementation modules from the source tree",
+  );
+  for (const output of freshProcessResult.outputs) {
+    assert.equal(
+      product.canonicalJson(output.ownerOutput),
+      product.canonicalJson(readOwnerOutputs.get(output.memberKey)),
+      `${output.memberKey} fresh-process owner output equality`,
+    );
+    assert.equal(
+      product.canonicalJson(output.resources.eventResource.entryPrefix),
+      product.canonicalJson(terminalPrefix),
+      `${output.memberKey} fresh-process entry prefix equality`,
+    );
+    assert.equal(
+      product.canonicalJson(
+        output.resources.eventResource.closeHandoff.prefix,
+      ),
+      product.canonicalJson(terminalPrefix),
+      `${output.memberKey} fresh-process close prefix equality`,
+    );
+  }
+  assert.equal(
+    Buffer.compare(
+      await readFile(new URL(terminalPrefix.eventLogRef)),
+      terminalLogBytes,
+    ),
+    0,
+    "fresh-process reads must append zero bytes",
+  );
 
   const readFalsifierDigest = product.sha256Canonical({
     kind: "st-2b-pre-owner-falsifier",
@@ -1220,7 +1318,31 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     0,
     "stale resource refusal must append zero bytes",
   );
+  const freshProcessRefusal = await runFreshProcessRead({
+    scratch,
+    installedRoot: environment.installedRoot,
+    identity: "stale-handoff-refusal",
+    readCalls: [staleRead.call],
+    expectation: "resource_refusal",
+  });
+  assert.equal(
+    freshProcessRefusal.kind,
+    "st3_fresh_process_read_refusal",
+  );
+  assert.notEqual(freshProcessRefusal.processId, process.pid);
+  assert.equal(freshProcessRefusal.memberKey, "run_status");
+  assert.equal(freshProcessRefusal.fault.stage, "resource_acquisition");
+  assert.equal(freshProcessRefusal.fault.code, "acquisition_refused");
+  assert.equal(Object.hasOwn(freshProcessRefusal, "outputs"), false);
+  assert.equal(
+    Buffer.compare(
+      await readFile(new URL(terminalPrefix.eventLogRef)),
+      terminalLogBytes,
+    ),
+    0,
+    "fresh-process stale-handoff refusal must append zero bytes",
+  );
   context.diagnostic(
-    "ST-2B: 3 installed fixed packets, 6 shared-kernel refusals, 1 stale-prefix fault, 0 appended bytes",
+    "ST-3: 3 exact fresh-process owner equalities, 1 pre-owner stale-handoff refusal, 0 appended bytes",
   );
 });
