@@ -187,13 +187,49 @@ export async function setupInstalledRootCatalog(
         packageVersion: candidateManifest.packageVersion,
       }
     : persistedCandidateBasis;
+  const bootstrapGtl = await import(
+    `${pathToFileURL(join(bootstrapPackage, "build/code/src/gtl/index.js")).href}?artifact=${Date.now()}`
+  );
+  const bootstrapRootPublication =
+    bootstrapGtl.constructHelloWorldModulePublication({
+      productId: candidateBasis.productId,
+      artifactDigest: candidateBasis.artifactDigest,
+      productContentDigest: candidateBasis.productContentDigest,
+      productManifestDigest: candidateBasis.manifestDigest,
+      packageName: candidateBasis.packageName,
+      packageVersion: candidateBasis.packageVersion,
+    });
+  const additionalProducts = options.prepareAdditionalProducts === undefined
+    ? []
+    : await options.prepareAdditionalProducts({
+        scratch,
+        product: bootstrapProduct,
+        gtl: bootstrapGtl,
+        abiPublication: bootstrapRootPublication,
+      });
+  assert.equal(
+    Array.isArray(additionalProducts),
+    true,
+    "additional installed Products must be one exact prepared array",
+  );
   const verified = await bootstrapProduct.verifyProduct({
     artifactPath,
     artifactRef: basename(artifactPath),
     ...expectedVerificationIdentity(candidateBasis),
   });
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
-  const lock = bootstrapProduct.constructResolvedProductLock([verified]);
+  const additionalVerified = [];
+  for (const prepared of additionalProducts) {
+    const value = await bootstrapProduct.verifyProduct({
+      artifactPath: prepared.artifactPath,
+      artifactRef: prepared.artifactRef,
+      ...expectedVerificationIdentity(prepared.basis),
+    });
+    assert.equal(value.disposition, "verified", JSON.stringify(value));
+    additionalVerified.push(value);
+  }
+  const verifiedProducts = [verified, ...additionalVerified];
+  const lock = bootstrapProduct.constructResolvedProductLock(verifiedProducts);
   assert.equal(lock.kind, "resolved_product_lock", JSON.stringify(lock));
   const installCandidate = await bootstrapProduct.installProduct({
     artifactPath,
@@ -212,6 +248,28 @@ export async function setupInstalledRootCatalog(
     true,
     "frozen installed root bytes differ from the verified Product",
   );
+  const additionalInstallCandidates = [];
+  for (const [index, prepared] of additionalProducts.entries()) {
+    const candidate = await bootstrapProduct.installProduct({
+      artifactPath: prepared.artifactPath,
+      targetRoot: join(scratch, `consumer-additional-${index}`),
+      verifiedArtifact: additionalVerified[index],
+      resolvedLock: lock,
+    });
+    assert.equal(candidate.disposition, "materialized", JSON.stringify(candidate));
+    assert.equal(
+      bootstrapProduct.isProductInstallCandidate(candidate, lock),
+      true,
+      "additional installed Product does not satisfy the resolved lock",
+    );
+    assert.equal(
+      await bootstrapProduct.installedProductContentMatches(candidate),
+      true,
+      "additional installed Product bytes differ from verified truth",
+    );
+    additionalInstallCandidates.push(candidate);
+  }
+  const installCandidates = [installCandidate, ...additionalInstallCandidates];
   installedRoot = installCandidate.installedRoot;
   const nonce = Date.now();
   const product = await import(`${pathToFileURL(join(installedRoot, "build/code/src/product/index.js")).href}?env=${nonce}`);
@@ -236,28 +294,33 @@ export async function setupInstalledRootCatalog(
   assert.equal(acquired.disposition, undefined, JSON.stringify(acquired));
   const store = acquired.store;
   durableStore = store;
-  const admittedInstallResult = abg.admitProductInstall(
-    store,
-    installCandidate,
-    {
-      ...publicOperationBasis(
-        product,
-        "abg.operation.product.install",
-        installCandidate.installId,
-        installCandidate.productContentDigest,
-        "invocation://t286/root/product-install",
-      ),
-      predecessorPrefix: acquired.prefix,
-    },
-    lock,
-  );
-  assert.equal(
-    admittedInstallResult.kind,
-    "artifact_owner_result",
-    JSON.stringify(admittedInstallResult),
-  );
-  const admittedInstall = admittedInstallResult.value;
-  const productSet = product.constructProductSet([admittedInstall], lock);
+  const admittedInstallResults = [];
+  let installPrefix = acquired.prefix;
+  for (const [index, candidate] of installCandidates.entries()) {
+    const admitted = abg.admitProductInstall(
+      store,
+      candidate,
+      {
+        ...publicOperationBasis(
+          product,
+          "abg.operation.product.install",
+          candidate.installId,
+          candidate.productContentDigest,
+          `invocation://t286/root/product-install-${index}`,
+        ),
+        predecessorPrefix: installPrefix,
+      },
+      lock,
+    );
+    assert.equal(admitted.kind, "artifact_owner_result", JSON.stringify(admitted));
+    admittedInstallResults.push(admitted);
+    installPrefix = admitted.successorPrefix;
+  }
+  const admittedInstalls = admittedInstallResults.map((result) => result.value);
+  const admittedInstallResult = admittedInstallResults[0];
+  const admittedInstall = admittedInstalls[0];
+  const additionalAdmittedInstalls = admittedInstalls.slice(1);
+  const productSet = product.constructProductSet(admittedInstalls, lock);
   const workspaceRoot = join(scratch, "workspace");
   await mkdir(workspaceRoot);
   const authorityManifest = {
@@ -277,7 +340,9 @@ export async function setupInstalledRootCatalog(
     lock,
     {
       toolchainRoot: consumerRoot,
-      productRoot: installedRoot,
+      productRoot: installCandidates[
+        options.workspaceProductIndex ?? 0
+      ].installedRoot,
       eventLogRoot: join(workspaceRoot, ".ai-workspace/events"),
       runtimeStateRoot: join(workspaceRoot, ".ai-workspace/runtime"),
       projectionRoot: join(workspaceRoot, ".ai-workspace/projections"),
@@ -294,9 +359,9 @@ export async function setupInstalledRootCatalog(
         bindingCandidate.bindingId,
         bindingCandidate.bindingDigest,
         "invocation://t286/root/workspace-bind",
-        [admittedInstall.admissionEventRef],
+        admittedInstalls.map((install) => install.admissionEventRef),
       ),
-      predecessorPrefix: admittedInstallResult.successorPrefix,
+      predecessorPrefix: installPrefix,
     },
     workspaceAuthority,
   );
@@ -314,6 +379,17 @@ export async function setupInstalledRootCatalog(
     packageName: verified.packageName,
     packageVersion: verified.packageVersion,
   });
+  const additionalPublications = [];
+  for (const [index, prepared] of additionalProducts.entries()) {
+    additionalPublications.push(await prepared.loadInstalledPublication({
+      installedRoot: additionalInstallCandidates[index].installedRoot,
+      install: additionalInstallCandidates[index],
+      verified: additionalVerified[index],
+      gtl,
+      product,
+    }));
+  }
+  const publications = [publication, ...additionalPublications];
   const publicationAdmission = requireRawAdmission(
     validator,
     publication,
@@ -323,8 +399,13 @@ export async function setupInstalledRootCatalog(
   const contributionAdmissions = publication.contributions.map((value) =>
     requireRawAdmission(validator, value, "catalog_contribution", "contract://abiogenesis/gtl/catalog-contribution@5"));
   const publicationValidation = validator.validatePublication(publicationAdmission, contributionAdmissions);
+  const rootProgramRef = publication.programs.some(
+      (program) => program.programRef === options.programRef,
+    )
+    ? options.programRef
+    : gtl.HELLO_WORLD_IDS.programRef;
   const selectedProgramRefs = new Set([
-    options.programRef ?? gtl.HELLO_WORLD_IDS.programRef,
+    rootProgramRef,
     gtl.HELLO_WORLD_DIRECT_IDS.programRef,
   ]);
   const programValidations = publication.programs
@@ -334,25 +415,76 @@ export async function setupInstalledRootCatalog(
         rawProgramInput(validator, publicationAdmission, program),
       ));
   const programValidation = programValidations.find(
-    (value) => value.programRef ===
-      (options.programRef ?? gtl.HELLO_WORLD_IDS.programRef),
+    (value) => value.programRef === rootProgramRef,
   );
   assert.equal(publicationValidation.kind, "publication_validation", JSON.stringify(publicationValidation));
   assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
   assert.equal(programValidations.every((value) => value.kind === "program_validation"), true);
-  const catalog = product.buildGraphFunctionCatalog([publication]);
+  const catalogInstalledProducts = admittedInstalls.map((install, index) => {
+    const {
+      kind: _kind,
+      disposition: _disposition,
+      admissionEventRef: _admissionEventRef,
+      ...body
+    } = install;
+    const candidate = {
+      kind: "product_install_candidate",
+      disposition: "materialized",
+      ...body,
+    };
+    assert.equal(
+      product.canonicalJson(candidate),
+      product.canonicalJson(installCandidates[index]),
+      "Catalog's candidate carrier must be the exact preimage of ABG-admitted install truth",
+    );
+    return installCandidates[index];
+  });
+  const {
+    kind: _workspaceBindingKind,
+    admissionEventRef: _workspaceBindingAdmissionEventRef,
+    ...admittedWorkspaceBindingBody
+  } = workspaceBinding;
+  const catalogWorkspaceBinding = {
+    kind: "workspace_binding_candidate",
+    ...admittedWorkspaceBindingBody,
+  };
+  assert.equal(
+    product.canonicalJson(catalogWorkspaceBinding),
+    product.canonicalJson(bindingCandidate),
+    "Catalog's binding candidate must be the exact preimage of ABG-admitted workspace truth",
+  );
+  const catalog = additionalProducts.length === 0
+    ? product.buildGraphFunctionCatalog(publications)
+    : product.admitGraphFunctionCatalog({
+        workspaceBinding: bindingCandidate,
+        resolvedLock: lock,
+        verifiedProducts,
+        installedProducts: catalogInstalledProducts,
+        publications,
+      });
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
+  const workspaceAdditionalProduct = additionalProducts[
+    (options.workspaceProductIndex ?? 0) - 1
+  ];
   const catalogView = product.narrowGraphFunctionCatalog(
     catalog,
-    [options.graphFunctionRef ?? gtl.HELLO_WORLD_IDS.graphFunctionRef],
+    [
+      options.graphFunctionRef ??
+        workspaceAdditionalProduct?.ids?.graphFunctionRef ??
+        gtl.HELLO_WORLD_IDS.graphFunctionRef,
+    ],
   );
   assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
 
   return {
     scratch,
     artifactPath,
+    artifactPaths: [artifactPath, ...additionalProducts.map(
+      (prepared) => prepared.artifactPath,
+    )],
     consumerRoot,
     installedRoot,
+    installedRoots: installCandidates.map((candidate) => candidate.installedRoot),
     product,
     abg,
     gtl,
@@ -365,14 +497,25 @@ export async function setupInstalledRootCatalog(
     artifactTruth: workspaceBindingResult.artifactTruth,
     durablePrefix: workspaceBindingResult.successorPrefix,
     verified,
+    verifiedProducts,
+    additionalVerified,
     installCandidate,
+    installCandidates,
+    additionalInstallCandidates,
     admittedInstall,
+    admittedInstalls,
+    additionalAdmittedInstalls,
+    admittedInstallResults,
+    catalogInstalledProducts,
     lock,
     productSet,
     workspaceAuthority,
     bindingCandidate,
     workspaceBinding,
     publication,
+    publications,
+    additionalPublications,
+    additionalProducts,
     publicationAdmission,
     publicationValidation,
     programValidation,
