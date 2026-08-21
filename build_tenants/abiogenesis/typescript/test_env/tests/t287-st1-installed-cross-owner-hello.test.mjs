@@ -319,6 +319,131 @@ async function constructInstalledStartCall({
   };
 }
 
+function reopenedReadResource(product, closeHandoff) {
+  return Object.freeze({
+    kind: "reopen_abg_event_resource",
+    schemaVersion,
+    closeHandoff,
+    handoffDigest: product.sha256Canonical(closeHandoff),
+  });
+}
+
+function readAuthoritySlots(environment, packet, grants) {
+  const { admittedInstalls, workspaceBinding } = environment;
+  return Object.freeze({
+    workspace_binding: Object.freeze({
+      ref: workspaceBinding.bindingId,
+      digest: workspaceBinding.bindingDigest,
+    }),
+    product_set: Object.freeze(admittedInstalls.map((install) => Object.freeze({
+      ref: install.installId,
+      digest: install.productContentDigest,
+    }))),
+    dependency_lock: Object.freeze({
+      ref: workspaceBinding.lockId,
+      digest: workspaceBinding.lockDigest,
+    }),
+    catalog_scope: null,
+    execution_program: null,
+    graph_function: null,
+    input_contract: null,
+    session_policy: null,
+    capability_grants: Object.freeze({
+      requiredCapabilityRefs: Object.freeze([...packet.metadata.capabilityRefs]),
+      grants: Object.freeze(grants.map((grant) => Object.freeze({
+        ref: grant.grantRef,
+        digest: grant.grantDigest,
+      }))),
+    }),
+    actor: null,
+    transport_steering: null,
+    verification_references: null,
+    execution_basis: null,
+  });
+}
+
+function constructInstalledRunReadCall({
+  environment,
+  publicApi,
+  projectReadContracts,
+  memberKey,
+  selector,
+  source,
+  eventResource,
+  identity,
+  mutateRequest = (request) => request,
+  mutateSlots = (slots) => slots,
+}) {
+  const { product, admittedInstalls, workspaceBinding } = environment;
+  const packet = projectReadContracts.ABG_PROJECT_READ_CONTRACTS[memberKey];
+  const grantBasis = Object.freeze({
+    admittedInstalls,
+    workspaceBinding,
+    fixedPacket: packet,
+  });
+  const grants = Object.freeze(packet.metadata.capabilityRefs.map(
+    (capabilityRef) => product.constructCapabilityGrant(
+      environment.workspaceAuthority,
+      workspaceBinding.authorizedActorRef,
+      packet.definitionKey.operationId,
+      capabilityRef,
+      grantBasis,
+    ),
+  ));
+  const request = mutateRequest(Object.freeze({
+    caseKey: memberKey,
+    source: Object.freeze({
+      sourceKind: "run",
+      sourceRef: source.ref,
+      sourceDigest: source.digest,
+    }),
+    projectionBasis: Object.freeze({
+      projectionBasisRef: eventResource.closeHandoff.prefix.eventLogRef,
+      projectionBasisDigest:
+        eventResource.closeHandoff.prefix.coordinateDigest,
+    }),
+    selector,
+  }));
+  const slots = mutateSlots(
+    readAuthoritySlots(environment, packet, grants),
+    grants,
+  );
+  const contractCatalog = environment.verified.definitionContractCoordinates
+    ?.operations.find((candidate) =>
+      candidate.operationId === packet.definitionKey.operationId
+    )
+    ?.members.find((candidate) => candidate.memberKey === memberKey)
+    ?.slots.request.contractCatalog;
+  assert.ok(
+    contractCatalog,
+    `${memberKey} requires its installed contract catalog coordinate`,
+  );
+  return Object.freeze({
+    packet,
+    grants,
+    call: constructInstalledPublicDefinitionCall({
+      product,
+      installedPublic: publicApi,
+      definitionContractCoordinates:
+        environment.verified.definitionContractCoordinates,
+      contractCatalog,
+      operationId: packet.definitionKey.operationId,
+      memberKey,
+      request,
+      slots,
+      resources: Object.freeze({
+        kind: "abg_project_read_resource_assertion",
+        schemaVersion,
+        eventResource,
+      }),
+      requestRef: `public-request://odd-glc/st-2b/${identity}`,
+      correlationRef: `correlation://odd-glc/st-2b/${identity}`,
+      eventTime: "2026-08-22T00:00:00.000Z",
+      provenanceRefs: ["provenance://odd-glc/st-2b-worker"],
+    }),
+  });
+}
+
 test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (context) => {
   const environment = await setupInstalledRootCatalog(context, packageRoot, {
     candidateBasisSource: "packed_artifact",
@@ -683,5 +808,222 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
       "utf8",
     ).then((bytes) => bytes.length > 0),
     true,
+  );
+
+  const terminalPrefix = outcome.resources.eventResource.closeHandoff.prefix;
+  const terminalRun = outcome.resources.run;
+  const terminalReplay = outcome.resources.replay;
+  assert.ok(terminalRun);
+  assert.ok(terminalReplay);
+  const terminalLogBytes = await readFile(new URL(terminalPrefix.eventLogRef));
+  const runReadRows = [
+    ["run_status", Object.freeze({ kind: "none" })],
+    ["run_result", Object.freeze({ kind: "none" })],
+    ["run_replay", Object.freeze({
+      kind: "ordinal_page",
+      fromOrdinal: 0,
+      limit: 1024,
+    })],
+  ];
+  const readProjections = new Map();
+  let readHandoff = outcome.resources.eventResource.closeHandoff;
+  for (const [memberKey, selector] of runReadRows) {
+    const eventResource = reopenedReadResource(product, readHandoff);
+    const { packet, call: readCall } = constructInstalledRunReadCall({
+      environment,
+      publicApi,
+      projectReadContracts,
+      memberKey,
+      selector,
+      source: terminalRun,
+      eventResource,
+      identity: memberKey,
+    });
+    const callable = abg.ABG_PROJECT_READ_DEFINITION_BINDINGS[memberKey];
+    assert.equal(typeof callable, "function", `${memberKey} installed export`);
+    assert.equal(Object.isFrozen(callable), true, `${memberKey} static binding`);
+    assert.deepEqual(packet.definitionKey, {
+      operationId: "abg.operation.project.read",
+      memberKey,
+    });
+    assert.equal(packet.owner.abstractModule, "ABG.RunProjection");
+    assert.deepEqual(packet.owner.memberPath, [memberKey]);
+    const read = await Effect.runPromise(callable(readCall));
+    assert.equal(read.ownerOutput.outcomeKind, "result", memberKey);
+    assert.equal(read.ownerOutput.value.caseKey, memberKey);
+    assert.deepEqual(read.ownerOutput.value.source, terminalRun);
+    assert.deepEqual(read.ownerOutput.value.projectionBasis, {
+      ref: terminalPrefix.eventLogRef,
+      digest: terminalPrefix.coordinateDigest,
+    });
+    assert.equal(
+      product.canonicalJson(read.resources.eventResource.entryPrefix),
+      product.canonicalJson(terminalPrefix),
+      `${memberKey} must reopen the exact ST-1 prefix`,
+    );
+    assert.equal(
+      product.canonicalJson(read.resources.eventResource.closeHandoff.prefix),
+      product.canonicalJson(terminalPrefix),
+      `${memberKey} must close the unchanged ST-1 prefix`,
+    );
+    assert.equal(
+      Buffer.compare(
+        await readFile(new URL(terminalPrefix.eventLogRef)),
+        terminalLogBytes,
+      ),
+      0,
+      `${memberKey} must append zero bytes`,
+    );
+    readProjections.set(memberKey, read.ownerOutput.value.projection);
+    readHandoff = read.resources.eventResource.closeHandoff;
+  }
+
+  const replayedTruth = abg.projectRunTruthAtDurablePrefix(
+    terminalPrefix,
+    terminalRun.ref,
+  );
+  assert.equal(replayedTruth.kind, "abg_run_truth_projection");
+  assert.equal(replayedTruth.runtimeStatus, "closed");
+  assert.deepEqual(replayedTruth.run, terminalRun);
+  assert.deepEqual(replayedTruth.result, outcome.ownerOutput.value.result);
+  assert.deepEqual(replayedTruth.replay, terminalReplay);
+  assert.equal(readProjections.get("run_status").status, "closed");
+  assert.deepEqual(readProjections.get("run_status").subject, terminalRun);
+  assert.deepEqual(readProjections.get("run_status").replay, terminalReplay);
+  assert.deepEqual(
+    readProjections.get("run_result").result,
+    outcome.ownerOutput.value.result,
+  );
+  assert.deepEqual(readProjections.get("run_result").subject, terminalRun);
+  assert.deepEqual(readProjections.get("run_result").replay, terminalReplay);
+  assert.deepEqual(readProjections.get("run_replay").subject, terminalRun);
+  assert.deepEqual(readProjections.get("run_replay").replay, terminalReplay);
+  assert.equal(readProjections.get("run_replay").fromOrdinal, 0);
+  assert.equal(readProjections.get("run_replay").limit, 1024);
+  assert.deepEqual(replayedTruth.result, {
+    ref: admittedResult.payload.resultRef,
+    digest: admittedResult.payload.resultDigest,
+  });
+  assert.equal(admittedResult.payload.contractRef, gtl.HELLO_WORLD_IDS.outputContractRef);
+  assert.deepEqual(admittedResult.payload.value, {
+    kind: "hello_world_output",
+    schemaVersion,
+    message: "Hello World",
+  });
+
+  const readFalsifierDigest = product.sha256Canonical({
+    kind: "st-2b-pre-owner-falsifier",
+  });
+  const kernelFalsifiers = [
+    ["caller-minted-grant", {
+      mutateSlots: (slots, grants) => {
+        const callerMinted = rehashGrant(product, grants[0], {
+          actorRef: "actor://caller-minted",
+        });
+        return Object.freeze({
+          ...slots,
+          capability_grants: Object.freeze({
+            ...slots.capability_grants,
+            grants: Object.freeze([Object.freeze({
+              ref: callerMinted.grantRef,
+              digest: callerMinted.grantDigest,
+            })]),
+          }),
+        });
+      },
+      expectedCode: "projection_basis_mismatch",
+    }],
+    ["self-consistent-reordered-product-set", {
+      mutateSlots: (slots) => Object.freeze({
+        ...slots,
+        product_set: Object.freeze([...slots.product_set].reverse()),
+      }),
+      expectedCode: "projection_basis_mismatch",
+    }],
+    ["wrong-prefix", {
+      mutateRequest: (request) => Object.freeze({
+        ...request,
+        projectionBasis: Object.freeze({
+          ...request.projectionBasis,
+          projectionBasisDigest: readFalsifierDigest,
+        }),
+      }),
+      expectedCode: "projection_basis_mismatch",
+    }],
+    ["crossed-run-source", {
+      mutateRequest: (request) => Object.freeze({
+        ...request,
+        source: Object.freeze({
+          ...request.source,
+          sourceDigest: readFalsifierDigest,
+        }),
+      }),
+      expectedCode: "source_digest_mismatch",
+    }],
+  ];
+  for (const [identity, falsifier] of kernelFalsifiers) {
+    const eventResource = reopenedReadResource(product, readHandoff);
+    const { call: falsifiedCall } = constructInstalledRunReadCall({
+      environment,
+      publicApi,
+      projectReadContracts,
+      memberKey: "run_status",
+      selector: Object.freeze({ kind: "none" }),
+      source: terminalRun,
+      eventResource,
+      identity,
+      ...falsifier,
+    });
+    const refused = await Effect.runPromise(
+      abg.ABG_PROJECT_READ_DEFINITION_BINDINGS.run_status(falsifiedCall),
+    );
+    assert.equal(refused.ownerOutput.outcomeKind, "refusal", identity);
+    assert.equal(refused.ownerOutput.value.code, falsifier.expectedCode, identity);
+    assert.equal(
+      product.canonicalJson(refused.resources.eventResource.entryPrefix),
+      product.canonicalJson(terminalPrefix),
+      `${identity} must refuse at the exact entry prefix`,
+    );
+    assert.equal(
+      product.canonicalJson(refused.resources.eventResource.closeHandoff.prefix),
+      product.canonicalJson(terminalPrefix),
+      `${identity} must append zero events`,
+    );
+    assert.equal(
+      Buffer.compare(
+        await readFile(new URL(terminalPrefix.eventLogRef)),
+        terminalLogBytes,
+      ),
+      0,
+      `${identity} must append zero bytes`,
+    );
+    readHandoff = refused.resources.eventResource.closeHandoff;
+  }
+
+  const staleRead = constructInstalledRunReadCall({
+    environment,
+    publicApi,
+    projectReadContracts,
+    memberKey: "run_status",
+    selector: Object.freeze({ kind: "none" }),
+    source: terminalRun,
+    eventResource: reopenedReadResource(product, setupHandoff),
+    identity: "stale-resource-prefix",
+  });
+  const staleFault = await Effect.runPromise(Effect.flip(
+    abg.ABG_PROJECT_READ_DEFINITION_BINDINGS.run_status(staleRead.call),
+  ));
+  assert.equal(staleFault.stage, "resource_acquisition");
+  assert.equal(staleFault.code, "acquisition_refused");
+  assert.equal(
+    Buffer.compare(
+      await readFile(new URL(terminalPrefix.eventLogRef)),
+      terminalLogBytes,
+    ),
+    0,
+    "stale resource refusal must append zero bytes",
+  );
+  context.diagnostic(
+    "ST-2B: 3 installed fixed packets, 4 shared-kernel refusals, 1 stale-prefix fault, 0 appended bytes",
   );
 });

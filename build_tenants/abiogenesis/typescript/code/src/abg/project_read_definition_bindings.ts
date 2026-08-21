@@ -1,4 +1,5 @@
 import * as Effect from "effect/Effect";
+import * as v from "valibot";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
@@ -17,34 +18,103 @@ import {
   acquireAbgEventResource,
   abandonAbgEventResource,
   closeAbgEventResource,
+  validateAbgEventResourceAssertion,
+  validateAbgEventResourceReceipt,
   type AbgEventResourceAssertion,
   type AbgEventResourceReceipt,
+  type AcquiredAbgEventResource,
 } from "./definition_event_resource.js";
+import { projectExactPrefixWorkspaceEnvironment } from
+  "./environment_admission.js";
 import { ABG_PROJECT_READ_CONTRACTS } from "./project_read_operation_contracts.js";
 import {
   ABG_PROJECT_READ_OWNER_PORTS,
+  projectRunTruthAtDurablePrefix,
+  RunProjectionPort,
   type AbgProjectReadMemberKey,
+  type AbgProjectReadPacket,
   type AbgProjectReadProjection,
   type AbgProjectReadRefusal,
   type AbgProjectReadResult,
 } from "./project_read_ports.js";
+import {
+  constructCapabilityGrant,
+  validateCapabilityGrantForProductBasis,
+} from "../product/invocation.js";
+import {
+  bindExactPrefixRead,
+} from "../shared/static_definition_bindings.js";
+
+type ReopenAbgEventResourceAssertion = Extract<
+  AbgEventResourceAssertion,
+  { readonly kind: "reopen_abg_event_resource" }
+>;
+
+type ReopenAbgEventResourceReceipt = AbgEventResourceReceipt & Readonly<{
+  readonly acquisitionKind: "reopen";
+}>;
 
 export interface AbgProjectReadResourceAssertion {
   readonly kind: "abg_project_read_resource_assertion";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceAssertion;
+  readonly eventResource: ReopenAbgEventResourceAssertion;
 }
 
 export interface AbgProjectReadResourceReceipt {
   readonly kind: "abg_project_read_resource_receipt";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceReceipt;
+  readonly eventResource: ReopenAbgEventResourceReceipt;
 }
 
 type AnyReadPacket = (typeof ABG_PROJECT_READ_CONTRACTS)[keyof typeof ABG_PROJECT_READ_CONTRACTS];
 type AnyReadCallable = ExactDefinitionCallable<
   AnyReadPacket,
   AbgProjectReadResourceAssertion,
+  AbgProjectReadResourceReceipt
+>;
+
+type RunReadMemberKey = "run_status" | "run_result" | "run_replay";
+type RunReadPort = (
+  input: AbgProjectReadPacket<RunReadMemberKey>,
+) => AbgProjectReadResult<RunReadMemberKey>;
+
+const RUN_READ_MEMBER_KEYS = Object.freeze([
+  "run_status",
+  "run_result",
+  "run_replay",
+] as const);
+
+const EVENT_RESOURCE_ASSERTION_SCHEMA = v.custom<
+  ReopenAbgEventResourceAssertion
+>(
+  (value) => validateAbgEventResourceAssertion(value) &&
+    value.kind === "reopen_abg_event_resource",
+  "reopened_abg_event_resource_assertion",
+);
+
+const EVENT_RESOURCE_RECEIPT_SCHEMA = v.custom<
+  ReopenAbgEventResourceReceipt
+>(
+  (value) => validateAbgEventResourceReceipt(value) &&
+    value.acquisitionKind === "reopen",
+  "reopened_abg_event_resource_receipt",
+);
+
+const PROJECT_READ_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
+  kind: v.literal("abg_project_read_resource_assertion"),
+  schemaVersion: v.literal("5.0.0"),
+  eventResource: EVENT_RESOURCE_ASSERTION_SCHEMA,
+}) as v.GenericSchema<
+  AbgProjectReadResourceAssertion,
+  AbgProjectReadResourceAssertion
+>;
+
+const PROJECT_READ_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
+  kind: v.literal("abg_project_read_resource_receipt"),
+  schemaVersion: v.literal("5.0.0"),
+  eventResource: EVENT_RESOURCE_RECEIPT_SCHEMA,
+}) as v.GenericSchema<
+  AbgProjectReadResourceReceipt,
   AbgProjectReadResourceReceipt
 >;
 
@@ -121,7 +191,12 @@ function coordinateSet(
 function replayCoordinate(
   value: Readonly<Record<string, JsonValue>>,
 ): Readonly<{ readonly ref: string; readonly digest: Sha256Digest }> | null {
-  return coordinateFrom(value, ["replayRef"], ["replayDigest"]);
+  return coordinateFrom(value, ["replayRef"], ["replayDigest"]) ??
+    coordinateFrom(
+      value.physicalCoordinates,
+      ["scopedReplayRef"],
+      ["scopedReplayDigest"],
+    );
 }
 
 function sourceCoordinate(request: Readonly<Record<string, JsonValue>>) {
@@ -138,6 +213,60 @@ function basisCoordinate(request: Readonly<Record<string, JsonValue>>) {
     basis.projectionBasisRef as string,
     basis.projectionBasisDigest as Sha256Digest,
   );
+}
+
+function sameJson(left: unknown, right: unknown): boolean {
+  try {
+    return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
+  } catch {
+    return false;
+  }
+}
+
+function closeReadEventResource(
+  resource: AcquiredAbgEventResource,
+): ReopenAbgEventResourceReceipt {
+  const receipt = closeAbgEventResource(resource, resource.entryPrefix);
+  if (receipt.acquisitionKind !== "reopen") {
+    throw new TypeError("project reads must close one reopened ABG resource");
+  }
+  return receipt as ReopenAbgEventResourceReceipt;
+}
+
+function finishRead(
+  resource: AcquiredAbgEventResource,
+  ownerOutput: OwnerSemanticOutput<AnyReadPacket>,
+): DefinitionReturn<AnyReadPacket, AbgProjectReadResourceReceipt> {
+  return deepFreeze({
+    ownerOutput,
+    resources: {
+      kind: "abg_project_read_resource_receipt" as const,
+      schemaVersion: "5.0.0" as const,
+      eventResource: closeReadEventResource(resource),
+    },
+  });
+}
+
+function refusalOutput(
+  packet: AnyReadPacket,
+  code:
+    | "unknown_source"
+    | "source_digest_mismatch"
+    | "projection_basis_mismatch",
+  issuePath: string,
+): OwnerSemanticOutput<AnyReadPacket> {
+  const output = {
+    outcomeKind: "refusal" as const,
+    value: {
+      code,
+      issuePaths: [issuePath],
+      evidenceRefs: [],
+    },
+  };
+  if (admitRuntimeContract(packet.refusalSchema, output.value).disposition !== "admitted") {
+    throw new TypeError("ABG run-read refusal differs from its exact owner contract");
+  }
+  return deepFreeze(output) as OwnerSemanticOutput<AnyReadPacket>;
 }
 
 function statusProjection(
@@ -369,6 +498,167 @@ function outputFor(
   return output as unknown as OwnerSemanticOutput<AnyReadPacket>;
 }
 
+/** One authority/currentness relation shared by the three fixed Run reads. */
+function runReadKernel(
+  packet: AnyReadPacket,
+  port: RunReadPort,
+): AnyReadCallable {
+  return (call) => Effect.try({
+    try: () => {
+      const acquired = acquireAbgEventResource(call.resources.eventResource);
+      if (acquired.kind !== "acquired_abg_event_resource") {
+        throw fault(
+          call,
+          "resource_acquisition",
+          acquired.code,
+          acquired.message,
+        );
+      }
+      const resource = acquired.resource;
+      try {
+        const request = call.invocation.request as Readonly<
+          Record<string, JsonValue>
+        >;
+        const source = sourceCoordinate(request);
+        const basis = basisCoordinate(request);
+        const slots = call.invocation.invocationAuthority.slots;
+        const workspaceBinding = slots.workspace_binding;
+        if (
+          workspaceBinding === null ||
+          basis.ref !== resource.entryPrefix.eventLogRef ||
+          basis.digest !== resource.entryPrefix.coordinateDigest
+        ) {
+          return finishRead(
+            resource,
+            refusalOutput(packet, "projection_basis_mismatch", "/projectionBasis"),
+          );
+        }
+        const environment = projectExactPrefixWorkspaceEnvironment(
+          resource.entryPrefix,
+          workspaceBinding,
+        );
+        if (environment.kind !== "exact_prefix_workspace_environment") {
+          return finishRead(
+            resource,
+            refusalOutput(
+              packet,
+              "projection_basis_mismatch",
+              "/invocationAuthority/slots/workspace_binding",
+            ),
+          );
+        }
+        const grantBasis = {
+          admittedInstalls: environment.productInstalls,
+          workspaceBinding: environment.workspaceBinding,
+          fixedPacket: packet,
+        } as const;
+        const expectedGrants = packet.metadata.capabilityRefs.map(
+          (capabilityRef) => constructCapabilityGrant(
+            environment.workspaceAuthorityBasis,
+            environment.workspaceBinding.authorizedActorRef,
+            packet.definitionKey.operationId,
+            capabilityRef,
+            grantBasis,
+          ),
+        );
+        const expectedAuthority = {
+          workspace_binding: {
+            ref: environment.workspaceBinding.bindingId,
+            digest: environment.workspaceBinding.bindingDigest,
+          },
+          product_set: environment.productInstalls.map((install) => ({
+            ref: install.installId,
+            digest: install.productContentDigest,
+          })),
+          dependency_lock: {
+            ref: environment.resolvedProductLock.lockId,
+            digest: environment.resolvedProductLock.lockDigest,
+          },
+          capability_grants: {
+            requiredCapabilityRefs: packet.metadata.capabilityRefs,
+            grants: expectedGrants.map((grant) => ({
+              ref: grant.grantRef,
+              digest: grant.grantDigest,
+            })),
+          },
+        } as const;
+        if (
+          slots.actor !== null ||
+          !sameJson(slots.workspace_binding, expectedAuthority.workspace_binding) ||
+          !sameJson(slots.product_set, expectedAuthority.product_set) ||
+          !sameJson(slots.dependency_lock, expectedAuthority.dependency_lock) ||
+          !sameJson(
+            slots.capability_grants,
+            expectedAuthority.capability_grants,
+          ) ||
+          expectedGrants.some((grant, index) =>
+            !validateCapabilityGrantForProductBasis(
+              grant,
+              environment.workspaceAuthorityBasis,
+              environment.workspaceBinding.authorizedActorRef,
+              packet.metadata.capabilityRefs[index]!,
+              grantBasis,
+            )
+          )
+        ) {
+          return finishRead(
+            resource,
+            refusalOutput(
+              packet,
+              "projection_basis_mismatch",
+              "/invocationAuthority",
+            ),
+          );
+        }
+        const truth = projectRunTruthAtDurablePrefix(
+          resource.entryPrefix,
+          source.ref,
+        );
+        if (truth.kind !== "abg_run_truth_projection") {
+          return finishRead(
+            resource,
+            refusalOutput(packet, "unknown_source", "/source/sourceRef"),
+          );
+        }
+        if (source.ref !== truth.run.ref || source.digest !== truth.run.digest) {
+          return finishRead(
+            resource,
+            refusalOutput(packet, "source_digest_mismatch", "/source/sourceDigest"),
+          );
+        }
+        const native = port({
+          kind: "abg_project_read_packet",
+          schemaVersion: "5.0.0",
+          memberKey: packet.definitionKey.memberKey,
+          prefix: resource.entryPrefix,
+          targetRef: source.ref,
+        } as AbgProjectReadPacket<RunReadMemberKey>);
+        return finishRead(
+          resource,
+          outputFor(packet, request, packet.definitionKey.memberKey, native),
+        );
+      } catch (cause) {
+        abandonAbgEventResource(resource);
+        throw cause;
+      }
+    },
+    catch: (cause) => {
+      if (
+        typeof cause === "object" && cause !== null &&
+        (cause as { kind?: unknown }).kind === "definition_execution_fault"
+      ) {
+        return cause as DefinitionExecutionFault<AnyReadPacket["definitionKey"]>;
+      }
+      return fault(
+        call,
+        "owner_projection",
+        "projection_failure",
+        String(cause),
+      );
+    },
+  });
+}
+
 function binding(
   packet: AnyReadPacket,
   memberKey: AbgProjectReadMemberKey,
@@ -419,10 +709,7 @@ function binding(
             resources: {
               kind: "abg_project_read_resource_receipt",
               schemaVersion: "5.0.0",
-              eventResource: closeAbgEventResource(
-                resource,
-                resource.entryPrefix,
-              ),
+              eventResource: closeReadEventResource(resource),
             },
           });
         }
@@ -448,10 +735,7 @@ function binding(
           resources: {
             kind: "abg_project_read_resource_receipt",
             schemaVersion: "5.0.0",
-            eventResource: closeAbgEventResource(
-              resource,
-              resource.entryPrefix,
-            ),
+            eventResource: closeReadEventResource(resource),
           },
         });
       } catch (cause) {
@@ -474,11 +758,48 @@ function binding(
   });
 }
 
-const bindings = Object.fromEntries(
-  Object.entries(ABG_PROJECT_READ_CONTRACTS).map(([memberKey, packet]) => [
-    memberKey,
-    binding(packet, memberKey as AbgProjectReadMemberKey),
-  ]),
-) as Readonly<Record<AbgProjectReadMemberKey, AnyReadCallable>>;
+const legacyBindings = Object.fromEntries(
+  Object.entries(ABG_PROJECT_READ_CONTRACTS).flatMap(([memberKey, packet]) =>
+    RUN_READ_MEMBER_KEYS.includes(memberKey as RunReadMemberKey)
+      ? []
+      : [[
+          memberKey,
+          binding(packet, memberKey as AbgProjectReadMemberKey),
+        ]]
+  ),
+) as Readonly<Partial<Record<AbgProjectReadMemberKey, AnyReadCallable>>>;
 
-export const ABG_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze(bindings);
+const RUN_READ_DEFINITION_BINDINGS = Object.freeze({
+  run_status: bindExactPrefixRead(
+    ABG_PROJECT_READ_CONTRACTS.run_status,
+    runReadKernel(
+      ABG_PROJECT_READ_CONTRACTS.run_status,
+      RunProjectionPort.run_status as RunReadPort,
+    ),
+    PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+    PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+  ),
+  run_result: bindExactPrefixRead(
+    ABG_PROJECT_READ_CONTRACTS.run_result,
+    runReadKernel(
+      ABG_PROJECT_READ_CONTRACTS.run_result,
+      RunProjectionPort.run_result as RunReadPort,
+    ),
+    PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+    PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+  ),
+  run_replay: bindExactPrefixRead(
+    ABG_PROJECT_READ_CONTRACTS.run_replay,
+    runReadKernel(
+      ABG_PROJECT_READ_CONTRACTS.run_replay,
+      RunProjectionPort.run_replay as RunReadPort,
+    ),
+    PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+    PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+  ),
+});
+
+export const ABG_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze({
+  ...legacyBindings,
+  ...RUN_READ_DEFINITION_BINDINGS,
+});
