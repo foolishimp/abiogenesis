@@ -86,7 +86,7 @@ release qualification remain dependency ordered.
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
 | `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Accepted - C5 functional substrate; integrated M5 qualification deferred |
-| `2` | Bounded `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` substrate plus one early `A5-F17` consumer path | Four cumulative sunny-day threads verify independently packed ABIogenesis and data-only odd_glc artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`. The existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and one ABG-admitted typed result before exact-prefix ABG observation, fresh-process replay, and one installed CLI episode; post-MVP work then closes the remaining 56-key constructability, held contracts, required negatives, and broader Wave 2 qualification. | Active at `ST-1`; `ST-4` is the usable odd_glc-building MVP, not the Wave 2 or 5.0 completion boundary |
+| `2` | Bounded `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` substrate plus one early `A5-F17` consumer path | Four cumulative sunny-day threads verify independently packed ABIogenesis and data-only odd_glc artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`. The existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and one ABG-admitted typed result before exact-prefix ABG observation, fresh-process replay, and one installed CLI episode; post-MVP work then closes the remaining 56-key constructability, held contracts, required negatives, and broader Wave 2 qualification. | `ST-1` accepted at `76edb4e0`; active at the bounded `ST-2A` authority prerequisite; `ST-4` is the usable odd_glc-building MVP, not the Wave 2 or 5.0 completion boundary |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path without feature-specific runtimes. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and its Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
@@ -114,6 +114,10 @@ development subjects, not a replacement root or weaker scenario. No thread may
 claim root, scenario, Product, qualification, or release closure.
 
 The selected Wave 2 delivery unit is four cumulative sunny-day steel threads:
+
+`ST-1` is accepted at `76edb4e0`. The current entry is `ST-2A`, the shared
+capability-definition/grant and exact-prefix environment prerequisite beneath
+`ST-2`; no `ST-2` read packet is banked until that prerequisite is accepted.
 
 | Thread | Added boundary | Exact cumulative sunny outcome |
 |---|---|---|

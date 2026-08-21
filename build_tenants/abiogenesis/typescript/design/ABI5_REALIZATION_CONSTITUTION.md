@@ -2001,6 +2001,242 @@ The existing reference frames and concern lenses classify this one relation:
 entity, Catalog row, runtime fact, event, registry, lifecycle, semantic owner,
 or fourth combinator, and it creates no shared identity framework.
 
+##### Product capability-definition graph and one capability-grant carrier
+
+The common invocation carrier requires capability-grant coordinates for every
+definition, but structural admission of a self-digested ref/digest pair does
+not establish either capability-definition or grant authority.
+`REQ-P-PUBLIC-CONTRACTS-011` fixes one capability-definition graph whose rows
+bind owning public contracts and capability dependencies. The selected Prime
+authoring carrier is `DS1_CAPABILITY_CONTRACT_REGISTER`; it remains static
+Product data and is not a runtime registry. Product realizes exactly one graph:
+
+For the current root tenant, Section 16.10 ratifies the DS1 static-register and
+pure graph-projection relation as operative Product realization authority. Its
+earlier prospective tenant-manifest work remains deferred; that status cannot
+make the current Product invent another register or treat the historical donor
+module as runtime authority. The current Product migrates the pure data algebra,
+reconciles it to the exact 5.0 capability roster and catalog, and owns the
+resulting bytes.
+
+```text
+CapabilityDefinitionGraphRow = {
+  capabilityId, capabilityVersion,
+  capabilityDefinitionRef, capabilityDefinitionDigest,
+  owningPublicContracts: NonEmptyCanonicalSet<PublicContractCoordinate>,
+  dependentCapabilities: CanonicalSet<CapabilityDefinitionDependencyCoordinate>,
+  effectRefs: CanonicalSet<Reference>,
+  boundedProofRefs: NonEmptyCanonicalSet<Reference>
+}
+
+CapabilityDefinitionDependencyCoordinate = {
+  capabilityId,
+  capabilityDefinitionRef, capabilityDefinitionDigest
+}
+
+CapabilityDefinitionGraph = {
+  kind: "abg_capability_definition_graph",
+  schemaVersion: "5.0.0",
+  graphId: "capability-definition-graph://abiogenesis/abg-5",
+  graphVersion: "5.0.0",
+  graphDigest,
+  rows: NonEmptyCanonicalSet<CapabilityDefinitionGraphRow>
+}
+
+CapabilityDefinitionCoordinate = {
+  graphId, graphVersion, graphDigest,
+  capabilityId,
+  capabilityDefinitionRef, capabilityDefinitionDigest
+}
+```
+
+Each row digest covers the complete row with its definition ref/digest omitted;
+the definition ref is content addressed from that digest. `graphDigest` covers
+the fixed graph identity/version and complete canonically ordered row set with
+the digest omitted. This conserves the accepted donor graph's stable
+`graphId`/`graphVersion`/`graphDigest` identity while strengthening its rows to
+exact installed coordinates. Duplicate identities, an unknown or cyclic
+dependency, a dependency coordinate absent from the same row set, an absent
+mandatory identity, an owning-contract coordinate absent from the exact public
+catalog, or any definition/catalog capability not represented by exactly one
+row refuses graph construction. The public-contract catalog's
+`capabilityIdentities` and each `PublicFunctionDefinition.capabilityRefs` are
+projections checked against this graph; neither flat list authors capability
+meaning.
+
+The register, graph constructor/validator, and fixed
+`capabilityRefsForContract(contractId)` projection are implemented once in one
+module-static public-contract foundation owned by Product. That module may live
+under the shared contract package so Product, ABG, Validator, and other owner
+contract declarations can import its frozen data without reversing runtime
+ownership. The projection runs only while modules construct their fixed contract
+packets; it never receives a request, selects an owner, or dispatches a call.
+Operation-contract modules consume its projected arrays instead of retaining
+hand-authored `capabilityRefs` copies. Product publication and the manifest
+generator consume the same graph/asset projector; verification admits the
+serialized result. There is no second register in a generator, verifier,
+binding, test, or tenant manifest.
+
+Product publication derives the graph, its canonical serialized asset,
+public-contract capability lists, and definition capability lists from the one
+register. The exact `ProductToolchainManifest` carries the graph coordinate and
+asset locator; its contribution manifest binds the same graph identity/digest
+beside the public-catalog coordinate. Product verification reads that
+product-relative asset and reproduces graph identity/version/digest, catalog,
+dependency, asset, and manifest equality before `VerifiedProductArtifact`
+carries the typed graph unchanged.
+`ProductInstallCandidate`, admitted `ProductInstall`, and ABG artifact truth
+preserve that graph and coordinate. The enclosing manifest, Product-content,
+install, and resolved-lock relations therefore establish installed provenance;
+package presence, an ambient/source import, or caller-supplied capability text
+does not. The later `TenantConformanceManifest` may claim realized support only
+by citing this graph and catalog; it is not required to issue a Product grant
+and cannot become another graph authority.
+
+There is one Product-owned public `CapabilityGrant` carrier, not a second
+`PublicOperationCapabilityGrant` family:
+
+```text
+CapabilityGrant = {
+  kind: "capability_grant",
+  schemaVersion: "5.0.0",
+  grantRef, grantDigest,
+  definitionKey,
+  definitionRef, definitionDigest,
+  capabilityDefinition: CapabilityDefinitionCoordinate,
+  operationContract: PublicContractCoordinate,
+  capabilityRef,
+  actorRef,
+  approvalRef, approvalDigest,
+  policyRef, policyDigest,
+  scopeRef, scopeDigest,
+  authorityBasisRef, authorityBasisDigest
+}
+```
+
+`grantDigest` is the canonical SHA-256 digest of the row with `grantRef` and
+`grantDigest` omitted; `grantRef` retains the sole accepted
+`capability-grant://abiogenesis/<digest suffix>` identity. Product constructs
+and validates the carrier only after resolving the selected definition's exact
+capability to one row in the installed graph, resolving that row's owning
+operation contract in the installed catalog, closing every declared dependency
+within the same graph, and validating the owner-issued approval, policy, scope,
+and authority basis. A caller, Public shell, binding, test, registry, or generic
+combinator cannot issue or select it.
+
+This carrier supersedes the narrower policy-bound `CapabilityGrant` shape in
+`product/invocation.ts`; the exported name and grant identity remain singular.
+It is also the operative 5.6.2C refinement of the earlier 5.6.2A/16.6
+`CapabilityGrantCoordinate`: capability, actor, approval, policy, scope, and
+authority-basis meaning are conserved, while the exact graph, definition,
+contract, and missing digests close the previously implicit relations. The
+earlier text is historical shape evidence, not another admissible ABI.
+`run.invoke` and interaction operations use the exact `InvocationPolicy` as
+`policyRef`/`policyDigest`. Workspace-scoped eventless reads use the admitted
+`WorkspaceAuthorityBasis` for both approval and policy because that one Product
+carrier owns both authorization facets; no synthetic read policy is introduced.
+All workspace-scoped forms derive:
+
+```text
+actorRef             = WorkspaceBinding.authorizedActorRef
+approval             = { ref: authorityBasisId, digest: authorityBasisDigest }
+scope                = { ref: bindingId, digest: bindingDigest }
+authorityBasis       = { ref: authorityBasisId, digest: authorityBasisDigest }
+```
+
+`actorRequirement: "forbidden"` means the invocation's explicit actor and
+attribution slot is `null`. It does not erase the Product-authorized bearer in
+the nested grant. Family-local legacy grant shapes may remain only as
+nonconforming implementation evidence until their owning post-MVP migration;
+they cannot enter the common `capability_grants` slot or become a second grant
+authority after this carrier is realized.
+
+The applicable reference frames fix the compression boundary:
+
+| Frame | ST-2A decision |
+|---|---|
+| **Owner / Authority** | The static DS1 register authors capability meaning; Product projects and verifies the graph and issues grants; the installed Product/catalog basis supplies provenance; ABG projects exact-prefix environment and run truth. No binding authors any of these. |
+| **Foundation / Reuse** | Migrate the existing pure `DS1_CAPABILITY_CONTRACT_REGISTER` and graph-projection algebra into the current Product module, then extend and reconcile its rows once. Reuse the selected canonical JSON/digest mechanics, Valibot admission, and Effect shell. Do not retype capability rows or graph checks in the manifest generator, verifier, run owner, and read owner. A general graph library is not selected for one small immutable acyclic data set because it deletes no owner law or material mechanics. |
+| **Irreducibility / Coupling** | Graph declaration, grant admission, exact-prefix environment projection, and run projection remain four owner relations because they have different identity, temporal, and effect boundaries. Their mechanics compose through one graph projector, one grant constructor/validator, one environment join, and one run-read kernel; the three read names are static packets only. |
+| **Temporal / Install** | The graph exists as published Product data before verification; verified installed provenance exists before a grant; the admitted workspace and exact durable prefix exist before a read. A harness cannot predict or manufacture a later carrier. |
+| **Proof / Review** | Deep-review each changed relation once, mechanically verify repeated packet/export rows, and invalidate only the dependency cone of a changed shared relation. |
+
+`ST-2A` is frozen through three seam-sized cuts, with only the independent first
+two constructed in parallel:
+
+| Cut | Dependency | Positive conservation proof |
+|---|---|---|
+| `ST-2A-G` capability graph | accepted `ST-1` Product publication/install | Independently packed bytes publish one graph; verification, install, and ABG artifact truth preserve its exact identity/digest and owning-contract/dependency rows. |
+| `ST-2A-E` exact-prefix environment | accepted `ST-1` durable prefix | The ABG projection reconstructs values canonically equal to the admitted binding, causal installs, ProductSet, and lock, with zero append. |
+| `ST-2A-C` canonical grant | accepted `ST-2A-G`; its later read use consumes `ST-2A-E` | The existing accepted `ST-1` invocation/result survives migration from the narrow grant to the one graph-bound grant; crossed graph, contract, dependency, actor, policy, scope, or basis refuses before execution. |
+
+`ST-2B` integrates the three accepted cuts into the run-read kernel and three
+fixed packets. It does not reopen their internals. A failure invalidates the
+changed seam and its consumers, not the independent sibling cut.
+
+##### Exact-prefix workspace environment join
+
+One reusable ABG owner projection closes workspace-scoped currentness before
+any exact-prefix read or transition owner is called:
+
+```text
+validated DurablePrefixCoordinate
+  -> projectExactPrefixArtifactTruth
+  -> select one exact admitted WorkspaceBinding by ref/digest
+  -> rehydrate its causal ProductInstall rows through existing ABG projections
+  -> require one exact ResolvedProductLock across those installs
+  -> Product.constructProductSet(causal installs, resolved lock)
+  -> Product revalidates the WorkspaceBinding against that set and lock
+  -> ExactPrefixWorkspaceEnvironment {
+       artifactTruth,
+       workspaceBinding,
+       causalProductInstalls,
+       productSet,
+       resolvedProductLock
+     }
+```
+
+This is one owner composition over existing projections and Product
+constructors. It does not fold raw events, create a second environment model,
+admit an event, or become a fourth binding combinator. The returned values are
+the only lawful comparison basis for the invocation's `workspace_binding`,
+ordered `product_set`, and `dependency_lock` slots.
+
+For `ST-2`, one module-static run-read kernel is shared by
+`run_status`, `run_result`, and `run_replay`:
+
+```text
+bindExactPrefixRead(fixed packet, fixed run-read owner)
+  -> exact-prefix workspace environment join
+  -> Product validates the exact grant set against
+       installed capability graph + definition + installed contract row
+       + admitted environment
+  -> require explicit actor slot == null
+  -> projectRunTruthAtDurablePrefix(prefix, request.source.ref)
+  -> require request source ref/digest == projected Run coordinate
+  -> call the existing ABG project-read owner once
+  -> unchanged-prefix receipt
+```
+
+The `requiredCapabilityRefs` sequence equals the selected definition's exact
+`capabilityRefs`, every capability resolves through the installed graph with its
+owning contract and complete dependency closure, and the grant coordinates equal
+the corresponding Product-issued carriers. The projection basis equals the
+acquired event resource's exact entry prefix. The three exports are fixed packet
+applications of this kernel; they contain no member-specific authority or event
+logic.
+
+Qualification must include the sunny read plus these pre-owner, zero-append
+falsifiers: caller-minted grant, wrong capability, missing or crossed graph row,
+missing dependency, wrong graph or installed provenance, wrong definition or
+definition digest, wrong contract catalog/operation row, wrong workspace,
+crossed or reordered Product set, wrong lock, stale or sibling prefix,
+cross-run source ref/digest, a non-null explicit actor slot, unrelated grant
+actor, and any read-side event append. One deep review covers the capability
+graph, shared grant carrier, exact-prefix environment join, and run-read kernel;
+the three fixed packets receive mechanical identity/schema checks rather than
+three duplicate semantic reviews.
+
 Filesystem, artifact, and held-runtime forms are instances or owner-local
 compositions of the three combinators, not additional primitives:
 
@@ -3871,7 +4107,7 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **superseded clause** | None. `SP-05`, `SP-06`, the three-combinator algebra, exact 56-coordinate constructability, and twelve-key behavioral qualification remain unchanged and are applied together. |
 | **affected catalog/entity rows** | None. The amendment groups review evidence around existing combinators, kernels, seams, effects, and installed topologies; it creates no Product, catalog, runtime, entity, owner, or definition row. |
 | **migration consequence** | T-287 and the design README migrate their review/evidence decomposition to exact frozen combinator/kernel subjects, the equivalence predicate, and the invalidation cone. No code, test, runtime, catalog, entity, owner, definition, accepted-evidence, or story-point migration occurs. All 56 mechanical checks, changed-seam falsifiers, and existing behavioral qualification remain required. |
-| **current disposition** | No code is accepted. Banked behavior remains 37/56 at `e7e252ed`, 5.6.2C conformance remains 0/56, and W2-05 points remain unearned. `bf193b3d` and its 39/56 claim remain rejected evidence. |
+| **recorded disposition at this amendment** | No code was accepted by this amendment. Banked behavior was 37/56 at `e7e252ed`, 5.6.2C conformance was 0/56, and W2-05 points remained unearned. `bf193b3d` and its 39/56 claim remained rejected evidence. Section 16.10 owns the later active steel-thread disposition. |
 | **prohibited growth** | No runtime review engine, review registry, frame object, runtime evidence dispatcher, generated semantic dispatcher, per-coordinate semantic review roster, or fourth binding combinator may arise from this law. |
 | **promotion status** | ABIogenesis-local W2-05 design law under immutable STDO `v2.2.2`. Shared-method promotion requires separate methodology re-entry and representative evidence. |
 
@@ -3887,6 +4123,20 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **affected catalog/entity rows** | None. The coordinate is pure immutable derived evidence, not an entity, Catalog contribution or row, runtime fact, event, registry, lifecycle, owner, or shared identity framework. The Graph Catalog accepted design is unchanged. |
 | **authority and construction decision** | Product execution resolution alone issues the derived coordinate after current installed resolution establishes exact agreement between Program-owned callable membership and the publisher contribution's reciprocal publication/eligibility assertion, exact GraphFunction bytes/digest/declaration owner/publication/admitted install, and valid `ProgramValidation`. `ProductExecutionResolution` carries `programGraphFunctionMembership: ReferenceDigest<ProgramGraphFunctionMembership>` adjacent to its Program/GraphFunction coordinates; its enclosing digest covers the field, and validation recomputes both membership and resolution digest/ref relations. |
 | **migration consequence** | Migrate only Product execution resolution to issue the coordinate, downstream execution binding to compare `execution_program`, `graph_function.graphFunction`, and `graph_function.membership` with the issued values, and tests to obtain positive evidence from Product resolution and exercise substitution/crossed-pair falsifiers with zero owner call/append. Public, bindings, and tests may not mint it; operation-indexed forbidden `graph_function` remains `null`. This frozen design-worker subject contains no code, test, Public, Catalog, or ambient edit. |
-| **current disposition** | External counts remain 18 operations and 56 definitions; the twelve-key Wave 2 behavioral boundary and all W2 points remain unchanged. Banked behavior remains 37/56 at `e7e252ed`, demonstrated 5.6.2C conformance remains 0/56, W2-05 remains eight unearned points, and accepted Wave 2 progress remains 11/32. `bf193b3d` remains rejected evidence and gains no count, conformance, review-bank, or point credit. |
+| **recorded disposition at this amendment** | External counts remained 18 operations and 56 definitions; this amendment changed no behavioral boundary or points. Banked behavior was 37/56 at `e7e252ed`, demonstrated 5.6.2C conformance was 0/56, W2-05 remained eight unearned points, and accepted Wave 2 progress remained 11/32. `bf193b3d` remained rejected evidence and gained no count, conformance, review-bank, or point credit. Section 16.10 owns the later active steel-thread disposition. |
 | **prohibited growth** | No new entity, Catalog row, runtime fact/event, registry, lifecycle, owner, shared identity framework, Public helper issuer, test issuer, or fourth binding combinator may arise from this coordinate. |
 | **promotion status** | ABIogenesis-local W2-05 design law under immutable STDO `v2.2.2`. Shared-method promotion requires separate methodology re-entry and representative evidence. |
+
+### 16.10 T-287 ST-2 Capability Authority And Exact-Prefix Join Amendment Record
+
+| Field | Record |
+|---|---|
+| **reason** | The first `ST-2` construction proved that `project.read#run_status`, `run_result`, and `run_replay` structurally require capability grants and exact environment slots, while the accepted implementation has only a run/interaction-specific Product grant constructor, no realized clause-011 capability-definition graph, and a read binding that joins only projection basis to the event resource. A caller- or fixture-digested grant or a flat capability-list lookup would therefore become shadow authority. |
+| **change class and scope** | One bounded ABIogenesis-local `design_reframe`. Product outcomes, requirements, the 18/56 family, the four sunny-day threads, ABG event law, replay semantics, the three binding combinators, and thin Public remain unchanged. |
+| **upstream basis** | `REQ-P-PUBLIC-CONTRACTS-005`, `-008..013`; `REQ-M-GTL3-CAPABILITY-002`, `-004..006`, `-014`, and `-015`; the DS1 Prime-contraction evidence and accepted `CapabilityDefinition`/`CapabilityGrant` distinction; the Product definition's singular Public call, exact installed authority, and Definition/Tool/Runtime ownership laws; Sections 5.6.2C and 5.6.5A; the accepted `ST-1` subject `76edb4e0`; and the existing Product environment constructors plus ABG artifact/run projections. Section 16.10 ratifies the DS1 static-register/graph projection for the current root tenant; the requirements are sufficient and no Product or requirement re-entry is selected. |
+| **carrier decision** | Product realizes one immutable `CapabilityDefinitionGraph` from `DS1_CAPABILITY_CONTRACT_REGISTER`, binds each row to exact owning public-contract and dependency coordinates, and publishes the graph through the exact Product manifest/catalog basis so verification, install, lock, and ABG artifact truth preserve installed provenance. One canonical Product `CapabilityGrant` resolves the selected definition through that installed graph, contract row, dependency closure, actor, approval, policy, scope, and authority basis. It supersedes the narrower `product/invocation.ts` grant shape while retaining one exported name and grant identity; it does not coexist with a `PublicOperationCapabilityGrant`. Workspace reads derive actor/scope/basis from the admitted `WorkspaceBinding`, use its authority basis as approval/policy, and retain a forbidden `null` explicit actor slot. |
+| **prefix decision** | One reusable ABG `ExactPrefixWorkspaceEnvironment` projection composes existing artifact-truth, admitted-install, admitted-binding, ProductSet, lock, and binding-validation relations. The run-read owner compares every supplied environment slot and Product-issued grant with that projection, proves the request source against `projectRunTruthAtDurablePrefix`, then calls the existing ABG read port. No raw-event fold, parallel environment model, new event, or fourth combinator is permitted. |
+| **thread sequencing** | `ST-1` is accepted at `76edb4e0`. `ST-2A-G` graph publication/install and `ST-2A-E` exact-prefix environment projection are independent and may construct/review in parallel. `ST-2A-C` follows G and migrates the canonical grant while conserving the accepted `ST-1` result. `ST-2B` consumes only accepted G/E/C cuts, applies one run-read kernel to three fixed packets, and proves cumulative status/result/replay equality. `ST-3`, `ST-4`, and post-MVP obligations retain their accepted ordering. |
+| **proof decision** | Review the graph/provenance relation, canonical grant, prefix join, and shared run-read kernel once each by their irreducible owner/effect/reference-frame seam. Mechanically check all three packet identities and schemas. The exact falsifier set is caller-minted/wrong grant, missing/crossed capability graph row or dependency, wrong installed graph provenance, definition, contract row/catalog, workspace, Product set, lock, prefix, run source, actor-slot, and grant-actor substitution plus read-side append. |
+| **current disposition** | Design authority only. The prior two-file `ST-2` implementation candidate is held and cannot be frozen because it lacks Product-issued grant authority and the exact environment join. No implementation, acceptance, thread closure, 56-key count, or release claim follows from this amendment. |
+| **promotion status** | ABIogenesis-local design law under immutable STDO `v2.2.2`; shared-method promotion requires separate methodology re-entry and representative evidence. |
