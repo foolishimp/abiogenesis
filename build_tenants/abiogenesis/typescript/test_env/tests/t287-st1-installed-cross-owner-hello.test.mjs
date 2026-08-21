@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, realpath, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
@@ -55,6 +55,44 @@ async function runFreshProcessRead({
   return JSON.parse(stdout);
 }
 
+async function runInstalledCliRequest({
+  scratch,
+  installedRoot,
+  identity,
+  acquisition,
+  call,
+  expectedExitCode = 0,
+}) {
+  const requestPath = join(scratch, `st4-${identity}-request.jsonl`);
+  const cliPath = join(installedRoot, "build/code/src/public/cli.js");
+  await writeFile(requestPath, `${JSON.stringify({
+    kind: "abg_cli_transport_request",
+    schemaVersion,
+    acquisition,
+    invocation: call,
+  })}\n`);
+  let execution;
+  try {
+    execution = await execFileAsync(
+      process.execPath,
+      [cliPath, "--jsonl", requestPath],
+      { cwd: scratch, env: {}, maxBuffer: 10 * 1024 * 1024 },
+    );
+    assert.equal(expectedExitCode, 0, `${identity} CLI exit`);
+  } catch (error) {
+    assert.equal(error.code, expectedExitCode, `${identity} CLI exit`);
+    execution = error;
+  }
+  assert.equal(execution.stderr, "", `${identity} CLI stderr`);
+  const lines = execution.stdout.trim().split(/\r?\n/u);
+  assert.equal(lines.length, 1, `${identity} one CLI output`);
+  return Object.freeze({
+    cliPath,
+    requestPath,
+    output: JSON.parse(lines[0]),
+  });
+}
+
 function rehashGrant(product, grant, patch) {
   const {
     kind,
@@ -74,6 +112,185 @@ function rehashGrant(product, grant, patch) {
     ...body,
   });
 }
+
+test("ST-4 transport refuses inherited selectors and owner traversal", async () => {
+  const publicApi = await import(
+    `${pathToFileURL(join(
+      packageRoot,
+      "build/code/src/public/index.js",
+    )).href}?st4-boundary=${Date.now()}`
+  );
+  const eventLogPath = "/tmp/abi5-st4-boundary-falsifier.jsonl";
+  const eventResource = {
+    kind: "new_abg_event_resource",
+    eventLogPath,
+  };
+  const routeCandidate = {
+    invocation: {
+      kind: "public_invocation",
+      definitionKey: {
+        operationId: "abg.operation.project.read",
+        memberKey: "release_evidence",
+      },
+    },
+    resources: { eventResource },
+  };
+  assert.equal(
+    publicApi.isInstalledDefinitionCallCandidate(routeCandidate),
+    true,
+  );
+
+  const inherited = (prototype, own) =>
+    Object.assign(Object.create(prototype), own);
+  const accessor = (own, property, value) =>
+    Object.defineProperty(own, property, {
+      configurable: true,
+      enumerable: true,
+      get: () => value,
+    });
+  const routeFalsifiers = [
+    ["inherited invocation", inherited(
+      { invocation: routeCandidate.invocation },
+      { resources: routeCandidate.resources },
+    )],
+    ["inherited resources", inherited(
+      { resources: routeCandidate.resources },
+      { invocation: routeCandidate.invocation },
+    )],
+    ["inherited invocation kind", {
+      invocation: inherited(
+        { kind: routeCandidate.invocation.kind },
+        { definitionKey: routeCandidate.invocation.definitionKey },
+      ),
+      resources: routeCandidate.resources,
+    }],
+    ["inherited definitionKey", {
+      invocation: inherited(
+        { definitionKey: routeCandidate.invocation.definitionKey },
+        { kind: routeCandidate.invocation.kind },
+      ),
+      resources: routeCandidate.resources,
+    }],
+    ["inherited operationId", {
+      invocation: {
+        ...routeCandidate.invocation,
+        definitionKey: inherited(
+          { operationId: routeCandidate.invocation.definitionKey.operationId },
+          { memberKey: routeCandidate.invocation.definitionKey.memberKey },
+        ),
+      },
+      resources: routeCandidate.resources,
+    }],
+    ["inherited memberKey", {
+      invocation: {
+        ...routeCandidate.invocation,
+        definitionKey: inherited(
+          { memberKey: routeCandidate.invocation.definitionKey.memberKey },
+          { operationId: routeCandidate.invocation.definitionKey.operationId },
+        ),
+      },
+      resources: routeCandidate.resources,
+    }],
+    ["inherited eventResource", {
+      invocation: routeCandidate.invocation,
+      resources: inherited({ eventResource }, {}),
+    }],
+    ["accessor invocation", accessor(
+      { resources: routeCandidate.resources },
+      "invocation",
+      routeCandidate.invocation,
+    )],
+    ["accessor eventResource", {
+      invocation: routeCandidate.invocation,
+      resources: accessor({}, "eventResource", eventResource),
+    }],
+  ];
+  for (const [identity, candidate] of routeFalsifiers) {
+    assert.equal(
+      publicApi.isInstalledDefinitionCallCandidate(candidate),
+      false,
+      identity,
+    );
+  }
+
+  const proxyOutcome = await publicApi.runInstalledDefinitionCallTransport(
+    { kind: "new", eventLogPath },
+    new Proxy(routeCandidate, {}),
+  );
+  assert.equal(proxyOutcome.kind, "installed_definition_call_transport_refusal");
+  assert.equal(proxyOutcome.code, "invalid_definition_call");
+
+  const inheritedAcquisitionOutcome =
+    await publicApi.runInstalledDefinitionCallTransport(
+      inherited({ kind: "new" }, { eventLogPath }),
+      routeCandidate,
+    );
+  assert.equal(
+    inheritedAcquisitionOutcome.kind,
+    "installed_definition_call_transport_refusal",
+  );
+  assert.equal(inheritedAcquisitionOutcome.code, "acquisition_mismatch");
+
+  const proxyAcquisitionOutcome =
+    await publicApi.runInstalledDefinitionCallTransport(
+      new Proxy({ kind: "new", eventLogPath }, {}),
+      routeCandidate,
+    );
+  assert.equal(
+    proxyAcquisitionOutcome.kind,
+    "installed_definition_call_transport_refusal",
+  );
+  assert.equal(proxyAcquisitionOutcome.code, "invalid_definition_call");
+
+  let inheritedExportRead = 0;
+  Object.defineProperty(Object.prototype, "INTERACTION_DEFINITION_BINDINGS", {
+    configurable: true,
+    get: () => {
+      inheritedExportRead += 1;
+      return { respond: { select: () => undefined } };
+    },
+  });
+  let inheritedExportOutcome;
+  try {
+    inheritedExportOutcome = await publicApi.runInstalledDefinitionCallTransport(
+      { kind: "new", eventLogPath },
+      {
+        ...routeCandidate,
+        invocation: {
+          ...routeCandidate.invocation,
+          definitionKey: {
+            operationId: "abg.operation.interaction.respond",
+            memberKey: "select",
+          },
+        },
+      },
+    );
+  } finally {
+    delete Object.prototype.INTERACTION_DEFINITION_BINDINGS;
+  }
+  assert.equal(inheritedExportRead, 0);
+  assert.equal(inheritedExportOutcome.code, "installed_binding_unavailable");
+
+  let inheritedMemberRead = 0;
+  Object.defineProperty(Object.prototype, "release_evidence", {
+    configurable: true,
+    get: () => {
+      inheritedMemberRead += 1;
+      return () => undefined;
+    },
+  });
+  let inheritedMemberOutcome;
+  try {
+    inheritedMemberOutcome = await publicApi.runInstalledDefinitionCallTransport(
+      { kind: "new", eventLogPath },
+      routeCandidate,
+    );
+  } finally {
+    delete Object.prototype.release_evidence;
+  }
+  assert.equal(inheritedMemberRead, 0);
+  assert.equal(inheritedMemberOutcome.code, "installed_binding_unavailable");
+});
 
 function rebaseDefinitionContractCatalog(
   coordinates,
@@ -178,6 +395,7 @@ async function constructInstalledStartCall({
   publicApi,
   eventResource,
   input,
+  identity = "st-1",
 }) {
   const {
     product,
@@ -220,7 +438,7 @@ async function constructInstalledStartCall({
   });
   const contractBoundInput = Object.freeze({
     contract: inputContract,
-    valueRef: "value://odd-glc/st-1/hello-input",
+    valueRef: `value://odd-glc/${identity}/hello-input`,
     valueDigest: product.sha256Canonical(input),
     value: input,
   });
@@ -372,10 +590,12 @@ async function constructInstalledStartCall({
       request,
       slots,
       resources,
-      requestRef: "public-request://odd-glc/st-1/run-start",
-      correlationRef: "correlation://odd-glc/st-1/run-start",
-      eventTime: "2026-08-21T00:00:00.000Z",
-      provenanceRefs: ["provenance://odd-glc/st-1-worker"],
+      requestRef: `public-request://odd-glc/${identity}/run-start`,
+      correlationRef: `correlation://odd-glc/${identity}/run-start`,
+      eventTime: identity === "st-1"
+        ? "2026-08-21T00:00:00.000Z"
+        : "2026-08-22T01:00:00.000Z",
+      provenanceRefs: [`provenance://odd-glc/${identity}-worker`],
     }),
     resolution,
     capabilityBasis: Object.freeze({
@@ -1111,7 +1331,7 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
   });
   assert.equal(
     freshProcessResult.moduleRefs.effect.startsWith(
-      `${pathToFileURL(environment.installedRoot).href}/`,
+      `${pathToFileURL(await realpath(environment.installedRoot)).href}/`,
     ),
     true,
     "fresh child Effect must resolve from the packed installed package",
@@ -1150,6 +1370,9 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     0,
     "fresh-process reads must append zero bytes",
   );
+  const st3TerminalHandoff = freshProcessResult.outputs.at(-1)
+    .resources.eventResource.closeHandoff;
+  assert.deepEqual(st3TerminalHandoff.prefix, terminalPrefix);
 
   const readFalsifierDigest = product.sha256Canonical({
     kind: "st-2b-pre-owner-falsifier",
@@ -1344,5 +1567,397 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
   );
   context.diagnostic(
     "ST-3: 3 exact fresh-process owner equalities, 1 pre-owner stale-handoff refusal, 0 appended bytes",
+  );
+
+  const st4Input = gtl.constructHelloWorldInput("World");
+  const {
+    call: st4StartCall,
+    resolution: st4Resolution,
+  } = await constructInstalledStartCall({
+    environment,
+    publicApi,
+    eventResource: reopenedReadResource(product, st3TerminalHandoff),
+    input: st4Input,
+    identity: "st-4",
+  });
+  assert.notEqual(
+    st4StartCall.invocation.invocationRef,
+    call.invocation.invocationRef,
+    "ST-4 must construct a new start invocation",
+  );
+  const st4CliCalls = [st4StartCall];
+  const st4StartExecution = await runInstalledCliRequest({
+    scratch,
+    installedRoot: environment.installedRoot,
+    identity: "start",
+    acquisition: Object.freeze({
+      kind: "reopen",
+      closeHandoff: st3TerminalHandoff,
+    }),
+    call: st4StartCall,
+  });
+  const st4StartOutput = st4StartExecution.output;
+  assert.equal(
+    st4StartOutput.kind,
+    "installed_definition_call_transport_result",
+  );
+  assert.equal(Object.hasOwn(st4StartOutput, "outcome"), false);
+  assert.equal(Object.hasOwn(st4StartOutput, "closeHandoff"), false);
+  const st4StartReceipt = st4StartOutput.receipt;
+  assert.equal(st4StartReceipt.kind, "definition_host_receipt");
+  assert.equal(st4StartReceipt.exitCode, 0);
+  assert.equal(st4StartReceipt.failure, null);
+  assert.deepEqual(st4StartReceipt.definitionKey, {
+    operationId,
+    memberKey: "start",
+  });
+  assert.equal(
+    st4StartReceipt.invocationRef,
+    st4StartCall.invocation.invocationRef,
+  );
+  assert.equal(st4StartReceipt.ownerOutput.outcomeKind, "result");
+  assert.equal(st4StartReceipt.ownerOutput.value.disposition, "completed");
+  const st4Run = st4StartReceipt.resources.run;
+  const st4Replay = st4StartReceipt.resources.replay;
+  const st4Result = st4StartReceipt.ownerOutput.value.result;
+  assert.ok(st4Run);
+  assert.ok(st4Replay);
+  assert.ok(st4Result);
+  assert.deepEqual(st4StartReceipt.ownerOutput.value.run, st4Run);
+  assert.deepEqual(st4StartReceipt.ownerOutput.value.replay, st4Replay);
+  assert.notEqual(st4Run.ref, terminalRun.ref, "ST-4 run must be fresh");
+  const st4TerminalHandoff =
+    st4StartReceipt.resources.eventResource.closeHandoff;
+  const st4TerminalPrefix = st4TerminalHandoff.prefix;
+  assert.deepEqual(
+    st4StartReceipt.resources.eventResource.entryPrefix,
+    st3TerminalHandoff.prefix,
+  );
+  const st4TerminalLogBytes = await readFile(
+    new URL(st4TerminalPrefix.eventLogRef),
+  );
+
+  assert.deepEqual(
+    {
+      programRef: st4Resolution.resolution.programRef,
+      programDigest: st4Resolution.resolution.programDigest,
+      graphFunctionRef: st4Resolution.resolution.graphFunctionRef,
+      graphFunctionDigest: st4Resolution.resolution.graphFunctionDigest,
+      programOwner: st4Resolution.resolution.programOwner,
+      graphFunctionOwner: st4Resolution.resolution.graphFunctionOwner,
+      inputContract: st4Resolution.resolution.inputContract,
+      inputContractDigest: st4Resolution.resolution.inputContractDigest,
+      inputContractOwner: st4Resolution.resolution.inputContractOwner,
+      outputContract: st4Resolution.resolution.outputContract,
+      outputContractDigest: st4Resolution.resolution.outputContractDigest,
+      outputContractOwner: st4Resolution.resolution.outputContractOwner,
+    },
+    {
+      programRef: resolution.resolution.programRef,
+      programDigest: resolution.resolution.programDigest,
+      graphFunctionRef: resolution.resolution.graphFunctionRef,
+      graphFunctionDigest: resolution.resolution.graphFunctionDigest,
+      programOwner: resolution.resolution.programOwner,
+      graphFunctionOwner: resolution.resolution.graphFunctionOwner,
+      inputContract: resolution.resolution.inputContract,
+      inputContractDigest: resolution.resolution.inputContractDigest,
+      inputContractOwner: resolution.resolution.inputContractOwner,
+      outputContract: resolution.resolution.outputContract,
+      outputContractDigest: resolution.resolution.outputContractDigest,
+      outputContractOwner: resolution.resolution.outputContractOwner,
+    },
+    "ST-3/ST-4 stable Program, GraphFunction, owner, and contract identities",
+  );
+
+  const st4ReadProjections = new Map();
+  const st4ReadReceipts = new Map();
+  let st4ReadHandoff = st4TerminalHandoff;
+  for (const [memberKey, selector] of runReadRows) {
+    const { call: st4ReadCall } = constructInstalledRunReadCall({
+      environment,
+      publicApi,
+      projectReadContracts,
+      memberKey,
+      selector,
+      source: st4Run,
+      eventResource: reopenedReadResource(product, st4ReadHandoff),
+      identity: `st-4-${memberKey}`,
+    });
+    st4CliCalls.push(st4ReadCall);
+    const execution = await runInstalledCliRequest({
+      scratch,
+      installedRoot: environment.installedRoot,
+      identity: memberKey,
+      acquisition: Object.freeze({
+        kind: "reopen",
+        closeHandoff: st4ReadHandoff,
+      }),
+      call: st4ReadCall,
+    });
+    assert.equal(
+      execution.output.kind,
+      "installed_definition_call_transport_result",
+      memberKey,
+    );
+    const receipt = execution.output.receipt;
+    assert.equal(receipt.kind, "definition_host_receipt", memberKey);
+    assert.equal(receipt.exitCode, 0, memberKey);
+    assert.equal(receipt.failure, null, memberKey);
+    assert.equal(receipt.ownerOutput.outcomeKind, "result", memberKey);
+    assert.deepEqual(
+      receipt.ownerOutput.value.source,
+      st4Run,
+      `${memberKey} ST-4 subject`,
+    );
+    assert.deepEqual(
+      receipt.resources.eventResource.entryPrefix,
+      st4TerminalPrefix,
+      `${memberKey} ST-4 entry prefix`,
+    );
+    assert.deepEqual(
+      receipt.resources.eventResource.closeHandoff.prefix,
+      st4TerminalPrefix,
+      `${memberKey} ST-4 unchanged prefix`,
+    );
+    assert.equal(
+      Buffer.compare(
+        await readFile(new URL(st4TerminalPrefix.eventLogRef)),
+        st4TerminalLogBytes,
+      ),
+      0,
+      `${memberKey} ST-4 positive read appends zero bytes`,
+    );
+    st4ReadProjections.set(memberKey, receipt.ownerOutput.value.projection);
+    st4ReadReceipts.set(memberKey, receipt);
+    st4ReadHandoff = receipt.resources.eventResource.closeHandoff;
+  }
+
+  assert.deepEqual(st4ReadProjections.get("run_status").subject, st4Run);
+  assert.equal(st4ReadProjections.get("run_status").status, "closed");
+  assert.deepEqual(st4ReadProjections.get("run_status").replay, st4Replay);
+  assert.deepEqual(st4ReadProjections.get("run_result").subject, st4Run);
+  assert.deepEqual(st4ReadProjections.get("run_result").result, st4Result);
+  assert.deepEqual(st4ReadProjections.get("run_result").replay, st4Replay);
+  assert.deepEqual(st4ReadProjections.get("run_replay").subject, st4Run);
+  assert.deepEqual(st4ReadProjections.get("run_replay").replay, st4Replay);
+
+  const flipReadCall = constructInstalledRunReadCall({
+    environment,
+    publicApi,
+    projectReadContracts,
+    memberKey: "run_status",
+    selector: Object.freeze({ kind: "none" }),
+    source: st4Run,
+    eventResource: reopenedReadResource(product, st4ReadHandoff),
+    identity: "st-4-one-snapshot-flip-getter",
+  }).call;
+  const {
+    eventResource: matchingEventResource,
+    ...flipResourceFields
+  } = flipReadCall.resources;
+  const alternateEventResource = reopenedReadResource(product, setupHandoff);
+  let eventResourceReads = 0;
+  const flipResources = Object.defineProperty(
+    flipResourceFields,
+    "eventResource",
+    {
+      configurable: true,
+      enumerable: true,
+      get: () => {
+        eventResourceReads += 1;
+        return eventResourceReads <= 2
+          ? matchingEventResource
+          : alternateEventResource;
+      },
+    },
+  );
+  const flipOutcome = await publicApi.runInstalledDefinitionCallTransport(
+    Object.freeze({
+      kind: "reopen",
+      closeHandoff: st4ReadHandoff,
+    }),
+    {
+      invocation: flipReadCall.invocation,
+      resources: flipResources,
+    },
+  );
+  assert.equal(eventResourceReads, 1, "caller eventResource is snapshotted once");
+  assert.equal(flipOutcome.kind, "installed_definition_call_transport_result");
+  assert.equal(flipOutcome.receipt.ownerOutput.outcomeKind, "result");
+  assert.deepEqual(
+    flipOutcome.receipt.resources.eventResource.entryPrefix,
+    st4TerminalPrefix,
+    "owner receives the acquisition-matched snapshot eventResource",
+  );
+  assert.deepEqual(
+    flipOutcome.receipt.resources.eventResource.closeHandoff.prefix,
+    st4TerminalPrefix,
+    "snapshot read preserves the unchanged owner prefix",
+  );
+  assert.equal(
+    Buffer.compare(
+      await readFile(new URL(st4TerminalPrefix.eventLogRef)),
+      st4TerminalLogBytes,
+    ),
+    0,
+    "one-snapshot flip-getter read appends zero bytes",
+  );
+
+  let acquisitionKindReads = 0;
+  const flipAcquisition = Object.defineProperty(
+    { closeHandoff: st4ReadHandoff },
+    "kind",
+    {
+      configurable: true,
+      enumerable: true,
+      get: () => {
+        acquisitionKindReads += 1;
+        return acquisitionKindReads === 1 ? "reopen" : "new";
+      },
+    },
+  );
+  const acquisitionFlipOutcome =
+    await publicApi.runInstalledDefinitionCallTransport(
+      flipAcquisition,
+      flipReadCall,
+    );
+  assert.equal(
+    acquisitionKindReads,
+    1,
+    "caller acquisition kind is snapshotted once",
+  );
+  assert.equal(
+    acquisitionFlipOutcome.kind,
+    "installed_definition_call_transport_result",
+  );
+  assert.equal(
+    acquisitionFlipOutcome.receipt.ownerOutput.outcomeKind,
+    "result",
+  );
+  assert.equal(acquisitionFlipOutcome.acquisitionKind, "reopen");
+  assert.deepEqual(
+    acquisitionFlipOutcome.receipt.resources.eventResource.entryPrefix,
+    st4TerminalPrefix,
+    "acquisition snapshot preserves the owner entry prefix",
+  );
+  assert.deepEqual(
+    acquisitionFlipOutcome.receipt.resources.eventResource.closeHandoff.prefix,
+    st4TerminalPrefix,
+    "acquisition snapshot preserves the unchanged owner prefix",
+  );
+  assert.equal(
+    Buffer.compare(
+      await readFile(new URL(st4TerminalPrefix.eventLogRef)),
+      st4TerminalLogBytes,
+    ),
+    0,
+    "acquisition flip-getter read appends zero bytes",
+  );
+
+  const st4SemanticReplay = abg.projectRuntimeTruthAtDurablePrefix(
+    st4TerminalPrefix,
+    st4Run.ref,
+  ).replayState;
+  assert.equal(st4SemanticReplay.replayRef, st4Replay.ref);
+  assert.equal(st4SemanticReplay.replayDigest, st4Replay.digest);
+  const [st4TerminalRoute] = st4SemanticReplay.routes.filter(
+    (route) => route.routeKind === "terminal",
+  );
+  assert.ok(st4TerminalRoute);
+  const st4TypedResults = st4SemanticReplay.cCalls.filter((row) =>
+    row.cCallRef === st4TerminalRoute.cCallRef &&
+    row.resultRef === st4Result.ref &&
+    row.resultDigest === st4Result.digest &&
+    row.resultValue !== null
+  );
+  assert.equal(st4TypedResults.length, 1);
+  assert.equal(
+    st4TypedResults[0].resultContractRef,
+    st4Resolution.resolution.outputContract.contractRef,
+  );
+  assert.deepEqual(st4TypedResults[0].resultValue, {
+    kind: "hello_world_output",
+    schemaVersion,
+    message: "Hello World",
+  });
+  assert.deepEqual(
+    {
+      contractRef: st4TypedResults[0].resultContractRef,
+      valueKind: st4TypedResults[0].resultValueKind,
+      value: st4TypedResults[0].resultValue,
+    },
+    {
+      contractRef: admittedResult.payload.contractRef,
+      valueKind: admittedResult.payload.valueKind,
+      value: admittedResult.payload.value,
+    },
+    "ST-3/ST-4 typed result meaning",
+  );
+
+  const crossedRead = constructInstalledRunReadCall({
+    environment,
+    publicApi,
+    projectReadContracts,
+    memberKey: "run_status",
+    selector: Object.freeze({ kind: "none" }),
+    source: st4Run,
+    eventResource: reopenedReadResource(product, st4ReadHandoff),
+    identity: "st-4-crossed-top-level-handoff",
+  }).call;
+  st4CliCalls.push(crossedRead);
+  const crossedExecution = await runInstalledCliRequest({
+    scratch,
+    installedRoot: environment.installedRoot,
+    identity: "crossed-top-level-handoff",
+    acquisition: Object.freeze({ kind: "reopen", closeHandoff: setupHandoff }),
+    call: crossedRead,
+    expectedExitCode: 2,
+  });
+  assert.equal(
+    crossedExecution.output.kind,
+    "installed_definition_call_transport_refusal",
+  );
+  assert.equal(crossedExecution.output.code, "acquisition_mismatch");
+  assert.equal(Object.hasOwn(crossedExecution.output, "receipt"), false);
+  assert.equal(Object.hasOwn(crossedExecution.output, "ownerOutput"), false);
+  assert.equal(
+    Buffer.compare(
+      await readFile(new URL(st4TerminalPrefix.eventLogRef)),
+      st4TerminalLogBytes,
+    ),
+    0,
+    "crossed top-level handoff must append zero bytes",
+  );
+
+  assert.equal(
+    st4CliCalls.filter((candidate) =>
+      candidate.invocation.definitionKey.operationId === operationId &&
+      candidate.invocation.definitionKey.memberKey === "start"
+    ).length,
+    1,
+    "ST-4 CLI episode has exactly one start",
+  );
+  assert.equal(
+    st4ReadReceipts.size,
+    3,
+    "ST-4 uses one shared loop for status/result/replay",
+  );
+  assert.equal(
+    st4StartExecution.cliPath.startsWith(`${environment.installedRoot}/`),
+    true,
+    "CLI must execute from the independently installed package",
+  );
+  assert.equal(
+    st4StartExecution.cliPath.startsWith(packageRoot),
+    false,
+    "CLI must not execute from the source package",
+  );
+  for (const candidate of st4CliCalls) {
+    assert.equal(Object.hasOwn(candidate.invocation, "packageExportPath"), false);
+    assert.equal(Object.hasOwn(candidate.invocation, "namedExport"), false);
+    assert.equal(Object.hasOwn(candidate.invocation, "memberPath"), false);
+  }
+  context.diagnostic(
+    "ST-4: 1 fresh CLI start, 3 chained CLI reads, 1 one-snapshot flip-getter read, 1 pre-owner crossed-handoff refusal, DefinitionHostReceipt path, 0 read bytes",
   );
 });
