@@ -306,6 +306,7 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     .filter((path) => !path.endsWith("/")).sort();
   assert.deepEqual(archiveFiles, [
     "package/build/publication.json",
+    "package/contracts/capabilities/capability-definition-graph.json",
     "package/contracts/public-contract-catalog.schema.json",
     "package/package.json",
     "package/product-toolchain-manifest.json",

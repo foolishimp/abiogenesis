@@ -362,6 +362,8 @@ function lockComparableProduct(
     declaredDependencies: value.declaredDependencies,
     provenanceRef: value.provenanceRef,
     declaredCapabilityRefs: value.declaredCapabilityRefs,
+    capabilityDefinitionGraph: value.capabilityDefinitionGraph,
+    capabilityDefinitionGraphAsset: value.capabilityDefinitionGraphAsset,
     publicContracts: value.publicContracts,
     publicContractRefs: value.publicContractRefs,
     publicCapabilityRefs: value.publicCapabilityRefs,
