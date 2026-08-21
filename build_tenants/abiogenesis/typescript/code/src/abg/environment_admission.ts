@@ -31,7 +31,6 @@ import {
   projectValidatedPrefixArtifactTruth,
   validateExactPrefixArtifactTruthProjection,
   type AdmittedArtifactTruth,
-  type ArtifactTruthProjection,
   type ExactPrefixArtifactTruthProjection,
   type ExactPrefixArtifactTruthProjectionRefusal,
   type ExactPrefixArtifactTruthProjectionResult,
@@ -52,7 +51,6 @@ import {
 } from "./event_store.js";
 import {
   selectValidatedRuntimeEventPrefix,
-  type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 
 export type PublicOperationId =
@@ -181,8 +179,8 @@ function artifactMemberKey(
   return operationId === "abg.operation.product.install" ? "install" : "bind";
 }
 
-function selectArtifactTruthRow(
-  rows: readonly AdmittedArtifactTruth[],
+function selectExactArtifactTruthRow(
+  projection: ExactPrefixArtifactTruthProjection,
   identity: Readonly<{
     operationId: "abg.operation.product.install" | "abg.operation.workspace.bind";
     authorityScopeRef: string;
@@ -193,7 +191,8 @@ function selectArtifactTruthRow(
     admissionEventRef?: string;
   }>,
 ): AdmittedArtifactTruth | null {
-  const scopeRows = rows.filter((row) =>
+  if (!validateExactPrefixArtifactTruthProjection(projection)) return null;
+  const scopeRows = projection.rows.filter((row) =>
     row.operationId === identity.operationId &&
     row.authorityScopeRef === identity.authorityScopeRef
   );
@@ -209,22 +208,6 @@ function selectArtifactTruthRow(
   return exact && (identity.admissionEventRef === undefined ||
       row.admissionEventRef === identity.admissionEventRef
     ) ? row : null;
-}
-
-function selectExactArtifactTruthRow(
-  projection: ExactPrefixArtifactTruthProjection,
-  identity: Readonly<{
-    operationId: "abg.operation.product.install" | "abg.operation.workspace.bind";
-    authorityScopeRef: string;
-    authorityScopeDigest: Sha256Digest;
-    artifactRef: string;
-    artifactDigest: Sha256Digest;
-    invocationRef?: string;
-    admissionEventRef?: string;
-  }>,
-): AdmittedArtifactTruth | null {
-  if (!validateExactPrefixArtifactTruthProjection(projection)) return null;
-  return selectArtifactTruthRow(projection.rows, identity);
 }
 
 function selectExactArtifactTruthRowByInvocation(
@@ -267,13 +250,6 @@ function rehydrateProductInstallRow(
   projection: ExactPrefixArtifactTruthProjection,
   row: AdmittedArtifactTruth,
 ): RehydratedProductInstallTruth | null {
-  return rehydrateProductInstallRowFromRows(projection.rows, row);
-}
-
-function rehydrateProductInstallRowFromRows(
-  rows: readonly AdmittedArtifactTruth[],
-  row: AdmittedArtifactTruth,
-): RehydratedProductInstallTruth | null {
   if (
     row.operationId !== "abg.operation.product.install" ||
     !isResolvedProductLock(row.resolvedLock) ||
@@ -282,7 +258,7 @@ function rehydrateProductInstallRowFromRows(
   const candidate = row.artifact as ProductInstallCandidate;
   const resolvedLock = row.resolvedLock as ResolvedProductLock;
   if (
-    selectArtifactTruthRow(rows, {
+    selectExactArtifactTruthRow(projection, {
       operationId: "abg.operation.product.install",
       authorityScopeRef: candidate.installId,
       authorityScopeDigest: candidate.productContentDigest,
@@ -372,29 +348,20 @@ export function projectAdmittedWorkspaceBindingByInvocationRef(
     "abg.operation.workspace.bind",
     invocationRef,
   );
-  return row === null
-    ? null
-    : rehydrateWorkspaceBindingRowFromRows(projection.rows, row, resolvedLock);
-}
-
-function rehydrateWorkspaceBindingRowFromRows(
-  rows: readonly AdmittedArtifactTruth[],
-  row: AdmittedArtifactTruth,
-  resolvedLock: ResolvedProductLock,
-): RehydratedWorkspaceBindingTruth | null {
   if (
+    row === null ||
     !isResolvedProductLock(resolvedLock) ||
     !isWorkspaceBindingCandidate(row.artifact, resolvedLock)
   ) return null;
   const candidate = row.artifact as WorkspaceBindingCandidate;
   if (
-    selectArtifactTruthRow(rows, {
+    selectExactArtifactTruthRow(projection, {
       operationId: "abg.operation.workspace.bind",
       authorityScopeRef: candidate.bindingId,
       authorityScopeDigest: candidate.bindingDigest,
       artifactRef: candidate.bindingId,
       artifactDigest: candidate.bindingDigest,
-      invocationRef: row.invocationRef,
+      invocationRef,
       admissionEventRef: row.admissionEventRef,
     }) === null
   ) return null;
@@ -407,7 +374,7 @@ function rehydrateWorkspaceBindingRowFromRows(
       admissionEventRef: row.admissionEventRef,
     },
     installAdmissionEventRefs: [...row.causationEventRefs],
-    invocationRef: row.invocationRef,
+    invocationRef,
   });
 }
 
@@ -425,8 +392,8 @@ export type ExactPrefixWorkspaceEnvironmentRefusalCode =
 export interface ExactPrefixWorkspaceEnvironment {
   readonly kind: "exact_prefix_workspace_environment";
   readonly schemaVersion: "5.0.0";
-  readonly prefix: ValidatedRuntimeEventPrefix;
-  readonly artifactTruth: ArtifactTruthProjection;
+  readonly prefix: DurablePrefixCoordinate;
+  readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
   readonly workspaceBindingCandidate: WorkspaceBindingCandidate;
   readonly workspaceBinding: WorkspaceBinding;
@@ -469,19 +436,17 @@ function exactPrefixEnvironmentRefusal(
  * lock-bound ProductSet and revalidates the binding candidate.
  */
 export function projectExactPrefixWorkspaceEnvironment(
-  prefix: ValidatedRuntimeEventPrefix,
+  prefix: DurablePrefixCoordinate,
   workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
 ): ExactPrefixWorkspaceEnvironmentProjectionResult {
-  let artifactTruth: ArtifactTruthProjection;
-  try {
-    artifactTruth = projectArtifactTruth(prefix);
-  } catch {
+  const artifactTruth = projectExactPrefixArtifactTruth(prefix);
+  if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") {
     return exactPrefixEnvironmentRefusal(
       "artifact_truth_invalid",
-      "the validated prefix does not project one lawful artifact history",
+      `exact-prefix artifact truth refused the durable prefix: ${artifactTruth.code}`,
+      artifactTruth.eventRefs,
     );
   }
-  const rows: readonly AdmittedArtifactTruth[] = artifactTruth.artifacts;
   if (
     typeof workspaceBindingCoordinate !== "object" ||
     workspaceBindingCoordinate === null ||
@@ -494,33 +459,26 @@ export function projectExactPrefixWorkspaceEnvironment(
       "workspace environment projection requires one exact WorkspaceBinding ref and digest",
     );
   }
-  const bindingRows = rows.filter((row) =>
+  const bindingRow = selectExactArtifactTruthRow(artifactTruth, {
+    operationId: "abg.operation.workspace.bind",
+    authorityScopeRef: workspaceBindingCoordinate.ref,
+    authorityScopeDigest: workspaceBindingCoordinate.digest,
+    artifactRef: workspaceBindingCoordinate.ref,
+    artifactDigest: workspaceBindingCoordinate.digest,
+  });
+  if (bindingRow === null) {
+    const bindingRefExists = artifactTruth.rows.some((row) =>
     row.operationId === "abg.operation.workspace.bind" &&
     row.authorityScopeRef === workspaceBindingCoordinate.ref &&
     row.artifactRef === workspaceBindingCoordinate.ref
-  );
-  if (bindingRows.length === 0) {
-    return exactPrefixEnvironmentRefusal(
-      "workspace_binding_missing",
-      "the validated prefix contains no admitted WorkspaceBinding at the selected ref",
     );
-  }
-  if (bindingRows.length !== 1) {
     return exactPrefixEnvironmentRefusal(
-      "artifact_truth_invalid",
-      "the validated prefix contains conflicting WorkspaceBinding truth at the selected ref",
-      bindingRows.map((row) => row.admissionEventRef),
-    );
-  }
-  const bindingRow = bindingRows[0]!;
-  if (
-    bindingRow.authorityScopeDigest !== workspaceBindingCoordinate.digest ||
-    bindingRow.artifactDigest !== workspaceBindingCoordinate.digest
-  ) {
-    return exactPrefixEnvironmentRefusal(
-      "workspace_binding_mismatch",
-      "the selected WorkspaceBinding digest differs from admitted artifact truth",
-      [bindingRow.admissionEventRef],
+      bindingRefExists
+        ? "workspace_binding_mismatch"
+        : "workspace_binding_missing",
+      bindingRefExists
+        ? "the selected WorkspaceBinding digest differs from admitted artifact truth"
+        : "the durable prefix contains no admitted WorkspaceBinding at the selected ref",
     );
   }
   if (!isWorkspaceAuthorityBasis(bindingRow.workspaceAuthorityBasis)) {
@@ -533,13 +491,10 @@ export function projectExactPrefixWorkspaceEnvironment(
   const productInstalls: ProductInstall[] = [];
   const resolvedLocks: ResolvedProductLock[] = [];
   for (const eventRef of bindingRow.causationEventRefs) {
-    const matches = rows.filter((row) =>
-      row.operationId === "abg.operation.product.install" &&
-      row.admissionEventRef === eventRef
+    const truth = projectAdmittedProductInstallByAdmissionEventRef(
+      artifactTruth,
+      eventRef,
     );
-    const truth = matches.length === 1
-      ? rehydrateProductInstallRowFromRows(rows, matches[0]!)
-      : null;
     if (truth === null) {
       return exactPrefixEnvironmentRefusal(
         "causal_install_missing",
@@ -572,13 +527,16 @@ export function projectExactPrefixWorkspaceEnvironment(
       bindingRow.causationEventRefs,
     );
   }
-  const bindingTruth = rehydrateWorkspaceBindingRowFromRows(
-    rows,
-    bindingRow,
+  const bindingTruth = projectAdmittedWorkspaceBindingByInvocationRef(
+    artifactTruth,
+    bindingRow.invocationRef,
     resolvedProductLock,
   );
   if (
     bindingTruth === null ||
+    canonicalJson(
+      bindingTruth.installAdmissionEventRefs as unknown as JsonValue,
+    ) !== canonicalJson(bindingRow.causationEventRefs as unknown as JsonValue) ||
     !isWorkspaceBindingCandidate(
       bindingTruth.candidate,
       resolvedProductLock,
