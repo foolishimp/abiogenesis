@@ -2007,9 +2007,13 @@ The common invocation carrier requires capability-grant coordinates for every
 definition, but structural admission of a self-digested ref/digest pair does
 not establish either capability-definition or grant authority.
 `REQ-P-PUBLIC-CONTRACTS-011` fixes one capability-definition graph whose rows
-bind owning public contracts and capability dependencies. The selected Prime
-authoring carrier is `DS1_CAPABILITY_CONTRACT_REGISTER`; it remains static
-Product data and is not a runtime registry. Product realizes exactly one graph:
+bind owning public contracts and capability dependencies. Every Product
+manifest and every `ProductInstall` retains exactly one explicit
+`CapabilityDefinitionGraph` carrier; a missing graph is invalid. Its rows are a
+`CanonicalSet`, not a `NonEmptyCanonicalSet`: the set has zero rows if and only
+if the Product declares and owns no Public-operation capabilities, and it has
+one or more rows if and only if the exact declared Public-operation capability
+roster is nonempty.
 
 For the current root tenant, Section 16.10 ratifies the DS1 static-register and
 pure graph-projection relation as operative Product realization authority. Its
@@ -2040,7 +2044,7 @@ CapabilityDefinitionGraph = {
   graphId: "capability-definition-graph://abiogenesis/abg-5",
   graphVersion: "5.0.0",
   graphDigest,
-  rows: NonEmptyCanonicalSet<CapabilityDefinitionGraphRow>
+  rows: CanonicalSet<CapabilityDefinitionGraphRow>
 }
 
 CapabilityDefinitionCoordinate = {
@@ -2049,6 +2053,20 @@ CapabilityDefinitionCoordinate = {
   capabilityDefinitionRef, capabilityDefinitionDigest
 }
 ```
+
+Every present row retains exact `PublicContractCoordinate` ownership,
+dependency closure, deterministic identity, canonical ordering, and bounded
+proof references. ABIogenesis declares the DS1 Public-operation capability
+roster and therefore retains exactly the canonical 16 DS1 rows. A data-only
+Product such as `odd_glc` declares no Public-operation capability, so it carries
+the present canonical zero-row graph. `GraphFunction` data does not imply
+Public-operation ownership.
+
+The shared pure graph constructor is input-parametric: it canonicalizes exactly
+the supplied owner-authorized Public coordinates. Empty input yields the
+canonical empty graph; the ABIogenesis coordinates yield the existing 16 rows.
+It has no ABI default or fallback, implicit DS1 import for empty input, local
+hand-built graph, registry, or runtime synthesis.
 
 Each row digest covers the complete row with its definition ref/digest omitted;
 the definition ref is content addressed from that digest. `graphDigest` covers
@@ -4139,4 +4157,22 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **thread sequencing** | `ST-1` is accepted at `76edb4e0`. `ST-2A-G` graph publication/install and `ST-2A-E` exact-prefix environment projection are independent and may construct/review in parallel. `ST-2A-C` follows G and migrates the canonical grant while conserving the accepted `ST-1` result. `ST-2B` consumes only accepted G/E/C cuts, applies one run-read kernel to three fixed packets, and proves cumulative status/result/replay equality. `ST-3`, `ST-4`, and post-MVP obligations retain their accepted ordering. |
 | **proof decision** | Review the graph/provenance relation, canonical grant, prefix join, and shared run-read kernel once each by their irreducible owner/effect/reference-frame seam. Mechanically check all three packet identities and schemas. The exact falsifier set is caller-minted/wrong grant, missing/crossed capability graph row or dependency, wrong installed graph provenance, definition, contract row/catalog, workspace, Product set, lock, prefix, run source, actor-slot, and grant-actor substitution plus read-side append. |
 | **current disposition** | Design authority only. The prior two-file `ST-2` implementation candidate is held and cannot be frozen because it lacks Product-issued grant authority and the exact environment join. No implementation, acceptance, thread closure, 56-key count, or release claim follows from this amendment. |
+| **supersession status** | Section 16.11 supersedes only any universal non-empty/full-DS1 applicability reading of this amendment. Its ABI row law, exact 16 rows, accepted `ST-1` outcome, and `ST-2A-C` direction remain operative. |
+| **promotion status** | ABIogenesis-local design law under immutable STDO `v2.2.2`; shared-method promotion requires separate methodology re-entry and representative evidence. |
+
+### 16.11 T-287 ST-2A-G Capability-Graph Cardinality Amendment Record
+
+| Field | Record |
+|---|---|
+| **reason** | The graph carrier is mandatory for every Product, but mandatory presence does not imply a nonempty Public-operation capability roster. Applying ABIogenesis's full DS1 rows to a data-only Product would manufacture Public-operation ownership from unrelated `GraphFunction` data. |
+| **change class and scope** | One bounded ABIogenesis-local `design_reframe` repairing only `ST-2A-G` graph cardinality and shared-construction applicability. Product outcomes, requirements, the 18/56 family, ABG event law, replay semantics, catalogs, Public factorization, and runtime authority remain unchanged. |
+| **upstream basis** | `REQ-P-PUBLIC-CONTRACTS-011`, Product manifest and `ProductInstall` provenance, exact Public-contract ownership, and Section 16.10's accepted static-register/pure-projection direction. No Product or requirement re-entry is selected. |
+| **superseded clause** | Only the universal non-empty/full-DS1 applicability claim is invalidated. ABIogenesis's row law, exact canonical 16 DS1 rows, accepted `ST-1` outcome, and `ST-2A-C` direction are not invalidated. |
+| **carrier and cardinality decision** | Every Product manifest and every `ProductInstall` retains exactly one explicit `CapabilityDefinitionGraph`; absence is invalid and the graph is not optional. `rows` is `CanonicalSet<CapabilityDefinitionGraphRow>`, not `NonEmptyCanonicalSet`. It is empty if and only if the Product declares and owns no Public-operation capabilities, and nonempty if and only if its exact declared Public-operation capability roster is nonempty. Every present row retains exact `PublicContractCoordinate` ownership, dependency closure, deterministic identity, canonical ordering, and bounded proof references. |
+| **Product applications** | ABIogenesis declares the DS1 roster and retains exactly the existing canonical 16 rows. A data-only Product such as `odd_glc` declares no Public-operation capability and carries the present canonical zero-row graph. `GraphFunction` data does not imply Public-operation ownership, and ABI rows are not copied into data Products. |
+| **construction decision** | The shared graph constructor is pure and input-parametric. It canonicalizes exactly the supplied owner-authorized Public coordinates: empty input yields the canonical empty graph and ABIogenesis coordinates yield the existing 16 rows. No ABI default or fallback, implicit DS1 import for empty input, local hand-built graph, registry, or runtime synthesis is permitted. |
+| **affected catalog/entity rows** | None. This amendment changes graph-row cardinality law only; it creates no entity, catalog row, runtime fact, event, lifecycle, registry, authority owner, or second graph source. |
+| **migration consequence** | `ST-2A-G` must preserve one explicit graph through manifest and install for both zero-row and nonempty cases and must reject a missing carrier. The repair does not authorize code or test changes in this design-worker subject. |
+| **thread sequencing** | Freeze this bounded `ST-2A-G` repair first. `ST-2A-C` resumes after the repair is frozen and retains Section 16.10's canonical-grant direction. |
+| **current disposition** | Design authority only. No implementation, test, acceptance, thread closure, count, or release claim follows from this amendment. |
 | **promotion status** | ABIogenesis-local design law under immutable STDO `v2.2.2`; shared-method promotion requires separate methodology re-entry and representative evidence. |
