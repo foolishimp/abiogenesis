@@ -68,6 +68,23 @@ export interface AdmittedDefinitionResourceReceipt<TResourceReceipt> {
   readonly resourceReceipt: TResourceReceipt;
 }
 
+/**
+ * An unexpected Effect Cause after an owner has issued its exact successor
+ * receipt. The Cause remains a defect; the canonical host transports the
+ * receipt without promoting the defect into the typed-fault channel.
+ */
+export class DefinitionPostAppendCause<TResourceReceipt> extends Error {
+  readonly originalCause: unknown;
+  readonly resourceReceipt: TResourceReceipt;
+
+  constructor(originalCause: unknown, resourceReceipt: TResourceReceipt) {
+    super(String(originalCause));
+    this.name = "DefinitionPostAppendCause";
+    this.originalCause = originalCause;
+    this.resourceReceipt = resourceReceipt;
+  }
+}
+
 export type AdmitDefinitionResourceReceipt<TResourceReceipt> = (
   candidate: unknown,
 ) => AdmittedDefinitionResourceReceipt<TResourceReceipt> | null;
@@ -494,6 +511,11 @@ export async function runExactDefinition<
 
   const failure = Cause.failureOption(exit.cause);
   const typedFault = Option.isSome(failure) ? failure.value : null;
+  const defect = Cause.dieOption(exit.cause);
+  const postAppendCause = Option.isSome(defect) &&
+      defect.value instanceof DefinitionPostAppendCause
+    ? defect.value
+    : null;
   return Object.freeze({
     kind: "definition_host_receipt" as const,
     schemaVersion: "5.0.0" as const,
@@ -501,7 +523,8 @@ export async function runExactDefinition<
     invocationRef: call.invocation.invocationRef,
     exitCode: 70 as const,
     ownerOutput: null,
-    resources: typedFault?.resourceReceipt ?? null,
+    resources: typedFault?.resourceReceipt ??
+      postAppendCause?.resourceReceipt ?? null,
     failure: Object.freeze({
       failureKind: typedFault === null
         ? "defect_or_interruption" as const

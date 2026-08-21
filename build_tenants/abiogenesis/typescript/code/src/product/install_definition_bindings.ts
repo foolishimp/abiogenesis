@@ -31,6 +31,7 @@ import {
 } from "../shared/definition_binding_mechanics.js";
 import {
   admitDefinitionExecutionFault,
+  DefinitionPostAppendCause,
   postAppendDefinitionFault,
   type DefinitionCall,
   type DefinitionExecutionFault,
@@ -623,20 +624,38 @@ const installOwner: ExactDefinitionCallable<
         }
         if (committedCandidate !== null) {
           markCloseAttempt();
+          let eventResource: AbgEventResourceReceipt;
+          let outwardCause = cause;
           try {
-            closeAbgEventResource(
+            eventResource = closeAbgEventResource(
               resource,
               cause instanceof ArtifactAdmissionPostAppendFailure
                 ? cause.successorPrefix
                 : latestPrefix,
             );
           } catch (closeCause) {
-            throw new AggregateError(
+            if (!(closeCause instanceof AbgEventResourceCloseFailure)) {
+              throw new AggregateError(
+                [cause, closeCause],
+                "Product install Cause and ABG cleanup close both failed",
+              );
+            }
+            eventResource = closeCause.resourceReceipt;
+            outwardCause = new AggregateError(
               [cause, closeCause],
               "Product install Cause and ABG cleanup close both failed",
             );
           }
-          throw cause;
+          throw new DefinitionPostAppendCause(
+            outwardCause,
+            receipt(
+              call,
+              eventResource,
+              committedCandidate,
+              committedInstall,
+              committedInstallerManifest,
+            ),
+          );
         }
         abandonAbgEventResource(resource);
         throw cause;

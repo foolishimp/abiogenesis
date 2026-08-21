@@ -8,6 +8,7 @@ import {
   type ExactPrefixArtifactTruthProjection,
 } from "../abg/artifact_truth.js";
 import {
+  AbgEventResourceCloseFailure,
   acquireAbgEventResource,
   abandonAbgEventResource,
   closeAbgEventResource,
@@ -1189,7 +1190,17 @@ function postAppendStage<TPacket extends RunPacket, A>(
   return Effect.catchAllCause(program, (cause) => {
     const interrupted = Cause.isInterrupted(cause);
     return Effect.suspend(() => {
-      const eventResource = closeAbgEventResource(resource, finalPrefix);
+      let eventResource: AbgEventResourceReceipt;
+      let closeFailure: string | null = null;
+      try {
+        eventResource = closeAbgEventResource(resource, finalPrefix);
+      } catch (closeCause) {
+        if (!(closeCause instanceof AbgEventResourceCloseFailure)) {
+          throw closeCause;
+        }
+        eventResource = closeCause.resourceReceipt;
+        closeFailure = closeCause.failureMessage;
+      }
       const receipt = resourceReceipt(
         eventResource,
         prepared,
@@ -1202,6 +1213,7 @@ function postAppendStage<TPacket extends RunPacket, A>(
         interrupted ? "interrupted" : `${stage}_defect`,
         Cause.pretty(cause),
         receipt,
+        closeFailure === null ? {} : { closeFailure },
       ));
     });
   });

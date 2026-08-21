@@ -24,6 +24,7 @@ import {
 } from "../shared/canonical_json.js";
 import {
   admitDefinitionExecutionFault,
+  DefinitionPostAppendCause,
   postAppendDefinitionFault,
   preDefinitionFault,
   type DefinitionCall,
@@ -980,20 +981,36 @@ const bindOwner: ExactDefinitionCallable<
             admissionCandidate !== null)
         ) {
           markCloseAttempt();
+          let eventResource: AbgEventResourceReceipt;
+          let outwardCause = cause;
           try {
-            closeAbgEventResource(
+            eventResource = closeAbgEventResource(
               resource,
               cause instanceof ArtifactAdmissionPostAppendFailure
                 ? cause.successorPrefix
                 : latestPrefix,
             );
           } catch (closeCause) {
-            throw new AggregateError(
+            if (!(closeCause instanceof AbgEventResourceCloseFailure)) {
+              throw new AggregateError(
+                [cause, closeCause],
+                "Workspace binding Cause and ABG cleanup close both failed",
+              );
+            }
+            eventResource = closeCause.resourceReceipt;
+            outwardCause = new AggregateError(
               [cause, closeCause],
               "Workspace binding Cause and ABG cleanup close both failed",
             );
           }
-          throw cause;
+          throw new DefinitionPostAppendCause(
+            outwardCause,
+            bindReceipt(
+              call.resources,
+              eventResource,
+              admittedBinding ?? admissionCandidate,
+            ),
+          );
         }
         abandonAbgEventResource(resource);
         throw cause;
