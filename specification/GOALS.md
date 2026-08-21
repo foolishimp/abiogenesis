@@ -22,7 +22,7 @@ construction, donor, proof, review, and non-closure detail.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 complete; Wave 2 is repriced as four cumulative sunny-day odd_glc steel threads ending at one installed CLI MVP. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 complete; the repriced Wave 2 development MVP is accepted and integrated; post-MVP Wave 2 remains pending and `UNSELECTED`. |
 
 ## Current Basis
 
@@ -86,7 +86,7 @@ release qualification remain dependency ordered.
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
 | `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Accepted - C5 functional substrate; integrated M5 qualification deferred |
-| `2` | Bounded `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` substrate plus one early `A5-F17` consumer path | Four cumulative sunny-day threads verify independently packed ABIogenesis and data-only odd_glc artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`. The existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and one ABG-admitted typed result before exact-prefix ABG observation, fresh-process replay, and one installed CLI episode; post-MVP work then closes the remaining 56-key constructability, held contracts, required negatives, and broader Wave 2 qualification. | `ST-1` accepted at `76edb4e0`; active at the bounded `ST-2A` authority prerequisite; `ST-4` is the usable odd_glc-building MVP, not the Wave 2 or 5.0 completion boundary |
+| `2` | Bounded `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` substrate plus one early `A5-F17` consumer path | Four cumulative sunny-day threads verify independently packed ABIogenesis and data-only odd_glc artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`. The existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and one ABG-admitted typed result before exact-prefix ABG observation, fresh-process replay, and one installed CLI episode; post-MVP work then closes the remaining 56-key constructability, held contracts, required negatives, and broader Wave 2 qualification. | `ST-1`, `ST-2A`, `ST-2B`, `ST-3`, and `ST-4` accepted and integrated cumulatively at `a2d62e674f36d76d56d32f7e020eea4e7cfde763`, tree `1af1f5e31acd2f8292550314ad8907c3c6c2ff68`; post-MVP Wave 2 pending and `UNSELECTED`; no Wave 2, 5.0, or release completion claimed |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path without feature-specific runtimes. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and its Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
@@ -113,18 +113,18 @@ subjects, paths, and predicates remain unchanged. The threads are cumulative
 development subjects, not a replacement root or weaker scenario. No thread may
 claim root, scenario, Product, qualification, or release closure.
 
-The selected Wave 2 delivery unit is four cumulative sunny-day steel threads:
+The accepted Wave 2 MVP delivery unit is four cumulative sunny-day steel
+threads. `ST-2` retained its ratified place in the `ST-1` -> `ST-2` -> `ST-3`
+-> `ST-4` sequence and was delivered through the `ST-2A` / `ST-2B` split.
+The accepted checkpoint is `a2d62e674f36d76d56d32f7e020eea4e7cfde763`,
+tree `1af1f5e31acd2f8292550314ad8907c3c6c2ff68`.
 
-`ST-1` is accepted at `76edb4e0`. The current entry is `ST-2A`, the shared
-capability-definition/grant and exact-prefix environment prerequisite beneath
-`ST-2`; no `ST-2` read packet is banked until that prerequisite is accepted.
-
-| Thread | Added boundary | Exact cumulative sunny outcome |
-|---|---|---|
-| `ST-1` | Installed cross-owner Hello typed result | Verify independently packed ABIogenesis and data-only odd_glc artifacts. Product constructs the `ResolvedProductLock` before installation or binding. Product materializes and verifies each install candidate; ABG admits each `ProductInstall`. Product constructs the `ProductSet`. Product constructs the `WorkspaceBindingCandidate`; ABG admits the `WorkspaceBinding`. Product and Validator construct the eventless ready `Catalog`; Product derives the pure narrowed `View`. Then the existing production Product resolution selects the odd_glc Program/GraphFunction; HoG traverses that admitted Program to the ABI-owned `F_D` Hello callable; and ABG admits one typed Hello result. |
-| `ST-2` | Exact-prefix ABG observation | The same installed execution produces ABG-owned durable truth; exact-prefix status, result, and replay projections agree on the one run and typed terminal result. |
-| `ST-3` | Fresh-process reopen | A distinct process reopens only from installed artifacts and owner-issued durable prefix/handoff truth and reconstructs the same status, result, and replay without source-tree or process-local authority. |
-| `ST-4` | Installed CLI transport | One installed CLI episode uses exactly one `run.invoke#start` to ignite one fresh owner-issued run through the installed causal path; it does not reuse or project the terminal `ST-3` run. Within that fresh CLI episode, run, result, durable prefix, and replay identities agree and yield the same typed user-result meaning. This is the usable odd_glc-building MVP. |
+| Thread | Added boundary | Exact cumulative sunny outcome | State |
+|---|---|---|---|
+| `ST-1` | Installed cross-owner Hello typed result | Verify independently packed ABIogenesis and data-only odd_glc artifacts. Product constructs the `ResolvedProductLock` before installation or binding. Product materializes and verifies each install candidate; ABG admits each `ProductInstall`. Product constructs the `ProductSet`. Product constructs the `WorkspaceBindingCandidate`; ABG admits the `WorkspaceBinding`. Product and Validator construct the eventless ready `Catalog`; Product derives the pure narrowed `View`. Then the existing production Product resolution selects the odd_glc Program/GraphFunction; HoG traverses that admitted Program to the ABI-owned `F_D` Hello callable; and ABG admits one typed Hello result. | Accepted and integrated cumulatively |
+| `ST-2` | Exact-prefix ABG observation | The same installed execution produces ABG-owned durable truth; exact-prefix status, result, and replay projections agree on the one run and typed terminal result. | `ST-2A` and `ST-2B` accepted and integrated cumulatively |
+| `ST-3` | Fresh-process reopen | A distinct process reopens only from installed artifacts and owner-issued durable prefix/handoff truth and reconstructs the same status, result, and replay without source-tree or process-local authority. | Accepted and integrated cumulatively |
+| `ST-4` | Installed CLI transport | One independently installed CLI episode uses exactly one `run.invoke#start` to ignite one fresh owner-issued run through the installed causal path, then chains `run_status`, `run_result`, and `run_replay` through exact owner handoffs and the accepted generic `DefinitionCall` transport; it does not reuse or project the terminal `ST-3` run. The episode preserves typed Hello meaning, fresh-process equality, and zero-byte read-side writes. This is the usable development MVP, not ABIogenesis 5.0 completion or release. | Accepted and integrated cumulatively |
 
 `ST-1` enters from the accepted owner-separated W2-03 resolution relation. Each
 later thread enters from its preceding accepted thread, adds only its named
@@ -195,10 +195,11 @@ sequence semantic owners.
 
 `ST-4` is a usable development MVP, not `ABI5-ROOT-001`, the ABIogenesis 5.0
 Product, or a release.
-After MVP, Wave 2 completes the remaining 56-key package constructability,
-held contract closure, future-capable release contracts, legacy exclusion,
-required negative cases, and broader qualification in dependency order. The
-final Product must still
+Post-MVP Wave 2 remains pending and `UNSELECTED`; no next increment or restored
+56-key implementation queue is selected. Its obligations still include the
+remaining 56-key package constructability, held contract closure,
+future-capable release contracts, legacy exclusion, required negative cases,
+and broader qualification in dependency order. The final Product must still
 publish the complete one-family contract, load all 56 real owner closures from
 packed bytes, satisfy every selected feature and scenario, qualify one exact
 candidate, and close the immutable release lifecycle.
@@ -249,7 +250,7 @@ for delivered behavior.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | Waves 1 through 4 place all 14 pre-qualification feature families, required installed negatives, selected scenarios, publication truth, and conservation evidence on one exact candidate. | Active - Wave 2 `ST-1` through `ST-4` selected; post-MVP Wave 2 completion remains pending |
+| `M5` | Waves 1 through 4 place all 14 pre-qualification feature families, required installed negatives, selected scenarios, publication truth, and conservation evidence on one exact candidate. | Active - Wave 2 `ST-1` through `ST-4` accepted and integrated; post-MVP Wave 2 remains pending and `UNSELECTED` |
 | `M6` | Wave 5 `A5-F15` accepts selected-method binding, self-conformance, selected pre-RC scenarios, and complete 4.6 conservation against one exact pre-RC candidate. | Pending M5 |
 | `M7` | Wave 5 `A5-F16` accepts distinct immutable RC, installed RC, final-tap, released Product, and post-publication install subjects as stable `5.0.0`. | Pending M6 |
 

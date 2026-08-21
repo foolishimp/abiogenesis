@@ -23,10 +23,11 @@
 - selected_wave: W2
 - selected_feature: A5-F01
 - selected_slice: odd_glc_mvp_steel_threads
-- selected_slice_stage: ST-2A
-- selected_increment: st_2a_capability_authority_and_exact_prefix_environment
-- selected_increment_stage: design_reentry
-- accepted_checkpoint: 76edb4e07d8566dfeb8de8d1fad6675ae58453c0
+- selected_slice_stage: post_mvp_wave2
+- selected_increment: UNSELECTED
+- selected_increment_stage: unselected
+- accepted_checkpoint: a2d62e674f36d76d56d32f7e020eea4e7cfde763
+- accepted_checkpoint_tree: 1af1f5e31acd2f8292550314ad8907c3c6c2ff68
 - banked_callable_checkpoint: e7e252ed7c0f950c49f606e1c0fd8d61743af71a
 - deferred_feature: A5-F12
 
@@ -56,12 +57,17 @@ owner, event law, exact 18/56-family identity, or final 5.0 obligation.
 
 ## Current Wave 2 Target — Cumulative odd_glc MVP Steel Threads
 
-The selected sequence is `ST-1 -> ST-2 -> ST-3 -> ST-4`. `ST-1` starts from the
+The accepted sequence is `ST-1 -> ST-2 -> ST-3 -> ST-4`. `ST-1` starts from the
 accepted owner-separated W2-03 resolution relation. Each later thread starts
 from the exact accepted subject of its predecessor, adds only its named
 cumulative boundary, proves the same positive user result through that boundary,
-freezes one exact subject, and stops. `ST-4` is the usable development MVP; it
-is not ABIogenesis 5.0 completion or release.
+freezes one exact subject, and stops. `ST-2` was delivered through its `ST-2A` /
+`ST-2B` split without changing that ratified sequence. All five named subthreads
+are accepted and integrated cumulatively at checkpoint
+`a2d62e674f36d76d56d32f7e020eea4e7cfde763`, tree
+`1af1f5e31acd2f8292550314ad8907c3c6c2ff68`. `ST-4` is the usable development
+MVP; it is not ABIogenesis 5.0 completion or release. Post-MVP Wave 2 remains
+pending and `UNSELECTED`.
 
 ### Re-entry disposition
 
@@ -93,7 +99,7 @@ qualification, or release closure.
 
 ```text
 fixed Product: ABIogenesis 5.0, with Wave 1 functional interface accepted
-active Wave 2 work: ST-1 through ST-4 cumulative odd_glc sunny path
+accepted Wave 2 MVP: ST-1 through ST-4 accepted and integrated; post-MVP Wave 2 UNSELECTED
 odd_glc authority: one immutable GTL Program publication as data, including
   odd_glc-owned GraphFunction topology and required declarative dependencies
 ABIogenesis authority: admission, Validator, Product/install/workspace/catalog
@@ -209,7 +215,7 @@ stubs, aliases, compatibility bindings, or a second contract/catalog authority.
 - **Deferred:** distinct-process reopen, CLI, comprehensive negatives, and
   unused definitions.
 
-`ST-2` is implemented in two cumulative cuts, not three independent read
+`ST-2` was delivered in two cumulative cuts, not three independent read
 implementations:
 
 - **`ST-2A` shared authority prerequisite:** Product realizes the accepted
@@ -230,33 +236,35 @@ implementations:
   prove equality over the accepted `ST-1` run. The packets contain no
   member-specific grant, environment, currentness, or event logic.
 
-`ST-2A-G` packages/verifies/installs the one graph while `ST-2A-E` independently
-projects the admitted environment from the accepted prefix; those two workers
-may run in parallel on disjoint files. `ST-2A-C` follows G and migrates the
-existing `ST-1` grant without changing its result. `ST-2B` integrates only
-accepted G/E/C subjects. Each shared seam receives one deep review; repeated
-packet and export rows receive mechanical checks.
+`ST-2A-G` packaged/verified/installed the one graph while `ST-2A-E`
+independently projected the admitted environment from the accepted prefix; those
+lanes were independent and eligible for parallel execution on disjoint files.
+`ST-2A-C` followed accepted G and migrated the existing `ST-1` grant without
+changing its result. `ST-2B` integrated only accepted G/E/C subjects. Each shared
+seam received one deep review; repeated packet and export rows received
+mechanical checks. This worker/reviewer plan is completed construction history
+and authorizes no current lane.
 
-| Cut | Worker class and bounded implementation surface | Review unit |
+| Cut | Historical worker class and bounded implementation surface | Historical review unit |
 |---|---|---|
-| `ST-2A-G` | xhigh, pure/static Product-contract work: one shared Product-owned capability register/graph projector; mechanical contract-module consumption; canonical graph asset; manifest schema/generator; Product verification/install carrier conservation. No ABG read code. | Max reviews graph identity, owning-contract/dependency closure, installed provenance, and one changed-seam falsifier set once; repeated contract rows are mechanically checked. |
-| `ST-2A-E` | xhigh in parallel with G, ABG projection work only: exact-prefix artifact truth to admitted binding, causal installs, lock, ProductSet, and binding equality. No capability or read-member logic. | Max reviews exact-prefix/currentness/owner equality once. |
-| `ST-2A-C` | xhigh after accepted G: migrate the existing Product `CapabilityGrant` constructor/validator and the accepted `ST-1` run-invocation consumer; no second grant type. | Max reviews graph-to-grant authority and accepted-result conservation once. |
-| `ST-2B` | xhigh integration: one run-read kernel and three fixed packets over accepted G/E/C. | Max reviews the kernel once; packet identity/schema/export checks are mechanical. |
+| `ST-2A-G` | xhigh, pure/static Product-contract work: one shared Product-owned capability register/graph projector; mechanical contract-module consumption; canonical graph asset; manifest schema/generator; Product verification/install carrier conservation. No ABG read code. | Max reviewed graph identity, owning-contract/dependency closure, installed provenance, and one changed-seam falsifier set once; repeated contract rows were mechanically checked. |
+| `ST-2A-E` | xhigh, independently eligible ABG projection work: exact-prefix artifact truth to admitted binding, causal installs, lock, ProductSet, and binding equality. No capability or read-member logic. | Max reviewed exact-prefix/currentness/owner equality once. |
+| `ST-2A-C` | xhigh after accepted G: migration of the existing Product `CapabilityGrant` constructor/validator and the accepted `ST-1` run-invocation consumer; no second grant type. | Max reviewed graph-to-grant authority and accepted-result conservation once. |
+| `ST-2B` | xhigh integration: one run-read kernel and three fixed packets over accepted G/E/C. | Max reviewed the kernel once; packet identity/schema/export checks were mechanical. |
 
-The Executive freezes each cut before review, integrates only accepted subjects,
-records elapsed time, token use, first-pass acceptance, rework count, and proof
-duration for xhigh-worker effectiveness, and stops a worker that crosses its
-file/authority boundary or repeats unresolved analysis without changed evidence.
+The Executive froze each cut before review, integrated only accepted subjects,
+recorded elapsed time, token use, first-pass acceptance, rework count, and proof
+duration for xhigh-worker effectiveness, and stopped a worker that crossed its
+file/authority boundary or repeated unresolved analysis without changed evidence.
 
 The explicit actor slot remains forbidden and `null`; the nested grant bearer
 is derived from `WorkspaceBinding.authorizedActorRef`. A caller/test-digested
 grant, missing or crossed graph row/dependency, wrong installed graph provenance,
 capability/definition/contract catalog, crossed workspace, Product set or lock,
 stale prefix, cross-run source, unrelated grant actor, or any read-side append
-must refuse before the ABG projection owner. The existing
-two-file `ST-2` candidate is held until this relation is implemented and
-reviewed; its structural read wiring is evidence only.
+must refuse before the ABG projection owner. The earlier two-file `ST-2`
+candidate remains held as historical evidence; its structural read wiring is
+not the accepted relation.
 
 #### `ST-3` — fresh-process reopen and replay
 
@@ -305,24 +313,23 @@ reviewed; its structural read wiring is evidence only.
 
 ### Receipt-repair prerequisite
 
-The current static `run.invoke` resource/receipt repair is retained as candidate
-prerequisite input, not as accepted implementation or thread closure. It is
-consumed directly by `ST-1`, `ST-2`, and `ST-3`, where installed binding,
-successor-prefix, and reopen receipts enter the outcome. `ST-4` consumes the
-accepted cumulative result of the prior threads rather than establishing a
-separate receipt-repair gate.
+The static `run.invoke` resource/receipt repair is accepted and integrated as
+cumulative prerequisite input. It is consumed directly by `ST-1`, `ST-2`, and
+`ST-3`, where installed binding, successor-prefix, and reopen receipts enter
+the outcome. `ST-4` consumes the accepted cumulative result of the prior
+threads rather than establishing a separate receipt-repair gate.
 
 ### Current construction sequence and supersession
 
 | Line | Exact outcome | State |
 |---|---|---|
 | `W2-01` through `W2-04` | Retained D17/D18 checkpoint `e4a9be06`, superseded prior Wave 2 plan `4b9dfabd`, comparison evidence, W2-03 owner-separated resolution, and bounded review history. | Complete history; no prior ordering is a current advancement gate |
-| `ST-1` | Verify independently packed ABIogenesis and data-only odd_glc artifacts. Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`. Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`. Product and Validator construct the eventless ready `Catalog`; Product derives the pure narrowed `View`. Then the existing production Product resolution reaches HoG, the ABI-owned `F_D` Hello callable, and an ABG-admitted typed result. | Accepted and integrated at `76edb4e0` |
-| `ST-2A` | One installed Product capability-definition graph, one canonical Product grant migration, and one ABG exact-prefix environment/run-source join plus shared run-read kernel. | In bounded design/implementation re-entry; prior two-file candidate held |
-| `ST-2B` | Same accepted `ST-1` run/result under exact-prefix status/result/replay equality using three fixed packets over the shared kernel. | Pending accepted `ST-2A` |
-| `ST-3` | Same projections after source-blind fresh-process reopen. | Pending accepted `ST-2` |
-| `ST-4` | One installed CLI episode ignites a fresh owner-issued run and yields the same typed user-result meaning. | Pending accepted `ST-3`; usable MVP exit |
-| post-MVP | Complete remaining 56-key constructability, held contract closure, negatives, broader qualification, and final 5.0 obligations. | Pending `ST-4` |
+| `ST-1` | Verify independently packed ABIogenesis and data-only odd_glc artifacts. Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`. Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`. Product and Validator construct the eventless ready `Catalog`; Product derives the pure narrowed `View`. Then the existing production Product resolution reaches HoG, the ABI-owned `F_D` Hello callable, and an ABG-admitted typed result. | Accepted and integrated cumulatively |
+| `ST-2A` | One installed Product capability-definition graph, one canonical Product grant migration, and one ABG exact-prefix environment/run-source join plus shared run-read kernel. | Accepted and integrated cumulatively |
+| `ST-2B` | Same accepted `ST-1` run/result under exact-prefix status/result/replay equality using three fixed packets over the shared kernel. | Accepted and integrated cumulatively |
+| `ST-3` | Same projections after source-blind fresh-process reopen. | Accepted and integrated cumulatively |
+| `ST-4` | One independently installed CLI episode uses exactly one fresh `run.invoke#start`, then chains `run_status`, `run_result`, and `run_replay` through exact owner handoffs and the accepted generic `DefinitionCall` transport, preserving typed Hello meaning, fresh-process equality, and zero-byte read-side writes. | Accepted and integrated cumulatively; usable development MVP exit, not ABIogenesis 5.0 completion or release |
+| post-MVP | Complete remaining 56-key constructability, held contract closure, negatives, broader qualification, and final 5.0 obligations. | Pending and `UNSELECTED`; no next increment or restored 56-key implementation queue selected |
 
 This sequence supersedes the prior active `W2-05` through `W2-08` ordering and
 all current text that required whole-family packed loadability before the first
@@ -435,8 +442,8 @@ Every Wave 2 worker handoff and review starts from this frame:
 
 ```text
 Product: fixed ABIogenesis 5.0 scope; Wave 1 complete
-Wave 2 selection: cumulative sunny-day ST-1 -> ST-4; ST-1 accepted at
-  76edb4e0; current entry ST-2A under ST-2
+Wave 2 MVP: cumulative sunny-day ST-1 -> ST-4 accepted and integrated at
+  a2d62e674f36d76d56d32f7e020eea4e7cfde763; post-MVP Wave 2 is UNSELECTED
 odd_glc authority: one immutable GTL Program publication as data, including
   odd_glc-owned GraphFunction topology and required declarative dependencies;
   no executable provider, evaluator, implementation binding, leaf, or interpreter
@@ -546,7 +553,7 @@ GTL.TypeScript
 | Wave | Feature families | Exit | State |
 |---:|---|---|---|
 | W1 | A5-F10, A5-F02, A5-F03, A5-F04 | One event-authoritative installed runtime kernel | Accepted; integrated M5 deferred |
-| W2 | Bounded A5-F01/A5-F09/A5-F05/A5-F06 plus one early A5-F17 consumer path | `ST-1` through `ST-4` cumulatively verify independently packed artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then the `WorkspaceBindingCandidate`, and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`; the existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and an ABG-admitted typed result before exact-prefix observation, fresh-process replay, and one installed CLI episode; post-MVP work closes remaining constructability, held contract closure, negatives, and broader qualification | `ST-1` accepted at `76edb4e0`; active at bounded `ST-2A`; `ST-4` is the usable development MVP, not Wave 2 completion |
+| W2 | Bounded A5-F01/A5-F09/A5-F05/A5-F06 plus one early A5-F17 consumer path | `ST-1` through `ST-4` cumulatively verify independently packed artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then the `WorkspaceBindingCandidate`, and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`; the existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and an ABG-admitted typed result before exact-prefix observation, fresh-process replay, and one installed CLI episode; post-MVP work closes remaining constructability, held contract closure, negatives, and broader qualification | `ST-1`, `ST-2A`, `ST-2B`, `ST-3`, and `ST-4` accepted and integrated cumulatively at `a2d62e674f36d76d56d32f7e020eea4e7cfde763`, tree `1af1f5e31acd2f8292550314ad8907c3c6c2ff68`; post-MVP Wave 2 pending and `UNSELECTED`; no Wave 2, 5.0, or release completion claimed |
 | W3 | A5-F14, A5-F07, A5-F08 | Packed Hello World, probabilistic proof, One Surface, and Consensus on the same path | Pending W2 |
 | W4 | A5-F13, A5-F17, A5-F11 | Native/host projections, downstream Product, and self-conformance | Pending W3 |
 | W5 | A5-F15, A5-F16 | Qualified immutable 5.0 release | Pending W4 |
