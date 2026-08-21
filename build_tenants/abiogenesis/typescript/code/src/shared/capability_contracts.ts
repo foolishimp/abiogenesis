@@ -151,7 +151,7 @@ export interface CapabilityDefinitionGraph {
   readonly graphId: typeof CAPABILITY_DEFINITION_GRAPH_ID;
   readonly graphVersion: typeof CAPABILITY_DEFINITION_GRAPH_VERSION;
   readonly graphDigest: Sha256Digest;
-  readonly rows: readonly [CapabilityDefinitionGraphRow, ...CapabilityDefinitionGraphRow[]];
+  readonly rows: readonly CapabilityDefinitionGraphRow[];
 }
 
 export interface CapabilityDefinitionGraphCoordinate {
@@ -185,7 +185,7 @@ export const capabilityDefinitionGraphSchema = v.strictObject({
   graphId: v.literal(CAPABILITY_DEFINITION_GRAPH_ID),
   graphVersion: v.literal(CAPABILITY_DEFINITION_GRAPH_VERSION),
   graphDigest: digestSchema,
-  rows: v.pipe(v.array(graphRowSchema), v.minLength(1)),
+  rows: v.array(graphRowSchema),
 });
 
 function rowDefinitionBody(row: CapabilityDefinitionGraphRow): JsonValue {
@@ -240,6 +240,19 @@ export function constructCapabilityDefinitionGraph(
         deepFreeze(admittedCoordinate),
       ]);
     }
+  }
+  if (publicContractCoordinates.length === 0) {
+    const body = deepFreeze({
+      kind: "abg_capability_definition_graph" as const,
+      schemaVersion: "5.0.0" as const,
+      graphId: CAPABILITY_DEFINITION_GRAPH_ID,
+      graphVersion: CAPABILITY_DEFINITION_GRAPH_VERSION,
+      rows: [] as readonly CapabilityDefinitionGraphRow[],
+    });
+    return deepFreeze({
+      ...body,
+      graphDigest: sha256Canonical(body as unknown as JsonValue),
+    });
   }
   for (const [key, coordinates] of definitionSlots) {
     const operationId = key.slice(0, key.indexOf("\0"));
@@ -360,10 +373,7 @@ export function constructCapabilityDefinitionGraph(
     built.set(capabilityId, row);
     return row;
   };
-  const rows = [...definitions.keys()].sort(compareUnicodeCodeUnits).map(buildRow) as [
-    CapabilityDefinitionGraphRow,
-    ...CapabilityDefinitionGraphRow[],
-  ];
+  const rows = [...definitions.keys()].sort(compareUnicodeCodeUnits).map(buildRow);
   const body = deepFreeze({
     kind: "abg_capability_definition_graph" as const,
     schemaVersion: "5.0.0" as const,

@@ -52,6 +52,25 @@ function rehashGraph(graph, rows) {
   };
 }
 
+test("ST-2A-G admits one deterministic frozen zero-row graph", () => {
+  const graph = product.constructCapabilityDefinitionGraph([]);
+  const repeated = product.constructCapabilityDefinitionGraph([]);
+
+  assert.deepEqual(graph, repeated);
+  assert.equal(Object.isFrozen(graph), true);
+  assert.equal(Object.isFrozen(graph.rows), true);
+  assert.deepEqual(graph.rows, []);
+  assert.equal(product.isCapabilityDefinitionGraph(graph), true);
+  assert.equal(
+    graph.graphDigest,
+    product.capabilityDefinitionGraphDigest(graph),
+  );
+  assert.equal(
+    new TextDecoder().decode(product.capabilityDefinitionGraphAssetBytes(graph)),
+    product.canonicalJson(graph),
+  );
+});
+
 test("ST-2A-G publishes one exact immutable capability graph", async () => {
   const [graphBytes, manifestBytes] = await Promise.all([
     readFile(graphPath),
@@ -72,6 +91,10 @@ test("ST-2A-G publishes one exact immutable capability graph", async () => {
   assert.equal(graph.graphId, product.CAPABILITY_DEFINITION_GRAPH_ID);
   assert.equal(graph.graphVersion, product.CAPABILITY_DEFINITION_GRAPH_VERSION);
   assert.equal(graph.rows.length, 16);
+  assert.deepEqual(
+    product.constructCapabilityDefinitionGraph(uniqueOwnerCoordinates(graph)),
+    graph,
+  );
   assert.deepEqual(
     graph.rows.map(({ capabilityId }) => capabilityId).sort(),
     [...product.MANDATORY_ABI5_CAPABILITY_IDS].sort(),
@@ -333,6 +356,9 @@ test("ST-2A-G rejects crossed catalog coordinates, selectors, dependencies, and 
   crossedContribution.contributionManifest.capabilityDefinitionGraph.graphDigest =
     crossedDigest;
   assert.equal(parseProductManifest(crossedContribution), null);
+  const missingGraph = structuredClone(manifest);
+  delete missingGraph.capabilityDefinitionGraph;
+  assert.equal(parseProductManifest(missingGraph), null);
 
   const nativeContractWithoutProjection = structuredClone(
     manifest.publicContractCatalog.rows.find(
@@ -406,6 +432,18 @@ test("ST-2A-G conserves the graph through packed verification, lock, install, an
       product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
     ), "utf8")),
     graph,
+  );
+  const emptyGraphMismatch = structuredClone(verified);
+  emptyGraphMismatch.capabilityDefinitionGraph =
+    product.constructCapabilityDefinitionGraph([]);
+  emptyGraphMismatch.capabilityDefinitionGraphAsset.contentDigest =
+    product.sha256Bytes(product.capabilityDefinitionGraphAssetBytes(
+      emptyGraphMismatch.capabilityDefinitionGraph,
+    ));
+  assert.equal(
+    product.isVerifiedProductArtifact(emptyGraphMismatch),
+    false,
+    "declared ABI capabilities cannot be paired with an empty graph",
   );
   const crossedInstall = structuredClone(installCandidate);
   crossedInstall.capabilityDefinitionGraph.rows[0].owningPublicContracts[0]

@@ -121,7 +121,7 @@ export async function prepareOddGlcDataProduct({
   const sourceRoot = join(scratch, "odd-glc-data-product-source");
   await rm(sourceRoot, { force: true, recursive: true });
   await mkdir(join(sourceRoot, "build"), { recursive: true });
-  await mkdir(join(sourceRoot, "contracts"), { recursive: true });
+  await mkdir(join(sourceRoot, "contracts/capabilities"), { recursive: true });
   const packageJson = {
     name: packageName,
     version: packageVersion,
@@ -148,6 +148,16 @@ export async function prepareOddGlcDataProduct({
     `${product.canonicalJson(catalogSchema)}\n`,
     "utf8",
   );
+  const capabilityDefinitionGraph =
+    product.constructCapabilityDefinitionGraph([]);
+  const capabilityDefinitionGraphBytes =
+    product.capabilityDefinitionGraphAssetBytes(capabilityDefinitionGraph);
+  await writeFile(
+    join(sourceRoot, product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH),
+    capabilityDefinitionGraphBytes,
+  );
+  const capabilityDefinitionGraphCoordinate =
+    product.capabilityDefinitionGraphCoordinate(capabilityDefinitionGraph);
   const productRelativeLocators = [
     "contracts/public-contract-catalog.schema.json",
     "build/publication.json",
@@ -208,6 +218,7 @@ export async function prepareOddGlcDataProduct({
     productContentDigest,
     publicContractCatalogId: publicContractCatalog.catalogId,
     publicContractCatalogDigest: publicContractCatalog.catalogDigest,
+    capabilityDefinitionGraph: capabilityDefinitionGraphCoordinate,
     publicationBindings: [{
       moduleRef,
       publicationDigest: product.modulePublicationSemanticDigest(
@@ -255,7 +266,16 @@ export async function prepareOddGlcDataProduct({
       ],
     }],
     provenanceRef,
-    declaredCapabilityRefs: ["odd-glc.capability.gtl.hello@5"],
+    declaredCapabilityRefs: [],
+    capabilityDefinitionGraph: {
+      ...capabilityDefinitionGraphCoordinate,
+      assetLocator: {
+        path: product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
+        mediaType: "application/json",
+        schemaVersion: "5.0.0",
+        contentDigest: product.sha256Bytes(capabilityDefinitionGraphBytes),
+      },
+    },
     publicContractCatalog,
   };
   await writeFile(
