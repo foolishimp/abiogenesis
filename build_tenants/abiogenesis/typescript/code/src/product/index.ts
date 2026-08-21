@@ -41,6 +41,7 @@ export {
   capabilityDefinitionGraphAssetBytes,
   capabilityDefinitionGraphCoordinate,
   capabilityDefinitionGraphDigest,
+  capabilityRefsForDefinition,
   capabilityRefsForContract,
   constructCapabilityDefinitionGraph,
   isCapabilityDefinitionGraph,

@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import {
   contractBoundValueSchema,
@@ -98,7 +98,7 @@ function runMetadata(member: "invoke" | "start") {
       "actor",
       "transport_steering",
     ],
-    capabilityRefs: capabilityRefsForContract("abg.operation.run.invoke"),
+    capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.run.invoke", memberKey: member }),
     defaults: member === "start"
       ? { fhMode: "direct", rootMode: "supervised" }
       : {},
@@ -255,7 +255,7 @@ function continueContract<const TMember extends
         "transport_steering",
         "execution_basis",
       ],
-      capabilityRefs: capabilityRefsForContract("abg.operation.run.continue"),
+      capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.run.continue", memberKey: member }),
       defaults: {},
       closedDomains: { continuationKind: [member] },
       sdkCoordinate: "sdk.run.continue",

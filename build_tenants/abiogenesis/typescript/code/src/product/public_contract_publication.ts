@@ -245,9 +245,7 @@ export function derivePublicCatalogRowProposals(
         owningProduct: productId,
         requirementAuthorityRefs:
           PUBLIC_FUNCTION_DEFINITION_FAMILY.requirementAuthorityRefs,
-        capabilityIdentities: Object.freeze([
-          ...new Set(definitions.flatMap(({ capabilityRefs }) => capabilityRefs)),
-        ].sort(compareUnicodeCodeUnits)),
+        capabilityIdentities: capabilityRefsForContract(operationId),
         nativeTypedLocator: exactNativeLocator(
           packageName,
           closure,

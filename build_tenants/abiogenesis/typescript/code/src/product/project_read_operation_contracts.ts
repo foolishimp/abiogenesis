@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import {
   type ExactOwnerOperationPort,
@@ -187,7 +187,10 @@ function productReadContract<
           ...(input.catalogRefusals ? ["catalog_scope" as const] : []),
         ]
         : ["capability_grants"],
-      capabilityRefs: capabilityRefsForContract("abg.operation.project.read"),
+      capabilityRefs: capabilityRefsForDefinition({
+        operationId: "abg.operation.project.read",
+        memberKey: input.caseKey,
+      }),
       defaults: {},
       closedDomains: {
         caseKey: [input.caseKey],

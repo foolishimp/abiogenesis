@@ -728,8 +728,7 @@ function lockRowGraphMatchesCatalog(row: ResolvedProductLockRow): boolean {
       catalogVersion: "5.0.0" as const,
       catalogDigest: row.catalogDigest,
     };
-    const expected = constructCapabilityDefinitionGraph(
-      row.publicContracts.map((contract) => ({
+    const flatCoordinates = row.publicContracts.map((contract) => ({
         contractCatalog,
         flatRow: {
           contractId: contract.contractId,
@@ -742,8 +741,22 @@ function lockRowGraphMatchesCatalog(row: ResolvedProductLockRow): boolean {
           slot: null,
           definitionRef: null,
         },
-      })),
-    );
+      }));
+    const nestedCoordinates = [...new Map(
+      row.capabilityDefinitionGraph.rows
+        .flatMap(({ owningPublicContracts }) => owningPublicContracts)
+        .filter(({ nestedSelector }) =>
+          nestedSelector.selectorKind === "operation_definition_slot"
+        )
+        .map((coordinate) => [
+          canonicalJson(coordinate as unknown as JsonValue),
+          coordinate,
+        ]),
+    ).values()];
+    const expected = constructCapabilityDefinitionGraph([
+      ...flatCoordinates,
+      ...nestedCoordinates,
+    ]);
     return canonicalJson(expected as unknown as JsonValue) ===
       canonicalJson(row.capabilityDefinitionGraph as unknown as JsonValue);
   } catch {

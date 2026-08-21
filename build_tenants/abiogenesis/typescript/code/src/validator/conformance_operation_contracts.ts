@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import {
   type ExactOwnerOperationPort,
@@ -79,9 +79,10 @@ const gtlProgram = ownerContractPacket(
       "dependency_lock",
       "actor",
     ],
-    capabilityRefs: capabilityRefsForContract(
-      "abg.operation.conformance.evaluate",
-    ),
+    capabilityRefs: capabilityRefsForDefinition({
+      operationId: "abg.operation.conformance.evaluate",
+      memberKey: "gtl_program",
+    }),
     defaults: {},
     closedDomains: {
       inventoryBasisKind: ["program_only", "declared_inventory"],

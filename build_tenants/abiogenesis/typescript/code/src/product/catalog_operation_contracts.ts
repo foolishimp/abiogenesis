@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import {
   admitRuntimeContract,
@@ -220,7 +220,7 @@ const admit = ownerContractPacket(
       "dependency_lock",
       "actor",
     ],
-    capabilityRefs: capabilityRefsForContract("abg.operation.catalog.admit"),
+    capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.catalog.admit", memberKey: "admit" }),
     defaults: {},
     closedDomains: {
       rowDisposition: [
@@ -278,7 +278,7 @@ const allowlist = ownerContractPacket(
       "dependency_lock",
       "actor",
     ],
-    capabilityRefs: capabilityRefsForContract("abg.operation.catalog.view"),
+    capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.catalog.view", memberKey: "allowlist" }),
     defaults: {},
     closedDomains: {},
     sdkCoordinate: "sdk.catalog.view",
@@ -350,7 +350,7 @@ function applyContract<const TKind extends "node_type" | "overlay">(
         "catalog_scope",
         "actor",
       ],
-      capabilityRefs: capabilityRefsForContract("abg.operation.catalog.apply"),
+      capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.catalog.apply", memberKey: applicationKind }),
       defaults: {},
       closedDomains: { applicationKind: [applicationKind] },
       sdkCoordinate: "sdk.catalog.apply",

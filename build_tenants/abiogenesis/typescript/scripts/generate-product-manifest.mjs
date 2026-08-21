@@ -32,6 +32,9 @@ import {
   sha256File,
 } from "../build/code/src/product/index.js";
 import {
+  PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
+} from "../build/code/src/shared/public_function_family.js";
+import {
   resolveNativeDeclarationClosures,
 } from "../build/code/src/product/declaration_exports.js";
 import {
@@ -823,21 +826,52 @@ const finalCatalogCoordinate = {
   catalogVersion: publicContractCatalog.catalogVersion,
   catalogDigest: publicContractCatalog.catalogDigest,
 };
+const flatCatalogCoordinates = rows.map((row) => ({
+  contractCatalog: finalCatalogCoordinate,
+  flatRow: {
+    contractId: row.contractId,
+    contractVersion: row.contractVersion,
+    contractDigest: row.contractDigest,
+  },
+  nestedSelector: {
+    selectorKind: "flat_contract",
+    definitionKey: null,
+    slot: null,
+    definitionRef: null,
+  },
+}));
+const flatCatalogCoordinatesById = new Map(
+  flatCatalogCoordinates.map((coordinate) => [
+    coordinate.flatRow.contractId,
+    coordinate,
+  ]),
+);
+const operationDefinitionSlotCoordinates =
+  PUBLIC_OPERATION_CONTRACT_PROJECTIONS.flatMap((projection) => {
+    const flat = flatCatalogCoordinatesById.get(projection.operationId);
+    if (flat === undefined) {
+      throw new Error(`missing operation catalog row ${projection.operationId}`);
+    }
+    return projection.definitions.flatMap((definition) => [
+      ["request", definition.requestContract],
+      ["result", definition.resultContract],
+      ["refusal", definition.refusalContract],
+      ...(definition.nonTerminalContract === null
+        ? []
+        : [["non_terminal", definition.nonTerminalContract]]),
+    ].map(([slot, identity]) => ({
+      contractCatalog: flat.contractCatalog,
+      flatRow: flat.flatRow,
+      nestedSelector: {
+        selectorKind: "operation_definition_slot",
+        definitionKey: definition.definitionKey,
+        slot,
+        definitionRef: identity.definitionRef,
+      },
+    })));
+  });
 const capabilityDefinitionGraph = constructCapabilityDefinitionGraph(
-  rows.map((row) => ({
-    contractCatalog: finalCatalogCoordinate,
-    flatRow: {
-      contractId: row.contractId,
-      contractVersion: row.contractVersion,
-      contractDigest: row.contractDigest,
-    },
-    nestedSelector: {
-      selectorKind: "flat_contract",
-      definitionKey: null,
-      slot: null,
-      definitionRef: null,
-    },
-  })),
+  [...flatCatalogCoordinates, ...operationDefinitionSlotCoordinates],
 );
 const capabilityDefinitionGraphBytes = capabilityDefinitionGraphAssetBytes(
   capabilityDefinitionGraph,

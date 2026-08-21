@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import {
   type ExactOwnerOperationPort,
@@ -57,9 +57,10 @@ function materializationMetadata(
       "dependency_lock",
       "actor",
     ],
-    capabilityRefs: capabilityRefsForContract(
-      "abg.operation.product.materialize",
-    ),
+    capabilityRefs: capabilityRefsForDefinition({
+      operationId: "abg.operation.product.materialize",
+      memberKey: materializationKind,
+    }),
     defaults: {},
     closedDomains: { materializationKind: [materializationKind] },
     sdkCoordinate: "sdk.product.materialize",

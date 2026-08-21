@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import {
   absolutePathSchema,
@@ -36,9 +36,10 @@ function workspaceCreateMetadata(createPolicy: "clean" | "imported") {
     actorRequirement: "required",
     workspaceBindingRequirement: "forbidden",
     authoritySlotRequirements: ["capability_grants", "actor"],
-    capabilityRefs: capabilityRefsForContract(
-      "abg.operation.workspace.create",
-    ),
+    capabilityRefs: capabilityRefsForDefinition({
+      operationId: "abg.operation.workspace.create",
+      memberKey: createPolicy,
+    }),
     defaults: {},
     closedDomains: { createPolicy: [createPolicy] },
     sdkCoordinate: "sdk.workspace.create",
@@ -139,9 +140,10 @@ const open = ownerContractPacket(
     actorRequirement: "forbidden",
     workspaceBindingRequirement: "forbidden",
     authoritySlotRequirements: ["capability_grants"],
-    capabilityRefs: capabilityRefsForContract(
-      "abg.operation.workspace.open",
-    ),
+    capabilityRefs: capabilityRefsForDefinition({
+      operationId: "abg.operation.workspace.open",
+      memberKey: "open",
+    }),
     defaults: {},
     closedDomains: {
       disposition: ["ready", "unbound", "stale", "malformed", "incompatible"],

@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import type {
   CanonicalCheckerTargetIdentity,
@@ -406,7 +406,7 @@ const resolve = ownerContractPacket(
       "capability_grants",
       "verification_references",
     ],
-    capabilityRefs: capabilityRefsForContract("abg.operation.product.resolve"),
+    capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.product.resolve", memberKey: "resolve" }),
     defaults: {},
     closedDomains: {},
     sdkCoordinate: "sdk.product.resolve",
@@ -471,7 +471,7 @@ const bind = ownerContractPacket(
       "dependency_lock",
       "actor",
     ],
-    capabilityRefs: capabilityRefsForContract("abg.operation.workspace.bind"),
+    capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.workspace.bind", memberKey: "bind" }),
     defaults: {},
     closedDomains: {
       rootKind: [

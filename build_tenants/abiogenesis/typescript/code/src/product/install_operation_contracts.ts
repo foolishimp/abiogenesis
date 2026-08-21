@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import {
   absolutePathSchema,
@@ -66,7 +66,7 @@ const install = ownerContractPacket(
       "verification_references",
       "actor",
     ],
-    capabilityRefs: capabilityRefsForContract("abg.operation.product.install"),
+    capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.product.install", memberKey: "install" }),
     defaults: {},
     closedDomains: {
       installPolicy: ["clean", "idempotent"],

@@ -1,6 +1,6 @@
 import * as v from "valibot";
 
-import { capabilityRefsForContract } from "../shared/capability_contracts.js";
+import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import {
   completeDefinitionContractCoordinateMapSchema,
@@ -126,7 +126,7 @@ const verify = ownerContractPacket(
         ["installed_artifact"],
       ),
     ],
-    capabilityRefs: capabilityRefsForContract("abg.operation.product.verify"),
+    capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.product.verify", memberKey: "verify" }),
     defaults: {},
     closedDomains: {
       targetKind: ["packed_artifact", "installed_artifact"],

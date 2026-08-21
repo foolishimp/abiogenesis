@@ -65,6 +65,10 @@ test("ST-2A-G publishes one exact immutable capability graph", async () => {
   assert.equal(Object.isFrozen(
     product.capabilityRefsForContract("abg.operation.run.invoke"),
   ), true);
+  assert.equal(Object.isFrozen(product.capabilityRefsForDefinition({
+    operationId: "abg.operation.catalog.apply",
+    memberKey: "node_type",
+  })), true);
   assert.equal(graph.graphId, product.CAPABILITY_DEFINITION_GRAPH_ID);
   assert.equal(graph.graphVersion, product.CAPABILITY_DEFINITION_GRAPH_VERSION);
   assert.equal(graph.rows.length, 16);
@@ -114,7 +118,6 @@ test("ST-2A-G publishes one exact immutable capability graph", async () => {
         "flatRow",
         "nestedSelector",
       ]);
-      assert.equal(owner.nestedSelector.selectorKind, "flat_contract");
       assert.equal(
         owner.contractCatalog.catalogDigest,
         manifest.publicContractCatalog.catalogDigest,
@@ -132,6 +135,12 @@ test("ST-2A-G publishes one exact immutable capability graph", async () => {
         contractVersion: catalogRow.contractVersion,
         contractDigest: catalogRow.contractDigest,
       });
+      if (owner.nestedSelector.selectorKind === "operation_definition_slot") {
+        assert.equal(
+          owner.nestedSelector.definitionKey.operationId,
+          owner.flatRow.contractId,
+        );
+      }
     }
     for (const dependency of row.dependentCapabilities) {
       const target = graph.rows.find(
@@ -159,9 +168,70 @@ test("ST-2A-G publishes one exact immutable capability graph", async () => {
       assert.equal(Object.isFrozen(capabilityProjection.value), true);
       assert.deepEqual(
         capabilityProjection.value,
-        product.capabilityRefsForContract(projection.operationId),
+        product.capabilityRefsForDefinition(capabilityProjection.definitionKey),
       );
     }
+  }
+  assert.deepEqual(product.capabilityRefsForDefinition({
+    operationId: "abg.operation.catalog.apply",
+    memberKey: "node_type",
+  }), ["abg.capability.catalog.apply-node-type@5"]);
+  assert.deepEqual(product.capabilityRefsForDefinition({
+    operationId: "abg.operation.catalog.apply",
+    memberKey: "overlay",
+  }), ["abg.capability.catalog.apply-overlay@5"]);
+
+  const projectReadExpected = {
+    assessment_evidence: "abg.capability.runtime.admit-fp-result@5",
+    c_call_replay: "abg.capability.runtime.replay-continuation@5",
+    catalog_describe: "abg.capability.operator.public-contract@5",
+    catalog_list: "abg.capability.operator.public-contract@5",
+    continuation_replay: "abg.capability.runtime.replay-continuation@5",
+    graph_call_evidence: "abg.capability.runtime.replay-continuation@5",
+    graph_call_replay: "abg.capability.runtime.replay-continuation@5",
+    graph_call_result: "abg.capability.runtime.replay-continuation@5",
+    graph_call_status: "abg.capability.runtime.replay-continuation@5",
+    install_evidence: "abg.capability.install.bind-products@5",
+    interaction_replay: "abg.capability.runtime.replay-continuation@5",
+    release_evidence: "abg.capability.operator.public-contract@5",
+    result_evidence: "abg.capability.runtime.replay-continuation@5",
+    run_evidence: "abg.capability.runtime.replay-continuation@5",
+    run_gaps: "abg.capability.runtime.replay-continuation@5",
+    run_lawful_actions: "abg.capability.runtime.replay-continuation@5",
+    run_replay: "abg.capability.runtime.replay-continuation@5",
+    run_result: "abg.capability.runtime.replay-continuation@5",
+    run_status: "abg.capability.runtime.replay-continuation@5",
+    ticket_consensus: "abg.capability.operator.public-contract@5",
+    witness_evidence: "abg.capability.operator.public-contract@5",
+    workspace_gaps: "abg.capability.operator.public-contract@5",
+    workspace_replay: "abg.capability.runtime.replay-continuation@5",
+    workspace_status: "abg.capability.operator.public-contract@5",
+  };
+  for (const [memberKey, capabilityId] of Object.entries(projectReadExpected)) {
+    assert.deepEqual(product.capabilityRefsForDefinition({
+      operationId: "abg.operation.project.read",
+      memberKey,
+    }), [capabilityId], memberKey);
+  }
+  for (const registerRow of product.DS1_CAPABILITY_CONTRACT_REGISTER) {
+    const graphRow = graph.rows.find(
+      ({ capabilityId }) => capabilityId === registerRow.capabilityId,
+    );
+    assert.ok(graphRow);
+    const actualDefinitionKeys = [...new Map(graphRow.owningPublicContracts
+      .filter(({ nestedSelector }) =>
+        nestedSelector.selectorKind === "operation_definition_slot"
+      )
+      .map(({ nestedSelector }) => [
+        `${nestedSelector.definitionKey.operationId}\0${nestedSelector.definitionKey.memberKey}`,
+        nestedSelector.definitionKey,
+      ])).values()];
+    assert.deepEqual(
+      actualDefinitionKeys.map((key) => `${key.operationId}\0${key.memberKey}`).sort(),
+      registerRow.owningPublicDefinitionKeys
+        .map((key) => `${key.operationId}\0${key.memberKey}`).sort(),
+      registerRow.capabilityId,
+    );
   }
   for (const row of manifest.publicContractCatalog.rows) {
     assert.ok(
@@ -179,7 +249,10 @@ test("ST-2A-G rejects crossed catalog coordinates, selectors, dependencies, and 
   const graph = JSON.parse(await readFile(graphPath, "utf8"));
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
   const ownerCoordinates = uniqueOwnerCoordinates(graph);
-  const selected = ownerCoordinates[0];
+  const selected = ownerCoordinates.find(({ nestedSelector }) =>
+    nestedSelector.selectorKind === "operation_definition_slot"
+  );
+  assert.ok(selected);
 
   const crossedCatalog = structuredClone(selected);
   crossedCatalog.contractCatalog.catalogDigest = crossedDigest;
@@ -188,27 +261,44 @@ test("ST-2A-G rejects crossed catalog coordinates, selectors, dependencies, and 
       ...ownerCoordinates,
       crossedCatalog,
     ]),
-    /duplicate graph owner contract/u,
+    /crossed operation definition catalog/u,
   );
 
-  const crossedSelector = structuredClone(selected);
-  crossedSelector.nestedSelector = {
-    selectorKind: "operation_definition_slot",
-    definitionKey: {
-      operationId: selected.flatRow.contractId,
-      memberKey: "crossed-owner",
-    },
-    slot: "request",
-    definitionRef: "#/definitions/0/requestContract",
-  };
+  const crossedMember = structuredClone(selected);
+  crossedMember.nestedSelector.definitionKey.memberKey = "crossed-owner";
   assert.throws(
     () => product.constructCapabilityDefinitionGraph([
       ...ownerCoordinates.filter((coordinate) =>
         product.canonicalJson(coordinate) !== product.canonicalJson(selected)
       ),
-      crossedSelector,
+      crossedMember,
     ]),
-    /missing graph owner contract/u,
+    /incomplete operation definition slots|missing graph owner definition/u,
+  );
+
+  const crossedSlot = structuredClone(selected);
+  crossedSlot.nestedSelector.slot = "result";
+  assert.throws(
+    () => product.constructCapabilityDefinitionGraph([
+      ...ownerCoordinates.filter((coordinate) =>
+        product.canonicalJson(coordinate) !== product.canonicalJson(selected)
+      ),
+      crossedSlot,
+    ]),
+    /crossed operation definition ref|duplicate operation definition slot/u,
+  );
+
+  const crossedRef = structuredClone(selected);
+  crossedRef.nestedSelector.definitionRef =
+    "#/definitions/999/requestContract/identity";
+  assert.throws(
+    () => product.constructCapabilityDefinitionGraph([
+      ...ownerCoordinates.filter((coordinate) =>
+        product.canonicalJson(coordinate) !== product.canonicalJson(selected)
+      ),
+      crossedRef,
+    ]),
+    /crossed operation definition ref|incomplete operation definition slots/u,
   );
 
   const consensusIndex = graph.rows.findIndex(
