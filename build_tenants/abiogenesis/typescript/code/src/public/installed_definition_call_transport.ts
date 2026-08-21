@@ -81,18 +81,43 @@ function hasExactKeys(
     actual.every((key, index) => key === sortedExpected[index]);
 }
 
+function hasOwnDataProperty(
+  value: Readonly<Record<string, unknown>>,
+  property: string,
+): boolean {
+  const descriptor = Object.getOwnPropertyDescriptor(value, property);
+  return descriptor !== undefined && Object.hasOwn(descriptor, "value");
+}
+
 export function isInstalledDefinitionCallCandidate(
   value: unknown,
 ): value is AnyDefinitionCall {
-  if (!isRecord(value) || !hasExactKeys(value, ["invocation", "resources"])) {
+  if (
+    !isRecord(value) ||
+    !hasExactKeys(value, ["invocation", "resources"]) ||
+    !hasOwnDataProperty(value, "invocation") ||
+    !hasOwnDataProperty(value, "resources")
+  ) {
     return false;
   }
   const invocation = value.invocation;
-  return isRecord(invocation) &&
+  const resources = value.resources;
+  if (
+    !isRecord(invocation) ||
+    !hasOwnDataProperty(invocation, "kind") ||
+    !hasOwnDataProperty(invocation, "definitionKey") ||
+    !isRecord(resources) ||
+    !hasOwnDataProperty(resources, "eventResource")
+  ) {
+    return false;
+  }
+  const definitionKey = invocation.definitionKey;
+  return isRecord(definitionKey) &&
+    hasOwnDataProperty(definitionKey, "operationId") &&
+    hasOwnDataProperty(definitionKey, "memberKey") &&
     invocation.kind === "public_invocation" &&
-    isRecord(invocation.definitionKey) &&
-    typeof invocation.definitionKey.operationId === "string" &&
-    typeof invocation.definitionKey.memberKey === "string";
+    typeof definitionKey.operationId === "string" &&
+    typeof definitionKey.memberKey === "string";
 }
 
 function refusal(
@@ -121,10 +146,12 @@ function acquisitionMatches(
   acquisition: InstalledDefinitionCallAcquisition,
   call: AnyDefinitionCall,
 ): boolean {
-  if (!isRecord(call.resources) || !isRecord(call.resources.eventResource)) {
+  const resources = call.resources;
+  if (!isRecord(resources)) {
     return false;
   }
-  const eventResource = call.resources.eventResource;
+  const eventResource = resources.eventResource;
+  if (!isRecord(eventResource)) return false;
   return acquisition.kind === "new"
     ? eventResource.kind === "new_abg_event_resource" &&
       eventResource.eventLogPath === acquisition.eventLogPath
@@ -156,9 +183,15 @@ function selectedCallable(
   const installedModule = INSTALLED_OWNER_MODULES[
     locator.packageExportPath as InstalledModulePath
   ];
+  if (!Object.hasOwn(installedModule, locator.namedExport)) {
+    return refusal(
+      "installed_binding_unavailable",
+      "manifest-bound installed definition export is unavailable",
+    );
+  }
   let selected: unknown = installedModule[locator.namedExport];
   for (const member of locator.memberPath) {
-    if (!isRecord(selected)) {
+    if (!isRecord(selected) || !Object.hasOwn(selected, member)) {
       return refusal(
         "installed_binding_unavailable",
         "manifest-bound installed definition member is unavailable",
@@ -178,21 +211,30 @@ export async function runInstalledDefinitionCallTransport(
   acquisition: InstalledDefinitionCallAcquisition,
   candidate: unknown,
 ): Promise<InstalledDefinitionCallTransportOutcome> {
-  if (!isInstalledDefinitionCallCandidate(candidate)) {
+  let snapshot: unknown;
+  try {
+    snapshot = structuredClone(candidate);
+  } catch {
     return refusal(
       "invalid_definition_call",
       "transport input is not one canonical DefinitionCall",
     );
   }
-  if (!acquisitionMatches(acquisition, candidate)) {
+  if (!isInstalledDefinitionCallCandidate(snapshot)) {
+    return refusal(
+      "invalid_definition_call",
+      "transport input is not one canonical DefinitionCall",
+    );
+  }
+  if (!acquisitionMatches(acquisition, snapshot)) {
     return refusal(
       "acquisition_mismatch",
       "top-level acquisition differs from the DefinitionCall event resource",
     );
   }
-  const callable = selectedCallable(candidate);
+  const callable = selectedCallable(snapshot);
   if (typeof callable !== "function") return callable;
-  const receipt = await runExactDefinition(candidate, callable(candidate));
+  const receipt = await runExactDefinition(snapshot, callable(snapshot));
   return Object.freeze({
     kind: "installed_definition_call_transport_result" as const,
     schemaVersion: "5.0.0" as const,
