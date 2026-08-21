@@ -89,6 +89,26 @@ function hasOwnDataProperty(
   return descriptor !== undefined && Object.hasOwn(descriptor, "value");
 }
 
+function isInstalledDefinitionCallAcquisition(
+  value: unknown,
+): value is InstalledDefinitionCallAcquisition {
+  if (
+    !isRecord(value) ||
+    !hasOwnDataProperty(value, "kind")
+  ) {
+    return false;
+  }
+  if (value.kind === "new") {
+    return hasExactKeys(value, ["kind", "eventLogPath"]) &&
+      hasOwnDataProperty(value, "eventLogPath") &&
+      typeof value.eventLogPath === "string";
+  }
+  return value.kind === "reopen" &&
+    hasExactKeys(value, ["kind", "closeHandoff"]) &&
+    hasOwnDataProperty(value, "closeHandoff") &&
+    isRecord(value.closeHandoff);
+}
+
 export function isInstalledDefinitionCallCandidate(
   value: unknown,
 ): value is AnyDefinitionCall {
@@ -211,34 +231,47 @@ export async function runInstalledDefinitionCallTransport(
   acquisition: InstalledDefinitionCallAcquisition,
   candidate: unknown,
 ): Promise<InstalledDefinitionCallTransportOutcome> {
-  let snapshot: unknown;
+  let detachedEnvelope: unknown;
   try {
-    snapshot = structuredClone(candidate);
+    detachedEnvelope = structuredClone({ acquisition, candidate });
   } catch {
     return refusal(
       "invalid_definition_call",
       "transport input is not one canonical DefinitionCall",
     );
   }
-  if (!isInstalledDefinitionCallCandidate(snapshot)) {
-    return refusal(
-      "invalid_definition_call",
-      "transport input is not one canonical DefinitionCall",
-    );
-  }
-  if (!acquisitionMatches(acquisition, snapshot)) {
+  const {
+    acquisition: detachedAcquisition,
+    candidate: detachedCandidate,
+  } = detachedEnvelope as Readonly<Record<string, unknown>>;
+  if (!isInstalledDefinitionCallAcquisition(detachedAcquisition)) {
     return refusal(
       "acquisition_mismatch",
       "top-level acquisition differs from the DefinitionCall event resource",
     );
   }
-  const callable = selectedCallable(snapshot);
+  if (!isInstalledDefinitionCallCandidate(detachedCandidate)) {
+    return refusal(
+      "invalid_definition_call",
+      "transport input is not one canonical DefinitionCall",
+    );
+  }
+  if (!acquisitionMatches(detachedAcquisition, detachedCandidate)) {
+    return refusal(
+      "acquisition_mismatch",
+      "top-level acquisition differs from the DefinitionCall event resource",
+    );
+  }
+  const callable = selectedCallable(detachedCandidate);
   if (typeof callable !== "function") return callable;
-  const receipt = await runExactDefinition(snapshot, callable(snapshot));
+  const receipt = await runExactDefinition(
+    detachedCandidate,
+    callable(detachedCandidate),
+  );
   return Object.freeze({
     kind: "installed_definition_call_transport_result" as const,
     schemaVersion: "5.0.0" as const,
-    acquisitionKind: acquisition.kind,
+    acquisitionKind: detachedAcquisition.kind,
     receipt,
   });
 }

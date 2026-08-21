@@ -220,6 +220,28 @@ test("ST-4 transport refuses inherited selectors and owner traversal", async () 
   assert.equal(proxyOutcome.kind, "installed_definition_call_transport_refusal");
   assert.equal(proxyOutcome.code, "invalid_definition_call");
 
+  const inheritedAcquisitionOutcome =
+    await publicApi.runInstalledDefinitionCallTransport(
+      inherited({ kind: "new" }, { eventLogPath }),
+      routeCandidate,
+    );
+  assert.equal(
+    inheritedAcquisitionOutcome.kind,
+    "installed_definition_call_transport_refusal",
+  );
+  assert.equal(inheritedAcquisitionOutcome.code, "acquisition_mismatch");
+
+  const proxyAcquisitionOutcome =
+    await publicApi.runInstalledDefinitionCallTransport(
+      new Proxy({ kind: "new", eventLogPath }, {}),
+      routeCandidate,
+    );
+  assert.equal(
+    proxyAcquisitionOutcome.kind,
+    "installed_definition_call_transport_refusal",
+  );
+  assert.equal(proxyAcquisitionOutcome.code, "invalid_definition_call");
+
   let inheritedExportRead = 0;
   Object.defineProperty(Object.prototype, "INTERACTION_DEFINITION_BINDINGS", {
     configurable: true,
@@ -1779,6 +1801,57 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     ),
     0,
     "one-snapshot flip-getter read appends zero bytes",
+  );
+
+  let acquisitionKindReads = 0;
+  const flipAcquisition = Object.defineProperty(
+    { closeHandoff: st4ReadHandoff },
+    "kind",
+    {
+      configurable: true,
+      enumerable: true,
+      get: () => {
+        acquisitionKindReads += 1;
+        return acquisitionKindReads === 1 ? "reopen" : "new";
+      },
+    },
+  );
+  const acquisitionFlipOutcome =
+    await publicApi.runInstalledDefinitionCallTransport(
+      flipAcquisition,
+      flipReadCall,
+    );
+  assert.equal(
+    acquisitionKindReads,
+    1,
+    "caller acquisition kind is snapshotted once",
+  );
+  assert.equal(
+    acquisitionFlipOutcome.kind,
+    "installed_definition_call_transport_result",
+  );
+  assert.equal(
+    acquisitionFlipOutcome.receipt.ownerOutput.outcomeKind,
+    "result",
+  );
+  assert.equal(acquisitionFlipOutcome.acquisitionKind, "reopen");
+  assert.deepEqual(
+    acquisitionFlipOutcome.receipt.resources.eventResource.entryPrefix,
+    st4TerminalPrefix,
+    "acquisition snapshot preserves the owner entry prefix",
+  );
+  assert.deepEqual(
+    acquisitionFlipOutcome.receipt.resources.eventResource.closeHandoff.prefix,
+    st4TerminalPrefix,
+    "acquisition snapshot preserves the unchanged owner prefix",
+  );
+  assert.equal(
+    Buffer.compare(
+      await readFile(new URL(st4TerminalPrefix.eventLogRef)),
+      st4TerminalLogBytes,
+    ),
+    0,
+    "acquisition flip-getter read appends zero bytes",
   );
 
   const st4SemanticReplay = abg.projectRuntimeTruthAtDurablePrefix(
