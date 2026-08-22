@@ -113,7 +113,7 @@ function rehashGrant(product, grant, patch) {
   });
 }
 
-test("ST-4 transport refuses inherited selectors and owner traversal", async () => {
+test("ST-4 transport accepts one own-property DefinitionCall candidate", async () => {
   const publicApi = await import(
     `${pathToFileURL(join(
       packageRoot,
@@ -191,19 +191,11 @@ test("ST-4 transport refuses inherited selectors and owner traversal", async () 
       },
       resources: routeCandidate.resources,
     }],
-    ["inherited eventResource", {
-      invocation: routeCandidate.invocation,
-      resources: inherited({ eventResource }, {}),
-    }],
     ["accessor invocation", accessor(
       { resources: routeCandidate.resources },
       "invocation",
       routeCandidate.invocation,
     )],
-    ["accessor eventResource", {
-      invocation: routeCandidate.invocation,
-      resources: accessor({}, "eventResource", eventResource),
-    }],
   ];
   for (const [identity, candidate] of routeFalsifiers) {
     assert.equal(
@@ -212,35 +204,22 @@ test("ST-4 transport refuses inherited selectors and owner traversal", async () 
       identity,
     );
   }
-
-  const proxyOutcome = await publicApi.runInstalledDefinitionCallTransport(
-    { kind: "new", eventLogPath },
-    new Proxy(routeCandidate, {}),
-  );
-  assert.equal(proxyOutcome.kind, "installed_definition_call_transport_refusal");
-  assert.equal(proxyOutcome.code, "invalid_definition_call");
-
-  const inheritedAcquisitionOutcome =
-    await publicApi.runInstalledDefinitionCallTransport(
-      inherited({ kind: "new" }, { eventLogPath }),
-      routeCandidate,
-    );
   assert.equal(
-    inheritedAcquisitionOutcome.kind,
-    "installed_definition_call_transport_refusal",
+    publicApi.isInstalledDefinitionCallCandidate({
+      invocation: routeCandidate.invocation,
+      resources: inherited({ eventResource }, {}),
+    }),
+    true,
+    "transport does not interpret owner resource shape",
   );
-  assert.equal(inheritedAcquisitionOutcome.code, "acquisition_mismatch");
-
-  const proxyAcquisitionOutcome =
-    await publicApi.runInstalledDefinitionCallTransport(
-      new Proxy({ kind: "new", eventLogPath }, {}),
-      routeCandidate,
-    );
   assert.equal(
-    proxyAcquisitionOutcome.kind,
-    "installed_definition_call_transport_refusal",
+    publicApi.isInstalledDefinitionCallCandidate({
+      invocation: routeCandidate.invocation,
+      resources: accessor({}, "eventResource", eventResource),
+    }),
+    true,
+    "transport does not inspect owner resource members",
   );
-  assert.equal(proxyAcquisitionOutcome.code, "invalid_definition_call");
 
   let inheritedExportRead = 0;
   Object.defineProperty(Object.prototype, "INTERACTION_DEFINITION_BINDINGS", {
@@ -252,19 +231,16 @@ test("ST-4 transport refuses inherited selectors and owner traversal", async () 
   });
   let inheritedExportOutcome;
   try {
-    inheritedExportOutcome = await publicApi.runInstalledDefinitionCallTransport(
-      { kind: "new", eventLogPath },
-      {
-        ...routeCandidate,
-        invocation: {
-          ...routeCandidate.invocation,
-          definitionKey: {
-            operationId: "abg.operation.interaction.respond",
-            memberKey: "select",
-          },
+    inheritedExportOutcome = await publicApi.runInstalledDefinitionCallTransport({
+      ...routeCandidate,
+      invocation: {
+        ...routeCandidate.invocation,
+        definitionKey: {
+          operationId: "abg.operation.interaction.respond",
+          memberKey: "select",
         },
       },
-    );
+    });
   } finally {
     delete Object.prototype.INTERACTION_DEFINITION_BINDINGS;
   }
@@ -282,7 +258,6 @@ test("ST-4 transport refuses inherited selectors and owner traversal", async () 
   let inheritedMemberOutcome;
   try {
     inheritedMemberOutcome = await publicApi.runInstalledDefinitionCallTransport(
-      { kind: "new", eventLogPath },
       routeCandidate,
     );
   } finally {
@@ -290,6 +265,12 @@ test("ST-4 transport refuses inherited selectors and owner traversal", async () 
   }
   assert.equal(inheritedMemberRead, 0);
   assert.equal(inheritedMemberOutcome.code, "installed_binding_unavailable");
+
+  const proxyOutcome = await publicApi.runInstalledDefinitionCallTransport(
+    new Proxy(routeCandidate, {}),
+  );
+  assert.equal(proxyOutcome.kind, "installed_definition_call_transport_refusal");
+  assert.equal(proxyOutcome.code, "invalid_definition_call");
 });
 
 function rebaseDefinitionContractCatalog(
@@ -1601,7 +1582,8 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     st4StartOutput.kind,
     "installed_definition_call_transport_result",
   );
-  assert.equal(Object.hasOwn(st4StartOutput, "outcome"), false);
+  assert.equal(st4StartOutput.disposition, "owner_completed");
+  assert.equal(st4StartOutput.outcome.outcomeKind, "result");
   assert.equal(Object.hasOwn(st4StartOutput, "closeHandoff"), false);
   const st4StartReceipt = st4StartOutput.receipt;
   assert.equal(st4StartReceipt.kind, "definition_host_receipt");
@@ -1772,10 +1754,6 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     },
   );
   const flipOutcome = await publicApi.runInstalledDefinitionCallTransport(
-    Object.freeze({
-      kind: "reopen",
-      closeHandoff: st4ReadHandoff,
-    }),
     {
       invocation: flipReadCall.invocation,
       resources: flipResources,
@@ -1801,57 +1779,6 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     ),
     0,
     "one-snapshot flip-getter read appends zero bytes",
-  );
-
-  let acquisitionKindReads = 0;
-  const flipAcquisition = Object.defineProperty(
-    { closeHandoff: st4ReadHandoff },
-    "kind",
-    {
-      configurable: true,
-      enumerable: true,
-      get: () => {
-        acquisitionKindReads += 1;
-        return acquisitionKindReads === 1 ? "reopen" : "new";
-      },
-    },
-  );
-  const acquisitionFlipOutcome =
-    await publicApi.runInstalledDefinitionCallTransport(
-      flipAcquisition,
-      flipReadCall,
-    );
-  assert.equal(
-    acquisitionKindReads,
-    1,
-    "caller acquisition kind is snapshotted once",
-  );
-  assert.equal(
-    acquisitionFlipOutcome.kind,
-    "installed_definition_call_transport_result",
-  );
-  assert.equal(
-    acquisitionFlipOutcome.receipt.ownerOutput.outcomeKind,
-    "result",
-  );
-  assert.equal(acquisitionFlipOutcome.acquisitionKind, "reopen");
-  assert.deepEqual(
-    acquisitionFlipOutcome.receipt.resources.eventResource.entryPrefix,
-    st4TerminalPrefix,
-    "acquisition snapshot preserves the owner entry prefix",
-  );
-  assert.deepEqual(
-    acquisitionFlipOutcome.receipt.resources.eventResource.closeHandoff.prefix,
-    st4TerminalPrefix,
-    "acquisition snapshot preserves the unchanged owner prefix",
-  );
-  assert.equal(
-    Buffer.compare(
-      await readFile(new URL(st4TerminalPrefix.eventLogRef)),
-      st4TerminalLogBytes,
-    ),
-    0,
-    "acquisition flip-getter read appends zero bytes",
   );
 
   const st4SemanticReplay = abg.projectRuntimeTruthAtDurablePrefix(
@@ -1911,15 +1838,13 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     identity: "crossed-top-level-handoff",
     acquisition: Object.freeze({ kind: "reopen", closeHandoff: setupHandoff }),
     call: crossedRead,
-    expectedExitCode: 2,
   });
   assert.equal(
     crossedExecution.output.kind,
-    "installed_definition_call_transport_refusal",
+    "installed_definition_call_transport_result",
   );
-  assert.equal(crossedExecution.output.code, "acquisition_mismatch");
-  assert.equal(Object.hasOwn(crossedExecution.output, "receipt"), false);
-  assert.equal(Object.hasOwn(crossedExecution.output, "ownerOutput"), false);
+  assert.equal(crossedExecution.output.disposition, "owner_completed");
+  assert.equal(crossedExecution.output.outcome.outcomeKind, "result");
   assert.equal(
     Buffer.compare(
       await readFile(new URL(st4TerminalPrefix.eventLogRef)),
