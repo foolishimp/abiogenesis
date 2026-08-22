@@ -524,7 +524,7 @@ export async function prepareProductRunInvocation<
       {
         admittedInstalls: input.admittedInstalls,
         workspaceBinding: input.workspaceBinding,
-        fixedPacket,
+        definitionKey: fixedPacket.definitionKey,
       },
     ),
   ]);
@@ -539,7 +539,7 @@ export async function prepareProductRunInvocation<
     {
       admittedInstalls: input.admittedInstalls,
       workspaceBinding: input.workspaceBinding,
-      fixedPacket,
+      definitionKey: fixedPacket.definitionKey,
     },
   );
   if (

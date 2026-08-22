@@ -78,7 +78,10 @@ const clean = ownerContractPacket(
     authorityRef: WORKSPACE_AUTHORITY,
     authorityDigest: ownerAuthorityDigest(WORKSPACE_AUTHORITY),
   },
-  workspaceCreateMetadata("clean"),
+  ownerMetadata({
+    ...workspaceCreateMetadata("clean"),
+    successorDevelopmentPrebindingAuthority: "eligible",
+  }),
 );
 
 const imported = ownerContractPacket(

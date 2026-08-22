@@ -554,7 +554,7 @@ function runReadKernel(
         const grantBasis = {
           admittedInstalls: environment.productInstalls,
           workspaceBinding: environment.workspaceBinding,
-          fixedPacket: packet,
+          definitionKey: packet.definitionKey,
         } as const;
         const expectedGrants = packet.metadata.capabilityRefs.map(
           (capabilityRef) => constructCapabilityGrant(

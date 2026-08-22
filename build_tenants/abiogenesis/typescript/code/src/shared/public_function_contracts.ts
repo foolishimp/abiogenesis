@@ -446,6 +446,7 @@ export interface OwnerContractSourceDeclaration<
     eventAdmission: PublicEventAdmission;
     actorRequirement: "forbidden" | "required";
     workspaceBindingRequirement: "forbidden" | "exactly_one";
+    successorDevelopmentPrebindingAuthority?: "eligible";
     authoritySlotRequirements: readonly PublicAuthoritySlotRequirement[];
     capabilityRefs: readonly string[];
     defaults: Readonly<Record<string, JsonValue>>;
@@ -540,6 +541,8 @@ function assertMetadata(
     metadata.capabilityRefs.length !== new Set(metadata.capabilityRefs).size ||
     metadata.sdkCoordinate.trim().length === 0 ||
     metadata.cliCoordinate.trim().length === 0 ||
+    (metadata.successorDevelopmentPrebindingAuthority !== undefined &&
+      metadata.successorDevelopmentPrebindingAuthority !== "eligible") ||
     (metadata.actorRequirement === "required") !== slots.includes("actor") ||
     (metadata.workspaceBindingRequirement === "exactly_one") !==
       slots.includes("workspace_binding")

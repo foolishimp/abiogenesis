@@ -633,7 +633,7 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
           {
             admittedInstalls: input.productInstalls,
             workspaceBinding: input.workspaceBinding,
-            fixedPacket,
+            definitionKey: fixedPacket.definitionKey,
           },
         )
     )

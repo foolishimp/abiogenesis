@@ -169,7 +169,6 @@ export async function setupInstalledRootCatalog(
     );
   }
   const packageJson = JSON.parse(await readFile(join(bootstrapPackage, "package.json"), "utf8"));
-  const persistedCandidateBasis = await readCandidateBasis(packageRoot);
   const candidateManifest = JSON.parse(
     await readFile(
       join(bootstrapPackage, "product-toolchain-manifest.json"),
@@ -178,7 +177,6 @@ export async function setupInstalledRootCatalog(
   );
   const candidateBasis = options.candidateBasisSource === "packed_artifact"
     ? {
-        ...persistedCandidateBasis,
         artifactDigest: await bootstrapProduct.sha256File(artifactPath),
         productContentDigest: candidateManifest.productContentDigest,
         manifestDigest: bootstrapProduct.sha256Canonical(candidateManifest),
@@ -186,7 +184,7 @@ export async function setupInstalledRootCatalog(
         packageName: candidateManifest.packageName,
         packageVersion: candidateManifest.packageVersion,
       }
-    : persistedCandidateBasis;
+    : await readCandidateBasis(packageRoot);
   const bootstrapGtl = await import(
     `${pathToFileURL(join(bootstrapPackage, "build/code/src/gtl/index.js")).href}?artifact=${Date.now()}`
   );
@@ -275,6 +273,7 @@ export async function setupInstalledRootCatalog(
   const product = await import(`${pathToFileURL(join(installedRoot, "build/code/src/product/index.js")).href}?env=${nonce}`);
   const abg = await import(`${pathToFileURL(join(installedRoot, "build/code/src/abg/index.js")).href}?env=${nonce}`);
   const gtl = await import(`${pathToFileURL(join(installedRoot, "build/code/src/gtl/index.js")).href}?env=${nonce}`);
+  const publicApi = await import(`${pathToFileURL(join(installedRoot, "build/code/src/public/index.js")).href}?env=${nonce}`);
   const hog = await import(`${pathToFileURL(join(installedRoot, "build/code/src/hog/index.js")).href}?env=${nonce}`);
   const implementationLeafPort = await import(
     `${pathToFileURL(join(installedRoot, "build/code/src/implementation/leaf_invocation_port.js")).href}?env=${nonce}`
@@ -488,6 +487,7 @@ export async function setupInstalledRootCatalog(
     product,
     abg,
     gtl,
+    publicApi,
     hog,
     implementationLeafPort,
     interactionOwner,
