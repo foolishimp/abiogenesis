@@ -11,6 +11,9 @@ import {
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
+import type { DefinitionCall } from "../shared/effect_definition.js";
+import { admitExactDefinitionCall } from
+  "../shared/definition_binding_mechanics.js";
 import type { AdmittedPublicInvocation } from "../shared/public_invocation.js";
 import {
   projectExactPrefixWorkspaceEnvironment,
@@ -42,6 +45,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import {
   admitRuntimeContract,
   publicContractCoordinateSchema,
+  type OwnerContractSourceDeclaration,
 } from "../shared/public_function_contracts.js";
 import {
   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
@@ -144,6 +148,19 @@ export type CapabilityGrantConstructionBasis =
 export interface DevelopmentSuccessorActorAttribution {
   readonly actor: ReferenceDigest<"Actor">;
   readonly attribution: ReferenceDigest<"ActorAttribution">;
+}
+
+/**
+ * Ephemeral admission of one exact successor-development call.  This is a
+ * projection of existing Product and ABG authority, not a new durable carrier.
+ */
+export interface PrebindingDevelopmentProductDefinitionAdmission<
+  TPacket extends OwnerContractSourceDeclaration = OwnerContractSourceDeclaration,
+> {
+  readonly invocation: DefinitionCall<TPacket, never>["invocation"];
+  readonly predecessorEnvironment: ExactPrefixWorkspaceEnvironment;
+  readonly capabilityGrants: readonly CapabilityGrant[];
+  readonly actorAuthority: DevelopmentSuccessorActorAttribution | null;
 }
 
 export interface InvocationAuthority {
@@ -1310,6 +1327,143 @@ export function validateCapabilityGrantForProductBasis(
       canonicalJson(expected as unknown as JsonValue);
   } catch {
     return false;
+  }
+}
+
+function exactReferenceDigestSet(
+  supplied: readonly ReferenceDigest[],
+  expected: readonly ReferenceDigest[],
+): boolean {
+  if (supplied.length !== expected.length) return false;
+  const coordinateKey = ({ ref, digest }: ReferenceDigest): string =>
+    `${ref}\0${digest}`;
+  const suppliedKeys = supplied.map(coordinateKey).sort(compareUnicodeCodeUnits);
+  const expectedKeys = expected.map(coordinateKey).sort(compareUnicodeCodeUnits);
+  return suppliedKeys.every((value, index) => value === expectedKeys[index]);
+}
+
+function packetMetadataMatchesIntrinsicDefinition(
+  packet: OwnerContractSourceDeclaration,
+  definition: IntrinsicPublicFunctionDefinition,
+): boolean {
+  const expected = {
+    authorityClass: definition.authorityClass,
+    effectClass: definition.effectClass,
+    eventAdmission: definition.eventAdmission,
+    actorRequirement: definition.actorRequirement,
+    workspaceBindingRequirement: definition.workspaceBindingRequirement,
+    ...(definition.successorDevelopmentPrebindingAuthority === undefined
+      ? {}
+      : {
+          successorDevelopmentPrebindingAuthority:
+            definition.successorDevelopmentPrebindingAuthority,
+        }),
+    authoritySlotRequirements: definition.authoritySlotRequirements,
+    capabilityRefs: definition.capabilityRefs,
+    defaults: definition.defaults,
+    closedDomains: definition.closedDomains,
+    sdkCoordinate: definition.sdkCoordinate,
+    cliCoordinate: definition.cliCoordinate,
+    adapterExitMap: definition.adapterExitMap,
+  };
+  return canonicalJson(packet.metadata as unknown as JsonValue) ===
+    canonicalJson(expected as unknown as JsonValue);
+}
+
+/**
+ * Package-internal admission for the five successor-development definitions.
+ * Concrete binding modules pass their imported module-static packet and retain
+ * their own resource/effect law after this pure preflight.  This helper is not
+ * part of the installed `./product` API, so runtime callers cannot select or
+ * substitute the packet.
+ */
+export function admitPrebindingDevelopmentProductDefinitionCall<
+  TPacket extends OwnerContractSourceDeclaration,
+>(
+  call: Readonly<{ readonly invocation: unknown }>,
+  packet: TPacket,
+  predecessorEnvironment: ExactPrefixWorkspaceEnvironment,
+): PrebindingDevelopmentProductDefinitionAdmission<TPacket> | null {
+  try {
+    const invocation = admitExactDefinitionCall(call, packet);
+    const environment = exactPrebindingEnvironment(predecessorEnvironment);
+    if (invocation === null || environment === null) return null;
+
+    const definition = exactIntrinsicDefinition(packet.definitionKey);
+    if (
+      !isEligiblePrebindingDefinition(definition) ||
+      !packetMetadataMatchesIntrinsicDefinition(packet, definition)
+    ) return null;
+
+    const request = deepFreeze({
+      ref: invocation.requestRef,
+      digest: invocation.requestDigest,
+    }) as ReferenceDigest<unknown>;
+    const basis = deepFreeze({
+      kind: "prebinding_development_product_basis" as const,
+      definitionKey: deepFreeze({ ...definition.definitionKey }),
+      predecessorEnvironment: environment,
+      request,
+    });
+    const actorAuthority = constructDevelopmentSuccessorActorAttribution(
+      environment,
+      definition,
+      request,
+    );
+    if (actorAuthority === null) return null;
+
+    const capabilityGrants = definition.capabilityRefs.map((capabilityRef) =>
+      constructCapabilityGrant(
+        environment.workspaceAuthorityBasis,
+        actorAuthority.actor.ref,
+        definition.definitionKey.operationId,
+        capabilityRef,
+        basis,
+      )
+    );
+    if (capabilityGrants.some((grant, index) =>
+      !validateCapabilityGrantForProductBasis(
+        grant,
+        environment.workspaceAuthorityBasis,
+        actorAuthority.actor.ref,
+        definition.capabilityRefs[index]!,
+        basis,
+      )
+    )) return null;
+
+    const suppliedCapabilityAuthority =
+      invocation.invocationAuthority.slots.capability_grants;
+    if (
+      suppliedCapabilityAuthority === null ||
+      !exactReferenceDigestSet(
+        suppliedCapabilityAuthority.grants,
+        capabilityGrants.map(({ grantRef, grantDigest }) => ({
+          ref: grantRef,
+          digest: grantDigest,
+        })),
+      )
+    ) return null;
+
+    const suppliedActorAuthority = invocation.invocationAuthority.slots.actor;
+    const actorIsExact = suppliedActorAuthority !== null &&
+      canonicalJson(suppliedActorAuthority as unknown as JsonValue) ===
+        canonicalJson(actorAuthority as unknown as JsonValue);
+    if (
+      definition.actorRequirement === "required"
+        ? !actorIsExact
+        : suppliedActorAuthority !== null
+    ) return null;
+
+    return deepFreeze({
+      invocation,
+      predecessorEnvironment: environment,
+      capabilityGrants,
+      actorAuthority: definition.actorRequirement === "required"
+        ? actorAuthority
+        : null,
+    });
+  } catch {
+    return null;
   }
 }
 
