@@ -9,11 +9,11 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- change_intent: reprice_wave2_to_cumulative_odd_glc_mvp_steel_threads
+- change_intent: advance_from_mvp_to_abg5_s01_root_steel_thread
 - change_class: goal_reprice
 - re_entry_point: specification/GOALS.md#current-selection
 - triaged_at: 2026-08-17
-- retriaged_at: 2026-08-21
+- retriaged_at: 2026-08-22
 - migration_strategy: inside_out_hard_break
 - library_usage: consume
 - governing_library: effect@3.22.1
@@ -22,12 +22,12 @@
 - immutable_reference_product: v4.6.0-rc.5
 - selected_wave: W2
 - selected_feature: A5-F01
-- selected_slice: odd_glc_mvp_steel_threads
-- selected_slice_stage: post_mvp_wave2
-- selected_increment: UNSELECTED
-- selected_increment_stage: unselected
-- accepted_checkpoint: a2d62e674f36d76d56d32f7e020eea4e7cfde763
-- accepted_checkpoint_tree: 1af1f5e31acd2f8292550314ad8907c3c6c2ff68
+- selected_slice: abg5_s01_root_hello_replay_parity
+- selected_slice_stage: assurance_cut_s0
+- selected_increment: ST-S01-ROOT
+- selected_increment_stage: selected_not_started
+- accepted_checkpoint: 41bab57f2491fa9e95331e9cfef282c4f6c1c2d2
+- accepted_checkpoint_tree: b976ebc3fccf2ff1e461bcb20130d4f59d0396e1
 - banked_callable_checkpoint: e7e252ed7c0f950c49f606e1c0fd8d61743af71a
 - deferred_feature: A5-F12
 
@@ -63,11 +63,40 @@ from the exact accepted subject of its predecessor, adds only its named
 cumulative boundary, proves the same positive user result through that boundary,
 freezes one exact subject, and stops. `ST-2` was delivered through its `ST-2A` /
 `ST-2B` split without changing that ratified sequence. All five named subthreads
-are accepted and integrated cumulatively at checkpoint
-`a2d62e674f36d76d56d32f7e020eea4e7cfde763`, tree
-`1af1f5e31acd2f8292550314ad8907c3c6c2ff68`. `ST-4` is the usable development
-MVP; it is not ABIogenesis 5.0 completion or release. Post-MVP Wave 2 remains
-pending and `UNSELECTED`.
+are accepted and integrated cumulatively at clean-reproducible checkpoint
+`41bab57f2491fa9e95331e9cfef282c4f6c1c2d2`, tree
+`b976ebc3fccf2ff1e461bcb20130d4f59d0396e1`. `ST-4` is the usable development
+MVP; it is not ABIogenesis 5.0 completion or release. `ST-S01-ROOT` is the sole
+selected next increment; construction has not started.
+
+### `ST-S01-ROOT` assurance cuts
+
+This increment realizes and proves the reusable implementation/evidence
+relation for the existing `REQ-P-SCENARIOS-008` obligations `R1` through `R10`,
+exact root `ABI5-ROOT-001`, and governor
+`abg5.root.s01.hello_world@5`. It is the smallest complete installed Hello
+route/replay-parity development thread. Final `ABG5-S01` acceptance must rerun
+the unchanged relation on the eventual shared exact `pre_rc_candidate` with the
+other selected scenarios. This increment does not select that final candidate,
+whole 4.6 parity, a horizontal 56-key queue, real odd_glc transfer, another
+scenario, qualification, or release. Applicable frame names come from
+Realization Constitution Sections 5.3 and 5.3.1; authority, capability/reuse,
+temporal, transport, composition, and proof remain concern lenses rather than
+new runtime objects.
+
+| Cut | Frozen subject and claim | Applicable frames and lenses | Owner-issued evidence and mandatory falsifier | Advance |
+|---|---|---|---|---|
+| `S0` selection and entry | Clean-reproducible ST-4 basis `41bab57f`, tree `b976ebc3`; select this exact root without claiming implementation. | Product, Entity, Install, Proof; authority, temporal, proof. | Clean build/prepack identity, installed ST-1 through ST-4 proof, exact user selection; falsify with dirty-only bytes, another root/governor, or a broader claim. | Executive authorizes the Worker to construct `S1` from this exact basis. |
+| `S1` candidate and root carrier (`R1`) | One exact development candidate carries the destination-owned all-`F_D` conformance module and exact root identities needed by the eventual shared `pre_rc_candidate`; it does not claim that final subject. | Product, Design Component, ABIogenesis, GTL, Entity, Operator, Owner, Reuse, Install, Proof; authority, capability/reuse, proof. | Owner-issued candidate/manifest/module/Program/GraphFunction/contracts/root coordinates; falsify package, schema, symbol, catalog, or component presence without that carrier, plus a rival carrier, source import, direct leaf, `F_P`, or identity drift. | Worker freezes `S1`; Reviewer evaluates it; Executive accepts or rejects it and, on acceptance, authorizes `S2`. |
+| `S2` installed construction (`R2`-`R7`) | Source-blind install verifies and binds the exact Product set/workspace, admits and narrows the Catalog, resolves the Program/GraphFunction/contracts, and materializes/validates GTL without lowering. | Product, ABIogenesis, GTL, Entity, Owner, Effect, Reuse, Install, Proof; authority, capability/reuse, temporal, transport. | Owner lock/install/binding/Catalog/View/resolution/materialization/validation receipts; falsify a catalog row without the installed causal basis, ambient lookup, source import or private path, second catalog, fixture authority, lowering, crossed install, or predicted state. | Worker freezes `S2`; Reviewer evaluates it; Executive accepts or rejects it and, on acceptance, authorizes `S3`. |
+| `S3` causal execution (`R8`-`R9`) | Installed `abg.cli` enters HoG and ABG admits the one causal invocation, C-call, evidence, result, judgment, and closure chain. | Product, Public, ABIogenesis, GTL, HoG, ABG, Entity, Operator, Owner, Effect, Install, Proof; authority, temporal, transport, composition. | Installed CLI/definition receipts and exact-prefix ABG projections over the complete causal chain; falsify event co-presence without owner linkage, a bypass or rival writer, fixture-authored output, wrong contract or missing event, and every continuation, hold, gap, block, or non-admission outcome. | Worker freezes `S3`; Reviewer evaluates it; Executive accepts or rejects it and, on acceptance, authorizes `S4`. |
+| `S4` replay and user outcome (`R10`) | The same run/prefix yields the same typed terminal result and closed state from replay twice and returns it through the CLI. | Product, Public, ABIogenesis, ABG, Entity, Owner, Effect, Install, Proof; temporal, transport, composition, proof. | Two owner replay receipts, same-run/prefix/result/closed-state equality, CLI outcome, and zero read writes; falsify prefix/result substitution, replay mutation or disagreement, read append, source/private-path reconstruction, or CLI disagreement. | Worker freezes `S4`; Reviewer evaluates it; Executive accepts or rejects only the `ST-S01-ROOT` development relation. Final `ABG5-S01` acceptance remains a rerun on the eventual shared exact `pre_rc_candidate`. |
+
+Every cut freezes exact bytes and owner coordinates. A changed relation
+invalidates that cut and its successors only. The worker stops at freeze; an
+independent reviewer evaluates the compounded frame coverage and direct
+dependency cone. Repeated static coordinates receive mechanical checks, not
+duplicate semantic reviews.
 
 ### Re-entry disposition
 
@@ -99,7 +128,8 @@ qualification, or release closure.
 
 ```text
 fixed Product: ABIogenesis 5.0, with Wave 1 functional interface accepted
-accepted Wave 2 MVP: ST-1 through ST-4 accepted and integrated; post-MVP Wave 2 UNSELECTED
+accepted Wave 2 MVP: ST-1 through ST-4 accepted at clean-reproducible basis 41bab57f
+selected next increment: ST-S01-ROOT; assurance cut S0; construction not started
 odd_glc authority: one immutable GTL Program publication as data, including
   odd_glc-owned GraphFunction topology and required declarative dependencies
 ABIogenesis authority: admission, Validator, Product/install/workspace/catalog
@@ -329,7 +359,8 @@ threads rather than establishing a separate receipt-repair gate.
 | `ST-2B` | Same accepted `ST-1` run/result under exact-prefix status/result/replay equality using three fixed packets over the shared kernel. | Accepted and integrated cumulatively |
 | `ST-3` | Same projections after source-blind fresh-process reopen. | Accepted and integrated cumulatively |
 | `ST-4` | One independently installed CLI episode uses exactly one fresh `run.invoke#start`, then chains `run_status`, `run_result`, and `run_replay` through exact owner handoffs and the accepted generic `DefinitionCall` transport, preserving typed Hello meaning, fresh-process equality, and zero-byte read-side writes. | Accepted and integrated cumulatively; usable development MVP exit, not ABIogenesis 5.0 completion or release |
-| post-MVP | Complete remaining 56-key constructability, held contract closure, negatives, broader qualification, and final 5.0 obligations. | Pending and `UNSELECTED`; no next increment or restored 56-key implementation queue selected |
+| `ST-S01-ROOT` | Realize and prove the `ABG5-S01` root mechanism for obligations `R1` through `R10` through assurance cuts `S1` through `S4`; rerun it unchanged for final acceptance on the eventual shared exact `pre_rc_candidate`. | Selected; `S0` selection recorded; construction not started |
+| remaining post-MVP | Complete remaining 56-key constructability, held contract closure, negatives, broader qualification, and final 5.0 obligations. | Pending and `UNSELECTED`; no restored horizontal 56-key implementation queue selected |
 
 This sequence supersedes the prior active `W2-05` through `W2-08` ordering and
 all current text that required whole-family packed loadability before the first
@@ -443,7 +474,8 @@ Every Wave 2 worker handoff and review starts from this frame:
 ```text
 Product: fixed ABIogenesis 5.0 scope; Wave 1 complete
 Wave 2 MVP: cumulative sunny-day ST-1 -> ST-4 accepted and integrated at
-  a2d62e674f36d76d56d32f7e020eea4e7cfde763; post-MVP Wave 2 is UNSELECTED
+  clean-reproducible basis 41bab57f2491fa9e95331e9cfef282c4f6c1c2d2
+selected next increment: ST-S01-ROOT; assurance cut S0; construction not started
 odd_glc authority: one immutable GTL Program publication as data, including
   odd_glc-owned GraphFunction topology and required declarative dependencies;
   no executable provider, evaluator, implementation binding, leaf, or interpreter
@@ -553,7 +585,7 @@ GTL.TypeScript
 | Wave | Feature families | Exit | State |
 |---:|---|---|---|
 | W1 | A5-F10, A5-F02, A5-F03, A5-F04 | One event-authoritative installed runtime kernel | Accepted; integrated M5 deferred |
-| W2 | Bounded A5-F01/A5-F09/A5-F05/A5-F06 plus one early A5-F17 consumer path | `ST-1` through `ST-4` cumulatively verify independently packed artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then the `WorkspaceBindingCandidate`, and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`; the existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and an ABG-admitted typed result before exact-prefix observation, fresh-process replay, and one installed CLI episode; post-MVP work closes remaining constructability, held contract closure, negatives, and broader qualification | `ST-1`, `ST-2A`, `ST-2B`, `ST-3`, and `ST-4` accepted and integrated cumulatively at `a2d62e674f36d76d56d32f7e020eea4e7cfde763`, tree `1af1f5e31acd2f8292550314ad8907c3c6c2ff68`; post-MVP Wave 2 pending and `UNSELECTED`; no Wave 2, 5.0, or release completion claimed |
+| W2 | Bounded A5-F01/A5-F09/A5-F05/A5-F06 plus one early A5-F17 consumer path | `ST-1` through `ST-4` cumulatively verify independently packed artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then the `WorkspaceBindingCandidate`, and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`; the existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and an ABG-admitted typed result before exact-prefix observation, fresh-process replay, and one installed CLI episode; `ST-S01-ROOT` next realizes the `ABG5-S01` root mechanism for later same-subject pre-RC rerun | `ST-1`, `ST-2A`, `ST-2B`, `ST-3`, and `ST-4` accepted at clean-reproducible checkpoint `41bab57f2491fa9e95331e9cfef282c4f6c1c2d2`, tree `b976ebc3fccf2ff1e461bcb20130d4f59d0396e1`; `ST-S01-ROOT` selected, construction not started; no Wave 2, 5.0, scenario-final, or release completion claimed |
 | W3 | A5-F14, A5-F07, A5-F08 | Packed Hello World, probabilistic proof, One Surface, and Consensus on the same path | Pending W2 |
 | W4 | A5-F13, A5-F17, A5-F11 | Native/host projections, downstream Product, and self-conformance | Pending W3 |
 | W5 | A5-F15, A5-F16 | Qualified immutable 5.0 release | Pending W4 |
