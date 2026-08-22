@@ -10,6 +10,7 @@ import {
 import {
   admitWorkspaceBinding,
   projectAdmittedWorkspaceBinding,
+  type ExactPrefixWorkspaceEnvironment,
   type ArtifactAdmissionBasis,
 } from "../abg/environment_admission.js";
 import {
@@ -33,8 +34,15 @@ import {
   type OwnerRequestOf,
   type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
-import type { ReferenceDigest } from "../shared/public_invocation.js";
-import type { VerifiedProductArtifact } from "./contracts.js";
+import type {
+  ReferenceDigest,
+  SuccessfulPackedVerificationReference,
+} from "../shared/public_invocation.js";
+import type { IndexedPublicOutcome } from "../public/indexed_outcome.js";
+import type {
+  ProductVerificationResources,
+  VerifiedProductArtifact,
+} from "./contracts.js";
 import {
   isProductInstall,
   isResolvedProductLock,
@@ -59,22 +67,29 @@ import {
   type WorkspaceBindingPacket,
 } from "./environment_operations.js";
 import { PRODUCT_VERIFICATION_CONTRACTS } from "./verification_operation_contracts.js";
-import { isVerifiedProductArtifact } from "./verify_product.js";
+import {
+  admitSuccessfulPackedVerificationEvidence,
+  type ProductVerificationEvidence,
+  type SuccessfulPackedVerificationAdmission,
+} from "./verification_evidence.js";
+import { admitPrebindingDevelopmentProductDefinitionCall } from "./invocation.js";
 
 type ResolvePacket = typeof PRODUCT_ENVIRONMENT_CONTRACTS.resolve;
 type BindPacket = typeof PRODUCT_ENVIRONMENT_CONTRACTS.bind;
 type ResolveRequest = OwnerRequestOf<ResolvePacket>;
 type BindRequest = OwnerRequestOf<BindPacket>;
 type VerificationPacket = typeof PRODUCT_VERIFICATION_CONTRACTS.verify;
-type SuccessfulVerificationOutput = Extract<
-  OwnerSemanticOutput<VerificationPacket>,
-  { readonly outcomeKind: "result" }
->;
-
+type VerificationInvocation = DefinitionCall<
+  VerificationPacket,
+  ProductVerificationResources
+>["invocation"];
+type VerificationOutcome = IndexedPublicOutcome<VerificationPacket["definitionKey"]>;
 export interface ProductResolutionVerifiedPreimage {
-  readonly verification: ResolveRequest["verifiedCandidates"][number];
-  readonly verifiedArtifact: VerifiedProductArtifact;
-  readonly verificationOutput: SuccessfulVerificationOutput;
+  readonly verification: SuccessfulPackedVerificationReference;
+  readonly invocation: VerificationInvocation;
+  readonly ownerOutput: OwnerSemanticOutput<VerificationPacket>;
+  readonly outcome: VerificationOutcome;
+  readonly evidence: ProductVerificationEvidence;
 }
 
 export interface ProductResolutionResourceAssertion {
@@ -82,6 +97,7 @@ export interface ProductResolutionResourceAssertion {
   readonly schemaVersion: "5.0.0";
   readonly verifiedPreimages: readonly ProductResolutionVerifiedPreimage[];
   readonly nativeContractClosure: ResolvedNativeContractClosure;
+  readonly predecessorEnvironment: ExactPrefixWorkspaceEnvironment;
 }
 
 export interface ProductResolutionResourceReceipt {
@@ -215,28 +231,41 @@ function invalidVerifiedPreimage(
   if (
     !isRecord(record) ||
     !hasExactKeys(record, [
+      "evidence",
+      "invocation",
+      "outcome",
+      "ownerOutput",
       "verification",
-      "verificationOutput",
-      "verifiedArtifact",
-    ]) ||
-    !isVerifiedProductArtifact(preimage.verifiedArtifact)
+    ])
   ) return true;
-  const output = preimage.verificationOutput;
-  if (
-    !isRecord(output) ||
-    !hasExactKeys(output, ["outcomeKind", "value"]) ||
-    output.outcomeKind !== "result" ||
-    admitRuntimeContract(
-      PRODUCT_VERIFICATION_CONTRACTS.verify.resultSchema,
-      output.value,
-    ).disposition !== "admitted" ||
-    output.value.targetKind !== "packed_artifact"
-  ) return true;
-  return output.value.disposition !== "locally_verified" ||
-    !sameCoordinate(
-      output.value.verifiedArtifact,
-      verifiedArtifactCoordinate(preimage.verifiedArtifact),
-    );
+  const admitted = admitSuccessfulPackedVerificationEvidence(
+    preimage.invocation,
+    preimage.ownerOutput,
+    preimage.outcome,
+    preimage.evidence,
+  );
+  return admitted === null || !sameJson(preimage.verification, admitted.reference);
+}
+
+function admittedVerifiedPreimage(
+  preimage: ProductResolutionVerifiedPreimage,
+): SuccessfulPackedVerificationAdmission {
+  const admitted = admitSuccessfulPackedVerificationEvidence(
+    preimage.invocation,
+    preimage.ownerOutput,
+    preimage.outcome,
+    preimage.evidence,
+  );
+  if (admitted === null || !sameJson(preimage.verification, admitted.reference)) {
+    throw new TypeError("resolution consumed a crossed successful verification reference");
+  }
+  return admitted;
+}
+
+function verifiedArtifactFor(
+  preimage: ProductResolutionVerifiedPreimage,
+): VerifiedProductArtifact {
+  return admittedVerifiedPreimage(preimage).verifiedArtifact;
 }
 
 function validateResolveResources(
@@ -248,19 +277,30 @@ function validateResolveResources(
     !hasExactKeys(resources, [
       "kind",
       "nativeContractClosure",
+      "predecessorEnvironment",
       "schemaVersion",
       "verifiedPreimages",
     ]) ||
     resources.kind !== "product_resolution_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
     !Array.isArray(resources.verifiedPreimages) ||
-    resources.verifiedPreimages.length === 0 ||
-    !sameJson(resources, resources)
+    resources.verifiedPreimages.length === 0
   ) {
     return resolveFault(
       call,
       "invalid_resource_assertion",
       "Product resolution requires one exact I-JSON verified-preimage assertion",
+    );
+  }
+  if (admitPrebindingDevelopmentProductDefinitionCall(
+    call,
+    PRODUCT_ENVIRONMENT_CONTRACTS.resolve,
+    resources.predecessorEnvironment,
+  ) === null) {
+    return resolveFault(
+      call,
+      "call_authority_mismatch",
+      "Product resolution requires the exact predecessor-authorized DefinitionCall",
     );
   }
   const request = call.invocation.request;
@@ -323,8 +363,8 @@ function resolveReceipt(
     kind: "product_resolution_resource_receipt" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "read_only_unchanged" as const,
-    verifiedArtifacts: resources.verifiedPreimages.map(({ verifiedArtifact }) =>
-      verifiedArtifactCoordinate(verifiedArtifact)
+    verifiedArtifacts: resources.verifiedPreimages.map((preimage) =>
+      verifiedArtifactCoordinate(verifiedArtifactFor(preimage))
     ),
     resolvedLock: lock === null ? null : resolvedLockCoordinate(lock),
     nativeContractClosureDigest: sha256Canonical(
@@ -340,8 +380,8 @@ function projectResolutionSuccess(
   const resources = call.resources;
   const request = call.invocation.request;
   for (const requirement of request.requirements) {
-    const productMatches = resources.verifiedPreimages.filter(({ verifiedArtifact }) =>
-      verifiedArtifact.productId === requirement.productId
+    const productMatches = resources.verifiedPreimages.filter((preimage) =>
+      verifiedArtifactFor(preimage).productId === requirement.productId
     );
     if (productMatches.length === 0) {
       return validateResolveOutput({
@@ -353,8 +393,8 @@ function projectResolutionSuccess(
         },
       } as OwnerSemanticOutput<ResolvePacket>);
     }
-    const versionMatches = productMatches.filter(({ verifiedArtifact }) =>
-      verifiedArtifact.packageVersion === requirement.packageVersion
+    const versionMatches = productMatches.filter((preimage) =>
+      verifiedArtifactFor(preimage).packageVersion === requirement.packageVersion
     );
     if (versionMatches.length !== 1) {
       return validateResolveOutput({
@@ -362,13 +402,13 @@ function projectResolutionSuccess(
         value: {
           code: versionMatches.length === 0 ? "incompatible" : "ambiguous",
           issuePaths: ["/requirements"],
-          evidenceRefs: productMatches.map(({ verifiedArtifact }) =>
-            verifiedArtifact.artifactRef
+          evidenceRefs: productMatches.map((preimage) =>
+            verifiedArtifactFor(preimage).artifactRef
           ),
         },
       } as OwnerSemanticOutput<ResolvePacket>);
     }
-    const artifact = versionMatches[0]!.verifiedArtifact;
+    const artifact = verifiedArtifactFor(versionMatches[0]!);
     if (
       requirement.requiredContractRefs.some((ref) =>
         !artifact.publicContractRefs.includes(ref)
@@ -388,8 +428,8 @@ function projectResolutionSuccess(
     }
   }
   const selectedProductIds = new Set(request.requirements.map(({ productId }) => productId));
-  const unselected = resources.verifiedPreimages.filter(({ verifiedArtifact }) =>
-    !selectedProductIds.has(verifiedArtifact.productId)
+  const unselected = resources.verifiedPreimages.filter((preimage) =>
+    !selectedProductIds.has(verifiedArtifactFor(preimage).productId)
   );
   if (unselected.length !== 0) {
     return validateResolveOutput({
@@ -397,18 +437,16 @@ function projectResolutionSuccess(
       value: {
         code: "invalid",
         issuePaths: ["/verifiedCandidates"],
-        evidenceRefs: unselected.map(({ verifiedArtifact }) =>
-          verifiedArtifact.artifactRef
+        evidenceRefs: unselected.map((preimage) =>
+          verifiedArtifactFor(preimage).artifactRef
         ),
       },
     } as OwnerSemanticOutput<ResolvePacket>);
   }
-  const selectorRefs = resources.verifiedPreimages.flatMap(({ verificationOutput }) =>
-    verificationOutput.value.targetKind === "packed_artifact"
-      ? verificationOutput.value.pendingExternalSelectors.map(
-          ({ selectorRef }) => selectorRef,
-        )
-      : []
+  const selectorRefs = resources.verifiedPreimages.flatMap((preimage) =>
+    admittedVerifiedPreimage(preimage).verification.pendingExternalSelectors.map(
+      ({ selectorRef }) => selectorRef,
+    )
   );
   const closure = admitResolvedNativeContractClosure(
     selectorRefs,
@@ -422,22 +460,22 @@ function projectResolutionSuccess(
     throw new TypeError("resolved native closure differs from the verified Product preimages");
   }
   const selections = request.requirements.map((requirement) => {
-    const preimage = resources.verifiedPreimages.find(({ verifiedArtifact }) =>
-      verifiedArtifact.productId === requirement.productId &&
-      verifiedArtifact.packageVersion === requirement.packageVersion
+    const preimage = resources.verifiedPreimages.find((candidate) =>
+      verifiedArtifactFor(candidate).productId === requirement.productId &&
+      verifiedArtifactFor(candidate).packageVersion === requirement.packageVersion
     )!;
     return {
       requirement,
       product: {
-        ref: preimage.verifiedArtifact.productId,
-        digest: preimage.verifiedArtifact.productContentDigest,
+        ref: verifiedArtifactFor(preimage).productId,
+        digest: verifiedArtifactFor(preimage).productContentDigest,
       },
       verification: preimage.verification,
     };
   });
   const provenance = uniqueCoordinates(
-    resources.verifiedPreimages.flatMap(({ verificationOutput }) =>
-      verificationOutput.value.provenance
+    resources.verifiedPreimages.map((preimage) =>
+      admittedVerifiedPreimage(preimage).verification.coordinates.provenance
     ),
   );
   return validateResolveOutput({
@@ -469,7 +507,7 @@ const resolve: ExactDefinitionCallable<
         schemaVersion: "5.0.0",
         memberKey: "resolve",
         verifiedArtifacts: call.resources.verifiedPreimages.map(
-          ({ verifiedArtifact }) => verifiedArtifact,
+          (preimage) => verifiedArtifactFor(preimage),
         ),
       };
       const native = ProductEnvironmentPort.resolve(nativePacket);

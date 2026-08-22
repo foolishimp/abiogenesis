@@ -27,11 +27,19 @@ export {
   type ProductVerificationRefusal,
   type ProductVerificationRefusalCode,
   type ProductVerificationResourceDisposition,
+  type ProductVerificationResourceReceipt,
   type ProductVerificationResources,
+  type ProductVerificationSuccess,
   type ProductVerificationResult,
   type VerifiedProductArtifact,
   type VerifyProductRequest,
 } from "./contracts.js";
+export {
+  admitSuccessfulPackedVerificationEvidence,
+  constructProductVerificationEvidence,
+  type ProductVerificationEvidence,
+  type SuccessfulPackedVerificationAdmission,
+} from "./verification_evidence.js";
 export {
   CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
   CAPABILITY_DEFINITION_GRAPH_ID,

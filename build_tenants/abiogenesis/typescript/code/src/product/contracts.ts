@@ -6,6 +6,7 @@ import type {
 import type { CompleteDefinitionContractCoordinateMap } from "../shared/public_function_contracts.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import type { ProductInstall, ResolvedProductLock } from "./environment.js";
+import type { ProductVerificationEvidence } from "./verification_evidence.js";
 
 export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-dev.286";
 export const ABI5_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
@@ -295,6 +296,18 @@ export type ProductVerificationResourceDisposition =
       installedProduct: ReferenceDigest<"InstalledProduct">;
       installManifest: ReferenceDigest<"InstallManifest">;
     }>;
+
+/**
+ * The verify owner returns its immutable read disposition on every completion.
+ * Only a complete verification success carries the Product-owned evidence.
+ */
+export interface ProductVerificationResourceReceipt {
+  readonly kind: "product_verification_resource_receipt";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "read_only_unchanged";
+  readonly resourceDisposition: ProductVerificationResourceDisposition;
+  readonly evidence: ProductVerificationEvidence | null;
+}
 
 export interface InstallProductRequest {
   readonly artifactPath: string;

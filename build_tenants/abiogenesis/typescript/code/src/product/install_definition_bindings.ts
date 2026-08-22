@@ -11,6 +11,7 @@ import {
 import {
   admitProductInstall,
   projectAdmittedProductInstall,
+  type ExactPrefixWorkspaceEnvironment,
   type ArtifactAdmissionBasis,
 } from "../abg/environment_admission.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -38,16 +39,21 @@ import type {
   OwnerRefusalOf,
   OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
-import type { ReferenceDigest } from "../shared/public_invocation.js";
+import type {
+  ReferenceDigest,
+  SuccessfulPackedVerificationReference,
+} from "../shared/public_invocation.js";
+import type { IndexedPublicOutcome } from "../public/indexed_outcome.js";
 import type {
   ProductInstallCandidate,
   ProductInstallRefusal,
   ProductVerificationArtifactResource,
-  VerifiedProductArtifact,
+  ProductVerificationResources,
 } from "./contracts.js";
 import {
   isResolvedProductLock,
   productInstallCoordinate,
+  verifiedArtifactMatchesResolvedLock,
   type ProductInstall,
   type ResolvedProductLock,
 } from "./environment.js";
@@ -59,20 +65,35 @@ import {
   type ProductInstallPacket,
 } from "./install_operation.js";
 import {
-  isVerifiedProductArtifact,
-  productVerificationCoordinates,
-} from "./verify_product.js";
+  admitSuccessfulPackedVerificationEvidence,
+  type ProductVerificationEvidence,
+  type SuccessfulPackedVerificationAdmission,
+} from "./verification_evidence.js";
+import { PRODUCT_VERIFICATION_CONTRACTS } from "./verification_operation_contracts.js";
+import { admitPrebindingDevelopmentProductDefinitionCall } from "./invocation.js";
 
 type InstallPacket = typeof PRODUCT_INSTALL_CONTRACTS.install;
 type InstallRefusalCode = OwnerRefusalOf<InstallPacket>["code"];
+type VerifyPacket = typeof PRODUCT_VERIFICATION_CONTRACTS.verify;
+type VerifyInvocation = DefinitionCall<
+  VerifyPacket,
+  ProductVerificationResources
+>["invocation"];
+type VerifyOutcome = IndexedPublicOutcome<VerifyPacket["definitionKey"]>;
 
 export interface ProductInstallResourceAssertion {
   readonly kind: "product_install_resource_assertion";
   readonly schemaVersion: "5.0.0";
   readonly eventResource: AbgEventResourceAssertion;
   readonly packedArtifact: ProductVerificationArtifactResource;
-  readonly verifiedArtifact: VerifiedProductArtifact;
+  readonly verification: SuccessfulPackedVerificationReference;
+  readonly verificationInvocation: VerifyInvocation;
+  readonly verificationOwnerOutput: OwnerSemanticOutput<VerifyPacket>;
+  readonly verificationOutcome: VerifyOutcome;
+  readonly verificationEvidence: ProductVerificationEvidence;
   readonly resolvedLock: ResolvedProductLock;
+  readonly predecessorEnvironment: ExactPrefixWorkspaceEnvironment;
+  readonly targetRoot: string;
 }
 
 export interface ProductInstallResourceReceipt {
@@ -121,6 +142,20 @@ function installManifestCoordinate(
   );
 }
 
+function admittedPackedVerification(
+  resources: ProductInstallResourceAssertion,
+): SuccessfulPackedVerificationAdmission | null {
+  const admitted = admitSuccessfulPackedVerificationEvidence(
+    resources.verificationInvocation,
+    resources.verificationOwnerOutput,
+    resources.verificationOutcome,
+    resources.verificationEvidence,
+  );
+  return admitted !== null && sameJson(resources.verification, admitted.reference)
+    ? admitted
+    : null;
+}
+
 function validateResources(
   call: DefinitionCall<InstallPacket, ProductInstallResourceAssertion>,
 ): DefinitionExecutionFault<InstallPacket["definitionKey"]> | null {
@@ -131,14 +166,18 @@ function validateResources(
       "eventResource",
       "kind",
       "packedArtifact",
+      "predecessorEnvironment",
       "resolvedLock",
       "schemaVersion",
-      "verifiedArtifact",
+      "verification",
+      "verificationEvidence",
+      "verificationInvocation",
+      "verificationOutcome",
+      "verificationOwnerOutput",
+      "targetRoot",
     ]) ||
     resources.kind !== "product_install_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
-    !sameJson(resources, resources) ||
-    !isVerifiedProductArtifact(resources.verifiedArtifact) ||
     !isResolvedProductLock(resources.resolvedLock)
   ) {
     return installFault(
@@ -150,9 +189,30 @@ function validateResources(
   }
 
   const request = call.invocation.request;
-  const artifact = resources.verifiedArtifact;
+  if (admitPrebindingDevelopmentProductDefinitionCall(
+    call,
+    PRODUCT_INSTALL_CONTRACTS.install,
+    resources.predecessorEnvironment,
+  ) === null) {
+    return installFault(
+      call,
+      "authority_admission",
+      "call_authority_mismatch",
+      "Product installation requires the exact predecessor-authorized DefinitionCall",
+    );
+  }
+  const admission = admittedPackedVerification(resources);
+  if (admission === null) {
+    return installFault(
+      call,
+      "resource_admission",
+      "verification_evidence_mismatch",
+      "Product installation requires the exact admitted packed verification completion",
+    );
+  }
+  const artifact = admission.verifiedArtifact;
   const packed = resources.packedArtifact;
-  const coordinates = productVerificationCoordinates(artifact);
+  const coordinates = admission.verification.coordinates;
   const authorityLock = call.invocation.invocationAuthority.slots.dependency_lock;
   if (
     !isRecord(packed) ||
@@ -165,6 +225,7 @@ function validateResources(
     !sameCoordinate(request.resolvedLock, resolvedLockCoordinate(resources.resolvedLock)) ||
     authorityLock === null ||
     !sameCoordinate(authorityLock, request.resolvedLock) ||
+    !verifiedArtifactMatchesResolvedLock(artifact, resources.resolvedLock) ||
     packed.artifact.ref !== artifact.artifactRef ||
     packed.artifact.digest !== artifact.artifactDigest ||
     packed.productContent.digest !== artifact.productContentDigest ||
@@ -173,7 +234,8 @@ function validateResources(
     packed.manifestDigest !== artifact.manifestDigest ||
     packed.productId !== artifact.productId ||
     packed.packageName !== artifact.packageName ||
-    packed.packageVersion !== artifact.packageVersion
+    packed.packageVersion !== artifact.packageVersion ||
+    resources.targetRoot !== request.targetRoot
   ) {
     return installFault(
       call,
@@ -229,7 +291,7 @@ function receipt(
     eventResource,
     packedArtifact: { ...call.resources.packedArtifact.artifact },
     resolvedLock: resolvedLockCoordinate(call.resources.resolvedLock),
-    targetRoot: call.invocation.request.targetRoot,
+    targetRoot: call.resources.targetRoot,
     installCandidate: candidate === null ? null : candidateCoordinate(candidate),
     installedProduct: install === null ? null : productInstallCoordinate(install),
     installManifest: install === null ? null : installManifestCoordinate(install),
@@ -244,6 +306,15 @@ const install: ExactDefinitionCallable<
 > = (call) => {
   const resourceFault = validateResources(call);
   if (resourceFault !== null) return Effect.fail(resourceFault);
+  const verification = admittedPackedVerification(call.resources);
+  if (verification === null) {
+    return Effect.fail(installFault(
+      call,
+      "resource_admission",
+      "verification_evidence_mismatch",
+      "Product installation requires the exact admitted packed verification completion",
+    ));
+  }
 
   return Effect.tryPromise({
     try: async (): Promise<DefinitionReturn<
@@ -267,8 +338,8 @@ const install: ExactDefinitionCallable<
           memberKey: "install",
           request: {
             artifactPath: call.resources.packedArtifact.artifactPath,
-            targetRoot: call.invocation.request.targetRoot,
-            verifiedArtifact: call.resources.verifiedArtifact,
+            targetRoot: call.resources.targetRoot,
+            verifiedArtifact: verification.verifiedArtifact,
             resolvedLock: call.resources.resolvedLock,
           },
         };

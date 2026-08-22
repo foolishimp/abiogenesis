@@ -2,6 +2,8 @@ import { join } from "node:path";
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
 
+import type { ExactPrefixWorkspaceEnvironment } from
+  "../abg/environment_admission.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type {
   DefinitionCall, DefinitionExecutionFault, DefinitionReturn,
@@ -17,7 +19,7 @@ import type {
   InstalledProductVerificationResources, PackedProductVerificationResources,
   ProductVerificationArtifactResource, ProductVerificationOperationResult,
   ProductVerificationRefusalCode, ProductVerificationResourceDisposition,
-  ProductVerificationResources,
+  ProductVerificationResourceReceipt,
 } from "./contracts.js";
 import {
   isProductInstall, productInstallCoordinate, verifiedArtifactMatchesResolvedLock,
@@ -26,6 +28,8 @@ import {
   ProductVerificationPort, type ProductVerificationPacket,
 } from "./verification_operation.js";
 import { PRODUCT_VERIFICATION_CONTRACTS } from "./verification_operation_contracts.js";
+import { constructProductVerificationEvidence } from "./verification_evidence.js";
+import { admitPrebindingDevelopmentProductDefinitionCall } from "./invocation.js";
 
 type VerifyPacket = typeof PRODUCT_VERIFICATION_CONTRACTS.verify;
 type PublicVerifyRefusalCode = OwnerRefusalOf<VerifyPacket>["code"];
@@ -54,6 +58,7 @@ const packedResourcesSchema = v.strictObject({
   schemaVersion: v.literal("5.0.0"),
   targetKind: v.literal("packed_artifact"),
   packedArtifact: artifactResourceSchema,
+  predecessorEnvironment: v.unknown(),
 });
 const installedResourcesSchema = v.strictObject({
   kind: v.literal("product_verification_resources"),
@@ -63,15 +68,24 @@ const installedResourcesSchema = v.strictObject({
   resolvedLock: v.unknown(),
   installedProduct: v.unknown(),
   installManifest: installManifestResourceSchema,
+  predecessorEnvironment: v.unknown(),
 });
 
+export type ProductVerificationDefinitionResources =
+  | (PackedProductVerificationResources & Readonly<{
+      predecessorEnvironment: ExactPrefixWorkspaceEnvironment;
+    }>)
+  | (InstalledProductVerificationResources & Readonly<{
+      predecessorEnvironment: ExactPrefixWorkspaceEnvironment;
+    }>);
+
 type AdmittedResources = Readonly<{
-  resources: ProductVerificationResources;
+  resources: ProductVerificationDefinitionResources;
   installedProductCoordinate: ReferenceDigest<"InstalledProduct"> | null;
 }>;
 
 function fault(
-  call: DefinitionCall<VerifyPacket, ProductVerificationResources>,
+  call: DefinitionCall<VerifyPacket, ProductVerificationDefinitionResources>,
   stage: string, code: string, message: string,
 ): DefinitionExecutionFault<VerifyPacket["definitionKey"]> {
   return deepFreeze({
@@ -91,7 +105,7 @@ function sameCoordinate(left: ReferenceDigest, right: ReferenceDigest): boolean 
 
 function artifactMatchesRequest(
   artifact: ProductVerificationArtifactResource,
-  call: DefinitionCall<VerifyPacket, ProductVerificationResources>,
+  call: DefinitionCall<VerifyPacket, ProductVerificationDefinitionResources>,
 ): boolean {
   const request = call.invocation.request;
   return sameCoordinate(artifact.artifact, request.artifact) &&
@@ -101,7 +115,7 @@ function artifactMatchesRequest(
 }
 
 function admitResources(
-  call: DefinitionCall<VerifyPacket, ProductVerificationResources>,
+  call: DefinitionCall<VerifyPacket, ProductVerificationDefinitionResources>,
 ): DefinitionExecutionFault<VerifyPacket["definitionKey"]> | AdmittedResources {
   const request = call.invocation.request;
   const schema = request.targetKind === "packed_artifact"
@@ -110,22 +124,32 @@ function admitResources(
   if (admitRuntimeContract(schema, call.resources).disposition !== "admitted") {
     return fault(call, "resource_admission", "invalid_resource_assertion", "verification requires the exact selected E22 resource carrier");
   }
+  const resources = call.resources as ProductVerificationDefinitionResources;
+  if (admitPrebindingDevelopmentProductDefinitionCall(
+    call,
+    PRODUCT_VERIFICATION_CONTRACTS.verify,
+    resources.predecessorEnvironment,
+  ) === null) {
+    return fault(call, "authority_admission", "call_authority_mismatch", "verification requires the exact predecessor-authorized DefinitionCall");
+  }
 
   if (request.targetKind === "packed_artifact") {
-    const resources = call.resources as PackedProductVerificationResources;
-    return artifactMatchesRequest(resources.packedArtifact, call)
-      ? { resources, installedProductCoordinate: null }
+    const packed = resources as ProductVerificationDefinitionResources &
+      PackedProductVerificationResources;
+    return artifactMatchesRequest(packed.packedArtifact, call)
+      ? { resources: packed, installedProductCoordinate: null }
       : fault(call, "resource_admission", "resource_relation_mismatch", "the E22 artifact preimage differs from the admitted request");
   }
 
-  const resources = call.resources as InstalledProductVerificationResources;
-  if (!isProductInstall(resources.installedProduct, resources.resolvedLock)) {
+  const installed = resources as ProductVerificationDefinitionResources &
+    InstalledProductVerificationResources;
+  if (!isProductInstall(installed.installedProduct, installed.resolvedLock)) {
     return fault(call, "resource_admission", "invalid_resource_assertion", "installed verification requires admitted Product lock and install carriers");
   }
-  const installedProductCoordinate = productInstallCoordinate(resources.installedProduct);
-  const artifact = resources.installedArtifact;
-  const install = resources.installedProduct;
-  const manifest = resources.installManifest;
+  const installedProductCoordinate = productInstallCoordinate(installed.installedProduct);
+  const artifact = installed.installedArtifact;
+  const install = installed.installedProduct;
+  const manifest = installed.installManifest;
   const authorityLock = call.invocation.invocationAuthority.slots.dependency_lock;
   const compatibilityInputs = install.compatibilityRefs.map((compatibilityRef) => ({
     compatibilityRef,
@@ -135,8 +159,8 @@ function admitResources(
     !artifactMatchesRequest(artifact, call) ||
     authorityLock === null ||
     !sameCoordinate(authorityLock, request.resolvedLock) ||
-    request.resolvedLock.ref !== resources.resolvedLock.lockId ||
-    request.resolvedLock.digest !== resources.resolvedLock.lockDigest ||
+    request.resolvedLock.ref !== installed.resolvedLock.lockId ||
+    request.resolvedLock.digest !== installed.resolvedLock.lockDigest ||
     !sameCoordinate(request.installedProduct, installedProductCoordinate) ||
     !sameCoordinate(request.installManifest, manifest.manifest) ||
     manifest.manifest.digest !== install.manifestDigest ||
@@ -157,10 +181,10 @@ function admitResources(
   ) {
     return fault(call, "resource_admission", "resource_relation_mismatch", "the installed E22 request and supplied preimages disagree");
   }
-  return { resources, installedProductCoordinate };
+  return { resources: installed, installedProductCoordinate };
 }
 
-function nativePacket(resources: ProductVerificationResources): ProductVerificationPacket {
+function nativePacket(resources: ProductVerificationDefinitionResources): ProductVerificationPacket {
   const artifact = resources.targetKind === "packed_artifact"
     ? resources.packedArtifact
     : resources.installedArtifact;
@@ -225,7 +249,7 @@ function mismatchOutput(
 }
 
 function projectOwnerOutput(
-  call: DefinitionCall<VerifyPacket, ProductVerificationResources>,
+  call: DefinitionCall<VerifyPacket, ProductVerificationDefinitionResources>,
   admitted: AdmittedResources, result: ProductVerificationOperationResult,
 ): OwnerSemanticOutput<VerifyPacket> {
   if (result.kind === "product_verification_installed_state_refusal") {
@@ -345,17 +369,33 @@ function resourceDisposition(admitted: AdmittedResources): ProductVerificationRe
   });
 }
 
-const verify: ExactDefinitionCallable<VerifyPacket, ProductVerificationResources,
-  ProductVerificationResourceDisposition> = (call) => {
+function resourceReceipt(
+  admitted: AdmittedResources,
+  result: ProductVerificationOperationResult,
+): ProductVerificationResourceReceipt {
+  const disposition = resourceDisposition(admitted);
+  return deepFreeze({
+    kind: "product_verification_resource_receipt" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "read_only_unchanged" as const,
+    resourceDisposition: disposition,
+    evidence: result.kind === "product_verification_success"
+      ? constructProductVerificationEvidence(result, disposition)
+      : null,
+  });
+}
+
+const verify: ExactDefinitionCallable<VerifyPacket, ProductVerificationDefinitionResources,
+  ProductVerificationResourceReceipt> = (call) => {
   const admitted = admitResources(call);
   if ("kind" in admitted) return Effect.fail(admitted);
   return Effect.tryPromise({
     try: () => ProductVerificationPort.verify(nativePacket(admitted.resources)),
     catch: (cause) => fault(call, "owner_execution", "product_verification_execution_failure", String(cause)),
   }).pipe(Effect.flatMap((ownerResult) => Effect.try({
-    try: (): DefinitionReturn<VerifyPacket, ProductVerificationResourceDisposition> => deepFreeze({
+    try: (): DefinitionReturn<VerifyPacket, ProductVerificationResourceReceipt> => deepFreeze({
       ownerOutput: validatedOutput(projectOwnerOutput(call, admitted, ownerResult)),
-      resources: resourceDisposition(admitted),
+      resources: resourceReceipt(admitted, ownerResult),
     }),
     catch: (cause) => fault(call, "owner_projection", "invalid_product_verification_owner_output", String(cause)),
   })));
