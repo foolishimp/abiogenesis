@@ -89,7 +89,11 @@ constructor. One sparse intrinsic field,
 the installed intrinsic definition; `workspaceBindingRequirement: "forbidden"`
 is necessary but not sufficient. The other 51 keys omit the field and are
 ineligible; there is no mandatory `none` value, operation-name switch/set, or
-registry. Exactly four `sourceModuleDigest` values rotate:
+registry. The basis carries only the canonical two-field `definitionKey`;
+Product module-statically selects the fixed owner packet from the closed owner
+source set and joins it to the installed intrinsic definition. A caller cannot
+supply packet or eligibility authority. Exactly four `sourceModuleDigest`
+values rotate:
 `Product.WorkspaceOperations`, `Product.Verification`,
 `Product.EnvironmentResolution`, and `Product.Installation`. Changing the
 shared `workspaceCreateMetadata` declaration rotates the

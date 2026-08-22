@@ -136,17 +136,20 @@ held predecessor DurablePrefixCoordinate
        workspaceBindingRequirement == "forbidden"
   -> CapabilityGrantConstructionBasis<K> {
        kind: "prebinding_development_product_basis",
-       fixedPacket,
+       definitionKey: { operationId, memberKey },
        predecessorEnvironment,
        request: RD<PublicRequest<K>>
      }
+  -> Product selects the fixed owner packet module-statically from definitionKey
+       and joins packet key == call key == basis key == installed definition key
   -> Product.constructCapabilityGrant
        approval = predecessor WorkspaceBinding RD
        policy = predecessor WorkspaceAuthorityBasis RD
        authorityBasis = exact-prefix artifact-truth projection RD
        scope = exact request RD
   + Product.projectDevelopmentSuccessorActorAttribution(
-       predecessor binding/authority, fixed packet, exact request RD)
+       predecessor binding/authority, owner-selected fixed definition,
+       exact request RD)
        actor = {
          ref: authorizedActorRef,
          digest: sha256Canonical({ actorRef: authorizedActorRef })
@@ -298,7 +301,7 @@ physical effect as applicable:
   evidence/lock/workspace/actor/scope; or a target request/resource-root join
   mismatch;
 - `workspaceBindingRequirement: "forbidden"` accepted without installed
-  eligibility; eligibility absent/crossed, caller/fixed-packet-only, or present
+  eligibility; eligibility absent/crossed, caller-selected-packet-only, or present
   on a sixth key; an operation-name eligibility set/switch/registry; a mandatory
   eligibility-`none` field across all 56; fewer or more than four rotated
   `sourceModuleDigest` values; fewer or more than the exact seven rotated intrinsic
