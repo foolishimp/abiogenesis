@@ -12,6 +12,7 @@ import {
   type JsonValue,
 } from "../shared/canonical_json.js";
 import type { AdmittedPublicInvocation } from "../shared/public_invocation.js";
+import type { ExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
 import {
   lookupGraphFunction,
   type DeclarationApplication,
@@ -24,7 +25,11 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import {
+  constructProductSet,
   isWorkspaceAuthorityBasis,
+  isProductSet,
+  isResolvedProductLock,
+  isWorkspaceBindingCandidate,
   type ProductInstall,
   type WorkspaceAuthorityBasis,
   type WorkspaceBinding,
@@ -50,6 +55,7 @@ import {
 import type {
   PublicContractCoordinate,
   PublicDefinitionKeyLike,
+  ReferenceDigest,
 } from "../shared/public_invocation.js";
 
 export type RunInvocationVariant = "direct" | "start";
@@ -113,10 +119,22 @@ export interface CapabilityDefinitionCoordinate {
   readonly capabilityDefinitionDigest: Sha256Digest;
 }
 
-export interface CapabilityGrantConstructionBasis {
-  readonly admittedInstalls: readonly ProductInstall[];
-  readonly workspaceBinding: WorkspaceBinding;
-  readonly fixedPacket: OwnerContractSourceDeclaration;
+export type CapabilityGrantConstructionBasis =
+  | {
+      readonly kind: "prebinding_development_product_basis";
+      readonly fixedPacket: OwnerContractSourceDeclaration;
+      readonly predecessorEnvironment: ExactPrefixWorkspaceEnvironment;
+      readonly request: ReferenceDigest<unknown>;
+    }
+  | {
+      readonly admittedInstalls: readonly ProductInstall[];
+      readonly workspaceBinding: WorkspaceBinding;
+      readonly fixedPacket: OwnerContractSourceDeclaration;
+    };
+
+export interface DevelopmentSuccessorActorAttribution {
+  readonly actor: ReferenceDigest<"Actor">;
+  readonly attribution: ReferenceDigest<"ActorAttribution">;
 }
 
 export interface InvocationAuthority {
@@ -709,31 +727,239 @@ export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant
   );
 }
 
+function isInvocationRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function isReferenceDigest(value: unknown): value is ReferenceDigest<unknown> {
+  return isInvocationRecord(value) &&
+    typeof value.ref === "string" &&
+    value.ref.length > 0 &&
+    isSha256Digest(value.digest);
+}
+
+function isPrebindingBasis(
+  value: CapabilityGrantConstructionBasis | undefined,
+): value is Extract<
+  CapabilityGrantConstructionBasis,
+  { readonly kind: "prebinding_development_product_basis" }
+> {
+  return value !== undefined &&
+    "kind" in value &&
+    value.kind === "prebinding_development_product_basis";
+}
+
+function isExactPrefixArtifactTruthProjection(
+  environment: ExactPrefixWorkspaceEnvironment,
+): boolean {
+  const artifactTruth = environment.artifactTruth as unknown as Record<
+    string,
+    unknown
+  >;
+  if (
+    artifactTruth.kind !== "exact_prefix_artifact_truth_projection" ||
+    artifactTruth.schemaVersion !== "5.0.0" ||
+    !isInvocationRecord(artifactTruth.prefix) ||
+    !Number.isInteger(artifactTruth.prefixEventCount) ||
+    (artifactTruth.prefixEventCount as number) < 0 ||
+    !Number.isInteger(artifactTruth.lastAdmissionOrdinal) ||
+    (artifactTruth.lastAdmissionOrdinal as number) < 0 ||
+    !Array.isArray(artifactTruth.rows) ||
+    typeof artifactTruth.projectionRef !== "string" ||
+    artifactTruth.projectionRef.length === 0 ||
+    !isSha256Digest(artifactTruth.projectionDigest) ||
+    canonicalJson(artifactTruth.prefix as JsonValue) !==
+      canonicalJson(environment.prefix as unknown as JsonValue)
+  ) return false;
+  const body = {
+    kind: "exact_prefix_artifact_truth_projection" as const,
+    schemaVersion: "5.0.0" as const,
+    prefix: artifactTruth.prefix,
+    prefixEventCount: artifactTruth.prefixEventCount,
+    lastAdmissionOrdinal: artifactTruth.lastAdmissionOrdinal,
+    rows: artifactTruth.rows,
+  };
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  return artifactTruth.projectionDigest === digest &&
+    artifactTruth.projectionRef ===
+      `artifact-truth-projection://abiogenesis/${digest.slice("sha256:".length)}`;
+}
+
+function isPrebindingEnvironment(
+  value: unknown,
+): value is ExactPrefixWorkspaceEnvironment {
+  if (
+    !isInvocationRecord(value) ||
+    value.kind !== "exact_prefix_workspace_environment" ||
+    value.schemaVersion !== "5.0.0"
+  ) return false;
+  const environment = value as unknown as ExactPrefixWorkspaceEnvironment;
+  const authority = environment.workspaceAuthorityBasis;
+  const binding = environment.workspaceBinding;
+  const lock = environment.resolvedProductLock;
+  const productSet = environment.productSet;
+  const installs = environment.productInstalls;
+  if (
+    !isWorkspaceAuthorityBasis(authority) ||
+    !isResolvedProductLock(lock) ||
+    !Array.isArray(installs) ||
+    installs.length === 0 ||
+    installs.some((install) =>
+      !isInvocationRecord(install) ||
+      install.kind !== "product_install" ||
+      install.disposition !== "admitted" ||
+      typeof install.installId !== "string" ||
+      install.installId.length === 0 ||
+      typeof install.admissionEventRef !== "string" ||
+      install.admissionEventRef.length === 0
+    ) ||
+    !isProductSet(productSet, lock) ||
+    !isWorkspaceBindingCandidate(
+      environment.workspaceBindingCandidate,
+      lock,
+      productSet,
+      authority,
+    ) ||
+    !isInvocationRecord(binding) ||
+    binding.kind !== "workspace_binding" ||
+    binding.schemaVersion !== "5.0.0" ||
+    typeof binding.admissionEventRef !== "string" ||
+    binding.admissionEventRef.length === 0 ||
+    binding.workspaceId !== authority.workspaceId ||
+    binding.authorityBasisId !== authority.authorityBasisId ||
+    binding.authorityBasisDigest !== authority.authorityBasisDigest ||
+    binding.authorizedActorRef !== authority.authorizedActorRef
+  ) return false;
+  try {
+    const {
+      kind: _bindingKind,
+      admissionEventRef: _admissionEventRef,
+      ...bindingFields
+    } = binding;
+    const bindingCandidate = {
+      kind: "workspace_binding_candidate" as const,
+      ...bindingFields,
+    };
+    if (
+      !isWorkspaceBindingCandidate(bindingCandidate, lock, productSet, authority) ||
+      canonicalJson(bindingCandidate as unknown as JsonValue) !==
+        canonicalJson(environment.workspaceBindingCandidate as unknown as JsonValue)
+    ) return false;
+    const reconstructedProductSet = constructProductSet(installs, lock);
+    if (
+      reconstructedProductSet.kind !== "product_set" ||
+      canonicalJson(reconstructedProductSet as unknown as JsonValue) !==
+        canonicalJson(productSet as unknown as JsonValue) ||
+      !isExactPrefixArtifactTruthProjection(environment)
+    ) return false;
+    const artifactTruth = environment.artifactTruth;
+    const bindingRows = artifactTruth.rows.filter((row) =>
+      isInvocationRecord(row) &&
+      row.operationId === "abg.operation.workspace.bind" &&
+      row.authorityScopeRef === binding.bindingId &&
+      row.authorityScopeDigest === binding.bindingDigest &&
+      row.artifactRef === binding.bindingId &&
+      row.artifactDigest === binding.bindingDigest &&
+      canonicalJson(row.workspaceAuthorityBasis as JsonValue) ===
+        canonicalJson(authority as unknown as JsonValue)
+    );
+    return bindingRows.length === 1;
+  } catch {
+    return false;
+  }
+}
+
 function exactIntrinsicDefinition(
-  basis: CapabilityGrantConstructionBasis,
+  fixedPacket: OwnerContractSourceDeclaration,
 ): IntrinsicPublicFunctionDefinition {
   const definition = selectIntrinsicPublicFunctionDefinition(
-    basis.fixedPacket.definitionKey,
+    fixedPacket.definitionKey,
   );
   if (
     definition === null ||
-    definition.semanticAuthorityRef !== basis.fixedPacket.owner.authorityRef ||
+    definition.semanticAuthorityRef !== fixedPacket.owner.authorityRef ||
     definition.semanticAuthorityDigest !==
-      basis.fixedPacket.owner.authorityDigest ||
+      fixedPacket.owner.authorityDigest ||
     definition.requestContract.contractId !==
-      basis.fixedPacket.contractIds.request ||
+      fixedPacket.contractIds.request ||
     definition.resultContract.contractId !==
-      basis.fixedPacket.contractIds.result ||
+      fixedPacket.contractIds.result ||
     definition.refusalContract.contractId !==
-      basis.fixedPacket.contractIds.refusal ||
+      fixedPacket.contractIds.refusal ||
     (definition.nonTerminalContract?.contractId ?? null) !==
-      basis.fixedPacket.contractIds.nonTerminal
+      fixedPacket.contractIds.nonTerminal
   ) {
     throw new TypeError(
       "capability grant requires the selected intrinsic definition and fixed owner packet",
     );
   }
   return definition;
+}
+
+function isEligiblePrebindingDefinition(
+  definition: IntrinsicPublicFunctionDefinition,
+  fixedPacket: OwnerContractSourceDeclaration,
+): boolean {
+  return definition.successorDevelopmentPrebindingAuthority === "eligible" &&
+    definition.workspaceBindingRequirement === "forbidden" &&
+    fixedPacket.metadata.successorDevelopmentPrebindingAuthority ===
+      "eligible" &&
+    fixedPacket.metadata.workspaceBindingRequirement === "forbidden";
+}
+
+export function projectDevelopmentSuccessorActorAttribution(
+  predecessorEnvironment: ExactPrefixWorkspaceEnvironment,
+  fixedPacket: OwnerContractSourceDeclaration,
+  request: ReferenceDigest<unknown>,
+): DevelopmentSuccessorActorAttribution | null {
+  try {
+    if (
+      !isPrebindingEnvironment(predecessorEnvironment) ||
+      !isReferenceDigest(request)
+    ) return null;
+    const definition = exactIntrinsicDefinition(fixedPacket);
+    if (!isEligiblePrebindingDefinition(definition, fixedPacket)) return null;
+    const authorizedActorRef =
+      predecessorEnvironment.workspaceAuthorityBasis.authorizedActorRef;
+    if (
+      authorizedActorRef.length === 0 ||
+      predecessorEnvironment.workspaceBinding.authorizedActorRef !==
+        authorizedActorRef
+    ) return null;
+    const actor = deepFreeze({
+      ref: authorizedActorRef,
+      digest: sha256Canonical({ actorRef: authorizedActorRef }),
+    }) as ReferenceDigest<"Actor">;
+    const body = {
+      kind: "actor_attribution" as const,
+      schemaVersion: "5.0.0" as const,
+      actor,
+      definitionKey: deepFreeze({ ...definition.definitionKey }),
+      definitionRef: definition.definitionRef,
+      definitionDigest: definition.definitionDigest,
+      request: deepFreeze({ ref: request.ref, digest: request.digest }),
+      predecessorWorkspaceBinding: deepFreeze({
+        ref: predecessorEnvironment.workspaceBinding.bindingId,
+        digest: predecessorEnvironment.workspaceBinding.bindingDigest,
+      }),
+      predecessorWorkspaceAuthority: deepFreeze({
+        ref: predecessorEnvironment.workspaceAuthorityBasis.authorityBasisId,
+        digest:
+          predecessorEnvironment.workspaceAuthorityBasis.authorityBasisDigest,
+      }),
+    };
+    const attributionDigest = sha256Canonical(body as unknown as JsonValue);
+    return deepFreeze({
+      actor,
+      attribution: deepFreeze({
+        ref:
+          `actor-attribution://abiogenesis/${attributionDigest.slice("sha256:".length)}`,
+        digest: attributionDigest,
+      }),
+    });
+  } catch {
+    return null;
+  }
 }
 
 function selectedCapabilityOwner(
@@ -833,6 +1059,14 @@ export function constructCapabilityGrant(
   capabilityRef: string = DIRECT_INVOKE_CAPABILITY,
   basis?: CapabilityGrantConstructionBasis,
 ): CapabilityGrant {
+  const prebindingBasis = isPrebindingBasis(basis);
+  const predecessorEnvironment = prebindingBasis
+    ? basis.predecessorEnvironment
+    : null;
+  const workspaceBinding = predecessorEnvironment?.workspaceBinding ??
+    (prebindingBasis ? undefined : basis?.workspaceBinding);
+  const admittedInstalls = predecessorEnvironment?.productInstalls ??
+    (prebindingBasis ? undefined : basis?.admittedInstalls);
   const invocationPolicy = isInvocationPolicyBasis(policy) ? policy : null;
   const workspaceAuthority = isWorkspaceAuthorityBasis(policy) ? policy : null;
   const workspaceRead = operationId === "abg.operation.project.read";
@@ -843,21 +1077,31 @@ export function constructCapabilityGrant(
   ].includes(operationId);
   if (
     (invocationPolicy === null && workspaceAuthority === null) ||
-    (!workspaceRead && !invocationOperation) ||
-    (workspaceRead
-      ? workspaceAuthority === null
-      : invocationPolicy === null) ||
+    (!prebindingBasis && !workspaceRead && !invocationOperation) ||
+    (!prebindingBasis &&
+      (workspaceRead
+        ? workspaceAuthority === null
+        : invocationPolicy === null)) ||
     basis === undefined ||
+    workspaceBinding === undefined ||
+    admittedInstalls === undefined ||
     actorRef.length === 0 ||
     actorRef !== policy.authorizedActorRef ||
-    actorRef !== basis.workspaceBinding.authorizedActorRef ||
-    policy.authorityBasisId !== basis.workspaceBinding.authorityBasisId ||
-    policy.authorityBasisDigest !== basis.workspaceBinding.authorityBasisDigest ||
-    (invocationPolicy !== null
-      ? invocationPolicy.workspaceBindingId !== basis.workspaceBinding.bindingId ||
-        invocationPolicy.workspaceBindingDigest !==
-          basis.workspaceBinding.bindingDigest
-      : workspaceAuthority!.workspaceId !== basis.workspaceBinding.workspaceId) ||
+    actorRef !== workspaceBinding?.authorizedActorRef ||
+    policy.authorityBasisId !== workspaceBinding?.authorityBasisId ||
+    policy.authorityBasisDigest !== workspaceBinding?.authorityBasisDigest ||
+    (prebindingBasis
+      ? workspaceAuthority === null ||
+        !isPrebindingEnvironment(predecessorEnvironment) ||
+        canonicalJson(policy as unknown as JsonValue) !==
+          canonicalJson(
+            predecessorEnvironment.workspaceAuthorityBasis as unknown as JsonValue,
+          ) ||
+        workspaceAuthority.workspaceId !== workspaceBinding.workspaceId
+      : invocationPolicy !== null
+      ? invocationPolicy.workspaceBindingId !== workspaceBinding.bindingId ||
+        invocationPolicy.workspaceBindingDigest !== workspaceBinding.bindingDigest
+      : workspaceAuthority!.workspaceId !== workspaceBinding.workspaceId) ||
     capabilityRef.length === 0 ||
     operationId !== basis.fixedPacket.definitionKey.operationId
   ) {
@@ -865,10 +1109,25 @@ export function constructCapabilityGrant(
       "capability grant requires exact workspace, policy, actor, and definition authority",
     );
   }
-  const definition = exactIntrinsicDefinition(basis);
+  const definition = exactIntrinsicDefinition(basis.fixedPacket);
+  const actorAttribution = prebindingBasis
+    ? projectDevelopmentSuccessorActorAttribution(
+      predecessorEnvironment!,
+      basis.fixedPacket,
+      basis.request,
+    )
+    : null;
+  if (
+    (prebindingBasis && actorAttribution === null) ||
+    (actorAttribution !== null && actorAttribution.actor.ref !== actorRef)
+  ) {
+    throw new TypeError(
+      "capability grant requires the exact successor actor attribution",
+    );
+  }
   const { graph, operationContract, row: capabilityRow } =
     selectedCapabilityOwner(
-      basis.admittedInstalls,
+      admittedInstalls,
       definition,
       capabilityRef,
     );
@@ -911,15 +1170,30 @@ export function constructCapabilityGrant(
     operationId,
     capabilityRef,
     actorRef,
-    approvalRef: basis.workspaceBinding.authorityBasisId,
-    approvalDigest: basis.workspaceBinding.authorityBasisDigest,
-    policyRef: invocationPolicy?.policyRef ?? workspaceAuthority!.authorityBasisId,
-    policyDigest:
-      invocationPolicy?.policyDigest ?? workspaceAuthority!.authorityBasisDigest,
-    scopeRef: basis.workspaceBinding.bindingId,
-    scopeDigest: basis.workspaceBinding.bindingDigest,
-    authorityBasisRef: basis.workspaceBinding.authorityBasisId,
-    authorityBasisDigest: basis.workspaceBinding.authorityBasisDigest,
+    approvalRef: prebindingBasis
+      ? workspaceBinding.bindingId
+      : workspaceBinding.authorityBasisId,
+    approvalDigest: prebindingBasis
+      ? workspaceBinding.bindingDigest
+      : workspaceBinding.authorityBasisDigest,
+    policyRef: prebindingBasis
+      ? predecessorEnvironment!.workspaceAuthorityBasis.authorityBasisId
+      : invocationPolicy?.policyRef ?? workspaceAuthority!.authorityBasisId,
+    policyDigest: prebindingBasis
+      ? predecessorEnvironment!.workspaceAuthorityBasis.authorityBasisDigest
+      : invocationPolicy?.policyDigest ?? workspaceAuthority!.authorityBasisDigest,
+    scopeRef: prebindingBasis
+      ? basis.request.ref
+      : workspaceBinding.bindingId,
+    scopeDigest: prebindingBasis
+      ? basis.request.digest
+      : workspaceBinding.bindingDigest,
+    authorityBasisRef: prebindingBasis
+      ? predecessorEnvironment!.artifactTruth.projectionRef
+      : workspaceBinding.authorityBasisId,
+    authorityBasisDigest: prebindingBasis
+      ? predecessorEnvironment!.artifactTruth.projectionDigest
+      : workspaceBinding.authorityBasisDigest,
   };
   const grantDigest = sha256Canonical(body as unknown as JsonValue);
   const value = deepFreeze({
