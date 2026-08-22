@@ -12,9 +12,12 @@ accepted and integrated cumulatively at clean-reproducible checkpoint
 sequence position and was delivered through its A/B split. `ST-S01-ROOT` cut
 `S1`/`R1` is accepted at `24ac3bd2ea5b8e3d38e2d4243ab09154d37539b6`,
 tree `cd2cca1eaacd1f9c27d442023d7a28c3cbfe785b`; cut `S2`/`R2`-`R7` is selected
-and in progress, and cuts `S3` and `S4` are pending. This is a
-`goal_reprice`; Product, requirements, owners, event law, the canonical
-18-operation/56-key family, and final 5.0 obligations are unchanged.
+with its bounded successor-development-authority/transport/verification-evidence
+`design_reframe` selected and implementation held at that gate; cuts `S3` and
+`S4` are pending.
+The assurance-cut ordering remains the accepted `goal_reprice`; the new local
+gap closure is a `design_reframe`. Product, requirements, owners, event law, the
+canonical 18-operation/56-key family, and final 5.0 obligations are unchanged.
 `ABI5-ROOT-001` and every selected Product scenario remain fixed; no thread is a
 replacement root or scenario subject.
 
@@ -72,6 +75,52 @@ frame, C-call, HoG execution, and result events remain `S3`; replay and user
 outcome remain `S4`. This is proof composition over existing owners, not a new
 runtime carrier, resolver, registry, or orchestration algorithm.
 
+The first isolated `S2` construction is diagnostic evidence, not a frozen cut.
+It exposed two common missing relations: pre-binding calls had no lawful grant
+or actor root without an already admitted target workspace, and Product
+verification dropped its full evidence before the common transport could issue
+the indexed PFC-F06 outcome cited by resolve/install. Constitution Section
+5.6.2C and the frozen Section 16.12 candidate add only one
+`prebinding_development_product_basis` arm to the singular `CapabilityGrant`
+constructor. One sparse intrinsic field,
+`successorDevelopmentPrebindingAuthority: "eligible"`, is present only on
+`workspace.create#clean`, `product.verify#verify`, `product.resolve#resolve`,
+`product.install#install`, and `workspace.bind#bind`. Product re-reads it from
+the installed intrinsic definition; `workspaceBindingRequirement: "forbidden"`
+is necessary but not sufficient. The other 51 keys omit the field and are
+ineligible; there is no mandatory `none` value, operation-name switch/set, or
+registry. Exactly four `sourceModuleDigest` values rotate:
+`Product.WorkspaceOperations`, `Product.Verification`,
+`Product.EnvironmentResolution`, and `Product.Installation`. Changing the
+shared `workspaceCreateMetadata` declaration rotates the
+`Product.WorkspaceOperations` digest, which clean, imported, and open all embed. The
+two ineligible siblings therefore rotate with clean: exactly seven intrinsic
+definition digests rotate and the other 49 remain stable. The global family
+therefore rotates all 18 operation projections/assets, then every embedded
+dependent catalog, affected capability row/graph, manifest, and Product-content
+identity regenerates once. This dependency cone does not make imported or open
+eligible and does not authorize a broad identity refactor.
+Product reprojects the exact environment of an already installed predecessor
+development Product. The existing grant facets encode that exact
+environment: approval is the predecessor binding, policy is its workspace
+authority, authority basis is the exact-prefix artifact-truth projection, and
+scope is the request. Actor identity retains `ref = authorizedActorRef` and
+`digest = sha256Canonical({ actorRef: authorizedActorRef })`; predecessor
+binding/authority, fixed definition, and request affect only ActorAttribution.
+The builder workspace never enters a target invocation slot.
+`DefinitionCall.resources` is the sole installed
+resource/acquisition handoff; pure verify/resolve/View calls carry no ABG event
+resource, while exact-prefix and eventful owners retain their fixed typed
+assertions and lifecycles. The singular transport result distinguishes owner
+completion `{ invocation, success receipt, outcome }` from host failure
+`{ invocation, failure receipt, outcome: null }`; PFC-F06 never projects a typed
+fault, defect, or interruption. One generic PFC-F06 projector and one typed
+`ProductVerificationEvidence` admission provide the resolve/install bijection.
+The accepted `S1` root carrier remains unchanged and cannot issue authority;
+the new arm is successor-development law, not first-ever cold-install law. `S2`
+implementation resumes only after independent acceptance of that exact design
+subject.
+
 The rejected `W2-05B` interaction-binding attempt and horizontal 56-key
 completion are outside this selected MVP increment and provide no accepted
 design or implementation basis.
@@ -89,8 +138,10 @@ dispatch, ambient lookup, and invocation-selected handlers remain prohibited.
 Constitution Sections 5.6.2, 5.6.2A, 5.6.2B, and 16.6 retain historical
 classification evidence only. Their `PublicExecutionCandidate`, topology-arm,
 generic resource-provider, and C1F/D6 advancement design is superseded and is
-non-operative implementation authority. Sections 5.6.2C and 16.7 are the
-operative Wave 2 binding law. The accepted census, owner classifications,
+non-operative implementation authority. Sections 5.6.2C and 16.7 remain the
+operative Wave 2 binding law. Section 16.12 is the frozen exact `S2` re-entry
+candidate and becomes operative only on independent acceptance. The accepted
+census and owner classifications,
 indexed outcomes, Effect `3.22.1` ABI, HoG/ABG durability boundaries, and legacy
 deletion target remain conserved without turning `E`, `L`, `J`, `R`, `X`, or
 `T0-T9` proof maps into runtime types or implementation budgets.

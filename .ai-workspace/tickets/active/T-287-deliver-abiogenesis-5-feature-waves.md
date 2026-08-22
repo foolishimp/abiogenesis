@@ -25,7 +25,7 @@
 - selected_slice: abg5_s01_root_hello_replay_parity
 - selected_slice_stage: assurance_cut_s2
 - selected_increment: ST-S01-ROOT
-- selected_increment_stage: s2_in_progress
+- selected_increment_stage: s2_design_reframe_selected_implementation_held
 - accepted_checkpoint: 24ac3bd2ea5b8e3d38e2d4243ab09154d37539b6
 - accepted_checkpoint_tree: cd2cca1eaacd1f9c27d442023d7a28c3cbfe785b
 - accepted_mvp_checkpoint: 41bab57f2491fa9e95331e9cfef282c4f6c1c2d2
@@ -72,7 +72,9 @@ MVP; it is not ABIogenesis 5.0 completion or release. `ST-S01-ROOT` is the sole
 selected next increment. Cut `S1`/`R1` is accepted at
 `24ac3bd2ea5b8e3d38e2d4243ab09154d37539b6`, tree
 `cd2cca1eaacd1f9c27d442023d7a28c3cbfe785b`; cut `S2`/`R2`-`R7` is selected
-and in progress; cuts `S3` and `S4` are pending.
+with its bounded successor-development-authority/transport/verification-evidence
+`design_reframe` selected and implementation held; cuts `S3` and `S4` are
+pending.
 
 ### `ST-S01-ROOT` assurance cuts
 
@@ -97,13 +99,250 @@ new runtime objects.
 | `S3` causal execution (`R8`-`R9`) | Installed `abg.cli` enters HoG and ABG admits the one causal invocation, C-call, evidence, result, judgment, and closure chain. | Product, Public, ABIogenesis, GTL, HoG, ABG, Entity, Operator, Owner, Effect, Install, Proof; authority, temporal, transport, composition. | Installed CLI/definition receipts and exact-prefix ABG projections over the complete causal chain; falsify event co-presence without owner linkage, a bypass or rival writer, fixture-authored output, wrong contract or missing event, and every continuation, hold, gap, block, or non-admission outcome. | Worker freezes `S3`; Reviewer evaluates it; Executive accepts or rejects it and, on acceptance, authorizes `S4`. |
 | `S4` replay and user outcome (`R10`) | The same run/prefix yields the same typed terminal result and closed state from replay twice and returns it through the CLI. | Product, Public, ABIogenesis, ABG, Entity, Owner, Effect, Install, Proof; temporal, transport, composition, proof. | Two owner replay receipts, same-run/prefix/result/closed-state equality, CLI outcome, and zero read writes; falsify prefix/result substitution, replay mutation or disagreement, read append, source/private-path reconstruction, or CLI disagreement. | Worker freezes `S4`; Reviewer evaluates it; Executive accepts or rejects only the `ST-S01-ROOT` development relation. Final `ABG5-S01` acceptance remains a rerun on the eventual shared exact `pre_rc_candidate`. |
 
+#### `S2` successor-development authority, transport, and verification-evidence re-entry
+
+The isolated construction rooted at accepted `S1` is diagnostic only. It
+demonstrated two cross-cutting gaps before an `S2` subject could freeze:
+
+1. pre-binding create/verify/resolve/install/bind calls require the singular
+   Product capability grant and sometimes actor attribution, but the current
+   constructor requires the not-yet-admitted target `WorkspaceBinding`; and
+2. the verification binding drops full owner success, the installed transport
+   does not issue generic PFC-F06, and resolve/install can therefore consume
+   fixture-authored shaped references rather than exact evidence.
+
+Product and requirement `WHAT` already decide the one Product/Public/ABG owner
+chain, carrier cardinalities, source-blind ordering, and effects. The smallest
+lawful re-entry is the bounded ABIogenesis-local `design_reframe` in
+Realization Constitution Section 16.12. The accepted `S1` root carrier remains
+byte-identical and cannot issue authority. The new authority path applies only
+to a successor development Product built by an already installed predecessor
+development Product; first-ever cold install remains outside this selection.
+
+The exact carrier/type/function DAG is:
+
+```text
+held predecessor DurablePrefixCoordinate
+  + predecessor WorkspaceBinding coordinate
+  -> ABG.projectExactPrefixWorkspaceEnvironment
+  -> ExactPrefixWorkspaceEnvironment
+  -> Product reproject/canonical-equality validation
+       + authority basis / authorized actor
+       + causal ProductInstalls / ProductSet / lock
+       + installed ABIogenesis builder bytes / manifest
+       + public catalog / capability graph / definition / dependencies
+  -> re-resolve exact installed intrinsic definition
+       successorDevelopmentPrebindingAuthority == "eligible"
+       workspaceBindingRequirement == "forbidden"
+  -> CapabilityGrantConstructionBasis<K> {
+       kind: "prebinding_development_product_basis",
+       fixedPacket,
+       predecessorEnvironment,
+       request: RD<PublicRequest<K>>
+     }
+  -> Product.constructCapabilityGrant
+       approval = predecessor WorkspaceBinding RD
+       policy = predecessor WorkspaceAuthorityBasis RD
+       authorityBasis = exact-prefix artifact-truth projection RD
+       scope = exact request RD
+  + Product.projectDevelopmentSuccessorActorAttribution(
+       predecessor binding/authority, fixed packet, exact request RD)
+       actor = {
+         ref: authorizedActorRef,
+         digest: sha256Canonical({ actorRef: authorizedActorRef })
+       }
+       predecessor context appears only in ActorAttribution
+  -> one admitted PublicInvocation<K>
+
+workspace.create
+  -> persist projected actor + attribution in target authority manifest
+  -> derive target WorkspaceAuthorityBasis without free actor input
+workspace.bind
+  -> validate fresh attribution for same actor and exact target roots
+  -> ABG-admitted target WorkspaceBinding
+  -> existing workspace grant basis for Catalog/View/resolution/run
+
+DefinitionCall<K, exact owner TResources>
+  -> runInstalledDefinitionCallTransport(candidate)          # one argument
+  -> exact installed ExactDefinitionCallable<K>
+  -> one Effect DefinitionHostReceipt<K>
+       ownerOutput present
+         -> Public.projectPublicOutcome<K>
+         -> { invocation, success receipt, PublicOutcome<K> }
+       ownerOutput absent / host failure
+         -> { invocation, failure receipt, outcome: null }
+
+successful product.verify typed receipt
+  -> ProductVerificationEvidence {
+       complete ProductVerificationSuccess,
+       full VerifiedProductArtifact,
+       exact unchanged-resource disposition
+     }
+  + exact verify invocation + owner output + generic PFC-F06 outcome
+  -> Product.admitSuccessfulPackedVerificationEvidence
+  -> sole SuccessfulPackedVerificationReference + full admitted artifact
+  -> exact resolve request/invocation/evidence bijection
+  -> ResolvedProductLock
+  -> exact-one install evidence + lock-selected row + target-root join
+  -> ProductInstallCandidate -> ABG-admitted ProductInstall
+  -> ProductSet -> target bind -> Catalog -> View
+  -> ProductExecutionResolution -> GTL materialization/validation
+  -> basis_admitted
+```
+
+Eligibility is sparse intrinsic owner metadata, not a runtime roster:
+
+| Exact eligible definition key | Intrinsic field |
+|---|---|
+| `workspace.create#clean` | `successorDevelopmentPrebindingAuthority: "eligible"` |
+| `product.verify#verify` | `successorDevelopmentPrebindingAuthority: "eligible"` |
+| `product.resolve#resolve` | `successorDevelopmentPrebindingAuthority: "eligible"` |
+| `product.install#install` | `successorDevelopmentPrebindingAuthority: "eligible"` |
+| `workspace.bind#bind` | `successorDevelopmentPrebindingAuthority: "eligible"` |
+
+These are the only eligible keys. The other 51 omit the field and are
+ineligible; there is no mandatory `none` value across the family. Product
+re-reads the field from the exact installed intrinsic definition and verifies
+its definition ref/digest. `workspaceBindingRequirement: "forbidden"` is
+necessary but not sufficient. No operation-name set/switch, registry, generated
+runtime table, caller packet, or fallback selects eligibility.
+
+Adding the field rotates exactly four `sourceModuleDigest` values:
+`Product.WorkspaceOperations`, `Product.Verification`,
+`Product.EnvironmentResolution`, and `Product.Installation`. Changing the
+shared `workspaceCreateMetadata` declaration rotates the
+`Product.WorkspaceOperations` digest, which clean, imported, and open all embed,
+so the two ineligible siblings rotate with clean. Exactly
+seven intrinsic definition digests rotate and the other 49 remain stable. The
+global family consequently rotates all 18 operation projections/assets, then
+every embedded dependent catalog, affected capability row/graph,
+Product-manifest, and Product-content identity regenerates once. Imported and
+open remain ineligible. An old dependent digest, any changed eighth intrinsic
+digest, or a claim that only the five eligible definition digests rotate
+invalidates the cut; no broad identity refactor is authorized.
+
+The builder workspace and target workspace are distinct. The predecessor
+environment is grant provenance only; its binding, ProductSet, lock, roots, or
+catalog never fills a target invocation slot, including a slot forbidden by
+metadata. Fixed metadata rejects the pre-binding arm for every definition that
+requires a workspace binding. A caller cannot choose a basis arm or mode.
+
+`DefinitionCall.resources` is the sole installed resource/acquisition handoff.
+The transport has no top-level acquisition parameter, acquisition kind, or
+duplicate matching algorithm. Its one result family has owner-completion and
+host-failure arms. PFC-F06 runs only when the Effect host receipt contains
+`ownerOutput`; a typed fault, defect, or interruption remains in the failure
+receipt with `outcome: null` and is never `projection_refusal`. Pure verify,
+resolve, and View carry exact typed read-only resources but no ABG event
+resource. Exact-prefix/eventful calls retain the fixed owner-authored assertion
+required by their exact resource schema, and the closed owner Effect retains
+acquire/close/abandon/compensation lifecycle. There is no optional/universal
+resource bag, mode selector, second transport/result family, or bogus event
+resource.
+
+The exact target joins are owner-local:
+
+| Owner | Exact target relation |
+|---|---|
+| workspace create | request target root equals typed resource root and canonical root digest; the resulting manifest persists the predecessor-rooted actor attribution |
+| Product verify | request selectors equal typed artifact resource and observed bytes; no event resource or mutation |
+| Product resolve | request rows, invocation verification references, and complete admitted evidence form a bijection; no event resource or mutation |
+| Product install | request target root equals the typed target-root assertion/digest; artifact, evidence, and exact lock-selected row agree before filesystem or ABG effect |
+| workspace bind | target authority manifest, canonical root, declared resource/request roots, admitted installs, ProductSet, and lock agree before ABG admission |
+| Catalog/View/resolution/run | use only the admitted target exact-prefix environment and existing binding-scoped grant basis; View remains eventless |
+
+Existing owner idempotence remains lawful only when reprojection finds prior
+admitted target state canonically equal to the complete invocation, request,
+predecessor authority, target resource root, bytes, and evidence. The owner
+returns that exact prior state/receipt with no new append or material write.
+Same target with a different preimage is conflict/refusal, never overwrite or
+a duplicate admission.
+
+The owner boundaries are fixed:
+
+| Owner | Sole responsibility in this re-entry |
+|---|---|
+| ABG | reprojects exact predecessor and later target environment truth; admits only existing completed install/binding artifact boundaries and later runtime truth |
+| Product | validates installed predecessor builder provenance; constructs the singular grant, canonical Actor coordinate, and context-bound attribution; persists/transitions target authority; owns verification evidence, resolve/install joins, Catalog/View, and execution resolution |
+| Public | admits one common call, selects one exact installed binding, calls once, applies one generic PFC-F06 projector only to owner completion, and preserves host failure with null outcome |
+| concrete Product owner | invokes shared Product authority/evidence admission, then enforces its exact request/resource/currentness/idempotence relation |
+| static binding shell | strict structural resource/receipt admission and Effect transport only; it neither acquires Product authority nor requires a universal event resource |
+
+Implementation resumes only in this dependency order after independent design
+acceptance:
+
+| Priority | Relation | Affected production files/classes |
+|---:|---|---|
+| `0` | freeze and independently review this replacement design subject | `design/ABI5_REALIZATION_CONSTITUTION.md`, `design/README.md`, this ticket; no production file |
+| `1` | add sparse intrinsic eligibility to exactly five fixed declarations; rotate four `sourceModuleDigest` values and exactly seven intrinsic definition digests; prove the other 49 stable; regenerate the global family, all 18 operation projections/assets, and every downstream identity once | metadata/digest projection in `shared/public_function_contracts.ts` and `shared/public_function_family.ts`; exact fields only in `product/workspace_operation_contracts.ts`, `product/verification_operation_contracts.ts`, `product/environment_operation_contracts.ts`, and `product/install_operation_contracts.ts`; deterministic catalog/capability/manifest/Product publication and verification surfaces |
+| `2` | add only the predecessor-environment arm to the singular grant basis; re-read installed eligibility; encode binding/policy/artifact-truth/request in existing grant facets; preserve canonical Actor identity and project context-bound attribution | `product/invocation.ts`; existing `abg/environment_admission.ts`; one shared Product owner module such as `product/definition_authority.ts`; `product/index.ts`; existing actor slot types in `shared/public_invocation.ts` only as required |
+| `3` | persist/derive/transition target actor authority and prove create-to-bind authority continuity | `product/workspace_operations.ts`; `product/workspace_definition_bindings.ts`; `product/environment.ts`; `product/environment_operations.ts`; `product/environment_definition_bindings.ts`; exact workspace schemas/contracts |
+| `4` | make `DefinitionCall.resources` the sole transport handoff; close the one transport-result family over owner-completion/host-failure receipts; add one generic owner-completion-only PFC-F06 projector | `public/installed_definition_call_transport.ts`; one `public/indexed_outcome.ts`; `public/index.ts`; indexed types/schemas in `shared/public_function_projections.ts`; do not extend legacy `public/outcome.ts` |
+| `5` | preserve full verification evidence and add one shared successful-evidence admission | `product/contracts.ts`; `product/verify_product.ts`; `product/verification_definition_bindings.ts`; one owner-local `product/verification_evidence.ts` if separation is needed; `product/environment_definition_bindings.ts`; `product/install_definition_bindings.ts` |
+| `6` | apply shared authority admission to every consumed pre-binding owner, enforce target request/resource-root/evidence/idempotence joins, then complete binding-scoped source-blind `R2`-`R7` | `product/verification_definition_bindings.ts`; `product/environment_definition_bindings.ts`; `product/install_definition_bindings.ts`; consumed workspace/catalog/view/resolution/materialization/Validator bindings and installed CLI/SDK call construction; no registry or generated executable wrapper |
+
+The minimum falsifier set is cumulative and refuses before semantic owner or
+physical effect as applicable:
+
+- caller/test-minted grant, noncanonical Actor digest, attribution, invocation, outcome, or
+  verification coordinate without the exact production preimage;
+- S1 semantic receipt as issuer, first-ever cold install through this arm,
+  candidate self-authorization, or circular target workspace authority;
+- unprojected, stale, or crossed predecessor prefix/store/environment; wrong
+  predecessor binding, authority, authorized actor, causal installs, Product
+  set, lock, installed bytes, manifest, catalog, graph, definition, owning
+  contract, capability, or dependency closure; or a crossed prefix, binding, or
+  lock reproducing the same grant identity;
+- builder workspace values inserted into target slots; pre-binding arm used for
+  binding-required metadata; reuse across definition/request/target/artifact/
+  evidence/lock/workspace/actor/scope; or a target request/resource-root join
+  mismatch;
+- `workspaceBindingRequirement: "forbidden"` accepted without installed
+  eligibility; eligibility absent/crossed, caller/fixed-packet-only, or present
+  on a sixth key; an operation-name eligibility set/switch/registry; a mandatory
+  eligibility-`none` field across all 56; fewer or more than four rotated
+  `sourceModuleDigest` values; fewer or more than the exact seven rotated intrinsic
+  definition digests; imported/open not rotating or becoming eligible; any
+  changed eighth intrinsic definition digest; any of the other 49 changing;
+  failure to regenerate the global family and all 18 operation
+  projections/assets; stale downstream catalog/capability/Product identity; or
+  a broad identity refactor;
+- actor-required slot absent/crossed, actor-forbidden slot present,
+  context-dependent Actor digest, predecessor context omitted from attribution,
+  create manifest not preserving attribution, or bind not transitioning that
+  same Actor into the target binding;
+- generic outcome with wrong definition/catalog/payload contract, payload
+  preimage, invocation, outcome digest/ref, or sibling verify result;
+- shape-valid verification reference without full owner evidence, crossed full
+  `VerifiedProductArtifact`, non-bijective resolve evidence, or install evidence
+  not selected by the exact lock;
+- prior state with a differing preimage accepted as idempotent, duplicate event
+  admission, partial install/bind effect, or verify/resolve/View append;
+- typed fault/defect/interruption projected as `projection_refusal`, host failure
+  with non-null outcome, owner completion with missing outcome, top-level
+  acquisition, duplicate acquisition matcher, pure call forced to
+  carry an event resource, eventful call missing/crossing its fixed resource,
+  optional/universal resource carrier, mode selector, or second transport/result
+  family; and
+- mutable latest/cache/current pointer, source/ambient lookup, runtime callback,
+  provider/controller, registry, per-operation outcome wrapper, second grant or
+  outcome family, or new event.
+
+FS-18 through FS-20 select the existing canonical JSON/SHA-256/ordering and
+immutability mechanics, Valibot, exact-pinned Effect `3.22.1`, singular Product
+capability graph/grant, ABG exact-prefix projection, installed Product
+evidence, workspace constructors, and S06 indexed contracts. No new dependency
+is selected. IAM/RBAC, identity/result frameworks, policy/provider runtimes,
+state machines, registries, service locators, and controllers add rival
+authority/lifecycle/vocabulary without deleting any irreducible relation.
+
 Current cut ledger:
 
 | Cut | State | Exact subject or entry |
 |---|---|---|
 | `S0` | Accepted entry | `41bab57f2491fa9e95331e9cfef282c4f6c1c2d2`, tree `b976ebc3fccf2ff1e461bcb20130d4f59d0396e1` |
 | `S1` / `R1` | Accepted | `24ac3bd2ea5b8e3d38e2d4243ab09154d37539b6`, tree `cd2cca1eaacd1f9c27d442023d7a28c3cbfe785b` |
-| `S2` / `R2`-`R7` | Selected; construction in progress | Starts from exact accepted `S1`; no frozen `S2` subject yet |
+| `S2` / `R2`-`R7` | Design reframe selected; implementation held | Starts from exact accepted `S1`; isolated construction is diagnostic only; no frozen `S2` subject yet |
 | `S3` / `R8`-`R9` | Pending | Requires accepted `S2` |
 | `S4` / `R10` | Pending | Requires accepted `S3` |
 
@@ -120,7 +359,9 @@ duplicate semantic reviews.
 
 ### Re-entry disposition
 
-The classification is `goal_reprice`, with no unresolved higher re-entry:
+The assurance-cut selection remains a `goal_reprice`. The demonstrated `S2`
+gap returns only to the bounded ABIogenesis-local `design_reframe` above, with no
+unresolved higher re-entry:
 
 - Product fixes the final one-family Public contract and full 5.0 completion
   predicate but does not prescribe development-cut ordering;
@@ -150,7 +391,7 @@ qualification, or release closure.
 fixed Product: ABIogenesis 5.0, with Wave 1 functional interface accepted
 accepted Wave 2 MVP: ST-1 through ST-4 accepted at clean-reproducible basis 41bab57f
 selected next increment: ST-S01-ROOT; S1/R1 accepted at 24ac3bd2, tree cd2cca1e;
-  S2/R2-R7 selected and in progress; S3 and S4 pending
+  S2/R2-R7 design reframe selected and implementation held; S3 and S4 pending
 odd_glc authority: one immutable GTL Program publication as data, including
   odd_glc-owned GraphFunction topology and required declarative dependencies
 ABIogenesis authority: admission, Validator, Product/install/workspace/catalog
@@ -380,7 +621,7 @@ threads rather than establishing a separate receipt-repair gate.
 | `ST-2B` | Same accepted `ST-1` run/result under exact-prefix status/result/replay equality using three fixed packets over the shared kernel. | Accepted and integrated cumulatively |
 | `ST-3` | Same projections after source-blind fresh-process reopen. | Accepted and integrated cumulatively |
 | `ST-4` | One independently installed CLI episode uses exactly one fresh `run.invoke#start`, then chains `run_status`, `run_result`, and `run_replay` through exact owner handoffs and the accepted generic `DefinitionCall` transport, preserving typed Hello meaning, fresh-process equality, and zero-byte read-side writes. | Accepted and integrated cumulatively; usable development MVP exit, not ABIogenesis 5.0 completion or release |
-| `ST-S01-ROOT` | Realize and prove the `ABG5-S01` root mechanism for obligations `R1` through `R10` through assurance cuts `S1` through `S4`; rerun it unchanged for final acceptance on the eventual shared exact `pre_rc_candidate`. | `S1`/`R1` accepted at `24ac3bd2`, tree `cd2cca1e`; `S2`/`R2`-`R7` selected and in progress; `S3` and `S4` pending |
+| `ST-S01-ROOT` | Realize and prove the `ABG5-S01` root mechanism for obligations `R1` through `R10` through assurance cuts `S1` through `S4`; rerun it unchanged for final acceptance on the eventual shared exact `pre_rc_candidate`. | `S1`/`R1` accepted at `24ac3bd2`, tree `cd2cca1e`; `S2`/`R2`-`R7` design reframe selected and implementation held; `S3` and `S4` pending |
 | remaining post-MVP | Complete remaining 56-key constructability, held contract closure, negatives, broader qualification, and final 5.0 obligations. | Pending and `UNSELECTED`; no restored horizontal 56-key implementation queue selected |
 
 This sequence supersedes the prior active `W2-05` through `W2-08` ordering and
@@ -497,7 +738,7 @@ Product: fixed ABIogenesis 5.0 scope; Wave 1 complete
 Wave 2 MVP: cumulative sunny-day ST-1 -> ST-4 accepted and integrated at
   clean-reproducible basis 41bab57f2491fa9e95331e9cfef282c4f6c1c2d2
 selected next increment: ST-S01-ROOT; S1/R1 accepted at 24ac3bd2, tree cd2cca1e;
-  S2/R2-R7 selected and in progress; S3 and S4 pending
+  S2/R2-R7 design reframe selected and implementation held; S3 and S4 pending
 odd_glc authority: one immutable GTL Program publication as data, including
   odd_glc-owned GraphFunction topology and required declarative dependencies;
   no executable provider, evaluator, implementation binding, leaf, or interpreter
@@ -607,7 +848,7 @@ GTL.TypeScript
 | Wave | Feature families | Exit | State |
 |---:|---|---|---|
 | W1 | A5-F10, A5-F02, A5-F03, A5-F04 | One event-authoritative installed runtime kernel | Accepted; integrated M5 deferred |
-| W2 | Bounded A5-F01/A5-F09/A5-F05/A5-F06 plus one early A5-F17 consumer path | `ST-1` through `ST-4` cumulatively verify independently packed artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then the `WorkspaceBindingCandidate`, and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`; the existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and an ABG-admitted typed result before exact-prefix observation, fresh-process replay, and one installed CLI episode; `ST-S01-ROOT` next realizes the `ABG5-S01` root mechanism for later same-subject pre-RC rerun | `ST-1` through `ST-4` accepted at clean-reproducible checkpoint `41bab57f`, tree `b976ebc3`; `ST-S01-ROOT` `S1`/`R1` accepted at `24ac3bd2`, tree `cd2cca1e`, with `S2`/`R2`-`R7` selected and in progress and `S3`/`S4` pending; no Wave 2, 5.0, scenario-final, or release completion claimed |
+| W2 | Bounded A5-F01/A5-F09/A5-F05/A5-F06 plus one early A5-F17 consumer path | `ST-1` through `ST-4` cumulatively verify independently packed artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then the `WorkspaceBindingCandidate`, and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`; the existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and an ABG-admitted typed result before exact-prefix observation, fresh-process replay, and one installed CLI episode; `ST-S01-ROOT` next realizes the `ABG5-S01` root mechanism for later same-subject pre-RC rerun | `ST-1` through `ST-4` accepted at clean-reproducible checkpoint `41bab57f`, tree `b976ebc3`; `ST-S01-ROOT` `S1`/`R1` accepted at `24ac3bd2`, tree `cd2cca1e`, with `S2`/`R2`-`R7` design reframe selected and implementation held and `S3`/`S4` pending; no Wave 2, 5.0, scenario-final, or release completion claimed |
 | W3 | A5-F14, A5-F07, A5-F08 | Packed Hello World, probabilistic proof, One Surface, and Consensus on the same path | Pending W2 |
 | W4 | A5-F13, A5-F17, A5-F11 | Native/host projections, downstream Product, and self-conformance | Pending W3 |
 | W5 | A5-F15, A5-F16 | Qualified immutable 5.0 release | Pending W4 |

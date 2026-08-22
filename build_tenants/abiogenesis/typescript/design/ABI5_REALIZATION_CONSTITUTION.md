@@ -2192,6 +2192,468 @@ two constructed in parallel:
 fixed packets. It does not reopen their internals. A failure invalidates the
 changed seam and its consumers, not the independent sibling cut.
 
+##### Successor-development pre-binding authority and verification evidence
+
+The first isolated `ST-S01-ROOT/S2` construction exposed two common missing
+relations before an exact subject could freeze. Pre-binding definitions require
+the singular Product `CapabilityGrant` and sometimes actor attribution, but the
+current constructor starts from the target `WorkspaceBinding`, which does not
+yet exist. Product verification also loses its full owner evidence before
+resolve and install consume verification references. These are realization
+gaps. Product and requirement `WHAT`, the one installed call, and the accepted
+owner/effect boundaries remain decision-complete.
+
+The accepted `Abi5RootBindingCarrier` and `Abi5RootBindingReceipt` remain exact
+`S1` semantic-root evidence. They do not approve an actor, issue a grant,
+establish installed bytes, or authorize `S2`. The lawful `S2` authority root is
+instead the exact-prefix environment of an already installed predecessor
+ABIogenesis development Product acting as builder. This law is deliberately
+limited to construction of a successor development Product. It does not select
+or claim an authority root for the first-ever cold install.
+
+The singular existing capability-grant construction basis gains exactly one
+arm; no standalone pre-binding-authority carrier or second grant type is added:
+
+```text
+CapabilityGrantConstructionBasis<K> +=
+  | {
+      kind: "prebinding_development_product_basis",
+      fixedPacket: OperationContractSource<K>,
+      predecessorEnvironment: ExactPrefixWorkspaceEnvironment,
+      request: RD<PublicRequest<K>>
+    }
+```
+
+`+=` means extension of the existing closed Product construction basis with
+that one tagged arm. All admitted-workspace arms retain their existing shape
+and meaning. Eligibility is one sparse intrinsic owner-metadata field:
+
+```text
+IntrinsicDefinitionOwnerMetadata += {
+  successorDevelopmentPrebindingAuthority?: "eligible"
+}
+```
+
+The field is present on exactly these five fixed intrinsic definitions:
+
+| Exact definition key | Owning fixed contract declaration |
+|---|---|
+| `workspace.create#clean` | `WORKSPACE_OPERATION_CONTRACTS.create.clean` |
+| `product.verify#verify` | `PRODUCT_VERIFICATION_CONTRACTS.verify` |
+| `product.resolve#resolve` | `PRODUCT_ENVIRONMENT_CONTRACTS.resolve` |
+| `product.install#install` | `PRODUCT_INSTALL_CONTRACTS.install` |
+| `workspace.bind#bind` | `PRODUCT_ENVIRONMENT_CONTRACTS.bind` |
+
+No other definition is eligible. In particular, `workspace.create#imported`,
+`workspace.open#open`, pre-binding evidence reads, all Catalog/View definitions,
+execution resolution, run, and the other fixed keys omit the field. Omission
+means ineligible; the other 51 definitions do not carry a mandatory
+`"none"`/`"ineligible"` field.
+
+Product does not trust eligibility copied from the invocation or caller's
+`fixedPacket`. While validating the complete predecessor environment it
+re-resolves the exact installed intrinsic definition from the installed
+catalog/Product bytes, revalidates its definition ref/digest, and requires the
+installed metadata field to equal `"eligible"`. A
+`workspaceBindingRequirement` of `"forbidden"` is necessary but not sufficient.
+The arm refuses when the field is absent, changed, uninstalled, or crossed.
+There is no operation-name set/switch, eligibility registry, generated runtime
+table, caller-selected mode, fallback, or metadata override.
+
+This sparse intrinsic change has an explicit shared-module identity
+consequence. Exactly four `sourceModuleDigest` values rotate:
+`Product.WorkspaceOperations`, `Product.Verification`,
+`Product.EnvironmentResolution`, and `Product.Installation`.
+Changing the shared `workspaceCreateMetadata` declaration rotates the Product
+`Product.WorkspaceOperations` digest, which is embedded by
+`workspace.create#clean`, `workspace.create#imported`, and
+`workspace.open#open`; therefore the two ineligible siblings rotate with clean.
+Together with verify, resolve, install, and bind, exactly seven intrinsic
+definition digests rotate and the other 49 remain byte-for-byte stable. The
+global family then rotates all 18 operation projections/assets, followed by
+every embedded dependent catalog, affected capability row/graph, Product
+manifest, and Product-content identity through the existing deterministic
+publication projection. This is one integration regeneration, not eligibility
+for the two collateral definitions and not authority for a broad identity
+refactor. Retaining an old dependent digest, changing an eighth intrinsic
+definition digest, or claiming only five definition-digest changes is invalid.
+
+The predecessor environment is a complete immutable preimage, not a trusted
+coordinate. Product admission must call the existing ABG exact-prefix
+projection for `predecessorEnvironment.prefix` and the supplied predecessor
+binding coordinate, then require canonical equality with the entire supplied
+environment. ABG owns event interpretation; Product owns the installed Product
+and grant relation. Product then validates all of the following before grant
+construction:
+
+1. the held durable prefix and exact artifact-truth projection;
+2. one admitted predecessor `WorkspaceBinding`, its candidate, its complete
+   `WorkspaceAuthorityBasis`, and exact `authorizedActorRef`;
+3. every causal `ProductInstall`, their one `ResolvedProductLock`, and the
+   reconstructed `ProductSet` and binding equality;
+4. exactly one predecessor ABIogenesis development-Product install selected
+   through that set and lock, including installed bytes, manifest, Product
+   content, install manifest, and dependency closure;
+5. the installed public-contract catalog, capability-definition graph, fixed
+   definition/callable coordinate, its exact sparse eligibility metadata,
+   owning contract row, selected capability row, and complete capability
+   dependency closure; and
+6. source-independent reproduction of every ref/digest above from the held
+   prefix and installed predecessor bytes.
+
+Zero or multiple predecessor ABIogenesis builders, an unprojected environment,
+a supplied environment unequal to its reprojection, a missing installed byte
+relation, or any crossed prefix/store/binding/authority/actor/install/lock/
+catalog/graph/definition/eligibility relation refuses before the target owner.
+“Stale” here means that the supplied held-prefix environment no longer
+reproduces the exact authority preimage named by the invocation episode; no
+mutable `latest` workspace or ambient current pointer is introduced.
+
+The predecessor builder workspace is distinct from the target workspace. Its
+binding, Product set, lock, roots, and catalog are grant provenance only. They
+never populate a target invocation's `workspace_binding`, `product_set`,
+`dependency_lock`, `catalog_scope`, or other target slot, and they never cure a
+slot forbidden by the fixed definition metadata. A candidate target Product
+or target workspace cannot be its own predecessor environment.
+
+For this arm, the one existing `CapabilityGrant` derives its authorization
+facets and narrow scope without a new policy carrier:
+
+```text
+actorRef       = predecessorEnvironment.workspaceAuthorityBasis.authorizedActorRef
+approval       = {
+  ref: predecessorEnvironment.workspaceBinding.bindingId,
+  digest: predecessorEnvironment.workspaceBinding.bindingDigest
+}
+policy         = {
+  ref: predecessorEnvironment.workspaceAuthorityBasis.authorityBasisId,
+  digest: predecessorEnvironment.workspaceAuthorityBasis.authorityBasisDigest
+}
+scope          = request
+authorityBasis = {
+  ref: predecessorEnvironment.artifactTruth.projectionRef,
+  digest: predecessorEnvironment.artifactTruth.projectionDigest
+}
+```
+
+The admitted predecessor binding is approval, its workspace authority is
+policy, the exact-prefix artifact-truth projection is authority basis, and the
+exact request ref/digest is scope. Those existing grant facets encode the exact
+environment without adding a field or carrier. Product resolves the selected
+capability through the predecessor builder's installed graph and catalog before
+constructing the same `CapabilityGrant` identity already fixed by Section
+5.6.2C. A crossed prefix/artifact-truth projection, binding, authority, causal
+install, or lock changes at least one complete facet or fails full-environment
+reprojection; it cannot reproduce the grant. Reuse across a definition,
+request, target, artifact, verification evidence set, target lock, target
+Product set, target workspace, predecessor prefix, binding, or actor therefore
+changes the preimage or refuses. There is no second grant, approval, policy,
+authority-basis, registry, cache, or bearer lookup.
+
+Product owns one canonical Actor-coordinate and context-bound attribution
+projection for this arm:
+
+```text
+authorizedActorRef =
+  predecessorEnvironment.workspaceAuthorityBasis.authorizedActorRef
+
+actor = {
+  ref: authorizedActorRef,
+  digest: sha256Canonical({ actorRef: authorizedActorRef })
+}
+
+ActorAttributionBody<K> = {
+  kind: "actor_attribution",
+  schemaVersion: "5.0.0",
+  actor: RD<Actor>,
+  definitionKey: K,
+  definitionRef, definitionDigest,
+  request: RD<PublicRequest<K>>,
+  predecessorWorkspaceBinding: RD<WorkspaceBinding>,
+  predecessorWorkspaceAuthority: RD<WorkspaceAuthorityBasis>
+}
+
+attributionDigest =
+  sha256Canonical(ActorAttributionBody<K>)
+attributionRef =
+  "actor-attribution://abiogenesis/" +
+  attributionDigest.slice("sha256:".length)
+```
+
+`projectDevelopmentSuccessorActorAttribution` receives only the already
+reprojected predecessor environment, fixed packet, and exact request. It
+reconstructs the existing canonical Actor identity solely from
+`authorizedActorRef`, then binds predecessor workspace binding/authority, fixed
+definition, and exact request only in the attribution preimage. It requires the
+grant bearer to equal that Actor ref. A context-dependent or caller-supplied
+actor digest refuses; changing predecessor context changes attribution, never
+Actor identity. An actor-required invocation carries exactly these actor and
+attribution coordinates. An actor-forbidden invocation retains `actor: null`;
+the nested grant still carries its Product-authorized bearer.
+
+Successful target `workspace.create` persists the projected actor and
+attribution coordinates in its authority-bearing workspace manifest. The
+manifest digest covers them and their attribution already binds the exact
+predecessor binding and authority. `constructWorkspaceAuthorityBasis` derives
+the target `authorizedActorRef` from that manifest rather than accepting a
+free actor. Target `workspace.bind` validates a fresh request-scoped
+attribution for the same projected actor, joins the target manifest authority
+and roots, and transitions that actor into the admitted target
+`WorkspaceBinding`. Later binding-scoped calls derive grants from the target
+exact-prefix environment. This is one deterministic attribution relation and
+one authority transition, not a second actor issuer or circular workspace
+authority.
+
+Every concrete owner reuses one Product authority admission before its
+irreducible resource/currentness law:
+
+```text
+admitProductDefinitionAuthority<K>(
+  fixedPacket,
+  invocation,
+  CapabilityGrantConstructionBasis<K>
+)
+  -> ProductDefinitionAuthorityAdmission<K>
+   | DefinitionExecutionFault<K>
+```
+
+The function derives required and forbidden slots from fixed metadata,
+re-resolves and validates the sparse eligibility field from the installed
+intrinsic definition, reconstructs the exact grant set through the singular
+constructor, compares the complete carriers, and reprojects the canonical
+Actor attribution when required. It accepts only data and direct typed imports.
+It does not accept an owner callback, operation registry, resource union,
+handler, runtime policy, or per-key algorithm. Concrete owners retain the exact
+target joins:
+
+| Target owner | Mandatory request/resource relation before effect |
+|---|---|
+| workspace create | request `targetRoot`, `DefinitionCall.resources.targetRoot`, and its canonical workspace-target digest are exactly equal; the created manifest persists the projected actor attribution |
+| Product verify | request artifact selectors equal the typed packed/installed artifact resource and observed bytes; verification is read-only and has no ABG event resource |
+| Product resolve | request verification rows are in exact bijection with the typed admitted-evidence resources; resolution is read-only and has no ABG event resource |
+| Product install | request `targetRoot`, a newly required exact target-root assertion/digest in the typed install resources, artifact, admitted verification evidence, and lock-selected row are equal before filesystem or ABG effect |
+| workspace bind | request declared roots equal typed resource roots, the target workspace authority's canonical root and create-manifest attribution name that same target workspace, and target installs/ProductSet/lock are exact before ABG admission |
+| Catalog/View and later binding-scoped owners | invocation target slots equal the newly admitted target environment; View remains pure and carries no bogus event resource |
+
+A mutation may report the existing lawful idempotent disposition only after its
+owner reprojects prior admitted target state and proves complete canonical
+equality with the invocation, request, predecessor authority, target resource
+root, materialized bytes, and relevant evidence. It returns the existing
+owner-issued state/receipt and appends or commits nothing new. Same path with a
+different preimage is a conflict/refusal; it is never overwrite, guessed
+success, or a new duplicate admission.
+
+The accepted S06 design already fixes one indexed `PublicOutcome<K>` family
+and PFC-F06 ownership, but it does not fix the complete executable identity
+projection used by the installed transport. One generic Public projector
+closes that remaining relation:
+
+```text
+projectPublicOutcome<K>(
+  admittedInvocation: PublicInvocation<K>,
+  ownerOutput: OwnerSemanticOutput<K>
+) -> PublicOutcome<K>
+```
+
+PFC-F06 runs only when the Effect host receipt contains `ownerOutput`. For a
+result, refusal, or lawful nonterminal owner output, the projector selects the
+corresponding expected contract already fixed by the invocation, validates the
+payload once, computes
+`payloadDigest = sha256Canonical(value)`, and derives the one content-addressed
+payload ref. It copies invocation, definition, catalog, correlation, and
+provenance coordinates unchanged; selects the one common outcome contract in
+that same catalog; computes `outcomeDigest` over all outcome fields except ref
+and digest; and derives the one content-addressed outcome ref. Invalid or
+crossed owner output produces only the existing indexed `projection_refusal`
+member under the S06 candidate-digest and exit law. A typed execution fault,
+defect, or interruption has no `ownerOutput`, never enters this projector, and
+is never relabeled as `projection_refusal`. Public does not interpret owner
+meaning, host failure, or resource evidence.
+
+`DefinitionCall.resources` is the sole installed transport resource and
+acquisition handoff. The installed transport accepts one detached
+`DefinitionCall`, selects the exact installed callable, calls it once, and
+returns one closed result family over the existing Effect host receipt:
+
+```text
+InstalledDefinitionCallTransportResult<TPacket, TResourceReceipt> =
+  | {
+      kind: "installed_definition_call_transport_result",
+      schemaVersion: "5.0.0",
+      disposition: "owner_completed",
+      invocation: AdmittedPublicInvocation<TPacket>,
+      receipt: DefinitionHostReceipt<TPacket, TResourceReceipt> & {
+        ownerOutput: OwnerSemanticOutput<TPacket>,
+        resources: TResourceReceipt,
+        failure: null
+      },
+      outcome: PublicOutcome<TPacket["definitionKey"]>
+    }
+  | {
+      kind: "installed_definition_call_transport_result",
+      schemaVersion: "5.0.0",
+      disposition: "host_failed",
+      invocation: AdmittedPublicInvocation<TPacket>,
+      receipt: DefinitionHostReceipt<TPacket, TResourceReceipt> & {
+        ownerOutput: null,
+        resources: null,
+        failure: DefinitionHostFailure<TPacket["definitionKey"]>
+      },
+      outcome: null
+    }
+
+runInstalledDefinitionCallTransport(
+  candidate: DefinitionCall<TPacket, TResources>
+) -> InstalledDefinitionCallTransportResult<TPacket, TResourceReceipt>
+   | InstalledDefinitionCallTransportRefusal
+```
+
+The host runs the exact closed Effect once. On owner completion it preserves
+the success receipt and applies PFC-F06 to that receipt's `ownerOutput`, yielding
+`{ invocation, success receipt, outcome }`. On typed execution fault, defect,
+or interruption it preserves the failure receipt and yields
+`{ invocation, failure receipt, outcome: null }`. These are two arms of the one
+transport-result family, not two transports or outcome families. Existing
+pre-call structural refusal remains the singular transport refusal and does not
+manufacture an owner output or Public outcome.
+
+There is no top-level acquisition argument, acquisition kind, acquisition
+matching algorithm, or second transport envelope. Structural candidate
+admission requires exactly `invocation` and `resources`; it does not require an
+`eventResource` member. Each owner-authored strict `TResources` schema decides
+the exact resource assertion:
+
+- pure verification, resolution, and View calls carry their exact typed
+  read-only resource evidence and no ABG event resource;
+- exact-prefix reads carry the fixed owner-authored reopen/prefix assertion and
+  the owner returns its unchanged-resource receipt;
+- eventful install, bind, run, and ABG transition calls carry the fixed
+  owner-authored new/reopen event-resource assertion required by that exact
+  definition; and
+- filesystem and other owner-local resources retain their existing acquisition,
+  close, abandon, compensation, and idempotence lifecycle inside the closed
+  owner Effect.
+
+The Public/host transport never acquires, opens, closes, compares, or invents
+an event resource. Resources do not become optional, a universal union, a mode
+selector, or a transport-owned provider. A pure call cannot be forced to carry
+a bogus event resource, and an eventful call cannot omit or cross the exact
+owner assertion.
+
+The Product verification owner must preserve the evidence it currently drops.
+Its successful typed resource receipt carries one content-addressed
+`ProductVerificationEvidence` whose body is the target kind, complete
+`ProductVerificationSuccess` (including the full `VerifiedProductArtifact`,
+coordinates, pending selectors, and complete definition-contract coordinate
+map), and exact unchanged-resource disposition:
+
+```text
+ProductVerificationEvidenceBody = {
+  kind: "product_verification_evidence",
+  schemaVersion: "5.0.0",
+  targetKind: "packed_artifact" | "installed_artifact",
+  verification: ProductVerificationSuccess,
+  resourceDisposition: ProductVerificationResourceDisposition
+}
+
+evidenceDigest = sha256Canonical(ProductVerificationEvidenceBody)
+evidenceRef =
+  "product-verification-evidence://abiogenesis/" +
+  evidenceDigest.slice("sha256:".length)
+
+ProductVerificationEvidence =
+  ProductVerificationEvidenceBody + { evidenceRef, evidenceDigest }
+```
+
+Refusal has no successful evidence. The generic
+`PublicOutcome<product.verify>` carries only the contract-indexed owner result;
+the full artifact evidence stays in the Product-owned typed receipt and does
+not become a universal Public payload.
+
+One Product evidence admission is shared by resolution and installation:
+
+```text
+admitSuccessfulPackedVerificationEvidence(
+  exact verify invocation,
+  exact verify owner output,
+  exact generic PFC-F06 outcome,
+  ProductVerificationEvidence
+)
+  -> { reference: SuccessfulPackedVerificationReference,
+       verifiedArtifact: VerifiedProductArtifact,
+       verification: ProductVerificationSuccess }
+   | DefinitionExecutionFault
+```
+
+It re-admits exact verify invocation and definition/catalog coordinates;
+recomputes owner evidence, payload, and outcome refs/digests; requires packed
+`locally_verified` success; and joins the owner-output artifact coordinate to
+the full `VerifiedProductArtifact`. `product.resolve` requires a bijection
+between request rows, invocation `verification_references`, and the complete
+admitted evidence set before lock construction. `product.install` requires
+exactly one admitted evidence row for its artifact, the same row selected by
+the lock, and exact equality with request and typed resource preimage before
+any filesystem or ABG effect. A shaped coordinate pair or caller-supplied
+`verificationOutput` is never evidence.
+
+The grant and attribution stop at the exact request coordinate; invocation
+authority contains their coordinates and the invocation digest closes over
+that authority. Verification evidence stops at owner success and resource
+disposition before PFC-F06 creates the public outcome. Resolve and install cite
+both. This identity DAG is acyclic and contains no outcome-to-request or
+invocation-to-grant feedback.
+
+The Product, Public, Owner, Authority, Operator/factorization, Effect,
+source-blind Install, Runtime/currentness, and Proof frames fix the boundary:
+
+| Frame | S2 decision |
+|---|---|
+| Product / Owner / Authority | predecessor installed Product truth authorizes only the successor-development pre-binding arm; Product constructs and validates grants, actor attribution, and verification evidence; concrete owners retain target/resource meaning |
+| Public / Operator | one installed call and one generic PFC-F06 projection; no owner sequencing, registry, per-key outcome, or resource acquisition |
+| Effect / Runtime | each exact owner Effect acquires and releases only its typed resources; ABG alone interprets/adopts prefix and event truth; exact-prefix reprojection replaces ambient currentness |
+| Install / source blindness | predecessor and target bytes, manifests, catalogs, graphs, locks, and evidence reproduce from installed artifacts; source import, ambient package lookup, and candidate self-authorization are refused |
+| Proof / factorization | deep-review the predecessor-authority grant facets, canonical Actor/context-bound attribution relation, Effect-host transport/outcome split, and verification-evidence bijection once each; mechanically check fixed packet/schema consumers |
+
+FS-18 through FS-20 and Section 10 select existing `canonicalJson`,
+`sha256Canonical`, Unicode ordering, immutable constructors, Valibot, the
+exact-pinned Effect `3.22.1`, the singular capability graph/grant, the existing
+ABG exact-prefix projection, workspace authority constructors, and S06 indexed
+contracts. No dependency is added. An IAM/RBAC or identity framework, policy
+runtime, provider/controller, state machine, registry, service locator, result
+framework, universal resource carrier, or callback graph would add rival
+authority/lifecycle/translation while deleting none of the irreducible local
+relations.
+
+The minimum pre-owner/effect falsifiers are: caller/test-minted grant, actor,
+attribution, outcome, or verification reference; S1 receipt as issuer; cold
+install through this arm; unprojected/stale/crossed predecessor environment;
+wrong builder binding, authority, authorized actor, causal install, lock,
+bytes, catalog, capability graph, definition, owning contract, or dependency;
+crossed predecessor prefix, binding, or lock reproducing the same grant;
+builder values in target invocation slots; target request/resource-root,
+artifact, evidence, lock, Product set, workspace, or roots crossed; pre-binding
+arm used by binding-required metadata; forbidden-workspace metadata treated as
+sufficient without installed eligibility; eligibility absent/crossed or present
+on any sixth key; caller/fixed-packet eligibility accepted without the installed
+intrinsic definition; an operation-name eligibility switch/set/registry; stale
+dependent family/catalog/capability/Product-content identity; fewer or more
+than four rotated `sourceModuleDigest` values; fewer or more than the exact seven
+rotated intrinsic definition digests; imported/open not rotating or becoming
+eligible; any changed eighth intrinsic digest; any of the other 49 changing;
+failure to regenerate the global family and all 18 operation
+projections/assets; a broad identity refactor; noncanonical or
+context-dependent Actor digest;
+predecessor context absent/crossed in attribution; non-bijective resolve
+evidence; install evidence not selected by its lock; prior-admitted state with a
+differing preimage treated as idempotent; typed fault/defect projected as
+`projection_refusal`; host failure with non-null outcome; owner completion with
+missing outcome; top-level acquisition or second transport/result family; pure
+call forced to carry an event resource; eventful call with a missing/crossed
+event assertion; optional/universal resources or mode selector; runtime
+callback/provider/controller; registry/latest lookup; per-operation outcome
+wrapper; second grant/outcome family; or partial install/bind effect.
+Each refuses with zero unintended append or material mutation.
+
 ##### Exact-prefix workspace environment join
 
 One reusable ABG owner projection closes workspace-scoped currentness before
@@ -2504,7 +2966,7 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 
 | Leaf | Kind | Exact typed relation | Owner / frame / effect | Current locus and status | Why irreducible here |
 |---|---|---|---|---|---|
-| `L01` | `D` | `WorkspaceCreatePacket + actor -> WorkspaceManifestAuthorityBasis  or  WorkspaceOperationRefusal` | Product / Entity / pure | `P/workspace_operations.ts::constructAuthorityBasis` (internal, current) | `NF-ID` |
+| `L01` | `D` | `WorkspaceCreatePacket + Product-projected development-successor actor attribution -> WorkspaceManifestAuthorityBasis  or  WorkspaceOperationRefusal` | Product / Entity / pure | `P/workspace_operations.ts::constructAuthorityBasis` (current constructor; S2 predecessor-rooted attribution migration selected) | `NF-ID` |
 | `L02` | `D` | `WorkspaceCreatePacket + authority basis -> WorkspaceManifest  or  WorkspaceOperationRefusal` | Product / Entity / pure | `P/workspace_operations.ts::constructManifest` (internal, current) | `NF-ID` |
 | `L03` | `P` | `WorkspaceManifest + expected authority -> WorkspaceOpenProjection  or  WorkspaceOperationRefusal` | Product / Entity / read | `P/workspace_operations.ts::openProjection` (internal, current) | `NF-PROJ` |
 | `L04` | `P` | `CatalogListProjectReadPacket + ProductProjectionBasis -> CatalogListProjection  or  ProductProjectReadRefusal` | Product / Proof / read | `P/project_read_ports.ts::projectCatalogList` (current) | `NF-PROJ` |
@@ -2528,7 +2990,7 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 | `L22` | `A` | `ProductInstall candidate + expected prefix + operation basis -> admitted ProductInstall  or  artifact-admission refusal` | ABG / ABG / runtime-mutation leaf inside artifact-effect endpoint | `A/environment_admission.ts::admitProductInstall` (current) | `NF-ADM` |
 | `L23` | `P` | `validated prefix + environment coordinate -> admitted ProductInstall or WorkspaceBinding  or  absent or ambiguous` | ABG / Entity / read | `A/environment_admission.ts::{projectAdmittedProductInstall*,projectAdmittedWorkspaceBinding*}` (current) | `NF-PROJ` |
 | `L24` | `D` | `admitted installs + ResolvedProductLock -> ProductSet  or  EnvironmentRefusal` | Product / Entity / pure | `P/environment.ts::constructProductSet` (current) | `NF-ID` |
-| `L25` | `D` | `WorkspaceAuthorityBasisInput -> WorkspaceAuthorityBasis  or  EnvironmentRefusal` | Product / Entity / pure | `P/environment.ts::constructWorkspaceAuthorityBasis` (current) | `NF-ID` |
+| `L25` | `D` | `WorkspaceManifest with exact predecessor-rooted actor/attribution preimage -> WorkspaceAuthorityBasis  or  EnvironmentRefusal` | Product / Entity / pure | `P/environment.ts::constructWorkspaceAuthorityBasis` (current constructor; S2 free-actor deletion selected) | `NF-ID` |
 | `L26` | `D` | `WorkspaceAuthorityBasis + ProductSet + lock + roots -> WorkspaceBindingCandidate  or  EnvironmentRefusal` | Product / Entity / pure | `P/environment.ts::constructWorkspaceBinding` (current) | `NF-ID` |
 | `L27` | `A` | `WorkspaceBindingCandidate + expected prefix + operation basis -> admitted WorkspaceBinding  or  artifact-admission refusal` | ABG / ABG / runtime-mutation leaf inside artifact-effect endpoint | `A/environment_admission.ts::admitWorkspaceBinding` (current) | `NF-ADM` |
 | `L28` | `V` | `Raw<GTL subject> -> RawAdmittedValue  or  RawAdmissionRefusal` | Validator / Validator / pure | `V/raw_admission.ts::rawAdmitValue` (current) | `NF-VAL` |
@@ -2569,7 +3031,7 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 | `L63` | `D` | `ConfigurationMaterializePacket + exact binding/contract -> ordered MaterializationPlan  or  ProductMaterializationRefusal` | Product / Entity / pure | planning/validation phase of `P/materialization_operations.ts::materializeConfiguration` (current) | `NF-ID` |
 | `L64` | `V/D` | `PublishedRcSnapshotRequest + same-subject qualification -> ReleaseSnapshotResult<published_rc> candidate  or  ReleaseSnapshotRefusal` | release owner / Entity / pure before effect | qualification phase of `P/release_snapshot_operations.ts::snapshotPublishedRc`; success construction C2 contract-pending | `NF-REL` |
 | `L65` | `V/D` | `TappedReleaseSnapshotRequest + accepted RC/final qualification -> ReleaseSnapshotResult<tapped_release> candidate  or  ReleaseSnapshotRefusal` | release owner / Entity / pure before effect | qualification phase of `P/release_snapshot_operations.ts::snapshotTappedRelease`; success construction C2 contract-pending | `NF-REL` |
-| `J01` | `P/V` | `verified-artifact coordinate + installed Product bytes -> VerifiedProductArtifact  or  verification/source refusal` | Product / Install / read | C2-pending source join through `P/verify_product.ts::verifyProduct` and installed artifact bytes | join only: semantic leaf is `L20`; no independent primitive claim |
+| `J01` | `P/V` | `verify invocation + PFC-F06 outcome + ProductVerificationEvidence + installed Product bytes -> VerifiedProductArtifact  or  verification/source refusal` | Product / Install / read | S2 evidence join selected through `P/verify_product.ts::verifyProduct`, the typed verification receipt, and installed artifact bytes | join only: semantic leaf is `L20`; no independent primitive claim |
 | `J02` | `P/V` | `lock coordinate + verified artifacts -> ResolvedProductLock  or  source/environment refusal` | Product / Install / read | C2-pending deterministic reconstruction through `L21` | join only: semantic leaf is `L21`; no independent primitive claim |
 | `J03` | `P/V` | `environment coordinates + admitted prefix + installed manifests -> ProductSet/WorkspaceBinding  or  source/environment refusal` | Product over ABG projection / Install / read | C2-pending source join through `L23-L27` | join only: no independent semantic authority |
 | `J04` | `P/V` | `catalog/view/application coordinates + exact environment/Program basis -> immutable catalog carrier  or  source/catalog refusal` | Product / Install / read | C2-pending deterministic reconstruction through `L28-L34` | join only: no independent semantic authority |
@@ -4175,4 +4637,27 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **migration consequence** | `ST-2A-G` must preserve one explicit graph through manifest and install for both zero-row and nonempty cases and must reject a missing carrier. The repair does not authorize code or test changes in this design-worker subject. |
 | **thread sequencing** | Freeze this bounded `ST-2A-G` repair first. `ST-2A-C` resumes after the repair is frozen and retains Section 16.10's canonical-grant direction. |
 | **current disposition** | Design authority only. No implementation, test, acceptance, thread closure, count, or release claim follows from this amendment. |
+| **promotion status** | ABIogenesis-local design law under immutable STDO `v2.2.2`; shared-method promotion requires separate methodology re-entry and representative evidence. |
+
+### 16.12 T-287 S2 Successor-Development Authority, Transport, And Verification-Evidence Amendment Record
+
+| Field | Record |
+|---|---|
+| **reason** | The isolated `ST-S01-ROOT/S2` construction proved two shared realization gaps. Pre-binding create/verify/resolve/install/bind definitions require the singular `CapabilityGrant` and sometimes actor attribution, while the current constructor requires the not-yet-admitted target `WorkspaceBinding`; tests therefore manufactured coordinates. Separately, Product verification drops its full success, the installed transport does not issue PFC-F06, and resolve/install accept shaped verification references without the exact owner evidence. Final review also proved that `workspaceBindingRequirement: "forbidden"` covers more definitions than the five lawful successor-development entry points and therefore cannot alone authorize the new arm. |
+| **change class and scope** | One bounded ABIogenesis-local `design_reframe`. Product and requirement `WHAT`, accepted `S1` bytes, the 18/56 family, one `CapabilityGrant`, one indexed `PublicOutcome<K>`, ABG event law, source-blind install law, and the three static binding combinators are unchanged. No goal, intent, Product, requirement, scenario, or runtime reprice is selected. |
+| **upstream basis** | Product's one-causal-path, thin-Public, source-blind-install, exact-owner, Definition/Tool/Runtime, and compression laws; `REQ-P-PUBLIC-CONTRACTS-005`, `-009..011`; `REQ-P-INSTALL-043..048`, `-056`, and `-057`; `REQ-R-ABG3-EVENTS-031..032`; S06 PFC-F05/F06 and `SuccessfulPackedVerificationReference`; Sections 5.3, 5.6.2C, 5.6.5A, 10.1, and FS-18..20; accepted `S1` subject `24ac3bd2`, tree `cd2cca1e`; and the existing `ExactPrefixWorkspaceEnvironment`. |
+| **authority decision** | The singular `CapabilityGrantConstructionBasis<K>` gains only the `prebinding_development_product_basis` arm `{ fixedPacket, predecessorEnvironment, request }`. Product reprojects the held predecessor prefix and validates exact predecessor binding/candidate, workspace authority and authorized actor, causal installs, lock, ProductSet, installed builder bytes and manifests, public catalog, capability graph, fixed definition, owning contract, selected capability, and dependency closure. Existing grant facets encode that environment without a new field: approval is the exact admitted predecessor `WorkspaceBinding` RD, policy is the predecessor `WorkspaceAuthorityBasis` RD, authority basis is the exact-prefix artifact-truth projection RD, and scope is the exact request RD. A crossed prefix, binding, or causal lock changes a facet or fails reprojection and cannot reproduce the grant. Fixed metadata rejects the arm for every binding-required definition. The predecessor builder workspace is grant provenance only and never enters a forbidden or target invocation workspace slot. |
+| **eligibility and identity decision** | One sparse intrinsic owner-metadata field, `successorDevelopmentPrebindingAuthority: "eligible"`, is present on exactly `workspace.create#clean`, `product.verify#verify`, `product.resolve#resolve`, `product.install#install`, and `workspace.bind#bind`. It is absent, hence ineligible, on the other 51 keys; no mandatory `none` field is added. Product re-resolves and validates the field from the installed intrinsic definition. `workspaceBindingRequirement: "forbidden"` remains necessary but is not sufficient. There is no operation-name set/switch or registry. Exactly four `sourceModuleDigest` values rotate: `Product.WorkspaceOperations`, `Product.Verification`, `Product.EnvironmentResolution`, and `Product.Installation`. Changing the shared `workspaceCreateMetadata` declaration rotates the `Product.WorkspaceOperations` digest, which clean, imported, and open all embed, so the two ineligible siblings rotate with clean. Exactly seven intrinsic definition digests rotate and the other 49 remain stable. The global family then rotates all 18 operation projections/assets, followed by every embedded dependent catalog, affected capability row/graph, Product-manifest, and Product-content identity. This one-time integration regeneration neither makes imported/open eligible nor authorizes a broad identity refactor. |
+| **scope limit** | This arm is valid only for a successor development Product built by an already installed predecessor development Product. It does not solve or authorize the first-ever cold install, and the accepted S1 semantic carrier is not an issuer. Candidate self-authorization, caller approval, ambient latest/current lookup, or circular target-workspace authority is forbidden. |
+| **actor decision** | One Product `projectDevelopmentSuccessorActorAttribution` relation preserves the existing Actor identity exactly: `actor.ref = authorizedActorRef` and `actor.digest = sha256Canonical({ actorRef: authorizedActorRef })`. Predecessor binding/authority, fixed definition, and exact request affect only the request-scoped `ActorAttribution` preimage. Context-dependent or caller-supplied actor digests refuse. Target workspace create persists the Actor and attribution coordinates in its authority-bearing manifest; workspace-authority construction derives the actor ref from that manifest; target bind validates a fresh attribution for the same Actor and transitions it into the admitted target binding. No second actor issuer or actor family is added. |
+| **target and idempotence decision** | Each concrete owner retains its exact request/resource/currentness relation. Create joins the target-root request to the resource root/digest; verify joins selectors to observed artifact bytes; resolve joins the complete evidence bijection; install joins target request/root assertion, evidence, artifact, and lock-selected row; bind joins target manifest authority, declared roots, ProductSet, and lock. Existing idempotent success is lawful only after reprojection proves complete equality with a prior admitted state and owner receipt; differing preimage is conflict/refusal with no overwrite or duplicate admission. |
+| **transport decision** | `DefinitionCall.resources` is the sole installed resource/acquisition handoff. `runInstalledDefinitionCallTransport(candidate)` has no top-level acquisition, acquisition kind, or duplicate matcher and returns one result family with two Effect-host arms: owner completion `{ invocation, success receipt, outcome }`, or host failure `{ invocation, failure receipt, outcome: null }`. PFC-F06 runs only for a receipt with `ownerOutput`; typed execution fault, defect, or interruption remains host-failure evidence and is never `projection_refusal`. The exact owner-authored resource schema decides resource presence: pure verify/resolve/View calls carry no ABG event resource; exact-prefix and eventful calls retain their fixed assertions and owner-local lifecycle. Optional/universal resources, a mode selector, a second transport/result family, or a bogus event resource are forbidden. |
+| **outcome and evidence decision** | One generic Public `projectPublicOutcome<K>` completes PFC-F06 with exact payload/outcome contract selection and canonical identity for owner completion only. Product verification retains one typed `ProductVerificationEvidence` containing complete `ProductVerificationSuccess` and unchanged resource disposition. One Product evidence admission recomputes the successful PFC-F06 projection and full owner evidence, supplies the only lawful successful packed verification reference to both resolve and install, requires a resolve bijection, and requires install's exact lock-selected row before effects. Public outcome remains generic and does not absorb the full evidence or host failure. |
+| **owner boundary** | ABG owns exact-prefix and admitted install/binding truth. Product owns predecessor validation, grants, actor attribution, target authority joins, verification evidence, resolve/install, Catalog/View, and execution resolution. Public admits one call, selects one installed callable, calls once, and projects structurally. Each concrete binding calls shared Product admission then retains owner-local resource/currentness law. The static binding shell and outer host remain structural. |
+| **foundation decision** | Reuse canonical JSON/SHA-256/ordering/immutability, Valibot, exact-pinned Effect `3.22.1`, the singular capability graph/grant, ABG exact-prefix projection, installed Product evidence, workspace constructors, and S06 indexed contracts. No dependency is selected. IAM/RBAC, identity/result frameworks, policy/provider runtimes, controllers, registries, service locators, state machines, or callback graphs add rival authority/lifecycle/translation and delete no local law. |
+| **affected realization surfaces** | Sparse metadata type/digest projection in `shared/public_function_contracts.ts` and `shared/public_function_family.ts`; exact five declarations in `product/workspace_operation_contracts.ts`, `product/verification_operation_contracts.ts`, `product/environment_operation_contracts.ts`, and `product/install_operation_contracts.ts`; four rotated `sourceModuleDigest` values; exactly seven rotated intrinsic definition digests; the global family and all 18 operation projections/assets; deterministic publication/verifier/install regeneration for downstream catalog/capability/Product identities; existing `product/invocation.ts` installed-definition/grant construction; existing `abg/environment_admission.ts` exact-prefix projection; Product authority/actor and workspace constructors; exact consumed bindings; `public/installed_definition_call_transport.ts` plus one generic indexed-outcome projector; verification evidence and resolve/install/bind joins; then binding-scoped Catalog/View/resolution. No production edit is authorized by this docs candidate. |
+| **thread sequencing** | After independent acceptance: (1) add the sparse field to exactly five fixed owner declarations, rotate exactly four `sourceModuleDigest` values and seven intrinsic definition digests, prove the other 49 intrinsic digests stable, then regenerate the global family, all 18 operation projections/assets, and every downstream identity once; (2) add installed eligibility validation to the predecessor-environment grant arm and project canonical Actor attribution; (3) target workspace authority transition and shared Product authority admission; (4) sole-resource installed transport and generic PFC-F06; (5) verification evidence and shared evidence admission; (6) resolve/install/bind target joins; (7) binding-scoped Catalog/View/resolution and complete source-blind `R2`-`R7` proof. `S3` and `S4` remain pending. |
+| **proof decision** | Positive proof derives eligibility from each exact installed intrinsic definition, proves the exact identity cone (four `sourceModuleDigest` values; seven intrinsic definition digests including ineligible imported/open; 49 stable intrinsic digests; global family and all 18 operation projections/assets; downstream catalog/capability/Product identities), then derives every grant, canonical Actor, context-bound attribution, owner-completion outcome, and verification reference through production owners from one freshly reprojected exact predecessor environment and exact target resources. Mandatory negatives include absent/crossed eligibility; `forbidden` treated as sufficient; eligibility on a sixth key; caller/fixed-packet eligibility without installed equality; operation-name switch/set/registry; fewer or more than four rotated `sourceModuleDigest` values; fewer or more than seven rotated intrinsic definition digests; imported/open not rotating or becoming eligible; any changed eighth intrinsic digest; any of the other 49 changing; incomplete global-family/all-18/downstream regeneration; a broad identity refactor; caller-minted coordinates; unprojected/stale/crossed builder prefix, binding, authority, installs, lock, bytes, catalog, graph, definition, contract, or dependency; crossed prefix/binding/lock reproducing the same grant; builder/target crossing; request/resource-root mismatch; forbidden-slot population; cold-install use; noncanonical/context-dependent Actor digest; non-bijective/lock-crossed evidence; unlawful idempotence; typed fault/defect projected as `projection_refusal`; host failure with non-null outcome; top-level acquisition; invalid event-resource shape; second transport/result/grant/outcome family; optional/universal resources; registry/callback/provider/controller; or partial effect. Each refuses before owner/effect as applicable with zero unintended append/mutation. |
+| **prohibited growth** | No mandatory eligibility-`none` field across all 56, operation-name eligibility set/switch/registry, standalone pre-binding authority or approval carrier, second grant, actor issuer, capability graph, outcome family, per-operation outcome wrapper, universal resource/evidence carrier, runtime provider/controller, callback, registry/cache/latest lookup, new event, Public owner sequencing, source import, ambient package lookup, or candidate self-authorization. |
+| **current disposition** | Frozen replacement design candidate only. The isolated construction and rejected prior design candidate are diagnostic evidence, not an `S2` subject. No production code, test, accepted cut, scenario, count, qualification, or release claim follows. |
 | **promotion status** | ABIogenesis-local design law under immutable STDO `v2.2.2`; shared-method promotion requires separate methodology re-entry and representative evidence. |
