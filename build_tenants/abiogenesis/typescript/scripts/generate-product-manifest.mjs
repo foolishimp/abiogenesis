@@ -16,10 +16,12 @@ import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
   ABI5_PRODUCT_ID,
+  ABI5_ROOT_BINDING_ASSET_PATH,
   CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
   PUBLIC_CATALOG_BINDING_CONTRACTS,
   bindS06PublicFunctionCatalog,
   capabilityDefinitionGraphAssetBytes,
+  abi5RootBindingAssetBytes,
   capabilityDefinitionGraphCoordinate,
   capabilityRefsForContract,
   canonicalJson,
@@ -200,6 +202,15 @@ await Promise.all(PUBLIC_PROJECTION_PAYLOADS.assets
     await mkdir(dirname(join(root, path)), { recursive: true });
     await writeFile(join(root, path), bytes, "utf8");
   }));
+
+await mkdir(dirname(join(root, ABI5_ROOT_BINDING_ASSET_PATH)), {
+  recursive: true,
+});
+await writeFile(
+  join(root, ABI5_ROOT_BINDING_ASSET_PATH),
+  abi5RootBindingAssetBytes,
+  "utf8",
+);
 
 async function listFiles(path) {
   const files = [];
