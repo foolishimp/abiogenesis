@@ -79,6 +79,7 @@ export interface IntrinsicPublicFunctionDefinition {
   readonly eventAdmission: PublicEventAdmission;
   readonly actorRequirement: "forbidden" | "required";
   readonly workspaceBindingRequirement: "forbidden" | "exactly_one";
+  readonly successorDevelopmentPrebindingAuthority?: "eligible";
   readonly authoritySlotRequirements:
     readonly PublicAuthoritySlotRequirement[];
   readonly capabilityRefs: readonly string[];
@@ -132,6 +133,7 @@ export interface IntrinsicPublicOperationContractProjection {
     readonly nonTerminalContract: IntrinsicProjectedDefinitionSlot | null;
     readonly executionBindingSpecification:
       IntrinsicExecutionBindingSpecification;
+    readonly successorDevelopmentPrebindingAuthority?: "eligible";
   }>[];
   readonly invocationContractId: "abg.schema.public-operation-invocation";
   readonly outcomeContractId: "abg.schema.public-operation-outcome";
@@ -293,6 +295,12 @@ function definitionFromSource(
     eventAdmission: metadata.eventAdmission,
     actorRequirement: metadata.actorRequirement,
     workspaceBindingRequirement: metadata.workspaceBindingRequirement,
+    ...(metadata.successorDevelopmentPrebindingAuthority === undefined
+      ? {}
+      : {
+        successorDevelopmentPrebindingAuthority:
+          metadata.successorDevelopmentPrebindingAuthority,
+      }),
     authoritySlotRequirements: metadata.authoritySlotRequirements,
     capabilityRefs: metadata.capabilityRefs,
     defaults: metadata.defaults,
@@ -406,6 +414,12 @@ function constructOperationProjection(
         ),
       executionBindingSpecification:
         definition.executionBindingSpecification,
+      ...(definition.successorDevelopmentPrebindingAuthority === undefined
+        ? {}
+        : {
+          successorDevelopmentPrebindingAuthority:
+            definition.successorDevelopmentPrebindingAuthority,
+        }),
     })
   );
   const familyCoordinate = deepFreeze({

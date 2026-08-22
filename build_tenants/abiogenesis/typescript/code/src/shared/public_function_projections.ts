@@ -92,6 +92,7 @@ export interface PublicDocumentationInventoryRow {
   readonly definitionDigest: Sha256Digest;
   readonly semanticAuthorityRef: string;
   readonly capabilityRefs: readonly string[];
+  readonly successorDevelopmentPrebindingAuthority?: "eligible";
   readonly sdkCoordinate: string;
   readonly cliCoordinate: string;
 }
@@ -745,6 +746,12 @@ function constructPayloads(): PublicProjectionPayloads {
       definitionDigest: definition.definitionDigest,
       semanticAuthorityRef: definition.semanticAuthorityRef,
       capabilityRefs: definition.capabilityRefs,
+      ...(definition.successorDevelopmentPrebindingAuthority === undefined
+        ? {}
+        : {
+          successorDevelopmentPrebindingAuthority:
+            definition.successorDevelopmentPrebindingAuthority,
+        }),
       sdkCoordinate: definition.sdkCoordinate,
       cliCoordinate: definition.cliCoordinate,
     }),

@@ -118,6 +118,7 @@ const verify = ownerContractPacket(
     eventAdmission: "none",
     actorRequirement: "forbidden",
     workspaceBindingRequirement: "forbidden",
+    successorDevelopmentPrebindingAuthority: "eligible",
     authoritySlotRequirements: [
       "capability_grants",
       requestDependentAuthoritySlot(
