@@ -1,5 +1,10 @@
 import { isAbsolute } from "node:path";
 
+import {
+  reconstructWorkspaceManifest,
+  type WorkspaceManifest,
+} from "./workspace_operations.js";
+
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
   capabilityDefinitionGraphAssetBytes,
@@ -98,17 +103,28 @@ export interface ProductSet {
 }
 
 export interface WorkspaceAuthorityBasisInput {
+  /** S2 target authority derives only from this actor-bearing manifest. */
+  readonly workspaceManifest?: WorkspaceManifest;
+  /** Legacy transport-shaped fields remain type-only compatibility input. */
+  readonly workspaceId?: string;
+  readonly canonicalRoot?: string;
+  readonly authorityMode?: "trusted_developer";
+  readonly authorizedActorRef?: string;
+  readonly authorityManifestRef?: string;
+  readonly authorityManifestDigest?: Sha256Digest;
+}
+
+export interface WorkspaceAuthorityBasis {
+  readonly kind: "workspace_authority_basis";
+  readonly schemaVersion: "5.0.0";
   readonly workspaceId: string;
   readonly canonicalRoot: string;
   readonly authorityMode: "trusted_developer";
   readonly authorizedActorRef: string;
+  readonly actorAttributionRef: string;
+  readonly actorAttributionDigest: Sha256Digest;
   readonly authorityManifestRef: string;
   readonly authorityManifestDigest: Sha256Digest;
-}
-
-export interface WorkspaceAuthorityBasis extends WorkspaceAuthorityBasisInput {
-  readonly kind: "workspace_authority_basis";
-  readonly schemaVersion: "5.0.0";
   readonly authorityBasisId: string;
   readonly authorityBasisDigest: Sha256Digest;
 }
@@ -966,28 +982,37 @@ export function isProductSet(
 export function constructWorkspaceAuthorityBasis(
   input: WorkspaceAuthorityBasisInput,
 ): EnvironmentRefusal | WorkspaceAuthorityBasis {
+  const manifest = input.workspaceManifest === undefined
+    ? null
+    : reconstructWorkspaceManifest(input.workspaceManifest);
+  if (manifest === null || manifest.actor === null || manifest.actorAttribution === null) {
+    return refusal(
+      "invalid_workspace_authority",
+      "target workspace authority requires one exact actor-bearing clean workspace manifest",
+    );
+  }
   const authorityManifest = {
-    workspaceId: input.workspaceId,
-    canonicalRoot: input.canonicalRoot,
-    authorityMode: input.authorityMode,
-    authorizedActorRef: input.authorizedActorRef,
+    workspaceId: manifest.workspaceRef,
+    canonicalRoot: manifest.canonicalRoot,
+    authorityMode: "trusted_developer" as const,
+    authorizedActorRef: manifest.actor.ref,
+    actorAttributionRef: manifest.actorAttribution.ref,
+    actorAttributionDigest: manifest.actorAttribution.digest,
+    authorityManifestRef: manifest.workspaceRef,
+    authorityManifestDigest: manifest.workspaceDigest,
   };
   if (
-    input.workspaceId.length === 0 ||
-    !isAbsolute(input.canonicalRoot) ||
-    input.authorizedActorRef.length === 0 ||
-    input.authorityManifestRef.length === 0 ||
-    !isSha256Digest(input.authorityManifestDigest) ||
-    input.authorityManifestDigest !==
-      sha256Canonical(authorityManifest as unknown as JsonValue)
+    !isAbsolute(manifest.canonicalRoot) ||
+    manifest.actor.ref.length === 0 ||
+    !isSha256Digest(manifest.actorAttribution.digest)
   ) {
     return refusal("invalid_workspace_authority", "workspace authority fields must be explicit");
   }
-  const authorityBasisDigest = sha256Canonical(input as unknown as JsonValue);
+  const authorityBasisDigest = sha256Canonical(authorityManifest as unknown as JsonValue);
   return {
     kind: "workspace_authority_basis",
     schemaVersion: "5.0.0",
-    ...input,
+    ...authorityManifest,
     authorityBasisId: identity("workspace-authority://abiogenesis", authorityBasisDigest),
     authorityBasisDigest,
   };
@@ -1003,6 +1028,8 @@ export function isWorkspaceAuthorityBasis(
       "authorityBasisId",
       "authorityManifestDigest",
       "authorityManifestRef",
+      "actorAttributionDigest",
+      "actorAttributionRef",
       "authorityMode",
       "authorizedActorRef",
       "canonicalRoot",
@@ -1017,22 +1044,26 @@ export function isWorkspaceAuthorityBasis(
     !nonEmptyString(value.canonicalRoot) ||
     !isAbsolute(value.canonicalRoot) ||
     !nonEmptyString(value.authorizedActorRef) ||
+    !nonEmptyString(value.actorAttributionRef) ||
+    !isSha256Digest(value.actorAttributionDigest) ||
     !nonEmptyString(value.authorityManifestRef) ||
     !isSha256Digest(value.authorityManifestDigest) ||
     !nonEmptyString(value.authorityBasisId) ||
     !isSha256Digest(value.authorityBasisDigest)
   ) return false;
-  const reconstructed = constructWorkspaceAuthorityBasis({
+  const body = {
     workspaceId: value.workspaceId as string,
     canonicalRoot: value.canonicalRoot as string,
     authorityMode: value.authorityMode,
     authorizedActorRef: value.authorizedActorRef as string,
+    actorAttributionRef: value.actorAttributionRef as string,
+    actorAttributionDigest: value.actorAttributionDigest as Sha256Digest,
     authorityManifestRef: value.authorityManifestRef as string,
     authorityManifestDigest: value.authorityManifestDigest as Sha256Digest,
-  });
-  return reconstructed.kind === "workspace_authority_basis" &&
-    canonicalJson(reconstructed as unknown as JsonValue) ===
-      canonicalJson(value as JsonValue);
+  };
+  const digest = sha256Canonical(body as unknown as JsonValue);
+  return value.authorityBasisDigest === digest &&
+    value.authorityBasisId === identity("workspace-authority://abiogenesis", digest);
 }
 
 export function constructWorkspaceBinding(

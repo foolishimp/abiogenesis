@@ -36,6 +36,7 @@ import {
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import type { VerifiedProductArtifact } from "./contracts.js";
 import {
+  constructWorkspaceAuthorityBasis,
   isProductInstall,
   isResolvedProductLock,
   isWorkspaceAuthorityBasis,
@@ -48,6 +49,10 @@ import {
   type WorkspaceBindingCandidate,
   type WorkspaceDeclaredRoots,
 } from "./environment.js";
+import {
+  reconstructWorkspaceManifest,
+  type WorkspaceManifest,
+} from "./workspace_operations.js";
 import {
   admitResolvedNativeContractClosure,
   PRODUCT_ENVIRONMENT_CONTRACTS,
@@ -98,6 +103,7 @@ export interface ProductWorkspaceBindingResourceAssertion {
   readonly schemaVersion: "5.0.0";
   readonly eventResource: AbgEventResourceAssertion;
   readonly workspaceAuthority: WorkspaceAuthorityBasis;
+  readonly workspaceManifest: WorkspaceManifest;
   readonly admittedInstalls: readonly ProductInstall[];
   readonly resolvedLock: ResolvedProductLock;
   readonly declaredRoots: WorkspaceDeclaredRoots;
@@ -538,6 +544,7 @@ function validateBindResources(
       "resolvedLock",
       "schemaVersion",
       "workspaceAuthority",
+      "workspaceManifest",
     ]) ||
     resources.kind !== "product_workspace_binding_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
@@ -556,6 +563,44 @@ function validateBindResources(
       "resource_admission",
       "invalid_resource_assertion",
       "workspace binding requires exact authority, admitted installs, lock, roots, and ABG prefix",
+    );
+  }
+  const manifest = reconstructWorkspaceManifest(resources.workspaceManifest);
+  const derivedAuthority = constructWorkspaceAuthorityBasis({
+    workspaceManifest: resources.workspaceManifest,
+  });
+  if (
+    manifest === null ||
+    derivedAuthority.kind === "environment_refusal" ||
+    !sameJson(derivedAuthority, resources.workspaceAuthority)
+  ) {
+    return bindFault(
+      call,
+      "resource_admission",
+      "workspace_manifest_mismatch",
+      "workspace binding authority must be derived from the exact target actor-bearing manifest",
+    );
+  }
+  const invocation = call.invocation as unknown as Readonly<Record<string, unknown>>;
+  const invocationAuthority = invocation.invocationAuthority;
+  const slots = isRecord(invocationAuthority) ? invocationAuthority.slots : null;
+  const actorAuthority = isRecord(slots) ? slots.actor : null;
+  const actor = isRecord(actorAuthority) ? actorAuthority.actor : null;
+  const attribution = isRecord(actorAuthority) ? actorAuthority.attribution : null;
+  if (
+    manifest.actor === null || manifest.actorAttribution === null ||
+    !isRecord(actor) || !isRecord(attribution) ||
+    actor.ref !== manifest.actor.ref || actor.digest !== manifest.actor.digest ||
+    typeof attribution.ref !== "string" ||
+    typeof attribution.digest !== "string" ||
+    (attribution.ref === manifest.actorAttribution.ref &&
+      attribution.digest === manifest.actorAttribution.digest)
+  ) {
+    return bindFault(
+      call,
+      "resource_admission",
+      "actor_attribution_mismatch",
+      "workspace.bind requires one fresh request-scoped attribution for the manifest's canonical Actor",
     );
   }
   const request = call.invocation.request;
@@ -672,15 +717,7 @@ const bind: ExactDefinitionCallable<
           memberKey: "bind",
           admittedInstalls: call.resources.admittedInstalls,
           resolvedLock: call.resources.resolvedLock,
-          authority: {
-            workspaceId: call.resources.workspaceAuthority.workspaceId,
-            canonicalRoot: call.resources.workspaceAuthority.canonicalRoot,
-            authorityMode: call.resources.workspaceAuthority.authorityMode,
-            authorizedActorRef: call.resources.workspaceAuthority.authorizedActorRef,
-            authorityManifestRef: call.resources.workspaceAuthority.authorityManifestRef,
-            authorityManifestDigest:
-              call.resources.workspaceAuthority.authorityManifestDigest,
-          },
+          workspaceManifest: call.resources.workspaceManifest,
           roots: call.resources.declaredRoots,
         };
         const candidate = ProductEnvironmentPort.bindWorkspace(nativePacket);

@@ -12,11 +12,17 @@ import {
   type OwnerContractSourceDeclaration,
   type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import {
+  isSha256Digest,
+  sha256Canonical,
+  type Sha256Digest,
+} from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { WORKSPACE_OPERATION_CONTRACTS } from "./workspace_operation_contracts.js";
 import {
   WorkspaceOperationPort,
+  type WorkspaceManifestActor,
+  type WorkspaceManifestActorAttribution,
   type WorkspaceCreateOperationResult,
   type WorkspaceCreatePacket,
   type WorkspaceOpenOperationResult,
@@ -171,6 +177,44 @@ function reference(ref: string, digest: Sha256Digest) {
   return { ref, digest } as const;
 }
 
+function projectedActorCoordinates(
+  invocation: unknown,
+): Readonly<{
+  readonly actor: WorkspaceManifestActor;
+  readonly actorAttribution: WorkspaceManifestActorAttribution;
+}> | null {
+  if (typeof invocation !== "object" || invocation === null) return null;
+  const candidate = invocation as Readonly<Record<string, unknown>>;
+  const invocationAuthority = candidate.invocationAuthority;
+  if (typeof invocationAuthority !== "object" || invocationAuthority === null) return null;
+  const slots = (invocationAuthority as Readonly<Record<string, unknown>>).slots;
+  if (typeof slots !== "object" || slots === null) return null;
+  const actorAuthority = (slots as Readonly<Record<string, unknown>>).actor;
+  if (typeof actorAuthority !== "object" || actorAuthority === null) return null;
+  const actor = (actorAuthority as Readonly<Record<string, unknown>>).actor;
+  const actorAttribution =
+    (actorAuthority as Readonly<Record<string, unknown>>).attribution;
+  if (
+    typeof actor !== "object" || actor === null ||
+    typeof actorAttribution !== "object" || actorAttribution === null
+  ) return null;
+  const actorCoordinate = actor as Readonly<Record<string, unknown>>;
+  const attributionCoordinate = actorAttribution as Readonly<Record<string, unknown>>;
+  if (
+    typeof actorCoordinate.ref !== "string" || actorCoordinate.ref.length === 0 ||
+    actorCoordinate.digest !== sha256Canonical({ actorRef: actorCoordinate.ref }) ||
+    typeof attributionCoordinate.ref !== "string" || attributionCoordinate.ref.length === 0 ||
+    !isSha256Digest(attributionCoordinate.digest)
+  ) return null;
+  return deepFreeze({
+    actor: reference(actorCoordinate.ref, actorCoordinate.digest as Sha256Digest),
+    actorAttribution: reference(
+      attributionCoordinate.ref,
+      attributionCoordinate.digest as Sha256Digest,
+    ),
+  });
+}
+
 function createBinding<TPacket extends CleanPacket | ImportedPacket>(
   packet: TPacket,
 ): ExactDefinitionCallable<TPacket, WorkspaceResourceAssertion, WorkspaceResourceReceipt> {
@@ -200,13 +244,25 @@ function createBinding<TPacket extends CleanPacket | ImportedPacket>(
         }),
       }));
     }
+    const projectedActor = request.createPolicy === "clean"
+      ? projectedActorCoordinates(call.invocation)
+      : null;
+    if (request.createPolicy === "clean" && projectedActor === null) {
+      return Effect.fail(fault(
+        call.invocation.definitionKey,
+        "missing_actor_attribution",
+        "workspace.create#clean requires the Product-projected canonical Actor and attribution",
+      ));
+    }
     const nativePacket: WorkspaceCreatePacket = request.createPolicy === "clean"
       ? {
           kind: "workspace_create_packet",
           schemaVersion: "5.0.0",
           memberKey: "clean",
-          targetRoot: request.targetRoot,
-          scaffoldPolicy: "none",
+        targetRoot: request.targetRoot,
+        scaffoldPolicy: "none",
+        actor: projectedActor!.actor,
+        actorAttribution: projectedActor!.actorAttribution,
         }
       : {
           kind: "workspace_create_packet",

@@ -1,4 +1,5 @@
 import type { VerifiedProductArtifact } from "./contracts.js";
+import type { WorkspaceManifest } from "./workspace_operations.js";
 import {
   constructProductSet,
   constructResolvedProductLock,
@@ -7,7 +8,6 @@ import {
   type EnvironmentRefusal,
   type ProductInstall,
   type ResolvedProductLock,
-  type WorkspaceAuthorityBasisInput,
   type WorkspaceBindingCandidate,
   type WorkspaceDeclaredRoots,
 } from "./environment.js";
@@ -25,7 +25,7 @@ export interface WorkspaceBindingPacket {
   readonly memberKey: "bind";
   readonly admittedInstalls: readonly ProductInstall[];
   readonly resolvedLock: ResolvedProductLock;
-  readonly authority: WorkspaceAuthorityBasisInput;
+  readonly workspaceManifest: WorkspaceManifest;
   readonly roots: WorkspaceDeclaredRoots;
 }
 
@@ -43,7 +43,9 @@ export function constructExactWorkspaceBinding(
     packet.resolvedLock,
   );
   if (productSet.kind !== "product_set") return productSet;
-  const authority = constructWorkspaceAuthorityBasis(packet.authority);
+  const authority = constructWorkspaceAuthorityBasis({
+    workspaceManifest: packet.workspaceManifest,
+  });
   if (authority.kind !== "workspace_authority_basis") return authority;
   return constructWorkspaceBinding(
     authority,

@@ -20,12 +20,29 @@ const WORKSPACE_MANIFEST_FILE = "workspace-manifest.json";
 
 export type WorkspaceCreationMember = "clean" | "imported";
 
+/**
+ * The actor is deliberately a coordinate, not a new workspace identity
+ * authority.  The Product-created attribution carries the predecessor
+ * development context that selected it.
+ */
+export interface WorkspaceManifestActor {
+  readonly ref: string;
+  readonly digest: Sha256Digest;
+}
+
+export interface WorkspaceManifestActorAttribution {
+  readonly ref: string;
+  readonly digest: Sha256Digest;
+}
+
 export interface CleanWorkspaceCreatePacket {
   readonly kind: "workspace_create_packet";
   readonly schemaVersion: "5.0.0";
   readonly memberKey: "clean";
   readonly targetRoot: string;
   readonly scaffoldPolicy: "none";
+  readonly actor: WorkspaceManifestActor;
+  readonly actorAttribution: WorkspaceManifestActorAttribution;
 }
 
 export interface ImportedWorkspaceCreatePacket {
@@ -61,6 +78,9 @@ export interface WorkspaceManifestAuthorityBasis {
   readonly source: "clean_creation" | "admitted_import";
   readonly importAuthorityRef: string | null;
   readonly importAuthorityDigest: Sha256Digest | null;
+  readonly authorizedActorRef: string | null;
+  readonly actorAttributionRef: string | null;
+  readonly actorAttributionDigest: Sha256Digest | null;
 }
 
 export interface WorkspaceProvenanceCoordinate {
@@ -76,6 +96,8 @@ export interface WorkspaceManifest {
   readonly canonicalRoot: string;
   readonly authorityMode: WorkspaceCreationMember;
   readonly authorityBasis: WorkspaceManifestAuthorityBasis;
+  readonly actor: WorkspaceManifestActor | null;
+  readonly actorAttribution: WorkspaceManifestActorAttribution | null;
   readonly scaffoldPolicy: "none" | "not_applicable";
   readonly scaffoldState: "no_project_authority" | "preserved_project_authority";
   readonly preservationPolicy:
@@ -197,17 +219,33 @@ function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function isCoordinate(value: unknown): value is WorkspaceManifestActor {
+  return isRecord(value) &&
+    hasExactKeys(value, ["digest", "ref"]) &&
+    typeof value.ref === "string" && value.ref.length > 0 &&
+    isSha256Digest(value.digest);
+}
+
+function isCanonicalActor(value: unknown): value is WorkspaceManifestActor {
+  return isCoordinate(value) && value.digest === sha256Canonical({
+    actorRef: value.ref,
+  });
+}
+
 function isCleanCreatePacket(
   packet: WorkspaceCreatePacket,
 ): packet is CleanWorkspaceCreatePacket {
   return packet.memberKey === "clean" &&
     hasExactKeys(packet, [
-      "kind",
-      "memberKey",
-      "scaffoldPolicy",
-      "schemaVersion",
-      "targetRoot",
-    ]) && packet.scaffoldPolicy === "none";
+        "kind",
+        "memberKey",
+        "actor",
+        "actorAttribution",
+        "scaffoldPolicy",
+        "schemaVersion",
+        "targetRoot",
+    ]) && packet.scaffoldPolicy === "none" &&
+    isCanonicalActor(packet.actor) && isCoordinate(packet.actorAttribution);
 }
 
 function isImportedCreatePacket(
@@ -238,6 +276,9 @@ function constructAuthorityBasis(
         canonicalRoot,
         authorityMode: "clean" as const,
         scaffoldPolicy: packet.scaffoldPolicy,
+        authorizedActorRef: packet.actor.ref,
+        actorAttributionRef: packet.actorAttribution.ref,
+        actorAttributionDigest: packet.actorAttribution.digest,
       }
     : {
         canonicalRoot,
@@ -262,6 +303,13 @@ function constructAuthorityBasis(
     importAuthorityDigest: packet.memberKey === "clean"
       ? null
       : packet.importAuthority.authorityDigest,
+    authorizedActorRef: packet.memberKey === "clean" ? packet.actor.ref : null,
+    actorAttributionRef: packet.memberKey === "clean"
+      ? packet.actorAttribution.ref
+      : null,
+    actorAttributionDigest: packet.memberKey === "clean"
+      ? packet.actorAttribution.digest
+      : null,
   });
 }
 
@@ -297,6 +345,8 @@ function constructManifest(
     authorityMode: packet.memberKey,
     authorityRef: authorityBasis.authorityRef,
     authorityDigest: authorityBasis.authorityDigest,
+    actor: packet.memberKey === "clean" ? packet.actor : null,
+    actorAttribution: packet.memberKey === "clean" ? packet.actorAttribution : null,
     scaffoldPolicy,
     scaffoldState,
     preservationPolicy,
@@ -331,6 +381,8 @@ function constructManifest(
     canonicalRoot,
     authorityMode: packet.memberKey,
     authorityBasis,
+    actor: packet.memberKey === "clean" ? packet.actor : null,
+    actorAttribution: packet.memberKey === "clean" ? packet.actorAttribution : null,
     scaffoldPolicy,
     scaffoldState,
     preservationPolicy,
@@ -350,6 +402,8 @@ export function reconstructWorkspaceManifest(
   value: unknown,
 ): WorkspaceManifest | null {
   if (!isRecord(value) || !hasExactKeys(value, [
+    "actor",
+    "actorAttribution",
     "authorityBasis",
     "authorityMode",
     "bindingDigest",
@@ -382,6 +436,9 @@ export function reconstructWorkspaceManifest(
     !hasExactKeys(authority, [
       "authorityDigest",
       "authorityRef",
+      "actorAttributionDigest",
+      "actorAttributionRef",
+      "authorizedActorRef",
       "importAuthorityDigest",
       "importAuthorityRef",
       "kind",
@@ -391,18 +448,39 @@ export function reconstructWorkspaceManifest(
     authority.kind !== "workspace_authority_basis" ||
     authority.schemaVersion !== "5.0.0" ||
     typeof authority.authorityRef !== "string" ||
-    !isSha256Digest(authority.authorityDigest)
+    !isSha256Digest(authority.authorityDigest) ||
+    !(
+      (authority.authorizedActorRef === null &&
+        authority.actorAttributionRef === null &&
+        authority.actorAttributionDigest === null) ||
+      (typeof authority.authorizedActorRef === "string" &&
+        authority.authorizedActorRef.length > 0 &&
+        typeof authority.actorAttributionRef === "string" &&
+        authority.actorAttributionRef.length > 0 &&
+        isSha256Digest(authority.actorAttributionDigest))
+    )
   ) return null;
   const packet: WorkspaceCreatePacket | null = value.authorityMode === "clean"
-    ? {
+    ? isCanonicalActor(value.actor) && isCoordinate(value.actorAttribution) &&
+        authority.authorizedActorRef === value.actor.ref &&
+        authority.actorAttributionRef === value.actorAttribution.ref &&
+        authority.actorAttributionDigest === value.actorAttribution.digest
+      ? {
         kind: "workspace_create_packet",
         schemaVersion: "5.0.0",
         memberKey: "clean",
         targetRoot: value.canonicalRoot,
         scaffoldPolicy: "none",
+        actor: value.actor,
+        actorAttribution: value.actorAttribution,
       }
+      : null
     : typeof authority.importAuthorityRef === "string" &&
-        isSha256Digest(authority.importAuthorityDigest)
+        isSha256Digest(authority.importAuthorityDigest) &&
+        value.actor === null && value.actorAttribution === null &&
+        authority.authorizedActorRef === null &&
+        authority.actorAttributionRef === null &&
+        authority.actorAttributionDigest === null
       ? {
           kind: "workspace_create_packet",
           schemaVersion: "5.0.0",

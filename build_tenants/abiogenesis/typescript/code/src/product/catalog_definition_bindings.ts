@@ -76,11 +76,15 @@ import type {
 } from "./contracts.js";
 import {
   isProductInstall,
+  constructProductSet,
+  isProductSet,
   isResolvedProductLock,
   productInstallCoordinate,
   type ProductInstall,
+  type ProductSet,
   type ResolvedProductLock,
   type WorkspaceBinding,
+  type WorkspaceBindingCandidate,
 } from "./environment.js";
 import {
   isVerifiedProductArtifact,
@@ -124,6 +128,7 @@ export interface CatalogViewResourceAssertion {
   readonly kind: "catalog_view_resource_assertion";
   readonly schemaVersion: "5.0.0";
   readonly catalog: ReadyGraphFunctionCatalog;
+  readonly admittedCatalog: CatalogAdmissionResourceReceipt;
 }
 
 export interface CatalogViewResourceReceipt {
@@ -168,7 +173,7 @@ function fault<TPacket extends AdmitPacket | ViewPacket | ApplyPacket>(
 }
 
 function workspaceCoordinate(
-  binding: WorkspaceBinding,
+  binding: WorkspaceBinding | WorkspaceBindingCandidate,
 ): ReferenceDigest<"WorkspaceBinding"> {
   return reference(binding.bindingId, binding.bindingDigest);
 }
@@ -255,6 +260,34 @@ function authorityMatchesCatalogBasis(
       slots.product_set,
       installedProducts,
     );
+}
+
+function targetEnvironmentMatches(
+  binding: WorkspaceBinding,
+  productSet: ProductSet,
+  lock: ResolvedProductLock,
+  installs: readonly ProductInstall[],
+  invocation: unknown,
+): boolean {
+  if (
+    !isProductSet(productSet, lock) ||
+    binding.productSetId !== productSet.productSetId ||
+    binding.productSetDigest !== productSet.productSetDigest ||
+    binding.lockId !== lock.lockId || binding.lockDigest !== lock.lockDigest
+  ) return false;
+  if (!isRecord(invocation)) return false;
+  const invocationAuthority = invocation.invocationAuthority;
+  const slots = isRecord(invocationAuthority) ? invocationAuthority.slots : null;
+  const actorAuthority = isRecord(slots) ? slots.actor : null;
+  const actor = isRecord(actorAuthority) ? actorAuthority.actor : null;
+  if (!isRecord(actor) ||
+    actor.ref !== binding.authorizedActorRef ||
+    actor.digest !== sha256Canonical({ actorRef: binding.authorizedActorRef })) {
+    return false;
+  }
+  return installs.every((install) =>
+    productSet.orderedInstallRefs.includes(install.installId)
+  );
 }
 
 function candidateCoordinate(
@@ -377,6 +410,27 @@ function reconstructReadinessBasis(
     installedProducts: installs.map((value) => value!.candidate),
     publications: resources.publications,
   };
+  const productSet = constructProductSet(
+    resources.admittedInstalls,
+    resources.resolvedLock,
+  );
+  if (
+    productSet.kind !== "product_set" ||
+    !targetEnvironmentMatches(
+      resources.workspaceBinding,
+      productSet,
+      resources.resolvedLock,
+      resources.admittedInstalls,
+      call.invocation,
+    )
+  ) {
+    return fault(
+      call,
+      "resource_admission",
+      "target_environment_mismatch",
+      "catalog admission requires the exact target ProductSet, lock, canonical Actor, and binding-scoped grant authority",
+    );
+  }
   const request = call.invocation.request;
   const descriptors = resources.verifiedProducts.map((verified) =>
     productVerificationCoordinates(verified).descriptor
@@ -703,6 +757,42 @@ function reconstructCatalog(
     : null;
 }
 
+function admittedCatalogMatches(
+  receipt: CatalogAdmissionResourceReceipt,
+  catalog: ReadyGraphFunctionCatalog,
+): boolean {
+  if (
+    receipt.kind !== "catalog_admission_resource_receipt" ||
+    receipt.schemaVersion !== "5.0.0" ||
+    receipt.disposition !== "read_only_unchanged" ||
+    receipt.catalog === null ||
+    !sameCoordinate(receipt.catalog, catalogCoordinate(catalog)) ||
+    !sameCoordinate(
+      receipt.workspaceBinding,
+      workspaceCoordinate(catalog.readinessBasis.workspaceBinding),
+    ) ||
+    !sameCoordinate(receipt.resolvedLock, lockCoordinate(catalog.readinessBasis.resolvedLock)) ||
+    !sameCoordinateSet(
+      receipt.installedProducts,
+      catalog.readinessBasis.installedProducts.map(candidateCoordinate),
+    )
+  ) return false;
+  return sameCoordinateSet(
+    receipt.descriptors,
+    catalog.readinessBasis.verifiedProducts.map((verified) =>
+      productVerificationCoordinates(verified).descriptor
+    ),
+  ) && sameCoordinateSet(
+    receipt.contributionManifests,
+    catalog.readinessBasis.verifiedProducts.map((verified) =>
+      reference(verified.contributionManifestRef, verified.contributionManifestDigest)
+    ),
+  ) && sameCoordinateSet(
+    receipt.publishedGtl,
+    catalog.readinessBasis.publications.map(publicationCoordinate),
+  );
+}
+
 function viewRefusal(
   code: OwnerRefusalOf<ViewPacket>["code"],
 ): OwnerSemanticOutput<ViewPacket> {
@@ -721,7 +811,7 @@ const allowlist: ExactDefinitionCallable<
     const resources = call.resources;
     if (
       !isRecord(resources) ||
-      !hasExactKeys(resources, ["catalog", "kind", "schemaVersion"]) ||
+      !hasExactKeys(resources, ["admittedCatalog", "catalog", "kind", "schemaVersion"]) ||
       resources.kind !== "catalog_view_resource_assertion" ||
       resources.schemaVersion !== "5.0.0" ||
       !sameJson(resources, resources)
@@ -731,6 +821,11 @@ const allowlist: ExactDefinitionCallable<
     const catalog = reconstructCatalog(resources.catalog);
     if (
       catalog === null ||
+      !isRecord(resources.admittedCatalog) ||
+      !admittedCatalogMatches(
+        resources.admittedCatalog as CatalogAdmissionResourceReceipt,
+        catalog,
+      ) ||
       !sameCoordinate(call.invocation.request.catalog, catalogCoordinate(catalog)) ||
       !authorityMatchesCatalogBasis(
         call.invocation.invocationAuthority.slots,
