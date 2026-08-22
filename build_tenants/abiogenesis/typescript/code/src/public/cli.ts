@@ -170,9 +170,6 @@ if (args.length !== 2 || args[0] !== "--jsonl" || args[1] === undefined) {
       } else {
         if (isInstalledDefinitionCallCandidate(request.invocation)) {
           const outcome = await runInstalledDefinitionCallTransport(
-            request.acquisition as unknown as Parameters<
-              typeof runInstalledDefinitionCallTransport
-            >[0],
             request.invocation,
           );
           writeJsonLine(outcome as unknown as JsonValue);

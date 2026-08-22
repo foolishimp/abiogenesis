@@ -26,11 +26,16 @@ export type {
   PublicRunProjectionAuthority,
 } from "./run_projection_authority.js";
 export { projectOutcome } from "./outcome.js";
+export {
+  projectPublicOutcome,
+  type IndexedPublicOutcome,
+  type OutcomeProjectionFailureClass,
+  type OutcomeProjectionRefusal,
+} from "./indexed_outcome.js";
 export { PUBLIC_OPERATION_SCHEMA } from "./schema.js";
 export {
   isInstalledDefinitionCallCandidate,
   runInstalledDefinitionCallTransport,
-  type InstalledDefinitionCallAcquisition,
   type InstalledDefinitionCallTransportOutcome,
   type InstalledDefinitionCallTransportRefusal,
   type InstalledDefinitionCallTransportResult,

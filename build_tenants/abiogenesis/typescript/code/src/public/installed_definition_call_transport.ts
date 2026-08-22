@@ -1,29 +1,25 @@
 import * as abg from "../abg/index.js";
 import * as product from "../product/index.js";
+import * as Effect from "effect/Effect";
 import {
   runExactDefinition,
   type DefinitionCall,
   type DefinitionHostReceipt,
   type ExactDefinitionCallable,
 } from "../shared/effect_definition.js";
+import { exactDefinitionCallMatches } from
+  "../shared/definition_binding_mechanics.js";
 import {
   OWNER_CONTRACT_SOURCES,
 } from "../shared/owner_contract_source_set.js";
 import type {
   OwnerContractSourceDeclaration,
 } from "../shared/public_function_contracts.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import * as validator from "../validator/index.js";
-
-export type InstalledDefinitionCallAcquisition =
-  | Readonly<{
-    readonly kind: "new";
-    readonly eventLogPath: string;
-  }>
-  | Readonly<{
-    readonly kind: "reopen";
-    readonly closeHandoff: JsonValue;
-  }>;
+import {
+  projectPublicOutcome,
+  type IndexedPublicOutcome,
+} from "./indexed_outcome.js";
 
 export interface InstalledDefinitionCallTransportRefusal {
   readonly kind: "installed_definition_call_transport_refusal";
@@ -32,17 +28,44 @@ export interface InstalledDefinitionCallTransportRefusal {
   readonly code:
     | "invalid_definition_call"
     | "unknown_definition"
-    | "installed_binding_unavailable"
-    | "acquisition_mismatch";
+    | "installed_binding_unavailable";
   readonly message: string;
 }
 
-export interface InstalledDefinitionCallTransportResult {
-  readonly kind: "installed_definition_call_transport_result";
-  readonly schemaVersion: "5.0.0";
-  readonly acquisitionKind: "new" | "reopen";
-  readonly receipt: DefinitionHostReceipt;
-}
+export type InstalledDefinitionCallTransportResult<
+  TPacket extends OwnerContractSourceDeclaration = OwnerContractSourceDeclaration,
+  TResourceReceipt = unknown,
+> =
+  | Readonly<{
+    readonly kind: "installed_definition_call_transport_result";
+    readonly schemaVersion: "5.0.0";
+    readonly disposition: "owner_completed";
+    readonly invocation: DefinitionCall<TPacket, unknown>["invocation"];
+    readonly receipt: DefinitionHostReceipt<TPacket, TResourceReceipt> &
+      Readonly<{
+        readonly ownerOutput: NonNullable<
+          DefinitionHostReceipt<TPacket, TResourceReceipt>["ownerOutput"]
+        >;
+        readonly resources: TResourceReceipt;
+        readonly failure: null;
+      }>;
+    readonly outcome: IndexedPublicOutcome<TPacket["definitionKey"]>;
+  }>
+  | Readonly<{
+    readonly kind: "installed_definition_call_transport_result";
+    readonly schemaVersion: "5.0.0";
+    readonly disposition: "host_failed";
+    readonly invocation: DefinitionCall<TPacket, unknown>["invocation"];
+    readonly receipt: DefinitionHostReceipt<TPacket, TResourceReceipt> &
+      Readonly<{
+        readonly ownerOutput: null;
+        readonly resources: null;
+        readonly failure: NonNullable<
+          DefinitionHostReceipt<TPacket, TResourceReceipt>["failure"]
+        >;
+      }>;
+    readonly outcome: null;
+  }>;
 
 export type InstalledDefinitionCallTransportOutcome =
   | InstalledDefinitionCallTransportResult
@@ -89,26 +112,6 @@ function hasOwnDataProperty(
   return descriptor !== undefined && Object.hasOwn(descriptor, "value");
 }
 
-function isInstalledDefinitionCallAcquisition(
-  value: unknown,
-): value is InstalledDefinitionCallAcquisition {
-  if (
-    !isRecord(value) ||
-    !hasOwnDataProperty(value, "kind")
-  ) {
-    return false;
-  }
-  if (value.kind === "new") {
-    return hasExactKeys(value, ["kind", "eventLogPath"]) &&
-      hasOwnDataProperty(value, "eventLogPath") &&
-      typeof value.eventLogPath === "string";
-  }
-  return value.kind === "reopen" &&
-    hasExactKeys(value, ["kind", "closeHandoff"]) &&
-    hasOwnDataProperty(value, "closeHandoff") &&
-    isRecord(value.closeHandoff);
-}
-
 export function isInstalledDefinitionCallCandidate(
   value: unknown,
 ): value is AnyDefinitionCall {
@@ -121,13 +124,10 @@ export function isInstalledDefinitionCallCandidate(
     return false;
   }
   const invocation = value.invocation;
-  const resources = value.resources;
   if (
     !isRecord(invocation) ||
     !hasOwnDataProperty(invocation, "kind") ||
-    !hasOwnDataProperty(invocation, "definitionKey") ||
-    !isRecord(resources) ||
-    !hasOwnDataProperty(resources, "eventResource")
+    !hasOwnDataProperty(invocation, "definitionKey")
   ) {
     return false;
   }
@@ -153,32 +153,6 @@ function refusal(
   });
 }
 
-function sameStructure(left: unknown, right: unknown): boolean {
-  try {
-    return product.canonicalJson(left as JsonValue) ===
-      product.canonicalJson(right as JsonValue);
-  } catch {
-    return false;
-  }
-}
-
-function acquisitionMatches(
-  acquisition: InstalledDefinitionCallAcquisition,
-  call: AnyDefinitionCall,
-): boolean {
-  const resources = call.resources;
-  if (!isRecord(resources)) {
-    return false;
-  }
-  const eventResource = resources.eventResource;
-  if (!isRecord(eventResource)) return false;
-  return acquisition.kind === "new"
-    ? eventResource.kind === "new_abg_event_resource" &&
-      eventResource.eventLogPath === acquisition.eventLogPath
-    : eventResource.kind === "reopen_abg_event_resource" &&
-      sameStructure(eventResource.closeHandoff, acquisition.closeHandoff);
-}
-
 function selectedCallable(
   call: AnyDefinitionCall,
 ): AnyDefinitionCallable | InstalledDefinitionCallTransportRefusal {
@@ -191,6 +165,12 @@ function selectedCallable(
     return refusal(
       matches.length === 0 ? "unknown_definition" : "invalid_definition_call",
       "DefinitionCall must select one exact installed owner contract source",
+    );
+  }
+  if (!exactDefinitionCallMatches(call, matches[0]!.declaration)) {
+    return refusal(
+      "invalid_definition_call",
+      "DefinitionCall does not match its exact installed definition",
     );
   }
   const locator = matches[0]!.packet.executionBindingSpecification.callable;
@@ -228,26 +208,15 @@ function selectedCallable(
 }
 
 export async function runInstalledDefinitionCallTransport(
-  acquisition: InstalledDefinitionCallAcquisition,
   candidate: unknown,
 ): Promise<InstalledDefinitionCallTransportOutcome> {
-  let detachedEnvelope: unknown;
+  let detachedCandidate: unknown;
   try {
-    detachedEnvelope = structuredClone({ acquisition, candidate });
+    detachedCandidate = structuredClone(candidate);
   } catch {
     return refusal(
       "invalid_definition_call",
       "transport input is not one canonical DefinitionCall",
-    );
-  }
-  const {
-    acquisition: detachedAcquisition,
-    candidate: detachedCandidate,
-  } = detachedEnvelope as Readonly<Record<string, unknown>>;
-  if (!isInstalledDefinitionCallAcquisition(detachedAcquisition)) {
-    return refusal(
-      "acquisition_mismatch",
-      "top-level acquisition differs from the DefinitionCall event resource",
     );
   }
   if (!isInstalledDefinitionCallCandidate(detachedCandidate)) {
@@ -256,22 +225,31 @@ export async function runInstalledDefinitionCallTransport(
       "transport input is not one canonical DefinitionCall",
     );
   }
-  if (!acquisitionMatches(detachedAcquisition, detachedCandidate)) {
-    return refusal(
-      "acquisition_mismatch",
-      "top-level acquisition differs from the DefinitionCall event resource",
-    );
-  }
   const callable = selectedCallable(detachedCandidate);
   if (typeof callable !== "function") return callable;
   const receipt = await runExactDefinition(
     detachedCandidate,
-    callable(detachedCandidate),
+    Effect.suspend(() => callable(detachedCandidate)),
   );
+  if (receipt.ownerOutput === null) {
+    return Object.freeze({
+      kind: "installed_definition_call_transport_result" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "host_failed" as const,
+      invocation: detachedCandidate.invocation,
+      receipt,
+      outcome: null,
+    }) as InstalledDefinitionCallTransportResult;
+  }
   return Object.freeze({
     kind: "installed_definition_call_transport_result" as const,
     schemaVersion: "5.0.0" as const,
-    acquisitionKind: detachedAcquisition.kind,
+    disposition: "owner_completed" as const,
+    invocation: detachedCandidate.invocation,
     receipt,
-  });
+    outcome: projectPublicOutcome(
+      detachedCandidate.invocation,
+      receipt.ownerOutput,
+    ),
+  }) as InstalledDefinitionCallTransportResult;
 }

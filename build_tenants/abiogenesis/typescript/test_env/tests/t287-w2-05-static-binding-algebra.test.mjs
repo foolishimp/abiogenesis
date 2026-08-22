@@ -16,6 +16,12 @@ import {
 } from "../../build/code/src/abg/definition_event_resource.js";
 import { validatePublicOperationBasis } from
   "../../build/code/src/abg/environment_admission.js";
+import {
+  projectPublicOutcome,
+  runInstalledDefinitionCallTransport,
+} from "../../build/code/src/public/index.js";
+import { runExactDefinition } from
+  "../../build/code/src/shared/effect_definition.js";
 
 import { RUN_OPERATION_CONTRACTS } from
   "../../build/code/src/product/run_operation_contracts.js";
@@ -478,6 +484,115 @@ test("W2-05 three-function static binding algebra admits once and fails closed",
     evidence: Object.freeze([coordinate("evidence://binding-algebra")]),
     replay: coordinate("replay://binding-algebra"),
   });
+  const validResult = Object.freeze({
+    invocationKind: "invoke",
+    run: coordinate("run://binding-algebra"),
+    graphCall: coordinate("graph-call://binding-algebra"),
+    disposition: "completed",
+    result: coordinate("result://binding-algebra"),
+    stop: null,
+    gap: null,
+    interaction: null,
+    evidence: Object.freeze([coordinate("evidence://binding-algebra")]),
+    replay: coordinate("replay://binding-algebra"),
+  });
+  const projected = [
+    ["result", Object.freeze({ outcomeKind: "result", value: validResult })],
+    ["refusal", refusal],
+    ["nonterminal", Object.freeze({
+      outcomeKind: "nonterminal",
+      value: validNonterminal,
+    })],
+  ];
+  for (const [label, ownerOutput] of projected) {
+    const outcome = projectPublicOutcome(call.invocation, ownerOutput);
+    assert.equal(outcome.outcomeKind, label);
+    assert.deepEqual(
+      projectPublicOutcome(call.invocation, ownerOutput),
+      outcome,
+      `${label} projection is deterministic`,
+    );
+  }
+  const malformedProjection = projectPublicOutcome(call.invocation, {
+    outcomeKind: "result",
+    value: Object.freeze({ ...validResult, disposition: "not_completed" }),
+  });
+  assert.equal(malformedProjection.outcomeKind, "projection_refusal");
+  const crossedProjection = projectPublicOutcome(call.invocation, {
+    outcomeKind: "result",
+    value: Object.freeze({ ...validResult, invocationKind: "start" }),
+  });
+  assert.equal(crossedProjection.outcomeKind, "projection_refusal");
+
+  const typedFault = Object.freeze({
+    kind: "definition_execution_fault",
+    schemaVersion,
+    definitionKey: call.invocation.definitionKey,
+    stage: "run",
+    code: "typed_test_fault",
+    message: "typed test fault",
+    evidence: Object.freeze({}),
+  });
+  const typedReceipt = await runExactDefinition(
+    call,
+    Effect.fail(typedFault),
+  );
+  assert.equal(typedReceipt.exitCode, 70);
+  assert.equal(typedReceipt.ownerOutput, null);
+  assert.equal(typedReceipt.resources, null);
+  assert.equal(typedReceipt.failure.failureKind, "typed_execution_fault");
+  const defectReceipt = await runExactDefinition(
+    call,
+    Effect.die("defect test fault"),
+  );
+  assert.equal(defectReceipt.exitCode, 70);
+  assert.equal(defectReceipt.ownerOutput, null);
+  assert.equal(defectReceipt.resources, null);
+  assert.equal(defectReceipt.failure.failureKind, "defect_or_interruption");
+  const constructionThrowReceipt = await runExactDefinition(
+    call,
+    Effect.suspend(() => {
+      throw new Error("synchronous construction fault");
+    }),
+  );
+  assert.equal(constructionThrowReceipt.exitCode, 70);
+  assert.equal(constructionThrowReceipt.ownerOutput, null);
+  assert.equal(constructionThrowReceipt.resources, null);
+  assert.equal(
+    constructionThrowReceipt.failure.failureKind,
+    "defect_or_interruption",
+  );
+
+  const transportHostFailure = await runInstalledDefinitionCallTransport(call);
+  assert.equal(transportHostFailure.disposition, "host_failed");
+  assert.equal(transportHostFailure.outcome, null);
+  assert.equal(transportHostFailure.receipt.ownerOutput, null);
+  assert.equal(transportHostFailure.receipt.resources, null);
+
+  const invalidSelection = await runInstalledDefinitionCallTransport({
+    ...call,
+    invocation: Object.freeze({
+      ...call.invocation,
+      definitionKey: Object.freeze({
+        ...call.invocation.definitionKey,
+        memberKey: 7,
+      }),
+    }),
+  });
+  assert.equal(invalidSelection.kind, "installed_definition_call_transport_refusal");
+  assert.equal("outcome" in invalidSelection, false);
+  const unknownSelection = await runInstalledDefinitionCallTransport({
+    ...call,
+    invocation: Object.freeze({
+      ...call.invocation,
+      definitionKey: Object.freeze({
+        ...call.invocation.definitionKey,
+        memberKey: "unknown",
+      }),
+    }),
+  });
+  assert.equal(unknownSelection.kind, "installed_definition_call_transport_refusal");
+  assert.equal("outcome" in unknownSelection, false);
   for (const ownerOutput of [
     Object.freeze({ outcomeKind: "wrong", value: validNonterminal }),
     Object.freeze({ ...refusal, unexpected: true }),
