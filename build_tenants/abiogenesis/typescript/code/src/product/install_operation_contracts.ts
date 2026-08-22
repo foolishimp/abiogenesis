@@ -60,6 +60,7 @@ const install = ownerContractPacket(
     eventAdmission: "immutable_artifact_boundary",
     actorRequirement: "required",
     workspaceBindingRequirement: "forbidden",
+    successorDevelopmentPrebindingAuthority: "eligible",
     authoritySlotRequirements: [
       "capability_grants",
       "dependency_lock",

@@ -402,6 +402,7 @@ const resolve = ownerContractPacket(
     eventAdmission: "none",
     actorRequirement: "forbidden",
     workspaceBindingRequirement: "forbidden",
+    successorDevelopmentPrebindingAuthority: "eligible",
     authoritySlotRequirements: [
       "capability_grants",
       "verification_references",
@@ -465,6 +466,7 @@ const bind = ownerContractPacket(
     eventAdmission: "immutable_artifact_boundary",
     actorRequirement: "required",
     workspaceBindingRequirement: "forbidden",
+    successorDevelopmentPrebindingAuthority: "eligible",
     authoritySlotRequirements: [
       "capability_grants",
       "product_set",

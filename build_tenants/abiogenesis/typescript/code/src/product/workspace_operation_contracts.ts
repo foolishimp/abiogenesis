@@ -35,6 +35,9 @@ function workspaceCreateMetadata(createPolicy: "clean" | "imported") {
     eventAdmission: "immutable_artifact_boundary",
     actorRequirement: "required",
     workspaceBindingRequirement: "forbidden",
+    ...(createPolicy === "clean"
+      ? { successorDevelopmentPrebindingAuthority: "eligible" as const }
+      : {}),
     authoritySlotRequirements: ["capability_grants", "actor"],
     capabilityRefs: capabilityRefsForDefinition({
       operationId: "abg.operation.workspace.create",
