@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { readFile, realpath, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
@@ -68,7 +69,7 @@ async function runInstalledCliRequest({
   await writeFile(requestPath, `${JSON.stringify({
     kind: "abg_cli_transport_request",
     schemaVersion,
-    acquisition,
+    ...(acquisition === undefined ? {} : { acquisition }),
     invocation: call,
   })}\n`);
   let execution;
@@ -250,7 +251,7 @@ function constructReleaseEvidenceTransportCall({ product, publicApi, eventResour
   });
 }
 
-test("ST-4 transport accepts one own-property DefinitionCall candidate", async () => {
+test("ST-4 transport accepts one own-property DefinitionCall candidate", async (context) => {
   const publicApi = await import(
     `${pathToFileURL(join(
       packageRoot,
@@ -263,7 +264,11 @@ test("ST-4 transport accepts one own-property DefinitionCall candidate", async (
       "build/code/src/product/index.js",
     )).href}?st4-boundary=${Date.now()}`
   );
-  const eventLogPath = "/tmp/abi5-st4-boundary-falsifier.jsonl";
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-st4-cli-boundary-"));
+  context.after(async () => {
+    await rm(scratch, { recursive: true, force: true });
+  });
+  const eventLogPath = join(scratch, "events.jsonl");
   const eventResource = {
     kind: "new_abg_event_resource",
     eventLogPath,
@@ -382,6 +387,56 @@ test("ST-4 transport accepts one own-property DefinitionCall candidate", async (
   }
   assert.equal(inheritedMemberRead, 0);
   assert.equal(inheritedMemberOutcome.code, "installed_binding_unavailable");
+
+  const exactCall = constructReleaseEvidenceTransportCall({
+    product,
+    publicApi,
+    eventResource,
+  });
+  const exactExecution = await runInstalledCliRequest({
+    scratch,
+    installedRoot: packageRoot,
+    identity: "exact-definition-call",
+    call: exactCall,
+    expectedExitCode: 2,
+  });
+  assert.equal(
+    exactExecution.output.kind,
+    "installed_definition_call_transport_refusal",
+  );
+  assert.equal(exactExecution.output.code, "installed_binding_unavailable");
+  const crossedExecution = await runInstalledCliRequest({
+    scratch,
+    installedRoot: packageRoot,
+    identity: "extra-acquisition",
+    acquisition: Object.freeze({ kind: "new", eventLogPath }),
+    call: exactCall,
+    expectedExitCode: 2,
+  });
+  assert.equal(crossedExecution.output.kind, "public_transport_refusal");
+  assert.equal(crossedExecution.output.code, "invalid_transport_request");
+  await assert.rejects(
+    readFile(eventLogPath),
+    (error) => error?.code === "ENOENT",
+    "rejected duplicate acquisition must not reach the owner event resource",
+  );
+  const legacyExecution = await runInstalledCliRequest({
+    scratch,
+    installedRoot: packageRoot,
+    identity: "legacy-root-invocation",
+    acquisition: Object.freeze({
+      kind: "new",
+      eventLogPath: join(scratch, "legacy-events.jsonl"),
+    }),
+    call: Object.freeze({}),
+    expectedExitCode: 2,
+  });
+  assert.equal(legacyExecution.output.kind, "abg_cli_transport_result");
+  assert.equal(legacyExecution.output.acquisitionKind, "new");
+  assert.equal(
+    legacyExecution.output.outcome.kind,
+    "public_invocation_refusal",
+  );
 
   const proxyOutcome = await publicApi.runInstalledDefinitionCallTransport(
     new Proxy(routeCandidate, {}),
@@ -566,7 +621,7 @@ async function constructInstalledStartCall({
       {
         admittedInstalls,
         workspaceBinding,
-        fixedPacket,
+        definitionKey: fixedPacket.definitionKey,
       },
     ),
   ]);
@@ -581,7 +636,7 @@ async function constructInstalledStartCall({
     {
       admittedInstalls,
       workspaceBinding,
-      fixedPacket,
+      definitionKey: fixedPacket.definitionKey,
     },
   );
   const program = Object.freeze({
@@ -770,7 +825,7 @@ function constructInstalledRunReadCall({
   const grantBasis = Object.freeze({
     admittedInstalls,
     workspaceBinding,
-    fixedPacket: packet,
+    definitionKey: packet.definitionKey,
   });
   const grants = Object.freeze(packet.metadata.capabilityRefs.map(
     (capabilityRef) => product.constructCapabilityGrant(
@@ -887,7 +942,7 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
   const runStatusGrantBasis = Object.freeze({
     admittedInstalls,
     workspaceBinding,
-    fixedPacket: runStatusPacket,
+    definitionKey: runStatusPacket.definitionKey,
   });
   const runStatusGrant = product.constructCapabilityGrant(
     environment.workspaceAuthority,
@@ -1688,10 +1743,6 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     scratch,
     installedRoot: environment.installedRoot,
     identity: "start",
-    acquisition: Object.freeze({
-      kind: "reopen",
-      closeHandoff: st3TerminalHandoff,
-    }),
     call: st4StartCall,
   });
   const st4StartOutput = st4StartExecution.output;
@@ -1787,10 +1838,6 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
       scratch,
       installedRoot: environment.installedRoot,
       identity: memberKey,
-      acquisition: Object.freeze({
-        kind: "reopen",
-        closeHandoff: st4ReadHandoff,
-      }),
       call: st4ReadCall,
     });
     assert.equal(
@@ -1955,13 +2002,13 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     identity: "crossed-top-level-handoff",
     acquisition: Object.freeze({ kind: "reopen", closeHandoff: setupHandoff }),
     call: crossedRead,
+    expectedExitCode: 2,
   });
   assert.equal(
     crossedExecution.output.kind,
-    "installed_definition_call_transport_result",
+    "public_transport_refusal",
   );
-  assert.equal(crossedExecution.output.disposition, "owner_completed");
-  assert.equal(crossedExecution.output.outcome.outcomeKind, "result");
+  assert.equal(crossedExecution.output.code, "invalid_transport_request");
   assert.equal(
     Buffer.compare(
       await readFile(new URL(st4TerminalPrefix.eventLogRef)),

@@ -30,7 +30,13 @@ interface ReopenCliTransportAcquisition {
   readonly closeHandoff: EventStoreCloseHandoff;
 }
 
-interface CliTransportRequest {
+interface InstalledCliTransportRequest {
+  readonly kind: "abg_cli_transport_request";
+  readonly schemaVersion: "5.0.0";
+  readonly invocation: unknown;
+}
+
+interface LegacyCliTransportRequest {
   readonly kind: "abg_cli_transport_request";
   readonly schemaVersion: "5.0.0";
   readonly acquisition:
@@ -38,6 +44,10 @@ interface CliTransportRequest {
     | ReopenCliTransportAcquisition;
   readonly invocation: unknown;
 }
+
+type CliTransportRequest =
+  | InstalledCliTransportRequest
+  | LegacyCliTransportRequest;
 
 function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -56,14 +66,23 @@ function hasExactKeys(
 function parseTransportRequest(value: unknown): CliTransportRequest | null {
   if (
     !isRecord(value) ||
+    value.kind !== "abg_cli_transport_request" ||
+    value.schemaVersion !== "5.0.0"
+  ) return null;
+  if (
+    hasExactKeys(value, ["invocation", "kind", "schemaVersion"]) &&
+    isInstalledDefinitionCallCandidate(value.invocation)
+  ) {
+    return value as unknown as InstalledCliTransportRequest;
+  }
+  if (
     !hasExactKeys(value, [
       "acquisition",
       "invocation",
       "kind",
       "schemaVersion",
     ]) ||
-    value.kind !== "abg_cli_transport_request" ||
-    value.schemaVersion !== "5.0.0" ||
+    isInstalledDefinitionCallCandidate(value.invocation) ||
     !isRecord(value.acquisition)
   ) return null;
   const acquisition = value.acquisition;
@@ -72,12 +91,12 @@ function parseTransportRequest(value: unknown): CliTransportRequest | null {
     hasExactKeys(acquisition, ["eventLogPath", "kind"]) &&
     typeof acquisition.eventLogPath === "string" &&
     acquisition.eventLogPath.length > 0
-  ) return value as unknown as CliTransportRequest;
+  ) return value as unknown as LegacyCliTransportRequest;
   if (
     acquisition.kind === "reopen" &&
     hasExactKeys(acquisition, ["closeHandoff", "kind"]) &&
     validateEventStoreCloseHandoff(acquisition.closeHandoff)
-  ) return value as unknown as CliTransportRequest;
+  ) return value as unknown as LegacyCliTransportRequest;
   return null;
 }
 
@@ -163,12 +182,12 @@ if (args.length !== 2 || args[0] !== "--jsonl" || args[1] === undefined) {
         if (decoded !== undefined) {
           writeJsonLine(transportRefusal(
             "invalid_transport_request",
-            "transport request must declare exact acquisition and one Public invocation",
+            "transport request must declare one exact installed DefinitionCall or one legacy acquisition-bound Public invocation",
           ));
           process.exitCode = 2;
         }
       } else {
-        if (isInstalledDefinitionCallCandidate(request.invocation)) {
+        if (!("acquisition" in request)) {
           const outcome = await runInstalledDefinitionCallTransport(
             request.invocation,
           );
