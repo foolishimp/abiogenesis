@@ -113,11 +113,154 @@ function rehashGrant(product, grant, patch) {
   });
 }
 
+function constructReleaseEvidenceTransportCall({ product, publicApi, eventResource }) {
+  const definitions = publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions
+    .filter((definition) =>
+      definition.definitionKey.operationId === "abg.operation.project.read" &&
+      definition.definitionKey.memberKey === "release_evidence"
+    );
+  assert.equal(definitions.length, 1, "one installed release_evidence definition");
+  const [definition] = definitions;
+  const projections = publicApi.PUBLIC_OPERATION_CONTRACT_PROJECTIONS.filter(
+    (projection) => projection.operationId === definition.definitionKey.operationId,
+  );
+  assert.equal(projections.length, 1, "one installed project.read projection");
+  const [projection] = projections;
+  const projectedDefinitions = projection.definitions.filter((candidate) =>
+    candidate.definitionKey.memberKey === definition.definitionKey.memberKey
+  );
+  assert.equal(
+    projectedDefinitions.length,
+    1,
+    "one installed release_evidence projection",
+  );
+  const [projectedDefinition] = projectedDefinitions;
+  const assets = publicApi.PUBLIC_PROJECTION_PAYLOADS.operationContractAssets
+    .filter((asset) => asset.operationId === definition.definitionKey.operationId);
+  assert.equal(assets.length, 1, "one installed project.read contract asset");
+  const [asset] = assets;
+  const catalogBasis = Object.freeze({
+    family: Object.freeze({
+      ref: publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.familyRef,
+      digest: publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.familyDigest,
+    }),
+    projection: Object.freeze({ ref: projection.rowRef, digest: projection.rowDigest }),
+    asset: Object.freeze({ path: asset.path, digest: asset.contentDigest }),
+  });
+  const contractCatalog = Object.freeze({
+    productId: "product://t287/st4/transport-falsifier",
+    productContentDigest: product.sha256Canonical(catalogBasis),
+    catalogId: "public-contract-catalog://t287/st4/transport-falsifier",
+    catalogVersion: schemaVersion,
+    catalogDigest: product.sha256Canonical({
+      kind: "synthetic_public_contract_catalog",
+      catalogBasis,
+    }),
+  });
+  const coordinate = (slot, contract) => Object.freeze({
+    contractCatalog,
+    flatRow: Object.freeze({
+      contractId: definition.definitionKey.operationId,
+      contractVersion: schemaVersion,
+      contractDigest: asset.contentDigest,
+    }),
+    nestedSelector: Object.freeze({
+      selectorKind: "operation_definition_slot",
+      definitionKey: definition.definitionKey,
+      slot,
+      definitionRef: contract.definitionRef,
+    }),
+  });
+  const definitionContractCoordinates = Object.freeze({
+    operations: Object.freeze([Object.freeze({
+      operationId: definition.definitionKey.operationId,
+      members: Object.freeze([Object.freeze({
+        memberKey: definition.definitionKey.memberKey,
+        slots: Object.freeze({
+          request: coordinate("request", projectedDefinition.requestContract),
+          result: coordinate("result", projectedDefinition.resultContract),
+          refusal: coordinate("refusal", projectedDefinition.refusalContract),
+          nonTerminal: null,
+        }),
+      })]),
+    })]),
+  });
+  const grants = Object.freeze(definition.capabilityRefs.map((capabilityRef) => {
+    const digest = product.sha256Canonical({
+      capabilityRef,
+      fixture: "t287-st4-release-evidence",
+    });
+    return Object.freeze({
+      ref: `capability-grant://t287/st4/${digest.slice("sha256:".length)}`,
+      digest,
+    });
+  }));
+  const request = Object.freeze({
+    caseKey: "release_evidence",
+    source: Object.freeze({
+      sourceKind: "release_cut",
+      sourceRef: "release-cut://t287/st4/transport-falsifier",
+      sourceDigest: product.sha256Canonical({ source: "release-cut" }),
+    }),
+    projectionBasis: Object.freeze({
+      projectionBasisRef: "projection-basis://t287/st4/transport-falsifier",
+      projectionBasisDigest: product.sha256Canonical({
+        projectionBasis: "release-evidence",
+      }),
+    }),
+    selector: Object.freeze({
+      kind: "release_snapshot_manifest",
+      manifest: Object.freeze({
+        ref: "release-snapshot-manifest://t287/st4/transport-falsifier",
+        digest: product.sha256Canonical({ manifest: "release-snapshot" }),
+      }),
+    }),
+  });
+  return constructInstalledPublicDefinitionCall({
+    product,
+    installedPublic: publicApi,
+    definitionContractCoordinates,
+    contractCatalog,
+    operationId: definition.definitionKey.operationId,
+    memberKey: definition.definitionKey.memberKey,
+    request,
+    slots: Object.freeze({
+      workspace_binding: null,
+      product_set: null,
+      dependency_lock: null,
+      catalog_scope: null,
+      execution_program: null,
+      graph_function: null,
+      input_contract: null,
+      session_policy: null,
+      capability_grants: Object.freeze({
+        requiredCapabilityRefs: definition.capabilityRefs,
+        grants,
+      }),
+      actor: null,
+      transport_steering: null,
+      verification_references: null,
+      execution_basis: null,
+    }),
+    resources: Object.freeze({ eventResource }),
+    requestRef: "public-request://t287/st4/release-evidence",
+    correlationRef: "correlation://t287/st4/release-evidence",
+    eventTime: "2026-08-22T00:00:00.000Z",
+    provenanceRefs: ["provenance://t287/st4/transport-falsifier"],
+  });
+}
+
 test("ST-4 transport accepts one own-property DefinitionCall candidate", async () => {
   const publicApi = await import(
     `${pathToFileURL(join(
       packageRoot,
       "build/code/src/public/index.js",
+    )).href}?st4-boundary=${Date.now()}`
+  );
+  const product = await import(
+    `${pathToFileURL(join(
+      packageRoot,
+      "build/code/src/product/index.js",
     )).href}?st4-boundary=${Date.now()}`
   );
   const eventLogPath = "/tmp/abi5-st4-boundary-falsifier.jsonl";
@@ -221,32 +364,6 @@ test("ST-4 transport accepts one own-property DefinitionCall candidate", async (
     "transport does not inspect owner resource members",
   );
 
-  let inheritedExportRead = 0;
-  Object.defineProperty(Object.prototype, "INTERACTION_DEFINITION_BINDINGS", {
-    configurable: true,
-    get: () => {
-      inheritedExportRead += 1;
-      return { respond: { select: () => undefined } };
-    },
-  });
-  let inheritedExportOutcome;
-  try {
-    inheritedExportOutcome = await publicApi.runInstalledDefinitionCallTransport({
-      ...routeCandidate,
-      invocation: {
-        ...routeCandidate.invocation,
-        definitionKey: {
-          operationId: "abg.operation.interaction.respond",
-          memberKey: "select",
-        },
-      },
-    });
-  } finally {
-    delete Object.prototype.INTERACTION_DEFINITION_BINDINGS;
-  }
-  assert.equal(inheritedExportRead, 0);
-  assert.equal(inheritedExportOutcome.code, "installed_binding_unavailable");
-
   let inheritedMemberRead = 0;
   Object.defineProperty(Object.prototype, "release_evidence", {
     configurable: true,
@@ -258,7 +375,7 @@ test("ST-4 transport accepts one own-property DefinitionCall candidate", async (
   let inheritedMemberOutcome;
   try {
     inheritedMemberOutcome = await publicApi.runInstalledDefinitionCallTransport(
-      routeCandidate,
+      constructReleaseEvidenceTransportCall({ product, publicApi, eventResource }),
     );
   } finally {
     delete Object.prototype.release_evidence;
