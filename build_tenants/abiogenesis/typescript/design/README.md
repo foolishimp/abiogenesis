@@ -3,8 +3,10 @@
 ## Current Boundary
 
 The ABIogenesis 5.0 Product and requirements remain fixed. Wave 1 is accepted;
-Wave 2 / `A5-F01` is current; and the accepted `ST-S01-ROOT/S1` v4 design is
-selected for bounded implementation through `realization_refactor`.
+Wave 2 / `A5-F01` is current; and the accepted `ST-S01-ROOT/S1` v4 design remains
+implementation authority. Its bounded Cut-A convergence amendment candidate is
+selected through `realization_refactor` but is unaccepted until independent
+affected-scope review and delivery.
 
 S1 is one non-closing development gate over an exact prebuilt
 `s1_development_candidate`. Its claim ends at packed Product verification,
@@ -12,11 +14,14 @@ fresh installed-byte reproduction, private preimage/receipt convergence, and
 one lexical root declaration selection. It has no Product runtime, R1-R10,
 scenario, pre-RC qualification, RC, final-tap, or release claim.
 
-The design was authored from detached stable main commit
+The accepted v4 basis was authored from detached stable commit
 `326c214c982d527c18d716e1db9637becadd5c71`, tree
 `518d37bda358f85e07ed263293909285694b5cac`, independently accepted as exact
 commit `701f6c018257d271465860ecb097b44381d614d0`, and delivered before the
-reviewed repo-local execution basis at `bc3a9377b926`.
+reviewed repo-local execution-selection basis at `bc3a9377b926`. The bounded
+carrier amendment is authored from exact dependency-closure delivery and
+amendment-construction basis `ece6597ed8846323ccab3d9a5736ecfa03f74bb3`, tree
+`31c9557db076ce5348184f10c9e4c8fb4d9ec92d`.
 
 ## Governing Truth
 
@@ -33,22 +38,31 @@ Read in this order:
 Specification defines WHAT. Accepted design defines HOW. Tickets order work.
 Commentary, generated views, proof records, and rejected subjects are evidence.
 
-## S1 v4 Accepted Design
+## S1 v4 Accepted Design And Bounded Carrier Amendment Candidate
 
 [T-287 ST-S01-ROOT/S1 v4 Artifact Carrier Design](./T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md)
-is the complete accepted authority for the selected S1 HOW. That file alone
-owns:
+contains the complete accepted S1 v4 HOW and the complete bounded amendment
+candidate. The candidate closes only the internal I1/I2 carrier handshake: the
+driver retains the complete successful Cut-A output, projects its verification/
+root-receipt pair into Cut B, and never supplies or convergence-compares the
+Cut-A packed-snapshot coordinate there. Its candidate clauses become authority
+only if this exact four-document subject is independently accepted and
+delivered. That file alone owns:
 
 - the one authored root carrier and acyclic identity relation;
 - the narrow package carrier port and private interior;
 - packed archive and raw installed-tree observation;
 - static/runtime module closure and OCI confinement;
 - proof identities, cut order, closed result union, and falsifiers;
+- the strict Cut-A-to-Cut-B convergence projection and evidence-retention law;
 - implementation file order; and
 - the four-state delivery/archive protocol.
 
-Its accepted scope authorizes only the ordered S1 implementation and proof;
-it does not select S2 or any runtime/root/release claim.
+The accepted scope authorizes only ordered S1 implementation and proof. The
+unaccepted amendment grants no adapter or E00 authority yet. It changes no
+Product or requirement, Public/runtime surface, carrier method count, result
+disposition, or one-port boundary; it does not select S2 or any runtime/root/
+release claim.
 
 ## Retained Accepted Basis
 
@@ -97,5 +111,6 @@ are not carried forward by default.
 - GOALS states the current WHAT and nonclaims.
 - T-287 records current frame, order, gates, and status.
 - This README routes design authority and supersession.
-- The dedicated S1 design owns HOW after acceptance.
+- The dedicated S1 design owns accepted v4 HOW; its amendment clauses own HOW
+  only after exact independent acceptance and delivery.
 - Git retains all other historical and donor evidence without making it current.

@@ -1,10 +1,11 @@
-# T-287 ST-S01-ROOT/S1 v4 Artifact Carrier Design
+# T-287 ST-S01-ROOT/S1 v4 Artifact Carrier Design And Bounded Amendment
 
 ## 1. Status And Authority
 
-This is the accepted TypeScript HOW for the selected `ST-S01-ROOT/S1`
-development gate. Its exact four-document subject was independently accepted
-at commit `701f6c018257d271465860ecb097b44381d614d0`, tree
+This file contains the accepted TypeScript v4 HOW and one bounded unaccepted
+amendment candidate for the selected `ST-S01-ROOT/S1` development gate. The v4
+four-document basis was independently accepted at commit
+`701f6c018257d271465860ecb097b44381d614d0`, tree
 `e7de434638c6b669ba935bbaaf69193ad4999922`, and delivered before the
 reviewed repo-local execution basis at `bc3a9377b926`.
 
@@ -13,11 +14,15 @@ The accepted design re-entry was `design_reframe`; implementation proceeds as
 scenarios, the `ABI5-ROOT-001` table, obligations R1-R10, Public contracts,
 owners, runtime law, and release subjects stay fixed.
 
-The candidate starts from detached stable main commit
-`326c214c982d527c18d716e1db9637becadd5c71`, tree
-`518d37bda358f85e07ed263293909285694b5cac`. Rejected docs commits `6720c0d9`,
-`87d369d3`, `1e1e61af`, and `0d3c869f` are counterexample evidence only
-and are neither ancestors nor wholesale donors.
+The amendment starts from exact dependency-closure delivery and amendment-
+construction basis `ece6597ed8846323ccab3d9a5736ecfa03f74bb3`, tree
+`31c9557db076ce5348184f10c9e4c8fb4d9ec92d`. It resolves only
+`C-S1-CUTA-PACKED-001` through the internal I1/I2 carrier handshake. Its closure
+disposition is `closed-for-adapter-implementation`, but that disposition grants
+no authority until this new exact four-document subject receives and delivers
+an independent affected-scope accept verdict. Rejected docs commits `6720c0d9`,
+`87d369d3`, `1e1e61af`, and `0d3c869f` remain counterexample evidence only, not
+authority or wholesale donors.
 
 S1 uses only the subject kind `s1_development_candidate` and the terms
 development-gate proof and independent reproduction. It is not qualification.
@@ -181,10 +186,10 @@ admission remain unchanged; no root-specific manifest member is introduced.
 ```
 
 That module has exactly one named export and no default or type export.
-`RefDigest`, `S1CarrierRefusal`, `Abi5RootDeclarationShape`, and
-`Abi5S1RootSelection` below are exact module-internal declarations in the
-generated declaration file; they are referenced by the exported value but are
-not named exports.
+`RefDigest`, `CutAConvergenceCoordinates`, `S1CarrierRefusal`,
+`Abi5RootDeclarationShape`, and `Abi5S1RootSelection` below are exact module-
+internal declarations in the generated declaration file; they are referenced
+by the exported value but are not named exports.
 
 ```ts
 import type { Sha256Digest } from "../shared/digests.js";
@@ -307,6 +312,11 @@ type SuccessfulCutACoordinates = Readonly<{
   rootReceiptCoordinate: RefDigest;
 }>;
 
+type CutAConvergenceCoordinates = Readonly<{
+  verificationCoordinate: RefDigest;
+  rootReceiptCoordinate: RefDigest;
+}>;
+
 type SuccessfulCutBCoordinates = Readonly<{
   kind: "s1_cut_b_coordinates";
   schemaVersion: "5.0.0";
@@ -392,7 +402,7 @@ type CoordinateMismatchCarrierRefusal = Readonly<{
   code: "cut_coordinate_mismatch";
   cut: "convergence";
   mismatch: "verification_coordinate" | "root_receipt_coordinate";
-  successfulCutA: SuccessfulCutACoordinates;
+  expectedCutA: CutAConvergenceCoordinates;
   successfulCutB: SuccessfulCutBCoordinates;
 }>;
 
@@ -440,7 +450,7 @@ export declare const ABI5_S1_ROOT_CARRIER_PORT: Readonly<{
     installedPackageRoot: string;
     expectedRootBindingDigest: Sha256Digest;
     expectedPublicationDigest: Sha256Digest;
-    expectedCutA: SuccessfulCutACoordinates;
+    expectedCutA: CutAConvergenceCoordinates;
   }>): Promise<
     | Readonly<{
         kind: "s1_installed_selected";
@@ -470,6 +480,13 @@ proof seam, not a new
 `PublicFunctionDefinition`, Public operation, mode, runtime selector, or
 capability.
 
+`CutAConvergenceCoordinates` is an exact positional fragment, in the shown
+verification-then-root-receipt field order. It has no `kind`, `schemaVersion`,
+digest, packed-snapshot coordinate, or other field. Its structural validator
+rejects missing, reordered, or extra keys; supplying a complete
+`SuccessfulCutACoordinates` therefore yields
+`carrier_request_refused/cut_b/cut_a_coordinates_invalid`.
+
 The broad `./product` export does not re-export this port and therefore does not
 eagerly load its parser dependency or S1 interior. No root-preimage, receipt,
 packed observer, installed observer, comparator, or receipt-fed selector is
@@ -477,20 +494,25 @@ exported. The private receipt body never crosses the carrier-module or returned-
 evidence boundary and never enters a file, log, event, lock, install, Catalog,
 replay, or proof record. Only its content-addressed coordinate crosses Cut A/B.
 
-`verifyInstalledAndSelect` is the only selector call. It rederives the private
-packed verification and snapshot, observes the installed package, admits the
-separate S1 packed-expectation comparison, derives the private preimage and
-receipt, compares the Cut-A verification/receipt coordinates, projects the
-immutable declaration selection in the same lexical scope, and makes the
-preimage/receipt unreachable before returning. There is no
+`verifyInstalledAndSelect` is the only selector call. The external proof driver
+retains the complete successful `verifyPacked` output, including its
+`packedSnapshotCoordinate`, and projects only its verification/root-receipt
+pair as `expectedCutA`. Cut B never accepts or compares the Cut-A packed-
+snapshot coordinate. It rederives the private packed verification and snapshot,
+observes the installed package, admits the separate S1 packed-expectation
+comparison, derives the private preimage and receipt, compares only the causal
+Cut-A pair, projects the immutable declaration selection in the same lexical
+scope, and makes the preimage/receipt unreachable before returning. There is no
 `selectRoot(receipt)` or receipt parser.
 
 Local Cut B must first construct `SuccessfulCutBCoordinates`; packed-versus-
 installed comparison failure prevents that success and cannot reach
 convergence. Only then does the same lexical call compare the independently
-successful Cut A and Cut B coordinate pairs. A mismatch returns the exact
-`cut_coordinate_mismatch` variant with both successful coordinate-bearing
-outputs and no selection.
+supplied `CutAConvergenceCoordinates` and locally successful Cut-B coordinate
+pair. A mismatch returns the exact `cut_coordinate_mismatch` variant with
+`expectedCutA`, `successfulCutB`, and no selection. The outer driver separately
+requires the complete independently successful Cut-A output and validates that
+`expectedCutA` is its exact projection before admitting returned evidence.
 
 The sole carrier-refusal-to-result mapping is:
 
@@ -498,7 +520,7 @@ The sole carrier-refusal-to-result mapping is:
 |---|---|
 | `carrier_request_refused`, `product_verification_refused`, `packed_snapshot_refused`, or `root_binding_refused` with `cut_a` | `cut_a_verification_refused` |
 | `carrier_request_refused`, `product_verification_refused`, `packed_snapshot_refused`, or `root_binding_refused` with `cut_b`; `installed_snapshot_refused`; `installed_content_mismatch` | `cut_b_verification_refused` |
-| `cut_coordinate_mismatch`, which requires successful Cut A plus embedded `SuccessfulCutBCoordinates` | `convergence_refused` |
+| `cut_coordinate_mismatch`, which embeds exact `expectedCutA` plus locally successful `SuccessfulCutBCoordinates` while the outer phase retains complete successful Cut A | `convergence_refused` |
 
 No other mapping is permitted. A refusal returns no selection; outer
 validation of a successful returned selection belongs only to
@@ -664,10 +686,13 @@ constructs an unexported nominal brand.
 Receipt derivation closes over that brand. Its body binds artifact,
 verification, B/Q/P/M, locator, publication owner context, and carrier semantic
 projection; its coordinate is domain-separated. Cut B reconstructs the same
-body from fresh local evidence and compares only the coordinate supplied from
-Cut A. Selection then projects the carrier declaration plus B/Q/P/M and owner
-coordinates. It asserts no Program membership/validation, compute, runtime, or
-root result.
+body from fresh local evidence and compares its coordinate only with the
+projected Cut-A `rootReceiptCoordinate`; the independently derived Product
+verification coordinate supplies the other causal comparison. The Cut-A
+`packedSnapshotCoordinate` is retained outside Cut B as observation evidence
+and is neither accepted nor compared by this method. Selection then projects
+the carrier declaration plus B/Q/P/M and owner coordinates. It asserts no
+Program membership/validation, compute, runtime, or root result.
 
 ## 8. Module Closure And Independent Confinement
 
@@ -879,11 +904,13 @@ result; the result never names or encloses the run record.
    into empty scratch; observe/freeze it and remount the package root read-only.
 8. In a fresh verification container/process, register hooks, import the same
    narrow subpath from the installed root, and call
-   `verifyInstalledAndSelect` with the exact Cut-A coordinate pair.
-9. Require an independently successful coordinate-bearing Cut A output and
-   locally successful `SuccessfulCutBCoordinates` before convergence; then
-   validate the exact comparison or successful returned selection, census,
-   confinement, snapshots, and output inventory.
+   `verifyInstalledAndSelect` with the exact two-field
+   `CutAConvergenceCoordinates` projected from the complete retained Cut-A
+   output.
+9. Require that complete independently successful Cut-A output and locally
+   successful `SuccessfulCutBCoordinates` before convergence; validate the
+   exact projection and two causal comparisons, then validate any successful
+   returned selection, census, confinement, snapshots, and output inventory.
 10. Freeze one result variant, then the enclosing run record. Stop.
 
 ### 10.2 Exact result union
@@ -909,11 +936,11 @@ The closed variants and their only additional evidence are:
 | `pure_falsifier_refused` | admitted K/G/L, F attempt/report, and exact pure-law refusal; no Cut A fact |
 | `cut_a_preparation_refused` | admitted K/G/L/F plus the exact reached prefix of Cut-A preparation observation, confinement receipt, and snapshots; no Cut-A host or Cut-B fact |
 | `cut_a_verification_refused` | successful Cut-A preparation plus the exact reached prefix of Cut-A host observation, module census, output inventory, and Product/S1 refusal; no Cut-B fact |
-| `cut_b_preparation_refused` | complete Cut-A verification/receipt coordinates plus the exact reached prefix of Cut-B preparation observation, confinement receipt, and snapshots; no Cut-B host fact |
-| `cut_b_verification_refused` | successful Cut-B preparation plus the exact reached prefix of Cut-B host observation, module census, output inventory, and Product/S1 refusal |
-| `convergence_refused` | independently successful coordinate-bearing Cut A output plus `SuccessfulCutBCoordinates` and the first exact verification/root-receipt coordinate inequality; no admitted returned selection |
-| `returned_evidence_refused` | converged cut coordinates plus the observed but unadmitted return and the exact selection/census/confinement/snapshot/output-inventory refusal |
-| `evidence_complete` | K/G/L/F, both preparation and host observations, both confinement receipts/snapshot pairs/censuses/output inventories, equal verification and receipt coordinates, installed snapshot equality, and the admitted selection coordinate |
+| `cut_b_preparation_refused` | complete `s1_packed_verified` Cut-A output, including full `SuccessfulCutACoordinates`, plus the exact reached prefix of Cut-B preparation observation, confinement receipt, and snapshots; no Cut-B host fact |
+| `cut_b_verification_refused` | complete successful Cut-A output, successful Cut-B preparation, and the exact reached prefix of Cut-B host observation, module census, output inventory, and Product/S1 refusal |
+| `convergence_refused` | complete independently successful Cut-A output, its exact projected `expectedCutA`, `SuccessfulCutBCoordinates`, and the first exact verification/root-receipt coordinate inequality; no admitted returned selection |
+| `returned_evidence_refused` | complete successful Cut-A output, its exact projected and converged pair, successful Cut-B coordinates, the observed but unadmitted return, and the exact retained-Cut-A/selection/census/confinement/snapshot/output-inventory refusal |
+| `evidence_complete` | K/G/L/F, complete successful Cut-A output, its exact projected pair, both preparation and host observations, both confinement receipts/snapshot pairs/censuses/output inventories, equal verification and receipt coordinates, installed snapshot equality, and the admitted selection coordinate |
 
 There are no nullable future fields, optional evidence bags, pass booleans,
 `root_satisfied`, or later-phase coordinates. A phase retains only evidence
@@ -921,6 +948,10 @@ constructable by then. Each `reached` value is a closed ordinal-prefix variant
 for that phase: it requires the terminal refusal and every predecessor record
 that completed, and has no field for an unstarted producer. It does not add a
 tenth result disposition.
+
+Every phase reached after `s1_packed_verified` retains that complete Cut-A
+output. Projecting `CutAConvergenceCoordinates` for the Cut-B call does not
+discard, replace, or authorize mutation of its `packedSnapshotCoordinate`.
 
 ## 11. Falsifiers And Claim Proportionality
 
@@ -932,8 +963,9 @@ tenth result disposition.
 | `E03` | Cut-A package mount or module edge crossed; source/private/ambient/governor load attempted | preparation/verification refusal at confinement or census |
 | `E04` | Cut-B preparation uses network, scripts, nonempty cache/root, wrong npm/image/Engine coordinate, or unpinned tool | `cut_b_preparation_refused` |
 | `E05` | installed root has changed byte, packed-versus-installed mismatch, extra/missing path, case collision, symlink, hardlink, device/FIFO, or identity race | `cut_b_verification_refused` before successful Cut-B coordinates or selection; never `convergence_refused` |
+| `E05A` | `expectedCutA` is a full `SuccessfulCutACoordinates` object, contains `packedSnapshotCoordinate`, or has any other missing/reordered/extra field | `carrier_request_refused/cut_b/cut_a_coordinates_invalid`, mapped only to `cut_b_verification_refused`; no successful Cut-B coordinates or selection |
 | `E06` | crossed Cut-A verification or receipt coordinate | `convergence_refused`; selection not admitted |
-| `E07` | returned selection/body/census/snapshot/output inventory crossed or extra | `returned_evidence_refused` |
+| `E07` | complete retained Cut-A `packedSnapshotCoordinate`, returned selection/body, census, snapshot, or output inventory crossed, mutated, or extra after causal convergence | `returned_evidence_refused` |
 | `P01` | strict carrier missing/extra/wrong-domain field or noncanonical bytes | independent F records exact shape/canonical refusal |
 | `P02` | ABI missing/duplicate/unreferenced-shadow carrier; non-ABI copied locator/carrier | independent F records exact one/zero cardinality refusal |
 | `P03` | unsafe/crossed locator or D_root | independent F records locator/digest refusal |
@@ -951,6 +983,10 @@ each intended inner mutation; it neither imports a private symbol nor mocks the
 preimage. Parser/observer foundation fixtures have their own exact fixture
 identities and never masquerade as the accepted candidate. Mock-only/unit
 evidence cannot substitute for E00 and the concrete Cut A/B refusal rows.
+E05A, E06, and E07 are disjoint: request-shape failure is a local Cut-B
+verification refusal, a crossed causal pair after both local successes is a
+convergence refusal, and mutation of retained outer packed evidence after
+causal convergence is a returned-evidence refusal.
 
 ## 12. FS-18/FS-19/FS-20 Foundation Ledger
 
@@ -990,13 +1026,16 @@ S1 acceptance evidence.
 
 ## 14. Mechanical Implementation Order
 
-The accepted docs subject changed no implementation, generated file,
-dependency, test, version, or ref. One implementation subject now follows this
+The accepted v4 docs basis changed no implementation, generated file,
+dependency, test, version, or ref. Exact dependency foundation subject
+`bb1219397283b35fd1154a035acf6e7c2eb83179` is admitted for consumption by the
+closure record delivered at `ece6597ed8846323`; this bounded amendment changes
+only the four governing docs. One implementation subject now follows this
 order:
 
 | Order | Surface | Required consequence |
 |---:|---|---|
-| 1 | implementation subject and `package.json` / `package-lock.json` foundation | fresh remote namespace census first; select the least available candidate version without burning it; add exact `tar@7.5.22` plus its exact bundled lock closure before any consumer; reserve only the direct S1 subpath mapping |
+| 1 | implementation subject and admitted `package.json` / `package-lock.json` foundation | retain exact admitted `tar@7.5.22` plus its six-node bundled lock closure; recensus the remote namespace at delivery without burning the selected version; reserve only the direct S1 subpath mapping |
 | 2 | `contracts/abi5-root-binding.json` | add the sole authored canonical root body; no P/owner tuple |
 | 3 | new `code/src/product/packed_product_snapshot.ts` | import only `Parser` from `tar/parse`; construct one bounded parser-only snapshot and existing-refusal mapping; no extraction |
 | 4 | `code/src/product/verify_product.ts` | remove system tar and `node:child_process`; consume one snapshot; preserve exact Public contract and all existing semantics |
@@ -1004,7 +1043,7 @@ order:
 | 6 | new `code/src/product/abi5_root_binding.ts` | strict shape, canonical relation, ABI one/non-ABI zero classifier, contextual publication selection, opaque preimage, private receipt/selection interiors |
 | 7 | new `code/src/product/installed_package_tree_snapshot.ts` | descriptor-based raw walk, typed refusals, S1 expectation/comparison, and separate ProductInstall expectation/comparison |
 | 8 | `code/src/product/install_product.ts` | reuse raw observer for the unchanged legacy Boolean only; no S1 mode, ProductInstall expansion, or second verifier |
-| 9 | new `code/src/product/s1_root_carrier.ts` | realize the exact internal declarations and export only the frozen two-method port; keep every interior private |
+| 9 | new `code/src/product/s1_root_carrier.ts` | realize the exact internal declarations, including strict two-field `CutAConvergenceCoordinates`; export only the frozen two-method port; keep every interior private and never accept/compare Cut-A packed coordinates in Cut B |
 | 10 | package build and export verification | compile the complete source; prove `./product/s1-root-carrier` maps directly to the built port and broad `.`, `./product`, SDK, CLI, and Public surfaces do not re-export it |
 | 11 | `scripts/generate-product-manifest.mjs` and generated Product assets | inventory the final package tree but never author root bytes; construct B -> Q -> P -> M in order; include the fixed path through existing `productRelativeLocators` and reuse the existing contextual publication binding; add no manifest field or schema |
 | 12 | S1 production-unit/falsifier tests | freeze parser, tree, preimage, conditional cardinality, forgery, static-shape, and exact Public-compatibility evidence |
@@ -1061,10 +1100,14 @@ and verified remote containment; implementation acceptance additionally binds
 
 ### 15.2 Four transitions
 
-For this v4 docs delivery, exact expected remote main `O` is
-`326c214c982d527c18d716e1db9637becadd5c71`; any different observation refuses.
-An implementation delivery plan later freezes its exact accepted-docs remote
-main OID before subject construction.
+The accepted v4 docs delivery used historical docs-delivery basis
+`O_v4 = 326c214c982d527c18d716e1db9637becadd5c71`. This bounded amendment is
+constructed for docs-amendment delivery basis
+`O_amend = ece6597ed8846323ccab3d9a5736ecfa03f74bb3`. Its delivery transition
+binds `O = O_amend`; any different observation refuses. These immutable names
+are subject selection/delivery bases, not a mutable-head status assertion. An
+implementation delivery plan later freezes its exact accepted-docs delivery
+basis before subject construction.
 
 | Verdict | One lawful remote transition | Main/tag/version effect |
 |---|---|---|
@@ -1105,9 +1148,12 @@ before allocation.
 S1 evidence may be complete only when one exact K/G/L/F and plan, one
 once-built/once-packed artifact, one confined Cut A, one fresh offline Cut B
 preparation, one confined Cut B, exact packed/installed byte equality, equal
-verification/receipt coordinates, one admitted lexical selection, and all
-independent observer artifacts close under the exact result union.
+verification/receipt coordinates through the strict projected pair, complete
+Cut-A evidence retained independently through return admission, one admitted
+lexical selection, and all independent observer artifacts close under the exact
+result union.
 
 GOALS owns current WHAT/nonclaims. T-287 owns current order/gates/status. The
-design README owns routing and conditional supersession. This file alone owns
-S1 HOW after acceptance.
+design README owns routing and conditional supersession. This file owns accepted
+v4 HOW; its bounded amendment clauses own HOW only after exact independent
+acceptance and delivery.
