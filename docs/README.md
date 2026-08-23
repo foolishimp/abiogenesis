@@ -37,6 +37,14 @@ For a person learning or using the Product:
 2. follow its source references when constitutional or realization detail is
    required.
 
+## Research Drafts
+
+- [GOVERNED_AI_SOFTWARE_CONSTRUCTION.md](./GOVERNED_AI_SOFTWARE_CONSTRUCTION.md)
+  is the standalone v0.1 systems-paper draft for the GTL/ABG architecture. It
+  separates implemented predecessor evidence, active 5.0 product claims, and
+  the future 5.0.1 dogfood exposure rather than presenting the mutable source
+  line as a completed research result.
+
 ## Derivation Boundary
 
 | Documentation claim | Owning source |

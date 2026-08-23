@@ -41,6 +41,21 @@
 		},
 		{
 			"path": "../../../../../odd_glc"
+		},
+		{
+			"path": "../../../../../emergent_reasoning"
+		},
+		{
+			"path": "../../../../../abiogenesis-5-final-integration"
+		},
+		{
+			"path": "../../../../../abiogenesis-5-root-governor"
+		},
+		{
+			"path": "../../../../../abiogenesis-5-root-build"
+		},
+		{
+			"path": "../../../../../psychicblob"
 		}
 	],
 	"settings": {
