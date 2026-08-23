@@ -4,9 +4,8 @@
 
 The ABIogenesis 5.0 Product and requirements remain fixed. Wave 1 is accepted;
 Wave 2 / `A5-F01` is current; and the accepted `ST-S01-ROOT/S1` v4 design remains
-implementation authority. Its bounded Cut-A convergence amendment candidate is
-selected through `realization_refactor` but is unaccepted until independent
-affected-scope review and delivery.
+implementation authority. Its bounded Cut-A convergence amendment was
+independently accepted and delivered at `9bb230efaa5a1db06c7932a1204a5d477ead5e0f`.
 
 S1 is one non-closing development gate over an exact prebuilt
 `s1_development_candidate`. Its claim ends at packed Product verification,
@@ -38,16 +37,14 @@ Read in this order:
 Specification defines WHAT. Accepted design defines HOW. Tickets order work.
 Commentary, generated views, proof records, and rejected subjects are evidence.
 
-## S1 v4 Accepted Design And Bounded Carrier Amendment Candidate
+## S1 v4 Accepted Design And Bounded Carrier Amendment
 
 [T-287 ST-S01-ROOT/S1 v4 Artifact Carrier Design](./T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md)
-contains the complete accepted S1 v4 HOW and the complete bounded amendment
-candidate. The candidate closes only the internal I1/I2 carrier handshake: the
+contains the complete accepted S1 v4 HOW and its accepted bounded amendment.
+The amendment closes only the internal I1/I2 carrier handshake: the
 driver retains the complete successful Cut-A output, projects its verification/
 root-receipt pair into Cut B, and never supplies or convergence-compares the
-Cut-A packed-snapshot coordinate there. Its candidate clauses become authority
-only if this exact four-document subject is independently accepted and
-delivered. That file alone owns:
+Cut-A packed-snapshot coordinate there. That file alone owns:
 
 - the one authored root carrier and acyclic identity relation;
 - the narrow package carrier port and private interior;
@@ -59,7 +56,7 @@ delivered. That file alone owns:
 - the four-state delivery/archive protocol.
 
 The accepted scope authorizes only ordered S1 implementation and proof. The
-unaccepted amendment grants no adapter or E00 authority yet. It changes no
+amendment grants the exact adapter handshake needed before E00. It changes no
 Product or requirement, Public/runtime surface, carrier method count, result
 disposition, or one-port boundary; it does not select S2 or any runtime/root/
 release claim.

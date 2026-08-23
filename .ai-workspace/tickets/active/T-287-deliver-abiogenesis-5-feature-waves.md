@@ -41,8 +41,10 @@
 - dependency_foundation_closure_tree: 31c9557db076ce5348184f10c9e4c8fb4d9ec92d
 - carrier_amendment_basis_commit: ece6597ed8846323ccab3d9a5736ecfa03f74bb3
 - carrier_amendment_basis_tree: 31c9557db076ce5348184f10c9e4c8fb4d9ec92d
-- carrier_amendment_authority_status: unaccepted_pending_independent_affected_scope_review
-- cut_a_convergence_capsule_disposition: closed_for_adapter_implementation_on_exact_amendment_acceptance
+- accepted_carrier_amendment_commit: 9bb230efaa5a1db06c7932a1204a5d477ead5e0f
+- accepted_carrier_amendment_tree: 3ad891ec8d105edc00ebb0a088a57732e7901172
+- carrier_amendment_authority_status: accepted_delivered_on_main_2026-08-23
+- cut_a_convergence_capsule_disposition: closed_for_adapter_implementation
 - deferred_feature: A5-F12
 
 ## Outcome
@@ -134,9 +136,9 @@ The accepted S1 v4 HOW basis is
 `build_tenants/abiogenesis/typescript/design/T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md`.
 Its exact four-document subject was independently accepted at `701f6c018257`
 and delivered with accepted archive `9fddfc815253`. Its bounded internal
-two-coordinate carrier amendment is authored from dependency-closure delivery
-basis `ece6597ed8846323`; it is an unaccepted exact four-document subject and
-does not replace the accepted HOW without independent acceptance and delivery.
+two-coordinate carrier amendment was authored from dependency-closure delivery
+basis `ece6597ed8846323`, independently accepted, and delivered at exact commit
+`9bb230efaa5a1db06c7932a1204a5d477ead5e0f`. It is now part of the accepted HOW.
 The rejected docs commits
 `6720c0d92647861d281a40cb3129b5ecc82af86d`,
 `87d369d3c04be07a7c3a46b25f0a3324bd68e020`, and
@@ -153,9 +155,9 @@ ancestors of this replacement and may not be cherry-picked wholesale.
 | `S1-D2` | Independent design review. | No unresolved authority drift, circular identity, unconstructable result field, hidden effect, ambient dependency, evidence overclaim, delivery ambiguity, or stale current status. | Complete; three independent Max frames accepted |
 | `S1-D3` | Docs verdict and delivery. | Candidate `C` remains the reviewed commit; accepted docs atomically fast-forward main to `C` and create distinct accepted archive commit `R_a`, while rejected docs create only `R_a`. Archive metadata and full-`C` ref suffix bind `C`. No Product tag or version effect. | Complete; `C=701f6c018257`, `R_a=9fddfc815253` |
 | `S1-I0` | Re-census remote version/ref namespace and allocate one implementation subject from accepted docs. | Exact remote main/ref/tag basis and least lawful development version are frozen. `dev.288` is only a floor until this census. | Complete 2026-08-23; census and implementation-selection basis `bc3a9377b926`, `dev.288` available and selected but unburned |
-| `S1-I1` | Replace shell archive reads and construct the sole packed carrier relation. | One in-process type-aware packed snapshot; exact ABI-one/non-ABI-zero carrier law; unchanged Public verification; narrow carrier subpath only. | Active from exact dependency foundation `bb1219397283`; focused packed/verifier Lane P enables the E00 discriminator without closing the later T01 assurance corpus |
-| `S1-I2` | Construct raw installed-tree observation and lexical selection. | Fresh offline extraction is proof-host preparation; descriptor-based complete walk and S1-specific comparison converge with packed verification; no Product install or runtime. | Selected; file-disjoint raw-observer/comparator precursor work may proceed; after exact amendment acceptance, the carrier adapter uses only the fixed two-coordinate Cut-A projection; T02 assurance remains open before verdict |
-| `S1-I3` | Freeze independent proof inputs, run plan, pure falsifier report, and confined Cut A/B observations. | Exact immutable identity DAG, OCI receipt, pre/post snapshots, static/load closure, output inventory, closed result, and no evidence beyond the reached phase. | Pending accepted amendment plus I1+I2 integration; E00 follows focused Lane P plus the fixed I2 handshake, while activated assurance gates remain mandatory before I4 verdict |
+| `S1-I1` | Replace shell archive reads and construct the sole packed carrier relation. | One in-process type-aware packed snapshot; exact ABI-one/non-ABI-zero carrier law; unchanged Public verification; narrow carrier subpath only. | Exact Lane P `3ac5f44e7c53` independently accepted; pending integration. It enables the E00 discriminator without closing the later T01 assurance corpus |
+| `S1-I2` | Construct raw installed-tree observation and lexical selection. | Fresh offline extraction is proof-host preparation; descriptor-based complete walk and S1-specific comparison converge with packed verification; no Product install or runtime. | Exact Lane O `45fd35b583ca` frozen under independent review; the carrier adapter uses only the accepted fixed two-coordinate Cut-A projection; T02 assurance remains open before verdict |
+| `S1-I3` | Freeze independent proof inputs, run plan, pure falsifier report, and confined Cut A/B observations. | Exact immutable identity DAG, OCI receipt, pre/post snapshots, static/load closure, output inventory, closed result, and no evidence beyond the reached phase. | Pending accepted I1+I2 integration; E00 follows focused Lane P plus the fixed I2 handshake, while activated assurance gates remain mandatory before I4 verdict |
 | `S1-I4` | Independent implementation reproduction and verdict. | Exact case law reproduces. Accepted delivery atomically advances main to `C`, annotated `T_ref` to tag object `T(C)`, and archive to distinct `R_a`; rejected delivery archives only, and burns the version only after verified remote containment. | Unselected until I3 |
 
 No gate borrows a later gate's evidence. A docs verdict does not allocate a
@@ -183,17 +185,15 @@ Every S1 handoff and review begins with:
 ```text
 Product: fixed ABIogenesis 5.0, A5-F01..F11 and A5-F13..F17
 Selection: Wave 2 / A5-F01 / ST-S01-ROOT / S1 only
-Status: v4 design accepted; bounded two-coordinate carrier amendment candidate
-  unaccepted; I0 complete; file-disjoint I1/I2 precursors selected; no
+Status: v4 design and bounded two-coordinate carrier amendment accepted; I0
+  complete; file-disjoint I1/I2 precursors selected; no
   implementation candidate frozen
 Subject: one externally frozen s1_development_candidate
 Claim: packed Product/root/publication verification, fresh extracted-byte
   reproduction, private convergence, and lexical declaration selection only
 Runtime: none; R1-R10 all not evaluated
 Unselected: S2-S4, scenarios, pre-RC qualification, RC, tap, release
-Reference: accepted v4 design owns current HOW; exact amendment candidate
-  defines the proposed handshake and owns it only after independent acceptance
-  and delivery
+Reference: accepted v4 design and exact delivered amendment own current HOW
 ```
 
 ## Deferred Assurance Register
@@ -206,7 +206,7 @@ lanes, or authority to cross S1's stop.
 | `C-S1-CASES-01` | S1 case aggregation | E/P/T laws are defined; no one-subject aggregate exists | a docs candidate creates no S1 verdict | `realization_refactor` when K/L/F/G and concrete cases freeze | mandatory before `S1-I4` verdict | absent, crossed, or incomplete aggregate makes any S1 verdict invalid | independent assessor / deferred-required |
 | `C-S1-FS-RACE-001` | T02 descriptor race | T02 names lstat/open/read/post-stat and inode-alias mutations; no executable fixture exists | the selected raw observer can reach the sunny E00 discriminator before exhaustive T02 assurance, but no I4 verdict may omit it | `realization_refactor` when the installed observer freezes | T02 raw-snapshot assurance before `S1-I4` verdict | any T02 race or alias reaches successful Cut-B coordinates | Product proof owner plus independent assessor / open-required-for-T02-before-I4-verdict |
 | `C-S1-TAR-GZIP-001` | T01 gzip/tar grammar | T01 names compression, type, path, metadata, and bound mutations; no executable corpus exists | focused Lane P may enable the sunny E00 discriminator without claiming the exhaustive T01 corpus has closed | `realization_refactor` when the parser adapter freezes | T01 parser assurance before `S1-I4` verdict | alternate/malformed gzip, dangling/ambiguous metadata, or a bound breach is admitted | Product proof owner plus independent assessor / activated-required-before-I4-verdict |
-| `C-S1-CUTA-PACKED-001` | Cut A/B carrier convergence | full `SuccessfulCutACoordinates` remains driver/result evidence; strict `CutAConvergenceCoordinates` projects only verification/root-receipt coordinates into Cut B, which rederives its packed snapshot locally | the packed coordinate is independently observed evidence, while the projected pair is the only causal Cut-A input to Cut B; Product and result meaning stay fixed | reactivate as `realization_refactor` if Cut B accepts/convergence-compares the Cut-A packed coordinate, the pair widens, full Cut-A evidence is lost, or result mapping changes; use the owning higher re-entry if Product meaning changes | carrier adapter, target import, E00, and every post-Cut-A result phase | full/extra packed field in `expectedCutA` is not `cut_b_verification_refused`; crossed causal pair is not `convergence_refused`; or outer packed evidence mutation is not `returned_evidence_refused` | Product proof owner plus independent assessor / closure-disposition: closed-for-adapter-implementation; authority: unaccepted until exact amendment verdict and delivery |
+| `C-S1-CUTA-PACKED-001` | Cut A/B carrier convergence | full `SuccessfulCutACoordinates` remains driver/result evidence; strict `CutAConvergenceCoordinates` projects only verification/root-receipt coordinates into Cut B, which rederives its packed snapshot locally | the packed coordinate is independently observed evidence, while the projected pair is the only causal Cut-A input to Cut B; Product and result meaning stay fixed | reactivate as `realization_refactor` if Cut B accepts/convergence-compares the Cut-A packed coordinate, the pair widens, full Cut-A evidence is lost, or result mapping changes; use the owning higher re-entry if Product meaning changes | carrier adapter, target import, E00, and every post-Cut-A result phase | full/extra packed field in `expectedCutA` is not `cut_b_verification_refused`; crossed causal pair is not `convergence_refused`; or outer packed evidence mutation is not `returned_evidence_refused` | Product proof owner plus independent assessor / closed-for-adapter-implementation on accepted delivered amendment `9bb230efaa5a` |
 | `D-S1-PERM-001` | proof permission argv | OCI and Node-permission policy is selected; exact platform argv is not frozen | no ProofRunPlan or confinement claim exists | `realization_refactor` at exact tool-closure/driver freeze; `design_reframe` if policy changes | ProofRunPlan and confinement receipt | extra loader, mount, env, permission, process, network, or writable path survives argv admission | proof owner plus independent assessor / deferred |
 | `D-S1-FS19-TAR-001` | FS-19 dependency/advisory | exact subject `bb1219397283` freezes the six-node bundled `tar@7.5.22` lock closure; subject-bound audit/advisory evidence is recorded below | no unresolved applicable advisory remains for the exact lock; any lock or advisory change reactivates the capsule | `realization_refactor` on lock/advisory change; `design_reframe` if the selected foundation changes | dependency admission before parser consumption | wrong/unbundled closure, unresolved provenance, or undisposed applicable advisory is accepted | Product dependency owner plus independent assessor / closed-for-parser-consumption 2026-08-23 |
 | `C-R1-GOVERNOR-001` | later R1 admission | P06 is static shape evidence; governor modules are excluded from S1 | S1 evaluates zero root obligations and cannot reach R1 | later `design_reframe` when exact `pre_rc_candidate` admission is selected | R1 before any R1-R10 evaluation | S1 evidence is admitted as R1, or pre-RC subject/evidence admission remains unspecified | root/governor owner plus independent assessor / deferred-later |
@@ -315,7 +315,7 @@ allocation before delivery reopens I0.
 | Wave | Feature families | State |
 |---:|---|---|
 | W1 | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | Accepted functional substrate; later integrated qualification remains |
-| W2 | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, bounded early `A5-F17` | Active; accepted S1 v4 design with file-disjoint I1/I2 precursors selected and bounded carrier amendment candidate unaccepted |
+| W2 | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, bounded early `A5-F17` | Active; accepted S1 v4 design and bounded carrier amendment with file-disjoint I1/I2 precursors selected |
 | W3 | `A5-F14`, `A5-F07`, `A5-F08` | Pending W2 |
 | W4 | `A5-F13`, `A5-F17`, `A5-F11` | Pending W3 |
 | W5 | `A5-F15`, `A5-F16` | Pending W4 |
@@ -324,15 +324,14 @@ Stable selection and delivery bases are accepted S1 v4 design
 `701f6c018257d271465860ecb097b44381d614d0`, reviewed repo-local execution
 selection `bc3a9377b926f6d1f01c681571b6e2cb740e967c`, implementation activation
 `ea970995c1bc820e529ffb89e0e231193dcbfa3b`, and dependency-closure delivery
-plus this amendment's construction basis
-`ece6597ed8846323ccab3d9a5736ecfa03f74bb3`. I0 selected unburned
-`5.0.0-dev.288`; file-disjoint I1/I2 precursor implementation is active and the
-bounded carrier amendment candidate remains unaccepted. No S1 implementation
+plus accepted delivered carrier amendment
+`9bb230efaa5a1db06c7932a1204a5d477ead5e0f`. I0 selected unburned
+`5.0.0-dev.288`; file-disjoint I1/I2 precursor implementation is active. No S1 implementation
 candidate, artifact, run plan, development-gate result, Product tag, root
 result, scenario result, or release truth exists yet.
 
-Executive sequencing remains narrow: after exact amendment acceptance, focused
-Lane P enables E00;
+Executive sequencing remains narrow: focused Lane P enables E00 after accepted
+precursor integration;
 `C-S1-TAR-GZIP-001` stays activated and required before I4/verdict, and
 `C-S1-FS-RACE-001` stays open through T02 and required before I4/verdict. This
 sequencing grants no assurance closure, Product credit, or later selection.

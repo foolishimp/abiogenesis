@@ -16,7 +16,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival Program, executor, controller, event authority, or release subject. | Active. Wave 1 is accepted. Wave 2 / `A5-F01` is current. The `ST-S01-ROOT/S1` v4 design is accepted; its bounded two-coordinate Cut-B carrier amendment candidate is selected but unaccepted. File-disjoint packed-carrier and installed-observer precursor increments remain selected. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival Program, executor, controller, event authority, or release subject. | Active. Wave 1 is accepted. Wave 2 / `A5-F01` is current. The `ST-S01-ROOT/S1` v4 design and its bounded two-coordinate Cut-B carrier amendment are accepted. File-disjoint packed-carrier and installed-observer precursor increments remain selected. |
 
 ## Fixed Basis
 
@@ -39,7 +39,7 @@ operations, files, tests, reviews, or commits do not change that scope.
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
 | `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one admitted Program, direct HoG traversal, fresh-process replay, and fail-closed probabilistic result admission. | Accepted functional substrate; integrated M5 qualification remains later work |
-| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, plus the bounded early `A5-F17` consumer path | One source-independent installed Product path closes exact Product, Public, SDK, CLI, and remaining Wave 2 truth without a rival authority. | Active; `ST-S01-ROOT/S1` implementation is selected from accepted v4 design, while the bounded internal carrier amendment candidate awaits independent acceptance; S2-S4 and the Wave 2 exit remain unselected |
+| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, plus the bounded early `A5-F17` consumer path | One source-independent installed Product path closes exact Product, Public, SDK, CLI, and remaining Wave 2 truth without a rival authority. | Active; `ST-S01-ROOT/S1` implementation is selected from accepted v4 design and its accepted bounded internal carrier amendment; S2-S4 and the Wave 2 exit remain unselected |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
@@ -56,11 +56,12 @@ The accepted design re-entry is complete. Current implementation uses
 `A5-F01` outcome stay fixed. `ST-S01-ROOT/S1` remains the only selected
 increment.
 
-The selected bounded amendment is an unaccepted four-document candidate. It
-changes no implementation authority until that exact subject receives and
-delivers an independent affected-scope accept verdict. File-disjoint packed-
-parser/verifier and raw-observer/comparator precursor work remains lawful; the
-carrier adapter handshake and E00 remain behind that verdict.
+The bounded four-document amendment was independently accepted and delivered
+at `9bb230efaa5a1db06c7932a1204a5d477ead5e0f`. It authorizes only the exact
+two-coordinate carrier handshake stated below. File-disjoint packed-parser/
+verifier and raw-observer/comparator precursor work remains lawful; the carrier
+adapter and E00 now depend on accepted implementation integration, not another
+design verdict.
 
 The bounded carrier amendment retains the complete successful Cut-A evidence
 but projects only its verification and root-receipt coordinates into Cut B.
@@ -119,7 +120,7 @@ repo-local execution basis
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | Waves 1 through 4 place all pre-qualification feature families, negatives, scenarios, publication truth, and conservation evidence on one exact candidate. | Active; S1 packed-carrier and installed-observer precursors selected, bounded carrier amendment candidate unaccepted, no M5 closure |
+| `M5` | Waves 1 through 4 place all pre-qualification feature families, negatives, scenarios, publication truth, and conservation evidence on one exact candidate. | Active; S1 packed-carrier and installed-observer precursors selected under the accepted bounded carrier amendment; no M5 closure |
 | `M6` | Wave 5 `A5-F15` accepts selected-method binding, self-conformance, selected pre-RC scenarios, and complete 4.6 conservation on one pre-RC candidate. | Pending M5 |
 | `M7` | Wave 5 `A5-F16` accepts distinct immutable RC, installed-RC, final-tap, released Product, and post-publication install subjects as stable `5.0.0`. | Pending M6 |
 

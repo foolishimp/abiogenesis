@@ -1,9 +1,9 @@
-# T-287 ST-S01-ROOT/S1 v4 Artifact Carrier Design And Bounded Amendment
+# T-287 ST-S01-ROOT/S1 v4 Artifact Carrier Design And Accepted Bounded Amendment
 
 ## 1. Status And Authority
 
-This file contains the accepted TypeScript v4 HOW and one bounded unaccepted
-amendment candidate for the selected `ST-S01-ROOT/S1` development gate. The v4
+This file contains the accepted TypeScript v4 HOW and its accepted bounded
+amendment for the selected `ST-S01-ROOT/S1` development gate. The v4
 four-document basis was independently accepted at commit
 `701f6c018257d271465860ecb097b44381d614d0`, tree
 `e7de434638c6b669ba935bbaaf69193ad4999922`, and delivered before the
@@ -16,11 +16,12 @@ owners, runtime law, and release subjects stay fixed.
 
 The amendment starts from exact dependency-closure delivery and amendment-
 construction basis `ece6597ed8846323ccab3d9a5736ecfa03f74bb3`, tree
-`31c9557db076ce5348184f10c9e4c8fb4d9ec92d`. It resolves only
-`C-S1-CUTA-PACKED-001` through the internal I1/I2 carrier handshake. Its closure
-disposition is `closed-for-adapter-implementation`, but that disposition grants
-no authority until this new exact four-document subject receives and delivers
-an independent affected-scope accept verdict. Rejected docs commits `6720c0d9`,
+`31c9557db076ce5348184f10c9e4c8fb4d9ec92d`. The exact amendment commit
+`9bb230efaa5a1db06c7932a1204a5d477ead5e0f`, tree
+`3ad891ec8d105edc00ebb0a088a57732e7901172`, received an independent
+affected-scope accept verdict and was delivered to `main`. It resolves only
+`C-S1-CUTA-PACKED-001` through the internal I1/I2 carrier handshake, with
+closure disposition `closed-for-adapter-implementation`. Rejected docs commits `6720c0d9`,
 `87d369d3`, `1e1e61af`, and `0d3c869f` remain counterexample evidence only, not
 authority or wholesale donors.
 
@@ -1155,5 +1156,4 @@ result union.
 
 GOALS owns current WHAT/nonclaims. T-287 owns current order/gates/status. The
 design README owns routing and conditional supersession. This file owns accepted
-v4 HOW; its bounded amendment clauses own HOW only after exact independent
-acceptance and delivery.
+v4 HOW, including the bounded amendment delivered at `9bb230efaa5a`.
