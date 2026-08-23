@@ -37,6 +37,34 @@
   observation/evidence, or workspace transformation. Only an exact Product or
   requirement grant may promote the latter runtime classes into ABG authority.
 
+## Evidence Ordering, Steel Threads, And Deferred Assurance
+
+- Reviewers report counterexamples, the impacted boundary, effect on the
+  selected lawful sunny-day path, bounded repair scope and cost, and a
+  recommendation. They do not decide backlog disposition.
+- The Executive owns the complete Product goal, dependency, and evidence
+  sequence. Only the Executive may decide to reject or reprice, resolve now
+  through a worker, or register technical debt.
+- Product, requirement, authority, or category violations remain blockers. So
+  does any defect that makes the selected lawful sunny-day path
+  unconstructable. No axiom is waived and no corner is cut.
+- After one path is lawful and fail-closed, the earliest end-to-end composition
+  discriminator has higher evidence priority than additional local or
+  exhaustive hardening. An end-to-end composition failure reprices local work
+  immediately; repair restarts at the last axiom-satisfying cut.
+- Deferred assurance is explicit technical debt, never omission. Each capsule
+  records a stable id, owning reference frame, exact evidence or counterexample,
+  no-block rationale, lawful re-entry class, activation trigger, dependent
+  steel thread or release boundary, closure falsifier and closure evidence,
+  owner, and status.
+- Distributed frame-specific agents may later resolve capsules without
+  reopening unrelated accepted cuts. The Executive accepts or closes a capsule
+  only after adjudication against current Product authority.
+- Status requests do not pause authorized work.
+- This repo-local axiom is a candidate for promotion to
+  `specification_methodology` after local review and evidence. It changes
+  neither upstream method nor Product WHAT.
+
 ## Stable Product Boundaries
 
 - GTL.TypeScript is the sole program language.
