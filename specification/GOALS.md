@@ -22,13 +22,16 @@ construction, donor, proof, review, and non-closure detail.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 complete; the repriced Wave 2 development MVP is accepted and integrated; post-MVP Wave 2 remains pending and `UNSELECTED`. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 complete; the repriced Wave 2 development MVP is accepted and integrated; post-MVP increment `ST-S01-ROOT/S1` is selected and not started. |
 
 ## Current Basis
 
 - Intent and Product are accepted and unchanged.
 - Immutable STDO `v2.2.2` governs ABIogenesis 5.0.
 - The immutable 4.6 Product is the conserved runtime foundation.
+- `v4.6.0-rc.3` is the published Git-genealogical predecessor of the current
+  5.x main line. `v4.6.0-rc.5` remains the Product's immutable semantic-origin
+  and released-artifact reference. Recording both roles changes neither cut.
 - ABIogenesis is a direct reference-frame evaluator and realization system:
   GTL carries admitted recursive declarations and topology, one HoG algebra
   evaluates them through exact owners, and ABG admits and reconstructs runtime
@@ -40,6 +43,11 @@ construction, donor, proof, review, and non-closure detail.
 - The accepted M03 and M05 TypeScript design basis indexed by
   `build_tenants/abiogenesis/typescript/design/README.md` governs realization;
   held `build_tenants/common/design/` surfaces remain prior-basis evidence.
+- Immutable tagged development cut `v5.0.0-dev.286`, commit
+  `3014f12571c12f97f85dfe54ca4da28e7dfee3ea`, tree
+  `a399045de5d752b92c084b5b38b358aa2d1c63aa`, and tarball SHA-256
+  `4fc3130cef9fda3171bb28aafffa71775328745721e305172fce9d04c9fdfe41`
+  are the selected development entry basis for the next increment.
 - S03 realization is accepted at `8865ccff`; S05 realization is accepted at
   `1ddc802d`.
 - Increment 0A is accepted at `1242df2a`, tree `7a52912d`.
@@ -86,12 +94,41 @@ release qualification remain dependency ordered.
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
 | `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Accepted - C5 functional substrate; integrated M5 qualification deferred |
-| `2` | Bounded `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` substrate plus one early `A5-F17` consumer path | Four cumulative sunny-day threads verify independently packed ABIogenesis and data-only odd_glc artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`. The existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and one ABG-admitted typed result before exact-prefix ABG observation, fresh-process replay, and one installed CLI episode; post-MVP work then closes the remaining 56-key constructability, held contracts, required negatives, and broader Wave 2 qualification. | `ST-1`, `ST-2A`, `ST-2B`, `ST-3`, and `ST-4` accepted and integrated cumulatively at `a2d62e674f36d76d56d32f7e020eea4e7cfde763`, tree `1af1f5e31acd2f8292550314ad8907c3c6c2ff68`; post-MVP Wave 2 pending and `UNSELECTED`; no Wave 2, 5.0, or release completion claimed |
+| `2` | Bounded `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` substrate plus one early `A5-F17` consumer path | Four cumulative sunny-day threads verify independently packed ABIogenesis and data-only odd_glc artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`. The existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and one ABG-admitted typed result before exact-prefix ABG observation, fresh-process replay, and one installed CLI episode; post-MVP work then closes the remaining 56-key constructability, held contracts, required negatives, and broader Wave 2 qualification. | `ST-1`, `ST-2A`, `ST-2B`, `ST-3`, and `ST-4` accepted and integrated cumulatively at `a2d62e674f36d76d56d32f7e020eea4e7cfde763`, tree `1af1f5e31acd2f8292550314ad8907c3c6c2ff68`; `ST-S01-ROOT/S1` selected and not started; no Wave 2, 5.0, scenario, or release completion claimed |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path without feature-specific runtimes. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and its Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
 
 ## Current Selection
+
+Direct F_H intake on 2026-08-23 selects `ST-S01-ROOT/S1` as the sole current
+post-MVP Wave 2 increment. This is a `goal_reprice`: Intent, Product,
+requirements, `ABI5-ROOT-001`, `ABG5-S01`, the accepted 18-operation/56-key
+family, semantic owners, and final 5.0 completion remain unchanged.
+
+The selected claim is one bounded development realization and proof relation
+corresponding to `ABI5-ROOT-001` obligation `R1 exact artifacts verified`.
+Starting from immutable `v5.0.0-dev.286`, S1 constructs and freezes one fresh
+successor development artifact carrying the fixed root module, exact root
+Program, exact root GraphFunction, input and output contracts, and expected
+`F_D` regime. It verifies the artifact bytes, Product/package identity, version,
+content and manifest identity, descriptor/contribution/dependency evidence,
+and exact root coordinates with typed refusal on mismatch.
+
+S1 acceptance closes only this development gate. It does not identify its
+subject as the Product's `pre_rc_candidate`, close constitutional R1, make
+`ABI5-ROOT-001` or `ABG5-S01` green, accept Wave 2, claim ABIogenesis 5.0,
+authorize an RC, or authorize release. `ST-S01-ROOT/S2` through `S4`, the
+remaining root obligations, and the remaining post-MVP Wave 2 queue stay
+`UNSELECTED`. Final R1 and `ABG5-S01` must run on the eventual shared exact
+`pre_rc_candidate`.
+
+The archived `ebe619d5` and related S1 candidates are rejected donor evidence
+only. Their identities, receipts, verdicts, selection text, and advancement
+state are not adopted. Useful implementation may be recovered only as an
+exact conforming relation and must be re-proved from `v5.0.0-dev.286`.
+
+### Accepted MVP selection history
 
 Direct F_H intake on 2026-08-21 reprices the bounded Wave 2 work to the shortest
 usable MVP for building odd_glc. This is a `goal_reprice`: Intent, Product,
@@ -195,8 +232,9 @@ sequence semantic owners.
 
 `ST-4` is a usable development MVP, not `ABI5-ROOT-001`, the ABIogenesis 5.0
 Product, or a release.
-Post-MVP Wave 2 remains pending and `UNSELECTED`; no next increment or restored
-56-key implementation queue is selected. Its obligations still include the
+Post-MVP Wave 2 now begins with selected increment `ST-S01-ROOT/S1`; S2 through
+S4 and the rest of the 56-key implementation queue remain `UNSELECTED`. Its
+obligations still include the
 remaining 56-key package constructability, held contract closure,
 future-capable release contracts, legacy exclusion, required negative cases,
 and broader qualification in dependency order. The final Product must still
@@ -250,7 +288,7 @@ for delivered behavior.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | Waves 1 through 4 place all 14 pre-qualification feature families, required installed negatives, selected scenarios, publication truth, and conservation evidence on one exact candidate. | Active - Wave 2 `ST-1` through `ST-4` accepted and integrated; post-MVP Wave 2 remains pending and `UNSELECTED` |
+| `M5` | Waves 1 through 4 place all 14 pre-qualification feature families, required installed negatives, selected scenarios, publication truth, and conservation evidence on one exact candidate. | Active - Wave 2 `ST-1` through `ST-4` accepted and integrated; post-MVP `ST-S01-ROOT/S1` selected and not started |
 | `M6` | Wave 5 `A5-F15` accepts selected-method binding, self-conformance, selected pre-RC scenarios, and complete 4.6 conservation against one exact pre-RC candidate. | Pending M5 |
 | `M7` | Wave 5 `A5-F16` accepts distinct immutable RC, installed RC, final-tap, released Product, and post-publication install subjects as stable `5.0.0`. | Pending M6 |
 

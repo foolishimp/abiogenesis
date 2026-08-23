@@ -9,10 +9,13 @@ MVP for building odd_glc. `ST-1`, `ST-2A`, `ST-2B`, `ST-3`, and `ST-4` are
 accepted and integrated cumulatively at checkpoint
 `a2d62e674f36d76d56d32f7e020eea4e7cfde763`, tree
 `1af1f5e31acd2f8292550314ad8907c3c6c2ff68`. `ST-2` retained its ratified
-sequence position and was delivered through its A/B split. Post-MVP Wave 2
-remains pending and `UNSELECTED`. This is a
-`goal_reprice`; Product, requirements, owners, event law, the canonical
-18-operation/56-key family, and final 5.0 obligations are unchanged.
+sequence position and was delivered through its A/B split. Post-MVP increment
+`ST-S01-ROOT/S1` is selected and not started from immutable tagged basis
+`v5.0.0-dev.286`, commit `3014f12571c12f97f85dfe54ca4da28e7dfee3ea`,
+tree `a399045de5d752b92c084b5b38b358aa2d1c63aa`. Selection is a
+`goal_reprice`; the package-resident root carrier and installed consumption
+seam are a `design_reframe`. Product, requirements, owners, event law, the
+canonical 18-operation/56-key family, and final 5.0 obligations are unchanged.
 `ABI5-ROOT-001` and every selected Product scenario remain fixed; no thread is a
 replacement root or scenario subject.
 
@@ -77,6 +80,9 @@ remains non-operative future input under backlogged T-268.
 
 The current design basis is:
 
+- [T-287 S1 Root Artifact Carrier Design](./T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md),
+  the bounded static Product-verification and installed-consumption design for
+  selected `ST-S01-ROOT/S1`;
 - [T-287 Graph Catalog Contraction Accepted Design](./T287_GRAPH_CATALOG_CONTRACTION_ACCEPTED_DESIGN.md),
   which supersedes every catalog, catalog-view, catalog-application,
   registry-entry, and catalog Event Calculus relation in the terminal-
@@ -131,6 +137,28 @@ or implementation authority. A maintained historical file list is
 intentionally omitted because it would create a second stale design-status
 projection; Git and the T-284 correction vector preserve that inventory.
 
+## Selected `ST-S01-ROOT/S1` Gate
+
+S1 adds one checked-in canonical `contracts/abi5-root-binding.json` definition,
+one dedicated manifest locator, one deterministic Product-verification receipt,
+and one equality join that makes the existing installed root owner-evidence
+path consume that receipt. The JSON asset is the sole maintained definition;
+compiled TypeScript supplies only schema, admission, derivation, and guards.
+No second constant, generated copy, root-specific event, catalog, runtime,
+controller, or Public operation is allowed.
+
+The R1-only proof installs one prebuilt candidate into a fresh host and verifies
+it against an external immutable basis without constructing catalog, workspace,
+invocation, ABG event, or replay state. A separate non-adjacency proof uses the
+same artifact and existing installed path to join the receipt to Product catalog
+selection and ABG `ExecutionBasis`. This consumption proof does not claim later
+root obligations on the development subject.
+
+The worker freezes one exact candidate and stops. Review is once per immutable
+definition, Product-verification/cardinality, and installed-consumption seam;
+the remaining package, digest, load, and mutation checks are mechanical. S1
+acceptance does not select S2 or close constitutional R1.
+
 ## MVP Steel-Thread Gate
 
 The threads are cumulative. `ST-1` starts from the accepted owner-separated
@@ -145,7 +173,7 @@ acceptance claim.
 | `ST-2A` | Enter from accepted `ST-1`. Close the one shared authority prerequisite before any read packet is banked. | Realize the accepted Product capability-definition graph through exact manifest/verification/install provenance; evolve the one canonical Product `CapabilityGrant` over that graph rather than adding a second grant type; add one reusable ABG exact-prefix workspace-environment join and one shared run-read kernel under existing `bindExactPrefixRead`. | Graph rows bind exact owning contracts and dependency closure; Product grants and all workspace/Product-set/lock/run-source coordinates reproduce from the installed graph and same admitted prefix; caller-minted, graph-crossed, dependency-incomplete, or environment-crossed authority refuses before the ABG read owner and appends nothing. | Status/result/replay equality remains `ST-2B`; no separate user outcome is claimed. | Accepted and integrated cumulatively |
 | `ST-2B` | Apply the accepted `ST-2A` carrier/join to the accepted `ST-1` run. | Three fixed packets only: `project.read#run_status`, `project.read#run_result`, and `project.read#run_replay`; no member-specific authority code. | Status names the terminal run; result preserves the typed Hello contract; replay derives the same terminal result and state from the exact validated prefix; reads append nothing. | Fresh-process reopen, CLI, broad negatives, and unused definitions. | Accepted and integrated cumulatively |
 | `ST-3` | Enter from accepted `ST-2`. Add close/reopen in a distinct process using installed artifacts and the exact owner-issued prefix/reopen authority or close handoff. | No new Public definition; reuse the cumulative twelve-key path and existing Event Store reopen/read relations. | A fresh process reconstructs canonically equal status, result, and replay without source imports, ambient package lookup, or process-local semantic authority. | CLI transport, broad negatives, and unused definitions. | Accepted and integrated cumulatively |
-| `ST-4` | Enter from accepted `ST-3`. Add the independently installed CLI as a thin transport over the same contracts and installed causal path, using exactly one `run.invoke#start` to ignite one fresh owner-issued run rather than reuse or project the terminal `ST-3` run. | The cumulative twelve canonical definitions only; exactly one `run.invoke#start`, then chained `run_status`, `run_result`, and `run_replay` through the accepted generic `DefinitionCall` transport. | Exact owner handoffs join the fresh CLI episode's run, result, durable prefix, and replay identities; fresh-process equality and zero-byte read-side writes hold; and the episode yields the same typed Hello meaning. Across `ST-3` and `ST-4`, preserve and compare only stable Program, GraphFunction, owner, and contract identities and typed-result meaning; do not require cross-thread runtime identity equality. This is the usable development MVP, not ABIogenesis 5.0 completion or release. | Remaining 56-key constructability, held contract closure, future-capable release contracts, legacy exclusion, comprehensive negatives, broader scenarios, qualification, and release; post-MVP Wave 2 is pending and `UNSELECTED`. | Accepted and integrated cumulatively |
+| `ST-4` | Enter from accepted `ST-3`. Add the independently installed CLI as a thin transport over the same contracts and installed causal path, using exactly one `run.invoke#start` to ignite one fresh owner-issued run rather than reuse or project the terminal `ST-3` run. | The cumulative twelve canonical definitions only; exactly one `run.invoke#start`, then chained `run_status`, `run_result`, and `run_replay` through the accepted generic `DefinitionCall` transport. | Exact owner handoffs join the fresh CLI episode's run, result, durable prefix, and replay identities; fresh-process equality and zero-byte read-side writes hold; and the episode yields the same typed Hello meaning. Across `ST-3` and `ST-4`, preserve and compare only stable Program, GraphFunction, owner, and contract identities and typed-result meaning; do not require cross-thread runtime identity equality. This is the usable development MVP, not ABIogenesis 5.0 completion or release. | Remaining 56-key constructability, held contract closure, future-capable release contracts, legacy exclusion, comprehensive negatives, broader scenarios, qualification, and release; `ST-S01-ROOT/S1` is the selected next increment and later work remains `UNSELECTED`. | Accepted and integrated cumulatively |
 
 `ST-2A-G` (capability graph publication/install) and `ST-2A-E`
 (exact-prefix environment projection) were independent construction lanes and
