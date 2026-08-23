@@ -22,7 +22,7 @@ construction, donor, proof, review, and non-closure detail.
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 complete; the repriced Wave 2 development MVP is accepted and integrated; post-MVP Wave 2 remains pending and `UNSELECTED`. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected 5.0 feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival program, executor, controller, event authority, or release subject. | Active - Wave 1 and the repriced Wave 2 development MVP are accepted and integrated; `ST-S01-ROOT/S1` is the sole selected post-MVP development gate and is not started. |
 
 ## Current Basis
 
@@ -46,6 +46,8 @@ construction, donor, proof, review, and non-closure detail.
 - The exact 18-operation/56-key census is accepted as blob `efe88cac`.
 - Gate 1 construction candidate `3f80ba23`, tree `04906b1c`, is retained as
   accepted construction evidence.
+- The stable Product entry is annotated `v5.0.0-dev.286` at commit `3014f125`,
+  tree `a399045d`; design-entry commit `326c214c` adds commentary only.
 - Rejected Increment 1 candidate `4dfb6766` and rejected dual-Public donor
   `935b11dd` are recoverable evidence only.
 - T-270 and T-281 are superseded. They retain history but no longer select
@@ -86,17 +88,38 @@ release qualification remain dependency ordered.
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
 | `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one canonical admitted Program, complete direct HoG traversal, deterministic fresh-process replay, and fail-closed probabilistic result admission. | Accepted - C5 functional substrate; integrated M5 qualification deferred |
-| `2` | Bounded `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` substrate plus one early `A5-F17` consumer path | Four cumulative sunny-day threads verify independently packed ABIogenesis and data-only odd_glc artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`. The existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and one ABG-admitted typed result before exact-prefix ABG observation, fresh-process replay, and one installed CLI episode; post-MVP work then closes the remaining 56-key constructability, held contracts, required negatives, and broader Wave 2 qualification. | `ST-1`, `ST-2A`, `ST-2B`, `ST-3`, and `ST-4` accepted and integrated cumulatively at `a2d62e674f36d76d56d32f7e020eea4e7cfde763`, tree `1af1f5e31acd2f8292550314ad8907c3c6c2ff68`; post-MVP Wave 2 pending and `UNSELECTED`; no Wave 2, 5.0, or release completion claimed |
+| `2` | Bounded `A5-F01`, `A5-F09`, `A5-F05`, and `A5-F06` substrate plus one early `A5-F17` consumer path | Four cumulative sunny-day threads verify independently packed ABIogenesis and data-only odd_glc artifacts; Product constructs the `ResolvedProductLock` before installation or binding, materializes and verifies each install candidate, and ABG admits each `ProductInstall`; Product constructs the `ProductSet`, then constructs the `WorkspaceBindingCandidate` and ABG admits the `WorkspaceBinding`; Product and Validator construct the eventless ready `Catalog`, and Product derives the pure narrowed `View`. The existing production Product resolution then reaches HoG, the ABI-owned `F_D` Hello callable, and one ABG-admitted typed result before exact-prefix ABG observation, fresh-process replay, and one installed CLI episode; post-MVP work then closes the remaining 56-key constructability, held contracts, required negatives, and broader Wave 2 qualification. | `ST-1`, `ST-2A`, `ST-2B`, `ST-3`, and `ST-4` accepted and integrated cumulatively at `a2d62e674f36d76d56d32f7e020eea4e7cfde763`, tree `1af1f5e31acd2f8292550314ad8907c3c6c2ff68`; `ST-S01-ROOT/S1` selected and not started; no Wave 2, root, 5.0, or release completion claimed |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path without feature-specific runtimes. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and its Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
 
 ## Current Selection
 
-Direct F_H intake on 2026-08-21 reprices the bounded Wave 2 work to the shortest
-usable MVP for building odd_glc. This is a `goal_reprice`: Intent, Product,
+Direct F_H intake on 2026-08-23 selects `ST-S01-ROOT/S1`, the artifact-carrier
+development gate for `A5-F01`, as the sole current post-MVP Wave 2 increment.
+This is a `goal_reprice` plus bounded `design_reframe`; Intent, Product,
+requirements, semantic owners, event law, and the exact 18-operation/56-key
+family remain fixed.
+
+S1 must establish the selected artifact-level root binding on one externally
+frozen source-blind development candidate and prove that a fresh package
+consumer derives root selection from the exact verified artifact and package
+identity before use. Its result is only a non-closing development-gate
+pass/fail.
+
+The selected subject kind is `s1_development_candidate`, not
+`pre_rc_candidate`. S1 does not satisfy constitutional `R1`, prove callable
+membership, a `ProgramValidation` body, actual all-`F_D` traversal, any complete
+Product scenario, qualification, RC, tap, or release. `ST-S01-ROOT/S2` through
+`S4`, constitutional `R1` through `R10`, and all later work remain unselected.
+T-287 owns the selected gate, construction order, proof, and delivery detail.
+
+### Accepted MVP selection history
+
+Direct F_H intake on 2026-08-21 repriced the bounded Wave 2 work to the shortest
+usable MVP for building odd_glc. This was a `goal_reprice`: Intent, Product,
 requirements, the accepted 18-operation/56-key family, semantic owners, and the
-final 5.0 completion predicate do not change. Wave 1 remains accepted at its
+final 5.0 completion predicate did not change. Wave 1 remained accepted at its
 functional-interface boundary.
 
 No Product or requirement clause requires every one of the 56 final definitions
@@ -195,8 +218,9 @@ sequence semantic owners.
 
 `ST-4` is a usable development MVP, not `ABI5-ROOT-001`, the ABIogenesis 5.0
 Product, or a release.
-Post-MVP Wave 2 remains pending and `UNSELECTED`; no next increment or restored
-56-key implementation queue is selected. Its obligations still include the
+Post-MVP Wave 2 is now entered only through selected `ST-S01-ROOT/S1`; no
+restored 56-key implementation queue or other post-MVP increment is selected.
+Its later obligations still include the
 remaining 56-key package constructability, held contract closure,
 future-capable release contracts, legacy exclusion, required negative cases,
 and broader qualification in dependency order. The final Product must still
@@ -250,7 +274,7 @@ for delivered behavior.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | Waves 1 through 4 place all 14 pre-qualification feature families, required installed negatives, selected scenarios, publication truth, and conservation evidence on one exact candidate. | Active - Wave 2 `ST-1` through `ST-4` accepted and integrated; post-MVP Wave 2 remains pending and `UNSELECTED` |
+| `M5` | Waves 1 through 4 place all 14 pre-qualification feature families, required installed negatives, selected scenarios, publication truth, and conservation evidence on one exact candidate. | Active - Wave 2 `ST-1` through `ST-4` accepted and integrated; `ST-S01-ROOT/S1` selected and not started; all later post-MVP increments unselected |
 | `M6` | Wave 5 `A5-F15` accepts selected-method binding, self-conformance, selected pre-RC scenarios, and complete 4.6 conservation against one exact pre-RC candidate. | Pending M5 |
 | `M7` | Wave 5 `A5-F16` accepts distinct immutable RC, installed RC, final-tap, released Product, and post-publication install subjects as stable `5.0.0`. | Pending M6 |
 
