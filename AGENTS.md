@@ -37,6 +37,43 @@
   observation/evidence, or workspace transformation. Only an exact Product or
   requirement grant may promote the latter runtime classes into ABG authority.
 
+## Evidence Ordering, Steel Threads, And Deferred Assurance
+
+- Reviewers report counterexamples, the impacted boundary, effect on the
+  selected lawful sunny-day path, bounded repair scope and cost, and a
+  recommendation. They do not decide backlog disposition.
+- Specification owns Product truth. The Executive owns disposition and evidence
+  sequencing across the complete selected Product goal and its dependency
+  order. Only the Executive may reject or reprice, resolve now through a worker,
+  or defer assurance.
+- Product, requirement, authority, or category violations remain blockers. So
+  does any defect that makes the selected lawful sunny-day path
+  unconstructable. No axiom is waived and no corner is cut.
+- After one path is lawful and fail-closed, the earliest end-to-end composition
+  discriminator has higher evidence priority than additional local or
+  exhaustive hardening. An end-to-end composition failure returns immediately
+  to the Executive as repricing input. Repair begins only after ordinary intake
+  triage admits a live basis and a lawful re-entry from the last still-lawful
+  cut.
+- A reviewer may propose a deferred-assurance capsule. The proposal is neither
+  technical debt nor work authority. Executive deferral registers it durably in
+  the owning ticket or backlog carrier as explicit technical debt, never
+  omission.
+- Each capsule records a stable id, owning reference frame, exact evidence or
+  counterexample, no-block rationale, lawful re-entry class, activation trigger,
+  dependent steel thread or release boundary, closure falsifier and closure
+  evidence, owner, and status.
+- A registered capsule's activation trigger returns it for Executive selection.
+  Distributed frame-specific agents may resolve it only under current work
+  authority and declared lawful re-entry. Resolution creates a new exact
+  subject, re-proves affected acceptance, never mutates prior accepted cuts, and
+  does not reopen unrelated accepted cuts. Acceptance and closure require
+  Executive adjudication against current Product authority.
+- Status requests do not pause authorized work.
+- This repo-local axiom is a candidate for promotion to
+  `specification_methodology` after local review and evidence. It changes
+  neither upstream method nor Product WHAT.
+
 ## Stable Product Boundaries
 
 - GTL.TypeScript is the sole program language.
