@@ -331,6 +331,12 @@ export {
   type RunInvocationResourceReceipt,
 } from "../owner_bindings/run_invocation.js";
 export {
+  INTERACTION_DEFINITION_BINDINGS,
+  InteractionResponsePort,
+  type InteractionResponseResourceAssertion,
+  type InteractionResponseResourceReceipt,
+} from "./interaction_definition_bindings.js";
+export {
   RELEASE_SNAPSHOT_DEFINITION_BINDINGS,
 } from "./release_snapshot_definition_bindings.js";
 export {

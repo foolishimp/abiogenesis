@@ -21,6 +21,11 @@ const selectedAdditions = Object.freeze([
   "abg.operation.catalog.apply#overlay",
   "abg.operation.catalog.view#allowlist",
   "abg.operation.conformance.evaluate#gtl_program",
+  "abg.operation.interaction.respond#answer_escalation",
+  "abg.operation.interaction.respond#approve",
+  "abg.operation.interaction.respond#assess",
+  "abg.operation.interaction.respond#reject",
+  "abg.operation.interaction.respond#select",
   "abg.operation.product.install#install",
   "abg.operation.project.read#catalog_describe",
   "abg.operation.project.read#catalog_list",
@@ -29,11 +34,6 @@ const selectedAdditions = Object.freeze([
   "abg.operation.project.read#workspace_status",
 ]);
 const remainingKeys = Object.freeze([
-  "abg.operation.interaction.respond#answer_escalation",
-  "abg.operation.interaction.respond#approve",
-  "abg.operation.interaction.respond#assess",
-  "abg.operation.interaction.respond#reject",
-  "abg.operation.interaction.respond#select",
   "abg.operation.product.materialize#configuration",
   "abg.operation.product.materialize#context_bootstrap",
   "abg.operation.project.read#release_evidence",
@@ -322,7 +322,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     .map(({ definitionKey }) => definitionKey)
     .sort();
   assert.equal(census.report.definitionCount, 56);
-  assert.equal(census.report.callableCount, 37);
+  assert.equal(census.report.callableCount, 42);
   assert.deepEqual(missingKeys, remainingKeys);
   assert.equal(
     "release_evidence" in product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS,

@@ -6,7 +6,13 @@ import { tmpdir } from "node:os";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 
+import * as Effect from "effect/Effect";
+
 import { prepareDeveloperMiniProduct } from "../support/developer-mini-product.mjs";
+import {
+  installedContractCatalog,
+  installedDefinitionCall,
+} from "../support/installed-definition-call.mjs";
 import {
   constructClosedCatalogReadinessBasis,
   importInstalledPackageExport,
@@ -73,6 +79,13 @@ function reopenScenario(publicApi, scenario) {
   return publicApi.reopenRootOperationContext(
     scenario.transcript.at(-1).payload.runtimePrefixAuthority,
   );
+}
+
+async function eventsAt(path) {
+  return (await readFile(path, "utf8"))
+    .trim()
+    .split(/\r?\n/u)
+    .map((line) => JSON.parse(line));
 }
 
 function invocation(operationId, variant, invocationRef, payload) {
@@ -229,6 +242,327 @@ function expectedVerificationIdentity(basis) {
     expectedPackageName: basis.packageName,
     expectedPackageVersion: basis.packageVersion,
   };
+}
+
+async function proveInstalledInteractionDefinitionBindings({
+  harness,
+  held,
+  mini,
+  scenario,
+  publicApi,
+  abgApi,
+  productApi,
+}) {
+  const continuationAuthority = held.result.continuationAuthority;
+  const closeHandoff = {
+    prefix: continuationAuthority.prefix,
+    reopenAuthority: continuationAuthority.reopenAuthority,
+  };
+  const durableEvents = abgApi.readRuntimeEventsAtDurablePrefix(
+    closeHandoff.prefix,
+  );
+  const prefix = abgApi.selectValidatedRuntimeEventPrefix(durableEvents);
+  const replay = abgApi.replayValidatedRuntimeEventPrefix(prefix);
+  const continuation = replay.continuations.find((candidate) =>
+    candidate.continuationRef === held.continuationRef
+  );
+  assert.equal(continuation?.status, "open");
+  const opened = durableEvents.find((event) =>
+    event.eventId === continuation.openedEventRef
+  );
+  assert.equal(opened?.kind, "fh_interaction_opened");
+  const executionBasis = abgApi.rehydrateExecutionBasisAtPrefix(
+    prefix,
+    opened.payload.executionBasisRef,
+  );
+  assert.ok(executionBasis, "held interaction execution basis rehydrates");
+  const rootInvocation = abgApi.rehydrateInvocationAdmissionAtPrefix(
+    prefix,
+    executionBasis.invocationAdmissionRef,
+  );
+  assert.ok(rootInvocation, "held interaction root invocation rehydrates");
+  const publications = continuationAuthority.publications.filter(
+    (publication) => publication.programs.some((program) =>
+      program.programRef === rootInvocation.programRef
+    ),
+  );
+  assert.equal(publications.length, 1, "one publication owns the held Program");
+  const publication = publications[0];
+  assert.equal(
+    publication.moduleRef,
+    mini.publication.moduleRef,
+    "held interaction uses the installed external Product publication",
+  );
+  const responseContracts = publication.contracts.filter((contract) =>
+    contract.contractRef === continuation.responseContractRef
+  );
+  assert.equal(responseContracts.length, 1, "one response contract is published");
+  const responseContract = responseContracts[0];
+  const responseContractCoordinate = {
+    ref: responseContract.contractRef,
+    digest: productApi.sha256Canonical(responseContract),
+  };
+  const respondGrants = rootInvocation.capabilityGrants.filter((grant) =>
+    grant.operationId === "abg.operation.interaction.respond" &&
+    grant.actorRef === rootInvocation.actorRef &&
+    grant.capabilityRef === continuation.actorCapabilityRef
+  );
+  assert.equal(respondGrants.length, 1, "one root respond grant is admitted");
+  const respondGrant = respondGrants[0];
+  const productEnvironment = await import(
+    `${pathToFileURL(join(
+      harness.cliHost,
+      "node_modules/@abiogenesis/typescript-tenant/build/code/src/product/environment.js",
+    )).href}?w2-05-interaction=${Date.now()}`
+  );
+  const installCoordinate = productEnvironment.productInstallCoordinate(
+    continuationAuthority.install,
+  );
+  const verified = await productApi.verifyProduct({
+    artifactPath: harness.artifactPath,
+    artifactRef: harness.artifactRef,
+    ...expectedVerificationIdentity(harness.candidateBasis),
+  });
+  assert.equal(verified.kind, "verified_product_artifact", JSON.stringify(verified));
+  assert.ok(verified.definitionContractCoordinates);
+  const contractCatalog = installedContractCatalog(verified);
+  const operationId = "abg.operation.interaction.respond";
+  const definitions = Object.fromEntries(
+    publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions
+      .filter((definition) => definition.definitionKey.operationId === operationId)
+      .map((definition) => [definition.definitionKey.memberKey, definition]),
+  );
+  const responseKinds = [
+    "select",
+    "approve",
+    "reject",
+    "assess",
+    "answer_escalation",
+  ];
+  assert.deepEqual(Object.keys(definitions).sort(), [...responseKinds].sort());
+  for (const responseKind of responseKinds) {
+    assert.equal(
+      typeof productApi.INTERACTION_DEFINITION_BINDINGS.respond[responseKind],
+      "function",
+      `${responseKind} installed binding`,
+    );
+  }
+  assert.equal(typeof productApi.InteractionResponsePort.respond, "function");
+
+  const actorCoordinate = {
+    ref: rootInvocation.actorRef,
+    digest: productApi.sha256Canonical({ actorRef: rootInvocation.actorRef }),
+  };
+  const slotsFor = (responseKind) => ({
+    workspace_binding: {
+      ref: executionBasis.workspaceBindingId,
+      digest: executionBasis.workspaceBindingDigest,
+    },
+    product_set: [installCoordinate],
+    dependency_lock: {
+      ref: continuationAuthority.install.resolvedLockId,
+      digest: continuationAuthority.install.resolvedLockDigest,
+    },
+    catalog_scope: null,
+    execution_program: null,
+    graph_function: null,
+    input_contract: null,
+    session_policy: null,
+    capability_grants: {
+      requiredCapabilityRefs: [...definitions[responseKind].capabilityRefs],
+      grants: [{ ref: respondGrant.grantRef, digest: respondGrant.grantDigest }],
+    },
+    actor: {
+      actor: actorCoordinate,
+      attribution: {
+        ref: rootInvocation.invocationRef,
+        digest: rootInvocation.invocationDigest,
+      },
+    },
+    transport_steering: null,
+    verification_references: null,
+    execution_basis: {
+      ref: executionBasis.basisRef,
+      digest: executionBasis.basisDigest,
+    },
+  });
+  const evidence = [{
+    ref: opened.eventId,
+    digest: productApi.sha256Canonical(opened),
+  }];
+  const resources = (overrides = {}) => ({
+    kind: "interaction_response_resource_assertion",
+    schemaVersion: "5.0.0",
+    eventResource: {
+      kind: "reopen_abg_event_resource",
+      schemaVersion: "5.0.0",
+      closeHandoff,
+      handoffDigest: productApi.sha256Canonical(closeHandoff),
+    },
+    productInstall: continuationAuthority.install,
+    publication,
+    ...overrides,
+  });
+  const validResponse = {
+    kind: "developer_human_approval",
+    schemaVersion: "5.0.0",
+    approved: true,
+    constructionIntentRef: continuation.constructionIntentRef,
+    correctionDisposition: "repair",
+    message: "Apply repair.",
+    semanticEvidenceAssetRefs: [mini.ids.approvalAssetRef],
+  };
+  const requestFor = (responseKind, overrides = {}) => ({
+    interaction: {
+      ref: continuation.requestRef,
+      digest: continuation.requestDigest,
+    },
+    responseContract: responseContractCoordinate,
+    responseKind,
+    choice: responseKind === "select"
+      ? {
+          ref: `${continuation.requestRef}/undeclared-choice`,
+          digest: productApi.sha256Canonical({
+            requestRef: continuation.requestRef,
+            choice: "undeclared",
+          }),
+        }
+      : null,
+    value: validResponse,
+    evidence,
+    currentBasis: {
+      ref: executionBasis.basisRef,
+      digest: executionBasis.basisDigest,
+    },
+    ...overrides,
+  });
+  let ordinal = 0;
+  const callFor = (
+    responseKind,
+    request = requestFor(responseKind),
+    suppliedResources = resources(),
+  ) => {
+    ordinal += 1;
+    return installedDefinitionCall({
+      publicApi,
+      product: productApi,
+      contractCatalog,
+      definitionContractCoordinates: verified.definitionContractCoordinates,
+      operationId,
+      memberKey: responseKind,
+      invocationRef:
+        `invocation://t287/w2-05/external-interaction/${ordinal}-${responseKind}`,
+      request,
+      slots: slotsFor(responseKind),
+      resources: suppliedResources,
+      correlationRef: opened.correlationId,
+      eventTime: opened.eventTime,
+      provenanceRefs: [rootInvocation.admissionEventRef],
+    });
+  };
+  const assertZeroEventOutcome = async (apply, label) => {
+    const beforeBytes = await readFile(scenario.eventLogPath);
+    const beforeCount = (await eventsAt(scenario.eventLogPath)).length;
+    const result = await apply();
+    assert.deepEqual(await readFile(scenario.eventLogPath), beforeBytes, `${label}: bytes`);
+    assert.equal((await eventsAt(scenario.eventLogPath)).length, beforeCount, `${label}: count`);
+    return result;
+  };
+
+  const select = await assertZeroEventOutcome(
+    () => Effect.runPromise(
+      productApi.INTERACTION_DEFINITION_BINDINGS.respond.select(callFor("select")),
+    ),
+    "select refusal",
+  );
+  assert.equal(select.ownerOutput.outcomeKind, "refusal");
+  assert.equal(select.ownerOutput.value.code, "choice_mismatch");
+  assert.deepEqual(select.resources.eventResource.closeHandoff.prefix, closeHandoff.prefix);
+
+  for (const responseKind of ["approve", "reject", "assess"]) {
+    const call = callFor(responseKind);
+    const refusal = await assertZeroEventOutcome(
+      () => responseKind === "approve"
+        ? productApi.InteractionResponsePort.respond(call, responseKind)
+        : Effect.runPromise(
+            productApi.INTERACTION_DEFINITION_BINDINGS.respond[responseKind](call),
+          ),
+      `${responseKind} refusal`,
+    );
+    assert.equal(refusal.ownerOutput.outcomeKind, "refusal", responseKind);
+    assert.equal(refusal.ownerOutput.value.code, "kind_mismatch", responseKind);
+    assert.deepEqual(refusal.resources.eventResource.closeHandoff.prefix, closeHandoff.prefix);
+  }
+
+  const forgedCall = callFor("reject");
+  forgedCall.invocation.request.value = {
+    ...structuredClone(forgedCall.invocation.request.value),
+    forgedWithoutRehash: true,
+  };
+  const forgedFault = await assertZeroEventOutcome(
+    () => Effect.runPromise(Effect.flip(
+      productApi.INTERACTION_DEFINITION_BINDINGS.respond.reject(forgedCall),
+    )),
+    "forged call",
+  );
+  assert.equal(forgedFault.code, "call_identity_mismatch");
+
+  const forgedInstall = {
+    ...structuredClone(continuationAuthority.install),
+    artifactDigest: productApi.sha256Canonical({ forged: "install" }),
+  };
+  const forgedPublication = {
+    ...structuredClone(publication),
+    artifactDigest: productApi.sha256Canonical({ forged: "publication" }),
+  };
+  for (const [label, suppliedResources] of [
+    ["forged install sibling", resources({ productInstall: forgedInstall })],
+    ["forged publication sibling", resources({ publication: forgedPublication })],
+  ]) {
+    const refusal = await assertZeroEventOutcome(
+      () => Effect.runPromise(
+        productApi.INTERACTION_DEFINITION_BINDINGS.respond.assess(
+          callFor("assess", requestFor("assess"), suppliedResources),
+        ),
+      ),
+      label,
+    );
+    assert.equal(refusal.ownerOutput.outcomeKind, "refusal", label);
+    assert.equal(refusal.ownerOutput.value.code, "basis_mismatch", label);
+  }
+
+  const beforeCommit = await eventsAt(scenario.eventLogPath);
+  const answered = await Effect.runPromise(
+    productApi.INTERACTION_DEFINITION_BINDINGS.respond.answer_escalation(
+      callFor("answer_escalation"),
+    ),
+  );
+  assert.equal(answered.ownerOutput.outcomeKind, "nonterminal");
+  assert.equal(answered.ownerOutput.value.responseKind, "answer_escalation");
+  assert.equal(answered.ownerOutput.value.disposition, "responded");
+  const successor = answered.resources.eventResource.closeHandoff.prefix;
+  const afterCommit = abgApi.readRuntimeEventsAtDurablePrefix(successor);
+  assert.equal(afterCommit.length, beforeCommit.length + 2);
+  const reconstructed = abgApi.replayValidatedRuntimeEventPrefix(
+    abgApi.selectValidatedRuntimeEventPrefix(afterCommit),
+  ).continuations.find((candidate) =>
+    candidate.continuationRef === continuation.continuationRef
+  );
+  assert.equal(reconstructed?.status, "responded");
+  assert.equal(
+    reconstructed.responseRef,
+    answered.ownerOutput.value.interaction.responseRef,
+  );
+
+  const bytesAfterCommit = await readFile(scenario.eventLogPath);
+  const staleFault = await Effect.runPromise(Effect.flip(
+    productApi.INTERACTION_DEFINITION_BINDINGS.respond.answer_escalation(
+      callFor("answer_escalation"),
+    ),
+  ));
+  assert.equal(staleFault.kind, "definition_execution_fault");
+  assert.equal(staleFault.stage, "resource_acquisition");
+  assert.deepEqual(await readFile(scenario.eventLogPath), bytesAfterCommit);
 }
 
 function redigestGapAuthority(authority) {
@@ -2447,6 +2781,69 @@ test("Wave 1 S2 composes installed transformation, live F_P, and reopened contin
       process.env.ABG_TS_CLAUDE_COMMAND = priorCommand;
     }
   }
+});
+
+test("W2-05B installed external Product exercises five interaction response definitions and one ABG commit", async (context) => {
+  const harness = await setupInstalledCliHarness(context, packageRoot);
+  const mini = await prepareDeveloperMiniProduct(packageRoot, harness.scratch);
+  const [publicApi, abgApi, productApi] = await Promise.all([
+    importInstalledPackageExport(
+      harness,
+      "@abiogenesis/typescript-tenant/public",
+      `w2-05b-external-public=${Date.now()}`,
+    ),
+    importInstalledPackageExport(
+      harness,
+      "@abiogenesis/typescript-tenant/abg",
+      `w2-05b-external-abg=${Date.now()}`,
+    ),
+    importInstalledPackageExport(
+      harness,
+      "@abiogenesis/typescript-tenant/product",
+      `w2-05b-external-product=${Date.now()}`,
+    ),
+  ]);
+  const started = await oneSurfaceStart(
+    publicApi,
+    harness,
+    mini,
+    "w2-05b-external-interaction-definitions",
+    mini.publication,
+    {
+      observation: ({ binding, publication }) => {
+        const program = publication.programs.find((candidate) =>
+          candidate.programRef === mini.ids.oneSurfaceProgramRef
+        );
+        assert.ok(program?.actionCatalog);
+        return mini.constructObservationSnapshot({
+          workspaceBindingId: binding.bindingId,
+          workspaceBindingDigest: binding.bindingDigest,
+          actionCatalog: program.actionCatalog,
+          changeAuthorityState: "repair_required",
+          name: "Margaret",
+        });
+      },
+    },
+  );
+  assert.equal(
+    started.outcomes.slice(0, -1).every((outcome) =>
+      outcome.disposition === "succeeded"
+    ),
+    true,
+    JSON.stringify(started.outcomes),
+  );
+  assert.equal(started.outcome.disposition, "held", JSON.stringify(started.outcome));
+  assert.equal(started.outcome.continuationStatus, "open");
+  assert.equal(started.events.length > 0, true);
+  await proveInstalledInteractionDefinitionBindings({
+    harness,
+    held: started.outcome,
+    mini,
+    scenario: started.scenario,
+    publicApi,
+    abgApi,
+    productApi,
+  });
 });
 
 test("M5 reopens and completes an external mixed F_D/F_P/F_H program through separate public operations", async (context) => {
