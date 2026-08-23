@@ -33,6 +33,9 @@ const basis = {
   artifactDigest: `sha256:${createHash("sha256").update(archive).digest("hex")}`,
   productContentDigest: manifest.productContentDigest,
   manifestDigest: sha256Canonical(manifest),
+  productId: manifest.productId,
+  packageName: manifest.packageName,
+  packageVersion: manifest.packageVersion,
 };
 
 await writeFile(basisPath, `${JSON.stringify(basis, null, 2)}\n`, "utf8");

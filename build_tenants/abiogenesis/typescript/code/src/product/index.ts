@@ -52,6 +52,19 @@ export {
   type CapabilityDefinitionGraphRow,
 } from "../shared/capability_contracts.js";
 export { modulePublicationSemanticDigest } from "./publication.js";
+export {
+  ABI5_ROOT_BINDING,
+  ABI5_ROOT_BINDING_ASSET_PATH,
+  ABI5_ROOT_BINDING_REFUSAL_CODES,
+  abi5RootBindingAssetBytes,
+  resolveAbi5RootBinding,
+  verifyAbi5RootBindingReceipt,
+  type Abi5RootBindingCarrier,
+  type Abi5RootBindingReceipt,
+  type Abi5RootBindingRefusal,
+  type Abi5RootBindingRefusalCode,
+  type Abi5RootBindingResolution,
+} from "./root_binding.js";
 // Compatibility projection: shared primitives are not Product-owned.
 export { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 export {

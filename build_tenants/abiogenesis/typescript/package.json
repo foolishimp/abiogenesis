@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "5.0.0-dev.286",
+  "version": "5.0.0-dev.287",
   "description": "ABIogenesis 5 direct-GTL TypeScript product",
   "private": true,
   "type": "module",

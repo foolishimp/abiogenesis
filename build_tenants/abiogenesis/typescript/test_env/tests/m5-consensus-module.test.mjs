@@ -38,12 +38,12 @@ const ACTOR = "actor://developer/consensus/module-proof";
 
 function artifactBasis() {
   return {
-    productId: "product://abiogenesis/typescript-tenant@5.0.0-dev.286",
+    productId: "product://abiogenesis/typescript-tenant@5.0.0-dev.287",
     artifactDigest: DIGEST,
     productContentDigest: `sha256:${"2".repeat(64)}`,
     productManifestDigest: `sha256:${"3".repeat(64)}`,
     packageName: "@abiogenesis/typescript-tenant",
-    packageVersion: "5.0.0-dev.286",
+    packageVersion: "5.0.0-dev.287",
   };
 }
 

@@ -18,10 +18,12 @@ import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
   ABI5_PRODUCT_ID,
+  ABI5_ROOT_BINDING_ASSET_PATH,
   CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
   PUBLIC_CATALOG_BINDING_CONTRACTS,
   bindS06PublicFunctionCatalog,
   capabilityDefinitionGraphAssetBytes,
+  abi5RootBindingAssetBytes,
   capabilityDefinitionGraphCoordinate,
   capabilityRefsForContract,
   canonicalJson,
@@ -204,6 +206,15 @@ await Promise.all(PUBLIC_PROJECTION_PAYLOADS.assets
     await writeFile(join(root, path), bytes, "utf8");
   }));
 
+await mkdir(dirname(join(root, ABI5_ROOT_BINDING_ASSET_PATH)), {
+  recursive: true,
+});
+await writeFile(
+  join(root, ABI5_ROOT_BINDING_ASSET_PATH),
+  abi5RootBindingAssetBytes,
+  "utf8",
+);
+
 async function listFiles(path) {
   const files = [];
   async function visit(absolute) {
@@ -349,6 +360,7 @@ const projectedPaths = packProjection[0].files.map(({ path }) => path);
 if (
   projectedPaths.some((path) => typeof path !== "string") ||
   !projectedPaths.includes("product-toolchain-manifest.json") ||
+  !projectedPaths.includes(ABI5_ROOT_BINDING_ASSET_PATH) ||
   !projectedPaths.includes(CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)
 ) {
   throw new Error("npm pack projection omits a mandatory Product cut member");

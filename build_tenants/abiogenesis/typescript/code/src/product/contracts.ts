@@ -7,9 +7,9 @@ import type { CompleteDefinitionContractCoordinateMap } from "../shared/public_f
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import type { ProductInstall, ResolvedProductLock } from "./environment.js";
 
-export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-dev.286";
+export const ABI5_PRODUCT_ID = "product://abiogenesis/typescript-tenant@5.0.0-dev.287";
 export const ABI5_PACKAGE_NAME = "@abiogenesis/typescript-tenant";
-export const ABI5_PACKAGE_VERSION = "5.0.0-dev.286";
+export const ABI5_PACKAGE_VERSION = "5.0.0-dev.287";
 
 export interface ProductDeclaredDependency {
   readonly kind: "requires";

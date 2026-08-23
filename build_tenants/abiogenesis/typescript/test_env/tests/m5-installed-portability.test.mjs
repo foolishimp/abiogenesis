@@ -470,7 +470,7 @@ function assertPortableOutcome(run, flavored, carrierFamily) {
     kind: "requires",
     fromProductId: flavored.basis.productId,
     toProductId: run.outcomes[0].result.productId,
-    packageVersion: "5.0.0-dev.286",
+    packageVersion: "5.0.0-dev.287",
     compatibilityRef: "compatibility://abiogenesis/major/5",
     compatibilityDisposition: "compatible",
     requiredContractRefs: [

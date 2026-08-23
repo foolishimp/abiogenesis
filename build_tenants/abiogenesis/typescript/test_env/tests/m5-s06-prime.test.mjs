@@ -254,7 +254,7 @@ test("S06 catalog construction is a pure projection of exact publications", () =
     productContentDigest: digest("5"),
     productManifestDigest: digest("6"),
     packageName: ABI5_PACKAGE_NAME,
-    packageVersion: "5.0.0-dev.286",
+    packageVersion: "5.0.0-dev.287",
   });
   const first = buildGraphFunctionCatalog([publication]);
   const reconstructed = buildGraphFunctionCatalog([
@@ -1711,7 +1711,7 @@ test("S06 declaration builders preserve Product meaning and reject malformed mec
     productContentDigest: digest("f"),
     productManifestDigest: digest("0"),
     packageName: "@abiogenesis/typescript-tenant",
-    packageVersion: "5.0.0-dev.286",
+    packageVersion: "5.0.0-dev.287",
   });
   assert.equal(Object.isFrozen(publication), true);
   assert.ok(publication.contracts.every(Object.isFrozen));
