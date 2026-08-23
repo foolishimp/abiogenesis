@@ -8,9 +8,11 @@ import {
   rm,
   writeFile,
 } from "node:fs/promises";
+import { execFile } from "node:child_process";
 import { createRequire } from "node:module";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
 
 import {
   ABI5_PACKAGE_NAME,
@@ -57,6 +59,7 @@ import {
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(import.meta.url);
+const execFileAsync = promisify(execFile);
 const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
 const packageLock = JSON.parse(
   await readFile(join(root, "package-lock.json"), "utf8"),
@@ -300,7 +303,6 @@ function bundledDependencyClosure(names) {
   return [...visited].sort();
 }
 
-const bundledDependencyLocators = [];
 for (const locator of bundledDependencyClosure(bundledDependencyNames)) {
   const name = locator.slice("node_modules/".length);
   const expectedRoot = join(root, ...locator.split("/"));
@@ -316,15 +318,64 @@ for (const locator of bundledDependencyClosure(bundledDependencyNames)) {
   ) {
     throw new Error(`bundled dependency resolves outside its exact package root: ${name}`);
   }
-  bundledDependencyLocators.push(...await listFiles(expectedRoot));
+  await listFiles(expectedRoot);
 }
 
-const productRelativeLocators = [
-  "package.json",
-  ...(await listFiles(join(root, "build"))),
-  ...(await listFiles(join(root, "contracts"))),
-  ...bundledDependencyLocators,
-].sort();
+// The immutable development cut is the package npm actually projects, not a
+// separately predicted traversal of the mutable source and dependency trees.
+// Placeholders keep the two subsequently generated mandatory members visible
+// to the dry-run; their final bytes do not change the selected path set.
+await mkdir(dirname(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)), {
+  recursive: true,
+});
+await Promise.all([
+  writeFile(join(root, "product-toolchain-manifest.json"), "{}\n", "utf8"),
+  writeFile(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH), "{}\n", "utf8"),
+]);
+const { stdout: packProjectionJson } = await execFileAsync(
+  "npm",
+  ["pack", "--dry-run", "--ignore-scripts", "--json"],
+  { cwd: root, maxBuffer: 32 * 1024 * 1024 },
+);
+const packProjection = JSON.parse(packProjectionJson);
+if (
+  !Array.isArray(packProjection) ||
+  packProjection.length !== 1 ||
+  !Array.isArray(packProjection[0]?.files)
+) {
+  throw new Error("npm pack did not return one exact file projection");
+}
+const projectedPaths = packProjection[0].files.map(({ path }) => path);
+if (
+  projectedPaths.some((path) => typeof path !== "string") ||
+  !projectedPaths.includes("product-toolchain-manifest.json") ||
+  !projectedPaths.includes(CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)
+) {
+  throw new Error("npm pack projection omits a mandatory Product cut member");
+}
+const productRelativeLocators = projectedPaths.filter(
+  (path) =>
+    path !== "product-toolchain-manifest.json" &&
+    path !== CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
+).sort();
+if (new Set(productRelativeLocators).size !== productRelativeLocators.length) {
+  throw new Error("npm pack projection contains duplicate Product paths");
+}
+for (const path of productRelativeLocators) {
+  const absolute = resolve(root, path);
+  const relativeToRoot = relative(root, absolute);
+  if (
+    relativeToRoot === "" ||
+    relativeToRoot === ".." ||
+    relativeToRoot.startsWith(`..${sep}`)
+  ) {
+    throw new Error(`npm pack projected an unsafe Product path: ${path}`);
+  }
+  const stat = await lstat(absolute);
+  if (!stat.isFile() || stat.isSymbolicLink()) {
+    throw new Error(`npm pack projected a non-file Product member: ${path}`);
+  }
+}
 
 const payloadInventory = [];
 for (const path of productRelativeLocators) {

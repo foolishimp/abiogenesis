@@ -4,6 +4,7 @@
   "description": "ABIogenesis 5 direct-GTL TypeScript product",
   "private": true,
   "type": "module",
+  "packageManager": "npm@11.5.1",
   "engines": {
     "node": ">=20"
   },
