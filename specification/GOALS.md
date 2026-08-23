@@ -16,7 +16,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival Program, executor, controller, event authority, or release subject. | Active. Wave 1 is accepted. Wave 2 / `A5-F01` is current. Only the `ST-S01-ROOT/S1` design candidate is selected; it is not yet accepted implementation authority. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival Program, executor, controller, event authority, or release subject. | Active. Wave 1 is accepted. Wave 2 / `A5-F01` is current. The `ST-S01-ROOT/S1` v4 design is accepted; its packed-carrier and installed-observer implementation increments are selected. |
 
 ## Fixed Basis
 
@@ -39,7 +39,7 @@ operations, files, tests, reviews, or commits do not change that scope.
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
 | `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one admitted Program, direct HoG traversal, fresh-process replay, and fail-closed probabilistic result admission. | Accepted functional substrate; integrated M5 qualification remains later work |
-| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, plus the bounded early `A5-F17` consumer path | One source-independent installed Product path closes exact Product, Public, SDK, CLI, and remaining Wave 2 truth without a rival authority. | Active; only `ST-S01-ROOT/S1` design candidate selected; S2-S4 and the Wave 2 exit remain unselected |
+| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, plus the bounded early `A5-F17` consumer path | One source-independent installed Product path closes exact Product, Public, SDK, CLI, and remaining Wave 2 truth without a rival authority. | Active; `ST-S01-ROOT/S1` implementation is selected from accepted v4 design; S2-S4 and the Wave 2 exit remain unselected |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
@@ -51,9 +51,10 @@ root/scenario evidence, Wave 2 closure, or release evidence.
 
 ## Current Selection
 
-The lawful re-entry is `design_reframe`. Product, requirements, the Wave 2
-exit, and the `A5-F01` outcome stay fixed. The selected design candidate is
-`ST-S01-ROOT/S1` only.
+The accepted design re-entry is complete. Current implementation uses
+`realization_refactor`. Product, requirements, the Wave 2 exit, and the
+`A5-F01` outcome stay fixed. `ST-S01-ROOT/S1` remains the only selected
+increment.
 
 S1's exact development outcome is one independently frozen
 `s1_development_candidate` for which:
@@ -83,9 +84,11 @@ GTL; R8 enters HoG through Public invocation; R9 obtains ABG-admitted result and
 closure truth; and R10 proves replay/CLI equality. S1 claims none of those
 relations. S2-S4 and every later increment remain `UNSELECTED`.
 
-The exact HOW belongs only to
+The accepted exact HOW belongs only to
 `build_tenants/abiogenesis/typescript/design/T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md`
-after its exact four-document candidate is independently accepted.
+at commit `701f6c018257d271465860ecb097b44381d614d0`. Implementation begins
+from the reviewed repo-local execution basis at
+`bc3a9377b926f6d1f01c681571b6e2cb740e967c`.
 
 ## Work Selection And Milestones
 
@@ -100,7 +103,7 @@ after its exact four-document candidate is independently accepted.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | Waves 1 through 4 place all pre-qualification feature families, negatives, scenarios, publication truth, and conservation evidence on one exact candidate. | Active; S1 docs candidate only, no M5 closure |
+| `M5` | Waves 1 through 4 place all pre-qualification feature families, negatives, scenarios, publication truth, and conservation evidence on one exact candidate. | Active; S1 packed-carrier and installed-observer implementation selected, no M5 closure |
 | `M6` | Wave 5 `A5-F15` accepts selected-method binding, self-conformance, selected pre-RC scenarios, and complete 4.6 conservation on one pre-RC candidate. | Pending M5 |
 | `M7` | Wave 5 `A5-F16` accepts distinct immutable RC, installed-RC, final-tap, released Product, and post-publication install subjects as stable `5.0.0`. | Pending M6 |
 

@@ -2,14 +2,16 @@
 
 ## 1. Status And Authority
 
-This is the complete TypeScript HOW candidate for the selected
-`ST-S01-ROOT/S1` development gate. It is unaccepted. It becomes implementation
-authority only if this exact four-document subject receives and delivers an
-independent docs-accept verdict.
+This is the accepted TypeScript HOW for the selected `ST-S01-ROOT/S1`
+development gate. Its exact four-document subject was independently accepted
+at commit `701f6c018257d271465860ecb097b44381d614d0`, tree
+`e7de434638c6b669ba935bbaaf69193ad4999922`, and delivered before the
+reviewed repo-local execution basis at `bc3a9377b926`.
 
-The lawful re-entry is `design_reframe`. Intent, Product, requirements, feature
-membership, scenarios, the `ABI5-ROOT-001` table, obligations R1-R10, Public
-contracts, owners, runtime law, and release subjects stay fixed.
+The accepted design re-entry was `design_reframe`; implementation proceeds as
+`realization_refactor`. Intent, Product, requirements, feature membership,
+scenarios, the `ABI5-ROOT-001` table, obligations R1-R10, Public contracts,
+owners, runtime law, and release subjects stay fixed.
 
 The candidate starts from detached stable main commit
 `326c214c982d527c18d716e1db9637becadd5c71`, tree
@@ -988,9 +990,9 @@ S1 acceptance evidence.
 
 ## 14. Mechanical Implementation Order
 
-This docs candidate changes no implementation, generated file, dependency,
-test, version, or ref. After docs acceptance, one implementation subject follows
-this order:
+The accepted docs subject changed no implementation, generated file,
+dependency, test, version, or ref. One implementation subject now follows this
+order:
 
 | Order | Surface | Required consequence |
 |---:|---|---|

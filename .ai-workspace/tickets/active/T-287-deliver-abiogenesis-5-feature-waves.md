@@ -9,8 +9,8 @@
 - owner: abiogenesis
 - pen_holder: codex
 - build_tenant: typescript
-- change_intent: select_s1_root_artifact_carrier_development_gate
-- change_class: design_reframe
+- change_intent: implement_s1_root_artifact_carrier_development_gate
+- change_class: realization_refactor
 - re_entry_point: build_tenants/abiogenesis/typescript/design/T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md
 - retriaged_at: 2026-08-23
 - migration_strategy: inside_out_hard_break
@@ -21,14 +21,19 @@
 - selected_feature: A5-F01
 - selected_slice: ST-S01-ROOT
 - selected_increment: S1
-- selected_increment_stage: v4_docs_candidate_locally_frozen_unaccepted
+- selected_increment_stage: i1_i2_parallel_selected
 - stable_entry_tag: v5.0.0-dev.286
 - stable_entry_commit: 3014f12571c12f97f85dfe54ca4da28e7dfee3ea
 - stable_entry_tree: a399045de5d752b92c084b5b38b358aa2d1c63aa
 - docs_candidate_base: 326c214c982d527c18d716e1db9637becadd5c71
 - docs_candidate_base_tree: 518d37bda358f85e07ed263293909285694b5cac
+- accepted_design_commit: 701f6c018257d271465860ecb097b44381d614d0
+- accepted_design_tree: e7de434638c6b669ba935bbaaf69193ad4999922
+- accepted_design_archive: archive/t287-s1-docs-accepted-701f6c018257d271465860ecb097b44381d614d0
+- implementation_selection_basis_commit: bc3a9377b926f6d1f01c681571b6e2cb740e967c
+- implementation_selection_basis_tree: 12f8067ca616c139cf17829bb0e91a5aeadf09db
 - next_implementation_version_floor: 5.0.0-dev.288
-- next_implementation_version_status: unavailable_until_fresh_delivery_namespace_census
+- next_implementation_version_status: selected_unburned_after_remote_census_2026-08-23
 - deferred_feature: A5-F12
 
 ## Outcome
@@ -89,7 +94,8 @@ closure, and R10 replay/CLI equality. S1 does not move or satisfy them.
 
 ## Re-entry Disposition
 
-The re-entry is `design_reframe` only:
+The accepted design re-entry was `design_reframe`. The selected implementation
+re-entry is `realization_refactor` only:
 
 - Intent, Product, requirements, feature membership, scenarios, root table,
   R1-R10 predicate, and release subjects do not change.
@@ -112,10 +118,10 @@ The re-entry is `design_reframe` only:
 6. `build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md`
 7. this ticket
 
-The complete S1 v4 HOW candidate is
+The accepted S1 v4 HOW is
 `build_tenants/abiogenesis/typescript/design/T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md`.
-It becomes implementation authority only after the exact four-document subject
-is independently accepted and delivered. The rejected docs commits
+Its exact four-document subject was independently accepted at `701f6c018257`
+and delivered with accepted archive `9fddfc815253`. The rejected docs commits
 `6720c0d92647861d281a40cb3129b5ecc82af86d`,
 `87d369d3c04be07a7c3a46b25f0a3324bd68e020`, and
 `1e1e61af8fa185784d093be05a67942df32dc441`, and
@@ -126,14 +132,14 @@ ancestors of this replacement and may not be cherry-picked wholesale.
 
 | Order | Work/gate | Exit | Current state |
 |---:|---|---|---|
-| `S1-D0` | Replace the S1 design from exact stable main commit/tree. | Exactly four documentation paths state one consistent Product frame, ordered proof, technology choice, falsifiers, file order, and delivery law. | Complete in the locally frozen v4 subject; unaccepted |
-| `S1-D1` | Freeze mechanical docs evidence. | Exact scope, diff check, stale/prohibited scans, base ancestry, rejected-candidate non-ancestry, clean detached status, commit/tree/parent, patch hash, and four file hashes. | Complete in the external freeze handoff; unaccepted |
-| `S1-D2` | Independent design review. | No unresolved authority drift, circular identity, unconstructable result field, hidden effect, ambient dependency, evidence overclaim, delivery ambiguity, or stale current status. | Pending D1 |
-| `S1-D3` | Docs verdict and delivery. | Candidate `C` remains the reviewed commit; accepted docs atomically fast-forward main to `C` and create distinct accepted archive commit `R_a`, while rejected docs create only `R_a`. Archive metadata and full-`C` ref suffix bind `C`. No Product tag or version effect. | Pending D2 |
-| `S1-I0` | Re-census remote version/ref namespace and allocate one implementation subject from accepted docs. | Exact remote main/ref/tag basis and least lawful development version are frozen. `dev.288` is only a floor until this census. | Unselected until docs acceptance |
-| `S1-I1` | Replace shell archive reads and construct the sole packed carrier relation. | One in-process type-aware packed snapshot; exact ABI-one/non-ABI-zero carrier law; unchanged Public verification; narrow carrier subpath only. | Unselected until I0 |
-| `S1-I2` | Construct raw installed-tree observation and lexical selection. | Fresh offline extraction is proof-host preparation; descriptor-based complete walk and S1-specific comparison converge with packed verification; no Product install or runtime. | Unselected until I1 |
-| `S1-I3` | Freeze independent proof inputs, run plan, pure falsifier report, and confined Cut A/B observations. | Exact immutable identity DAG, OCI receipt, pre/post snapshots, static/load closure, output inventory, closed result, and no evidence beyond the reached phase. | Unselected until I2 |
+| `S1-D0` | Replace the S1 design from exact stable main commit/tree. | Exactly four documentation paths state one consistent Product frame, ordered proof, technology choice, falsifiers, file order, and delivery law. | Complete at accepted design `701f6c018257` |
+| `S1-D1` | Freeze mechanical docs evidence. | Exact scope, diff check, stale/prohibited scans, base ancestry, rejected-candidate non-ancestry, clean detached status, commit/tree/parent, patch hash, and four file hashes. | Complete; exact accepted subject frozen |
+| `S1-D2` | Independent design review. | No unresolved authority drift, circular identity, unconstructable result field, hidden effect, ambient dependency, evidence overclaim, delivery ambiguity, or stale current status. | Complete; three independent Max frames accepted |
+| `S1-D3` | Docs verdict and delivery. | Candidate `C` remains the reviewed commit; accepted docs atomically fast-forward main to `C` and create distinct accepted archive commit `R_a`, while rejected docs create only `R_a`. Archive metadata and full-`C` ref suffix bind `C`. No Product tag or version effect. | Complete; `C=701f6c018257`, `R_a=9fddfc815253` |
+| `S1-I0` | Re-census remote version/ref namespace and allocate one implementation subject from accepted docs. | Exact remote main/ref/tag basis and least lawful development version are frozen. `dev.288` is only a floor until this census. | Complete 2026-08-23; remote main `bc3a9377b926`, `dev.288` available and selected but unburned |
+| `S1-I1` | Replace shell archive reads and construct the sole packed carrier relation. | One in-process type-aware packed snapshot; exact ABI-one/non-ABI-zero carrier law; unchanged Public verification; narrow carrier subpath only. | Selected; parallel packed/verifier lane |
+| `S1-I2` | Construct raw installed-tree observation and lexical selection. | Fresh offline extraction is proof-host preparation; descriptor-based complete walk and S1-specific comparison converge with packed verification; no Product install or runtime. | Selected; parallel installed/carrier lane with fixed private handshake to I1 |
+| `S1-I3` | Freeze independent proof inputs, run plan, pure falsifier report, and confined Cut A/B observations. | Exact immutable identity DAG, OCI receipt, pre/post snapshots, static/load closure, output inventory, closed result, and no evidence beyond the reached phase. | Pending accepted I1+I2 integration and required capsule gates |
 | `S1-I4` | Independent implementation reproduction and verdict. | Exact case law reproduces. Accepted delivery atomically advances main to `C`, annotated `T_ref` to tag object `T(C)`, and archive to distinct `R_a`; rejected delivery archives only, and burns the version only after verified remote containment. | Unselected until I3 |
 
 No gate borrows a later gate's evidence. A docs verdict does not allocate a
@@ -161,13 +167,14 @@ Every S1 handoff and review begins with:
 ```text
 Product: fixed ABIogenesis 5.0, A5-F01..F11 and A5-F13..F17
 Selection: Wave 2 / A5-F01 / ST-S01-ROOT / S1 only
-Status: v4 docs candidate only; unaccepted; no implementation selected
+Status: v4 design accepted; I0 complete; I1/I2 selected; no implementation
+  candidate frozen
 Subject: one externally frozen s1_development_candidate
 Claim: packed Product/root/publication verification, fresh extracted-byte
   reproduction, private convergence, and lexical declaration selection only
 Runtime: none; R1-R10 all not evaluated
 Unselected: S2-S4, scenarios, pre-RC qualification, RC, tap, release
-Reference: T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md owns HOW after docs acceptance
+Reference: accepted T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md owns HOW
 ```
 
 ## Deferred Assurance Register
@@ -180,6 +187,7 @@ lanes, or authority to cross S1's stop.
 | `C-S1-CASES-01` | S1 case aggregation | E/P/T laws are defined; no one-subject aggregate exists | a docs candidate creates no S1 verdict | `realization_refactor` when K/L/F/G and concrete cases freeze | mandatory before `S1-I4` verdict | absent, crossed, or incomplete aggregate makes any S1 verdict invalid | independent assessor / deferred-required |
 | `C-S1-FS-RACE-001` | T02 descriptor race | T02 names lstat/open/read/post-stat and inode-alias mutations; no executable fixture exists | raw observation is not implemented | `realization_refactor` when the installed observer freezes | Cut B raw snapshot | any T02 race or alias reaches successful Cut-B coordinates | Product proof owner plus independent assessor / deferred |
 | `C-S1-TAR-GZIP-001` | T01 gzip/tar grammar | T01 names compression, type, path, metadata, and bound mutations; no executable corpus exists | parser foundation is not implemented | `realization_refactor` when the parser adapter freezes | Cut A packed snapshot | alternate/malformed gzip, dangling/ambiguous metadata, or a bound breach is admitted | Product proof owner plus independent assessor / deferred |
+| `C-S1-CUTA-PACKED-001` | Cut A/B carrier convergence | `SuccessfulCutACoordinates` carries `packedSnapshotCoordinate`, while the accepted convergence relation compares the verification/root-receipt pair | the accepted design remains constructable and no S1 proof has run; the relation must close before the first E00 discriminator | `realization_refactor` at the I1/I2 carrier handshake | Cut A handoff, target import, and E00 | Cut B or E00 succeeds when a valid Cut-A verification/receipt pair is crossed with a different packed snapshot coordinate | Product proof owner plus independent assessor / activated-required-before-E00 |
 | `D-S1-PERM-001` | proof permission argv | OCI and Node-permission policy is selected; exact platform argv is not frozen | no ProofRunPlan or confinement claim exists | `realization_refactor` at exact tool-closure/driver freeze; `design_reframe` if policy changes | ProofRunPlan and confinement receipt | extra loader, mount, env, permission, process, network, or writable path survives argv admission | proof owner plus independent assessor / deferred |
 | `D-S1-FS19-TAR-001` | FS-19 dependency/advisory | exact `tar@7.5.22` is selected; lock, bundled closure, provenance, and advisory disposition do not yet exist | docs add no dependency | `realization_refactor` when the dependency/lock subject freezes; `design_reframe` if selection changes | dependency admission before parser consumption | wrong/unbundled closure, unresolved provenance, or undisposed applicable advisory is accepted | Product dependency owner plus independent assessor / deferred |
 | `C-R1-GOVERNOR-001` | later R1 admission | P06 is static shape evidence; governor modules are excluded from S1 | S1 evaluates zero root obligations and cannot reach R1 | later `design_reframe` when exact `pre_rc_candidate` admission is selected | R1 before any R1-R10 evaluation | S1 evidence is admitted as R1, or pre-RC subject/evidence admission remains unspecified | root/governor owner plus independent assessor / deferred-later |
@@ -208,11 +216,13 @@ availability requires a fresh namespace census at implementation delivery.
 | Wave | Feature families | State |
 |---:|---|---|
 | W1 | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | Accepted functional substrate; later integrated qualification remains |
-| W2 | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, bounded early `A5-F17` | Active; only S1 v4 docs candidate selected |
+| W2 | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, bounded early `A5-F17` | Active; accepted S1 v4 design with I1/I2 implementation selected |
 | W3 | `A5-F14`, `A5-F07`, `A5-F08` | Pending W2 |
 | W4 | `A5-F13`, `A5-F17`, `A5-F11` | Pending W3 |
 | W5 | `A5-F15`, `A5-F16` | Pending W4 |
 
-Current durable status is the exact stable base only. This v4 docs subject is
-unaccepted and creates no S1 implementation, artifact, run plan, development-
-gate result, Product tag, root result, scenario result, or release truth.
+Current durable status is accepted S1 v4 design plus the reviewed repo-local
+execution axiom at exact remote main `bc3a9377b926`. I0 selected unburned
+`5.0.0-dev.288`; I1/I2 implementation is active. No S1 implementation
+candidate, artifact, run plan, development-gate result, Product tag, root
+result, scenario result, or release truth exists yet.
