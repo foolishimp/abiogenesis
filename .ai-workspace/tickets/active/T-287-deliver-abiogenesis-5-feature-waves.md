@@ -34,6 +34,9 @@
 - implementation_selection_basis_tree: 12f8067ca616c139cf17829bb0e91a5aeadf09db
 - next_implementation_version_floor: 5.0.0-dev.288
 - next_implementation_version_status: selected_unburned_after_remote_census_2026-08-23
+- dependency_foundation_candidate: bb1219397283b35fd1154a035acf6e7c2eb83179
+- dependency_foundation_tree: 418baba396dfd2e991cc2bfc1dfc52f0b2109939
+- dependency_foundation_lock_sha256: 408e19fd723ecd5bc8bfe1a9832fc98e4872fa98aef324eed4eb66853f40d890
 - deferred_feature: A5-F12
 
 ## Outcome
@@ -137,7 +140,7 @@ ancestors of this replacement and may not be cherry-picked wholesale.
 | `S1-D2` | Independent design review. | No unresolved authority drift, circular identity, unconstructable result field, hidden effect, ambient dependency, evidence overclaim, delivery ambiguity, or stale current status. | Complete; three independent Max frames accepted |
 | `S1-D3` | Docs verdict and delivery. | Candidate `C` remains the reviewed commit; accepted docs atomically fast-forward main to `C` and create distinct accepted archive commit `R_a`, while rejected docs create only `R_a`. Archive metadata and full-`C` ref suffix bind `C`. No Product tag or version effect. | Complete; `C=701f6c018257`, `R_a=9fddfc815253` |
 | `S1-I0` | Re-census remote version/ref namespace and allocate one implementation subject from accepted docs. | Exact remote main/ref/tag basis and least lawful development version are frozen. `dev.288` is only a floor until this census. | Complete 2026-08-23; remote main `bc3a9377b926`, `dev.288` available and selected but unburned |
-| `S1-I1` | Replace shell archive reads and construct the sole packed carrier relation. | One in-process type-aware packed snapshot; exact ABI-one/non-ABI-zero carrier law; unchanged Public verification; narrow carrier subpath only. | Selected; parallel packed/verifier lane |
+| `S1-I1` | Replace shell archive reads and construct the sole packed carrier relation. | One in-process type-aware packed snapshot; exact ABI-one/non-ABI-zero carrier law; unchanged Public verification; narrow carrier subpath only. | Active from exact dependency foundation `bb1219397283`; packed/verifier lane |
 | `S1-I2` | Construct raw installed-tree observation and lexical selection. | Fresh offline extraction is proof-host preparation; descriptor-based complete walk and S1-specific comparison converge with packed verification; no Product install or runtime. | Selected; parallel installed/carrier lane with fixed private handshake to I1 |
 | `S1-I3` | Freeze independent proof inputs, run plan, pure falsifier report, and confined Cut A/B observations. | Exact immutable identity DAG, OCI receipt, pre/post snapshots, static/load closure, output inventory, closed result, and no evidence beyond the reached phase. | Pending accepted I1+I2 integration and required capsule gates |
 | `S1-I4` | Independent implementation reproduction and verdict. | Exact case law reproduces. Accepted delivery atomically advances main to `C`, annotated `T_ref` to tag object `T(C)`, and archive to distinct `R_a`; rejected delivery archives only, and burns the version only after verified remote containment. | Unselected until I3 |
@@ -189,8 +192,47 @@ lanes, or authority to cross S1's stop.
 | `C-S1-TAR-GZIP-001` | T01 gzip/tar grammar | T01 names compression, type, path, metadata, and bound mutations; no executable corpus exists | parser foundation is not implemented | `realization_refactor` when the parser adapter freezes | Cut A packed snapshot | alternate/malformed gzip, dangling/ambiguous metadata, or a bound breach is admitted | Product proof owner plus independent assessor / deferred |
 | `C-S1-CUTA-PACKED-001` | Cut A/B carrier convergence | `SuccessfulCutACoordinates` carries `packedSnapshotCoordinate`, while the accepted convergence relation compares the verification/root-receipt pair | the accepted design remains constructable and no S1 proof has run; the relation must close before the first E00 discriminator | `realization_refactor` at the I1/I2 carrier handshake | Cut A handoff, target import, and E00 | Cut B or E00 succeeds when a valid Cut-A verification/receipt pair is crossed with a different packed snapshot coordinate | Product proof owner plus independent assessor / activated-required-before-E00 |
 | `D-S1-PERM-001` | proof permission argv | OCI and Node-permission policy is selected; exact platform argv is not frozen | no ProofRunPlan or confinement claim exists | `realization_refactor` at exact tool-closure/driver freeze; `design_reframe` if policy changes | ProofRunPlan and confinement receipt | extra loader, mount, env, permission, process, network, or writable path survives argv admission | proof owner plus independent assessor / deferred |
-| `D-S1-FS19-TAR-001` | FS-19 dependency/advisory | exact `tar@7.5.22` is selected; lock, bundled closure, provenance, and advisory disposition do not yet exist | docs add no dependency | `realization_refactor` when the dependency/lock subject freezes; `design_reframe` if selection changes | dependency admission before parser consumption | wrong/unbundled closure, unresolved provenance, or undisposed applicable advisory is accepted | Product dependency owner plus independent assessor / deferred |
+| `D-S1-FS19-TAR-001` | FS-19 dependency/advisory | exact subject `bb1219397283` freezes the six-node bundled `tar@7.5.22` lock closure; subject-bound audit/advisory evidence is recorded below | no unresolved applicable advisory remains for the exact lock; any lock or advisory change reactivates the capsule | `realization_refactor` on lock/advisory change; `design_reframe` if the selected foundation changes | dependency admission before parser consumption | wrong/unbundled closure, unresolved provenance, or undisposed applicable advisory is accepted | Product dependency owner plus independent assessor / closed-for-parser-consumption 2026-08-23 |
 | `C-R1-GOVERNOR-001` | later R1 admission | P06 is static shape evidence; governor modules are excluded from S1 | S1 evaluates zero root obligations and cannot reach R1 | later `design_reframe` when exact `pre_rc_candidate` admission is selected | R1 before any R1-R10 evaluation | S1 evidence is admitted as R1, or pre-RC subject/evidence admission remains unspecified | root/governor owner plus independent assessor / deferred-later |
+
+### D-S1-FS19-TAR-001 Closure Evidence
+
+The dependency foundation is exact commit
+`bb1219397283b35fd1154a035acf6e7c2eb83179`, tree
+`418baba396dfd2e991cc2bfc1dfc52f0b2109939`, parent accepted implementation
+basis `ea970995c1bc820e529ffb89e0e231193dcbfa3b`. Its only changed paths are
+`package.json` and `package-lock.json`; the SHA-256 of the exact
+`git diff --binary --full-index ea970995..bb121939` byte serialization is
+`8129e81e0df4eba141c899ce946e54f390e198b52f6ace583388d18e951b07cb`.
+
+The exact lock SHA-256 is
+`408e19fd723ecd5bc8bfe1a9832fc98e4872fa98aef324eed4eb66853f40d890`.
+It resolves and bundles exactly `tar@7.5.22`,
+`@isaacs/fs-minipass@4.0.1`, `chownr@3.0.0`, `minipass@7.1.3`,
+`minizlib@3.1.0`, and `yallist@5.0.0`; every row has a registry URL, SRI,
+license, engine constraint, and `inBundle: true`. The selected tarball has SRI
+`sha512-MFO/QzvtAOmJbkhOaCTvbGcFN9L9b+JunIsDwaKljSOdcLMea3NJ1k9Usz/rjdfSXTq4dfzfeS7W4p4YOAAHeA==`
+and SHA-1 `a696f998136e71487dc3f869a85bba2c67971ba9`.
+
+From that exact clean detached subject at `2026-08-23T11:44:25Z`, under Node
+`v24.7.0`, npm `11.5.1`, and registry `https://registry.npmjs.org/`, `npm ci
+--ignore-scripts` and exact production `npm ls` succeeded; repeated lock
+generation was byte-identical. Raw `npm audit --omit=dev --json` and full
+`npm audit --json` outputs both have SHA-256
+`cd50748f6f59db77d7523db926186840a9f25b5fc051ec7531c5b74af1bf3f65`
+and report zero vulnerabilities at every severity. The exact production
+closure `npm ls` JSON has SHA-256
+`4d92346c0f48c64c70580584910c7c636b6ee2bc200a37b132dc2210e45bb9ef`;
+the explicit six-package `npm ls ... --all --omit=dev` output has SHA-256
+`2a479bc1a3b24add3ad6d5a9c3aa10bbb030071883e72d9dbf97ba297ac01d98`.
+The exact registry metadata output has SHA-256
+`e398a27040345962b81b9432a084a998539d38e5ed96a9bb5a5110f010f6503f`.
+The current GitHub-reviewed `tar` advisory `GHSA-r292-9mhp-454m` affects
+versions through `7.5.20` and is patched in `7.5.21`; selected `7.5.22` is
+outside that range. This closes dependency consumption only. It grants no
+parser, Product candidate, S1 proof, version burn, or delivery acceptance, and
+reactivates before proof freeze if the lock, registry integrity, closure, or
+applicable advisory census changes.
 
 ## Delivery Evidence Already Fixed
 
@@ -208,8 +250,9 @@ version 5.0.0-dev.287
 ```
 
 That immutable legacy ref predates the new full-OID archive grammar and is not
-renamed. `5.0.0-dev.288` is the next numeric floor, not a present allocation;
-availability requires a fresh namespace census at implementation delivery.
+renamed. The 2026-08-23 I0 census selected `5.0.0-dev.288` as the exact
+unburned implementation version. Any remote namespace change affecting that
+allocation before delivery reopens I0.
 
 ## Feature-Wave Backlog And Status
 
@@ -222,7 +265,8 @@ availability requires a fresh namespace census at implementation delivery.
 | W5 | `A5-F15`, `A5-F16` | Pending W4 |
 
 Current durable status is accepted S1 v4 design plus the reviewed repo-local
-execution axiom at exact remote main `bc3a9377b926`. I0 selected unburned
+execution axiom and implementation activation at exact remote main
+`ea970995c1bc`. I0 selected unburned
 `5.0.0-dev.288`; I1/I2 implementation is active. No S1 implementation
 candidate, artifact, run plan, development-gate result, Product tag, root
 result, scenario result, or release truth exists yet.
