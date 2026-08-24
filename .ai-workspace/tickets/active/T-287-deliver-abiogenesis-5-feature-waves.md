@@ -46,6 +46,12 @@
 - carrier_amendment_authority_status: accepted_delivered_on_main_2026-08-23
 - cut_a_convergence_capsule_disposition: closed_for_adapter_implementation
 - deferred_feature: A5-F12
+- proposed_goal_reprice: wave_2_odd_glc_typed_workspace_admission
+- proposed_change_class: goal_reprice
+- proposed_re_entry_point: specification/GOALS.md#proposed-wave-2-goal-reprice
+- proposed_design_change_class: design_reframe
+- proposed_design_re_entry_point: build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md
+- proposed_design_status: proposed_unratified_unselected_non_executable
 
 ## Outcome
 
@@ -63,6 +69,81 @@ selection before runtime.
 
 Product and requirements define WHAT. The accepted TypeScript design defines
 HOW. This ticket owns selection, order, gates, status, and nonclosure only.
+
+## Proposed Wave 2 Retarget
+
+Executive direction reprices the next bounded Wave 2 design around ABI's
+generic URI-binding admission engine as consumed by an independent odd_glc
+Product. The proposal does not replace the accepted S1 selection until an exact
+independent goal-reprice/roadmap verdict and status child admit design work.
+That verdict does not ratify the open R2/R3 design or select implementation.
+
+The target relation is:
+
+```text
+GTL type algebra
+  -> types instantiated at one independent downstream Product boundary
+  -> named or hierarchical downstream frame/overlay composition
+  -> ABI URI-binding admission over an unknown URI set
+  -> replay-visible typed URI bindings
+  -> those typed bindings carried through one graph-declared lifecycle
+```
+
+ABI owns generic handle/owner resolution, binding admission, direct HoG
+traversal, ABG runtime truth, and replay. ABIogenesis Product's embedded
+GTL.TypeScript language authority owns type law. The bounded ABI acceptance
+fixture owns neutral type instances for the same contract class; it may not
+instantiate or copy odd_glc types. Only the downstream E1 proof uses `A/B/C`
+instantiated at odd_glc, whose Product owns frame composition, lifecycle
+relations, and interpretation. A specialization owns domain schemas,
+instructions, policies, evaluators, and rubrics. No new ABI `ReferenceFrame`,
+data-mapper branch, type registry, controller, or imperative stage runner is
+permitted.
+
+The proposal's exact 56-definition force rank is `18` direct-required, `8`
+transitive-required, `15` negative-only, and `15` out-of-scope. None of the
+exact 17 dev.286 absent locators is direct or transitive for the selected
+thread. The family remains fixed constitutional structure, not an
+implementation quota.
+
+The two first confirmed ABI design gaps are:
+
+1. non-circular authority for pre-binding create/open/verify/resolve/install/
+   bind and the subsequent Catalog/application/conformance calls; and
+2. generic declaration/schema-driven construction of the exact authority
+   inputs for `catalog.apply#node_type` and `catalog.apply#overlay` when the
+   downstream Product contains no executable semantics provider.
+
+GraphFunction resolution, URI-shaped Catalog handles, `DeclarationApplication`,
+typed C handoff, and ABG replay already exist. They remain unproved at the full
+multi-owner odd_glc scale; their existence must not be mislabeled as closure,
+and the missing full-scale proof must not be mislabeled as an absent subsystem.
+
+The proposed ordered design work is:
+
+| Order | Gate | Exit | State |
+|---:|---|---|---|
+| `W2-R0` | Product/use-case conservation | Exact ABI authority and external odd_glc discriminator; no ABI release dependency or frame entity | Proposed complete; review pending |
+| `W2-R1` | 18/56 force rank | Every row classified with installed status, owner, selected edge/negative, and disposition | Proposed complete; review pending |
+| `W2-R2` | Typed workspace admission design | Exact pre-binding authority, URI-binding admission, Catalog/View, node-type/overlay application, Program conformance, and owner closure | Proposed; confirmed gaps open |
+| `W2-R3` | Functional traversal design | One-start graph topology and exact carried-binding/effect/evidence/continuation/result/replay network with imperative falsifiers | Proposed; unselected |
+| `W2-R4` | Implementation selection | Independent review accepts one exact minimal generic module/test map | Unselected |
+| `W2-P0` | S1 evidence-DAG prerequisite | Exact large candidate can be enclosed and reproduced without multiplied inline bytes or hidden authority | Separate proposed design; no runtime claim |
+| `W2-I0` | Admission-foundation realization | Accepted pre-binding authority and generic declaration-application gaps work source-blind and stop before start; no URI-typing traversal claim | Unselected |
+| `W2-I1` | URI-binding and traversal realization | Bounded independent flavored fixture applies its own neutral GTL-defined type instances and reaches terminal result plus fresh replay through one start | Unselected |
+| `W2-E0` | ABI candidate proof | Affected scenarios and negatives close on one exact candidate | Unselected |
+| `W2-E1` | Real odd_glc proof | Full downstream data-mapper thread closes without ABI/odd_glc imperative lifecycle code | Downstream evidence only |
+
+The real odd_glc/data-mapper subject force-ranks and later falsifies the generic
+contract class. It is not an ABIogenesis source, build, qualification, or
+release dependency. ABI's owning `A5-F17`/`ABG5-S06` gate remains a bounded
+independent flavored fixture.
+
+Until the proposal is independently accepted, the existing S1 metadata and
+selection below remain historical-current authority. No proposal wording may
+be cited to implement R2/R3, allocate a version, run E00, or claim progress.
+Roadmap acceptance selects only decision-complete R2/R3 design work; those
+relations remain unratified and implementation remains unselected.
 
 ## Current Product Frame
 

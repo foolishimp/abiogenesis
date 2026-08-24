@@ -22,6 +22,39 @@ carrier amendment is authored from exact dependency-closure delivery and
 amendment-construction basis `ece6597ed8846323ccab3d9a5736ecfa03f74bb3`, tree
 `31c9557db076ce5348184f10c9e4c8fb4d9ec92d`.
 
+## Proposed Wave 2 Goal And Design Reprice
+
+[T-287 Wave 2 odd_glc Typed-Workspace Admission And Functional Traversal
+Design](./T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md) is proposed,
+unratified, unselected, and non-executable.
+
+Executive direction asks Wave 2 to force-rank the installed Public family
+against the generic odd_glc contract class rather than pursue 56/56 callable
+closure. The proposal selects no code. It first designs:
+
+- the existing URI-binding admission engine over Product-instantiated,
+  GTL-defined types, with neutral fixture types in ABI acceptance and `A/B/C`
+  instantiated only at the downstream odd_glc Product boundary;
+- typed workspace admission through Catalog/View, `node_type` and `overlay`
+  application, Program conformance, and exact GraphFunction/owner closure;
+- a non-circular pre-binding admission-authority network;
+- named and hierarchical odd_glc overlays as the higher-order reference-frame
+  composition, with no ABI `ReferenceFrame` entity;
+- one-start direct HoG traversal with ABG-owned evidence, continuation,
+  terminal result, and replay; and
+- an exact use-case force rank of `18` direct, `8` transitive, `15` negative-
+  only, and `15` out-of-scope definitions.
+
+The proposed first implementation-bearing successor, if a later decision-
+complete R2/R3 design is accepted, ends before `run.invoke#start`: it must close
+pre-binding authority and generic zero-executable declaration-application
+authority construction. This roadmap may select design work only. No
+implementation is selected by this index entry.
+
+The S1 evidence-DAG reframe remains a separate proof-HOW prerequisite. It does
+not define typed workspace admission or functional traversal and cannot claim
+Wave 2 Product progress merely by accepting or implementing its representation.
+
 ## Governing Truth
 
 Read in this order:
@@ -110,4 +143,7 @@ are not carried forward by default.
 - This README routes design authority and supersession.
 - The dedicated S1 design owns accepted v4 HOW; its amendment clauses own HOW
   only after exact independent acceptance and delivery.
+- The proposed typed-workspace design owns only the unratified Wave 2 force
+  rank and target design. Until a separate accepted status child exists, it
+  does not supersede the accepted S1 design or select implementation.
 - Git retains all other historical and donor evidence without making it current.

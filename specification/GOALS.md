@@ -18,6 +18,55 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 |---|---|---|---|
 | `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival Program, executor, controller, event authority, or release subject. | Active. Wave 1 is accepted. Wave 2 / `A5-F01` is current. The `ST-S01-ROOT/S1` v4 design and its bounded two-coordinate Cut-B carrier amendment are accepted. File-disjoint packed-carrier and installed-observer precursor increments remain selected. |
 
+## Proposed Wave 2 Goal Reprice
+
+**Status**: Proposed; unratified; unselected; non-executable.
+
+Executive direction reprices the bounded Wave 2 focus around the generic
+typed-workspace relation required by an independent odd_glc Product:
+
+> Prove that one independent downstream Product can instantiate GTL-defined
+> types, apply a named or hierarchical overlay composition, and drive ABI's
+> URI-binding admission layer from a finite set of untyped or unadmitted URIs
+> to exact replay-visible typed URI bindings, then carry those bindings through
+> one fully graph-declared lifecycle traversal and fresh replay without an
+> imperative lifecycle controller or a new ABI reference-frame entity.
+
+ABIogenesis Product's embedded GTL.TypeScript language authority owns the type
+algebra. Each downstream Product instantiates its own types. In the real
+downstream proof, lifecycle types `A`, `B`, and `C` are instantiated at the
+odd_glc Product boundary, which owns the frame/overlay composition and
+interpretation. ABI does not instantiate them; it owns generic URI/owner
+binding admission, direct HoG traversal, ABG runtime truth, and replay. A
+specialization owns its domain schemas, instructions, and rubrics. No layer may
+absorb another's meaning.
+
+The proposed reprice uses the real odd_glc full data-mapper thread only as a
+force-ranking discriminator and downstream falsifier. ABIogenesis release
+acceptance remains the bounded independent flavored Product required by
+`A5-F17` and `ABG5-S06`; the odd_glc release is not an ABIogenesis 5.0 build,
+qualification, or release dependency.
+
+The proposal force-ranks every definition as direct-required, transitive-
+required, negative-only, or out-of-scope. The fixed 18-operation/56-definition
+family remains structural truth; its count does not select implementation
+work. GraphFunction resolution is audited as existing, unproved, absent, or
+underdesigned rather than presumed missing from one incomplete full-lifecycle
+proof.
+
+The proposed exact matrix is `18` direct-required, `8` transitive-required,
+`15` negative-only, and `15` out-of-scope. None of dev.286's exact 17 absent
+installed locators is direct or transitive for this thread. That disposition is
+subject to exact independent review; it is not callable-family closure.
+
+The proposed design roadmap is
+`build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md`.
+Independent review may admit only this goal reprice, the R0/R1 force rank, and
+the R2-R4 roadmap before a status child replaces the current S1-only work
+selection with design work. R2 and R3 must then become decision-complete and
+pass a separate independent design review before any implementation is
+selected.
+
 ## Fixed Basis
 
 - Intent, Product, and requirements are accepted and unchanged.
@@ -39,7 +88,7 @@ operations, files, tests, reviews, or commits do not change that scope.
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
 | `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one admitted Program, direct HoG traversal, fresh-process replay, and fail-closed probabilistic result admission. | Accepted functional substrate; integrated M5 qualification remains later work |
-| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, plus the bounded early `A5-F17` consumer path | One source-independent installed Product path closes exact Product, Public, SDK, CLI, and remaining Wave 2 truth without a rival authority. | Active; `ST-S01-ROOT/S1` implementation is selected from accepted v4 design and its accepted bounded internal carrier amendment; S2-S4 and the Wave 2 exit remain unselected |
+| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, plus the bounded early `A5-F17` consumer path | One source-independent installed Product path closes exact Product, Public, SDK, CLI, typed URI-binding admission, and remaining Wave 2 truth without a rival authority. | Active accepted basis remains `ST-S01-ROOT/S1`; an Executive-directed typed-workspace goal/design reprice is proposed and blocks broader implementation selection until independently accepted; S2-S4 and the Wave 2 exit remain unselected |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
@@ -51,10 +100,17 @@ root/scenario evidence, Wave 2 closure, or release evidence.
 
 ## Current Selection
 
-The accepted design re-entry is complete. Current implementation uses
-`realization_refactor`. Product, requirements, the Wave 2 exit, and the
-`A5-F01` outcome stay fixed. `ST-S01-ROOT/S1` remains the only selected
-increment.
+The last accepted design re-entry selected `ST-S01-ROOT/S1`; it remains the
+only accepted increment until the proposed goal/design reprice is independently
+accepted. Product, requirements, the Wave 2 exit, and the `A5-F01` outcome stay
+fixed. No broader implementation is selected.
+
+S1 implementation is separately stopped at its proof-enclosure representation:
+real candidate size demonstrated that the accepted flat, repeated inline-byte
+evidence shape cannot be constructed within the selected Node and OCI limits.
+The proposed bounded evidence-DAG reframe is a proof-HOW prerequisite only. It
+cannot close typed workspace admission, URI binding, traversal, or the Wave 2
+outcome.
 
 The bounded four-document amendment was independently accepted and delivered
 at `9bb230efaa5a1db06c7932a1204a5d477ead5e0f`. It authorizes only the exact
