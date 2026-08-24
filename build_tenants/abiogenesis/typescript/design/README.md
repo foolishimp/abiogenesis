@@ -22,15 +22,16 @@ carrier amendment is authored from exact dependency-closure delivery and
 amendment-construction basis `ece6597ed8846323ccab3d9a5736ecfa03f74bb3`, tree
 `31c9557db076ce5348184f10c9e4c8fb4d9ec92d`.
 
-## Proposed Wave 2 Goal And Design Reprice
+## Accepted Wave 2 Goal Reprice And Selected Design Work
 
 [T-287 Wave 2 odd_glc Typed-Workspace Admission And Functional Traversal
-Design](./T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md) is proposed,
-unratified, unselected, and non-executable.
+Design](./T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md) has an accepted
+R0/R1 force rank and roadmap. R2/R3 is selected for decision-complete design
+work. The file remains proposed, unratified, and non-executable as HOW.
 
-Executive direction asks Wave 2 to force-rank the installed Public family
+Accepted Executive direction requires Wave 2 to force-rank the installed Public family
 against the generic odd_glc contract class rather than pursue 56/56 callable
-closure. The proposal selects no code. It first designs:
+closure. No code is selected. R2/R3 must design:
 
 - the existing URI-binding admission engine over Product-instantiated,
   GTL-defined types, with neutral fixture types in ABI acceptance and `A/B/C`
@@ -45,7 +46,7 @@ closure. The proposal selects no code. It first designs:
 - an exact use-case force rank of `18` direct, `8` transitive, `15` negative-
   only, and `15` out-of-scope definitions.
 
-The proposed first implementation-bearing successor, if a later decision-
+The first implementation-bearing successor, if a later decision-
 complete R2/R3 design is accepted, ends before `run.invoke#start`: it must close
 pre-binding authority and generic zero-executable declaration-application
 authority construction. This roadmap may select design work only. No
@@ -92,7 +93,8 @@ The accepted scope authorizes only ordered S1 implementation and proof. The
 amendment grants the exact adapter handshake needed before E00. It changes no
 Product or requirement, Public/runtime surface, carrier method count, result
 disposition, or one-port boundary; it does not select S2 or any runtime/root/
-release claim.
+release claim. It is retained predecessor law; the current R2/R3 design-only
+selection authorizes neither the adapter nor E00.
 
 ## Retained Accepted Basis
 
@@ -143,7 +145,7 @@ are not carried forward by default.
 - This README routes design authority and supersession.
 - The dedicated S1 design owns accepted v4 HOW; its amendment clauses own HOW
   only after exact independent acceptance and delivery.
-- The proposed typed-workspace design owns only the unratified Wave 2 force
-  rank and target design. Until a separate accepted status child exists, it
-  does not supersede the accepted S1 design or select implementation.
+- The typed-workspace roadmap owns the accepted R0/R1 force rank and selected
+  R2/R3 design questions. It remains unratified as HOW, does not supersede the
+  accepted S1 design, and selects no implementation.
 - Git retains all other historical and donor evidence without making it current.

@@ -16,13 +16,14 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival Program, executor, controller, event authority, or release subject. | Active. Wave 1 is accepted. Wave 2 / `A5-F01` is current. The `ST-S01-ROOT/S1` v4 design and its bounded two-coordinate Cut-B carrier amendment are accepted. File-disjoint packed-carrier and installed-observer precursor increments remain selected. |
+| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival Program, executor, controller, event authority, or release subject. | Active. Wave 1 is accepted. Wave 2 / `A5-F01` is current. The typed-workspace goal reprice and R0/R1 force rank are accepted; R2/R3 decision-complete design work is selected. No implementation is selected. The accepted `ST-S01-ROOT/S1` design remains predecessor authority, with realization stopped on the separate P0 proof-HOW prerequisite. |
 
-## Proposed Wave 2 Goal Reprice
+## Current Wave 2 Goal Reprice
 
-**Status**: Proposed; unratified; unselected; non-executable.
+**Status**: Accepted goal reprice and R0/R1 force rank; R2/R3 design work
+selected; R4 and all implementation/execution unselected.
 
-Executive direction reprices the bounded Wave 2 focus around the generic
+Accepted Executive direction reprices the bounded Wave 2 focus around the generic
 typed-workspace relation required by an independent odd_glc Product:
 
 > Prove that one independent downstream Product can instantiate GTL-defined
@@ -41,31 +42,32 @@ binding admission, direct HoG traversal, ABG runtime truth, and replay. A
 specialization owns its domain schemas, instructions, and rubrics. No layer may
 absorb another's meaning.
 
-The proposed reprice uses the real odd_glc full data-mapper thread only as a
+The accepted reprice uses the real odd_glc full data-mapper thread only as a
 force-ranking discriminator and downstream falsifier. ABIogenesis release
 acceptance remains the bounded independent flavored Product required by
 `A5-F17` and `ABG5-S06`; the odd_glc release is not an ABIogenesis 5.0 build,
 qualification, or release dependency.
 
-The proposal force-ranks every definition as direct-required, transitive-
+R1 force-ranks every definition as direct-required, transitive-
 required, negative-only, or out-of-scope. The fixed 18-operation/56-definition
 family remains structural truth; its count does not select implementation
 work. GraphFunction resolution is audited as existing, unproved, absent, or
 underdesigned rather than presumed missing from one incomplete full-lifecycle
 proof.
 
-The proposed exact matrix is `18` direct-required, `8` transitive-required,
+The accepted exact matrix is `18` direct-required, `8` transitive-required,
 `15` negative-only, and `15` out-of-scope. None of dev.286's exact 17 absent
 installed locators is direct or transitive for this thread. That disposition is
-subject to exact independent review; it is not callable-family closure.
+not callable-family closure.
 
-The proposed design roadmap is
+The selected but unratified design roadmap is
 `build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md`.
-Independent review may admit only this goal reprice, the R0/R1 force rank, and
-the R2-R4 roadmap before a status child replaces the current S1-only work
-selection with design work. R2 and R3 must then become decision-complete and
-pass a separate independent design review before any implementation is
-selected.
+Exact proposal `3ab1ee6892bb22fc60206d38edbe8b970cca1d00`, tree
+`9ae5438410d1528614cb887cff5caebb699b708d`, received independent
+`A0/B0/C0/D0` roadmap review and owning Executive/F_H acceptance. That verdict
+admits only this goal reprice, R0/R1, and R2-R4 routing. R2 and R3 must now
+become decision-complete and pass a separate independent design review before
+any implementation is selected.
 
 ## Fixed Basis
 
@@ -88,7 +90,7 @@ operations, files, tests, reviews, or commits do not change that scope.
 | Wave | Feature families | Product-level exit | State |
 |---:|---|---|---|
 | `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one admitted Program, direct HoG traversal, fresh-process replay, and fail-closed probabilistic result admission. | Accepted functional substrate; integrated M5 qualification remains later work |
-| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, plus the bounded early `A5-F17` consumer path | One source-independent installed Product path closes exact Product, Public, SDK, CLI, typed URI-binding admission, and remaining Wave 2 truth without a rival authority. | Active accepted basis remains `ST-S01-ROOT/S1`; an Executive-directed typed-workspace goal/design reprice is proposed and blocks broader implementation selection until independently accepted; S2-S4 and the Wave 2 exit remain unselected |
+| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, plus the bounded early `A5-F17` consumer path | One source-independent installed Product path closes exact Product, Public, SDK, CLI, typed URI-binding admission, and remaining Wave 2 truth without a rival authority. | Active; typed-workspace goal reprice and R0/R1 accepted; R2/R3 design work selected; R4, S2-S4, every new implementation, and the Wave 2 exit remain unselected; accepted S1 realization remains stopped on P0 |
 | `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path. | Pending Wave 2 |
 | `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and Public contracts. | Pending Wave 3 |
 | `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
@@ -100,12 +102,13 @@ root/scenario evidence, Wave 2 closure, or release evidence.
 
 ## Current Selection
 
-The last accepted design re-entry selected `ST-S01-ROOT/S1`; it remains the
-only accepted increment until the proposed goal/design reprice is independently
-accepted. Product, requirements, the Wave 2 exit, and the `A5-F01` outcome stay
-fixed. No broader implementation is selected.
+Current work is `W2-R2` and `W2-R3` decision-complete design only. Product,
+requirements, the Wave 2 exit, and the `A5-F01` outcome stay fixed. `W2-R4`,
+`W2-I0`, `W2-I1`, `W2-E0`, and `W2-E1` are unselected. No new implementation,
+candidate, version, E00, odd_glc proof, or release work is authorized.
 
-S1 implementation is separately stopped at its proof-enclosure representation:
+The accepted `ST-S01-ROOT/S1` design remains predecessor authority. Its
+implementation is separately stopped at its proof-enclosure representation:
 real candidate size demonstrated that the accepted flat, repeated inline-byte
 evidence shape cannot be constructed within the selected Node and OCI limits.
 The proposed bounded evidence-DAG reframe is a proof-HOW prerequisite only. It
@@ -115,9 +118,9 @@ outcome.
 The bounded four-document amendment was independently accepted and delivered
 at `9bb230efaa5a1db06c7932a1204a5d477ead5e0f`. It authorizes only the exact
 two-coordinate carrier handshake stated below. File-disjoint packed-parser/
-verifier and raw-observer/comparator precursor work remains lawful; the carrier
-adapter and E00 now depend on accepted implementation integration, not another
-design verdict.
+verifier and raw-observer/comparator precursor evidence remains lawful, but no
+carrier adapter, integration, or E00 work is active under the current design-
+only selection.
 
 The bounded carrier amendment retains the complete successful Cut-A evidence
 but projects only its verification and root-receipt coordinates into Cut B.
@@ -159,13 +162,14 @@ The accepted v4 HOW basis is
 at commit `701f6c018257d271465860ecb097b44381d614d0`. The bounded amendment is
 authored from dependency-closure delivery and amendment-construction basis
 `ece6597ed8846323ccab3d9a5736ecfa03f74bb3` and becomes HOW only after exact
-acceptance and delivery; implementation selection remains anchored at reviewed
-repo-local execution basis
-`bc3a9377b926f6d1f01c681571b6e2cb740e967c`.
+acceptance and delivery. Reviewed repo-local execution basis
+`bc3a9377b926f6d1f01c681571b6e2cb740e967c` is retained predecessor evidence;
+it is not a current implementation selection.
 
 ## Work Selection And Milestones
 
-- T-287 is the sole active execution authority under `GOAL-035`.
+- T-287 is the sole active work authority under `GOAL-035`; current work is
+  design-only and grants no execution authority.
 - A docs verdict changes no Product version or Product tag.
 - S1 acceptance does not select S2 or imply scenario, qualification, or release
   progress.
@@ -176,7 +180,7 @@ repo-local execution basis
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | Waves 1 through 4 place all pre-qualification feature families, negatives, scenarios, publication truth, and conservation evidence on one exact candidate. | Active; S1 packed-carrier and installed-observer precursors selected under the accepted bounded carrier amendment; no M5 closure |
+| `M5` | Waves 1 through 4 place all pre-qualification feature families, negatives, scenarios, publication truth, and conservation evidence on one exact candidate. | Active; R2/R3 design work selected; accepted S1 precursor evidence retained but realization stopped on P0; no M5 closure |
 | `M6` | Wave 5 `A5-F15` accepts selected-method binding, self-conformance, selected pre-RC scenarios, and complete 4.6 conservation on one pre-RC candidate. | Pending M5 |
 | `M7` | Wave 5 `A5-F16` accepts distinct immutable RC, installed-RC, final-tap, released Product, and post-publication install subjects as stable `5.0.0`. | Pending M6 |
 

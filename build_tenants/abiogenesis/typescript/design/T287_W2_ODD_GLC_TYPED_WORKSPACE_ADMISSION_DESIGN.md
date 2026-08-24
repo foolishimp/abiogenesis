@@ -1,6 +1,8 @@
 # T-287 Wave 2 odd_glc Typed-Workspace Admission And Functional Traversal Design
 
-**Status**: Proposed; unratified; unselected; non-executable
+**Roadmap status**: Accepted R0/R1 force rank and R2-R4 routing
+
+**HOW status**: R2/R3 selected for design; proposed; unratified; non-executable
 
 **Change class**: `goal_reprice` followed by bounded `design_reframe`
 
@@ -28,9 +30,11 @@ composition expressed through existing typed assets, named or hierarchical
 overlays, GraphFunctions, Programs, policies, and query projections. ABI sees
 only the existing generic carriers and relations.
 
-This proposal authorizes no implementation. Its first review may admit only the
-goal reprice, Product conservation, exact force ranking, and ordered design
-roadmap. The typed-workspace admission network, URI/owner binding, overlay
+This roadmap authorizes no implementation. Independent exact-object review of
+proposal `3ab1ee6892bb22fc60206d38edbe8b970cca1d00`, tree
+`9ae5438410d1528614cb887cff5caebb699b708d`, admitted only the goal reprice,
+Product conservation, exact force ranking, and ordered design roadmap with
+`A0/B0/C0/D0`. The typed-workspace admission network, URI/owner binding, overlay
 hierarchy, functional traversal, and proof design remain R2/R3 work and require
 a later decision-complete independent design verdict.
 
@@ -593,12 +597,12 @@ The design or realization refuses if any of these is true:
 
 ## Roadmap Acceptance And Later Design Delivery
 
-This initial document is eligible only for exact immutable freeze, independent
-Product-frame and A/B/C/D review, and owning Executive/F_H acceptance of the
-goal reprice, R0/R1 force rank, and R2-R4 roadmap. A clean roadmap verdict may
-authorize a status child that selects R2/R3 design work. This document remains
-proposed and unratified as HOW while its admission and traversal questions are
-open.
+Exact proposal `3ab1ee6892bb22fc60206d38edbe8b970cca1d00`, tree
+`9ae5438410d1528614cb887cff5caebb699b708d`, received independent
+Product-frame `A0/B0/C0/D0` review and owning Executive/F_H acceptance of the
+goal reprice, R0/R1 force rank, and R2-R4 roadmap. R2/R3 design work is now
+selected. This document remains proposed and unratified as HOW while its
+admission and traversal questions are open.
 
 R2/R3 becomes HOW only after the exact relations are decision-complete, frozen,
 and independently accepted in a later design child. Only that later verdict may
