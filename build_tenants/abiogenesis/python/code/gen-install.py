@@ -67,6 +67,8 @@ _BOOTLOADER_FILE = "gtl_spec/GTL_BOOTLOADER.md"
 
 _INSTALL_DOC_FILES = [
     "README.md",
+    "ABG_GTL_SCHEMATICS.md",
+    "GTL_HELLO_WORLD_EXAMPLES.md",
     "LLM_GTL_APP_BUILDER_GUIDE.md",
     "USER_GUIDE.md",
 ]
@@ -345,6 +347,7 @@ def _root_readme_text(project_name: str, slug: str, platform: str) -> str:
         "- `specification/requirements/`\n"
         f"- `build_tenants/{slug}/{platform}/`\n"
         "- `.genesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md`\n"
+        "- `.genesis/docs/GTL_HELLO_WORLD_EXAMPLES.md`\n"
     )
 
 

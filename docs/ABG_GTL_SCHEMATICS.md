@@ -1,365 +1,359 @@
-# ABG / GTL Schematics
+# ABIogenesis 5.0 GTL 3 / HoG / ABG Schematics
 
-**Position**: Companion to `LLM_GTL_APP_BUILDER_GUIDE.md`.
+**Status**: Current diagrams of the frozen GTL language and authority boundary
+**Projection basis**: Active ABIogenesis 5.0 Product and requirement law
+accepted by T-283 `F_H` closure
 
-The guide gives the ontology and operating contract in prose. This file gives
-the same substrate as schematics — the engine cross-section, its rotation
-cycle, and the wiring/publication surface that connects GTL declarations into
-the running engine.
+These diagrams are explanatory read models. The constitutional source remains
+`specification/`.
 
-For the current 4.1 line, read every requirements-route surface through that
-same split: GTL publishes requirement declarations and lifecycle-composition
-refs; ABG admits requirement events, binds evidence, projects folds and
-residuals, emits lifecycle disposition, and exposes read-only
-`abg.requirements` query facades for downstream consumers.
+## Reading Key
 
-Read the guide for the law. Read this file when you need to see where the
-plugs and connectors sit.
+| Shape | Owner class | Meaning |
+|---|---|---|
+| GTL declarations | Language definition | Program meaning before execution |
+| Validator | Static judgment | Type, raw-carrier, and whole-Program validity |
+| Product / Module / Catalog | Publication and readiness | Exact admitted availability and membership |
+| HoG | Execution | Direct traversal of admitted GTL |
+| Implementation owner | Leaf realization | Exact deterministic, probabilistic, or human seam |
+| ABG | Runtime truth | Admission, events, replay, lineage, continuation, correction, closure |
+| SDK / CLI / read model | Thin boundary or projection | Invocation and observation without controller authority |
 
----
-
-## Reading Order
-
-| Schematic | Analogy | What it shows |
-| --- | --- | --- |
-| §1 State diagram | Rotation cycle / stroke | The macro-states ABG passes through over one frame's lifecycle, including retry, repair, yield, and span foldback as named transitions |
-| §2 Flow chart | Cross-section of the motor | The per-vector data and control flow: declaration → dispatch → work → admission → closure → continuation, with the ledger plumbing made explicit |
-| §3 Class diagram | Wiring schematic | The GTL publication surface: which types attach to which, what `Module` publishes, where `Job` plugs into `GraphFunction` via `ContractRef` |
-
-These three views are intentionally redundant. The state diagram is **temporal**
-(what happens next). The flow chart is **structural** (what flows where). The
-class diagram is **typological** (what is declared and how it connects).
-
----
-
-## §1 ABG Engine — State Diagram
-
-The lifecycle of one `Frame`. The cycle is a loop, not a line: most edges
-re-enter through retry / repair / yield, and recursion threads back through
-span foldback into reentry.
-
-```mermaid
-stateDiagram-v2
-    [*] --> Idle: ABG initialised
-    Idle --> JobAdmitted: Job binds GraphFunction<br/>via ContractRef
-    JobAdmitted --> GraphCallOpened: emit graph_call_opened
-    GraphCallOpened --> FrameOpened: GraphFunction<br/>materialises Graph<br/>emit frame_opened
-    FrameOpened --> VectorPlanned: selection over<br/>candidate vectors<br/>emit vector_traversal_planned
-
-    VectorPlanned --> OperatorDispatched: ExecutionBasis +<br/>AdvancementTransition +<br/>RegimeBindingSet
-    OperatorDispatched --> EvaluatorRan: postflight evaluators<br/>(F_D check; F_P attest;<br/>F_H optional)
-    EvaluatorRan --> EvidenceAdmitted: payload ledger +<br/>assurance projection<br/>emit vector_evaluated
-
-    EvidenceAdmitted --> ClosureDecided: closure-fold over<br/>admitted evidence
-
-    ClosureDecided --> VectorClosed: close
-    ClosureDecided --> VectorPlanned: retry<br/>(same vector, new attempt)
-    ClosureDecided --> Repairing: repair
-    ClosureDecided --> AwaitingHuman: yield (F_H)
-    ClosureDecided --> Blocked: block
-
-    Repairing --> VectorPlanned: corrected frontier
-    AwaitingHuman --> ClosureDecided: F_H decision admitted
-
-    VectorClosed --> ContinuationProjected: emit vector_closed
-    ContinuationProjected --> VectorPlanned: more vectors<br/>in this frame
-    ContinuationProjected --> FrameClosing: terminal vector<br/>of frame
-
-    FrameClosing --> SpanFoldback: GraphSpanAssessment +<br/>FoldbackEvaluation
-    SpanFoldback --> ReentryFrontier: GraphReentryFrontierProjection
-    ReentryFrontier --> FrameOpened: GraphReentryPlan<br/>(constitutional reentry)
-    ReentryFrontier --> Closed: no reentry required
-
-    Closed --> [*]: closure law satisfied<br/>(F_P fulfillment +<br/>execution evidence +<br/>no residual pressure)
-    Blocked --> [*]: terminal block
-```
-
-### Notes on the state diagram
-
-- **Event emission points** are named on transitions, not on states. ABG's
-  `emit()` is the write boundary. Every named emission corresponds to an
-  append into the event stream.
-- **Retry** loops back to `VectorPlanned`, not to the start of the cycle. The
-  same vector is replanned with a fresh attempt identity; the prior attempt
-  remains in the event log as superseded truth.
-- **Repair** is distinct from retry. Retry is "same vector, try again";
-  repair is "corrected frontier, advance from a different state". Both
-  re-enter at `VectorPlanned`.
-- **Yield** is the F_H lane. The engine does not block on human input
-  synchronously; it emits the yield, awaits a decision, then resumes closure.
-- **Span foldback** runs only at `FrameClosing` — closure of the terminal
-  vector of the frame. Constitutional reentry routes back into a new frame
-  open, not into a fresh job.
-
----
-
-## §2 ABG Engine — Flow Chart
-
-The cross-section. Follow one vector's traversal from declared GTL through to
-admitted runtime fact. Boxes are operations; diamonds are decisions; cylinders
-are durable ledgers / projections.
+## 1. Complete Authority Spine
 
 ```mermaid
 flowchart TD
-    A[GTL Module published]
-    A --> B[Job created<br/>ContractRef → GraphFunction]
-    B --> C{ABG resolves<br/>GraphFunction}
-    C --> D[GraphCall opened<br/>materialise Graph]
-    D --> E[Frame opened<br/>invocation-local boundary]
-    E --> F[Selection over<br/>candidate GraphVectors]
-    F --> G[Operator dispatched<br/>per RegimeBindingSet]
+    Source["GTL.TypeScript source"]
+    TS["Native TypeScript checking"]
+    Raw["Raw admission after type erasure"]
+    Validator["Non-lowering GTL validator"]
+    Publication["Module publication"]
+    Catalog["Admitted and narrowed catalog"]
+    Ingress["Typed public Program start or GraphFunction call"]
+    Materialization["Product-owned GraphFunction graph materialization"]
+    HoG["HoG direct traversal of admitted GTL"]
+    Owner["Exact F_D | F_P | F_H implementation seam"]
+    ABG["ABG runtime admission and event truth"]
+    Replay["Replay-derived state"]
+    Outcome["result | continuation | hold | gap | block | closure"]
 
-    G --> H{Operator regime?}
-    H -->|F_D| I[Deterministic op runs<br/>shape / identity / digest]
-    H -->|F_P| J[Supervised worker call-out<br/>PTY / process facts]
-    H -->|F_H| K[Approval lane<br/>awaiting human]
-
-    I --> L[Work report]
-    J --> L
-    K --> L
-
-    L --> M[Postflight evaluators<br/>F_D admission +<br/>F_P attestation]
-    M --> N[(Payload ledger<br/>event-sourced)]
-    M --> O[(Assurance projection<br/>total assurance fold)]
-
-    N --> P[Closure-fold gate<br/>over admitted evidence]
-    O --> P
-
-    P --> Q{Disposition?}
-    Q -->|close| R[emit vector_closed]
-    Q -->|retry| F
-    Q -->|repair| F
-    Q -->|block| BL[Blocked]
-    Q -->|yield| K
-
-    R --> S{More vectors<br/>in frame?}
-    S -->|yes| F
-    S -->|no, terminal| T[Span foldback<br/>over source→terminal span]
-    T --> U[Reentry frontier projection]
-    U --> V{Reentry required?}
-    V -->|yes| E
-    V -->|no| W[Frame closes]
-    W --> X[(Projection<br/>read model)]
-    X --> Y[Proof surface<br/>closure facts]
-    Y --> Z[Closed]
+    Source --> TS
+    TS --> Raw
+    Raw --> Validator
+    Validator --> Publication
+    Publication --> Catalog
+    Catalog --> Ingress
+    Ingress --> Materialization
+    Materialization --> HoG
+    HoG --> Owner
+    Owner --> ABG
+    ABG --> Replay
+    Replay --> Outcome
+    Replay -. "admitted state and disposition" .-> HoG
 ```
 
-### Notes on the flow chart
+The dotted feedback is runtime state, not a second execution loop: HoG advances
+declared topology using the admitted Program and ABG replay-derived state. ABG
+admits what occurred and derives the lawful runtime disposition.
 
-- **Three regime branches** at operator dispatch (`F_D`, `F_P`, `F_H`)
-  converge into one `Work report`. Downstream postflight treats them
-  uniformly — the regime tag determines what attestation is admissible, not
-  what the closure-fold gate evaluates.
-- **Two ledger surfaces** (`Payload ledger`, `Assurance projection`) feed
-  the closure-fold gate. Payload ledger holds admitted carrier data;
-  assurance projection holds the total-assurance fold over carrier admission
-  plus evaluator attestation.
-- **Closure-fold gate** is the only place `Disposition` is decided. Retry /
-  repair / block / yield / close are typed outcomes; none of them are
-  inferred elsewhere.
-- **Reentry** is the recursion hook. After frame closes, span foldback
-  evaluates whether constitutional reentry is required (typed by
-  `change_class`). If yes, a new frame opens at the implicated source
-  vector. If no, projection updates and the proof surface determines closure
-  facts.
-
----
-
-## §3 GTL Domain Model — Class Diagram
-
-The publication shape. `Module` is the only publication boundary in GTL.
-Every other type either attaches to a topology anchor (`Graph`, `Node`,
-`GraphVector`) or governs the public callable carrier (`GraphFunction`).
+## 2. Publication And Program Structure
 
 ```mermaid
-classDiagram
-    direction TB
+flowchart TD
+    Module["Module"]
+    Program["GTL Program"]
+    Start["Declared Program start"]
+    Membership["Callable membership"]
+    Policy["Policy, results, closure, and proof obligations"]
+    GF["GraphFunction"]
+    Interface["Typed input/output interface"]
+    Template["Replayable GTL graph template"]
+    Graph["Materialized Graph"]
+    Loci["Nodes and internal GraphVectors"]
+    Relations["Graph and C relations"]
+    Contracts["Contracts and types"]
+    Bindings["Compatible implementation bindings"]
+    Catalog["Admitted catalog projection"]
 
-    class Module {
-        +moduleRef
-        +imports
-        +metadata
-        +policyHooks
-        publishes
-    }
-
-    class GraphFunction {
-        <<public callable>>
-        +name
-        +outerContract
-        +cumulativeEnvironment
-        +computeOrder
-        materialise()
-    }
-
-    class Graph {
-        <<topology anchor>>
-        +name
-    }
-
-    class Node {
-        <<typed locus>>
-        +nodeRef
-        +schema
-        +markovConditions
-        +assetSurface
-    }
-
-    class GraphVector {
-        <<traversal boundary>>
-        +source: Node[]
-        +target: Node
-        +transitionContract
-    }
-
-    class Context {
-        <<snapshot constraint>>
-        +scope
-        +bindings
-    }
-
-    class Operator {
-        <<effectful work>>
-        +regime: F_D|F_P|F_H
-        +binding
-    }
-
-    class Evaluator {
-        <<convergence + attestation>>
-        +regime: F_D|F_P|F_H
-        +binding
-    }
-
-    class Rule {
-        <<passive declaration>>
-        +kind
-        +config
-    }
-
-    class RefinementBoundary {
-        <<lawful refinement>>
-        +outerContract
-    }
-
-    class CandidateFamily {
-        <<lawful alternatives>>
-        +outerContract
-        +candidates
-    }
-
-    class Job {
-        <<durable work contract>>
-        +jobRef
-        +contractRef
-    }
-
-    class ContractRef {
-        <<job-to-contract>>
-        +graphFunctionRef
-    }
-
-    class Role {
-        <<capability class>>
-        +roleRef
-    }
-
-    class PolicySurface {
-        <<declarative law>>
-        +dispatch
-        +evaluation
-        +escalation
-        +proof
-        +closure
-    }
-
-    Module *-- GraphFunction : publishes
-    Module *-- Job : publishes
-    Module *-- Role : publishes
-    Module *-- Operator : publishes
-    Module *-- Evaluator : publishes
-    Module *-- Rule : publishes
-    Module *-- RefinementBoundary : publishes
-    Module *-- CandidateFamily : publishes
-    Module *-- PolicySurface : publishes
-
-    GraphFunction *-- Graph : materialises
-    Graph *-- Node : contains
-    Graph *-- GraphVector : contains
-    Graph o-- Context : carries
-
-    GraphVector --> Node : source[]
-    GraphVector --> Node : target
-    GraphVector o-- Operator : binds
-    GraphVector o-- Evaluator : binds
-    GraphVector o-- Rule : binds
-
-    Job --> ContractRef : via
-    ContractRef --> GraphFunction : targets
-    Job o-- Role : assigned
-
-    RefinementBoundary --> GraphFunction : preserves
-    CandidateFamily --> GraphFunction : alternates over
-
-    Node ..> Operator : asset surface<br/>declaration
-    Node ..> Evaluator : surface checks
+    Module --> Program
+    Module --> GF
+    Module --> Contracts
+    Module --> Bindings
+    Program --> Start
+    Program --> Membership
+    Program --> Policy
+    Start --> GF
+    Membership --> GF
+    GF --> Interface
+    GF --> Template
+    Template --> Graph
+    Graph --> Loci
+    Graph --> Relations
+    Module --> Catalog
+    Program --> Catalog
+    GF --> Catalog
+    Contracts --> Catalog
+    Bindings --> Catalog
 ```
 
-### Notes on the class diagram
+`Program`, `GraphFunction`, and `Graph` are distinct:
 
-- **`Module` is the only publication boundary**. Everything reachable from
-  outside the module must be published through it. Hidden service methods,
-  imperative executive loops, or product-local registries are not lawful
-  publication surfaces.
-- **`GraphFunction` is the public callable carrier**. `Job` references a
-  graph function via `ContractRef`. Jobs do not target bare `GraphVector`
-  instances. The `GraphVector` is realised structure, not an external entry
-  point.
-- **`Operator` and `Evaluator` both carry a regime** (`F_D | F_P | F_H`).
-  Operators do effectful work; evaluators attest. The regime determines
-  what kind of work and what kind of attestation, not where the type lives.
-- **`Context` is a snapshot constraint** carried by graph structure. It is
-  not a runtime fact ABG emits; it is declarative input to traversal.
-- **`PolicySurface`** is the declarative law for dispatch, evaluation,
-  escalation, proof, and closure. It belongs in the module publication, not
-  in transport prose or `runtime_config`.
+- the Program owns composition, starts, membership, policy, result, and proof
+  law;
+- GraphFunction is the sole named callable contract; and
+- its template materializes graph structure for HoG traversal.
 
----
+## 3. Program, Library, And Workspace
 
-## What These Diagrams Deliberately Omit
+```mermaid
+flowchart LR
+    Library["GraphFunction library contracts"]
+    Program["Admitted Program composition"]
+    Workspace["Mutable workspace instance material"]
+    Invocation["Exact invocation binding"]
 
-These three schematics cover the engine's main rotation cycle and GTL's
-publication shape. They omit several typed runtime surfaces that warrant their
-own diagrams when needed:
+    Library -->|"declared membership and relations"| Program
+    Program -->|"topology, starts, policy"| Invocation
+    Workspace -->|"files, data, config, observations"| Invocation
+```
 
-| Omitted surface | What it is | When to draw it |
-| --- | --- | --- |
-| Asset surface lifecycle | `OutputInstanceAllocation`, `WorkspaceAssetBinding`, cross-workspace allocation, allowed write roots | When introducing the cross-workspace output story or the T-082 / T-104 allocation contracts |
-| Zoom foldback | Per-edge `ZoomFrame`, `ScheduledSliceAssessment`, `ZoomFoldbackEvaluation`, obligation schedule | When explaining how a single edge admits many scheduled slices and folds them back |
-| Construction priority lens | `ConstructionObservationSnapshot`, `ConstructionActionCatalogProjection`, `ObservationToActionBindingProjection`, `ConstructionPriorityProjection` | When explaining how the F_P construction evaluator ranks typed asset gaps |
-| Plugin observer hookpoints | `dispatch`, `traversal_modulation`, `plugin_traversal_observer`, `gtl.target_carrier_contract`, `evaluation`, `escalation`, `proof`, `closure`, `assurance`, `payload ledger`, `role hooks`, `candidate-family hints` | When the consumer needs to know where to plug in policy or instrumentation |
-| Event calculus runtime law | T-120 declared event calculus surfaces | When explaining the typed temporal algebra that governs event admissibility |
-| Eval suite projection | `EvalSuiteSpec`, `EvalAggregateProjection` | When explaining how trial evidence aggregates into project-level eval truth |
+The workspace supplies material to an invocation. It does not become Program
+meaning, callable selection, traversal state, or closure truth.
 
-Each of these is a one-page schematic in the same style. Add them as
-sibling §-sections when the corresponding surface needs visual exposition.
+## 4. Validation Depths
 
----
+```mermaid
+flowchart TD
+    Native["1. Native TypeScript"]
+    NativeLaw["Local types, generics, interfaces, unions, constructors"]
+    Raw["2. Raw admission"]
+    RawLaw["Equivalent carrier law after type erasure"]
+    Whole["3. GTL validator"]
+    WholeLaw["Whole-Program identity, reference, membership, interface, algebra, completeness"]
+    Valid["typed valid"]
+    Invalid["typed invalid"]
+    Unresolved["typed unresolved semantics"]
 
-## How To Use These Schematics When Building
+    Native --> NativeLaw
+    NativeLaw --> Raw
+    Raw --> RawLaw
+    RawLaw --> Whole
+    Whole --> WholeLaw
+    WholeLaw --> Valid
+    WholeLaw --> Invalid
+    WholeLaw --> Unresolved
+```
 
-1. **Designing a new graph function**: start with §3 to confirm where your
-   declaration plugs in (you are publishing through `Module`, declaring a
-   `GraphFunction`, materialising a `Graph`, defining `GraphVector` bindings
-   to `Operator` / `Evaluator` / `Rule`).
-2. **Tracing a runtime issue**: start with §1 to identify which state the
-   engine is in (or got stuck in), then drop to §2 to see what should have
-   flowed through the corresponding transition.
-3. **Reviewing a closure decision**: §2's closure-fold gate is the only
-   lawful place a disposition is decided. If a product appears to close
-   from somewhere else (worker assertion, postflight pass alone,
-   target-carrier admission alone), that is a closure-law violation.
-4. **Adding a hookpoint**: if a hook plugs into a named transition in §1 or
-   a named decision in §2, it is a lawful policy surface. If it plugs into
-   a state, it is probably a hidden controller and warrants reprice.
-</content>
-</invoke>
+The validator may produce diagnostics, canonical serialization, and
+subordinate indexes. None is an executable Program, runtime plan, or event.
+
+## 5. Graph And Compute Algebra
+
+```mermaid
+flowchart TD
+    Program["GTL Program"]
+    GraphRelations["Graph relations"]
+    ComputeRelations["C relations"]
+
+    Program --> GraphRelations
+    Program --> ComputeRelations
+
+    GraphRelations --> Edge["edge"]
+    GraphRelations --> Compose["compose"]
+    GraphRelations --> Substitute["substitute"]
+    GraphRelations --> Recurse["recurse"]
+    GraphRelations --> FanOut["fan_out"]
+    GraphRelations --> FanIn["fan_in"]
+    GraphRelations --> Gate["gate"]
+    GraphRelations --> Promote["promote"]
+    GraphRelations --> Identity["identity"]
+    GraphRelations --> SameObject["same_object"]
+
+    ComputeRelations --> COf["C.of"]
+    ComputeRelations --> CId["C.id"]
+    ComputeRelations --> CCompose["C.compose"]
+    ComputeRelations --> CEdge["C.edge"]
+    ComputeRelations --> Workflow["workflow.C"]
+    ComputeRelations --> Batch["C.batch"]
+    ComputeRelations --> Retry["C.retry"]
+```
+
+The graph relations and seven C constructors are language declarations. HoG
+traverses them directly; no generated execution declaration sits between GTL
+and HoG.
+
+## 6. Compute Regimes
+
+```mermaid
+flowchart LR
+    Boundary["Declared executable boundary"]
+    FD["F_D: total mechanical work"]
+    FP["F_P: bounded semantic candidate work"]
+    FH["F_H: attributed human decision or response"]
+    Admission["Typed ABG admission"]
+    Truth["Admitted runtime truth"]
+
+    Boundary --> FD
+    Boundary --> FP
+    Boundary --> FH
+    FD --> Admission
+    FP --> Admission
+    FH --> Admission
+    Admission --> Truth
+```
+
+`F_P` and `F_H` output cannot certify deterministic closure. One regime may
+consume another regime's admitted evidence but cannot inherit its authority.
+
+## 7. Selected Composition And Stage Sets
+
+```mermaid
+flowchart TD
+    Selection["selected abg.fn_composition ref + digest"]
+    Transform["transform.C candidate/evidence proposal"]
+    TransformAdmission["ABG admission"]
+    Evaluate["evaluate.C evaluation-set proposal"]
+    EvaluationAdmission["ABG admission and assurance projection"]
+    Consequence["consequence.C projection proposal"]
+    Transition["ABG-admitted transition and continuation"]
+
+    Selection --> Transform
+    Transform --> TransformAdmission
+    TransformAdmission --> Evaluate
+    Evaluate --> EvaluationAdmission
+    EvaluationAdmission --> Consequence
+    Consequence --> Transition
+```
+
+This is notation over existing carriers. `C`, a stage set, and
+`TraversalUnit<A, B>` do not create new topology, public callables, plugins,
+controllers, or runtimes.
+
+## 8. One GraphFunction Call
+
+```mermaid
+sequenceDiagram
+    participant Caller
+    participant Public as SDK / CLI / Public
+    participant Catalog
+    participant Validator
+    participant Materializer as Product materialization
+    participant HoG
+    participant Owner as Exact leaf owner
+    participant ABG
+    participant Replay
+
+    Caller->>Public: typed Program start or GraphFunction call
+    Public->>Catalog: resolve exact Program, membership, contracts, binding
+    Catalog-->>Public: admitted narrowed view
+    Public->>Validator: validate admitted Program and declarations
+    Validator-->>Public: valid or typed refusal/pressure
+    Public->>ABG: admit exact invocation basis
+    Public->>Materializer: materialize member GraphFunction template
+    Materializer-->>HoG: validated admitted graph
+    HoG->>Owner: invoke declared leaf seam
+    Owner-->>ABG: result/evidence candidate
+    ABG->>ABG: admit or refuse facts and transition
+    ABG->>Replay: append admitted events
+    Replay-->>HoG: current admitted state/disposition
+    Replay-->>Public: typed outcome projection
+    Public-->>Caller: result, continuation, hold, gap, block, or closure
+```
+
+Public does not choose private topology. The implementation owner does not emit
+runtime truth. ABG does not execute the graph.
+
+## 9. Recursion And Foldback
+
+```mermaid
+flowchart TD
+    Parent["Parent GraphFunction locus"]
+    Relation["Declared recurse relation"]
+    Child["Child GraphFunction call and frame"]
+    ChildFacts["ABG-admitted child result and evidence"]
+    Foldback["Declared foldback rebind"]
+    ParentEval["Parent re-evaluation"]
+    Continue["continue | recurse | hold | block | close"]
+
+    Parent --> Relation
+    Relation --> Child
+    Child --> ChildFacts
+    ChildFacts --> Foldback
+    Foldback --> ParentEval
+    ParentEval --> Continue
+```
+
+Child closure is not parent closure. Recursion requires explicit termination,
+foldback, lineage, parent re-evaluation, and bounds.
+
+## 10. Hello World Composition And Overlay
+
+```mermaid
+flowchart LR
+    Base["Base Hello Program"]
+    Root["Root overlay row<br/>generic admission policy"]
+    Child["Child overlay row<br/>Hello types, roles, and function refs"]
+    Admission["Deterministic validation and admission"]
+    Program["One admitted Hello World Program"]
+    Composer["hello_world GraphFunction"]
+    Subject["subject GraphFunction"]
+    Greeting["greeting GraphFunction"]
+    HoG["HoG direct traversal"]
+    Leaf["Exact owner leaf implementation"]
+    ABG["ABG admission and replay"]
+    Result["typed Hello World result"]
+
+    Base --> Admission
+    Root --> Admission
+    Child --> Admission
+    Admission --> Program
+    Program --> Composer
+    Composer --> Subject
+    Subject --> Greeting
+    Program --> HoG
+    HoG --> Leaf
+    Leaf --> ABG
+    ABG --> Result
+```
+
+Root and child rows are declaration inputs to admission. They do not remain as
+a controller beside HoG. The detailed
+[Hello World examples](./GTL_HELLO_WORLD_EXAMPLES.md) distinguish the accepted
+odd_glc single-GraphFunction publication from this illustrative composition
+and overlay form.
+
+## 11. Forbidden Rival Surfaces
+
+```mermaid
+flowchart LR
+    Forbidden["Forbidden as authority"]
+    Compiler["semantic compiler / lowered executable Program"]
+    Controller["feature or Public controller"]
+    Workspace["workspace as Program"]
+    ABGExecutor["ABG as graph executor"]
+    PluginWriter["plugin or worker event writer"]
+    Rival["rival catalog, runtime, or closure ledger"]
+
+    Forbidden --> Compiler
+    Forbidden --> Controller
+    Forbidden --> Workspace
+    Forbidden --> ABGExecutor
+    Forbidden --> PluginWriter
+    Forbidden --> Rival
+```
+
+Any design that requires one of these surfaces has crossed the frozen language
+boundary and must fail closed or return for constitutional re-entry.
+
+## Source Map
+
+- [Product](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/PRODUCT.md)
+- [Intent](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/INTENT.md)
+- [GTL contract-law reload](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md)
+- [GTL language capability model](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md)
+- [Program traversal mapping](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md)
+- [HoG traversal and ABG admission](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/requirements/abg/REQ-R-ABG3-INTERPRET.md)
+- [Accepted odd_glc Hello World publication](https://github.com/foolishimp/odd_glc/blob/dae8589b2784be4c101af70d891f85367fc13ebd/build_tenants/odd_glc/typescript/product/build/publication.json)
+- [Hello World examples](./GTL_HELLO_WORLD_EXAMPLES.md)
+- [Human guide](./USER_GUIDE.md)
+- [LLM guide](./LLM_GTL_APP_BUILDER_GUIDE.md)

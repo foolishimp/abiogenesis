@@ -385,6 +385,8 @@ class TestSandboxInstall:
         claude_text = (workspace / "CLAUDE.md").read_text(encoding="utf-8")
 
         assert (docs_root / "README.md").is_file()
+        assert (docs_root / "ABG_GTL_SCHEMATICS.md").is_file()
+        assert (docs_root / "GTL_HELLO_WORLD_EXAMPLES.md").is_file()
         assert (docs_root / "LLM_GTL_APP_BUILDER_GUIDE.md").is_file()
         assert (docs_root / "USER_GUIDE.md").is_file()
         assert (docs_root / "GTL_BOOTLOADER.md").is_file()
@@ -404,6 +406,8 @@ class TestSandboxInstall:
         assert install_payload["agents_md"] in {"created", "updated", "appended"}
         assert install_payload["claude_md"] in {"created", "updated", "appended"}
         assert "LLM_GTL_APP_BUILDER_GUIDE.md" in install_payload["docs_files"]
+        assert "ABG_GTL_SCHEMATICS.md" in install_payload["docs_files"]
+        assert "GTL_HELLO_WORLD_EXAMPLES.md" in install_payload["docs_files"]
         assert "GTL_BOOTLOADER.md" in install_payload["docs_files"]
         assert install_payload["standards_file_count"] > 0
         run_archive.update_summary(

@@ -3759,7 +3759,7 @@ print(json.dumps({
     ) -> None:
         bootloader = BOOTLOADER_PATH.read_text(encoding="utf-8")
         broken_bootloader = bootloader.replace(
-            "| `GraphFunction` | `gtl.function_model` | Reusable workflow template or program |\n",
+            "| `GraphFunction` | `gtl.function_model` | Named callable work contract with a replayable graph template |\n",
             "",
         )
         broken_path = tmp_path / "GTL_BOOTLOADER.md"
