@@ -13,6 +13,31 @@
 
 ## Worker And Reviewer Separation
 
+### Map-First Reference Frames
+
+- Resolve the exact STDO basis and companion Product composition from
+  `stdo_abiogenesis.json`, then the selected
+  `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`. Use the corresponding exact
+  installs under `.genesis/development-products/` and their released tools.
+  A source-linked `a_c` map may route attention only when its represented STDO
+  cut and every selected source byte verify fresh under those tools.
+- Treat the map as a source-linked read model. Re-enter exact `stdo://` or
+  `repo://abiogenesis/` sources when a relation is missing, stale, conflicting,
+  or material to the decision. The map never outranks those sources.
+- Every Executive assignment shows the selected frame URI, purpose, exact
+  subject, source routes, permitted effects, evidence, stops, and return
+  relation.
+- Split materially distinct frames across separate Workers or Reviewers. Do not
+  place the complete project into one shared prompt. The Executive alone
+  conjoins closed results and preserves conflicts and residuals.
+- A Worker returns to the Executive and never activates a Reviewer. A Reviewer
+  independently reacquires the exact subject, does not repair it, and returns
+  to the Executive.
+- Preserve the ABI causal invariant: immutable Product/Program/GraphFunction/
+  overlay/Catalog/lock/`WorkspaceBinding` coordinates are distinct from the
+  mutable worksite. A physical change becomes runtime truth only through the
+  declared owner effect, ABG admission, events, and fresh replay.
+
 - The worker implements one coherent selected increment.
 - Worker readiness checks are mechanical: build, tests, formatting, hashes,
   traceability, package identity, and rendering where applicable.
@@ -96,10 +121,11 @@ process-local runtime authority is prohibited.
 
 ## Method
 
-Use the immutable STDO release selected by `specification/GOALS.md` and its
-installed projection under `.genesis/docs/standards/`. Mutable methodology
-source and historical installed copies do not independently govern this
-consumer.
+Use the immutable STDO release selected by `stdo_abiogenesis.json`; resolve its
+installed standards through the STDO toolchain manager. Use exact installed
+Development Products through `.genesis/development-products/`; do not copy or
+reinterpret their Product bytes. Mutable methodology source and historical
+installed copies do not independently govern this consumer.
 
 No substantive change skips intake triage or the smallest lawful re-entry.
 
@@ -111,3 +137,24 @@ No substantive change skips intake triage or the smallest lawful re-entry.
 - Do not treat a moving or dirty tree as a frozen candidate.
 - A review finding rejects its exact claim; it does not create a new Product
   outcome, ticket, design cycle, or autonomous patch-review loop.
+
+<!-- STDO_BOOTSTRAP_START -->
+## STDO Bootstrap
+
+This scope is routed by an STDO Product Definition Overlay.
+
+Before constitutional work:
+
+1. Resolve the applicable `stdo_<label>.json` for the requested Product scope.
+2. Use `constitution.stdo.basis`, not its mutable selector, as the operative basis.
+3. Resolve and verify that exact installed release through the STDO toolchain manager.
+4. Load the Product Definition's declared bootstrap entrypoint, then exact owning standards as needed.
+5. Resolve the applicable accepted Project Reference-Frame Basis or its declared composition.
+6. Enter governed work through its Executive frame or declared project equivalent: bind the exact outcome and basis, inspect the unresolved evaluation frontier, and activate only the smallest dependency-ready context needed for the next decision.
+7. Fail closed when the Product Definition, frame basis, subject, authority, or activation is missing, ambiguous, stale, or outside the governed scope.
+
+Mutable methodology source, another installed version, a cache entry, and this
+bootstrap cannot replace the exact basis selected by the Product Definition.
+A prompt, summary, symbolic map, or prior result may route attention but cannot
+replace current source authority or a closed frame result.
+<!-- STDO_BOOTSTRAP_END -->

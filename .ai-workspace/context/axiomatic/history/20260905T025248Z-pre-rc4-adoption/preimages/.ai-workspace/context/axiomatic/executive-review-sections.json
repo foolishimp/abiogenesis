@@ -1,0 +1,26 @@
+[
+  {
+    "label": "Role and outcome",
+    "text": "Act as an independent Reviewer. Evaluate the current ABIogenesis STDO 2.5 adoption and mutable-worksite R2/R3 design reframe. Do not edit. Return findings to the Executive."
+  },
+  {
+    "label": "Reference frames",
+    "text": "1. stdo://releases/v2.5.0-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#reviewer\nPurpose: independent exact-subject assurance.\nSource route: installed immutable STDO 2.5.\n\n2. repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality\nPurpose: test binding, observation, effect, admission, and replay causality.\nSource route: ABI project frame basis.\n\n3. repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas\nPurpose: preserve ABI/GTL/HoG/ABG ownership seams.\nSource route: retained ABI realization constitution."
+  },
+  {
+    "label": "Exact subject",
+    "text": "Review the live working-tree bytes of specification/GOALS.md, specification/INTENT.md, specification/PRODUCT.md, the three exact STDO qualification requirements, stdo_abiogenesis.json, ABI5_PROJECT_REFERENCE_FRAME_BASIS.md, ABI5_REALIZATION_CONSTITUTION.md Section 16.12, the T-287 design fully-functional-traversal and falsifiers, and the active T-287 re-entry disposition. Preserve unrelated dirty files."
+  },
+  {
+    "label": "Axiomatic context",
+    "text": "Start from .ai-workspace/context/axiomatic/logical-constraint-map.json with intrinsic map SHA-256 321313a0fb6125afed4bc8495791972813791e7fcf8f7b365f7e54099c3dc642. Re-enter exact sources for every material decision. The map is a read model and grants no authority."
+  },
+  {
+    "label": "Required checks",
+    "text": "Check exact STDO/Product basis congruence; generic-versus-local frame ownership; closed frame-result law; stable WorkspaceBinding versus mutable worksite observations; operation grant, mutation subject, write territory, handler, owner effect, semantic candidate, ABG admission, stale-projection invalidation, and fresh replay; no frame engine or imperative lifecycle runner; and explicit unresolved design relations before R4."
+  },
+  {
+    "label": "Return contract",
+    "text": "Return one closed result: satisfied, falsified, indeterminate, out_of_frame, or invalid_basis. Rank findings by severity. Cite stable file and heading URIs, not line numbers. Name residuals and the smallest lawful re-entry. Do not repair the subject or select implementation."
+  }
+]

@@ -172,6 +172,7 @@ const ADMISSION_INPUT_FIELDS = Object.freeze([
 const OCCURRENCE_FIELDS = Object.freeze([
   "attempt",
   "cCallRef",
+  "executionAuthority",
   "frameId",
   "graphCallId",
   "programLocusRef",
@@ -210,6 +211,7 @@ function exactOccurrence(
     exactRef(value.graphCallId) &&
     exactRef(value.frameId) &&
     exactRef(value.programLocusRef) &&
+    value.executionAuthority === null &&
     Number.isSafeInteger(value.attempt) &&
     value.attempt >= 1 &&
     (value.taskOrdinal === null ||

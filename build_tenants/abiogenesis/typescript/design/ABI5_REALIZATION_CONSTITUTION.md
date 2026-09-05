@@ -5,13 +5,17 @@
 **Scope**: ABIogenesis 5.0 TypeScript design, coding, review, testing, and
 delivery
 
-**Selected method**: immutable STDO `v2.2.2`, commit
-`0519129d63de10822ae6353fa0c5ce05d56f13e9`, member-set digest
-`4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21`
+**Selected method**: immutable STDO `v2.5.0-rc.4`, annotated tag object
+`032dac0c833111547f7dd4b290c5316ed9b70f97`, commit
+`7a25668a8fecfd26f895759af3bec4708727964a`, installed-manifest SHA-256
+`4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e`,
+standards member-set SHA-256
+`504db879867f60e46ed4dea60509d12056d10cdd8c3460dc94abf7bc56542656`
 
 ## 1. Authority And Purpose
 
-This document is the sole ABIogenesis-local disambiguation of STDO `v2.2.2`
+This document is the sole ABIogenesis-local disambiguation of STDO
+`v2.5.0-rc.4`
 for AI-authored realization. It governs how accepted ABIogenesis Product,
 requirement, and design truth becomes code without opening competing semantic,
 algorithmic, technology, or review seams.
@@ -19,18 +23,16 @@ algorithmic, technology, or review seams.
 The operative local authority relation is:
 
 ```text
-immutable STDO 2.2.2
+immutable STDO 2.5.0-rc.4
   + current ABIogenesis Product and requirements
   + accepted ABIogenesis functional design
   + explicit local axioms in this constitution
   -> ABIogenesis 5.0 realization authority
 ```
 
-The local axioms close problem-domain relations that STDO `2.2.2` does not
-make decision-complete. They neither amend nor masquerade as STDO. A validated
-subset may later be proposed to the future STDO `2.4` line through a separate
-methodology re-entry. STDO `2.4` does not govern this Product unless and until
-an exact immutable release is selected by higher authority.
+The local axioms close ABIogenesis problem-domain relations without amending or
+masquerading as STDO. Promotion into shared method requires a separate
+methodology re-entry and immutable release.
 
 Authority flows:
 
@@ -64,7 +66,8 @@ surface.
 
 This constitution compresses and ratifies the locally selected substance of:
 
-- STDO `v2.2.2` installed method surfaces;
+- STDO `v2.5.0-rc.4` installed method surfaces and the Section 16.12
+  reconciliation of earlier local records;
 - T-287 recursive-frame and proportional-delivery refinement;
 - immutable `v4.6.0-rc.5` conservation and donor assessment;
 - Phase 0 structural assessment and lawful-stack review;
@@ -240,7 +243,8 @@ cone; adjacent findings are classified rather than silently expanding scope.
 ### 5.1 Topology-Constrained Frame-Shift Law
 
 This subsection is ABIogenesis-local realization law. It is subordinate to the
-Product `TraversalUnit<A, B>` and Traversal Monad, the selected STDO `v2.2.2`
+Product `TraversalUnit<A, B>` and Traversal Monad, the selected STDO
+`v2.5.0-rc.4`
 decision-completeness, atomic-function and higher-order-composition,
 whole-family Prime, and recurrence-extraction laws, and every other governing
 clause of this constitution. Sections 5 and 7 supply the locally ratified
@@ -294,6 +298,13 @@ Design Component frames govern decisions. ABIogenesis governs Product
 composition. GTL, HoG, and ABG expose different runtime manifolds and coordinate
 systems. A transformation between them is lawful only through its declared
 typed seam.
+
+The current Project-owned activation and coverage basis is
+[`ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`](./ABI5_PROJECT_REFERENCE_FRAME_BASIS.md).
+It imports the ABIogenesis, GTL, HoG, and ABG rows above without redefining
+them and adds only the mutable-worksite-causality frame required by T-287.
+Reference-frame evaluations return closed STDO frame results; they do not
+perform the runtime operations described by these manifolds.
 
 At the Product level, applicable frames are coordinate charts over one joined
 material-relation manifold. Deterministic frame synthesis is the intersection
@@ -3976,6 +3987,11 @@ catalog/entity rows, and migration consequences. Do not create another local
 method, stack list, lifecycle register, library catalog, or AI review protocol.
 Amend this single surface.
 
+Sections 16.1 through 16.11 retain the STDO `v2.2.2` and prospective `2.4`
+wording in force when those records were made. That wording is provenance, not
+current method selection. The document header and Section 16.12 alone state the
+operative STDO basis after the 2.5 re-entry.
+
 ### 16.1 T-287 Topology-Constrained Frame-Shift Amendment Record
 
 | Field | Record |
@@ -4176,3 +4192,18 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **thread sequencing** | Freeze this bounded `ST-2A-G` repair first. `ST-2A-C` resumes after the repair is frozen and retains Section 16.10's canonical-grant direction. |
 | **current disposition** | Design authority only. No implementation, test, acceptance, thread closure, count, or release claim follows from this amendment. |
 | **promotion status** | ABIogenesis-local design law under immutable STDO `v2.2.2`; shared-method promotion requires separate methodology re-entry and representative evidence. |
+
+### 16.12 STDO 2.5 And Mutable-Worksite Frame Reconciliation Record
+
+| Field | Record |
+|---|---|
+| **reason** | Product re-entry selects immutable STDO `v2.5.0-rc.2`. T-287 also exposed that the functional-traversal prose omitted the already-required distinction between stable `WorkspaceBinding` authority and changing worksite observations across owner effects. |
+| **change class and scope** | Product-basis reprice followed by bounded `design_reframe`; the accepted `W2-R3-C0` child selects only `W2-R3-C0-I` as a `realization_refactor`. Product behavior, feature membership, GTL/HoG/ABG owners, Public contracts, event-kind census, and release subjects do not change. |
+| **upstream basis** | `specification/PRODUCT.md#governance-and-release-boundary`; exact STDO `v2.5.0-rc.2`; T-287; Product `A5-F10`; applicable WorkspaceBinding, Program traversal, handler, event, and projection requirements. |
+| **shared-method decision** | STDO 2.5 owns the generic Reference Frame Method, Executive/Worker/Reviewer relation, and generic specialist families. Earlier local text remains provenance for ABI-specific relations but cannot independently redefine or contradict that shared method. |
+| **local-frame decision** | Sections 5.3 through 5.3.2 remain the ABI-specific atlas and proof specialization. `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md` imports those rows and adds only `F-WORKSITE-CAUSALITY`; it creates no runtime frame entity, evaluator, registry, or controller. |
+| **workspace decision** | `WorkspaceAuthorityBasis + ProductSet + resolved lock + declared roots` determine stable binding identity. Ordinary content change preserves that binding and produces a new immutable observation. Changed binding constituents require a new binding; changed Catalog, Program, or traversal basis may require a new `ExecutionBasis` independently. |
+| **accepted child** | `T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md` is the sole implementation-bearing child. The parent R2/R3 roadmap remains proposed. Its audit questions 12 through 16 close only for this effect; questions 1 through 11 and every wider effect remain open. |
+| **causal decision** | Admitted `WorkspaceBinding W` plus `ExecutionBasis B`, declared Program/GraphFunction/C-call, selected implementation, and Product observation `O0` produce one closed `LeafExecutionAuthority` and call-local `WorksiteEffectAuthorization`. The owner revalidates `O0`, atomically publishes or replaces one in-territory file, and returns `WorksiteFileReplaceReceipt + O1`. Specialized evidence plus the ordinary exact-prefix `c_call_result_admitted` relation carries the receipt and `O1`; Event Calculus transfers currentness from `O0` to `O1`; fresh replay projects `O1`. `W` and `B` remain unchanged. |
+| **failure decision** | Physical commit and ABG append remain distinct owner boundaries. Expected-prefix refusal after physical commit returns visible `unadmitted_physical_commit` residue, admits no runtime `O1`, and requires re-observation. No implicit rollback or fabricated runtime truth is permitted. |
+| **implementation consequence** | `W2-R3-C0-I` may add only Product `worksite_effect.ts` and `worksite_operations.ts`; the minimum implementation-contract, leaf-port, and HoG C-call lifecycle seam that passes one closed `LeafExecutionAuthority`; specialized worksite C-call evidence/result/currentness/replay handling; package exports; and the named owner and post-binding proof lanes. It reuses the existing grant, binding, basis, event kinds, exact-prefix store, failure/judgment relation, and replay. No public operation, event kind, controller, registry, grant, binding, resource framework, version, E00, odd_glc proof, qualification, or release is selected. |

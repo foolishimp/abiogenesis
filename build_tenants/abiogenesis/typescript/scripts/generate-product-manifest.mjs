@@ -49,6 +49,8 @@ import {
 import {
   constructConsensusModulePublication,
   constructHelloWorldModulePublication,
+  constructWorksiteConstructionModulePublication,
+  constructWorksiteCommandExecutionModulePublication,
 } from "../build/code/src/gtl/index.js";
 import {
   PUBLIC_PROJECTION_PAYLOADS,
@@ -968,6 +970,8 @@ const publicationBasis = {
 const modulePublications = [
   constructHelloWorldModulePublication(publicationBasis),
   constructConsensusModulePublication(publicationBasis),
+  constructWorksiteConstructionModulePublication(publicationBasis),
+  constructWorksiteCommandExecutionModulePublication(publicationBasis),
 ];
 const publicationBindings = modulePublications.map((publication) => ({
   moduleRef: publication.moduleRef,

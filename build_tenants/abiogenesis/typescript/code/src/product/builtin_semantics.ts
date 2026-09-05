@@ -3,6 +3,7 @@ import {
   FP_HELLO_IDS,
   HELLO_WORLD_IDS,
   RECURSION_HELLO_IDS,
+  WORKSITE_C0_IDS,
   constructBoundedRecursionState,
   constructFpHelloInstruction,
   constructHelloWorldInput,
@@ -11,7 +12,39 @@ import {
   isFpHelloInstruction,
   isHelloWorldInput,
   resolveConformanceJudgmentRelation,
+  isWorksiteFileReplaceOutput,
+  resolveWorksiteC0JudgmentRelation,
 } from "../gtl/index.js";
+import {
+  WORKSITE_COMMAND_EXECUTION_IDS,
+  isWorksiteCommandExecutionFailure,
+  isWorksiteCommandExecutionObservation,
+  isWorksiteCommandExecutionTask,
+  isWorksiteCommandExecutionWorkerResult,
+  resolveWorksiteCommandExecutionJudgmentRelation,
+} from "./worksite_command_execution.js";
+import { isWorksiteFileReplaceRequest } from "./worksite_effect.js";
+import {
+  WORKSITE_BRANCH_CONSTRUCTION_IDS,
+  isWorksiteBranchConstructionBranchApplicationFailure,
+  isWorksiteBranchConstructionFailure,
+  isWorksiteBranchConstructionOutputVector,
+  isWorksiteBranchConstructionTask,
+  isWorksiteBranchConstructionVector,
+  resolveWorksiteBranchConstructionJudgmentRelation,
+} from "./worksite_branch_construction.js";
+import {
+  WORKSITE_CONSTRUCTION_IDS,
+  isWorksiteCandidateBundle,
+  isWorksiteConstructionFailure,
+  isWorksiteConstructionVectorApplicationFailure,
+  isWorksiteConstructionResult,
+  isWorksiteConstructionTask,
+  isWorksiteConstructionWorkerResult,
+  isWorksiteFileReplaceOutputVector,
+  isWorksiteFileReplaceVector,
+  resolveWorksiteConstructionJudgmentRelation,
+} from "./worksite_construction.js";
 import { isDeclaredConformanceValue } from "../gtl/hello_world.js";
 import {
   CONSENSUS_IDS,
@@ -63,6 +96,12 @@ function admitInput(
     ) as unknown as Readonly<Record<string, JsonValue>>;
   }
   if (
+    contractRef === WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef &&
+    isWorksiteCommandExecutionTask(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
     contractRef === RECURSION_HELLO_IDS.inputContractRef &&
     isBoundedRecursionState(value) &&
     value.trace.length === 0 &&
@@ -93,6 +132,56 @@ function admitInput(
       })),
     }) as Readonly<Record<string, JsonValue>>;
   }
+  if (
+    contractRef === WORKSITE_C0_IDS.inputContractRef &&
+    isWorksiteFileReplaceRequest(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
+    contractRef === WORKSITE_BRANCH_CONSTRUCTION_IDS.taskContractRef &&
+    isWorksiteBranchConstructionTask(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
+    contractRef === WORKSITE_BRANCH_CONSTRUCTION_IDS.vectorContractRef &&
+    isWorksiteBranchConstructionVector(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
+    contractRef ===
+        WORKSITE_BRANCH_CONSTRUCTION_IDS.outputVectorContractRef &&
+    isWorksiteBranchConstructionOutputVector(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
+    contractRef === WORKSITE_CONSTRUCTION_IDS.taskContractRef &&
+    isWorksiteConstructionTask(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
+    contractRef === WORKSITE_CONSTRUCTION_IDS.candidateBundleContractRef &&
+    isWorksiteCandidateBundle(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
+    contractRef === WORKSITE_CONSTRUCTION_IDS.fileReplaceVectorContractRef &&
+    isWorksiteFileReplaceVector(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (
+    contractRef ===
+        WORKSITE_CONSTRUCTION_IDS.fileReplaceOutputVectorContractRef &&
+    isWorksiteFileReplaceOutputVector(value)
+  ) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
   return null;
 }
 
@@ -115,9 +204,143 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
     valueKind: string,
     value: unknown,
   ): value is Readonly<Record<string, JsonValue>> {
-    return isDeclaredConformanceValue(value, valueKind);
+    return isDeclaredConformanceValue(value, valueKind) ||
+      (valueKind === "worksite_file_replace_request" &&
+        isWorksiteFileReplaceRequest(value)) ||
+      (valueKind === "worksite_file_replace_output" &&
+        isWorksiteFileReplaceOutput(value)) ||
+      (valueKind === "worksite_construction_task" &&
+        isWorksiteConstructionTask(value)) ||
+      (valueKind === "worksite_construction_worker_result" &&
+        isWorksiteConstructionWorkerResult(value)) ||
+      (valueKind === "worksite_candidate_bundle" &&
+        isWorksiteCandidateBundle(value)) ||
+      (valueKind === "worksite_file_replace_vector" &&
+        isWorksiteFileReplaceVector(value)) ||
+      (valueKind === "worksite_file_replace_output_vector" &&
+        isWorksiteFileReplaceOutputVector(value)) ||
+      (valueKind === "worksite_construction_result" &&
+        isWorksiteConstructionResult(value)) ||
+      (valueKind === "worksite_construction_failure" &&
+        isWorksiteConstructionFailure(value)) ||
+      (valueKind === "worksite_construction_vector_application_failure" &&
+        isWorksiteConstructionVectorApplicationFailure(value)) ||
+      (valueKind === "worksite_branch_construction_task" &&
+        isWorksiteBranchConstructionTask(value)) ||
+      (valueKind === "worksite_branch_construction_vector" &&
+        isWorksiteBranchConstructionVector(value)) ||
+      (valueKind === "worksite_branch_construction_output_vector" &&
+        isWorksiteBranchConstructionOutputVector(value)) ||
+      (valueKind === "worksite_branch_construction_failure" &&
+        isWorksiteBranchConstructionFailure(value)) ||
+      (valueKind ===
+          "worksite_branch_construction_branch_application_failure" &&
+        isWorksiteBranchConstructionBranchApplicationFailure(value)) ||
+      (valueKind === "worksite_command_execution_task" &&
+        isWorksiteCommandExecutionTask(value)) ||
+      (valueKind === "worksite_command_execution_worker_result" &&
+        isWorksiteCommandExecutionWorkerResult(value)) ||
+      (valueKind === "worksite_command_execution_observation" &&
+        isWorksiteCommandExecutionObservation(value)) ||
+      (valueKind === "worksite_command_execution_failure" &&
+        isWorksiteCommandExecutionFailure(value));
   },
-  resolveJudgmentRelation: resolveConformanceJudgmentRelation,
+  resolveJudgmentRelation: (predicateRef: string) =>
+    resolveConformanceJudgmentRelation(predicateRef) ??
+      resolveWorksiteC0JudgmentRelation(predicateRef) ??
+      resolveWorksiteConstructionJudgmentRelation(predicateRef) ??
+      resolveWorksiteBranchConstructionJudgmentRelation(predicateRef) ??
+      resolveWorksiteCommandExecutionJudgmentRelation(predicateRef),
+  resolveProbabilisticWorkerContracts(basis: Readonly<{
+    inputContractRef: string;
+    outputContractRef: string;
+    input: Readonly<Record<string, JsonValue>>;
+  }>) {
+    if (
+      basis.inputContractRef === WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef &&
+      basis.outputContractRef === WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef &&
+      isWorksiteCommandExecutionTask(basis.input)
+    ) {
+      return Object.freeze({
+        instructionContractRef: WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef,
+        resultContractRef: WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef,
+      });
+    }
+    if (
+      basis.inputContractRef === WORKSITE_CONSTRUCTION_IDS.taskContractRef &&
+      basis.outputContractRef ===
+        WORKSITE_CONSTRUCTION_IDS.candidateBundleContractRef &&
+      isWorksiteConstructionTask(basis.input)
+    ) {
+      return Object.freeze({
+        instructionContractRef: WORKSITE_CONSTRUCTION_IDS.taskContractRef,
+        resultContractRef: WORKSITE_CONSTRUCTION_IDS.workerResultContractRef,
+      });
+    }
+    return Object.freeze({
+      instructionContractRef: basis.inputContractRef,
+      resultContractRef: basis.outputContractRef,
+    });
+  },
+  validateInvocationBasis(
+    basis: Parameters<
+      NonNullable<ProductSemanticsProvider["validateInvocationBasis"]>
+    >[0],
+  ) {
+    if (isWorksiteCommandExecutionTask(basis.input)) {
+      const source = basis.sourceResultBasis;
+      return source !== null &&
+        basis.input.workspaceBinding.bindingId === basis.workspaceBindingId &&
+        basis.input.workspaceBinding.bindingDigest === basis.workspaceBindingDigest &&
+        basis.input.workspaceBinding.workspaceId === basis.workspaceId &&
+        (
+          source.sourceGraphFunctionRef ===
+            WORKSITE_CONSTRUCTION_IDS.reducerGraphFunctionRef ||
+          source.sourceGraphFunctionRef ===
+            WORKSITE_BRANCH_CONSTRUCTION_IDS.reducerGraphFunctionRef
+        ) &&
+        source.sourceResultContractRef === WORKSITE_CONSTRUCTION_IDS.resultContractRef &&
+        source.sourceResultValueDigest === sha256Canonical(
+          basis.input.sourceConstructionResult as unknown as JsonValue,
+        ) &&
+        sha256Canonical(source.sourceResultValue) === source.sourceResultValueDigest &&
+        sha256Canonical(source.sourceResultValue) === sha256Canonical(
+          basis.input.sourceConstructionResult as unknown as JsonValue,
+        ) &&
+        source.sourceWorkspaceId === basis.workspaceId &&
+        source.workspaceBindingId === basis.workspaceBindingId &&
+        source.workspaceBindingDigest === basis.workspaceBindingDigest;
+    }
+    if (
+      isWorksiteBranchConstructionVector(basis.input) ||
+      isWorksiteBranchConstructionOutputVector(basis.input)
+    ) return false;
+    if (isWorksiteBranchConstructionTask(basis.input)) {
+      return basis.sourceResultBasis === null &&
+        basis.input.workspaceBinding.bindingId === basis.workspaceBindingId &&
+        basis.input.workspaceBinding.bindingDigest ===
+          basis.workspaceBindingDigest &&
+        basis.input.workspaceBinding.workspaceId === basis.workspaceId;
+    }
+    return !isWorksiteConstructionTask(basis.input) ||
+      (
+        basis.sourceResultBasis === null &&
+        basis.input.workspaceBinding.bindingId === basis.workspaceBindingId &&
+        basis.input.workspaceBinding.bindingDigest ===
+          basis.workspaceBindingDigest &&
+        basis.input.workspaceBinding.workspaceId === basis.workspaceId
+      );
+  },
+}) satisfies ProductSemanticsProvider;
+
+/**
+ * C2 publishes independently from the retained C1 module, so its declaration
+ * closure needs a distinct semantics coordinate even though both resolve the
+ * same ABI-owned contract laws.
+ */
+export const ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS = Object.freeze({
+  ...ABI5_PRODUCT_SEMANTICS,
+  bindingRef: "product-semantics://abiogenesis/worksite/command-execution@5",
 }) satisfies ProductSemanticsProvider;
 
 function isRecord(

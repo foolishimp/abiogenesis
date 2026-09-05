@@ -1,9 +1,9 @@
 # REQ-P-QUAL — Qualification Infrastructure
 
-**Status**: Active - T-283 base; STDO `v2.2.2` qualification identity amended by direct F_H adoption
+**Status**: Active - T-283 base; exact STDO `v2.5.0-rc.4` qualification basis
 **Category**: Verification
 **Date**: 2026-07-25
-**Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md) (Verification Layers)
+**Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: ABG 5.0
 
 ---
@@ -217,8 +217,9 @@ tenant-conformance manifest, frozen owning-gate inventory, and one subordinate
 `QualificationLawBasis`.
 
 **REQ-P-QUAL-057B**: `QualificationLawBasis` shall bind the exact tapped and
-installed STDO `v2.2.2` release identity and digest, method version, rule-catalog
-version, source refs, and content digests used by the owning gates.
+installed STDO `v2.5.0-rc.4` release identity, installed-manifest digest,
+standards member-set digest, method version, rule-catalog version, source refs,
+and content digests used by the owning gates.
 Its identity and digest shall be preserved unchanged through every admitted
 owning-gate result, the `QualificationGateResultVector<K>`, the declared
 `C.of(AF-22)` argument, and the resulting
@@ -299,7 +300,7 @@ green.
 conservation rows; the separate shape-preserving fibre-substitution
 differential; the seven-term declared C algebra and malformed GTL/F_P
 differentials; the public operator loop; self-conformance under the exact
-tapped STDO `v2.2.2` basis; installed Consensus; native and Codex projections;
+tapped STDO `v2.5.0-rc.4` basis; installed Consensus; native and Codex projections;
 the independent flavored downstream fixture; and every selected
 `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` obligation.
 Each owning gate retains its own execution and semantic authority.

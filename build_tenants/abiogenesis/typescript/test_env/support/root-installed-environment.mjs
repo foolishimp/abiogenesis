@@ -40,6 +40,25 @@ function selectedFrozenArtifact(options) {
   };
 }
 
+function constructRootPublication(gtl, basis, kind) {
+  const construct = kind === "worksite_construction" || kind === "worksite_c0"
+    ? gtl.constructWorksiteConstructionModulePublication
+    : gtl.constructHelloWorldModulePublication;
+  assert.equal(
+    typeof construct,
+    "function",
+    `root publication constructor is unavailable for ${kind ?? "hello_world"}`,
+  );
+  return construct({
+    productId: basis.productId,
+    artifactDigest: basis.artifactDigest,
+    productContentDigest: basis.productContentDigest,
+    productManifestDigest: basis.manifestDigest,
+    packageName: basis.packageName,
+    packageVersion: basis.packageVersion,
+  });
+}
+
 export function publicOperationBasis(
   product,
   operationId,
@@ -190,15 +209,11 @@ export async function setupInstalledRootCatalog(
   const bootstrapGtl = await import(
     `${pathToFileURL(join(bootstrapPackage, "build/code/src/gtl/index.js")).href}?artifact=${Date.now()}`
   );
-  const bootstrapRootPublication =
-    bootstrapGtl.constructHelloWorldModulePublication({
-      productId: candidateBasis.productId,
-      artifactDigest: candidateBasis.artifactDigest,
-      productContentDigest: candidateBasis.productContentDigest,
-      productManifestDigest: candidateBasis.manifestDigest,
-      packageName: candidateBasis.packageName,
-      packageVersion: candidateBasis.packageVersion,
-    });
+  const bootstrapRootPublication = constructRootPublication(
+    bootstrapGtl,
+    candidateBasis,
+    options.rootPublicationKind,
+  );
   const additionalProducts = options.prepareAdditionalProducts === undefined
     ? []
     : await options.prepareAdditionalProducts({
@@ -327,7 +342,8 @@ export async function setupInstalledRootCatalog(
     workspaceId: "workspace://t286/abi5-root",
     canonicalRoot: workspaceRoot,
     authorityMode: "trusted_developer",
-    authorizedActorRef: "actor://abiogenesis/t286/trusted-developer",
+    authorizedActorRef: options.authorizedActorRef ??
+      "actor://abiogenesis/t286/trusted-developer",
   };
   const workspaceAuthority = product.constructWorkspaceAuthorityBasis({
     ...authorityManifest,
@@ -371,14 +387,18 @@ export async function setupInstalledRootCatalog(
     JSON.stringify(workspaceBindingResult),
   );
   const workspaceBinding = workspaceBindingResult.value;
-  const publication = gtl.constructHelloWorldModulePublication({
-    productId: verified.productId,
-    artifactDigest: verified.artifactDigest,
-    productContentDigest: verified.productContentDigest,
-    productManifestDigest: verified.manifestDigest,
-    packageName: verified.packageName,
-    packageVersion: verified.packageVersion,
-  });
+  const publication = constructRootPublication(
+    gtl,
+    {
+      productId: verified.productId,
+      artifactDigest: verified.artifactDigest,
+      productContentDigest: verified.productContentDigest,
+      manifestDigest: verified.manifestDigest,
+      packageName: verified.packageName,
+      packageVersion: verified.packageVersion,
+    },
+    options.rootPublicationKind,
+  );
   const additionalPublications = [];
   for (const [index, prepared] of additionalProducts.entries()) {
     additionalPublications.push(await prepared.loadInstalledPublication({
@@ -453,15 +473,13 @@ export async function setupInstalledRootCatalog(
     product.canonicalJson(bindingCandidate),
     "Catalog's binding candidate must be the exact preimage of ABG-admitted workspace truth",
   );
-  const catalog = additionalProducts.length === 0
-    ? product.buildGraphFunctionCatalog(publications)
-    : product.admitGraphFunctionCatalog({
-        workspaceBinding: bindingCandidate,
-        resolvedLock: lock,
-        verifiedProducts,
-        installedProducts: catalogInstalledProducts,
-        publications,
-      });
+  const catalog = product.admitGraphFunctionCatalog({
+    workspaceBinding: bindingCandidate,
+    resolvedLock: lock,
+    verifiedProducts,
+    installedProducts: catalogInstalledProducts,
+    publications,
+  });
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
   const workspaceAdditionalProduct = additionalProducts[
     (options.workspaceProductIndex ?? 0) - 1
@@ -544,24 +562,95 @@ export async function setupInstalledRootInvocation(
     workspaceBinding,
     artifactTruth,
     publication,
-    programValidation,
+    programValidation: catalogProgramValidation,
+    catalog,
     catalogView,
+    admittedInstalls,
   } = environment;
   const programRef = options.programRef ?? gtl.HELLO_WORLD_IDS.programRef;
   const graphFunctionRef = options.graphFunctionRef ??
     gtl.HELLO_WORLD_IDS.graphFunctionRef;
-  const program = publication.programs.find(
+  const catalogProgram = publication.programs.find(
     (candidate) => candidate.programRef === programRef,
   );
-  const graphFunction = publication.graphFunctions.find(
+  const catalogGraphFunction = publication.graphFunctions.find(
     (candidate) => candidate.name === graphFunctionRef,
   );
-  assert.ok(program, "installed root requires one exact selected Program");
+  assert.ok(catalogProgram, "installed root requires one exact selected Program");
   assert.ok(
-    graphFunction,
+    catalogGraphFunction,
     "installed root requires one exact selected GraphFunction",
   );
-  const input = options.input ?? gtl.constructHelloWorldInput("World");
+  const executionResolution = await product.ProductExecutionResolutionPort.resolve({
+    catalog,
+    catalogView,
+    admittedInstalls,
+    verifyInstallAdmission: (install) =>
+      abg.hasAdmittedProductInstall(artifactTruth, install),
+    programRef: catalogProgram.programRef,
+    selection: {
+      kind: "direct",
+      catalogHandle: catalogGraphFunction.name,
+    },
+  });
+  assert.equal(
+    executionResolution.kind,
+    "loaded_product_execution_resolution",
+    JSON.stringify(executionResolution),
+  );
+  const program = executionResolution.program;
+  const graphFunction = executionResolution.graphFunction;
+  const programValidation = executionResolution.programValidation;
+  assert.equal(program.programRef, catalogProgram.programRef);
+  assert.equal(graphFunction.name, catalogGraphFunction.name);
+  assert.equal(
+    programValidation.programRef,
+    catalogProgramValidation.programRef,
+  );
+  const interactionCapabilities = programValidation.interactionLeafRows.map(
+    (row) => ({
+      requirementKey: row.requirementKey,
+      requirementKeyDigest: row.requirementKeyDigest,
+      actorCapabilityRef: row.requirement.actorCapabilityRef,
+    }),
+  );
+  const allowedComputeRegimes = ["F_D", "F_P", "F_H"].filter((regime) =>
+    [
+      ...programValidation.executableLeafRows,
+      ...programValidation.interactionLeafRows,
+    ].some((row) => row.fibre === regime));
+  const policy = product.constructRootInvocationPolicy(
+    workspaceBinding,
+    program,
+    interactionCapabilities,
+    allowedComputeRegimes,
+  );
+  const actorRef = options.actorRef ??
+    workspaceBinding.authorizedActorRef;
+  const capabilityGrantBasis = {
+    admittedInstalls,
+    workspaceBinding,
+    fixedPacket: product.RUN_OPERATION_CONTRACTS.invoke.invoke,
+  };
+  const capabilityGrant = product.constructCapabilityGrant(
+    policy,
+    actorRef,
+    "abg.operation.run.invoke",
+    product.DIRECT_INVOKE_CAPABILITY,
+    capabilityGrantBasis,
+  );
+  const capabilityGrants = [capabilityGrant];
+  const input = options.inputFactory === undefined
+    ? options.input ?? gtl.constructHelloWorldInput("World")
+    : await options.inputFactory({
+        product,
+        workspaceBinding,
+        program,
+        graphFunction,
+        programValidation,
+        admittedInstalls,
+        capabilityGrant,
+      });
   const inputContractRef = options.inputContractRef ??
     gtl.HELLO_WORLD_IDS.inputContractRef;
   const rawInput = requireRawAdmission(
@@ -588,46 +677,6 @@ export async function setupInstalledRootInvocation(
     "public_operation_request",
     "contract://abiogenesis/public/run-invoke-request@5",
   );
-  const interactionCapabilities = programValidation.interactionLeafRows.map(
-    (row) => ({
-      requirementKey: row.requirementKey,
-      requirementKeyDigest: row.requirementKeyDigest,
-      actorCapabilityRef: row.requirement.actorCapabilityRef,
-    }),
-  );
-  const allowedComputeRegimes = ["F_D", "F_P", "F_H"].filter((regime) =>
-    [
-      ...programValidation.executableLeafRows,
-      ...programValidation.interactionLeafRows,
-    ].some((row) => row.fibre === regime));
-  const policy = product.constructRootInvocationPolicy(
-    workspaceBinding,
-    program,
-    interactionCapabilities,
-    allowedComputeRegimes,
-  );
-  const actorRef = options.actorRef ??
-    "actor://abiogenesis/t286/trusted-developer";
-  const capabilityGrant = product.constructCapabilityGrant(policy, actorRef);
-  const capabilityGrants = [
-    capabilityGrant,
-    ...[...new Set(
-      interactionCapabilities.map((row) => row.actorCapabilityRef),
-    )].sort().flatMap((capabilityRef) => [
-      product.constructCapabilityGrant(
-        policy,
-        actorRef,
-        "abg.operation.interaction.respond",
-        capabilityRef,
-      ),
-      product.constructCapabilityGrant(
-        policy,
-        actorRef,
-        "abg.operation.run.continue",
-        capabilityRef,
-      ),
-    ]),
-  ];
   const selectedRow = product.lookupGraphFunction(
     catalogView,
     graphFunction.name,
@@ -641,6 +690,7 @@ export async function setupInstalledRootInvocation(
     selectedRow,
     policy,
     capabilityGrants,
+    capabilityGrantBasis,
   );
   const invocation = product.constructDirectInvocation(
     workspaceBinding,
@@ -659,10 +709,11 @@ export async function setupInstalledRootInvocation(
       invocation,
       rawRequest,
       rawInput,
-      modulePublication: publication,
+      programPublication: executionResolution.programPublication,
+      executionResolution: executionResolution.resolution,
       program,
       graphFunction,
-      programValidation,
+      programValidation: executionResolution.programValidation,
       workspaceBinding,
       artifactTruth,
       catalogView,
@@ -688,7 +739,9 @@ export async function setupInstalledRootInvocation(
   return {
     ...environment,
     durablePrefix: invocationAdmissionReceipt.successorPrefix,
+    publication: executionResolution.programPublication,
     program,
+    programValidation,
     graphFunction,
     input,
     rawInput,
@@ -700,6 +753,7 @@ export async function setupInstalledRootInvocation(
     invocationAuthority,
     invocation,
     invocationAdmission,
+    executionResolution,
   };
 }
 
@@ -717,7 +771,6 @@ export async function setupInstalledRootResolution(
     product,
     gtl,
     validator,
-    installedRoot,
     publication,
     programValidation,
     graphFunction,
@@ -735,6 +788,11 @@ export async function setupInstalledRootResolution(
     "installed resolution requires one exact declared graph root",
   );
   const [node] = rootNodes;
+  const [selectedLeaf] = gtl.cLeafTerms(node.term);
+  assert.ok(
+    selectedLeaf,
+    "installed resolution requires one declared executable root leaf",
+  );
   const graph = gtl.materializeGraph(graphFunction, {
     invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
     admittedInputRef: rawInput.admissionRef,
@@ -755,21 +813,18 @@ export async function setupInstalledRootResolution(
   assert.equal(graphValidation.kind, "graph_validation", JSON.stringify(graphValidation));
   const implementationBinding = publication.implementationBindings.find(
     (candidate) =>
-      candidate.bindingRef === node.term.requirement.implementationBindingRef,
+      candidate.bindingRef ===
+        selectedLeaf.requirement.implementationBindingRef,
   );
   assert.ok(
     implementationBinding,
-    "installed resolution requires the canonical Hello World binding",
+    "installed resolution requires the selected canonical implementation binding",
   );
-  const implementationModule = await import(
-    `${pathToFileURL(join(installedRoot, implementationBinding.modulePath)).href}?resolution=${Date.now()}`
-  );
-  const packagedImplementations = Object.values(implementationModule).filter(
-    product.isPackagedLeafImplementationDescriptor,
-  );
+  const packagedImplementations =
+    environment.executionResolution.packagedImplementations;
   const resolutionSetCandidate = product.resolveImplementationSet(
     catalogView,
-    publication,
+    environment.executionResolution.declarationClosure,
     programValidation,
     packagedImplementations,
   );
@@ -781,7 +836,7 @@ export async function setupInstalledRootResolution(
   const resolutionSetValidation = validator.validateImplementationResolutionSet(
     resolutionSetCandidate,
     catalogView,
-    publication,
+    environment.executionResolution.declarationClosure,
     programValidation,
     packagedImplementations,
   );
@@ -790,32 +845,66 @@ export async function setupInstalledRootResolution(
     "implementation_resolution_set_validation",
     JSON.stringify(resolutionSetValidation),
   );
-  const resolutionCandidate = product.resolveImplementation(
-    catalogView,
-    publication,
-    programValidation,
-    graphValidation,
-    graphFunction.name,
-    node.nodeRef,
-    packagedImplementations,
+  const rootRows = resolutionSetCandidate.rows.filter(
+    (row) =>
+      row.graphFunctionRef === graphFunction.name &&
+      row.nodeRef === node.nodeRef,
   );
-  assert.equal(resolutionCandidate.kind, "implementation_resolution_candidate", JSON.stringify(resolutionCandidate));
-  const implementationDescriptor = packagedImplementations.find(
-    (descriptor) => descriptor.descriptorDigest === resolutionCandidate.implementationDescriptorDigest,
-  );
+  const resolutionCandidate = rootRows.length === 1
+    ? product.resolveImplementation(
+        catalogView,
+        environment.executionResolution.declarationClosure,
+        programValidation,
+        graphValidation,
+        graphFunction.name,
+        node.nodeRef,
+        packagedImplementations,
+      )
+    : undefined;
+  if (resolutionCandidate !== undefined) {
+    assert.equal(
+      resolutionCandidate.kind,
+      "implementation_resolution_candidate",
+      JSON.stringify(resolutionCandidate),
+    );
+  }
+  const implementationDescriptor = resolutionCandidate === undefined
+    ? packagedImplementations.find(
+        (descriptor) =>
+          descriptor.descriptorDigest ===
+            rootRows.find((row) =>
+              row.implementationBindingRef ===
+                selectedLeaf.requirement.implementationBindingRef &&
+              row.programLocusRef === selectedLeaf.programLocusRef
+            )?.implementationDescriptorDigest,
+      )
+    : packagedImplementations.find(
+        (descriptor) =>
+          descriptor.descriptorDigest ===
+            resolutionCandidate.implementationDescriptorDigest,
+      );
   assert.notEqual(implementationDescriptor, undefined);
-  const resolutionValidation = validator.validateImplementationResolution(
-    resolutionCandidate,
-    publication,
-    programValidation,
-    graphValidation,
-    graphFunction,
-    implementationDescriptor,
-  );
-  assert.equal(resolutionValidation.kind, "implementation_resolution_validation", JSON.stringify(resolutionValidation));
+  const resolutionValidation = resolutionCandidate === undefined
+    ? undefined
+    : validator.validateImplementationResolution(
+        resolutionCandidate,
+        publication,
+        programValidation,
+        graphValidation,
+        graphFunction,
+        implementationDescriptor,
+      );
+  if (resolutionValidation !== undefined) {
+    assert.equal(
+      resolutionValidation.kind,
+      "implementation_resolution_validation",
+      JSON.stringify(resolutionValidation),
+    );
+  }
   return {
     ...environment,
     node,
+    selectedLeaf,
     graph,
     graphValidation,
     implementationDescriptor,
@@ -847,6 +936,7 @@ export async function setupInstalledRootExecutionBasis(
     input,
     publication,
     node,
+    selectedLeaf,
     graph,
     graphValidation,
     resolutionSetCandidate,
@@ -856,6 +946,29 @@ export async function setupInstalledRootExecutionBasis(
   } = environment;
   const closureContract = publication.closureContracts.find(
     (value) => value.closureContractRef === program.closureContractRef,
+  );
+  assert.equal(graphValidation.graphRef, graph.materializationRef);
+  assert.equal(graphValidation.graphDigest, graph.materializationDigest);
+  assert.equal(
+    graphValidation.graphFunctionRef,
+    invocationAdmission.graphFunctionRef,
+  );
+  assert.equal(
+    graphValidation.graphFunctionDigest,
+    invocationAdmission.graphFunctionDigest,
+  );
+  assert.equal(graph.graphFunctionRef, invocationAdmission.graphFunctionRef);
+  assert.equal(
+    graph.graphFunctionDigest,
+    invocationAdmission.graphFunctionDigest,
+  );
+  assert.equal(
+    graphValidation.invocationAdmissionRef,
+    invocationAdmission.invocationAdmissionRef,
+  );
+  assert.equal(
+    graphValidation.programValidationRef,
+    invocationAdmission.programValidationRef,
   );
   const executionBasisAdmission = abg.admitExecutionBasis(
     store,
@@ -869,8 +982,9 @@ export async function setupInstalledRootExecutionBasis(
       graphValidation,
       resolutionSetCandidate,
       resolutionSetValidation,
-      resolutionCandidate,
-      resolutionValidation,
+      ...(resolutionCandidate === undefined
+        ? {}
+        : { resolutionCandidate, resolutionValidation }),
       closureContract,
     },
     {
@@ -880,23 +994,21 @@ export async function setupInstalledRootExecutionBasis(
     },
   );
   assert.equal(executionBasisAdmission.kind, "execution_basis_admission", JSON.stringify(executionBasisAdmission));
-  assert.notEqual(executionBasisAdmission.implementationResolution, null);
+  if (resolutionCandidate !== undefined) {
+    assert.notEqual(executionBasisAdmission.implementationResolution, null);
+  }
   const implementationRow = abg.selectAdmittedImplementationResolution(
     executionBasisAdmission.implementationSet,
     {
       graphFunctionRef: graph.graphFunctionRef,
       nodeRef: graph.template.startNodeRef,
-      programLocusRef: node.term.programLocusRef,
-      implementationBindingRef: node.term.requirement.implementationBindingRef,
+      programLocusRef: selectedLeaf.programLocusRef,
+      implementationBindingRef:
+        selectedLeaf.requirement.implementationBindingRef,
     },
   );
   assert.notEqual(implementationRow, null);
-  const semantics = await environment.product.loadInstalledProductSemantics({
-    install: environment.admittedInstall,
-    publication,
-    verifyInstallAdmission: (install) =>
-      abg.hasAdmittedProductInstall(environment.artifactTruth, install),
-  });
+  const semantics = environment.executionResolution.productSemantics;
   const semanticsProjection =
     environment.product.projectInstalledLeafSemantics(semantics);
   const leafPort = await environment.implementationLeafPort.constructAdmittedLeafInvocationPort({
@@ -906,9 +1018,8 @@ export async function setupInstalledRootExecutionBasis(
       ),
     ),
     artifactTruth: environment.artifactTruth,
-    install: environment.admittedInstall,
     implementationSet: executionBasisAdmission.implementationSet,
-    publication,
+    executionResolution: environment.executionResolution,
     semanticsProjection,
   });
   return {

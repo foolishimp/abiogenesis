@@ -1,0 +1,450 @@
+{
+  "kind": "axiom-indexer.axiomatic-program",
+  "schema_version": 1,
+  "uri": "urn:axiom-indexer:program:abiogenesis:mutable-worksite-spine:1",
+  "calculus_ref": "stdo://releases/v2.5.0-rc.1/standards/AXIOMATIC_CALCULUS.md",
+  "source_basis": "repo://abiogenesis/",
+  "frame_refs": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#local-extension-mutable-worksite-causality",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md#fully-functional-traversal",
+    "stdo://releases/v2.5.0-rc.1/standards/REFERENCE_FRAME_METHOD.md#reference-frame-laws",
+    "stdo://releases/v2.5.0-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame",
+    "stdo://releases/v2.5.0-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-reviewer-frame",
+    "stdo://releases/v2.5.0-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
+  ],
+  "vocabulary_refs": [
+    "urn:axiom-indexer:kind:authority-binding",
+    "urn:axiom-indexer:kind:callable",
+    "urn:axiom-indexer:kind:effect",
+    "urn:axiom-indexer:kind:evidence",
+    "urn:axiom-indexer:kind:execution-basis",
+    "urn:axiom-indexer:kind:executor",
+    "urn:axiom-indexer:kind:read-model",
+    "urn:axiom-indexer:kind:runtime",
+    "urn:axiom-indexer:kind:work-selection",
+    "urn:axiom-indexer:kind:worksite",
+    "urn:axiom-indexer:operator:admits",
+    "urn:axiom-indexer:operator:derives",
+    "urn:axiom-indexer:operator:distinguishes",
+    "urn:axiom-indexer:operator:owns",
+    "urn:axiom-indexer:operator:performs",
+    "urn:axiom-indexer:operator:preserves",
+    "urn:axiom-indexer:operator:prohibits",
+    "urn:axiom-indexer:operator:requires",
+    "urn:axiom-indexer:operator:routes",
+    "urn:axiom-indexer:operator:selects",
+    "urn:axiom-indexer:role:condition",
+    "urn:axiom-indexer:role:evidence",
+    "urn:axiom-indexer:role:object",
+    "urn:axiom-indexer:role:requirement",
+    "urn:axiom-indexer:role:source",
+    "urn:axiom-indexer:role:subject",
+    "urn:axiom-indexer:role:target"
+  ],
+  "symbols": [
+    {
+      "uri": "urn:axiom-indexer:symbol:abiogenesis:a-c-map",
+      "kind": "urn:axiom-indexer:kind:read-model",
+      "label": "Source-linked axiomatic context map",
+      "source_refs": [
+        "repo://abiogenesis/specification/PRODUCT.md#governance-and-release-boundary"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:symbol:abiogenesis:abg",
+      "kind": "urn:axiom-indexer:kind:runtime",
+      "label": "ABG runtime truth",
+      "source_refs": [
+        "repo://abiogenesis/specification/INTENT.md#abg-owns-admitted-runtime-truth",
+        "repo://abiogenesis/specification/PRODUCT.md#definition-tool-and-runtime-authority"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:symbol:abiogenesis:current-work-selection",
+      "kind": "urn:axiom-indexer:kind:work-selection",
+      "label": "T-287 STDO adoption and R2/R3 design reframe",
+      "source_refs": [
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#re-entry-disposition",
+        "repo://abiogenesis/specification/GOALS.md#current-selection"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:symbol:abiogenesis:effect-owner",
+      "kind": "urn:axiom-indexer:kind:effect",
+      "label": "Declared physical-effect owner",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+        "repo://abiogenesis/specification/PRODUCT.md#definition-tool-and-runtime-authority"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:symbol:abiogenesis:execution-basis",
+      "kind": "urn:axiom-indexer:kind:execution-basis",
+      "label": "Exact admitted execution basis",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:symbol:abiogenesis:graph-function",
+      "kind": "urn:axiom-indexer:kind:callable",
+      "label": "GTL GraphFunction",
+      "source_refs": [
+        "repo://abiogenesis/specification/INTENT.md#int-006-programs-and-callable-graphfunctions",
+        "repo://abiogenesis/specification/PRODUCT.md#graphfunction"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:symbol:abiogenesis:hog",
+      "kind": "urn:axiom-indexer:kind:executor",
+      "label": "HoG direct traversal",
+      "source_refs": [
+        "repo://abiogenesis/specification/INTENT.md#hog-owns-direct-traversal",
+        "repo://abiogenesis/specification/PRODUCT.md#hog"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:symbol:abiogenesis:observation-snapshot",
+      "kind": "urn:axiom-indexer:kind:evidence",
+      "label": "Immutable worksite observation",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md#fully-functional-traversal"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:symbol:abiogenesis:replay",
+      "kind": "urn:axiom-indexer:kind:read-model",
+      "label": "Fresh Event Calculus and replay projection",
+      "source_refs": [
+        "repo://abiogenesis/specification/INTENT.md#abg-owns-admitted-runtime-truth",
+        "repo://abiogenesis/specification/PRODUCT.md#definition-tool-and-runtime-authority"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:symbol:abiogenesis:worksite",
+      "kind": "urn:axiom-indexer:kind:worksite",
+      "label": "Mutable physical worksite",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#governed-outcome-and-workspace",
+        "repo://abiogenesis/specification/INTENT.md#product-owns-readiness-and-catalog-construction"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:symbol:abiogenesis:workspace-binding",
+      "kind": "urn:axiom-indexer:kind:authority-binding",
+      "label": "Stable workspace authority binding",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+        "repo://abiogenesis/specification/INTENT.md#product-owns-readiness-and-catalog-construction"
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:abg-admits-causal-truth",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:admits",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:subject",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:abg"
+        },
+        {
+          "role": "urn:axiom-indexer:role:object",
+          "literal": "causal effect, evidence, outcome, continuation, and closure truth"
+        }
+      ],
+      "statement": "ABG alone admits the causal runtime facts required by the declared effect path.",
+      "source_refs": [
+        "repo://abiogenesis/specification/INTENT.md#abg-owns-admitted-runtime-truth",
+        "repo://abiogenesis/specification/PRODUCT.md#definition-tool-and-runtime-authority"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:binding-constituent-change-reenters",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:requires",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:condition",
+          "literal": "WorkspaceAuthorityBasis, ProductSet, resolved lock, or declared root changes"
+        },
+        {
+          "role": "urn:axiom-indexer:role:requirement",
+          "literal": "new WorkspaceBinding and owning re-entry"
+        }
+      ],
+      "statement": "A changed binding constituent requires a new binding and its owning re-entry.",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:content-change-preserves-binding",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:preserves",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:condition",
+          "literal": "worksite content changes while binding constituents remain exact"
+        },
+        {
+          "role": "urn:axiom-indexer:role:object",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:workspace-binding"
+        },
+        {
+          "role": "urn:axiom-indexer:role:target",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:observation-snapshot"
+        }
+      ],
+      "statement": "Ordinary content change preserves WorkspaceBinding and creates a successor observation.",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md#fully-functional-traversal"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:current-selection-design-only",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:selects",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:subject",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:current-work-selection"
+        },
+        {
+          "role": "urn:axiom-indexer:role:requirement",
+          "literal": "STDO basis adoption and W2-R2/R3 design reframe; R4 implementation remains unselected"
+        }
+      ],
+      "statement": "The current ABI selection changes basis and design, not Product behavior or implementation authority.",
+      "source_refs": [
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#re-entry-disposition",
+        "repo://abiogenesis/specification/GOALS.md#current-selection"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:gtl-declares-effect",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:owns",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:subject",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:graph-function"
+        },
+        {
+          "role": "urn:axiom-indexer:role:object",
+          "literal": "effect meaning, topology, inputs, outputs, and refusal relation"
+        }
+      ],
+      "statement": "GTL and the selected GraphFunction own declared effect meaning; imperative glue does not.",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+        "repo://abiogenesis/specification/INTENT.md#gtl-owns-program-meaning"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:hog-derives-candidate",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:derives",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:subject",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:hog"
+        },
+        {
+          "role": "urn:axiom-indexer:role:source",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:execution-basis"
+        },
+        {
+          "role": "urn:axiom-indexer:role:target",
+          "literal": "owner effect candidate, evidence, or typed refusal"
+        }
+      ],
+      "statement": "HoG traverses the admitted graph and derives candidates; it does not perform or admit effects.",
+      "source_refs": [
+        "repo://abiogenesis/specification/INTENT.md#hog-owns-direct-traversal",
+        "repo://abiogenesis/specification/PRODUCT.md#definition-tool-and-runtime-authority"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:map-is-read-model",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:prohibits",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:subject",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:a-c-map"
+        },
+        {
+          "role": "urn:axiom-indexer:role:object",
+          "literal": "constitutional, semantic, execution, admission, event, or release authority"
+        }
+      ],
+      "statement": "The a_c map compresses attention and routes source re-entry without becoming authority.",
+      "source_refs": [
+        "repo://abiogenesis/specification/PRODUCT.md#governance-and-release-boundary"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:owner-performs-effect",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:performs",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:subject",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:effect-owner"
+        },
+        {
+          "role": "urn:axiom-indexer:role:object",
+          "literal": "bounded mutation under exact operation grant, subject, write territory, and handler binding"
+        }
+      ],
+      "statement": "The declared owner performs the physical effect or returns its typed refusal.",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+        "repo://abiogenesis/specification/PRODUCT.md#definition-tool-and-runtime-authority"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:replay-derives-current-observation",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:derives",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:subject",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:replay"
+        },
+        {
+          "role": "urn:axiom-indexer:role:evidence",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:abg"
+        },
+        {
+          "role": "urn:axiom-indexer:role:target",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:observation-snapshot"
+        }
+      ],
+      "statement": "Fresh replay or reconstruction derives the current ObservationSnapshot before dependent traversal continues.",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+        "repo://abiogenesis/specification/INTENT.md#abg-owns-admitted-runtime-truth"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:stale-observation-refuses",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:prohibits",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:condition",
+          "literal": "a material effect has changed the worksite"
+        },
+        {
+          "role": "urn:axiom-indexer:role:object",
+          "literal": "dependent traversal using the predecessor observation as current truth"
+        }
+      ],
+      "statement": "A stale observation cannot cross the next dependent graph boundary.",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md#mandatory-falsifiers"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:unadmitted-mutation-is-not-truth",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:prohibits",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:subject",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:worksite"
+        },
+        {
+          "role": "urn:axiom-indexer:role:condition",
+          "literal": "physical bytes changed without owner effect and required ABG admission"
+        },
+        {
+          "role": "urn:axiom-indexer:role:target",
+          "literal": "runtime truth"
+        }
+      ],
+      "statement": "An unadmitted physical mutation is evidence of the world, not ABI runtime truth.",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+        "repo://abiogenesis/specification/PRODUCT.md#definition-tool-and-runtime-authority"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:clause:abiogenesis:worksite-distinct-from-binding",
+      "clause_type": "constraint",
+      "operator": "urn:axiom-indexer:operator:distinguishes",
+      "arguments": [
+        {
+          "role": "urn:axiom-indexer:role:subject",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:workspace-binding"
+        },
+        {
+          "role": "urn:axiom-indexer:role:object",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:worksite"
+        },
+        {
+          "role": "urn:axiom-indexer:role:evidence",
+          "ref": "urn:axiom-indexer:symbol:abiogenesis:observation-snapshot"
+        }
+      ],
+      "statement": "Stable workspace authority, mutable physical content, and immutable observations are distinct coordinates.",
+      "source_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#governed-outcome-and-workspace",
+        "repo://abiogenesis/specification/INTENT.md#product-owns-readiness-and-catalog-construction"
+      ]
+    }
+  ],
+  "residuals": [
+    {
+      "uri": "urn:axiom-indexer:residual:abiogenesis:observation-carrier-selection",
+      "kind": "unresolved",
+      "subject_refs": [
+        "urn:axiom-indexer:symbol:abiogenesis:observation-snapshot",
+        "urn:axiom-indexer:symbol:abiogenesis:workspace-binding"
+      ],
+      "detail": "R2/R3 must identify the exact existing ObservationSnapshot carrier, owner, identity, and stale-state relation before implementation selection.",
+      "re_entry_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md#current-audit-questions"
+      ],
+      "source_refs": [
+        "repo://abiogenesis/specification/GOALS.md#current-selection"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:residual:abiogenesis:operation-grant-and-write-territory",
+      "kind": "unresolved",
+      "subject_refs": [
+        "urn:axiom-indexer:symbol:abiogenesis:effect-owner",
+        "urn:axiom-indexer:symbol:abiogenesis:execution-basis"
+      ],
+      "detail": "R2/R3 must bind each physical effect to an existing exact operation grant, mutation subject, write territory, and handler before implementation selection.",
+      "re_entry_refs": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md#current-audit-questions"
+      ],
+      "source_refs": [
+        "repo://abiogenesis/specification/GOALS.md#current-selection"
+      ]
+    },
+    {
+      "uri": "urn:axiom-indexer:residual:abiogenesis:realization-selection",
+      "kind": "omission",
+      "subject_refs": [
+        "urn:axiom-indexer:symbol:abiogenesis:current-work-selection"
+      ],
+      "detail": "R4 implementation selection and the minimal deletion or reuse map remain deliberately unselected until the design closes and receives independent review.",
+      "re_entry_refs": [
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#accepted-wave-2-goal-reprice-and-design-roadmap"
+      ],
+      "source_refs": [
+        "repo://abiogenesis/specification/GOALS.md#current-selection"
+      ]
+    }
+  ]
+}

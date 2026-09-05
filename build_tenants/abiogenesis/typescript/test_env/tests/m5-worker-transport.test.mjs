@@ -11,7 +11,10 @@ import {
   constructKnownWorkerTransportContract,
   prepareWorkerTransport,
   runWorkerTransport,
+  validateActorProcessCarrierPair,
 } from "../../build/code/src/abg/index.js";
+import { canonicalJson } from "../../build/code/src/shared/canonical_json.js";
+import { sha256Bytes } from "../../build/code/src/shared/digests.js";
 
 function assertClaudeProtocol(args) {
   for (const [flag, value] of [
@@ -136,6 +139,15 @@ test("M5 transport identity changes with parser and prompt-delivery semantics", 
   assert.notEqual(baseline.planDigest, parserChanged.planDigest);
   assert.notEqual(baseline.contractDigest, promptTransportChanged.contractDigest);
   assert.notEqual(baseline.planDigest, promptTransportChanged.planDigest);
+  assert.equal(baseline.absoluteTimeoutMs, 4_000);
+  await assert.rejects(
+    prepareWorkerTransport({
+      contract: base,
+      ...request,
+      absoluteTimeoutMs: request.timeoutMs,
+    }),
+    /absolute timeout.*greater than.*inactivity timeout/u,
+  );
 });
 
 test("M5 B-001 crosses a real worker process, parser, tool event, and archive", async (context) => {
@@ -147,7 +159,7 @@ test("M5 B-001 crosses a real worker process, parser, tool event, and archive", 
     "process.stdin.resume();",
     "process.stdin.on('end', () => {",
     "  console.log(JSON.stringify({type:'system', subtype:'init'}));",
-    "  console.log(JSON.stringify({type:'assistant', message:{content:[{type:'tool_use', name:'Write', input:{path:'artifact.txt'}},{type:'tool_use', name:'Read', input:{path:'artifact.txt'}}]}}));",
+    "  console.log(JSON.stringify({type:'assistant', message:{content:[{type:'tool_use', id:'toolu_write', name:'Write', input:{path:'artifact.txt'}},{type:'tool_use', id:'toolu_read', name:'Read', input:{path:'artifact.txt'}}]}}));",
     "  console.log(JSON.stringify({type:'user', message:{content:[{type:'tool_result', content:'artifact written'}]}}));",
     "  console.log(JSON.stringify({type:'result', subtype:'success', result:JSON.stringify({kind:'fp_worker_output',schemaVersion:'5.0.0',message:'worker execution observed'})}));",
     "});",
@@ -176,6 +188,14 @@ test("M5 B-001 crosses a real worker process, parser, tool event, and archive", 
   assert.equal(result.structuredEventCount, 4);
   assert.equal(result.progressEventCount, 3);
   assert.equal(result.toolCallCount, 2);
+  assert.deepEqual(result.toolInvocations.map((row) => [
+    row.ordinal,
+    row.toolUseRef,
+    row.toolName,
+  ]), [
+    [0, "toolu_write", "Write"],
+    [1, "toolu_read", "Read"],
+  ]);
   assert.equal(result.args.includes("--safe-mode"), false);
   assert.equal(result.args.includes("--tools"), false);
   assert.deepEqual(JSON.parse(result.finalOutput), {
@@ -187,6 +207,189 @@ test("M5 B-001 crosses a real worker process, parser, tool event, and archive", 
     assert.match(row.digest, /^sha256:[a-f0-9]{64}$/u);
     assert.equal((await readFile(row.path)).byteLength, row.byteLength);
   }
+});
+
+test("M5 Bash tool identity ignores only optional string description metadata", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-bash-tool-identity-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const workerPath = join(scratch, "claude-bash-tool-fixture.mjs");
+  await writeFile(workerPath, [
+    "#!/usr/bin/env node",
+    "const toolUses = JSON.parse(process.env.FIXTURE_TOOL_USES_JSON ?? '[]');",
+    "process.stdin.resume();",
+    "process.stdin.on('end', () => {",
+    "  console.log(JSON.stringify({type:'system', subtype:'init'}));",
+    "  console.log(JSON.stringify({type:'assistant', message:{content:toolUses}}));",
+    "  console.log(JSON.stringify({type:'result', subtype:'success', result:'{}'}));",
+    "});",
+    "",
+  ].join("\n"), "utf8");
+  await chmod(workerPath, 0o755);
+  const contract = constructKnownWorkerTransportContract("claude", {
+    command: process.execPath,
+    prefixArgs: [workerPath],
+    environment: {},
+  });
+  const runCase = (label, toolUses) => runWorkerTransport({
+    contract,
+    prompt: "capture exact Bash tool identity",
+    lane: "worker_executes",
+    cwd: scratch,
+    archiveRoot: join(scratch, "archive"),
+    label,
+    timeoutMs: 10_000,
+    environment: { FIXTURE_TOOL_USES_JSON: JSON.stringify(toolUses) },
+  });
+  const toolUse = (id, name, input, includeInput = true) => ({
+    type: "tool_use",
+    id,
+    name,
+    ...(includeInput ? { input } : {}),
+  });
+  const actorValidation = (result, label) => {
+    const request = {
+      actorRef: "actor://abiogenesis/test/bash-tool-identity@5",
+      workerBindingRef: "worker-binding://abiogenesis/test/bash-tool-identity@5",
+      implementationRef: "implementation://abiogenesis/test/bash-tool-identity@5",
+      inputDigest: `sha256:${"a".repeat(64)}`,
+      materializationPlanRef: "materialization-plan://abiogenesis/test/bash-tool-identity@5",
+      rendererRef: "renderer://abiogenesis/test/bash-tool-identity@5",
+      instructionContractRef: "contract://abiogenesis/test/bash-tool-instruction@5",
+      resultContractRef: "contract://abiogenesis/test/bash-tool-result@5",
+      transportLane: "worker_executes",
+      prompt: "capture exact Bash tool identity",
+      responseJsonSchema: { type: "object" },
+    };
+    return validateActorProcessCarrierPair(request, {
+      actorInvocationRef: `actor-invocation://abiogenesis/test/${label}`,
+      actorRef: request.actorRef,
+      workerBindingRef: request.workerBindingRef,
+      implementationRef: request.implementationRef,
+      inputDigest: request.inputDigest,
+      materializationPlanRef: request.materializationPlanRef,
+      rendererRef: request.rendererRef,
+      instructionContractRef: request.instructionContractRef,
+      resultContractRef: request.resultContractRef,
+      processRef: `process://abiogenesis/test/${label}`,
+      transportBindingRef: `transport-binding://abiogenesis/test/${label}`,
+      transportBindingDigest: `sha256:${"b".repeat(64)}`,
+      disposition: result.disposition,
+      failureClass: result.failureClass,
+      finalOutput: result.finalOutput,
+      observedOutputDigest: result.artifacts.output.digest,
+      promptDigest: result.artifacts.prompt.digest,
+      transportDigest: result.artifacts.transport.digest,
+      transportLane: result.lane,
+      processStatus: result.status,
+      processSignal: result.signal,
+      timeoutClass: result.timeoutClass,
+      timedOut: result.timedOut,
+      exitObserved: result.exitObserved,
+      terminationConfirmed: result.terminationConfirmed,
+      signalSequence: [],
+      structuredEventCount: result.structuredEventCount,
+      progressEventCount: result.progressEventCount,
+      toolCallCount: result.toolCallCount,
+      toolInvocations: result.toolInvocations,
+      apiRetryCount: result.apiRetryCount,
+      stdoutByteLength: result.artifacts.stdout.byteLength,
+      stderrByteLength: result.artifacts.stderr.byteLength,
+      artifactDigests: {
+        output: result.artifacts.output.digest,
+        prompt: result.artifacts.prompt.digest,
+        stderr: result.artifacts.stderr.digest,
+        stdout: result.artifacts.stdout.digest,
+        transport: result.artifacts.transport.digest,
+      },
+    });
+  };
+
+  const helperCommand = "node /installed/helper.js --task /archive/task.json";
+  const canonicalInputBytes = Buffer.from(
+    canonicalJson({ command: helperCommand }),
+    "utf8",
+  );
+  const expectedDigest = sha256Bytes(canonicalInputBytes);
+  const commandOnly = await runCase("bash-command-only", [
+    toolUse("toolu_command", "Bash", { command: helperCommand }),
+  ]);
+  const description = "Run the exact ABI helper once";
+  const described = await runCase("bash-command-description", [
+    toolUse("toolu_description", "Bash", { command: helperCommand, description }),
+  ]);
+  for (const result of [commandOnly, described]) {
+    assert.equal(result.toolCallCount, 1);
+    assert.equal(result.toolInvocations.length, 1);
+    assert.equal(result.toolInvocations[0].inputDigest, expectedDigest);
+    assert.equal(result.toolInvocations[0].inputByteLength, canonicalInputBytes.byteLength);
+    assert.equal(Object.hasOwn(result.toolInvocations[0], "input"), false);
+  }
+  assert.equal(actorValidation(commandOnly, "command-only").disposition, "valid");
+  assert.equal(actorValidation(described, "description").disposition, "valid");
+  assert.match(await readFile(described.artifacts.stdout.path, "utf8"), new RegExp(description, "u"));
+  assert.match(await readFile(described.artifacts.transport.path, "utf8"), new RegExp(description, "u"));
+
+  for (const [label, input] of [
+    ["wrong-command", { command: `${helperCommand} --wrong` }],
+    ["timeout", { command: helperCommand, timeout: 1_000 }],
+    ["background", { command: helperCommand, background: true }],
+    ["sandbox", { command: helperCommand, sandbox: "alternate" }],
+    ["unknown", { command: helperCommand, unknownField: "retained" }],
+  ]) {
+    const result = await runCase(`bash-${label}`, [
+      toolUse(`toolu_${label}`, "Bash", input),
+    ]);
+    assert.equal(result.toolCallCount, 1);
+    assert.equal(result.toolInvocations.length, 1);
+    assert.notEqual(result.toolInvocations[0].inputDigest, expectedDigest);
+    assert.notEqual(result.toolInvocations[0].inputByteLength, canonicalInputBytes.byteLength);
+    assert.equal(actorValidation(result, label).disposition, "valid");
+  }
+
+  for (const [label, event] of [
+    ["non-string-description", toolUse("toolu_bad_description", "Bash", {
+      command: helperCommand,
+      description: 7,
+    })],
+    ["malformed-input", toolUse("toolu_malformed", "Bash", helperCommand)],
+    ["missing-input", toolUse("toolu_missing", "Bash", null, false)],
+    ["missing-command", toolUse("toolu_missing_command", "Bash", {
+      description: "missing exact command",
+    })],
+  ]) {
+    const result = await runCase(`bash-${label}`, [event]);
+    assert.equal(result.toolCallCount, 1);
+    assert.deepEqual(result.toolInvocations, []);
+    assert.equal(actorValidation(result, label).disposition, "refused");
+  }
+
+  const second = await runCase("bash-second-tool", [
+    toolUse("toolu_first", "Bash", { command: helperCommand }),
+    toolUse("toolu_second", "Read", { file_path: "/archive/result.json" }),
+  ]);
+  assert.equal(second.toolCallCount, 2);
+  assert.equal(second.toolInvocations.length, 2);
+  assert.equal(actorValidation(second, "second-tool").disposition, "valid");
+
+  const repeated = await runCase("bash-repeated-stream-record", [
+    toolUse("toolu_repeated", "Bash", { command: helperCommand, description }),
+    toolUse("toolu_repeated", "Bash", { command: helperCommand }),
+  ]);
+  assert.equal(repeated.toolCallCount, 1);
+  assert.equal(repeated.toolInvocations.length, 1);
+  assert.equal(repeated.toolInvocations[0].inputDigest, expectedDigest);
+  assert.equal(actorValidation(repeated, "repeated-stream-record").disposition, "valid");
+
+  const conflictingDuplicate = await runCase("bash-conflicting-duplicate", [
+    toolUse("toolu_duplicate", "Bash", { command: helperCommand }),
+    toolUse("toolu_duplicate", "Bash", { command: `${helperCommand} --wrong` }),
+  ]);
+  assert.equal(conflictingDuplicate.toolCallCount, 2);
+  assert.equal(conflictingDuplicate.toolInvocations.length, 1);
+  assert.equal(
+    actorValidation(conflictingDuplicate, "conflicting-duplicate").disposition,
+    "refused",
+  );
 });
 
 test("M5 B-001 rejects tool activity only in the closed-prompt lane", async (context) => {
@@ -288,6 +491,7 @@ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (c
   await writeFile(workerPath, [
     "#!/usr/bin/env node",
     "process.on('SIGTERM', () => {});",
+    "process.stdout.write('started\\n');",
     "setInterval(() => process.stdout.write('still-running\\n'), 20);",
     "",
   ].join("\n"), "utf8");
@@ -307,17 +511,20 @@ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (c
     cwd: scratch,
     archiveRoot: join(scratch, "archive"),
     label: "resistant-worker",
-    timeoutMs: 75,
+    timeoutMs: 200,
+    absoluteTimeoutMs: 350,
     terminationGraceMs: 75,
     environment: {},
     observer: {
       onProcessStarted: (pid) => { processId = pid; },
+      onStdoutObserved: () => true,
       onProcessExited: (status, signal) => observedExits.push({ status, signal }),
       onTerminationUnconfirmed: () => { unconfirmedTerminations += 1; },
     },
   });
   assert.equal(result.disposition, "failure");
   assert.equal(result.timedOut, true);
+  assert.equal(result.timeoutClass, "absolute");
   assert.equal(result.exitObserved, true);
   assert.equal(result.terminationConfirmed, true);
   assert.deepEqual(observedExits, [{ status: null, signal: "SIGKILL" }]);
@@ -328,6 +535,99 @@ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (c
     (error) => error?.code === "ESRCH",
   );
   assert.equal(Date.now() - startedAt < 2_000, true);
+});
+
+test("M5 ABG transport renews its inactivity lease only from observed progress", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-progress-lease-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const workerPath = join(scratch, "progress-worker.mjs");
+  await writeFile(workerPath, [
+    "#!/usr/bin/env node",
+    "let ordinal = 0;",
+    "process.stdout.write('progress-0\\n');",
+    "const progress = setInterval(() => {",
+    "  ordinal += 1;",
+    "  process.stdout.write(`progress-${ordinal}\\n`);",
+    "  if (ordinal === 6) {",
+    "    clearInterval(progress);",
+    "    process.stdout.write('complete\\n', () => process.exit(0));",
+    "  }",
+    "}, 40);",
+    "",
+  ].join("\n"), "utf8");
+  await chmod(workerPath, 0o755);
+  let progressObservations = 0;
+  const startedAt = Date.now();
+  const result = await runWorkerTransport({
+    contract: constructKnownWorkerTransportContract("generic", {
+      command: process.execPath,
+      prefixArgs: [workerPath],
+      environment: {},
+    }),
+    prompt: "remain live while observed progress continues",
+    lane: "worker_executes",
+    cwd: scratch,
+    archiveRoot: join(scratch, "archive"),
+    label: "progress-worker",
+    timeoutMs: 120,
+    absoluteTimeoutMs: 600,
+    terminationGraceMs: 75,
+    environment: {},
+    observer: {
+      onStdoutObserved: () => {
+        progressObservations += 1;
+        return true;
+      },
+    },
+  });
+
+  assert.equal(Date.now() - startedAt > 120, true);
+  assert.equal(progressObservations >= 7, true);
+  assert.equal(result.disposition, "success");
+  assert.equal(result.timedOut, false);
+  assert.equal(result.timeoutClass, null);
+  assert.match(result.finalOutput, /complete/u);
+});
+
+test("M5 ABG transport does not renew from unacknowledged output", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-unadmitted-progress-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const workerPath = join(scratch, "unadmitted-progress-worker.mjs");
+  await writeFile(workerPath, [
+    "#!/usr/bin/env node",
+    "setInterval(() => process.stdout.write('unadmitted\\n'), 20);",
+    "",
+  ].join("\n"), "utf8");
+  await chmod(workerPath, 0o755);
+  let rawObservations = 0;
+  const result = await runWorkerTransport({
+    contract: constructKnownWorkerTransportContract("generic", {
+      command: process.execPath,
+      prefixArgs: [workerPath],
+      environment: {},
+    }),
+    prompt: "do not renew without admission acknowledgement",
+    lane: "worker_executes",
+    cwd: scratch,
+    archiveRoot: join(scratch, "archive"),
+    label: "unadmitted-progress-worker",
+    timeoutMs: 150,
+    absoluteTimeoutMs: 600,
+    terminationGraceMs: 75,
+    environment: {},
+    observer: {
+      onStdoutObserved: () => {
+        rawObservations += 1;
+        return false;
+      },
+    },
+  });
+
+  assert.equal(rawObservations > 0, true);
+  assert.equal(result.disposition, "failure");
+  assert.equal(result.timedOut, true);
+  assert.equal(result.timeoutClass, "inactivity");
+  assert.equal(result.finalOutput.length > 0, true);
 });
 
 test("M5 ABG transport excludes semantic output emitted after its timeout boundary", async (context) => {
@@ -357,6 +657,7 @@ test("M5 ABG transport excludes semantic output emitted after its timeout bounda
     archiveRoot: join(scratch, "archive"),
     label: "post-timeout-output",
     timeoutMs: 150,
+    absoluteTimeoutMs: 600,
     terminationGraceMs: 250,
     environment: {},
   });
@@ -364,6 +665,7 @@ test("M5 ABG transport excludes semantic output emitted after its timeout bounda
   assert.equal(result.disposition, "failure");
   assert.equal(result.failureClass, "transport_failure");
   assert.equal(result.timedOut, true);
+  assert.equal(result.timeoutClass, "inactivity");
   assert.equal(result.finalOutput, "");
   assert.equal(result.structuredEventCount, 0);
   assert.match(result.stdout, /late_worker_output/u);

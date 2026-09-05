@@ -109,10 +109,12 @@ They cannot be published, resumed, or selected as a rival executable program.
 
 ### Product owns readiness and catalog construction
 
-Product deterministically validates one explicit immutable workspace, lock,
-install, descriptor, and publication basis and constructs the catalog, narrowed
-views, and declaration applications as discardable values. These operations
-emit no runtime event and retain no lifecycle authority.
+Product deterministically validates one explicit immutable workspace binding,
+lock, install, descriptor, and publication basis over a mutable worksite and
+constructs the catalog, narrowed views, and declaration applications as
+discardable values. Worksite observations are replaceable immutable evidence;
+they are not fields of the stable binding. These construction operations emit
+no runtime event and retain no lifecycle authority.
 
 ### ABG owns admitted runtime truth
 

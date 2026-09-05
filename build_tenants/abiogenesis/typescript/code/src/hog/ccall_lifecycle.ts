@@ -19,11 +19,21 @@ import type {
   GtlGraph,
   GtlProgram,
 } from "../gtl/contracts.js";
+import { WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
 import type {
   ClosedLeafOwnerReceipt,
   LeafInvocationPort,
 } from "../implementation/contracts.js";
+import { constructLeafExecutionAuthority } from "../implementation/leaf_invocation_port.js";
+import { unadmittedPhysicalCommit } from "../implementation/worksite_file_replace.js";
+import {
+  isWorksiteFileReplaceRequest,
+  WORKSITE_FILE_REPLACE_EFFECT_URI,
+  WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
+  WORKSITE_FILE_REPLACE_HANDLER_REF,
+} from "../product/worksite_effect.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical } from "../shared/digests.js";
 import type { GraphValidation } from "../validator/graph.js";
 import { proposeJudgmentCandidate } from "./judgment.js";
 import {
@@ -82,6 +92,87 @@ export interface CCallRetryRequest {
 export type CCallLifecycleStep =
   | CCallLifecycleEvaluation
   | CCallRetryRequest;
+
+function worksiteLeafAuthority(
+  input: ExecutableCCallContext,
+  resolution: Abg.AdmittedImplementationResolutionRow,
+  cCall: Abg.CCall,
+  openedPrefix: DurablePrefixCoordinate,
+): ReturnType<typeof constructLeafExecutionAuthority> | null {
+  if (
+    !isWorksiteFileReplaceRequest(input.input) ||
+    cCall.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
+    resolution.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
+    resolution.implementationBindingRef !==
+      "implementation-binding://abiogenesis/worksite/file-replace-fd@5" ||
+    resolution.implementationRef !==
+      "implementation://abiogenesis/worksite/file-replace-fd@5" ||
+    resolution.inputContractRef !== WORKSITE_C0_IDS.inputContractRef ||
+    resolution.outputContractRef !== WORKSITE_C0_IDS.outputContractRef ||
+    input.graphFunction.effects.includes(WORKSITE_FILE_REPLACE_EFFECT_URI) === false ||
+    resolution.computeRegime !== "F_D" ||
+    input.executionBasis.workspaceBindingId !==
+      input.actorRuntimeBinding.workspaceBinding.bindingId ||
+    input.executionBasis.workspaceBindingDigest !==
+      input.actorRuntimeBinding.workspaceBinding.bindingDigest ||
+    input.executionBasis.actorRef !== input.actorRuntimeBinding.workspaceBinding.authorizedActorRef ||
+    input.input.workspaceBindingIdentity !== input.executionBasis.workspaceBindingId ||
+    input.input.workspaceBindingDigest !== input.executionBasis.workspaceBindingDigest ||
+    input.input.capabilityGrant.actorRef !== input.executionBasis.actorRef ||
+    input.input.capabilityGrant.scopeRef !== input.executionBasis.workspaceBindingId ||
+    input.input.capabilityGrant.scopeDigest !== input.executionBasis.workspaceBindingDigest
+  ) return null;
+  Abg.assertHeldEventStoreAtDurablePrefix(input.store, openedPrefix);
+  const current = Abg.projectRuntimeTruthAtDurablePrefix(
+    openedPrefix,
+    cCall.runId,
+  );
+  const calculus = Abg.deriveRuntimeEventCalculusProjection(
+    current.runtimePrefix,
+  );
+  if (
+    !Abg.holdsAt(
+      calculus,
+      Abg.constructWorksiteObservationCurrentFluent(
+        input.input.predecessorObservation.observationRef,
+      ),
+    )
+  ) return null;
+  return constructLeafExecutionAuthority({
+    actorRef: input.executionBasis.actorRef,
+    workspaceBinding: input.actorRuntimeBinding.workspaceBinding,
+    workspaceBindingIdentity: input.executionBasis.workspaceBindingId,
+    workspaceBindingDigest: input.executionBasis.workspaceBindingDigest,
+    executionBasis: input.executionBasis,
+    executionBasisRef: input.executionBasis.basisRef,
+    executionBasisDigest: input.executionBasis.basisDigest,
+    programRef: input.executionBasis.programRef,
+    programDigest: input.executionBasis.programDigest,
+    graphFunctionRef: input.executionBasis.graphFunctionRef,
+    graphFunctionDigest: input.executionBasis.graphFunctionDigest,
+    cCall,
+    cCallRef: cCall.cCallRef,
+    cCallDigest: cCall.cCallDigest,
+    predecessorPrefix: openedPrefix,
+    implementationSet: input.implementationSet,
+    implementationSetRef: input.implementationSet.implementationSetRef,
+    implementationSetDigest: input.implementationSet.implementationSetDigest,
+    leafResolutionCandidateRef: resolution.leafResolutionCandidateRef,
+    leafResolutionCandidateDigest: resolution.leafResolutionCandidateDigest,
+    implementationResolutionRef: `implementation-resolution://abiogenesis/${sha256Canonical(resolution as unknown as JsonValue).slice("sha256:".length)}`,
+    implementationResolutionDigest: sha256Canonical(resolution as unknown as JsonValue),
+    implementationResolution: resolution,
+    implementationBindingRef: resolution.implementationBindingRef,
+    implementationBindingDigest: resolution.implementationBindingDigest,
+    implementationRef: resolution.implementationRef,
+    implementationOwnerRef: resolution.implementationOwnerProductId,
+    effectUri: WORKSITE_FILE_REPLACE_EFFECT_URI,
+    handlerRef: WORKSITE_FILE_REPLACE_HANDLER_REF,
+    handlerDigest: WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
+    capabilityGrantRef: input.input.capabilityGrant.grantRef,
+    capabilityGrantDigest: input.input.capabilityGrant.grantDigest,
+  });
+}
 
 function failCCall(
   input: ExecutableCCallContext,
@@ -317,6 +408,12 @@ export function evaluateExecutableCCall(
       programLocusRef: opened.cCall.programLocusRef,
       taskOrdinal: opened.cCall.taskOrdinal,
       attempt: opened.cCall.attempt,
+      executionAuthority: worksiteLeafAuthority(
+        input,
+        resolution,
+        opened.cCall,
+        opened.successorPrefix,
+      ),
     });
     const invocation = yield* Effect.promise(() =>
       input.leafPort.invoke({
@@ -364,7 +461,8 @@ export function evaluateExecutableCCall(
       }
       const effectReceipt = effectResult;
       try {
-        completedOwner = invocation.complete(effectReceipt.exchange);
+        completedOwner = yield* Effect.promise(async () =>
+          await invocation.complete(effectReceipt.exchange));
       } catch {
         return failCCall(
           input,
@@ -397,13 +495,42 @@ export function evaluateExecutableCCall(
       failureValueKind,
       basis: admissionBasis(input.clock, "outcome"),
     } as const;
-    const resultOutcome = input.stop.computeRegime === "F_P"
-      ? Abg.admitCCallResult({
-          ...outcomeInput,
-          regime: "F_P",
-          actorRuntimeBinding: input.actorRuntimeBinding,
-        })
-      : Abg.admitCCallResult({ ...outcomeInput, regime: "F_D" });
+    let resultOutcome: ReturnType<typeof Abg.admitCCallResult>;
+    try {
+      resultOutcome = input.stop.computeRegime === "F_P"
+        ? Abg.admitCCallResult({
+            ...outcomeInput,
+            regime: "F_P",
+            actorRuntimeBinding: input.actorRuntimeBinding,
+          })
+        : Abg.admitCCallResult({ ...outcomeInput, regime: "F_D" });
+    } catch (error) {
+      const residue = unadmittedPhysicalCommit(
+        opened.cCall.cCallRef,
+        completedOwner.candidate.resultCandidate,
+        outcomePredecessor,
+      );
+      if (residue === null) throw error;
+      const replayState = Abg.projectRuntimeTruthAtDurablePrefix(
+        outcomePredecessor,
+        opened.cCall.runId,
+      ).replayState;
+      return {
+        kind: "c_call_evaluation" as const,
+        outputValueKind,
+        outputContractRef: input.stop.outputContractRef,
+        completion: projectExecutableTraversalCompletion(
+          "refused",
+          replayState,
+          outcomePredecessor,
+          {
+            cCallRef: opened.cCall.cCallRef,
+            resultValue: residue as unknown as JsonValue,
+            diagnosticRef: residue.diagnosticRef,
+          },
+        ),
+      };
+    }
     const admitted = resultOutcome.disposition !== "result"
       ? resultOutcome
       : (() => {

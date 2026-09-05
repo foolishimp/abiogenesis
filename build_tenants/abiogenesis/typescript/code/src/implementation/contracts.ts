@@ -9,6 +9,14 @@ import type {
 } from "../abg/actor_process.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
+import type { CCall } from "../abg/c_call.js";
+import type {
+  AdmittedImplementationResolutionRow,
+  AdmittedImplementationSet,
+  ExecutionBasis,
+} from "../abg/execution_basis.js";
+import type { DurablePrefixCoordinate } from "../abg/event_store.js";
+import type { WorkspaceBinding } from "../product/environment.js";
 
 export interface DeterministicEvidenceCandidate {
   readonly kind: "deterministic_evidence_candidate";
@@ -83,6 +91,7 @@ export interface ProbabilisticWorkerObservation {
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
   readonly processStatus: number | null;
   readonly processSignal: string | null;
+  readonly timeoutClass: "absolute" | "inactivity" | null;
   readonly timedOut: boolean;
   readonly exitObserved: boolean;
   readonly terminationConfirmed: boolean;
@@ -105,6 +114,49 @@ export interface LeafExecutionOccurrence {
   readonly programLocusRef: string;
   readonly taskOrdinal: number | null;
   readonly attempt: number;
+  readonly executionAuthority: Readonly<LeafExecutionAuthority> | null;
+}
+
+export interface LeafExecutionAuthority {
+  readonly kind: "leaf_execution_authority";
+  readonly schemaVersion: "5.0.0";
+  readonly authorityRef: string;
+  readonly authorityDigest: Sha256Digest;
+  readonly actorRef: string;
+  /** Exact immutable values needed by the selected physical owner. */
+  readonly workspaceBinding: Readonly<WorkspaceBinding>;
+  readonly workspaceBindingIdentity: string;
+  readonly workspaceBindingDigest: Sha256Digest;
+  readonly executionBasis: Readonly<ExecutionBasis>;
+  readonly executionBasisRef: string;
+  readonly executionBasisDigest: Sha256Digest;
+  readonly programRef: string;
+  readonly programDigest: Sha256Digest;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionDigest: Sha256Digest;
+  readonly cCallRef: string;
+  readonly cCallDigest: Sha256Digest;
+  readonly cCall: Readonly<CCall>;
+  /** Exact durable ABG prefix at which this C-call is selected for its owner. */
+  readonly predecessorPrefix: Readonly<DurablePrefixCoordinate>;
+  readonly implementationSet: Readonly<AdmittedImplementationSet>;
+  readonly implementationSetRef: string;
+  readonly implementationSetDigest: Sha256Digest;
+  readonly leafResolutionCandidateRef: string;
+  readonly leafResolutionCandidateDigest: Sha256Digest;
+  readonly implementationResolutionRef: string;
+  readonly implementationResolutionDigest: Sha256Digest;
+  readonly implementationResolution:
+    Readonly<AdmittedImplementationResolutionRow>;
+  readonly implementationBindingRef: string;
+  readonly implementationBindingDigest: Sha256Digest;
+  readonly implementationRef: string;
+  readonly implementationOwnerRef: string;
+  readonly effectUri: "effect://abiogenesis/worksite/file.replace/v1";
+  readonly handlerRef: "handler://abiogenesis/product/worksite/file.replace/v1";
+  readonly handlerDigest: Sha256Digest;
+  readonly capabilityGrantRef: string;
+  readonly capabilityGrantDigest: Sha256Digest;
 }
 
 export interface ProbabilisticWorkerContracts {
@@ -118,7 +170,7 @@ export interface PreparedProbabilisticLeafInvocation<Candidate> {
   readonly workerRequest: Readonly<ProbabilisticWorkerRequest>;
   readonly complete: (
     exchange: Readonly<ActorProcessCarrierValidation>,
-  ) => Candidate;
+  ) => Candidate | Promise<Candidate>;
 }
 
 export type ProbabilisticLeafImplementation<Candidate> = (
@@ -201,7 +253,8 @@ export interface PreparedProbabilisticLeafOwnerInvocation {
   readonly workerContracts: Readonly<ProbabilisticWorkerContracts>;
   readonly complete: (
     exchange: Readonly<ActorProcessCarrierValidation>,
-  ) => Readonly<ClosedProbabilisticLeafOwnerReceipt>;
+  ) => Readonly<ClosedProbabilisticLeafOwnerReceipt> |
+    Promise<Readonly<ClosedProbabilisticLeafOwnerReceipt>>;
 }
 
 export type LeafInvocationOwnerResult =

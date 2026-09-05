@@ -3,7 +3,7 @@
 **Status**: Active - accepted by T-283 F_H closure
 **Category**: Constraint / Guarantee
 **Date**: 2026-05-16
-**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [DESIGN_MODULE_METHOD.md](../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-GRAPHVECTOR.md](../gtl/REQ-L-GTL3-GRAPHVECTOR.md), [REQ-L-GTL3-EVALUATOR.md](../gtl/REQ-L-GTL3-EVALUATOR.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [REQ-R-ABG3-ASSURANCE.md](REQ-R-ABG3-ASSURANCE.md), [REQ-R-ABG3-PAYLOAD.md](REQ-R-ABG3-PAYLOAD.md), [REQ-R-ABG3-POLICY.md](REQ-R-ABG3-POLICY.md), [T-134](../../../.ai-workspace/tickets/completed/T-134-define-abg-fn-composition-grammar.md)
+**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/ODD_METHOD.md), [DESIGN_MODULE_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/DESIGN_MODULE_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-GRAPHVECTOR.md](../gtl/REQ-L-GTL3-GRAPHVECTOR.md), [REQ-L-GTL3-EVALUATOR.md](../gtl/REQ-L-GTL3-EVALUATOR.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [REQ-R-ABG3-ASSURANCE.md](REQ-R-ABG3-ASSURANCE.md), [REQ-R-ABG3-PAYLOAD.md](REQ-R-ABG3-PAYLOAD.md), [REQ-R-ABG3-POLICY.md](REQ-R-ABG3-POLICY.md), [T-134](../../../.ai-workspace/tickets/completed/T-134-define-abg-fn-composition-grammar.md)
 
 ---
 

@@ -4,7 +4,7 @@
 **Lineage**: T-283 Product basis; T-284 bounded owner repair
 **Category**: Capability
 **Date**: 2026-04-07
-**Derives from**: [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md), [ODD_METHOD.md](../../../.genesis/docs/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
 
 ---
 

@@ -26,6 +26,13 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import {
+  isWorksiteEffectAuthorization,
+  isWorksiteFileReplaceReceipt,
+  isWorksiteFileReplaceRequest,
+  isWorksiteObservation,
+  WORKSITE_FILE_REPLACE_EFFECT_URI,
+} from "../product/worksite_effect.js";
 import { WORKER_TRANSPORT_FAILURE_CLASS_VALUES } from "./transport_contracts.js";
 
 export const ROOT_EVENT_KIND_VALUES = [
@@ -261,7 +268,7 @@ const ACTOR_TERMINAL_PAYLOAD = payloadKeys(
   "actorInvocationRef cCallRef disposition failureClass processRef transportBindingDigest transportBindingRef",
 );
 const ACTOR_OBSERVATION_PAYLOAD = payloadKeys(
-  "actorInvocationRef actorRef apiRetryCount artifactDigests cCallRef disposition exitObserved failureClass finalOutput implementationRef inputDigest instructionContractRef materializationPlanRef observedOutputDigest processRef processSignal processStatus progressEventCount promptDigest rendererRef requestDigest requestRef resultContractRef signalSequence stderrByteLength stdoutByteLength structuredEventCount terminationConfirmed timedOut toolCallCount transportBindingDigest transportBindingRef transportDigest transportLane workerBindingRef",
+  "actorInvocationRef actorRef apiRetryCount artifactDigests cCallRef disposition exitObserved failureClass finalOutput implementationRef inputDigest instructionContractRef materializationPlanRef observedOutputDigest processRef processSignal processStatus progressEventCount promptDigest rendererRef requestDigest requestRef resultContractRef signalSequence stderrByteLength stdoutByteLength structuredEventCount terminationConfirmed timedOut timeoutClass toolCallCount toolInvocations transportBindingDigest transportBindingRef transportDigest transportLane workerBindingRef",
 );
 const EVIDENCE_PAYLOAD = payloadKeys(
   "cCallRef contractRef evidenceClass evidenceDigest evidenceRef",
@@ -547,7 +554,7 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
     variants: [TRANSPORT_BINDING_EVENT],
     payloadVariants: [payloadVariant(
       payloadKeys(
-        "actorRef agentKey archiveRoot args cCallRef command cwd dispatchOrdinal environmentDigest environmentPolicyDigest implementationBindingRef implementationRef inputDigest lane parser paths promptDigest promptTransport responseJsonSchemaDigest terminationGraceMs timeoutMs transportBindingDigest transportBindingRef transportContractDigest transportPlanDigest workerBindingRef",
+        "absoluteTimeoutMs actorRef agentKey archiveRoot args cCallRef command cwd dispatchOrdinal environmentDigest environmentPolicyDigest implementationBindingRef implementationRef inputDigest lane parser paths promptDigest promptTransport responseJsonSchemaDigest terminationGraceMs timeoutMs transportBindingDigest transportBindingRef transportContractDigest transportPlanDigest workerBindingRef",
       ),
       payloadKeys(
         "transportBindingRef transportBindingDigest cCallRef",
@@ -593,9 +600,18 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
   },
   actor_process_timeout_observed: {
     variants: [PROCESS_EVENT],
-    payloadVariants: [payloadVariant(
-      payloadKeys("actorInvocationRef processRef timeoutMs"),
-    )],
+    payloadVariants: [
+      payloadVariant(
+        payloadKeys("actorInvocationRef processRef timeoutClass timeoutMs"),
+        payloadKeys("actorInvocationRef processRef timeoutClass timeoutMs"),
+        { timeoutClass: "inactivity" },
+      ),
+      payloadVariant(
+        payloadKeys("actorInvocationRef processRef timeoutClass timeoutMs"),
+        payloadKeys("actorInvocationRef processRef timeoutClass timeoutMs"),
+        { timeoutClass: "absolute" },
+      ),
+    ],
   },
   actor_process_signal_requested: {
     variants: [PROCESS_EVENT],
@@ -665,7 +681,22 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
         combinePayloadKeys(
           EVIDENCE_IO_PAYLOAD,
           payloadKeys(
-            "actorInvocationRef actorRef apiRetryCount artifactDigests candidateDigest candidateRef exitObserved instructionContractRef materializationPlanRef observedOutputDigest processRef processSignal processStatus progressEventCount promptDigest rawOutputDigest rendererRef requestDigest requestRef resultContractRef signalSequence stderrByteLength stdoutByteLength structuredEventCount terminationConfirmed timedOut toolCallCount transportBindingDigest transportBindingRef transportDigest transportDisposition transportFailureClass transportLane workerBindingRef",
+            "authorization receipt request successorObservation",
+          ),
+        ),
+        combinePayloadKeys(
+          EVIDENCE_IO_PAYLOAD,
+          payloadKeys(
+            "authorization receipt request successorObservation",
+          ),
+        ),
+        { evidenceClass: "worksite_file_replace" },
+      ),
+      payloadVariant(
+        combinePayloadKeys(
+          EVIDENCE_IO_PAYLOAD,
+          payloadKeys(
+            "actorInvocationRef actorRef apiRetryCount artifactDigests candidateDigest candidateRef exitObserved instructionContractRef materializationPlanRef observedOutputDigest processRef processSignal processStatus progressEventCount promptDigest rawOutputDigest rendererRef requestDigest requestRef resultContractRef signalSequence stderrByteLength stdoutByteLength structuredEventCount terminationConfirmed timedOut timeoutClass toolCallCount transportBindingDigest transportBindingRef transportDigest transportDisposition transportFailureClass transportLane workerBindingRef",
           ),
         ),
         EVIDENCE_IO_PAYLOAD,
@@ -1644,6 +1675,7 @@ export function validateEventStoreCloseHandoff(
 
 export function readRuntimeEventsAtDurablePrefix(
   prefix: DurablePrefixCoordinate,
+  options: Readonly<{ requireCurrent?: boolean }> = {},
 ): readonly RuntimeEvent[] {
   if (!validateDurablePrefixCoordinate(prefix)) {
     const rawPrefix: unknown = prefix;
@@ -1691,11 +1723,16 @@ export function readRuntimeEventsAtDurablePrefix(
     }
     if (
       beforePath.size < prefix.prefixLength ||
-      beforeDescriptor.size < prefix.prefixLength
+      beforeDescriptor.size < prefix.prefixLength ||
+      (options.requireCurrent === true &&
+        (beforePath.size !== prefix.prefixLength ||
+          beforeDescriptor.size !== prefix.prefixLength))
     ) {
       throw new DurablePrefixReadError(
         "prefix_length_mismatch",
-        "ABG durable prefix file ended before the selected prefix",
+        options.requireCurrent === true
+          ? "ABG durable prefix is not the current durable event-log prefix"
+          : "ABG durable prefix file ended before the selected prefix",
       );
     }
     const bytes = readDescriptorBytes(descriptor, prefix.prefixLength);
@@ -1714,11 +1751,16 @@ export function readRuntimeEventsAtDurablePrefix(
     }
     if (
       afterPath.size < prefix.prefixLength ||
-      afterDescriptor.size < prefix.prefixLength
+      afterDescriptor.size < prefix.prefixLength ||
+      (options.requireCurrent === true &&
+        (afterPath.size !== prefix.prefixLength ||
+          afterDescriptor.size !== prefix.prefixLength))
     ) {
       throw new DurablePrefixReadError(
         "prefix_length_mismatch",
-        "ABG durable prefix file ended during read",
+        options.requireCurrent === true
+          ? "ABG durable prefix ceased to be current during read"
+          : "ABG durable prefix file ended during read",
       );
     }
     if (sha256Bytes(bytes) !== prefix.prefixDigest) {
@@ -2411,6 +2453,7 @@ function assertRuntimeEventContract(
       "deterministic",
       "interaction_request",
       "probabilistic_transport",
+      "worksite_file_replace",
       "sub_traversal",
       "admission_rejection",
     ].includes(String(payload.evidenceClass))

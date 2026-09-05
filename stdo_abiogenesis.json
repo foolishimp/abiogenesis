@@ -1,0 +1,131 @@
+{
+  "$schema": "stdo://releases/v2.5.0-rc.4/standards/schemas/product-definition.schema.json",
+  "kind": "stdo.product-definition",
+  "product": {
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "name": "ABIogenesis",
+    "source_project": "./",
+    "bounded_context": null
+  },
+  "constitution": {
+    "stdo": {
+      "source": {
+        "repository": "https://github.com/foolishimp/specification_methodology.git"
+      },
+      "selector": "stdo://channels/2.5.0",
+      "basis": {
+        "uri": "stdo://releases/v2.5.0-rc.4/",
+        "manifest_sha256": "4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e"
+      }
+    },
+    "additional_authorities": [],
+    "entrypoints": [
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/authority_compressions/stdo_bootstrap.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/SPEC_METHOD.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/REFERENCE_FRAME_METHOD.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/STDO_REFERENCE_FRAME_BASELINE.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/ODD_METHOD.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/IDENTITY_METHOD.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/RELEASE_METHOD.md"
+      }
+    ],
+    "agent_bootstrap": {
+      "entrypoint": "#/constitution/entrypoints/0",
+      "targets": [
+        "./AGENTS.md",
+        "./CLAUDE.md"
+      ]
+    }
+  },
+  "local_constitution": {
+    "axioms": [],
+    "overrides": [],
+    "disambiguations": []
+  },
+  "reference_frame_bases": [
+    {
+      "uri": "./build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+      "authority": [
+        "./specification/PRODUCT.md#governance-and-release-boundary",
+        "./specification/GOALS.md#current-selection"
+      ],
+      "applies_to": [
+        "./.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#lawful-re-entry"
+      ]
+    }
+  ],
+  "what": {
+    "intent": "./specification/INTENT.md",
+    "product": "./specification/PRODUCT.md",
+    "specification": [
+      "./specification/requirements/"
+    ]
+  },
+  "how": {
+    "common": [],
+    "build_tenants": [
+      {
+        "id": "urn:abiogenesis:build-tenant:typescript",
+        "root": "./build_tenants/abiogenesis/typescript/",
+        "design": [
+          "./build_tenants/abiogenesis/typescript/design/"
+        ],
+        "implementation": [
+          "./build_tenants/abiogenesis/typescript/code/"
+        ]
+      }
+    ]
+  },
+  "ticketing": {
+    "goals": "./specification/GOALS.md",
+    "tickets": {
+      "root": "./.ai-workspace/tickets/",
+      "lanes": {
+        "backlog": "./.ai-workspace/tickets/backlog/",
+        "active": "./.ai-workspace/tickets/active/",
+        "completed": "./.ai-workspace/tickets/completed/"
+      }
+    },
+    "comments": {
+      "root": "./.ai-workspace/comments/"
+    }
+  },
+  "composition": [
+    {
+      "product_definition": "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/stdo_representation/stdo_representation.json",
+      "target_definition_id": "urn:stdo:product-definition:stdo-representation",
+      "relation": "urn:stdo:concept:recursive-product-taxonomy:substrate",
+      "contracts": [
+        "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/stdo_representation/releases/v2.5.0.md"
+      ]
+    },
+    {
+      "product_definition": "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/axiom_indexer/stdo_default.json",
+      "target_definition_id": "urn:stdo:product-definition:axiom-indexer",
+      "relation": "urn:stdo:concept:recursive-product-taxonomy:substrate",
+      "contracts": [
+        "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/axiom_indexer/releases/v2.5.0.md"
+      ]
+    }
+  ]
+}

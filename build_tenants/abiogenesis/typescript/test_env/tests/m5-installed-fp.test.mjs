@@ -208,6 +208,7 @@ test("M5 installed CLI admits one subprocess-backed F_P leaf through ordinary GT
     "failureClass",
     "processStatus",
     "processSignal",
+    "timeoutClass",
     "timedOut",
     "exitObserved",
     "terminationConfirmed",

@@ -2,10 +2,9 @@
 
 ## Authority
 
-`GOALS.md` selects the current Product outcome and states its nonclaims.
-`specification/PRODUCT.md` remains the sole complete ABIogenesis 5.0 Product
-definition. Requirements decompose that WHAT; accepted design owns HOW; T-287
-orders delivery.
+`GOALS.md` selects the current Product outcome. `PRODUCT.md` defines the
+complete ABIogenesis 5.0 Product. Requirements decompose WHAT; accepted design
+owns HOW; T-287 selects and orders realization.
 
 ```text
 Goals -> Intent -> Product -> Requirements -> Design -> Code
@@ -16,175 +15,484 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one complete, source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the direct feature-complete successor to the immutable 4.6 Product foundation. | All 16 selected feature families cross one installed vertical path; the selected pre-RC scenarios, exact-candidate qualification, immutable RC, final tap, and post-publication install close without a rival Program, executor, controller, event authority, or release subject. | Active. Wave 1 is accepted. Wave 2 / `A5-F01` is current. The typed-workspace goal reprice and R0/R1 force rank are accepted; R2/R3 decision-complete design work is selected. No implementation is selected. The accepted `ST-S01-ROOT/S1` design remains predecessor authority, with realization stopped on the separate P0 proof-HOW prerequisite. |
-
-## Current Wave 2 Goal Reprice
-
-**Status**: Accepted goal reprice and R0/R1 force rank; R2/R3 design work
-selected; R4 and all implementation/execution unselected.
-
-Accepted Executive direction reprices the bounded Wave 2 focus around the generic
-typed-workspace relation required by an independent odd_glc Product:
-
-> Prove that one independent downstream Product can instantiate GTL-defined
-> types, apply a named or hierarchical overlay composition, and drive ABI's
-> URI-binding admission layer from a finite set of untyped or unadmitted URIs
-> to exact replay-visible typed URI bindings, then carry those bindings through
-> one fully graph-declared lifecycle traversal and fresh replay without an
-> imperative lifecycle controller or a new ABI reference-frame entity.
-
-ABIogenesis Product's embedded GTL.TypeScript language authority owns the type
-algebra. Each downstream Product instantiates its own types. In the real
-downstream proof, lifecycle types `A`, `B`, and `C` are instantiated at the
-odd_glc Product boundary, which owns the frame/overlay composition and
-interpretation. ABI does not instantiate them; it owns generic URI/owner
-binding admission, direct HoG traversal, ABG runtime truth, and replay. A
-specialization owns its domain schemas, instructions, and rubrics. No layer may
-absorb another's meaning.
-
-The accepted reprice uses the real odd_glc full data-mapper thread only as a
-force-ranking discriminator and downstream falsifier. ABIogenesis release
-acceptance remains the bounded independent flavored Product required by
-`A5-F17` and `ABG5-S06`; the odd_glc release is not an ABIogenesis 5.0 build,
-qualification, or release dependency.
-
-R1 force-ranks every definition as direct-required, transitive-
-required, negative-only, or out-of-scope. The fixed 18-operation/56-definition
-family remains structural truth; its count does not select implementation
-work. GraphFunction resolution is audited as existing, unproved, absent, or
-underdesigned rather than presumed missing from one incomplete full-lifecycle
-proof.
-
-The accepted exact matrix is `18` direct-required, `8` transitive-required,
-`15` negative-only, and `15` out-of-scope. None of dev.286's exact 17 absent
-installed locators is direct or transitive for this thread. That disposition is
-not callable-family closure.
-
-The selected but unratified design roadmap is
-`build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md`.
-Exact proposal `3ab1ee6892bb22fc60206d38edbe8b970cca1d00`, tree
-`9ae5438410d1528614cb887cff5caebb699b708d`, received independent
-`A0/B0/C0/D0` roadmap review and owning Executive/F_H acceptance. That verdict
-admits only this goal reprice, R0/R1, and R2-R4 routing. R2 and R3 must now
-become decision-complete and pass a separate independent design review before
-any implementation is selected.
-
-## Fixed Basis
-
-- Intent, Product, and requirements are accepted and unchanged.
-- Immutable STDO `v2.2.2` governs ABIogenesis 5.0.
-- The immutable `v4.6.0-rc.5` Product is the semantic conservation reference.
-- Exact-pinned Effect `3.22.1` remains inside its accepted execution-composition
-  boundary.
-- The TypeScript design index selects realization authority.
-- `A5-F12` and `ABG5-S04` remain planned 5.1 work.
-
-The fixed 5.0 scope remains feature families `A5-F01` through `A5-F11` and
-`A5-F13` through `A5-F17`; scenarios `ABG5-S01`, `ABG5-S02`, `ABG5-S03`,
-`ABG5-S05`, `ABG5-S06`, and `ABG5-S07`; the forty 4.6 traversal-conservation
-rows; and the shape-preserving fibre-substitution differential. Counts of
-operations, files, tests, reviews, or commits do not change that scope.
-
-## Feature-Wave Delivery
-
-| Wave | Feature families | Product-level exit | State |
-|---:|---|---|---|
-| `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | One installed runtime kernel proves event-authoritative truth, one admitted Program, direct HoG traversal, fresh-process replay, and fail-closed probabilistic result admission. | Accepted functional substrate; integrated M5 qualification remains later work |
-| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, plus the bounded early `A5-F17` consumer path | One source-independent installed Product path closes exact Product, Public, SDK, CLI, typed URI-binding admission, and remaining Wave 2 truth without a rival authority. | Active; typed-workspace goal reprice and R0/R1 accepted; R2/R3 design work selected; R4, S2-S4, every new implementation, and the Wave 2 exit remain unselected; accepted S1 realization remains stopped on P0 |
-| `3` | `A5-F14`, `A5-F07`, `A5-F08` | Packed Hello World, live probabilistic proof, One Surface, and Consensus execute through the same installed Product path. | Pending Wave 2 |
-| `4` | `A5-F13`, `A5-F17`, `A5-F11` | Native and bounded host projections, an independent downstream Product, and self-conformance use the exact installed candidate and Public contracts. | Pending Wave 3 |
-| `5` | `A5-F15`, `A5-F16` | One exact candidate passes qualification and produces an immutable RC, governed final tap, stable package/tag, checksums, and fresh post-publication install. | Pending Wave 4 |
-
-The accepted `ST-1` through `ST-4` development MVP remains historical input at
-checkpoint `a2d62e674f36d76d56d32f7e020eea4e7cfde763`, tree
-`1af1f5e31acd2f8292550314ad8907c3c6c2ff68`. It is not the selected increment,
-root/scenario evidence, Wave 2 closure, or release evidence.
+| `GOAL-035` | Deliver one source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the feature-complete successor to immutable 4.6. | The 16 selected feature families cross one installed vertical path and one exact candidate closes qualification, immutable RC, final tap, and fresh post-publication installation without a rival Program, executor, controller, event authority, or release subject. | Active; Wave 2 is on `HOLD` pending bounded baseline repairs and integrated evidence. The current `goal_reprice` selects bounded baseline-repair planning in T-287. W2-BL-DOCS is completed and Executive-accepted for documentation only; its write grant is exhausted. No Writer activation is open. Four blocking workstreams are planned and not activated; C1 schema assurance is retained as P3. C0 remains an unaccepted frozen design candidate; accepted C1/C2 HOW is unchanged. The former 19-path selection is preserved predecessor scope and grants no work now. No implementation, design acceptance, artifact, qualification, release, live/model, odd_glc, or Git effect is selected. |
 
 ## Current Selection
 
-Current work is `W2-R2` and `W2-R3` decision-complete design only. Product,
-requirements, the Wave 2 exit, and the `A5-F01` outcome stay fixed. `W2-R4`,
-`W2-I0`, `W2-I1`, `W2-E0`, and `W2-E1` are unselected. No new implementation,
-candidate, version, E00, odd_glc proof, or release work is authorized.
+The user accepted the baseline recommendation and directed that the review and
+its tracking be saved. The smallest lawful re-entry is `goal_reprice`: select
+bounded Wave 2 baseline-repair planning while conserving the fixed Product,
+Intent, requirements, 16 feature families, scenarios, and release subjects.
 
-The accepted `ST-S01-ROOT/S1` design remains predecessor authority. Its
-implementation is separately stopped at its proof-enclosure representation:
-real candidate size demonstrated that the accepted flat, repeated inline-byte
-evidence shape cannot be constructed within the selected Node and OCI limits.
-The proposed bounded evidence-DAG reframe is a proof-HOW prerequisite only. It
-cannot close typed workspace admission, URI binding, traversal, or the Wave 2
-outcome.
+`W2-BL-DOCS` is completed and Executive-accepted for accurate documentation
+and tracking only. Its run-scoped write grant is exhausted; no Writer or repair
+activation is open. Under direct user direction, its exact territory was this
+GOALS file, [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md),
+and the [baseline review](../.ai-workspace/comments/codex/20260905T042941Z_REVIEW_abiogenesis_wave2_stdo_baseline.md).
+T-287 records the exhausted grant, acceptance, and durable return surface. The
+bounded baseline-planning selection
+supersedes the former 19-path canonical-root I/E selection as current work
+authority. Its frozen source, old review results, hashes, and prior scopes
+remain predecessor evidence; none is a current mutation grant.
 
-The bounded four-document amendment was independently accepted and delivered
-at `9bb230efaa5a1db06c7932a1204a5d477ead5e0f`. It authorizes only the exact
-two-coordinate carrier handshake stated below. File-disjoint packed-parser/
-verifier and raw-observer/comparator precursor evidence remains lawful, but no
-carrier adapter, integration, or E00 work is active under the current design-
-only selection.
+Wave 2 remains on `HOLD` until the four blocking streams and their joined
+evidence close on the appropriate exact subjects:
 
-The bounded carrier amendment retains the complete successful Cut-A evidence
-but projects only its verification and root-receipt coordinates into Cut B.
-Packed-snapshot coordinates remain independently observed evidence and never
-become a Cut-B request or convergence input. This is an internal realization
-closure only; it changes no S1 outcome, Product/Public contract, runtime stop,
-result disposition, method count, or release relation.
+| T-287 workstream | Finding and priority | State and dependency |
+|---|---|---|
+| `W2-BL-PUBLIC` | B01-B03; P1 | Planned, not activated. Close exact-call admission and operation-indexed routing with legacy Public retirement as one coherent family. |
+| `W2-BL-C0` | B04; P2 | Planned, not activated. Complete the post-publication failure design before bounded realization. |
+| `W2-BL-C2` | B05; P2 | Planned, not activated. Resolve explicit executable basis and historical validation; re-enter design if that contract decision is missing. |
+| `W2-BL-PROOF` | B06; P2 | Planned, not activated. Prepare bounded fixture repairs against fixed contracts; final installed evidence depends on accepted exact Public/C0/C2 source. |
+| `W2-BL-C1-P3` | B07; P3 | Deferred, retained in T-287 with owner, trigger, falsifier, and closure evidence. |
 
-S1's exact development outcome is one independently frozen
-`s1_development_candidate` for which:
+The recommendation acceptance selects work-wave direction. It does not accept
+the review findings as repaired, a design amendment, candidate code, an
+installed artifact, a release, or Product closure. Later repairs require
+separately declared bounded Writer activations and independent review at the
+applicable boundary. Ordinary existing authority may support that sequence
+without an artificial extra approval turn.
 
-- the packed ABIogenesis Product has exactly one Product-owned canonical root
-  definition and its exact owner publication, while every non-ABI Product has
-  none, including no unreferenced shadow definition;
-- Product verifies the exact packed bytes without changing its Public
-  verification request, result, or refusal contract;
-- an independently reproduced installed package representation matches the
-  packed Product bytes exactly; and
-- those verified Product facts permit one immutable root declaration selection
-  before any Product runtime operation.
+The current review found Program-owner and unique-install checks in
+`abg/execution_basis.ts` and `implementation/worksite_file_replace.ts`.
+It did not reproduce the earlier owner-unity finding. That finding requires
+explicit reassessment against current source; repair is not automatically the
+next action, and full closure is not claimed. C0's frozen candidate remains
+unaccepted. C1/C2 accepted design identities remain unchanged. The design README
+and old handoffs remain untouched pre-baseline status context; current selection
+is owned by these GOALS and T-287.
 
-S1 yields only closed development-gate proof and reproduction evidence for
-that exact subject. It does not satisfy or evaluate constitutional R1-R10. It
-does not resolve or install a Product, construct or admit `ProductInstall`,
-bind a Workspace, construct or narrow Catalog/View, admit or validate a
-Program, resolve a GraphFunction or contracts, materialize GTL, construct an
-`ExecutionBasis`, enter HoG, invoke an owner, append through ABG, replay, call
-SDK/CLI, exercise a governor, qualify a pre-RC subject, publish an RC, tap, or
-release.
+## Pre-Baseline Worksite-Root Selection (Historical)
 
-The later obligation ownership remains exact: R5 selects and admits the
-Program; R6 resolves its GraphFunction and contracts; R7 validates materialized
-GTL; R8 enters HoG through Public invocation; R9 obtains ABG-admitted result and
-closure truth; and R10 proves replay/CLI equality. S1 claims none of those
-relations. S2-S4 and every later increment remain `UNSELECTED`.
+This section preserves the prior selection and its design context. It grants
+no current work. The pre-baseline planned re-entry sequence was:
 
-The accepted v4 HOW basis is
-`build_tenants/abiogenesis/typescript/design/T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md`
-at commit `701f6c018257d271465860ecb097b44381d614d0`. The bounded amendment is
-authored from dependency-closure delivery and amendment-construction basis
-`ece6597ed8846323ccab3d9a5736ecfa03f74bb3` and becomes HOW only after exact
-acceptance and delivery. Reviewed repo-local execution basis
-`bc3a9377b926f6d1f01c681571b6e2cb740e967c` is retained predecessor evidence;
-it is not a current implementation selection.
+```text
+goal_reprice: select the bounded W2-R3 worksite-root design question
+  -> design_reframe: amend exact C0, C1, and C2 HOW
+  -> two independent reviews: GO, P0/P1/P2 all zero, P3 one retained C2 nonclaim
+  -> Executive acceptance of the exact frozen C0/C1/C2 HOW
+  -> goal_reprice: select bounded canonical-root C0/C1/C2 I/E
+  -> realization_refactor: nine production paths
+  -> two independent source reviews: HOLD
+  -> design_reframe: clarify C0 atomic namespace replacement and C0 P3
+  -> independent design review
+  -> previously planned owner-unity repair and independent Stage 1 source review
+  -> previously planned eight support/evidence paths plus two generated outputs
+  -> independent source/evidence review and package gate (not activated)
+```
 
-## Work Selection And Milestones
+The Product outcome is conserved. Intent, Product, requirements, Public,
+feature membership, scenarios, and release subjects do not change. No
+artifact acceptance, package publication, qualification, odd_glc/live use, model call, version, RC,
+tap, release, or Git effect is selected. The prior C2 five-path selection is
+superseded as current authority and retained only as predecessor history.
 
-- T-287 is the sole active work authority under `GOAL-035`; current work is
-  design-only and grants no execution authority.
-- A docs verdict changes no Product version or Product tag.
-- S1 acceptance does not select S2 or imply scenario, qualification, or release
-  progress.
-- Product, requirement, exact-family, or materially different authority change
-  requires its owning re-entry.
-- Rejected subjects remain immutable evidence and never become authority by
-  reuse.
+The accepted design requires the existing `WorkspaceAuthorityBasis A` to
+travel alongside `WorkspaceBinding W` in the C0 request, C1 task, and C2 task.
+Every admission/effect owner authenticates the full pair against the
+`ExactPrefixWorkspaceEnvironment` before dispatch or effect. Authored subjects,
+territories, observations, cwd, and snapshot sources resolve under
+`A.canonicalRoot`. The unique Program-owner Product identity remains
+`W.roots.productRoot == ProductInstall.installedRoot`, and the installed payload
+must have zero delta.
+
+The frozen C0 clarification requires every target or parent substitution
+visible at final pre-effect validation to refuse, followed by one same-directory
+atomic namespace publication or replacement. Atomic means no partial successor
+bytes become visible; it is not expected-inode compare-and-swap. An ungoverned
+external or same-user target or parent mutation after final validation and
+before the publication syscall is the explicit C0 atomic-window P3/nonclaim.
+It is distinct from the retained C2 coherent task/launch/derived-sibling
+substitution P3.
+
+Owner unity means the Program/GraphFunction publication and selected
+implementation binding resolve to one unique admitted Product installation at
+`W.roots.productRoot`; their separately admitted publication digests need not be
+equal. C2 retains its exact installed helper beneath `W.roots.toolchainRoot` and
+its helper/package/locus joins; it does not rebase that helper beneath the
+Program-owner product root.
+
+Targets may not enter or alias Product, toolchain,
+event-log, runtime-state, projection, or archive roots. Territories resolve
+under the canonical worksite and may not themselves lie in a protected root;
+every concrete target remains independently checked. C1 copies full `A`
+byte-for-byte and derives each C0 request's W identity/digest only from its
+task's full `W`. C2 re-observes replay-proven worksite
+subjects under `A.canonicalRoot` before snapshot and after Worker return. C3's
+existing branches remain exact C1 tasks; whole-aggregate admission refuses a
+mixed-basis branch vector before dispatch. No odd-specific shim is permitted.
+
+The exact design subjects are:
+
+- `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md`
+- `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C1_LIVE_LLM_WORKSITE_CONSTRUCTION_DESIGN.md`
+- `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md`
+
+C1 and C2 retain their accepted exact SHA-256 identities in T-287 and the design
+index. Prior accepted C0 bytes had SHA-256
+`427ced47826e95ef0262ca0d4797eaf144b07d14e30f8e4ace1de6b585864b84`.
+The current C0 candidate has SHA-256
+`7cd8a5a905cdb02c8431b06224df5aa46cfc8f759a7dc5c1fd4712e66c652240`
+and is frozen, not accepted, pending independent review. The former exact 19-path I/E territory is preserved predecessor scope. Its
+Stage 1 bytes remain frozen on `HOLD` and confer no current source or Stage 2
+authority. The current baseline workstreams supersede that selection.
+
+## Downstream Reacquisition Gate (Prospective And Unselected)
+
+No downstream run is selected by the current baseline-planning selection. Only after the selected
+realization/evidence subject and one exact installed artifact are independently
+accepted may a later Executive select reacquisition.
+The unchanged `basic-cli` subject must run first. Only after its complete
+admitted result and fresh replay pass may the frozen `js-tenant-test` subject
+run.
+
+For both runs the exact-prefix environment projects full `A` and `W`; the ABI
+tasks admit that exact pair before dispatch; authored targets including
+`package.json` resolve beneath `A.canonicalRoot`; and
+`A.canonicalRoot != W.roots.productRoot == ProductInstall.installedRoot`. The
+complete installed Product tree remains path-, topology-, and byte-exact. ABI
+C2, through its `worker_executes` Worker/helper and ordinary ABG admission,
+alone executes declared commands/probes and admits mechanical observations.
+odd_glc may only interpret those admitted observations, obtain Reviewer
+judgment, and request Executive disposition. A fixture root, odd-specific
+shim, scenario-specific ABI branch, host command/probe execution, or
+synthesized observation is prohibited. Historical `basic-cli` evidence earns
+no `1/7` scenario credit.
+
+## Retained C0-C3 Predecessor Record
+
+The following coordinates record earlier accepted or diagnostic subjects. They
+do not override the current frozen C0 review candidate, accepted C1/C2 HOW, or
+the current baseline-planning selection. C3 remains unchanged except that its exact nested C1
+tasks inherit full authority-basis propagation and mixed bases refuse.
+
+Prior `W2-R3-C0-I` implements the bounded mutable-worksite causal atom required by
+`A5-F10` and the existing binding, event, replay, and projection requirements.
+Its accepted predecessor design bytes at
+`repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md#w2-r3-c0-mutable-worksite-causality-design`
+had SHA-256
+`ccb19745eadca757db028cf0c5ded5d92d3507f65f0ba7189958984117ed475a`.
+The later accepted root-reframe bytes had SHA-256
+`427ced47826e95ef0262ca0d4797eaf144b07d14e30f8e4ace1de6b585864b84`;
+the live path now contains the bounded atomic-window candidate named above.
+
+The increment starts from one admitted `WorkspaceBinding` and a closed
+pre-basis file-replace request containing the exact `run.invoke` grant,
+subject, territory, replacement bytes, and immutable predecessor observation
+`O0`. Basis admission validates that request, produces `ExecutionBasis B`, and
+makes `O0` current. HoG then carries the admitted Program,
+GraphFunction/C-call, implementation, and grant coordinates as one closed
+`LeafExecutionAuthority` to the owner. The owner performs or refuses one
+atomic replacement, and specialized evidence plus the ordinary admitted
+C-call result carries its receipt and `O1`. Event Calculus makes `O0` stale,
+makes `O1` current, and fresh replay reconstructs `O1`. `WorkspaceBinding W`
+and `ExecutionBasis B` do not change.
+
+The physical commit and ABG append are distinct. If the physical replacement
+succeeds but ABG admission fails, the result is visible
+`unadmitted_physical_commit` residue. Runtime does not claim `O1`; the worksite
+must be observed again before another effect.
+
+`W2-R3-C0-E` is accepted on exact installed artifact SHA-256
+`84ed06353e06795fcfaeb67fdc39c3b7cf98683ae8aed5fd348b88e18743de5f`.
+It proves this atom and its bounded falsifiers only and grants no broader Wave
+2 or Product credit.
+
+Prior `W2-R3-C1-D` at SHA-256
+`7db51dc50720bc36e729f4b17968c2e9c01d1f88ba673b10a2e165a3a31f98e1`
+is the accepted bounded construction predecessor. It composes one
+existing direct Public invocation, one governed raw live-worker result, one
+deterministic Product-wrapped `F_P` candidate and authority join, and one
+zero-binding `workflow.C` vector-application child whose raw input is the exact
+admitted join result and whose fan-out enters the exact C0 and reducer
+children. ABI C2 separately owns any declared command/probe execution and
+mechanical-observation admission. After replay, odd_glc owns only
+interpretation of admitted observations, Reviewer return, Executive
+disposition, and any new corrective invocation.
+Those predecessor bytes occupied
+`repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C1_LIVE_LLM_WORKSITE_CONSTRUCTION_DESIGN.md#w2-r3-c1-live-llm-worksite-construction-design`;
+the live path now contains the accepted root-reframe design.
+The C1 Product/Worker boundary remains unchanged: its Worker uses
+`closed_prompt_proof`, makes no tool calls, and delegates all mutation to C0.
+Accepted C3 I/E additionally makes C1's root declare and publish one
+graph-call child-closure contract for nested use; that bounded declaration
+changes the C1 GraphFunction and containing-publication digests and requires
+direct C1 regression plus nested C3 proof without changing C1 meaning.
+
+The prior accepted `W2-R3-C2-D` sibling closes the downstream
+execution-observation seam that C1 intentionally excludes. It consumes the
+exact admitted C1-root or accepted C3-reducer result through the existing
+owner-derived source-result basis, executes owner-authored commands and
+mechanical probes inside an ABI evidence snapshot through a distinct
+`worker_executes` actor, admits typed execution truth, and preserves that truth
+and its helper-artifact join through closure and fresh replay. Its design is
+`repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md#t-287-w2-r3-c2-worksite-command-execution-design`.
+Its prior accepted design SHA-256 is
+`7f69c4c0c5e027f4025c0f3885042c65a668b4089eb139d278c0cdbc78e4f570`.
+A post-review live transport check found one duplicate-enum response-schema
+defect in the prior package subject. The bounded C2 semantic/carrier predecessor
+is independently accepted at artifact SHA-256
+`7272967ec7bed96612768b3ae7fe5e34382eca1127ce69a3e69a6fba9c119df1`,
+manifest-file SHA-256
+`c1dca319e995733db0debc68c7fe176433e7747ebbb6c11d9d3396d0d23fbdbd`,
+Product-content digest
+`a0236266e8c9d8c6654d33b8767ac4c21b1192c42f45b9bda17d6ae58afa3076`,
+and C2-publication digest
+`f7cb3acd366932f80881c24f6628f9462f0bf127ee726c2c0fedd7490506493b`.
+Independent final review returned `GO`, P0/P1/P2 all zero for that bounded
+subject. Later live evidence exposed a P1 in its transport relay. The
+relay-repaired predecessor is independently accepted at artifact SHA-256
+`d5278229916565777e4fd3e0c61d6000825ca944998f765dbf112584f36b3726`,
+manifest-file SHA-256
+`7f3be93f8a9c05ab60219637dcc2e9d7be073ad558dae2278f4a78410eb7c680`,
+Product-content digest
+`4c7c8509cb98f04a017ae79d2fe1b5500a9fc61bf8bd8c4883557a4a347bdc61`,
+and C2-publication digest
+`24336ffee58eedc639df04f8a95d6c5fffbf9207737a9026b0e46dc4d8c494bd`.
+Independent review returned `GO`, P0/P1/P2 all zero on that exact subject. It
+supersedes the transport-relay use of the prior semantic/carrier artifact
+without changing accepted C2 meaning.
+
+The fifth retained odd_glc basic-cli run over qualified historical artifact
+SHA-256 `e0bd55d90b2a2005c2021ba75f127a6a0402a7675994a757dd350b76e16cd449`
+showed a narrower helper-locus defect: the Worker preserved the exact `--task`
+path but moved `--artifact` and `--sandbox`; the permissive helper then executed
+both declared commands and wrote those caller-selected paths before Product
+returned `transport_identity_mismatch` and the run stopped. Accepted amended
+design SHA-256
+`f7075c286d33e6b95ae5a3481e5900e45052f65f8d434f6ee09039d29d7a12fe`
+narrowed the Worker command but conflated the public bare Product-task manifest
+coordinate with its occurrence-bound private launch envelope.
+
+The previously accepted two-manifest `W2-R3-C2-D` preserves the exact public 12-key helper plan and
+defines two canonical files under one attempt root. Public `task.json` is the
+sole authoritative Product-task carrier; its digest and byte length describe
+the exact canonical task bytes followed by one LF. Private `launch.json` is the
+occurrence-bound readiness envelope and appears only in the
+implementation-private launch plan. The sole Worker command is
+`node <installed ABI helper> --task <attemptRoot/launch.json>`; `--task` is a
+compatibility flag. Host, helper, and completion independently derive and
+revalidate both distinct canonical single-link manifests, `result.json`, and
+`sandbox`, without parsing the command. The host publishes `task.json` first and
+`launch.json` last; partial publication fails closed without dispatch or retry.
+The helper requires exact task/envelope/occurrence/attempt/helper/package/locus
+joins and absent result/sandbox before protected-O1 observation or any helper
+execution effect. Final result cleanup is not swallowed and success requires a
+single-link canonical `result.json`. Fully recomputed coherent same-user
+substitution remains a trusted-desktop P3/nonclaim.
+
+The private carrier admits only the exact eight-key authority-free
+`LeafExecutionOccurrence`: fixed C2 `programLocusRef`
+`node://abiogenesis/worksite/command-execution/fp@5`, `executionAuthority: null`,
+the retained non-empty identity and safe-integer constraints, and no extra key.
+Host and helper independently recompute `occurrenceDigest`, exact `attemptRef`
+from `sha256Canonical({cCallRef,runId,graphCallId,frameId,taskOrdinal,attempt})`,
+and `attemptDigest = sha256Canonical({ attemptRef })`; crossed state refuses
+before effect. Current Product construction, observation admission, completion,
+and `exactExchange` refuse a fully rehashed current observation carrying the
+immediately preceding 12-key one-argument `--task <task.json>` plan. Historical
+validity remains only in its exact immutable predecessor Product/artifact.
+
+That predecessor two-manifest design was accepted at exact SHA-256
+`f4eafb82961beb6ebe47fa54eb91dc7deb470c8fb106609f7d3d12ced76d074b`
+after two independent `GO` verdicts with P0/P1/P2 all zero and P3=1 as the
+explicit trusted-desktop nonclaim. It remains retained HOW for the two-manifest
+relation, but its `productRoot` source-worksite interpretation is reopened by
+the accepted three-child design. Its former five-path I/E selection and frozen
+source/evidence subject are historical only. The later pre-baseline 19-path I/E selection superseded it and is now itself
+predecessor scope; artifact acceptance, package publication, qualification, odd_glc/live-model use,
+version, RC, tap, or release remains unselected.
+
+`W2-R3-C3-D` is the independently accepted bounded aggregate design and exact
+HOW authority for completed and qualified `W2-R3-C3-I/E`. It validates one caller-authored ordered branch DAG whose
+members are exact existing C1 tasks, derives one disjoint target allocation,
+and uses direct HoG traversal of `C.batch([workflow.C(C1)])`. Every entered C1
+branch admits independently; existing fan-out partial-stop truth preserves a
+failed prefix; and deterministic fan-in alone yields one flat existing
+`WorksiteConstructionResult` for an explicit C3-reducer source join into C2.
+Its accepted design is
+`repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md#w2-r3-c3-branch-construction-aggregate-design`.
+Its exact design SHA-256 is
+`6da224353368e1ba9e2fc5651640ece743f6b528e98bbd9ccb58b8624a96e2a8`.
+Independent design review accepted those exact bytes with P0/P1/P2 all zero.
+The completed source/evidence subject has final evidence-test SHA-256
+`5c04ad0bc0dc7b8caff32f5242d49040c7c2a5fd9acea88ce643265849a657c9`,
+manifest digest `b7749e6d20a6c278ce5a42b4be728b86e15b5efbe56e732820cb92836f481140`,
+Product-content digest `a0ff7fd2298698868d340146c7a739599ceda16a87ae07108112cf7493f30126`,
+Catalog digest `d036a63e7e163246f750e94b0923305412be66f2848e4c5272f55040a8926b36`,
+and C1/C3-publication digest
+`72a5e998592913bd3142e7a6d3064190f3799d0eb58c94343f39a10cd2c6d8fe`.
+Independent source/evidence and exact-artifact reviews returned `GO`,
+P0/P1/P2 all zero. This preserves accepted C3 truth but does not close the
+Product goal without downstream odd consumption.
+
+## Selection Boundary
+
+Selected now: bounded baseline-repair planning with four planned repair streams
+and deferred C1 assurance. W2-BL-DOCS has completed publication and tracking;
+the Executive accepted that documentation, and its three-path write grant is
+exhausted. No Writer activation or writable path is open. All design,
+code, tests, package/generated bytes, installed Products, other comments, Git,
+network, model, and downstream effects are outside this activation.
+
+The future candidate territories in T-287 are planning boundaries, not write
+grants. No whole-project reset, feature-set change, later-wave prerequisite, or
+odd_glc release dependency is introduced. Integrated installed proof follows
+dependency-ready repairs; the completed documentation increment performed none.
+
+### Pre-Baseline Nineteen-Path Territory (No Current Grant)
+
+The pre-baseline selection recorded:
+
+- frozen C0 atomic-window review candidate plus Executive-accepted C1/C2
+  worksite-root HOW at exact SHA-256 identities
+  `7cd8a5a905cdb02c8431b06224df5aa46cfc8f759a7dc5c1fd4712e66c652240`,
+  `61589c4428c6d26f7e8063d40c9d6e653897df8a5bbfaf8d0fb048ce8cce3c61`,
+  and `8dbe22c8bcc2bcedc0e77a5f03a2fde1805d408e555e83bde342b9bb1d2a2301`;
+- bounded `goal_reprice` choosing its canonical-root C0/C1/C2 I/E as
+  `realization_refactor`;
+- full `WorkspaceAuthorityBasis` propagation/admission, canonical-root worksite
+  resolution, installed Program-owner Product conservation, protected-root
+  refusal, C2 worksite re-observation, and unchanged C3 inheritance; and
+- staged mutation and evidence over exactly these 19 existing paths, now
+  preserved as predecessor scope.
+
+The former Stage 1 territory contains exactly nine production paths. Its bytes
+remain frozen on `HOLD`; no source mutation is currently authorized. The old
+sequence proposed owner-unity repair after C0 acceptance. The baseline now
+requires explicit reassessment because current checks exist; neither automatic
+repair nor closure follows from the older reviews. The retained paths are:
+
+1. `build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts`
+2. `build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts`
+3. `build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts`
+4. `build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts`
+5. `build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts`
+6. `build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts`
+7. `build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts`
+8. `build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts`
+9. `build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts`
+
+The former Stage 2 territory contained these eight support/evidence paths and
+two generated outputs. It is not activated by the current selection:
+
+1. `build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs`
+2. `build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs`
+3. `build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-file-replace-owner.test.mjs`
+4. `build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs`
+5. `build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs`
+6. `build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs`
+7. `build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs`
+8. `build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs`
+9. `build_tenants/abiogenesis/typescript/product-toolchain-manifest.json`
+10. `build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json`
+
+That predecessor plan required independent source/evidence review and the
+ordinary package gate. It no longer selects mutation or evidence work.
+
+The pre-baseline exclusions were:
+
+- after this frozen four-document design-reframe candidate, any realization or
+  evidence mutation outside the exact 19 paths selected above;
+- any Product, requirement, Public, event-kind, GTL, C3-topology,
+  `package.json`, index, generator-source, further design, or unspecified-path
+  change;
+- `W2-R2`, the remainder of `W2-R3` outside the selected worksite-root I/E,
+  or broad `W2-R4`;
+- downstream odd_glc mutation or an odd-specific root shim;
+- Product/requirement/Public/frame/constitution or C3 semantic change, or
+  Product-goal closure before downstream consumption evidence;
+- pre-binding authority, Product verify/resolve/install, workspace creation or
+  binding, Catalog/View admission, declaration application, URI typing,
+  overlay hierarchy, or a complete lifecycle traversal;
+- any new Public operation, event kind, controller, registry, capability-grant
+  system, workspace binding, or ABI reference-frame entity;
+- the S1/P0 proof-HOW prerequisite, S2-S4, E00, qualification, RC, tap, or
+  release;
+- live/model runs, artifact construction or acceptance, version allocation,
+  and every Git add/commit/tag/push effect; or
+- allocation or burning of `5.0.0-dev.288`.
+
+C1 and C2 remain immutable accepted inputs. The C0 candidate remains frozen
+and unaccepted. The predecessor Stage 1 source subject remains on `HOLD`;
+Stage 2 is not activated. These GOALS retain the bounded baseline plan after
+completed W2-BL-DOCS; no Writer grant remains open. Each later activation freezes
+its own exact subject for the applicable
+independent review; a Reviewer reports to the Executive and performs no repair.
+
+## Fixed Basis
+
+- Intent, Product meaning, requirements, public operation families, event-kind
+  census, feature membership, scenarios, and release subjects are unchanged.
+- Immutable STDO `v2.5.0-rc.4`, annotated tag object
+  `032dac0c833111547f7dd4b290c5316ed9b70f97`, commit
+  `7a25668a8fecfd26f895759af3bec4708727964a`, installed-manifest SHA-256
+  `4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e`,
+  and standards member-set SHA-256
+  `504db879867f60e46ed4dea60509d12056d10cdd8c3460dc94abf7bc56542656`
+  govern ABIogenesis 5.0.
+- STDO Representation `v0.1.0-rc.1` remains a historical Development Product;
+  its represented method basis is not RC4. Only a freshness-verified map over
+  the exact selected source may route attention. Maps and prompts grant no ABI
+  authority.
+- The project extension
+  `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis`
+  is adopted for T-287 context only. It creates no runtime entity or executor.
+- Immutable `v4.6.0-rc.5` remains the semantic conservation reference.
+- Effect `3.22.1` remains exact-pinned inside its accepted composition
+  boundary.
+- `A5-F12` and `ABG5-S04` remain planned 5.1 work.
+
+The fixed 5.0 scope remains `A5-F01` through `A5-F11` and `A5-F13` through
+`A5-F17`; `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, `ABG5-S06`, and
+`ABG5-S07`; the forty 4.6 traversal-conservation rows; and the
+shape-preserving fibre-substitution differential.
+
+## Feature-Wave Status
+
+| Wave | Feature families | State |
+|---:|---|---|
+| `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | Accepted functional predecessor. The C0 root interpretation is reopened only as HOW; integrated qualification remains later work. |
+| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, bounded early `A5-F17` | `HOLD` pending W2-BL-PUBLIC, W2-BL-C0, W2-BL-C2, and W2-BL-PROOF plus integrated evidence. W2-BL-DOCS is completed and Executive-accepted for documentation only; its grant is exhausted. No Writer activation is open; repairs are planned, not activated. W2-BL-C1-P3 is deferred. C0 is unaccepted; accepted C1/C2 and C3 behavior are conserved. No artifact, qualification, release, odd/live, or Product-goal acceptance. |
+| `3` | `A5-F14`, `A5-F07`, `A5-F08` | Pending Wave 2. |
+| `4` | `A5-F13`, `A5-F17`, `A5-F11` | Pending Wave 3. |
+| `5` | `A5-F15`, `A5-F16` | Pending Wave 4. |
+
+Selecting the `A5-F10` C0 repair inside the current Wave 2 schedule neither
+reopens all of Wave 1 nor claims its integrated closure.
+
+The accepted `ST-S01-ROOT/S1` design and carrier amendment remain predecessor
+authority only. S1 realization is still stopped on its separate P0 evidence-DAG
+prerequisite and grants no runtime, scenario, qualification, or release credit.
+The historical 2026-08-23 namespace census left `5.0.0-dev.288` unburned; it is
+a floor, not the current implementation identity.
+
+## Work And Milestones
+
+- T-287 is the sole active work authority for this increment.
+- Prior C0/C1/C2/C3 I/E is predecessor evidence only for its exact historical
+  subject; it does not prove canonical-root worksite separation.
+- T-287 durably tracks four blocking baseline workstreams and one deferred P3
+  capsule. Their candidate source/design territories are not write grants.
+  The former exact 19-path I/E selection and frozen source are predecessor
+  evidence only. The completed documentation operation leaves no open Writer
+  grant. All implementation, design, test, package/generated, artifact, qualification,
+  odd_glc/live/model, version, RC, tap, release, and Git effects remain unselected.
+- Future proof may prepare fixed-contract fixture updates, but final installed
+  consumer and distinct-root evidence depends on accepted exact Public/C0/C2
+  source. C0 failure law is completed at design before realization; C2 returns
+  to design if its executable-basis/historical-validation decision is missing.
+  No later wave or odd_glc release is a new prerequisite for these repairs.
+- An implementation or review result does not allocate a version or advance a
+  release subject.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | Waves 1 through 4 place all pre-qualification feature families, negatives, scenarios, publication truth, and conservation evidence on one exact candidate. | Active; R2/R3 design work selected; accepted S1 precursor evidence retained but realization stopped on P0; no M5 closure |
-| `M6` | Wave 5 `A5-F15` accepts selected-method binding, self-conformance, selected pre-RC scenarios, and complete 4.6 conservation on one pre-RC candidate. | Pending M5 |
-| `M7` | Wave 5 `A5-F16` accepts distinct immutable RC, installed-RC, final-tap, released Product, and post-publication install subjects as stable `5.0.0`. | Pending M6 |
+| `M5` | Waves 1-4 place all pre-qualification features, negatives, scenarios, publication truth, and conservation evidence on one exact candidate. | Active umbrella; Wave 2 `HOLD` pending bounded baseline repairs and integrated evidence. No M5 closure. |
+| `M6` | `A5-F15` accepts method binding, self-conformance, pre-RC scenarios, and 4.6 conservation on one pre-RC candidate. | Pending M5. |
+| `M7` | `A5-F16` accepts distinct immutable RC, installed RC, final tap, released Product, and fresh post-publication install as stable `5.0.0`. | Pending M6. |
 
-Every progress report names the active wave/feature/gate, exact subject and
-accepted behavior, evidence coordinates, remaining counterexamples, and the
-first refusing owner. Paperwork, test counts, review counts, elapsed effort,
-or a green source-tree run are not Product progress.
+Progress reports name the selected relation, exact subject, reached causal
+boundary, evidence coordinates, counterexamples, and first refusing owner.
+Counts of files, tests, reviews, or commits are not Product progress.

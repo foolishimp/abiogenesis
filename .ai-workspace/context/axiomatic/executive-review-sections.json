@@ -1,0 +1,30 @@
+[
+  {
+    "label": "Role and outcome",
+    "text": "Draft source-linked context for an independent Stage 1 Reviewer, subject to Executive activation under current T-287 authority. This file does not activate a Reviewer or authorize any effect."
+  },
+  {
+    "label": "Reference frame and exact subject",
+    "text": "Use the exact STDO basis selected by stdo_abiogenesis.json. Source frame: stdo://releases/v2.5.0-rc.4/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-reviewer-frame for independent assurance. Project frame: repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality for canonical worksite, installed-owner, effect, admission, and replay relations. Reacquire the exact current frozen Stage 1 subject and Product frame from Goals and T-287 before activation."
+  },
+  {
+    "label": "Hard constraints",
+    "text": "Stage 1 remains on HOLD and Stage 2 is blocked. Preserve unrelated dirty work. Keep the full admitted WorkspaceAuthorityBasis A and WorkspaceBinding W distinct: authored work belongs beneath A.canonicalRoot; the immutable owner Product and installed helper retain their W roots. A source map, typecheck, or conversational GO cannot supply independent review, durable disposition, package qualification, or campaign credit."
+  },
+  {
+    "label": "Index context and evidence routes",
+    "text": "ABI map: .ai-workspace/context/axiomatic/logical-constraint-map.json; intrinsic SHA-256 sha256:5d45f7bd9bcf9bd1e79a5a12993243bfbadeca260124116f561f91f6fa4a21b4. Use its exact source_routes and explicit residuals. Resolve the STDO Representation and Axiom Indexer from the composition in stdo_abiogenesis.json through .genesis/development-products/. Revalidate with the released Axiom Indexer before use; re-enter source for material or stale relations."
+  },
+  {
+    "label": "Open solution space",
+    "text": "Select only the source and evidence needed for the activated claim. Keep the explicit C0 atomic-window and C2 coherent-substitution nonclaims at their declared boundary. Inspection order and reasoning remain with the authorized actor."
+  },
+  {
+    "label": "Return and stop contract",
+    "text": "An activated Reviewer returns one closed source-linked result and evidence-bound technical triage to Executive, without repairs or disposition. Missing, changed, or conflicting subject/basis/authority returns invalid_basis, indeterminate, or the owning re-entry. No dependent work starts from this draft."
+  },
+  {
+    "label": "ACTION",
+    "text": "Before using this context, verify the exact selected basis and map against current source, then obtain the already-required Executive activation and exact frozen Stage 1 subject. This context refresh performs no review and changes no Stage 1 or Stage 2 disposition."
+  }
+]

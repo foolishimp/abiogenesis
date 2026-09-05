@@ -1,9 +1,9 @@
 # REQ-P-SCENARIOS - ABIogenesis 5.0 Product Scenarios
 
-**Status**: Active - T-283 base; STDO `v2.2.2` qualification identity amended by direct F_H adoption
+**Status**: Active - T-283 base; exact STDO `v2.5.0-rc.4` qualification basis
 **Category**: Verification
 **Date**: 2026-07-25
-**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](../../../.genesis/docs/standards/SPEC_METHOD.md)
+**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/SPEC_METHOD.md)
 **Wave**: ABIogenesis 5.0
 
 ---
@@ -186,7 +186,7 @@ earlier subject.
 governor. `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` may establish
 their behavior before the selected STDO release is installed. Pre-RC
 qualification and `ABG5-S07` require the exact tapped and installed STDO
-`v2.2.2` law basis. STDO adoption shall not weaken or replace the root
+`v2.5.0-rc.4` law basis. STDO adoption shall not weaken or replace the root
 governor.
 
 **REQ-P-SCENARIOS-016**: One exact `pre_rc_candidate` shall pass

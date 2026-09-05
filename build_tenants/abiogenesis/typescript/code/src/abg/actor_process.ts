@@ -34,9 +34,11 @@ import {
 import {
   prepareWorkerTransport,
   runPreparedWorkerTransport,
+  type WorkerToolInvocationEvidence,
 } from "./worker_transport.js";
 
 const PROCESS_TIMEOUT_MS = 60_000;
+const PROCESS_ABSOLUTE_TIMEOUT_MS = 3_600_000;
 const PROCESS_TERMINATION_GRACE_MS = 1_000;
 
 export interface ActorRuntimeBinding {
@@ -80,6 +82,7 @@ export interface ActorProcessObservation {
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
   readonly processStatus: number | null;
   readonly processSignal: string | null;
+  readonly timeoutClass: "absolute" | "inactivity" | null;
   readonly timedOut: boolean;
   readonly exitObserved: boolean;
   readonly terminationConfirmed: boolean;
@@ -87,6 +90,7 @@ export interface ActorProcessObservation {
   readonly structuredEventCount: number;
   readonly progressEventCount: number;
   readonly toolCallCount: number;
+  readonly toolInvocations: readonly WorkerToolInvocationEvidence[];
   readonly apiRetryCount: number;
   readonly stdoutByteLength: number;
   readonly stderrByteLength: number;
@@ -209,8 +213,10 @@ const ACTOR_PROCESS_OBSERVATION_FIELDS = Object.freeze([
   "stdoutByteLength",
   "structuredEventCount",
   "terminationConfirmed",
+  "timeoutClass",
   "timedOut",
   "toolCallCount",
+  "toolInvocations",
   "transportBindingDigest",
   "transportBindingRef",
   "transportDigest",
@@ -412,6 +418,9 @@ export function validateActorProcessCarrierPair(
     (observation.disposition !== "failure" &&
       observation.disposition !== "success") ||
     typeof observation.finalOutput !== "string" ||
+    (observation.timeoutClass !== null &&
+      observation.timeoutClass !== "absolute" &&
+      observation.timeoutClass !== "inactivity") ||
     typeof observation.timedOut !== "boolean" ||
     typeof observation.exitObserved !== "boolean" ||
     typeof observation.terminationConfirmed !== "boolean" ||
@@ -422,6 +431,19 @@ export function validateActorProcessCarrierPair(
       signal !== "SIGTERM" && signal !== "SIGKILL"
     ) ||
     counts.some((count) => !isNonnegativeSafeInteger(count)) ||
+    !Array.isArray(observation.toolInvocations) ||
+    observation.toolInvocations.length !== observation.toolCallCount ||
+    observation.toolInvocations.some((row, ordinal) =>
+      typeof row !== "object" || row === null || Array.isArray(row) ||
+      Object.keys(row).sort().join("\0") !== [
+        "inputByteLength", "inputDigest", "kind", "ordinal", "schemaVersion", "toolName", "toolUseRef",
+      ].sort().join("\0") ||
+      row.kind !== "worker_tool_invocation_evidence" ||
+      row.schemaVersion !== "5.0.0" || row.ordinal !== ordinal ||
+      !carrierRef(row.toolUseRef) || !carrierRef(row.toolName) ||
+      !isSha256Digest(row.inputDigest) ||
+      !isNonnegativeSafeInteger(row.inputByteLength)
+    ) ||
     artifacts === null ||
     ACTOR_PROCESS_ARTIFACT_DIGEST_FIELDS.some(
       (field) => !isSha256Digest(artifacts[field]),
@@ -454,6 +476,8 @@ export function validateActorProcessCarrierPair(
     observation.timedOut,
     observation.signalSequence,
   );
+  const timeoutClassValid = observation.timedOut ===
+    (observation.timeoutClass !== null);
   const timeoutTerminalValid = !observation.timedOut ||
     observation.exitObserved ||
     (
@@ -486,6 +510,7 @@ export function validateActorProcessCarrierPair(
       (expectedFailureClass === null ? "success" : "failure");
   if (
     !terminalPairValid ||
+    !timeoutClassValid ||
     !requestedSignalSequenceValid ||
     !timeoutTerminalValid ||
     !transportClassificationValid
@@ -714,6 +739,11 @@ export async function invokeActorProcess(
       "ABG_TS_FP_TIMEOUT_MS",
       PROCESS_TIMEOUT_MS,
     ),
+    absoluteTimeoutMs: positiveInteger(
+      environment,
+      "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+      PROCESS_ABSOLUTE_TIMEOUT_MS,
+    ),
     terminationGraceMs: positiveInteger(
       environment,
       "ABG_TS_FP_TERMINATION_GRACE_MS",
@@ -741,6 +771,7 @@ export async function invokeActorProcess(
     cwd: plan.cwd,
     archiveRoot: plan.archiveRoot,
     timeoutMs: plan.timeoutMs,
+    absoluteTimeoutMs: plan.absoluteTimeoutMs,
     terminationGraceMs: plan.terminationGraceMs,
     promptDigest: plan.promptDigest,
     responseJsonSchemaDigest: plan.responseJsonSchemaDigest,
@@ -883,6 +914,7 @@ export async function invokeActorProcess(
           },
         );
         stdoutEventRefs.push(event.eventId);
+        return true;
       },
       onStderrObserved: (chunk) => {
         const byteLength = Buffer.byteLength(chunk);
@@ -901,13 +933,21 @@ export async function invokeActorProcess(
           },
         );
         stderrEventRefs.push(event.eventId);
+        return true;
       },
-      onTimeoutObserved: () => append(
+      onTimeoutObserved: (timeoutClass) => append(
         "actor_process_timeout_observed",
         "process",
         processRef,
         actorInvocationRef,
-        { actorInvocationRef, processRef, timeoutMs: plan.timeoutMs },
+        {
+          actorInvocationRef,
+          processRef,
+          timeoutClass,
+          timeoutMs: timeoutClass === "inactivity"
+            ? plan.timeoutMs
+            : plan.absoluteTimeoutMs,
+        },
       ),
       onSignalRequested: (signal) => {
         signalSequence.push(signal);
@@ -991,6 +1031,7 @@ export async function invokeActorProcess(
       transportLane: transport.lane,
       processStatus: transport.status,
       processSignal: transport.signal,
+      timeoutClass: transport.timeoutClass,
       timedOut: transport.timedOut,
       exitObserved: transport.exitObserved,
       terminationConfirmed: transport.terminationConfirmed,
@@ -998,6 +1039,7 @@ export async function invokeActorProcess(
       structuredEventCount: transport.structuredEventCount,
       progressEventCount: transport.progressEventCount,
       toolCallCount: transport.toolCallCount,
+      toolInvocations: transport.toolInvocations,
       apiRetryCount: transport.apiRetryCount,
       stdoutByteLength,
       stderrByteLength,

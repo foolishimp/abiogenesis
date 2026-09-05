@@ -4,6 +4,10 @@
 
 **HOW status**: R2/R3 selected for design; proposed; unratified; non-executable
 
+**Accepted child**:
+[`W2-R3-C0` mutable-worksite causality](./T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md);
+only its `W2-R3-C0-I` realization is selected
+
 **Change class**: `goal_reprice` followed by bounded `design_reframe`
 
 **Product basis**: ABIogenesis 5.0 Product and requirements remain unchanged
@@ -30,13 +34,15 @@ composition expressed through existing typed assets, named or hierarchical
 overlays, GraphFunctions, Programs, policies, and query projections. ABI sees
 only the existing generic carriers and relations.
 
-This roadmap authorizes no implementation. Independent exact-object review of
-proposal `3ab1ee6892bb22fc60206d38edbe8b970cca1d00`, tree
+This roadmap itself authorizes no implementation. Independent exact-object
+review of proposal `3ab1ee6892bb22fc60206d38edbe8b970cca1d00`, tree
 `9ae5438410d1528614cb887cff5caebb699b708d`, admitted only the goal reprice,
 Product conservation, exact force ranking, and ordered design roadmap with
 `A0/B0/C0/D0`. The typed-workspace admission network, URI/owner binding, overlay
 hierarchy, functional traversal, and proof design remain R2/R3 work and require
-a later decision-complete independent design verdict.
+a later decision-complete independent design verdict. A subsequent bounded
+goal reprice accepted only the post-binding `W2-R3-C0` child; that child does
+not ratify this parent design.
 
 ## Authority And Re-entry
 
@@ -331,15 +337,27 @@ The accepted success shape is declarative and functional:
 
 ```text
 immutable Product/Catalog/overlay/Program admission foundation
+  + immutable WorkspaceBinding
+  + current mutable-worksite observation O0
   -> applied overlay composition
   -> one Public start
   -> URI-binding admission over unknown URI set under that frame
   -> admitted typed URI bindings carried to later graph boundaries
   -> HoG direct traversal of the admitted graph
-  -> declared F_D, F_P, F_H, worker, or tool boundaries
-  -> ABG-admitted events, evidence, fold, residual, and continuation truth
+  -> declared F_D, F_P, F_H, worker, tool, or owner boundary
+       |- pure/read relation
+       |    -> owner result, evidence, residue, or refusal
+       `- declared GTL GraphFunction effect
+            -> exact operation grant, mutation subject, and write territory
+            -> owner/handler performs the bounded mutation or refuses
+            -> successor observation O1, receipt, residue, or refusal
+            -> semantic-owner candidate
+            -> ABG admission of causal effect/evidence/outcome truth
+  -> ABG-admitted events, fold, residual, and continuation truth
+  -> stale dependent projections are invalidated
   -> terminal result and closure
-  -> fresh replay projection
+  -> fresh replay-derived ObservationSnapshot
+  -> next graph boundary
 ```
 
 Lifecycle sequence belongs to graph topology. Transformations and URI
@@ -347,6 +365,21 @@ conformance belong to GraphFunctions. Context belongs to typed carried bindings
 and the selected overlay composition. URI bindings enter only through their
 admission law. ABI Product URIs resolve immutable owners. ABG owns execution
 and event truth.
+
+`WorkspaceBinding` is the stable authority coordinate over the exact root,
+ProductSet, resolved lock, and binding policy. It is not the current content of
+the worksite. An ordinary content change under the same authority preserves the
+binding and produces a new immutable observation. A root, authority,
+ProductSet, lock, or binding-policy change requires a new binding and its
+owning re-entry. A filesystem change that has not crossed the declared owner
+effect and ABG admission path is observable physical evidence, not runtime
+truth.
+
+The selected project frame extension is
+[`ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`](./ABI5_PROJECT_REFERENCE_FRAME_BASIS.md).
+Its `F-WORKSITE-CAUSALITY` frame governs the worksite relation; the local
+atlas's existing ABG frame governs runtime admission. The file supplies
+structured evaluation context and creates no runtime frame entity.
 
 Imperative code that orders downstream lifecycle stages is a failure condition.
 Prohibited examples include a data-mapper runner, stage array loop, per-vector
@@ -494,6 +527,9 @@ feature gap.
 | `W2-R1` | Force-rank 18/56 definitions. | Every definition has one class, installed status, owner, use-case edge, and disposition; no count-driven work remains. | None |
 | `W2-R2` | Close typed workspace admission. | Decision-complete pre-binding authority, verify/resolve/install/bind, Catalog/View, overlay application, Program/GF admission, and URI/owner network. | None |
 | `W2-R3` | Close functional traversal. | One-start graph topology, typed carried environments, effect boundaries, evidence/fold/residual/continuation, terminal result, and replay are decision-complete with imperative falsifiers. | None |
+| `W2-R3-C0` | Close one post-binding mutable-worksite causal relation. | The accepted child fixes stable binding, current observation, call-local authorization, one owner file replacement, exact-prefix admission, Event Calculus currentness, and fresh replay. | Accepted child HOW only |
+| `W2-R3-C0-I` | Realize the accepted C0 relation. | The exact Product owner, existing event spine, currentness, replay, and two bounded proof lanes conform without a new authority surface. | Selected `realization_refactor` |
+| `W2-R3-C0-E` | Freeze C0 evidence. | The owner and post-binding tests reproduce on one exact subject, including stale observation and post-commit append-conflict falsifiers. | Evidence for C0 only |
 | `W2-R4` | Select the minimal implementation slice. | Independent review accepts an exact file/module/test map containing only direct/transitive/negative-required generic gaps. | Later `realization_refactor` only |
 | `W2-P0` | Repair the S1 proof-enclosure representation. | Accepted bounded evidence-DAG design and independently reviewed implementation prove the exact large Product subject without multiplied inline bytes or hidden authority. | Separate proof-HOW prerequisite |
 | `W2-I0` | Implement the typed-workspace admission foundation gaps. | Exact selected pre-binding authority and generic declaration-application rows work source-blind and stop before `run.invoke#start`; no URI-typing traversal or lifecycle claim. | Only after R0-R4 and P0 acceptance |
@@ -534,10 +570,22 @@ feature prose:
 10. What exact ABI Product-owned generic GraphFunctions are required, and which
    callable meanings remain downstream specialization?
 11. What minimum negative set proves missing, ambiguous, incompatible, stale,
-    wrong-owner, source-fallback, and imperative-bypass refusal?
+   wrong-owner, source-fallback, and imperative-bypass refusal?
+12. Which owner constructs `ObservationSnapshot O0` and `O1`, and what exact
+    identity and stale-observation law relates them to one `WorkspaceBinding`?
+13. Which exact operation grant, mutation subject, write territory, and handler
+    binding authorize each selected physical effect before it occurs?
+14. Which owner admits the post-effect evidence and semantic candidate, and
+    what prevents a receipt or changed file from becoming ABG truth directly?
+15. Which affected projections become stale after `O1`, and which fresh replay
+    or reconstruction makes the next graph boundary current?
+16. Which changes require a new `WorkspaceBinding`, which require only a new
+    `ExecutionBasis`, and which preserve both while replacing the observation?
 
-An unanswered question blocks implementation selection. It does not authorize
-an adapter.
+Questions 12 through 16 are closed only for the exact file-replacement relation
+by the accepted C0 child. They remain open for every other effect. Questions 1
+through 11 remain open. An unanswered question blocks the corresponding broad
+implementation selection; it does not authorize an adapter.
 
 ## Proof Contract
 
@@ -581,6 +629,15 @@ The design or realization refuses if any of these is true:
 - URI type truth is inferred by path, filename, extension, ambient loader,
   caller label, or overlay metadata without URI-binding admission;
 - typed URI bindings are stored by mutating the stable WorkspaceBinding;
+- mutable worksite bytes are included in `WorkspaceBinding` identity;
+- an ordinary content change forces rebinding instead of a successor
+  observation under the same binding;
+- traversal continues across a changed `WorkspaceAuthorityBasis`, ProductSet,
+  resolved lock, or declared root without a new binding and owning re-entry;
+- a worker, tool, or filesystem mutation becomes runtime truth without an
+  owner effect receipt and ABG admission;
+- traversal consumes an observation after a material effect without
+  re-observing the worksite;
 - a traversal bypasses the reusable URI-binding admission layer or implements
   frame-specific type admission;
 - overlay hierarchy is flattened without preserving semantic identity;
@@ -593,7 +650,8 @@ The design or realization refuses if any of these is true:
 - runtime result, continuation, closure, or replay is authored outside ABG;
 - S1 evidence-DAG success is reported as typed-workspace or traversal closure;
 - the real odd_glc release becomes a condition of ABIogenesis 5.0 release; or
-- proposal acceptance is treated as implementation selection.
+- parent-proposal acceptance is treated as implementation selection beyond the
+  exact accepted C0 child.
 
 ## Roadmap Acceptance And Later Design Delivery
 
@@ -602,11 +660,13 @@ Exact proposal `3ab1ee6892bb22fc60206d38edbe8b970cca1d00`, tree
 Product-frame `A0/B0/C0/D0` review and owning Executive/F_H acceptance of the
 goal reprice, R0/R1 force rank, and R2-R4 roadmap. R2/R3 design work is now
 selected. This document remains proposed and unratified as HOW while its
-admission and traversal questions are open.
+admission and traversal questions are open. The accepted C0 child closes one
+post-binding causal seam without promoting this parent.
 
 R2/R3 becomes HOW only after the exact relations are decision-complete, frozen,
 and independently accepted in a later design child. Only that later verdict may
-authorize R4 implementation selection. Neither verdict allocates a Product
-version, runs E00, or changes a release subject. Any discovered change to
-Product, requirements, operation-family meaning, schema, owner, or refusal
+authorize broad R4 implementation selection. `W2-R3-C0-I` is the sole current
+exception and ends at its named evidence boundary. No verdict here allocates a
+Product version, runs E00, or changes a release subject. Any discovered change
+to Product, requirements, operation-family meaning, schema, owner, or refusal
 partition returns to the owning re-entry before code.

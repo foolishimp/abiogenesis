@@ -56,25 +56,44 @@ function runFreshWorker(input) {
     });
     let stdout = "";
     let stderr = "";
+    let settled = false;
+    const timeout = setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      child.kill("SIGKILL");
+      reject(new Error(
+        `fresh-process runtime projection worker timed out after 30000ms: ${stderr}`,
+      ));
+    }, 30_000);
+    timeout.unref();
+    const settle = (complete) => {
+      if (settled) return false;
+      settled = true;
+      clearTimeout(timeout);
+      complete();
+      return true;
+    };
     child.stdout.setEncoding("utf8");
     child.stderr.setEncoding("utf8");
     child.stdout.on("data", (chunk) => { stdout += chunk; });
     child.stderr.on("data", (chunk) => { stderr += chunk; });
-    child.on("error", reject);
+    child.on("error", (error) => settle(() => reject(error)));
     child.on("close", (code) => {
-      if (code !== 0) {
-        reject(new Error(
-          `fresh-process runtime projection worker failed ${code}: ${stderr}`,
-        ));
-        return;
-      }
-      try {
-        resolveResult(JSON.parse(stdout));
-      } catch (error) {
-        reject(new Error(
-          `fresh-process runtime projection worker returned invalid JSON: ${String(error)}\n${stdout}\n${stderr}`,
-        ));
-      }
+      settle(() => {
+        if (code !== 0) {
+          reject(new Error(
+            `fresh-process runtime projection worker failed ${code}: ${stderr}`,
+          ));
+          return;
+        }
+        try {
+          resolveResult(JSON.parse(stdout));
+        } catch (error) {
+          reject(new Error(
+            `fresh-process runtime projection worker returned invalid JSON: ${String(error)}\n${stdout}\n${stderr}`,
+          ));
+        }
+      });
     });
     child.stdin.end(JSON.stringify(input));
   });
@@ -103,6 +122,7 @@ export async function proveFreshProcessRuntimeProjectionEquality({
   };
   const first = await runFreshWorker(input);
   const second = await runFreshWorker(input);
+  const transportedRetainedRows = JSON.parse(JSON.stringify(retainedRows));
 
   assert.notEqual(first.processId, process.pid);
   assert.notEqual(second.processId, process.pid);
@@ -115,8 +135,8 @@ export async function proveFreshProcessRuntimeProjectionEquality({
     second.eventLogDigest,
     closeHandoff.reopenAuthority.eventLogDigest,
   );
-  assert.deepEqual(first.rows, retainedRows);
-  assert.deepEqual(second.rows, retainedRows);
+  assert.deepEqual(first.rows, transportedRetainedRows);
+  assert.deepEqual(second.rows, transportedRetainedRows);
 
   return Object.freeze({
     kind: "fresh_process_runtime_projection_proof",

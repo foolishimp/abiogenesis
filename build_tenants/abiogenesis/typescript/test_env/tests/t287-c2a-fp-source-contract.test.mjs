@@ -200,6 +200,7 @@ test("C2A owner boundary preserves structural F_P proposals and totalizes except
     finalOutput: rawOutput,
     processStatus: 0,
     processSignal: null,
+    timeoutClass: null,
     timedOut: false,
     exitObserved: true,
     terminationConfirmed: true,
@@ -207,6 +208,7 @@ test("C2A owner boundary preserves structural F_P proposals and totalizes except
     structuredEventCount: 1,
     progressEventCount: 0,
     toolCallCount: 0,
+    toolInvocations: [],
     apiRetryCount: 0,
     stdoutByteLength: 0,
     stderrByteLength: 0,
@@ -239,6 +241,7 @@ test("C2A owner boundary preserves structural F_P proposals and totalizes except
     programLocusRef: "locus://test/fp-owner/1",
     taskOrdinal: null,
     attempt: 1,
+    executionAuthority: null,
   });
   const prepared = (complete) => deepFreeze({
     kind: "prepared_probabilistic_leaf_invocation",

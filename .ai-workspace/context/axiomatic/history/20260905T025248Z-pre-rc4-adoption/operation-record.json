@@ -1,0 +1,1024 @@
+{
+  "kind": "abiogenesis.stdo-context-adoption",
+  "schema_version": 1,
+  "created_at": "20260905T025248Z",
+  "status": "completed_consumer_update_evidence",
+  "role": "Worker",
+  "authority": {
+    "kind": "direct_user_instruction",
+    "text": "there should be an rc4 representation update abg with that, its a failing of the updater that it didnt do all of it"
+  },
+  "scope": "Complete ABIogenesis RC4 development-context adoption: exact Representation and Axiom installs, consumer bindings, agent instructions, source-linked local map, and freshness verification.",
+  "change_class": "product_reprice",
+  "re_entry": "specification/PRODUCT.md#governance-and-release-boundary",
+  "stage_1_disposition": "HOLD",
+  "stage_2_disposition": "blocked",
+  "preimage_archive": ".ai-workspace/context/axiomatic/history/20260905T025248Z-pre-rc4-adoption",
+  "preimages": {
+    "AGENTS.md": {
+      "type": "file",
+      "sha256": "60e6c01dc2de8dd88a3e1676c657893d558068b5dfc6d531c94b8196302c7954"
+    },
+    "CLAUDE.md": {
+      "type": "file",
+      "sha256": "1b736ba9c2c1ea5eb1795df3693d2bc102bd7e34dbb0773b280be9f9936fc438"
+    },
+    "stdo_abiogenesis.json": {
+      "type": "file",
+      "sha256": "61f5990a37c0e1aa1d4923174c315304a271d74a40f584b9ac380b3c91a08b9a"
+    },
+    "specification/GOALS.md": {
+      "type": "file",
+      "sha256": "c7d24e16297e54bb60ebb3d554d4e3013033acc7d721c4b0777ec1721321fb9c"
+    },
+    "specification/PRODUCT.md": {
+      "type": "file",
+      "sha256": "7ff2f1d2dd714acc5660c03b317abdf44516f368599fd6910762df6f09e528bf"
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "type": "file",
+      "sha256": "5eeecd413979141569ae050b0b4547b290d8d3a790d801f836de1b367076bc23"
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "type": "file",
+      "sha256": "acfb53a92a7db573ebdb88df841d64dc567d250071f0e8b74b007f64fe6b90f6"
+    },
+    ".ai-workspace/context/axiomatic/axiomatic-program.json": {
+      "type": "file",
+      "sha256": "76b591197360741f97390cdec00c0e1e45b210d536ec24d98f2b24732730b623"
+    },
+    ".ai-workspace/context/axiomatic/bindings.json": {
+      "type": "file",
+      "sha256": "c1b4072389a3dfc4ebc87c293ea2de98654efcb27f81cd81800faa709f070416"
+    },
+    ".ai-workspace/context/axiomatic/logical-constraint-map.json": {
+      "type": "file",
+      "sha256": "37bfea095dd7dbb18457e79f94cfb6c6c18d3818555c79e55f2d172c59f8be5d"
+    },
+    ".ai-workspace/context/axiomatic/validation-report.json": {
+      "type": "file",
+      "sha256": "105a3bd3e89623b29ab85995a3f13cdec12ba09b15fbde92c9b186bf1aaba8cc"
+    },
+    ".ai-workspace/context/axiomatic/executive-review-sections.json": {
+      "type": "file",
+      "sha256": "bba41e7877212c9040f96c504acbaceb1fb25dd4d7d5fab4497461df09bcb8af"
+    },
+    ".ai-workspace/context/axiomatic/README.md": {
+      "type": "file",
+      "sha256": "a590b468ba95e61df55127cf59f59b5a83e96288a4ad7aee516bba463e584cd5"
+    },
+    ".ai-workspace/context/axiomatic/executive-review-request.txt": {
+      "type": "file",
+      "sha256": "eb50c952fd9a6eddd84698ba8e4bad16e4307a9a014c20141a562d182ad2b7ad"
+    },
+    ".genesis/development-products/axiom-indexer": {
+      "type": "symlink",
+      "target": "/Users/jim/Library/Application Support/Axiom Indexer/releases/v0.1.0-rc.1",
+      "sha256": "d236274895895e5a9832754365b24134ec238f08cda99143986895ba3612efce"
+    },
+    ".genesis/development-products/stdo-representation": {
+      "type": "symlink",
+      "target": "/Users/jim/Library/Application Support/STDO Representation/releases/v0.1.0-rc.1",
+      "sha256": "58b300ad7a9a8a8d84c3de3dedaae25b303b8a1d61a20b87f3f8b907fe6ad4bc"
+    }
+  },
+  "dirty_tree_before": {
+    ".ai-workspace/comments/codex/20260822T034200Z_STRATEGY_living_four_dimensional_product_lifecycle.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "4432dadd2bb1ac8a078f883aa6ff162d80ca2f8a8ef283dd3208384b19a60513"
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "5eeecd413979141569ae050b0b4547b290d8d3a790d801f836de1b367076bc23"
+    },
+    "AGENTS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "60e6c01dc2de8dd88a3e1676c657893d558068b5dfc6d531c94b8196302c7954"
+    },
+    "CLAUDE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "1b736ba9c2c1ea5eb1795df3693d2bc102bd7e34dbb0773b280be9f9936fc438"
+    },
+    "build_tenants/abiogenesis/python/design/abiogenesis.code-workspace": {
+      "status": " M",
+      "type": "file",
+      "sha256": "20c9e6462a15d7283397eaaeda65150fbee5fde564b6b6d22d6d37a6a12042af"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "a37d1c6cdd1f1abedfc78f073a64688c5fec417352067bb0ad6d10d5ae99ed48"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "bada38a2d676d3f6622b37c65bf633a83d19d18f5991e540d5d0d0b6e0b97615"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "1cb2b2dec2809912cc47913c31bcede116c5c3cf01718f954e423f8a0530aa3c"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "ecf495c4cfc2fc9a200663323a82de8b3ddc7bba779b61ccc15e5980781df663"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "94b7eeba76b18bb015e3fe7b4eda6256212de5a402eddc5025f1282f3af7fdfc"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "f85bd07a1941300118dba1fcbf29e97eccb56455d7ea80facc67344a20c0b01d"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/index.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "1ec7720a4d7587f46266462be0767aa030f57920f8ef9eed0bbcc895035e47b0"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/probabilistic_result.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "9b1c8746133406d0288d068763a9966a7d7cf19d9887988a3ce23bf6461bba36"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "431120ebe036c37564b2c659b69f3d4d6bf2d779e680e5cdb75989ba351a47c0"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "da42c9dc42a380ffd948694d7d5a6d6f1f41995099945231283727c9f6dff0d1"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/gtl/index.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "6c20a312804ff14892a1bd3cde839584d07adcb82cad3871f15080a8fa341383"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "5c97bf551b37bab2288882516a5781d5a48eacd69f307146a933db7fc195fcf1"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "70ef366f13238c8ed45a4b6ca82bfe499d39ffd7828e45dc6850cd3d79df8c80"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "7cea2f48b83c7ef71fad645714184e1ba952a186afa9e34db95d2e65313534ad"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/index.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "6f202282e3269e208a3a509243abc5ac34e46d6461344cc2b6a7bfcebe29f268"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "8babc5e08357624aacbb99e98c30e4ee1e82cfc835e51b2d6bd35c546bfc7253"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "dc5a0a709ca487aa3459f742efeca17ec90aee7ce279653ea666448141749c9a"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "588716db1827ef4dd1a37e884a523ad02ad2a506f0dd5fb752927a9486e24fad"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/index.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "78034db42905286c4f7d9d9d2c7d99bb37021c4c1263e0b8976cc876a6310d3b"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "f1a890cac1e073b9c233a81133c96338aef5fe5aa106c92c81977e6eb56a0239"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/public/operations.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "b1fbd1e0df95bf2e301277978e1c4d08d322f772bdd3a8518cbf5b093e975f42"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/validator/validation.ts": {
+      "status": " M",
+      "type": "file",
+      "sha256": "e3c3e9669d59efacf688fbcee68a4c5de956a331920b5e33aa5e80f104173835"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "status": " M",
+      "type": "file",
+      "sha256": "2afe4d6b8bdb0a0d619a3f3b13cb6d7130be20ec08f45dee943b7d2990b40aed"
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "3002dfbf3f9b889b9c8c451cde7662170065b13b21f2d07b7e35ecaed9ffa940"
+    },
+    "build_tenants/abiogenesis/typescript/design/README.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "a58f09b1bb6f4315c92b3638855541533f536c853617c94e7e4e892ecd5e9e64"
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "acc8406c352e7d1e61e4af5b15d348ba7e485a26a26b75ed706c3ecb0909c704"
+    },
+    "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs": {
+      "status": " M",
+      "type": "file",
+      "sha256": "7c8b6643b821337e365592147e77b655495ddaf229f62c9aa7b3c153aef2d34f"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json": {
+      "status": " M",
+      "type": "file",
+      "sha256": "359a6a21bd40382ac1ae71dfa235a74ebf2a2389375fc548e685ee22cfbbde5e"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs": {
+      "status": " M",
+      "type": "file",
+      "sha256": "0c81473493e19e1087ffeb3105b20e33641e3ef59c7cac1f5140b01b3e374a3e"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs": {
+      "status": " M",
+      "type": "file",
+      "sha256": "cdbaca305c70c6509861233807930c2f0a811166aee65565094a150eba159969"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs": {
+      "status": " M",
+      "type": "file",
+      "sha256": "22a6a397a11a8f19eba94b912c9611fadd397369359c3094170c0886c043de99"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-consensus-module.test.mjs": {
+      "status": " M",
+      "type": "file",
+      "sha256": "731f16be1c454ed2645564c9ce3b755469bf43fca67254a1ef3fcd6a502595d8"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fp.test.mjs": {
+      "status": " M",
+      "type": "file",
+      "sha256": "208711a54da7b4c75242446085e221a4fcfd242f868b135e6f68006af307985b"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-live-fp.test.mjs": {
+      "status": " M",
+      "type": "file",
+      "sha256": "60d7515989ae7b1df3ec54deb409c0d70db4f84f6193e2b595e53b83382778a3"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs": {
+      "status": " M",
+      "type": "file",
+      "sha256": "6fdf4ab0beb77423cce4c4dbe17d74a031db1c6b39a6207035678757e08e69e0"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c2a-fp-source-contract.test.mjs": {
+      "status": " M",
+      "type": "file",
+      "sha256": "9ffdc51f90561375bdf228cf48f6bc8e2a187bb7079ea1db0a2a267093216c03"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs": {
+      "status": " M",
+      "type": "file",
+      "sha256": "976974ebf890c3380baa77d2180d12955b2465319497b855ce6aa8617edaa4ce"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs": {
+      "status": " M",
+      "type": "file",
+      "sha256": "76c491a34673e99a0e0b2bb3e121f6470da4e141b66714ec1bea5564cc8ecaf2"
+    },
+    "specification/GOALS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "c7d24e16297e54bb60ebb3d554d4e3013033acc7d721c4b0777ec1721321fb9c"
+    },
+    "specification/INTENT.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "6a5cdae93b27b4680957f44aa7a93fbe20bca06f7fdab170987126e4a5e0dec6"
+    },
+    "specification/PRODUCT.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "7ff2f1d2dd714acc5660c03b317abdf44516f368599fd6910762df6f09e528bf"
+    },
+    "specification/requirements/README.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "a534a9088b46713316e267278f873d5dd7f0018f68049c0daf8ab770fef700d0"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-ASSURANCE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "290e3185c390a8def48e1f05a8f0905fc3fe9f29aded5dfb533cd0587a7513a0"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-BINDING.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "1e4c244e77167b522c574c29303bc2b5923aad6cfddbd8a31e551270ba1d4565"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "cd2aa97ffeb3185278ec7f4e7ff683b99c6f1cb62be991bfd25d787453acf1b6"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-CONVERGENCE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "59073428efe380ecd5628cb0d8dd737a1f4d1d70ecce1313a609a676baa77040"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-CORRECTION.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "012f92415587b10b255438a2bb3a27b82f9947b9bedfb32d43e9c703419977fa"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-EVENTS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "94e17a01c31f47031dd774ccd04cfadc22968addb5aae08930614d4daf655fb9"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "885a1f0938b9e4fa1a480055e6916f7b34ef182b02894f6f4896345ffb46fc80"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "1b9d6471e42d4b37f5fb8ee96aadb4f8e1c9c162134528380ec83267a9964c04"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-FRAME.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "0d7a3d2bc11101413af82fab9b165f99a548665e6f3e01cc874a94449b6cc000"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-GRAPHCALL.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "efcf9e34784971671fbdb62067f8650d5d4278857f4c2a03ad0b6ab62fc13f1c"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "fa6805d679fb23b6f9aaa2d241921dae9a6d2d69cff01ab9c802f2d2a1202c79"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-ITERATION.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "fc789af2e73318ae0c312b7a5a402e6ee54e2f9b4dc1aa14b14abf2ec71b73b6"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-JOB-WORKER.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "9ac7b308754a922fb7abcfce1ecb098b5248aa91bac276c6fbc13c4aacac153c"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-LEAFTASK.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "c945f94d75ff203736e97ed2bc34c25705d3bfc78475850bd1ff96fc96b1268c"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-LINEAGE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "8790e74ba5be75957e1837837cafdd632eed00c61d56003fe0c40efc186d298e"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "1244c63883f2ffae71d58642272f875f35bb6f2ac863767c4a3b177cd1d53929"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-PLUGIN-SEAMS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "d7e00fe8933a21262f0d842bf0d54dce072977b88b96b9ec8ad9aacb08766dcc"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-POLICY.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "3534428dd13fe33e492b778dfad09b9cab1431058ff1a9f2e38774d982707212"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "345a42dda69ee1ccf0bd3dbf2e8cfeb7d42492495ca4f5b054897c68656ad9d0"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-PROVENANCE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "0398c105e6e79fea1f0bc58c004cc8ae917fbf3ead5ff628819fc30293286f0c"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "5345dc15e3f06bf62fbdc000faf2fe36b9a42730a8216949e8cd5116149a4ecf"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "8a2bd99e8be7b95804d909b44c077065390e750c7478baab2df9ae84b9d4171c"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-RETRY.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "7eb63ea4791c00712d8705c1a49518d952343be2299aab23e859cef2f295f526"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-RUN.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "88b609e77e0e1332ce02729ef52135977c087c732252602bc2e410dc51f6d275"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "043158a4a4d119773c5410ea075b14d8a1aee9a3f4be1d2b6c26b691dbaa8ebd"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "f69b6ded69fe0dcb09c4a5143c7ce0403f05d4889df4526ca043ddbe3d016996"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-SELFHOSTING.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "e56bfdceda5ac5a7f772dcadf37936a75c8d1a858909e487b908113df704a2d2"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-SUPERVISOR-WITNESS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "a9ace3d1355f8f5acc2c3c0ee6e5544ef338dbb6a88cfa816aafb8eae7ab57fd"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "b14f0d9ebb8bd40a44ac0b786255fbbd61119ef45b5f7e938375a4af3b96b1fa"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-TUNER.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "ae8088e628011e9a8a90f5d7f788d3b8d11ede63b4c65f1adaa45879453ced05"
+    },
+    "specification/requirements/abg/REQ-R-ABG3-WORKER.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "a60a4fe1b2e911464c8045c7f94a175277ac3229eebad7e76e3b60bcde5ef8ce"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-ASSET-SURFACE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "159a3c038af71c024e5837105e980e465200646461622285a27a7fec43e3e941"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-ATTRS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "552e6a6eacb81a539dc78d666ca9330e743734cc5d5c4967e3ac88b632508d34"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "eb8e5e06455f98eed417f8065577c7335b42ce9eb19bb1913ac3a75dcf74972a"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-COMPUTE-NOTATION.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "a7266c4bc4f7c543755fa415b2e6f0ac8de35b34478c5cb86ef18382c2b7a5ea"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "467c4416b582ca0536d1a389da9cea130df5e6dcd80707cbe8d0d192ee8fbe6d"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-EVALUATOR.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "ce001edff22cab55461fad58d34ef3e5b098bb4e90b0af466f6a7da274c6ee42"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-GRAPH.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "52adb27a451bd21ea3ac91986f075a17cbc539ca020c8505f0506a65cf0c7a24"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "2cff9f9478ba5730f2031e67c5b25f11a00310bdef23f241637d6c70e7f3d2fd"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-GRAPHVECTOR.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "29b54988610a401693e29c6c55f8349d859d57676f7351eeed6a8c070d5571ed"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-HOF.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "715de0f494e6af294136198ca9a19f4c24860cc1692b1447c519ace113b11ac5"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-HOOKS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "067950cedc31f4f549e262fd22806e1e243a855250f44f85d4f4d5ef7e3904d1"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-IDENTITY.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "6641c1ccccfa67875758757fc667d7cc7cda55aecad98e29bd99df7e99e909bb"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-INTERFACE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "f90eeba6d2e8a61e6f230ebf71c6195ea4a91c78ae028f4b17823701bac325e1"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-JOB.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "248ad3a8c20aaa4ba5406f1a8fd9e3039a3a1f62e7c94b514716949248a1775d"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-LANGUAGE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "638eca4adbc7c9db2e738202e954f404c089cda469b6eb5fe9c49df03a2fe13a"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-LAWS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "6ad8da116a557d0c1707171e594f53892b93e68d15556b731908933e91890aa7"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-MODULE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "3c596ad356d057799ab52bf2eeb277d84c6e6551cbf709823c99113f2f326996"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-NODE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "d8aee5a18c82656c26e31fe860c3513572d0334db8624a4936654d4fed5460c4"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-OPERATOR.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "2dcb55b5d2cfbad09319ae69ae91d986c07fd489b36a7e05cb7396c0292c3646"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-RECURSE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "b85f3d4fae5da8f373cc64bd51c7bd7fbec684d64839f845ab9cf04bf6598b66"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "18452940109ca302ca368674234c080031be9f98ee9c4fecf4579691a8db2d3b"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-ROLE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "0002f15d624af3f265d5f8a9bded4b5813ca40f01fcec8ec13f548ad7f41b163"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-RULE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "507022ee3692174938074d2009e8bdcd86a4d949a2327fa378ab057c4ed7cb51"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "788677b2c992e77503ae4cfe84a622e2f2188a53c7ee2406427679f156f1f06f"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-SUBSTITUTE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "4fa6fcf490daead291d5f9fafd7cb23a9136fa128a81b72736dfad524ae3cb20"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-SUBWORK.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "1a9869be22bd6e2d9e5c0dec693c097fc50dde88e352d4246ebb8226fcb68fd6"
+    },
+    "specification/requirements/gtl/REQ-L-GTL3-SYNTHESIS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "9281bd1919fae9019afbd91e17e8fa8f404a0c583a3ee1e8ea73bf499e880bc5"
+    },
+    "specification/requirements/product/REQ-P-CONSENSUS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "2560c0df00293ed45697960ab534e675c26bd86206bf2188a5a7546951746785"
+    },
+    "specification/requirements/product/REQ-P-INSTALL.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "e0c2d998092188a19dec8bf09cb0e3aff6af5cbe55477e0371a4a7d0ae7a308e"
+    },
+    "specification/requirements/product/REQ-P-QUAL.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "c4b264072b7856dd3efca89c38a38de210db62d190b5340b099a8939d3a7df94"
+    },
+    "specification/requirements/product/REQ-P-SCENARIOS.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "6b9dadb40c188b0829dd6e72c54ee9badb634849b6f7a24135a1b72fd1684ff3"
+    },
+    "specification/requirements/product/REQ-P-SELF-CONFORMANCE.md": {
+      "status": " M",
+      "type": "file",
+      "sha256": "48c74036510fb956b5193d9565b5e00b053fba6c2115da0d891a1e535b46ef31"
+    },
+    ".agents/skills/axiomatize-corpus": {
+      "status": "??",
+      "type": "symlink",
+      "target": "../../.genesis/development-products/axiom-indexer/skills/axiomatize-corpus",
+      "sha256": "9810ef53097e0944156b2d041b7e6939fcaa3d7e740dab7633b85bab33c8bf64"
+    },
+    ".agents/skills/stdo-representation": {
+      "status": "??",
+      "type": "symlink",
+      "target": "../../.genesis/development-products/stdo-representation/skills/stdo-representation",
+      "sha256": "50da81478ede24eff2c1cb7aa8ea714a6e5173b4e37a8cf514e5b320c73206b4"
+    },
+    ".ai-workspace/comments/codex/20260829T055102Z_GAP_optional_occurrence_algebra_binding.md": {
+      "status": "??",
+      "type": "file",
+      "sha256": "c3ca9bf98f7a15d70fa4c5d5a2179ff90d83bec0b1dd2ba44cf537fa3bef3658"
+    },
+    ".ai-workspace/comments/codex/20260903T011322Z_REVIEW_abiogenesis_c2_cli_and_odd_glc_breakdown.md": {
+      "status": "??",
+      "type": "file",
+      "sha256": "2761bdbba7c0f68329083105cdf42468791faabff79d2d9bbf9a81ba6ca7fdac"
+    },
+    ".ai-workspace/comments/codex/20260904T014553Z_HANDOFF_t287_canonical_root_stage1_to_stage2.md": {
+      "status": "??",
+      "type": "file",
+      "sha256": "e108963d5a15593ab5a26c505431e34179140c2b53e22e8e7ba0d6a3e9d2e162"
+    },
+    ".ai-workspace/context/axiomatic/README.md": {
+      "status": "??",
+      "type": "file",
+      "sha256": "a590b468ba95e61df55127cf59f59b5a83e96288a4ad7aee516bba463e584cd5"
+    },
+    ".ai-workspace/context/axiomatic/axiomatic-program.json": {
+      "status": "??",
+      "type": "file",
+      "sha256": "76b591197360741f97390cdec00c0e1e45b210d536ec24d98f2b24732730b623"
+    },
+    ".ai-workspace/context/axiomatic/bindings.json": {
+      "status": "??",
+      "type": "file",
+      "sha256": "c1b4072389a3dfc4ebc87c293ea2de98654efcb27f81cd81800faa709f070416"
+    },
+    ".ai-workspace/context/axiomatic/executive-review-request.txt": {
+      "status": "??",
+      "type": "file",
+      "sha256": "eb50c952fd9a6eddd84698ba8e4bad16e4307a9a014c20141a562d182ad2b7ad"
+    },
+    ".ai-workspace/context/axiomatic/executive-review-sections.json": {
+      "status": "??",
+      "type": "file",
+      "sha256": "bba41e7877212c9040f96c504acbaceb1fb25dd4d7d5fab4497461df09bcb8af"
+    },
+    ".ai-workspace/context/axiomatic/logical-constraint-map.json": {
+      "status": "??",
+      "type": "file",
+      "sha256": "37bfea095dd7dbb18457e79f94cfb6c6c18d3818555c79e55f2d172c59f8be5d"
+    },
+    ".ai-workspace/context/axiomatic/validation-report.json": {
+      "status": "??",
+      "type": "file",
+      "sha256": "105a3bd3e89623b29ab85995a3f13cdec12ba09b15fbde92c9b186bf1aaba8cc"
+    },
+    ".claude/skills/axiomatize-corpus": {
+      "status": "??",
+      "type": "symlink",
+      "target": "../../.genesis/development-products/axiom-indexer/skills/axiomatize-corpus",
+      "sha256": "9810ef53097e0944156b2d041b7e6939fcaa3d7e740dab7633b85bab33c8bf64"
+    },
+    ".claude/skills/stdo-representation": {
+      "status": "??",
+      "type": "symlink",
+      "target": "../../.genesis/development-products/stdo-representation/skills/stdo-representation",
+      "sha256": "50da81478ede24eff2c1cb7aa8ea714a6e5173b4e37a8cf514e5b320c73206b4"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_branch_construction.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "adfc406391c29adad8963d300171665b497e91eb18f6ac95fa06c30606eb4094"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_c0.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "b89334c607c4dbccb9ec67bf56e9e33ac4e6e3bb7c9beff7a9f9e70404e1ec86"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "bca404a117c25d0fea62681d0c8eae64530068d013df58e69b7a710774e852d0"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_construction.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "3bc4942a8b3d5ae09ddb83177959422dd240ad9613fac01de9d0e699b40fca90"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_execution_authority.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "8bf749f4374dbc9c9a68b03e30d40c0a4dde61f06c0d4a111d091839d1b1dc93"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_branch_construction.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "a88daf771bf8d22f410f508c07ecd983b0d25e17ed4c0089db4ca8f48a9deab4"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "9ce2486b7357018fbb5e5e9a673ea6313ef76b0129d7f692960ad5142ae9e002"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "e1448737766c1f10f3ba08e2bcff822360e50afdecd9ffb7b02d27945ea53db0"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_construction.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "3601884a28a978af8421dfc609d17dfbd8a19167c4e531d474369b69a506b517"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "befdd462219c037bc52a1861dab88985a75d2b685f76b5946f0450a652034f33"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_branch_construction.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "e6e8cc6afc722e6d29338ba732221746435359fb5d5b48f0c1e2605dd60799e6"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "015f29f1d60769583d81b00c85ebef874a4ec23c49522dcc08ff93c755be9ae9"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_construction.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "a830bd045eed037cc75bdbfe152aa99df03a3e8fe44190c0929c8150e524a07d"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "de90c3dfd6beb4560a50b46386d0e982d482b8859d2db6c1e3ff2d556ffec9a6"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts": {
+      "status": "??",
+      "type": "file",
+      "sha256": "ef7382baba828f2559a7917a71c49a10c139e0621c10aa851ac47cb80780f99c"
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "status": "??",
+      "type": "file",
+      "sha256": "acfb53a92a7db573ebdb88df841d64dc567d250071f0e8b74b007f64fe6b90f6"
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md": {
+      "status": "??",
+      "type": "file",
+      "sha256": "7cd8a5a905cdb02c8431b06224df5aa46cfc8f759a7dc5c1fd4712e66c652240"
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C1_LIVE_LLM_WORKSITE_CONSTRUCTION_DESIGN.md": {
+      "status": "??",
+      "type": "file",
+      "sha256": "61589c4428c6d26f7e8063d40c9d6e653897df8a5bbfaf8d0fb048ce8cce3c61"
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md": {
+      "status": "??",
+      "type": "file",
+      "sha256": "8dbe22c8bcc2bcedc0e77a5f03a2fde1805d408e555e83bde342b9bb1d2a2301"
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md": {
+      "status": "??",
+      "type": "file",
+      "sha256": "6da224353368e1ba9e2fc5651640ece743f6b528e98bbd9ccb58b8624a96e2a8"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/root-cli-environment-timeout.test.mjs": {
+      "status": "??",
+      "type": "file",
+      "sha256": "0326ac58e4e714beb785b2c4980a365083325a86a467b4bf5ce92cf270c56aa1"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs": {
+      "status": "??",
+      "type": "file",
+      "sha256": "0f7bff5aad53c4f240325d2b212a8e2e8c7e046060a0bd51183bb6fcac0071e2"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs": {
+      "status": "??",
+      "type": "file",
+      "sha256": "254c1e352df38d0e49493035494a2e19f930d5db9115b7cbb187e6279f3ebb5d"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs": {
+      "status": "??",
+      "type": "file",
+      "sha256": "36beadeabeca04068e872a51f6cf442ee9e017efa397070cae0f44f6d0b6315a"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs": {
+      "status": "??",
+      "type": "file",
+      "sha256": "9f6cf79d3b3e7143d28591ac689780101b7e6398cfaafbddfd28e3745a90c7d6"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs": {
+      "status": "??",
+      "type": "file",
+      "sha256": "987243c23da204a420dd7e7160faf3f1f46eb7339cb0f6831b1ca9c2169285ec"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-file-replace-owner.test.mjs": {
+      "status": "??",
+      "type": "file",
+      "sha256": "3fa21a2b930733d9d6c3ab0f9e7122bfbace2fcf5bc0e019b8919888fa7e80b9"
+    },
+    "stdo_abiogenesis.json": {
+      "status": "??",
+      "type": "file",
+      "sha256": "61f5990a37c0e1aa1d4923174c315304a271d74a40f584b9ac380b3c91a08b9a"
+    }
+  },
+  "permitted_new_paths": [
+    ".ai-workspace/context/axiomatic/rc4-adoption.json",
+    ".ai-workspace/comments/codex/20260905T025248Z_REPAIR_rc4_development_context_adoption.md"
+  ],
+  "upstream_effects": "read_only_diagnosis; no updater code or release modification",
+  "installs": {
+    "axiom-indexer": {
+      "cut": "v2.5.0-rc.4",
+      "namespace": "axiom_indexer",
+      "qualified_ref": "refs/tags/axiom_indexer/v2.5.0-rc.4",
+      "tag_object": "4750e09639c118f1097d4ea046fe23d26713f96b",
+      "commit": "a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2",
+      "project_subtree_tree": "3f71c3c2df99008b9521e338a7837c553f87173a",
+      "root": "/Users/jim/Library/Application Support/Axiom Indexer/releases/v2.5.0-rc.4",
+      "member_inventory_sha256": "7df380d5c41be4482f06668c5fe1043cd08643daa9f40d83be3c0ff40a8ff7e6",
+      "members": [
+        {
+          "type": "symlink",
+          "path": ".agents/skills/axiomatize-corpus",
+          "target": "../../skills/axiomatize-corpus",
+          "sha256": "94f7720145baa135bb3d88ec352b4fe32e9841fcfc9a23dbf00ea54ab0fa7c40"
+        },
+        {
+          "type": "symlink",
+          "path": ".claude/skills/axiomatize-corpus",
+          "target": "../../skills/axiomatize-corpus",
+          "sha256": "94f7720145baa135bb3d88ec352b4fe32e9841fcfc9a23dbf00ea54ab0fa7c40"
+        },
+        {
+          "type": "file",
+          "path": "build_tenants/core/code/ac.py",
+          "sha256": "dfb4d7f1e6b06b9c215154a00b689ce82d7cd36e1ec80ee8f93da9c20798b672"
+        },
+        {
+          "type": "file",
+          "path": "skills/axiomatize-corpus/SKILL.md",
+          "sha256": "dcd2294e7de7ae5bfb4a70b3980594a36f9a3b28b42236523a86cbc42aa7babe"
+        },
+        {
+          "type": "file",
+          "path": "skills/axiomatize-corpus/agents/openai.yaml",
+          "sha256": "409721119552f3e1ffded2a2aed5f81a92b40389c81f77c0792f305e507be990"
+        },
+        {
+          "type": "file",
+          "path": "skills/axiomatize-corpus/references/output-contract.md",
+          "sha256": "fd0996009b890e464399863e1f16bb9b9ca7820cb5aa04e95244618849983694"
+        },
+        {
+          "type": "file",
+          "path": "skills/axiomatize-corpus/references/program.schema.json",
+          "sha256": "61c9d26fabb1d844f643712632f6a6551a1c6f7f8ddfef604673e57b7c6b3b7b"
+        }
+      ]
+    },
+    "stdo-representation": {
+      "cut": "v2.5.0-rc.4",
+      "namespace": "stdo_representation",
+      "qualified_ref": "refs/tags/stdo_representation/v2.5.0-rc.4",
+      "tag_object": "d85d25482f9d9132147bea189b0fe0aca1929dff",
+      "commit": "a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2",
+      "project_subtree_tree": "44fb7bc673726a920552d7dd62b3b754953396e0",
+      "root": "/Users/jim/Library/Application Support/STDO Representation/releases/v2.5.0-rc.4",
+      "member_inventory_sha256": "32dd04f5644a05c04c844a28d1978d1c1ffdd5e7f20473b7d7f8626e1e07e830",
+      "members": [
+        {
+          "type": "symlink",
+          "path": ".agents/skills/stdo-representation",
+          "target": "../../skills/stdo-representation",
+          "sha256": "92c6b8eb455f6bd656501d9496179af39f331ebf5df7114ee5e53825d91a6ddb"
+        },
+        {
+          "type": "symlink",
+          "path": ".claude/skills/stdo-representation",
+          "target": "../../skills/stdo-representation",
+          "sha256": "92c6b8eb455f6bd656501d9496179af39f331ebf5df7114ee5e53825d91a6ddb"
+        },
+        {
+          "type": "file",
+          "path": "build_tenants/axiom_indexer/representation/stdo-v2.5.0-rc.4/axiomatic-program.json",
+          "sha256": "90400806e79cd09f350f285000c8579af81f621cdbe3753125ed9d74bcb6b466"
+        },
+        {
+          "type": "file",
+          "path": "build_tenants/axiom_indexer/representation/stdo-v2.5.0-rc.4/logical-constraint-map.json",
+          "sha256": "5237339d919d352944c42ea201ae49c48b885db02255f5ca1a67173c2b0c1c3f"
+        },
+        {
+          "type": "file",
+          "path": "skills/stdo-representation/SKILL.md",
+          "sha256": "1896829cf06a4fba45f6e8092fc54cf8e958ca5d15ba84f5542eaef966f2a4ab"
+        },
+        {
+          "type": "file",
+          "path": "skills/stdo-representation/agents/openai.yaml",
+          "sha256": "fec4aebb2dc53c4b9d744d9bacd0ff0eec276fefcbd4481e5c839e1695949907"
+        },
+        {
+          "type": "file",
+          "path": "skills/stdo-representation/references/claude.md",
+          "sha256": "57845ff31e6956f4ef89f028d7a2cae55eec4ce0d8bd10d5f318d7b97b483f9d"
+        },
+        {
+          "type": "file",
+          "path": "skills/stdo-representation/references/codex.md",
+          "sha256": "d2a1e6e474329931c2b55fbe4f1a983200e64cb585480a2eeab733c3ed81d569"
+        }
+      ]
+    }
+  },
+  "basis": {
+    "uri": "stdo://releases/v2.5.0-rc.4/",
+    "manifest_sha256": "4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e"
+  },
+  "repository": "https://github.com/foolishimp/specification_methodology.git",
+  "composition": [
+    {
+      "product_definition": "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/stdo_representation/stdo_representation.json",
+      "target_definition_id": "urn:stdo:product-definition:stdo-representation",
+      "relation": "urn:stdo:concept:recursive-product-taxonomy:substrate",
+      "contracts": [
+        "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/stdo_representation/releases/v2.5.0.md"
+      ]
+    },
+    {
+      "product_definition": "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/axiom_indexer/stdo_default.json",
+      "target_definition_id": "urn:stdo:product-definition:axiom-indexer",
+      "relation": "urn:stdo:concept:recursive-product-taxonomy:substrate",
+      "contracts": [
+        "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/axiom_indexer/releases/v2.5.0.md"
+      ]
+    }
+  ],
+  "correction": {
+    "authority": "user: follow Spec method there should only be one truth surface; continue but follow STDO",
+    "restored_exact_preimages": [
+      "specification/PRODUCT.md",
+      "specification/GOALS.md",
+      "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "AGENTS.md",
+      "CLAUDE.md",
+      ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    ],
+    "local_checker_created": false,
+    "configuration_authority": "stdo_abiogenesis.json; exact upstream release records and declared installed dependencies",
+    "evidence_only": true
+  },
+  "configuration_authority": "stdo_abiogenesis.json plus the selected upstream release contracts; this record is historical evidence only",
+  "upstream_obligation": "/Users/jim/src/apps/specification_stack/specification_methodology/.ai-workspace/tickets/backlog/T-029-complete-consumer-cohort-adoption.md",
+  "updater_implementation_changed": false,
+  "local_checker_created": false,
+  "evidence": {
+    "stdo_sync": "verified",
+    "representation_validation": "valid; zero diagnostics; all 77 source routes resolve; map reproduced byte-for-byte",
+    "abi_validation": "valid; zero diagnostics; successor map regenerated by released Axiom Indexer",
+    "program_sha256": "sha256:2a65bd1eacba9bf43013695dacb64afe773364d1a09ba1d0ca975cefdf745cf1",
+    "map_sha256": "sha256:5d45f7bd9bcf9bd1e79a5a12993243bfbadeca260124116f561f91f6fa4a21b4"
+  },
+  "abandoned_approach": "Consumer-local checker and updater mechanics in Product/Goals/design/ticket rejected by user; exact authority preimages restored. No checker was created.",
+  "final_preservation_check": {
+    "restored_exact_preimages": [
+      "specification/PRODUCT.md",
+      "specification/GOALS.md",
+      "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    ],
+    "unrelated_dirty_files_changed": [],
+    "local_map_reproduced_byte_exact": true,
+    "draft_request_reproduced_byte_exact": true,
+    "native_skill_routes_verified": 4,
+    "installed_product_members_verified": 15,
+    "local_checker_exists": false
+  }
+}

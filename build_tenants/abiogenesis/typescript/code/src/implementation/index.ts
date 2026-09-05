@@ -1,5 +1,9 @@
 export { HELLO_WORLD_IMPLEMENTATION_DESCRIPTOR, realizeHelloWorld } from "./hello_world.js";
 export {
+  WORKSITE_COMMAND_EXECUTION_IMPLEMENTATION_DESCRIPTOR,
+  realizeWorksiteCommandExecution,
+} from "./worksite_command_execution.js";
+export {
   DETERMINISTIC_FP_HELLO_IMPLEMENTATION_DESCRIPTOR,
   FP_HELLO_IMPLEMENTATION_DESCRIPTOR,
   FP_FD_OUTPUT_PASS_IMPLEMENTATION_DESCRIPTOR,
@@ -28,6 +32,7 @@ export type {
   DeterministicLeafInvocationReceipt,
   HelloWorldLeafImplementation,
   HelloWorldLeafRealizationCandidate,
+  LeafExecutionAuthority,
   LeafExecutionOccurrence,
   LeafInvocationOwnerRefusal,
   LeafInvocationOwnerResult,
@@ -47,6 +52,31 @@ export type {
   ProbabilisticWorkerRequest,
   VerifiedProbabilisticResultContractPreimage,
 } from "./contracts.js";
+export {
+  constructLeafExecutionAuthority,
+  isLeafExecutionAuthority,
+} from "./leaf_execution_authority.js";
+export {
+  WORKSITE_C0_IMPLEMENTATION,
+  WORKSITE_FILE_REPLACE_IMPLEMENTATION_DESCRIPTOR,
+  realizeWorksiteFileReplace,
+  unadmittedPhysicalCommit,
+  type UnadmittedPhysicalCommit,
+} from "./worksite_file_replace.js";
+export {
+  WORKSITE_BRANCH_CONSTRUCTION_PLAN_IMPLEMENTATION_DESCRIPTOR,
+  WORKSITE_BRANCH_CONSTRUCTION_REDUCER_IMPLEMENTATION_DESCRIPTOR,
+  realizeWorksiteBranchConstructionPlan,
+  realizeWorksiteBranchConstructionReduction,
+} from "./worksite_branch_construction.js";
+export {
+  WORKSITE_CONSTRUCTION_CANDIDATE_IMPLEMENTATION_DESCRIPTOR,
+  WORKSITE_CONSTRUCTION_JOIN_IMPLEMENTATION_DESCRIPTOR,
+  WORKSITE_CONSTRUCTION_REDUCER_IMPLEMENTATION_DESCRIPTOR,
+  realizeWorksiteConstructionCandidate,
+  realizeWorksiteFileReplaceVector,
+  reduceWorksiteConstructionResults,
+} from "./worksite_construction.js";
 export {
   CONSENSUS_ESCALATION_FINALIZER_IMPLEMENTATION_DESCRIPTOR,
   CONSENSUS_EVAL_GAP_IMPLEMENTATION_DESCRIPTOR,

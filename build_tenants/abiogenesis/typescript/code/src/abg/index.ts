@@ -158,6 +158,7 @@ export {
   constructRunActiveFluent,
   constructRunClosedFluent,
   constructRunTerminalFluent,
+  constructWorksiteObservationCurrentFluent,
   constructRuntimeFluent,
   constructRuntimeFluentPattern,
   deriveRuntimeEventCalculusProjection,

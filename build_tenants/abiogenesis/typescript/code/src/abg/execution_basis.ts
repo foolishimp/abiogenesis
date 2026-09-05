@@ -16,7 +16,29 @@ import {
   isImplementationResolutionCandidate,
   isImplementationResolutionSetCandidate,
 } from "../product/implementation_resolution.js";
+import { isWorksiteFileReplaceRequest } from "../product/worksite_effect.js";
 import {
+  isWorksiteFileReplaceVector,
+  isWorksiteConstructionResult,
+  isWorksiteConstructionTask,
+  WORKSITE_CONSTRUCTION_IDS,
+} from "../product/worksite_construction.js";
+import {
+  isWorksiteCommandExecutionTask,
+  WORKSITE_COMMAND_EXECUTION_IDS,
+} from "../product/worksite_command_execution.js";
+import {
+  isWorksiteBranchConstructionTask,
+  isWorksiteBranchConstructionVector,
+  WORKSITE_BRANCH_CONSTRUCTION_IDS,
+} from "../product/worksite_branch_construction.js";
+import type {
+  ProductInstall,
+  WorkspaceAuthorityBasis,
+  WorkspaceBinding,
+} from "../product/environment.js";
+import {
+  canonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
@@ -36,12 +58,19 @@ import {
 import {
   isProgramValidation,
   type ProgramValidation,
+  type ValidatedExecutableLeaf,
   type ValidatedInteractionLeaf,
 } from "../validator/validation.js";
 import {
   hasAdmittedInvocationAtPrefix,
+  rehydrateInvocationAdmissionAtPrefix,
+  rehydrateInvocationSourceResultBasisAtDurablePrefix,
   type InvocationAdmission,
 } from "./invocation_admission.js";
+import {
+  projectExactPrefixWorkspaceEnvironment,
+  type ExactPrefixWorkspaceEnvironment,
+} from "./environment_admission.js";
 import { projectCurrentChildParentCCallAtPrefix } from "./c_call.js";
 import {
   AbgEventStore,
@@ -49,13 +78,16 @@ import {
   admitRuntimeEvent,
   assertHeldEventStoreAtDurablePrefix,
   compareAndAppendExpectedPrefix,
+  durableRuntimeEventPrefixDigest,
   readRuntimeEventsAtDurablePrefix,
   selectHeldEventStoreDurablePrefix,
+  validateDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
+  validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import { projectExactExecutionBasisAtPrefix } from "./invocation_execution_truth.js";
@@ -321,6 +353,437 @@ export interface ChildExecutionBasisRefusal {
 export type ChildExecutionBasisResult =
   | ChildExecutionBasisAdmission
   | ChildExecutionBasisRefusal;
+
+interface WorksiteAuthorityCarrier {
+  readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
+  readonly workspaceBinding: WorkspaceBinding | null;
+  readonly workspaceBindingId: string;
+  readonly workspaceBindingDigest: Sha256Digest;
+}
+
+function sameCanonical(left: unknown, right: unknown): boolean {
+  return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
+}
+
+function worksiteAuthorityCarrier(
+  value: Readonly<Record<string, JsonValue>>,
+): WorksiteAuthorityCarrier | null {
+  if (isWorksiteFileReplaceRequest(value)) {
+    return {
+      workspaceAuthorityBasis: value.workspaceAuthorityBasis,
+      workspaceBinding: null,
+      workspaceBindingId: value.workspaceBindingIdentity,
+      workspaceBindingDigest: value.workspaceBindingDigest,
+    };
+  }
+  if (isWorksiteConstructionTask(value) ||
+    isWorksiteCommandExecutionTask(value)) {
+    return {
+      workspaceAuthorityBasis: value.workspaceAuthorityBasis,
+      workspaceBinding: value.workspaceBinding,
+      workspaceBindingId: value.workspaceBinding.bindingId,
+      workspaceBindingDigest: value.workspaceBinding.bindingDigest,
+    };
+  }
+  if (isWorksiteBranchConstructionTask(value)) {
+    const authority = value.branches[0]?.constructionTask.workspaceAuthorityBasis;
+    if (authority === undefined) return null;
+    return {
+      workspaceAuthorityBasis: authority,
+      workspaceBinding: value.workspaceBinding,
+      workspaceBindingId: value.workspaceBinding.bindingId,
+      workspaceBindingDigest: value.workspaceBinding.bindingDigest,
+    };
+  }
+  if (isWorksiteFileReplaceVector(value)) {
+    const request = value.members[0]?.value;
+    if (request === undefined) return null;
+    return {
+      workspaceAuthorityBasis: request.workspaceAuthorityBasis,
+      workspaceBinding: null,
+      workspaceBindingId: request.workspaceBindingIdentity,
+      workspaceBindingDigest: request.workspaceBindingDigest,
+    };
+  }
+  if (isWorksiteBranchConstructionVector(value)) {
+    const task = value.members[0]?.value;
+    if (task === undefined) return null;
+    return {
+      workspaceAuthorityBasis: task.workspaceAuthorityBasis,
+      workspaceBinding: task.workspaceBinding,
+      workspaceBindingId: task.workspaceBinding.bindingId,
+      workspaceBindingDigest: task.workspaceBinding.bindingDigest,
+    };
+  }
+  return null;
+}
+
+function exactWorksiteEnvironmentAtPrefix(
+  prefix: DurablePrefixCoordinate,
+  carrier: WorksiteAuthorityCarrier,
+): ExactPrefixWorkspaceEnvironment | null {
+  const environment = projectExactPrefixWorkspaceEnvironment(prefix, {
+    ref: carrier.workspaceBindingId,
+    digest: carrier.workspaceBindingDigest,
+  });
+  if (environment.kind !== "exact_prefix_workspace_environment" ||
+    !sameCanonical(
+      environment.workspaceAuthorityBasis,
+      carrier.workspaceAuthorityBasis,
+    ) ||
+    carrier.workspaceBinding !== null && !sameCanonical(
+      environment.workspaceBinding,
+      carrier.workspaceBinding,
+    ) ||
+    carrier.workspaceAuthorityBasis.workspaceId !==
+      environment.workspaceBinding.workspaceId ||
+    carrier.workspaceAuthorityBasis.authorityBasisId !==
+      environment.workspaceBinding.authorityBasisId ||
+    carrier.workspaceAuthorityBasis.authorityBasisDigest !==
+      environment.workspaceBinding.authorityBasisDigest ||
+    carrier.workspaceAuthorityBasis.authorizedActorRef !==
+      environment.workspaceBinding.authorizedActorRef) return null;
+  return environment;
+}
+
+function exactProgramOwnerInstall(
+  environment: ExactPrefixWorkspaceEnvironment,
+  rows: readonly Readonly<{
+    graphFunctionRef: string;
+    graphFunctionOwnerProductId: string;
+    graphFunctionPublicationDigest: Sha256Digest;
+    implementationOwnerProductId: string;
+    implementationPublicationDigest: Sha256Digest;
+    packageName: string;
+    packageVersion: string;
+    publicationDigest: Sha256Digest;
+  }>[],
+  graphFunctionRef: string,
+  moduleRef: string,
+  programRef: string,
+  programPublicationDigest: Sha256Digest,
+): ProductInstall | null {
+  const ownerIds = [...new Set(rows.flatMap((row) => [
+    row.graphFunctionOwnerProductId,
+    row.implementationOwnerProductId,
+  ]))];
+  if (rows.length === 0 || ownerIds.length !== 1 || rows.some((row) =>
+      row.publicationDigest !== programPublicationDigest
+    )) return null;
+  const ownerId = ownerIds[0]!;
+  const installs = environment.productInstalls.filter((install) =>
+    install.productId === ownerId &&
+    install.installedRoot === environment.workspaceBinding.roots.productRoot &&
+    install.contributionManifest.productId === ownerId &&
+    install.contributionManifest.productVersion === install.packageVersion &&
+    rows.every((row) =>
+      row.packageName === install.packageName &&
+      row.packageVersion === install.packageVersion
+    ) &&
+    install.contributionManifest.rows.filter((row) =>
+      row.kind === "graph_function" &&
+      row.moduleRef === moduleRef &&
+      row.declarationOrContractRef === graphFunctionRef &&
+      row.owningProductId === ownerId &&
+      row.programMembershipRefs.filter((ref) => ref === programRef).length === 1
+    ).length === 1 &&
+    install.contributionManifest.publicationBindings.filter((binding) =>
+      binding.moduleRef === moduleRef
+    ).length === 1 &&
+    rows.every((row) => {
+      const graphRows = install.contributionManifest.rows.filter((manifestRow) =>
+        manifestRow.kind === "graph_function" &&
+        manifestRow.declarationOrContractRef === row.graphFunctionRef &&
+        manifestRow.owningProductId === ownerId &&
+        manifestRow.programMembershipRefs.filter((ref) => ref === programRef)
+          .length === 1
+      );
+      return graphRows.length === 1 &&
+        install.contributionManifest.publicationBindings.filter((binding) =>
+          binding.moduleRef === graphRows[0]!.moduleRef &&
+          binding.publicationDigest === row.graphFunctionPublicationDigest
+        ).length === 1 &&
+        install.contributionManifest.publicationBindings.filter((binding) =>
+          binding.publicationDigest === row.implementationPublicationDigest
+        ).length === 1;
+    })
+  );
+  return installs.length === 1 ? installs[0]! : null;
+}
+
+function exactChildOwnerInstallations(
+  ownerInstall: ProductInstall,
+  localRows: readonly ValidatedExecutableLeaf[],
+  rows: readonly AdmittedImplementationResolutionRow[],
+  graphFunctionRef: string,
+  graphFunctionDigest: Sha256Digest,
+  programModuleRef: string,
+  programRef: string,
+  programValidationRef: string,
+  programGraphFunctionDigests: readonly Sha256Digest[],
+  programPublicationDigest: Sha256Digest,
+): boolean {
+  if (localRows.length !== rows.length ||
+    programGraphFunctionDigests.filter((digest) =>
+      digest === graphFunctionDigest
+    ).length !== 1 ||
+    rows.some((row, index) => {
+      const local = localRows[index];
+      return local === undefined ||
+        row.requirementKey !== local.requirementKey ||
+        row.requirementKeyDigest !== local.requirementKeyDigest ||
+        row.programValidationRef !== programValidationRef ||
+        row.graphFunctionRef !== local.graphFunctionRef ||
+        row.graphFunctionDigest !== graphFunctionDigest ||
+        row.graphFunctionDigest !== local.graphFunctionDigest ||
+        row.nodeRef !== local.nodeRef ||
+        row.programLocusRef !== local.programLocusRef ||
+        row.computeRegime !== local.fibre ||
+        row.implementationBindingRef !==
+          local.requirement.implementationBindingRef ||
+        row.inputContractRef !== local.requirement.inputContractRef ||
+        row.outputContractRef !== local.requirement.outputContractRef ||
+        row.failureContractRef !== local.requirement.failureContractRef ||
+        row.refusalContractRef !== local.requirement.refusalContractRef;
+    }) || rows.some((row) =>
+    row.graphFunctionRef !== graphFunctionRef ||
+    row.publicationDigest !== programPublicationDigest ||
+    row.graphFunctionOwnerProductId !== ownerInstall.productId ||
+    row.implementationOwnerProductId !== ownerInstall.productId ||
+    row.packageName !== ownerInstall.packageName ||
+    row.packageVersion !== ownerInstall.packageVersion
+  )) return false;
+
+  const graphFunctionRows = ownerInstall.contributionManifest.rows.filter((row) =>
+    row.kind === "graph_function" &&
+    row.moduleRef === programModuleRef &&
+    row.declarationOrContractRef === graphFunctionRef &&
+    row.owningProductId === ownerInstall.productId &&
+    row.programMembershipRefs.filter((ref) => ref === programRef).length === 1
+  );
+  if (graphFunctionRows.length !== 1) return false;
+  if (rows.length === 0) {
+    return ownerInstall.contributionManifest.publicationBindings.filter((binding) =>
+      binding.moduleRef === graphFunctionRows[0]!.moduleRef
+    ).length === 1;
+  }
+  const graphPublicationDigests = [...new Set(rows.map((row) =>
+    row.graphFunctionPublicationDigest
+  ))];
+  return graphPublicationDigests.length === 1 &&
+    ownerInstall.contributionManifest.publicationBindings.filter((binding) =>
+      binding.moduleRef === graphFunctionRows[0]!.moduleRef &&
+      binding.publicationDigest === graphPublicationDigests[0]
+    ).length === 1 && rows.every((row) =>
+      ownerInstall.contributionManifest.publicationBindings.filter((binding) =>
+        binding.publicationDigest === row.implementationPublicationDigest
+      ).length === 1
+    );
+}
+
+function exactC2SourceEnvironment(
+  durablePrefix: DurablePrefixCoordinate,
+  authorityPrefix: ValidatedRuntimeEventPrefix,
+  invocation: InvocationAdmission,
+  task: ReturnType<typeof worksiteCommandTask>,
+): boolean {
+  if (task === null) return true;
+  const basis = invocation.sourceResultBasis;
+  const sourceKind = basis?.sourceGraphFunctionRef ===
+      WORKSITE_CONSTRUCTION_IDS.reducerGraphFunctionRef
+    ? "c1"
+    : basis?.sourceGraphFunctionRef ===
+        WORKSITE_BRANCH_CONSTRUCTION_IDS.reducerGraphFunctionRef
+      ? "c3"
+      : null;
+  const sourceProgramRef = sourceKind === "c1"
+    ? WORKSITE_CONSTRUCTION_IDS.programRef
+    : WORKSITE_BRANCH_CONSTRUCTION_IDS.programRef;
+  const sourceRootGraphFunctionRef = sourceKind === "c1"
+    ? WORKSITE_CONSTRUCTION_IDS.graphFunctionRef
+    : WORKSITE_BRANCH_CONSTRUCTION_IDS.graphFunctionRef;
+  const sourceTaskContractRef = sourceKind === "c1"
+    ? WORKSITE_CONSTRUCTION_IDS.taskContractRef
+    : WORKSITE_BRANCH_CONSTRUCTION_IDS.taskContractRef;
+  if (basis === null ||
+    sourceKind === null ||
+    basis.sourceResultContractRef !== WORKSITE_CONSTRUCTION_IDS.resultContractRef ||
+    basis.sourceResultValueDigest !== sha256Canonical(
+      task.sourceConstructionResult as unknown as JsonValue,
+    ) ||
+    !sameCanonical(basis.sourceResultValue, task.sourceConstructionResult)) {
+    return false;
+  }
+  const sourceRunClosures = runtimeEventsFromValidatedPrefix(authorityPrefix)
+    .filter((event) =>
+      event.kind === "run_closed" && event.runId === basis.sourceRunId
+    );
+  if (sourceRunClosures.length !== 1) return false;
+  let sourcePrefix: ValidatedRuntimeEventPrefix;
+  let sourceDurablePrefix: DurablePrefixCoordinate;
+  try {
+    sourcePrefix = validatedRuntimeEventPrefixThroughEvent(
+      authorityPrefix,
+      sourceRunClosures[0]!.eventId,
+    );
+    const sourceEvents = runtimeEventsFromValidatedPrefix(sourcePrefix);
+    const encoded = Buffer.from(
+      sourceEvents.map((event) =>
+        `${canonicalJson(event as unknown as JsonValue)}\n`
+      ).join(""),
+      "utf8",
+    );
+    const body = {
+      kind: "durable_prefix_coordinate" as const,
+      schemaVersion: "5.0.0" as const,
+      eventLogRef: durablePrefix.eventLogRef,
+      prefixLength: encoded.byteLength,
+      prefixDigest: durableRuntimeEventPrefixDigest(sourceEvents),
+      storeIdentity: durablePrefix.storeIdentity,
+    };
+    sourceDurablePrefix = {
+      ...body,
+      coordinateDigest: sha256Canonical(body as unknown as JsonValue),
+    };
+    if (!validateDurablePrefixCoordinate(sourceDurablePrefix) ||
+      !sameCanonical(
+        readRuntimeEventsAtDurablePrefix(sourceDurablePrefix),
+        sourceEvents,
+      )) return false;
+  } catch {
+    return false;
+  }
+  const sourceBasis = rehydrateInvocationSourceResultBasisAtDurablePrefix(
+    sourceDurablePrefix,
+    basis,
+  );
+  if (sourceBasis === null || !sameCanonical(sourceBasis, basis)) return false;
+  const sourceInvocation = rehydrateInvocationAdmissionAtPrefix(
+    sourcePrefix,
+    basis.sourceInvocationAdmissionRef,
+  );
+  if (sourceInvocation === null ||
+    sourceInvocation.invocationRef !== basis.sourceInvocationRef ||
+    sourceInvocation.workspaceBindingId !== basis.workspaceBindingId ||
+    sourceInvocation.workspaceBindingDigest !== basis.workspaceBindingDigest) {
+    return false;
+  }
+  const basisEvents = runtimeEventsFromValidatedPrefix(sourcePrefix).filter((event) =>
+    event.kind === "basis_admitted" &&
+    isJsonRecord(event.payload) &&
+    event.payload.basisClass === "root" &&
+    event.payload.invocationAdmissionRef === basis.sourceInvocationAdmissionRef
+  );
+  if (basisEvents.length !== 1 || !isJsonRecord(basisEvents[0]!.payload) ||
+    typeof basisEvents[0]!.payload.basisRef !== "string") return false;
+  const sourceExecutionBasis = rehydrateExecutionBasisAtPrefix(
+    sourcePrefix,
+    basisEvents[0]!.payload.basisRef,
+  );
+  if (sourceExecutionBasis === null ||
+    sourceExecutionBasis.basisClass !== "root" ||
+    sourceExecutionBasis.invocationAdmissionRef !==
+      sourceInvocation.invocationAdmissionRef ||
+    sourceExecutionBasis.invocationRef !== sourceInvocation.invocationRef ||
+    sourceExecutionBasis.invocationDigest !== sourceInvocation.invocationDigest ||
+    sourceExecutionBasis.rawInputAdmissionRef !==
+      sourceInvocation.rawInputAdmissionRef ||
+    sourceExecutionBasis.rawInputDigest !== sourceInvocation.rawInputDigest ||
+    sourceExecutionBasis.workspaceBindingId !== basis.workspaceBindingId ||
+    sourceExecutionBasis.workspaceBindingDigest !==
+      basis.workspaceBindingDigest ||
+    sourceExecutionBasis.programRef !== sourceProgramRef ||
+    sourceInvocation.programRef !== sourceProgramRef ||
+    sourceExecutionBasis.programDigest !== sourceInvocation.programDigest ||
+    sourceExecutionBasis.graphFunctionRef !== sourceRootGraphFunctionRef ||
+    sourceInvocation.graphFunctionRef !== sourceRootGraphFunctionRef ||
+    sourceExecutionBasis.graphFunctionDigest !==
+      sourceInvocation.graphFunctionDigest ||
+    sourceExecutionBasis.actorRef !== sourceInvocation.actorRef ||
+    sourceExecutionBasis.catalogBasisRef !== sourceInvocation.catalogBasisRef ||
+    sourceExecutionBasis.catalogBasisDigest !==
+      sourceInvocation.catalogBasisDigest ||
+    sourceExecutionBasis.catalogViewId !== sourceInvocation.catalogViewId ||
+    sourceExecutionBasis.catalogViewDigest !== sourceInvocation.catalogViewDigest ||
+    sourceExecutionBasis.parentExecutionBasisRef !== null ||
+    sourceExecutionBasis.parentTraversalScopeRef !== null ||
+    sourceExecutionBasis.parentCCallRef !== null ||
+    sourceInvocation.inputContractRef !== sourceTaskContractRef ||
+    sourceExecutionBasis.resultContractRef !==
+      WORKSITE_CONSTRUCTION_IDS.resultContractRef ||
+    sourceInvocation.outputContractRef !== basis.sourceResultContractRef) {
+    return false;
+  }
+  const sourceTask = sourceExecutionBasis.rawInputValue;
+  let targets: readonly Readonly<{
+    readonly targetRef: string;
+    readonly subject: Readonly<{
+      readonly subjectRef: string;
+      readonly subjectDigest: Sha256Digest;
+    }>;
+  }>[];
+  if (sourceKind === "c1" && isWorksiteConstructionTask(sourceTask)) {
+    targets = sourceTask.targets;
+  } else if (sourceKind === "c3" &&
+    isWorksiteBranchConstructionTask(sourceTask)) {
+    targets = sourceTask.branches.flatMap((branch) =>
+      branch.constructionTask.targets
+    );
+  } else {
+    return false;
+  }
+  const sourceCarrier = worksiteAuthorityCarrier(sourceTask);
+  if (sourceCarrier === null || sourceCarrier.workspaceBinding === null ||
+    sourceCarrier.workspaceBindingId !== basis.workspaceBindingId ||
+    sourceCarrier.workspaceBindingDigest !== basis.workspaceBindingDigest ||
+    sourceInvocation.workspaceId !== basis.sourceWorkspaceId ||
+    sourceInvocation.actorRef !==
+      sourceCarrier.workspaceAuthorityBasis.authorizedActorRef ||
+    sourceCarrier.workspaceAuthorityBasis.workspaceId !==
+      basis.sourceWorkspaceId) return false;
+  const sourceResult = task.sourceConstructionResult;
+  if (!isWorksiteConstructionResult(sourceResult) ||
+    sourceResult.resultRef !== task.sourceConstructionResultRef ||
+    sourceResult.resultDigest !== task.sourceConstructionResultDigest) {
+    return false;
+  }
+  if (targets.length !== sourceResult.members.length ||
+    sourceResult.members.some((member, ordinal) => {
+      const target = targets[ordinal];
+      return target === undefined || member.inputMemberRef !== target.targetRef ||
+        member.successorObservation.workspaceBindingIdentity !==
+          sourceCarrier.workspaceBindingId ||
+        member.successorObservation.subjectRef !== target.subject.subjectRef ||
+        member.successorObservation.subjectDigest !== target.subject.subjectDigest;
+    })) return false;
+  const sourceEnvironment = projectExactPrefixWorkspaceEnvironment(
+    sourceDurablePrefix,
+    {
+    ref: sourceInvocation.workspaceBindingId,
+    digest: sourceInvocation.workspaceBindingDigest,
+    },
+  );
+  return sourceEnvironment.kind === "exact_prefix_workspace_environment" &&
+    sameCanonical(
+      sourceEnvironment.workspaceAuthorityBasis,
+      sourceCarrier.workspaceAuthorityBasis,
+    ) &&
+    sameCanonical(
+      sourceEnvironment.workspaceBinding,
+      sourceCarrier.workspaceBinding,
+    ) &&
+    sameCanonical(
+      sourceEnvironment.workspaceAuthorityBasis,
+      task.workspaceAuthorityBasis,
+    ) &&
+    sameCanonical(sourceEnvironment.workspaceBinding, task.workspaceBinding);
+}
+
+function worksiteCommandTask(
+  value: Readonly<Record<string, JsonValue>>,
+) {
+  return isWorksiteCommandExecutionTask(value) ? value : null;
+}
 
 const executionBases = new WeakSet<object>();
 const implementationResolutions = new WeakSet<object>();
@@ -831,6 +1294,151 @@ export function admitExecutionBasis(
     );
   }
   if (
+    input.invocationAdmission.programRef ===
+        "program://abiogenesis/worksite/file-replace@5" &&
+      !isWorksiteFileReplaceRequest(rawInputValue) ||
+    input.invocationAdmission.programRef === WORKSITE_CONSTRUCTION_IDS.programRef &&
+      !isWorksiteConstructionTask(rawInputValue) ||
+    input.invocationAdmission.programRef ===
+        WORKSITE_COMMAND_EXECUTION_IDS.programRef &&
+      !isWorksiteCommandExecutionTask(rawInputValue) ||
+    input.invocationAdmission.programRef ===
+        WORKSITE_BRANCH_CONSTRUCTION_IDS.programRef &&
+      !isWorksiteBranchConstructionTask(rawInputValue)
+  ) {
+    return reject(
+      input.invocationAdmission.rawInputDigest,
+      "diagnostic://abiogenesis/execution-basis/worksite-input-contract-mismatch@5",
+    );
+  }
+  if (isWorksiteFileReplaceRequest(rawInputValue)) {
+    const admittedGrant = input.invocationAdmission.capabilityGrants[0];
+    if (
+      input.invocationAdmission.capabilityGrants.length !== 1 ||
+      input.invocationAdmission.capabilityGrantRefs.length !== 1 ||
+      admittedGrant === undefined ||
+      input.invocationAdmission.capabilityGrantRefs[0] !==
+        rawInputValue.capabilityGrant.grantRef ||
+      admittedGrant.grantRef !== rawInputValue.capabilityGrant.grantRef ||
+      admittedGrant.grantDigest !== rawInputValue.capabilityGrant.grantDigest ||
+      sha256Canonical(admittedGrant as unknown as JsonValue) !==
+        sha256Canonical(rawInputValue.capabilityGrant as unknown as JsonValue) ||
+      rawInputValue.capabilityGrant.actorRef !==
+        input.invocationAdmission.actorRef ||
+      rawInputValue.workspaceBindingIdentity !==
+        input.invocationAdmission.workspaceBindingId ||
+      rawInputValue.workspaceBindingDigest !==
+        input.invocationAdmission.workspaceBindingDigest ||
+      input.invocationAdmission.programRef !==
+        "program://abiogenesis/worksite/file-replace@5" ||
+      input.invocationAdmission.graphFunctionRef !==
+        "graph-function://abiogenesis/worksite/file-replace@5" ||
+      input.invocationAdmission.inputContractRef !==
+        "contract://abiogenesis/worksite/file-replace-input@5"
+    ) {
+      return reject(
+        input.invocationAdmission.rawInputDigest,
+        "diagnostic://abiogenesis/execution-basis/worksite-request-authority-mismatch@5",
+      );
+    }
+  }
+  if (isWorksiteConstructionTask(rawInputValue)) {
+    const admittedGrant = input.invocationAdmission.capabilityGrants[0];
+    if (
+      input.invocationAdmission.capabilityGrants.length !== 1 ||
+      input.invocationAdmission.capabilityGrantRefs.length !== 1 ||
+      admittedGrant === undefined ||
+      input.invocationAdmission.capabilityGrantRefs[0] !==
+        rawInputValue.capabilityGrant.grantRef ||
+      admittedGrant.grantRef !== rawInputValue.capabilityGrant.grantRef ||
+      admittedGrant.grantDigest !== rawInputValue.capabilityGrant.grantDigest ||
+      sha256Canonical(admittedGrant as unknown as JsonValue) !==
+        sha256Canonical(rawInputValue.capabilityGrant as unknown as JsonValue) ||
+      rawInputValue.workspaceBinding.bindingId !==
+        input.invocationAdmission.workspaceBindingId ||
+      rawInputValue.workspaceBinding.bindingDigest !==
+        input.invocationAdmission.workspaceBindingDigest ||
+      rawInputValue.workspaceBinding.authorizedActorRef !==
+        input.invocationAdmission.actorRef ||
+      rawInputValue.capabilityGrant.actorRef !==
+        input.invocationAdmission.actorRef ||
+      input.invocationAdmission.programRef !==
+        WORKSITE_CONSTRUCTION_IDS.programRef ||
+      input.invocationAdmission.graphFunctionRef !==
+        WORKSITE_CONSTRUCTION_IDS.graphFunctionRef ||
+      input.invocationAdmission.inputContractRef !==
+        WORKSITE_CONSTRUCTION_IDS.taskContractRef
+    ) {
+      return reject(
+        input.invocationAdmission.rawInputDigest,
+        "diagnostic://abiogenesis/execution-basis/worksite-construction-task-authority-mismatch@5",
+      );
+    }
+  }
+  if (isWorksiteCommandExecutionTask(rawInputValue)) {
+    const admittedGrant = input.invocationAdmission.capabilityGrants[0];
+    if (
+      input.invocationAdmission.capabilityGrants.length !== 1 ||
+      input.invocationAdmission.capabilityGrantRefs.length !== 1 ||
+      admittedGrant === undefined ||
+      input.invocationAdmission.capabilityGrantRefs[0] !==
+        rawInputValue.capabilityGrant.grantRef ||
+      admittedGrant.grantRef !== rawInputValue.capabilityGrant.grantRef ||
+      admittedGrant.grantDigest !== rawInputValue.capabilityGrant.grantDigest ||
+      sha256Canonical(admittedGrant as unknown as JsonValue) !==
+        sha256Canonical(rawInputValue.capabilityGrant as unknown as JsonValue) ||
+      rawInputValue.workspaceBinding.bindingId !==
+        input.invocationAdmission.workspaceBindingId ||
+      rawInputValue.workspaceBinding.bindingDigest !==
+        input.invocationAdmission.workspaceBindingDigest ||
+      rawInputValue.workspaceBinding.authorizedActorRef !==
+        input.invocationAdmission.actorRef ||
+      rawInputValue.capabilityGrant.actorRef !==
+        input.invocationAdmission.actorRef ||
+      input.invocationAdmission.programRef !==
+        WORKSITE_COMMAND_EXECUTION_IDS.programRef ||
+      input.invocationAdmission.graphFunctionRef !==
+        WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef ||
+      input.invocationAdmission.inputContractRef !==
+        WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef
+    ) {
+      return reject(
+        input.invocationAdmission.rawInputDigest,
+        "diagnostic://abiogenesis/execution-basis/worksite-command-execution-task-authority-mismatch@5",
+      );
+    }
+  }
+  if (isWorksiteBranchConstructionTask(rawInputValue)) {
+    const admittedGrant = input.invocationAdmission.capabilityGrants[0];
+    if (
+      input.invocationAdmission.capabilityGrants.length !== 1 ||
+      input.invocationAdmission.capabilityGrantRefs.length !== 1 ||
+      admittedGrant === undefined ||
+      input.invocationAdmission.capabilityGrantRefs[0] !==
+        rawInputValue.capabilityGrant.grantRef ||
+      !sameCanonical(admittedGrant, rawInputValue.capabilityGrant) ||
+      rawInputValue.workspaceBinding.bindingId !==
+        input.invocationAdmission.workspaceBindingId ||
+      rawInputValue.workspaceBinding.bindingDigest !==
+        input.invocationAdmission.workspaceBindingDigest ||
+      rawInputValue.workspaceBinding.authorizedActorRef !==
+        input.invocationAdmission.actorRef ||
+      rawInputValue.capabilityGrant.actorRef !==
+        input.invocationAdmission.actorRef ||
+      input.invocationAdmission.programRef !==
+        WORKSITE_BRANCH_CONSTRUCTION_IDS.programRef ||
+      input.invocationAdmission.graphFunctionRef !==
+        WORKSITE_BRANCH_CONSTRUCTION_IDS.graphFunctionRef ||
+      input.invocationAdmission.inputContractRef !==
+        WORKSITE_BRANCH_CONSTRUCTION_IDS.taskContractRef
+    ) {
+      return reject(
+        input.invocationAdmission.rawInputDigest,
+        "diagnostic://abiogenesis/execution-basis/worksite-branch-construction-task-authority-mismatch@5",
+      );
+    }
+  }
+  if (
     !isGraphValidation(input.graphValidation) ||
     input.graphValidation.graphRef !== input.graph.materializationRef ||
     input.graphValidation.graphDigest !== input.graph.materializationDigest ||
@@ -923,6 +1531,33 @@ export function admitExecutionBasis(
       legacyCandidate.resolutionCandidateDigest,
       "diagnostic://abiogenesis/execution-basis/resolution-mismatch@5",
     );
+  }
+  const worksiteCarrier = worksiteAuthorityCarrier(rawInputValue);
+  if (worksiteCarrier !== null) {
+    const environment = exactWorksiteEnvironmentAtPrefix(
+      predecessorPrefix,
+      worksiteCarrier,
+    );
+    if (environment === null ||
+      !exactProgramOwnerInstall(
+        environment,
+        input.resolutionSetCandidate.rows,
+        input.invocationAdmission.graphFunctionRef,
+        input.program.moduleRef,
+        input.program.programRef,
+        input.programValidation.publicationDigest,
+      ) ||
+      !exactC2SourceEnvironment(
+        predecessorPrefix,
+        authorityPrefix,
+        input.invocationAdmission,
+        worksiteCommandTask(rawInputValue),
+      )) {
+      return reject(
+        input.invocationAdmission.rawInputDigest,
+        "diagnostic://abiogenesis/execution-basis/worksite-environment-authority-mismatch@5",
+      );
+    }
   }
   if (
     input.program.programRef !== input.invocationAdmission.programRef ||
@@ -1309,6 +1944,7 @@ export function admitChildExecutionBasis(
     );
   }
   const {
+    authorityPrefix,
     parent,
     parentScope,
     rootImplementationSet,
@@ -1373,6 +2009,90 @@ export function admitChildExecutionBasis(
       "child materialization requires the exact admitted parent output binding",
     );
   }
+  const worksiteCarrier = rawInputValue === null
+    ? null
+    : worksiteAuthorityCarrier(rawInputValue);
+  let worksiteOwnerInstall: ProductInstall | null = null;
+  const worksiteProgram = parent.programRef === WORKSITE_CONSTRUCTION_IDS.programRef ||
+    parent.programRef === WORKSITE_BRANCH_CONSTRUCTION_IDS.programRef ||
+    parent.programRef === WORKSITE_COMMAND_EXECUTION_IDS.programRef;
+  if (worksiteCarrier !== null || worksiteProgram) {
+    const projectedEnvironment = projectExactPrefixWorkspaceEnvironment(
+      predecessorPrefix,
+      {
+        ref: parent.workspaceBindingId,
+        digest: parent.workspaceBindingDigest,
+      },
+    );
+    const carrierEnvironment = worksiteCarrier === null
+      ? null
+      : exactWorksiteEnvironmentAtPrefix(predecessorPrefix, worksiteCarrier);
+    if (projectedEnvironment.kind !== "exact_prefix_workspace_environment" ||
+      (worksiteCarrier !== null && carrierEnvironment === null) ||
+      (worksiteCarrier !== null && (
+        worksiteCarrier.workspaceBindingId !== parent.workspaceBindingId ||
+        worksiteCarrier.workspaceBindingDigest !== parent.workspaceBindingDigest
+      ))) {
+      return childRefusal(
+        "child_input_mismatch",
+        "child worksite input differs from the exact-prefix authority or workspace",
+      );
+    }
+    const worksiteEnvironment = carrierEnvironment ?? projectedEnvironment;
+    const rootInvocation = rehydrateInvocationAdmissionAtPrefix(
+      authorityPrefix,
+      rootImplementationSet.invocationAdmissionRef,
+    );
+    const programValidationDigest = sha256Canonical(
+      input.programValidation as unknown as JsonValue,
+    );
+    if (rootInvocation === null ||
+      rootInvocation.invocationAdmissionRef !==
+        rootImplementationSet.invocationAdmissionRef ||
+      rootInvocation.invocationRef !== rootImplementationSet.invocationRef ||
+      rootInvocation.invocationAdmissionRef !== parent.invocationAdmissionRef ||
+      rootInvocation.invocationRef !== parent.invocationRef ||
+      rootInvocation.invocationDigest !== parent.invocationDigest ||
+      rootInvocation.workspaceId !== worksiteEnvironment.workspaceBinding.workspaceId ||
+      rootInvocation.workspaceBindingId !== parent.workspaceBindingId ||
+      rootInvocation.workspaceBindingDigest !== parent.workspaceBindingDigest ||
+      rootInvocation.catalogBasisRef !== parent.catalogBasisRef ||
+      rootInvocation.catalogBasisDigest !== parent.catalogBasisDigest ||
+      rootInvocation.catalogViewId !== parent.catalogViewId ||
+      rootInvocation.catalogViewDigest !== parent.catalogViewDigest ||
+      rootInvocation.programRef !== parent.programRef ||
+      rootInvocation.programDigest !== parent.programDigest ||
+      rootInvocation.actorRef !== parent.actorRef ||
+      rootInvocation.programValidationRef !==
+        input.programValidation.validationRef ||
+      rootInvocation.programValidationDigest !== programValidationDigest ||
+      rootImplementationSet.programValidationRef !==
+        input.programValidation.validationRef ||
+      rootImplementationSet.publicationDigest !==
+        input.programValidation.publicationDigest ||
+      rootImplementationSet.catalogViewId !== rootInvocation.catalogViewId ||
+      rootImplementationSet.catalogViewDigest !==
+        rootInvocation.catalogViewDigest) {
+      return childRefusal(
+        "child_subset_mismatch",
+        "child owner derivation requires the exact root invocation, Program validation, and implementation set",
+      );
+    }
+    worksiteOwnerInstall = exactProgramOwnerInstall(
+      worksiteEnvironment,
+      rootImplementationSet.rows,
+      rootInvocation.graphFunctionRef,
+      input.program.moduleRef,
+      input.program.programRef,
+      input.programValidation.publicationDigest,
+    );
+    if (worksiteOwnerInstall === null) {
+      return childRefusal(
+        "child_subset_mismatch",
+        "child owner derivation requires one exact installed root Program owner",
+      );
+    }
+  }
   if (
     input.graphFunction.declarations["abg.child_closure_contract"] !==
       input.closureContract.closureContractRef ||
@@ -1386,7 +2106,10 @@ export function admitChildExecutionBasis(
   }
 
   const localExecutableRows = input.programValidation.executableLeafRows
-    .filter((row) => row.graphFunctionRef === input.graphFunction.name);
+    .filter((row) => row.graphFunctionRef === input.graphFunction.name)
+    .sort((left, right) =>
+      compareUnicodeCodeUnits(left.requirementKey, right.requirementKey)
+    );
   const localExecutableLeafKeys = localExecutableRows
     .map((row) => row.requirementKey)
     .sort(compareUnicodeCodeUnits);
@@ -1414,6 +2137,23 @@ export function admitChildExecutionBasis(
     return childRefusal(
       "child_subset_mismatch",
       "child executable and interaction rows must equal exact subsets of the admitted root sets",
+    );
+  }
+  if (worksiteOwnerInstall !== null && !exactChildOwnerInstallations(
+    worksiteOwnerInstall,
+    localExecutableRows,
+    admittedExecutableRows,
+    input.graphFunction.name,
+    graphFunctionDigest,
+    input.program.moduleRef,
+    input.program.programRef,
+    input.programValidation.validationRef,
+    input.programValidation.graphFunctionDigests,
+    input.programValidation.publicationDigest,
+  )) {
+    return childRefusal(
+      "child_subset_mismatch",
+      "child GraphFunction and local implementation rows require exact installed publication owners",
     );
   }
 

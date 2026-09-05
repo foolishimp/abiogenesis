@@ -20,6 +20,8 @@ import {
 
 export type { WorkerTransportFailureClass } from "./transport_contracts.js";
 
+export type WorkerTransportTimeoutClass = "absolute" | "inactivity";
+
 export interface WorkerTransportArtifact {
   readonly path: string;
   readonly byteLength: number;
@@ -34,6 +36,7 @@ export interface WorkerTransportRequest {
   readonly archiveRoot: string;
   readonly label: string;
   readonly timeoutMs: number;
+  readonly absoluteTimeoutMs?: number;
   readonly terminationGraceMs?: number;
   readonly responseJsonSchema?: unknown;
   readonly environment?: Readonly<Record<string, string | undefined>>;
@@ -43,9 +46,11 @@ export interface WorkerTransportRequest {
 
 export interface WorkerProcessObserver {
   readonly onProcessStarted?: (pid: number) => void;
-  readonly onStdoutObserved?: (chunk: string) => void;
-  readonly onStderrObserved?: (chunk: string) => void;
-  readonly onTimeoutObserved?: () => void;
+  readonly onStdoutObserved?: (chunk: string) => boolean;
+  readonly onStderrObserved?: (chunk: string) => boolean;
+  readonly onTimeoutObserved?: (
+    timeoutClass: WorkerTransportTimeoutClass,
+  ) => void;
   readonly onSignalRequested?: (signal: NodeJS.Signals) => void;
   readonly onProcessExited?: (
     status: number | null,
@@ -65,13 +70,17 @@ export interface WorkerTransportResult {
   readonly args: readonly string[];
   readonly status: number | null;
   readonly signal: NodeJS.Signals | null;
+  readonly timeoutMs: number;
+  readonly absoluteTimeoutMs: number;
   readonly timedOut: boolean;
+  readonly timeoutClass: WorkerTransportTimeoutClass | null;
   readonly exitObserved: boolean;
   readonly terminationConfirmed: boolean;
   readonly failureClass: WorkerTransportFailureClass | null;
   readonly structuredEventCount: number;
   readonly progressEventCount: number;
   readonly toolCallCount: number;
+  readonly toolInvocations: readonly WorkerToolInvocationEvidence[];
   readonly apiRetryCount: number;
   readonly stdout: string;
   readonly stderr: string;
@@ -85,10 +94,22 @@ export interface WorkerTransportResult {
   }>;
 }
 
+export interface WorkerToolInvocationEvidence {
+  readonly [key: string]: JsonValue;
+  readonly kind: "worker_tool_invocation_evidence";
+  readonly schemaVersion: "5.0.0";
+  readonly ordinal: number;
+  readonly toolUseRef: string;
+  readonly toolName: string;
+  readonly inputDigest: Sha256Digest;
+  readonly inputByteLength: number;
+}
+
 interface ProcessObservation {
   readonly status: number | null;
   readonly signal: NodeJS.Signals | null;
   readonly timedOut: boolean;
+  readonly timeoutClass: WorkerTransportTimeoutClass | null;
   readonly exitObserved: boolean;
   readonly terminationConfirmed: boolean;
   readonly launchError: string | null;
@@ -101,8 +122,67 @@ interface StructuredObservation {
   readonly structuredEventCount: number;
   readonly progressEventCount: number;
   readonly toolCallCount: number;
+  readonly toolInvocations: readonly WorkerToolInvocationEvidence[];
   readonly apiRetryCount: number;
   readonly finalOutput: string;
+}
+
+function toolUseIdentityInput(toolName: string, input: unknown): JsonValue {
+  if (toolName !== "Bash") return input as JsonValue;
+  if (typeof input !== "object" || input === null || Array.isArray(input)) {
+    throw new TypeError("Bash tool input must be one object");
+  }
+  const record = input as Readonly<Record<string, unknown>>;
+  if (!Object.hasOwn(record, "command") || typeof record.command !== "string") {
+    throw new TypeError("Bash tool input must carry one exact command string");
+  }
+  if (Object.hasOwn(record, "description") && typeof record.description !== "string") {
+    throw new TypeError("Bash tool input description must be a string when present");
+  }
+  return Object.fromEntries(
+    Object.entries(record).filter(([key]) => key !== "description"),
+  ) as JsonValue;
+}
+
+function collectToolUses(
+  value: unknown,
+  structuredOutputExpected: boolean,
+  rows: WorkerToolInvocationEvidence[],
+): void {
+  if (Array.isArray(value)) {
+    for (const entry of value) collectToolUses(entry, structuredOutputExpected, rows);
+    return;
+  }
+  if (typeof value !== "object" || value === null) return;
+  const record = value as Readonly<Record<string, unknown>>;
+  const protocolStructuredOutput = structuredOutputExpected &&
+    record.type === "tool_use" && record.name === "StructuredOutput";
+  if (record.type === "tool_use" && !protocolStructuredOutput &&
+    typeof record.id === "string" && record.id.length > 0 &&
+    typeof record.name === "string" && record.name.length > 0 &&
+    Object.hasOwn(record, "input")) {
+    try {
+      const inputBytes = Buffer.from(
+        canonicalJson(toolUseIdentityInput(record.name, record.input)),
+        "utf8",
+      );
+      rows.push(deepFreeze({
+        kind: "worker_tool_invocation_evidence" as const,
+        schemaVersion: "5.0.0" as const,
+        ordinal: rows.length,
+        toolUseRef: record.id,
+        toolName: record.name,
+        inputDigest: sha256Bytes(inputBytes),
+        inputByteLength: inputBytes.byteLength,
+      }));
+    } catch {
+      // Malformed tool input remains reflected in the count/classification but
+      // cannot become exact invocation evidence.
+    }
+  }
+  for (const entry of Object.values(record)) {
+    collectToolUses(entry, structuredOutputExpected, rows);
+  }
 }
 
 function artifact(path: string, bytes: Uint8Array): WorkerTransportArtifact {
@@ -117,6 +197,19 @@ function assertLabel(label: string): void {
   if (!/^[a-zA-Z0-9._-]+$/u.test(label)) {
     throw new TypeError("worker transport label must be one path-safe identity segment");
   }
+}
+
+function resolveAbsoluteTimeoutMs(
+  timeoutMs: number,
+  absoluteTimeoutMs: number | undefined,
+): number {
+  const resolved = absoluteTimeoutMs ?? timeoutMs * 4;
+  if (!Number.isSafeInteger(resolved) || resolved <= timeoutMs) {
+    throw new TypeError(
+      "worker transport absolute timeout must be one safe integer greater than its inactivity timeout",
+    );
+  }
+  return resolved;
 }
 
 function countToolUses(
@@ -157,22 +250,39 @@ function observeStructuredOutput(
   }
   let finalOutput = "";
   let progressEventCount = 0;
-  let toolCallCount = 0;
+  let rawToolCallCount = 0;
+  const rawToolInvocations: WorkerToolInvocationEvidence[] = [];
   let apiRetryCount = 0;
   for (const value of values) {
     if (typeof value !== "object" || value === null || Array.isArray(value)) continue;
     const record = value as Readonly<Record<string, unknown>>;
     if (record.type !== "result") progressEventCount += 1;
-    toolCallCount += countToolUses(record, structuredOutputExpected);
+    rawToolCallCount += countToolUses(record, structuredOutputExpected);
+    collectToolUses(record, structuredOutputExpected, rawToolInvocations);
     if (record.type === "api_retry") apiRetryCount += 1;
     if (record.type === "result" && typeof record.result === "string") {
       finalOutput = record.result;
     }
   }
+  const toolInvocations: WorkerToolInvocationEvidence[] = [];
+  let conflictingToolUseRef = false;
+  for (const row of rawToolInvocations) {
+    const prior = toolInvocations.find((candidate) => candidate.toolUseRef === row.toolUseRef);
+    if (prior === undefined) {
+      toolInvocations.push(deepFreeze({ ...row, ordinal: toolInvocations.length }));
+    } else if (prior.toolName !== row.toolName || prior.inputDigest !== row.inputDigest ||
+      prior.inputByteLength !== row.inputByteLength) {
+      conflictingToolUseRef = true;
+    }
+  }
+  const unevidencedToolUse = rawToolCallCount > rawToolInvocations.length;
   return {
     structuredEventCount: values.length,
     progressEventCount,
-    toolCallCount,
+    toolCallCount: conflictingToolUseRef || unevidencedToolUse
+      ? toolInvocations.length + 1
+      : toolInvocations.length,
+    toolInvocations: deepFreeze(toolInvocations),
     apiRetryCount,
     finalOutput,
   };
@@ -185,6 +295,7 @@ function runProcess(input: {
   readonly env: NodeJS.ProcessEnv;
   readonly stdin: string | null;
   readonly timeoutMs: number;
+  readonly absoluteTimeoutMs: number;
   readonly terminationGraceMs: number;
   readonly observer?: WorkerProcessObserver;
 }): Promise<ProcessObservation> {
@@ -192,12 +303,15 @@ function runProcess(input: {
     let stdout = "";
     let stderr = "";
     let timedOut = false;
+    let timeoutClass: WorkerTransportTimeoutClass | null = null;
     let launchError: string | null = null;
     let resultBearingStdout: string | null = null;
     let settled = false;
     let forceTimer: ReturnType<typeof setTimeout> | null = null;
     let confirmationTimer: ReturnType<typeof setTimeout> | null = null;
     let drainTimer: ReturnType<typeof setTimeout> | null = null;
+    let inactivityTimer: ReturnType<typeof setTimeout> | null = null;
+    let absoluteTimer: ReturnType<typeof setTimeout> | null = null;
     let observedExit: {
       readonly status: number | null;
       readonly signal: NodeJS.Signals | null;
@@ -207,11 +321,29 @@ function runProcess(input: {
     const snapshotResultBearingStdout = (): void => {
       if (resultBearingStdout === null) resultBearingStdout = stdout;
     };
+    const clearLeaseTimers = (): void => {
+      if (inactivityTimer !== null) clearTimeout(inactivityTimer);
+      if (absoluteTimer !== null) clearTimeout(absoluteTimer);
+      inactivityTimer = null;
+      absoluteTimer = null;
+    };
     const child = spawn(input.command, input.args, {
       cwd: input.cwd,
       env: input.env,
+      detached: process.platform !== "win32",
       stdio: ["pipe", "pipe", "pipe"],
     });
+    const signalProcessTree = (signal: NodeJS.Signals): void => {
+      try {
+        if (process.platform !== "win32" && child.pid !== undefined) {
+          process.kill(-child.pid, signal);
+        } else {
+          child.kill(signal);
+        }
+      } catch {
+        // A concurrently exited process tree is already terminated.
+      }
+    };
     const settle = (
       status: number | null,
       signal: NodeJS.Signals | null,
@@ -221,7 +353,7 @@ function runProcess(input: {
       if (settled) return;
       settled = true;
       observerActive = false;
-      clearTimeout(timeout);
+      clearLeaseTimers();
       if (forceTimer !== null) clearTimeout(forceTimer);
       if (confirmationTimer !== null) clearTimeout(confirmationTimer);
       if (drainTimer !== null) clearTimeout(drainTimer);
@@ -229,6 +361,7 @@ function runProcess(input: {
         status,
         signal,
         timedOut,
+        timeoutClass,
         exitObserved,
         terminationConfirmed,
         launchError,
@@ -241,7 +374,7 @@ function runProcess(input: {
       if (settled) return;
       settled = true;
       observerActive = false;
-      clearTimeout(timeout);
+      clearLeaseTimers();
       if (forceTimer !== null) clearTimeout(forceTimer);
       if (confirmationTimer !== null) clearTimeout(confirmationTimer);
       if (drainTimer !== null) clearTimeout(drainTimer);
@@ -258,12 +391,12 @@ function runProcess(input: {
         ? error
         : new TypeError(String(error));
       observerActive = false;
-      clearTimeout(timeout);
+      clearLeaseTimers();
       if (forceTimer !== null) clearTimeout(forceTimer);
       if (confirmationTimer !== null) clearTimeout(confirmationTimer);
       if (drainTimer !== null) clearTimeout(drainTimer);
       child.stdin.destroy();
-      child.kill("SIGKILL");
+      signalProcessTree("SIGKILL");
       confirmationTimer = setTimeout(() => {
         try {
           input.observer?.onTerminationUnconfirmed?.();
@@ -283,17 +416,34 @@ function runProcess(input: {
         return false;
       }
     };
-    const timeout = setTimeout(() => {
-      if (settled) return;
+    const notifyProgressObserver = (
+      action: (() => boolean) | undefined,
+    ): boolean => {
+      if (!observerActive || action === undefined) return false;
+      try {
+        return action() === true;
+      } catch (error) {
+        beginObserverFailure(error);
+        return false;
+      }
+    };
+    const beginTimeout = (
+      observedTimeoutClass: WorkerTransportTimeoutClass,
+    ): void => {
+      if (settled || timedOut) return;
       timedOut = true;
+      timeoutClass = observedTimeoutClass;
+      clearLeaseTimers();
       snapshotResultBearingStdout();
-      if (!notifyObserver(input.observer?.onTimeoutObserved)) return;
+      if (!notifyObserver(() =>
+        input.observer?.onTimeoutObserved?.(observedTimeoutClass)
+      )) return;
       if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGTERM"))) return;
-      child.kill("SIGTERM");
+      signalProcessTree("SIGTERM");
       forceTimer = setTimeout(() => {
         if (settled) return;
         if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGKILL"))) return;
-        child.kill("SIGKILL");
+        signalProcessTree("SIGKILL");
         confirmationTimer = setTimeout(() => {
           if (settled) return;
           if (!notifyObserver(input.observer?.onTerminationUnconfirmed)) return;
@@ -303,7 +453,20 @@ function runProcess(input: {
           settle(null, null, false, false);
         }, input.terminationGraceMs);
       }, input.terminationGraceMs);
-    }, input.timeoutMs);
+    };
+    const renewInactivityLease = (): void => {
+      if (settled || timedOut) return;
+      if (inactivityTimer !== null) clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(
+        () => beginTimeout("inactivity"),
+        input.timeoutMs,
+      );
+    };
+    renewInactivityLease();
+    absoluteTimer = setTimeout(
+      () => beginTimeout("absolute"),
+      input.absoluteTimeoutMs,
+    );
     child.once("spawn", () => {
       if (settled) return;
       if (child.pid !== undefined) {
@@ -315,12 +478,24 @@ function runProcess(input: {
     child.stdout.on("data", (chunk: string) => {
       if (settled) return;
       stdout += chunk;
-      notifyObserver(() => input.observer?.onStdoutObserved?.(chunk));
+      if (notifyProgressObserver(
+        input.observer?.onStdoutObserved === undefined
+          ? undefined
+          : () => input.observer!.onStdoutObserved!(chunk),
+      )) {
+        renewInactivityLease();
+      }
     });
     child.stderr.on("data", (chunk: string) => {
       if (settled) return;
       stderr += chunk;
-      notifyObserver(() => input.observer?.onStderrObserved?.(chunk));
+      if (notifyProgressObserver(
+        input.observer?.onStderrObserved === undefined
+          ? undefined
+          : () => input.observer!.onStderrObserved!(chunk),
+      )) {
+        renewInactivityLease();
+      }
     });
     child.once("error", (error) => {
       if (settled) return;
@@ -330,7 +505,7 @@ function runProcess(input: {
     });
     child.once("exit", (status, signal) => {
       if (settled) return;
-      clearTimeout(timeout);
+      clearLeaseTimers();
       snapshotResultBearingStdout();
       observedExit = { status, signal };
       if (pendingObserverError !== null) {
@@ -395,6 +570,10 @@ async function executeWorkerTransport(
   if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
     throw new TypeError("worker transport termination grace must be one positive safe integer");
   }
+  const absoluteTimeoutMs = resolveAbsoluteTimeoutMs(
+    input.timeoutMs,
+    input.absoluteTimeoutMs,
+  );
   await mkdir(input.archiveRoot, { recursive: true });
   const archiveRoot = resolve(input.archiveRoot);
   const paths = {
@@ -425,6 +604,7 @@ async function executeWorkerTransport(
     env: sanitizeWorkerTransportEnvironment(input.contract, environment) ?? {},
     stdin: input.contract.promptTransport === "stdin" ? input.prompt : null,
     timeoutMs: input.timeoutMs,
+    absoluteTimeoutMs,
     terminationGraceMs,
     ...(input.observer === undefined ? {} : { observer: input.observer }),
   });
@@ -438,6 +618,7 @@ async function executeWorkerTransport(
       progressEventCount:
         processObservation.resultBearingStdout.length > 0 ? 1 : 0,
       toolCallCount: 0,
+      toolInvocations: [],
       apiRetryCount: 0,
       finalOutput: processObservation.resultBearingStdout,
     };
@@ -474,13 +655,17 @@ async function executeWorkerTransport(
     args,
     status: processObservation.status,
     signal: processObservation.signal,
+    timeoutMs: input.timeoutMs,
+    absoluteTimeoutMs,
     timedOut: processObservation.timedOut,
+    timeoutClass: processObservation.timeoutClass,
     exitObserved: processObservation.exitObserved,
     terminationConfirmed: processObservation.terminationConfirmed,
     failureClass,
     structuredEventCount: observation.structuredEventCount,
     progressEventCount: observation.progressEventCount,
     toolCallCount: observation.toolCallCount,
+    toolInvocations: observation.toolInvocations,
     apiRetryCount: observation.apiRetryCount,
     stdout: processObservation.stdout,
     stderr: processObservation.stderr,
@@ -523,6 +708,7 @@ export interface PreparedWorkerTransport {
   readonly archiveRoot: string;
   readonly label: string;
   readonly timeoutMs: number;
+  readonly absoluteTimeoutMs: number;
   readonly terminationGraceMs: number;
   readonly promptDigest: Sha256Digest;
   readonly responseJsonSchemaDigest: Sha256Digest | null;
@@ -563,6 +749,10 @@ export async function prepareWorkerTransport(
   if (!Number.isSafeInteger(terminationGraceMs) || terminationGraceMs < 1) {
     throw new TypeError("worker transport termination grace must be one positive safe integer");
   }
+  const absoluteTimeoutMs = resolveAbsoluteTimeoutMs(
+    input.timeoutMs,
+    input.absoluteTimeoutMs,
+  );
   const archiveRoot = resolve(input.archiveRoot);
   const cwd = await realpath(input.cwd);
   const sourceEnvironment = exactEnvironment(input.environment ?? process.env);
@@ -602,6 +792,7 @@ export async function prepareWorkerTransport(
     archiveRoot,
     label: input.label,
     timeoutMs: input.timeoutMs,
+    absoluteTimeoutMs,
     terminationGraceMs,
     promptDigest: sha256Canonical(input.prompt),
     responseJsonSchemaDigest: input.responseJsonSchema === undefined
@@ -628,6 +819,7 @@ export async function prepareWorkerTransport(
     archiveRoot,
     label: input.label,
     timeoutMs: input.timeoutMs,
+    absoluteTimeoutMs,
     terminationGraceMs,
     ...(input.responseJsonSchema === undefined
       ? {}

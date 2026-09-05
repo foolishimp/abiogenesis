@@ -24,6 +24,13 @@ const WORKER_BINDING_REF =
   "worker-binding://abiogenesis/conformance/claude-worker@5";
 const PLAN_REF = "prompt-plan://abiogenesis/conformance/fp-hello@5";
 const RENDERER_REF = "renderer://abiogenesis/conformance/fp-hello@5";
+const WORKER_INACTIVITY_TIMEOUT_MS = Number(
+  process.env.ABG_TS_FP_TIMEOUT_MS ?? "120000",
+);
+const WORKER_ABSOLUTE_TIMEOUT_MS = Number(
+  process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS ?? "3600000",
+);
+const OUTER_TIMEOUT_MARGIN_MS = 30_000;
 
 function sha256Bytes(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
@@ -55,13 +62,28 @@ async function readEvents(path) {
 }
 
 test("M5 installed CLI admits one genuinely live Claude F_P result", {
-  timeout: 180_000,
+  timeout: WORKER_ABSOLUTE_TIMEOUT_MS + (2 * OUTER_TIMEOUT_MARGIN_MS),
 }, async (context) => {
   const liveCommand = process.env.ABG_TS_LIVE_CLAUDE_COMMAND;
   assert.equal(
     typeof liveCommand === "string" && liveCommand.length > 0,
     true,
     "ABG_TS_LIVE_CLAUDE_COMMAND must name the real Claude executable",
+  );
+  assert.equal(
+    Number.isSafeInteger(WORKER_INACTIVITY_TIMEOUT_MS) &&
+      WORKER_INACTIVITY_TIMEOUT_MS > 0,
+    true,
+    "ABG_TS_FP_TIMEOUT_MS must be one positive safe integer",
+  );
+  assert.equal(
+    Number.isSafeInteger(WORKER_ABSOLUTE_TIMEOUT_MS) &&
+      WORKER_ABSOLUTE_TIMEOUT_MS > WORKER_INACTIVITY_TIMEOUT_MS &&
+      Number.isSafeInteger(
+        WORKER_ABSOLUTE_TIMEOUT_MS + (2 * OUTER_TIMEOUT_MARGIN_MS),
+      ),
+    true,
+    "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS must be one safe integer greater than the inactivity lease",
   );
 
   const harness = await setupInstalledCliHarness(context, root);
@@ -77,9 +99,11 @@ test("M5 installed CLI admits one genuinely live Claude F_P result", {
     },
   );
   const run = await runInstalledCli(harness, scenario, {
+    timeoutMs: WORKER_ABSOLUTE_TIMEOUT_MS + OUTER_TIMEOUT_MARGIN_MS,
     environment: {
       ABG_TS_CLAUDE_COMMAND: liveCommand,
-      ABG_TS_FP_TIMEOUT_MS: process.env.ABG_TS_FP_TIMEOUT_MS ?? "120000",
+      ABG_TS_FP_TIMEOUT_MS: String(WORKER_INACTIVITY_TIMEOUT_MS),
+      ABG_TS_FP_ABSOLUTE_TIMEOUT_MS: String(WORKER_ABSOLUTE_TIMEOUT_MS),
     },
   });
 

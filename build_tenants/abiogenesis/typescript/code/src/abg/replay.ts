@@ -3,12 +3,17 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
+  isWorksiteFileReplaceRequest,
+  type WorksiteObservation,
+} from "../product/worksite_effect.js";
+import {
   constructRuntimeFluent,
   constructRunActiveFluent,
   constructRunClosedFluent,
   constructRunTerminalFluent,
   deriveRuntimeEventCalculusProjection,
   holdsAt,
+  projectWorksiteTransitionForResult,
   runtimeFluentKey,
 } from "./event_calculus.js";
 import {
@@ -162,6 +167,7 @@ export interface ReplayActorProcessState {
   readonly transportBindingDigest: Sha256Digest | null;
   readonly processRef: string | null;
   readonly streamEventRefs: readonly string[];
+  readonly timeoutClass: "absolute" | "inactivity" | null;
   readonly timedOut: boolean;
   readonly signalSequence: readonly string[];
   readonly exitStatus: number | null;
@@ -169,6 +175,11 @@ export interface ReplayActorProcessState {
   readonly terminationConfirmed: boolean;
   readonly transportDigest: Sha256Digest | null;
   readonly status: "active" | "closed" | "failed";
+}
+
+export interface ReplayCurrentWorksiteObservation {
+  readonly observation: WorksiteObservation;
+  readonly sourceEventRef: string;
 }
 
 export interface RunQuiescenceProjection {
@@ -233,6 +244,7 @@ const RUN_QUIESCENCE_RUN_INDEPENDENT_FLUENTS = new Set([
   "invocation_refused",
   "public_operation_artifact_available",
   "public_operation_ingress_admitted",
+  "worksite_observation_current",
 ]);
 
 export function projectRunQuiescence(
@@ -346,6 +358,7 @@ export interface ReplayState {
   readonly fanOutCompletions: readonly FanOutCompletionAdmission[];
   readonly continuations: readonly ReplayContinuationState[];
   readonly actorProcesses: readonly ReplayActorProcessState[];
+  readonly currentWorksiteObservations: readonly ReplayCurrentWorksiteObservation[];
   readonly activeFluents: readonly string[];
   readonly terminalReachedEventRef: string | null;
   readonly frameClosedEventRef: string | null;
@@ -874,6 +887,9 @@ export function replayValidatedRuntimeEventPrefix(
       const artifact = actorRows.find(
         (event) => event.kind === "actor_result_artifact_observed",
       );
+      const timeout = actorRows.find(
+        (event) => event.kind === "actor_process_timeout_observed",
+      );
       const closed = actorRows.find((event) => event.kind === "actor_invocation_closed");
       const failed = actorRows.find((event) => event.kind === "actor_invocation_failed");
       const exitStatus = processExited === undefined || !isRecord(processExited.payload)
@@ -896,7 +912,12 @@ export function replayValidatedRuntimeEventPrefix(
             event.kind === "actor_process_stdout_observed" ||
             event.kind === "actor_process_stderr_observed")
           .map((event) => event.eventId),
-        timedOut: actorRows.some((event) => event.kind === "actor_process_timeout_observed"),
+        timeoutClass: timeout === undefined
+          ? null
+          : stringField(timeout, "timeoutClass") as
+            | "absolute"
+            | "inactivity",
+        timedOut: timeout !== undefined,
         signalSequence: actorRows
           .filter((event) => event.kind === "actor_process_signal_requested")
           .map((event) => stringField(event, "signal"))
@@ -919,6 +940,46 @@ export function replayValidatedRuntimeEventPrefix(
       };
     },
   );
+
+  const worksiteObservationCandidates = events.flatMap(
+    (event, index): readonly ReplayCurrentWorksiteObservation[] => {
+      const payload = event.payload;
+      if (!isRecord(payload)) return [];
+      if (event.kind === "basis_admitted") {
+        const request = payload.rawInputValue;
+        return isWorksiteFileReplaceRequest(request)
+          ? [{
+              observation: request.predecessorObservation,
+              sourceEventRef: event.eventId,
+            }]
+          : [];
+      }
+      if (event.kind !== "c_call_result_admitted") return [];
+      const transition = projectWorksiteTransitionForResult(
+        event,
+        events.slice(0, index),
+      );
+      return transition === null
+        ? []
+        : [{
+            observation: transition.successorObservation,
+            sourceEventRef: event.eventId,
+          }]
+    },
+  );
+  const currentWorksiteObservations = [...new Map(
+    worksiteObservationCandidates
+      .filter(({ observation }) =>
+        holdsAt(
+          eventCalculus,
+          constructRuntimeFluent({
+            name: "worksite_observation_current",
+            identity: observation.observationRef,
+          }),
+        )
+      )
+      .map((row) => [row.observation.observationRef, row] as const),
+  ).values()];
 
   const runOpen = events.find((event) => event.kind === "run_segment_opened");
   const continuations = projectFhContinuations(
@@ -1058,6 +1119,7 @@ export function replayValidatedRuntimeEventPrefix(
     fanOutCompletions,
     continuations,
     actorProcesses,
+    currentWorksiteObservations,
     activeFluents: eventCalculus.holds.map(runtimeFluentKey),
     terminalReachedEventRef: terminal?.eventId ?? null,
     frameClosedEventRef: frameClosed?.eventId ?? null,

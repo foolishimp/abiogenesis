@@ -40,8 +40,6 @@ const remainingKeys = Object.freeze([
   "abg.operation.result.assess#assess",
   "abg.operation.run.continue#current_intent",
   "abg.operation.run.continue#selected_action",
-  "abg.operation.run.invoke#invoke",
-  "abg.operation.run.invoke#start",
   "abg.operation.witness.admit#attest",
   "abg.operation.witness.admit#hygiene-stamp",
   "abg.operation.witness.admit#intake",
@@ -121,22 +119,16 @@ function definitionCall({
   resources,
 }) {
   const definition = definitionFor(publicApi, operationId, memberKey);
-  const invocationRef =
-    `invocation://abiogenesis/t287/w2-05/${String(ordinal).padStart(2, "0")}-${memberKey}`;
   const requestDigest = product.sha256Canonical(request);
   const admittedSlots = authoritySlots(product, definition, slots);
-  const invocationAuthority = Object.freeze({
+  const authorityBody = Object.freeze({
     kind: "invocation_authority",
     definitionKey: definition.definitionKey,
-    authorityDigest: product.sha256Canonical(admittedSlots),
     slots: admittedSlots,
   });
-  const invocationDigest = product.sha256Canonical({
-    definitionKey: definition.definitionKey,
-    definitionDigest: definition.definitionDigest,
-    invocationRef,
-    requestDigest,
-    authorityDigest: invocationAuthority.authorityDigest,
+  const invocationAuthority = Object.freeze({
+    ...authorityBody,
+    authorityDigest: product.sha256Canonical(authorityBody),
   });
   assert.ok(admittedContractCatalog, "installed contract catalog admitted");
   assert.ok(
@@ -166,29 +158,35 @@ function definitionCall({
       definitionRef: "#/$defs/PublicInvocation",
     }),
   });
+  const invocationBody = Object.freeze({
+    kind: "public_invocation",
+    schemaVersion,
+    invocationContract,
+    definitionRef: definition.definitionRef,
+    definitionVersion: schemaVersion,
+    definitionDigest: definition.definitionDigest,
+    definitionKey: definition.definitionKey,
+    contractCatalog: admittedContractCatalog,
+    invocationAuthority,
+    requestContract: memberContracts.slots.request,
+    requestRef:
+      `public-request://abiogenesis/t287/w2-05/${String(ordinal).padStart(2, "0")}-${memberKey}`,
+    requestDigest,
+    request,
+    expectedResultContract: memberContracts.slots.result,
+    expectedRefusalContract: memberContracts.slots.refusal,
+    expectedNonTerminalContract: memberContracts.slots.nonTerminal,
+    correlationRef: "correlation://abiogenesis/t287/w2-05-owner-chain",
+    eventTime: "2026-08-18T00:00:00.000Z",
+    provenanceRefs: ["provenance://abiogenesis/t287/w2-05-worker"],
+  });
+  const invocationDigest = product.sha256Canonical(invocationBody);
   return Object.freeze({
     invocation: Object.freeze({
-      kind: "public_invocation",
-      schemaVersion,
-      invocationContract,
-      invocationRef,
+      ...invocationBody,
+      invocationRef:
+        `invocation://abiogenesis/${invocationDigest.slice("sha256:".length)}`,
       invocationDigest,
-      definitionRef: definition.definitionRef,
-      definitionVersion: schemaVersion,
-      definitionDigest: definition.definitionDigest,
-      definitionKey: definition.definitionKey,
-      contractCatalog: admittedContractCatalog,
-      invocationAuthority,
-      requestContract: memberContracts.slots.request,
-      requestRef: `${invocationRef}/request`,
-      requestDigest,
-      request,
-      expectedResultContract: memberContracts.slots.result,
-      expectedRefusalContract: memberContracts.slots.refusal,
-      expectedNonTerminalContract: memberContracts.slots.nonTerminal,
-      correlationRef: "correlation://abiogenesis/t287/w2-05-owner-chain",
-      eventTime: "2026-08-18T00:00:00.000Z",
-      provenanceRefs: ["provenance://abiogenesis/t287/w2-05-worker"],
     }),
     resources,
   });
@@ -198,15 +196,20 @@ function rehashInvocation(product, call) {
   call.invocation.requestDigest = product.sha256Canonical(
     call.invocation.request,
   );
+  const {
+    authorityDigest: _authorityDigest,
+    ...authorityBody
+  } = call.invocation.invocationAuthority;
   call.invocation.invocationAuthority.authorityDigest =
-    product.sha256Canonical(call.invocation.invocationAuthority.slots);
-  call.invocation.invocationDigest = product.sha256Canonical({
-    definitionKey: call.invocation.definitionKey,
-    definitionDigest: call.invocation.definitionDigest,
-    invocationRef: call.invocation.invocationRef,
-    requestDigest: call.invocation.requestDigest,
-    authorityDigest: call.invocation.invocationAuthority.authorityDigest,
-  });
+    product.sha256Canonical(authorityBody);
+  const {
+    invocationRef: _invocationRef,
+    invocationDigest: _invocationDigest,
+    ...invocationBody
+  } = call.invocation;
+  call.invocation.invocationDigest = product.sha256Canonical(invocationBody);
+  call.invocation.invocationRef =
+    `invocation://abiogenesis/${call.invocation.invocationDigest.slice("sha256:".length)}`;
   return call;
 }
 
@@ -322,7 +325,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     .map(({ definitionKey }) => definitionKey)
     .sort();
   assert.equal(census.report.definitionCount, 56);
-  assert.equal(census.report.callableCount, 37);
+  assert.equal(census.report.callableCount, 39);
   assert.deepEqual(missingKeys, remainingKeys);
   assert.equal(
     "release_evidence" in product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS,
@@ -332,7 +335,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     loadedKeys.filter((key) => selectedAdditions.includes(key)),
     selectedAdditions,
   );
-  assert.equal(loadedKeys.filter((key) => !selectedAdditions.includes(key)).length, 26);
+  assert.equal(loadedKeys.filter((key) => !selectedAdditions.includes(key)).length, 28);
   assert.equal(
     product.sha256Bytes(
       `${census.report.rows
@@ -340,7 +343,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
         .map((row) => row.definitionKey)
         .join("\n")}\n`,
     ),
-    "sha256:3791684da16f7aefa96eafd293eab1742b57e95008e0052dbc21fd7a8b2dce92",
+    "sha256:9a5e128ae9f02104aa9944d0ef57988f1f593790ff60c65f6cd9c68cc6cc5ad5",
   );
 
   const verificationPacket = Object.freeze({
@@ -617,6 +620,8 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   const publications = Object.freeze([
     harness.rootPublication,
     gtl.constructConsensusModulePublication(artifactBasis),
+    gtl.constructWorksiteConstructionModulePublication(artifactBasis),
+    gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
   ]);
   assert.deepEqual(
     publications.map(product.modulePublicationSemanticDigest).sort(),
@@ -664,7 +669,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     catalogCall,
     "catalog.admit",
   );
-  assert.equal(admittedCatalog.ownerOutput.value.rows.length, 35);
+  assert.equal(admittedCatalog.ownerOutput.value.rows.length, 43);
   assert.deepEqual(
     admittedCatalog.resources.eventResource.closeHandoff.prefix,
     binding.resources.eventResource.closeHandoff.prefix,
@@ -761,7 +766,10 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     workspace_binding: binding.ownerOutput.value.binding,
     product_set: [install.ownerOutput.value.installedProduct],
     dependency_lock: lockCoordinate,
-    catalog_scope: admittedCatalog.ownerOutput.value.catalog,
+    catalog_scope: Object.freeze({
+      ref: admittedCatalog.ownerOutput.value.catalog.ref,
+      digest: admittedCatalog.ownerOutput.value.catalog.digest,
+    }),
   });
   const environmentReadSlots = Object.freeze({
     workspace_binding: binding.ownerOutput.value.binding,
@@ -899,7 +907,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     catalogListCall,
     "project.read#catalog_list",
   );
-  assert.equal(catalogListRead.ownerOutput.value.projection.rows.length, 35);
+  assert.equal(catalogListRead.ownerOutput.value.projection.rows.length, 43);
 
   const sessionViewCoordinate = Object.freeze({
     ref: `graph-function-catalog-view://abiogenesis/${

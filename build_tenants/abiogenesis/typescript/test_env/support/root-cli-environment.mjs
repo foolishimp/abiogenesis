@@ -18,6 +18,32 @@ import {
 } from "./candidate-basis.mjs";
 
 const execFileAsync = promisify(execFile);
+const DEFAULT_INSTALLED_TRANSPORT_TIMEOUT_MS = 30_000;
+
+function installedTransportTimeoutMs(value) {
+  const timeoutMs = value ?? DEFAULT_INSTALLED_TRANSPORT_TIMEOUT_MS;
+  if (!Number.isSafeInteger(timeoutMs) || timeoutMs < 1) {
+    throw new TypeError(
+      "installed transport timeout must be one positive safe integer",
+    );
+  }
+  return timeoutMs;
+}
+
+function transportOperationIdentity(transportRequest) {
+  const invocation = transportRequest?.invocation;
+  return {
+    operationId: typeof invocation?.operationId === "string"
+      ? invocation.operationId
+      : null,
+    variant: typeof invocation?.variant === "string"
+      ? invocation.variant
+      : null,
+    invocationRef: typeof invocation?.invocationRef === "string"
+      ? invocation.invocationRef
+      : null,
+  };
+}
 
 function selectedFrozenArtifact(options) {
   const explicit = options.frozenArtifact ?? null;
@@ -204,14 +230,32 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
         packageVersion: candidateManifest.packageVersion,
       }
     : persistedCandidateBasis;
-  const rootPublication = gtl.constructHelloWorldModulePublication({
+  const publicationBasis = {
     productId: candidateBasis.productId,
     artifactDigest: candidateBasis.artifactDigest,
     productContentDigest: candidateBasis.productContentDigest,
     productManifestDigest: candidateBasis.manifestDigest,
     packageName: candidateBasis.packageName,
     packageVersion: candidateBasis.packageVersion,
+  };
+  const publicationConstructors = {
+    hello_world: gtl.constructHelloWorldModulePublication,
+    worksite_construction: gtl.constructWorksiteConstructionModulePublication,
+    worksite_command_execution:
+      gtl.constructWorksiteCommandExecutionModulePublication,
+  };
+  const rootPublicationKinds = options.rootPublicationKinds ?? ["hello_world"];
+  const rootPublications = rootPublicationKinds.map((kind) => {
+    const construct = publicationConstructors[kind];
+    if (typeof construct !== "function") {
+      throw new TypeError(`unknown root publication kind: ${String(kind)}`);
+    }
+    return construct(publicationBasis);
   });
+  const [rootPublication] = rootPublications;
+  if (rootPublication === undefined) {
+    throw new TypeError("root CLI harness requires at least one publication");
+  }
   return {
     scratch,
     artifactPath,
@@ -225,6 +269,7 @@ export async function setupInstalledCliHarness(context, packageRoot, options = {
     cliPath: join(cliHost, "node_modules/.bin/abg.cli"),
     codexPath: join(cliHost, "node_modules/.bin/abg.codex"),
     rootPublication,
+    rootPublications,
     product,
   };
 }
@@ -263,10 +308,13 @@ async function executeTransportProgram(
   transcriptPath,
   options = {},
 ) {
+  const timeoutMs = installedTransportTimeoutMs(options.timeoutMs);
   const transportRequest = JSON.parse(await readFile(transcriptPath, "utf8"));
+  const operationIdentity = transportOperationIdentity(transportRequest);
   let exitCode = 0;
   let stdout = "";
   let stderr = "";
+  let processError = null;
   try {
     const result = await execFileAsync(
       programPath,
@@ -276,34 +324,90 @@ async function executeTransportProgram(
         env: { ...process.env, ...options.environment, NODE_OPTIONS: "" },
         encoding: "utf8",
         maxBuffer: 20 * 1024 * 1024,
+        timeout: timeoutMs,
+        killSignal: "SIGKILL",
       },
     );
     stdout = result.stdout;
     stderr = result.stderr;
   } catch (error) {
-    exitCode = Number(error.code ?? 1);
+    processError = error;
+    exitCode = typeof error.code === "number" ? error.code : 1;
     stdout = String(error.stdout ?? "");
     stderr = String(error.stderr ?? "");
   }
+  const timedOut = processError?.killed === true &&
+    processError?.signal === "SIGKILL";
+  const termination = {
+    kind: "installed_transport_process_termination",
+    disposition: timedOut
+      ? "timed_out"
+      : processError === null
+      ? "exited"
+      : processError.signal === undefined || processError.signal === null
+      ? "exited_nonzero"
+      : "signaled",
+    timeoutMs,
+    timedOut,
+    killed: processError?.killed === true,
+    exitCode: processError === null
+      ? 0
+      : typeof processError.code === "number"
+      ? processError.code
+      : null,
+    signal: typeof processError?.signal === "string"
+      ? processError.signal
+      : null,
+  };
+  const processFailure = processError === null
+    ? null
+    : {
+      kind: "installed_transport_process_failure",
+      operationIdentity,
+      termination,
+      stdout,
+      stderr,
+      error: {
+        name: typeof processError.name === "string"
+          ? processError.name
+          : "Error",
+        code: typeof processError.code === "string" ||
+            typeof processError.code === "number"
+          ? processError.code
+          : null,
+        message: typeof processError.message === "string"
+          ? processError.message
+          : String(processError),
+      },
+    };
   const lines = stdout.trim().length === 0
     ? []
     : stdout.trim().split(/\r?\n/u);
   let transportResult = null;
   let transportRefusal = null;
-  if (lines.length === 1) {
-    const decoded = JSON.parse(lines[0]);
-    if (decoded.kind === "abg_cli_transport_result") {
-      transportResult = decoded;
-    } else {
-      transportRefusal = decoded;
+  if (!timedOut && lines.length === 1) {
+    try {
+      const decoded = JSON.parse(lines[0]);
+      if (decoded.kind === "abg_cli_transport_result") {
+        transportResult = decoded;
+      } else {
+        transportRefusal = decoded;
+      }
+    } catch (error) {
+      if (processError === null) throw error;
     }
-  } else if (lines.length > 1) {
-    throw new TypeError("installed CLI emitted more than one transport result");
+  } else if (!timedOut && lines.length > 1) {
+    if (processError === null) {
+      throw new TypeError("installed CLI emitted more than one transport result");
+    }
   }
   return {
     exitCode,
     stdout,
     stderr,
+    operationIdentity,
+    termination,
+    processFailure,
     transportRequest,
     transportResult,
     transportRefusal,
@@ -433,7 +537,14 @@ export async function buildRootCliScenario(
       : await executeInstalledCodexTransport(harness, transcriptPath);
     if (transportRun.transportResult === null) {
       throw new Error(
-        `root CLI transport refused: ${transportRun.stdout}${transportRun.stderr}`,
+        `root CLI transport refused: ${JSON.stringify(
+          transportRun.processFailure ?? {
+            operationIdentity: transportRun.operationIdentity,
+            termination: transportRun.termination,
+            stdout: transportRun.stdout,
+            stderr: transportRun.stderr,
+          },
+        )}`,
       );
     }
     closeHandoff = transportRun.transportResult.closeHandoff;
@@ -617,7 +728,7 @@ export async function buildRootCliScenario(
     resolvedLock,
     verifiedProducts: [verifiedProduct],
     installedProducts: [installedProduct],
-    publications: [harness.rootPublication],
+    publications: harness.rootPublications ?? [harness.rootPublication],
   };
   if (!Array.isArray(options.catalogApplications)) {
     throw new TypeError(
@@ -676,6 +787,21 @@ export async function buildRootCliScenario(
     ));
     applications.push(applicationOutcome.result);
   }
+  const runInput = options.inputFactory === undefined
+    ? options.input ?? {
+        kind: "hello_world_input",
+        schemaVersion: "5.0.0",
+        subject: options.subject ?? "World",
+      }
+    : await options.inputFactory({
+        product: harness.product,
+        workspaceBinding: admittedWorkspace.binding,
+        catalogWorkspaceBinding: workspaceBinding,
+        catalog,
+        catalogView,
+        installedProduct,
+        admittedInstall: admittedInstall.install,
+      });
   const runPayload = transformRunPayload({
     installInvocationRef: refs.install,
     workspaceBindingInvocationRef: refs.bind,
@@ -685,11 +811,7 @@ export async function buildRootCliScenario(
     programRef,
     catalogHandle,
     actorRef: authorizedActorRef,
-    input: options.input ?? {
-      kind: "hello_world_input",
-      schemaVersion: "5.0.0",
-      subject: options.subject ?? "World",
-    },
+    input: runInput,
     eventLogPath,
     runtimePrefixAuthority: closeHandoff,
   });

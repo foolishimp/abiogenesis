@@ -5,6 +5,13 @@ import {
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
+  isWorksiteEffectAuthorization,
+  isWorksiteFileReplaceReceipt,
+  isWorksiteFileReplaceRequest,
+  isWorksiteObservation,
+  type WorksiteObservation,
+} from "../product/worksite_effect.js";
+import {
   runtimeEventsFromValidatedPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
@@ -375,6 +382,128 @@ function fluent(name: string, identity: string): string {
   return `${name}(${identity})`;
 }
 
+/** The C0 mutable-worksite currentness fluent has one observation identity. */
+export function constructWorksiteObservationCurrentFluent(
+  observationRef: string,
+): RuntimeFluent {
+  return constructRuntimeFluent({
+    name: "worksite_observation_current",
+    identity: observationRef,
+  });
+}
+
+function worksiteBasisObservation(
+  event: RuntimeEvent,
+  priorEvents: readonly RuntimeEvent[],
+): string | null {
+  const payload = isRecord(event.payload) ? event.payload : null;
+  const request = payload?.rawInputValue ?? null;
+  if (!isWorksiteFileReplaceRequest(request) || payload === null) {
+    return null;
+  }
+  const invocationAdmissionRef = payload.invocationAdmissionRef;
+  const admissionRows = typeof invocationAdmissionRef !== "string"
+    ? []
+    : priorEvents.filter((row) =>
+        row.kind === "invocation_admitted" &&
+        isRecord(row.payload) &&
+        row.payload.invocationAdmissionRef === invocationAdmissionRef
+      );
+  if (admissionRows.length !== 1 || !isRecord(admissionRows[0]!.payload)) {
+    return null;
+  }
+  const admission = admissionRows[0]!.payload;
+  const grants = admission.capabilityGrants;
+  const admittedGrant = Array.isArray(grants) && grants.length === 1
+    ? grants[0]
+    : null;
+  const basisClass = payload.basisClass;
+  const graphFunctionAuthorized = basisClass === "root"
+    ? payload.graphFunctionRef === admission.graphFunctionRef
+    : basisClass === "child" &&
+      typeof payload.parentExecutionBasisRef === "string" &&
+      typeof payload.parentCCallRef === "string" &&
+      priorEvents.filter((row) =>
+        row.kind === "basis_admitted" &&
+        isRecord(row.payload) &&
+        row.payload.basisRef === payload.parentExecutionBasisRef &&
+        row.payload.invocationAdmissionRef === invocationAdmissionRef &&
+        row.payload.programRef === payload.programRef &&
+        row.payload.workspaceBindingId === payload.workspaceBindingId &&
+        row.payload.workspaceBindingDigest ===
+          payload.workspaceBindingDigest &&
+        row.payload.actorRef === payload.actorRef
+      ).length === 1 &&
+      priorEvents.filter((row) =>
+        row.kind === "c_call_opened" &&
+        row.basisId === payload.parentExecutionBasisRef &&
+        isRecord(row.payload) &&
+        row.payload.cCallRef === payload.parentCCallRef &&
+        row.payload.callClass === "workflow" &&
+        row.payload.childGraphFunctionRef === payload.graphFunctionRef
+      ).length === 1;
+  return admittedGrant !== null && isRecord(admittedGrant) &&
+      sha256Canonical(admittedGrant) ===
+        sha256Canonical(request.capabilityGrant as unknown as JsonValue) &&
+      request.capabilityGrant.grantRef ===
+        admittedGrant.grantRef &&
+      request.capabilityGrant.grantDigest ===
+        admittedGrant.grantDigest &&
+      request.workspaceBindingIdentity === payload.workspaceBindingId &&
+      request.workspaceBindingDigest === payload.workspaceBindingDigest &&
+      request.capabilityGrant.actorRef === payload.actorRef &&
+      request.capabilityGrant.scopeRef === payload.workspaceBindingId &&
+      request.capabilityGrant.scopeDigest === payload.workspaceBindingDigest &&
+      payload.programRef === admission.programRef &&
+      graphFunctionAuthorized
+    ? request.predecessorObservation.observationRef
+    : null;
+}
+
+export function projectWorksiteTransitionForResult(
+  event: RuntimeEvent,
+  priorEvents: readonly RuntimeEvent[],
+): Readonly<{
+  before: string;
+  after: string;
+  successorObservation: WorksiteObservation;
+}> | null {
+  if (!isRecord(event.payload)) return null;
+  const evidenceRefs = stringArrayField(event, "evidenceRefs");
+  const evidence = priorEvents.filter((row) =>
+    row.kind === "c_call_evidenced" &&
+    row.aggregateId === event.aggregateId &&
+    isRecord(row.payload) &&
+    row.payload.evidenceClass === "worksite_file_replace" &&
+    typeof row.payload.evidenceRef === "string" &&
+    evidenceRefs.includes(row.payload.evidenceRef)
+  );
+  if (evidence.length !== 1 || !isRecord(evidence[0]!.payload)) return null;
+  const payload = evidence[0]!.payload;
+  const request = payload.request;
+  const authorization = payload.authorization;
+  const receipt = payload.receipt;
+  const successor = payload.successorObservation;
+  if (
+    !isWorksiteFileReplaceRequest(request) ||
+    !isWorksiteEffectAuthorization(authorization) ||
+    !isWorksiteFileReplaceReceipt(receipt) ||
+    !isWorksiteObservation(successor) ||
+    authorization.cCallRef !== event.aggregateId ||
+    receipt.authorizationRef !== authorization.authorizationRef ||
+    receipt.authorizationDigest !== authorization.authorizationDigest ||
+    receipt.beforeObservationRef !== request.predecessorObservation.observationRef ||
+    receipt.beforeObservationDigest !== request.predecessorObservation.observationDigest ||
+    receipt.afterObservationRef !== successor.observationRef ||
+    receipt.afterObservationDigest !== successor.observationDigest
+  ) return null;
+  return {
+    before: request.predecessorObservation.observationRef,
+    after: successor.observationRef,
+    successorObservation: successor,
+  };
+}
+
 function retryFluentIdentityForEvent(
   event: RuntimeEvent,
   name: RetryFluentName,
@@ -442,6 +571,18 @@ function eventCalculusEffectRefs(
   if (typeof eventOrKind === "string") return ROOT_EVENT_CALCULUS[eventOrKind];
   const event = eventOrKind as RuntimeEvent;
   switch (event.kind) {
+    case "basis_admitted": {
+      const observationRef = worksiteBasisObservation(event, priorEvents);
+      return {
+        initiates: [
+          fluent("basis_admitted", event.basisId ?? event.eventId),
+          ...(observationRef === null
+            ? []
+            : [fluent("worksite_observation_current", observationRef)]),
+        ],
+        terminates: [], clips: [], declips: [],
+      };
+    }
     case "public_operation_artifact_admitted": {
       const authorityScopeRef = stringField(event, "authorityScopeRef");
       if (authorityScopeRef === null) {
@@ -669,13 +810,24 @@ function eventCalculusEffectRefs(
     case "c_call_result_admitted": {
       const resultRef = stringField(event, "resultRef");
       const evidenceRefs = stringArrayField(event, "evidenceRefs");
+      const worksite = projectWorksiteTransitionForResult(event, priorEvents);
       return {
-        initiates: resultRef === null
-          ? []
-          : [fluent("c_call_result_available", resultRef)],
-        terminates: evidenceRefs.map((evidenceRef) =>
-          fluent("c_call_evidence_available", evidenceRef)
-        ),
+        initiates: [
+          ...(resultRef === null
+            ? []
+            : [fluent("c_call_result_available", resultRef)]),
+          ...(worksite === null
+            ? []
+            : [fluent("worksite_observation_current", worksite.after)]),
+        ],
+        terminates: [
+          ...evidenceRefs.map((evidenceRef) =>
+            fluent("c_call_evidence_available", evidenceRef)
+          ),
+          ...(worksite === null
+            ? []
+            : [fluent("worksite_observation_current", worksite.before)]),
+        ],
         clips: [],
         declips: [],
       };

@@ -1854,8 +1854,21 @@ async function applyRunInvoke(
       ),
     ),
   ].sort();
+  const invocationGrantBasis = {
+    admittedInstalls: orderedInstallStates.map((state) => state.install),
+    workspaceBinding: workspaceState.binding,
+    fixedPacket: product.RUN_OPERATION_CONTRACTS.invoke[
+      invocation.variant === "direct" ? "invoke" : "start"
+    ],
+  } as const;
   const grants = [
-    product.constructCapabilityGrant(policy, actorRef),
+    product.constructCapabilityGrant(
+      policy,
+      actorRef,
+      "abg.operation.run.invoke",
+      product.DIRECT_INVOKE_CAPABILITY,
+      invocationGrantBasis,
+    ),
     ...interactionCapabilityRefs.flatMap((capabilityRef) => [
       product.constructCapabilityGrant(
         policy,
@@ -1879,6 +1892,7 @@ async function applyRunInvoke(
     selectedRow,
     policy,
     grants,
+    invocationGrantBasis,
   );
   if (authority.kind !== "invocation_authority") {
     throw new ApplicationRefusal("owner_refusal", `Invocation authority refused: ${authority.message}`);

@@ -3,11 +3,24 @@ import { pathToFileURL } from "node:url";
 
 import { hasAdmittedProductInstall } from "../abg/environment_admission.js";
 import type { ExactPrefixArtifactTruthProjection } from "../abg/artifact_truth.js";
+import { projectCCallCarrierPhaseAtPrefix } from "../abg/c_call.js";
 import {
+  constructWorksiteObservationCurrentFluent,
+  deriveRuntimeEventCalculusProjection,
+  holdsAt,
+} from "../abg/event_calculus.js";
+import {
+  hasAdmittedExecutionBasisAtPrefix,
   hasAdmittedImplementationSetAtPrefix,
   type AdmittedImplementationSet,
 } from "../abg/execution_basis.js";
-import type { ValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
+import {
+  selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "../abg/event_prefix.js";
+import {
+  readRuntimeEventsAtDurablePrefix,
+} from "../abg/event_store.js";
 import type { ModulePublication } from "../gtl/contracts.js";
 import type {
   ExecutionDeclarationOwnerCoordinate,
@@ -18,6 +31,13 @@ import {
   inspectProductLeafSemanticsProjection,
   type InstalledLeafSemanticsProjection,
 } from "../product/semantics.js";
+import {
+  constructWorksiteEffectAuthorization,
+  isWorksiteFileReplaceRequest,
+  WORKSITE_FILE_REPLACE_EFFECT_URI,
+  WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
+  WORKSITE_FILE_REPLACE_HANDLER_REF,
+} from "../product/worksite_effect.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
@@ -43,6 +63,15 @@ import type {
   ProbabilisticWorkerContracts,
 } from "./contracts.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
+import {
+  constructLeafExecutionAuthority,
+  isLeafExecutionAuthority,
+} from "./leaf_execution_authority.js";
+
+export {
+  constructLeafExecutionAuthority,
+  isLeafExecutionAuthority,
+};
 
 export type LeafInvocationInstall =
   Parameters<typeof hasAdmittedProductInstall>[1];
@@ -381,10 +410,14 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
   ) => closedUndispatchedProbabilisticOwnerReceipt(
     totalizedFailure(failureClass),
   );
+  const carriesWorksiteAuthority = isWorksiteFileReplaceRequest(input.value) ||
+    input.occurrence.executionAuthority !== null;
   let authorityValid = false;
   try {
     authorityValid = await input.verifyAuthority() &&
-      sha256Canonical(input.value) === inputDigest;
+      sha256Canonical(input.value) === inputDigest &&
+      (!carriesWorksiteAuthority ||
+        isLeafExecutionAuthority(input.occurrence.executionAuthority));
   } catch {
     authorityValid = false;
   }
@@ -412,7 +445,12 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
     }
     let implementationOutput: unknown;
     try {
-      implementationOutput = await implementation(input.value);
+      implementationOutput = await implementation(
+        input.value,
+        input.occurrence,
+        resolution,
+        inputDigest,
+      );
     } catch {
       return closedDeterministicOwnerReceipt(
         totalizedFailure("implementation_exception"),
@@ -494,31 +532,42 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
           exchange,
         );
       }
-      try {
-        const admittedCandidate = admitIJsonValue(
-          completedOutput,
-          "probabilistic leaf completion output",
-        );
-        const valid = isLeafRealizationCandidate(
-          admittedCandidate,
-          "F_P",
-          input.validateSuccess,
-          failureValueKind,
-        );
-        return closedProbabilisticOwnerReceipt(
-          valid
-            ? admittedCandidate as Readonly<LeafRealizationCandidate>
-            : totalizedFailure("malformed_return"),
-          workerContracts,
-          exchange,
-        );
-      } catch {
-        return closedProbabilisticOwnerReceipt(
-          totalizedFailure("malformed_return"),
-          workerContracts,
-          exchange,
-        );
+      const finalize = (candidateOutput: unknown) => {
+        try {
+          const admittedCandidate = admitIJsonValue(
+            candidateOutput,
+            "probabilistic leaf completion output",
+          );
+          const valid = isLeafRealizationCandidate(
+            admittedCandidate,
+            "F_P",
+            input.validateSuccess,
+            failureValueKind,
+          );
+          return closedProbabilisticOwnerReceipt(
+            valid
+              ? admittedCandidate as Readonly<LeafRealizationCandidate>
+              : totalizedFailure("malformed_return"),
+            workerContracts,
+            exchange,
+          );
+        } catch {
+          return closedProbabilisticOwnerReceipt(
+            totalizedFailure("malformed_return"),
+            workerContracts,
+            exchange,
+          );
+        }
+      };
+      if (completedOutput instanceof Promise) {
+        return completedOutput.then(finalize, () =>
+          closedProbabilisticOwnerReceipt(
+            totalizedFailure("implementation_exception"),
+            workerContracts,
+            exchange,
+          ));
       }
+      return finalize(completedOutput);
     },
   }) satisfies Readonly<PreparedProbabilisticLeafOwnerInvocation>;
 }
@@ -785,6 +834,166 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     return matches.length === 1 ? matches[0]! : null;
   }
 
+  function hasExactWorksiteLeafExecutionAuthority(
+    call: Parameters<LeafInvocationPort["invoke"]>[0],
+    resolution: AdmittedImplementationSet["rows"][number],
+  ): boolean {
+    const executionAuthority = call.occurrence.executionAuthority;
+    if (
+      !isWorksiteFileReplaceRequest(call.input) ||
+      !isLeafExecutionAuthority(executionAuthority)
+    ) {
+      return false;
+    }
+    const owner = implementationOwner(resolution);
+    const graphFunction = graphFunctionByRef(resolution.graphFunctionRef);
+    if (owner === null || graphFunction === null) return false;
+
+    let authorityPrefix: ValidatedRuntimeEventPrefix;
+    let runtimePrefix: ValidatedRuntimeEventPrefix;
+    try {
+      const events = readRuntimeEventsAtDurablePrefix(
+        executionAuthority.predecessorPrefix,
+        { requireCurrent: true },
+      );
+      authorityPrefix = selectValidatedRuntimeEventPrefix(events);
+      runtimePrefix = selectValidatedRuntimeEventPrefix(events, {
+        runId: executionAuthority.cCall.runId,
+      });
+    } catch {
+      return false;
+    }
+
+    const resolutionDigest = sha256Canonical(
+      resolution as unknown as JsonValue,
+    );
+    const requestDigest = sha256Canonical(call.input as unknown as JsonValue);
+    const carrierResolutionDigest = sha256Canonical(
+      executionAuthority.implementationResolution as unknown as JsonValue,
+    );
+    const authorization = constructWorksiteEffectAuthorization({
+      workspaceBinding: executionAuthority.workspaceBinding,
+      request: call.input,
+      executionBasis: executionAuthority.executionBasis,
+      cCall: executionAuthority.cCall,
+      implementationSet: executionAuthority.implementationSet,
+    });
+    const phase = projectCCallCarrierPhaseAtPrefix(
+      runtimePrefix,
+      executionAuthority.cCall,
+    );
+    const observationCurrent = holdsAt(
+      deriveRuntimeEventCalculusProjection(runtimePrefix),
+      constructWorksiteObservationCurrentFluent(
+        call.input.predecessorObservation.observationRef,
+      ),
+    );
+
+    return authorization.kind === "worksite_effect_authorization" &&
+      phase?.phase === "selected_no_evidence" &&
+      observationCurrent &&
+      hasAdmittedExecutionBasisAtPrefix(
+        authorityPrefix,
+        executionAuthority.executionBasis,
+      ) &&
+      hasAdmittedImplementationSetAtPrefix(
+        authorityPrefix,
+        executionAuthority.implementationSet,
+      ) &&
+      requestDigest === call.inputDigest &&
+      requestDigest === executionAuthority.executionBasis.rawInputDigest &&
+      sha256Canonical(
+        executionAuthority.executionBasis.rawInputValue as unknown as JsonValue,
+      ) === requestDigest &&
+      executionAuthority.actorRef ===
+        executionAuthority.workspaceBinding.authorizedActorRef &&
+      executionAuthority.actorRef === executionAuthority.executionBasis.actorRef &&
+      executionAuthority.workspaceBindingIdentity ===
+        executionAuthority.executionBasis.workspaceBindingId &&
+      executionAuthority.workspaceBindingDigest ===
+        executionAuthority.executionBasis.workspaceBindingDigest &&
+      executionAuthority.programRef === executionAuthority.executionBasis.programRef &&
+      executionAuthority.programDigest ===
+        executionAuthority.executionBasis.programDigest &&
+      executionAuthority.graphFunctionRef ===
+        executionAuthority.executionBasis.graphFunctionRef &&
+      executionAuthority.graphFunctionDigest ===
+        executionAuthority.executionBasis.graphFunctionDigest &&
+      graphFunction.name === executionAuthority.graphFunctionRef &&
+      sha256Canonical(graphFunction as unknown as JsonValue) ===
+        executionAuthority.graphFunctionDigest &&
+      graphFunction.effects.includes(WORKSITE_FILE_REPLACE_EFFECT_URI) &&
+      call.input.workspaceBindingIdentity ===
+        executionAuthority.workspaceBindingIdentity &&
+      call.input.workspaceBindingDigest ===
+        executionAuthority.workspaceBindingDigest &&
+      call.input.capabilityGrant.actorRef === executionAuthority.actorRef &&
+      call.input.capabilityGrant.grantRef ===
+        executionAuthority.capabilityGrantRef &&
+      call.input.capabilityGrant.grantDigest ===
+        executionAuthority.capabilityGrantDigest &&
+      call.input.capabilityGrant.scopeRef ===
+        executionAuthority.workspaceBindingIdentity &&
+      call.input.capabilityGrant.scopeDigest ===
+        executionAuthority.workspaceBindingDigest &&
+      call.occurrence.cCallRef === executionAuthority.cCallRef &&
+      call.occurrence.runId === executionAuthority.cCall.runId &&
+      call.occurrence.graphCallId === executionAuthority.cCall.graphCallId &&
+      call.occurrence.frameId === executionAuthority.cCall.frameId &&
+      call.occurrence.programLocusRef ===
+        executionAuthority.cCall.programLocusRef &&
+      call.occurrence.taskOrdinal === executionAuthority.cCall.taskOrdinal &&
+      call.occurrence.attempt === executionAuthority.cCall.attempt &&
+      executionAuthority.cCall.callClass === "leaf" &&
+      executionAuthority.cCall.regime === "F_D" &&
+      executionAuthority.cCall.basisId === executionAuthority.executionBasisRef &&
+      executionAuthority.cCall.graphFunctionRef ===
+        executionAuthority.graphFunctionRef &&
+      executionAuthority.cCall.implementationSetRef ===
+        executionAuthority.implementationSetRef &&
+      executionAuthority.cCall.implementationRequirementKey ===
+        resolution.requirementKey &&
+      executionAuthority.cCall.implementationBindingRef ===
+        resolution.implementationBindingRef &&
+      executionAuthority.cCall.implementationRef === resolution.implementationRef &&
+      executionAuthority.cCall.inputContractRef === resolution.inputContractRef &&
+      executionAuthority.cCall.outputContractRef === resolution.outputContractRef &&
+      executionAuthority.cCall.failureContractRef === resolution.failureContractRef &&
+      executionAuthority.cCall.refusalContractRef === resolution.refusalContractRef &&
+      executionAuthority.implementationSetRef ===
+        authority.implementationSet.implementationSetRef &&
+      executionAuthority.implementationSetDigest ===
+        authority.implementationSet.implementationSetDigest &&
+      sha256Canonical(
+        executionAuthority.implementationSet as unknown as JsonValue,
+      ) === sha256Canonical(authority.implementationSet as unknown as JsonValue) &&
+      carrierResolutionDigest === resolutionDigest &&
+      executionAuthority.implementationResolutionDigest === resolutionDigest &&
+      executionAuthority.implementationResolutionRef ===
+        `implementation-resolution://abiogenesis/${resolutionDigest.slice("sha256:".length)}` &&
+      executionAuthority.leafResolutionCandidateRef ===
+        resolution.leafResolutionCandidateRef &&
+      executionAuthority.leafResolutionCandidateDigest ===
+        resolution.leafResolutionCandidateDigest &&
+      executionAuthority.implementationBindingRef ===
+        resolution.implementationBindingRef &&
+      executionAuthority.implementationBindingDigest ===
+        resolution.implementationBindingDigest &&
+      executionAuthority.implementationRef === resolution.implementationRef &&
+      executionAuthority.implementationOwnerRef ===
+        resolution.implementationOwnerProductId &&
+      executionAuthority.implementationOwnerRef === owner.coordinate.productId &&
+      resolution.implementationPublicationDigest ===
+        owner.coordinate.publicationDigest &&
+      resolution.packageName === owner.install.packageName &&
+      resolution.packageVersion === owner.install.packageVersion &&
+      owner.coordinate.declarationKind === "implementation_binding" &&
+      owner.coordinate.declarationRef === resolution.implementationBindingRef &&
+      executionAuthority.effectUri === WORKSITE_FILE_REPLACE_EFFECT_URI &&
+      executionAuthority.handlerRef === WORKSITE_FILE_REPLACE_HANDLER_REF &&
+      executionAuthority.handlerDigest === WORKSITE_FILE_REPLACE_HANDLER_DIGEST;
+  }
+
   function resolveWorkerContracts(
     resolution: Readonly<LeafInvocationResolution>,
     input: Readonly<Record<string, JsonValue>>,
@@ -988,19 +1197,30 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         if (failureValueKind === null) {
           return ownerRefusal("failure_contract_absent");
         }
+        const requiresWorksiteAuthority =
+          isWorksiteFileReplaceRequest(call.input) ||
+          call.occurrence.executionAuthority !== null;
         return invokeLeafOwnerBoundary({
           resolution: admittedResolution,
           value: call.input,
           inputDigest: call.inputDigest,
           failureValueKind,
-          verifyAuthority: async () =>
-            isAdmittedLeafInvocationPort(port) &&
-            implementationOwner(admittedResolution) !== null &&
-            hasAdmittedImplementationSetAtPrefix(
-              authority.prefix,
-              authority.implementationSet,
-            ) &&
-            await semantics.verifyInstalledContent(),
+          verifyAuthority: async () => {
+            const installedContentValid =
+              await semantics.verifyInstalledContent();
+            return isAdmittedLeafInvocationPort(port) &&
+              implementationOwner(admittedResolution) !== null &&
+              hasAdmittedImplementationSetAtPrefix(
+                authority.prefix,
+                authority.implementationSet,
+              ) &&
+              installedContentValid &&
+              (!requiresWorksiteAuthority ||
+                hasExactWorksiteLeafExecutionAuthority(
+                  call,
+                  admittedResolution,
+                ));
+          },
           validateSuccess: (value) => port.validateContractValue(
             admittedResolution.outputContractRef,
             "output",

@@ -3,6 +3,7 @@ import type {
   GraphFunction,
   GtlGraph,
 } from "../gtl/contracts.js";
+import { isWorksiteFileReplaceOutput } from "../gtl/worksite_c0.js";
 import type {
   ClosedLeafOwnerReceipt,
   LeafInvocationPort,
@@ -10,6 +11,13 @@ import type {
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import {
+  isWorksiteEffectAuthorization,
+  isWorksiteFileReplaceReceipt,
+  isWorksiteFileReplaceRequest,
+  isWorksiteObservation,
+  WORKSITE_FILE_REPLACE_EFFECT_URI,
+} from "../product/worksite_effect.js";
 import type { ActorRuntimeBinding } from "./actor_process.js";
 import {
   admitEvidence,
@@ -86,6 +94,47 @@ function isJsonRecord(
   value: JsonValue | undefined,
 ): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function worksiteEvidenceCandidate(
+  input: AdmitCCallResultInput,
+  resultCandidate: Readonly<Record<string, JsonValue>>,
+): CCallEvidenceCandidate | null {
+  if (
+    input.outcomeClass !== "leaf" ||
+    input.regime !== "F_D" ||
+    input.graphFunction.effects.includes(WORKSITE_FILE_REPLACE_EFFECT_URI) === false ||
+    !isWorksiteFileReplaceRequest(input.input)
+  ) return null;
+  const authorization = resultCandidate.authorization;
+  const receipt = resultCandidate.receipt;
+  const successorObservation = resultCandidate.successorObservation;
+  if (
+    !isWorksiteEffectAuthorization(authorization) ||
+    !isWorksiteFileReplaceReceipt(receipt) ||
+    !isWorksiteObservation(successorObservation)
+  ) return {
+    kind: "worksite_file_replace_evidence_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    implementationRef: input.cCall.implementationRef ?? "",
+    inputDigest: input.inputDigest,
+    outputDigest: sha256Canonical(resultCandidate),
+    request: input.input,
+    authorization: authorization as never,
+    receipt: receipt as never,
+    successorObservation: successorObservation as never,
+  };
+  return {
+    kind: "worksite_file_replace_evidence_candidate" as const,
+    schemaVersion: "5.0.0" as const,
+    implementationRef: input.cCall.implementationRef ?? "",
+    inputDigest: input.inputDigest,
+    outputDigest: sha256Canonical(resultCandidate),
+    request: input.input,
+    authorization,
+    receipt,
+    successorObservation,
+  };
 }
 
 interface CCallAdmissionContext {
@@ -369,6 +418,7 @@ function projectProbabilisticResultAtPrefix(
       programLocusRef: input.cCall.programLocusRef,
       taskOrdinal: input.cCall.taskOrdinal,
       attempt: input.cCall.attempt,
+      executionAuthority: null,
     },
     prefix,
     resolution: input.resolution,
@@ -645,6 +695,11 @@ function stageCCallResult(
     : null;
   const request = exchange?.request ?? null;
   const observation = exchange?.observation ?? null;
+  const worksiteEvidence = resultDisposition === "success"
+    ? worksiteEvidenceCandidate(input, resultCandidate)
+    : null;
+  const committedWorksiteOutput = worksiteEvidence !== null &&
+    isWorksiteFileReplaceOutput(resultCandidate);
   const evidenceCandidates: readonly CCallEvidenceCandidate[] =
     input.outcomeClass === "workflow"
       ? [deriveSubTraversalEvidence(
@@ -654,7 +709,9 @@ function stageCCallResult(
           sha256Canonical(resultCandidate),
         )]
       : input.regime === "F_D"
-        ? leafCandidate!.evidenceCandidates
+        ? worksiteEvidence === null
+          ? leafCandidate!.evidenceCandidates
+          : [worksiteEvidence]
         : payloadRejection !== null
           ? []
         : request === null || observation === null ||
@@ -701,6 +758,11 @@ function stageCCallResult(
           },
     );
     if (admitted.kind === "c_call_admission_rejection") {
+      if (committedWorksiteOutput) {
+        throw new TypeError(
+          "committed worksite evidence failed ABG admission",
+        );
+      }
       return stageBlockedOutcome(input, authorityPrefix, admitted);
     }
     evidence.push(admitted);
@@ -787,6 +849,11 @@ function stageCCallResult(
     stageBasis(input.basis, "result"),
   );
   if (result.kind === "c_call_admission_rejection") {
+    if (committedWorksiteOutput) {
+      throw new TypeError(
+        "committed worksite result failed ABG admission",
+      );
+    }
     return stageBlockedOutcome(input, authorityPrefix, result);
   }
   return deepFreeze({

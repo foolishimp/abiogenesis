@@ -52,6 +52,7 @@ import {
   rehydrateConstructionIntentForCursorAtDurablePrefix,
 } from "../abg/index.js";
 import { deriveCSourceContinuation } from "../gtl/source_path.js";
+import { resolveWorkflowFailureContract } from "../abg/c_call.js";
 
 export interface WorkflowLocusAuthority {
   readonly store: AbgEventStore;
@@ -295,17 +296,47 @@ export function beginWorkflowLocus(input: Readonly<{
         term as unknown as JsonValue,
       );
     }
-    const failureContracts = [
-      ...new Set(runtime.implementationSet.rows
-        .filter((row) => row.graphFunctionRef === term.graphFunctionRef)
-        .map((row) => row.failureContractRef)),
+    const childGraphFunction =
+      runtime.childTraversalBasis.graphFunctionByRef(term.graphFunctionRef);
+    const failureResolution = childGraphFunction === null
+      ? null
+      : resolveWorkflowFailureContract({
+          childGraphFunction,
+          programValidation: runtime.childTraversalBasis.programValidation,
+          implementationSet: runtime.implementationSet,
+        });
+    const childClosureContractRef = childGraphFunction?.declarations[
+      "abg.child_closure_contract"
     ];
-    if (failureContracts.length !== 1) {
+    const childClosureContract = childClosureContractRef === undefined
+      ? null
+      : runtime.childTraversalBasis.closureContractByRef(
+          childClosureContractRef,
+        );
+    const childClosureDigest = childClosureContract === null
+      ? null
+      : sha256Canonical(childClosureContract as unknown as JsonValue);
+    const judgmentPredicateRef =
+      runtime.graphFunction.declarations["abg.judgment_predicate"];
+    if (
+      childGraphFunction === null ||
+      failureResolution === null ||
+      failureResolution.kind !== "workflow_failure_contract_resolution" ||
+      childClosureContract === null ||
+      childClosureContract.closureScope !== "graph_call" ||
+      childClosureContract.resultContractRef !== term.outputCarrierRef ||
+      childClosureContract.predicateRef.length === 0 ||
+      judgmentPredicateRef === undefined || judgmentPredicateRef.length === 0 ||
+      childClosureDigest === null ||
+      runtime.childTraversalBasis.programValidation.closureContractDigests
+          .filter((digest) => digest === childClosureDigest).length !== 1
+    ) {
       return failWorkflow(input,
         runtime.predecessorPrefix,
         `workflow-contract-${ordinal}`,
         "diagnostic://abiogenesis/hog/workflow-failure-contract-ambiguous@5",
-        failureContracts as unknown as JsonValue,
+        (failureResolution ?? { childGraphFunctionRef: term.graphFunctionRef }) as
+          unknown as JsonValue,
       );
     }
     const opened = Abg.openCCall({
@@ -318,6 +349,9 @@ export function beginWorkflowLocus(input: Readonly<{
       program: runtime.program,
       graphFunction: runtime.graphFunction,
       graph: runtime.graph,
+      childGraphFunction,
+      childClosureContract,
+      programValidation: runtime.childTraversalBasis.programValidation,
       proposal: {
         kind: "workflow_c_call_proposal",
         schemaVersion: "5.0.0",
@@ -329,9 +363,8 @@ export function beginWorkflowLocus(input: Readonly<{
         childGraphFunctionRef: term.graphFunctionRef,
         inputContractRef: term.inputCarrierRef,
         outputContractRef: term.outputCarrierRef,
-        failureContractRef: failureContracts[0]!,
-        judgmentPredicateRef:
-          runtime.graphFunction.declarations["abg.judgment_predicate"] ?? "",
+        failureContractRef: failureResolution.failureContractRef,
+        judgmentPredicateRef,
       },
       basis: admissionBasis(
         {
@@ -622,7 +655,16 @@ export function completeWorkflowLocus(
     };
   }
   const childSucceeded = child.disposition === "closed";
-  const childValue = childSucceeded ? actionValue ?? child.resultValue : child.resultValue;
+  const failureDiagnosticRef = child.diagnosticRef ??
+    "diagnostic://abiogenesis/hog/child-traversal-blocked@5";
+  const childValue = childSucceeded
+    ? actionValue ?? child.resultValue
+    : deepFreeze({
+        kind: failureKind,
+        schemaVersion: "5.0.0" as const,
+        failureClass: "child_traversal_failed",
+        diagnosticRef: failureDiagnosticRef,
+      });
   if (!isJsonRecord(childValue)) {
     return failWorkflow(frame,
       foldback.successorPrefix,
@@ -631,8 +673,6 @@ export function completeWorkflowLocus(
       childValue,
     );
   }
-  const failureDiagnosticRef = child.diagnosticRef ??
-    "diagnostic://abiogenesis/hog/child-traversal-blocked@5";
   const resultOutcome = Abg.admitCCallResult({
     outcomeClass: "workflow",
     resultDisposition: childSucceeded ? "success" : "failure",

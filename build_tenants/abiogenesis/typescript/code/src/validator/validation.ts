@@ -1654,6 +1654,49 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     }
   }
   for (const graphFunction of graphFunctions) {
+    const declaredFailureContractRef =
+      graphFunction.declarations["abg.failure_contract"];
+    const declaredRawResultContractRef =
+      graphFunction.declarations["abg.raw_result_contract"];
+    if (declaredFailureContractRef !== undefined) {
+      const declaredFailureContract = contracts.find(
+        (candidate) =>
+          candidate.contractRef === declaredFailureContractRef,
+      );
+      if (
+        declaredFailureContractRef.length === 0 ||
+        declaredFailureContract === undefined ||
+        declaredFailureContract.contractKind !== "failure"
+      ) {
+        diagnostics.push({
+          code: "missing_contract",
+          path:
+            `$.graphFunctions[${graphFunction.name}].declarations[abg.failure_contract]`,
+          message:
+            "workflow failure declaration must name one published failure contract",
+        });
+      }
+    }
+    if (declaredRawResultContractRef !== undefined) {
+      const declaredRawResultContract = contracts.find(
+        (candidate) =>
+          candidate.contractRef === declaredRawResultContractRef,
+      );
+      if (
+        declaredRawResultContractRef.length === 0 ||
+        declaredRawResultContract === undefined ||
+        declaredRawResultContract.contractKind !== "output" ||
+        graphFunction.outputs.includes(declaredRawResultContractRef)
+      ) {
+        diagnostics.push({
+          code: "missing_contract",
+          path:
+            `$.graphFunctions[${graphFunction.name}].declarations[abg.raw_result_contract]`,
+          message:
+            "raw result declaration must name one published output contract distinct from the GraphFunction output",
+        });
+      }
+    }
     const childClosureContractRef =
       graphFunction.declarations["abg.child_closure_contract"];
     if (childClosureContractRef === undefined) continue;

@@ -1,0 +1,14 @@
+{
+  "kind": "axiom-indexer.binding-set",
+  "schema_version": 1,
+  "bindings": [
+    {
+      "uri_prefix": "repo://abiogenesis/",
+      "path": "/Users/jim/src/apps/abiogenesis"
+    },
+    {
+      "uri_prefix": "stdo://releases/v2.5.0-rc.1/standards/",
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.0-rc.1/standards"
+    }
+  ]
+}

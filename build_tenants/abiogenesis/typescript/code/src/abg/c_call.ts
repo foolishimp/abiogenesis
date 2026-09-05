@@ -1,4 +1,9 @@
-import type { GraphFunction, GtlGraph, GtlProgram } from "../gtl/contracts.js";
+import type {
+  ClosureContract,
+  GraphFunction,
+  GtlGraph,
+  GtlProgram,
+} from "../gtl/contracts.js";
 import { isExecutableCLeaf, isInteractionCLeaf } from "../gtl/c_algebra.js";
 import {
   resolveCProgramLocus,
@@ -15,8 +20,13 @@ import {
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
+  isProgramValidation,
+  type ProgramValidation,
+} from "../validator/validation.js";
+import {
   hasAdmittedExecutionBasisAtPrefix,
   hasAdmittedImplementationSetAtPrefix,
+  isAdmittedImplementationSet,
   rehydrateAdmittedImplementationSetAtPrefix,
   rehydrateAdmittedInteractionSetAtPrefix,
   rehydrateExecutionBasisAtPrefix,
@@ -92,6 +102,19 @@ import {
   classifyWorkerTransportFailure,
   type WorkerTransportFailureClass,
 } from "./transport_contracts.js";
+import {
+  isWorksiteEffectAuthorization,
+  isWorksiteFileReplaceReceipt,
+  isWorksiteFileReplaceRequest,
+  isWorksiteObservation,
+  WORKSITE_FILE_REPLACE_EFFECT_URI,
+  WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
+  WORKSITE_FILE_REPLACE_HANDLER_REF,
+  type WorksiteEffectAuthorization,
+  type WorksiteFileReplaceReceipt,
+  type WorksiteFileReplaceRequest,
+  type WorksiteObservation,
+} from "../product/worksite_effect.js";
 
 export interface CCall {
   readonly kind: "c_call";
@@ -348,6 +371,9 @@ export type CCallOpenInput = CCallOpenCommonInput & (
       readonly locusClass: "workflow";
       readonly proposal: WorkflowCCallProposal;
       readonly implementationSet: AdmittedImplementationSet;
+      readonly childGraphFunction: Readonly<GraphFunction>;
+      readonly childClosureContract: Readonly<ClosureContract>;
+      readonly programValidation: ProgramValidation;
     }>
 );
 
@@ -361,6 +387,111 @@ export interface CCallOpenRefusal {
     | "locus_mismatch"
     | "scope_mismatch";
   readonly message: string;
+}
+
+export interface WorkflowFailureContractResolution {
+  readonly kind: "workflow_failure_contract_resolution";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "resolved";
+  readonly childGraphFunctionRef: string;
+  readonly childGraphFunctionDigest: Sha256Digest;
+  readonly failureContractRef: string;
+  readonly source: "declared" | "declared_row_agreement" | "legacy_row";
+}
+
+export interface WorkflowFailureContractRefusal {
+  readonly kind: "workflow_failure_contract_refusal";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "refused";
+  readonly code: "workflow-failure-contract-ambiguous";
+  readonly message: string;
+}
+
+export type WorkflowFailureContractResult =
+  | WorkflowFailureContractResolution
+  | WorkflowFailureContractRefusal;
+
+/** Resolves one child's published declaration and admitted legacy rows. */
+export function resolveWorkflowFailureContract(input: Readonly<{
+  childGraphFunction: Readonly<GraphFunction>;
+  programValidation: ProgramValidation;
+  implementationSet: AdmittedImplementationSet;
+}>): WorkflowFailureContractResult {
+  const { childGraphFunction, programValidation, implementationSet } = input;
+  const childGraphFunctionDigest = sha256Canonical(
+    childGraphFunction as unknown as JsonValue,
+  );
+  const declared = childGraphFunction.declarations["abg.failure_contract"];
+  const rowRefs = implementationSet.rows
+    .filter((row) => row.graphFunctionRef === childGraphFunction.name)
+    .map((row) => row.failureContractRef);
+  const distinctRowRefs = [...new Set(rowRefs)];
+  const validationOwnsChild = isProgramValidation(programValidation) &&
+    programValidation.graphFunctionDigests.filter(
+      (digest) => digest === childGraphFunctionDigest,
+    ).length === 1;
+  const setUsesValidation = isAdmittedImplementationSet(implementationSet) &&
+    implementationSet.programValidationRef === programValidation.validationRef;
+  const failureContractRef = declared === undefined
+    ? distinctRowRefs.length === 1 ? distinctRowRefs[0] : undefined
+    : rowRefs.length === 0 || rowRefs.every((ref) => ref === declared)
+    ? declared
+    : undefined;
+  if (
+    !validationOwnsChild || !setUsesValidation ||
+    failureContractRef === undefined || failureContractRef.length === 0 ||
+    (declared === undefined && rowRefs.length === 0)
+  ) {
+    return deepFreeze({
+      kind: "workflow_failure_contract_refusal" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "refused" as const,
+      code: "workflow-failure-contract-ambiguous" as const,
+      message:
+        "workflow child requires one exact published declaration or one agreeing admitted legacy-row failure contract",
+    });
+  }
+  return deepFreeze({
+    kind: "workflow_failure_contract_resolution" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "resolved" as const,
+    childGraphFunctionRef: childGraphFunction.name,
+    childGraphFunctionDigest,
+    failureContractRef,
+    source: declared === undefined
+      ? "legacy_row" as const
+      : rowRefs.length === 0
+      ? "declared" as const
+      : "declared_row_agreement" as const,
+  });
+}
+
+function workflowFailureContractRef(
+  childGraphFunctionRef: string,
+  implementationSet: AdmittedImplementationSet,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
+): string | null {
+  if (childGraphFunction !== undefined && programValidation !== undefined) {
+    if (childGraphFunction.name !== childGraphFunctionRef) return null;
+    const resolved = resolveWorkflowFailureContract({
+      childGraphFunction,
+      programValidation,
+      implementationSet,
+    });
+    return resolved.kind === "workflow_failure_contract_resolution"
+      ? resolved.failureContractRef
+      : null;
+  }
+  if (childGraphFunction !== undefined || programValidation !== undefined) {
+    return null;
+  }
+  const legacy = new Set(
+    implementationSet.rows
+      .filter((row) => row.graphFunctionRef === childGraphFunctionRef)
+      .map((row) => row.failureContractRef),
+  );
+  return legacy.size === 1 ? [...legacy][0]! : null;
 }
 
 export interface DeterministicEvidenceCandidate {
@@ -422,6 +553,7 @@ export interface ProbabilisticTransportEvidenceCandidate {
   readonly transportFailureClass: string | null;
   readonly processStatus: number | null;
   readonly processSignal: string | null;
+  readonly timeoutClass: "absolute" | "inactivity" | null;
   readonly timedOut: boolean;
   readonly exitObserved: boolean;
   readonly terminationConfirmed: boolean;
@@ -441,9 +573,22 @@ export interface ProbabilisticTransportEvidenceCandidate {
   }>;
 }
 
+export interface WorksiteFileReplaceEvidenceCandidate {
+  readonly kind: "worksite_file_replace_evidence_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly implementationRef: string;
+  readonly inputDigest: Sha256Digest;
+  readonly outputDigest: Sha256Digest;
+  readonly request: WorksiteFileReplaceRequest;
+  readonly authorization: WorksiteEffectAuthorization;
+  readonly receipt: WorksiteFileReplaceReceipt;
+  readonly successorObservation: WorksiteObservation;
+}
+
 export type CCallEvidenceCandidate =
   | DeterministicEvidenceCandidate
   | ProbabilisticTransportEvidenceCandidate
+  | WorksiteFileReplaceEvidenceCandidate
   | SubTraversalEvidenceCandidate;
 
 export interface ProbabilisticResultEvidenceBasis {
@@ -516,6 +661,7 @@ export interface AdmittedCCallEvidence {
     | "deterministic"
     | "interaction_request"
     | "probabilistic_transport"
+    | "worksite_file_replace"
     | "sub_traversal";
   readonly contractRef: string;
   readonly implementationRef: string | null;
@@ -544,6 +690,7 @@ export interface AdmittedCCallEvidence {
   readonly transportFailureClass?: string | null;
   readonly processStatus?: number | null;
   readonly processSignal?: string | null;
+  readonly timeoutClass?: "absolute" | "inactivity" | null;
   readonly timedOut?: boolean;
   readonly exitObserved?: boolean;
   readonly terminationConfirmed?: boolean;
@@ -570,6 +717,10 @@ export interface AdmittedCCallEvidence {
   readonly childClosureRef?: string | null;
   readonly childReasonRef?: string | null;
   readonly childTerminalEventRef?: string;
+  readonly request?: WorksiteFileReplaceRequest;
+  readonly authorization?: WorksiteEffectAuthorization;
+  readonly receipt?: WorksiteFileReplaceReceipt;
+  readonly successorObservation?: WorksiteObservation;
   readonly admissionEventRef: string;
 }
 
@@ -1564,6 +1715,9 @@ function projectAdmittedProbabilisticTransport(
       !isWorkerTransportFailureClass(source.transportFailureClass)) ||
     (typeof source.processStatus !== "number" && source.processStatus !== null) ||
     (typeof source.processSignal !== "string" && source.processSignal !== null) ||
+    (source.timeoutClass !== null &&
+      source.timeoutClass !== "absolute" &&
+      source.timeoutClass !== "inactivity") ||
     typeof source.timedOut !== "boolean" ||
     typeof source.exitObserved !== "boolean" ||
     typeof source.terminationConfirmed !== "boolean" ||
@@ -1581,6 +1735,7 @@ function projectAdmittedProbabilisticTransport(
     typeof source.artifactDigests.stderr !== "string"
   ) return null;
   if (
+    source.timedOut !== (source.timeoutClass !== null) ||
     ((source.candidateRef === null) !== (source.candidateDigest === null)) ||
     (source.candidateDigest !== null &&
       (!isSha256Digest(source.candidateDigest) ||
@@ -1713,6 +1868,7 @@ function projectAdmittedProbabilisticTransport(
     artifact.payload.failureClass === source.transportFailureClass &&
     artifact.payload.processStatus === source.processStatus &&
     artifact.payload.processSignal === source.processSignal &&
+    artifact.payload.timeoutClass === source.timeoutClass &&
     artifact.payload.timedOut === source.timedOut &&
     artifact.payload.exitObserved === source.exitObserved &&
     artifact.payload.terminationConfirmed === source.terminationConfirmed &&
@@ -1732,9 +1888,21 @@ function projectAdmittedProbabilisticTransport(
     event.aggregateId === source.actorInvocationRef ||
     event.parentAggregateId === source.actorInvocationRef
   );
-  const timeoutObserved = actorRows.some((event) =>
-    event.kind === "actor_process_timeout_observed"
+  const timeoutRows = actorRows.filter((event) =>
+    event.kind === "actor_process_timeout_observed" && isJsonRecord(event.payload)
   );
+  const timeoutPayload = timeoutRows.length === 1
+    ? timeoutRows[0]?.payload as Readonly<Record<string, JsonValue>>
+    : null;
+  const timeoutClass = timeoutPayload?.timeoutClass ?? null;
+  const timeoutLimitMatchesBinding = timeoutPayload === null ||
+    timeoutPayload.timeoutMs === (
+      timeoutClass === "inactivity"
+        ? binding.payload.timeoutMs
+        : timeoutClass === "absolute"
+          ? binding.payload.absoluteTimeoutMs
+          : null
+    );
   const signals = actorRows.filter((event) =>
     event.kind === "actor_process_signal_requested" && isJsonRecord(event.payload)
   ).map((event) => (event.payload as Readonly<Record<string, JsonValue>>).signal);
@@ -1760,7 +1928,9 @@ function projectAdmittedProbabilisticTransport(
   if (
     classified !== source.transportFailureClass ||
     source.transportDisposition !== (classified === null ? "success" : "failure") ||
-    source.timedOut !== timeoutObserved ||
+    source.timedOut !== (timeoutRows.length === 1) ||
+    source.timeoutClass !== timeoutClass ||
+    !timeoutLimitMatchesBinding ||
     sha256Canonical(signals as unknown as JsonValue) !==
       sha256Canonical(source.signalSequence as JsonValue) ||
     streamBytes("actor_process_stdout_observed") !== source.stdoutByteLength ||
@@ -1785,6 +1955,7 @@ function projectAdmittedProbabilisticTransport(
     transportLane: source.transportLane,
     status: source.processStatus,
     signal: source.processSignal,
+    timeoutClass: source.timeoutClass,
     timedOut: source.timedOut,
     exitObserved: source.exitObserved,
     terminationConfirmed: source.terminationConfirmed,
@@ -2305,6 +2476,8 @@ function projectOpenedWorkflowCCallCarrier(
   cCallRef: string,
   sourceCursor: TraversalCursorCandidate,
   graphFunction: Readonly<GraphFunction>,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
 ): CCall | null {
   if (
     !isMaterializedGtlGraph(graph) || cCallRef.length === 0 ||
@@ -2360,13 +2533,13 @@ function projectOpenedWorkflowCCallCarrier(
       basis.rootImplementationSetDigest ||
     interactionSet.interactionSetDigest !== basis.rootInteractionSetDigest
   ) return null;
-  const childFailureContractRefs = new Set(
-    implementationSet.rows
-      .filter((row) => row.graphFunctionRef === declaredTerm.graphFunctionRef)
-      .map((row) => row.failureContractRef),
+  const failureContractRef = workflowFailureContractRef(
+    declaredTerm.graphFunctionRef,
+    implementationSet,
+    childGraphFunction,
+    programValidation,
   );
-  if (childFailureContractRefs.size !== 1) return null;
-  const failureContractRef = [...childFailureContractRefs][0]!;
+  if (failureContractRef === null) return null;
   const judgmentPredicateRef =
     graphFunction.declarations["abg.judgment_predicate"];
   const events = runtimeEventsFromValidatedPrefix(prefix);
@@ -2533,6 +2706,8 @@ export function projectOpenedCCallCarrier(
   cCallRef: string,
   sourceCursor?: TraversalCursorCandidate,
   graphFunction?: Readonly<GraphFunction>,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
 ): CCall | null {
   const prefixEvents = runtimeEventsFromValidatedPrefix(prefix);
   if (
@@ -2553,6 +2728,8 @@ export function projectOpenedCCallCarrier(
         cCallRef,
         sourceCursor,
         graphFunction,
+        childGraphFunction,
+        programValidation,
       ));
 }
 
@@ -2562,6 +2739,8 @@ export function projectOpenedCCallCarrierAtPrefix(
   cCallRef: string,
   sourceCursor?: TraversalCursorCandidate,
   graphFunction?: Readonly<GraphFunction>,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
 ): CCall | null {
   const leaf = projectOpenedLeafCCallCarrier(prefix, graph, cCallRef);
   return leaf ?? (sourceCursor === undefined || graphFunction === undefined
@@ -2572,6 +2751,8 @@ export function projectOpenedCCallCarrierAtPrefix(
         cCallRef,
         sourceCursor,
         graphFunction,
+        childGraphFunction,
+        programValidation,
       ));
 }
 
@@ -3208,6 +3389,7 @@ function revalidateProbabilisticResultCarrier(
     !hasExactRecordFields(carrierValue.occurrence, [
       "attempt",
       "cCallRef",
+      "executionAuthority",
       "frameId",
       "graphCallId",
       "programLocusRef",
@@ -3277,6 +3459,7 @@ function revalidateProbabilisticResultCarrier(
       ).slice("sha256:".length)}` ||
     capability.implementationSetRef !== cCall.implementationSetRef ||
     occurrence.cCallRef !== cCall.cCallRef ||
+    occurrence.executionAuthority !== null ||
     occurrence.runId !== cCall.runId ||
     occurrence.graphCallId !== cCall.graphCallId ||
     occurrence.frameId !== cCall.frameId ||
@@ -3366,6 +3549,7 @@ export function deriveProbabilisticTransportEvidence(
     transportFailureClass: observation.failureClass,
     processStatus: observation.processStatus,
     processSignal: observation.processSignal,
+    timeoutClass: observation.timeoutClass,
     timedOut: observation.timedOut,
     exitObserved: observation.exitObserved,
     terminationConfirmed: observation.terminationConfirmed,
@@ -3692,6 +3876,8 @@ export function rehydrateWorkflowCCall(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
   cCallValue: Readonly<Record<string, JsonValue>>,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
 ): CCall | null {
   return rehydrateWorkflowCCallAtPrefix(
     selectValidatedRuntimeEventPrefix(store.readAll()),
@@ -3702,6 +3888,8 @@ export function rehydrateWorkflowCCall(
     graph,
     sourceCursor,
     cCallValue,
+    childGraphFunction,
+    programValidation,
   );
 }
 
@@ -3714,6 +3902,8 @@ export function rehydrateWorkflowCCallAtPrefix(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursorCandidate,
   cCallValue: Readonly<Record<string, JsonValue>>,
+  childGraphFunction?: Readonly<GraphFunction>,
+  programValidation?: ProgramValidation,
 ): CCall | null {
   const declaredTerm = resolveCProgramTermAtSourcePath(
     graph.template,
@@ -3747,17 +3937,16 @@ export function rehydrateWorkflowCCallAtPrefix(
   ) {
     return null;
   }
-  const failureContractRefs = new Set(
-    implementationSet.rows
-      .filter((row) => row.graphFunctionRef === declaredTerm.graphFunctionRef)
-      .map((row) => row.failureContractRef),
+  const failureContractRef = workflowFailureContractRef(
+    declaredTerm.graphFunctionRef,
+    implementationSet,
+    childGraphFunction,
+    programValidation,
   );
-  const failureContractRef = [...failureContractRefs][0];
   const judgmentPredicateRef =
     graphFunction.declarations["abg.judgment_predicate"];
   if (
-    failureContractRefs.size !== 1 ||
-    failureContractRef === undefined ||
+    failureContractRef === null ||
     judgmentPredicateRef === undefined
   ) {
     return null;
@@ -5007,6 +5196,9 @@ function openWorkflowCCallLocus(
   graphFunction: Readonly<GraphFunction>,
   graph: Readonly<GtlGraph>,
   proposal: WorkflowCCallProposal,
+  childGraphFunction: Readonly<GraphFunction>,
+  childClosureContract: Readonly<ClosureContract>,
+  programValidation: ProgramValidation,
   basis: RuntimeAdmissionBasis,
 ): CCallAdmission | CCallOpenRefusal {
   const openingAuthorityPrefix = opening.authorityPrefix;
@@ -5026,10 +5218,15 @@ function openWorkflowCCallLocus(
     openingAuthorityPrefix,
     implementationSet.implementationSetRef,
   );
-  const childFailureContractRefs = new Set(
-    (exactImplementationSet?.rows ?? [])
-      .filter((row) => row.graphFunctionRef === proposal.childGraphFunctionRef)
-      .map((row) => row.failureContractRef),
+  const failureResolution = exactImplementationSet === null
+    ? null
+    : resolveWorkflowFailureContract({
+        childGraphFunction,
+        programValidation,
+        implementationSet: exactImplementationSet,
+      });
+  const childClosureDigest = sha256Canonical(
+    childClosureContract as unknown as JsonValue,
   );
   if (
     exactImplementationSet === null ||
@@ -5038,8 +5235,22 @@ function openWorkflowCCallLocus(
       executionBasis.rootImplementationSetRef ||
     implementationSet.implementationSetDigest !==
       executionBasis.rootImplementationSetDigest ||
-    childFailureContractRefs.size !== 1 ||
-    !childFailureContractRefs.has(proposal.failureContractRef) ||
+    failureResolution === null ||
+    failureResolution.kind !== "workflow_failure_contract_resolution" ||
+    failureResolution.failureContractRef !== proposal.failureContractRef ||
+    childGraphFunction.name !== proposal.childGraphFunctionRef ||
+    failureResolution.childGraphFunctionDigest !==
+      sha256Canonical(childGraphFunction as unknown as JsonValue) ||
+    childGraphFunction.declarations["abg.child_closure_contract"] !==
+      childClosureContract.closureContractRef ||
+    childClosureContract.closureScope !== "graph_call" ||
+    childClosureContract.resultContractRef !== proposal.outputContractRef ||
+    graphFunction.declarations["abg.judgment_predicate"] !==
+      proposal.judgmentPredicateRef ||
+    programValidation.closureContractDigests.filter(
+      (digest) => digest === childClosureDigest,
+    ).length !== 1 ||
+    !program.callableMembership.includes(childGraphFunction.name) ||
     proposal.kind !== "workflow_c_call_proposal" ||
     proposal.schemaVersion !== "5.0.0" ||
     proposal.traversalScopeRef !== scope.scopeRef ||
@@ -5059,8 +5270,6 @@ function openWorkflowCCallLocus(
     declaredTerm.graphFunctionRef !== proposal.childGraphFunctionRef ||
     declaredTerm.inputCarrierRef !== proposal.inputContractRef ||
     declaredTerm.outputCarrierRef !== proposal.outputContractRef ||
-    graphFunction.declarations["abg.judgment_predicate"] !==
-      proposal.judgmentPredicateRef ||
     (declaredBatchRef !== null && typeof declaredBatchRef !== "string")
   ) {
     return openRefusal(
@@ -5181,6 +5390,9 @@ export function openCCall(
         input.graphFunction,
         input.graph,
         input.proposal,
+        input.childGraphFunction,
+        input.childClosureContract,
+        input.programValidation,
         input.basis,
       );
   }
@@ -5578,6 +5790,104 @@ export function admitEvidence(
     cCall.callClass === "leaf" &&
     cCall.regime === "F_D" &&
     candidate.implementationRef === cCall.implementationRef;
+  const worksiteBasis = candidate.kind === "worksite_file_replace_evidence_candidate"
+    ? rehydrateExecutionBasisAtPrefix(prefix, cCall.basisId)
+    : null;
+  const worksiteImplementationSet = worksiteBasis === null
+    ? null
+    : rehydrateAdmittedImplementationSetAtPrefix(
+        prefix,
+        worksiteBasis.implementationSetRef,
+      );
+  const worksiteResolution = worksiteImplementationSet === null
+    ? null
+    : worksiteImplementationSet.rows.find((row) =>
+      row.graphFunctionRef === cCall.graphFunctionRef &&
+      row.implementationBindingRef === cCall.implementationBindingRef &&
+      row.implementationRef === cCall.implementationRef
+    ) ?? null;
+  const worksiteValid = candidate.kind === "worksite_file_replace_evidence_candidate" &&
+    cCall.callClass === "leaf" &&
+    cCall.regime === "F_D" &&
+    candidate.implementationRef === cCall.implementationRef &&
+    isWorksiteFileReplaceRequest(candidate.request) &&
+    isWorksiteEffectAuthorization(candidate.authorization) &&
+    isWorksiteFileReplaceReceipt(candidate.receipt) &&
+    isWorksiteObservation(candidate.successorObservation) &&
+    worksiteBasis !== null &&
+    worksiteImplementationSet !== null &&
+    worksiteResolution !== null &&
+    sha256Canonical(candidate.request as unknown as JsonValue) ===
+      worksiteBasis.rawInputDigest &&
+    candidate.request.workspaceBindingIdentity ===
+      worksiteBasis.workspaceBindingId &&
+    candidate.request.workspaceBindingDigest ===
+      worksiteBasis.workspaceBindingDigest &&
+    candidate.authorization.actorRef === worksiteBasis.actorRef &&
+    candidate.authorization.workspaceBindingIdentity ===
+      worksiteBasis.workspaceBindingId &&
+    candidate.authorization.workspaceBindingDigest ===
+      worksiteBasis.workspaceBindingDigest &&
+    candidate.authorization.executionBasisRef === worksiteBasis.basisRef &&
+    candidate.authorization.executionBasisDigest === worksiteBasis.basisDigest &&
+    candidate.authorization.cCallRef === cCall.cCallRef &&
+    candidate.authorization.cCallDigest === cCall.cCallDigest &&
+    candidate.authorization.programRef === worksiteBasis.programRef &&
+    candidate.authorization.programDigest === worksiteBasis.programDigest &&
+    candidate.authorization.graphFunctionRef === cCall.graphFunctionRef &&
+    candidate.authorization.graphFunctionDigest ===
+      worksiteBasis.graphFunctionDigest &&
+    candidate.authorization.implementationSetRef ===
+      worksiteImplementationSet.implementationSetRef &&
+    candidate.authorization.implementationSetDigest ===
+      worksiteImplementationSet.implementationSetDigest &&
+    candidate.authorization.leafResolutionCandidateRef ===
+      worksiteResolution.leafResolutionCandidateRef &&
+    candidate.authorization.leafResolutionCandidateDigest ===
+      worksiteResolution.leafResolutionCandidateDigest &&
+    candidate.authorization.implementationBindingRef ===
+      cCall.implementationBindingRef &&
+    candidate.authorization.implementationBindingDigest ===
+      worksiteResolution.implementationBindingDigest &&
+    candidate.authorization.implementationRef === cCall.implementationRef &&
+    candidate.authorization.implementationOwnerRef ===
+      worksiteResolution.implementationOwnerProductId &&
+    candidate.authorization.effectUri === WORKSITE_FILE_REPLACE_EFFECT_URI &&
+    candidate.authorization.handlerRef === WORKSITE_FILE_REPLACE_HANDLER_REF &&
+    candidate.authorization.handlerDigest ===
+      WORKSITE_FILE_REPLACE_HANDLER_DIGEST &&
+    candidate.authorization.subjectRef === candidate.request.subject.subjectRef &&
+    candidate.authorization.subjectDigest ===
+      candidate.request.subject.subjectDigest &&
+    candidate.authorization.territoryRef ===
+      candidate.request.territory.territoryRef &&
+    candidate.authorization.territoryDigest ===
+      candidate.request.territory.territoryDigest &&
+    candidate.authorization.capabilityGrantRef ===
+      candidate.request.capabilityGrant.grantRef &&
+    candidate.authorization.capabilityGrantDigest ===
+      candidate.request.capabilityGrant.grantDigest &&
+    candidate.authorization.predecessorObservationRef ===
+      candidate.request.predecessorObservation.observationRef &&
+    candidate.authorization.predecessorObservationDigest ===
+      candidate.request.predecessorObservation.observationDigest &&
+    candidate.receipt.authorizationRef === candidate.authorization.authorizationRef &&
+    candidate.receipt.authorizationDigest === candidate.authorization.authorizationDigest &&
+    candidate.receipt.beforeObservationRef ===
+      candidate.request.predecessorObservation.observationRef &&
+    candidate.receipt.beforeObservationDigest ===
+      candidate.request.predecessorObservation.observationDigest &&
+    candidate.receipt.afterObservationRef === candidate.successorObservation.observationRef &&
+    candidate.receipt.afterObservationDigest === candidate.successorObservation.observationDigest &&
+    candidate.successorObservation.workspaceBindingIdentity ===
+      worksiteBasis.workspaceBindingId &&
+    candidate.successorObservation.subjectRef === candidate.request.subject.subjectRef &&
+    candidate.successorObservation.subjectDigest === candidate.request.subject.subjectDigest &&
+    candidate.successorObservation.state === "file" &&
+    candidate.successorObservation.fileDigest === candidate.request.replacementDigest &&
+    candidate.successorObservation.byteLength ===
+      candidate.request.replacementByteLength &&
+    candidate.receipt.writtenDigest === candidate.request.replacementDigest;
   const revalidatedProbabilisticCarrier =
     candidate.kind === "probabilistic_transport_evidence_candidate" &&
       probabilisticResultBasis !== null
@@ -5634,6 +5944,10 @@ export function admitEvidence(
     (candidate.processSignal === null ||
       (typeof candidate.processSignal === "string" && candidate.processSignal.length > 0)) &&
     typeof candidate.timedOut === "boolean" &&
+    (candidate.timeoutClass === null ||
+      candidate.timeoutClass === "absolute" ||
+      candidate.timeoutClass === "inactivity") &&
+    candidate.timedOut === (candidate.timeoutClass !== null) &&
     typeof candidate.exitObserved === "boolean" &&
     typeof candidate.terminationConfirmed === "boolean" &&
     candidate.exitObserved === candidate.terminationConfirmed &&
@@ -5670,7 +5984,7 @@ export function admitEvidence(
     (owner.phase.phase !== "selected_no_evidence" &&
       owner.phase.phase !== "evidencing") ||
     !commonValid ||
-    (!deterministicValid && !probabilisticValid && !subTraversalValid) ||
+    (!deterministicValid && !probabilisticValid && !worksiteValid && !subTraversalValid) ||
     contractRef !== cCall.evidenceContractRef
   ) {
     return rejection(
@@ -5718,6 +6032,7 @@ export function admitEvidence(
     transportFailureClass: candidate.transportFailureClass,
     processStatus: candidate.processStatus,
     processSignal: candidate.processSignal,
+    timeoutClass: candidate.timeoutClass,
     timedOut: candidate.timedOut,
     exitObserved: candidate.exitObserved,
     terminationConfirmed: candidate.terminationConfirmed,
@@ -5729,6 +6044,17 @@ export function admitEvidence(
     stdoutByteLength: candidate.stdoutByteLength,
     stderrByteLength: candidate.stderrByteLength,
     artifactDigests: candidate.artifactDigests,
+  } : candidate.kind === "worksite_file_replace_evidence_candidate" ? {
+    cCallRef: cCall.cCallRef,
+    evidenceClass: "worksite_file_replace" as const,
+    contractRef,
+    implementationRef: candidate.implementationRef,
+    inputDigest: candidate.inputDigest,
+    outputDigest: candidate.outputDigest,
+    request: candidate.request,
+    authorization: candidate.authorization,
+    receipt: candidate.receipt,
+    successorObservation: candidate.successorObservation,
   } : {
     cCallRef: cCall.cCallRef,
     evidenceClass: "sub_traversal" as const,
@@ -5779,7 +6105,7 @@ export function admitEvidence(
     graphFunctionRef: cCall.graphFunctionRef,
     graphCallId: cCall.graphCallId,
     frameId: cCall.frameId,
-    payload: { evidenceRef, evidenceDigest, ...body },
+    payload: { evidenceRef, evidenceDigest, ...body } as unknown as JsonValue,
     })],
   )[0]!;
   const admitted = deepFreeze({

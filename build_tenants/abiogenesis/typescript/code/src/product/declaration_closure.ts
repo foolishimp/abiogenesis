@@ -460,7 +460,9 @@ function resolveDeclarationClosure(
     }
     for (const key of [
       "abg.evidence_contract",
+      "abg.failure_contract",
       "abg.judgment_contract",
+      "abg.raw_result_contract",
       "abg.transition_contract",
     ]) {
       const ref = graphFunction.declarations[key];

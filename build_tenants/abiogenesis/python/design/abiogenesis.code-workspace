@@ -41,6 +41,12 @@
 		},
 		{
 			"path": "../../../../../odd_glc"
+		},
+		{
+			"path": "../../../../../stdo_representation"
+		},
+		{
+			"path": "../../../../../axiom_indexer"
 		}
 	],
 	"settings": {
