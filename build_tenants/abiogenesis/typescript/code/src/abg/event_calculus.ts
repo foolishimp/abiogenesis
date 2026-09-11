@@ -16,6 +16,8 @@ import {
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type { RootEventKind, RuntimeEvent } from "./event_store.js";
+import { projectWorksiteFailureBasis } from "./c_call_outcome.js";
+import { WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
 
 interface EventCalculusEffectRefs {
   readonly initiates: readonly string[];
@@ -465,11 +467,44 @@ export function projectWorksiteTransitionForResult(
   priorEvents: readonly RuntimeEvent[],
 ): Readonly<{
   before: string;
-  after: string;
-  successorObservation: WorksiteObservation;
+  after: string | null;
+  successorObservation: WorksiteObservation | null;
 }> | null {
   if (!isRecord(event.payload)) return null;
   const evidenceRefs = stringArrayField(event, "evidenceRefs");
+  if (event.payload.resultClass === "failure") {
+    const { resultRef, resultDigest, ...resultBody } = event.payload;
+    const evidenceRows = priorEvents.filter(row =>
+      row.kind === "c_call_evidenced" && row.aggregateId === event.aggregateId &&
+      isRecord(row.payload) && evidenceRefs.includes(row.payload.evidenceRef as string));
+    const evidenceEvent = evidenceRows.length === 1 ? evidenceRows[0]! : null;
+    if (event.kind !== "c_call_result_admitted" || evidenceRefs.length !== 1 ||
+      event.payload.cCallRef !== event.aggregateId ||
+      event.payload.contractRef !== WORKSITE_C0_IDS.failureContractRef ||
+      event.payload.valueKind !== "worksite_effect_refusal" ||
+      resultDigest !== sha256Canonical(resultBody) ||
+      resultRef !== `result://abiogenesis/${String(resultDigest).slice("sha256:".length)}` ||
+      event.payload.valueDigest !== sha256Canonical(event.payload.value!) ||
+      evidenceEvent === null || !isRecord(evidenceEvent.payload) ||
+      evidenceEvent.admissionOrdinal >= event.admissionOrdinal ||
+      evidenceEvent.basisId !== event.basisId || evidenceEvent.runId !== event.runId ||
+      evidenceEvent.graphCallId !== event.graphCallId || evidenceEvent.frameId !== event.frameId ||
+      !event.causationEventRefs.includes(evidenceEvent.eventId)) return null;
+    const { evidenceRef, evidenceDigest, ...evidenceBody } = evidenceEvent.payload;
+    const authenticated = projectWorksiteFailureBasis(priorEvents.filter(row =>
+      row.admissionOrdinal < evidenceEvent.admissionOrdinal), event.aggregateId, event.payload.value);
+    if (authenticated === null ||
+      authenticated.executionBasis.basisRef !== event.basisId ||
+      authenticated.cCall.runId !== event.runId ||
+      evidenceBody.cCallRef !== event.aggregateId || evidenceBody.evidenceClass !== "deterministic" ||
+      evidenceBody.implementationRef !== authenticated.authorization.implementationRef ||
+      evidenceBody.inputDigest !== sha256Canonical(authenticated.request as unknown as JsonValue) ||
+      evidenceBody.outputDigest !== event.payload.valueDigest ||
+      evidenceDigest !== sha256Canonical(evidenceBody) ||
+      evidenceRef !== `evidence://abiogenesis/${String(evidenceDigest).slice("sha256:".length)}`) return null;
+    return { before: authenticated.request.predecessorObservation.observationRef,
+      after: null, successorObservation: null };
+  }
   const evidence = priorEvents.filter((row) =>
     row.kind === "c_call_evidenced" &&
     row.aggregateId === event.aggregateId &&
@@ -816,7 +851,7 @@ function eventCalculusEffectRefs(
           ...(resultRef === null
             ? []
             : [fluent("c_call_result_available", resultRef)]),
-          ...(worksite === null
+          ...(worksite === null || worksite.after === null
             ? []
             : [fluent("worksite_observation_current", worksite.after)]),
         ],

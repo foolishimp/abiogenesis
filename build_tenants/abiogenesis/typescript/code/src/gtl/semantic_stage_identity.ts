@@ -1,0 +1,29 @@
+import { SEMANTIC_REVISION_IMPLEMENTATION_REFS } from "./semantic_revision_identity.js";
+// Dependency-free identities shared by native declaration and runtime owners.
+const scope = "abiogenesis/semantic-stage";
+export const SEMANTIC_STAGE_IDS = Object.freeze({
+  moduleRef: `module://${scope}@5`, programRef: `program://${scope}@5`, graphFunctionRef: `graph-function://${scope}@5`,
+  envelopeContractRef: `contract://${scope}/envelope@5`, outputContractRef: `contract://${scope}/output@5`, workerContractRef: `contract://${scope}/worker-result@5`,
+  failureContractRef: `contract://${scope}/failure@5`, refusalContractRef: `contract://${scope}/refusal@5`,
+  evidenceContractRef: `contract://${scope}/evidence@5`, judgmentContractRef: `contract://${scope}/judgment@5`,
+  transitionContractRef: `contract://${scope}/transition@5`, closureContractRef: `contract://${scope}/closure@5`,
+  authorImplementationRef: `implementation://${scope}/author@5`, assessorImplementationRef: `implementation://${scope}/assessor@5`,
+  bridgeImplementationRef: `implementation://${scope}/design-worksite@5`, evidenceInputImplementationRef: `implementation://${scope}/evidence-input@5`,
+  terminalImplementationRef: `implementation://${scope}/envelope-output@5`,
+  authorBindingRef: `implementation-binding://${scope}/author@5`, assessorBindingRef: `implementation-binding://${scope}/assessor@5`,
+  bridgeBindingRef: `implementation-binding://${scope}/design-worksite@5`, evidenceInputBindingRef: `implementation-binding://${scope}/evidence-input@5`,
+  terminalBindingRef: `implementation-binding://${scope}/envelope-output@5`,
+  authorPredicateRef: `predicate://${scope}/authored@5`, assessorPredicateRef: `predicate://${scope}/assessed@5`,
+  bridgePredicateRef: `predicate://${scope}/design-worksite@5`, evidenceInputPredicateRef: `predicate://${scope}/evidence-input@5`,
+  terminalPredicateRef: `predicate://${scope}/envelope-output@5`,
+  lifecyclePredicateRef: `predicate://${scope}/lifecycle-assessed@5`,
+  lifecycleStepPredicateRef: `predicate://${scope}/lifecycle-step@5`,
+  rendererRef: `renderer://${scope}/full-source@5`, constructorRef: `constructor://${scope}/asset@5`,
+  workerActorRef: `actor://${scope}/claude@5`, workerBindingRef: `worker-binding://${scope}/claude@5`,
+  semanticsBindingRef: `product-semantics://${scope}@5`,
+});
+export const SEMANTIC_IMPLEMENTATION_REFS: readonly string[] = Object.freeze([
+  SEMANTIC_STAGE_IDS.authorImplementationRef, SEMANTIC_STAGE_IDS.assessorImplementationRef,
+  SEMANTIC_STAGE_IDS.bridgeImplementationRef, SEMANTIC_STAGE_IDS.evidenceInputImplementationRef,
+  SEMANTIC_STAGE_IDS.terminalImplementationRef, ...SEMANTIC_REVISION_IMPLEMENTATION_REFS,
+]);

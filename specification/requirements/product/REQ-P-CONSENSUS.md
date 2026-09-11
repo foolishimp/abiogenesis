@@ -12,7 +12,7 @@
 [REQ-P-PUBLIC-CONTRACTS.md](REQ-P-PUBLIC-CONTRACTS.md),
 [REQ-P-CATALOG.md](REQ-P-CATALOG.md),
 [REQ-P-INSTALL.md](REQ-P-INSTALL.md),
-[TICKET_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/TICKET_METHOD.md)
+[TICKET_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/TICKET_METHOD.md)
 **Wave**: ABIogenesis 5.0
 
 ---

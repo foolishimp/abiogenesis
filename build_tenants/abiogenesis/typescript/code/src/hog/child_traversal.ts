@@ -14,6 +14,7 @@ import {
   type GraphFunction,
   type GtlGraph,
   type GtlProgram,
+  type ModulePublication,
 } from "../gtl/index.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -31,6 +32,7 @@ export interface ChildTraversalBasis {
   readonly graphFunctionByRef: LeafInvocationPort["graphFunctionByRef"];
   readonly closureContractByRef: LeafInvocationPort["closureContractByRef"];
   readonly program: Readonly<GtlProgram>;
+  readonly programPublication?: Readonly<ModulePublication>;
   readonly programValidation: ProgramValidation;
   readonly rootImplementationSet: AdmittedImplementationSet;
   readonly rootInteractionSet: AdmittedInteractionSet;
@@ -40,6 +42,7 @@ export function constructChildTraversalBasis(input: Readonly<{
   graphFunctionByRef: LeafInvocationPort["graphFunctionByRef"];
   closureContractByRef: LeafInvocationPort["closureContractByRef"];
   program: Readonly<GtlProgram>;
+  programPublication?: Readonly<ModulePublication>;
   programValidation: ProgramValidation;
   rootImplementationSet: AdmittedImplementationSet;
   rootInteractionSet: AdmittedInteractionSet;
@@ -204,6 +207,7 @@ export function prepareChildTraversal(
       parentTraversalScope: request.parentTraversalScope,
       parentCCallRef: request.parentCCallRef,
       program: basis.program,
+      ...(basis.programPublication === undefined ? {} : { programPublication: basis.programPublication }),
       programValidation: basis.programValidation,
       graphFunction,
       graph,

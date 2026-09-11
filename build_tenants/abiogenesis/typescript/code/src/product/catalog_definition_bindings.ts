@@ -1,3 +1,8 @@
+import { withAdmissionAuthority } from "./admission_authority.js";
+import {
+  CatalogApplicationConstructionError, reconstructCatalogApplication,
+  type CatalogApplicationConstruction,
+} from "./declaration_application.js";
 import * as Effect from "effect/Effect";
 
 import {
@@ -25,6 +30,7 @@ import {
   type JsonValue,
 } from "../shared/canonical_json.js";
 import {
+  admitExactDefinitionCall,
   definitionFault,
   hasExactKeys,
   isDefinitionFault,
@@ -143,6 +149,7 @@ export interface CatalogApplicationResourceAssertion {
   readonly applicationBasis: ReferenceDigest<"CatalogApplicationBasis">;
   readonly validationReceipt: ReferenceDigest<"ProductValidationReceipt">;
   readonly contributor: ReferenceDigest<"ProductContributorProvenance">;
+  readonly construction: CatalogApplicationConstruction;
 }
 
 export interface CatalogApplicationResourceReceipt {
@@ -596,6 +603,12 @@ const admit: ExactDefinitionCallable<
   CatalogAdmissionResourceAssertion,
   CatalogAdmissionResourceReceipt
 > = (call) => {
+  if (admitExactDefinitionCall(call, CATALOG_OPERATION_CONTRACTS.admit) === null) {
+      return Effect.fail( definitionFault(
+        CATALOG_OPERATION_CONTRACTS.admit.definitionKey, "call_admission", "call_identity_mismatch",
+        "definition call differs from its fixed module-static coordinate",
+      ));
+  }
   const structuralFault = validateAdmissionStructure(call);
   if (structuralFault !== null) return Effect.fail(structuralFault);
   return Effect.try({
@@ -718,6 +731,12 @@ const allowlist: ExactDefinitionCallable<
   CatalogViewResourceReceipt
 > = (call) => Effect.try({
   try: (): DefinitionReturn<ViewPacket, CatalogViewResourceReceipt> => {
+    if (admitExactDefinitionCall(call, CATALOG_OPERATION_CONTRACTS.view.allowlist) === null) {
+      throw definitionFault(
+        CATALOG_OPERATION_CONTRACTS.view.allowlist.definitionKey, "call_admission", "call_identity_mismatch",
+        "definition call differs from its fixed module-static coordinate",
+      );
+    }
     const resources = call.resources;
     if (
       !isRecord(resources) ||
@@ -853,6 +872,12 @@ function createApplyBinding<TPacket extends ApplyPacket>(
 > {
   return (call) => Effect.try({
     try: (): DefinitionReturn<TPacket, CatalogApplicationResourceReceipt> => {
+      if (admitExactDefinitionCall(call, packet) === null) {
+      throw definitionFault(
+        packet.definitionKey, "call_admission", "call_identity_mismatch",
+        "definition call differs from its fixed module-static coordinate",
+      );
+      }
       const resources = call.resources;
       const request = call.invocation.request;
       if (
@@ -863,6 +888,7 @@ function createApplyBinding<TPacket extends ApplyPacket>(
           "catalogRow",
           "catalogView",
           "contributor",
+          "construction",
           "kind",
           "schemaVersion",
           "validationReceipt",
@@ -907,6 +933,16 @@ function createApplyBinding<TPacket extends ApplyPacket>(
       ) {
         throw fault(call, "resource_admission", "catalog_scope_mismatch", "catalog application resources differ from invocation catalog authority");
       }
+      let validatedApplication: DeclarationApplication;
+      try {
+        validatedApplication = reconstructCatalogApplication(resources);
+        if (request.target !== null && !sameCoordinate(request.target, {
+          ref: validatedApplication.targetRef, digest: validatedApplication.targetDigest,
+        })) throw new CatalogApplicationConstructionError("target_mismatch", "application target differs from the admitted declaration");
+      } catch (cause) {
+        if (!(cause instanceof CatalogApplicationConstructionError)) throw cause;
+        return deepFreeze({ ownerOutput: applyRefusal(packet, cause.code, "/applicationBasis"), resources: applyReceipt(resources, null) });
+      }
       const nativePacket: CatalogApplyPacket = {
         kind: "catalog_apply_packet",
         schemaVersion: "5.0.0",
@@ -915,12 +951,8 @@ function createApplyBinding<TPacket extends ApplyPacket>(
         application: {
           applicationKind: request.applicationKind,
           handle: resources.catalogRow.handle,
-          targetRef: request.target === null
-            ? resources.contributor.ref
-            : request.target.ref,
-          targetDigest: request.target === null
-            ? resources.contributor.digest
-            : request.target.digest,
+          targetRef: validatedApplication.targetRef,
+          targetDigest: validatedApplication.targetDigest,
           appliedValueRef: resources.applicationBasis.ref,
           appliedValueDigest: resources.applicationBasis.digest,
         },
@@ -967,7 +999,7 @@ const node_type = createApplyBinding(CATALOG_OPERATION_CONTRACTS.apply.node_type
 const overlay = createApplyBinding(CATALOG_OPERATION_CONTRACTS.apply.overlay);
 
 export const CATALOG_DEFINITION_BINDINGS = Object.freeze({
-  admit,
-  view: Object.freeze({ allowlist }),
-  apply: Object.freeze({ node_type, overlay }),
+  admit: withAdmissionAuthority(CATALOG_OPERATION_CONTRACTS.admit, admit),
+  view: Object.freeze({ allowlist: withAdmissionAuthority(CATALOG_OPERATION_CONTRACTS.view.allowlist, allowlist) }),
+  apply: Object.freeze({ node_type: withAdmissionAuthority(CATALOG_OPERATION_CONTRACTS.apply.node_type, node_type), overlay: withAdmissionAuthority(CATALOG_OPERATION_CONTRACTS.apply.overlay, overlay) }),
 });

@@ -1,3 +1,5 @@
+import { withAdmissionAuthority } from "./admission_authority.js";
+import { admitExactDefinitionCall, definitionFault as callAdmissionFault } from "../shared/definition_binding_mechanics.js";
 import { join } from "node:path";
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
@@ -347,6 +349,12 @@ function resourceDisposition(admitted: AdmittedResources): ProductVerificationRe
 
 const verify: ExactDefinitionCallable<VerifyPacket, ProductVerificationResources,
   ProductVerificationResourceDisposition> = (call) => {
+  if (admitExactDefinitionCall(call, PRODUCT_VERIFICATION_CONTRACTS.verify) === null) {
+    return Effect.fail(callAdmissionFault(
+      PRODUCT_VERIFICATION_CONTRACTS.verify.definitionKey, "call_admission", "call_identity_mismatch",
+      "definition call differs from its fixed module-static coordinate",
+    ));
+  }
   const admitted = admitResources(call);
   if ("kind" in admitted) return Effect.fail(admitted);
   return Effect.tryPromise({
@@ -361,4 +369,4 @@ const verify: ExactDefinitionCallable<VerifyPacket, ProductVerificationResources
   })));
 };
 
-export const PRODUCT_VERIFICATION_DEFINITION_BINDINGS = Object.freeze({ verify });
+export const PRODUCT_VERIFICATION_DEFINITION_BINDINGS = Object.freeze({ verify: withAdmissionAuthority(PRODUCT_VERIFICATION_CONTRACTS.verify, verify) });

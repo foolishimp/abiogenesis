@@ -4,6 +4,17 @@ import test from "node:test";
 import * as gtl from "../../build/code/src/gtl/index.js";
 import * as product from "../../build/code/src/product/index.js";
 import * as validator from "../../build/code/src/validator/index.js";
+import * as abg from "../../build/code/src/abg/index.js";
+import { loadSteelConsumerResolutionFixture } from "../support/steel-consumer-resolution.mjs";
+
+let steelResolutionFixture;
+function admittedResolutionFixture() {
+  steelResolutionFixture ??= loadSteelConsumerResolutionFixture({ product, abg,
+    proofPath: process.env.ABI5_STEEL02_RESOLVER_PROOF_PATH });
+  return steelResolutionFixture;
+}
+const requiresAdmittedFixture = { skip: process.env.ABI5_STEEL02_RESOLVER_PROOF_PATH
+  ? false : "requires retained Thread 2 installed consumer proof" };
 
 function artifactBasis() {
   return {
@@ -84,13 +95,16 @@ function helloImplementationBinding(publication) {
 }
 
 function programValidationResult(publication, program = helloProgram(publication)) {
+  const publicationAdmission = raw(publication, "module_publication");
   return validator.validateProgram({
-    publication: raw(publication, "module_publication"),
+    declarationBasisDigest: publicationAdmission.subjectDigest,
+    programPublication: publicationAdmission,
     program: raw(program, "gtl_program"),
-    graphFunctions: publication.graphFunctions
-      .filter((value) => program.callableMembership.includes(value.name))
-      .map((value) => raw(value, "graph_function")),
+    // Static composition/substitution also reads the published source graphs.
+    graphFunctions: publication.graphFunctions.map((value) => raw(value, "graph_function")),
     contracts: publication.contracts.map((value) => raw(value, "contract_declaration")),
+    evaluators: publication.evaluators,
+    rules: publication.rules,
     implementationBindings: publication.implementationBindings.map((value) =>
       raw(value, "implementation_binding")),
     closureContracts: publication.closureContracts.map((value) => raw(value, "closure_contract")),
@@ -1333,11 +1347,15 @@ test("M4 Hello World remains one valid direct C.of Program", () => {
   const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
   const program = helloProgram(publication);
   const graphFunction = helloGraphFunction(publication);
+  const publicationAdmission = raw(publication, "module_publication");
   const result = validator.validateProgram({
-    publication: raw(publication, "module_publication"),
+    declarationBasisDigest: publicationAdmission.subjectDigest,
+    programPublication: publicationAdmission,
     program: raw(program, "gtl_program"),
     graphFunctions: [raw(graphFunction, "graph_function")],
     contracts: publication.contracts.map((value) => raw(value, "contract_declaration")),
+    evaluators: publication.evaluators,
+    rules: publication.rules,
     implementationBindings: publication.implementationBindings.map((value) =>
       raw(value, "implementation_binding")),
     closureContracts: publication.closureContracts.map((value) => raw(value, "closure_contract")),
@@ -1366,16 +1384,13 @@ test("M5 whole-root validation keeps F_H interaction keys out of executable reso
   );
 });
 
-test("M5 resolves and independently validates the complete executable root set", () => {
-  const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
-  const programValidation = validatePublishedProgram(publication);
-  const catalogView = catalogViewFor(publication);
-  const descriptor = descriptorFor(helloImplementationBinding(publication));
+test("M5 resolves and independently validates the complete executable root set", requiresAdmittedFixture, async () => {
+  const { declarationClosure, programValidation, catalogView, descriptors } = (await admittedResolutionFixture()).primary;
   const candidate = product.resolveImplementationSet(
     catalogView,
-    publication,
+    declarationClosure,
     programValidation,
-    [descriptor],
+    descriptors,
   );
 
   assert.equal(candidate.kind, "implementation_resolution_set_candidate", JSON.stringify(candidate));
@@ -1388,9 +1403,9 @@ test("M5 resolves and independently validates the complete executable root set",
   const validation = validator.validateImplementationResolutionSet(
     candidate,
     catalogView,
-    publication,
+    declarationClosure,
     programValidation,
-    [descriptor],
+    descriptors,
   );
   assert.equal(validation.kind, "implementation_resolution_set_validation", JSON.stringify(validation));
   assert.deepEqual(validation.executableLeafKeys, candidate.executableLeafKeys);
@@ -1401,15 +1416,13 @@ test("M5 resolves and independently validates the complete executable root set",
   assert.equal(Object.isFrozen(validation), true);
 });
 
-test("M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases", () => {
-  const publication = gtl.constructHelloWorldModulePublication(artifactBasis());
-  const programValidation = validatePublishedProgram(publication);
-  const catalogView = catalogViewFor(publication);
-  const descriptor = descriptorFor(helloImplementationBinding(publication));
+test("M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases", requiresAdmittedFixture, async () => {
+  const fixture = await admittedResolutionFixture();
+  const { declarationClosure, programValidation, catalogView, descriptors } = fixture.primary;
 
   const missing = product.resolveImplementationSet(
     catalogView,
-    publication,
+    declarationClosure,
     programValidation,
     [],
   );
@@ -1419,50 +1432,47 @@ test("M5 complete resolution refuses missing, ambiguous, forged, and mismatched 
 
   const ambiguous = product.resolveImplementationSet(
     catalogView,
-    publication,
+    declarationClosure,
     programValidation,
-    [descriptor, descriptor],
+    [...descriptors, ...descriptors],
   );
   assert.equal(ambiguous.kind, "implementation_resolution_set_refusal");
   assert.equal(ambiguous.code, "ambiguous_implementation");
 
   const candidate = product.resolveImplementationSet(
     catalogView,
-    publication,
+    declarationClosure,
     programValidation,
-    [descriptor],
+    descriptors,
   );
   assert.equal(candidate.kind, "implementation_resolution_set_candidate", JSON.stringify(candidate));
   const forged = validator.validateImplementationResolutionSet(
     structuredClone(candidate),
     catalogView,
-    publication,
+    declarationClosure,
     programValidation,
-    [descriptor],
+    descriptors,
   );
   assert.equal(forged.kind, "static_validation_refusal");
   assert.equal(forged.diagnostics[0].code, "raw_subject_mismatch");
 
-  const interactionPublication = interactionOnlyPublication();
-  const interactionValidation = validatePublishedProgram(interactionPublication);
+  const interaction = fixture.interaction;
   const mismatched = validator.validateImplementationResolutionSet(
     candidate,
-    catalogViewFor(interactionPublication),
-    interactionPublication,
-    interactionValidation,
+    interaction.catalogView,
+    interaction.declarationClosure,
+    interaction.programValidation,
     [],
   );
   assert.equal(mismatched.kind, "static_validation_refusal");
   assert.equal(mismatched.diagnostics[0].code, "invalid_reference");
 });
 
-test("M5 F_H-only roots produce one valid empty executable-resolution set", () => {
-  const publication = interactionOnlyPublication();
-  const programValidation = validatePublishedProgram(publication);
-  const catalogView = catalogViewFor(publication);
+test("M5 F_H-only roots produce one valid empty executable-resolution set", requiresAdmittedFixture, async () => {
+  const { declarationClosure, programValidation, catalogView } = (await admittedResolutionFixture()).interaction;
   const candidate = product.resolveImplementationSet(
     catalogView,
-    publication,
+    declarationClosure,
     programValidation,
     [],
   );
@@ -1474,7 +1484,7 @@ test("M5 F_H-only roots produce one valid empty executable-resolution set", () =
   const validation = validator.validateImplementationResolutionSet(
     candidate,
     catalogView,
-    publication,
+    declarationClosure,
     programValidation,
     [],
   );

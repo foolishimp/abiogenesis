@@ -1,3 +1,6 @@
+import { constructCatalogProgramValidationInput } from "../product/catalog_operations.js";
+import type { ReadyGraphFunctionCatalog, GraphFunctionCatalogView } from "../product/catalog.js";
+import type { ResolvedProgramDeclarationClosure } from "../product/declaration_closure.js";
 import type {
   ClosureContract,
   ContractDeclaration,
@@ -21,6 +24,12 @@ import {
   type ProgramValidationInput,
   type StaticValidationRefusal,
 } from "./validation.js";
+
+export interface ConformanceDeclarationBasis {
+  readonly catalog: ReadyGraphFunctionCatalog;
+  readonly catalogView: GraphFunctionCatalogView;
+  readonly declarationClosure: ResolvedProgramDeclarationClosure;
+}
 
 export interface ConformanceEvaluatePacket {
   readonly kind: "conformance_evaluate_packet";
@@ -188,6 +197,7 @@ function isRawAdmissionRefusal(
 
 export function evaluateGtlProgramConformance(
   supplied: ConformanceEvaluatePacket,
+  declarationBasis?: ConformanceDeclarationBasis,
 ): GtlProgramConformanceOperationResult {
   let admitted: JsonValue;
   try {
@@ -225,7 +235,17 @@ export function evaluateGtlProgramConformance(
     ? packet.program.programRef
     : null;
   const programDigest = sha256Canonical(packet.program as unknown as JsonValue);
-  const input = rawInput(packet.publication, packet.program);
+  if (declarationBasis !== undefined &&
+      sha256Canonical(declarationBasis.declarationClosure.programPublication as unknown as JsonValue) !==
+        sha256Canonical(packet.publication as unknown as JsonValue)) {
+    return refusal("invalid_packet", programRef, programDigest, [{
+      code: "invalid_packet", path: "$.publication", message: "conformance closure differs from the original Program publication",
+    }]);
+  }
+  const input = declarationBasis === undefined
+    ? rawInput(packet.publication, packet.program)
+    : constructCatalogProgramValidationInput(declarationBasis.catalog, declarationBasis.catalogView,
+      declarationBasis.declarationClosure, packet.program);
   if (isRawAdmissionRefusal(input)) {
     return refusal(
       "raw_admission_refused",

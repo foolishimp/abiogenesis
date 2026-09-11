@@ -1,9 +1,9 @@
 # REQ-P-QUAL — Qualification Infrastructure
 
-**Status**: Active - T-283 base; exact STDO `v2.5.0-rc.4` qualification basis
+**Status**: Active - T-283 base; exact Definition-selected STDO qualification basis
 **Category**: Verification
 **Date**: 2026-07-25
-**Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/SPEC_METHOD.md) (Verification Layers)
+**Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: ABG 5.0
 
 ---
@@ -152,15 +152,16 @@ Gap: 26 legacy in-repo live tests predating the ruling (pinned 2026-07-10) still
 ## Release Snapshot Bundles
 
 Release snapshot bundles are release-process output artifacts. They record one
-already-qualified published RC cut or tapped release cut without making the
-version identifier live constitutional project truth and without becoming an
-input to the qualification that authorized that cut.
+already-qualified published RC cut; later acceptance reports that same cut.
+They do not make a version identifier live constitutional project truth or
+become an input to the qualification that authorized their creation.
 
 **REQ-P-QUAL-050**: `release.snapshot` / `AF-25` shall materialize each
-package-first RC or tapped release as one immutable, versioned cut and snapshot
-bundle only after admission of the exact same-subject and same-law-basis green,
-non-bypassed `ExactCandidateQualification<verdict>` projection required for that
-lifecycle stage.
+package-first RC as one immutable, versioned cut and snapshot bundle only after
+admission of the exact same-subject and same-law-basis green, non-bypassed
+`ExactCandidateQualification<verdict>` projection for its `pre_rc_candidate`.
+Its `tapped_release` member shall report qualification and actual human
+acceptance of that same unchanged RC, not materialize another cut or snapshot.
 
 **REQ-P-QUAL-051**: The snapshot bundle shall include, at minimum, the package
 tarball, release snapshot manifest, checksum file, release note copy when one
@@ -204,11 +205,11 @@ its qualification input.
 
 **REQ-P-QUAL-057**: ABIogenesis 5.0 qualification shall use one generic
 `ExactCandidateQualification<K>` contract family whose closed subject kinds are
-`pre_rc_candidate | installed_rc | final_tap_candidate`. The family shall
+`pre_rc_candidate | installed_rc`. The family shall
 publish one immutable, content-addressed `basis` projection and one typed
 `verdict` projection for each exact subject. It shall not create separately
-authored `pre_rc_candidate`, `installed_rc`, or `final_tap_candidate`
-qualification models.
+authored qualification models for those subjects. Acceptance of the qualified
+unchanged RC shall not introduce a third subject kind or final-cut delta.
 
 **REQ-P-QUAL-057A**: Every `ExactCandidateQualification<basis>` projection shall
 bind its exact subject kind, source and artifact content, toolchain manifest,
@@ -217,7 +218,7 @@ tenant-conformance manifest, frozen owning-gate inventory, and one subordinate
 `QualificationLawBasis`.
 
 **REQ-P-QUAL-057B**: `QualificationLawBasis` shall bind the exact tapped and
-installed STDO `v2.5.0-rc.4` release identity, installed-manifest digest,
+installed STDO release identity selected by `stdo_abiogenesis.json`, installed-manifest digest,
 standards member-set digest, method version, rule-catalog version, source refs,
 and content digests used by the owning gates.
 Its identity and digest shall be preserved unchanged through every admitted
@@ -232,8 +233,12 @@ install-artifact digests, product-manifest digest, workspace binding, and
 tenant-conformance manifest identity and digest. The exact candidate artifact
 bytes shall already carry that prospective published-RC identity.
 Source-tree execution or evidence from different candidate content shall not
-satisfy the `pre_rc_candidate` gate. The RC identity is fixed before
-qualification; final-version assignment remains bounded by `FinalTapDelta`.
+satisfy the `pre_rc_candidate` gate. Its prospective RC namespace, declared
+profile, Project Subtree, version line and positive ordinal, exact Product
+inventory and release-claim bytes shall be fixed before qualification. Actual
+tag-object and publication-receipt identities are outputs of publication, not
+fabricated prequalification inputs. Acceptance shall not assign a new version
+or change those qualified bytes.
 An odd_glc candidate or successor dogfood workspace shall not be part of this
 5.0 candidate identity.
 
@@ -286,12 +291,18 @@ existing, alternate, and temporary workspace applications; and expose the typed
 result and replay without source import, feature-specific engine code, or
 shell-owned orchestration.
 
-**REQ-P-QUAL-062**: An odd_glc release, downstream data-mapper campaign,
-installed 5.0 product authoring the distinct 5.0.1 successor, or the planned
-5.1 observer/tuner Product is post-5.0 evidence. It shall have its own exact
-product identities, requirements, design, qualification, and release gate and
-shall not be required to make the ABIogenesis 5.0 candidate or final release
-green.
+**REQ-P-QUAL-062**: The real specification-driven lifecycle witness defined by
+Product F17/S06 and `REQ-P-SCENARIOS-013` shall be required ABIogenesis 5.0
+qualification evidence on the exact installed candidate. It shall bind the
+complete original source and prove all mandatory application outcomes,
+obligation conservation, admitted semantic and executable evidence and
+targeted revision. Bounded thread/correction evidence, reduced contracts,
+residual lists or construction/test counts shall not substitute for complete
+S06 witness acceptance. Publication or maturation of the separate odd_glc
+Product, installed 5.0 authoring the distinct 5.0.1 successor, and the planned
+5.1 observer/tuner Product shall retain their own exact Product identities,
+requirements, design, qualification and release gates; none is required to
+make the ABIogenesis 5.0 candidate or final release green.
 
 **REQ-P-QUAL-063**: The exact installed ABIogenesis 5.0 candidate shall complete its native public path without Claude, Codex, or another marketplace host. The Codex CLI or skill compatibility projection shall complete the same public-contract scenario without directly invoking a worker, emitting an ABG event, constructing a continuation, controlling traversal, or deciding closure.
 
@@ -300,8 +311,9 @@ green.
 conservation rows; the separate shape-preserving fibre-substitution
 differential; the seven-term declared C algebra and malformed GTL/F_P
 differentials; the public operator loop; self-conformance under the exact
-tapped STDO `v2.5.0-rc.4` basis; installed Consensus; native and Codex projections;
-the independent flavored downstream fixture; and every selected
+tapped Definition-selected STDO basis; installed Consensus; native and Codex
+projections; the complete real downstream lifecycle witness under
+`REQ-P-QUAL-062`; and every selected
 `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` obligation.
 Each owning gate retains its own execution and semantic authority.
 
@@ -341,14 +353,15 @@ explicitly a transport-independent projection test. Textual output equality is
 not required unless the public contract declares it.
 
 **REQ-P-QUAL-067**: Release closure shall fresh-install the published
-ABIogenesis 5.0 release artifact by its verified remote identity, bind its exact
-released descriptor, manifest, version, digest, and tenant-conformance identity,
+ABIogenesis 5.0 RC artifact by its verified immutable remote identity, bind its
+exact released descriptor, manifest, RC version, digest and tenant-conformance identity,
 and pass the bounded installed catalog, public invocation, Consensus, and replay
 proof without rebuilding or importing mutable source. This post-publication
 result shall be a terminal addendum to the A5-R1 release read model. It shall not
 be required to make an earlier `ExactCandidateQualification<verdict>` projection
-for `pre_rc_candidate`, `installed_rc`, or `final_tap_candidate` green and shall
-not reinterpret any earlier verdict.
+for `pre_rc_candidate` or `installed_rc` green and shall not reinterpret any
+earlier verdict. This proof and acceptance addenda shall leave the RC tag,
+package, Product inventory and release-claim bytes unchanged.
 
 **REQ-P-QUAL-068**: The ABG 5.0 release process shall open a mutable RC window.
 After one exact `ExactCandidateQualification<basis>` projection for
@@ -357,53 +370,70 @@ non-bypassed `ExactCandidateQualification<verdict>` projection, `AF-25` may
 verify equality with the basis-bound prospective published-RC identity and
 materialize the exact qualified artifact bytes unchanged as one immutable
 versioned RC cut and its authoritative snapshot. The RC record shall bind its
-source lineage, branch, tag, package, snapshot, checksums, notes, and exact
-authorizing basis and verdict. The tag, checksums, release record, and snapshot
-are outputs from this transition and shall not participate in the verdict that
-authorized it. A bounded fix after publication requires a new RC cut.
+assigned Project Release Namespace and declared profile, source lineage,
+annotated tag object, peeled commit, repository tree, Project Subtree and tree,
+exact Product inventory and release-claim bytes, package, snapshot, checksums,
+notes, predecessor disposition and exact authorizing basis and verdict.
+Publication-produced tag, receipt and snapshot identities are outputs from this
+transition; frozen release-claim and package bytes remain qualifying inputs.
+For the assigned `abiogenesis` single-project unqualified profile and subtree
+`.`, the immutable cut is `v5.0.0-rc.<n>` and the mutable `v5.0.0` selector shall
+identify the greatest published RC ordinal. Exact local and remote refs and
+ordinal eligibility shall be revalidated before publication. Selector advance
+belongs to publication, not qualification, acceptance or consumer adoption.
+Any qualifying Product or release-claim byte change requires a higher RC; no
+published RC shall be retagged or renamed to a final-version cut.
 
-**REQ-P-QUAL-068A**: Before `final_tap_candidate` authorization, the latest
-accepted RC shall be fresh-installed and qualified as an exact `installed_rc`
+**REQ-P-QUAL-068A**: Before human acceptance, the selected published RC shall
+be fresh-installed and qualified as an exact `installed_rc`
 subject through the same `ExactCandidateQualification<K>` family. Its
 `ExactCandidateQualification<basis>` projection shall bind the exact RC cut
 bytes and installed identity; its complete vector and verdict shall preserve
 that basis and law basis. A `pre_rc_candidate` verdict shall not be relabeled as
-an `installed_rc` verdict. The `installed_rc` verdict authorizes construction of
-a prospective `final_tap_candidate` basis only; it shall not materialize another
-cut or snapshot.
+an `installed_rc` verdict. Its same-basis green non-bypassed verdict is required
+evidence for actual human acceptance of that same unchanged RC; it shall not
+materialize another cut or snapshot. Acceptance is not a prerequisite to this
+installed-RC qualification.
 
-**REQ-P-QUAL-069**: An odd_glc release, 5.0.1 dogfood campaign, or planned 5.1
-observer/tuner realization may begin only after stable ABIogenesis 5.0 is
-available as an exact installed development product. Its failure shall block
-its own claim and may re-enter ABIogenesis when it exposes a retained 5.0
-product defect, but it shall not be a deferred prerequisite or terminal
-addendum required for the ABIogenesis 5.0 release.
+**REQ-P-QUAL-069**: Downstream beta evaluation, an odd_glc release, a 5.0.1
+dogfood campaign or a planned 5.1 observer/tuner realization shall retain its
+own Product authority and explicitly selected exact installed development
+Product. Its admission and release are independent of ABIogenesis RC
+acceptance; they are neither waived nor made prerequisites or terminal addenda
+for the ABIogenesis 5.0 release. Its failure shall block its own claim and may
+re-enter ABIogenesis when it exposes a retained 5.0 Product defect. This
+independence does not defer or weaken the complete F17/S06 lifecycle witness
+required before RC authorization by `REQ-P-QUAL-062`.
 
-**REQ-P-QUAL-070**: An `ExactCandidateQualification<basis>` projection for
-`final_tap_candidate` shall bind the accepted RC, the exact `installed_rc` basis
-and its same-basis green non-bypassed verdict, the prospective final bytes and
-identity, and one subordinate typed `FinalTapDelta`. That delta may contain only
-the accepted-RC ref and digest, assigned final version, and reconciled
-release-asset digests. Product behavior, declarations, public contracts, or
-dependencies changed at tap shall be unrepresentable and reopen the RC window.
+**REQ-P-QUAL-070**: Actual human Product authority shall accept or withhold one
+exact published RC after its required installed-RC qualification, independent
+reviews and operator assessment. The decision shall bind the complete
+immutable RC identity, exact `installed_rc` basis, same-basis green
+non-bypassed verdict and law basis, required evidence, and actual accepting
+actor and authority. A caller assertion, generated summary or qualification
+verdict alone is not human acceptance. The acceptance record is an addendum
+outside the immutable Product and release-claim bytes. `tapped_release` shall
+report this same-RC decision; it shall not create a cut, assign a final version,
+rename a package or move the selector.
 
-**REQ-P-QUAL-070A**: Every owning gate affected by `FinalTapDelta` shall rerun
-against the prospective final bytes before publication. Their exact results
-shall enter the `final_tap_candidate` vector and the sole declared
-`C.of(AF-22)` reducer. Only the resulting same-subject and same-law-basis green
-non-bypassed `ExactCandidateQualification<verdict>` projection may authorize
-`AF-25` to materialize the final cut and snapshot.
+**REQ-P-QUAL-070A**: A change to qualifying Product or release-claim bytes shall
+reopen the mutable RC window and require a higher immutable RC. Every affected
+owning gate shall rerun against that new exact subject. Its complete required
+vector shall enter the sole declared `C.of(AF-22)` reducer; only the resulting
+same-subject and same-law-basis green non-bypassed verdict may authorize its
+publication. Evidence or acceptance addenda shall not waive gates, alter the
+published cut, substitute a changed subject or retroauthorize an earlier effect.
 
 **REQ-P-QUAL-070B**: The release lifecycle shall be acyclic:
 `ExactCandidateQualification<basis>` for `pre_rc_candidate` -> matching
 `ExactCandidateQualification<verdict>` -> RC cut and snapshot ->
 `ExactCandidateQualification<basis>` for `installed_rc` -> matching
-`ExactCandidateQualification<verdict>` ->
-`ExactCandidateQualification<basis>` for `final_tap_candidate` with
-`FinalTapDelta` -> affected gates -> matching
-`ExactCandidateQualification<verdict>` -> final cut and snapshot. No cut or
-snapshot may qualify the input that creates it, and no post-publication proof
-may retroactively authorize an earlier transition.
+`ExactCandidateQualification<verdict>` -> actual human acceptance of the same
+unchanged RC -> external acceptance/evidence addenda and terminal
+post-publication install proof. Publication advances the latest-RC selector;
+acceptance and adoption do not. There is no second final-cut subject or
+snapshot. No cut or snapshot may qualify the input that creates it, and no
+post-publication proof may retroactively authorize an earlier transition.
 
 ---
 

@@ -1,3 +1,7 @@
+import { WORKSITE_REVISION_IDS as revision, type WorksiteRevisionCommandExecutionTask, type WorksiteRevisionCommandExecutionObservation } from "../product/worksite_revision.js";
+import { WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction.js";
+import { WORKSITE_BRANCH_CONSTRUCTION_IDS } from "../product/worksite_branch_construction.js";
+import { WORKSITE_PREPARATION_IDS, worksitePreparationContractDeclarations } from "../product/worksite_preparation_contracts.js";
 import {
   WORKSITE_COMMAND_EXECUTION_IDS,
   type WorksiteCommandExecutionObservation,
@@ -75,6 +79,37 @@ export function constructWorksiteCommandExecutionModulePublication(
     closureScope: "run",
     eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"],
   });
+  const childClose = closureContract({
+    ...close,
+    closureContractRef: WORKSITE_COMMAND_EXECUTION_IDS.childClosureContractRef,
+    closureScope: "graph_call",
+    eventKindRefs: ["terminal_reached", "frame_closed", "graph_call_closed"],
+  });
+  const revisionBinding = implementationBinding({ ...binding, bindingRef: revision.implementationBindingRef,
+    implementationRef: revision.implementationRef, namedSymbol: "realizeWorksiteRevisionCommandExecution",
+    inputContractRef: revision.taskContractRef, outputContractRef: revision.observationContractRef });
+  const revisionChildClose = closureContract({ ...childClose, closureContractRef: revision.childClosureContractRef,
+    predicateRef: revision.judgmentPredicateRef, resultContractRef: revision.observationContractRef,
+    replayProjectionRef: "projection://abiogenesis/worksite/revision-command-execution@5" });
+  const preparationBindings = [
+    [revision.selectBindingRef, revision.selectImplementationRef, "selectWorksiteRevisionConstruction", revision.inputContractRef, WORKSITE_CONSTRUCTION_IDS.taskContractRef],
+    [revision.prepareBindingRef, revision.prepareImplementationRef, "prepareWorksiteRevisionCommands", revision.boundInputContractRef, revision.taskContractRef],
+    [WORKSITE_PREPARATION_IDS.selectBindingRef, WORKSITE_PREPARATION_IDS.selectImplementationRef,
+      "selectWorksiteConstruction", WORKSITE_PREPARATION_IDS.inputContractRef, WORKSITE_CONSTRUCTION_IDS.taskContractRef],
+    [WORKSITE_PREPARATION_IDS.prepareBindingRef, WORKSITE_PREPARATION_IDS.prepareImplementationRef,
+      "prepareWorksiteCommands", WORKSITE_PREPARATION_IDS.boundInputContractRef, WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef],
+    [WORKSITE_PREPARATION_IDS.selectBranchBindingRef, WORKSITE_PREPARATION_IDS.selectBranchImplementationRef,
+      "selectWorksiteBranchConstruction", WORKSITE_PREPARATION_IDS.branchInputContractRef, WORKSITE_BRANCH_CONSTRUCTION_IDS.taskContractRef],
+    [WORKSITE_PREPARATION_IDS.prepareBranchBindingRef, WORKSITE_PREPARATION_IDS.prepareBranchImplementationRef,
+      "prepareWorksiteBranchCommands", WORKSITE_PREPARATION_IDS.branchBoundInputContractRef, WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef],
+  ].map(([bindingRef, implementationRef, namedSymbol, inputContractRef, outputContractRef]) => implementationBinding({
+    kind: "implementation_binding", bindingRef: bindingRef!, implementationRef: implementationRef!,
+    packageName: artifact.packageName, packageVersion: artifact.packageVersion,
+    modulePath: "build/code/src/implementation/worksite_command_execution.js", namedSymbol: namedSymbol!,
+    computeRegime: "F_D", inputContractRef: inputContractRef!, outputContractRef: outputContractRef!,
+    failureContractRef: WORKSITE_COMMAND_EXECUTION_IDS.failureContractRef,
+    refusalContractRef: WORKSITE_COMMAND_EXECUTION_IDS.refusalContractRef,
+  }));
   const graphFunction: GraphFunction = {
     kind: "graph_function",
     name: WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,
@@ -124,6 +159,7 @@ export function constructWorksiteCommandExecutionModulePublication(
     declarations: {
       "abg.compute_regime": "F_P",
       "abg.closure_contract": WORKSITE_COMMAND_EXECUTION_IDS.closureContractRef,
+      "abg.child_closure_contract": WORKSITE_COMMAND_EXECUTION_IDS.childClosureContractRef,
       "abg.evidence_contract": WORKSITE_COMMAND_EXECUTION_IDS.evidenceContractRef,
       "abg.judgment_contract": WORKSITE_COMMAND_EXECUTION_IDS.judgmentContractRef,
       "abg.judgment_predicate": WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef,
@@ -131,6 +167,30 @@ export function constructWorksiteCommandExecutionModulePublication(
       "abg.transition_contract": WORKSITE_COMMAND_EXECUTION_IDS.transitionContractRef,
     },
     tags: ["abiogenesis", "worksite", "command-execution", "fp", "c2"],
+  };
+  const revisionGraphFunction: GraphFunction = { ...graphFunction, name: revision.graphFunctionRef,
+    environment: { requires: [revision.taskContractRef], provides: [revision.observationContractRef],
+      carries: [revision.workerResultContractRef] },
+    inputs: [revision.taskContractRef], outputs: [revision.observationContractRef],
+    template: { kind: "inline_graph", graphRef: revision.graphRef, startNodeRef: revision.nodeRef,
+      terminalNodeRefs: [revision.nodeRef], edges: [], applications: [], nodes: [{
+        nodeRef: revision.nodeRef, nodeKind: "c_locus", term: C.of({
+          input: cCarrier<WorksiteRevisionCommandExecutionTask>(revision.taskContractRef),
+          output: cCarrier<WorksiteRevisionCommandExecutionObservation>(revision.observationContractRef),
+          programLocusRef: revision.nodeRef, stageRole: "revision-command-execution", fibre: "F_P",
+          armId: revision.armId, compositionRef: null, vectorIndex: 0,
+          judgmentPredicateRef: revision.judgmentPredicateRef, resultBearing: true,
+          requirement: { kind: "executable_leaf_requirement", implementationBindingRef: revisionBinding.bindingRef,
+            inputContractRef: revision.taskContractRef, outputContractRef: revision.observationContractRef,
+            evidenceContractRef: WORKSITE_COMMAND_EXECUTION_IDS.evidenceContractRef,
+            failureContractRef: revisionBinding.failureContractRef, refusalContractRef: revisionBinding.refusalContractRef,
+            judgmentContractRef: WORKSITE_COMMAND_EXECUTION_IDS.judgmentContractRef },
+        }),
+      }] },
+    declarations: { ...graphFunction.declarations, "abg.closure_contract": revision.childClosureContractRef,
+      "abg.child_closure_contract": revision.childClosureContractRef, "abg.judgment_predicate": revision.judgmentPredicateRef,
+      "abg.raw_result_contract": revision.workerResultContractRef },
+    tags: [...graphFunction.tags, "d2", "child-only"],
   };
   const program: GtlProgram = {
     kind: "gtl_program",
@@ -141,7 +201,7 @@ export function constructWorksiteCommandExecutionModulePublication(
       startRef: WORKSITE_COMMAND_EXECUTION_IDS.startRef,
       graphFunctionRef: WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,
     }],
-    callableMembership: [WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef],
+    callableMembership: [WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef, revision.graphFunctionRef],
     closureContractRef: close.closureContractRef,
     policies: {
       "abg.root_mode": "direct",
@@ -169,6 +229,12 @@ export function constructWorksiteCommandExecutionModulePublication(
       namedSymbol: "ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS",
     }),
     contracts: [
+      ...worksitePreparationContractDeclarations(),
+      contract(revision.taskContractRef, "input", "worksite_revision_command_execution_task"),
+      contract(revision.observationContractRef, "output", "worksite_revision_command_execution_observation"),
+      contract(revision.workerResultContractRef, "output", "worksite_revision_command_execution_worker_result"),
+      contract(revision.childClosureContractRef, "closure", "worksite_revision_command_execution_child_closure"),
+      contract(WORKSITE_COMMAND_EXECUTION_IDS.childClosureContractRef, "closure", "worksite_command_execution_child_closure"),
       contract(WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef, "input", "worksite_command_execution_task"),
       contract(WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef, "output", "worksite_command_execution_worker_result"),
       contract(WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef, "output", "worksite_command_execution_observation"),
@@ -181,14 +247,23 @@ export function constructWorksiteCommandExecutionModulePublication(
     ],
     evaluators: [],
     rules: [],
-    implementationBindings: [binding],
-    closureContracts: [close],
+    implementationBindings: [binding, revisionBinding, ...preparationBindings],
+    closureContracts: [close, childClose, revisionChildClose],
     programs: [program],
-    graphFunctions: [graphFunction],
+    graphFunctions: [graphFunction, revisionGraphFunction],
     contributions: [catalogContribution({
       handle: WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,
       kind: "graph_function",
       declarationOrContractRef: WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,
+      owningProductId: artifact.productId,
+      programMembershipRefs: [WORKSITE_COMMAND_EXECUTION_IDS.programRef],
+      readinessPrerequisiteRefs: [WORKSITE_COMMAND_EXECUTION_IDS.programRef],
+      compatibilityRefs: ["compatibility://abiogenesis/major/5"],
+      provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
+    }), catalogContribution({
+      handle: revision.graphFunctionRef,
+      kind: "graph_function",
+      declarationOrContractRef: revision.graphFunctionRef,
       owningProductId: artifact.productId,
       programMembershipRefs: [WORKSITE_COMMAND_EXECUTION_IDS.programRef],
       readinessPrerequisiteRefs: [WORKSITE_COMMAND_EXECUTION_IDS.programRef],

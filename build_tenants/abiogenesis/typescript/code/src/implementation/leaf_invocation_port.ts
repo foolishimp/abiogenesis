@@ -1,3 +1,17 @@
+import { SELF_CONFORMANCE_IDS } from "../gtl/self_conformance.js";
+import { resolveSelfConformanceOwner } from "../validator/self_conformance_basis.js";
+import { isSelfConformanceResult } from "../validator/self_conformance_contracts.js";
+import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
+import { WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS } from "../product/worksite_construction_recovery.js";
+import { authenticateWorksitePreservedResultBasis } from "../abg/worksite_construction_recovery.js";
+import type { GraphFunction } from "../gtl/contracts.js";
+import { authenticateSemanticStageBasis } from "../abg/semantic_stage.js";
+import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
+import { projectRequirementHandoffCandidate } from "../abg/requirement_handoff.js";
+import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
+import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
+import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
+import { authenticateWorksiteCommandForwardBasis } from "../abg/worksite_command_forward.js";
 import { isAbsolute, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -11,6 +25,7 @@ import {
 } from "../abg/event_calculus.js";
 import {
   hasAdmittedExecutionBasisAtPrefix,
+  hasExactWorksiteCommandLeafSourceAtDurablePrefix,
   hasAdmittedImplementationSetAtPrefix,
   type AdmittedImplementationSet,
 } from "../abg/execution_basis.js";
@@ -416,6 +431,20 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
   try {
     authorityValid = await input.verifyAuthority() &&
       sha256Canonical(input.value) === inputDigest &&
+      (!([forwardIds.prepareImplementationRef,forwardIds.implementationRef] as readonly string[]).includes(resolution.implementationRef) ||
+        (input.occurrence.worksiteCommandForwardBasis !== undefined &&
+          input.occurrence.worksiteCommandForwardBasis.cCall.cCallRef === input.occurrence.cCallRef &&
+          authenticateWorksiteCommandForwardBasis(input.occurrence.worksiteCommandForwardBasis,true) !== null)) &&
+      (resolution.implementationRef !== REQUIREMENT_HANDOFF_IDS.implementationRef ||
+        (input.occurrence.requirementHandoffBasis !== undefined &&
+         input.occurrence.requirementHandoffBasis.cCall.cCallRef === input.occurrence.cCallRef &&
+         projectRequirementHandoffCandidate(input.occurrence.requirementHandoffBasis, input.value) !== null)) &&
+      (!SEMANTIC_IMPLEMENTATION_REFS.includes(resolution.implementationRef) ||
+        (input.occurrence.semanticStageBasis !== undefined && authenticateSemanticStageBasis(input.occurrence.semanticStageBasis) !== null)) &&
+      (!WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS.includes(resolution.implementationRef) ||
+        (input.occurrence.worksitePreservedResultBasis !== undefined &&
+          input.occurrence.worksitePreservedResultBasis.cCall.cCallRef === input.occurrence.cCallRef &&
+          authenticateWorksitePreservedResultBasis(input.occurrence.worksitePreservedResultBasis) !== null)) &&
       (!carriesWorksiteAuthority ||
         isLeafExecutionAuthority(input.occurrence.executionAuthority));
   } catch {
@@ -728,6 +757,18 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     return contract !== undefined && contract.valueKind.length > 0
       ? contract
       : null;
+  }
+
+  function contractForLeafSlot(contractRef: string, contractKind: "failure" | "output") {
+    const contract = uniqueContractByRef(contractRef);
+    if (contract === null) return null;
+    // C<A,B> binds its output carrier by exact admitted reference. Its original
+    // declaration may also serve as another stage's input; failure stays distinct.
+    return contractKind === "output"
+      ? authority.implementationSet.rows.some((row) => row.outputContractRef === contractRef)
+        ? contract
+        : null
+      : contract.contractKind === "failure" ? contract : null;
   }
 
   function graphFunctionByRef(graphFunctionRef: string) {
@@ -1045,6 +1086,33 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     ): boolean {
       return exactAdmittedResolution(resolution) !== null;
     },
+    sourcePublicationByDeclarationRef(declarationRef: string) {
+      const matches = authority.executionResolution.declarationClosure.publications.filter(p => p.requirementHandoffs?.some(d => d.declarationRef === declarationRef));
+      if (matches.length !== 1) return null;
+      const publication = matches[0]!;
+      const source = publication.requirementHandoffs!.find(d => d.declarationRef === declarationRef)!;
+      const coordinates = authority.executionResolution.declarationClosure.graphFunctionOwners.filter(c => c.declarationRef === source.graphFunctionRef && c.moduleRef === publication.moduleRef);
+      if (coordinates.length !== 1) return null;
+      const bound = exactOwnerBinding(authority.executionResolution, coordinates[0]!);
+      return bound !== null && sha256Canonical(bound.publication as unknown as JsonValue) === sha256Canonical(publication as unknown as JsonValue) ? bound.publication : null;
+    },
+    semanticPublicationByDeclarationRef(declarationRef: string) {
+      const matches = authority.executionResolution.declarationClosure.publications.filter(p => p.semanticLifecycle?.declarationRef === declarationRef);
+      if (matches.length !== 1) return null;
+      const publication = matches[0]!;
+      for (const stage of publication.semanticLifecycle!.stages) {
+        const coordinates = authority.executionResolution.declarationClosure.graphFunctionOwners.filter(c =>
+          c.declarationRef === stage.graphFunctionRef && c.moduleRef === publication.moduleRef);
+        if (coordinates.length !== 1) return null;
+        const bound = exactOwnerBinding(authority.executionResolution, coordinates[0]!);
+        if (bound === null || sha256Canonical(bound.publication as unknown as JsonValue) !== sha256Canonical(publication as unknown as JsonValue)) return null;
+      }
+      return publication;
+    },
+    declarationGraphFunctions() {
+      return Object.freeze(authority.executionResolution.declarationClosure.graphFunctionOwners.map(owner => graphFunctionByRef(owner.declarationRef))
+        .filter((g): g is Readonly<GraphFunction> => g !== null));
+    },
     graphFunctionByRef,
     closureContractByRef,
     contractValueKindByRef(contractRef: string): string | null {
@@ -1062,20 +1130,14 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       contractRef: string,
       contractKind: "failure" | "output",
     ): string | null {
-      const contract = uniqueContractByRef(contractRef);
-      return contract?.contractKind === contractKind
-        ? contract.valueKind
-        : null;
+      return contractForLeafSlot(contractRef, contractKind)?.valueKind ?? null;
     },
     validateContractValue(
       contractRef: string,
       contractKind: "failure" | "output",
       value: unknown,
     ): value is Readonly<Record<string, JsonValue>> {
-      const contract = uniqueContractByRef(contractRef);
-      const valueKind = contract?.contractKind === contractKind
-        ? contract.valueKind
-        : undefined;
+      const valueKind = contractForLeafSlot(contractRef, contractKind)?.valueKind;
       return valueKind !== undefined &&
         semantics.validateContractValue(valueKind, value);
     },
@@ -1197,6 +1259,12 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         if (failureValueKind === null) {
           return ownerRefusal("failure_contract_absent");
         }
+        const isQualification = admittedResolution.implementationRef === SELF_CONFORMANCE_IDS.implementationRef;
+        const qualificationOwnerBasis = isQualification && call.predecessorPrefix !== undefined
+          ? { predecessorPrefix: call.predecessorPrefix, cCallRef: call.occurrence.cCallRef } : null;
+        const qualificationOwner = qualificationOwnerBasis === null ? null : resolveSelfConformanceOwner(qualificationOwnerBasis, call.input, true);
+        if (isQualification && qualificationOwner === null) return ownerRefusal("owner_boundary_exception");
+        const occurrence = qualificationOwnerBasis === null ? call.occurrence : deepFreeze({ ...call.occurrence, qualificationOwnerBasis });
         const requiresWorksiteAuthority =
           isWorksiteFileReplaceRequest(call.input) ||
           call.occurrence.executionAuthority !== null;
@@ -1215,20 +1283,24 @@ export async function constructAdmittedLeafInvocationPort(authority: {
                 authority.implementationSet,
               ) &&
               installedContentValid &&
+              (![WORKSITE_COMMAND_EXECUTION_IDS.implementationRef as string, WORKSITE_REVISION_IDS.implementationRef].includes(admittedResolution.implementationRef) ||
+                call.predecessorPrefix !== undefined && hasExactWorksiteCommandLeafSourceAtDurablePrefix(
+                  call.predecessorPrefix, call.occurrence.cCallRef, call.input)) &&
               (!requiresWorksiteAuthority ||
                 hasExactWorksiteLeafExecutionAuthority(
                   call,
                   admittedResolution,
                 ));
           },
-          validateSuccess: (value) => port.validateContractValue(
+          validateSuccess: (value) => (!isQualification || isSelfConformanceResult(value) &&
+            sha256Canonical(value.owner as unknown as JsonValue) === sha256Canonical(qualificationOwner as unknown as JsonValue)) && port.validateContractValue(
             admittedResolution.outputContractRef,
             "output",
             value,
           ),
           resolveWorkerContracts: (_resolution, value) =>
             resolveWorkerContracts(admittedResolution, value),
-          occurrence: call.occurrence,
+          occurrence,
           loadImplementation: async () => {
             const module = await loadModule(admittedResolution);
             return module[admittedResolution.namedSymbol];

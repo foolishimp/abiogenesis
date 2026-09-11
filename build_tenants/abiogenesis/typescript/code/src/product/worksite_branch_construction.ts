@@ -1,3 +1,4 @@
+import { WORKSITE_CONSTRUCTION_IDS } from "./worksite_construction_identity.js";
 import {
   canonicalJson,
   type JsonValue,
@@ -11,7 +12,6 @@ import { deepFreeze } from "../shared/immutable.js";
 import type { WorkspaceBinding } from "./environment.js";
 import type { CapabilityGrant } from "./invocation.js";
 import {
-  WORKSITE_CONSTRUCTION_IDS,
   isWorksiteConstructionResult,
   isWorksiteConstructionTask,
   type WorksiteConstructionResult,
@@ -95,6 +95,7 @@ export const WORKSITE_BRANCH_CONSTRUCTION_IDS = Object.freeze({
     "contract://abiogenesis/worksite/branch-construction-judgment@5",
   transitionContractRef:
     "contract://abiogenesis/worksite/branch-construction-transition@5",
+  childClosureContractRef: "contract://abiogenesis/worksite/branch-construction-child-closure@5",
   closureContractRef:
     "contract://abiogenesis/worksite/branch-construction-closure@5",
   branchApplicationChildClosureContractRef:

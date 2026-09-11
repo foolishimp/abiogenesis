@@ -1,3 +1,6 @@
+import { projectSameRunWorksiteCommandSourceAtPrefix } from "./worksite_input_provenance.js";
+import { worksiteRevisionEntryBindingDisposition } from "./worksite_revision.js";
+import { worksiteCommandForwardEntryDisposition } from "./worksite_command_forward.js";
 import type {
   GraphFunction,
   GtlProgram,
@@ -105,6 +108,7 @@ export interface InvocationAdmissionInput {
   readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly catalogView: GraphFunctionCatalogView;
   readonly catalogApplications?: readonly DeclarationApplication[];
+  readonly catalogApplicationResources?: readonly CatalogApplicationResources[];
   readonly policy: InvocationPolicyBasis;
   readonly capabilityGrants: readonly CapabilityGrant[];
   readonly authority: InvocationAuthority;
@@ -228,6 +232,7 @@ export interface InvocationAdmissionReceipt {
 
 type InvocationAdmissionSemanticRefusalCode =
   | "authority_mismatch"
+  | "basis_fork_detected"
   | "capability_mismatch"
   | "catalog_view_not_admitted"
   | "contract_mismatch"
@@ -394,9 +399,10 @@ export function isInvocationSourceResultBasis(
   }
 }
 
-export function deriveInvocationSourceResultBasisAtPrefix(
+function deriveSourceResultBasisAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   input: InvocationSourceResultDerivationInput,
+  requireClosedRun: boolean,
 ): ProductInvocationSourceResultBasis | null {
   const events = runtimeEventsFromValidatedPrefix(prefix);
   const runPrefix = selectValidatedRuntimeEventPrefix(events, {
@@ -460,8 +466,7 @@ export function deriveInvocationSourceResultBasisAtPrefix(
     !sourceRunMatchesInvocation ||
     sourceInvocation.invocationRef !== input.runtimeInvocationRef ||
     sourceReplay.runId !== input.runId ||
-    sourceReplay.runtimeStatus !== "closed" ||
-    sourceReplay.runClosedEventRef === null ||
+    (requireClosedRun && (sourceReplay.runtimeStatus !== "closed" || sourceReplay.runClosedEventRef === null)) ||
     sourceCall === undefined ||
     sourceCall.status !== "judged" ||
     sourceCall.judgment !== "advance" ||
@@ -509,6 +514,32 @@ export function deriveInvocationSourceResultBasisAtPrefix(
     ...body,
   }) as ProductInvocationSourceResultBasis;
   return basis;
+}
+
+export function deriveInvocationSourceResultBasisAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix, input: InvocationSourceResultDerivationInput,
+): ProductInvocationSourceResultBasis | null {
+  return deriveSourceResultBasisAtPrefix(prefix, input, true);
+}
+
+/** @internal The only open-Run form derives its source through the admitted preparation route. */
+export function deriveSameRunWorksiteCommandSourceBasisAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  input: Parameters<typeof projectSameRunWorksiteCommandSourceAtPrefix>[1],
+): ProductInvocationSourceResultBasis | null {
+  const source = projectSameRunWorksiteCommandSourceAtPrefix(prefix, input);
+  const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, input.parentBasis.invocationAdmissionRef);
+  if (source === null || invocation === null || !isRecord(source.sourceResult.payload) ||
+    typeof source.sourceResult.payload.resultRef !== "string") return null;
+  const result = deriveSourceResultBasisAtPrefix(prefix, {
+    publicAuthorityDigest: invocation.publicRequestDigest,
+    invocationAdmissionRef: invocation.invocationAdmissionRef,
+    runtimeInvocationRef: invocation.invocationRef,
+    runId: input.runId, resultRef: source.sourceResult.payload.resultRef,
+  }, false);
+  return result !== null && result.sourceResultAdmissionEventRef === source.sourceResult.eventId &&
+    result.sourceResultJudgmentEventRef === source.sourceJudgment.eventId &&
+    result.sourceGraphCallId === source.sourceResult.graphCallId ? result : null;
 }
 
 /** Reopens no authority: it reidentifies one asserted source basis in-place. */
@@ -748,20 +779,18 @@ function admitInvocationWithRequest(
   if (invocationTruth.disposition === "duplicate") {
     return duplicateInvocationRefusal(invocationTruth.priorAdmission);
   }
-  const exactCatalogApplications = catalogApplications.map((application) => {
-    const reconstructed = applyCatalogDeclaration(input.catalogView, {
-      applicationKind: application.declaration.declarationKind,
-      handle: application.declaration.handle,
-      targetRef: application.targetRef,
-      targetDigest: application.targetDigest,
-      appliedValueRef: application.appliedValueRef,
-      appliedValueDigest: application.appliedValueDigest,
-    });
-    return reconstructed.kind === "declaration_application" &&
-      canonicalJson(reconstructed as unknown as JsonValue) ===
-        canonicalJson(application as unknown as JsonValue);
+  const applicationResources = input.catalogApplicationResources ?? [];
+  const exactCatalogApplications = catalogApplications.map((application, index) => {
+    try {
+      const resources = applicationResources[index];
+      if (resources === undefined || resources.construction.programRef !== input.program.programRef ||
+          canonicalJson(resources.catalogView as unknown as JsonValue) !== canonicalJson(input.catalogView as unknown as JsonValue)) return false;
+      const reconstructed = reconstructCatalogApplication(resources, input.artifactTruth.prefix);
+      return canonicalJson(reconstructed as unknown as JsonValue) === canonicalJson(application as unknown as JsonValue);
+    } catch { return false; }
   });
   if (
+    applicationResources.length !== catalogApplications.length ||
     new Set(catalogApplications.map((row) => row.applicationRef)).size !==
       catalogApplications.length ||
     exactCatalogApplications.some((exact) => !exact) ||
@@ -1096,6 +1125,14 @@ function admitInvocationWithRequest(
       "authority_mismatch",
       "invocation target lacks exact caller-request admission",
     );
+  }
+  if (worksiteRevisionEntryBindingDisposition(predecessorPrefix, input.graphFunction,
+    input.rawInput.value, environment.workspaceBinding) === "basis_fork_detected") {
+    return refusal("basis_fork_detected", "selected D2 ancestry lacks exact native binding correspondence");
+  }
+  if(worksiteCommandForwardEntryDisposition(input.artifactTruth.prefix,input.graphFunction,input.rawInput.value,
+    environment.workspaceBinding,input.capabilityGrants,input.sourceResultBasis) === "basis_fork_detected") {
+    return refusal("basis_fork_detected","forward C2 requires exact unconsumed historical owners and current binding cover");
   }
   const priorGap =
     isRecord(input.rawInput.value) &&
@@ -1539,3 +1576,4 @@ export function admitExactInvocation(
     { family: "exact_public_definition", publicInvocation },
   );
 }
+import { reconstructCatalogApplication, type CatalogApplicationResources } from "../product/declaration_application.js";

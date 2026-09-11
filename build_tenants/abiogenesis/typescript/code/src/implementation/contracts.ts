@@ -1,8 +1,13 @@
+import type { QualificationOwnerBasis } from "../validator/self_conformance_basis.js";
+import type { RequirementHandoffDeclarationBasis } from "../abg/requirement_handoff.js";
+import type { SemanticStageNativeBasis } from "../abg/semantic_stage.js";
+import type { WorksitePreservedResultNativeBasis } from "../abg/worksite_construction_recovery.js";
 import type {
   ClosureContract,
   GraphFunction,
   HelloWorldInput,
   HelloWorldOutput,
+  ModulePublication,
 } from "../gtl/contracts.js";
 import type {
   ActorProcessCarrierValidation,
@@ -107,6 +112,11 @@ export interface ProbabilisticWorkerObservation {
 }
 
 export interface LeafExecutionOccurrence {
+  readonly worksiteCommandForwardBasis?: Readonly<import("../abg/worksite_command_forward.js").WorksiteCommandForwardNativeBasis>;
+  readonly worksitePreservedResultBasis?: Readonly<WorksitePreservedResultNativeBasis>;
+  readonly qualificationOwnerBasis?: Readonly<QualificationOwnerBasis>;
+  readonly semanticStageBasis?: Readonly<SemanticStageNativeBasis>;
+  readonly requirementHandoffBasis?: Readonly<RequirementHandoffDeclarationBasis>;
   readonly cCallRef: string;
   readonly runId: string;
   readonly graphCallId: string;
@@ -132,6 +142,8 @@ export interface LeafExecutionAuthority {
   readonly executionBasisDigest: Sha256Digest;
   readonly programRef: string;
   readonly programDigest: Sha256Digest;
+  /** Full immutable Program publication, bound to the admitted raw digest. */
+  readonly programPublication: Readonly<ModulePublication>;
   readonly graphFunctionRef: string;
   readonly graphFunctionDigest: Sha256Digest;
   readonly cCallRef: string;
@@ -322,6 +334,9 @@ export interface LeafInvocationPort {
   readonly isAdmittedResolution: (
     resolution: Readonly<LeafInvocationResolution>,
   ) => boolean;
+  readonly sourcePublicationByDeclarationRef?: (declarationRef: string) => Readonly<ModulePublication> | null;
+  readonly semanticPublicationByDeclarationRef?: (declarationRef: string) => Readonly<ModulePublication> | null;
+  readonly declarationGraphFunctions?: () => readonly Readonly<GraphFunction>[];
   readonly graphFunctionByRef: (
     graphFunctionRef: string,
   ) => Readonly<GraphFunction> | null;
@@ -374,6 +389,7 @@ export interface LeafInvocationPort {
       inputDigest: Sha256Digest;
       failureContractRef: string;
       occurrence: Readonly<LeafExecutionOccurrence>;
+      predecessorPrefix?: DurablePrefixCoordinate;
     }>,
   ) => Promise<Readonly<LeafInvocationOwnerResult>>;
 }

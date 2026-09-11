@@ -284,7 +284,7 @@ const FAN_OUT_PAYLOAD = payloadKeys(
   "applicationRef batchRef completionDigest completionKind completionRef inputMemberContractRef inputVectorRef outputMemberContractRef outputVectorContractRef",
 );
 const ROUTE_PAYLOAD = payloadKeys(
-  "cCallRef consumedAvailabilityRefs contractRef declarationDigest declarationRef graphSpanReentryProjection graphSpanReentryProjectionDigest graphSpanReentryProjectionRef judgmentRef nextActionProjection nextActionProjectionDigest nextActionProjectionRef replayStateDigest routeDigest routeKind routeRef sourceCursorDigest sourceCursorRef targetCursorDigest targetCursorRef",
+  "boundInput cCallRef consumedAvailabilityRefs contractRef declarationDigest declarationRef graphSpanReentryProjection graphSpanReentryProjectionDigest graphSpanReentryProjectionRef judgmentRef nextActionProjection nextActionProjectionDigest nextActionProjectionRef replayStateDigest routeDigest routeKind routeRef sourceCursorDigest sourceCursorRef targetCursorDigest targetCursorRef",
 );
 const TERMINAL_PAYLOAD = payloadKeys(
   "cCallRef closureContractDigest closureContractRef closureDigest closureRef judgmentRef resultRef routeRef terminalKind",
@@ -559,6 +559,9 @@ const ROOT_EVENT_CONTRACTS = Object.freeze({
       payloadKeys(
         "transportBindingRef transportBindingDigest cCallRef",
       ),
+    ), payloadVariant(
+      payloadKeys("absoluteTimeoutMs actorRef agentKey archiveRoot args cCallRef command cwd dispatchOrdinal environmentDigest environmentPolicyDigest implementationBindingRef implementationRef inputDigest lane parser paths promptDigest promptTransport responseJsonSchemaDigest terminationGraceMs timeoutMs transportBindingDigest transportBindingRef transportContractDigest transportPlanDigest workerBindingRef instructionAssembly"),
+      payloadKeys("transportBindingRef transportBindingDigest cCallRef instructionAssembly"),
     )],
   },
   actor_invocation_started: {

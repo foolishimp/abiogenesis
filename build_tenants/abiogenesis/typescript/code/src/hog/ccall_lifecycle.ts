@@ -1,3 +1,7 @@
+import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
+import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
+import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
+import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
 import * as Effect from "effect/Effect";
 
 import * as Abg from "../abg/index.js";
@@ -18,6 +22,7 @@ import type {
   GraphFunction,
   GtlGraph,
   GtlProgram,
+  ModulePublication,
 } from "../gtl/contracts.js";
 import { WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
 import type {
@@ -26,6 +31,7 @@ import type {
 } from "../implementation/contracts.js";
 import { constructLeafExecutionAuthority } from "../implementation/leaf_invocation_port.js";
 import { unadmittedPhysicalCommit } from "../implementation/worksite_file_replace.js";
+import { WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS } from "../product/worksite_construction_recovery.js";
 import {
   isWorksiteFileReplaceRequest,
   WORKSITE_FILE_REPLACE_EFFECT_URI,
@@ -59,6 +65,7 @@ export interface ExecutableCCallContext {
   readonly executionBasis: ExecutionBasis;
   readonly openedTraversalScope: OpenedTraversalScope;
   readonly program: Readonly<GtlProgram>;
+  readonly programPublication?: Readonly<ModulePublication>;
   readonly graphFunction: Readonly<GraphFunction>;
   readonly graph: Readonly<GtlGraph>;
   readonly graphValidation: GraphValidation;
@@ -101,6 +108,7 @@ function worksiteLeafAuthority(
 ): ReturnType<typeof constructLeafExecutionAuthority> | null {
   if (
     !isWorksiteFileReplaceRequest(input.input) ||
+    input.programPublication === undefined ||
     cCall.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
     resolution.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
     resolution.implementationBindingRef !==
@@ -148,6 +156,7 @@ function worksiteLeafAuthority(
     executionBasisDigest: input.executionBasis.basisDigest,
     programRef: input.executionBasis.programRef,
     programDigest: input.executionBasis.programDigest,
+    programPublication: input.programPublication,
     graphFunctionRef: input.executionBasis.graphFunctionRef,
     graphFunctionDigest: input.executionBasis.graphFunctionDigest,
     cCall,
@@ -324,9 +333,9 @@ export function projectCCallCompletion(
         resultRef: result.resultRef,
         judgmentRef: judgment.judgmentRef,
         nextCursor,
-        resultValue: result.value,
+        resultValue: admitted.transition.route.boundInput?.value ?? result.value,
         continuationKind: "advance",
-        nextInputContractRef: cCall.outputContractRef,
+        nextInputContractRef: admitted.transition.route.boundInput?.contractRef ?? cCall.outputContractRef,
       },
     );
   }
@@ -400,7 +409,31 @@ export function evaluateExecutableCCall(
         opened as unknown as JsonValue,
       );
     }
+    const requirementHandoffBasis = resolution.implementationRef === REQUIREMENT_HANDOFF_IDS.implementationRef && input.programPublication !== undefined
+      ? Abg.constructRequirementHandoffDeclarationBasis({ publication: input.programPublication, graph: input.graph,
+          graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: opened.cCall, predecessorPrefix: opened.successorPrefix })
+      : null;
+    const lifecycleRef = input.programPublication === undefined ? undefined : semanticLifecycleRefForProgram(input.programPublication, input.program);
+    const lifecyclePublication = lifecycleRef === undefined ? null : input.leafPort.semanticPublicationByDeclarationRef?.(lifecycleRef) ?? null;
+    const semanticSourcePublication = lifecyclePublication === null ? null : input.leafPort.sourcePublicationByDeclarationRef?.(lifecyclePublication.semanticLifecycle!.sourceDeclarationRef) ?? null;
+    const semanticStageBasis = SEMANTIC_IMPLEMENTATION_REFS.includes(resolution.implementationRef) && input.programPublication !== undefined && lifecyclePublication !== null && semanticSourcePublication !== null
+      ? Abg.constructSemanticStageNativeBasis({ publication: input.programPublication,
+          lifecyclePublication,
+          sourcePublication: semanticSourcePublication, graph: input.graph,
+          graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: opened.cCall,
+          cursor: input.stop.cursor, predecessorPrefix: opened.successorPrefix,
+          declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [] }) : null;
+    const worksitePreservedResultBasis = WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS.includes(resolution.implementationRef) && input.programPublication !== undefined
+      ? Abg.constructWorksitePreservedResultNativeBasis({ publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,
+          executionBasis: input.executionBasis, cCall: opened.cCall, cursor: input.stop.cursor, predecessorPrefix: opened.successorPrefix }) : null;
+    const worksiteCommandForwardBasis = ([forwardIds.prepareImplementationRef,forwardIds.implementationRef] as readonly string[]).includes(resolution.implementationRef) && input.programPublication !== undefined
+      ? Abg.constructWorksiteCommandForwardNativeBasis({publication:input.programPublication,graph:input.graph,graphFunction:input.graphFunction,
+          executionBasis:input.executionBasis,cCall:opened.cCall,cursor:input.stop.cursor,predecessorPrefix:opened.successorPrefix}) : null;
     const occurrence = Object.freeze({
+      ...(worksiteCommandForwardBasis === null ? {} : {worksiteCommandForwardBasis}),
+      ...(worksitePreservedResultBasis === null ? {} : { worksitePreservedResultBasis }),
+      ...(semanticStageBasis === null ? {} : { semanticStageBasis }),
+      ...(requirementHandoffBasis === null ? {} : { requirementHandoffBasis }),
       cCallRef: opened.cCall.cCallRef,
       runId: opened.cCall.runId,
       graphCallId: opened.cCall.graphCallId,
@@ -422,6 +455,7 @@ export function evaluateExecutableCCall(
         inputDigest: input.stop.cursor.inputDigest,
         failureContractRef: input.stop.failureContractRef,
         occurrence,
+        predecessorPrefix: opened.successorPrefix,
       }));
     if (invocation.kind === "leaf_invocation_owner_refusal") {
       return failCCall(
@@ -491,6 +525,7 @@ export function evaluateExecutableCCall(
       input: input.input,
       inputDigest: input.stop.cursor.inputDigest,
       ownerReceipt: completedOwner,
+      ...(input.programPublication === undefined ? {} : { programPublication: input.programPublication }),
       outputValueKind,
       failureValueKind,
       basis: admissionBasis(input.clock, "outcome"),
@@ -578,6 +613,18 @@ export function evaluateExecutableCCall(
         outputContractRef: input.stop.outputContractRef,
       };
     }
+    let retained: ReturnType<typeof Abg.deriveRetainedCCallInputAtPrefix> = null;
+    if (admitted.disposition === "judged" && admitted.admitted.result.resultClass === "success" &&
+      admitted.admitted.judgment.judgment === "advance" && input.deferToApplication !== true) {
+      try {
+        const truth = Abg.projectRuntimeTruthAtDurablePrefix(admitted.successorPrefix, input.stop.cursor.runId);
+        retained = Abg.deriveRetainedCCallInputAtPrefix(truth.authorityPrefix, input.executionBasis,
+          input.graph, input.stop.cursor, admitted.admitted.cCall, admitted.admitted.result, admitted.admitted.judgment);
+      } catch {
+        return failCCall(input, admitted.successorPrefix, `leaf-retention-${input.ordinal}`,
+          "diagnostic://abiogenesis/hog/retention-binding-invalid@5", { stage: "retention" });
+      }
+    }
     let target: TraversalCursor | null = null;
     if (
       admitted.disposition === "judged" &&
@@ -589,8 +636,8 @@ export function evaluateExecutableCCall(
         input.graph,
         input.stop.cursor,
         {
-          inputRef: admitted.admitted.result.resultRef,
-          inputDigest: admitted.admitted.result.valueDigest,
+          inputRef: retained?.input.admissionRef ?? admitted.admitted.result.resultRef,
+          inputDigest: retained?.input.subjectDigest ?? admitted.admitted.result.valueDigest,
         },
       );
       if (derived?.kind === "traversal_refusal") {
@@ -640,7 +687,8 @@ export function evaluateExecutableCCall(
     const proposedTransition = applicationReady
       ? null
       : Routes.proposeCCallOutcomeTransition({
-          graph: input.graph,
+          ...(retained === null ? {} : { boundInput: retained.input }),
+        graph: input.graph,
           graphFunction: input.graphFunction,
           sourceCursor: input.stop.cursor,
           targetCursor: admitted.disposition === "blocked" ? null : target,

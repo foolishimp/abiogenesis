@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Capability
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
 

@@ -51,6 +51,13 @@ import type {
   PublicContractCoordinate,
   PublicDefinitionKeyLike,
 } from "../shared/public_invocation.js";
+import type { VerifiedProductArtifact } from "./contracts.js";
+import {
+  admissionAuthorityScope,
+  validateAdmissionCapabilityBasis,
+  type AdmissionCapabilityGrantConstructionBasis,
+  type ResolvedAdmissionAuthority,
+} from "./admission_authority.js";
 
 export type RunInvocationVariant = "direct" | "start";
 export type CapabilityOperationId = PublicDefinitionKeyLike["operationId"];
@@ -710,7 +717,7 @@ export function isCapabilityGrantValue(value: unknown): value is CapabilityGrant
 }
 
 function exactIntrinsicDefinition(
-  basis: CapabilityGrantConstructionBasis,
+  basis: Pick<CapabilityGrantConstructionBasis, "fixedPacket">,
 ): IntrinsicPublicFunctionDefinition {
   const definition = selectIntrinsicPublicFunctionDefinition(
     basis.fixedPacket.definitionKey,
@@ -737,7 +744,7 @@ function exactIntrinsicDefinition(
 }
 
 function selectedCapabilityOwner(
-  admittedInstalls: readonly ProductInstall[],
+  admittedInstalls: readonly (ProductInstall | VerifiedProductArtifact)[],
   definition: IntrinsicPublicFunctionDefinition,
   capabilityRef: string,
 ): Readonly<{
@@ -780,43 +787,55 @@ function selectedCapabilityOwner(
       coordinate.nestedSelector.definitionKey.memberKey ===
         definition.definitionKey.memberKey
     );
-    const operationContracts = coordinates.filter((coordinate) =>
-      coordinate.nestedSelector.selectorKind === "flat_contract" &&
-      coordinate.flatRow.contractId === definition.definitionKey.operationId &&
-      admitRuntimeContract(publicContractCoordinateSchema, coordinate)
-        .disposition === "admitted"
+    const catalogContracts = install.publicContracts.filter((contract) =>
+      contract.contractId === definition.definitionKey.operationId
     );
+    if (
+      definitionCoordinates.length !== expectedSlots.length ||
+      catalogContracts.length !== 1
+    ) return [];
+    const catalogContract = catalogContracts[0]!;
+    const operationContract = {
+      contractCatalog: exactCatalog,
+      flatRow: {
+        contractId: catalogContract.contractId,
+        contractVersion: catalogContract.contractVersion,
+        contractDigest: catalogContract.contractDigest,
+      },
+      nestedSelector: {
+        selectorKind: "flat_contract" as const,
+        definitionKey: null,
+        slot: null,
+        definitionRef: null,
+      },
+    };
+    if (
+      admitRuntimeContract(publicContractCoordinateSchema, operationContract)
+        .disposition !== "admitted"
+    ) return [];
+    const explicitOperationContracts = coordinates.filter((coordinate) =>
+      coordinate.nestedSelector.selectorKind === "flat_contract" &&
+      coordinate.flatRow.contractId === definition.definitionKey.operationId
+    );
+    if (
+      explicitOperationContracts.length > 1 ||
+      explicitOperationContracts.some((coordinate) =>
+        canonicalJson(coordinate as unknown as JsonValue) !==
+          canonicalJson(operationContract as unknown as JsonValue)
+      )
+    ) return [];
     const exactSlots = expectedSlots.every((slot) =>
       definitionCoordinates.filter((coordinate) =>
         coordinate.nestedSelector.selectorKind ===
           "operation_definition_slot" &&
         coordinate.nestedSelector.slot === slot &&
-        operationContracts.length === 1 &&
         canonicalJson(coordinate.flatRow as unknown as JsonValue) ===
-          canonicalJson(
-            operationContracts[0]!.flatRow as unknown as JsonValue,
-          ) &&
-        install.publicContracts.some((contract) =>
-          contract.contractId === coordinate.flatRow.contractId &&
-          contract.contractVersion === coordinate.flatRow.contractVersion &&
-          contract.contractDigest === coordinate.flatRow.contractDigest
-        ) &&
+          canonicalJson(operationContract.flatRow as unknown as JsonValue) &&
         admitRuntimeContract(publicContractCoordinateSchema, coordinate)
           .disposition === "admitted"
       ).length === 1
     );
-    if (
-      definitionCoordinates.length !== expectedSlots.length ||
-      !exactSlots ||
-      operationContracts.length !== 1 ||
-      !install.publicContracts.some((contract) =>
-        contract.contractId === operationContracts[0]!.flatRow.contractId &&
-        contract.contractVersion ===
-          operationContracts[0]!.flatRow.contractVersion &&
-        contract.contractDigest === operationContracts[0]!.flatRow.contractDigest
-      )
-    ) return [];
-    return [{ graph, operationContract: operationContracts[0]!, row }];
+    return exactSlots ? [{ graph, operationContract, row }] : [];
   });
   if (owners.length !== 1) {
     throw new TypeError(
@@ -827,6 +846,96 @@ function selectedCapabilityOwner(
 }
 
 export function constructCapabilityGrant(
+  policy: ResolvedAdmissionAuthority,
+  actorRef: string,
+  operationId: CapabilityOperationId,
+  capabilityRef: string,
+  basis: AdmissionCapabilityGrantConstructionBasis,
+): Promise<CapabilityGrant>;
+export function constructCapabilityGrant(
+  policy: InvocationPolicyBasis | WorkspaceAuthorityBasis,
+  actorRef: string,
+  operationId?: CapabilityOperationId,
+  capabilityRef?: string,
+  basis?: CapabilityGrantConstructionBasis,
+): CapabilityGrant;
+export function constructCapabilityGrant(
+  policy: InvocationPolicyBasis | WorkspaceAuthorityBasis | ResolvedAdmissionAuthority,
+  actorRef: string,
+  operationId: CapabilityOperationId = "abg.operation.run.invoke",
+  capabilityRef: string = DIRECT_INVOKE_CAPABILITY,
+  basis?: CapabilityGrantConstructionBasis | AdmissionCapabilityGrantConstructionBasis,
+): CapabilityGrant | Promise<CapabilityGrant> {
+  if (policy.kind === "resolved_admission_authority") {
+    if (basis === undefined || !("kind" in basis) || operationId !== basis.fixedPacket.definitionKey.operationId) {
+      throw new TypeError("admission grant requires the native fixed owner and data basis");
+    }
+    return constructAdmissionGrant(policy, actorRef, capabilityRef, basis);
+  }
+  if (basis !== undefined && "kind" in basis) {
+    throw new TypeError("invocation grant cannot consume an admission authority basis");
+  }
+  return constructInvocationCapabilityGrant(policy, actorRef, operationId, capabilityRef, basis);
+}
+
+function closeCapabilityDependencies(graph: CapabilityDefinitionGraph, capabilityRef: string): void {
+  const graphRows = new Map(graph.rows.map((row) => [row.capabilityId, row]));
+  const closed = new Set<string>();
+  const close = (id: string): void => {
+    if (closed.has(id)) return;
+    const row = graphRows.get(id);
+    if (row === undefined) throw new TypeError("capability dependency is absent from installed graph");
+    closed.add(id);
+    for (const dependency of row.dependentCapabilities) {
+      const installed = graphRows.get(dependency.capabilityId);
+      if (installed === undefined || installed.capabilityDefinitionRef !== dependency.capabilityDefinitionRef ||
+          installed.capabilityDefinitionDigest !== dependency.capabilityDefinitionDigest) {
+        throw new TypeError("capability dependency coordinate is crossed");
+      }
+      close(dependency.capabilityId);
+    }
+  };
+  close(capabilityRef);
+}
+
+async function constructAdmissionGrant(
+  policy: ResolvedAdmissionAuthority, actorRef: string, capabilityRef: string,
+  basis: AdmissionCapabilityGrantConstructionBasis,
+): Promise<CapabilityGrant> {
+  const definition = exactIntrinsicDefinition(basis);
+  if (basis.data.definition.definitionRef !== definition.definitionRef ||
+      basis.data.definition.definitionDigest !== definition.definitionDigest) {
+    throw new TypeError("admission definition coordinate differs from the installed fixed packet");
+  }
+  const { data, authority } = await validateAdmissionCapabilityBasis(policy, actorRef, capabilityRef, basis);
+  const { graph, operationContract, row } = selectedCapabilityOwner(
+    data.boundEnvironment?.productInstalls ?? [data.ownerArtifact.verified], definition, capabilityRef,
+  );
+  closeCapabilityDependencies(graph, capabilityRef);
+  const scope = admissionAuthorityScope(data);
+  const body = {
+    definitionKey: definition.definitionKey,
+    definitionRef: definition.definitionRef,
+    definitionDigest: definition.definitionDigest,
+    capabilityDefinition: {
+      graphId: graph.graphId, graphVersion: graph.graphVersion, graphDigest: graph.graphDigest,
+      capabilityId: row.capabilityId, capabilityDefinitionRef: row.capabilityDefinitionRef,
+      capabilityDefinitionDigest: row.capabilityDefinitionDigest,
+    },
+    operationContract,
+    operationId: basis.fixedPacket.definitionKey.operationId,
+    capabilityRef, actorRef,
+    approvalRef: authority.approval.ref, approvalDigest: authority.approval.digest,
+    policyRef: authority.approval.ref, policyDigest: authority.approval.digest,
+    scopeRef: scope.ref, scopeDigest: scope.digest,
+    authorityBasisRef: authority.authority.ref, authorityBasisDigest: authority.authority.digest,
+  };
+  const grantDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({ kind: "capability_grant", schemaVersion: "5.0.0",
+    grantRef: identity("capability-grant://abiogenesis", grantDigest), grantDigest, ...body });
+}
+
+function constructInvocationCapabilityGrant(
   policy: InvocationPolicyBasis | WorkspaceAuthorityBasis,
   actorRef: string,
   operationId: CapabilityOperationId = "abg.operation.run.invoke",
@@ -872,28 +981,7 @@ export function constructCapabilityGrant(
       definition,
       capabilityRef,
     );
-  const graphRows = new Map(graph.rows.map((row) => [row.capabilityId, row]));
-  const closed = new Set<string>();
-  const closeDependencies = (capabilityId: string): void => {
-    if (closed.has(capabilityId)) return;
-    const row = graphRows.get(capabilityId);
-    if (row === undefined) {
-      throw new TypeError("capability dependency is absent from installed graph");
-    }
-    closed.add(capabilityId);
-    for (const dependency of row.dependentCapabilities) {
-      const installed = graphRows.get(dependency.capabilityId);
-      if (
-        installed === undefined ||
-        installed.capabilityDefinitionRef !== dependency.capabilityDefinitionRef ||
-        installed.capabilityDefinitionDigest !== dependency.capabilityDefinitionDigest
-      ) {
-        throw new TypeError("capability dependency coordinate is crossed");
-      }
-      closeDependencies(dependency.capabilityId);
-    }
-  };
-  closeDependencies(capabilityRef);
+  closeCapabilityDependencies(graph, capabilityRef);
   const capabilityDefinition = deepFreeze({
     graphId: graph.graphId,
     graphVersion: graph.graphVersion,

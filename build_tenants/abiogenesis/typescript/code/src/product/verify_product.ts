@@ -1215,8 +1215,7 @@ export function parseProductPublicContract(
     row.owningProduct !== productId ||
     !isUniqueStringArray(row.requirementAuthorityRefs) ||
     row.requirementAuthorityRefs.length === 0 ||
-    !isUniqueStringArray(row.capabilityIdentities) ||
-    row.capabilityIdentities.length === 0
+    !isUniqueStringArray(row.capabilityIdentities)
   ) {
     return null;
   }

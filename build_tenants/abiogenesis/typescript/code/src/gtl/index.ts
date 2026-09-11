@@ -1,3 +1,6 @@
+export { SEMANTIC_STAGE_IDS, constructSemanticLifecycleDeclaration } from "./semantic_stage.js";
+export { constructSemanticStageModulePublication, constructSemanticStageGraphFunction, constructSemanticBridgeGraphFunction, constructSemanticClosureContract } from "./semantic_stage_publication.js";
+export type { SemanticLifecycleDeclaration, SemanticStageDeclaration, SemanticAssetSurface, SemanticProofPolicy, SemanticProofShape } from "./semantic_stage.js";
 export {
   constructWorksiteCommandExecutionModulePublication,
 } from "./worksite_command_execution.js";
@@ -364,3 +367,13 @@ export {
   type CSourcePath,
   type CSourcePathRefusal,
 } from "./source_path.js";
+
+export { REQUIREMENT_HANDOFF_IDS, constructRequirementHandoffDeclaration, constructRequirementHandoffModulePublication, constructRequirementHandoffConsumerPublication } from "./requirement_handoff.js";
+export type { ContextDeclaration, RequirementTerm, GtlContractFulfillmentBinding, GtlRequirementHandoffDeclaration } from "./requirement_handoff.js";
+
+export { SEMANTIC_REVISION_IDS } from "./semantic_revision_identity.js";
+export { constructSemanticRevisionModulePublication, constructSemanticRevisionSelectionGraphFunction, constructSemanticRevisionGraphFunction, semanticRevisionImplementationBindings } from "./semantic_revision_publication.js";
+export { SELF_CONFORMANCE_IDS, constructSelfConformanceModulePublication } from "./self_conformance.js";
+export { constructWorksitePreservedResultRecoveryGraphFunction, worksitePreservedResultSourceOfGraphFunction } from "./worksite_construction.js";
+export { constructWorksiteCommandForwardModulePublication, worksiteCommandForwardGraphFunctions,
+  isWorksiteCommandForwardGraphFunction } from "./worksite_command_forward.js";

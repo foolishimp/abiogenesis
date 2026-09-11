@@ -1,9 +1,22 @@
+import { SEMANTIC_REVISION_IMPLEMENTATION_REFS, SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+import { semanticRevisionResultMatchesBasis, projectRevisionWorksitePreparation } from "./semantic_revision.js";
+import { SEMANTIC_IMPLEMENTATION_REFS, SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+import { WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS } from "../product/worksite_construction_recovery.js";
+import { worksitePreservedResultMatchesBasis } from "./worksite_construction_recovery.js";
+import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
+import { worksiteCommandForwardResultMatches } from "./worksite_command_forward.js";
+import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
+import { semanticResultMatchesBasis, projectSemanticWorksitePreparation, projectSemanticEvidenceInput, projectSemanticEnvelopeOutput, type SemanticStageNativeBasis } from "./semantic_stage.js";
+import { semanticInstructionResultMatches } from "./instruction_assembly.js";
+import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
+import { requirementHandoffResultMatches } from "./requirement_handoff.js";
+import type { ModulePublication } from "../gtl/contracts.js";
 import type {
   ClosureContract,
   GraphFunction,
   GtlGraph,
 } from "../gtl/contracts.js";
-import { isWorksiteFileReplaceOutput } from "../gtl/worksite_c0.js";
+import { isWorksiteFileReplaceOutput, WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
 import type {
   ClosedLeafOwnerReceipt,
   LeafInvocationPort,
@@ -16,8 +29,13 @@ import {
   isWorksiteFileReplaceReceipt,
   isWorksiteFileReplaceRequest,
   isWorksiteObservation,
+  isWorksitePostPublicationFailure,
+  worksitePostPublicationFailureMatches,
+  constructWorksiteEffectAuthorization,
+  worksiteFailureAuthorization,
   WORKSITE_FILE_REPLACE_EFFECT_URI,
 } from "../product/worksite_effect.js";
+import type { WorkspaceBinding } from "../product/environment.js";
 import type { ActorRuntimeBinding } from "./actor_process.js";
 import {
   admitEvidence,
@@ -46,7 +64,7 @@ import type {
   ExecutionBasis,
   RuntimeAdmissionBasis,
 } from "./execution_basis.js";
-import type { AbgEventStore } from "./event_store.js";
+import type { AbgEventStore, RuntimeEvent } from "./event_store.js";
 import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
@@ -94,6 +112,87 @@ function isJsonRecord(
   value: JsonValue | undefined,
 ): value is Readonly<Record<string, JsonValue>> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/** Reconstructs C0's Product-owned failure join from admitted bytes, with no I/O. */
+export function projectWorksiteFailureBasis(
+  events: readonly RuntimeEvent[],
+  cCallRef: string,
+  value: unknown,
+) {
+  if (!isWorksitePostPublicationFailure(value)) return null;
+  const authorization = worksiteFailureAuthorization(value);
+  if (authorization.cCallRef !== cCallRef ||
+    authorization.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
+    authorization.implementationBindingRef !== "implementation-binding://abiogenesis/worksite/file-replace-fd@5" ||
+    authorization.implementationRef !== "implementation://abiogenesis/worksite/file-replace-fd@5") return null;
+  const one = (kind: RuntimeEvent["kind"], predicate: (row: RuntimeEvent) => boolean) => {
+    const rows = events.filter(row => row.kind === kind && predicate(row));
+    return rows.length === 1 ? rows[0]! : null;
+  };
+  const basisRow = one("basis_admitted", row => row.basisId === authorization.executionBasisRef);
+  const opened = one("c_call_opened", row => row.aggregateId === cCallRef);
+  const fibre = one("c_call_fibre_selected", row => row.aggregateId === cCallRef);
+  const bindingRow = one("public_operation_artifact_admitted", row =>
+    isJsonRecord(row.payload) && row.payload.operationId === "abg.operation.workspace.bind" &&
+    row.payload.artifactRef === authorization.workspaceBindingIdentity &&
+    row.payload.artifactDigest === authorization.workspaceBindingDigest);
+  if (basisRow === null || opened === null || fibre === null || bindingRow === null ||
+    !isJsonRecord(basisRow.payload) || !isJsonRecord(opened.payload) ||
+    !isJsonRecord(fibre.payload) || !isJsonRecord(bindingRow.payload) ||
+    !isJsonRecord(bindingRow.payload.artifact) ||
+    opened.basisId !== basisRow.basisId || fibre.basisId !== basisRow.basisId ||
+    opened.graphFunctionRef !== authorization.graphFunctionRef ||
+    fibre.graphFunctionRef !== opened.graphFunctionRef ||
+    opened.runId !== fibre.runId || opened.frameId !== fibre.frameId ||
+    opened.graphCallId !== fibre.graphCallId ||
+    opened.payload.callClass !== "leaf" || fibre.payload.callClass !== "leaf" ||
+    fibre.payload.regime !== "F_D" ||
+    !fibre.causationEventRefs.includes(opened.eventId) ||
+    !(bindingRow.admissionOrdinal < basisRow.admissionOrdinal &&
+      basisRow.admissionOrdinal < opened.admissionOrdinal &&
+      opened.admissionOrdinal < fibre.admissionOrdinal)) return null;
+  const basisPayload = basisRow.payload;
+  const request = basisPayload.rawInputValue;
+  const implementationRow = one("implementation_admitted", row =>
+    isJsonRecord(row.payload) && row.payload.implementationSetRef === basisPayload.implementationSetRef);
+  if (!isWorksiteFileReplaceRequest(request) ||
+    basisPayload.rawInputDigest !== sha256Canonical(request as unknown as JsonValue) ||
+    sha256Canonical(request.workspaceAuthorityBasis as unknown as JsonValue) !==
+      sha256Canonical(bindingRow.payload.workspaceAuthorityBasis!) ||
+    implementationRow === null || !isJsonRecord(implementationRow.payload) ||
+    !isJsonRecord(implementationRow.payload.implementationSet) ||
+    implementationRow.admissionOrdinal >= basisRow.admissionOrdinal) return null;
+  try {
+    const workspaceBinding = { ...bindingRow.payload.artifact, kind: "workspace_binding",
+      admissionEventRef: bindingRow.eventId } as unknown as WorkspaceBinding;
+    const executionBasis = { kind: "execution_basis", schemaVersion: "5.0.0", disposition: "admitted",
+      ...basisPayload, admissionEventRef: basisRow.eventId } as unknown as ExecutionBasis;
+    const implementationSet = { kind: "admitted_implementation_set", schemaVersion: "5.0.0", disposition: "admitted",
+      ...implementationRow.payload.implementationSet, admissionEventRef: implementationRow.eventId } as unknown as AdmittedImplementationSet;
+    const fibrePayload = fibre.payload;
+    const openedPayload = opened.payload;
+    const selected = implementationSet.rows.filter(row =>
+      row.requirementKey === fibrePayload.implementationRequirementKey &&
+      row.programLocusRef === openedPayload.programLocusRef &&
+      row.graphFunctionRef === opened.graphFunctionRef &&
+      row.implementationBindingRef === fibrePayload.implementationBindingRef);
+    if (selected.length !== 1 || selected[0]!.failureContractRef !== WORKSITE_C0_IDS.failureContractRef) return null;
+    const resolution = selected[0]!;
+    const cCall = { kind: "c_call", schemaVersion: "5.0.0", ...opened.payload, ...fibre.payload,
+      basisId: opened.basisId, runId: opened.runId, graphFunctionRef: opened.graphFunctionRef,
+      graphCallId: opened.graphCallId, frameId: opened.frameId,
+      inputContractRef: resolution.inputContractRef, outputContractRef: resolution.outputContractRef,
+      failureContractRef: resolution.failureContractRef, refusalContractRef: resolution.refusalContractRef,
+      openedEventRef: opened.eventId, fibreSelectedEventRef: fibre.eventId,
+    } as unknown as CCall;
+    const expected = constructWorksiteEffectAuthorization({ workspaceBinding, request, executionBasis, cCall, implementationSet });
+    if (expected.kind !== "worksite_effect_authorization" ||
+      !worksitePostPublicationFailureMatches(value, request, expected)) return null;
+    return { request, authorization: expected, executionBasis, implementationSet, workspaceBinding, cCall };
+  } catch {
+    return null;
+  }
 }
 
 function worksiteEvidenceCandidate(
@@ -147,6 +246,7 @@ interface CCallAdmissionContext {
 }
 
 interface CCallOutcomeCommonInput extends CCallAdmissionContext {
+  readonly programPublication?: Readonly<ModulePublication>;
   readonly predecessorPrefix: DurablePrefixCoordinate;
   readonly executionBasis: ExecutionBasis;
   readonly leafPort: LeafInvocationPort;
@@ -698,8 +798,25 @@ function stageCCallResult(
   const worksiteEvidence = resultDisposition === "success"
     ? worksiteEvidenceCandidate(input, resultCandidate)
     : null;
+  const postPublication = input.cCall.graphFunctionRef === WORKSITE_C0_IDS.graphFunctionRef &&
+    resultDisposition === "failure" && resultCandidate.phase === "post_publication";
+  if (postPublication) {
+    const authenticated = projectWorksiteFailureBasis(input.store.readAll(), input.cCall.cCallRef, resultCandidate);
+    if (input.outcomeClass !== "leaf" || input.regime !== "F_D" || authenticated === null ||
+      input.graphFunction.name !== WORKSITE_C0_IDS.graphFunctionRef ||
+      input.cCall.failureContractRef !== WORKSITE_C0_IDS.failureContractRef ||
+      !input.graphFunction.effects.includes(WORKSITE_FILE_REPLACE_EFFECT_URI) ||
+      input.inputDigest !== sha256Canonical(authenticated.request as unknown as JsonValue) ||
+      sha256Canonical(input.input) !== input.inputDigest ||
+      authenticated.executionBasis.basisDigest !== input.executionBasis.basisDigest ||
+      authenticated.implementationSet.implementationSetDigest !== input.implementationSet.implementationSetDigest ||
+      authenticated.authorization.cCallDigest !== input.cCall.cCallDigest ||
+      authenticated.authorization.leafResolutionCandidateDigest !== input.resolution.leafResolutionCandidateDigest) {
+      throw new TypeError("post-publication worksite failure differs from its exact admitted C0 basis");
+    }
+  }
   const committedWorksiteOutput = worksiteEvidence !== null &&
-    isWorksiteFileReplaceOutput(resultCandidate);
+    isWorksiteFileReplaceOutput(resultCandidate) || postPublication;
   const evidenceCandidates: readonly CCallEvidenceCandidate[] =
     input.outcomeClass === "workflow"
       ? [deriveSubTraversalEvidence(
@@ -813,6 +930,57 @@ function stageCCallResult(
             : (input.regime !== "F_P" ||
                 probabilistic?.kind ===
                   "contract_admitted_probabilistic_result_candidate") &&
+              (!([forwardIds.prepareImplementationRef,forwardIds.implementationRef] as readonly string[]).includes(input.cCall.implementationRef??"") ||
+                (input.programPublication !== undefined && worksiteCommandForwardResultMatches({publication:input.programPublication,
+                  graph:input.graph,graphFunction:input.graphFunction,executionBasis:input.executionBasis,cCall:input.cCall,
+                  cursor:input.cursor,predecessorPrefix:input.predecessorPrefix},input.input,value))) &&
+              (input.cCall.outputContractRef !== REQUIREMENT_HANDOFF_IDS.outputContractRef ||
+                (input.programPublication !== undefined && requirementHandoffResultMatches({
+                  publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,
+                  executionBasis: input.executionBasis, cCall: input.cCall, predecessorPrefix: input.predecessorPrefix,
+                }, input.input, value))) &&
+              (!WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "") ||
+                (input.programPublication !== undefined && worksitePreservedResultMatchesBasis({ publication: input.programPublication,
+                  graph: input.graph, graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: input.cCall,
+                  cursor: input.cursor, predecessorPrefix: input.predecessorPrefix }, input.input, value))) &&
+              (!SEMANTIC_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "") || (() => {
+                if (input.programPublication === undefined) return false;
+                const program = input.programPublication.programs.find(p => p.programRef === input.executionBasis.programRef);
+                const lifecycleRef = program === undefined ? undefined : semanticLifecycleRefForProgram(input.programPublication, program);
+                const lifecyclePublication = lifecycleRef === undefined ? null : input.leafPort.semanticPublicationByDeclarationRef?.(lifecycleRef) ?? null;
+                if (lifecyclePublication === null) return false;
+                const sourcePublication = input.leafPort.sourcePublicationByDeclarationRef?.(lifecyclePublication.semanticLifecycle!.sourceDeclarationRef) ?? null;
+                if (sourcePublication === null) return false;
+                const basis: SemanticStageNativeBasis = { publication: input.programPublication,
+                  lifecyclePublication,
+                  sourcePublication,
+                  graph: input.graph,
+                  graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: input.cCall,
+                  cursor: input.cursor, predecessorPrefix: input.predecessorPrefix,
+                  declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [] };
+                if (SEMANTIC_REVISION_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "")) {
+                  if (input.cCall.implementationRef === SEMANTIC_REVISION_IDS.bridgeImplementationRef) {
+                    const expected = projectRevisionWorksitePreparation(basis, input.input);
+                    return expected !== null && sha256Canonical(expected as unknown as JsonValue) === sha256Canonical(value as JsonValue);
+                  }
+                  return semanticRevisionResultMatchesBasis(basis, input.input, value) &&
+                    (![SEMANTIC_REVISION_IDS.selectionImplementationRef, SEMANTIC_REVISION_IDS.authorImplementationRef, SEMANTIC_REVISION_IDS.assessorImplementationRef].some(r => r === input.cCall.implementationRef) ||
+                      semanticInstructionResultMatches(basis, input.input, value));
+                }
+                if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.bridgeImplementationRef) {
+                  const expected = projectSemanticWorksitePreparation(basis, input.input);
+                  return expected !== null && sha256Canonical(expected as unknown as JsonValue) === sha256Canonical(value as JsonValue);
+                }
+                if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.evidenceInputImplementationRef) {
+                  const expected = projectSemanticEvidenceInput(basis, input.input);
+                  return expected !== null && sha256Canonical(expected as unknown as JsonValue) === sha256Canonical(value as JsonValue);
+                }
+                if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.terminalImplementationRef) {
+                  const expected = projectSemanticEnvelopeOutput(basis, input.input);
+                  return expected !== null && sha256Canonical(expected as unknown as JsonValue) === sha256Canonical(value as JsonValue);
+                }
+                return semanticResultMatchesBasis(basis, input.input, value) && semanticInstructionResultMatches(basis, input.input, value);
+              })()) &&
               input.leafPort.validateContractValue(
                 input.cCall.outputContractRef,
                 "output",

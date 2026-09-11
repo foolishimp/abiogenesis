@@ -1,4 +1,5 @@
 import * as v from "valibot";
+import { ABG_TYPED_TERMINAL_RESULT_SCHEMA } from "./terminal_result_contracts.js";
 
 import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
@@ -73,6 +74,7 @@ function subjectResultProjectionSchema(
     kind: v.literal(kind),
     subject: refDigestSchema,
     result: refDigestSchema,
+    terminalResult: ABG_TYPED_TERMINAL_RESULT_SCHEMA,
     terminalRoute: refDigestSchema,
     replay: refDigestSchema,
   });
@@ -88,14 +90,17 @@ function subjectEvidenceProjectionSchema(kind: string) {
   });
 }
 
-function subjectReplayProjectionSchema(kind: string) {
-  return v.strictObject({
+function subjectReplayProjectionSchema(kind: string, terminalSummary = false) {
+  const fields = {
     kind: v.literal(kind),
     subject: refDigestSchema,
     replay: refDigestSchema,
     fromOrdinal: safeNonNegativeIntegerSchema,
     limit: safePositiveIntegerSchema,
-  });
+  };
+  return terminalSummary
+    ? v.strictObject({ ...fields, status: runtimeStatusSchema, terminalResult: v.nullable(ABG_TYPED_TERMINAL_RESULT_SCHEMA) })
+    : v.strictObject(fields);
 }
 
 function subjectGapProjectionSchema(
@@ -292,7 +297,7 @@ const runReplay = abgReadContract({
   caseKey: "run_replay",
   sourceKind: "run",
   selector: replaySelectorSchema,
-  projection: subjectReplayProjectionSchema("run_replay_projection"),
+  projection: subjectReplayProjectionSchema("run_replay_projection", true),
   abstractModule: "ABG.RunProjection",
   replay: true,
 });
@@ -300,7 +305,7 @@ const graphCallReplay = abgReadContract({
   caseKey: "graph_call_replay",
   sourceKind: "graph_call",
   selector: replaySelectorSchema,
-  projection: subjectReplayProjectionSchema("graph_call_replay_projection"),
+  projection: subjectReplayProjectionSchema("graph_call_replay_projection", true),
   abstractModule: "ABG.GraphCallProjection",
   replay: true,
 });

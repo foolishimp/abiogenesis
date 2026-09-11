@@ -1,3 +1,20 @@
+import { WORKSITE_PRESERVED_RESULT_IDS, isWorksitePreservedResultArtifact, resolveWorksitePreservedResultJudgmentRelation } from "./worksite_construction_recovery.js";
+import { WORKSITE_REVISION_IDS, isWorksiteRevisionCommandExecutionTask } from "./worksite_revision.js";
+import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "./worksite_command_forward_identity.js";
+import { isWorksiteCommandForwardRequest,
+  isWorksiteCommandForwardTask, isWorksiteCommandForwardWorkerResult } from "./worksite_command_forward.js";
+import { isWorksiteCommandForwardObservation } from "./worksite_command_execution.js";
+import { isWorksiteRevisionCommandExecutionObservation, isWorksiteRevisionCommandExecutionWorkerResult } from "./worksite_command_execution.js";
+import { SEMANTIC_REVISION_IDS as revisionIds } from "../gtl/semantic_revision_identity.js";
+import { isSemanticRevisionRequest, isSemanticRevisionEnvelope, isSemanticRevisionSelection, isSemanticRevisionSelectionInput, deriveRevisionAsset, deriveRevisionAssessment } from "./semantic_revision.js";
+import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+import { isSemanticStageEnvelope, isSemanticAssetCandidate, isSemanticAssessmentCandidate, deriveSemanticAsset, deriveSemanticAssessment, deriveSemanticWorksitePreparation } from "./semantic_stage.js";
+import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
+import { isRequirementHandoffInput, isRequirementHandoffOutput } from "./requirement_handoff.js";
+import {
+  admitWorksitePreparationInput, isWorksitePreparationInput, preparationConstructionTasks, prepareWorksiteCommandTask,
+  validateWorksitePreparationContractValue, resolveWorksitePreparationJudgmentRelation,
+} from "./worksite_preparation.js";
 import {
   FAN_OUT_HELLO_IDS,
   FP_HELLO_IDS,
@@ -75,7 +92,7 @@ import {
   ABI5_PACKAGE_VERSION,
 } from "./contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
+import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { ProductSemanticsProvider } from "./semantics.js";
 
@@ -83,6 +100,15 @@ function admitInput(
   contractRef: string,
   value: unknown,
 ): Readonly<Record<string, JsonValue>> | null {
+  if ((contractRef === forwardIds.requestContractRef && isWorksiteCommandForwardRequest(value)) ||
+      (contractRef === forwardIds.taskContractRef && isWorksiteCommandForwardTask(value)))
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  if (contractRef === WORKSITE_PRESERVED_RESULT_IDS.artifactContractRef && isWorksitePreservedResultArtifact(value)) {
+    return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  }
+  if (contractRef === WORKSITE_REVISION_IDS.taskContractRef && isWorksiteRevisionCommandExecutionTask(value)) return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+  const preparation = admitWorksitePreparationInput(contractRef, value);
+  if (preparation !== null) return preparation;
   if (contractRef === HELLO_WORLD_IDS.inputContractRef && isHelloWorldInput(value)) {
     return constructHelloWorldInput(value.subject) as unknown as Readonly<
       Record<string, JsonValue>
@@ -204,7 +230,13 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
     valueKind: string,
     value: unknown,
   ): value is Readonly<Record<string, JsonValue>> {
-    return isDeclaredConformanceValue(value, valueKind) ||
+    return (valueKind === "worksite_command_forward_request" && isWorksiteCommandForwardRequest(value)) ||
+      (valueKind === "worksite_command_forward_task" && isWorksiteCommandForwardTask(value)) ||
+      (valueKind === "worksite_command_forward_observation" && isWorksiteCommandForwardObservation(value)) ||
+      (valueKind === "worksite_command_forward_worker_result" && isWorksiteCommandForwardWorkerResult(value)) ||
+      (valueKind === "worksite_preserved_result_artifact" && isWorksitePreservedResultArtifact(value)) ||
+      validateWorksitePreparationContractValue(valueKind, value) ||
+      isDeclaredConformanceValue(value, valueKind) ||
       (valueKind === "worksite_file_replace_request" &&
         isWorksiteFileReplaceRequest(value)) ||
       (valueKind === "worksite_file_replace_output" &&
@@ -236,26 +268,38 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
       (valueKind ===
           "worksite_branch_construction_branch_application_failure" &&
         isWorksiteBranchConstructionBranchApplicationFailure(value)) ||
+      (valueKind === "worksite_revision_command_execution_task" && isWorksiteRevisionCommandExecutionTask(value)) ||
+      (valueKind === "worksite_revision_command_execution_observation" && isWorksiteRevisionCommandExecutionObservation(value)) ||
       (valueKind === "worksite_command_execution_task" &&
         isWorksiteCommandExecutionTask(value)) ||
       (valueKind === "worksite_command_execution_worker_result" &&
         isWorksiteCommandExecutionWorkerResult(value)) ||
+      (valueKind === "worksite_revision_command_execution_worker_result" &&
+        isWorksiteRevisionCommandExecutionWorkerResult(value)) ||
       (valueKind === "worksite_command_execution_observation" &&
         isWorksiteCommandExecutionObservation(value)) ||
       (valueKind === "worksite_command_execution_failure" &&
         isWorksiteCommandExecutionFailure(value));
   },
   resolveJudgmentRelation: (predicateRef: string) =>
-    resolveConformanceJudgmentRelation(predicateRef) ??
-      resolveWorksiteC0JudgmentRelation(predicateRef) ??
+    resolveWorksiteCommandForwardJudgmentRelation(predicateRef) ??
+      resolveConformanceJudgmentRelation(predicateRef) ??
+      resolveWorksitePreservedResultJudgmentRelation(predicateRef) ?? resolveWorksiteC0JudgmentRelation(predicateRef) ??
       resolveWorksiteConstructionJudgmentRelation(predicateRef) ??
       resolveWorksiteBranchConstructionJudgmentRelation(predicateRef) ??
-      resolveWorksiteCommandExecutionJudgmentRelation(predicateRef),
+      resolveWorksiteCommandExecutionJudgmentRelation(predicateRef) ??
+      resolveWorksitePreparationJudgmentRelation(predicateRef),
   resolveProbabilisticWorkerContracts(basis: Readonly<{
     inputContractRef: string;
     outputContractRef: string;
     input: Readonly<Record<string, JsonValue>>;
   }>) {
+    if (basis.inputContractRef === forwardIds.taskContractRef && basis.outputContractRef === forwardIds.observationContractRef &&
+      isWorksiteCommandForwardTask(basis.input)) return Object.freeze({instructionContractRef:forwardIds.taskContractRef,
+        resultContractRef:forwardIds.workerResultContractRef});
+    if (basis.inputContractRef === WORKSITE_REVISION_IDS.taskContractRef && basis.outputContractRef === WORKSITE_REVISION_IDS.observationContractRef &&
+      isWorksiteRevisionCommandExecutionTask(basis.input)) return Object.freeze({ instructionContractRef: WORKSITE_REVISION_IDS.taskContractRef,
+        resultContractRef: WORKSITE_REVISION_IDS.workerResultContractRef });
     if (
       basis.inputContractRef === WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef &&
       basis.outputContractRef === WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef &&
@@ -287,6 +331,17 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
       NonNullable<ProductSemanticsProvider["validateInvocationBasis"]>
     >[0],
   ) {
+    if (isWorksiteCommandForwardRequest(basis.input)) return basis.sourceResultBasis === null &&
+      basis.input.workspaceBinding.bindingId === basis.workspaceBindingId &&
+      basis.input.workspaceBinding.bindingDigest === basis.workspaceBindingDigest &&
+      basis.input.workspaceBinding.workspaceId === basis.workspaceId;
+    if (isWorksitePreparationInput(basis.input)) {
+      const tasks = preparationConstructionTasks(basis.input);
+      return basis.sourceResultBasis === null && tasks.length > 0 && tasks.every((task) =>
+        task.workspaceBinding.bindingId === basis.workspaceBindingId &&
+        task.workspaceBinding.bindingDigest === basis.workspaceBindingDigest &&
+        task.workspaceBinding.workspaceId === basis.workspaceId);
+    }
     if (isWorksiteCommandExecutionTask(basis.input)) {
       const source = basis.sourceResultBasis;
       return source !== null &&
@@ -295,7 +350,7 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
         basis.input.workspaceBinding.workspaceId === basis.workspaceId &&
         (
           source.sourceGraphFunctionRef ===
-            WORKSITE_CONSTRUCTION_IDS.reducerGraphFunctionRef ||
+            WORKSITE_CONSTRUCTION_IDS.graphFunctionRef ||
           source.sourceGraphFunctionRef ===
             WORKSITE_BRANCH_CONSTRUCTION_IDS.reducerGraphFunctionRef
         ) &&
@@ -342,6 +397,25 @@ export const ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS = Object.freeze({
   ...ABI5_PRODUCT_SEMANTICS,
   bindingRef: "product-semantics://abiogenesis/worksite/command-execution@5",
 }) satisfies ProductSemanticsProvider;
+
+export const ABI5_WORKSITE_COMMAND_FORWARD_PRODUCT_SEMANTICS = Object.freeze({
+  ...ABI5_PRODUCT_SEMANTICS, bindingRef:forwardIds.semanticsBindingRef,
+}) satisfies ProductSemanticsProvider;
+
+function resolveWorksiteCommandForwardJudgmentRelation(predicateRef:string) {
+  if(!([forwardIds.stepPredicateRef,forwardIds.rootPredicateRef,forwardIds.judgmentPredicateRef] as readonly string[]).includes(predicateRef))return null;
+  const same=(a:unknown,b:unknown)=>sha256Canonical(a as JsonValue)===sha256Canonical(b as JsonValue);
+  return Object.freeze({predicateRef,advanceReasonRef:"reason://abiogenesis/worksite/command-forward/observed@5",
+    rejectionReasonRef:"reason://abiogenesis/worksite/command-forward/unjoined@5",
+    evaluate:(input:unknown,output:unknown):boolean=>{
+      if(predicateRef===forwardIds.stepPredicateRef&&isWorksiteCommandForwardRequest(input)&&isWorksiteCommandForwardTask(output))
+        return same(output.request,input);
+      if(!isWorksiteCommandForwardObservation(output))return false;
+      return predicateRef===forwardIds.rootPredicateRef
+        ? isWorksiteCommandForwardRequest(input)&&same(output.task.request,input)
+        : isWorksiteCommandForwardTask(input)&&same(output.task,input);
+    }});
+}
 
 function isRecord(
   value: unknown,
@@ -706,3 +780,217 @@ export const ABI5_SYSTEM_PRODUCT_SEMANTICS = Object.freeze({
     };
   },
 }) satisfies ProductSemanticsProvider;
+
+export const ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS: ProductSemanticsProvider = Object.freeze({
+  kind: "product_semantics_provider", schemaVersion: "5.0.0", bindingRef: "product-semantics://abiogenesis/requirement-handoff@5",
+  packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
+  admitInput(contractRef: string, value: unknown) {
+    return contractRef === REQUIREMENT_HANDOFF_IDS.inputContractRef && isRequirementHandoffInput(value)
+      ? deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>> : null;
+  },
+  evaluateInteractionResponse() { return null; },
+  validateContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
+    return valueKind === "requirement_handoff_input" ? isRequirementHandoffInput(value)
+      : valueKind === "requirement_handoff_output" && isRequirementHandoffOutput(value);
+  },
+  resolveJudgmentRelation(predicateRef: string) {
+    return predicateRef === REQUIREMENT_HANDOFF_IDS.judgmentPredicateRef ? {
+      predicateRef, advanceReasonRef: "reason://abiogenesis/requirement-handoff/transferred@5",
+      rejectionReasonRef: "reason://abiogenesis/requirement-handoff/refused@5",
+      evaluate(input: unknown, output: unknown) {
+        return isRequirementHandoffInput(input) && isRequirementHandoffOutput(output) && sha256Canonical(input as unknown as JsonValue) === sha256Canonical(output.source as unknown as JsonValue);
+      },
+    } : null;
+  },
+});
+
+export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = Object.freeze({
+  ...ABI5_PRODUCT_SEMANTICS,
+  bindingRef: SEMANTIC_STAGE_IDS.semanticsBindingRef,
+  admitInput(contractRef: string, value: unknown) {
+    if ((contractRef === revisionIds.selectionInputContractRef && isSemanticRevisionSelectionInput(value)) || (contractRef === revisionIds.requestContractRef && isSemanticRevisionRequest(value)) ||
+      (contractRef === revisionIds.envelopeContractRef && isSemanticRevisionEnvelope(value))) return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
+    return contractRef === SEMANTIC_STAGE_IDS.envelopeContractRef && isSemanticStageEnvelope(value)
+      ? deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>
+      : ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS.admitInput(contractRef, value) ?? ABI5_PRODUCT_SEMANTICS.admitInput(contractRef, value);
+  },
+  validateContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
+    return (valueKind === "semantic_revision_selection_input" && isSemanticRevisionSelectionInput(value)) || (valueKind === "semantic_revision_request" && isSemanticRevisionRequest(value)) ||
+      (valueKind === "semantic_revision_envelope" && isSemanticRevisionEnvelope(value)) ||
+      (valueKind === "semantic_revision_selection" && isSemanticRevisionSelection(value)) ||
+      (valueKind === "semantic_stage_envelope" && isSemanticStageEnvelope(value)) ||
+      (valueKind === "semantic_stage_worker_result" && (isSemanticAssetCandidate(value) || isSemanticAssessmentCandidate(value))) ||
+      (valueKind === "semantic_stage_failure" && isRecord(value) && value.kind === valueKind && value.schemaVersion === "5.0.0" &&
+        typeof value.failureClass === "string" && typeof value.diagnosticRef === "string") ||
+      ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS.validateContractValue(valueKind, value) || ABI5_PRODUCT_SEMANTICS.validateContractValue(valueKind, value);
+  },
+  resolveProbabilisticWorkerContracts(basis: Parameters<NonNullable<ProductSemanticsProvider["resolveProbabilisticWorkerContracts"]>>[0]) {
+    if (basis.inputContractRef === revisionIds.selectionInputContractRef && basis.outputContractRef === revisionIds.selectionContractRef && isSemanticRevisionSelectionInput(basis.input)) return { instructionContractRef: revisionIds.selectionInputContractRef, resultContractRef: revisionIds.selectionRawContractRef };
+    if (basis.inputContractRef === revisionIds.envelopeContractRef && basis.outputContractRef === revisionIds.envelopeContractRef && isSemanticRevisionEnvelope(basis.input))
+      return { instructionContractRef: revisionIds.envelopeContractRef, resultContractRef: SEMANTIC_STAGE_IDS.workerContractRef };
+    return basis.inputContractRef === SEMANTIC_STAGE_IDS.envelopeContractRef && basis.outputContractRef === SEMANTIC_STAGE_IDS.envelopeContractRef && isSemanticStageEnvelope(basis.input)
+      ? { instructionContractRef: SEMANTIC_STAGE_IDS.envelopeContractRef, resultContractRef: SEMANTIC_STAGE_IDS.workerContractRef }
+      : ABI5_PRODUCT_SEMANTICS.resolveProbabilisticWorkerContracts(basis);
+  },
+  resolveJudgmentRelation(predicateRef: string) {
+    if (predicateRef === revisionIds.stepPredicateRef) {
+      return { predicateRef, advanceReasonRef: "reason://abiogenesis/semantic-revision/step-satisfied@5",
+        rejectionReasonRef: "reason://abiogenesis/semantic-revision/step-refused@5",
+        evaluate(input: unknown, output: unknown) {
+          try {
+            const equal = (a: unknown, b: unknown) => sha256Canonical(a as JsonValue) === sha256Canonical(b as JsonValue);
+            const matches = (ref: string, before: unknown, after: unknown) =>
+              ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS.resolveJudgmentRelation(ref)?.evaluate(before, after) === true;
+            // These are typed carrier relations. The existing native owners
+            // authenticate the request, historical bridge and C2 predecessors.
+            const evidenceMatches = (envelope: unknown, observation: unknown) => {
+              if (!isSemanticRevisionEnvelope(envelope) || !isWorksiteRevisionCommandExecutionObservation(observation)) return false;
+              const evidence = envelope.current.evidence;
+              // Result digests identify ABG's admitted CCall result body, not
+              // the embedded value alone. Authentic lookup remains native.
+              const resultCoordinate = (ref: unknown, digest: unknown) => isSha256Digest(digest) &&
+                ref === `result://abiogenesis/${digest.slice("sha256:".length)}`;
+              return evidence !== null && envelope.current.worksite !== null &&
+                evidence.kind === "semantic_worksite_evidence" &&
+                observation.task.revisionBasisRef === envelope.revisionBasis.basisRef &&
+                observation.task.revisionBasisDigest === envelope.revisionBasis.basisDigest &&
+                equal(observation.task.workspaceAuthorityBasis, envelope.current.worksite.workspaceAuthorityBasis) &&
+                equal(observation.task.workspaceBinding, envelope.current.worksite.workspaceBinding) &&
+                equal(observation.task.capabilityGrant, envelope.current.worksite.capabilityGrant) &&
+                equal(evidence.constructionResult, observation.task.sourceConstructionResult) &&
+                resultCoordinate(evidence.constructionResultRef, evidence.constructionResultDigest) &&
+                resultCoordinate(evidence.executionResultRef, evidence.executionResultDigest) &&
+                matches(revisionIds.evidenceInputPredicateRef, observation, envelope);
+            };
+            if (isSemanticRevisionRequest(input)) return matches(revisionIds.projectionPredicateRef, input, output);
+            if (isWorksiteRevisionCommandExecutionObservation(input)) return evidenceMatches(output, input);
+            if (isWorksitePreparationInput(input) && input.kind === "worksite_revision_command_preparation_input" &&
+              isWorksiteRevisionCommandExecutionObservation(output)) {
+              const task = prepareWorksiteCommandTask({ kind: "worksite_revision_command_preparation_bound_input", schemaVersion: "5.0.0",
+                entry: input, source: output.task.sourceConstructionResult });
+              return equal(task, output.task) &&
+                resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_REVISION_IDS.judgmentPredicateRef)?.evaluate(task, output) === true;
+            }
+            if (!isSemanticRevisionEnvelope(input)) return false;
+            if (isWorksitePreparationInput(output) && output.kind === "worksite_revision_command_preparation_input") {
+              const worksite = input.current.worksite;
+              return worksite !== null && input.current.evidence === null &&
+                output.revisionBasisRef === input.revisionBasis.basisRef && output.revisionBasisDigest === input.revisionBasis.basisDigest &&
+                equal(output.constructionTask.workspaceAuthorityBasis, worksite.workspaceAuthorityBasis) &&
+                equal(output.constructionTask.workspaceBinding, worksite.workspaceBinding) &&
+                equal(output.constructionTask.capabilityGrant, worksite.capabilityGrant) &&
+                matches(revisionIds.bridgePredicateRef, input, output);
+            }
+            if (!isSemanticRevisionEnvelope(output) || !equal(input.revisionBasis, output.revisionBasis)) return false;
+            if (equal(input, output)) {
+              // A byte-preserving terminal is not enough: all declared stages
+              // must be assessed, and a worksite chain must carry its C2 evidence.
+              // Failed command observations remain honest completed observations.
+              return matches(SEMANTIC_STAGE_IDS.lifecyclePredicateRef, input.current, output.current) &&
+                (output.current.worksite === null || evidenceMatches(output, output.current.evidence?.executionObservation));
+            }
+            const next = input.current.lifecycle.stages[input.current.assets.length];
+            if (next !== undefined && output.current.assets.length === input.current.assets.length + 1 &&
+              output.current.assets.at(-1)?.stageRef === next.declarationRef) {
+              return matches(revisionIds.authorPredicateRef, input, output) || matches(revisionIds.assessorPredicateRef, input, output);
+            }
+            const previous = input.current.assets.at(-1), assessed = output.current.assets.at(-1);
+            return previous?.assessment === null && assessed?.assetRef === previous.assetRef &&
+              output.current.assets.length === input.current.assets.length && matches(revisionIds.assessorPredicateRef, input, output);
+          } catch { return false; }
+        } };
+    }
+    if ([revisionIds.selectionPredicateRef, revisionIds.projectionPredicateRef, revisionIds.authorPredicateRef, revisionIds.assessorPredicateRef, revisionIds.bridgePredicateRef,
+      revisionIds.evidenceInputPredicateRef, revisionIds.terminalPredicateRef].some(r => r === predicateRef)) {
+      return { predicateRef, advanceReasonRef: "reason://abiogenesis/semantic-revision/relation-satisfied@5", rejectionReasonRef: "reason://abiogenesis/semantic-revision/relation-refused@5",
+        evaluate(input: unknown, output: unknown) {
+          try {
+            const equal = (a: unknown, b: unknown) => sha256Canonical(a as JsonValue) === sha256Canonical(b as JsonValue);
+            if (predicateRef === revisionIds.selectionPredicateRef) return isSemanticRevisionSelectionInput(input) && isSemanticRevisionSelection(output) && equal(input.parent, output.parent) && equal(input.causes, output.causes);
+            if (predicateRef === revisionIds.projectionPredicateRef) return isSemanticRevisionRequest(input) && isSemanticRevisionEnvelope(output) && equal(input, output.revisionBasis.request);
+            if (predicateRef === revisionIds.bridgePredicateRef) return isSemanticRevisionEnvelope(input) && isWorksitePreparationInput(output) && output.kind === "worksite_revision_command_preparation_input";
+            if (predicateRef === revisionIds.evidenceInputPredicateRef) return isWorksiteRevisionCommandExecutionObservation(input) && isSemanticRevisionEnvelope(output) && equal(input, output.current.evidence?.executionObservation);
+            if (!isSemanticRevisionEnvelope(input) || !isSemanticRevisionEnvelope(output)) return false;
+            if (predicateRef === revisionIds.terminalPredicateRef) return equal(input, output);
+            const asset = output.current.assets.at(-1);
+            if (asset === undefined) return false;
+            if (predicateRef === revisionIds.authorPredicateRef) return equal(deriveRevisionAsset(input, asset.stageRef, asset.candidate, asset.source), output);
+            if (asset.assessment?.disposition !== "satisfied") return false;
+            const prior = input.current.assets.at(-1)?.assetRef === asset.assetRef ? input : deriveRevisionAsset(input, asset.stageRef, asset.candidate, asset.source);
+            return prior !== null && equal(deriveRevisionAssessment(prior, asset.stageRef, asset.assessment.candidate, asset.assessment.source), output);
+          } catch { return false; }
+        } };
+    }
+    const ids = SEMANTIC_STAGE_IDS;
+    if (![ids.authorPredicateRef, ids.assessorPredicateRef, ids.lifecyclePredicateRef, ids.lifecycleStepPredicateRef, ids.bridgePredicateRef, ids.evidenceInputPredicateRef, ids.terminalPredicateRef].some(ref => ref === predicateRef)) {
+      return ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS.resolveJudgmentRelation(predicateRef) ?? ABI5_PRODUCT_SEMANTICS.resolveJudgmentRelation(predicateRef);
+    }
+    return { predicateRef, advanceReasonRef: "reason://abiogenesis/semantic-stage/relation-satisfied@5",
+      rejectionReasonRef: "reason://abiogenesis/semantic-stage/relation-refused@5",
+      evaluate(input: unknown, output: unknown) {
+        try {
+          const equal = (a: unknown, b: unknown) => sha256Canonical(a as JsonValue) === sha256Canonical(b as JsonValue);
+          if (predicateRef === ids.lifecycleStepPredicateRef) {
+            const matches = (ref: string, before: unknown, after: unknown) =>
+              ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS.resolveJudgmentRelation(ref)?.evaluate(before, after) === true;
+            if (isSemanticStageEnvelope(input) && isSemanticStageEnvelope(output)) {
+              // The terminal wire projection is byte preserving. Its executed
+              // foldback still requires the one full lifecycle completion law.
+              if (equal(input, output)) return matches(ids.lifecyclePredicateRef, input, output);
+              const next = input.lifecycle.stages[input.assets.length];
+              return next !== undefined && output.assets.length === input.assets.length + 1 &&
+                output.assets.at(-1)?.stageRef === next.declarationRef &&
+                matches(ids.assessorPredicateRef, input, output);
+            }
+            if (isSemanticStageEnvelope(input)) return matches(ids.bridgePredicateRef, input, output);
+            if (isWorksiteCommandExecutionObservation(input)) return matches(ids.evidenceInputPredicateRef, input, output);
+            if (isWorksitePreparationInput(input) && input.kind === "worksite_command_preparation_input" &&
+              isWorksiteCommandExecutionObservation(output)) {
+              const task = prepareWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0",
+                entry: input, source: output.task.sourceConstructionResult });
+              return equal(task, output.task) &&
+                resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef)?.evaluate(task, output) === true;
+            }
+            return false;
+          }
+          if (predicateRef === ids.bridgePredicateRef) return isSemanticStageEnvelope(input) &&
+            isWorksitePreparationInput(output) && output.kind === "worksite_command_preparation_input" &&
+            equal(deriveSemanticWorksitePreparation(input, output.constructionTask), output);
+          if (!isSemanticStageEnvelope(output)) return false;
+          if (predicateRef === ids.evidenceInputPredicateRef) return isWorksiteCommandExecutionObservation(input) && output.evidence !== null && equal(output.evidence.executionObservation, input);
+          if (!isSemanticStageEnvelope(input)) return false;
+          if (predicateRef === ids.terminalPredicateRef) return equal(input, output);
+          const asset = output.assets.at(-1);
+          if (asset === undefined) return false;
+          if (predicateRef === ids.authorPredicateRef) return equal(deriveSemanticAsset(input, asset.stageRef, asset.candidate, asset.source), output);
+          if (predicateRef === ids.assessorPredicateRef) {
+            if (asset.assessment?.disposition !== "satisfied") return false;
+            const assessmentInput = input.assets.at(-1)?.assetRef === asset.assetRef ? input
+              : deriveSemanticAsset(input, asset.stageRef, asset.candidate, asset.source);
+            return assessmentInput !== null && equal(deriveSemanticAssessment(assessmentInput, asset.stageRef,
+              asset.assessment.candidate, asset.assessment.source), output);
+          }
+          return equal(input.sourceHandoff, output.sourceHandoff) && equal(input.lifecycle, output.lifecycle) &&
+            equal(input.taskData, output.taskData) && equal(input.evaluationData, output.evaluationData) && equal(input.worksite, output.worksite) &&
+            (!output.lifecycle.stages.some(stage => stage.bodyCapabilities.includes("application_assessment")) || output.evidence !== null) &&
+            output.assets.length === output.lifecycle.stages.length &&
+            output.lifecycle.stages.every((stage, i) => output.assets[i]?.stageRef === stage.declarationRef && output.assets[i]?.assessment?.disposition === "satisfied");
+        } catch { return false; }
+      } };
+  },
+  validateInvocationBasis(basis: Parameters<NonNullable<ProductSemanticsProvider["validateInvocationBasis"]>>[0]) {
+    if (!isSemanticStageEnvelope(basis.input)) return ABI5_PRODUCT_SEMANTICS.validateInvocationBasis(basis);
+    const worksite = basis.input.worksite;
+    return basis.sourceResultBasis === null && (worksite === null || (worksite.workspaceBinding.bindingId === basis.workspaceBindingId &&
+      worksite.workspaceBinding.bindingDigest === basis.workspaceBindingDigest && worksite.workspaceBinding.workspaceId === basis.workspaceId) ||
+      // An exact historical Design may enter a new ordinary tail invocation.
+      // The native leaf admission authenticates its whole prior value before
+      // dispatch and derives current bounds; this raw shape grants no effects.
+      (worksite.workspaceBinding.workspaceId === basis.workspaceId && basis.input.assets.length > 0 &&
+        basis.input.assets.every(asset => asset.assessment?.disposition === "satisfied") &&
+        basis.input.assets.at(-1)?.candidate.worksiteDesign !== null));
+  },
+});
+
+/** Distinct D2 contract interpretation; existing D1 owner remains singular. */
+export const ABI5_SEMANTIC_REVISION_PRODUCT_SEMANTICS: ProductSemanticsProvider = Object.freeze({ ...ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS, bindingRef: revisionIds.semanticsBindingRef });

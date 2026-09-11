@@ -1,3 +1,4 @@
+import { rehydrateInvocationAdmissionAtPrefix } from "../abg/invocation_admission.js";
 import { lstat, readFile, readdir, readlink, realpath } from "node:fs/promises";
 import { resolve } from "node:path";
 
@@ -11,6 +12,7 @@ import {
   holdsAt,
 } from "../abg/event_calculus.js";
 import {
+  exactProgramOwnerInstall,
   rehydrateAdmittedImplementationSetAtPrefix,
   rehydrateExecutionBasisAtPrefix,
 } from "../abg/execution_basis.js";
@@ -29,17 +31,27 @@ import {
   constructWorksiteEffectAuthorization,
   isWorksiteFileReplaceRequest,
   observeWorksiteSubject,
-  replaceWorksiteFile,
 } from "../product/index.js";
 import type {
   FileWorksiteObservation,
   WorksiteFileReplaceReceipt,
+  WorksitePostPublicationFailure,
+  WorksiteEffectAuthorization,
+  WorksitePostPublicationDiagnostic,
+  WorksiteObservation,
+  CompletedWorksiteOwner,
 } from "../product/worksite_effect.js";
 import {
+  isWorksitePostPublicationFailure,
+  postPublicationWorksiteFailure,
+  worksiteFailureAuthorization,
+  worksiteRefusal,
   WORKSITE_FILE_REPLACE_EFFECT_URI,
   WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
   WORKSITE_FILE_REPLACE_HANDLER_REF,
 } from "../product/worksite_effect.js";
+import type { WorksiteFileReplaceResult } from "../product/worksite_operations.js";
+import { replaceWorksiteFile } from "../product/worksite_operations.js";
 import type {
   LeafExecutionOccurrence,
   LeafInvocationResolution,
@@ -82,7 +94,7 @@ export const WORKSITE_FILE_REPLACE_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
   ...descriptorBody,
 }) as PackagedLeafImplementationDescriptor;
 
-export interface UnadmittedPhysicalCommit {
+interface UnadmittedCompletedWorksiteCommit {
   readonly kind: "unadmitted_physical_commit";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "unadmitted_physical_commit";
@@ -97,11 +109,32 @@ export interface UnadmittedPhysicalCommit {
   readonly diagnosticRef: string;
 }
 
+export type UnadmittedPhysicalCommit = UnadmittedCompletedWorksiteCommit | Readonly<{
+  kind: "unadmitted_physical_commit";
+  schemaVersion: "5.0.0";
+  disposition: "unadmitted_physical_commit";
+  cCallRef: string;
+  ownerOutcome: WorksitePostPublicationFailure;
+  refusedExpectedPrefix: Readonly<DurablePrefixCoordinate>;
+  diagnosticRef: string;
+}>;
+
 export function unadmittedPhysicalCommit(
   cCallRef: string,
   value: unknown,
   refusedExpectedPrefix: unknown,
 ): Readonly<UnadmittedPhysicalCommit> | null {
+  if (isWorksitePostPublicationFailure(value) &&
+    worksiteFailureAuthorization(value).cCallRef === cCallRef &&
+    validateDurablePrefixCoordinate(refusedExpectedPrefix)) {
+    return deepFreeze({
+      kind: "unadmitted_physical_commit" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "unadmitted_physical_commit" as const,
+      cCallRef, ownerOutcome: value, refusedExpectedPrefix,
+      diagnosticRef: "diagnostic://abiogenesis/worksite/unadmitted-physical-commit@5",
+    });
+  }
   if (
     !isWorksiteFileReplaceOutput(value) ||
     !validateDurablePrefixCoordinate(refusedExpectedPrefix)
@@ -185,17 +218,42 @@ async function installedProductInventory(rootValue: string): Promise<JsonValue> 
 function productConservationFailure(
   resolution: Readonly<LeafInvocationResolution>,
   inputDigest: `sha256:${string}`,
+  retained?: Readonly<{
+    outcome: WorksiteFileReplaceResult;
+    authorization: WorksiteEffectAuthorization;
+    completedOwner: CompletedWorksiteOwner | null;
+    stage: "product_inventory" | "owner_reobservation";
+    message: string;
+    substrateCode: string | null;
+    observation: WorksiteObservation | null;
+  }>,
 ): Readonly<LeafRealizationCandidate> {
+  const failure = worksiteRefusal("filesystem_refused",
+    retained?.message ?? "installed Product conservation could not be verified before worksite replacement",
+    retained?.observation ?? null, retained?.substrateCode ?? null);
+  const diagnostic: WorksitePostPublicationDiagnostic = {
+    stage: retained?.stage ?? "product_inventory", code: failure.code,
+    message: failure.message, substrateCode: failure.substrateCode,
+  };
+  const outcome = retained?.outcome;
+  const preserved = isWorksitePostPublicationFailure(outcome)
+    ? postPublicationWorksiteFailure(outcome, {
+        ...outcome.physicalOutcome,
+        postPublicationObservation: retained?.observation ?? outcome.physicalOutcome.postPublicationObservation,
+        diagnostics: [...outcome.physicalOutcome.diagnostics, diagnostic],
+      })
+    : retained?.completedOwner !== null && retained?.completedOwner !== undefined
+      ? postPublicationWorksiteFailure(failure, {
+          kind: "owner_completed",
+          completedOwner: retained.completedOwner,
+          postPublicationObservation: retained.observation,
+          diagnostics: [diagnostic],
+        })
+      : outcome?.kind === "worksite_effect_refusal" ? outcome : failure;
   const resultCandidate = deepFreeze({
-    kind: "worksite_effect_refusal" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "refused" as const,
-    code: "filesystem_refused" as const,
-    message: "installed Product changed during worksite replacement",
-    lastObservation: null,
-    substrateCode: null,
+    ...preserved,
     diagnosticRef:
-      "diagnostic://abiogenesis/worksite/installed-product-delta@5",
+      `diagnostic://abiogenesis/worksite/${preserved.code}@5`,
   }) as unknown as Readonly<Record<string, JsonValue>>;
   return deepFreeze({
     kind: "leaf_realization_candidate" as const,
@@ -242,6 +300,8 @@ export async function realizeWorksiteFileReplace(
     typeof rehydrateAdmittedImplementationSetAtPrefix
   > = null;
   let installedProductRoot: string | null = null;
+  let conservationRoots: readonly string[] = [];
+  let protectedInstallRoots: readonly string[] = [];
   try {
     const events = readRuntimeEventsAtDurablePrefix(
       authority.predecessorPrefix,
@@ -287,49 +347,47 @@ export async function realizeWorksiteFileReplace(
     localImplementationSet = implementationSetHeld
       ? projectedImplementationSet
       : null;
-    const ownerInstalls = environment.kind ===
-        "exact_prefix_workspace_environment" &&
-        selected.graphFunctionOwnerProductId ===
-          selected.implementationOwnerProductId
-      ? environment.productInstalls.filter((install) => {
-          const graphFunctionRows = install.contributionManifest.rows.filter(
-            (row) =>
-              row.kind === "graph_function" &&
-              row.declarationOrContractRef === selected.graphFunctionRef &&
-              row.owningProductId === selected.graphFunctionOwnerProductId &&
-              row.programMembershipRefs.filter((ref) =>
-                ref === authority.programRef
-              ).length === 1,
-          );
-          return install.productId === selected.graphFunctionOwnerProductId &&
-            install.packageName === selected.packageName &&
-            install.packageVersion === selected.packageVersion &&
-            install.installedRoot ===
-              environment.workspaceBinding.roots.productRoot &&
-            install.contributionManifest.productId === install.productId &&
-            install.contributionManifest.productVersion ===
-              install.packageVersion &&
-            graphFunctionRows.length === 1 &&
-            install.contributionManifest.publicationBindings.filter((binding) =>
-              binding.moduleRef === graphFunctionRows[0]!.moduleRef &&
-              binding.publicationDigest ===
-                selected.graphFunctionPublicationDigest
-            ).length === 1 &&
-            install.contributionManifest.publicationBindings.filter((binding) =>
-              binding.publicationDigest ===
-                selected.implementationPublicationDigest
-            ).length === 1;
-        })
-      : [];
+    let rootBasis = projectedExecutionBasis;
+    const seen = new Set<string>();
+    while (rootBasis !== null && rootBasis.parentExecutionBasisRef !== null) {
+      if (seen.has(rootBasis.basisRef)) { rootBasis = null; break; }
+      seen.add(rootBasis.basisRef);
+      rootBasis = rehydrateExecutionBasisAtPrefix(authorityPrefix, rootBasis.parentExecutionBasisRef);
+    }
+    const installs = environment.kind === "exact_prefix_workspace_environment" ? environment.productInstalls : [];
+    const programOwner = rootBasis === null || projectedImplementationSet === null ||
+      environment.kind !== "exact_prefix_workspace_environment" ? null
+      : exactProgramOwnerInstall(environment, projectedImplementationSet.rows,
+          rootBasis.graphFunctionRef, authority.programPublication.moduleRef,
+          rootBasis.programRef, selected.publicationDigest, rootBasis.programDigest,
+          authority.programPublication);
+    const programOwners = programOwner === null ? [] : [programOwner];
+    const graphOwners = installs.filter((install) => install.productId === selected.graphFunctionOwnerProductId &&
+      install.contributionManifest.rows.filter((row) => row.kind === "graph_function" &&
+        row.declarationOrContractRef === selected.graphFunctionRef && row.owningProductId === install.productId &&
+        install.contributionManifest.publicationBindings.filter((binding) => binding.moduleRef === row.moduleRef &&
+          binding.publicationDigest === selected.graphFunctionPublicationDigest).length === 1).length === 1);
+    const implementationOwners = installs.filter((install) => install.productId === selected.implementationOwnerProductId &&
+      install.packageName === selected.packageName && install.packageVersion === selected.packageVersion &&
+      install.contributionManifest.publicationBindings.filter((binding) => binding.publicationDigest === selected.implementationPublicationDigest).length === 1);
+    const rootInvocation = rootBasis === null ? null : rehydrateInvocationAdmissionAtPrefix(authorityPrefix, rootBasis.invocationAdmissionRef);
+    const ownersHeld = rootInvocation !== null && rootInvocation.capabilityGrants.length === 1 &&
+      canonicalJson(rootInvocation.capabilityGrants[0] as unknown as JsonValue) === canonicalJson(value.capabilityGrant as unknown as JsonValue) &&
+      value.capabilityGrant.definitionKey.memberKey === (rootInvocation.invocationVariant === "direct" ? "invoke" : rootInvocation.invocationVariant) &&
+      rootBasis !== null && rootBasis.programRef === authority.programRef &&
+      rootBasis.programDigest === authority.programDigest && rootBasis.invocationAdmissionRef === authority.executionBasis.invocationAdmissionRef &&
+      programOwners.length === 1 && graphOwners.length === 1 && implementationOwners.length === 1;
+    conservationRoots = ownersHeld ? [...new Set([...programOwners, ...graphOwners, ...implementationOwners].map((install) => install.installedRoot))].sort() : [];
+    protectedInstallRoots = installs.map((install) => install.installedRoot);
     const environmentHeld = environment.kind ===
         "exact_prefix_workspace_environment" &&
       canonicalJson(environment.workspaceAuthorityBasis as unknown as JsonValue) ===
         canonicalJson(value.workspaceAuthorityBasis as unknown as JsonValue) &&
       canonicalJson(environment.workspaceBinding as unknown as JsonValue) ===
         canonicalJson(authority.workspaceBinding as unknown as JsonValue) &&
-      ownerInstalls.length === 1;
+      ownersHeld;
     installedProductRoot = environmentHeld
-      ? ownerInstalls[0]!.installedRoot
+      ? programOwners[0]!.installedRoot
       : null;
     currentAuthority = executionBasisHeld && implementationSetHeld &&
       environmentHeld && phase === "selected_no_evidence" && observationHeld;
@@ -415,7 +473,7 @@ export async function realizeWorksiteFileReplace(
   ) return null;
   let productInventoryBefore: JsonValue;
   try {
-    productInventoryBefore = await installedProductInventory(installedProductRoot);
+    productInventoryBefore = await Promise.all(conservationRoots.map(async (root) => ({ root, inventory: await installedProductInventory(root) })));
   } catch {
     return productConservationFailure(resolution, inputDigest);
   }
@@ -456,16 +514,29 @@ export async function realizeWorksiteFileReplace(
     cCall: authority.cCall,
     implementationSet: localImplementationSet,
     authorization,
+    protectedInstallRoots,
   });
+  const completedOwner = outcome.kind === "worksite_file_replace_result"
+    ? deepFreeze({ authorization, receipt: outcome.receipt, successorObservation: outcome.successorObservation })
+    : null;
   let productInventoryAfter: JsonValue;
   try {
-    productInventoryAfter = await installedProductInventory(installedProductRoot);
-  } catch {
-    return productConservationFailure(resolution, inputDigest);
+    productInventoryAfter = await Promise.all(conservationRoots.map(async (root) => ({ root, inventory: await installedProductInventory(root) })));
+  } catch (error) {
+    return productConservationFailure(resolution, inputDigest, {
+      outcome, authorization, completedOwner, stage: "product_inventory",
+      message: `post-publication installed Product conservation unverified: ${String(error)}`,
+      substrateCode: typeof (error as NodeJS.ErrnoException)?.code === "string" ? (error as NodeJS.ErrnoException).code! : null,
+      observation: null,
+    });
   }
   if (canonicalJson(productInventoryBefore) !==
     canonicalJson(productInventoryAfter)) {
-    return productConservationFailure(resolution, inputDigest);
+    return productConservationFailure(resolution, inputDigest, {
+      outcome, authorization, completedOwner, stage: "product_inventory",
+      message: "post-publication installed Product inventories did not match",
+      substrateCode: null, observation: null,
+    });
   }
   if (outcome.kind === "worksite_effect_refusal") {
     const resultCandidate = deepFreeze({
@@ -489,22 +560,34 @@ export async function realizeWorksiteFileReplace(
       diagnosticRef: resultCandidate.diagnosticRef as string,
     });
   }
-  const successor = await observeWorksiteSubject(
-    value.workspaceAuthorityBasis,
-    authority.workspaceBinding,
-    value.subject,
-  );
+  let successor;
+  try {
+    successor = await observeWorksiteSubject(
+      value.workspaceAuthorityBasis, authority.workspaceBinding, value.subject,
+    );
+  } catch (error) {
+    return productConservationFailure(resolution, inputDigest, {
+      outcome, authorization, completedOwner, stage: "owner_reobservation",
+      message: `completed owner re-observation failed: ${String(error)}`,
+      substrateCode: typeof (error as NodeJS.ErrnoException)?.code === "string" ? (error as NodeJS.ErrnoException).code! : null,
+      observation: null,
+    });
+  }
   if (successor.kind !== "worksite_observation" ||
     canonicalJson(successor as unknown as JsonValue) !==
       canonicalJson(outcome.successorObservation as unknown as JsonValue)) {
-    return productConservationFailure(resolution, inputDigest);
+    return productConservationFailure(resolution, inputDigest, {
+      outcome, authorization, completedOwner, stage: "owner_reobservation",
+      message: successor.kind === "worksite_effect_refusal"
+        ? successor.message : "completed owner re-observation did not match its retained successor",
+      substrateCode: successor.kind === "worksite_effect_refusal" ? successor.substrateCode : null,
+      observation: successor.kind === "worksite_observation" ? successor : null,
+    });
   }
   const resultCandidate = deepFreeze({
     kind: "worksite_file_replace_output" as const,
     schemaVersion: "5.0.0" as const,
-    authorization,
-    receipt: outcome.receipt,
-    successorObservation: outcome.successorObservation,
+    ...completedOwner!,
   }) as unknown as Readonly<Record<string, JsonValue>>;
   return deepFreeze({
     kind: "leaf_realization_candidate" as const,

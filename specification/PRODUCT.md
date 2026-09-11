@@ -2,12 +2,15 @@
 
 **Product ID**: PROD-001
 **Version target**: 5.0.0
-**Updated**: 2026-08-13
+**Updated**: 2026-09-09
 **Status**: Active - accepted by T-283 F_H closure
 **Derives from**: INT-001 through INT-007
-**Change authority**: T-283 `intent_reprice`
+**Change authority**: T-283 `intent_reprice`; T-287 D1-AUTH-ABG lifecycle `product_reprice`
 **Acceptance receipt**:
 `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`
+**Method adoption authority**: direct Product-owner `F_H` ruling and bounded
+`product_reprice` recorded in
+[STDO RC6 migration](../.ai-workspace/comments/codex/20260906T152118Z_STDO_RC6_MIGRATION/README.md).
 
 ---
 
@@ -749,9 +752,9 @@ counts.
 | `A5-F11` | **Self-conformance.** The exact 5.0 candidate evaluates its own applicable specification, design, contract, realization, proof, qualification, and release obligations without exemption or self-minted assurance. |
 | `A5-F13` | **Native and bounded host projection.** The product works without a marketplace host; one Codex projection may delegate to the same public contract without copied semantics. |
 | `A5-F14` | **Packed Hello World and live probabilistic proof.** A clean source-blind install executes a minimal deterministic path and one live `F_P` path with typed result, evidence, events, and replay. |
-| `A5-F15` | **Exact-candidate qualification.** One content-addressed qualification family preserves distinct `pre_rc_candidate`, `installed_rc`, and `final_tap_candidate` subjects; binds the exact `QualificationLawBasis`, ordered owning-gate vector, prospective RC authorization, installed-RC authorization, typed `FinalTapDelta`, affected-gate reruns, and non-bypassed verdicts. |
-| `A5-F16` | **Immutable RC and stable 5.0 release.** The qualified pre-RC subject authorizes one immutable RC; that exact installed RC is qualified; one governed final-only delta produces and qualifies the final-tap subject; the stable tag, package, manifest, checksums, and post-publication install identify the admitted final cut. |
-| `A5-F17` | **Downstream portability sufficient for odd_glc.** A bounded independent flavored catalog fixture exercises the same contract class required by real odd_glc: it authors, publishes, applies, and invokes GTL through only installed public ABIogenesis contracts and owns no local runtime or controller. odd_glc release remains independent and does not gate 5.0. |
+| `A5-F15` | **Exact-candidate qualification.** One content-addressed qualification family preserves distinct `pre_rc_candidate` and `installed_rc` subjects; binds the exact `QualificationLawBasis`, ordered owning-gate vector, prospective RC authorization, exact installed-RC qualification and non-bypassed verdicts. A changed qualifying subject requires a higher RC and its applicable gates; acceptance creates no additional qualification subject. |
+| `A5-F16` | **Immutable RC and accepted 5.0 release.** The qualified pre-RC subject authorizes one immutable RC; that exact installed RC is qualified; actual human Product authority accepts or withholds that same unchanged RC. The immutable RC tag, package, manifest, checksums and post-publication install identify the accepted Product. The version-line selector advances to the highest published RC independently of acceptance or consumer adoption; acceptance creates no second cut, final-version rename or replacement package. |
+| `A5-F17` | **Specification-driven downstream lifecycle.** A real user-authored specification progresses through Intent/Product, Requirements, Design, working application behavior, admitted evidence and targeted revision through only installed public ABIogenesis contracts. The witness preserves every source obligation, newly discovered obligation and residual through declared GTL/HoG/ABG traversal, proves full mandatory application outcomes and owns no local runtime or controller. S06 owns this contract-class qualification witness; publication and maturation of the separate odd_glc Product remain independent. |
 
 `A5-F12`, replay-grounded observer and tuner, retains its stable identity as a
 planned ABIogenesis 5.1 outcome. It is excluded from 5.0 realization,
@@ -830,22 +833,59 @@ and replay-derived, with no shell-owned orchestration or ticket mutation.
 Complete one public-contract invocation through the native SDK and CLI without
 a marketplace host, then complete the equivalent invocation through one
 bounded Codex CLI or skill projection. Prove the adapter owns no copied runtime
-behavior. Install one independent flavored catalog fixture sufficient for the
-real odd_glc contract class and publish, apply, and invoke its GraphFunction
-without source-tree or private-runtime knowledge.
+behavior.
+
+An independent downstream catalog supplies a real specification-driven
+lifecycle witness of the contract class required by odd_glc. The complete
+original user-authored specification is bound by exact source identity and
+content. Declared GTL progression carries it through Intent/Product,
+Requirements, Design, working application behavior, admitted executable and
+semantic evidence, and one consequential targeted revision. Publication,
+declaration application and GraphFunction invocation use only installed public
+ABIogenesis contracts, without source-tree or private-runtime knowledge.
+
+Each stage preserves source and predecessor identities, all applicable
+obligations, newly discovered obligations, evidence roles and explicit
+residuals. Admitted semantic assessments establish meaning and adequacy under
+their declared authority; total deterministic checks establish identity,
+role compatibility, freshness, coverage and closure eligibility over those
+admitted inputs. Reserved owner rulings retain their authority. Code and
+tests agreeing on a weaker contract leave the stronger obligation open.
+
+A failed verification or changed requirement creates replay-visible pressure,
+invalidates affected evidence and re-enters the appropriate declared stage.
+Targeted repair and persisted continuation preserve unaffected work and
+remaining obligations. A bounded first behavior and its correction prove only
+their exercised relation. Full witness acceptance requires every mandatory
+original application outcome, applicable independent semantic assessment and
+admitted executable evidence; residual listing or construction/test counts
+alone cannot satisfy it. This complete witness is an S06 pre-RC gate, while
+publication and maturation of the separate downstream Product remain
+independent of ABIogenesis qualification and release.
 
 ### `ABG5-S07`: Exact Qualification And Release
 
 Qualify one exact `pre_rc_candidate` basis through the sole qualification
 reducer and use its green verdict to authorize one prospective immutable RC.
 Materialize the RC and its output-only snapshot without rebuilding. Fresh-
-install and qualify that exact RC as the distinct `installed_rc` subject. Bind
-one exact `final_tap_candidate` to the installed-RC verdict and typed
-`FinalTapDelta`, rerun every affected gate, and admit the final verdict before
-cutting stable `5.0.0`. Finally, fresh-install the released Product and verify
-its identity, lineage, package, manifest, checksums, and release records. The
-post-publication install is a terminal read-model addendum; it cannot
-retroactively authorize an earlier subject.
+install and qualify that exact RC as the distinct `installed_rc` subject.
+Actual human Product authority accepts or withholds that same unchanged RC
+after its required qualification and reviews. Acceptance and subsequent
+evidence are addenda outside the immutable Product and release-claim bytes;
+they create no second cut. Finally, fresh-install that released Product and
+verify its identity, lineage, package, manifest, checksums and release records.
+The post-publication install is a terminal read-model addendum; it cannot
+retroactively authorize an earlier subject. Any change to qualifying Product
+or release-claim bytes requires a higher RC and the applicable gates.
+
+The assigned Project Release Namespace is `abiogenesis`. This one-project
+source uses the declared unqualified RC6 profile: immutable annotated
+`v5.0.0-rc.<n>` cuts and mutable `v5.0.0` latest-RC selector, with Project
+Subtree `.` at the owning repository root. The assignment is prospective;
+publication revalidates the exact namespace, profile, ordinal and local/remote
+ref identities. Existing Product identity and historical cuts remain intact.
+Publication advances the selector to the greatest published RC ordinal;
+acceptance and consumer adoption neither create nor move it.
 
 ## Root Product Outcome
 
@@ -933,7 +973,8 @@ ABIogenesis 5.0 does not include:
   closure authority;
 - a recursive-LLM-specific runtime or compute regime;
 - self-hosting or ABIogenesis-builds-ABIogenesis as a 5.0 release gate;
-- odd_glc or another GLC product as a 5.0 build or release dependency;
+- publication or maturation of odd_glc or another GLC Product as a 5.0 build
+  or release dependency;
 - automatic ticket mutation, automatic wake, or an ABG-owned scheduler;
 - hosted registry, marketplace, billing, IAM, RBAC, multi-user service, or
   distributed orchestration;
@@ -943,27 +984,31 @@ ABIogenesis 5.0 does not include:
   or supersession lifecycle beyond exact initial installation and binding.
 
 Installed stable 5.0 may become the development product for 5.0.1. Self-use and
-deeper GLC dogfooding begin there and cannot retroactively qualify 5.0.
+downstream Product maturation begin there and cannot retroactively qualify
+5.0. The required F17/S06 lifecycle witness qualifies the installed 5.0
+candidate before RC authorization.
 
 ## Governance And Release Boundary
 
 There is one lawful STDO identity. ABIogenesis 5.0 development is governed by
-the selected and installed release `v2.5.0-rc.4`, annotated tag object
-`032dac0c833111547f7dd4b290c5316ed9b70f97`, commit
-`7a25668a8fecfd26f895759af3bec4708727964a`, installed-manifest SHA-256
-`4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e`,
-and standards member-set SHA-256
-`504db879867f60e46ed4dea60509d12056d10cdd8c3460dc94abf7bc56542656`.
+the immutable installed release selected by
+[`stdo_abiogenesis.json`](../stdo_abiogenesis.json),
+`constitution.stdo.basis`. That Definition is the sole exact method selection;
+its composition selects the release-matched Development Products. The direct
+Product-owner RC6 ruling selects the complete published STDO `v2.5.0-rc.6`
+cohort for all resumed work, as recorded in the linked migration evidence.
 Self-conformance, qualification, and release must bind that same exact basis.
 Another STDO version cannot substitute without lawful Product re-entry and an
 F_H disposition. Mutable methodology source and candidate work are authoring
 inputs for a future release, not operative ABIogenesis law.
 
-Source development may consume exact STDO Representation `v0.1.0-rc.1` as a
-historical Development Product, but that Product represents the prior Source
-STDO cut and is not current RC4 method context. A source-linked `a_c` map may
-route attention only when its represented cut and selected source bytes verify
-fresh. Every map and native skill remains derived context, not ABI Product
+Source development consumes the exact Axiom Indexer and STDO Representation
+companions selected by the Definition's composition and verified against the
+same release-matched cohort. Older companion installs and their maps are
+historical evidence only, not current development routes. A source-linked
+`a_c` map may route attention only when its represented cut and selected source
+bytes verify fresh through those released tools. Every map and native skill
+remains derived context, not ABI Product
 behavior, constitutional authority, GTL, an ABG event, runtime truth,
 qualification evidence by existence, or a release dependency.
 
@@ -985,6 +1030,14 @@ turning them into product features:
 - proportional proof ordered by the declared trusted-desktop risk model;
 - distinct authority, evidence, and projection bases; and
 - direct or lawfully proxied F_H closure.
+
+The selected method owns direct Writer entry when sufficient, coordination and
+independent review by applicability, explicit Executive-to-Writer mutation
+separation, valid evidence and ruling reuse, condition-based closure, and
+steel-thread evidence ordering. The local frame basis instantiates those
+rules; it is not a competing local candidate method. Method adoption conserves
+the fixed 16 features, Wave 2 `HOLD`, unaccepted C0 candidate, accepted C1/C2 HOW,
+and every exact historical acceptance subject. It activates no runtime repair.
 
 Product-definition closure does not accept the current implementation, approve
 a migration, or claim release readiness. It fixes the destination against which
@@ -1016,8 +1069,8 @@ satisfies all of the following:
 9. All 16 selected 5.0 feature families are realized. `ABG5-S01`,
    `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` pass on one exact
    installed `pre_rc_candidate`; `ABG5-S07` preserves the distinct pre-RC, RC,
-   installed-RC, final-tap, released-Product, and post-publication install
-   subjects while using the same product contracts. `A5-F12` and `ABG5-S04`
+   installed-RC, same-RC acceptance and post-publication evidence boundaries
+   while using the same product contracts. `A5-F12` and `ABG5-S04`
    remain excluded planned 5.1 work.
 10. Malformed GTL, malformed probabilistic output, invalid authority, basis
    conflict, and rival-path mutations fail at their owning boundaries before
@@ -1025,13 +1078,15 @@ satisfies all of the following:
 11. No rival compiler, executable program representation, controller, registry,
     event stream, or closure path remains public or reachable.
 12. Every qualification subject passes self-conformance and its owning gates
-    under the exact selected and installed STDO `v2.5.0-rc.4` basis with no mixed
-    subject or substituted property.
-13. Any delta between immutable RC and final-tap candidate is limited to the
-    admitted `FinalTapDelta`; every affected gate is rerun before final
-    authorization.
-14. The final qualified cut is the stable `5.0.0` Git and package product and
-    passes a fresh source-blind post-publication installation.
+    under the exact selected and installed STDO basis in the Product Definition
+    with no mixed subject or substituted property.
+13. The published RC's Product and release-claim bytes remain immutable.
+    Any change requires a higher RC with its applicable qualification gates;
+    acceptance and evidence addenda cannot amend or retroauthorize the cut.
+14. Actual human Product authority accepts the exact qualified, unchanged
+    installed RC, and that Product passes a fresh source-blind post-publication
+    installation. No second final cut, retag or package-version rename occurs;
+    `v5.0.0` remains the publication-driven latest-RC selector.
 
 Component tests, type checks, schema counts, operation counts, published names,
 event co-presence, generated manifests, or a feature-specific installed fixture

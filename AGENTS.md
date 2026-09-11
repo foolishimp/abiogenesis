@@ -95,9 +95,9 @@
   does not reopen unrelated accepted cuts. Acceptance and closure require
   Executive adjudication against current Product authority.
 - Status requests do not pause authorized work.
-- This repo-local axiom is a candidate for promotion to
-  `specification_methodology` after local review and evidence. It changes
-  neither upstream method nor Product WHAT.
+- The selected STDO baseline owns steel-thread ordering and deferred-assurance
+  law. These project routes apply that law to ABI work; they are not a competing
+  methodology candidate or a change to Product WHAT.
 
 ## Stable Product Boundaries
 
@@ -150,7 +150,7 @@ Before constitutional work:
 3. Resolve and verify that exact installed release through the STDO toolchain manager.
 4. Load the Product Definition's declared bootstrap entrypoint, then exact owning standards as needed.
 5. Resolve the applicable accepted Project Reference-Frame Basis or its declared composition.
-6. Enter governed work through its Executive frame or declared project equivalent: bind the exact outcome and basis, inspect the unresolved evaluation frontier, and activate only the smallest dependency-ready context needed for the next decision.
+6. Bind the exact outcome, basis and existing work grant. Use direct Writer entry when the accepted frame configuration permits it and one capable context suffices; use Executive or the declared project equivalent for material coordination. Activate only applicable dependency-ready evaluations, preserving unknown applicability and required independence. Executive does not mutate files or Git; a separate Writer activation binds those effects.
 7. Fail closed when the Product Definition, frame basis, subject, authority, or activation is missing, ambiguous, stale, or outside the governed scope.
 
 Mutable methodology source, another installed version, a cache entry, and this

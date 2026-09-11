@@ -1,3 +1,7 @@
+import { validRequirementHandoffPublication } from "../gtl/requirement_handoff.js";
+import { worksitePreservedResultSourceOfGraphFunction, WORKSITE_PRESERVED_RESULT_IDS } from "../gtl/worksite_construction_recovery.js";
+import { semanticLifecycleRefForProgram, validSemanticProgramOwners, validSemanticLifecyclePublication } from "../gtl/semantic_stage.js";
+import { isWorksiteRetentionContractRelation } from "../product/worksite_preparation_contracts.js";
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
@@ -81,7 +85,12 @@ function hasExactKeys(value: object, expected: readonly string[]): boolean {
 }
 
 function hasExactGraphEdgeShape(edge: Readonly<GtlEdge>): boolean {
-  return hasExactKeys(edge, ["edgeRef", "fromNodeRef", "toNodeRef"]) &&
+  return hasExactKeys(edge, ["edgeRef", "fromNodeRef", "toNodeRef",
+    ...(edge.inputBinding === undefined ? [] : ["inputBinding"])]) &&
+    (edge.inputBinding === undefined || (typeof edge.inputBinding === "object" && edge.inputBinding !== null &&
+      hasExactKeys(edge.inputBinding, ["kind", "entryContractRef", "sourceContractRef", "targetContractRef"]) &&
+      edge.inputBinding.kind === "retain_graph_input" &&
+      [edge.inputBinding.entryContractRef, edge.inputBinding.sourceContractRef, edge.inputBinding.targetContractRef].every((ref) => typeof ref === "string" && ref.length > 0))) &&
     edge.edgeRef === graphEdgeRef(edge);
 }
 
@@ -150,6 +159,10 @@ function validatePublishedDeclarations(
   publication: Readonly<ModulePublication>,
 ): readonly StaticDiagnostic[] {
   const diagnostics: StaticDiagnostic[] = [];
+  if (!validRequirementHandoffPublication(publication)) diagnostics.push({
+    code: "invalid_reference", path: "$.requirementHandoffs", message: "invalid closed source/obligation declaration or selection" });
+  if (!validSemanticLifecyclePublication(publication)) diagnostics.push({
+    code: "invalid_reference", path: "$.semanticLifecycle", message: "invalid semantic stage, source, policy, shape or installed contract relation" });
   const semantics = publication.productSemanticsBinding;
   if (
     semantics.kind !== "product_semantics_binding" ||
@@ -464,7 +477,9 @@ export interface ValidatedInteractionLeaf extends ValidatedLeafBase {
 }
 
 export interface ProgramValidationInput {
+  readonly semanticLifecyclePublication?: RawAdmittedValue<ModulePublication>;
   readonly declarationBasisDigest: Sha256Digest;
+  readonly semanticSourcePublication?: RawAdmittedValue<ModulePublication>;
   readonly programPublication: RawAdmittedValue<ModulePublication>;
   readonly program: RawAdmittedValue<GtlProgram>;
   readonly graphFunctions: readonly RawAdmittedValue<GraphFunction>[];
@@ -679,6 +694,18 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     return invalid("program", input.program.subjectDigest, diagnostics);
   }
   const publication = input.programPublication.value;
+  if (semanticLifecycleRefForProgram(publication, input.program.value) !== undefined) {
+    const source = input.semanticSourcePublication;
+    const lifecycle = input.semanticLifecyclePublication;
+    const lifecycleValue = lifecycle?.value ?? publication;
+    if (source !== undefined && (!isRawAdmittedValue(source) || source.subjectKind !== "module_publication") ||
+      lifecycle !== undefined && (!isRawAdmittedValue(lifecycle) || lifecycle.subjectKind !== "module_publication") ||
+      source === undefined && !publication.requirementHandoffs?.some(d => d.declarationRef === lifecycleValue.semanticLifecycle?.sourceDeclarationRef) ||
+      !validRequirementHandoffPublication(source?.value ?? publication) ||
+      !validSemanticProgramOwners(publication, input.program.value, lifecycleValue, source?.value ?? publication)) {
+      diagnostics.push({ code: "invalid_reference", path: "$.semanticSourcePublication", message: "semantic Program requires its exact source declaration owner" });
+    }
+  }
   const program = input.program.value;
   const graphFunctionAdmissions = orderedRawAdmissions(
     input.graphFunctions,
@@ -864,6 +891,29 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         message: "graph edge must have one exact derived identity and no undeclared fields",
       });
     }
+    for (const edge of graphFunction.template.edges) {
+      const binding = edge.inputBinding;
+      const from = nodes.get(edge.fromNodeRef);
+      const to = nodes.get(edge.toNodeRef);
+      if (binding === undefined) {
+        if (from !== undefined && to !== undefined && from.term.outputCarrierRef !== to.term.inputCarrierRef) {
+          diagnostics.push({ code: "carrier_mismatch", path: `$.graphFunctions[${graphFunction.name}].template.edges[${edge.edgeRef}]`,
+            message: "ordinary graph edge requires exact source-output and target-input equality" });
+        }
+        continue;
+      }
+      if (from === undefined || to === undefined || graphFunction.inputs.length !== 1 ||
+        graphFunction.inputs[0] !== binding.entryContractRef ||
+        from.term.outputCarrierRef !== binding.sourceContractRef ||
+        to.term.inputCarrierRef !== binding.targetContractRef ||
+        !graphFunction.environment.carries.includes(binding.entryContractRef) ||
+        ![...graphFunction.environment.provides, ...graphFunction.environment.carries].includes(binding.sourceContractRef) ||
+        graphFunction.template.edges.filter((candidate) => candidate.toNodeRef === edge.toNodeRef).length !== 1 ||
+        !isWorksiteRetentionContractRelation(binding, input.contracts.map((raw) => raw.value))) {
+        diagnostics.push({ code: "carrier_mismatch", path: `$.graphFunctions[${graphFunction.name}].template.edges[${edge.edgeRef}].inputBinding`,
+          message: "retention requires the exact owner-derived E/S/T schema tuple and preserved entry/source bindings" });
+      }
+    }
     for (const contractRef of [...graphFunction.inputs, ...graphFunction.outputs]) {
       if (!contractRefs.has(contractRef)) diagnostics.push({ code: "missing_contract", path: `$.graphFunctions[${graphFunction.name}]`, message: `missing contract ${contractRef}` });
     }
@@ -884,7 +934,9 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         expectedRootResultCardinality:
           graphFunction.template.terminalNodeRefs.includes(node.nodeRef)
             ? "one"
-            : "zero",
+            : graphFunction.template.edges.some((edge) => edge.fromNodeRef === node.nodeRef)
+              ? "consumed"
+              : "zero",
       });
       diagnostics.push(...inspection.diagnostics);
       if (inspection.term !== null) {
@@ -1654,6 +1706,13 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     }
   }
   for (const graphFunction of graphFunctions) {
+    const recoveryClaim = graphFunction.declarations["abg.preserved_result_source"] !== undefined ||
+      graphFunction.template.nodes.some(node => projectCProgramNodeDeclarationReferences(node.term).implementationBindingRefs.some(ref =>
+        ref === WORKSITE_PRESERVED_RESULT_IDS.authenticateBindingRef || ref === WORKSITE_PRESERVED_RESULT_IDS.deriveBindingRef));
+    if (recoveryClaim && worksitePreservedResultSourceOfGraphFunction(graphFunction) === null) {
+      diagnostics.push({ code: "invalid_reference", path: `$.graphFunctions[${graphFunction.name}]`,
+        message: "preserved-result recovery requires the exact native constructor, closed selector and two deterministic bindings" });
+    }
     const declaredFailureContractRef =
       graphFunction.declarations["abg.failure_contract"];
     const declaredRawResultContractRef =

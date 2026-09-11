@@ -169,6 +169,7 @@ function childTraversalBasis(
     graphFunctionByRef: runtime.leafPort.graphFunctionByRef,
     closureContractByRef: runtime.leafPort.closureContractByRef,
     program: runtime.program,
+    ...(runtime.programPublication === undefined ? {} : { programPublication: runtime.programPublication }),
     programValidation: runtime.programValidation,
     rootImplementationSet: runtime.implementationSet,
     rootInteractionSet: runtime.interactionSet,
@@ -249,6 +250,7 @@ function executableContext(
     executionBasis: runtime.executionBasis,
     openedTraversalScope: runtime.openedTraversalScope,
     program: runtime.program,
+    ...(runtime.programPublication === undefined ? {} : { programPublication: runtime.programPublication }),
     graphFunction: runtime.graphFunction,
     graph: runtime.graph,
     graphValidation: runtime.graphValidation,
@@ -514,10 +516,8 @@ function nextFromEvaluation(
         ? completion.nextCursor.inputRef.length === 0 ||
           completion.nextCursor.inputDigest !==
             sha256Canonical(completion.resultValue)
-        : !runtime.leafPort.validateContractValue(
-            completion.nextInputContractRef,
-            "output",
-            completion.resultValue,
+        : !runtime.leafPort.validateContractValueByRef(
+            completion.nextInputContractRef, completion.resultValue,
           )))
   ) {
     return failFrame(
@@ -743,6 +743,7 @@ function machineRuntimeFromRehydrated(
     executionBasis: frame.traversal.executionBasis,
     openedTraversalScope: frame.traversal.openedTraversalScope,
     program: frame.traversal.program,
+    ...(base.programPublication === undefined ? {} : { programPublication: base.programPublication }),
     graphFunction: frame.traversal.graphFunction,
     graph: frame.traversal.graph,
     graphValidation: frame.traversal.graphValidation,

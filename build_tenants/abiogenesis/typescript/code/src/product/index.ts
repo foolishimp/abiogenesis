@@ -112,6 +112,7 @@ export {
   constructProductSet,
   constructResolvedProductLock,
   constructWorkspaceAuthorityBasis,
+  productInstallCoordinate,
   constructWorkspaceBinding,
   isProductSet,
   isProductInstallCandidate,
@@ -209,6 +210,27 @@ export {
   type PublicInvocationCandidate,
   type RunInvocationVariant,
 } from "./invocation.js";
+export {
+  ADMISSION_CAPABILITY_DATA_SCHEMA,
+  ADMISSION_AUTHORITY_RESOURCE_SCHEMA,
+  RESOLVED_ADMISSION_AUTHORITY_SCHEMA,
+  admissionAuthorityScope,
+  admissionAuthoritySlots,
+  type AdmissionCapabilityData,
+  type AdmissionCapabilityGrantConstructionBasis,
+  type AdmissionAuthorityResource,
+  type AdmissionAuthorizedResources,
+  type ResolvedAdmissionAuthority,
+} from "./admission_authority.js";
+export {
+  constructCatalogApplicationResources,
+  reconstructCatalogApplication,
+  CatalogApplicationConstructionError,
+  CATALOG_APPLICATION_CONSTRUCTION_SCHEMA,
+  type CatalogApplicationConstruction,
+  type CatalogApplicationConstructionInput,
+  type CatalogApplicationResources,
+} from "./declaration_application.js";
 export {
   isImplementationResolutionSetCandidate,
   isLeafImplementationResolutionCandidate,
@@ -358,6 +380,7 @@ export {
 } from "./run_invocation_operation.js";
 export {
   RUN_DEFINITION_BINDINGS,
+  isRunInvocationResourceAssertion,
   type RunInvocationResourceAssertion,
   type RunInvocationResourceReceipt,
 } from "../owner_bindings/run_invocation.js";
@@ -415,7 +438,6 @@ export {
 export {
   isWorksiteFileReplaceInput,
   observeWorksiteSubject,
-  replaceWorksiteFile,
   type WorksiteFileReplaceInput,
   type WorksiteFileReplaceResult,
   type WorksiteFileReplaceSuccess,
@@ -471,6 +493,7 @@ export {
   type WorksiteConstructionTargetInput,
   type WorksiteConstructionTask,
   type WorksiteConstructionTaskInput,
+  type WorksiteConstructionWorkerFile,
   type WorksiteConstructionWorkerResult,
   type WorksiteFileReplaceOutput,
   type WorksiteFileReplaceOutputVector,
@@ -478,3 +501,42 @@ export {
   type WorksiteFileReplaceVector,
   type WorksiteFileReplaceVectorMember,
 } from "./worksite_construction.js";
+export { WORKSPACE_OPERATION_CONTRACTS as WORKSPACE_OPERATION_SOURCE_DECLARATIONS } from "./workspace_operation_contracts.js";
+export { PRODUCT_VERIFICATION_CONTRACTS as PRODUCT_VERIFICATION_SOURCE_DECLARATIONS } from "./verification_operation_contracts.js";
+export { PRODUCT_ENVIRONMENT_CONTRACTS as PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS } from "./environment_operation_contracts.js";
+export { PRODUCT_INSTALL_CONTRACTS as PRODUCT_INSTALL_SOURCE_DECLARATIONS } from "./install_operation_contracts.js";
+export { CATALOG_OPERATION_CONTRACTS as CATALOG_OPERATION_SOURCE_DECLARATIONS } from "./catalog_operation_contracts.js";
+export { PRODUCT_PROJECT_READ_CONTRACTS as PRODUCT_PROJECT_READ_SOURCE_DECLARATIONS } from "./project_read_operation_contracts.js";
+
+export {
+  WORKSITE_PREPARATION_IDS, worksitePreparationContractDeclarations, worksiteRetentionBinding,
+  constructWorksiteCommandPreparationInput, constructWorksiteBranchCommandPreparationInput,
+  isWorksitePreparationInput, isWorksitePreparationBoundInput, constructRetainedWorksiteInput,
+  selectWorksiteConstructionTask, prepareWorksiteCommandTask,
+} from "./worksite_preparation.js";
+export type { WorksiteCommandPreparationInput, WorksiteBranchCommandPreparationInput,
+  WorksiteCommandPreparationBoundInput, WorksiteBranchCommandPreparationBoundInput,
+  WorksitePreparationInput, WorksitePreparationBoundInput,
+} from "./worksite_preparation.js";
+
+export { constructRequirementHandoffInput, isRequirementHandoffInput, isRequirementHandoffOutput } from "./requirement_handoff.js";
+export type { RequirementHandoffInput, RequirementHandoffOutput } from "./requirement_handoff.js";
+
+export { constructSemanticStageEnvelope, isSemanticStageEnvelope } from "./semantic_stage.js";
+export type { SemanticStageEnvelope, SemanticWorksiteBasis, SemanticAssetCandidate, SemanticAssessmentCandidate } from "./semantic_stage.js";
+
+export { isSemanticRevisionRequest, isSemanticRevisionSelection, isSemanticRevisionEnvelope, deriveSemanticRevision } from "./semantic_revision.js";
+export type { SemanticRevisionRequest, SemanticRevisionSelection, SemanticRevisionEnvelope, SemanticRevisionCoordinate } from "./semantic_revision.js";
+export * from "./worksite_revision.js";
+export { constructWorksiteRevisionCommandPreparationInput } from "./worksite_preparation.js";
+export { worksiteRevisionRetentionBinding } from "./worksite_preparation_contracts.js";
+export { constructWorksiteRevisionCommandHelperArtifact, constructWorksiteRevisionCommandExecutionObservation,
+  isWorksiteRevisionCommandHelperArtifact, isWorksiteRevisionCommandExecutionObservation,
+  isWorksiteExecutionHelperArtifact, isWorksiteExecutionObservation } from "./worksite_command_execution.js";
+export { WORKSITE_PRESERVED_RESULT_IDS, WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS, constructWorksitePreservedResultSource,
+  isWorksitePreservedResultSource, constructWorksitePreservedResultArtifact, isWorksitePreservedResultArtifact,
+  preservedWorksiteTargetJoin, derivePreservedWorksiteCandidateBundle, resolveWorksitePreservedResultJudgmentRelation } from "./worksite_construction_recovery.js";
+export type { WorksitePreservedResultSource, WorksitePreservedResultArtifact, WorksitePreservedResultArtifactBody,
+  WorksitePreservedSourceProof, PreservedProtocolRecord } from "./worksite_construction_recovery.js";
+export * from "./worksite_command_forward.js";
+export { isWorksiteCommandForwardObservation } from "./worksite_command_execution.js";

@@ -1,3 +1,5 @@
+import type { GtlRequirementHandoffDeclaration } from "./requirement_handoff.js";
+import type { SemanticLifecycleDeclaration } from "./semantic_stage.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import type { CProgramNode, ComputeRegime } from "./c_algebra.js";
@@ -143,10 +145,18 @@ export interface GtlNode {
   readonly term: CProgramNode;
 }
 
+export interface GtlEdgeInputBinding {
+  readonly kind: "retain_graph_input";
+  readonly entryContractRef: string;
+  readonly sourceContractRef: string;
+  readonly targetContractRef: string;
+}
+
 export interface GtlEdge {
   readonly edgeRef: string;
   readonly fromNodeRef: string;
   readonly toNodeRef: string;
+  readonly inputBinding?: GtlEdgeInputBinding;
 }
 
 interface GraphFunctionApplicationBase {
@@ -467,6 +477,8 @@ export interface CatalogContribution {
 }
 
 export interface ModulePublication {
+  readonly semanticLifecycle?: Readonly<SemanticLifecycleDeclaration>;
+  readonly requirementHandoffs?: readonly Readonly<GtlRequirementHandoffDeclaration>[];
   readonly kind: "module_publication";
   readonly moduleRef: string;
   readonly moduleVersion: "5.0.0";

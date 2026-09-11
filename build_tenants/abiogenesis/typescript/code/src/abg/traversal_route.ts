@@ -1,3 +1,5 @@
+import { constructRetainedWorksiteInput } from "../product/worksite_preparation.js";
+import { rawAdmitValue, type RawAdmittedValue } from "../validator/raw_admission.js";
 import type {
   FanOutApplication,
   GraphFunction,
@@ -45,6 +47,7 @@ import {
 import {
   admittedConstructionComposition as admittedBasisConstructionComposition,
   hasAdmittedExecutionBasisAtPrefix,
+  rehydrateExecutionBasisAtPrefix,
   selectAdmittedConstructionAuthority,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
@@ -134,6 +137,7 @@ export interface RouteCandidate {
   readonly consumedAvailabilityRefs: readonly string[];
   readonly contractRef: string | null;
   readonly replayStateDigest: Sha256Digest;
+  readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: Sha256Digest;
   readonly nextActionProjection?: Readonly<Record<string, JsonValue>>;
@@ -165,6 +169,7 @@ export interface AdmittedRoute {
   readonly constructionIntentAdmissionEventRef: string | null;
   readonly admissionEventRef: string;
   readonly runStoppedEventRef: string | null;
+  readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: Sha256Digest;
   readonly nextActionProjection?: NextActionProjection;
@@ -517,6 +522,7 @@ export interface HistoricalTraversalRouteProjection {
   readonly frameId: string;
   readonly executionBasisRef: string;
   readonly materializationRef: string;
+  readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: Sha256Digest;
   readonly nextActionProjection?: NextActionProjection;
@@ -614,6 +620,7 @@ export function projectHistoricalTraversalRouteAtPrefix(
     disposition: "projected" as const,
     routeRef,
     routeDigest: routeDigest as Sha256Digest,
+    ...(projected.boundInput === undefined ? {} : { boundInput: projected.boundInput }),
     routeKind: projected.routeKind,
     declarationRef: projected.declarationRef,
     declarationDigest: projected.declarationDigest,
@@ -703,6 +710,7 @@ export function projectAdmittedRouteAtPrefix(
     disposition: "admitted" as const,
     routeRef: projected.routeRef,
     routeDigest: projected.routeDigest,
+    ...(projected.boundInput === undefined ? {} : { boundInput: projected.boundInput }),
     routeKind: projected.routeKind,
     declarationRef: projected.declarationRef,
     declarationDigest: projected.declarationDigest,
@@ -3955,6 +3963,56 @@ function recursionRouteCausation(input: Readonly<{
       : judgment.admissionEventRef;
 }
 
+
+/** Pure owner derivation. Raw input becomes available only in the admitted route. */
+export function deriveRetainedCCallInputAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  executionBasis: ExecutionBasis,
+  graph: Readonly<GtlGraph>,
+  source: TraversalCursorCandidate,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  judgment: AdmittedCCallJudgment,
+): Readonly<{ input: RawAdmittedValue<Readonly<Record<string, JsonValue>>>; causationEventRefs: readonly string[] }> | null {
+  const continuation = deriveCSourceContinuation(graph.template, source.currentNodeRef, source.termPath);
+  if (continuation.kind === "c_source_path_refusal" || continuation.relation !== "graph_edge") return null;
+  const edges = graph.template.edges.filter((edge) => edge.fromNodeRef === source.currentNodeRef);
+  const binding = edges.length === 1 ? edges[0]!.inputBinding : undefined;
+  if (binding === undefined) return null;
+  if (!hasAdmittedExecutionBasisAtPrefix(prefix, executionBasis) || !hasAdmittedTraversalCursorAtPrefix(prefix, source) ||
+    executionBasis.basisRef !== source.executionBasisRef || executionBasis.graphRef !== graph.materializationRef ||
+    executionBasis.graphDigest !== graph.materializationDigest || cCall.basisId !== executionBasis.basisRef ||
+    cCall.graphCallId !== source.graphCallId || cCall.frameId !== source.frameId || cCall.runId !== source.runId ||
+    cCall.outputContractRef !== binding.sourceContractRef || result.resultClass !== "success" || judgment.judgment !== "advance" ||
+    projectAdmittedCCallOutcomeAtPrefix(prefix, cCall, result, judgment) === null) {
+    throw new TypeError("retention lacks the exact admitted entry and successful source CCall");
+  }
+  const term = graph.template.nodes.find((node) => node.nodeRef === source.currentNodeRef)?.term;
+  const causes = [executionBasis.admissionEventRef, result.admissionEventRef, judgment.admissionEventRef];
+  if (term?.kind === "c_workflow") {
+    const events = runtimeEventsFromValidatedPrefix(prefix);
+    const folds = events.filter((event) => event.kind === "child_foldback_admitted" && event.runId === source.runId &&
+      event.graphCallId === source.graphCallId && isJsonRecord(event.payload) && event.payload.parentCCallRef === cCall.cCallRef);
+    const fold = folds.length === 1 ? folds[0] : undefined;
+    const childGraphCallId = fold !== undefined && isJsonRecord(fold.payload) ? fold.payload.childGraphCallId : null;
+    const child = fold !== undefined && isJsonRecord(fold.payload) && typeof fold.payload.childExecutionBasisRef === "string"
+      ? rehydrateExecutionBasisAtPrefix(prefix, fold.payload.childExecutionBasisRef) : null;
+    if (fold === undefined || !isJsonRecord(fold.payload) || child === null ||
+      child.graphFunctionRef !== term.graphFunctionRef || child.parentCCallRef !== cCall.cCallRef ||
+      child.parentExecutionBasisRef !== executionBasis.basisRef || fold.payload.childDisposition !== "closed" ||
+      fold.payload.outputDigest !== result.valueDigest || typeof fold.payload.childClosureRef !== "string" ||
+      events.filter((event) => event.kind === "graph_call_closed" && event.graphCallId === childGraphCallId &&
+        event.runId === source.runId && event.basisId === child.basisRef).length !== 1) {
+      throw new TypeError("retention source workflow lacks its exact completed child foldback");
+    }
+    causes.push(fold.eventId);
+  }
+  const value = constructRetainedWorksiteInput(binding, executionBasis.rawInputValue, result.value);
+  const input = rawAdmitValue<Readonly<Record<string, JsonValue>>>(value, "invocation_input", binding.targetContractRef);
+  if (input.kind !== "raw_admitted_value") throw new TypeError(input.message);
+  return Object.freeze({ input, causationEventRefs: Object.freeze([...new Set(causes)]) });
+}
+
 interface ExactRouteAdmissionPrefix {
   readonly authorityPrefix: ValidatedRuntimeEventPrefix;
   readonly runPrefix: ValidatedRuntimeEventPrefix;
@@ -4018,6 +4076,18 @@ function admitRoute(
   const judgedRouteEvidence = evidenceClass === "judged"
     ? evidence as RouteAdmissionEvidence
     : null;
+  let retained: ReturnType<typeof deriveRetainedCCallInputAtPrefix> = null;
+  try {
+    retained = candidate.routeKind === "advance" && judgedRouteEvidence !== null
+      ? deriveRetainedCCallInputAtPrefix(authorityPrefix, executionBasis, graph, sourceCursor,
+          judgedRouteEvidence.cCall, judgedRouteEvidence.result, judgedRouteEvidence.judgment) : null;
+    if ((retained === null) !== (candidate.boundInput === undefined) ||
+      retained !== null && sha256Canonical(retained.input as unknown as JsonValue) !== sha256Canonical(candidate.boundInput as unknown as JsonValue)) {
+      return refusal("candidate_mismatch", "route bound input is not the exact owner-derived entry/source binding");
+    }
+  } catch {
+    return refusal("candidate_mismatch", "route retention entry/source authority or schema is invalid");
+  }
   const retryEvidence = evidenceClass === "retry"
     ? evidence as RetryRouteAdmissionEvidence
     : null;
@@ -4364,8 +4434,8 @@ function admitRoute(
           targetCursor,
           candidate,
           {
-            inputRef: judgedRouteEvidence.result.resultRef,
-            inputDigest: judgedRouteEvidence.result.valueDigest,
+            inputRef: retained?.input.admissionRef ?? judgedRouteEvidence.result.resultRef,
+            inputDigest: retained?.input.subjectDigest ?? judgedRouteEvidence.result.valueDigest,
           },
         )
       ) {
@@ -4604,6 +4674,7 @@ function admitRoute(
             fanOutEvidence.completion.completionKind === "partial_stop"
           ? "reason://abiogenesis/fan-out-partial-stop@5"
           : "reason://abiogenesis/blocked@5";
+  additionalCausationEventRefs = [...new Set([...additionalCausationEventRefs, ...(retained?.causationEventRefs ?? [])])];
   const routeEventCandidate = (primaryCausationEventRef: string) => ({
     kind: "traversal_route_admitted",
     eventTime: basis.eventTime,
@@ -4627,7 +4698,7 @@ function admitRoute(
     materializationRef: graph.materializationRef,
     graphCallId: sourceCursor.graphCallId,
     frameId: sourceCursor.frameId,
-    payload: { routeRef, routeDigest, ...body },
+    payload: { routeRef, routeDigest, ...body } as unknown as JsonValue,
   } as const);
   const admittedEvents = admittedConstruction !== null
     ? admitRuntimeEventBatch(store, [

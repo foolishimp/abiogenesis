@@ -1,3 +1,5 @@
+import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA } from "../gtl/requirement_handoff.js";
+import { SEMANTIC_LIFECYCLE_SCHEMA } from "../gtl/semantic_stage.js";
 import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
 import * as Option from "effect/Option";
@@ -126,6 +128,7 @@ export interface RunInvocationResourceAssertion
   readonly kind: "run_invocation_resource_assertion";
   readonly schemaVersion: "5.0.0";
   readonly eventResource: AbgEventResourceAssertion;
+  readonly applicationResources?: readonly CatalogApplicationResources[];
 }
 
 export interface RunInvocationResourceReceipt {
@@ -414,6 +417,12 @@ const GRAPH_TEMPLATE_SCHEMA = v.strictObject({
     edgeRef: nonblankSchema,
     fromNodeRef: nonblankSchema,
     toNodeRef: nonblankSchema,
+    inputBinding: v.optional(v.strictObject({
+      kind: v.literal("retain_graph_input"),
+      entryContractRef: nonblankSchema,
+      sourceContractRef: nonblankSchema,
+      targetContractRef: nonblankSchema,
+    })),
   })),
   applications: v.array(GRAPH_FUNCTION_APPLICATION_SCHEMA),
 });
@@ -567,6 +576,8 @@ const CATALOG_CONTRIBUTION_SCHEMA = v.strictObject({
 });
 
 const MODULE_PUBLICATION_SCHEMA = v.strictObject({
+    requirementHandoffs: v.optional(v.array(REQUIREMENT_HANDOFF_DECLARATION_SCHEMA)),
+    semanticLifecycle: v.optional(SEMANTIC_LIFECYCLE_SCHEMA),
     kind: v.literal("module_publication"),
     moduleRef: nonblankSchema,
     moduleVersion: v.literal("5.0.0"),
@@ -1079,11 +1090,19 @@ const RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
   catalog: READY_GRAPH_FUNCTION_CATALOG_SCHEMA,
   catalogView: GRAPH_FUNCTION_CATALOG_VIEW_SCHEMA,
   applications: v.array(DECLARATION_APPLICATION_SCHEMA),
+  applicationResources: v.optional(v.array(jsonValueSchema)),
   source: RUN_INVOCATION_SOURCE_ASSERTION_SCHEMA,
 }) as unknown as v.GenericSchema<
   RunInvocationResourceAssertion,
   RunInvocationResourceAssertion
 >;
+
+/** Structural validation only; exact owner, prefix and tuple admission remains separate. */
+export function isRunInvocationResourceAssertion(
+  value: unknown,
+): value is RunInvocationResourceAssertion {
+  return v.safeParse(RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, value).success;
+}
 
 const RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
   kind: v.literal("run_invocation_resource_receipt"),
@@ -1335,6 +1354,9 @@ function runInvocationOwner<TPacket extends RunPacket>(
           artifactTruth: setup.artifactTruth,
           catalogView: productResources.catalogView,
           catalogApplications: productResources.applications,
+          ...(call.resources.applicationResources === undefined ? {} : {
+            catalogApplicationResources: call.resources.applicationResources,
+          }),
           policy: prepared.policy,
           capabilityGrants: prepared.grants,
           authority: prepared.authority,
@@ -1432,6 +1454,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
           invocationAdmission: admission,
           rawInputValue: prepared.admittedInput,
           program: prepared.resolution.program,
+          programPublication: prepared.resolution.programPublication,
           programValidation: prepared.resolution.programValidation,
           graph,
           graphValidation,
@@ -1532,6 +1555,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
         openedTraversalScope: opened.scope,
         program: prepared.resolution.program,
         graphFunction: prepared.resolution.graphFunction,
+        programPublication: prepared.resolution.programPublication,
         graph,
         graphValidation,
         programValidation: prepared.resolution.programValidation,
@@ -1707,3 +1731,4 @@ const start = bindExactPrefixTransition(
 export const RUN_DEFINITION_BINDINGS = Object.freeze({
   invoke: Object.freeze({ invoke, start }),
 });
+import type { CatalogApplicationResources } from "../product/declaration_application.js";

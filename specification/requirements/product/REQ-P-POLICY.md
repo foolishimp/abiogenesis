@@ -451,20 +451,24 @@ residuals. It shall not silently read mutable source defaults or change runtime
 truth merely by producing configuration.
 
 **REQ-P-POLICY-059**: `abg.operation.release.snapshot` shall accept one exact
-qualification basis, the matching qualification-law basis, one same-basis green
-non-bypassed verdict, and the requested `published_rc | tapped_release`
-identity. The `published_rc` variant shall accept only a `pre_rc_candidate`
+qualification basis, the matching qualification-law basis, authenticated native
+same-basis green non-bypassed verdict evidence, and the requested
+`published_rc | tapped_release` identity. The `published_rc` variant shall accept only a `pre_rc_candidate`
 basis, require the requested identity to equal its basis-bound prospective RC
 identity, and publish the exact qualified artifact bytes unchanged. The
-`tapped_release` variant shall accept only a `final_tap_candidate` basis and
-shall additionally require the accepted-RC lineage, exact installed-RC
-qualification basis and green non-bypassed verdict, and verified final-tap
-delta after every affected pre-publication gate. An `installed_rc` basis or
-verdict is authorization evidence for final-basis construction only and shall
-never directly materialize a cut or snapshot. The operation shall return the
-immutable release-cut identity, artifact and snapshot-manifest identities,
-digests, qualification disposition, residuals, and provenance, or a typed
-refusal without publishing a release-grade result.
+`tapped_release` variant shall accept only the exact `installed_rc` basis and
+its native same-basis green non-bypassed verdict, complete immutable RC lineage
+and actual human Product-authority acceptance of that same unchanged RC. It
+shall report the existing cut, artifacts and snapshot and write only an
+external acceptance/evidence addendum; it shall not create a second cut,
+snapshot or package, rename a version or move the selector. Both variants
+shall preserve native qualification and acceptance owners rather than treating
+caller green or accepted flags as authority. The operation shall return the
+exact immutable cut, artifact and snapshot identities, digests, qualification
+and acceptance disposition where applicable, residuals and provenance, or a
+typed refusal. Any partial publication or addendum effect shall retain its
+actual effect receipt and unresolved state for exact reacquisition; it shall
+not be represented as either complete release success or an effect-free refusal.
 
 **REQ-P-POLICY-060**: Workspace `create` shall accept an admitted target
 location and explicit clean/imported authority mode and shall return one typed

@@ -35,6 +35,7 @@ import {
   isWorksiteSubject,
   isWorksiteTerritory,
   worksiteRefusal,
+  postPublicationWorksiteFailure,
   worksiteSubjectWithinTerritory,
   type FileWorksiteObservation,
   type WorksiteEffectAuthorization,
@@ -44,9 +45,14 @@ import {
   type WorksiteObservation,
   type WorksiteSubject,
   type WorksiteTerritory,
+  type WorksitePublicationFacts,
+  type WorksitePostPublicationDiagnostic,
+  type WorksitePhysicalOutcome,
 } from "./worksite_effect.js";
 
 export interface WorksiteFileReplaceInput {
+  /** Admitted owner roots supplied only by the guarded internal writer. */
+  readonly protectedInstallRoots?: readonly string[];
   readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
   readonly workspaceBinding: WorkspaceBinding;
   readonly request: WorksiteFileReplaceRequest;
@@ -166,6 +172,7 @@ async function resolveWorksiteTarget(
   workspaceAuthorityBasis: WorkspaceAuthorityBasis,
   workspaceBinding: WorkspaceBinding,
   subject: WorksiteSubject,
+  protectedInstallRoots: readonly string[] = [],
 ): Promise<ResolvedWorksiteTarget | WorksiteEffectRefusal> {
   if (!exactSubjectForBinding(
     workspaceAuthorityBasis,
@@ -207,7 +214,7 @@ async function resolveWorksiteTarget(
       );
     }
     const protectedRoots = await Promise.all(
-      Object.values(workspaceBinding.roots).map(plannedCanonicalPath),
+      [...Object.values(workspaceBinding.roots), ...protectedInstallRoots].map(plannedCanonicalPath),
     );
     if (protectedRoots.some((root) => confined(root, targetPath))) {
       return worksiteRefusal(
@@ -286,6 +293,7 @@ async function inspectTargetPath(
   }
 
   let handle;
+  let inspected: WorksiteEffectRefusal | { readonly fileIdentity: string; readonly bytes: Uint8Array };
   try {
     handle = await open(
       target.targetPath,
@@ -293,32 +301,38 @@ async function inspectTargetPath(
     );
     const status = await handle.stat();
     if (!status.isFile()) {
-      return worksiteRefusal(
+      inspected = worksiteRefusal(
         "target_not_file",
         "worksite subject changed to a non-file during observation",
       );
-    }
-    if (status.nlink !== 1) {
-      return worksiteRefusal(
+    } else if (status.nlink !== 1) {
+      inspected = worksiteRefusal(
         "aliased_subject",
         "worksite subject must not share its file identity with another hard link",
       );
+    } else {
+      const bytes = await handle.readFile();
+      inspected = { fileIdentity: `${status.dev}:${status.ino}`, bytes };
     }
-    const bytes = await handle.readFile();
-    return {
-      fileIdentity: `${status.dev}:${status.ino}`,
-      bytes,
-    };
   } catch (error) {
-    return worksiteRefusal(
+    inspected = worksiteRefusal(
       errnoCode(error) === "ELOOP" ? "symlink_forbidden" : "filesystem_refused",
       `worksite file observation failed: ${String(error)}`,
       null,
       errnoCode(error),
     );
-  } finally {
-    await handle?.close();
   }
+  try {
+    await handle?.close();
+  } catch (error) {
+    const closeCode = errnoCode(error);
+    const closeMessage = `worksite file observation close failed (${closeCode ?? "unknown"}): ${String(error)}`;
+    inspected = "kind" in inspected
+      ? worksiteRefusal(inspected.code, `${inspected.message}; secondary ${closeMessage}`,
+          inspected.lastObservation, inspected.substrateCode)
+      : worksiteRefusal("filesystem_refused", closeMessage, null, closeCode);
+  }
+  return inspected;
 }
 
 async function inspectPhysicalDirectory(
@@ -392,11 +406,13 @@ async function inspectCommitLocus(
   workspaceBinding: WorkspaceBinding,
   subject: WorksiteSubject,
   expectedTarget?: ResolvedWorksiteTarget,
+  protectedInstallRoots: readonly string[] = [],
 ): Promise<WorksiteCommitLocus | WorksiteEffectRefusal> {
   const target = await resolveWorksiteTarget(
     workspaceAuthorityBasis,
     workspaceBinding,
     subject,
+    protectedInstallRoots,
   );
   if ("kind" in target) return target;
   if (expectedTarget !== undefined &&
@@ -580,6 +596,7 @@ export async function replaceWorksiteFile(
     input.workspaceAuthorityBasis,
     input.workspaceBinding,
     subject,
+    input.protectedInstallRoots,
   );
   if ("kind" in target) return target;
   const territoryPath = resolve(
@@ -600,6 +617,7 @@ export async function replaceWorksiteFile(
     input.workspaceBinding,
     subject,
     target,
+    input.protectedInstallRoots,
   );
   if ("kind" in initialLocus) return initialLocus;
   const immediate = initialLocus.observation;
@@ -630,6 +648,15 @@ export async function replaceWorksiteFile(
   );
   let temporaryPresent = false;
   let temporaryFileIdentity: string | null = null;
+  let publication: WorksitePublicationFacts | null = null;
+  let compensation: Extract<WorksitePhysicalOutcome, { kind: "publication_only" }>["compensation"] = "not_attempted";
+  let stagingCleanup: Extract<WorksitePhysicalOutcome, { kind: "publication_only" }>["stagingCleanup"] = "removed";
+  let postPublicationObservation: WorksiteObservation | null = null;
+  const diagnostics: WorksitePostPublicationDiagnostic[] = [];
+  const diagnostic = (stage: WorksitePostPublicationDiagnostic["stage"], refusal: WorksiteEffectRefusal): void => {
+    diagnostics.push({ stage, code: refusal.code, message: refusal.message, substrateCode: refusal.substrateCode });
+  };
+  const perform = async (): Promise<WorksiteFileReplaceResult> => {
   try {
     const stagingParent = await inspectPhysicalDirectory(parentPath);
     if ("kind" in stagingParent) return stagingParent;
@@ -683,6 +710,7 @@ export async function replaceWorksiteFile(
       input.workspaceBinding,
       subject,
       target,
+      input.protectedInstallRoots,
     );
     if ("kind" in atCommitLocus) return atCommitLocus;
     const atCommit = atCommitLocus.observation;
@@ -730,6 +758,7 @@ export async function replaceWorksiteFile(
       input.workspaceBinding,
       subject,
       target,
+      input.protectedInstallRoots,
     );
     if ("kind" in publicationLocus) return publicationLocus;
     if (!sameCanonical(publicationLocus.observation, predecessorObservation) ||
@@ -744,21 +773,56 @@ export async function replaceWorksiteFile(
     }
     if (predecessorObservation.state === "absent") {
       await link(temporaryPath, target.targetPath);
+      publication = {
+        committed: true, method: "link", writtenDigest: input.request.replacementDigest,
+        byteLength: replacement.byteLength, stagingPath: temporaryPath,
+        stagingFileIdentity: temporaryFileIdentity!,
+      };
       try {
         await unlink(temporaryPath);
         temporaryPresent = false;
       } catch (cleanupError) {
-        const publishedStatus = await lstat(target.targetPath);
-        const stagingStatus = await lstat(temporaryPath);
-        if (`${publishedStatus.dev}:${publishedStatus.ino}` ===
-            `${stagingStatus.dev}:${stagingStatus.ino}`) {
-          await unlink(target.targetPath);
+        stagingCleanup = "failed";
+        const failure = worksiteRefusal("filesystem_refused",
+          `published worksite staging cleanup failed: ${String(cleanupError)}`,
+          null, errnoCode(cleanupError));
+        diagnostic("staging_cleanup", failure);
+        try {
+          const publishedStatus = await lstat(target.targetPath);
+          const stagingStatus = await lstat(temporaryPath);
+          if (`${publishedStatus.dev}:${publishedStatus.ino}` === temporaryFileIdentity &&
+            `${stagingStatus.dev}:${stagingStatus.ino}` === temporaryFileIdentity &&
+            publishedStatus.isFile() && stagingStatus.isFile() &&
+            !publishedStatus.isSymbolicLink() && !stagingStatus.isSymbolicLink()) {
+            try {
+              await unlink(target.targetPath);
+              compensation = "succeeded";
+            } catch (error) {
+              compensation = "failed";
+              diagnostic("target_compensation", worksiteRefusal("filesystem_refused",
+                `published target compensation failed: ${String(error)}`, null, errnoCode(error)));
+            }
+          } else {
+            compensation = "skipped_unverified_identity";
+            diagnostic("target_compensation", worksiteRefusal("stale_observation",
+              "target compensation skipped because published identity was not retained"));
+          }
+        } catch (error) {
+          compensation = "skipped_unverified_identity";
+          diagnostic("target_compensation", worksiteRefusal("filesystem_refused",
+            `target compensation identity could not be observed: ${String(error)}`, null, errnoCode(error)));
         }
-        throw cleanupError;
+        return failure;
       }
     } else {
       await rename(temporaryPath, target.targetPath);
+      publication = {
+        committed: true, method: "rename", writtenDigest: input.request.replacementDigest,
+        byteLength: replacement.byteLength, stagingPath: temporaryPath,
+        stagingFileIdentity: temporaryFileIdentity!,
+      };
       temporaryPresent = false;
+      stagingCleanup = "consumed_by_rename";
     }
 
     const successor = await observeWorksiteSubject(
@@ -766,6 +830,7 @@ export async function replaceWorksiteFile(
       input.workspaceBinding,
       subject,
     );
+    if (isWorksiteObservation(successor)) postPublicationObservation = successor;
     if (!isWorksiteObservation(successor) || successor.state !== "file") {
       return isWorksiteObservation(successor)
         ? worksiteRefusal(
@@ -791,7 +856,10 @@ export async function replaceWorksiteFile(
       successor,
       input.request.replacementDigest,
     );
-    if (receipt.kind !== "worksite_file_replace_receipt") return receipt;
+    if (receipt.kind !== "worksite_file_replace_receipt") {
+      diagnostic("successor_receipt", receipt);
+      return receipt;
+    }
     return deepFreeze({
       kind: "worksite_file_replace_result" as const,
       schemaVersion: "5.0.0" as const,
@@ -803,20 +871,58 @@ export async function replaceWorksiteFile(
   } catch (error) {
     return worksiteRefusal(
       "filesystem_refused",
-      `atomic worksite replacement failed before commit: ${String(error)}`,
-      immediate,
+      publication === null
+        ? `atomic worksite replacement failed before commit: ${String(error)}`
+        : `published worksite successor observation failed: ${String(error)}`,
+      publication === null ? immediate : postPublicationObservation,
       errnoCode(error),
     );
-  } finally {
+  }
+  };
+  const outcome = await perform();
+  if (publication !== null && outcome.kind === "worksite_effect_refusal" && diagnostics.length === 0) {
+    diagnostic("successor_observation", outcome);
+  }
+  // Finish physical cleanup before freezing any post-publication failure.
     if (temporaryPresent) {
       try {
         const status = await lstat(temporaryPath);
-        if (`${status.dev}:${status.ino}` === temporaryFileIdentity) {
+        if (`${status.dev}:${status.ino}` === temporaryFileIdentity &&
+          status.isFile() && !status.isSymbolicLink()) {
           await unlink(temporaryPath);
+          stagingCleanup = "removed";
+        } else if (publication !== null) {
+          stagingCleanup = "skipped_unverified_identity";
+          diagnostic("staging_cleanup", worksiteRefusal("stale_observation",
+            "final staging cleanup skipped a substituted path"));
         }
-      } catch {
-        // Cleanup never acquires authority over a substituted path.
+      } catch (error) {
+        if (errnoCode(error) === "ENOENT") {
+          stagingCleanup = "removed";
+        } else if (publication !== null) {
+          stagingCleanup = "failed";
+          diagnostic("staging_cleanup", worksiteRefusal("filesystem_refused",
+            `final staging cleanup failed: ${String(error)}`, null, errnoCode(error)));
+        }
       }
     }
+  if (publication === null || outcome.kind !== "worksite_effect_refusal") return outcome;
+  let stagingResidue: Extract<WorksitePhysicalOutcome, { kind: "publication_only" }>["stagingResidue"];
+  try {
+    const status = await lstat(temporaryPath);
+    const fileIdentity = `${status.dev}:${status.ino}`;
+    stagingResidue = {
+      state: fileIdentity === temporaryFileIdentity && status.isFile() && !status.isSymbolicLink()
+        ? "owned_file" : "other_path",
+      fileIdentity,
+    };
+  } catch (error) {
+    stagingResidue = { state: errnoCode(error) === "ENOENT" ? "absent" : "unknown", fileIdentity: null };
+    if (errnoCode(error) !== "ENOENT") diagnostic("staging_residue", worksiteRefusal("filesystem_refused",
+      `staging residue inspection failed: ${String(error)}`, null, errnoCode(error)));
   }
+  return postPublicationWorksiteFailure(outcome, {
+    kind: "publication_only", authorization: input.authorization, publication,
+    compensation, stagingCleanup, stagingResidue, postPublicationObservation, diagnostics,
+  });
 }

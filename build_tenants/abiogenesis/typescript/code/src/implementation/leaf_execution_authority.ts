@@ -39,6 +39,7 @@ const LEAF_EXECUTION_AUTHORITY_FIELDS = Object.freeze([
   "leafResolutionCandidateDigest",
   "leafResolutionCandidateRef",
   "programDigest",
+  "programPublication",
   "programRef",
   "predecessorPrefix",
   "schemaVersion",
@@ -226,6 +227,7 @@ export function isLeafExecutionAuthority(
       !isSha256Digest(value.executionBasisDigest) ||
       !nonEmptyString(value.programRef) ||
       !isSha256Digest(value.programDigest) ||
+      !isRecord(value.programPublication) ||
       !nonEmptyString(value.graphFunctionRef) ||
       !isSha256Digest(value.graphFunctionDigest) ||
       !nonEmptyString(value.cCallRef) ||
@@ -274,6 +276,8 @@ export function isLeafExecutionAuthority(
       authority.authorityRef ===
         `leaf-execution-authority://abiogenesis/${digest.slice("sha256:".length)}` &&
       authority.implementationResolutionDigest === resolutionDigest &&
+      sha256Canonical(authority.programPublication as unknown as JsonValue) ===
+        authority.implementationResolution.publicationDigest &&
       authority.implementationResolutionRef ===
         `implementation-resolution://abiogenesis/${resolutionDigest.slice("sha256:".length)}` &&
       resolutionMatches.length === 1 &&

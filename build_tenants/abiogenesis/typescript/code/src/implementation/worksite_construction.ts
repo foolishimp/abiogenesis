@@ -1,4 +1,6 @@
 import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
+import { projectWorksitePreservedResultArtifact, projectWorksitePreservedCandidateBundle } from "../abg/worksite_construction_recovery.js";
+import { WORKSITE_PRESERVED_RESULT_IDS as recoveryIds, type WorksitePreservedResultArtifact } from "../product/worksite_construction_recovery.js";
 import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
@@ -71,6 +73,25 @@ export const WORKSITE_CONSTRUCTION_JOIN_IMPLEMENTATION_DESCRIPTOR = descriptor({
   inputContractRef: WORKSITE_CONSTRUCTION_IDS.candidateBundleContractRef,
   outputContractRef: WORKSITE_CONSTRUCTION_IDS.fileReplaceVectorContractRef,
 });
+
+export const WORKSITE_PRESERVED_RESULT_AUTHENTICATE_IMPLEMENTATION_DESCRIPTOR = descriptor({
+  implementationRef: recoveryIds.authenticateImplementationRef, namedSymbol: "authenticateWorksitePreservedResult", computeRegime: "F_D",
+  inputContractRef: WORKSITE_CONSTRUCTION_IDS.taskContractRef, outputContractRef: recoveryIds.artifactContractRef,
+});
+export const WORKSITE_PRESERVED_RESULT_DERIVE_IMPLEMENTATION_DESCRIPTOR = descriptor({
+  implementationRef: recoveryIds.deriveImplementationRef, namedSymbol: "deriveWorksitePreservedCandidate", computeRegime: "F_D",
+  inputContractRef: recoveryIds.artifactContractRef, outputContractRef: WORKSITE_CONSTRUCTION_IDS.candidateBundleContractRef,
+});
+export function authenticateWorksitePreservedResult(input: WorksiteConstructionTask, occurrence: LeafExecutionOccurrence): Readonly<LeafRealizationCandidate> {
+  const value = occurrence.worksitePreservedResultBasis === undefined ? null : projectWorksitePreservedResultArtifact(occurrence.worksitePreservedResultBasis, input);
+  return value === null ? failure("preserved_source_invalid") : deterministicSuccess(recoveryIds.authenticateImplementationRef,
+    input as unknown as Readonly<Record<string, JsonValue>>, value as unknown as Readonly<Record<string, JsonValue>>);
+}
+export function deriveWorksitePreservedCandidate(input: WorksitePreservedResultArtifact, occurrence: LeafExecutionOccurrence): Readonly<LeafRealizationCandidate> {
+  const value = occurrence.worksitePreservedResultBasis === undefined ? null : projectWorksitePreservedCandidateBundle(occurrence.worksitePreservedResultBasis, input);
+  return value === null ? failure("preserved_candidate_invalid") : deterministicSuccess(recoveryIds.deriveImplementationRef,
+    input as unknown as Readonly<Record<string, JsonValue>>, value as unknown as Readonly<Record<string, JsonValue>>);
+}
 
 export const WORKSITE_CONSTRUCTION_REDUCER_IMPLEMENTATION_DESCRIPTOR =
   descriptor({

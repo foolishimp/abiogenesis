@@ -1,3 +1,7 @@
+import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+import { constructNativeInstructionAssembly } from "./instruction_assembly.js";
+import { semanticInputValueAtBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
 import { constants as osConstants } from "node:os";
 import { resolve } from "node:path";
 
@@ -623,6 +627,7 @@ export interface ActorProcessInvocationInput {
   readonly cCall: CCall;
   readonly expectedInputDigest: Sha256Digest;
   readonly occurrence: Readonly<{
+    readonly semanticStageBasis?: Readonly<SemanticStageNativeBasis>;
     readonly cCallRef: string;
     readonly runId: string;
     readonly graphCallId: string;
@@ -701,6 +706,16 @@ export async function invokeActorProcess(
     );
   }
 
+  const semanticCall = input.request.implementationRef === SEMANTIC_STAGE_IDS.authorImplementationRef ||
+    input.request.implementationRef === SEMANTIC_STAGE_IDS.assessorImplementationRef ||
+    input.request.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.authorImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.assessorImplementationRef;
+  const semanticBasis = input.occurrence.semanticStageBasis;
+  const instructionAssembly = semanticCall && semanticBasis !== undefined
+    ? constructNativeInstructionAssembly(semanticBasis, semanticInputValueAtBasis(semanticBasis)) : null;
+  if (semanticCall && (instructionAssembly === null ||
+    sha256Canonical(instructionAssembly.request as unknown as JsonValue) !== sha256Canonical(input.request as unknown as JsonValue))) {
+    throw new TypeError("semantic dispatch requires exact native admitted instruction assembly");
+  }
   const environment = Object.freeze({ ...process.env });
   const promptDigest = sha256Canonical(input.request.prompt);
   const requestDigest = sha256Canonical(
@@ -753,6 +768,7 @@ export async function invokeActorProcess(
     environment,
   });
   const transportBindingBody = {
+    ...(instructionAssembly === null ? {} : { instructionAssembly }),
     cCallRef: input.cCall.cCallRef,
     actorRef: input.request.actorRef,
     workerBindingRef: input.request.workerBindingRef,

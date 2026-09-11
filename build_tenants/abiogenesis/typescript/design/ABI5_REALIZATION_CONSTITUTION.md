@@ -5,17 +5,14 @@
 **Scope**: ABIogenesis 5.0 TypeScript design, coding, review, testing, and
 delivery
 
-**Selected method**: immutable STDO `v2.5.0-rc.4`, annotated tag object
-`032dac0c833111547f7dd4b290c5316ed9b70f97`, commit
-`7a25668a8fecfd26f895759af3bec4708727964a`, installed-manifest SHA-256
-`4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e`,
-standards member-set SHA-256
-`504db879867f60e46ed4dea60509d12056d10cdd8c3460dc94abf7bc56542656`
+**Selected method**: the exact immutable STDO basis in
+`repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`.
+Section 16.13 records the RC6 migration; historical amendment identities below
+are not operative method selections.
 
 ## 1. Authority And Purpose
 
-This document is the sole ABIogenesis-local disambiguation of STDO
-`v2.5.0-rc.4`
+This document is the sole ABIogenesis-local disambiguation of the selected STDO
 for AI-authored realization. It governs how accepted ABIogenesis Product,
 requirement, and design truth becomes code without opening competing semantic,
 algorithmic, technology, or review seams.
@@ -23,7 +20,7 @@ algorithmic, technology, or review seams.
 The operative local authority relation is:
 
 ```text
-immutable STDO 2.5.0-rc.4
+immutable STDO selected by the Product Definition
   + current ABIogenesis Product and requirements
   + accepted ABIogenesis functional design
   + explicit local axioms in this constitution
@@ -31,8 +28,11 @@ immutable STDO 2.5.0-rc.4
 ```
 
 The local axioms close ABIogenesis problem-domain relations without amending or
-masquerading as STDO. Promotion into shared method requires a separate
-methodology re-entry and immutable release.
+masquerading as STDO. Generic frame engagement, mutation separation,
+applicability, evidence continuity, condition-based closure and steel-thread
+ordering are owned by the selected STDO release, not local candidate method.
+Only a remaining ABI-specific refinement could require separate shared-method
+re-entry and immutable release for promotion.
 
 Authority flows:
 
@@ -66,7 +66,7 @@ surface.
 
 This constitution compresses and ratifies the locally selected substance of:
 
-- STDO `v2.5.0-rc.4` installed method surfaces and the Section 16.12
+- the Definition-selected STDO installed method surfaces and the Section 16.13
   reconciliation of earlier local records;
 - T-287 recursive-frame and proportional-delivery refinement;
 - immutable `v4.6.0-rc.5` conservation and donor assessment;
@@ -243,8 +243,7 @@ cone; adjacent findings are classified rather than silently expanding scope.
 ### 5.1 Topology-Constrained Frame-Shift Law
 
 This subsection is ABIogenesis-local realization law. It is subordinate to the
-Product `TraversalUnit<A, B>` and Traversal Monad, the selected STDO
-`v2.5.0-rc.4`
+Product `TraversalUnit<A, B>` and Traversal Monad, the Definition-selected STDO
 decision-completeness, atomic-function and higher-order-composition,
 whole-family Prime, and recurrence-extraction laws, and every other governing
 clause of this constitution. Sections 5 and 7 supply the locally ratified
@@ -2452,7 +2451,7 @@ of expressions is declared equivalent.
 | `E37` | `product.materialize/context_bootstrap` | artifact-effect | binding plus ordered inputs -> checked content/manifest commit -> provenance |
 | `E38` | `product.materialize/configuration` | artifact-effect | binding plus contract-admitted configuration -> checked content/manifest commit -> provenance |
 | `E39` | `release.snapshot/published_rc` | artifact-effect | pre-RC law/qualification/identity validation -> immutable RC snapshot publication |
-| `E40` | `release.snapshot/tapped_release` | artifact-effect | accepted RC plus final-tap law/qualification validation -> immutable release publication |
+| `E40` | `release.snapshot/tapped_release` | artifact-effect | native installed-RC qualification plus actual human acceptance -> external acceptance/evidence addendum for the same unchanged RC; no second cut or selector move |
 
 The class cardinality is mechanically checkable from the table:
 
@@ -2493,7 +2492,7 @@ authority-neutral mechanics cannot replace it:
 | `NF-ADM` | ABG alone defines event kind, currentness, causation, expected-prefix admission, and Event Calculus effect. |
 | `NF-TOP` | GTL or HoG alone defines topology, structural target, cursor, or traversal result. |
 | `NF-PHY` | The relation crosses an unavoidable filesystem, archive, subprocess, module-load, or publication boundary. |
-| `NF-REL` | Release authority alone defines the qualified subject, cut identity, tap lineage, and publication disposition. |
+| `NF-REL` | Release authority defines exact RC publication and reports actual same-RC human acceptance under [the D6 release identity design](T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md); native qualification remains the sole C.of(AF-22) verdict and acceptance is not a second cut. |
 
 The neutral mechanic identifiers used in the ordered traces are exact:
 
@@ -2578,8 +2577,8 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 | `L61` | `A` | `expected prefix + witnessed-event candidate<K> -> WitnessAdmission<K>  or  stale/basis refusal` | ABG / ABG / runtime-mutation | admission phase of `A/witness_admission_operation.ts::admitWitnessedAct` (current) | `NF-ADM` |
 | `L62` | `D` | `ContextBootstrapMaterializePacket + exact binding -> ordered MaterializationPlan  or  ProductMaterializationRefusal` | Product / Entity / pure | planning/validation phase of `P/materialization_operations.ts::materializeContextBootstrap` (current) | `NF-ID` |
 | `L63` | `D` | `ConfigurationMaterializePacket + exact binding/contract -> ordered MaterializationPlan  or  ProductMaterializationRefusal` | Product / Entity / pure | planning/validation phase of `P/materialization_operations.ts::materializeConfiguration` (current) | `NF-ID` |
-| `L64` | `V/D` | `PublishedRcSnapshotRequest + same-subject qualification -> ReleaseSnapshotResult<published_rc> candidate  or  ReleaseSnapshotRefusal` | release owner / Entity / pure before effect | qualification phase of `P/release_snapshot_operations.ts::snapshotPublishedRc`; success construction C2 contract-pending | `NF-REL` |
-| `L65` | `V/D` | `TappedReleaseSnapshotRequest + accepted RC/final qualification -> ReleaseSnapshotResult<tapped_release> candidate  or  ReleaseSnapshotRefusal` | release owner / Entity / pure before effect | qualification phase of `P/release_snapshot_operations.ts::snapshotTappedRelease`; success construction C2 contract-pending | `NF-REL` |
+| `L64` | `V/D` | `PublishedRcSnapshotRequest + authenticated native pre-RC qualification -> exact RC publication candidate or owner refusal` | release owner / Entity / pure before effect | qualification phase of `P/release_snapshot_operations.ts::snapshotPublishedRc`; native success/resource contracts remain D6-pending | `NF-REL` |
+| `L65` | `V/D` | `TappedReleaseSnapshotRequest + authenticated native installed-RC qualification + actual same-RC human acceptance -> acceptance-addendum candidate or owner refusal` | release owner / Entity / pure before effect | qualification phase of `P/release_snapshot_operations.ts::snapshotTappedRelease`; native success/resource contracts remain D6-pending | `NF-REL` |
 | `J01` | `P/V` | `verified-artifact coordinate + installed Product bytes -> VerifiedProductArtifact  or  verification/source refusal` | Product / Install / read | C2-pending source join through `P/verify_product.ts::verifyProduct` and installed artifact bytes | join only: semantic leaf is `L20`; no independent primitive claim |
 | `J02` | `P/V` | `lock coordinate + verified artifacts -> ResolvedProductLock  or  source/environment refusal` | Product / Install / read | C2-pending deterministic reconstruction through `L21` | join only: semantic leaf is `L21`; no independent primitive claim |
 | `J03` | `P/V` | `environment coordinates + admitted prefix + installed manifests -> ProductSet/WorkspaceBinding  or  source/environment refusal` | Product over ABG projection / Install / read | C2-pending source join through `L23-L27` | join only: no independent semantic authority |
@@ -2591,7 +2590,7 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 | `X01` | `X` | `WorkspaceManifest + target policy -> committed workspace artifact  or  WorkspaceOperationRefusal` | Product / Effect / artifact-effect | physical phase of `P/workspace_operations.ts::createWorkspace` using `N07-N09` | `NF-PHY` |
 | `X02` | `X` | `verified artifact + lock + target -> installed bytes + ProductInstall candidate  or  InstallProductRefusal` | Product / Effect / artifact-effect | `P/install_product.ts::installProduct` using `N07-N10` | `NF-PHY` |
 | `X03` | `X` | `MaterializationPlan + target -> ProductMaterializationResult + manifest/provenance  or  ProductMaterializationRefusal` | Product / Effect / artifact-effect | physical phases and `persistManifest` in `P/materialization_operations.ts` using `N07-N09` | `NF-PHY` |
-| `X04` | `X` | `ReleaseSnapshotResult<M> candidate + publication target -> immutable published snapshot  or  ReleaseSnapshotRefusal` | release owner / Effect / artifact-effect | Wave-5-held; no Wave 2 success callable | `NF-REL` and `NF-PHY` |
+| `X04` | `X` | `published_rc` publishes the qualified RC and snapshot; `tapped_release` writes only its external acceptance/evidence addendum; exact effect resources -> complete result or receipt-bearing partial/refused outcome | release owner / Effect / artifact-effect | D6-held; no Wave 2 success callable; [D6 HOW](T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md) fixes the two effect scopes | `NF-REL` and `NF-PHY` |
 
 ##### Table 5.6.3-B2 - exact indexed owner-output closure catalog
 
@@ -2711,8 +2710,16 @@ F_READ_PAGE = F_READ, cursor_invalid, range_invalid
 | `R36` | `E36` conformance | result `{program, inventory, assessment, disposition, diagnostics, violatedAuthorities, evidence, repairAffordances}` | malformed or invalid Program -> `invalid_program`; selected conformance law -> `law_mismatch`; declared inventory -> `inventory_mismatch`; validator cannot produce a complete assessment -> `assessment_blocked` | Validator Conformance. `V/conformance_operation.ts::evaluateGtlProgramConformance` supplies validation truth; exact indexed assessment/result/refusal envelope is C2-pending. |
 | `R37` | `E37` context_bootstrap | result `{materializationKind, subject, content, manifest, rows, residuals, provenance}` | workspace -> `workspace_mismatch`; binding -> `binding_mismatch`; declared input -> `input_mismatch`; overwrite/authority -> `authority_mismatch`; contract -> `contract_mismatch`; mutable implicit input -> `mutable_default`; physical exception -> `filesystem_failure` | Product Materialization. `P/materialization_operations.ts::materializeContextBootstrap` supplies truth; exact indexed envelope is C2-pending. |
 | `R38` | `E38` configuration | same result fields as `R37`, with `materializationKind = configuration` | same total mapping as `R37`, with configuration contract and value admitted before effect | Product Materialization. `P/materialization_operations.ts::materializeConfiguration` supplies truth; exact indexed envelope is C2-pending. |
-| `R39` | `E39` published_rc | future result `{snapshotKind, releaseCut, artifacts, snapshotManifest, qualificationDisposition, residuals, provenance}`; Wave 2 reachable refusal value is the exact `ReleaseSnapshotRefusal {kind: "release_snapshot_refusal", schemaVersion: "5.0.0", disposition: "refused", memberKey: "published_rc", code, message, requestedIdentity, qualificationBasisRef, qualificationBasisDigest, lawBasisRef, lawBasisDigest, verdictRef, verdictDigest}` | exact release refusal set `{wrong_subject_kind, basis_mismatch, law_basis_mismatch, verdict_not_green, bypass_nonempty, identity_mismatch, bytes_mismatch, publication_failure, accepted_rc_mismatch, installed_rc_authorization_missing, final_delta_incomplete, affected_gate_failed}` selected directly by release owner; no shared-carrier mapping | release owner. `ReleaseSnapshotPort.published_rc` already returns the exact refusal carrier object-identically inside `OwnerSemanticOutput`; future result schema/construction remains held as specified in Section 5.6.5. |
-| `R40` | `E40` tapped_release | same future result fields as `R39`, with tapped-release lineage; Wave 2 reachable refusal value is the same exact `ReleaseSnapshotRefusal` carrier with `memberKey: "tapped_release"` | same exact release refusal set as `R39`, selected directly by release owner; no shared-carrier mapping | release owner. `ReleaseSnapshotPort.tapped_release` already returns the exact refusal carrier object-identically inside `OwnerSemanticOutput`; future result schema/construction remains held as specified in Section 5.6.5. |
+| `R39` | `E39` published_rc | D6 result identifies the one RC, artifacts, snapshot and authenticated native pre-RC verdict, or exact refused/partial-effect receipt. Banked Wave 2 refusal is `ReleaseSnapshotRefusal {kind: "release_snapshot_refusal", schemaVersion: "5.0.0", disposition: "refused", memberKey: "published_rc", code, message, requestedIdentity, qualificationBasisRef, qualificationBasisDigest, lawBasisRef, lawBasisDigest, verdictRef, verdictDigest}`. | Banked code-set observation: `{wrong_subject_kind, basis_mismatch, law_basis_mismatch, verdict_not_green, bypass_nonempty, identity_mismatch, bytes_mismatch, publication_failure, accepted_rc_mismatch, installed_rc_authorization_missing, final_delta_incomplete, affected_gate_failed}`; these current code literals do not retain a second final-cut law. D6 closes its owner result/refusal/resource schema and changes its content digest. | Release owner preserves its output object-identically inside `OwnerSemanticOutput`; no Public carrier mapping. Success and physical receipt construction remain unimplemented under [D6 HOW](T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md). |
+| `R40` | `E40` tapped_release | D6 result identifies the existing unchanged RC, native installed-RC verdict, actual human acceptance and external addendum, or exact refused/partial-effect receipt; no replacement artifact. Banked Wave 2 refusal is the same exact `ReleaseSnapshotRefusal` carrier with `memberKey: "tapped_release"`. | Banked refusal code-set observation as `R39`; D6 replaces the second-cut input semantics without relabeling them as same-RC acceptance or reusing their contract digest. | Release owner preserves its output object-identically inside `OwnerSemanticOutput`; no Public carrier mapping. Success and physical receipt construction remain unimplemented under [D6 HOW](T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md). |
+
+**Accepted R10 design cross-reference.** [T-287 R10 Typed
+Terminal Outcome](T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md) specifies one
+ABG-owned typed terminal-result projection for exactly `R08`, `R09`, `R14`,
+`R15`, `R29`, and `R30`. Executive accepts it after closed independent Review08;
+bounded isolated Implementation09 is granted separately. This reference grants
+no runtime, Public-member change, or R10 acceptance. The existing owner and
+refusal laws above remain in force.
 
 `R01-R38` are required C2 owner-binding relations. They may be small field
 projections around existing owner carriers, but their smallness does not make
@@ -2721,8 +2728,8 @@ semantic outcome because their live `ReleaseSnapshotRefusal` value is carried
 object-identically, including all thirteen fields and the closed release code
 set. C2 only lifts their existing owner atoms through `N13` to the closed
 installed Effect ABI. Future release success remains unreachable until the
-later release owner supplies its qualified same-subject input and `X04`
-publication.
+later release owner supplies the native same-subject qualification/acceptance
+joins and member-specific `X04` effects under the D6 release identity design.
 
 `L34` makes selector and selected identity distinct: an external catalog handle
 selects one row; the invocation thereafter carries the row's exact definition
@@ -2804,7 +2811,7 @@ ordered input set; it is not a queue or controller.
 | `E37` | `J03 -> L62 -> X03[N07,N08,N09] -> R37` |
 | `E38` | `J03 -> L63 -> X03[N07,N08,N09] -> R38` |
 | `E39` | `L64 -> [Wave 2 refusal or future X04 publication success] -> R39`; Wave 2 must refuse before `X04` |
-| `E40` | `L65 -> [Wave 2 refusal or future X04 publication success] -> R40`; Wave 2 must refuse before `X04` |
+| `E40` | `L65 -> [Wave 2 refusal or future X04 same-RC acceptance-addendum result] -> R40`; Wave 2 must refuse before `X04` |
 
 ##### Table 5.6.3-D - exact 56-key resource-topology family projection
 
@@ -2854,7 +2861,7 @@ not this intrinsic topology and not one enclosing transaction.
 | `E36 declared_inventory` | `C[program,conformanceLaw,declaredInventory]` | Closed `declared_inventory` arm selected by the same admitted variant; inventory is mandatory in this arm, pure and unchanged. |
 | `E37` | `C[workspaceBinding] + AR[environmentPrefix] -> WM[worksite] -> CD[contextInputs;contentAssets,manifest]` | Binding admission is read-only. `X03` owns ordered staging. Worksite mutation uses the exact Product filesystem observation/version law; output assets/manifests use content-addressed allocation, exact equality idempotence, and visible residue/compensation receipts. No generic transaction joins their owner leaf commits. |
 | `E38` | `C[configurationContract,workspaceBinding] + AR[environmentPrefix] -> WM[worksite] -> CD[configurationInput;contentAsset,manifest]` | Same owner boundaries as `E37`; the Product configuration contract fixes the semantic content while physical writes remain receipt-bearing owner effects. |
-| `E39-E40` | `V` | Request qualification values are complete immutable semantic inputs. Wave 2 `L64/L65` returns the frozen semantic owner refusal; held future `X04` is not resource topology and no publication provider or allocation is installed. Future `X04` requires release-owner re-entry. |
+| `E39-E40` | `V` for banked refusal-only behavior; D6 exact-prefix reads plus scoped artifact effects are pending | Supplied qualification/acceptance proofs are evidence, not authority. D6 authenticates them through existing native owners, declares exact release resources and preserves physical receipts. No publication provider or allocation is currently installed; the D6 HOW owns the bounded realization re-entry. |
 
 The projection covers exactly the 56 Table 5.6.3-A members and introduces no
 new semantic owner, operation, key, wrapper, runtime lookup, or executable map.
@@ -2868,8 +2875,10 @@ The selected closed C1F factor basis at the definition-binding frame is exactly
 the referenced `L01..L65`, `J01..J08`, `R01..R40`, `X01..X04`, and
 `N01..N13` relations with the statuses stated in
 Table 5.6.3-B. The Wave 2 executable basis excludes deferred `X04`: `E39` and
-`E40` terminate in the exact refusal returned by `L64` or `L65`. Wave 5 may
-realize `X04` without changing the already frozen result contract. This
+`E40` terminate in the exact refusal returned by `L64` or `L65`. D6 realizes
+`X04` only after its native resource and result contracts are implemented;
+changed contract bytes require new exact definition/family digests, while the
+existing operation/member identities remain. This
 frame-relative closure is not a whole-Product Prime claim and is not a claim
 that each named relation requires a new exported function:
 
@@ -2951,8 +2960,8 @@ be loaded, dispatched, or accepted as a runtime substitute for the callable.
 | `conformance.evaluate#gtl_program` | `./validator` | `ConformancePort.evaluateGtlProgram` | `static_composition` | `authority://abiogenesis/validator/conformance@5` | C2-pending exact invocation binding. |
 | `product.materialize#context_bootstrap` | `./product` | `ProductMaterializationPort.context_bootstrap` | `static_composition` | `authority://abiogenesis/product/materialization@5` | C2-pending exact invocation/recovery boundary. |
 | `product.materialize#configuration` | `./product` | `ProductMaterializationPort.configuration` | `static_composition` | `authority://abiogenesis/product/materialization@5` | C2-pending exact invocation/recovery boundary. |
-| `release.snapshot#published_rc` | `./product` | `ReleaseSnapshotPort.published_rc` | `direct` | `authority://abiogenesis/product/release-snapshot@5` | Live refusal-only owner atom; C2 lifts it to the closed Effect ABI and joins the future-capable result schema without changing `R39`. |
-| `release.snapshot#tapped_release` | `./product` | `ReleaseSnapshotPort.tapped_release` | `direct` | `authority://abiogenesis/product/release-snapshot@5` | Live refusal-only owner atom; C2 lifts it to the closed Effect ABI and joins the future-capable result schema without changing `R40`. |
+| `release.snapshot#published_rc` | `./product` | `ReleaseSnapshotPort.published_rc` | `direct` | `authority://abiogenesis/product/release-snapshot@5` | Live refusal-only owner atom. D6 supplies the native pre-RC proof/resource/result relation under the existing Effect ABI; exact contract digests change with its implementation. |
+| `release.snapshot#tapped_release` | `./product` | `ReleaseSnapshotPort.tapped_release` | `direct` | `authority://abiogenesis/product/release-snapshot@5` | Live refusal-only owner atom. D6 supplies the same-RC qualification/acceptance-addendum relation under the existing Effect ABI; no second-cut semantics or unchanged-digest claim. |
 
 The project-read mappings complete every grouped coordinate:
 
@@ -3040,8 +3049,8 @@ leaves exist but are still sequenced in the replacement target
 | `abg.operation.conformance.evaluate#gtl_program` | ProgramConformance / pure attestation | strict I-JSON -> raw GTL admission -> whole-Program validation -> evidence and diagnostics | Validator | `V/conformance_operation.ts:evaluateGtlProgramConformance`; `V/validation.ts:validateProgram` | Raw binding; no execution or repair is lawful. |
 | `abg.operation.product.materialize#context_bootstrap` | ProductMaterialization / artifact-effect | validate workspace/binding -> order content-addressed inputs -> exclusive/idempotent writes -> manifest/provenance | Product | `P/materialization_operations.ts:materializeContextBootstrap`, `persistManifest` | Raw binding and carrier mismatch; orphan content before manifest requires explicit recovery/compensation law. |
 | `abg.operation.product.materialize#configuration` | ProductMaterialization / artifact-effect | validate binding/contract/I-JSON -> content-addressed write -> manifest/provenance | Product | `P/materialization_operations.ts:materializeConfiguration`, `persistManifest` | Raw binding and carrier mismatch; accepted refresh/default refusal relation incomplete. |
-| `abg.operation.release.snapshot#published_rc` | ReleaseSnapshot / artifact-effect | validate pre-RC subject, law, same-basis green verdict, empty bypass, identity -> immutable snapshot publication | release owner | `P/release_snapshot_operations.ts:snapshotPublishedRc`, `ReleaseSnapshotPort.published_rc` | Banked refusal-only callable behavior exists; reconcile or prove exact 5.6.2C conformance. Contract-final status remains held because the success result schema is currently `v.never()`; publication behavior remains Wave-5-held. |
-| `abg.operation.release.snapshot#tapped_release` | ReleaseSnapshot / artifact-effect | validate final-tap basis plus accepted RC, installed-RC qualification, final delta -> immutable publication | release owner | `P/release_snapshot_operations.ts:snapshotTappedRelease`, `ReleaseSnapshotPort.tapped_release` | Banked refusal-only callable behavior exists; reconcile or prove exact 5.6.2C conformance. Contract-final status remains held because the success result schema is currently `v.never()`; publication behavior remains Wave-5-held. |
+| `abg.operation.release.snapshot#published_rc` | ReleaseSnapshot / artifact-effect | authenticate native pre-RC subject/law/verdict, empty bypass and prospective identity -> exact immutable RC/snapshot publication | release owner | `P/release_snapshot_operations.ts:snapshotPublishedRc`, `ReleaseSnapshotPort.published_rc` | Banked refusal-only callable behavior and `v.never()` success schema remain. Native qualification integration, contract closure and physical publication remain D6 work, not completed by this design. |
+| `abg.operation.release.snapshot#tapped_release` | ReleaseSnapshot / artifact-effect | authenticate native installed-RC verdict and actual human acceptance -> external addendum identifying the same unchanged RC | release owner | `P/release_snapshot_operations.ts:snapshotTappedRelease`, `ReleaseSnapshotPort.tapped_release` | Banked refusal-only callable behavior and `v.never()` success schema remain. D6 removes the old second-cut request, closes exact proof/resource/result contracts and implements only the acceptance-addendum effect. |
 
 #### 5.6.5 Operative W2-05 binding-gap and release-contract law
 
@@ -3073,8 +3082,8 @@ W2-05 closes only when one frozen candidate proves all of the following:
 7. recursive `run.invoke` and `run.continue` child appends remain separately
    durable and consume/reissue exact successor prefixes and handoffs without an
    enclosing definition transaction;
-8. the two release snapshots retain refusal-only Wave 2 behavior while their
-   future-capable success result contracts become exact; and
+8. the two release members retain banked refusal-only behavior until the D6
+   proof, resource, success and partial-effect contracts are implemented; and
 9. Public contains no owner sequencing, semantic switch, carrier rehydration,
    event interpretation, catalog aggregation, compatibility translation,
    ambient lookup, invocation-selected handler, or process-local run/read
@@ -3098,30 +3107,28 @@ their current `v.never()` success result schemas are replaced by the exact
 future-capable contracts and their bindings are reconciled or proven conforming
 under 5.6.2C.
 
-Release contract identity must be future capable. Wave 2 returns only typed
-refusals because the qualification owner has not supplied an admitted same-
-subject basis. The frozen 5.0 result contracts must nevertheless admit the
-eventual lawful success values:
+[T287_D6_RC6_RELEASE_IDENTITY_DESIGN](T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md)
+defines the release-only RC6 relation. `published_rc` authenticates the native
+pre-RC verdict and publishes its exact RC and snapshot. `tapped_release`
+authenticates the native installed-RC verdict and actual human acceptance of
+the same unchanged RC and writes only an external evidence/acceptance addendum.
+It does not create a final-cut subject, replacement package or selector move.
 
-```text
-ReleaseSnapshotResult<M> = {
-  snapshotKind,
-  releaseCut: RD<ReleaseCut>,
-  artifacts: NonEmptyUnique<RD<ReleaseArtifact>>,
-  snapshotManifest: RD<ReleaseSnapshotManifest>,
-  qualificationDisposition: "green",
-  residuals: NoResiduals,
-  provenance: RDSet<Provenance>
-}
-```
+The D6 owner closes three output arms: complete member-specific result,
+effect-free refusal, and incomplete/indeterminate effect with exact physical
+receipt and residuals. A complete result binds the existing cut, artifact,
+snapshot, native qualification and provenance identities; the acceptance member
+additionally binds the actual human decision and external addendum. The owner
+does not infer success from caller values or erase effects after a later fault.
+Strict native proof, resource and receipt contracts replace the banked null
+resource contracts. Their exact definition/family digests change with the
+contract bytes; the operation/member roster remains 18/56.
 
-The accepted request relations retain member-specific pre-RC or final-tap
-lineage; the result carrier does not duplicate or enlarge it. Leaving
-`v.never()` frozen would force a later definition/family identity change. W2-05
-therefore closes the future-capable `ReleaseSnapshotResult<M>` contract while
-keeping success unreachable, publication Wave-5-held, and
-`release_evidence` equal to `not_ready` until one real release-owner success
-exists.
+This is a pending realization, not a claim that the current `v.never()` schemas,
+refusal-only callables or missing qualification verdict owner implement it.
+`release_evidence` stays a subordinate projection and reports `not_ready` until
+authentic release evidence exists; partial publication never becomes complete
+release truth merely because a snapshot or receipt exists.
 
 The operative binding gaps are:
 
@@ -3132,7 +3139,7 @@ The operative binding gaps are:
 | continuation carrier is incomplete | hold both `run.continue` exports until one shared Product/ABG carrier is accepted |
 | E33 carriers are incomplete | hold until exact choice/evidence/grant/environment/install/publication carriers exist, then bind one kernel to five packets |
 | `release_evidence` is unbound | bind the existing owner projection while preserving `not_ready` until real release success |
-| release success schemas are `v.never()` | close the exact future-capable success contracts; retain refusal-only Wave 2 behavior and Wave 5 publication authority |
+| release success schemas are `v.never()` | implement the D6 native proof/resource/result contracts and truthful partial receipts; preserve existing refusal truth until that work is qualified |
 | workspace/materialization effects may leave partial artifacts | retain owner-local staging, exact version/idempotence, residue, and compensation; explicitly admit the artifact boundary through ABG when runtime consumption requires it |
 | installed loading is not source-independent | resolve the exact manifest/lock-bound module/export/member coordinate, verify its digest, and load one real callable; prohibit ambient or invocation-selected lookup |
 | legacy Public remains reachable | delete or exclude it atomically only with 56/56 packed loadability and exact projection equality |
@@ -3882,50 +3889,62 @@ uncertainty. No third forward design repair proceeds without this reset.
 
 ## 13. AI Worker And Assessor Contract
 
-The worker owns bounded construction and implementation. The F_H proxy owns
-independent review and routine advancement.
+The selected STDO `SPEC_METHOD.md#construction-assessment-and-delegation`,
+`STDO_REFERENCE_FRAME_BASELINE.md#engagement-applicability`, and
+`TICKET_METHOD.md#condition-based-closure-and-reuse` own this relation. The
+[Project Reference-Frame Basis](./ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#executive-writer-and-reviewer-binding)
+instantiates it for T-287.
 
-At every reviewable transition:
+A sufficient Writer enters directly under an existing exact operation grant;
+material coordination and required independence select the coordinated branch.
+Executive never mutates candidate, Product or worktree bytes. Mutation requires
+an explicit separately recorded Writer activation before the effect. A Worker
+constructs and self-checks its exact bounded subject; an applicable independent
+Reviewer reacquires sufficient evidence, supplies its own judgment, and does
+not repair. In the coordinated branch both return to Executive; a direct
+Writer uses its declared existing result carrier. No Worker activates Reviewer.
 
-1. the worker publishes one complete commentary post containing evidence,
-   verdict, exact subject, findings, non-changes, and an empty
-   `Assessor Disposition`;
-2. the assessor independently checks live authority, code, and proof;
-3. the assessor appends findings and advancement to that same post; and
-4. the worker advances only within the appended authorization.
-
-Chat is notification, not the durable review trail. Commentary is evidence,
-not authority. This constitution and the active ticket select work.
-
-The assessor reports findings to Product control when it sends them to the
-worker. Routine locally determined advancement does not wait for human
-approval. Only an actual Product choice, upstream constitutional conflict, or
-material authority re-entry returns to direct human decision.
+Applicable conditions, required judgments and reserved owner rulings determine
+closure. A review event or an extra commentary post is not inherently required
+and cannot replace a required assessment. Reuse valid exact computed facts,
+judgments and original rulings after checking applicability and invalidators;
+record changed support and preserve predecessor results. The existing ticket
+or selected evidence surface carries this relation without a second local
+review protocol. Commentary remains evidence, not authority.
 
 ## 14. Delivery Cycle
 
 ```text
-select entity and lifecycle row
+select the smallest lawful Product steel thread and applicable owner relation
   -> state the frame-independent generic capability
   -> inventory current, native, 4.6, donor, and maintained OSS foundations
   -> compare lawful compositions through the FS-19 cost/benefit ledger
   -> select common catalog relations and lawful technologies
   -> design only the exact material delta
   -> coding plan with mandatory trace
-  -> assessor approval
-  -> build
-  -> worker self-review and transition post
-  -> independent code review
-  -> module and composition tests
-  -> accept the slice
-  -> next entity or lifecycle relation
+  -> construction and focused self-review
+  -> early affected integration/end-to-end evidence
+  -> required independent assessment and reserved disposition
+  -> record satisfied applicable conditions or unresolved pressure
+  -> next already-authorized bounded increment
 ```
 
 Each slice delivers working installed behavior. Paperwork, code volume, test
 count, commit count, review count, and repeated proof of an accepted witness
 are not Product progress.
 
-## 15. Current ABIogenesis Application
+The selected STDO baseline's Steel-Thread Delivery clause owns evidence
+ordering. Use unit proof for module-owned laws and focused probes for material
+construction uncertainty. Preserve all unexercised material obligations;
+schedule substantial capability and release qualification at their applicable
+boundaries. This sequence selects no work beyond current Goals and T-287.
+
+## 15. Pre-Baseline ABIogenesis Application (Historical Selection)
+
+This section preserves the earlier W2-05 selection and evidence in its original
+coordinates. Its selection and advancement language is non-operative. Current
+Goals and T-287 own the RC6 migration and Wave 2 baseline `HOLD`; this section
+grants no implementation, repair, acceptance, or release effect.
 
 Wave 1 is the accepted functional runtime substrate. Its frozen artifact is
 `ab6dd512678b873d1ef4f4a07c8286ff3621ea86b39627e6061652110238c878` and its
@@ -3987,10 +4006,12 @@ catalog/entity rows, and migration consequences. Do not create another local
 method, stack list, lifecycle register, library catalog, or AI review protocol.
 Amend this single surface.
 
-Sections 16.1 through 16.11 retain the STDO `v2.2.2` and prospective `2.4`
-wording in force when those records were made. That wording is provenance, not
-current method selection. The document header and Section 16.12 alone state the
-operative STDO basis after the 2.5 re-entry.
+Sections 16.1 through 16.12 retain the earlier method identities, prospective
+promotion language and work selections in force when those records were made.
+They are historical provenance, not current method selection or mutation
+grants. The Product Definition alone owns the operative STDO basis; Section
+16.13 records the RC6 reconciliation. Earlier local claims do not override
+relations now owned by the selected shared method.
 
 ### 16.1 T-287 Topology-Constrained Frame-Shift Amendment Record
 
@@ -4024,7 +4045,7 @@ rationale remains classification evidence only.
 | **binding decision** | **Superseded implementation relation.** The conserved semantic relation is `PublicInvocation<K> -> indexed owner output`. Section 5.6.2C now realizes it through one unchanged `DefinitionCall -> Effect<DefinitionReturn, DefinitionExecutionFault, never>` ABI and exactly three module-static combinators over manifest/lock-resolved typed owner imports and strict static resource/receipt contracts. No `PublicExecutionCandidate`, topology arm, generic provider runtime, or C1F/C2 stage remains operative. |
 | **output decision** | The `R01-R40` rows remain proof that each expression ends in one exact semantic-owner output relation before structural `O_K`; they are not binding work packages. Each active family preserves its owner decision union. The two release rows preserve refusal-only behavior but remain contract-final held for future-capable success schemas. Public never invents, classifies, translates, or maps owner meaning. |
 | **Effect decision** | **Historical implementation interpretation superseded by Sections 5.6.2C and 16.7.** Exact-pinned Effect `3.22.1` remains the selected common execution-composition foundation through Sections 9, 10.1, 16.3, and 16.7, within the singular existing ABI and three-combinator static algebra. The scalar and installed E29 prototypes remain evidence-only reconciliation or deletion targets. Effect owns no topology, semantic retry/workflow/Saga, runtime currentness, admission, transaction, event, replay, schema, state, clock, scheduler, or concurrency truth. No Event Calculus refactor is selected. |
-| **release decision** | Freeze future-capable `published_rc` and `tapped_release` success result schemas in the 5.0 family now. Wave 2 behavior remains refusal-only through the existing exact `ReleaseSnapshotRefusal`; Wave 5 supplies qualification authority and publication mechanics without changing definition or family identity. |
+| **release decision** | [D6 release identity design](T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md) governs one published RC and same-RC human acceptance. Banked refusal-only behavior remains; native qualification, resource/result contracts and publication/addendum mechanics are unimplemented. Changed contract bytes require changed exact digests, not new Public member identities or a second final cut. |
 | **superseded interpretation** | Supersedes only the local interpretations that every entity transformation requires an admitted event, that an endpoint/port name proves a primitive, that every lower owner callable must itself consume the complete Public descriptor, and that refusal-only Wave 2 permits a permanently `never` 5.0 release result contract. It does not supersede accepted Product or S06 Public meaning. |
 | **Product and requirement effect** | None. The exact 5.0 operations, variants, semantic owners, outcomes, refusals, and effect meanings remain fixed. This amendment makes their realization decision-complete. |
 | **implementation consequence** | **Superseded by Section 16.7.** Active W2-05 reconciles or proves every banked callable against 5.6.2C, binds the exact remaining definitions, closes the two future-capable release contracts while retaining refusal-only behavior, proves 56/56 packed loading, and excludes legacy Public. This historical amendment independently authorizes no implementation or stage advancement. |
@@ -4193,7 +4214,7 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **current disposition** | Design authority only. No implementation, test, acceptance, thread closure, count, or release claim follows from this amendment. |
 | **promotion status** | ABIogenesis-local design law under immutable STDO `v2.2.2`; shared-method promotion requires separate methodology re-entry and representative evidence. |
 
-### 16.12 STDO 2.5 And Mutable-Worksite Frame Reconciliation Record
+### 16.12 STDO 2.5 And Mutable-Worksite Frame Reconciliation Record (Historical)
 
 | Field | Record |
 |---|---|
@@ -4207,3 +4228,31 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **causal decision** | Admitted `WorkspaceBinding W` plus `ExecutionBasis B`, declared Program/GraphFunction/C-call, selected implementation, and Product observation `O0` produce one closed `LeafExecutionAuthority` and call-local `WorksiteEffectAuthorization`. The owner revalidates `O0`, atomically publishes or replaces one in-territory file, and returns `WorksiteFileReplaceReceipt + O1`. Specialized evidence plus the ordinary exact-prefix `c_call_result_admitted` relation carries the receipt and `O1`; Event Calculus transfers currentness from `O0` to `O1`; fresh replay projects `O1`. `W` and `B` remain unchanged. |
 | **failure decision** | Physical commit and ABG append remain distinct owner boundaries. Expected-prefix refusal after physical commit returns visible `unadmitted_physical_commit` residue, admits no runtime `O1`, and requires re-observation. No implicit rollback or fabricated runtime truth is permitted. |
 | **implementation consequence** | `W2-R3-C0-I` may add only Product `worksite_effect.ts` and `worksite_operations.ts`; the minimum implementation-contract, leaf-port, and HoG C-call lifecycle seam that passes one closed `LeafExecutionAuthority`; specialized worksite C-call evidence/result/currentness/replay handling; package exports; and the named owner and post-binding proof lanes. It reuses the existing grant, binding, basis, event kinds, exact-prefix store, failure/judgment relation, and replay. No public operation, event kind, controller, registry, grant, binding, resource framework, version, E00, odd_glc proof, qualification, or release is selected. |
+
+
+### 16.13 STDO RC6 Consumer-Basis Reconciliation
+
+The direct Product-owner ruling recorded in
+`repo://abiogenesis/.ai-workspace/comments/codex/20260906T152118Z_STDO_RC6_MIGRATION/README.md`
+selects bounded `product_reprice` for complete RC6 consumer adoption.
+`repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis` alone owns
+the exact operative STDO cut; its composition selects the release-matched
+Development Products. This record introduces no second exact-method selector.
+
+The selected release owns proportionate direct Writer entry, applicability of
+coordination and independent review, Executive mutation separation, valid
+computed-fact/judgment/owner-ruling continuity, condition-based closure, and
+steel-thread delivery. Sections 13 and 14 and the Project Reference-Frame
+Basis route to that shared law. These are no longer proposed local method.
+The ABI/GTL/HoG/ABG atlas and mutable-worksite frame remain local subject
+specializations; their runtime authority and meaning do not change.
+
+Only current method/frame references, source routes and their historical
+classification change. Sections 15 and 16.1 through 16.12 preserve earlier
+selections, judgments and exact evidence as non-operative history. Original
+accepted hashes are conserved; method-header successors do not inherit those
+hashes or claim new RC6 qualification. The fixed 16 features, Wave 2 `HOLD`,
+unaccepted frozen C0, accepted C1/C2 semantic HOW and retained C3 truth remain
+unchanged. Current Goals and T-287 select only the separately recorded migration;
+no runtime/code/test, ABI artifact, live/model, downstream, Git or release
+operation follows from this reconciliation.

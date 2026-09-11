@@ -1,3 +1,4 @@
+import type { RawAdmittedValue } from "../validator/raw_admission.js";
 import type {
   AdmittedCCallJudgment,
   AdmittedCCallResult,
@@ -86,6 +87,7 @@ function routeRefusal(
 
 type GraphRouteExtras = Partial<Pick<
   RouteCandidateBody,
+  | "boundInput"
   | "graphSpanReentryProjection"
   | "graphSpanReentryProjectionDigest"
   | "graphSpanReentryProjectionRef"
@@ -165,6 +167,7 @@ export function proposeStructuralRoute(
   routeKind: "advance" | "retry",
   replayState: ReplayState,
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
 ): RouteCandidate | RouteProposalRefusal {
   if (
     !isMaterializedGtlGraph(graph) ||
@@ -292,6 +295,7 @@ export function proposeJudgedRoute(
   replayState: ReplayState,
   contractRef: string,
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
 ): RouteCandidate | RouteProposalRefusal {
   if (judgment.judgment !== "advance") {
     return routeRefusal(
@@ -307,8 +311,8 @@ export function proposeJudgedRoute(
     sourceCursor.graphRef !== graph.materializationRef ||
     sourceCursor.frameId !== cCall.frameId ||
     !isDeclaredCompletion(graph, sourceCursor, targetCursor, {
-      inputRef: result.resultRef,
-      inputDigest: result.valueDigest,
+      inputRef: boundInput?.admissionRef ?? result.resultRef,
+      inputDigest: boundInput?.subjectDigest ?? result.valueDigest,
     }) ||
     result.cCallRef !== cCall.cCallRef ||
     judgment.resultRef !== result.resultRef ||
@@ -332,6 +336,7 @@ export function proposeJudgedRoute(
     ],
     contractRef,
     replayState,
+    extras: boundInput === undefined ? {} : { boundInput },
   });
 }
 
@@ -550,6 +555,7 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
   targetCursor: TraversalCursor | null;
   outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt;
   completedRetryProgress?: CompletedRetryProgressPlan;
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   terminalizeNonAdvance: boolean;
 }>): TraversalTransitionCandidate | RouteProposalRefusal {
   const outcome = input.outcome;
@@ -609,6 +615,7 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
             replayState,
             cCall.transitionContractRef,
             completedProgresses,
+            input.boundInput,
           );
   if (proposal.kind !== "traversal_route_candidate") return proposal;
   const evidence = blocked
@@ -752,6 +759,7 @@ export function proposeInteractionResumeRoute(
   replayState: ReplayState,
   contractRef: string,
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
 ): RouteCandidate | RouteProposalRefusal {
   const continuation = deriveCSourceContinuation(
     graph.template,
@@ -822,6 +830,7 @@ export function proposeFanOutRoute(
   replayState: ReplayState,
   contractRef: string,
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
 ): RouteCandidate | RouteProposalRefusal {
   const complete = completion.completionKind === "complete_vector";
   const taskRow = complete

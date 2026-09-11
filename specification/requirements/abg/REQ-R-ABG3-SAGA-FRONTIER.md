@@ -4,7 +4,7 @@
 **Lineage**: T-283 Product basis; T-284 bounded owner repair
 **Category**: Constraint / Guarantee
 **Date**: 2026-07-11
-**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/ODD_METHOD.md), [DESIGN_MODULE_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/DESIGN_MODULE_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [GOALS.md](../../GOALS.md) GOAL-035, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-EVENTS.md](./REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-WORKER.md](./REQ-R-ABG3-WORKER.md), [REQ-R-ABG3-POLICY.md](./REQ-R-ABG3-POLICY.md), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md)
+**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/ODD_METHOD.md), [DESIGN_MODULE_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/DESIGN_MODULE_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [GOALS.md](../../GOALS.md) GOAL-035, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-EVENTS.md](./REQ-R-ABG3-EVENTS.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-WORKER.md](./REQ-R-ABG3-WORKER.md), [REQ-R-ABG3-POLICY.md](./REQ-R-ABG3-POLICY.md), [REQ-R-ABG3-FP-CONSCIOUSNESS.md](./REQ-R-ABG3-FP-CONSCIOUSNESS.md)
 
 ---
 

@@ -1,3 +1,7 @@
+import { type ReadyGraphFunctionCatalog, type GraphFunctionCatalogView } from "../product/catalog.js";
+import { reconstructHistoricalDeclarationCatalog, resolveProgramDeclarationClosure } from "../product/declaration_closure.js";
+import { projectExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
+import { withAdmissionAuthority } from "../product/admission_authority.js";
 import * as Effect from "effect/Effect";
 
 import {
@@ -41,6 +45,7 @@ import {
 import {
   ConformancePort,
   type ConformanceEvaluatePacket,
+  type ConformanceDeclarationBasis,
   type GtlProgramConformanceOperationResult,
 } from "./conformance_operation.js";
 import { CONFORMANCE_OPERATION_CONTRACTS } from
@@ -68,6 +73,7 @@ export interface ConformanceEvaluationResourceAssertion {
   readonly conformanceLaw: ReferenceDigest<"GtlConformanceLaw">;
   readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly declaredInventory: readonly ModulePublication[];
+  readonly declarationCatalog?: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>;
 }
 
 function fault(
@@ -249,6 +255,43 @@ function conformanceAuthorityMatches(
     binding.binding.bindingDigest === slots.workspace_binding.digest;
 }
 
+function reconstructDeclarationBasis(
+  resources: ConformanceEvaluationResourceAssertion,
+  workspace: ReferenceDigest,
+): ConformanceDeclarationBasis {
+  const supplied = resources.declarationCatalog;
+  if (!isRecord(supplied) || !hasExactKeys(supplied, ["catalog", "catalogView"])) {
+    throw new TypeError("declared inventory requires its exact admitted catalog and view");
+  }
+  const environment = projectExactPrefixWorkspaceEnvironment(resources.artifactTruth.prefix, workspace);
+  if (environment.kind !== "exact_prefix_workspace_environment") {
+    throw new TypeError("conformance workspace is absent from the exact admitted prefix");
+  }
+  const installs = environment.productInstalls.map(install =>
+    projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth, install.admissionEventRef));
+  if (!sameJson(resources.artifactTruth, environment.artifactTruth) || installs.some(install => install === null)) {
+    throw new TypeError("conformance artifact truth differs from its exact admitted environment");
+  }
+  const { catalog, catalogView } = reconstructHistoricalDeclarationCatalog(supplied, {
+    workspaceBinding: environment.workspaceBindingCandidate,
+    resolvedLock: environment.resolvedProductLock,
+    installedProducts: installs.map((install) => install!.candidate),
+  });
+  if (
+      !exactCoordinateSet(catalog.boundPublications.map(publication => reference(publication.moduleRef,
+        sha256Canonical(publication as unknown as JsonValue))).sort(compareCoordinates),
+      resources.declaredInventory.map(publication => reference(publication.moduleRef,
+        sha256Canonical(publication as unknown as JsonValue))).sort(compareCoordinates))) {
+    throw new TypeError("conformance inventory differs from its admitted workspace, installs, lock or publication owners");
+  }
+  const declarationClosure = resolveProgramDeclarationClosure(catalog, catalogView, resources.packet.program.programRef);
+  if (declarationClosure.kind !== "resolved_program_declaration_closure" ||
+      !sameJson(declarationClosure.programPublication, resources.packet.publication)) {
+    throw new TypeError("conformance Program has no exact compatible declaration owner closure");
+  }
+  return { catalog, catalogView, declarationClosure };
+}
+
 const gtl_program: ExactDefinitionCallable<
   ConformanceContract,
   ConformanceEvaluationResourceAssertion,
@@ -268,6 +311,7 @@ const gtl_program: ExactDefinitionCallable<
         "kind",
         "packet",
         "schemaVersion",
+        ...(Object.hasOwn(resources, "declarationCatalog") ? ["declarationCatalog"] : []),
       ]) ||
       resources.kind !== "conformance_evaluation_resource_assertion" ||
       resources.schemaVersion !== "5.0.0" ||
@@ -350,7 +394,17 @@ const gtl_program: ExactDefinitionCallable<
         resources,
       });
     }
-    const native = ConformancePort.evaluateGtlProgram(packet);
+    let declarationBasis: ConformanceDeclarationBasis | undefined;
+    try {
+      if (request.inventoryBasis.kind === "declared_inventory") {
+        declarationBasis = reconstructDeclarationBasis(resources, call.invocation.invocationAuthority.slots.workspace_binding!);
+      } else if (resources.declarationCatalog !== undefined) {
+        throw new TypeError("program_only conformance does not consume a declaration catalog");
+      }
+    } catch (cause) {
+      throw fault(call.invocation.definitionKey, "resource_relation_mismatch", String(cause));
+    }
+    const native = ConformancePort.evaluateGtlProgram(packet, declarationBasis);
     if (native.disposition === "failed" && native.code !== "validation_failed") {
       return deepFreeze({
         ownerOutput: nativeRefusal(native),
@@ -373,15 +427,16 @@ const gtl_program: ExactDefinitionCallable<
       "gtl_program",
       "contract://abiogenesis/gtl/program@5",
     );
+    const authorityPublications = declarationBasis?.declarationClosure.publications ?? [packet.publication];
     const authorityAdmissions = [
-      ...packet.publication.contracts.map((value) =>
+      ...authorityPublications.flatMap(publication => publication.contracts).map((value) =>
         exactRawAdmission<ContractDeclaration>(
           value,
           "contract_declaration",
           "contract://abiogenesis/gtl/contract-declaration@5",
         )
       ),
-      ...packet.publication.closureContracts.map((value) =>
+      ...authorityPublications.flatMap(publication => publication.closureContracts).map((value) =>
         exactRawAdmission<ClosureContract>(
           value,
           "closure_contract",
@@ -463,5 +518,5 @@ const gtl_program: ExactDefinitionCallable<
 });
 
 export const CONFORMANCE_DEFINITION_BINDINGS = Object.freeze({
-  evaluate: Object.freeze({ gtl_program }),
+  evaluate: Object.freeze({ gtl_program: withAdmissionAuthority(CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program, gtl_program) }),
 });

@@ -1,4 +1,5 @@
 import * as v from "valibot";
+import { ABG_TYPED_TERMINAL_RESULT_SCHEMA } from "../abg/terminal_result_contracts.js";
 
 import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
@@ -51,6 +52,7 @@ function runResultSchema(invocationKind: "invoke" | "start") {
       : v.nullable(refDigestSchema),
     disposition: v.picklist(["completed", "blocked", "runtime_failed"]),
     result: v.nullable(refDigestSchema),
+    terminalResult: v.nullable(ABG_TYPED_TERMINAL_RESULT_SCHEMA),
     stop: v.nullable(refDigestSchema),
     gap: v.nullable(refDigestSchema),
     interaction: v.nullable(refDigestSchema),

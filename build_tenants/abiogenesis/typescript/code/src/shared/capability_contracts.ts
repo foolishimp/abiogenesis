@@ -241,7 +241,13 @@ export function constructCapabilityDefinitionGraph(
       ]);
     }
   }
-  if (publicContractCoordinates.length === 0) {
+  if (
+    definitionSlots.size === 0 &&
+    publicContractCoordinates.every((coordinate) =>
+      coordinate.nestedSelector.selectorKind === "flat_contract" &&
+      capabilityRefsForContract(coordinate.flatRow.contractId).length === 0
+    )
+  ) {
     const body = deepFreeze({
       kind: "abg_capability_definition_graph" as const,
       schemaVersion: "5.0.0" as const,

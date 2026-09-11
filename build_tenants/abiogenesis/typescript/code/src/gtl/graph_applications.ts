@@ -1,3 +1,4 @@
+import { isWorksiteRetentionContractRelation } from "../product/worksite_preparation_contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -9,6 +10,7 @@ import type {
   FoldbackDeclaration,
   GateApplication,
   GtlEdge,
+  GtlEdgeInputBinding,
   GraphFunctionApplication,
   IdentityApplication,
   PromoteApplication,
@@ -46,9 +48,13 @@ function validateBase(input: {
 export function graphEdge(input: {
   readonly fromNodeRef: string;
   readonly toNodeRef: string;
+  readonly inputBinding?: GtlEdgeInputBinding;
 }): GtlEdge {
   requireRef(input.fromNodeRef, "fromNodeRef");
   requireRef(input.toNodeRef, "toNodeRef");
+  if (input.inputBinding !== undefined && !isWorksiteRetentionContractRelation(input.inputBinding)) {
+    throw new TypeError("graph edge retention requires the exact ABI-owned E/S/T schema relation");
+  }
   return deepFreeze({
     edgeRef: graphEdgeRef(input),
     ...input,
@@ -58,11 +64,13 @@ export function graphEdge(input: {
 export function graphEdgeRef(input: {
   readonly fromNodeRef: string;
   readonly toNodeRef: string;
+  readonly inputBinding?: GtlEdgeInputBinding;
 }): string {
   const digest = sha256Canonical({
     fromNodeRef: input.fromNodeRef,
     toNodeRef: input.toNodeRef,
-  });
+    ...(input.inputBinding === undefined ? {} : { inputBinding: input.inputBinding }),
+  } as unknown as JsonValue);
   return `graph-vector://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 

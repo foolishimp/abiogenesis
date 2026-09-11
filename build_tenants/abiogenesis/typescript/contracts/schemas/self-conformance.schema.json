@@ -1,0 +1,1941 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "SelfConformanceInput": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "self_conformance_input"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "basis": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "exact_candidate_qualification"
+            },
+            "projection": {
+              "const": "basis"
+            },
+            "schemaVersion": {
+              "const": "5.0.0"
+            },
+            "subjectKind": {
+              "enum": [
+                "pre_rc_candidate",
+                "installed_rc",
+                "final_tap_candidate"
+              ],
+              "type": "string"
+            },
+            "basisRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basisDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "productId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "productVersion": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sourceInventory": {
+              "type": "object",
+              "properties": {
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "ref",
+                "digest"
+              ],
+              "additionalProperties": false
+            },
+            "artifact": {
+              "type": "object",
+              "properties": {
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "ref",
+                "digest"
+              ],
+              "additionalProperties": false
+            },
+            "productManifest": {
+              "type": "object",
+              "properties": {
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "ref",
+                "digest"
+              ],
+              "additionalProperties": false
+            },
+            "productContentDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "toolchain": {
+              "type": "object",
+              "properties": {
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "ref",
+                "digest"
+              ],
+              "additionalProperties": false
+            },
+            "installedProduct": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "workspaceBinding": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "prospectiveRelease": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "productId": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "version": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "productId",
+                    "version"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "tenantManifest": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "owningGateInventory": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "lawBasis": {
+              "type": "object",
+              "properties": {
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "ref",
+                "digest"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "kind",
+            "projection",
+            "schemaVersion",
+            "subjectKind",
+            "basisRef",
+            "basisDigest",
+            "productId",
+            "productVersion",
+            "sourceInventory",
+            "artifact",
+            "productManifest",
+            "productContentDigest",
+            "toolchain",
+            "installedProduct",
+            "workspaceBinding",
+            "prospectiveRelease",
+            "tenantManifest",
+            "owningGateInventory",
+            "lawBasis"
+          ],
+          "additionalProperties": false
+        },
+        "law": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "qualification_law_basis"
+                },
+                "lawBasisRef": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "lawBasisDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                },
+                "releaseRef": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "methodVersion": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "installedManifestDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                },
+                "memberSetDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                },
+                "catalog": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    },
+                    "ownerRef": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "version": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "assetPath": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest",
+                    "ownerRef",
+                    "version",
+                    "assetPath"
+                  ],
+                  "additionalProperties": false
+                },
+                "sources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ref": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "digest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      },
+                      "byteCount": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "ref",
+                      "path",
+                      "digest",
+                      "byteCount"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "kind",
+                "lawBasisRef",
+                "lawBasisDigest",
+                "releaseRef",
+                "methodVersion",
+                "installedManifestDigest",
+                "memberSetDigest",
+                "catalog",
+                "sources"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "inventory": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "qualification_subject_inventory"
+                },
+                "inventoryRef": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "inventoryDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                },
+                "selectedRoots": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "coverage": {
+                  "enum": [
+                    "complete_claim",
+                    "incomplete"
+                  ],
+                  "type": "string"
+                },
+                "members": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ref": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "digest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      },
+                      "byteCount": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "surfaceRoles": {
+                        "type": "array",
+                        "items": {
+                          "enum": [
+                            "constitutional",
+                            "design",
+                            "code",
+                            "proof",
+                            "execution_contract",
+                            "public_contract",
+                            "manifest",
+                            "qualification",
+                            "release_claim"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "classificationEvidenceRefs": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "ref",
+                      "path",
+                      "digest",
+                      "byteCount",
+                      "surfaceRoles",
+                      "classificationEvidenceRefs"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "kind",
+                "inventoryRef",
+                "inventoryDigest",
+                "selectedRoots",
+                "coverage",
+                "members"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tenantManifest": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "tenant_conformance_manifest"
+                },
+                "schemaVersion": {
+                  "const": "5.0.0"
+                },
+                "manifestRef": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "manifestDigest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                },
+                "productId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "capabilityDefinitionGraph": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                "publicContractCatalog": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                "claims": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "claimRef": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "capabilityRef": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "publicContractRefs": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "evidenceRefs": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "claimRef",
+                      "capabilityRef",
+                      "publicContractRefs",
+                      "evidenceRefs"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "kind",
+                "schemaVersion",
+                "manifestRef",
+                "manifestDigest",
+                "productId",
+                "capabilityDefinitionGraph",
+                "publicContractCatalog",
+                "claims"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authorityMembers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "digest": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              },
+              "byteCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "contentBase64": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ref",
+              "path",
+              "digest",
+              "byteCount",
+              "contentBase64"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "applications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ruleRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "surfaceRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "applicability": {
+                "enum": [
+                  "applicable",
+                  "inapplicable",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              "premiseEvidenceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "evaluationEvidenceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "rulingEvidenceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "ruleRef",
+              "surfaceRef",
+              "applicability",
+              "premiseEvidenceRefs",
+              "evaluationEvidenceRefs",
+              "rulingEvidenceRefs"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "evidenceCitations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "digest": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1
+              },
+              "subjectBasisDigest": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              },
+              "lawBasisDigest": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              },
+              "scopeRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "actorRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "authorityRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "admissionEventRef": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "ref",
+              "digest",
+              "role",
+              "subjectBasisDigest",
+              "lawBasisDigest",
+              "scopeRefs",
+              "actorRef",
+              "authorityRef",
+              "admissionEventRef"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "basis",
+        "law",
+        "inventory",
+        "tenantManifest",
+        "authorityMembers",
+        "applications",
+        "evidenceCitations"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "SelfConformanceResult": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "self_conformance_result"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "resultRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resultDigest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "subjectBasis": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "ref",
+            "digest"
+          ],
+          "additionalProperties": false
+        },
+        "lawBasis": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "ref",
+            "digest"
+          ],
+          "additionalProperties": false
+        },
+        "inventoryDigest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "inputDigest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "owner": {
+          "type": "object",
+          "properties": {
+            "installId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "installDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "artifactDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "productId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "productVersion": {
+              "type": "string",
+              "minLength": 1
+            },
+            "productContentDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "manifestDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "publicationDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "workspaceBinding": {
+              "type": "object",
+              "properties": {
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "ref",
+                "digest"
+              ],
+              "additionalProperties": false
+            },
+            "executionBasis": {
+              "type": "object",
+              "properties": {
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "ref",
+                "digest"
+              ],
+              "additionalProperties": false
+            },
+            "cCallDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "nativeBasis": {
+              "type": "object",
+              "properties": {
+                "cCallRef": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "predecessorPrefix": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "durable_prefix_coordinate"
+                    },
+                    "schemaVersion": {
+                      "const": "5.0.0"
+                    },
+                    "eventLogRef": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "prefixLength": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "prefixDigest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    },
+                    "storeIdentity": {
+                      "type": "object",
+                      "properties": {
+                        "device": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "inode": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "eventContractDigest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "device",
+                        "inode",
+                        "eventContractDigest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "coordinateDigest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "schemaVersion",
+                    "eventLogRef",
+                    "prefixLength",
+                    "prefixDigest",
+                    "storeIdentity",
+                    "coordinateDigest"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "cCallRef",
+                "predecessorPrefix"
+              ],
+              "additionalProperties": false
+            },
+            "catalogDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "catalogRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "catalogVersion": {
+              "type": "string",
+              "minLength": 1
+            },
+            "catalogAssetPath": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "installId",
+            "installDigest",
+            "artifactDigest",
+            "productId",
+            "productVersion",
+            "productContentDigest",
+            "manifestDigest",
+            "publicationDigest",
+            "workspaceBinding",
+            "executionBasis",
+            "cCallDigest",
+            "nativeBasis",
+            "catalogDigest",
+            "catalogRef",
+            "catalogVersion",
+            "catalogAssetPath"
+          ],
+          "additionalProperties": false
+        },
+        "ruleApplications": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ruleRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "surfaceRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "applicability": {
+                "enum": [
+                  "applicable",
+                  "inapplicable",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              "premiseEvidenceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "evaluationEvidenceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "rulingEvidenceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "ruleRef",
+              "surfaceRef",
+              "applicability",
+              "premiseEvidenceRefs",
+              "evaluationEvidenceRefs",
+              "rulingEvidenceRefs"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "evidenceCitations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "digest": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1
+              },
+              "subjectBasisDigest": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              },
+              "lawBasisDigest": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              },
+              "scopeRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "actorRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "authorityRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "admissionEventRef": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "ref",
+              "digest",
+              "role",
+              "subjectBasisDigest",
+              "lawBasisDigest",
+              "scopeRefs",
+              "actorRef",
+              "authorityRef",
+              "admissionEventRef"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "diagnostic": {
+                "type": "string",
+                "minLength": 1
+              },
+              "ruleRef": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "sourceRef": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "surfaceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "disposition": {
+                "enum": [
+                  "passed",
+                  "failed",
+                  "inapplicable_with_reason",
+                  "blocked_incomplete",
+                  "accepted_reentry"
+                ],
+                "type": "string"
+              },
+              "provenance": {
+                "enum": [
+                  "C",
+                  "J_required",
+                  "O_required"
+                ],
+                "type": "string"
+              },
+              "evidenceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "detail": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "diagnostic",
+              "ruleRef",
+              "sourceRef",
+              "surfaceRefs",
+              "disposition",
+              "provenance",
+              "evidenceRefs",
+              "detail"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "disposition": {
+          "enum": [
+            "passed",
+            "failed",
+            "blocked_incomplete"
+          ],
+          "type": "string"
+        },
+        "qualificationVerdict": {
+          "const": false
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "resultRef",
+        "resultDigest",
+        "subjectBasis",
+        "lawBasis",
+        "inventoryDigest",
+        "inputDigest",
+        "owner",
+        "ruleApplications",
+        "evidenceCitations",
+        "findings",
+        "disposition",
+        "qualificationVerdict"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "ExactCandidateQualificationBasis": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "exact_candidate_qualification"
+        },
+        "projection": {
+          "const": "basis"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "subjectKind": {
+          "enum": [
+            "pre_rc_candidate",
+            "installed_rc",
+            "final_tap_candidate"
+          ],
+          "type": "string"
+        },
+        "basisRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "basisDigest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "productId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "productVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceInventory": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "ref",
+            "digest"
+          ],
+          "additionalProperties": false
+        },
+        "artifact": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "ref",
+            "digest"
+          ],
+          "additionalProperties": false
+        },
+        "productManifest": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "ref",
+            "digest"
+          ],
+          "additionalProperties": false
+        },
+        "productContentDigest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "toolchain": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "ref",
+            "digest"
+          ],
+          "additionalProperties": false
+        },
+        "installedProduct": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "ref",
+                "digest"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "workspaceBinding": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "ref",
+                "digest"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prospectiveRelease": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "productId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "version": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "productId",
+                "version"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tenantManifest": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "ref",
+                "digest"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "owningGateInventory": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "digest": {
+                  "type": "string",
+                  "pattern": "^sha256:[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "ref",
+                "digest"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lawBasis": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "ref",
+            "digest"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "kind",
+        "projection",
+        "schemaVersion",
+        "subjectKind",
+        "basisRef",
+        "basisDigest",
+        "productId",
+        "productVersion",
+        "sourceInventory",
+        "artifact",
+        "productManifest",
+        "productContentDigest",
+        "toolchain",
+        "installedProduct",
+        "workspaceBinding",
+        "prospectiveRelease",
+        "tenantManifest",
+        "owningGateInventory",
+        "lawBasis"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "QualificationLawBasis": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "qualification_law_basis"
+        },
+        "lawBasisRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lawBasisDigest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "releaseRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "methodVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "installedManifestDigest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "memberSetDigest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "catalog": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "ownerRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "assetPath": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "ref",
+            "digest",
+            "ownerRef",
+            "version",
+            "assetPath"
+          ],
+          "additionalProperties": false
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "digest": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              },
+              "byteCount": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "ref",
+              "path",
+              "digest",
+              "byteCount"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "lawBasisRef",
+        "lawBasisDigest",
+        "releaseRef",
+        "methodVersion",
+        "installedManifestDigest",
+        "memberSetDigest",
+        "catalog",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "TenantConformanceManifest": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "tenant_conformance_manifest"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "manifestRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "manifestDigest": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "productId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capabilityDefinitionGraph": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "ref",
+            "digest"
+          ],
+          "additionalProperties": false
+        },
+        "publicContractCatalog": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "digest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "ref",
+            "digest"
+          ],
+          "additionalProperties": false
+        },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "claimRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "capabilityRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "publicContractRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "evidenceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "claimRef",
+              "capabilityRef",
+              "publicContractRefs",
+              "evidenceRefs"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "manifestRef",
+        "manifestDigest",
+        "productId",
+        "capabilityDefinitionGraph",
+        "publicContractCatalog",
+        "claims"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "QualificationRuleCatalog": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "qualification_rule_catalog"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "catalogRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "catalogVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ownerRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "type": "object",
+          "properties": {
+            "releaseRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "methodVersion": {
+              "type": "string",
+              "minLength": 1
+            },
+            "installedManifestDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "memberSetDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "releaseRef",
+            "methodVersion",
+            "installedManifestDigest",
+            "memberSetDigest"
+          ],
+          "additionalProperties": false
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "digest": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              },
+              "byteCount": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "ref",
+              "path",
+              "digest",
+              "byteCount"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ruleRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sourceRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sourceDigest": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              },
+              "startByte": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "endByte": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "spanDigest": {
+                "type": "string",
+                "pattern": "^sha256:[a-f0-9]{64}$"
+              },
+              "governedClaim": {
+                "type": "string",
+                "minLength": 1
+              },
+              "applicability": {
+                "const": "requires_admitted_judgment"
+              },
+              "requiredEvidenceRoles": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "computableRelation": {
+                "const": "source_span_integrity"
+              },
+              "diagnostic": {
+                "const": "semantic_assessment_required"
+              }
+            },
+            "required": [
+              "ruleRef",
+              "version",
+              "sourceRef",
+              "sourceDigest",
+              "startByte",
+              "endByte",
+              "spanDigest",
+              "governedClaim",
+              "applicability",
+              "requiredEvidenceRoles",
+              "computableRelation",
+              "diagnostic"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "coverageClaim": {
+          "const": "finite_candidate_unassessed"
+        },
+        "requiredCatalogEvidenceRoles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "catalogRef",
+        "catalogVersion",
+        "ownerRef",
+        "method",
+        "sources",
+        "rules",
+        "coverageClaim",
+        "requiredCatalogEvidenceRoles"
+      ],
+      "additionalProperties": false,
+      "$schema": "https://json-schema.org/draft/2020-12/schema"
+    }
+  }
+}

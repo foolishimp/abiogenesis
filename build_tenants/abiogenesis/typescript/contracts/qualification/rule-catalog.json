@@ -1,0 +1,754 @@
+{
+  "kind": "qualification_rule_catalog",
+  "schemaVersion": "5.0.0",
+  "catalogRef": "catalog://abiogenesis/qualification/self-conformance@1",
+  "catalogVersion": "1",
+  "ownerRef": "authority://abiogenesis/validator/conformance@5",
+  "method": {
+    "releaseRef": "stdo://releases/v2.5.0-rc.6/",
+    "methodVersion": "2.5.0-rc.6",
+    "installedManifestDigest": "sha256:bed7535a5feddc5e874993ff96d1f5f27e2a0fff63f366fc3b1fec3e301dd9e0",
+    "memberSetDigest": "sha256:7fef8c4de7a5f8b0ef2e02d5dbb33ef720f1c5402267875805feabe369e8ec7a"
+  },
+  "sources": [
+    {
+      "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+      "digest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "byteCount": 6427
+    },
+    {
+      "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "path": "contracts/qualification/sources/REQ-P-QUAL.md",
+      "digest": "sha256:4e1814d8a3e74bc00217c7056f623db0fc0811dab339d66352cef0f247f33427",
+      "byteCount": 29204
+    },
+    {
+      "ref": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "path": "contracts/qualification/sources/REQ-M-GTL3-CAPABILITY.md",
+      "digest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "byteCount": 5954
+    },
+    {
+      "ref": "stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md",
+      "path": "contracts/qualification/sources/SPEC_METHOD.md",
+      "digest": "sha256:65d08af92cf850dcee4d1f012151baadcd5759c837a876c2dfb2161f1955fcc5",
+      "byteCount": 152129
+    },
+    {
+      "ref": "stdo://releases/v2.5.0-rc.6/standards/REFERENCE_FRAME_METHOD.md",
+      "path": "contracts/qualification/sources/REFERENCE_FRAME_METHOD.md",
+      "digest": "sha256:6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7",
+      "byteCount": 55118
+    },
+    {
+      "ref": "stdo://releases/v2.5.0-rc.6/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "path": "contracts/qualification/sources/STDO_REFERENCE_FRAME_BASELINE.md",
+      "digest": "sha256:3cfb24f507e6746d5263c7b866d2cd4dc4de2d9caf52bb7e90b9f66642208bf0",
+      "byteCount": 116314
+    },
+    {
+      "ref": "stdo://releases/v2.5.0-rc.6/standards/AXIOMATIC_CALCULUS.md",
+      "path": "contracts/qualification/sources/AXIOMATIC_CALCULUS.md",
+      "digest": "sha256:cbe2edb928d3e75e23446f6d525baea664966e8d5920e6fa389cbaa4af8f1f8d",
+      "byteCount": 37849
+    },
+    {
+      "ref": "stdo://releases/v2.5.0-rc.6/standards/RELEASE_METHOD.md",
+      "path": "contracts/qualification/sources/RELEASE_METHOD.md",
+      "digest": "sha256:582bc15451855670495e559db3ae6a89ba37edaa3656f33499d02220cbdb141c",
+      "byteCount": 26086
+    }
+  ],
+  "rules": [
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-001@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 844,
+      "endByte": 1612,
+      "spanDigest": "sha256:a9e1ff8243f71df08f5e8073607c0a8433bd6183e1d9d0081bced1685a01855f",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-001",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-001A@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 1613,
+      "endByte": 1912,
+      "spanDigest": "sha256:f4984410d42a6a5cda22f93a98216e175ebb25d5bd8ceed23525343bd787bdc5",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-001A",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-002@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 1913,
+      "endByte": 2315,
+      "spanDigest": "sha256:ef6b27c7a5bcc94cc9aa1746ee24ba78520a3beddb75ace2276312cb58930c6b",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-002",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-003@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 2316,
+      "endByte": 2670,
+      "spanDigest": "sha256:8c1e24da7c510cca9e9e785e50f9032c0b1ee712648423e7eaaab5b4cf64d8d3",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-003",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-004@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 2671,
+      "endByte": 3065,
+      "spanDigest": "sha256:11bf632e4c304d33e7d75699a4bc2617fcf86265e3a1e6cff13da9642cc117d6",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-004",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-005@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 3066,
+      "endByte": 3498,
+      "spanDigest": "sha256:f3f2751f34daa86485ed8e43ce83683b4eb427dc34af710489d978b07ea61966",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-005",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-006@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 3499,
+      "endByte": 3754,
+      "spanDigest": "sha256:6d1e22b0f76387bea5cc6b3c579674af6a8dee87583a91f4cb52f1fd9115a7ab",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-006",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-007@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 3755,
+      "endByte": 4070,
+      "spanDigest": "sha256:2459447c9e4b09200ef42e8af6c9f3c0e817115574d4c8be32b86e231a552a2e",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-007",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-007A@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 4071,
+      "endByte": 4435,
+      "spanDigest": "sha256:eb985a9ca9bc6cde1dfce0a1e678f4586e98e89e14e67cff086ac1691d453ad7",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-007A",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-008@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 4436,
+      "endByte": 4930,
+      "spanDigest": "sha256:a09f6df294d5bd3997b7828da07d46cbb87485bcdb8d4a03172c286579c8f9c5",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-008",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-009@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 4931,
+      "endByte": 5272,
+      "spanDigest": "sha256:5ee2ef5df9180bd892e4e37e85c07c15abfcb58777fb01cee8ed8b3e64f6bb59",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-009",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-010@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 5273,
+      "endByte": 5715,
+      "spanDigest": "sha256:eb4aebec0df6c348a26d4a3e181a795b81b29d141bcba80ea49af0547f15a807",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-010",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-011@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 5716,
+      "endByte": 6114,
+      "spanDigest": "sha256:16ea698b04534f570b796a3faf9f89f9be6a30ca7af7c95f6c09afd99289a39e",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-011",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-SELF-CONFORMANCE-012@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sourceDigest": "sha256:db9764a7bbc978cf715b9988b44e47c41279e06dd5f17df412f935a30ffec308",
+      "startByte": 6115,
+      "endByte": 6427,
+      "spanDigest": "sha256:75b26021cbe94b7c4484b070af80b98e1195b7a76efc27f6fd9d3058d6464bbe",
+      "governedClaim": "REQ-P-SELF-CONFORMANCE-012",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-QUAL-057@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sourceDigest": "sha256:4e1814d8a3e74bc00217c7056f623db0fc0811dab339d66352cef0f247f33427",
+      "startByte": 13567,
+      "endByte": 14035,
+      "spanDigest": "sha256:562691a7ec565db98559ce7b7f8b3234dbba03fed8ae69fbfbdfb05f38b818d6",
+      "governedClaim": "REQ-P-QUAL-057",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-QUAL-057A@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sourceDigest": "sha256:4e1814d8a3e74bc00217c7056f623db0fc0811dab339d66352cef0f247f33427",
+      "startByte": 14036,
+      "endByte": 14362,
+      "spanDigest": "sha256:682eb8885b428550406a105c7e9aca36d6a26497932ab6f314e94c56d7d8b4a3",
+      "governedClaim": "REQ-P-QUAL-057A",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-QUAL-057B@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sourceDigest": "sha256:4e1814d8a3e74bc00217c7056f623db0fc0811dab339d66352cef0f247f33427",
+      "startByte": 14363,
+      "endByte": 14904,
+      "spanDigest": "sha256:7af0adf799e38248ded0101ef7a26dba89c97bb6c38274eadbaa8eb32a2f91e1",
+      "governedClaim": "REQ-P-QUAL-057B",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-QUAL-057C@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sourceDigest": "sha256:4e1814d8a3e74bc00217c7056f623db0fc0811dab339d66352cef0f247f33427",
+      "startByte": 14905,
+      "endByte": 15676,
+      "spanDigest": "sha256:4e8dbd6ae15eefabd62756a57cfdc416a72007ae26b83e2129dd76be280732ae",
+      "governedClaim": "REQ-P-QUAL-057C",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-QUAL-057D@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sourceDigest": "sha256:4e1814d8a3e74bc00217c7056f623db0fc0811dab339d66352cef0f247f33427",
+      "startByte": 15677,
+      "endByte": 15992,
+      "spanDigest": "sha256:1f04d8854a39033f6fd45e5f8109f90e5ba34591679c8976a7a7eb0749280579",
+      "governedClaim": "REQ-P-QUAL-057D",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-QUAL-064@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sourceDigest": "sha256:4e1814d8a3e74bc00217c7056f623db0fc0811dab339d66352cef0f247f33427",
+      "startByte": 19959,
+      "endByte": 20628,
+      "spanDigest": "sha256:685dba163bc7d8b923051bfa77e56c130add11dc88454ced19ea76374d7214b9",
+      "governedClaim": "REQ-P-QUAL-064",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-QUAL-064A@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sourceDigest": "sha256:4e1814d8a3e74bc00217c7056f623db0fc0811dab339d66352cef0f247f33427",
+      "startByte": 20629,
+      "endByte": 21484,
+      "spanDigest": "sha256:135e6e5f7aa4e7f4ac4d155390f36351c19fe5fb18027d0ad3503c74d29f94ac",
+      "governedClaim": "REQ-P-QUAL-064A",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-QUAL-064B@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sourceDigest": "sha256:4e1814d8a3e74bc00217c7056f623db0fc0811dab339d66352cef0f247f33427",
+      "startByte": 21485,
+      "endByte": 21834,
+      "spanDigest": "sha256:9b40181b672ad63039684059042df597e06334a1da7ecef23d8a4af368a1ddb4",
+      "governedClaim": "REQ-P-QUAL-064B",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-P-QUAL-064C@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "sourceDigest": "sha256:4e1814d8a3e74bc00217c7056f623db0fc0811dab339d66352cef0f247f33427",
+      "startByte": 21835,
+      "endByte": 22132,
+      "spanDigest": "sha256:cc5002e8e055907b61274e8de98534464374eaa5a2547b9a8bb19f1ce33fe0e7",
+      "governedClaim": "REQ-P-QUAL-064C",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-001@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 502,
+      "endByte": 745,
+      "spanDigest": "sha256:f718c873ecaffec326ed66422af200f5f4b362f73f4d97beb43b10597262b49b",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-001",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-002@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 746,
+      "endByte": 1127,
+      "spanDigest": "sha256:c4141668caf3f107a8e7bf1a62af088a30a9ee0731f329850479dab1702b4325",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-002",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-003@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 1128,
+      "endByte": 1273,
+      "spanDigest": "sha256:51af118cc466f7c92de587d1b121829e0a21d68b14bc9e319fcefdc4eef2b9c1",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-003",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-004@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 1274,
+      "endByte": 1630,
+      "spanDigest": "sha256:c267ef6bcee8b4eaa1fb5763a57c8ff84ff8f52547fba5463063d69f42ea8338",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-004",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-005@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 1631,
+      "endByte": 2099,
+      "spanDigest": "sha256:6a55faa72f63de7dc0f08f205f61b9b1f8bd4407747c1558f4f370b227a06136",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-005",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-006@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 2100,
+      "endByte": 2545,
+      "spanDigest": "sha256:6cba1e32132435991d479a30ba378425b9e659e767c60bf95731fecb6c92b6e4",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-006",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-007@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 2546,
+      "endByte": 2808,
+      "spanDigest": "sha256:80ebce752ff9ea0e4668c5825f53019f6d42e891365d0574b686f9de5b641de8",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-007",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-008@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 2809,
+      "endByte": 3076,
+      "spanDigest": "sha256:f1d4b886a85c87b030dc15654ba5b90ad1ba7d6f9e372dee16edfa21175845e4",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-008",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-009@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 3077,
+      "endByte": 3397,
+      "spanDigest": "sha256:cf918f6cc56a8c95b6a09d650eaf246770083803b0dd21e4fa00a8ca92b777b2",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-009",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-010@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 3398,
+      "endByte": 3757,
+      "spanDigest": "sha256:bb81c444555bbc854fc447a9963d2ef468f413c3af09ec222a1ac3c72f47b108",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-010",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-011@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 3758,
+      "endByte": 4127,
+      "spanDigest": "sha256:c5d5f71c00381722000b7e47f06305c85b85a0183dd16948002da7f9b8376f72",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-011",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-012@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 4128,
+      "endByte": 4573,
+      "spanDigest": "sha256:3075b499745dabe4c38d7fdb5e4fb58d16d786965a29fb172c5a59094f2117bf",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-012",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-013@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 4574,
+      "endByte": 4886,
+      "spanDigest": "sha256:120ecec308b5b9ab72fb1ceea74a4bc02b759bf846ac88f3d17cb9a750ab7824",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-013",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-014@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 4887,
+      "endByte": 5416,
+      "spanDigest": "sha256:3e22773a3d3d724d524c53bb575e6209cc9e7f9de71e26ed341783a6f14990ba",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-014",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    },
+    {
+      "ruleRef": "rule://abiogenesis/self-conformance/REQ-M-GTL3-CAPABILITY-015@1",
+      "version": "1",
+      "sourceRef": "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sourceDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "startByte": 5417,
+      "endByte": 5954,
+      "spanDigest": "sha256:851e6f7b2cf9b817799a3209b5ccf5d298f80ac4e43861850fbbbdc9f0dc1acf",
+      "governedClaim": "REQ-M-GTL3-CAPABILITY-015",
+      "applicability": "requires_admitted_judgment",
+      "requiredEvidenceRoles": [
+        "source_fidelity",
+        "applicability",
+        "evaluation_sufficiency"
+      ],
+      "computableRelation": "source_span_integrity",
+      "diagnostic": "semantic_assessment_required"
+    }
+  ],
+  "coverageClaim": "finite_candidate_unassessed",
+  "requiredCatalogEvidenceRoles": [
+    "source_fidelity",
+    "coverage_completeness"
+  ]
+}

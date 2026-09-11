@@ -1,3 +1,17 @@
+import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
+import { WORKSITE_COMMAND_FORWARD_IDS } from "../product/worksite_command_forward_identity.js";
+import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
+  executableWorksiteCommandSources as worksiteExecutionSources, executableWorksiteCommandLocus as worksiteExecutionLocus,
+  executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef,
+  executableWorksiteCommandIdentityPrefix as worksiteExecutionIdentityPrefix,
+  type ExecutableWorksiteCommandTask as WorksiteExecutionTask,
+  type ExecutableWorksiteSnapshotMember as WorksiteExecutionSnapshotMember } from "../product/worksite_command_forward.js";
+import {
+  WORKSITE_PREPARATION_IDS, isWorksitePreparationInput, isWorksitePreparationBoundInput,
+  selectWorksiteConstructionTask, prepareWorksiteCommandTask,
+} from "../product/worksite_preparation.js";
+import { WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction.js";
+import { WORKSITE_BRANCH_CONSTRUCTION_IDS } from "../product/worksite_branch_construction.js";
 import {
   lstatSync,
   linkSync,
@@ -19,16 +33,14 @@ import {
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
 import {
   WORKSITE_COMMAND_EXECUTION_IDS,
-  constructWorksiteCommandExecutionObservation,
+  constructWorksiteExecutionObservation,
   constructWorksiteCommandExecutionWorkerResult,
   helperArtifactPreservesProtectedObservations,
   isWorksiteCommandExecutionHelperPlan,
-  isWorksiteCommandExecutionTask,
-  isWorksiteCommandHelperArtifact,
+  isWorksiteExecutionHelperArtifact,
   renderWorksiteCommandExecutionPrompt,
   worksiteCommandExecutionHelperPlan,
   worksiteCommandExecutionWorkerResultSchema,
-  type WorksiteCommandExecutionTask,
   type WorksiteCommandExecutionHelperPlan,
 } from "../product/worksite_command_execution.js";
 import { observeWorksiteSubject } from "../product/worksite_operations.js";
@@ -101,9 +113,8 @@ interface WorksiteCommandExecutionLaunchManifest {
   readonly attemptRoot: string;
   readonly launchManifestPath: string;
   readonly helperModulePath: string;
-  readonly implementationRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.implementationRef;
-  readonly implementationBindingRef:
-    typeof WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef;
+  readonly implementationRef: string;
+  readonly implementationBindingRef: string;
   readonly packageName: typeof ABI5_PACKAGE_NAME;
   readonly packageVersion: typeof ABI5_PACKAGE_VERSION;
 }
@@ -133,7 +144,7 @@ function exactAuthorityFreeOccurrence(
     typeof occurrence.runId !== "string" || occurrence.runId.trim() === "" ||
     typeof occurrence.graphCallId !== "string" || occurrence.graphCallId.trim() === "" ||
     typeof occurrence.frameId !== "string" || occurrence.frameId.trim() === "" ||
-    occurrence.programLocusRef !== WORKSITE_COMMAND_EXECUTION_IDS.nodeRef ||
+    ![WORKSITE_COMMAND_EXECUTION_IDS.nodeRef as string, WORKSITE_REVISION_IDS.nodeRef, WORKSITE_COMMAND_FORWARD_IDS.nodeRef].includes(occurrence.programLocusRef) ||
     !(occurrence.taskOrdinal === null || Number.isSafeInteger(occurrence.taskOrdinal) &&
       Number(occurrence.taskOrdinal) >= 0) || !Number.isSafeInteger(occurrence.attempt) ||
     occurrence.attempt < 1 || occurrence.executionAuthority !== null) {
@@ -160,10 +171,11 @@ function worksiteCommandExecutionAttemptRef(
 }
 
 function constructWorksiteCommandExecutionLaunchPlan(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   rawOccurrence: Readonly<LeafExecutionOccurrence>,
 ): WorksiteCommandExecutionLaunchPlan {
   const occurrence = exactAuthorityFreeOccurrence(rawOccurrence);
+  if (occurrence.programLocusRef !== worksiteExecutionLocus(task)) throw new TypeError("C2 occurrence crosses task arm");
   const attemptRef = worksiteCommandExecutionAttemptRef(occurrence);
   const helperPlan = worksiteCommandExecutionHelperPlan(task, attemptRef);
   const occurrenceDigest = sha256Canonical(occurrence as unknown as JsonValue);
@@ -186,9 +198,9 @@ function constructWorksiteCommandExecutionLaunchPlan(
     attemptRoot,
     launchManifestPath,
     helperModulePath: helperPlan.helperModulePath,
-    implementationRef: WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,
-    implementationBindingRef:
-      WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef,
+    implementationRef: worksiteExecutionImplementationRef(task),
+    implementationBindingRef: task.kind === "worksite_command_forward_task" ? WORKSITE_COMMAND_FORWARD_IDS.implementationBindingRef
+      : task.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef : WORKSITE_REVISION_IDS.implementationBindingRef,
     packageName: ABI5_PACKAGE_NAME,
     packageVersion: ABI5_PACKAGE_VERSION,
   } as const;
@@ -236,7 +248,7 @@ function failure(failureClass: string): Readonly<LeafRealizationCandidate> {
 }
 
 function exactExchange(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   inputDigest: `sha256:${string}`,
   request: Readonly<Record<string, JsonValue>>,
   plan: WorksiteCommandExecutionHelperPlan,
@@ -247,7 +259,7 @@ function exactExchange(
   return canonicalJson(exchange.request as unknown as JsonValue) === canonicalJson(request as unknown as JsonValue) &&
     observation.actorRef === task.workerActorRef &&
     observation.workerBindingRef === task.workerBindingRef &&
-    observation.implementationRef === WORKSITE_COMMAND_EXECUTION_IDS.implementationRef &&
+    observation.implementationRef === worksiteExecutionImplementationRef(task) &&
     observation.inputDigest === inputDigest &&
     observation.materializationPlanRef === task.materializationPlanRef &&
     observation.rendererRef === task.rendererRef &&
@@ -308,7 +320,7 @@ function containsPath(root: string, candidate: string): boolean {
 }
 
 function observeWorksiteSubjectSync(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   subject: WorksiteSubject,
 ): WorksiteObservation {
   const declaredRoot = resolve(task.workspaceAuthorityBasis.canonicalRoot);
@@ -357,7 +369,7 @@ function observeWorksiteSubjectSync(
   return observation;
 }
 
-function installedProductInventoryDigest(rootValue: string): Sha256Digest {
+export function installedProductInventoryDigest(rootValue: string): Sha256Digest {
   const root = resolve(rootValue);
   const rootStatus = lstatSync(root);
   if (root !== rootValue || rootStatus.isSymbolicLink() ||
@@ -414,7 +426,7 @@ function installedProductInventoryDigest(rootValue: string): Sha256Digest {
 }
 
 function assertArchiveExecutionBoundary(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   plan: WorksiteCommandExecutionLaunchPlan,
 ): void {
   for (const root of Object.values(task.workspaceBinding.roots)) {
@@ -489,7 +501,7 @@ function launchManifestBytes(
   );
 }
 
-function taskManifestBytes(task: WorksiteCommandExecutionTask): Buffer {
+function taskManifestBytes(task: WorksiteExecutionTask): Buffer {
   return Buffer.from(`${canonicalJson(task as unknown as JsonValue)}\n`, "utf8");
 }
 
@@ -514,7 +526,7 @@ function publishCreateOnly(path: string, bytes: Buffer, label: string): void {
 }
 
 function assertManifestPairCurrent(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   occurrence: Readonly<LeafExecutionOccurrence>,
   plan: WorksiteCommandExecutionLaunchPlan,
 ): void {
@@ -559,7 +571,7 @@ function assertManifestPairCurrent(
 }
 
 function materializeExecutionManifests(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   occurrence: Readonly<LeafExecutionOccurrence>,
   plan: WorksiteCommandExecutionLaunchPlan,
 ): void {
@@ -579,7 +591,7 @@ function materializeExecutionManifests(
 }
 
 function manifestPairIsCurrent(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   occurrence: Readonly<LeafExecutionOccurrence>,
   plan: WorksiteCommandExecutionLaunchPlan,
 ): boolean {
@@ -591,7 +603,7 @@ function manifestPairIsCurrent(
   }
 }
 
-function requiredExecutionBudgetMs(task: WorksiteCommandExecutionTask): number {
+function requiredExecutionBudgetMs(task: WorksiteExecutionTask): number {
   const commandBudget = task.commands.reduce(
     (sum, command) => sum + command.timeoutMs + command.terminationGraceMs,
     0,
@@ -614,10 +626,10 @@ function requiredExecutionBudgetMs(task: WorksiteCommandExecutionTask): number {
 }
 
 export function realizeWorksiteCommandExecution(
-  input: Readonly<WorksiteCommandExecutionTask>,
+  input: Readonly<WorksiteExecutionTask>,
   occurrence: Readonly<LeafExecutionOccurrence>,
 ): Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>> {
-  if (!isWorksiteCommandExecutionTask(input)) {
+  if (!isWorksiteExecutionTask(input)) {
     throw new TypeError("command execution requires one exact admitted task");
   }
   const c2Occurrence = exactAuthorityFreeOccurrence(occurrence);
@@ -643,12 +655,12 @@ export function realizeWorksiteCommandExecution(
     c2Occurrence,
   );
   const helperPlan = launchPlan.helperPlan;
-  const before = input.protectedObservations.map((row) =>
+  const before = worksiteExecutionSources(input).map((row) =>
     observeWorksiteSubjectSync(input, row.subject)
   );
   if (before.some((observation, ordinal) =>
     canonicalJson(observation as unknown as JsonValue) !== canonicalJson(
-      input.protectedObservations[ordinal]!.observation as unknown as JsonValue,
+      worksiteExecutionSources(input)[ordinal]!.observation as unknown as JsonValue,
     ))) {
     throw new TypeError(
       "protected worksite observation changed before Worker dispatch",
@@ -662,7 +674,7 @@ export function realizeWorksiteCommandExecution(
   const workerRequest = deepFreeze({
     actorRef: input.workerActorRef,
     workerBindingRef: input.workerBindingRef,
-    implementationRef: WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,
+    implementationRef: worksiteExecutionImplementationRef(input),
     inputDigest,
     materializationPlanRef: input.materializationPlanRef,
     rendererRef: input.rendererRef,
@@ -670,14 +682,14 @@ export function realizeWorksiteCommandExecution(
     resultContractRef: input.resultContractRef,
     transportLane: input.transportLane,
     prompt: renderWorksiteCommandExecutionPrompt(input, helperPlan),
-    responseJsonSchema: worksiteCommandExecutionWorkerResultSchema(input),
+    responseJsonSchema: worksiteCommandExecutionWorkerResultSchema(input, helperPlan),
   });
   return deepFreeze({
     kind: "prepared_probabilistic_leaf_invocation" as const,
     schemaVersion: "5.0.0" as const,
     workerRequest,
     async complete(exchange: Readonly<ActorProcessCarrierValidation>) {
-      const current = await Promise.all(input.protectedObservations.map((row) =>
+      const current = await Promise.all(worksiteExecutionSources(input).map((row) =>
         observeWorksiteSubject(
           input.workspaceAuthorityBasis,
           input.workspaceBinding,
@@ -686,7 +698,7 @@ export function realizeWorksiteCommandExecution(
       ));
       if (current.some((row, ordinal) =>
         canonicalJson(row as unknown as JsonValue) !== canonicalJson(
-          input.protectedObservations[ordinal]!.observation as unknown as JsonValue,
+          worksiteExecutionSources(input)[ordinal]!.observation as unknown as JsonValue,
         ))) {
         return failure("protected_observation_mismatch");
       }
@@ -727,7 +739,7 @@ export function realizeWorksiteCommandExecution(
       } catch {
         return failure("helper_artifact_absent");
       }
-      if (!isWorksiteCommandHelperArtifact(input, helperValue)) {
+      if (!isWorksiteExecutionHelperArtifact(input, helperValue)) {
         return failure("helper_artifact_contract_failure");
       }
       const canonicalHelperBytes = Buffer.from(
@@ -748,20 +760,16 @@ export function realizeWorksiteCommandExecution(
       }
       let workerResult;
       try {
-        workerResult = constructWorksiteCommandExecutionWorkerResult(input, rawValue);
+        workerResult = constructWorksiteCommandExecutionWorkerResult(input, rawValue, helperPlan);
       } catch {
         return failure("result_contract_failure");
       }
-      if (!helperArtifactPreservesProtectedObservations(input, helperValue) ||
-        canonicalJson(helperValue.commandResults as unknown as JsonValue) !==
-          canonicalJson(workerResult.commandResults as unknown as JsonValue) ||
-        canonicalJson(helperValue.predicateObservations as unknown as JsonValue) !==
-          canonicalJson(workerResult.predicateObservations as unknown as JsonValue)) {
+      if (!helperArtifactPreservesProtectedObservations(input, helperValue)) {
         return failure("protected_observation_mismatch");
       }
       let observation;
       try {
-        observation = constructWorksiteCommandExecutionObservation(
+        observation = constructWorksiteExecutionObservation(
           input,
           workerResult,
           exchange.observation,
@@ -781,3 +789,77 @@ export function realizeWorksiteCommandExecution(
     },
   });
 }
+
+function preparationDescriptor(implementationRef: string, namedSymbol: string, inputContractRef: string, outputContractRef: string): PackagedLeafImplementationDescriptor {
+  const body = { ...descriptorBody, implementationRef, namedSymbol, computeRegime: "F_D" as const, inputContractRef, outputContractRef };
+  return deepFreeze({ kind: "packaged_leaf_implementation_descriptor" as const, schemaVersion: "5.0.0" as const,
+    descriptorDigest: sha256Canonical(body), ...body });
+}
+export const WORKSITE_PREPARATION_SELECT_IMPLEMENTATION_DESCRIPTOR = preparationDescriptor(
+  WORKSITE_PREPARATION_IDS.selectImplementationRef, "selectWorksiteConstruction",
+  WORKSITE_PREPARATION_IDS.inputContractRef, WORKSITE_CONSTRUCTION_IDS.taskContractRef);
+export const WORKSITE_PREPARATION_COMMAND_IMPLEMENTATION_DESCRIPTOR = preparationDescriptor(
+  WORKSITE_PREPARATION_IDS.prepareImplementationRef, "prepareWorksiteCommands",
+  WORKSITE_PREPARATION_IDS.boundInputContractRef, WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef);
+export const WORKSITE_PREPARATION_BRANCH_SELECT_IMPLEMENTATION_DESCRIPTOR = preparationDescriptor(
+  WORKSITE_PREPARATION_IDS.selectBranchImplementationRef, "selectWorksiteBranchConstruction",
+  WORKSITE_PREPARATION_IDS.branchInputContractRef, WORKSITE_BRANCH_CONSTRUCTION_IDS.taskContractRef);
+export const WORKSITE_PREPARATION_BRANCH_COMMAND_IMPLEMENTATION_DESCRIPTOR = preparationDescriptor(
+  WORKSITE_PREPARATION_IDS.prepareBranchImplementationRef, "prepareWorksiteBranchCommands",
+  WORKSITE_PREPARATION_IDS.branchBoundInputContractRef, WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef);
+
+function realizePreparation(input: unknown, implementationRef: string, selection: boolean, branch: boolean, revision = false): Readonly<LeafRealizationCandidate> {
+  try {
+    const admitted = selection ? isWorksitePreparationInput(input) : isWorksitePreparationBoundInput(input);
+    const kind = typeof input === "object" && input !== null && "kind" in input ? input.kind : null;
+    const expectedKind = revision ? selection ? "worksite_revision_command_preparation_input" : "worksite_revision_command_preparation_bound_input" : selection
+      ? branch ? "worksite_branch_command_preparation_input" : "worksite_command_preparation_input"
+      : branch ? "worksite_branch_command_preparation_bound_input" : "worksite_command_preparation_bound_input";
+    if (!admitted || kind !== expectedKind) throw new TypeError("preparation input does not match its declared leaf");
+    const resultCandidate = (selection && isWorksitePreparationInput(input) ? selectWorksiteConstructionTask(input)
+      : !selection && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input) : null) as unknown as Readonly<Record<string, JsonValue>>;
+    if (resultCandidate === null) throw new TypeError("preparation result absent");
+    return deepFreeze({ kind: "leaf_realization_candidate" as const, schemaVersion: "5.0.0" as const,
+      disposition: "success" as const,
+      evidenceCandidates: [{ kind: "deterministic_evidence_candidate" as const, schemaVersion: "5.0.0" as const,
+        implementationRef, inputDigest: sha256Canonical(input as JsonValue), outputDigest: sha256Canonical(resultCandidate) }], resultCandidate });
+  } catch {
+    const diagnosticRef = "diagnostic://abiogenesis/worksite/command-execution/preparation-invalid@5";
+    return deepFreeze({ kind: "leaf_realization_candidate" as const, schemaVersion: "5.0.0" as const,
+      disposition: "failure" as const, evidenceCandidates: [], diagnosticRef,
+      resultCandidate: { kind: "worksite_command_execution_failure", schemaVersion: "5.0.0", failureClass: "preparation_invalid", diagnosticRef } });
+  }
+}
+export function selectWorksiteConstruction(input: unknown): Readonly<LeafRealizationCandidate> {
+  return realizePreparation(input, WORKSITE_PREPARATION_IDS.selectImplementationRef, true, false);
+}
+export function prepareWorksiteCommands(input: unknown): Readonly<LeafRealizationCandidate> {
+  return realizePreparation(input, WORKSITE_PREPARATION_IDS.prepareImplementationRef, false, false);
+}
+export function selectWorksiteBranchConstruction(input: unknown): Readonly<LeafRealizationCandidate> {
+  return realizePreparation(input, WORKSITE_PREPARATION_IDS.selectBranchImplementationRef, true, true);
+}
+export function prepareWorksiteBranchCommands(input: unknown): Readonly<LeafRealizationCandidate> {
+  return realizePreparation(input, WORKSITE_PREPARATION_IDS.prepareBranchImplementationRef, false, true);
+}
+
+const revisionDescriptorBody = { ...descriptorBody, implementationRef: WORKSITE_REVISION_IDS.implementationRef,
+  namedSymbol: "realizeWorksiteRevisionCommandExecution", inputContractRef: WORKSITE_REVISION_IDS.taskContractRef,
+  outputContractRef: WORKSITE_REVISION_IDS.observationContractRef };
+export const WORKSITE_REVISION_COMMAND_IMPLEMENTATION_DESCRIPTOR = deepFreeze({
+  kind: "packaged_leaf_implementation_descriptor" as const, schemaVersion: "5.0.0" as const,
+  descriptorDigest: sha256Canonical(revisionDescriptorBody), ...revisionDescriptorBody,
+}) satisfies PackagedLeafImplementationDescriptor;
+export const WORKSITE_REVISION_SELECT_IMPLEMENTATION_DESCRIPTOR = preparationDescriptor(
+  WORKSITE_REVISION_IDS.selectImplementationRef, "selectWorksiteRevisionConstruction",
+  WORKSITE_REVISION_IDS.inputContractRef, WORKSITE_CONSTRUCTION_IDS.taskContractRef);
+export const WORKSITE_REVISION_PREPARE_IMPLEMENTATION_DESCRIPTOR = preparationDescriptor(
+  WORKSITE_REVISION_IDS.prepareImplementationRef, "prepareWorksiteRevisionCommands",
+  WORKSITE_REVISION_IDS.boundInputContractRef, WORKSITE_REVISION_IDS.taskContractRef);
+export function selectWorksiteRevisionConstruction(input: unknown): Readonly<LeafRealizationCandidate> {
+  return realizePreparation(input, WORKSITE_REVISION_IDS.selectImplementationRef, true, false, true);
+}
+export function prepareWorksiteRevisionCommands(input: unknown): Readonly<LeafRealizationCandidate> {
+  return realizePreparation(input, WORKSITE_REVISION_IDS.prepareImplementationRef, false, false, true);
+}
+export const realizeWorksiteRevisionCommandExecution = realizeWorksiteCommandExecution;

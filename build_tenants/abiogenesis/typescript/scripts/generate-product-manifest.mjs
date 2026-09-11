@@ -1,3 +1,5 @@
+import { constructSelfConformanceAssetRows } from "../build/code/src/product/public_contract_publication.js";
+import { SELF_CONFORMANCE_INPUT_SCHEMA, SELF_CONFORMANCE_RESULT_SCHEMA, EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, QUALIFICATION_LAW_BASIS_SCHEMA, TENANT_CONFORMANCE_MANIFEST_SCHEMA, QUALIFICATION_RULE_CATALOG_SCHEMA } from "../build/code/src/validator/self_conformance_contracts.js";
 import {
   copyFile,
   cp,
@@ -51,6 +53,11 @@ import {
   constructHelloWorldModulePublication,
   constructWorksiteConstructionModulePublication,
   constructWorksiteCommandExecutionModulePublication,
+  constructWorksiteCommandForwardModulePublication,
+  constructRequirementHandoffModulePublication,
+  constructSemanticStageModulePublication,
+  constructSemanticRevisionModulePublication,
+  constructSelfConformanceModulePublication,
 } from "../build/code/src/gtl/index.js";
 import {
   PUBLIC_PROJECTION_PAYLOADS,
@@ -106,6 +113,16 @@ await Promise.all([
   rm(join(root, "contracts/schemas/operations"), { force: true, recursive: true }),
   rm(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH), { force: true }),
 ]);
+
+const selfConformanceSchemaPath = "contracts/schemas/self-conformance.schema.json";
+const selfConformanceSchema = { $schema: "https://json-schema.org/draft/2020-12/schema", $defs: Object.fromEntries([
+  ["SelfConformanceInput", SELF_CONFORMANCE_INPUT_SCHEMA], ["SelfConformanceResult", SELF_CONFORMANCE_RESULT_SCHEMA],
+  ["ExactCandidateQualificationBasis", EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA], ["QualificationLawBasis", QUALIFICATION_LAW_BASIS_SCHEMA],
+  ["TenantConformanceManifest", TENANT_CONFORMANCE_MANIFEST_SCHEMA], ["QualificationRuleCatalog", QUALIFICATION_RULE_CATALOG_SCHEMA],
+].map(([name, schema]) => [name, projectStrictJsonSchema(schema)])) };
+const selfConformanceSchemaBytes = Buffer.from(JSON.stringify(selfConformanceSchema, null, 2) + "\n");
+await writeFile(join(root, selfConformanceSchemaPath), selfConformanceSchemaBytes);
+const selfConformanceCatalogBytes = await readFile(join(root, "contracts/qualification/rule-catalog.json"));
 
 const catalogSchemaPath = "contracts/schemas/public-contract-catalog.schema.json";
 const catalogSchema = JSON.parse(
@@ -523,6 +540,7 @@ const consensusVocabularyRows = [
 }));
 
 const extantRows = [
+  ...constructSelfConformanceAssetRows({ productId, schemaBytes: selfConformanceSchemaBytes, catalogBytes: selfConformanceCatalogBytes, nativeLocator: nativeTypedLocator(validatorNativeInventory, "QualificationRuleCatalog") }),
   ...consensusContractRows,
   ...consensusVocabularyRows,
   {
@@ -972,6 +990,11 @@ const modulePublications = [
   constructConsensusModulePublication(publicationBasis),
   constructWorksiteConstructionModulePublication(publicationBasis),
   constructWorksiteCommandExecutionModulePublication(publicationBasis),
+  constructWorksiteCommandForwardModulePublication(publicationBasis),
+  constructRequirementHandoffModulePublication(publicationBasis),
+  constructSemanticStageModulePublication(publicationBasis),
+  constructSemanticRevisionModulePublication(publicationBasis),
+  constructSelfConformanceModulePublication(publicationBasis),
 ];
 const publicationBindings = modulePublications.map((publication) => ({
   moduleRef: publication.moduleRef,

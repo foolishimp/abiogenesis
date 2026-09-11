@@ -1,9 +1,9 @@
 # REQ-P-SCENARIOS - ABIogenesis 5.0 Product Scenarios
 
-**Status**: Active - T-283 base; exact STDO `v2.5.0-rc.4` qualification basis
+**Status**: Active - T-283 base; exact Definition-selected STDO qualification basis
 **Category**: Verification
 **Date**: 2026-07-25
-**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.4/standards/SPEC_METHOD.md)
+**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md)
 **Wave**: ABIogenesis 5.0
 
 ---
@@ -154,9 +154,32 @@ mutation.
 invocation through native SDK and CLI with no marketplace host, then the
 equivalent invocation through the bounded Codex projection. The projection
 shall own no copied program, traversal, event, continuation, or closure
-behavior. The scenario shall also install one independent flavored catalog
-fixture sufficient for the real odd_glc contract class and publish, apply, and
-invoke its GraphFunction using only installed public ABIogenesis contracts.
+behavior. An independent downstream catalog shall provide the real lifecycle
+witness defined by Product F17/S06 using only installed public ABIogenesis
+contracts for publication, declaration application and GraphFunction
+invocation.
+
+The witness shall bind the complete original user-authored specification by
+exact source identity and content, then traverse declared GTL through
+Intent/Product, Requirements, Design, working application behavior, admitted
+evidence and a consequential targeted revision. Every stage shall preserve
+source/predecessor identities, obligations, newly discovered obligations,
+evidence roles and residuals under
+[requirement proof carry-through](../abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md).
+Semantic adequacy shall come from admitted assessments; identity, evidence
+roles, freshness, coverage and closure eligibility shall come from total
+checks over admitted inputs. Reserved owner rulings shall retain their
+authority; weaker code/test agreement shall leave stronger obligations open.
+
+Failed verification or a changed requirement shall produce replay-visible
+pressure, invalidate affected evidence and re-enter the appropriate declared
+stage. Targeted repair and resume from persisted state shall preserve
+unaffected work and outstanding obligations. A bounded behavior/correction
+shall establish only its exercised claim. S06 witness completion shall require
+all mandatory original application outcomes, applicable independent semantic
+assessment and admitted executable evidence. Construction/test counts or
+explicit residuals alone shall not close that witness. Publication and
+maturation of the separate downstream Product shall remain independent.
 
 ### `ABG5-S07` - Exact Qualification And Release
 
@@ -168,17 +191,19 @@ pre_rc_candidate qualification
   -> prospective RC authorization
   -> immutable RC and output-only snapshot
   -> installed_rc qualification
-  -> typed FinalTapDelta
-  -> affected-gate reruns over final_tap_candidate
-  -> final verdict and stable 5.0.0 cut
-  -> post-publication released-product install proof
+  -> native same-basis green non-bypassed installed-RC verdict
+  -> actual human acceptance of the same unchanged RC
+  -> external acceptance/evidence addenda
+  -> post-publication same-Product install proof
 ```
 
 The sole qualification reducer shall govern each qualification-bearing
-subject. The final delta may change only admitted final-only release surfaces
-and shall trigger every affected gate. The post-publication install is a
-terminal read-model addendum; it cannot retroactively qualify or authorize an
-earlier subject.
+subject. Publication advances the version-line selector to the highest
+published RC ordinal independently of acceptance or adoption. A change to
+qualifying Product or release-claim bytes requires a higher RC and every
+applicable gate, not a final-cut delta or version rename. Acceptance and the
+post-publication install are external read-model addenda; they cannot amend
+the immutable cut or retroactively qualify or authorize an earlier subject.
 
 ## Ordering And Closure
 
@@ -186,13 +211,15 @@ earlier subject.
 governor. `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` may establish
 their behavior before the selected STDO release is installed. Pre-RC
 qualification and `ABG5-S07` require the exact tapped and installed STDO
-`v2.5.0-rc.4` law basis. STDO adoption shall not weaken or replace the root
+law basis selected by `stdo_abiogenesis.json`. STDO adoption shall not weaken or replace the root
 governor.
 
 **REQ-P-SCENARIOS-016**: One exact `pre_rc_candidate` shall pass
 `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` before RC
 eligibility. `ABG5-S07` then owns the release lifecycle across its distinct
-subjects. `ABG5-S04`, a post-5.0 odd_glc campaign, 5.0.1 self-use campaign,
+subjects. The complete S06 lifecycle witness is required pre-RC evidence;
+bounded intermediate threads shall not substitute for it. `ABG5-S04`, a
+separately scoped post-5.0 odd_glc maturation campaign, 5.0.1 self-use campaign,
 fixed-point proof, operation count, atom count, ticket roster, or
 implementation census is successor or derived evidence, not an additional
 5.0 scenario.

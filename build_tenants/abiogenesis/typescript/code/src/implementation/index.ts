@@ -1,6 +1,9 @@
 export { HELLO_WORLD_IMPLEMENTATION_DESCRIPTOR, realizeHelloWorld } from "./hello_world.js";
 export {
   WORKSITE_COMMAND_EXECUTION_IMPLEMENTATION_DESCRIPTOR,
+  WORKSITE_PREPARATION_SELECT_IMPLEMENTATION_DESCRIPTOR, WORKSITE_PREPARATION_COMMAND_IMPLEMENTATION_DESCRIPTOR,
+  WORKSITE_PREPARATION_BRANCH_SELECT_IMPLEMENTATION_DESCRIPTOR, WORKSITE_PREPARATION_BRANCH_COMMAND_IMPLEMENTATION_DESCRIPTOR,
+  selectWorksiteConstruction, prepareWorksiteCommands, selectWorksiteBranchConstruction, prepareWorksiteBranchCommands,
   realizeWorksiteCommandExecution,
 } from "./worksite_command_execution.js";
 export {
@@ -113,3 +116,16 @@ export {
   realizeConsensusSubmitterTaskPreparation,
 } from "./consensus.js";
 export type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
+
+export { REQUIREMENT_HANDOFF_IMPLEMENTATION_DESCRIPTOR, realizeRequirementHandoff } from "./requirement_handoff.js";
+
+export { SEMANTIC_AUTHOR_IMPLEMENTATION_DESCRIPTOR, SEMANTIC_ASSESSOR_IMPLEMENTATION_DESCRIPTOR, SEMANTIC_WORKSITE_BRIDGE_IMPLEMENTATION_DESCRIPTOR, SEMANTIC_EVIDENCE_INPUT_IMPLEMENTATION_DESCRIPTOR, SEMANTIC_ENVELOPE_OUTPUT_IMPLEMENTATION_DESCRIPTOR, realizeSemanticAuthor, realizeSemanticAssessor, realizeSemanticWorksiteBridge, realizeSemanticEvidenceInput, realizeSemanticEnvelopeOutput } from "./semantic_stage.js";
+
+export { SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS, realizeSemanticRevisionProjection, realizeSemanticRevisionAuthor, realizeSemanticRevisionAssessor, realizeSemanticRevisionBridge, realizeSemanticRevisionEvidenceInput, realizeSemanticRevisionTerminal } from "./semantic_revision.js";
+export { WORKSITE_REVISION_COMMAND_IMPLEMENTATION_DESCRIPTOR, WORKSITE_REVISION_SELECT_IMPLEMENTATION_DESCRIPTOR,
+  WORKSITE_REVISION_PREPARE_IMPLEMENTATION_DESCRIPTOR, realizeWorksiteRevisionCommandExecution,
+  selectWorksiteRevisionConstruction, prepareWorksiteRevisionCommands } from "./worksite_command_execution.js";
+export { WORKSITE_PRESERVED_RESULT_AUTHENTICATE_IMPLEMENTATION_DESCRIPTOR, WORKSITE_PRESERVED_RESULT_DERIVE_IMPLEMENTATION_DESCRIPTOR,
+  authenticateWorksitePreservedResult, deriveWorksitePreservedCandidate } from "./worksite_construction.js";
+export { WORKSITE_COMMAND_FORWARD_PREPARE_DESCRIPTOR, WORKSITE_COMMAND_FORWARD_EXECUTE_DESCRIPTOR,
+  prepareWorksiteCommandForward, realizeWorksiteCommandForward } from "./worksite_command_forward.js";

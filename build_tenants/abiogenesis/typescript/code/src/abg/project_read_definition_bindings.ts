@@ -27,9 +27,12 @@ import {
 import { projectExactPrefixWorkspaceEnvironment } from
   "./environment_admission.js";
 import { ABG_PROJECT_READ_CONTRACTS } from "./project_read_operation_contracts.js";
+import { ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA, isAbgTypedTerminalResult, type AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
 import {
   ABG_PROJECT_READ_OWNER_PORTS,
   projectRunTruthAtDurablePrefix,
+  projectGraphCallSourceAtDurablePrefix,
+  GraphCallProjectionPort,
   RunProjectionPort,
   type AbgProjectReadMemberKey,
   type AbgProjectReadPacket,
@@ -58,6 +61,7 @@ export interface AbgProjectReadResourceAssertion {
   readonly kind: "abg_project_read_resource_assertion";
   readonly schemaVersion: "5.0.0";
   readonly eventResource: ReopenAbgEventResourceAssertion;
+  readonly declarationProof?: AbgHistoricalDeclarationProof;
 }
 
 export interface AbgProjectReadResourceReceipt {
@@ -73,7 +77,7 @@ type AnyReadCallable = ExactDefinitionCallable<
   AbgProjectReadResourceReceipt
 >;
 
-type RunReadMemberKey = "run_status" | "run_result" | "run_replay";
+type RunReadMemberKey = "run_status" | "run_result" | "run_replay" | "graph_call_result" | "graph_call_replay";
 type RunReadPort = (
   input: AbgProjectReadPacket<RunReadMemberKey>,
 ) => AbgProjectReadResult<RunReadMemberKey>;
@@ -82,6 +86,8 @@ const RUN_READ_MEMBER_KEYS = Object.freeze([
   "run_status",
   "run_result",
   "run_replay",
+  "graph_call_result",
+  "graph_call_replay",
 ] as const);
 
 const EVENT_RESOURCE_ASSERTION_SCHEMA = v.custom<
@@ -117,6 +123,13 @@ const PROJECT_READ_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
   AbgProjectReadResourceReceipt,
   AbgProjectReadResourceReceipt
 >;
+
+const GRAPH_CALL_TERMINAL_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
+  kind: v.literal("abg_project_read_resource_assertion"),
+  schemaVersion: v.literal("5.0.0"),
+  eventResource: EVENT_RESOURCE_ASSERTION_SCHEMA,
+  declarationProof: v.optional(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA),
+}) as v.GenericSchema<AbgProjectReadResourceAssertion, AbgProjectReadResourceAssertion>;
 
 function fault(
   call: DefinitionCall<AnyReadPacket, AbgProjectReadResourceAssertion>,
@@ -252,6 +265,8 @@ function refusalOutput(
   code:
     | "unknown_source"
     | "source_digest_mismatch"
+    | "range_invalid"
+    | "cursor_invalid"
     | "projection_basis_mismatch",
   issuePath: string,
 ): OwnerSemanticOutput<AnyReadPacket> {
@@ -320,7 +335,10 @@ function resultProjection(
     ["resultRef"],
     ["resultDigest"],
   );
-  if (replay === null || terminalRoute === null || result === null) {
+  const terminalResult = value.terminalResult;
+  if (replay === null || terminalRoute === null || result === null ||
+      !isAbgTypedTerminalResult(terminalResult) || !sameJson(result, terminalResult.result) ||
+      !sameJson(terminalRoute, terminalResult.producer.terminalRoute)) {
     throw new TypeError("result projection lacks terminal owner coordinates");
   }
   return {
@@ -329,6 +347,7 @@ function resultProjection(
       : "graph_call_result_projection",
     subject: sourceCoordinate(request),
     result,
+    terminalResult: terminalResult as unknown as JsonValue,
     terminalRoute,
     replay,
   };
@@ -343,8 +362,8 @@ function evidenceProjection(
   if (replay === null) throw new TypeError("evidence projection lacks replay identity");
   const eventAtoms = coordinateSet(
     value.eventAtoms,
-    ["atomRef", "eventId"],
-    ["atomDigest", "eventDigest"],
+    ["atomRef"],
+    ["semanticPayloadDigest"],
   );
   const evidence = Array.isArray(value.evidenceRefs)
     ? (value.evidenceRefs as JsonValue[]).flatMap((row) => {
@@ -380,6 +399,8 @@ function replayProjection(
     replay,
     fromOrdinal: selector.fromOrdinal,
     limit: selector.limit,
+    ...(memberKey === "run_replay" || memberKey === "graph_call_replay"
+      ? { status: value.runtimeStatus!, terminalResult: value.terminalResult! } : {}),
   };
 }
 
@@ -462,9 +483,10 @@ function projectValue(
 
 function nativeRefusalCode(
   result: AbgProjectReadRefusal,
-): "projection_basis_mismatch" | "not_found" {
+): "projection_basis_mismatch" | "not_found" | "not_ready" {
   return result.code === "target_absent"
     ? "not_found"
+    : result.code === "target_not_ready" ? "not_ready"
     : "projection_basis_mismatch";
 }
 
@@ -474,6 +496,16 @@ function outputFor(
   memberKey: AbgProjectReadMemberKey,
   native: AbgProjectReadResult,
 ): OwnerSemanticOutput<AnyReadPacket> {
+  if (native.kind === "abg_project_read_projection" &&
+      (memberKey === "run_replay" || memberKey === "graph_call_replay")) {
+    const selector = asRecord(request.selector)!;
+    const value = asRecord(native.value)!;
+    const offset = selector.fromOrdinal as number, limit = selector.limit as number;
+    if (!Number.isSafeInteger(offset) || offset < 0 || !Number.isSafeInteger(limit) || limit < 1 ||
+        !Number.isSafeInteger(offset + limit)) return refusalOutput(packet, "range_invalid", "/selector");
+    if (!Array.isArray(value.eventAtoms)) throw new TypeError("replay lacks the selected scope population");
+    if (offset > value.eventAtoms.length) return refusalOutput(packet, "cursor_invalid", "/selector/fromOrdinal");
+  }
   const output = native.kind ===
       "abg_project_read_refusal"
     ? {
@@ -502,7 +534,8 @@ function outputFor(
   return output as unknown as OwnerSemanticOutput<AnyReadPacket>;
 }
 
-/** One authority/currentness relation shared by the three fixed Run reads. */
+/** One authority/currentness relation shared by the Run reads and their two
+ * typed GraphCall companions. Declaration evidence reaches the native owner. */
 function runReadKernel(
   packet: AnyReadPacket,
   port: RunReadPort,
@@ -625,17 +658,17 @@ function runReadKernel(
             ),
           );
         }
-        const truth = projectRunTruthAtDurablePrefix(
-          resource.entryPrefix,
-          source.ref,
-        );
-        if (truth.kind !== "abg_run_truth_projection") {
+        const graphRead = packet.definitionKey.memberKey === "graph_call_result" || packet.definitionKey.memberKey === "graph_call_replay";
+        const runTruth = graphRead ? null : projectRunTruthAtDurablePrefix(resource.entryPrefix, source.ref);
+        const truth = graphRead ? projectGraphCallSourceAtDurablePrefix(resource.entryPrefix, source.ref)
+          : runTruth?.kind === "abg_run_truth_projection" ? { source: runTruth.run, workspaceBinding: runTruth.workspaceBinding } : null;
+        if (truth === null) {
           return finishRead(
             resource,
             refusalOutput(packet, "unknown_source", "/source/sourceRef"),
           );
         }
-        if (source.ref !== truth.run.ref || source.digest !== truth.run.digest) {
+        if (source.ref !== truth.source.ref || source.digest !== truth.source.digest) {
           return finishRead(
             resource,
             refusalOutput(packet, "source_digest_mismatch", "/source/sourceDigest"),
@@ -661,6 +694,8 @@ function runReadKernel(
           memberKey: packet.definitionKey.memberKey,
           prefix: resource.entryPrefix,
           targetRef: source.ref,
+          ...(graphRead && call.resources.declarationProof !== undefined
+            ? { declarationProof: call.resources.declarationProof } : {}),
         } as AbgProjectReadPacket<RunReadMemberKey>);
         return finishRead(
           resource,
@@ -803,7 +838,7 @@ const RUN_READ_DEFINITION_BINDINGS = Object.freeze({
     ABG_PROJECT_READ_CONTRACTS.run_status,
     runReadKernel(
       ABG_PROJECT_READ_CONTRACTS.run_status,
-      RunProjectionPort.run_status as RunReadPort,
+      (input) => RunProjectionPort.run_status(input as AbgProjectReadPacket<"run_status">),
     ),
     PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
     PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
@@ -812,7 +847,7 @@ const RUN_READ_DEFINITION_BINDINGS = Object.freeze({
     ABG_PROJECT_READ_CONTRACTS.run_result,
     runReadKernel(
       ABG_PROJECT_READ_CONTRACTS.run_result,
-      RunProjectionPort.run_result as RunReadPort,
+      (input) => RunProjectionPort.run_result(input as AbgProjectReadPacket<"run_result">),
     ),
     PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
     PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
@@ -821,10 +856,20 @@ const RUN_READ_DEFINITION_BINDINGS = Object.freeze({
     ABG_PROJECT_READ_CONTRACTS.run_replay,
     runReadKernel(
       ABG_PROJECT_READ_CONTRACTS.run_replay,
-      RunProjectionPort.run_replay as RunReadPort,
+      (input) => RunProjectionPort.run_replay(input as AbgProjectReadPacket<"run_replay">),
     ),
     PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
     PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+  ),
+  graph_call_result: bindExactPrefixRead(
+    ABG_PROJECT_READ_CONTRACTS.graph_call_result,
+    runReadKernel(ABG_PROJECT_READ_CONTRACTS.graph_call_result, (input) => GraphCallProjectionPort.graph_call_result(input as AbgProjectReadPacket<"graph_call_result">)),
+    GRAPH_CALL_TERMINAL_RESOURCE_ASSERTION_SCHEMA, PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+  ),
+  graph_call_replay: bindExactPrefixRead(
+    ABG_PROJECT_READ_CONTRACTS.graph_call_replay,
+    runReadKernel(ABG_PROJECT_READ_CONTRACTS.graph_call_replay, (input) => GraphCallProjectionPort.graph_call_replay(input as AbgProjectReadPacket<"graph_call_replay">)),
+    GRAPH_CALL_TERMINAL_RESOURCE_ASSERTION_SCHEMA, PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
   ),
 });
 

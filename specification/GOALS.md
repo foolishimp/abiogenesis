@@ -15,9 +15,42 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one source-independent ABIogenesis 5.0 Product for a trusted developer desktop as the feature-complete successor to immutable 4.6. | The 16 selected feature families cross one installed vertical path and one exact candidate closes qualification, immutable RC, final tap, and fresh post-publication installation without a rival Program, executor, controller, event authority, or release subject. | Active; Wave 2 is on `HOLD` pending bounded baseline repairs and integrated evidence. The current `goal_reprice` selects bounded baseline-repair planning in T-287. W2-BL-DOCS is completed and Executive-accepted for documentation only; its write grant is exhausted. No Writer activation is open. Four blocking workstreams are planned and not activated; C1 schema assurance is retained as P3. C0 remains an unaccepted frozen design candidate; accepted C1/C2 HOW is unchanged. The former 19-path selection is preserved predecessor scope and grants no work now. No implementation, design acceptance, artifact, qualification, release, live/model, odd_glc, or Git effect is selected. |
+| `GOAL-035` | Deliver one installed, source-independent ABG 5.0 that supports odd_glc's complete specification-driven lifecycle, preserves requirements through construction and evidence-driven revision, satisfies the existing 16-family Product, and progresses through immutable RC publication and qualification to actual human acceptance of that same unchanged RC. | A real user-authored specification reaches verified application behavior through declared GTL/HoG/ABG progression; unmet obligations remain visible and prevent unsupported completion. One exact candidate satisfies the owning Product qualification and release conditions. | Active; accepted Waves 1 and 2 remain banked. The [current delivery plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan) replaces the remaining wave order; M5-M7 remain open. |
 
 ## Current Selection
+
+The owner accepted the revised plan on 2026-09-09: "yes, update the tickets
+and goals to this new delivery plan". [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan)
+owns the six delivery increments, feature gaps, dependencies and completion
+conditions. [odd_glc T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md)
+owns lifecycle composition and application acceptance. These goals own the
+overall outcome; the tickets own its execution state.
+
+The next integration target is the full specification -> Intent/Product ->
+Requirements -> Design -> application -> evidence chain, followed by one
+consequential correction. A first bounded thread preserves all remaining
+requirements; full Data Mapper success requires the original mandatory
+application outcomes. Construction/test counts do not establish that success.
+
+Executive's current selection is recorded in [Checkpoint12](../.ai-workspace/comments/codex/20260911_ABG5_EXECUTIVE_CHECKPOINT_12/checkpoint.md), within unchanged fixed16/GOAL-035/T287 D1–D6. Working solutions and accepted cuts that satisfy their design reference frames are preserved. The accepted [Integration02 canonical application](../.ai-workspace/comments/codex/20260911_ABG5_ACCEPTED_SOURCE_INTEGRATION_02/application-03/return.md) preserves complete Source20 plus Source42; Root53/56 accept bounded source/application, not native completion. All321 source/support and154 test/support members are preserved in the local WIP checkpoint scope. Root58 accepts corrected F11/D5 Source08/API03; Worker09 composes them with I02 only in isolated Integration03. Worker26 liveness/profile implementation remains isolated. D2 Execution37 is closed failed with no native recovery/retry grant.
+
+[Native09](../.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/execution-01/manifest.json) retains initial22 C0/C1, truthful C2 exit1 and fresh-read evidence. [Execution37](../.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/installed-witness-continuation-13/execution-01/return.md) closes after nine Public launches/eight receipts at913 events: first selection/fresh reads/repair conformance pass, but start15 times out. No repair actor/helper/C0/C1/C2/app effect or post-repair replay occurs. Root Review40 accepts the preserved failure only; processes are quiescent while the native Run remains active, with the abandoned lock and stale receipt13 handoff preserved. Neither repair is qualified. Source04 old46/48/795-null, Source06 inherited24/26 and Integration01 inherited29/34 remain historical. Original Data Mapper, D1–D6/S06 and same-subject qualification remain open.
+
+Reference frames apply through LLM role/context selection and typed native projections, not a new authority or ledger. Released RC6 Representation/a_c is used; the local ABI map is stale and unused. Accepted [native profile compatibility](../build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md) and [interrupted resource recovery](../build_tenants/abiogenesis/typescript/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md) preserve genuine installed maintenance authority, exact handoff/prefix/lock ownership and existing witnessed stop under L before P. They grant no recovery or retry. EVENTS022/023 remains an active D4/F10 5.0 conservation gap, not F12 deferral; its accepted liveness HOW is applied and Worker26 composes the native kinds into one current profile. Corrected F11/D5 Source08/API03 is accepted bounded source readiness under [qualification HOW](../build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md);53 unbound mappings receive no native credit. All owning gates and sole AF22 remain required. Root55 accepts D6 artifact-admission HOW07, not yet canonical or implemented. Applied RC6 one-cut law adds no second cut or derived release gate; native qualification and actual human acceptance remain open.
+
+D1's [first full-source/paired-open-obligation checkpoint](../.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-acceptance/disposition.md), four assessed stages and earlier failures retain their scopes. [Recovery13](../.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/preserved-result-implementation-01/installed-run-preparation-04/execution-01/return.md) remains closed failed after22 C0,22-member C1 and prepared C2, with no C2 actor/command. Source20's [prospective composition proof](../.ai-workspace/comments/codex/20260911_D1_C2_FORWARD_COMPOSITION_PROOF_23/manifest.json) is accepted after Root48 and integrated as I02; final semantic consumption and native forward execution remain unqualified. D3 still owes full original-source obligations and application outcomes. D1–D4/M5, mandatory F17/S06, other scenarios,4.6 conservation and F12/S04 at5.1 remain unchanged; [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#readiness-and-next-re-entry) owns remaining work.
+
+### Accepted Evidence
+
+- Wave 1's functional substrate and [Wave 2's four threads/B06 closure](../.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-04-acceptance/disposition.md) remain accepted for their exact subjects.
+- [C1 text output](../.ai-workspace/comments/codex/20260909_C1_TEXT_OUTPUT/acceptance/disposition.json) and [C2 compact acknowledgment](../.ai-workspace/comments/codex/20260909_C2_HELPER_ACK/acceptance/disposition.json) remain accepted; their completed grants and stated C0/C2 limits are unchanged.
+- The [seven-scenario campaign](../../odd_glc/.ai-workspace/comments/codex/20260909_FULL_LIVE_SUITE/execution.md#executive-acceptance-of-the-seven-scenario-campaign) remains accepted construction/execution evidence: six Hello outcomes on artifact8a, Data Mapper construction on artifact9a and final repair/C2 on artifact4863, with 58 passes and nine predicates. It is not full original-specification Data Mapper, all-seven-on-one-artifact, repeatability or release qualification.
+- The [RC6 migration](../.ai-workspace/comments/codex/20260906T152118Z_STDO_RC6_MIGRATION/README.md) remains accepted under the unchanged Definition and companion composition. odd_glc independently retains RC4.
+- [S01 Execution06/root Review06A](../.ai-workspace/comments/codex/20260911_ABG5_EXECUTIVE_CHECKPOINT_08/root-reviews.md#s01-installed-review06a) is accepted for R1–R9 only on its exact cut. D2 Source05/Review20, HOW21/Review22, R10 HOW07/Review08 and HOW10/Review11, and D1 source/readiness/partial setup retain distinct bounded scopes in [Checkpoint08](../.ai-workspace/comments/codex/20260911_ABG5_EXECUTIVE_CHECKPOINT_08/checkpoint.md); none closes native continuation, typed R10, an integrated candidate or release.
+
+### Retained Baseline-Repair Planning
+
+This section preserves predecessor planning. Current Selection and T-287 record completed Wave 2 work; earlier planning conditions confer no current activation.
 
 The user accepted the baseline recommendation and directed that the review and
 its tracking be saved. The smallest lawful re-entry is `goal_reprice`: select
@@ -25,8 +58,8 @@ bounded Wave 2 baseline-repair planning while conserving the fixed Product,
 Intent, requirements, 16 feature families, scenarios, and release subjects.
 
 `W2-BL-DOCS` is completed and Executive-accepted for accurate documentation
-and tracking only. Its run-scoped write grant is exhausted; no Writer or repair
-activation is open. Under direct user direction, its exact territory was this
+and tracking only. Its run-scoped write grant is exhausted; the separate C0
+activation in [Current Selection](#current-selection) owns bounded B04 disposition. The completed documentation territory was this
 GOALS file, [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md),
 and the [baseline review](../.ai-workspace/comments/codex/20260905T042941Z_REVIEW_abiogenesis_wave2_stdo_baseline.md).
 T-287 records the exhausted grant, acceptance, and durable return surface. The
@@ -35,18 +68,18 @@ supersedes the former 19-path canonical-root I/E selection as current work
 authority. Its frozen source, old review results, hashes, and prior scopes
 remain predecessor evidence; none is a current mutation grant.
 
-Wave 2 remains on `HOLD` until the four blocking streams and their joined
-evidence close on the appropriate exact subjects:
+Wave 2 and the selected sequence are closed; their exact accepted evidence remains the basis for later work.
+Current disposition and remaining streams are:
 
 | T-287 workstream | Finding and priority | State and dependency |
 |---|---|---|
-| `W2-BL-PUBLIC` | B01-B03; P1 | Planned, not activated. Close exact-call admission and operation-indexed routing with legacy Public retirement as one coherent family. |
-| `W2-BL-C0` | B04; P2 | Planned, not activated. Complete the post-publication failure design before bounded realization. |
-| `W2-BL-C2` | B05; P2 | Planned, not activated. Resolve explicit executable basis and historical validation; re-enter design if that contract decision is missing. |
-| `W2-BL-PROOF` | B06; P2 | Planned, not activated. Prepare bounded fixture repairs against fixed contracts; final installed evidence depends on accepted exact Public/C0/C2 source. |
-| `W2-BL-C1-P3` | B07; P3 | Deferred, retained in T-287 with owner, trigger, falsifier, and closure evidence. |
+| `W2-BL-PUBLIC` | B01-B03; P1 | Accepted on the exact STEEL-BASIC-CLI-01 subject: common-call admission, lawful installed routing and legacy Public retirement. Grants exhausted; no all-definition assurance claim. |
+| `W2-BL-C0` | B04; P2 | Correction-01 completed and Executive-accepted after independent `satisfied`; [Current Selection](#current-selection) owns its bounded disposition. Historical evidence retains its exact scope. |
+| `W2-BL-C2` | B05; P2 | Accepted on the exact STEEL-BASIC-CLI-01 subject: executable basis, exact semantic tool input, source join and admitted result/replay. Grants exhausted. |
+| `W2-BL-PROOF` | B06; P2 | Basic-cli evidence remains accepted. Applicable fixture refresh and Public SDK/CLI/schema/owner agreement are accepted; T-287 binds the closed routes and exclusions. |
+| `W2-BL-C1-P3` | B07; P3 | Executive-closed for accepted design/schema/raw-admission agreement at deterministic-fixture bounds; live text completion and Data Mapper remain with T-043. |
 
-The recommendation acceptance selects work-wave direction. It does not accept
+The historical recommendation acceptance selected work-wave direction. It did not accept
 the review findings as repaired, a design amendment, candidate code, an
 installed artifact, a release, or Product closure. Later repairs require
 separately declared bounded Writer activations and independent review at the
@@ -57,10 +90,11 @@ The current review found Program-owner and unique-install checks in
 `abg/execution_basis.ts` and `implementation/worksite_file_replace.ts`.
 It did not reproduce the earlier owner-unity finding. That finding requires
 explicit reassessment against current source; repair is not automatically the
-next action, and full closure is not claimed. C0's frozen candidate remains
-unaccepted. C1/C2 accepted design identities remain unchanged. The design README
-and old handoffs remain untouched pre-baseline status context; current selection
-is owned by these GOALS and T-287.
+next action, and full closure is not claimed. The earlier unaccepted C0
+candidate is the preimage for the accepted B04 HOW; current implementation and
+proof disposition remains in T-287. C1/C2 accepted
+design identities remain unchanged. The design README and old handoffs retain
+pre-baseline status context; these GOALS and T-287 own current selection.
 
 ## Pre-Baseline Worksite-Root Selection (Historical)
 
@@ -129,23 +163,21 @@ The exact design subjects are:
 - `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C1_LIVE_LLM_WORKSITE_CONSTRUCTION_DESIGN.md`
 - `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md`
 
-C1 and C2 retain their accepted exact SHA-256 identities in T-287 and the design
-index. Prior accepted C0 bytes had SHA-256
+C1 and C2 retain their exact historical acceptance identities in T-287 and the
+design index. RC6 migration changes only C2's method header; its accepted HOW
+is conserved, and its historical accepted hash is not a claim about those
+successor metadata bytes. C0 and C1 bytes remain unchanged. Prior accepted C0 bytes had SHA-256
 `427ced47826e95ef0262ca0d4797eaf144b07d14e30f8e4ace1de6b585864b84`.
-The current C0 candidate has SHA-256
+The then-current C0 candidate had SHA-256
 `7cd8a5a905cdb02c8431b06224df5aa46cfc8f759a7dc5c1fd4712e66c652240`
-and is frozen, not accepted, pending independent review. The former exact 19-path I/E territory is preserved predecessor scope. Its
+and remained frozen and unaccepted at that historical cut. The former exact
+19-path I/E territory is preserved predecessor scope. Its
 Stage 1 bytes remain frozen on `HOLD` and confer no current source or Stage 2
 authority. The current baseline workstreams supersede that selection.
 
-## Downstream Reacquisition Gate (Prospective And Unselected)
+## Downstream Reacquisition Gate
 
-No downstream run is selected by the current baseline-planning selection. Only after the selected
-realization/evidence subject and one exact installed artifact are independently
-accepted may a later Executive select reacquisition.
-The unchanged `basic-cli` subject must run first. Only after its complete
-admitted result and fresh replay pass may the frozen `js-tenant-test` subject
-run.
+[Current Selection](#current-selection) follows the sequence owned by T-287: basic-cli and `js-tenant-test` are accepted on the same exact artifact, and T-287 records all four accepted sequence threads, including serial aggregate success/failure and applicable inspection evidence.
 
 For both runs the exact-prefix environment projects full `A` and `W`; the ABI
 tasks admit that exact pair before dispatch; authored targets including
@@ -163,8 +195,8 @@ no `1/7` scenario credit.
 ## Retained C0-C3 Predecessor Record
 
 The following coordinates record earlier accepted or diagnostic subjects. They
-do not override the current frozen C0 review candidate, accepted C1/C2 HOW, or
-the current baseline-planning selection. C3 remains unchanged except that its exact nested C1
+do not override [Current Selection](#current-selection), the accepted B04 HOW,
+or accepted C1/C2 HOW. C3 remains unchanged except that its exact nested C1
 tasks inherit full authority-basis propagation and mixed bases refuse.
 
 Prior `W2-R3-C0-I` implements the bounded mutable-worksite causal atom required by
@@ -175,7 +207,7 @@ had SHA-256
 `ccb19745eadca757db028cf0c5ded5d92d3507f65f0ba7189958984117ed475a`.
 The later accepted root-reframe bytes had SHA-256
 `427ced47826e95ef0262ca0d4797eaf144b07d14e30f8e4ace1de6b585864b84`;
-the live path now contains the bounded atomic-window candidate named above.
+the later atomic-window candidate is the preserved B04 preimage named above.
 
 The increment starts from one admitted `WorkspaceBinding` and a closed
 pre-basis file-replace request containing the exact `run.invoke` grant,
@@ -329,17 +361,11 @@ Product goal without downstream odd consumption.
 
 ## Selection Boundary
 
-Selected now: bounded baseline-repair planning with four planned repair streams
-and deferred C1 assurance. W2-BL-DOCS has completed publication and tracking;
-the Executive accepted that documentation, and its three-path write grant is
-exhausted. No Writer activation or writable path is open. All design,
-code, tests, package/generated bytes, installed Products, other comments, Git,
-network, model, and downstream effects are outside this activation.
-
-The future candidate territories in T-287 are planning boundaries, not write
-grants. No whole-project reset, feature-set change, later-wave prerequisite, or
-odd_glc release dependency is introduced. Integrated installed proof follows
-dependency-ready repairs; the completed documentation increment performed none.
+[Current Selection](#current-selection) is the sole continuing selection
+projection; T-287's W2-BL-C0 entry owns exact corrective disposition and retained
+prior dispositions. W2-BL-DOCS and the RC6 migration are completed with exhausted
+grants. Their retained planning and the historical territory below do not
+create another activation. The accepted Wave 2 closure is preserved; the revised delivery selection is owned by Current Selection.
 
 ### Pre-Baseline Nineteen-Path Territory (No Current Grant)
 
@@ -358,8 +384,9 @@ The pre-baseline selection recorded:
 - staged mutation and evidence over exactly these 19 existing paths, now
   preserved as predecessor scope.
 
-The former Stage 1 territory contains exactly nine production paths. Its bytes
-remain frozen on `HOLD`; no source mutation is currently authorized. The old
+The former Stage 1 territory contains exactly nine production paths. Its frozen
+historical subject remains on `HOLD` and grants no source mutation. The completed
+B04 overlap is recorded by [Current Selection](#current-selection). The old
 sequence proposed owner-unity repair after C0 acceptance. The baseline now
 requires explicit reassessment because current checks exist; neither automatic
 repair nor closure follows from the older reviews. The retained paths are:
@@ -375,7 +402,8 @@ repair nor closure follows from the older reviews. The retained paths are:
 9. `build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts`
 
 The former Stage 2 territory contained these eight support/evidence paths and
-two generated outputs. It is not activated by the current selection:
+two generated outputs. That whole territory remains unactivated; the completed
+B04 support-fixture overlap is recorded separately in T-287:
 
 1. `build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs`
 2. `build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs`
@@ -414,27 +442,25 @@ The pre-baseline exclusions were:
   and every Git add/commit/tag/push effect; or
 - allocation or burning of `5.0.0-dev.288`.
 
-C1 and C2 remain immutable accepted inputs. The C0 candidate remains frozen
-and unaccepted. The predecessor Stage 1 source subject remains on `HOLD`;
-Stage 2 is not activated. These GOALS retain the bounded baseline plan after
-completed W2-BL-DOCS; no Writer grant remains open. Each later activation freezes
-its own exact subject for the applicable
-independent review; a Reviewer reports to the Executive and performs no repair.
+The predecessor C0 candidate and Stage 1 source retain their historical
+unaccepted/HOLD dispositions; they do not determine the status of the separately
+accepted B04 HOW or its current implementation. [Current Selection](#current-selection)
+and T-287 own that status. C1/C2 accepted HOW remains unchanged. Every activated
+increment returns its own frozen subject to Executive for applicable independent
+review; a Reviewer performs no repair.
 
 ## Fixed Basis
 
 - Intent, Product meaning, requirements, public operation families, event-kind
   census, feature membership, scenarios, and release subjects are unchanged.
-- Immutable STDO `v2.5.0-rc.4`, annotated tag object
-  `032dac0c833111547f7dd4b290c5316ed9b70f97`, commit
-  `7a25668a8fecfd26f895759af3bec4708727964a`, installed-manifest SHA-256
-  `4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e`,
-  and standards member-set SHA-256
-  `504db879867f60e46ed4dea60509d12056d10cdd8c3460dc94abf7bc56542656`
-  govern ABIogenesis 5.0.
-- STDO Representation `v0.1.0-rc.1` remains a historical Development Product;
-  its represented method basis is not RC4. Only a freshness-verified map over
-  the exact selected source may route attention. Maps and prompts grant no ABI
+- [`stdo_abiogenesis.json`](../stdo_abiogenesis.json),
+  `constitution.stdo.basis`, is the sole exact operative STDO selection. The
+  direct owner ruling adopts the immutable RC6 cohort for all resumed work;
+  its exact install evidence is retained by the migration record.
+- The Definition's composition selects exact release-matched Axiom Indexer and
+  STDO Representation Development Products. Older installs and their maps are
+  historical, non-operative context. Only a freshness-verified map over the
+  selected exact source may route attention. Maps and prompts grant no ABI
   authority.
 - The project extension
   `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis`
@@ -451,48 +477,24 @@ shape-preserving fibre-substitution differential.
 
 ## Feature-Wave Status
 
-| Wave | Feature families | State |
-|---:|---|---|
-| `1` | `A5-F10`, `A5-F02`, `A5-F03`, `A5-F04` | Accepted functional predecessor. The C0 root interpretation is reopened only as HOW; integrated qualification remains later work. |
-| `2` | `A5-F01`, `A5-F09`, `A5-F05`, `A5-F06`, bounded early `A5-F17` | `HOLD` pending W2-BL-PUBLIC, W2-BL-C0, W2-BL-C2, and W2-BL-PROOF plus integrated evidence. W2-BL-DOCS is completed and Executive-accepted for documentation only; its grant is exhausted. No Writer activation is open; repairs are planned, not activated. W2-BL-C1-P3 is deferred. C0 is unaccepted; accepted C1/C2 and C3 behavior are conserved. No artifact, qualification, release, odd/live, or Product-goal acceptance. |
-| `3` | `A5-F14`, `A5-F07`, `A5-F08` | Pending Wave 2. |
-| `4` | `A5-F13`, `A5-F17`, `A5-F11` | Pending Wave 3. |
-| `5` | `A5-F15`, `A5-F16` | Pending Wave 4. |
-
-Selecting the `A5-F10` C0 repair inside the current Wave 2 schedule neither
-reopens all of Wave 1 nor claims its integrated closure.
-
-The accepted `ST-S01-ROOT/S1` design and carrier amendment remain predecessor
-authority only. S1 realization is still stopped on its separate P0 evidence-DAG
-prerequisite and grants no runtime, scenario, qualification, or release credit.
-The historical 2026-08-23 namespace census left `5.0.0-dev.288` unburned; it is
-a floor, not the current implementation identity.
+Waves 1 and 2 retain their accepted, subject-bound evidence. The former Waves
+3-5 are historical scheduling groups, superseded by [T-287's delivery plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan).
+Its feature assessment distinguishes implemented mechanisms, missing
+capabilities and outstanding qualification; wave acceptance is not complete
+5.0 feature or exact-candidate qualification.
 
 ## Work And Milestones
 
-- T-287 is the sole active work authority for this increment.
-- Prior C0/C1/C2/C3 I/E is predecessor evidence only for its exact historical
-  subject; it does not prove canonical-root worksite separation.
-- T-287 durably tracks four blocking baseline workstreams and one deferred P3
-  capsule. Their candidate source/design territories are not write grants.
-  The former exact 19-path I/E selection and frozen source are predecessor
-  evidence only. The completed documentation operation leaves no open Writer
-  grant. All implementation, design, test, package/generated, artifact, qualification,
-  odd_glc/live/model, version, RC, tap, release, and Git effects remain unselected.
-- Future proof may prepare fixed-contract fixture updates, but final installed
-  consumer and distinct-root evidence depends on accepted exact Public/C0/C2
-  source. C0 failure law is completed at design before realization; C2 returns
-  to design if its executable-basis/historical-validation decision is missing.
-  No later wave or odd_glc release is a new prerequisite for these repairs.
-- An implementation or review result does not allocate a version or advance a
-  release subject.
+T-287 owns generic ABG delivery; [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md)
+owns the dependent GLC lifecycle and application outcomes. Reuse the retained
+instance and accepted evidence; reopen only materially affected relations.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | Waves 1-4 place all pre-qualification features, negatives, scenarios, publication truth, and conservation evidence on one exact candidate. | Active umbrella; Wave 2 `HOLD` pending bounded baseline repairs and integrated evidence. No M5 closure. |
-| `M6` | `A5-F15` accepts method binding, self-conformance, pre-RC scenarios, and 4.6 conservation on one pre-RC candidate. | Pending M5. |
-| `M7` | `A5-F16` accepts distinct immutable RC, installed RC, final tap, released Product, and fresh post-publication install as stable `5.0.0`. | Pending M6. |
+| `M5` | T-287 D1-D4 place the required lifecycle witness, complete pre-qualification features, applicable negatives and conservation evidence on one integrated candidate. | Open; accepted source ancestry is integrated and canonically applied, not jointly qualified. Recovery13 is closed failed with22 C0/C1 and prepared C2 banked; forward Worker20, D2 continuation and native F11/D5 work remain open. Full D1-D4 and original mandatory application outcomes are required; accepted Waves1/2 remain banked. |
+| `M6` | D5 qualifies that exact pre-RC candidate through self-conformance, the complete required scenario/gate set and the sole qualification reducer. | Acceptance waits for M5; prerequisite qualification-tooling implementation may proceed in parallel under its own sufficient authority. |
+| `M7` | D6 publishes the immutable RC, qualifies its fresh install, records actual human acceptance of that same unchanged RC, and verifies it after publication. | Publication waits for the appropriate exact verdict; release-mechanics preparation need not wait for M6 closure. |
 
-Progress reports name the selected relation, exact subject, reached causal
-boundary, evidence coordinates, counterexamples, and first refusing owner.
-Counts of files, tests, reviews, or commits are not Product progress.
+Progress reports name the active D increment, reached user outcome, remaining
+requirements, first blocker and exact supporting evidence. Counts of files,
+tests, reviews or commits do not establish Product completion.

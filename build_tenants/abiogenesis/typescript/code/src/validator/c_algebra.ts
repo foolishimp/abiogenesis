@@ -16,7 +16,7 @@ export interface CProgramValidationContext {
   readonly callableGraphFunctionRefs: ReadonlySet<string>;
   readonly contractRefs: ReadonlySet<string>;
   readonly bindingByRef: ReadonlyMap<string, Readonly<ImplementationBinding>>;
-  readonly expectedRootResultCardinality?: "one" | "zero";
+  readonly expectedRootResultCardinality?: "one" | "zero" | "consumed";
 }
 
 export interface CProgramTermInspection {
@@ -470,7 +470,7 @@ export function inspectCProgramTerm(
   const diagnostics: StaticDiagnostic[] = [];
   const term = inspectTerm(value, context.path, context, diagnostics);
   const expectedCardinality = context.expectedRootResultCardinality ?? "one";
-  if (term !== null && cTermResultCardinality(term) !== expectedCardinality) {
+  if (term !== null && expectedCardinality !== "consumed" && cTermResultCardinality(term) !== expectedCardinality) {
     diagnostics.push(diagnostic(
       "invalid_result_cardinality",
       context.path,

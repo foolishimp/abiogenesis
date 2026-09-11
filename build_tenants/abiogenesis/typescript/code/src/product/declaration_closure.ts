@@ -1,3 +1,11 @@
+import { semanticLifecycleRefForProgram, validSemanticProgramOwners } from "../gtl/semantic_stage.js";
+import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+import { WORKSITE_CONSTRUCTION_IDS } from "./worksite_construction.js";
+import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution.js";
+import { WORKSITE_REVISION_IDS } from "./worksite_revision_identity.js";
+import { validRequirementHandoffPublication } from "../gtl/requirement_handoff.js";
+import { worksitePreservedResultSourceOfGraphFunction, WORKSITE_PRESERVED_RESULT_IDS } from "../gtl/worksite_construction_recovery.js";
 import {
   projectCProgramNodeDeclarationReferences,
   projectGraphFunctionApplicationDeclarationReferences,
@@ -17,12 +25,64 @@ import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
+  admitGraphFunctionCatalog,
+  narrowGraphFunctionCatalog,
   lookupGraphFunctionDefinition,
+  type CatalogReadinessBasis,
   type GraphFunctionCatalogEntry,
   type GraphFunctionCatalogView,
   type ReadyGraphFunctionCatalog,
 } from "./catalog.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
+import { isWorksiteCommandForwardGraphFunction } from "../gtl/worksite_command_forward.js";
+import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "./worksite_command_forward_identity.js";
+
+/** Supplied declarations are reconstructed against facts supplied by the native
+ * environment owner. This pure relation is shared by conformance and replay;
+ * it neither admits installs nor confers authority on a supplied Catalog. */
+export function reconstructHistoricalDeclarationCatalog(
+  supplied: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>,
+  environment: Readonly<{
+    workspaceBinding: CatalogReadinessBasis["workspaceBinding"];
+    resolvedLock: CatalogReadinessBasis["resolvedLock"];
+    installedProducts: CatalogReadinessBasis["installedProducts"];
+  }>,
+): Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }> {
+  const same = (left: unknown, right: unknown) =>
+    canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
+  const catalog = admitGraphFunctionCatalog(supplied.catalog.readinessBasis);
+  if (catalog.kind !== "graph_function_catalog" || !same(catalog, supplied.catalog) ||
+      !same(catalog.readinessBasis.workspaceBinding, environment.workspaceBinding) ||
+      !same(catalog.readinessBasis.resolvedLock, environment.resolvedLock) ||
+      catalog.readinessBasis.installedProducts.length !== environment.installedProducts.length ||
+      new Set(environment.installedProducts.map((row) => canonicalJson(row as unknown as JsonValue))).size !==
+        environment.installedProducts.length ||
+      catalog.readinessBasis.installedProducts.some((candidate) =>
+        environment.installedProducts.filter((install) => same(install, candidate)).length !== 1)) {
+    throw new TypeError("declaration Catalog differs from its exact admitted workspace, installs or lock");
+  }
+  const catalogView = narrowGraphFunctionCatalog(catalog, supplied.catalogView.allowlist);
+  if (catalogView.kind !== "graph_function_catalog_view" || !same(catalogView, supplied.catalogView)) {
+    throw new TypeError("declaration Catalog View differs from exact narrowing");
+  }
+  return deepFreeze({ catalog, catalogView });
+}
+
+/** Select one declaration and its owner inside an already resolved closure. */
+export function selectExactClosureContract(
+  closure: ResolvedDeclarationClosure,
+  contractRef: string,
+): Readonly<{ contract: Readonly<ContractDeclaration>; owner: ExecutionDeclarationOwnerCoordinate }> | null {
+  const owners = closure.contractOwners.filter((owner) => owner.declarationRef === contractRef);
+  if (owners.length !== 1) return null;
+  const owner = owners[0]!;
+  const publications = closure.publications.filter((publication) =>
+    publication.moduleRef === owner.moduleRef && publication.owningProductId === owner.productId &&
+    modulePublicationSemanticDigest(publication) === owner.publicationDigest);
+  if (publications.length !== 1) return null;
+  const contracts = publications[0]!.contracts.filter((contract) => contract.contractRef === contractRef);
+  return contracts.length === 1 ? deepFreeze({ contract: contracts[0]!, owner }) : null;
+}
 
 export type ExecutionDeclarationKind =
   | "closure_contract"
@@ -389,6 +449,32 @@ function resolveDeclarationClosure(
   const closureContractRefs = new Set([program.closureContractRef]);
   const graphLocations = new Map<string, LocatedDeclaration<GraphFunction>>();
 
+  // The declared source relation borrows its existing owner/GF/contracts; it
+  // grants no additional callable membership or runtime operation.
+  const lifecycleRef = semanticLifecycleRefForProgram(programPublication, program);
+  let lifecyclePublication: Readonly<ModulePublication> | undefined;
+  if (lifecycleRef !== undefined) {
+    const lifecycle = locateRequired(allPublications, reachable,
+      p => p.semanticLifecycle === undefined ? [] : [p.semanticLifecycle], d => d.declarationRef === lifecycleRef);
+    if (lifecycle.kind !== "one") return locatedRefusal(lifecycle, `Semantic lifecycle ${lifecycleRef}`);
+    lifecyclePublication = lifecycle.located.publication;
+    // Historical stages are exact declared dependencies, not new start/call rights.
+    for (const stage of lifecycle.located.value.stages) graphFunctionRefs.add(stage.graphFunctionRef);
+  }
+  const sourceRef = lifecyclePublication?.semanticLifecycle?.sourceDeclarationRef;
+  if (sourceRef !== undefined) {
+    const source = locateRequired(allPublications, reachable, p => p.requirementHandoffs ?? [], d => d.declarationRef === sourceRef);
+    if (source.kind !== "one") return locatedRefusal(source, `Semantic source ${sourceRef}`);
+    if (!validRequirementHandoffPublication(source.located.publication) ||
+      !validSemanticProgramOwners(programPublication, program, lifecyclePublication!, source.located.publication)) {
+      return refusal("wrong_owner", "semantic source does not retain its exact declaration and paired role owners");
+    }
+    graphFunctionRefs.add(source.located.value.graphFunctionRef);
+    for (const binding of source.located.value.fulfillmentBindings) {
+      if (binding.realizationContractRef !== null) contractRefs.add(binding.realizationContractRef);
+      if (binding.proofContractRef !== null) contractRefs.add(binding.proofContractRef);
+    }
+  }
   const graphQueue = [...graphFunctionRefs];
   for (let index = 0; index < graphQueue.length; index += 1) {
     const graphFunctionRef = graphQueue[index]!;
@@ -410,9 +496,18 @@ function resolveDeclarationClosure(
     const programCallableRoot =
       closureScope === "program" &&
       rootGraphFunctionRefs.includes(graphFunctionRef);
+    const locallyPublishedProgramRoot = programCallableRoot &&
+      programPublication.graphFunctions.some((definition) =>
+        definition.name === graphFunctionRef
+      );
+    // The Program owns its explicit callable membership. A borrowed member's
+    // contributor row retains that contributor's Program metadata; its exact
+    // reachable publication and owner row below establish dependency closure.
+    // Locally published Program roots use their reciprocal Catalog membership;
+    // only the actual caller-selected root requires the Program-aware View.
     const selectedLookup = callerSelectedRoot
       ? lookupGraphFunctionDefinition(catalogView, graphFunctionRef, programRef)
-      : programCallableRoot
+      : locallyPublishedProgramRoot
       ? lookupGraphFunctionDefinition(catalog, graphFunctionRef, programRef)
       : null;
     if (
@@ -440,7 +535,7 @@ function resolveDeclarationClosure(
         canonicalJson(graphFunction as unknown as JsonValue)
     );
     if (
-      (selectedLookup !== null && catalogRows.length !== 1) ||
+      ((selectedLookup !== null || programCallableRoot) && catalogRows.length !== 1) ||
       (selectedLookup === null && catalogRows.length === 0)
     ) {
       return refusal(
@@ -448,7 +543,78 @@ function resolveDeclarationClosure(
         `GraphFunction ${graphFunctionRef} lacks one exact Catalog/View owner row`,
       );
     }
+    const forwardClaim = graphFunction.declarations["abg.worksite_command_forward"] !== undefined ||
+      ([forwardIds.graphFunctionRef,forwardIds.childGraphFunctionRef] as readonly string[]).includes(graphFunctionRef) ||
+      graphFunction.template.nodes.some(node=>projectCProgramNodeDeclarationReferences(node.term).implementationBindingRefs.some(ref=>
+        ref===forwardIds.prepareBindingRef||ref===forwardIds.implementationBindingRef));
+    if(forwardClaim && (!isWorksiteCommandForwardGraphFunction(graphFunction) ||
+      program.programRef!==forwardIds.programRef || program.callableMembership.length!==2 ||
+      ![forwardIds.graphFunctionRef,forwardIds.childGraphFunctionRef].every(ref=>program.callableMembership.includes(ref)))) {
+      return refusal("wrong_owner","forward C2 must retain its exact finite no-construction Program and historical-proof marker");
+    }
+    const recoveryClaim = graphFunction.declarations["abg.preserved_result_source"] !== undefined ||
+      graphFunction.template.nodes.some(node => projectCProgramNodeDeclarationReferences(node.term).implementationBindingRefs.some(ref =>
+        ref === WORKSITE_PRESERVED_RESULT_IDS.authenticateBindingRef || ref === WORKSITE_PRESERVED_RESULT_IDS.deriveBindingRef));
+    if (recoveryClaim && worksitePreservedResultSourceOfGraphFunction(graphFunction) === null) {
+      return refusal("wrong_owner", `GraphFunction ${graphFunctionRef} changes the native preserved-result selector or composition`);
+    }
     graphLocations.set(graphFunctionRef, located.located);
+    const historyDependency = graphFunction.declarations["abg.semantic_revision_history"];
+    if (historyDependency !== undefined) {
+      const revisionBindings: readonly string[] = [
+        SEMANTIC_REVISION_IDS.selectionBindingRef, SEMANTIC_REVISION_IDS.projectionBindingRef,
+        SEMANTIC_REVISION_IDS.authorBindingRef, SEMANTIC_REVISION_IDS.assessorBindingRef,
+        SEMANTIC_REVISION_IDS.bridgeBindingRef, SEMANTIC_REVISION_IDS.evidenceInputBindingRef,
+        SEMANTIC_REVISION_IDS.terminalBindingRef,
+      ];
+      const boundRoles = (definition: Readonly<GraphFunction>) => definition.template.nodes
+        .flatMap(node => projectCProgramNodeDeclarationReferences(node.term).implementationBindingRefs);
+      if (historyDependency !== SEMANTIC_REVISION_IDS.historicalOwnerDependencyRef ||
+        !boundRoles(graphFunction).some(ref => revisionBindings.includes(ref))) {
+        return refusal("wrong_owner", "revision history dependency requires its exact declared revision role");
+      }
+      const declaredSelection = graphFunction.declarations["abg.semantic_revision_selection"];
+      const declaredStage = graphFunction.declarations["abg.semantic_revision_stage"];
+      if ((declaredSelection !== undefined && declaredSelection !== lifecycleRef) ||
+        (declaredStage !== undefined &&
+          !lifecyclePublication?.semanticLifecycle?.stages.some(stage => stage.declarationRef === declaredStage))) {
+        return refusal("wrong_owner", "revision history dependency crosses the declared lifecycle");
+      }
+      // This closed Product dependency belongs to the declared D2 role, not to
+      // callable membership. Historical definitions authenticate observations;
+      // neither their inclusion nor their implementations grant a call/start.
+      const historicalRefs = new Set<string>([
+        WORKSITE_CONSTRUCTION_IDS.reducerGraphFunctionRef,
+        WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,
+        WORKSITE_REVISION_IDS.graphFunctionRef,
+      ]);
+      const semanticBindings = new Set<string>([
+        ...revisionBindings, SEMANTIC_STAGE_IDS.authorBindingRef,
+        SEMANTIC_STAGE_IDS.assessorBindingRef, SEMANTIC_STAGE_IDS.bridgeBindingRef,
+        SEMANTIC_STAGE_IDS.evidenceInputBindingRef, SEMANTIC_STAGE_IDS.terminalBindingRef,
+      ]);
+      // Only the exact current and borrowed lifecycle publications contribute
+      // local semantic history. Do not enumerate ambient Catalog functions.
+      const historyPublications = lifecyclePublication === undefined ||
+          lifecyclePublication === programPublication
+        ? [programPublication] : [programPublication, lifecyclePublication];
+      for (const owner of historyPublications) {
+        for (const definition of owner.graphFunctions) {
+          const selectionRef = definition.declarations["abg.semantic_revision_selection"];
+          const stageRef = definition.declarations["abg.semantic_revision_stage"];
+          if ((selectionRef !== undefined && selectionRef !== lifecycleRef) ||
+            (stageRef !== undefined &&
+              !lifecyclePublication?.semanticLifecycle?.stages.some(stage => stage.declarationRef === stageRef))) continue;
+          if (boundRoles(definition).some(ref => semanticBindings.has(ref))) historicalRefs.add(definition.name);
+        }
+      }
+      for (const ref of historicalRefs) {
+        if (!graphFunctionRefs.has(ref)) {
+          graphFunctionRefs.add(ref);
+          graphQueue.push(ref);
+        }
+      }
+    }
     graphFunction.inputs.forEach((ref) => contractRefs.add(ref));
     graphFunction.outputs.forEach((ref) => contractRefs.add(ref));
     for (const key of [
@@ -577,27 +743,57 @@ function resolveDeclarationClosure(
     ruleLocations.push(located.located);
   }
 
+  const selectedPublicationMap = new Map<string, Readonly<ModulePublication>>();
+  const includePublication = (publication: Readonly<ModulePublication>): void => {
+    selectedPublicationMap.set(
+      `${publication.moduleRef}\0${modulePublicationSemanticDigest(publication)}`,
+      publication,
+    );
+  };
+  includePublication(programPublication);
+  [
+    ...graphLocations.values(),
+    ...bindingLocations,
+    ...closureLocations,
+    ...contractLocations,
+    ...evaluatorLocations,
+    ...ruleLocations,
+  ].forEach(({ publication }) => includePublication(publication));
   const semanticsBinding = programPublication.productSemanticsBinding;
-  const semanticsMatches = allPublications.filter((publication) => {
-    if (!reachable.has(publication.owningProductId)) return false;
-    const installs = catalog.readinessBasis.installedProducts.filter(
-      (install) =>
+  const semanticsInstalls = catalog.readinessBasis.installedProducts.filter(
+    (install) =>
+      install.productId === programPublication.owningProductId &&
+      install.productContentDigest === programPublication.productContentDigest &&
+      install.manifestDigest === programPublication.productManifestDigest &&
+      install.packageName === semanticsBinding.packageName &&
+      install.packageVersion === semanticsBinding.packageVersion,
+  );
+  let semanticsPublication = programPublication;
+  if (semanticsInstalls.length !== 1) {
+    if (semanticsInstalls.length > 1) {
+      return refusal("ambiguous", "Product semantics has multiple exact Program owner installs");
+    }
+    // Required declaration witnesses, not unrelated sibling publications, own
+    // an external provider. Distinct publications remain distinct witnesses.
+    const externalOwners = [...selectedPublicationMap.values()].flatMap((publication) => {
+      if (!reachable.has(publication.owningProductId) ||
+          canonicalJson(publication.productSemanticsBinding as unknown as JsonValue) !==
+            canonicalJson(semanticsBinding as unknown as JsonValue)) return [];
+      return catalog.readinessBasis.installedProducts.filter((install) =>
         install.productId === publication.owningProductId &&
         install.productContentDigest === publication.productContentDigest &&
         install.manifestDigest === publication.productManifestDigest &&
         install.packageName === semanticsBinding.packageName &&
         install.packageVersion === semanticsBinding.packageVersion,
-    );
-    return installs.length === 1 &&
-      canonicalJson(publication.productSemanticsBinding as unknown as JsonValue) ===
-        canonicalJson(semanticsBinding as unknown as JsonValue);
-  });
-  if (semanticsMatches.length !== 1) {
-    return refusal(
-      semanticsMatches.length === 0 ? "wrong_owner" : "ambiguous",
-      "Product semantics binding does not resolve to one exact compatible publication owner",
-    );
+      ).map((install) => ({ publication, install }));
+    });
+    if (externalOwners.length !== 1) {
+      return refusal(externalOwners.length === 0 ? "wrong_owner" : "ambiguous",
+        "Product semantics lacks one exact compatible required declaration owner");
+    }
+    semanticsPublication = externalOwners[0]!.publication;
   }
+  includePublication(semanticsPublication);
 
   const ownerCoordinates = <T>(
     values: readonly LocatedDeclaration<T>[],
@@ -645,7 +841,7 @@ function resolveDeclarationClosure(
   );
   const semanticsOwner = exactOwnerCoordinate(
     catalog,
-    semanticsMatches[0]!,
+    semanticsPublication,
     "semantics",
     semanticsBinding.bindingRef,
   );
@@ -664,23 +860,6 @@ function resolveDeclarationClosure(
     );
   }
 
-  const selectedPublicationMap = new Map<string, Readonly<ModulePublication>>();
-  const includePublication = (publication: Readonly<ModulePublication>): void => {
-    selectedPublicationMap.set(
-      `${publication.moduleRef}\0${modulePublicationSemanticDigest(publication)}`,
-      publication,
-    );
-  };
-  includePublication(programPublication);
-  includePublication(semanticsMatches[0]!);
-  [
-    ...graphLocations.values(),
-    ...bindingLocations,
-    ...closureLocations,
-    ...contractLocations,
-    ...evaluatorLocations,
-    ...ruleLocations,
-  ].forEach(({ publication }) => includePublication(publication));
   const publications = Object.freeze(
     [...selectedPublicationMap.values()].sort((left, right) =>
       compareUnicodeCodeUnits(left.moduleRef, right.moduleRef) ||

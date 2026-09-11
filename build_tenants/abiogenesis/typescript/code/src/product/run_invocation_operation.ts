@@ -1,4 +1,5 @@
 import type { ComputeRegime } from "../gtl/contracts.js";
+import { isAbgTypedTerminalResult } from "../abg/terminal_result_contracts.js";
 import type {
   AbgRunTruthProjection,
   AbgRunTruthRefusal,
@@ -681,6 +682,13 @@ export function constructRunInvocationOutcome<
   if (["active", "workspace"].includes(truth.runtimeStatus)) {
     return refusal(memberKey, "invalid_intent", ["/run"]);
   }
+  if (truth.runtimeStatus === "closed" &&
+      (!isAbgTypedTerminalResult(truth.terminalResult) || truth.result === null ||
+       truth.result.ref !== truth.terminalResult.result.ref || truth.result.digest !== truth.terminalResult.result.digest ||
+       truth.terminalResult.producer.runRef !== truth.run.ref ||
+       truth.terminalResult.producer.graphCallRef !== truth.graphCall?.ref)) {
+    return refusal(memberKey, "invalid_intent", ["/terminalResult"]);
+  }
   return validatedOutput(memberKey, {
     outcomeKind: "result",
     value: {
@@ -692,7 +700,8 @@ export function constructRunInvocationOutcome<
         : truth.runtimeStatus === "blocked"
         ? "blocked"
         : "runtime_failed",
-      result: truth.result,
+      result: truth.runtimeStatus === "closed" ? truth.terminalResult!.result : null,
+      terminalResult: truth.runtimeStatus === "closed" ? truth.terminalResult : null,
       stop: truth.stop,
       gap: truth.gap,
       interaction: truth.interaction,

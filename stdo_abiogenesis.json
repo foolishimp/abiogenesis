@@ -1,5 +1,5 @@
 {
-  "$schema": "stdo://releases/v2.5.0-rc.4/standards/schemas/product-definition.schema.json",
+  "$schema": "stdo://releases/v2.5.0-rc.6/standards/schemas/product-definition.schema.json",
   "kind": "stdo.product-definition",
   "product": {
     "definition_id": "urn:stdo:product-definition:abiogenesis",
@@ -14,8 +14,8 @@
       },
       "selector": "stdo://channels/2.5.0",
       "basis": {
-        "uri": "stdo://releases/v2.5.0-rc.4/",
-        "manifest_sha256": "4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e"
+        "uri": "stdo://releases/v2.5.0-rc.6/",
+        "manifest_sha256": "bed7535a5feddc5e874993ff96d1f5f27e2a0fff63f366fc3b1fec3e301dd9e0"
       }
     },
     "additional_authorities": [],
@@ -112,19 +112,19 @@
   },
   "composition": [
     {
-      "product_definition": "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/stdo_representation/stdo_representation.json",
+      "product_definition": "https://raw.githubusercontent.com/foolishimp/specification_methodology/adb25a35acad363823b4c0d05fecbf9a2f20d25d/stdo_representation/stdo_representation.json",
       "target_definition_id": "urn:stdo:product-definition:stdo-representation",
       "relation": "urn:stdo:concept:recursive-product-taxonomy:substrate",
       "contracts": [
-        "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/stdo_representation/releases/v2.5.0.md"
+        "https://raw.githubusercontent.com/foolishimp/specification_methodology/adb25a35acad363823b4c0d05fecbf9a2f20d25d/stdo_representation/releases/v2.5.0.md"
       ]
     },
     {
-      "product_definition": "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/axiom_indexer/stdo_default.json",
+      "product_definition": "https://raw.githubusercontent.com/foolishimp/specification_methodology/adb25a35acad363823b4c0d05fecbf9a2f20d25d/axiom_indexer/stdo_default.json",
       "target_definition_id": "urn:stdo:product-definition:axiom-indexer",
       "relation": "urn:stdo:concept:recursive-product-taxonomy:substrate",
       "contracts": [
-        "https://raw.githubusercontent.com/foolishimp/specification_methodology/a953ad4634fbfaefb8bdffaccdf4eff651a1e3a2/axiom_indexer/releases/v2.5.0.md"
+        "https://raw.githubusercontent.com/foolishimp/specification_methodology/adb25a35acad363823b4c0d05fecbf9a2f20d25d/axiom_indexer/releases/v2.5.0.md"
       ]
     }
   ]

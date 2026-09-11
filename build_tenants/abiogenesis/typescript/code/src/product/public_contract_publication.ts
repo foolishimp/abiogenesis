@@ -777,3 +777,5 @@ export function bindS06PublicFunctionCatalog(
     mandatorySchemaVocabularyCorpusGapSet: mandatoryGapSet(catalog),
   });
 }
+
+export { constructSelfConformanceAssetRows } from "../validator/self_conformance_publication.js";

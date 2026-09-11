@@ -1,3 +1,8 @@
+import { projectExactExecutionBasisAtPrefix } from "./invocation_execution_truth.js";
+import { isWorksiteExecutionTask } from "../product/worksite_revision.js";
+import { projectRetainedWorksiteInputAtPrefix } from "./worksite_input_provenance.js";
+import { rawAdmitValue, type RawAdmittedValue } from "../validator/raw_admission.js";
+import { isWorksitePreparationBoundInput } from "../product/worksite_preparation.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
@@ -19,8 +24,15 @@ import {
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
+  validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
+import {
+  deriveInvocationSourceResultBasisAtPrefix,
+  deriveSameRunWorksiteCommandSourceBasisAtPrefix,
+  isInvocationSourceResultBasis,
+  rehydrateInvocationAdmissionAtPrefix,
+} from "./invocation_admission.js";
 import {
   assertHeldEventStoreAtDurablePrefix,
   assertRuntimeEventTransactionActive,
@@ -111,6 +123,7 @@ export function projectActiveRuntimeTransaction(
 }
 
 export interface ReplayRouteState {
+  readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly routeRef: string;
   readonly routeDigest: Sha256Digest;
   readonly routeKind: TraversalRouteKind;
@@ -670,7 +683,25 @@ export function replayValidatedRuntimeEventPrefix(
       ) {
         throw new TypeError(`incomplete traversal route payload at ${event.eventId}`);
       }
+      const assertedBoundInput = isRecord(event.payload) ? event.payload.boundInput : undefined;
+      let boundInput: RawAdmittedValue<Readonly<Record<string, JsonValue>>> | undefined;
+      if (assertedBoundInput !== undefined) {
+        if (!isRecord(assertedBoundInput) || typeof assertedBoundInput.contractRef !== "string" ||
+          !isWorksitePreparationBoundInput(assertedBoundInput.value) || routeKind !== "advance") {
+          throw new TypeError(`invalid retained input at ${event.eventId}`);
+        }
+        const raw = rawAdmitValue<Readonly<Record<string, JsonValue>>>(assertedBoundInput.value, "invocation_input", assertedBoundInput.contractRef);
+        if (raw.kind !== "raw_admitted_value" || sha256Canonical(raw as unknown as JsonValue) !== sha256Canonical(assertedBoundInput)) {
+          throw new TypeError(`retained input raw identity mismatch at ${event.eventId}`);
+        }
+        boundInput = raw;
+        const retained = projectRetainedWorksiteInputAtPrefix(authorityPrefix, event);
+        if (retained === null || sha256Canonical(retained.input as unknown as JsonValue) !== sha256Canonical(raw as unknown as JsonValue)) {
+          throw new TypeError("replay retained input has no exact entry/source/foldback provenance");
+        }
+      }
       return {
+        ...(boundInput === undefined ? {} : { boundInput }),
         routeRef,
         routeDigest: routeDigest as Sha256Digest,
         routeKind,
@@ -959,7 +990,7 @@ export function replayValidatedRuntimeEventPrefix(
         event,
         events.slice(0, index),
       );
-      return transition === null
+      return transition === null || transition.successorObservation === null
         ? []
         : [{
             observation: transition.successorObservation,
@@ -1248,8 +1279,6 @@ const EVENT_TYPED_REFERENCE_PATHS: Partial<
   invocation_admitted: [
     { path: ["payload", "reentryBasis", "sourceRouteEventRef"], optional: true },
     { path: ["payload", "reentryBasis", "sourceRunStoppedEventRef"], optional: true },
-    { path: ["payload", "sourceResultBasis", "sourceResultAdmissionEventRef"], optional: true },
-    { path: ["payload", "sourceResultBasis", "sourceResultJudgmentEventRef"], optional: true },
   ],
   actor_invocation_closed: [
     { path: ["payload", "consumedArtifactEventRef"], optional: true, nullable: true },
@@ -1549,10 +1578,66 @@ function requiredAtom(
 
 function projectOwnerFacts(
   prefix: ValidatedRuntimeEventPrefix,
+  authorityPrefix: ValidatedRuntimeEventPrefix,
   replayState: ReplayState,
   continuations: readonly ReplayContinuationState[],
   correspondence: ReadonlyMap<string, string>,
 ): readonly Readonly<Record<string, JsonValue>>[] {
+  // A source-result basis belongs to an earlier Run. Rehydrate the exact
+  // admitted relation as an owner fact; it is not a local causal edge and does
+  // not import the source Run's events, fluents, or lifecycle into this Run.
+  const sourceResults = runtimeEventsFromValidatedPrefix(prefix).flatMap((event) => {
+    if (event.kind !== "invocation_admitted" || !isSemanticRecord(event.payload) ||
+      event.payload.sourceResultBasis === null ||
+      event.payload.sourceResultBasis === undefined) return [];
+    const asserted = event.payload.sourceResultBasis;
+    const invocation = typeof event.payload.invocationAdmissionRef === "string"
+      ? rehydrateInvocationAdmissionAtPrefix(
+          validatedRuntimeEventPrefixThroughEvent(authorityPrefix, event.eventId),
+          event.payload.invocationAdmissionRef,
+        )
+      : null;
+    const predecessor = selectValidatedRuntimeEventPrefix(Object.freeze(
+      runtimeEventsFromValidatedPrefix(authorityPrefix).filter((candidate) =>
+        candidate.admissionOrdinal < event.admissionOrdinal
+      ),
+    ));
+    const derived = isSemanticRecord(asserted) && isInvocationSourceResultBasis(asserted)
+      ? deriveInvocationSourceResultBasisAtPrefix(predecessor, {
+          publicAuthorityDigest: asserted.publicAuthorityDigest,
+          runtimeInvocationRef: asserted.sourceInvocationRef,
+          invocationAdmissionRef: asserted.sourceInvocationAdmissionRef,
+          runId: asserted.sourceRunId,
+          resultRef: asserted.sourceResultRef,
+        })
+      : null;
+    if (invocation === null || invocation.admissionEventRef !== event.eventId ||
+      derived === null || sha256Canonical(derived as unknown as JsonValue) !==
+        sha256Canonical(asserted)) {
+      throw new TypeError(
+        "run semantic relation requires one exact admitted external source-result basis",
+      );
+    }
+    return [{
+      owner: "invocation_source_result",
+      ownerAtom: requiredAtom(event.eventId, correspondence, "source_result"),
+      sourceResultBasis: derived as unknown as JsonValue,
+    } as Readonly<Record<string, JsonValue>>];
+  });
+  const sameRunSources = runtimeEventsFromValidatedPrefix(prefix).flatMap((event) => {
+    if (event.kind !== "basis_admitted" || !isSemanticRecord(event.payload) || event.payload.basisClass !== "child" ||
+      !isWorksiteExecutionTask(event.payload.rawInputValue)) return [];
+    const basis = typeof event.basisId === "string" ? projectExactExecutionBasisAtPrefix(authorityPrefix, event.basisId) : null;
+    const parent = basis?.parentExecutionBasisRef ? projectExactExecutionBasisAtPrefix(authorityPrefix, basis.parentExecutionBasisRef) : null;
+    const cut = selectValidatedRuntimeEventPrefix(Object.freeze(runtimeEventsFromValidatedPrefix(authorityPrefix).filter((candidate) =>
+      candidate.admissionOrdinal < event.admissionOrdinal)));
+    const source = parent === null || basis?.parentCCallRef == null || typeof event.runId !== "string" ? null
+      : deriveSameRunWorksiteCommandSourceBasisAtPrefix(cut, { parentBasis: parent, parentCCallRef: basis.parentCCallRef,
+          runId: event.runId, task: event.payload.rawInputValue });
+    if (source === null) throw new TypeError("child C2 source does not reproduce at its admitted preparation cut");
+    return [{ owner: "same_run_source_result", ownerAtom: requiredAtom(event.eventId, correspondence, "child_source_result"),
+      sourceResultBasis: source as unknown as JsonValue } as Readonly<Record<string, JsonValue>>];
+  });
   const cCalls = replayState.cCalls.map((cCall) => {
     const phase = projectCCallPhase(prefix, cCall.cCallRef);
     if (phase.openedEventRef === null) {
@@ -1572,6 +1657,12 @@ function projectOwnerFacts(
     declarationRef: route.declarationRef,
     cCallRef: route.cCallRef,
     contractRef: route.contractRef,
+    ...(route.boundInput === undefined ? {} : { retainedInput: {
+      ownerAtom: requiredAtom(route.admissionEventRef, correspondence, "route_bound_input"),
+      referenceBinding: { ref: route.boundInput.admissionRef, atom: `${requiredAtom(route.admissionEventRef, correspondence, "route_bound_input")}/raw_input` },
+      contractRef: route.boundInput.contractRef,
+      subjectDigest: route.boundInput.subjectDigest, value: route.boundInput.value,
+    } }),
   } as Readonly<Record<string, JsonValue>>));
   const continuationFacts = continuations.map((continuation) => ({
     owner: "fh_continuation",
@@ -1616,6 +1707,8 @@ function projectOwnerFacts(
     semanticEvidenceAssetRefs: delta.semanticEvidenceAssetRefs,
   } as Readonly<Record<string, JsonValue>>));
   return Object.freeze([
+    ...sourceResults,
+    ...sameRunSources,
     ...cCalls,
     ...routes,
     ...continuationFacts,
@@ -1748,6 +1841,7 @@ export function projectRunSemanticReplayProjection(
     ),
     ownerFacts: projectOwnerFacts(
       runPrefix,
+      fullPrefix,
       replayState,
       continuations,
       correspondence,

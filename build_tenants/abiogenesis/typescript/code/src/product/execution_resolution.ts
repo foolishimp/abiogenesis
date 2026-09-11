@@ -1,3 +1,8 @@
+import { isWorksiteRetentionContractRelation, WORKSITE_PREPARATION_IDS } from "./worksite_preparation_contracts.js";
+import { WORKSITE_REVISION_IDS } from "./worksite_revision_identity.js";
+import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution.js";
+import { WORKSITE_CONSTRUCTION_IDS } from "./worksite_construction.js";
+import { ABI5_PRODUCT_ID, ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from "./contracts.js";
 import type {
   ClosureContract,
   ContractDeclaration,
@@ -36,6 +41,7 @@ import type { ProductInstallCandidate } from "./contracts.js";
 import {
   resolveExecutionDeclarationClosure,
   resolveProgramDeclarationClosure,
+  selectExactClosureContract,
   type ExecutionDeclarationOwnerCoordinate,
   type ResolvedExecutionDeclarationClosure,
   type ResolvedProgramDeclarationClosure,
@@ -630,30 +636,8 @@ async function resolveProductExecution(
       "execution resolution requires one exact input and output contract",
     );
   }
-  const exactContract = (
-    contractRef: string,
-  ): Readonly<{
-    contract: Readonly<ContractDeclaration>;
-    owner: ExecutionDeclarationOwnerCoordinate;
-  }> | null => {
-    const owners = declarationClosure.contractOwners.filter((owner) =>
-      owner.declarationRef === contractRef
-    );
-    if (owners.length !== 1) return null;
-    const publicationMatch = publicationForCoordinate(
-      declarationClosure.publications,
-      owners[0]!,
-    );
-    if (publicationMatch.kind !== "one") return null;
-    const contracts = publicationMatch.value.contracts.filter((contract) =>
-      contract.contractRef === contractRef
-    );
-    return contracts.length === 1
-      ? { contract: contracts[0]!, owner: owners[0]! }
-      : null;
-  };
-  const inputContract = exactContract(graphFunction.inputs[0]!);
-  const outputContract = exactContract(graphFunction.outputs[0]!);
+  const inputContract = selectExactClosureContract(declarationClosure, graphFunction.inputs[0]!);
+  const outputContract = selectExactClosureContract(declarationClosure, graphFunction.outputs[0]!);
   if (inputContract === null || outputContract === null) {
     return refusal(
       "wrong_owner",
@@ -712,6 +696,46 @@ async function resolveProductExecution(
       "declaration_closure",
       "whole-Program declaration inventory failed static validation",
     );
+  }
+
+  // Static shape proof and installed declaration authority are separate gates.
+  const retentionGraphs = programDeclarationClosure.publications.flatMap((publication) =>
+    publication.graphFunctions.filter((candidate) => program.callableMembership.includes(candidate.name)));
+  for (const graph of retentionGraphs) for (const edge of graph.template.edges) {
+    const binding = edge.inputBinding;
+    if (binding === undefined) continue;
+    const contracts = programDeclarationClosure.publications.flatMap((publication) => publication.contracts);
+    const exactAbiOwner = (owner: ExecutionDeclarationOwnerCoordinate | undefined, moduleRef: string): boolean => {
+      if (owner === undefined || owner.productId !== ABI5_PRODUCT_ID || owner.moduleRef !== moduleRef) return false;
+      const publication = publicationForCoordinate(programDeclarationClosure.publications, owner);
+      const installs = input.admittedInstalls.filter((install) => install.installId === owner.installId &&
+        install.packageName === ABI5_PACKAGE_NAME && install.packageVersion === ABI5_PACKAGE_VERSION &&
+        install.productId === ABI5_PRODUCT_ID && install.contributionManifest.publicationBindings.some((row) =>
+          row.moduleRef === moduleRef && row.publicationDigest === owner.publicationDigest));
+      return publication.kind === "one" && installs.length === 1;
+    };
+    const relationOwned = isWorksiteRetentionContractRelation(binding, contracts) &&
+      [binding.entryContractRef, binding.sourceContractRef, binding.targetContractRef].every((ref) => {
+        const owners = programDeclarationClosure.contractOwners.filter((owner) => owner.declarationRef === ref);
+        return owners.length === 1 && exactAbiOwner(owners[0], ref === binding.sourceContractRef
+          ? WORKSITE_CONSTRUCTION_IDS.moduleRef : WORKSITE_COMMAND_EXECUTION_IDS.moduleRef);
+      });
+    const branch = binding.entryContractRef === WORKSITE_PREPARATION_IDS.branchInputContractRef;
+    const bindings = binding.entryContractRef === WORKSITE_REVISION_IDS.inputContractRef
+      ? [WORKSITE_REVISION_IDS.selectBindingRef, WORKSITE_REVISION_IDS.prepareBindingRef] : branch
+      ? [WORKSITE_PREPARATION_IDS.selectBranchBindingRef, WORKSITE_PREPARATION_IDS.prepareBranchBindingRef]
+      : [WORKSITE_PREPARATION_IDS.selectBindingRef, WORKSITE_PREPARATION_IDS.prepareBindingRef];
+    const preparationOwned = bindings.every((ref) => {
+      const owners = programDeclarationClosure.implementationBindingOwners.filter((owner) => owner.declarationRef === ref);
+      return owners.length === 1 && exactAbiOwner(owners[0], WORKSITE_COMMAND_EXECUTION_IDS.moduleRef);
+    });
+    const semantics = programDeclarationClosure.semanticsOwner;
+    const semanticsInstall = input.admittedInstalls.filter((install) => install.installId === semantics.installId &&
+      install.productId === ABI5_PRODUCT_ID && install.packageName === ABI5_PACKAGE_NAME &&
+      install.packageVersion === ABI5_PACKAGE_VERSION);
+    if (!relationOwned || !preparationOwned || semantics.productId !== ABI5_PRODUCT_ID || semanticsInstall.length !== 1) {
+      return refusal("wrong_owner", "declaration_closure", "retained worksite input requires exact ABI preparation, result and semantics owners");
+    }
   }
 
   const implementationOwnerCoordinates =

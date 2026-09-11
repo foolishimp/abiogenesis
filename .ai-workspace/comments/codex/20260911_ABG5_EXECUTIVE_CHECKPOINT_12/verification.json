@@ -1,0 +1,144 @@
+{
+  "kind": "checkpoint57_readiness",
+  "at": "2026-09-11T13:16:43.660Z",
+  "candidateSha256": "7e9086ca8ccaa81d25bff220b880f86016b47b89e895dd32c96a1d3265433c81",
+  "canonicalSourceExact": 321,
+  "canonicalTestsExact": 154,
+  "restoredAbsentInheritedMembers": 33,
+  "existingSourceTestMembersConserved": 442,
+  "governingFiles": 89,
+  "otherGoverningBytesUnchanged": 87,
+  "trackingChangedLines": [
+    {
+      "path": "specification/GOALS.md",
+      "line": 35
+    },
+    {
+      "path": "specification/GOALS.md",
+      "line": 39
+    },
+    {
+      "path": "specification/GOALS.md",
+      "line": 41
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 16
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 17
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 18
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 21
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 73
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 188
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 189
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 191
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 192
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 193
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 216
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 218
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 220
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 222
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 258
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "line": 260
+    }
+  ],
+  "outsideTrackingGrantBytesUnchanged": true,
+  "tableDefinitionsUnchanged": true,
+  "originalD1D2HistoriesApp44LockUnchanged": true,
+  "nativeEvidence": "Locally retained checks/native-before.json and checks/native-after.json; not published by this commit",
+  "links": [
+    {
+      "from": "checkpoint.md",
+      "target": "../20260911_ABG5_ACCEPTED_SOURCE_INTEGRATION_02/application-03/receipt.json",
+      "publication": "local link only"
+    },
+    {
+      "from": "checkpoint.md",
+      "target": "selected-members.json",
+      "publication": "local link only"
+    },
+    {
+      "from": "checkpoint.md",
+      "target": "../20260911_ABG5_ACCEPTED_SOURCE_INTEGRATION_02/candidate-01/manifest.json",
+      "publication": "local link only"
+    },
+    {
+      "from": "checkpoint.md",
+      "target": "../20260911_D6_NATIVE_ARTIFACT_ADMISSION_HOW_07/manifest.json",
+      "publication": "local link only"
+    },
+    {
+      "from": "checkpoint.md",
+      "target": "../20260911_P3_LIVENESS_PROFILE_IMPLEMENTATION_26/how-application-25/manifest.json",
+      "publication": "local link only"
+    },
+    {
+      "from": "checkpoint.md",
+      "target": "../20260911_F11_D5_QUALIFICATION_CORRECTION_08/candidate-01/manifest.json",
+      "publication": "local link only"
+    },
+    {
+      "from": "checkpoint.md",
+      "target": "../20260911_F11_D5_QUALIFICATION_CORRECTION_08/shared-api-03/manifest.json",
+      "publication": "local link only"
+    },
+    {
+      "from": "checkpoint.md",
+      "target": "../20260911_D2_BOUNDED_REPAIR/installed-witness-continuation-13/execution-01/return.md",
+      "publication": "local link only"
+    },
+    {
+      "from": "checkpoint.md",
+      "target": "activation.md",
+      "publication": "local link only"
+    }
+  ],
+  "testsRun": 0,
+  "builds": 0,
+  "nativeEffects": 0,
+  "qualification": "exact preservation checks only; accepted independent source review remains attributed, no runtime or whole-law qualification"
+}

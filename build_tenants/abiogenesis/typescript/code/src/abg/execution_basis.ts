@@ -1,3 +1,12 @@
+import { WORKSITE_REVISION_IDS, isWorksiteExecutionTask, worksiteExecutionImplementationRef } from "../product/worksite_revision.js";
+import { worksiteExecutionSourcesCurrent, worksiteRevisionEntryBindingDisposition } from "./worksite_revision.js";
+import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
+import { isWorksiteCommandForwardRequest, isWorksiteCommandForwardTask } from "../product/worksite_command_forward.js";
+import { worksiteCommandForwardChildSourceAtPrefix } from "./worksite_command_forward.js";
+import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+import { revisionPreparationHasNativeBridgeSourceAtPrefix } from "./worksite_input_provenance.js";
+import { deriveRuntimeEventCalculusProjection, holdsAt, constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
+import { isWorksitePreparationInput, preparationConstructionTasks } from "../product/worksite_preparation.js";
 import type {
   ClosureContract,
   GraphFunction,
@@ -5,7 +14,9 @@ import type {
   GtlConstructionComposition,
   GtlGraph,
   GtlProgram,
+  ModulePublication,
 } from "../gtl/contracts.js";
+import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { rootCTraversalCoordinate } from "../gtl/source_path.js";
 import {
   type ImplementationResolutionCandidate,
@@ -64,6 +75,7 @@ import {
 import {
   hasAdmittedInvocationAtPrefix,
   rehydrateInvocationAdmissionAtPrefix,
+  deriveSameRunWorksiteCommandSourceBasisAtPrefix,
   rehydrateInvocationSourceResultBasisAtDurablePrefix,
   type InvocationAdmission,
 } from "./invocation_admission.js";
@@ -297,6 +309,7 @@ export interface ExecutionBasisInput {
   readonly invocationAdmission: InvocationAdmission;
   readonly rawInputValue: Readonly<Record<string, JsonValue>>;
   readonly program: Readonly<GtlProgram>;
+  readonly programPublication?: Readonly<ModulePublication>;
   readonly programValidation: ProgramValidation;
   readonly graph: Readonly<GtlGraph>;
   readonly graphValidation: GraphValidation;
@@ -316,6 +329,7 @@ export interface ChildExecutionBasisInput {
   readonly parentTraversalScope: OpenedTraversalScope;
   readonly parentCCallRef: string;
   readonly program: Readonly<GtlProgram>;
+  readonly programPublication?: Readonly<ModulePublication>;
   readonly programValidation: ProgramValidation;
   readonly graphFunction: Readonly<GraphFunction>;
   readonly graph: Readonly<GtlGraph>;
@@ -341,6 +355,7 @@ export interface ChildExecutionBasisRefusal {
   readonly schemaVersion: "5.0.0";
   readonly disposition: "refused";
   readonly code:
+    | "basis_fork_detected"
     | "child_graph_mismatch"
     | "child_input_mismatch"
     | "child_membership_mismatch"
@@ -368,6 +383,10 @@ function sameCanonical(left: unknown, right: unknown): boolean {
 function worksiteAuthorityCarrier(
   value: Readonly<Record<string, JsonValue>>,
 ): WorksiteAuthorityCarrier | null {
+  if (isWorksitePreparationInput(value)) {
+    const task = preparationConstructionTasks(value)[0];
+    return task === undefined ? null : worksiteAuthorityCarrier(task as unknown as Readonly<Record<string, JsonValue>>);
+  }
   if (isWorksiteFileReplaceRequest(value)) {
     return {
       workspaceAuthorityBasis: value.workspaceAuthorityBasis,
@@ -376,8 +395,8 @@ function worksiteAuthorityCarrier(
       workspaceBindingDigest: value.workspaceBindingDigest,
     };
   }
-  if (isWorksiteConstructionTask(value) ||
-    isWorksiteCommandExecutionTask(value)) {
+  if (isWorksiteCommandForwardRequest(value) || isWorksiteCommandForwardTask(value) || isWorksiteConstructionTask(value) ||
+    isWorksiteExecutionTask(value)) {
     return {
       workspaceAuthorityBasis: value.workspaceAuthorityBasis,
       workspaceBinding: value.workspaceBinding,
@@ -446,7 +465,8 @@ function exactWorksiteEnvironmentAtPrefix(
   return environment;
 }
 
-function exactProgramOwnerInstall(
+// Module-local proof seam; this pure relation does not admit an owner or invocation.
+export function exactProgramOwnerInstall(
   environment: ExactPrefixWorkspaceEnvironment,
   rows: readonly Readonly<{
     graphFunctionRef: string;
@@ -462,57 +482,55 @@ function exactProgramOwnerInstall(
   moduleRef: string,
   programRef: string,
   programPublicationDigest: Sha256Digest,
+  programDigest: Sha256Digest,
+  programPublication: Readonly<ModulePublication> | undefined,
 ): ProductInstall | null {
-  const ownerIds = [...new Set(rows.flatMap((row) => [
-    row.graphFunctionOwnerProductId,
-    row.implementationOwnerProductId,
-  ]))];
-  if (rows.length === 0 || ownerIds.length !== 1 || rows.some((row) =>
-      row.publicationDigest !== programPublicationDigest
-    )) return null;
-  const ownerId = ownerIds[0]!;
+  if (rows.some((row) => row.publicationDigest !== programPublicationDigest)) return null;
+  // Validator binds the full raw publication. Installed contribution bindings
+  // use its semantic projection, which must be derived from those exact bytes.
+  if (programPublication === undefined ||
+    sha256Canonical(programPublication as unknown as JsonValue) !== programPublicationDigest ||
+    programPublication.moduleRef !== moduleRef ||
+    programPublication.programs.filter((program) => program.programRef === programRef &&
+      sha256Canonical(program as unknown as JsonValue) === programDigest).length !== 1) return null;
+  const semanticPublicationDigest = modulePublicationSemanticDigest(programPublication);
   const installs = environment.productInstalls.filter((install) =>
-    install.productId === ownerId &&
     install.installedRoot === environment.workspaceBinding.roots.productRoot &&
-    install.contributionManifest.productId === ownerId &&
+    install.productId === programPublication.owningProductId &&
+    install.productContentDigest === programPublication.productContentDigest &&
+    install.manifestDigest === programPublication.productManifestDigest &&
+    install.artifactDigest === programPublication.artifactDigest &&
+    install.contributionManifest.productId === install.productId &&
     install.contributionManifest.productVersion === install.packageVersion &&
-    rows.every((row) =>
-      row.packageName === install.packageName &&
-      row.packageVersion === install.packageVersion
-    ) &&
-    install.contributionManifest.rows.filter((row) =>
-      row.kind === "graph_function" &&
-      row.moduleRef === moduleRef &&
-      row.declarationOrContractRef === graphFunctionRef &&
-      row.owningProductId === ownerId &&
-      row.programMembershipRefs.filter((ref) => ref === programRef).length === 1
-    ).length === 1 &&
+    install.contributionManifest.rows.filter((row) => row.kind === "graph_function" &&
+      row.moduleRef === moduleRef && row.declarationOrContractRef === graphFunctionRef &&
+      row.owningProductId === install.productId && row.programMembershipRefs.filter((ref) => ref === programRef).length === 1).length === 1 &&
+    install.contributionManifest.publicationBindings.filter((binding) => binding.moduleRef === moduleRef &&
+      binding.publicationDigest === semanticPublicationDigest).length === 1);
+  // Whole-Program validation owns consumer membership. Each leaf keeps its independently
+  // resolved GraphFunction and implementation publication/install coordinates.
+  return installs.length === 1 && rows.every((row) => exactLeafOwnerInstallations(environment, row)) ? installs[0]! : null;
+}
+
+function exactLeafOwnerInstallations(environment: ExactPrefixWorkspaceEnvironment, row: Readonly<{
+  graphFunctionRef: string; graphFunctionOwnerProductId: string; graphFunctionPublicationDigest: Sha256Digest;
+  implementationOwnerProductId: string; implementationPublicationDigest: Sha256Digest; packageName: string; packageVersion: string;
+}>): boolean {
+  const graphOwners = environment.productInstalls.filter((install) => install.productId === row.graphFunctionOwnerProductId &&
+    install.contributionManifest.rows.filter((entry) => entry.kind === "graph_function" &&
+      entry.declarationOrContractRef === row.graphFunctionRef && entry.owningProductId === install.productId &&
+      install.contributionManifest.publicationBindings.filter((binding) => binding.moduleRef === entry.moduleRef &&
+        binding.publicationDigest === row.graphFunctionPublicationDigest).length === 1).length === 1);
+  const implementations = environment.productInstalls.filter((install) => install.productId === row.implementationOwnerProductId &&
+    install.packageName === row.packageName && install.packageVersion === row.packageVersion &&
     install.contributionManifest.publicationBindings.filter((binding) =>
-      binding.moduleRef === moduleRef
-    ).length === 1 &&
-    rows.every((row) => {
-      const graphRows = install.contributionManifest.rows.filter((manifestRow) =>
-        manifestRow.kind === "graph_function" &&
-        manifestRow.declarationOrContractRef === row.graphFunctionRef &&
-        manifestRow.owningProductId === ownerId &&
-        manifestRow.programMembershipRefs.filter((ref) => ref === programRef)
-          .length === 1
-      );
-      return graphRows.length === 1 &&
-        install.contributionManifest.publicationBindings.filter((binding) =>
-          binding.moduleRef === graphRows[0]!.moduleRef &&
-          binding.publicationDigest === row.graphFunctionPublicationDigest
-        ).length === 1 &&
-        install.contributionManifest.publicationBindings.filter((binding) =>
-          binding.publicationDigest === row.implementationPublicationDigest
-        ).length === 1;
-    })
-  );
-  return installs.length === 1 ? installs[0]! : null;
+      binding.publicationDigest === row.implementationPublicationDigest).length === 1);
+  return graphOwners.length === 1 && implementations.length === 1;
 }
 
 function exactChildOwnerInstallations(
   ownerInstall: ProductInstall,
+  environment: ExactPrefixWorkspaceEnvironment,
   localRows: readonly ValidatedExecutableLeaf[],
   rows: readonly AdmittedImplementationResolutionRow[],
   graphFunctionRef: string,
@@ -548,37 +566,15 @@ function exactChildOwnerInstallations(
     }) || rows.some((row) =>
     row.graphFunctionRef !== graphFunctionRef ||
     row.publicationDigest !== programPublicationDigest ||
-    row.graphFunctionOwnerProductId !== ownerInstall.productId ||
-    row.implementationOwnerProductId !== ownerInstall.productId ||
-    row.packageName !== ownerInstall.packageName ||
-    row.packageVersion !== ownerInstall.packageVersion
+    !exactLeafOwnerInstallations(environment, row)
   )) return false;
-
-  const graphFunctionRows = ownerInstall.contributionManifest.rows.filter((row) =>
-    row.kind === "graph_function" &&
-    row.moduleRef === programModuleRef &&
-    row.declarationOrContractRef === graphFunctionRef &&
-    row.owningProductId === ownerInstall.productId &&
-    row.programMembershipRefs.filter((ref) => ref === programRef).length === 1
-  );
-  if (graphFunctionRows.length !== 1) return false;
-  if (rows.length === 0) {
-    return ownerInstall.contributionManifest.publicationBindings.filter((binding) =>
-      binding.moduleRef === graphFunctionRows[0]!.moduleRef
-    ).length === 1;
-  }
-  const graphPublicationDigests = [...new Set(rows.map((row) =>
-    row.graphFunctionPublicationDigest
-  ))];
-  return graphPublicationDigests.length === 1 &&
-    ownerInstall.contributionManifest.publicationBindings.filter((binding) =>
-      binding.moduleRef === graphFunctionRows[0]!.moduleRef &&
-      binding.publicationDigest === graphPublicationDigests[0]
-    ).length === 1 && rows.every((row) =>
-      ownerInstall.contributionManifest.publicationBindings.filter((binding) =>
-        binding.publicationDigest === row.implementationPublicationDigest
-      ).length === 1
-    );
+  if (ownerInstall.installedRoot !== environment.workspaceBinding.roots.productRoot) return false;
+  const graphOwners = environment.productInstalls.flatMap((install) => install.contributionManifest.rows.filter((row) =>
+    row.kind === "graph_function" && row.declarationOrContractRef === graphFunctionRef && row.owningProductId === install.productId &&
+    install.contributionManifest.publicationBindings.filter((binding) => binding.moduleRef === row.moduleRef &&
+      (rows.length === 0 || rows.every((leaf) => leaf.graphFunctionOwnerProductId === install.productId &&
+        leaf.graphFunctionPublicationDigest === binding.publicationDigest))).length === 1));
+  return graphOwners.length === 1;
 }
 
 function exactC2SourceEnvironment(
@@ -588,9 +584,10 @@ function exactC2SourceEnvironment(
   task: ReturnType<typeof worksiteCommandTask>,
 ): boolean {
   if (task === null) return true;
+  if (task.kind === "worksite_revision_command_execution_task") return false; // D2 is an authenticated child arm only.
   const basis = invocation.sourceResultBasis;
   const sourceKind = basis?.sourceGraphFunctionRef ===
-      WORKSITE_CONSTRUCTION_IDS.reducerGraphFunctionRef
+      WORKSITE_CONSTRUCTION_IDS.graphFunctionRef
     ? "c1"
     : basis?.sourceGraphFunctionRef ===
         WORKSITE_BRANCH_CONSTRUCTION_IDS.reducerGraphFunctionRef
@@ -782,7 +779,7 @@ function exactC2SourceEnvironment(
 function worksiteCommandTask(
   value: Readonly<Record<string, JsonValue>>,
 ) {
-  return isWorksiteCommandExecutionTask(value) ? value : null;
+  return isWorksiteExecutionTask(value) ? value : null;
 }
 
 const executionBases = new WeakSet<object>();
@@ -815,6 +812,42 @@ function detachJsonRecord(
   } catch {
     return null;
   }
+}
+
+/** Re-enters the current physical prefix before C2 creates any launch or observation artifact. */
+export function hasExactWorksiteCommandLeafSourceAtDurablePrefix(
+  predecessor: DurablePrefixCoordinate, cCallRef: string, value: unknown,
+): boolean {
+  if (!isJsonRecord(value) || !isWorksiteExecutionTask(value)) return false;
+  try {
+    const events = readRuntimeEventsAtDurablePrefix(predecessor, { requireCurrent: true });
+    const prefix = selectValidatedRuntimeEventPrefix(events);
+    const opens = events.filter((event) => event.kind === "c_call_opened" && event.aggregateId === cCallRef &&
+      event.graphFunctionRef === (value.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef : WORKSITE_REVISION_IDS.graphFunctionRef) && isJsonRecord(event.payload));
+    if (opens.length !== 1 || opens[0]!.basisId === null) return false;
+    const opened = opens[0]!;
+    const execution = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId!);
+    const fibres = events.filter((event) => event.kind === "c_call_fibre_selected" && event.aggregateId === cCallRef &&
+      event.basisId === opened.basisId && event.runId === opened.runId && isJsonRecord(event.payload) &&
+      event.payload.implementationRef === worksiteExecutionImplementationRef(value) &&
+      event.payload.implementationBindingRef === (value.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef : WORKSITE_REVISION_IDS.implementationBindingRef) && event.payload.regime === "F_P");
+    if (execution === null || fibres.length !== 1 || !sameCanonical(execution.rawInputValue, value) ||
+      events.some((event) => event.aggregateId === cCallRef && (event.kind === "c_call_evidenced" || event.kind === "c_call_result_admitted")) ||
+      exactWorksiteEnvironmentAtPrefix(predecessor, worksiteAuthorityCarrier(value)!) === null) return false;
+    const calculus = deriveRuntimeEventCalculusProjection(prefix);
+    if (!worksiteExecutionSourcesCurrent(prefix, value)) return false;
+    const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, execution.invocationAdmissionRef);
+    if (invocation === null || invocation.capabilityGrants.length !== 1 || !sameCanonical(invocation.capabilityGrants[0], value.capabilityGrant)) return false;
+    if (execution.basisClass === "root") return exactC2SourceEnvironment(predecessor, prefix, invocation, value);
+    if (execution.parentExecutionBasisRef === null || execution.parentCCallRef === null || typeof opened.runId !== "string") return false;
+    const parent = rehydrateExecutionBasisAtPrefix(prefix, execution.parentExecutionBasisRef);
+    const basisEvent = events.find((event) => event.eventId === execution.admissionEventRef);
+    if (parent === null || basisEvent === undefined) return false;
+    const cut = selectValidatedRuntimeEventPrefix(Object.freeze(events.filter((event) => event.admissionOrdinal < basisEvent.admissionOrdinal)));
+    return deriveSameRunWorksiteCommandSourceBasisAtPrefix(cut, {
+      parentBasis: parent, parentCCallRef: execution.parentCCallRef, runId: opened.runId, task: value,
+    }) !== null;
+  } catch { return false; }
 }
 
 export function hasExactInvocationObservationBasis(
@@ -1311,6 +1344,9 @@ export function admitExecutionBasis(
       "diagnostic://abiogenesis/execution-basis/worksite-input-contract-mismatch@5",
     );
   }
+  if (rawInputValue.kind === "worksite_revision_command_preparation_input" || rawInputValue.kind === "worksite_revision_command_execution_task") {
+    return reject(input.invocationAdmission.rawInputDigest, "diagnostic://abiogenesis/execution-basis/revision-child-source-required@5");
+  }
   if (isWorksiteFileReplaceRequest(rawInputValue)) {
     const admittedGrant = input.invocationAdmission.capabilityGrants[0];
     if (
@@ -1532,6 +1568,17 @@ export function admitExecutionBasis(
       "diagnostic://abiogenesis/execution-basis/resolution-mismatch@5",
     );
   }
+  if (isWorksitePreparationInput(rawInputValue)) {
+    const tasks = preparationConstructionTasks(rawInputValue);
+    const grants = input.invocationAdmission.capabilityGrants;
+    if (grants.length !== 1 || tasks.some((task) => !sameCanonical(task.capabilityGrant, grants[0]) ||
+      task.capabilityGrant.definitionKey.memberKey !== (input.invocationAdmission.invocationVariant === "direct" ? "invoke" : input.invocationAdmission.invocationVariant) ||
+      task.workspaceBinding.bindingId !== input.invocationAdmission.workspaceBindingId ||
+      task.workspaceBinding.bindingDigest !== input.invocationAdmission.workspaceBindingDigest ||
+      task.capabilityGrant.actorRef !== input.invocationAdmission.actorRef)) {
+      return reject(input.invocationAdmission.rawInputDigest, "diagnostic://abiogenesis/execution-basis/preparation-root-grant-mismatch@5");
+    }
+  }
   const worksiteCarrier = worksiteAuthorityCarrier(rawInputValue);
   if (worksiteCarrier !== null) {
     const environment = exactWorksiteEnvironmentAtPrefix(
@@ -1546,6 +1593,8 @@ export function admitExecutionBasis(
         input.program.moduleRef,
         input.program.programRef,
         input.programValidation.publicationDigest,
+        input.invocationAdmission.programDigest,
+        input.programPublication,
       ) ||
       !exactC2SourceEnvironment(
         predecessorPrefix,
@@ -2009,10 +2058,24 @@ export function admitChildExecutionBasis(
       "child materialization requires the exact admitted parent output binding",
     );
   }
+  if (input.graphFunction.declarations["abg.semantic_revision_history"] === SEMANTIC_REVISION_IDS.historicalOwnerDependencyRef) {
+    const currentEnvironment = projectExactPrefixWorkspaceEnvironment(predecessorPrefix,
+      { ref: parent.workspaceBindingId, digest: parent.workspaceBindingDigest });
+    if (currentEnvironment.kind !== "exact_prefix_workspace_environment" ||
+      worksiteRevisionEntryBindingDisposition(authorityPrefix, input.graphFunction, rawInputValue,
+        currentEnvironment.workspaceBinding) === "basis_fork_detected") {
+      return childRefusal("basis_fork_detected", "selected D2 child lacks exact native binding correspondence");
+    }
+  }
+  if ((input.graphFunction.name===forwardIds.childGraphFunctionRef || isWorksiteCommandForwardTask(rawInputValue)) &&
+      !worksiteCommandForwardChildSourceAtPrefix(authorityPrefix,predecessorPrefix,parent.basisRef,input.parentCCallRef,rawInputValue)) {
+    return childRefusal("basis_fork_detected","forward child requires the actual admitted preparation producer and retained vector");
+  }
   const worksiteCarrier = rawInputValue === null
     ? null
     : worksiteAuthorityCarrier(rawInputValue);
   let worksiteOwnerInstall: ProductInstall | null = null;
+  let childWorksiteEnvironment: ExactPrefixWorkspaceEnvironment | null = null;
   const worksiteProgram = parent.programRef === WORKSITE_CONSTRUCTION_IDS.programRef ||
     parent.programRef === WORKSITE_BRANCH_CONSTRUCTION_IDS.programRef ||
     parent.programRef === WORKSITE_COMMAND_EXECUTION_IDS.programRef;
@@ -2039,6 +2102,7 @@ export function admitChildExecutionBasis(
       );
     }
     const worksiteEnvironment = carrierEnvironment ?? projectedEnvironment;
+    childWorksiteEnvironment = worksiteEnvironment;
     const rootInvocation = rehydrateInvocationAdmissionAtPrefix(
       authorityPrefix,
       rootImplementationSet.invocationAdmissionRef,
@@ -2085,6 +2149,8 @@ export function admitChildExecutionBasis(
       input.program.moduleRef,
       input.program.programRef,
       input.programValidation.publicationDigest,
+      rootInvocation.programDigest,
+      input.programPublication,
     );
     if (worksiteOwnerInstall === null) {
       return childRefusal(
@@ -2092,6 +2158,19 @@ export function admitChildExecutionBasis(
         "child owner derivation requires one exact installed root Program owner",
       );
     }
+  }
+  if (rawInputValue.kind === "worksite_revision_command_preparation_input" &&
+    !revisionPreparationHasNativeBridgeSourceAtPrefix(authorityPrefix, { parentBasis: parent,
+      parentCCallRef: current.parentCCall.cCallRef, entry: rawInputValue })) {
+    return childRefusal("child_input_mismatch", "revision preparation requires its actual admitted D2 bridge edge");
+  }
+  const commandTask = worksiteCommandTask(rawInputValue);
+  if (commandTask !== null && (input.graphFunction.name !== (commandTask.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef : WORKSITE_REVISION_IDS.graphFunctionRef) ||
+    deriveSameRunWorksiteCommandSourceBasisAtPrefix(authorityPrefix, {
+      parentBasis: parent, parentCCallRef: current.parentCCall.cCallRef,
+      runId: parentScope.runId, task: commandTask,
+    }) === null)) {
+    return childRefusal("child_input_mismatch", "C2 child requires the exact completed source and admitted preparation route in this Run");
   }
   if (
     input.graphFunction.declarations["abg.child_closure_contract"] !==
@@ -2141,6 +2220,7 @@ export function admitChildExecutionBasis(
   }
   if (worksiteOwnerInstall !== null && !exactChildOwnerInstallations(
     worksiteOwnerInstall,
+    childWorksiteEnvironment!,
     localExecutableRows,
     admittedExecutableRows,
     input.graphFunction.name,

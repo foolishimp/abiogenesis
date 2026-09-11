@@ -1,3 +1,8 @@
+import { withAdmissionAuthority } from "./admission_authority.js";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { reconstructWorkspaceManifest, type WorkspaceManifest } from "./workspace_operations.js";
+import { admitExactDefinitionCall, definitionFault as callAdmissionFault } from "../shared/definition_binding_mechanics.js";
 import * as Effect from "effect/Effect";
 
 import {
@@ -58,8 +63,10 @@ import {
   type ProductResolutionPacket,
   type WorkspaceBindingPacket,
 } from "./environment_operations.js";
+import { ABI5_PRODUCT_ID } from "./contracts.js";
+import { linkNativeContractSet } from "./declaration_exports.js";
 import { PRODUCT_VERIFICATION_CONTRACTS } from "./verification_operation_contracts.js";
-import { isVerifiedProductArtifact } from "./verify_product.js";
+import { isVerifiedProductArtifact, productVerificationCoordinates } from "./verify_product.js";
 
 type ResolvePacket = typeof PRODUCT_ENVIRONMENT_CONTRACTS.resolve;
 type BindPacket = typeof PRODUCT_ENVIRONMENT_CONTRACTS.bind;
@@ -98,6 +105,7 @@ export interface ProductWorkspaceBindingResourceAssertion {
   readonly schemaVersion: "5.0.0";
   readonly eventResource: AbgEventResourceAssertion;
   readonly workspaceAuthority: WorkspaceAuthorityBasis;
+  readonly workspaceManifest: WorkspaceManifest;
   readonly admittedInstalls: readonly ProductInstall[];
   readonly resolvedLock: ResolvedProductLock;
   readonly declaredRoots: WorkspaceDeclaredRoots;
@@ -164,10 +172,7 @@ function isExecutionFault(value: unknown): value is DefinitionExecutionFault {
 function verifiedArtifactCoordinate(
   artifact: VerifiedProductArtifact,
 ): ReferenceDigest<"VerifiedProductArtifact"> {
-  return deepFreeze({
-    ref: artifact.artifactRef,
-    digest: artifact.artifactDigest,
-  });
+  return productVerificationCoordinates(artifact).verifiedArtifact;
 }
 
 function resolvedLockCoordinate(
@@ -414,10 +419,34 @@ function projectResolutionSuccess(
     selectorRefs,
     resources.nativeContractClosure,
   );
+  const artifacts = resources.verifiedPreimages.map(({ verifiedArtifact }) =>
+    verifiedArtifact
+  );
+  const toolchain = artifacts.filter(({ productId }) =>
+    productId === ABI5_PRODUCT_ID
+  );
+  if (toolchain.length !== 1) {
+    throw new TypeError("resolved native closure requires its exact toolchain Product");
+  }
+  const linked = linkNativeContractSet(artifacts.map((artifact) => ({
+    productId: artifact.productId,
+    productContentDigest: artifact.productContentDigest,
+    packageName: artifact.packageName,
+    declaredDependencies: artifact.declaredDependencies,
+    publicContracts: artifact.publicContracts,
+    evidence: artifact.nativeDeclarationEvidence,
+  })), toolchain[0]!.productContentDigest);
   if (
     closure.disposition !== "admitted" ||
-    lock.nativeContractClosureDigest !==
-      sha256Canonical(closure.value as unknown as JsonValue)
+    linked.kind !== "linked" ||
+    lock.nativeContractClosureDigest !== linked.nativeContractClosureDigest ||
+    !sameJson(closure.value, {
+      selectorDispositions: linked.selectorDispositions,
+      occurrences: linked.occurrences,
+      nativeBindings: linked.bindings.filter(({ kind }) =>
+        kind === "external_binding"
+      ),
+    })
   ) {
     throw new TypeError("resolved native closure differs from the verified Product preimages");
   }
@@ -460,6 +489,12 @@ const resolve: ExactDefinitionCallable<
   ProductResolutionResourceAssertion,
   ProductResolutionResourceReceipt
 > = (call) => {
+  if (admitExactDefinitionCall(call, PRODUCT_ENVIRONMENT_CONTRACTS.resolve) === null) {
+    return Effect.fail(callAdmissionFault(
+      PRODUCT_ENVIRONMENT_CONTRACTS.resolve.definitionKey, "call_admission", "call_identity_mismatch",
+      "definition call differs from its fixed module-static coordinate",
+    ));
+  }
   const resourceFault = validateResolveResources(call);
   if (resourceFault !== null) return Effect.fail(resourceFault);
   return Effect.try({
@@ -538,6 +573,7 @@ function validateBindResources(
       "resolvedLock",
       "schemaVersion",
       "workspaceAuthority",
+      "workspaceManifest",
     ]) ||
     resources.kind !== "product_workspace_binding_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
@@ -560,7 +596,16 @@ function validateBindResources(
   }
   const request = call.invocation.request;
   const installCoordinates = resources.admittedInstalls.map(productInstallCoordinate);
+  let manifest: WorkspaceManifest | null = null;
+  try {
+    manifest = reconstructWorkspaceManifest(JSON.parse(readFileSync(join(
+      resources.workspaceAuthority.canonicalRoot, ".abiogenesis", "workspace-manifest.json",
+    ), "utf8")));
+  } catch { /* A missing or unreadable workspace manifest is a resource refusal. */ }
   if (
+    manifest === null || !sameJson(manifest, resources.workspaceManifest) ||
+    manifest.canonicalRoot !== resources.workspaceAuthority.canonicalRoot ||
+    manifest.workspaceRef !== resources.workspaceAuthority.workspaceId ||
     !sameCoordinate(
       request.workspaceAuthority,
       workspaceAuthorityCoordinate(resources.workspaceAuthority),
@@ -651,6 +696,12 @@ const bind: ExactDefinitionCallable<
   ProductWorkspaceBindingResourceAssertion,
   ProductWorkspaceBindingResourceReceipt
 > = (call) => {
+  if (admitExactDefinitionCall(call, PRODUCT_ENVIRONMENT_CONTRACTS.bind) === null) {
+    return Effect.fail(callAdmissionFault(
+      PRODUCT_ENVIRONMENT_CONTRACTS.bind.definitionKey, "call_admission", "call_identity_mismatch",
+      "definition call differs from its fixed module-static coordinate",
+    ));
+  }
   const resourceFault = validateBindResources(call);
   if (resourceFault !== null) return Effect.fail(resourceFault);
   return Effect.try({
@@ -808,6 +859,6 @@ const bind: ExactDefinitionCallable<
 };
 
 export const PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS = Object.freeze({
-  resolve,
-  bind,
+  resolve: withAdmissionAuthority(PRODUCT_ENVIRONMENT_CONTRACTS.resolve, resolve),
+  bind: withAdmissionAuthority(PRODUCT_ENVIRONMENT_CONTRACTS.bind, bind),
 });

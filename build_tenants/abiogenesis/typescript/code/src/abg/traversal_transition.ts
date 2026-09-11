@@ -1,3 +1,4 @@
+import type { RawAdmittedValue } from "../validator/raw_admission.js";
 import type {
   BlockedRouteAdmissionEvidence,
   FanOutRouteAdmissionEvidence,
@@ -42,6 +43,7 @@ export interface TraversalRouteBodySource {
   readonly consumedAvailabilityRefs: readonly string[] | null;
   readonly contractRef: string | null;
   readonly replayStateDigest: `sha256:${string}` | null;
+  readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: `sha256:${string}`;
   readonly nextActionProjection?: Readonly<object>;
@@ -164,6 +166,7 @@ export function projectTraversalRouteBody(
     (graphSpanPresence.some(Boolean) && !graphSpanPresence.every(Boolean))
   ) return null;
   return {
+    ...(route.boundInput === undefined ? {} : { boundInput: route.boundInput }),
     routeKind: route.routeKind,
     declarationRef: route.declarationRef,
     declarationDigest: route.declarationDigest,
@@ -222,7 +225,7 @@ export function routeCandidateBody(
     : [];
   if (!hasExactKeys(route, [
     "candidateDigest", "candidateRef", "kind", "schemaVersion",
-    ...required, ...nextAction, ...graphSpan,
+    ...required, ...nextAction, ...graphSpan, ...(Object.hasOwn(route, "boundInput") ? ["boundInput"] : []),
   ])) return null;
   return projectTraversalRouteBody(
     route as unknown as TraversalRouteBodySource,

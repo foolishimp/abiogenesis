@@ -20,6 +20,7 @@ import type {
   GraphFunction,
   GtlGraph,
   GtlProgram,
+  ModulePublication,
 } from "../gtl/contracts.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -40,6 +41,7 @@ export interface ExecuteGraphTraversalCommonInput {
   readonly executionBasis: ExecutionBasis;
   readonly openedTraversalScope: OpenedTraversalScope;
   readonly program: Readonly<GtlProgram>;
+  readonly programPublication?: Readonly<ModulePublication>;
   readonly graphFunction: Readonly<GraphFunction>;
   readonly graph: Readonly<GtlGraph>;
   readonly graphValidation: GraphValidation;
@@ -104,6 +106,7 @@ export interface InteractionResumeTraversalEntryInput {
   readonly executionBasis: ExecutionBasis;
   readonly openedTraversalScope: OpenedTraversalScope;
   readonly program: Readonly<GtlProgram>;
+  readonly programPublication?: Readonly<ModulePublication>;
   readonly programValidation: ProgramValidation;
   readonly graph: Readonly<GtlGraph>;
   readonly graphInput: Readonly<Record<string, JsonValue>>;

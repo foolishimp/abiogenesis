@@ -1,3 +1,5 @@
+import { withAdmissionAuthority } from "./admission_authority.js";
+import { admitExactDefinitionCall, definitionFault as callAdmissionFault } from "../shared/definition_binding_mechanics.js";
 import { join } from "node:path";
 import * as Effect from "effect/Effect";
 
@@ -242,6 +244,12 @@ const install: ExactDefinitionCallable<
   ProductInstallResourceAssertion,
   ProductInstallResourceReceipt
 > = (call) => {
+  if (admitExactDefinitionCall(call, PRODUCT_INSTALL_CONTRACTS.install) === null) {
+    return Effect.fail(callAdmissionFault(
+      PRODUCT_INSTALL_CONTRACTS.install.definitionKey, "call_admission", "call_identity_mismatch",
+      "definition call differs from its fixed module-static coordinate",
+    ));
+  }
   const resourceFault = validateResources(call);
   if (resourceFault !== null) return Effect.fail(resourceFault);
 
@@ -407,4 +415,4 @@ const install: ExactDefinitionCallable<
   });
 };
 
-export const PRODUCT_INSTALL_DEFINITION_BINDINGS = Object.freeze({ install });
+export const PRODUCT_INSTALL_DEFINITION_BINDINGS = Object.freeze({ install: withAdmissionAuthority(PRODUCT_INSTALL_CONTRACTS.install, install) });

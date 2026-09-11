@@ -189,6 +189,206 @@ export interface WorksiteEffectRefusal {
   readonly substrateCode: string | null;
 }
 
+/** C0 owner evidence only; publication does not imply an admitted successor. */
+export interface WorksitePostPublicationDiagnostic {
+  readonly stage: "staging_cleanup" | "target_compensation" | "staging_residue" |
+    "successor_observation" | "successor_receipt" | "product_inventory" |
+    "owner_reobservation";
+  readonly code: WorksiteEffectRefusalCode;
+  readonly message: string;
+  readonly substrateCode: string | null;
+}
+
+export interface CompletedWorksiteOwner {
+  readonly authorization: WorksiteEffectAuthorization;
+  readonly receipt: WorksiteFileReplaceReceipt;
+  readonly successorObservation: FileWorksiteObservation;
+}
+
+export interface WorksitePublicationFacts {
+  readonly committed: true;
+  readonly method: "link" | "rename";
+  readonly writtenDigest: Sha256Digest;
+  readonly byteLength: number;
+  readonly stagingPath: string;
+  readonly stagingFileIdentity: string;
+}
+
+export type WorksitePhysicalOutcome = Readonly<{
+  readonly postPublicationObservation: WorksiteObservation | null;
+  readonly diagnostics: readonly WorksitePostPublicationDiagnostic[];
+}> & (Readonly<{
+  readonly kind: "publication_only";
+  readonly authorization: WorksiteEffectAuthorization;
+  readonly publication: WorksitePublicationFacts;
+  readonly compensation: "not_attempted" | "succeeded" | "failed" |
+    "skipped_unverified_identity";
+  readonly stagingCleanup: "consumed_by_rename" | "removed" | "failed" |
+    "skipped_unverified_identity";
+  readonly stagingResidue: Readonly<{
+    readonly state: "absent" | "owned_file" | "other_path" | "unknown";
+    readonly fileIdentity: string | null;
+  }>;
+}> | Readonly<{
+  readonly kind: "owner_completed";
+  readonly completedOwner: CompletedWorksiteOwner;
+}>);
+
+export interface WorksitePostPublicationFailure extends WorksiteEffectRefusal {
+  readonly phase: "post_publication";
+  readonly physicalOutcome: WorksitePhysicalOutcome;
+}
+
+export function postPublicationWorksiteFailure(
+  firstFailure: WorksiteEffectRefusal,
+  physicalOutcome: WorksitePhysicalOutcome,
+): WorksitePostPublicationFailure {
+  return deepFreeze({
+    kind: "worksite_effect_refusal" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "refused" as const,
+    code: firstFailure.code,
+    message: firstFailure.message,
+    lastObservation: firstFailure.lastObservation,
+    substrateCode: firstFailure.substrateCode,
+    phase: "post_publication" as const,
+    physicalOutcome,
+  });
+}
+
+export function worksiteFailureAuthorization(
+  value: WorksitePostPublicationFailure,
+): WorksiteEffectAuthorization {
+  return value.physicalOutcome.kind === "publication_only"
+    ? value.physicalOutcome.authorization
+    : value.physicalOutcome.completedOwner.authorization;
+}
+
+/** Structural closure and intrinsic joins; admission separately authenticates A/W/B/call. */
+export function isWorksitePostPublicationFailure(
+  value: unknown,
+): value is WorksitePostPublicationFailure {
+  if (!isRecord(value) || !hasExactKeys(value, [
+    "kind", "schemaVersion", "disposition", "code", "message",
+    "lastObservation", "substrateCode", "phase", "physicalOutcome",
+    ...(value.diagnosticRef === undefined ? [] : ["diagnosticRef"]),
+  ]) || value.kind !== "worksite_effect_refusal" ||
+    value.schemaVersion !== "5.0.0" || value.disposition !== "refused" ||
+    value.phase !== "post_publication" ||
+    !WORKSITE_EFFECT_REFUSAL_CODES.some(code => code === value.code) ||
+    !nonEmptyString(value.message) ||
+    (value.substrateCode !== null && !nonEmptyString(value.substrateCode)) ||
+    (value.diagnosticRef !== undefined && !nonEmptyString(value.diagnosticRef)) ||
+    (value.lastObservation !== null && !isWorksiteObservation(value.lastObservation)) ||
+    !isRecord(value.physicalOutcome)) return false;
+  const outcome = value.physicalOutcome;
+  if (!hasExactKeys(outcome, ["kind", "postPublicationObservation", "diagnostics",
+    ...(outcome.kind === "publication_only"
+      ? ["authorization", "publication", "compensation", "stagingCleanup", "stagingResidue"]
+      : ["completedOwner"]),
+  ]) || (outcome.kind !== "publication_only" && outcome.kind !== "owner_completed") ||
+    (outcome.postPublicationObservation !== null &&
+      !isWorksiteObservation(outcome.postPublicationObservation)) ||
+    !Array.isArray(outcome.diagnostics) || outcome.diagnostics.length < 1 ||
+    outcome.diagnostics.length > 8 || !outcome.diagnostics.every(row =>
+      isRecord(row) && hasExactKeys(row, ["stage", "code", "message", "substrateCode"]) &&
+      ["staging_cleanup", "target_compensation", "staging_residue",
+        "successor_observation", "successor_receipt", "product_inventory",
+        "owner_reobservation"].includes(row.stage as string) &&
+      WORKSITE_EFFECT_REFUSAL_CODES.some(code => code === row.code) &&
+      nonEmptyString(row.message) &&
+      (row.substrateCode === null || nonEmptyString(row.substrateCode)))) return false;
+  const first = outcome.diagnostics[0];
+  if (first.code !== value.code || first.message !== value.message ||
+    first.substrateCode !== value.substrateCode) return false;
+  if (outcome.kind === "owner_completed"
+    ? !["product_inventory", "owner_reobservation"].includes(first.stage)
+    : !["staging_cleanup", "successor_observation", "successor_receipt"].includes(first.stage)) return false;
+  let authorization: WorksiteEffectAuthorization;
+  if (outcome.kind === "publication_only") {
+    const publication = outcome.publication;
+    const residue = outcome.stagingResidue;
+    if (!isWorksiteEffectAuthorization(outcome.authorization) ||
+      !isRecord(publication) || !hasExactKeys(publication, ["committed", "method",
+        "writtenDigest", "byteLength", "stagingPath", "stagingFileIdentity"]) ||
+      publication.committed !== true ||
+      (publication.method !== "link" && publication.method !== "rename") ||
+      !isSha256Digest(publication.writtenDigest) ||
+      !Number.isSafeInteger(publication.byteLength) || (publication.byteLength as number) < 0 ||
+      !nonEmptyString(publication.stagingPath) || !isAbsolute(publication.stagingPath) ||
+      resolve(publication.stagingPath) !== publication.stagingPath ||
+      !nonEmptyString(publication.stagingFileIdentity) ||
+      !/^[0-9]+:[0-9]+$/u.test(publication.stagingFileIdentity) ||
+      !["not_attempted", "succeeded", "failed", "skipped_unverified_identity"].includes(outcome.compensation as string) ||
+      !["consumed_by_rename", "removed", "failed", "skipped_unverified_identity"].includes(outcome.stagingCleanup as string) ||
+      (publication.method === "rename" && (outcome.compensation !== "not_attempted" || outcome.stagingCleanup !== "consumed_by_rename")) ||
+      (publication.method === "link" && outcome.stagingCleanup === "consumed_by_rename") ||
+      (outcome.compensation !== "not_attempted" && first.stage !== "staging_cleanup") ||
+      !isRecord(residue) || !hasExactKeys(residue, ["state", "fileIdentity"]) ||
+      !["absent", "owned_file", "other_path", "unknown"].includes(residue.state as string) ||
+      ((residue.state === "absent" || residue.state === "unknown")
+        ? residue.fileIdentity !== null
+        : !nonEmptyString(residue.fileIdentity)) ||
+      (residue.state === "owned_file" && residue.fileIdentity !== publication.stagingFileIdentity)) return false;
+    authorization = outcome.authorization;
+  } else {
+    const completed = outcome.completedOwner;
+    if (!isRecord(completed) || !hasExactKeys(completed, ["authorization", "receipt", "successorObservation"]) ||
+      !isWorksiteEffectAuthorization(completed.authorization) ||
+      !isWorksiteFileReplaceReceipt(completed.receipt) ||
+      !isWorksiteObservation(completed.successorObservation) ||
+      completed.successorObservation.state !== "file") return false;
+    authorization = completed.authorization;
+    const receipt = completed.receipt;
+    const successor = completed.successorObservation;
+    if (receipt.authorizationRef !== authorization.authorizationRef ||
+      receipt.authorizationDigest !== authorization.authorizationDigest ||
+      receipt.beforeObservationRef !== authorization.predecessorObservationRef ||
+      receipt.beforeObservationDigest !== authorization.predecessorObservationDigest ||
+      receipt.afterObservationRef !== successor.observationRef ||
+      receipt.afterObservationDigest !== successor.observationDigest ||
+      receipt.writtenDigest !== successor.fileDigest ||
+      successor.subjectRef !== authorization.subjectRef ||
+      successor.subjectDigest !== authorization.subjectDigest ||
+      successor.workspaceBindingIdentity !== authorization.workspaceBindingIdentity) return false;
+  }
+  return [value.lastObservation, outcome.postPublicationObservation].every(observation =>
+    observation === null || (isWorksiteObservation(observation) &&
+      observation.subjectRef === authorization.subjectRef &&
+      observation.subjectDigest === authorization.subjectDigest &&
+      observation.workspaceBindingIdentity === authorization.workspaceBindingIdentity));
+}
+
+export function worksitePostPublicationFailureMatches(
+  value: unknown,
+  request: WorksiteFileReplaceRequest,
+  expectedAuthorization: WorksiteEffectAuthorization,
+): value is WorksitePostPublicationFailure {
+  if (!isWorksitePostPublicationFailure(value) || !isWorksiteFileReplaceRequest(request) ||
+    !isWorksiteEffectAuthorization(expectedAuthorization) ||
+    canonicalJson(worksiteFailureAuthorization(value) as unknown as JsonValue) !==
+      canonicalJson(expectedAuthorization as unknown as JsonValue)) return false;
+  const outcome = value.physicalOutcome;
+  if (outcome.kind === "owner_completed") {
+    const receipt = constructWorksiteFileReplaceReceipt(expectedAuthorization,
+      request.predecessorObservation, outcome.completedOwner.successorObservation,
+      request.replacementDigest);
+    return receipt.kind === "worksite_file_replace_receipt" &&
+      canonicalJson(receipt as unknown as JsonValue) ===
+        canonicalJson(outcome.completedOwner.receipt as unknown as JsonValue) &&
+      outcome.completedOwner.successorObservation.byteLength === request.replacementByteLength;
+  }
+  const publication = outcome.publication;
+  const target = resolve(request.workspaceAuthorityBasis.canonicalRoot, request.subject.relativePath);
+  const stagingName = posix.basename(publication.stagingPath);
+  return publication.method === (request.predecessorObservation.state === "absent" ? "link" : "rename") &&
+    publication.writtenDigest === request.replacementDigest &&
+    publication.byteLength === request.replacementByteLength &&
+    resolve(publication.stagingPath, "..") === resolve(target, "..") &&
+    stagingName.startsWith(`.abiogenesis-${posix.basename(target)}-`) &&
+    stagingName.endsWith(".tmp");
+}
+
 export interface WorksiteSubjectInput {
   readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
   readonly workspaceBinding: WorkspaceBinding;
@@ -999,7 +1199,8 @@ export function isWorksiteFileReplaceRequest(
     value.capabilityGrant.actorRef.length > 0 &&
     value.capabilityGrant.operationId === "abg.operation.run.invoke" &&
     value.capabilityGrant.definitionKey.operationId === "abg.operation.run.invoke" &&
-    value.capabilityGrant.definitionKey.memberKey === "invoke" &&
+    (value.capabilityGrant.definitionKey.memberKey === "invoke" ||
+      value.capabilityGrant.definitionKey.memberKey === "start") &&
     value.capabilityGrant.scopeRef === value.workspaceBindingIdentity &&
     value.capabilityGrant.scopeDigest === value.workspaceBindingDigest &&
     value.capabilityGrant.actorRef === authority.authorizedActorRef &&
@@ -1097,7 +1298,8 @@ export function constructWorksiteEffectAuthorization(
     capabilityGrant.actorRef !== input.executionBasis.actorRef ||
     capabilityGrant.operationId !== "abg.operation.run.invoke" ||
     capabilityGrant.definitionKey.operationId !== "abg.operation.run.invoke" ||
-    capabilityGrant.definitionKey.memberKey !== "invoke" ||
+    (capabilityGrant.definitionKey.memberKey !== "invoke" &&
+      capabilityGrant.definitionKey.memberKey !== "start") ||
     capabilityGrant.scopeRef !== input.workspaceBinding.bindingId ||
     capabilityGrant.scopeDigest !== input.workspaceBinding.bindingDigest ||
     input.cCall.basisId !== input.executionBasis.basisRef ||

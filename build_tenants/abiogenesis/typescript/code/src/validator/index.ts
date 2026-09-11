@@ -46,3 +46,6 @@ export {
   CONFORMANCE_DEFINITION_BINDINGS,
   type ConformanceEvaluationResourceAssertion,
 } from "./conformance_definition_bindings.js";
+export { CONFORMANCE_OPERATION_CONTRACTS } from "./conformance_operation_contracts.js";
+export * from "./self_conformance_contracts.js";
+export { evaluateSelfConformance, readSelfConformanceCatalog, SELF_CONFORMANCE_CATALOG_ASSET_PATH, SELF_CONFORMANCE_CATALOG_CONTRACT_ID } from "./self_conformance.js";

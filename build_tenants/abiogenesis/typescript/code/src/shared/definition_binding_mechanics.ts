@@ -337,10 +337,11 @@ function admittedInvocationRuntimeSchema(
 export function admitExactDefinitionCall<
   TPacket extends OwnerContractSourceDeclaration,
 >(
-  call: Readonly<{ readonly invocation: unknown }>,
+  call: unknown,
   packet: TPacket,
 ): DefinitionCall<TPacket, never>["invocation"] | null {
-  if (!isRecord(call.invocation)) return null;
+  if (!isRecord(call) || !hasExactKeys(call, ["invocation", "resources"]) ||
+    !isRecord(call.invocation)) return null;
   const rawInvocation = call.invocation as unknown as AdmittedPublicInvocation<
     PublicDefinitionKeyLike,
     Readonly<Record<string, JsonValue>>

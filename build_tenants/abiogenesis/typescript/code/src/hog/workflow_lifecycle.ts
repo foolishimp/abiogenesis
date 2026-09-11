@@ -774,11 +774,22 @@ export function completeWorkflowLocus(
     sourceContinuation.disposition === "advance" &&
     sourceContinuation.relation === "batch_next";
   if (fanOut === null || advancesToNextFanOutMember) {
+    let retained: ReturnType<typeof Abg.deriveRetainedCCallInputAtPrefix> = null;
+    if (result.resultClass === "success" && judgment.judgment === "advance") {
+      try {
+        const truth = Abg.projectRuntimeTruthAtDurablePrefix(outcome.successorPrefix, cursor.runId);
+        retained = Abg.deriveRetainedCCallInputAtPrefix(truth.authorityPrefix, runtime.executionBasis,
+          runtime.graph, cursor, outcome.admitted.cCall, result, judgment);
+      } catch {
+        return failWorkflow(frame, outcome.successorPrefix, `workflow-retention-${ordinal}`,
+          "diagnostic://abiogenesis/hog/retention-binding-invalid@5", { stage: "retention" });
+      }
+    }
     let target: TraversalCursor | null = null;
     if (result.resultClass === "success" && judgment.judgment === "advance") {
       const derived = deriveCompletedTraversalCursor(runtime.graph, cursor, {
-        inputRef: result.resultRef,
-        inputDigest: result.valueDigest,
+        inputRef: retained?.input.admissionRef ?? result.resultRef,
+        inputDigest: retained?.input.subjectDigest ?? result.valueDigest,
       });
       if (derived?.kind === "traversal_refusal") {
         return failWorkflow(frame,
@@ -820,6 +831,7 @@ export function completeWorkflowLocus(
       );
     }
     const candidate = Routes.proposeCCallOutcomeTransition({
+      ...(retained === null ? {} : { boundInput: retained.input }),
       graph: runtime.graph,
       graphFunction: runtime.graphFunction,
       sourceCursor: cursor,
@@ -895,9 +907,8 @@ export function completeWorkflowLocus(
     replayState: outcome.replayState,
     completionKind: completeVector ? "complete_vector" : "partial_stop",
     validateOutputVector: (value): value is Readonly<Record<string, JsonValue>> =>
-      runtime.leafPort.validateContractValue(
+      runtime.leafPort.validateContractValueByRef(
         fanOut.outputVectorRef,
-        "output",
         value,
       ),
     basis: workflowBasis(frame, "fan-out-completion"),

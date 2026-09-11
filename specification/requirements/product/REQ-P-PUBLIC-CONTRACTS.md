@@ -168,9 +168,9 @@ projection retains a distinct public identity.
 schema document with addressable definitions for
 `ExactCandidateQualification<basis>`,
 `ExactCandidateQualification<verdict>`, `QualificationLawBasis`,
-`QualificationGateResultVector<K>`, and `FinalTapDelta`. The basis and verdict
+and `QualificationGateResultVector<K>`. The basis and verdict
 are addressable projections of the Prime qualification family;
-`QualificationLawBasis`, the result vector, and `FinalTapDelta` remain
+`QualificationLawBasis` and the result vector remain
 subordinate definitions and shall not become independently authored schema
 identities.
 

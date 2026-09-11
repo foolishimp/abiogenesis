@@ -1,6 +1,6 @@
 # REQ-P-SELF-CONFORMANCE - ABIogenesis Product Self-Conformance
 
-**Status**: Active - T-283 base; exact STDO `v2.5.0-rc.4` qualification basis
+**Status**: Active - T-283 base; exact Definition-selected STDO qualification basis
 **Category**: Constraint / Verification
 **Date**: 2026-07-25
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001,
@@ -30,7 +30,8 @@ and workspace-binding truth when applicable, tenant-conformance manifest, and
 frozen gate inventory. The law basis shall identify the specification-method
 version, applicable rule-catalog version, exact source references, and content
 digests used to decide the run. ABIogenesis 5.0 release qualification shall
-bind the exact tapped and installed STDO `v2.5.0-rc.4` release identity,
+bind the exact tapped and installed STDO release identity selected by
+`stdo_abiogenesis.json`,
 installed-manifest digest, and standards member-set digest.
 
 **REQ-P-SELF-CONFORMANCE-001A**: Missing, stale, conflicting, unreadable, or
@@ -89,10 +90,11 @@ overall `ExactCandidateQualification<verdict>` projection.
 **REQ-P-SELF-CONFORMANCE-008**: Qualification of a `pre_rc_candidate` shall run
 the self-conformance contract against the real complete ABIogenesis candidate
 tree bound by its exact `ExactCandidateQualification<basis>` projection.
-Qualification of an `installed_rc` or `final_tap_candidate` shall rerun every
-self-conformance gate made applicable by that exact subject or its admitted
-delta. A run is green only when every applicable required surface and rule has
-a typed terminal disposition.
+Qualification of an `installed_rc` shall rerun every self-conformance gate made
+applicable by that exact installed subject. A qualifying Product or
+release-claim byte change requires a higher RC and its applicable gates, not a
+third qualification subject at acceptance. A run is green only when every
+applicable required surface and rule has a typed terminal disposition.
 
 **REQ-P-SELF-CONFORMANCE-009**: A seeded-negative matrix shall introduce
 representative missing authority, broken traceability, unowned public contract,

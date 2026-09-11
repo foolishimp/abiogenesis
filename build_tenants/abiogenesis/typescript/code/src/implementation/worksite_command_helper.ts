@@ -1,4 +1,12 @@
 #!/usr/bin/env node
+import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
+import { WORKSITE_COMMAND_FORWARD_IDS } from "../product/worksite_command_forward_identity.js";
+import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
+  executableWorksiteCommandSources as worksiteExecutionSources, executableWorksiteCommandLocus as worksiteExecutionLocus,
+  executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef,
+  executableWorksiteCommandIdentityPrefix as worksiteExecutionIdentityPrefix,
+  type ExecutableWorksiteCommandTask as WorksiteExecutionTask,
+  type ExecutableWorksiteSnapshotMember as WorksiteExecutionSnapshotMember } from "../product/worksite_command_forward.js";
 import { spawn } from "node:child_process";
 import { request as httpRequest } from "node:http";
 import {
@@ -28,9 +36,7 @@ import {
 } from "../product/contracts.js";
 import {
   WORKSITE_COMMAND_EXECUTION_IDS,
-  constructWorksiteCommandHelperArtifact,
-  isWorksiteCommandExecutionTask,
-  type WorksiteCommandExecutionTask,
+  constructWorksiteExecutionHelperArtifact,
   type WorksiteCommandExecutionWorkerResult,
   type WorksiteCommandResult,
   type WorksiteObservedStream,
@@ -38,7 +44,6 @@ import {
   type WorksitePathDelta,
   type WorksitePathObservation,
   type WorksiteReportObservation,
-  type WorksiteSnapshotMember,
   matchingWorksiteTerritoryRef,
 } from "../product/worksite_command_execution.js";
 import { observeWorksiteSubject } from "../product/worksite_operations.js";
@@ -113,8 +118,7 @@ function isAuthorityFreeOccurrence(
     occurrenceIdentity((value as Readonly<Record<string, unknown>>).runId) &&
     occurrenceIdentity((value as Readonly<Record<string, unknown>>).graphCallId) &&
     occurrenceIdentity((value as Readonly<Record<string, unknown>>).frameId) &&
-    (value as Readonly<Record<string, unknown>>).programLocusRef ===
-      WORKSITE_COMMAND_EXECUTION_IDS.nodeRef &&
+    [(WORKSITE_COMMAND_EXECUTION_IDS.nodeRef as string), WORKSITE_REVISION_IDS.nodeRef, WORKSITE_COMMAND_FORWARD_IDS.nodeRef].includes((value as Readonly<Record<string, unknown>>).programLocusRef as string) &&
     ((value as Readonly<Record<string, unknown>>).taskOrdinal === null ||
       Number.isSafeInteger((value as Readonly<Record<string, unknown>>).taskOrdinal) &&
       Number((value as Readonly<Record<string, unknown>>).taskOrdinal) >= 0) &&
@@ -163,9 +167,10 @@ function isWorksiteCommandExecutionLaunchManifest(
     !nonempty(candidate.launchManifestPath) || !nonempty(candidate.helperModulePath) ||
     !Number.isSafeInteger(candidate.taskManifestByteLength) ||
     Number(candidate.taskManifestByteLength) < 1 ||
-    candidate.implementationRef !== WORKSITE_COMMAND_EXECUTION_IDS.implementationRef ||
-    candidate.implementationBindingRef !==
-      WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef ||
+    candidate.implementationRef !== (candidate.occurrence.programLocusRef === WORKSITE_COMMAND_FORWARD_IDS.nodeRef ? WORKSITE_COMMAND_FORWARD_IDS.implementationRef : candidate.occurrence.programLocusRef === WORKSITE_COMMAND_EXECUTION_IDS.nodeRef
+      ? WORKSITE_COMMAND_EXECUTION_IDS.implementationRef : WORKSITE_REVISION_IDS.implementationRef) ||
+    candidate.implementationBindingRef !== (candidate.occurrence.programLocusRef === WORKSITE_COMMAND_FORWARD_IDS.nodeRef ? WORKSITE_COMMAND_FORWARD_IDS.implementationBindingRef : candidate.occurrence.programLocusRef === WORKSITE_COMMAND_EXECUTION_IDS.nodeRef
+      ? WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef : WORKSITE_REVISION_IDS.implementationBindingRef) ||
     candidate.packageName !== ABI5_PACKAGE_NAME ||
     candidate.packageVersion !== ABI5_PACKAGE_VERSION) return false;
   const occurrence = candidate.occurrence;
@@ -188,9 +193,8 @@ function isWorksiteCommandExecutionLaunchManifest(
     attemptRoot: candidate.attemptRoot,
     launchManifestPath: candidate.launchManifestPath,
     helperModulePath: candidate.helperModulePath,
-    implementationRef: WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,
-    implementationBindingRef:
-      WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef,
+    implementationRef: candidate.implementationRef,
+    implementationBindingRef: candidate.implementationBindingRef,
     packageName: ABI5_PACKAGE_NAME,
     packageVersion: ABI5_PACKAGE_VERSION,
   } as const;
@@ -349,7 +353,7 @@ async function plannedCanonicalDirectoryPath(path: string): Promise<string> {
 }
 
 async function assertLaunchArchiveBoundary(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   manifest: WorksiteCommandExecutionLaunchManifest,
 ): Promise<void> {
   const canonicalRoots = new Map<string, string>();
@@ -373,7 +377,7 @@ async function assertLaunchArchiveBoundary(
 }
 
 async function admitLaunchManifest(): Promise<Readonly<{
-  task: WorksiteCommandExecutionTask;
+  task: WorksiteExecutionTask;
   manifest: WorksiteCommandExecutionLaunchManifest;
   manifestBytes: Buffer;
   artifactPath: string;
@@ -434,7 +438,7 @@ async function admitLaunchManifest(): Promise<Readonly<{
     taskManifestBytes.toString("utf8"),
     "worksite command execution Product task manifest",
   );
-  if (!isWorksiteCommandExecutionTask(taskValue)) {
+  if (!isWorksiteExecutionTask(taskValue)) {
     throw new TypeError("helper task manifest does not retain one exact Product task");
   }
   const task = taskValue;
@@ -453,7 +457,8 @@ async function admitLaunchManifest(): Promise<Readonly<{
     "node_modules", "@abiogenesis", "typescript-tenant", "build", "code", "src",
     "implementation", "worksite_command_helper.js",
   );
-  if (!taskManifestBytes.equals(canonicalTaskBytes) ||
+  if (manifest.occurrence.programLocusRef !== worksiteExecutionLocus(task) ||
+    manifest.implementationRef !== worksiteExecutionImplementationRef(task) || !taskManifestBytes.equals(canonicalTaskBytes) ||
     manifest.taskRef !== task.taskRef || manifest.taskDigest !== task.taskDigest ||
     manifest.taskManifestDigest !== sha256Bytes(taskManifestBytes) ||
     manifest.taskManifestByteLength !== taskManifestBytes.byteLength ||
@@ -546,7 +551,7 @@ async function filesystemInventory(
 }
 
 function worksiteDelta(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   before: ReadonlyMap<string, WorksitePathObservation>,
   after: ReadonlyMap<string, WorksitePathObservation>,
   authorizeSnapshotTerritories = true,
@@ -574,16 +579,16 @@ function worksiteDelta(
 }
 
 async function materializeSnapshot(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   snapshotRoot: string,
 ): Promise<Readonly<{
   snapshotRef: string;
   snapshotDigest: `sha256:${string}`;
-  snapshotMembers: readonly WorksiteSnapshotMember[];
+  snapshotMembers: readonly WorksiteExecutionSnapshotMember[];
 }>> {
   await mkdir(snapshotRoot);
-  const members: WorksiteSnapshotMember[] = [];
-  for (const [ordinal, protectedRow] of task.protectedObservations.entries()) {
+  const members: WorksiteExecutionSnapshotMember[] = [];
+  for (const [ordinal, protectedRow] of worksiteExecutionSources(task).entries()) {
     const sourcePath = await confinedExistingPath(
       task.workspaceAuthorityBasis.canonicalRoot,
       protectedRow.subject.relativePath,
@@ -601,10 +606,13 @@ async function materializeSnapshot(
     const published = await readFile(targetPath);
     if (!published.equals(bytes)) throw new TypeError("snapshot member changed after create-only publication");
     members.push(Object.freeze({
-      kind: "worksite_snapshot_member" as const,
+      ...("sourceMemberRef" in protectedRow && "source" in protectedRow
+        ? { kind: "worksite_command_forward_snapshot_member" as const, sourceMemberRef: protectedRow.sourceMemberRef, source: protectedRow.source }
+        : "sourceMemberRef" in protectedRow
+        ? { kind: "worksite_snapshot_member" as const, sourceMemberRef: protectedRow.sourceMemberRef }
+        : { kind: "worksite_revision_snapshot_member" as const, designTargetRef: protectedRow.designTargetRef, source: protectedRow.source }),
       schemaVersion: "5.0.0" as const,
       ordinal,
-      sourceMemberRef: protectedRow.sourceMemberRef,
       sourceObservationRef: protectedRow.observation.observationRef,
       sourceObservationDigest: protectedRow.observation.observationDigest,
       relativePath: protectedRow.subject.relativePath,
@@ -615,7 +623,7 @@ async function materializeSnapshot(
   const snapshotMembers = Object.freeze(members);
   const snapshotDigest = sha256Canonical(snapshotMembers as unknown as JsonValue);
   return Object.freeze({
-    snapshotRef: `worksite-command-snapshot://abiogenesis/${snapshotDigest.slice("sha256:".length)}`,
+    snapshotRef: `${worksiteExecutionIdentityPrefix(task, "snapshot")}/${snapshotDigest.slice("sha256:".length)}`,
     snapshotDigest,
     snapshotMembers,
   });
@@ -634,8 +642,8 @@ function stream(bytes: Buffer): WorksiteObservedStream {
 
 async function reportObservation(
   executionRoot: string,
-  command: WorksiteCommandExecutionTask["commands"][number],
-  report: WorksiteCommandExecutionTask["commands"][number]["expectedReports"][number],
+  command: WorksiteExecutionTask["commands"][number],
+  report: WorksiteExecutionTask["commands"][number]["expectedReports"][number],
 ): Promise<WorksiteReportObservation> {
   const construct = (
     state: "absent" | "file",
@@ -701,7 +709,7 @@ for (const signal of ["SIGTERM", "SIGINT"] as const) {
 }
 
 async function runCommand(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   executionRoot: string,
   ordinal: number,
 ): Promise<WorksiteCommandResult> {
@@ -807,7 +815,7 @@ function decodeStream(value: WorksiteObservedStream): string {
 }
 
 function commandFor(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   commandResults: readonly WorksiteCommandResult[],
   declaration: Readonly<Record<string, JsonValue>>,
 ): WorksiteCommandResult {
@@ -829,7 +837,7 @@ function nodeTestPassCount(stdout: string, stderr: string): number | null {
 }
 
 function declaredReportSet(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
 ): Readonly<Record<string, JsonValue>> | null {
   for (const predicate of task.outcomePredicates) {
     if (predicate.predicateKind !== "test_report_set_exact") continue;
@@ -1004,7 +1012,7 @@ async function waitForExit<T>(exit: Promise<T>, timeoutMs: number): Promise<T | 
 }
 
 async function runHttpProbe(
-  _task: WorksiteCommandExecutionTask,
+  _task: WorksiteExecutionTask,
   executionRoot: string,
   declaration: Readonly<Record<string, JsonValue>>,
 ): Promise<JsonValue> {
@@ -1162,7 +1170,7 @@ async function runHttpProbe(
 }
 
 async function predicateObservation(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   executionRoot: string,
   commandResults: readonly WorksiteCommandResult[],
   ordinal: number,
@@ -1221,10 +1229,10 @@ async function predicateObservation(
     } catch {
       observedValue = null;
     }
-    evidenceRefs = task.protectedObservations
+    evidenceRefs = worksiteExecutionSources(task)
       .filter((row) => row.subject.relativePath === modulePath)
       .map((row) => row.observation.observationRef);
-    evidence = task.protectedObservations
+    evidence = worksiteExecutionSources(task)
       .filter((row) => row.subject.relativePath === modulePath)
       .map((row) => ({
         kind: "worksite_observation_coordinate",
@@ -1255,14 +1263,14 @@ async function predicateObservation(
     const prefix = selector.prefix as string;
     const suffix = selector.suffix as string;
     const segmentIndex = selector.segmentIndex as number;
-    const paths = task.protectedObservations.map((row) => row.subject.relativePath);
+    const paths = worksiteExecutionSources(task).map((row) => row.subject.relativePath);
     observedValue = [...new Set(paths.flatMap((path) => {
       if (!path.startsWith(prefix) || !path.endsWith(suffix)) return [];
       const selected = path.slice(prefix.length).split("/")[segmentIndex];
       return selected === undefined || selected.length === 0 ? [] : [selected];
     }))];
-    evidenceRefs = task.protectedObservations.map((row) => row.observation.observationRef);
-    evidence = task.protectedObservations.map((row) => ({
+    evidenceRefs = worksiteExecutionSources(task).map((row) => row.observation.observationRef);
+    evidence = worksiteExecutionSources(task).map((row) => ({
       kind: "worksite_observation_coordinate",
       schemaVersion: "5.0.0",
       ref: row.observation.observationRef,
@@ -1272,7 +1280,7 @@ async function predicateObservation(
     const selector = record(declaration.selector as JsonValue);
     const suffixes = selector.includeSuffixes as readonly string[];
     const substrings = selector.includeSubstrings as readonly string[];
-    const selected = task.protectedObservations.filter((row) => {
+    const selected = worksiteExecutionSources(task).filter((row) => {
       const path = row.subject.relativePath;
       return suffixes.some((suffix) => path.endsWith(suffix)) ||
         substrings.some((substring) => path.includes(substring));
@@ -1317,8 +1325,8 @@ async function predicateObservation(
   });
 }
 
-async function observations(task: WorksiteCommandExecutionTask) {
-  const rows = await Promise.all(task.protectedObservations.map((row) =>
+async function observations(task: WorksiteExecutionTask) {
+  const rows = await Promise.all(worksiteExecutionSources(task).map((row) =>
     observeWorksiteSubject(
       task.workspaceAuthorityBasis,
       task.workspaceBinding,
@@ -1356,7 +1364,7 @@ async function publishCreateOnly(path: string, bytes: Buffer): Promise<void> {
 async function main(): Promise<void> {
   const preflight = await admitLaunchManifest();
   const { task, artifactPath, sandboxRoot } = preflight;
-  if (!isWorksiteCommandExecutionTask(task)) {
+  if (!isWorksiteExecutionTask(task)) {
     throw new TypeError("helper launch manifest does not retain one exact Product task");
   }
   const before = await observations(task);
@@ -1364,17 +1372,17 @@ async function main(): Promise<void> {
     task.workspaceBinding.roots.productRoot,
   );
   const beforeMatches = before.every((row, ordinal) => canonicalJson(row as unknown as JsonValue) ===
-    canonicalJson(task.protectedObservations[ordinal]!.observation as unknown as JsonValue));
+    canonicalJson(worksiteExecutionSources(task)[ordinal]!.observation as unknown as JsonValue));
   const commandResults: WorksiteCommandResult[] = [];
   const predicateObservations: WorksitePredicateObservation[] = [];
   const snapshot = beforeMatches
     ? await materializeSnapshot(task, sandboxRoot)
     : await (async () => {
         await mkdir(sandboxRoot);
-        const snapshotMembers = Object.freeze([]) as readonly WorksiteSnapshotMember[];
+        const snapshotMembers = Object.freeze([]) as readonly WorksiteExecutionSnapshotMember[];
         const snapshotDigest = sha256Canonical(snapshotMembers as unknown as JsonValue);
         return Object.freeze({
-          snapshotRef: `worksite-command-snapshot://abiogenesis/${snapshotDigest.slice("sha256:".length)}`,
+          snapshotRef: `${worksiteExecutionIdentityPrefix(task, "snapshot")}/${snapshotDigest.slice("sha256:".length)}`,
           snapshotDigest,
           snapshotMembers,
         });
@@ -1401,8 +1409,8 @@ async function main(): Promise<void> {
   );
   const productDelta = worksiteDelta(task, productInventoryBefore, productInventoryAfter, false);
   const afterMatches = after.every((row, ordinal) => canonicalJson(row as unknown as JsonValue) ===
-    canonicalJson(task.protectedObservations[ordinal]!.observation as unknown as JsonValue));
-  const artifact = constructWorksiteCommandHelperArtifact({
+    canonicalJson(worksiteExecutionSources(task)[ordinal]!.observation as unknown as JsonValue));
+  const artifact = constructWorksiteExecutionHelperArtifact({
     task,
     disposition: !beforeMatches || !afterMatches
       ? "protected_mismatch"
@@ -1434,12 +1442,9 @@ async function main(): Promise<void> {
     schemaVersion: "5.0.0" as const,
     taskRef: task.taskRef,
     taskDigest: task.taskDigest,
-    workspaceBindingIdentity: task.workspaceBinding.bindingId,
-    workspaceBindingDigest: task.workspaceBinding.bindingDigest,
-    sourceConstructionResultRef: task.sourceConstructionResultRef,
-    sourceConstructionResultDigest: task.sourceConstructionResultDigest,
-    commandResults: artifact.commandResults,
-    predicateObservations: artifact.predicateObservations,
+    attemptRef: preflight.manifest.attemptRef,
+    helperArtifactRef: artifact.artifactRef,
+    helperArtifactDigest: artifact.artifactDigest,
   }) satisfies WorksiteCommandExecutionWorkerResult;
   process.stdout.write(
     `${canonicalJson(workerReturnProjection as unknown as JsonValue)}\n`,

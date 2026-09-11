@@ -1,6 +1,38 @@
 # ABIogenesis TypeScript Design
 
-## Current Boundary
+## Current Method And Work Selection
+
+The sole exact method selection is
+`repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`; its
+composition owns the release-matched Axiom Indexer and STDO Representation
+Development Products. The RC6 migration and all current work are bounded by
+[GOALS](../../../../specification/GOALS.md#current-selection) and
+[T-287](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#stdo-rc6-migration).
+Wave 2 remains `HOLD`. Bounded C0 correction-01 is completed and Executive-accepted
+after independent review returned `satisfied`.
+[Current Selection](../../../../specification/GOALS.md#current-selection),
+[T-287 W2-BL-C0](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#w2-bl-c0),
+and its [corrective record](../../../../.ai-workspace/comments/codex/20260907T033506Z_W2_BL_C0_POST_PUBLICATION/correction-01/execution.md)
+own the exact accepted subject, review and evidence limits. Parent subjects and
+exercised proof remain immutable history. Local context is regenerated from
+these settled owners; no next implementation is selected.
+
+Recorded accepted hashes identify their original exact subjects. The completed
+RC6 migration changed method/frame routes only. C0's correction changes only
+the public-surface HOW paragraph to keep the physical writer internal to the
+guarded owner; it does not relabel frozen prior bytes. C1/C2/C3 semantic HOW and historical acceptance remain
+unchanged; no new qualification is claimed.
+
+The accepted [native event-contract compatibility](T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md)
+and [interrupted event-resource recovery](T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md)
+supplements preserve exact profile ancestry, physical acquisition and witnessed
+stop ownership. [Checkpoint11](../../../../.ai-workspace/comments/codex/20260911_ABG5_EXECUTIVE_CHECKPOINT_11/checkpoint.md)
+records their application and separate implementation/runtime limits.
+The accepted [native liveness conservation](T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md)
+binds the same current profile to native probe, lease, interruption and
+replay-derived disposition law.
+
+## Pre-Baseline Boundary (Historical; No Current Grant)
 
 The ABIogenesis 5.0 Product and requirements remain fixed. Wave 1 is accepted;
 Wave 2 is current; and the accepted `ST-S01-ROOT/S1` v4 design remains
@@ -49,8 +81,9 @@ amendment-construction basis `ece6597ed8846323ccab3d9a5736ecfa03f74bb3`, tree
 
 [ABIogenesis Project Reference-Frame
 Basis](./ABI5_PROJECT_REFERENCE_FRAME_BASIS.md) is the selected structured-prose
-extension for this work. Immutable STDO `v2.5.0-rc.4` owns the generic frame
-method, Executive/Worker/Reviewer topology, and generic specialist families.
+extension for this work. The Definition-selected immutable STDO owns the generic
+frame method, conditionally applicable Executive/Worker/Reviewer engagement,
+and generic specialist families.
 The ABI basis adds only ABI/GTL/HoG/ABG and mutable-worksite causal relations.
 It is context and evaluation structure, not a frame runtime or Product
 authority.
@@ -68,9 +101,9 @@ coordinates remain predecessor evidence.
 
 | Design subject | Frozen SHA-256 and status |
 |---|---|
-| C0 mutable-worksite causality | Candidate `7cd8a5a905cdb02c8431b06224df5aa46cfc8f759a7dc5c1fd4712e66c652240`, pending independent review; prior accepted bytes `427ced47826e95ef0262ca0d4797eaf144b07d14e30f8e4ace1de6b585864b84` |
+| C0 mutable-worksite causality | Correction-01 accepted and closed after independent `satisfied` and Executive `accept`. [Current disposition](../../../../.ai-workspace/comments/codex/20260907T033506Z_W2_BL_C0_POST_PUBLICATION/correction-01/execution.md) owns exact identities and grants. Original HOW `1bceff03c850a28801a40ee267ed0e386173b1c50f3c9bb29cbab6556345ca06`, immutable [subject](../../../../.ai-workspace/comments/codex/20260907T033506Z_W2_BL_C0_POST_PUBLICATION/subject.json), earlier atomic-window and accepted predecessor bytes retain their historical dispositions; their exercised evidence does not establish clean corrective closure. |
 | C1 live-LLM construction | Accepted `61589c4428c6d26f7e8063d40c9d6e653897df8a5bbfaf8d0fb048ce8cce3c61` |
-| C2 command execution | Accepted `8dbe22c8bcc2bcedc0e77a5f03a2fde1805d408e555e83bde342b9bb1d2a2301` |
+| C2 command execution | Historical accepted bytes `8dbe22c8bcc2bcedc0e77a5f03a2fde1805d408e555e83bde342b9bb1d2a2301`; semantic HOW conserved by the method-header-only RC6 successor |
 
 The complete frozen review subject also contained GOALS at SHA-256
 `69fbc1b91cd511839308c110648a4eb4154a1aa0bc1b8d95d2819bbaf768dfa5`,
@@ -78,9 +111,10 @@ T-287 at `aa3863cddd4efabdd89c5bebadca307b2daa794adc1b071b32b1557574ba39f6`,
 and this README at
 `027883ffd5b1edee36f1709b35b774735b22f88fd124f2d83b2d600fc1d83829`.
 Those three hashes identify the prior accepted review preimage. The later
-authority projection changed only those three surfaces. This bounded reframe
-separately changes C0 into the candidate recorded above and leaves accepted C1
-and C2 bytes unchanged.
+authority projection changed only those three surfaces. The bounded reframe
+changed C0 into the candidate recorded above and left C1/C2 bytes unchanged at
+that time. RC6 migration preserves those identities as history and changes only
+the C2 method header, not its accepted runtime relation.
 
 [T-287 W2-R3-C0 Mutable-Worksite Causality
 Design](./T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md) is now the frozen
@@ -171,7 +205,7 @@ above. C2 retains the exact installed helper beneath
 `W.roots.toolchainRoot` and its helper/package/locus joins; the helper is not
 rebased beneath the Program-owner `productRoot`.
 
-## Selected Canonical-Root I/E Territory
+## Pre-Baseline Canonical-Root I/E Territory (Historical; No Current Grant)
 
 Stage 1 retains exactly these nine production paths. Their current bytes are
 frozen on `HOLD` after two independent source reviews and may not change during
@@ -385,15 +419,16 @@ and I/E selection authorizes neither the adapter nor E00.
 - [ABIogenesis 5.0 Realization Constitution](./ABI5_REALIZATION_CONSTITUTION.md)
   remains retained ABI-specific realization and predecessor evidence. The
   selected project frame basis imports its ABIogenesis/GTL/HoG/ABG atlas and
-  instantiates immutable STDO `v2.5.0-rc.4`. Its Section 16.12 reconciliation
-  selects only the C0 mutable-worksite realization; earlier Product-specific
+  instantiates the Definition-selected immutable STDO. Section 16.13 records
+  the RC6 method reconciliation. Historical Section 16.12 selected only the
+  then-current C0 mutable-worksite realization; earlier Product-specific
   relations remain predecessor evidence unless explicitly retained or
   superseded. Prior accepted exact C2 design SHA-256
   `f4eafb82961beb6ebe47fa54eb91dc7deb470c8fb106609f7d3d12ced76d074b` is a later
   bounded child under the same fixed Product/requirement authority. Its
   two-manifest law is retained, while the accepted current C2 design supersedes
-  its worksite-root interpretation and the exact 19-path staged I/E realizes
-  that accepted relation.
+  its worksite-root interpretation. The old exact 19-path staged I/E is retained
+  predecessor scope, not current work authority.
 - [T-287 Graph Catalog Contraction Accepted Design](./T287_GRAPH_CATALOG_CONTRACTION_ACCEPTED_DESIGN.md)
   remains the accepted one-Catalog realization. Catalog is outside S1.
 - [T-287 Terminal-Quiescence Owner Network Accepted Design](./T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN.md)

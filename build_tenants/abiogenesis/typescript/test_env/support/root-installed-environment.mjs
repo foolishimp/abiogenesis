@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { mkdir, mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -142,7 +142,7 @@ export async function setupInstalledRootCatalog(
   options = {},
 ) {
   const frozenArtifact = selectedFrozenArtifact(options);
-  const scratch = await mkdtemp(join(tmpdir(), "abi5-root-env-"));
+  const scratch = await realpath(await mkdtemp(join(tmpdir(), "abi5-root-env-")));
   let durableStore = null;
   context.after(async () => {
     durableStore?.closeDurableLog();
@@ -644,6 +644,7 @@ export async function setupInstalledRootInvocation(
     ? options.input ?? gtl.constructHelloWorldInput("World")
     : await options.inputFactory({
         product,
+        workspaceAuthority: environment.workspaceAuthority,
         workspaceBinding,
         program,
         graphFunction,
@@ -977,6 +978,7 @@ export async function setupInstalledRootExecutionBasis(
       invocationAdmission,
       rawInputValue: input,
       program,
+      programPublication: environment.executionResolution.programPublication,
       programValidation,
       graph,
       graphValidation,

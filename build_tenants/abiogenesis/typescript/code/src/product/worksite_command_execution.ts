@@ -43,6 +43,20 @@ import {
   type WorksiteObservation,
   type WorksiteSubject,
 } from "./worksite_effect.js";
+import { WORKSITE_REVISION_IDS, isWorksiteRevisionCommandExecutionTask,
+  isWorksiteRevisionObservationOrigin,
+  type WorksiteRevisionCommandExecutionTask, type WorksiteRevisionCommandExecutionObservation,
+  type WorksiteRevisionCommandHelperArtifact, type WorksiteRevisionSnapshotMember } from "./worksite_revision.js";
+import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
+  executableWorksiteCommandSources as worksiteExecutionSources,
+  executableWorksiteCommandIdentityPrefix as worksiteExecutionIdentityPrefix,
+  executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef,
+  isWorksiteCommandForwardWorkerResult,
+  type ExecutableWorksiteCommandTask as WorksiteExecutionTask,
+  type ExecutableWorksiteCommandObservation as WorksiteExecutionObservation,
+  type ExecutableWorksiteCommandArtifact as WorksiteExecutionHelperArtifact,
+  type ExecutableWorksiteSnapshotMember as WorksiteExecutionSnapshotMember,
+  type WorksiteCommandForwardObservation } from "./worksite_command_forward.js";
 const SCHEMA_VERSION = "5.0.0" as const;
 const BASE64_PATTERN =
   "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$";
@@ -75,6 +89,8 @@ export const WORKSITE_COMMAND_EXECUTION_IDS = Object.freeze({
     "contract://abiogenesis/worksite/command-execution-transition@5",
   closureContractRef:
     "contract://abiogenesis/worksite/command-execution-closure@5",
+  childClosureContractRef:
+    "contract://abiogenesis/worksite/command-execution-child-closure@5",
   implementationRef:
     "implementation://abiogenesis/worksite/command-execution-fp@5",
   implementationBindingRef:
@@ -311,12 +327,9 @@ export interface WorksiteCommandExecutionWorkerResult {
   readonly schemaVersion: "5.0.0";
   readonly taskRef: string;
   readonly taskDigest: Sha256Digest;
-  readonly workspaceBindingIdentity: string;
-  readonly workspaceBindingDigest: Sha256Digest;
-  readonly sourceConstructionResultRef: string;
-  readonly sourceConstructionResultDigest: Sha256Digest;
-  readonly commandResults: readonly WorksiteCommandResult[];
-  readonly predicateObservations: readonly WorksitePredicateObservation[];
+  readonly attemptRef: string;
+  readonly helperArtifactRef: string;
+  readonly helperArtifactDigest: Sha256Digest;
 }
 
 export interface WorksiteCommandExecutionProvenance {
@@ -447,11 +460,20 @@ function shellQuote(value: string): string {
 }
 
 export function worksiteCommandExecutionHelperPlan(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   attemptRef: string,
 ): WorksiteCommandExecutionHelperPlan {
-  if (!isWorksiteCommandExecutionTask(task) || !nonempty(attemptRef)) {
-    throw new TypeError("command helper plan requires one exact task and attempt identity");
+  return helperPlanForExecutable(task, attemptRef, process.execPath);
+}
+
+function helperPlanForExecutable(
+  task: WorksiteExecutionTask,
+  attemptRef: string,
+  executable: string,
+): WorksiteCommandExecutionHelperPlan {
+  if (!isWorksiteExecutionTask(task) || !nonempty(attemptRef) ||
+    !nonempty(executable) || !isAbsolute(executable)) {
+    throw new TypeError("command helper plan requires one exact task, attempt identity, and absolute executable");
   }
   const helperModulePath = join(
     task.workspaceBinding.roots.toolchainRoot,
@@ -471,7 +493,7 @@ export function worksiteCommandExecutionHelperPlan(
   const sandboxRoot = join(attemptRoot, "sandbox");
   const taskBytes = Buffer.from(`${canonicalJson(task as unknown as JsonValue)}\n`, "utf8");
   const toolCommand = [
-    shellQuote(process.execPath), shellQuote(helperModulePath),
+    shellQuote(executable), shellQuote(helperModulePath),
     "--task", shellQuote(launchManifestPath),
   ].join(" ");
   const toolInputBytes = Buffer.from(canonicalJson({ command: toolCommand }), "utf8");
@@ -492,7 +514,7 @@ export function worksiteCommandExecutionHelperPlan(
 }
 
 export function isWorksiteCommandExecutionHelperPlan(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   value: unknown,
 ): value is WorksiteCommandExecutionHelperPlan {
   if (!isRecord(value) || !exactKeys(value, [
@@ -500,9 +522,15 @@ export function isWorksiteCommandExecutionHelperPlan(
     "taskManifestByteLength", "taskManifestDigest", "taskManifestPath", "toolCommand",
     "toolInputByteLength", "toolInputDigest",
   ]) || value.kind !== "worksite_command_execution_helper_plan" ||
-    value.schemaVersion !== SCHEMA_VERSION || !nonempty(value.attemptRef)) return false;
+    value.schemaVersion !== SCHEMA_VERSION || !nonempty(value.attemptRef) ||
+    typeof value.toolCommand !== "string") return false;
   try {
-    return same(value, worksiteCommandExecutionHelperPlan(task, value.attemptRef));
+    // Only the executable is read from retained command bytes. Every remaining
+    // command word and all plan coordinates are rederived from task/attempt.
+    const executableWord = /^'((?:[^']|'"'"')*)' /u.exec(value.toolCommand)?.[1];
+    if (executableWord === undefined) return false;
+    const executable = executableWord.replaceAll(`'"'"'`, "'");
+    return same(value, helperPlanForExecutable(task, value.attemptRef, executable));
   } catch {
     return false;
   }
@@ -562,7 +590,7 @@ function isExactDirectGrant(
   return isCapabilityGrantValue(value) &&
     value.operationId === "abg.operation.run.invoke" &&
     value.definitionKey.operationId === "abg.operation.run.invoke" &&
-    value.definitionKey.memberKey === "invoke" &&
+    (value.definitionKey.memberKey === "invoke" || value.definitionKey.memberKey === "start") &&
     value.actorRef === workspace.authorizedActorRef &&
     value.scopeRef === workspace.bindingId &&
     value.scopeDigest === workspace.bindingDigest;
@@ -1013,45 +1041,31 @@ export function matchingWorksiteTerritoryRef(
   return matches.length === 1 ? matches[0]!.territoryRef : null;
 }
 
-export function constructWorksiteCommandExecutionTask(
-  input: WorksiteCommandExecutionTaskInput,
-): WorksiteCommandExecutionTask {
-  if (!exactWorkspaceAuthorityJoin(
-    input.workspaceAuthorityBasis,
-    input.workspaceBinding,
-  ) ||
-    !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) ||
-    !nonempty(input.sourceConstructionResultRef) ||
-    !isSha256Digest(input.sourceConstructionResultDigest) ||
-    input.sourceConstructionResultRef !== identity(
-      "worksite-construction-result://abiogenesis",
-      input.sourceConstructionResultDigest,
-    ) || !Array.isArray(input.commands) || input.commands.length === 0 ||
-    !Array.isArray(input.outcomePredicates ?? []) ||
-    !Array.isArray(input.protectedObservations) ||
-    !Array.isArray(input.allowedWriteTerritories) || input.allowedWriteTerritories.length === 0) {
-    throw new TypeError("worksite command execution task requires exact W, grant, source C1 result, commands, and predicates");
+export interface WorksiteCommandConfigurationInput {
+  readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
+  readonly workspaceBinding: WorkspaceBinding;
+  readonly commands: readonly WorksiteDeclaredCommandInput[];
+  readonly outcomePredicates: readonly WorksiteOutcomePredicateInput[];
+  readonly protectedSubjects: readonly WorksiteSubject[];
+  readonly allowedWriteTerritories: readonly WorksiteCommandWriteTerritoryInput[];
+}
+
+/** Pure pre-construction checks; no source result or observation is fabricated. */
+export function constructWorksiteCommandConfiguration(input: WorksiteCommandConfigurationInput): Readonly<{
+  commands: readonly WorksiteDeclaredCommand[];
+  predicates: readonly WorksiteOutcomePredicate[];
+  allowedWriteTerritories: readonly WorksiteCommandWriteTerritory[];
+}> {
+  if (!exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) ||
+    !Array.isArray(input.commands) || input.commands.length === 0 ||
+    !Array.isArray(input.outcomePredicates) || !Array.isArray(input.protectedSubjects) ||
+    !Array.isArray(input.allowedWriteTerritories) || input.allowedWriteTerritories.length === 0 ||
+    input.protectedSubjects.some((subject) => !isWorksiteSubject(subject))) {
+    throw new TypeError("worksite command configuration requires exact A/W, subjects and explicit arrays");
   }
-  const source = input.sourceConstructionResult;
-  if (!isWorksiteConstructionResult(source) ||
-    source.resultRef !== input.sourceConstructionResultRef ||
-    source.resultDigest !== input.sourceConstructionResultDigest ||
-    source.members.some((member) =>
-      member.successorObservation.workspaceBindingIdentity !== input.workspaceBinding.bindingId
-    )) {
-    throw new TypeError("worksite command execution source value differs from its exact C1 coordinates or workspace");
-  }
+  const protectedSubjects = input.protectedSubjects;
   const commands = input.commands.map(constructCommand);
   const predicates = (input.outcomePredicates ?? []).map(constructPredicate);
-  const protectedObservations = input.protectedObservations.map((row, ordinal) =>
-    constructProtectedObservation(
-      input.workspaceAuthorityBasis,
-      input.workspaceBinding,
-      source,
-      row,
-      ordinal,
-    )
-  );
   const allowedWriteTerritories = input.allowedWriteTerritories.map(constructWriteTerritory);
   const territoriesOverlap = allowedWriteTerritories.some((left, leftOrdinal) =>
     allowedWriteTerritories.some((right, rightOrdinal) => leftOrdinal !== rightOrdinal &&
@@ -1082,7 +1096,7 @@ export function constructWorksiteCommandExecutionTask(
     if (row.predicateKind !== "module_export_return_exact") return true;
     const declaration = row.declaration;
     return isRecord(declaration) && typeof declaration.path === "string" &&
-      protectedObservations.some((protectedRow) => protectedRow.subject.relativePath === declaration.path);
+      protectedSubjects.some((protectedRow) => protectedRow.relativePath === declaration.path);
   });
   const childInputsExposeWorkspace = commands.some((command) =>
     unsafeChildValue(command.executable, input.workspaceAuthorityBasis, input.workspaceBinding) ||
@@ -1144,8 +1158,7 @@ export function constructWorksiteCommandExecutionTask(
   ));
   if (new Set(commands.map((row) => row.commandId)).size !== commands.length ||
     new Set(predicates.map((row) => row.predicateId)).size !== predicates.length ||
-    protectedObservations.length !== source.members.length ||
-    new Set(protectedObservations.map((row) => row.subject.subjectRef)).size !== protectedObservations.length ||
+    new Set(protectedSubjects.map((row) => row.subjectRef)).size !== protectedSubjects.length ||
     new Set(allowedWriteTerritories.map((row) => `${row.pathKind}:${row.relativePath}`)).size !== allowedWriteTerritories.length ||
     territoriesOverlap ||
     new Set(reportRows.map((row) => row.reportIdentity)).size !== reportRows.length ||
@@ -1153,12 +1166,60 @@ export function constructWorksiteCommandExecutionTask(
     !referencedCommandsAreExact || !reportCountsHaveOneBase || !declaredReportPathsAreObserved ||
     !modulePredicatesAreProtected || childInputsExposeWorkspace ||
     declaredPathsEnterProtectedRoots || !httpPortFilesAreAuthorized ||
-    protectedObservations.some((row) => worksitePathIsAllowed(row.subject.relativePath, allowedWriteTerritories)) ||
+    protectedSubjects.some((row) => worksitePathIsAllowed(row.relativePath, allowedWriteTerritories)) ||
     commands.some((command) => command.expectedReports.some((report) =>
       !worksitePathIsAllowed(report.relativePath, allowedWriteTerritories)
     ))) {
     throw new TypeError("worksite command and predicate identities must be unique");
   }
+  return deepFreeze({ commands, predicates, allowedWriteTerritories });
+}
+
+export function constructWorksiteCommandExecutionTask(
+  input: WorksiteCommandExecutionTaskInput,
+): WorksiteCommandExecutionTask {
+  if (!exactWorkspaceAuthorityJoin(
+    input.workspaceAuthorityBasis,
+    input.workspaceBinding,
+  ) ||
+    !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) ||
+    !nonempty(input.sourceConstructionResultRef) ||
+    !isSha256Digest(input.sourceConstructionResultDigest) ||
+    input.sourceConstructionResultRef !== identity(
+      "worksite-construction-result://abiogenesis",
+      input.sourceConstructionResultDigest,
+    ) || !Array.isArray(input.commands) || input.commands.length === 0 ||
+    !Array.isArray(input.outcomePredicates ?? []) ||
+    !Array.isArray(input.protectedObservations) ||
+    !Array.isArray(input.allowedWriteTerritories) || input.allowedWriteTerritories.length === 0) {
+    throw new TypeError("worksite command execution task requires exact W, grant, source C1 result, commands, and predicates");
+  }
+  const source = input.sourceConstructionResult;
+  if (!isWorksiteConstructionResult(source) ||
+    source.resultRef !== input.sourceConstructionResultRef ||
+    source.resultDigest !== input.sourceConstructionResultDigest ||
+    source.members.some((member) =>
+      member.successorObservation.workspaceBindingIdentity !== input.workspaceBinding.bindingId
+    )) {
+    throw new TypeError("worksite command execution source value differs from its exact C1 coordinates or workspace");
+  }
+  const protectedObservations = input.protectedObservations.map((row, ordinal) =>
+    constructProtectedObservation(
+      input.workspaceAuthorityBasis,
+      input.workspaceBinding,
+      source,
+      row,
+      ordinal,
+    )
+  );
+  if (protectedObservations.length !== source.members.length) {
+    throw new TypeError("worksite command protected observations must cover the exact source");
+  }
+  const { commands, predicates, allowedWriteTerritories } = constructWorksiteCommandConfiguration({
+    ...input,
+    outcomePredicates: input.outcomePredicates ?? [],
+    protectedSubjects: protectedObservations.map((row) => row.subject),
+  });
   const body = {
     workspaceAuthorityBasis: input.workspaceAuthorityBasis,
     workspaceBinding: input.workspaceBinding,
@@ -1377,8 +1438,8 @@ function isSnapshotMember(value: unknown, ordinal: number): value is WorksiteSna
     Number.isSafeInteger(value.byteLength) && Number(value.byteLength) >= 0 && isSha256Digest(value.digest);
 }
 
-export function constructWorksiteCommandHelperArtifact(input: Readonly<{
-  task: WorksiteCommandExecutionTask;
+export interface WorksiteExecutionHelperArtifactInput {
+  task: WorksiteExecutionTask;
   disposition: "product_mismatch" | "protected_mismatch" | "success" | "territory_mismatch";
   commandResults: readonly WorksiteCommandResult[];
   predicateObservations: readonly WorksitePredicateObservation[];
@@ -1387,11 +1448,12 @@ export function constructWorksiteCommandHelperArtifact(input: Readonly<{
   snapshotRoot: string;
   snapshotRef: string;
   snapshotDigest: Sha256Digest;
-  snapshotMembers: readonly WorksiteSnapshotMember[];
+  snapshotMembers: readonly WorksiteExecutionSnapshotMember[];
   protectedBefore: readonly WorksiteObservation[];
   protectedAfter: readonly WorksiteObservation[];
-}>): WorksiteCommandHelperArtifact {
-  if (!isWorksiteCommandExecutionTask(input.task) ||
+}
+export function constructWorksiteExecutionHelperArtifact(input: Readonly<WorksiteExecutionHelperArtifactInput>): WorksiteExecutionHelperArtifact {
+  if (!isWorksiteExecutionTask(input.task) ||
     !Array.isArray(input.commandResults) || !input.commandResults.every(isCommandResult) ||
     !Array.isArray(input.predicateObservations) ||
     !input.predicateObservations.every(isPredicateObservation) ||
@@ -1403,16 +1465,16 @@ export function constructWorksiteCommandHelperArtifact(input: Readonly<{
     !Array.isArray(input.protectedBefore) || !Array.isArray(input.protectedAfter) ||
     !input.protectedBefore.every(isWorksiteObservation) ||
     !input.protectedAfter.every(isWorksiteObservation) ||
-    input.protectedBefore.length !== input.task.protectedObservations.length ||
-    input.protectedAfter.length !== input.task.protectedObservations.length ||
+    input.protectedBefore.length !== worksiteExecutionSources(input.task).length ||
+    input.protectedAfter.length !== worksiteExecutionSources(input.task).length ||
     !isAbsolute(input.snapshotRoot) || !nonempty(input.snapshotRef) || !isSha256Digest(input.snapshotDigest) ||
-    !Array.isArray(input.snapshotMembers) || !input.snapshotMembers.every(isSnapshotMember) ||
+    !Array.isArray(input.snapshotMembers) || !input.snapshotMembers.every((member, ordinal) => isExecutionSnapshotMember(input.task, member, ordinal)) ||
     (input.snapshotMembers.length !== 0 &&
-      input.snapshotMembers.length !== input.task.protectedObservations.length) ||
+      input.snapshotMembers.length !== worksiteExecutionSources(input.task).length) ||
     (input.snapshotMembers.length === 0 && input.disposition !== "protected_mismatch") ||
     input.snapshotMembers.some((member, ordinal) => {
-      const protectedRow = input.task.protectedObservations[ordinal];
-      return protectedRow === undefined || member.sourceMemberRef !== protectedRow.sourceMemberRef ||
+      const protectedRow = worksiteExecutionSources(input.task)[ordinal];
+      return protectedRow === undefined || !executionSnapshotSourceMatches(member, protectedRow) ||
         member.relativePath !== protectedRow.subject.relativePath ||
         member.sourceObservationRef !== protectedRow.observation.observationRef ||
         member.sourceObservationDigest !== protectedRow.observation.observationDigest ||
@@ -1431,24 +1493,13 @@ export function constructWorksiteCommandHelperArtifact(input: Readonly<{
     (input.disposition === "success" && input.productDelta.length !== 0) ||
     (input.disposition === "territory_mismatch" && !input.worksiteDelta.some((row) => row.matchedTerritoryRef === null)) ||
     (input.disposition === "product_mismatch" && input.productDelta.length === 0) ||
-    input.snapshotRef !== identity("worksite-command-snapshot://abiogenesis", input.snapshotDigest) ||
+    input.snapshotRef !== identity(worksiteExecutionIdentityPrefix(input.task, "snapshot"), input.snapshotDigest) ||
     (input.disposition !== "success" && input.disposition !== "protected_mismatch" &&
       input.disposition !== "territory_mismatch" && input.disposition !== "product_mismatch")) {
     throw new TypeError("command helper artifact requires exact task-bound commands and protected observations");
   }
   if (input.commandResults.length === input.task.commands.length) {
-    constructWorksiteCommandExecutionWorkerResult(input.task, {
-      kind: "worksite_command_execution_worker_result",
-      schemaVersion: SCHEMA_VERSION,
-      taskRef: input.task.taskRef,
-      taskDigest: input.task.taskDigest,
-      workspaceBindingIdentity: input.task.workspaceBinding.bindingId,
-      workspaceBindingDigest: input.task.workspaceBinding.bindingDigest,
-      sourceConstructionResultRef: input.task.sourceConstructionResultRef,
-      sourceConstructionResultDigest: input.task.sourceConstructionResultDigest,
-      commandResults: input.commandResults,
-      predicateObservations: input.predicateObservations,
-    });
+    assertWorksiteCommandVectors(input.task, input.commandResults, input.predicateObservations);
   }
   const body = {
     taskRef: input.task.taskRef,
@@ -1467,27 +1518,29 @@ export function constructWorksiteCommandHelperArtifact(input: Readonly<{
   };
   const artifactDigest = sha256Canonical(body as unknown as JsonValue);
   return deepFreeze({
-    kind: "worksite_command_helper_artifact" as const,
+    kind: input.task.kind === "worksite_command_forward_task" ? "worksite_command_forward_helper_artifact" as const
+      : input.task.kind === "worksite_command_execution_task" ? "worksite_command_helper_artifact" as const : "worksite_revision_command_helper_artifact" as const,
     schemaVersion: SCHEMA_VERSION,
-    artifactRef: identity("worksite-command-helper-artifact://abiogenesis", artifactDigest),
+    artifactRef: identity(worksiteExecutionIdentityPrefix(input.task, "helper-artifact"), artifactDigest),
     artifactDigest,
     ...body,
-  });
+  }) as WorksiteExecutionHelperArtifact;
 }
 
-export function isWorksiteCommandHelperArtifact(
-  task: WorksiteCommandExecutionTask,
+export function isWorksiteExecutionHelperArtifact(
+  task: WorksiteExecutionTask,
   value: unknown,
-): value is WorksiteCommandHelperArtifact {
+): value is WorksiteExecutionHelperArtifact {
   if (!isRecord(value) || !exactKeys(value, [
     "artifactDigest", "artifactRef", "commandResults", "disposition", "kind", "predicateObservations",
     "productDelta", "protectedAfter", "protectedBefore", "schemaVersion", "taskDigest", "taskRef",
     "snapshotDigest", "snapshotMembers", "snapshotRef", "snapshotRoot", "worksiteDelta",
-  ]) || value.kind !== "worksite_command_helper_artifact" || value.schemaVersion !== SCHEMA_VERSION ||
+  ]) || value.kind !== (task.kind === "worksite_command_forward_task" ? "worksite_command_forward_helper_artifact"
+    : task.kind === "worksite_command_execution_task" ? "worksite_command_helper_artifact" : "worksite_revision_command_helper_artifact") || value.schemaVersion !== SCHEMA_VERSION ||
     value.taskRef !== task.taskRef || value.taskDigest !== task.taskDigest ||
     !isSha256Digest(value.artifactDigest) || !nonempty(value.artifactRef)) return false;
   try {
-    return same(value, constructWorksiteCommandHelperArtifact({
+    return same(value, constructWorksiteExecutionHelperArtifact({
       task,
       disposition: value.disposition as "product_mismatch" | "protected_mismatch" | "success" | "territory_mismatch",
       commandResults: value.commandResults as readonly WorksiteCommandResult[],
@@ -1497,7 +1550,7 @@ export function isWorksiteCommandHelperArtifact(
       snapshotRoot: value.snapshotRoot as string,
       snapshotRef: value.snapshotRef as string,
       snapshotDigest: value.snapshotDigest as Sha256Digest,
-      snapshotMembers: value.snapshotMembers as readonly WorksiteSnapshotMember[],
+      snapshotMembers: value.snapshotMembers as readonly WorksiteExecutionSnapshotMember[],
       protectedBefore: value.protectedBefore as readonly WorksiteObservation[],
       protectedAfter: value.protectedAfter as readonly WorksiteObservation[],
     }));
@@ -1507,11 +1560,11 @@ export function isWorksiteCommandHelperArtifact(
 }
 
 export function helperArtifactPreservesProtectedObservations(
-  task: WorksiteCommandExecutionTask,
-  artifact: WorksiteCommandHelperArtifact,
+  task: WorksiteExecutionTask,
+  artifact: WorksiteExecutionHelperArtifact,
 ): boolean {
-  return isWorksiteCommandHelperArtifact(task, artifact) && artifact.disposition === "success" &&
-    task.protectedObservations.every((protectedRow, ordinal) =>
+  return isWorksiteExecutionHelperArtifact(task, artifact) && artifact.disposition === "success" &&
+    worksiteExecutionSources(task).every((protectedRow, ordinal) =>
       same(artifact.protectedBefore[ordinal], protectedRow.observation) &&
       same(artifact.protectedAfter[ordinal], protectedRow.observation)
     );
@@ -1519,30 +1572,59 @@ export function helperArtifactPreservesProtectedObservations(
 
 export function isWorksiteCommandExecutionWorkerResult(value: unknown): value is WorksiteCommandExecutionWorkerResult {
   return isRecord(value) && exactKeys(value, [
-    "commandResults", "kind", "predicateObservations", "schemaVersion",
-    "sourceConstructionResultDigest", "sourceConstructionResultRef", "taskDigest",
-    "taskRef", "workspaceBindingDigest", "workspaceBindingIdentity",
+    "attemptRef", "helperArtifactDigest", "helperArtifactRef", "kind",
+    "schemaVersion", "taskDigest", "taskRef",
   ]) && value.kind === "worksite_command_execution_worker_result" &&
     value.schemaVersion === SCHEMA_VERSION && nonempty(value.taskRef) &&
-    isSha256Digest(value.taskDigest) && nonempty(value.workspaceBindingIdentity) &&
-    isSha256Digest(value.workspaceBindingDigest) && nonempty(value.sourceConstructionResultRef) &&
-    isSha256Digest(value.sourceConstructionResultDigest) && Array.isArray(value.commandResults) &&
-    value.commandResults.length > 0 && value.commandResults.every(isCommandResult) &&
-    Array.isArray(value.predicateObservations) && value.predicateObservations.every(isPredicateObservation);
+    isSha256Digest(value.taskDigest) && nonempty(value.attemptRef) &&
+    isSha256Digest(value.helperArtifactDigest) &&
+    value.helperArtifactRef === identity(
+      "worksite-command-helper-artifact://abiogenesis", value.helperArtifactDigest,
+    );
 }
 
 export function constructWorksiteCommandExecutionWorkerResult(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   rawValue: unknown,
+  helperPlan: WorksiteCommandExecutionHelperPlan,
 ): WorksiteCommandExecutionWorkerResult {
-  if (!isWorksiteCommandExecutionTask(task) || !isWorksiteCommandExecutionWorkerResult(rawValue) ||
+  if (!isWorksiteExecutionTask(task) || !isRecord(rawValue) ||
+    !(task.kind === "worksite_command_forward_task" ? isWorksiteCommandForwardWorkerResult(rawValue)
+      : task.kind === "worksite_command_execution_task" ? isWorksiteCommandExecutionWorkerResult(rawValue)
+      : isWorksiteRevisionCommandExecutionWorkerResult(rawValue)) ||
+    !isWorksiteCommandExecutionHelperPlan(task, helperPlan) ||
     rawValue.taskRef !== task.taskRef || rawValue.taskDigest !== task.taskDigest ||
-    rawValue.workspaceBindingIdentity !== task.workspaceBinding.bindingId ||
-    rawValue.workspaceBindingDigest !== task.workspaceBinding.bindingDigest ||
-    rawValue.sourceConstructionResultRef !== task.sourceConstructionResultRef ||
-    rawValue.sourceConstructionResultDigest !== task.sourceConstructionResultDigest ||
-    rawValue.commandResults.length !== task.commands.length ||
-    !rawValue.commandResults.every((result, ordinal) => {
+    rawValue.attemptRef !== helperPlan.attemptRef) {
+    throw new TypeError("worksite command execution acknowledgment requires exact task, attempt, and artifact identity");
+  }
+  return deepFreeze(admitIJsonValue(rawValue, "worksite command execution acknowledgment") as unknown as WorksiteCommandExecutionWorkerResult);
+}
+
+/** Same compact carrier shape, distinct closed revision artifact namespace. */
+export function isWorksiteRevisionCommandExecutionWorkerResult(value: unknown): value is WorksiteCommandExecutionWorkerResult {
+  return isRecord(value) && exactKeys(value, [
+    "attemptRef", "helperArtifactDigest", "helperArtifactRef", "kind",
+    "schemaVersion", "taskDigest", "taskRef",
+  ]) && value.kind === "worksite_command_execution_worker_result" &&
+    value.schemaVersion === SCHEMA_VERSION && nonempty(value.taskRef) &&
+    isSha256Digest(value.taskDigest) && nonempty(value.attemptRef) &&
+    isSha256Digest(value.helperArtifactDigest) &&
+    value.helperArtifactRef === identity(
+      "worksite-revision-command-helper-artifact://abiogenesis", value.helperArtifactDigest,
+    );
+}
+
+/** Full artifact and replay row law is independent of the raw Worker acknowledgment. */
+function assertWorksiteCommandVectors(
+  task: WorksiteExecutionTask,
+  commandResults: readonly WorksiteCommandResult[],
+  predicateObservations: readonly WorksitePredicateObservation[],
+): void {
+  if (!isWorksiteExecutionTask(task) ||
+    !Array.isArray(commandResults) || !commandResults.every(isCommandResult) ||
+    !Array.isArray(predicateObservations) || !predicateObservations.every(isPredicateObservation) ||
+    commandResults.length !== task.commands.length ||
+    !commandResults.every((result, ordinal) => {
       const declared = task.commands[ordinal];
       return declared !== undefined && result.ordinal === ordinal &&
         result.commandId === declared.commandId && result.executable === declared.executable &&
@@ -1557,31 +1639,31 @@ export function constructWorksiteCommandExecutionWorkerResult(
             report.expectedReportIdentity === expected.reportIdentity &&
             report.relativePath === expected.relativePath;
         });
-    }) || rawValue.predicateObservations.length !== task.outcomePredicates.length ||
-    !rawValue.predicateObservations.every((observation, ordinal) => {
+    }) || predicateObservations.length !== task.outcomePredicates.length ||
+    !predicateObservations.every((observation, ordinal) => {
       const declared = task.outcomePredicates[ordinal];
       return declared !== undefined && observation.ordinal === ordinal &&
         observation.predicateId === declared.predicateId &&
         observation.predicateKind === declared.predicateKind;
     })) {
-    throw new TypeError("worksite command execution worker result must preserve exact task, source, workspace, command, report, and predicate identity/order");
+    throw new TypeError("worksite command execution rows must preserve exact command, report, and predicate identity/order");
   }
-  return deepFreeze(admitIJsonValue(rawValue, "worksite command execution worker result") as unknown as WorksiteCommandExecutionWorkerResult);
+  admitIJsonValue({ commandResults, predicateObservations }, "worksite command execution rows");
 }
 
-export function constructWorksiteCommandExecutionObservation(
-  task: WorksiteCommandExecutionTask,
+export function constructWorksiteExecutionObservation(
+  task: WorksiteExecutionTask,
   workerResult: WorksiteCommandExecutionWorkerResult,
   actorObservation: ActorProcessObservation,
-  helperArtifact: WorksiteCommandHelperArtifact,
+  helperArtifact: WorksiteExecutionHelperArtifact,
   helperPlan: WorksiteCommandExecutionHelperPlan,
-): WorksiteCommandExecutionObservation {
-  const exact = constructWorksiteCommandExecutionWorkerResult(task, workerResult);
+): WorksiteExecutionObservation {
+  const exact = constructWorksiteCommandExecutionWorkerResult(task, workerResult, helperPlan);
   const helperToolInvocation = actorObservation.toolInvocations[0];
   if (!isWorksiteCommandExecutionHelperPlan(task, helperPlan) ||
     actorObservation.actorRef !== task.workerActorRef ||
     actorObservation.workerBindingRef !== task.workerBindingRef ||
-    actorObservation.implementationRef !== WORKSITE_COMMAND_EXECUTION_IDS.implementationRef ||
+    actorObservation.implementationRef !== worksiteExecutionImplementationRef(task) ||
     actorObservation.inputDigest !== sha256Canonical(task as unknown as JsonValue) ||
     actorObservation.transportLane !== "worker_executes" || actorObservation.disposition !== "success" ||
     actorObservation.toolCallCount !== 1 || actorObservation.toolInvocations.length !== 1 ||
@@ -1589,11 +1671,11 @@ export function constructWorksiteCommandExecutionObservation(
     helperToolInvocation.toolName !== "Bash" ||
     helperToolInvocation.inputDigest !== helperPlan.toolInputDigest ||
     helperToolInvocation.inputByteLength !== helperPlan.toolInputByteLength ||
-    !isWorksiteCommandHelperArtifact(task, helperArtifact) ||
+    !isWorksiteExecutionHelperArtifact(task, helperArtifact) ||
     !helperArtifactPreservesProtectedObservations(task, helperArtifact) ||
     helperArtifact.snapshotRoot !== helperPlan.sandboxRoot ||
-    !same(helperArtifact.commandResults, exact.commandResults) ||
-    !same(helperArtifact.predicateObservations, exact.predicateObservations) ||
+    helperArtifact.artifactRef !== exact.helperArtifactRef ||
+    helperArtifact.artifactDigest !== exact.helperArtifactDigest ||
     !nonempty(actorObservation.actorInvocationRef) || !nonempty(actorObservation.processRef)) {
     throw new TypeError("worksite command execution observation requires the exact helper tool invocation, artifact, commands, and protected O1 preservation");
   }
@@ -1623,8 +1705,8 @@ export function constructWorksiteCommandExecutionObservation(
     provenance,
     helperArtifactRef: helperArtifact.artifactRef,
     helperArtifactDigest: helperArtifact.artifactDigest,
-    commandResults: exact.commandResults,
-    predicateObservations: exact.predicateObservations,
+    commandResults: helperArtifact.commandResults,
+    predicateObservations: helperArtifact.predicateObservations,
     worksiteDelta: helperArtifact.worksiteDelta,
     productDelta: helperArtifact.productDelta,
     snapshotRef: helperArtifact.snapshotRef,
@@ -1633,21 +1715,22 @@ export function constructWorksiteCommandExecutionObservation(
   };
   const observationDigest = sha256Canonical(body as unknown as JsonValue);
   return deepFreeze({
-    kind: "worksite_command_execution_observation" as const,
+    kind: task.kind === "worksite_command_forward_task" ? "worksite_command_forward_observation" as const
+      : task.kind === "worksite_command_execution_task" ? "worksite_command_execution_observation" as const : "worksite_revision_command_execution_observation" as const,
     schemaVersion: SCHEMA_VERSION,
-    observationRef: identity("worksite-command-execution-observation://abiogenesis", observationDigest),
+    observationRef: identity(worksiteExecutionIdentityPrefix(task, "execution-observation"), observationDigest),
     observationDigest,
     ...body,
-  });
+  }) as WorksiteExecutionObservation;
 }
 
-export function isWorksiteCommandExecutionObservation(value: unknown): value is WorksiteCommandExecutionObservation {
+export function isWorksiteExecutionObservation(value: unknown): value is WorksiteExecutionObservation {
   if (!isRecord(value) || !exactKeys(value, [
     "commandResults", "helperArtifactDigest", "helperArtifactRef", "kind", "observationDigest", "observationRef",
     "predicateObservations", "productDelta", "provenance", "schemaVersion", "snapshotDigest",
     "snapshotMembers", "snapshotRef", "task", "worksiteDelta",
-  ]) || value.kind !== "worksite_command_execution_observation" || value.schemaVersion !== SCHEMA_VERSION ||
-    !isWorksiteCommandExecutionTask(value.task) || !isRecord(value.provenance) ||
+  ]) || !isWorksiteExecutionTask(value.task) || value.kind !== (value.task.kind === "worksite_command_forward_task" ? "worksite_command_forward_observation"
+    : value.task.kind === "worksite_command_execution_task" ? "worksite_command_execution_observation" : "worksite_revision_command_execution_observation") || value.schemaVersion !== SCHEMA_VERSION || !isRecord(value.provenance) ||
     !exactKeys(value.provenance, [
       "actorInvocationRef", "actorProcessRef", "actorRef", "kind", "schemaVersion",
       "helperArtifactByteLength", "helperArtifactDigest", "helperArtifactPath", "helperArtifactRef",
@@ -1689,40 +1772,29 @@ export function isWorksiteCommandExecutionObservation(value: unknown): value is 
     value.worksiteDelta.some((row) => row.matchedTerritoryRef !==
       matchingWorksiteTerritoryRef(
         row.relativePath,
-        (value.task as WorksiteCommandExecutionTask).allowedWriteTerritories,
+        (value.task as WorksiteExecutionTask).allowedWriteTerritories,
       )) ||
     !nonempty(value.snapshotRef) || !isSha256Digest(value.snapshotDigest) ||
-    !Array.isArray(value.snapshotMembers) || !value.snapshotMembers.every(isSnapshotMember) ||
+    !Array.isArray(value.snapshotMembers) || !value.snapshotMembers.every((member, ordinal) => isExecutionSnapshotMember(value.task as WorksiteExecutionTask, member, ordinal)) ||
     value.helperArtifactRef !== identity(
-      "worksite-command-helper-artifact://abiogenesis",
+      worksiteExecutionIdentityPrefix(value.task, "helper-artifact"),
       value.helperArtifactDigest as Sha256Digest,
     ) ||
     value.worksiteDelta.some((row) => row.matchedTerritoryRef === null) ||
-    value.snapshotMembers.length !== value.task.protectedObservations.length ||
+    value.snapshotMembers.length !== worksiteExecutionSources(value.task).length ||
     value.snapshotMembers.some((member, ordinal) => {
-      const protectedRow = (value.task as WorksiteCommandExecutionTask).protectedObservations[ordinal];
-      return protectedRow === undefined || member.sourceMemberRef !== protectedRow.sourceMemberRef ||
+      const protectedRow = worksiteExecutionSources(value.task as WorksiteExecutionTask)[ordinal];
+      return protectedRow === undefined || !executionSnapshotSourceMatches(member, protectedRow) ||
         member.sourceObservationRef !== protectedRow.observation.observationRef ||
         member.sourceObservationDigest !== protectedRow.observation.observationDigest ||
         member.relativePath !== protectedRow.subject.relativePath ||
         member.digest !== protectedRow.observation.fileDigest ||
         member.byteLength !== protectedRow.observation.byteLength;
     }) ||
-    value.snapshotRef !== identity("worksite-command-snapshot://abiogenesis", value.snapshotDigest) ||
+    value.snapshotRef !== identity(worksiteExecutionIdentityPrefix(value.task, "snapshot"), value.snapshotDigest) ||
     value.snapshotDigest !== sha256Canonical(value.snapshotMembers as unknown as JsonValue)) return false;
   try {
-    constructWorksiteCommandExecutionWorkerResult(value.task, {
-      kind: "worksite_command_execution_worker_result",
-      schemaVersion: SCHEMA_VERSION,
-      taskRef: value.task.taskRef,
-      taskDigest: value.task.taskDigest,
-      workspaceBindingIdentity: value.task.workspaceBinding.bindingId,
-      workspaceBindingDigest: value.task.workspaceBinding.bindingDigest,
-      sourceConstructionResultRef: value.task.sourceConstructionResultRef,
-      sourceConstructionResultDigest: value.task.sourceConstructionResultDigest,
-      commandResults: value.commandResults,
-      predicateObservations: value.predicateObservations,
-    });
+    assertWorksiteCommandVectors(value.task, value.commandResults, value.predicateObservations);
     const body = {
       task: value.task,
       provenance: value.provenance,
@@ -1738,7 +1810,7 @@ export function isWorksiteCommandExecutionObservation(value: unknown): value is 
     };
     const digest = sha256Canonical(body as unknown as JsonValue);
     return value.observationDigest === digest &&
-      value.observationRef === identity("worksite-command-execution-observation://abiogenesis", digest);
+      value.observationRef === identity(worksiteExecutionIdentityPrefix(value.task, "execution-observation"), digest);
   } catch {
     return false;
   }
@@ -1752,23 +1824,25 @@ export function isWorksiteCommandExecutionFailure(value: unknown): value is Work
 
 /** Product-owned rendering of exact task commands and outcome predicates. */
 export function renderWorksiteCommandExecutionPrompt(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
   helperPlan: WorksiteCommandExecutionHelperPlan,
 ): string {
-  if (!isWorksiteCommandExecutionTask(task) ||
+  if (!isWorksiteExecutionTask(task) ||
     !isWorksiteCommandExecutionHelperPlan(task, helperPlan)) {
     throw new TypeError("command execution prompt requires one exact admitted task and helper plan");
   }
   return [
-    "Invoke the Bash tool exactly once with the exact command below. The ABI-owned helper executes every declared command in order and records its exact argv, cwd, environment, streams, exit status, reports, and protected-file observations.",
-    helperPlan.toolCommand,
-    "Use the helper tool output to return its commandResults and predicateObservations unchanged. The helper, not you, performs every probe.",
+    "Invoke the Bash tool exactly once with the exact semantic tool-input object below. The ABI-owned helper executes every declared command in order and records its exact argv, cwd, environment, streams, exit status, reports, and protected-file observations.",
+    canonicalJson({ command: helperPlan.toolCommand }),
+    "Do not add timeout, run_in_background, or any other operational input field. An optional string description is metadata only. Preserve the command string exactly.",
+    "Return the helper's compact task/attempt/artifact acknowledgment unchanged. The helper retains every computed command, stream, and predicate in its full artifact; do not copy, summarize, or compute those rows.",
     "Do not run any declared command directly and do not use another tool call.",
     "A nonzero subject-command exit is an observation, not a transport failure.",
     "Return only the JSON value required by the supplied schema.",
     canonicalJson({
       taskRef: task.taskRef,
       taskDigest: task.taskDigest,
+      attemptRef: helperPlan.attemptRef,
       workspaceBindingIdentity: task.workspaceBinding.bindingId,
       workspaceBindingDigest: task.workspaceBinding.bindingDigest,
       sourceConstructionResultRef: task.sourceConstructionResultRef,
@@ -1782,108 +1856,27 @@ export function renderWorksiteCommandExecutionPrompt(
 }
 
 export function worksiteCommandExecutionWorkerResultSchema(
-  task: WorksiteCommandExecutionTask,
+  task: WorksiteExecutionTask,
+  helperPlan: WorksiteCommandExecutionHelperPlan,
 ): Readonly<Record<string, JsonValue>> {
-  if (!isWorksiteCommandExecutionTask(task)) throw new TypeError("command result schema requires one exact task");
-  const canonicalTaskStringSchema = (values: readonly string[]): JsonValue => {
-    const enumValues = [...new Set(values)];
-    return enumValues.length === 0
-      ? { type: "string" }
-      : { type: "string", enum: enumValues };
-  };
-  const environmentEntry = {
-    type: "object", additionalProperties: false,
-    required: ["kind", "schemaVersion", "name", "value"],
-    properties: {
-      kind: { const: "worksite_command_environment_entry" },
-      schemaVersion: { const: SCHEMA_VERSION }, name: { type: "string" }, value: { type: "string" },
-    },
-  } as JsonValue;
-  const stream = {
-    type: "object", additionalProperties: false,
-    required: ["kind", "schemaVersion", "encoding", "payload", "byteLength", "digest"],
-    properties: {
-      kind: { const: "worksite_observed_stream" }, schemaVersion: { const: SCHEMA_VERSION },
-      encoding: { const: "base64" }, payload: { type: "string", pattern: BASE64_PATTERN },
-      byteLength: { type: "integer", minimum: 0 }, digest: { type: "string", pattern: "^sha256:[a-f0-9]{64}$" },
-    },
-  } as JsonValue;
-  const report = {
-    type: "object", additionalProperties: false,
-    required: [
-      "kind", "schemaVersion", "ordinal", "commandOrdinal", "commandId",
-      "expectedReportIdentity", "relativePath", "state", "byteLength", "digest",
-      "observationRef", "observationDigest",
-    ],
-    properties: {
-      kind: { const: "worksite_report_observation" }, schemaVersion: { const: SCHEMA_VERSION },
-      ordinal: { type: "integer", minimum: 0 }, commandOrdinal: { type: "integer", minimum: 0 },
-      commandId: { type: "string" }, expectedReportIdentity: { type: "string" },
-      relativePath: { type: "string" }, state: { enum: ["absent", "file"] },
-      byteLength: { type: ["integer", "null"], minimum: 0 },
-      digest: { type: ["string", "null"], pattern: "^sha256:[a-f0-9]{64}$" },
-      observationRef: { type: "string" },
-      observationDigest: { type: "string", pattern: "^sha256:[a-f0-9]{64}$" },
-    },
-  } as JsonValue;
+  if (!isWorksiteExecutionTask(task) ||
+    !isWorksiteCommandExecutionHelperPlan(task, helperPlan)) {
+    throw new TypeError("command result schema requires one exact task and helper plan");
+  }
   return deepFreeze({
     type: "object", additionalProperties: false,
     required: [
-      "kind", "schemaVersion", "taskRef", "taskDigest", "workspaceBindingIdentity",
-      "workspaceBindingDigest", "sourceConstructionResultRef", "sourceConstructionResultDigest",
-      "commandResults", "predicateObservations",
+      "kind", "schemaVersion", "taskRef", "taskDigest", "attemptRef",
+      "helperArtifactRef", "helperArtifactDigest",
     ],
     properties: {
       kind: { const: "worksite_command_execution_worker_result" },
       schemaVersion: { const: SCHEMA_VERSION }, taskRef: { const: task.taskRef },
-      taskDigest: { const: task.taskDigest }, workspaceBindingIdentity: { const: task.workspaceBinding.bindingId },
-      workspaceBindingDigest: { const: task.workspaceBinding.bindingDigest },
-      sourceConstructionResultRef: { const: task.sourceConstructionResultRef },
-      sourceConstructionResultDigest: { const: task.sourceConstructionResultDigest },
-      commandResults: {
-        type: "array",
-        items: {
-          type: "object", additionalProperties: false,
-          required: [
-            "kind", "schemaVersion", "ordinal", "commandId", "executable", "args",
-            "relativeCwd", "environment", "timeoutMs", "terminationGraceMs", "exitStatus",
-            "timedOut", "processSignal", "signalSequence", "terminationConfirmed", "stdout", "stderr",
-            "reports", "reportCount", "observationRef", "observationDigest",
-          ],
-          properties: {
-            kind: { const: "worksite_command_result" }, schemaVersion: { const: SCHEMA_VERSION },
-            ordinal: { type: "integer", minimum: 0 },
-            commandId: canonicalTaskStringSchema(task.commands.map((row) => row.commandId)),
-            executable: canonicalTaskStringSchema(task.commands.map((row) => row.executable)),
-            args: { type: "array", items: { type: "string" } }, relativeCwd: { type: "string" },
-            environment: { type: "array", items: environmentEntry }, timeoutMs: { type: "integer", minimum: 1 },
-            terminationGraceMs: { type: "integer", minimum: 1 },
-            exitStatus: { type: "integer" }, timedOut: { type: "boolean" },
-            processSignal: { type: ["string", "null"] },
-            signalSequence: { type: "array", items: { enum: ["SIGTERM", "SIGKILL"] } },
-            terminationConfirmed: { type: "boolean" }, stdout: stream, stderr: stream,
-            reports: { type: "array", items: report },
-            reportCount: { type: "integer", minimum: 0 },
-            observationRef: { type: "string" },
-            observationDigest: { type: "string", pattern: "^sha256:[a-f0-9]{64}$" },
-          },
-        },
+      taskDigest: { const: task.taskDigest }, attemptRef: { const: helperPlan.attemptRef },
+      helperArtifactRef: {
+        type: "string", pattern: `^${worksiteExecutionIdentityPrefix(task, "helper-artifact")}/[a-f0-9]{64}$`,
       },
-      predicateObservations: {
-        type: "array",
-        items: {
-          type: "object", additionalProperties: false,
-          required: ["kind", "schemaVersion", "ordinal", "predicateId", "predicateKind", "observedValue", "evidence", "evidenceRefs"],
-          properties: {
-            kind: { const: "worksite_predicate_observation" }, schemaVersion: { const: SCHEMA_VERSION },
-            ordinal: { type: "integer", minimum: 0 },
-            predicateId: canonicalTaskStringSchema(task.outcomePredicates.map((row) => row.predicateId)),
-            predicateKind: canonicalTaskStringSchema(task.outcomePredicates.map((row) => row.predicateKind)),
-            observedValue: {}, evidence: { type: "array" },
-            evidenceRefs: { type: "array", items: { type: "string" } },
-          },
-        },
-      },
+      helperArtifactDigest: { type: "string", pattern: "^sha256:[a-f0-9]{64}$" },
     },
   } as Readonly<Record<string, JsonValue>>);
 }
@@ -1897,12 +1890,76 @@ export function resolveWorksiteCommandExecutionJudgmentRelation(
   readonly rejectionReasonRef: string;
   readonly evaluate: (input: unknown, output: unknown) => boolean;
 }> | null {
-  if (predicateRef !== WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef) return null;
+  if (predicateRef !== WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef && predicateRef !== WORKSITE_REVISION_IDS.judgmentPredicateRef) return null;
   return Object.freeze({
     predicateRef,
     advanceReasonRef: "reason://abiogenesis/worksite/command-execution-observed@5",
     rejectionReasonRef: "reason://abiogenesis/worksite/command-execution-malformed@5",
-    evaluate: (input, output) => isWorksiteCommandExecutionTask(input) &&
-      isWorksiteCommandExecutionObservation(output) && same(output.task, input),
+    evaluate: (input, output) => (predicateRef === WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef
+      ? isWorksiteCommandExecutionTask(input) && isWorksiteCommandExecutionObservation(output)
+      : isWorksiteRevisionCommandExecutionTask(input) && isWorksiteRevisionCommandExecutionObservation(output)) &&
+      isWorksiteExecutionObservation(output) && same(output.task, input),
   });
+}
+
+
+/** Separate closed D2 rows; the existing old-row guard remains unchanged. */
+function isExecutionSnapshotMember(task: WorksiteExecutionTask, value: unknown, ordinal: number): value is WorksiteExecutionSnapshotMember {
+  if (task.kind === "worksite_command_execution_task") return isSnapshotMember(value, ordinal);
+  if (task.kind === "worksite_command_forward_task") {
+    const source = task.snapshotSources[ordinal];
+    return source !== undefined && isRecord(value) && exactKeys(value,["kind","schemaVersion","ordinal","sourceMemberRef","source",
+      "sourceObservationRef","sourceObservationDigest","relativePath","byteLength","digest"]) &&
+      value.kind === "worksite_command_forward_snapshot_member" && value.schemaVersion === SCHEMA_VERSION &&
+      value.ordinal === ordinal && value.sourceMemberRef === source.sourceMemberRef && same(value.source,source.source) &&
+      value.sourceObservationRef === source.observation.observationRef && value.sourceObservationDigest === source.observation.observationDigest &&
+      value.relativePath === source.subject.relativePath && value.byteLength === source.observation.byteLength && value.digest === source.observation.fileDigest;
+  }
+  return isRecord(value) && exactKeys(value, ["kind","schemaVersion","ordinal","designTargetRef","source","sourceObservationRef",
+    "sourceObservationDigest","relativePath","byteLength","digest"]) && value.kind === "worksite_revision_snapshot_member" &&
+    value.schemaVersion === SCHEMA_VERSION && value.ordinal === ordinal && nonempty(value.designTargetRef) &&
+    nonempty(value.sourceObservationRef) && isSha256Digest(value.sourceObservationDigest) && safeRelativePath(value.relativePath) &&
+    Number.isSafeInteger(value.byteLength) && Number(value.byteLength) >= 0 && isSha256Digest(value.digest) && isRecord(value.source) &&
+    (value.source.kind === "construction_member" ? exactKeys(value.source, ["kind","sourceMemberRef"]) && nonempty(value.source.sourceMemberRef)
+      : value.source.kind === "retained_dependency" && exactKeys(value.source, ["kind","origin"]) && isWorksiteRevisionObservationOrigin(value.source.origin));
+}
+function executionSnapshotSourceMatches(member: WorksiteExecutionSnapshotMember, row: ReturnType<typeof worksiteExecutionSources>[number]): boolean {
+  if(member.kind === "worksite_command_forward_snapshot_member") return "sourceMemberRef" in row && "source" in row &&
+    member.sourceMemberRef === row.sourceMemberRef && same(member.source,row.source);
+  return member.kind === "worksite_snapshot_member"
+    ? "sourceMemberRef" in row && member.sourceMemberRef === row.sourceMemberRef
+    : "designTargetRef" in row && member.designTargetRef === row.designTargetRef && same(member.source, row.source);
+}
+export function constructWorksiteCommandHelperArtifact(input: Readonly<WorksiteExecutionHelperArtifactInput> & {task: WorksiteCommandExecutionTask; snapshotMembers: readonly WorksiteSnapshotMember[]}): WorksiteCommandHelperArtifact {
+  if (!isWorksiteCommandExecutionTask(input.task)) throw new TypeError("old C2 helper requires old C2 task");
+  return constructWorksiteExecutionHelperArtifact(input) as WorksiteCommandHelperArtifact;
+}
+export function constructWorksiteRevisionCommandHelperArtifact(input: Readonly<WorksiteExecutionHelperArtifactInput> & {task: WorksiteRevisionCommandExecutionTask; snapshotMembers: readonly WorksiteRevisionSnapshotMember[]}): WorksiteRevisionCommandHelperArtifact {
+  if (!isWorksiteRevisionCommandExecutionTask(input.task)) throw new TypeError("revision C2 helper requires revision C2 task");
+  return constructWorksiteExecutionHelperArtifact(input) as WorksiteRevisionCommandHelperArtifact;
+}
+export function isWorksiteCommandHelperArtifact(task: WorksiteCommandExecutionTask, value: unknown): value is WorksiteCommandHelperArtifact {
+  return isWorksiteCommandExecutionTask(task) && isWorksiteExecutionHelperArtifact(task, value);
+}
+export function isWorksiteRevisionCommandHelperArtifact(task: WorksiteRevisionCommandExecutionTask, value: unknown): value is WorksiteRevisionCommandHelperArtifact {
+  return isWorksiteRevisionCommandExecutionTask(task) && isWorksiteExecutionHelperArtifact(task, value);
+}
+export function constructWorksiteCommandExecutionObservation(task: WorksiteCommandExecutionTask, workerResult: WorksiteCommandExecutionWorkerResult,
+  actorObservation: ActorProcessObservation, helperArtifact: WorksiteCommandHelperArtifact, helperPlan: WorksiteCommandExecutionHelperPlan): WorksiteCommandExecutionObservation {
+  if (!isWorksiteCommandExecutionTask(task)) throw new TypeError("old C2 observation requires old C2 task");
+  return constructWorksiteExecutionObservation(task, workerResult, actorObservation, helperArtifact, helperPlan) as WorksiteCommandExecutionObservation;
+}
+export function constructWorksiteRevisionCommandExecutionObservation(task: WorksiteRevisionCommandExecutionTask, workerResult: WorksiteCommandExecutionWorkerResult,
+  actorObservation: ActorProcessObservation, helperArtifact: WorksiteRevisionCommandHelperArtifact, helperPlan: WorksiteCommandExecutionHelperPlan): WorksiteRevisionCommandExecutionObservation {
+  if (!isWorksiteRevisionCommandExecutionTask(task)) throw new TypeError("revision C2 observation requires revision C2 task");
+  return constructWorksiteExecutionObservation(task, workerResult, actorObservation, helperArtifact, helperPlan) as WorksiteRevisionCommandExecutionObservation;
+}
+export function isWorksiteCommandExecutionObservation(value: unknown): value is WorksiteCommandExecutionObservation {
+  return isRecord(value) && value.kind === "worksite_command_execution_observation" && isWorksiteExecutionObservation(value);
+}
+export function isWorksiteRevisionCommandExecutionObservation(value: unknown): value is WorksiteRevisionCommandExecutionObservation {
+  return isRecord(value) && value.kind === "worksite_revision_command_execution_observation" && isWorksiteExecutionObservation(value);
+}
+export function isWorksiteCommandForwardObservation(value: unknown): value is WorksiteCommandForwardObservation {
+  return isRecord(value) && value.kind === "worksite_command_forward_observation" && isWorksiteExecutionObservation(value);
 }

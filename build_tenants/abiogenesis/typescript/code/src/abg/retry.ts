@@ -104,6 +104,7 @@ import {
   type OpenedTraversalScope,
 } from "./open_call.js";
 import {
+  deriveRetainedCCallInputAtPrefix,
   projectDeclaredStructuralAdvanceAtPrefix,
   projectAdmittedRouteAtPrefix,
   projectHistoricalTraversalRoutesAtPrefix,
@@ -5611,6 +5612,30 @@ export function planCompletedRetryProgress(
       : completion.completionClass === "fh_resume_success"
         ? completion.resume.admissionEventRef
         : completion.judgment.admissionEventRef;
+  let retained: ReturnType<typeof deriveRetainedCCallInputAtPrefix> = null;
+  if (completion.completionClass === "judged_success") {
+    const executionBasis = rehydrateExecutionBasisAtPrefix(
+      prefix,
+      sourceCursor.executionBasisRef,
+    );
+    if (executionBasis === null) {
+      return refusal("basis_mismatch", "completed retry progress requires its exact admitted ExecutionBasis");
+    }
+    try {
+      retained = deriveRetainedCCallInputAtPrefix(
+        prefix,
+        executionBasis,
+        graph,
+        sourceCursor,
+        completion.cCall,
+        completion.result,
+        completion.judgment,
+      );
+    } catch (error) {
+      if (!(error instanceof TypeError)) throw error;
+      return refusal("attempt_mismatch", error.message);
+    }
+  }
   const completedInput = completion.completionClass === "fan_out_success"
     ? {
         inputRef: completion.completion.outputVectorRef,
@@ -5627,8 +5652,8 @@ export function planCompletedRetryProgress(
             inputDigest: sourceCursor.inputDigest,
           }
         : {
-            inputRef: completion.result.resultRef,
-            inputDigest: completion.result.valueDigest,
+            inputRef: retained?.input.admissionRef ?? completion.result.resultRef,
+            inputDigest: retained?.input.subjectDigest ?? completion.result.valueDigest,
           };
   const continuation = deriveCContinuationTarget(graph, {
     nodeRef: sourceCursor.currentNodeRef,

@@ -12,10 +12,12 @@ import {
 import type {
   OwnerContractSourceDeclaration,
 } from "../shared/public_function_contracts.js";
+import { admitExactDefinitionCall } from "../shared/definition_binding_mechanics.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import * as validator from "../validator/index.js";
 
 export type InstalledDefinitionCallAcquisition =
+  | Readonly<{ readonly kind: "eventless" }>
   | Readonly<{
     readonly kind: "new";
     readonly eventLogPath: string;
@@ -40,7 +42,7 @@ export interface InstalledDefinitionCallTransportRefusal {
 export interface InstalledDefinitionCallTransportResult {
   readonly kind: "installed_definition_call_transport_result";
   readonly schemaVersion: "5.0.0";
-  readonly acquisitionKind: "new" | "reopen";
+  readonly acquisitionKind: "eventless" | "new" | "reopen";
   readonly receipt: DefinitionHostReceipt;
 }
 
@@ -98,6 +100,7 @@ function isInstalledDefinitionCallAcquisition(
   ) {
     return false;
   }
+  if (value.kind === "eventless") return hasExactKeys(value, ["kind"]);
   if (value.kind === "new") {
     return hasExactKeys(value, ["kind", "eventLogPath"]) &&
       hasOwnDataProperty(value, "eventLogPath") &&
@@ -126,8 +129,7 @@ export function isInstalledDefinitionCallCandidate(
     !isRecord(invocation) ||
     !hasOwnDataProperty(invocation, "kind") ||
     !hasOwnDataProperty(invocation, "definitionKey") ||
-    !isRecord(resources) ||
-    !hasOwnDataProperty(resources, "eventResource")
+    !isRecord(resources)
   ) {
     return false;
   }
@@ -170,6 +172,9 @@ function acquisitionMatches(
   if (!isRecord(resources)) {
     return false;
   }
+  if (acquisition.kind === "eventless") {
+    return !Object.hasOwn(resources, "eventResource");
+  }
   const eventResource = resources.eventResource;
   if (!isRecord(eventResource)) return false;
   return acquisition.kind === "new"
@@ -193,7 +198,14 @@ function selectedCallable(
       "DefinitionCall must select one exact installed owner contract source",
     );
   }
-  const locator = matches[0]!.packet.executionBindingSpecification.callable;
+  const packet = matches[0]!.packet;
+  if (admitExactDefinitionCall(call, matches[0]!.declaration) === null) {
+    return refusal(
+      "invalid_definition_call",
+      "DefinitionCall differs from its exact installed invocation contract",
+    );
+  }
+  const locator = packet.executionBindingSpecification.callable;
   if (!Object.hasOwn(INSTALLED_OWNER_MODULES, locator.packageExportPath)) {
     return refusal(
       "installed_binding_unavailable",

@@ -59,8 +59,9 @@ LLM-first graph programming model. It shall:
     exact product candidate without self-minted assurance or product
     exemption; and
 12. release one immutable source-independent ABIogenesis 5.0 product before
-    recursive dogfooding or downstream GLC maturation becomes a release
-    concern.
+    recursive self-use, qualifying its generic downstream lifecycle contract
+    through the required installed witness while keeping GLC Product
+    publication and maturation independent.
 
 ## Program And Runtime Boundary
 
@@ -163,7 +164,11 @@ direct HoG traversal of admitted GTL.
 
 Stable 5.0 is released before self-use. Installed 5.0 may then become the
 development product for 5.0.1. odd_glc remains a separately released downstream
-catalog product and is not a 5.0 build, qualification, or release dependency.
+catalog product whose publication and maturation are not 5.0 build,
+qualification, or release dependencies. The real specification-driven
+lifecycle witness required by Product F17/S06 is ABIogenesis qualification
+evidence over its installed public contract class; it does not qualify or
+release the GLC Product.
 
 ## Established Directional Constraints
 
@@ -250,7 +255,8 @@ ABIogenesis 5.0 does not include:
 - hostile-workstation resistance, remote attestation, signing, or malicious
   publisher defense;
 - self-hosting or ABIogenesis-builds-ABIogenesis as a 5.0 release gate; or
-- odd_glc or another GLC product as a 5.0 release dependency.
+- publication or maturation of odd_glc or another GLC Product as a 5.0 release
+  dependency.
 
 These are separate future product decisions. They cannot enter 5.0 through an
 adapter, fixture, design convenience, or implementation precedent.

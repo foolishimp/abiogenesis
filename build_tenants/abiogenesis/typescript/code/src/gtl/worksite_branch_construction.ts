@@ -275,6 +275,7 @@ export function constructWorksiteBranchConstructionPublicationParts(
       "abg.compute_regime": "F_D",
       "abg.closure_contract":
         WORKSITE_BRANCH_CONSTRUCTION_IDS.closureContractRef,
+      "abg.child_closure_contract": WORKSITE_BRANCH_CONSTRUCTION_IDS.childClosureContractRef,
       "abg.evidence_contract":
         WORKSITE_BRANCH_CONSTRUCTION_IDS.evidenceContractRef,
       "abg.judgment_contract":
@@ -460,6 +461,7 @@ export function constructWorksiteBranchConstructionPublicationParts(
   };
 
   const contracts: readonly ContractDeclaration[] = [
+    branchContract(WORKSITE_BRANCH_CONSTRUCTION_IDS.childClosureContractRef, "closure", "worksite_branch_construction_child_closure"),
     branchContract(
       WORKSITE_BRANCH_CONSTRUCTION_IDS.taskContractRef,
       "input",
@@ -522,6 +524,7 @@ export function constructWorksiteBranchConstructionPublicationParts(
     ),
   ];
   const closureContracts: readonly ClosureContract[] = [
+    branchClosure({ closureContractRef: WORKSITE_BRANCH_CONSTRUCTION_IDS.childClosureContractRef, closureScope: "graph_call", predicateRef: WORKSITE_BRANCH_CONSTRUCTION_IDS.rootJudgmentPredicateRef }),
     branchClosure({
       closureContractRef: WORKSITE_BRANCH_CONSTRUCTION_IDS.closureContractRef,
       closureScope: "run",

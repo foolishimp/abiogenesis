@@ -35,7 +35,7 @@ function openRootTraversal(environment, label) {
   );
 }
 
-async function installDeterministicClaude(environment) {
+async function installDeterministicClaude(environment, encoding = "base64") {
   const command = join(environment.scratch, "c1-bin", "claude");
   await mkdir(dirname(command), { recursive: true });
   await writeFile(command, [
@@ -50,13 +50,15 @@ async function installDeterministicClaude(environment) {
     "  const filesSchema = schema.properties.files;",
     "  if ('prefixItems' in filesSchema || Array.isArray(filesSchema.items)) " +
       "throw new Error('unsupported tuple-array response schema');",
-    "  const targetRefSchema = filesSchema.items.properties.targetRef;",
+    "  const fileSchema = filesSchema.items;",
+    "  if (fileSchema.properties.replacementText.type !== 'string' || fileSchema.required.includes('replacementText') || fileSchema.required.includes('replacementBase64')) throw new Error('payload XOR belongs to raw admission');",
+    "  const targetRefSchema = fileSchema.properties.targetRef;",
     "  const targetRefs = targetRefSchema.enum ?? [targetRefSchema.const];",
     "  if (filesSchema.minItems !== 1 || 'maxItems' in filesSchema) " +
       "throw new Error('unsupported response schema cardinality constraint');",
     "  if (filesSchema.items.properties.replacementBase64.pattern.includes('?:')) " +
       "throw new Error('unsupported response schema regex group');",
-    `  const replacementBase64 = ${JSON.stringify(REPLACEMENT.toString("base64"))};`,
+    `  const payload = ${JSON.stringify(encoding === "text" ? { replacementText: REPLACEMENT.toString("utf8") } : { replacementBase64: REPLACEMENT.toString("base64") })};`,
     "  const result = {",
     "    kind: 'worksite_construction_worker_result',",
     "    schemaVersion: '5.0.0',",
@@ -64,7 +66,7 @@ async function installDeterministicClaude(environment) {
     "      kind: 'worksite_candidate_file',",
     "      schemaVersion: '5.0.0',",
     "      targetRef,",
-    "      replacementBase64,",
+    "      ...payload,",
     "    })),",
     "  };",
     "  console.log(JSON.stringify({ type: 'system', subtype: 'init', model: 'deterministic-c1-proof' }));",
@@ -113,6 +115,103 @@ function captureLeafCalls(leafPort, retained) {
     return outcome;
   };
   return Object.freeze(delegated);
+}
+
+async function assertRawEncodingLaw(environment, task) {
+  const { product, store, workspaceAuthority, workspaceBinding } = environment;
+  const eventCount = store.readAll().length;
+  const raw = (files) => ({ kind: "worksite_construction_worker_result", schemaVersion: "5.0.0", files });
+  const file = (targetRef, payload) => ({ kind: "worksite_candidate_file", schemaVersion: "5.0.0", targetRef, ...payload });
+  const targetRef = task.targets[0].targetRef;
+  for (const [text, hex] of [
+    ["ASCII\n", "41534349490a"],
+    ["é漢😀", "c3a9e6bca2f09f9880"],
+    ["e\u0301", "65cc81"],
+    ["\ufeffa\r\nb\rc\n\0", "efbbbf610d0a620d630a00"],
+    ["", ""],
+  ]) {
+    const bytes = Buffer.from(hex, "hex");
+    const textRaw = raw([file(targetRef, { replacementText: text })]);
+    assert.deepEqual(product.constructWorksiteConstructionWorkerResult(task, textRaw), textRaw);
+    const encoded = product.constructWorksiteCandidateBundle(task, textRaw);
+    const base64Raw = raw([file(targetRef, { replacementBase64: bytes.toString("base64") })]);
+    assert.deepEqual(encoded, product.constructWorksiteCandidateBundle(task, base64Raw));
+    assert.deepEqual(Buffer.from(encoded.files[0].replacementBase64, "base64"), bytes);
+    assert.equal(product.isWorksiteCandidateBundle({ ...encoded, files: textRaw.files }), false);
+    assert.equal(product.constructWorksiteFileReplaceVector(encoded).members[0].value.replacementBytes, bytes.toString("base64"));
+  }
+  const binary = Buffer.from([0xff, 0xfe, 0x80, 0x00, 0x0a]);
+  const binaryRaw = raw([file(targetRef, { replacementBase64: binary.toString("base64") })]);
+  const legacyBody = { task, files: binaryRaw.files };
+  const legacyDigest = product.sha256Canonical(legacyBody);
+  const legacyCandidate = product.constructWorksiteCandidateBundle(task, binaryRaw);
+  assert.deepEqual(legacyCandidate, {
+    kind: "worksite_candidate_bundle", schemaVersion: "5.0.0",
+    candidateBundleRef: `worksite-candidate-bundle://abiogenesis/${legacyDigest.slice("sha256:".length)}`,
+    candidateBundleDigest: legacyDigest, ...legacyBody,
+  });
+  assert.deepEqual(Buffer.from(product.constructWorksiteFileReplaceVector(legacyCandidate).members[0].value.replacementBytes, "base64"), binary);
+
+  const targets = [];
+  for (const ordinal of [0, 1, 2]) {
+    const relativePath = `c1-proof/raw-${ordinal}.txt`;
+    const subject = product.constructWorksiteSubject({ workspaceAuthorityBasis: workspaceAuthority,
+      workspaceBinding, subjectUri: pathToFileURL(join(workspaceAuthority.canonicalRoot, relativePath)).href, relativePath });
+    const predecessorObservation = await product.observeWorksiteSubject(workspaceAuthority, workspaceBinding, subject);
+    targets.push({ subject, territory: task.targets[0].territory, predecessorObservation });
+  }
+  const vectorTask = product.constructWorksiteConstructionTask({
+    workspaceAuthorityBasis: workspaceAuthority, workspaceBinding,
+    capabilityGrant: task.capabilityGrant, prompt: task.prompt, targets,
+  });
+  const valid = raw(vectorTask.targets.map((target, ordinal) => file(target.targetRef,
+    ordinal === 1 ? { replacementBase64: binary.toString("base64") } : { replacementText: `text ${ordinal}\n` })));
+  assert.doesNotThrow(() => product.constructWorksiteCandidateBundle(vectorTask, valid));
+  const { default: Ajv2020 } = await import(pathToFileURL(join(environment.installedRoot, "node_modules/ajv/dist/2020.js")).href);
+  const schema = product.worksiteConstructionWorkerResultSchema(vectorTask);
+  const schemaAccepts = new Ajv2020({ strict: false }).compile(schema);
+  assert.equal(schemaAccepts(valid), true);
+  assert.deepEqual(schema.properties.files.items.required, ["kind", "schemaVersion", "targetRef"]);
+  assert.equal(schema.properties.files.items.additionalProperties, false);
+  for (const key of ["prefixItems", "maxItems"]) assert.equal(key in schema.properties.files, false);
+  for (const key of ["oneOf", "anyOf", "if"]) assert.equal(key in schema.properties.files.items, false);
+  const invalidVectors = [
+    raw(valid.files.slice(0, -1)),
+    raw([...valid.files].reverse()),
+    raw([valid.files[0], valid.files[0], valid.files[2]]),
+    raw([...valid.files, valid.files[0]]),
+  ];
+  const invalidPayloads = [
+    {}, { replacementText: "text", replacementBase64: "dGV4dA==" },
+    { replacementText: null }, { replacementText: 1 },
+    { replacementText: "\ud800" }, { replacementText: "\udc00" },
+    { replacementText: "\ud800X\udc00" },
+    { replacementBase64: "/w" }, { replacementBase64: "/x==" },
+    { replacementText: "text", workspaceBinding },
+  ].map((payload) => raw([file(vectorTask.targets[0].targetRef, payload), ...valid.files.slice(1)]));
+  // The portable response shape deliberately admits these; Product closes the exact relation.
+  for (const value of [...invalidVectors, ...invalidPayloads.slice(0, 2)]) assert.equal(schemaAccepts(value), true);
+  const { realizeWorksiteConstructionCandidate } = await import(pathToFileURL(join(environment.installedRoot,
+    "build/code/src/implementation/worksite_construction.js")).href);
+  const prepared = realizeWorksiteConstructionCandidate(vectorTask, null);
+  assert.deepEqual(prepared.workerRequest.responseJsonSchema, schema);
+  assert.equal(prepared.workerRequest.prompt, task.prompt);
+  for (const value of [...invalidVectors, ...invalidPayloads,
+    { ...valid, workspaceBinding }, raw([]),
+    raw([file("target://unknown", { replacementText: "text" }), ...valid.files.slice(1)]),
+  ]) {
+    assert.throws(() => product.constructWorksiteCandidateBundle(vectorTask, value), TypeError);
+    const outcome = prepared.complete({ request: prepared.workerRequest, observation: {
+      ...prepared.workerRequest, promptDigest: vectorTask.promptDigest, toolCallCount: 0,
+      disposition: "success", failureClass: null, finalOutput: JSON.stringify(value),
+    } });
+    assert.equal(outcome.disposition, "failure");
+    assert.equal(outcome.resultCandidate.failureClass, "result_contract_failure");
+  }
+  assert.equal(store.readAll().length, eventCount);
+  for (const target of vectorTask.targets) {
+    assert.equal((await product.observeWorksiteSubject(workspaceAuthority, workspaceBinding, target.subject)).state, "absent");
+  }
 }
 
 test("T-287 C1 remains singular inside the C3 composite publication", async () => {
@@ -277,30 +376,34 @@ test("T-287 C1 traverses one installed fake-Claude candidate through C0 and fres
     programRef: ids.programRef,
     graphFunctionRef: ids.graphFunctionRef,
     inputContractRef: ids.taskContractRef,
-    inputFactory: async ({ product, workspaceBinding, capabilityGrant }) => {
+    inputFactory: async ({ product, workspaceAuthority: workspaceAuthorityBasis, workspaceBinding, capabilityGrant }) => {
       const relativeRoot = "c1-proof";
       const relativePath = `${relativeRoot}/message.txt`;
-      await mkdir(join(workspaceBinding.roots.productRoot, relativeRoot), {
+      await mkdir(join(workspaceAuthorityBasis.canonicalRoot, relativeRoot), {
         recursive: true,
       });
-      targetPath = join(workspaceBinding.roots.productRoot, relativePath);
+      targetPath = join(workspaceAuthorityBasis.canonicalRoot, relativePath);
       const subject = product.constructWorksiteSubject({
+        workspaceAuthorityBasis,
         workspaceBinding,
         subjectUri: pathToFileURL(targetPath).href,
         relativePath,
       });
       const territory = product.constructWorksiteTerritory({
+        workspaceAuthorityBasis,
         workspaceBinding,
         territoryUri: pathToFileURL(
-          join(workspaceBinding.roots.productRoot, relativeRoot),
+          join(workspaceAuthorityBasis.canonicalRoot, relativeRoot),
         ).href,
         relativeRoot,
       });
       predecessorObservation = await product.observeWorksiteSubject(
+        workspaceAuthorityBasis,
         workspaceBinding,
         subject,
       );
       task = product.constructWorksiteConstructionTask({
+        workspaceAuthorityBasis,
         workspaceBinding,
         capabilityGrant,
         prompt: PROMPT,
@@ -315,6 +418,7 @@ test("T-287 C1 traverses one installed fake-Claude candidate through C0 and fres
   assert.equal(environment.product.isWorksiteConstructionTask(task), true);
   assert.equal(task.prompt, PROMPT);
   assert.equal(task.targets.length, 1);
+  await assertRawEncodingLaw(environment, task);
 
   const oneTargetResponseSchema =
     environment.product.worksiteConstructionWorkerResultSchema(task);
@@ -339,7 +443,7 @@ test("T-287 C1 traverses one installed fake-Claude candidate through C0 and fres
       kind: "worksite_candidate_file",
       schemaVersion: "5.0.0",
       targetRef: task.targets[0].targetRef,
-      replacementBase64: REPLACEMENT.toString("base64"),
+      replacementText: REPLACEMENT.toString("utf8"),
     }],
   };
   assert.equal(
@@ -404,10 +508,10 @@ test("T-287 C1 traverses one installed fake-Claude candidate through C0 and fres
   assert.equal(failureRefusal.code, "workflow-failure-contract-ambiguous");
   assert.equal(environment.store.readAll().length, eventCountBeforeFailureNegative);
 
-  const command = await installDeterministicClaude(environment);
+  const command = await installDeterministicClaude(environment, "text");
   const beforeFiles = await snapshotFiles(
     environment.product,
-    environment.workspaceBinding.roots.productRoot,
+    join(environment.workspaceAuthority.canonicalRoot, "c1-proof"),
   );
   const opened = openRootTraversal(environment, "one-target/open");
   assert.equal(
@@ -436,6 +540,7 @@ test("T-287 C1 traverses one installed fake-Claude candidate through C0 and fres
       executionBasis: environment.executionBasis,
       openedTraversalScope: opened.scope,
       program: environment.program,
+      programPublication: environment.executionResolution.programPublication,
       programValidation: environment.programValidation,
       graphFunction: environment.graphFunction,
       graph: environment.graph,
@@ -502,12 +607,12 @@ test("T-287 C1 traverses one installed fake-Claude candidate through C0 and fres
 
   const afterFiles = await snapshotFiles(
     environment.product,
-    environment.workspaceBinding.roots.productRoot,
+    join(environment.workspaceAuthority.canonicalRoot, "c1-proof"),
   );
-  assert.deepEqual(changedFiles(beforeFiles, afterFiles), ["c1-proof/message.txt"]);
-  assert.equal(beforeFiles.has("c1-proof/message.txt"), false);
+  assert.deepEqual(changedFiles(beforeFiles, afterFiles), ["message.txt"]);
+  assert.equal(beforeFiles.has("message.txt"), false);
   assert.equal(
-    afterFiles.get("c1-proof/message.txt"),
+    afterFiles.get("message.txt"),
     environment.product.sha256Bytes(REPLACEMENT),
   );
 
@@ -527,7 +632,9 @@ test("T-287 C1 traverses one installed fake-Claude candidate through C0 and fres
   assert.ok(admittedCandidate);
   assert.equal(admittedCandidate.payload.value.kind, "worksite_candidate_bundle");
   assert.deepEqual(admittedCandidate.payload.value.task, task);
-  assert.deepEqual(admittedCandidate.payload.value.files, rawWorkerResult.files);
+  assert.deepEqual(admittedCandidate.payload.value.files, rawWorkerResult.files.map(({ replacementText, ...file }) => ({
+    ...file, replacementBase64: Buffer.from(replacementText, "utf8").toString("base64"),
+  })));
   assert.notDeepEqual(admittedCandidate.payload.value, rawWorkerResult);
   assert.equal(
     events.filter((event) =>
@@ -565,6 +672,17 @@ test("T-287 C1 traverses one installed fake-Claude candidate through C0 and fres
   );
   assert.ok(replayedConstructionResult);
   assert.deepEqual(replayedConstructionResult.resultValue, completion.resultValue);
+  assert.equal(await environment.product.installedProductContentMatches(environment.installCandidate), true);
+  context.diagnostic(JSON.stringify({
+    proof: "C1 text/raw/C0/fresh-replay",
+    artifactSha256: await environment.product.sha256File(environment.artifactPath),
+    rawOutputSha256: environment.product.sha256Bytes(Buffer.from(actorResult.payload.finalOutput, "utf8")),
+    candidateBundleDigest: admittedCandidate.payload.value.candidateBundleDigest,
+    resultDigest: completion.resultValue.resultDigest,
+    replayDigest: freshReplay.replayDigest,
+    installedProductUnchanged: true,
+    toolCallCount: actorResult.payload.toolCallCount,
+  }));
 });
 
 test("T-287 C1 retains an exact partial prefix when a later C0 member refuses", {
@@ -586,15 +704,16 @@ test("T-287 C1 retains an exact partial prefix when a later C0 member refuses", 
     programRef: ids.programRef,
     graphFunctionRef: ids.graphFunctionRef,
     inputContractRef: ids.taskContractRef,
-    inputFactory: async ({ product, workspaceBinding, capabilityGrant }) => {
+    inputFactory: async ({ product, workspaceAuthority: workspaceAuthorityBasis, workspaceBinding, capabilityGrant }) => {
       const relativeRoot = "c1-partial-proof";
-      await mkdir(join(workspaceBinding.roots.productRoot, relativeRoot), {
+      await mkdir(join(workspaceAuthorityBasis.canonicalRoot, relativeRoot), {
         recursive: true,
       });
       const territory = product.constructWorksiteTerritory({
+        workspaceAuthorityBasis,
         workspaceBinding,
         territoryUri: pathToFileURL(
-          join(workspaceBinding.roots.productRoot, relativeRoot),
+          join(workspaceAuthorityBasis.canonicalRoot, relativeRoot),
         ).href,
         relativeRoot,
       });
@@ -602,23 +721,26 @@ test("T-287 C1 retains an exact partial prefix when a later C0 member refuses", 
       for (const ordinal of [0, 1, 2]) {
         const relativePath = `${relativeRoot}/member-${ordinal}.txt`;
         const targetPath = join(
-          workspaceBinding.roots.productRoot,
+          workspaceAuthorityBasis.canonicalRoot,
           relativePath,
         );
         targetPaths.push(targetPath);
         const subject = product.constructWorksiteSubject({
-          workspaceBinding,
+          workspaceAuthorityBasis,
+        workspaceBinding,
           subjectUri: pathToFileURL(targetPath).href,
           relativePath,
         });
         const predecessorObservation = await product.observeWorksiteSubject(
-          workspaceBinding,
+          workspaceAuthorityBasis,
+        workspaceBinding,
           subject,
         );
         predecessorObservations.push(predecessorObservation);
         targets.push({ subject, territory, predecessorObservation });
       }
       task = product.constructWorksiteConstructionTask({
+        workspaceAuthorityBasis,
         workspaceBinding,
         capabilityGrant,
         prompt: PROMPT,
@@ -696,7 +818,7 @@ test("T-287 C1 retains an exact partial prefix when a later C0 member refuses", 
   await writeFile(targetPaths[1], staleBytes);
   const beforeFiles = await snapshotFiles(
     environment.product,
-    environment.workspaceBinding.roots.productRoot,
+    join(environment.workspaceAuthority.canonicalRoot, "c1-partial-proof"),
   );
   const command = await installDeterministicClaude(environment);
   const opened = openRootTraversal(environment, "partial-stop/open");
@@ -725,6 +847,7 @@ test("T-287 C1 retains an exact partial prefix when a later C0 member refuses", 
       executionBasis: environment.executionBasis,
       openedTraversalScope: opened.scope,
       program: environment.program,
+      programPublication: environment.executionResolution.programPublication,
       programValidation: environment.programValidation,
       graphFunction: environment.graphFunction,
       graph: environment.graph,
@@ -823,10 +946,10 @@ test("T-287 C1 retains an exact partial prefix when a later C0 member refuses", 
 
   const afterFiles = await snapshotFiles(
     environment.product,
-    environment.workspaceBinding.roots.productRoot,
+    join(environment.workspaceAuthority.canonicalRoot, "c1-partial-proof"),
   );
   assert.deepEqual(changedFiles(beforeFiles, afterFiles), [
-    "c1-partial-proof/member-0.txt",
+    "member-0.txt",
   ]);
   assert.deepEqual(await readFile(targetPaths[0]), REPLACEMENT);
   assert.deepEqual(await readFile(targetPaths[1]), staleBytes);

@@ -5,7 +5,10 @@ import type {
   WorksiteFileReplaceOutputVector,
   WorksiteFileReplaceVector,
 } from "../product/worksite_construction.js";
-import { WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction.js";
+import { WORKSITE_PRESERVED_RESULT_IDS as recoveryIds, WORKSITE_CONSTRUCTION_GTL_IDS } from "./worksite_construction_recovery.js";
+export { WORKSITE_CONSTRUCTION_GTL_IDS, constructWorksitePreservedResultRecoveryGraphFunction,
+  worksitePreservedResultSourceOfGraphFunction } from "./worksite_construction_recovery.js";
+import { WORKSITE_CONSTRUCTION_IDS, WORKSITE_CONSTRUCTION_RESULT_CONTRACT } from "../product/worksite_construction.js";
 import { WORKSITE_FILE_REPLACE_EFFECT_URI } from "../product/worksite_effect.js";
 import { C, cCarrier, cGraphFunctionRef, workflow } from "./c_algebra.js";
 import type {
@@ -33,31 +36,6 @@ import {
 } from "./worksite_c0.js";
 import { WORKSITE_BRANCH_CONSTRUCTION_IDS } from "../product/worksite_branch_construction.js";
 import { constructWorksiteBranchConstructionPublicationParts } from "./worksite_branch_construction.js";
-
-export const WORKSITE_CONSTRUCTION_GTL_IDS = Object.freeze({
-  graphRef: "graph://abiogenesis/worksite/construction@5",
-  nodeRef: "node://abiogenesis/worksite/construction/root@5",
-  candidateLocusRef:
-    "locus://abiogenesis/worksite/construction/candidate@5",
-  candidateArmId: "arm://abiogenesis/worksite/construction/candidate-fp@5",
-  joinLocusRef:
-    "locus://abiogenesis/worksite/construction/authority-join@5",
-  joinArmId:
-    "arm://abiogenesis/worksite/construction/authority-join-fd@5",
-  vectorApplicationGraphRef:
-    "graph://abiogenesis/worksite/construction/vector-application@5",
-  vectorApplicationNodeRef:
-    "node://abiogenesis/worksite/construction/vector-application@5",
-  reducerGraphRef:
-    "graph://abiogenesis/worksite/construction/reduce@5",
-  reducerNodeRef:
-    "node://abiogenesis/worksite/construction/reduce@5",
-  reducerLocusRef:
-    "locus://abiogenesis/worksite/construction/reduce@5",
-  reducerArmId:
-    "arm://abiogenesis/worksite/construction/reduce-fd@5",
-  batchRef: WORKSITE_CONSTRUCTION_IDS.batchRef,
-});
 
 function constructionContract(
   contractRef: string,
@@ -512,11 +490,7 @@ export function constructWorksiteConstructionModulePublication(
       "output",
       "worksite_file_replace_output_vector",
     ),
-    constructionContract(
-      WORKSITE_CONSTRUCTION_IDS.resultContractRef,
-      "output",
-      "worksite_construction_result",
-    ),
+    WORKSITE_CONSTRUCTION_RESULT_CONTRACT,
     constructionContract(
       WORKSITE_CONSTRUCTION_IDS.failureContractRef,
       "failure",
@@ -616,7 +590,8 @@ export function constructWorksiteConstructionModulePublication(
       modulePath: "build/code/src/product/builtin_semantics.js",
       namedSymbol: "ABI5_PRODUCT_SEMANTICS",
     }),
-    contracts: [...contracts, ...c3.contracts],
+    contracts: [...contracts, ...c3.contracts,
+      constructionContract(recoveryIds.artifactContractRef, "output", "worksite_preserved_result_artifact")],
     evaluators: [],
     rules: [],
     implementationBindings: [
@@ -625,6 +600,12 @@ export function constructWorksiteConstructionModulePublication(
       ...c0.implementationBindings,
       reducerBinding,
       ...c3.implementationBindings,
+      constructionBinding(artifact, { bindingRef: recoveryIds.authenticateBindingRef, implementationRef: recoveryIds.authenticateImplementationRef,
+        namedSymbol: "authenticateWorksitePreservedResult", computeRegime: "F_D", inputContractRef: WORKSITE_CONSTRUCTION_IDS.taskContractRef,
+        outputContractRef: recoveryIds.artifactContractRef }),
+      constructionBinding(artifact, { bindingRef: recoveryIds.deriveBindingRef, implementationRef: recoveryIds.deriveImplementationRef,
+        namedSymbol: "deriveWorksitePreservedCandidate", computeRegime: "F_D", inputContractRef: recoveryIds.artifactContractRef,
+        outputContractRef: WORKSITE_CONSTRUCTION_IDS.candidateBundleContractRef }),
     ],
     closureContracts: [...closureContracts, ...c3.closureContracts],
     programs: [constructionProgram, ...c0.programs, ...c3.programs],

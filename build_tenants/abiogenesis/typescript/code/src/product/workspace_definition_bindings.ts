@@ -1,3 +1,4 @@
+import { withAdmissionAuthority } from "./admission_authority.js";
 import * as Effect from "effect/Effect";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
@@ -322,6 +323,6 @@ const open: ExactDefinitionCallable<
 };
 
 export const WORKSPACE_DEFINITION_BINDINGS = Object.freeze({
-  create: Object.freeze({ clean, imported }),
-  open: Object.freeze({ open }),
+  create: Object.freeze({ clean: withAdmissionAuthority(WORKSPACE_OPERATION_CONTRACTS.create.clean, clean), imported: withAdmissionAuthority(WORKSPACE_OPERATION_CONTRACTS.create.imported, imported) }),
+  open: Object.freeze({ open: withAdmissionAuthority(WORKSPACE_OPERATION_CONTRACTS.open.open, open) }),
 });

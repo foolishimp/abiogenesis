@@ -391,6 +391,13 @@ export {
   type AbgRunTruthResult,
 } from "./project_read_ports.js";
 export {
+  ABG_TYPED_TERMINAL_RESULT_SCHEMA,
+  ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA,
+  isAbgTypedTerminalResult,
+  type AbgTypedTerminalResult,
+  type AbgHistoricalDeclarationProof,
+} from "./terminal_result_contracts.js";
+export {
   admitBlockedRetryTraversalTransition,
   admitCompletedRetryTraversalTransition,
   admitTraversalTransition,
@@ -504,3 +511,30 @@ export {
   type WorkerTransportResult,
 } from "./worker_transport.js";
 export { ABG_PROJECT_READ_DEFINITION_BINDINGS } from "./project_read_definition_bindings.js";
+export { ABG_PROJECT_READ_CONTRACTS } from "./project_read_operation_contracts.js";
+
+export { deriveRetainedCCallInputAtPrefix } from "./traversal_route.js";
+
+export { constructRequirementHandoffDeclarationBasis, authenticateRequirementHandoffBasis, projectRequirementHandoffCandidate, requirementHandoffResultMatches } from "./requirement_handoff.js";
+export type { RequirementHandoffDeclarationBasis } from "./requirement_handoff.js";
+
+export { constructSemanticStageNativeBasis } from "./semantic_stage.js";
+export type { SemanticStageNativeBasis } from "./semantic_stage.js";
+
+export { projectSemanticRevision, semanticRevisionInputMatchesBasis, semanticRevisionResultMatchesBasis } from "./semantic_revision.js";
+export { authenticateWorksitePreservedResultBasis, constructWorksitePreservedResultNativeBasis,
+  projectPreservedWorksiteProposal, projectWorksitePreservedResultArtifact, projectWorksitePreservedCandidateBundle,
+  worksitePreservedResultMatchesBasis, nativeWorksiteRecoverySourceAtPrefix } from "./worksite_construction_recovery.js";
+export type { WorksitePreservedResultNativeBasis } from "./worksite_construction_recovery.js";
+export {
+  WITNESS_DEFINITION_BINDINGS,
+  type WitnessRepriceResourceAssertion,
+  type WitnessRepriceResourceReceipt,
+} from "./witness_definition_bindings.js";
+export { WITNESS_OPERATION_CONTRACTS } from "./witness_operation_contracts.js";
+export { WITNESS_CONTENT_CONTRACTS } from "./witness_admission_operation.js";
+export { projectWorksiteCommandForwardSource, projectWorksiteCommandForwardRelation, worksiteCommandForwardEntryDisposition,
+  worksiteCommandForwardUnconsumed, authenticateWorksiteCommandForwardBasis, constructWorksiteCommandForwardNativeBasis,
+  worksiteCommandForwardChildSourceAtPrefix, worksiteCommandForwardResultMatches } from "./worksite_command_forward.js";
+export type { WorksiteCommandForwardNativeBasis } from "./worksite_command_forward.js";
+export { projectClosedGraphCallTerminalAtDurablePrefix } from "./project_read_ports.js";
