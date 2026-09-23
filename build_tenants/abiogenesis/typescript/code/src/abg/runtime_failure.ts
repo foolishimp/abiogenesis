@@ -3,6 +3,7 @@ import { isRecord } from "../shared/admission_predicates.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { isUndispatchedOwnerObservation, undispatchedOwnerDiagnosticRef } from "./event_contract_profiles.js";
 import {
   hasAdmittedExecutionBasisAtPrefix,
   type ExecutionBasis,
@@ -83,12 +84,21 @@ export function constructRuntimeFailureDiagnosticRef(subject: JsonValue): string
   return JSON_DIAGNOSTIC_URI_PREFIX + encodeURIComponent(canonicalJson(subject));
 }
 
-function retainedDiagnosticSubject(diagnosticRef: string, subjectDigest: Sha256Digest): JsonValue {
+/** The existing opaque diagnostic locator also serves nonterminal owner evidence. */
+export function readRuntimeFailureDiagnosticSubject(diagnosticRef: string): JsonValue | null {
+  if (!diagnosticRef.startsWith(JSON_DIAGNOSTIC_URI_PREFIX)) return null;
   const subject = JSON.parse(decodeURIComponent(
     diagnosticRef.slice(JSON_DIAGNOSTIC_URI_PREFIX.length),
   )) as JsonValue;
-  if (constructRuntimeFailureDiagnosticRef(subject) !== diagnosticRef ||
-      sha256Canonical(subject) !== subjectDigest) {
+  if (constructRuntimeFailureDiagnosticRef(subject) !== diagnosticRef) {
+    throw new TypeError("runtime failure diagnostic is not canonical retained JSON");
+  }
+  return subject;
+}
+
+function retainedDiagnosticSubject(diagnosticRef: string, subjectDigest: Sha256Digest): JsonValue {
+  const subject = readRuntimeFailureDiagnosticSubject(diagnosticRef);
+  if (sha256Canonical(subject) !== subjectDigest) {
     throw new TypeError("runtime failure diagnostic does not match its retained subject digest");
   }
   return subject;
@@ -98,7 +108,7 @@ function retainedDiagnosticSubject(diagnosticRef: string, subjectDigest: Sha256D
 export function projectRuntimeFailureEvidenceAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
 ): readonly JsonValue[] {
-  return indexedRuntimeEvents(prefix, "kind:runtime_failure_observed")
+  const runtimeFailures = indexedRuntimeEvents(prefix, "kind:runtime_failure_observed")
     .filter(event => event.aggregateType === "run")
     .map(event => {
       const payload = event.payload;
@@ -133,6 +143,40 @@ export function projectRuntimeFailureEvidenceAtPrefix(
         causationEventRefs: event.causationEventRefs,
       }) as JsonValue;
     });
+  // This stays CCall evidence, not a runtime_failure admission or terminal.
+  // The existing run_evidence projection transports both diagnostic subjects.
+  const ownerFailures = indexedRuntimeEvents(prefix, "kind:c_call_evidenced")
+    .filter(event => isRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal")
+    .map(event => {
+      const payload = event.payload as Readonly<Record<string, JsonValue>>;
+      const observation = payload.ownerObservation;
+      const failure = payload.failureValue;
+      const { evidenceRef, evidenceDigest, ...body } = payload;
+      if (!isUndispatchedOwnerObservation(observation) || !isRecord(failure) ||
+          event.aggregateType !== "c_call" || observation.cCallRef !== event.aggregateId ||
+          observation.cCallRef !== payload.cCallRef || observation.runId !== event.runId ||
+          observation.graphCallId !== event.graphCallId || observation.frameId !== event.frameId ||
+          observation.implementationRef !== payload.implementationRef || observation.inputDigest !== payload.inputDigest ||
+          observation.diagnosticRef !== failure.diagnosticRef || sha256Canonical(failure) !== payload.outputDigest ||
+          sha256Canonical(body) !== evidenceDigest || evidenceRef !== `evidence://abiogenesis/${String(evidenceDigest).slice(7)}` ||
+          sha256Canonical(payload) !== event.payloadDigest) {
+        throw new TypeError("undispatched diagnostic differs from its admitted evidence identity or scope");
+      }
+      const subject = readRuntimeFailureDiagnosticSubject(observation.diagnosticRef);
+      return deepFreeze({
+        kind: "undispatched_owner_failure_evidence", schemaVersion: "5.0.0",
+        availability: subject === null ? "not_retained" : "retained",
+        evidenceRef, evidenceDigest, admissionEventRef: event.eventId, admissionEventDigest: event.payloadDigest,
+        runId: event.runId!, graphCallId: event.graphCallId!, frameId: event.frameId!, basisId: event.basisId,
+        cCallRef: observation.cCallRef, inputDigest: observation.inputDigest, outputDigest: payload.outputDigest!,
+        failureContractRef: payload.failureContractRef!, failureClass: failure.failureClass!,
+        stage: observation.stage, reason: observation.reason, errorClass: observation.errorClass, errorCode: observation.errorCode,
+        diagnosticClassRef: undispatchedOwnerDiagnosticRef(observation.stage, observation.reason),
+        subjectDigest: subject === null ? null : sha256Canonical(subject), subject,
+        causationEventRefs: event.causationEventRefs,
+      }) as JsonValue;
+    });
+  return Object.freeze([...runtimeFailures, ...ownerFailures]);
 }
 
 // The last material admission in this exact traversal scope is the implicated

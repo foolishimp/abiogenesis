@@ -1,0 +1,68 @@
+{
+  "status": "accepted_source_readiness_and_package_caller_readiness_native_verification_selected",
+  "authority": "Root explicit two-phase activation 2026-09-24",
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation-repair-review-01/return.md",
+    "sha256": "0ae3209b42e4804ef17af1ce6987d96dd0c035ab1c8ba9e679563746638291ff",
+    "byteCount": 8564
+  },
+  "packageReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/return.md",
+    "sha256": "5f0a6ad72b0b87be93d6ecd00a2ee16c4a07fdb696f79e1d7ed1901796a3f688",
+    "byteCount": 8870
+  },
+  "packageSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/subject.json",
+    "sha256": "5a0ff92a460e58615239278f2b26330d95912c05c3b025f0af262123ff6c16f4",
+    "byteCount": 18492
+  },
+  "selectedArtifacts": {
+    "core": {
+      "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite10-install-qujfj2jt/node_modules/@abiogenesis/typescript-tenant",
+      "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-10/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-10/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "basis": {
+        "artifactDigest": "sha256:7b6791d39943b131ede6ca207ed320ef9c6a8deb8575587e5b232e45570ed747",
+        "productContentDigest": "sha256:76e54d3cfba3f4390d3978aafcb3ff64977adf4db42169b14253ecdbb3889184",
+        "manifestDigest": "sha256:bce8a6b86e63da3c52ef94f5300da13be054a0713ad8b23ae851c2b8783511ba",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "packageName": "@abiogenesis/typescript-tenant",
+        "packageVersion": "5.0.0-rc.1"
+      }
+    },
+    "consumer": {
+      "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite10-install-qujfj2jt/node_modules/@odd-glc/route-one-typescript",
+      "artifactPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-02/artifacts/odd-glc-route-one-typescript-0.2.0-dev.6.tgz",
+      "artifactRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-02/artifacts/odd-glc-route-one-typescript-0.2.0-dev.6.tgz",
+      "basis": {
+        "artifactDigest": "sha256:4f96ba95f76d7c65bd8d6866c6193e0ab361f05b531e8da07fe8be88c58982eb",
+        "productContentDigest": "sha256:323c7ff097a64b33c89325f795730c602b63ec06c024343e4e98177c6894133c",
+        "manifestDigest": "sha256:2ce9e992f2f606648cf720037299c455bb1abdce8ad148a9372fceea566729a4",
+        "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.6",
+        "packageName": "@odd-glc/route-one-typescript",
+        "packageVersion": "0.2.0-dev.6"
+      }
+    }
+  },
+  "phaseA": "Bank explicit new CLOSED evidence with existing transport, commit ordinary main and nonforce push both, verify actual remote refs.",
+  "phaseB": "After phaseA success, execute original03 ordinary until:converged and only S02 mixed18 on original retained resources. Each uses one owned lifetime, actual installed verification and genuine finally close/fresh Public reads. Independent paths may overlap.",
+  "original": {
+    "caller": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-implementation-03",
+    "closeCoordinate": "sha256:828603bb76e89f865666637c51e32230b0ccf011bfbdb3c5cc71199fc02adc3a",
+    "byteLength": 1241896147,
+    "recovery": false,
+    "paidPolicy": "unchanged claude-fable-5-1/xhigh; max4actors/$15 each; idle900000/absolute1500000ms; command780000/helper795000/grace1000; native6600000/outer7500000/setup-read600000; default heap"
+  },
+  "mixed": {
+    "caller": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18",
+    "cases": [
+      "mixed-human-boundary"
+    ],
+    "closeCoordinate": "sha256:86e496c2402e2bfd8c7ca753e022bbe32985a712a60a3a0012b8a599494ddbcf",
+    "byteLength": 23360130,
+    "miniArtifactDigest": "sha256:7bb4815da4a187450ca612549c18f32f8f54c9559e7d69203a96659ae6db43cd",
+    "policy": "unchanged deterministic F_P/provider0/default heap/selected17 timeouts; truthful human hold, no response/resume; preserve seven passes"
+  },
+  "failureDisposition": "Retain first cause and actual lastprefix/close; finish ordinary fresh-read disposition, stop dependent progression and report; no autonomous repair or unchanged retry.",
+  "preserve": "Original jobs/oracle/S1-S5/outside obligations, worksites and old Run identities; frozen prepared records retained; no source/application hand edits or release/RC claim."
+}

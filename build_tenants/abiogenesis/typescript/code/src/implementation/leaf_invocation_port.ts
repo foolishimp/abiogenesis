@@ -521,7 +521,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
     reason: UndispatchedOwnerReason,
     error?: unknown,
   ) => {
-    const diagnosticRef = undispatchedOwnerDiagnosticRef(stage, reason);
+    const diagnosticRef = undispatchedOwnerDiagnosticRef(stage, reason, error);
     const original = totalizedFailure(failureClass);
     const candidate = deepFreeze({ ...original, diagnosticRef,
       resultCandidate: { ...original.resultCandidate, diagnosticRef } });

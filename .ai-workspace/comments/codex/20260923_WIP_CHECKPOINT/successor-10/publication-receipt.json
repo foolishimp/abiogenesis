@@ -1,0 +1,16 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "2b9e540db86f2c34cf252f7ddafe9e474cccff82",
+  "commitIdentity": "Commit containing this receipt; exact local and remote identities recorded in external post-push receipt",
+  "newMembers": 373,
+  "newLogicalBytes": 1218295095,
+  "newTransportBytes": 153472399,
+  "restoration": "Every newly banked member restored and compared with original and selected freeze; prior bank payload proof reused without rereading/reupload",
+  "scope": "Root-accepted source9 and compiled10/dev6 package/caller readiness; recovery02/original launch02 and seven S02-17 scopes preserved; original03 and mixed-only18 native verification authorized only after paired checkpoint remote verification. Full S1-S5/oracle/qualification/RC1 open.",
+  "excluded": [
+    "Original mutable GLC/S02 journals/locks/worksites; no checkpoint read/hash/copy",
+    "Installed/node_modules trees, implementation03 fixture and scratch, unselected caches",
+    "PhaseB live evidence after checkpoint cutoff; no native outcome at this commit"
+  ],
+  "allowedGitEffects": "One ordinary main commit and nonforce push, then remote ref verification"
+}

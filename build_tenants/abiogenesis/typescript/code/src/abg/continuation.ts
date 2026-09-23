@@ -140,6 +140,7 @@ import {
 } from "./event_calculus.js";
 import { runtimeEventPrefixDigest,
   runtimeEventsFromValidatedPrefix,
+  selectRuntimeEventPrefixFromAuthority,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
@@ -1432,7 +1433,11 @@ export function admitFhInteractionOpen(
     !hasAdmittedTraversalCursorAtPrefix(prefix, cursor) ||
     !isAdmittedCCallResult(pending.result) ||
     !isAdmittedCCallJudgment(pending.judgment) ||
-    !isAdmittedRoute(prefix, route) ||
+    !isAdmittedRoute(
+      selectRuntimeEventPrefixFromAuthority(prefix, { runId: scope.runId }),
+      route,
+      prefix,
+    ) ||
     !hasAdmittedProductInstall(productBasis.artifactTruth, productBasis.install) ||
     !hasAdmittedWorkspaceBinding(
       productBasis.artifactTruth,

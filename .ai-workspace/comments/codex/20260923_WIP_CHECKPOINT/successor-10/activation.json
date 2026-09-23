@@ -1,0 +1,9 @@
+{
+  "role": "Writer then native verification Worker",
+  "worker": "/root/original_owner_continuation",
+  "basisCommit": "2b9e540db86f2c34cf252f7ddafe9e474cccff82",
+  "grant": "Root accepts combined package/caller and authorizes ordinary nonforce main checkpoint then both affected prepared native executions automatically after successful paired remote verification.",
+  "preparedPackageSubject": "5a0ff92a460e58615239278f2b26330d95912c05c3b025f0af262123ff6c16f4",
+  "preparedPackageReturn": "5f0a6ad72b0b87be93d6ecd00a2ee16c4a07fdb696f79e1d7ed1901796a3f688",
+  "noNewSemanticSourceWork": true
+}

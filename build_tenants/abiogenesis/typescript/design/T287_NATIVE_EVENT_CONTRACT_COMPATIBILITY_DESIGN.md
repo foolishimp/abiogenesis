@@ -236,8 +236,23 @@ resolution; implementation load/export; preparation/shape validation.
 Closed stage-specific reasons distinguish negative returns, missing
 contracts/exports, thrown errors and malformed preparation. Allowlist safe
 error classes and system error codes; unrecognized errors remain
-stage-qualified unknowns. Do not retain arbitrary message/stack, prompt,
-environment/credential value, path-derived secret or a digest of those values.
+stage-qualified unknowns. In the existing trusted single-owner scope, a caught
+native Error retains its small message and original stack through the existing
+canonical JSON diagnostic URI owner. The retained body also binds the fixed
+diagnostic class, stage, reason and safe class/code. It contains no prompt,
+environment object, complete input or additional exception properties. Read only
+native Error data and its built-in lazy stack accessor, never arbitrary thrown
+object getters. Bound message/stack to 8192/32768 characters and disclose any
+truncation. Uninspectable errors retain the stage-qualified fixed locator.
+The existing failure value/output digest and owner evidence digest bind the
+opaque URI; no new event kind, event payload field or profile is introduced.
+Readers accept historical fixed locators unchanged; their erased causes remain
+unavailable. Diagnostic text is retrievable evidence, never admission authority.
+The existing `run_evidence` diagnostic projection exposes this retained subject
+with its actual CCall/evidence/input/output/event/scope bindings and an explicit
+`undispatched_owner_failure_evidence` kind. It validates those digests on cold
+projection; a substituted diagnostic refuses. This does not create a
+`runtime_failure_observed` event or change the typed non-advancing judgment.
 
 The closed candidate binds the selected owner/resolution, exact occurrence,
 CCall, inputDigest, selected failure contract and exact failure outputDigest,

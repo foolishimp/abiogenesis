@@ -1,0 +1,66 @@
+{
+  "directExpected": {
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts": {
+      "sha256": "c850ccedbe55721ffd3b26b6ddce894702aebbd8245b5010a9c4bd883f3264e1",
+      "classification": "accepted_frozen_source_test_HOW"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts": {
+      "sha256": "0d40af8644685795280b19ea26e7a4baed210abad7c24319957e2db6eb25f994",
+      "classification": "accepted_frozen_source_test_HOW"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": {
+      "sha256": "226a7af8a7ed8ebaa895786f899e9a06adfded6535e540b0c90506193a998b85",
+      "classification": "accepted_frozen_source_test_HOW"
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md": {
+      "sha256": "8dd2fa84d4705009959572386817077797adcb54d76239b9c4fb628e4e6dd029",
+      "classification": "accepted_frozen_source_test_HOW"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-undispatched-diagnostic.test.mjs": {
+      "sha256": "b77e297eec5c30e597715661bcf0c224ad8a0f7331532837bf8659e3dc3a7ab2",
+      "classification": "accepted_frozen_source_test_HOW"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts": {
+      "sha256": "d3632e0fc06119e938c9e514d517cb72a40ad66b3771ce10dc1f249b32207acb",
+      "classification": "accepted_frozen_source_test_HOW"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-fh-hold-open.test.mjs": {
+      "sha256": "547318dc4968d3a3e04448345dce96be9c24f482d225693716c3085fac9db313",
+      "classification": "accepted_frozen_source_test_HOW"
+    },
+    "specification/GOALS.md": {
+      "sha256": "eaddbfdb869de6179b715abb3580a387e1193bbe8d8d8d20ee911d418e13ae20",
+      "classification": "current_tracking_projection"
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "457869e65831869f49204bd8b7c0891642a482bfa2234db460ec8d9fb812b634",
+      "classification": "current_tracking_projection"
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "0f0cec197c78d63c099df69c43d4498243d75d5ac16ee2d3c275963d5022bc8d",
+      "classification": "compiled10_generated_package_projection"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "1d28aa4ae585eae06ebb29fbf6d5c01b02f9671f6fdce8c96e67001626b3e2f8",
+      "classification": "compiled10_generated_package_projection"
+    }
+  },
+  "banks": [
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/transport-01",
+      "catalogSha256": "d734e7232346d9c580e317984f1f47b623d85b50ee23a0ce2778f6e719564390",
+      "indexSha256": "3670a9d81166ba7a19c988f1d056640708f5d056c46024db22c50b22c7178d0f",
+      "verificationSha256": "4dd374e037298919695ee0c33f083ae7ee3db09ee5706a65bf775e8b2bda6b23",
+      "members": 373,
+      "logicalBytes": 1218295095,
+      "transportBytes": 153472399
+    }
+  ],
+  "scope": "Root-accepted source9 and compiled10/dev6 package/caller readiness; recovery02/original launch02 and seven S02-17 scopes preserved; original03 and mixed-only18 native verification authorized only after paired checkpoint remote verification. Full S1-S5/oracle/qualification/RC1 open.",
+  "excluded": [
+    "Original mutable GLC/S02 journals/locks/worksites; no checkpoint read/hash/copy",
+    "Installed/node_modules trees, implementation03 fixture and scratch, unselected caches",
+    "PhaseB live evidence after checkpoint cutoff; no native outcome at this commit"
+  ],
+  "sourcePostimageMutationByWriter": false
+}

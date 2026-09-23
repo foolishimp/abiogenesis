@@ -1,0 +1,18 @@
+[
+  {
+    "repo": "/Users/jim/src/apps/abiogenesis",
+    "path": "specification/GOALS.md",
+    "preparedProjectionSha256": "842a7e44979d86bd0716128912df741f74f50d2ee25a0f0e51c1c8bb20e5bbc6",
+    "retainedPreimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/tracking-preimages/specification/GOALS.md",
+    "selectedSha256": "eaddbfdb869de6179b715abb3580a387e1193bbe8d8d8d20ee911d418e13ae20",
+    "patch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/tracking-goals.patch"
+  },
+  {
+    "repo": "/Users/jim/src/apps/abiogenesis",
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "preparedProjectionSha256": "83584baaf295b17a29cf14eb71c7cfd13ca3446728f1ee34fee0df2cc508b695",
+    "retainedPreimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/tracking-preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "selectedSha256": "457869e65831869f49204bd8b7c0891642a482bfa2234db460ec8d9fb812b634",
+    "patch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/tracking-ticket.patch"
+  }
+]

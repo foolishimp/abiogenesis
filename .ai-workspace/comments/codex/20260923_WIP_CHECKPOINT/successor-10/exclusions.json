@@ -1,0 +1,9 @@
+{
+  "prefixesAndFiles": {},
+  "active": [
+    "Original mutable GLC/S02 journals/locks/worksites; no checkpoint read/hash/copy",
+    "Installed/node_modules trees, implementation03 fixture and scratch, unselected caches",
+    "PhaseB live evidence after checkpoint cutoff; no native outcome at this commit"
+  ],
+  "note": "No new blanket ignore of active or reproducible trees; only exact newly transported originals will be ignored."
+}

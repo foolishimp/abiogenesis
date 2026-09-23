@@ -1,6 +1,8 @@
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { types } from "node:util";
+import { constructRuntimeFailureDiagnosticRef, readRuntimeFailureDiagnosticSubject } from "./runtime_failure.js";
 
 /** Exact retained profile. New native truth must never be stamped with L. */
 export const LEGACY_ROOT_EVENT_CONTRACT_DIGEST =
@@ -50,10 +52,30 @@ const OBSERVATION_KEYS = Object.freeze([
   "inputContractRef", "outputContractRef", "inputDigest", "stage", "reason",
   "errorClass", "errorCode", "diagnosticRef",
 ]);
-export function undispatchedOwnerDiagnosticRef(stage: UndispatchedOwnerStage, reason: UndispatchedOwnerReason): string {
-  return `diagnostic://abiogenesis/implementation/undispatched/${stage}/${reason}@5`;
+const NATIVE_STACK_GETTER = Object.getOwnPropertyDescriptor(new Error(), "stack")?.get;
+const DIAGNOSTIC_MESSAGE_LIMIT = 8192, DIAGNOSTIC_STACK_LIMIT = 32768;
+export function undispatchedOwnerDiagnosticRef(stage: UndispatchedOwnerStage, reason: UndispatchedOwnerReason, error?: unknown): string {
+  const diagnosticClassRef = `diagnostic://abiogenesis/implementation/undispatched/${stage}/${reason}@5`;
+  const safe = sanitizeUndispatchedOwnerError(error);
+  if (reason !== "thrown" || safe.errorClass === null || !types.isNativeError(error)) return diagnosticClassRef;
+  try {
+    // Read only native Error data and its built-in lazy stack accessor. An
+    // arbitrary thrown value/getter never becomes retained diagnostic content.
+    const message = Object.getOwnPropertyDescriptor(error, "message");
+    const name = Object.getOwnPropertyDescriptor(error, "name");
+    const stack = Object.getOwnPropertyDescriptor(error, "stack");
+    if (message !== undefined && !("value" in message && typeof message.value === "string") ||
+        name !== undefined && !("value" in name && typeof name.value === "string")) return diagnosticClassRef;
+    const messageText = message?.value ?? "";
+    const stackText = stack !== undefined && "value" in stack ? stack.value
+      : stack?.get !== undefined && stack.get === NATIVE_STACK_GETTER ? stack.get.call(error) : null;
+    if (typeof stackText !== "string") return diagnosticClassRef;
+    return constructRuntimeFailureDiagnosticRef({ diagnosticClassRef, stage, reason, ...safe,
+      message: messageText.slice(0, DIAGNOSTIC_MESSAGE_LIMIT), stack: stackText.slice(0, DIAGNOSTIC_STACK_LIMIT),
+      messageTruncated: messageText.length > DIAGNOSTIC_MESSAGE_LIMIT, stackTruncated: stackText.length > DIAGNOSTIC_STACK_LIMIT });
+  } catch { return diagnosticClassRef; }
 }
-/** Deliberately never reads, records or hashes message, stack, prompt or paths. */
+/** Class/code classification never evaluates arbitrary thrown-object getters. */
 export function sanitizeUndispatchedOwnerError(error: unknown): Readonly<{ errorClass: string | null; errorCode: string | null }> {
   let errorClass: string | null = null, errorCode: string | null = null;
   try {
@@ -67,6 +89,22 @@ export function sanitizeUndispatchedOwnerError(error: unknown): Readonly<{ error
     }
   } catch { /* Keep a stage-qualified unknown; do not inspect arbitrary getters. */ }
   return Object.freeze({ errorClass, errorCode });
+}
+function undispatchedDiagnosticMatches(x: Record<string, unknown>, stage: UndispatchedOwnerStage, reason: UndispatchedOwnerReason): boolean {
+  if (x.diagnosticRef === undispatchedOwnerDiagnosticRef(stage, reason)) return true;
+  if (reason !== "thrown" || x.errorClass === null || typeof x.diagnosticRef !== "string") return false;
+  try {
+    const value = readRuntimeFailureDiagnosticSubject(x.diagnosticRef);
+    if (value === null || typeof value !== "object" || Array.isArray(value)) return false;
+    const subject = value as Readonly<Record<string, JsonValue>>;
+    const keys = ["diagnosticClassRef", "stage", "reason", "errorClass", "errorCode", "message", "stack", "messageTruncated", "stackTruncated"];
+    return Object.keys(subject).length === keys.length && keys.every(key => Object.hasOwn(subject, key)) &&
+      subject.diagnosticClassRef === undispatchedOwnerDiagnosticRef(stage, reason) && subject.stage === stage && subject.reason === reason &&
+      subject.errorClass === x.errorClass && subject.errorCode === x.errorCode &&
+      typeof subject.message === "string" && subject.message.length <= DIAGNOSTIC_MESSAGE_LIMIT &&
+      typeof subject.stack === "string" && subject.stack.length <= DIAGNOSTIC_STACK_LIMIT &&
+      typeof subject.messageTruncated === "boolean" && typeof subject.stackTruncated === "boolean";
+  } catch { return false; }
 }
 export function isUndispatchedOwnerObservation(value: unknown): value is UndispatchedOwnerObservation {
   if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
@@ -90,7 +128,7 @@ export function isUndispatchedOwnerObservation(value: unknown): value is Undispa
     (x.errorClass === null || typeof x.errorClass === "string" && SAFE_ERROR_CLASSES.includes(x.errorClass)) &&
     (x.errorCode === null || typeof x.errorCode === "string" && SAFE_ERROR_CODES.includes(x.errorCode)) &&
     (reason === "thrown" || x.errorClass === null && x.errorCode === null) &&
-    x.diagnosticRef === undispatchedOwnerDiagnosticRef(stage, reason);
+    undispatchedDiagnosticMatches(x, stage, reason);
 }
 export function constructRootCurrentEventContractDescriptor(input: Readonly<{
   aggregateTypes: readonly string[];

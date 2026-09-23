@@ -1,0 +1,20 @@
+ M .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+ M build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts
+ M build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts
+ M build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts
+ M build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
+ M build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json
+ M build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md
+ M build_tenants/abiogenesis/typescript/product-toolchain-manifest.json
+ M specification/GOALS.md
+?? .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/
+?? .ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation-repair-review-01/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation09-disposition/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fh-hold-repair-01/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/fixture/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-preparation-repair-01/
+?? build_tenants/abiogenesis/scratch/
+?? build_tenants/abiogenesis/typescript/test_env/tests/t287-fh-hold-open.test.mjs
+?? build_tenants/abiogenesis/typescript/test_env/tests/t287-undispatched-diagnostic.test.mjs

@@ -1,0 +1,75 @@
+--- .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
++++ .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+@@ -17,16 +17,16 @@
+ - updated_at: 2026-09-24
+ - prior_environment_change_class: product_reprice_with_requirement_reprice
+ - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
+-- current_activation: COMPOSITE10_DEV6_PACKAGE_CALLER_CLOSED_ROOT_DECISION_PENDING
++- current_activation: COMPOSITE10_DEV6_ACCEPTED_ORIGINAL03_MIXED18_NATIVE_VERIFICATION_SELECTED_AFTER_CHECKPOINT
+ - current_candidate_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/package-caller-readiness.json
+ - current_candidate_archive_sha256: 7b6791d39943b131ede6ca207ed320ef9c6a8deb8575587e5b232e45570ed747
+-- current_accepted_candidate_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-readiness-return.md
+-- current_accepted_archive_sha256: ddce524a0f992206a2836bbdc4c0655beff5aab5fb7bef7c59ca6b8f180528d5
++- current_accepted_candidate_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/return.md
++- current_accepted_archive_sha256: 7b6791d39943b131ede6ca207ed320ef9c6a8deb8575587e5b232e45570ed747
+ - current_worker_return: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/return.md
+-- current_candidate_scope: reviewed_fh96a89f0e_native96dfe183_compiled10_dev6_exact_offline_install_original03_mixed18_ready_no_native_effect
++- current_candidate_scope: accepted_compiled10_dev6_original03_mixed18_ready_native_not_yet_executed
+ - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-02/return.md
+ - current_live_execution_status: CLOSED_NATIVE_FAILED_FP_PREPARATION_no_actor_effect_genuine_close1241896147_fresh_failed_replay_Result_not_found_35files_unchanged
+-- current_activation_status: source_accepted_package_caller_CLOSED_Root_readiness_and_affected_execution_decision_pending
++- current_activation_status: source_package_caller_accepted_native_verification_authorized_after_paired_push_not_yet_executed
+ - current_native_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-02/return.md
+ - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
+ - current_activation_disposition: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/disposition.md
+@@ -48,8 +48,8 @@
+ - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
+ - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
+ - bounded_task_register: '#management-milestones'
+-- next_bounded_task: Root_package_readiness_decision_then_affected_original03_and_mixed18_native_execution_preserve_seven_S02_passes
+-- next_bounded_task_status: combined_package_callers_CLOSED_no_runtime_grant_no_recovery_needed
++- next_bounded_task: paired_checkpoint_then_original03_and_only_mixed18_native_verification
++- next_bounded_task_status: authorized_after_paired_remote_verification_no_additional_permission
+ - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
+ - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
+ - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
+@@ -94,7 +94,7 @@
+ - prior_fixture_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-prep-03/manifest.json
+ - prior_live08_execution_record: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/live08.json
+ - prior_native03_execution_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/execution-manifest.json
+-- current_activation_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/activation.json
++- current_activation_record: .ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/root-disposition.json
+ - prior_generic_job_activation_record: .ai-workspace/comments/codex/20260918_GENERIC_JOB_BINDING_REPAIR/implementation/activation.md
+ - prior_mvp_continuation_activation_record: .ai-workspace/comments/codex/20260916_ABG5_MVP_CONTINUATION/activation.md
+ - prior_native03_input_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/records/call-14.jsonl
+@@ -296,8 +296,8 @@
+ (`96dfe183…`) are accepted by Root for source readiness after [max independent review](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation-repair-review-01/return.md)
+ (`0ae3209b…`). [Combined compiled10/dev.6 package and caller readiness](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/disposition.md)
+ is CLOSED: archives `7b6791d3…` / `4f96ba95…`, exact offline install verification,
+-original caller03 and mixed-only continuation18. Root package acceptance and the
+-affected native execution decision remain pending; no repaired native outcome is claimed.
++original caller03 and mixed-only continuation18. Root accepts that readiness and selects original03 plus mixed18 native verification
++after the paired checkpoint; no repaired native outcome is yet claimed.
+ No first-J stop, new producer campaign, heap/timer/model increase or automatic
+ retry is selected by this tracking update.
+ 
+@@ -313,8 +313,8 @@
+ not a hardcoded mode or new Product law.
+ 
+ Last pushed predecessor readiness remains ABI `2b9e540…` / GLC `8fd1de6…`.
+-Reviewed repair source and generated successor are uncommitted. Package readiness
+-is bounded evidence; affected native completion and release remain unclaimed.
++Reviewed source/package/evidence checkpoint and affected native verification are
++selected by Root; no native outcome or release is claimed by this projection.
+ 
+ ## Current Management Prerequisite Plan
+ 
+@@ -582,7 +582,7 @@
+ | Opportunity | Evidence / status | Next bounded scope |
+ |---|---|---|
+ | NW-F11-SCOPE-COST-01 | Earlier scoped representation and selected-subject context remain accepted. Producer contexts, per-rule domains and the [acquisition successor](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/return.md) have independent source/component acceptance and are included in accepted compiled-01. | Forty-two aggregate compiled checks include affected F11 checks; this is bounded component evidence. Actual independent J, complete applicable coverage and sole AF22 remain open; no native qualification is inferred. |
+-| S02-RECURSION-RESTORATION-01 | The original dd767 recursion failure stays historical. Accepted restoration is included in e4e61fbe; [S02 continuation-04](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-04/return.md) now passes actual recursive child/foldback and related selected outcomes. | Exercised installed restoration is accepted at that scope. Nested retry recovery retains compiled04 acceptance; continuation15 accepts nested-compose separately. Continuation17 accepts seven remaining cases at exact scope; mixed failed at F_H; its source repair is Root-accepted and compiled10/mixed-only caller18 readiness is CLOSED pending Root package/execution decision. Semantic-negative remains mapped to governing/shared evidence, without new campaign, blanket closure or waiver. No complete S02 or qualification claim. |
++| S02-RECURSION-RESTORATION-01 | The original dd767 recursion failure stays historical. Accepted restoration is included in e4e61fbe; [S02 continuation-04](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-04/return.md) now passes actual recursive child/foldback and related selected outcomes. | Exercised installed restoration is accepted at that scope. Nested retry recovery retains compiled04 acceptance; continuation15 accepts nested-compose separately. Continuation17 accepts seven remaining cases at exact scope; mixed failed at F_H; its source repair is Root-accepted and compiled10/mixed-only caller18 readiness is CLOSED and Root-accepted; affected native verification selected after checkpoint. Semantic-negative remains mapped to governing/shared evidence, without new campaign, blanket closure or waiver. No complete S02 or qualification claim. |
+ | S02-RETRY-RUN-PREFIX-01 | [Continuation15](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-15/return.md) remains accepted for nested-compose, unchanged oracles, genuine close and fresh status/Result/replay; prior failures and caller refusals retain their exact scopes. [Continuation16](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/return.md) is CLOSED readiness, return `394df327…`, subject `006b80e8…`. | Continuation17 accepts seven cases; mixed is failed with genuine close/all19 fresh reads. F_H source96a89f0e… is CLOSED ready, review pending; rerun only affected mixed after one reviewed combined successor. Preserve seven passes. Map separate semantic-negative applicability to actual governing/shared evidence and contrary evidence; no new automatic campaign, universal budget, blanket closure or waiver. |
+ | NW-C0-FIXTURE-APPEND-01 | R7 passes and C0 sunny assertions pass at [fixtures-04](../../comments/codex/20260923_COMPOSITE_READINESS/fixtures-04/return.md)'s partial retained scope. [Fixtures-05](../../comments/codex/20260923_COMPOSITE_READINESS/fixtures-05/return.md) finds no lawful copied-prefix append owner for later negative clones. | Clone-dependent C0 negatives are held as obsolete fixture debt; no new runtime to salvage them. Root accepts fixtures-06's publication correction and deterministic C3 Parallel installed pass; Data Mapper's obsolete envelope and partial-prefix case remain unqualified. No further fixture expansion is selected; no full C0/C3 closure. |
+ | F11-PRODUCER-CONTEXT-01 | The implementation-01 acquisition/reuse finding is closed by [implementation-02 review](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/review.md), with source/component acceptance and emitted correspondence in compiled-01. | One finite real-reader component discriminator retains one authenticated representation through environment and both currentness consumers. Original provenance, cold fallback/currentness, independent local J/O and sole AF22 remain. No original-history/native qualification or general OOM cure is claimed. |
