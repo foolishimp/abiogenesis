@@ -1,3 +1,4 @@
+import { isRecord } from "./admission_predicates.js";
 import { ABG_PROJECT_READ_CONTRACTS } from "../abg/project_read_operation_contracts.js";
 import { WITNESS_OPERATION_CONTRACTS } from "../abg/witness_operation_contracts.js";
 import { CATALOG_OPERATION_CONTRACTS } from "../product/catalog_operation_contracts.js";
@@ -247,10 +248,6 @@ interface UnresolvedOwnerContractSource {
     readonly refusal: Sha256Digest;
     readonly nonTerminal: Sha256Digest | null;
   }>;
-}
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function isOwnerContractSourceDeclaration(

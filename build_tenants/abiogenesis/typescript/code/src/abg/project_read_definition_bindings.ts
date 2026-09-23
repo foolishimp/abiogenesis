@@ -1,5 +1,6 @@
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
+import { readFileSync } from "node:fs";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
@@ -30,10 +31,7 @@ import { ABG_PROJECT_READ_CONTRACTS } from "./project_read_operation_contracts.j
 import { ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA, isAbgTypedTerminalResult, type AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
 import {
   ABG_PROJECT_READ_OWNER_PORTS,
-  projectRunTruthAtDurablePrefix,
-  projectGraphCallSourceAtDurablePrefix,
-  GraphCallProjectionPort,
-  RunProjectionPort,
+  prepareRunReadAtDurablePrefix,
   type AbgProjectReadMemberKey,
   type AbgProjectReadPacket,
   type AbgProjectReadProjection,
@@ -44,6 +42,7 @@ import {
   constructCapabilityGrant,
   validateCapabilityGrantForProductBasis,
 } from "../product/invocation.js";
+import { projectProductManifestOperationCoordinate } from "../product/verify_product.js";
 import {
   bindExactPrefixRead,
 } from "../shared/static_definition_bindings.js";
@@ -78,9 +77,6 @@ type AnyReadCallable = ExactDefinitionCallable<
 >;
 
 type RunReadMemberKey = "run_status" | "run_result" | "run_replay" | "graph_call_result" | "graph_call_replay";
-type RunReadPort = (
-  input: AbgProjectReadPacket<RunReadMemberKey>,
-) => AbgProjectReadResult<RunReadMemberKey>;
 
 const RUN_READ_MEMBER_KEYS = Object.freeze([
   "run_status",
@@ -284,6 +280,12 @@ function refusalOutput(
   return deepFreeze(output) as OwnerSemanticOutput<AnyReadPacket>;
 }
 
+function nativeLivenessFields(value: Readonly<Record<string, JsonValue>>): Readonly<Record<string, JsonValue>> {
+  if (value.nativeLiveness === undefined) return {};
+  if (!isRuntimeLivenessReadProjection(value.nativeLiveness)) throw new TypeError("read owner returned an invalid native liveness carrier");
+  return { nativeLiveness: value.nativeLiveness };
+}
+
 function statusProjection(
   memberKey: "run_status" | "graph_call_status",
   request: Readonly<Record<string, JsonValue>>,
@@ -299,6 +301,7 @@ function statusProjection(
     ? value.activeFluents
     : [];
   return {
+    ...nativeLivenessFields(value),
     kind: memberKey === "run_status"
       ? "run_status_projection"
       : "graph_call_status_projection",
@@ -372,7 +375,16 @@ function evidenceProjection(
         return [reference(row, digest)];
       })
     : [];
+  if (memberKey === "run_evidence" && Array.isArray(value.runtimeFailures)) {
+    for (const failure of value.runtimeFailures) {
+      evidence.push(reference(
+        "data:application/json;charset=utf-8," + encodeURIComponent(canonicalJson(failure)),
+        sha256Canonical(failure),
+      ));
+    }
+  }
   return {
+    ...nativeLivenessFields(value),
     kind: `${memberKey}_projection`,
     subject: sourceCoordinate(request),
     evidence,
@@ -419,6 +431,7 @@ function gapProjection(
     ["gapDigest", "routeDigest"],
   );
   return {
+    ...nativeLivenessFields(value),
     kind: memberKey === "workspace_gaps"
       ? "workspace_gap_projection"
       : "run_gap_projection",
@@ -435,6 +448,7 @@ function lawfulActionProjection(
   const replay = replayCoordinate(value);
   if (replay === null) throw new TypeError("lawful-action projection lacks replay identity");
   return {
+    ...nativeLivenessFields(value),
     kind: "run_lawful_action_projection",
     run: sourceCoordinate(request),
     actions: coordinateSet(
@@ -538,7 +552,6 @@ function outputFor(
  * typed GraphCall companions. Declaration evidence reaches the native owner. */
 function runReadKernel(
   packet: AnyReadPacket,
-  port: RunReadPort,
 ): AnyReadCallable {
   return (call) => Effect.try({
     try: () => {
@@ -598,12 +611,15 @@ function runReadKernel(
             grantBasis,
           ),
         );
-        if (expectedGrants.some((grant) =>
-          !sameJson(
-            grant.operationContract.contractCatalog,
-            call.invocation.contractCatalog,
-          )
-        )) {
+        // The loaded reader owns its current contract. Historical grants below
+        // remain permission over the source binding, not the reader's Product.
+        const executingContract = projectProductManifestOperationCoordinate(
+          JSON.parse(readFileSync(new URL("../../../../product-toolchain-manifest.json", import.meta.url), "utf8")),
+          packet.definitionKey.operationId,
+        );
+        if (executingContract === null) throw new TypeError("executing read owner has invalid Product operation metadata");
+        if (!sameJson(executingContract.contractCatalog, call.invocation.contractCatalog) ||
+            !sameJson(executingContract.flatRow, call.invocation.requestContract.flatRow)) {
           return finishRead(
             resource,
             refusalOutput(packet, "projection_basis_mismatch", "/contractCatalog"),
@@ -659,9 +675,9 @@ function runReadKernel(
           );
         }
         const graphRead = packet.definitionKey.memberKey === "graph_call_result" || packet.definitionKey.memberKey === "graph_call_replay";
-        const runTruth = graphRead ? null : projectRunTruthAtDurablePrefix(resource.entryPrefix, source.ref);
-        const truth = graphRead ? projectGraphCallSourceAtDurablePrefix(resource.entryPrefix, source.ref)
-          : runTruth?.kind === "abg_run_truth_projection" ? { source: runTruth.run, workspaceBinding: runTruth.workspaceBinding } : null;
+        const truth = prepareRunReadAtDurablePrefix(
+          resource.entryPrefix, packet.definitionKey.memberKey as RunReadMemberKey, source.ref,
+        );
         if (truth === null) {
           return finishRead(
             resource,
@@ -688,15 +704,7 @@ function runReadKernel(
             ),
           );
         }
-        const native = port({
-          kind: "abg_project_read_packet",
-          schemaVersion: "5.0.0",
-          memberKey: packet.definitionKey.memberKey,
-          prefix: resource.entryPrefix,
-          targetRef: source.ref,
-          ...(graphRead && call.resources.declarationProof !== undefined
-            ? { declarationProof: call.resources.declarationProof } : {}),
-        } as AbgProjectReadPacket<RunReadMemberKey>);
+        const native = truth.project(graphRead ? call.resources.declarationProof : undefined);
         return finishRead(
           resource,
           outputFor(packet, request, packet.definitionKey.memberKey, native),
@@ -836,39 +844,30 @@ const legacyBindings = Object.fromEntries(
 const RUN_READ_DEFINITION_BINDINGS = Object.freeze({
   run_status: bindExactPrefixRead(
     ABG_PROJECT_READ_CONTRACTS.run_status,
-    runReadKernel(
-      ABG_PROJECT_READ_CONTRACTS.run_status,
-      (input) => RunProjectionPort.run_status(input as AbgProjectReadPacket<"run_status">),
-    ),
+    runReadKernel(ABG_PROJECT_READ_CONTRACTS.run_status),
     PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
     PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
   ),
   run_result: bindExactPrefixRead(
     ABG_PROJECT_READ_CONTRACTS.run_result,
-    runReadKernel(
-      ABG_PROJECT_READ_CONTRACTS.run_result,
-      (input) => RunProjectionPort.run_result(input as AbgProjectReadPacket<"run_result">),
-    ),
+    runReadKernel(ABG_PROJECT_READ_CONTRACTS.run_result),
     PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
     PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
   ),
   run_replay: bindExactPrefixRead(
     ABG_PROJECT_READ_CONTRACTS.run_replay,
-    runReadKernel(
-      ABG_PROJECT_READ_CONTRACTS.run_replay,
-      (input) => RunProjectionPort.run_replay(input as AbgProjectReadPacket<"run_replay">),
-    ),
+    runReadKernel(ABG_PROJECT_READ_CONTRACTS.run_replay),
     PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
     PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
   ),
   graph_call_result: bindExactPrefixRead(
     ABG_PROJECT_READ_CONTRACTS.graph_call_result,
-    runReadKernel(ABG_PROJECT_READ_CONTRACTS.graph_call_result, (input) => GraphCallProjectionPort.graph_call_result(input as AbgProjectReadPacket<"graph_call_result">)),
+    runReadKernel(ABG_PROJECT_READ_CONTRACTS.graph_call_result),
     GRAPH_CALL_TERMINAL_RESOURCE_ASSERTION_SCHEMA, PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
   ),
   graph_call_replay: bindExactPrefixRead(
     ABG_PROJECT_READ_CONTRACTS.graph_call_replay,
-    runReadKernel(ABG_PROJECT_READ_CONTRACTS.graph_call_replay, (input) => GraphCallProjectionPort.graph_call_replay(input as AbgProjectReadPacket<"graph_call_replay">)),
+    runReadKernel(ABG_PROJECT_READ_CONTRACTS.graph_call_replay),
     GRAPH_CALL_TERMINAL_RESOURCE_ASSERTION_SCHEMA, PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
   ),
 });
@@ -877,3 +876,4 @@ export const ABG_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze({
   ...legacyBindings,
   ...RUN_READ_DEFINITION_BINDINGS,
 });
+import { isRuntimeLivenessReadProjection } from "./runtime_liveness_contracts.js";

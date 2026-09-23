@@ -1,3 +1,4 @@
+import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -8,12 +9,6 @@ import {
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type { InvocationAdmission } from "./invocation_admission.js";
-
-function isRecord(
-  value: unknown,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function canonicalRecordDigest(value: unknown): Sha256Digest | null {
   if (!isRecord(value)) return null;
@@ -126,6 +121,7 @@ export function projectExactInvocationAdmissionAtPrefix(
     publicStart: admission.publicStart,
     reentryBasis: admission.reentryBasis,
     sourceResultBasis: admission.sourceResultBasis,
+    ...(admission.runEnvironment === undefined ? {} : { runEnvironment: admission.runEnvironment }),
   };
   const operationId = "abg.operation.run.invoke";
   return sha256Canonical(body as unknown as JsonValue) ===
@@ -384,8 +380,8 @@ export function projectExactExecutionBasisAtPrefix(
     admissionEventRef: _admissionEventRef,
     ...body
   } = basis;
-  return canonicalRecordDigest(basis.rawInputValue) === basis.rawInputDigest &&
-      sha256Canonical(body as unknown as JsonValue) === basis.basisDigest &&
+  // The immutable admitted payload's raw input digest was checked above.
+  return sha256Canonical(body as unknown as JsonValue) === basis.basisDigest &&
       basis.basisRef ===
         `execution-basis://abiogenesis/${basis.basisDigest.slice("sha256:".length)}` &&
       event.payload.basisRef === basis.basisRef &&

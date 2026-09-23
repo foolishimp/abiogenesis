@@ -1,0 +1,1 @@
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/tracking-preimages/GOALS-current-selection-historical.md:16: new blank line at EOF.

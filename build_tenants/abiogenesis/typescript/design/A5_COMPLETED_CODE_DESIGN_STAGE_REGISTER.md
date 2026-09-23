@@ -2,7 +2,9 @@
 
 **Status**: Historical and current-state evidence under T-284; not implementation authority
 **F_H mandate**: 2026-07-12 three-view Mermaid design before coding
-**Shared method authority**: `specification_methodology` commit `b3e5e4a`
+**Historical method source (non-operative)**: `specification_methodology`
+commit `b3e5e4a`. Current method selection belongs only to
+`repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`.
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 
 ## Scope

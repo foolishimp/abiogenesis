@@ -1,5 +1,6 @@
 import type { GtlRequirementHandoffDeclaration } from "./requirement_handoff.js";
 import type { SemanticLifecycleDeclaration } from "./semantic_stage.js";
+import type { SemanticJobLifecycleDeclaration } from "./semantic_job.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import type { CProgramNode, ComputeRegime } from "./c_algebra.js";
@@ -477,7 +478,10 @@ export interface CatalogContribution {
 }
 
 export interface ModulePublication {
+  readonly stdoRunEnvironments?: readonly Readonly<import("./stdo_run_environment.js").StdoRunEnvironmentDeclaration>[];
+  readonly runEnvironments?: readonly Readonly<import("./stdo_run_environment.js").RunEnvironmentDeclaration>[];
   readonly semanticLifecycle?: Readonly<SemanticLifecycleDeclaration>;
+  readonly semanticJobLifecycle?: Readonly<SemanticJobLifecycleDeclaration>;
   readonly requirementHandoffs?: readonly Readonly<GtlRequirementHandoffDeclaration>[];
   readonly kind: "module_publication";
   readonly moduleRef: string;

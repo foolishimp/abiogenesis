@@ -1,4 +1,4 @@
-import { isWorksiteRetentionContractRelation } from "../product/worksite_preparation_contracts.js";
+import { isGraphInputRetentionContractRelation } from "../product/worksite_preparation_contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -52,7 +52,7 @@ export function graphEdge(input: {
 }): GtlEdge {
   requireRef(input.fromNodeRef, "fromNodeRef");
   requireRef(input.toNodeRef, "toNodeRef");
-  if (input.inputBinding !== undefined && !isWorksiteRetentionContractRelation(input.inputBinding)) {
+  if (input.inputBinding !== undefined && !isGraphInputRetentionContractRelation(input.inputBinding)) {
     throw new TypeError("graph edge retention requires the exact ABI-owned E/S/T schema relation");
   }
   return deepFreeze({

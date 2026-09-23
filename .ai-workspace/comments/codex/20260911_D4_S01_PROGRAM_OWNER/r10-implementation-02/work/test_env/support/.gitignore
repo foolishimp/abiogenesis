@@ -1,0 +1,32 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../20260923_WIP_CHECKPOINT/README.md
+/candidate-basis.mjs
+/d2-bounded-harness.mjs
+/d2-evidence-owner-conservation.mjs
+/d2-evidence-owner-harness.mjs
+/d2-frame-fixture.mjs
+/d2-historical-design-harness.mjs
+/d2-static-smoke.mjs
+/d2-workflow-step-harness.mjs
+/developer-mini-product.mjs
+/flavored-catalog-product.mjs
+/fresh-process-runtime-proof.mjs
+/installed-public-definition-call.mjs
+/neutral-schema-product.mjs
+/new-empty-append-sink.mjs
+/r10-private-owner-harness.mjs
+/root-cli-environment.mjs
+/root-governor.mjs
+/root-installed-environment.mjs
+/root-owner-evidence.mjs
+/serial-branch-worksite-program.mjs
+/single-start-worksite-program.mjs
+/steel-consumer-resolution.mjs
+/t287-entry212-reopen-worker.mjs
+/t287-setup-invocation-authority-worker.mjs
+/t287-st3-fresh-process-read-worker.mjs
+/t287-tv5-success-reconstruction-worker.mjs
+/t287-wave2-owner-chain-worker.mjs
+/wave1-interface-receipt.mjs
+/wave1-proof-capture.mjs

@@ -520,13 +520,22 @@ export type { WorksiteCommandPreparationInput, WorksiteBranchCommandPreparationI
 } from "./worksite_preparation.js";
 
 export { constructRequirementHandoffInput, isRequirementHandoffInput, isRequirementHandoffOutput } from "./requirement_handoff.js";
+export { constructRunEnvironmentResources, runEnvironmentRecordMembers, observeRunEnvironment } from "./stdo_environment.js";
+export type { RunEnvironmentResources, RunEnvironmentObservation } from "./stdo_environment.js";
+export { constructSemanticJobInput, isSemanticJobInput, isSemanticJobEnvelope, constructSemanticJobEnvelope,
+  deriveSemanticJobAsset, deriveSemanticJobAssessment, projectSemanticJobBindings, semanticJobSourceText,
+  semanticJobWorkerResultSchema, deriveSemanticJobPreparation, projectSemanticJobActorContract, projectSemanticJobActorContext,
+  evaluateSemanticJobActorCandidate, semanticJobDesignIssues, semanticJobDesignMatches } from "./semantic_job.js";
+export type { SemanticJobInput, SemanticJobEnvelope, SemanticJobBasis, SemanticJobAssetCandidate,
+  SemanticJobAsset, SemanticJobBindingCandidate, SemanticJobBindingVersion, SemanticJobDesign } from "./semantic_job.js";
 export type { RequirementHandoffInput, RequirementHandoffOutput } from "./requirement_handoff.js";
 
 export { constructSemanticStageEnvelope, isSemanticStageEnvelope } from "./semantic_stage.js";
 export type { SemanticStageEnvelope, SemanticWorksiteBasis, SemanticAssetCandidate, SemanticAssessmentCandidate } from "./semantic_stage.js";
 
-export { isSemanticRevisionRequest, isSemanticRevisionSelection, isSemanticRevisionEnvelope, deriveSemanticRevision } from "./semantic_revision.js";
-export type { SemanticRevisionRequest, SemanticRevisionSelection, SemanticRevisionEnvelope, SemanticRevisionCoordinate } from "./semantic_revision.js";
+export { isSemanticRevisionRequest, isSemanticRevisionSelection, isSemanticRevisionEnvelope, deriveSemanticRevision,
+  isSemanticJobRevisionEnvelope, deriveSemanticJobRevision, deriveJobRevisionAsset, deriveJobRevisionAssessment } from "./semantic_revision.js";
+export type { SemanticRevisionRequest, SemanticRevisionSelection, SemanticRevisionEnvelope, SemanticRevisionCoordinate, SemanticJobRevisionEnvelope } from "./semantic_revision.js";
 export * from "./worksite_revision.js";
 export { constructWorksiteRevisionCommandPreparationInput } from "./worksite_preparation.js";
 export { worksiteRevisionRetentionBinding } from "./worksite_preparation_contracts.js";
@@ -540,3 +549,27 @@ export type { WorksitePreservedResultSource, WorksitePreservedResultArtifact, Wo
   WorksitePreservedSourceProof, PreservedProtocolRecord } from "./worksite_construction_recovery.js";
 export * from "./worksite_command_forward.js";
 export { isWorksiteCommandForwardObservation } from "./worksite_command_execution.js";
+
+export { NATIVE_WORKSPACE_WORK_IDS, constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask,
+  isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkReport, isNativeWorkspaceWorkFailure,
+  type NativeWorkspaceWorkTask, type NativeWorkspaceWorkObservation, type NativeWorkspaceWorkFailure, type NativeWorkspaceWorkReport } from "./native_workspace_work.js";
+export { observeWorksiteContext, type WorksiteContextInput } from "./worksite_operations.js";
+export { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
+
+export { nativeWorkspaceAssessmentBasisDigest, nativeWorkspaceAssessmentMatchesContext, nativeWorkspaceWorkGraphFunctionRef } from "./native_workspace_work.js";
+export { type NativeWorkspaceAssessmentSelection } from "./native_workspace_assessment.js";
+
+export { constructNativeWorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionObservation, isC2WorksiteCommandExecutionTask,
+  type NativeWorksiteCommandExecutionTask, type NativeWorksiteCommandExecutionTaskInput, type NativeWorksiteCommandExecutionObservation, type C2WorksiteCommandExecutionTask } from "./worksite_command_execution.js";
+
+export { NATIVE_WORK_REACQUISITION_IDS, constructNativeWorksiteCommandReacquisitionRequest, isNativeWorksiteCommandReacquisitionRequest,
+  type NativeWorksiteCommandReacquisitionRequest, type NativeWorksiteCommandReacquisition } from "./worksite_command_execution.js";
+
+export { RELEASE_OPERATION_CONTRACTS, releaseAuthorityScope, releaseArtifactCoordinate, type PublishedRcSnapshotRequest, type ReleasePublicationGrant, type ReleaseOperationArtifact } from "./release_snapshot_operations.js";
+export { projectReleaseQualification, isReleaseOperationArtifact } from "../implementation/release_publication.js";
+
+export { constructObservedWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionObservation,
+  type ObservedWorksiteCommandExecutionTask, type ObservedWorksiteCommandExecutionTaskInput, type ObservedWorksiteCommandExecutionObservation } from "./worksite_command_execution.js";
+
+export { RETAINED_GRAPH_INPUT_CONTRACT, isRetainedGraphInput, graphInputRetentionBinding, isGraphInputRetentionContractRelation, constructRetainedGraphInput } from "./worksite_preparation_contracts.js";
+export type { RetainedGraphInput } from "./worksite_preparation_contracts.js";

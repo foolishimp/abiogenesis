@@ -1,3 +1,4 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import type { ComputeRegime, ModulePublication } from "../gtl/contracts.js";
 import {
   isGraphValidation,
@@ -213,10 +214,6 @@ export async function loadInstalledImplementationDescriptors(
 const candidates = new WeakSet<object>();
 const setCandidates = new WeakSet<object>();
 const leafCandidates = new WeakSet<object>();
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 export function isPackagedLeafImplementationDescriptor(
   value: unknown,

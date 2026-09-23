@@ -1,0 +1,26 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/compile-01.json
+/compile-02.json
+/compile-03.json
+/compile-04.json
+/compile-05.json
+/compile-06.json
+/compile-07.json
+/compile-08.json
+/compile-09.json
+/compile-10.json
+/final-preflight-01.json
+/final-preflight-02.json
+/focused-03.json
+/focused-04.json
+/generate-01.json
+/generate-02.json
+/generate-03.json
+/original-records-01.json
+/owner-joins-01.json
+/pure-01.json
+/pure-02.json
+/ruling-owner-01.json
+/ruling-owner-02.json

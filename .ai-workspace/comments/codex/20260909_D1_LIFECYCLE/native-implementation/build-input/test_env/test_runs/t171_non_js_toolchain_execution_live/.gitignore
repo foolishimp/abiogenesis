@@ -1,0 +1,28 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../20260923_WIP_CHECKPOINT/README.md
+/prompt_carry_20260709T231747325Z_pid12863/rust-cli-requirement.txt
+/prompt_carry_20260709T231747325Z_pid12863/t171-cargo-version.trace/command.json
+/prompt_carry_20260709T231747325Z_pid12863/t171-cargo-version.trace/events.ndjson
+/prompt_carry_20260709T231747325Z_pid12863/t171-cargo-version.trace/final_output.txt
+/prompt_carry_20260709T231747325Z_pid12863/t171-cargo-version.trace/meta.json
+/prompt_carry_20260709T231747325Z_pid12863/t171-cargo-version.trace/result.json
+/prompt_carry_20260709T231747325Z_pid12863/t171-cargo-version.trace/stdout.raw
+/prompt_carry_20260709T231747325Z_pid12863/t171-rustc-version.trace/command.json
+/prompt_carry_20260709T231747325Z_pid12863/t171-rustc-version.trace/events.ndjson
+/prompt_carry_20260709T231747325Z_pid12863/t171-rustc-version.trace/final_output.txt
+/prompt_carry_20260709T231747325Z_pid12863/t171-rustc-version.trace/meta.json
+/prompt_carry_20260709T231747325Z_pid12863/t171-rustc-version.trace/result.json
+/prompt_carry_20260709T231747325Z_pid12863/t171-rustc-version.trace/stdout.raw
+/toolchain_audit_20260709T231747114Z_pid12863/t171-cargo-version.trace/command.json
+/toolchain_audit_20260709T231747114Z_pid12863/t171-cargo-version.trace/events.ndjson
+/toolchain_audit_20260709T231747114Z_pid12863/t171-cargo-version.trace/final_output.txt
+/toolchain_audit_20260709T231747114Z_pid12863/t171-cargo-version.trace/meta.json
+/toolchain_audit_20260709T231747114Z_pid12863/t171-cargo-version.trace/result.json
+/toolchain_audit_20260709T231747114Z_pid12863/t171-cargo-version.trace/stdout.raw
+/toolchain_audit_20260709T231747114Z_pid12863/t171-rustc-version.trace/command.json
+/toolchain_audit_20260709T231747114Z_pid12863/t171-rustc-version.trace/events.ndjson
+/toolchain_audit_20260709T231747114Z_pid12863/t171-rustc-version.trace/final_output.txt
+/toolchain_audit_20260709T231747114Z_pid12863/t171-rustc-version.trace/meta.json
+/toolchain_audit_20260709T231747114Z_pid12863/t171-rustc-version.trace/result.json
+/toolchain_audit_20260709T231747114Z_pid12863/t171-rustc-version.trace/stdout.raw

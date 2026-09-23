@@ -1,0 +1,18 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/accepted-subjects-and-reviews.md
+/activation-joined.txt
+/activation-sections.json
+/activation.md
+/application-02.patch
+/application-attempt-01.json
+/application.patch
+/check.mjs
+/checks-02.json
+/inverse.patch
+/manifest.json
+/postimages.json
+/preimages.json
+/return.md
+/transformations.json

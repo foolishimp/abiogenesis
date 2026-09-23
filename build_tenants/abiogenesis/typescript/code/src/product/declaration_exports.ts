@@ -123,6 +123,8 @@ export interface NativeDeclarationClosureRequest {
   readonly packageType: NativePackageType;
   readonly packageExports: Readonly<Record<string, unknown>>;
   readonly declarationSources: readonly DeclarationSource[];
+  /** Exact package.json payload members; absence proves no bundled ownership. */
+  readonly packageMetadataSources?: readonly DeclarationSource[];
   readonly sourceProductContentDigest: Sha256Digest;
 }
 
@@ -147,6 +149,7 @@ export interface NativeProductDeclarationEvidence {
   readonly packageName: string;
   readonly packageType: NativePackageType;
   readonly sources: readonly NativeDeclarationEvidenceSource[];
+  readonly packageMetadata?: readonly NativeDeclarationEvidenceSource[];
   readonly closures: readonly NativeDeclarationClosure[];
   readonly contracts: readonly NativeContractEvidence[];
 }
@@ -566,6 +569,19 @@ function isInsideAny(path: string, roots: readonly string[]): boolean {
   );
 }
 
+function isContainedRelativeDeclarationReference(
+  specifier: string,
+  containingFile: string,
+  productRoot: string,
+): boolean {
+  return /^(?:\.|\.\.)(?:\/|$)/u.test(specifier) &&
+    !specifier.includes("\\") && !specifier.includes("\0") &&
+    isInsideAny(
+      posix.resolve(posix.dirname(containingFile), specifier),
+      [productRoot],
+    );
+}
+
 function canReachAnyDirectory(
   directory: string,
   roots: readonly string[],
@@ -662,6 +678,165 @@ function productDeclarationFormat(
     : ts.ModuleKind.CommonJS;
 }
 
+interface OwnedDeclarationPackage {
+  readonly root: string;
+  readonly metadata: Readonly<Record<string, unknown>>;
+}
+
+interface PackageDeclarationBasis {
+  readonly metadataText: ReadonlyMap<string, string>;
+  owns(specifier: string, containingFile: string): boolean;
+  format(fileName: string): NativePackageType;
+  target(specifier: string, containingFile: string, mode: TypeScript.ResolutionMode): string | null;
+}
+
+function metadataRecord(value: unknown): value is Readonly<Record<string, unknown>> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+/** Subordinate payload evidence, shared by the local and linked checker hosts. */
+function packageDeclarationBasis(
+  ts: typeof TypeScript,
+  root: string,
+  packageName: string,
+  packageType: NativePackageType,
+  sources: readonly DeclarationSource[],
+): PackageDeclarationBasis | null {
+  const metadataText = new Map<string, string>();
+  const metadata = new Map<string, Readonly<Record<string, unknown>>>();
+  for (const source of sources) {
+    if (
+      !isNonblank(source.path) || source.path.includes("\\") ||
+      source.path.includes("\0") || posix.isAbsolute(source.path) ||
+      posix.normalize(source.path) !== source.path ||
+      source.path.startsWith("../") || posix.basename(source.path) !== "package.json"
+    ) return null;
+    const path = posix.join(root, source.path);
+    if (metadata.has(path)) return null;
+    let value: unknown;
+    let text: string;
+    try {
+      text = new TextDecoder("utf-8", { fatal: true }).decode(source.bytes);
+      value = JSON.parse(text) as unknown;
+    } catch { return null; }
+    if (!metadataRecord(value) ||
+      (value.type !== undefined && value.type !== "module" && value.type !== "commonjs")
+    ) return null;
+    metadata.set(path, value);
+    metadataText.set(path, text);
+  }
+  const rootMetadata = metadata.get(posix.join(root, "package.json"));
+  if (sources.length !== 0 && rootMetadata === undefined) return null;
+  if (rootMetadata !== undefined && (
+    rootMetadata.name !== packageName || !isNonblank(rootMetadata.version) ||
+    (rootMetadata.type === "module" ? "module" : "commonjs") !== packageType
+  )) return null;
+  const packages = new Map<string, OwnedDeclarationPackage>();
+  if (rootMetadata !== undefined) packages.set(packageName, { root, metadata: rootMetadata });
+  const names = (value: unknown): readonly string[] | null => {
+    if (value === undefined) return [];
+    if (!metadataRecord(value) || Object.entries(value).some(([name, version]) =>
+      packageImportCoordinate(name)?.packageName !== name || !isNonblank(version)
+    )) return null;
+    return Object.keys(value);
+  };
+  const bundled = rootMetadata?.bundleDependencies ?? rootMetadata?.bundledDependencies ?? [];
+  if (!Array.isArray(bundled) || bundled.some(name =>
+    typeof name !== "string" || packageImportCoordinate(name)?.packageName !== name
+  ) || new Set(bundled).size !== bundled.length ||
+    (rootMetadata?.bundleDependencies !== undefined && rootMetadata.bundledDependencies !== undefined &&
+      canonicalJson(rootMetadata.bundleDependencies as JsonValue) !== canonicalJson(rootMetadata.bundledDependencies as JsonValue))
+  ) return null;
+  const rootDependencies = names(rootMetadata?.dependencies);
+  if (rootDependencies === null || bundled.some(name => !rootDependencies.includes(name as string))) return null;
+  const pending = [...bundled] as string[];
+  while (pending.length > 0) {
+    const name = pending.pop()!;
+    if (packages.has(name)) {
+      if (name === packageName) return null;
+      continue;
+    }
+    const packageRoot = posix.join(root, "node_modules", name);
+    const value = metadata.get(posix.join(packageRoot, "package.json"));
+    if (value === undefined || value.name !== name || !isNonblank(value.version)) return null;
+    packages.set(name, { root: packageRoot, metadata: value });
+    const required = names(value.dependencies);
+    const optional = names(value.optionalDependencies);
+    if (required === null || optional === null) return null;
+    for (const dependency of new Set([...required, ...optional])) {
+      const present = metadata.has(posix.join(root, "node_modules", dependency, "package.json"));
+      if (!present && !optional.includes(dependency)) return null;
+      if (present) pending.push(dependency);
+    }
+  }
+  const owner = (fileName: string): OwnedDeclarationPackage | undefined =>
+    [...packages.values()].filter(p => fileName.startsWith(`${p.root}/`))
+      .sort((a, b) => b.root.length - a.root.length)[0];
+  const selected = (specifier: string, containingFile: string): OwnedDeclarationPackage | undefined => {
+    const coordinate = packageImportCoordinate(specifier);
+    if (coordinate === null) return undefined;
+    const containing = owner(containingFile);
+    return containing?.metadata.name === coordinate.packageName
+      ? containing : packages.get(coordinate.packageName);
+  };
+  return {
+    metadataText,
+    owns: (specifier, containingFile) => selected(specifier, containingFile) !== undefined,
+    format: (fileName) => {
+      const containing = owner(fileName);
+      const boundary = containing?.root ?? root;
+      for (let directory = posix.dirname(fileName); directory.length >= boundary.length; directory = posix.dirname(directory)) {
+        const value = metadata.get(posix.join(directory, "package.json"));
+        if (value !== undefined) return value.type === "module" ? "module" : "commonjs";
+        if (directory === boundary) break;
+      }
+      return packageType;
+    },
+    target: (specifier, containingFile, mode) => {
+      const coordinate = packageImportCoordinate(specifier);
+      const target = selected(specifier, containingFile);
+      const containing = owner(containingFile);
+      if (coordinate === null || target === undefined) return null;
+      // Nested version shadowing is outside this finite profile; never flatten it.
+      for (let directory = posix.dirname(containingFile); directory !== root; directory = posix.dirname(directory)) {
+        if (!directory.startsWith(`${root}/`)) return null;
+        if (metadata.has(posix.join(directory, "node_modules", coordinate.packageName, "package.json"))) return null;
+      }
+      if (containing !== undefined && containingFile.slice(containing.root.length + 1).includes("node_modules/")) return null;
+      const value = target.metadata;
+      let typeTarget: unknown;
+      if (value.exports === undefined) {
+        if (value.typesVersions !== undefined) return null;
+        if (coordinate.packageExportPath !== "." ||
+          (value.types !== undefined && value.typings !== undefined && value.types !== value.typings)) return null;
+        typeTarget = value.types ?? value.typings;
+      } else {
+        if (!metadataRecord(value.exports)) return null;
+        const keys = Object.keys(value.exports);
+        const isSubpaths = keys.some(key => key.startsWith("."));
+        if (isSubpaths && keys.some(key => !key.startsWith("."))) return null;
+        const entry = isSubpaths ? value.exports[coordinate.packageExportPath]
+          : coordinate.packageExportPath === "." ? value.exports : undefined;
+        if (!metadataRecord(entry)) return null;
+        // Match TypeScript's active condition order, but only the selected finite types form.
+        const active = new Set(["types", "node", "default", mode === ts.ModuleKind.CommonJS ? "require" : "import"]);
+        const condition = Object.keys(entry).find(key => active.has(key) || key.startsWith("types@"));
+        if (condition === "types") typeTarget = entry.types;
+        else if (condition === "import" || condition === "require") {
+          const branch = entry[condition];
+          if (!metadataRecord(branch) || Object.keys(branch).find(key => active.has(key) || key.startsWith("types@")) !== "types") return null;
+          typeTarget = branch.types;
+        } else return null;
+        if (typeof typeTarget !== "string" || !typeTarget.startsWith("./")) return null;
+      }
+      if (typeof typeTarget !== "string") return null;
+      const relative = typeTarget.startsWith("./") ? typeTarget.slice(2) : typeTarget;
+      if (!isSafeDeclarationPath(relative) || relative.includes("node_modules/")) return null;
+      return posix.join(target.root, relative);
+    },
+  };
+}
+
 function physicalRelation(
   basis: Omit<
     PhysicalDeclarationRelation,
@@ -688,6 +863,7 @@ function externalRelations(
   declarationPath: string,
   declarationDigest: Sha256Digest,
   sourceProductContentDigest: Sha256Digest,
+  ownsPackage: (specifier: string) => boolean = () => false,
 ): Readonly<{
   relations: readonly PhysicalDeclarationRelation[];
   augmentations: readonly NativeModuleAugmentation[];
@@ -703,6 +879,7 @@ function externalRelations(
     const specifier = moduleSpecifier.text;
     if (
       isPlatformSpecifier(specifier) ||
+      ownsPackage(specifier) ||
       selfPackageExportPath(packageName, specifier) !== null ||
       packageImportCoordinate(specifier) === null
     ) {
@@ -883,6 +1060,7 @@ function externalRelations(
     if (
       directive.fileName !== "node" &&
       packageImportCoordinate(directive.fileName) !== null &&
+      !ownsPackage(directive.fileName) &&
       selfPackageExportPath(packageName, directive.fileName) === null
     ) {
       relations.push(physicalRelation({
@@ -1080,6 +1258,82 @@ function exportedSymbolPhysicalRelationRefs(
       existing.push(relation);
     }
   }
+  // This cache belongs only to this checker and exact root/relation basis.
+  // Cache direct analysis, never an incomplete transitive result in a cycle.
+  const directBySymbol = new Map<TypeScript.Symbol, Readonly<{
+    refs: readonly string[];
+    dependencies: readonly TypeScript.Symbol[];
+  }>>();
+  const direct = (symbol: TypeScript.Symbol) => {
+    const existing = directBySymbol.get(symbol);
+    if (existing !== undefined) return existing;
+    const refs = new Set<string>();
+    const dependencies: TypeScript.Symbol[] = [];
+    if ((symbol.flags & ts.SymbolFlags.Alias) !== 0) {
+      const target = checker.getAliasedSymbol(symbol);
+      if (target !== symbol) dependencies.push(target);
+    }
+    for (const declaration of symbol.declarations ?? []) {
+      const sourcePath = posix.normalize(
+        declaration.getSourceFile().fileName,
+      );
+      if (!reachable.has(sourcePath)) continue;
+      const declarationPath = relativePaths.get(sourcePath);
+      if (declarationPath === undefined) continue;
+      const sourceRelations =
+        relationByDeclarationPath.get(declarationPath) ?? [];
+      for (const relation of sourceRelations) {
+        if (
+          relation.selection.kind === "all" &&
+          ancestorOfKind(
+            nodeAtPosition(
+              declaration.getSourceFile(),
+              relation.sourceStart,
+            ),
+            (candidate): candidate is TypeScript.ImportDeclaration |
+              TypeScript.ExportDeclaration |
+              TypeScript.ImportTypeNode =>
+              ts.isImportDeclaration(candidate) ||
+              ts.isExportDeclaration(candidate) ||
+              ts.isImportTypeNode(candidate),
+          ) === null
+        ) {
+          refs.add(relation.physicalRelationRef);
+        }
+      }
+      const visit = (node: TypeScript.Node): void => {
+        for (
+          const physicalRelationRef of physicalRelationRefsForNode(
+            ts,
+            node,
+            declarationPath,
+            sourceRelations,
+          )
+        ) {
+          refs.add(physicalRelationRef);
+        }
+        if (ts.isIdentifier(node)) {
+          const referenced = checker.getSymbolAtLocation(node);
+          if (
+            referenced !== undefined &&
+            referenced !== symbol &&
+            (referenced.declarations ?? []).some((candidate) =>
+              reachable.has(
+                posix.normalize(candidate.getSourceFile().fileName),
+              )
+            )
+          ) {
+            dependencies.push(referenced);
+          }
+        }
+        node.forEachChild(visit);
+      };
+      visit(declaration);
+    }
+    const analysis = { refs: [...refs], dependencies };
+    directBySymbol.set(symbol, analysis);
+    return analysis;
+  };
   const result: Record<string, readonly string[]> = {};
   for (const exportedSymbol of checker.getExportsOfModule(moduleSymbol)) {
     const refs = new Set<string>();
@@ -1089,67 +1343,9 @@ function exportedSymbolPhysicalRelationRefs(
       const symbol = pending.pop()!;
       if (visited.has(symbol)) continue;
       visited.add(symbol);
-      if ((symbol.flags & ts.SymbolFlags.Alias) !== 0) {
-        const target = checker.getAliasedSymbol(symbol);
-        if (target !== symbol) pending.push(target);
-      }
-      for (const declaration of symbol.declarations ?? []) {
-        const sourcePath = posix.normalize(
-          declaration.getSourceFile().fileName,
-        );
-        if (!reachable.has(sourcePath)) continue;
-        const declarationPath = relativePaths.get(sourcePath);
-        if (declarationPath === undefined) continue;
-        const sourceRelations =
-          relationByDeclarationPath.get(declarationPath) ?? [];
-        for (const relation of sourceRelations) {
-          if (
-            relation.selection.kind === "all" &&
-            ancestorOfKind(
-              nodeAtPosition(
-                declaration.getSourceFile(),
-                relation.sourceStart,
-              ),
-              (candidate): candidate is TypeScript.ImportDeclaration |
-                TypeScript.ExportDeclaration |
-                TypeScript.ImportTypeNode =>
-                ts.isImportDeclaration(candidate) ||
-                ts.isExportDeclaration(candidate) ||
-                ts.isImportTypeNode(candidate),
-            ) === null
-          ) {
-            refs.add(relation.physicalRelationRef);
-          }
-        }
-        const visit = (node: TypeScript.Node): void => {
-          for (
-            const physicalRelationRef of physicalRelationRefsForNode(
-              ts,
-              node,
-              declarationPath,
-              sourceRelations,
-            )
-          ) {
-            refs.add(physicalRelationRef);
-          }
-          if (ts.isIdentifier(node)) {
-            const referenced = checker.getSymbolAtLocation(node);
-            if (
-              referenced !== undefined &&
-              referenced !== symbol &&
-              (referenced.declarations ?? []).some((candidate) =>
-                reachable.has(
-                  posix.normalize(candidate.getSourceFile().fileName),
-                )
-              )
-            ) {
-              pending.push(referenced);
-            }
-          }
-          node.forEachChild(visit);
-        };
-        visit(declaration);
-      }
+      const analysis = direct(symbol);
+      for (const ref of analysis.refs) refs.add(ref);
+      for (const dependency of analysis.dependencies) pending.push(dependency);
     }
     result[exportedSymbol.getName()] = [...refs].sort(compareText);
   }
@@ -1198,12 +1394,24 @@ export async function resolveNativeDeclarationClosures(
 
   const ts = loadTypeScript();
   const basis = compilerBasis(ts);
+  const packages = packageDeclarationBasis(
+    ts, VIRTUAL_PACKAGE_ROOT, request.packageName, request.packageType,
+    request.packageMetadataSources ?? [],
+  );
+  if (packages === null) return null;
+  const rootMetadata = packages.metadataText.get(
+    posix.join(VIRTUAL_PACKAGE_ROOT, "package.json"),
+  );
+  if (rootMetadata !== undefined && canonicalJson(
+    (JSON.parse(rootMetadata) as { exports?: JsonValue }).exports ?? null,
+  ) !== canonicalJson(request.packageExports as JsonValue)) return null;
   const externalTypeDirectiveStubs = new Map<string, string>();
-  for (const source of sourceText.values()) {
+  for (const [sourcePath, source] of sourceText) {
     const preprocessed = ts.preProcessFile(source, true, true);
     for (const directive of preprocessed.typeReferenceDirectives) {
       if (
         directive.fileName !== "node" &&
+        !packages.owns(directive.fileName, sourcePath) &&
         packageImportCoordinate(directive.fileName) !== null &&
         selfPackageExportPath(request.packageName, directive.fileName) === null
       ) {
@@ -1219,6 +1427,7 @@ export async function resolveNativeDeclarationClosures(
     }
   }
   const compilerSourceText = new Map(sourceText);
+  for (const [path, text] of packages.metadataText) compilerSourceText.set(path, text);
   for (const path of externalTypeDirectiveStubs.values()) {
     compilerSourceText.set(path, "export {};\n");
   }
@@ -1228,48 +1437,83 @@ export async function resolveNativeDeclarationClosures(
     compilerSourceText,
     (fileName) =>
       sourceText.has(fileName)
-        ? productDeclarationFormat(ts, request.packageType, fileName)
+        ? productDeclarationFormat(ts, packages.format(fileName), fileName)
         : undefined,
   );
+  const localEdges = new Map<string, Set<string>>();
+  let invalidOwnedResolution = false;
+  const resolveModule = (
+    specifier: string, containingFile: string, mode: TypeScript.ResolutionMode,
+  ): TypeScript.ResolvedModuleFull | undefined => {
+    // Compiler-origin imports retain only the admitted compiler/platform host.
+    if (isInsideAny(containingFile, basis.compilerDependencyRoots)) {
+      return ts.resolveModuleName(
+        specifier, containingFile, basis.options, standardHost, undefined, undefined, mode,
+      ).resolvedModule;
+    }
+    const owned = packages.owns(specifier, containingFile);
+    let resolved: TypeScript.ResolvedModuleFull | undefined;
+    if (owned) {
+      const target = packages.target(specifier, containingFile, mode);
+      resolved = ts.resolveModuleName(
+        specifier, containingFile, basis.options, standardHost, undefined, undefined, mode,
+      ).resolvedModule;
+      if (target === null || resolved?.resolvedFileName !== target || !sourceText.has(target)) {
+        invalidOwnedResolution = true;
+        return undefined;
+      }
+    } else {
+      const selfExport = selfPackageExportPath(request.packageName, specifier);
+      const selfRoot = selfExport === null ? undefined : rootVirtualPaths.get(selfExport);
+      if (selfExport !== null) {
+        resolved = selfRoot == null ? undefined : {
+          resolvedFileName: selfRoot, extension: ts.Extension.Dts, isExternalLibraryImport: false,
+        };
+      } else if (isPlatformSpecifier(specifier)) {
+        resolved = ts.resolveModuleName(
+          specifier, containingFile, basis.options, standardHost, undefined, undefined, mode,
+        ).resolvedModule;
+      } else if (packageImportCoordinate(specifier) === null) {
+        if (!isContainedRelativeDeclarationReference(specifier, containingFile, VIRTUAL_PACKAGE_ROOT)) {
+          invalidOwnedResolution = true;
+          return undefined;
+        }
+        resolved = ts.resolveModuleName(
+          specifier, containingFile, basis.options, standardHost, undefined, undefined, mode,
+        ).resolvedModule;
+        if (resolved?.resolvedFileName === undefined || !sourceText.has(posix.normalize(resolved.resolvedFileName))) {
+          invalidOwnedResolution = true;
+          return undefined;
+        }
+      }
+    }
+    if (resolved !== undefined && sourceText.has(posix.normalize(resolved.resolvedFileName))) {
+      const edges = localEdges.get(containingFile) ?? new Set<string>();
+      edges.add(posix.normalize(resolved.resolvedFileName));
+      localEdges.set(containingFile, edges);
+    }
+    return resolved;
+  };
   const host: TypeScript.CompilerHost = {
     ...standardHost,
-    resolveModuleNames: (moduleNames, containingFile) =>
-      moduleNames.map((specifier) => {
-        if (
-          isInsideAny(containingFile, basis.compilerDependencyRoots)
-        ) {
-          return ts.resolveModuleName(
-            specifier,
-            containingFile,
-            basis.options,
-            standardHost,
-          ).resolvedModule;
-        }
-        const selfExport = selfPackageExportPath(
-          request.packageName,
-          specifier,
-        );
-        if (selfExport !== null) {
-          const resolvedFileName = rootVirtualPaths.get(selfExport);
-          return resolvedFileName === null || resolvedFileName === undefined
-            ? undefined
-            : {
-              resolvedFileName,
-              extension: ts.Extension.Dts,
-              isExternalLibraryImport: false,
-            };
-        }
-        if (packageImportCoordinate(specifier) !== null) return undefined;
-        return ts.resolveModuleName(
-          specifier,
-          containingFile,
-          basis.options,
-          standardHost,
-        ).resolvedModule;
-      }),
-    resolveTypeReferenceDirectives: (typeDirectiveNames, containingFile) =>
+    resolveModuleNameLiterals: (literals, containingFile, _redirected, options, containingSourceFile) =>
+      literals.map(literal => ({
+        resolvedModule: resolveModule(literal.text, containingFile,
+          ts.getModeForUsageLocation(containingSourceFile, literal, options)),
+      })),
+    resolveTypeReferenceDirectives: (typeDirectiveNames, containingFile, _redirected, _options, containingFileMode) =>
       typeDirectiveNames.map((directive) => {
         const specifier = typeDirectiveName(directive);
+        if (isInsideAny(containingFile, basis.compilerDependencyRoots)) {
+          return ts.resolveTypeReferenceDirective(
+            specifier, containingFile, basis.options, standardHost,
+          ).resolvedTypeReferenceDirective;
+        }
+        if (packages.owns(specifier, containingFile)) {
+          const resolved = resolveModule(specifier, containingFile,
+            typeof directive === "string" ? containingFileMode : directive.resolutionMode ?? containingFileMode);
+          return resolved === undefined ? undefined : { ...resolved, primary: true };
+        }
         if (specifier === "node") {
           return ts.resolveTypeReferenceDirective(
             specifier,
@@ -1300,14 +1544,19 @@ export async function resolveNativeDeclarationClosures(
             isExternalLibraryImport: true,
           };
         }
-        return packageImportCoordinate(specifier) === null
-          ? ts.resolveTypeReferenceDirective(
-            specifier,
-            containingFile,
-            basis.options,
-            standardHost,
-          ).resolvedTypeReferenceDirective
-          : undefined;
+        if (packageImportCoordinate(specifier) !== null) return undefined;
+        if (!isContainedRelativeDeclarationReference(specifier, containingFile, VIRTUAL_PACKAGE_ROOT)) {
+          invalidOwnedResolution = true;
+          return undefined;
+        }
+        const resolved = ts.resolveTypeReferenceDirective(
+          specifier, containingFile, basis.options, standardHost,
+        ).resolvedTypeReferenceDirective;
+        if (resolved?.resolvedFileName === undefined || !sourceText.has(posix.normalize(resolved.resolvedFileName))) {
+          invalidOwnedResolution = true;
+          return undefined;
+        }
+        return resolved;
       }),
   };
   const externalSpecifiers = new Set<string>();
@@ -1366,11 +1615,12 @@ export async function resolveNativeDeclarationClosures(
           diagnostic.code === 2664 ||
           diagnostic.code === 2792) &&
         specifier !== null &&
+        !packages.owns(specifier, diagnostic.file?.fileName ?? "") &&
         externalSpecifiers.has(specifier)
       );
     }),
   ];
-  if (diagnostics.length > 0) return null;
+  if (invalidOwnedResolution || diagnostics.length > 0) return null;
 
   const checker = program.getTypeChecker();
   const closures: NativeDeclarationClosure[] = [];
@@ -1389,32 +1639,8 @@ export async function resolveNativeDeclarationClosures(
       if (source === undefined) return null;
       reachable.add(sourcePath);
       const preprocessed = ts.preProcessFile(source, true, true);
-      for (const imported of preprocessed.importedFiles) {
-        const specifier = imported.fileName;
-        if (isPlatformSpecifier(specifier)) continue;
-        const selfExportPath = selfPackageExportPath(
-          request.packageName,
-          specifier,
-        );
-        if (selfExportPath !== null) {
-          const selfRoot = rootVirtualPaths.get(selfExportPath);
-          if (selfRoot === null || selfRoot === undefined) return null;
-          pending.push(selfRoot);
-          continue;
-        }
-        if (packageImportCoordinate(specifier) !== null) continue;
-        if (!specifier.startsWith(".")) return null;
-        const resolved = ts.resolveModuleName(
-          specifier,
-          sourcePath,
-          basis.options,
-          host,
-        ).resolvedModule;
-        if (resolved === undefined) return null;
-        const resolvedPath = posix.normalize(resolved.resolvedFileName);
-        if (!sourceText.has(resolvedPath)) return null;
-        pending.push(resolvedPath);
-      }
+      // Follow the checker's actual use-site resolutions, including import/require modes.
+      pending.push(...localEdges.get(sourcePath) ?? []);
       for (const reference of preprocessed.referencedFiles) {
         const referencedPath = posix.normalize(
           posix.resolve(posix.dirname(sourcePath), reference.fileName),
@@ -1477,6 +1703,7 @@ export async function resolveNativeDeclarationClosures(
         declarationPath,
         sha256Bytes(bytes),
         sourceProductContentDigest,
+        (specifier) => packages.owns(specifier, virtualPath),
       );
       physicalRelations.push(...relations.relations);
       augmentations.push(...relations.augmentations);
@@ -1627,9 +1854,27 @@ export function linkNativeContractSet(
   const sourceOwner = new Map<string, NativeLinkProduct>();
   const sourcePath = new Map<string, string>();
   const rootPath = new Map<string, string>();
+  const packageBases = new Map<NativeLinkProduct, PackageDeclarationBasis>();
+  const productRoots = new Map<NativeLinkProduct, string>();
+  const packageMetadataText = new Map<string, string>();
+  let invalidPackageEvidence = false;
 
   products.forEach((product, index) => {
     const root = `/products/${index.toString().padStart(6, "0")}`;
+    productRoots.set(product, root);
+    const metadata = product.evidence.packageMetadata ?? [];
+    const packageBasis = packageDeclarationBasis(ts, root, product.packageName,
+      product.evidence.packageType, metadata.map(source => ({
+        path: source.declarationPath, bytes: new TextEncoder().encode(source.sourceText),
+      })));
+    if (packageBasis === null || metadata.some(source =>
+      sha256Bytes(new TextEncoder().encode(source.sourceText)) !== source.declarationDigest
+    )) {
+      invalidPackageEvidence = true;
+      return;
+    }
+    packageBases.set(product, packageBasis);
+    for (const [path, text] of packageBasis.metadataText) packageMetadataText.set(path, text);
     for (const source of product.evidence.sources) {
       const virtualPath = virtualDeclarationPath(root, source.declarationPath);
       if (virtualPath === null || sourceText.has(virtualPath)) continue;
@@ -1653,6 +1898,10 @@ export function linkNativeContractSet(
       }
     }
   });
+
+  if (invalidPackageEvidence) return linkedRefusal(
+    "incompatible_dependency", "invalid package-owned declaration metadata evidence",
+  );
 
   const directTarget = (
     source: NativeLinkProduct,
@@ -1805,6 +2054,8 @@ export function linkNativeContractSet(
         const self = selfPackageExportPath(product.packageName, target);
         if (
           self === null &&
+          !packageBases.get(product)!.owns(target,
+            sourcePath.get(structuredKey([product.productId, augmentation.declarationPath])) ?? "") &&
           !target.startsWith(".") &&
           packageImportCoordinate(target) !== null
         ) {
@@ -1820,23 +2071,39 @@ export function linkNativeContractSet(
   const standardHost = createClosedHost(
     ts,
     basis,
-    sourceText,
+    new Map([...sourceText, ...packageMetadataText]),
     (fileName) => {
       const owner = sourceOwner.get(posix.normalize(fileName));
       return owner === undefined
         ? undefined
         : productDeclarationFormat(
           ts,
-          owner.evidence.packageType,
+          packageBases.get(owner)!.format(fileName),
           fileName,
         );
     },
   );
+  let invalidOwnedResolution = false;
+  const resolveOwned = (
+    owner: NativeLinkProduct, specifier: string, containingFile: string,
+    mode: TypeScript.ResolutionMode,
+  ): TypeScript.ResolvedModuleFull | undefined => {
+    const target = packageBases.get(owner)!.target(specifier, containingFile, mode);
+    const resolved = ts.resolveModuleName(specifier, containingFile, basis.options,
+      standardHost, undefined, undefined, mode).resolvedModule;
+    if (target === null || resolved?.resolvedFileName !== target || sourceOwner.get(target) !== owner) {
+      invalidOwnedResolution = true;
+      return undefined;
+    }
+    return resolved;
+  };
   const host: TypeScript.CompilerHost = {
     ...standardHost,
     getCurrentDirectory: () => "/products",
-    resolveModuleNames: (moduleNames, containingFile) =>
-      moduleNames.map((specifier) => {
+    resolveModuleNameLiterals: (literals, containingFile, _redirected, options, containingSourceFile) =>
+      literals.map((literal) => {
+        const specifier = literal.text;
+        const mode = ts.getModeForUsageLocation(containingSourceFile, literal, options);
         const normalizedContaining = posix.normalize(containingFile);
         const owner = sourceOwner.get(normalizedContaining);
         if (owner === undefined) {
@@ -1845,51 +2112,74 @@ export function linkNativeContractSet(
             containingFile,
             basis.options,
             standardHost,
-          ).resolvedModule;
+            undefined, undefined, mode,
+          );
+        }
+        if (packageBases.get(owner)!.owns(specifier, containingFile)) {
+          return { resolvedModule: resolveOwned(owner, specifier, containingFile, mode) };
         }
         const selfExport = selfPackageExportPath(owner.packageName, specifier);
         if (selfExport !== null) {
           const resolvedFileName = rootPath.get(
             structuredKey([owner.productId, selfExport]),
           );
-          return resolvedFileName === undefined
+          return { resolvedModule: resolvedFileName === undefined
             ? undefined
             : {
               resolvedFileName,
               extension: ts.Extension.Dts,
               isExternalLibraryImport: false,
-            };
+            } };
         }
         const coordinate = packageImportCoordinate(specifier);
         if (coordinate !== null) {
           const selected = directTarget(owner, coordinate.packageName);
-          if ("kind" in selected) return undefined;
+          if ("kind" in selected) return { resolvedModule: undefined };
           const resolvedFileName = rootPath.get(
             structuredKey([
               selected.target.productId,
               coordinate.packageExportPath,
             ]),
           );
-          return resolvedFileName === undefined
+          return { resolvedModule: resolvedFileName === undefined
             ? undefined
             : {
               resolvedFileName,
               extension: ts.Extension.Dts,
               isExternalLibraryImport: true,
-            };
+            } };
         }
-        return ts.resolveModuleName(
+        if (isPlatformSpecifier(specifier)) return ts.resolveModuleName(
           specifier,
           containingFile,
           basis.options,
           standardHost,
-        ).resolvedModule;
+          undefined, undefined, mode,
+        );
+        if (!isContainedRelativeDeclarationReference(specifier, containingFile, productRoots.get(owner)!)) {
+          invalidOwnedResolution = true;
+          return { resolvedModule: undefined };
+        }
+        const resolved = ts.resolveModuleName(
+          specifier, containingFile, basis.options, standardHost, undefined, undefined, mode,
+        );
+        if (resolved.resolvedModule === undefined ||
+          sourceOwner.get(posix.normalize(resolved.resolvedModule.resolvedFileName)) !== owner) {
+          invalidOwnedResolution = true;
+          return { resolvedModule: undefined };
+        }
+        return resolved;
       }),
-    resolveTypeReferenceDirectives: (typeDirectiveNames, containingFile) =>
+    resolveTypeReferenceDirectives: (typeDirectiveNames, containingFile, _redirected, _options, containingFileMode) =>
       typeDirectiveNames.map((directive) => {
         const specifier = typeDirectiveName(directive);
         const normalizedContaining = posix.normalize(containingFile);
         const owner = sourceOwner.get(normalizedContaining);
+        if (owner !== undefined && packageBases.get(owner)!.owns(specifier, containingFile)) {
+          const resolved = resolveOwned(owner, specifier, containingFile,
+            typeof directive === "string" ? containingFileMode : directive.resolutionMode ?? containingFileMode);
+          return resolved === undefined ? undefined : { ...resolved, primary: true };
+        }
         if (owner === undefined || specifier === "node") {
           return ts.resolveTypeReferenceDirective(
             specifier,
@@ -1929,12 +2219,18 @@ export function linkNativeContractSet(
               isExternalLibraryImport: true,
             };
         }
-        return ts.resolveTypeReferenceDirective(
-          specifier,
-          containingFile,
-          basis.options,
-          standardHost,
+        if (!isContainedRelativeDeclarationReference(specifier, containingFile, productRoots.get(owner)!)) {
+          invalidOwnedResolution = true;
+          return undefined;
+        }
+        const resolved = ts.resolveTypeReferenceDirective(
+          specifier, containingFile, basis.options, standardHost,
         ).resolvedTypeReferenceDirective;
+        if (resolved?.resolvedFileName === undefined || sourceOwner.get(posix.normalize(resolved.resolvedFileName)) !== owner) {
+          invalidOwnedResolution = true;
+          return undefined;
+        }
+        return resolved;
       }),
   };
   const selectorPhysicalRelationRefs = new Set(
@@ -2020,6 +2316,9 @@ export function linkNativeContractSet(
       )}`,
     );
   }
+  if (invalidOwnedResolution) return linkedRefusal(
+    "incompatible_dependency", "package-owned declaration target is outside the verified finite closure",
+  );
   const checker = program.getTypeChecker();
   const exportSymbolsFor = (
     product: NativeLinkProduct,

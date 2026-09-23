@@ -33,6 +33,7 @@ import { fanInApplication, fanOutApplication } from "./graph_applications.js";
 import {
   WORKSITE_C0_IDS,
   constructWorksiteC0PublicationParts,
+  constructWorksiteFileParentsPublicationParts,
 } from "./worksite_c0.js";
 import { WORKSITE_BRANCH_CONSTRUCTION_IDS } from "../product/worksite_branch_construction.js";
 import { constructWorksiteBranchConstructionPublicationParts } from "./worksite_branch_construction.js";
@@ -464,6 +465,7 @@ export function constructWorksiteConstructionModulePublication(
     ],
   );
   const c3 = constructWorksiteBranchConstructionPublicationParts(artifact);
+  const parents = constructWorksiteFileParentsPublicationParts(artifact, WORKSITE_CONSTRUCTION_IDS.moduleRef);
   const contracts: readonly ContractDeclaration[] = [
     constructionContract(
       WORKSITE_CONSTRUCTION_IDS.taskContractRef,
@@ -590,7 +592,7 @@ export function constructWorksiteConstructionModulePublication(
       modulePath: "build/code/src/product/builtin_semantics.js",
       namedSymbol: "ABI5_PRODUCT_SEMANTICS",
     }),
-    contracts: [...contracts, ...c3.contracts,
+    contracts: [...contracts, ...c3.contracts, ...parents.contracts,
       constructionContract(recoveryIds.artifactContractRef, "output", "worksite_preserved_result_artifact")],
     evaluators: [],
     rules: [],
@@ -598,6 +600,7 @@ export function constructWorksiteConstructionModulePublication(
       candidateBinding,
       joinBinding,
       ...c0.implementationBindings,
+      ...parents.implementationBindings,
       reducerBinding,
       ...c3.implementationBindings,
       constructionBinding(artifact, { bindingRef: recoveryIds.authenticateBindingRef, implementationRef: recoveryIds.authenticateImplementationRef,
@@ -607,12 +610,13 @@ export function constructWorksiteConstructionModulePublication(
         namedSymbol: "deriveWorksitePreservedCandidate", computeRegime: "F_D", inputContractRef: recoveryIds.artifactContractRef,
         outputContractRef: WORKSITE_CONSTRUCTION_IDS.candidateBundleContractRef }),
     ],
-    closureContracts: [...closureContracts, ...c3.closureContracts],
-    programs: [constructionProgram, ...c0.programs, ...c3.programs],
+    closureContracts: [...closureContracts, ...c3.closureContracts, ...parents.closureContracts],
+    programs: [constructionProgram, ...c0.programs, ...c3.programs, ...parents.programs],
     graphFunctions: [
       rootGraphFunction,
       vectorApplicationGraphFunction,
       ...c0.graphFunctions,
+      ...parents.graphFunctions,
       reducerGraphFunction,
       ...c3.graphFunctions,
     ],
@@ -634,6 +638,7 @@ export function constructWorksiteConstructionModulePublication(
         ],
       ),
       ...c0.contributions,
+      ...parents.contributions,
       constructionContribution(
         artifact,
         WORKSITE_CONSTRUCTION_IDS.reducerGraphFunctionRef,

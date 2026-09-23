@@ -1,0 +1,17 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/attempt-02/call-19.jsonl
+/attempt-02/call-20.jsonl
+/attempt-02/latest-prefix.json
+/attempt-02/launch-19.json
+/attempt-02/launch-20.json
+/attempt-02/program-ready-20.json
+/attempt-02/receipt-19.json
+/attempt-02/receipt-20.json
+/attempt-02/retained-start.json
+/attempt-02/stderr-19.log
+/attempt-02/stderr-20.log
+/attempt-02/stdout-19.json
+/attempt-02/stdout-20.json
+/first-cause.json

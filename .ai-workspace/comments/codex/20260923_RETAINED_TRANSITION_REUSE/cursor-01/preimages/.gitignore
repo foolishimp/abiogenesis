@@ -1,0 +1,25 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/build/code/src/abg/c_call.d.ts
+/build/code/src/abg/c_call.js
+/build/code/src/abg/project_read_definition_bindings.d.ts
+/build/code/src/abg/project_read_definition_bindings.js
+/build/code/src/abg/project_read_ports.d.ts
+/build/code/src/abg/project_read_ports.js
+/build/code/src/abg/runtime_failure.d.ts
+/build/code/src/abg/runtime_failure.js
+/build/code/src/abg/traversal_cursor.d.ts
+/build/code/src/abg/traversal_cursor.js
+/build/code/src/abg/traversal_route.d.ts
+/build/code/src/abg/traversal_route.js
+/build/code/src/abg/worksite_input_provenance.d.ts
+/build/code/src/abg/worksite_input_provenance.js
+/build/code/src/owner_bindings/run_invocation.d.ts
+/build/code/src/owner_bindings/run_invocation.js
+/code/src/abg/c_call.ts
+/code/src/abg/traversal_cursor.ts
+/code/src/abg/worksite_input_provenance.ts
+/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md
+/product-toolchain-manifest.json
+/test_env/tests/generic-input-retention.test.mjs

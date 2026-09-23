@@ -1,0 +1,25 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/binary-check.json
+/environment-basis.pending.json
+/environment-resources.proposed.json
+/finish-candidate-preparation.mjs
+/frame-projection.json
+/full-sandbox-declarations.mjs.preimage
+/handoff-inventory.json
+/inspect-preparation.mjs
+/inspection-evidence.json
+/management-environment-test.json
+/management-environment-test.log
+/management-environment.test.mjs.preimage
+/proposed-helper-data-change.patch
+/rc1-source-selection-check.json
+/return.md
+/transport.unchanged.json
+/writer-activation.md
+/writer-handoff-inventory.json
+/writer-preimages.json
+/writer-return.md
+/writer-source-change.json

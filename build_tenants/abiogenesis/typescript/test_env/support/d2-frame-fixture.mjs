@@ -39,7 +39,27 @@ export function nativePublications(gtl, abiArtifact) {
   return [gtl.constructHelloWorldModulePublication, gtl.constructConsensusModulePublication,
     gtl.constructWorksiteConstructionModulePublication, gtl.constructWorksiteCommandExecutionModulePublication,
     gtl.constructRequirementHandoffModulePublication, gtl.constructSemanticStageModulePublication,
-    gtl.constructSemanticRevisionModulePublication].map(fn => fn(basis));
+    gtl.constructSemanticRevisionModulePublication, gtl.constructWorksiteCommandForwardModulePublication,
+    gtl.constructSelfConformanceModulePublication].map(fn => fn(basis));
+}
+
+export function assertD2FrameCatalogInventory(verifiedProducts, publications, rowDispositions) {
+  const uniqueKeys = (rows, label) => {
+    const keys = rows.map(({ owningProductId, moduleRef, handle }) =>
+      JSON.stringify([owningProductId, moduleRef, handle])).sort();
+    assert.equal(new Set(keys).size, keys.length, `${label}: duplicate owning key`);
+    return keys;
+  };
+  const publicationKeys = publications.map(({ owningProductId, moduleRef }) => JSON.stringify([owningProductId, moduleRef]));
+  assert.equal(new Set(publicationKeys).size, publicationKeys.length, 'D2 catalog: duplicate owning publication');
+  const manifestKeys = uniqueKeys(verifiedProducts.flatMap(verified => verified.contributionManifest.rows), 'D2 verified manifest');
+  const contributionKeys = uniqueKeys(publications.flatMap(publication => publication.contributions.map(contribution => {
+    assert.equal(contribution.owningProductId, publication.owningProductId, 'D2 contribution: publication owner mismatch');
+    return { owningProductId: contribution.owningProductId, moduleRef: publication.moduleRef, handle: contribution.handle };
+  })), 'D2 declared contributions');
+  assert.deepEqual(contributionKeys, manifestKeys, 'D2 catalog: complete verified manifest/contribution inventory');
+  assert.deepEqual(uniqueKeys(rowDispositions, 'D2 prepared dispositions'), manifestKeys,
+    'D2 catalog: complete verified manifest/disposition inventory');
 }
 
 export function constructD2FrameDeclarations({ product, gtl, abiArtifact, abiPublications }) {
@@ -97,7 +117,10 @@ export function constructD2FrameDeclarations({ product, gtl, abiArtifact, abiPub
       bodyCapabilities: name === 'design' ? ['worksite_design'] : [],
       assembly: { ruleRef: ref('assembly', name), graphFunctionRef: ref('graph-function', name),
         sectionOrder: ['role', 'source', 'obligations', 'predecessors', 'worksite', 'evidence', 'task', 'response'],
-        contentPolicy: 'full_source_and_predecessors', proportionalityPolicy: 'declared_semantic_assessment', maxPromptBytes: 1048576 } })) });
+        contentPolicy: 'role_scoped_worksite', worksiteContentByRole: name === 'design'
+          ? { author: 'current_inventory', assessor: 'current_inventory' }
+          : { author: 'not_required', assessor: 'not_required' },
+        proportionalityPolicy: 'declared_semantic_assessment', maxPromptBytes: 1048576 } })) });
   const closures = [];
   const semanticClose = (name, predicateRef, resultContractRef, closureScope = 'graph_call') => {
     const closureContractRef = ref('contract', `${name}-closure`);

@@ -122,12 +122,25 @@ export async function bindingHarness(){
   }
   function revision(parent,cause,current,name,{invocation=`invocation://mechanical/${name}`,mode='construction_repair'}={}){
     const prior=parent.value.kind==='semantic_revision_envelope'?parent.value.current:parent.value;
-    const selectionInput={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:parent.coordinate,causes:[cause.coordinate]};
+    // Separate selector-policy/grant table assumption, not imported authority.
+    // The shared Product mapper, not grant equality, joins the same observed files.
+    const {kind,schemaVersion,grantRef,grantDigest,...oldGrant}=current.capabilityGrant;
+    const grantBody={...oldGrant,policyRef:`policy://mechanical/${name}-selection`,policyDigest:hash(['selection-policy',name])};
+    const selectorDigest=hash(grantBody),selectorGrant={kind,schemaVersion,...grantBody,grantDigest:selectorDigest,
+      grantRef:`capability-grant://abiogenesis/${selectorDigest.slice(7)}`};
+    const selectorWorksite=product.projectSemanticWorksiteCoordinates(current,{...current,capabilityGrant:selectorGrant});
+    assert.ok(selectorWorksite,'real coordinate mapping over explicit selector-grant assumption');
+    const selectionInput={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:parent.coordinate,causes:[cause.coordinate],currentWorksite:selectorWorksite};
+    assert.ok(product.isSemanticRevisionSelectionInput(selectionInput));
     const selected=['implementation','verifier'].map(role=>prior.worksite.targets.find(row=>row.role===role));assert.ok(selected.every(Boolean));
-    const selection={...selectionInput,kind:'semantic_revision_selection',mode,selectedStageRef:mode==='construction_repair'?null:stage.assets.at(-1).stageRef,
+    const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:parent.coordinate,causes:[cause.coordinate],mode,selectedStageRef:mode==='construction_repair'?null:stage.assets.at(-1).stageRef,
       selectedObligationRefs:[stage.sourceHandoff.declaration.fulfillmentBindings[0].obligationRef],selectedTargetRefs:selected.map(row=>row.target.targetRef),reasonRef:`reason://${name}`};
-    const decision=addCall(`${name}-selection`,selection,{input:selectionInput,worksite:current,invocation:`${invocation}/selection`,implementation:R.selectionImplementationRef});
+    assert.ok(product.isSemanticRevisionSelection(selection));
+    assert.equal(Object.hasOwn(selection,'currentWorksite'),false,'selection output remains a distinct strict carrier');
+    const decision=addCall(`${name}-selection`,selection,{input:selectionInput,worksite:selectorWorksite,invocation:`${invocation}/selection`,implementation:R.selectionImplementationRef});
     const request={kind:'semantic_revision_request',schemaVersion:'5.0.0',parent:parent.coordinate,causes:[cause.coordinate],selection:decision.coordinate,currentWorksite:current};
+    assert.notDeepEqual(selectorWorksite.capabilityGrant,current.capabilityGrant);
+    assert.equal(product.semanticRevisionSelectionInputMatchesRequest(selectionInput,request),true,'same current subject across distinct granted Programs');
     const value=product.deriveSemanticRevision(parent.value,request,selection);assert.ok(value,'actual Product revision, not runtime admission');
     const call=addCall(name,value,{input:request,worksite:current,invocation,implementation:R.projectionImplementationRef,binding:R.projectionBindingRef,regime:'F_D',
       predicate:R.projectionPredicateRef,deterministic:true,sourceResultRef:parent.coordinate.resultRef});
@@ -173,6 +186,8 @@ export async function bindingHarness(){
         './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:(_p,ref)=>invocations.get(ref)??null},
         './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>({kind:'exact_prefix_workspace_environment',
           workspaceBinding:semanticBasis.input.current.worksite.workspaceBinding,workspaceAuthorityBasis:semanticBasis.input.current.worksite.workspaceAuthorityBasis})},
+        // Existing mechanical dispatch-currentness assumption only; the
+        // installed fixture below this test boundary observes real files.
         './worksite_revision.js':{...module.namespace,worksiteRevisionPhysicalMatches:()=>true},
       };
       const linked=new Map();await semanticModule.link(async specifier=>{

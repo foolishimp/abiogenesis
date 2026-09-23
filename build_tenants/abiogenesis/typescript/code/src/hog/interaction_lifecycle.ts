@@ -164,6 +164,20 @@ export function holdInteraction(
     expectedInputDigest: input.stop.cursor.inputDigest,
     pendingPlan: plan,
     routeCandidate: candidate,
+    selectRouteCandidate: (replayState) => {
+      const stagedProposal = Routes.proposeHoldRoute(
+        input.graph, input.stop, opened.cCall, plan.pending.judgment,
+        replayState, input.stop.continuationContractRef,
+      );
+      if (stagedProposal.kind !== "traversal_route_candidate") {
+        throw new TypeError(`F_H staged HoG selection refused: ${stagedProposal.code}`);
+      }
+      return Abg.completeTraversalTransitionCandidate({
+        kind: "traversal_transition_candidate", schemaVersion: "5.0.0",
+        transitionClass: "route", route: stagedProposal,
+        evidence: candidate.evidence, terminalizeRun: false,
+      });
+    },
     productBasis,
     inputValue: input.value,
     pendingBasis,

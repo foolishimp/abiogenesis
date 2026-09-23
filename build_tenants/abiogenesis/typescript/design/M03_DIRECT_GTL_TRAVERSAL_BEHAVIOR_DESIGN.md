@@ -12,12 +12,12 @@ leaf-verifier amendment at exact candidate `8865ccff`
 | Boundary | direct GTL validation, traversal, runtime admission, replay, and public projection |
 | Product basis | accepted ABIogenesis 5.0 Product |
 | Historical requirement basis | accepted T-284 aggregate c0dcdc264db854f5a4d4f429a35a96e8bd8b4f9481a05cdf532cdfee60722473; preserved as the accepted M3 construction basis |
-| Current qualification-law basis | Product-selected STDO `v2.2.0`; this identity-only propagation does not alter the direct-GTL architecture |
+| Current qualification-law basis | Exact immutable STDO in `repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`; RC6 method-route propagation preserves direct-GTL architecture and historical acceptance identities |
 | Correction basis | 048a9fbca17736a544b4f3af9aabdbdf00a13ce41dd003d8cb29a015556466f4 |
 | Historical accepted design | SHA-256 `9faeb41ddac839edc9cd2ccb83ae11b05bb54d32168fc35e74a1a9cfb97e92f0`; preserved in repository history |
 | Accepted T-270 semantic subject | SHA-256 `39b396c7d58b0e9e2a4c288baedb78462657210d1dac892bcf2a7045c63c1a85` at candidate `8865ccff` |
 | Current design status | direct-GTL architecture conserved; one narrow HoG dependency on the Product-owned opaque leaf-semantics verifier accepted |
-| Implementation authority | current GOALS selection and T-270; this design does not select work |
+| Implementation authority | current GOALS selection and T-287; T-270 is predecessor evidence and this design does not select work |
 
 This document preserves the accepted M3 realization surface. It derives HOW
 from accepted Product and requirements. The selected qualification identity
@@ -195,7 +195,15 @@ weakened, or delegated to imperative glue.
     may replace or bypass the spine. The all-F_D root admits at least one
     deterministic evidence artifact.
 11. A TraversalCursor belongs to one Frame and one admitted Program. It cannot
-    be serialized, published, or resumed as an independent program.
+    be serialized, published, or resumed as an independent program. Its admitted
+    origin is the exact entry, route target, or interaction-resume successor
+    selected by the cursor owner at the same prefix and Run/GraphCall/Frame/basis.
+    Cold retained-input projection uses that same relation. A route need not
+    duplicate a cursor or input body: the workflow CCall owner supplies the
+    admitted input digest through its sub-traversal evidence, linked to the
+    source cursor, child foldback, and completed Result. Replay preserves those
+    identity, causal-order, input, child-closure, and scope joins; an absent
+    `traversal_cursor_entered` row is not absence of a route-admitted cursor.
 12. A TransitionProposal has no runtime authority. Exactly one ABG admission
     disposition accepts or rejects it against current replay truth.
 13. A TraversalStopRef belongs to one Frame and current cursor. It reports only
@@ -1244,7 +1252,7 @@ LeafRealizationCandidate and still crosses evidence, result, and judgment
 admission. It cannot become a direct runtime Failed state.
 
 No future GTL, ABG, GLC, registry, or external service capability is required
-for the root. Live F_P workers, Consensus, and STDO `v2.2.0` qualification are
+for the root. Live F_P workers, Consensus, and selected-method qualification are
 later Product slices and do not block native construction of this boundary.
 
 ## 12. ABI5-ROOT-001 Design Mapping

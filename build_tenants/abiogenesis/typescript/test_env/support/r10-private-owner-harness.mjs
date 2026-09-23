@@ -10,7 +10,7 @@ import {SourceTextModule,SyntheticModule} from 'node:vm';
 export async function privateOwner(relative, names, overrides = {}) {
   const file=path.resolve(import.meta.dirname,'../../build/code/src',relative);
   const compiled=fs.readFileSync(file,'utf8');
-  const module=new SourceTextModule(compiled+'\nexport { '+names.join(', ')+' };\n',{identifier:file});
+  const module=new SourceTextModule(compiled+'\nexport { '+names.join(', ')+' };\n',{identifier:file,initializeImportMeta(meta){meta.url=pathToFileURL(file).href;}});
   const links=new Map();
   await module.link(async specifier=>{
     if(links.has(specifier))return links.get(specifier);

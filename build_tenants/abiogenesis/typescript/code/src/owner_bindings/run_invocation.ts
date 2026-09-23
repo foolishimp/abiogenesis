@@ -1,10 +1,12 @@
 import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA } from "../gtl/requirement_handoff.js";
 import { SEMANTIC_LIFECYCLE_SCHEMA } from "../gtl/semantic_stage.js";
+import { SEMANTIC_JOB_LIFECYCLE_SCHEMA } from "../gtl/semantic_job.js";
 import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
 import * as Option from "effect/Option";
 import * as v from "valibot";
 
+import { sampleNativeEventTime } from "../abg/native_event_time.js";
 import {
   CAPABILITY_DEFINITION_GRAPH_ID,
   CAPABILITY_DEFINITION_GRAPH_VERSION,
@@ -37,6 +39,7 @@ import {
 } from "../abg/execution_basis.js";
 import {
   admitRuntimeFailure,
+  constructRuntimeFailureDiagnosticRef,
 } from "../abg/runtime_failure.js";
 import {
   type DurablePrefixCoordinate,
@@ -118,6 +121,8 @@ import {
   type OwnerSemanticOutput,
 } from "../shared/public_function_contracts.js";
 import { validateGraph } from "../validator/graph.js";
+import { RUN_ENVIRONMENT_SCHEMA } from "../gtl/stdo_run_environment.js";
+import { RUN_ENVIRONMENT_RESOURCES_SCHEMA } from "../product/stdo_environment.js";
 
 type InvokePacket = typeof RUN_OPERATION_CONTRACTS.invoke.invoke;
 type StartPacket = typeof RUN_OPERATION_CONTRACTS.invoke.start;
@@ -159,11 +164,31 @@ interface AdmittedSetupTruth {
   readonly workspaceBinding: WorkspaceBinding;
 }
 
+function exceptionDiagnostic(error: unknown, seen = new Set<unknown>()): string {
+  if (!(error instanceof Error)) return String(error);
+  if (seen.has(error)) return "[circular Error cause]";
+  seen.add(error);
+  const own = error.stack ?? `${error.name}: ${error.message}`;
+  const cause = error.cause === undefined ? "" : `\nCaused by: ${exceptionDiagnostic(error.cause, seen)}`;
+  const members = error instanceof AggregateError
+    ? error.errors.map(member => `\nAggregate cause: ${exceptionDiagnostic(member, seen)}`).join("")
+    : "";
+  return own + cause + members;
+}
+
+function causeDiagnostic(cause: Cause.Cause<unknown>): string {
+  const defects = Array.from(Cause.defects(cause));
+  return defects.length === 0 ? Cause.pretty(cause)
+    : defects.length === 1 ? exceptionDiagnostic(defects[0])
+    : `${Cause.pretty(cause)}\n${defects.map(error => exceptionDiagnostic(error)).join("\n")}`;
+}
+
 function fault<TPacket extends RunPacket>(
   call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
   stage: string,
   code: string,
   message: string,
+  evidence: Readonly<Record<string, JsonValue>> = {},
 ): DefinitionExecutionFault<TPacket["definitionKey"]> {
   return deepFreeze({
     kind: "definition_execution_fault" as const,
@@ -172,7 +197,7 @@ function fault<TPacket extends RunPacket>(
     stage,
     code,
     message,
-    evidence: {},
+    evidence,
   });
 }
 
@@ -188,6 +213,7 @@ function syncStage<TPacket extends RunPacket, A>(
       stage,
       `${stage}_failure`,
       cause instanceof Error ? cause.message : String(cause),
+      { cause: exceptionDiagnostic(cause) },
     ),
   });
 }
@@ -204,6 +230,7 @@ function asyncStage<TPacket extends RunPacket, A>(
       stage,
       `${stage}_failure`,
       cause instanceof Error ? cause.message : String(cause),
+      { cause: exceptionDiagnostic(cause) },
     ),
   });
 }
@@ -577,7 +604,9 @@ const CATALOG_CONTRIBUTION_SCHEMA = v.strictObject({
 
 const MODULE_PUBLICATION_SCHEMA = v.strictObject({
     requirementHandoffs: v.optional(v.array(REQUIREMENT_HANDOFF_DECLARATION_SCHEMA)),
+    runEnvironments: v.optional(v.array(RUN_ENVIRONMENT_SCHEMA)),
     semanticLifecycle: v.optional(SEMANTIC_LIFECYCLE_SCHEMA),
+    semanticJobLifecycle: v.optional(SEMANTIC_JOB_LIFECYCLE_SCHEMA),
     kind: v.literal("module_publication"),
     moduleRef: nonblankSchema,
     moduleVersion: v.literal("5.0.0"),
@@ -1091,6 +1120,7 @@ const RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
   catalogView: GRAPH_FUNCTION_CATALOG_VIEW_SCHEMA,
   applications: v.array(DECLARATION_APPLICATION_SCHEMA),
   applicationResources: v.optional(v.array(jsonValueSchema)),
+  runEnvironmentResources: v.optional(RUN_ENVIRONMENT_RESOURCES_SCHEMA),
   source: RUN_INVOCATION_SOURCE_ASSERTION_SCHEMA,
 }) as unknown as v.GenericSchema<
   RunInvocationResourceAssertion,
@@ -1165,7 +1195,7 @@ function operationBasis<TPacket extends RunPacket>(
     authorityScopeRef: binding.bindingId,
     authorityScopeDigest: binding.bindingDigest,
     correlationId: call.invocation.correlationRef,
-    eventTime: call.invocation.eventTime,
+    eventTime: sampleNativeEventTime(),
     causationEventRefs: [],
   });
 }
@@ -1289,6 +1319,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
       catalogView: call.resources.catalogView,
       applications: call.resources.applications,
       source,
+      ...(call.resources.runEnvironmentResources === undefined ? {} : { runEnvironmentResources: call.resources.runEnvironmentResources }),
     });
     const preparedResult = yield* asyncStage(
       call,
@@ -1360,6 +1391,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
           policy: prepared.policy,
           capabilityGrants: prepared.grants,
           authority: prepared.authority,
+          ...(prepared.runEnvironment === null ? {} : { runEnvironment: prepared.runEnvironment }),
           ...(prepared.sourceResultBasis === null
             ? {}
             : { sourceResultBasis: prepared.sourceResultBasis }),
@@ -1423,7 +1455,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
           graphValidation.subjectDigest,
           diagnosticRefs,
           {
-            eventTime: call.invocation.eventTime,
+            eventTime: sampleNativeEventTime(),
             correlationId: `${call.invocation.correlationRef}/graph-validation`,
             causationEventRefs: [],
           },
@@ -1465,7 +1497,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
           closureContract: prepared.resolution.closureContract,
         },
         {
-          eventTime: call.invocation.eventTime,
+          eventTime: sampleNativeEventTime(),
           correlationId: `${call.invocation.correlationRef}/execution-basis`,
           causationEventRefs: [],
         },
@@ -1491,7 +1523,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
         execution.successorPrefix,
         { kind: "root", executionBasis: execution.executionBasis },
         {
-          eventTime: call.invocation.eventTime,
+          eventTime: sampleNativeEventTime(),
           correlationId: `${call.invocation.correlationRef}/open`,
           causationEventRefs: [],
         },
@@ -1507,7 +1539,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
           sha256Canonical(opened as unknown as JsonValue),
           [`diagnostic://abiogenesis/open-call/${opened.code}@5`],
           {
-            eventTime: call.invocation.eventTime,
+            eventTime: sampleNativeEventTime(),
             correlationId: `${call.invocation.correlationRef}/open-refusal`,
             causationEventRefs: [],
           },
@@ -1538,7 +1570,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
         ).authorityPrefix
       );
       const leafPort = yield* asyncStage(call, "leaf_port", () =>
-        constructAdmittedLeafInvocationPort({
+        constructAdmittedLeafInvocationPort(Object.freeze({
           prefix: authorityPrefix,
           artifactTruth: setup.artifactTruth,
           implementationSet: execution.implementationSet,
@@ -1546,7 +1578,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
           semanticsProjection: projectInstalledLeafSemantics(
             prepared.resolution.productSemantics,
           ),
-        })
+        }))
       );
       const traversal = yield* executeGraphTraversalEffect({
         store: resource.store,
@@ -1577,7 +1609,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
         },
         input: prepared.admittedInput,
         inputDigest: prepared.rawInput.subjectDigest,
-        eventTime: call.invocation.eventTime,
+        eventTime: sampleNativeEventTime(),
         correlationId: `${call.invocation.correlationRef}/hog`,
       });
       if (traversal.kind === "graph_traversal_entry_refusal") {
@@ -1638,6 +1670,23 @@ function runInvocationOwner<TPacket extends RunPacket>(
           : executionFault !== null || interrupted
           ? "operation_application" as const
           : "hog_traversal" as const;
+        const diagnosticClassRef = stage === "implementation_load"
+          ? "diagnostic://abiogenesis/implementation/admitted-leaf-port-construction-failure@5"
+          : stage === "hog_traversal"
+          ? "diagnostic://abiogenesis/hog/traversal-defect@5"
+          : stage === "output_contract"
+          ? "diagnostic://abiogenesis/run/output-contract@5"
+          : interrupted
+          ? "diagnostic://abiogenesis/run/post-open-interruption@5"
+          : "diagnostic://abiogenesis/run/post-open-operation@5";
+        const diagnosticSubject = {
+          definitionKey: call.invocation.definitionKey,
+          diagnosticClassRef,
+          stage: executionFault?.stage ?? (interrupted ? "interruption" : "hog_traversal"),
+          code: executionFault?.code ?? (interrupted ? "interrupted" : "defect"),
+          message: executionFault?.message ?? Cause.pretty(cause),
+          cause: executionFault?.evidence.cause ?? causeDiagnostic(cause),
+        };
         const recoverAndFinish = () =>
           syncStage(call, "post_open_runtime_failure", () => {
             const predecessorPrefix = selectHeldEventStoreDurablePrefix(
@@ -1658,25 +1707,10 @@ function runInvocationOwner<TPacket extends RunPacket>(
                 executionBasis: execution.executionBasis,
                 scope: opened.scope,
                 stage,
-                subject: {
-                  definitionKey: call.invocation.definitionKey,
-                  stage: executionFault?.stage ??
-                    (interrupted ? "interruption" : "hog_traversal"),
-                  code: executionFault?.code ??
-                    (interrupted ? "interrupted" : "defect"),
-                  message: executionFault?.message ?? Cause.pretty(cause),
-                },
-                diagnosticRef: stage === "implementation_load"
-                  ? "diagnostic://abiogenesis/implementation/admitted-leaf-port-construction-failure@5"
-                  : stage === "hog_traversal"
-                  ? "diagnostic://abiogenesis/hog/traversal-defect@5"
-                  : stage === "output_contract"
-                  ? "diagnostic://abiogenesis/run/output-contract@5"
-                  : interrupted
-                  ? "diagnostic://abiogenesis/run/post-open-interruption@5"
-                  : "diagnostic://abiogenesis/run/post-open-operation@5",
+                subject: diagnosticSubject,
+                diagnosticRef: constructRuntimeFailureDiagnosticRef(diagnosticSubject),
                 basis: {
-                  eventTime: call.invocation.eventTime,
+                  eventTime: sampleNativeEventTime(),
                   correlationId:
                     `${call.invocation.correlationRef}/post-open-runtime-failure`,
                   causationEventRefs: [],
@@ -1706,7 +1740,11 @@ function runInvocationOwner<TPacket extends RunPacket>(
             recovered.truth,
           )));
         return recoverAndFinish().pipe(
-          Effect.catchAllCause(() => recoverAndFinish()),
+          Effect.catchAllCause((recoveryCause) => recoverAndFinish().pipe(
+            Effect.catchAllCause((retryCause) => Effect.failCause(
+              Cause.sequential(cause, Cause.sequential(recoveryCause, retryCause)),
+            )),
+          )),
         );
       })()
     ));

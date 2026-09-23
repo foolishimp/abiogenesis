@@ -1,3 +1,5 @@
+import { prepareWorkflowChildExecutionBasis } from "../abg/execution_basis.js";
+import type { TraversalCursorCandidate } from "../abg/traversal_cursor.js";
 import {
   admitChildExecutionBasis,
   openTraversalScope,
@@ -133,6 +135,29 @@ export function prepareChildTraversal(
   basis: ChildTraversalBasis,
   request: ChildTraversalPreparationRequest,
 ): ChildTraversalPreparationResult {
+  return prepareChildTraversalWithAdmission(store, basis, request, admitChildExecutionBasis);
+}
+
+export function prepareWorkflowChildTraversalAtCursor(
+  store: AbgEventStore, basis: ChildTraversalBasis,
+  predecessorPrefix: DurablePrefixCoordinate, cursor: TraversalCursorCandidate,
+) {
+  const preparation = prepareWorkflowChildExecutionBasis(store, predecessorPrefix, cursor, basis);
+  return Object.freeze({ intent: preparation.intent, prepare(request: ChildTraversalPreparationRequest) {
+    return request.predecessorPrefix === predecessorPrefix
+      ? prepareChildTraversalWithAdmission(store, basis, request,
+          (_store, _prefix, input, admissionBasis) => preparation.admit(input, admissionBasis))
+      : prepareChildTraversal(store, basis, request);
+  } });
+}
+
+function prepareChildTraversalWithAdmission(
+
+  store: AbgEventStore,
+  basis: ChildTraversalBasis,
+  request: ChildTraversalPreparationRequest,
+  admitBasis: typeof admitChildExecutionBasis,
+): ChildTraversalPreparationResult {
   if (
     basis.kind !== "child_traversal_basis" ||
     basis.schemaVersion !== "5.0.0" ||
@@ -199,7 +224,7 @@ export function prepareChildTraversal(
       request.predecessorPrefix,
     );
   }
-  const childBasis = admitChildExecutionBasis(
+  const childBasis = admitBasis(
     store,
     request.predecessorPrefix,
     {

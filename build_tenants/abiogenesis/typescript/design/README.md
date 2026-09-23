@@ -1,5 +1,31 @@
 # ABIogenesis TypeScript Design
 
+## Release Applicability
+
+[Product Release Boundaries](../../../../specification/PRODUCT.md#50-and-51-release-boundaries)
+governs every design's current release use. Native human response/resume,
+whole-run semantic executive oversight and autonomous upstream A.0 routing
+are 5.1 scope. Historical designs for those relations are preserved input,
+not 5.0 implementation or qualification gates. A future selection revalidates
+their HOW against Product and requirements before use.
+
+Ordinary recursive GraphFunctions, declared local Consequence routes,
+parent/child foldback and re-evaluation, automatic continuation, truthful
+blocked handoff and native liveness remain 5.0. This allocation does not defer
+an entire mixed design because it contains `F_H`, `supervised` or `recursive`.
+It grants no code change and does not relabel earlier accepted evidence.
+
+Dedicated Consensus/F08/S05 and mandatory host-parity qualification are also
+5.1 scope. Their working implementations remain reusable under their declared
+contracts; presence supplies no dedicated qualification claim. F17/S06 uses the
+complete prospectively selected witness contract, with original source and
+excluded downstream obligations preserved. Data Mapper-specific HOW and gate
+rosters require applicability reconciliation before their next execution;
+broader application completion remains owned by odd_glc. The
+[current delivery plan](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan)
+orders those bounded tasks and installed integration/UAT. No second runner or
+qualification authority is selected.
+
 ## Current Method And Work Selection
 
 The sole exact method selection is
@@ -8,7 +34,8 @@ composition owns the release-matched Axiom Indexer and STDO Representation
 Development Products. The RC6 migration and all current work are bounded by
 [GOALS](../../../../specification/GOALS.md#current-selection) and
 [T-287](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#stdo-rc6-migration).
-Wave 2 remains `HOLD`. Bounded C0 correction-01 is completed and Executive-accepted
+The current delivery plan owns work selection; predecessor Wave 2 holds are
+historical. Bounded C0 correction-01 is completed and Executive-accepted
 after independent review returned `satisfied`.
 [Current Selection](../../../../specification/GOALS.md#current-selection),
 [T-287 W2-BL-C0](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#w2-bl-c0),
@@ -439,8 +466,11 @@ and I/E selection authorizes neither the adapter nor E00.
 - [ADR-045 Global Design Constraints Survive Local Projection](./adrs/ADR-045-global-design-constraints-survive-local-projection.md)
   remains global-to-local rationale.
 
-`A5-F12`, `ABG5-S04`, the S04 observer/tuner design, and ADR-047 remain planned
-5.1 input, not ABIogenesis 5.0 implementation authority.
+`A5-F12`, `ABG5-S04`, the S04 observer/tuner design, ADR-047 and the historical
+recursive executive observer derivation remain planned 5.1 input, not
+ABIogenesis 5.0 implementation authority. T-268 records the required
+reconciliation with wider-scope Consequence; old prohibitions on that role
+do not override the current Product boundary.
 
 ## Supersession
 

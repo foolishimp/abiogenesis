@@ -1,0 +1,38 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/artifacts/abiogenesis-typescript-tenant-5.0.0-dev.286.tgz
+/freeze.json
+/frozen-product-manifest.json
+/install-process.json
+/install.stderr
+/install.stdout
+/installed-coordinate.json
+/installed-host/node_modules/
+/installed-host/package-lock.json
+/installed-host/package.json
+/installed-host/verify.mjs
+/member-comparison.json
+/npm-cache/_cacache/content-v2/sha512/cb/06/72bd2aa4e74eac6c15d712a84fd342d5690f8fef9c70be075ca13c4a34b35a6f103d0b6c0befbad1e3184ea89443b6be660e6e7f36886e6c6c6c124bbb68
+/npm-cache/_cacache/index-v5/01/e5/55be33ffbf955973f49d26c4a17bd193d36c835a322cb970b1b1ac8f9bc4
+/npm-cache/_cacache/index-v5/1e/1f/cc4bfdf5f8e86fcedd2dad22982457cba888d8176e2dcc5d02ae57401972
+/npm-cache/_cacache/index-v5/b7/08/b9c48924be1489fecb24fad77d76f11c4e84bc99243540144ffd93a5e227
+/npm-cache/_logs/2026-09-21T18_59_03_013Z-debug-0.log
+/npm-cache/_logs/2026-09-21T18_59_06_294Z-debug-0.log
+/npm-cache/_update-notifier-last-checked
+/npmrc
+/pack-process.json
+/pack.json
+/pack.stderr
+/pack.stdout
+/package-and-compare.py
+/package-identity.json
+/postpack-source-check.json
+/prepack-source-check.json
+/product-verification.json
+/return.md
+/verification-process.json
+/verification-request.json
+/verification.stderr
+/verification.stdout

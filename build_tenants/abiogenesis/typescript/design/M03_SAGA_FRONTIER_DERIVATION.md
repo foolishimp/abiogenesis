@@ -18,7 +18,7 @@ runtime-realization transparency.
 - `specification/requirements/abg/REQ-R-ABG3-WORKER.md`
 - `specification/requirements/abg/REQ-R-ABG3-POLICY.md`
 - `specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md`
-- `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md`
+- `stdo://releases/v2.5.0-rc.6/standards/DESIGN_MODULE_METHOD.md`
 - `build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md`
 - `build_tenants/abiogenesis/typescript/design/M03_OBSERVED_STATE_ADMISSION_DERIVATION.md`
 - `build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_PRESSURE_PACKAGE_DERIVATION.md`

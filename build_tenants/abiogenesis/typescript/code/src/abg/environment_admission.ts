@@ -2,7 +2,6 @@ import {
   constructProductSet,
   constructWorkspaceBinding,
   isProductInstallCandidate,
-  isResolvedProductLock,
   isWorkspaceAuthorityBasis,
   isWorkspaceBindingCandidate,
   type ProductInstall,
@@ -27,9 +26,10 @@ import {
 } from "../shared/operation_definition_coordinate.js";
 import {
   projectExactPrefixArtifactTruth,
+  runtimePrefixFromArtifactTruth,
   projectArtifactTruth,
   projectValidatedPrefixArtifactTruth,
-  validateExactPrefixArtifactTruthProjection,
+  validateArtifactTruthProjectionValue,
   type AdmittedArtifactTruth,
   type ExactPrefixArtifactTruthProjection,
   type ExactPrefixArtifactTruthProjectionRefusal,
@@ -51,9 +51,11 @@ import {
 } from "./event_store.js";
 import {
   selectValidatedRuntimeEventPrefix,
+  runtimePrefixComputation,
 } from "./event_prefix.js";
 
 export type PublicOperationId =
+  | "abg.operation.release.snapshot"
   | "abg.operation.product.install"
   | "abg.operation.workspace.bind"
   | "abg.operation.catalog.admit"
@@ -191,8 +193,17 @@ function selectExactArtifactTruthRow(
     admissionEventRef?: string;
   }>,
 ): AdmittedArtifactTruth | null {
-  if (!validateExactPrefixArtifactTruthProjection(projection)) return null;
-  const scopeRows = projection.rows.filter((row) =>
+  if (!validateArtifactTruthProjectionValue(projection)) return null;
+  return selectArtifactTruthRow(projection.rows, identity);
+}
+
+// Pure row relations below consume the immutable owner projection selected at
+// the surrounding boundary. They neither authenticate nor acquire a prefix.
+function selectArtifactTruthRow(
+  rows: ExactPrefixArtifactTruthProjection["rows"],
+  identity: Parameters<typeof selectExactArtifactTruthRow>[1],
+): AdmittedArtifactTruth | null {
+  const scopeRows = rows.filter((row) =>
     row.operationId === identity.operationId &&
     row.authorityScopeRef === identity.authorityScopeRef
   );
@@ -218,10 +229,19 @@ function selectExactArtifactTruthRowByInvocation(
   invocationRef: string,
 ): AdmittedArtifactTruth | null {
   if (
-    !validateExactPrefixArtifactTruthProjection(projection) ||
+    !validateArtifactTruthProjectionValue(projection) ||
     invocationRef.length === 0
   ) return null;
-  const matches = projection.rows.filter((row) =>
+  return selectArtifactTruthRowByInvocation(projection.rows, operationId, invocationRef);
+}
+
+function selectArtifactTruthRowByInvocation(
+  rows: ExactPrefixArtifactTruthProjection["rows"],
+  operationId: "abg.operation.product.install" | "abg.operation.workspace.bind",
+  invocationRef: string,
+): AdmittedArtifactTruth | null {
+  if (invocationRef.length === 0) return null;
+  const matches = rows.filter((row) =>
     row.operationId === operationId && row.invocationRef === invocationRef
   );
   if (matches.length !== 1) return null;
@@ -250,15 +270,23 @@ function rehydrateProductInstallRow(
   projection: ExactPrefixArtifactTruthProjection,
   row: AdmittedArtifactTruth,
 ): RehydratedProductInstallTruth | null {
+  if (!validateArtifactTruthProjectionValue(projection)) return null;
+  return rehydrateProductInstallRowFromRows(projection.rows, row);
+}
+
+function rehydrateProductInstallRowFromRows(
+  rows: ExactPrefixArtifactTruthProjection["rows"],
+  row: AdmittedArtifactTruth,
+): RehydratedProductInstallTruth | null {
+  // The candidate predicate validates the raw lock before using its fields.
+  const resolvedLock = row.resolvedLock as unknown as ResolvedProductLock;
   if (
     row.operationId !== "abg.operation.product.install" ||
-    !isResolvedProductLock(row.resolvedLock) ||
-    !isProductInstallCandidate(row.artifact, row.resolvedLock)
+    !isProductInstallCandidate(row.artifact, resolvedLock)
   ) return null;
   const candidate = row.artifact as ProductInstallCandidate;
-  const resolvedLock = row.resolvedLock as ResolvedProductLock;
   if (
-    selectExactArtifactTruthRow(projection, {
+    selectArtifactTruthRow(rows, {
       operationId: "abg.operation.product.install",
       authorityScopeRef: candidate.installId,
       authorityScopeDigest: candidate.productContentDigest,
@@ -299,7 +327,7 @@ export function projectAdmittedProductInstallByAdmissionEventRef(
   admissionEventRef: string,
 ): RehydratedProductInstallTruth | null {
   if (
-    !validateExactPrefixArtifactTruthProjection(projection) ||
+    !validateArtifactTruthProjectionValue(projection) ||
     admissionEventRef.length === 0
   ) return null;
   const matches = projection.rows.filter((row) =>
@@ -317,7 +345,7 @@ export function projectAdmittedWorkspaceProductInstall(
   installId: string,
 ): RehydratedProductInstallTruth | null {
   if (
-    !validateExactPrefixArtifactTruthProjection(projection) ||
+    !validateArtifactTruthProjectionValue(projection) ||
     workspaceBindingId.length === 0 ||
     installId.length === 0
   ) return null;
@@ -348,14 +376,25 @@ export function projectAdmittedWorkspaceBindingByInvocationRef(
     "abg.operation.workspace.bind",
     invocationRef,
   );
+  if (!validateArtifactTruthProjectionValue(projection)) return null;
+  return rehydrateWorkspaceBindingRow(projection.rows, row, invocationRef, resolvedLock);
+}
+
+function rehydrateWorkspaceBindingRow(
+  rows: ExactPrefixArtifactTruthProjection["rows"],
+  row: AdmittedArtifactTruth | null,
+  invocationRef: string,
+  resolvedLock: ResolvedProductLock,
+  productSet?: ProductSet,
+  workspaceAuthorityBasis?: WorkspaceAuthorityBasis,
+): RehydratedWorkspaceBindingTruth | null {
   if (
     row === null ||
-    !isResolvedProductLock(resolvedLock) ||
-    !isWorkspaceBindingCandidate(row.artifact, resolvedLock)
+    !isWorkspaceBindingCandidate(row.artifact, resolvedLock, productSet, workspaceAuthorityBasis)
   ) return null;
   const candidate = row.artifact as WorkspaceBindingCandidate;
   if (
-    selectExactArtifactTruthRow(projection, {
+    selectArtifactTruthRow(rows, {
       operationId: "abg.operation.workspace.bind",
       authorityScopeRef: candidate.bindingId,
       authorityScopeDigest: candidate.bindingDigest,
@@ -447,6 +486,17 @@ export function projectExactPrefixWorkspaceEnvironment(
       artifactTruth.eventRefs,
     );
   }
+  return projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, workspaceBindingCoordinate);
+}
+
+/** Pure environment relation over the already authenticated owner projection. */
+export function projectWorkspaceEnvironmentFromArtifactTruth(
+  artifactTruth: ExactPrefixArtifactTruthProjection,
+  workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
+): ExactPrefixWorkspaceEnvironmentProjectionResult {
+  if (!validateArtifactTruthProjectionValue(artifactTruth)) return exactPrefixEnvironmentRefusal(
+    "artifact_truth_invalid", "workspace environment requires authenticated artifact truth");
+  const prefix = artifactTruth.prefix;
   if (
     typeof workspaceBindingCoordinate !== "object" ||
     workspaceBindingCoordinate === null ||
@@ -459,7 +509,24 @@ export function projectExactPrefixWorkspaceEnvironment(
       "workspace environment projection requires one exact WorkspaceBinding ref and digest",
     );
   }
-  const bindingRow = selectExactArtifactTruthRow(artifactTruth, {
+  const ownerPrefix = runtimePrefixFromArtifactTruth(artifactTruth);
+  const key = `${artifactTruth.projectionDigest}:${workspaceBindingCoordinate.ref}:${workspaceBindingCoordinate.digest}`;
+  const facts = ownerPrefix === null ? null : runtimePrefixComputation(ownerPrefix,
+    WORKSPACE_ENVIRONMENTS, () => new Map<string, ExactPrefixWorkspaceEnvironmentProjectionResult>());
+  const retained = facts?.get(key);
+  if (retained !== undefined) return retained;
+  const result = deriveWorkspaceEnvironment(artifactTruth, workspaceBindingCoordinate);
+  facts?.set(key, result);
+  return result;
+}
+
+const WORKSPACE_ENVIRONMENTS = Symbol("exact_workspace_environment_derivations");
+function deriveWorkspaceEnvironment(
+  artifactTruth: ExactPrefixArtifactTruthProjection,
+  workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
+): ExactPrefixWorkspaceEnvironmentProjectionResult {
+  const prefix = artifactTruth.prefix;
+  const bindingRow = selectArtifactTruthRow(artifactTruth.rows, {
     operationId: "abg.operation.workspace.bind",
     authorityScopeRef: workspaceBindingCoordinate.ref,
     authorityScopeDigest: workspaceBindingCoordinate.digest,
@@ -491,10 +558,10 @@ export function projectExactPrefixWorkspaceEnvironment(
   const productInstalls: ProductInstall[] = [];
   const resolvedLocks: ResolvedProductLock[] = [];
   for (const eventRef of bindingRow.causationEventRefs) {
-    const truth = projectAdmittedProductInstallByAdmissionEventRef(
-      artifactTruth,
-      eventRef,
-    );
+    const matches = artifactTruth.rows.filter(row =>
+      row.operationId === "abg.operation.product.install" && row.admissionEventRef === eventRef);
+    const truth = matches.length === 1
+      ? rehydrateProductInstallRowFromRows(artifactTruth.rows, matches[0]!) : null;
     if (truth === null) {
       return exactPrefixEnvironmentRefusal(
         "causal_install_missing",
@@ -527,43 +594,23 @@ export function projectExactPrefixWorkspaceEnvironment(
       bindingRow.causationEventRefs,
     );
   }
-  const bindingTruth = projectAdmittedWorkspaceBindingByInvocationRef(
-    artifactTruth,
+  const bindingTruth = rehydrateWorkspaceBindingRow(
+    artifactTruth.rows,
+    selectArtifactTruthRowByInvocation(artifactTruth.rows, "abg.operation.workspace.bind", bindingRow.invocationRef),
     bindingRow.invocationRef,
     resolvedProductLock,
+    productSet,
+    bindingRow.workspaceAuthorityBasis,
   );
   if (
     bindingTruth === null ||
     canonicalJson(
       bindingTruth.installAdmissionEventRefs as unknown as JsonValue,
-    ) !== canonicalJson(bindingRow.causationEventRefs as unknown as JsonValue) ||
-    !isWorkspaceBindingCandidate(
-      bindingTruth.candidate,
-      resolvedProductLock,
-      productSet,
-      bindingRow.workspaceAuthorityBasis,
-    )
+    ) !== canonicalJson(bindingRow.causationEventRefs as unknown as JsonValue)
   ) {
     return exactPrefixEnvironmentRefusal(
       "workspace_binding_invalid",
       "the admitted WorkspaceBinding differs from its causal Product environment",
-      [bindingRow.admissionEventRef],
-    );
-  }
-  const reconstructed = constructWorkspaceBinding(
-    bindingRow.workspaceAuthorityBasis,
-    productSet,
-    resolvedProductLock,
-    bindingTruth.candidate.roots,
-  );
-  if (
-    reconstructed.kind !== "workspace_binding_candidate" ||
-    canonicalJson(reconstructed as unknown as JsonValue) !==
-      canonicalJson(bindingTruth.candidate as unknown as JsonValue)
-  ) {
-    return exactPrefixEnvironmentRefusal(
-      "workspace_binding_invalid",
-      "Product could not reproduce the admitted WorkspaceBinding candidate",
       [bindingRow.admissionEventRef],
     );
   }
@@ -697,6 +744,7 @@ export function validatePublicOperationBasis(
 }
 
 type ArtifactOperationId =
+  | "abg.operation.release.snapshot"
   | "abg.operation.product.install"
   | "abg.operation.workspace.bind";
 
@@ -758,7 +806,8 @@ export function admitArtifact(
   }
   if (
     expectedOperation !== "abg.operation.product.install" &&
-    expectedOperation !== "abg.operation.workspace.bind"
+    expectedOperation !== "abg.operation.workspace.bind" &&
+    expectedOperation !== "abg.operation.release.snapshot"
   ) {
     return {
       disposition: "refused",
@@ -772,7 +821,7 @@ export function admitArtifact(
   const invalidBasis = validatePublicOperationBasis(
     basis,
     expectedOperation,
-    artifactMemberKey(expectedOperation),
+    expectedOperation === "abg.operation.release.snapshot" ? "published_rc" : artifactMemberKey(expectedOperation),
   );
   if (invalidBasis !== null) {
     return {
@@ -837,6 +886,62 @@ export function admitArtifact(
       ),
     };
   }
+  // Encode immutable install content only after admission has acquired its
+  // exact predecessor. The reference reuses a body, never another install's
+  // admission. Zero-cause rows are the validated physically embedded sources.
+  let eventMetadata = metadata;
+  let causationEventRefs = basis.causationEventRefs;
+  try {
+    if (
+      expectedOperation === "abg.operation.product.install" &&
+      basis.causationEventRefs.length === 0 &&
+      isProductInstallCandidate(
+        metadata.artifact,
+        metadata.resolvedLock as unknown as ResolvedProductLock,
+      )
+    ) {
+      const candidate = metadata.artifact;
+      const resolvedLock = metadata.resolvedLock as unknown as ResolvedProductLock;
+      const source = predecessorTruth.rows
+        .filter((row) =>
+          row.operationId === "abg.operation.product.install" &&
+          row.causationEventRefs.length === 0 &&
+          canonicalJson(row.resolvedLock) === canonicalJson(metadata.resolvedLock!)
+        )
+        .sort((left, right) => left.admissionOrdinal - right.admissionOrdinal)[0];
+      const { artifact: _artifact, resolvedLock: _resolvedLock, ...otherMetadata } = metadata;
+      eventMetadata = {
+        ...otherMetadata,
+        artifact: {
+          kind: "product_install_lock_row",
+          schemaVersion: "5.0.0",
+          productId: candidate.productId,
+          installId: candidate.installId,
+          installedRoot: candidate.installedRoot,
+        },
+        ...(source === undefined
+          ? { resolvedLock: metadata.resolvedLock! }
+          : { resolvedLock: {
+              kind: "resolved_product_lock_reference",
+              schemaVersion: "5.0.0",
+              admissionEventRef: source.admissionEventRef,
+              admissionEventDigest: source.admissionEventDigest,
+              lockId: resolvedLock.lockId,
+              lockDigest: resolvedLock.lockDigest,
+            } }),
+      };
+      causationEventRefs = source === undefined ? [] : [source.admissionEventRef];
+    }
+  } catch (error) {
+    return {
+      disposition: "refused",
+      successorPrefix: basis.predecessorPrefix,
+      refusal: refusal(
+        "artifact_truth_conflict",
+        `artifact successor semantics refused before append: ${String(error)}`,
+      ),
+    };
+  }
   const initiatedEvent: RuntimeEventCandidate & Readonly<{
     kind: "public_operation_artifact_admitted";
   }> = {
@@ -845,7 +950,7 @@ export function admitArtifact(
     aggregateType: "workspace",
     aggregateId: basis.authorityScopeRef,
     parentAggregateId: null,
-    causationEventRefs: basis.causationEventRefs,
+    causationEventRefs,
     correlationId: basis.correlationId,
     workflowVersion: "5.0.0",
     scopeClass: "workspace",
@@ -862,8 +967,8 @@ export function admitArtifact(
       ownerAdmittedDisposition: "admitted",
       artifactRef,
       artifactDigest,
-      ...metadata,
-      causationEventRefs: basis.causationEventRefs,
+      ...eventMetadata,
+      causationEventRefs,
       correlationId: basis.correlationId,
     },
   };

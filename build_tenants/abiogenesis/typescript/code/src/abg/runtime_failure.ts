@@ -1,4 +1,5 @@
-import type { JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -12,13 +13,18 @@ import {
   deriveRuntimeEventCalculusProjection,
   holdsAt,
 } from "./event_calculus.js";
-import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import {
+  indexedRuntimeEvents,
+  selectValidatedRuntimeEventPrefix,
+  type ValidatedRuntimeEventPrefix,
+} from "./event_prefix.js";
 import {
   AbgEventStore,
   admitRuntimeEvent,
   admitRuntimeEventTransactionAtDurablePrefix,
   readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
+  type RuntimeEvent,
 } from "./event_store.js";
 import {
   hasOpenedTraversalScopeAtPrefix,
@@ -70,6 +76,84 @@ export interface AdmitRuntimeFailureInput {
   readonly basis: RuntimeAdmissionBasis;
 }
 
+const JSON_DIAGNOSTIC_URI_PREFIX = "data:application/json;charset=utf-8,";
+
+/** Only the caught exception's small diagnostic subject uses inline retention. */
+export function constructRuntimeFailureDiagnosticRef(subject: JsonValue): string {
+  return JSON_DIAGNOSTIC_URI_PREFIX + encodeURIComponent(canonicalJson(subject));
+}
+
+function retainedDiagnosticSubject(diagnosticRef: string, subjectDigest: Sha256Digest): JsonValue {
+  const subject = JSON.parse(decodeURIComponent(
+    diagnosticRef.slice(JSON_DIAGNOSTIC_URI_PREFIX.length),
+  )) as JsonValue;
+  if (constructRuntimeFailureDiagnosticRef(subject) !== diagnosticRef ||
+      sha256Canonical(subject) !== subjectDigest) {
+    throw new TypeError("runtime failure diagnostic does not match its retained subject digest");
+  }
+  return subject;
+}
+
+/** Diagnostic prose is evidence only; the admitted event owns failed truth. */
+export function projectRuntimeFailureEvidenceAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+): readonly JsonValue[] {
+  return indexedRuntimeEvents(prefix, "kind:runtime_failure_observed")
+    .filter(event => event.aggregateType === "run")
+    .map(event => {
+      const payload = event.payload;
+      if (!isRecord(payload)) throw new TypeError("runtime failure lacks its admitted payload");
+      const diagnosticRef = typeof payload.diagnosticRef === "string" ? payload.diagnosticRef : null;
+      const retained = diagnosticRef?.startsWith(JSON_DIAGNOSTIC_URI_PREFIX) === true;
+      const subject = retained
+        ? retainedDiagnosticSubject(diagnosticRef!, payload.subjectDigest as Sha256Digest)
+        : null;
+      if (retained) {
+        const body = {
+          runId: event.runId!, graphCallId: event.graphCallId!, frameId: event.frameId!,
+          basisId: event.basisId, stage: payload.stage!, subjectDigest: payload.subjectDigest!, diagnosticRef,
+        };
+        const digest = sha256Canonical(body);
+        if (payload.runId !== event.runId || payload.graphCallId !== event.graphCallId ||
+            payload.frameId !== event.frameId || payload.basisId !== event.basisId ||
+            payload.failureDigest !== digest ||
+            payload.failureRef !== `runtime-failure://abiogenesis/${digest.slice("sha256:".length)}`) {
+          throw new TypeError("runtime failure diagnostic differs from its admitted failure identity or scope");
+        }
+      }
+      return deepFreeze({
+        kind: "runtime_failure_evidence", schemaVersion: "5.0.0",
+        availability: retained ? "retained" : "not_retained",
+        failureRef: payload.failureRef ?? null, failureDigest: payload.failureDigest ?? null,
+        admissionEventRef: event.eventId, admissionEventDigest: event.payloadDigest,
+        runId: event.runId!, graphCallId: event.graphCallId!, frameId: event.frameId!, basisId: event.basisId,
+        stage: payload.stage ?? null, subjectDigest: payload.subjectDigest ?? null,
+        diagnosticClassRef: retained && isRecord(subject) ? subject.diagnosticClassRef ?? null : diagnosticRef,
+        subject,
+        causationEventRefs: event.causationEventRefs,
+      }) as JsonValue;
+    });
+}
+
+// The last material admission in this exact traversal scope is the implicated
+// frontier. Probe/transport telemetry and other frames cannot displace it.
+const FAILURE_FRONTIER_KINDS = new Set<RuntimeEvent["kind"]>([
+  "frame_opened", "traversal_cursor_entered", "c_call_opened", "c_call_fibre_selected",
+  "c_call_evidenced", "c_call_result_admitted", "c_call_judged", "retry_attempt_opened",
+  "retry_progress_recorded", "child_foldback_admitted", "child_preparation_refused",
+  "fan_out_completion_admitted", "traversal_route_admitted", "fh_interaction_resume_admitted",
+]);
+
+function failureFrontierEventRef(prefix: ValidatedRuntimeEventPrefix, scope: OpenedTraversalScope): string {
+  let frontier: RuntimeEvent | undefined;
+  for (const event of indexedRuntimeEvents(prefix, "graph-call:" + scope.graphCallId)) {
+    if (event.runId === scope.runId && event.graphCallId === scope.graphCallId && event.frameId === scope.frameId &&
+        event.basisId === scope.executionBasisRef && FAILURE_FRONTIER_KINDS.has(event.kind) &&
+        (frontier === undefined || event.admissionOrdinal > frontier.admissionOrdinal)) frontier = event;
+  }
+  return frontier?.eventId ?? scope.frameOpenEventRef;
+}
+
 export function admitRuntimeFailure(
   input: Readonly<AdmitRuntimeFailureInput>,
 ): RuntimeFailureAdmissionReceipt {
@@ -101,6 +185,9 @@ export function admitRuntimeFailure(
     throw new TypeError("runtime failure requires one exact active admitted traversal scope");
   }
   const subjectDigest = sha256Canonical(subject);
+  if (diagnosticRef.startsWith(JSON_DIAGNOSTIC_URI_PREFIX)) {
+    retainedDiagnosticSubject(diagnosticRef, subjectDigest);
+  }
   const body = {
     runId: scope.runId,
     graphCallId: scope.graphCallId,
@@ -113,7 +200,7 @@ export function admitRuntimeFailure(
   const failureDigest = sha256Canonical(body as unknown as JsonValue);
   const failureRef = `runtime-failure://abiogenesis/${failureDigest.slice("sha256:".length)}`;
   const causationEventRefs = basis.causationEventRefs.length === 0
-    ? [scope.frameOpenEventRef]
+    ? [failureFrontierEventRef(runPrefix, scope)]
     : basis.causationEventRefs;
   const transaction = admitRuntimeEventTransactionAtDurablePrefix(
     store,

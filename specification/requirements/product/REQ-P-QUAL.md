@@ -14,6 +14,12 @@ The test and qualification infrastructure is a product surface with its own corr
 
 This requirement establishes the constitutional rules for the qualification infrastructure itself — transport readiness, failure mode separation, artifact integrity, timeout contracts, and forensic evidence. Every test that validates product behavior must itself satisfy these requirements.
 
+Gate applicability follows [Product Release Boundaries](../../PRODUCT.md#50-and-51-release-boundaries).
+Standalone Consensus, mandatory host parity, native human response/resume and
+whole-run semantic executive oversight are 5.1 qualification claims. Their
+deferral does not waive retained local traversal, truthful blocking, runtime
+liveness, complete selected F17/S06 outcomes or actual human RC acceptance.
+
 ---
 
 ## Transport Readiness
@@ -32,7 +38,9 @@ This requirement establishes the constitutional rules for the qualification infr
 
 **REQ-P-QUAL-005**: Transport failures (nonzero exit, timeout, crash) shall remain **diagnosable transport truth**. They shall not be masked as artifact quality failures or silently converted to empty output. A preserved artifact may only rescue the turn when ABG deterministically validates it as the authoritative result for that boundary; mere artifact presence is insufficient.
 
-**REQ-P-QUAL-006**: The `call_agent()` throwing transport layer shall treat a nonzero exit code as an error. Returning stdout from a failed process conflates success and failure.
+**REQ-P-QUAL-006**: The actual selected transport shall preserve nonzero exit,
+crash and timeout as failure with attributable stdout/stderr and process truth;
+failed output shall not be admitted as success merely because bytes exist.
 
 ---
 
@@ -48,13 +56,15 @@ This requirement establishes the constitutional rules for the qualification infr
 
 ## Timeout Contracts
 
-**REQ-P-QUAL-010**: Timeout bounds shall be **explicit and layered**. Each layer declares its own timeout independently:
-  - pytest-level: global default for unit/integration tests
-  - pytest-level: per-test or per-class override for live qualification tests
-  - transport-level: subprocess timeout for agent invocation
-  - agent-level: internal timeout within the agent process (opaque to the harness)
+**REQ-P-QUAL-010**: Selected test, command, native actor and caller supervision
+bounds shall be explicit and proportional to the declared ask, with each
+applicable layer identified. No particular test runner or historical default
+is mandated.
 
-**REQ-P-QUAL-011**: The pytest timeout for live qualification tests shall be **strictly greater** than the transport subprocess timeout. A test killed by pytest before the transport times out produces an ambiguous signal (was the agent slow, or did transport hang?).
+**REQ-P-QUAL-011**: Enclosing supervision shall allow the selected lower owner
+to report its terminal result and preserve failure evidence. A deadline or
+process termination shall identify the layer and bound; it shall not be
+reported as a completed test or successful qualification.
 
 **REQ-P-QUAL-012**: When a transport timeout fires, the resulting error shall **name the timeout value and the agent** so the operator can distinguish "agent was slow" from "transport configuration too aggressive."
 
@@ -94,12 +104,13 @@ characterization.
 
 **REQ-P-QUAL-018A**: Every sandbox-backed scenario or qualification run shall support a **persistent run archive** rooted under a stable, non-temporary test-run directory. Pytest temporary workspaces are execution scratch space; they are not sufficient as the postmortem record.
 
-**REQ-P-QUAL-018B**: A persistent run archive shall preserve the **full sandbox workspace snapshot** needed for replay-free postmortem, including at minimum:
-  - workspace documents and generated artifacts
-  - `.ai-workspace/events/events.jsonl`
-  - `.ai-workspace/fp_manifests/`
-  - `.ai-workspace/fp_results/`
-  - runtime/bootstrap files needed to understand the installed test surface
+**REQ-P-QUAL-018B**: A persistent run archive shall preserve the sufficient,
+exact material for postmortem of its selected installed path: source/artifact
+identities, actual requests and results, relevant worksite changes, native
+process/command observations, event resource identity and genuine readback or
+close receipts where produced. Historical directory names and copying
+irrelevant build caches are not requirements; missing terminal evidence
+remains explicitly missing.
 
 **REQ-P-QUAL-018C**: A persistent run archive shall also preserve **run metadata and operator-facing summaries**, including at minimum:
   - a run metadata record (`run.json` or equivalent) containing timestamp, test identity, source commit, interpreter, and invoked commands
@@ -130,22 +141,21 @@ the proving obligations over that product contract.
 
 ## Diff-Execution Witness Gate
 
-**REQ-P-QUAL-025**: The approving suite for a change shall **witness the
-change's execution**. Changed executable surfaces declared by the released
-tenant's change census that are not executed by the approving suite fail the
-diff-execution witness gate. Never-committed executable surfaces in that census
-are witnessed in full. Every public binding export shall be referenced by the
-unit lane.
+**REQ-P-QUAL-025**: Approval shall include attributable execution evidence for
+the changed behavior and its affected owning boundaries, including meaningful
+nearest-negative cases. Select the proof level from the supported claim:
+component checks do not establish installed outcomes, and export enumeration
+or blanket coverage of every never-committed file does not establish behavior.
+Still-valid exact-subject evidence may be reused with its scope and identity;
+unexercised material changes remain explicit limitations.
 
-Gap: the gate witnesses only `.ts` files under `code/src`; the general obligation — every changed executable file of the change, whatever its language or location (gates, test harness, scripts, non-TS toolchains) — is not yet enforced. Owner: T-247.
+## Installed Proof
 
----
-
-## Live-Install-Only Proof
-
-**REQ-P-QUAL-026**: Every NEW or MIGRATED live proof run shall execute on a **packed-and-installed sandbox substrate** driving the installed surface, never the repo build tree — conformant from birth.
-
-Gap: 26 legacy in-repo live tests predating the ruling (pinned 2026-07-10) still drive the repo build tree. The enforcement mechanism is the in-suite shrink-only conformance pin over the pinned legacy exemption list: migrating a file removes its entry, a stale entry fails the pin, and the list may only shrink — it never grows. Owner: T-247. The list shall be empty before the ABIogenesis 5.0 exact-candidate gate freezes its qualification input.
+**REQ-P-QUAL-026**: Any qualification claim of installed Product behavior shall
+execute through the packed-and-installed ordinary surface. Source component
+checks retain their narrower claims. Historical test-file exemption counts,
+private legacy APIs and a particular migration ticket do not define release
+qualification or excuse missing current installed evidence.
 
 ---
 
@@ -171,7 +181,7 @@ and verification facts.
 **REQ-P-QUAL-052**: The release snapshot manifest shall be the authoritative
 read model for the snapshot artifact set produced by its cut. Stray tenant-root
 tarballs, dry-run pack output, release-note prose, or the snapshot itself shall
-not substitute for the qualification basis, owning-gate results, or verdict
+not substitute for the qualification basis, authenticated assessment results, or verdict
 that authorized the cut.
 
 **REQ-P-QUAL-053**: Snapshot creation shall fail closed when the source tree is
@@ -187,7 +197,7 @@ an already tagged release cut.
 
 **REQ-P-QUAL-056**: The release snapshot shall be **self-certifying as a bounded
 read model**, not as a second evaluator. Snapshot creation embeds the exact
-qualification subject and law-basis refs, complete owning-gate result citations,
+qualification subject and law-basis refs, complete assessment and execution-evidence citations,
 green non-bypassed verdict, build/lint/test outcomes, and parsed test summary in
 the release snapshot manifest. It shall not execute or reinterpret those gates.
 A red, incomplete, stale, cross-basis, or bypassed result refuses a
@@ -214,7 +224,7 @@ unchanged RC shall not introduce a third subject kind or final-cut delta.
 **REQ-P-QUAL-057A**: Every `ExactCandidateQualification<basis>` projection shall
 bind its exact subject kind, source and artifact content, toolchain manifest,
 installed-product and workspace-binding truth when applicable,
-tenant-conformance manifest, frozen owning-gate inventory, and one subordinate
+tenant-conformance manifest, source-grounded coverage catalog, and one subordinate
 `QualificationLawBasis`.
 
 **REQ-P-QUAL-057B**: `QualificationLawBasis` shall bind the exact tapped and
@@ -222,7 +232,7 @@ installed STDO release identity selected by `stdo_abiogenesis.json`, installed-m
 standards member-set digest, method version, rule-catalog version, source refs,
 and content digests used by the owning gates.
 Its identity and digest shall be preserved unchanged through every admitted
-owning-gate result, the `QualificationGateResultVector<K>`, the declared
+authenticated assessment result, the coverage catalog, the declared
 `C.of(AF-22)` argument, and the resulting
 `ExactCandidateQualification<verdict>` projection.
 
@@ -262,11 +272,12 @@ semantic authorities `synthesizeModel`, `evalGap`, `evaluateNext`, and
 `evaluateAction`. Intent admission, invocation or continuation, and evidence
 admission shall remain distinct ABG boundaries around those authorities;
 public ingress shall admit and transport the invocation only. The loop shall
-start, report one truthful stop,
-hold, or gap, expose the replay-derived frontier and lawful actions, admit an
-agent edit or typed F_H response, resume or start again, refresh model, gap, and
-next-action truth after admitted evidence, and converge without a second
-controller or private import.
+start, expose replay-derived frontier and lawful actions, exercise bounded
+correction and automatic progression under established authority, refresh
+model, gap and next-action truth after admitted evidence, and converge without
+a second controller or private import. A no-lawful-next-step case reports a
+truthful block and human-readable handoff, not false completion. Native human
+response/resume is not part of this 5.0 gate.
 
 **REQ-P-QUAL-060**: The exact installed ABIogenesis 5.0 candidate shall satisfy
 `REQ-P-SELF-CONFORMANCE` over its complete frozen constitutional, design,
@@ -282,69 +293,81 @@ qualification described by this clause is not applicable to the ABIogenesis
 does not affect the real-tree and seeded-negative self-conformance required by
 `REQ-P-QUAL-060`.
 
-**REQ-P-QUAL-061**: The exact installed ABIogenesis 5.0 candidate shall satisfy
-`REQ-P-CONSENSUS`. Qualification shall invoke its published SYSTEM-owned
+**REQ-P-QUAL-061**: Dedicated Consensus qualification is reserved for 5.1.
+It satisfies `REQ-P-CONSENSUS` by invoking the selected installed candidate's
+published SYSTEM-owned
 Consensus GraphFunction through `abg.cli` over one real ticket and at least two
-differently attributed reviewer profiles; prove agreement closure, dispute
-recursion, and round-limit or unresolved-dispute F_H escalation; exercise the
-existing, alternate, and temporary workspace applications; and expose the typed
+differently attributed reviewer profiles. It proves agreement closure, dispute
+recursion, and round-limit or unresolved-dispute typed block/handoff to F_H
+without requiring native response/resume, exercises the
+existing, alternate and temporary workspace applications, and exposes the typed
 result and replay without source import, feature-specific engine code, or
 shell-owned orchestration.
 
 **REQ-P-QUAL-062**: The real specification-driven lifecycle witness defined by
 Product F17/S06 and `REQ-P-SCENARIOS-013` shall be required ABIogenesis 5.0
-qualification evidence on the exact installed candidate. It shall bind the
-complete original source and prove all mandatory application outcomes,
-obligation conservation, admitted semantic and executable evidence and
-targeted revision. Bounded thread/correction evidence, reduced contracts,
-residual lists or construction/test counts shall not substitute for complete
-S06 witness acceptance. Publication or maturation of the separate odd_glc
+qualification evidence on the exact installed candidate. It binds the
+complete original source and prospectively selected witness contract under
+Product Release Boundaries, then proves every mandatory selected application
+outcome, obligation conservation, admitted semantic and executable evidence and
+targeted revision. Intermediate thread/correction evidence, post-result scope
+reduction, residual lists or construction/test counts do not substitute for
+complete selected S06 acceptance. Full original Data Mapper is a separately
+owned upper-bound evaluation under Product Release Boundaries. A truthful
+bounded failed or blocked outcome may conclude that evaluation with its actual
+assumptions, design choices, iterations, progress, unresolved obligations and
+stop cause recorded. It does not satisfy unmet application requirements, waive
+generic Product defects, qualify a missing successful S06 witness or compel
+another attempt. Publication or maturation of the separate odd_glc
 Product, installed 5.0 authoring the distinct 5.0.1 successor, and the planned
 5.1 observer/tuner Product shall retain their own exact Product identities,
 requirements, design, qualification and release gates; none is required to
 make the ABIogenesis 5.0 candidate or final release green.
 
-**REQ-P-QUAL-063**: The exact installed ABIogenesis 5.0 candidate shall complete its native public path without Claude, Codex, or another marketplace host. The Codex CLI or skill compatibility projection shall complete the same public-contract scenario without directly invoking a worker, emitting an ABG event, constructing a continuation, controlling traversal, or deciding closure.
+**REQ-P-QUAL-063**: The exact installed ABIogenesis 5.0 candidate completes its
+native public path without Claude, Codex or another marketplace host. Additional
+host work and mandatory native/Codex parity qualification are reserved for 5.1.
+Any retained compatibility projection uses the same public contract without
+direct worker invocation, ABG event authorship, continuation construction,
+traversal control or closure decisions. Native LLM worker transport remains a
+5.0 dependency; host-projection deferral does not remove it.
 
-**REQ-P-QUAL-064**: The frozen owning-gate inventory for the
-`pre_rc_candidate` shall include `ABI5-ROOT-001`; all forty 4.6 traversal
-conservation rows; the separate shape-preserving fibre-substitution
-differential; the seven-term declared C algebra and malformed GTL/F_P
-differentials; the public operator loop; self-conformance under the exact
-tapped Definition-selected STDO basis; installed Consensus; native and Codex
-projections; the complete real downstream lifecycle witness under
-`REQ-P-QUAL-062`; and every selected
-`ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, and `ABG5-S06` obligation.
-Each owning gate retains its own execution and semantic authority.
+**REQ-P-QUAL-064**: Exact-candidate qualification shall conserve every retained
+behavior of the fifteen-family Product: ABI5-ROOT-001; compute, structural,
+consequence, runtime-disposition and public-control behavior; shape-preserving
+fibre substitution; complete C algebra; malformed GTL and F_P refusal;
+One Surface; whole-subject F11; native Public projection; and complete selected
+S01/S02/S03/S06 outcomes. The source-linked coverage catalog declares these
+obligations without an executable slot, ordinal or owning-result requirement
+per behavior. Deferred portions require a scoped governing reason and evidence
+of retained boundaries; deferral does not qualify the reserved capability or
+shrink the selected S06 contract.
 
-**REQ-P-QUAL-064A**: One subordinate
-`QualificationGateResultVector<K>` shall bind the exact
-`ExactCandidateQualification<basis>` projection ref and digest and contain the
-complete ordered result set required by that basis's frozen inventory. Every
-member shall cite the same qualification subject and `QualificationLawBasis`
-as the vector. Structural
-admission shall require a non-empty result family, contiguous zero-based
-ordinals, roster completeness against the basis-bound frozen inventory, unique
-gate identities, typed `green | red | blocked` dispositions, owning assessment
-refs and digests, evidence refs and digests, explicit bypass refs, the exact
-inventory digest, the vector digest, and exact subject- and law-basis equality.
-It shall not reinterpret a gate result or become another evaluator, scheduler,
-batch runtime, or public operation.
+**REQ-P-QUAL-064A**: Existing F11 shall bind complete coverage to the exact
+qualification subject and law. Actual native results retain their producing
+input, declaration, C/J, occurrence and evidence authority. An execution may
+support several claims once, but independent judgment shall establish each
+claim's applicability, positive/nearest-negative scope and sufficiency against
+its source. Neither a shared citation, a green computable assessment, a label,
+a test count nor catalog membership supplies that judgment. Missing,
+ambiguous, stale, foreign or unexercised required coverage is non-green.
 
-**REQ-P-QUAL-064B**: Exactly one declared `C.of(AF-22)` application shall consume
-the admitted `QualificationGateResultVector<K>` and emit the sole
-`ExactCandidateQualification<verdict>` projection for that basis. No
-qualification-local HOF bridge, controller loop, second semantic checker, or
-release-wide harness may reduce or replace the vector.
+**REQ-P-QUAL-064B**: The declared native `C.of(AF-22)` shall consume the
+admitted complete F11 assessment and emit the sole
+`ExactCandidateQualification<verdict>`. There is no separate per-behavior
+owning-result vector, adapter requirement or replacement reducer/controller.
+F11 retains its findings and is not itself the release verdict.
 
-**REQ-P-QUAL-064C**: The verdict shall preserve the exact subject-basis and
-law-basis identities and digests, complete gate-result citations, terminal
-disposition, and bypass set. Only a same-subject and same-law-basis green verdict
-with an empty bypass set may authorize release materialization.
+**REQ-P-QUAL-064C**: The verdict shall conserve exact subject/law/coverage and
+authenticated F11 result citations, explicit green/red/blocked disposition and
+all unresolved re-entry/bypass references. Only a complete same-subject green
+verdict with no bypass can admit AF25 or exact installed-RC acceptance.
+Development, incomplete and unknown bases remain blocked, not qualified.
 
 **REQ-P-QUAL-065**: Qualification on the supported trusted-developer-desktop boundary shall defend malformed GTL and F_P results, unresolved or incompatible contracts and capabilities, incorrect product identity or binding, source/private-import dependence, and false convergence or release claims. It shall not require hostile-local tamper resistance, a signing service, remote attestation, a hosted marketplace, or repeated adversarial campaigns.
 
-**REQ-P-QUAL-066**: Codex projection qualification shall compare the native and
+**REQ-P-QUAL-066**: Mandatory Codex projection qualification is reserved for 5.1.
+Its parity assessment compares the native and
 adapter paths over the same versioned public operation contract. A fixed-result
 lane shall compare the declared result digest. A live F_P lane shall compare
 the declared response/result schemas and replay-significant invariants, or both
@@ -355,7 +378,7 @@ not required unless the public contract declares it.
 **REQ-P-QUAL-067**: Release closure shall fresh-install the published
 ABIogenesis 5.0 RC artifact by its verified immutable remote identity, bind its
 exact released descriptor, manifest, RC version, digest and tenant-conformance identity,
-and pass the bounded installed catalog, public invocation, Consensus, and replay
+and pass the bounded installed catalog, public invocation and replay
 proof without rebuilding or importing mutable source. This post-publication
 result shall be a terminal addendum to the A5-R1 release read model. It shall not
 be required to make an earlier `ExactCandidateQualification<verdict>` projection
@@ -388,7 +411,7 @@ published RC shall be retagged or renamed to a final-version cut.
 be fresh-installed and qualified as an exact `installed_rc`
 subject through the same `ExactCandidateQualification<K>` family. Its
 `ExactCandidateQualification<basis>` projection shall bind the exact RC cut
-bytes and installed identity; its complete vector and verdict shall preserve
+bytes and installed identity; its complete coverage assessment and verdict shall preserve
 that basis and law basis. A `pre_rc_candidate` verdict shall not be relabeled as
 an `installed_rc` verdict. Its same-basis green non-bypassed verdict is required
 evidence for actual human acceptance of that same unchanged RC; it shall not
@@ -402,7 +425,7 @@ Product. Its admission and release are independent of ABIogenesis RC
 acceptance; they are neither waived nor made prerequisites or terminal addenda
 for the ABIogenesis 5.0 release. Its failure shall block its own claim and may
 re-enter ABIogenesis when it exposes a retained 5.0 Product defect. This
-independence does not defer or weaken the complete F17/S06 lifecycle witness
+independence does not defer or weaken the complete selected F17/S06 lifecycle witness
 required before RC authorization by `REQ-P-QUAL-062`.
 
 **REQ-P-QUAL-070**: Actual human Product authority shall accept or withhold one
@@ -418,8 +441,8 @@ rename a package or move the selector.
 
 **REQ-P-QUAL-070A**: A change to qualifying Product or release-claim bytes shall
 reopen the mutable RC window and require a higher immutable RC. Every affected
-owning gate shall rerun against that new exact subject. Its complete required
-vector shall enter the sole declared `C.of(AF-22)` reducer; only the resulting
+owning assessment shall rerun against that new exact subject. Its complete required
+coverage and authenticated F11 result shall enter the sole declared `C.of(AF-22)` evaluator; only the resulting
 same-subject and same-law-basis green non-bypassed verdict may authorize its
 publication. Evidence or acceptance addenda shall not waive gates, alter the
 published cut, substitute a changed subject or retroauthorize an earlier effect.
@@ -436,6 +459,35 @@ snapshot. No cut or snapshot may qualify the input that creates it, and no
 post-publication proof may retroactively authorize an earlier transition.
 
 ---
+
+## Steel-Thread Evidence Sequencing
+
+**REQ-P-QUAL-071**: Construction uses focused build/type, changed module-law and
+structural-boundary checks. Authority, identity, admission, effect integrity and
+constructability failures on the selected path require resolution before its
+dependent effects. Existing valid evidence remains reusable on its exact basis.
+
+Each usable increment receives an early installed integration/end-to-end
+discriminator and focused user-outcome assessment. Substantial clean-room UAT
+uses the original specification, selected input contract, public documentation
+and installed Product with independent expected outcomes. Source hints, private
+imports or fixture-owned traversal, retry, admission or event truth cannot
+substitute for the public user experience. Observable application behavior and
+fresh public result/replay reads support distinct, explicitly bounded claims.
+
+Broad applicable negative matrices, conservation population, interactions and
+repeatability are scheduled at integrated qualification. Deferral changes
+evidence order, not retained obligations. Material structural/authority failure
+or a broken selected sunny-day path returns immediately for lawful re-entry.
+One execution may support integration, end-to-end and UAT with separate oracles;
+test counts, fixed repetition quotas or redundant campaigns supply no closure.
+
+End-to-end success demonstrates an exercised route, not the absence of another
+reachable route. A bounded review of public bindings, exports/loaders, owner
+selection, effect paths, HoG traversal and ABG truth checks alternative-path
+risk on the affected dependency closure. Pure catalog/readiness functions may
+remain eventless. Required independent assessment and proportionate
+module-derived unit evidence remain distinct under the selected STDO frames.
 
 ## Live Test Authority
 

@@ -1,3 +1,4 @@
+import { isRecord, hasUnicodeNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import { withAdmissionAuthority } from "./admission_authority.js";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -123,18 +124,6 @@ export interface ProductWorkspaceBindingResourceReceipt {
 
 type ResolveRefusalCode = OwnerRefusalOf<ResolvePacket>["code"];
 type BindRefusalCode = OwnerRefusalOf<BindPacket>["code"];
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort(compareUnicodeCodeUnits).join("\0") ===
-    [...keys].sort(compareUnicodeCodeUnits).join("\0");
-}
 
 function sameJson(left: unknown, right: unknown): boolean {
   try {

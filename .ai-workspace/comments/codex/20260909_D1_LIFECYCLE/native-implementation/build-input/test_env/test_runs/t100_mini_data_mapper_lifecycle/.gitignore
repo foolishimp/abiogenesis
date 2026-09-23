@@ -1,0 +1,39 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../20260923_WIP_CHECKPOINT/README.md
+/20260709T231747616Z/eval_aggregate_projection.json
+/20260709T231747616Z/eval_grade_vectors.jsonl
+/20260709T231747616Z/eval_outcomes.jsonl
+/20260709T231747616Z/eval_suite.json
+/20260709T231747616Z/eval_task.json
+/20260709T231747616Z/eval_trials.jsonl
+/20260709T231747616Z/review_sample.md
+/20260709T231747616Z/summary.json
+/20260709T231747616Z/trials/trial-001/eval_grade_vector.json
+/20260709T231747616Z/trials/trial-001/eval_outcome.json
+/20260709T231747616Z/trials/trial-001/eval_trial.json
+/20260709T231747616Z/trials/trial-001/postmortem.md
+/20260709T231747616Z/trials/trial-001/run.json
+/20260709T231747616Z/trials/trial-001/stderr.log
+/20260709T231747616Z/trials/trial-001/stdout.log
+/20260709T231747616Z/trials/trial-001/summary.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/context/project_bootstrap.md
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/assets/domain_quality_assessments.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/assets/eval_loop_foldbacks.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/assets/foldback_evaluation.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/assets/outer_evaluation.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/assets/plugin_handoff_manifest.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/assets/random_feature_transforms.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/assets/requirements_ledger.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/assets/requirements_schedule.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/events.jsonl
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/projections/output_allocation_projection.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/projections/workspace_system_projection.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/projections/workspace_zoom_projection.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/runs/run_t100_mini-data-mapper_20260709T231747616Z-trial-001/assets/bootstrap_mini_data_mapper_requirements_derive_mini_data_mapper_design_implement_mini_data_mapper_test_mini_data_mapper_archive_mini_data_mapper_run/design_surface/design/mini_data_mapper_design.md
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/runs/run_t100_mini-data-mapper_20260709T231747616Z-trial-001/assets/bootstrap_mini_data_mapper_requirements_derive_mini_data_mapper_design_implement_mini_data_mapper_test_mini_data_mapper_archive_mini_data_mapper_run/implementation_surface/src/mini_mapper.ts
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/runs/run_t100_mini-data-mapper_20260709T231747616Z-trial-001/assets/bootstrap_mini_data_mapper_requirements_derive_mini_data_mapper_design_implement_mini_data_mapper_test_mini_data_mapper_archive_mini_data_mapper_run/run_archive_surface/archive/execution_result.json
+/20260709T231747616Z/trials/trial-001/workspace/.ai-workspace/runtime/runs/run_t100_mini-data-mapper_20260709T231747616Z-trial-001/assets/bootstrap_mini_data_mapper_requirements_derive_mini_data_mapper_design_implement_mini_data_mapper_test_mini_data_mapper_archive_mini_data_mapper_run/test_suite_surface/tests/mini_mapper.test.ts
+/20260709T231747616Z/trials/trial-001/workspace/README.md
+/20260709T231747616Z/trials/trial-001/workspace/specification/INTENT.md
+/20260709T231747616Z/trials/trial-001/workspace/specification/requirements/mini_data_mapper.md

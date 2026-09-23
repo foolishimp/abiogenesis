@@ -49,3 +49,12 @@ export {
 export { CONFORMANCE_OPERATION_CONTRACTS } from "./conformance_operation_contracts.js";
 export * from "./self_conformance_contracts.js";
 export { evaluateSelfConformance, readSelfConformanceCatalog, SELF_CONFORMANCE_CATALOG_ASSET_PATH, SELF_CONFORMANCE_CATALOG_CONTRACT_ID } from "./self_conformance.js";
+export * from "./qualification_contracts.js";
+export { isQualificationAssessmentInput, isQualificationVerdictInput, isQualificationCoverageCatalog, qualificationCoverageIsPublished,
+  constructQualificationJudgment, reduceExactCandidateQualification, qualificationWorkerRequest,
+  isMalformedGtlAssessmentInput, evaluateMalformedGtlAssessment, isMalformedGtlAssessment,
+  } from "./qualification.js";
+
+export { isNativeRuntimeAssessmentInput, isNativeRuntimeAssessment,
+  constructNativeRuntimeAssessment } from "./qualification.js";
+export type { NativeRuntimeAssessmentInput, NativeRuntimeAssessment } from "./qualification_contracts.js";

@@ -1,3 +1,4 @@
+import { isOptionalJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { ClosureContract } from "../gtl/contracts.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
@@ -18,7 +19,7 @@ import {
 } from "./event_prefix.js";
 import { rehydrateExecutionBasisAtPrefix } from "./execution_basis.js";
 import {
-  durableRuntimeEventPrefixDigest,
+  runtimeEventPhysicalPrefix,
   type RuntimeEvent,
 } from "./event_store.js";
 import {
@@ -92,12 +93,6 @@ export type FhEffectfulPublicInvocationFactProjection =
       readonly disposition: "invalid_history";
       readonly eventRefs: readonly string[];
     }>;
-
-function isRecord(
-  value: JsonValue | undefined,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function stringField(event: RuntimeEvent, key: string): string | null {
   if (!isRecord(event.payload)) return null;
@@ -434,7 +429,7 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
     const durablePrefixDigest = digestField(resumeEvent, "durablePrefixDigest");
     if (
       durablePrefixDigest === null ||
-      durableRuntimeEventPrefixDigest(predecessorEvents) !== durablePrefixDigest
+      runtimeEventPhysicalPrefix(predecessorEvents).digest !== durablePrefixDigest
     ) return false;
     const respondedAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
       ownerAuthorityPrefix,

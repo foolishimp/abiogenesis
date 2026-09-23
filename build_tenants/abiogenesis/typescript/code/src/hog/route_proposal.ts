@@ -48,6 +48,7 @@ import {
   type RouteCandidateBody,
   type TraversalTransitionCandidate,
 } from "../abg/traversal_transition.js";
+import { deriveGraphSpanReentryCursor } from "./traversal.js";
 
 type RouteSourceLocus = Readonly<{
   stopClass: "executable" | "interaction";
@@ -548,6 +549,56 @@ export function proposeFailedRoute(
  * are already admitted by ABG; this function derives only the exact structural
  * route candidate and binds the corresponding admitted evidence.
  */
+function selectedCCallOutcomeRoute(
+  outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
+): "re_enter" | "gap_stop" | null {
+  if (
+    outcome.disposition !== "judged" ||
+    outcome.admitted.result.resultClass !== "success" ||
+    outcome.admitted.judgment.judgment !== "advance"
+  ) return null;
+  const value = outcome.admitted.result.value;
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    return null;
+  }
+  const projection = value as Readonly<Record<string, JsonValue>>;
+  if (projection.kind === "graph_span_selection" && projection.disposition === "re_enter") {
+    return "re_enter";
+  }
+  return projection.kind === "next_action_projection" && projection.disposition === "no_action"
+    ? "gap_stop"
+    : null;
+}
+
+/** Undefined retains ordinary continuation; null is the selected no-action stop. */
+export function deriveSelectedCCallOutcomeTarget(
+  graph: Readonly<GtlGraph>,
+  source: TraversalCursor,
+  outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
+): TraversalCursor | RouteProposalRefusal | null | undefined {
+  const routeKind = selectedCCallOutcomeRoute(outcome);
+  if (routeKind === null || outcome.disposition !== "judged") return undefined;
+  if (routeKind === "gap_stop") return null;
+  const projection = outcome.admitted.result.value as unknown as GraphSpanReentryProjection;
+  const application = graph.template.applications.find(candidate =>
+    candidate.relationKind === "re_enter" && candidate.applicationRef === projection.applicationRef);
+  if (
+    application?.relationKind !== "re_enter" ||
+    typeof projection.targetInputRef !== "string" ||
+    typeof projection.targetInputDigest !== "string"
+  ) {
+    return routeRefusal("graph_span_reentry_not_declared",
+      "graph-span selection requires its declared application and exact target input coordinates");
+  }
+  const target = deriveGraphSpanReentryCursor(graph, source, application, {
+    inputRef: projection.targetInputRef,
+    inputDigest: projection.targetInputDigest,
+  });
+  return target.kind === "traversal_refusal"
+    ? routeRefusal("graph_span_reentry_not_declared", target.message)
+    : target;
+}
+
 export function proposeCCallOutcomeTransition(input: Readonly<{
   graph: Readonly<GtlGraph>;
   graphFunction: Readonly<GraphFunction>;
@@ -577,6 +628,7 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
   }
   const completedProgresses = completedRetryProgress?.progresses ?? [];
   const replayState = completedRetryProgress?.replayState ?? outcome.replayState;
+  const selectedRoute = selectedCCallOutcomeRoute(outcome);
   const proposal = blocked
     ? proposeBlockedRoute(
         input.graph,
@@ -605,7 +657,20 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
             replayState,
             cCall.transitionContractRef,
           )
-        : proposeJudgedRoute(
+        : selectedRoute === "re_enter"
+          ? input.targetCursor === null
+            ? routeRefusal("graph_span_reentry_not_declared", "graph-span selection requires its derived target")
+            : proposeGraphSpanReentryRoute(
+                input.graph, input.sourceCursor, input.targetCursor, cCall,
+                admitted!.result, admitted!.judgment, replayState, cCall.transitionContractRef,
+                admitted!.result.value as unknown as GraphSpanReentryProjection,
+              )
+          : selectedRoute === "gap_stop"
+            ? proposeGapStopRoute(
+                input.graph, stop, cCall, admitted!.result, admitted!.judgment,
+                replayState, cCall.transitionContractRef,
+              )
+            : proposeJudgedRoute(
             input.graph,
             input.sourceCursor,
             input.targetCursor,
@@ -655,7 +720,7 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
     transitionClass: "route",
     route: proposal,
     evidence,
-    terminalizeRun: proposal.routeKind !== "advance" &&
+    terminalizeRun: proposal.routeKind !== "advance" && proposal.routeKind !== "re_enter" &&
       input.terminalizeNonAdvance,
   });
 }

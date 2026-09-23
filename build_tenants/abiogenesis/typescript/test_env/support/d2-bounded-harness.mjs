@@ -18,10 +18,14 @@ export function capturedEnvelope(){
 // These are lookup stubs, not RuntimeEvents or calls to ABG admission. They
 // exercise the real private projection body with authentic Product guards and
 // explicit boundary assumptions. No prefix is admitted, persisted, or replayed.
-export async function projectionHarness({sourceRoot=packageRoot}={}){
-  const product=await load("build/code/src/product/index.js");
-  const revisionProduct=await load("build/code/src/product/semantic_revision.js");
-  const {SEMANTIC_REVISION_IDS:ids}=await load("build/code/src/gtl/semantic_revision_identity.js");
+export async function projectionHarness({sourceRoot=packageRoot,selectionInputProfile="current"}={}){
+  assert.ok(["current","pre-context-counterexample"].includes(selectionInputProfile));
+  const historical=selectionInputProfile==="pre-context-counterexample";
+  assert.equal(resolve(sourceRoot),historical?resolve(predecessorRoot,"work"):packageRoot,"explicit counterexample subject, not schema fallback");
+  const subjectLoad=path=>import(pathToFileURL(resolve(sourceRoot,path)).href);
+  const product=await subjectLoad("build/code/src/product/index.js");
+  const revisionProduct=await subjectLoad("build/code/src/product/semantic_revision.js");
+  const {SEMANTIC_REVISION_IDS:ids}=await subjectLoad("build/code/src/gtl/semantic_revision_identity.js");
   const stage=capturedEnvelope(),current=stage.worksite,states=new Map(),executions=new Map(),lookupOrder=[];
   const originCalls=[];
   const oldCommand={kind:"unit_old_closed_C2_guard_assumption",commandResults:[{exitStatus:1}]};
@@ -29,6 +33,12 @@ export async function projectionHarness({sourceRoot=packageRoot}={}){
   const owner={prefix:{fixture:"lookup-only-not-a-native-prefix"},events:lookupOrder,lifecycle:stage.lifecycle,source:stage.sourceHandoff.declaration,
     execution:{workspaceBindingId:"binding://unit/current",workspaceBindingDigest:product.sha256Canonical(current.workspaceBinding),invocationAdmissionRef:"invocation://unit/current"},call:{implementationRef:ids.projectionImplementationRef}};
   const basis={input:null,publication:{},predecessorPrefix:{fixture:"lookup-only"},graphFunction:{declarations:{"abg.semantic_revision_selection":stage.lifecycle.declarationRef}},declarationGraphFunctions:[]};
+  function selectionInput(parent,cause){
+    const input={kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:parent.coordinate,causes:[cause.coordinate],
+      ...(historical?{}:{currentWorksite:current})};
+    assert.equal(revisionProduct.isSemanticRevisionSelectionInput(input),true,"selected cut accepts its exact input before semantic counterexample");
+    return input;
+  }
   function state(name,value,{invocation="invocation://unit/root",rawInput=stage,ordinal=10,resultClass="success",judgment="advance",implementationRef=ids.projectionImplementationRef}={}){
     const cCallRef=`c-call://unit/${name}`,basisId=`basis://unit/${name}`,resultRef=`result://unit/${name}`,resultDigest=product.sha256Canonical(value);
     const resultAdmissionEventRef=`lookup-result:${name}`,judgmentEventRef=`lookup-judgment:${name}`;
@@ -46,7 +56,7 @@ export async function projectionHarness({sourceRoot=packageRoot}={}){
   function revision(parent,cause,name,ordinal,invocation){
     const selection={kind:"semantic_revision_selection",schemaVersion:"5.0.0",parent:parent.coordinate,causes:[cause.coordinate],mode:"construction_repair",selectedStageRef:null,
       selectedObligationRefs:[stage.sourceHandoff.declaration.fulfillmentBindings[0].obligationRef],selectedTargetRefs:stage.worksite.targets.slice(0,2).map(row=>row.target.targetRef),reasonRef:`reason://unit/${name}`};
-    const decision=state(`${name}-selection`,selection,{ordinal:ordinal-2,invocation,rawInput:{kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:parent.coordinate,causes:[cause.coordinate]}});
+    const decision=state(`${name}-selection`,selection,{ordinal:ordinal-2,invocation,rawInput:selectionInput(parent,cause)});
     basis.declarationGraphFunctions.push({name:decision.call.cCall.graphFunctionRef,declarations:{"abg.semantic_revision_selection":stage.lifecycle.declarationRef}});
     const request={kind:"semantic_revision_request",schemaVersion:"5.0.0",parent:parent.coordinate,causes:[cause.coordinate],selection:decision.coordinate,currentWorksite:current};
     const value=revisionProduct.deriveSemanticRevision(parent.call.result.value,request,selection);
@@ -78,7 +88,9 @@ export async function projectionHarness({sourceRoot=packageRoot}={}){
     links.set(specifier,linked);return linked;
   });
   await module.evaluate();
-  function select(parent,cause){basis.input={kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:parent.coordinate,causes:[cause.coordinate]};owner.call.implementationRef=ids.selectionImplementationRef;return module.namespace.projectRevisionSelectionSubject(basis,basis.input);}
+  // Historical bytes and table-based currentness only; no fresh physical check
+  // is claimed. Installed dispatch keeps its separate actual observation gate.
+  function select(parent,cause){basis.input=selectionInput(parent,cause);owner.call.implementationRef=ids.selectionImplementationRef;return module.namespace.projectRevisionSelectionSubject(basis,basis.input,false);}
   function project(request){basis.input=request;owner.call.implementationRef=ids.projectionImplementationRef;return module.namespace.projectSemanticRevision(basis,request,false);}
   return {product,revisionProduct,ids,stage,current,states,executions,lookupOrder,owner,basis,root,oldCause,first,partial,second,state,revision,select,project,originCalls,oldCommand,newCommand,module};
 }

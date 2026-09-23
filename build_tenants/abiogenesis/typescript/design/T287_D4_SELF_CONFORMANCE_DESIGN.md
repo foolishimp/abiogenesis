@@ -1,6 +1,6 @@
 # T-287 D4: Qualification-Bound Self-Conformance
 
-The [native assessment and sole qualification design](T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md) is the subordinate binding for this gate's J/O evidence and D5 vector/verdict realization; this gate remains distinct from the sole qualification verdict.
+The [native assessment and sole qualification design](T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md) is the subordinate binding for this gate's J/O evidence and D5 coverage/verdict realization; this gate remains distinct from the sole qualification verdict.
 
 **Status:** Frozen design candidate; Executive acceptance and implementation are separate.
 **Owner:** Validator.Conformance / AF-22, selected by T-287 D4 under GOAL-035.
@@ -11,7 +11,7 @@ The [native assessment and sole qualification design](T287_D4_D5_NATIVE_QUALIFIC
 ## Outcome And Boundary
 
 The exact ABIogenesis candidate evaluates its own applicable obligations through
-AF-22's qualification-only `self_conformance` kind. It returns one owning-gate
+AF-22's qualification-only `self_conformance` kind. It returns one whole-subject assessment
 result; it neither repairs its subject nor issues the overall qualification
 verdict. Product F11 remains distinct from S01 entry, S06 application evidence,
 S07 release and the deferred F12/S04. D1 and banked W1/W2 are not reopened.
@@ -83,7 +83,7 @@ families, not independent entities, stores, registries or a new rule language.
 | Input | Required content and authority |
 |---|---|
 | `ExactCandidateQualification<basis>` | One content-addressed `pre_rc_candidate` or `installed_rc` projection, with the subject-specific fields required by QUAL-057. One qualification family; acceptance of the unchanged RC adds no qualification subject. |
-| `QualificationLawBasis` | Definition-selected STDO identity and both digests above; exact published catalog and source identities/digests. The same value binds inventory, assessments, gate result and later vector. |
+| `QualificationLawBasis` | Definition-selected STDO identity and both digests above; exact published catalog and source identities/digests. The same value binds inventory, assessments, assessment and later verdict. |
 | Frozen subject inventory | Complete candidate member inventory and owning source roots; per-member ref/digest, surface roles and classification evidence. Include constitutional, design, code, proof, ticket/execution, public/exported contract, manifest, qualification and release-claim surfaces. |
 | Tenant-conformance manifest | Exact identity/version/digest and capability-definition/public-contract basis, with realized claims under CAPABILITY-001–010; capability presence is not realized conformance. |
 | Rule applications | Exact published rule/source locator, subject surface/claim, declared applicability premises and required evaluation/evidence roles. Each inventory member and applicable rule has a disposition; missing classification or application stays incomplete. |
@@ -150,11 +150,11 @@ wholesale for an ABIogenesis 5.0 qualification subject. The gate result is not
 an `ExactCandidateQualification<verdict>`.
 
 QUAL-064's existing native structural admission consumes this owning result as
-one member of the complete ordered `QualificationGateResultVector<K>`:
+the authenticated complete assessment consumed directly by AF22 (see the contracted D4/D5 §5):
 passed maps to green, failed to red and unresolved to blocked, preserving exact
 basis, result/evidence identities and bypass facts. It cannot reinterpret the
 finding or replace a missing gate. Exactly one separate declared AF-22
-`exact_candidate_qualification` application reduces the complete vector. Release
+`exact_candidate_qualification` application consumes the complete authenticated assessment. Release
 snapshot and prior acceptance remain consumers/output evidence, never gate inputs.
 
 ## First Realization And Proof
@@ -191,8 +191,8 @@ Later exact F11 qualification must cover the real complete candidate and the
 SELF-CONFORMANCE-009 seeded matrix: missing authority, broken traceability,
 unowned public contract, design/code drift, malformed proof, ticket/closure
 mismatch and release-identity mismatch. Every required seed must be non-green;
-wrong-subject or unreadable inputs must refuse. D5 binds the complete owning-gate
-vector, S01/S07 and applicable installed-RC or higher-RC changed-subject reruns
+wrong-subject or unreadable inputs must refuse. D5 binds the complete behavioral coverage and assessment
+coverage assessment, S01/S07 and applicable installed-RC or higher-RC changed-subject reruns
 under [the D6 release identity design](T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md);
 no W1/W2 reset.
 
@@ -209,7 +209,7 @@ law or reserved decision returns to its actual owner; ordinary catalog rows,
 carrier spelling and implementation detail remain in this component.
 
 This candidate preserves SELF-CONFORMANCE-001–003 basis/inventory/applicability,
-004–007A evaluator/results/authority/re-entry/vector boundaries, 008–011 exact
+004–007A evaluator/results/authority/re-entry/coverage boundaries, 008–011 exact
 qualification/negatives/snapshot limits and 012 bounded Product scope, plus
 QUAL-057/064's one-family and sole-verdict laws. The Writer returns a frozen
 subject and residual to Executive; this design does not activate implementation

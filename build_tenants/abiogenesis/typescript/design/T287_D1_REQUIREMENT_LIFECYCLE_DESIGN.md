@@ -1,5 +1,304 @@
 # T-287 D1: Native Source and Obligation Handoff
 
+## Proposed generic-job binding reframe
+
+Status: Executive-accepted at the frozen design hash after the single independent
+review closed satisfied. Implementation is authorized under
+ABI5_GENERIC_JOB_IMPLEMENT_01; source/runtime qualification is separate.
+Activation ABI5_GENERIC_JOB_DESIGN_01 is design_reframe under unchanged Product
+WHAT. The current source-development basis is exact STDO 2.5.0-rc.7 and the
+[interface](ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration)
+and [worksite](ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality) frames.
+The [activation and preimages](../../../../.ai-workspace/comments/codex/20260918_GENERIC_JOB_BINDING_REPAIR/activation.md)
+preserve the dirty-source subject and the prior bounded judgments. The older
+fixed-source sections below retain their historical acceptance and limitations;
+their RC6 and active-implementation statements do not describe this activation.
+
+### Outcome and source-owned gaps
+
+One unchanged installed generic builder accepts an ordinary complete source
+request, derives and assesses Intent, Product, Requirements and Design, constructs
+the application through native C1/C0, executes its verifier through C2, assesses
+actual evidence and returns a fresh-readable native result/replay. GLC declares
+domain meaning and topology; GTL declares contracts, HoG traverses, selected
+owners realize leaves, and ABG alone admits truth. No caller manufactures
+Requirements, an envelope, Design layout, intermediate results or stage order.
+
+This serves Product F17/S06 under
+[proof carry-through](../../../../specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md)
+001–039 with the existing GTL requirements algebra. Construction readiness,
+requirement fulfillment, Run closure and full application/release acceptance
+remain different claims.
+
+Instance admission is not ProofStrengthAdmission or proof-depth completeness.
+The existing assurance-fold requirements and typed residuals remain governing;
+this repair does not close D3, universal coverage-gated closure or release.
+
+| Current owner seam | Observed limitation | Selected repair |
+|---|---|---|
+| gtl/requirement_handoff.ts; product/requirement_handoff.ts | Installed source declaration fixes member digests, nonempty terms and bindings before intake. | Add an explicit job-input contract/declaration arm; derive source context from admitted bytes with requirements initially pending. |
+| gtl/semantic_stage.ts; product/semantic_stage.ts | Lifecycle fixes task/oracle digests and per-requirement policies; discovered requirements get four null binding refs. | Separate installed templates from admitted job values; activate assessed binding/policy/shape instances under those templates. |
+| product/semantic_stage.ts::deriveSemanticWorksiteConstructionConfiguration | Design selects caller-prebuilt targets and exact commands. | Let assessed Design propose typed relative targets/commands; native owners form scopes, observations and the existing C1/C2 preparation. |
+| abg/requirement_handoff.ts; hog/ccall_lifecycle.ts | Handoff authentication is root-only and lacks the semantic owner's cursor/declaration-owner relation. | Add exact root-to-child intake authentication through the existing common execution-basis owner; compose intake in the same Program start. |
+| product/worksite_operations.ts::inspectTargetPath | Missing file parents refuse before file observation/replacement. | The separately authorized [C0 parent prerequisite](T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md#proposed-assessed-file-parent-prerequisite) creates only necessary parents of admitted assessed targets. No host layout creation. |
+
+These are required implementation deltas, not claims that the predecessor
+already accepts generic jobs. The rejected Hello preparation remains rejected.
+No missing current contract is repaired by omitting a digest check.
+
+### One canonical job, two identity domains
+
+Add a closed, explicitly discriminated job-bound arm beside the existing fixed
+declaration arm. Legacy inputs, declarations, checks and receipts keep their
+meaning. The new installed declaration fixes source-role/schema constraints,
+stage topology and dependencies, role-context rules, allowed realization/proof
+contract refs, generic policy/shape templates, instruction assembly and bounded
+worksite/command-construction capabilities. It fixes no scenario bytes, source
+inventory digest, task/oracle digest, requirement ref, expected answer, target
+path or scenario-specific policy text.
+
+The root input is one closed SemanticJobInput value: complete source members
+with logical locators/provenance and bytes; ordinary task and independent
+evaluation data with their declared role visibility; and the owner's workspace
+read/write/command bounds. Bounds may narrow the admitted invocation capability,
+never enlarge it. Existing A/W/grant coordinates come from the actual admitted
+environment/invocation, not an invented job workspace. User-specified paths in
+ordinary source remain requirements to interpret, not a supplied Design asset.
+The input contains no RequirementTerm, fulfillment binding, policy instance,
+semantic asset, worksite target observation, generated prompt or worker answer.
+
+The exact root raw-input admission owns this value. Every child/envelope carries
+that same immutable job value and a derived coordinate anchored to root
+invocation admission, raw-input ref/digest, installed lifecycle identity and
+the admitted A/W/grant relation. Source inventory, task/evaluation digests and
+source spans are projections of that value. They are not parallel mutable
+authorities. Job-bound envelopes do not carry independently authoritative copies
+of taskData, evaluationData or a substituted lifecycle. Runtime observations and
+assets are additional admitted results, never modifications to the job.
+
+Different requests have different job identities even though Product, Program,
+schemas and topology remain byte-identical. A new invocation of equal input is
+still separately admitted; equality of payloads does not confer another Run's
+authority. Role projection may omit evaluation data from an author view without
+changing the underlying job. Assessor context names the current assessed asset
+and its actual eligible statement refs; predecessor and other-role views stay
+context, not that field's domain.
+
+### One native start: owner, type and value
+
+The installed CLI/API remains ordinary run.invoke#start with the generic
+Program and its job input contract. Setup may verify/resolve/install/bind and
+admit catalog/conformance, but creates no source-handoff Run and no semantic
+envelope. A proposed launch has the existing shape
+abg.cli --jsonl <exact native DefinitionCall packet>; no new Public operation
+or job-specific launcher API is needed.
+
+| Native step | Value and owner relation |
+|---|---|
+| Root admission | Existing Public ingress/invocation/execution-basis owners bind the complete SemanticJobInput and installed Program. Reject a supplied declaration/envelope or inconsistent scope before actors. |
+| Job intake child F_D | A closed variant of the requirement-handoff owner derives exact member bytes, inventory/spans and job coordinate, then uses Product semantic-envelope construction to return the initial job-bound envelope. Initial terms/bindings are explicitly pending, not a fake seed requirement and not an empty fulfilled set. |
+| Intent and Product | Existing native author/independent-assessor stages consume full role-appropriate source and admitted predecessors. They preserve unresolved pressure and do not claim application fulfillment. |
+| Requirements | The native author proposes grounded requirements and constrained fulfillment/policy/shape candidates. The owner derives canonical refs; the independent assessor sees those actual candidates. Only the satisfied, admitted assessment activates the exact binding versions described below. |
+| Current context F_D, then Design | A narrow semantic context leaf uses existing worksite observation ownership to enumerate/read the admitted bounded context roots and record current content/provenance. Design author and assessor receive that same admitted inventory, available execution facts and the active requirements/bindings. They propose/assess layout, dependencies and commands; no caller supplies target layout. |
+| Assessed-target plan, C0 parents, final bridge | Native deterministic projection checks the satisfied Design against job scope and active bindings, derives necessary parents, and emits the closed C0 prerequisite request. After its admitted result, the native bridge rehydrates the exact Design/plan, observes actual file targets and dependencies, and returns existing WorksiteCommandPreparationInput. All three are declared child calls, not a host sequence. |
+| C1, C0 file replacements, C2 | Existing preparation/constructor/reducer/effect/helper owners run over those exact coordinates. C1 output, atomic file receipts, protected snapshots, one C2 helper call, command reports and compact acknowledgment remain joined. |
+| Evidence and terminal | Existing evidence-input owner recovers the same-invocation envelope through actual native producer results, conserving job and active binding versions. Evidence author/independent assessor use committed artifacts, real C2 observations and role-appropriate criteria. Terminal closes the native Run without converting non_closing application coverage into full Product acceptance. |
+| Fresh reads | Fresh installed public result/replay rederive the exact admitted Run/prefix. Restricted-process instruction reconstruction uses saved admitted job/source/observations plus installed owners, not the mutable source checkout or stored-prompt equality alone. |
+
+The context reader is a bounded extension of worksite observation, not a scanner
+service or new runtime entity. The owner checks canonical roots, protected
+install/runtime roots, symlinks and explicit limits; includes existing file
+bodies needed by declared roles; and records directory membership needed to
+interpret absence. Exceeding bounds or failing to observe required context
+refuses, rather than silently truncating or asserting absence. Read-only context
+does not authorize writes. Replay uses admitted observations and does not
+re-read the current filesystem; pre-dispatch/effect checks do.
+
+Intake combines source handoff and initial-envelope construction in one native
+leaf variant. It does not accept a caller-created source declaration as installed
+law. Common basis authentication remains in
+abg/execution_basis.ts::authenticateNativeInstructionAssemblyBasis. The new
+handoff basis adds the actual cursor/declaration GraphFunctions and resolved
+source/lifecycle owner publications using existing HoG declaration-owner lookup.
+It rehydrates root ancestry, actual child raw input, resolution, contracts,
+Program/materialized graph, cursor ref/digest/value and selected call phase.
+Installed owner digests must match the admitted ProductSet contributions.
+The result owner rederives the whole output and authenticates the successful,
+advancing producing call and foldback. Removing the old root-only check without
+these joins is forbidden. An equal JSON value from another call/job is not a
+native predecessor.
+
+### Assessed requirement binding and policy instances
+
+Installed generic templates declare the allowed existing realization/proof
+output contracts and minimum evidence roles/shared-basis/content constraints.
+They describe what a lawful instance must carry; they contain no Hello/Add
+requirement text. A policy instance supplies source-grounded job meaning, scope,
+paired obligation and explicit unproved scope; a shape instance supplies the
+job-specific content relation while retaining the template's minimum roles and
+exact installed role-contract refs. Neither creates a schema, executable
+predicate, implementation, effect, evaluator or new catalog member.
+
+Use the existing finite requirement-refinement capability, extended with closed
+binding proposals. A proposal names an existing grounded requirement or a local
+candidate ref introduced by this same response; the Product owner resolves that
+local ref to the canonical grounded term before assessor assembly. It selects
+only installed allowed contracts and templates. Source quotes/spans are exact,
+candidate refs unique, parent links valid, and paired obligations conserved.
+No fixture maps prose labels to contracts or supplies a presolved requirement.
+
+A binding version is a subordinate immutable value attached to the admitted
+semantic result: job coordinate, stable requirement/obligation refs, monotonically
+increasing version, exact prior-version ref/digest or initial-null marker,
+existing four binding refs, policy/shape instance digests, introducing asset and
+assessment source coordinates, and content-derived ref/digest. Source terms and
+all earlier versions remain historical. The initial discovered null binding is
+open, never construction-ready. A unique current version is projected from the
+actual admitted same-job chain, not selected by largest number or a local map.
+
+Product owns one pure instance/refinement projection reused by author candidate
+construction, assessor context, assessment-result derivation and downstream
+validation. ABG authenticates the input/result/assessment ancestry and invokes
+that relation; it does not judge meaning. A satisfied independent assessment
+must cover the exact proposed requirements and instances. Only its successful,
+advancing native result makes the version available downstream. Falsified or
+indeterminate assessment does not activate it. Same-version changed bytes,
+missing/skipped/forked supersession, foreign jobs, unknown contracts/templates,
+dropped mandatory roles or unexplained source substitution refuse.
+
+Requirements readiness means source-grounded, independently assessed paired
+obligations with admissible construction/proof bindings for the selected scope.
+It is not realization or proof. Design may refine dependencies and construction
+choices, not silently replace the assessed requirement instance. New or changed
+binding meaning re-enters the native assessed refinement/D2 route. Any selected
+obligation still null, conflicting or unassessed blocks its construction; source
+coverage uncertainty remains explicit rather than being counted as fulfilled.
+
+### Assessed Design and physical formation
+
+The job-bound worksite-design candidate carries proposed relative file paths,
+implementation/verifier/configuration roles, active obligation/binding-version
+refs, change instructions, read-dependency paths, typed command candidates and
+sufficient/unknown dependency disposition. The native response schema exposes
+these domains, not precomputed targets or preferred choices. Existing source
+paths and expected behavior remain visible under their proper roles.
+
+The native plan owner derives canonical subjects/territories and target refs
+from the exact admitted Design, A/W/grant and job bounds. A path or command
+never grants itself permission. It refuses escape, aliases, protected roots,
+duplicate/conflicting roles, unbound obligations and a command beyond declared
+executable/cwd/environment/time/report/write bounds. Command candidates use the
+existing WorksiteDeclaredCommandInput/outcome-predicate contracts; supported
+predicate kinds only, no string-to-code evaluator. Available executable facts
+come from actual observations or explicitly attributed owner input, never an
+invented toolchain observation. The actor's sufficient disposition cannot
+override a failed physical, capability or identity check.
+
+Before Design, the context inventory gives genuine existing content. After
+Design and any required C0 parent creation, target formation obtains fresh
+absent/file O0 values with existing subject/observation constructors and reader;
+pre-existing dependencies must still agree, and any changed context must be
+explained by the exact admitted parent prerequisite or a governed D2 transition.
+The bridge creates C1 task text from the assessed statements, selected binding
+versions and actual observations. Generic instructions contain no Data Mapper,
+Hello, expected-answer or ticket-specific rule. The predecessor's Data
+Mapper-specific construction prose is not generic authority.
+
+Missing parent creation is not hidden in observation or file replacement.
+The dedicated bounded C0 relation linked above owns its effect, result and
+partial-effect truth before file O0 exists. Final bridge failure preserves any
+admitted parent facts and never reports that the worksite was untouched.
+C1 retains its original-versus-assembled prompt identity; C2 retains all eight
+helper coordinates, protected snapshots and pre-effect assembly/refusal.
+C2 may write execution-evidence territory only, not protected C1 targets.
+
+The evidence-input bridge rehydrates job, Design, active binding versions,
+parent/target relation, C1/C0 committed artifacts and C2 execution from exact
+admitted producers in the same invocation. The caller never reconnects them.
+Missing or substituted evidence refuses at that owner before Evidence dispatch.
+
+### Implementation sequence, territory and discriminators
+
+The following is a proposed implementation cone, not a mutation grant. Paths
+are under the ABI TypeScript tenant code/src unless stated. Existing public
+operation, event-store, event-kind, traversal algebra and C1/C2 helper protocols
+are unchanged.
+
+1. **Closed job intake and same-start authentication.** Extend
+   gtl/requirement_handoff.ts, gtl/semantic_stage.ts, gtl/contracts.ts,
+   product/requirement_handoff.ts, product/semantic_stage.ts,
+   abg/requirement_handoff.ts, abg/semantic_stage.ts,
+   implementation/requirement_handoff.ts, implementation/contracts.ts and
+   hog/ccall_lifecycle.ts. Reuse the common execution-basis authenticator, adding
+   only exact carrier/ancestor forwarding in abg/execution_basis.ts if necessary.
+   Update the matching closed publication schema in owner_bindings/run_invocation.ts,
+   validator/validation.ts, product/execution_resolution.ts, product/builtin_semantics.ts,
+   native descriptor wiring and existing gtl/product/abg index exports. Add no
+   second authentication path.
+2. **Assessed refinement and native worksite preparation.** Extend the same
+   Product/ABG semantic owners, gtl/semantic_stage_identity.ts,
+   gtl/semantic_stage_publication.ts, implementation/semantic_stage.ts and
+   abg/instruction_assembly.ts. Put bounded physical context enumeration/read in
+   product/worksite_operations.ts using product/worksite_effect.ts constructors.
+   Add the precise C0 parent cone below, then return the existing C1/C2
+   preparation contract. No source changes to C1's constructor/reducer or C2's
+   command helper are selected merely to consume that unchanged contract.
+3. **D2 projection and generic GLC binding.** Extend product/semantic_revision.ts
+   and abg/semantic_revision.ts with the shared active-version relation and exact
+   current-job/design source joins; adjust gtl/semantic_revision.ts and
+   implementation/semantic_revision.ts only for the corresponding closed
+   contract/owner forwarding. The [D2 addendum](T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md#proposed-generic-job-binding-conservation)
+   defines the invariants. GLC changes only its declaration/package/input split,
+   single-start support and focused tests listed in its full-sandbox HOW.
+4. **Freeze and evidence.** Build/pack in an isolated source copy using existing
+   tools and dependencies. One independent design review precedes implementation;
+   subsequent source/outcome review and live authority are separate. Use the
+   existing handoff/semantic/D2/C0 tests, not a new qualification framework.
+
+The cheap first discriminator is an installed native root/child intake test
+using one generic publication and two ordinary raw-source requests (original
+Hello; integer-addition CLI). No model or subject command is needed. Assert
+identical installed Product/Program bytes, different admitted job/source
+identities, empty-pending initial requirements, and actual child result/envelope
+authentication. Swap job/input/context/owner coordinates and require pre-effect
+refusal. A helper-only construct/parse success is insufficient. Stop here if
+ordinary intake still requires a pre-solved term, policy or layout.
+
+Next, deterministic native actor doubles supply genuinely derived finite
+Requirements/Design candidates only for mechanical relation tests: exercise
+null-to-bound activation, exact independent assessment, native observation and
+nested-parent formation, real C1/C0/C2, terminal and fresh reads. These prove
+mechanics, not ordinary-LLM semantic competence. Include foreign-job evidence,
+wrong scope, changed source/oracle, malformed policy instance, stale inventory,
+missing binding, failed assessment and parent partial-effect refusals.
+
+The decisive separately authorized witness uses the same installed artifacts
+for both ordinary jobs, real native actors at xhigh, independently fixed outcome
+criteria, actual application/verifier execution, complete semantic stages and
+fresh result/replay. Check Product/Program identity before/after without a
+whole-tree runtime census. Preserve original Hello conformance, implementation
+design, test design, component/UAT, plan and observed-result meanings.
+Then exercise one existing within-job failed-verifier correction, conserving
+unaffected work and obtaining fresh native evidence. A changed-greeting addendum
+is not required; 5.1 human-response resume is not selected.
+
+Acceptance is falsified by any scenario member or job digest in installed
+builder content; caller-authored intermediate semantics/layout; inactive or
+foreign binding use; naked root-guard deletion; a copied source/result accepted
+without ancestry; host mkdir/stage/effect execution; unadmitted parent facts
+presented as replay truth; protected C2 writes; cross-job evidence reuse; loss
+of an original Hello obligation; or a completed stage treated as fulfilled
+application/release scope. Missing native/result equality or wider authority
+returns to Executive instead of another conceptual workaround.
+
+## Preserved fixed-source design and prior bounded judgments
+
+
+The D1-CONTEXT-HOW-01 context/Consequence amendment is Executive-adopted under
+[the bounded adoption record](../../../../.ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/context-how-review-01/disposition.md).
+Adoption covers the changed clauses, not every inherited candidate or an
+implementation/qualification claim.
+
 Status: The first increment's full-source/paired-open-obligation checkpoint is
 Executive-accepted; its coding grant is exhausted. The appended semantic-stage
 and Design bridge HOW is Executive-accepted after independent
@@ -273,7 +572,7 @@ label is not a new executable value kind or native implementation. Source role
 is declared provenance, not proof of human authorship.
 
 The assembly rule binds the selected GF/vector, ordered section rules and exact
-full-content/proportionality policies. It does not duplicate the surface's
+declared dependency/content and proportionality policies. It does not duplicate the surface's
 response contract, renderer, node type, authority, proof role or regime.
 Semantic work and rubric are immutable downstream data. No callback, code,
 ready-made answer, expected output or worker-supplied closure flag is executable
@@ -334,8 +633,9 @@ capped at the five initially selected ACC terms.
 Declare each stage as ordinary `C.compose(author, assessor)` over two `F_P`
 leaves using reusable native bindings. An outer ordinary composition connects
 the stage GraphFunctions in caller-declared order. The author returns a semantic
-asset; a distinct assessor invocation receives the full original source, every
-predecessor and the exact candidate under the immutable rubric. Its response
+asset; a distinct assessor invocation receives the exact whole candidate, every
+rubric criterion and their sufficient source/predecessor dependency closure under
+the role-context relation below. A full-source criterion requires full source. Its response
 binds candidate digest, role, rubric criteria, findings/citations and one of
 satisfied, falsified or indeterminate. An author's assertion is never its own
 semantic proof. Both dispatches use the existing closed-prompt transport with
@@ -392,7 +692,7 @@ The selected finite assembly algebra is deliberately small:
 |---|---|
 | source, role, stage and predecessor | Exact fixed-basis identity/byte/ref joins; missing, stale, substituted or wrong-role inputs block before dispatch. |
 | contract, proof, authority and renderer | Resolve the selected node/surface and immutable rows uniquely; missing, ambiguous, unsupported or forbidden rows block. |
-| relevance and compression | Include all five source members, selected paired obligations, all predecessor assets and required rubric/context sections in declared order; full content only, with no omission, excerpt or fallback. Budget insufficiency is a typed block, never truncation. |
+| relevance and compression | Resolve the closed role/worksite relation below; include each required member in full, in stable declared order. Full source/predecessor inclusion is lawful when that closure requires it, not a fallback or an exemption from relevance. Unknown sufficiency or exceeded declared transport bounds produces a typed block, never truncation. |
 | proportionality | Dispatch only the declared semantic F_P role whose interpretation is not a deterministic identity check. Pure assembly/conservation remains F_D and dispatches no worker. |
 | rendering | One native UTF-8 renderer over typed sections; exact decoded source bytes, no Unicode/line-ending normalization. Delimit source as quoted input, not executable instructions. Record every section and digest. |
 | non-tautology | Reject unsupported answer/disposition-bearing instruction slots and caller final prompts. Domain prose is not decidable by keyword; differential semantic tests must expose a weaker substituted candidate. Evaluation-only oracle answers never enter author materialization. |
@@ -406,6 +706,90 @@ and validates only the candidate's permitted delta against the actual input,
 surface and actor evidence. Shape-valid source loss, forged assessment, changed
 bindings, missing criteria or unsupported body fields refuse before dependent
 use. The manifest and raw transport are distinct from semantic adequacy evidence.
+
+### Role-scoped context over conserved native inputs
+
+This refinement distinguishes the complete conserved semantic envelope from the
+sufficient instruction projection for one selected call. It implements GTL
+Context 001–007 and Instruction Assembly 004A/006/015/016 through the existing
+declaration, native assembly and admission owners. The envelope conserves all
+source members, obligations, assets and assessments. A prompt omission deletes
+none of them, satisfies no gap and never changes an earlier call.
+
+The first closed projection changes only worksite-body inclusion. Full source
+members, original/discovered/retained obligation rows, required predecessor
+assets, stage task/rubric/response and actual evidence retain their existing
+owners and full required content. This witness's full-source-faithfulness
+criterion still requires all five source members. No source-span slicing,
+generic dependency selectors, authoring graph or summary engine is selected.
+
+Use the existing `SemanticStageDeclaration.assembly` owner for one explicit
+`role_scoped_worksite` content-policy variant. Its only new policy data is
+`worksiteContentByRole: { author, assessor }`, each value exactly
+`not_required` or `current_inventory`. The Product selects those values in
+its immutable admitted lifecycle declaration, before invocation. The existing
+`bodyCapabilities`, AssetSurface contexts, proof policies/shapes, stage
+dependencies, rubric and selected work contract constrain that declaration;
+neither an invocation request nor the F_P chooses it. A worksite-design role
+requires `current_inventory`; a missing or conflicting required dependency
+cannot be overridden by `not_required`. Independent policy/contract assessment
+still judges whether the Product declaration describes the actual task
+sufficiently; F_D does not infer that meaning from rubric prose.
+
+The finite native relation uses only already-owned fields:
+
+| Input and order | Deterministic operation and typed outcome |
+|---|---|
+| Exact call/input/publication, role, assembly rule and node/surface contracts | Resolve the existing native joins. Reject missing, wrong-role, ambiguous, unsupported or conflicting declarations. No default policy or caller prompt. |
+| Source, lifecycle and active revision | Carry `sourceHandoff`, full source/retained/discovered bindings, `predecessorStageRefs`/authenticated assets and applicable policies/shapes in their existing order; retain historical-invalidated labels and every required rubric criterion. |
+| `not_required` | Render no worksite file bodies. Record the carried worksite/input inventory identity and the explicit policy omission. This asserts no current-file or application claim and grants no write. |
+| `current_inventory` | Require the exact admitted `SemanticWorksiteBasis.targets` observations and bytes at this boundary; render every row in declaration order. Unknown/missing required content, unsupported context or stale/unexplained observation is insufficiency, not a smaller inventory. |
+| Construction/repair | Reuse the applicable Design's `targets` and `dependencyTargetRefs`, native current-coordinate mapping and D2 V/S/R relation. Render V's current bodies; only S enters C1 replacements, R remains read-only. No path scan or new dependency graph. |
+| Evidence and output | Keep existing admitted evidence/artifact joins, full candidate and rubric, and assessor-only evaluation-data rule. Render exact supplied bytes through the existing renderer; return its plan/envelope/manifest or a typed gap/refusal before dispatch. |
+
+All policy arms use this sole assembly relation. Explicit
+`full_source_and_predecessors` remains lawful only where admitted dependencies
+actually require its full content, including any worksite bodies; old tests or
+historical behavior do not exempt it from relevance/proportionality. It is not a
+compatibility fallback for absent new declarations. Historical installs retain
+their own bytes. New declarations and dispatch satisfy current law.
+
+The manifest records policy/role, complete conserved input identity, included
+worksite subject/observation identities, omitted body identities and the declared
+reason, section order and exact rendered digest. Necessary content cannot be
+replaced by an inaccessible locator. Repeated identical identity may render
+once only with all uses retained. Existing declared transport limits remain:
+insufficient space blocks, never truncates, and this amendment adds no quota.
+
+Expose failures through the existing assembly/semantic refusal boundary, with
+the exact policy, unresolved refs and typed cause distinguishing unknown
+dependency, unavailable required content, stale basis, unsupported selection
+and declared-bound overflow. The current null-return implementation needs this
+bounded diagnostic mapping; an empty prompt is not success. Unknown dependency
+sufficiency blocks target work. Only an already-declared disambiguation vector
+may instead produce candidate dependency evidence/gaps; F_P policy critique
+cannot approve itself or weaken a later F_D validation.
+
+At each newly admitted dependent boundary, selected worksite context uses actual
+current owner observations, not the original input merely because W is stable.
+D2 owns causal origins, changed postimages, valid evidence reuse and binding
+cover. Its separate admitted successor input carries any material update; no
+old stage envelope, frozen task or prompt is edited in place. Admission/replay
+reconstruct the recorded cut, not today's files. Existing required GTL Context
+locators/digests remain exact; this projection invents no context authority.
+
+Relevant specifications, design, code, tests, configuration and outputs are
+eligible only when already represented by the declared worksite/context and
+native observation/evidence owners. An arbitrary file outside that inventory
+or an uncarried current observation is an explicit dependency gap, not permission
+to scan, widen roots or invent a new carrier. Changed governing text remains a
+physical observation, not ratification; the source/meaning owner must select its
+re-entry before changed law is used. Read relevance never grants replacement.
+
+The downstream declaration must select this projection before a new installed
+use. Intent can omit application bodies when its actual contract has no such
+dependency; Design and repair include their current inventory. No native branch
+uses the domain stage name. ABI support alone does not migrate the witness.
 
 ### Design to the existing worksite pipeline
 
@@ -421,8 +805,9 @@ Native code joins selections to the immutable allowed worksite basis and actual
 current observations/grant at this prefix. Missing/stale targets, role confusion,
 ungranted paths/commands, replaced source or absent admitted Design assessment
 block before C1. It constructs the existing C1 target vector and renders its
-prompt from full source, paired obligations and admitted Design; the host cannot
-translate, summarize or substitute a prompt. Required verifier/implementation
+prompt from the sufficient role-dependency closure of source, paired obligations,
+admitted Design and current worksite; the host cannot translate, summarize or
+substitute a prompt. Required verifier/implementation
 roles remain paired; unchanged retained targets are conserved according to the
 declared repair territory. Native constructors validate all known command,
 predicate, observation and target joins together before the first expensive call.
@@ -454,9 +839,10 @@ and verifier artifact bytes by their admitted observations, separately from
 verifier execution/log/report evidence. Stale, foreign, missing or role-swapped
 evidence refuses. It supplies the common semantic envelope to the reusable
 assessor under the downstream keyed rubric. The host does not rebuild an
-authoritative evidence packet. Full original requirements, current Design and
-actual verifier artifacts/results are available to that assessor, without
-feeding its expected judgment to construction.
+authoritative evidence packet. Every original requirement remains conserved; the selected claim's complete
+requirement, current Design and actual verifier artifact/result dependency
+closure is materialized for that assessor, without feeding its expected judgment
+to construction.
 
 Domain role contract refs here declare expectations over supported native C1/C2
 carrier kinds. Their non-null preservation alone is not an executable alias or

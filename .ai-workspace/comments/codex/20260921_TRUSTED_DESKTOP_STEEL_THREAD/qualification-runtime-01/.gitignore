@@ -1,0 +1,17 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/api-and-discriminator.md
+/authored.patch
+/build-01.txt
+/checks.json
+/delta-summary.json
+/delta.json
+/executive-disposition.md
+/focused-01.txt
+/focused-02.txt
+/freeze.json
+/installed-discriminator.mjs
+/inventory.json
+/return.md

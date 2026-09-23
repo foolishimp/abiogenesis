@@ -1,3 +1,4 @@
+import { RETAINED_GRAPH_INPUT_CONTRACT, isGraphInputRetentionContractRelation } from "./worksite_preparation_contracts.js";
 import { isWorksiteRetentionContractRelation, WORKSITE_PREPARATION_IDS } from "./worksite_preparation_contracts.js";
 import { WORKSITE_REVISION_IDS } from "./worksite_revision_identity.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution.js";
@@ -714,6 +715,36 @@ async function resolveProductExecution(
           row.moduleRef === moduleRef && row.publicationDigest === owner.publicationDigest));
       return publication.kind === "one" && installs.length === 1;
     };
+    if (binding.targetContractRef === RETAINED_GRAPH_INPUT_CONTRACT.contractRef) {
+      const exactOwner = (owners: readonly ExecutionDeclarationOwnerCoordinate[], ref: string) => {
+        const matches = owners.filter(owner => owner.declarationRef === ref);
+        if (matches.length !== 1) return null;
+        const owner = matches[0]!;
+        const publication = publicationForCoordinate(programDeclarationClosure.publications, owner);
+        const installs = input.admittedInstalls.filter(install => install.installId === owner.installId && install.productId === owner.productId &&
+          install.contributionManifest.publicationBindings.some(row => row.moduleRef === owner.moduleRef && row.publicationDigest === owner.publicationDigest));
+        return publication.kind === "one" && installs.length === 1 ? owner : null;
+      };
+      const entry = exactOwner(programDeclarationClosure.contractOwners, binding.entryContractRef);
+      const target = exactOwner(programDeclarationClosure.contractOwners, binding.targetContractRef);
+      const source = exactOwner(programDeclarationClosure.contractOwners, binding.sourceContractRef);
+      const sameOwner = (a: ExecutionDeclarationOwnerCoordinate | null, b: ExecutionDeclarationOwnerCoordinate | null) =>
+        a !== null && b !== null && a.productId === b.productId && a.installId === b.installId &&
+        a.moduleRef === b.moduleRef && a.publicationDigest === b.publicationDigest;
+      const graphOwner = exactOwner(programDeclarationClosure.graphFunctionOwners, graph.name);
+      const targetTerm = graph.template.nodes.find(node => node.nodeRef === edge.toNodeRef)?.term;
+      const targetOwner = targetTerm?.kind === "c_workflow"
+        ? exactOwner(programDeclarationClosure.graphFunctionOwners, targetTerm.graphFunctionRef)
+        : targetTerm?.kind === "c_of" && targetTerm.requirement.kind === "executable_leaf_requirement"
+          ? exactOwner(programDeclarationClosure.implementationBindingOwners, targetTerm.requirement.implementationBindingRef) : null;
+      if (!isGraphInputRetentionContractRelation(binding, contracts) || source === null ||
+        target === null || !exactAbiOwner(target, WORKSITE_COMMAND_EXECUTION_IDS.moduleRef) ||
+        !sameOwner(entry, graphOwner) || !sameOwner(entry, targetOwner) ||
+        !sameOwner(entry, programDeclarationClosure.semanticsOwner)) {
+        return refusal("wrong_owner", "declaration_closure", "retained input requires the fixed ABI pair and exact entry, source and consumer semantics owners");
+      }
+      continue;
+    }
     const relationOwned = isWorksiteRetentionContractRelation(binding, contracts) &&
       [binding.entryContractRef, binding.sourceContractRef, binding.targetContractRef].every((ref) => {
         const owners = programDeclarationClosure.contractOwners.filter((owner) => owner.declarationRef === ref);

@@ -1,10 +1,21 @@
+import type { WorksiteExecutionTask } from "../product/worksite_revision.js";
+import { admittedNativeTask } from "./native_worksite_execution.js";
+import { isC2WorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+import { projectNativeWorkCommandSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
+import { types } from "node:util";
+import { hasOwnedDeclarationLookups } from "../implementation/leaf_invocation_port.js";
+import type { LeafInvocationPort } from "../implementation/contracts.js";
+import { rehydrateConstructionIntentForCursorAtPrefix } from "./traversal_route.js";
+import { admitIJsonValue } from "../shared/i_json.js";
+import { projectOwnedPrefixArtifactTruth, runtimePrefixFromArtifactTruth } from "./artifact_truth.js";
 import { WORKSITE_REVISION_IDS, isWorksiteExecutionTask, worksiteExecutionImplementationRef } from "../product/worksite_revision.js";
+import { runtimeEventPrefixDigest, validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
 import { worksiteExecutionSourcesCurrent, worksiteRevisionEntryBindingDisposition } from "./worksite_revision.js";
 import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
 import { isWorksiteCommandForwardRequest, isWorksiteCommandForwardTask } from "../product/worksite_command_forward.js";
 import { worksiteCommandForwardChildSourceAtPrefix } from "./worksite_command_forward.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
-import { revisionPreparationHasNativeBridgeSourceAtPrefix } from "./worksite_input_provenance.js";
+import { revisionPreparationHasNativeBridgeSourceAtPrefix, readDependencyPreparationHasNativeBridgeSourceAtPrefix } from "./worksite_input_provenance.js";
 import { deriveRuntimeEventCalculusProjection, holdsAt, constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
 import { isWorksitePreparationInput, preparationConstructionTasks } from "../product/worksite_preparation.js";
 import type {
@@ -18,6 +29,8 @@ import type {
 } from "../gtl/contracts.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { rootCTraversalCoordinate } from "../gtl/source_path.js";
+import { sampleNativeEventTime } from "./native_event_time.js";
+import { isNativeWorkspaceWorkTask } from "../product/native_workspace_work.js";
 import {
   type ImplementationResolutionCandidate,
   type ImplementationResolutionSetCandidate,
@@ -81,20 +94,31 @@ import {
 } from "./invocation_admission.js";
 import {
   projectExactPrefixWorkspaceEnvironment,
+  projectWorkspaceEnvironmentFromArtifactTruth,
   type ExactPrefixWorkspaceEnvironment,
 } from "./environment_admission.js";
-import { projectCurrentChildParentCCallAtPrefix } from "./c_call.js";
+import { projectCurrentChildParentCCallAtPrefix, projectOpenedCCallCarrierAtPrefix,
+  projectCCallCarrierPhaseAtPrefix, type CCall } from "./c_call.js";
+import { materializeGraph } from "../gtl/materialize.js";
+import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";
 import {
   AbgEventStore,
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
+  admitRuntimeEventBatch,
+  admitRuntimeEventTransactionAtExpectedPrefix,
+  isRuntimeEventTransactionActive,
   admitRuntimeEvent,
+  readHeldRuntimeEventsAtDurablePrefix,
+  projectHeldRuntimeEventsAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   compareAndAppendExpectedPrefix,
-  durableRuntimeEventPrefixDigest,
+  captureDurablePrefixCoordinate,
+  durableRuntimeEventPrefixThroughEvent,
   readRuntimeEventsAtDurablePrefix,
   selectHeldEventStoreDurablePrefix,
   validateDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
+  type RuntimeEventCandidateFactory,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
@@ -112,6 +136,105 @@ export interface RuntimeAdmissionBasis {
   readonly eventTime: string;
   readonly correlationId: string;
   readonly causationEventRefs: readonly string[];
+}
+
+/** Subordinate dispatch coordinates, authenticated against the existing event
+ * prefix and implementation owners. This value grants no execution authority. */
+export interface NativeInstructionAssemblyBasis {
+  readonly publication: Readonly<ModulePublication>;
+  readonly graph: Readonly<GtlGraph>;
+  readonly graphFunction: Readonly<GraphFunction>;
+  readonly declarationGraphFunctions: readonly Readonly<GraphFunction>[];
+  readonly executionBasis: Readonly<ExecutionBasis>;
+  readonly cCall: Readonly<CCall>;
+  readonly cursor: Readonly<TraversalCursorCandidate>;
+  readonly predecessorPrefix: Readonly<DurablePrefixCoordinate>;
+}
+
+/** Shared by semantic and worksite assembly; specialized owners add their
+ * own source/lifecycle/task law after this one exact authentication relation. */
+function deriveNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBasis) {
+  try {
+    const hash = (value: unknown) => sha256Canonical(value as JsonValue);
+    const isRecord = (value: unknown): value is Readonly<Record<string, JsonValue>> =>
+      value !== null && typeof value === "object" && !Array.isArray(value);
+    const artifactTruth = projectOwnedPrefixArtifactTruth(basis.predecessorPrefix);
+    if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") return null;
+    const prefix = runtimePrefixFromArtifactTruth(artifactTruth);
+    if (prefix === null) return null;
+    const events = runtimeEventsFromValidatedPrefix(prefix);
+    const execution = rehydrateExecutionBasisAtPrefix(prefix, basis.executionBasis.basisRef);
+    if (execution === null || hash(execution) !== hash(basis.executionBasis)) return null;
+    const program = basis.publication.programs.find(p => p.programRef === execution.programRef);
+    const functions = basis.declarationGraphFunctions.filter(g => g.name === execution.graphFunctionRef &&
+      hash(g) === execution.graphFunctionDigest);
+    if (program === undefined || hash(program) !== execution.programDigest || functions.length !== 1 ||
+      hash(functions[0]) !== hash(basis.graphFunction)) return null;
+    const graph = materializeGraph(functions[0]!, { invocationAdmissionRef: execution.invocationAdmissionRef,
+      admittedInputRef: execution.rawInputAdmissionRef, admittedInputDigest: execution.rawInputDigest,
+      admittedInput: execution.rawInputValue });
+    if (graph.materializationRef !== execution.graphRef || graph.materializationDigest !== execution.graphDigest ||
+      hash(graph) !== hash(basis.graph)) return null;
+    const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, basis.cCall.cCallRef);
+    const opened = events.find(event => event.eventId === call?.openedEventRef);
+    if (call === null || hash(call) !== hash(basis.cCall) || call.callClass !== "leaf" ||
+      !hasAdmittedTraversalCursorAtPrefix(prefix, basis.cursor) || !isRecord(opened?.payload) ||
+      opened.payload.cursorRef !== basis.cursor.cursorRef || opened.payload.cursorDigest !== basis.cursor.cursorDigest ||
+      basis.cursor.executionBasisRef !== execution.basisRef || basis.cursor.graphCallId !== call.graphCallId ||
+      basis.cursor.frameId !== call.frameId || basis.cursor.graphRef !== graph.materializationRef ||
+      projectCCallCarrierPhaseAtPrefix(prefix, call)?.phase !== "selected_no_evidence") return null;
+    const set = rehydrateAdmittedImplementationSetAtPrefix(prefix, execution.implementationSetRef);
+    const rootSet = rehydrateAdmittedImplementationSetAtPrefix(prefix, execution.rootImplementationSetRef);
+    if (set === null || rootSet === null || set.implementationSetDigest !== execution.implementationSetDigest ||
+      rootSet.implementationSetDigest !== execution.rootImplementationSetDigest ||
+      rootSet.publicationDigest !== hash(basis.publication)) return null;
+    const resolutions = set.rows.filter(row => row.graphFunctionRef === call.graphFunctionRef &&
+      row.programLocusRef === call.programLocusRef && row.implementationRef === call.implementationRef &&
+      row.implementationBindingRef === call.implementationBindingRef && row.inputContractRef === call.inputContractRef &&
+      row.outputContractRef === call.outputContractRef && row.computeRegime === call.regime);
+    if (resolutions.length !== 1) return null;
+    const inputRef = basis.cursor.inputRef, inputDigest = basis.cursor.inputDigest;
+    const inputEvents = events.filter(event => event.kind === "c_call_result_admitted" &&
+      isRecord(event.payload) && event.payload.resultRef === inputRef);
+    const inputValue = inputRef === execution.rawInputAdmissionRef ? execution.rawInputValue
+      : inputEvents.length === 1 && isRecord(inputEvents[0]!.payload) ? inputEvents[0]!.payload.value : undefined;
+    if (inputValue === undefined || hash(inputValue) !== inputDigest) return null;
+    const environment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth,
+      { ref: execution.workspaceBindingId, digest: execution.workspaceBindingDigest });
+    return { events, prefix, execution, graph, call, resolution: resolutions[0]!, program,
+      environment, inputRef, inputDigest, inputValue };
+  } catch { return null; }
+}
+
+const NATIVE_ASSEMBLY_DERIVATION = Symbol("native_assembly_basis_derivation");
+type NativeAssemblyDerivation = NonNullable<ReturnType<typeof deriveNativeInstructionAssemblyBasis>>;
+class NativeAssemblyBasisDerivation {
+  readonly #basis: NativeInstructionAssemblyBasis;
+  readonly #value: NativeAssemblyDerivation;
+  constructor(basis: NativeInstructionAssemblyBasis, value: NativeAssemblyDerivation) {
+    this.#basis = basis; this.#value = deepFreeze(value); Object.freeze(this);
+  }
+  static value(basis: NativeInstructionAssemblyBasis): NativeAssemblyDerivation | undefined {
+    const proof: unknown = Object.getOwnPropertyDescriptor(basis, NATIVE_ASSEMBLY_DERIVATION)?.value;
+    return typeof proof === "object" && proof !== null && #basis in proof && proof.#basis === basis ? proof.#value : undefined;
+  }
+}
+/** Pure helpers consume the constructed immutable basis. Raw/copy inputs retain
+ * fresh durable acquisition; this value never grants an effect or current worksite. */
+export function authenticateNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBasis) {
+  try { return NativeAssemblyBasisDerivation.value(basis) ?? deriveNativeInstructionAssemblyBasis(basis); }
+  catch { return null; }
+}
+export function constructNativeInstructionAssemblyBasis<T extends NativeInstructionAssemblyBasis>(basis: T): Readonly<T> | null {
+  try {
+    if (NativeAssemblyBasisDerivation.value(basis) !== undefined) return basis;
+    const captured = { ...(admitIJsonValue(basis) as unknown as T),
+      predecessorPrefix: captureDurablePrefixCoordinate(basis.predecessorPrefix) };
+    const value = deriveNativeInstructionAssemblyBasis(captured);
+    if (value === null) return null;
+    Object.defineProperty(captured, NATIVE_ASSEMBLY_DERIVATION, { value: new NativeAssemblyBasisDerivation(captured, value) });
+    return deepFreeze(captured);
+  } catch { return null; }
 }
 
 export interface InvocationRefusalAdmission {
@@ -395,7 +518,7 @@ function worksiteAuthorityCarrier(
       workspaceBindingDigest: value.workspaceBindingDigest,
     };
   }
-  if (isWorksiteCommandForwardRequest(value) || isWorksiteCommandForwardTask(value) || isWorksiteConstructionTask(value) ||
+  if (isNativeWorkspaceWorkTask(value) || isWorksiteCommandForwardRequest(value) || isWorksiteCommandForwardTask(value) || isWorksiteConstructionTask(value) ||
     isWorksiteExecutionTask(value)) {
     return {
       workspaceAuthorityBasis: value.workspaceAuthorityBasis,
@@ -584,7 +707,31 @@ function exactC2SourceEnvironment(
   task: ReturnType<typeof worksiteCommandTask>,
 ): boolean {
   if (task === null) return true;
+  if (isObservedWorksiteCommandExecutionTask(task)) {
+    const admitted = runtimeEventsFromValidatedPrefix(authorityPrefix).find(event => event.eventId === invocation.admissionEventRef);
+    return invocation.sourceResultBasis === null && invocation.programRef === WORKSITE_COMMAND_EXECUTION_IDS.programRef &&
+      invocation.graphFunctionRef === WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef &&
+      invocation.inputContractRef === WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef &&
+      invocation.rawInputDigest === sha256Canonical(task as unknown as JsonValue) &&
+      invocation.workspaceBindingId === task.workspaceBinding.bindingId && invocation.workspaceBindingDigest === task.workspaceBinding.bindingDigest &&
+      admitted?.kind === "invocation_admitted" && isJsonRecord(admitted.payload) &&
+      admitted.payload.invocationAdmissionRef === invocation.invocationAdmissionRef && admitted.payload.rawInputDigest === invocation.rawInputDigest &&
+      !worksiteCommandSourcesInvalidatedAfter(authorityPrefix, admitted.admissionOrdinal, task.workspaceAuthorityBasis.canonicalRoot,
+        task.protectedObservations.map(row => row.subject.relativePath));
+  }
+  const nativeTask = admittedNativeTask(authorityPrefix, task);
+  if (nativeTask !== null) {
+    const basis = invocation.sourceResultBasis;
+    const source = projectNativeWorkCommandSourceAtPrefix(authorityPrefix, nativeTask);
+    if (basis === null || source === null || !sameCanonical(basis.sourceResultValue, nativeTask.sourceNativeWork) ||
+      basis.sourceResultAdmissionEventRef !== source.sourceResult.eventId ||
+      basis.sourceResultJudgmentEventRef !== source.sourceJudgment.eventId ||
+      basis.sourceCCallRef !== nativeTask.sourceNativeWork.provenance.cCallRef) return false;
+    const rehydrated = rehydrateInvocationSourceResultBasisAtDurablePrefix(durablePrefix, basis);
+    return rehydrated !== null && sameCanonical(rehydrated, basis);
+  }
   if (task.kind === "worksite_revision_command_execution_task") return false; // D2 is an authenticated child arm only.
+  if (task.readDependencyBasis !== undefined) return false; // Initial-job reads require their same-invocation native bridge.
   const basis = invocation.sourceResultBasis;
   const sourceKind = basis?.sourceGraphFunctionRef ===
       WORKSITE_CONSTRUCTION_IDS.graphFunctionRef
@@ -624,24 +771,9 @@ function exactC2SourceEnvironment(
       sourceRunClosures[0]!.eventId,
     );
     const sourceEvents = runtimeEventsFromValidatedPrefix(sourcePrefix);
-    const encoded = Buffer.from(
-      sourceEvents.map((event) =>
-        `${canonicalJson(event as unknown as JsonValue)}\n`
-      ).join(""),
-      "utf8",
+    sourceDurablePrefix = durableRuntimeEventPrefixThroughEvent(
+      durablePrefix, sourceRunClosures[0]!.eventId,
     );
-    const body = {
-      kind: "durable_prefix_coordinate" as const,
-      schemaVersion: "5.0.0" as const,
-      eventLogRef: durablePrefix.eventLogRef,
-      prefixLength: encoded.byteLength,
-      prefixDigest: durableRuntimeEventPrefixDigest(sourceEvents),
-      storeIdentity: durablePrefix.storeIdentity,
-    };
-    sourceDurablePrefix = {
-      ...body,
-      coordinateDigest: sha256Canonical(body as unknown as JsonValue),
-    };
     if (!validateDurablePrefixCoordinate(sourceDurablePrefix) ||
       !sameCanonical(
         readRuntimeEventsAtDurablePrefix(sourceDurablePrefix),
@@ -818,10 +950,13 @@ function detachJsonRecord(
 export function hasExactWorksiteCommandLeafSourceAtDurablePrefix(
   predecessor: DurablePrefixCoordinate, cCallRef: string, value: unknown,
 ): boolean {
-  if (!isJsonRecord(value) || !isWorksiteExecutionTask(value)) return false;
+  if (!isJsonRecord(value)) return false;
   try {
     const events = readRuntimeEventsAtDurablePrefix(predecessor, { requireCurrent: true });
     const prefix = selectValidatedRuntimeEventPrefix(events);
+    const nativeTask = admittedNativeTask(prefix, value);
+    if (nativeTask === null && !isWorksiteExecutionTask(value)) return false;
+    const task = (nativeTask ?? value) as unknown as WorksiteExecutionTask & Readonly<Record<string, JsonValue>>;
     const opens = events.filter((event) => event.kind === "c_call_opened" && event.aggregateId === cCallRef &&
       event.graphFunctionRef === (value.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef : WORKSITE_REVISION_IDS.graphFunctionRef) && isJsonRecord(event.payload));
     if (opens.length !== 1 || opens[0]!.basisId === null) return false;
@@ -829,24 +964,29 @@ export function hasExactWorksiteCommandLeafSourceAtDurablePrefix(
     const execution = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId!);
     const fibres = events.filter((event) => event.kind === "c_call_fibre_selected" && event.aggregateId === cCallRef &&
       event.basisId === opened.basisId && event.runId === opened.runId && isJsonRecord(event.payload) &&
-      event.payload.implementationRef === worksiteExecutionImplementationRef(value) &&
+      event.payload.implementationRef === worksiteExecutionImplementationRef(task) &&
       event.payload.implementationBindingRef === (value.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef : WORKSITE_REVISION_IDS.implementationBindingRef) && event.payload.regime === "F_P");
     if (execution === null || fibres.length !== 1 || !sameCanonical(execution.rawInputValue, value) ||
       events.some((event) => event.aggregateId === cCallRef && (event.kind === "c_call_evidenced" || event.kind === "c_call_result_admitted")) ||
-      exactWorksiteEnvironmentAtPrefix(predecessor, worksiteAuthorityCarrier(value)!) === null) return false;
-    const calculus = deriveRuntimeEventCalculusProjection(prefix);
-    if (!worksiteExecutionSourcesCurrent(prefix, value)) return false;
+      exactWorksiteEnvironmentAtPrefix(predecessor, worksiteAuthorityCarrier(task)!) === null) return false;
+    // The native source branch below conjoins provenance and currentness once.
+    if (nativeTask === null && !isObservedWorksiteCommandExecutionTask(value) && !worksiteExecutionSourcesCurrent(prefix, task)) return false;
     const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, execution.invocationAdmissionRef);
     if (invocation === null || invocation.capabilityGrants.length !== 1 || !sameCanonical(invocation.capabilityGrants[0], value.capabilityGrant)) return false;
-    if (execution.basisClass === "root") return exactC2SourceEnvironment(predecessor, prefix, invocation, value);
+    if (execution.basisClass === "root") return exactC2SourceEnvironment(predecessor, prefix, invocation, task);
+    if (isObservedWorksiteCommandExecutionTask(value)) return false; // This source arm has no child route.
     if (execution.parentExecutionBasisRef === null || execution.parentCCallRef === null || typeof opened.runId !== "string") return false;
     const parent = rehydrateExecutionBasisAtPrefix(prefix, execution.parentExecutionBasisRef);
     const basisEvent = events.find((event) => event.eventId === execution.admissionEventRef);
     if (parent === null || basisEvent === undefined) return false;
-    const cut = selectValidatedRuntimeEventPrefix(Object.freeze(events.filter((event) => event.admissionOrdinal < basisEvent.admissionOrdinal)));
-    return deriveSameRunWorksiteCommandSourceBasisAtPrefix(cut, {
-      parentBasis: parent, parentCCallRef: execution.parentCCallRef, runId: opened.runId, task: value,
-    }) !== null;
+    // Native provenance and currentness must include later admitted mutations
+    // through the held pre-effect prefix. C1/revision preparation retains its
+    // historical child-admission cut and separate latest-currentness check.
+    const sourcePrefix = nativeTask !== null ? prefix
+      : validatedRuntimeEventPrefixBeforeEvent(prefix, basisEvent.eventId);
+    return deriveSameRunWorksiteCommandSourceBasisAtPrefix(sourcePrefix, {
+      parentBasis: parent, parentCCallRef: execution.parentCCallRef, runId: opened.runId, task,
+    }, predecessor) !== null;
   } catch { return false; }
 }
 
@@ -1226,9 +1366,8 @@ export function admitInvocationRefusal(
   contractOrDiagnosticRefs: readonly string[],
   basis: RuntimeAdmissionBasis,
 ): InvocationRefusalAdmissionReceipt {
-  assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
   const authorityPrefix = selectValidatedRuntimeEventPrefix(
-    readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+    readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
   );
   if (!hasAdmittedInvocationAtPrefix(authorityPrefix, invocationAdmission)) {
     throw new TypeError("invocation refusal requires one exact admitted InvocationAdmission");
@@ -1249,7 +1388,7 @@ export function admitInvocationRefusal(
     predecessorPrefix,
     () => admitRuntimeEvent(store, {
       kind: "invocation_refused",
-      eventTime: basis.eventTime,
+      eventTime: sampleNativeEventTime(),
       aggregateType: "workspace",
       aggregateId: invocationAdmission.workspaceBindingId,
       parentAggregateId: invocationAdmission.invocationRef,
@@ -1287,9 +1426,8 @@ export function admitExecutionBasis(
   input: ExecutionBasisInput,
   basis: RuntimeAdmissionBasis,
 ): ExecutionBasisAdmissionResult {
-  assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
   const authorityPrefix = selectValidatedRuntimeEventPrefix(
-    readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+    readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
   );
   const reject = (
     subjectDigest: Sha256Digest,
@@ -1334,7 +1472,7 @@ export function admitExecutionBasis(
       !isWorksiteConstructionTask(rawInputValue) ||
     input.invocationAdmission.programRef ===
         WORKSITE_COMMAND_EXECUTION_IDS.programRef &&
-      !isWorksiteCommandExecutionTask(rawInputValue) ||
+      !isC2WorksiteCommandExecutionTask(rawInputValue) ||
     input.invocationAdmission.programRef ===
         WORKSITE_BRANCH_CONSTRUCTION_IDS.programRef &&
       !isWorksiteBranchConstructionTask(rawInputValue)
@@ -1346,6 +1484,10 @@ export function admitExecutionBasis(
   }
   if (rawInputValue.kind === "worksite_revision_command_preparation_input" || rawInputValue.kind === "worksite_revision_command_execution_task") {
     return reject(input.invocationAdmission.rawInputDigest, "diagnostic://abiogenesis/execution-basis/revision-child-source-required@5");
+  }
+  if ((rawInputValue.kind === "worksite_command_preparation_input" || rawInputValue.kind === "worksite_command_execution_task") &&
+    Object.hasOwn(rawInputValue, "readDependencyBasis")) {
+    return reject(input.invocationAdmission.rawInputDigest, "diagnostic://abiogenesis/execution-basis/read-dependency-child-source-required@5");
   }
   if (isWorksiteFileReplaceRequest(rawInputValue)) {
     const admittedGrant = input.invocationAdmission.capabilityGrants[0];
@@ -1411,7 +1553,7 @@ export function admitExecutionBasis(
       );
     }
   }
-  if (isWorksiteCommandExecutionTask(rawInputValue)) {
+  if (isC2WorksiteCommandExecutionTask(rawInputValue)) {
     const admittedGrant = input.invocationAdmission.capabilityGrants[0];
     if (
       input.invocationAdmission.capabilityGrants.length !== 1 ||
@@ -1709,7 +1851,7 @@ export function admitExecutionBasis(
     () => {
   const setEvent = admitRuntimeEvent(store, {
     kind: "implementation_admitted",
-    eventTime: basis.eventTime,
+    eventTime: sampleNativeEventTime(),
     aggregateType: "workspace",
     aggregateId: input.invocationAdmission.workspaceBindingId,
     parentAggregateId: input.invocationAdmission.invocationRef,
@@ -1845,7 +1987,7 @@ export function admitExecutionBasis(
   const basisRef = `execution-basis://abiogenesis/${basisDigest.slice("sha256:".length)}`;
   const basisEvent = admitRuntimeEvent(store, {
     kind: "basis_admitted",
-    eventTime: basis.eventTime,
+    eventTime: sampleNativeEventTime(),
     aggregateType: "workspace",
     aggregateId: input.invocationAdmission.workspaceBindingId,
     parentAggregateId: input.invocationAdmission.invocationRef,
@@ -1916,16 +2058,68 @@ export function admitChildExecutionBasis(
   input: ChildExecutionBasisInput,
   basis: RuntimeAdmissionBasis,
 ): ChildExecutionBasisResult {
+  return admitChildExecutionBasisUsing(
+    () => readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
+    store, predecessorPrefix, input, basis,
+  );
+}
+
+/** One workflow preparation owns the first raw acquisition and its intent.
+ * Only the native owner's exact immutable lookup pair permits pure staging. */
+export function prepareWorkflowChildExecutionBasis(
+  store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
+  cursor: TraversalCursorCandidate,
+  lookups: Pick<LeafInvocationPort, "graphFunctionByRef" | "closureContractByRef">,
+) {
+  const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
+  const intent = rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor);
+  const proxyLookups = types.isProxy(lookups);
+  const graphLookup = proxyLookups ? undefined : Object.getOwnPropertyDescriptor(lookups, "graphFunctionByRef");
+  const closureLookup = proxyLookups ? undefined : Object.getOwnPropertyDescriptor(lookups, "closureContractByRef");
+  const fixedLookups = !proxyLookups && Object.isFrozen(lookups) &&
+    graphLookup !== undefined && "value" in graphLookup &&
+    closureLookup !== undefined && "value" in closureLookup &&
+    hasOwnedDeclarationLookups(graphLookup.value, closureLookup.value);
+  return Object.freeze({ intent, admit(input: ChildExecutionBasisInput, basis: RuntimeAdmissionBasis): ChildExecutionBasisResult {
+    if (!fixedLookups) {
+      return admitChildExecutionBasis(store, predecessorPrefix, input, basis);
+    }
+    let result: ChildExecutionBasisResult;
+    try {
+      result = admitChildExecutionBasisUsing(
+        () => projectHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
+        store, predecessorPrefix, input, basis,
+      );
+    } catch (error) {
+      // Preserve the first cause while still authenticating an error return.
+      try { assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix); } catch {}
+      throw error;
+    }
+    if (result.kind !== "child_execution_basis_admission") {
+      try { assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix); } catch {
+        return childRefusal("parent_basis_mismatch",
+          "child traversal requires one exact current workflow or deferred-application parent");
+      }
+    }
+    return result;
+  } });
+}
+
+function admitChildExecutionBasisUsing(
+  readCurrent: () => ReturnType<typeof readHeldRuntimeEventsAtDurablePrefix>,
+
+  store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
+  input: ChildExecutionBasisInput,
+  basis: RuntimeAdmissionBasis,
+): ChildExecutionBasisResult {
   const rawInputValue = detachJsonRecord(input.rawInputValue);
   const current = (() => {
     try {
-      assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
-      const snapshot = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
-      const expectedStorePrefixDigest = sha256Canonical(
-        snapshot as unknown as JsonValue,
-      );
-      if (store.digest() !== expectedStorePrefixDigest) return null;
+      const snapshot = readCurrent();
       const authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+      const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
+      if (store.digest() !== expectedStorePrefixDigest) return null;
       const runPrefix = selectValidatedRuntimeEventPrefix(
         runtimeEventsFromValidatedPrefix(authorityPrefix),
         { runId: input.parentTraversalScope.runId },
@@ -2164,12 +2358,17 @@ export function admitChildExecutionBasis(
       parentCCallRef: current.parentCCall.cCallRef, entry: rawInputValue })) {
     return childRefusal("child_input_mismatch", "revision preparation requires its actual admitted D2 bridge edge");
   }
+  if (rawInputValue.kind === "worksite_command_preparation_input" && Object.hasOwn(rawInputValue, "readDependencyBasis") &&
+    !readDependencyPreparationHasNativeBridgeSourceAtPrefix(authorityPrefix, { parentBasis: parent,
+      parentCCallRef: current.parentCCall.cCallRef, entry: rawInputValue })) {
+    return childRefusal("child_input_mismatch", "initial read dependencies require the actual admitted same-job bridge edge");
+  }
   const commandTask = worksiteCommandTask(rawInputValue);
   if (commandTask !== null && (input.graphFunction.name !== (commandTask.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef : WORKSITE_REVISION_IDS.graphFunctionRef) ||
     deriveSameRunWorksiteCommandSourceBasisAtPrefix(authorityPrefix, {
       parentBasis: parent, parentCCallRef: current.parentCCall.cCallRef,
       runId: parentScope.runId, task: commandTask,
-    }) === null)) {
+    }, predecessorPrefix) === null)) {
     return childRefusal("child_input_mismatch", "C2 child requires the exact completed source and admitted preparation route in this Run");
   }
   if (
@@ -2328,12 +2527,9 @@ export function admitChildExecutionBasis(
       "one deterministic child entry cannot admit a second ExecutionBasis",
     );
   }
-  const event = compareAndAppendExpectedPrefix(
-    store,
-    current.expectedStorePrefixDigest,
-    [() => ({
+  const factories: readonly RuntimeEventCandidateFactory[] = [() => ({
     kind: "basis_admitted",
-    eventTime: basis.eventTime,
+    eventTime: sampleNativeEventTime(),
     aggregateType: "frame",
     aggregateId: parentScope.frameId,
     parentAggregateId: parentScope.graphCallId,
@@ -2357,8 +2553,25 @@ export function admitChildExecutionBasis(
       basisDigest,
       ...executionBody,
     } as unknown as JsonValue,
-    })],
-  )[0]!;
+    })];
+  // A normal child admission returns the coordinate already authenticated by
+  // its one durable publication. Preserve the existing staged nested path:
+  // its caller still owns the outer transaction and the current durable cut.
+  const committed = isRuntimeEventTransactionActive(store)
+    ? {
+        value: compareAndAppendExpectedPrefix(
+          store, current.expectedStorePrefixDigest, factories,
+        )[0]!,
+        successorPrefix: selectHeldEventStoreDurablePrefix(store),
+      }
+    : admitRuntimeEventTransactionAtExpectedPrefix(
+        store,
+        current.expectedStorePrefixDigest,
+        () => admitRuntimeEventBatch(store, factories)[0]!,
+      );
+  if (committed.successorPrefix === null) {
+    throw new TypeError("child basis admission requires its durable successor");
+  }
   const executionBasis = deepFreeze({
     kind: "execution_basis" as const,
     schemaVersion: "5.0.0" as const,
@@ -2366,7 +2579,7 @@ export function admitChildExecutionBasis(
     basisRef,
     basisDigest,
     ...executionBody,
-    admissionEventRef: event.eventId,
+    admissionEventRef: committed.value.eventId,
   }) as ExecutionBasis;
   executionBases.add(executionBasis);
   return deepFreeze({
@@ -2374,6 +2587,6 @@ export function admitChildExecutionBasis(
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,
     executionBasis,
-    successorPrefix: selectHeldEventStoreDurablePrefix(store),
+    successorPrefix: committed.successorPrefix,
   }) as ChildExecutionBasisAdmission;
 }

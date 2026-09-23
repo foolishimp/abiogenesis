@@ -1,0 +1,16 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../20260923_WIP_CHECKPOINT/README.md
+/process_request_audit_20260709T231747154Z_pid12864/t172-rustc-version.trace/command.json
+/process_request_audit_20260709T231747154Z_pid12864/t172-rustc-version.trace/events.ndjson
+/process_request_audit_20260709T231747154Z_pid12864/t172-rustc-version.trace/final_output.txt
+/process_request_audit_20260709T231747154Z_pid12864/t172-rustc-version.trace/meta.json
+/process_request_audit_20260709T231747154Z_pid12864/t172-rustc-version.trace/result.json
+/process_request_audit_20260709T231747154Z_pid12864/t172-rustc-version.trace/stdout.raw
+/prompt_carry_20260709T231747272Z_pid12864/service-request-requirement.txt
+/prompt_carry_20260709T231747272Z_pid12864/t172-rustc-version.trace/command.json
+/prompt_carry_20260709T231747272Z_pid12864/t172-rustc-version.trace/events.ndjson
+/prompt_carry_20260709T231747272Z_pid12864/t172-rustc-version.trace/final_output.txt
+/prompt_carry_20260709T231747272Z_pid12864/t172-rustc-version.trace/meta.json
+/prompt_carry_20260709T231747272Z_pid12864/t172-rustc-version.trace/result.json
+/prompt_carry_20260709T231747272Z_pid12864/t172-rustc-version.trace/stdout.raw

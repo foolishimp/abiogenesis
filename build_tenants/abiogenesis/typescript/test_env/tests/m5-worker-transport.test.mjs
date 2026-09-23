@@ -15,6 +15,7 @@ import {
 } from "../../build/code/src/abg/index.js";
 import { canonicalJson } from "../../build/code/src/shared/canonical_json.js";
 import { sha256Bytes } from "../../build/code/src/shared/digests.js";
+import { nativeWorkspaceWorkReportSchema } from "../../build/code/src/product/native_workspace_work.js";
 
 function assertClaudeProtocol(args) {
   for (const [flag, value] of [
@@ -25,7 +26,7 @@ function assertClaudeProtocol(args) {
     assert.notEqual(index, -1, `missing ${flag}`);
     assert.equal(args[index + 1], value);
   }
-  for (const flag of ["-p", "--disable-slash-commands", "--no-session-persistence", "--verbose"]) {
+  for (const flag of ["-p", "--disable-slash-commands", "--no-session-persistence", "--include-partial-messages", "--verbose"]) {
     assert.equal(args.includes(flag), true, `missing ${flag}`);
   }
 }
@@ -57,6 +58,16 @@ test("M5 B-001 preserves lane-owned Claude execution posture", () => {
   assert.equal(worker.includes("execute"), false);
 });
 
+test("M5 native report keeps its original host schema presentation", () => {
+  const args = composeWorkerTransportArgs({
+    contract: constructKnownWorkerTransportContract("claude", { environment: {} }),
+    prompt: "return the ordinary work report", outputPath: "/tmp/report-output",
+    lane: "worker_executes", responseJsonSchema: nativeWorkspaceWorkReportSchema, environment: {},
+  });
+  assert.equal(args[args.indexOf("--json-schema") + 1], JSON.stringify(nativeWorkspaceWorkReportSchema));
+  assertClaudeProtocol(args);
+});
+
 test("M5 B-001 bounds append arguments for all four transport contracts", () => {
   for (const agentKey of ["claude", "codex", "gemini", "generic"]) {
     const environmentKey = `ABG_TS_${agentKey.toUpperCase()}_APPEND_ARGS`;
@@ -74,6 +85,13 @@ test("M5 B-001 bounds append arguments for all four transport contracts", () => 
       environment: { ABG_TS_CLAUDE_APPEND_ARGS: JSON.stringify(["--tools", "Bash"]) },
     }),
     /protocol-owned flag --tools/u,
+  );
+  assert.throws(
+    () => admitTransportAppendArgs({
+      agentKey: "claude",
+      environment: { ABG_TS_CLAUDE_APPEND_ARGS: JSON.stringify(["--include-partial-messages"]) },
+    }),
+    /protocol-owned flag --include-partial-messages/u,
   );
   assert.throws(
     () => admitTransportAppendArgs({
@@ -186,7 +204,7 @@ test("M5 B-001 crosses a real worker process, parser, tool event, and archive", 
   assert.equal(result.failureClass, null);
   assert.equal(result.status, 0);
   assert.equal(result.structuredEventCount, 4);
-  assert.equal(result.progressEventCount, 3);
+  assert.equal(result.progressEventCount, 2);
   assert.equal(result.toolCallCount, 2);
   assert.deepEqual(result.toolInvocations.map((row) => [
     row.ordinal,
@@ -468,6 +486,17 @@ test("M5 closed-prompt proof does not misclassify declared StructuredOutput as a
     kind: "structured_result",
     schemaVersion: "5.0.0",
   });
+
+  const resultText = await runWorkerTransport({
+    contract, prompt: "return ordinary JSON result text", lane: "closed_prompt_proof",
+    cwd: scratch, archiveRoot: join(scratch, "archive"), label: "result-text",
+    timeoutMs: 10_000, responseJsonSchema: { type: "object" }, responsePresentation: "result_text", environment: {},
+  });
+  assert.equal(resultText.args.includes("--json-schema"), false);
+  assert.equal(resultText.toolCallCount, 1, "unrequested StructuredOutput is a tool call even when the authoritative schema is retained");
+  assert.equal(resultText.disposition, "failure");
+  assert.equal(resultText.failureClass, "contract_failure");
+  assert.deepEqual(JSON.parse(resultText.finalOutput), JSON.parse(result.finalOutput), "ordinary result text remains extractable");
 
   const undeclared = await runWorkerTransport({
     contract,

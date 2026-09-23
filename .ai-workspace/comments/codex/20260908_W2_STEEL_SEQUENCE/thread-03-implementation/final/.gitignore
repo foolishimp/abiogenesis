@@ -1,0 +1,8 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/artifact-65b15cde5c58d6b7cea38f4109d19728c6ed5a4b9926701d1059d81bd800b512.tgz
+/c2-carrier-conservation.log
+/live-evidence.tgz
+/static-conservation.log
+/subject.json

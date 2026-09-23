@@ -1,6 +1,40 @@
 import type { SpawnOptionsWithoutStdio } from "node:child_process";
 
 import { deepFreeze } from "../shared/immutable.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import type { VerifiedProbabilisticResultContractPreimage } from "../implementation/contracts.js";
+
+export interface NativeWorkerResultAssessment {
+  readonly kind: "native_worker_result_assessment";
+  readonly schemaVersion: "5.0.0";
+  readonly resultContractRef: string;
+  readonly inputDigest: Sha256Digest;
+  readonly rawOutputDigest: Sha256Digest;
+  readonly disposition: "admitted" | "rejected" | "absent";
+  readonly verification: VerifiedProbabilisticResultContractPreimage | null;
+}
+export function isNativeWorkerResultAssessment(value: unknown, output: string, resultContractRef: string, inputDigest: Sha256Digest): value is NativeWorkerResultAssessment {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
+  const a = value as NativeWorkerResultAssessment;
+  if (Object.keys(a).sort().join("\0") !== ["kind", "schemaVersion", "resultContractRef", "inputDigest", "rawOutputDigest", "disposition", "verification"].sort().join("\0") ||
+      a.kind !== "native_worker_result_assessment" || a.schemaVersion !== "5.0.0" || a.resultContractRef !== resultContractRef ||
+      a.inputDigest !== inputDigest || a.rawOutputDigest !== sha256Bytes(output)) return false;
+  if (a.disposition !== "admitted") return a.verification === null &&
+    (a.disposition === "absent" ? output.trim().length === 0 : a.disposition === "rejected" && output.trim().length !== 0);
+  const p = a.verification;
+  if (p === null || typeof p !== "object" || Object.keys(p).sort().join("\0") !== ["kind", "schemaVersion", "verificationRef", "verificationDigest", "contractCapabilityBasis", "implementationResolutionDigest", "implementationRef", "inputContractRef", "targetOutputContractRef", "instructionContractRef", "rawResultContractRef", "inputDigest", "rawResultDigest"].sort().join("\0") ||
+      p.kind !== "verified_probabilistic_result_contract_preimage" || p.schemaVersion !== "5.0.0" ||
+      p.inputDigest !== inputDigest || p.rawResultContractRef !== resultContractRef ||
+      typeof p.contractCapabilityBasis !== "object" || p.contractCapabilityBasis === null ||
+      Object.keys(p.contractCapabilityBasis).sort().join("\0") !== ["installId", "implementationSetRef", "implementationSetDigest", "publicationDigest"].sort().join("\0")) return false;
+  try {
+    const {kind: _kind, schemaVersion: _schema, verificationRef, verificationDigest, ...body} = p;
+    return sha256Canonical(JSON.parse(output) as JsonValue) === p.rawResultDigest &&
+      verificationDigest === sha256Canonical(body as unknown as JsonValue) &&
+      verificationRef === `probabilistic-result-contract-preimage://abiogenesis/${verificationDigest.slice(7)}`;
+  } catch { return false; }
+}
 
 export type KnownTransportAgentKey = "claude" | "codex" | "gemini" | "generic";
 export type TransportCapabilityLane = "closed_prompt_proof" | "worker_executes";
@@ -24,11 +58,20 @@ export interface WorkerTransportFailureObservation {
   readonly toolCallCount: number;
   readonly apiRetryCount: number;
   readonly finalOutput: string;
+  readonly nativeResultDisposition?: "admitted" | "rejected" | "absent";
 }
 
 export function classifyWorkerTransportFailure(
   observation: WorkerTransportFailureObservation,
 ): WorkerTransportFailureClass | null {
+  if (observation.nativeResultDisposition !== undefined) {
+    // Preserve process/safety facts. Only the actual exact raw-contract owner
+    // can make a complete artifact available despite a later ordinary exit.
+    if (observation.lane === "closed_prompt_proof" && observation.toolCallCount > 0) return "contract_failure";
+    if (observation.nativeResultDisposition === "admitted" && observation.terminationConfirmed &&
+        !observation.processSpawnFailed && !observation.timedOut) return null;
+    if (observation.nativeResultDisposition === "rejected") return "contract_failure";
+  }
   if (
     observation.timedOut || !observation.terminationConfirmed ||
     observation.processSpawnFailed || observation.processStatus !== 0 ||
@@ -69,6 +112,7 @@ export const TRANSPORT_PROTOCOL_OWNED_FLAGS: Readonly<
     "--tools",
     "--safe-mode",
     "--output-format",
+    "--include-partial-messages",
     "--permission-mode",
     "--json-schema",
   ],
@@ -211,6 +255,7 @@ export function constructKnownWorkerTransportContract(
           "--no-session-persistence",
           "--output-format",
           "stream-json",
+          "--include-partial-messages",
           "--verbose",
           "--permission-mode",
           "bypassPermissions",
@@ -279,10 +324,15 @@ export function composeWorkerTransportArgs(input: {
   readonly outputPath: string;
   readonly lane: TransportCapabilityLane;
   readonly responseJsonSchema?: unknown;
+  /** Owner-selected result text keeps the declared schema out of host dialect validation. */
+  readonly responsePresentation?: "result_text";
   readonly environment?: Readonly<Record<string, string | undefined>>;
   readonly explicitAppendArgs?: readonly string[];
 }): readonly string[] {
   const environment = input.environment ?? process.env;
+  if (input.responsePresentation !== undefined && input.responsePresentation !== "result_text") {
+    throw new TypeError("unsupported worker response presentation");
+  }
   const appendArgs = admitTransportAppendArgs({
     agentKey: input.contract.agentKey,
     environment,
@@ -295,7 +345,7 @@ export function composeWorkerTransportArgs(input: {
     if (input.lane === "closed_prompt_proof") {
       template.push("--safe-mode", "--tools", "");
     }
-    if (input.responseJsonSchema !== undefined) {
+    if (input.responseJsonSchema !== undefined && input.responsePresentation !== "result_text") {
       template.push("--json-schema", JSON.stringify(input.responseJsonSchema));
     }
   }

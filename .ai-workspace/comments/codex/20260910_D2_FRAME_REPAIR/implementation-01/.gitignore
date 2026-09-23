@@ -1,0 +1,23 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/bootstrap.json
+/bootstrap.mjs
+/declaration-discriminator.mjs
+/dependency-link.json
+/dependency-link.mjs
+/dependency-materialization.json
+/freeze-artifact.mjs
+/freeze-final-status.mjs
+/freeze-handoff.mjs
+/freeze-return.mjs
+/freeze-source.mjs
+/handoff-final.json
+/handoff-manifest.json
+/materialize-dependencies.mjs
+/pure-discriminator.mjs
+/return-manifest.json
+/return.md
+/review-disposition.md
+/run-check.mjs

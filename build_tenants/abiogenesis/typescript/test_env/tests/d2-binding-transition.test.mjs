@@ -4,7 +4,10 @@ import {bindingHarness} from '../support/d2-binding-harness.mjs';
 import {workflowStepHarness} from '../support/d2-workflow-step-harness.mjs';
 
 test('mechanical exact cover; unchanged initial observation crosses W only with its actual native coordinates',async()=>{
-  const h=await bindingHarness(),old=h.stage.worksite,current=h.operating(old,'current'),input={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:h.parent.coordinate,causes:[h.cause.coordinate]};
+  const h=await bindingHarness(),old=h.stage.worksite,current=h.operating(old,'current'),input={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:h.parent.coordinate,causes:[h.cause.coordinate],currentWorksite:current};
+  assert.ok(h.product.isSemanticRevisionSelectionInput(input));
+  const {currentWorksite:_current,...missingWorksite}=input;
+  assert.equal(h.product.isSemanticRevisionSelectionInput(missingWorksite),false,'current contract requires explicit inventory before selection');
   const gate=()=>h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,input,current.workspaceBinding);
   assert.equal(gate(),'basis_fork_detected');
   const cover=h.cover(old,current,h.parent.basis);
@@ -52,7 +55,7 @@ test('mechanical cover cardinality, malformed inventory, broad writes and foreig
     const wrong=structuredClone(current);mutate(wrong);assert.equal(project(wrong),null);
   }
   const foreign=h.addCall('foreign',{assumption:'foreign cause'}, {invocation:'invocation://foreign',worksite:old});
-  const input={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:h.parent.coordinate,causes:[foreign.coordinate]};
+  const input={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:h.parent.coordinate,causes:[foreign.coordinate],currentWorksite:current};
   assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,input,current.workspaceBinding),'basis_fork_detected');
   const unauthorized={...current.workspaceBinding,admissionEventRef:'lookup-binding:unadmitted'};
   assert.equal(h.owner.projectWorksiteRevisionBindingCover(h.snapshot(),old.workspaceBinding,unauthorized,[h.parent.basis]),null);
@@ -103,9 +106,10 @@ test('mechanical multiple binding projections retain actual origins and refuse o
   const h=await bindingHarness(),old=h.stage.worksite,w1=h.operating(old,'w1');h.cover(old,w1,h.parent.basis);
   const first=h.revision(h.parent,h.cause,w1,'first'),command=h.addCall('new-command',{assumption:'new closed C2 exit1 lookup'},
     {worksite:w1,invocation:first.basis.invocationAdmissionRef,input:first.value,sourceResultRef:h.parent.coordinate.resultRef});
-  const input={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:first.coordinate,causes:[command.coordinate]};
+  const input={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:first.coordinate,causes:[command.coordinate],currentWorksite:w1};
   assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,input,w1.workspaceBinding),'covered');
   const w2=h.operating(w1,'w2');
+  input.currentWorksite=w2; // separate current selector input for the W2 entry
   assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,input,w2.workspaceBinding),'basis_fork_detected');
   h.cover(w1,w2,first.basis);
   assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,input,w2.workspaceBinding),'covered');
@@ -145,7 +149,7 @@ test('mechanical distinct projection branches are ambiguity, never equal-value o
   const first=h.revision(h.parent,h.cause,current,'branch-a',{invocation:'invocation://mechanical/fork'});
   const cause=h.addCall('fork-command',{assumption:'linked command failure lookup'},{worksite:current,input:first.value,
     invocation:first.basis.invocationAdmissionRef,sourceResultRef:h.parent.coordinate.resultRef,resultClass:'failure',judgment:'block'});
-  const input={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:h.parent.coordinate,causes:[cause.coordinate]};
+  const input={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:h.parent.coordinate,causes:[cause.coordinate],currentWorksite:current};
   assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,input,current.workspaceBinding),'covered');
   h.revision(h.parent,h.cause,current,'branch-b',{invocation:first.basis.invocationAdmissionRef});
   assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,input,current.workspaceBinding),'basis_fork_detected');
@@ -183,7 +187,7 @@ test('mechanical evidence-input gate resolves a real Product new-C2 carrier thro
   const copy=h.addCall('new-C2-fold',observation,{input:task,worksite:current,invocation:first.basis.invocationAdmissionRef,sourceResultRef:h.parent.coordinate.resultRef,
     graphRef:WR.graphFunctionRef,implementation:WR.implementationRef,binding:WR.implementationBindingRef,predicate:WR.judgmentPredicateRef,outputContract:WR.observationContractRef});
   copy.opened.payload.callClass='workflow';copy.fibre.payload.callClass='workflow';assert.equal(gate(),'covered','foldback is not a second producer');
-  const selection={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:first.coordinate,causes:[observed.coordinate]};
+  const selection={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:first.coordinate,causes:[observed.coordinate],currentWorksite:current};
   assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,selection,current.workspaceBinding),'covered');
   observed.fibre.payload.implementationRef='implementation://foreign';assert.equal(gate(),'basis_fork_detected');
 });

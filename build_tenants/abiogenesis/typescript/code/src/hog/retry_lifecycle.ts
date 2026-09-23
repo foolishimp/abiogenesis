@@ -109,6 +109,9 @@ export function planSuccessfulRetryExit(input: Readonly<{
   completion: AbgRetry.RetrySuccessfulExitEvidence;
   basis: RuntimeAdmissionBasis;
 }>): SuccessfulRetryExitPlan {
+  if (AbgRetry.hasNoCompletedRetryExit(input.graph, input.source, input.target)) {
+    return Object.freeze({ kind: "successful_retry_exit_not_applicable" as const });
+  }
   const plan = AbgRetry.planCompletedRetryProgress(
     input.predecessorPrefix,
     input.graph,
@@ -593,6 +596,22 @@ export function advanceRetryLifecycle(
       failureValueKind: admitted.failureValueKind,
       failureBasis,
       failurePlan,
+      selectRouteCandidate: (replayState) => {
+        const stagedProposal = Routes.proposeBlockedRoute(
+          runtime.graph, runtime.stop, admitted.cCall,
+          transition.close.judgment.judgmentRef, replayState,
+          admitted.cCall.transitionContractRef,
+          transition.stoppedProgresses.map((progress) => progress.progressRef),
+        );
+        if (stagedProposal.kind !== "traversal_route_candidate") {
+          throw new TypeError(`blocked staged HoG selection refused: ${stagedProposal.code}`);
+        }
+        return Abg.completeTraversalTransitionCandidate({
+          kind: "traversal_transition_candidate", schemaVersion: "5.0.0",
+          transitionClass: "route", route: stagedProposal,
+          evidence: candidate.evidence, terminalizeRun: candidate.terminalizeRun,
+        });
+      },
     });
     if (route.kind !== "route_transition_admission") {
       return failRetry(

@@ -1,0 +1,20 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/compare-generated.mjs
+/config.json
+/dry-readiness-01.stderr.log
+/dry-readiness-01.stdout.json
+/dry-readiness-02.stderr.log
+/dry-readiness-02.stdout.json
+/dry-readiness.json
+/dry-readiness.mjs
+/expected-output-inventory.json
+/freeze.json
+/input-manifest.json
+/npm-toolchain-inventory.json
+/recipe-stage.mjs
+/recipe.mjs
+/return.md
+/source-identities.json
+/toolchain.json

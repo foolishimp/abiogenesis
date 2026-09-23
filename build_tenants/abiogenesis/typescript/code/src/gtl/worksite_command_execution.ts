@@ -3,9 +3,9 @@ import { WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction.js";
 import { WORKSITE_BRANCH_CONSTRUCTION_IDS } from "../product/worksite_branch_construction.js";
 import { WORKSITE_PREPARATION_IDS, worksitePreparationContractDeclarations } from "../product/worksite_preparation_contracts.js";
 import {
-  WORKSITE_COMMAND_EXECUTION_IDS,
+  WORKSITE_COMMAND_EXECUTION_IDS, NATIVE_WORK_REACQUISITION_IDS as reacquire,
   type WorksiteCommandExecutionObservation,
-  type WorksiteCommandExecutionTask,
+  type C2WorksiteCommandExecutionTask, type NativeWorksiteCommandExecutionObservation, type ObservedWorksiteCommandExecutionObservation,
 } from "../product/worksite_command_execution.js";
 import { C, cCarrier } from "./c_algebra.js";
 import type {
@@ -39,14 +39,34 @@ function contract(
   });
 }
 
+/** Effect-free closed-child authentication; ordinary consumers compose its task into C2. */
+export function nativeWorkReacquisitionGraphFunction(): GraphFunction {
+  const ids = WORKSITE_COMMAND_EXECUTION_IDS;
+  return { kind: "graph_function", name: reacquire.graphFunctionRef, version: "5.0.0",
+    environment: { requires: [reacquire.requestContractRef], provides: [ids.taskContractRef], carries: [] },
+    inputs: [reacquire.requestContractRef], outputs: [ids.taskContractRef], effects: [], tags: ["deterministic-reacquisition", "worksite"],
+    declarations: { "abg.compute_regime": "F_D", "abg.closure_contract": reacquire.closureContractRef,
+      "abg.child_closure_contract": reacquire.childClosureContractRef, "abg.judgment_predicate": reacquire.predicateRef,
+      "abg.evidence_contract": ids.evidenceContractRef, "abg.judgment_contract": ids.judgmentContractRef,
+      "abg.transition_contract": ids.transitionContractRef },
+    template: { kind: "inline_graph", graphRef: "graph://abiogenesis/worksite/native-command-reacquisition@5", startNodeRef: reacquire.nodeRef,
+      terminalNodeRefs: [reacquire.nodeRef], edges: [], applications: [], nodes: [{ nodeRef: reacquire.nodeRef, nodeKind: "c_locus", term: C.of({
+        input: cCarrier(reacquire.requestContractRef), output: cCarrier(ids.taskContractRef), programLocusRef: reacquire.nodeRef,
+        stageRole: "native-command-reacquisition", fibre: "F_D", armId: "arm://abiogenesis/worksite/native-command-reacquisition@5",
+        compositionRef: null, vectorIndex: 0, judgmentPredicateRef: reacquire.predicateRef, resultBearing: true,
+        requirement: { kind: "executable_leaf_requirement", implementationBindingRef: reacquire.implementationBindingRef,
+          inputContractRef: reacquire.requestContractRef, outputContractRef: ids.taskContractRef, failureContractRef: ids.failureContractRef,
+          refusalContractRef: ids.refusalContractRef, evidenceContractRef: ids.evidenceContractRef, judgmentContractRef: ids.judgmentContractRef } }) }] } };
+}
+
 /** One public C2 GraphFunction: exact task -> one worker_executes F_P leaf -> typed observation. */
 export function constructWorksiteCommandExecutionModulePublication(
   artifact: RootModuleArtifactBasis,
 ): Readonly<ModulePublication> {
-  const input = cCarrier<WorksiteCommandExecutionTask>(
+  const input = cCarrier<C2WorksiteCommandExecutionTask>(
     WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef,
   );
-  const output = cCarrier<WorksiteCommandExecutionObservation>(
+  const output = cCarrier<WorksiteCommandExecutionObservation | NativeWorksiteCommandExecutionObservation | ObservedWorksiteCommandExecutionObservation>(
     WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef,
   );
   const binding: ImplementationBinding = implementationBinding({
@@ -209,6 +229,17 @@ export function constructWorksiteCommandExecutionModulePublication(
       "abg.default_start_ref": WORKSITE_COMMAND_EXECUTION_IDS.startRef,
     },
   };
+  const reacquireBinding = implementationBinding({ ...binding, bindingRef: reacquire.implementationBindingRef,
+    implementationRef: reacquire.implementationRef, computeRegime: "F_D", inputContractRef: reacquire.requestContractRef,
+    outputContractRef: WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef, modulePath: "build/code/src/implementation/native_work_reacquisition.js",
+    namedSymbol: "prepareNativeWorksiteCommandReacquisition" });
+  const reacquireClose = closureContract({ ...close, closureContractRef: reacquire.closureContractRef,
+    predicateRef: reacquire.predicateRef, resultContractRef: WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef });
+  const reacquireChildClose = closureContract({ ...childClose, closureContractRef: reacquire.childClosureContractRef,
+    predicateRef: reacquire.predicateRef, resultContractRef: WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef });
+  const reacquireProgram: GtlProgram = { kind: "gtl_program", programRef: reacquire.programRef, version: "5.0.0", moduleRef: WORKSITE_COMMAND_EXECUTION_IDS.moduleRef,
+    starts: [{ startRef: "start://abiogenesis/worksite/native-command-reacquisition@5", graphFunctionRef: reacquire.graphFunctionRef }],
+    callableMembership: [reacquire.graphFunctionRef], closureContractRef: reacquire.closureContractRef, policies: { "abg.root_mode": "direct", "abg.compute_regime": "F_D" } };
   return modulePublication({
     kind: "module_publication",
     moduleRef: WORKSITE_COMMAND_EXECUTION_IDS.moduleRef,
@@ -230,6 +261,9 @@ export function constructWorksiteCommandExecutionModulePublication(
     }),
     contracts: [
       ...worksitePreparationContractDeclarations(),
+      contract(reacquire.requestContractRef, "input", "native_worksite_command_reacquisition_request"),
+      contract(reacquire.closureContractRef, "closure", "native_worksite_command_reacquisition_closure"),
+      contract(reacquire.childClosureContractRef, "closure", "native_worksite_command_reacquisition_child_closure"),
       contract(revision.taskContractRef, "input", "worksite_revision_command_execution_task"),
       contract(revision.observationContractRef, "output", "worksite_revision_command_execution_observation"),
       contract(revision.workerResultContractRef, "output", "worksite_revision_command_execution_worker_result"),
@@ -247,11 +281,13 @@ export function constructWorksiteCommandExecutionModulePublication(
     ],
     evaluators: [],
     rules: [],
-    implementationBindings: [binding, revisionBinding, ...preparationBindings],
-    closureContracts: [close, childClose, revisionChildClose],
-    programs: [program],
-    graphFunctions: [graphFunction, revisionGraphFunction],
-    contributions: [catalogContribution({
+    implementationBindings: [binding, revisionBinding, ...preparationBindings, reacquireBinding],
+    closureContracts: [close, childClose, revisionChildClose, reacquireClose, reacquireChildClose],
+    programs: [program, reacquireProgram],
+    graphFunctions: [graphFunction, revisionGraphFunction, nativeWorkReacquisitionGraphFunction()],
+    contributions: [catalogContribution({ handle: reacquire.graphFunctionRef, kind: "graph_function", declarationOrContractRef: reacquire.graphFunctionRef,
+      owningProductId: artifact.productId, programMembershipRefs: [reacquire.programRef], readinessPrerequisiteRefs: [reacquire.programRef],
+      compatibilityRefs: ["compatibility://abiogenesis/major/5"], provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest] }), catalogContribution({
       handle: WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,
       kind: "graph_function",
       declarationOrContractRef: WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,

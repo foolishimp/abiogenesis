@@ -1,0 +1,21 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/activation.sections.json
+/activation.txt
+/basis.json
+/freeze.mjs
+/manifest.json
+/preimages/REQ-R-ABG3-EVENTS.md
+/preimages/accepted-how.md
+/preimages/api02-manifest.json
+/preimages/code/src/abg/artifact_truth.ts
+/preimages/code/src/abg/effectful_invocation_truth.ts
+/preimages/code/src/abg/environment_admission.ts
+/preimages/code/src/abg/event_calculus.ts
+/preimages/code/src/abg/event_store.ts
+/preimages/code/src/product/release_snapshot_definition_bindings.ts
+/preimages/code/src/product/release_snapshot_operations.ts
+/preimages/code/src/shared/static_definition_bindings.ts
+/preimages/source05-manifest.json
+/return.md

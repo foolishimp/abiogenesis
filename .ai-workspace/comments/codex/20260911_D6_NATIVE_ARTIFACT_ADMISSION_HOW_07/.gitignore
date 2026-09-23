@@ -1,0 +1,39 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/activation.sections.json
+/activation.txt
+/amendment.md
+/amendment.patch
+/basis.json
+/bootstrap.mjs
+/candidate/T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md
+/checks.json
+/freeze.mjs
+/inverse.patch
+/manifest.json
+/preimages/accepted-how.md
+/preimages/api02-manifest.json
+/preimages/authority/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md
+/preimages/authority/specification/PRODUCT.md
+/preimages/authority/specification/requirements/abg/REQ-R-ABG3-EVENTS.md
+/preimages/authority/specification/requirements/product/REQ-P-QUAL.md
+/preimages/authority/stdo_abiogenesis.json
+/preimages/code/src/abg/artifact_truth.ts
+/preimages/code/src/abg/definition_event_resource.ts
+/preimages/code/src/abg/effectful_invocation_truth.ts
+/preimages/code/src/abg/environment_admission.ts
+/preimages/code/src/abg/event_calculus.ts
+/preimages/code/src/abg/event_store.ts
+/preimages/code/src/product/admission_authority.ts
+/preimages/code/src/product/install_operation_contracts.ts
+/preimages/code/src/product/invocation.ts
+/preimages/code/src/product/release_snapshot_definition_bindings.ts
+/preimages/code/src/product/release_snapshot_operations.ts
+/preimages/code/src/shared/definition_binding_mechanics.ts
+/preimages/code/src/shared/effect_definition.ts
+/preimages/code/src/shared/static_definition_bindings.ts
+/preimages/source05-manifest.json
+/preimages/source06-manifest.json
+/qualification-cases.md
+/return.md

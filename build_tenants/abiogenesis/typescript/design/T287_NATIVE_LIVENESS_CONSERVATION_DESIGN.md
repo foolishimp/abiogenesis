@@ -88,6 +88,24 @@ its lease. Runtime asset writes attributable to that invocation also renew it.
 This applies TRANSPORT027 without a vendor or source-name allowlist that silently
 excludes valid activity.
 
+### 2.1 One declared frame occurrence
+
+The existing native frame-opening owner supplies the shared observation occurrence. Reconstruct its context from the unique admitted `frame_opened`, its actual `graph_call_opened` and `ExecutionBasis`, including authenticated parent lineage and frame attempt. Use the existing `RuntimeInvocationScope`: exact basis, Program, GF, Run, GraphCall, frame and frame attempt; `cCallRef`, locus/task/vector/edge and actor/worker/backend fields are null because this occurrence observes the frame, not one CCall or actor. A child frame never substitutes its parent's different GF/basis or clock. Individual producer events retain their actual CCall, vector, edge and actor coordinates and must join to this exact frame through admitted ownership. Frame attempt and child CCall attempt are distinct coordinates, not forced numerically equal.
+
+Declare one existing-source `frame_progress` probe, with `sourceRef` derived from the exact frame identity, `declarationEventRef` equal to its opening event, and the existing graph-call aggregate/probe payload arm. Its policy is null: this observes native progress without creating a frame watchdog, retry budget or kill loop. The contract and origin ref are deterministically reconstructible from the opening fact and scope; no first observation registers a source.
+
+The native opening owner captures the monotonic origin at the actual activation that produces `frame_opened`, before frame work proceeds. Bind the physical clock handle to that exact admitted opening, frame attempt and held store; publish the initial sample at elapsed zero through the normal native transaction. A failed opening cannot leave a reusable clock binding. Later native owners use this same origin, independently of all actor/CCall origins. An acquisition without the original physical clock cannot create a replacement origin from receipt time, `eventTime`, file time or an actor clock. It exposes unavailable fresh elapsed coverage; replay retains only its last admitted as-of sample. Clock state is a physical observation capability, not replay authority.
+
+### 2.2 Actual owner boundaries, not instrumentation-generated progress
+
+For this frame occurrence only, the closed source relation permits these existing owning facts: `frame_opened`; `actor_invocation_closed` or `actor_invocation_failed`; `c_call_evidenced`; `c_call_result_admitted`; `c_call_judged`; `traversal_route_admitted`; `c_call_fibre_selected`; and the exact `frame_closed` terminal fact. Their native owners capture elapsed samples and admit corresponding `runtime_activity_probe_observed` facts. No new runtime event kind, internal-function roster, observer process or Public operation is introduced.
+
+Admit the actor-close/failure frame sample before native carrier-pair verification begins. Admit evidence/result/judgment samples at their actual admission boundaries, route samples before dependent traversal effects, and next-fibre samples before its dispatch. This makes author-close → native verification/admission → evaluator entry, and the corresponding consequence interval, comparable on one actual frame clock. It does not claim CPU attribution or observations inside an uninterrupted synchronous computation.
+
+Every sample identifies its actual producer event, original payload digest and elapsed coordinate; causation includes that producer and frame declaration. Validate full Run/GF/basis/GraphCall/frame ownership, the producer's admitted occurrence/attempt linkage and expected prefix. Do not loosen the actor or CCall source guards globally. Frame samples carry `activity`, not artifact admission or semantic success: result evidence remains with its original result owner. A probe, clock sample, projection/report of that probe or other observer bookkeeping is never an underlying progress producer. Aliases retain the same underlying identity and elapsed value, even across source aliases; replaying an old fact with a newer sample refuses. Foreign scopes, unadmitted facts, future references, regressing clocks and borrowed/restarted origins refuse the observation.
+
+Capture each coordinate at its producer boundary, not after downstream expensive work. Its owner transaction makes the fact/probe durable before the next dependent effect; probe insertion cannot replace the underlying fact in result/route/closure causation or invalidate an owner receipt's exact successor-prefix identity.
+
 ## 3. One replay-derived relation and one elapsed basis
 
 Define one native pure relation over:
@@ -205,6 +223,16 @@ and policy/evidence refs. No new Public operation is needed. Ordinary result/
 typed terminal/closure owners retain their gates; missing liveness is not a
 success or stop fallback.
 
+### 5.1 Lifetime and closure
+
+Actor and CCall probes retain their current lifetimes. Frame progress initiates the existing `runtime_activity_recent(scopeDigest)` and `runtime_invocation_active(scopeDigest)` relations. A child's CCall judgment, actor closure or actor failure is activity within the open frame; it does not end or reset that frame occurrence. The generic probe effect's present “underlying `c_call_judged` means ended” rule becomes occurrence-specific. The normalizer, actual EC fold, declared effect table and projection agree on that distinction.
+
+Only actual closure of this frame terminates its frame observation's active fluent in the normal completion path. Existing admitted interruption/run-stop/failure rules retain their own effects and authority; no observation manufactures such a fact. The frame projection reflects any applicable existing termination/interruption effect without claiming that the frame closed. A closed frame is inactive in the ordinary liveness projection even though its last activity remains historical evidence. No new successful/terminal disposition is added to the eight-value vocabulary. Null frame policy supplies no timeout, retry, or stop inference; absence of samples does not establish progress or death.
+
+At pre-close quiescence, derive the exact terminal route/CCall and closing frame using the existing closure spine. Only the authenticated frame-observation active fluent belonging to that same closing frame, opening, basis and frame attempt may be included in that spine. This is not a global exemption for `runtime_invocation_active`, an actor/CCall probe, a child/sibling/foreign frame, an interrupted/blocked scope, or an unknown fluent. All actor cleanup, live CCalls, child work, held frames, continuations, unconsumed results and ordinary closure-contract gates remain. The observation neither supplies missing quiescence nor terminates itself to force it. Child closure keeps its existing exact child-scope/closure gates; root quiescence cannot exempt an unclosed child frame.
+
+The ordinary expected-prefix closure transaction admits the actual `frame_closed`, which terminates only this exact frame occurrence's active fluent. When the original clock is available, its owner may include one terminal `frame_progress` sample immediately after that producer in the same atomic closure transaction, before GraphCall/Run close. This is the sole post-frame-close observation exception: exact closing fact, exact declaration/scope and native clock, original sample, no intervening unrelated event, no earlier terminal sample. Its EC effect retains historical activity but cannot initiate or restore active truth. Ordinary closure facts keep their own order and cause references, never probe references. A failed transaction exposes neither a terminal probe nor frame closure. After commitment, discard the physical clock; later activity/duplicate terminal samples refuse. With no original clock, actual closure still terminates the occurrence without fabricating terminal elapsed evidence.
+
 ## 6. Historical conservation and profile boundary
 
 [Native event-contract compatibility](T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md)
@@ -235,6 +263,12 @@ ordering with current native admission ordinals; and the narrow worker-stream
 lease allowlist with the declared source/scope relation in section2. Preserve
 the donor's no-supervisor-self-renewal outcome through correct attribution.
 These constraints implement the current requirements; the old code restriction is not WHAT.
+
+### 6.1 Exact profile and historical boundary
+
+The frame occurrence reuses the existing closed probe payload and nullable frame scope. It changes no aggregate/event-kind census, envelope, payload key/variant or `ROOT_CURRENT_EVENT_PROFILE_REF`. Under the actual descriptor constructor and the accepted pilot profile law, its descriptor inputs therefore remain identical and the computed current D4 remains `sha256:3e8f2d4cb80c3c263c44fdadf6c23a46a5c510c3466f1f2cf31fe6016e01cc6a`. The inspected descriptor hashes those inputs, not implementation source or the EC table. That is the reason for retaining the profile identity, not an assumption that all observation changes are identity-neutral.
+
+Occurrence-specific admission/effect handling completes the already-declared frame source; it does not change the result of any previously valid actor/CCall-only history. The corrected native declarations/effects publish through the ordinary successor implementation and contract publication, with new implementation identity and applicable proof; an equal profile digest is not equal code or qualification. Exact descriptor equality and historical projection equality are verified before relying on this choice. A new wire arm, discriminator, descriptor field, profile name or altered old-history meaning lies outside this HOW and returns to the profile HOW owner instead of silently retaining D4 or inventing a migration. L, retained D4 histories, locks, handoffs, original installs and unsupported-predecessor treatment remain untouched. No in-place continuation or upgrade is selected.
 
 ## 7. Implementation and qualification
 

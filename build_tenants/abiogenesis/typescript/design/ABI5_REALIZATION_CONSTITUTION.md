@@ -1927,6 +1927,50 @@ GTL, HoG, ABG, Validator, or Implementation ports. It does not sequence their
 relations. The one installed callable is already statically closed over the
 exact imported owner composition for its definition.
 
+##### Held ABG event-resource staging and physical publication
+
+A held ABG event store exclusively owns its event log until ownership is
+released or poisoned. New-empty acquisition or cold reopen establishes its
+admitted history and exact durable coordinate. Subsequent owned appends
+advance that history and coordinate only after the complete native write and
+fsync succeed. Ordinary held reads, callbacks, transaction returns, handoffs
+and close consume that correspondence and check the selected causal
+predecessor against owner state; they do not authenticate historical file
+bytes again. Outside edits during that ownership are unsupported. Copying a
+coordinate or crossing a function or callback boundary alone does not
+invalidate established correspondence.
+
+The owner advances the existing physical SHA-256 byte digest from its committed
+continuation and the exact encoded suffix; this disposable computation is
+seeded by empty acquisition or validated cold bytes and introduces no new
+carrier or persisted authority. Failed writes or fsync restore the prior owned
+extent; failed restoration poisons ownership. Tentative history, profile and
+hash progress never become admitted successors. Successful native writes and
+fsync require no separate physical readback under this operating model.
+
+An owned historical cut remains valid history; mutation and require-current
+reads still bind the owner's current committed predecessor. Close/poison ends
+live correspondence reuse. Complete cold acquisition establishes each physical
+row boundary, not only its final cut. A selected earlier cut is reconstructed
+from those validated row receipts through the existing owner and shared runtime
+derivation; a supplied coordinate alone conveys none of that correspondence.
+External reads without applicable owned facts and
+cold reopen retain full physical/history/profile validation. Required event
+admission, observations of other mutable resources, effect authorization and
+ordinary I/O failures retain their existing owners. Separate admitted owner
+returns remain separate durable boundaries under EVENTS-024 and §5.6.1A,
+preserving event order, exact identities, refusal prefixes and cold replay.
+
+The bounded native-body codec in
+[T-289 immutable event bodies](./T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md#native-basis-input-and-ccall-result-physical-bodies-t-287--rc1)
+may encode repeated complete basis-input/result values by an earlier physically
+inline body reference. The physical wrapper is decoded before ordinary event
+validation; logical event and domain identities do not change. Durable byte
+coordinates and historical cuts come from actual encoded rows, not expanded
+serialization. The same append transaction owns new body-source eligibility;
+failed publication leaves no eligible tentative source. Old inline histories,
+all admission/effect/lineage duties and unsupported outside-edit scope remain.
+
 ##### Product-issued `ProgramGraphFunctionMembership` coordinate
 
 The resolved GTL Program alone owns semantic callable membership:

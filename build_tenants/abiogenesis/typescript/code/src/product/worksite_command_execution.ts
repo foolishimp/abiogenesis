@@ -1,3 +1,8 @@
+import { isDeepStrictEqual } from "node:util";
+import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
+import { isAbgHistoricalDeclarationProof, type AbgHistoricalDeclarationProof } from "../abg/terminal_result_contracts.js";
+import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
+import { isRecord, hasNulJoinedFields as exactKeys } from "../shared/admission_predicates.js";
 import {
   delimiter as pathDelimiter,
   dirname,
@@ -39,6 +44,7 @@ import {
   isWorksiteObservation,
   isWorksiteSubject,
   constructWorksiteSubject,
+  constructWorksiteObservation,
   type FileWorksiteObservation,
   type WorksiteObservation,
   type WorksiteSubject,
@@ -57,57 +63,14 @@ import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
   type ExecutableWorksiteCommandArtifact as WorksiteExecutionHelperArtifact,
   type ExecutableWorksiteSnapshotMember as WorksiteExecutionSnapshotMember,
   type WorksiteCommandForwardObservation } from "./worksite_command_forward.js";
+import { isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkObservation } from "./native_workspace_work.js";
+
 const SCHEMA_VERSION = "5.0.0" as const;
 const BASE64_PATTERN =
   "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$";
 
-/** Exact identities for the bounded C2 worker-executes sibling. */
-export const WORKSITE_COMMAND_EXECUTION_IDS = Object.freeze({
-  moduleRef: "module://abiogenesis/worksite/command-execution@5",
-  programRef: "program://abiogenesis/worksite/command-execution@5",
-  startRef: "start://abiogenesis/worksite/command-execution@5",
-  graphFunctionRef:
-    "graph-function://abiogenesis/worksite/command-execution@5",
-  graphRef: "graph://abiogenesis/worksite/command-execution@5",
-  nodeRef: "node://abiogenesis/worksite/command-execution/fp@5",
-  armId: "arm://abiogenesis/worksite/command-execution/fp@5",
-  taskContractRef:
-    "contract://abiogenesis/worksite/command-execution-task@5",
-  workerResultContractRef:
-    "contract://abiogenesis/worksite/command-execution-worker-result@5",
-  observationContractRef:
-    "contract://abiogenesis/worksite/command-execution-observation@5",
-  failureContractRef:
-    "contract://abiogenesis/worksite/command-execution-failure@5",
-  refusalContractRef:
-    "contract://abiogenesis/worksite/command-execution-refusal@5",
-  evidenceContractRef:
-    "contract://abiogenesis/worksite/command-execution-evidence@5",
-  judgmentContractRef:
-    "contract://abiogenesis/worksite/command-execution-judgment@5",
-  transitionContractRef:
-    "contract://abiogenesis/worksite/command-execution-transition@5",
-  closureContractRef:
-    "contract://abiogenesis/worksite/command-execution-closure@5",
-  childClosureContractRef:
-    "contract://abiogenesis/worksite/command-execution-child-closure@5",
-  implementationRef:
-    "implementation://abiogenesis/worksite/command-execution-fp@5",
-  implementationBindingRef:
-    "implementation-binding://abiogenesis/worksite/command-execution-fp@5",
-  judgmentPredicateRef:
-    "predicate://abiogenesis/worksite/command-execution-observation@5",
-  materializationPlanRef:
-    "prompt-plan://abiogenesis/worksite/command-execution@5",
-  rendererRef:
-    "renderer://abiogenesis/worksite/command-execution@5",
-  workerActorRef:
-    "actor://abiogenesis/worksite/command-execution-worker@5",
-  workerBindingRef:
-    "worker-binding://abiogenesis/worksite/command-execution-worker@5",
-  httpPortFileArgumentPlaceholder: "{ABI_HTTP_PORT_FILE}",
-  transportLane: "worker_executes" as const,
-});
+import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
+export { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
 
 export interface WorksiteCommandEnvironmentEntry {
   readonly kind: "worksite_command_environment_entry";
@@ -184,6 +147,47 @@ export interface WorksiteProtectedObservationInput {
   readonly observation: FileWorksiteObservation;
 }
 
+/** Initial-job read evidence, not a construction member or a revision grant.
+ * ABG authenticates these coordinates against the same native bridge. */
+export interface WorksiteReadDependencyBasis {
+  readonly kind: "semantic_job_read_dependencies";
+  readonly schemaVersion: "5.0.0";
+  readonly jobRef: string;
+  readonly jobDigest: Sha256Digest;
+  readonly designAssetRef: string;
+  readonly designAssetDigest: Sha256Digest;
+  readonly contextObservationRef: string;
+  readonly contextObservationDigest: Sha256Digest;
+  readonly members: readonly WorksiteProtectedObservationInput[];
+}
+type ReadDependencyInput = Omit<WorksiteReadDependencyBasis, "kind" | "schemaVersion" | "members"> & {
+  readonly members: readonly Omit<WorksiteProtectedObservationInput, "sourceMemberRef">[];
+};
+export function constructWorksiteReadDependencyBasis(input: ReadDependencyInput): WorksiteReadDependencyBasis {
+  const coordinates = { jobRef: input.jobRef, jobDigest: input.jobDigest, designAssetRef: input.designAssetRef,
+    designAssetDigest: input.designAssetDigest, contextObservationRef: input.contextObservationRef,
+    contextObservationDigest: input.contextObservationDigest };
+  if (![input.jobRef, input.designAssetRef, input.contextObservationRef].every(nonempty) ||
+    ![input.jobDigest, input.designAssetDigest, input.contextObservationDigest].every(isSha256Digest) ||
+    !Array.isArray(input.members) || input.members.length === 0 || input.members.some(row =>
+      !isWorksiteSubject(row.subject) || !isWorksiteObservation(row.observation) || row.observation.state !== "file" ||
+      row.observation.subjectRef !== row.subject.subjectRef || row.observation.subjectDigest !== row.subject.subjectDigest) ||
+    new Set(input.members.map(row => row.subject.relativePath)).size !== input.members.length) {
+    throw new TypeError("read dependencies require exact job, assessed Design, context and unique observed files");
+  }
+  const members = input.members.map(row => ({ sourceMemberRef: identity("worksite-read-dependency://abiogenesis",
+    sha256Canonical({ ...coordinates, subject: row.subject, observation: row.observation } as unknown as JsonValue)),
+    subject: row.subject, observation: row.observation }));
+  return deepFreeze({ kind: "semantic_job_read_dependencies", schemaVersion: "5.0.0", ...coordinates, members });
+}
+export function isWorksiteReadDependencyBasis(value: unknown): value is WorksiteReadDependencyBasis {
+  if (!isRecord(value) || !exactKeys(value, ["kind", "schemaVersion", "jobRef", "jobDigest", "designAssetRef", "designAssetDigest",
+    "contextObservationRef", "contextObservationDigest", "members"]) || value.kind !== "semantic_job_read_dependencies" ||
+    value.schemaVersion !== SCHEMA_VERSION || !Array.isArray(value.members) || value.members.some(row =>
+      !isRecord(row) || !exactKeys(row, ["sourceMemberRef", "subject", "observation"]))) return false;
+  try { return same(value, constructWorksiteReadDependencyBasis(value as unknown as ReadDependencyInput)); } catch { return false; }
+}
+
 export interface WorksiteCommandWriteTerritory {
   readonly kind: "worksite_command_write_territory";
   readonly schemaVersion: "5.0.0";
@@ -226,6 +230,7 @@ export interface WorksiteCommandExecutionTask {
   readonly commands: readonly WorksiteDeclaredCommand[];
   readonly outcomePredicates: readonly WorksiteOutcomePredicate[];
   readonly protectedObservations: readonly WorksiteProtectedObservation[];
+  readonly readDependencyBasis?: WorksiteReadDependencyBasis;
   readonly allowedWriteTerritories: readonly WorksiteCommandWriteTerritory[];
 }
 
@@ -239,7 +244,207 @@ export interface WorksiteCommandExecutionTaskInput {
   readonly commands: readonly WorksiteDeclaredCommandInput[];
   readonly outcomePredicates?: readonly WorksiteOutcomePredicateInput[];
   readonly protectedObservations: readonly WorksiteProtectedObservationInput[];
+  readonly readDependencyBasis?: WorksiteReadDependencyBasis;
   readonly allowedWriteTerritories: readonly WorksiteCommandWriteTerritoryInput[];
+}
+
+/** Native source is an alternative, never a fabricated construction result. */
+export interface NativeWorksiteCommandExecutionTask extends Omit<WorksiteCommandExecutionTask,
+  "sourceConstructionResultRef" | "sourceConstructionResultDigest" | "sourceConstructionResult" | "readDependencyBasis"> {
+  readonly sourceNativeWork: NativeWorkspaceWorkObservation;
+  readonly sourceReacquisition?: NativeWorksiteCommandReacquisition;
+}
+/** An observed input identifies existing files; it asserts no author or prior Result. */
+export interface ObservedWorksiteCommandExecutionTask extends Omit<WorksiteCommandExecutionTask,
+  "sourceConstructionResultRef" | "sourceConstructionResultDigest" | "sourceConstructionResult" | "readDependencyBasis"> {
+  readonly sourceObservedInput: Readonly<{ kind: "observed_worksite_input"; sourceSetRef: string; sourceSetDigest: Sha256Digest }>;
+}
+export interface ObservedWorksiteCommandExecutionTaskInput extends Omit<WorksiteCommandExecutionTaskInput,
+  "sourceConstructionResultRef" | "sourceConstructionResultDigest" | "sourceConstructionResult" | "protectedObservations" | "readDependencyBasis"> {
+  readonly observedFiles: readonly Readonly<{ subject: WorksiteSubject; observation: FileWorksiteObservation }>[];
+}
+export interface ObservedWorksiteCommandExecutionObservation extends Omit<WorksiteCommandExecutionObservation, "task"> {
+  readonly task: ObservedWorksiteCommandExecutionTask;
+}
+export type C2WorksiteCommandExecutionTask = WorksiteCommandExecutionTask | NativeWorksiteCommandExecutionTask | ObservedWorksiteCommandExecutionTask;
+export interface NativeWorksiteCommandExecutionTaskInput extends Omit<WorksiteCommandExecutionTaskInput,
+  "sourceConstructionResultRef" | "sourceConstructionResultDigest" | "sourceConstructionResult" | "protectedObservations" | "readDependencyBasis"> {
+  readonly sourceNativeWork: NativeWorkspaceWorkObservation;
+  readonly sourceReacquisition?: NativeWorksiteCommandReacquisition;
+  /** Complete explicit snapshot selection, including retained unchanged files. */
+  readonly selectedSources: readonly Readonly<{ subjectUri: string; relativePath: string }>[];
+}
+export interface NativeWorksiteCommandExecutionObservation extends Omit<WorksiteCommandExecutionObservation, "task"> {
+  readonly task: NativeWorksiteCommandExecutionTask;
+}
+export const NATIVE_WORK_REACQUISITION_IDS = Object.freeze({
+  graphFunctionRef: "graph-function://abiogenesis/worksite/native-command-reacquisition@5",
+  programRef: "program://abiogenesis/worksite/native-command-reacquisition@5",
+  nodeRef: "node://abiogenesis/worksite/native-command-reacquisition@5",
+  requestContractRef: "contract://abiogenesis/worksite/native-command-reacquisition-request@5",
+  implementationRef: "implementation://abiogenesis/worksite/native-command-reacquisition-fd@5",
+  implementationBindingRef: "implementation-binding://abiogenesis/worksite/native-command-reacquisition-fd@5",
+  predicateRef: "predicate://abiogenesis/worksite/native-command-reacquisition@5",
+  closureContractRef: "closure://abiogenesis/worksite/native-command-reacquisition@5",
+  childClosureContractRef: "closure://abiogenesis/worksite/native-command-reacquisition-child@5",
+});
+export interface NativeWorksiteCommandReacquisitionRequest extends Omit<NativeWorksiteCommandExecutionTaskInput, "sourceReacquisition"> {
+  readonly kind: "native_worksite_command_reacquisition_request";
+  readonly schemaVersion: "5.0.0";
+  readonly requestRef: string; readonly requestDigest: Sha256Digest;
+  readonly source: Readonly<{ prefix: DurablePrefixCoordinate; graphCallRef: string; declarationProof: AbgHistoricalDeclarationProof }>;
+  /** Full existing read scope, not only the selected C2 snapshot sources. */
+  readonly currentContext: WorksiteContextObservation;
+}
+export interface NativeWorksiteCommandReacquisition {
+  readonly request: NativeWorksiteCommandReacquisitionRequest;
+  readonly nativeBasis: Readonly<{ predecessorPrefix: DurablePrefixCoordinate; cCallRef: string }>;
+  readonly bindingCoverEventRefs: readonly string[];
+}
+function nativeReacquisitionBody(input: Omit<NativeWorksiteCommandReacquisitionRequest, "kind" | "schemaVersion" | "requestRef" | "requestDigest">) {
+  const { source, currentContext, sourceNativeWork: original } = input;
+  if (!source || !validateDurablePrefixCoordinate(source.prefix) || typeof source.graphCallRef !== "string" || source.graphCallRef.length === 0 ||
+      !isAbgHistoricalDeclarationProof(source.declarationProof) || !isNativeWorkspaceWorkObservation(original) || original.task.assessment !== undefined ||
+      !exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) || !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) ||
+      !same(original.task.workspaceAuthorityBasis, input.workspaceAuthorityBasis) || !isWorksiteContextObservation(currentContext) ||
+      currentContext.workspaceBindingIdentity !== input.workspaceBinding.bindingId || currentContext.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||
+      currentContext.workspaceAuthorityBasisRef !== input.workspaceAuthorityBasis.authorityBasisId ||
+      currentContext.workspaceAuthorityBasisDigest !== input.workspaceAuthorityBasis.authorityBasisDigest ||
+      !same(currentContext.entries, original.after.entries) || !same(currentContext.readRoots, original.after.readRoots) ||
+      currentContext.maxFiles !== original.after.maxFiles || currentContext.maxBytes !== original.after.maxBytes ||
+      !Array.isArray(input.selectedSources) || input.selectedSources.length === 0 ||
+      new Set(input.selectedSources.map(row => row.relativePath)).size !== input.selectedSources.length ||
+      input.selectedSources.some(row => typeof row.subjectUri !== "string" || row.subjectUri.length === 0 || !original.after.entries.some(e => e.relativePath === row.relativePath && e.state === "file")))
+    throw new TypeError("native reacquisition requires exact retained context, source selector and current authority");
+  const configuration = constructWorksiteCommandConfiguration({ ...input, outcomePredicates: input.outcomePredicates ?? [],
+    protectedSubjects: input.selectedSources.map(row => {
+      const subject = constructWorksiteSubject({ ...input, ...row });
+      if (!isWorksiteSubject(subject)) throw new TypeError("native reacquisition source subject is refused");
+      return subject;
+    }) });
+  const body = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding, capabilityGrant: input.capabilityGrant,
+    sourceNativeWork: original, selectedSources: input.selectedSources, commands: configuration.commands, outcomePredicates: configuration.predicates,
+    allowedWriteTerritories: configuration.allowedWriteTerritories, source, currentContext };
+  return body;
+}
+export function constructNativeWorksiteCommandReacquisitionRequest(input: Omit<NativeWorksiteCommandReacquisitionRequest, "kind" | "schemaVersion" | "requestRef" | "requestDigest">): NativeWorksiteCommandReacquisitionRequest {
+  const body = nativeReacquisitionBody(input), requestDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({ kind: "native_worksite_command_reacquisition_request", schemaVersion: SCHEMA_VERSION,
+    requestRef: identity("native-work-command-reacquisition://abiogenesis", requestDigest), requestDigest, ...body });
+}
+export function isNativeWorksiteCommandReacquisitionRequest(value: unknown): value is NativeWorksiteCommandReacquisitionRequest {
+  if (!isRecord(value) || value.kind !== "native_worksite_command_reacquisition_request" || value.schemaVersion !== SCHEMA_VERSION) return false;
+  try {
+    const { kind, schemaVersion, requestRef, requestDigest, ...body } = value;
+    const expected = nativeReacquisitionBody(value as unknown as NativeWorksiteCommandReacquisitionRequest);
+    return same(body, expected) && requestDigest === sha256Canonical(expected as unknown as JsonValue) &&
+      requestRef === identity("native-work-command-reacquisition://abiogenesis", requestDigest as Sha256Digest);
+  } catch { return false; }
+}
+
+function reacquisitionTaskMatches(input: NativeWorksiteCommandExecutionTaskInput): boolean {
+  const proof = input.sourceReacquisition;
+  return proof !== undefined && isNativeWorksiteCommandReacquisitionRequest(proof.request) &&
+    exactKeys(proof as unknown as Record<string, unknown>, ["request", "nativeBasis", "bindingCoverEventRefs"]) &&
+    exactKeys(proof.nativeBasis, ["predecessorPrefix", "cCallRef"]) && validateDurablePrefixCoordinate(proof.nativeBasis.predecessorPrefix) &&
+    typeof proof.nativeBasis.cCallRef === "string" && proof.nativeBasis.cCallRef.length > 0 &&
+    Array.isArray(proof.bindingCoverEventRefs) && proof.bindingCoverEventRefs.every(ref => typeof ref === "string" && ref.length > 0) &&
+    new Set(proof.bindingCoverEventRefs).size === proof.bindingCoverEventRefs.length &&
+    same(proof.request.workspaceAuthorityBasis, input.workspaceAuthorityBasis) && same(proof.request.workspaceBinding, input.workspaceBinding) &&
+    same(proof.request.capabilityGrant, input.capabilityGrant) && same(proof.request.sourceNativeWork, input.sourceNativeWork) &&
+    same(proof.request.selectedSources, input.selectedSources) && same(proof.request.commands, input.commands) &&
+    same(proof.request.outcomePredicates, input.outcomePredicates ?? []) && same(proof.request.allowedWriteTerritories, input.allowedWriteTerritories);
+}
+function nativeCommandTaskBody(input: NativeWorksiteCommandExecutionTaskInput) {
+  const source = input.sourceNativeWork;
+  if (!exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) ||
+    !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) || !isNativeWorkspaceWorkObservation(source) ||
+    source.task.assessment !== undefined || !same(source.task.workspaceAuthorityBasis, input.workspaceAuthorityBasis) ||
+    (input.sourceReacquisition === undefined ? !same(source.task.workspaceBinding, input.workspaceBinding) : !reacquisitionTaskMatches(input)) || !Array.isArray(input.selectedSources) ||
+    input.selectedSources.length === 0 || new Set(input.selectedSources.map(row => row.relativePath)).size !== input.selectedSources.length) {
+    throw new TypeError("native C2 requires exact A/W/grant, native work result and a complete unique source selection");
+  }
+  const protectedObservations = input.selectedSources.map((row, ordinal) => {
+    const subject = constructWorksiteSubject({ ...input, ...row });
+    const entry = source.after.entries.find(entry => entry.relativePath === row.relativePath);
+    if (!isWorksiteSubject(subject) || entry?.state !== "file") throw new TypeError("native C2 source must be an exactly observed file");
+    const observation = constructWorksiteObservation({ subject, state: "file", fileIdentity: entry.fileIdentity,
+      fileDigest: entry.digest, byteLength: entry.byteLength });
+    if (!isWorksiteObservation(observation) || observation.state !== "file") throw new TypeError("invalid native source observation");
+    const sourceMemberRef = identity("native-work-execution-source://abiogenesis",
+      sha256Canonical({ sourceObservationRef: source.observationRef, subject, observation } as unknown as JsonValue));
+    return { kind: "worksite_protected_observation" as const, schemaVersion: SCHEMA_VERSION, ordinal, sourceMemberRef, subject, observation };
+  });
+  const configuration = constructWorksiteCommandConfiguration({ ...input,
+    outcomePredicates: input.outcomePredicates ?? [], protectedSubjects: protectedObservations.map(row => row.subject) });
+  const body = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
+    capabilityGrant: input.capabilityGrant, sourceNativeWork: source,
+    ...(input.sourceReacquisition === undefined ? {} : { sourceReacquisition: input.sourceReacquisition }),
+    materializationPlanRef: WORKSITE_COMMAND_EXECUTION_IDS.materializationPlanRef, rendererRef: WORKSITE_COMMAND_EXECUTION_IDS.rendererRef,
+    instructionContractRef: WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef, resultContractRef: WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef,
+    workerActorRef: WORKSITE_COMMAND_EXECUTION_IDS.workerActorRef, workerBindingRef: WORKSITE_COMMAND_EXECUTION_IDS.workerBindingRef,
+    transportLane: WORKSITE_COMMAND_EXECUTION_IDS.transportLane, commands: configuration.commands,
+    outcomePredicates: configuration.predicates, protectedObservations, allowedWriteTerritories: configuration.allowedWriteTerritories };
+  return body;
+}
+export function constructNativeWorksiteCommandExecutionTask(input: NativeWorksiteCommandExecutionTaskInput): NativeWorksiteCommandExecutionTask {
+  const body = nativeCommandTaskBody(input), taskDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({ kind: "worksite_command_execution_task", schemaVersion: SCHEMA_VERSION,
+    taskRef: identity("worksite-command-execution-task://abiogenesis", taskDigest), taskDigest, ...body });
+}
+export function isNativeWorksiteCommandExecutionTask(value: unknown): value is NativeWorksiteCommandExecutionTask {
+  if (!isRecord(value) || value.kind !== "worksite_command_execution_task" || value.schemaVersion !== SCHEMA_VERSION || !Array.isArray(value.protectedObservations)) return false;
+  try {
+    const input = value as unknown as NativeWorksiteCommandExecutionTask;
+    const expected = nativeCommandTaskBody({ ...input,
+      selectedSources: input.protectedObservations.map(row => ({ subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath })) });
+    const { kind, schemaVersion, taskRef, taskDigest, ...body } = value;
+    return same(body, expected) && taskDigest === sha256Canonical(expected as unknown as JsonValue) &&
+      taskRef === identity("worksite-command-execution-task://abiogenesis", taskDigest as Sha256Digest);
+  } catch { return false; }
+}
+/** Pure construction only. ABG binds these file claims to the current admitted
+ * root input; the existing physical owner re-observes them before effects. */
+export function constructObservedWorksiteCommandExecutionTask(input: ObservedWorksiteCommandExecutionTaskInput): ObservedWorksiteCommandExecutionTask {
+  if (!exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) ||
+    !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) || !Array.isArray(input.observedFiles) || input.observedFiles.length === 0 ||
+    new Set(input.observedFiles.map(row => row.subject?.relativePath)).size !== input.observedFiles.length) {
+    throw new TypeError("observed C2 requires exact A/W/grant and a nonempty unique file selection");
+  }
+  const protectedObservations = input.observedFiles.map(({ subject, observation }, ordinal) => {
+    if (!isWorksiteSubject(subject) || !isWorksiteObservation(observation) || observation.state !== "file" ||
+      !same(subject, constructWorksiteSubject({ ...input, subjectUri: subject.subjectUri, relativePath: subject.relativePath })) ||
+      observation.subjectRef !== subject.subjectRef || observation.subjectDigest !== subject.subjectDigest ||
+      observation.workspaceBindingIdentity !== subject.workspaceBindingIdentity) {
+      throw new TypeError("observed C2 source requires an exact current-binding file observation");
+    }
+    return { kind: "worksite_protected_observation" as const, schemaVersion: SCHEMA_VERSION, ordinal,
+      sourceMemberRef: identity("observed-worksite-execution-source://abiogenesis", sha256Canonical({ subject, observation } as unknown as JsonValue)), subject, observation };
+  });
+  const sourceSetDigest = sha256Canonical(protectedObservations as unknown as JsonValue);
+  const configuration = constructWorksiteCommandConfiguration({ ...input, outcomePredicates: input.outcomePredicates ?? [],
+    protectedSubjects: protectedObservations.map(row => row.subject) });
+  const body = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
+    capabilityGrant: input.capabilityGrant, sourceObservedInput: { kind: "observed_worksite_input" as const,
+      sourceSetRef: identity("observed-worksite-execution-source-set://abiogenesis", sourceSetDigest), sourceSetDigest },
+    materializationPlanRef: WORKSITE_COMMAND_EXECUTION_IDS.materializationPlanRef, rendererRef: WORKSITE_COMMAND_EXECUTION_IDS.rendererRef,
+    instructionContractRef: WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef, resultContractRef: WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef,
+    workerActorRef: WORKSITE_COMMAND_EXECUTION_IDS.workerActorRef, workerBindingRef: WORKSITE_COMMAND_EXECUTION_IDS.workerBindingRef,
+    transportLane: WORKSITE_COMMAND_EXECUTION_IDS.transportLane, commands: configuration.commands,
+    outcomePredicates: configuration.predicates, protectedObservations, allowedWriteTerritories: configuration.allowedWriteTerritories };
+  const taskDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({ kind: "worksite_command_execution_task", schemaVersion: SCHEMA_VERSION,
+    taskRef: identity("worksite-command-execution-task://abiogenesis", taskDigest), taskDigest, ...body });
+}
+export function isObservedWorksiteCommandExecutionTask(value: unknown): value is ObservedWorksiteCommandExecutionTask {
+  if (!isRecord(value) || value.kind !== "worksite_command_execution_task" || !Array.isArray(value.protectedObservations)) return false;
+  try {
+    const input = value as unknown as ObservedWorksiteCommandExecutionTask;
+    return same(value, constructObservedWorksiteCommandExecutionTask({ ...input, observedFiles: input.protectedObservations }));
+  } catch { return false; }
+}
+export function isC2WorksiteCommandExecutionTask(value: unknown): value is C2WorksiteCommandExecutionTask {
+  return isWorksiteCommandExecutionTask(value) || isNativeWorksiteCommandExecutionTask(value) || isObservedWorksiteCommandExecutionTask(value);
 }
 
 export interface WorksiteObservedStream {
@@ -431,23 +636,13 @@ export interface WorksiteCommandExecutionFailure {
   readonly diagnosticRef: string;
 }
 
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function exactKeys(
-  value: Readonly<Record<string, unknown>>,
-  fields: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...fields].sort().join("\0");
-}
-
 function nonempty(value: unknown): value is string {
   return typeof value === "string" && value.trim().length > 0 &&
     value.trim() === value && !value.includes("\0");
 }
 
 function same(left: unknown, right: unknown): boolean {
+  if (left === right || isDeepStrictEqual(left, right)) return true;
   return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
 }
 
@@ -1050,6 +1245,54 @@ export interface WorksiteCommandConfigurationInput {
   readonly allowedWriteTerritories: readonly WorksiteCommandWriteTerritoryInput[];
 }
 
+/** Prospective, unbound JSON input view for existing C2 configuration producers.
+ * Environment uses its ordinary object form, not the owner's bound rows.
+ * This view is not validation: constructWorksiteCommandConfiguration retains
+ * all relational, workspace, territory and normalization checks below. */
+export function worksiteCommandConfigurationInputSchema(): Readonly<{
+  commands: Readonly<Record<string, JsonValue>>;
+  outcomePredicates: Readonly<Record<string, JsonValue>>;
+}> {
+  const text = { type: "string", minLength: 1 };
+  const integer = { type: "integer", minimum: Number.MIN_SAFE_INTEGER, maximum: Number.MAX_SAFE_INTEGER };
+  const positive = { ...integer, minimum: 1 }, count = { ...integer, minimum: 0 };
+  const path = { ...text, description: "Canonical safe relative path; no absolute, parent, backslash or protected install paths." };
+  const strings = { type: "array", items: text };
+  const environment = { type: "object", additionalProperties: { type: "string" },
+    description: "Declared POSIX environment names and string values; C2 normalizes the existing runtime environment." };
+  const object = (properties: Record<string, unknown>) => ({ type: "object", additionalProperties: false,
+    properties, required: Object.keys(properties) });
+  const selector = object({ includeSubstrings: strings, includeSuffixes: strings });
+  const declarations = [
+    ["process_exit", object({ equals: integer, validationCommandId: text })],
+    ["stdout_exact", object({ equals: { type: "string" }, validationCommandId: text })],
+    ["test_pass_count", object({ greaterThanOrEqual: count, validationCommandId: text })],
+    ["module_export_return_exact", object({ equals: {}, export: text, path })],
+    ["http_response_exact", object({ body: { type: "string" }, status: integer, validationCommandId: text,
+      launch: object({ executable: text, args: { type: "array", items: { type: "string" },
+        description: `Exactly one argument is ${WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder}; C2 supplies the port-file path.` },
+        environment, relativeCwd: path, portFile: object({ relativePath: path }), timeoutMs: positive,
+        terminationGraceMs: { ...positive, description: "Strictly less than launch.timeoutMs." } }),
+      request: object({ hostname: { enum: ["127.0.0.1", "::1"] }, method: text, path: text, timeoutMs: positive }) })],
+    ["module_set_exact", object({ equals: strings, selector: object({ source: { const: "protected_paths" },
+      prefix: { type: "string" }, suffix: { type: "string" }, segmentIndex: count }) })],
+    ["file_count", object({ equals: count, selector: object({ source: { const: "protected_paths" },
+      includeSubstrings: strings, includeSuffixes: strings }) })],
+    ["test_report_set_exact", object({ base: path, equals: { type: "array", items: path }, selector })],
+    ["test_report_failure_count", object({ equals: count })],
+    ["test_report_error_count", object({ equals: count })],
+  ] as const;
+  return deepFreeze({
+    commands: { type: "array", minItems: 1, items: object({ commandId: text, executable: text,
+      args: { type: "array", items: { type: "string" } }, relativeCwd: path, environment,
+      timeoutMs: { ...positive, maximum: 3_600_000 },
+      terminationGraceMs: { ...positive, maximum: 30_000, description: "Strictly less than timeoutMs." },
+      expectedReports: { type: "array", items: object({ reportIdentity: text, relativePath: path }) } }) },
+    outcomePredicates: { type: "array", description: "Existing C2 predicates only. Referenced commands must exist; module paths must be protected targets. Report counts require exactly one report-set predicate whose paths are declared command reports. Selectors require at least one filter. Port/report writes require explicit evidence territory.",
+      items: { anyOf: declarations.map(([predicateKind, declaration]) => object({ predicateId: text, predicateKind: { const: predicateKind }, declaration })) } },
+  } as unknown as { commands: Readonly<Record<string, JsonValue>>; outcomePredicates: Readonly<Record<string, JsonValue>> });
+}
+
 /** Pure pre-construction checks; no source result or observation is fabricated. */
 export function constructWorksiteCommandConfiguration(input: WorksiteCommandConfigurationInput): Readonly<{
   commands: readonly WorksiteDeclaredCommand[];
@@ -1203,7 +1446,7 @@ export function constructWorksiteCommandExecutionTask(
     )) {
     throw new TypeError("worksite command execution source value differs from its exact C1 coordinates or workspace");
   }
-  const protectedObservations = input.protectedObservations.map((row, ordinal) =>
+  const constructionObservations = input.protectedObservations.map((row, ordinal) =>
     constructProtectedObservation(
       input.workspaceAuthorityBasis,
       input.workspaceBinding,
@@ -1212,9 +1455,22 @@ export function constructWorksiteCommandExecutionTask(
       ordinal,
     )
   );
-  if (protectedObservations.length !== source.members.length) {
+  if (constructionObservations.length !== source.members.length) {
     throw new TypeError("worksite command protected observations must cover the exact source");
   }
+  const readBasis = input.readDependencyBasis;
+  if (readBasis !== undefined && !isWorksiteReadDependencyBasis(readBasis)) throw new TypeError("invalid initial-job read source");
+  const dependencies = (readBasis?.members ?? []).map((row, index) => {
+    const subject = constructWorksiteSubject({ workspaceAuthorityBasis: input.workspaceAuthorityBasis,
+      workspaceBinding: input.workspaceBinding, subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath });
+    if (!same(subject, row.subject) || row.observation.workspaceBindingIdentity !== input.workspaceBinding.bindingId ||
+      constructionObservations.some(selected => selected.subject.relativePath === row.subject.relativePath)) {
+      throw new TypeError("read dependencies must share exact A/W and cannot be C1 construction targets");
+    }
+    return { kind: "worksite_protected_observation" as const, schemaVersion: SCHEMA_VERSION,
+      ordinal: constructionObservations.length + index, ...row };
+  });
+  const protectedObservations = [...constructionObservations, ...dependencies];
   const { commands, predicates, allowedWriteTerritories } = constructWorksiteCommandConfiguration({
     ...input,
     outcomePredicates: input.outcomePredicates ?? [],
@@ -1237,6 +1493,7 @@ export function constructWorksiteCommandExecutionTask(
     commands,
     outcomePredicates: predicates,
     protectedObservations,
+    ...(readBasis === undefined ? {} : { readDependencyBasis: readBasis }),
     allowedWriteTerritories,
   } as const;
   const taskDigest = sha256Canonical(body as unknown as JsonValue);
@@ -1256,7 +1513,7 @@ export function isWorksiteCommandExecutionTask(value: unknown): value is Worksit
     "schemaVersion", "sourceConstructionResult", "sourceConstructionResultDigest",
     "sourceConstructionResultRef", "taskDigest", "taskRef", "transportLane",
     "workerActorRef", "workerBindingRef", "workspaceBinding",
-    "workspaceAuthorityBasis",
+    "workspaceAuthorityBasis", ...(Object.hasOwn(value, "readDependencyBasis") ? ["readDependencyBasis"] : []),
   ]) || value.kind !== "worksite_command_execution_task" || value.schemaVersion !== SCHEMA_VERSION ||
     !isWorkspaceAuthorityBasis(value.workspaceAuthorityBasis) ||
     !isExactWorkspaceBinding(value.workspaceBinding) ||
@@ -1279,7 +1536,9 @@ export function isWorksiteCommandExecutionTask(value: unknown): value is Worksit
       sourceConstructionResult: value.sourceConstructionResult as WorksiteConstructionResult,
       commands: value.commands as readonly WorksiteDeclaredCommand[],
       outcomePredicates: value.outcomePredicates as readonly WorksiteOutcomePredicate[],
-      protectedObservations: value.protectedObservations as readonly WorksiteProtectedObservation[],
+      protectedObservations: (value.protectedObservations as readonly WorksiteProtectedObservation[]).slice(0,
+        (value.sourceConstructionResult as WorksiteConstructionResult).members.length),
+      ...(Object.hasOwn(value, "readDependencyBasis") ? { readDependencyBasis: value.readDependencyBasis as WorksiteReadDependencyBasis } : {}),
       allowedWriteTerritories: value.allowedWriteTerritories as readonly WorksiteCommandWriteTerritory[],
     });
     return same(value, expected);
@@ -1845,8 +2104,9 @@ export function renderWorksiteCommandExecutionPrompt(
       attemptRef: helperPlan.attemptRef,
       workspaceBindingIdentity: task.workspaceBinding.bindingId,
       workspaceBindingDigest: task.workspaceBinding.bindingDigest,
-      sourceConstructionResultRef: task.sourceConstructionResultRef,
-      sourceConstructionResultDigest: task.sourceConstructionResultDigest,
+      ...("sourceObservedInput" in task ? { sourceObservedInput: task.sourceObservedInput } : "sourceNativeWork" in task ? { sourceNativeWorkRef: task.sourceNativeWork.observationRef,
+        sourceNativeWorkDigest: task.sourceNativeWork.observationDigest } : { sourceConstructionResultRef: task.sourceConstructionResultRef,
+        sourceConstructionResultDigest: task.sourceConstructionResultDigest }),
       commands: task.commands.map((row) => ({ ordinal: row.ordinal, commandId: row.commandId })),
       outcomePredicates: task.outcomePredicates.map((row) => ({
         ordinal: row.ordinal, predicateId: row.predicateId, predicateKind: row.predicateKind,
@@ -1896,12 +2156,11 @@ export function resolveWorksiteCommandExecutionJudgmentRelation(
     advanceReasonRef: "reason://abiogenesis/worksite/command-execution-observed@5",
     rejectionReasonRef: "reason://abiogenesis/worksite/command-execution-malformed@5",
     evaluate: (input, output) => (predicateRef === WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef
-      ? isWorksiteCommandExecutionTask(input) && isWorksiteCommandExecutionObservation(output)
+      ? isC2WorksiteCommandExecutionTask(input) && (isWorksiteCommandExecutionObservation(output) || isNativeWorksiteCommandExecutionObservation(output) || isObservedWorksiteCommandExecutionObservation(output))
       : isWorksiteRevisionCommandExecutionTask(input) && isWorksiteRevisionCommandExecutionObservation(output)) &&
       isWorksiteExecutionObservation(output) && same(output.task, input),
   });
 }
-
 
 /** Separate closed D2 rows; the existing old-row guard remains unchanged. */
 function isExecutionSnapshotMember(task: WorksiteExecutionTask, value: unknown, ordinal: number): value is WorksiteExecutionSnapshotMember {
@@ -1955,11 +2214,19 @@ export function constructWorksiteRevisionCommandExecutionObservation(task: Works
   return constructWorksiteExecutionObservation(task, workerResult, actorObservation, helperArtifact, helperPlan) as WorksiteRevisionCommandExecutionObservation;
 }
 export function isWorksiteCommandExecutionObservation(value: unknown): value is WorksiteCommandExecutionObservation {
-  return isRecord(value) && value.kind === "worksite_command_execution_observation" && isWorksiteExecutionObservation(value);
+  return isRecord(value) && value.kind === "worksite_command_execution_observation" && isWorksiteCommandExecutionTask(value.task) && isWorksiteExecutionObservation(value);
 }
 export function isWorksiteRevisionCommandExecutionObservation(value: unknown): value is WorksiteRevisionCommandExecutionObservation {
   return isRecord(value) && value.kind === "worksite_revision_command_execution_observation" && isWorksiteExecutionObservation(value);
 }
 export function isWorksiteCommandForwardObservation(value: unknown): value is WorksiteCommandForwardObservation {
   return isRecord(value) && value.kind === "worksite_command_forward_observation" && isWorksiteExecutionObservation(value);
+}
+
+export function isNativeWorksiteCommandExecutionObservation(value: unknown): value is NativeWorksiteCommandExecutionObservation {
+  return isRecord(value) && value.kind === "worksite_command_execution_observation" && isNativeWorksiteCommandExecutionTask(value.task) && isWorksiteExecutionObservation(value);
+}
+
+export function isObservedWorksiteCommandExecutionObservation(value: unknown): value is ObservedWorksiteCommandExecutionObservation {
+  return isRecord(value) && value.kind === "worksite_command_execution_observation" && isObservedWorksiteCommandExecutionTask(value.task) && isWorksiteExecutionObservation(value);
 }

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
 
 import { readFile } from "node:fs/promises";
 
@@ -29,20 +30,6 @@ interface CliTransportRequest {
     | NewCliTransportAcquisition
     | ReopenCliTransportAcquisition;
   readonly invocation: unknown;
-}
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  expected: readonly string[],
-): boolean {
-  const actual = Object.keys(value).sort();
-  const sortedExpected = [...expected].sort();
-  return actual.length === sortedExpected.length &&
-    actual.every((key, index) => key === sortedExpected[index]);
 }
 
 function parseTransportRequest(value: unknown): CliTransportRequest | null {

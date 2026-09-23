@@ -4,6 +4,7 @@ import type {
   JudgmentCandidate,
 } from "../abg/c_call.js";
 import type { ReplayState } from "../abg/replay.js";
+import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -12,7 +13,7 @@ export interface DeclaredJudgmentRelation<Input, Output> {
   readonly predicateRef: string;
   readonly advanceReasonRef: string;
   readonly rejectionReasonRef: string;
-  readonly evaluate: (input: Readonly<Input>, output: Readonly<Output>) => boolean;
+  readonly evaluate: (input: Readonly<Input>, output: Readonly<Output>, currentOwnerPrefix?: DurablePrefixCoordinate) => boolean;
 }
 
 export type JudgmentDecision<Input, Output> =
@@ -33,6 +34,7 @@ export function proposeJudgmentCandidate<Input, Output>(input: Readonly<{
   replayState: ReplayState;
   contractRef: string;
   decision: JudgmentDecision<Input, Output>;
+  currentOwnerPrefix?: DurablePrefixCoordinate;
 }>): JudgmentCandidate {
   const { cCall, result, replayState, contractRef, decision } = input;
   let accepted = false;
@@ -48,6 +50,7 @@ export function proposeJudgmentCandidate<Input, Output>(input: Readonly<{
       accepted = decision.relation.evaluate(
         decision.input,
         result.value as unknown as Readonly<Output>,
+        input.currentOwnerPrefix,
       );
       reasonRef = accepted
         ? decision.relation.advanceReasonRef

@@ -1,0 +1,33 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/execute.mjs
+/executive-acceptance.json
+/harness-delta.patch
+/intent-assessment-stop-01/actor-events.json
+/intent-assessment-stop-01/admitted-assessment-result.json
+/intent-assessment-stop-01/admitted-author-result.json
+/intent-assessment-stop-01/assessment-candidate.json
+/intent-assessment-stop-01/author-candidate.json
+/intent-assessment-stop-01/currentness.json
+/intent-assessment-stop-01/fresh-reads.log
+/intent-assessment-stop-01/fresh-reads.mjs
+/intent-assessment-stop-01/fresh-replay-result.json
+/intent-assessment-stop-01/fresh-replay.log
+/intent-assessment-stop-01/fresh-replay.mjs
+/intent-assessment-stop-01/index.json
+/intent-assessment-stop-01/prefix.json
+/intent-assessment-stop-01/receipt.json
+/intent-assessment-stop-01/run_replay-call.jsonl
+/intent-assessment-stop-01/run_replay-response.json
+/intent-assessment-stop-01/run_replay-stderr.log
+/intent-assessment-stop-01/run_result-call.jsonl
+/intent-assessment-stop-01/stop-events.json
+/launch.json
+/live.log
+/process-exit.json
+/process.json
+/readiness.json
+/tracking-postimages.json
+/tracking-preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/tracking-preimages/specification/GOALS.md

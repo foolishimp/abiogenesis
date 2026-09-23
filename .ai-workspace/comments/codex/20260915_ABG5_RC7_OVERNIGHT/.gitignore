@@ -1,0 +1,31 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/executive-return.md
+/performance-request.json
+/performance-request.txt
+/performance/artifact-measure.mjs
+/performance/artifact-measurement.json
+/performance/artifact-process-return.json
+/performance/artifact.cpuprofile
+/performance/diagnostic.cpuprofile
+/performance/evidence.json
+/performance/freeze.mjs
+/performance/history-measure.mjs
+/performance/history-measurement.json
+/performance/history-process-return.json
+/performance/history.cpuprofile
+/performance/launch.json
+/performance/manifest.json
+/performance/measure.mjs
+/performance/measurements.jsonl
+/performance/process-return.json
+/performance/return.md
+/performance/summarize.mjs
+/resource-request.json
+/resource-request.txt
+/resource/inspect-resource.mjs
+/resource/measurement.json
+/resource/return.md
+/verification.json

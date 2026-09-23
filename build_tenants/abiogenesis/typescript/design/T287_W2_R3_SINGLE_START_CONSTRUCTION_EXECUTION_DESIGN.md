@@ -383,3 +383,36 @@ reconstructs the D2 C2 input with the same pure derivation used at bridge,
 admission, dispatch and replay. The parent Run alone closes; a failed C1 or
 invalidated dependency suppresses C2. No new event, fluent, source-result
 Public token or private lifecycle controller is added.
+
+## Generic fixed pair for bounded consumer continuation
+
+The existing retain_graph_input relation also admits one ABI-owned structural
+contract, `contract://abiogenesis/worksite/retained-graph-input@5`: exactly
+`{kind:"retained_graph_input",schemaVersion:"5.0.0",entry,source}`. Entry and
+source are JSON records, preserving the enclosing graph entry and successful
+workflow result without rewriting either. This contract belongs to the existing
+ABI command-execution publication. The three preparation tuples above retain
+their exact declaration and interpretation.
+
+Existing E/S binding refs, graph endpoints and environment carries select the
+actual source and target. Static validation requires the fixed T declaration;
+installed resolution authenticates its ABI publication/install, exact E/S
+owners and the enclosing consumer's entry, target and semantics owner. T does
+not assert a particular consumer's E/S subtypes: the dependent pure consumer
+must narrow both and their relationship before an actor or effect is selected.
+There is no consumer-authored shape metadata or additional contract inventory.
+
+ABG constructs the pair only after the existing successful Result, advancing
+judgment and closed-child foldback. Cold projection uses the actual entry basis,
+source cursor input digest, child basis/output contract, result/judgment and
+closure/causation. It must not infer fields absent from physical c_call_opened.
+Altered entry/source, crossed basis/cursor/contract, missing or ambiguous proof
+refuses. boundInput remains ordinary RawAdmittedValue; event schemas, profiles,
+route identity and invocation resource schemas do not change.
+
+The selected consumer retains E plus the C2 observation once, then its workflow
+judgment receives that exact pair and independent assessor output. No second
+retention, identity branch, Completion carrier or trailing interpreter is needed.
+Qualification covers actual emitted route plus close/reopen readback and the
+consumer's narrower two-job/negative component relation, with their different
+evidence limits explicit.

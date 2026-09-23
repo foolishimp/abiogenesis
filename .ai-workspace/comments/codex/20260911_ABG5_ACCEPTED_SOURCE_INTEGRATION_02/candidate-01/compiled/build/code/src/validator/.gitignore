@@ -1,0 +1,31 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/c_algebra.d.ts
+/c_algebra.js
+/conformance_definition_bindings.d.ts
+/conformance_definition_bindings.js
+/conformance_operation.d.ts
+/conformance_operation.js
+/conformance_operation_contracts.d.ts
+/conformance_operation_contracts.js
+/graph.d.ts
+/graph.js
+/implementation_resolution.d.ts
+/implementation_resolution.js
+/index.d.ts
+/index.js
+/raw_admission.d.ts
+/raw_admission.js
+/self_conformance.d.ts
+/self_conformance.js
+/self_conformance_basis.d.ts
+/self_conformance_basis.js
+/self_conformance_contracts.d.ts
+/self_conformance_contracts.js
+/self_conformance_publication.d.ts
+/self_conformance_publication.js
+/self_conformance_semantics.d.ts
+/self_conformance_semantics.js
+/validation.d.ts
+/validation.js

@@ -1,0 +1,24 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/1-run_status-launch.json
+/1-run_status-receipt.json
+/1-run_status-request.jsonl
+/1-run_status-stderr.log
+/1-run_status-stdout.json
+/2-run_evidence-launch.json
+/2-run_evidence-receipt.json
+/2-run_evidence-request.jsonl
+/2-run_evidence-stderr.log
+/2-run_evidence-stdout.json
+/after.json
+/basis.json
+/before.json
+/diagnose-projection.mjs
+/first-cause.json
+/handoff.json
+/manifest.json
+/projection-diagnostic.json
+/read-proof.log
+/read-proof.mjs
+/result.json

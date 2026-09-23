@@ -1,12 +1,19 @@
+import { isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+import { projectNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
+import { isSemanticJobEnvelope } from "../product/semantic_job.js";
+import { isSemanticJobRevisionEnvelope, deriveSemanticJobRevision, type SemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
+import { semanticJobConstructionSourceAtPrefix, semanticJobReadDependenciesAtPrefix } from "./semantic_job.js";
+import { isWorksiteFileParentsSuccess } from "../product/worksite_effect.js";
 /** D2's single prefix-owned observation projection. No caller grants or ledger. */
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { constructWorksiteObservation, isWorksiteObservation, type WorksiteObservation, type WorksiteSubject } from "../product/worksite_effect.js";
 import { isSemanticStageEnvelope, projectSemanticWorksiteCoordinates, type SemanticWorksiteBasis } from "../product/semantic_stage.js";
 import { isSemanticRevisionEnvelope, isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticRevisionSelection,
-  deriveSemanticRevision, type SemanticRevisionCoordinate, type SemanticRevisionEnvelope } from "../product/semantic_revision.js";
+  deriveSemanticRevision, semanticRevisionSelectionInputMatchesRequest, type SemanticRevisionCoordinate, type SemanticRevisionEnvelope } from "../product/semantic_revision.js";
 import { WORKSITE_REVISION_IDS, worksiteExecutionSources, type WorksiteExecutionTask, type WorksiteRevisionDependencyObservation, type WorksiteRevisionObservationOrigin } from "../product/worksite_revision.js";
 import { isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
+import { isWorksitePreparationInput } from "../product/worksite_preparation.js";
 import { WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
 import { runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
@@ -31,6 +38,11 @@ import { resolve, relative, isAbsolute } from "node:path";
 
 const same = (a: unknown, b: unknown) => canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
 const record = (v: unknown): v is Record<string, JsonValue> => v !== null && typeof v === "object" && !Array.isArray(v);
+const isRevisionEnvelope = (value: unknown): value is SemanticRevisionEnvelope | SemanticJobRevisionEnvelope => isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value);
+function sameSemanticSubject(a: unknown,b: unknown): boolean {
+  if (isSemanticJobEnvelope(a) && isSemanticJobEnvelope(b)) return same(a.job,b.job) && same(a.basis,b.basis) && same(a.declaration,b.declaration);
+  return isSemanticStageEnvelope(a) && isSemanticStageEnvelope(b) && same(a.lifecycle,b.lifecycle) && same(a.sourceHandoff,b.sourceHandoff);
+}
 const hash = (v: unknown) => sha256Canonical(v as JsonValue);
 const one = <T>(rows: readonly T[], accepts: (row: T) => boolean): T | null => {
   const selected = rows.filter(accepts); return selected.length === 1 ? selected[0]! : null;
@@ -145,7 +157,7 @@ export function projectWorksiteRevisionBindingCover(prefix: ValidatedRuntimeEven
         operation.payload.dependencyLockRef !== after.lockId || operation.payload.dependencyLockDigest !== after.lockDigest ||
         operation.payload.actorRef !== p.actorRef || operation.payload.actorDigest !== p.actorDigest || p.operatorActorRef !== p.actorRef ||
         p.actorRef !== after.authorizedActorRef) return false;
-      const {eventId:_eventId,admissionOrdinal:_ordinal,payloadDigest:_payloadDigest,...candidate}=event;
+      const {eventId:_eventId,admissionOrdinal:_ordinal,payloadDigest:_payloadDigest,eventContractDigest:_eventContractDigest,...candidate}=event;
       if(!same(projectRuntimeEventFromValidatedHistory(events.filter(e=>e.admissionOrdinal<event.admissionOrdinal),candidate),event))return false;
       return validatePublicOperationBasis({ ...operation.payload,
         eventTime:operation.eventTime, correlationId:operation.correlationId, causationEventRefs:operation.causationEventRefs } as never,
@@ -154,9 +166,17 @@ export function projectWorksiteRevisionBindingCover(prefix: ValidatedRuntimeEven
     return covers.length === 0 ? null : covers.map(e=>e.eventId);
   } catch { return null; }
 }
-function inputWorksite(basis: ExecutionBasis): SemanticWorksiteBasis | null {
+function inputWorksite(basis: ExecutionBasis, prefix?: ValidatedRuntimeEventPrefix): SemanticWorksiteBasis | null {
   const input = basis.rawInputValue;
-  return isSemanticRevisionEnvelope(input) ? input.current.worksite : isSemanticStageEnvelope(input) ? input.worksite : null;
+  if (isRevisionEnvelope(input)) return input.current.worksite;
+  if (isSemanticStageEnvelope(input) || isSemanticJobEnvelope(input)) return input.worksite;
+  if (prefix !== undefined && isWorksiteFileParentsSuccess(input)) {
+    const source = runtimeEventsFromValidatedPrefix(prefix).find(e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.resultRef === input.request.sourceEnvelopeRef);
+    const value = record(source?.payload) ? source.payload.value : null;
+    const original = isSemanticJobEnvelope(value) ? semanticJobConstructionSourceAtPrefix(prefix, value) : null;
+    return original?.seed.basisRef === basis.basisRef ? original.worksite : null;
+  }
+  return null;
 }
 type WorksiteRow = SemanticWorksiteBasis["targets"][number];
 /** Binding coordinates may change; domain meaning and effect bounds may not. */
@@ -189,16 +209,19 @@ function nativeHistory(prefix: ValidatedRuntimeEventPrefix, parentRef: SemanticR
   causeRefs: readonly SemanticRevisionCoordinate[]): NativeHistory | null {
   const events = runtimeEventsFromValidatedPrefix(prefix), bases: ExecutionBasis[] = [], eligible = new Set<string>();
   const parent = projectWorksiteRevisionNativeResult(prefix,parentRef);
-  const first = parent === null ? null : isSemanticRevisionEnvelope(parent.result.value) ? parent.result.value.current : parent.result.value;
+  const first = parent === null ? null : isRevisionEnvelope(parent.result.value) ? parent.result.value.current : parent.result.value;
   if (parent === null || parent.result.resultClass !== "success" || parent.judgment.judgment !== "advance" ||
-    !isSemanticStageEnvelope(first) || first.worksite === null) return null;
+    (!isSemanticStageEnvelope(first) && !isSemanticJobEnvelope(first))) return null;
   function addBasis(ref:string): ExecutionBasis | null {
     const b=projectExactExecutionBasisAtPrefix(prefix,ref);if(b===null)return null;
     if(!bases.some(r=>r.basisRef===b.basisRef))bases.push(b);eligible.add(b.invocationAdmissionRef);return b;
   }
+  const jobSource = isSemanticJobEnvelope(first) ? semanticJobConstructionSourceAtPrefix(prefix,first) : null;
+  const firstWorksite = first.worksite ?? jobSource?.worksite ?? null;
+  if (firstWorksite === null) return null;
   const firstBasis=addBasis(parent.cCall.basisId);
-  if(firstBasis===null||firstBasis.workspaceBindingId!==first.worksite.workspaceBinding.bindingId||
-    firstBasis.workspaceBindingDigest!==first.worksite.workspaceBinding.bindingDigest)return null;
+  if(firstBasis===null||firstBasis.workspaceBindingId!==firstWorksite.workspaceBinding.bindingId||
+    firstBasis.workspaceBindingDigest!==firstWorksite.workspaceBinding.bindingDigest)return null;
   const heads=[firstBasis];
   for(const ref of causeRefs){
     const cause=projectWorksiteRevisionNativeResult(prefix,ref),b=cause===null?null:addBasis(cause.cCall.basisId);
@@ -214,10 +237,9 @@ function nativeHistory(prefix: ValidatedRuntimeEventPrefix, parentRef: SemanticR
     }
   }
   let ancestor=parent,seed=firstBasis;const visited=new Set<string>();
-  while(isSemanticRevisionEnvelope(ancestor.result.value)){
+  while(isRevisionEnvelope(ancestor.result.value)){
     const envelope=ancestor.result.value;
-    if(visited.has(envelope.revisionBasis.basisRef)||!same(envelope.current.lifecycle,first.lifecycle)||
-      !same(envelope.current.sourceHandoff,first.sourceHandoff))return null;
+    if(visited.has(envelope.revisionBasis.basisRef)||!sameSemanticSubject(envelope.current,first))return null;
     visited.add(envelope.revisionBasis.basisRef);
     const ordinal=events.find(e=>e.eventId===ancestor.result.admissionEventRef)!.admissionOrdinal;
     for(const coordinate of [envelope.revisionBasis.request.parent,...envelope.revisionBasis.request.causes]){
@@ -229,11 +251,16 @@ function nativeHistory(prefix: ValidatedRuntimeEventPrefix, parentRef: SemanticR
     if(source===null||source.result.resultClass!=="success"||source.judgment.judgment!=="advance")return null;
     const b=addBasis(source.cCall.basisId);if(b===null)return null;ancestor=source;seed=b;
   }
-  const initial=seed.rawInputValue;
-  if(!isSemanticStageEnvelope(ancestor.result.value)||!isSemanticStageEnvelope(initial)||initial.worksite===null||
-    !same(initial.worksite,ancestor.result.value.worksite)||!same(initial.sourceHandoff,first.sourceHandoff)||
-    !same(initial.lifecycle,first.lifecycle))return null;
-  return {seed,prior:first.worksite,bases,eligible:[...eligible],heads};
+  if (isSemanticJobEnvelope(ancestor.result.value)) {
+    const source = semanticJobConstructionSourceAtPrefix(prefix,ancestor.result.value);
+    if (source === null || !sameSemanticSubject(ancestor.result.value,first)) return null;
+    seed = source.seed; addBasis(seed.basisRef);
+  } else {
+    const initial=seed.rawInputValue;
+    if(!isSemanticStageEnvelope(ancestor.result.value)||!isSemanticStageEnvelope(initial)||initial.worksite===null||
+      !same(initial.worksite,ancestor.result.value.worksite)||!sameSemanticSubject(initial,first))return null;
+  }
+  return {seed,prior:firstWorksite,bases,eligible:[...eligible],heads};
 }
 interface OriginCandidate {
   origin:WorksiteRevisionObservationOrigin;
@@ -246,7 +273,7 @@ interface OriginCandidate {
 interface BindingProjectionFacts {
   state:RehydratedAdmittedCCallState;
   basis:ExecutionBasis;
-  envelope:SemanticRevisionEnvelope;
+  envelope:SemanticRevisionEnvelope | SemanticJobRevisionEnvelope;
   origins:readonly OriginCandidate[];
   ordinal:number;
   history:NativeHistory;
@@ -290,18 +317,20 @@ function projectionFacts(prefix:ValidatedRuntimeEventPrefix,result:RuntimeEvent,
     if(state===null||basis===null||state.cCall.implementationRef!==SEMANTIC_REVISION_IDS.projectionImplementationRef||
       state.cCall.implementationBindingRef!==SEMANTIC_REVISION_IDS.projectionBindingRef||state.cCall.regime!=="F_D"||
       state.result.resultClass!=="success"||state.judgment.judgment!=="advance"||state.judgment.predicateRef!==SEMANTIC_REVISION_IDS.projectionPredicateRef||
-      !isSemanticRevisionEnvelope(state.result.value)||!isSemanticRevisionRequest(basis.rawInputValue))return null;
+      !isRevisionEnvelope(state.result.value)||!isSemanticRevisionRequest(basis.rawInputValue))return null;
     const request=basis.rawInputValue,envelope=state.result.value;
     if(!same(envelope.revisionBasis.request,request)||envelope.current.worksite===null)return null;
     const before=selectValidatedRuntimeEventPrefix(Object.freeze(events.filter(e=>e.admissionOrdinal<result.admissionOrdinal)));
     const history=nativeHistory(before,request.parent,request.causes);
     const parent=projectWorksiteRevisionNativeResult(before,request.parent),selection=projectWorksiteRevisionNativeResult(before,request.selection);
-    if(history===null||parent===null||selection===null||(!isSemanticStageEnvelope(parent.result.value)&&!isSemanticRevisionEnvelope(parent.result.value))||!isSemanticRevisionSelection(selection.result.value)||
+    if(history===null||parent===null||selection===null||(!isSemanticStageEnvelope(parent.result.value)&&!isSemanticJobEnvelope(parent.result.value)&&!isRevisionEnvelope(parent.result.value))||!isSemanticRevisionSelection(selection.result.value)||
       selection.result.resultClass!=="success"||selection.judgment.judgment!=="advance"||
       !["F_P","F_H"].includes(selection.cCall.regime)||selection.cCall.outputContractRef!==SEMANTIC_REVISION_IDS.selectionContractRef||
-      !same(deriveSemanticRevision(parent.result.value,request,selection.result.value),envelope))return null;
+      !same(isSemanticJobRevisionEnvelope(envelope) && (isSemanticJobEnvelope(parent.result.value) || isSemanticJobRevisionEnvelope(parent.result.value))
+        ? deriveSemanticJobRevision(parent.result.value,request,selection.result.value,request.currentWorksite!,history.prior)
+        : deriveSemanticRevision(parent.result.value as import("../product/semantic_stage.js").SemanticStageEnvelope | SemanticRevisionEnvelope,request,selection.result.value),envelope))return null;
     const selectionBasis=projectExactExecutionBasisAtPrefix(before,selection.cCall.basisId);
-    if(selectionBasis===null||!same(selectionBasis.rawInputValue,{kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:request.parent,causes:request.causes}))return null;
+    if(selectionBasis===null||!semanticRevisionSelectionInputMatchesRequest(selectionBasis.rawInputValue,request))return null;
     const current=envelope.current.worksite,environment=nativeBinding(before,current.workspaceBinding);
     const invocation=projectExactInvocationAdmissionAtPrefix(before,basis.invocationAdmissionRef);
     if(environment===null||!same(environment.authority,current.workspaceAuthorityBasis)||
@@ -323,7 +352,7 @@ function projectionFacts(prefix:ValidatedRuntimeEventPrefix,result:RuntimeEvent,
 
 function deriveCurrentOrigins(prefix:ValidatedRuntimeEventPrefix,seedBasis:ExecutionBasis,historical:SemanticWorksiteBasis,
   current:SemanticWorksiteBasis,eligible:readonly string[],bases:readonly ExecutionBasis[],work:ProjectionSession):readonly OriginCandidate[]|null {
-  const seed=inputWorksite(seedBasis),events=runtimeEventsFromValidatedPrefix(prefix);
+  const seed=inputWorksite(seedBasis,prefix),events=runtimeEventsFromValidatedPrefix(prefix);
   if(seed===null||!worksiteRevisionMeaningMatches(historical,current)||!same(seed.workspaceAuthorityBasis,current.workspaceAuthorityBasis))return null;
   const results:OriginCandidate[]=[];
   for(const [ordinal,row] of current.targets.entries()){
@@ -353,7 +382,7 @@ function deriveCurrentOrigins(prefix:ValidatedRuntimeEventPrefix,seedBasis:Execu
         const target={...prior.target,subject:request.subject,territory:request.territory,predecessorObservation:transition.successorObservation} as unknown as WorksiteRow["target"];
         candidates.push({origin:{kind:"admitted_replacement",resultAdmissionEventRef:replacement.event.eventId,evidenceEventRef:replacement.evidence.eventId},
           basis:b,worksite:source,row:{role:row.role,target,base64:String(request.replacementBytes)},ordinal:event.admissionOrdinal,ancestors:[]});
-      } else if(isSemanticRevisionEnvelope(event.payload.value)){
+      } else if(isRevisionEnvelope(event.payload.value)){
         const b=typeof event.basisId==="string"?projectExactExecutionBasisAtPrefix(prefix,event.basisId):null;
         if(b===null||!eligible.includes(b.invocationAdmissionRef))continue;
         const projection=projectionFacts(prefix,event,work);
@@ -400,7 +429,7 @@ export function worksiteRevisionEntryBindingDisposition(prefix:ValidatedRuntimeE
       if(sources.length!==1)return "basis_fork_detected";
       const sourceOrdinal=events.find(e=>e.eventId===sources[0]!.result.admissionEventRef)!.admissionOrdinal,work=session();
       const projections=events.flatMap(e=>{
-        if(e.kind!=="c_call_result_admitted"||e.admissionOrdinal>=sourceOrdinal||!record(e.payload)||!isSemanticRevisionEnvelope(e.payload.value)||
+        if(e.kind!=="c_call_result_admitted"||e.admissionOrdinal>=sourceOrdinal||!record(e.payload)||!isRevisionEnvelope(e.payload.value)||
           e.payload.value.revisionBasis.basisRef!==observed.task.revisionBasisRef||e.payload.value.revisionBasis.basisDigest!==observed.task.revisionBasisDigest)return [];
         const p=projectionFacts(prefix,e,work);
         return p!==null&&same(p.envelope.current.worksite!.workspaceBinding,currentBinding)&&
@@ -409,9 +438,9 @@ export function worksiteRevisionEntryBindingDisposition(prefix:ValidatedRuntimeE
       if(projections.length!==1)return "basis_fork_detected";
       input=projections[0];
     }
-    const request=isSemanticRevisionEnvelope(input)?input.revisionBasis.request:input;
+    const request=isRevisionEnvelope(input)?input.revisionBasis.request:input;
     if(!isSemanticRevisionSelectionInput(request)&&!isSemanticRevisionRequest(request))return "basis_fork_detected";
-    const carried=isSemanticRevisionEnvelope(input)?input.current.worksite:isSemanticRevisionRequest(input)?input.currentWorksite:null;
+    const carried=isRevisionEnvelope(input)?input.current.worksite:isSemanticRevisionRequest(input)?input.currentWorksite:null;
     if(carried!==null&&!same(carried.workspaceBinding,currentBinding))return "basis_fork_detected";
     const history=nativeHistory(prefix,request.parent,request.causes);if(history===null)return "basis_fork_detected";
     // Preserve the exact old same-W admission path; no foreign origin is minted.
@@ -438,10 +467,10 @@ export function worksiteRevisionEntryBindingDisposition(prefix:ValidatedRuntimeE
 
 /** Actual already admitted projection, selected by its revision identity.
  * This is used only when serializing a pending correspondence into E_D. */
-export function projectWorksiteRevisionBindingOrigin(prefix:ValidatedRuntimeEventPrefix,envelope:SemanticRevisionEnvelope):WorksiteRevisionObservationOrigin|null {
+export function projectWorksiteRevisionBindingOrigin(prefix:ValidatedRuntimeEventPrefix,envelope:SemanticRevisionEnvelope | SemanticJobRevisionEnvelope):WorksiteRevisionObservationOrigin|null {
   const events=runtimeEventsFromValidatedPrefix(prefix),work=session();
   const matches=events.flatMap(e=>{
-    if(e.kind!=="c_call_result_admitted"||!record(e.payload)||!isSemanticRevisionEnvelope(e.payload.value)||
+    if(e.kind!=="c_call_result_admitted"||!record(e.payload)||!isRevisionEnvelope(e.payload.value)||
       e.payload.value.revisionBasis.basisRef!==envelope.revisionBasis.basisRef||e.payload.value.revisionBasis.basisDigest!==envelope.revisionBasis.basisDigest)return [];
     const p=projectionFacts(prefix,e,work);
     return p!==null&&same(p.envelope.current.worksite,envelope.current.worksite)?[p]:[];
@@ -453,6 +482,7 @@ export function projectWorksiteRevisionBindingOrigin(prefix:ValidatedRuntimeEven
 export function worksiteRevisionSeedMatches(seedBasis: ExecutionBasis, ancestor: unknown,
   current: SemanticWorksiteBasis): boolean {
   const input = seedBasis.rawInputValue;
+  if (isSemanticJobEnvelope(ancestor)) return isWorksiteFileParentsSuccess(input) && input.request.jobRef === ancestor.basis.jobRef && input.request.jobDigest === ancestor.basis.jobDigest && same(input.request.workspaceAuthorityBasis,current.workspaceAuthorityBasis) && input.request.workspaceBindingIdentity === current.workspaceBinding.bindingId && input.request.workspaceBindingDigest === current.workspaceBinding.bindingDigest;
   return isSemanticStageEnvelope(input) && isSemanticStageEnvelope(ancestor) && input.worksite !== null &&
     same(input.sourceHandoff, ancestor.sourceHandoff) && same(input.lifecycle, ancestor.lifecycle) &&
     same(input.worksite, ancestor.worksite) &&
@@ -542,6 +572,21 @@ export function projectClosedConstructionRetainedVector(prefix:ValidatedRuntimeE
 export function worksiteRevisionOriginSurvives(prefix: ValidatedRuntimeEventPrefix,
   row: WorksiteRevisionDependencyObservation): boolean {
   const events = runtimeEventsFromValidatedPrefix(prefix), origin = row.origin;
+  if (origin.kind === "admitted_initial_job_bridge") {
+    const event = one(events, e => e.kind === "c_call_result_admitted" && e.eventId === origin.resultAdmissionEventRef);
+    const coordinate = event === null ? null : coordinateFor(events, event);
+    const result = coordinate === null ? null : projectWorksiteRevisionNativeResult(prefix, coordinate);
+    const value = result?.result.value;
+    if (result === null || result.cCall.implementationRef !== SEMANTIC_STAGE_IDS.jobBridgeImplementationRef ||
+      result.result.resultClass !== "success" || result.judgment.judgment !== "advance" ||
+      result.judgment.admissionEventRef !== origin.judgmentEventRef || !isWorksitePreparationInput(value) ||
+      value.kind !== "worksite_command_preparation_input" || value.readDependencyBasis === undefined) return false;
+    const source = semanticJobReadDependenciesAtPrefix(prefix, value.readDependencyBasis);
+    const member = value.readDependencyBasis.members.find(member => member.sourceMemberRef === row.designTargetRef);
+    return source !== null && source.result.resultRef === result.result.resultRef && member !== undefined &&
+      same(member.subject, row.subject) && same(member.observation, row.observation) &&
+      !invalidatedAcrossBindings(prefix, row.subject, source.contextEvent.admissionOrdinal);
+  }
   if(origin.kind==="admitted_binding_projection"){
     const result=one(events,e=>e.kind==="c_call_result_admitted"&&e.eventId===origin.resultAdmissionEventRef);
     const p=result===null?null:projectionFacts(prefix,result,session());
@@ -557,7 +602,7 @@ export function worksiteRevisionOriginSurvives(prefix: ValidatedRuntimeEventPref
   if (replacement !== null) return false;
   const event = events.find(e => e.eventId === origin.basisAdmissionEventRef && e.kind === "basis_admitted");
   const basis = event?.basisId === undefined ? null : projectExactExecutionBasisAtPrefix(prefix, event.basisId);
-  const worksite = basis === null ? null : inputWorksite(basis);
+  const worksite = basis === null ? null : inputWorksite(basis,prefix);
   if (basis === null || worksite === null || basis.rawInputAdmissionRef !== origin.inputAdmissionRef || basis.rawInputDigest !== origin.inputDigest ||
     !worksite.targets.some(t => same(t.target.subject, row.subject) && same(t.target.predecessorObservation, row.observation))) return false;
   // Failure after publication terminates O0 but creates no successful O1.
@@ -566,7 +611,7 @@ export function worksiteRevisionOriginSurvives(prefix: ValidatedRuntimeEventPref
 }
 export function projectWorksiteRevisionOrigins(prefix: ValidatedRuntimeEventPrefix, seedBasis: ExecutionBasis,
   historical: SemanticWorksiteBasis, current: SemanticWorksiteBasis, eligibleInvocationRefs: readonly string[]): readonly WorksiteRevisionOriginProof[] | null {
-  const seed = inputWorksite(seedBasis);
+  const seed = inputWorksite(seedBasis,prefix);
   if (seed === null || current.targets.length !== historical.targets.length) return null;
   const prefixEvents=runtimeEventsFromValidatedPrefix(prefix);
   const crossedHistory=prefixEvents.some(e=>{
@@ -662,8 +707,20 @@ export function retainedWorksitePhysicalMatches(authority:WorkspaceAuthorityBasi
   }catch{return false;}
 }
 export function worksiteExecutionSourcesCurrent(prefix: ValidatedRuntimeEventPrefix, task: WorksiteExecutionTask): boolean {
+  // Observed source currentness is relative to its exact root input admission,
+  // authenticated by execution_basis; this ancestor-only projection grants none.
+  if (isObservedWorksiteCommandExecutionTask(task)) return false;
+  if (isNativeWorksiteCommandExecutionTask(task)) return projectNativeWorkCommandSourceAtPrefix(prefix, task) !== null;
   const calculus = deriveRuntimeEventCalculusProjection(prefix);
+  const readBasis = task.kind === "worksite_command_execution_task" ? task.readDependencyBasis : undefined;
+  const readSource = readBasis === undefined ? null : semanticJobReadDependenciesAtPrefix(prefix, readBasis);
+  if (readBasis !== undefined && readSource === null) return false;
   return worksiteExecutionSources(task).every(row => {
+    if (readBasis?.members.some(member => member.sourceMemberRef === ("sourceMemberRef" in row ? row.sourceMemberRef : null))) {
+      const member = readBasis.members.find(member => member.subject.subjectRef === row.subject.subjectRef);
+      return member !== undefined && same(member.observation, row.observation) &&
+        !invalidatedAcrossBindings(prefix, row.subject, readSource!.contextEvent.admissionOrdinal);
+    }
     if("source" in row && row.source.kind === "retained_dependency")return worksiteRevisionOriginSurvives(prefix,
       {designTargetRef:row.designTargetRef,subject:row.subject,observation:row.observation,origin:row.source.origin});
     if(!holdsAt(calculus,constructWorksiteObservationCurrentFluent(row.observation.observationRef)))return false;

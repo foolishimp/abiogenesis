@@ -1,0 +1,30 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../20260923_WIP_CHECKPOINT/README.md
+/capabilities/capability-definition-graph.json
+/public-functions/adapter-projection.json
+/public-operations/catalog/admit/operation-contract.json
+/public-operations/catalog/apply/operation-contract.json
+/public-operations/catalog/view/operation-contract.json
+/public-operations/conformance/evaluate/operation-contract.json
+/public-operations/interaction/respond/operation-contract.json
+/public-operations/product/install/operation-contract.json
+/public-operations/product/materialize/operation-contract.json
+/public-operations/product/resolve/operation-contract.json
+/public-operations/product/verify/operation-contract.json
+/public-operations/project/read/operation-contract.json
+/public-operations/release/snapshot/operation-contract.json
+/public-operations/result/assess/operation-contract.json
+/public-operations/run/continue/operation-contract.json
+/public-operations/run/invoke/operation-contract.json
+/public-operations/witness/admit/operation-contract.json
+/public-operations/workspace/bind/operation-contract.json
+/public-operations/workspace/create/operation-contract.json
+/public-operations/workspace/open/operation-contract.json
+/qualification/rule-catalog.json
+/qualification/sources/REQ-P-QUAL.md
+/qualification/sources/REQ-P-SELF-CONFORMANCE.md
+/schemas/operations/project/read/result.schema.json
+/schemas/operations/run/invoke/result.schema.json
+/schemas/public-operation.schema.json
+/schemas/self-conformance.schema.json

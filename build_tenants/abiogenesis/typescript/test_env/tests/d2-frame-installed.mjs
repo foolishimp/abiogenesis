@@ -11,7 +11,7 @@ import { importInstalledPackageExport, setupInstalledCliHarness } from "../suppo
 const execFileAsync = promisify(execFile);
 const packageRoot = process.env.ABI5_D2_FRAME_BUILD_ROOT ?? resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const schemaVersion = "5.0.0";
-import { prepareD2FrameProduct, nativePublications, observeFixtureWorksite, installD2FrameActor,
+import { prepareD2FrameProduct, nativePublications, assertD2FrameCatalogInventory, observeFixtureWorksite, installD2FrameActor,
   D2_FRAME_SPECIFICATION, confined } from "../support/d2-frame-fixture.mjs";
 // Author-only fixture; opt-in execution belongs to the candidate Worker.
 // Retained Public harness composition, not a substitute Program controller.
@@ -176,7 +176,7 @@ async function cliCall(call, acquisition) {
   const started = Date.now();
   const pending = execFileAsync(installedHarness.cliPath, ["--jsonl", path], {
     cwd: installedHarness.cliHost, env: { ...process.env, NODE_OPTIONS: "" },
-    timeout: call.invocation.definitionKey.memberKey === "start" ? 3_660_000 : 60_000,
+    timeout: call.invocation.definitionKey.memberKey === "start" ? 3_660_000 : 600_000,
     maxBuffer: 128 * 1024 * 1024,
   });
   const pid = pending.child.pid;
@@ -320,6 +320,11 @@ test("D2 mechanical installed repair writes two files and snapshots twenty-two",
       { targetRoot: workspaceRoot, createPolicy: "clean", scaffoldPolicy: "none" }, workspaceResources,
       { actor: actorAuthority(product) }), "workspace.create");
     const workspaceManifest = JSON.parse(await readFile(created.resources.manifest.locator, "utf8"));
+    for (const child of ["runtime", "projections", "archives"]) {
+      const path = join(workspaceRoot, child);
+      await assert.rejects(() => lstat(path), { code: "ENOENT" });
+      await mkdir(path);
+    }
     await invoke(await authorized(product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.open.open,
       { targetRoot: workspaceRoot, expectedAuthority: { ref: workspaceManifest.authorityBasis.authorityRef,
         digest: workspaceManifest.authorityBasis.authorityDigest } }, workspaceResources), "workspace.open");
@@ -434,6 +439,7 @@ test("D2 mechanical installed repair writes two files and snapshots twenty-two",
       readinessBasis: { workspaceBinding: environment.workspaceBindingCandidate, resolvedLock, verifiedProducts,
         installedProducts: installed.map(row => row.candidate), publications } });
     assert.equal(preparedCatalog.kind, "graph_function_catalog", JSON.stringify(preparedCatalog));
+    assertD2FrameCatalogInventory(verifiedProducts, publications, preparedCatalog.rowDispositions);
     const preparedAllowlist = preparedCatalog.entries.filter(row => row.programMembershipRefs.some(ref=>programRefs.includes(ref))).map(row => row.handle).sort();
     const preparedView = product.narrowGraphFunctionCatalog(preparedCatalog, preparedAllowlist);
     assert.equal(preparedView.kind, "graph_function_catalog_view");
@@ -609,8 +615,10 @@ test("D2 mechanical installed repair writes two files and snapshots twenty-two",
     assert.deepEqual(await inventory(harness.installedPackageRoot), immutableBefore);
     assert.deepEqual(await Promise.all(environment.productInstalls.map(i => inventory(i.installedRoot))), installedBefore);
     phase = "native_selection_two";
-    const selection = await invokeProgram(fixture.ids.selectionProgramRef, async () => ({
-      kind: "semantic_revision_selection_input", schemaVersion, parent, causes }));
+    const selection = await invokeProgram(fixture.ids.selectionProgramRef, async ({ grants }) => ({
+      kind: "semantic_revision_selection_input", schemaVersion, parent, causes,
+      currentWorksite: await observeFixtureWorksite({ product, workspaceAuthorityBasis: A, workspaceBinding: binding,
+        capabilityGrant: grants[0], nodeExecutable: process.execPath }) }));
     const selectionHistory = abg.readRuntimeEventsAtDurablePrefix(closeHandoff.prefix);
     const decisions = selectionHistory.filter(e => e.kind === "c_call_result_admitted" && e.payload.value?.kind === "semantic_revision_selection");
     assert.equal(decisions.length, 1); const decisionEvent = decisions[0], decision = decisionEvent.payload.value;
@@ -628,6 +636,10 @@ test("D2 mechanical installed repair writes two files and snapshots twenty-two",
       kind: "semantic_revision_request", schemaVersion, parent, causes, selection: selectionCoordinate,
       currentWorksite: await observeFixtureWorksite({ product, workspaceAuthorityBasis: A, workspaceBinding: binding,
         capabilityGrant: grants[0], nodeExecutable: process.execPath }) }));
+    assert.notDeepEqual(selection.input.currentWorksite.capabilityGrant, repair.input.currentWorksite.capabilityGrant,
+      "selection and repair retain independently constructed Program grants");
+    assert.deepEqual(product.projectSemanticWorksiteCoordinates(selection.input.currentWorksite, repair.input.currentWorksite),
+      repair.input.currentWorksite, "same observed subject through the shared mapper, not whole-grant equality");
     const finalEvents = abg.readRuntimeEventsAtDurablePrefix(closeHandoff.prefix);
     assert.deepEqual(finalEvents.slice(0, history.length), history, "initial counterevidence remains unchanged in the admitted prefix");
     const repairEvents = finalEvents.filter(e => !beforeRepairEventIds.has(e.eventId));

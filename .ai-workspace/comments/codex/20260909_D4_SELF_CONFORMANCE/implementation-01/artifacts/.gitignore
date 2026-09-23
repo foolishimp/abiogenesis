@@ -1,0 +1,6 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/abiogenesis-typescript-tenant-5.0.0-dev.286.tgz
+/artifact-9d8e2e3ea0a7d687d21cfce5798683ff1ae819c741d11ecd8a4e339694b447eb.tgz
+/artifact-e4e91b49b6fdf4c9598737ac01194b1d2cf2d1e0f7d5101c028499284cd1b36a.tgz

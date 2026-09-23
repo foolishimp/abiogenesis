@@ -1,0 +1,17 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/artifact-63535e67329f722587ad495dede071433854c6f77fe8ca434642e4b1c7f38272.tgz
+/artifact-642bbbabeafeaf7b91edd0778bcb569233070c1e1234a6c399932947fd056512.tgz
+/artifact-8d14d8a4adb2f2e82315ef93502539befff2dedacafd44aed10bb64ed239f079.tgz
+/artifact-9048e1b5886f5395486300903b17a7742ca75fc2e72f1b21ebe32fe5a67f9957.tgz
+/artifact-9465c3f3465b89a65052061975536c0cd6f6ffe924d2525f85bb84033dfc9972.tgz
+/artifact-ab213175595b11b29941892a2065b8742a9e3bfce0eb2447e801a6858997e3f8.tgz
+/artifact-c69b057ebb96499d3b80224a86ca9eae4d813cefa2cc47229a953d71961e2cce.tgz
+/build-input.json
+/build.log
+/candidate.json
+/install.log
+/installed-tests.log
+/pack.json
+/preimages.json

@@ -1,5 +1,7 @@
+import { sampleNativeEventTime } from "../abg/native_event_time.js";
 import {
   projectRuntimeTruthAtDurablePrefix,
+  projectRuntimePrefixesAtDurablePrefix,
   type ExecutionBasis,
   type OpenedTraversalScope,
   type ReplayState,
@@ -44,7 +46,7 @@ export function runtimePrefixAtDurable(
   prefix: DurablePrefixCoordinate,
   runId: string,
 ) {
-  return projectRuntimeTruthAtDurablePrefix(prefix, runId).runtimePrefix;
+  return projectRuntimePrefixesAtDurablePrefix(prefix, runId).runtimePrefix;
 }
 
 export function replayAtDurable(
@@ -59,7 +61,7 @@ export function admissionBasis(
   stage: string,
 ): RuntimeAdmissionBasis {
   return {
-    eventTime: clock.eventTime,
+    eventTime: sampleNativeEventTime(),
     correlationId: `${clock.correlationId}/${stage}`,
     causationEventRefs: [],
   };

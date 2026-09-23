@@ -1,0 +1,47 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/build-01.log
+/conservation.json
+/current-binding-typecheck-01.log
+/current-binding-typecheck-02.log
+/current-coordinate-check-01.log
+/current-coordinate-check-02.log
+/current-coordinate-check-03.log
+/current-coordinate-check-result.json
+/current-coordinate-check.mjs
+/freeze.py
+/gtl-first-import.log
+/native-check-01.log
+/native-check-result.json
+/native-check.mjs
+/owner-preimages.json
+/owner-typecheck-01.log
+/owner-typecheck-02.log
+/pack-01.json
+/package-basis.json
+/packed/abiogenesis-typescript-tenant-5.0.0-dev.286.tgz
+/preimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/product/catalog_operations.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/product/semantic_stage.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts
+/preimages/build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md
+/primary-check-02.log
+/primary-check-result.json
+/primary-check.log
+/primary-check.mjs
+/primary-typecheck.log
+/readiness.json
+/tracking-postimages.json
+/tracking-preimages.json
+/tracking-preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/tracking-preimages/specification/GOALS.md

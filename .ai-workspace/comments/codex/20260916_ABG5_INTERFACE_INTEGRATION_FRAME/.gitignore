@@ -1,0 +1,19 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/executive-return.md
+/worker/basis.json
+/worker/case-evidence.json
+/worker/change.diff
+/worker/checks.json
+/worker/checks.mjs
+/worker/freeze.json
+/worker/freeze.mjs
+/worker/grant.md
+/worker/manifest.json
+/worker/preimage/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md
+/worker/prepare.mjs
+/worker/retained-1b-case.md
+/worker/subject/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md
+/worker/worker-return.md

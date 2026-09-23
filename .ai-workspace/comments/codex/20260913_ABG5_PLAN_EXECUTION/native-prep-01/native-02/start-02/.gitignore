@@ -1,0 +1,37 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/context.mjs
+/first-native-cause.md
+/freeze.mjs
+/handoff.md
+/manifest.json
+/public-driver.mjs
+/records/call-10.jsonl
+/records/call-11.jsonl
+/records/declared-root-observation.json
+/records/event-prefix-observation.json
+/records/first-cause-11.json
+/records/launch-10.json
+/records/launch-11.json
+/records/native-event-observation.json
+/records/owner-source-identities.json
+/records/parent-preservation.json
+/records/process-10.json
+/records/process-11.json
+/records/receipt-10.json
+/records/receipt-11.json
+/records/start-02-activation-stop-11.json
+/records/start-02-forward-input-identity.json
+/records/start-02-protected-after.json
+/records/start-02-protected-before.json
+/records/state-10.json
+/records/stderr-10.log
+/records/stderr-11.log
+/records/stdout-10.json
+/records/stdout-11.json
+/replay-12.mjs
+/result-11.mjs
+/start-02-protect.mjs
+/start-10.mjs

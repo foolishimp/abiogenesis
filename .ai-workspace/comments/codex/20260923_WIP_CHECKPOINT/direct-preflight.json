@@ -1,0 +1,8 @@
+{
+  "scanScope": "Changed and newly authored direct candidates outside checkpoint transport; no secret values emitted",
+  "filesScanned": 5856,
+  "unresolvedCredentialShapedPaths": [],
+  "workingWhitespaceExitCode": 0,
+  "workingWhitespaceReport": "working-whitespace-check.txt",
+  "whitespaceDisposition": "Preserve prior authored/frozen bytes; final staged check and any exact historical findings are recorded before commit."
+}

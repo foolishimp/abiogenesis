@@ -1,0 +1,36 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/artifacts/odd-glc-d1-lifecycle-declaration-witness-0.0.0-d1.1.tgz
+/cache/_cacache/content-v2/sha512/f0/f2/33671db20f1c6b911615e2b46fb0a71954aec63a1bda533ce7a35190d9f17b029c5ec2b59a7aab260916dd255faf9020a2f83ecea845c2a3453464ac0190
+/cache/_cacache/index-v5/ac/d6/70c3ba7addd42c4d576206349a8ae0e5610390044abb69dcbaba1062482a
+/freeze.mjs
+/future-inputs.mjs
+/glc-package/build/
+/glc-package/contracts/capabilities/capability-definition-graph.json
+/glc-package/contracts/independent-source-input.json
+/glc-package/contracts/public-contract-catalog.schema.json
+/glc-package/contracts/scenario-input.json
+/glc-package/contracts/source-role-declarations.json
+/glc-package/package.json
+/glc-package/product-toolchain-manifest.json
+/handoff.md
+/inputs/scenario.json
+/logs/2026-09-14T15_21_43_711Z-debug-0.log
+/manifest.json
+/npm-global.conf
+/npm-user.conf
+/prepare.mjs
+/records/declarations.json
+/records/declared-starts.json
+/records/glc-identity.json
+/records/glc-pack.json
+/records/glc-pure-verification.json
+/records/package-delta.json
+/records/preparation-result.json
+/records/preservation.json
+/records/publication-checks.json
+/records/pure-lock.json
+/records/reused-inputs.json
+/records/static-programs.json

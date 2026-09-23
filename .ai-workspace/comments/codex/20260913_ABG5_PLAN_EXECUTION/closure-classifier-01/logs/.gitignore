@@ -1,0 +1,6 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/2026-09-14T02_19_23_130Z-debug-0.log
+/2026-09-14T02_21_07_314Z-debug-0.log
+/2026-09-14T02_33_02_639Z-debug-0.log

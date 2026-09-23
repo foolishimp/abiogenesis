@@ -1,0 +1,11 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/fresh-sdk-replay-failure.json
+/fresh-sdk-replay-input.json
+/fresh-sdk-replay-launch.json
+/run_replay-call.jsonl
+/run_replay-launch.json
+/run_replay-receipt.json
+/run_replay-stderr.log
+/run_replay-stdout.json

@@ -1,0 +1,17 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/cli.d.ts
+/cli.js
+/codex_cli.d.ts
+/codex_cli.js
+/continuation_authority.d.ts
+/continuation_authority.js
+/gap_authority.d.ts
+/gap_authority.js
+/index.d.ts
+/index.js
+/installed_definition_call_transport.d.ts
+/installed_definition_call_transport.js
+/run_projection_authority.d.ts
+/run_projection_authority.js

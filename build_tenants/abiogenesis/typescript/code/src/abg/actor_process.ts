@@ -1,12 +1,18 @@
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
-import { constructNativeInstructionAssembly } from "./instruction_assembly.js";
+import { constructNativeInstructionAssembly, constructWorksiteNativeInstructionAssembly, requireNativeInstructionAssembly, requireWorksiteNativeInstructionAssembly, type NativeInstructionAssembly } from "./instruction_assembly.js";
+import { authenticateNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
+import { isNativeWorkspaceWorkTask, NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work.js";
 import { semanticInputValueAtBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
 import { constants as osConstants } from "node:os";
+import { lstatSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import type { WorkspaceBinding } from "../product/environment.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import { sampleNativeEventTime } from "./native_event_time.js";
+import { observeNativeFrameLiveness, captureNativeFrameBoundary } from "./runtime_liveness.js";
 import {
   isSha256Digest,
   sha256Canonical,
@@ -21,25 +27,37 @@ import { hasAdmittedWorkspaceBinding } from "./environment_admission.js";
 import type { ExecutionBasis, RuntimeAdmissionBasis } from "./execution_basis.js";
 import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
+  assertHeldEventStoreAtDurablePrefix,
   admitRuntimeEvent,
+  ROOT_EVENT_CONTRACT_DIGEST,
   type AbgEventStore,
   type DurablePrefixCoordinate,
   type RootEventKind,
+  readRuntimeEventsAtDurablePrefix,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
+  selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type { OpenedTraversalScope } from "./open_call.js";
 import {
   classifyWorkerTransportFailure,
   constructKnownWorkerTransportContract,
+  isNativeWorkerResultAssessment,
+  type NativeWorkerResultAssessment,
 } from "./transport_contracts.js";
 import {
   prepareWorkerTransport,
   runPreparedWorkerTransport,
+  createWorkerTransportOutputObserver,
   type WorkerToolInvocationEvidence,
 } from "./worker_transport.js";
+import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy, type RuntimeProbeObservation, type RuntimeProbeSource } from "./runtime_liveness_contracts.js";
+import { admitRuntimeActivityProbe, admitRuntimeThreshold, projectActorLivenessContext, runtimeAssetRevisionDigest } from "./runtime_liveness.js";
+import { sha256Bytes } from "../shared/digests.js";
+import type { LeafInvocationPort, LeafInvocationResolution } from "../implementation/contracts.js";
+import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
 
 const PROCESS_TIMEOUT_MS = 60_000;
 const PROCESS_ABSOLUTE_TIMEOUT_MS = 3_600_000;
@@ -65,6 +83,7 @@ export interface ActorProcessRequest {
 }
 
 export interface ActorProcessObservation {
+  readonly nativeResultAssessment?: NativeWorkerResultAssessment;
   readonly actorInvocationRef: string;
   readonly actorRef: string;
   readonly workerBindingRef: string;
@@ -367,7 +386,8 @@ export function validateActorProcessCarrierPair(
 
   const observationRecord = exactOrdinaryDataRecord(
     observationCandidate,
-    ACTOR_PROCESS_OBSERVATION_FIELDS,
+    typeof observationCandidate === "object" && observationCandidate !== null && Object.hasOwn(observationCandidate, "nativeResultAssessment")
+      ? [...ACTOR_PROCESS_OBSERVATION_FIELDS, "nativeResultAssessment"] : ACTOR_PROCESS_OBSERVATION_FIELDS,
   );
   if (observationRecord === null) {
     return carrierRefusal(
@@ -491,6 +511,7 @@ export function validateActorProcessCarrierPair(
       observation.signalSequence.length === 2
     );
   const expectedFailureClass = classifyWorkerTransportFailure({
+    ...(observation.nativeResultAssessment === undefined ? {} : { nativeResultDisposition: observation.nativeResultAssessment.disposition }),
     parser: "claude_stream_json",
     lane: request.transportLane,
     processStatus: observation.processStatus,
@@ -508,6 +529,8 @@ export function validateActorProcessCarrierPair(
     finalOutput: observation.finalOutput,
   });
   const transportClassificationValid =
+    (observation.nativeResultAssessment === undefined || isNativeWorkerResultAssessment(observation.nativeResultAssessment,
+      observation.finalOutput, request.resultContractRef, request.inputDigest)) &&
     observation.transportLane === request.transportLane &&
     observation.failureClass === expectedFailureClass &&
     observation.disposition ===
@@ -620,6 +643,7 @@ export function projectActorProcessLifecycle(
 }
 
 export interface ActorProcessInvocationInput {
+  readonly rawResultOwner?: Readonly<{ port: LeafInvocationPort; resolution: LeafInvocationResolution; input: Readonly<Record<string, JsonValue>> }>;
   readonly store: AbgEventStore;
   readonly predecessorPrefix: DurablePrefixCoordinate;
   readonly executionBasis: ExecutionBasis;
@@ -627,6 +651,7 @@ export interface ActorProcessInvocationInput {
   readonly cCall: CCall;
   readonly expectedInputDigest: Sha256Digest;
   readonly occurrence: Readonly<{
+    readonly nativeInstructionAssemblyBasis?: Readonly<NativeInstructionAssemblyBasis>;
     readonly semanticStageBasis?: Readonly<SemanticStageNativeBasis>;
     readonly cCallRef: string;
     readonly runId: string;
@@ -668,8 +693,64 @@ function outputDigest(output: string): Sha256Digest {
   }
 }
 
+/** One preparation and dispatch composition. The implementation may request
+ * the assembly, but cannot supply or replace the value retained by this owner.
+ * Only the existing immutable native basis permits reuse; raw/copy callers
+ * retain the standalone cold dispatch authentication path. */
+export function prepareActorProcessInvocation(
+  value: Readonly<Record<string, JsonValue>>,
+  occurrence: ActorProcessInvocationInput["occurrence"],
+) {
+  const { semanticStageBasis, nativeInstructionAssemblyBasis } = occurrence;
+  const coordinates = { cCallRef: occurrence.cCallRef, runId: occurrence.runId,
+    graphCallId: occurrence.graphCallId, frameId: occurrence.frameId,
+    programLocusRef: occurrence.programLocusRef, taskOrdinal: occurrence.taskOrdinal,
+    attempt: occurrence.attempt };
+  let assembly: Readonly<NativeInstructionAssembly> | null | undefined;
+  let ownedBasis = false;
+  return Object.freeze({
+    prepareInstructionAssembly(): Readonly<NativeInstructionAssembly> {
+      assembly = null;
+      const basis = semanticStageBasis ?? nativeInstructionAssemblyBasis;
+      const captured = basis === undefined ? null : constructNativeInstructionAssemblyBasis(basis);
+      ownedBasis = captured !== null && captured === basis;
+      assembly = semanticStageBasis !== undefined
+        ? requireNativeInstructionAssembly(semanticStageBasis, value)
+        : nativeInstructionAssemblyBasis !== undefined
+          ? requireWorksiteNativeInstructionAssembly(nativeInstructionAssemblyBasis, value)
+          : null;
+      if (assembly === null) throw new TypeError("native assembly preparation requires its admitted basis");
+      return assembly;
+    },
+    async invokeActorProcess(input: ActorProcessInvocationInput): Promise<Readonly<ActorProcessEffectResult>> {
+      if (assembly === null) return refuseActorProcessEffect("actor_process_invocation_refused",
+        "native assembly preparation did not complete", input.predecessorPrefix, input.predecessorPrefix);
+      const basis = semanticStageBasis ?? nativeInstructionAssemblyBasis;
+      if (input.occurrence.semanticStageBasis !== semanticStageBasis ||
+        input.occurrence.nativeInstructionAssemblyBasis !== nativeInstructionAssemblyBasis ||
+        (ownedBasis && basis !== undefined && (
+          input.predecessorPrefix.coordinateDigest !== basis.predecessorPrefix.coordinateDigest ||
+          input.executionBasis.basisRef !== basis.executionBasis.basisRef ||
+          input.executionBasis.basisDigest !== basis.executionBasis.basisDigest ||
+          input.cCall.cCallDigest !== basis.cCall.cCallDigest)) ||
+        (Object.keys(coordinates) as (keyof typeof coordinates)[]).some(key => input.occurrence[key] !== coordinates[key]))
+        return refuseActorProcessEffect("actor_process_invocation_refused",
+          "prepared native assembly crosses actor coordinates", input.predecessorPrefix, input.predecessorPrefix);
+      return invokeActorProcessWithAssembly(input, ownedBasis ? assembly : undefined);
+    },
+  });
+}
+
+/** Standalone callers authenticate the complete assembly from durable input. */
 export async function invokeActorProcess(
   input: ActorProcessInvocationInput,
+): Promise<Readonly<ActorProcessEffectResult>> {
+  return invokeActorProcessWithAssembly(input);
+}
+
+async function invokeActorProcessWithAssembly(
+  input: ActorProcessInvocationInput,
+  preparedAssembly?: Readonly<NativeInstructionAssembly>,
 ): Promise<Readonly<ActorProcessEffectResult>> {
   const predecessorPrefix = input.predecessorPrefix;
   let successorPrefix = predecessorPrefix;
@@ -710,11 +791,21 @@ export async function invokeActorProcess(
     input.request.implementationRef === SEMANTIC_STAGE_IDS.assessorImplementationRef ||
     input.request.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.authorImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.assessorImplementationRef;
   const semanticBasis = input.occurrence.semanticStageBasis;
-  const instructionAssembly = semanticCall && semanticBasis !== undefined
-    ? constructNativeInstructionAssembly(semanticBasis, semanticInputValueAtBasis(semanticBasis)) : null;
-  if (semanticCall && (instructionAssembly === null ||
+  const worksiteBasis = input.occurrence.nativeInstructionAssemblyBasis;
+  const worksiteOwner = worksiteBasis === undefined ? null : authenticateNativeInstructionAssemblyBasis(worksiteBasis);
+  const instructionAssembly = preparedAssembly ?? (semanticCall && semanticBasis !== undefined
+    ? constructNativeInstructionAssembly(semanticBasis, semanticInputValueAtBasis(semanticBasis))
+    : worksiteBasis !== undefined && worksiteOwner !== null
+      ? constructWorksiteNativeInstructionAssembly(worksiteBasis, worksiteOwner.inputValue) : null);
+  const invocation = rehydrateInvocationAdmissionAtPrefix(selectValidatedRuntimeEventPrefix(
+    readRuntimeEventsAtDurablePrefix(predecessorPrefix)), input.executionBasis.invocationAdmissionRef);
+  const assemblyRequired = semanticCall || invocation?.runEnvironment !== undefined || worksiteBasis !== undefined;
+  if (worksiteOwner !== null && (worksiteOwner.call.cCallRef !== input.cCall.cCallRef ||
+    worksiteOwner.execution.basisRef !== input.executionBasis.basisRef ||
+    worksiteOwner.inputDigest !== input.expectedInputDigest)) throw new TypeError("worksite assembly crosses actor coordinates");
+  if ((assemblyRequired || preparedAssembly !== undefined) && (instructionAssembly === null ||
     sha256Canonical(instructionAssembly.request as unknown as JsonValue) !== sha256Canonical(input.request as unknown as JsonValue))) {
-    throw new TypeError("semantic dispatch requires exact native admitted instruction assembly");
+    throw new TypeError("dependent dispatch requires exact native admitted instruction assembly");
   }
   const environment = Object.freeze({ ...process.env });
   const promptDigest = sha256Canonical(input.request.prompt);
@@ -739,14 +830,20 @@ export async function invokeActorProcess(
   if (command !== undefined && command.length === 0) {
     throw new TypeError("ABG_TS_CLAUDE_COMMAND must be a non-empty command");
   }
-  const plan = await prepareWorkerTransport({
-    contract: constructKnownWorkerTransportContract("claude", {
+  const nativeTask = input.request.implementationRef === nativeIds.implementationRef && worksiteOwner !== null &&
+    isNativeWorkspaceWorkTask(worksiteOwner.inputValue) ? worksiteOwner.inputValue : null;
+  if (input.request.implementationRef === nativeIds.implementationRef && nativeTask === null)
+    throw new TypeError("native workspace dispatch lacks its authenticated worksite task");
+  const transportContract = constructKnownWorkerTransportContract("claude", {
       command: command ?? "claude",
       environment,
-    }),
+    });
+  const plan = await prepareWorkerTransport({
+    contract: nativeTask === null ? transportContract : { ...transportContract,
+      argsTemplate: [...transportContract.argsTemplate, "--tools", "Read,Edit,Write,Glob,Grep,Bash"] },
     prompt: input.request.prompt,
     lane: input.request.transportLane,
-    cwd: resolve(input.runtime.workspaceBinding.roots.archiveRoot, "..", ".."),
+    cwd: nativeTask?.workspaceAuthorityBasis.canonicalRoot ?? resolve(input.runtime.workspaceBinding.roots.archiveRoot, "..", ".."),
     archiveRoot: input.runtime.workspaceBinding.roots.archiveRoot,
     label: `fp-${attemptDigest.slice("sha256:".length, "sha256:".length + 16)}`,
     timeoutMs: positiveInteger(
@@ -765,9 +862,22 @@ export async function invokeActorProcess(
       PROCESS_TERMINATION_GRACE_MS,
     ),
     responseJsonSchema: input.request.responseJsonSchema,
+    // Only the authenticated native assessor selects this presentation. The
+    // exact declared schema remains in the request, prompt and ABG validator.
+    ...(nativeTask?.assessment === undefined ? {} : { responsePresentation: "result_text" as const }),
     environment,
   });
   const transportBindingBody = {
+    ...(successorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ? {} : {
+      livenessBinding: {
+        kind: "runtime_liveness_binding" as const, schemaVersion: "5.0.0" as const,
+        clockOriginRef: `runtime-clock://abiogenesis/${sha256Canonical({ attemptDigest, transportPlanDigest: plan.planDigest }).slice(7)}`,
+        clockKind: "native_monotonic_elapsed" as const,
+        policy: constructRuntimeWatchdogPolicy({ startupMs: plan.timeoutMs, inactivityMs: plan.timeoutMs,
+          hardCapMs: plan.absoluteTimeoutMs, terminationGraceMs: plan.terminationGraceMs }),
+        sources: actorRuntimeProbeSources(plan.parser),
+      },
+    }),
     ...(instructionAssembly === null ? {} : { instructionAssembly }),
     cCallRef: input.cCall.cCallRef,
     actorRef: input.request.actorRef,
@@ -801,7 +911,6 @@ export async function invokeActorProcess(
   const transportBindingRef =
     `transport-binding://abiogenesis/${transportBindingDigest.slice("sha256:".length)}`;
   const common = {
-    eventTime: input.basis.eventTime,
     correlationId: input.basis.correlationId,
     workflowVersion: "5.0.0" as const,
     scopeClass: "run" as const,
@@ -821,6 +930,7 @@ export async function invokeActorProcess(
     `actor-invocation://abiogenesis/${identityDigest.slice("sha256:".length)}`;
   const processRef =
     `process://abiogenesis/${sha256Canonical({ actorInvocationRef }).slice("sha256:".length)}`;
+  assertHeldEventStoreAtDurablePrefix(input.store, successorPrefix);
   const intentAdmission = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     input.store,
     successorPrefix,
@@ -828,6 +938,7 @@ export async function invokeActorProcess(
       const bindingEvent = admitRuntimeEvent(input.store, {
         kind: "actor_transport_binding_admitted",
         ...common,
+        eventTime: sampleNativeEventTime(),
         aggregateType: "transport_binding",
         aggregateId: transportBindingRef,
         parentAggregateId: input.cCall.cCallRef,
@@ -836,11 +947,12 @@ export async function invokeActorProcess(
           transportBindingRef,
           transportBindingDigest,
           ...transportBindingBody,
-        },
+        } as unknown as JsonValue,
       });
       const startedEvent = admitRuntimeEvent(input.store, {
         kind: "actor_invocation_started",
         ...common,
+        eventTime: sampleNativeEventTime(),
         aggregateType: "actor_invocation",
         aggregateId: actorInvocationRef,
         parentAggregateId: input.cCall.cCallRef,
@@ -882,29 +994,129 @@ export async function invokeActorProcess(
     parentAggregateId: string,
     payload: Readonly<Record<string, JsonValue>>,
   ) => {
+    assertHeldEventStoreAtDurablePrefix(input.store, successorPrefix);
     const admission = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
       input.store,
       successorPrefix,
-      () => admitRuntimeEvent(input.store, {
+      () => {
+        const capturedAt = captureNativeFrameBoundary(input.store);
+        const event = admitRuntimeEvent(input.store, {
         kind,
         ...common,
+        eventTime: sampleNativeEventTime(),
         aggregateType,
         aggregateId,
         parentAggregateId,
         causationEventRefs: [previousEventRef],
         payload,
-      }),
+        });
+        observeNativeFrameLiveness(input.store, event, capturedAt);
+        return event;
+      },
     );
     const event = admission.value;
     successorPrefix = admission.successorPrefix;
     previousEventRef = event.eventId;
     return event;
   };
+  const currentProfile = successorPrefix.storeIdentity.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST;
+  const assessNativeResultArtifact = (output: string): NativeWorkerResultAssessment => {
+    const owner = input.rawResultOwner;
+    if (owner === undefined || !isAdmittedLeafInvocationPort(owner.port) ||
+        !owner.port.isAdmittedResolution(owner.resolution) || owner.resolution.implementationRef !== input.cCall.implementationRef ||
+        owner.resolution.outputContractRef !== input.cCall.outputContractRef ||
+        sha256Canonical(owner.input) !== input.expectedInputDigest) throw new TypeError("native artifact assessment lacks its exact admitted leaf owner");
+    let verification = null, disposition: NativeWorkerResultAssessment["disposition"] = output.trim().length === 0 ? "absent" : "rejected";
+    if (disposition !== "absent") {
+      try {
+        const raw = admitIJsonValue(JSON.parse(output), "native worker result artifact");
+        if (typeof raw === "object" && raw !== null && !Array.isArray(raw)) {
+          const result = owner.port.verifyProbabilisticResultContractPreimage({ resolution: owner.resolution, input: owner.input,
+            inputDigest: input.expectedInputDigest, instructionContractRef: input.request.instructionContractRef,
+            rawResultContractRef: input.request.resultContractRef, rawResult: raw as Readonly<Record<string, JsonValue>> });
+          if (result.kind === "verified_probabilistic_result_contract_preimage") { verification = result; disposition = "admitted"; }
+        }
+      } catch { /* exact malformed/owner-refused output stays rejected, never repaired */ }
+    }
+    return deepFreeze({ kind: "native_worker_result_assessment", schemaVersion: "5.0.0", resultContractRef: input.request.resultContractRef,
+      inputDigest: input.expectedInputDigest, rawOutputDigest: sha256Bytes(output), disposition, verification });
+  };
+  const clockStart = performance.now();
+  const elapsed = () => Math.max(0, performance.now() - clockStart);
+  const stdoutObserver = createWorkerTransportOutputObserver(plan.agentKey === "claude" && plan.args.includes("--json-schema"));
+  let observedProgressCount = 0;
+  let observedFinalOutput = "";
+  let supervisionInterrupted = false;
+  const nativeContext = () => projectActorLivenessContext(selectValidatedRuntimeEventPrefix(input.store.readAll()), actorInvocationRef);
+  const probe = (source: RuntimeProbeSource, event: ReturnType<typeof append>, signal: RuntimeProbeObservation["signal"], elapsedMs: number,
+    coverage: RuntimeProbeObservation["coverage"] = "observed") => {
+    if (!currentProfile) return;
+    if (supervisionInterrupted && signal !== "artifact_admitted" && signal !== "artifact_rejected") return;
+    const context = nativeContext(), declaration = context?.probes.find(row => row.source === source);
+    if (context === null || declaration === undefined) throw new TypeError("actor probe lacks its admitted declaration");
+    const result = admitRuntimeActivityProbe({ store: input.store, predecessorPrefix: successorPrefix, actorInvocationRef,
+      source, eventTime: event.eventTime, correlationId: common.correlationId,
+      observation: { kind: "runtime_probe_observation", schemaVersion: "5.0.0", probeRef: declaration.probeRef,
+        scopeDigest: sha256Canonical(context.scope as unknown as JsonValue), clockOriginRef: context.binding.clockOriginRef,
+        elapsedMs, underlyingObservationRef: event.eventId, underlyingEventRef: event.eventId, sourceDigest: event.payloadDigest, sourceRevisionDigest: null,
+        evidenceRefs: [event.eventId], coverage, signal },
+    });
+    successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId;
+  };
+  const observePendingAsset = () => {
+    const context = nativeContext();
+    if (context === null) throw new TypeError("actor asset observer lacks its declared current context");
+    const declaration = context.probes.find(row => row.source === "result_artifact")!;
+    let bytes: Buffer;
+    let sourceRevisionDigest: Sha256Digest;
+    try {
+      const node = lstatSync(declaration.sourceRef, { bigint: true });
+      if (!node.isFile() || node.isSymbolicLink() || node.nlink !== 1n) throw new TypeError("actor result asset is not one declared file");
+      bytes = readFileSync(declaration.sourceRef);
+      sourceRevisionDigest = runtimeAssetRevisionDigest(node);
+    } catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; return; }
+    if (bytes.length === 0) return;
+    const sourceDigest = sha256Bytes(bytes);
+    const underlyingObservationRef = `runtime-asset-observation://abiogenesis/${sha256Canonical({ probeRef: declaration.probeRef, sourceDigest, sourceRevisionDigest }).slice(7)}`;
+    if (input.store.readAll().some(event => {
+      const p = event.payload as Record<string, JsonValue>, observation = p.observation;
+      return typeof observation === "object" && observation !== null && !Array.isArray(observation) && (observation as Readonly<Record<string, JsonValue>>).underlyingObservationRef === underlyingObservationRef;
+    })) return;
+    const result = admitRuntimeActivityProbe({ store: input.store, predecessorPrefix: successorPrefix, actorInvocationRef,
+      source: "result_artifact", eventTime: sampleNativeEventTime(), correlationId: common.correlationId,
+      observation: { kind: "runtime_probe_observation", schemaVersion: "5.0.0", probeRef: declaration.probeRef,
+        scopeDigest: sha256Canonical(context.scope as unknown as JsonValue), clockOriginRef: context.binding.clockOriginRef,
+        elapsedMs: elapsed(), underlyingObservationRef, underlyingEventRef: null, sourceDigest, sourceRevisionDigest,
+        evidenceRefs: [context.declarationEventRef], coverage: "observed", signal: "artifact_pending" },
+    });
+    successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId;
+  };
 
   try {
     const transport = await runPreparedWorkerTransport(plan, {
+      ...(currentProfile ? { assessNativeResultArtifact, onNativeSupervisionWakeup: () => {
+        observePendingAsset();
+        const sampled = elapsed();
+        const decision = admitRuntimeThreshold({ store: input.store, predecessorPrefix: successorPrefix,
+          actorInvocationRef, processRef, elapsedMs: sampled, eventTime: sampleNativeEventTime(), correlationId: common.correlationId });
+        if (decision.kind === "runtime_threshold_admitted") {
+          successorPrefix = decision.successorPrefix; previousEventRef = decision.value.eventId;
+          if (decision.timeoutClass === "absolute") {
+            probe("process_lifecycle", decision.value, "external_interruption", sampled);
+            supervisionInterrupted = true;
+          }
+          return { projection: decision.projection, admittedThresholdEventRef: decision.value.eventId,
+            timeoutClass: decision.timeoutClass, nextWakeDelayMs: plan.timeoutMs };
+        }
+        const p = decision.projection;
+        if (p.hardDeadlineElapsedMs === null || p.leaseDeadlineElapsedMs === null) throw new TypeError("actor supervision requires its bound native policy");
+        return { projection: p, admittedThresholdEventRef: null, timeoutClass: null,
+          nextWakeDelayMs: Math.max(1, Math.min(p.hardDeadlineElapsedMs - sampled,
+            p.leaseDeadlineElapsedMs > sampled ? p.leaseDeadlineElapsedMs - sampled : plan.timeoutMs)) };
+      } } : {}),
       onProcessStarted: (pid) => {
-        append(
+        const sampled = elapsed();
+        const event = append(
           "actor_process_started",
           "process",
           processRef,
@@ -912,8 +1124,14 @@ export async function invokeActorProcess(
           { actorInvocationRef, processRef, processId: pid, cCallRef: input.cCall.cCallRef },
         );
         processStarted = true;
+        if (currentProfile) {
+          for (const source of actorRuntimeProbeSources(plan.parser)) probe(source, event,
+            source === "process_lifecycle" ? "activity" : "coverage", sampled,
+            source === "process_lifecycle" || source === "stdout" || source === "stderr" ? "observed" : "unavailable");
+        }
       },
       onStdoutObserved: (chunk) => {
+        const sampled = elapsed();
         const byteLength = Buffer.byteLength(chunk);
         stdoutByteLength += byteLength;
         const event = append(
@@ -930,9 +1148,24 @@ export async function invokeActorProcess(
           },
         );
         stdoutEventRefs.push(event.eventId);
-        return true;
+        if (plan.parser !== "claude_stream_json") {
+          probe("stdout", event, "activity", sampled);
+          return true;
+        }
+        const output = stdoutObserver.observe(chunk);
+        const progress = output.progressEventCount > observedProgressCount;
+        const result = output.finalOutput.length > 0 && output.finalOutput !== observedFinalOutput;
+        observedProgressCount = output.progressEventCount;
+        observedFinalOutput = output.finalOutput;
+        // Retry notices and protocol bookkeeping remain raw stream evidence,
+        // not lease-renewing model progress. Partial message rows are activity
+        // only when bytes actually arrive; silence is never inferred progress.
+        if (progress || result) probe("stdout", event, "activity", sampled);
+        if (result) probe("structured_output", event, "artifact_pending", sampled);
+        return progress || result;
       },
       onStderrObserved: (chunk) => {
+        const sampled = elapsed();
         const byteLength = Buffer.byteLength(chunk);
         stderrByteLength += byteLength;
         const event = append(
@@ -949,6 +1182,7 @@ export async function invokeActorProcess(
           },
         );
         stderrEventRefs.push(event.eventId);
+        probe("stderr", event, "activity", sampled);
         return true;
       },
       onTimeoutObserved: (timeoutClass) => append(
@@ -1026,6 +1260,7 @@ export async function invokeActorProcess(
       transport: transport.artifacts.transport.digest,
     };
     const observationBody = {
+      ...(transport.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: transport.nativeResultAssessment }),
       actorInvocationRef,
       actorRef: input.request.actorRef,
       workerBindingRef: input.request.workerBindingRef,
@@ -1071,9 +1306,14 @@ export async function invokeActorProcess(
         requestRef,
         requestDigest,
         ...observationBody,
-      },
+      } as unknown as Readonly<Record<string, JsonValue>>,
     );
+    if (currentProfile && transport.nativeResultAssessment?.disposition !== "absent") probe("result_artifact", artifactEvent,
+      transport.nativeResultAssessment?.disposition === "admitted" ? "artifact_admitted" : "artifact_rejected", elapsed());
     if (processTerminalConfirmed) {
+      // The terminal owner consumes the actual artifact producer. A liveness
+      // observation between them is not a replacement artifact cause.
+      previousEventRef = artifactEvent.eventId;
       append(
         transport.disposition === "success"
           ? "actor_invocation_closed"

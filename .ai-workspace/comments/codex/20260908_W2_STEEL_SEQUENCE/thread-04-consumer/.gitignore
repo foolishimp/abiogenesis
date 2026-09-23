@@ -1,0 +1,18 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/abi-verification.json
+/check-static.mjs
+/consumer-verification.json
+/frozen/parcel-summary.example-serial-branch-product-5.0.0.tgz
+/frozen/serial-branch-worksite-program.mjs
+/handoff.md
+/manifest.json
+/native-validation.json
+/oracle-check.json
+/oracle.json
+/preimage.json
+/serialized-validation.json
+/setup-diagnostic.json
+/static-input.json
+/static-result.json

@@ -299,6 +299,8 @@ while U is non-empty:
   select a finite dependency-ready subset M that fits the assigned actors
   activate each member of M against the exact outcome and basis
   keep assurance-independent evaluations free of unclosed peer results
+  when no other authorized decision is ready:
+    await decision-relevant input under Event-Driven Executive Attention
   record every closed result, technical triage, residual, and invalidation condition
   apply only declared conjunctions or translations
   assign priority and boundary effect only under the current Product mandate
@@ -325,6 +327,36 @@ through an explicit `D` relation. No lateral handoff, child completion, model
 response, tool output, or shared actor implicitly activates another frame or
 authorizes continuation. A consumer receives the closed result and its source
 routes, not the child's hidden reasoning context.
+
+### Event-Driven Executive Attention
+
+Executive attention is event-driven by default. Re-enter the attention cycle
+for a decision-relevant closed result, material exception or changed basis,
+owner request, or declared deadline or checkpoint. While Workers carry out
+their bounded grants and no other authorized decision is ready, wait. Do not
+repeatedly inspect unfinished work, replay unchanged judgments, or request
+status without a decision need.
+
+Retain the frontier, return conditions, and valid evidence and judgments.
+Refresh affected support when a material observation changes its basis;
+revalidate the [Executive drift locks](#executive-drift-locks) before activation
+and disposition. Waiting does not waive current-workspace verification,
+evidence validity, required independent assessment, closed-result consumption,
+or any authority and closure duty.
+
+When notification is unavailable or unreliable, or an actual supervision
+obligation requires observation, use bounded fallback observation with a
+declared purpose, cadence or checkpoint, evidence target, and stop or escalation
+condition. Silence proves neither progress nor failure. Investigate a genuine
+blocker or material risk and intervene when required, within existing grants;
+unknown status alone does not establish a stalled Worker.
+
+Repeated no-progress observations or returns without new decision-relevant
+evidence require a bounded reassessment of the frame, grant, dependency or
+evidence gap and a decision under existing authority. Do not continue polling
+or repeat the same repair on an unchanged basis. Reduced reasoning churn is
+not a lower-assurance path or permission to reduce required actor capability;
+it introduces no universal cost, budget or accounting gate.
 
 ### Executive Drift Locks
 
@@ -615,6 +647,12 @@ only the exact subject and write territory named by its inherited construction
 or transformation grant. Missing, ambiguous, or out-of-territory mutation
 authority refuses the effect.
 
+Read scope follows the complete causal cone and may exceed write territory
+within the declared access grant. A narrow mutation grant does not justify
+omitting a material producer, consumer or governing owner from inspection.
+Return a required repair outside that territory to its owner; understanding the
+relation grants no cross-boundary effect.
+
 ---
 
 ## Derived Reviewer Frame
@@ -652,6 +690,15 @@ instead of manufacturing a complete triage.
 Tests are inside the Reviewer manifold when their code, fixtures, mutations,
 environment, or interpretation can change the proof claim. A passing result is
 not relied upon as a substitute for reviewing those semantics.
+
+Each finding binds a violated property, supported entry or state, governing
+operating/threat model and credible causal path. Apply those conditions to
+retained guards and acceptance predicates as well as new findings. An excluded
+threat alone gives no retention claim; a proposed wider threat model re-enters
+its owner. Internal location alone does not establish trust, and hypothetical
+hostility alone does not establish applicability. Retain the actual untrusted
+input, mutable-state, authority and effect checks required by the supported
+model. A suggested repair becomes an obligation only through its proper owner.
 
 ---
 
@@ -1054,6 +1101,167 @@ A localized frontier does not itself authorize broader test expansion,
 compatibility repair, another controller, or reinterpretation of unchanged
 upstream meaning. Any resulting scope or design change follows the existing
 re-entry relation.
+
+---
+
+## Derived End-To-End Interface Integration Frame
+
+`urn:stdo:reference-frame:end-to-end-interface-integration:v1` is a composite
+refinement in `urn:stdo:bounded-context:reference-frame-evaluation`. Acquire it
+from this heading under the exact selected baseline basis. It relates
+[Public Boundary, Design, Operator, Owner and Proof](#derived-generic-specialist-frame-set)
+to [Integration](#derived-integration-frame),
+[End To End](#derived-end-to-end-frame) and
+[User Acceptance](#derived-user-acceptance-frame). It adds neither a thirteenth
+generic family nor a fifth testing type, role or universal activation gate.
+
+| Frame element | Derived application |
+|---|---|
+| evaluation family | Does one outcome remain constructable, understandable and correctly realized across its material interface chain, with sufficient participant context and conserved meaning, authority and cause? |
+| subject and basis | one Product outcome and independently stated oracle; governing requirements and design basis, exact source/workspace checkpoint, contracts and finite case population; declared participant roles, functional path, dependencies, configuration and capabilities for design; actual participants, callable selection, supported entry/exit and exact runnable artifact/install for claims over their realization |
+| material manifold | producers, consumers, transformations and effect owners as declared for design or actually selected for realized claims; functional preconditions/postconditions, value/reference domains, lifecycle/time, supplied context, mutable subject, refusals, observations and user-visible result at each material seam |
+| coordinates and equality | distinct Product, artifact/install, workspace, observation, invocation, candidate, admitted result and evidence identities; exact revisions, domain, units, cardinality, ordering, empty/null/default meaning and validity interval; equal shape or output does not imply equal meaning, provenance or authority |
+| governing invariants | selected Product/requirement/design/interface law; Reference Frame Method declaration, conjunction and translation law; the claim boundaries and obligations below; existing testing and assurance owners retain their laws |
+| authority | existing owners retain semantic, operation, admission and reserved decision authority; the activation grants bounded evaluation, with construction only under its existing exact operation grant; the declared decision consumer disposes the closed result |
+| evidence | source-linked contracts and both selected sides; design relations and explicitly unresolved realization facts for design claims; actual supplied request/context and response, callable/configuration identity, owner validation/effect/observation records and ordinary caller outcome for claims over those realized relations; independently derived expected relations and disclosed substitution limits |
+| capability envelope | competence in the outcome, functional composition, domain/lifecycle semantics, participant capabilities and causal diagnosis; sufficient access to the exact subject and evidence without altering a reviewed subject; required independence remains claim-relative |
+| exclusions | hidden context or privilege, rival contract truth, inferred authority, undeclared substitutes, private/test-only paths for ordinary-path claims, candidate output treated as admission, fixture success treated as real user evidence, and unsupported whole-Product or all-future-case conclusions |
+| result and relations | each activated claim returns `satisfied`, `falsified`, `indeterminate`, `out_of_frame` or `invalid_basis` with its exact evidence, coverage, causal findings and residuals; shared evidence is referenced once and mandatory claims compose only through a declared same-basis or lawful-translation conjunction to the named decision consumer |
+| invalidation | material contract, domain, participant, prompt/context, capability, callable path, configuration, translation, relevant workspace observation, lifecycle, oracle or evidence-population change invalidates affected conclusions; unchanged valid evidence and owner rulings remain reusable |
+| qualification | representative sensitivity and refusal cases below, bound to actual subjects, actor envelopes and independently stated expected relations; mechanical source checks do not supply semantic or live-user qualification |
+
+### Interface Integration Claim Boundaries
+
+| Claim | Evaluation and evidence boundary |
+|---|---|
+| Contract sufficiency | Can each participant determine and perform its responsibility from the declared interface and available context? Source-grounded design evaluation may establish this claim without an implemented runtime; unresolved realizability or actor-context questions remain explicit. |
+| Boundary congruence | Do the actual selected producers, transformations and consumers preserve the declared domains, meanings, lifecycle and authority? Acquire both sides and their exchanges for an actual-composition claim; design correspondence alone does not prove implementation behavior. |
+| Path realization | Does the exact runnable subject use the authoritative entry-to-outcome path through its material state, effect and observation boundaries? Matching output through another path is insufficient. |
+| User usability | Can the ordinary human, LLM or software caller obtain the selected outcome using only its declared context, access and supported surface? Internal success or validator-aware fixtures cannot establish this claim. |
+
+The activation selects claims from the work's applicability and states the
+scope reason for unselected claims. Design-only work does not require
+unavailable runtime evidence or report runtime/UAT satisfaction. An unknown
+material condition keeps its dependent claim unresolved; omission cannot
+close it. A full end-to-end usability claim requires all four distinct results
+and their explicit conjunction. Transport, parse, admission, semantic
+satisfaction, operation completion and user success are not interchangeable.
+
+### Interface Integration Obligations
+
+Reuse existing truth surfaces. The working record adds only missing
+cross-interface relations; schemas, prompts, adapters, indexes and tests do
+not become another contract owner. For each material seam:
+
+1. Bind the functional input domain, producer success postconditions, consumer
+   preconditions, permitted effects, refusals and observable exit. Direct
+   successful handoff requires the producer guarantees to meet the consumer
+   preconditions. An interface may instead emit candidates: candidate output,
+   later admission and semantic assessment remain distinct declared stages.
+   A normal model refusal or inadmissible candidate does not by itself falsify
+   an adequately declared candidate interface; evaluate the exact promised
+   outcome and refusal behavior.
+2. Make material actor obligations and domains available through the actual
+   interface/context or an exact locator the actor can lawfully resolve.
+   Bind the LLM role, instructions, supplied context, tools and model/transport
+   configuration where material. Generic governance access does not replace
+   the Product-specific contract or authorize inference of hidden validator
+   rules. Existing deterministic owners compute available facts and expose
+   their owned relation to context and validation through reuse or proven
+   equivalent projections. Semantic actors judge meaning within that domain;
+   reserved owner rulings, eligibility, authority and admission are not
+   inferred from an actor response or frame label.
+3. Preserve domain and temporal meaning through serialization, parsing,
+   normalization and adaptation. A lawful translation binds source/target
+   coordinates, preserved meaning, accepted loss, provenance, governing owner
+   and refusal conditions. Distinguish proposed, admitted, assessed and
+   completed states; active input from historical context; current validity
+   from mere byte availability. Equal wire shape is not a translation proof.
+4. Observe the relevant current mutable workspace for each later operation.
+   Bind that observation separately from immutable authority, artifacts,
+   history and prior candidates. Changed support invalidates dependent
+   conclusions; unaffected accepted work remains reusable. A snapshot does
+   not replace the current subject, and an actor change alone is no reason to
+   repeat still-valid work.
+5. Follow the actual callable path and existing effect owners through the
+   selected exit and any required fresh observation. Hidden fallback, state
+   injection, manually repaired output, private entry or undeclared retry
+   cannot support an ordinary real-path claim. A pure function acquires no new
+   event lifecycle merely because this frame evaluates it.
+6. Preserve diagnostic cause through wrappers and projections. Apply
+   [Counterexample Localization](#counterexample-localization): report the
+   supported causal frontier, not merely the first log or clock occurrence.
+   Retain the originating seam, bounded field/path, expected domain or basis,
+   observed mismatch and evidence locator where available, plus downstream
+   symptoms, successful work and declared continuation or block. Preserve
+   joint causes, alternative frontiers and indeterminacy; do not invent a
+   unique cause. Product redaction rules still govern sensitive content.
+   Missing required diagnostic evidence remains a named gap. Return the
+   smallest supported owner/re-entry; diagnosis grants no repair or retry.
+
+Evidence acquisition follows
+[Assurance Subject Acquisition And Evaluation](#assurance-subject-acquisition-and-evaluation).
+Acquire owner facts through existing surfaces and evaluate them with an
+independent contract-derived oracle. Computed facts, contextual judgments and
+reserved owner rulings retain their distinct owners and validity scopes.
+
+For an LLM-interface usability claim, use clean-room LLM UAT with the ordinary
+supplied context and permitted tools, without private implementation knowledge
+or fixture assistance. Expected outcomes precede response inspection. Include
+the sunny case and ordinary ambiguity/negative cases material to the claim.
+Disclose substitutes; replayed or fabricated responses prove only their stated
+narrower relation, not live-provider usability. Do not edit responses or
+silently retry until green. Live claims require live evidence under the
+existing UAT law, not a new universal live-provider requirement during design.
+
+Apply [Steel-Thread Delivery](#steel-thread-delivery): an early sunny thread
+can establish bounded evidence while unexercised claims remain open. This
+frame adds no exhaustive-hardening prerequisite, scenario quota, controller,
+runtime, generator, routine human approval, new ledger or automatic extra
+agent. Existing authority selects proportionate assurance and any further
+operation. Return the four claim dispositions, exact exercised subject/path,
+supported mismatch, retained work, substitutions, residuals and invalidators
+in the existing work carrier; the result is not acceptance or a next-action
+grant.
+
+### Computational Whole-Path Evaluation
+
+For material computational composition or recurrence work, compose the selected
+interface claims with Operator, Owner, Reuse/Foundation and Proof to evaluate
+one complete producer-to-consumer path under `DESIGN_MODULE_METHOD.md`
+`STDO-UP-019` and recurrence law. Bind fact establishment, each consumer,
+validity and invalidation, effects, retained alternatives and accumulated work.
+Evaluate equivalent computation across different domain names without assuming
+semantic equivalence. Qualification challenges the design's declared workload
+and operational assumptions; it preserves independent scope, freshness and
+effect checks that serve distinct supported obligations.
+
+Return an identifiable complete-path result and its evidence to the declared
+decision consumer. A collection of local successes cannot replace that result.
+Design-only evidence establishes only the design claim; actual work claims
+require observations on the selected path. Reuse valid unchanged results and
+activate affected reassessment on material path, basis or workload change. This
+is a bounded composition of existing frames, not a permanent actor, extra
+specialist family, per-helper review or separate accounting ledger.
+
+### Interface Integration Qualification
+
+These are representative source-contract discriminators, not an executed
+trial, universal test quota or whole-Product qualification. Each selected
+case binds its own exact subject, oracle, evidence and claim scope.
+
+| Case | Required discrimination |
+|---|---|
+| Empty and nonempty eligible domains | Ordinary context makes both domains usable; a universal empty-value workaround cannot replace the governing domain. A hidden required rule defeats contract sufficiency even if the validator correctly refuses. |
+| Adequate candidate contract and rejected response | Distinguish legitimate refusal/admission filtering from an inadequate interface or a violated success guarantee; model variability alone is not frame failure. |
+| Same-response or historical-only reference | Eligibility and lifecycle come from the owning domain; available or equal-looking references are not automatically current admissible inputs. |
+| Individually valid but temporally mismatched carriers | Different observations or admission states can falsify boundary congruence despite matching shapes. |
+| Meaning-changing translation | Loss of units, default, identity or ordering is detected against the independent outcome oracle, even when both shapes validate. |
+| Fixture knows a hidden rule | Mechanical success leaves user usability unproved; it cannot conceal missing ordinary actor context. |
+| Expected output through a forbidden path | Path realization is falsified; output equality does not discharge the actual-path obligation. |
+| Changed workspace and reusable accepted work | Refresh affected context and dependent evidence while preserving unaffected valid work; history does not substitute for the current subject. |
+| Wrapped or ambiguous failure | Preserve the supported originating causal frontier and uncertainty without replacing it with a downstream symptom or an invented unique cause. |
+| Design-only sufficient contract | A bounded contract result can close while runtime and user claims remain unclaimed or unresolved according to their applicability; no runtime/UAT satisfaction is inferred. |
 
 ---
 

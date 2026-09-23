@@ -1,0 +1,38 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/authored.patch
+/authority-sources.json
+/baseline-check.json
+/baseline-inventory.json
+/changed-files.json
+/checks.json
+/compile.log
+/focused-tests-01.log
+/focused-tests-02.log
+/freeze.json
+/generate.log
+/generated.patch
+/installed-recipe.md
+/installed-recipe.mjs
+/inventory-delta.json
+/preimages/build/code/src/abg/qualification_proof.js
+/preimages/build/code/src/validator/qualification.js
+/preimages/build/code/src/validator/qualification_contracts.d.ts
+/preimages/build/code/src/validator/qualification_contracts.js
+/preimages/code/src/abg/qualification_proof.ts
+/preimages/code/src/validator/qualification.ts
+/preimages/code/src/validator/qualification_contracts.ts
+/preimages/contracts/capabilities/capability-definition-graph.json
+/preimages/contracts/qualification/owning-gates.json
+/preimages/contracts/schemas/self-conformance.schema.json
+/preimages/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md
+/preimages/product-toolchain-manifest.json
+/preimages/scripts/generate-qualification-rule-catalog.mjs
+/preimages/test_env/support/malformed-gtl-native-fixture.mjs
+/preimages/test_env/tests/t287-native-runtime-gate.test.mjs
+/preimages/test_env/tests/t287-qualification-law.test.mjs
+/return.md
+/structural-declarations.mjs
+/subject-inventory.json

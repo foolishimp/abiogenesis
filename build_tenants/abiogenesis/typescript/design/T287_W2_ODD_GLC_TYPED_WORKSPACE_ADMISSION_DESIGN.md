@@ -4,6 +4,8 @@
 
 **HOW status**: R2/R3 selected for design; proposed; unratified; non-executable
 
+**Accepted bounded R2 child**: [W2-STEEL-02-D consumer declaration admission](./T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md), corrected HOW `193cdb18…` accepted after independent `CLOSED SATISFIED`; `W2-STEEL-02-I` now implements its bounded producer and installed-proof seams. Remaining parent HOW is unratified and unchanged.
+
 **Accepted child**:
 [`W2-R3-C0` mutable-worksite causality](./T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md);
 only its `W2-R3-C0-I` realization is selected

@@ -1,0 +1,20 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/build/code/src/abg/qualification_proof.d.ts
+/build/code/src/abg/qualification_proof.js
+/build/code/src/implementation/contracts.d.ts
+/build/code/src/implementation/leaf_invocation_port.js
+/build/code/src/implementation/qualification.d.ts
+/build/code/src/implementation/qualification.js
+/build/code/src/validator/self_conformance_semantics.js
+/code/src/abg/qualification_proof.ts
+/code/src/implementation/contracts.ts
+/code/src/implementation/leaf_invocation_port.ts
+/code/src/implementation/qualification.ts
+/code/src/validator/self_conformance_semantics.ts
+/contracts/capabilities/capability-definition-graph.json
+/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md
+/product-toolchain-manifest.json
+/test_env/support/malformed-gtl-native-fixture.mjs
+/test_env/tests/t287-qualification-contraction.test.mjs

@@ -1,0 +1,23 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../20260923_WIP_CHECKPOINT/README.md
+/authority-lanes.mjs
+/contract-lanes.mjs
+/evidence.mjs
+/installed-worker.mjs
+/pfc-f08-lane.mjs
+/run-s06-increment-0a.mjs
+/runtime-f06-worker.mjs
+/runtime-f08.mjs
+/runtime-f09-product.mjs
+/runtime-f09-worker.mjs
+/runtime-f09.mjs
+/runtime-f10-worker.mjs
+/runtime-lanes.mjs
+/runtime-preparation-refusal-worker.mjs
+/runtime-public-fh-worker.mjs
+/runtime-recursion-lifecycle-worker.mjs
+/runtime-recursion-route-worker.mjs
+/runtime-retained-projections-worker.mjs
+/runtime-worker.mjs
+/t287-r3-reopen-route-worker.mjs

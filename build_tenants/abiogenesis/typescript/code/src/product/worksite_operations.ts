@@ -1,17 +1,21 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import { constants } from "node:fs";
 import {
   lstat,
   link,
+  mkdir,
   open,
+  readdir,
   realpath,
   rename,
   unlink,
 } from "node:fs/promises";
 import { randomUUID } from "node:crypto";
 import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import { sha256Bytes } from "../shared/digests.js";
+import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { CCall } from "../abg/c_call.js";
 import type {
@@ -48,6 +52,23 @@ import {
   type WorksitePublicationFacts,
   type WorksitePostPublicationDiagnostic,
   type WorksitePhysicalOutcome,
+  constructWorksiteFileParentsRequest,
+  constructWorksiteFileParentsAuthorization,
+  constructWorksiteFileParentsSuccess,
+  isWorksiteFileParentsRequest,
+  isWorksiteFileParentsAuthorization,
+  isWorksiteContextObservation,
+  normalizeWorksiteRelativePath,
+  worksiteFileParentPaths,
+  worksiteFileParentsFailure,
+  type WorksiteFileParentsRequestInput,
+  type WorksiteFileParentsRequest,
+  type WorksiteFileParentsAuthorization,
+  type WorksiteFileParentsResult,
+  type WorksiteAncestorObservation,
+  type WorksiteFileParentOutcome,
+  type WorksiteContextEntry,
+  type WorksiteContextObservation,
 } from "./worksite_effect.js";
 
 export interface WorksiteFileReplaceInput {
@@ -77,10 +98,6 @@ export type WorksiteFileReplaceResult =
 
 function sameCanonical(left: unknown, right: unknown): boolean {
   return canonicalJson(left as JsonValue) === canonicalJson(right as JsonValue);
-}
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function exactSubjectForBinding(
@@ -925,4 +942,233 @@ export async function replaceWorksiteFile(
     kind: "publication_only", authorization: input.authorization, publication,
     compensation, stagingCleanup, stagingResidue, postPublicationObservation, diagnostics,
   });
+}
+
+interface WorksiteReadBasis {
+  readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
+  readonly workspaceBinding: WorkspaceBinding;
+  readonly protectedInstallRoots?: readonly string[];
+}
+
+async function worksiteReadRoots(input: WorksiteReadBasis): Promise<WorksiteEffectRefusal | { root: string; protectedRoots: readonly string[] }> {
+  const root = input.workspaceAuthorityBasis.canonicalRoot;
+  const territory = constructWorksiteTerritory({ ...input, relativeRoot: ".", territoryUri: pathToFileURL(root).href });
+  if (territory.kind !== "worksite_territory") return territory;
+  const inspected = await inspectPhysicalDirectory(root);
+  if ("kind" in inspected) return inspected;
+  try {
+    const protectedRoots = await Promise.all([...Object.values(input.workspaceBinding.roots), ...(input.protectedInstallRoots ?? [])].map(plannedCanonicalPath));
+    return { root, protectedRoots };
+  } catch (error) { return worksiteRefusal("invalid_coordinate", `protected worksite roots cannot be resolved: ${String(error)}`, null, errnoCode(error)); }
+}
+
+function checkedWorksitePath(root: string, protectedRoots: readonly string[], path: string): string | WorksiteEffectRefusal {
+  if (normalizeWorksiteRelativePath(path, true) !== path) return worksiteRefusal("invalid_relative_path", "worksite path must be normalized and relative");
+  const target = resolve(root, ...path.split("/"));
+  if (!confined(root, target) || protectedRoots.some(protectedRoot => confined(protectedRoot, target))) {
+    return worksiteRefusal("subject_outside_territory", "worksite path escapes A or enters a protected install/runtime root");
+  }
+  return target;
+}
+
+/** Read only: no directory prerequisite is manufactured by observation. */
+export async function observeWorksiteFileParents(input: Omit<WorksiteFileParentsRequestInput, "ancestorObservations"> & { readonly protectedInstallRoots?: readonly string[] }): Promise<WorksiteFileParentsRequest | WorksiteEffectRefusal> {
+  const resolved = await worksiteReadRoots(input);
+  if ("kind" in resolved) return resolved;
+  const paths = worksiteFileParentPaths(input.targets);
+  if (paths.length === 0) return worksiteRefusal("invalid_relative_path", "assessed file targets contain an invalid path");
+  const observations: WorksiteAncestorObservation[] = [];
+  const absent: string[] = [];
+  for (const relativePath of paths) {
+    const path = checkedWorksitePath(resolved.root, resolved.protectedRoots, relativePath);
+    if (typeof path !== "string") return path;
+    if (absent.some(parent => relativePath.startsWith(`${parent}/`))) {
+      observations.push({ relativePath, state: "absent", fileIdentity: null });
+      continue;
+    }
+    const observed = await inspectPhysicalDirectory(path);
+    if ("kind" in observed) {
+      if (relativePath !== "." && observed.substrateCode === "ENOENT") {
+        absent.push(relativePath);
+        observations.push({ relativePath, state: "absent", fileIdentity: null });
+      } else return observed;
+    } else observations.push({ relativePath, state: "directory", fileIdentity: observed.fileIdentity });
+  }
+  return constructWorksiteFileParentsRequest({ ...input, ancestorObservations: observations });
+}
+
+export interface WorksiteFileParentsInput extends WorksiteReadBasis {
+  readonly request: WorksiteFileParentsRequest;
+  readonly executionBasis: ExecutionBasis;
+  readonly cCall: CCall;
+  readonly implementationSet: AdmittedImplementationSet;
+  readonly authorization: WorksiteFileParentsAuthorization;
+}
+
+/** Internal physical owner; the guarded selected C0 leaf is the runtime entry. */
+export async function createWorksiteFileParents(input: WorksiteFileParentsInput): Promise<WorksiteFileParentsResult> {
+  if (!isWorksiteFileParentsRequest(input.request) || !isWorksiteFileParentsAuthorization(input.authorization) ||
+    !sameCanonical(input.workspaceAuthorityBasis, input.request.workspaceAuthorityBasis)) return worksiteRefusal("authorization_mismatch", "file parents require their own exact authorization");
+  const expected = constructWorksiteFileParentsAuthorization(input);
+  if (expected.kind !== "worksite_file_parents_authorization" || !sameCanonical(expected, input.authorization)) return worksiteRefusal("authorization_mismatch", "file-parent authorization does not reproduce from its basis and request");
+  const { request, authorization } = input;
+  const outcomes: WorksiteFileParentOutcome[] = [];
+  const failed = (failure: WorksiteEffectRefusal): WorksiteFileParentsResult => worksiteFileParentsFailure(request, authorization, outcomes, failure);
+  try {
+    const resolved = await worksiteReadRoots(input);
+    if ("kind" in resolved) return failed(resolved);
+    for (const target of request.targets) {
+      const path = checkedWorksitePath(resolved.root, resolved.protectedRoots, target.relativePath);
+      if (typeof path !== "string") return failed(path);
+    }
+    const current = await observeWorksiteFileParents({ ...input, ...request });
+    if (current.kind !== "worksite_file_parents_request") return failed(current);
+    if (!sameCanonical(current, request)) return failed(worksiteRefusal("stale_observation", "file-parent ancestor chain changed before any effect"));
+    const revalidateKnown = async (): Promise<WorksiteEffectRefusal | null> => {
+      for (const outcome of outcomes) {
+        const path = checkedWorksitePath(resolved.root, resolved.protectedRoots, outcome.relativePath);
+        if (typeof path !== "string") return path;
+        const observed = await inspectPhysicalDirectory(path);
+        if ("kind" in observed) return observed;
+        if (outcome.identityState !== "known" || observed.fileIdentity !== outcome.fileIdentity) return worksiteRefusal("stale_observation", "file-parent physical directory identity changed");
+      }
+      return null;
+    };
+    for (const observed of request.ancestorObservations) {
+      const prior = await revalidateKnown();
+      if (prior !== null) return failed(prior);
+      const path = checkedWorksitePath(resolved.root, resolved.protectedRoots, observed.relativePath);
+      if (typeof path !== "string") return failed(path);
+      if (observed.state === "directory") {
+        const actual = await inspectPhysicalDirectory(path);
+        if ("kind" in actual) return failed(actual);
+        if (actual.fileIdentity !== observed.fileIdentity) return failed(worksiteRefusal("stale_observation", "existing file-parent identity changed"));
+        outcomes.push({ relativePath: observed.relativePath, disposition: "existing", identityState: "known", fileIdentity: actual.fileIdentity });
+      } else {
+        try {
+          await lstat(path);
+          return failed(worksiteRefusal("stale_observation", "declared absent file parent now exists"));
+        } catch (error) { if (errnoCode(error) !== "ENOENT") return failed(worksiteRefusal("filesystem_refused", `file-parent absence check failed: ${String(error)}`, null, errnoCode(error))); }
+        const parent = await inspectPhysicalDirectory(dirname(path));
+        if ("kind" in parent) return failed(parent);
+        const parentRelative = relative(resolved.root, dirname(path)).split("\\").join("/") || ".";
+        if (!outcomes.some(outcome => outcome.relativePath === parentRelative && outcome.identityState === "known" && outcome.fileIdentity === parent.fileIdentity)) {
+          return failed(worksiteRefusal("stale_observation", "actual mkdir parent no longer matches its retained directory identity"));
+        }
+        try { await mkdir(path); }
+        catch (error) { return failed(worksiteRefusal(errnoCode(error) === "EEXIST" ? "stale_observation" : "filesystem_refused", `nonrecursive file-parent mkdir failed: ${String(error)}`, null, errnoCode(error))); }
+        // The syscall fact is retained before any fallible identity verification.
+        outcomes.push({ relativePath: observed.relativePath, disposition: "created", identityState: "unknown", fileIdentity: null });
+        const created = await inspectPhysicalDirectory(path);
+        if ("kind" in created) return failed(created);
+        outcomes[outcomes.length - 1] = { relativePath: observed.relativePath, disposition: "created", identityState: "known", fileIdentity: created.fileIdentity };
+      }
+    }
+    const final = await revalidateKnown();
+    if (final !== null) return failed(final);
+    const success = constructWorksiteFileParentsSuccess(request, authorization, outcomes);
+    return success.kind === "worksite_file_parents_result" ? success : failed(success);
+  } catch (error) {
+    return failed(worksiteRefusal("filesystem_refused", `file-parent owner failed: ${String(error)}`, null, errnoCode(error)));
+  }
+}
+
+export interface WorksiteContextInput extends WorksiteReadBasis {
+  readonly readRoots: readonly string[];
+  /** Bounds every observed entry, including directories and absent roots. */
+  readonly maxFiles: number;
+  readonly maxBytes: number;
+}
+
+/** Complete for its declared read roots or refused; replay consumes these bytes. */
+export async function observeWorksiteContext(input: WorksiteContextInput): Promise<WorksiteContextObservation | WorksiteEffectRefusal> {
+  if (!Array.isArray(input.readRoots) || input.readRoots.length === 0 || new Set(input.readRoots).size !== input.readRoots.length ||
+    input.readRoots.some(path => normalizeWorksiteRelativePath(path, true) !== path) || !Number.isSafeInteger(input.maxFiles) || input.maxFiles < 1 ||
+    !Number.isSafeInteger(input.maxBytes) || input.maxBytes < 0) return worksiteRefusal("invalid_coordinate", "worksite context requires finite explicit limits and exact relative read roots");
+  const resolved = await worksiteReadRoots(input);
+  if ("kind" in resolved) return resolved;
+  const entries = new Map<string, WorksiteContextEntry>();
+  let totalBytes = 0;
+  const visit = async (relativePath: string): Promise<WorksiteEffectRefusal | null> => {
+    if (entries.has(relativePath)) return null;
+    if (entries.size >= input.maxFiles) return worksiteRefusal("filesystem_refused", "worksite context entry limit exceeded; no truncated observation is returned");
+    const path = checkedWorksitePath(resolved.root, resolved.protectedRoots, relativePath);
+    if (typeof path !== "string") return path;
+    let status;
+    try { status = await lstat(path); }
+    catch (error) {
+      if (errnoCode(error) === "ENOENT") { entries.set(relativePath, { relativePath, state: "absent" }); return null; }
+      throw error;
+    }
+    if (status.isSymbolicLink()) return worksiteRefusal("symlink_forbidden", "worksite context cannot follow a symlink");
+    if (await realpath(path) !== path) return worksiteRefusal("aliased_subject", "worksite context requires canonical path spelling");
+    const fileIdentity = `${status.dev}:${status.ino}`;
+    if (status.isDirectory()) {
+      const members = (await readdir(path)).sort();
+      entries.set(relativePath, { relativePath, state: "directory", fileIdentity, members });
+      if (members.filter(member => !entries.has(relativePath === "." ? member : `${relativePath}/${member}`)).length > input.maxFiles - entries.size) return worksiteRefusal("filesystem_refused", "worksite context directory membership exceeds entry limit");
+      for (const member of members) {
+        const failure = await visit(relativePath === "." ? member : `${relativePath}/${member}`);
+        if (failure !== null) return failure;
+      }
+      const after = await inspectPhysicalDirectory(path);
+      if ("kind" in after) return after;
+      if (after.fileIdentity !== fileIdentity || !sameCanonical(members, (await readdir(path)).sort())) return worksiteRefusal("stale_observation", "worksite directory changed during context observation");
+      return null;
+    }
+    if (!status.isFile()) return worksiteRefusal("target_not_file", "worksite context admits only concrete directories and regular files");
+    if (status.nlink !== 1) return worksiteRefusal("aliased_subject", "worksite context file has another hard link");
+    if (status.size > input.maxBytes - totalBytes) return worksiteRefusal("filesystem_refused", "worksite context byte limit exceeded");
+    const handle = await open(path, constants.O_RDONLY | constants.O_NOFOLLOW);
+    let bytes: Buffer;
+    try {
+      const before = await handle.stat();
+      if (!before.isFile() || before.nlink !== 1 || `${before.dev}:${before.ino}` !== fileIdentity) return worksiteRefusal("stale_observation", "context file identity changed before reading");
+      const chunks: Buffer[] = [];
+      let length = 0;
+      while (true) {
+        const buffer = Buffer.alloc(Math.min(65536, input.maxBytes - totalBytes - length + 1));
+        const read = await handle.read(buffer, 0, buffer.length, null);
+        if (read.bytesRead === 0) break;
+        length += read.bytesRead;
+        if (length > input.maxBytes - totalBytes) return worksiteRefusal("filesystem_refused", "worksite context byte limit exceeded during reading");
+        chunks.push(buffer.subarray(0, read.bytesRead));
+      }
+      bytes = Buffer.concat(chunks);
+      const after = await handle.stat();
+      if (before.size !== after.size || before.mtimeMs !== after.mtimeMs || before.ctimeMs !== after.ctimeMs || bytes.length !== after.size) return worksiteRefusal("stale_observation", "context file changed during reading");
+    } finally { await handle.close(); }
+    const afterPath = await lstat(path);
+    if (!afterPath.isFile() || afterPath.nlink !== 1 || `${afterPath.dev}:${afterPath.ino}` !== fileIdentity || await realpath(path) !== path) return worksiteRefusal("stale_observation", "context file path changed during reading");
+    totalBytes += bytes.length;
+    entries.set(relativePath, { relativePath, state: "file", fileIdentity, byteLength: bytes.length, digest: sha256Bytes(bytes), encoding: "base64", bytes: bytes.toString("base64") });
+    return null;
+  };
+  try {
+    for (const root of input.readRoots) {
+      // Check every existing path component before descending into a selected root.
+      const segments = root === "." ? [] : root.split("/");
+      for (let count = 0; count < segments.length; count += 1) {
+        const parent = segments.slice(0, count).join("/") || ".";
+        const path = checkedWorksitePath(resolved.root, resolved.protectedRoots, parent);
+        if (typeof path !== "string") return path;
+        const inspected = await inspectPhysicalDirectory(path);
+        if ("kind" in inspected && inspected.substrateCode !== "ENOENT") return inspected;
+        if ("kind" in inspected) break;
+      }
+      const failure = await visit(root);
+      if (failure !== null) return failure;
+    }
+    const body = {
+      workspaceAuthorityBasisRef: input.workspaceAuthorityBasis.authorityBasisId,
+      workspaceAuthorityBasisDigest: input.workspaceAuthorityBasis.authorityBasisDigest,
+      workspaceBindingIdentity: input.workspaceBinding.bindingId, workspaceBindingDigest: input.workspaceBinding.bindingDigest,
+      readRoots: input.readRoots, maxFiles: input.maxFiles, maxBytes: input.maxBytes,
+      entries: [...entries.values()].sort((a, b) => a.relativePath < b.relativePath ? -1 : a.relativePath > b.relativePath ? 1 : 0),
+    };
+    const observationDigest = sha256Canonical(body as unknown as JsonValue);
+    const observation = deepFreeze({ kind: "worksite_context_observation" as const, schemaVersion: "5.0.0" as const,
+      observationRef: `worksite-context-observation://abiogenesis/${observationDigest.slice("sha256:".length)}`, observationDigest, ...body });
+    return isWorksiteContextObservation(observation) ? observation : worksiteRefusal("stale_observation", "worksite context did not produce a complete closed observation");
+  } catch (error) { return worksiteRefusal("filesystem_refused", `worksite context observation failed: ${String(error)}`, null, errnoCode(error)); }
 }

@@ -1,0 +1,31 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/app/app.mjs
+/app/check.mjs
+/app/dep01.mjs
+/app/dep02.mjs
+/app/dep03.mjs
+/app/dep04.mjs
+/app/dep05.mjs
+/app/dep06.mjs
+/app/dep07.mjs
+/app/dep08.mjs
+/app/dep09.mjs
+/app/dep10.mjs
+/app/dep11.mjs
+/app/dep12.mjs
+/app/dep13.mjs
+/app/dep14.mjs
+/app/dep15.mjs
+/app/dep16.mjs
+/app/dep17.mjs
+/app/dep18.mjs
+/app/dep19.mjs
+/app/dep20.mjs
+/declaration-preflight.json
+/latest-prefix.json
+/program-result-14.json
+/program-result-18.json
+/runtime-prefix-831.jsonl
+/setup-ready.json

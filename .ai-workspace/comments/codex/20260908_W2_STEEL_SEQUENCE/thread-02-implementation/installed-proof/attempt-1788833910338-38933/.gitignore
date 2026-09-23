@@ -1,0 +1,40 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../20260923_WIP_CHECKPOINT/README.md
+/call-1.jsonl
+/call-10.jsonl
+/call-2.jsonl
+/call-3.jsonl
+/call-4.jsonl
+/call-5.jsonl
+/call-6.jsonl
+/call-7.jsonl
+/call-8.jsonl
+/call-9.jsonl
+/first-cause.json
+/installed-0/node_modules/
+/installed-0/package-lock.json
+/installed-0/package.json
+/installed-1/node_modules/
+/installed-1/package-lock.json
+/installed-1/package.json
+/neutral-schema-product-Xq7eHQ/artifacts/neutral-schema.example-annotation-product-5.0.0.tgz
+/neutral-schema-product-Xq7eHQ/build/
+/neutral-schema-product-Xq7eHQ/contracts/annotation-composition.schema.json
+/neutral-schema-product-Xq7eHQ/contracts/annotation-record.schema.json
+/neutral-schema-product-Xq7eHQ/contracts/capabilities/capability-definition-graph.json
+/neutral-schema-product-Xq7eHQ/contracts/public-contract-catalog.schema.json
+/neutral-schema-product-Xq7eHQ/package.json
+/neutral-schema-product-Xq7eHQ/product-toolchain-manifest.json
+/receipt-1.json
+/receipt-10.json
+/receipt-2.json
+/receipt-3.json
+/receipt-4.json
+/receipt-5.json
+/receipt-6.json
+/receipt-7.json
+/receipt-8.json
+/receipt-9.json
+/runtime.events.jsonl
+/workspace/.abiogenesis/workspace-manifest.json

@@ -1,3 +1,4 @@
+import { isRecord, hasNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import {
   validateEventStoreCloseHandoff,
   type DurablePrefixCoordinate,
@@ -82,19 +83,6 @@ const AUTHORITY_KEYS = Object.freeze([
   "parentSuspensions",
   "prefix",
 ]);
-
-function isRecord(
-  value: unknown,
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
 
 function authorityBody(input: PublicContinuationAuthorityInput) {
   return {

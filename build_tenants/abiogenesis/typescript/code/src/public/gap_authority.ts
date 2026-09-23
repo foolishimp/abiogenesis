@@ -1,3 +1,4 @@
+import { isRecord, hasNulJoinedKeys as hasExactKeys, isNonEmptyString as nonEmptyString } from "../shared/admission_predicates.js";
 import {
   validateEventStoreCloseHandoff,
   type DurablePrefixCoordinate,
@@ -122,23 +123,6 @@ const SOURCE_KEYS = Object.freeze([
   "sourceRunId",
   "sourceRunStoppedEventRef",
 ]);
-
-function isRecord(
-  value: unknown,
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
-
-function nonEmptyString(value: unknown): value is string {
-  return typeof value === "string" && value.length > 0;
-}
 
 function authorityBody(input: PublicGapAuthorityInput) {
   return {

@@ -1,0 +1,24 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts
+/build_tenants/abiogenesis/typescript/code/src/abg/index.ts
+/build_tenants/abiogenesis/typescript/code/src/abg/requirement_handoff.ts
+/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts
+/build_tenants/abiogenesis/typescript/code/src/gtl/index.ts
+/build_tenants/abiogenesis/typescript/code/src/gtl/requirement_handoff.ts
+/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts
+/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts
+/build_tenants/abiogenesis/typescript/code/src/implementation/index.ts
+/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
+/build_tenants/abiogenesis/typescript/code/src/implementation/requirement_handoff.ts
+/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
+/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts
+/build_tenants/abiogenesis/typescript/code/src/product/index.ts
+/build_tenants/abiogenesis/typescript/code/src/product/requirement_handoff.ts
+/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts
+/build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md
+/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs
+/build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-requirement-handoff.test.mjs
+/specification/GOALS.md

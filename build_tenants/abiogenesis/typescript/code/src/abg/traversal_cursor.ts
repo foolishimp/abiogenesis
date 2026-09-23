@@ -4,6 +4,7 @@ import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isGraphValidation, type GraphValidation } from "../validator/graph.js";
+import { sampleNativeEventTime } from "./native_event_time.js";
 import {
   hasAdmittedExecutionBasisAtPrefix,
   type ExecutionBasis,
@@ -19,11 +20,12 @@ import {
   AbgEventStore,
   admitRuntimeEvent,
   admitRuntimeEventTransactionAtDurablePrefix,
-  readRuntimeEventsAtDurablePrefix,
+  readActiveRuntimeTransactionAtDurablePrefix,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
+  indexedRuntimeEvents,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
@@ -31,6 +33,7 @@ import {
   hasOpenedTraversalScopeAtPrefix,
   type OpenedTraversalScope,
 } from "./open_call.js";
+import type { RuntimeEvent } from "./event_store.js";
 
 export interface TraversalCursorCandidate {
   readonly kind: "traversal_cursor";
@@ -146,37 +149,60 @@ export function constructTraversalCursorCandidate(
   });
 }
 
-export function traversalCursorAdmissionEventRefAtPrefix(
+/** The three existing cursor origins share one identity and scope relation.
+ * A route carries its target identity, not a duplicate cursor/input body. */
+export function traversalCursorAdmissionEventsAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
-  cursor: TraversalCursorCandidate,
-): string | null {
-  if (!isTraversalCursorCandidate(cursor)) return null;
-  const event = runtimeEventsFromValidatedPrefix(prefix).find((candidate) =>
+  cursor: Readonly<{
+    cursorRef: string; runId: string; graphCallId: string; frameId: string;
+    executionBasisRef: string;
+  }>,
+): readonly RuntimeEvent[] {
+  return indexedRuntimeEvents(prefix, "graph-call:" + cursor.graphCallId).filter((candidate) =>
+    candidate.runId === cursor.runId && candidate.graphCallId === cursor.graphCallId &&
+    candidate.frameId === cursor.frameId &&
     isJsonRecord(candidate.payload) &&
+    (candidate.kind === "fh_interaction_resume_admitted"
+      ? candidate.payload.successorCursor !== undefined && isJsonRecord(candidate.payload.successorCursor) &&
+        candidate.payload.successorCursor.executionBasisRef === cursor.executionBasisRef
+      : candidate.basisId === cursor.executionBasisRef) &&
     (
       (
         candidate.aggregateType === "frame" &&
         candidate.aggregateId === cursor.frameId &&
         candidate.kind === "traversal_cursor_entered" &&
-        candidate.payload.cursorRef === cursor.cursorRef &&
-        candidate.payload.cursorDigest === cursor.cursorDigest
+        candidate.payload.cursorRef === cursor.cursorRef
       ) ||
       (
         candidate.aggregateType === "frame" &&
         candidate.aggregateId === cursor.frameId &&
         candidate.kind === "traversal_route_admitted" &&
-        candidate.payload.targetCursorRef === cursor.cursorRef &&
-        candidate.payload.targetCursorDigest === cursor.cursorDigest
+        candidate.payload.targetCursorRef === cursor.cursorRef
       ) ||
       (
         candidate.aggregateType === "continuation" &&
         candidate.kind === "fh_interaction_resume_admitted" &&
         candidate.frameId === cursor.frameId &&
-        candidate.payload.successorCursorRef === cursor.cursorRef &&
-        candidate.payload.successorCursorDigest === cursor.cursorDigest
+        candidate.payload.successorCursorRef === cursor.cursorRef
       )
     )
   );
+}
+
+export function traversalCursorAdmissionDigest(event: RuntimeEvent): JsonValue | undefined {
+  if (!isJsonRecord(event.payload)) return undefined;
+  return event.kind === "traversal_cursor_entered" ? event.payload.cursorDigest
+    : event.kind === "traversal_route_admitted" ? event.payload.targetCursorDigest
+    : event.kind === "fh_interaction_resume_admitted" ? event.payload.successorCursorDigest : undefined;
+}
+
+export function traversalCursorAdmissionEventRefAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  cursor: TraversalCursorCandidate,
+): string | null {
+  if (!isTraversalCursorCandidate(cursor)) return null;
+  const event = traversalCursorAdmissionEventsAtPrefix(prefix, cursor)
+    .find(candidate => traversalCursorAdmissionDigest(candidate) === cursor.cursorDigest);
   return event?.eventId ?? null;
 }
 
@@ -250,12 +276,14 @@ export function admitInitialTraversalCursor(
   cursor: TraversalCursorCandidate,
   basis: RuntimeAdmissionBasis,
 ): TraversalCursorAdmissionResult {
-  const durableEvents = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(durableEvents);
   const transaction = admitRuntimeEventTransactionAtDurablePrefix(
     store,
     predecessorPrefix,
     () => {
+  const durableEvents = readActiveRuntimeTransactionAtDurablePrefix(
+    store, predecessorPrefix, { durableOnly: true },
+  );
+  const authorityPrefix = selectValidatedRuntimeEventPrefix(durableEvents);
   if (!hasAdmittedExecutionBasisAtPrefix(authorityPrefix, executionBasis)) {
     return refusal("basis_mismatch", "cursor admission requires the exact admitted ExecutionBasis");
   }
@@ -339,7 +367,7 @@ export function admitInitialTraversalCursor(
 
   const event = admitRuntimeEvent(store, {
     kind: "traversal_cursor_entered",
-    eventTime: basis.eventTime,
+    eventTime: sampleNativeEventTime(),
     aggregateType: "frame",
     aggregateId: scope.frameId,
     parentAggregateId: scope.graphCallId,

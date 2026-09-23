@@ -56,6 +56,41 @@ Workspace creation/opening and A remain distinct existing carriers. A constructi
 
 The owner-local resource types gain one admission-authority member containing only the serialized data basis and grants; the full native packet never enters resources. Their existing operation-specific fields stay authoritative. `admitExactDefinitionCall` still checks common shape and fixed coordinates; each fixed owner supplies its own module-static packet to the shared grant checker, and no switch in Public chooses owner semantics. Existing run/read grant construction and policy admission continue to use their current A/W and InvocationPolicyBasis laws.
 
+### Shared resource admission and owned derivation lifetime (T-287)
+
+Fixed-owner structural resource parsing establishes closed shape, not an admitted environment.
+It must not cold-reconstruct history or repeatedly validate full immutable owner
+bodies merely because schema, grant and effect consumers are separate helpers.
+The full serialized data basis, canonical scope/grant identities and external
+approval meaning above remain unchanged.
+
+For a bound reopened effect, the existing admission wrapper acquires its declared
+ABG resource once and passes that exact native acquisition to the existing effect
+owner. It establishes the supplied environment relation against that acquired
+entry prefix, then validates one shared Product owner/request/resource/approval
+basis before constructing the exact required grants. New/unbound resource creation
+stays after authorization at its original effect owner. Read-only definitions and
+standalone constructors retain cold source authentication when no acquisition is
+supplied. A failed admission releases its acquisition without admitting an event;
+only ordinary owner close issues the close handoff.
+
+ABG's existing prefix derivation owner retains the immutable artifact projection
+and workspace environment for their exact prefix and selected binding. Consumers
+reuse these completed relations, including through qualification. A prefix or
+binding change selects its own relation; raw/copy/closed-resource paths retain
+physical authentication. This is disposable derivation, never a serializable proof
+flag or independent registry. Retained wrappers stay private/immutable. Input
+capture/detachment, closed shape/I-JSON, exact archive/executing-manifest equality,
+actor/definition/contracts, approval/request/resource/grant scope, currentness and
+pre-effect held ownership remain required. The effect owner still owns its
+operation-specific relation, failure, append and close. No schema parse, equal
+coordinate or process-local identity alone grants permission or admission.
+
+The existing exported admission-data/resource schemas retain their direct cold
+semantic contract (including release-artifact readers). Only fixed resource
+owners use the internal structural preimage parser before consolidated admission;
+that parser is not an alternative authority or publicly asserted success.
+
 ## Pure declaration application and value validation
 
 ### One producer and its exact inputs

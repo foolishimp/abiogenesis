@@ -1,0 +1,23 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/executive-disposition.md
+/implementation/activation.json
+/implementation/authored.patch
+/implementation/baseline-inventory.json
+/implementation/baseline-toolchain-inventory.json
+/implementation/build-resumed.log
+/implementation/build.log
+/implementation/checks.json
+/implementation/delta.json
+/implementation/executive-disposition.md
+/implementation/existing-affected.tap
+/implementation/focused-corrected.tap
+/implementation/focused-first.tap
+/implementation/freeze-subject.py
+/implementation/freeze.json
+/implementation/implementation-scope.json
+/implementation/return.md
+/implementation/subject-inventory.json
+/proposal.md
+/subject.json

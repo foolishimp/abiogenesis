@@ -1,3 +1,5 @@
+import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
+import { indexedRuntimeEvents } from "./event_prefix.js";
 import {
   compareUnicodeCodeUnits,
   type JsonValue,
@@ -13,11 +15,17 @@ import {
 } from "../product/worksite_effect.js";
 import {
   runtimeEventsFromValidatedPrefix,
+  runtimePrefixComputation,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type { RootEventKind, RuntimeEvent } from "./event_store.js";
+import { ROOT_EVENT_CONTRACT_DIGEST } from "./event_store.js";
+import { isRuntimeProbeObservation, isRuntimeSystemProbeContract } from "./runtime_liveness_contracts.js";
+import { createRuntimeLivenessEventValidator } from "./runtime_liveness.js";
 import { projectWorksiteFailureBasis } from "./c_call_outcome.js";
 import { WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
+import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkObservation,
+  isNativeWorkspaceWorkFailure, nativeWorkspacePathWithin } from "../product/native_workspace_work.js";
 
 interface EventCalculusEffectRefs {
   readonly initiates: readonly string[];
@@ -216,6 +224,14 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: ["actor_process_timed_out"],
     terminates: [], clips: [], declips: [],
   },
+  runtime_activity_probe_observed: {
+    initiates: ["runtime_activity_recent", "runtime_invocation_active"],
+    terminates: ["runtime_invocation_active"], clips: ["runtime_inactivity_asserted"], declips: [],
+  },
+  runtime_external_interruption_observed: {
+    initiates: ["runtime_externally_interrupted", "runtime_invocation_blocked"],
+    terminates: ["runtime_invocation_active"], clips: [], declips: [],
+  },
   actor_process_signal_requested: {
     initiates: ["actor_process_signal_requested"],
     terminates: [], clips: [], declips: [],
@@ -320,7 +336,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   runtime_failure_observed: {
     initiates: ["runtime_failure"],
-    terminates: ["locus_active", "frame_active"], clips: [], declips: [],
+    terminates: ["locus_active", "frame_active", "runtime_invocation_active"], clips: [], declips: [],
   },
   run_stopped: {
     initiates: ["run_terminal"],
@@ -341,7 +357,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   frame_closed: {
     initiates: ["frame_closed"],
-    terminates: ["frame_active"], clips: [], declips: [],
+    terminates: ["frame_active", "runtime_invocation_active"], clips: [], declips: [],
   },
   graph_call_closed: {
     initiates: ["graph_call_closed"],
@@ -352,12 +368,6 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     terminates: ["locus_active", "run_active"], clips: [], declips: [],
   },
 } as const satisfies Readonly<Record<RootEventKind, EventCalculusEffectRefs>>);
-
-function isRecord(
-  value: JsonValue,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function stringField(
   event: Pick<RuntimeEvent, "payload">,
@@ -382,6 +392,18 @@ function stringArrayField(
 
 function fluent(name: string, identity: string): string {
   return `${name}(${identity})`;
+}
+
+function observedFrameRuntimeFluents(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[]): readonly string[] {
+  if (event.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST || event.frameId === undefined) return [];
+  return [...new Set(priorEvents.flatMap(row => {
+    if (row.kind !== "runtime_activity_probe_observed" || !isRecord(row.payload) ||
+        !isRuntimeSystemProbeContract(row.payload.probeContract) || !isRuntimeProbeObservation(row.payload.observation)) return [];
+    const scope = row.payload.probeContract.scope;
+    return scope.cCallRef === null && scope.actorInvocationRef === null && scope.frameId === event.frameId &&
+      scope.runId === event.runId && scope.graphCallId === event.graphCallId && scope.basisRef === event.basisId && scope.graphFunctionRef === event.graphFunctionRef
+      ? [fluent("runtime_invocation_active", row.payload.observation.scopeDigest)] : [];
+  }))];
 }
 
 /** The C0 mutable-worksite currentness fluent has one observation identity. */
@@ -539,6 +561,40 @@ export function projectWorksiteTransitionForResult(
   };
 }
 
+/** Known native changes retire exact paths; unknown after-state retires the
+ * declared writable scope. Neither case manufactures C0 provenance or successors. */
+export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[]): readonly string[] {
+  if (event.kind !== "c_call_result_admitted" || !isRecord(event.payload)) return [];
+  const value = event.payload.value;
+  if (!(isNativeWorkspaceWorkObservation(value) || isNativeWorkspaceWorkFailure(value)) ||
+    value.provenance.cCallRef !== event.aggregateId ||
+    event.payload.contractRef !== (value.kind === "native_workspace_work_observation" ? nativeIds.observationContractRef : nativeIds.failureContractRef)) return [];
+  const evidenceRefs = stringArrayField(event, "evidenceRefs");
+  // Existing retry failure admission adds signal/source coordinates while
+  // preserving the original owner candidate digest cited by transport evidence.
+  const valueDigest = isRecord(event.payload.value!) && typeof event.payload.value.failureCandidateDigest === "string"
+    ? event.payload.value.failureCandidateDigest : event.payload.valueDigest;
+  if (!priorEvents.some(row => row.kind === "c_call_evidenced" && row.aggregateId === event.aggregateId && isRecord(row.payload) &&
+    evidenceRefs.includes(row.payload.evidenceRef as string) && row.payload.evidenceClass === "probabilistic_transport" &&
+    row.payload.implementationRef === nativeIds.implementationRef && row.payload.transportDigest === value.provenance.transportDigest &&
+    row.payload.outputDigest === valueDigest)) return [];
+  const changed = value.after === null || value.changedPaths === null ? null : new Set(value.changedPaths);
+  const retired = new Set<string>();
+  for (const row of priorEvents) {
+    if (!isRecord(row.payload)) continue;
+    const request = row.kind === "basis_admitted" ? row.payload.rawInputValue :
+      row.kind === "c_call_evidenced" && row.payload.evidenceClass === "worksite_file_replace" ? row.payload.request : null;
+    if (!isWorksiteFileReplaceRequest(request) || request.workspaceBindingIdentity !== value.task.workspaceBinding.bindingId ||
+      request.workspaceBindingDigest !== value.task.workspaceBinding.bindingDigest ||
+      !(changed === null ? nativeWorkspacePathWithin(request.subject.relativePath, value.task.writeRoots) :
+        changed.has(request.subject.relativePath))) continue;
+    retired.add(request.predecessorObservation.observationRef);
+    if (row.kind === "c_call_evidenced" && isWorksiteObservation(row.payload.successorObservation))
+      retired.add(row.payload.successorObservation.observationRef);
+  }
+  return [...retired];
+}
+
 function retryFluentIdentityForEvent(
   event: RuntimeEvent,
   name: RetryFluentName,
@@ -599,9 +655,15 @@ function consumedAvailabilityFluents(
   return [];
 }
 
+interface RuntimeEffectHistory {
+  readonly byId: Map<string, RuntimeEvent>;
+  readonly interruptedScopes: Set<string>;
+}
+
 function eventCalculusEffectRefs(
   eventOrKind: RootEventKind | Pick<RuntimeEvent, "kind" | "payload">,
   priorEvents: readonly RuntimeEvent[] = [],
+  history?: RuntimeEffectHistory,
 ): EventCalculusEffectRefs {
   if (typeof eventOrKind === "string") return ROOT_EVENT_CALCULUS[eventOrKind];
   const event = eventOrKind as RuntimeEvent;
@@ -775,6 +837,33 @@ function eventCalculusEffectRefs(
         initiates: [fluent("actor_process_timed_out", event.aggregateId)],
         terminates: [], clips: [], declips: [],
       };
+    case "runtime_activity_probe_observed":
+    case "runtime_external_interruption_observed": {
+      const observation = isRecord(event.payload) ? event.payload.observation : null;
+      if (!isRuntimeProbeObservation(observation)) throw new TypeError("invalid native runtime probe");
+      const identity = observation.scopeDigest;
+      if (event.kind === "runtime_external_interruption_observed") return {
+        initiates: [fluent("runtime_externally_interrupted", identity), fluent("runtime_invocation_blocked", identity)],
+        terminates: [fluent("runtime_invocation_active", identity)], clips: [], declips: [],
+      };
+      if (observation.coverage !== "observed" || observation.signal === "coverage") return {
+        initiates: [], terminates: [], clips: [], declips: [],
+      };
+      const contract = isRecord(event.payload) ? event.payload.probeContract : null;
+      const frameOccurrence = isRuntimeSystemProbeContract(contract) && contract.scope.actorInvocationRef === null && contract.scope.cCallRef === null;
+      const producer = observation.underlyingEventRef === null ? undefined : history?.byId.get(observation.underlyingEventRef);
+      const ended = history === undefined
+        ? priorEvents.some(row => row.eventId === observation.underlyingEventRef &&
+            (frameOccurrence ? row.kind === "frame_closed" : row.kind === "c_call_judged")) ||
+          priorEvents.some(row => row.kind === "runtime_external_interruption_observed" && isRecord(row.payload) &&
+            isRuntimeProbeObservation(row.payload.observation) && row.payload.observation.scopeDigest === identity)
+        : (frameOccurrence ? producer?.kind === "frame_closed" : producer?.kind === "c_call_judged") ||
+          history.interruptedScopes.has(identity);
+      return {
+        initiates: [fluent("runtime_activity_recent", identity), ...(ended ? [] : [fluent("runtime_invocation_active", identity)])],
+        terminates: ended ? [fluent("runtime_invocation_active", identity)] : [], clips: [fluent("runtime_inactivity_asserted", identity)], declips: [],
+      };
+    }
     case "actor_process_signal_requested":
       return {
         initiates: [fluent("actor_process_signal_requested", event.eventId)],
@@ -862,6 +951,7 @@ function eventCalculusEffectRefs(
           ...(worksite === null
             ? []
             : [fluent("worksite_observation_current", worksite.before)]),
+          ...projectNativeWorkRetiredObservations(event, priorEvents).map(ref => fluent("worksite_observation_current", ref)),
         ],
         clips: [],
         declips: [],
@@ -876,6 +966,12 @@ function eventCalculusEffectRefs(
           : [fluent("c_call_judgment_available", judgmentRef)],
         terminates: [
           fluent("c_call_active", event.aggregateId),
+          ...(event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST ? [...new Set(priorEvents.flatMap(row => {
+            if (row.kind !== "runtime_activity_probe_observed" || !isRecord(row.payload) ||
+                !isRuntimeSystemProbeContract(row.payload.probeContract) || !isRuntimeProbeObservation(row.payload.observation) ||
+                row.payload.probeContract.scope.cCallRef !== event.aggregateId) return [];
+            return [fluent("runtime_invocation_active", row.payload.observation.scopeDigest)];
+          }))] : []),
           ...(resultRef === null
             ? []
             : [fluent("c_call_result_available", resultRef)]),
@@ -1153,6 +1249,7 @@ function eventCalculusEffectRefs(
             ? []
             : [
                 fluent("frame_active", event.frameId),
+                ...observedFrameRuntimeFluents(event, priorEvents),
               ]),
           ...(event.aggregateType !== "run" || event.graphCallId === undefined
             ? []
@@ -1219,7 +1316,7 @@ function eventCalculusEffectRefs(
           : [fluent("frame_closed", event.frameId)],
         terminates: event.frameId === undefined
           ? []
-          : [fluent("frame_active", event.frameId)],
+          : [fluent("frame_active", event.frameId), ...observedFrameRuntimeFluents(event, priorEvents)],
         clips: [],
         declips: [],
       };
@@ -1586,7 +1683,10 @@ export function eventCalculusEffect(
   eventOrKind: RootEventKind | Pick<RuntimeEvent, "kind" | "payload">,
   priorEvents: readonly RuntimeEvent[] = [],
 ): EventCalculusEffect {
-  const effect = eventCalculusEffectRefs(eventOrKind, priorEvents);
+  return completeEventCalculusEffect(eventCalculusEffectRefs(eventOrKind, priorEvents));
+}
+
+function completeEventCalculusEffect(effect: EventCalculusEffectRefs): EventCalculusEffect {
   return completeEffect({
     initiates: effect.initiates.map(runtimeFluentFromRef),
     terminates: effect.terminates.map(runtimeFluentFromRef),
@@ -1607,17 +1707,45 @@ export function constructRunTerminalFluent(runId: string): RuntimeFluent {
   return constructRuntimeFluent({ name: "run_terminal", identity: runId });
 }
 
-export function deriveRuntimeEventCalculusProjection(
-  prefix: ValidatedRuntimeEventPrefix,
-): RuntimeEventCalculusProjection {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const holds = new Map<string, RuntimeFluent>();
-  const effectRows: RuntimeEventCalculusEffectRow[] = [];
-  const clippedFluentRefs: string[] = [];
-  const declippedPatternRefs: string[] = [];
-  const contextualFluentRunIds = new Map<string, string>();
-  for (const [eventIndex, event] of events.entries()) {
-    const baseEffect = eventCalculusEffect(event, events.slice(0, eventIndex));
+const EVENT_CALCULUS_DERIVATION = Symbol("ordered_event_calculus_derivation");
+
+/** The same fold serves cold input, suffix advancement and historical facts.
+ * A scope is issued only for exact immutable prefix extensions; rollback drops
+ * the store's source. No materialized projection is mutable admission truth. */
+class RuntimeEventCalculusDerivation {
+  readonly holds = new Map<string, RuntimeFluent>();
+  readonly effectRows: RuntimeEventCalculusEffectRow[] = [];
+  readonly effectByEvent = new Map<string, RuntimeEventCalculusEffectRow>();
+  readonly clippedFluentRefs: string[] = [];
+  readonly declippedPatternRefs: string[] = [];
+  readonly contextualFluentRunIds = new Map<string, string>();
+  readonly priorEvents: RuntimeEvent[] = [];
+  readonly history: RuntimeEffectHistory = { byId: new Map(), interruptedScopes: new Set() };
+  readonly clipCounts = [0];
+  readonly declipCounts = [0];
+  readonly transitions = new Map<string, { ordinal: number; fluent: RuntimeFluent | null }[]>();
+  private materialized: { count: number; projection: RuntimeEventCalculusProjection } | undefined;
+  recordFluent(fluent: RuntimeFluent, ordinal: number, held: boolean): void {
+    const key = runtimeFluentKey(fluent), rows = this.transitions.get(key) ?? [];
+    rows.push({ ordinal, fluent: held ? fluent : null }); this.transitions.set(key, rows);
+  }
+  fluentAt(key: string, ordinal: number): RuntimeFluent | null {
+    const rows = this.transitions.get(key) ?? [];
+    let low = 0, high = rows.length;
+    while (low < high) { const middle = (low + high) >>> 1; if (rows[middle]!.ordinal <= ordinal) low = middle + 1; else high = middle; }
+    return rows[low - 1]?.fluent ?? null;
+  }
+  advance(prefix: ValidatedRuntimeEventPrefix): void {
+    const events = runtimeEventsFromValidatedPrefix(prefix);
+    let validateLiveness: ((event: RuntimeEvent) => boolean) | undefined;
+  for (const event of events.slice(this.effectRows.length)) {
+    if (event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
+        (event.kind === "runtime_activity_probe_observed" || event.kind === "runtime_external_interruption_observed" ||
+          event.kind === "actor_process_timeout_observed")) {
+      validateLiveness ??= createRuntimeLivenessEventValidator(prefix);
+      if (!validateLiveness(event)) throw new TypeError("native liveness effect has no exact admitted source/threshold relation");
+    }
+    const baseEffect = completeEventCalculusEffect(eventCalculusEffectRefs(event, this.priorEvents, this.history));
     const terminalLocusEvent =
       event.kind === "runtime_failure_observed" ||
       event.kind === "run_stopped" ||
@@ -1627,7 +1755,7 @@ export function deriveRuntimeEventCalculusProjection(
         event.aggregateType === "run");
     const processRef = stringField(event, "processRef");
     const liveProcesses = cleanupTerminalEvent
-      ? [...holds.values()].filter((candidate) =>
+      ? [...this.holds.values()].filter((candidate) =>
           candidate.name === "actor_process_live" && candidate.identity !== null
         )
       : [];
@@ -1649,12 +1777,13 @@ export function deriveRuntimeEventCalculusProjection(
           ],
           terminates: [
             ...baseEffect.terminates,
-            ...[...holds.values()].filter((candidate) =>
+            ...[...this.holds.values()].filter((candidate) =>
               (
                 (
                   cleanupTerminalEvent &&
                   (
                     candidate.name === "actor_invocation_active" ||
+                    candidate.name === "runtime_invocation_active" ||
                     candidate.name === "actor_process_active" ||
                     candidate.name === "c_call_active" ||
                     candidate.name === "continuation_open" ||
@@ -1667,7 +1796,7 @@ export function deriveRuntimeEventCalculusProjection(
                   )
                 ) || candidate.name === "locus_active"
               ) &&
-              contextualFluentRunIds.get(runtimeFluentKey(candidate)) ===
+              this.contextualFluentRunIds.get(runtimeFluentKey(candidate)) ===
                 event.runId
             ),
           ],
@@ -1681,6 +1810,12 @@ export function deriveRuntimeEventCalculusProjection(
             ...baseEffect,
             terminates: [
               ...baseEffect.terminates,
+              ...(event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
+                  (event.kind === "actor_invocation_closed" || event.kind === "actor_invocation_failed")
+                ? [...this.holds.values()].filter(fluent => fluent.name === "runtime_invocation_active" && this.priorEvents.some(row => {
+                    if (row.kind !== "runtime_activity_probe_observed" || !isRecord(row.payload) || !isRuntimeProbeObservation(row.payload.observation)) return false;
+                    return row.payload.actorInvocationRef === event.aggregateId && row.payload.observation.scopeDigest === fluent.identity;
+                  })) : []),
               ...(event.kind === "actor_process_exited" ||
                   event.kind === "actor_process_spawn_failed"
                 ? [constructRuntimeFluent({
@@ -1695,43 +1830,78 @@ export function deriveRuntimeEventCalculusProjection(
           })
         : baseEffect;
     for (const fluent of effect.terminates) {
-      holds.delete(runtimeFluentKey(fluent));
-      contextualFluentRunIds.delete(runtimeFluentKey(fluent));
+      this.recordFluent(fluent, event.admissionOrdinal, false);
+      this.holds.delete(runtimeFluentKey(fluent));
+      this.contextualFluentRunIds.delete(runtimeFluentKey(fluent));
     }
     for (const pattern of effect.clips) {
-      for (const [key, fluent] of [...holds.entries()]) {
+      for (const [key, fluent] of [...this.holds.entries()]) {
         if (runtimeFluentMatchesPattern(fluent, pattern)) {
-          holds.delete(key);
-          clippedFluentRefs.push(key);
+          this.recordFluent(fluent, event.admissionOrdinal, false);
+          this.holds.delete(key);
+          this.clippedFluentRefs.push(key);
         }
       }
     }
     for (const pattern of effect.declips) {
-      declippedPatternRefs.push(runtimeFluentPatternKey(pattern));
+      this.declippedPatternRefs.push(runtimeFluentPatternKey(pattern));
     }
     for (const fluent of effect.initiates) {
-      holds.set(runtimeFluentKey(fluent), fluent);
+      this.recordFluent(fluent, event.admissionOrdinal, true);
+      this.holds.set(runtimeFluentKey(fluent), fluent);
       if (event.runId !== undefined) {
-        contextualFluentRunIds.set(runtimeFluentKey(fluent), event.runId);
+        this.contextualFluentRunIds.set(runtimeFluentKey(fluent), event.runId);
       }
     }
-    effectRows.push(deepFreeze({
+    this.effectRows.push(deepFreeze({
       kind: "event_calculus_effect_row" as const,
       eventKind: event.kind,
       sourceEvent: event,
       ...effect,
     }) as RuntimeEventCalculusEffectRow);
+    this.effectByEvent.set(event.eventId, this.effectRows.at(-1)!);
+    this.clipCounts.push(this.clippedFluentRefs.length);
+    this.declipCounts.push(this.declippedPatternRefs.length);
+    this.priorEvents.push(event);
+    this.history.byId.set(event.eventId, event);
+    if (event.kind === "runtime_external_interruption_observed" && isRecord(event.payload) && isRuntimeProbeObservation(event.payload.observation)) {
+      this.history.interruptedScopes.add(event.payload.observation.scopeDigest);
+    }
   }
-  return deepFreeze({
-    kind: "event_calculus_projection" as const,
-    holds: [...holds.values()].sort((left, right) => compareUnicodeCodeUnits(
-      runtimeFluentKey(left),
-      runtimeFluentKey(right),
-    )),
-    effectRows,
-    clippedFluentRefs,
-    declippedPatternRefs,
-  }) as RuntimeEventCalculusProjection;
+  }
+  project(prefix: ValidatedRuntimeEventPrefix): RuntimeEventCalculusProjection {
+    const events = runtimeEventsFromValidatedPrefix(prefix), count = events.length;
+    if (this.materialized?.count === count) return this.materialized.projection;
+    const ordinal = events.at(-1)?.admissionOrdinal ?? 0;
+    const holds = count === this.effectRows.length ? [...this.holds.values()] :
+      [...this.transitions.keys()].flatMap(key => { const fluent = this.fluentAt(key, ordinal); return fluent === null ? [] : [fluent]; });
+    const projection = deepFreeze({ kind: "event_calculus_projection" as const,
+      holds: holds.sort((left, right) => compareUnicodeCodeUnits(runtimeFluentKey(left), runtimeFluentKey(right))),
+      effectRows: this.effectRows.slice(0, count),
+      clippedFluentRefs: this.clippedFluentRefs.slice(0, this.clipCounts[count]),
+      declippedPatternRefs: this.declippedPatternRefs.slice(0, this.declipCounts[count]),
+    }) as RuntimeEventCalculusProjection;
+    this.materialized = { count, projection }; return projection;
+  }
+}
+
+function eventCalculusDerivation(prefix: ValidatedRuntimeEventPrefix): RuntimeEventCalculusDerivation {
+  const derivation = runtimePrefixComputation(prefix, EVENT_CALCULUS_DERIVATION, () => new RuntimeEventCalculusDerivation());
+  derivation.advance(prefix); return derivation;
+}
+export function deriveRuntimeEventCalculusProjection(prefix: ValidatedRuntimeEventPrefix): RuntimeEventCalculusProjection {
+  return eventCalculusDerivation(prefix).project(prefix);
+}
+/** Select the required owner effects without materializing every effect row. */
+export function runtimeEventCalculusEffectsByKind(prefix: ValidatedRuntimeEventPrefix, kind: RuntimeEvent["kind"]): readonly RuntimeEventCalculusEffectRow[] {
+  const derivation = eventCalculusDerivation(prefix);
+  return indexedRuntimeEvents(prefix, "kind:" + kind).map(event => derivation.effectByEvent.get(event.eventId)!);
+}
+/** Exact historical availability without manufacturing a historical projection. */
+export function runtimeFluentHoldsAtPrefix(prefix: ValidatedRuntimeEventPrefix, fluent: RuntimeFluent,
+  ordinal = runtimeEventsFromValidatedPrefix(prefix).at(-1)?.admissionOrdinal ?? 0): boolean {
+  if (ordinal > (runtimeEventsFromValidatedPrefix(prefix).at(-1)?.admissionOrdinal ?? 0)) return false;
+  return eventCalculusDerivation(prefix).fluentAt(runtimeFluentKey(fluent), ordinal) !== null;
 }
 
 export function holdsAt(

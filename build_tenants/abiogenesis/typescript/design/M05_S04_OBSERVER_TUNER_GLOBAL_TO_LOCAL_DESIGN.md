@@ -60,7 +60,13 @@ The constitutional sources are:
 - `REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-026..031`;
 - `REQ-L-GTL3-LAWS-021..022`;
 - `REQ-R-ABG3-EVENTS-018`; and
-- installed STDO `v2.2.0`.
+- historical installed STDO `v2.2.0`, retained only as the original authoring
+  basis, not a current or prospective method selection.
+
+This deferred S04 design is planned 5.1 input, not active 5.0 authority. Any
+lawful re-entry uses the exact installed method selected by
+`repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis` and current
+GOALS/T-287 work authority. The RC6 route clarification activates no S04 work.
 
 ## Boundary And CLI Feasibility
 

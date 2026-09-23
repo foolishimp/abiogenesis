@@ -1,0 +1,10 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../20260923_WIP_CHECKPOINT/README.md
+/abi5-m5-live-fp.json
+/abi5-root-governor.json
+/abi5-root-r10.events.jsonl
+/abi5-root-r10.json
+/abi5-root-r10.outcomes.json
+/abi5-root-r10.transcript.json
+/abi5-root-rival-authority-mutations.json

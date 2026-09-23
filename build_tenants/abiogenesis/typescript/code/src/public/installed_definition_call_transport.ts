@@ -1,3 +1,4 @@
+import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
 import * as abg from "../abg/index.js";
 import * as product from "../product/index.js";
 import {
@@ -66,22 +67,6 @@ const INSTALLED_OWNER_MODULES: Readonly<
   "./abg": abg as InstalledModule,
   "./validator": validator as InstalledModule,
 });
-
-function isRecord(
-  value: unknown,
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  expected: readonly string[],
-): boolean {
-  const actual = Object.keys(value).sort();
-  const sortedExpected = [...expected].sort();
-  return actual.length === sortedExpected.length &&
-    actual.every((key, index) => key === sortedExpected[index]);
-}
 
 function hasOwnDataProperty(
   value: Readonly<Record<string, unknown>>,

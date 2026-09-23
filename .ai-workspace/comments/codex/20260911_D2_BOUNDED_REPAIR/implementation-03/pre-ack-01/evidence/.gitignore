@@ -1,0 +1,19 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../20260923_WIP_CHECKPOINT/README.md
+/acknowledgment-counterexample.mjs
+/activation.md
+/bootstrap.json
+/bootstrap.mjs
+/check-correction-01.md
+/check-correction-02.md
+/checks/acknowledgment-counterexample-01.json
+/checks/acknowledgment-counterexample-input.json
+/checks/combined-35-01.json
+/checks/compile-01.json
+/checks/compile-02.json
+/checks/inherited-26-01.json
+/checks/terminal-diagnostic-01.json
+/checks/workflow-step-01.json
+/checks/workflow-step-02.json
+/freeze-pre-ack.mjs

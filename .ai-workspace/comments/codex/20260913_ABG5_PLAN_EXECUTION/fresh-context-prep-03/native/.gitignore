@@ -1,0 +1,30 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/archives/fp-48745fe62d2baa83-output.txt
+/archives/fp-48745fe62d2baa83-prompt.txt
+/archives/fp-48745fe62d2baa83-stderr.log
+/archives/fp-48745fe62d2baa83-stdout.log
+/archives/fp-48745fe62d2baa83-transport.json
+/archives/fp-56cae196f823d859-output.txt
+/archives/fp-56cae196f823d859-prompt.txt
+/archives/fp-56cae196f823d859-stderr.log
+/archives/fp-56cae196f823d859-stdout.log
+/archives/fp-56cae196f823d859-transport.json
+/archives/fp-7db284d21cba3548-output.txt
+/archives/fp-7db284d21cba3548-prompt.txt
+/archives/fp-7db284d21cba3548-stderr.log
+/archives/fp-7db284d21cba3548-stdout.log
+/archives/fp-7db284d21cba3548-transport.json
+/archives/fp-cc7cc6516c360520-output.txt
+/archives/fp-cc7cc6516c360520-prompt.txt
+/archives/fp-cc7cc6516c360520-stderr.log
+/archives/fp-cc7cc6516c360520-stdout.log
+/archives/fp-cc7cc6516c360520-transport.json
+/events/runtime.events.jsonl
+/install-abi/node_modules/
+/install-abi/package-lock.json
+/install-abi/package.json
+/install-glc/node_modules/
+/install-glc/package-lock.json
+/install-glc/package.json

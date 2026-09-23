@@ -1,7 +1,7 @@
 import type { ContractDeclaration, GtlEdgeInputBinding } from "../gtl/contracts.js";
 import type { WorksiteConstructionTask, WorksiteConstructionResult } from "./worksite_construction.js";
 import type { WorksiteBranchConstructionTask } from "./worksite_branch_construction.js";
-import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
+import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput, WorksiteReadDependencyBasis } from "./worksite_command_execution.js";
 import { WORKSITE_CONSTRUCTION_IDS, WORKSITE_CONSTRUCTION_RESULT_CONTRACT } from "./worksite_construction_identity.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
@@ -16,6 +16,7 @@ export interface WorksiteCommandPreparationInput {
   readonly commands: readonly WorksiteDeclaredCommandInput[];
   readonly outcomePredicates: readonly WorksiteOutcomePredicateInput[];
   readonly allowedWriteTerritories: readonly WorksiteCommandWriteTerritoryInput[];
+  readonly readDependencyBasis?: WorksiteReadDependencyBasis;
 }
 
 export interface WorksiteBranchCommandPreparationInput {
@@ -103,7 +104,7 @@ const revisionBoundFields = { kind: literal("worksite_revision_command_preparati
   entry: { ...contractNode<WorksiteRevisionCommandPreparationInput>(revisionEntry.declaration), schema: revisionEntry }, source };
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
 type Assert<T extends true> = T;
-type EntryAgreement = Assert<Equal<RecordValue<typeof entryFields>, WorksiteCommandPreparationInput>>;
+type EntryAgreement = Assert<Equal<RecordValue<typeof entryFields>, Omit<WorksiteCommandPreparationInput, "readDependencyBasis">>>;
 type BranchEntryAgreement = Assert<Equal<RecordValue<typeof branchEntryFields>, WorksiteBranchCommandPreparationInput>>;
 type BoundAgreement = Assert<Equal<RecordValue<typeof boundFields>, WorksiteCommandPreparationBoundInput>>;
 type BranchBoundAgreement = Assert<Equal<RecordValue<typeof branchBoundFields>, WorksiteBranchCommandPreparationBoundInput>>;
@@ -118,7 +119,7 @@ const boundSources = [
 /** @internal Fixed owning schema source consumed by the ABI value interpreter. */
 export function worksitePreparationSchemaSources() { return [entry, branchEntry, revisionEntry, ...boundSources] as const; }
 export function worksitePreparationContractDeclarations(): readonly ContractDeclaration[] {
-  return Object.freeze(worksitePreparationSchemaSources().map((source) => source.declaration));
+  return Object.freeze([...worksitePreparationSchemaSources().map((source) => source.declaration), RETAINED_GRAPH_INPUT_CONTRACT]);
 }
 export function worksiteRetentionBinding(branch = false): GtlEdgeInputBinding {
   const bound = boundSources[branch ? 1 : 0];
@@ -138,4 +139,46 @@ export function isWorksiteRetentionContractRelation(binding: GtlEdgeInputBinding
     const matches = contracts.filter((candidate) => candidate.contractRef === expected.contractRef);
     return matches.length === 1 && canonicalJson(matches[0] as unknown as JsonValue) === canonicalJson(expected as unknown as JsonValue);
   });
+}
+
+
+/** One ABI-owned structural pair. Consumers narrow E/S before dependent work. */
+export const RETAINED_GRAPH_INPUT_CONTRACT = Object.freeze({
+  contractRef: "contract://abiogenesis/worksite/retained-graph-input@5",
+  contractVersion: "5.0.0", contractKind: "input", valueKind: "retained_graph_input",
+} as const);
+export interface RetainedGraphInput {
+  readonly kind: "retained_graph_input";
+  readonly schemaVersion: "5.0.0";
+  readonly entry: Readonly<Record<string, JsonValue>>;
+  readonly source: Readonly<Record<string, JsonValue>>;
+}
+export function isRetainedGraphInput(value: unknown): value is RetainedGraphInput {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) return false;
+  const v = value as Record<string, unknown>;
+  return Object.keys(v).sort().join("|") === "entry|kind|schemaVersion|source" &&
+    v.kind === RETAINED_GRAPH_INPUT_CONTRACT.valueKind && v.schemaVersion === "5.0.0" &&
+    [v.entry,v.source].every(x => typeof x === "object" && x !== null && !Array.isArray(x));
+}
+export function graphInputRetentionBinding(entryContractRef: string, sourceContractRef: string): GtlEdgeInputBinding {
+  const binding = { kind: "retain_graph_input" as const, entryContractRef, sourceContractRef,
+    targetContractRef: RETAINED_GRAPH_INPUT_CONTRACT.contractRef };
+  if (!isGraphInputRetentionContractRelation(binding)) throw new TypeError("invalid retained pair contract references");
+  return Object.freeze(binding);
+}
+export function isGraphInputRetentionContractRelation(binding: GtlEdgeInputBinding,
+  contracts?: readonly Readonly<ContractDeclaration>[]): boolean {
+  if (binding.targetContractRef !== RETAINED_GRAPH_INPUT_CONTRACT.contractRef) return isWorksiteRetentionContractRelation(binding,contracts);
+  if (binding.kind !== "retain_graph_input" || Object.keys(binding).sort().join("|") !== "entryContractRef|kind|sourceContractRef|targetContractRef" ||
+    ![binding.entryContractRef,binding.sourceContractRef].every(ref => typeof ref === "string" && ref.trim().length > 0) ||
+    binding.entryContractRef === binding.targetContractRef || binding.sourceContractRef === binding.targetContractRef) return false;
+  if (contracts === undefined) return true;
+  const target=contracts.filter(c=>c.contractRef===binding.targetContractRef);
+  return target.length===1 && canonicalJson(target[0] as unknown as JsonValue)===canonicalJson(RETAINED_GRAPH_INPUT_CONTRACT) &&
+    [binding.entryContractRef,binding.sourceContractRef].every(ref=>contracts.filter(c=>c.contractRef===ref).length===1);
+}
+export function constructRetainedGraphInput(entry: unknown, source: unknown): RetainedGraphInput {
+  const value={kind:"retained_graph_input",schemaVersion:"5.0.0",entry,source} as const;
+  if (!isRetainedGraphInput(value)) throw new TypeError("retained pair requires exact entry/source records");
+  return Object.freeze(value);
 }

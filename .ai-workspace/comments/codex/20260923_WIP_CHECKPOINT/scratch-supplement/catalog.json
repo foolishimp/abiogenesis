@@ -1,0 +1,34 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "adaeede022a105cbc358799029d4e063cfa55426",
+  "scope": "WIP preservation only; current generic run failed before assessment; no release, qualification, RC or scenario-completion claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 57
+  },
+  "archiveMemberCount": 57,
+  "archiveMemberBytes": 105070383,
+  "transportBytes": 133791,
+  "assets": [
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": "build_tenants/abiogenesis/scratch",
+      "byteLength": 133791,
+      "sha256": "08f61e223042408aa759f75ac3b3bb46a06ef4cd86925611c3688340c10218e9",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 133791,
+          "sha256": "08f61e223042408aa759f75ac3b3bb46a06ef4cd86925611c3688340c10218e9"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "398987f2a82e2732fde247d7ae22685a5dc652c15b01821bdacf31ea3f9396ea",
+  "reconciliationSha256": "56f89671c3b949497b42f1bd4f6a070aef7b086f0c3d06e7797f074ab1165db2",
+  "pendingActiveEvidence": [],
+  "credentialShapeFindingCount": 0
+}

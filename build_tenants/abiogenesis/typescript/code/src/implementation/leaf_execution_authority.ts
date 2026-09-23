@@ -1,8 +1,12 @@
+import { isRecord, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
 import { validateDurablePrefixCoordinate } from "../abg/event_store.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import type { LeafExecutionAuthority } from "./contracts.js";
+import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, NATIVE_WORKSPACE_WORK_HANDLER_DIGEST } from "../product/native_workspace_work.js";
+import { WORKSITE_FILE_REPLACE_EFFECT_URI, WORKSITE_FILE_REPLACE_HANDLER_REF, WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
+  WORKSITE_FILE_PARENTS_EFFECT_URI, WORKSITE_FILE_PARENTS_HANDLER_REF, WORKSITE_FILE_PARENTS_HANDLER_DIGEST } from "../product/worksite_effect.js";
 
 type LeafExecutionAuthorityBody = Omit<
   LeafExecutionAuthority,
@@ -84,10 +88,6 @@ const ADMITTED_IMPLEMENTATION_RESOLUTION_FIELDS = Object.freeze([
   "schemaVersion",
 ] as const);
 
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
 function hasExactDataFields(
   value: Readonly<Record<string, unknown>>,
   fields: readonly string[],
@@ -104,11 +104,6 @@ function hasExactDataFields(
         Object.hasOwn(descriptor, "value") &&
         descriptor.enumerable === true;
     });
-}
-
-function nonEmptyString(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0 &&
-    !value.includes("\0");
 }
 
 function leafExecutionAuthorityBody(
@@ -253,9 +248,9 @@ export function isLeafExecutionAuthority(
       !isSha256Digest(value.implementationBindingDigest) ||
       !nonEmptyString(value.implementationRef) ||
       !nonEmptyString(value.implementationOwnerRef) ||
-      value.effectUri !== "effect://abiogenesis/worksite/file.replace/v1" ||
-      value.handlerRef !==
-        "handler://abiogenesis/product/worksite/file.replace/v1" ||
+      !((value.effectUri === WORKSITE_FILE_REPLACE_EFFECT_URI && value.handlerRef === WORKSITE_FILE_REPLACE_HANDLER_REF && value.handlerDigest === WORKSITE_FILE_REPLACE_HANDLER_DIGEST) ||
+        (value.effectUri === WORKSITE_FILE_PARENTS_EFFECT_URI && value.handlerRef === WORKSITE_FILE_PARENTS_HANDLER_REF && value.handlerDigest === WORKSITE_FILE_PARENTS_HANDLER_DIGEST) ||
+        (value.effectUri === nativeIds.effectUri && value.handlerRef === nativeIds.handlerRef && value.handlerDigest === NATIVE_WORKSPACE_WORK_HANDLER_DIGEST)) ||
       !isSha256Digest(value.handlerDigest) ||
       !nonEmptyString(value.capabilityGrantRef) ||
       !isSha256Digest(value.capabilityGrantDigest)

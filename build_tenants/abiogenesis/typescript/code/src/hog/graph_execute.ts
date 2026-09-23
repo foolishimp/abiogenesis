@@ -660,7 +660,7 @@ function evaluateTraversalProgram(
           returns: Object.freeze([...state.returns]),
         }));
       }
-      return Effect.map(evaluateLocus(frame, term), (owner) => {
+      return Effect.flatMap(evaluateLocus(frame, term), (owner) => Effect.promise(async () => {
         if (owner.kind === "retry_request") {
           return Object.freeze({
             stateKind: "evaluate" as const,
@@ -680,9 +680,14 @@ function evaluateTraversalProgram(
             owner.kind === "workflow_child_request"
               ? owner.deferFailedRunStop
               : frame.runtime.deferFailedRunStop === true;
+          const childLeafPort = await frame.runtime.leafPort.forGraphFunction(prepared.graphFunction.name);
+          if (childLeafPort === null) return failFrame(frame, prepared.successorPrefix,
+            "child-semantics", "diagnostic://abiogenesis/hog/child-semantics-owner-absent@5",
+            { graphFunctionRef: prepared.graphFunction.name });
           const child = enterTraversal({
             ...frame.runtime,
             ...prepared,
+            leafPort: childLeafPort,
             predecessorPrefix: prepared.successorPrefix,
             ...(frame.runtime.continuationProductBasis === undefined
               ? {}
@@ -717,7 +722,7 @@ function evaluateTraversalProgram(
           });
         }
         return nextFromEvaluation(frame, owner.evaluation, state.returns);
-      });
+      }));
       }));
     },
   });

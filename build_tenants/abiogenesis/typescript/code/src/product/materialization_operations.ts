@@ -1,3 +1,4 @@
+import { isRecord, hasObjectUnicodeNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import {
   mkdir,
   readFile,
@@ -134,15 +135,6 @@ export interface ProductMaterializationResult<
 export type ProductMaterializationOperationResult<
   M extends ProductMaterializationMember = ProductMaterializationMember,
 > = ProductMaterializationResult<M> | ProductMaterializationRefusal;
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(value: object, keys: readonly string[]): boolean {
-  return Object.keys(value).sort(compareUnicodeCodeUnits).join("\0") ===
-    [...keys].sort(compareUnicodeCodeUnits).join("\0");
-}
 
 function digestJson(value: unknown): Sha256Digest | null {
   try {

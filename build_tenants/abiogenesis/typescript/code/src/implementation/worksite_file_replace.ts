@@ -49,9 +49,20 @@ import {
   WORKSITE_FILE_REPLACE_EFFECT_URI,
   WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
   WORKSITE_FILE_REPLACE_HANDLER_REF,
+  constructWorksiteFileParentsAuthorization,
+  isWorksiteFileParentsRequest,
+  isWorksiteFileParentsSuccess,
+  isWorksiteFileParentsFailure,
+  WORKSITE_FILE_PARENTS_EFFECT_URI,
+  WORKSITE_FILE_PARENTS_HANDLER_REF,
+  WORKSITE_FILE_PARENTS_HANDLER_DIGEST,
+  worksiteFileParentsFailure,
+  type WorksiteFileParentsFailure,
+  type WorksiteFileParentsSuccess,
+  type WorksiteFileParentsResult,
 } from "../product/worksite_effect.js";
 import type { WorksiteFileReplaceResult } from "../product/worksite_operations.js";
-import { replaceWorksiteFile } from "../product/worksite_operations.js";
+import { replaceWorksiteFile, createWorksiteFileParents } from "../product/worksite_operations.js";
 import type {
   LeafExecutionOccurrence,
   LeafInvocationResolution,
@@ -61,6 +72,7 @@ import type { PackagedLeafImplementationDescriptor } from "../product/implementa
 import {
   isWorksiteFileReplaceOutput,
   WORKSITE_C0_IDS,
+  WORKSITE_FILE_PARENTS_IDS,
 } from "../gtl/worksite_c0.js";
 import { isLeafExecutionAuthority } from "./leaf_execution_authority.js";
 
@@ -117,6 +129,14 @@ export type UnadmittedPhysicalCommit = UnadmittedCompletedWorksiteCommit | Reado
   ownerOutcome: WorksitePostPublicationFailure;
   refusedExpectedPrefix: Readonly<DurablePrefixCoordinate>;
   diagnosticRef: string;
+}> | Readonly<{
+  kind: "unadmitted_physical_commit";
+  schemaVersion: "5.0.0";
+  disposition: "unadmitted_physical_commit";
+  cCallRef: string;
+  ownerOutcome: WorksiteFileParentsSuccess | WorksiteFileParentsFailure;
+  refusedExpectedPrefix: Readonly<DurablePrefixCoordinate>;
+  diagnosticRef: string;
 }>;
 
 export function unadmittedPhysicalCommit(
@@ -124,6 +144,14 @@ export function unadmittedPhysicalCommit(
   value: unknown,
   refusedExpectedPrefix: unknown,
 ): Readonly<UnadmittedPhysicalCommit> | null {
+  if (isWorksiteFileParentsSuccess(value) || isWorksiteFileParentsFailure(value)) {
+    const authorization = value.kind === "worksite_file_parents_result" ? value.authorization : value.physicalOutcome.authorization;
+    const outcomes = value.kind === "worksite_file_parents_result" ? value.receipt.outcomes : value.physicalOutcome.outcomes;
+    if (authorization.cCallRef !== cCallRef || !outcomes.some(outcome => outcome.disposition === "created") ||
+      !validateDurablePrefixCoordinate(refusedExpectedPrefix)) return null;
+    return deepFreeze({ kind: "unadmitted_physical_commit", schemaVersion: "5.0.0", disposition: "unadmitted_physical_commit",
+      cCallRef, ownerOutcome: value, refusedExpectedPrefix, diagnosticRef: "diagnostic://abiogenesis/worksite/unadmitted-file-parents@5" });
+  }
   if (isWorksitePostPublicationFailure(value) &&
     worksiteFailureAuthorization(value).cCallRef === cCallRef &&
     validateDurablePrefixCoordinate(refusedExpectedPrefix)) {
@@ -604,4 +632,123 @@ export async function realizeWorksiteFileReplace(
     ],
     resultCandidate,
   });
+}
+
+export const WORKSITE_FILE_PARENTS_IMPLEMENTATION = Object.freeze({
+  implementationRef: "implementation://abiogenesis/worksite/file-parents-fd@5",
+  implementationBindingRef: "implementation-binding://abiogenesis/worksite/file-parents-fd@5",
+  inputContractRef: WORKSITE_FILE_PARENTS_IDS.inputContractRef,
+  outputContractRef: WORKSITE_FILE_PARENTS_IDS.outputContractRef,
+  failureContractRef: WORKSITE_FILE_PARENTS_IDS.failureContractRef,
+  refusalContractRef: WORKSITE_FILE_PARENTS_IDS.refusalContractRef,
+});
+const fileParentsDescriptorBody = {
+  implementationRef: WORKSITE_FILE_PARENTS_IMPLEMENTATION.implementationRef,
+  packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
+  modulePath: "build/code/src/implementation/worksite_file_replace.js", namedSymbol: "realizeWorksiteFileParents", computeRegime: "F_D" as const,
+  inputContractRef: WORKSITE_FILE_PARENTS_IDS.inputContractRef, outputContractRef: WORKSITE_FILE_PARENTS_IDS.outputContractRef,
+  failureContractRef: WORKSITE_FILE_PARENTS_IDS.failureContractRef, refusalContractRef: WORKSITE_FILE_PARENTS_IDS.refusalContractRef,
+};
+export const WORKSITE_FILE_PARENTS_IMPLEMENTATION_DESCRIPTOR: PackagedLeafImplementationDescriptor = deepFreeze({
+  kind: "packaged_leaf_implementation_descriptor", schemaVersion: "5.0.0", descriptorDigest: sha256Canonical(fileParentsDescriptorBody), ...fileParentsDescriptorBody,
+});
+
+/** Selected native C0 entry, never a host directory-creation convenience. */
+export async function realizeWorksiteFileParents(
+  value: Readonly<Record<string, JsonValue>>,
+  occurrence: Readonly<LeafExecutionOccurrence>,
+  resolution: Readonly<LeafInvocationResolution>,
+  inputDigest: `sha256:${string}`,
+): Promise<Readonly<LeafRealizationCandidate> | null> {
+  const authority = occurrence.executionAuthority;
+  if (!isLeafExecutionAuthority(authority) || !isWorksiteFileParentsRequest(value) ||
+    sha256Canonical(value as unknown as JsonValue) !== inputDigest ||
+    inputDigest !== authority.executionBasis.rawInputDigest ||
+    sha256Canonical(authority.executionBasis.rawInputValue as unknown as JsonValue) !== inputDigest ||
+    sha256Canonical(resolution as unknown as JsonValue) !== authority.implementationResolutionDigest ||
+    authority.effectUri !== WORKSITE_FILE_PARENTS_EFFECT_URI || authority.handlerRef !== WORKSITE_FILE_PARENTS_HANDLER_REF ||
+    authority.handlerDigest !== WORKSITE_FILE_PARENTS_HANDLER_DIGEST ||
+    authority.cCallRef !== occurrence.cCallRef || authority.cCall.runId !== occurrence.runId ||
+    authority.cCall.graphCallId !== occurrence.graphCallId || authority.cCall.frameId !== occurrence.frameId ||
+    authority.cCall.programLocusRef !== occurrence.programLocusRef || authority.cCall.taskOrdinal !== occurrence.taskOrdinal ||
+    authority.cCall.attempt !== occurrence.attempt || authority.cCall.callClass !== "leaf" || authority.cCall.regime !== "F_D" ||
+    authority.graphFunctionRef !== WORKSITE_FILE_PARENTS_IDS.graphFunctionRef) return null;
+  const selected = authority.implementationResolution;
+  if (selected.implementationRef !== WORKSITE_FILE_PARENTS_IMPLEMENTATION.implementationRef ||
+    selected.implementationBindingRef !== WORKSITE_FILE_PARENTS_IMPLEMENTATION.implementationBindingRef ||
+    selected.packageName !== ABI5_PACKAGE_NAME || selected.packageVersion !== ABI5_PACKAGE_VERSION ||
+    selected.modulePath !== fileParentsDescriptorBody.modulePath || selected.namedSymbol !== fileParentsDescriptorBody.namedSymbol ||
+    selected.implementationDescriptorDigest !== WORKSITE_FILE_PARENTS_IMPLEMENTATION_DESCRIPTOR.descriptorDigest ||
+    selected.computeRegime !== "F_D" || selected.inputContractRef !== fileParentsDescriptorBody.inputContractRef ||
+    selected.outputContractRef !== fileParentsDescriptorBody.outputContractRef || selected.failureContractRef !== fileParentsDescriptorBody.failureContractRef ||
+    selected.refusalContractRef !== fileParentsDescriptorBody.refusalContractRef) return null;
+  let protectedInstallRoots: readonly string[];
+  let localBasis;
+  let localSet;
+  try {
+    const { validateWorksiteFileParentsPlanAtPrefix } = await import("../abg/semantic_job.js");
+    const events = readRuntimeEventsAtDurablePrefix(authority.predecessorPrefix, { requireCurrent: true });
+    const prefix = selectValidatedRuntimeEventPrefix(events);
+    const runtimePrefix = selectValidatedRuntimeEventPrefix(events, { runId: authority.cCall.runId });
+    localBasis = rehydrateExecutionBasisAtPrefix(prefix, authority.executionBasisRef);
+    localSet = rehydrateAdmittedImplementationSetAtPrefix(prefix, authority.implementationSetRef);
+    const environment = projectExactPrefixWorkspaceEnvironment(authority.predecessorPrefix, { ref: authority.workspaceBindingIdentity, digest: authority.workspaceBindingDigest });
+    if (localBasis === null || localSet === null || environment.kind !== "exact_prefix_workspace_environment" ||
+      canonicalJson(localBasis as unknown as JsonValue) !== canonicalJson(authority.executionBasis as unknown as JsonValue) ||
+      canonicalJson(localSet as unknown as JsonValue) !== canonicalJson(authority.implementationSet as unknown as JsonValue) ||
+      canonicalJson(environment.workspaceBinding as unknown as JsonValue) !== canonicalJson(authority.workspaceBinding as unknown as JsonValue) ||
+      canonicalJson(environment.workspaceAuthorityBasis as unknown as JsonValue) !== canonicalJson(value.workspaceAuthorityBasis as unknown as JsonValue) ||
+      projectCCallCarrierPhaseAtPrefix(runtimePrefix, authority.cCall)?.phase !== "selected_no_evidence" ||
+      !validateWorksiteFileParentsPlanAtPrefix(prefix, value, authority.programPublication)) return null;
+    let rootBasis: typeof localBasis | null = localBasis;
+    const seen = new Set<string>();
+    while (rootBasis !== null && rootBasis.parentExecutionBasisRef !== null) {
+      if (seen.has(rootBasis.basisRef)) return null;
+      seen.add(rootBasis.basisRef);
+      rootBasis = rehydrateExecutionBasisAtPrefix(prefix, rootBasis.parentExecutionBasisRef);
+    }
+    if (rootBasis === null || rootBasis.programRef !== authority.programRef || rootBasis.programDigest !== authority.programDigest ||
+      rootBasis.invocationAdmissionRef !== localBasis.invocationAdmissionRef) return null;
+    const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, rootBasis.invocationAdmissionRef);
+    const programOwner = exactProgramOwnerInstall(environment, localSet.rows, rootBasis.graphFunctionRef, authority.programPublication.moduleRef,
+      rootBasis.programRef, selected.publicationDigest, rootBasis.programDigest, authority.programPublication);
+    const implementations = environment.productInstalls.filter(install => install.productId === selected.implementationOwnerProductId &&
+      install.packageName === selected.packageName && install.packageVersion === selected.packageVersion &&
+      install.contributionManifest.publicationBindings.filter(binding => binding.publicationDigest === selected.implementationPublicationDigest).length === 1);
+    const graphOwners = environment.productInstalls.filter(install => install.productId === selected.graphFunctionOwnerProductId &&
+      install.contributionManifest.rows.filter(row => row.kind === "graph_function" && row.declarationOrContractRef === selected.graphFunctionRef &&
+        row.owningProductId === install.productId && install.contributionManifest.publicationBindings.filter(binding => binding.moduleRef === row.moduleRef &&
+          binding.publicationDigest === selected.graphFunctionPublicationDigest).length === 1).length === 1);
+    if (invocation === null || invocation.capabilityGrants.length !== 1 || programOwner === null || implementations.length !== 1 || graphOwners.length !== 1 ||
+      canonicalJson(invocation.capabilityGrants[0] as unknown as JsonValue) !== canonicalJson(value.capabilityGrant as unknown as JsonValue) ||
+      value.capabilityGrant.definitionKey.memberKey !== (invocation.invocationVariant === "direct" ? "invoke" : invocation.invocationVariant)) return null;
+    protectedInstallRoots = environment.productInstalls.map(install => install.installedRoot);
+  } catch { return null; }
+  const authorization = constructWorksiteFileParentsAuthorization({ workspaceBinding: authority.workspaceBinding, request: value,
+    executionBasis: localBasis, cCall: authority.cCall, implementationSet: localSet });
+  if (authorization.kind !== "worksite_file_parents_authorization" ||
+    Object.entries(authorization).some(([key, field]) => key in authority && key !== "kind" && key !== "schemaVersion" &&
+      key !== "authorizationRef" && key !== "authorizationDigest" && field !== (authority as unknown as Record<string, unknown>)[key]) ||
+    authorization.leafResolutionCandidateRef !== selected.leafResolutionCandidateRef || authorization.leafResolutionCandidateDigest !== selected.leafResolutionCandidateDigest) return null;
+  const outcome = await createWorksiteFileParents({ workspaceAuthorityBasis: value.workspaceAuthorityBasis, workspaceBinding: authority.workspaceBinding,
+    request: value, executionBasis: localBasis, cCall: authority.cCall, implementationSet: localSet, authorization, protectedInstallRoots });
+  try { return fileParentsRealizationCandidate(outcome, resolution.implementationRef, inputDigest); }
+  catch (error) {
+    const failure = worksiteRefusal("filesystem_refused", `file-parent result construction failed: ${String(error)}`);
+    const retained = isWorksiteFileParentsFailure(outcome)
+      ? worksiteFileParentsFailure(value, authorization, outcome.physicalOutcome.outcomes,
+        worksiteRefusal(outcome.code, outcome.message, null, outcome.substrateCode), [...outcome.physicalOutcome.diagnostics, failure])
+      : isWorksiteFileParentsSuccess(outcome) ? worksiteFileParentsFailure(value, authorization, outcome.receipt.outcomes, failure) : outcome;
+    return fileParentsRealizationCandidate(retained, resolution.implementationRef, inputDigest);
+  }
+}
+
+function fileParentsRealizationCandidate(outcome: WorksiteFileParentsResult, implementationRef: string, inputDigest: `sha256:${string}`): Readonly<LeafRealizationCandidate> {
+  const resultCandidate = outcome as unknown as Readonly<Record<string, JsonValue>>;
+  const common = { kind: "leaf_realization_candidate" as const, schemaVersion: "5.0.0" as const,
+    evidenceCandidates: [{ kind: "deterministic_evidence_candidate", schemaVersion: "5.0.0", implementationRef,
+      inputDigest, outputDigest: sha256Canonical(resultCandidate) } as const], resultCandidate };
+  return outcome.kind === "worksite_file_parents_result"
+    ? deepFreeze({ ...common, disposition: "success" as const })
+    : deepFreeze({ ...common, disposition: "failure" as const, diagnosticRef: `diagnostic://abiogenesis/worksite/file-parents/${outcome.code}@5` });
 }

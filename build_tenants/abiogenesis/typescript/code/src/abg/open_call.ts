@@ -1,7 +1,10 @@
+import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { sampleNativeEventTime } from "./native_event_time.js";
+import { observeNativeFrameLiveness, retainNativeFrameClock, captureNativeFrameBoundary, type NativeFrameBoundarySample } from "./runtime_liveness.js";
 import {
   rehydrateExecutionBasisAtPrefix,
   type ExecutionBasis,
@@ -20,11 +23,12 @@ import {
   AbgEventStore,
   admitRuntimeEvent,
   admitRuntimeEventTransactionAtExpectedPrefix,
-  assertHeldEventStoreAtDurablePrefix,
+  readHeldRuntimeEventsAtDurablePrefix,
   readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
+  type RuntimeEvent,
 } from "./event_store.js";
-import {
+import { runtimeEventPrefixDigest,
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
@@ -142,10 +146,6 @@ const openedScopes = new WeakSet<object>();
 
 export function isOpenedTraversalScope(value: object): boolean {
   return openedScopes.has(value);
-}
-
-function isRecord(value: JsonValue): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function sameCanonicalValue(left: unknown, right: unknown): boolean {
@@ -455,25 +455,13 @@ export function openTraversalScope(
 ): OpenTraversalScopeResult {
   let snapshot: readonly import("./event_store.js").RuntimeEvent[];
   try {
-    assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
-    snapshot = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
+    snapshot = readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix);
   } catch {
     return scopeOpenRefusal(
       subject.kind === "root"
         ? "execution_basis_not_admitted"
         : "child_basis_not_admitted",
       "scope opening requires one exact durable predecessor prefix",
-    );
-  }
-  const expectedStorePrefixDigest = sha256Canonical(
-    snapshot as unknown as JsonValue,
-  );
-  if (store.digest() !== expectedStorePrefixDigest) {
-    return scopeOpenRefusal(
-      subject.kind === "root"
-        ? "execution_basis_not_admitted"
-        : "child_basis_not_admitted",
-      "scope opening requires the held store at its exact durable prefix",
     );
   }
   let authorityPrefix: ValidatedRuntimeEventPrefix;
@@ -488,6 +476,15 @@ export function openTraversalScope(
     );
   }
 
+  const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
+  if (store.digest() !== expectedStorePrefixDigest) {
+    return scopeOpenRefusal(
+      subject.kind === "root"
+        ? "execution_basis_not_admitted"
+        : "child_basis_not_admitted",
+      "scope opening requires the held store at its exact durable prefix",
+    );
+  }
   let context: TraversalScopeOpeningContext;
   if (subject.kind === "root") {
     const exactBasis = rehydrateExecutionBasisAtPrefix(
@@ -622,6 +619,7 @@ export function openTraversalScope(
     });
   }
 
+  let frameClock: Readonly<{ opening: RuntimeEvent; startedAt: NativeFrameBoundarySample }> | null = null;
   const committed = admitRuntimeEventTransactionAtExpectedPrefix(
     store,
     context.expectedStorePrefixDigest,
@@ -631,7 +629,7 @@ export function openTraversalScope(
         ? (() => {
             const runEvent = admitRuntimeEvent(store, {
               kind: "run_segment_opened",
-              eventTime: basis.eventTime,
+              eventTime: sampleNativeEventTime(),
               aggregateType: "run",
               aggregateId: context.runId,
               parentAggregateId: executionBasis.workspaceBindingId,
@@ -689,7 +687,7 @@ export function openTraversalScope(
         `graph-call://abiogenesis/${graphCallDigest.slice("sha256:".length)}`;
       const graphCallEvent = admitRuntimeEvent(store, {
         kind: "graph_call_opened",
-        eventTime: basis.eventTime,
+        eventTime: sampleNativeEventTime(),
         aggregateType: "graph_call",
         aggregateId: graphCallId,
         parentAggregateId: runId,
@@ -744,9 +742,10 @@ export function openTraversalScope(
       const frameDigest = sha256Canonical(frameBody as unknown as JsonValue);
       const frameId =
         `frame://abiogenesis/${frameDigest.slice("sha256:".length)}`;
+      const frameStartedAt = captureNativeFrameBoundary(store);
       const frameEvent = admitRuntimeEvent(store, {
         kind: "frame_opened",
-        eventTime: basis.eventTime,
+        eventTime: sampleNativeEventTime(),
         aggregateType: "frame",
         aggregateId: frameId,
         parentAggregateId: graphCallId,
@@ -763,6 +762,8 @@ export function openTraversalScope(
         frameLineageId,
         payload: { frameId, frameDigest, ...frameBody },
       });
+      observeNativeFrameLiveness(store, frameEvent, frameStartedAt, frameStartedAt);
+      frameClock = { opening: frameEvent, startedAt: frameStartedAt };
       const frame = deepFreeze({
         frameId,
         frameDigest,
@@ -813,6 +814,10 @@ export function openTraversalScope(
   );
   if (committed.successorPrefix === null) {
     throw new TypeError("scope opening produced no durable successor prefix");
+  }
+  if (frameClock !== null) {
+    const clock = frameClock as Readonly<{ opening: RuntimeEvent; startedAt: NativeFrameBoundarySample }>;
+    retainNativeFrameClock(store, clock.opening, clock.startedAt);
   }
   return deepFreeze({
     ...committed.value,

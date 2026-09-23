@@ -1,0 +1,21 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/build/code/src/abg/event_prefix.d.ts
+/build/code/src/abg/event_prefix.js
+/build/code/src/abg/retry.d.ts
+/build/code/src/abg/retry.js
+/build/code/src/abg/traversal_route.d.ts
+/build/code/src/abg/traversal_route.js
+/build/code/src/hog/ccall_lifecycle.js
+/build/code/src/hog/retry_lifecycle.js
+/build/code/src/hog/workflow_lifecycle.js
+/code/src/abg/event_prefix.ts
+/code/src/abg/retry.ts
+/code/src/abg/traversal_route.ts
+/code/src/hog/ccall_lifecycle.ts
+/code/src/hog/retry_lifecycle.ts
+/code/src/hog/workflow_lifecycle.ts
+/contracts/capabilities/capability-definition-graph.json
+/product-toolchain-manifest.json
+/test_env/tests/generic-input-retention.test.mjs

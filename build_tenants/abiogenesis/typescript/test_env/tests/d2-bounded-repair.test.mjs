@@ -34,6 +34,10 @@ test("actual four-Program fixture and prior five raw/closure discriminators rema
   const [product,gtl,validator]=await Promise.all([load("build/code/src/product/index.js"),load("build/code/src/gtl/index.js"),load("build/code/src/validator/index.js")]);
   const h=n=>`sha256:${String(n).repeat(64)}`,abiArtifact={productId:product.ABI5_PRODUCT_ID,packageName:product.ABI5_PACKAGE_NAME,packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:h(1),productContentDigest:h(2),manifestDigest:h(3)};
   const natives=nativePublications(gtl,abiArtifact),bundle=constructD2FrameDeclarations({product,gtl,abiArtifact,abiPublications:natives}),publications=[...natives,bundle.sourcePublication,bundle.consumerPublication];
+  assert.deepEqual(bundle.lifecycle.stages.map(stage=>stage.assembly.contentPolicy),Array(4).fill("role_scoped_worksite"));
+  assert.deepEqual(bundle.lifecycle.stages.map(stage=>stage.assembly.worksiteContentByRole),[
+    ...Array.from({length:3},()=>({author:"not_required",assessor:"not_required"})),
+    {author:"current_inventory",assessor:"current_inventory"}]);
   const unique=(rows,key)=>[...new Map(rows.map(row=>[row[key],row])).values()],raw=(value,kind)=>{const r=validator.rawAdmitValue(value,kind,`contract://unit/d2/${kind}`);assert.equal(r.kind,"raw_admitted_value");return r;};
   let count=0;
   for(const publication of [bundle.sourcePublication,bundle.consumerPublication])for(const program of publication.programs){
@@ -60,9 +64,11 @@ test("selection accepts the new C2 success/advance observation cause and conserv
 });
 
 test("the two recorded continuation counterexamples still fail on exact predecessor code (same lookup assumptions)",async()=>{
-  const h=await projectionHarness({sourceRoot:resolve(predecessorRoot,"work")});
+  const h=await projectionHarness({sourceRoot:resolve(predecessorRoot,"work"),selectionInputProfile:"pre-context-counterexample"});
   const next=h.state("new-command",h.newCommand,{ordinal:51,invocation:h.first.execution.invocationAdmissionRef});
   assert.equal(h.select(h.first,next),null,"predecessor selection omits the new observation guard");
+  assert.equal(h.revisionProduct.isSemanticRevisionSelectionInput(h.basis.input),true,"old schema accepts the exact historical subject");
+  assert.equal(Object.hasOwn(h.basis.input,"currentWorksite"),false,"new input field is not injected into old-cut evidence");
   assert.equal(h.project(h.second.request),null,"predecessor projects origins from the request-input parent basis");
   assert.equal(h.originCalls[0][1],h.first.execution);
   assert.equal(h.originCalls[0][1].rawInputValue.kind,"semantic_revision_request");
@@ -94,10 +100,29 @@ for(const mutation of ["missing-parent","crossed-coordinate","non-advancing-pare
   });
 }
 
-test("root input reuse and existing C0 currentness algorithms are conserved",async()=>{
+test("root input reuse, historical C0 byte conservation and current physical guard are retained",async()=>{
   const h=await projectionHarness();assert.ok(h.project(h.first.request));assert.equal(h.originCalls[0][1],h.root.execution);
   const relative="code/src/abg/worksite_revision.ts",before=readFileSync(resolve(predecessorRoot,"source-freeze-01/source",relative),"utf8"),after=readFileSync(resolve(packageRoot,relative),"utf8");
-  assert.equal(after.slice(after.indexOf("function currentReplacement")),before.slice(before.indexOf("function currentReplacement")),"successful C0, post-publication-failure, supersession and physical comparison mechanics unchanged");
+  // This original byte-conservation claim belongs to that historical candidate
+  // and its source freeze. Later admitted binding/forward work changed the
+  // current suffix; current behavior is checked by the binding-transition suite.
+  const historical=readFileSync(resolve(predecessorRoot,"work",relative),"utf8");
+  assert.equal(historical.slice(historical.indexOf("function currentReplacement")),before.slice(before.indexOf("function currentReplacement")),"historical successful C0, post-publication-failure, supersession and physical comparison mechanics unchanged");
+  const physicalBody=text=>{const start=text.indexOf("export function worksiteRevisionPhysicalMatches");assert.ok(start>=0);return text.slice(start,text.indexOf("\n}\n",start)+3);};
+  assert.equal(physicalBody(after),physicalBody(before),"current exact physical observation guard remains unchanged");
   const [current,previous]=await Promise.all([load("build/code/src/product/semantic_stage.js"),import(pathToFileURL(resolve(predecessorRoot,"work/build/code/src/product/semantic_stage.js")).href)]);
-  assert.deepEqual(current.deriveSemanticWorksitePreparation(capturedEnvelope()),previous.deriveSemanticWorksitePreparation(capturedEnvelope()),"old D1 exact typed preparation conserved");
+  const envelope=capturedEnvelope(),oldPreparation=previous.deriveSemanticWorksitePreparation(envelope);
+  assert.ok(oldPreparation);
+  const prompt=oldPreparation.constructionTask.prompt,separator=prompt.indexOf("\n\n");assert.ok(separator>0);
+  const oldContext=JSON.parse(prompt.slice(separator+2));
+  const design=envelope.assets.at(-1).candidate.worksiteDesign;
+  const inventory=new Set([...design.targets.map(row=>row.targetRef),...design.dependencyTargetRefs]);
+  assert.deepEqual(oldContext.currentWorksite.map(row=>row.targetRef),envelope.worksite.targets.filter(row=>inventory.has(row.target.targetRef)).map(row=>row.target.targetRef),
+    "this historical subject already carries exactly Design V; no body is dropped");
+  // The current context contract adds this exact metadata. Reconstruct only
+  // its consequent native task identity; compare every other carrier field.
+  const expectedPrompt=prompt.slice(0,separator)+"\n\n"+h.product.canonicalJson({...oldContext,worksiteInventoryDigest:h.product.sha256Canonical(envelope.worksite)});
+  const constructionTask=h.product.constructWorksiteConstructionTask({...oldPreparation.constructionTask,prompt:expectedPrompt});
+  const expected=h.product.constructWorksiteCommandPreparationInput({...oldPreparation,constructionTask});
+  assert.deepEqual(current.deriveSemanticWorksitePreparation(envelope),expected,"exact typed preparation conserved with the selected inventory metadata and derived identity");
 });

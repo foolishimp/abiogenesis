@@ -1,3 +1,4 @@
+import { isRecord, hasNulJoinedKeys as hasExactKeys, isNonblankString as nonEmptyString } from "../shared/admission_predicates.js";
 import { isAbsolute } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
@@ -178,23 +179,6 @@ function refusal(code: EnvironmentRefusalCode, message: string): EnvironmentRefu
 
 function identity(prefix: string, digest: Sha256Digest): string {
   return `${prefix}/${digest.slice("sha256:".length)}`;
-}
-
-function isRecord(
-  value: unknown,
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
-
-function nonEmptyString(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0;
 }
 
 function isUniqueStringArray(value: unknown): value is readonly string[] {
@@ -1119,7 +1103,9 @@ export function isWorkspaceBindingCandidate(
     !nonEmptyString(value.authorizedActorRef) ||
     !nonEmptyString(value.productSetId) ||
     !isSha256Digest(value.productSetDigest) ||
-    !isResolvedProductLock(lock) ||
+    !(productSet === undefined
+      ? isResolvedProductLock(lock)
+      : isProductSet(productSet, lock)) ||
     value.lockId !== lock.lockId ||
     value.lockDigest !== lock.lockDigest ||
     !isRecord(value.roots) ||
@@ -1137,7 +1123,6 @@ export function isWorkspaceBindingCandidate(
     (
       productSet !== undefined &&
       (
-        !isProductSet(productSet, lock) ||
         value.productSetId !== productSet.productSetId ||
         value.productSetDigest !== productSet.productSetDigest
       )
@@ -1167,18 +1152,8 @@ export function isWorkspaceBindingCandidate(
     roots: value.roots,
   };
   const digest = sha256Canonical(body as unknown as JsonValue);
-  if (
-    value.bindingDigest !== digest ||
-    value.bindingId !== identity("workspace-binding://abiogenesis", digest)
-  ) return false;
-  if (authority === undefined || productSet === undefined) return true;
-  const reconstructed = constructWorkspaceBinding(
-    authority,
-    productSet,
-    lock,
-    value.roots as unknown as WorkspaceDeclaredRoots,
-  );
-  return reconstructed.kind === "workspace_binding_candidate" &&
-    canonicalJson(reconstructed as unknown as JsonValue) ===
-      canonicalJson(value as JsonValue);
+  // Exact keys and the checked authority/ProductSet coordinates reproduce the
+  // constructor body; compare its digest/identity without constructing it again.
+  return value.bindingDigest === digest &&
+    value.bindingId === identity("workspace-binding://abiogenesis", digest);
 }

@@ -1,0 +1,16 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/fixtures/abi5-root-candidate-basis.json
+/support/candidate-basis.mjs
+/support/fresh-process-runtime-proof.mjs
+/support/new-empty-append-sink.mjs
+/support/root-cli-environment.mjs
+/support/root-installed-environment.mjs
+/support/t287-declaration-closure-symbol-reuse.mjs
+/support/t287-native-frame-observation.mjs
+/support/t287-native-frame-route-conservation.mjs
+/tests/t287-declaration-closure-symbol-reuse.test.mjs
+/tests/t287-native-frame-observation.test.mjs
+/tests/t287-native-frame-route-conservation.test.mjs
+/tests/t287-runtime-activity-quiescence.test.mjs

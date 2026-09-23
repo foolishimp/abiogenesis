@@ -1,0 +1,31 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/README.md
+/authority-writer-subject.json
+/bootstrap-result.json
+/claude-host-independent-review.md
+/claude-host-verification.json
+/cohort-selection.json
+/cohort-updater-refusal.json
+/cross-program-refusal.json
+/final-frozen-scope-verification.json
+/final-route-delta.json
+/final-stdo-status.json
+/frozen-consumer-subject.json
+/independent-consumer-review.md
+/independent-native-comparison.md
+/install-published-payloads.py
+/manager-install.json
+/manual-installation-plan.json
+/payload-installation-result.json
+/release-provenance/axiom_indexer/releases/v2.5.0.md
+/release-provenance/stack_release.json
+/release-provenance/stdo_representation/build_tenants/axiom_indexer/representation/stdo-v2.5.0-rc.6/source-corpus.json
+/release-provenance/stdo_representation/build_tenants/axiom_indexer/representation/stdo-v2.5.0-rc.6/validation-report.json
+/release-provenance/stdo_representation/releases/v2.5.0.md
+/reviewer-materialized.json
+/reviewer-reference-only.json
+/stdo-adoption-plan.json
+/stdo-adoption-result.json
+/stdo-install-verification.json

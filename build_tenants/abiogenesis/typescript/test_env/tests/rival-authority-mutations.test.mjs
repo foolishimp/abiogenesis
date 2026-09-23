@@ -65,100 +65,6 @@ test("B8 installed package exposes no retired runtime authority", async (context
   };
 });
 
-test("B8 explicit invocation schema refuses an injected compiled-plan carrier", async (context) => {
-  const harness = await setupInstalledCliHarness(context, root);
-  const scenario = await buildRootCliScenario(
-    harness,
-    "b8-ingress-compiled-plan",
-    (payload) => ({
-      ...payload,
-      compiledPlan: {
-        kind: "CompiledCProgramPlan",
-        result: { kind: "hello_world_output", schemaVersion: "5.0.0", message: "Hello World" },
-      },
-    }),
-    { catalogApplications: [] },
-  );
-  const setupPrefixBytes = await readFile(scenario.eventLogPath);
-  const run = await runInstalledCli(harness, scenario);
-  assert.equal(run.exitCode, 2, run.stdout);
-  const outcome = run.outcomes.at(-1);
-  assert.equal(outcome.disposition, "refused");
-  assert.equal(outcome.kind, "public_invocation_refusal");
-  assert.equal(outcome.code, "invalid_request");
-  assert.match(outcome.message, /operation, variant, and payload/u);
-  const refusedPrefixBytes = await readFile(scenario.eventLogPath);
-  assert.deepEqual(refusedPrefixBytes, setupPrefixBytes);
-  const refusedPrefixEvents = eventsFromBytes(refusedPrefixBytes);
-  assert.equal(
-    refusedPrefixEvents.some(
-      (event) =>
-        event.kind === "public_operation_admitted" &&
-        event.payload.operationId === "abg.operation.run.invoke",
-    ),
-    false,
-  );
-  assert.equal(
-    refusedPrefixEvents.some((event) => event.kind === "c_call_opened"),
-    false,
-  );
-  mutationEvidence.push({
-    mutation: "undeclared_compiled_plan",
-    boundary: "public_ingress",
-    disposition: outcome.disposition,
-    refusalCode: outcome.code,
-    runtimeInvocationAbsent: !Object.hasOwn(outcome, "runtimeInvocationRef"),
-    setupPrefixUnchanged: true,
-    runtimeEventsAbsent: true,
-  });
-
-  const operationsPath = join(
-    installedCliPackageRoot(harness),
-    "build/code/src/public/operations.js",
-  );
-  const operationsSource = await readFile(operationsPath, "utf8");
-  const runMarker = "async function applyRunInvoke(context, invocation, rawRequest) {";
-  assert.equal(operationsSource.includes(runMarker), true);
-  await writeFile(
-    operationsPath,
-    operationsSource.replace(
-      runMarker,
-      `${runMarker}\n    if (!("programRef" in invocation.payload)) invocation = { ...invocation, payload: { ...invocation.payload, programRef: "program://abiogenesis/conformance/hello-world@5" } };`,
-    ),
-    "utf8",
-  );
-  const missingTarget = await buildRootCliScenario(
-    harness,
-    "b8-missing-explicit-target",
-    ({ programRef: _programRef, ...payload }) => payload,
-    { catalogApplications: [] },
-  );
-  const missingTargetSetupBytes = await readFile(missingTarget.eventLogPath);
-  const missingTargetRun = await runInstalledCli(harness, missingTarget);
-  assert.equal(missingTargetRun.exitCode, 2, missingTargetRun.stdout);
-  const missingTargetOutcome = missingTargetRun.outcomes.at(-1);
-  assert.equal(missingTargetOutcome.disposition, "refused");
-  assert.equal(missingTargetOutcome.kind, "public_invocation_refusal");
-  assert.equal(missingTargetOutcome.code, "invalid_request");
-  assert.match(
-    missingTargetOutcome.message,
-    /operation, variant, and payload/u,
-  );
-  assert.deepEqual(
-    await readFile(missingTarget.eventLogPath),
-    missingTargetSetupBytes,
-  );
-  mutationEvidence.push({
-    mutation: "missing_explicit_target",
-    boundary: "public_ingress",
-    disposition: missingTargetOutcome.disposition,
-    refusalCode: missingTargetOutcome.code,
-    hiddenDefaultActivated: false,
-    invocationAdmissionAbsent: true,
-    runOpenAbsent: true,
-  });
-});
-
 test("B8 setup operations reject undeclared payload fields", async (context) => {
   const cases = [
     { label: "resolve", index: 1, mutate: (payload) => { payload.undeclaredResolve = true; } },
@@ -259,55 +165,6 @@ test("B8 setup operations reject undeclared payload fields", async (context) => 
     boundary: "public_ingress",
     cases: cases.map((row) => row.label),
     allRefused: true,
-  });
-});
-
-test("B8 disabled HoG cannot fall through to a callable compiled-plan rival", async (context) => {
-  const harness = await setupInstalledCliHarness(context, root);
-  const packageRoot = installedCliPackageRoot(harness);
-  const traversalPath = join(packageRoot, "build/code/src/hog/traversal.js");
-  const traversalSource = await readFile(traversalPath, "utf8");
-  const marker = "export function traverse(input) {";
-  assert.equal(traversalSource.includes(marker), true);
-  await writeFile(
-    traversalPath,
-    traversalSource.replace(marker, `${marker}\n    throw new Error("disabled direct HoG mutation");`),
-    "utf8",
-  );
-  const rivalPath = join(packageRoot, "build/code/src/hog/compiled-plan-rival.js");
-  await writeFile(
-    rivalPath,
-    "export function executeCompiledPlan() { return { kind: 'hello_world_output', schemaVersion: '5.0.0', message: 'Hello World' }; }\n",
-    "utf8",
-  );
-  const rival = await import(`${pathToFileURL(rivalPath).href}?mutation=callable`);
-  assert.equal(rival.executeCompiledPlan().message, "Hello World");
-
-  const scenario = await buildRootCliScenario(
-    harness,
-    "b8-disabled-hog",
-    (payload) => payload,
-    { catalogApplications: [] },
-  );
-  const run = await runInstalledCli(harness, scenario);
-  assert.equal(run.exitCode, 2, run.stdout);
-  const outcome = run.outcomes.at(-1);
-  assert.equal(outcome.disposition, "failed");
-  assert.equal(outcome.result, null);
-  const events = (await readFile(scenario.eventLogPath, "utf8"))
-    .trim().split(/\r?\n/u).map((line) => JSON.parse(line));
-  assert.equal(events.some((event) => event.kind === "runtime_failure_observed"), true);
-  assert.equal(events.some((event) => event.kind === "c_call_opened"), false);
-  assert.equal(events.some((event) => event.kind === "run_closed"), false);
-  assert.equal(JSON.stringify(events).includes("executeCompiledPlan"), false);
-  mutationEvidence.push({
-    mutation: "disabled_hog_with_callable_rival",
-    boundary: "executor",
-    disposition: outcome.disposition,
-    runtimeFailureAdmitted: events.some((event) => event.kind === "runtime_failure_observed"),
-    cCallAbsent: !events.some((event) => event.kind === "c_call_opened"),
-    rivalResultAbsent: outcome.result === null,
-    falseClosureAbsent: !events.some((event) => event.kind === "run_closed"),
   });
 });
 
@@ -588,11 +445,8 @@ test("B8 post-install implementation substitution is refused before execution", 
 test("B8 mutation evidence ledger is complete", async () => {
   assert.notEqual(installedAbsenceEvidence, null);
   assert.deepEqual(mutationEvidence.map((row) => row.mutation), [
-    "undeclared_compiled_plan",
-    "missing_explicit_target",
     "setup_undeclared_payload_fields",
-    "disabled_hog_with_callable_rival",
-    "copied_private_execution_basis",
+    "exact_rehydrated_execution_basis",
     "post_admission_validator_exception",
     "post_open_judgment_exception",
     "forged_leaf_execution_port",

@@ -1,0 +1,20 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/code__src__abg__index.ts__composed-from-liveness.diff
+/code__src__abg__index.ts__composed-from-package.diff
+/code__src__abg__index.ts__liveness-arm.diff
+/code__src__abg__index.ts__package-arm.diff
+/code__src__implementation__index.ts__composed-from-liveness.diff
+/code__src__implementation__index.ts__composed-from-package.diff
+/code__src__implementation__index.ts__liveness-arm.diff
+/code__src__implementation__index.ts__package-arm.diff
+/code__src__implementation__leaf_invocation_port.ts__composed-from-liveness.diff
+/code__src__implementation__leaf_invocation_port.ts__composed-from-package.diff
+/code__src__implementation__leaf_invocation_port.ts__liveness-arm.diff
+/code__src__implementation__leaf_invocation_port.ts__package-arm.diff
+/empty-legacy-origin-correction.diff
+/scripts__generate-product-manifest.mjs__composed-from-liveness.diff
+/scripts__generate-product-manifest.mjs__composed-from-package.diff
+/scripts__generate-product-manifest.mjs__liveness-arm.diff
+/scripts__generate-product-manifest.mjs__package-arm.diff

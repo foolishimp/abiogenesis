@@ -1,0 +1,8 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/preimages.json
+/preimages/code/src/validator/conformance_definition_bindings.ts
+/preimages/code/src/validator/conformance_operation.ts
+/preimages/test_env/tests/steel-consumer-declaration.test.mjs
+/typecheck.log

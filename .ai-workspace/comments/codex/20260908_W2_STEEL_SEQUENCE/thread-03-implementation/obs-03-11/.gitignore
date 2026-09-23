@@ -1,0 +1,20 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/bootstrap-install.log
+/build.log
+/diagnose.mjs
+/diagnostic-01.log
+/diagnostic-02.log
+/diagnostic-03.log
+/diagnostic.json
+/harness-preimage.json
+/pack.json
+/preimages.json
+/preimages/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts
+/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts
+/preimages/build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs
+/preimages/build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-installed.test.mjs
+/preparation-input.json
+/source-replay-proof.json
+/source-replay-test-01.log

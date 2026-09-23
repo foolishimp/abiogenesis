@@ -455,11 +455,20 @@ function resolveDeclarationClosure(
   let lifecyclePublication: Readonly<ModulePublication> | undefined;
   if (lifecycleRef !== undefined) {
     const lifecycle = locateRequired(allPublications, reachable,
-      p => p.semanticLifecycle === undefined ? [] : [p.semanticLifecycle], d => d.declarationRef === lifecycleRef);
+      p => [...(p.semanticLifecycle === undefined ? [] : [p.semanticLifecycle]), ...(p.semanticJobLifecycle === undefined ? [] : [p.semanticJobLifecycle])], d => d.declarationRef === lifecycleRef);
     if (lifecycle.kind !== "one") return locatedRefusal(lifecycle, `Semantic lifecycle ${lifecycleRef}`);
     lifecyclePublication = lifecycle.located.publication;
     // Historical stages are exact declared dependencies, not new start/call rights.
     for (const stage of lifecycle.located.value.stages) graphFunctionRefs.add(stage.graphFunctionRef);
+    if (lifecyclePublication.semanticJobLifecycle !== undefined) {
+      if (!validSemanticProgramOwners(programPublication, program, lifecyclePublication, lifecyclePublication))
+        return refusal("wrong_owner", "generic semantic job requires its exact installed declaration owner");
+      graphFunctionRefs.add(lifecyclePublication.semanticJobLifecycle.intakeGraphFunctionRef);
+      for (const template of lifecyclePublication.semanticJobLifecycle.proofTemplates) {
+        contractRefs.add(template.realizationContractRef);
+        contractRefs.add(template.proofContractRef);
+      }
+    }
   }
   const sourceRef = lifecyclePublication?.semanticLifecycle?.sourceDeclarationRef;
   if (sourceRef !== undefined) {
@@ -577,7 +586,7 @@ function resolveDeclarationClosure(
       const declaredStage = graphFunction.declarations["abg.semantic_revision_stage"];
       if ((declaredSelection !== undefined && declaredSelection !== lifecycleRef) ||
         (declaredStage !== undefined &&
-          !lifecyclePublication?.semanticLifecycle?.stages.some(stage => stage.declarationRef === declaredStage))) {
+          !(lifecyclePublication?.semanticLifecycle ?? lifecyclePublication?.semanticJobLifecycle)?.stages.some(stage => stage.declarationRef === declaredStage))) {
         return refusal("wrong_owner", "revision history dependency crosses the declared lifecycle");
       }
       // This closed Product dependency belongs to the declared D2 role, not to
@@ -592,6 +601,8 @@ function resolveDeclarationClosure(
         ...revisionBindings, SEMANTIC_STAGE_IDS.authorBindingRef,
         SEMANTIC_STAGE_IDS.assessorBindingRef, SEMANTIC_STAGE_IDS.bridgeBindingRef,
         SEMANTIC_STAGE_IDS.evidenceInputBindingRef, SEMANTIC_STAGE_IDS.terminalBindingRef,
+        SEMANTIC_STAGE_IDS.jobIntakeBindingRef, SEMANTIC_STAGE_IDS.jobContextBindingRef,
+        SEMANTIC_STAGE_IDS.jobPlanBindingRef, SEMANTIC_STAGE_IDS.jobBridgeBindingRef,
       ]);
       // Only the exact current and borrowed lifecycle publications contribute
       // local semantic history. Do not enumerate ambient Catalog functions.
@@ -604,7 +615,7 @@ function resolveDeclarationClosure(
           const stageRef = definition.declarations["abg.semantic_revision_stage"];
           if ((selectionRef !== undefined && selectionRef !== lifecycleRef) ||
             (stageRef !== undefined &&
-              !lifecyclePublication?.semanticLifecycle?.stages.some(stage => stage.declarationRef === stageRef))) continue;
+              !(lifecyclePublication?.semanticLifecycle ?? lifecyclePublication?.semanticJobLifecycle)?.stages.some(stage => stage.declarationRef === stageRef))) continue;
           if (boundRoles(definition).some(ref => semanticBindings.has(ref))) historicalRefs.add(definition.name);
         }
       }

@@ -1,0 +1,45 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/continuation-plan.md
+/evaluation/oracle.json
+/evaluation/witness.md
+/freeze.mjs
+/future-inputs.mjs
+/inputs/command-configuration.json
+/inputs/d1-lifecycle-declarations.mjs
+/inputs/derived-declarations.json
+/inputs/fresh-seed.json
+/inputs/scenario.json
+/inputs/seed-preparation-manifest.json
+/inputs/source-input.json
+/npm-global.conf
+/npm-user.conf
+/prepare.mjs
+/raw-seed/build_tenants/scala_spark/build.sbt
+/raw-seed/build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala
+/raw-seed/build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala
+/raw-seed/build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala
+/raw-seed/build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala
+/raw-seed/build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala
+/raw-seed/build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala
+/raw-seed/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala
+/raw-seed/build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala
+/raw-seed/build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala
+/raw-seed/build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala
+/raw-seed/build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala
+/raw-seed/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala
+/raw-seed/build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala
+/raw-seed/build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala
+/raw-seed/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala
+/raw-seed/build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala
+/raw-seed/build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala
+/raw-seed/build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala
+/raw-seed/build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala
+/raw-seed/build_tenants/scala_spark/project/build.properties
+/raw-seed/build_tenants/scala_spark/project/plugins.sbt
+/records/package-independent-checks.json
+/records/package-independent-staging.json
+/stage-inputs.mjs
+/tools.mjs

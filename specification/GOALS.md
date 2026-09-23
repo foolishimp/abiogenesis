@@ -15,28 +15,227 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one installed, source-independent ABG 5.0 that supports odd_glc's complete specification-driven lifecycle, preserves requirements through construction and evidence-driven revision, satisfies the existing 16-family Product, and progresses through immutable RC publication and qualification to actual human acceptance of that same unchanged RC. | A real user-authored specification reaches verified application behavior through declared GTL/HoG/ABG progression; unmet obligations remain visible and prevent unsupported completion. One exact candidate satisfies the owning Product qualification and release conditions. | Active; accepted Waves 1 and 2 remain banked. The [current delivery plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan) replaces the remaining wave order; M5-M7 remain open. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. Accepted runtime repairs and installed mechanical evidence are retained. LIVE08 and DESIGN10 remain closed failed. [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-graph-context-re-entry) now separates small HoG functional proofs from the overlay/GraphFunction context reframe. DESIGN13 is a CLOSED unadopted proposal. Further retries of the failed cumulative-response protocol and larger response-schema work are held. The generic native-work boundary now has two accepted installed live completions on the same frozen core, including an independently assessed odd_glc Intent transition; the bounded source increment is applied. Full lifecycle and release acceptance remain open. |
 
 ## Current Selection
 
-The owner accepted the revised plan on 2026-09-09: "yes, update the tickets
-and goals to this new delivery plan". [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan)
-owns the six delivery increments, feature gaps, dependencies and completion
-conditions. [odd_glc T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md)
-owns lifecycle composition and application acceptance. These goals own the
-overall outcome; the tickets own its execution state.
+The composed cursor-provenance and failure-diagnostic fixes are accepted at the
+source and bounded component boundary after [independent review](../.ai-workspace/comments/codex/20260923_RETAINED_TRANSITION_REUSE/cursor-diagnostic-review-01.md).
+The [Executive disposition](../.ai-workspace/comments/codex/20260923_RETAINED_TRANSITION_REUSE/cursor-diagnostic-executive-disposition.json)
+binds exact subject `95880556…`, content `5edadeed…` and manifest `ab20cf39…`.
+Previously accepted repairs remain preserved. The old installed archive and
+[execution05 failure](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-05/return.md)
+remain historical; no installed cure, assessment success or missing diagnostic
+body is backfilled.
 
-The next integration target is the full specification -> Intent/Product ->
-Requirements -> Design -> application -> evidence chain, followed by one
-consequential correction. A first bounded thread preserves all remaining
-requirements; full Data Mapper success requires the original mandatory
-application outcomes. Construction/test counts do not establish that success.
+Current work is the complete WIP checkpoint and remote publication of approved
+ABIogenesis and odd_glc authored work and lossless retained proof. After both
+remote heads are verified, the next discriminator is one exact installed generic
+continuation with truthful fresh Public Result/replay readback. Continue toward
+ABIogenesis 5.0 RC1 under the unchanged fifteen-family Product, applicable D5
+qualification and reserved human release acceptance. Preserve the original
+application, author changes, completed C2 evidence and unresolved semantic scope.
+[T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
+owns this sequence, including consequential correction, current-subject QUAL-056
+material through F11/AF25, implementation of the still-unimplemented release
+acceptance operation, exact prospective-RC qualification/publication and the
+separate reserved human acceptance.
 
-Executive's current selection is recorded in [Checkpoint12](../.ai-workspace/comments/codex/20260911_ABG5_EXECUTIVE_CHECKPOINT_12/checkpoint.md), within unchanged fixed16/GOAL-035/T287 D1–D6. Working solutions and accepted cuts that satisfy their design reference frames are preserved. The accepted [Integration02 canonical application](../.ai-workspace/comments/codex/20260911_ABG5_ACCEPTED_SOURCE_INTEGRATION_02/application-03/return.md) preserves complete Source20 plus Source42; Root53/56 accept bounded source/application, not native completion. All321 source/support and154 test/support members are preserved in the local WIP checkpoint scope. Root58 accepts corrected F11/D5 Source08/API03; Worker09 composes them with I02 only in isolated Integration03. Worker26 liveness/profile implementation remains isolated. D2 Execution37 is closed failed with no native recovery/retry grant.
+The [lengthy predecessor selection](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/tracking-preimages/GOALS-current-selection-historical.md)
+is retained as historical checkpoint evidence. Earlier records below retain their
+bounded evidence and residuals; their older next-action wording does not override
+this current selection.
+
+### Historical delivery and repair dispositions
+
+The [method adoption](../.ai-workspace/comments/codex/20260921_STDO_251_RC1_ADOPTION/README.md)
+updates this consumer's exact STDO basis and matched Development Products.
+[T-287's owner re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-rc1-owner-re-entry)
+records the trusted-desktop scope and next removal of unsupported repeated
+event-log authentication before paid Design/Hello continuation. Method adoption
+does not implement that correction or retarget historical Runs and evidence.
+
+Executive accepts the [TRUST01 correction and installed composition](../.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/acceptance.md). Its three source files are applied; the existing installed mechanical Hello passes with zero historical reads during actor handoffs and fresh Public result/replay. Live LLM use, consequential correction and full release remain open. T-287 records the remaining supported cost opportunities without creating another optimization campaign.
+
+[T-288 — Remove duplicated runtime construction](../.ai-workspace/tickets/completed/T-288-remove-duplicated-runtime-construction.md)
+is complete. All eight selected completion items are accepted, implementation
+files are canonically applied, and the demonstrated handoff-overhead P0 is
+closed. Its [Executive disposition](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/t288-completion.md)
+binds the candidate, conjoined evidence and retained work by rule and extent.
+The final Proxy exclusion correction reuses valid ordinary installed predecessor
+evidence; no new native execution of the final archive or universal optimum is
+claimed. Earlier accepted scopes and failed attempts retain their identities.
+
+[T-287's management plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-management-prerequisite-plan)
+owns the full ABG5 delivery
+sequence. Its [Design diagnosis](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/design-timeout-diagnosis.md)
+is complete; the Design outcome remains unsatisfied. LIVE04 stays closed-failed
+at its unchanged absolute timeout, with its original read/lock failures preserved.
+The ordinary installed cleanup witness demonstrates construction/execution and
+fresh Public reads; it does not turn that failed live attempt into success.
+
+[T-289](../.ai-workspace/tickets/completed/T-289-deduplicate-immutable-install-event-bodies.md)
+is accepted/applied and complete: immutable event bodies are deduplicated, with
+focused refusal/cold-reconstruction proof and one installed composition. Its
+[disposition](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/t289-completion.md)
+preserves exact measurement subjects and final-correction evidence reuse.
+T-288 remains closed. The owner re-entry above now precedes return to delivery.
+[T287-DESIGN01](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/design-discriminator.md)
+remains never launched; [DESIGN02](../.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/design02.json) bound the accepted repair and closed failed at the unchanged600s limit. [CONTEXT03](../.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/context03/design03-return-and-live06.md) is accepted/applied; its fixed-input Design probe also timed out. [LIVE06](../.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/live06-return.md) then refused before any Run or actor. [ENV01](../.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/env01-selection.md) selects the bounded Product-membership observation correction before the same Hello delivery objective. No timer, model,
+context or budget increase, old-run recovery, selected-install/default migration
+or release is granted by cleanup closure. GOAL-035 and all fifteen Product
+families remain the delivery goal; full live Hello, broader qualification and
+release acceptance remain open.
+
+Release scope follows [Product Release Boundaries](PRODUCT.md#50-and-51-release-boundaries).
+The owner selects the
+[management-prerequisite plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-management-prerequisite-plan)
+inside the existing D1-D6 steel-thread delivery plan. This is a `goal_reprice`
+of execution order within the current fifteen-family Product, not a new feature
+family or a change to release scope. T-287 owns milestone status, dependencies,
+acceptance conditions and the single delivery schedule. The
+[execution record](../.ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/execution.md)
+preserves exact subjects, closed reviews, accepted increments and failed attempts;
+it does not supply a parallel schedule.
+
+Executive `/root` owns continued ingress and constitutional-binding delivery
+through separately bounded Workers. There is no external Jim handoff dependency.
+T-287 records the context-delivery dependency under the
+existing [STDO run-environment course correction](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#stdo-run-environment-course-correction).
+Runtime use of a selected reference frame and axiomatic corpus requires native
+evidence; source-development use supplies no such qualification.
+
+The [management milestone register](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#management-milestones)
+supersedes the earlier 1A-3C next-task order. Its baseline, supervision and
+native-cost prerequisites precede dependent live context/correction campaigns.
+Earlier accepted increments, task grants and unmet obligations retain their
+exact scopes. The owner permits Executive continuation through separately
+recorded dependency-ready activations after closed returns; this plan recording
+itself starts no implementation, paid run, Git operation or release. Each
+activation declares its finite work envelope before execution. LIVE04 is closed
+within its two-hour work envelope including native supervision and readback;
+earlier repair envelopes remain historical to their increments.
+Runtime supervision envelopes retain their scopes. Larger live
+allowances require exact scoped grants. None is a Product runtime performance SLA.
+MGMT-00 separates immediate exact-evidence preservation from checkpoint/build
+readiness. The paired reconstruction repair and focused QA are closed and accepted
+within their exact scope; LIVE04 remains closed-failed. The current T-287
+activation owns subsequent work; prior timeouts alone do not authorize retries.
+
+The selected [first sunny-day increment](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#first-sunny-day-increment)
+remains the full generic Hello lifecycle and live context discriminator.
+Installed preparation and the bounded stream-history repair retain their narrow
+acceptance. Earlier failed attempts retain their original dispositions.
+Executive accepts LIVE03's factual terminal evidence and evaluates full Hello as
+falsified for that attempt; it is not full lifecycle qualification. The one live
+start and fresh-read grant are consumed. Full Hello, correction, the second job,
+the selected application witness and release qualification remain open; T-287
+owns activation status and the single schedule.
+
+The [closed management disposition](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/execution.md#accepted-bounded-returns-and-independent-review)
+accepts isolated composed readiness, bounded supervision/cause conservation,
+the measured hash-reuse increment and one exact live adapter oracle. These do
+not establish full Hello, integrated native supervision or lifecycle performance.
+The owner's 2026-09-19 correction is: “no you misunderstood, you have full executive authority to continue, only stop if we start churning or going off steel thread delivery.”
+MGMT03's accepted design and frozen ABI/odd_glc adoption passed
+[installed Public preparation with native RC7 binding](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/installed-setup.md),
+not full live qualification. [LIVE01](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/live-hello.md)
+failed the Executive-selected CLI budget envelope.
+[LIVE02](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/live-hello-02.md)
+passed the Intent/Product author-assessor pairs, then failed at actor 5,
+Requirements author, with `no_output` and truncated terminal JSON bytes,
+without timeout. Both attempts are frozen; fresh replay passed, with no
+completed result, construction, C2 verification or completed application.
+The raw Requirements candidate remains unadmitted and confers no semantic claim.
+
+[`T287-MGMT-04-LIVE03`](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/live-hello-03-execution.md#executive-disposition-t287-mgmt-04-live03-status-w02)
+is closed-failed under Executive disposition; its factual evidence is accepted,
+and promotion as full-Hello qualification is rejected.
+Executive accepts STREAM-W02's held-store transaction-validation repair after
+[independent R01 satisfied/no findings](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/live02-held-prefix-review.md)
+and the [frozen repaired Public preparation](../.ai-workspace/comments/codex/20260919_MANAGEMENT_STEEL_THREAD/live-hello-03.md).
+These acceptances remain bounded repair and preparation evidence, not full
+ordinary Hello or broad performance qualification. LIVE03 returned native
+`runtime_failed` after the Requirements author's absolute timeout, distinct
+from LIVE02's no-timeout truncated output. No application was constructed.
+Fresh Public `run_result` timed out and `run_replay` refused locked sink
+acquisition; both remain unsatisfied and the saved SDK projection does not
+substitute. The actor absolute timeout and failed readback remain distinct
+unresolved residuals. The subsequent accepted independent read-only review
+confirms QA-01 and QA-02 against the frozen predecessor; both are owner P0,
+with exact CPU shares unmeasured. Their paired repair is now accepted under
+MGMT02 for the demonstrated ordinary-source/native and reconstruction scope.
+Failed LIVE03 logs, locks and evidence remain immutable; no repeated read,
+recovery, timer/model/context/prompt change or live launch is granted here.
+The single focused QA checkpoint is closed; LIVE04 exercised the accepted
+repaired candidate with a new run and actual relevant current workspace. It is
+now closed-failed; further paid runs are held for Executive intake.
+Historical events cannot be transplanted.
+Earlier narrow acceptances, three unchanged owner-suite fixture failures,
+LIVE02's unknown original CLI drain deadline, deferred provenance-prompt debt,
+Git/canonical readiness and wider lifecycle/release obligations retain their scopes.
+
+[Declared testing-capability reuse](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#declared-testing-capability-reuse)
+and its bounded evidence remain inputs to context delivery. T-287 retains the
+P0–P2 repair boundary, key end-to-end reviews and unfixed-bug register; those
+records do not supply a competing next-work schedule.
+
+The bounded Run-closure correction has independent source
+and installed qualification, including child foldback, typed parent closure and
+fresh result/replay. The real-spec application witness, native semantic assessment,
+consequential correction and integrated/release gates remain open. A conformance
+Run is not application evidence, and a new candidate does not retarget a failed Run.
+
+The owner's [proportionality clarification](../.ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/execution.md#owner-clarifies-proportionality-and-continues-d1)
+keeps sunny-day completion and proportionate handling of ordinary LLM output
+variation in scope. Excessive resilience scenarios and broad hardening remain
+frozen. Broad storage/locking work, interrupted-resource recovery and database
+selection/migration remain unselected; the held-store validation repair above
+is the exact selected exception. Existing code, logs, locks and evidence are
+preserved. This sequencing neither waives Product constraints nor establishes
+release readiness. Each effect requires its own current bounded grant; no automatic
+retry, Git or release effect follows from source or test acceptance.
+
+[T-287 Current Delivery Plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan)
+owns the D1-D6 schedule, feature treatment, deferred assurance and next
+dependency-ready work. [odd_glc T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md)
+owns lifecycle declarations, selected-witness interpretation and the independent
+full original Data Mapper upper-bound evaluation. That complex, ambiguous case
+measures solutioning, design, iteration depth and progress; truthful bounded
+failure may conclude the evaluation. Unmet application outcomes remain visible
+without automatically selecting another attempt or claiming complete software.
+The selected bounded keyed-accounting witness remains mandatory. The two-job
+Public discriminator qualifies generic machinery and does not replace that
+application oracle, qualify all fifteen families or close the release.
+No new parallel roadmap is created in Goals.
+
+The selected witness binds complete source, its contract, independent expected
+outcomes, prerequisites and excluded downstream obligations. Its retained Run
+remains bound to the earlier installed candidate. The separately installed-qualified
+closure correction does not retroactively retarget or recover that Run.
+The retained Data Mapper instance is reusable input.
+The delivery sequence establishes one integrated public path,
+material behavior, consequential correction and composition before broad
+qualification. A reduced existing result cannot set the new acceptance oracle.
+
+Focused structural checks and early installed integration/UAT establish usable
+increments; broad applicable assurance follows at integrated qualification.
+Single-runtime authority, local recursion/correction, automatic continuation,
+truthful blocking, liveness, self-conformance and exact same-RC acceptance remain
+required. T-287 retains the explicit 5.1 and downstream scope deferrals.
+
+### Retained Implementation Checkpoint
+
+The following checkpoint descriptions preserve their earlier exact scopes.
+Current release allocation and execution selection are owned above and by
+T-287; predecessor sixteen-family/full-Data-Mapper scheduling statements do not
+restore a deferred gate or an exhausted activation.
+
+Executive's retained implementation checkpoint is recorded in [Checkpoint12](../.ai-workspace/comments/codex/20260911_ABG5_EXECUTIVE_CHECKPOINT_12/checkpoint.md), under GOAL-035/T287 D1–D6 and the current Product release allocation. Working solutions and accepted cuts that satisfy their design reference frames are preserved. The accepted [Integration02 canonical application](../.ai-workspace/comments/codex/20260911_ABG5_ACCEPTED_SOURCE_INTEGRATION_02/application-03/return.md) preserves complete Source20 plus Source42; Root53/56 accept bounded source/application, not native completion. All321 source/support and154 test/support members are preserved in the local WIP checkpoint scope. Root58 accepts corrected F11/D5 Source08/API03; Worker09 composes them with I02 only in isolated Integration03. Worker26 liveness/profile implementation remains isolated. D2 Execution37 is closed failed with no native recovery/retry grant.
 
 [Native09](../.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/execution-01/manifest.json) retains initial22 C0/C1, truthful C2 exit1 and fresh-read evidence. [Execution37](../.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/installed-witness-continuation-13/execution-01/return.md) closes after nine Public launches/eight receipts at913 events: first selection/fresh reads/repair conformance pass, but start15 times out. No repair actor/helper/C0/C1/C2/app effect or post-repair replay occurs. Root Review40 accepts the preserved failure only; processes are quiescent while the native Run remains active, with the abandoned lock and stale receipt13 handoff preserved. Neither repair is qualified. Source04 old46/48/795-null, Source06 inherited24/26 and Integration01 inherited29/34 remain historical. Original Data Mapper, D1–D6/S06 and same-subject qualification remain open.
 
-Reference frames apply through LLM role/context selection and typed native projections, not a new authority or ledger. Released RC6 Representation/a_c is used; the local ABI map is stale and unused. Accepted [native profile compatibility](../build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md) and [interrupted resource recovery](../build_tenants/abiogenesis/typescript/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md) preserve genuine installed maintenance authority, exact handoff/prefix/lock ownership and existing witnessed stop under L before P. They grant no recovery or retry. EVENTS022/023 remains an active D4/F10 5.0 conservation gap, not F12 deferral; its accepted liveness HOW is applied and Worker26 composes the native kinds into one current profile. Corrected F11/D5 Source08/API03 is accepted bounded source readiness under [qualification HOW](../build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md);53 unbound mappings receive no native credit. All owning gates and sole AF22 remain required. Root55 accepts D6 artifact-admission HOW07, not yet canonical or implemented. Applied RC6 one-cut law adds no second cut or derived release gate; native qualification and actual human acceptance remain open.
+Reference frames apply through LLM role/context selection and typed native projections, not a new authority or ledger. Released RC7 Representation/a_c is used; the local ABI map is stale and unused. Accepted [native profile compatibility](../build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md) and [interrupted resource recovery](../build_tenants/abiogenesis/typescript/design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md) preserve genuine installed maintenance authority, exact handoff/prefix/lock ownership and existing witnessed stop under L before P. They grant no recovery or retry. EVENTS022/023 remains an active D4/F10 5.0 conservation gap, not F12 deferral; its accepted liveness HOW is applied and Worker26 composes the native kinds into one current profile. Corrected F11/D5 Source08/API03 is accepted bounded source readiness under [qualification HOW](../build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md);53 unbound mappings receive no native credit. That checkpoint's fixed gate expansion is historical; the current qualification contraction preserves behavioral coverage through F11 and sole AF22. Root55 accepted D6 artifact-admission HOW07, not yet canonical or implemented. Applied RC6 one-cut law adds no second cut or derived release gate; native qualification and actual human acceptance remain open.
 
 D1's [first full-source/paired-open-obligation checkpoint](../.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-acceptance/disposition.md), four assessed stages and earlier failures retain their scopes. [Recovery13](../.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/preserved-result-implementation-01/installed-run-preparation-04/execution-01/return.md) remains closed failed after22 C0,22-member C1 and prepared C2, with no C2 actor/command. Source20's [prospective composition proof](../.ai-workspace/comments/codex/20260911_D1_C2_FORWARD_COMPOSITION_PROOF_23/manifest.json) is accepted after Root48 and integrated as I02; final semantic consumption and native forward execution remain unqualified. D3 still owes full original-source obligations and application outcomes. D1–D4/M5, mandatory F17/S06, other scenarios,4.6 conservation and F12/S04 at5.1 remain unchanged; [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#readiness-and-next-re-entry) owns remaining work.
 
@@ -45,7 +244,7 @@ D1's [first full-source/paired-open-obligation checkpoint](../.ai-workspace/comm
 - Wave 1's functional substrate and [Wave 2's four threads/B06 closure](../.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-04-acceptance/disposition.md) remain accepted for their exact subjects.
 - [C1 text output](../.ai-workspace/comments/codex/20260909_C1_TEXT_OUTPUT/acceptance/disposition.json) and [C2 compact acknowledgment](../.ai-workspace/comments/codex/20260909_C2_HELPER_ACK/acceptance/disposition.json) remain accepted; their completed grants and stated C0/C2 limits are unchanged.
 - The [seven-scenario campaign](../../odd_glc/.ai-workspace/comments/codex/20260909_FULL_LIVE_SUITE/execution.md#executive-acceptance-of-the-seven-scenario-campaign) remains accepted construction/execution evidence: six Hello outcomes on artifact8a, Data Mapper construction on artifact9a and final repair/C2 on artifact4863, with 58 passes and nine predicates. It is not full original-specification Data Mapper, all-seven-on-one-artifact, repeatability or release qualification.
-- The [RC6 migration](../.ai-workspace/comments/codex/20260906T152118Z_STDO_RC6_MIGRATION/README.md) remains accepted under the unchanged Definition and companion composition. odd_glc independently retains RC4.
+- The [current method adoption](../.ai-workspace/comments/codex/20260921_STDO_251_RC1_ADOPTION/README.md) selects the Definition basis and companion composition. The [RC7 installation](../.ai-workspace/comments/codex/20260915_STDO_RC7_INSTALL/README.md) and [RC6 migration](../.ai-workspace/comments/codex/20260906T152118Z_STDO_RC6_MIGRATION/README.md) remain historical evidence; they do not select current development routes. No downstream Product migration is selected.
 - [S01 Execution06/root Review06A](../.ai-workspace/comments/codex/20260911_ABG5_EXECUTIVE_CHECKPOINT_08/root-reviews.md#s01-installed-review06a) is accepted for R1–R9 only on its exact cut. D2 Source05/Review20, HOW21/Review22, R10 HOW07/Review08 and HOW10/Review11, and D1 source/readiness/partial setup retain distinct bounded scopes in [Checkpoint08](../.ai-workspace/comments/codex/20260911_ABG5_EXECUTIVE_CHECKPOINT_08/checkpoint.md); none closes native continuation, typed R10, an integrated candidate or release.
 
 ### Retained Baseline-Repair Planning
@@ -451,12 +650,14 @@ review; a Reviewer performs no repair.
 
 ## Fixed Basis
 
-- Intent, Product meaning, requirements, public operation families, event-kind
-  census, feature membership, scenarios, and release subjects are unchanged.
+- Intent direction, the fifteen selected feature-family identities and exact
+  release subjects are conserved. Product Release Boundaries owns Consensus,
+  human-response and whole-run oversight applicability; this is not a claim
+  that every earlier requirement or public-operation roster remains selected.
 - [`stdo_abiogenesis.json`](../stdo_abiogenesis.json),
   `constitution.stdo.basis`, is the sole exact operative STDO selection. The
-  direct owner ruling adopts the immutable RC6 cohort for all resumed work;
-  its exact install evidence is retained by the migration record.
+  direct owner ruling adopts the immutable RC7 cohort for all resumed work;
+  its exact install evidence is retained by the linked RC7 installation record.
 - The Definition's composition selects exact release-matched Axiom Indexer and
   STDO Representation Development Products. Older installs and their maps are
   historical, non-operative context. Only a freshness-verified map over the
@@ -468,12 +669,16 @@ review; a Reviewer performs no repair.
 - Immutable `v4.6.0-rc.5` remains the semantic conservation reference.
 - Effect `3.22.1` remains exact-pinned inside its accepted composition
   boundary.
-- `A5-F12` and `ABG5-S04` remain planned 5.1 work.
+- `A5-F08`/`ABG5-S05` (standalone Consensus) and `A5-F12`/`ABG5-S04`
+  (whole-run oversight) remain planned 5.1 work.
 
-The fixed 5.0 scope remains `A5-F01` through `A5-F11` and `A5-F13` through
-`A5-F17`; `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S05`, `ABG5-S06`, and
-`ABG5-S07`; the forty 4.6 traversal-conservation rows; and the
-shape-preserving fibre-substitution differential.
+The selected 5.0 family scope is `A5-F01` through `A5-F07`, `A5-F09` through
+`A5-F11`, and `A5-F13` through `A5-F17`; `ABG5-S01`, `ABG5-S02`, `ABG5-S03`, `ABG5-S06`, and
+`ABG5-S07`; semantic conservation of retained 4.6 traversal behavior; and the
+shape-preserving fibre-substitution differential. Product owns the required
+behavioral coverage and retained/deferred boundaries. The current contraction
+removes fixed proof-row execution granularity; it does not restore 5.1
+Consensus, response or executive-oversight obligations or waive retained outcomes.
 
 ## Feature-Wave Status
 

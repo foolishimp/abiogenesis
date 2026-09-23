@@ -1,0 +1,43 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/ccall_lifecycle.d.ts
+/ccall_lifecycle.js
+/child_traversal.d.ts
+/child_traversal.js
+/entry.d.ts
+/entry.js
+/evaluation_frame.d.ts
+/evaluation_frame.js
+/graph_execute.d.ts
+/graph_execute.js
+/index.d.ts
+/index.js
+/interaction_lifecycle.d.ts
+/interaction_lifecycle.js
+/interaction_resume.d.ts
+/interaction_resume.js
+/judgment.d.ts
+/judgment.js
+/operator_support.d.ts
+/operator_support.js
+/parent_rehydration.d.ts
+/parent_rehydration.js
+/recursion_lifecycle.d.ts
+/recursion_lifecycle.js
+/retry_lifecycle.d.ts
+/retry_lifecycle.js
+/route_proposal.d.ts
+/route_proposal.js
+/structural_transition.d.ts
+/structural_transition.js
+/traversal.d.ts
+/traversal.js
+/traversal_completion.d.ts
+/traversal_completion.js
+/traversal_contract.d.ts
+/traversal_contract.js
+/traversal_failure.d.ts
+/traversal_failure.js
+/workflow_lifecycle.d.ts
+/workflow_lifecycle.js

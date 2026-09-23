@@ -1,0 +1,24 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/admission_authority.ts.preimage
+/b06-tests.log
+/build-input.json
+/build.log
+/c0-conservation.json
+/candidate.json
+/conformance_definition_bindings.ts.preimage
+/dependency-tree.json
+/handoff.md
+/install.log
+/installed-tests.log
+/integrity.json
+/manifest.json
+/native-authority-tests.log
+/pack.json
+/predecessor-archive-delta.json
+/preimages.json
+/result.json
+/source-subject.json
+/tsc-no-emit.log
+/typecheck.log

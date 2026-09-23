@@ -1,0 +1,39 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/authored.diff
+/candidate.json
+/checks.json
+/compile-01.log
+/compile-02.log
+/compile-03.log
+/compile-04.log
+/compile-05.log
+/compile-06.log
+/delta-summary.json
+/delta.json
+/evidence-inventory.json
+/existing-owner-reuse-review.md
+/focused-01.log
+/freeze.json
+/generate-01.log
+/generate-02.log
+/generate-03.log
+/generate-04.log
+/installed-selection.json
+/lifecycle-checkpoint.json
+/lifecycle-checkpoint.md
+/lifecycle-model-disposition.json
+/lifecycle-model-review.md
+/lifecycle-model-selection.json
+/qualification-module-02.log
+/qualification-module-03.log
+/qualification-module-04.log
+/qualification-module-05.log
+/recovery-02.log
+/recovery-live-unheld-03.log
+/return.md
+/subject-inventory.json
+/working-delta.json
+/working-subject-inventory.json

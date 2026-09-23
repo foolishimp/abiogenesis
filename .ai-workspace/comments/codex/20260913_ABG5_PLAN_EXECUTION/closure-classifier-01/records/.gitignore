@@ -1,0 +1,30 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/archive-identity.json
+/baseline-comparison.md
+/baseline.json
+/canonical-application-delta.json
+/classifier-controls.json
+/compiled-manifest.json
+/dependencies.json
+/extracted-inventory.json
+/final-preservation.json
+/generated-manifest.json
+/materialization.json
+/native-call-1.jsonl
+/native-call-2.jsonl
+/native-call-3.jsonl
+/native-call-4.jsonl
+/native-first-cause.json
+/native-receipt-1.json
+/native-receipt-2.json
+/native-receipt-3.json
+/native-receipt-4.json
+/native-state-1.json
+/native-state-2.json
+/native-state-3.json
+/native-stop-4.json
+/passive-preservation.json
+/preserved-prefix-proof.json
+/source-manifest.json

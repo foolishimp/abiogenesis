@@ -1,0 +1,22 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/abi-extract.json
+/abi-identity.json
+/abi-list.json
+/abi-verification-input.json
+/declarations.json
+/declared-starts.json
+/glc-identity.json
+/glc-pack.json
+/glc-pure-verification.json
+/preparation-result.json
+/preparation-stop.json
+/preservation.json
+/publication-checks-02.json
+/publication-checks.json
+/pure-lock.json
+/source-members.json
+/static-programs.json
+/workspace-create-input.json
+/workspace-created.json

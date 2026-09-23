@@ -1,12 +1,13 @@
 import { type ReadyGraphFunctionCatalog, type GraphFunctionCatalogView } from "../product/catalog.js";
 import { reconstructHistoricalDeclarationCatalog, resolveProgramDeclarationClosure } from "../product/declaration_closure.js";
-import { projectExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
+import type { ExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
 import { withAdmissionAuthority } from "../product/admission_authority.js";
 import * as Effect from "effect/Effect";
 
 import {
   projectAdmittedProductInstallByAdmissionEventRef,
   projectAdmittedWorkspaceBindingByInvocationRef,
+  validateExactPrefixArtifactTruthProjection,
   type ExactPrefixArtifactTruthProjection,
 } from "../abg/index.js";
 import { canonicalizeAuthoredGtlCarrier } from "../gtl/canonicalization.js";
@@ -31,6 +32,7 @@ import {
 } from "../shared/definition_binding_mechanics.js";
 import type {
   DefinitionExecutionFault,
+  DefinitionCall,
   DefinitionReturn,
   ExactDefinitionCallable,
 } from "../shared/effect_definition.js";
@@ -257,15 +259,11 @@ function conformanceAuthorityMatches(
 
 function reconstructDeclarationBasis(
   resources: ConformanceEvaluationResourceAssertion,
-  workspace: ReferenceDigest,
+  environment: ExactPrefixWorkspaceEnvironment,
 ): ConformanceDeclarationBasis {
   const supplied = resources.declarationCatalog;
   if (!isRecord(supplied) || !hasExactKeys(supplied, ["catalog", "catalogView"])) {
     throw new TypeError("declared inventory requires its exact admitted catalog and view");
-  }
-  const environment = projectExactPrefixWorkspaceEnvironment(resources.artifactTruth.prefix, workspace);
-  if (environment.kind !== "exact_prefix_workspace_environment") {
-    throw new TypeError("conformance workspace is absent from the exact admitted prefix");
   }
   const installs = environment.productInstalls.map(install =>
     projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth, install.admissionEventRef));
@@ -292,11 +290,10 @@ function reconstructDeclarationBasis(
   return { catalog, catalogView, declarationClosure };
 }
 
-const gtl_program: ExactDefinitionCallable<
-  ConformanceContract,
-  ConformanceEvaluationResourceAssertion,
-  ConformanceEvaluationResourceAssertion
-> = (call) => Effect.try({
+const gtl_program = (
+  call: DefinitionCall<ConformanceContract, ConformanceEvaluationResourceAssertion>,
+  boundEnvironment: ExactPrefixWorkspaceEnvironment | null,
+) => Effect.try({
   try: (): DefinitionReturn<
     ConformanceContract,
     ConformanceEvaluationResourceAssertion
@@ -380,7 +377,12 @@ const gtl_program: ExactDefinitionCallable<
       !sameCoordinate(request.program, program) ||
       !sameCoordinate(request.conformanceLaw, resources.conformanceLaw) ||
       !inventoryMatches ||
-      !conformanceAuthorityMatches(call, resources.artifactTruth)
+      boundEnvironment === null ||
+      !sameJson(resources.artifactTruth, boundEnvironment.artifactTruth) ||
+      // Grant construction awaited archive verification. Recheck the physical
+      // prefix at this owner boundary while borrowing its completed derivation.
+      !validateExactPrefixArtifactTruthProjection(boundEnvironment.artifactTruth) ||
+      !conformanceAuthorityMatches(call, boundEnvironment.artifactTruth)
     ) {
       throw fault(
         call.invocation.definitionKey,
@@ -397,7 +399,7 @@ const gtl_program: ExactDefinitionCallable<
     let declarationBasis: ConformanceDeclarationBasis | undefined;
     try {
       if (request.inventoryBasis.kind === "declared_inventory") {
-        declarationBasis = reconstructDeclarationBasis(resources, call.invocation.invocationAuthority.slots.workspace_binding!);
+        declarationBasis = reconstructDeclarationBasis(resources, boundEnvironment);
       } else if (resources.declarationCatalog !== undefined) {
         throw new TypeError("program_only conformance does not consume a declaration catalog");
       }

@@ -1,4 +1,5 @@
 import * as v from "valibot";
+import { RUNTIME_LIVENESS_READ_PROJECTION_SCHEMA } from "./runtime_liveness_contracts.js";
 import { ABG_TYPED_TERMINAL_RESULT_SCHEMA } from "./terminal_result_contracts.js";
 
 import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
@@ -55,10 +56,16 @@ const runtimeStatusSchema = v.picklist([
   "workspace",
 ]);
 
+function withNativeLiveness<const E extends v.ObjectEntries>(fields: E) {
+  return v.union([v.strictObject(fields), v.strictObject({ ...fields,
+    nativeLiveness: RUNTIME_LIVENESS_READ_PROJECTION_SCHEMA,
+  })]);
+}
+
 function subjectStatusProjectionSchema(
   kind: "run_status_projection" | "graph_call_status_projection",
 ) {
-  return v.strictObject({
+  return withNativeLiveness({
     kind: v.literal(kind),
     subject: refDigestSchema,
     status: runtimeStatusSchema,
@@ -99,14 +106,14 @@ function subjectReplayProjectionSchema(kind: string, terminalSummary = false) {
     limit: safePositiveIntegerSchema,
   };
   return terminalSummary
-    ? v.strictObject({ ...fields, status: runtimeStatusSchema, terminalResult: v.nullable(ABG_TYPED_TERMINAL_RESULT_SCHEMA) })
-    : v.strictObject(fields);
+    ? withNativeLiveness({ ...fields, status: runtimeStatusSchema, terminalResult: v.nullable(ABG_TYPED_TERMINAL_RESULT_SCHEMA) })
+    : withNativeLiveness(fields);
 }
 
 function subjectGapProjectionSchema(
   kind: "workspace_gap_projection" | "run_gap_projection",
 ) {
-  return v.strictObject({
+  return withNativeLiveness({
     kind: v.literal(kind),
     subject: refDigestSchema,
     gaps: refDigestSetSchema,
@@ -114,7 +121,7 @@ function subjectGapProjectionSchema(
   });
 }
 
-const lawfulActionProjectionSchema = v.strictObject({
+const lawfulActionProjectionSchema = withNativeLiveness({
   kind: v.literal("run_lawful_action_projection"),
   run: refDigestSchema,
   actions: refDigestSetSchema,

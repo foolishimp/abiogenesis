@@ -1,0 +1,20 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/20260916T032400_REVIEW_paired_timestamp_correction.md
+/checks.json
+/close.mjs
+/freeze.json
+/proof/fixtures/event-time-FC86af/events.jsonl
+/proof/fixtures/event-time-IiJWG7/events.jsonl
+/proof/fixtures/event-time-JpF8Yb/events.jsonl
+/proof/fixtures/event-time-KTXzky/events.jsonl
+/proof/fixtures/event-time-UvUlo7/events.jsonl
+/proof/fixtures/event-time-XIxPMO/events.jsonl
+/proof/fixtures/event-time-XXGlcO/events.jsonl
+/proof/fixtures/event-time-lZOycz/events.jsonl
+/proof/native-phase-samples.json
+/proof/paired-admission-proof.json
+/proof/producer-coverage.json
+/test-process.json
+/verify.mjs

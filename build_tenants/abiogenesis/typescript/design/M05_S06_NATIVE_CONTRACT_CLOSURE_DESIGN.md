@@ -5,7 +5,7 @@
 **Change class**: `design_reframe`
 **Owner**: T-281 under T-270
 **Ontology slice**: `NCC/1` (`candidate`)
-**Method**: `.genesis/docs/standards/DESIGN_MODULE_METHOD.md`
+**Method**: `stdo://releases/v2.5.0-rc.6/standards/DESIGN_MODULE_METHOD.md`
 **Returned review basis**:
 `b645595c16d23e98c7f65b958fcdf3e206ad3893`
 **Parent design**:

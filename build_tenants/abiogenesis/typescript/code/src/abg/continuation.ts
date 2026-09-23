@@ -1,3 +1,4 @@
+import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
 import type {
   ClosureContract,
   GraphFunction,
@@ -18,6 +19,7 @@ import {
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { replayValidatedRuntimeEventPrefix, type ReplayState } from "./replay.js";
 import type { GraphValidation } from "../validator/graph.js";
 import type { ProgramValidation } from "../validator/validation.js";
 import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
@@ -62,12 +64,12 @@ import {
 import {
   AbgEventStore,
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
+  assertHeldEventStoreAtDurablePrefix,
   admitRuntimeEvent,
   admitRuntimeEventTransactionAtExpectedPrefix,
-  assertHeldEventStoreAtDurablePrefix,
+  readHeldRuntimeEventsAtDurablePrefix,
   compareAndAppendExpectedPrefix,
   projectRuntimeEventFromValidatedHistory,
-  readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
   type RuntimeEventCandidate,
@@ -136,7 +138,7 @@ import {
   holdsAt,
   type RuntimeEventCalculusProjection,
 } from "./event_calculus.js";
-import {
+import { runtimeEventPrefixDigest,
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
@@ -401,12 +403,6 @@ function executionBasisDescendsFromRootInvocationAtPrefix(
     );
   }
   return false;
-}
-
-function isRecord(
-  value: unknown,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 /**
@@ -1625,6 +1621,8 @@ export interface AdmitFhInteractionHoldInput {
   readonly expectedInputDigest: Sha256Digest;
   readonly pendingPlan: PendingInteractionAdmissionPlan;
   readonly routeCandidate: TraversalTransitionCandidate;
+  /** @internal Synchronous pure HoG selection at the actual staged prefix. */
+  readonly selectRouteCandidate?: (replay: ReplayState) => TraversalTransitionCandidate;
   readonly productBasis: ContinuationProductBasis;
   readonly inputValue: Readonly<Record<string, JsonValue>>;
   readonly pendingBasis: RuntimeAdmissionBasis;
@@ -1649,9 +1647,8 @@ export interface FhInteractionHoldAdmission {
 export function admitFhInteractionHold(
   input: Readonly<AdmitFhInteractionHoldInput>,
 ): FhInteractionHoldAdmission {
-  assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
-  const predecessorEvents = readRuntimeEventsAtDurablePrefix(
-    input.predecessorPrefix,
+  const predecessorEvents = readHeldRuntimeEventsAtDurablePrefix(
+    input.store, input.predecessorPrefix,
   );
   const cCall = input.pendingPlan.pending.cCall;
   const evidence = input.routeCandidate.transitionClass === "route"
@@ -1659,7 +1656,7 @@ export function admitFhInteractionHold(
     : null;
   if (
     input.pendingPlan.expectedPrefixDigest !==
-      sha256Canonical(predecessorEvents as unknown as JsonValue) ||
+      runtimeEventPrefixDigest(selectValidatedRuntimeEventPrefix(predecessorEvents)) ||
     evidence?.evidenceClass !== "hold" ||
     evidence.cCall.cCallRef !== cCall.cCallRef ||
     sha256Canonical(evidence.result as unknown as JsonValue) !==
@@ -1675,6 +1672,7 @@ export function admitFhInteractionHold(
       "F_H hold candidate differs from its exact pending interaction plan",
     );
   }
+  assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
   const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     input.store,
     input.predecessorPrefix,
@@ -1690,16 +1688,28 @@ export function admitFhInteractionHold(
         input.pendingPlan,
         input.pendingBasis,
       );
+      const stagedPrefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
+      const routeCandidate = input.selectRouteCandidate?.(
+        replayValidatedRuntimeEventPrefix(
+          selectValidatedRuntimeEventPrefix(input.store.readAll(), { runId: input.cursor.runId }),
+          stagedPrefix,
+        ),
+      ) ?? input.routeCandidate;
+      if (routeCandidate.transitionClass !== "route" ||
+          sha256Canonical(routeCandidate.evidence as unknown as JsonValue) !==
+            sha256Canonical(input.routeCandidate.evidence as unknown as JsonValue)) {
+        throw new TypeError("F_H staged selection changed its planned owner evidence");
+      }
       const transition = admitTraversalTransitionInActiveTransaction({
         durablePredecessorPrefix: input.predecessorPrefix,
-        stagedPrefix: selectValidatedRuntimeEventPrefix(input.store.readAll()),
+        stagedPrefix,
         store: input.store,
         executionBasis: input.executionBasis,
         graph: input.graph,
         graphFunction: input.graphFunction,
         source: input.cursor,
         target: null,
-        candidate: input.routeCandidate,
+        candidate: routeCandidate,
         basis: input.routeBasis,
       });
       if (transition.kind !== "staged_route_transition_admission") {
@@ -1933,9 +1943,8 @@ export function commitFhInteractionResponseAtExpectedPrefix(
   responseValue: Readonly<Record<string, JsonValue>>,
   responseBasis: RuntimeAdmissionBasis,
 ): CommittedFhInteractionResponseResult {
-  assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
   const prefix = selectValidatedRuntimeEventPrefix(
-    readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+    readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
   );
   const preparedOperation = prepareContinuationPublicOperation(
     prefix,
@@ -2028,7 +2037,6 @@ export function deriveFhResumeSuccessorInputAtPrefix(
     successorCarrier,
   );
 }
-
 
 export function prepareFhInteractionResume(
   publicOperation: PreparedContinuationPublicOperation,
@@ -2207,9 +2215,8 @@ export function commitFhInteractionResumeAtExpectedPrefix(
   successorCursor: TraversalCursorCandidate,
   resumeBasis: RuntimeAdmissionBasis,
 ): CommittedFhInteractionResumeResult {
-  assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
   const prefix = selectValidatedRuntimeEventPrefix(
-    readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+    readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
   );
   const preparedOperation = prepareContinuationPublicOperation(
     prefix,

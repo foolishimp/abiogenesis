@@ -1,0 +1,44 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/baseline.json
+/capture-baseline.mjs
+/freeze-postflight.mjs
+/latest-handoff.json
+/launch.json
+/manifest.json
+/native-companion-inventory.json
+/postflight.json
+/preimages/app/app.mjs
+/preimages/app/check.mjs
+/preimages/app/dep01.mjs
+/preimages/app/dep02.mjs
+/preimages/app/dep03.mjs
+/preimages/app/dep04.mjs
+/preimages/app/dep05.mjs
+/preimages/app/dep06.mjs
+/preimages/app/dep07.mjs
+/preimages/app/dep08.mjs
+/preimages/app/dep09.mjs
+/preimages/app/dep10.mjs
+/preimages/app/dep11.mjs
+/preimages/app/dep12.mjs
+/preimages/app/dep13.mjs
+/preimages/app/dep14.mjs
+/preimages/app/dep15.mjs
+/preimages/app/dep16.mjs
+/preimages/app/dep17.mjs
+/preimages/app/dep18.mjs
+/preimages/app/dep19.mjs
+/preimages/app/dep20.mjs
+/primary-cause.json
+/process-trace.jsonl
+/quiescence.json
+/result.json
+/return.md
+/runtime-events-846.jsonl
+/runtime-events-849.jsonl
+/runtime-inventory.json
+/stderr.log
+/stdout.log
+/subject.json

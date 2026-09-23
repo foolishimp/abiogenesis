@@ -1,0 +1,44 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/authored-line-delta.json
+/authored.diff
+/baseline-inventory.json
+/closed-prerequisite-results.json
+/closed-results.json
+/compile-02.log
+/compile-03.log
+/compile-04.log
+/compile.log
+/component-02.tap
+/component-03.tap
+/component-metadata.json
+/component.tap
+/evidence-inventory.json
+/final-cold-dimensions.json
+/freeze.json
+/generate-02.log
+/generate.log
+/observe-process.py
+/observed-shape.json
+/proof-artifact-identity-02.json
+/proof-artifact-identity.json
+/proof-artifact-members-02.json
+/proof-artifact-members.json
+/proof-install-02.log
+/proof-install.log
+/proof-pack-02.json
+/proof-pack-process-02.json
+/proof-pack-process.json
+/proof-pack-stderr-02.log
+/proof-pack-stderr.log
+/proof-pack.json
+/proof-scope-selection.json
+/proof-verification-02.json
+/proof-verification.json
+/return.md
+/source-conservation.md
+/source-freeze.json
+/working-delta.json
+/writer-subject.json

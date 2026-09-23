@@ -1,0 +1,30 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/acceptance.md
+/application.json
+/authored-changes.json
+/authored.patch
+/authority.json
+/build-result.json
+/build.log
+/candidate-inventory.json
+/configuration/run-environment-resources.json
+/configuration/run-environment.json
+/execution.json
+/focused-tests-result.json
+/focused-tests.log
+/freeze.json
+/observations/context-component-KVg18n/record.json
+/observations/context-component-KVg18n/source-unavailable/policy.txt
+/observations/context-component-lHzZYG/record.json
+/observations/context-component-lHzZYG/source/external-evidence/record.json
+/observations/context-component-lHzZYG/source/external-link
+/observations/context-component-lHzZYG/source/policy.txt
+/observations/context-component-lHzZYG/source/unselected.txt
+/observations/stdo-access-DT8zlm/run-environment-evidence.json
+/rc1-observation.json
+/retained-source.json
+/review.md
+/subject.json
+/writer-return.md

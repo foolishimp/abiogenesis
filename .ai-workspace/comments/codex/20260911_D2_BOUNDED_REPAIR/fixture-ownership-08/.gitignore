@@ -1,0 +1,27 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/bootstrap.json
+/bootstrap.mjs
+/check-fixture.mjs
+/checks/design-derived-carriers.json
+/checks/design-probe-input.json
+/checks/design-probe-output.json
+/checks/design-probe-rendered-actor.mjs
+/checks/design-probe-stdin.txt
+/checks/pure-repair-configurations.json
+/checks/readiness.json
+/checks/snapshot-guard-discriminators.json
+/fixture.patch
+/freeze.mjs
+/manifest.json
+/preimages/work/test_env/support/candidate-basis.mjs
+/preimages/work/test_env/support/d2-continuation-fixture.mjs
+/preimages/work/test_env/support/root-cli-environment.mjs
+/preimages/work/test_env/tests/d2-continuation-installed.mjs
+/return.md
+/work/test_env/support/candidate-basis.mjs
+/work/test_env/support/d2-continuation-fixture.mjs
+/work/test_env/support/root-cli-environment.mjs
+/work/test_env/tests/d2-continuation-installed.mjs

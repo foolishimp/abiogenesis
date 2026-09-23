@@ -34,7 +34,12 @@ The constitutional sources are:
 - `REQ-P-CONSENSUS-001..019`;
 - accepted M03 direct-GTL architecture;
 - accepted M05 Sections 1 through 12; and
-- installed STDO `v2.2.0`.
+- the exact installed STDO basis selected by
+  `repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`.
+
+The original STDO `v2.2.0` construction basis is historical, non-operative
+method provenance. RC6 route propagation conserves the accepted S05 semantic
+subject and its historical identities; current GOALS/T-287 alone select work.
 
 ## Requirement Projection
 

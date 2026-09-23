@@ -1,0 +1,47 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/bridge-first-cause-01/admitted-design-result.json
+/bridge-first-cause-01/bridge-input.json
+/bridge-first-cause-01/currentness.json
+/bridge-first-cause-01/diagnostic-result.json
+/bridge-first-cause-01/diagnostic.log
+/bridge-first-cause-01/diagnostic.mjs
+/bridge-first-cause-01/first-cause-events.json
+/bridge-first-cause-01/fresh-replay-result.json
+/bridge-first-cause-01/fresh-replay.log
+/bridge-first-cause-01/fresh-replay.mjs
+/bridge-first-cause-01/index.json
+/bridge-first-cause-01/run_replay-call.jsonl
+/bridge-first-cause-01/run_replay-response.json
+/bridge-first-cause-01/run_replay-stderr.log
+/bridge-first-cause-01/tracking-delta.patch
+/bridge-first-cause-01/tracking-postimages.json
+/bridge-first-cause-01/tracking-preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/bridge-first-cause-01/tracking-preimages/specification/GOALS.md
+/design-proof-limits/T287-preimage.md
+/design-proof-limits/capsule.json
+/design-proof-limits/tracking-postimage.json
+/execute.mjs
+/executive-acceptance.json
+/harness-deadline-extension-01/activation.json
+/harness-deadline-extension-01/before.json
+/harness-deadline-extension-01/closed-result.json
+/harness-deadline-extension-01/extend.mjs
+/harness-deadline-extension-01/extension.log
+/harness-deadline-extension-01/process-preimage.txt
+/harness-deadline-extension-01/result.json
+/harness-deadline-extension-01/tracking-delta.patch
+/harness-deadline-extension-01/tracking-postimages.json
+/harness-deadline-extension-01/tracking-preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/harness-deadline-extension-01/tracking-preimages/specification/GOALS.md
+/harness-delta.patch
+/launch.json
+/live.log
+/process-exit.json
+/process.json
+/readiness.json
+/tracking-delta.patch
+/tracking-postimages.json
+/tracking-preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/tracking-preimages/specification/GOALS.md

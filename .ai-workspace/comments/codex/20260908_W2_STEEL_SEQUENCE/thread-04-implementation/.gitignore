@@ -1,0 +1,42 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/artifact-1616ea5f2909e81e33ffcccccc85cab4e8c6d34bcef80fa0fae13e92b20a5f1e.tgz
+/execution.md
+/live-attempt-01.log
+/live-attempt-01/attempt.json
+/live-attempt-01/first-cause.json
+/live-attempt-02.log
+/live-attempt-02/attempt.json
+/live-attempt-02/harness.mjs
+/live-result-01.json
+/live-result-02.json
+/live-selection-01.json
+/live-selection-02.json
+/obs-04-01/bootstrap-install.log
+/obs-04-01/combined-build.log
+/obs-04-01/diagnose.mjs
+/obs-04-01/diagnostic-01.json
+/obs-04-01/diagnostic-01.stderr
+/obs-04-01/live-harness.mjs
+/obs-04-01/pack.json
+/obs-04-01/retained-proof-01.log
+/obs-04-01/retained-proof-02.log
+/obs-04-01/retained-proof-03.log
+/obs-04-01/retained-proof-initial.json
+/obs-04-01/retained-proof.json
+/obs-04-01/retained-proof.mjs
+/obs-04-01/transport-lf-probe.mjs
+/obs-04-01/transport-lf-proof.json
+/obs-04-01/typecheck-01.log
+/obs-04-01/worksite_input_provenance.preimage.ts
+/outcome-evidence.tgz
+/partial-result-01.json
+/partial-selection-01.json
+/partial-stop-01.log
+/partial-stop-01/attempt.json
+/partial-stop-01/deterministic-transport.mjs
+/preimages.json
+/subject.json
+/successor-02.json
+/tracking-preimages.tar.gz

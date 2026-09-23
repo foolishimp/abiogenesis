@@ -1,3 +1,4 @@
+import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -80,12 +81,6 @@ export function rehydrateMaterializedGtlGraph(
 export interface MaterializedGraphShape {
   readonly template: GraphTemplate;
   readonly fanOutMaterializations: readonly FanOutMaterialization[];
-}
-
-function isRecord(
-  value: unknown,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function fanOutMembers(

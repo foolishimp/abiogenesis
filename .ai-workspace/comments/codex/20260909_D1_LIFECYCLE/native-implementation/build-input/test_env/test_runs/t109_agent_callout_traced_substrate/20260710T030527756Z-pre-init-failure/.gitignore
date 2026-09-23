@@ -1,0 +1,13 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/pre-init-agent-failure-output.txt
+/pre-init-agent-failure-prompt.txt
+/pre-init-agent-failure-stderr.log
+/pre-init-agent-failure-stdout.log
+/pre-init-agent-failure-transport.json
+/pre-init-agent-failure.trace/command.json
+/pre-init-agent-failure.trace/events.ndjson
+/pre-init-agent-failure.trace/final_output.txt
+/pre-init-agent-failure.trace/meta.json
+/pre-init-agent-failure.trace/result.json

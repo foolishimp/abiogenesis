@@ -1,0 +1,15 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/code/src/abg/event_prefix.ts
+/code/src/abg/instruction_assembly.ts
+/code/src/abg/runtime_liveness.ts
+/code/src/abg/semantic_revision.ts
+/code/src/abg/semantic_stage.ts
+/code/src/abg/worksite_revision.ts
+/code/src/gtl/semantic_stage.ts
+/code/src/gtl/semantic_stage_publication.ts
+/code/src/implementation/semantic_revision.ts
+/code/src/implementation/semantic_stage.ts
+/code/src/product/semantic_revision.ts
+/code/src/product/semantic_stage.ts

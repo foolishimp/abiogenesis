@@ -1,0 +1,15 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/claude-rate-limit-transport-failure-output.txt
+/claude-rate-limit-transport-failure-prompt.txt
+/claude-rate-limit-transport-failure-stderr.log
+/claude-rate-limit-transport-failure-stdout.log
+/claude-rate-limit-transport-failure-transport.json
+/claude-rate-limit-transport-failure.trace/command.json
+/claude-rate-limit-transport-failure.trace/events.ndjson
+/claude-rate-limit-transport-failure.trace/final_output.txt
+/claude-rate-limit-transport-failure.trace/meta.json
+/claude-rate-limit-transport-failure.trace/result.json
+/claude-rate-limit-transport-failure.trace/stdout.raw
+/fake-claude-rate-limit.mjs

@@ -1,0 +1,21 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/apply.mjs
+/delta.json
+/diffs/code__src__product__declaration_exports.ts.diff
+/diffs/code__src__product__verify_product.ts.diff
+/diffs/scripts__generate-product-manifest.mjs.diff
+/handoff.md
+/materialization.json
+/preimages.json
+/preimages/build/code/src/product/declaration_exports.d.ts
+/preimages/build/code/src/product/declaration_exports.js
+/preimages/build/code/src/product/verify_product.js
+/preimages/code/src/product/declaration_exports.ts
+/preimages/code/src/product/verify_product.ts
+/preimages/contracts/capabilities/capability-definition-graph.json
+/preimages/product-toolchain-manifest.json
+/preimages/scripts/generate-product-manifest.mjs
+/result.json

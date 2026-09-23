@@ -1,4 +1,7 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
+import { projectNativeLivenessRead } from "./runtime_liveness.js";
+import { projectRuntimeFailureEvidenceAtPrefix } from "./runtime_failure.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { reconstructHistoricalDeclarationCatalog, resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
 import { projectExactPrefixWorkspaceEnvironment, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
@@ -24,6 +27,7 @@ import {
 } from "./event_prefix.js";
 import {
   readRuntimeEventsAtDurablePrefix,
+  captureDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
 } from "./event_store.js";
@@ -32,7 +36,7 @@ import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPr
 import {
   projectRunQuiescence,
   projectRunSemanticReplayProjection,
-  replayValidatedRuntimeEventPrefix,
+  projectRunReplayContext,
   type ReplayCCallState,
   type ReplayRouteState,
   type ReplayState,
@@ -179,10 +183,6 @@ interface GraphCallReadContext extends RunReadContext {
 const ABSENT = Symbol("abg_project_read_target_absent");
 const NOT_READY = Symbol("abg_project_read_target_not_ready");
 type ProjectedValue = JsonValue | typeof ABSENT | typeof NOT_READY;
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function hasExactDataFields(value: object, fields: readonly string[]): boolean {
   const actual = Reflect.ownKeys(value);
@@ -400,7 +400,8 @@ function typedTerminalResult(
   const closes = events.filter((event) => event.kind === "graph_call_closed" && event.aggregateId === graphCallId);
   if (closes.length === 0 || (requireRunClosed && context.replay.runtimeStatus !== "closed")) return null;
   const closed = one(closes, "GraphCall close"), closeBody = eventRecord(closed);
-  const terminal = terminalResult(graphCallRows(context, graphCallId).routes, graphCallRows(context, graphCallId).cCalls);
+  const rows = graphCallRows(context, graphCallId);
+  const terminal = terminalResult(rows.routes, rows.cCalls);
   if (terminal === null) throw new TypeError("closed scope lacks one exact terminal producer");
   const route = projectHistoricalTraversalRouteAtPrefix(context.prefix, terminal.route.admissionEventRef, prepared.fullPrefix);
   if (route === null || route.routeKind !== "terminal" || route.cCallRef === null || route.judgmentRef === null) {
@@ -474,7 +475,7 @@ export function projectClosedGraphCallTerminalAtDurablePrefix(
 ): AbgTypedTerminalResult | null {
   try {
     const prepared = prepareRead("graph_call_result", {kind:"abg_project_read_packet",schemaVersion:"5.0.0",
-      memberKey:"graph_call_result",prefix,targetRef:graphCallId,declarationProof});
+      memberKey:"graph_call_result",prefix,targetRef:graphCallId,declarationProof}, captureDurablePrefixCoordinate(prefix));
     if ("disposition" in prepared) return null;
     const runId = runIdForGraphCall(prepared,graphCallId);
     const context = runId === null ? null : runContext(prepared,runId);
@@ -499,10 +500,10 @@ function refusal<K extends AbgProjectReadMemberKey>(
   });
 }
 
-function prepareRead<K extends AbgProjectReadMemberKey>(
+function admitReadPacket<K extends AbgProjectReadMemberKey>(
   expectedMemberKey: K,
   supplied: AbgProjectReadPacket<K>,
-): PreparedRead<K> | AbgProjectReadRefusal<K> {
+): AbgProjectReadPacket<K> | AbgProjectReadRefusal<K> {
   let admitted: JsonValue;
   try {
     admitted = admitIJsonValue(supplied, "ABG project read packet");
@@ -543,8 +544,25 @@ function prepareRead<K extends AbgProjectReadMemberKey>(
     );
   }
 
-  const packet = admitted as unknown as AbgProjectReadPacket<K>;
+  return admitted as unknown as AbgProjectReadPacket<K>;
+}
+
+function prepareRead<K extends AbgProjectReadMemberKey>(
+  expectedMemberKey: K,
+  supplied: AbgProjectReadPacket<K>,
+  retainedPrefix?: DurablePrefixCoordinate,
+): PreparedRead<K> | AbgProjectReadRefusal<K> {
+  const admitted = admitReadPacket(expectedMemberKey, supplied);
+  if ("code" in admitted) return admitted;
+  let packet = admitted;
   try {
+    // Only the internal owner may retain its exact immutable coordinate. Raw
+    // packet admission and byte equality remain mandatory; copies stay cold.
+    if (retainedPrefix !== undefined) {
+      if (canonicalJson(retainedPrefix as unknown as JsonValue) !== canonicalJson(admitted.prefix as unknown as JsonValue))
+        throw new TypeError("retained prefix differs from admitted read packet");
+      packet = deepFreeze({ ...admitted, prefix: retainedPrefix });
+    }
     const events = readRuntimeEventsAtDurablePrefix(packet.prefix);
     const fullPrefix = selectValidatedRuntimeEventPrefix(events);
     return deepFreeze({
@@ -577,18 +595,7 @@ function runContext(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   runId: string,
 ): RunReadContext | null {
-  const prefix = selectValidatedRuntimeEventPrefix(prepared.events, { runId });
-  const replay = replayValidatedRuntimeEventPrefix(prefix, prepared.fullPrefix);
-  if (replay.runId !== runId) return null;
-  return deepFreeze({
-    prefix,
-    calculus: deriveRuntimeEventCalculusProjection(prefix),
-    replay,
-    semanticReplay: projectRunSemanticReplayProjection(
-      prepared.fullPrefix,
-      runId,
-    ),
-  });
+  return projectRunReplayContext(prepared.fullPrefix, runId, prepared.packet.prefix);
 }
 
 function runIdForGraphCall(
@@ -789,7 +796,7 @@ export function projectRunTruthAtDurablePrefix(
     memberKey: "run_replay",
     prefix,
     targetRef: runId,
-  });
+  }, captureDurablePrefixCoordinate(prefix));
   if ("code" in prepared) {
     return deepFreeze({
       kind: "abg_run_truth_refusal" as const,
@@ -829,11 +836,62 @@ export function projectGraphCallSourceAtDurablePrefix(prefix: DurablePrefixCoord
   try {
     const context = graphCallContext(prepared, graphCallId);
     if (context === null) return null;
-    const atom = one(context.eventAtoms.filter((row) => row.eventKind === "graph_call_opened" && row.aggregateId === graphCallId), "GraphCall source");
-    const basis = atom.basisId === null ? null : projectExactExecutionBasisAtPrefix(prepared.fullPrefix, atom.basisId);
-    if (basis === null) return null;
-    return deepFreeze({ source: truthCoordinate(graphCallId, atom.semanticPayloadDigest),
-      workspaceBinding: truthCoordinate(basis.workspaceBindingId, basis.workspaceBindingDigest) });
+    return graphCallSource(prepared, context);
+  } catch { return null; }
+}
+
+function graphCallSource(
+  prepared: PreparedRead<AbgProjectReadMemberKey>,
+  context: GraphCallReadContext,
+) {
+  const atom = one(context.eventAtoms.filter((row) => row.eventKind === "graph_call_opened" &&
+    row.aggregateId === context.graphCallId), "GraphCall source");
+  const basis = atom.basisId === null ? null : projectExactExecutionBasisAtPrefix(prepared.fullPrefix, atom.basisId);
+  return basis === null ? null : deepFreeze({
+    source: truthCoordinate(context.graphCallId, atom.semanticPayloadDigest),
+    workspaceBinding: truthCoordinate(basis.workspaceBindingId, basis.workspaceBindingDigest),
+  });
+}
+
+/** Retain the read owner's exact context across source authentication and
+ * projection. The closure accepts only optional declaration proof, never a
+ * caller-asserted context or another prefix. Source identity is proof-independent. */
+export function prepareRunReadAtDurablePrefix(
+  prefix: DurablePrefixCoordinate,
+  memberKey: "run_status" | "run_result" | "run_replay" | "graph_call_result" | "graph_call_replay",
+  targetRef: string,
+) {
+  const graphRead = memberKey === "graph_call_result" || memberKey === "graph_call_replay";
+  const sourceMember = graphRead ? "graph_call_replay" : "run_replay";
+  const prepared = prepareRead(sourceMember, {
+    kind: "abg_project_read_packet", schemaVersion: "5.0.0", memberKey: sourceMember, prefix, targetRef,
+  }, captureDurablePrefixCoordinate(prefix));
+  if ("code" in prepared) return null;
+  try {
+    const run = graphRead ? null : canonicalRunContext(prepared, targetRef);
+    const graph = graphRead ? graphCallContext(prepared, targetRef) : null;
+    const source = graph !== null ? graphCallSource(prepared, graph)
+      : run === null ? null : { source: run.truth.run, workspaceBinding: run.truth.workspaceBinding };
+    if (source === null) return null;
+    return Object.freeze({ ...source,
+      project: (declarationProof?: AbgHistoricalDeclarationProof) => {
+        const packet = admitReadPacket(memberKey, {
+          ...prepared.packet, memberKey,
+          ...(declarationProof === undefined ? {} : { declarationProof }),
+        });
+        if ("code" in packet) return packet;
+        const selected = { ...prepared, packet };
+        return projectPreparedRead(selected, () => {
+          switch (memberKey) {
+            case "run_status": return projectRunStatus(selected, targetRef, run);
+            case "run_result": return projectRunResult(selected, targetRef, run);
+            case "run_replay": return projectRunReplay(selected, targetRef, run);
+            case "graph_call_result": return projectGraphCallResult(selected, targetRef, graph);
+            case "graph_call_replay": return projectGraphCallReplay(selected, targetRef, graph);
+          }
+        });
+      },
+    });
   } catch { return null; }
 }
 
@@ -846,8 +904,8 @@ function graphCallStatus(context: GraphCallReadContext): ReplayState["runtimeSta
 function projectRunStatus(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
+  context: CanonicalRunReadContext | null = canonicalRunContext(prepared, targetRef),
 ): ProjectedValue {
-  const context = canonicalRunContext(prepared, targetRef);
   if (context === null) return ABSENT;
   return {
     runId: targetRef,
@@ -889,8 +947,8 @@ function projectGraphCallStatus(
 function projectRunResult(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
+  context: CanonicalRunReadContext | null = canonicalRunContext(prepared, targetRef),
 ): ProjectedValue {
-  const context = canonicalRunContext(prepared, targetRef);
   if (context === null) return ABSENT;
   return context.truth.terminalResult === null
     ? ["active", "held", "gap_stopped"].includes(context.truth.runtimeStatus) ? NOT_READY : ABSENT
@@ -908,8 +966,8 @@ function projectRunResult(
 function projectGraphCallResult(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
+  context: GraphCallReadContext | null = graphCallContext(prepared, targetRef),
 ): ProjectedValue {
-  const context = graphCallContext(prepared, targetRef);
   if (context === null) return ABSENT;
   const terminal = terminalResult(context.routes, context.cCalls);
   const typed = typedTerminalResult(prepared, context, targetRef, false);
@@ -957,7 +1015,10 @@ function projectRunEvidence(
   const context = canonicalRunContext(prepared, targetRef);
   return context === null
     ? ABSENT
-    : evidenceProjection(context, context.replay.cCalls);
+    : {
+        ...evidenceProjection(context, context.replay.cCalls) as Readonly<Record<string, JsonValue>>,
+        runtimeFailures: projectRuntimeFailureEvidenceAtPrefix(context.prefix),
+      };
 }
 
 function projectGraphCallEvidence(
@@ -994,7 +1055,7 @@ function projectWorkspaceReplay(
   );
   if (workspaceEvents.length === 0) return ABSENT;
   const replays = runIds(prepared).map((runId) =>
-    projectRunSemanticReplayProjection(prepared.fullPrefix, runId)
+    projectRunSemanticReplayProjection(prepared.fullPrefix, runId, prepared.packet.prefix)
   );
   return {
     workspaceRef: targetRef,
@@ -1007,8 +1068,8 @@ function projectWorkspaceReplay(
 function projectRunReplay(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
+  context: CanonicalRunReadContext | null = canonicalRunContext(prepared, targetRef),
 ): ProjectedValue {
-  const context = canonicalRunContext(prepared, targetRef);
   return context === null
     ? ABSENT
     : { ...context.semanticReplay, runtimeStatus: context.truth.runtimeStatus,
@@ -1018,8 +1079,8 @@ function projectRunReplay(
 function projectGraphCallReplay(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
+  context: GraphCallReadContext | null = graphCallContext(prepared, targetRef),
 ): ProjectedValue {
-  const context = graphCallContext(prepared, targetRef);
   if (context === null) return ABSENT;
   const atomRefs = new Set(context.eventAtoms.map((event) => event.atomRef));
   return {
@@ -1212,13 +1273,19 @@ function project<K extends AbgProjectReadMemberKey>(
 ): AbgProjectReadResult<K> {
   const prepared = prepareRead(expectedMemberKey, packet);
   if ("code" in prepared) return prepared;
+  return projectPreparedRead(prepared, () => projectValue(
+    prepared as PreparedRead<AbgProjectReadMemberKey>, expectedMemberKey, prepared.packet.targetRef,
+  ));
+}
+
+function projectPreparedRead<K extends AbgProjectReadMemberKey>(
+  prepared: PreparedRead<K>,
+  projection: () => ProjectedValue,
+): AbgProjectReadResult<K> {
+  const expectedMemberKey = prepared.packet.memberKey;
   let projected: ProjectedValue;
   try {
-    projected = projectValue(
-      prepared as PreparedRead<AbgProjectReadMemberKey>,
-      expectedMemberKey,
-      prepared.packet.targetRef,
-    );
+    projected = projection();
   } catch {
     return refusal(
       expectedMemberKey,
@@ -1237,7 +1304,15 @@ function project<K extends AbgProjectReadMemberKey>(
   }
   if (projected === NOT_READY) return refusal(expectedMemberKey, prepared.packet.targetRef,
     "target_not_ready", "selected scope has no terminal result at this prefix");
-  const value = admitIJsonValue(projected, "ABG project read projection");
+  const livenessMember = expectedMemberKey.endsWith("_status") || expectedMemberKey.endsWith("_replay") ||
+    expectedMemberKey.endsWith("_gaps") || expectedMemberKey === "run_lawful_actions";
+  const nativeLiveness = livenessMember ? projectNativeLivenessRead(prepared.fullPrefix,
+    expectedMemberKey.startsWith("run_") ? prepared.packet.targetRef :
+      expectedMemberKey.startsWith("graph_call_") ? runtimeEventsFromValidatedPrefix(prepared.fullPrefix)
+        .find(event => event.kind === "graph_call_opened" && event.aggregateId === prepared.packet.targetRef)?.runId ?? null : null,
+    expectedMemberKey.startsWith("graph_call_") ? prepared.packet.targetRef : undefined) : null;
+  const value = admitIJsonValue(nativeLiveness === null ? projected :
+    { ...(projected as Readonly<Record<string, JsonValue>>), nativeLiveness }, "ABG project read projection");
   const body = {
     memberKey: expectedMemberKey,
     targetRef: prepared.packet.targetRef,

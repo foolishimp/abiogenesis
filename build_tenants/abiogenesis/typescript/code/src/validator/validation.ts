@@ -1,7 +1,10 @@
+import { RETAINED_GRAPH_INPUT_CONTRACT } from "../product/worksite_preparation_contracts.js";
 import { validRequirementHandoffPublication } from "../gtl/requirement_handoff.js";
+import { validSemanticJobProgramOwners } from "../gtl/semantic_job.js";
+import { validRunEnvironmentPublication, validRunEnvironmentProgram } from "../gtl/stdo_run_environment.js";
 import { worksitePreservedResultSourceOfGraphFunction, WORKSITE_PRESERVED_RESULT_IDS } from "../gtl/worksite_construction_recovery.js";
 import { semanticLifecycleRefForProgram, validSemanticProgramOwners, validSemanticLifecyclePublication } from "../gtl/semantic_stage.js";
-import { isWorksiteRetentionContractRelation } from "../product/worksite_preparation_contracts.js";
+import { isGraphInputRetentionContractRelation } from "../product/worksite_preparation_contracts.js";
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
@@ -161,6 +164,8 @@ function validatePublishedDeclarations(
   const diagnostics: StaticDiagnostic[] = [];
   if (!validRequirementHandoffPublication(publication)) diagnostics.push({
     code: "invalid_reference", path: "$.requirementHandoffs", message: "invalid closed source/obligation declaration or selection" });
+  if (!validRunEnvironmentPublication(publication)) diagnostics.push({
+    code: "invalid_reference", path: "$.runEnvironments", message: "invalid exact STDO environment declaration or Program selection" });
   if (!validSemanticLifecyclePublication(publication)) diagnostics.push({
     code: "invalid_reference", path: "$.semanticLifecycle", message: "invalid semantic stage, source, policy, shape or installed contract relation" });
   const semantics = publication.productSemanticsBinding;
@@ -694,14 +699,19 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
     return invalid("program", input.program.subjectDigest, diagnostics);
   }
   const publication = input.programPublication.value;
+  if (!validRunEnvironmentPublication(publication) || !validRunEnvironmentProgram(publication, input.program.value, input.graphFunctions.map(g => g.value))) {
+    diagnostics.push({ code: "invalid_reference", path: "$.runEnvironments", message: "STDO environment must cover every supported dependent semantic or worksite leaf exactly once" });
+  }
   if (semanticLifecycleRefForProgram(publication, input.program.value) !== undefined) {
     const source = input.semanticSourcePublication;
     const lifecycle = input.semanticLifecyclePublication;
     const lifecycleValue = lifecycle?.value ?? publication;
     if (source !== undefined && (!isRawAdmittedValue(source) || source.subjectKind !== "module_publication") ||
       lifecycle !== undefined && (!isRawAdmittedValue(lifecycle) || lifecycle.subjectKind !== "module_publication") ||
-      source === undefined && !publication.requirementHandoffs?.some(d => d.declarationRef === lifecycleValue.semanticLifecycle?.sourceDeclarationRef) ||
-      !validRequirementHandoffPublication(source?.value ?? publication) ||
+      (lifecycleValue.semanticJobLifecycle !== undefined
+        ? !validSemanticJobProgramOwners(publication, input.program.value, lifecycleValue, input.contracts.map(c => c.value))
+        : source === undefined && !publication.requirementHandoffs?.some(d => d.declarationRef === lifecycleValue.semanticLifecycle?.sourceDeclarationRef) ||
+          !validRequirementHandoffPublication(source?.value ?? publication)) ||
       !validSemanticProgramOwners(publication, input.program.value, lifecycleValue, source?.value ?? publication)) {
       diagnostics.push({ code: "invalid_reference", path: "$.semanticSourcePublication", message: "semantic Program requires its exact source declaration owner" });
     }
@@ -903,13 +913,14 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
         continue;
       }
       if (from === undefined || to === undefined || graphFunction.inputs.length !== 1 ||
+        (binding.targetContractRef === RETAINED_GRAPH_INPUT_CONTRACT.contractRef && from.term.kind !== "c_workflow") ||
         graphFunction.inputs[0] !== binding.entryContractRef ||
         from.term.outputCarrierRef !== binding.sourceContractRef ||
         to.term.inputCarrierRef !== binding.targetContractRef ||
         !graphFunction.environment.carries.includes(binding.entryContractRef) ||
         ![...graphFunction.environment.provides, ...graphFunction.environment.carries].includes(binding.sourceContractRef) ||
         graphFunction.template.edges.filter((candidate) => candidate.toNodeRef === edge.toNodeRef).length !== 1 ||
-        !isWorksiteRetentionContractRelation(binding, input.contracts.map((raw) => raw.value))) {
+        !isGraphInputRetentionContractRelation(binding, input.contracts.map((raw) => raw.value))) {
         diagnostics.push({ code: "carrier_mismatch", path: `$.graphFunctions[${graphFunction.name}].template.edges[${edge.edgeRef}].inputBinding`,
           message: "retention requires the exact owner-derived E/S/T schema tuple and preserved entry/source bindings" });
       }

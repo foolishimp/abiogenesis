@@ -1,0 +1,26 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/T287_D4_D5_NATIVE_QUALIFICATION_SUPPLEMENT.md
+/activation-joined.md
+/activation-sections.json
+/activation.md
+/basis.json
+/checks.json
+/manifest.json
+/return.md
+/revision-03/T287_D4_D5_NATIVE_QUALIFICATION_SUPPLEMENT.md
+/revision-03/activation-joined.md
+/revision-03/activation-sections.json
+/revision-03/activation.md
+/revision-03/basis.json
+/revision-03/checks.json
+/revision-03/delta.json
+/revision-03/manifest.json
+/revision-03/preimages/original-supplement.md
+/revision-03/preimages/parent-basis.json
+/revision-03/preimages/parent-manifest.json
+/revision-03/return.md
+/revision-03/review-02-attribution.md
+/revision-03/source.patch
+/source-basis.md

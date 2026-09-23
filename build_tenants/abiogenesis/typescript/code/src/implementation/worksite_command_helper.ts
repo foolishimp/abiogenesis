@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { hasNulJoinedFields as exactKeys } from "../shared/admission_predicates.js";
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
 import { WORKSITE_COMMAND_FORWARD_IDS } from "../product/worksite_command_forward_identity.js";
 import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
@@ -89,13 +90,6 @@ interface WorksiteCommandExecutionLaunchManifest {
     typeof WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef;
   readonly packageName: typeof ABI5_PACKAGE_NAME;
   readonly packageVersion: typeof ABI5_PACKAGE_VERSION;
-}
-
-function exactKeys(
-  value: Readonly<Record<string, unknown>>,
-  fields: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...fields].sort().join("\0");
 }
 
 function nonempty(value: unknown): value is string {

@@ -1,3 +1,6 @@
+import { parseNativeWorkspaceAssessmentResult } from "../product/native_workspace_assessment.js";
+import { rehydrateConstructionIntentForCursorAtPrefix } from "./traversal_route.js";
+import type { ChildFoldbackInput } from "./graph_application.js";
 import type {
   ClosureContract,
   GraphFunction,
@@ -5,6 +8,7 @@ import type {
   GtlProgram,
 } from "../gtl/contracts.js";
 import { isExecutableCLeaf, isInteractionCLeaf } from "../gtl/c_algebra.js";
+import { sampleNativeEventTime } from "./native_event_time.js";
 import {
   resolveCProgramLocus,
   resolveCProgramTermAtSourcePath,
@@ -19,6 +23,8 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { isUndispatchedOwnerObservation, type UndispatchedOwnerObservation } from "./event_contract_profiles.js";
+import { observeNativeCCallLiveness, observeNativeFrameLiveness, captureNativeFrameBoundary } from "./runtime_liveness.js";
 import {
   isProgramValidation,
   type ProgramValidation,
@@ -41,10 +47,13 @@ import {
 } from "./execution_basis.js";
 import {
   AbgEventStore,
-  admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
+  admitRuntimeEventTransactionAtDurablePrefix,
+  readActiveRuntimeTransactionAtDurablePrefix,
   admitRuntimeEvent,
   admitRuntimeEventBatch,
   admitRuntimeEventTransactionAtExpectedPrefix,
+  readHeldRuntimeEventsAtDurablePrefix,
+  projectHeldRuntimeEventsAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   assertRuntimeEventTransactionActive,
   compareAndAppendExpectedPrefix,
@@ -52,12 +61,15 @@ import {
   projectRuntimeEventFromValidatedHistory,
   readRuntimeEventsAtDurablePrefix,
   selectHeldEventStoreDurablePrefix,
+  ROOT_EVENT_CONTRACT_DIGEST,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
   type RuntimeEventCandidate,
 } from "./event_store.js";
-import {
+import { runtimeEventPrefixDigest,
   runtimeEventsFromValidatedPrefix,
+  indexedRuntimeEvents,
+  validatedRuntimeEventPrefixThroughEvent,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
@@ -79,6 +91,8 @@ import {
 import {
   hasAdmittedTraversalCursorAtPrefix,
   traversalCursorAdmissionEventRefAtPrefix,
+  traversalCursorAdmissionEventsAtPrefix,
+  traversalCursorAdmissionDigest,
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
 import {
@@ -525,6 +539,7 @@ export interface SubTraversalEvidenceCandidate {
 }
 
 export interface ProbabilisticTransportEvidenceCandidate {
+  readonly nativeResultAssessment?: import("./transport_contracts.js").NativeWorkerResultAssessment;
   readonly kind: "probabilistic_transport_evidence_candidate";
   readonly schemaVersion: "5.0.0";
   readonly implementationRef: string;
@@ -589,7 +604,19 @@ export type CCallEvidenceCandidate =
   | DeterministicEvidenceCandidate
   | ProbabilisticTransportEvidenceCandidate
   | WorksiteFileReplaceEvidenceCandidate
-  | SubTraversalEvidenceCandidate;
+  | SubTraversalEvidenceCandidate
+  | UndispatchedOwnerRefusalEvidenceCandidate;
+
+export interface UndispatchedOwnerRefusalEvidenceCandidate {
+  readonly kind: "undispatched_owner_refusal_evidence_candidate";
+  readonly schemaVersion: "5.0.0";
+  readonly implementationRef: string;
+  readonly inputDigest: Sha256Digest;
+  readonly outputDigest: Sha256Digest;
+  readonly failureContractRef: string;
+  readonly failureValue: Readonly<Record<string, JsonValue>>;
+  readonly ownerObservation: UndispatchedOwnerObservation;
+}
 
 export interface ProbabilisticResultEvidenceBasis {
   readonly request: Readonly<ActorProcessRequest>;
@@ -661,12 +688,16 @@ export interface AdmittedCCallEvidence {
     | "deterministic"
     | "interaction_request"
     | "probabilistic_transport"
+    | "undispatched_owner_refusal"
     | "worksite_file_replace"
     | "sub_traversal";
   readonly contractRef: string;
   readonly implementationRef: string | null;
   readonly inputDigest: Sha256Digest;
   readonly outputDigest: Sha256Digest;
+  readonly failureContractRef?: string;
+  readonly failureValue?: Readonly<Record<string, JsonValue>>;
+  readonly ownerObservation?: UndispatchedOwnerObservation;
   readonly observedOutputDigest?: Sha256Digest;
   readonly candidateRef?: string | null;
   readonly candidateDigest?: Sha256Digest | null;
@@ -956,9 +987,7 @@ export function projectCCallPhase(
   prefix: ValidatedRuntimeEventPrefix,
   cCallRef: string,
 ): CCallPhaseProjection {
-  const rows = runtimeEventsFromValidatedPrefix(prefix).filter((event) =>
-    event.aggregateType === "c_call" && event.aggregateId === cCallRef
-  );
+  const rows = indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef);
   const opened = rows.filter((event) => event.kind === "c_call_opened");
   const fibre = rows.filter((event) => event.kind === "c_call_fibre_selected");
   const evidence = rows.filter((event) => event.kind === "c_call_evidenced");
@@ -1070,9 +1099,8 @@ export function projectCCallCarrierPhaseAtPrefix(
     phase.openedEventRef !== cCall.openedEventRef ||
     phase.fibreEventRef !== cCall.fibreSelectedEventRef
   ) return null;
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const opened = events.find((event) => event.eventId === cCall.openedEventRef);
-  const fibre = events.find((event) => event.eventId === cCall.fibreSelectedEventRef);
+  const opened = indexedRuntimeEvents(prefix, `id:${cCall.openedEventRef}`)[0];
+  const fibre = indexedRuntimeEvents(prefix, `id:${cCall.fibreSelectedEventRef}`)[0];
   if (
     opened?.kind !== "c_call_opened" || fibre?.kind !== "c_call_fibre_selected" ||
     opened.aggregateId !== cCall.cCallRef || fibre.aggregateId !== cCall.cCallRef ||
@@ -1320,13 +1348,12 @@ function projectCCallOpeningAuthority(
   cursor: TraversalCursorCandidate,
 ): CCallOpeningAuthority | null {
   try {
-    assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
-    const snapshot = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
-    const expectedStorePrefixDigest = sha256Canonical(
-      snapshot as unknown as JsonValue,
+    const snapshot = readActiveRuntimeTransactionAtDurablePrefix(
+      store, predecessorPrefix, { durableOnly: true },
     );
-    if (store.digest() !== expectedStorePrefixDigest) return null;
     const authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+    const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
+    if (store.digest() !== expectedStorePrefixDigest) return null;
     const runPrefix = selectValidatedRuntimeEventPrefix(
       runtimeEventsFromValidatedPrefix(authorityPrefix),
       { runId: scope.runId },
@@ -1404,16 +1431,25 @@ export function projectAdmittedCCallResultAtPrefix(
   cCall: CCall,
   result: AdmittedCCallResult,
 ): AdmittedCCallResult | null {
-  const phase = projectCCallCarrierPhaseAtPrefix(prefix, cCall);
+  return projectAdmittedCCallResultFromPhase(
+    prefix, cCall, result, projectCCallCarrierPhaseAtPrefix(prefix, cCall),
+  );
+}
+
+function projectAdmittedCCallResultFromPhase(
+  prefix: ValidatedRuntimeEventPrefix,
+  cCall: CCall,
+  result: AdmittedCCallResult,
+  phase: CCallPhaseProjection | null,
+): AdmittedCCallResult | null {
   if (
     phase === null ||
     (phase.phase !== "result_admitted" && phase.phase !== "judged") ||
     phase.resultEventRef !== result.admissionEventRef ||
-    !isAdmittedCCallResult(result) || result.cCallRef !== cCall.cCallRef
+    !isAdmittedCCallResult(result) || result.cCallRef !== cCall.cCallRef ||
+    !undispatchedResultRelation(prefix, cCall, result)
   ) return null;
-  const event = runtimeEventsFromValidatedPrefix(prefix).find((candidate) =>
-    candidate.eventId === result.admissionEventRef
-  );
+  const event = indexedRuntimeEvents(prefix, `id:${result.admissionEventRef}`)[0];
   return exactEventBody(event, "c_call_result_admitted", {
       resultRef: result.resultRef,
       resultDigest: result.resultDigest,
@@ -1433,15 +1469,15 @@ export function projectAdmittedCCallOutcomeAtPrefix(
   if (
     phase?.phase !== "judged" ||
     phase.judgmentEventRef !== judgment.admissionEventRef ||
-    projectAdmittedCCallResultAtPrefix(prefix, cCall, result) === null ||
+    projectAdmittedCCallResultFromPhase(prefix, cCall, result, phase) === null ||
     !isAdmittedCCallJudgment(judgment) ||
     judgment.cCallRef !== cCall.cCallRef ||
     judgment.resultRef !== result.resultRef ||
-    judgment.resultDigest !== result.resultDigest
+    judgment.resultDigest !== result.resultDigest ||
+    (hasUndispatchedEvidence(prefix, cCall.cCallRef) && (judgment.judgment !== "blocked" ||
+      !isJsonRecord(result.value) || judgment.reasonRef !== result.value.diagnosticRef))
   ) return null;
-  const event = runtimeEventsFromValidatedPrefix(prefix).find((candidate) =>
-    candidate.eventId === judgment.admissionEventRef
-  );
+  const event = indexedRuntimeEvents(prefix, `id:${judgment.admissionEventRef}`)[0];
   return exactEventBody(event, "c_call_judged", {
       judgmentRef: judgment.judgmentRef,
       judgmentDigest: judgment.judgmentDigest,
@@ -1617,11 +1653,7 @@ function exactCCallRows(
   prefix: ValidatedRuntimeEventPrefix,
   cCallRef: string,
 ) {
-  return runtimeEventsFromValidatedPrefix(prefix).filter(
-    (event) =>
-      event.aggregateType === "c_call" &&
-      event.aggregateId === cCallRef,
-  );
+  return indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef);
 }
 
 function projectCCallOwnerPrefix(
@@ -1629,12 +1661,11 @@ function projectCCallOwnerPrefix(
   cCall: CCall,
 ): ReturnType<typeof projectCCallOwnerAtPrefix> {
   const snapshot = store.readAll();
-  const expectedStorePrefixDigest = sha256Canonical(
-    snapshot as unknown as JsonValue,
-  );
+  const authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+  const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
   if (store.digest() !== expectedStorePrefixDigest) return null;
   return projectCCallOwnerAtPrefix(
-    selectValidatedRuntimeEventPrefix(snapshot),
+    authorityPrefix,
     cCall,
   );
 }
@@ -1650,9 +1681,7 @@ function projectCCallOwnerAtPrefix(
   expectedStorePrefixDigest: Sha256Digest;
 }> | null {
   const snapshot = runtimeEventsFromValidatedPrefix(authorityPrefix);
-  const expectedStorePrefixDigest = sha256Canonical(
-    snapshot as unknown as JsonValue,
-  );
+  const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
   const prefix = selectValidatedRuntimeEventPrefix(
     snapshot,
     {
@@ -1854,6 +1883,10 @@ function projectAdmittedProbabilisticTransport(
     artifact.payload.rendererRef === source.rendererRef &&
     artifact.payload.instructionContractRef === source.instructionContractRef &&
     artifact.payload.resultContractRef === source.resultContractRef &&
+    (artifact.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST
+      ? artifact.payload.nativeResultAssessment !== undefined && source.nativeResultAssessment !== undefined &&
+        sha256Canonical(artifact.payload.nativeResultAssessment) === sha256Canonical(source.nativeResultAssessment as JsonValue)
+      : source.nativeResultAssessment === undefined && artifact.payload.nativeResultAssessment === undefined) &&
     artifact.payload.processRef === source.processRef &&
     artifact.payload.transportBindingRef === source.transportBindingRef &&
     artifact.payload.transportBindingDigest === source.transportBindingDigest &&
@@ -2146,6 +2179,33 @@ function admittedEvidencePayload(
     ...body
   } = evidence;
   return body as unknown as Readonly<Record<string, JsonValue>>;
+}
+
+function hasUndispatchedEvidence(prefix: ValidatedRuntimeEventPrefix, cCallRef: string): boolean {
+  return runtimeEventsFromValidatedPrefix(prefix).some(event => event.kind === "c_call_evidenced" &&
+    event.aggregateId === cCallRef && isJsonRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal");
+}
+function undispatchedResultRelation(prefix: ValidatedRuntimeEventPrefix, cCall: CCall, result: AdmittedCCallResult): boolean {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  const evidence = events.filter(event => event.kind === "c_call_evidenced" && event.aggregateId === cCall.cCallRef);
+  if (!evidence.some(event => isJsonRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal")) return true;
+  const event = evidence[0], p = event?.payload;
+  if (evidence.length !== 1 || event === undefined || !isJsonRecord(p) ||
+      !exactCCallEvidenceIdentity(event) || event.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ||
+      result.resultClass !== "failure" || result.contractRef !== cCall.failureContractRef ||
+      p.contractRef !== cCall.evidenceContractRef || p.outputDigest !== result.valueDigest ||
+      sha256Canonical(p.failureValue!) !== result.valueDigest ||
+      result.evidenceRefs.length !== 1 || result.evidenceRefs[0] !== p.evidenceRef) return false;
+  const previous = events.filter(row => row.admissionOrdinal < event.admissionOrdinal).at(-1);
+  if (previous === undefined) return false;
+  const before = validatedRuntimeEventPrefixThroughEvent(prefix, previous.eventId);
+  return undispatchedOwnerEvidenceMatches(before, cCall, {
+    kind: "undispatched_owner_refusal_evidence_candidate", schemaVersion: "5.0.0",
+    implementationRef: p.implementationRef as string, inputDigest: p.inputDigest as Sha256Digest,
+    outputDigest: p.outputDigest as Sha256Digest, failureContractRef: p.failureContractRef as string,
+    failureValue: p.failureValue as Readonly<Record<string, JsonValue>>,
+    ownerObservation: p.ownerObservation as unknown as UndispatchedOwnerObservation,
+  }, p.inputDigest as Sha256Digest);
 }
 
 function hasGenericCCallAttemptCoordinates(
@@ -2713,7 +2773,7 @@ export function projectOpenedCCallCarrier(
   if (
     store.readAll().length !== prefixEvents.length ||
     store.digest() !==
-      sha256Canonical(prefixEvents as unknown as JsonValue)
+      runtimeEventPrefixDigest(prefix)
   ) return null;
   const leaf = projectOpenedLeafCCallCarrier(
     prefix,
@@ -2822,7 +2882,7 @@ export function planCCallRuntimeFailureClose(
   basis: RuntimeAdmissionBasis,
 ): CCallRuntimeFailureClosePlan | CCallRuntimeFailureCloseRefusal {
   const events = runtimeEventsFromValidatedPrefix(prefix);
-  const expectedPrefixDigest = sha256Canonical(events as unknown as JsonValue);
+  const expectedPrefixDigest = runtimeEventPrefixDigest(prefix);
   let phase: CCallPhaseProjection;
   try {
     phase = projectCCallPhase(prefix, cCall.cCallRef);
@@ -3131,6 +3191,7 @@ export function admitPlannedCCallRuntimeFailureClose(
   disposition: "blocked" | "retry",
   basis: RuntimeAdmissionBasis,
 ): AdmittedCCallRuntimeFailureClose {
+  assertRuntimeEventTransactionActive(store);
   if (
     plan.kind !== "c_call_runtime_failure_close_plan" ||
     plan.schemaVersion !== "5.0.0" || plan.cCallRef !== cCall.cCallRef ||
@@ -3166,9 +3227,11 @@ export function admitPlannedCCallRuntimeFailureClose(
     plan.projectedEvents.at(-1)?.eventId !==
       plan.close.judgment.admissionEventRef
   ) throw runtimeFailureCloseError("planned event closure is incomplete");
-  const admittedEvents = plan.eventCandidates.map((candidate) =>
-    admitRuntimeEvent(store, candidate)
-  );
+  const sampledEvents = plan.eventCandidates.map((candidate) => {
+    const sample = captureNativeFrameBoundary(store);
+    return { event: admitRuntimeEvent(store, candidate), sample };
+  });
+  const admittedEvents = sampledEvents.map(({ event }) => event);
   if (admittedEvents.some((event, index) =>
     sha256Canonical(event as unknown as JsonValue) !==
       sha256Canonical(plan.projectedEvents[index] as unknown as JsonValue)
@@ -3177,6 +3240,9 @@ export function admitPlannedCCallRuntimeFailureClose(
       "admitted close differs from its pre-effect plan",
     );
   }
+  // Preserve planned producer identities; publish their actual boundary samples
+  // in this same atomic transaction before the next dependent owner operation.
+  for (const { event, sample } of sampledEvents) observeNativeFrameLiveness(store, event, sample);
   return plan.close;
 }
 
@@ -3342,7 +3408,10 @@ function revalidateProbabilisticFailurePreimage(
   const pair = validateActorProcessCarrierPair(request, observation);
   if (
     pair.kind !== "actor_process_carrier_validation" ||
-    observation.disposition !== "failure" ||
+    (observation.disposition !== "failure" && !(request.implementationRef === nativeIds.implementationRef &&
+      expectedInstructionContractRef === nativeIds.taskContractRef &&
+      (expectedResultContractRef === nativeIds.workerReportContractRef ? parseNativeWorkspaceWorkReport(observation.finalOutput) === null :
+        parseNativeWorkspaceAssessmentResult(request.responseJsonSchema, observation.finalOutput) === null))) ||
     cCall.callClass !== "leaf" ||
     cCall.regime !== "F_P" ||
     cCall.implementationRef === null ||
@@ -3522,6 +3591,7 @@ export function deriveProbabilisticTransportEvidence(
   }
   const candidate = deepFreeze({
     kind: "probabilistic_transport_evidence_candidate" as const,
+    ...(observation.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: observation.nativeResultAssessment }),
     schemaVersion: "5.0.0" as const,
     implementationRef: observation.implementationRef,
     inputDigest: observation.inputDigest,
@@ -3577,10 +3647,9 @@ export function admitWorkflowChildPreparationRefusal(
 ): ChildPreparationRefusalAdmission | ChildPreparationRefusalRefusal {
   let owner: ReturnType<typeof projectCCallOwnerAtPrefix>;
   try {
-    assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
     owner = projectCCallOwnerAtPrefix(
       selectValidatedRuntimeEventPrefix(
-        readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+        readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
       ),
       parentCCall,
     );
@@ -3642,7 +3711,7 @@ export function admitWorkflowChildPreparationRefusal(
     expectedPrefixDigest: owner.expectedStorePrefixDigest,
     event: {
     kind: "child_preparation_refused",
-    eventTime: basis.eventTime,
+    eventTime: sampleNativeEventTime(),
     aggregateType: "c_call",
     aggregateId: parentCCall.cCallRef,
     parentAggregateId: parentCCall.frameId,
@@ -3695,12 +3764,70 @@ export function admitWorkflowChildFoldback(
   },
   basis: RuntimeAdmissionBasis,
 ): ChildFoldbackAdmission | ChildFoldbackRefusal {
+  return admitWorkflowChildFoldbackUsing(
+    () => readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
+    store, predecessorPrefix, graph, graphFunction, cursor, parentCCall, childExecutionBasis, childScope, input, basis,
+  );
+}
+
+/** ABG owns both the intent read and the ensuing foldback's pure derivation. */
+export function prepareWorkflowChildFoldback(
+  input: Extract<ChildFoldbackInput, Readonly<{ relationClass: "workflow" }>>,
+) {
+  const { store, predecessorPrefix, cursor } = input;
+  const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
+  const intent = rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor);
+  return Object.freeze({ intent, admit(): ChildFoldbackAdmission | ChildFoldbackRefusal {
+    // The optional action-evaluation branch retains its existing acquisition.
+    if (intent?.actionKind === "invoke_graph_function") {
+      return admitWorkflowChildFoldback(store, predecessorPrefix, input.graph,
+        input.graphFunction, cursor, input.parentCCall, input.childExecutionBasis,
+        input.childScope, input.child, input.basis);
+    }
+    const readCurrent = () => projectHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix);
+    let result: ChildFoldbackAdmission | ChildFoldbackRefusal;
+    try {
+      result = admitWorkflowChildFoldbackUsing(readCurrent, store, predecessorPrefix,
+        input.graph, input.graphFunction, cursor, input.parentCCall,
+        input.childExecutionBasis, input.childScope, input.child, input.basis);
+    } catch (error) {
+      try { assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix); } catch {}
+      throw error;
+    }
+    if (result.kind !== "child_foldback_admission") {
+      try { assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix); } catch {
+        return { kind: "child_foldback_refusal", schemaVersion: "5.0.0",
+          disposition: "refused", code: "parent_call_mismatch",
+          message: "child foldback requires one open transparent parent workflow CCall" };
+      }
+    }
+    return result;
+  } });
+}
+
+function admitWorkflowChildFoldbackUsing(
+  readCurrent: () => readonly RuntimeEvent[],
+
+  store: AbgEventStore,
+  predecessorPrefix: DurablePrefixCoordinate,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  parentCCall: CCall,
+  childExecutionBasis: ExecutionBasis,
+  childScope: OpenedTraversalScope,
+  input: {
+    readonly childResultRef: string;
+    readonly childJudgmentRef: string;
+    readonly childClosureRef: string | null;
+  },
+  basis: RuntimeAdmissionBasis,
+): ChildFoldbackAdmission | ChildFoldbackRefusal {
   let parentOwner: ReturnType<typeof projectCCallOwnerAtPrefix>;
   try {
-    assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
     parentOwner = projectCCallOwnerAtPrefix(
       selectValidatedRuntimeEventPrefix(
-        readRuntimeEventsAtDurablePrefix(predecessorPrefix),
+        readCurrent(),
       ),
       parentCCall,
     );
@@ -3796,7 +3923,7 @@ export function admitWorkflowChildFoldback(
     expectedPrefixDigest: parentOwner.expectedStorePrefixDigest,
     event: {
       kind: "child_foldback_admitted",
-      eventTime: basis.eventTime,
+      eventTime: sampleNativeEventTime(),
       aggregateType: "frame",
       aggregateId: parentCCall.frameId,
       parentAggregateId: parentCCall.graphCallId,
@@ -3827,6 +3954,55 @@ export function admitWorkflowChildFoldback(
     successorPrefix: admittedEvent.successorPrefix,
   }) as ChildFoldbackAdmission;
   return admitted;
+}
+
+/** Recover the workflow input from its admitted CCall evidence. Cursor origins
+ * establish identity; the CCall owner already checked this input against the
+ * actual cursor before admitting the sub-traversal evidence and Result. */
+export function projectWorkflowCCallInputDigestAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  opened: RuntimeEvent,
+  foldback: RuntimeEvent,
+  result: RuntimeEvent,
+): Sha256Digest | null {
+  if (!isJsonRecord(opened.payload) || opened.kind !== "c_call_opened" ||
+    opened.payload.callClass !== "workflow" || typeof opened.payload.cursorRef !== "string" ||
+    typeof opened.basisId !== "string" || typeof opened.runId !== "string" ||
+    typeof opened.graphCallId !== "string" || typeof opened.frameId !== "string" ||
+    !isJsonRecord(foldback.payload) || !isJsonRecord(result.payload)) return null;
+  const origins = traversalCursorAdmissionEventsAtPrefix(prefix, {
+    cursorRef: opened.payload.cursorRef, executionBasisRef: opened.basisId,
+    runId: opened.runId, graphCallId: opened.graphCallId, frameId: opened.frameId,
+  });
+  const origin = origins.length === 1 ? origins[0] : undefined;
+  if (origin === undefined || traversalCursorAdmissionDigest(origin) !== opened.payload.cursorDigest ||
+    origin.admissionOrdinal >= opened.admissionOrdinal || opened.causationEventRefs[0] !== origin.eventId) return null;
+  const sameScope = (event: RuntimeEvent): boolean => event.runId === opened.runId &&
+    event.graphCallId === opened.graphCallId && event.frameId === opened.frameId && event.basisId === opened.basisId;
+  if (foldback.kind !== "child_foldback_admitted" || !sameScope(foldback) ||
+    foldback.payload.parentCCallRef !== opened.aggregateId ||
+    result.kind !== "c_call_result_admitted" || !sameScope(result) || result.aggregateId !== opened.aggregateId ||
+    !(opened.admissionOrdinal < foldback.admissionOrdinal && foldback.admissionOrdinal < result.admissionOrdinal)) return null;
+  const evidence = indexedRuntimeEvents(prefix, "related:" + opened.aggregateId).filter(event =>
+    event.kind === "c_call_evidenced" && sameScope(event) && event.aggregateId === opened.aggregateId &&
+    isJsonRecord(event.payload) && event.payload.evidenceClass === "sub_traversal");
+  if (evidence.length !== 1 || !isJsonRecord(evidence[0]!.payload)) return null;
+  const event = evidence[0]!, payload = event.payload as Readonly<Record<string, JsonValue>>;
+  const evidenceRef = payload.evidenceRef;
+  if (!exactCCallEvidenceIdentity(event) || typeof payload.inputDigest !== "string" || !/^sha256:[a-f0-9]{64}$/u.test(payload.inputDigest) ||
+    payload.cCallRef !== opened.aggregateId || payload.foldbackEventRef !== foldback.eventId ||
+    payload.foldbackRef !== foldback.payload.foldbackRef || payload.foldbackDigest !== foldback.payload.foldbackDigest ||
+    payload.childExecutionBasisRef !== foldback.payload.childExecutionBasisRef ||
+    payload.childExecutionBasisDigest !== foldback.payload.childExecutionBasisDigest ||
+    payload.outputDigest !== foldback.payload.outputDigest ||
+    !event.causationEventRefs.includes(foldback.eventId) ||
+    !(foldback.admissionOrdinal < event.admissionOrdinal && event.admissionOrdinal < result.admissionOrdinal) ||
+    !Array.isArray(result.payload.evidenceRefs) || !result.payload.evidenceRefs.includes(evidenceRef)) return null;
+  // Entry and resume also carry a direct input witness; conserve that join.
+  if (!isJsonRecord(origin.payload) ||
+    (origin.kind === "traversal_cursor_entered" && origin.payload.inputDigest !== payload.inputDigest) ||
+    (origin.kind === "fh_interaction_resume_admitted" && origin.payload.successorInputDigest !== payload.inputDigest)) return null;
+  return payload.inputDigest as Sha256Digest;
 }
 
 export function deriveSubTraversalEvidence(
@@ -4754,6 +4930,24 @@ function constructPreparedCCallOpening(
   return { cursor, cCall, locusBody, fibreBody };
 }
 
+function admitFrameObservedCCallEvent(store: AbgEventStore, candidate: RuntimeEventCandidate): RuntimeEvent {
+  const capturedAt = captureNativeFrameBoundary(store);
+  const event = admitRuntimeEvent(store, candidate);
+  observeNativeFrameLiveness(store, event, capturedAt);
+  return event;
+}
+
+function admitCCallProgressEvent(store: AbgEventStore, expectedPrefixDigest: Sha256Digest, candidate: RuntimeEventCandidate): RuntimeEvent {
+  if (store.digest() !== expectedPrefixDigest) throw new TypeError("CCall progress requires its exact expected prefix");
+  const action = () => {
+    const event = admitFrameObservedCCallEvent(store, candidate);
+    observeNativeCCallLiveness(store, event);
+    return event;
+  };
+  return isRuntimeEventTransactionActive(store) ? action() :
+    admitRuntimeEventTransactionAtExpectedPrefix(store, expectedPrefixDigest, action).value;
+}
+
 function admitPreparedCCallOpening(input: Readonly<{
   store: AbgEventStore;
   predecessorPrefix: DurablePrefixCoordinate;
@@ -4766,7 +4960,7 @@ function admitPreparedCCallOpening(input: Readonly<{
   graphFunction: Readonly<GraphFunction>;
   prepared: PreparedCCallOpening;
   basis: RuntimeAdmissionBasis;
-}>): CCallAdmission | CCallOpenRefusal {
+}>): Omit<CCallAdmission, "successorPrefix"> | CCallOpenRefusal {
   const {
     store,
     predecessorPrefix,
@@ -4808,70 +5002,64 @@ function admitPreparedCCallOpening(input: Readonly<{
       "retry CCall open requires the exact declared active retry frontier",
     );
   }
-  const transaction = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
-    store,
-    predecessorPrefix,
-    () => {
-      const openedEvent = admitRuntimeEvent(store, {
-        kind: "c_call_opened",
-        eventTime: basis.eventTime,
-        aggregateType: "c_call",
-        aggregateId: body.cCallRef,
-        parentAggregateId: scope.frameId,
-        causationEventRefs: [
-          cursorAdmissionEventRef,
-          ...basis.causationEventRefs,
-        ],
-        correlationId: basis.correlationId,
-        workflowVersion: "5.0.0",
-        scopeClass: "run",
-        basisId: executionBasis.basisRef,
-        runId: scope.runId,
-        graphFunctionRef: executionBasis.graphFunctionRef,
-        materializationRef: executionBasis.graphRef,
-        graphCallId: scope.graphCallId,
-        frameId: scope.frameId,
-        frameLineageId: scope.frameLineageId,
-        payload: prepared.locusBody,
-      });
-      const fibreEvent = admitRuntimeEvent(store, {
-        kind: "c_call_fibre_selected",
-        eventTime: basis.eventTime,
-        aggregateType: "c_call",
-        aggregateId: body.cCallRef,
-        parentAggregateId: scope.frameId,
-        causationEventRefs: [openedEvent.eventId],
-        correlationId: basis.correlationId,
-        workflowVersion: "5.0.0",
-        scopeClass: "run",
-        basisId: executionBasis.basisRef,
-        runId: scope.runId,
-        graphFunctionRef: executionBasis.graphFunctionRef,
-        materializationRef: executionBasis.graphRef,
-        graphCallId: scope.graphCallId,
-        frameId: scope.frameId,
-        frameLineageId: scope.frameLineageId,
-        payload: prepared.fibreBody,
-      });
-      const cCall = deepFreeze({
-        kind: "c_call" as const,
-        schemaVersion: "5.0.0" as const,
-        ...body,
-        openedEventRef: openedEvent.eventId,
-        fibreSelectedEventRef: fibreEvent.eventId,
-      }) as CCall;
-      return deepFreeze({
-        kind: "c_call_admission" as const,
-        schemaVersion: "5.0.0" as const,
-        disposition: "opened" as const,
-        cCall,
-      });
-    },
-  );
+  assertRuntimeEventTransactionActive(store);
+  const openedEvent = admitRuntimeEvent(store, {
+    kind: "c_call_opened",
+    eventTime: sampleNativeEventTime(),
+    aggregateType: "c_call",
+    aggregateId: body.cCallRef,
+    parentAggregateId: scope.frameId,
+    causationEventRefs: [
+      cursorAdmissionEventRef,
+      ...basis.causationEventRefs,
+    ],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: executionBasis.basisRef,
+    runId: scope.runId,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    materializationRef: executionBasis.graphRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    frameLineageId: scope.frameLineageId,
+    payload: prepared.locusBody,
+  });
+  const fibreCapturedAt = captureNativeFrameBoundary(store);
+  const fibreEvent = admitRuntimeEvent(store, {
+    kind: "c_call_fibre_selected",
+    eventTime: sampleNativeEventTime(),
+    aggregateType: "c_call",
+    aggregateId: body.cCallRef,
+    parentAggregateId: scope.frameId,
+    causationEventRefs: [openedEvent.eventId],
+    correlationId: basis.correlationId,
+    workflowVersion: "5.0.0",
+    scopeClass: "run",
+    basisId: executionBasis.basisRef,
+    runId: scope.runId,
+    graphFunctionRef: executionBasis.graphFunctionRef,
+    materializationRef: executionBasis.graphRef,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    frameLineageId: scope.frameLineageId,
+    payload: prepared.fibreBody,
+  });
+  observeNativeFrameLiveness(store, fibreEvent, fibreCapturedAt);
+  observeNativeCCallLiveness(store, fibreEvent);
+  const cCall = deepFreeze({
+    kind: "c_call" as const,
+    schemaVersion: "5.0.0" as const,
+    ...body,
+    openedEventRef: openedEvent.eventId,
+    fibreSelectedEventRef: fibreEvent.eventId,
+  }) as CCall;
   return deepFreeze({
-    ...transaction.value,
-    successorPrefix: transaction.successorPrefix,
-  }) as CCallAdmission;
+    kind: "c_call_admission" as const,
+    schemaVersion: "5.0.0" as const,
+    disposition: "opened" as const,
+    cCall,
+  });
 }
 
 function openImplementationCCallLocus(
@@ -4887,7 +5075,7 @@ function openImplementationCCallLocus(
   implementationSet: AdmittedImplementationSet,
   resolution: AdmittedImplementationResolutionRow,
   basis: RuntimeAdmissionBasis,
-): CCallAdmission | CCallOpenRefusal {
+): Omit<CCallAdmission, "successorPrefix"> | CCallOpenRefusal {
   const openingAuthorityPrefix = opening.authorityPrefix;
   const openingPrefix = opening.runPrefix;
   const declaredNode = graph.template.nodes.find((node) => node.nodeRef === stop.nodeRef);
@@ -5034,7 +5222,7 @@ function openInteractionCCallLocus(
   interactionSet: AdmittedInteractionSet,
   interaction: AdmittedInteractionContractRow,
   basis: RuntimeAdmissionBasis,
-): CCallAdmission | CCallOpenRefusal {
+): Omit<CCallAdmission, "successorPrefix"> | CCallOpenRefusal {
   const openingAuthorityPrefix = opening.authorityPrefix;
   const openingPrefix = opening.runPrefix;
   const declaredNode = graph.template.nodes.find(
@@ -5200,7 +5388,7 @@ function openWorkflowCCallLocus(
   childClosureContract: Readonly<ClosureContract>,
   programValidation: ProgramValidation,
   basis: RuntimeAdmissionBasis,
-): CCallAdmission | CCallOpenRefusal {
+): Omit<CCallAdmission, "successorPrefix"> | CCallOpenRefusal {
   const openingAuthorityPrefix = opening.authorityPrefix;
   const openingPrefix = opening.runPrefix;
   const cursor = proposal.cursor;
@@ -5327,74 +5515,90 @@ function openWorkflowCCallLocus(
 export function openCCall(
   input: Readonly<CCallOpenInput>,
 ): CCallAdmission | CCallOpenRefusal {
-  const cursor = input.locusClass === "workflow"
-    ? input.proposal.cursor
-    : input.stop.cursor;
-  const opening = projectCCallOpeningAuthority(
-    input.store,
-    input.predecessorPrefix,
-    input.executionBasis,
-    input.scope,
-    cursor,
-  );
-  if (
-    opening === null ||
-    input.scope.executionBasisRef !== input.executionBasis.basisRef ||
-    input.scope.graphFunctionRef !== input.executionBasis.graphFunctionRef
-  ) {
-    return openRefusal(
-      "scope_mismatch",
-      "CCall requires one exact active basis, scope, and traversal cursor",
+  let entered = false;
+  try {
+    const transaction = admitRuntimeEventTransactionAtDurablePrefix(
+      input.store, input.predecessorPrefix, () => {
+        entered = true;
+        const cursor = input.locusClass === "workflow"
+          ? input.proposal.cursor
+          : input.stop.cursor;
+        const opening = projectCCallOpeningAuthority(
+          input.store,
+          input.predecessorPrefix,
+          input.executionBasis,
+          input.scope,
+          cursor,
+        );
+        if (
+          opening === null ||
+          input.scope.executionBasisRef !== input.executionBasis.basisRef ||
+          input.scope.graphFunctionRef !== input.executionBasis.graphFunctionRef
+        ) {
+          return openRefusal(
+            "scope_mismatch",
+            "CCall requires one exact active basis, scope, and traversal cursor",
+          );
+        }
+        switch (input.locusClass) {
+          case "implementation":
+            return openImplementationCCallLocus(
+              opening,
+              input.store,
+              input.predecessorPrefix,
+              input.executionBasis,
+              input.scope,
+              input.program,
+              input.graphFunction,
+              input.graph,
+              input.stop,
+              input.implementationSet,
+              input.resolution,
+              input.basis,
+            );
+          case "interaction":
+            return openInteractionCCallLocus(
+              opening,
+              input.store,
+              input.predecessorPrefix,
+              input.executionBasis,
+              input.scope,
+              input.program,
+              input.graphFunction,
+              input.graph,
+              input.stop,
+              input.interactionSet,
+              input.interaction,
+              input.basis,
+            );
+          case "workflow":
+            return openWorkflowCCallLocus(
+              opening,
+              input.store,
+              input.predecessorPrefix,
+              input.executionBasis,
+              input.implementationSet,
+              input.scope,
+              input.program,
+              input.graphFunction,
+              input.graph,
+              input.proposal,
+              input.childGraphFunction,
+              input.childClosureContract,
+              input.programValidation,
+              input.basis,
+            );
+        }
+      },
     );
-  }
-  switch (input.locusClass) {
-    case "implementation":
-      return openImplementationCCallLocus(
-        opening,
-        input.store,
-        input.predecessorPrefix,
-        input.executionBasis,
-        input.scope,
-        input.program,
-        input.graphFunction,
-        input.graph,
-        input.stop,
-        input.implementationSet,
-        input.resolution,
-        input.basis,
-      );
-    case "interaction":
-      return openInteractionCCallLocus(
-        opening,
-        input.store,
-        input.predecessorPrefix,
-        input.executionBasis,
-        input.scope,
-        input.program,
-        input.graphFunction,
-        input.graph,
-        input.stop,
-        input.interactionSet,
-        input.interaction,
-        input.basis,
-      );
-    case "workflow":
-      return openWorkflowCCallLocus(
-        opening,
-        input.store,
-        input.predecessorPrefix,
-        input.executionBasis,
-        input.implementationSet,
-        input.scope,
-        input.program,
-        input.graphFunction,
-        input.graph,
-        input.proposal,
-        input.childGraphFunction,
-        input.childClosureContract,
-        input.programValidation,
-        input.basis,
-      );
+    if (transaction.value.kind !== "c_call_admission") return transaction.value;
+    if (transaction.successorPrefix === null) {
+      throw new TypeError("CCall opening admitted no durable events");
+    }
+    return deepFreeze({ ...transaction.value, successorPrefix: transaction.successorPrefix });
+  } catch (error) {
+    if (entered) throw error;
+    return openRefusal("scope_mismatch", "CCall requires one exact active basis, scope, and traversal cursor");
   }
 }
 
@@ -5740,9 +5944,11 @@ export function admitPlannedPendingInteraction(
       "planned pending F_H event closure is incomplete",
     );
   }
-  const admittedEvents = plan.eventCandidates.map((candidate) =>
-    admitRuntimeEvent(store, candidate)
-  );
+  const sampledEvents = plan.eventCandidates.map((candidate) => {
+    const sample = captureNativeFrameBoundary(store);
+    return { event: admitRuntimeEvent(store, candidate), sample };
+  });
+  const admittedEvents = sampledEvents.map(({ event }) => event);
   if (admittedEvents.some((event, index) =>
     sha256Canonical(event as unknown as JsonValue) !==
       sha256Canonical(plan.projectedEvents[index] as unknown as JsonValue)
@@ -5751,7 +5957,54 @@ export function admitPlannedPendingInteraction(
       "pending F_H admission differs from its pre-effect plan",
     );
   }
+  for (const { event, sample } of sampledEvents) observeNativeFrameLiveness(store, event, sample);
   return plan.pending;
+}
+
+/** Exact native selected F_P occurrence; this is owner refusal, never actor evidence. */
+export function undispatchedOwnerEvidenceMatches(
+  prefix: ValidatedRuntimeEventPrefix,
+  cCall: CCall,
+  candidate: UndispatchedOwnerRefusalEvidenceCandidate,
+  expectedInputDigest: Sha256Digest,
+): boolean {
+  try {
+    const expectedKeys = ["kind", "schemaVersion", "implementationRef", "inputDigest", "outputDigest",
+      "failureContractRef", "failureValue", "ownerObservation"].sort();
+    if (Object.keys(candidate).sort().join("\0") !== expectedKeys.join("\0") ||
+        candidate.kind !== "undispatched_owner_refusal_evidence_candidate" || candidate.schemaVersion !== "5.0.0" ||
+        cCall.callClass !== "leaf" || cCall.regime !== "F_P" || !isUndispatchedOwnerObservation(candidate.ownerObservation) ||
+        candidate.implementationRef !== cCall.implementationRef || candidate.inputDigest !== expectedInputDigest ||
+        candidate.failureContractRef !== cCall.failureContractRef || !isJsonRecord(candidate.failureValue) ||
+        Object.keys(candidate.failureValue).sort().join("\0") !== ["kind", "schemaVersion", "failureClass", "diagnosticRef"].sort().join("\0") ||
+        candidate.failureValue.schemaVersion !== "5.0.0" || typeof candidate.failureValue.kind !== "string" ||
+        candidate.outputDigest !== sha256Canonical(candidate.failureValue)) return false;
+    const o = candidate.ownerObservation;
+    if (o.cCallRef !== cCall.cCallRef || o.runId !== cCall.runId || o.graphCallId !== cCall.graphCallId ||
+        o.frameId !== cCall.frameId || o.programLocusRef !== cCall.programLocusRef || o.taskOrdinal !== cCall.taskOrdinal ||
+        o.attempt !== cCall.attempt || o.implementationRef !== cCall.implementationRef ||
+        o.inputContractRef !== cCall.inputContractRef || o.outputContractRef !== cCall.outputContractRef ||
+        o.inputDigest !== expectedInputDigest || candidate.failureValue.diagnosticRef !== o.diagnosticRef ||
+        candidate.failureValue.failureClass !== (o.reason === "malformed_preparation" ? "malformed_return" : "implementation_exception")) return false;
+    const events = runtimeEventsFromValidatedPrefix(prefix);
+    const opened = events.find(event => event.eventId === cCall.openedEventRef);
+    const fibre = events.find(event => event.eventId === cCall.fibreSelectedEventRef);
+    if (opened?.kind !== "c_call_opened" || fibre?.kind !== "c_call_fibre_selected" ||
+        !isJsonRecord(opened.payload) || !isJsonRecord(fibre.payload) ||
+        opened.aggregateId !== cCall.cCallRef || fibre.payload.implementationRef !== cCall.implementationRef ||
+        fibre.payload.regime !== "F_P") return false;
+    const cursor = events.find(event => event.kind === "traversal_cursor_entered" && isJsonRecord(event.payload) &&
+      event.payload.cursorDigest === (opened.payload as Record<string, JsonValue>).cursorDigest);
+    if (cursor === undefined || !isJsonRecord(cursor.payload) || cursor.payload.inputDigest !== expectedInputDigest) return false;
+    // Link actor/process children through the actual binding and invocation,
+    // not an assumption that every process event repeats payload.cCallRef.
+    const bindings = events.filter(event => event.kind === "actor_transport_binding_admitted" &&
+      isJsonRecord(event.payload) && event.payload.cCallRef === cCall.cCallRef);
+    const actors = events.filter(event => event.kind === "actor_invocation_started" && isJsonRecord(event.payload) &&
+      (event.payload.cCallRef === cCall.cCallRef || bindings.some(binding => binding.aggregateId === (event.payload as Record<string, JsonValue>).transportBindingRef)));
+    return bindings.length === 0 && actors.length === 0 &&
+      !events.some(event => event.kind === "c_call_evidenced" && event.aggregateId === cCall.cCallRef);
+  } catch { return false; }
 }
 
 export function admitEvidence(
@@ -5790,6 +6043,10 @@ export function admitEvidence(
     cCall.callClass === "leaf" &&
     cCall.regime === "F_D" &&
     candidate.implementationRef === cCall.implementationRef;
+  const undispatchedValid = candidate.kind === "undispatched_owner_refusal_evidence_candidate" &&
+    owner?.phase.phase === "selected_no_evidence" &&
+    selectHeldEventStoreDurablePrefix(store).storeIdentity.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
+    undispatchedOwnerEvidenceMatches(prefix, cCall, candidate, expectedInputDigest);
   const worksiteBasis = candidate.kind === "worksite_file_replace_evidence_candidate"
     ? rehydrateExecutionBasisAtPrefix(prefix, cCall.basisId)
     : null;
@@ -5984,7 +6241,9 @@ export function admitEvidence(
     (owner.phase.phase !== "selected_no_evidence" &&
       owner.phase.phase !== "evidencing") ||
     !commonValid ||
-    (!deterministicValid && !probabilisticValid && !worksiteValid && !subTraversalValid) ||
+    (!deterministicValid && !probabilisticValid && !worksiteValid && !subTraversalValid && !undispatchedValid) ||
+    (owner?.rows.some(event => event.kind === "c_call_evidenced" && isJsonRecord(event.payload) &&
+      event.payload.evidenceClass === "undispatched_owner_refusal") === true) ||
     contractRef !== cCall.evidenceContractRef
   ) {
     return rejection(
@@ -6002,7 +6261,18 @@ export function admitEvidence(
     implementationRef: candidate.implementationRef,
     inputDigest: candidate.inputDigest,
     outputDigest: candidate.outputDigest,
+  } : candidate.kind === "undispatched_owner_refusal_evidence_candidate" ? {
+    cCallRef: cCall.cCallRef,
+    evidenceClass: "undispatched_owner_refusal" as const,
+    contractRef,
+    implementationRef: candidate.implementationRef,
+    inputDigest: candidate.inputDigest,
+    outputDigest: candidate.outputDigest,
+    failureContractRef: candidate.failureContractRef,
+    failureValue: candidate.failureValue,
+    ownerObservation: candidate.ownerObservation,
   } : candidate.kind === "probabilistic_transport_evidence_candidate" ? {
+    ...(candidate.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: candidate.nativeResultAssessment }),
     cCallRef: cCall.cCallRef,
     evidenceClass: "probabilistic_transport" as const,
     contractRef,
@@ -6081,12 +6351,18 @@ export function admitEvidence(
   const evidenceDigest = sha256Canonical(body as unknown as JsonValue);
   const evidenceRef = `evidence://abiogenesis/${evidenceDigest.slice("sha256:".length)}`;
   const prior = owner.rows.at(-1)!;
-  const event = compareAndAppendExpectedPrefix(
+  // hasAdmittedActorEvidence already authenticated this exact completed
+  // lifecycle. Conserve its actual producer in the evidence cause chain for
+  // both success and failure, rather than leaving transport causes orphaned.
+  const actorTerminalEventRef = candidate.kind === "probabilistic_transport_evidence_candidate"
+    ? projectActorProcessLifecycle(owner.prefix, candidate.actorInvocationRef).actorTerminalEventRef!
+    : null;
+  const event = admitCCallProgressEvent(
     store,
     owner.expectedStorePrefixDigest,
-    [() => ({
+    {
     kind: "c_call_evidenced",
-    eventTime: basis.eventTime,
+    eventTime: sampleNativeEventTime(),
     aggregateType: "c_call",
     aggregateId: cCall.cCallRef,
     parentAggregateId: cCall.frameId,
@@ -6095,6 +6371,7 @@ export function admitEvidence(
       ...(candidate.kind === "sub_traversal_evidence_candidate"
         ? [candidate.foldbackEventRef]
         : []),
+      ...(actorTerminalEventRef === null ? [] : [actorTerminalEventRef]),
       ...basis.causationEventRefs,
     ],
     correlationId: basis.correlationId,
@@ -6106,8 +6383,8 @@ export function admitEvidence(
     graphCallId: cCall.graphCallId,
     frameId: cCall.frameId,
     payload: { evidenceRef, evidenceDigest, ...body } as unknown as JsonValue,
-    })],
-  )[0]!;
+    },
+  );
   const admitted = deepFreeze({
     kind: "admitted_c_call_evidence" as const,
     schemaVersion: "5.0.0" as const,
@@ -6154,6 +6431,7 @@ export function admitResult(
   const expectedContractRef = resultClass === "success"
     ? cCall.outputContractRef
     : cCall.failureContractRef;
+  const undispatched = evidence.filter(row => row.evidenceClass === "undispatched_owner_refusal");
   if (
     owner?.phase.phase !== "evidencing" ||
     (cCall.retryPath.length !== 0 && retryOwner === null) ||
@@ -6164,6 +6442,10 @@ export function admitResult(
     !validateValue(candidate) ||
     contractRef !== expectedContractRef ||
     evidence.length === 0 ||
+    (undispatched.length !== 0 && (evidence.length !== 1 || resultClass !== "failure" ||
+      undispatched[0]!.failureContractRef !== contractRef ||
+      sha256Canonical(undispatched[0]!.failureValue as JsonValue) !== valueDigest ||
+      !isJsonRecord(candidate) || candidate.diagnosticRef !== undispatched[0]!.ownerObservation?.diagnosticRef)) ||
     evidence.length !== evidenceEvents.length ||
     new Set(evidence.map((row) => row.evidenceRef)).size !== evidence.length ||
     evidence.some(
@@ -6195,12 +6477,12 @@ export function admitResult(
   const resultDigest = sha256Canonical(body as unknown as JsonValue);
   const resultRef = `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
   const prior = owner.rows.at(-1)!;
-  const event = compareAndAppendExpectedPrefix(
+  const event = admitCCallProgressEvent(
     store,
     owner.expectedStorePrefixDigest,
-    [() => ({
+    {
     kind: "c_call_result_admitted",
-    eventTime: basis.eventTime,
+    eventTime: sampleNativeEventTime(),
     aggregateType: "c_call",
     aggregateId: cCall.cCallRef,
     parentAggregateId: cCall.frameId,
@@ -6214,8 +6496,8 @@ export function admitResult(
     graphCallId: cCall.graphCallId,
     frameId: cCall.frameId,
     payload: { resultRef, resultDigest, ...body },
-    })],
-  )[0]!;
+    },
+  );
   const admitted = deepFreeze({
     kind: "admitted_c_call_result" as const,
     schemaVersion: "5.0.0" as const,
@@ -6271,10 +6553,14 @@ export function admitJudgment(
   const currentCCall = currentReplay.cCalls.find(
     (row) => row.cCallRef === cCall.cCallRef,
   );
+  const undispatchedEvidence = (owner?.rows ?? []).find(event => event.kind === "c_call_evidenced" &&
+    isJsonRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal");
   if (
     owner?.phase.phase !== "result_admitted" ||
-    projectAdmittedCCallResultAtPrefix(owner.prefix, cCall, result) === null ||
+    projectAdmittedCCallResultFromPhase(owner.prefix, cCall, result, owner.phase) === null ||
     currentCCall?.status !== "result_admitted" ||
+    (undispatchedEvidence !== undefined && (candidate.judgment !== "blocked" ||
+      !isJsonRecord(result.value) || candidate.reasonRef !== result.value.diagnosticRef)) ||
     candidate.candidateDigest !== sha256Canonical(candidateValue) ||
     candidate.candidateRef !==
       `judgment-candidate://abiogenesis/${candidate.candidateDigest.slice("sha256:".length)}` ||
@@ -6301,12 +6587,12 @@ export function admitJudgment(
   };
   const judgmentDigest = sha256Canonical(judgmentBody as unknown as JsonValue);
   const judgmentRef = `judgment://abiogenesis/${judgmentDigest.slice("sha256:".length)}`;
-  const event = compareAndAppendExpectedPrefix(
+  const event = admitCCallProgressEvent(
     store,
     owner.expectedStorePrefixDigest,
-    [() => ({
+    {
     kind: "c_call_judged",
-    eventTime: basis.eventTime,
+    eventTime: sampleNativeEventTime(),
     aggregateType: "c_call",
     aggregateId: cCall.cCallRef,
     parentAggregateId: cCall.frameId,
@@ -6320,8 +6606,8 @@ export function admitJudgment(
     graphCallId: cCall.graphCallId,
     frameId: cCall.frameId,
     payload: { judgmentRef, judgmentDigest, ...judgmentBody },
-    })],
-  )[0]!;
+    },
+  );
   const admitted = deepFreeze({
     kind: "admitted_c_call_judgment" as const,
     schemaVersion: "5.0.0" as const,
@@ -6415,9 +6701,9 @@ export function completeRejectedCCall(
     );
     rejectionEvidenceRef =
       `evidence://abiogenesis/${rejectionEvidenceDigest.slice("sha256:".length)}`;
-    const evidenceEvent = admitRuntimeEvent(store, {
+    const evidenceEvent = admitFrameObservedCCallEvent(store, {
       kind: "c_call_evidenced",
-      eventTime: basis.eventTime,
+      eventTime: sampleNativeEventTime(),
       aggregateType: "c_call",
       aggregateId: cCall.cCallRef,
       parentAggregateId: cCall.frameId,
@@ -6465,9 +6751,9 @@ export function completeRejectedCCall(
     };
     resultDigest = sha256Canonical(refusalResultBody as unknown as JsonValue);
     resultRef = `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
-    const resultEvent = admitRuntimeEvent(store, {
+    const resultEvent = admitFrameObservedCCallEvent(store, {
       kind: "c_call_result_admitted",
-      eventTime: basis.eventTime,
+      eventTime: sampleNativeEventTime(),
       aggregateType: "c_call",
       aggregateId: cCall.cCallRef,
       parentAggregateId: cCall.frameId,
@@ -6503,9 +6789,9 @@ export function completeRejectedCCall(
   );
   const rejectionJudgmentRef =
     `judgment://abiogenesis/${rejectionJudgmentDigest.slice("sha256:".length)}`;
-  const judgmentEvent = admitRuntimeEvent(store, {
+  const judgmentEvent = admitFrameObservedCCallEvent(store, {
     kind: "c_call_judged",
-    eventTime: basis.eventTime,
+    eventTime: sampleNativeEventTime(),
     aggregateType: "c_call",
     aggregateId: cCall.cCallRef,
     parentAggregateId: cCall.frameId,
@@ -6545,3 +6831,5 @@ export function completeRejectedCCall(
         admit,
       ).value;
 }
+
+import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, parseNativeWorkspaceWorkReport } from "../product/native_workspace_work.js";

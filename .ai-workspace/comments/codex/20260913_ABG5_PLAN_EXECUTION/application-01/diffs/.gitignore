@@ -1,0 +1,34 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/code__src__abg__actor_process.ts.diff
+/code__src__abg__c_call.ts.diff
+/code__src__abg__c_call_outcome.ts.diff
+/code__src__abg__event_calculus.ts.diff
+/code__src__abg__event_prefix.ts.diff
+/code__src__abg__event_store.ts.diff
+/code__src__abg__index.ts.diff
+/code__src__abg__project_read_definition_bindings.ts.diff
+/code__src__abg__project_read_operation_contracts.ts.diff
+/code__src__abg__project_read_ports.ts.diff
+/code__src__abg__replay.ts.diff
+/code__src__abg__retry.ts.diff
+/code__src__abg__transport_contracts.ts.diff
+/code__src__abg__witness_admission_operation.ts.diff
+/code__src__abg__witness_definition_bindings.ts.diff
+/code__src__abg__worker_transport.ts.diff
+/code__src__abg__worksite_command_forward.ts.diff
+/code__src__abg__worksite_construction_recovery.ts.diff
+/code__src__gtl__index.ts.diff
+/code__src__gtl__self_conformance.ts.diff
+/code__src__hog__ccall_lifecycle.ts.diff
+/code__src__implementation__contracts.ts.diff
+/code__src__implementation__index.ts.diff
+/code__src__implementation__leaf_invocation_port.ts.diff
+/code__src__validator__index.ts.diff
+/code__src__validator__self_conformance.ts.diff
+/code__src__validator__self_conformance_basis.ts.diff
+/code__src__validator__self_conformance_contracts.ts.diff
+/code__src__validator__self_conformance_publication.ts.diff
+/code__src__validator__self_conformance_semantics.ts.diff
+/scripts__generate-product-manifest.mjs.diff

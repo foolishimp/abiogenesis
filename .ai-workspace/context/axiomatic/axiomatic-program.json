@@ -1,17 +1,17 @@
 {
   "kind": "axiom-indexer.axiomatic-program",
   "schema_version": 1,
-  "uri": "urn:axiom-indexer:program:abiogenesis:mutable-worksite-spine:2",
-  "calculus_ref": "stdo://releases/v2.5.0-rc.4/standards/AXIOMATIC_CALCULUS.md",
+  "uri": "urn:axiom-indexer:program:abiogenesis:mutable-worksite-spine:3",
+  "calculus_ref": "stdo://releases/v2.5.0-rc.6/standards/AXIOMATIC_CALCULUS.md",
   "source_basis": "repo://abiogenesis/",
   "frame_refs": [
     "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#local-extension-mutable-worksite-causality",
     "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas",
     "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md#fully-functional-traversal",
-    "stdo://releases/v2.5.0-rc.4/standards/REFERENCE_FRAME_METHOD.md#reference-frame-laws",
-    "stdo://releases/v2.5.0-rc.4/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame",
-    "stdo://releases/v2.5.0-rc.4/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-reviewer-frame",
-    "stdo://releases/v2.5.0-rc.4/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
+    "stdo://releases/v2.5.0-rc.6/standards/REFERENCE_FRAME_METHOD.md#reference-frame-laws",
+    "stdo://releases/v2.5.0-rc.6/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame",
+    "stdo://releases/v2.5.0-rc.6/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-reviewer-frame",
+    "stdo://releases/v2.5.0-rc.6/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
   ],
   "vocabulary_refs": [
     "urn:axiom-indexer:kind:authority-binding",
@@ -63,9 +63,9 @@
     {
       "uri": "urn:axiom-indexer:symbol:abiogenesis:current-work-selection",
       "kind": "urn:axiom-indexer:kind:work-selection",
-      "label": "T-287 canonical-root Stage 1 HOLD and Stage 2 blocked",
+      "label": "T-287 accepted Wave 2 and selected Wave 3",
       "source_refs": [
-        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#lawful-re-entry",
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#w3-current-selection",
         "repo://abiogenesis/specification/GOALS.md#current-selection"
       ]
     },
@@ -192,12 +192,12 @@
         },
         {
           "role": "urn:axiom-indexer:role:object",
-          "literal": "Full admitted WorkspaceAuthorityBasis A addresses authored work beneath A.canonicalRoot; WorkspaceBinding W retains the immutable Product owner at W.roots.productRoot and installed helper at W.roots.toolchainRoot."
+          "literal": "Full admitted WorkspaceAuthorityBasis A addresses authored work beneath A.canonicalRoot; WorkspaceBinding W retains the immutable Product owner at W.roots.productRoot and installed helper beneath W.roots.toolchainRoot."
         }
       ],
       "statement": "Authored work resolves beneath A.canonicalRoot; immutable Product and toolchain roots remain distinct protected coordinates authenticated with the full A/W pair.",
       "source_refs": [
-        "repo://abiogenesis/specification/GOALS.md#current-selection"
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md#exact-worksite-root-authority"
       ]
     },
     {
@@ -215,17 +215,18 @@
         },
         {
           "role": "urn:axiom-indexer:role:target",
-          "ref": "urn:axiom-indexer:symbol:abiogenesis:observation-snapshot"
+          "literal": "Physical publication alone establishes neither a verified successor observation nor admitted successor currentness."
         }
       ],
-      "statement": "Ordinary content change preserves WorkspaceBinding and creates a successor observation.",
+      "statement": "Ordinary content change preserves WorkspaceBinding while its constituents remain exact. C0 publication does not guarantee a verified or current successor observation; its admitted success and failure relations remain distinct.",
       "source_refs": [
         "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
-        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md#fully-functional-traversal"
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md#fully-functional-traversal",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md#sequence-and-state-treatment"
       ]
     },
     {
-      "uri": "urn:axiom-indexer:clause:abiogenesis:current-selection-stage-gates",
+      "uri": "urn:axiom-indexer:clause:abiogenesis:current-selection-boundary",
       "clause_type": "constraint",
       "operator": "urn:axiom-indexer:operator:selects",
       "arguments": [
@@ -235,12 +236,12 @@
         },
         {
           "role": "urn:axiom-indexer:role:requirement",
-          "literal": "C1/C2 design remains accepted; C0 atomic-window design awaits independent review, the nine-path Stage 1 subject remains on HOLD, and Stage 2 is blocked."
+          "literal": "All four Wave 2 steel threads and applicable B06 obligations are accepted and closed. Wave 3 selects F14, F07 and F08 in that order; M5 remains active and M6/M7 pending. Earlier exact subjects, first causes and P3 limits are conserved. This selection grants no Wave 3 implementation, model, qualification or release effect."
         }
       ],
-      "statement": "C1/C2 design remains accepted; C0 atomic-window design awaits independent review, the nine-path Stage 1 subject remains on HOLD, and Stage 2 is blocked.",
+      "statement": "Current Goals and T-287 own Wave 2 closure and Wave 3 selection. Derived context preserves exact evidence boundaries and does not activate work.",
       "source_refs": [
-        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#lawful-re-entry",
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#w3-current-selection",
         "repo://abiogenesis/specification/GOALS.md#current-selection"
       ]
     },
@@ -345,9 +346,11 @@
           "ref": "urn:axiom-indexer:symbol:abiogenesis:observation-snapshot"
         }
       ],
-      "statement": "Fresh replay or reconstruction derives the current ObservationSnapshot before dependent traversal continues.",
+      "statement": "Fresh replay derives admitted observation currentness: complete C0 success replaces O0 with exact O1; an authenticated admitted post-publication failure terminates O0 and initiates no successor, even with a retained receipt or successful compensation. After that failure, another attempt requires fresh observation and authorization.",
       "source_refs": [
         "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md#existing-event-and-replay-treatment",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md#sequence-and-state-treatment",
         "repo://abiogenesis/specification/INTENT.md#abg-owns-admitted-runtime-truth"
       ]
     },
@@ -382,16 +385,17 @@
         },
         {
           "role": "urn:axiom-indexer:role:condition",
-          "literal": "physical bytes changed without owner effect and required ABG admission"
+          "literal": "physical mutation without required ABG admission, including owner publication followed by refused evidence/result admission or append"
         },
         {
           "role": "urn:axiom-indexer:role:target",
           "literal": "runtime truth"
         }
       ],
-      "statement": "An unadmitted physical mutation is evidence of the world, not ABI runtime truth.",
+      "statement": "An unadmitted physical mutation remains evidence of the world. Refused C0 admission or append adds no event: replay retains the original durable prefix, including any prior O0 claim, without certifying physical O0 validity. The returned physical outcome survives; another attempt requires fresh observation and authorization.",
       "source_refs": [
         "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md#sequence-and-state-treatment",
         "repo://abiogenesis/specification/PRODUCT.md#definition-tool-and-runtime-authority"
       ]
     },
@@ -428,13 +432,15 @@
         "urn:axiom-indexer:symbol:abiogenesis:execution-basis",
         "urn:axiom-indexer:symbol:abiogenesis:workspace-binding"
       ],
-      "detail": "No root-correct artifact or campaign credit is established by source or context refresh. The exact disposable build, identical packages, installed C0-C3 evidence, downstream gates, and later live selection remain outstanding under Goals.",
+      "detail": "The four Wave 2 threads and applicable B06 are accepted on their exact subjects. Runtime 1616 and inspection 8a3394 remain distinct. Wave 3 is selected; M5 still owes one exact integrated candidate, followed by M6/M7 qualification and release. This bounded map does not model the complete Wave 3 Product.",
       "re_entry_refs": [
-        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#evidence-gates",
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#w3-current-selection",
         "repo://abiogenesis/specification/GOALS.md#current-selection"
       ],
       "source_refs": [
-        "repo://abiogenesis/specification/GOALS.md#current-selection"
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#w3-current-selection",
+        "repo://abiogenesis/specification/GOALS.md#current-selection",
+        "repo://abiogenesis/specification/GOALS.md#work-and-milestones"
       ]
     },
     {
@@ -443,12 +449,14 @@
       "subject_refs": [
         "urn:axiom-indexer:symbol:abiogenesis:current-work-selection"
       ],
-      "detail": "The frozen C0 candidate and Stage 1 owner-unity/source subject require the independent reviews and durable dispositions selected by current Goals. Conversational GO does not open Stage 2.",
+      "detail": "The former nine-path Stage 1 HOLD remains historical and grants no work. Later independently accepted corrections and steel threads close only their exact claims; they do not retroactively accept that predecessor. Existing C1 P3 and C0/C2 limits remain explicit.",
       "re_entry_refs": [
-        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#evidence-gates",
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#w3-current-selection",
         "repo://abiogenesis/specification/GOALS.md#current-selection"
       ],
       "source_refs": [
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-status-and-supersession",
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#w3-current-selection",
         "repo://abiogenesis/specification/GOALS.md#current-selection"
       ]
     },
@@ -459,12 +467,14 @@
         "urn:axiom-indexer:symbol:abiogenesis:current-work-selection",
         "urn:axiom-indexer:symbol:abiogenesis:observation-snapshot"
       ],
-      "detail": "Stage 2 remains blocked. After the selected durable Stage 1 disposition, freeze the eight current support/evidence preimages before any edit and independently review the completed source/evidence subject.",
+      "detail": "The former Stage 2 plan remains historical. Current Wave 2 installed construction/composition, controlled failure and applicable inspection evidence are accepted; positive continuation has no subject in those cases. Remaining Wave 3/4 realization and exact integrated qualification require their own selected evidence; odd_glc remains 2/7 accepted.",
       "re_entry_refs": [
-        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#evidence-gates",
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#w3-current-selection",
         "repo://abiogenesis/specification/GOALS.md#current-selection"
       ],
       "source_refs": [
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-status-and-supersession",
+        "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#w3-current-selection",
         "repo://abiogenesis/specification/GOALS.md#current-selection"
       ]
     }

@@ -1,6 +1,15 @@
 # M03 Recursive Executive Observer Derivation
 
-**Status**: Ratified first slice
+**Current applicability**: Historical first-slice design; non-operative 5.1 input.
+[Product Release Boundaries](../../../../specification/PRODUCT.md#50-and-51-release-boundaries)
+and [T-268](../../../../.ai-workspace/tickets/backlog/T-268-publish-abg-5-tenant-conformance-manifest-consensus-coverage.md#current-51-boundary)
+own current scope. The historical prohibition on `consequence.C` as semantic
+executive does not govern the owner-selected wider-scope Consequence model.
+That model retains separate evaluation, proposal, ABG admission and HoG
+execution. Future use requires design reconciliation; ordinary local recursion
+and runtime liveness are not deferred by this document.
+
+**Prior status**: Ratified first slice
 **Ticket**: T-160
 **Date**: 2026-06-29
 

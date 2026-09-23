@@ -1,0 +1,20 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/canonical_json.ts
+/capability_contracts.ts
+/definition_binding_mechanics.ts
+/digests.ts
+/effect_definition.ts
+/i_json.ts
+/immutable.ts
+/index.ts
+/operation_definition_coordinate.ts
+/owner_contract_source_set.ts
+/public_function_contracts.ts
+/public_function_family.ts
+/public_function_projections.ts
+/public_invocation.ts
+/references.ts
+/rooted_topology_partition.ts
+/static_definition_bindings.ts

@@ -1,0 +1,37 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/checks/native-proof-02.json
+/checks/native-proof.json
+/checks/native-step-10.json
+/checks/native-step-8.json
+/checks/native-step-9.json
+/checks/public-10.json
+/checks/public-8.json
+/checks/public-9.json
+/handoff.md
+/manifest.json
+/native-run.mjs
+/native.mjs
+/npm-global.conf
+/npm-user.conf
+/prepare.mjs
+/records/archive-identity.json
+/records/native-call-10.jsonl
+/records/native-call-8.jsonl
+/records/native-call-9.jsonl
+/records/native-proof.json
+/records/native-receipt-10.json
+/records/native-receipt-8.json
+/records/native-receipt-9.json
+/records/native-state-10.json
+/records/native-state-8.json
+/records/native-state-9.json
+/records/reuse-preflight.json
+/records/start-owner-preflight.json
+/records/start-preflight.json
+/records/start-selection.json
+/tools.mjs
+/verify-return-02.mjs
+/verify-return.mjs

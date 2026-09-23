@@ -1,4 +1,20 @@
 export {
+  ROOT_EVENT_CONTRACT_DIGEST,
+  ROOT_EVENT_CONTRACT_DESCRIPTOR,
+  LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
+} from "./event_store.js";
+export {
+  RUNTIME_PROBE_SOURCE_VALUES, RUNTIME_INVOCATION_DISPOSITION_VALUES,
+  isRuntimeLivenessObserverProjection, isRuntimeLivenessReadProjection,
+  RUNTIME_LIVENESS_OBSERVER_PROJECTION_SCHEMA, RUNTIME_LIVENESS_READ_PROJECTION_SCHEMA,
+  type RuntimeInvocationScope, type RuntimeWatchdogPolicy, type RuntimeLivenessBinding,
+  type RuntimeSystemProbeContract, type RuntimeProbeObservation, type RuntimeThresholdObservation,
+  type RuntimeInvocationDisposition, type RuntimeLivenessObserverProjection, type RuntimeLivenessReadProjection,
+} from "./runtime_liveness_contracts.js";
+export {
+  projectRuntimeLivenessAtPrefix, projectRuntimeLivenessForScope, projectNativeLivenessRead,
+} from "./runtime_liveness.js";
+export {
   projectEffectfulPublicInvocationTruthAtPrefix,
   type EffectfulPublicInvocationPriorAdmission,
   type EffectfulPublicInvocationTruth,
@@ -124,7 +140,12 @@ export {
   type ImplementationResolutionSelection,
   type InteractionContractSelection,
   type RuntimeAdmissionBasis,
+  authenticateNativeInstructionAssemblyBasis,
+  constructNativeInstructionAssemblyBasis,
+  type NativeInstructionAssemblyBasis,
 } from "./execution_basis.js";
+export { constructWorksiteNativeInstructionAssembly, requireWorksiteNativeInstructionAssembly,
+  worksiteCommandExecutionAttemptRef } from "./instruction_assembly.js";
 export {
   hasOpenedTraversalScopeAtPrefix,
   isOpenedTraversalScope,
@@ -315,6 +336,7 @@ export {
 } from "./continuation.js";
 export {
   projectRuntimeTruthAtDurablePrefix,
+  projectRuntimePrefixesAtDurablePrefix,
   projectRunQuiescence,
   projectRunSemanticReplayProjection,
   replay,
@@ -538,3 +560,18 @@ export { projectWorksiteCommandForwardSource, projectWorksiteCommandForwardRelat
   worksiteCommandForwardChildSourceAtPrefix, worksiteCommandForwardResultMatches } from "./worksite_command_forward.js";
 export type { WorksiteCommandForwardNativeBasis } from "./worksite_command_forward.js";
 export { projectClosedGraphCallTerminalAtDurablePrefix } from "./project_read_ports.js";
+export { projectQualificationConsumer, projectQualificationJudgment, projectQualificationOwnerRuling,
+  projectQualificationSelfConformance, resolveQualificationExecutionEvidence, qualificationHasNativeSelfConformance, projectQualificationVerdict, resolveQualificationAssessments,
+  malformedGtlAssessmentHasNativeOwner } from "./qualification_proof.js";
+
+export { projectNativeWorkReacquisitionTask, authenticateNativeWorkReacquisition, nativeWorkReacquisitionContextCurrent,
+  nativeWorkReacquisitionResultMatches } from "./native_work_reacquisition.js";
+export type { NativeWorkReacquisitionBasis } from "./native_work_reacquisition.js";
+
+export { projectNativeRuntimeAssessment, nativeRuntimeAssessmentHasNativeOwner } from "./qualification_proof.js";
+
+export {
+  recoverInterruptedAbgEventResource, abgEventRecoveryScope,
+  ABG_EVENT_RESOURCE_RECOVERY, ABG_EVENT_RESOURCE_RECOVERY_DIGEST,
+  type AbgInterruptedEventResourceRecoveryRequest, type AbgEventResourceRecoveryResult,
+} from "./definition_event_resource.js";

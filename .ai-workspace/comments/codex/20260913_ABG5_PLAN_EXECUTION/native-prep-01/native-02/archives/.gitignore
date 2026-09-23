@@ -1,0 +1,8 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../20260923_WIP_CHECKPOINT/README.md
+/fp-1ce2c5dbe79b16ab-output.txt
+/fp-1ce2c5dbe79b16ab-prompt.txt
+/fp-1ce2c5dbe79b16ab-stderr.log
+/fp-1ce2c5dbe79b16ab-stdout.log
+/fp-1ce2c5dbe79b16ab-transport.json

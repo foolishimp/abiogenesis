@@ -1,3 +1,4 @@
+import { isOptionalJsonRecord as isRecord, isNonEmptyJsonString as isNonEmptyString, hasExactJsonKeys as exactKeys } from "../shared/admission_predicates.js";
 import type {
   FanOutApplication,
   FanOutMaterialization,
@@ -9,15 +10,17 @@ import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import {
+import { runtimeEventPrefixDigest,
   validatedRuntimeEventPrefixThroughEvent,
   runtimeEventsFromValidatedPrefix,
+  runtimePrefixComputation,
+  indexedRuntimeEvents,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type { RuntimeEvent } from "./event_store.js";
 import {
   constructScopedRetryFluent,
-  deriveRuntimeEventCalculusProjection,
+  runtimeFluentHoldsAtPrefix,
   holdsAt,
 } from "./event_calculus.js";
 import type {
@@ -87,18 +90,8 @@ interface ExactTaskTruth {
   readonly retryAttemptRef: string | null;
 }
 
-function isRecord(
-  value: JsonValue | undefined,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
 function isDigest(value: JsonValue | undefined): value is Sha256Digest {
   return typeof value === "string" && /^sha256:[a-f0-9]{64}$/u.test(value);
-}
-
-function isNonEmptyString(value: JsonValue | undefined): value is string {
-  return typeof value === "string" && value.length > 0;
 }
 
 function isOrdinal(value: JsonValue | undefined): value is number {
@@ -112,13 +105,6 @@ function sameStrings(
   return left.length === right.length && left.every(
     (value, index) => value === right[index],
   );
-}
-
-function exactKeys(
-  value: Readonly<Record<string, JsonValue>>,
-  expected: readonly string[],
-): boolean {
-  return sameStrings(Object.keys(value).sort(), [...expected].sort());
 }
 
 function uniqueEvent(
@@ -783,18 +769,7 @@ function exactTaskCensus(
   authority: FanOutProjectionAuthority | null,
 ): readonly ExactTaskTruth[] | null {
   const events = runtimeEventsFromValidatedPrefix(prefix);
-  const historicalPrefix = Number.isFinite(boundaryOrdinal)
-    ? (() => {
-        const priorEvent = events.find(
-          (event) => event.admissionOrdinal === boundaryOrdinal - 1,
-        );
-        return priorEvent === undefined
-          ? null
-          : validatedRuntimeEventPrefixThroughEvent(prefix, priorEvent.eventId);
-      })()
-    : prefix;
-  if (historicalPrefix === null) return null;
-  const calculus = deriveRuntimeEventCalculusProjection(historicalPrefix);
+  if (Number.isFinite(boundaryOrdinal) && !events.some(event => event.admissionOrdinal === boundaryOrdinal - 1)) return null;
   const openedRows = events.filter((event) =>
     event.kind === "c_call_opened" &&
     event.admissionOrdinal < boundaryOrdinal &&
@@ -830,8 +805,8 @@ function exactTaskCensus(
     const attemptPayload = attemptRows[0]!.payload;
     if (!isRecord(attemptPayload) ||
       !isNonEmptyString(attemptPayload.retryBoundaryRef)) return false;
-    return holdsAt(
-      calculus,
+    return runtimeFluentHoldsAtPrefix(
+      prefix,
       constructScopedRetryFluent("retry_attempt_active", {
         runId: envelope.runId,
         graphCallId: envelope.graphCallId,
@@ -839,6 +814,7 @@ function exactTaskCensus(
         retryBoundaryRef: attemptPayload.retryBoundaryRef,
         authorityRef: truth.retryAttemptRef,
       }),
+      Number.isFinite(boundaryOrdinal) ? boundaryOrdinal - 1 : undefined,
     );
   });
   const historicalByOrdinal = new Map<number, ExactTaskTruth[]>();
@@ -981,7 +957,7 @@ function candidateProjection(
 ): FanOutCompletionCandidateProjection | null {
   const events = runtimeEventsFromValidatedPrefix(prefix);
   if (
-    sha256Canonical(events as unknown as JsonValue) !==
+    runtimeEventPrefixDigest(prefix) !==
       request.expectedPrefixDigest
   ) return null;
   const materialization = materializationFor(request.authority);
@@ -1081,7 +1057,27 @@ function candidateProjection(
   });
 }
 
+const CANONICAL_COMPLETION_FACTS = Symbol("canonical_completion_facts");
 function canonicalAdmission(
+  prefix: ValidatedRuntimeEventPrefix,
+  request: Exclude<ExactFanOutCompletionProjectionRequest, { mode: "candidate" }>,
+): FanOutCompletionAdmission | null {
+  if (request.mode !== "event_canonical") return deriveCanonicalAdmission(prefix, request);
+  const matches = indexedRuntimeEvents(prefix, "kind:fan_out_completion_admitted").filter(e => e.eventId === request.admissionEventRef);
+  if (matches.length !== 1) return null;
+  const event = matches[0]!;
+  // All task/result/foldback inputs are bounded before this immutable admission.
+  // The existing retry uniqueness check also observes later declarations.
+  const retryEnd = indexedRuntimeEvents(prefix, "kind:retry_attempt_opened").filter(e => e.runId === event.runId && e.graphCallId === event.graphCallId && e.frameId === event.frameId).at(-1);
+  const facts = runtimePrefixComputation(prefix, CANONICAL_COMPLETION_FACTS, () => new Map<string, { retryEnd: RuntimeEvent | undefined; value: FanOutCompletionAdmission | null }>());
+  const previous = facts.get(event.eventId);
+  if (previous !== undefined && previous.retryEnd === retryEnd) return previous.value;
+  const value = deriveCanonicalAdmission(prefix, request);
+  facts.set(event.eventId, { retryEnd, value });
+  return value;
+}
+
+function deriveCanonicalAdmission(
   prefix: ValidatedRuntimeEventPrefix,
   request: Exclude<ExactFanOutCompletionProjectionRequest, { mode: "candidate" }>,
 ): FanOutCompletionAdmission | null {

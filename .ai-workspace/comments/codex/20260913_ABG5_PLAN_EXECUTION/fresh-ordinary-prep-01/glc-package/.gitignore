@@ -1,0 +1,11 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/build/
+/contracts/capabilities/capability-definition-graph.json
+/contracts/independent-source-input.json
+/contracts/public-contract-catalog.schema.json
+/contracts/scenario-input.json
+/contracts/source-role-declarations.json
+/package.json
+/product-toolchain-manifest.json

@@ -1,0 +1,9 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../20260923_WIP_CHECKPOINT/README.md
+/test_env/support/candidate-basis.mjs
+/test_env/support/frame-proof-variant.mjs
+/test_env/support/root-cli-environment.mjs
+/test_env/support/stdo-environment-pilot.mjs
+/test_env/support/t287-native-frame-observation.mjs
+/test_env/tests/t287-stdo-run-environment-installed.mjs

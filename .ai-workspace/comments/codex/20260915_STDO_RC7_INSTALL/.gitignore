@@ -1,0 +1,29 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/README.md
+/bind-and-verify.mjs
+/consumer-verification.json
+/dirty-preimages.json
+/install-published-payloads.py
+/manual-installation-plan.json
+/payload-installation-result.json
+/payload-installation.stderr.txt
+/plan.stderr.txt
+/plan.stdout.txt
+/release-provenance/axiom_indexer/releases/v2.5.0.md
+/release-provenance/stack_release.json
+/release-provenance/stdo_representation/build_tenants/axiom_indexer/representation/stdo-v2.5.0-rc.7/source-corpus.json
+/release-provenance/stdo_representation/build_tenants/axiom_indexer/representation/stdo-v2.5.0-rc.7/validation-report.json
+/release-provenance/stdo_representation/releases/v2.5.0.md
+/released-corpus-bindings.json
+/released-frame-projection.json
+/selection.json
+/stdo-adoption-apply.stderr.txt
+/stdo-adoption-plan.json
+/stdo-adoption-result.json
+/stdo-adoption.stderr.txt
+/stdo-install-verification.json
+/stdo-status.json
+/stdo-status.stderr.txt
+/update.py

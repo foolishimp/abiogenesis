@@ -1,0 +1,12 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/qualification/rule-catalog.json
+/qualification/sources/AXIOMATIC_CALCULUS.md
+/qualification/sources/REFERENCE_FRAME_METHOD.md
+/qualification/sources/RELEASE_METHOD.md
+/qualification/sources/REQ-M-GTL3-CAPABILITY.md
+/qualification/sources/REQ-P-QUAL.md
+/qualification/sources/REQ-P-SELF-CONFORMANCE.md
+/qualification/sources/SPEC_METHOD.md
+/qualification/sources/STDO_REFERENCE_FRAME_BASELINE.md

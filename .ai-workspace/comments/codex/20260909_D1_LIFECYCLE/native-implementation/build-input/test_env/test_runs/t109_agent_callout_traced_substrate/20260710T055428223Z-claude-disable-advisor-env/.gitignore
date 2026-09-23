@@ -1,0 +1,15 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/claude-disable-advisor-env-output.txt
+/claude-disable-advisor-env-prompt.txt
+/claude-disable-advisor-env-stderr.log
+/claude-disable-advisor-env-stdout.log
+/claude-disable-advisor-env-transport.json
+/claude-disable-advisor-env.trace/command.json
+/claude-disable-advisor-env.trace/events.ndjson
+/claude-disable-advisor-env.trace/final_output.txt
+/claude-disable-advisor-env.trace/meta.json
+/claude-disable-advisor-env.trace/result.json
+/claude-disable-advisor-env.trace/stdout.raw
+/fake-claude-env.mjs

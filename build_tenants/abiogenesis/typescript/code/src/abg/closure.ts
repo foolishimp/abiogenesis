@@ -1,8 +1,11 @@
+import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { ClosureContract } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { sampleNativeEventTime } from "./native_event_time.js";
+import { observeNativeFrameLiveness, discardNativeFrameClock, captureNativeFrameBoundary } from "./runtime_liveness.js";
 import {
   projectAdmittedCCallStateAtPrefix,
   type AdmittedCCallJudgment,
@@ -12,17 +15,20 @@ import {
 import type { RuntimeAdmissionBasis } from "./execution_basis.js";
 import {
   assertHeldEventStoreAtDurablePrefix,
-  compareAndAppendExpectedPrefix,
+  admitRuntimeEvent,
+  admitRuntimeEventTransactionAtExpectedPrefix,
   isRuntimeEventTransactionActive,
-  readRuntimeEventsAtDurablePrefix,
+  readHeldRuntimeEventsAtDurablePrefix,
+  readActiveRuntimeTransactionAtDurablePrefix,
   type AbgEventStore,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
   type RuntimeEventCandidateFactory,
 } from "./event_store.js";
-import {
+import { runtimeEventPrefixDigest,
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
+  selectRuntimeEventPrefixFromAuthority,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
@@ -111,16 +117,15 @@ function selectExactClosurePrefix(
   runId: string,
 ): ExactClosurePrefix | null {
   try {
-    assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
     const events = isRuntimeEventTransactionActive(store)
-      ? store.readAll()
-      : readRuntimeEventsAtDurablePrefix(predecessorPrefix);
+      ? readActiveRuntimeTransactionAtDurablePrefix(store, predecessorPrefix)
+      : readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix);
     const fullPrefix = selectValidatedRuntimeEventPrefix(events);
-    const runPrefix = selectValidatedRuntimeEventPrefix(events, { runId });
+    const runPrefix = selectRuntimeEventPrefixFromAuthority(fullPrefix, { runId });
     return deepFreeze({
       fullPrefix,
       runPrefix,
-      expectedStorePrefixDigest: sha256Canonical(events as unknown as JsonValue),
+      expectedStorePrefixDigest: runtimeEventPrefixDigest(fullPrefix),
     });
   } catch {
     return null;
@@ -142,16 +147,29 @@ function appendClosureBatchAtExpectedPrefix(
   factories: readonly RuntimeEventCandidateFactory[],
 ): readonly RuntimeEvent[] | null {
   try {
-    assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+    if (isRuntimeEventTransactionActive(store)) {
+      readActiveRuntimeTransactionAtDurablePrefix(store, predecessorPrefix, { durableOnly: true });
+    } else {
+      assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
+    }
   } catch {
     return null;
   }
   try {
-    return compareAndAppendExpectedPrefix(
-      store,
-      expectedStorePrefixDigest,
-      factories,
-    );
+    const action = () => {
+      const events: RuntimeEvent[] = [];
+      for (const factory of factories) {
+        const candidate = factory(events);
+        const capturedAt = captureNativeFrameBoundary(store);
+        const event = admitRuntimeEvent(store, candidate);
+        events.push(event);
+        observeNativeFrameLiveness(store, event, capturedAt);
+      }
+      return Object.freeze(events);
+    };
+    if (store.digest() !== expectedStorePrefixDigest) return null;
+    return isRuntimeEventTransactionActive(store) ? action() :
+      admitRuntimeEventTransactionAtExpectedPrefix(store, expectedStorePrefixDigest, action).value;
   } catch (error) {
     try {
       assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
@@ -196,12 +214,6 @@ export type ScopeClosureSubject =
 interface CurrentClosureTruth {
   readonly events: ReturnType<typeof runtimeEventsFromValidatedPrefix>;
   readonly replay: ReplayState;
-}
-
-function isRecord(
-  value: JsonValue,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function exactAdmissionPayload(
@@ -573,7 +585,7 @@ export function admitScopeClosure(
   const factories: RuntimeEventCandidateFactory[] = [
     () => ({
       kind: "terminal_reached",
-      eventTime: basis.eventTime,
+      eventTime: sampleNativeEventTime(),
       aggregateType: "frame",
       aggregateId: frameId,
       parentAggregateId: graphCallId,
@@ -593,7 +605,7 @@ export function admitScopeClosure(
     }),
     (batch) => ({
       kind: "frame_closed",
-      eventTime: basis.eventTime,
+      eventTime: sampleNativeEventTime(),
       aggregateType: "frame",
       aggregateId: frameId,
       parentAggregateId: graphCallId,
@@ -614,7 +626,7 @@ export function admitScopeClosure(
     }),
     (batch) => ({
       kind: "graph_call_closed",
-      eventTime: basis.eventTime,
+      eventTime: sampleNativeEventTime(),
       aggregateType: "graph_call",
       aggregateId: graphCallId,
       parentAggregateId: runId,
@@ -637,7 +649,7 @@ export function admitScopeClosure(
   if (scopeClass === "root") {
     factories.push((batch) => ({
       kind: "run_closed",
-      eventTime: basis.eventTime,
+      eventTime: sampleNativeEventTime(),
       aggregateType: "run",
       aggregateId: runId,
       parentAggregateId: null,
@@ -668,6 +680,7 @@ export function admitScopeClosure(
       "scope closure predecessor became stale before its atomic append",
     );
   }
+  if (!isRuntimeEventTransactionActive(store)) discardNativeFrameClock(store, frameId);
   return deepFreeze({
     kind: "scope_closure_admission" as const,
     schemaVersion: "5.0.0" as const,

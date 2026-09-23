@@ -1,0 +1,25 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/c2-coordinate-reuse-01/activation.json
+/c2-coordinate-reuse-01/authored.patch
+/c2-coordinate-reuse-01/baseline-inventory.json
+/c2-coordinate-reuse-01/build.json
+/c2-coordinate-reuse-01/build.log
+/c2-coordinate-reuse-01/checks.json
+/c2-coordinate-reuse-01/delta.json
+/c2-coordinate-reuse-01/diff-stat.json
+/c2-coordinate-reuse-01/executive-disposition.md
+/c2-coordinate-reuse-01/focused-fifth.log
+/c2-coordinate-reuse-01/focused-first.log
+/c2-coordinate-reuse-01/focused-fourth.log
+/c2-coordinate-reuse-01/focused-second.log
+/c2-coordinate-reuse-01/focused-third.log
+/c2-coordinate-reuse-01/freeze.json
+/c2-coordinate-reuse-01/preimages/code/src/abg/execution_basis.ts
+/c2-coordinate-reuse-01/preimages/code/src/abg/invocation_admission.ts
+/c2-coordinate-reuse-01/preimages/code/src/abg/native_work_reacquisition.ts
+/c2-coordinate-reuse-01/preimages/code/src/abg/native_worksite_execution.ts
+/c2-coordinate-reuse-01/return.md
+/c2-coordinate-reuse-01/subject-inventory.json
+/composition.json

@@ -1,3 +1,6 @@
+import type { NativeJudgmentProofOperations } from "../implementation/contracts.js";
+import type { DurablePrefixCoordinate } from "../abg/event_store.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import type {
   ModulePublication,
   ProductSemanticsBinding,
@@ -83,7 +86,7 @@ export interface ProductSemanticsProvider {
     readonly predicateRef: string;
     readonly advanceReasonRef: string;
     readonly rejectionReasonRef: string;
-    readonly evaluate: (input: unknown, output: unknown) => boolean;
+    readonly evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations) => boolean;
   }> | null;
   readonly resolveCatalogApplicationValue?: (
     basis: Readonly<{
@@ -184,7 +187,7 @@ interface InstalledLeafSemanticsRuntime {
     readonly predicateRef: string;
     readonly advanceReasonRef: string;
     readonly rejectionReasonRef: string;
-    readonly evaluate: (input: unknown, output: unknown) => boolean;
+    readonly evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations) => boolean;
   }> | null;
   readonly validateResultEvidenceLineage: (
     basis: Readonly<{
@@ -217,10 +220,6 @@ const loadedProductSemantics =
   new WeakMap<object, LoadedProductSemanticsBasis>();
 const projectedLeafSemantics =
   new WeakMap<object, InstalledLeafSemanticsRuntime>();
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function projectionBody(
   value: Omit<

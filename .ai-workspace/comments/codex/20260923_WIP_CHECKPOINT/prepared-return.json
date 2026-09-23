@@ -1,0 +1,18 @@
+{
+  "status": "CLOSED prepared transport; Git grant pending",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "transportBytes": 5533862466,
+  "metadataBytesAtReceipt": 10811965,
+  "preparedPublicationBytesAtReceipt": 5544674431,
+  "archiveMemberCount": 108479,
+  "largestTransportPartBytes": 51380224,
+  "restorationVerified": true,
+  "allOriginalHashesComparedAfterPacking": true,
+  "originalsModified": false,
+  "sourceOrIndexMutation": false,
+  "pendingFinalSourceList": "pending-final-direct.json",
+  "pendingNewReviewEvidence": "Final source acceptance and any review/Executive commentary produced after archive enumeration will be added directly or as a small supplement under the final grant.",
+  "currentOutcome": "WIP. The generic live Run failed before independent assessment; no release or RC qualification claim.",
+  "publicationPlan": "publication-plan.json",
+  "credentialScanDisposition": "All 49 heuristic-hit files classified: 321 identifier substring matches and 20 private-key header literals without an encoded body; no credential-shaped unresolved match or sensitive filename was found. Matching values were not emitted."
+}

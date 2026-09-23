@@ -1,0 +1,41 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/actor_process.d.ts
+/actor_process.js
+/c_call.d.ts
+/c_call.js
+/c_call_outcome.d.ts
+/c_call_outcome.js
+/event_calculus.d.ts
+/event_calculus.js
+/event_prefix.d.ts
+/event_prefix.js
+/event_store.d.ts
+/event_store.js
+/execution_basis.d.ts
+/execution_basis.js
+/index.d.ts
+/index.js
+/invocation_admission.d.ts
+/invocation_admission.js
+/project_read_definition_bindings.d.ts
+/project_read_definition_bindings.js
+/project_read_operation_contracts.d.ts
+/project_read_operation_contracts.js
+/project_read_ports.d.ts
+/project_read_ports.js
+/replay.d.ts
+/replay.js
+/retry.d.ts
+/retry.js
+/transport_contracts.d.ts
+/transport_contracts.js
+/traversal_route.d.ts
+/traversal_route.js
+/traversal_transition.d.ts
+/traversal_transition.js
+/witness_admission_operation.js
+/witness_operation_contracts.d.ts
+/worker_transport.d.ts
+/worker_transport.js

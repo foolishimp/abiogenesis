@@ -1,3 +1,8 @@
+import * as v from "valibot";
+import { acquireAbgEventResource,closeAbgEventResource,abandonAbgEventResource,validateAbgEventResourceAssertion,validateAbgEventResourceReceipt,type AbgEventResourceAssertion,type AbgEventResourceReceipt } from "../abg/definition_event_resource.js";
+import { bindExactPrefixRead } from "../shared/static_definition_bindings.js";
+import { absolutePathSchema } from "../shared/public_function_contracts.js";
+import { projectReleaseEvidence } from "./project_read_ports.js";
 import * as Effect from "effect/Effect";
 import { join } from "node:path";
 
@@ -17,7 +22,7 @@ import {
   projectAdmittedWorkspaceBindingByInvocationRef,
   projectAdmittedWorkspaceProductInstall,
 } from "../abg/environment_admission.js";
-import { compareUnicodeCodeUnits } from "../shared/canonical_json.js";
+import { compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import {
   definitionFault,
@@ -989,10 +994,33 @@ const ticket_consensus: ExactDefinitionCallable<
     : fault(call, "owner_execution_failure", String(cause)),
 });
 
+type ReleaseReadAssertion=Extract<AbgEventResourceAssertion,{kind:"reopen_abg_event_resource"}>;
+type ReleaseReadReceipt=AbgEventResourceReceipt&{readonly acquisitionKind:"reopen"};
+const releaseReadResourcesSchema=v.strictObject({kind:v.literal("release_evidence_resources"),schemaVersion:v.literal("5.0.0"),
+ eventResource:v.custom<ReleaseReadAssertion>(value=>validateAbgEventResourceAssertion(value)&&value.kind==="reopen_abg_event_resource"),artifactPath:absolutePathSchema});
+const releaseReadReceiptSchema=v.strictObject({kind:v.literal("release_evidence_receipt"),schemaVersion:v.literal("5.0.0"),
+ eventResource:v.custom<ReleaseReadReceipt>(value=>validateAbgEventResourceReceipt(value)&&value.acquisitionKind==="reopen")});
+const releaseReadOwner:ExactDefinitionCallable<typeof PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,v.InferOutput<typeof releaseReadResourcesSchema>,v.InferOutput<typeof releaseReadReceiptSchema>>=call=>Effect.try({try:()=>{
+ const acquired=acquireAbgEventResource(call.resources.eventResource);
+ if(acquired.kind!=="acquired_abg_event_resource")throw definitionFault(call.invocation.definitionKey,"resource_admission",acquired.code,acquired.message);
+ try {
+  const request=call.invocation.request,prefix=acquired.resource.entryPrefix;
+  const packet:ReleaseEvidenceProjectReadPacket={kind:"product_project_read_packet",schemaVersion:"5.0.0",memberKey:"release_evidence",sourceRef:request.source.sourceRef,sourceDigest:request.source.sourceDigest,
+   projectionBasis:{basisRef:request.projectionBasis.projectionBasisRef,basisDigest:request.projectionBasis.projectionBasisDigest,value:prefix as unknown as JsonValue},
+   prefix,artifact:request.selector.artifact,artifactPath:call.resources.artifactPath,selector:request.selector};
+  const result=projectReleaseEvidence(packet);
+  const ownerOutput=result.kind==="product_project_read_refusal"?nativeRefusal(PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,result):
+   validatedOwnerOutput(PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,{outcomeKind:"result",value:{caseKey:"release_evidence",source:{ref:packet.sourceRef,digest:packet.sourceDigest},projectionBasis:{ref:request.projectionBasis.projectionBasisRef,digest:request.projectionBasis.projectionBasisDigest},projection:result.projection as never}},"release evidence");
+  return deepFreeze({ownerOutput,resources:{kind:"release_evidence_receipt" as const,schemaVersion:"5.0.0" as const,eventResource:closeAbgEventResource(acquired.resource,prefix) as ReleaseReadReceipt}});
+ }catch(error){try{abandonAbgEventResource(acquired.resource);}catch{}throw error;}
+},catch:error=>isDefinitionFault(error)?error as DefinitionExecutionFault<typeof PRODUCT_PROJECT_READ_CONTRACTS.release_evidence.definitionKey>:definitionFault(call.invocation.definitionKey,"owner_projection","release_read_failure",String(error))});
+const release_evidence=bindExactPrefixRead(PRODUCT_PROJECT_READ_CONTRACTS.release_evidence,releaseReadOwner,releaseReadResourcesSchema,releaseReadReceiptSchema);
+
 export const PRODUCT_PROJECT_READ_DEFINITION_BINDINGS = Object.freeze({
   catalog_list,
   catalog_describe,
   workspace_status,
   install_evidence,
+  release_evidence,
   ticket_consensus,
 });

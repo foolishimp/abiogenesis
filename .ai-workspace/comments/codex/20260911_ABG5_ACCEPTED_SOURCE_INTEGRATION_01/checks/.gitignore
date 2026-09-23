@@ -1,0 +1,22 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/compile-01.json
+/compile-02.json
+/d1-guard-localization-05.json
+/d1-guard-localization-06.json
+/d1-same-input-readonly-01.json
+/d1-same-input-readonly-02.json
+/d1-same-input-readonly-03.json
+/d1-same-input-readonly-04.json
+/d2-mechanical-01.json
+/module-brand-01.json
+/module-brand-02.json
+/r10-fresh-imports-01.json
+/r10-retained-s01-01.json
+/shared-exact-contract-02.json
+/shared-inherited-01.json
+/shared-inherited-positive-02.json
+/shared-seams-01.json
+/test-inputs-before.json
+/test-inputs-first-red.json

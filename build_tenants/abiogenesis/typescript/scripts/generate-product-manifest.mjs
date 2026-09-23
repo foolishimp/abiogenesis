@@ -1,4 +1,5 @@
 import { constructSelfConformanceAssetRows } from "../build/code/src/product/public_contract_publication.js";
+import { generateQualificationAssets, qualificationSchema } from "./generate-qualification-rule-catalog.mjs";
 import { SELF_CONFORMANCE_INPUT_SCHEMA, SELF_CONFORMANCE_RESULT_SCHEMA, EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, QUALIFICATION_LAW_BASIS_SCHEMA, TENANT_CONFORMANCE_MANIFEST_SCHEMA, QUALIFICATION_RULE_CATALOG_SCHEMA } from "../build/code/src/validator/self_conformance_contracts.js";
 import {
   copyFile,
@@ -53,6 +54,7 @@ import {
   constructHelloWorldModulePublication,
   constructWorksiteConstructionModulePublication,
   constructWorksiteCommandExecutionModulePublication,
+  constructNativeWorkspaceWorkModulePublication,
   constructWorksiteCommandForwardModulePublication,
   constructRequirementHandoffModulePublication,
   constructSemanticStageModulePublication,
@@ -65,6 +67,11 @@ import {
 import {
   projectStrictJsonSchema,
 } from "../build/code/src/shared/public_function_contracts.js";
+import {
+  ROOT_EVENT_CONTRACT_DIGEST, ROOT_EVENT_CONTRACT_DESCRIPTOR, LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
+  ROOT_EVENT_CALCULUS, RUNTIME_LIVENESS_READ_PROJECTION_SCHEMA,
+  RUNTIME_PROBE_SOURCE_VALUES, RUNTIME_INVOCATION_DISPOSITION_VALUES,
+} from "../build/code/src/abg/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(import.meta.url);
@@ -84,6 +91,17 @@ if (
 }
 
 const consensusSchemaPath = "contracts/schemas/consensus.schema.json";
+const nativeRuntimeContractPath = "contracts/schemas/native-runtime-observation.json";
+const nativeRuntimeContractBytes = Buffer.from(JSON.stringify({
+  kind: "native_runtime_observation_contract", schemaVersion: "5.0.0",
+  currentEventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
+  historicalEventContractDigest: LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
+  currentDescriptor: ROOT_EVENT_CONTRACT_DESCRIPTOR,
+  sourceKinds: RUNTIME_PROBE_SOURCE_VALUES, dispositions: RUNTIME_INVOCATION_DISPOSITION_VALUES,
+  eventCalculus: ROOT_EVENT_CALCULUS,
+  readProjection: projectStrictJsonSchema(RUNTIME_LIVENESS_READ_PROJECTION_SCHEMA),
+}, null, 2) + "\n");
+const nativeRuntimeContractDigest = sha256Bytes(nativeRuntimeContractBytes);
 const publicOperationSchemaPath =
   PUBLIC_PROJECTION_PAYLOADS.commonSchemaAsset.path;
 const reviewRulingVocabularyPath =
@@ -115,11 +133,8 @@ await Promise.all([
 ]);
 
 const selfConformanceSchemaPath = "contracts/schemas/self-conformance.schema.json";
-const selfConformanceSchema = { $schema: "https://json-schema.org/draft/2020-12/schema", $defs: Object.fromEntries([
-  ["SelfConformanceInput", SELF_CONFORMANCE_INPUT_SCHEMA], ["SelfConformanceResult", SELF_CONFORMANCE_RESULT_SCHEMA],
-  ["ExactCandidateQualificationBasis", EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA], ["QualificationLawBasis", QUALIFICATION_LAW_BASIS_SCHEMA],
-  ["TenantConformanceManifest", TENANT_CONFORMANCE_MANIFEST_SCHEMA], ["QualificationRuleCatalog", QUALIFICATION_RULE_CATALOG_SCHEMA],
-].map(([name, schema]) => [name, projectStrictJsonSchema(schema)])) };
+generateQualificationAssets();
+const selfConformanceSchema = qualificationSchema();
 const selfConformanceSchemaBytes = Buffer.from(JSON.stringify(selfConformanceSchema, null, 2) + "\n");
 await writeFile(join(root, selfConformanceSchemaPath), selfConformanceSchemaBytes);
 const selfConformanceCatalogBytes = await readFile(join(root, "contracts/qualification/rule-catalog.json"));
@@ -175,6 +190,7 @@ for (const entry of await readdir(typescriptLibRoot)) {
 }
 
 await Promise.all([
+  writeFile(join(root, nativeRuntimeContractPath), nativeRuntimeContractBytes),
   writeFile(
     join(root, consensusSchemaPath),
     `${JSON.stringify(CONSENSUS_PUBLIC_SCHEMA, null, 2)}\n`,
@@ -428,6 +444,11 @@ const nativeDeclarationClosures = await resolveNativeDeclarationClosures({
   packageType: packageJson.type === "module" ? "module" : "commonjs",
   packageExports: packageJson.exports,
   declarationSources,
+  packageMetadataSources: await Promise.all(
+    productRelativeLocators
+      .filter(path => path === "package.json" || path.endsWith("/package.json"))
+      .map(async path => ({ path, bytes: await readFile(join(root, path)) })),
+  ),
   sourceProductContentDigest: productContentDigest,
 });
 if (nativeDeclarationClosures === null) {
@@ -757,11 +778,17 @@ const extantRows = [
     requirementAuthorityRefs: [
       "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-002",
       "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-018",
+      "specification/requirements/abg/REQ-R-ABG3-EVENTS.md#REQ-R-ABG3-EVENTS-022",
+      "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md#REQ-R-ABG3-PROJECTION-016",
     ],
     capabilityIdentities: capabilityRefsForContract(
       "abg.contract.abg.replay-root",
     ),
     nativeTypedLocator: nativeTypedLocator(abgNativeInventory, "replay"),
+    assetLocator: {
+      path: nativeRuntimeContractPath, mediaType: "application/json", schemaVersion: "5.0.0",
+      contentDigest: nativeRuntimeContractDigest,
+    },
   },
   {
     contractId: "abg.contract.hog.judgment-transition-root",
@@ -990,6 +1017,7 @@ const modulePublications = [
   constructConsensusModulePublication(publicationBasis),
   constructWorksiteConstructionModulePublication(publicationBasis),
   constructWorksiteCommandExecutionModulePublication(publicationBasis),
+  constructNativeWorkspaceWorkModulePublication(publicationBasis),
   constructWorksiteCommandForwardModulePublication(publicationBasis),
   constructRequirementHandoffModulePublication(publicationBasis),
   constructSemanticStageModulePublication(publicationBasis),

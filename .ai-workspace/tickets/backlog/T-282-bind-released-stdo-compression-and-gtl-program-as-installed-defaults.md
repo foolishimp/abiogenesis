@@ -5,18 +5,18 @@
 - type: migration
 - ticket_category: design_and_realization_migration
 - status: backlog
-- phase_status: held_for_m6_after_t270_m5
-- review_status: stdo_2_2_2_basis_propagated_m6_realization_review_pending
+- phase_status: held_for_m6_after_current_GOALS_T287_m5_closure
+- review_status: current_Definition_method_route_reconciled_M6_realization_review_pending
 - proof_status: pending
 - implementation_hold: active
-- implementation_hold_ref: T-270 owns M5; T-282 resumes for M6 after one exact M5 candidate exists
+- implementation_hold_ref: current_GOALS_and_T287_own_selection_T282_requires_later_bounded_M6_activation_after_exact_M5_candidate
 - implementation_hold_effect: preserve existing artifacts; no design, code, test, proof, publication, or closure promotion
 - goal: GOAL-035 M6
 - priority: critical
 - change_class: realization_refactor plus qualification_basis_materialization
 - re_entry_point: accepted Product context and qualification boundary
 - created_at: 2026-07-19
-- updated_at: 2026-07-31
+- updated_at: 2026-09-15
 - owner: abiogenesis
 - build_tenant: typescript
 - completed_dependencies:
@@ -25,21 +25,28 @@
   - T-285 accepted direct-GTL traversal and installed-authority design
   - T-286 installed root closure
 - remaining_dependency:
-  - T-270 M5 closure over one exact candidate
+  - current GOALS/T-287 M5 closure over one exact candidate
 - selected_method_basis:
-  - STDO v2.2.2 at 0519129d63de10822ae6353fa0c5ce05d56f13e9
-  - 41-member digest 4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21
-  - adoption receipt .ai-workspace/comments/codex/20260731T062823Z_DECISION_select_stdo_2_2_2_for_abiogenesis_5.md
+  - stdo_abiogenesis.json#/constitution/stdo/basis is the sole exact operative selection
+  - companion Development Products are selected by stdo_abiogenesis.json#/composition
+  - RC6 migration evidence .ai-workspace/comments/codex/20260906T152118Z_STDO_RC6_MIGRATION/README.md
 - qualification_basis_alignment:
-  - active qualification requirements select STDO v2.2.2
+  - active qualification requirements bind the same exact Definition-selected installed STDO basis
   - accepted M3 architecture is conserved with its historical identities explicit
-  - completed T-272 is evidence only; T-270 owns current S03
+  - completed T-270/T-272 are predecessor evidence only; current GOALS/T-287 own work selection
 
 ## Current Disposition
 
+[T-287's STDO run-environment course correction](../active/T-287-deliver-abiogenesis-5-feature-waves.md#stdo-run-environment-course-correction)
+owns the earlier GTL-declared runtime binding prerequisite before D1/D2
+resumption. T-282 owns installed-context and qualification materialization, not
+that runtime implementation. Its M6 hold does not defer T-287's prerequisite or
+activate Milestone B early. Both consume released STDO; source-development use
+is not evidence of ABG-governed run consumption.
+
 T-282 remains held until M6. Milestone A was realized by T-286 and is retained
-as exact installed-root evidence. STDO 2.2 qualification-basis wording and
-current-owner projection are reconciled; Milestone B realization and proof
+as exact installed-root evidence. The method route now follows the RC6 Product
+Definition; this is not Milestone B realization or qualification. Realization and proof
 remain pending. Its remaining concerns are:
 
 - installer-generated runtime files currently author private program,
@@ -56,8 +63,18 @@ Product manifest supplies an implicit default program. The accepted 5.0
 Product makes programs named GTL declarations, GraphFunctions their callable
 members, HoG the direct executor, and ABG the runtime truth substrate.
 
-The ticket resumes only after T-270 closes M5 over one exact candidate. It does
-not reopen the accepted direct-GTL architecture or repeat T-286.
+The ticket resumes only after current GOALS/T-287 close M5 over one exact
+candidate and select its bounded M6 work. RC6 source-context migration does
+not activate this backlog ticket, reopen accepted direct-GTL architecture or
+repeat T-286.
+
+The former STDO `v2.2.2` basis at commit
+`0519129d63de10822ae6353fa0c5ce05d56f13e9`, 41-member digest
+`4cc6a10fca6b1a2c6991664d2a7ee19220401d95f3f1c0f4fa848c6a9ed81c21`,
+and adoption receipt
+`.ai-workspace/comments/codex/20260731T062823Z_DECISION_select_stdo_2_2_2_for_abiogenesis_5.md`
+are retained historical evidence, not operative method selection or current
+qualification evidence.
 
 ## Two Milestones
 
@@ -84,15 +101,15 @@ verify exact packaged Product
 types or overlays. It shall not create a program, callable, topology, selector,
 execution basis, or default.
 
-### Milestone B - Materialize Selected STDO 2.2
+### Milestone B - Materialize The Definition-Selected STDO Basis
 
-Released STDO `v2.2.2` governs ABIogenesis development. Milestone B
+The immutable installed STDO basis in `stdo_abiogenesis.json` governs
+ABIogenesis development. Milestone B
 materializes that selected basis into Product-owned context and qualification
 evidence by verifying and binding:
 
-- release tag `v2.2.2`, commit
-  `0519129d63de10822ae6353fa0c5ce05d56f13e9`, and the complete 41-member
-  standards inventory;
+- the selected exact release identity, source commit, installed-manifest
+  digest and complete standards member-set digest;
 - the exact compression identity, version, and digest;
 - every source reference declared by the compression against the released
   file and digest; and
@@ -197,7 +214,7 @@ Milestone A remains closed only while:
 
 Milestone B closes only when:
 
-- selected STDO `v2.2.2`, its 41-member distribution, and its compression
+- the Definition-selected exact STDO release, complete distribution and compression
   verify by exact identity and digest;
 - context materialization records their exact released basis;
 - stale or mismatched method/context inputs refuse typed;

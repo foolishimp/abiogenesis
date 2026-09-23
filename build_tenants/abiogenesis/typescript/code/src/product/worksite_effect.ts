@@ -1,3 +1,4 @@
+import { isRecord, hasNulJoinedKeys as hasExactKeys, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
 import { isAbsolute, posix, relative, resolve, win32 } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -434,29 +435,11 @@ export interface WorksiteEffectAuthorizationInput {
   readonly implementationSet: AdmittedImplementationSet;
 }
 
-function isRecord(
-  value: unknown,
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
-
-function nonEmptyString(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0 &&
-    !value.includes("\0");
-}
-
 function identity(prefix: string, digest: Sha256Digest): string {
   return `${prefix}/${digest.slice("sha256:".length)}`;
 }
 
-function exactWorkspaceBinding(value: WorkspaceBinding): boolean {
+export function exactWorkspaceBinding(value: WorkspaceBinding): boolean {
   if (
     value.kind !== "workspace_binding" ||
     value.schemaVersion !== "5.0.0" ||
@@ -1579,4 +1562,360 @@ export function isWorksiteFileReplaceReceipt(
   return value.receiptDigest === digest &&
     value.receiptRef ===
       identity("worksite-file-replace-receipt://abiogenesis", digest);
+}
+
+/** A separate effect: atomic_replace never grants directory creation. */
+export const WORKSITE_FILE_PARENTS_EFFECT_URI = "effect://abiogenesis/worksite/file.parents/v1";
+export const WORKSITE_FILE_PARENTS_HANDLER_REF = "handler://abiogenesis/product/worksite/file.parents/v1";
+export const WORKSITE_FILE_PARENTS_HANDLER_DIGEST = sha256Canonical({
+  effectUri: WORKSITE_FILE_PARENTS_EFFECT_URI,
+  handlerRef: WORKSITE_FILE_PARENTS_HANDLER_REF,
+  operation: "parents_for_assessed_files", ownerClass: "selected_implementation", schemaVersion: "5.0.0",
+});
+
+export interface WorksiteFileParentsSource {
+  readonly sourceEnvelopeRef: string;
+  readonly sourceEnvelopeDigest: Sha256Digest;
+  readonly sourceDesignAssetRef: string;
+  readonly sourceDesignAssetDigest: Sha256Digest;
+  readonly jobRef: string;
+  readonly jobDigest: Sha256Digest;
+  readonly targets: readonly Readonly<{ relativePath: string; territory: WorksiteTerritory }>[];
+  readonly parentWriteRoots: readonly string[];
+}
+export interface WorksiteAncestorObservation {
+  readonly relativePath: string;
+  readonly state: "directory" | "absent";
+  readonly fileIdentity: string | null;
+}
+export interface WorksiteFileParentsRequest extends WorksiteFileParentsSource {
+  readonly kind: "worksite_file_parents_request";
+  readonly schemaVersion: "5.0.0";
+  readonly requestRef: string;
+  readonly requestDigest: Sha256Digest;
+  readonly planRef: string;
+  readonly planDigest: Sha256Digest;
+  readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
+  readonly workspaceBindingIdentity: string;
+  readonly workspaceBindingDigest: Sha256Digest;
+  readonly capabilityGrant: CapabilityGrant;
+  readonly ancestorObservations: readonly WorksiteAncestorObservation[];
+}
+export interface WorksiteFileParentsRequestInput extends WorksiteFileParentsSource {
+  readonly workspaceAuthorityBasis: WorkspaceAuthorityBasis;
+  readonly workspaceBinding: WorkspaceBinding;
+  readonly capabilityGrant: CapabilityGrant;
+  readonly ancestorObservations: readonly WorksiteAncestorObservation[];
+}
+export type WorksiteFileParentsAuthorization = Omit<WorksiteEffectAuthorization,
+  "kind" | "effectUri" | "handlerRef" | "handlerDigest" | "subjectRef" | "subjectDigest" |
+  "territoryRef" | "territoryDigest" | "predecessorObservationRef" | "predecessorObservationDigest"
+> & Readonly<{
+  kind: "worksite_file_parents_authorization";
+  effectUri: typeof WORKSITE_FILE_PARENTS_EFFECT_URI;
+  handlerRef: typeof WORKSITE_FILE_PARENTS_HANDLER_REF;
+  handlerDigest: Sha256Digest;
+  requestRef: string;
+  requestDigest: Sha256Digest;
+  planRef: string;
+  planDigest: Sha256Digest;
+  jobRef: string;
+  jobDigest: Sha256Digest;
+}>;
+export interface WorksiteFileParentOutcome {
+  readonly relativePath: string;
+  readonly disposition: "existing" | "created";
+  readonly identityState: "known" | "unknown";
+  readonly fileIdentity: string | null;
+}
+export interface WorksiteFileParentsReceipt {
+  readonly kind: "worksite_file_parents_receipt";
+  readonly schemaVersion: "5.0.0";
+  readonly receiptRef: string;
+  readonly receiptDigest: Sha256Digest;
+  readonly requestRef: string;
+  readonly requestDigest: Sha256Digest;
+  readonly authorizationRef: string;
+  readonly authorizationDigest: Sha256Digest;
+  readonly outcomes: readonly WorksiteFileParentOutcome[];
+}
+export interface WorksiteFileParentsSuccess {
+  readonly kind: "worksite_file_parents_result";
+  readonly schemaVersion: "5.0.0";
+  readonly disposition: "committed";
+  readonly request: WorksiteFileParentsRequest;
+  readonly authorization: WorksiteFileParentsAuthorization;
+  readonly receipt: WorksiteFileParentsReceipt;
+}
+export interface WorksiteFileParentsFailure extends WorksiteEffectRefusal {
+  readonly phase: "file_parents";
+  readonly physicalOutcome: Readonly<{
+    request: WorksiteFileParentsRequest;
+    authorization: WorksiteFileParentsAuthorization;
+    outcomes: readonly WorksiteFileParentOutcome[];
+    diagnostics: readonly WorksiteEffectRefusal[];
+  }>;
+}
+export type WorksiteFileParentsResult = WorksiteEffectRefusal | WorksiteFileParentsFailure | WorksiteFileParentsSuccess;
+
+/** Includes A's root observation; only strict descendants can be created. */
+export function worksiteFileParentPaths(targets: readonly Readonly<{ relativePath: string }>[]): readonly string[] {
+  const paths = new Set<string>(["."]);
+  for (const target of targets) {
+    if (normalizeWorksiteRelativePath(target.relativePath, false) !== target.relativePath) return [];
+    const segments = target.relativePath.split("/");
+    for (let i = 1; i < segments.length; i += 1) paths.add(segments.slice(0, i).join("/"));
+  }
+  const depth = (path: string): number => path === "." ? 0 : path.split("/").length;
+  return Object.freeze([...paths].sort((a, b) => depth(a) - depth(b) || (a < b ? -1 : a > b ? 1 : 0)));
+}
+
+function fileParentsSource(value: WorksiteFileParentsSource): WorksiteFileParentsSource {
+  return {
+    sourceEnvelopeRef: value.sourceEnvelopeRef, sourceEnvelopeDigest: value.sourceEnvelopeDigest,
+    sourceDesignAssetRef: value.sourceDesignAssetRef, sourceDesignAssetDigest: value.sourceDesignAssetDigest,
+    jobRef: value.jobRef, jobDigest: value.jobDigest, targets: value.targets, parentWriteRoots: value.parentWriteRoots,
+  };
+}
+
+export function isWorksiteFileParentsRequest(value: unknown): value is WorksiteFileParentsRequest {
+  try {
+    if (!isRecord(value) || !hasExactKeys(value, [
+      "kind", "schemaVersion", "requestRef", "requestDigest", "planRef", "planDigest",
+      "workspaceAuthorityBasis", "workspaceBindingIdentity", "workspaceBindingDigest", "capabilityGrant",
+      "sourceEnvelopeRef", "sourceEnvelopeDigest", "sourceDesignAssetRef", "sourceDesignAssetDigest",
+      "jobRef", "jobDigest", "targets", "parentWriteRoots", "ancestorObservations",
+    ]) || value.kind !== "worksite_file_parents_request" || value.schemaVersion !== "5.0.0" ||
+      !isWorkspaceAuthorityBasis(value.workspaceAuthorityBasis) || !isCapabilityGrantValue(value.capabilityGrant) ||
+      ![value.requestRef, value.planRef, value.workspaceBindingIdentity, value.sourceEnvelopeRef, value.sourceDesignAssetRef, value.jobRef].every(nonEmptyString) ||
+      ![value.requestDigest, value.planDigest, value.workspaceBindingDigest, value.sourceEnvelopeDigest, value.sourceDesignAssetDigest, value.jobDigest].every(isSha256Digest) ||
+      !Array.isArray(value.targets) || value.targets.length === 0 || !Array.isArray(value.parentWriteRoots) || value.parentWriteRoots.length === 0 ||
+      !Array.isArray(value.ancestorObservations)) return false;
+    const request = value as unknown as WorksiteFileParentsRequest;
+    const grant = request.capabilityGrant;
+    if (grant.operationId !== "abg.operation.run.invoke" || grant.definitionKey.operationId !== grant.operationId ||
+      !["start", "invoke"].includes(grant.definitionKey.memberKey) || grant.scopeRef !== request.workspaceBindingIdentity ||
+      grant.scopeDigest !== request.workspaceBindingDigest || grant.actorRef !== request.workspaceAuthorityBasis.authorizedActorRef ||
+      new Set(request.parentWriteRoots).size !== request.parentWriteRoots.length ||
+      request.parentWriteRoots.some(root => normalizeWorksiteRelativePath(root, true) !== root) ||
+      new Set(request.targets.map(target => target.relativePath)).size !== request.targets.length ||
+      request.targets.some(target => !isRecord(target) || !hasExactKeys(target, ["relativePath", "territory"]) ||
+        normalizeWorksiteRelativePath(target.relativePath, false) !== target.relativePath || !isWorksiteTerritory(target.territory) ||
+        target.territory.workspaceBindingIdentity !== request.workspaceBindingIdentity ||
+        target.territory.workspaceBindingDigest !== request.workspaceBindingDigest ||
+        target.territory.territoryUri !== expectedFileUri(request.workspaceAuthorityBasis.canonicalRoot, target.territory.relativeRoot) ||
+        (target.territory.relativeRoot !== "." && !target.relativePath.startsWith(`${target.territory.relativeRoot}/`)))) return false;
+    const paths = worksiteFileParentPaths(request.targets);
+    if (paths.length !== request.ancestorObservations.length || request.targets.some(target => paths.includes(target.relativePath))) return false;
+    const absent = new Set<string>();
+    for (const [index, observation] of request.ancestorObservations.entries()) {
+      if (!isRecord(observation) || !hasExactKeys(observation, ["relativePath", "state", "fileIdentity"]) ||
+        observation.relativePath !== paths[index] ||
+        !(observation.state === "directory" ? nonEmptyString(observation.fileIdentity) : observation.state === "absent" && observation.fileIdentity === null) ||
+        (index === 0 && observation.state !== "directory")) return false;
+      const path = observation.relativePath;
+      if (path !== "." && !request.parentWriteRoots.some(root => root === "." || path === root || path.startsWith(`${root}/`))) return false;
+      if (observation.state === "absent") absent.add(path);
+      else if ([...absent].some(root => path.startsWith(`${root}/`))) return false;
+    }
+    const planDigest = sha256Canonical(fileParentsSource(request) as unknown as JsonValue);
+    const { kind: _k, schemaVersion: _s, requestRef: _r, requestDigest: _d, ...body } = request;
+    return request.planDigest === planDigest && request.planRef === identity("worksite-file-parent-plan://abiogenesis", planDigest) &&
+      request.requestDigest === sha256Canonical(body as unknown as JsonValue) &&
+      request.requestRef === identity("worksite-file-parents-request://abiogenesis", request.requestDigest);
+  } catch { return false; }
+}
+
+export function constructWorksiteFileParentsRequest(input: WorksiteFileParentsRequestInput): WorksiteFileParentsRequest | WorksiteEffectRefusal {
+  if (!exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding)) {
+    return worksiteRefusal("binding_mismatch", "file parents require exact A/W");
+  }
+  const source = fileParentsSource(input);
+  const planDigest = sha256Canonical(source as unknown as JsonValue);
+  const body = {
+    ...source, planRef: identity("worksite-file-parent-plan://abiogenesis", planDigest), planDigest,
+    workspaceAuthorityBasis: input.workspaceAuthorityBasis,
+    workspaceBindingIdentity: input.workspaceBinding.bindingId, workspaceBindingDigest: input.workspaceBinding.bindingDigest,
+    capabilityGrant: input.capabilityGrant, ancestorObservations: input.ancestorObservations,
+  };
+  const requestDigest = sha256Canonical(body as unknown as JsonValue);
+  const result = deepFreeze({ kind: "worksite_file_parents_request" as const, schemaVersion: "5.0.0" as const,
+    requestRef: identity("worksite-file-parents-request://abiogenesis", requestDigest), requestDigest, ...body });
+  return isWorksiteFileParentsRequest(result) && input.targets.every(target => !protectedWorksitePath(input.workspaceAuthorityBasis, input.workspaceBinding, target.relativePath)) &&
+    worksiteFileParentPaths(input.targets).filter(path => path !== ".").every(path => !protectedWorksitePath(input.workspaceAuthorityBasis, input.workspaceBinding, path))
+    ? result : worksiteRefusal("invalid_coordinate", "file parents require an exact assessed target plan, separate parent bounds and complete ordered ancestor observations");
+}
+
+export function constructWorksiteFileParentsAuthorization(input: Omit<WorksiteEffectAuthorizationInput, "request"> & { readonly request: WorksiteFileParentsRequest }): WorksiteFileParentsAuthorization | WorksiteEffectRefusal {
+  const { request, workspaceBinding: workspace, executionBasis: basis, cCall, implementationSet } = input;
+  const implementation = exactImplementationSet(implementationSet) && exactCCall(cCall) ? selectedImplementation(implementationSet, cCall) : null;
+  if (!isWorksiteFileParentsRequest(request) || !exactWorkspaceAuthorityJoin(request.workspaceAuthorityBasis, workspace) ||
+    !exactExecutionBasis(basis) || implementation === null || cCall.callClass !== "leaf" || cCall.regime !== "F_D" ||
+    cCall.implementationBindingRef === null || cCall.implementationRef === null ||
+    request.workspaceBindingIdentity !== workspace.bindingId || request.workspaceBindingDigest !== workspace.bindingDigest ||
+    basis.workspaceBindingId !== workspace.bindingId || basis.workspaceBindingDigest !== workspace.bindingDigest ||
+    basis.actorRef !== workspace.authorizedActorRef || request.capabilityGrant.actorRef !== basis.actorRef ||
+    cCall.basisId !== basis.basisRef || cCall.graphFunctionRef !== basis.graphFunctionRef ||
+    cCall.implementationSetRef !== basis.implementationSetRef || implementationSet.implementationSetRef !== basis.implementationSetRef ||
+    implementationSet.implementationSetDigest !== basis.implementationSetDigest) return worksiteRefusal("authorization_mismatch", "file-parent effect requires exact selected F_D authority, assessed request, job and grant");
+  const body = {
+    actorRef: basis.actorRef, workspaceBindingIdentity: workspace.bindingId, workspaceBindingDigest: workspace.bindingDigest,
+    capabilityGrantRef: request.capabilityGrant.grantRef, capabilityGrantDigest: request.capabilityGrant.grantDigest,
+    executionBasisRef: basis.basisRef, executionBasisDigest: basis.basisDigest, cCallRef: cCall.cCallRef, cCallDigest: cCall.cCallDigest,
+    programRef: basis.programRef, programDigest: basis.programDigest, graphFunctionRef: basis.graphFunctionRef, graphFunctionDigest: basis.graphFunctionDigest,
+    implementationSetRef: implementationSet.implementationSetRef, implementationSetDigest: implementationSet.implementationSetDigest,
+    leafResolutionCandidateRef: implementation.leafResolutionCandidateRef, leafResolutionCandidateDigest: implementation.leafResolutionCandidateDigest,
+    implementationBindingRef: cCall.implementationBindingRef, implementationBindingDigest: implementation.implementationBindingDigest,
+    implementationRef: cCall.implementationRef, implementationOwnerRef: implementation.implementationOwnerProductId,
+    effectUri: WORKSITE_FILE_PARENTS_EFFECT_URI as typeof WORKSITE_FILE_PARENTS_EFFECT_URI,
+    handlerRef: WORKSITE_FILE_PARENTS_HANDLER_REF as typeof WORKSITE_FILE_PARENTS_HANDLER_REF, handlerDigest: WORKSITE_FILE_PARENTS_HANDLER_DIGEST,
+    requestRef: request.requestRef, requestDigest: request.requestDigest, planRef: request.planRef, planDigest: request.planDigest,
+    jobRef: request.jobRef, jobDigest: request.jobDigest,
+  };
+  const authorizationDigest = sha256Canonical(body);
+  return deepFreeze({ kind: "worksite_file_parents_authorization", schemaVersion: "5.0.0", authorizationDigest,
+    authorizationRef: identity("worksite-file-parents-authorization://abiogenesis", authorizationDigest), ...body });
+}
+
+export function isWorksiteFileParentsAuthorization(value: unknown): value is WorksiteFileParentsAuthorization {
+  if (!isRecord(value) || !hasExactKeys(value, ["kind", "schemaVersion", "authorizationRef", "authorizationDigest",
+    "actorRef", "workspaceBindingIdentity", "workspaceBindingDigest", "capabilityGrantRef", "capabilityGrantDigest",
+    "executionBasisRef", "executionBasisDigest", "cCallRef", "cCallDigest", "programRef", "programDigest", "graphFunctionRef", "graphFunctionDigest",
+    "implementationSetRef", "implementationSetDigest", "leafResolutionCandidateRef", "leafResolutionCandidateDigest",
+    "implementationBindingRef", "implementationBindingDigest", "implementationRef", "implementationOwnerRef", "effectUri", "handlerRef", "handlerDigest",
+    "requestRef", "requestDigest", "planRef", "planDigest", "jobRef", "jobDigest"]) ||
+    value.kind !== "worksite_file_parents_authorization" || value.schemaVersion !== "5.0.0" ||
+    value.effectUri !== WORKSITE_FILE_PARENTS_EFFECT_URI || value.handlerRef !== WORKSITE_FILE_PARENTS_HANDLER_REF ||
+    value.handlerDigest !== WORKSITE_FILE_PARENTS_HANDLER_DIGEST ||
+    Object.entries(value).some(([key, field]) => key.endsWith("Digest") ? !isSha256Digest(field) : !nonEmptyString(field))) return false;
+  const { kind: _k, schemaVersion: _s, authorizationRef: _r, authorizationDigest: _d, ...body } = value;
+  const digest = sha256Canonical(body as JsonValue);
+  return value.authorizationDigest === digest && value.authorizationRef === identity("worksite-file-parents-authorization://abiogenesis", digest);
+}
+
+function fileParentsOutcomesValid(request: WorksiteFileParentsRequest, outcomes: unknown, complete: boolean): outcomes is readonly WorksiteFileParentOutcome[] {
+  return Array.isArray(outcomes) && outcomes.length <= request.ancestorObservations.length &&
+    (!complete || outcomes.length === request.ancestorObservations.length) && outcomes.every((outcome, index) => {
+      const observed = request.ancestorObservations[index]!;
+      return isRecord(outcome) && hasExactKeys(outcome, ["relativePath", "disposition", "identityState", "fileIdentity"]) &&
+        outcome.relativePath === observed.relativePath && outcome.disposition === (observed.state === "directory" ? "existing" : "created") &&
+        (outcome.identityState === "known" ? nonEmptyString(outcome.fileIdentity) &&
+          (outcome.disposition !== "existing" || outcome.fileIdentity === observed.fileIdentity) :
+          outcome.identityState === "unknown" && outcome.fileIdentity === null && !complete && outcome.disposition === "created" && index === outcomes.length - 1);
+    });
+}
+
+function fileParentsAuthorityJoins(request: WorksiteFileParentsRequest, authorization: WorksiteFileParentsAuthorization): boolean {
+  return authorization.actorRef === request.workspaceAuthorityBasis.authorizedActorRef &&
+    authorization.requestRef === request.requestRef && authorization.requestDigest === request.requestDigest &&
+    authorization.planRef === request.planRef && authorization.planDigest === request.planDigest &&
+    authorization.jobRef === request.jobRef && authorization.jobDigest === request.jobDigest &&
+    authorization.workspaceBindingIdentity === request.workspaceBindingIdentity && authorization.workspaceBindingDigest === request.workspaceBindingDigest &&
+    authorization.capabilityGrantRef === request.capabilityGrant.grantRef && authorization.capabilityGrantDigest === request.capabilityGrant.grantDigest;
+}
+
+export function constructWorksiteFileParentsSuccess(request: WorksiteFileParentsRequest, authorization: WorksiteFileParentsAuthorization, outcomes: readonly WorksiteFileParentOutcome[]): WorksiteFileParentsSuccess | WorksiteEffectRefusal {
+  if (!isWorksiteFileParentsRequest(request) || !isWorksiteFileParentsAuthorization(authorization) ||
+    !fileParentsAuthorityJoins(request, authorization) || !fileParentsOutcomesValid(request, outcomes, true)) return worksiteRefusal("invalid_coordinate", "completed file-parent receipt needs the full known ordered chain and exact authority");
+  const body = { requestRef: request.requestRef, requestDigest: request.requestDigest, authorizationRef: authorization.authorizationRef, authorizationDigest: authorization.authorizationDigest, outcomes };
+  const receiptDigest = sha256Canonical(body as unknown as JsonValue);
+  return deepFreeze({ kind: "worksite_file_parents_result", schemaVersion: "5.0.0", disposition: "committed", request, authorization,
+    receipt: { kind: "worksite_file_parents_receipt" as const, schemaVersion: "5.0.0" as const, receiptRef: identity("worksite-file-parents-receipt://abiogenesis", receiptDigest), receiptDigest, ...body } });
+}
+
+export function isWorksiteFileParentsSuccess(value: unknown): value is WorksiteFileParentsSuccess {
+  if (!isRecord(value) || !hasExactKeys(value, ["kind", "schemaVersion", "disposition", "request", "authorization", "receipt"]) ||
+    value.kind !== "worksite_file_parents_result" || value.schemaVersion !== "5.0.0" || value.disposition !== "committed" ||
+    !isWorksiteFileParentsRequest(value.request) || !isWorksiteFileParentsAuthorization(value.authorization) || !isRecord(value.receipt)) return false;
+  const outcomes = value.receipt.outcomes;
+  if (!fileParentsOutcomesValid(value.request, outcomes, true)) return false;
+  return canonicalJson(value as unknown as JsonValue) === canonicalJson(constructWorksiteFileParentsSuccess(value.request, value.authorization, outcomes) as unknown as JsonValue);
+}
+
+/** Keep first failure and ordered physical facts; never compensate by deletion. */
+export function worksiteFileParentsFailure(request: WorksiteFileParentsRequest, authorization: WorksiteFileParentsAuthorization, outcomes: readonly WorksiteFileParentOutcome[], failure: WorksiteEffectRefusal, diagnostics: readonly WorksiteEffectRefusal[] = []): WorksiteFileParentsFailure {
+  return deepFreeze({ ...failure, phase: "file_parents", physicalOutcome: { request, authorization, outcomes: [...outcomes], diagnostics: [...diagnostics] } });
+}
+
+export function isWorksiteFileParentsFailure(value: unknown): value is WorksiteFileParentsFailure {
+  if (!isRecord(value) || !hasExactKeys(value, ["kind", "schemaVersion", "disposition", "code", "message", "lastObservation", "substrateCode", "phase", "physicalOutcome"]) ||
+    value.kind !== "worksite_effect_refusal" || value.schemaVersion !== "5.0.0" || value.disposition !== "refused" || value.phase !== "file_parents" ||
+    !isRecord(value.physicalOutcome) || !hasExactKeys(value.physicalOutcome, ["request", "authorization", "outcomes", "diagnostics"])) return false;
+  const validRefusal = (item: unknown): boolean => isRecord(item) && hasExactKeys(item, ["kind", "schemaVersion", "disposition", "code", "message", "lastObservation", "substrateCode"]) &&
+    item.kind === "worksite_effect_refusal" && item.schemaVersion === "5.0.0" && item.disposition === "refused" &&
+    ["invalid_coordinate", "invalid_relative_path", "subject_outside_territory", "binding_mismatch", "authorization_mismatch", "invalid_worksite_root", "target_parent_missing", "target_not_file", "aliased_subject", "symlink_forbidden", "stale_observation", "replacement_invalid", "filesystem_refused", "successor_observation_mismatch"].includes(item.code as string) &&
+    nonEmptyString(item.message) && item.lastObservation === null && (item.substrateCode === null || nonEmptyString(item.substrateCode));
+  const { phase: _p, physicalOutcome: physical, ...failure } = value;
+  return validRefusal(failure) && isWorksiteFileParentsRequest(physical.request) && isWorksiteFileParentsAuthorization(physical.authorization) &&
+    fileParentsAuthorityJoins(physical.request, physical.authorization) && fileParentsOutcomesValid(physical.request, physical.outcomes, false) &&
+    Array.isArray(physical.diagnostics) && physical.diagnostics.every(validRefusal);
+}
+
+export type WorksiteContextEntry = Readonly<{ relativePath: string; state: "directory"; fileIdentity: string; members: readonly string[] }> |
+  Readonly<{ relativePath: string; state: "file"; fileIdentity: string; byteLength: number; digest: Sha256Digest; encoding: "base64"; bytes: string }> |
+  Readonly<{ relativePath: string; state: "absent" }>;
+export interface WorksiteContextObservation {
+  readonly kind: "worksite_context_observation";
+  readonly schemaVersion: "5.0.0";
+  readonly observationRef: string;
+  readonly observationDigest: Sha256Digest;
+  readonly workspaceAuthorityBasisRef: string;
+  readonly workspaceAuthorityBasisDigest: Sha256Digest;
+  readonly workspaceBindingIdentity: string;
+  readonly workspaceBindingDigest: Sha256Digest;
+  readonly readRoots: readonly string[];
+  readonly maxFiles: number;
+  readonly maxBytes: number;
+  readonly entries: readonly WorksiteContextEntry[];
+}
+
+/** Saved-context validation is pure; it neither refreshes nor reconstructs I/O. */
+export function isWorksiteContextObservation(value: unknown): value is WorksiteContextObservation {
+  try {
+    if (!isRecord(value) || !hasExactKeys(value, ["kind", "schemaVersion", "observationRef", "observationDigest",
+      "workspaceAuthorityBasisRef", "workspaceAuthorityBasisDigest", "workspaceBindingIdentity", "workspaceBindingDigest",
+      "readRoots", "maxFiles", "maxBytes", "entries"]) || value.kind !== "worksite_context_observation" || value.schemaVersion !== "5.0.0" ||
+      ![value.observationRef, value.workspaceAuthorityBasisRef, value.workspaceBindingIdentity].every(nonEmptyString) ||
+      ![value.observationDigest, value.workspaceAuthorityBasisDigest, value.workspaceBindingDigest].every(isSha256Digest) ||
+      !Number.isSafeInteger(value.maxFiles) || (value.maxFiles as number) < 1 || !Number.isSafeInteger(value.maxBytes) || (value.maxBytes as number) < 0 ||
+      !Array.isArray(value.readRoots) || value.readRoots.length === 0 || new Set(value.readRoots).size !== value.readRoots.length ||
+      value.readRoots.some(root => normalizeWorksiteRelativePath(root, true) !== root) ||
+      !Array.isArray(value.entries) || value.entries.length > (value.maxFiles as number)) return false;
+    const observation = value as unknown as WorksiteContextObservation;
+    const paths = new Set<string>();
+    let bytes = 0;
+    let previous: string | null = null;
+    for (const entry of observation.entries) {
+      if (!isRecord(entry) || normalizeWorksiteRelativePath(entry.relativePath, true) !== entry.relativePath || paths.has(entry.relativePath) ||
+        (previous !== null && previous >= entry.relativePath) ||
+        !observation.readRoots.some(root => root === "." || entry.relativePath === root || entry.relativePath.startsWith(`${root}/`))) return false;
+      paths.add(entry.relativePath);
+      previous = entry.relativePath;
+      if (entry.state === "absent") {
+        if (!hasExactKeys(entry, ["relativePath", "state"]) || !observation.readRoots.includes(entry.relativePath)) return false;
+      } else if (entry.state === "directory") {
+        if (!hasExactKeys(entry, ["relativePath", "state", "fileIdentity", "members"]) || !nonEmptyString(entry.fileIdentity) || !Array.isArray(entry.members) ||
+          entry.members.some((member, index) => !nonEmptyString(member) || member.includes("/") || member.includes("\\") || member === "." || member === ".." ||
+            (index > 0 && entry.members[index - 1]! >= member))) return false;
+      } else if (entry.state === "file") {
+        if (!hasExactKeys(entry, ["relativePath", "state", "fileIdentity", "byteLength", "digest", "encoding", "bytes"]) || !nonEmptyString(entry.fileIdentity) ||
+          !Number.isSafeInteger(entry.byteLength) || entry.byteLength < 0 || !isSha256Digest(entry.digest) || entry.encoding !== "base64" || typeof entry.bytes !== "string") return false;
+        const actual = Buffer.from(entry.bytes, "base64");
+        if (actual.toString("base64") !== entry.bytes || actual.length !== entry.byteLength || sha256Bytes(actual) !== entry.digest) return false;
+        bytes += actual.length;
+        if (bytes > observation.maxBytes) return false;
+      } else return false;
+    }
+    if (observation.readRoots.some(root => !paths.has(root))) return false;
+    for (const entry of observation.entries) {
+      if (entry.state === "directory") {
+        const childPaths = entry.members.map(member => entry.relativePath === "." ? member : `${entry.relativePath}/${member}`);
+        if (childPaths.some(path => !paths.has(path)) || observation.entries.some(child => child.relativePath !== entry.relativePath &&
+          posix.dirname(child.relativePath) === entry.relativePath && !childPaths.includes(child.relativePath))) return false;
+      }
+    }
+    const { kind: _k, schemaVersion: _s, observationRef: _r, observationDigest: _d, ...body } = observation;
+    const digest = sha256Canonical(body as unknown as JsonValue);
+    return observation.observationDigest === digest && observation.observationRef === identity("worksite-context-observation://abiogenesis", digest);
+  } catch { return false; }
 }

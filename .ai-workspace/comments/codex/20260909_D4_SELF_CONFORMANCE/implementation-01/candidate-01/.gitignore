@@ -1,0 +1,9 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/artifact-e265d085075ae6be50dc34c48a2c29b08c5c0161411f22bf67959fbd699ca33e.tgz
+/basis.json
+/delta.patch
+/manifest.json
+/proof-index.json
+/source-subject.json

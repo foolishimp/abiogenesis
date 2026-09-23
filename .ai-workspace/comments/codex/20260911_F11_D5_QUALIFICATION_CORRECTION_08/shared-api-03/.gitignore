@@ -1,0 +1,9 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/README.md
+/code/src/abg/qualification_proof.ts
+/code/src/validator/qualification.ts
+/code/src/validator/qualification_contracts.ts
+/delta-from-02.patch
+/manifest.json

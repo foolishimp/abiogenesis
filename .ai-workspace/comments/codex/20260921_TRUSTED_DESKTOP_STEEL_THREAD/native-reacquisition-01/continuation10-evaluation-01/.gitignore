@@ -1,0 +1,14 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/body-reference-shape.json
+/body-shape.json
+/freeze.json
+/physical-ownership.json
+/residual-extraction.json
+/residual-oracle-routes.json
+/retained-outcomes.json
+/return.md
+/source-cut-coordinates.json
+/source-identities.json
+/suffix-summary.json

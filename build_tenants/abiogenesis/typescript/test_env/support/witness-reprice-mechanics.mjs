@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import {readFileSync,mkdtempSync} from 'node:fs';
+import {readFileSync,mkdtempSync,writeFileSync,statSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import {resolve,join,dirname} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {SourceTextModule,SyntheticModule} from 'node:vm';
@@ -14,6 +15,8 @@ import {sha256Canonical as hash} from '../../build/code/src/shared/digests.js';
 import {admitExactDefinitionCall} from '../../build/code/src/shared/definition_binding_mechanics.js';
 import {runExactDefinition} from '../../build/code/src/shared/effect_definition.js';
 import {productInstallCoordinate} from '../../build/code/src/product/environment.js';
+import {privateOwner} from './r10-private-owner-harness.mjs';
+import {canonicalJson} from '../../build/code/src/shared/canonical_json.js';
 
 export {hash,events,resources,nativeWitness,WITNESS_OPERATION_CONTRACTS,admitExactDefinitionCall};
 const schemaVersion='5.0.0',root=resolve(import.meta.dirname,'../..');
@@ -60,25 +63,38 @@ function declarationFixture() {
  * The fixed grant algorithm, call admission, event-resource ownership, native
  * witness transaction, event contracts and close/reopen machinery are real.
  */
-export async function witnessMechanics({faultNative=null,transactionFault=false}={}) {
+export async function witnessMechanics({faultNative=null,transactionFault=false,seedPayloadBytes=0,legacyProfile=false,beforeClose=null}={}) {
   const territory=process.env.ABI5_WITNESS_TEST_ROOT;assert.ok(territory);
   assert.equal(resolve(territory),resolve(root,'../scratch'));
   const scratch=mkdtempSync(join(territory,'witness-')),eventLogPath=join(scratch,'events.jsonl');
-  const acquired=events.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion,eventLogPath});
-  assert.ok('store'in acquired,JSON.stringify(acquired));
   const declaration=declarationFixture(),actor=coord('actor://mechanical/developer','actor'),oldW=coord('workspace-binding://mechanical/old','old W'),newW=coord('workspace-binding://mechanical/current','current W');
   const historical=coord('execution-basis://mechanical/historical','historical basis');
   // Contract-admitted fixture seed only: no claim of a reconstructed Run or
   // real ExecutionBasis producer. No retained store is read, cloned or imported.
-  const seed=events.admitRuntimeEvent(acquired.store,{kind:'basis_admitted',eventTime:'2026-09-11T00:00:00.000Z',aggregateType:'workspace',aggregateId:oldW.ref,
+  const seedCandidate={kind:'basis_admitted',eventTime:'2026-09-11T00:00:00.000Z',aggregateType:'workspace',aggregateId:oldW.ref,
     parentAggregateId:null,causationEventRefs:[],correlationId:'correlation://mechanical/seed',workflowVersion:schemaVersion,scopeClass:'workspace',basisId:historical.ref,
-    payload:{basisRef:historical.ref,basisDigest:historical.digest,basisClass:'root',rawInputValue:{kind:'mechanical-witness-seed'}}});
+    payload:{basisRef:historical.ref,basisDigest:historical.digest,basisClass:'root',rawInputValue:{kind:'mechanical-witness-seed',...(seedPayloadBytes?{material:'x'.repeat(seedPayloadBytes)}:{})}}};
+  let acquired,seed;
+  if(legacyProfile){
+    // Disposable raw legacy fixture only, using the unchanged native projector;
+    // the actual cold owner authenticates it before issuing a genuine handoff.
+    const legacy=await privateOwner('abg/event_store.js',['projectRuntimeEventAtContract']);
+    seed=legacy.projectRuntimeEventAtContract([],seedCandidate,events.LEGACY_ROOT_EVENT_CONTRACT_DIGEST);
+    const bytes=Buffer.from(canonicalJson(seed)+'\n');writeFileSync(eventLogPath,bytes,{flag:'wx'});
+    const stat=statSync(eventLogPath),body={kind:'event_store_reopen_authority',schemaVersion,eventLogPath,device:stat.dev,inode:stat.ino,
+      eventLogDigest:'sha256:'+createHash('sha256').update(bytes).digest('hex'),durableByteLength:bytes.length,eventContractDigest:events.LEGACY_ROOT_EVENT_CONTRACT_DIGEST};
+    acquired=events.reopenEventStore({...body,authorityDigest:hash(body)});
+  }else{
+    acquired=events.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion,eventLogPath});
+    assert.ok('store'in acquired,JSON.stringify(acquired));seed=events.admitRuntimeEvent(acquired.store,seedCandidate);
+  }
+  assert.ok('store'in acquired,JSON.stringify(acquired));
   let handoff=acquired.store.projectReopenAuthorityAndClose();
   const ownerManifest={kind:'mechanical-manifest-preimage',schemaVersion};
   const verified={kind:'verified_product_artifact',schemaVersion,disposition:'verified',artifactRef:'artifact://mechanical/owner',artifactDigest:hash('artifact'),
     manifestDigest:hash(ownerManifest),...declaration.catalog,capabilityDefinitionGraph:declaration.graph,publicContracts:declaration.contracts};
   const install={...verified,kind:'product_install',installId:'install://mechanical/owner',admissionEventRef:seed.eventId};
-  const environment={kind:'exact_prefix_workspace_environment',schemaVersion,prefix:handoff.prefix,
+  let environment={kind:'exact_prefix_workspace_environment',schemaVersion,prefix:handoff.prefix,
     artifactTruth:{assumption:'injected exact admitted environment'},workspaceAuthorityBasis:{authorizedActorRef:actor.ref,authorityMode:'trusted_developer'},
     workspaceBinding:{bindingId:newW.ref,bindingDigest:newW.digest,authorizedActorRef:actor.ref,admissionEventRef:seed.eventId},
     productInstalls:[install],resolvedProductLock:{lockId:'lock://mechanical/current',lockDigest:hash('current lock')},
@@ -89,7 +105,8 @@ export async function witnessMechanics({faultNative=null,transactionFault=false}
     '../abg/environment_admission.js':{projectExactPrefixWorkspaceEnvironment:projection},
     './verify_product.js':{isVerifiedProductArtifact:value=>value?.kind==='verified_product_artifact',verifyProduct:async request=>request.artifactRef===verified.artifactRef?verified:{kind:'product_verification_refusal'}},
     'node:fs/promises':{readFile:async path=>{assert.match(String(path),/product-toolchain-manifest\.json$/);return Buffer.from(JSON.stringify(ownerManifest));}},
-    './invocation.js':{constructCapabilityGrant:(...args)=>invocation.constructCapabilityGrant(...args)},
+    './invocation.js':{constructCapabilityGrant:(...args)=>invocation.constructCapabilityGrant(...args),
+      constructAdmissionCapabilityGrants:(...args)=>invocation.constructAdmissionCapabilityGrants(...args)},
   });
   invocation=await loadMechanism('product/invocation.js',{'./admission_authority.js':authority});
   const witnessOwner=transactionFault?await loadMechanism('abg/witness_admission_operation.js',{
@@ -102,6 +119,7 @@ export async function witnessMechanics({faultNative=null,transactionFault=false}
     '../product/admission_authority.js':authority,
     './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:projection},
     './witness_admission_operation.js':{admitWitnessedAct:(...args)=>{nativeCalls++;observed.push(structuredClone(args.slice(0,2)));return faultNative?.(...args)??witnessOwner.admitWitnessedAct(...args);}},
+    './definition_event_resource.js':{closeAbgEventResource:(...args)=>{beforeClose?.(...args);return resources.closeAbgEventResource(...args);}},
   });
   function request(overrides={}) {
     const content={declarationRef:oldW.ref,beforeDigest:oldW.digest,afterDigest:newW.digest,changeClass:'realization_refactor',owningTicketRef:'ticket://T-287',reason:'Mechanical witness binding proof only'};
@@ -133,8 +151,8 @@ export async function witnessMechanics({faultNative=null,transactionFault=false}
     const invocationDigest=hash(invocationBody);
     return {invocation:{...invocationBody,invocationDigest,invocationRef:`invocation://abiogenesis/${invocationDigest.slice(7)}`},resources:{...resource,admissionAuthority:{basis,authority:external,grants}}};
   }
-  function advance(receipt){handoff=receipt.resources.eventResource.closeHandoff;environment.prefix=handoff.prefix;}
-  return {scratch,eventLogPath,seed,historical,oldW,newW,actor,environment,verified,declaration,authority,invocation,binding,request,call,advance,
+  function advance(receipt){handoff=receipt.resources.eventResource.closeHandoff;environment={...environment,prefix:handoff.prefix};}
+  return {scratch,eventLogPath,seed,historical,oldW,newW,actor,get environment(){return environment;},verified,declaration,authority,invocation,binding,request,call,advance,
     setProjection:fn=>{projectionOverride=fn;},get nativeCalls(){return nativeCalls;},get observed(){return observed;},get handoff(){return handoff;},
     run:call=>runExactDefinition(call,binding.WITNESS_DEFINITION_BINDINGS.admit.reprice(call))};
 }

@@ -1,0 +1,26 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../20260923_WIP_CHECKPOINT/README.md
+/20260709T231746274Z/r1_named_conjuncts/foldback.json
+/20260709T231746274Z/r1_named_conjuncts/outer.json
+/20260709T231746274Z/r1_named_conjuncts/workspace/.ai-workspace/runtime/runs/run_t100-five-rule_20260709T231746314Z/assets/t100_five_rule_design_function/design_surface/design/five_rule_design.md
+/20260709T231746274Z/r1_named_conjuncts/workspace/README.md
+/20260709T231746274Z/r1_named_conjuncts/workspace/specification/requirements/five_rule.md
+/20260709T231746354Z/r2_latest_per_slice/foldback.json
+/20260709T231746354Z/r2_latest_per_slice/workspace/.ai-workspace/runtime/runs/run_t100-five-rule_20260709T231746358Z/assets/t100_five_rule_design_function/design_surface/design/five_rule_design.md
+/20260709T231746354Z/r2_latest_per_slice/workspace/README.md
+/20260709T231746354Z/r2_latest_per_slice/workspace/specification/requirements/five_rule.md
+/20260709T231746368Z/r3_retry_allowlist/foldback.json
+/20260709T231746368Z/r3_retry_allowlist/workspace/.ai-workspace/runtime/runs/run_t100-five-rule_20260709T231746370Z/assets/t100_five_rule_design_function/design_surface/design/five_rule_design.md
+/20260709T231746368Z/r3_retry_allowlist/workspace/README.md
+/20260709T231746368Z/r3_retry_allowlist/workspace/specification/requirements/five_rule.md
+/20260709T231746377Z/r4_artifact_salvage/workspace/.ai-workspace/runtime/runs/run_t100-five-rule_20260709T231746385Z/assets/t100_five_rule_design_function/design_surface/design/five_rule_design.md
+/20260709T231746377Z/r4_artifact_salvage/workspace/README.md
+/20260709T231746377Z/r4_artifact_salvage/workspace/specification/requirements/five_rule.md
+/20260709T231746389Z/r5_finding_class_split/foldback.json
+/20260709T231746389Z/r5_finding_class_split/phase_a_assessment.json
+/20260709T231746389Z/r5_finding_class_split/phase_b_assessment.json
+/20260709T231746389Z/r5_finding_class_split/workspace/.ai-workspace/runtime/runs/run_t100-five-rule_20260709T231746395Z/assets/t100_five_rule_design_function/design_surface/design/five_rule_design.md
+/20260709T231746389Z/r5_finding_class_split/workspace/README.md
+/20260709T231746389Z/r5_finding_class_split/workspace/specification/requirements/five_rule.md
+/summary/summary.json

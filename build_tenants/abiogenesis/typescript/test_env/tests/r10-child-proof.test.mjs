@@ -119,12 +119,13 @@ test('conformance keeps the complete artifact-truth, inventory and Program joins
   const call=JSON.parse(fs.readFileSync(path.join(s01,'call-9.jsonl'),'utf8')).invocation;
   const resources=call.resources,catalog=resources.declarationCatalog.catalog;
   const workspace={ref:catalog.workspaceBindingId,digest:catalog.workspaceBindingDigest};
+  const environment=projectExactPrefixWorkspaceEnvironment(resources.artifactTruth.prefix,workspace);
   const conformance=await privateOwner('validator/conformance_definition_bindings.js',['reconstructDeclarationBasis']);
-  assert.equal(conformance.reconstructDeclarationBasis(resources,workspace).declarationClosure.kind,'resolved_program_declaration_closure');
+  assert.equal(conformance.reconstructDeclarationBasis(resources,environment).declarationClosure.kind,'resolved_program_declaration_closure');
   const incomplete={...resources,declaredInventory:resources.declaredInventory.slice(1)};
-  assert.throws(()=>conformance.reconstructDeclarationBasis(incomplete,workspace),/inventory differs/);
+  assert.throws(()=>conformance.reconstructDeclarationBasis(incomplete,environment),/inventory differs/);
   const changed=structuredClone(resources);changed.artifactTruth.projectionDigest=sha256Canonical('foreign');
-  assert.throws(()=>conformance.reconstructDeclarationBasis(changed,workspace),/artifact truth differs/);
+  assert.throws(()=>conformance.reconstructDeclarationBasis(changed,environment),/artifact truth differs/);
   const read=JSON.parse(fs.readFileSync(path.join(s01,'call-11.jsonl'),'utf8')).invocation.resources;
   const schemas=await privateOwner('abg/project_read_definition_bindings.js',['PROJECT_READ_RESOURCE_ASSERTION_SCHEMA','GRAPH_CALL_TERMINAL_RESOURCE_ASSERTION_SCHEMA']);
   assert.equal(v.safeParse(schemas.PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,read).success,true);

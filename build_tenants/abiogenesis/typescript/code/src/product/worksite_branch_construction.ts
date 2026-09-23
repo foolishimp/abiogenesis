@@ -1,3 +1,4 @@
+import { isRecord, hasNulJoinedKeys as hasExactKeys, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
 import { WORKSITE_CONSTRUCTION_IDS } from "./worksite_construction_identity.js";
 import {
   canonicalJson,
@@ -217,24 +218,6 @@ export interface WorksiteBranchConstructionBranchApplicationFailure {
   readonly schemaVersion: "5.0.0";
   readonly failureClass: string;
   readonly diagnosticRef: string;
-}
-
-function isRecord(
-  value: unknown,
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
-
-function nonEmptyString(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0 &&
-    !value.includes("\0");
 }
 
 function identity(prefix: string, digest: Sha256Digest): string {

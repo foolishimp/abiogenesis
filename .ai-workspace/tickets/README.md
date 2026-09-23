@@ -2,10 +2,18 @@
 
 This folder is the local ticket authority for `abiogenesis`.
 
+## Current Delivery Route
+
+[T-287 Current Delivery Plan](active/T-287-deliver-abiogenesis-5-feature-waves.md#current-delivery-plan)
+owns ABIogenesis 5.0 delivery order, feature treatment, next work and deferred
+assurance. [GOAL-035](../../specification/GOALS.md#current-goal) owns the outcome;
+[Product Release Boundaries](../../specification/PRODUCT.md#50-and-51-release-boundaries)
+owns scope. This index is navigation, not a second status or plan surface.
+
 It is a practical, project-local projection of:
 
-- [TICKET_METHOD.md](../../.genesis/docs/standards/TICKET_METHOD.md)
-- [SPEC_METHOD.md](../../.genesis/docs/standards/SPEC_METHOD.md)
+- [TICKET_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/TICKET_METHOD.md)
+- [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md)
 
 It exists so the work-tracking rules are visible at the point of use, not only
 in the central methodology repo.

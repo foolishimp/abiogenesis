@@ -1,0 +1,26 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/aliases-0UYGlx/events.jsonl
+/ancestry-LaZ8Tz/events.jsonl
+/artifact-93FEnC/archive/actor-output.txt
+/artifact-93FEnC/events.jsonl
+/budget-1-soq7ED/events.jsonl
+/budget-2-KAAmln/events.jsonl
+/current-8ibj4N/events.jsonl
+/empty-forged-8K4B8Z/events.jsonl
+/empty-forged-MPM9M8/events.jsonl
+/empty-p-PPKM8X/events.jsonl
+/empty-p-xZXeF6/events.jsonl
+/lease-SRs2ge/events.jsonl
+/legacy-refuse-GXpQaH/events.jsonl
+/legacy-sHqEiH/events.jsonl
+/nonactor-qR1GEP/events.jsonl
+/nonempty-l-VfnIoK/events.jsonl
+/nonempty-l-wdUUVL/events.jsonl
+/physical-D4y0RG/archive/actor-output.txt
+/physical-D4y0RG/archive/actor-prompt.txt
+/physical-D4y0RG/archive/actor-stderr.log
+/physical-D4y0RG/archive/actor-stdout.log
+/physical-D4y0RG/archive/actor-transport.json
+/physical-D4y0RG/events.jsonl

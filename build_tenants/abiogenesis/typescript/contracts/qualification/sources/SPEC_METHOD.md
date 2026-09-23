@@ -915,6 +915,14 @@ candidate work, installed copies, and mutable source are derived, evidential, or
 authoring surfaces. They cannot become a selectable partial constitution or
 reinterpret the owning standards.
 
+Within their declared scope, derived instructions preserve the owning clauses'
+applicability, obligations, permissions, exclusions, decision owners and
+invalidators. A projected prohibition cannot lose its condition or lawful
+alternative even when every source digest is correct. A summary, bootstrap or
+index cannot require a stricter or weaker relation by compression. Its
+references must be resolvable within the declared actor's access; otherwise the
+required meaning is supplied directly.
+
 STDO owns normative construction algebra, authority relations, abstract state
 and transition laws, admissibility conditions, necessary causal order, and
 evidence invariants. Consumers own concrete Product realization: instantiated
@@ -1454,6 +1462,15 @@ reconciliation paths, or expands the bounded reasoning surface without
 materially reducing ambiguity. Existing obligations should absorb new detail
 where they can do so without weakening ownership or meaning.
 
+Apply this relation to the method's own execution. Repeated source acquisition,
+context assembly, hashing, activation preparation, status recording, review and
+evidence generation serve an identified change, decision or assurance need.
+Reuse remains subject to exact applicability and invalidation; repetition alone
+supplies neither validity nor independence. Where this work materially affects
+the supported outcome, qualify its operational assumptions under
+`DESIGN_MODULE_METHOD.md` `STDO-UP-019`. No universal resource quota or separate
+accounting carrier follows.
+
 Delivery priority applies the same relation to the current Product outcome,
 likelihood, impact, reversibility, dependency, and cost of delayed Product
 feedback. Probability informs lawful priority; it does not waive authority,
@@ -1550,6 +1567,13 @@ the smallest lawful carrier, required assessment and reserved decisions. It
 permits bounded work and condition-based result recording, not self-acceptance
 at a boundary owned elsewhere.
 
+One bounded operation grant may cover its declared construction, status and
+checkpoint sequence. Record actual role transitions in the existing work
+carrier; a status change alone requires neither a new grant nor rehashing an
+unchanged subject. A material change to the operation, subject, territory,
+authority or validity conditions still requires the affected binding to be
+resolved before effect. Executive mutation restrictions remain applicable.
+
 ### Proportional Disposition
 
 Assessment returns one of these semantic dispositions:
@@ -1596,6 +1620,14 @@ Acceptance binds one exact checkpoint. The next already-authorized bounded
 action may begin without renewed human approval; acceptance does not widen the
 Product outcome or affected relation set.
 
+A preservation checkpoint may retain unfinished or unaccepted work under an
+existing exact operation grant. Identify its parent or predecessor, included
+territory, concurrent-writer disposition and durable evidence location. It is
+neither acceptance, promotion nor publication. A proposed restart identifies
+why repair of retained work is insufficient, which obligations and evidence
+survive, and which causal assumptions change; reconstructability alone does
+not select reconstruction.
+
 Accepted material Product movement is progress. Prerequisite work names the
 Product obligation it enables. Preservation and repeated proof are evidence,
 not new progress. Rejected or superseded construction is churn. Discovery of
@@ -1617,13 +1649,24 @@ reported as accepted Product progress.
 
 ## Complete Enclosing-Relation Admission (`STDO-UP-021`)
 
-For a material transition, each admission owner independently derives the
-complete enclosing relation from authoritative inputs. The relation contains
-every participant and equality join whose identity, validity, authority,
-currentness, or transition can affect or be affected by admission; each
-crossing seam includes its relevant far side or authoritatively establishes
+For a material transition, each admission owner is independently responsible
+for deriving and validating the complete enclosing relation from authoritative
+inputs. The relation contains every participant and equality join whose
+identity, validity, authority, currentness, or transition can affect or be
+affected by admission; each crossing seam includes its relevant far side or
+authoritatively establishes
 that the far side cannot participate. Caller or owner assertions of
 completeness, validity, prior admission, or authority do not establish truth.
+
+An owner may consume established facts when their exact subject, basis, scope,
+provenance and validity remain applicable to its relation. Their production and
+invalidation must be recoverable; an unsupported assertion of prior success is
+not such a fact. A function, component, role, conversation or status boundary
+alone invalidates none of those coordinates and requires no repeated derivation.
+Material mutation, rollback, changed authority or basis, expired validity, and
+an actual trust boundary trigger the applicable validation before reliance or
+effect. Reuse does not transfer the owner's admission responsibility, omit a
+participant or satisfy a separately required independent judgment.
 
 Derivation and validation bind one exact admission-valid authoritative basis
 identity through admission. If validity or currentness can advance after
@@ -1633,10 +1676,10 @@ effect. Participating owners bind an equal basis or a design-declared coherent
 composite basis; independently valid mixed-basis judgments cannot combine.
 
 Every participant and join is validated before any transition effect. Internal
-evaluation order is implementation-owned, but no participant subset or nested
-constituent becomes admitted truth. Admission is one semantic commit of the
-complete transition, bound to its exact basis identity; failure or interruption
-admits the complete transition or none, never a subset. No realization
+evaluation order and lawful reuse are implementation-owned, but no participant
+subset or nested constituent becomes admitted truth. Admission is one semantic
+commit of the complete transition, bound to its exact basis identity; failure
+or interruption admits the complete transition or none, never a subset. No realization
 mechanism or participant count is prescribed.
 
 Direct and every supported composite or nested boundary preserve this law. A
@@ -1656,13 +1699,17 @@ reconstruction differs; or competing same-scope authority remains.
 ### Standing Structural Qualification
 
 Qualification is instantiated for every admission owner and supported boundary
-declared by accepted design:
+declared by accepted design. Case applicability follows the supported input,
+state and operating/threat model. An excluded threat alone cannot create an
+acceptance predicate or require defensive work; any proposed scope expansion
+returns to its owning authority. Supported malformed inputs, stale state and
+effect boundaries retain their required checks:
 
 | Form | Required observation |
 |---|---|
 | direct | the complete direct relation is derived, validated, and admitted once |
 | supported composite / nested | every supported constituent and owning boundary satisfies the same law; unsupported forms have a design-grounded `not_applicable` disposition and no weaker or competing path |
-| forged | forged identity, membership, equality, or authority is refused without effect |
+| forged | forged identity, membership, equality, or authority reachable within the supported operating/threat model is refused without effect; exclusion requires its owning authority, not a helper's inability to construct the case |
 | ambiguous enclosing relation | unresolved participant, join, seam, or relation identity ambiguity is refused without effect |
 | stale / advanced basis | stale input is refused, and basis advancement between preflight and admission causes effect-free re-entry rather than mixed-basis admission |
 | incoherent multi-owner basis | owner judgments on bases that are neither equal nor joined by a design-declared coherent composite basis cannot combine and are refused without effect |
@@ -1936,7 +1983,8 @@ when all of the following are true:
 
 - every authoritative producer writes the new contract
 - every authoritative consumer reads the new contract
-- all superseded authoritative paths are removed or explicitly re-authorized
+- superseded authoritative paths are retired unless justified for a distinct
+  supported responsibility under the retention relation below
 - projections are downstream of the same authoritative truth rather than acting
   as competing truth surfaces
 - runtime, reporting, topology, and proof share one closure law
@@ -1944,6 +1992,16 @@ when all of the following are true:
 
 Until those conditions hold, the work remains an active migration wave rather
 than a completed refactor.
+
+Retention bears the burden. Each retained superseded mechanism identifies a
+current supported obligation, owner, purpose, execution scope and material cost.
+Temporary compatibility or comparison work has an expiry or removal trigger;
+existing tests, an oracle label or nominal demotion do not justify duplicate
+production responsibility. A required cold reconstruction route or independent
+test oracle may serve an enduring distinct obligation without an invented
+expiry. Where an obligation survives replacement, identify its surviving owner;
+where it has no governing basis, no replacement guard is required. Retirement
+inside a closed affected cone does not await unrelated whole-Product closure.
 
 An accepted intermediate Product slice within that wave must therefore name the
 slice it closes and keep the enclosing migration visibly open. It must not
@@ -2059,6 +2117,15 @@ constituent with its qualification boundary or a new qualification subject. It
 cannot retroactively make the original frozen construction pass. This law
 prescribes no actor type or count, review-round count, engine, prompt, or
 orchestration.
+
+Changed derived guidance is qualified against source-derived expected behavior,
+including the affected permissions, exclusions and invalidators. For a native
+use claim, an ordinary actor applies that guidance through its declared entry
+and available context. Digest integrity and index generation establish identity
+and structure, not semantic fidelity or usability. Mechanical and operational
+claims require their own executable observations, including the applicable
+`STDO-UP-019` workload and operational assumptions; semantic agreement cannot
+substitute for those observations.
 
 This law is false if:
 
@@ -2351,6 +2418,8 @@ is not yet sufficient even if some downstream artifact can be produced.
 
 For an already accepted relation, reconstruction may reuse its exact current
 basis and sufficient evidence after checking applicability and invalidation.
+Reconstructability requires a correct reconstruction route, not its execution
+at every use. It grants no restart authority and does not excuse stale success.
 The claim determines the reconstruction span; a local selected function does
 not require recreating the whole Product. New material counterexamples still
 challenge the affected relation. `DESIGN_MODULE_METHOD.md` owns design-view
@@ -2467,7 +2536,7 @@ The project may accumulate multiple live domain surfaces over time. A live surfa
 - If a live domain artifact is wrong, the valid actions are:
   - supersede it with a new version, or
   - withdraw/delete it from the live surface.
-- Transitional implementation paths, migration scaffolds, and fallback behaviors have no permanent authority in the live surface. Once superseded, they are deleted unless explicitly retained as compatibility features.
+- Transitional implementation paths, migration scaffolds, and fallback behaviors have no permanent authority in the live surface. Once superseded, they are retired; any retained responsibility satisfies the Core Interface Migration Rule's retention relation.
 
 The past is preserved by version control, operational event history where present, and superseded constitutional artifacts. Spec-driven development does not require shipping compatibility shims forever, but it also does not allow silent mutation of live constitutional history.
 

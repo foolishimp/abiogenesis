@@ -1,0 +1,19 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/accepted-subjects-and-reviews.md
+/activation.md
+/application.patch
+/checker-first-cause.json
+/checks.json
+/manifest.json
+/normalizations.json
+/postimages/GOALS.md
+/postimages/T287_C2_FORWARD_REENTRY_DESIGN.md
+/postimages/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md
+/postimages/T287_D4_SELF_CONFORMANCE_DESIGN.md
+/postimages/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
+/preimages/GOALS.md
+/preimages/T287_D4_SELF_CONFORMANCE_DESIGN.md
+/preimages/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
+/return.md

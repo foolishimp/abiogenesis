@@ -112,6 +112,8 @@ export interface ProbabilisticWorkerObservation {
 }
 
 export interface LeafExecutionOccurrence {
+  readonly nativeWorkReacquisitionBasis?: Readonly<import("../abg/native_work_reacquisition.js").NativeWorkReacquisitionBasis>;
+  readonly nativeInstructionAssemblyBasis?: Readonly<import("../abg/execution_basis.js").NativeInstructionAssemblyBasis>;
   readonly worksiteCommandForwardBasis?: Readonly<import("../abg/worksite_command_forward.js").WorksiteCommandForwardNativeBasis>;
   readonly worksitePreservedResultBasis?: Readonly<WorksitePreservedResultNativeBasis>;
   readonly qualificationOwnerBasis?: Readonly<QualificationOwnerBasis>;
@@ -125,6 +127,23 @@ export interface LeafExecutionOccurrence {
   readonly taskOrdinal: number | null;
   readonly attempt: number;
   readonly executionAuthority: Readonly<LeafExecutionAuthority> | null;
+}
+
+/** Internal operations of the invoking ABG owner, never serialized basis or evidence. */
+export interface NativeLeafProofOperations {
+  readonly qualificationVerdict?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
+    ReturnType<typeof import("../abg/qualification_proof.js").projectExactCandidateQualification>;
+  readonly qualificationAssessment?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
+    ReturnType<typeof import("../abg/qualification_proof.js").projectNativeRuntimeAssessment>;
+  readonly nativeWorkReacquisition?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
+    ReturnType<typeof import("../abg/native_work_reacquisition.js").authenticateNativeWorkReacquisition>;
+}
+
+/** Bound to one declared relation evaluation by its invoking leaf port. */
+export interface NativeJudgmentProofOperations {
+  readonly qualificationVerdict?: () => ReturnType<typeof import("../abg/qualification_proof.js").projectExactCandidateQualification>;
+  readonly qualificationAssessment?: () => ReturnType<typeof import("../abg/qualification_proof.js").projectNativeRuntimeAssessment>;
+  readonly nativeWorkReacquisition?: () => boolean;
 }
 
 export interface LeafExecutionAuthority {
@@ -164,8 +183,8 @@ export interface LeafExecutionAuthority {
   readonly implementationBindingDigest: Sha256Digest;
   readonly implementationRef: string;
   readonly implementationOwnerRef: string;
-  readonly effectUri: "effect://abiogenesis/worksite/file.replace/v1";
-  readonly handlerRef: "handler://abiogenesis/product/worksite/file.replace/v1";
+  readonly effectUri: "effect://abiogenesis/worksite/file.replace/v1" | "effect://abiogenesis/worksite/file.parents/v1" | "effect://abiogenesis/worksite/native-work/v1";
+  readonly handlerRef: "handler://abiogenesis/product/worksite/file.replace/v1" | "handler://abiogenesis/product/worksite/file.parents/v1" | "handler://abiogenesis/worksite/native-work/v1";
   readonly handlerDigest: Sha256Digest;
   readonly capabilityGrantRef: string;
   readonly capabilityGrantDigest: Sha256Digest;
@@ -188,7 +207,7 @@ export interface PreparedProbabilisticLeafInvocation<Candidate> {
 export type ProbabilisticLeafImplementation<Candidate> = (
   input: Readonly<Record<string, JsonValue>>,
   occurrence: Readonly<LeafExecutionOccurrence>,
-) => Readonly<PreparedProbabilisticLeafInvocation<Candidate>>;
+) => Readonly<PreparedProbabilisticLeafInvocation<Candidate>> | Promise<Readonly<PreparedProbabilisticLeafInvocation<Candidate>>>;
 
 export interface DeterministicLeafInvocationReceipt<Candidate> {
   readonly kind: "leaf_invocation_receipt";
@@ -228,6 +247,7 @@ export interface ClosedUndispatchedProbabilisticLeafOwnerReceipt {
   readonly schemaVersion: "5.0.0";
   readonly computeRegime: "F_P";
   readonly effectDisposition: "not_dispatched";
+  readonly ownerObservation: import("../abg/event_contract_profiles.js").UndispatchedOwnerObservation;
   readonly candidate: Readonly<LeafRealizationFailureCandidate>;
   readonly receipt: null;
   readonly workerContracts: null;
@@ -260,6 +280,7 @@ export interface LeafInvocationOwnerRefusal {
 
 export interface PreparedProbabilisticLeafOwnerInvocation {
   readonly kind: "prepared_probabilistic_leaf_owner_invocation";
+  readonly invokeActorProcess: typeof import("../abg/actor_process.js").invokeActorProcess;
   readonly schemaVersion: "5.0.0";
   readonly workerRequest: Readonly<ProbabilisticWorkerRequest>;
   readonly workerContracts: Readonly<ProbabilisticWorkerContracts>;
@@ -334,6 +355,7 @@ export interface LeafInvocationPort {
   readonly isAdmittedResolution: (
     resolution: Readonly<LeafInvocationResolution>,
   ) => boolean;
+  readonly forGraphFunction: (graphFunctionRef: string) => Promise<LeafInvocationPort | null>;
   readonly sourcePublicationByDeclarationRef?: (declarationRef: string) => Readonly<ModulePublication> | null;
   readonly semanticPublicationByDeclarationRef?: (declarationRef: string) => Readonly<ModulePublication> | null;
   readonly declarationGraphFunctions?: () => readonly Readonly<GraphFunction>[];
@@ -365,7 +387,7 @@ export interface LeafInvocationPort {
     readonly predicateRef: string;
     readonly advanceReasonRef: string;
     readonly rejectionReasonRef: string;
-    readonly evaluate: (input: unknown, output: unknown) => boolean;
+    readonly evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations) => boolean;
   }> | null;
   readonly validateResultEvidenceLineage: (
     outputContractRef: string,

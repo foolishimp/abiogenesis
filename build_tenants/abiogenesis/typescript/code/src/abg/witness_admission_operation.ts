@@ -1,3 +1,4 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
@@ -17,10 +18,11 @@ import {
 } from "./event_calculus.js";
 import {
   admitRuntimeEvent,
-  admitRuntimeEventTransactionAtExpectedPrefix,
+  admitRootEventProfileUpgrade,
+  admitRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   projectRuntimeEventFromValidatedHistory,
-  readRuntimeEventsAtDurablePrefix,
+  readHeldRuntimeEventsAtDurablePrefix,
   type AbgEventStore,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
@@ -28,6 +30,7 @@ import {
 } from "./event_store.js";
 import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { replayValidatedRuntimeEventPrefix } from "./replay.js";
+import { ROOT_EVENT_PROFILE_DECLARATION_REF } from "./event_contract_profiles.js";
 
 export const WITNESS_ADMISSION_MEMBER_KEYS = Object.freeze([
   "reprice",
@@ -273,10 +276,6 @@ export const WITNESS_CONTENT_CONTRACTS = deepFreeze(
     ReferenceDigest & Readonly<Record<string, JsonValue>>
   >>,
 );
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function hasExactDataFields(value: object, fields: readonly string[]): boolean {
   const keys = Reflect.ownKeys(value);
@@ -1116,7 +1115,9 @@ export function admitWitnessedAct<K extends WitnessAdmissionMemberKey>(
   if (authorityRefusal !== null) {
     return authorityRefusal as WitnessAdmissionRefusal<K>;
   }
-  const events = readRuntimeEventsAtDurablePrefix(packet.prefix);
+  // I-JSON admission deliberately copies the packet. Authority validation has
+  // already joined that coordinate to this live owner; retain that relation.
+  const events = readHeldRuntimeEventsAtDurablePrefix(dependencies.eventStore, packet.prefix);
   const duplicates = events.filter((event) => {
     const payload = eventPayload(event);
     return event.kind === "public_operation_admitted" &&
@@ -1147,9 +1148,17 @@ export function admitWitnessedAct<K extends WitnessAdmissionMemberKey>(
       return prepared as WitnessAdmissionRefusal<K>;
     }
     const admittedPreparation = prepared as PreparedSemanticEvent;
-    const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+    const isProfileUpgrade = packet.memberKey === "reprice" &&
+      packet.content.value.declarationRef === ROOT_EVENT_PROFILE_DECLARATION_REF;
+    const committed = isProfileUpgrade
+      ? (() => {
+          const upgraded = admitRootEventProfileUpgrade(dependencies.eventStore, packet.prefix,
+            publicCandidate, admittedPreparation.candidate);
+          return { ...upgraded, value: { ...upgraded.value, prepared: admittedPreparation } };
+        })()
+      : admitRuntimeEventTransactionAtDurablePrefix(
       dependencies.eventStore,
-      sha256Canonical(events as unknown as JsonValue),
+      packet.prefix,
       () => {
         const publicOperationEvent = admitRuntimeEvent(
           dependencies.eventStore,

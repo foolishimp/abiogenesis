@@ -32,15 +32,20 @@ SDK, CLI, or ABG into a rival Program or executor.
 
 ## Load Contract
 
-In the ABIogenesis source repository, read:
+In the ABIogenesis source repository, resolve the exact method basis and
+companion composition through [the Product Definition](../stdo_abiogenesis.json),
+then read the currently selected source:
 
-1. [Product](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/PRODUCT.md)
-2. [Intent](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/INTENT.md)
-3. [GTL contract-law reload](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md)
-4. the applicable [GTL requirement families](https://github.com/foolishimp/abiogenesis/tree/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/requirements/gtl)
-5. [Program traversal mapping](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md)
-6. accepted design for the selected implementation slice; and
-7. the [current package exports and code](https://github.com/foolishimp/abiogenesis/tree/main/build_tenants/abiogenesis/typescript).
+1. [Goals](../specification/GOALS.md), [Intent](../specification/INTENT.md) and
+   [Product](../specification/PRODUCT.md)
+2. [GTL contract-law reload](../specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md)
+3. the applicable [GTL requirement families](../specification/requirements/gtl/)
+4. [Program traversal mapping](../specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md)
+5. accepted design for the selected implementation slice; and
+6. the [current package exports and code](../build_tenants/abiogenesis/typescript/).
+
+Freeze those exact source bytes for each activation. A prior documentation
+commit does not replace the current Product or operative method selection.
 
 In an installed downstream workspace, also read:
 
@@ -50,7 +55,8 @@ In an installed downstream workspace, also read:
 4. `workspace://specification/requirements/`
 5. the product-definition overlay and its exact installed ABIogenesis Product
    binding
-6. `workspace://.genesis/docs/standards/SPEC_METHOD.md`
+6. the exact installed `standards/SPEC_METHOD.md` resolved by the STDO manager
+   from that workspace's Product Definition basis, not a nearby copied corpus
 
 Local Product law owns downstream meaning. It may specialize GTL through
 declared contracts; it may not redefine the frozen GTL language or create a

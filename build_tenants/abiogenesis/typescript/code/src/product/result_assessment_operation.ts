@@ -1,3 +1,4 @@
+import { isRecord, hasObjectUnicodeNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import {
   compareUnicodeCodeUnits,
   type JsonValue,
@@ -17,7 +18,7 @@ import {
   type DurablePrefixCoordinate,
   type RuntimeEvent,
 } from "../abg/event_store.js";
-import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
+import { runtimeEventPrefixDigest, selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
 import {
   rehydrateExecutionBasisAtPrefix,
   type ExecutionBasis,
@@ -173,15 +174,6 @@ export type ResultAssessmentOperationResult =
   | ResultAssessResult
   | ResultAssessNonTerminal
   | ResultAssessmentRefusal;
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(value: object, keys: readonly string[]): boolean {
-  return Object.keys(value).sort(compareUnicodeCodeUnits).join("\0") ===
-    [...keys].sort(compareUnicodeCodeUnits).join("\0");
-}
 
 function exactRef(value: unknown): value is string {
   return typeof value === "string" && value.length > 0 && value.trim() === value;
@@ -694,7 +686,7 @@ export function assessResult(
   try {
     const admittedEvents = compareAndAppendExpectedPrefix(
       context.store,
-      sha256Canonical(events as unknown as JsonValue),
+      runtimeEventPrefixDigest(prefix),
       [() => ({
         kind: "assessed",
         eventTime: context.eventTime,

@@ -1,0 +1,29 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/authority-data-01/disposition.md
+/authority-data-01/result.json
+/authority-data-01/stderr.txt
+/authority-data-01/stdout.txt
+/authority-data-02/result.json
+/authority-data-02/stderr.txt
+/authority-data-02/stdout.txt
+/compile-01.json
+/compile-02/result.json
+/compile-02/stderr.txt
+/compile-02/stdout.txt
+/compile-03/result.json
+/compile-03/stderr.txt
+/compile-03/stdout.txt
+/compile-04/result.json
+/compile-04/stderr.txt
+/compile-04/stdout.txt
+/compile-05/result.json
+/compile-05/stderr.txt
+/compile-05/stdout.txt
+/stop-01/result.json
+/stop-01/stderr.txt
+/stop-01/stdout.txt
+/stop-02/result.json
+/stop-02/stderr.txt
+/stop-02/stdout.txt

@@ -1,8 +1,9 @@
+import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, type Sha256Digest } from "../shared/digests.js";
 import {
   compareAndAppendExpectedPrefix,
-  selectHeldEventStoreDurablePrefix,
+  admitRuntimeEventTransactionAtExpectedPrefix,
   type AbgEventStore,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
@@ -18,12 +19,6 @@ import {
   hasExactCompletedRetryProgressBridge,
   hasExactStoppedRetryProgressBridge,
 } from "./retry_lifecycle.js";
-
-function isRecord(
-  value: JsonValue,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 export interface ChildFoldbackTruth {
   readonly childDisposition: "blocked" | "closed" | "failed";
@@ -227,13 +222,10 @@ export function admitChildLifecycleEvent(input: Readonly<{
   event: RuntimeEvent;
   successorPrefix: DurablePrefixCoordinate;
 }> {
-  const event = compareAndAppendExpectedPrefix(
-    input.store,
-    input.expectedPrefixDigest,
-    [() => input.event],
-  )[0]!;
-  return Object.freeze({
-    event,
-    successorPrefix: selectHeldEventStoreDurablePrefix(input.store),
-  });
+  const committed = admitRuntimeEventTransactionAtExpectedPrefix(
+    input.store, input.expectedPrefixDigest,
+    () => compareAndAppendExpectedPrefix(input.store, input.expectedPrefixDigest, [() => input.event])[0]!,
+  );
+  if (committed.successorPrefix === null) throw new TypeError("child lifecycle admission has no durable successor");
+  return Object.freeze({ event: committed.value, successorPrefix: committed.successorPrefix });
 }

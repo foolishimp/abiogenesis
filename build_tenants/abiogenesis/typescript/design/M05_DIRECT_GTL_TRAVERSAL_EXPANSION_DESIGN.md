@@ -1830,6 +1830,30 @@ against the resulting event prefix, including refusal. Once the continuation
 is resolved, that carrier cannot append, respond, or continue, but it remains
 valid for immutable status, result, replay, and lawful-action reads.
 
+For a caught post-open runtime exception, the existing failure owner retains
+the small Definition key, diagnostic class, stage, code, message and original
+cause/stack as canonical JSON in a self-contained
+`data:application/json;charset=utf-8,` diagnostic URI. The decoded exact body
+must match `subjectDigest`; the existing failure digest binds that URI, subject
+digest and Run/GraphCall/frame/basis coordinates. This realizes the existing
+opaque diagnostic locator without changing either admitted event-contract
+profile. Generic failure candidates, including whole child Results and retained
+worksite inputs, are not copied into this diagnostic. Explicit cause events are
+preserved; otherwise the failure owner selects the greatest admission ordinal
+among material traversal events in the exact scope, excluding telemetry and
+other frames, with the frame-open event as the no-frontier fallback. The
+staged-route throw preserves its underlying replay exception as `Error.cause`;
+ordinary nullable historical projection retains its refusal behavior. The
+first admitted failure remains terminal and a subsequent reporting or cleanup
+failure cannot replace its evidence. `run_evidence` returns a standard JSON
+data-URI evidence coordinate with its exact digest, decoded diagnostic,
+classification, failure/event identities, scope and causal refs. Cold projection
+verifies retained subject and failure bindings; malformed or mismatched data
+refuses. Older digest-only failures remain unchanged and project explicit
+`not_retained` diagnostic availability. Diagnostic prose never admits runtime
+truth or selects a route. This is the existing EVENTS-002/003 and WITNESS-001
+evidence relation, not another store, controller or trace protocol.
+
 This selected S03 path realizes `open -> responded -> resolved`.
 `superseded` and `abandoned` remain requirement-level lifecycle variants with
 no selected Product operation or runtime transition in this cut. They are

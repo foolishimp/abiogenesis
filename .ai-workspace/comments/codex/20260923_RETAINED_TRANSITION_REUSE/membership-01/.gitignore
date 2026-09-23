@@ -1,0 +1,33 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/authored.patch
+/compile-01.log
+/diagnostic-references.json
+/discriminator-01.log
+/discriminator-02.log
+/discriminator-result.json
+/discriminator.mjs
+/focused-tests-01.log
+/freeze.json
+/generate-01.log
+/generated-identity.json
+/owner-family-scan.log
+/preimage-inventory.json
+/preimages/build/code/src/abg/worksite_input_provenance.js
+/preimages/code/src/abg/worksite_input_provenance.ts
+/preimages/contracts/capabilities/capability-definition-graph.json
+/preimages/product-toolchain-manifest.json
+/preimages/test_env/tests/generic-input-retention.test.mjs
+/preservation.json
+/prior-localization-return.md
+/profile-summary.json
+/return.md
+/self-check.json
+/subject.json
+/successors/build/code/src/abg/worksite_input_provenance.js
+/successors/code/src/abg/worksite_input_provenance.ts
+/successors/contracts/capabilities/capability-definition-graph.json
+/successors/product-toolchain-manifest.json
+/successors/test_env/tests/generic-input-retention.test.mjs

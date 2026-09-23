@@ -1,0 +1,51 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.DS_Store
+dist/
+build/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Build tenant working state — trace surface, not committed
+build_tenants/*/*/.workspace/iterations/
+build_tenants/*/*/.workspace/manifests/
+build_tenants/*/*/.workspace/working_surfaces/
+
+# Legacy build working state — trace surface, not committed
+builds/*/.workspace/iterations/
+builds/*/.workspace/manifests/
+builds/*/.workspace/working_surfaces/
+
+# Installed engine — created by gen-install.py, not committed
+.genesis/
+
+# Local env
+.env
+.venv/
+venv/
+
+# Engine runtime artifacts
+.ai-workspace/events/events.jsonl
+.ai-workspace/runtime/
+.ai-workspace/fp_manifests/
+.ai-workspace/fp_results/
+.ai-workspace/comments/*/*_DRAFT_*.md
+
+# Scenario test run archives — persistent forensic data, not committed
+build_tenants/*/*/test_env/test_runs/
+builds/claude_code/test_env/test_runs/
+
+# Local package installs inside build tenants
+build_tenants/*/*/node_modules/
+
+# Deterministic package projection generated from Product-owned GTL schema law
+build_tenants/abiogenesis/typescript/contracts/schemas/consensus.schema.json
+build_tenants/abiogenesis/typescript/contracts/vocabularies/consensus-round-outcome.json
+build_tenants/abiogenesis/typescript/contracts/vocabularies/review-ruling-kind.json
+build_tenants/abiogenesis/typescript/contracts/vocabularies/consensus-fh-decision.json
+
+# Local browser/tool scratch
+.playwright-mcp/

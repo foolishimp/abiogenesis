@@ -1,0 +1,21 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/baseline-compile-01.json
+/baseline-compiled-inventory.json
+/baseline-ec-01.json
+/baseline-ec.output.json
+/baseline-public-01.json
+/baseline-public.output.json
+/candidate-compile-01.json
+/candidate-ec-01.json
+/candidate-public-01.json
+/comparison.json
+/compiled-inventory.json
+/conservation.json
+/delta.json
+/focused-01.json
+/input-copy.json
+/source-inventory.json
+/work-ec.output.json
+/work-public.output.json

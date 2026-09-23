@@ -1,0 +1,15 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../20260923_WIP_CHECKPOINT/README.md
+/abi5-root-candidate-basis.json
+/developer-mini-product/contracts/greeting.schema.json
+/developer-mini-product/contracts/public-contract-catalog.schema.json
+/developer-mini-product/package.json
+/developer-mini-product/src/index.ts
+/developer-mini-product/tsconfig.json
+/flavored-catalog-product/contracts/flavored-text.schema.json
+/flavored-catalog-product/contracts/public-contract-catalog.schema.json
+/flavored-catalog-product/package.json
+/flavored-catalog-product/src/index.ts
+/flavored-catalog-product/src/publication.ts
+/flavored-catalog-product/tsconfig.json

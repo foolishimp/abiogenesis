@@ -1,0 +1,43 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/authored.patch
+/build.log
+/check-first.log
+/check.log
+/closed-result.json
+/delta.json
+/executive-disposition.md
+/freeze.json
+/freeze.py
+/inventory.json
+/method-verification.json
+/preimages/build/code/src/implementation/native_workspace_work.js
+/preimages/build/code/src/product/native_workspace_assessment.js
+/preimages/build/code/src/product/native_workspace_work.js
+/preimages/code/src/implementation/native_workspace_work.ts
+/preimages/code/src/product/native_workspace_assessment.ts
+/preimages/code/src/product/native_workspace_work.ts
+/preimages/contracts/capabilities/capability-definition-graph.json
+/preimages/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+/preimages/product-toolchain-manifest.json
+/preimages/test_env/tests/t287-native-workspace-work.test.mjs
+/retained-diagnostic-check.json
+/retained-diagnostic.json
+/retained-diagnostic.log
+/retained-diagnostic.mjs
+/retained-raw-output.txt
+/retained-schema.json
+/return.md
+/subject.json
+/successors/build/code/src/implementation/native_workspace_work.js
+/successors/build/code/src/product/native_workspace_assessment.js
+/successors/build/code/src/product/native_workspace_work.js
+/successors/code/src/implementation/native_workspace_work.ts
+/successors/code/src/product/native_workspace_assessment.ts
+/successors/code/src/product/native_workspace_work.ts
+/successors/contracts/capabilities/capability-definition-graph.json
+/successors/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+/successors/product-toolchain-manifest.json
+/successors/test_env/tests/t287-native-workspace-work.test.mjs
+/validation.json

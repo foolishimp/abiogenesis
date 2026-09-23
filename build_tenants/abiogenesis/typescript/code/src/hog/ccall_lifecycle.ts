@@ -1,10 +1,16 @@
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
+import { isNativeWorkspaceWorkTask, nativeWorkspaceWorkGraphFunctionRef, NATIVE_WORKSPACE_WORK_IDS as nativeIds, NATIVE_WORKSPACE_WORK_HANDLER_DIGEST } from "../product/native_workspace_work.js";
 import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
 import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
 import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
+import { runEnvironmentForProgram, nativeContextLeafFamily } from "../gtl/stdo_run_environment.js";
+import { cLeafTerms } from "../gtl/c_algebra.js";
+import { WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction_identity.js";
+import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 import * as Effect from "effect/Effect";
 
 import * as Abg from "../abg/index.js";
+import { hasNoCompletedRetryExit } from "../abg/retry.js";
 import type {
   AbgEventStore,
   ActorRuntimeBinding,
@@ -24,16 +30,17 @@ import type {
   GtlProgram,
   ModulePublication,
 } from "../gtl/contracts.js";
-import { WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
+import { WORKSITE_C0_IDS, WORKSITE_FILE_PARENTS_IDS } from "../gtl/worksite_c0.js";
 import type {
   ClosedLeafOwnerReceipt,
   LeafInvocationPort,
 } from "../implementation/contracts.js";
 import { constructLeafExecutionAuthority } from "../implementation/leaf_invocation_port.js";
-import { unadmittedPhysicalCommit } from "../implementation/worksite_file_replace.js";
+import { unadmittedPhysicalCommit, WORKSITE_FILE_PARENTS_IMPLEMENTATION } from "../implementation/worksite_file_replace.js";
 import { WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS } from "../product/worksite_construction_recovery.js";
 import {
   isWorksiteFileReplaceRequest,
+  isWorksiteFileParentsRequest, WORKSITE_FILE_PARENTS_EFFECT_URI, WORKSITE_FILE_PARENTS_HANDLER_REF, WORKSITE_FILE_PARENTS_HANDLER_DIGEST,
   WORKSITE_FILE_REPLACE_EFFECT_URI,
   WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
   WORKSITE_FILE_REPLACE_HANDLER_REF,
@@ -106,39 +113,43 @@ function worksiteLeafAuthority(
   cCall: Abg.CCall,
   openedPrefix: DurablePrefixCoordinate,
 ): ReturnType<typeof constructLeafExecutionAuthority> | null {
+  const parents = isWorksiteFileParentsRequest(input.input);
+  const native = isNativeWorkspaceWorkTask(input.input);
+  const ownerIds = native ? { ...nativeIds, graphFunctionRef: nativeWorkspaceWorkGraphFunctionRef(input.input) } : parents ? WORKSITE_FILE_PARENTS_IDS : WORKSITE_C0_IDS;
+  const effectUri = native ? nativeIds.effectUri : parents ? WORKSITE_FILE_PARENTS_EFFECT_URI : WORKSITE_FILE_REPLACE_EFFECT_URI;
   if (
-    !isWorksiteFileReplaceRequest(input.input) ||
+    (!isWorksiteFileReplaceRequest(input.input) && !parents && !native) ||
     input.programPublication === undefined ||
-    cCall.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
-    resolution.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
+    cCall.graphFunctionRef !== ownerIds.graphFunctionRef ||
+    resolution.graphFunctionRef !== ownerIds.graphFunctionRef ||
     resolution.implementationBindingRef !==
-      "implementation-binding://abiogenesis/worksite/file-replace-fd@5" ||
+      (native ? nativeIds.implementationBindingRef : parents ? WORKSITE_FILE_PARENTS_IMPLEMENTATION.implementationBindingRef : "implementation-binding://abiogenesis/worksite/file-replace-fd@5") ||
     resolution.implementationRef !==
-      "implementation://abiogenesis/worksite/file-replace-fd@5" ||
-    resolution.inputContractRef !== WORKSITE_C0_IDS.inputContractRef ||
-    resolution.outputContractRef !== WORKSITE_C0_IDS.outputContractRef ||
-    input.graphFunction.effects.includes(WORKSITE_FILE_REPLACE_EFFECT_URI) === false ||
-    resolution.computeRegime !== "F_D" ||
+      (native ? nativeIds.implementationRef : parents ? WORKSITE_FILE_PARENTS_IMPLEMENTATION.implementationRef : "implementation://abiogenesis/worksite/file-replace-fd@5") ||
+    resolution.inputContractRef !== ownerIds.inputContractRef ||
+    resolution.outputContractRef !== ownerIds.outputContractRef ||
+    input.graphFunction.effects.includes(effectUri) === false ||
+    resolution.computeRegime !== (native ? "F_P" : "F_D") ||
     input.executionBasis.workspaceBindingId !==
       input.actorRuntimeBinding.workspaceBinding.bindingId ||
     input.executionBasis.workspaceBindingDigest !==
       input.actorRuntimeBinding.workspaceBinding.bindingDigest ||
     input.executionBasis.actorRef !== input.actorRuntimeBinding.workspaceBinding.authorizedActorRef ||
-    input.input.workspaceBindingIdentity !== input.executionBasis.workspaceBindingId ||
-    input.input.workspaceBindingDigest !== input.executionBasis.workspaceBindingDigest ||
+    (native ? input.input.workspaceBinding.bindingId : input.input.workspaceBindingIdentity) !== input.executionBasis.workspaceBindingId ||
+    (native ? input.input.workspaceBinding.bindingDigest : input.input.workspaceBindingDigest) !== input.executionBasis.workspaceBindingDigest ||
     input.input.capabilityGrant.actorRef !== input.executionBasis.actorRef ||
     input.input.capabilityGrant.scopeRef !== input.executionBasis.workspaceBindingId ||
     input.input.capabilityGrant.scopeDigest !== input.executionBasis.workspaceBindingDigest
   ) return null;
   Abg.assertHeldEventStoreAtDurablePrefix(input.store, openedPrefix);
-  const current = Abg.projectRuntimeTruthAtDurablePrefix(
+  const current = Abg.projectRuntimePrefixesAtDurablePrefix(
     openedPrefix,
     cCall.runId,
   );
   const calculus = Abg.deriveRuntimeEventCalculusProjection(
     current.runtimePrefix,
   );
-  if (
+  if (!parents && isWorksiteFileReplaceRequest(input.input) &&
     !Abg.holdsAt(
       calculus,
       Abg.constructWorksiteObservationCurrentFluent(
@@ -175,9 +186,9 @@ function worksiteLeafAuthority(
     implementationBindingDigest: resolution.implementationBindingDigest,
     implementationRef: resolution.implementationRef,
     implementationOwnerRef: resolution.implementationOwnerProductId,
-    effectUri: WORKSITE_FILE_REPLACE_EFFECT_URI,
-    handlerRef: WORKSITE_FILE_REPLACE_HANDLER_REF,
-    handlerDigest: WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
+    effectUri,
+    handlerRef: native ? nativeIds.handlerRef : parents ? WORKSITE_FILE_PARENTS_HANDLER_REF : WORKSITE_FILE_REPLACE_HANDLER_REF,
+    handlerDigest: native ? NATIVE_WORKSPACE_WORK_HANDLER_DIGEST : parents ? WORKSITE_FILE_PARENTS_HANDLER_DIGEST : WORKSITE_FILE_REPLACE_HANDLER_DIGEST,
     capabilityGrantRef: input.input.capabilityGrant.grantRef,
     capabilityGrantDigest: input.input.capabilityGrant.grantDigest,
   });
@@ -281,6 +292,13 @@ export function projectCCallCompletion(
       },
     );
   }
+  if (admitted.disposition === "gap_stop") {
+    return projectExecutableTraversalCompletion(
+      "gap_stop", admitted.transition.replayState, admitted.transition.successorPrefix,
+      { cCallRef: cCall.cCallRef, resultRef: result.resultRef,
+        judgmentRef: judgment.judgmentRef, resultValue: result.value },
+    );
+  }
   if (admitted.disposition === "advanced") {
     if (target === null) {
       return projectExecutableTraversalCompletion(
@@ -298,16 +316,18 @@ export function projectCCallCompletion(
       );
     }
     const { runtimePrefix, authorityPrefix } =
-      Abg.projectRuntimeTruthAtDurablePrefix(
+      Abg.projectRuntimePrefixesAtDurablePrefix(
         admitted.transition.successorPrefix,
         source.runId,
       );
+    const route = admitted.transition.route;
+    const continuationKind = route.routeKind === "re_enter" ? "re_enter" : "advance";
     const nextCursor = applyAdmittedRoute(
       runtimePrefix,
       source,
       target,
-      "advance",
-      admitted.transition.route,
+      continuationKind,
+      route,
       authorityPrefix,
     );
     if (nextCursor.kind === "traversal_refusal") {
@@ -333,9 +353,13 @@ export function projectCCallCompletion(
         resultRef: result.resultRef,
         judgmentRef: judgment.judgmentRef,
         nextCursor,
-        resultValue: admitted.transition.route.boundInput?.value ?? result.value,
-        continuationKind: "advance",
-        nextInputContractRef: admitted.transition.route.boundInput?.contractRef ?? cCall.outputContractRef,
+        resultValue: continuationKind === "re_enter"
+          ? route.graphSpanReentryProjection!.targetInput
+          : route.boundInput?.value ?? result.value,
+        continuationKind,
+        nextInputContractRef: continuationKind === "re_enter"
+          ? admitted.reentryInputContractRef!
+          : route.boundInput?.contractRef ?? cCall.outputContractRef,
       },
     );
   }
@@ -415,7 +439,7 @@ export function evaluateExecutableCCall(
       : null;
     const lifecycleRef = input.programPublication === undefined ? undefined : semanticLifecycleRefForProgram(input.programPublication, input.program);
     const lifecyclePublication = lifecycleRef === undefined ? null : input.leafPort.semanticPublicationByDeclarationRef?.(lifecycleRef) ?? null;
-    const semanticSourcePublication = lifecyclePublication === null ? null : input.leafPort.sourcePublicationByDeclarationRef?.(lifecyclePublication.semanticLifecycle!.sourceDeclarationRef) ?? null;
+    const semanticSourcePublication = lifecyclePublication === null ? null : lifecyclePublication.semanticJobLifecycle !== undefined ? lifecyclePublication : input.leafPort.sourcePublicationByDeclarationRef?.(lifecyclePublication.semanticLifecycle!.sourceDeclarationRef) ?? null;
     const semanticStageBasis = SEMANTIC_IMPLEMENTATION_REFS.includes(resolution.implementationRef) && input.programPublication !== undefined && lifecyclePublication !== null && semanticSourcePublication !== null
       ? Abg.constructSemanticStageNativeBasis({ publication: input.programPublication,
           lifecyclePublication,
@@ -429,7 +453,23 @@ export function evaluateExecutableCCall(
     const worksiteCommandForwardBasis = ([forwardIds.prepareImplementationRef,forwardIds.implementationRef] as readonly string[]).includes(resolution.implementationRef) && input.programPublication !== undefined
       ? Abg.constructWorksiteCommandForwardNativeBasis({publication:input.programPublication,graph:input.graph,graphFunction:input.graphFunction,
           executionBasis:input.executionBasis,cCall:opened.cCall,cursor:input.stop.cursor,predecessorPrefix:opened.successorPrefix}) : null;
+    const selectedContextFamily = input.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term))
+      .filter(leaf => leaf.programLocusRef === opened.cCall.programLocusRef)
+      .map(leaf => nativeContextLeafFamily(input.graphFunction, leaf));
+    const worksiteAssemblyRequired = input.programPublication !== undefined &&
+      (resolution.implementationRef === nativeIds.implementationRef ||
+        runEnvironmentForProgram(input.programPublication, input.program) !== null &&
+        selectedContextFamily.length === 1 && ["constructor", "command_executor"].includes(selectedContextFamily[0] ?? ""));
+    const nativeInstructionAssemblyBasis = worksiteAssemblyRequired && input.programPublication !== undefined
+      ? Abg.constructNativeInstructionAssemblyBasis({ publication: input.programPublication, graph: input.graph,
+          graphFunction: input.graphFunction, declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [],
+          executionBasis: input.executionBasis, cCall: opened.cCall, cursor: input.stop.cursor,
+          predecessorPrefix: opened.successorPrefix }) : null;
+    if (worksiteAssemblyRequired && nativeInstructionAssemblyBasis === null) return failCCall(input,
+      opened.successorPrefix, `leaf-assembly-${input.ordinal}`,
+      "diagnostic://abiogenesis/instruction-assembly/stale-worksite-basis@5", input.stop as unknown as JsonValue);
     const occurrence = Object.freeze({
+      ...(nativeInstructionAssemblyBasis === null ? {} : { nativeInstructionAssemblyBasis }),
       ...(worksiteCommandForwardBasis === null ? {} : {worksiteCommandForwardBasis}),
       ...(worksitePreservedResultBasis === null ? {} : { worksitePreservedResultBasis }),
       ...(semanticStageBasis === null ? {} : { semanticStageBasis }),
@@ -470,7 +510,7 @@ export function evaluateExecutableCCall(
     let outcomePredecessor = opened.successorPrefix;
     if (invocation.kind === "prepared_probabilistic_leaf_owner_invocation") {
       const effectResult = yield* Effect.promise(() =>
-        Abg.invokeActorProcess({
+        invocation.invokeActorProcess({
           store: input.store,
           predecessorPrefix: opened.successorPrefix,
           executionBasis: input.executionBasis,
@@ -479,6 +519,7 @@ export function evaluateExecutableCCall(
           expectedInputDigest: input.stop.cursor.inputDigest,
           occurrence,
           workerContracts: invocation.workerContracts,
+          rawResultOwner: { port: input.leafPort, resolution, input: input.input },
           runtime: input.actorRuntimeBinding,
           request: invocation.workerRequest,
           dispatchOrdinal: 1,
@@ -586,6 +627,7 @@ export function evaluateExecutableCCall(
             result: resultOutcome.result,
             replayState: resultOutcome.replayState,
             contractRef: resultOutcome.cCall.judgmentContractRef,
+            currentOwnerPrefix: resultOutcome.successorPrefix,
             decision: completedOwner.candidate.disposition === "success"
               ? { decisionClass: "evaluate", input: input.input, relation }
               : {
@@ -613,11 +655,18 @@ export function evaluateExecutableCCall(
         outputContractRef: input.stop.outputContractRef,
       };
     }
+    const selectedTarget = input.deferToApplication === true ? undefined
+      : Routes.deriveSelectedCCallOutcomeTarget(input.graph, input.stop.cursor, admitted);
+    if (selectedTarget?.kind === "traversal_route_proposal_refusal") {
+      return failCCall(input, admitted.successorPrefix, `leaf-continuation-${input.ordinal}`,
+        `diagnostic://abiogenesis/hog/${selectedTarget.code}@5`, selectedTarget as unknown as JsonValue);
+    }
     let retained: ReturnType<typeof Abg.deriveRetainedCCallInputAtPrefix> = null;
     if (admitted.disposition === "judged" && admitted.admitted.result.resultClass === "success" &&
-      admitted.admitted.judgment.judgment === "advance" && input.deferToApplication !== true) {
+      admitted.admitted.judgment.judgment === "advance" && input.deferToApplication !== true &&
+      selectedTarget === undefined) {
       try {
-        const truth = Abg.projectRuntimeTruthAtDurablePrefix(admitted.successorPrefix, input.stop.cursor.runId);
+        const truth = Abg.projectRuntimePrefixesAtDurablePrefix(admitted.successorPrefix, input.stop.cursor.runId);
         retained = Abg.deriveRetainedCCallInputAtPrefix(truth.authorityPrefix, input.executionBasis,
           input.graph, input.stop.cursor, admitted.admitted.cCall, admitted.admitted.result, admitted.admitted.judgment);
       } catch {
@@ -625,12 +674,12 @@ export function evaluateExecutableCCall(
           "diagnostic://abiogenesis/hog/retention-binding-invalid@5", { stage: "retention" });
       }
     }
-    let target: TraversalCursor | null = null;
+    let target: TraversalCursor | null = selectedTarget ?? null;
     if (
       admitted.disposition === "judged" &&
       admitted.admitted.result.resultClass === "success" &&
       admitted.admitted.judgment.judgment === "advance" &&
-      input.deferToApplication !== true
+      input.deferToApplication !== true && selectedTarget === undefined
     ) {
       const derived = deriveCompletedTraversalCursor(
         input.graph,
@@ -656,8 +705,14 @@ export function evaluateExecutableCCall(
       admitted.admitted.result.resultClass === "success" &&
       admitted.admitted.judgment.judgment === "advance";
     const retryProgressBasis = admissionBasis(input.clock, "retry-progress");
+    // Selected nonordinary targets are not ordinary successful continuations.
+    // Only actual unchanged rooted retry topology makes progress inapplicable;
+    // all other cases retain the existing planner and its exact refusal/guards.
+    const noSelectedRetryExit = selectedTarget !== undefined &&
+      hasNoCompletedRetryExit(input.graph, input.stop.cursor, target);
     const retryExit = admitted.disposition === "judged" &&
         !applicationReady &&
+        !noSelectedRetryExit &&
         admitted.admitted.result.resultClass === "success" &&
         admitted.admitted.judgment.judgment === "advance"
       ? planSuccessfulRetryExit({

@@ -1,0 +1,14 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/commands.json
+/compile.log
+/construct.log
+/exact-equality.json
+/focused.json
+/focused.log
+/node-compile-cache/v24.7.0-arm64-ef5a0af0-501/33bbeb55
+/repaired-closures.json
+/repaired-measurement.json
+/repaired.cpuprofile
+/repaired.log

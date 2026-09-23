@@ -1,0 +1,9 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/code/src/gtl/index.ts
+/code/src/implementation/contracts.ts
+/code/src/implementation/leaf_invocation_port.ts
+/code/src/product/public_contract_publication.ts
+/code/src/validator/index.ts
+/scripts/generate-product-manifest.mjs

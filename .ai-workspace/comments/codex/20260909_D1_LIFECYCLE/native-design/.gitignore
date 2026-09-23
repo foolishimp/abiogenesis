@@ -1,0 +1,17 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/execution.md
+/frozen/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/acceptance.md
+/frozen/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-design/activation.md
+/frozen/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-design/execution.md
+/frozen/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/frozen/build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md
+/frozen/specification/GOALS.md
+/inputs.json
+/manifest.json
+/preimages.json
+/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/preimages/specification/GOALS.md
+/tracking.patch

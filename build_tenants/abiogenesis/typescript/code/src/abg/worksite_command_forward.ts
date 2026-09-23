@@ -13,9 +13,9 @@ import type { WorkspaceBinding } from "../product/environment.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { readRuntimeEventsAtDurablePrefix, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
+import { authenticateRuntimePrefixAncestry, readRuntimeEventsAtDurablePrefix, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
 import { runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
-import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
+import { hasExactInvocationRunBindingAtPrefix, projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { projectExactPrefixWorkspaceEnvironment, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
 import { projectOpenedCCallCarrierAtPrefix, projectAdmittedCCallStateAtPrefix, projectCCallCarrierPhaseAtPrefix, type CCall } from "./c_call.js";
 import { projectClosedGraphCallTerminalAtDurablePrefix } from "./project_read_ports.js";
@@ -24,6 +24,7 @@ import { projectClosedConstructionRetainedVector, retainedWorksitePhysicalMatche
 import { rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";
 import { replayValidatedRuntimeEventPrefix } from "./replay.js";
+import { constructRunActiveFluent, runtimeFluentKey } from "./event_calculus.js";
 
 const same=(a:unknown,b:unknown)=>canonicalJson(a as JsonValue)===canonicalJson(b as JsonValue);
 const hash=(a:unknown)=>sha256Canonical(a as JsonValue);
@@ -121,6 +122,39 @@ export function projectWorksiteCommandForwardSource(request:WorksiteCommandForwa
   }catch{return null;}
 }
 
+/** A failed successor does not reserve the original obligation forever. This
+ * proof only removes consumption; it never selects or admits another attempt. */
+function isFailedUndispatchedForwardSuccessor(prefix:ValidatedRuntimeEventPrefix,
+  invocation:NonNullable<ReturnType<typeof projectExactInvocationAdmissionAtPrefix>>,basis:ExecutionBasis):boolean {
+  try{
+    const events=runtimeEventsFromValidatedPrefix(prefix);
+    if(basis.basisClass!=="root"||basis.invocationAdmissionRef!==invocation.invocationAdmissionRef||
+      basis.invocationRef!==invocation.invocationRef||basis.graphFunctionRef!==F.graphFunctionRef)return false;
+    const runOpen=one(events,e=>e.kind==="run_segment_opened"&&(e.basisId===basis.basisRef||
+      (record(e.payload)&&e.payload.invocationAdmissionRef===invocation.invocationAdmissionRef)));
+    if(runOpen?.runId===undefined||runOpen.basisId!==basis.basisRef||!record(runOpen.payload)||
+      runOpen.payload.executionBasisRef!==basis.basisRef||runOpen.payload.executionBasisDigest!==basis.basisDigest||
+      !hasExactInvocationRunBindingAtPrefix(prefix,invocation,runOpen.runId))return false;
+    const runPrefix=selectValidatedRuntimeEventPrefix(events,{runId:runOpen.runId});
+    const runEvents=runtimeEventsFromValidatedPrefix(runPrefix),replayed=replayValidatedRuntimeEventPrefix(runPrefix,prefix);
+    const terminal=one(runEvents,e=>e.runId===runOpen.runId&&
+      (e.kind==="runtime_failure_observed"||e.kind==="run_stopped"||e.kind==="run_closed"));
+    if(replayed.runId!==runOpen.runId||replayed.runtimeStatus!=="failed"||replayed.runClosedEventRef!==null||
+      replayed.activeFluents.includes(runtimeFluentKey(constructRunActiveFluent(runOpen.runId)))||
+      terminal===null||terminal.aggregateType!=="run"||terminal.aggregateId!==runOpen.runId||
+      terminal.admissionOrdinal<=runOpen.admissionOrdinal||
+      (terminal.eventId!==replayed.runtimeFailureEventRef&&terminal.eventId!==replayed.runStoppedEventRef))return false;
+    // Native Run membership also catches an orphaned/ambiguous dispatch; the
+    // CCall owner preserves parent/child transport and evidence lineage.
+    if(runEvents.some(e=>e.runId===runOpen.runId&&
+      (e.kind==="actor_invocation_started"||e.kind==="actor_transport_binding_admitted")))return false;
+    return !replayed.cCalls.some(call=>hasWorksiteCommandForwardDispatchAtPrefix(prefix,call.cCallRef)||
+      isWorksiteCommandForwardObservation(call.resultValue)||
+      (call.resultClass==="success"&&runEvents.some(e=>e.kind==="c_call_fibre_selected"&&
+        e.aggregateId===call.cCallRef&&record(e.payload)&&e.payload.regime==="F_P")));
+  }catch{return false;}
+}
+
 /** Current-prefix consumption; coordinates in another invocation are never aliases of this one. */
 export function worksiteCommandForwardUnconsumed(prefix:ValidatedRuntimeEventPrefix,request:WorksiteCommandForwardRequest,
   currentInvocationRef:string|null):boolean {
@@ -129,7 +163,9 @@ export function worksiteCommandForwardUnconsumed(prefix:ValidatedRuntimeEventPre
     if(e.kind!=="invocation_admitted"||!record(e.payload)||typeof e.payload.invocationAdmissionRef!=="string"||
       e.payload.invocationAdmissionRef===currentInvocationRef)return false;
     const invocation=projectExactInvocationAdmissionAtPrefix(prefix,e.payload.invocationAdmissionRef);
-    if(invocation===null||invocation.graphFunctionRef!==F.graphFunctionRef)return false;
+    if(invocation===null)return e.payload.graphFunctionRef===F.graphFunctionRef&&
+      e.payload.workspaceId===request.workspaceBinding.workspaceId;
+    if(invocation.graphFunctionRef!==F.graphFunctionRef)return false;
     const basisEvent=one(events,row=>row.kind==="basis_admitted"&&record(row.payload)&&row.payload.basisClass==="root"&&row.payload.invocationAdmissionRef===invocation.invocationAdmissionRef);
     const basis=basisEvent!==null&&record(basisEvent.payload)&&typeof basisEvent.payload.basisRef==="string"
       ?projectExactExecutionBasisAtPrefix(prefix,basisEvent.payload.basisRef):null;
@@ -137,8 +173,10 @@ export function worksiteCommandForwardUnconsumed(prefix:ValidatedRuntimeEventPre
     // available obligation. Do not guess its source from a digest.
     if(basis===null)return invocation.workspaceId===request.workspaceBinding.workspaceId;
     const raw=basis.rawInputValue;
-    return isWorksiteCommandForwardRequest(raw)&&raw.source.failedCCallRef===request.source.failedCCallRef&&
-      raw.source.invocationAdmissionRef===request.source.invocationAdmissionRef;
+    if(!isWorksiteCommandForwardRequest(raw))return invocation.workspaceId===request.workspaceBinding.workspaceId;
+    return raw.source.failedCCallRef===request.source.failedCCallRef&&
+      raw.source.invocationAdmissionRef===request.source.invocationAdmissionRef&&
+      !isFailedUndispatchedForwardSuccessor(prefix,invocation,basis);
   });
 }
 /** Reused at entry, F_D result, child/leaf and observation admission. */
@@ -146,8 +184,7 @@ export function projectWorksiteCommandForwardRelation(current:DurablePrefixCoord
   currentInvocationRef:string|null=null,physical=false) {
   try{
     const events=readRuntimeEventsAtDurablePrefix(current),prefix=selectValidatedRuntimeEventPrefix(events),s=request.source;
-    if(!isWorksiteCommandForwardRequest(request)||s.prefix.eventLogRef!==current.eventLogRef||
-      !same(s.prefix.storeIdentity,current.storeIdentity)||s.prefix.prefixLength>current.prefixLength||
+    if(!isWorksiteCommandForwardRequest(request)||!authenticateRuntimePrefixAncestry(s.prefix,current)||
       !worksiteCommandForwardUnconsumed(prefix,request,currentInvocationRef))return null;
     const source=projectWorksiteCommandForwardSource(request);
     if(source===null||!source.events.every((e,i)=>same(e,events[i])))return null;

@@ -1,0 +1,12 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/20260916T023900_REVIEW_exact_prefix_reuse.md
+/checks.json
+/focused-01/bytes-nUQvuK/events.jsonl
+/focused-01/reuse-fBMSxU/empty-0.jsonl
+/focused-01/reuse-fBMSxU/empty-1.jsonl
+/focused-01/reuse-fBMSxU/empty-2.jsonl
+/focused-01/reuse-fBMSxU/empty-3.jsonl
+/focused-01/reuse-fBMSxU/original-empty
+/freeze.json

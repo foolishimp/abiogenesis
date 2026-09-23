@@ -1,3 +1,4 @@
+import { isRecord, hasNulJoinedKeys as hasExactKeys, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
 import { WORKSITE_CONSTRUCTION_IDS } from "./worksite_construction_identity.js";
 export { WORKSITE_CONSTRUCTION_IDS, WORKSITE_CONSTRUCTION_RESULT_CONTRACT } from "./worksite_construction_identity.js";
 import { isAbsolute } from "node:path";
@@ -41,7 +42,6 @@ import {
 } from "./worksite_effect.js";
 
 const SCHEMA_VERSION = "5.0.0" as const;
-
 
 export interface WorksiteConstructionTarget {
   readonly kind: "worksite_construction_target";
@@ -189,24 +189,6 @@ export interface WorksiteConstructionVectorApplicationFailure {
   readonly schemaVersion: "5.0.0";
   readonly failureClass: string;
   readonly diagnosticRef: string;
-}
-
-function isRecord(
-  value: unknown,
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
-
-function nonEmptyString(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0 &&
-    !value.includes("\0");
 }
 
 function identity(prefix: string, digest: Sha256Digest): string {

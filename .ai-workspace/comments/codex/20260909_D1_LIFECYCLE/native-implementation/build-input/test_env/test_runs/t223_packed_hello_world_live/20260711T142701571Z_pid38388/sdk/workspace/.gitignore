@@ -1,0 +1,36 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/.abiogenesis/toolchain-binding.json
+/.abiogenesis/workspace-manifest.json
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/completion.json
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/instruction-manifest.json
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/launch.json
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/output.txt
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/prompt.txt
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/request.json
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/stderr.log
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/stdout.log
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/trace/command.json
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/trace/events.ndjson
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/trace/final_output.txt
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/trace/meta.json
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/trace/result.json
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/trace/stdout.raw
+/.ai-workspace/archives/by-c-call/2931bc7c4cc77826a43bedfd0d80961e4c795b45da23810d4e1c52ce2cdf2495/transport.json
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/completion.json
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/instruction-manifest.json
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/launch.json
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/output.txt
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/prompt.txt
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/request.json
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/stderr.log
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/stdout.log
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/trace/command.json
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/trace/events.ndjson
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/trace/final_output.txt
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/trace/meta.json
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/trace/result.json
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/trace/stdout.raw
+/.ai-workspace/archives/by-c-call/5d139cac8d100b593f3c42fabe97d407fe54d1c3d16a687704c612ff306c8f4d/transport.json
+/.ai-workspace/events/events.jsonl

@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { appendFileSync } from "node:fs";
 import { mkdir, readFile, realpath, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
@@ -9,6 +10,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import type { RuntimeLivenessObserverProjection } from "./runtime_liveness_contracts.js";
 import {
   classifyWorkerTransportFailure,
   composeWorkerTransportArgs,
@@ -16,6 +18,7 @@ import {
   type TransportCapabilityLane,
   type WorkerTransportContract,
   type WorkerTransportFailureClass,
+  type NativeWorkerResultAssessment,
 } from "./transport_contracts.js";
 
 export type { WorkerTransportFailureClass } from "./transport_contracts.js";
@@ -39,12 +42,22 @@ export interface WorkerTransportRequest {
   readonly absoluteTimeoutMs?: number;
   readonly terminationGraceMs?: number;
   readonly responseJsonSchema?: unknown;
+  readonly responsePresentation?: "result_text";
   readonly environment?: Readonly<Record<string, string | undefined>>;
   readonly explicitAppendArgs?: readonly string[];
   readonly observer?: WorkerProcessObserver;
 }
 
 export interface WorkerProcessObserver {
+  readonly assessNativeResultArtifact?: (output: string) => NativeWorkerResultAssessment;
+  /** Only the existing native owner supplies this callback. A wakeup is raw;
+   * containment requires the returned already-admitted threshold identity. */
+  readonly onNativeSupervisionWakeup?: () => Readonly<{
+    projection: RuntimeLivenessObserverProjection;
+    admittedThresholdEventRef: string | null;
+    timeoutClass: WorkerTransportTimeoutClass | null;
+    nextWakeDelayMs: number;
+  }>;
   readonly onProcessStarted?: (pid: number) => void;
   readonly onStdoutObserved?: (chunk: string) => boolean;
   readonly onStderrObserved?: (chunk: string) => boolean;
@@ -61,6 +74,7 @@ export interface WorkerProcessObserver {
 }
 
 export interface WorkerTransportResult {
+  readonly nativeResultAssessment?: NativeWorkerResultAssessment;
   readonly kind: "worker_transport_result_candidate";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "failure" | "success";
@@ -235,57 +249,88 @@ function countToolUses(
   );
 }
 
-function observeStructuredOutput(
-  stdout: string,
-  structuredOutputExpected: boolean,
-): StructuredObservation {
-  const values: unknown[] = [];
-  for (const line of stdout.split(/\r?\n/u)) {
-    if (line.trim().length === 0) continue;
-    try {
-      values.push(JSON.parse(line));
-    } catch {
-      continue;
-    }
-  }
+/** One incremental decoder for complete protocol rows. Partial message events
+ * expose received bytes, not unobservable model progress or tool execution. */
+export function createWorkerTransportOutputObserver(structuredOutputExpected: boolean) {
+  let pending = "";
+  let structuredEventCount = 0;
   let finalOutput = "";
   let progressEventCount = 0;
   let rawToolCallCount = 0;
   const rawToolInvocations: WorkerToolInvocationEvidence[] = [];
   let apiRetryCount = 0;
-  for (const value of values) {
-    if (typeof value !== "object" || value === null || Array.isArray(value)) continue;
+  const observeLine = (line: string): void => {
+    if (line.trim().length === 0) return;
+    let value: unknown;
+    try { value = JSON.parse(line); } catch { return; }
+    structuredEventCount += 1;
+    if (typeof value !== "object" || value === null || Array.isArray(value)) return;
     const record = value as Readonly<Record<string, unknown>>;
-    if (record.type !== "result") progressEventCount += 1;
-    rawToolCallCount += countToolUses(record, structuredOutputExpected);
-    collectToolUses(record, structuredOutputExpected, rawToolInvocations);
-    if (record.type === "api_retry") apiRetryCount += 1;
+    const retry = record.type === "api_retry" ||
+      record.type === "system" && record.subtype === "api_retry";
+    if (retry) { apiRetryCount += 1; return; }
+    const streamEvent = record.type === "stream_event" && typeof record.event === "object" && record.event !== null
+      ? record.event as Readonly<Record<string, unknown>> : null;
+    const reportedThinking = record.type === "system" && record.subtype === "thinking_tokens" &&
+      typeof record.estimated_tokens_delta === "number" && record.estimated_tokens_delta > 0;
+    if (record.type === "assistant" || record.type === "user" || record.type === "tool_progress" || reportedThinking ||
+        streamEvent !== null && ["message_start", "content_block_start", "content_block_delta",
+          "content_block_stop", "message_delta", "message_stop"].includes(String(streamEvent.type))) progressEventCount += 1;
+    // Partial tool blocks contain an unfinished input and repeat the complete
+    // assistant tool_use. Only the complete message supplies effect evidence.
+    if (record.type !== "stream_event") {
+      rawToolCallCount += countToolUses(record, structuredOutputExpected);
+      collectToolUses(record, structuredOutputExpected, rawToolInvocations);
+    }
     if (record.type === "result" && typeof record.result === "string") {
       finalOutput = record.result;
     }
-  }
-  const toolInvocations: WorkerToolInvocationEvidence[] = [];
-  let conflictingToolUseRef = false;
-  for (const row of rawToolInvocations) {
-    const prior = toolInvocations.find((candidate) => candidate.toolUseRef === row.toolUseRef);
-    if (prior === undefined) {
-      toolInvocations.push(deepFreeze({ ...row, ordinal: toolInvocations.length }));
-    } else if (prior.toolName !== row.toolName || prior.inputDigest !== row.inputDigest ||
-      prior.inputByteLength !== row.inputByteLength) {
-      conflictingToolUseRef = true;
-    }
-  }
-  const unevidencedToolUse = rawToolCallCount > rawToolInvocations.length;
-  return {
-    structuredEventCount: values.length,
-    progressEventCount,
-    toolCallCount: conflictingToolUseRef || unevidencedToolUse
-      ? toolInvocations.length + 1
-      : toolInvocations.length,
-    toolInvocations: deepFreeze(toolInvocations),
-    apiRetryCount,
-    finalOutput,
   };
+  const snapshot = (): StructuredObservation => {
+    const toolInvocations: WorkerToolInvocationEvidence[] = [];
+    let conflictingToolUseRef = false;
+    for (const row of rawToolInvocations) {
+      const prior = toolInvocations.find((candidate) => candidate.toolUseRef === row.toolUseRef);
+      if (prior === undefined) {
+        toolInvocations.push(deepFreeze({ ...row, ordinal: toolInvocations.length }));
+      } else if (prior.toolName !== row.toolName || prior.inputDigest !== row.inputDigest ||
+        prior.inputByteLength !== row.inputByteLength) {
+        conflictingToolUseRef = true;
+      }
+    }
+    const unevidencedToolUse = rawToolCallCount > rawToolInvocations.length;
+    return {
+      structuredEventCount,
+      progressEventCount,
+      toolCallCount: conflictingToolUseRef || unevidencedToolUse
+        ? toolInvocations.length + 1
+        : toolInvocations.length,
+      toolInvocations: deepFreeze(toolInvocations),
+      apiRetryCount,
+      finalOutput,
+    };
+  };
+  return {
+    observe(chunk: string): StructuredObservation {
+      pending += chunk;
+      let newline: number;
+      while ((newline = pending.indexOf("\n")) !== -1) {
+        observeLine(pending.slice(0, newline));
+        pending = pending.slice(newline + 1);
+      }
+      return snapshot();
+    },
+    finish(): StructuredObservation {
+      observeLine(pending); pending = "";
+      return snapshot();
+    },
+  };
+}
+
+function observeStructuredOutput(stdout: string, structuredOutputExpected: boolean): StructuredObservation {
+  const observer = createWorkerTransportOutputObserver(structuredOutputExpected);
+  observer.observe(stdout);
+  return observer.finish();
 }
 
 function runProcess(input: {
@@ -297,6 +342,8 @@ function runProcess(input: {
   readonly timeoutMs: number;
   readonly absoluteTimeoutMs: number;
   readonly terminationGraceMs: number;
+  readonly stdoutPath: string;
+  readonly stderrPath: string;
   readonly observer?: WorkerProcessObserver;
 }): Promise<ProcessObservation> {
   return new Promise((resolveProcess, rejectProcess) => {
@@ -431,11 +478,31 @@ function runProcess(input: {
       observedTimeoutClass: WorkerTransportTimeoutClass,
     ): void => {
       if (settled || timedOut) return;
+      if (input.observer?.onNativeSupervisionWakeup !== undefined) {
+        let decision: ReturnType<NonNullable<WorkerProcessObserver["onNativeSupervisionWakeup"]>> | null = null;
+        if (!notifyObserver(() => { decision = input.observer!.onNativeSupervisionWakeup!(); })) return;
+        const selected = decision as ReturnType<NonNullable<WorkerProcessObserver["onNativeSupervisionWakeup"]>> | null;
+        if (selected === null || !Number.isFinite(selected.nextWakeDelayMs) || selected.nextWakeDelayMs <= 0) {
+          beginObserverFailure(new TypeError("native supervision returned no finite declared wakeup")); return;
+        }
+        if (selected.projection.disposition.disposition !== "controlled_terminate") {
+          if (selected.admittedThresholdEventRef !== null || selected.timeoutClass !== null) {
+            beginObserverFailure(new TypeError("non-consequential native wakeup claimed a threshold")); return;
+          }
+          if (inactivityTimer !== null) clearTimeout(inactivityTimer);
+          inactivityTimer = setTimeout(() => beginTimeout("inactivity"), selected.nextWakeDelayMs);
+          return;
+        }
+        if (selected.admittedThresholdEventRef === null || selected.timeoutClass === null) {
+          beginObserverFailure(new TypeError("native containment lacks its admitted threshold")); return;
+        }
+        observedTimeoutClass = selected.timeoutClass;
+      }
       timedOut = true;
       timeoutClass = observedTimeoutClass;
       clearLeaseTimers();
       snapshotResultBearingStdout();
-      if (!notifyObserver(() =>
+      if (input.observer?.onNativeSupervisionWakeup === undefined && !notifyObserver(() =>
         input.observer?.onTimeoutObserved?.(observedTimeoutClass)
       )) return;
       if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGTERM"))) return;
@@ -477,6 +544,8 @@ function runProcess(input: {
     child.stderr.setEncoding("utf8");
     child.stdout.on("data", (chunk: string) => {
       if (settled) return;
+      try { appendFileSync(input.stdoutPath, chunk, "utf8"); }
+      catch (error) { beginObserverFailure(error); return; }
       stdout += chunk;
       if (notifyProgressObserver(
         input.observer?.onStdoutObserved === undefined
@@ -488,6 +557,8 @@ function runProcess(input: {
     });
     child.stderr.on("data", (chunk: string) => {
       if (settled) return;
+      try { appendFileSync(input.stderrPath, chunk, "utf8"); }
+      catch (error) { beginObserverFailure(error); return; }
       stderr += chunk;
       if (notifyProgressObserver(
         input.observer?.onStderrObserved === undefined
@@ -559,6 +630,14 @@ function runProcess(input: {
   });
 }
 
+/** Pure existing protocol parser, shared by the native artifact observer. */
+export function observeWorkerTransportOutput(parser: WorkerTransportContract["parser"], stdout: string, structuredRequested: boolean) {
+  return parser === "claude_stream_json" ? observeStructuredOutput(stdout, structuredRequested) : {
+    structuredEventCount: 0, progressEventCount: stdout.length > 0 ? 1 : 0,
+    toolCallCount: 0, toolInvocations: [] as readonly WorkerToolInvocationEvidence[], apiRetryCount: 0, finalOutput: stdout,
+  };
+}
+
 async function executeWorkerTransport(
   input: WorkerTransportRequest,
 ): Promise<WorkerTransportResult> {
@@ -593,10 +672,17 @@ async function executeWorkerTransport(
     ...(input.responseJsonSchema === undefined
       ? {}
       : { responseJsonSchema: input.responseJsonSchema }),
+    ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
     ...(input.explicitAppendArgs === undefined
       ? {}
       : { explicitAppendArgs: input.explicitAppendArgs }),
   });
+  // Establish the archive before a paid process can emit bytes. Refuse reuse
+  // of an existing attempt archive instead of truncating retained evidence.
+  const promptBytes = Buffer.from(input.prompt, "utf8");
+  await writeFile(paths.prompt, promptBytes, { flag: "wx" });
+  await writeFile(paths.stdout, "", { flag: "wx" });
+  await writeFile(paths.stderr, "", { flag: "wx" });
   const processObservation = await runProcess({
     command: input.contract.command,
     args,
@@ -606,12 +692,14 @@ async function executeWorkerTransport(
     timeoutMs: input.timeoutMs,
     absoluteTimeoutMs,
     terminationGraceMs,
+    stdoutPath: paths.stdout,
+    stderrPath: paths.stderr,
     ...(input.observer === undefined ? {} : { observer: input.observer }),
   });
   const observation = input.contract.parser === "claude_stream_json"
     ? observeStructuredOutput(
         processObservation.resultBearingStdout,
-        input.responseJsonSchema !== undefined,
+        input.contract.agentKey === "claude" && args.includes("--json-schema"),
       )
     : {
       structuredEventCount: 0,
@@ -622,7 +710,22 @@ async function executeWorkerTransport(
       apiRetryCount: 0,
       finalOutput: processObservation.resultBearingStdout,
     };
-  const finalOutput = observation.finalOutput;
+  let finalOutput = observation.finalOutput;
+  let nativeResultAssessment: NativeWorkerResultAssessment | undefined;
+  if (input.observer?.assessNativeResultArtifact !== undefined) {
+    let fileOutput: string | null = null;
+    try { fileOutput = (await readFile(paths.output)).toString("utf8"); }
+    catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
+    if (fileOutput !== null && fileOutput.trim().length > 0) {
+      if (finalOutput.trim().length === 0) finalOutput = fileOutput;
+      else {
+        let sameOutput = fileOutput === finalOutput;
+        try { sameOutput ||= canonicalJson(JSON.parse(fileOutput)) === canonicalJson(JSON.parse(finalOutput)); } catch { /* no parser repair */ }
+        if (!sameOutput) throw new TypeError("distinct worker output channels disagree; no first/last result selection");
+      }
+    }
+    nativeResultAssessment = input.observer.assessNativeResultArtifact(finalOutput);
+  }
   const failureClass = classifyWorkerTransportFailure({
     parser: input.contract.parser,
     lane: input.lane,
@@ -634,18 +737,18 @@ async function executeWorkerTransport(
     toolCallCount: observation.toolCallCount,
     apiRetryCount: observation.apiRetryCount,
     finalOutput,
+    ...(nativeResultAssessment === undefined ? {} : { nativeResultDisposition: nativeResultAssessment.disposition }),
   });
-  const promptBytes = Buffer.from(input.prompt, "utf8");
   const outputBytes = Buffer.from(finalOutput, "utf8");
   const stdoutBytes = Buffer.from(processObservation.stdout, "utf8");
   const stderrBytes = Buffer.from(processObservation.stderr, "utf8");
-  await Promise.all([
-    writeFile(paths.prompt, promptBytes),
-    writeFile(paths.output, outputBytes),
-    writeFile(paths.stdout, stdoutBytes),
-    writeFile(paths.stderr, stderrBytes),
-  ]);
+  await writeFile(paths.output, outputBytes);
+  if (sha256Bytes(await readFile(paths.stdout)) !== sha256Bytes(stdoutBytes) ||
+      sha256Bytes(await readFile(paths.stderr)) !== sha256Bytes(stderrBytes)) {
+    throw new TypeError("worker stream archive differs from observed bytes");
+  }
   const body = {
+    ...(nativeResultAssessment === undefined ? {} : { nativeResultAssessment }),
     kind: "worker_transport_result_candidate" as const,
     schemaVersion: "5.0.0" as const,
     disposition: failureClass === null ? "success" as const : "failure" as const,
@@ -773,6 +876,7 @@ export async function prepareWorkerTransport(
     ...(input.responseJsonSchema === undefined
       ? {}
       : { responseJsonSchema: input.responseJsonSchema }),
+    ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
     ...(input.explicitAppendArgs === undefined
       ? {}
       : { explicitAppendArgs: input.explicitAppendArgs }),
@@ -824,6 +928,7 @@ export async function prepareWorkerTransport(
     ...(input.responseJsonSchema === undefined
       ? {}
       : { responseJsonSchema: input.responseJsonSchema }),
+    ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
     environment: sourceEnvironment,
     ...(input.explicitAppendArgs === undefined
       ? {}

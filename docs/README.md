@@ -17,14 +17,14 @@ remain incomplete without changing the language described here.
 
 Resolve disagreement in this order:
 
-1. [`specification/PRODUCT.md`](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/PRODUCT.md)
+1. [`specification/PRODUCT.md`](../specification/PRODUCT.md)
    is the sole complete ABIogenesis 5.0 Product definition.
-2. [`specification/INTENT.md`](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/INTENT.md)
+2. [`specification/INTENT.md`](../specification/INTENT.md)
    owns direction and the stable authority split.
-3. [`specification/requirements/gtl/`](https://github.com/foolishimp/abiogenesis/tree/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/requirements/gtl)
+3. [`specification/requirements/gtl/`](../specification/requirements/gtl/)
    owns detailed GTL language law. Start with
-   [`REQ-L-GTL3-CONTRACT-LAW-API.md`](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md).
-4. [`REQ-M-GTL3-PROGRAM-TRAVERSAL.md`](https://github.com/foolishimp/abiogenesis/blob/8d7f965a3fae7d1acea6a9db298798480fd4cc2f/specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md)
+   [`REQ-L-GTL3-CONTRACT-LAW-API.md`](../specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md).
+4. [`REQ-M-GTL3-PROGRAM-TRAVERSAL.md`](../specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md)
    owns the Program, GraphFunction, workspace, HoG, and ABG mapping.
 5. Accepted design and build tenants realize that law. They do not redefine it.
 6. The files in this directory explain the law and must be repaired when they
@@ -98,5 +98,5 @@ the frozen language explanation to a transient `5.0.0-dev.*` package.
 ## Methodology
 
 - [Public methodology repository](https://github.com/foolishimp/specification_methodology)
-- [Selected STDO v2.2.2 standards](https://github.com/foolishimp/specification_methodology/tree/0519129d63de10822ae6353fa0c5ce05d56f13e9/specification/standards)
+- [Operative STDO basis and exact companion composition](../stdo_abiogenesis.json)
 - [T-283 frozen-language acceptance](https://github.com/foolishimp/abiogenesis/commit/c84d60f035004cdd7d2a99792091688a5e9aa993)

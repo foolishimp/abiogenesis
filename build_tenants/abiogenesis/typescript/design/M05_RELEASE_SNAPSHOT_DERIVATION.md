@@ -11,7 +11,7 @@ than ad hoc tarballs or dry-run-only pack evidence.
 This boundary derives from:
 
 - `specification/requirements/product/REQ-P-QUAL.md`
-- `../../../../.genesis/docs/standards/RELEASE_METHOD.md`
+- `stdo://releases/v2.5.0-rc.6/standards/RELEASE_METHOD.md`
 - `docs/ABIOGENESIS_RC_RELEASE_NOTE.md`
 - `build_tenants/abiogenesis/typescript/design/adrs/ADR-040-typescript-tenant-as-package-first-realization.md`
 - `.ai-workspace/tickets/completed/T-142-create-versioned-release-snapshot-bundle-for-package-first-abg.md`

@@ -1,3 +1,4 @@
+import { isRecord, hasNulJoinedKeys as hasExactKeys, isNonblankString as nonEmptyString } from "../shared/admission_predicates.js";
 import type {
   ComputeRegime,
   GtlProgram,
@@ -53,9 +54,9 @@ import type {
 } from "../shared/public_invocation.js";
 import type { VerifiedProductArtifact } from "./contracts.js";
 import {
-  admissionAuthorityScope,
   validateAdmissionCapabilityBasis,
   type AdmissionCapabilityGrantConstructionBasis,
+  type AdmissionCapabilityData,
   type ResolvedAdmissionAuthority,
 } from "./admission_authority.js";
 
@@ -258,21 +259,6 @@ interface PublicRequestAdmissionCoordinates {
 
 function identity(prefix: string, digest: Sha256Digest): string {
   return `${prefix}/${digest.slice("sha256:".length)}`;
-}
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
-
-function nonEmptyString(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0;
 }
 
 function uniqueStrings(value: unknown): value is readonly string[] {
@@ -902,17 +888,36 @@ async function constructAdmissionGrant(
   policy: ResolvedAdmissionAuthority, actorRef: string, capabilityRef: string,
   basis: AdmissionCapabilityGrantConstructionBasis,
 ): Promise<CapabilityGrant> {
+  const admitted = await validateAdmissionCapabilityBasis(policy, actorRef, capabilityRef, basis);
+  return admissionGrantFromBasis(actorRef, capabilityRef, basis, admitted);
+}
+
+/** One fixed definition call validates its shared basis once for all capabilities. */
+export async function constructAdmissionCapabilityGrants(
+  policy: ResolvedAdmissionAuthority, actorRef: string,
+  basis: AdmissionCapabilityGrantConstructionBasis,
+  resource: import("../abg/definition_event_resource.js").AcquiredAbgEventResource | null,
+): Promise<Readonly<{ grants: readonly CapabilityGrant[]; data: AdmissionCapabilityData }>> {
+  const capabilityRefs = basis.fixedPacket.metadata.capabilityRefs;
+  if (capabilityRefs.length === 0) throw new TypeError("admission definition requires declared capabilities");
+  const admitted = await validateAdmissionCapabilityBasis(policy, actorRef, capabilityRefs[0]!, basis, resource);
+  return { grants: capabilityRefs.map(capabilityRef => admissionGrantFromBasis(actorRef, capabilityRef, basis, admitted)), data: admitted.data };
+}
+
+function admissionGrantFromBasis(
+  actorRef: string, capabilityRef: string, basis: AdmissionCapabilityGrantConstructionBasis,
+  admitted: Awaited<ReturnType<typeof validateAdmissionCapabilityBasis>>,
+): CapabilityGrant {
   const definition = exactIntrinsicDefinition(basis);
-  if (basis.data.definition.definitionRef !== definition.definitionRef ||
-      basis.data.definition.definitionDigest !== definition.definitionDigest) {
+  const { data, authority, scope } = admitted;
+  if (data.definition.definitionRef !== definition.definitionRef ||
+      data.definition.definitionDigest !== definition.definitionDigest) {
     throw new TypeError("admission definition coordinate differs from the installed fixed packet");
   }
-  const { data, authority } = await validateAdmissionCapabilityBasis(policy, actorRef, capabilityRef, basis);
   const { graph, operationContract, row } = selectedCapabilityOwner(
     data.boundEnvironment?.productInstalls ?? [data.ownerArtifact.verified], definition, capabilityRef,
   );
   closeCapabilityDependencies(graph, capabilityRef);
-  const scope = admissionAuthorityScope(data);
   const body = {
     definitionKey: definition.definitionKey,
     definitionRef: definition.definitionRef,

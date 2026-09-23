@@ -1,0 +1,42 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/readiness-01-1.stderr
+/readiness-01-1.stdout
+/readiness-01-2.stderr
+/readiness-01-2.stdout
+/readiness-01-3.stderr
+/readiness-01-3.stdout
+/readiness-01-4.stderr
+/readiness-01-4.stdout
+/readiness-01-5.stderr
+/readiness-01-5.stdout
+/readiness-01-6.stderr
+/readiness-01-6.stdout
+/readiness-01.json
+/readiness-02-1.stderr
+/readiness-02-1.stdout
+/readiness-02-2.stderr
+/readiness-02-2.stdout
+/readiness-02-3.stderr
+/readiness-02-3.stdout
+/readiness-02-4.stderr
+/readiness-02-4.stdout
+/readiness-02-5.stderr
+/readiness-02-5.stdout
+/readiness-02-6.stderr
+/readiness-02-6.stdout
+/readiness-02.json
+/readiness-03-1.stderr
+/readiness-03-1.stdout
+/readiness-03-2.stderr
+/readiness-03-2.stdout
+/readiness-03-3.stderr
+/readiness-03-3.stdout
+/readiness-03-4.stderr
+/readiness-03-4.stdout
+/readiness-03-5.stderr
+/readiness-03-5.stdout
+/readiness-03-6.stderr
+/readiness-03-6.stdout
+/readiness-03.json

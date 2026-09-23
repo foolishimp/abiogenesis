@@ -1,0 +1,11 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/ADR-040-typescript-tenant-as-package-first-realization.md
+/ADR-041-runtime-execution-law-is-carrier-and-event-owned.md
+/ADR-042-deterministic-handling-must-not-structurally-block-governed-fp.md
+/ADR-043-runtime-advancement-uses-execution-basis-and-advancement-transition.md
+/ADR-044-prime-contraction-is-a-cross-boundary-design-gate.md
+/ADR-045-global-design-constraints-survive-local-projection.md
+/ADR-046-catalog-application-binds-concrete-values-without-runtime-events.md
+/ADR-047-reflective-optimization-is-gtl-over-replay.md

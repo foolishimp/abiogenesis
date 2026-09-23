@@ -1,0 +1,46 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/archives/fp-cfbc318c0363385e-output.txt
+/archives/fp-cfbc318c0363385e-prompt.txt
+/archives/fp-cfbc318c0363385e-stderr.log
+/archives/fp-cfbc318c0363385e-stdout.log
+/archives/fp-cfbc318c0363385e-transport.json
+/attempt-02/call-1.jsonl
+/attempt-02/call-2.jsonl
+/attempt-02/call-3.jsonl
+/attempt-02/call-4.jsonl
+/attempt-02/call-5.jsonl
+/attempt-02/call-6.jsonl
+/attempt-02/launch-1.json
+/attempt-02/launch-2.json
+/attempt-02/launch-3.json
+/attempt-02/launch-4.json
+/attempt-02/launch-5.json
+/attempt-02/launch-6.json
+/attempt-02/receipt-1.json
+/attempt-02/receipt-2.json
+/attempt-02/receipt-3.json
+/attempt-02/receipt-4.json
+/attempt-02/receipt-5.json
+/attempt-02/receipt-6.json
+/attempt-02/retained-start.json
+/attempt-02/stderr-1.log
+/attempt-02/stderr-2.log
+/attempt-02/stderr-3.log
+/attempt-02/stderr-4.log
+/attempt-02/stderr-5.log
+/attempt-02/stderr-6.log
+/attempt-02/stdout-1.json
+/attempt-02/stdout-2.json
+/attempt-02/stdout-3.json
+/attempt-02/stdout-4.json
+/attempt-02/stdout-5.json
+/attempt-02/stdout-6.json
+/first-cause.json
+/installed-0/node_modules/
+/installed-0/package-lock.json
+/installed-0/package.json
+/installed-1/node_modules/
+/installed-1/package-lock.json
+/installed-1/package.json

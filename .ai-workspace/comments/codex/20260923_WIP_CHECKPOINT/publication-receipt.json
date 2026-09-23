@@ -1,0 +1,61 @@
+{
+  "kind": "wip_checkpoint_publication_receipt",
+  "scope": "All approved authored work and lossless retained proof; reproducible install/dependency/compiler/cache exclusions remain explicit.",
+  "payloadPushes": [
+    {
+      "batch": 1,
+      "commit": "630b06548280c2f73574b890c9d9be3b36666434",
+      "previousRemote": "9eb0e92f81fea23a4bf6a2d7b74684d460e5b6be",
+      "remoteMain": "630b06548280c2f73574b890c9d9be3b36666434",
+      "payloadBytes": 940119502,
+      "push": "succeeded"
+    },
+    {
+      "batch": 2,
+      "commit": "46236e0b743a8c4e3841b86e949d1e69ca238ac8",
+      "previousRemote": "630b06548280c2f73574b890c9d9be3b36666434",
+      "remoteMain": "46236e0b743a8c4e3841b86e949d1e69ca238ac8",
+      "payloadBytes": 906428829,
+      "push": "succeeded"
+    },
+    {
+      "batch": 3,
+      "commit": "baa61b2258005ba2c0de91f204d5ac3e04c8468c",
+      "previousRemote": "46236e0b743a8c4e3841b86e949d1e69ca238ac8",
+      "remoteMain": "baa61b2258005ba2c0de91f204d5ac3e04c8468c",
+      "payloadBytes": 916636914,
+      "push": "succeeded"
+    },
+    {
+      "batch": 4,
+      "commit": "fdb2835024643c6c7198a99c33ca4515de2e737b",
+      "previousRemote": "baa61b2258005ba2c0de91f204d5ac3e04c8468c",
+      "remoteMain": "fdb2835024643c6c7198a99c33ca4515de2e737b",
+      "payloadBytes": 925551408,
+      "push": "succeeded"
+    },
+    {
+      "batch": 5,
+      "commit": "50f0d98103c55a592e5b1715a46431dee4e15bd5",
+      "previousRemote": "fdb2835024643c6c7198a99c33ca4515de2e737b",
+      "remoteMain": "50f0d98103c55a592e5b1715a46431dee4e15bd5",
+      "payloadBytes": 921825955,
+      "push": "succeeded"
+    },
+    {
+      "batch": 6,
+      "commit": "8d1b7785b0befeb21e445546d9a8efeef146a8e3",
+      "previousRemote": "50f0d98103c55a592e5b1715a46431dee4e15bd5",
+      "remoteMain": "8d1b7785b0befeb21e445546d9a8efeef146a8e3",
+      "payloadBytes": 923299858,
+      "push": "succeeded"
+    }
+  ],
+  "finalSourceCommit": "The commit containing this receipt.",
+  "finalRemoteVerification": "Performed after the final push and reported in the Executive handoff; no self-referential commit hash is invented.",
+  "acceptedSource": "958805566246bb8d1cf2331424b6a935f41b0bae118e06fb4b0fc455c30e564e",
+  "restoration": "All archived members were restored and compared with unchanged originals; verification receipts and portable reconstruction code are included.",
+  "originalRawFiles": "Remain physically present. Exact transport-backed ignore patterns suppress only captured originals and named reproducible exclusions; new authored filenames remain visible.",
+  "outcome": "WIP; prior generic Run failed before assessment. Source fixes are accepted. Installed continuation, applicable qualification and reserved human acceptance remain open.",
+  "gitEffects": "Ordinary main commits and fast-forward pushes only; no force, amend, reset, clean, tag, default or release publication."
+}

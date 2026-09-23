@@ -1,0 +1,19 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/code/src/abg/index.ts
+/code/src/gtl/index.ts
+/code/src/gtl/self_conformance.ts
+/code/src/implementation/index.ts
+/code/src/implementation/leaf_invocation_port.ts
+/code/src/validator/index.ts
+/code/src/validator/self_conformance.ts
+/code/src/validator/self_conformance_basis.ts
+/code/src/validator/self_conformance_contracts.ts
+/code/src/validator/self_conformance_publication.ts
+/code/src/validator/self_conformance_semantics.ts
+/contracts/qualification/rule-catalog.json
+/contracts/qualification/sources/REQ-P-QUAL.md
+/contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md
+/contracts/schemas/self-conformance.schema.json
+/scripts/generate-product-manifest.mjs

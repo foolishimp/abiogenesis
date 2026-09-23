@@ -1,0 +1,59 @@
+{
+  "status": "prepared; no Git mutation authorized or performed",
+  "repo": "/Users/jim/src/apps/abiogenesis",
+  "expectedPublishedBase": "9eb0e92f81fea23a4bf6a2d7b74684d460e5b6be",
+  "payloadBatchLimitBytes": 950000000,
+  "existingUnpublishedObjectBytes": 11074568,
+  "batches": [
+    {
+      "batch": 1,
+      "phase": "transport_only",
+      "pathList": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/batch-001-paths.nul",
+      "partCount": 47,
+      "payloadBytes": 940119502,
+      "pathListSha256": "537d69f1f13b4f03737bd464e4bd8272f41c83d4ccfc32e681e55dcf9e1369b3"
+    },
+    {
+      "batch": 2,
+      "phase": "transport_only",
+      "pathList": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/batch-002-paths.nul",
+      "partCount": 32,
+      "payloadBytes": 906428829,
+      "pathListSha256": "078719c40d1651dff37b523087991e4ade0f1844827cd77d2838a2ea2ca40353"
+    },
+    {
+      "batch": 3,
+      "phase": "transport_only",
+      "pathList": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/batch-003-paths.nul",
+      "partCount": 22,
+      "payloadBytes": 916636914,
+      "pathListSha256": "62dc83338dc768a213f2608a107bc8ae7e5c074f6ddc785f7fce14a1d0b4dc78"
+    },
+    {
+      "batch": 4,
+      "phase": "transport_only",
+      "pathList": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/batch-004-paths.nul",
+      "partCount": 36,
+      "payloadBytes": 925551408,
+      "pathListSha256": "ac6fb4ba71c72cc554701f0710c0b1fc9462c358660658010ee644743c7d7908"
+    },
+    {
+      "batch": 5,
+      "phase": "transport_only",
+      "pathList": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/batch-005-paths.nul",
+      "partCount": 19,
+      "payloadBytes": 921825955,
+      "pathListSha256": "37463544051b029d1be59ed7cb517fff09dec454912e66c908bab37acf8abace"
+    },
+    {
+      "batch": 6,
+      "phase": "transport_only",
+      "pathList": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/batch-006-paths.nul",
+      "partCount": 194,
+      "payloadBytes": 923299858,
+      "pathListSha256": "45f55cc741d90517d35442a5af6ec2c2d57ac7409b2dee51fdead877388cbfe7"
+    }
+  ],
+  "finalCommit": "Canonical source/tracking changes and all checkpoint metadata after Root acceptance; no force, amend, tags or release publication.",
+  "effectGrant": "Pending Root final Git grant covering all batches, both repos and remote equality."
+}

@@ -1,0 +1,28 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/bootstrap-verification.json
+/call-0-stderr.log
+/call-0-stdout.json
+/call-0.jsonl
+/call-1-stderr.log
+/call-1-stdout.json
+/call-1.jsonl
+/call-2-stderr.log
+/call-2-stdout.json
+/call-2.jsonl
+/call-3-stderr.log
+/call-3-stdout.json
+/call-3.jsonl
+/call-4-stderr.log
+/call-4-stdout.json
+/call-4.jsonl
+/catalog-publication-inputs.json
+/configuration.json
+/handoff.json
+/resources/events/runtime.events.jsonl
+/resources/installed/node_modules/
+/resources/installed/package-lock.json
+/resources/installed/package.json
+/result.json
+/worksite/.abiogenesis/workspace-manifest.json

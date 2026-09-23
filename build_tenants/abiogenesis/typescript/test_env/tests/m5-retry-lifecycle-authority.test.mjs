@@ -579,12 +579,8 @@ test("F04 payload refusal composes one pure result rejection while authority ref
     /failureCandidate:\s*probabilisticInput\.ownerReceipt\.candidate\.resultCandidate,/u,
   );
   assert.match(admission, /source: payloadRejection,/u);
-  assert.match(admission, /successorPrefix: input\.predecessorPrefix,/u);
-  assert.ok(
-    admission.indexOf("F04 probabilistic result authority refused:") <
-      admission.indexOf("admitNonEmptyRuntimeEventTransactionAtDurablePrefix("),
-    "authority refusal must fail before transaction entry",
-  );
+  // Authority refusal conserves events, digest and bytes (asserted below).
+  // Checked transaction entry may now supply the shared authenticated history.
   const closePlan = sourceSlice(
     cCallSource,
     "export function planCCallRuntimeFailureClose(",

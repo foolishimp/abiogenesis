@@ -1,0 +1,10 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md
+/specification/GOALS.md
+/specification/INTENT.md
+/specification/PRODUCT.md
+/specification/requirements/product/REQ-P-QUAL.md
+/specification/requirements/product/REQ-P-SCENARIOS.md

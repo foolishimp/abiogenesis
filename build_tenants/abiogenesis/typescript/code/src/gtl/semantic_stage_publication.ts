@@ -1,11 +1,12 @@
 import type { ContractDeclaration, ModulePublication, GraphFunction, RootModuleArtifactBasis, ImplementationBinding, ClosureContract } from "./contracts.js";
-import type { SemanticStageDeclaration } from "./semantic_stage.js";
+import { isSemanticStageDeclaration, type SemanticStageDeclaration } from "./semantic_stage.js";
 import { SEMANTIC_STAGE_IDS } from "./semantic_stage_identity.js";
 import { C, cCarrier } from "./c_algebra.js";
 import { modulePublication } from "./declarations.js";
 import { WORKSITE_PREPARATION_IDS } from "../product/worksite_preparation_contracts.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { WORKSITE_FILE_PARENTS_IDS } from "./worksite_c0.js";
 
 const ids = SEMANTIC_STAGE_IDS;
 export function semanticStageImplementationBindings(artifact: RootModuleArtifactBasis): readonly ImplementationBinding[] {
@@ -15,13 +16,17 @@ export function semanticStageImplementationBindings(artifact: RootModuleArtifact
     [ids.bridgeBindingRef, ids.bridgeImplementationRef, "realizeSemanticWorksiteBridge", "F_D", ids.envelopeContractRef, WORKSITE_PREPARATION_IDS.inputContractRef],
     [ids.evidenceInputBindingRef, ids.evidenceInputImplementationRef, "realizeSemanticEvidenceInput", "F_D", WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef, ids.envelopeContractRef],
     [ids.terminalBindingRef, ids.terminalImplementationRef, "realizeSemanticEnvelopeOutput", "F_D", ids.envelopeContractRef, ids.outputContractRef],
+    [ids.jobIntakeBindingRef, ids.jobIntakeImplementationRef, "realizeSemanticJobIntake", "F_D", ids.jobInputContractRef, ids.envelopeContractRef],
+    [ids.jobContextBindingRef, ids.jobContextImplementationRef, "realizeSemanticJobContext", "F_D", ids.envelopeContractRef, ids.envelopeContractRef],
+    [ids.jobPlanBindingRef, ids.jobPlanImplementationRef, "realizeSemanticJobPlan", "F_D", ids.envelopeContractRef, WORKSITE_FILE_PARENTS_IDS.inputContractRef],
+    [ids.jobBridgeBindingRef, ids.jobBridgeImplementationRef, "realizeSemanticJobBridge", "F_D", WORKSITE_FILE_PARENTS_IDS.outputContractRef, WORKSITE_PREPARATION_IDS.inputContractRef],
   ] as const).map(([bindingRef, implementationRef, namedSymbol, computeRegime, inputContractRef, outputContractRef]) => ({
     kind: "implementation_binding", bindingRef, implementationRef, namedSymbol, computeRegime, inputContractRef, outputContractRef,
     packageName: artifact.packageName, packageVersion: artifact.packageVersion,
-    modulePath: "build/code/src/implementation/semantic_stage.js", failureContractRef: ids.failureContractRef, refusalContractRef: ids.refusalContractRef,
+    modulePath: implementationRef === ids.jobIntakeImplementationRef ? "build/code/src/implementation/requirement_handoff.js" : "build/code/src/implementation/semantic_stage.js", failureContractRef: ids.failureContractRef, refusalContractRef: ids.refusalContractRef,
   }));
 }
-function semanticLeaf(locus: string, role: "author" | "assessor" | "bridge" | "evidenceInput" | "terminal", inputRef: string, outputRef: string, resultBearing = role !== "author") {
+function semanticLeaf(locus: string, role: "author" | "assessor" | "bridge" | "evidenceInput" | "terminal" | "jobIntake" | "jobContext" | "jobPlan" | "jobBridge", inputRef: string, outputRef: string, resultBearing = role !== "author") {
   return C.of({ input: cCarrier(inputRef), output: cCarrier(outputRef), programLocusRef: locus,
     stageRole: `semantic-${role}`, fibre: role === "author" || role === "assessor" ? "F_P" : "F_D", armId: `${locus}/arm`,
     compositionRef: null, vectorIndex: 0, judgmentPredicateRef: ids[`${role}PredicateRef`], resultBearing,
@@ -37,6 +42,7 @@ function declarations(closureContractRef: string, predicateRef: string, computeR
     "abg.judgment_predicate": predicateRef, "abg.transition_contract": ids.transitionContractRef };
 }
 export function constructSemanticStageGraphFunction(stage: SemanticStageDeclaration, closureContractRef: string): Readonly<GraphFunction> {
+  if (!isSemanticStageDeclaration(stage)) throw new TypeError("invalid semantic stage declaration or role content policy");
   const nodeRef = `${stage.graphFunctionRef}/node`;
   return deepFreeze({ kind: "graph_function", name: stage.graphFunctionRef, version: "5.0.0",
     environment: { requires: [ids.envelopeContractRef], provides: [ids.envelopeContractRef], carries: [ids.workerContractRef] },
@@ -60,6 +66,19 @@ export function constructSemanticBridgeGraphFunction(input: { readonly graphFunc
     template: { kind: "inline_graph", graphRef: `${input.graphFunctionRef}/graph`, startNodeRef: input.nodeRef,
       terminalNodeRefs: [input.nodeRef], edges: [], applications: [], nodes: [{ nodeRef: input.nodeRef, nodeKind: "c_locus",
         term: semanticLeaf(input.nodeRef, role, inputRef, outputRef) }] } });
+}
+/** Finite native owners; callers declare composition, never sequence effects. */
+export function constructSemanticJobGraphFunction(input: { readonly graphFunctionRef: string; readonly nodeRef: string;
+  readonly closureContractRef: string; readonly lifecycleRef: string; readonly operation: "intake" | "context" | "worksite_plan" | "worksite_bridge" }): Readonly<GraphFunction> {
+  const role = input.operation === "intake" ? "jobIntake" : input.operation === "context" ? "jobContext" : input.operation === "worksite_plan" ? "jobPlan" : "jobBridge";
+  const inputRef = role === "jobIntake" ? ids.jobInputContractRef : role === "jobBridge" ? WORKSITE_FILE_PARENTS_IDS.outputContractRef : ids.envelopeContractRef;
+  const outputRef = role === "jobPlan" ? WORKSITE_FILE_PARENTS_IDS.inputContractRef : role === "jobBridge" ? WORKSITE_PREPARATION_IDS.inputContractRef : ids.envelopeContractRef;
+  return deepFreeze({ kind: "graph_function", name: input.graphFunctionRef, version: "5.0.0",
+    environment: { requires: [inputRef], provides: [outputRef], carries: [] }, inputs: [inputRef], outputs: [outputRef], effects: [], tags: ["semantic-job-native-join"],
+    declarations: { ...declarations(input.closureContractRef, ids[`${role}PredicateRef`], "F_D"),
+      "abg.child_closure_contract": input.closureContractRef, ...(role === "jobIntake" ? { "abg.semantic_job_intake": input.lifecycleRef } : {}) },
+    template: { kind: "inline_graph", graphRef: `${input.graphFunctionRef}/graph`, startNodeRef: input.nodeRef,
+      terminalNodeRefs: [input.nodeRef], edges: [], applications: [], nodes: [{ nodeRef: input.nodeRef, nodeKind: "c_locus", term: semanticLeaf(input.nodeRef, role, inputRef, outputRef) }] } });
 }
 export function constructSemanticClosureContract(input: { readonly closureContractRef: string; readonly predicateRef: string;
   readonly resultContractRef: string; readonly closureScope: "run" | "graph_call" }): Readonly<ClosureContract> {
@@ -91,7 +110,7 @@ export function constructSemanticStageModulePublication(artifact: RootModuleArti
     productSemanticsBinding: { kind: "product_semantics_binding", bindingRef: ids.semanticsBindingRef,
       packageName: artifact.packageName, packageVersion: artifact.packageVersion, modulePath: "build/code/src/product/builtin_semantics.js",
       namedSymbol: "ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS" },
-    contracts: [contract(ids.envelopeContractRef, "input", "semantic_stage_envelope"), contract(ids.outputContractRef, "output", "semantic_stage_envelope"), contract(ids.workerContractRef, "output", "semantic_stage_worker_result"),
+    contracts: [contract(ids.jobInputContractRef, "input", "semantic_job_input"), contract(ids.envelopeContractRef, "input", "semantic_stage_envelope"), contract(ids.outputContractRef, "output", "semantic_stage_envelope"), contract(ids.workerContractRef, "output", "semantic_stage_worker_result"),
       ...(["failure", "refusal", "evidence", "judgment", "transition", "closure"] as const).map(kind => contract(ids[`${kind}ContractRef`], kind, `semantic_stage_${kind}`))],
     evaluators: [], rules: [], implementationBindings: binding, closureContracts: [closure], graphFunctions: [graph],
     programs: [{ kind: "gtl_program", programRef: ids.programRef, version: "5.0.0", moduleRef: ids.moduleRef,

@@ -1,0 +1,14 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/artifact.json
+/basis.json
+/declaration-check-01.log
+/declaration-check.mjs
+/declaration-result.json
+/installed-worker-contract-check.mjs
+/preimages/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_publication.ts
+/retained-provenance-check-01.log
+/retained-provenance-check.mjs
+/retained-provenance-result.json

@@ -16,13 +16,13 @@ sections; it does not select, interpret, execute, or conjoin frames.
 
 - sole operative selection:
   `repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`;
-- method: `stdo://releases/v2.5.0-rc.6/standards/REFERENCE_FRAME_METHOD.md`,
+- method: `stdo://releases/v2.5.1-rc.1/standards/REFERENCE_FRAME_METHOD.md`,
   heading `Reference Frame Laws`;
 - engagement profile:
-  `stdo://releases/v2.5.0-rc.6/standards/STDO_REFERENCE_FRAME_BASELINE.md`,
+  `stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md`,
   heading `Canonical Compression`;
 - Executive, Worker, and Reviewer:
-  `stdo://releases/v2.5.0-rc.6/standards/STDO_REFERENCE_FRAME_BASELINE.md`;
+  `stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md`;
 - ABI local frame atlas:
   `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas`;
 - admitting authority: `repo://abiogenesis/specification/PRODUCT.md#governance-and-release-boundary`
@@ -43,8 +43,11 @@ prerequisite selected under the current ABIogenesis mandate. Product F17/S06
 owns the required real installed lifecycle witness: exact original source ->
 Intent/Product -> Requirements -> Design -> working application -> admitted
 evidence -> targeted revision, with every source and discovered obligation
-preserved. T-287 D1/D2 acceptance is bounded to behavior and correction;
-D3 requires full mandatory original application outcomes. Their conjunction
+preserved. The exact selected input contract, prerequisites, oracle and excluded
+downstream obligations are bound prospectively under Product Release Boundaries.
+T-287 D1/D2 acceptance is bounded to behavior and correction; D3 requires every
+mandatory outcome of that selected witness. Full original Data Mapper remains
+independent downstream beta work and is not closed by witness acceptance. Their conjunction
 does not replace other Product or qualification gates. odd_glc owns downstream
 declarations, semantic interpretation and application acceptance; ABG owns
 admission, replay-derived proof coverage, continuation and runtime closure.
@@ -130,6 +133,124 @@ residual uncertainty; invalidation conditions; and consuming conjunction or
 decision. Product candidates, observations, receipts, events, prefixes, and
 replay projections are bound subject or evidence coordinates, never outputs
 authored by this evaluation frame.
+
+## Local Extension: End-To-End Interface Integration
+
+### F-END-TO-END-INTERFACE-INTEGRATION
+
+**Identity and authority.** Revision 1; stable source URI
+`repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`.
+This development/review frame specializes the selected STDO evaluations below with
+the ABI [frame atlas](./ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas)
+and [SP-01..09 seam/proof law](./ABI5_REALIZATION_CONSTITUTION.md#532-compounded-frame-scenario-proof-law).
+It is a local extension under
+`stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#extension-versus-replacement`,
+not adoption of mutable methodology source, a replacement engagement profile,
+a runtime environment declaration, or a change to the fifteen-family Product.
+
+**Evaluation family.** Can one selected ABI outcome pass through its declared
+interfaces with sufficient participant context and conserved meaning, and
+what has actually been demonstrated? Keep four claims distinct:
+
+| Claim | ABI evaluation and source route |
+|---|---|
+| Contract/context sufficiency | The declared input, success or candidate output, refusal, domain and supplied context make each participant's responsibility usable. Design/Public Boundary/Owner/Proof families: `stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-generic-specialist-frame-set`. |
+| Actual producer-consumer congruence | Both actual participants and material translations preserve the selected contract over the bounded interaction population. `stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-integration-frame`. |
+| Exact native path | The exact installed subject realizes the selected entry-to-outcome chain, including required owner effects, admission, closure and fresh projections. `stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-frame`. |
+| Ordinary-user/LLM usability | The declared caller obtains the independently specified outcome using its ordinary information and capabilities, with live external compute when claimed. `stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-user-acceptance-frame`. |
+
+**Subject and basis.** Bind the T-287 outcome and independently fixed oracle,
+governing Product/requirement/HOW, exact source checkpoint or artifact/install,
+supported Public definition/entry and observable exit, Program/GraphFunction,
+implementation owners, contracts, configuration, capabilities, dependencies,
+finite case population and time interval. For an LLM seam, bind the actual role,
+policy, input, assembly plan/envelope/manifest, rendered prompt/schema,
+permitted tool/access context and transport/model configuration. A field's
+native schema and the instructions actually supplied are different evidence.
+
+**Material relations and coordinates.** Follow only the selected chain:
+Public/SDK/CLI entry -> installed definition and Product contract -> GTL
+declaration -> HoG-selected locus -> native owner/actor exchange -> ABG
+admission and closure -> Event Calculus/replay -> supported result. Locate each
+material functional, data and context seam within it. Compare meaning/owner,
+producer guarantees, consumer preconditions, candidate/admission distinction,
+value/reference domain, empty/null/default behavior, ordering/units, authority,
+configuration and lifecycle/time. Preserve immutable binding identities,
+current mutable worksite observations, active admitted input, unassessed
+candidate and retained history as separate coordinates. Equal shape, refs or
+text alone do not prove equal meaning, currentness or provenance. Any material
+translation cites its existing owner, preserved relation and refusal boundary.
+
+**Invariants and actor context.** GTL declares; HoG derives/selects; existing
+owners perform effects; ABG admits; replay projects. SDK/CLI and this frame do
+not orchestrate those responsibilities. Evaluate deterministic eligibility and
+current facts at their existing owners; validation and actor-facing projections
+must share that relation or have demonstrated equivalence. Inspect whether an
+actor can obtain every material field rule and required current coordinate
+through its supplied interface and permitted access, without private validator
+knowledge. A correct schema check or refusal alone does not establish context
+sufficiency. An explicit candidate interface does not promise that every LLM
+response is admissible; sufficiency, output conformance and semantic assessment
+remain separate. Preserve original source, question, rubric and outcome oracle;
+do not turn structural context into an expected semantic answer. The owning
+[instruction-assembly law](../../../../specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md#acceptance-criteria)
+continues to govern runtime rendering and admission.
+
+**Evidence and failure localization.** Acquire both real sides of the seam:
+source fields and owners, actual supplied context and response/archive,
+contract decision, owner receipt, causal events/prefix and fresh result/replay
+where the claim requires them. Disclose doubles, unsupported assistance and
+unexercised paths. Fixture knowledge of hidden validation rules cannot prove
+LLM usability. Follow a generic failure backward to the first evidenced failed
+owner relation; report its field/path, expected domain/state/basis, actual
+mismatch and evidence locator when available. Distinguish downstream symptoms,
+missing diagnostic detail and unknown cause. This is an evaluation record,
+not a new diagnostic API or permission to repair a response, inject events or
+retry until green.
+
+**Authorities and capability envelope.** Product/requirements/HOW retain
+semantic authority; the named owner retains each operation/admission; the
+activated Worker self-checks or the independent Reviewer evaluates; Executive
+consumes the closed result and owns disposition. The actor needs competence
+and access across the selected Public/GTL/HoG/ABG, reference/lifecycle, context
+and proof seams. Missing access or required independence is explicit. This
+frame grants no operation, acceptance, release or further activation authority.
+
+**Dependencies and worksite conjunction.** Acquire Design/Public Boundary,
+GTL/HoG/ABG and Proof through the existing atlas and exact STDO routes above. When the
+claim depends on changed physical content or current workspace facts, join
+[F-WORKSITE-CAUSALITY](#f-worksite-causality) at its observation/effect/admission
+coordinates; do not substitute an immutable binding for current content or a
+private read for admitted truth. Retain its result separately. A pure immutable
+interface evaluation need not invent a worksite mutation or runtime lifecycle.
+
+**Activation, result and exclusions.** Select this frame for a material new or
+changed interface/context seam, integrated outcome claim, or localized failure
+whose cause may cross owners. Use the existing bounded work carrier: identify
+the four requested claims, material seams/cases, actual participants, oracle,
+effect grant or read-only scope, stop/time bound and consuming decision. It is
+not an extra review for every invocation. Each requested claim receives the
+existing result algebra: `satisfied`, `falsified`, `indeterminate`,
+`out_of_frame` or `invalid_basis`, with evidence and residuals. The closed frame
+result includes the common identity/authority coordinates stated for
+F-WORKSITE-CAUSALITY and the declared conjunction. Full end-to-end usability
+requires all four claims on a compatible exact basis; component or transport
+green cannot discharge a missing native or user outcome. Bounded design-only
+claims explicitly exclude execution/UAT. No whole-Product completion,
+alternate controller, blanket recovery campaign or exhaustive resilience
+coverage follows. Existing sunny-day and ordinary-variation selection remains.
+
+**Qualification and invalidation.** Select proportional cases that can expose
+the actual ambiguity: empty and nonempty eligible inputs, same-response versus
+prior-admitted/historical refs, stale observation or mismatched time/state,
+meaning-changing translation, a fixture-only success, or an expected value
+through a forbidden path. These are frame sensitivity cases, not a universal
+test quota or claims that they passed. Revisit only affected conclusions after
+material contract/domain, prompt/policy, participant/configuration, callable
+path, relevant worksite observation, oracle or evidence-population change;
+preserve unaffected valid work. Return source ambiguity or missing context to
+its owner, not automatically to validator weakening. Product-meaning change
+requires upstream re-entry; frame-composition change uses `design_reframe`.
 
 ## Activation And Return
 
@@ -252,6 +373,7 @@ available to the capable actor.
 | direct traversal and candidate derivation | HoG |
 | runtime admission, events, currentness, and replay | ABG |
 | mutable physical change and successor observation | `F-WORKSITE-CAUSALITY` |
+| selected entry-to-outcome interface/context seam and its four distinct claims | [`F-END-TO-END-INTERFACE-INTEGRATION`](#f-end-to-end-interface-integration), with applicable existing specialist/testing results |
 | independent claim evaluation | Reviewer plus applicable Proof/testing frames |
 
 The STDO specialist families acquire their ABI subjects from the corresponding

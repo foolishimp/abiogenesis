@@ -4,7 +4,7 @@
 **Checkpoint under review**: `b445eb1` (`T-223` public SDK and CLI checkpoint)
 **Review date**: 2026-07-12
 **Change class**: `design_reframe`
-**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Method authority**: `stdo://releases/v2.5.0-rc.6/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 
 ## Boundary

@@ -1,0 +1,23 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/activation-amendment.json
+/activation.json
+/diagnosis.md
+/environment.cpuprofile
+/external-reference-identities.json
+/freeze.json
+/probe-components-process.json
+/probe-components.json
+/probe-components.log
+/probe-components.mjs
+/probe-environment-process.json
+/probe-environment.json
+/probe-environment.log
+/probe-environment.mjs
+/profile-summary.json
+/request.json
+/return.json
+/selected-ask.json
+/size-census.json
+/source-ledger.json

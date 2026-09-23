@@ -1,5 +1,6 @@
+import { constructNativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { SEMANTIC_REVISION_IMPLEMENTATION_REFS, SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
-import { semanticRevisionResultMatchesBasis, projectRevisionWorksitePreparation } from "./semantic_revision.js";
+import { semanticRevisionResultMatchesBasis, projectRevisionWorksitePreparation, semanticJobRevisionResultMatchesBasis } from "./semantic_revision.js";
 import { SEMANTIC_IMPLEMENTATION_REFS, SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS } from "../product/worksite_construction_recovery.js";
 import { worksitePreservedResultMatchesBasis } from "./worksite_construction_recovery.js";
@@ -17,6 +18,8 @@ import type {
   GtlGraph,
 } from "../gtl/contracts.js";
 import { isWorksiteFileReplaceOutput, WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
+import { semanticJobResultMatchesBasis } from "./semantic_job.js";
+import { isWorksiteFileParentsSuccess, isWorksiteFileParentsFailure } from "../product/worksite_effect.js";
 import type {
   ClosedLeafOwnerReceipt,
   LeafInvocationPort,
@@ -24,6 +27,7 @@ import type {
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, nativeWorkspaceWorkResultMatches } from "../product/native_workspace_work.js";
 import {
   isWorksiteEffectAuthorization,
   isWorksiteFileReplaceReceipt,
@@ -67,14 +71,16 @@ import type {
 import type { AbgEventStore, RuntimeEvent } from "./event_store.js";
 import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
+  admitRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   isRuntimeEventTransactionActive,
-  readRuntimeEventsAtDurablePrefix,
+  readActiveRuntimeTransactionAtDurablePrefix,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
+  selectRuntimeEventPrefixFromAuthority,
 } from "./event_prefix.js";
 import type { ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import {
@@ -96,6 +102,7 @@ import {
 } from "./retry.js";
 import type { TraversalCursorCandidate } from "./traversal_cursor.js";
 import type { OpenedTraversalScope } from "./open_call.js";
+import { discardNativeFrameClock } from "./runtime_liveness.js";
 import {
   admitScopeClosure,
   type ScopeClosureAdmission,
@@ -392,6 +399,7 @@ type CCallCompletionPayload =
       disposition: "advanced";
       outcome: JudgedCCallOutcomeReceipt;
       transition: RouteTransitionAdmission;
+      reentryInputContractRef: string | null;
     }>
   | Readonly<{
       disposition: "blocked";
@@ -400,6 +408,11 @@ type CCallCompletionPayload =
     }>
   | Readonly<{
       disposition: "failed";
+      outcome: JudgedCCallOutcomeReceipt;
+      transition: RouteTransitionAdmission;
+    }>
+  | Readonly<{
+      disposition: "gap_stop";
       outcome: JudgedCCallOutcomeReceipt;
       transition: RouteTransitionAdmission;
     }>
@@ -420,6 +433,7 @@ type StagedCCallCompletionPayload =
       disposition: "advanced";
       outcome: JudgedCCallOutcomeReceipt;
       transition: RouteTransitionAdmissionBody;
+      reentryInputContractRef: string | null;
     }>
   | Readonly<{
       disposition: "blocked";
@@ -428,6 +442,11 @@ type StagedCCallCompletionPayload =
     }>
   | Readonly<{
       disposition: "failed";
+      outcome: JudgedCCallOutcomeReceipt;
+      transition: RouteTransitionAdmissionBody;
+    }>
+  | Readonly<{
+      disposition: "gap_stop";
       outcome: JudgedCCallOutcomeReceipt;
       transition: RouteTransitionAdmissionBody;
     }>
@@ -693,12 +712,13 @@ function projectCCallOutcomeReceiptFromTruth(
 
 /**
  * Rehydrates a judged or blocked outcome from its exact durable successor.
- * Replay and runtime-prefix authority are always projected here, never
- * supplied by a caller.
+ * The owner authenticates the exact durable prefix and any prior derivation;
+ * absent or untrusted derivations take the same complete reconstruction path.
  */
 export function projectCCallOutcomeReceiptAtPrefix(
   successorPrefix: DurablePrefixCoordinate,
   basis: CCallOutcomeProjectionBasis,
+  priorDerivation?: ReplayState,
 ): JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt | null {
   let truth: ActiveRuntimeTransactionProjection;
   try {
@@ -707,6 +727,7 @@ export function projectCCallOutcomeReceiptAtPrefix(
       basis.disposition === "judged"
         ? basis.admitted.cCall.runId
         : basis.cCall.runId,
+      priorDerivation,
     );
   } catch {
     return null;
@@ -815,8 +836,17 @@ function stageCCallResult(
       throw new TypeError("post-publication worksite failure differs from its exact admitted C0 basis");
     }
   }
+  // A workflow conserves its already-admitted child's exact result through
+  // foldback. Only the leaf performed this effect and owns its commit residue.
+  const parentsPhysical = input.outcomeClass !== "leaf" ? null : isWorksiteFileParentsSuccess(resultCandidate) ? resultCandidate :
+    isWorksiteFileParentsFailure(resultCandidate) ? resultCandidate.physicalOutcome : null;
+  if (parentsPhysical !== null && (input.outcomeClass !== "leaf" || sha256Canonical(parentsPhysical.request as unknown as JsonValue) !== input.inputDigest ||
+    parentsPhysical.authorization.cCallRef !== input.cCall.cCallRef || parentsPhysical.authorization.cCallDigest !== input.cCall.cCallDigest ||
+    parentsPhysical.authorization.executionBasisRef !== input.executionBasis.basisRef ||
+    parentsPhysical.authorization.leafResolutionCandidateDigest !== input.resolution.leafResolutionCandidateDigest))
+    throw new TypeError("file-parent physical result differs from its admitted C0 basis");
   const committedWorksiteOutput = worksiteEvidence !== null &&
-    isWorksiteFileReplaceOutput(resultCandidate) || postPublication;
+    isWorksiteFileReplaceOutput(resultCandidate) || postPublication || parentsPhysical !== null;
   const evidenceCandidates: readonly CCallEvidenceCandidate[] =
     input.outcomeClass === "workflow"
       ? [deriveSubTraversalEvidence(
@@ -829,6 +859,13 @@ function stageCCallResult(
         ? worksiteEvidence === null
           ? leafCandidate!.evidenceCandidates
           : [worksiteEvidence]
+        : input.ownerReceipt.computeRegime === "F_P" && input.ownerReceipt.effectDisposition === "not_dispatched"
+          ? [{
+              kind: "undispatched_owner_refusal_evidence_candidate", schemaVersion: "5.0.0",
+              implementationRef: input.cCall.implementationRef!, inputDigest: input.inputDigest,
+              outputDigest: sha256Canonical(resultCandidate), failureContractRef: input.cCall.failureContractRef,
+              failureValue: resultCandidate, ownerObservation: input.ownerReceipt.ownerObservation,
+            }]
         : payloadRejection !== null
           ? []
         : request === null || observation === null ||
@@ -930,6 +967,8 @@ function stageCCallResult(
             : (input.regime !== "F_P" ||
                 probabilistic?.kind ===
                   "contract_admitted_probabilistic_result_candidate") &&
+              (input.cCall.implementationRef !== nativeIds.implementationRef ||
+                nativeWorkspaceWorkResultMatches(input.input, value, input.cCall.cCallRef, observation)) &&
               (!([forwardIds.prepareImplementationRef,forwardIds.implementationRef] as readonly string[]).includes(input.cCall.implementationRef??"") ||
                 (input.programPublication !== undefined && worksiteCommandForwardResultMatches({publication:input.programPublication,
                   graph:input.graph,graphFunction:input.graphFunction,executionBasis:input.executionBasis,cCall:input.cCall,
@@ -949,15 +988,22 @@ function stageCCallResult(
                 const lifecycleRef = program === undefined ? undefined : semanticLifecycleRefForProgram(input.programPublication, program);
                 const lifecyclePublication = lifecycleRef === undefined ? null : input.leafPort.semanticPublicationByDeclarationRef?.(lifecycleRef) ?? null;
                 if (lifecyclePublication === null) return false;
-                const sourcePublication = input.leafPort.sourcePublicationByDeclarationRef?.(lifecyclePublication.semanticLifecycle!.sourceDeclarationRef) ?? null;
+                const sourcePublication = lifecyclePublication.semanticJobLifecycle !== undefined ? lifecyclePublication : input.leafPort.sourcePublicationByDeclarationRef?.(lifecyclePublication.semanticLifecycle!.sourceDeclarationRef) ?? null;
                 if (sourcePublication === null) return false;
-                const basis: SemanticStageNativeBasis = { publication: input.programPublication,
+                const basis = constructNativeInstructionAssemblyBasis<SemanticStageNativeBasis>({ publication: input.programPublication,
                   lifecyclePublication,
                   sourcePublication,
                   graph: input.graph,
                   graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: input.cCall,
                   cursor: input.cursor, predecessorPrefix: input.predecessorPrefix,
-                  declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [] };
+                  declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [] });
+                if (basis === null) return false;
+                if (lifecyclePublication.semanticJobLifecycle !== undefined)
+                  return (SEMANTIC_REVISION_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "")
+                    ? semanticJobRevisionResultMatchesBasis(basis, input.input, value) : semanticJobResultMatchesBasis(basis, input.input, value)) &&
+                    (![SEMANTIC_STAGE_IDS.authorImplementationRef, SEMANTIC_STAGE_IDS.assessorImplementationRef,
+                      SEMANTIC_REVISION_IDS.selectionImplementationRef, SEMANTIC_REVISION_IDS.authorImplementationRef, SEMANTIC_REVISION_IDS.assessorImplementationRef].some(r => r === input.cCall.implementationRef) ||
+                      semanticInstructionResultMatches(basis, input.input, value));
                 if (SEMANTIC_REVISION_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "")) {
                   if (input.cCall.implementationRef === SEMANTIC_REVISION_IDS.bridgeImplementationRef) {
                     const expected = projectRevisionWorksitePreparation(basis, input.input);
@@ -1010,6 +1056,10 @@ function stageCCallResult(
             input.failureValueKind &&
           (value as Readonly<Record<string, unknown>>).schemaVersion ===
             "5.0.0" &&
+          (input.cCall.implementationRef !== nativeIds.implementationRef ||
+            (input.outcomeClass === "leaf" && input.ownerReceipt.computeRegime === "F_P" &&
+              input.ownerReceipt.effectDisposition === "not_dispatched") ||
+            nativeWorkspaceWorkResultMatches(input.input, value, input.cCall.cCallRef, observation)) &&
           (input.outcomeClass === "workflow" ||
             (value as Readonly<Record<string, unknown>>).diagnosticRef ===
               failureDiagnosticRef),
@@ -1042,59 +1092,62 @@ export function admitCCallResult(
   if (isRuntimeEventTransactionActive(input.store)) {
     throw new TypeError("CCall result admission owns its ABG transaction");
   }
-  assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
-  const predecessorPrefix = selectValidatedRuntimeEventPrefix(
-    readRuntimeEventsAtDurablePrefix(input.predecessorPrefix),
-  );
-  const probabilistic = projectProbabilisticResultAtPrefix(
-    input,
-    predecessorPrefix,
-  );
-  if (
-    probabilistic?.kind === "probabilistic_result_admission_refusal" &&
-    !isRetryEligibleProbabilisticPayloadRefusal(probabilistic)
-  ) {
-    throw new TypeError(
-      `F04 probabilistic result authority refused: ${probabilistic.code}`,
-    );
-  }
-  const probabilisticInput = input.outcomeClass === "leaf" &&
-      input.regime === "F_P"
-    ? input
-    : null;
-  const payloadRejection = probabilisticInput !== null &&
-      probabilistic !== null &&
-      isRetryEligibleProbabilisticPayloadRefusal(probabilistic) &&
-      probabilisticInput.ownerReceipt.receipt?.computeRegime === "F_P" &&
-      probabilisticInput.ownerReceipt.receipt.actorProcessExchange.observation
-          .disposition === "success"
-    ? admitProbabilisticPayloadRejection(probabilisticInput, predecessorPrefix)
-    : null;
-  if (
-    payloadRejection !== null && probabilisticInput !== null &&
-    input.cCall.retryPath.length > 0
-  ) {
-    const staged = deepFreeze({
-      disposition: "retry" as const,
-      cCall: input.cCall,
-      source: payloadRejection,
-      failureCandidate:
-        probabilisticInput.ownerReceipt.candidate.resultCandidate,
-      failureValueKind: input.failureValueKind,
-    });
-    const truth = projectRuntimeTruthAtDurablePrefix(
-      input.predecessorPrefix,
-      input.cCall.runId,
-    );
-    return deepFreeze({
-      ...completeOutcomeReceiptBody(staged, truth),
-      successorPrefix: input.predecessorPrefix,
-    }) as RetryCCallOutcomeReceipt;
-  }
-  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
-    input.store,
-    input.predecessorPrefix,
-    () => {
+  const committed = admitRuntimeEventTransactionAtDurablePrefix(
+    input.store, input.predecessorPrefix, () => {
+      const predecessorPrefix = selectValidatedRuntimeEventPrefix(
+        readActiveRuntimeTransactionAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }),
+      );
+      const probabilistic = projectProbabilisticResultAtPrefix(
+        input,
+        predecessorPrefix,
+      );
+      if (
+        probabilistic?.kind === "probabilistic_result_admission_refusal" &&
+        !isRetryEligibleProbabilisticPayloadRefusal(probabilistic)
+      ) {
+        throw new TypeError(
+          `F04 probabilistic result authority refused: ${probabilistic.code}`,
+        );
+      }
+      const probabilisticInput = input.outcomeClass === "leaf" &&
+          input.regime === "F_P"
+        ? input
+        : null;
+      const payloadRejection = probabilisticInput !== null &&
+          probabilistic !== null &&
+          isRetryEligibleProbabilisticPayloadRefusal(probabilistic) &&
+          // Native work may already have edited files before its report is
+          // refused. Admit the owner's typed failure/observations, never the
+          // malformed report as a successful result or an advancing judgment.
+          !(probabilisticInput.cCall.implementationRef === nativeIds.implementationRef &&
+            probabilisticInput.ownerReceipt.candidate.disposition === "failure" &&
+            nativeWorkspaceWorkResultMatches(probabilisticInput.input,
+              probabilisticInput.ownerReceipt.candidate.resultCandidate, probabilisticInput.cCall.cCallRef,
+              probabilisticInput.ownerReceipt.receipt?.computeRegime === "F_P"
+                ? probabilisticInput.ownerReceipt.receipt.actorProcessExchange.observation : null)) &&
+          probabilisticInput.ownerReceipt.receipt?.computeRegime === "F_P" &&
+          probabilisticInput.ownerReceipt.receipt.actorProcessExchange.observation
+              .disposition === "success"
+        ? admitProbabilisticPayloadRejection(probabilisticInput, predecessorPrefix)
+        : null;
+      if (
+        payloadRejection !== null && probabilisticInput !== null &&
+        input.cCall.retryPath.length > 0
+      ) {
+        const staged = deepFreeze({
+          disposition: "retry" as const,
+          cCall: input.cCall,
+          source: payloadRejection,
+          failureCandidate:
+            probabilisticInput.ownerReceipt.candidate.resultCandidate,
+          failureValueKind: input.failureValueKind,
+        });
+        const truth = projectRuntimeTruthAtDurablePrefix(
+          input.predecessorPrefix,
+          input.cCall.runId,
+        );
+        return completeOutcomeReceiptBody(staged, truth);
+      }
       const staged = stageCCallResult(
         input,
         probabilistic,
@@ -1105,12 +1158,15 @@ export function admitCCallResult(
         input.predecessorPrefix,
         staged.cCall.runId,
       );
+      if (input.store.readAll().length === predecessorPrefix.events.length) {
+        throw new TypeError("non-empty durable ABG transaction admitted no durable events");
+      }
       return completeOutcomeReceiptBody(staged, truth);
     },
   );
   return deepFreeze({
     ...committed.value,
-    successorPrefix: committed.successorPrefix,
+    successorPrefix: committed.successorPrefix ?? input.predecessorPrefix,
   }) as ResultCCallOutcomeReceipt | RetryCCallOutcomeReceipt |
     BlockedCCallOutcomeReceipt;
 }
@@ -1125,32 +1181,29 @@ export function admitCCallJudgment(
   if (isRuntimeEventTransactionActive(input.store)) {
     throw new TypeError("CCall judgment admission owns its ABG transaction");
   }
-  assertHeldEventStoreAtDurablePrefix(
-    input.store,
-    input.outcome.successorPrefix,
-  );
-  const events = readRuntimeEventsAtDurablePrefix(
-    input.outcome.successorPrefix,
-  );
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(events);
-  const runPrefix = selectValidatedRuntimeEventPrefix(events, {
-    runId: input.outcome.cCall.runId,
-  });
-  const replayState = replayValidatedRuntimeEventPrefix(
-    runPrefix,
-    authorityPrefix,
-  );
-  if (
-    sha256Canonical(runPrefix as unknown as JsonValue) !==
-        sha256Canonical(input.outcome.runtimePrefix as unknown as JsonValue) ||
-    replayState.replayDigest !== input.outcome.replayState.replayDigest
-  ) {
-    throw new TypeError("CCall result receipt differs from its durable prefix");
-  }
   const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     input.store,
     input.outcome.successorPrefix,
     (): JudgedCCallOutcomeReceiptBody | BlockedCCallOutcomeReceiptBody => {
+      const events = readActiveRuntimeTransactionAtDurablePrefix(
+        input.store, input.outcome.successorPrefix, { durableOnly: true },
+      );
+      const authorityPrefix = selectValidatedRuntimeEventPrefix(events);
+      const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
+        runId: input.outcome.cCall.runId,
+      });
+      const replayState = replayValidatedRuntimeEventPrefix(
+        runPrefix,
+        authorityPrefix,
+        input.outcome.replayState,
+      );
+      if (
+        sha256Canonical(runPrefix as unknown as JsonValue) !==
+            sha256Canonical(input.outcome.runtimePrefix as unknown as JsonValue) ||
+        replayState.replayDigest !== input.outcome.replayState.replayDigest
+      ) {
+        throw new TypeError("CCall result receipt differs from its durable prefix");
+      }
       const judgment = admitJudgment(
         input.store,
         authorityPrefix,
@@ -1226,15 +1279,15 @@ export function admitCCallRejection(
   if (isRuntimeEventTransactionActive(input.store)) {
     throw new TypeError("CCall rejection admission owns its ABG transaction");
   }
-  assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
-  const events = readRuntimeEventsAtDurablePrefix(input.predecessorPrefix);
-  const runPrefix = selectValidatedRuntimeEventPrefix(events, {
-    runId: input.cCall.runId,
-  });
   const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     input.store,
     input.predecessorPrefix,
     (): BlockedCCallOutcomeReceiptBody => {
+      const runPrefix = selectValidatedRuntimeEventPrefix(
+        readActiveRuntimeTransactionAtDurablePrefix(
+          input.store, input.predecessorPrefix, { durableOnly: true },
+        ), { runId: input.cCall.runId },
+      );
       const completion = completeRejectedCCall(
         input.store,
         runPrefix,
@@ -1315,32 +1368,28 @@ export function admitCCallCompletion(
   if (isRuntimeEventTransactionActive(input.store)) {
     throw new TypeError("CCall completion owns its complete ABG transaction");
   }
-  assertHeldEventStoreAtDurablePrefix(
-    input.store,
-    input.predecessorPrefix,
-  );
-  const predecessorEvents = readRuntimeEventsAtDurablePrefix(
-    input.predecessorPrefix,
-  );
-  const exactOutcome = input.outcome.disposition === "judged"
-    ? projectCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, {
-        disposition: "judged",
-        admitted: input.outcome.admitted,
-      })
-    : projectCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, {
-        disposition: "blocked",
-        cCall: input.outcome.cCall,
-        completion: input.outcome.completion,
-        diagnosticRef: input.outcome.diagnosticRef,
-      });
-  if (exactOutcome?.disposition !== input.outcome.disposition) {
-    throw new TypeError("CCall completion outcome differs from its predecessor");
-  }
   try {
     const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
       input.store,
       input.predecessorPrefix,
       (): StagedCCallCompletionPayload => {
+        const predecessorEvents = readActiveRuntimeTransactionAtDurablePrefix(
+          input.store, input.predecessorPrefix, { durableOnly: true },
+        );
+        const exactOutcome = input.outcome.disposition === "judged"
+          ? projectCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, {
+              disposition: "judged",
+              admitted: input.outcome.admitted,
+            }, input.outcome.replayState)
+          : projectCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, {
+              disposition: "blocked",
+              cCall: input.outcome.cCall,
+              completion: input.outcome.completion,
+              diagnosticRef: input.outcome.diagnosticRef,
+            }, input.outcome.replayState);
+        if (exactOutcome?.disposition !== input.outcome.disposition) {
+          throw new TypeError("CCall completion outcome differs from its predecessor");
+        }
         let stagedPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
         if (input.completedRetryProgress !== undefined) {
           const retryProgress = input.completedRetryProgress;
@@ -1378,6 +1427,7 @@ export function admitCCallCompletion(
         const staged = admitTraversalTransitionInActiveTransaction({
           durablePredecessorPrefix: input.predecessorPrefix,
           stagedPrefix,
+          priorDerivation: exactOutcome.replayState,
           store: input.store,
           executionBasis: input.executionBasis,
           graph: input.graph,
@@ -1394,9 +1444,9 @@ export function admitCCallCompletion(
         if (
           ((routeKind === "advance" || routeKind === "re_enter") &&
             input.target === null) ||
-          (["blocked", "failed", "terminal"].includes(routeKind) &&
+          (["blocked", "failed", "terminal", "gap_stop"].includes(routeKind) &&
             input.target !== null) ||
-          !["advance", "re_enter", "blocked", "failed", "terminal"].includes(
+          !["advance", "re_enter", "blocked", "failed", "terminal", "gap_stop"].includes(
             routeKind,
           )
         ) {
@@ -1447,6 +1497,7 @@ export function admitCCallCompletion(
           input.store,
           input.predecessorPrefix,
           input.source.runId,
+          staged.replayState,
         );
         const transition = deepFreeze({
           kind: "route_transition_admission" as const,
@@ -1474,12 +1525,12 @@ export function admitCCallCompletion(
             transition,
           });
         }
-        if (routeKind === "failed") {
+        if (routeKind === "failed" || routeKind === "gap_stop") {
           if (input.outcome.disposition !== "judged") {
-            throw new TypeError("failed route requires one judged CCall outcome");
+            throw new TypeError(`${routeKind} route requires one judged CCall outcome`);
           }
           return deepFreeze({
-            disposition: "failed" as const,
+            disposition: routeKind,
             outcome: input.outcome,
             transition,
           });
@@ -1487,13 +1538,24 @@ export function admitCCallCompletion(
         if (input.outcome.disposition !== "judged") {
           throw new TypeError("advancing route requires one judged CCall outcome");
         }
+        const reentryApplication = routeKind === "re_enter"
+          ? input.graph.template.applications.find(application => application.relationKind === "re_enter" &&
+              application.applicationRef === staged.route.graphSpanReentryProjection?.applicationRef)
+          : undefined;
+        if (routeKind === "re_enter" && reentryApplication === undefined) {
+          throw new TypeError("admitted re-entry requires its exact declared target contract");
+        }
         return deepFreeze({
           disposition: "advanced" as const,
           outcome: input.outcome,
           transition,
+          reentryInputContractRef: reentryApplication?.outputContractRef ?? null,
         });
       },
     );
+    if (committed.value.disposition === "closed") {
+      discardNativeFrameClock(input.store, input.openedTraversalScope.frameId);
+    }
     const transition = deepFreeze({
       ...committed.value.transition,
       successorPrefix: committed.successorPrefix,

@@ -1,0 +1,21 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/accepted-subjects-and-reviews.md
+/activation.md
+/application.patch
+/checkpoint.md
+/git-checkpoint-paths.json
+/git-checkpoint-proposal.md
+/git-paths.mjs
+/inverse-recovery.patch
+/manifest.json
+/normalizations.json
+/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/preimages/build_tenants/abiogenesis/typescript/design/README.md
+/preimages/build_tenants/abiogenesis/typescript/design/T287_C2_FORWARD_REENTRY_DESIGN.md
+/preimages/specification/GOALS.md
+/receipt.json
+/return.md
+/tracking-changes.json
+/verify-freeze.mjs

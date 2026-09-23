@@ -10,7 +10,7 @@ export function constructSelfConformanceAssetRows(input: {
   const schemaPath = "contracts/schemas/self-conformance.schema.json";
   const rows: ProductPublicContract[] = [
     ...[["abg.schema.self-conformance-result", "SelfConformanceResult"],
-      ["abg.schema.exact-candidate-qualification", "ExactCandidateQualificationBasis"],
+      ["abg.schema.exact-candidate-qualification", "ExactCandidateQualification"],
       ["abg.schema.tenant-conformance-manifest", "TenantConformanceManifest"],
       ["abg.schema.qualification-law-basis", "QualificationLawBasis"],
       ["abg.schema.self-conformance-input", "SelfConformanceInput"]].map(([contractId, definitionName]) => ({

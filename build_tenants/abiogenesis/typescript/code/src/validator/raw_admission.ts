@@ -1,3 +1,4 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -39,10 +40,6 @@ export interface RawAdmissionRefusal {
 }
 
 export type RawAdmissionResult<S> = RawAdmittedValue<S> | RawAdmissionRefusal;
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function hasExpectedKind(
   value: Readonly<Record<string, unknown>>,

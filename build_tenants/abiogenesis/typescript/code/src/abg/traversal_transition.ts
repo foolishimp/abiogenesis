@@ -1,3 +1,4 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import type { RawAdmittedValue } from "../validator/raw_admission.js";
 import type {
   BlockedRouteAdmissionEvidence,
@@ -79,10 +80,6 @@ export type TraversalTransitionCandidate = TraversalTransitionCandidateBody &
     candidateRef: string;
     candidateDigest: `sha256:${string}`;
   }>;
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function hasExactKeys(
   value: Readonly<Record<string, unknown>>,

@@ -1,0 +1,17 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../20260923_WIP_CHECKPOINT/README.md
+/events-01/runtime.events.jsonl
+/installed-01-0/node_modules/
+/installed-01-0/package-lock.json
+/installed-01-0/package.json
+/installed-01-1/node_modules/
+/installed-01-1/package-lock.json
+/installed-01-1/package.json
+/stdo-note-product-source/artifacts/abiogenesis-fixtures-stdo-note-pilot-5.0.0.tgz
+/stdo-note-product-source/build/
+/stdo-note-product-source/contracts/capabilities/capability-definition-graph.json
+/stdo-note-product-source/contracts/public-contract-catalog.schema.json
+/stdo-note-product-source/package.json
+/stdo-note-product-source/product-toolchain-manifest.json
+/workspace/.abiogenesis/workspace-manifest.json

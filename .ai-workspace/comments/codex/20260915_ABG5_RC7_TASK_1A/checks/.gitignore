@@ -1,0 +1,27 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/citation-UD5A9W/result.json
+/citation-UD5A9W/stdo-note-product-source/artifacts/abiogenesis-fixtures-stdo-note-pilot-5.0.0.tgz
+/citation-UD5A9W/stdo-note-product-source/build/
+/citation-UD5A9W/stdo-note-product-source/contracts/capabilities/capability-definition-graph.json
+/citation-UD5A9W/stdo-note-product-source/contracts/public-contract-catalog.schema.json
+/citation-UD5A9W/stdo-note-product-source/package.json
+/citation-UD5A9W/stdo-note-product-source/product-toolchain-manifest.json
+/citation-installed.json
+/component-6A0xLR/observations.json
+/component-6A0xLR/result.json
+/component-6A0xLR/stdo-note-product-source/artifacts/abiogenesis-fixtures-stdo-note-pilot-5.0.0.tgz
+/component-6A0xLR/stdo-note-product-source/build/
+/component-6A0xLR/stdo-note-product-source/contracts/capabilities/capability-definition-graph.json
+/component-6A0xLR/stdo-note-product-source/contracts/public-contract-catalog.schema.json
+/component-6A0xLR/stdo-note-product-source/package.json
+/component-6A0xLR/stdo-note-product-source/product-toolchain-manifest.json
+/component.json
+/reproduction/result.json
+/reproduction/stdo-note-product-source/artifacts/abiogenesis-fixtures-stdo-note-pilot-5.0.0.tgz
+/reproduction/stdo-note-product-source/build/
+/reproduction/stdo-note-product-source/contracts/capabilities/capability-definition-graph.json
+/reproduction/stdo-note-product-source/contracts/public-contract-catalog.schema.json
+/reproduction/stdo-note-product-source/package.json
+/reproduction/stdo-note-product-source/product-toolchain-manifest.json

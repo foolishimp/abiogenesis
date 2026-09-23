@@ -1,0 +1,19 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../20260923_WIP_CHECKPOINT/README.md
+/call-1.jsonl
+/call-2.jsonl
+/call-3.jsonl
+/first-cause.json
+/neutral-schema-product-duT2Ey/artifacts/neutral-schema.example-annotation-product-5.0.0.tgz
+/neutral-schema-product-duT2Ey/build/
+/neutral-schema-product-duT2Ey/contracts/annotation-composition.schema.json
+/neutral-schema-product-duT2Ey/contracts/annotation-record.schema.json
+/neutral-schema-product-duT2Ey/contracts/capabilities/capability-definition-graph.json
+/neutral-schema-product-duT2Ey/contracts/public-contract-catalog.schema.json
+/neutral-schema-product-duT2Ey/package.json
+/neutral-schema-product-duT2Ey/product-toolchain-manifest.json
+/receipt-1.json
+/receipt-2.json
+/receipt-3.json
+/workspace/.abiogenesis/workspace-manifest.json

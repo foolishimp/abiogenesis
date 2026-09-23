@@ -1,0 +1,33 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../20260923_WIP_CHECKPOINT/README.md
+/src/abg/actor_process.ts
+/src/abg/c_call.ts
+/src/abg/c_call_outcome.ts
+/src/abg/event_calculus.ts
+/src/abg/event_prefix.ts
+/src/abg/event_store.ts
+/src/abg/index.ts
+/src/abg/project_read_definition_bindings.ts
+/src/abg/project_read_operation_contracts.ts
+/src/abg/project_read_ports.ts
+/src/abg/replay.ts
+/src/abg/retry.ts
+/src/abg/transport_contracts.ts
+/src/abg/witness_admission_operation.ts
+/src/abg/witness_definition_bindings.ts
+/src/abg/worker_transport.ts
+/src/abg/worksite_command_forward.ts
+/src/abg/worksite_construction_recovery.ts
+/src/gtl/index.ts
+/src/gtl/self_conformance.ts
+/src/hog/ccall_lifecycle.ts
+/src/implementation/contracts.ts
+/src/implementation/index.ts
+/src/implementation/leaf_invocation_port.ts
+/src/validator/index.ts
+/src/validator/self_conformance.ts
+/src/validator/self_conformance_basis.ts
+/src/validator/self_conformance_contracts.ts
+/src/validator/self_conformance_publication.ts
+/src/validator/self_conformance_semantics.ts

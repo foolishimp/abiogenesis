@@ -1,0 +1,21 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/basis.json
+/bootstrap.mjs
+/check-and-seal.mjs
+/checkpoint.md
+/checks.json
+/d1-observer-asof.json
+/edit-record-02.json
+/edit-record.json
+/make-tracking-patch.mjs
+/manifest.json
+/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/preimages/specification/GOALS.md
+/return.md
+/root-reviews.md
+/tracking-02.patch
+/tracking-content.json
+/tracking.patch

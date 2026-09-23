@@ -82,8 +82,11 @@ const installEvidenceProjectionSchema = v.strictObject({
 
 const releaseEvidenceProjectionSchema = v.strictObject({
   kind: v.literal("release_evidence_projection"),
+  disposition: v.picklist(["published_unqualified", "incomplete_effect"]),
+  observationArtifact: refDigestSchema,
+  acceptance: v.literal("incomplete"),
   releaseCut: refDigestSchema,
-  snapshotManifest: refDigestSchema,
+  snapshotManifest: v.nullable(refDigestSchema),
   artifacts: refDigestSetSchema,
   qualification: refDigestSchema,
   provenance: refDigestSetSchema,
@@ -258,8 +261,8 @@ const releaseEvidence = productReadContract({
   caseKey: "release_evidence",
   sourceKind: "release_cut",
   selector: v.strictObject({
-    kind: v.literal("release_snapshot_manifest"),
-    manifest: refDigestSchema,
+    kind: v.literal("release_operation_observation"),
+    artifact: refDigestSchema,
   }),
   projection: releaseEvidenceProjectionSchema,
   abstractModule: "Product.ReleaseProjection",

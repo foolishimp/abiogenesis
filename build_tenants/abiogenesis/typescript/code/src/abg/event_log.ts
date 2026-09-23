@@ -6,6 +6,7 @@ import { sha256Bytes, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   selectRuntimeEvents,
+  validateHistoricalEvents,
   type AbgEventStore,
   type RuntimeEvent,
   type RuntimeEventScope,
@@ -32,8 +33,7 @@ export async function persistEventLog(
     throw new TypeError("ABG persisted log path differs from the configured event sink");
   }
   const encoded = await readFile(configuredPath);
-  const lines = encoded.toString("utf8").split(/\r?\n/u).filter((line) => line.length !== 0);
-  const durableEvents = lines.map((line) => JSON.parse(line) as RuntimeEvent);
+  const durableEvents = validateHistoricalEvents(encoded);
   if (
     canonicalJson(durableEvents as unknown as JsonValue) !==
     canonicalJson(store.readAll() as unknown as JsonValue)

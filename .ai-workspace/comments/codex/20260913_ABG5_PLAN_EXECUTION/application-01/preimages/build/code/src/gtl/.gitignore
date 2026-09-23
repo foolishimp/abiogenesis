@@ -1,0 +1,12 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/contracts.d.ts
+/graph_applications.d.ts
+/graph_applications.js
+/index.d.ts
+/index.js
+/worksite_branch_construction.js
+/worksite_command_execution.js
+/worksite_construction.d.ts
+/worksite_construction.js

@@ -1,0 +1,19 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/artifacts/cli-runtime.mjs
+/artifacts/command_paths.json
+/artifacts/docs_inventory.json
+/artifacts/events.jsonl
+/artifacts/fallback_config_inventory.json
+/artifacts/install-manifest.json
+/artifacts/install-provenance.json
+/artifacts/package_identity.json
+/artifacts/projection.json
+/artifacts/runtime_binding.json
+/artifacts/runtime_identity.json
+/artifacts/standards_inventory.json
+/artifacts/typescript-installer-manifest.json
+/postmortem.md
+/run.json
+/summary.json

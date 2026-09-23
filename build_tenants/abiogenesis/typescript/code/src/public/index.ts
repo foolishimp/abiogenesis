@@ -40,3 +40,7 @@ export {
   type PublicProjectionPayloads,
   type PublicSdkMemberProjection,
 } from "../shared/public_function_projections.js";
+export {
+  constructInstalledPublicDefinitionCall,
+  type InstalledPublicDefinitionCallInput,
+} from "./installed_public_definition_call.js";

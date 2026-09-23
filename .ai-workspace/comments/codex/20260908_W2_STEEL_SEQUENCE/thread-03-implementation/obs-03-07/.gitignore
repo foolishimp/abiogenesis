@@ -1,0 +1,23 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/bootstrap-install.log
+/build.log
+/c0-proof-02/B04-06-create-owner.json
+/c0-proof-02/B04-06-create.events.jsonl.gz
+/c0-proof-02/B04-06-create.json
+/c0-proof-02/candidate-0c59ceb0b174b37e548dc06b64c2adea52f720ad3dff3b56d3dad7951783daa7.tgz
+/c0-proof/B04-06-create-owner.json
+/diagnostic.json
+/fixture-mechanics.json
+/installed-c0-create-02.log
+/installed-c0-create.log
+/pack.json
+/preimages.json
+/preimages/.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/execution.md
+/preimages/.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-03-implementation/execution.md
+/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/preimages/build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts
+/preimages/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs
+/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs
+/result.json

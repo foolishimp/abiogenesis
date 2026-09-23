@@ -1,3 +1,6 @@
+import { admittedNativeTask } from "./native_worksite_execution.js";
+import { projectSameRunNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import { projectSameRunWorksiteCommandSourceAtPrefix } from "./worksite_input_provenance.js";
 import { worksiteRevisionEntryBindingDisposition } from "./worksite_revision.js";
 import { worksiteCommandForwardEntryDisposition } from "./worksite_command_forward.js";
@@ -8,6 +11,7 @@ import type {
 } from "../gtl/contracts.js";
 import type { CProgramNode } from "../gtl/c_algebra.js";
 import { resolveProgramStart } from "../gtl/public_start.js";
+import { sampleNativeEventTime } from "./native_event_time.js";
 import {
   resolveCProgramTermAtSourcePath,
   rootCTraversalCoordinate,
@@ -94,8 +98,10 @@ import {
   projectExactInvocationAdmissionAtPrefix,
 } from "./invocation_execution_truth.js";
 import { replayValidatedRuntimeEventPrefix } from "./replay.js";
+import { runEnvironmentEvidenceMatchesInvocation, type RunEnvironmentEvidence } from "./stdo_environment.js";
 
 export interface InvocationAdmissionInput {
+  readonly runEnvironment?: RunEnvironmentEvidence;
   readonly invocation: PublicInvocationCandidate;
   readonly rawRequest: RawAdmittedValue<unknown>;
   readonly rawInput: RawAdmittedValue<unknown>;
@@ -219,6 +225,7 @@ export interface InvocationAdmission {
   readonly publicStart: PublicStartAdmissionIdentity | null;
   readonly reentryBasis: InvocationReentryBasis | null;
   readonly sourceResultBasis: ProductInvocationSourceResultBasis | null;
+  readonly runEnvironment?: RunEnvironmentEvidence;
   readonly publicOperationEventRef: string;
   readonly admissionEventRef: string;
 }
@@ -294,10 +301,6 @@ function duplicateInvocationRefusal(
     message: "the exact invocation admission already exists at the current durable prefix",
     priorAdmission,
   });
-}
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function catalogViewRef(view: GraphFunctionCatalogView): string {
@@ -522,20 +525,27 @@ export function deriveInvocationSourceResultBasisAtPrefix(
   return deriveSourceResultBasisAtPrefix(prefix, input, true);
 }
 
-/** @internal The only open-Run form derives its source through the admitted preparation route. */
+/** @internal A current preparation route proves either a same-Run source or
+ * explicit reacquisition of a historical closed child. Public closed-Run law is unchanged. */
 export function deriveSameRunWorksiteCommandSourceBasisAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   input: Parameters<typeof projectSameRunWorksiteCommandSourceAtPrefix>[1],
+  currentOwnerPrefix?: DurablePrefixCoordinate,
 ): ProductInvocationSourceResultBasis | null {
-  const source = projectSameRunWorksiteCommandSourceAtPrefix(prefix, input);
-  const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, input.parentBasis.invocationAdmissionRef);
+  const nativeTask = admittedNativeTask(prefix, input.task);
+  const source = nativeTask !== null
+    ? projectSameRunNativeWorkCommandSourceAtPrefix(prefix, { ...input, task: nativeTask }, currentOwnerPrefix)
+    : projectSameRunWorksiteCommandSourceAtPrefix(prefix, input);
+  const reacquired = nativeTask !== null && nativeTask.sourceReacquisition !== undefined;
+  const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, reacquired && source !== null
+    ? source.sourceBasis.invocationAdmissionRef : input.parentBasis.invocationAdmissionRef);
   if (source === null || invocation === null || !isRecord(source.sourceResult.payload) ||
     typeof source.sourceResult.payload.resultRef !== "string") return null;
   const result = deriveSourceResultBasisAtPrefix(prefix, {
     publicAuthorityDigest: invocation.publicRequestDigest,
     invocationAdmissionRef: invocation.invocationAdmissionRef,
     runtimeInvocationRef: invocation.invocationRef,
-    runId: input.runId, resultRef: source.sourceResult.payload.resultRef,
+    runId: reacquired ? source.sourceResult.runId! : input.runId, resultRef: source.sourceResult.payload.resultRef,
   }, false);
   return result !== null && result.sourceResultAdmissionEventRef === source.sourceResult.eventId &&
     result.sourceResultJudgmentEventRef === source.sourceJudgment.eventId &&
@@ -877,7 +887,9 @@ function admitInvocationWithRequest(
     input.rawInput.subjectDigest !== input.invocation.rawInputDigest ||
     input.rawInput.contractRef !== input.invocation.inputContractRef ||
     inputContract?.contractKind !== "input" ||
-    outputContract?.contractKind !== "output" ||
+    // A published value may be another callable's input without changing its
+    // contract identity. The exact GraphFunction outputs relation owns this role.
+    (outputContract?.contractKind !== "output" && outputContract?.contractKind !== "input") ||
     !isRecord(input.rawInput.value) ||
     input.rawInput.value.kind !== inputContract.valueKind
   ) {
@@ -1394,6 +1406,10 @@ function admitInvocationWithRequest(
     return refusal("authority_mismatch", "invocation authority does not cover the exact actor, environment, and target");
   }
 
+  if (!runEnvironmentEvidenceMatchesInvocation(input.runEnvironment, input.programPublication, input.program,
+    { authorityRef: input.authority.authorityRef, authorityDigest: input.authority.authorityDigest, actorRef: input.authority.actorRef })) {
+    return refusal("capability_mismatch", "required exact STDO environment access is not admitted for this invocation");
+  }
   const programValidationDigest = sha256Canonical(
     input.programValidation as unknown as JsonValue,
   );
@@ -1456,16 +1472,19 @@ function admitInvocationWithRequest(
     publicStart,
     reentryBasis: input.reentryBasis ?? null,
     sourceResultBasis: input.sourceResultBasis ?? null,
+    ...(input.runEnvironment === undefined ? {} : { runEnvironment: input.runEnvironment }),
   };
   const invocationAdmissionDigest = sha256Canonical(admissionBody as unknown as JsonValue);
   const invocationAdmissionRef = `invocation-admission://abiogenesis/${invocationAdmissionDigest.slice("sha256:".length)}`;
+  // These two events encode one admission and must retain one native sample.
+  const invocationAdmissionEventTime = sampleNativeEventTime();
   const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     store,
     input.artifactTruth.prefix,
     () => {
       const publicOperationEvent = admitRuntimeEvent(store, {
         kind: "public_operation_admitted",
-        eventTime: basis.eventTime,
+        eventTime: invocationAdmissionEventTime,
         aggregateType: "workspace",
         aggregateId: input.workspaceBinding.bindingId,
         parentAggregateId: input.invocation.invocationRef,
@@ -1508,7 +1527,7 @@ function admitInvocationWithRequest(
       });
       const admissionEvent = admitRuntimeEvent(store, {
         kind: "invocation_admitted",
-        eventTime: basis.eventTime,
+        eventTime: invocationAdmissionEventTime,
         aggregateType: "workspace",
         aggregateId: input.workspaceBinding.bindingId,
         parentAggregateId: input.invocation.invocationRef,

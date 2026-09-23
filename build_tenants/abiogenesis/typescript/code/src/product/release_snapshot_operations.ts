@@ -1,685 +1,89 @@
+import type { ReferenceDigest } from "../shared/public_invocation.js";
 import * as v from "valibot";
-
 import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
-
-import {
-  compareUnicodeCodeUnits,
-  type JsonValue,
-} from "../shared/canonical_json.js";
-import {
-  isSha256Digest,
-  sha256Canonical,
-  type Sha256Digest,
-} from "../shared/digests.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { sha256Canonical, sha256Bytes } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import {
-  digestSchema,
-  type ExactOwnerOperationPort,
-  jsonValueSchema,
-  nonblankSchema,
-  ownerAuthorityDigest,
-  ownerContractPacket,
-  ownerMetadata,
-  refSetSchema,
-  TERMINAL_ONLY_ADAPTER_EXIT_MAP,
-} from "../shared/public_function_contracts.js";
+import { isRecord } from "../shared/admission_predicates.js";
+import { absolutePathSchema, digestSchema, jsonValueSchema, nonblankSchema, refDigestSchema,
+  ownerAuthorityDigest, ownerContractPacket, ownerMetadata, TERMINAL_ONLY_ADAPTER_EXIT_MAP } from "../shared/public_function_contracts.js";
+import { isExactOperationInvocationCoordinate } from "../shared/operation_definition_coordinate.js";
+import { EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, QUALIFICATION_PROOF_RESOURCE_SCHEMA,
+  QUALIFICATION_SELECTION_SCHEMA, QUALIFICATION_INVENTORY_SCHEMA, QUALIFICATION_PREFIX_SCHEMA,
+  type QualificationProofResource, type QualificationEvidenceSelection } from "../validator/qualification_contracts.js";
 
 export type ReleaseSnapshotMember = "published_rc" | "tapped_release";
-
-export interface ReleaseIdentity {
-  readonly identityRef: string;
-  readonly identityDigest: Sha256Digest;
-  readonly productId: string;
-  readonly version: string;
-}
-
-export interface ReleaseQualificationBasis {
-  readonly kind: "release_qualification_basis";
-  readonly subjectKind: "pre_rc_candidate" | "final_tap_candidate";
-  readonly basisRef: string;
-  readonly basisDigest: Sha256Digest;
-  readonly prospectiveIdentity: ReleaseIdentity;
-  readonly basis: JsonValue;
-}
-
-export interface ReleaseLawBasis {
-  readonly kind: "release_law_basis";
-  readonly lawBasisRef: string;
-  readonly lawBasisDigest: Sha256Digest;
-  readonly law: JsonValue;
-}
-
-export interface ReleaseQualificationVerdict {
-  readonly kind: "release_qualification_verdict";
-  readonly verdictRef: string;
-  readonly verdictDigest: Sha256Digest;
-  readonly qualificationBasisRef: string;
-  readonly qualificationBasisDigest: Sha256Digest;
-  readonly lawBasisRef: string;
-  readonly lawBasisDigest: Sha256Digest;
-  readonly disposition: "green" | "not_green";
-  readonly bypassRefs: readonly string[];
-}
-
-export interface ReleaseEvidenceCoordinate {
-  readonly ref: string;
-  readonly digest: Sha256Digest;
-  readonly value: JsonValue;
-}
-
-export interface PublishedRcSnapshotRequest {
-  readonly qualificationBasis: ReleaseQualificationBasis;
-  readonly lawBasis: ReleaseLawBasis;
-  readonly verdict: ReleaseQualificationVerdict;
-  readonly requestedIdentity: ReleaseIdentity;
-}
-
-export interface TappedReleaseSnapshotRequest {
-  readonly finalTapBasis: ReleaseQualificationBasis;
-  readonly lawBasis: ReleaseLawBasis;
-  readonly verdict: ReleaseQualificationVerdict;
-  readonly requestedIdentity: ReleaseIdentity;
-  readonly acceptedRc: ReleaseEvidenceCoordinate;
-  readonly installedRcQualification: ReleaseEvidenceCoordinate;
-  readonly finalTapDelta: ReleaseEvidenceCoordinate;
-}
-
-export interface ReleaseSnapshotRequestByMember {
-  readonly published_rc: PublishedRcSnapshotRequest;
-  readonly tapped_release: TappedReleaseSnapshotRequest;
-}
-
-export type ReleaseSnapshotRequest<
-  M extends ReleaseSnapshotMember = ReleaseSnapshotMember,
-> = ReleaseSnapshotRequestByMember[M];
-
-export type ReleaseSnapshotRefusalCode =
-  | "wrong_subject_kind"
-  | "basis_mismatch"
-  | "law_basis_mismatch"
-  | "verdict_not_green"
-  | "bypass_nonempty"
-  | "identity_mismatch"
-  | "bytes_mismatch"
-  | "publication_failure"
-  | "accepted_rc_mismatch"
-  | "installed_rc_authorization_missing"
-  | "final_delta_incomplete"
-  | "affected_gate_failed";
-
-export interface ReleaseSnapshotRefusal {
-  readonly kind: "release_snapshot_refusal";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "refused";
-  readonly memberKey: ReleaseSnapshotMember;
-  readonly code: ReleaseSnapshotRefusalCode;
-  readonly message: string;
-  readonly requestedIdentity: ReleaseIdentity | null;
-  readonly qualificationBasisRef: string | null;
-  readonly qualificationBasisDigest: Sha256Digest | null;
-  readonly lawBasisRef: string | null;
-  readonly lawBasisDigest: Sha256Digest | null;
-  readonly verdictRef: string | null;
-  readonly verdictDigest: Sha256Digest | null;
-}
-
-export type ReleaseSnapshotOperationResult = ReleaseSnapshotRefusal;
-
-const RELEASE_AUTHORITY =
-  "authority://abiogenesis/product/release-snapshot@5";
-
-const releaseIdentitySchema = v.strictObject({
-  identityRef: nonblankSchema,
-  identityDigest: digestSchema,
-  productId: nonblankSchema,
-  version: nonblankSchema,
+const integer = v.pipe(v.number(),v.integer(),v.minValue(0));
+const gitObject = v.pipe(v.string(),v.regex(/^(?:[a-f0-9]{40}|[a-f0-9]{64})$/));
+export const RELEASE_IDENTITY_SCHEMA = v.strictObject({ productId:nonblankSchema, namespace:v.literal("abiogenesis"),
+  profile:v.literal("one_project_unqualified"), projectSubtree:v.literal("."), versionLine:v.literal("5.0.0"),
+  ordinal:v.pipe(integer,v.minValue(1)), version:nonblankSchema, releaseClaim:refDigestSchema });
+export type ReleaseIdentity=v.InferOutput<typeof RELEASE_IDENTITY_SCHEMA>;
+const requestSchema=v.strictObject({qualificationBasis:EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA,
+  lawBasis:refDigestSchema,verdict:refDigestSchema,requestedIdentity:RELEASE_IDENTITY_SCHEMA});
+export type PublishedRcSnapshotRequest=v.InferOutput<typeof requestSchema>;
+const tappedRequestSchema=v.strictObject({...requestSchema.entries,acceptedRc:refDigestSchema,acceptance:refDigestSchema});
+export type TappedReleaseSnapshotRequest=v.InferOutput<typeof tappedRequestSchema>;
+export const RELEASE_PUBLICATION_GRANT_SCHEMA=v.strictObject({
+  kind:v.literal("release_publication_grant"),sourceRoot:absolutePathSchema,sourceCommit:gitObject,sourceTree:gitObject,
+  sourceInventory:QUALIFICATION_INVENTORY_SCHEMA,
+  artifact:v.strictObject({path:absolutePathSchema,ref:nonblankSchema,digest:digestSchema,snapshotName:nonblankSchema,packageName:nonblankSchema}),
+  manifestPath:absolutePathSchema,releaseClaimPath:absolutePathSchema,
+  remote:nonblankSchema,pushMode:v.literal("atomic"),expectedRemoteRefs:v.array(v.strictObject({ref:nonblankSchema,object:gitObject})),
+  expectedLocalRefs:v.array(v.strictObject({ref:nonblankSchema,object:gitObject})),
+  carrierRefs:v.array(v.strictObject({ref:nonblankSchema,expectedObject:v.nullable(gitObject)})),
+  snapshotRoot:absolutePathSchema,artifactOutputRoot:absolutePathSchema,
+  tagger:v.strictObject({name:nonblankSchema,email:nonblankSchema,date:nonblankSchema}),
+  tagMessage:nonblankSchema,buildCommand:nonblankSchema,packCommand:nonblankSchema,
 });
-
-const releaseQualificationBasisSchema = v.strictObject({
-  kind: v.literal("release_qualification_basis"),
-  subjectKind: v.picklist(["pre_rc_candidate", "final_tap_candidate"]),
-  basisRef: nonblankSchema,
-  basisDigest: digestSchema,
-  prospectiveIdentity: releaseIdentitySchema,
-  basis: jsonValueSchema,
+export type ReleasePublicationGrant=v.InferOutput<typeof RELEASE_PUBLICATION_GRANT_SCHEMA>;
+const refObservation=v.strictObject({ref:nonblankSchema,object:gitObject,peeled:gitObject});
+export const RELEASE_PHYSICAL_OBSERVATION_SCHEMA=v.strictObject({
+  disposition:v.picklist(["complete","refused","incomplete_effect"]),phase:nonblankSchema,message:nonblankSchema,
+  effects:v.array(v.strictObject({kind:nonblankSchema,ref:nonblankSchema,digest:v.nullable(nonblankSchema)})),unknownEffects:v.array(nonblankSchema),
+  sourceCommit:v.nullable(gitObject),sourceTree:v.nullable(gitObject),refs:v.array(refObservation),
+  snapshotManifest:v.nullable(refDigestSchema),snapshotFiles:v.array(v.strictObject({path:nonblankSchema,digest:digestSchema})),
 });
-
-const releaseLawBasisSchema = v.strictObject({
-  kind: v.literal("release_law_basis"),
-  lawBasisRef: nonblankSchema,
-  lawBasisDigest: digestSchema,
-  law: jsonValueSchema,
+export type ReleasePhysicalObservation=v.InferOutput<typeof RELEASE_PHYSICAL_OBSERVATION_SCHEMA>;
+const coordinateSchema=v.strictObject({operationId:v.literal("abg.operation.release.snapshot"),memberKey:v.literal("published_rc"),
+  definitionDigest:digestSchema,invocationRef:nonblankSchema,invocationPayloadDigest:digestSchema,invocationDigest:digestSchema});
+export const RELEASE_OPERATION_ARTIFACT_SCHEMA=v.strictObject({kind:v.literal("release_operation_observation"),schemaVersion:v.literal("5.0.0"),
+  memberKey:v.literal("published_rc"),scope:refDigestSchema,invocation:coordinateSchema,
+  entryPrefix:QUALIFICATION_PREFIX_SCHEMA,grants:v.array(jsonValueSchema),admissionAuthority:jsonValueSchema,eventResource:jsonValueSchema,
+  publicInvocation:jsonValueSchema,resourceDigest:digestSchema,actorRef:nonblankSchema,capabilityGrants:jsonValueSchema,
+  workspaceBinding:refDigestSchema,productSet:jsonValueSchema,dependencyLock:refDigestSchema,
+  request:requestSchema,proof:QUALIFICATION_PROOF_RESOURCE_SCHEMA,selection:QUALIFICATION_SELECTION_SCHEMA,
+  effectGrant:RELEASE_PUBLICATION_GRANT_SCHEMA,observation:RELEASE_PHYSICAL_OBSERVATION_SCHEMA,
 });
-
-const releaseQualificationVerdictSchema = v.strictObject({
-  kind: v.literal("release_qualification_verdict"),
-  verdictRef: nonblankSchema,
-  verdictDigest: digestSchema,
-  qualificationBasisRef: nonblankSchema,
-  qualificationBasisDigest: digestSchema,
-  lawBasisRef: nonblankSchema,
-  lawBasisDigest: digestSchema,
-  disposition: v.picklist(["green", "not_green"]),
-  bypassRefs: refSetSchema,
-});
-
-const releaseEvidenceCoordinateSchema = v.strictObject({
-  ref: nonblankSchema,
-  digest: digestSchema,
-  value: jsonValueSchema,
-});
-
-const publishedRcRequestSchema = v.strictObject({
-  qualificationBasis: releaseQualificationBasisSchema,
-  lawBasis: releaseLawBasisSchema,
-  verdict: releaseQualificationVerdictSchema,
-  requestedIdentity: releaseIdentitySchema,
-});
-
-const tappedReleaseRequestSchema = v.strictObject({
-  finalTapBasis: releaseQualificationBasisSchema,
-  lawBasis: releaseLawBasisSchema,
-  verdict: releaseQualificationVerdictSchema,
-  requestedIdentity: releaseIdentitySchema,
-  acceptedRc: releaseEvidenceCoordinateSchema,
-  installedRcQualification: releaseEvidenceCoordinateSchema,
-  finalTapDelta: releaseEvidenceCoordinateSchema,
-});
-
-const releaseSnapshotRefusalSchema = v.strictObject({
-  kind: v.literal("release_snapshot_refusal"),
-  schemaVersion: v.literal("5.0.0"),
-  disposition: v.literal("refused"),
-  memberKey: v.picklist(["published_rc", "tapped_release"]),
-  code: v.picklist([
-    "wrong_subject_kind",
-    "basis_mismatch",
-    "law_basis_mismatch",
-    "verdict_not_green",
-    "bypass_nonempty",
-    "identity_mismatch",
-    "bytes_mismatch",
-    "publication_failure",
-    "accepted_rc_mismatch",
-    "installed_rc_authorization_missing",
-    "final_delta_incomplete",
-    "affected_gate_failed",
-  ] as const satisfies readonly [
-    ReleaseSnapshotRefusalCode,
-    ...ReleaseSnapshotRefusalCode[],
-  ]),
-  message: nonblankSchema,
-  requestedIdentity: v.nullable(releaseIdentitySchema),
-  qualificationBasisRef: v.nullable(nonblankSchema),
-  qualificationBasisDigest: v.nullable(digestSchema),
-  lawBasisRef: v.nullable(nonblankSchema),
-  lawBasisDigest: v.nullable(digestSchema),
-  verdictRef: v.nullable(nonblankSchema),
-  verdictDigest: v.nullable(digestSchema),
-});
-
-function releaseMetadata(snapshotKind: ReleaseSnapshotMember) {
-  return ownerMetadata({
-    authorityClass: "write",
-    effectClass: "immutable_release_publication",
-    eventAdmission: "none",
-    actorRequirement: "required",
-    workspaceBindingRequirement: "exactly_one",
-    authoritySlotRequirements: [
-      "capability_grants",
-      "workspace_binding",
-      "product_set",
-      "dependency_lock",
-      "actor",
-    ],
-    capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.release.snapshot", memberKey: snapshotKind }),
-    defaults: {},
-    closedDomains: { snapshotKind: [snapshotKind] },
-    sdkCoordinate: "sdk.release.snapshot",
-    cliCoordinate: `release snapshot ${snapshotKind}`,
-    adapterExitMap: TERMINAL_ONLY_ADAPTER_EXIT_MAP,
-  });
+export type ReleaseOperationArtifact=v.InferOutput<typeof RELEASE_OPERATION_ARTIFACT_SCHEMA>;
+const completeSchema=v.strictObject({kind:v.literal("release_snapshot_result"),schemaVersion:v.literal("5.0.0"),memberKey:v.literal("published_rc"),
+  disposition:v.literal("complete"),identity:RELEASE_IDENTITY_SCHEMA,artifact:refDigestSchema,observation:RELEASE_PHYSICAL_OBSERVATION_SCHEMA});
+const refusalSchema=v.strictObject({kind:v.literal("release_snapshot_refusal"),schemaVersion:v.literal("5.0.0"),
+  memberKey:v.picklist(["published_rc","tapped_release"]),disposition:v.picklist(["refused","incomplete_effect"]),
+  code:v.picklist(["wrong_subject_kind","basis_mismatch","law_basis_mismatch","verdict_not_green","bypass_nonempty","identity_mismatch","publication_failure","not_implemented","duplicate_invocation","artifact_conflict"]),
+  message:nonblankSchema,artifact:v.nullable(refDigestSchema),observation:v.nullable(RELEASE_PHYSICAL_OBSERVATION_SCHEMA)});
+export type ReleaseSnapshotRefusal=v.InferOutput<typeof refusalSchema>;
+export type ReleaseSnapshotOperationResult=v.InferOutput<typeof completeSchema>|ReleaseSnapshotRefusal;
+function metadata(member:ReleaseSnapshotMember){return ownerMetadata({authorityClass:"write",effectClass:"immutable_release_publication",
+ eventAdmission:member==="published_rc"?"immutable_artifact_boundary":"none",actorRequirement:"required",workspaceBindingRequirement:"exactly_one",
+ authoritySlotRequirements:["capability_grants","workspace_binding","product_set","dependency_lock","actor"],
+ capabilityRefs:capabilityRefsForDefinition({operationId:"abg.operation.release.snapshot",memberKey:member}),defaults:{},closedDomains:{snapshotKind:[member]},
+ sdkCoordinate:"sdk.release.snapshot",cliCoordinate:`release snapshot ${member}`,adapterExitMap:TERMINAL_ONLY_ADAPTER_EXIT_MAP});}
+const authority="authority://abiogenesis/product/release-snapshot@5";
+const owner=(member:ReleaseSnapshotMember)=>({abstractModule:"Product.ReleaseSnapshot",exportName:"RELEASE_OPERATION_CONTRACTS",memberPath:["snapshot",member],authorityRef:authority,authorityDigest:ownerAuthorityDigest(authority)});
+export const RELEASE_OPERATION_CONTRACTS=Object.freeze({snapshot:Object.freeze({
+ published_rc:ownerContractPacket({operationId:"abg.operation.release.snapshot",memberKey:"published_rc"} as const,requestSchema,completeSchema,refusalSchema,null,owner("published_rc"),metadata("published_rc")),
+ tapped_release:ownerContractPacket({operationId:"abg.operation.release.snapshot",memberKey:"tapped_release"} as const,tappedRequestSchema,v.never(),refusalSchema,null,owner("tapped_release"),metadata("tapped_release")),
+})});
+export const releaseHash=(value:unknown)=>sha256Canonical(value as JsonValue);
+const same=(a:unknown,b:unknown)=>canonicalJson(a as JsonValue)===canonicalJson(b as JsonValue);
+export function releaseRefusal(memberKey:ReleaseSnapshotMember,code:ReleaseSnapshotRefusal["code"],message:string,observation:ReleasePhysicalObservation|null=null,artifact:ReferenceDigest|null=null):ReleaseSnapshotRefusal{
+ return deepFreeze({kind:"release_snapshot_refusal",schemaVersion:"5.0.0",memberKey,disposition:observation?.disposition==="incomplete_effect"?"incomplete_effect":"refused",code,message,artifact,observation});
 }
-
-const publishedRcContract = ownerContractPacket(
-  {
-    operationId: "abg.operation.release.snapshot",
-    memberKey: "published_rc",
-  } as const,
-  publishedRcRequestSchema,
-  v.never(),
-  releaseSnapshotRefusalSchema,
-  null,
-  {
-    abstractModule: "Product.ReleaseSnapshot",
-    exportName: "RELEASE_OPERATION_CONTRACTS",
-    memberPath: ["snapshot", "published_rc"],
-    authorityRef: RELEASE_AUTHORITY,
-    authorityDigest: ownerAuthorityDigest(RELEASE_AUTHORITY),
-  },
-  releaseMetadata("published_rc"),
-);
-
-const tappedReleaseContract = ownerContractPacket(
-  {
-    operationId: "abg.operation.release.snapshot",
-    memberKey: "tapped_release",
-  } as const,
-  tappedReleaseRequestSchema,
-  v.never(),
-  releaseSnapshotRefusalSchema,
-  null,
-  {
-    abstractModule: "Product.ReleaseSnapshot",
-    exportName: "RELEASE_OPERATION_CONTRACTS",
-    memberPath: ["snapshot", "tapped_release"],
-    authorityRef: RELEASE_AUTHORITY,
-    authorityDigest: ownerAuthorityDigest(RELEASE_AUTHORITY),
-  },
-  releaseMetadata("tapped_release"),
-);
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
+export function releaseAuthorityScope(request:PublishedRcSnapshotRequest,proof:QualificationProofResource,selection:QualificationEvidenceSelection,effectGrant:ReleasePublicationGrant){
+ const identity=request.requestedIdentity;
+ const ref=`release-scope://abiogenesis/${identity.namespace}/${identity.versionLine}/rc.${identity.ordinal}/published_rc`;
+ return {ref,digest:releaseHash({request,proof,selection,effectGrant})};
 }
-
-function hasExactKeys(value: object, keys: readonly string[]): boolean {
-  return Object.keys(value).sort(compareUnicodeCodeUnits).join("\0") ===
-    [...keys].sort(compareUnicodeCodeUnits).join("\0");
-}
-
-function digestJson(value: unknown): Sha256Digest | null {
-  try {
-    return sha256Canonical(value as JsonValue);
-  } catch {
-    return null;
-  }
-}
-
-function validIdentity(value: unknown): value is ReleaseIdentity {
-  if (
-    !isRecord(value) ||
-    !hasExactKeys(value, [
-      "identityDigest",
-      "identityRef",
-      "productId",
-      "version",
-    ]) ||
-    typeof value.identityRef !== "string" ||
-    value.identityRef.length === 0 ||
-    !isSha256Digest(value.identityDigest) ||
-    typeof value.productId !== "string" ||
-    value.productId.length === 0 ||
-    typeof value.version !== "string" ||
-    value.version.length === 0
-  ) return false;
-  return true;
-}
-
-function validBasis(value: unknown): value is ReleaseQualificationBasis {
-  if (
-    !isRecord(value) ||
-    !hasExactKeys(value, [
-      "basis",
-      "basisDigest",
-      "basisRef",
-      "kind",
-      "prospectiveIdentity",
-      "subjectKind",
-    ]) ||
-    value.kind !== "release_qualification_basis" ||
-    (
-      value.subjectKind !== "pre_rc_candidate" &&
-      value.subjectKind !== "final_tap_candidate"
-    ) ||
-    typeof value.basisRef !== "string" ||
-    value.basisRef.length === 0 ||
-    !isSha256Digest(value.basisDigest) ||
-    !validIdentity(value.prospectiveIdentity)
-  ) return false;
-  return digestJson(value.basis) === value.basisDigest;
-}
-
-function validLawBasis(value: unknown): value is ReleaseLawBasis {
-  return isRecord(value) &&
-    hasExactKeys(value, [
-      "kind",
-      "law",
-      "lawBasisDigest",
-      "lawBasisRef",
-    ]) &&
-    value.kind === "release_law_basis" &&
-    typeof value.lawBasisRef === "string" &&
-    value.lawBasisRef.length > 0 &&
-    isSha256Digest(value.lawBasisDigest) &&
-    digestJson(value.law) === value.lawBasisDigest;
-}
-
-function validVerdict(value: unknown): value is ReleaseQualificationVerdict {
-  if (
-    !isRecord(value) ||
-    !hasExactKeys(value, [
-      "bypassRefs",
-      "disposition",
-      "kind",
-      "lawBasisDigest",
-      "lawBasisRef",
-      "qualificationBasisDigest",
-      "qualificationBasisRef",
-      "verdictDigest",
-      "verdictRef",
-    ]) ||
-    value.kind !== "release_qualification_verdict" ||
-    typeof value.verdictRef !== "string" ||
-    value.verdictRef.length === 0 ||
-    !isSha256Digest(value.verdictDigest) ||
-    typeof value.qualificationBasisRef !== "string" ||
-    value.qualificationBasisRef.length === 0 ||
-    !isSha256Digest(value.qualificationBasisDigest) ||
-    typeof value.lawBasisRef !== "string" ||
-    value.lawBasisRef.length === 0 ||
-    !isSha256Digest(value.lawBasisDigest) ||
-    (value.disposition !== "green" && value.disposition !== "not_green") ||
-    !Array.isArray(value.bypassRefs) ||
-    value.bypassRefs.some((ref) => typeof ref !== "string" || ref.length === 0) ||
-    new Set(value.bypassRefs).size !== value.bypassRefs.length
-  ) return false;
-  const body = {
-    qualificationBasisRef: value.qualificationBasisRef,
-    qualificationBasisDigest: value.qualificationBasisDigest,
-    lawBasisRef: value.lawBasisRef,
-    lawBasisDigest: value.lawBasisDigest,
-    disposition: value.disposition,
-    bypassRefs: [...value.bypassRefs].sort(compareUnicodeCodeUnits),
-  };
-  return value.verdictDigest === sha256Canonical(body);
-}
-
-function validEvidence(value: unknown): value is ReleaseEvidenceCoordinate {
-  return isRecord(value) &&
-    hasExactKeys(value, ["digest", "ref", "value"]) &&
-    typeof value.ref === "string" &&
-    value.ref.length > 0 &&
-    isSha256Digest(value.digest) &&
-    digestJson(value.value) === value.digest;
-}
-
-function refusal(
-  memberKey: ReleaseSnapshotMember,
-  code: ReleaseSnapshotRefusalCode,
-  message: string,
-  packet: unknown,
-): ReleaseSnapshotRefusal {
-  const basis = isRecord(packet)
-    ? memberKey === "published_rc"
-      ? packet.qualificationBasis
-      : packet.finalTapBasis
-    : null;
-  const lawBasis = isRecord(packet) ? packet.lawBasis : null;
-  const verdict = isRecord(packet) ? packet.verdict : null;
-  return deepFreeze({
-    kind: "release_snapshot_refusal" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "refused" as const,
-    memberKey,
-    code,
-    message,
-    requestedIdentity:
-      isRecord(packet) && validIdentity(packet.requestedIdentity)
-        ? packet.requestedIdentity
-        : null,
-    qualificationBasisRef:
-      isRecord(basis) && typeof basis.basisRef === "string"
-        ? basis.basisRef
-        : null,
-    qualificationBasisDigest:
-      isRecord(basis) && isSha256Digest(basis.basisDigest)
-        ? basis.basisDigest
-        : null,
-    lawBasisRef:
-      isRecord(lawBasis) && typeof lawBasis.lawBasisRef === "string"
-        ? lawBasis.lawBasisRef
-        : null,
-    lawBasisDigest:
-      isRecord(lawBasis) && isSha256Digest(lawBasis.lawBasisDigest)
-        ? lawBasis.lawBasisDigest
-        : null,
-    verdictRef:
-      isRecord(verdict) && typeof verdict.verdictRef === "string"
-        ? verdict.verdictRef
-        : null,
-    verdictDigest:
-      isRecord(verdict) && isSha256Digest(verdict.verdictDigest)
-        ? verdict.verdictDigest
-        : null,
-  });
-}
-
-function commonRefusal(
-  memberKey: ReleaseSnapshotMember,
-  packet: unknown,
-  basis: unknown,
-): ReleaseSnapshotRefusal | null {
-  if (!validBasis(basis)) {
-    return refusal(
-      memberKey,
-      "basis_mismatch",
-      "release snapshot requires one exact qualification basis",
-      packet,
-    );
-  }
-  if (!isRecord(packet) || !validLawBasis(packet.lawBasis)) {
-    return refusal(
-      memberKey,
-      "law_basis_mismatch",
-      "release snapshot requires one exact qualification-law basis",
-      packet,
-    );
-  }
-  if (!validVerdict(packet.verdict)) {
-    return refusal(
-      memberKey,
-      "basis_mismatch",
-      "release snapshot requires one exact same-basis verdict",
-      packet,
-    );
-  }
-  if (
-    packet.verdict.qualificationBasisRef !== basis.basisRef ||
-    packet.verdict.qualificationBasisDigest !== basis.basisDigest
-  ) {
-    return refusal(
-      memberKey,
-      "basis_mismatch",
-      "qualification verdict differs from the requested release basis",
-      packet,
-    );
-  }
-  if (
-    packet.verdict.lawBasisRef !== packet.lawBasis.lawBasisRef ||
-    packet.verdict.lawBasisDigest !== packet.lawBasis.lawBasisDigest
-  ) {
-    return refusal(
-      memberKey,
-      "law_basis_mismatch",
-      "qualification verdict differs from the requested law basis",
-      packet,
-    );
-  }
-  if (packet.verdict.disposition !== "green") {
-    return refusal(
-      memberKey,
-      "verdict_not_green",
-      "release snapshot requires one green same-basis verdict",
-      packet,
-    );
-  }
-  if (packet.verdict.bypassRefs.length !== 0) {
-    return refusal(
-      memberKey,
-      "bypass_nonempty",
-      "release snapshot forbids qualification bypasses",
-      packet,
-    );
-  }
-  if (
-    !validIdentity(packet.requestedIdentity) ||
-    packet.requestedIdentity.identityRef !==
-      basis.prospectiveIdentity.identityRef ||
-    packet.requestedIdentity.identityDigest !==
-      basis.prospectiveIdentity.identityDigest
-  ) {
-    return refusal(
-      memberKey,
-      "identity_mismatch",
-      "requested release identity differs from its qualification basis",
-      packet,
-    );
-  }
-  return null;
-}
-
-export function snapshotPublishedRc(
-  packet: PublishedRcSnapshotRequest,
-): ReleaseSnapshotOperationResult {
-  if (
-    !isRecord(packet) ||
-    !hasExactKeys(packet, [
-      "lawBasis",
-      "qualificationBasis",
-      "requestedIdentity",
-      "verdict",
-    ])
-  ) {
-    return refusal(
-      "published_rc",
-      "basis_mismatch",
-      "published RC requires one closed release snapshot packet",
-      packet,
-    );
-  }
-  if (
-    isRecord(packet.qualificationBasis) &&
-    packet.qualificationBasis.subjectKind !== "pre_rc_candidate"
-  ) {
-    return refusal(
-      "published_rc",
-      "wrong_subject_kind",
-      "published RC requires a pre-RC candidate basis",
-      packet,
-    );
-  }
-  const common = commonRefusal(
-    "published_rc",
-    packet,
-    packet.qualificationBasis,
-  );
-  if (common !== null) return common;
-  return refusal(
-    "published_rc",
-    "basis_mismatch",
-    "published RC authority is unavailable until the later qualification owner supplies an admitted same-subject basis",
-    packet,
-  );
-}
-
-export function snapshotTappedRelease(
-  packet: TappedReleaseSnapshotRequest,
-): ReleaseSnapshotOperationResult {
-  if (
-    !isRecord(packet) ||
-    !hasExactKeys(packet, [
-      "acceptedRc",
-      "finalTapBasis",
-      "finalTapDelta",
-      "installedRcQualification",
-      "lawBasis",
-      "requestedIdentity",
-      "verdict",
-    ])
-  ) {
-    return refusal(
-      "tapped_release",
-      "basis_mismatch",
-      "tapped release requires one closed release snapshot packet",
-      packet,
-    );
-  }
-  if (
-    isRecord(packet.finalTapBasis) &&
-    packet.finalTapBasis.subjectKind !== "final_tap_candidate"
-  ) {
-    return refusal(
-      "tapped_release",
-      "wrong_subject_kind",
-      "tapped release requires a final-tap candidate basis",
-      packet,
-    );
-  }
-  const common = commonRefusal(
-    "tapped_release",
-    packet,
-    packet.finalTapBasis,
-  );
-  if (common !== null) return common;
-  if (!validEvidence(packet.acceptedRc)) {
-    return refusal(
-      "tapped_release",
-      "accepted_rc_mismatch",
-      "tapped release requires one exact accepted RC carrier",
-      packet,
-    );
-  }
-  if (!validEvidence(packet.installedRcQualification)) {
-    return refusal(
-      "tapped_release",
-      "installed_rc_authorization_missing",
-      "tapped release requires exact installed-RC qualification authority",
-      packet,
-    );
-  }
-  if (!validEvidence(packet.finalTapDelta)) {
-    return refusal(
-      "tapped_release",
-      "final_delta_incomplete",
-      "tapped release requires one complete final-tap delta",
-      packet,
-    );
-  }
-  return refusal(
-    "tapped_release",
-    "installed_rc_authorization_missing",
-    "final release authority is unavailable until the later qualification owner admits installed-RC authorization",
-    packet,
-  );
-}
-
-export interface ReleaseSnapshotPort {
-  readonly published_rc: ExactOwnerOperationPort<typeof publishedRcContract>;
-  readonly tapped_release: ExactOwnerOperationPort<typeof tappedReleaseContract>;
-}
-
-type PublishedRcInvocation = Parameters<
-  ExactOwnerOperationPort<typeof publishedRcContract>
->[0];
-type TappedReleaseInvocation = Parameters<
-  ExactOwnerOperationPort<typeof tappedReleaseContract>
->[0];
-
-export const ReleaseSnapshotPort: ReleaseSnapshotPort = Object.freeze({
-  published_rc: async (invocation: PublishedRcInvocation) => Object.freeze({
-    outcomeKind: "refusal" as const,
-    value: snapshotPublishedRc(invocation.request),
-  }),
-  tapped_release: async (invocation: TappedReleaseInvocation) => Object.freeze({
-    outcomeKind: "refusal" as const,
-    value: snapshotTappedRelease(invocation.request),
-  }),
-});
-
-export const RELEASE_OPERATION_CONTRACTS = Object.freeze({
-  snapshot: Object.freeze({
-    published_rc: publishedRcContract,
-    tapped_release: tappedReleaseContract,
-  }),
-});
+export function releaseArtifactCoordinate(a:ReleaseOperationArtifact){const digest=releaseHash(a);return {ref:`release-observation://abiogenesis/${digest.slice(7)}`,digest};}
+export function snapshotTappedRelease(_request:unknown):ReleaseSnapshotRefusal{return releaseRefusal("tapped_release","not_implemented","same-RC installed qualification and actual human acceptance remain a dependent increment");}

@@ -1,4 +1,5 @@
 export { HELLO_WORLD_IMPLEMENTATION_DESCRIPTOR, realizeHelloWorld } from "./hello_world.js";
+export { NATIVE_WORKSPACE_WORK_IMPLEMENTATION_DESCRIPTOR, realizeNativeWorkspaceWork } from "./native_workspace_work.js";
 export {
   WORKSITE_COMMAND_EXECUTION_IMPLEMENTATION_DESCRIPTOR,
   WORKSITE_PREPARATION_SELECT_IMPLEMENTATION_DESCRIPTOR, WORKSITE_PREPARATION_COMMAND_IMPLEMENTATION_DESCRIPTOR,
@@ -31,6 +32,7 @@ export {
 export type {
   ClosedLeafInvocationReceipt,
   ClosedLeafOwnerReceipt,
+  ClosedUndispatchedProbabilisticLeafOwnerReceipt,
   DeterministicEvidenceCandidate,
   DeterministicLeafInvocationReceipt,
   HelloWorldLeafImplementation,
@@ -120,6 +122,10 @@ export type { PackagedLeafImplementationDescriptor } from "../product/implementa
 export { REQUIREMENT_HANDOFF_IMPLEMENTATION_DESCRIPTOR, realizeRequirementHandoff } from "./requirement_handoff.js";
 
 export { SEMANTIC_AUTHOR_IMPLEMENTATION_DESCRIPTOR, SEMANTIC_ASSESSOR_IMPLEMENTATION_DESCRIPTOR, SEMANTIC_WORKSITE_BRIDGE_IMPLEMENTATION_DESCRIPTOR, SEMANTIC_EVIDENCE_INPUT_IMPLEMENTATION_DESCRIPTOR, SEMANTIC_ENVELOPE_OUTPUT_IMPLEMENTATION_DESCRIPTOR, realizeSemanticAuthor, realizeSemanticAssessor, realizeSemanticWorksiteBridge, realizeSemanticEvidenceInput, realizeSemanticEnvelopeOutput } from "./semantic_stage.js";
+export { SEMANTIC_JOB_CONTEXT_IMPLEMENTATION_DESCRIPTOR, SEMANTIC_JOB_PLAN_IMPLEMENTATION_DESCRIPTOR, SEMANTIC_JOB_BRIDGE_IMPLEMENTATION_DESCRIPTOR,
+  realizeSemanticJobContext, realizeSemanticJobPlan, realizeSemanticJobBridge } from "./semantic_stage.js";
+export { SEMANTIC_JOB_INTAKE_IMPLEMENTATION_DESCRIPTOR, realizeSemanticJobIntake } from "./requirement_handoff.js";
+export { WORKSITE_FILE_PARENTS_IMPLEMENTATION_DESCRIPTOR, realizeWorksiteFileParents } from "./worksite_file_replace.js";
 
 export { SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS, realizeSemanticRevisionProjection, realizeSemanticRevisionAuthor, realizeSemanticRevisionAssessor, realizeSemanticRevisionBridge, realizeSemanticRevisionEvidenceInput, realizeSemanticRevisionTerminal } from "./semantic_revision.js";
 export { WORKSITE_REVISION_COMMAND_IMPLEMENTATION_DESCRIPTOR, WORKSITE_REVISION_SELECT_IMPLEMENTATION_DESCRIPTOR,
@@ -129,3 +135,12 @@ export { WORKSITE_PRESERVED_RESULT_AUTHENTICATE_IMPLEMENTATION_DESCRIPTOR, WORKS
   authenticateWorksitePreservedResult, deriveWorksitePreservedCandidate } from "./worksite_construction.js";
 export { WORKSITE_COMMAND_FORWARD_PREPARE_DESCRIPTOR, WORKSITE_COMMAND_FORWARD_EXECUTE_DESCRIPTOR,
   prepareWorksiteCommandForward, realizeWorksiteCommandForward } from "./worksite_command_forward.js";
+export { QUALIFICATION_ASSESSMENT_IMPLEMENTATION_DESCRIPTOR, QUALIFICATION_VERDICT_IMPLEMENTATION_DESCRIPTOR,
+  QUALIFICATION_RULING_IMPLEMENTATION_DESCRIPTOR, realizeQualificationAssessment, realizeExactCandidateQualification,
+  realizeQualificationRuling, MALFORMED_GTL_ASSESSMENT_IMPLEMENTATION_DESCRIPTOR,
+  realizeMalformedGtlAssessment } from "./qualification.js";
+
+export { NATIVE_WORK_REACQUISITION_DESCRIPTOR, prepareNativeWorksiteCommandReacquisition } from "./native_work_reacquisition.js";
+
+export { NATIVE_RUNTIME_ASSESSMENT_IMPLEMENTATION_DESCRIPTOR,
+  realizeNativeRuntimeAssessment } from "./qualification.js";

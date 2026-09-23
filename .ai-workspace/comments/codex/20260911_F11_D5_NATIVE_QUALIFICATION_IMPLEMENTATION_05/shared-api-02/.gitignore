@@ -1,0 +1,14 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/build/code/src/abg/qualification_proof.d.ts
+/build/code/src/validator/qualification_contracts.d.ts
+/code/src/abg/qualification_proof.ts
+/code/src/validator/qualification.ts
+/code/src/validator/qualification_contracts.ts
+/contracts/qualification/law-basis.json
+/contracts/qualification/owning-gates.json
+/contracts/schemas/self-conformance.schema.json
+/delta-from-01.patch
+/manifest.json
+/scripts/generate-qualification-rule-catalog.mjs

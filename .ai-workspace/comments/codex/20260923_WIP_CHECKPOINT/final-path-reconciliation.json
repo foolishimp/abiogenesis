@@ -1,0 +1,21 @@
+{
+  "status": "Final publication inventory under the accepted Root grant",
+  "directPathCount": 8688,
+  "archiveBackedPaths": 108479,
+  "newDirectPathsSincePreparation": [
+    ".ai-workspace/comments/codex/20260923_RETAINED_TRANSITION_REUSE/cursor-diagnostic-executive-disposition.json",
+    ".ai-workspace/comments/codex/20260923_RETAINED_TRANSITION_REUSE/cursor-diagnostic-review-01.md"
+  ],
+  "archiveOriginalsStillVisible": [],
+  "forcedDirectGeneratedMetadata": [
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+  ],
+  "sourceAcceptance": "Root accepted exact ABI subject 958805566246bb8d1cf2331424b6a935f41b0bae118e06fb4b0fc455c30e564e after independent review d0c67865; no installed qualification inferred.",
+  "pending": [],
+  "directoryLocalIgnoreFiles": 5490,
+  "inventorySeconds": 1.571,
+  "finalDirectStageInventory": "final-stage-paths.nul",
+  "acceptedSubjectVerifiedPaths": 26,
+  "stageIncludesAlreadyCommittedPayloads": true,
+  "explicitIgnoreMetadataFiles": 5490
+}

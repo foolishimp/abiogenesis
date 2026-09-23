@@ -1,0 +1,40 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/api-and-prerequisites.md
+/artifact-verification.json
+/authored.patch
+/build-final-membership.log
+/build-final-owner.log
+/build-final.log
+/build-first.log
+/build.log
+/check-final-owner.log
+/check-final.log
+/check-first.log
+/check-preparation-first.log
+/delta.json
+/executive-acceptance.md
+/freeze.json
+/freeze.py
+/install.log
+/installed-coordinate.json
+/inventory.json
+/pack-receipt.json
+/packaging-activation.md
+/preimages/code/src/abg/c_call.ts
+/preimages/code/src/abg/instruction_assembly.ts
+/preimages/code/src/gtl/native_workspace_work.ts
+/preimages/code/src/gtl/stdo_run_environment.ts
+/preimages/code/src/hog/ccall_lifecycle.ts
+/preimages/code/src/implementation/leaf_invocation_port.ts
+/preimages/code/src/implementation/native_workspace_work.ts
+/preimages/code/src/product/builtin_semantics.ts
+/preimages/code/src/product/index.ts
+/preimages/code/src/product/native_workspace_work.ts
+/preimages/code/src/product/native_workspace_work_identity.ts
+/preimages/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+/preimages/test_env/tests/t287-native-workspace-work.test.mjs
+/return.md
+/subject.json
+/validation.json

@@ -1,0 +1,15 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/claude-large-prompt-stdin-output.txt
+/claude-large-prompt-stdin-prompt.txt
+/claude-large-prompt-stdin-stderr.log
+/claude-large-prompt-stdin-stdout.log
+/claude-large-prompt-stdin-transport.json
+/claude-large-prompt-stdin.trace/command.json
+/claude-large-prompt-stdin.trace/events.ndjson
+/claude-large-prompt-stdin.trace/final_output.txt
+/claude-large-prompt-stdin.trace/meta.json
+/claude-large-prompt-stdin.trace/result.json
+/claude-large-prompt-stdin.trace/stdout.raw
+/fake-claude-stdin.mjs

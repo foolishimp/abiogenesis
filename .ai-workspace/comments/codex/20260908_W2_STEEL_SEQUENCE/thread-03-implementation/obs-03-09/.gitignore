@@ -1,0 +1,19 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/bootstrap-install.log
+/build.log
+/diagnose.mjs
+/diagnostic.json
+/diagnostic.log
+/pack.json
+/preimages.json
+/preimages/.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/execution.md
+/preimages/.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/thread-03-implementation/execution.md
+/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/preimages/build_tenants/abiogenesis/typescript/code/src/abg/retry.ts
+/preimages/build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-closure.test.mjs
+/retained-continuation-proof.json
+/retained-continuation-test-02.log
+/retained-continuation-test-03.log
+/retained-continuation-test.log

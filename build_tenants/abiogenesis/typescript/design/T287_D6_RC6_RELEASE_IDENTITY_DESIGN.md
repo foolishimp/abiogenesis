@@ -1,6 +1,39 @@
 # T-287 D6 — RC6 Release Identity And Native Publication
 
-Status: Executive-accepted release-only Product/requirement/HOW reconciliation; native implementation and qualification remain open. [Executive acceptance](../../../../.ai-workspace/comments/codex/20260911_D6_RC6_RELEASE_RECONCILIATION/application-03/executive-acceptance.md).
+Status: Executive-accepted release identity and EVENTS-032 artifact-admission design. Native implementation and qualification remain open. [Artifact-admission acceptance](../../../../.ai-workspace/comments/codex/20260911_D6_NATIVE_ARTIFACT_ADMISSION_APPLICATION_10/root-acceptance.md). [Release-identity acceptance](../../../../.ai-workspace/comments/codex/20260911_D6_RC6_RELEASE_RECONCILIATION/application-03/executive-acceptance.md).
+
+## Current composition dependency: QUAL-056
+
+The QUALRELCOMP01 source composition remains incomplete for release publication.
+REQ-P-QUAL-056 requires actual build/lint/test outcomes and a parsed test summary
+inside the snapshot, in addition to the exact D5 verdict and owning citations.
+Current F11 assessment, coverage and verdict contain disposition,
+assessment/evidence coordinates and bypass refs. The selected native-runtime
+assessment contains case match, Result, terminal and replay coordinates. Neither
+provides the required command outcomes or parsed test summary as authenticated,
+selected typed material. verificationFacts and assessmentCitation alone do not satisfy
+this obligation. A later owning D5 result/material selection must supply those
+exact bodies; the snapshot may then copy them without evaluation. Caller green
+summaries, local build logs and inferred test results are not substitutes. No
+new qualification reducer, carrier or acceptance authority is selected here.
+
+## Current First Publication Selection
+
+The operative basis for this realization is STDO v2.5.1-rc.1 and the current
+fifteen-family Product Release Boundaries. Historical RC6/fixed16 wording below
+records design ancestry; it cannot restore reserved 5.1 gates or change current
+qualification applicability. This bounded implementation selects only exact D5
+pre-RC verdict -> published_rc -> existing checked artifact admission -> fresh
+release_evidence. Native same-RC human acceptance and tapped_release remain
+incomplete for their separately dependent increment. No synthetic acceptance,
+extra AF-22 reducer, controller or event kind is selected.
+
+The physical snapshot copies the actual authenticated D5 verdict with its full
+gate citations as bounded verification facts. It cannot supply missing owning
+qualification mechanisms or evidence. Component fixtures exercising physical
+Git/snapshot mechanics have explicitly conditional qualification premises and
+are never native qualification, release acceptance or installed publication
+proof. The real integrated positive depends on the complete exact coverage assessment.
 
 ## 1. Frame, Authority And Conserved Scope
 
@@ -13,8 +46,8 @@ refined by ABI Product/Qualification/Release/Proof and
 
 The owning WHAT is Product F15/F16/S07/completion 9/13/14; QUAL-050,
 057/057C, 067–070B; PUBLIC-CONTRACTS-006A; POLICY-059;
-SELF-CONFORMANCE-008; and SCENARIOS-014 in this same candidate overlay.
-Product fixed16, F12/S04 at 5.1, GOAL-035/T-287 D1–D6, all owning qualification
+SELF-CONFORMANCE-008; and SCENARIOS-014 in the current specification.
+Product selected fifteen families, F12/S04 at 5.1, GOAL-035/T-287 D1–D6, all owning qualification
 gates and the complete F17/S06 mandatory-application witness remain. Downstream
 beta evaluation and a separate Product's release follow their own exact
 development-Product selection and gates; neither substitutes for nor becomes
@@ -23,7 +56,7 @@ an extra ABIogenesis release gate.
 A Source Project is mutable construction, not the released Product. A Release
 Cut and its Product inventory are immutable. Installed Product and
 WorkspaceBinding identities are native admitted facts. Qualification bases,
-vectors, verdicts and F_H responses are immutable evidence whose admission and
+coverage assessments, verdicts and F_H responses are immutable evidence whose admission and
 causal/current relation ABG authenticates. Snapshot/acceptance manifests and
 release evidence queries are subordinate projections. Git refs and artifact
 writes are physical effects owned by the release Product function; none of
@@ -50,10 +83,10 @@ publication stops for the RC6 namespace/profile re-entry; it does not rename or
 rewrite historical cuts.
 
 ```text
-exact pre_rc_candidate + law + complete owning-gate vector
+exact pre_rc_candidate + law + complete independently judged coverage
   -> sole native C.of(AF-22) verdict
   -> AF-25/published_rc: unchanged RC + output-only snapshot + selector advance
-  -> fresh installed_rc + law + complete applicable owning-gate vector
+  -> fresh installed_rc + law + complete applicable independently judged coverage
   -> sole native C.of(AF-22) verdict
   -> actual human Product-authority acceptance of the SAME unchanged RC
   -> AF-25/tapped_release: external same-RC acceptance/evidence addendum
@@ -64,7 +97,7 @@ The qualification family has only `pre_rc_candidate | installed_rc` subjects.
 There is no final-only delta, third qualification subject, second final cut,
 retag or final-version assignment. Any byte capable of affecting the Product
 or a release-scoped claim requires a higher RC and its applicable gates. The
-complete vector and sole AF-22 reducer remain required; an affected-gate rerun
+complete coverage assessment and sole AF-22 reducer remain required; an affected-gate rerun
 is not permission to omit another required gate or silently reuse its old basis.
 Exact existing evidence is reusable only when its owning gate establishes its
 applicability to the new subject.
@@ -89,7 +122,7 @@ one actual selected AF-22 producing CCall, exact declared qualification
 implementation and historical installed declaration owner, invocation/Run,
 Program/locus, input basis, result contract/value and successful judgment/route.
 The admitted output must be the sole verdict over the exact subject, law and
-complete vector with green disposition and empty bypass set. A wrapper or
+complete coverage assessment with green disposition and empty bypass set. A wrapper or
 foldback of the same admitted producer is provenance, not an additional
 verdict; two competing admissible producers refuse rather than choosing first,
 last or equal-valued output. A local hash over a claimed verdict proves no
@@ -148,9 +181,91 @@ the exact native evidence prefix with its real store/path/physical identity and
 expected frontier, existing invocation actor/capability authority, selected
 ProductSet/dependency lock/WorkspaceBinding and immutable artifact/declaration
 proof. A supplied location is a locator, not proof of bytes or authority.
-Evidence reads preserve the store identity and prefix; neither member appends
-release events or imports another history. Evidence consumers use the native
-owner projections, not a second release event parser.
+The immutable qualification evidence frontier is distinct from the release
+call's current entry and successor frontiers. Both members use the existing
+`bindExactPrefixTransition`; a release-evidence read uses the existing exact
+read relation. No member imports another history. Evidence consumers use the
+native owner projections, not a second release event parser.
+
+### 4.1. Existing Generic Artifact Admission
+
+EVENTS-032 selects the existing immutable-artifact route for exactly
+`abg.operation.release.snapshot#published_rc` and
+`abg.operation.release.snapshot#tapped_release`. Their static metadata declares
+`immutable_artifact_boundary`. The physical owner constructs one immutable
+release-operation observation artifact; ABG admits it through the checked
+`public_operation_artifact_admitted` boundary before a runtime consumer relies
+on it. This does not introduce a release event, verdict, controller or ledger.
+
+Let `Q` be the exact historical frontier carrying the selected D5 verdict and
+other admitted proof, `E0` the acquired current release-resource frontier, and
+`E1` its observed successor. The selected same-store path authenticates `Q` as
+an unchanged prefix of `E0`, including native store/path/device/inode/event-
+contract identity. D5's proof, subject, law, coverage and verdict remain pinned
+to `Q`; neither `E0` nor `E1` replaces a supplied historical proof coordinate.
+The existing native proof owners establish applicable currentness at `E0`.
+Acquire requires a real current close handoff, not an old handoff relabeled as
+current, a copied store or an invented close fact. The release invocation
+preserves every byte through `E0` and appends at most its one artifact boundary.
+Later admissible evidence appends do not rewrite or retroauthorize `Q`.
+
+Before physical effects, the release binding reuses
+`withAdmissionAuthority` / `validateAdmissionCapabilityBasis` and the existing
+capability constructor. The exact two members enter that shared admission
+branch; the ordinary invocation branch is not an AF-25 substitute. This binds
+the actual actor, externally supplied trusted-desktop approval, selected
+capability grants, fixed installed Definition key/digest, request/invocation,
+approved resource digest and exact native WorkspaceBinding/Product set/lock.
+An actor label or structurally valid DefinitionCall is not that reconstruction.
+The release owner then applies its one shared D5/human/release proof join and
+the physical preconditions below. Grant reconstruction is not duplicated in
+AF-25, and no caller-supplied packet or broad current Catalog replaces the
+fixed installed owner. Historical proof keeps its historical owner.
+
+The closed immutable artifact carries the exact member and structural
+Definition/invocation coordinates; current actor/grant/resource/binding basis;
+selected immutable D5 and, when applicable, actual human-acceptance proof;
+unchanged RC identity and artifact/claim set; stable observation scope; and
+the owner's `complete | refused | incomplete_effect` observation with phase,
+known physical facts and explicitly unknown facts. The canonical artifact
+digest covers that entire body; its ref and bytes are create-only outside the
+qualifying Product/claim inventory. It contains no future admission-event or
+close-receipt coordinate. The subsequent event and DefinitionReturn bind those
+separate coordinates without a digest cycle.
+
+The initial stable authority-scope ref is determined by the exact project,
+namespace/profile, version line/RC and AF-25 member, not by invocation ref or
+artifact content. Its canonical scope digest binds the selected immutable cut,
+evidence and approved resource/effect scope. A separately granted reacquisition
+observation has a deterministic successor scope derived from that initial
+scope and the exact predecessor artifact coordinate. It requires the prior
+admitted artifact, unchanged RC and explicit predecessor-bound grant; changing
+a scope name, invocation id, output bytes or ordinal is not reacquisition.
+Only one artifact is admitted at each scope. Duplicate invocation, another
+producer at the same scope (even equal bytes), same-ref/different-digest and
+cross-member scope substitution refuse through the existing native owners.
+Successor observation scopes never loosen immutable RC/ref or empty-target
+creation guards and never turn observation-only reacquisition into write retry.
+
+The existing event envelope retains operation/member/Definition, stable scope,
+invocation, artifact ref/digest, causation and correlation joins. Its existing
+`artifact` payload contains the closed owner artifact. Release artifacts do
+not masquerade as install or binding metadata. Existing checked successor
+validation runs before append; generic append/batch paths remain forbidden for
+this boundary. `ownerAdmittedDisposition: admitted` means that this exact
+owner observation is admitted and available, not that its release disposition
+is complete. The only initiated fluent remains
+`public_operation_artifact_available(scopeRef)`. Product release proof, not EC
+availability, decides whether publication or same-RC acceptance is established.
+The shared release-evidence projection reuses this exact artifact/owner join;
+equal values or physical artifact presence alone confer no native availability.
+
+A pre-effect refusal can return through an unchanged real resource receipt
+without admitting an artifact; no runtime consumer may treat that local result
+as artifact truth. If an authorized refusal observation is materialized for
+native consumption, its generic admission is an explicitly reported native
+effect, while its publication/addendum effect count remains zero. Any possible
+physical publication uses `incomplete_effect` unless completion is proved.
 
 `published_rc` additionally owns one explicit release-effect grant: exact
 source carrier and clean qualification subject; prospective namespace/profile,
@@ -206,15 +321,30 @@ The owner output is a closed sum, transported without Public reinterpretation:
   residuals needed for reacquisition. It is a refusal-bearing owner outcome,
   never a complete or green release claim.
 
-The strict owner refusal/receipt contract represents `incomplete_effect`; no
-new generic outcome kind, runtime event or admission authority is required.
-The result body digest and artifact/value digests remain distinct. Receipts
-record only observed effects: per-path content/physical identity, tag/ref
-objects and remote observation when known, or explicit uncertainty when not.
-After any possible publication, later checksum/read/close/report failure must
-retain that possibility and known effects; it must not return the effect-free
-arm or lose earlier receipts. Evidence capture uses the declared output and
-existing resource receipt, not a shadow success ledger.
+The strict owner refusal/receipt contract represents `incomplete_effect` when
+a real resource-close receipt exists. The existing generic artifact boundary
+records the owner observation, not a new generic outcome kind or release
+event. The result body, artifact and boundary-event digests remain distinct.
+The artifact's complete physical/release observation does not predict native
+admission or successful call closure. A complete DefinitionReturn additionally
+requires the exact admitted artifact and actual successor close receipt.
+
+Receipts distinguish physical outcome, immutable artifact materialization,
+native admission and resource closure; each records observed identities or
+explicit uncertainty. Before admission, a physical artifact is retained
+evidence only. If append may have occurred, preserve the known event/frontier
+or unknown append state and do not blindly retry it. If close fails, the
+existing `DefinitionExecutionFault.evidence` carries the immutable artifact
+coordinate and all available phase/physical/admission facts. The outer result
+remains a fault with no manufactured resource receipt or no-effect claim.
+`bindExactPrefixTransition` and `AbgEventResourceReceipt` remain unchanged:
+without a real close handoff they cannot represent a valid DefinitionReturn.
+An interrupted process can leave no returned receipt at all; its effects stay
+unknown until separately authorized observation. After possible publication,
+later checksum/read/close/report failure preserves that possibility and all
+known prior receipts, never the effect-free arm. Evidence capture uses the
+declared immutable output, existing resource receipt or existing typed fault,
+not a shadow success ledger.
 
 There is no distributed all-or-nothing claim across Git, files and evidence
 stores. Partial local/remote publication or an addendum write followed by a
@@ -224,6 +354,11 @@ blindly replay writes, force an immutable ref, downgrade the selector, delete
 residue, fabricate a no-effect refusal or choose a new ordinal automatically.
 Exact completed output may be recognized as existing evidence; a partial
 snapshot cannot pass the empty-target creation gate by being called a retry.
+An already admitted observation is never overwritten or readmitted. A new
+observation-only reacquisition uses the predecessor-bound scope in section 4.1
+and a new exact current resource grant. If artifact admission or the current
+close handoff is unavailable, release code stops for the existing native
+resource owner; historical artifacts or a copied log do not authorize append.
 Fresh-process reads reconstruct from immutable artifacts and native evidence,
 without today's original workspace or a process-local success cache.
 
@@ -235,16 +370,14 @@ creating qualification truth. Acceptance evidence is not consumer adoption.
 
 ## 6. Existing Reality And Minimal Later Realization Cone
 
-Current `product/release_snapshot_operations.ts` uses local request-value
-checks, includes the second-cut request, declares both success schemas as
-`v.never()` and deliberately returns refusals. Its binding has null resource/
-receipt contracts and rejects any success result. Current `release_evidence`
-projects refusal to `not_ready`. The existing qualification basis schema still
-lists three subject kinds; native overall verdict/vector reduction and the
-release effect owner are not supplied by those files. This candidate removes
-the governing contradiction; it does not implement or qualify these gaps.
+The native release-effect owner remains an implementation and qualification
+dependency. Its success/resource/receipt contracts and release-evidence
+projection must implement the relations in this design; refusing stubs do not
+satisfy them. The separate D5 family has two subject kinds and does not
+implement the release-effect owner. This design does not itself implement or
+qualify either dependency.
 
-The later isolated source cone is:
+The bounded implementation source cone is:
 
 | Owning path, relative to `code/src` | Bounded change |
 |---|---|
@@ -253,7 +386,12 @@ The later isolated source cone is:
 | `implementation/release_publication.ts` (new physical owner) | Explicit scoped Git/artifact/addendum effects and reacquisition only; no gate evaluator, CLI orchestration or event writer |
 | `product/release_acceptance.ts`, `gtl/release_acceptance.ts` (new domain contracts/publication) | Closed same-RC F_H request/response and declared graph using existing HoG/ABG interaction semantics; no new Public operation or human-response runtime |
 | `product/project_read_ports.ts`, `product/project_read_operation_contracts.ts`, `product/project_read_definition_bindings.ts` | Existing release-evidence member projects the owner's authenticated result/receipt and external addenda |
-| `validator/self_conformance_contracts.ts` and the D5 qualification owner | Remove the third basis kind; share the one native AF-22 contract/projector. Completing the D5 vector/verdict is D5 work, not an AF-25-local substitute |
+| Existing D5 qualification contract/projector | Read-only dependency on the one native AF-22 family; D5 completion/correction is separate work, not an AF-25-local substitute or an added D6 write owner |
+| `abg/environment_admission.ts` | Extend the checked artifact operation/member relation to only the two AF-25 members; validate the closed owner artifact and exact scope/Definition/invocation joins before the existing checked append |
+| `abg/event_store.ts` | Allow those exact two members through `appendCheckedArtifactEvent`; retain held-prefix checks and refusal through ordinary generic append/batch paths; preserve the event-contract table |
+| `abg/artifact_truth.ts` | Add a closed release-artifact arm separate from full install/binding reconstruction; validate exact envelope/artifact/scope/member relations without inferring release success |
+| `abg/effectful_invocation_truth.ts` | Include the admitted release artifact in the existing shared duplicate-invocation relation; no second registry |
+| `product/admission_authority.ts` | Add only `release.snapshot#published_rc` and `#tapped_release` to the shared exact admission-capability branch; retain all actor, approval, resource, installed-owner and binding checks; no release-local verifier |
 
 Module indexes, schema/publication generators and package manifests receive only
 mechanical exports/digests for these owners under the later grant. Existing ABG
@@ -262,6 +400,17 @@ verification are reused, including exact historical scopes; no generic owner
 is relaxed. If a necessary authenticated join or receipt cannot be represented
 there, realization returns the exact missing relation before editing another
 owner. No new runtime event or parallel release controller is selected.
+
+The release extension neither changes nor qualifies D5. The four native
+owners above admit the release-artifact arm through the existing EVENTS-032
+event shape. The extension also requires the named Product admission branch;
+`product/invocation.ts`'s algorithm is reused unchanged.
+The existing event payload already carries the full artifact, and EC already
+initiates its sole availability fluent. No new event kind, payload key, fluent
+or `ROOT_EVENT_CONTRACT_DIGEST` change is selected. The event/resource/static
+contract owners outside the five exact additions remain unchanged. A required
+change to those representations is an explicit re-entry, not silent P3 history
+restamping or a fourth combinator.
 
 ## 7. Required Discriminators And Stop Boundary
 
@@ -275,7 +424,7 @@ no second artifact/cut/version or selector movement. A post-publication fresh
 install is an addendum, not a retroactive prerequisite.
 
 Required bounded negatives include wrong/forged/competing AF-22 producers;
-wrong subject/law/vector or nonempty bypass; pre-RC verdict relabeled installed;
+wrong subject/law/coverage or nonempty bypass; pre-RC verdict relabeled installed;
 wrong or absent actual human authority, withheld/superseded/foreign acceptance;
 same URI with changed digest; a qualifying byte change attempted on an existing
 RC; stale ordinal/ref/selector; historical-profile collision; write failure
@@ -284,8 +433,23 @@ and missing/crossed partial receipt on fresh reacquisition. Equal-value
 competing owners refuse; foldbacks of one owner do not manufacture ambiguity.
 No negative may be credited without its valid positive owning baseline.
 
-Qualification still includes every fixed16 gate, complete F17/S06, S01 R1–R10,
+Artifact-boundary qualification also proves both exact AF-25 members with the
+actual current actor/grant/Definition and one immutable artifact; unchanged
+historical `Q` and entry prefix with exactly one checked successor event; old
+install/bind success and refusal conservation; unchanged event-contract digest;
+wrong actor/grant/member/Definition/artifact/digest/prefix and same-scope or
+duplicate-invocation refusal, including equal-valued competitors. It injects
+failure before physical effect, during physical effect, after artifact write,
+before/after append and at resource close. Each stage retains known/unknown
+facts without fake completion/handoff. Fresh reacquisition proves its exact
+predecessor and unchanged RC; forged predecessor or scope renaming refuses.
+Release-evidence reads append no events and distinguish an admitted incomplete
+observation from complete publication/acceptance. These are finite required
+cases, not executed evidence or permission to mutate a retained store.
+
+Qualification still includes every selected fifteen-family outcome, complete F17/S06, S01 R1–R10,
 conservation, Consensus, F_H, Codex and self-conformance obligations. Mechanical
 checks, this HOW, a source review, a bounded installed test or release tooling
-presence cannot close D5/D6. This candidate returns for independent review;
-it authorizes no implementation, publication, human acceptance or 5.0 closure.
+presence cannot close D5/D6. Implementation and publication require separate
+operation grants; human acceptance and 5.0 closure require their actual owning
+qualification. This design grants none of those effects or conclusions.

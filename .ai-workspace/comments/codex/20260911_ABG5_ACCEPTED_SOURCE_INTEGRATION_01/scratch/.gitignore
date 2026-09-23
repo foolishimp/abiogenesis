@@ -1,0 +1,13 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/witness-15pfap/events.jsonl
+/witness-15pfap/result.json
+/witness-5DXOlB/events.jsonl
+/witness-CZV0Eb/events.jsonl
+/witness-LNlvFS/events.jsonl
+/witness-ReRNIF/events.jsonl
+/witness-g0bk8I/events.jsonl
+/witness-hRjsM5/events.jsonl
+/witness-rmPVGF/events.jsonl
+/witness-ztRjLA/events.jsonl

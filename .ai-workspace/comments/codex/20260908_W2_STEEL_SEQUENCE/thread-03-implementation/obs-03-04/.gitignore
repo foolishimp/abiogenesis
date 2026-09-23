@@ -1,0 +1,21 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/bootstrap-install.log
+/compile-02.log
+/compile.log
+/preimages.json
+/preimages/code/src/abg/execution_basis.ts
+/preimages/code/src/hog/child_traversal.ts
+/preimages/code/src/hog/entry.ts
+/preimages/code/src/hog/graph_execute.ts
+/preimages/code/src/hog/traversal_contract.ts
+/preimages/code/src/owner_bindings/run_invocation.ts
+/preimages/test_env/tests/w2-steel-single-start-closure.test.mjs
+/result.json
+/retained-owner-proof.json
+/retained-owner-test.log
+/successor-build-final.log
+/successor-build.log
+/successor-pack-final.json
+/successor-pack.json

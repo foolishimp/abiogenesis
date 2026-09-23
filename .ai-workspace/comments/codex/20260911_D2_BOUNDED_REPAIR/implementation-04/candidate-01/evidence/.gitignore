@@ -1,0 +1,19 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../20260923_WIP_CHECKPOINT/README.md
+/activation-08a.md
+/activation.md
+/bootstrap.json
+/bootstrap.mjs
+/checks/compile-01.json
+/checks/inherited-39-unamended-01.json
+/checks/inherited-and-owner-final-01.json
+/checks/owner-lookup-localization-01.json
+/checks/owner-lookups-01.json
+/checks/retained-prefix-01.json
+/checks/retained-prefix-02.json
+/checks/retained-prefix-localization-01.json
+/checks/snapshot-join-localization-01.json
+/checks/snapshot-join-localization-02.json
+/freeze.mjs
+/run-check.mjs

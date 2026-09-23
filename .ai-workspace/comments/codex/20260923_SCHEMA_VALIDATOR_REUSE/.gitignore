@@ -1,0 +1,41 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/authored.patch
+/caller-source-identities.json
+/changed-paths.json
+/checks.json
+/compile.log
+/core-subject-inventory.json
+/evidence-inventory.json
+/executive-disposition.md
+/final-review.md
+/focused-tests.log
+/freeze.json
+/generator.log
+/preimages.json
+/preimages/.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/d5-next-selection.json
+/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/preimages/build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_assessment.js
+/preimages/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts
+/preimages/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json
+/preimages/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+/preimages/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json
+/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+/preimages/specification/GOALS.md
+/return.md
+/review-verification.json
+/state.json
+/successors/.ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/d5-next-selection.json
+/successors/.ai-workspace/comments/codex/20260922_AF22_PROOF_REUSE/executive-disposition.md
+/successors/.ai-workspace/comments/codex/20260922_AF22_PROOF_REUSE/executive-state.json
+/successors/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/successors/build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_assessment.js
+/successors/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts
+/successors/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json
+/successors/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+/successors/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json
+/successors/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+/successors/specification/GOALS.md
+/tracking.patch

@@ -1,0 +1,11 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/d1/code/src/abg/index.ts
+/d1/code/src/product/declaration_closure.ts
+/d2/code/src/abg/index.ts
+/d2/code/src/product/declaration_closure.ts
+/r10/code/src/abg/index.ts
+/r10/code/src/product/declaration_closure.ts
+/source04/code/src/abg/index.ts
+/source04/code/src/product/declaration_closure.ts

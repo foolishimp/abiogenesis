@@ -27,7 +27,7 @@ authority.
 `QualificationLawBasis`. The subject shall identify its closed qualification
 kind, exact source and artifact content, toolchain manifest, installed-product
 and workspace-binding truth when applicable, tenant-conformance manifest, and
-frozen gate inventory. The law basis shall identify the specification-method
+source-grounded behavioral coverage catalog. The law basis shall identify the specification-method
 version, applicable rule-catalog version, exact source references, and content
 digests used to decide the run. ABIogenesis 5.0 release qualification shall
 bind the exact tapped and installed STDO release identity selected by
@@ -79,21 +79,24 @@ constitutional, design, code, proof, ticket, public-contract, or release
 surfaces. Repair re-enters through the owning change class and ticket or
 execution contract.
 
-**REQ-P-SELF-CONFORMANCE-007A**: The admitted self-conformance result is one
-owning-gate result in the complete ordered
-`QualificationGateResultVector<K>`. It shall preserve the same qualification
-subject and law basis and shall not directly emit, replace, or reinterpret the
-overall `ExactCandidateQualification<verdict>` projection.
+**REQ-P-SELF-CONFORMANCE-007A**: The admitted complete self-conformance result
+shall conserve exact qualification subject/law, source-grounded behavioral
+coverage, actual execution evidence and independent applicability/sufficiency
+judgment. It is the assessment input to the sole AF22 verdict; it shall not
+emit or reinterpret release qualification itself. Shared evidence is permitted
+without a distinct Result per behavior, but missing required coverage remains
+blocked.
 
 ## Proof And Exact-Cut Gate
 
 **REQ-P-SELF-CONFORMANCE-008**: Qualification of a `pre_rc_candidate` shall run
 the self-conformance contract against the real complete ABIogenesis candidate
 tree bound by its exact `ExactCandidateQualification<basis>` projection.
-Qualification of an `installed_rc` or `final_tap_candidate` shall rerun every
-self-conformance gate made applicable by that exact subject or its admitted
-delta. A run is green only when every applicable required surface and rule has
-a typed terminal disposition.
+Qualification of an `installed_rc` shall rerun every self-conformance gate made
+applicable by that exact installed subject. A qualifying Product or
+release-claim byte change requires a higher RC and its applicable gates, not a
+third qualification subject at acceptance. A run is green only when every
+applicable required surface and rule has a typed terminal disposition.
 
 **REQ-P-SELF-CONFORMANCE-009**: A seeded-negative matrix shall introduce
 representative missing authority, broken traceability, unowned public contract,
@@ -105,8 +108,8 @@ diagnostic and non-green disposition.
 bind the exact ABIogenesis 5.0 qualification subject, its tenant-conformance
 manifest, frozen subject inventory, and exact method/rule/source basis. A result
 over different bytes or a different law basis, an incomplete inventory, an
-unresolvable basis, or a seeded defect that passes shall refuse the owning gate
-and therefore the complete qualification vector.
+unresolvable basis, or a seeded defect that passes shall refuse complete self-conformance
+and therefore qualification.
 
 **REQ-P-SELF-CONFORMANCE-011**: The bounded A5-R1 release snapshot manifest may
 cite the exact self-conformance result and the qualification verdict that

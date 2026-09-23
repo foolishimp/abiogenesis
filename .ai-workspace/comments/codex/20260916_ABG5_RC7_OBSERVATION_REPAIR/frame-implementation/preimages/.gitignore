@@ -1,0 +1,14 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/code/src/abg/actor_process.ts
+/code/src/abg/c_call.ts
+/code/src/abg/closure.ts
+/code/src/abg/event_calculus.ts
+/code/src/abg/open_call.ts
+/code/src/abg/replay.ts
+/code/src/abg/runtime_liveness.ts
+/code/src/abg/runtime_liveness_contracts.ts
+/code/src/abg/traversal_route.ts
+/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md
+/test_env/tests/t287-runtime-activity-quiescence.test.mjs

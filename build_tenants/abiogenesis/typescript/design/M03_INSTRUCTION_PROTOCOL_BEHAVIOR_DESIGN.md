@@ -3,7 +3,7 @@
 **Status**: Accepted, realized, and closed by T-256
 **Date**: 2026-07-13
 **Ticket**: T-256
-**Method authority**: `../../../../.genesis/docs/standards/DESIGN_MODULE_METHOD.md` section 5E
+**Method authority**: `stdo://releases/v2.5.0-rc.6/standards/DESIGN_MODULE_METHOD.md` section 5E
 **Tenant authority**: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md)
 
 ## Boundary

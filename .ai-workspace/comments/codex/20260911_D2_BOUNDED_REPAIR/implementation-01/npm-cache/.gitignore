@@ -1,0 +1,21 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/_cacache/content-v2/sha512/24/1b/8331b31bee1298e7864bd11bc24391156c31df00198af5f41d17e893af662c164fdd67ca71b0dcff7de6e6345d69db3c33b27d4879e6028414ebeb3966af
+/_cacache/content-v2/sha512/b4/b1/2f9aea3f0b6a04ee5c4d3eae990be47895a51cec59afc23001cd7f14781b68ae924ae280b1cfe623b1e512200786ece6ad150d81cfd83cdb40ddab73ef71
+/_cacache/index-v5/fc/56/01af42db4acf6635f8ff776c41befa15d96be9fb01826314358c2cb166f1
+/_logs/2026-09-10T18_38_53_822Z-debug-0.log
+/_logs/2026-09-10T18_40_26_204Z-debug-0.log
+/_update-notifier-last-checked
+/installed-02/_cacache/content-v2/sha512/b4/b1/2f9aea3f0b6a04ee5c4d3eae990be47895a51cec59afc23001cd7f14781b68ae924ae280b1cfe623b1e512200786ece6ad150d81cfd83cdb40ddab73ef71
+/installed-02/_cacache/content-v2/sha512/c7/38/74c3e6619fe639f46eec6c990d4ee05071ad12df0ba15c5a29ba6024b6131dd45ccc890266a57f7ea07052baad1570abc1d1b15e798c88b2f27205c8a49e
+/installed-02/_cacache/index-v5/01/b3/0ee89b17ca0ffcd3a3e8334040a718f89c6d9b02e6ac0292f13552fd1888
+/installed-02/_cacache/index-v5/51/d2/eb7c0372b7e06fe3f3574a63e63b8fa9c136c5eab15c7ce8a6f7f3ff9b53
+/installed-02/_cacache/index-v5/83/be/84fe0de254b3710d2d1f792568b69bcac6856d0383738fb0f4715938123f
+/installed-02/_cacache/index-v5/b7/08/b9c48924be1489fecb24fad77d76f11c4e84bc99243540144ffd93a5e227
+/installed-02/_cacache/index-v5/d0/ea/1f93eeede363d8c25c696a02a12477aad122129891bc1c8a63ef6b675137
+/installed-02/_cacache/index-v5/fa/dd/5e61a105a9643d6cc2611e140b68a87f1364d470b5c2ad91f45bc6cd7c0e
+/installed-02/_logs/2026-09-10T18_50_45_311Z-debug-0.log
+/installed-02/_logs/2026-09-10T18_52_22_851Z-debug-0.log
+/installed-02/_logs/2026-09-10T18_53_13_461Z-debug-0.log
+/installed-02/_logs/2026-09-10T18_53_27_394Z-debug-0.log

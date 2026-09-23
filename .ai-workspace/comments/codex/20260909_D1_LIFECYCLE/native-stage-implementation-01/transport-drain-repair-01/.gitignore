@@ -1,0 +1,44 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/diagnose-02.mjs
+/diagnose.mjs
+/diagnostic-01.log
+/diagnostic-02.log
+/diagnostic-result-02.json
+/diagnostic-result.json
+/expected-stdout.jsonl
+/flushed-fast/flushed-fast-output.txt
+/flushed-fast/flushed-fast-prompt.txt
+/flushed-fast/flushed-fast-stderr.log
+/flushed-fast/flushed-fast-stdout.log
+/flushed-fast/flushed-fast-transport.json
+/flushed-fast/write-callback.json
+/flushed-slow/flushed-slow-output.txt
+/flushed-slow/flushed-slow-prompt.txt
+/flushed-slow/flushed-slow-stderr.log
+/flushed-slow/flushed-slow-stdout.log
+/flushed-slow/flushed-slow-transport.json
+/flushed-slow/write-callback.json
+/flushed-slower/flushed-slower-output.txt
+/flushed-slower/flushed-slower-prompt.txt
+/flushed-slower/flushed-slower-stderr.log
+/flushed-slower/flushed-slower-stdout.log
+/flushed-slower/flushed-slower-transport.json
+/flushed-slower/write-callback.json
+/manifest.json
+/preimages/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts
+/preimages/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
+/producer.mjs
+/result.json
+/unflushed-fast/unflushed-fast-output.txt
+/unflushed-fast/unflushed-fast-prompt.txt
+/unflushed-fast/unflushed-fast-stderr.log
+/unflushed-fast/unflushed-fast-stdout.log
+/unflushed-fast/unflushed-fast-transport.json
+/unflushed-slow/unflushed-slow-output.txt
+/unflushed-slow/unflushed-slow-prompt.txt
+/unflushed-slow/unflushed-slow-stderr.log
+/unflushed-slow/unflushed-slow-stdout.log
+/unflushed-slow/unflushed-slow-transport.json

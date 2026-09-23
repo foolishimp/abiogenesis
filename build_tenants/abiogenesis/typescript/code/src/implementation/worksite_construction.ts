@@ -1,4 +1,5 @@
 import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
+import { requireWorksiteNativeInstructionAssembly, type NativeInstructionAssembly } from "../abg/instruction_assembly.js";
 import { projectWorksitePreservedResultArtifact, projectWorksitePreservedCandidateBundle } from "../abg/worksite_construction_recovery.js";
 import { WORKSITE_PRESERVED_RESULT_IDS as recoveryIds, type WorksitePreservedResultArtifact } from "../product/worksite_construction_recovery.js";
 import {
@@ -161,22 +162,24 @@ function exactActorExchange(
     observation.implementationRef ===
       WORKSITE_CONSTRUCTION_IDS.candidateImplementationRef &&
     observation.inputDigest === inputDigest &&
-    observation.materializationPlanRef ===
-      WORKSITE_CONSTRUCTION_IDS.materializationPlanRef &&
-    observation.rendererRef === WORKSITE_CONSTRUCTION_IDS.rendererRef &&
+    observation.materializationPlanRef === expectedRequest.materializationPlanRef &&
+    observation.rendererRef === expectedRequest.rendererRef &&
     observation.instructionContractRef ===
       WORKSITE_CONSTRUCTION_IDS.taskContractRef &&
     observation.resultContractRef ===
       WORKSITE_CONSTRUCTION_IDS.workerResultContractRef &&
     observation.transportLane === "closed_prompt_proof" &&
-    observation.promptDigest === task.promptDigest &&
+    typeof expectedRequest.prompt === "string" &&
+    observation.promptDigest === sha256Canonical(expectedRequest.prompt) &&
     observation.toolCallCount === 0;
 }
 
-/** One governed F_P dispatch; the caller-authored prompt bytes are unchanged. */
+/** One governed F_P dispatch. Native assembly preserves original task text as
+ * an exact section while the exchange binds the complete assembled prompt. */
 export function realizeWorksiteConstructionCandidate(
   input: Readonly<WorksiteConstructionTask>,
-  _occurrence: Readonly<LeafExecutionOccurrence>,
+  occurrence: Readonly<LeafExecutionOccurrence>,
+  prepareAssembly?: () => Readonly<NativeInstructionAssembly>,
 ): Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>> {
   if (!isWorksiteConstructionTask(input)) {
     throw new TypeError(
@@ -184,7 +187,7 @@ export function realizeWorksiteConstructionCandidate(
     );
   }
   const inputDigest = sha256Canonical(input as unknown as JsonValue);
-  const workerRequest = deepFreeze({
+  const workerRequest = occurrence.nativeInstructionAssemblyBasis === undefined ? deepFreeze({
     actorRef: WORKSITE_CONSTRUCTION_IDS.workerActorRef,
     workerBindingRef: WORKSITE_CONSTRUCTION_IDS.workerBindingRef,
     implementationRef: WORKSITE_CONSTRUCTION_IDS.candidateImplementationRef,
@@ -196,7 +199,7 @@ export function realizeWorksiteConstructionCandidate(
     transportLane: WORKSITE_CONSTRUCTION_IDS.transportLane,
     prompt: input.prompt,
     responseJsonSchema: worksiteConstructionWorkerResultSchema(input),
-  });
+  }) : (prepareAssembly === undefined ? requireWorksiteNativeInstructionAssembly(occurrence.nativeInstructionAssemblyBasis, input) : prepareAssembly()).request;
   return deepFreeze({
     kind: "prepared_probabilistic_leaf_invocation" as const,
     schemaVersion: "5.0.0" as const,

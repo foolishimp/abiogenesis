@@ -182,13 +182,13 @@ export function constructCatalogProgramValidationInput(
     value.kind === "raw_admission_refusal");
   if (refusal !== undefined) return refusal;
   const lifecycleRef = semanticLifecycleRefForProgram(declarationClosure.programPublication, programAdmission.value);
-  const lifecycleOwners = lifecycleRef === undefined ? [] : declarationPublications.filter(p => p.semanticLifecycle?.declarationRef === lifecycleRef);
+  const lifecycleOwners = lifecycleRef === undefined ? [] : declarationPublications.filter(p => (p.semanticLifecycle ?? p.semanticJobLifecycle)?.declarationRef === lifecycleRef);
   const lifecycleAdmission = lifecycleOwners.length === 1 ? rawAdmitValue<ModulePublication>(lifecycleOwners[0]!, "module_publication", "contract://abiogenesis/gtl/module-publication@5") : null;
   if (lifecycleRef !== undefined && lifecycleAdmission?.kind !== "raw_admitted_value") {
     return { kind: "raw_admission_refusal", schemaVersion: "5.0.0", disposition: "refused", code: "invalid_kind", message: "semantic lifecycle has no unique raw admitted owner" } as RawAdmissionRefusal;
   }
   const sourceRef = lifecycleOwners[0]?.semanticLifecycle?.sourceDeclarationRef;
-  const sourceOwners = sourceRef === undefined ? [] : declarationPublications.filter(p => p.requirementHandoffs?.some(d => d.declarationRef === sourceRef));
+  const sourceOwners = lifecycleOwners[0]?.semanticJobLifecycle !== undefined ? lifecycleOwners : sourceRef === undefined ? [] : declarationPublications.filter(p => p.requirementHandoffs?.some(d => d.declarationRef === sourceRef));
   const sourceAdmission = sourceOwners.length === 1 ? rawAdmitValue<ModulePublication>(sourceOwners[0]!, "module_publication", "contract://abiogenesis/gtl/module-publication@5") : null;
   if (sourceRef !== undefined && sourceAdmission?.kind !== "raw_admitted_value") {
     return { kind: "raw_admission_refusal", schemaVersion: "5.0.0", disposition: "refused", code: "invalid_kind", message: "semantic source has no unique raw admitted owner" } as RawAdmissionRefusal;

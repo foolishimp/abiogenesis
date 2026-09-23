@@ -1,3 +1,4 @@
+import { RETAINED_GRAPH_INPUT_CONTRACT, isRetainedGraphInput } from "./worksite_preparation_contracts.js";
 import { WORKSITE_CONSTRUCTION_IDS, WORKSITE_CONSTRUCTION_RESULT_CONTRACT } from "./worksite_construction_identity.js";
 import type { GtlEdgeInputBinding } from "../gtl/contracts.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
@@ -23,6 +24,7 @@ import {
   WORKSITE_COMMAND_EXECUTION_IDS,
   constructWorksiteCommandConfiguration,
   constructWorksiteCommandExecutionTask,
+  isWorksiteReadDependencyBasis,
   resolveWorksiteCommandExecutionJudgmentRelation,
   type WorksiteCommandExecutionTask,
   type WorksiteDeclaredCommandInput,
@@ -50,6 +52,12 @@ function validConfiguration(input: WorksitePreparationInput): boolean {
       canonicalJson(task.workspaceBinding as unknown as JsonValue) !== canonicalJson(first.workspaceBinding as unknown as JsonValue) ||
       canonicalJson(task.capabilityGrant as unknown as JsonValue) !== canonicalJson(first.capabilityGrant as unknown as JsonValue))) return false;
     const dependencies = input.kind === "worksite_revision_command_preparation_input" ? input.dependencyObservations : [];
+    const readBasis = input.kind === "worksite_command_preparation_input" ? input.readDependencyBasis : undefined;
+    if (readBasis !== undefined && (!isWorksiteReadDependencyBasis(readBasis) || readBasis.members.some(row =>
+      tasks.some(task => task.targets.some(target => target.subject.relativePath === row.subject.relativePath)) ||
+      canonicalJson(constructWorksiteSubject({ workspaceAuthorityBasis: first.workspaceAuthorityBasis,
+        workspaceBinding: first.workspaceBinding, subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath }) as unknown as JsonValue) !==
+        canonicalJson(row.subject as unknown as JsonValue)))) return false;
     if (input.kind === "worksite_revision_command_preparation_input") {
       if (!isSha256Digest(input.revisionBasisDigest) || input.revisionBasisRef !== `semantic-revision://abiogenesis/${input.revisionBasisDigest.slice(7)}` ||
         !Array.isArray(input.snapshotTargetRefs) || input.snapshotTargetRefs.some(r=>typeof r!=="string"||r.trim()!==r||r.length===0||r.includes("\0")) ||
@@ -67,7 +75,8 @@ function validConfiguration(input: WorksitePreparationInput): boolean {
       commands: input.commands,
       outcomePredicates: input.outcomePredicates,
       allowedWriteTerritories: input.allowedWriteTerritories,
-      protectedSubjects: [...tasks.flatMap((task) => task.targets.map((target) => target.subject)), ...dependencies.map(d=>d.subject)],
+      protectedSubjects: [...tasks.flatMap((task) => task.targets.map((target) => target.subject)), ...dependencies.map(d=>d.subject),
+        ...(readBasis?.members.map(row => row.subject) ?? [])],
     });
     return true;
   } catch { return false; }
@@ -75,8 +84,10 @@ function validConfiguration(input: WorksitePreparationInput): boolean {
 
 function schemaAccepts(contractRef: string, value: unknown): boolean {
   const source = worksitePreparationSchemaSources().find((candidate) => candidate.declaration.contractRef === contractRef);
-  if (source === undefined || typeof value !== "object" || value === null || Array.isArray(value) ||
-    Object.keys(value).sort().join("\0") !== Object.keys(source.fields).sort().join("\0")) return false;
+  if (source === undefined || typeof value !== "object" || value === null || Array.isArray(value)) return false;
+  const readArm = contractRef === WORKSITE_PREPARATION_IDS.inputContractRef && Object.hasOwn(value, "readDependencyBasis");
+  if (Object.keys(value).sort().join("\0") !== [...Object.keys(source.fields), ...(readArm ? ["readDependencyBasis"] : [])].sort().join("\0")) return false;
+  if (readArm && !isWorksiteReadDependencyBasis((value as Record<string, unknown>).readDependencyBasis)) return false;
   const fields = value as Record<string, unknown>;
   const valid = Object.entries(source.fields).every(([key, node]) => {
     const candidate = fields[key];
@@ -117,6 +128,7 @@ export function constructWorksiteRevisionCommandPreparationInput(input: Omit<Wor
   return deepFreeze(value);
 }
 export function validateWorksitePreparationContractValue(valueKind: string, value: unknown): boolean {
+  if (valueKind === RETAINED_GRAPH_INPUT_CONTRACT.valueKind) return isRetainedGraphInput(value);
   const source = worksitePreparationSchemaSources().find((candidate) => candidate.declaration.valueKind === valueKind);
   return source !== undefined && schemaAccepts(source.declaration.contractRef, value);
 }
@@ -161,6 +173,8 @@ export function prepareWorksiteCommandTask(input: WorksitePreparationBoundInput)
     outcomePredicates: input.entry.outcomePredicates,
     allowedWriteTerritories: input.entry.allowedWriteTerritories,
     protectedObservations,
+    ...(input.entry.kind === "worksite_command_preparation_input" && input.entry.readDependencyBasis !== undefined
+      ? { readDependencyBasis: input.entry.readDependencyBasis } : {}),
   };
   if (input.entry.kind === "worksite_revision_command_preparation_input") {
     const entry = input.entry;

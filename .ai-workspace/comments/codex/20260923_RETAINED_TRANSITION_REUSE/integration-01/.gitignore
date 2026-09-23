@@ -1,0 +1,27 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/acceptance-activation.json
+/acceptance.json
+/artifacts/abiogenesis-typescript-tenant-5.0.0-dev.286.tgz
+/bootstrap-install.log
+/bootstrap/node_modules/
+/bootstrap/package-lock.json
+/bootstrap/package.json
+/conjoined-source-subject.json
+/freeze.json
+/pack.json
+/package-identity.json
+/product-verification.json
+/public-support.mjs
+/return.md
+/selected-core.json
+/tracking-final-postimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/tracking-final-postimages/specification/GOALS.md
+/tracking-final-preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/tracking-final-preimages/specification/GOALS.md
+/tracking-final-update.json
+/tracking-preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/tracking-preimages/specification/GOALS.md
+/tracking-update.json
+/verify-package.mjs

@@ -1,0 +1,14 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/renderer-check-01.log
+/renderer-check.mjs
+/step-check-01.log
+/step-check-02.log
+/step-check-03.log
+/step-check-preimage-01.mjs
+/step-check-preimage-02.mjs
+/step-check.mjs
+/step-task-diagnostic-01.log
+/step-task-diagnostic-01.mjs

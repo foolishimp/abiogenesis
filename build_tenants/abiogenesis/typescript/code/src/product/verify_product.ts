@@ -1,3 +1,4 @@
+import { hasNulJoinedKeys as hasExactKeys, isMutableRecord as isRecord } from "../shared/admission_predicates.js";
 import { execFile } from "node:child_process";
 import { createReadStream } from "node:fs";
 import { readFile } from "node:fs/promises";
@@ -141,10 +142,6 @@ function refusal(
   };
 }
 
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
 function isCapabilityDefinitionGraphCoordinate(
   value: unknown,
 ): value is CapabilityDefinitionGraphCoordinate {
@@ -191,13 +188,6 @@ function isUniqueStringArray(value: unknown): value is readonly string[] {
   return Array.isArray(value) &&
     value.every(isNonblankString) &&
     new Set(value).size === value.length;
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
 }
 
 function verificationBody(
@@ -395,6 +385,7 @@ function isNativeDeclarationEvidence(
       "productContentDigest",
       "productId",
       "sources",
+      ...(value.packageMetadata === undefined ? [] : ["packageMetadata"]),
     ]) ||
     value.productId !== artifact.productId ||
     value.productContentDigest !== artifact.productContentDigest ||
@@ -408,6 +399,20 @@ function isNativeDeclarationEvidence(
   }
 
   const sources = value.sources as readonly unknown[];
+  if (value.packageMetadata !== undefined) {
+    if (!Array.isArray(value.packageMetadata)) return false;
+    const paths = new Set<string>();
+    for (const row of value.packageMetadata as readonly unknown[]) {
+      if (!isRecord(row) || !hasExactKeys(row, ["declarationDigest", "declarationPath", "sourceText"]) ||
+        !isNonblankString(row.declarationPath) ||
+        (row.declarationPath !== "package.json" && !row.declarationPath.endsWith("/package.json")) ||
+        paths.has(row.declarationPath) || !isSha256Digest(row.declarationDigest) ||
+        typeof row.sourceText !== "string" ||
+        sha256Bytes(new TextEncoder().encode(row.sourceText)) !== row.declarationDigest
+      ) return false;
+      paths.add(row.declarationPath);
+    }
+  }
   if (
     sources.some((source) =>
       !isRecord(source) ||
@@ -1080,6 +1085,43 @@ function parsePackageJson(value: unknown): PackageJsonView | null {
 function catalogWithoutDigest(catalog: ProductManifestView["publicContractCatalog"]): JsonRecord {
   const { catalogDigest: _catalogDigest, ...withoutDigest } = catalog;
   return withoutDigest;
+}
+
+/** Project one exact operation from the already selected immutable Product
+ * manifest. This validates metadata identity, not package payloads or authority. */
+export function projectProductManifestOperationCoordinate(
+  value: unknown,
+  operationId: string,
+): PublicContractCoordinate | null {
+  const manifest = parseProductManifest(value);
+  if (manifest === null) return null;
+  const catalog = manifest.publicContractCatalog;
+  if (catalog.schemaVersion !== "5.0.0" || catalog.catalogVersion !== "5.0.0" ||
+      sha256Canonical(catalogWithoutDigest(catalog)) !== catalog.catalogDigest) return null;
+  const rows = catalog.rows.filter((row) => row.contractId === operationId);
+  const row = rows.length === 1 ? parseProductPublicContract(rows[0]!, manifest.productId) : null;
+  if (row === null ||
+      row.contractKind !== "serialized_native_contract" || row.contractVersion !== "5.0.0") return null;
+  return deepFreeze({
+    contractCatalog: {
+      productId: manifest.productId,
+      productContentDigest: manifest.productContentDigest,
+      catalogId: catalog.catalogId,
+      catalogVersion: "5.0.0" as const,
+      catalogDigest: catalog.catalogDigest,
+    },
+    flatRow: {
+      contractId: row.contractId,
+      contractVersion: row.contractVersion,
+      contractDigest: row.contractDigest,
+    },
+    nestedSelector: {
+      selectorKind: "flat_contract" as const,
+      definitionKey: null,
+      slot: null,
+      definitionRef: null,
+    },
+  });
 }
 
 function readAssetLocator(row: JsonRecord): ProductAssetLocator | null {
@@ -2252,6 +2294,15 @@ export async function verifyProduct(
     const nativeContracts = publicContracts.filter(
       (contract) => contract.nativeTypedLocator !== undefined,
     );
+    const packageMetadataSources = [...payloadFiles.entries()]
+      .filter(([path]) => path === "package.json" || path.endsWith("/package.json"))
+      .map(([path, bytes]) => ({ path, bytes }))
+      .sort((left, right) => compareUnicodeCodeUnits(left.path, right.path));
+    const packageMetadata = packageMetadataSources.map(source => ({
+      declarationPath: source.path,
+      declarationDigest: sha256Bytes(source.bytes),
+      sourceText: new TextDecoder("utf-8", { fatal: true }).decode(source.bytes),
+    }));
     const nativeContractByCoordinate = new Map<string, ProductPublicContract>();
     const nativeDigestByContract = new Map<string, Sha256Digest>();
     if (nativeContracts.length > 0) {
@@ -2260,6 +2311,7 @@ export async function verifyProduct(
         packageType: packageJson.packageType,
         packageExports: packageJson.exports,
         declarationSources,
+        packageMetadataSources,
         sourceProductContentDigest: productContentDigest,
       });
       if (declarationClosures === null) {
@@ -2378,6 +2430,7 @@ export async function verifyProduct(
         productContentDigest,
         packageName: manifest.packageName,
         packageType: packageJson.packageType,
+        packageMetadata,
         sources: declarationSources
           .filter((source) => selectedPaths.has(source.path))
           .map((source) => ({
@@ -2402,6 +2455,7 @@ export async function verifyProduct(
         productContentDigest,
         packageName: manifest.packageName,
         packageType: packageJson.packageType,
+        packageMetadata,
         sources: [],
         closures: [],
         contracts: [],

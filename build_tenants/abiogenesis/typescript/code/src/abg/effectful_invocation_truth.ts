@@ -28,6 +28,7 @@ type ExplicitInvocationTruthPrefix =
 
 export interface EffectfulPublicInvocationPriorAdmission {
   readonly operationId:
+    | "abg.operation.release.snapshot"
     | "abg.operation.product.install"
     | "abg.operation.workspace.bind"
     | "abg.operation.run.invoke"
@@ -143,6 +144,7 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
   const facts: EffectfulPublicInvocationPriorAdmission[] =
     artifactRows.map((row) => deepFreeze({
       operationId: row.operationId as
+        | "abg.operation.release.snapshot"
         | "abg.operation.product.install"
         | "abg.operation.workspace.bind",
       publicInvocationRef: row.invocationRef,

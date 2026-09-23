@@ -1,0 +1,23 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/baseline-candidate-02.txt
+/baseline-candidate.txt
+/composed-compile-02.txt
+/composed-compile.txt
+/focused-01.txt
+/focused-final.txt
+/freeze.json
+/generated-identity.json
+/generation.txt
+/material-inputs.json
+/material-transition.txt
+/metadata-preimages.json
+/preimages.json
+/reproduction.md
+/return.md
+/self-check.json
+/subject.json
+/transition-first-check.txt
+/verify-generated.mjs

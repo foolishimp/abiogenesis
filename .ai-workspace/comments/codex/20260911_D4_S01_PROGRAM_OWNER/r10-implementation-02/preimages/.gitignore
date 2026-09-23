@@ -1,0 +1,13 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md
+/tenant/code/src/abg/index.ts
+/tenant/code/src/abg/project_read_definition_bindings.ts
+/tenant/code/src/abg/project_read_operation_contracts.ts
+/tenant/code/src/abg/project_read_ports.ts
+/tenant/code/src/product/declaration_closure.ts
+/tenant/code/src/product/execution_resolution.ts
+/tenant/code/src/product/run_invocation_operation.ts
+/tenant/code/src/product/run_operation_contracts.ts
+/tenant/code/src/validator/conformance_definition_bindings.ts

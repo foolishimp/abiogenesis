@@ -1,3 +1,4 @@
+import { hasNulJoinedKeys as hasExactKeys, isMutableRecord as isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isNonBlankRef } from "../shared/references.js";
@@ -201,17 +202,6 @@ const consensusSubmitterResponseRecordSchema = deepFreeze({
     evidenceRefs: { $ref: "#/$defs/RefArray" },
   },
 } as const satisfies JsonValue);
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
 
 export function isConsensusReviewerCandidate(
   value: unknown,

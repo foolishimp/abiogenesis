@@ -1,0 +1,20 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/binding-transition-residual.mjs
+/fixture-preparation
+/focused-01-correction.json
+/freeze.mjs
+/next-installed-plan.md
+/origins.json
+/pre-ack-01
+/prepare.mjs
+/preservation.json
+/preserve-focused-01.mjs
+/return.md
+/run-check.mjs
+/test-context-correction.json
+/test-context-correction.mjs
+/test-context.json
+/test-context.mjs

@@ -1,4 +1,7 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import type { ComputeRegime } from "../gtl/contracts.js";
+import { observeRunEnvironment, type RunEnvironmentResources } from "./stdo_environment.js";
+import type { RunEnvironmentEvidence } from "../abg/stdo_environment.js";
 import { isAbgTypedTerminalResult } from "../abg/terminal_result_contracts.js";
 import type {
   AbgRunTruthProjection,
@@ -63,6 +66,7 @@ export type ProductRunInvocationSourceAssertion =
     }>;
 
 export interface ProductRunInvocationResourceAssertion {
+  readonly runEnvironmentResources?: RunEnvironmentResources;
   readonly catalog: ReadyGraphFunctionCatalog;
   readonly catalogView: GraphFunctionCatalogView;
   readonly applications: readonly DeclarationApplication[];
@@ -70,6 +74,7 @@ export interface ProductRunInvocationResourceAssertion {
 }
 
 export interface PreparedProductRunInvocation<M extends RunInvocationMemberKey> {
+  readonly runEnvironment: RunEnvironmentEvidence | null;
   readonly kind: "prepared_product_run_invocation";
   readonly schemaVersion: "5.0.0";
   readonly memberKey: M;
@@ -167,10 +172,6 @@ function preparationRefusal<M extends RunInvocationMemberKey>(
     memberKey,
     ownerOutput: refusal(memberKey, code, issuePaths),
   });
-}
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function exactJson(left: unknown, right: unknown): boolean {
@@ -331,6 +332,13 @@ function authorityMatches<M extends RunInvocationMemberKey>(
   const authorityRequest = invocation.request as Readonly<
     Record<string, JsonValue>
   >;
+  const inputSlot = slots.input_contract;
+  // The public binder authenticates slot syntax/digests; this owner joins the
+  // exact asserted input to the selected request, just as the other coordinates.
+  const exactInputAuthority = inputSlot !== null && (invocation.definitionKey.memberKey === "start"
+    ? exactJson(inputSlot, authorityRequest.input)
+    : exactJson(inputSlot.contract, authorityRequest.inputContract) && exactJson(inputSlot.value, authorityRequest.input) &&
+      inputSlot.valueDigest === sha256Canonical(authorityRequest.input!));
   const requestTarget = isRecord(authorityRequest.target)
     ? authorityRequest.target
     : null;
@@ -363,7 +371,7 @@ function authorityMatches<M extends RunInvocationMemberKey>(
     exactJson(catalogScope.allowlist, resources.catalogView.allowlist) &&
     program !== null && program.ref === resolution.resolution.programRef &&
     program.digest === resolution.resolution.programDigest &&
-    exactGraphFunctionAuthority &&
+    exactGraphFunctionAuthority && exactInputAuthority &&
     sessionPolicy !== null && sessionPolicy.ref === policy.policyRef &&
     sessionPolicy.digest === policy.policyDigest &&
     capabilities !== null &&
@@ -597,8 +605,19 @@ export async function prepareProductRunInvocation<
       ["/request"],
     );
   }
+  const environmentObservation = await observeRunEnvironment({
+    publication: resolution.programPublication, program: resolution.program,
+    graphFunctions: resolution.declarationPublications.flatMap(p => p.graphFunctions),
+    authority: { authorityRef: authority.authorityRef, authorityDigest: authority.authorityDigest, actorRef: authority.actorRef },
+    archiveRoot: input.workspaceBinding.roots.archiveRoot,
+    ...(resources.runEnvironmentResources === undefined ? {} : { resources: resources.runEnvironmentResources }),
+  });
+  if (environmentObservation.kind === "run_environment_refusal") return preparationRefusal(memberKey,
+    environmentObservation.cause === "unsupported_declaration" ? "invalid_program" : environmentObservation.cause === "identity_mismatch" ? "invalid_input" : "invalid_capability",
+    [environmentObservation.issuePath, "/runEnvironment/cause/" + environmentObservation.cause]);
   return deepFreeze({
     kind: "prepared_product_run_invocation" as const,
+    runEnvironment: environmentObservation.evidence,
     schemaVersion: "5.0.0" as const,
     memberKey,
     invocation,

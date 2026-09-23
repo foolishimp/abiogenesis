@@ -1,0 +1,50 @@
+{
+  "role": "Executive disposition recorded by separately granted checkpoint Writer",
+  "executive": "/root",
+  "writer": "/root/checkpoint_writer",
+  "ticket": "T-287",
+  "decision": "accepted_source_and_bounded_component_proof",
+  "method": "STDO v2.5.1-rc.1",
+  "methodManifestSha256": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+  "frame": "ABI5 F-END-TO-END-INTERFACE-INTEGRATION; Product/Owner/Reuse/Proof",
+  "subject": {
+    "path": "cursor-01/subject.json",
+    "sha256": "958805566246bb8d1cf2331424b6a935f41b0bae118e06fb4b0fc455c30e564e",
+    "selectedPathCount": 26
+  },
+  "workerReturn": {
+    "path": "cursor-01/return.md",
+    "sha256": "9751f38effcaedf369bf750ca7d03ffcac7b4aa0db8b4e9b0ab5923084d7f700"
+  },
+  "freeze": {
+    "path": "cursor-01/freeze.json",
+    "sha256": "0689fdd54094ea239a98537bf3b2f6010248bd0ee837ca6db46df2f304085f0b"
+  },
+  "independentReview": {
+    "path": "cursor-diagnostic-review-01.md",
+    "sha256": "d0c6786553fab4875f5e40438257c50cde2e79791a1dad3b65113924148d8df2",
+    "result": "CLOSED satisfied; no supported blocking finding"
+  },
+  "contentSha256": "5edadeed02e13e5db2e1788c02849f6052d39989c9d57e4e93256f74088533b1",
+  "manifestSemanticSha256": "ab20cf39fb845f36451f470dd60bd489670f82ac24bc67130def6e9b1107ab87",
+  "acceptedScope": [
+    "Shared existing-owner cursor-origin relation and conserved retained-input provenance through entry, route-target and supported resume origins.",
+    "Bounded diagnostic body and causal frontier preservation through existing failure admission and fresh cold/Public read projections.",
+    "Exact composed source and retained component proof only; installed cure remains unproved."
+  ],
+  "preserved": [
+    "Previously accepted witness-owner, retained-transition and indexed-membership repairs.",
+    "Original application, author edits, completed C2 outcomes, semantic residuals and genuine execution05 closed handoff.",
+    "Historical installed archive 0adbb8e9... and failed execution05; no old event or missing diagnostic body is backfilled."
+  ],
+  "selectedSequence": [
+    "Checkpoint and push all approved authored work and lossless retained proof in ABIogenesis and odd_glc.",
+    "After verified remote equality, one exact installed generic continuation and truthful fresh Public Result/replay readback.",
+    "Continue the unchanged Product delivery and applicable qualification toward ABIogenesis 5.0 RC1."
+  ],
+  "residuals": [
+    "No installed continuation or independent assessment success is inferred.",
+    "All fifteen Product outcomes, D5/applicable qualification, original application residuals and reserved human release acceptance remain open where previously unproved."
+  ],
+  "effects": "This checkpoint grant permits current-work projections and Git publication only. No Product/requirement edit, runtime event-resource or application mutation, native/model call, tag, default or release publication."
+}

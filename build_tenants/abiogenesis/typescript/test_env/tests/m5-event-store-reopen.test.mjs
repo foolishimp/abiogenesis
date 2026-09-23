@@ -14,18 +14,25 @@ import { syncBuiltinESMExports } from "node:module";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import test from "node:test";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   admitRuntimeEvent,
   admitRuntimeEventBatch,
   admitRuntimeEventTransaction,
-  assertHeldEventStoreAtRuntimeEventPrefix,
+  admitRuntimeEventTransactionAtDurablePrefix,
+  assertHeldEventStoreAtDurablePrefix,
+  assertDurableRuntimePrefixBytes,
+  authenticateRuntimePrefixAncestry,
+  readHeldRuntimeEventsAtDurablePrefix,
+  reidentifyHistoricalDurablePrefixCoordinate,
   createNewEmptyAppendSink,
+  LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
   projectRuntimeEventFromValidatedHistory,
   readRuntimeEventsAtDurablePrefix,
   reopenEventStore,
+  selectHeldEventStoreDurablePrefix,
   validateDurablePrefixCoordinate,
   validateHistoricalEvents,
 } from "../../build/code/src/abg/event_store.js";
@@ -288,87 +295,50 @@ test("M5 EventStore batch factory interruption leaves the exact prefix unchanged
   assert.deepEqual(store.readAll(), before);
 });
 
-test("M5 refuses a same-length durable predecessor mutation before expected-prefix admission", async (context) => {
-  const { store } = await acquireNewEmptyAppendSinkFixture(
-    context,
-    createNewEmptyAppendSink,
-    "abi5-same-length-prefix-mutation-",
-  );
-  admitRuntimeEvent(store, workspaceEvent({
-    correlationId: "correlation://m5/prefix-mutation/first",
-    eventTime: "2026-08-12T00:00:00.000Z",
-    invocationRef: "invocation://m5/prefix-mutation/first",
-  }));
-  const expectedEvents = store.readAll();
-  const eventLogPath = store.configuredDurableLogPath();
-  assert.notEqual(eventLogPath, null);
-  const original = await readFile(eventLogPath);
-  const mutated = Buffer.from(original);
-  const marker = Buffer.from("prefix-mutation/first", "utf8");
-  const markerOffset = mutated.indexOf(marker);
-  assert.notEqual(markerOffset, -1);
-  mutated[markerOffset + marker.length - 1] = "x".charCodeAt(0);
-  assert.equal(mutated.byteLength, original.byteLength);
-  await writeFile(eventLogPath, mutated);
-  assert.throws(
-    () => assertHeldEventStoreAtRuntimeEventPrefix(store, expectedEvents),
-    /durable prefix|payload digest|event identity|restamped or inconsistent history/u,
-  );
-  assert.deepEqual(store.readAll(), expectedEvents);
-});
-
-test("M5 preserves a foreign suffix and poisons the append context instead of truncating ambiguous bytes", async (context) => {
-  const { store } = await acquireNewEmptyAppendSinkFixture(
-    context,
-    createNewEmptyAppendSink,
-    "abi5-foreign-suffix-collision-",
-  );
-  const eventLogPath = store.configuredDurableLogPath();
-  assert.notEqual(eventLogPath, null);
-  const foreignSuffix = Buffer.from('{"foreign":"suffix"}\n', "utf8");
-  const originalWriteSync = fs.writeSync;
-  let collisionInjected = false;
-  fs.writeSync = (...args) => {
-    const written = originalWriteSync(...args);
-    const body = args[1];
-    if (
-      !collisionInjected &&
-      Buffer.isBuffer(body) &&
-      body.includes(Buffer.from('"workflowVersion":"5.0.0"', "utf8"))
-    ) {
-      collisionInjected = true;
-      originalWriteSync(args[0], foreignSuffix, 0, foreignSuffix.byteLength);
-      throw new Error("injected foreign durable suffix collision");
-    }
-    return written;
-  };
-  syncBuiltinESMExports();
-  try {
-    assert.throws(
-      () => admitRuntimeEvent(store, workspaceEvent({
-        correlationId: "correlation://m5/foreign-suffix/collision",
-        eventTime: "2026-08-12T00:00:01.000Z",
-        invocationRef: "invocation://m5/foreign-suffix/collision",
-      })),
-      /could not be proven safe to roll back/u,
-    );
-  } finally {
-    fs.writeSync = originalWriteSync;
-    syncBuiltinESMExports();
+test("held transaction reuse conserves exact bytes, private memory, stale/foreign guards and rollback", async context => {
+  const acquired = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-held-history-");
+  const foreign = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-held-foreign-");
+  const { store } = acquired;
+  const event = suffix => workspaceEvent({ correlationId: "correlation://held/" + suffix,
+    eventTime: "2026-09-19T00:00:00.000Z", invocationRef: "invocation://held/" + suffix });
+  const first = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, acquired.prefix,
+    () => admitRuntimeEvent(store, event("first")));
+  assert.deepEqual(readRuntimeEventsAtDurablePrefix(first.successorPrefix), store.readAll());
+  for (const prefix of [acquired.prefix, foreign.prefix]) {
+    assert.throws(() => admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, prefix,
+      () => assert.fail("stale/foreign transaction executed")), /held store|held-store|durable event/u);
   }
-  assert.equal(collisionInjected, true);
-  const retained = await readFile(eventLogPath);
-  assert.equal(retained.subarray(-foreignSuffix.byteLength).equals(foreignSuffix), true);
-  assert.ok(retained.byteLength > foreignSuffix.byteLength);
-  assert.equal(store.readAll().length, 0);
-  assert.throws(
-    () => admitRuntimeEvent(store, workspaceEvent({
-      correlationId: "correlation://m5/foreign-suffix/after-poison",
-      eventTime: "2026-08-12T00:00:02.000Z",
-      invocationRef: "invocation://m5/foreign-suffix/after-poison",
-    })),
-    /durable event sink is (?:unavailable|not open for append)/u,
-  );
+  const { coordinateDigest: _coordinate, ...wrongProfileBody } = first.successorPrefix;
+  wrongProfileBody.storeIdentity = { ...wrongProfileBody.storeIdentity,
+    eventContractDigest: LEGACY_ROOT_EVENT_CONTRACT_DIGEST };
+  assert.throws(() => admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store,
+    { ...wrongProfileBody, coordinateDigest: sha256Canonical(wrongProfileBody) },
+    () => assert.fail("crossed profile transaction executed")), /held store|durable prefix/u);
+  const path = store.configuredDurableLogPath(), original = await readFile(path), before = store.readAll();
+  assert.throws(() => admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, first.successorPrefix, () => {
+    admitRuntimeEvent(store, event("staged"));
+    throw Error("fixed rollback discriminator");
+  }), /fixed rollback discriminator/u);
+  assert.deepEqual(await readFile(path), original); assert.deepEqual(store.readAll(), before);
+  const next = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, first.successorPrefix,
+    () => admitRuntimeEvent(store, event("after")));
+  assert.equal(next.value.admissionOrdinal, 2);
+  assert.deepEqual(readRuntimeEventsAtDurablePrefix(next.successorPrefix), store.readAll());
+  assert.throws(() => { store.readAll()[0].payload.variant = "changed"; }, TypeError);
+  const handoff = store.projectReopenAuthorityAndClose();
+  const { authorityDigest: _authority, ...wrongReopenBody } = handoff.reopenAuthority;
+  wrongReopenBody.eventContractDigest = LEGACY_ROOT_EVENT_CONTRACT_DIGEST;
+  const wrongReopen = reopenEventStore({ ...wrongReopenBody, authorityDigest: sha256Canonical(wrongReopenBody) });
+  assert.equal(wrongReopen.disposition, "refused");
+  assert.equal(wrongReopen.code, "invalid_event_history");
+  const reopened = reopenEventStore(handoff.reopenAuthority);
+  assert.equal(reopened.kind, "reopened_event_store_context");
+  context.after(() => reopened.store.closeDurableLog());
+  assert.deepEqual(reopened.store.readAll(), store.readAll());
+  const third = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(reopened.store, reopened.prefix,
+    () => admitRuntimeEvent(reopened.store, event("third")));
+  assert.equal(third.value.admissionOrdinal, 3);
+  assert.deepEqual(readRuntimeEventsAtDurablePrefix(third.successorPrefix), reopened.store.readAll());
 });
 
 test("M5 effectful truth rejects a mechanically valid forged Product install for every query", () => {
@@ -1044,24 +1014,6 @@ test("M5 durable reopen does not steal ownership from an abandoned lock", async 
   assert.match(result.message, /explicit operator recovery/u);
 });
 
-test("M5 reopened append refuses sink drift before admitting another event", async (context) => {
-  const prefix = await durablePrefix(context);
-  const reopened = reopenEventStore(prefix.authority);
-  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
-  await appendFile(prefix.eventLogPath, "{}\n", "utf8");
-  assert.throws(
-    () => admitRuntimeEvent(reopened.store, workspaceEvent({
-      causationEventRefs: [prefix.first.eventId],
-      correlationId: "correlation://m5/reopen/drift",
-      eventTime: "2026-07-24T00:00:02.000Z",
-      invocationRef: "invocation://m5/reopen/drift",
-    })),
-    /identity or append position changed/u,
-  );
-  assert.equal(reopened.store.readAll().length, 1);
-  reopened.store.closeDurableLog();
-});
-
 test("M5 event contract refuses blank history and malformed kind/scope/payload variants", async (context) => {
   const prefix = await durablePrefix(context);
   const { store: invalidStore } = await acquireNewEmptyAppendSinkFixture(
@@ -1193,4 +1145,125 @@ test("M5 event contract refuses blank history and malformed kind/scope/payload v
     ),
     /payload matches no admitted event-contract variant/u,
   );
+});
+
+test("trusted owned history conserves currentness, callback publication, rollback and cold reconstruction", async context => {
+  const acquired = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-trusted-history-");
+  const foreign = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-trusted-foreign-");
+  const { store } = acquired;
+  const event = suffix => workspaceEvent({ correlationId: "correlation://trusted/" + suffix,
+    eventTime: "2026-09-21T00:00:00.000Z", invocationRef: "invocation://trusted/" + suffix });
+  const first = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, acquired.prefix,
+    () => admitRuntimeEvent(store, event("first")));
+  let prefix = first.successorPrefix;
+  const originalRead = fs.readSync;
+  let readBytes = 0;
+  fs.readSync = (...args) => { const count = originalRead(...args); readBytes += count; return count; };
+  syncBuiltinESMExports();
+  let handoff;
+  try {
+    for (const stale of [acquired.prefix, foreign.prefix]) {
+      assert.throws(() => admitRuntimeEventTransactionAtDurablePrefix(store, stale,
+        () => assert.fail("inadmissible callback executed")), /held store|durable prefix/);
+    }
+    const wrong = structuredClone(prefix);
+    wrong.storeIdentity.eventContractDigest = LEGACY_ROOT_EVENT_CONTRACT_DIGEST;
+    const { coordinateDigest: ignored, ...body } = wrong;
+    wrong.coordinateDigest = sha256Canonical(body);
+    assert.throws(() => admitRuntimeEventTransactionAtDurablePrefix(store, wrong,
+      () => assert.fail("cross-profile callback executed")), /held store|durable prefix/);
+    assert.throws(() => readHeldRuntimeEventsAtDurablePrefix(store, { ...prefix, prefixLength: -1 }), /invalid/);
+    const beforeCallback = store.readAll();
+    for (let n = 0; n < 4; n++) {
+      const copied = structuredClone(prefix);
+      assert.deepEqual(readHeldRuntimeEventsAtDurablePrefix(store, copied), store.readAll());
+      assertHeldEventStoreAtDurablePrefix(store, copied);
+      const admitted = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, copied, () => {
+        assertDurableRuntimePrefixBytes(prefix);
+        assert.deepEqual(readRuntimeEventsAtDurablePrefix(prefix, { requireCurrent: true }), store.readAll());
+        return admitRuntimeEvent(store, event("callback-" + n));
+      });
+      prefix = admitted.successorPrefix;
+    }
+    assert.equal(beforeCallback.length, 1, "immutable predecessor never grows");
+    assert.equal(selectHeldEventStoreDurablePrefix(store), prefix);
+    assert.throws(() => readRuntimeEventsAtDurablePrefix(first.successorPrefix, { requireCurrent: true }), /not the current/);
+    assert.deepEqual(readRuntimeEventsAtDurablePrefix(first.successorPrefix), beforeCallback);
+    const historical = reidentifyHistoricalDurablePrefixCoordinate(prefix, structuredClone(first.successorPrefix));
+    assert.deepEqual(readRuntimeEventsAtDurablePrefix(historical), beforeCallback);
+    assert.equal(authenticateRuntimePrefixAncestry(historical, prefix), true);
+    assert.equal(admitRuntimeEventTransactionAtDurablePrefix(store, prefix, () => "unchanged").successorPrefix, null);
+    const committed = store.readAll(), committedDigest = store.digest();
+    assert.throws(() => admitRuntimeEventTransactionAtDurablePrefix(store, prefix, () => {
+      admitRuntimeEvent(store, event("tentative")); throw Error("semantic refusal");
+    }), /semantic refusal/);
+    assert.deepEqual(store.readAll(), committed); assert.equal(store.digest(), committedDigest);
+    assert.equal(selectHeldEventStoreDurablePrefix(store), prefix);
+    handoff = store.projectReopenAuthorityAndClose();
+    assert.equal(readBytes, 0, "ordinary owned operations perform no historical read");
+    assert.throws(() => assertHeldEventStoreAtDurablePrefix(store, prefix), /not open/);
+    assert.deepEqual(readRuntimeEventsAtDurablePrefix(prefix), committed);
+    assert.equal(readBytes, prefix.prefixLength, "closed-session read reconstructs physical history");
+  } finally { fs.readSync = originalRead; syncBuiltinESMExports(); }
+  const bytes = await readFile(store.configuredDurableLogPath());
+  assert.equal(prefix.prefixDigest, `sha256:${createHash("sha256").update(bytes).digest("hex")}`);
+  assert.equal(prefix.prefixLength, bytes.length);
+  assert.equal(bytes.toString(), store.readAll().map(row => canonicalJson(row) + "\n").join(""));
+  assert.deepEqual(validateHistoricalEvents(bytes, prefix.storeIdentity.eventContractDigest), store.readAll());
+  const fresh = await runEntry212ReopenProbe({ installedRoot: packageRoot, originProcessId: process.pid,
+    reopenAuthority: handoff.reopenAuthority, prefix: handoff.prefix });
+  assert.deepEqual(fresh.events, store.readAll()); assert.equal(fresh.storeDigest, store.digest());
+  assert.deepEqual(fresh.heldPrefix, prefix); assert.equal(fresh.durableByteDigest, prefix.prefixDigest);
+  console.log(JSON.stringify({ kind: "trusted_desktop_owned_history", events: store.readAll().length,
+    liveHistoricalReadBytes: 0, coldReadBytes: readBytes, eventLogBytes: bytes.length }));
+});
+
+test("owned append I/O failures restore committed bytes and hash or poison admission", async context => {
+  for (const failure of ["partial_write", "no_progress", "fsync", "rollback_truncate", "rollback_fsync"]) {
+    const { store, prefix: empty } = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-owned-io-");
+    const event = suffix => workspaceEvent({ correlationId: "correlation://io/" + failure + "/" + suffix,
+      eventTime: "2026-09-21T00:00:00.000Z", invocationRef: "invocation://io/" + failure + "/" + suffix });
+    const first = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, empty, () => admitRuntimeEvent(store, event("first")));
+    const before = store.readAll(), beforeDigest = store.digest(), path = store.configuredDurableLogPath();
+    const bytes = await readFile(path);
+    const originals = { writeSync: fs.writeSync, fsyncSync: fs.fsyncSync, ftruncateSync: fs.ftruncateSync };
+    let writes = 0, syncs = 0;
+    fs.writeSync = (...args) => {
+      writes++;
+      if (failure === "fsync") return originals.writeSync(...args);
+      if (failure === "no_progress") return 0;
+      if (writes === 1) return originals.writeSync(args[0], args[1], args[2], Math.min(17, args[3]));
+      throw Error("injected native write failure");
+    };
+    fs.fsyncSync = descriptor => {
+      syncs++;
+      if ((failure === "fsync" && syncs === 1) || failure === "rollback_fsync") throw Error("injected native fsync failure");
+      return originals.fsyncSync(descriptor);
+    };
+    fs.ftruncateSync = (...args) => {
+      if (failure === "rollback_truncate") throw Error("injected native truncate failure");
+      return originals.ftruncateSync(...args);
+    };
+    syncBuiltinESMExports();
+    try {
+      assert.throws(() => admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, first.successorPrefix,
+        () => admitRuntimeEvent(store, event("failed"))), /write failure|fsync failure|no progress|changed durable predecessor/);
+    } finally { Object.assign(fs, originals); syncBuiltinESMExports(); }
+    assert.deepEqual(store.readAll(), before); assert.equal(store.digest(), beforeDigest);
+    if (failure.startsWith("rollback_")) {
+      assert.throws(() => admitRuntimeEvent(store, event("after-poison")), /not open/);
+      assert.throws(() => store.projectReopenAuthorityAndClose(), /not open/);
+      continue;
+    }
+    assert.deepEqual(await readFile(path), bytes);
+    assert.equal(selectHeldEventStoreDurablePrefix(store), first.successorPrefix);
+    const next = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, first.successorPrefix,
+      () => admitRuntimeEvent(store, event("after-recovery")));
+    assert.equal(next.value.admissionOrdinal, 2);
+    const persisted = await readFile(path);
+    assert.equal(next.successorPrefix.prefixDigest, `sha256:${createHash("sha256").update(persisted).digest("hex")}`);
+    const closed = store.projectReopenAuthorityAndClose(), reopened = reopenEventStore(closed.reopenAuthority);
+    assert.equal(reopened.kind, "reopened_event_store_context");
+    assert.deepEqual(reopened.store.readAll(), store.readAll()); reopened.store.closeDurableLog();
+  }
 });

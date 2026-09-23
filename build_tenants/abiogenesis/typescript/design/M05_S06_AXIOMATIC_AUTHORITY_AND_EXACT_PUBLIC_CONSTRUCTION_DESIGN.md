@@ -11,7 +11,11 @@ application plus bounded `design_reframe`
 
 **Owner:** T-281 under T-270
 
-**Method:** STDO 2.2.2
+**Current method route:**
+`repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`.
+The earlier STDO 2.2.2 ruling described below is historical, non-operative
+method provenance. This route refresh grants no design acceptance or work;
+current GOALS and T-287 own selection.
 
 ## 1. Decision Boundary
 
@@ -30,9 +34,9 @@ supplies the previously absent target source paths, runtime value bindings,
 dependency closures, and singular authority relations. It does not implement
 them.
 
-After rejection of replacement `29aea26d` on its inapplicable AX-F09 Public
-ingress, direct F_H authorized completion of Gate 1 inside the already
-accepted Product and STDO 2.2.2. Owner-internal names, carriers, refusal codes,
+Historically, after rejection of replacement `29aea26d` on its inapplicable
+AX-F09 Public ingress, direct F_H authorized completion of Gate 1 inside the
+then-accepted Product and STDO 2.2.2. Owner-internal names, carriers, refusal codes,
 module placement, and signatures are worker-owned HOW while they add no
 Public operation, rival authority, controller, runtime, catalog, or Product
 meaning. Section 7.3 and `D17..D18` exercise that bounded decision envelope;

@@ -26,6 +26,8 @@ import {
 import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
 
 import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
+import { authenticateNativeInstructionAssemblyBasis } from "../abg/execution_basis.js";
+import { requireWorksiteNativeInstructionAssembly, type NativeInstructionAssembly, worksiteCommandExecutionAttemptRef } from "../abg/instruction_assembly.js";
 import {
   ABI5_PACKAGE_NAME,
   ABI5_PACKAGE_VERSION,
@@ -134,12 +136,22 @@ interface WorksiteCommandExecutionLaunchPlan {
 
 function exactAuthorityFreeOccurrence(
   occurrence: Readonly<LeafExecutionOccurrence>,
+  verifyNativeOccurrence?: (supplied: Readonly<LeafExecutionOccurrence>) => boolean,
 ): AuthorityFreeWorksiteCommandExecutionOccurrence {
+  const { nativeInstructionAssemblyBasis, ...coordinates } = occurrence;
+  if (nativeInstructionAssemblyBasis !== undefined) {
+    const owner = verifyNativeOccurrence === undefined ? authenticateNativeInstructionAssemblyBasis(nativeInstructionAssemblyBasis) : null;
+    if (verifyNativeOccurrence !== undefined ? !verifyNativeOccurrence(occurrence) : owner === null ||
+      owner.call.cCallRef !== occurrence.cCallRef || owner.call.runId !== occurrence.runId ||
+      owner.call.graphCallId !== occurrence.graphCallId || owner.call.frameId !== occurrence.frameId ||
+      owner.call.programLocusRef !== occurrence.programLocusRef || owner.call.taskOrdinal !== occurrence.taskOrdinal ||
+      owner.call.attempt !== occurrence.attempt) throw new TypeError("C2 assembly companion differs from admitted occurrence");
+  }
   const expectedKeys = [
     "attempt", "cCallRef", "executionAuthority", "frameId", "graphCallId",
     "programLocusRef", "runId", "taskOrdinal",
   ].sort().join("\0");
-  if (Object.keys(occurrence).sort().join("\0") !== expectedKeys ||
+  if (Object.keys(coordinates).sort().join("\0") !== expectedKeys ||
     typeof occurrence.cCallRef !== "string" || occurrence.cCallRef.trim() === "" ||
     typeof occurrence.runId !== "string" || occurrence.runId.trim() === "" ||
     typeof occurrence.graphCallId !== "string" || occurrence.graphCallId.trim() === "" ||
@@ -151,23 +163,9 @@ function exactAuthorityFreeOccurrence(
     throw new TypeError("command execution requires one exact authority-free C2 occurrence");
   }
   return admitIJsonValue(
-    occurrence,
+    coordinates,
     "worksite command execution occurrence",
   ) as unknown as AuthorityFreeWorksiteCommandExecutionOccurrence;
-}
-
-function worksiteCommandExecutionAttemptRef(
-  occurrence: AuthorityFreeWorksiteCommandExecutionOccurrence,
-): string {
-  const digest = sha256Canonical({
-    cCallRef: occurrence.cCallRef,
-    runId: occurrence.runId,
-    graphCallId: occurrence.graphCallId,
-    frameId: occurrence.frameId,
-    taskOrdinal: occurrence.taskOrdinal,
-    attempt: occurrence.attempt,
-  });
-  return `worksite-command-attempt://abiogenesis/${digest.slice("sha256:".length)}`;
 }
 
 function constructWorksiteCommandExecutionLaunchPlan(
@@ -261,8 +259,9 @@ function exactExchange(
     observation.workerBindingRef === task.workerBindingRef &&
     observation.implementationRef === worksiteExecutionImplementationRef(task) &&
     observation.inputDigest === inputDigest &&
-    observation.materializationPlanRef === task.materializationPlanRef &&
-    observation.rendererRef === task.rendererRef &&
+    observation.materializationPlanRef === request.materializationPlanRef &&
+    observation.rendererRef === request.rendererRef &&
+    typeof request.prompt === "string" && observation.promptDigest === sha256Canonical(request.prompt) &&
     observation.instructionContractRef === task.instructionContractRef &&
     observation.resultContractRef === task.resultContractRef &&
     observation.transportLane === "worker_executes" &&
@@ -628,11 +627,13 @@ function requiredExecutionBudgetMs(task: WorksiteExecutionTask): number {
 export function realizeWorksiteCommandExecution(
   input: Readonly<WorksiteExecutionTask>,
   occurrence: Readonly<LeafExecutionOccurrence>,
+  prepareAssembly?: () => Readonly<NativeInstructionAssembly>,
+  verifyNativeOccurrence?: (supplied: Readonly<LeafExecutionOccurrence>) => boolean,
 ): Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>> {
   if (!isWorksiteExecutionTask(input)) {
     throw new TypeError("command execution requires one exact admitted task");
   }
-  const c2Occurrence = exactAuthorityFreeOccurrence(occurrence);
+  const c2Occurrence = exactAuthorityFreeOccurrence(occurrence, verifyNativeOccurrence);
   const configuredAbsoluteTimeout = Number(
     process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS ?? "3600000",
   );
@@ -655,6 +656,8 @@ export function realizeWorksiteCommandExecution(
     c2Occurrence,
   );
   const helperPlan = launchPlan.helperPlan;
+  const nativeAssembly = occurrence.nativeInstructionAssemblyBasis === undefined ? null
+    : (prepareAssembly === undefined ? requireWorksiteNativeInstructionAssembly(occurrence.nativeInstructionAssemblyBasis, input) : prepareAssembly());
   const before = worksiteExecutionSources(input).map((row) =>
     observeWorksiteSubjectSync(input, row.subject)
   );
@@ -671,7 +674,7 @@ export function realizeWorksiteCommandExecution(
   );
   assertArchiveExecutionBoundary(input, launchPlan);
   materializeExecutionManifests(input, c2Occurrence, launchPlan);
-  const workerRequest = deepFreeze({
+  const workerRequest = nativeAssembly?.request ?? deepFreeze({
     actorRef: input.workerActorRef,
     workerBindingRef: input.workerBindingRef,
     implementationRef: worksiteExecutionImplementationRef(input),

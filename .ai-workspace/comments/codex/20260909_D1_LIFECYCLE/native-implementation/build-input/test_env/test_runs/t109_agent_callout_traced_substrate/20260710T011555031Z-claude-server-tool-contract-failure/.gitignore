@@ -1,0 +1,15 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/claude-server-tool-contract-failure-output.txt
+/claude-server-tool-contract-failure-prompt.txt
+/claude-server-tool-contract-failure-stderr.log
+/claude-server-tool-contract-failure-stdout.log
+/claude-server-tool-contract-failure-transport.json
+/claude-server-tool-contract-failure.trace/command.json
+/claude-server-tool-contract-failure.trace/events.ndjson
+/claude-server-tool-contract-failure.trace/final_output.txt
+/claude-server-tool-contract-failure.trace/meta.json
+/claude-server-tool-contract-failure.trace/result.json
+/claude-server-tool-contract-failure.trace/stdout.raw
+/fake-claude.mjs

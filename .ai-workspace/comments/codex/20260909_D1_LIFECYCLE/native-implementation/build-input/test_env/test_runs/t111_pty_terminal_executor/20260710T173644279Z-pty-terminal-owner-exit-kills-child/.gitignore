@@ -1,0 +1,12 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/command.json
+/events.ndjson
+/meta.json
+/parent.mjs
+/terminal.transcript
+/terminal_session/agent_supervisor.mjs
+/terminal_session/agent_supervisor_request.json
+/terminal_session/screenlog.0
+/worker.pid

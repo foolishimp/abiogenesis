@@ -1,6 +1,14 @@
 export { SEMANTIC_STAGE_IDS, constructSemanticLifecycleDeclaration } from "./semantic_stage.js";
-export { constructSemanticStageModulePublication, constructSemanticStageGraphFunction, constructSemanticBridgeGraphFunction, constructSemanticClosureContract } from "./semantic_stage_publication.js";
+export { constructSemanticJobLifecycleDeclaration, isSemanticJobLifecycleDeclaration, validSemanticJobLifecyclePublication } from "./semantic_job.js";
+export type { SemanticJobLifecycleDeclaration, SemanticJobProofTemplate } from "./semantic_job.js";
+export { constructSemanticStageModulePublication, constructSemanticStageGraphFunction, constructSemanticBridgeGraphFunction, constructSemanticJobGraphFunction, constructSemanticClosureContract } from "./semantic_stage_publication.js";
+export { constructStdoRunEnvironmentDeclaration, isStdoRunEnvironmentDeclaration, stdoInventoryDigest, STDO_ENVIRONMENT_POLICY } from "./stdo_run_environment.js";
+export type { StdoRunEnvironmentDeclaration } from "./stdo_run_environment.js";
+export { constructRunEnvironmentDeclaration, isRunEnvironmentDeclaration, RUN_ENVIRONMENT_POLICY,
+  nativeContextLeafFamily, CONTEXT_SELECTORS } from "./stdo_run_environment.js";
+export type { RunEnvironmentDeclaration, RunEnvironmentRole } from "./stdo_run_environment.js";
 export type { SemanticLifecycleDeclaration, SemanticStageDeclaration, SemanticAssetSurface, SemanticProofPolicy, SemanticProofShape } from "./semantic_stage.js";
+export { constructNativeWorkspaceWorkModulePublication, NATIVE_WORKSPACE_WORK_IDS } from "./native_workspace_work.js";
 export {
   constructWorksiteCommandExecutionModulePublication,
 } from "./worksite_command_execution.js";
@@ -64,6 +72,7 @@ export {
 } from "./hello_world.js";
 export {
   WORKSITE_C0_IDS,
+  WORKSITE_FILE_PARENTS_IDS, constructWorksiteFileParentsPublicationParts,
   constructWorksiteC0ModulePublication,
   constructWorksiteC0PublicationParts,
   isWorksiteFileReplaceOutput,
@@ -377,3 +386,6 @@ export { SELF_CONFORMANCE_IDS, constructSelfConformanceModulePublication } from 
 export { constructWorksitePreservedResultRecoveryGraphFunction, worksitePreservedResultSourceOfGraphFunction } from "./worksite_construction.js";
 export { constructWorksiteCommandForwardModulePublication, worksiteCommandForwardGraphFunctions,
   isWorksiteCommandForwardGraphFunction } from "./worksite_command_forward.js";
+export { QUALIFICATION_IDS } from "./self_conformance.js";
+
+export { nativeWorkReacquisitionGraphFunction } from "./worksite_command_execution.js";

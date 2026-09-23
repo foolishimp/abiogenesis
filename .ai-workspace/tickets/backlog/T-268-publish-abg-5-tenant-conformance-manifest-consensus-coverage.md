@@ -36,7 +36,7 @@
     M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md
 - triaged_at: 2026-07-28
 - created_at: 2026-07-13
-- updated_at: 2026-07-28
+- updated_at: 2026-09-13
 - owner: abiogenesis
 - build_tenant: typescript
 - priority: critical
@@ -83,7 +83,39 @@
     .ai-workspace/comments/codex/
     20260727T170342Z_HANDOFF_t268_s04_immutable_tuning_design.md
 
-## Selected Design Outcome
+## Current 5.1 Boundary
+
+[Product Release Boundaries](../../../specification/PRODUCT.md#50-and-51-release-boundaries)
+owns the scope. The 2026-09-13 owner ruling identifies whole-run executive
+oversight as wider-scope Consequence through the existing recursive GTL/HoG/ABG
+path, not another orchestration engine. This backlog ticket retains that work
+alongside observer/tuner work. Its implementation hold remains in force.
+
+The future design re-entry reconciles the frozen input with these constraints:
+
+- Worker, Evaluator and Consequence have explicit reference-frame visibility,
+  contract, constraints, permitted proposals and return/escalation boundaries.
+- Full-tree visibility uses indexed replay-derived views and exact references;
+  bounded child investigations fold back through ABG for parent re-evaluation.
+  It does not require an all-tree prompt or make child success parent closure.
+- Observation supplies facts, evaluation supplies judgment, Consequence
+  proposes, ABG admits and HoG executes. Visibility grants no new authority.
+- Cross-branch correction and autonomous upstream/out-of-traversal A.0 routing
+  are 5.1 scope. Local declared recursion, graph-span re-entry and basic
+  liveness/progress/timeout/interruption truth remain 5.0.
+- Observer diagnosis, Consequence proposals and tuner declaration drafts are
+  distinct judgments. No observer, tuner or proposal writes runtime truth or
+  applies its own declaration change.
+- Native human response/resume is separately retained by
+  [T-287's deferred boundary work](../active/T-287-deliver-abiogenesis-5-feature-waves.md#deferred-51-boundary-work).
+  Ordinary work does not acquire a mandatory human approval stage.
+
+Future qualification proves one scoped child investigation/foldback/parent
+evaluation and refuses re-entry or closure based only on visibility or child
+success. Exact frozen designs remain historical input; this scope amendment
+does not accept them as the new HOW or select any implementation.
+
+## Preserved Design Outcome
 
 Resolve one exact design relation:
 

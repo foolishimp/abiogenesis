@@ -2,7 +2,7 @@ import * as Effect from "effect/Effect";
 import * as v from "valibot";
 
 import {
-  ADMISSION_AUTHORITY_RESOURCE_SCHEMA,
+  admissionAuthorityResourceStructure,
   withAdmissionAuthority,
   type AdmissionAuthorityResource,
 } from "../product/admission_authority.js";
@@ -25,7 +25,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { constructExactOperationInvocationCoordinate } from
   "../shared/operation_definition_coordinate.js";
 import type { OwnerSemanticOutput } from "../shared/public_function_contracts.js";
-import { bindExactPrefixTransition } from "../shared/static_definition_bindings.js";
+import { bindStaticOwner } from "../shared/static_definition_bindings.js";
 import {
   abandonAbgEventResource,
   acquireAbgEventResource,
@@ -36,7 +36,9 @@ import {
   type AbgEventResourceReceipt,
 } from "./definition_event_resource.js";
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
-import { readRuntimeEventsAtDurablePrefix } from "./event_store.js";
+import { authenticateRuntimePrefixAncestry, projectRootEventProfileSchedule, readRuntimeEventsAtDurablePrefix,
+  LEGACY_ROOT_EVENT_CONTRACT_DIGEST, ROOT_EVENT_CONTRACT_DIGEST, type DurablePrefixCoordinate } from "./event_store.js";
+import { ROOT_EVENT_PROFILE_DECLARATION_REF } from "./event_contract_profiles.js";
 import {
   admitWitnessedAct,
   type WitnessAdmitPacket,
@@ -56,11 +58,17 @@ export interface WitnessRepriceResourceAssertion {
   readonly admissionAuthority: AdmissionAuthorityResource;
 }
 
-export interface WitnessRepriceResourceReceipt {
+interface OrdinaryWitnessRepriceResourceReceipt {
   readonly kind: "witness_reprice_resource_receipt";
   readonly schemaVersion: "5.0.0";
   readonly eventResource: AbgEventResourceReceipt;
 }
+export type WitnessRepriceResourceReceipt = OrdinaryWitnessRepriceResourceReceipt | Readonly<{
+  kind: "witness_profile_reprice_resource_receipt";
+  schemaVersion: "5.0.0";
+  eventResource: AbgEventResourceReceipt;
+  boundaryEventRef: string;
+}>;
 
 type AuthorizedResources = Omit<WitnessRepriceResourceAssertion, "admissionAuthority">;
 const packet = WITNESS_OPERATION_CONTRACTS.admit.reprice;
@@ -71,20 +79,65 @@ const assertionSchema = v.strictObject({
     validateAbgEventResourceAssertion(value) && value.kind === "reopen_abg_event_resource",
   "one reopened ABG event resource"),
   // Keep the shared schema lazy across the existing Product/ABG import cycle;
-  // the schema and exact grant reconstruction remain the same owners.
-  admissionAuthority: v.lazy(() => ADMISSION_AUTHORITY_RESOURCE_SCHEMA),
+  // complete shape and semantic grant reconstruction remain in the fixed owner.
+  admissionAuthority: v.lazy(() => admissionAuthorityResourceStructure),
 });
 // The shared wire schema admits I-JSON grant preimages. withAdmissionAuthority
 // reconstructs and compares every complete grant before repriceOwner sees it.
 const typedAssertionSchema = assertionSchema as unknown as
   v.GenericSchema<WitnessRepriceResourceAssertion, WitnessRepriceResourceAssertion>;
-const receiptSchema = v.strictObject({
+const ordinaryReceiptSchema = v.strictObject({
   kind: v.literal("witness_reprice_resource_receipt"),
   schemaVersion: v.literal("5.0.0"),
   eventResource: v.custom<AbgEventResourceReceipt>((value) =>
     validateAbgEventResourceReceipt(value) && value.acquisitionKind === "reopen",
   "owner-issued reopened ABG successor"),
 });
+const receiptSchema = v.union([
+  ordinaryReceiptSchema,
+  v.strictObject({
+    kind: v.literal("witness_profile_reprice_resource_receipt"),
+    schemaVersion: v.literal("5.0.0"),
+    eventResource: v.custom<AbgEventResourceReceipt>(value =>
+      validateAbgEventResourceReceipt(value) && value.acquisitionKind === "reopen"),
+    boundaryEventRef: v.string(),
+  }),
+]);
+
+export function witnessRepriceResourcesCorrespond(
+  assertion: WitnessRepriceResourceAssertion,
+  receipt: WitnessRepriceResourceReceipt,
+  content: unknown,
+): boolean {
+  try {
+    if (!receiptCoordinatesCorrespond(assertion.eventResource, receipt.eventResource)) return false;
+    return witnessPrefixTransitionCorrespond(receipt.eventResource.entryPrefix, receipt.eventResource.closeHandoff.prefix,
+      receipt.kind === "witness_reprice_resource_receipt" ? null : receipt.boundaryEventRef, content);
+  } catch { return false; }
+}
+
+function receiptCoordinatesCorrespond(assertion: ReopenAssertion, resource: AbgEventResourceReceipt): boolean {
+  return validateAbgEventResourceAssertion(assertion) && validateAbgEventResourceReceipt(resource) &&
+    resource.acquisitionKind === "reopen" && resource.entryPrefix.coordinateDigest === assertion.closeHandoff.prefix.coordinateDigest;
+}
+
+/** The same immutable transition relation serves live owner return and raw
+ * correspondence. Only the live owner can avoid the ordinary cold ancestry. */
+function witnessPrefixTransitionCorrespond(
+  entry: DurablePrefixCoordinate, next: DurablePrefixCoordinate, boundaryEventRef: string | null, content: unknown,
+): boolean {
+  try {
+    if (!authenticateRuntimePrefixAncestry(entry, next)) return false;
+    if (boundaryEventRef === null) return sameJson(entry.storeIdentity, next.storeIdentity);
+    const events = readRuntimeEventsAtDurablePrefix(next);
+    const schedule = projectRootEventProfileSchedule(events);
+    const boundary = events.at(-1), p = boundary?.payload as Record<string, unknown> | undefined;
+    return entry.storeIdentity.eventContractDigest === LEGACY_ROOT_EVENT_CONTRACT_DIGEST &&
+      next.storeIdentity.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
+      schedule.boundaryEventRef === boundaryEventRef && boundary?.eventId === boundaryEventRef &&
+      p?.declarationRef === ROOT_EVENT_PROFILE_DECLARATION_REF && sameJson(p?.contentValue, content);
+  } catch { return false; }
+}
 
 function refusalOutput(native: WitnessAdmissionRefusal<"reprice">): OwnerSemanticOutput<RepricePacket> {
   const mapping = {
@@ -108,10 +161,13 @@ function refusalOutput(native: WitnessAdmissionRefusal<"reprice">): OwnerSemanti
 function repriceOwner(
   call: DefinitionCall<RepricePacket, AuthorizedResources>,
   approved: AdmissionAuthorityResource,
+  boundEnvironment: import("./environment_admission.js").ExactPrefixWorkspaceEnvironment | null,
+  heldResource: import("./definition_event_resource.js").AcquiredAbgEventResource | null,
 ): ReturnType<ExactDefinitionCallable<RepricePacket, AuthorizedResources, WitnessRepriceResourceReceipt>> {
   return Effect.try({
     try: () => {
-      const acquired = acquireAbgEventResource(call.resources.eventResource);
+      const acquired = heldResource === null ? acquireAbgEventResource(call.resources.eventResource) :
+        { kind: "acquired_abg_event_resource" as const, resource: heldResource };
       if (acquired.kind !== "acquired_abg_event_resource") {
         throw definitionFault(packet.definitionKey, "resource_acquisition", acquired.code, acquired.message);
       }
@@ -124,7 +180,7 @@ function repriceOwner(
         const environment = currentW === null ? null :
           projectExactPrefixWorkspaceEnvironment(resource.entryPrefix, currentW);
         if (environment?.kind !== "exact_prefix_workspace_environment" ||
-            !sameJson(environment, approved.basis.boundEnvironment) ||
+            environment !== boundEnvironment ||
             actor === undefined || actor.ref !== environment.workspaceAuthorityBasis.authorizedActorRef ||
             actor.ref !== approved.authority.actorRef || slots.execution_basis !== null ||
             !sameJson(slots.product_set, environment.productInstalls.map(productInstallCoordinate)) ||
@@ -210,13 +266,29 @@ function repriceOwner(
             },
           };
         }
+        // Check the immutable transition while its actual owner still holds the
+        // admitted cuts. Close must then issue exactly that checked successor;
+        // a successful close preserves the fact, never a live effect capability.
+        const successor = native.successorPrefix ?? resource.entryPrefix;
+        const changedProfile = resource.entryPrefix.storeIdentity.eventContractDigest !== successor.storeIdentity.eventContractDigest;
+        const boundaryEventRef = changedProfile && native.kind === "witness_admission" ? native.admittedEventRef : null;
+        if (!witnessPrefixTransitionCorrespond(resource.entryPrefix, successor, boundaryEventRef, request.content.value)) {
+          throw definitionFault(packet.definitionKey, "receipt_admission", "invalid_resource_receipt",
+            "witness reprice returned neither its exact ordinary prefix nor its authenticated L-to-P boundary");
+        }
+        const eventResource = closeAbgEventResource(resource, successor);
+        if (!receiptCoordinatesCorrespond(call.resources.eventResource, eventResource) ||
+            eventResource.closeHandoff.prefix.coordinateDigest !== successor.coordinateDigest) {
+          throw definitionFault(packet.definitionKey, "receipt_admission", "invalid_resource_receipt",
+            "witness reprice close differs from its checked immutable transition");
+        }
+        const resources: WitnessRepriceResourceReceipt = boundaryEventRef !== null
+          ? { kind: "witness_profile_reprice_resource_receipt", schemaVersion: "5.0.0",
+              eventResource, boundaryEventRef }
+          : { kind: "witness_reprice_resource_receipt", schemaVersion: "5.0.0", eventResource };
         return deepFreeze({
           ownerOutput: validatedOwnerOutput(packet, ownerOutput, "witness reprice"),
-          resources: {
-            kind: "witness_reprice_resource_receipt" as const,
-            schemaVersion: "5.0.0" as const,
-            eventResource: closeAbgEventResource(resource, native.successorPrefix ?? resource.entryPrefix),
-          },
+          resources,
         });
       } catch (cause) {
         abandonAbgEventResource(resource);
@@ -231,12 +303,12 @@ function repriceOwner(
 
 const reprice: ExactDefinitionCallable<RepricePacket, WitnessRepriceResourceAssertion, WitnessRepriceResourceReceipt> =
   (call) => withAdmissionAuthority(packet,
-    (authorized: DefinitionCall<RepricePacket, AuthorizedResources>) =>
-      repriceOwner(authorized, call.resources.admissionAuthority))(call);
+    (authorized: DefinitionCall<RepricePacket, AuthorizedResources>, environment, resource) =>
+      repriceOwner(authorized, call.resources.admissionAuthority, environment, resource))(call);
 
 /** Only this already-declared member is selected; no wildcard witness grant. */
 export const WITNESS_DEFINITION_BINDINGS = Object.freeze({
   admit: Object.freeze({
-    reprice: bindExactPrefixTransition(packet, reprice, typedAssertionSchema, receiptSchema),
+    reprice: bindStaticOwner(packet, reprice, typedAssertionSchema, receiptSchema),
   }),
 });

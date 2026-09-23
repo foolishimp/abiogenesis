@@ -1,0 +1,28 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/application-oracle-review-01.md
+/closure-classifier-application-01.md
+/context-and-cost-grant-record-01.md
+/context-and-routing-checkpoint-06.md
+/context-catalog-disposition-04.md
+/context-execution-checkpoint-02.md
+/context-implementation-record-01.md
+/context-integration-checkpoint-01.md
+/context-launch-checkpoint-03.md
+/context-witness-progress-05.md
+/context-workspace-consequence-plan.md
+/execution.md
+/forward-evidence-consumer-intake-01.md
+/liveness-request.txt
+/liveness-sections.json
+/native-cost-attribution-01.json
+/native-cost-probe-01.md
+/native-dispatch-delay-intake-01.md
+/native02-outcome-context-review-01.md
+/native03-failure-checkpoint-07.md
+/native03-first-cause-and-next-entry-08.md
+/package-request.txt
+/package-sections.json
+/witness-request.txt
+/witness-sections.json

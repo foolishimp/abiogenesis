@@ -1,0 +1,26 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/archive-source-members.json
+/artifacts/abiogenesis-typescript-tenant-5.0.0-dev.286.tgz
+/frozen-product-manifest.json
+/install-process.json
+/install-stderr.log
+/install-stdout.log
+/installed-coordinate.json
+/installed-host/node_modules/
+/installed-host/package-lock.json
+/installed-host/package.json
+/installed-host/verify.mjs
+/member-comparison.json
+/pack-process.json
+/pack-stderr.log
+/pack-stdout.log
+/package-identity.json
+/package-installed.py
+/product-verification.json
+/selection.json
+/verification-process.json
+/verification-request.json
+/verification-stderr.log
+/verification-stdout.log

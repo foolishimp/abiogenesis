@@ -1,3 +1,4 @@
+import { isOptionalJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { ClosureContract } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
@@ -51,12 +52,6 @@ export interface FhResumeContinuationBasis {
 
 export interface FhResumeOperationBasis {
   readonly admissionEventRef: string;
-}
-
-function isRecord(
-  value: JsonValue | undefined,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export function deriveFhResumeSuccessorInputAtPrefix(

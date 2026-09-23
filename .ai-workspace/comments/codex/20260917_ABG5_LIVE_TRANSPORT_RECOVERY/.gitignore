@@ -1,0 +1,28 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/assessor-domain-repair/activation.md
+/assessor-domain-repair/checks.json
+/assessor-domain-repair/return.md
+/assessor-relation-diagnosis/activation.md
+/assessor-relation-diagnosis/observations.json
+/assessor-relation-diagnosis/reproduce.mjs
+/assessor-relation-diagnosis/return.md
+/decision.md
+/diagnosis/activation.md
+/diagnosis/probe-1.json
+/diagnosis/probe-settings.md
+/diagnosis/return.md
+/evidence-budget/activation.md
+/evidence-budget/return.md
+/executive-closeout.md
+/live-04/activation.md
+/live-04/closed-observations.json
+/live-04/return.md
+/live-05/activation.md
+/live-05/closed-observations.json
+/live-05/return.md
+/live-06/activation.md
+/live-06/closed-observations.json
+/live-06/conservation-and-process-check.txt
+/live-06/return.md

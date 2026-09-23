@@ -1,0 +1,10 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/d1-guard-localization-05.mjs
+/d1-same-input-readonly-01.mjs
+/d1-same-input-readonly-02.mjs
+/d1-same-input-readonly-03.mjs
+/d1-same-input-readonly-04.mjs
+/module-brand-01.mjs
+/shared-seams-01.test.mjs

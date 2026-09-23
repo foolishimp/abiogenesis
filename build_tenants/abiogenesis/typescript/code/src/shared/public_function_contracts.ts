@@ -169,16 +169,16 @@ export const safePositiveIntegerSchema = v.pipe(
 );
 
 /** @internal */
-export const jsonValueSchema: v.GenericSchema<JsonValue, JsonValue> = v.lazy(() =>
-  v.union([
+export const jsonValueSchema: v.GenericSchema<JsonValue, JsonValue> = v.lazy(() => jsonValueDefinition);
+// One recursive definition; lazy resolves recursion without rebuilding schemas per value.
+const jsonValueDefinition: v.GenericSchema<JsonValue, JsonValue> = v.union([
     v.null(),
     v.boolean(),
     v.pipe(v.number(), v.finite()),
     v.string(),
     v.array(jsonValueSchema),
     v.record(v.string(), jsonValueSchema),
-  ])
-);
+  ]);
 
 function canonicalIdentity(value: unknown): string {
   return canonicalJson(value as JsonValue);

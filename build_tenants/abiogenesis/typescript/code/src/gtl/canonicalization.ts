@@ -1,3 +1,4 @@
+import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
@@ -23,10 +24,6 @@ export type CanonicalAuthoredGtlSubjectKind =
   (typeof CANONICAL_AUTHORED_GTL_SUBJECT_KIND_VALUES)[number];
 
 type MutableJsonRecord = { [key: string]: JsonValue };
-
-function isRecord(value: unknown): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function mutable(value: Readonly<Record<string, JsonValue>>): MutableJsonRecord {
   return value as MutableJsonRecord;
@@ -144,6 +141,8 @@ function canonicalizeGraphFunction(carrier: MutableJsonRecord): void {
 }
 
 function canonicalizeModulePublication(carrier: MutableJsonRecord): void {
+  if (carrier.stdoRunEnvironments !== undefined) canonicalizeRecordInventory(carrier, "stdoRunEnvironments", ["declarationRef"]);
+  if (carrier.runEnvironments !== undefined) canonicalizeRecordInventory(carrier, "runEnvironments", ["declarationRef"]);
   canonicalizeRecordInventory(carrier, "contracts", ["contractRef"]);
   canonicalizeRecordInventory(
     carrier,

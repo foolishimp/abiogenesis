@@ -1,0 +1,13 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/bootstrap-install.log
+/compile.log
+/preimages.json
+/preimages/code/src/implementation/leaf_invocation_port.ts
+/preimages/test_env/tests/w2-steel-single-start-closure.test.mjs
+/result.json
+/retained-output-proof.json
+/retained-output-test.log
+/successor-build.log
+/successor-pack.json

@@ -2,25 +2,23 @@
 
 # T-287 W2-R3-C1 Live-LLM Worksite Construction Design
 
-**Status**: Bounded worksite-root design-reframe candidate; pending independent
-review
+**Status**: Accepted bounded C1 text-output design amendment
 
-**Design candidate**: `W2-R3-C1-D`
+**Design candidate**: `C1-TEXT-OUTPUT-D`
 
-**Implementation selection**: none
+**Work and evidence selection**:
+[T-287 current C1 selection](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#c1-text-output-current-activation)
 
-**Evidence selection**: none
-
-**Change route**: bounded `goal_reprice -> design_reframe`; any later
-realization/evidence requires independent acceptance of these exact bytes and a
-new Executive selection
+**Change route**: bounded `design_reframe`; the linked T-287 selection owns
+current operation grants
 
 **Reframed predecessor**:
 [`T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md`](./T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md)
 
-The prior accepted C1 topology, raw-worker-result boundary, pure-child failure
-law, static publication, and downstream-return repairs remain predecessor HOW.
-Only their worksite-root and authority-basis propagation semantics are reopened.
+The accepted C1 worksite-root relation, topology, pure-child failure law,
+static publication, and downstream return remain conserved. This amendment
+changes only the raw replacement representation, its deterministic wrapping,
+and the response-schema claim identified by `W2-BL-C1-P3`.
 
 ## Decision
 
@@ -48,16 +46,19 @@ exact caller-authored WorksiteConstructionTask carrying A + W
   -> existing result and replay projections
 ```
 
-The ABI Program ends at the replayable construction result. Any declared
-command or mechanical probe over that result is a separate C2 invocation.
+The standalone ABI Program ends at the replayable construction result. Its
+original proof uses a separate C2 invocation for commands or mechanical
+probes. Under [the accepted single-start HOW](T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md), the unchanged C1 root may instead be a child of an independently authored
+consumer Program: the declared retention/preparation edge supplies C2 within
+that same Run, preserving the original exact root `#start` grant.
 ABI C2, through its `worker_executes` Worker/helper and ordinary ABG
 admission, alone executes those commands/probes and admits their mechanical
 observations. After replay, odd_glc may only interpret the already-admitted
 observations against its scenario policy, freeze evidence references, obtain
 an independent Reviewer return, and ask its Executive to advance or issue a
 new task from a freshly observed `O0`. odd_glc does not execute the declared
-commands/probes or synthesize their observations. This is a sequence of
-separate public invocations, not an ABI prompt, review, or retry engine.
+commands/probes or synthesize their observations. The standalone sequence and the separately selected single-start graph
+introduce no ABI prompt, review, or retry engine.
 
 The task carries an exact pre-rendered prompt and exact authority target rows.
 ABI passes the prompt bytes unchanged. The worker supplies replacement bytes
@@ -94,11 +95,13 @@ carried by `W`:
 A.workspaceId == W.workspaceId
 A.authorityBasisId == W.authorityBasisId
 A.authorityBasisDigest == W.authorityBasisDigest
-W.roots.productRoot == I_owner.installedRoot
+W.roots.productRoot == I_P.installedRoot
 ```
 
-`I_owner` is the unique admitted ABIogenesis Product installation named by the
-selected Program/GraphFunction publication owner. Missing, ambiguous, crossed,
+`I_P` is the unique admitted Program-owner installation. The actual C1
+GraphFunction and each selected implementation independently resolve to their
+exact dependency installations `I_G` and `I_L`; equality of these owners is
+required only where the declarations select the same installation. Missing, ambiguous, crossed,
 or tampered `A`, `W`, owner, install, prefix, or grant refuses before worker
 dispatch.
 
@@ -138,9 +141,12 @@ This is inherited validation of the amended closed C1 carrier, not a C3
 topology, contract, Program, GraphFunction, result, or effect change.
 
 The installed Product remains the Program owner and must have zero byte/path/
-topology delta across C1. Only C0 may alter worksite bytes beneath
+topology delta across C1. Within this selected C1 protocol, only C0 may alter worksite bytes beneath
 `A.canonicalRoot`; the live Worker remains `closed_prompt_proof` with zero tool
-calls.
+calls. This is not a prerequisite for every native work GraphFunction. The
+separately declared [native workspace-work boundary](T287_NATIVE_WORKSPACE_WORK_DESIGN.md)
+admits ordinary host read/edit/test work as its own effect, without a C1 envelope
+or replacement-text response. Selecting that boundary does not change C1.
 
 ## Product Frame And Authority
 
@@ -189,6 +195,8 @@ C1 would consume that newly accepted atom. The prior C0 evidence remains
 predecessor evidence but cannot prove the corrected root relation. C1 does not
 weaken, duplicate, or repair C0 inside a construction-specific path.
 
+<a id="c1-text-output-amendment"></a>
+
 ## Closed Product And GTL Carriers
 
 `code/src/product/worksite_construction.ts` owns these immutable values. The
@@ -200,7 +208,8 @@ their members remain the exact Product/C0 carriers named here.
 | `WorksiteConstructionTarget` | One stable target ref plus exact `A`/`W`-bound C0 `WorksiteSubject`, `WorksiteTerritory`, and predecessor `WorksiteObservation O0`. |
 | `WorksiteConstructionTask` | Exact `workspaceAuthorityBasis: WorkspaceAuthorityBasis`, exact `workspaceBinding: WorkspaceBinding`, exact direct-`run.invoke` capability grant, the fixed Product-owned worker tuple, fixed `closed_prompt_proof` lane, exact pre-rendered prompt and digest, and one non-empty ordered target vector. |
 | `WorksiteCandidateFile` | One target ref fixed by the task and canonical base64 replacement bytes. No path or authority coordinate. |
-| `WorksiteConstructionWorkerResult` | Raw actor-result value containing only one `WorksiteCandidateFile` for every requested target, in exact task order. It contains no task, workspace, grant, subject, territory, observation, effect, owner, or traversal authority. |
+| `WorksiteConstructionWorkerFile` | The same file identity fields with exactly one scalar-valid `replacementText` string or canonical `replacementBase64` string. Product wrapping alone encodes text into the candidate file. |
+| `WorksiteConstructionWorkerResult` | Raw actor-result value containing only one `WorksiteConstructionWorkerFile` for every requested target, in exact task order. It contains no task, workspace, grant, subject, territory, observation, effect, owner, or traversal authority. |
 | `WorksiteCandidateBundle` | Product-wrapped `F_P` result constructed from the exact admitted task projection plus one validated raw `WorksiteConstructionWorkerResult`; it is not the actor's raw result shape. |
 | `WorksiteFileReplaceVector` | Admitted root `F_D` result and exact vector-application child raw input; its ordered member values are exact C0 `WorksiteFileReplaceRequest` values. |
 | `WorksiteFileReplaceOutputVector` | Existing GTL fan-out output shape whose ordered member values are exact admitted C0 outputs and whose member lineage is runtime-authenticated. |
@@ -237,14 +246,28 @@ valueKind: worksite_construction_worker_result
     kind: "worksite_candidate_file",
     schemaVersion: "5.0.0",
     targetRef: <the exact target ref at this ordinal>,
-    replacementBase64: <canonical base64>
+    replacementText: <Unicode scalar text>
   }, ...]
 }
 ```
 
-All objects are closed to additional properties. The task-derived JSON schema
-fixes the vector cardinality and each ordinal's `targetRef`; it leaves only
-`replacementBase64` open.
+The existing raw alternative replaces `replacementText` with canonical
+`replacementBase64`; a file contains exactly one of them. All objects are
+closed to additional properties. Text contains Unicode scalar values only;
+unpaired UTF-16 surrogates refuse. The existing canonical-base64 alternative
+continues to represent arbitrary bytes, including non-UTF-8 binary content.
+Both payload fields, neither field, a non-string payload or an extra field
+refuses before candidate/result admission and before C0.
+
+The task-derived response schema uses object/properties/required,
+closed-object, array/items/minItems, const-or-enum and canonical-base64-pattern
+forms. It requires the existing file identity fields and declares the two
+optional string payload properties. It uses no tuple schema, exact maximum,
+`oneOf`/`anyOf` or conditional schema. The schema constrains shape and the
+target-ref set; Product raw admission additionally proves payload exclusivity,
+complete cardinality, ordinal correspondence and scalar/base64 validity before
+wrapping. Schema generation does not claim those exact raw-admission
+constraints are enforced by the transport.
 
 The root GraphFunction declares the raw transport contract independently of
 its Product output contract:
@@ -282,9 +305,10 @@ reduceWorksiteFileReplaceResults
 isWorksiteConstructionResult
 ```
 
-`constructWorksiteConstructionWorkerResult(task, rawValue)` applies the
-task-derived closed schema. `constructWorksiteCandidateBundle(task,
-workerResult)` is the only raw-to-Product wrapping relation.
+`constructWorksiteConstructionWorkerResult(task, rawValue)` validates the exact
+task-derived closed raw relation, including constraints beyond the response
+schema. `constructWorksiteCandidateBundle(task, workerResult)` is the only
+raw-to-Product wrapping and text-encoding relation.
 
 Every ref/digest covers its complete canonical body. Task construction requires
 one exact valid full `WorkspaceAuthorityBasis`, one exact valid full
@@ -313,7 +337,7 @@ The caller supplies `WorksiteConstructionTask.prompt` as complete text. ABI:
   context synthesis, or prompt section;
 - does not parse the prompt to discover targets or authority; and
 - supplies only a deterministic JSON result schema derived from the ordered
-  target refs and the fixed `WorksiteCandidateFile` carrier.
+  target refs and the fixed `WorksiteConstructionWorkerFile` carrier.
 
 The prepared `ProbabilisticWorkerRequest` tuple is exact and Product-owned:
 
@@ -339,11 +363,9 @@ transport observation must preserve that tuple exactly. General actor,
 binding, renderer, plan, instruction, result-contract, or lane selection
 remains outside C1.
 
-The result schema is the exact `WorksiteConstructionWorkerResult` schema. It
-fixes target count, order, and each target ref; the only open field is
-canonical base64 replacement bytes. The raw result cannot contain, project,
-or override task authority, and it does not satisfy
-`isWorksiteCandidateBundle`.
+The response schema follows the shape/raw-admission division specified with
+the closed carriers above. The raw result cannot contain, project or override
+task authority, and it does not satisfy `isWorksiteCandidateBundle`.
 
 Transport success is not result admission. The `F_P` completion parses and
 validates one raw `WorksiteConstructionWorkerResult`, then applies the exact
@@ -353,16 +375,28 @@ deterministic semantic relation:
 wrapCandidate(task, rawWorkerResult)
   = WorksiteCandidateBundle(
       taskProjection = exact admitted task authority rows,
-      files = rawWorkerResult.files,
+      files = rawWorkerResult.files.map(encodeCandidateFile),
       binding = ordered target-ref bijection,
     )
 ```
 
+`encodeCandidateFile` preserves the exact file identity fields and existing
+base64 payload, or replaces the text field with canonical base64 of its exact
+UTF-8 bytes. Its output is always the unchanged `WorksiteCandidateFile` shape.
+Encoding preserves the decoded JSON string exactly, including CR/LF, NUL and
+a supplied BOM; it performs no Unicode normalization, trimming or newline
+conversion and adds no BOM. Empty text yields zero bytes. The existing raw
+base64 alternative reproduces the prior candidate body, digest, ref and C0
+bytes exactly. The task, contract refs and downstream carrier shapes are
+unchanged; new publication/artifact digests bind the amended installed
+semantics. Previously admitted raw output and results retain their exact
+identities and remain replayable without conversion or relabelling.
+
 Only the resulting Product-wrapped `WorksiteCandidateBundle` may be the
 ordinary admitted `F_P` result. A raw result with missing, extra, duplicate,
-reordered, or unknown target refs, invalid canonical base64, or any authority
-field refuses before candidate-bundle construction and before C-call result
-admission.
+reordered, or unknown target refs, invalid scalar text or canonical base64,
+both/neither payload fields, or any authority field refuses before
+candidate-bundle construction and before C-call result admission.
 
 The existing ABG actor invocation retains the raw `finalOutput`, transport
 facts, process identity, prompt digest, tool-call count, and result-artifact
@@ -562,9 +596,12 @@ C1 must re-admit the amended definition and rerun affected C0 behavior. Its
 effect identity, owner, implementation binding, request/result meaning,
 Program identity, and root-closure behavior do not change.
 
-The C1 proof uses existing `abg.operation.run.invoke#invoke` targeting the root
-GraphFunction. `run.invoke#start`, reentry, continuation, SDK/CLI convenience,
-and a new Public definition are outside C1.
+The original standalone C1 proof uses `abg.operation.run.invoke#invoke`
+targeting its root GraphFunction. The selected single-start HOW additionally
+uses this unchanged root as a child under the original admitted consumer
+`#start` invocation; it mints no child invocation or replacement grant.
+Reentry, continuation, SDK/CLI convenience and new Public definitions remain
+outside this C1 extension.
 
 ## Deterministic Join And Ordered Effects
 
@@ -758,7 +795,7 @@ strictly ordered:
 Each invocation projects full `A` and `W` from its exact-prefix environment
 and admits their exact join before C1/C2 dispatch. Authored targets, including
 `package.json`, resolve beneath `A.canonicalRoot`, with
-`A.canonicalRoot != W.roots.productRoot == I_owner.installedRoot`. The complete
+`A.canonicalRoot != W.roots.productRoot == I_P.installedRoot`. The complete
 installed Product tree must be path-, topology-, and byte-exact before and
 after each invocation. ABI C2's `worker_executes` Worker/helper plus ABG
 admission is the sole declared-command/probe execution and mechanical-

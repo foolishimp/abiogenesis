@@ -1,0 +1,23 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/execution-07.md
+/execution-08.md
+/execution-09.md
+/execution-10.md
+/execution-11.md
+/execution-12.md
+/execution.md
+/review-ack-source-06.md
+/review-acknowledgment-06.md
+/review-composition-05.md
+/review-continuation-fixture-01.md
+/review-evidence-08.md
+/review-evidence-and-dependency-09-10.md
+/review-fixture-12.md
+/review-fixture-16.md
+/review-native-14.md
+/review-native-18.md
+/review-source-01.md
+/review-source-02.md
+/review-step-source-05.md

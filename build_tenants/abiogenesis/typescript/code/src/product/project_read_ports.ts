@@ -1,3 +1,9 @@
+import { projectExactPrefixArtifactTruth } from "../abg/artifact_truth.js";
+import type { DurablePrefixCoordinate } from "../abg/event_store.js";
+import { sameJson } from "../shared/definition_binding_mechanics.js";
+import { readReleaseArtifactBytes,projectReleaseQualification } from "../implementation/release_publication.js";
+import { releaseArtifactCoordinate } from "./release_snapshot_operations.js";
+import { isRecord, hasObjectUnicodeNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import type {
   ConsensusResult,
   TicketConsensusProjection,
@@ -123,8 +129,10 @@ export interface InstallEvidenceProjectReadPacket
 
 export interface ReleaseEvidenceProjectReadPacket
   extends ProductProjectReadPacketBase<"release_evidence"> {
-  readonly releaseSnapshotRefusal: ReleaseSnapshotRefusal;
-  readonly selector: Readonly<{ kind: "release_snapshot_unavailable" }>;
+  readonly prefix: DurablePrefixCoordinate;
+  readonly artifact: ProductReadCoordinate;
+  readonly artifactPath: string;
+  readonly selector: Readonly<{ kind: "release_operation_observation"; artifact: ProductReadCoordinate }>;
 }
 
 export interface TicketConsensusProjectReadPacket
@@ -291,15 +299,6 @@ type TicketConsensusOperationResult =
     TicketConsensusProjection & JsonValue
   >
   | ProductProjectReadRefusal;
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(value: object, keys: readonly string[]): boolean {
-  return Object.keys(value).sort(compareUnicodeCodeUnits).join("\0") ===
-    [...keys].sort(compareUnicodeCodeUnits).join("\0");
-}
 
 function digestJson(value: unknown): Sha256Digest | null {
   try {
@@ -777,35 +776,27 @@ export function projectInstallEvidence(
   return projected(packet, projection);
 }
 
-export function projectReleaseEvidence(
-  packet: ReleaseEvidenceProjectReadPacket,
-): ProductProjectReadRefusal {
-  if (
-    !validEnvelope(packet, "release_evidence", [
-      "releaseSnapshotRefusal",
-      "selector",
-    ]) ||
-    !isRecord(packet.releaseSnapshotRefusal) ||
-    packet.releaseSnapshotRefusal.kind !== "release_snapshot_refusal" ||
-    packet.releaseSnapshotRefusal.disposition !== "refused" ||
-    !isRecord(packet.selector) ||
-    !hasExactKeys(packet.selector, ["kind"]) ||
-    packet.selector.kind !== "release_snapshot_unavailable"
-  ) {
-    return refusal(
-      "release_evidence",
-      "source_kind_mismatch",
-      "release evidence requires one exact release-owner outcome",
-      packet,
-    );
-  }
-  return refusal(
-    "release_evidence",
-    "not_ready",
-    "release evidence is unavailable until the release owner publishes one immutable cut",
-    packet,
-    packet.releaseSnapshotRefusal,
-  );
+export function projectReleaseEvidence(packet:ReleaseEvidenceProjectReadPacket):ProductProjectReadRefusal|ProductProjectReadResult<"release_evidence",JsonValue> {
+  try {
+    if (!validEnvelope(packet,"release_evidence",["prefix","artifact","artifactPath","selector"]) ||
+        packet.selector.kind !== "release_operation_observation" || !validCoordinate(packet.artifact) ||
+        !sameJson(packet.selector.artifact,packet.artifact) || !sameJson(packet.projectionBasis.value,packet.prefix)) {
+      return refusal("release_evidence","projection_basis_mismatch","release read requires its exact current prefix and observation selector",packet);
+    }
+    const truth=projectExactPrefixArtifactTruth(packet.prefix),artifact=readReleaseArtifactBytes(packet.artifactPath,packet.artifact);
+    if(truth.kind!=="exact_prefix_artifact_truth_projection"||artifact===null)return refusal("release_evidence","not_ready","release observation bytes or native prefix are unavailable",packet);
+    const rows=truth.rows.filter(row=>row.operationId==="abg.operation.release.snapshot"&&row.memberKey==="published_rc"&&row.artifactRef===packet.artifact.ref&&row.artifactDigest===packet.artifact.digest);
+    const row=rows[0];
+    if(rows.length!==1||row===undefined||!sameJson(row.artifact,artifact)||packet.sourceRef!==artifact.scope.ref||packet.sourceDigest!==artifact.scope.digest||
+       projectReleaseQualification(artifact.request,artifact.proof,artifact.selection,packet.prefix)===null)
+      return refusal("release_evidence","source_digest_mismatch","release source lacks its exact native owner/qualification relation",packet);
+    return projected(packet,{
+      kind:"release_evidence_projection",disposition:artifact.observation.disposition==="complete"?"published_unqualified":"incomplete_effect",
+      releaseCut:artifact.scope,observationArtifact:releaseArtifactCoordinate(artifact),snapshotManifest:artifact.observation.snapshotManifest,
+      artifacts:[artifact.request.qualificationBasis.artifact],qualification:artifact.request.verdict,acceptance:"incomplete",
+      provenance:[{ref:row.admissionEventRef,digest:row.admissionEventDigest}],
+    } as JsonValue);
+  } catch { return refusal("release_evidence","not_ready","release native proof could not be reconstructed",packet); }
 }
 
 export function projectConsensusTicket(

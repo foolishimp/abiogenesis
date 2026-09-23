@@ -1,0 +1,37 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/authored.patch
+/build.log
+/closed-result.json
+/compatibility.json
+/compatibility.log
+/compatibility.mjs
+/delta.json
+/freeze.json
+/freeze.py
+/inventory.json
+/method-verification.json
+/preimages/build/code/src/public/index.d.ts
+/preimages/build/code/src/public/index.js
+/preimages/code/src/public/index.ts
+/preimages/contracts/capabilities/capability-definition-graph.json
+/preimages/product-toolchain-manifest.json
+/preimages/test_env/support/installed-public-definition-call.mjs
+/public-consumer.mts
+/return.md
+/subject.json
+/successors/build/code/src/public/index.d.ts
+/successors/build/code/src/public/index.js
+/successors/build/code/src/public/installed_public_definition_call.d.ts
+/successors/build/code/src/public/installed_public_definition_call.js
+/successors/code/src/public/index.ts
+/successors/code/src/public/installed_public_definition_call.ts
+/successors/contracts/capabilities/capability-definition-graph.json
+/successors/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md
+/successors/product-toolchain-manifest.json
+/successors/test_env/support/installed-public-definition-call.mjs
+/typecheck.json
+/typecheck.log
+/typecheck.mjs
+/validation.json

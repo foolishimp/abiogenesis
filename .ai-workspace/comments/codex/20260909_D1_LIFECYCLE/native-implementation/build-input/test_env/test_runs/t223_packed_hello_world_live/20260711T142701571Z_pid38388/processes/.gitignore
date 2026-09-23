@@ -1,0 +1,15 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/install-packed-abg-candidate/command.json
+/install-packed-abg-candidate/events.ndjson
+/install-packed-abg-candidate/final_output.txt
+/install-packed-abg-candidate/meta.json
+/install-packed-abg-candidate/result.json
+/install-packed-abg-candidate/stdout.raw
+/run-packed-sdk-consumer/command.json
+/run-packed-sdk-consumer/events.ndjson
+/run-packed-sdk-consumer/final_output.txt
+/run-packed-sdk-consumer/meta.json
+/run-packed-sdk-consumer/result.json
+/run-packed-sdk-consumer/stdout.raw

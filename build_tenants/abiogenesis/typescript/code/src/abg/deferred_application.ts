@@ -1,3 +1,4 @@
+import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
@@ -31,12 +32,6 @@ export interface DeferredApplicationProjection {
   readonly judgmentAdmissionOrdinal: number;
   readonly resultValue: JsonValue;
   readonly replayState: ReplayState;
-}
-
-function isRecord(
-  value: JsonValue,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export function projectDeferredApplicationAtPrefix(

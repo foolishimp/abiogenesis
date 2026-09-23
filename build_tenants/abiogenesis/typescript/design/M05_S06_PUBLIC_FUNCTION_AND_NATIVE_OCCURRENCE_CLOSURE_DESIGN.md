@@ -5,7 +5,7 @@
 **Change class**: `requirement_reprice` plus `design_reframe`
 **Owner**: T-287 under GOAL-035
 **Ontology slice**: `S06C/4` (`candidate`)
-**Method**: `.genesis/docs/standards/DESIGN_MODULE_METHOD.md`
+**Method**: `stdo://releases/v2.5.0-rc.6/standards/DESIGN_MODULE_METHOD.md`
 **Returned realization**:
 `4953508de83ab6d6c65dbb81e5407ccb539e44e6`
 **Returned design**:

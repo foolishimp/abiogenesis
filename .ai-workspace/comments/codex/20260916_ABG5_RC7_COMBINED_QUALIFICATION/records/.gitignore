@@ -1,0 +1,38 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/bind-build-tooling.mjs
+/build-bin-layout.json
+/build-launch.json
+/build-package.mjs
+/build-prior-1789536393893-build-launch.json
+/build-prior-1789536393893-build-process.json
+/build-process.json
+/build-tooling.json
+/closed-freeze.mjs
+/closed-state.json
+/collect-closed-state.mjs
+/complete-entry-copy.mjs
+/composition.json
+/controlled-corrected-launch.json
+/controlled-corrected-process.json
+/controlled-launch.json
+/controlled-process.json
+/entry-freeze-corrected.json
+/entry-freeze.json
+/execute-controlled-skipped.mjs
+/execute-controlled.mjs
+/freeze-entry.mjs
+/install-launch.json
+/install-process.json
+/missing-tooling-build-launch.json
+/missing-tooling-build-process.json
+/missing-tooling-repeated-build-launch.json
+/missing-tooling-repeated-build-process.json
+/pack-launch.json
+/pack-process.json
+/package-freeze.json
+/package-manifest.json
+/pre-native-corrections.md
+/preparation-first-cause.json
+/prepare.mjs

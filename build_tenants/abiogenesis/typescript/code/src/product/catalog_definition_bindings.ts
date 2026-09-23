@@ -1,4 +1,4 @@
-import { withAdmissionAuthority } from "./admission_authority.js";
+import { withAdmissionAuthority, type AdmissionDefinitionOwner } from "./admission_authority.js";
 import {
   CatalogApplicationConstructionError, reconstructCatalogApplication,
   type CatalogApplicationConstruction,
@@ -598,11 +598,11 @@ function admissionReceipt(
   });
 }
 
-const admit: ExactDefinitionCallable<
+const admit: AdmissionDefinitionOwner<
   AdmitPacket,
   CatalogAdmissionResourceAssertion,
   CatalogAdmissionResourceReceipt
-> = (call) => {
+> = (call, _environment, heldResource) => {
   if (admitExactDefinitionCall(call, CATALOG_OPERATION_CONTRACTS.admit) === null) {
       return Effect.fail( definitionFault(
         CATALOG_OPERATION_CONTRACTS.admit.definitionKey, "call_admission", "call_identity_mismatch",
@@ -613,7 +613,8 @@ const admit: ExactDefinitionCallable<
   if (structuralFault !== null) return Effect.fail(structuralFault);
   return Effect.try({
     try: (): DefinitionReturn<AdmitPacket, CatalogAdmissionResourceReceipt> => {
-      const acquired = acquireAbgEventResource(call.resources.eventResource);
+      const acquired = heldResource === null ? acquireAbgEventResource(call.resources.eventResource) :
+        { kind: "acquired_abg_event_resource" as const, resource: heldResource };
       if (acquired.kind !== "acquired_abg_event_resource") {
         throw fault(call, "resource_acquisition", acquired.code, acquired.message);
       }

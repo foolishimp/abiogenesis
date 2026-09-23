@@ -1,3 +1,4 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import {
   mkdir,
   readFile,
@@ -191,10 +192,6 @@ function hasExactKeys(
   keys: readonly string[],
 ): boolean {
   return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function isCleanCreatePacket(

@@ -24,7 +24,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { projectActorProcessLifecycle, validateActorProcessCarrierPair } from "./actor_process.js";
 import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix, type CCall } from "./c_call.js";
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
-import { readRuntimeEventsAtDurablePrefix, validateDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
+import { authenticateRuntimePrefixAncestry, readRuntimeEventsAtDurablePrefix, validateDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
 import { runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { rehydrateExecutionBasisAtPrefix, rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
@@ -296,8 +296,7 @@ export function authenticateWorksitePreservedResultBasis(basis: WorksitePreserve
   try {
     const source = worksitePreservedResultSourceOfGraphFunction(basis.graphFunction);
     if (source === null || !validateDurablePrefixCoordinate(basis.predecessorPrefix) ||
-      source.historicalPrefix.eventLogRef !== basis.predecessorPrefix.eventLogRef ||
-      !same(source.historicalPrefix.storeIdentity, basis.predecessorPrefix.storeIdentity) || source.historicalPrefix.prefixLength > basis.predecessorPrefix.prefixLength) return null;
+      !authenticateRuntimePrefixAncestry(source.historicalPrefix, basis.predecessorPrefix)) return null;
     const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix), prefix = selectValidatedRuntimeEventPrefix(events);
     const execution = rehydrateExecutionBasisAtPrefix(prefix, basis.executionBasis.basisRef);
     if (execution === null || !same(execution, basis.executionBasis) || !isWorksiteConstructionTask(execution.rawInputValue)) return null;

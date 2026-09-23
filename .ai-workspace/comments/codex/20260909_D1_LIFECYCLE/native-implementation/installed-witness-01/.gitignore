@@ -1,0 +1,31 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/call-1.jsonl
+/call-2.jsonl
+/call-3.jsonl
+/call-4.jsonl
+/first-cause-1788921373866.json
+/first-cause-1788921832646.json
+/first-cause-1788922041781.json
+/first-cause-1788922214071.json
+/first-cause-1788922486615.json
+/first-cause-1788922569510.json
+/first-cause-1788922877744.json
+/first-cause-1788923342034.json
+/launch-1.json
+/launch-2.json
+/launch-3.json
+/launch-4.json
+/receipt-1.json
+/receipt-2.json
+/receipt-3.json
+/receipt-4.json
+/stderr-1.log
+/stderr-2.log
+/stderr-3.log
+/stderr-4.log
+/stdout-1.json
+/stdout-2.json
+/stdout-3.json
+/stdout-4.json

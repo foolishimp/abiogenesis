@@ -1,0 +1,7 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../20260923_WIP_CHECKPOINT/README.md
+/prompt_carry_20260709T231747337Z_pid12868/req-t174-fan-in-live.txt
+/prompt_carry_20260709T231747337Z_pid12868/req-t174-hello-branch-live.txt
+/prompt_carry_20260709T231747337Z_pid12868/req-t174-parallel-hello-world-live.txt
+/prompt_carry_20260709T231747337Z_pid12868/req-t174-world-branch-live.txt

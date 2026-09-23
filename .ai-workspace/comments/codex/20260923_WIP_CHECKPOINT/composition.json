@@ -1,0 +1,25 @@
+{
+  "status": "prepared; original snapshots and pending record unchanged",
+  "supplements": [
+    {
+      "path": "cursor-supplement",
+      "resolves": ".ai-workspace/comments/codex/20260923_RETAINED_TRANSITION_REUSE/cursor-01",
+      "members": 255,
+      "subjectDigest": "958805566246bb8d1cf2331424b6a935f41b0bae118e06fb4b0fc455c30e564e"
+    },
+    {
+      "path": "scratch-supplement",
+      "reclassifiesFrom": "direct_git",
+      "reclassifiesTo": "archive_backed",
+      "members": 57,
+      "reason": "Completed generated witness logs and runtime state, outside canonical code/tests."
+    }
+  ],
+  "archiveMemberCount": 108479,
+  "directKnownPaths": 2784,
+  "excludedKnownPaths": 474946,
+  "remainingActiveEvidence": [],
+  "transportBytes": 5533862466,
+  "finalDirectList": "final-direct-paths.nul",
+  "publicationClaim": "WIP checkpoint only; no scenario success, RC, qualification or release claim."
+}

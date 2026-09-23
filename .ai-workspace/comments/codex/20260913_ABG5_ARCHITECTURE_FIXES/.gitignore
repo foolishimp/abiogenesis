@@ -1,0 +1,13 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/action-admission-review.md
+/action-admission.md
+/candidate/build_tenants/abiogenesis/typescript/code/src/owner_bindings/human_continuation.ts
+/candidate/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
+/candidate/build_tenants/abiogenesis/typescript/code/src/product/index.ts
+/candidate/build_tenants/abiogenesis/typescript/test_env/support/native-human-continuation-call.mjs
+/candidate/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-human-continuation.test.mjs
+/native-continuation.md
+/preservation.md
+/release-boundaries.md

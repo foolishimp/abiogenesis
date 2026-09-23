@@ -1,3 +1,4 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import {
   COMPUTE_REGIME_VALUES,
   C_TERM_KIND_VALUES,
@@ -22,10 +23,6 @@ export interface CProgramValidationContext {
 export interface CProgramTermInspection {
   readonly term: CProgramNode | null;
   readonly diagnostics: readonly StaticDiagnostic[];
-}
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function diagnostic(

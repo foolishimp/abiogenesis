@@ -1,0 +1,21 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../20260923_WIP_CHECKPOINT/README.md
+/catalog/admit/operation-contract.json
+/catalog/apply/operation-contract.json
+/catalog/view/operation-contract.json
+/conformance/evaluate/operation-contract.json
+/interaction/respond/operation-contract.json
+/product/install/operation-contract.json
+/product/materialize/operation-contract.json
+/product/resolve/operation-contract.json
+/product/verify/operation-contract.json
+/project/read/operation-contract.json
+/release/snapshot/operation-contract.json
+/result/assess/operation-contract.json
+/run/continue/operation-contract.json
+/run/invoke/operation-contract.json
+/witness/admit/operation-contract.json
+/workspace/bind/operation-contract.json
+/workspace/create/operation-contract.json
+/workspace/open/operation-contract.json

@@ -1,0 +1,27 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/activation-joined.txt
+/activation-sections.json
+/activation.md
+/basis.json
+/capture-basis.mjs
+/check.mjs
+/checks-02.json
+/how22-amendment.md
+/manifest.json
+/preimage-check-01.json
+/preimages.json
+/preimages/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md
+/preimages/design/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION.md
+/preimages/how22-proposal.md
+/preimages/legacy46/runtime_liveness.ts
+/preimages/legacy46/test_t129_runtime_liveness_observer.test.mjs
+/preimages/requirements/REQ-R-ABG3-CONTINUATION.md
+/preimages/requirements/REQ-R-ABG3-EVENTS.md
+/preimages/requirements/REQ-R-ABG3-PROJECTION.md
+/preimages/requirements/REQ-R-ABG3-RETRY.md
+/preimages/requirements/REQ-R-ABG3-TRANSPORT.md
+/proposal.md
+/return.md
+/source-test-plan.md

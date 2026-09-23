@@ -1,0 +1,10 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/d1.json
+/d2-source05.json
+/d2-source06.json
+/d2.json
+/r10.json
+/s01-source01.json
+/source04.json

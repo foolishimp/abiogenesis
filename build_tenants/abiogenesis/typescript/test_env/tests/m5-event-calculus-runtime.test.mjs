@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
-import { spawn } from "node:child_process";
+import { execFile, spawn } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import test from "node:test";
+import { promisify } from "node:util";
 
 import {
   admitRuntimeEvent,
@@ -19,6 +20,67 @@ import { acquireNewEmptyAppendSinkFixture } from "../support/new-empty-append-si
 import { setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+
+test("nominal prefix reuse preserves full historical EC and replay including fresh process", {
+  skip: !process.env.ABI5_PREFIX_REUSE_OBSERVATIONS,
+  timeout: 180_000,
+}, async () => {
+  const observationPath = process.env.ABI5_PREFIX_REUSE_OBSERVATIONS;
+  const baselineRoot = process.env.ABI5_PREFIX_REUSE_BASELINE_ROOT;
+  assert.ok(baselineRoot, "explicit frozen predecessor required");
+  const observation = JSON.parse(await readFile(observationPath, "utf8"));
+  const durablePrefix = observation.observedPrefix ?? observation.prefix;
+  const runId = observation.runRef ?? observation.runId;
+  const load = async directory => {
+    const get = name => import(pathToFileURL(join(directory, "build/code/src/abg", name + ".js")).href);
+    const [events, prefix, calculus, replay, liveness] = await Promise.all([
+      get("event_store"), get("event_prefix"), get("event_calculus"), get("replay"), get("runtime_liveness"),
+    ]);
+    const history = events.readRuntimeEventsAtDurablePrefix(durablePrefix, { requireCurrent: true });
+    return { events, prefix, calculus, replay, liveness, history, full: prefix.selectValidatedRuntimeEventPrefix(history) };
+  };
+  const before = await load(baselineRoot), after = await load(root);
+  assert.deepEqual(after.history, before.history);
+  const cuts = JSON.parse(process.env.ABI5_PREFIX_REUSE_CUTS ?? "[158,368,369,396]");
+  assert.ok(Array.isArray(cuts) && cuts.length > 0 && cuts.every(n => Number.isSafeInteger(n) && n > 0));
+  const results = [];
+  for (const ordinal of cuts) {
+    const evaluate = owners => {
+      const boundary = owners.history.find(event => event.admissionOrdinal === ordinal);
+      assert.ok(boundary, "explicit measured historical boundary");
+      const authority = owners.prefix.validatedRuntimeEventPrefixThroughEvent(owners.full, boundary.eventId);
+      const run = owners.prefix.selectValidatedRuntimeEventPrefix(
+        owners.prefix.runtimeEventsFromValidatedPrefix(authority), { runId });
+      return { calculus: owners.calculus.deriveRuntimeEventCalculusProjection(run),
+        replay: owners.replay.replayValidatedRuntimeEventPrefix(run, authority),
+        liveness: owners.liveness.projectRuntimeLivenessForScope(authority, runId) };
+    };
+    const expected = evaluate(before), actual = evaluate(after);
+    assert.deepEqual(actual, expected, "complete effects, fluents, observations and replay at " + ordinal);
+    results.push({ ordinal, calculusDigest: sha256Canonical(actual.calculus), replayDigest: sha256Canonical(actual.replay),
+      livenessDigest: sha256Canonical(actual.liveness) });
+  }
+  const freshCode = `
+import {readFile} from 'node:fs/promises';
+import {pathToFileURL} from 'node:url';
+import {join} from 'node:path';
+const root=process.argv[1],observation=JSON.parse(await readFile(process.argv[2],'utf8'));
+const get=name=>import(pathToFileURL(join(root,'build/code/src/abg',name+'.js')).href);
+const [events,prefix,calculus,replay,liveness,digests]=await Promise.all([get('event_store'),get('event_prefix'),get('event_calculus'),get('replay'),get('runtime_liveness'),import(pathToFileURL(join(root,'build/code/src/shared/digests.js')).href)]);
+const rows=events.readRuntimeEventsAtDurablePrefix(observation.observedPrefix??observation.prefix,{requireCurrent:true});
+const runId=observation.runRef??observation.runId,ordinal=Number(process.argv[3]),boundary=rows.find(event=>event.admissionOrdinal===ordinal);
+if(!boundary)throw new Error('fresh process requires the selected historical cut');
+const full=prefix.selectValidatedRuntimeEventPrefix(rows),authority=prefix.validatedRuntimeEventPrefixThroughEvent(full,boundary.eventId),run=prefix.selectValidatedRuntimeEventPrefix(prefix.runtimeEventsFromValidatedPrefix(authority),{runId});
+console.log(JSON.stringify({ordinal,calculusDigest:digests.sha256Canonical(calculus.deriveRuntimeEventCalculusProjection(run)),replayDigest:digests.sha256Canonical(replay.replayValidatedRuntimeEventPrefix(run,authority)),livenessDigest:digests.sha256Canonical(liveness.projectRuntimeLivenessForScope(authority,runId))}));
+`;
+  const fresh = await promisify(execFile)(process.execPath,
+    ["--input-type=module", "-e", freshCode, root, observationPath, String(cuts.at(-1))],
+    { cwd: root, timeout: 180_000, maxBuffer: 1_000_000 });
+  assert.deepEqual(JSON.parse(fresh.stdout), results.at(-1), "cold process rederives full EC/replay, not a cached projection");
+  assert.deepEqual(after.events.readRuntimeEventsAtDurablePrefix(durablePrefix, { requireCurrent: true }), after.history,
+    "retained history is unchanged");
+  console.log(JSON.stringify({ kind: "offline_nominal_prefix_reuse_conservation", results, freshProcessEqual: true }));
+});
 
 async function runPreparationRefusalWorker(input) {
   const worker = resolve(

@@ -1,0 +1,9 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/.abiogenesis/workspace-manifest.json
+/archives/fp-a084d5fd682c79cc-output.txt
+/archives/fp-a084d5fd682c79cc-prompt.txt
+/archives/fp-a084d5fd682c79cc-stderr.log
+/archives/fp-a084d5fd682c79cc-stdout.log
+/archives/fp-a084d5fd682c79cc-transport.json

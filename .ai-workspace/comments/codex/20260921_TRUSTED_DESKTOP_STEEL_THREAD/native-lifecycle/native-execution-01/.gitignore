@@ -1,0 +1,39 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/api-and-prerequisites.md
+/assessment-conjunction.json
+/authored.patch
+/build-first-failure.json
+/build.log
+/bundled-preimages.json
+/check-final-source.log
+/check-first.log
+/check-second.log
+/component-intake-observations.json
+/currentness-successor/activation.json
+/currentness-successor/authored.patch
+/currentness-successor/build.log
+/currentness-successor/check-final.log
+/currentness-successor/check-first.log
+/currentness-successor/delta-summary.json
+/currentness-successor/delta.json
+/currentness-successor/executive-disposition.md
+/currentness-successor/freeze.json
+/currentness-successor/install.log
+/currentness-successor/installed-coordinate.json
+/currentness-successor/inventory.json
+/currentness-successor/pack-receipt.json
+/currentness-successor/pack-stderr.log
+/currentness-successor/readiness.json
+/currentness-successor/return.md
+/delta-summary.json
+/delta.json
+/executive-review.md
+/final-generated.log
+/freeze.json
+/inventory.json
+/preimages.json
+/readiness.json
+/return.md

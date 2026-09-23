@@ -1,0 +1,46 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.md
+/check-batch.mjs
+/checks/native-after.json
+/checks/native-before.json
+/checks/postflight.json
+/forward.apply_patch
+/inverse.apply_patch
+/patches/01.apply_patch
+/patches/02.apply_patch
+/patches/03.apply_patch
+/patches/04.apply_patch
+/patches/05.apply_patch
+/patches/06.apply_patch
+/patches/07.apply_patch
+/patches/08.apply_patch
+/patches/09.apply_patch
+/preimages/candidate-manifest.json
+/preimages/code/src/abg/c_call_outcome.ts
+/preimages/code/src/abg/execution_basis.ts
+/preimages/code/src/abg/index.ts
+/preimages/code/src/abg/invocation_admission.ts
+/preimages/code/src/abg/project_read_ports.ts
+/preimages/code/src/abg/semantic_revision.ts
+/preimages/code/src/abg/worksite_input_provenance.ts
+/preimages/code/src/abg/worksite_revision.ts
+/preimages/code/src/gtl/index.ts
+/preimages/code/src/hog/ccall_lifecycle.ts
+/preimages/code/src/implementation/contracts.ts
+/preimages/code/src/implementation/index.ts
+/preimages/code/src/implementation/leaf_invocation_port.ts
+/preimages/code/src/implementation/worksite_command_execution.ts
+/preimages/code/src/implementation/worksite_command_helper.ts
+/preimages/code/src/product/builtin_semantics.ts
+/preimages/code/src/product/declaration_closure.ts
+/preimages/code/src/product/index.ts
+/preimages/code/src/product/worksite_command_execution.ts
+/preimages/integration01-manifest.json
+/preimages/scripts/generate-product-manifest.mjs
+/prepare.mjs
+/prepared.json
+/receipt.json
+/return.md
+/seal.mjs

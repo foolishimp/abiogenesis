@@ -1,3 +1,4 @@
+import { isJsonRecord as isRecord } from "../shared/admission_predicates.js";
 import type {
   FanOutApplication,
   GtlGraph,
@@ -24,7 +25,7 @@ import {
   readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
-import {
+import { runtimeEventPrefixDigest,
   selectValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
@@ -160,12 +161,6 @@ function refusal(
   };
 }
 
-function isRecord(
-  value: JsonValue,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
 class FanOutCompletionProjectionError extends TypeError {}
 
 export function admitFanOutCompletion(
@@ -215,9 +210,7 @@ export function admitFanOutCompletion(
     graphCallId: input.sourceCursor.graphCallId,
     frameId: input.sourceCursor.frameId,
   };
-  const expectedPrefixDigest = sha256Canonical(
-    predecessorEvents as unknown as JsonValue,
-  );
+  const expectedPrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
   try {
     const committed = admitRuntimeEventTransactionAtDurablePrefix(
       input.store,

@@ -1,0 +1,16 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../../../../../20260923_WIP_CHECKPOINT/README.md
+/.artifacts/abiogenesis-fixtures-t223-hello-world-catalog-0.1.0.tgz
+/package/catalog/default-overlay.json
+/package/catalog/hello-world.module.json
+/package/contracts/catalog-overlay-declaration.schema.json
+/package/contracts/hello-input.schema.json
+/package/contracts/hello-output.schema.json
+/package/contracts/hello-world.interface.json
+/package/contracts/public-contract-catalog.json
+/package/contracts/public-contract-catalog.schema.json
+/package/package.json
+/package/product-toolchain-manifest.json
+/sidecars/contribution-manifest.json
+/sidecars/product-descriptor.json

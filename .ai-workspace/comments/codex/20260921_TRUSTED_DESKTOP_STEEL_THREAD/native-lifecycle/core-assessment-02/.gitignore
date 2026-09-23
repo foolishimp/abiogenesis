@@ -1,0 +1,33 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/check.mjs
+/facts.json
+/freeze.json
+/implementation/artifact-verification.json
+/implementation/authored.patch
+/implementation/build.log
+/implementation/delta.json
+/implementation/executive-install-activation.md
+/implementation/focused-check.log
+/implementation/freeze.json
+/implementation/install.log
+/implementation/installed-coordinate.json
+/implementation/inventory.json
+/implementation/pack-receipt.json
+/implementation/pack-stderr.log
+/implementation/preimages/code/src/abg/actor_process.ts
+/implementation/preimages/code/src/abg/transport_contracts.ts
+/implementation/preimages/code/src/abg/worker_transport.ts
+/implementation/preimages/code/src/product/native_workspace_work.ts
+/implementation/preimages/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+/implementation/preimages/test_env/tests/m5-worker-transport.test.mjs
+/implementation/preimages/test_env/tests/t287-native-workspace-work.test.mjs
+/implementation/retained-schema-check.log
+/implementation/retained-schema-check.mjs
+/implementation/retained-schema-result.json
+/implementation/retained-successor-prompt.txt
+/implementation/return.md
+/implementation/subject.json
+/implementation/validation.json
+/return.md

@@ -1,3 +1,4 @@
+import { isRecord, hasNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import {
   sha256Bytes,
@@ -775,17 +776,6 @@ export interface ConsensusObservationSnapshot {
   readonly modelRef: string | null;
 }
 
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
-
 function isRef(value: unknown): value is string {
   return isNonBlankRef(value);
 }
@@ -1473,7 +1463,6 @@ export function refreshConsensusNextAction(
     projectionDigest,
   }) as unknown as Readonly<Record<string, JsonValue>>;
 }
-
 
 function isDigest(value: unknown): value is Sha256Digest {
   return typeof value === "string" && /^sha256:[0-9a-f]{64}$/u.test(value);

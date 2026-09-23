@@ -1,0 +1,22 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/.ai-workspace/comments/codex/20260908_W2_STEEL_SEQUENCE/execution.md
+/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+/build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts
+/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
+/build_tenants/abiogenesis/typescript/code/src/product/catalog_definition_bindings.ts
+/build_tenants/abiogenesis/typescript/code/src/product/environment_definition_bindings.ts
+/build_tenants/abiogenesis/typescript/code/src/product/index.ts
+/build_tenants/abiogenesis/typescript/code/src/product/install_definition_bindings.ts
+/build_tenants/abiogenesis/typescript/code/src/product/invocation.ts
+/build_tenants/abiogenesis/typescript/code/src/product/verification_definition_bindings.ts
+/build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts
+/build_tenants/abiogenesis/typescript/code/src/product/workspace_definition_bindings.ts
+/build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts
+/build_tenants/abiogenesis/typescript/design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md
+/build_tenants/abiogenesis/typescript/package-lock.json
+/build_tenants/abiogenesis/typescript/package.json
+/build_tenants/abiogenesis/typescript/test_env/support/developer-mini-product.mjs
+/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs
+/specification/GOALS.md

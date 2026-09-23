@@ -1,0 +1,10 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/api03-manifest.json
+/dependency-link-before-materialization
+/integration01-manifest.json
+/integration02-manifest.json
+/semantic_revision.ts
+/source05-manifest.json
+/source08-manifest.json

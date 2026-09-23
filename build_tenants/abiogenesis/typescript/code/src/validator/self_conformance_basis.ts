@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import { readRuntimeEventsAtDurablePrefix } from "../abg/event_store.js";
+import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
 import { rehydrateExecutionBasisAtPrefix, rehydrateAdmittedImplementationSetAtPrefix } from "../abg/execution_basis.js";
 import { projectExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
@@ -14,22 +14,24 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { SelfConformanceOwner } from "./self_conformance_contracts.js";
 import { SELF_CONFORMANCE_CATALOG_ASSET_PATH, SELF_CONFORMANCE_CATALOG_CONTRACT_ID } from "./self_conformance.js";
+import { resolveQualificationSelfConformanceOwner } from "../abg/qualification_proof.js";
 
-export interface QualificationOwnerBasis {
-  readonly predecessorPrefix: Readonly<DurablePrefixCoordinate>;
-  readonly cCallRef: string;
-}
+export type { QualificationNativeBasis as QualificationOwnerBasis } from "./qualification_contracts.js";
+import type { QualificationNativeBasis as QualificationOwnerBasis } from "./qualification_contracts.js";
 const hash = (value: unknown) => sha256Canonical(value as JsonValue);
 /** Rehydrates actual native owner truth. A consistent caller data tuple is insufficient. */
 export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, input: unknown, requireCurrent = false): SelfConformanceOwner | null {
+  if (typeof input === "object" && input !== null && "qualification" in input) {
+    return resolveQualificationSelfConformanceOwner(basis, input, requireCurrent);
+  }
   try {
-    const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix, { requireCurrent });
+    const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });
     const prefix = selectValidatedRuntimeEventPrefix(events);
     const opened = events.find(e => e.kind === "c_call_opened" && e.aggregateId === basis.cCallRef);
     if (opened === undefined) return null;
     const execution = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
     if (execution === null || execution.basisClass !== "root" || execution.programRef !== ids.programRef || execution.graphFunctionRef !== ids.graphFunctionRef || hash(input) !== execution.rawInputDigest) return null;
-    const environment = projectExactPrefixWorkspaceEnvironment(basis.predecessorPrefix, { ref: execution.workspaceBindingId, digest: execution.workspaceBindingDigest });
+    const environment = projectExactPrefixWorkspaceEnvironment(basis.predecessorPrefix as DurablePrefixCoordinate, { ref: execution.workspaceBindingId, digest: execution.workspaceBindingDigest });
     if (environment.kind !== "exact_prefix_workspace_environment") return null;
     const set = rehydrateAdmittedImplementationSetAtPrefix(prefix, execution.implementationSetRef);
     if (set === null || set.implementationSetDigest !== execution.implementationSetDigest) return null;
@@ -44,8 +46,11 @@ export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, inpu
       productManifestDigest: install.manifestDigest, packageName: install.packageName, packageVersion: install.packageVersion });
     if (hash(publication) !== set.publicationDigest || modulePublicationSemanticDigest(publication) !== row.implementationPublicationDigest ||
       install.contributionManifest.publicationBindings.filter(p => p.moduleRef === publication.moduleRef && p.publicationDigest === modulePublicationSemanticDigest(publication)).length !== 1) return null;
-    const graphFunction = publication.graphFunctions[0]!;
-    if (hash(graphFunction) !== execution.graphFunctionDigest || hash(publication.programs[0]) !== execution.programDigest) return null;
+    const functions = publication.graphFunctions.filter(g => g.name === ids.graphFunctionRef);
+    const programs = publication.programs.filter(p => p.programRef === ids.programRef);
+    if (functions.length !== 1 || programs.length !== 1) return null;
+    const graphFunction = functions[0]!;
+    if (hash(graphFunction) !== execution.graphFunctionDigest || hash(programs[0]) !== execution.programDigest) return null;
     const graph = materializeGraph(graphFunction, { invocationAdmissionRef: execution.invocationAdmissionRef,
       admittedInputRef: execution.rawInputAdmissionRef, admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue });
     const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, basis.cCallRef);

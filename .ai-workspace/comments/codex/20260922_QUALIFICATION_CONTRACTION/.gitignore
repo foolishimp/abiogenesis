@@ -1,0 +1,42 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/authored.patch
+/authored.patch.before-af22-fix
+/authority-generation-final.json
+/authority-generation.json
+/changed-paths.json
+/changed-paths.json.before-af22-fix
+/checks.json
+/compile-01.log
+/compile-02.log
+/compile-af22-fix.log
+/contract-edit.py
+/contraction-01.tap
+/contraction-02.tap
+/contraction-af22-fix.tap
+/core-subject-inventory.json
+/core-subject-inventory.json.before-af22-fix
+/coverage-edit.py
+/evidence-inventory.json
+/executive-disposition.md
+/executive-state.json
+/final-installed-coordinate.json
+/final-review.md
+/focused-01.tap
+/freeze-source.py
+/freeze.json
+/installed-observation.json
+/law-edit.py
+/manifest-generation-af22-fix.log
+/manifest-generation-final.log
+/manifest-generation.log
+/preimages.json
+/proof-edit.py
+/realization-edit.py
+/removal-responsibilities.json
+/return.md
+/summarize-installed.py
+/test-edit.py
+/tracking-reconciliation.json

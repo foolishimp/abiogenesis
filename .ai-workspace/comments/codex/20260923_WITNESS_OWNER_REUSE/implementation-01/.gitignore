@@ -1,0 +1,23 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/authored.patch
+/compile.log
+/executive-acceptance.json
+/focused-01.log
+/focused-02.log
+/focused-03.log
+/freeze.json
+/generate.log
+/generated-identity.json
+/material-baseline-02.log
+/material-baseline-03.log
+/material-baseline.log
+/material-comparison.json
+/preimages.json
+/return.md
+/self-check.json
+/source-delta.json
+/subject.json
+/tracking-delta.json

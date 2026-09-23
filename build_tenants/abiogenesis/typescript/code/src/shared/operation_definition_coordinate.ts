@@ -1,3 +1,4 @@
+import { isNonEmptyString } from "./admission_predicates.js";
 import type { JsonValue } from "./canonical_json.js";
 import {
   isSha256Digest,
@@ -22,10 +23,6 @@ export interface ExactOperationInvocationCoordinate
   readonly invocationRef: string;
   readonly invocationPayloadDigest: Sha256Digest;
   readonly invocationDigest: Sha256Digest;
-}
-
-function isNonEmptyString(value: unknown): value is string {
-  return typeof value === "string" && value.length > 0;
 }
 
 function hasExactKeys(

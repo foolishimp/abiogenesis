@@ -1,0 +1,23 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/forward-identities-before20b.ts
+/source/code/src/abg/c_call_outcome.ts
+/source/code/src/abg/execution_basis.ts
+/source/code/src/abg/index.ts
+/source/code/src/abg/invocation_admission.ts
+/source/code/src/abg/project_read_ports.ts
+/source/code/src/abg/worksite_input_provenance.ts
+/source/code/src/abg/worksite_revision.ts
+/source/code/src/gtl/index.ts
+/source/code/src/hog/ccall_lifecycle.ts
+/source/code/src/implementation/contracts.ts
+/source/code/src/implementation/index.ts
+/source/code/src/implementation/leaf_invocation_port.ts
+/source/code/src/implementation/worksite_command_execution.ts
+/source/code/src/implementation/worksite_command_helper.ts
+/source/code/src/product/builtin_semantics.ts
+/source/code/src/product/declaration_closure.ts
+/source/code/src/product/index.ts
+/source/code/src/product/worksite_command_execution.ts
+/source/scripts/generate-product-manifest.mjs

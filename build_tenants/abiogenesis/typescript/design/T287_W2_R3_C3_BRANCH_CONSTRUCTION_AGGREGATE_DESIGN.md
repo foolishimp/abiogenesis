@@ -10,7 +10,14 @@ design review
 **Prospective implementation/evidence**: `W2-R3-C3-I/E`, unselected until
 independent design acceptance
 
-**Method basis**: immutable STDO `v2.5.0-rc.4`
+**Current method route**:
+`repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`.
+The RC6 migration changes this method header only. Historical accepted bytes
+are identified by T-287 and the design index; their acceptance hashes remain
+unchanged and are not hashes of this metadata successor. Runtime HOW and the
+current Wave 2 `HOLD` remain governed by those surfaces. The opening candidate
+status and selection lines retain original authoring history, not current work
+authority or a reversal of the recorded semantic acceptance.
 
 **Accepted semantic predecessors**:
 
@@ -596,7 +603,7 @@ value is intentionally flat.
 
 ## 8. C2 Source Join
 
-C2 remains a separate public invocation. Its task carries the exact flat
+In the original standalone path, C2 is a separate public invocation. Its task carries the exact flat
 construction result. Its public invocation carries the ordinary non-null
 owner-derived `ProductInvocationSourceResultBasis` from the completed C3 run.
 The C3 and C2 invocations use one shared admitted `CatalogView`: its allowlist
@@ -621,15 +628,27 @@ judgment / replay coordinates
   == the owner-derived completed C3 chain
 ```
 
-The existing direct-C1 path remains explicit through the existing C1 reducer
-GraphFunction ref. C2 must reject the C3 root ref, branch-application ref, C1
-root ref, any other result-producing child, a partial-stop prefix, or a
+The direct-C1 path selects the exact C1 root GraphFunction, as required by
+the accepted C2 source law. C2 must reject the C3 root ref, branch-application
+ref, C1 reducer ref, any other result-producing child, a partial-stop prefix, or a
 caller-authored source coordinate. This is a closed explicit source-function
 set, not ambient inference.
 
+For the selected enclosing-Run form, [the accepted single-start HOW](T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md) preserves the original entry A/W, root grant and declared command
+configuration through the fixed branch retention/preparation relation. C2
+receives the flattened original targets in declared branch/target order and
+an ABG-derived same-Run source only after the complete aggregate and exact
+reducer have closed and folded back. Partial branch history cannot authorize
+C2. This source support does not claim a current C3 execution witness.
+
 ## 9. Replay And Closure
 
-Successful execution uses the existing run lifecycle:
+Standalone execution uses the existing run lifecycle. When selected as a
+consumer child, the aggregate instead uses its declared `graph_call` child
+closure; its reducer closure stays unchanged and the enclosing consumer root
+alone closes the Run. Program, GraphFunction and implementation installations
+remain independently exact, with full A/W and the original root grant. The
+standalone trace is:
 
 ```text
 public run.invoke#invoke
@@ -827,7 +846,7 @@ The focused lane must refuse:
   wrong-contract, or caller-fabricated output vector;
 - a nested C1 result with crossed receipt/O1, duplicate global member identity,
   or invalid canonical result identity;
-- C2 source basis naming any GraphFunction other than the exact C1 reducer for
+- C2 source basis naming any GraphFunction other than the exact C1 root for
   direct C1 or exact C3 reducer for aggregate C3;
 - C2 source ref/digest/value/W/replay coordinates crossed from another run;
   and
@@ -868,8 +887,8 @@ C3 is falsified if:
   dependency shape traversed serially.
 
 C3 does not select parallel execution, branch retry, branch skipping,
-compensation, multi-file atomicity, continuation/reentry, `run.invoke#start`,
-pre-binding admission, Product install/resolve/verify, Catalog/View admission,
+compensation, multi-file atomicity, continuation/reentry, a standalone
+`run.invoke#start` campaign, pre-binding admission, Product install/resolve/verify, Catalog/View admission,
 odd_glc semantics, downstream validation, C2 repair, live model evidence,
 version allocation, qualification, RC, tap, or release.
 

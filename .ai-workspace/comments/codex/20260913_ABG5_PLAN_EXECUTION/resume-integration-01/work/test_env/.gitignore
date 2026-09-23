@@ -1,0 +1,10 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../../20260923_WIP_CHECKPOINT/README.md
+/support/p3-liveness-native-mechanics.mjs
+/tests/d1-empty-profile-origin.test.mjs
+/tests/d1-integration-seams.test.mjs
+/tests/d1-native-liveness.test.mjs
+/tests/declaration-correction-11.test.mjs
+/tests/p3-profile-conservation.test.mjs
+/type-use/qualification-declaration-11.ts

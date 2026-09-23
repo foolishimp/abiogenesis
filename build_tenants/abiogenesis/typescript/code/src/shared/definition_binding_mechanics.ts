@@ -1,6 +1,7 @@
+import { isRecord, hasUnicodeNulJoinedKeys as hasExactKeys } from "./admission_predicates.js";
 import * as v from "valibot";
 
-import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from
+import { canonicalJson, type JsonValue } from
   "./canonical_json.js";
 import type {
   DefinitionCall,
@@ -37,20 +38,6 @@ import type {
   PublicContractCoordinate,
   ReferenceDigest,
 } from "./public_invocation.js";
-
-export function isRecord(
-  value: unknown,
-): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-export function hasExactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort(compareUnicodeCodeUnits).join("\0") ===
-    [...keys].sort(compareUnicodeCodeUnits).join("\0");
-}
 
 export function sameJson(left: unknown, right: unknown): boolean {
   try {
@@ -438,3 +425,5 @@ export function exactDefinitionCallMatches(
 ): boolean {
   return admitExactDefinitionCall(call, packet) !== null;
 }
+
+export { isRecord, hasExactKeys };

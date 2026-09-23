@@ -1,0 +1,23 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../../20260923_WIP_CHECKPOINT/README.md
+/activation.json
+/authored.patch
+/baseline-inventory.json
+/changed-files.json
+/checks.json
+/compile.log
+/evidence-inventory.json
+/executive-disposition.md
+/focused.log
+/freeze.json
+/generate.log
+/generated.patch
+/preimages/build/code/src/abg/invocation_admission.js
+/preimages/code/src/abg/invocation_admission.ts
+/preimages/contracts/capabilities/capability-definition-graph.json
+/preimages/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md
+/preimages/product-toolchain-manifest.json
+/retained-discriminator.json
+/return.md
+/subject-inventory.json

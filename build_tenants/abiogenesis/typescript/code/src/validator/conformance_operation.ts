@@ -1,3 +1,4 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import { constructCatalogProgramValidationInput } from "../product/catalog_operations.js";
 import type { ReadyGraphFunctionCatalog, GraphFunctionCatalogView } from "../product/catalog.js";
 import type { ResolvedProgramDeclarationClosure } from "../product/declaration_closure.js";
@@ -74,10 +75,6 @@ export interface GtlProgramConformanceRefusal {
 export type GtlProgramConformanceOperationResult =
   | GtlProgramConformanceResult
   | GtlProgramConformanceRefusal;
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
 
 function hasExactDataFields(value: object, fields: readonly string[]): boolean {
   const keys = Reflect.ownKeys(value);

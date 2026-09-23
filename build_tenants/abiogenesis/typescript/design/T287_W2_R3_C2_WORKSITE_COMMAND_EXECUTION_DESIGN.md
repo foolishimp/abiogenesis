@@ -1,12 +1,13 @@
 # T-287 W2-R3-C2 Worksite Command Execution Design
 
-**Status**: amended bounded child design candidate; pending independent review
+The [retained-construction forward re-entry design](T287_C2_FORWARD_REENTRY_DESIGN.md) is the subordinate binding for its distinct post-failure C2 arm; all other source and execution paths below remain unchanged.
 
-**Design candidate**: `W2-R3-C2-D`
+**Status**: accepted C2 helper-acknowledgment amendment
 
-**Selected implementation/evidence**: none; amended `W2-R3-C2-I/E` remains
-unselected pending independent design acceptance and a later Executive
-selection
+**Accepted design amendment**: `C2-HELPER-ACK-D`
+
+**Work and evidence state**:
+[T-287 current C2 selection](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#c2-helper-acknowledgment-current-activation).
 
 **Prior accepted two-manifest design SHA-256**:
 `f4eafb82961beb6ebe47fa54eb91dc7deb470c8fb106609f7d3d12ced76d074b`
@@ -17,7 +18,11 @@ selection
 **Earlier accepted design SHA-256**:
 `7f69c4c0c5e027f4025c0f3885042c65a668b4089eb139d278c0cdbc78e4f570`
 
-**Method basis**: immutable STDO `v2.5.0-rc.4`
+**Current method route**:
+`repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`.
+T-287 and the design index retain historical accepted identities. The current
+amendment changes only the Worker-return relation in section 6 and its affected
+proof conditions; completed Wave 2 evidence retains its exact accepted subject.
 
 ## 1. Claim
 
@@ -32,7 +37,7 @@ join.
 C2 is a sibling of C1 and C3. It does not widen C1's `closed_prompt_proof`
 actor, grant tools to a construction Worker, or change C1/C3 construction
 semantics beyond inheriting their corrected authority-basis carrier. Its closed
-source set is the exact C1 root or accepted C3 reducer,
+construction-source set is the exact C1 root or accepted C3 reducer,
 always through an owner-derived source-result basis carrying the existing
 `WorksiteConstructionResult`. odd_glc may join that admitted construction
 result and C2 execution observation and owns all domain satisfaction, review,
@@ -43,12 +48,12 @@ triage, and iteration.
 The lawful re-entry is:
 
 ```text
-design_reframe: W2-R3-C2-D
+design_reframe: C2-HELPER-ACK-D
 ```
 
-This selection stops at the amended design candidate. `W2-R3-C2-I` and
-`W2-R3-C2-E` require independent acceptance of these exact design bytes and a
-later explicit Executive selection.
+T-287 owns activation and acceptance of this amendment and its bounded
+implementation/evidence. The remaining C2 causal, task, effect and lifecycle
+contracts are conserved.
 
 Intent, Product meaning, requirements, Public operation families, event-kind
 census, feature membership, scenarios, and release subjects remain fixed.
@@ -57,7 +62,7 @@ C2 realizes existing `A5-F03`, `A5-F04`, and the post-binding portion of
 
 ## 3. Causal Boundary
 
-The invocation input is one closed `WorksiteCommandExecutionTask`. Public
+The standalone invocation input is one closed `WorksiteCommandExecutionTask`. Public
 `run.invoke#invoke` must supply a non-null owner-derived
 `ProductInvocationSourceResultBasis` for the admitted C1-root or C3-reducer
 result. Product semantics revalidate the exact authorized source
@@ -79,6 +84,64 @@ duplicate them inside the task. The task carries no caller-authored
 source-artifact authority. C2 validates its own installed publication in the
 ordinary target invocation basis.
 
+For the selected enclosing-Run path, [the accepted single-start HOW](T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md) owns the fixed E/S/T schema, typed retention edge, pure input-selection and
+task-preparation leaves, and ABG-derived source at the actual pre-child cut.
+The source C1 root or complete C3 aggregate/reducer has closed and folded back;
+the enclosing Run may remain open. ABG reconstructs the existing source-result
+basis internally from that exact route and rechecks it at C2 leaf admission
+before archive, observation or Worker effects. The public closed-Run source
+derivation stays unchanged. Publish the ordinary C2 `graph_call` child closure
+alongside its standalone `run` closure; only the consumer root closes the Run.
+
+### Native-work source alternative (NATIVEEXEC01)
+
+The existing C2 task/observation contracts and GraphFunction additionally admit
+an explicit native-work source. This is a source alternative, not C1
+construction or a new executor. `constructNativeWorksiteCommandExecutionTask`
+takes the exact `NativeWorkspaceWorkObservation`, current A/W and invocation
+grant, a nonempty unique ordered `selectedSources` file selection, and the
+existing commands, predicates and execution write territories. It derives the
+protected file vector from the selected entries in that producer's complete
+`after` observation. Unchanged observed files remain eligible. The consumer
+owns completeness of its selected application and domain meaning; the owner
+requires every declared selected file to be present, exact and protected.
+
+The closed task alternative carries `sourceNativeWork` instead of the three
+`sourceConstructionResult*` fields and has no C1 read-dependency basis. Its
+kind, C2 task identity scheme, materialization, renderer, worker result,
+implementation, helper, snapshot member and typed execution observation remain
+the existing C2 forms. Derived file observations identify native-observed
+source members; they do not manufacture C0 receipts or current C0 fluents.
+Assessment-only native results and failure reports are not repair producers.
+
+ABG reidentifies the selected actual native leaf result at the target held
+prefix: exact task and A/W, native GraphFunction and F_P implementation,
+probabilistic evidence, successful admitted result, advancing judgment and
+closed source graph call. The source value's native observation identity stays
+distinct from its admitted `result://` envelope. A closed-Run standalone C2
+invocation uses the existing owner-derived source-result basis. In ordinary
+same-Run composition, a consumer pure leaf may construct this task; C2 child
+admission requires the exact earlier closed native producer in the same
+invocation and Run, the actual declared C2 workflow call and original grant.
+No fixed consumer preparation implementation or cumulative envelope is added.
+Ordinary HoG input routing and graph membership still govern that call.
+
+Before C2 effects, recheck that no later admitted native mutation (including
+observed failed-call residue) or C0 replacement invalidates a selected file.
+An unobserved failed native write invalidates its overlapping selected scope.
+Foldback copies of a native result do not constitute another mutation. The
+unchanged C2 physical owner additionally compares exact selected file identity,
+length and digest before manifest publication and helper launch. The helper
+copies the complete selected vector into its existing evidence snapshot and
+retains commands, streams, reports, predicates and residue through ordinary F_P
+result admission. No host command loop, helper replacement, semantic oracle or
+caller-authored admission is permitted.
+
+C1/C3, revision and retained-construction forward constructors and source laws
+are unchanged. Their successful historical evidence is not a native source
+basis. Native assessment/currentness and consumer consequences remain separate
+from typed command observations; process success cannot prove domain acceptance.
+
 ### Exact worksite-root authority
 
 `WorksiteCommandExecutionTask` adds the exact closed field
@@ -96,11 +159,14 @@ task.workspaceBinding == E.workspaceBinding
 A.workspaceId == W.workspaceId
 A.authorityBasisId == W.authorityBasisId
 A.authorityBasisDigest == W.authorityBasisDigest
-W.roots.productRoot == I_owner.installedRoot
+W.roots.productRoot == I_P.installedRoot
 ```
 
-`I_owner` is the unique admitted ABIogenesis Product installation named by the
-C2 Program/GraphFunction publication and selected implementation owner. The
+`I_P` is the unique admitted Program-owner installation. C2
+GraphFunction-publication `I_G` and implementation `I_L` resolve independently
+from their exact admitted dependency declarations; no common-owner shortcut
+authorizes the child. Preserve the actual root `#start` or standalone `#invoke`
+grant canonically through the task and child basis. The
 owner-derived C1-root or C3-reducer source-result basis must rehydrate the same
 exact-prefix environment and the same full `A`/`W` pair. Ref/digest agreement
 without canonical body equality is insufficient. Missing, ambiguous, stale,
@@ -134,7 +200,8 @@ R_protected = {
   W.roots.eventLogRoot,
   W.roots.runtimeStateRoot,
   W.roots.projectionRoot,
-  W.roots.archiveRoot
+  W.roots.archiveRoot,
+  every admitted ProductInstall.installedRoot
 }
 ```
 
@@ -155,6 +222,105 @@ The complete installed owner Product is separately inventoried before and
 after execution and must have zero byte/path/node-kind/symlink-target delta.
 This retains `productRoot == installedRoot` as Program-owner identity while
 ending its use as the authored worksite root.
+
+### Preserved closed-child reacquisition (NATIVEREACQ01)
+
+An explicit deterministic preparation GraphFunction may reacquire an earlier
+closed native-work child when its enclosing Run stopped without closing. This
+realizes RUN-008 and CONTINUATION-003/011/014; it does not change the standalone
+Public closed-Run source relation, continue the old Run, or remint an F_P result.
+The old child, author invocation, observation, result and judgment remain exact
+historical evidence. R10's existing terminal projector authenticates the closed
+child and its selected historical declaration proof independently of Run closure.
+
+The request selects that exact child at an ancestral prefix of the same event
+resource, the unchanged `sourceNativeWork`, current A/W/grant, the complete
+current read context, and the existing C2 selected-source/command configuration.
+A and actor remain the original authority. A changed W requires the existing
+exact `witness.admit#reprice` binding cover for the source child's execution
+basis; equal file bytes alone never cover changed binding authority. The current
+context has the original complete after-observation entries, read roots and
+limits with current A/W coordinates, not only the C2 snapshot subset.
+
+The ABI-owned F_D preparation authenticates its actual admitted occurrence,
+implementation, invocation and current grant. It checks historical native
+provenance and later admitted invalidators, then uses the existing read-only
+worksite-context observer to verify every selected context entry. It returns the
+existing C2 task with unchanged original `sourceNativeWork` and an explicit
+`sourceReacquisition` containing request, preparation CCall/prefix and binding
+cover event refs. This task is deterministic preparation evidence, not new native
+authorship or semantic acceptance. Absent, stale, crossed or uncovered source
+refuses before C2 effects.
+
+The same published preparation GraphFunction is directly callable through its
+existing Program and ordinary Public entry. Its output is the exact existing C2
+task contract, classified `input` because C2 consumes it. Root invocation
+admission accepts this declared output when its contract is an `input` or
+`output` value contract; the selected GraphFunction output position, exact
+contract ref/digest and declaration owner establish the role. Failure, refusal,
+evidence, judgment, transition and closure contracts are not value outputs.
+Raw-input admission, input value-kind validation, contract identity and owner
+joins, authority, source/currentness and physical scopes remain unchanged. This
+realizes Product's same GraphFunction child/direct invocation relation and
+C-algebra-004/006 carrier continuity; it introduces no new contract or wrapper.
+A standalone preparation result does not authorize cross-Run C2 consumption:
+the existing same-Run preparation provenance gate below remains required.
+
+An ordinary consumer composes this GraphFunction with C2. C2 child admission and
+its latest pre-effect source gate require that exact successful, advancing F_D
+preparation in their current Run/invocation and implementation-set closure.
+The internally derived source basis retains the historical native Run and
+invocation; current execution authority comes from the new preparation and
+ordinary child admission. Later admitted mutation or uncertain failed-write
+residue invalidates affected complete context through the held prefix. Existing
+C2 physical source checks, helper, snapshot, worker, output and replay remain
+unchanged. A later assessor uses current task A/W/grant and the preparation's
+complete current context while retaining original native author provenance.
+
+The new root request uses Public `source: none`; an arbitrary caller-created
+C2 task or historical F_P-looking value supplies neither current preparation
+nor cross-Run admission. C1/C3, same-Run native, forward and standalone
+closed-Run source paths retain their separate contracts.
+
+### Observed existing-worksite source — root C2 only (QUAL056-C2-OBSERVED01)
+
+An ordinary root C2 invocation may explicitly select an observed existing
+worksite as its source. No construction/native author Result is asserted by
+this arm. `constructObservedWorksiteCommandExecutionTask` takes current
+`A`/`W`/direct grant, a nonempty unique ordered set of actual file subjects and
+observations, and the unchanged command/predicate/write-territory declarations.
+It derives member and source-set identities and retains one
+`protectedObservations` vector. The closed `sourceObservedInput` discriminator
+replaces construction/native ancestry only for this arm. It is neither a
+qualification-domain source nor a claim that the selected files are an
+adequate or complete verifier input; that remains the selecting consumer's duty.
+
+The existing root C2 Program/GraphFunction admits this exact input with
+`source:none`. That means no predecessor runtime Result; it does not waive file,
+authority, grant or currentness evidence. The owning invocation admission must
+bind the exact task digest, C2 contract and current workspace. The pre-effect
+owner reidentifies that actual root input and current binding/grant, refuses
+later admitted mutations or failed native writes affecting selected paths, and
+retains the existing physical O1 checks before manifests/snapshot/dispatch.
+A source-set digest or a caller-created observation alone grants no effect.
+Changed files, foreign bindings, stale/crossed input or counterfeit mixed-source
+carriers refuse. Child invocation is deliberately unsupported for this arm;
+C1/C3, native, reacquisition, revision and forward source laws are unchanged.
+
+The snapshot helper consumes the same selected source rows and retains the
+same source/member/task/result coordinates. Original worksite inputs and
+installed Products remain protected. When an existing build script overwrites
+seed files, an explicit recipe copies its selected snapshot inputs into a
+different declared writable evidence subtree and runs there; protected input
+paths do not become writable. Commands, environments, reports, budgets and
+semantic interpretation remain declared consumer data.
+
+The selected `F_P worker_executes` implementation, exact one-Bash helper call,
+compact acknowledgment, actual command/report/protected-file observation,
+failure behavior, result admission and replay remain unchanged. There is no
+new executor, native author, C1 result, private event, Public operation or
+qualification verdict. QUAL-056's recipe/lint/report-conservation and F11
+material join remain separate prerequisites.
 
 ## 4. Task Contract
 
@@ -328,7 +494,7 @@ path must match exactly one declared file or subtree territory. Protected
 snapshot members must remain byte-exact.
 
 The helper separately inventories the admitted Program-owner install at
-`W.roots.productRoot == I_owner.installedRoot` before and after and requires
+`W.roots.productRoot == I_P.installedRoot` before and after and requires
 zero path/content/node-kind/symlink-target delta. Product delta rows can never
 cite snapshot write authority. It also re-observes every original `O1` under
 `A.canonicalRoot` after the Worker returns and requires exact equality with its
@@ -359,6 +525,20 @@ call:
 node <installed ABI helper> --task <attemptRoot/launch.json>
 ```
 
+The executable basis is the absolute Node path already recorded as the first
+canonical single-quoted word of `toolCommand` and bound by its tool-input digest
+and byte length. Construction captures the owner's selected executable once;
+the current owner selects `process.execPath`. Historical plan and observation
+validation decodes only that recorded executable word, then reconstructs the
+entire exact command using task/attempt-derived helper and literal `launch.json`
+paths. It never consults the validating process's executable or its filesystem
+availability, and never recovers a manifest path from command text. Empty,
+relative, NUL-containing or noncanonically quoted executable words, altered
+command suffixes, and inconsistent tool-input identity refuse. This adds no
+carrier or field; the existing 12-key shape, exact Worker exchange, launch,
+source-result and `A`/`W` joins remain. Capturing at executable A and validating
+the unchanged task, plan and observation at B and then A must preserve validity.
+
 The current helper-plan predicate is current-only. Product helper-plan
 construction, Product observation construction and admission, completion, and
 `exactExchange` all require the structurally derived `launch.json` command and
@@ -370,7 +550,8 @@ not by a permissive current legacy reader.
 
 The Worker prompt contains exactly that command plus task-owned semantic
 coordinates; it contains neither `artifactPath` nor `sandboxRoot` in command
-or prose and does not expose the private envelope body. The Worker must make
+or prose and does not expose the private envelope body. It also identifies the
+already derived `attemptRef`. The Worker must make
 exactly that one tool call. ABG records the tool-use ref, tool name, canonical
 input digest, and byte length, deduplicating repeated stream records and
 refusing malformed or conflicting tool-use identity. Raw tool input remains in
@@ -398,10 +579,42 @@ captures streams, observes declared reports, derives predicates, inventories
 residue, and publishes one create-only canonical `result.json`. Successful
 publication requires cleanup of its temporary name to succeed and the final
 artifact to remain a canonical, non-symlink regular file with `nlink === 1`;
-cleanup failure is not swallowed. The Worker may only echo the helper-produced
-command and predicate rows. Product construction requires byte-for-byte
-canonical equality with the validated artifact and carries artifact ref,
-digest, length, and path into the admitted observation.
+cleanup failure is not swallowed. After publication and final artifact-path
+validation, the helper prints one canonical acknowledgment followed by one LF.
+The Worker returns only that acknowledgment through its declared result schema.
+
+### Raw Worker acknowledgment
+
+The current `WorksiteCommandExecutionWorkerResult`, under the existing
+`contract://abiogenesis/worksite/command-execution-worker-result@5`, is one
+I-JSON object with exactly seven keys: `kind`, `schemaVersion`, `taskRef`,
+`taskDigest`, `attemptRef`, `helperArtifactRef`, and `helperArtifactDigest`.
+`kind` is `worksite_command_execution_worker_result`; `schemaVersion` is
+`5.0.0`. The task ref/digest equal the admitted task, `attemptRef` equals the
+plan's occurrence-derived attempt, and the helper-artifact ref/digest equal
+the validated full artifact. The existing artifact identity derivation remains
+exact. No Worker-supplied path, command/predicate rows or judgment is admitted.
+The schema enforces the closed shape and available task/attempt constants;
+native admission enforces the complete task/attempt/artifact joins.
+
+The acknowledgment is a raw Worker candidate, not artifact authority or an
+execution result by itself. Completion uses only the existing task/occurrence/
+plan-derived `result.json` locus and all current gates below. Product
+construction then takes the complete command and predicate rows directly from
+that validated artifact, without truncation, re-encoding or synthesis. It
+preserves the existing artifact ref/digest/length/path provenance and exact raw
+Worker output through the existing actor/transport provenance. No absent or
+invalid acknowledgment is replaced from helper output or artifact presence.
+
+The stored helper-artifact and admitted-observation shapes and identity
+derivations are unchanged. Their full command/report/predicate cardinality,
+order, identity, stream and digest validation remains independent of the raw
+acknowledgment guard, including fresh replay. Existing full-result validation
+may remain as a pure artifact/observation validator; it is not a second current
+Worker return or execution path. Predecessor raw full-result evidence retains
+its exact immutable Product/artifact; it is not relabeled as an acknowledgment.
+
+### Completion conservation
 
 The host and Product do not normalize, repair, strip, translate, or reissue a
 wrong Worker command. The host never invokes the helper as a fallback and no
@@ -501,23 +714,23 @@ requires:
 
 | Case | Required construction | Required result |
 |---|---|---|
-| Distinct worksite/install | Use `A.canonicalRoot != I_owner.installedRoot`, with replayed C1/C3 `package.json` at `A.canonicalRoot/package.json`. | C2 protects and re-observes that worksite file, copies its exact bytes into the snapshot, and never reads it from installed `productRoot`. |
+| Distinct worksite/install | Use `A.canonicalRoot != I_P.installedRoot`, with replayed C1/C3 `package.json` at `A.canonicalRoot/package.json`. | C2 protects and re-observes that worksite file, copies its exact bytes into the snapshot, and never reads it from installed `productRoot`. |
 | Exact-prefix preflight | Tamper or cross full task `A`, task `W`, source-result environment, predecessor prefix, owner Product, or installation while retaining plausible refs/digests. | Refusal precedes `task.json`, `launch.json`, snapshot/result publication, Worker dispatch, protected read, and command/probe effect. |
 | Alias and protected roots | Use lexical aliases, symlink ancestors, hard-link aliases, crossed roots, a target beneath a protected root, or a territory itself inside one. | Host/helper refuses at the owning pre-effect seam; no snapshot command begins and no protected byte changes. |
 | Snapshot mapping | Use canonical-root-relative cwd, report, module, selector, port-file, and evidence-write paths. | Every execution read/write resolves only beneath the exact snapshot mirror; each snapshot member binds the original `A`/`W` subject and replayed `O1`. |
 | Worksite currentness | Drift an original protected worksite file before snapshot or after Worker return. | Pre-snapshot or completion re-observation refuses; stale bytes cannot be admitted as C2 observation truth. |
-| Product conservation | Inventory `W.roots.productRoot == I_owner.installedRoot` around success and every refusal. | Installed payload is byte/path/topology exact with zero Product delta. |
+| Product conservation | Inventory `W.roots.productRoot == I_P.installedRoot` around success and every refusal. | Installed payload is byte/path/topology exact with zero Product delta. |
 | C3 and replay | Consume a lawful same-basis C3 reducer result, close C2, reopen, and replay; separately offer mixed-basis C3 input. | Same-basis source/snapshot/observation replay byte-equally; mixed-basis aggregation or C2 source join refuses before effect. |
 
-If later selected after independent acceptance of this design,
-`W2-R3-C2-E` must prove from an installed package without a live model:
+T-287 selects the affected installed evidence for this amendment; accepted
+unchanged proof remains reusable. The C2 model-free installed conditions are:
 
 1. public C1-root or accepted C3-reducer invocation and closure, owner-derived
    source-result basis, then public C2 invocation from the same shared
    CatalogView;
 2. exact `worker_executes` actor/binding/lane, argv/cwd/environment, one helper
    tool invocation whose command contains only `--task
-   <attemptRoot/launch.json>`, helper artifact, admitted observation,
+   <attemptRoot/launch.json>`, compact acknowledgment, full helper artifact, admitted observation,
    `run_closed`, and byte-equal fresh replay;
 3. the exact unchanged public 12-key helper-plan and observation shape, with
    `taskManifestPath` naming authoritative bare `task.json`, its digest and
@@ -564,10 +777,14 @@ If later selected after independent acceptance of this design,
     host normalization, fallback helper, or automatic retry and without a claim
     that earlier arbitrary shell effects are undone or confined;
 13. helper-derived command, report, HTTP, module, filesystem, and JUnit rows,
-    with a non-zero command exit admitted as observation;
+    with a non-zero command exit admitted as observation; large stream payloads
+    remain byte-exact through the compact acknowledgment, admitted full
+    observation and fresh replay;
 14. refusal of wrong lane, no/malformed/conflicting tool use, wrong cardinality,
     order, ID, full authority basis, source basis, workspace binding, report,
-    snapshot, helper artifact, and protected O1;
+    snapshot, helper artifact, and protected O1; malformed/extra acknowledgment
+    fields and crossed task/attempt/artifact ref or digest refuse, while full
+    artifact and historical observation vectors retain their existing validators;
 15. post-helper/pre-completion drift falsifiers for `task.json`, `launch.json`,
     and protected O1, each reaching and refusing at its exact completion gate;
 16. refusal of undeclared snapshot create/change/delete, drift in the original
@@ -663,3 +880,76 @@ The required exact-prefix authentication is ABG admission consistency over an
 already admitted `WorkspaceAuthorityBasis`; it does not claim external actor,
 manifest-origin, or hostile-filesystem authentication. Adding such authority
 would require Product/requirement re-entry and is not selected here.
+
+## 12. D2-Only Mixed-Source Snapshot Arm
+
+The [D2 HOW](T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md#d2-narrow-repair-and-retained-snapshot-dependencies)
+adds one separately declared child execution arm for a narrow repair and its
+retained read-only dependencies. Sections 1–11 and every old task/result/
+observation/source/identity remain exact for existing C1/C3 execution. An older
+selected admitted C1/C3 result remains usable when its producer, A/W and all O1s
+remain valid; old C2 does not require the chronologically latest C1 result.
+
+The missing relation is mixed provenance: current preparation requires one
+protected O1 per member of one exact ConstructionResult, and the helper copies
+only that protected vector. A two-member repair result cannot represent twenty
+other retained files. C3 aggregation also requires actual complete branch
+results; it cannot manufacture unchanged members from unrelated history.
+
+The new WorksiteRevisionCommandExecutionTask is a distinct closed contract.
+It retains the old task's common A/W/grant, exact *actual selected* C1 result,
+command/predicate/write-territory and worker/helper configuration fields.
+It replaces kind with worksite_revision_command_execution_task, adds
+revisionBasisRef/revisionBasisDigest, and replaces protectedObservations with
+snapshotSources. New task/GF/leaf/implementation/contract identities are in the
+revision-command-execution namespace; old identities and hash algorithms are
+not rebound. Each ordered snapshotSources row has exactly designTargetRef,
+subject, observation and source. source is either {kind:construction_member,
+sourceMemberRef}, matched bijectively to an actual selected C1 member and its
+O1, or {kind:retained_dependency,origin}, matched exactly to E_D's dependency
+row. Together they equal V, with no overlap, omission or arbitrary path.
+Ordinals/order, source joins and identities are deterministically derived.
+
+Publish distinct closed D2 helper-artifact, snapshot-member and observation
+arms carrying those exact source tags; shared command/report/predicate/stream/
+delta fact types and canonical byte algorithms stay shared. Do not cast these
+values to old C2 contracts or insert invented sourceMemberRefs. The task,
+source vector, snapshot members and admitted observation bind one another in
+full. The existing compact Worker acknowledgment shape and one worker_executes
+exchange remain reusable under the distinct declared task/output contracts.
+
+Reuse the installed helper, two-manifest publication, exact eight-field
+authority-free occurrence, occurrence/attempt identity, one --task launch.json
+exchange, confinement, create-only snapshot/result, timeout/termination and
+completion algorithms. The new arm declares its exact leaf locus and installed
+binding; host/helper validate that closed locus/contract association. Old
+occurrences and task/launch/acknowledgment identities remain unchanged.
+No fallback executor, altered Worker command, retry or new effect is introduced.
+
+Native admission authenticates the D2 preparation chain and all dependency
+origins before archive publication, snapshot reads or dispatch. Existing owner
+resolution and leaf gates remain independent and exact. The helper copies
+every source in V once and protects/reobserves both source classes before and
+after execution; retained dependencies are never canonical-worksite writes.
+Command writes remain confined to disjoint declared snapshot evidence
+territories. Original worksite files and all protected installed Products remain
+unchanged by C2. Missing, altered or crossed sources refuse at the corresponding
+admission, preflight, helper or completion gate, without inferred rollback.
+
+Mechanical predicates run over the complete protected V snapshot and actual
+commands/reports using existing generic algorithms; no dependency row or native
+branch interprets domain success. The downstream declared assessor interprets
+the evidence. D2 observation admission and replay reconstruct the same source
+tags, protection and snapshot joins at the historical basis cut. This new arm
+requires the declared D2 parent preparation chain; it does not widen standalone
+public source-result eligibility or add a public operation.
+
+### Owned immutable native preparation facts
+
+The existing prefix derivation owner may retain a successful native reacquisition's immutable preparation, task and producer proof across exact historical cuts, Result copies, judgment, foldback and the next C2 consumer. Reuse requires the complete selected value to match the proved value inside that same authenticated prefix lineage; a supplied reference, digest or shallow freeze grants none. Cold, copied and closed-owner coordinates retain reconstruction. Product task guards validate the same closed body and identity without constructing another complete task. Current source invalidation, current occurrence/phase, competitor membership, binding cover and physical pre-effect checks remain evaluated at their owning current boundary. Unrelated admitted activity does not invalidate immutable producer facts; changed producer membership or source-invalidating activity cannot reuse a currentness verdict.
+
+### Installed owner operation continuity (OWNED-MODULE-CONTINUATION01)
+
+Native closed-child reacquisition passes its existing authentication operation from the invoking ABG owner to the selected installed F_D realization, bound to that exact input and occurrence. Its installed semantic relation receives the existing result/currentness relation bound to the current evaluation. Physical context checks, preserved author/result, binding-cover and later invalidation checks remain unchanged. No serialized task/basis gains a function or process-local authority requirement; standalone/cold paths reconstruct as before.
+
+C2 already receives the owner's native assembly preparation operation. Its accompanying occurrence check must also run at that invoking owner, comparing every existing occurrence coordinate to the authenticated assembly CCall. The installed command implementation still constructs and supervises its declared helper/acknowledgment. No command, actor policy, effect scope or output relation changes. Legacy semantic-stage/forward/preserved-result paths are not generalized by this selection.

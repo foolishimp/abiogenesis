@@ -20,7 +20,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
-  prepareChildTraversal,
+  prepareWorkflowChildTraversalAtCursor,
   type ChildTraversalBasis,
   type PreparedChildTraversal,
 } from "./child_traversal.js";
@@ -49,10 +49,9 @@ import {
 import { failTraversal } from "./traversal_failure.js";
 import {
   deriveGraphFunctionActionEvaluationBasis,
-  rehydrateConstructionIntentForCursorAtDurablePrefix,
 } from "../abg/index.js";
 import { deriveCSourceContinuation } from "../gtl/source_path.js";
-import { resolveWorkflowFailureContract } from "../abg/c_call.js";
+import { resolveWorkflowFailureContract, prepareWorkflowChildFoldback } from "../abg/c_call.js";
 
 export interface WorkflowLocusAuthority {
   readonly store: AbgEventStore;
@@ -166,15 +165,16 @@ function failWorkflow(
 function workflowBasis(
   context: WorkflowParentContext,
   stage: string,
+  causationEventRefs: readonly string[] = [],
 ): RuntimeAdmissionBasis {
-  return admissionBasis(
+  return { ...admissionBasis(
     {
       eventTime: context.authority.eventTime,
       correlationId:
         `${context.authority.correlationId}/workflow/${context.ordinal}`,
     },
     stage,
-  );
+  ), causationEventRefs };
 }
 
 function workflowFailure(
@@ -183,6 +183,7 @@ function workflowFailure(
   stage: string,
   diagnosticRef: string,
   candidate: JsonValue,
+  causationEventRefs: readonly string[] = [],
 ): ExecutableTraversalCompletion {
   const { authority: runtime } = context;
   const admitted = Abg.admitRuntimeFailure({
@@ -193,7 +194,7 @@ function workflowFailure(
     stage: "hog_traversal",
     subject: { stage, candidate },
     diagnosticRef,
-    basis: workflowBasis(context, stage),
+    basis: workflowBasis(context, stage, causationEventRefs),
   });
   return completion(
     "failed",
@@ -394,10 +395,10 @@ export function beginWorkflowLocus(input: Readonly<{
       parentCCall: opened.cCall,
       application: fanOutApplicationForBatch(runtime.graph, opened.cCall.batchRef),
     };
-    const intent = rehydrateConstructionIntentForCursorAtDurablePrefix(
-      opened.successorPrefix,
-      cursor,
+    const preparation = prepareWorkflowChildTraversalAtCursor(
+      runtime.store, runtime.childTraversalBasis, opened.successorPrefix, cursor,
     );
+    const intent = preparation.intent;
     const selectedValue = intent?.actionKind === "invoke_graph_function"
       ? intent.targetInput
       : input.value;
@@ -421,10 +422,7 @@ export function beginWorkflowLocus(input: Readonly<{
         term as unknown as JsonValue,
       );
     }
-    const prepared = prepareChildTraversal(
-      runtime.store,
-      runtime.childTraversalBasis,
-      {
+    const prepared = preparation.prepare({
       predecessorPrefix: opened.successorPrefix,
       parentExecutionBasis: runtime.executionBasis,
       parentTraversalScope: runtime.openedTraversalScope,
@@ -560,20 +558,27 @@ export function completeWorkflowLocus(
   if (child.disposition === "failed" && child.replayState.runtimeStatus === "failed") {
     return { completion: child, outputValueKind: null, outputContractRef: null };
   }
-  const failedFanOutTask = child.disposition === "failed" && frame.application !== null;
   if (
     child.resultRef === null || child.judgmentRef === null ||
     child.resultValue === null ||
-    (!failedFanOutTask && child.disposition !== "closed" &&
+    (child.disposition !== "failed" && child.disposition !== "closed" &&
       child.disposition !== "blocked")
   ) {
+    const childCauseEventRefs = Abg.readRuntimeEventsAtDurablePrefix(child.successorPrefix)
+      .filter(event => event.runId === frame.childTraversalScope.runId &&
+        event.graphCallId === frame.childTraversalScope.graphCallId &&
+        event.frameId === frame.childTraversalScope.frameId &&
+        (event.kind === "traversal_route_admitted" || event.kind === "c_call_judged" ||
+          event.kind === "runtime_failure_observed"))
+      .slice(-1).map(event => event.eventId);
     return {
       completion: workflowFailure(
         frame,
         child.successorPrefix,
         "child-completion",
-        "diagnostic://abiogenesis/hog/child-completion-incomplete@5",
+        child.diagnosticRef ?? "diagnostic://abiogenesis/hog/child-completion-incomplete@5",
         child as unknown as JsonValue,
+        childCauseEventRefs,
       ),
       outputValueKind: null,
       outputContractRef: null,
@@ -595,10 +600,24 @@ export function completeWorkflowLocus(
       workflowTerm as unknown as JsonValue,
     );
   }
-  const intent = rehydrateConstructionIntentForCursorAtDurablePrefix(
-    child.successorPrefix,
+  const foldbackPreparation = prepareWorkflowChildFoldback({
+    relationClass: "workflow",
+    store: runtime.store,
+    predecessorPrefix: child.successorPrefix,
+    graph: runtime.graph,
+    graphFunction: runtime.graphFunction,
     cursor,
-  );
+    parentCCall,
+    childExecutionBasis: frame.childExecutionBasis,
+    childScope: frame.childTraversalScope,
+    child: {
+      childResultRef: child.resultRef,
+      childJudgmentRef: child.judgmentRef,
+      childClosureRef: child.closureRef,
+    },
+    basis: workflowBasis(frame, "child-foldback"),
+  });
+  const intent = foldbackPreparation.intent;
   const actionValue = intent?.actionKind === "invoke_graph_function" &&
       child.disposition === "closed" && child.closureRef !== null &&
       isJsonRecord(child.resultValue)
@@ -624,23 +643,7 @@ export function completeWorkflowLocus(
       workflowTerm as unknown as JsonValue,
     );
   }
-  const foldback = Abg.admitChildFoldback({
-    relationClass: "workflow",
-    store: runtime.store,
-    predecessorPrefix: child.successorPrefix,
-    graph: runtime.graph,
-    graphFunction: runtime.graphFunction,
-    cursor,
-    parentCCall,
-    childExecutionBasis: frame.childExecutionBasis,
-    childScope: frame.childTraversalScope,
-    child: {
-      childResultRef: child.resultRef,
-      childJudgmentRef: child.judgmentRef,
-      childClosureRef: child.closureRef,
-    },
-    basis: workflowBasis(frame, "child-foldback"),
-  });
+  const foldback = foldbackPreparation.admit();
   if (foldback.kind !== "child_foldback_admission") {
     return {
       completion: workflowFailure(
@@ -655,9 +658,13 @@ export function completeWorkflowLocus(
     };
   }
   const childSucceeded = child.disposition === "closed";
-  const failureDiagnosticRef = child.diagnosticRef ??
+  const childBlocked = foldback.childDisposition === "blocked";
+  const failureDiagnosticRef = foldback.childReasonRef ?? child.diagnosticRef ??
     "diagnostic://abiogenesis/hog/child-traversal-blocked@5";
-  const childValue = childSucceeded
+  // A blocked child may have a valid candidate whose evaluator refused
+  // advancement. Conserve that candidate and its block; do not invent a
+  // failure result that the ordinary route relation must classify as failed.
+  const childValue = childSucceeded || childBlocked
     ? actionValue ?? child.resultValue
     : deepFreeze({
         kind: failureKind,
@@ -675,8 +682,8 @@ export function completeWorkflowLocus(
   }
   const resultOutcome = Abg.admitCCallResult({
     outcomeClass: "workflow",
-    resultDisposition: childSucceeded ? "success" : "failure",
-    ...(childSucceeded ? {} : { failureDiagnosticRef }),
+    resultDisposition: childSucceeded || childBlocked ? "success" : "failure",
+    ...(childSucceeded || childBlocked ? {} : { failureDiagnosticRef }),
     store: runtime.store,
     predecessorPrefix: foldback.successorPrefix,
     executionBasis: runtime.executionBasis,
@@ -728,6 +735,7 @@ export function completeWorkflowLocus(
     result: resultOutcome.result,
     replayState: resultOutcome.replayState,
     contractRef: parentCCall.judgmentContractRef,
+    currentOwnerPrefix: resultOutcome.successorPrefix,
     decision: childSucceeded
       ? {
           decisionClass: "evaluate",
@@ -777,7 +785,7 @@ export function completeWorkflowLocus(
     let retained: ReturnType<typeof Abg.deriveRetainedCCallInputAtPrefix> = null;
     if (result.resultClass === "success" && judgment.judgment === "advance") {
       try {
-        const truth = Abg.projectRuntimeTruthAtDurablePrefix(outcome.successorPrefix, cursor.runId);
+        const truth = Abg.projectRuntimePrefixesAtDurablePrefix(outcome.successorPrefix, cursor.runId);
         retained = Abg.deriveRetainedCCallInputAtPrefix(truth.authorityPrefix, runtime.executionBasis,
           runtime.graph, cursor, outcome.admitted.cCall, result, judgment);
       } catch {

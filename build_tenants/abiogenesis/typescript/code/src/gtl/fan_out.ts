@@ -1,3 +1,4 @@
+import { isRecord, hasNulJoinedKeys as exactKeys } from "../shared/admission_predicates.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   C,
@@ -95,17 +96,6 @@ export interface FanOutPublicationParts {
   readonly programs: readonly GtlProgram[];
   readonly graphFunctions: readonly GraphFunction[];
   readonly contributions: readonly CatalogContribution[];
-}
-
-function exactKeys(
-  value: Readonly<Record<string, unknown>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
-
-function isRecord(value: unknown): value is Readonly<Record<string, unknown>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export function isFanOutHelloMemberInput(

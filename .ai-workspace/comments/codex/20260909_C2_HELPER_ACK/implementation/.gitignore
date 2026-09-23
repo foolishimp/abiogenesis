@@ -1,0 +1,23 @@
+# Exact frozen originals preserved by the 20260923 WIP checkpoint transport.
+# New filenames stay visible; named reproducible dependency/cache directories remain local.
+# Reconstruction: ../../20260923_WIP_CHECKPOINT/README.md
+/build-input.json
+/build.log
+/builder-dependencies.json
+/candidate.json
+/candidate.patch
+/checks.json
+/focused-check-01.log
+/focused-check-02.log
+/pack.json
+/pack.stderr.log
+/package-inventory.json
+/predecessor-host-bin-setup-failure.json
+/predecessor-host-bin-setup-failure.log
+/predecessor-host-mode-setup-failure.json
+/predecessor-host-mode-setup-failure.log
+/predecessor-legacy-check.json
+/predecessor-legacy-check.log
+/preimages.json
+/production.patch
+/source-subject.json

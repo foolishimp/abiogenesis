@@ -4,6 +4,9 @@ import * as v from "valibot";
 import type { ContractDeclaration, GtlProgram, ModulePublication } from "./contracts.js";
 import { REQUIREMENT_TERM_SCHEMA, type RequirementTerm } from "./requirement_handoff.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { sha256Canonical } from "../shared/digests.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { validSemanticJobLifecyclePublication, validSemanticJobProgramOwners } from "./semantic_job.js";
 
 const ref = v.pipe(v.string(), v.minLength(1));
 const refs = v.array(ref);
@@ -41,6 +44,19 @@ export interface SemanticAssetSurface {
   readonly proofObligationRefs: readonly string[];
   readonly authoritySlots: readonly { readonly authorityKindRef: string; readonly disposition: "normal" | "bounded_fallback" | "forbidden_routine"; readonly fallbackPreconditionRefs: readonly string[] }[];
 }
+export type SemanticWorksiteContentPolicy = "not_required" | "current_inventory";
+export type SemanticStageAssembly = {
+  readonly ruleRef: string;
+  readonly graphFunctionRef: string;
+  readonly sectionOrder: readonly ["role", "source", "obligations", "predecessors", "worksite", "evidence", "task", "response"];
+  readonly proportionalityPolicy: "declared_semantic_assessment";
+  readonly maxPromptBytes: number;
+} & ({
+  readonly contentPolicy: "full_source_and_predecessors";
+} | {
+  readonly contentPolicy: "role_scoped_worksite";
+  readonly worksiteContentByRole: { readonly author: SemanticWorksiteContentPolicy; readonly assessor: SemanticWorksiteContentPolicy };
+});
 export interface SemanticStageDeclaration {
   readonly declarationRef: string;
   readonly graphFunctionRef: string;
@@ -52,14 +68,7 @@ export interface SemanticStageDeclaration {
   readonly requiredContent: readonly string[];
   readonly rubric: readonly { readonly criterionRef: string; readonly instruction: string }[];
   readonly bodyCapabilities: readonly ("requirement_refinement" | "worksite_design" | "application_assessment")[];
-  readonly assembly: {
-    readonly ruleRef: string;
-    readonly graphFunctionRef: string;
-    readonly sectionOrder: readonly ["role", "source", "obligations", "predecessors", "worksite", "evidence", "task", "response"];
-    readonly contentPolicy: "full_source_and_predecessors";
-    readonly proportionalityPolicy: "declared_semantic_assessment";
-    readonly maxPromptBytes: number;
-  };
+  readonly assembly: SemanticStageAssembly;
 }
 export interface SemanticLifecycleDeclaration {
   readonly declarationRef: string;
@@ -82,25 +91,39 @@ const SURFACE_SCHEMA = v.strictObject({ kind: ref, requiredContexts: refs, stand
   outputContractRefs: refs, constructorRef: ref, rendererRef: ref, proofObligationRefs: refs,
   authoritySlots: v.array(v.strictObject({ authorityKindRef: ref,
     disposition: v.picklist(["normal", "bounded_fallback", "forbidden_routine"]), fallbackPreconditionRefs: refs })) });
+const assemblyFields = { ruleRef: ref, graphFunctionRef: ref,
+  sectionOrder: v.tuple([v.literal("role"), v.literal("source"), v.literal("obligations"), v.literal("predecessors"),
+    v.literal("worksite"), v.literal("evidence"), v.literal("task"), v.literal("response")]),
+  proportionalityPolicy: v.literal("declared_semantic_assessment"),
+  maxPromptBytes: v.pipe(v.number(), v.integer(), v.minValue(1)) };
+const ASSEMBLY_SCHEMA = v.variant("contentPolicy", [
+  v.strictObject({ ...assemblyFields, contentPolicy: v.literal("full_source_and_predecessors") }),
+  v.strictObject({ ...assemblyFields, contentPolicy: v.literal("role_scoped_worksite"),
+    worksiteContentByRole: v.strictObject({ author: v.picklist(["not_required", "current_inventory"]),
+      assessor: v.picklist(["not_required", "current_inventory"]) }) }),
+]);
 const STAGE_SCHEMA = v.strictObject({ declarationRef: ref, graphFunctionRef: ref, authorLocusRef: ref, assessorLocusRef: ref,
   predecessorStageRefs: refs, assetSurface: SURFACE_SCHEMA, purpose: ref, requiredContent: strings,
   rubric: v.pipe(v.array(v.strictObject({ criterionRef: ref, instruction: ref })), v.minLength(1)),
   bodyCapabilities: v.array(v.picklist(["requirement_refinement", "worksite_design", "application_assessment"])),
-  assembly: v.strictObject({ ruleRef: ref, graphFunctionRef: ref,
-    sectionOrder: v.tuple([v.literal("role"), v.literal("source"), v.literal("obligations"), v.literal("predecessors"),
-      v.literal("worksite"), v.literal("evidence"), v.literal("task"), v.literal("response")]),
-    contentPolicy: v.literal("full_source_and_predecessors"), proportionalityPolicy: v.literal("declared_semantic_assessment"),
-    maxPromptBytes: v.pipe(v.number(), v.integer(), v.minValue(1)) }) });
+  assembly: ASSEMBLY_SCHEMA });
 export const SEMANTIC_LIFECYCLE_SCHEMA = v.strictObject({ declarationRef: ref, sourceDeclarationRef: ref,
   taskDataDigest: v.pipe(v.string(), v.regex(/^sha256:[0-9a-f]{64}$/)),
   evaluationDataDigest: v.pipe(v.string(), v.regex(/^sha256:[0-9a-f]{64}$/)),
   proofPolicies: v.array(POLICY_SCHEMA), proofShapes: v.array(SHAPE_SCHEMA), stages: v.pipe(v.array(STAGE_SCHEMA), v.minLength(1)) });
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
+export function isSemanticStageDeclaration(value: unknown): value is SemanticStageDeclaration {
+  return v.is(STAGE_SCHEMA, value) && value.assembly.graphFunctionRef === value.graphFunctionRef &&
+    unique(value.rubric.map(x => x.criterionRef)) && unique(value.predecessorStageRefs) &&
+    (!value.bodyCapabilities.includes("worksite_design") || value.assembly.contentPolicy !== "role_scoped_worksite" ||
+      (value.assembly.worksiteContentByRole.author === "current_inventory" &&
+        value.assembly.worksiteContentByRole.assessor === "current_inventory"));
+}
 export function isSemanticLifecycleDeclaration(value: unknown): value is SemanticLifecycleDeclaration {
   if (!v.is(SEMANTIC_LIFECYCLE_SCHEMA, value)) return false;
   return unique(value.stages.map(x => x.declarationRef)) && unique(value.stages.map(x => x.graphFunctionRef)) &&
     unique(value.proofPolicies.map(x => x.policyRef)) && unique(value.proofShapes.map(x => x.proofShapeRef)) &&
-    value.stages.every((stage, ordinal) => stage.assembly.graphFunctionRef === stage.graphFunctionRef &&
+    value.stages.every((stage, ordinal) => isSemanticStageDeclaration(stage) &&
       unique(stage.rubric.map(x => x.criterionRef)) && unique(stage.predecessorStageRefs) &&
       stage.predecessorStageRefs.every(p => value.stages.slice(0, ordinal).some(s => s.declarationRef === p)) &&
       stage.assetSurface.authoritySlots.every(slot => slot.disposition !== "bounded_fallback" || slot.fallbackPreconditionRefs.length > 0));
@@ -112,11 +135,14 @@ export function constructSemanticLifecycleDeclaration(value: SemanticLifecycleDe
 
 /** A borrowed lifecycle is a declaration dependency, never callable membership. */
 export function semanticLifecycleRefForProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>): string | undefined {
-  return program.policies["abg.semantic_lifecycle"] ?? publication.semanticLifecycle?.declarationRef;
+  return program.policies["abg.semantic_lifecycle"] ?? publication.semanticLifecycle?.declarationRef ?? publication.semanticJobLifecycle?.declarationRef;
 }
 
 export function validSemanticProgramOwners(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>,
   lifecyclePublication: Readonly<ModulePublication>, sourcePublication: Readonly<ModulePublication>): boolean {
+  if (lifecyclePublication.semanticJobLifecycle !== undefined)
+    return sha256Canonical(sourcePublication as unknown as JsonValue) === sha256Canonical(lifecyclePublication as unknown as JsonValue) &&
+      validSemanticJobProgramOwners(publication, program, lifecyclePublication);
   const ref = semanticLifecycleRefForProgram(publication, program);
   return ref !== undefined && lifecyclePublication.semanticLifecycle?.declarationRef === ref &&
     (publication.semanticLifecycle === undefined || publication.semanticLifecycle.declarationRef === ref) &&
@@ -125,6 +151,7 @@ export function validSemanticProgramOwners(publication: Readonly<ModulePublicati
 
 
 export function validSemanticLifecyclePublication(publication: Readonly<ModulePublication>, sourcePublication?: Readonly<ModulePublication>): boolean {
+  if (publication.semanticJobLifecycle !== undefined) return validSemanticJobLifecyclePublication(publication);
   const d = publication.semanticLifecycle;
   if (d === undefined) return !publication.graphFunctions.some(g => g.declarations["abg.semantic_stage"] !== undefined);
   if (!isSemanticLifecycleDeclaration(d)) return false;

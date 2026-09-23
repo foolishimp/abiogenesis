@@ -1,3 +1,4 @@
+import { isJsonRecord as isRecord, isNonEmptyJsonString as isNonEmptyString, hasJsonNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import type {
   GraphFunction,
   GtlGraph,
@@ -17,10 +18,9 @@ import {
 } from "./execution_basis.js";
 import {
   AbgEventStore,
-  admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
+  admitRuntimeEventTransactionAtDurablePrefix,
+  readActiveRuntimeTransactionAtDurablePrefix,
   admitRuntimeEvent,
-  assertHeldEventStoreAtDurablePrefix,
-  readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
@@ -232,12 +232,6 @@ export type ChildFoldbackResult =
   | ApplicationChildFoldbackReceipt
   | ApplicationChildFoldbackRefusal;
 
-function isRecord(
-  value: JsonValue,
-): value is Readonly<Record<string, JsonValue>> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
 const APPLICATION_CHILD_FOLDBACK_BODY_KEYS = Object.freeze([
   "applicationRef",
   "applicationFoldbackRef",
@@ -259,19 +253,8 @@ const APPLICATION_CHILD_FOLDBACK_BODY_KEYS = Object.freeze([
   "outputDigest",
 ] as const);
 
-function hasExactKeys(
-  value: Readonly<Record<string, JsonValue>>,
-  keys: readonly string[],
-): boolean {
-  return Object.keys(value).sort().join("\0") === [...keys].sort().join("\0");
-}
-
 function isSha256Digest(value: JsonValue | undefined): value is Sha256Digest {
   return typeof value === "string" && /^sha256:[a-f0-9]{64}$/u.test(value);
-}
-
-function isNonEmptyString(value: JsonValue | undefined): value is string {
-  return typeof value === "string" && value.length > 0;
 }
 
 function isApplicationChildFoldbackBody(
@@ -614,147 +597,151 @@ function admitRecursiveApplicationChildPreparationRefusal(
   },
   basis: RuntimeAdmissionBasis,
 ): ApplicationChildPreparationRefusalResult {
+  let entered = false;
   try {
-    assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
-  } catch {
-    return {
-      kind: "application_child_preparation_refusal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "application_mismatch",
-      message: "application child preparation refusal requires its exact predecessor",
-    };
-  }
-  const predecessorEvents = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
-  const ownerPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents, {
-    runId: parentCCall.runId,
-  });
-  if (
-    !hasAdmittedExecutionBasisAtPrefix(authorityPrefix, executionBasis) ||
-    !isMaterializedGtlGraph(graph) ||
-    graph.materializationRef !== executionBasis.graphRef ||
-    graph.template.applications.find(
-      (row) => row.applicationRef === application.applicationRef,
-    ) !== application ||
-    application.relationKind !== "recurse" ||
-    application.applicationRef !== graphFunctionApplicationRef(application) ||
-    projectAdmittedCCallOutcomeAtPrefix(
-      ownerPrefix,
-      parentCCall,
-      parentResult,
-      parentJudgment,
-    ) === null ||
-    !hasAdmittedTraversalCursorAtPrefix(ownerPrefix, sourceCursor) ||
-    parentCCall.basisId !== executionBasis.basisRef ||
-    parentCCall.frameId !== sourceCursor.frameId ||
-    parentCCall.compositionRef !== application.applicationRef ||
-    parentResult.cCallRef !== parentCCall.cCallRef ||
-    parentJudgment.cCallRef !== parentCCall.cCallRef ||
-    parentJudgment.resultRef !== parentResult.resultRef ||
-    parentJudgment.judgment !== "advance"
-  ) {
-    return {
-      kind: "application_child_preparation_refusal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "application_mismatch",
-      message:
-        "application child preparation refusal requires exact admitted parent evaluation truth",
-    };
-  }
-  if (
-    candidate.childGraphFunctionRef !== application.graphFunctionRef ||
-    candidate.inputRef !== parentResult.resultRef ||
-    candidate.inputDigest !== parentResult.valueDigest ||
-    ![
-      "basis_admission",
-      "graph_materialization",
-      "graph_validation",
-      "membership",
-      "scope_open",
-    ].includes(candidate.stage) ||
-    !candidate.diagnosticRef.startsWith("diagnostic://abiogenesis/") ||
-    candidate.message.length === 0
-  ) {
-    return {
-      kind: "application_child_preparation_refusal_refusal",
-      schemaVersion: "5.0.0",
-      disposition: "refused",
-      code: "candidate_mismatch",
-      message:
-        "application child preparation refusal differs from the declared child and parent output",
-    };
-  }
-  const body = {
-    applicationRef: application.applicationRef,
-    parentCCallRef: parentCCall.cCallRef,
-    parentJudgmentRef: parentJudgment.judgmentRef,
-    sourceCursorRef: sourceCursor.cursorRef,
-    ...candidate,
-  };
-  const refusalDigest = sha256Canonical(body as unknown as JsonValue);
-  const refusalRef =
-    `child-preparation-refusal://abiogenesis/${refusalDigest.slice("sha256:".length)}`;
-  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
-    store,
-    predecessorPrefix,
-    () => {
-      const event = admitRuntimeEvent(store, {
-        kind: "child_preparation_refused",
-        eventTime: basis.eventTime,
-        aggregateType: "frame",
-        aggregateId: sourceCursor.frameId,
-        parentAggregateId: sourceCursor.graphCallId,
-        causationEventRefs: [
-          parentJudgment.admissionEventRef,
-          ...basis.causationEventRefs,
-        ],
-        correlationId: basis.correlationId,
-        workflowVersion: "5.0.0",
-        scopeClass: "run",
-        basisId: executionBasis.basisRef,
-        runId: sourceCursor.runId,
-        graphFunctionRef: executionBasis.graphFunctionRef,
-        materializationRef: graph.materializationRef,
-        graphCallId: sourceCursor.graphCallId,
-        frameId: sourceCursor.frameId,
-        payload: { refusalRef, refusalDigest, ...body },
-      });
-      const admitted = deepFreeze({
-        kind: "application_child_preparation_refusal_admission" as const,
-        schemaVersion: "5.0.0" as const,
-        disposition: "admitted" as const,
-        refusalRef,
-        refusalDigest,
-        ...body,
-        admissionEventRef: event.eventId,
-      }) as ApplicationChildPreparationRefusalAdmission;
-      const projected = projectApplicationChildPreparationRefusalAtPrefix(
-        selectValidatedRuntimeEventPrefix(store.readAll(), {
-          runId: sourceCursor.runId,
-        }),
-        { runId: sourceCursor.runId, refusalRef },
-      );
-      if (
-        projected === null ||
-        sha256Canonical(projected as unknown as JsonValue) !==
-          sha256Canonical(admitted as unknown as JsonValue)
-      ) {
-        throw new TypeError(
-          "application child preparation refusal admission must equal its validated Event Calculus projection",
+    const committed = admitRuntimeEventTransactionAtDurablePrefix(
+      store, predecessorPrefix, (): ApplicationChildPreparationRefusalAdmission | ApplicationChildPreparationRefusalRefusal => {
+        entered = true;
+        const predecessorEvents = readActiveRuntimeTransactionAtDurablePrefix(
+          store, predecessorPrefix, { durableOnly: true },
         );
-      }
-      return projected;
-    },
-  );
-  return deepFreeze({
-    kind: "application_child_preparation_refusal_receipt" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    admission: committed.value,
-    successorPrefix: committed.successorPrefix,
-  });
+        const authorityPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
+        const ownerPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents, {
+          runId: parentCCall.runId,
+        });
+        if (
+          !hasAdmittedExecutionBasisAtPrefix(authorityPrefix, executionBasis) ||
+          !isMaterializedGtlGraph(graph) ||
+          graph.materializationRef !== executionBasis.graphRef ||
+          graph.template.applications.find(
+            (row) => row.applicationRef === application.applicationRef,
+          ) !== application ||
+          application.relationKind !== "recurse" ||
+          application.applicationRef !== graphFunctionApplicationRef(application) ||
+          projectAdmittedCCallOutcomeAtPrefix(
+            ownerPrefix,
+            parentCCall,
+            parentResult,
+            parentJudgment,
+          ) === null ||
+          !hasAdmittedTraversalCursorAtPrefix(ownerPrefix, sourceCursor) ||
+          parentCCall.basisId !== executionBasis.basisRef ||
+          parentCCall.frameId !== sourceCursor.frameId ||
+          parentCCall.compositionRef !== application.applicationRef ||
+          parentResult.cCallRef !== parentCCall.cCallRef ||
+          parentJudgment.cCallRef !== parentCCall.cCallRef ||
+          parentJudgment.resultRef !== parentResult.resultRef ||
+          parentJudgment.judgment !== "advance"
+        ) {
+          return {
+            kind: "application_child_preparation_refusal_refusal",
+            schemaVersion: "5.0.0",
+            disposition: "refused",
+            code: "application_mismatch",
+            message:
+              "application child preparation refusal requires exact admitted parent evaluation truth",
+          };
+        }
+        if (
+          candidate.childGraphFunctionRef !== application.graphFunctionRef ||
+          candidate.inputRef !== parentResult.resultRef ||
+          candidate.inputDigest !== parentResult.valueDigest ||
+          ![
+            "basis_admission",
+            "graph_materialization",
+            "graph_validation",
+            "membership",
+            "scope_open",
+          ].includes(candidate.stage) ||
+          !candidate.diagnosticRef.startsWith("diagnostic://abiogenesis/") ||
+          candidate.message.length === 0
+        ) {
+          return {
+            kind: "application_child_preparation_refusal_refusal",
+            schemaVersion: "5.0.0",
+            disposition: "refused",
+            code: "candidate_mismatch",
+            message:
+              "application child preparation refusal differs from the declared child and parent output",
+          };
+        }
+        const body = {
+          applicationRef: application.applicationRef,
+          parentCCallRef: parentCCall.cCallRef,
+          parentJudgmentRef: parentJudgment.judgmentRef,
+          sourceCursorRef: sourceCursor.cursorRef,
+          ...candidate,
+        };
+        const refusalDigest = sha256Canonical(body as unknown as JsonValue);
+        const refusalRef =
+          `child-preparation-refusal://abiogenesis/${refusalDigest.slice("sha256:".length)}`;
+        const event = admitRuntimeEvent(store, {
+          kind: "child_preparation_refused",
+          eventTime: basis.eventTime,
+          aggregateType: "frame",
+          aggregateId: sourceCursor.frameId,
+          parentAggregateId: sourceCursor.graphCallId,
+          causationEventRefs: [
+            parentJudgment.admissionEventRef,
+            ...basis.causationEventRefs,
+          ],
+          correlationId: basis.correlationId,
+          workflowVersion: "5.0.0",
+          scopeClass: "run",
+          basisId: executionBasis.basisRef,
+          runId: sourceCursor.runId,
+          graphFunctionRef: executionBasis.graphFunctionRef,
+          materializationRef: graph.materializationRef,
+          graphCallId: sourceCursor.graphCallId,
+          frameId: sourceCursor.frameId,
+          payload: { refusalRef, refusalDigest, ...body },
+        });
+        const admitted = deepFreeze({
+          kind: "application_child_preparation_refusal_admission" as const,
+          schemaVersion: "5.0.0" as const,
+          disposition: "admitted" as const,
+          refusalRef,
+          refusalDigest,
+          ...body,
+          admissionEventRef: event.eventId,
+        }) as ApplicationChildPreparationRefusalAdmission;
+        const projected = projectApplicationChildPreparationRefusalAtPrefix(
+          selectValidatedRuntimeEventPrefix(store.readAll(), {
+            runId: sourceCursor.runId,
+          }),
+          { runId: sourceCursor.runId, refusalRef },
+        );
+        if (
+          projected === null ||
+          sha256Canonical(projected as unknown as JsonValue) !==
+            sha256Canonical(admitted as unknown as JsonValue)
+        ) {
+          throw new TypeError(
+            "application child preparation refusal admission must equal its validated Event Calculus projection",
+          );
+        }
+        return projected;
+      },
+    );
+    if (committed.value.disposition === "refused") return committed.value;
+    if (committed.successorPrefix === null) throw new TypeError("child admission has no durable successor");
+    return deepFreeze({
+      kind: "application_child_preparation_refusal_receipt" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      admission: committed.value,
+      successorPrefix: committed.successorPrefix,
+    });
+  } catch (error) {
+    if (entered) throw error;
+      return {
+        kind: "application_child_preparation_refusal_refusal",
+        schemaVersion: "5.0.0",
+        disposition: "refused",
+        code: "application_mismatch",
+        message: "application child preparation refusal requires its exact predecessor",
+      };
+  }
 }
 
 function admitRecursiveApplicationChildFoldback(
@@ -775,305 +762,309 @@ function admitRecursiveApplicationChildFoldback(
   },
   basis: RuntimeAdmissionBasis,
 ): ApplicationChildFoldbackResult {
+  let entered = false;
   try {
-    assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
-  } catch {
-    return refusal(
-      "application_mismatch",
-      "child foldback requires its exact durable predecessor",
-    );
-  }
-  const predecessorEvents = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
-  const prefix = selectValidatedRuntimeEventPrefix(predecessorEvents, {
-    runId: sourceCursor.runId,
-  });
-  if (
-    !hasAdmittedExecutionBasisAtPrefix(authorityPrefix, parentExecutionBasis) ||
-    !isMaterializedGtlGraph(graph) ||
-    graph.materializationRef !== parentExecutionBasis.graphRef ||
-    graph.template.applications.find(
-      (candidate) => candidate.applicationRef === application.applicationRef,
-    ) !== application ||
-    application.relationKind !== "recurse" ||
-    application.applicationRef !== graphFunctionApplicationRef(application)
-  ) {
-    return refusal(
-      "application_mismatch",
-      "child foldback requires one exact admitted recurse application",
-    );
-  }
-  if (
-    !isCCall(parentCCall) ||
-    parentCCall.callClass !== "leaf" ||
-    parentCCall.basisId !== parentExecutionBasis.basisRef ||
-    parentCCall.frameId !== sourceCursor.frameId ||
-    parentCCall.graphCallId !== sourceCursor.graphCallId ||
-    parentCCall.compositionRef !== application.applicationRef ||
-    parentCCall.attempt !== sourceCursor.attempt ||
-    !hasAdmittedTraversalCursorAtPrefix(prefix, sourceCursor)
-  ) {
-    return refusal(
-      "parent_truth_mismatch",
-      "application foldback requires the exact evaluated parent cursor and CCall",
-    );
-  }
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
-  const parentJudgmentEvent = events.find(
-    (event) =>
-      event.kind === "c_call_judged" &&
-      event.aggregateId === parentCCall.cCallRef &&
-      isRecord(event.payload) &&
-      event.payload.judgmentRef === parentJudgmentRef &&
-      event.payload.judgment === "advance",
-  );
-  if (
-    parentJudgmentEvent === undefined ||
-    !holdsAt(
-      eventCalculus,
-      constructRuntimeFluent({
-        name: "c_call_judgment_available",
-        identity: parentJudgmentRef,
-      }),
-    )
-  ) {
-    return refusal(
-      "parent_truth_mismatch",
-      "application foldback requires admitted parent re-evaluation truth",
-    );
-  }
-  if (
-    !hasAdmittedExecutionBasisAtPrefix(authorityPrefix, childExecutionBasis) ||
-    childExecutionBasis.basisClass !== "child" ||
-    childExecutionBasis.parentExecutionBasisRef !== parentExecutionBasis.basisRef ||
-    childExecutionBasis.graphFunctionRef !== application.graphFunctionRef ||
-    !hasOpenedTraversalScopeAtPrefix(prefix, childScope) ||
-    childScope.executionBasisRef !== childExecutionBasis.basisRef ||
-    childScope.runId !== sourceCursor.runId
-  ) {
-    return refusal(
-      "child_truth_mismatch",
-      "application foldback requires one exact admitted child basis and scope",
-    );
-  }
-  const childGraphCallEvent = events.find(
-    (event) =>
-      event.kind === "graph_call_opened" &&
-      event.aggregateId === childScope.graphCallId &&
-      isRecord(event.payload) &&
-      event.payload.parentFrameId === sourceCursor.frameId,
-  );
-  const resultEvent = events.find(
-    (event) =>
-      event.kind === "c_call_result_admitted" &&
-      event.runId === childScope.runId &&
-      event.frameId === childScope.frameId &&
-      isRecord(event.payload) &&
-      event.payload.resultRef === child.resultRef,
-  );
-  const judgmentEvent = events.find(
-    (event) =>
-      event.kind === "c_call_judged" &&
-      event.runId === childScope.runId &&
-      event.frameId === childScope.frameId &&
-      isRecord(event.payload) &&
-      event.payload.judgmentRef === child.judgmentRef &&
-      event.payload.resultRef === child.resultRef,
-  );
-  const childCCallRef = resultEvent !== undefined && isRecord(resultEvent.payload) &&
-      typeof resultEvent.payload.cCallRef === "string"
-    ? resultEvent.payload.cCallRef
-    : null;
-  const routeProjection = childCCallRef === null
-    ? undefined
-    : projectApplicationChildRouteAtPrefix(prefix, authorityPrefix, {
-        runId: childScope.runId,
-        graphCallId: childScope.graphCallId,
-        frameId: childScope.frameId,
-        cCallRef: childCCallRef,
-        judgmentRef: child.judgmentRef,
-      }) ?? undefined;
-  const routeEvent = routeProjection === undefined
-    ? undefined
-    : events.find(
-        (event) =>
-          event.eventId === routeProjection.admissionEventRef &&
-          event.kind === "traversal_route_admitted" &&
-          event.runId === childScope.runId &&
-          event.frameId === childScope.frameId,
-      );
-  const routeKind = routeProjection?.routeKind ?? null;
-  const terminalReachedEvent = routeKind === "terminal"
-    ? events.find(
-        (event) =>
-          event.kind === "terminal_reached" &&
-          event.runId === childScope.runId &&
-          event.frameId === childScope.frameId &&
-          event.causationEventRefs.includes(routeEvent!.eventId) &&
-          isRecord(event.payload) &&
-          event.payload.closureRef === child.closureRef,
-      )
-    : undefined;
-  const frameClosedEvent = terminalReachedEvent === undefined
-    ? undefined
-    : events.find(
-        (event) =>
-          event.kind === "frame_closed" &&
-          event.runId === childScope.runId &&
-          event.frameId === childScope.frameId &&
-          event.causationEventRefs.includes(terminalReachedEvent.eventId),
-      );
-  const graphCallClosedEvent = frameClosedEvent === undefined
-    ? undefined
-    : events.find(
-        (event) =>
-          event.kind === "graph_call_closed" &&
-          event.runId === childScope.runId &&
-          event.graphCallId === childScope.graphCallId &&
-          event.causationEventRefs.includes(frameClosedEvent.eventId),
-      );
-  const resultDigest = resultEvent !== undefined && isRecord(resultEvent.payload)
-    ? resultEvent.payload.resultDigest
-    : null;
-  const outputDigest = resultEvent !== undefined && isRecord(resultEvent.payload)
-    ? resultEvent.payload.valueDigest
-    : null;
-  const childReasonRef =
-    judgmentEvent !== undefined && isRecord(judgmentEvent.payload) &&
-      typeof judgmentEvent.payload.reasonRef === "string"
-      ? judgmentEvent.payload.reasonRef
-    : null;
-  const childLifecycleEvent = routeKind === "terminal"
-    ? graphCallClosedEvent
-    : routeEvent;
-  const partialFanOutStopBridge = routeKind === "blocked" &&
-      routeEvent !== undefined && childCCallRef !== null
-    ? hasExactPartialFanOutStopRouteBridge(
-        prefix,
-        routeEvent.eventId,
-        {
-          runId: childScope.runId,
-          graphCallId: childScope.graphCallId,
-          frameId: childScope.frameId,
-          cCallRef: childCCallRef,
-          resultRef: child.resultRef,
-          judgmentRef: child.judgmentRef,
-        },
-      )
-    : false;
-  if (
-    childGraphCallEvent === undefined ||
-    resultEvent === undefined ||
-    judgmentEvent === undefined ||
-    routeEvent === undefined ||
-    childLifecycleEvent === undefined ||
-    !judgmentEvent.causationEventRefs.includes(resultEvent.eventId) ||
-    (!routeEvent.causationEventRefs.includes(judgmentEvent.eventId) &&
-      !partialFanOutStopBridge) ||
-    typeof resultDigest !== "string" ||
-    !/^sha256:[a-f0-9]{64}$/u.test(resultDigest) ||
-    typeof outputDigest !== "string" ||
-    !/^sha256:[a-f0-9]{64}$/u.test(outputDigest) ||
-    (routeKind !== "terminal" && routeKind !== "blocked") ||
-    (routeKind === "terminal" &&
-      (
-        child.closureRef === null ||
-        terminalReachedEvent === undefined ||
-        frameClosedEvent === undefined ||
-        graphCallClosedEvent === undefined
-      )) ||
-    (routeKind === "blocked" &&
-      (child.closureRef !== null || childReasonRef === null))
-  ) {
-    return refusal(
-      "child_truth_mismatch",
-      "application foldback references incomplete or non-causal child truth",
-    );
-  }
-  const body = {
-    applicationRef: application.applicationRef,
-    applicationFoldbackRef: application.foldbackRef,
-    parentCCallRef: parentCCall.cCallRef,
-    parentJudgmentRef,
-    sourceCursorRef: sourceCursor.cursorRef,
-    sourceCursorDigest: sourceCursor.cursorDigest,
-    childExecutionBasisRef: childExecutionBasis.basisRef,
-    childExecutionBasisDigest: childExecutionBasis.basisDigest,
-    childGraphCallId: childScope.graphCallId,
-    childFrameId: childScope.frameId,
-    childDisposition: routeKind === "terminal" ? "closed" as const : "blocked" as const,
-    childResultRef: child.resultRef,
-    childResultDigest: resultDigest as Sha256Digest,
-    childJudgmentRef: child.judgmentRef,
-    childClosureRef: child.closureRef,
-    childReasonRef,
-    childTerminalEventRef: childLifecycleEvent.eventId,
-    outputDigest: outputDigest as Sha256Digest,
-  };
-  const foldbackDigest = sha256Canonical(body as unknown as JsonValue);
-  const foldbackRef =
-    `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}`;
-  const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
-    store,
-    predecessorPrefix,
-    () => {
-      const event = admitRuntimeEvent(store, {
-        kind: "child_foldback_admitted",
-        eventTime: basis.eventTime,
-        aggregateType: "frame",
-        aggregateId: sourceCursor.frameId,
-        parentAggregateId: sourceCursor.graphCallId,
-        causationEventRefs: [
-          childLifecycleEvent.eventId,
-          parentJudgmentEvent.eventId,
-          ...basis.causationEventRefs,
-        ],
-        correlationId: basis.correlationId,
-        workflowVersion: "5.0.0",
-        scopeClass: "run",
-        basisId: parentExecutionBasis.basisRef,
-        runId: sourceCursor.runId,
-        graphFunctionRef: parentExecutionBasis.graphFunctionRef,
-        materializationRef: graph.materializationRef,
-        graphCallId: sourceCursor.graphCallId,
-        frameId: sourceCursor.frameId,
-        payload: { foldbackRef, foldbackDigest, ...body },
-      });
-      const admitted = deepFreeze({
-        kind: "application_child_foldback_admission" as const,
-        schemaVersion: "5.0.0" as const,
-        disposition: "admitted" as const,
-        foldbackRef,
-        foldbackDigest,
-        ...body,
-        admissionEventRef: event.eventId,
-      }) as ApplicationChildFoldbackAdmission;
-      const projected = projectApplicationChildFoldbackAtPrefix(
-        selectValidatedRuntimeEventPrefix(store.readAll(), {
-          runId: sourceCursor.runId,
-        }),
-        { runId: sourceCursor.runId, foldbackRef },
-      );
-      if (
-        projected === null ||
-        sha256Canonical(projected as unknown as JsonValue) !==
-          sha256Canonical(admitted as unknown as JsonValue)
-      ) {
-        throw new TypeError(
-          "application child foldback admission must equal its exact Event Calculus projection",
+    const committed = admitRuntimeEventTransactionAtDurablePrefix(
+      store, predecessorPrefix, (): ApplicationChildFoldbackAdmission | ApplicationChildFoldbackRefusal => {
+        entered = true;
+        const predecessorEvents = readActiveRuntimeTransactionAtDurablePrefix(
+          store, predecessorPrefix, { durableOnly: true },
         );
-      }
-      return projected;
-    },
-  );
-  return deepFreeze({
-    kind: "application_child_foldback_receipt" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    admission: committed.value,
-    successorPrefix: committed.successorPrefix,
-  });
+        const authorityPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
+        const prefix = selectValidatedRuntimeEventPrefix(predecessorEvents, {
+          runId: sourceCursor.runId,
+        });
+        if (
+          !hasAdmittedExecutionBasisAtPrefix(authorityPrefix, parentExecutionBasis) ||
+          !isMaterializedGtlGraph(graph) ||
+          graph.materializationRef !== parentExecutionBasis.graphRef ||
+          graph.template.applications.find(
+            (candidate) => candidate.applicationRef === application.applicationRef,
+          ) !== application ||
+          application.relationKind !== "recurse" ||
+          application.applicationRef !== graphFunctionApplicationRef(application)
+        ) {
+          return refusal(
+            "application_mismatch",
+            "child foldback requires one exact admitted recurse application",
+          );
+        }
+        if (
+          !isCCall(parentCCall) ||
+          parentCCall.callClass !== "leaf" ||
+          parentCCall.basisId !== parentExecutionBasis.basisRef ||
+          parentCCall.frameId !== sourceCursor.frameId ||
+          parentCCall.graphCallId !== sourceCursor.graphCallId ||
+          parentCCall.compositionRef !== application.applicationRef ||
+          parentCCall.attempt !== sourceCursor.attempt ||
+          !hasAdmittedTraversalCursorAtPrefix(prefix, sourceCursor)
+        ) {
+          return refusal(
+            "parent_truth_mismatch",
+            "application foldback requires the exact evaluated parent cursor and CCall",
+          );
+        }
+        const events = runtimeEventsFromValidatedPrefix(prefix);
+        const eventCalculus = deriveRuntimeEventCalculusProjection(prefix);
+        const parentJudgmentEvent = events.find(
+          (event) =>
+            event.kind === "c_call_judged" &&
+            event.aggregateId === parentCCall.cCallRef &&
+            isRecord(event.payload) &&
+            event.payload.judgmentRef === parentJudgmentRef &&
+            event.payload.judgment === "advance",
+        );
+        if (
+          parentJudgmentEvent === undefined ||
+          !holdsAt(
+            eventCalculus,
+            constructRuntimeFluent({
+              name: "c_call_judgment_available",
+              identity: parentJudgmentRef,
+            }),
+          )
+        ) {
+          return refusal(
+            "parent_truth_mismatch",
+            "application foldback requires admitted parent re-evaluation truth",
+          );
+        }
+        if (
+          !hasAdmittedExecutionBasisAtPrefix(authorityPrefix, childExecutionBasis) ||
+          childExecutionBasis.basisClass !== "child" ||
+          childExecutionBasis.parentExecutionBasisRef !== parentExecutionBasis.basisRef ||
+          childExecutionBasis.graphFunctionRef !== application.graphFunctionRef ||
+          !hasOpenedTraversalScopeAtPrefix(prefix, childScope) ||
+          childScope.executionBasisRef !== childExecutionBasis.basisRef ||
+          childScope.runId !== sourceCursor.runId
+        ) {
+          return refusal(
+            "child_truth_mismatch",
+            "application foldback requires one exact admitted child basis and scope",
+          );
+        }
+        const childGraphCallEvent = events.find(
+          (event) =>
+            event.kind === "graph_call_opened" &&
+            event.aggregateId === childScope.graphCallId &&
+            isRecord(event.payload) &&
+            event.payload.parentFrameId === sourceCursor.frameId,
+        );
+        const resultEvent = events.find(
+          (event) =>
+            event.kind === "c_call_result_admitted" &&
+            event.runId === childScope.runId &&
+            event.frameId === childScope.frameId &&
+            isRecord(event.payload) &&
+            event.payload.resultRef === child.resultRef,
+        );
+        const judgmentEvent = events.find(
+          (event) =>
+            event.kind === "c_call_judged" &&
+            event.runId === childScope.runId &&
+            event.frameId === childScope.frameId &&
+            isRecord(event.payload) &&
+            event.payload.judgmentRef === child.judgmentRef &&
+            event.payload.resultRef === child.resultRef,
+        );
+        const childCCallRef = resultEvent !== undefined && isRecord(resultEvent.payload) &&
+            typeof resultEvent.payload.cCallRef === "string"
+          ? resultEvent.payload.cCallRef
+          : null;
+        const routeProjection = childCCallRef === null
+          ? undefined
+          : projectApplicationChildRouteAtPrefix(prefix, authorityPrefix, {
+              runId: childScope.runId,
+              graphCallId: childScope.graphCallId,
+              frameId: childScope.frameId,
+              cCallRef: childCCallRef,
+              judgmentRef: child.judgmentRef,
+            }) ?? undefined;
+        const routeEvent = routeProjection === undefined
+          ? undefined
+          : events.find(
+              (event) =>
+                event.eventId === routeProjection.admissionEventRef &&
+                event.kind === "traversal_route_admitted" &&
+                event.runId === childScope.runId &&
+                event.frameId === childScope.frameId,
+            );
+        const routeKind = routeProjection?.routeKind ?? null;
+        const terminalReachedEvent = routeKind === "terminal"
+          ? events.find(
+              (event) =>
+                event.kind === "terminal_reached" &&
+                event.runId === childScope.runId &&
+                event.frameId === childScope.frameId &&
+                event.causationEventRefs.includes(routeEvent!.eventId) &&
+                isRecord(event.payload) &&
+                event.payload.closureRef === child.closureRef,
+            )
+          : undefined;
+        const frameClosedEvent = terminalReachedEvent === undefined
+          ? undefined
+          : events.find(
+              (event) =>
+                event.kind === "frame_closed" &&
+                event.runId === childScope.runId &&
+                event.frameId === childScope.frameId &&
+                event.causationEventRefs.includes(terminalReachedEvent.eventId),
+            );
+        const graphCallClosedEvent = frameClosedEvent === undefined
+          ? undefined
+          : events.find(
+              (event) =>
+                event.kind === "graph_call_closed" &&
+                event.runId === childScope.runId &&
+                event.graphCallId === childScope.graphCallId &&
+                event.causationEventRefs.includes(frameClosedEvent.eventId),
+            );
+        const resultDigest = resultEvent !== undefined && isRecord(resultEvent.payload)
+          ? resultEvent.payload.resultDigest
+          : null;
+        const outputDigest = resultEvent !== undefined && isRecord(resultEvent.payload)
+          ? resultEvent.payload.valueDigest
+          : null;
+        const childReasonRef =
+          judgmentEvent !== undefined && isRecord(judgmentEvent.payload) &&
+            typeof judgmentEvent.payload.reasonRef === "string"
+            ? judgmentEvent.payload.reasonRef
+          : null;
+        const childLifecycleEvent = routeKind === "terminal"
+          ? graphCallClosedEvent
+          : routeEvent;
+        const partialFanOutStopBridge = routeKind === "blocked" &&
+            routeEvent !== undefined && childCCallRef !== null
+          ? hasExactPartialFanOutStopRouteBridge(
+              prefix,
+              routeEvent.eventId,
+              {
+                runId: childScope.runId,
+                graphCallId: childScope.graphCallId,
+                frameId: childScope.frameId,
+                cCallRef: childCCallRef,
+                resultRef: child.resultRef,
+                judgmentRef: child.judgmentRef,
+              },
+            )
+          : false;
+        if (
+          childGraphCallEvent === undefined ||
+          resultEvent === undefined ||
+          judgmentEvent === undefined ||
+          routeEvent === undefined ||
+          childLifecycleEvent === undefined ||
+          !judgmentEvent.causationEventRefs.includes(resultEvent.eventId) ||
+          (!routeEvent.causationEventRefs.includes(judgmentEvent.eventId) &&
+            !partialFanOutStopBridge) ||
+          typeof resultDigest !== "string" ||
+          !/^sha256:[a-f0-9]{64}$/u.test(resultDigest) ||
+          typeof outputDigest !== "string" ||
+          !/^sha256:[a-f0-9]{64}$/u.test(outputDigest) ||
+          (routeKind !== "terminal" && routeKind !== "blocked") ||
+          (routeKind === "terminal" &&
+            (
+              child.closureRef === null ||
+              terminalReachedEvent === undefined ||
+              frameClosedEvent === undefined ||
+              graphCallClosedEvent === undefined
+            )) ||
+          (routeKind === "blocked" &&
+            (child.closureRef !== null || childReasonRef === null))
+        ) {
+          return refusal(
+            "child_truth_mismatch",
+            "application foldback references incomplete or non-causal child truth",
+          );
+        }
+        const body = {
+          applicationRef: application.applicationRef,
+          applicationFoldbackRef: application.foldbackRef,
+          parentCCallRef: parentCCall.cCallRef,
+          parentJudgmentRef,
+          sourceCursorRef: sourceCursor.cursorRef,
+          sourceCursorDigest: sourceCursor.cursorDigest,
+          childExecutionBasisRef: childExecutionBasis.basisRef,
+          childExecutionBasisDigest: childExecutionBasis.basisDigest,
+          childGraphCallId: childScope.graphCallId,
+          childFrameId: childScope.frameId,
+          childDisposition: routeKind === "terminal" ? "closed" as const : "blocked" as const,
+          childResultRef: child.resultRef,
+          childResultDigest: resultDigest as Sha256Digest,
+          childJudgmentRef: child.judgmentRef,
+          childClosureRef: child.closureRef,
+          childReasonRef,
+          childTerminalEventRef: childLifecycleEvent.eventId,
+          outputDigest: outputDigest as Sha256Digest,
+        };
+        const foldbackDigest = sha256Canonical(body as unknown as JsonValue);
+        const foldbackRef =
+          `child-foldback://abiogenesis/${foldbackDigest.slice("sha256:".length)}`;
+        const event = admitRuntimeEvent(store, {
+          kind: "child_foldback_admitted",
+          eventTime: basis.eventTime,
+          aggregateType: "frame",
+          aggregateId: sourceCursor.frameId,
+          parentAggregateId: sourceCursor.graphCallId,
+          causationEventRefs: [
+            childLifecycleEvent.eventId,
+            parentJudgmentEvent.eventId,
+            ...basis.causationEventRefs,
+          ],
+          correlationId: basis.correlationId,
+          workflowVersion: "5.0.0",
+          scopeClass: "run",
+          basisId: parentExecutionBasis.basisRef,
+          runId: sourceCursor.runId,
+          graphFunctionRef: parentExecutionBasis.graphFunctionRef,
+          materializationRef: graph.materializationRef,
+          graphCallId: sourceCursor.graphCallId,
+          frameId: sourceCursor.frameId,
+          payload: { foldbackRef, foldbackDigest, ...body },
+        });
+        const admitted = deepFreeze({
+          kind: "application_child_foldback_admission" as const,
+          schemaVersion: "5.0.0" as const,
+          disposition: "admitted" as const,
+          foldbackRef,
+          foldbackDigest,
+          ...body,
+          admissionEventRef: event.eventId,
+        }) as ApplicationChildFoldbackAdmission;
+        const projected = projectApplicationChildFoldbackAtPrefix(
+          selectValidatedRuntimeEventPrefix(store.readAll(), {
+            runId: sourceCursor.runId,
+          }),
+          { runId: sourceCursor.runId, foldbackRef },
+        );
+        if (
+          projected === null ||
+          sha256Canonical(projected as unknown as JsonValue) !==
+            sha256Canonical(admitted as unknown as JsonValue)
+        ) {
+          throw new TypeError(
+            "application child foldback admission must equal its exact Event Calculus projection",
+          );
+        }
+        return projected;
+      },
+    );
+    if (committed.value.disposition === "refused") return committed.value;
+    if (committed.successorPrefix === null) throw new TypeError("child admission has no durable successor");
+    return deepFreeze({
+      kind: "application_child_foldback_receipt" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      admission: committed.value,
+      successorPrefix: committed.successorPrefix,
+    });
+  } catch (error) {
+    if (entered) throw error;
+      return refusal(
+        "application_mismatch",
+        "child foldback requires its exact durable predecessor",
+      );
+  }
 }
 
 export function admitChildPreparationRefusal(

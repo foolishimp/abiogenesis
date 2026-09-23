@@ -1,5 +1,121 @@
 # T-287 D2: Evidence-Bound Affected Lifecycle Successor
 
+## Proposed generic-job binding conservation
+
+Status: Executive-accepted at the ABI5_GENERIC_JOB_DESIGN_01 freeze after the same
+single independent review as the [D1 generic-job arm](T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md#proposed-generic-job-binding-reframe)
+closed satisfied. ABI5_GENERIC_JOB_IMPLEMENT_01 authorizes implementation;
+this design acceptance does not establish runtime qualification.
+Current ABI authority is RC7; GLC retains RC4. The inherited RC6 observations
+below remain historical provenance, not this activation's selected method.
+
+### Same job, immutable source, explicit binding successors
+
+The canonical admitted job value and original root-input identity introduced by
+D1 are conserved through D2. Source bytes, task, independent evaluation criteria
+and owner scope are not rewritten in a revision envelope. Current worksite
+observations, affected assets and authorized operating-basis transitions are
+separate values joined through the existing admitted parent/cause/selection
+relations. Neither equal source text nor equal file bytes permits borrowing
+another job's results. No new job registry, current-pointer store or continuation
+authority is introduced.
+
+The live product/semantic_revision.ts merge currently keys bindings only by
+obligationRef and rejects unequal values. That preserves old values but cannot
+represent an assessed null-to-bound refinement or a later lawful binding
+successor. Keep its refusal of conflicting history; replace only the job-bound
+projection with two separate operations owned by Product and authenticated by
+abg/semantic_revision.ts:
+
+- retain the complete immutable term/obligation and binding-version history,
+  deduplicating only an identical version ref with identical bytes; and
+- derive the unique active version per obligation from the exact admitted
+  predecessor/supersession chain using the same D1 projector.
+
+Each version identifies the job, stable requirement and paired obligation,
+ordinal, exact predecessor ref/digest, installed template/contracts, policy and
+shape instances, and introducing assessed native asset. Initial null remains
+an open version. A successor must name the current predecessor, advance once,
+retain source grounding and pass the installed instance constraints and fresh
+independent assessment. A skipped parent, fork, same-version changed bytes,
+foreign source/job, or a numerically newer but unadmitted candidate refuses.
+Legacy fixed bindings remain on their existing arm; no synthetic version is
+used to weaken their equality.
+
+Historical obligations remain visible even when their introducing asset is in
+the invalidated suffix. Current construction uses only active admitted versions;
+historical policy instances never become current merely because they are still
+carried. A binding-version change invalidates dependent Design, preparation,
+realization/proof interpretations and assessments through the declared dependency
+closure. Unaffected assets/bindings remain exact and are not regenerated for
+convenience. An unchanged implementation may be reused only where the existing
+native preserved-result relation proves that reuse; this is not a digest-only
+permission to reuse proof under changed meaning.
+
+### Existing correction, not a new response/resume workflow
+
+The selected demonstration is one within-job failed-verifier correction:
+an actual admitted C2 or assessment failure supplies the cause; the existing
+native selection/ruling chooses construction repair or stage revision under
+declared policy; the corresponding existing D2 graph runs the affected suffix.
+The host may submit the existing authorized correction request but may not
+choose local stage calls, synthesize selection/evidence, or convert the failed
+result into an advancing predecessor. No changed-greeting addendum or 5.1
+human-response resume is required.
+
+A construction-only defect with unchanged requirements, bindings and Design
+does not mint a new binding version. The S/V/R law remains: selected writable
+targets S are a subset of the current dependency/proof snapshot V, and R is
+read-only. Preserve exact nonselected files, assets and binding versions;
+re-observe every required dependency and obtain fresh C2/Evidence. If the
+observed failure demonstrates that Design or binding meaning must change,
+take the existing stage-revision route and independently assess that change
+before constructing it. Unknown cause/dependency is a native block, not
+permission to retry with a wider territory.
+
+New assessed file paths use the same D1 target-formation and
+[C0 parent prerequisite](T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md#proposed-assessed-file-parent-prerequisite);
+they cannot be added by editing a carried target array. Existing directories
+are retained; created-parent facts survive a later failure. An operating W/basis
+transition remains available only through the already declared owner-witness
+relation. It does not mutate the job's original input or silently cross
+workspace authority.
+
+Changed owner source, task or oracle is outside this same-job correction.
+It requires a new ordinary authorized invocation/successor basis with a new
+job identity and an explicit relationship to the prior subject where supported.
+The old job and oracle remain immutable historical evidence. No automatic
+cross-job asset/proof reuse is selected, and no new interactive response/resume
+mechanism is needed: this repair must at least refuse in-place source/oracle
+substitution. A later request requiring more successor semantics re-enters its
+actual owner rather than overloading D2.
+
+### Bounded implementation and proof
+
+Proposed changes are product/semantic_revision.ts and abg/semantic_revision.ts,
+with matching closed-contract/forwarding changes in gtl/semantic_revision.ts
+and implementation/semantic_revision.ts only where required. Reuse the D1
+projection, existing evidence/cause and preserved-result owners. No event-store,
+traversal, scheduler or independent coverage store is selected.
+
+Extend existing t287-d1-semantic-stage, d2-bounded-repair,
+d2-evidence-owner and d2-binding-transition tests at the affected relation.
+The cheap matrix covers initial-null to assessed-bound; valid successor;
+duplicate same-version equality; changed duplicate; skipped/forked parent;
+foreign-job/source/policy; stale current observation; preserved unaffected
+assets; and selected-scope invalidation. A native failed-verifier correction
+then proves actual affected writes, preserved nonselected bytes, new C2/Evidence
+and fresh replay. Source/oracle mutation must refuse rather than pass by
+rehashing an envelope. These are future checks, not completed evidence.
+
+## Preserved predecessor design and bounded observations
+
+
+The D1-CONTEXT-HOW-01 context/Consequence amendment is Executive-adopted under
+[the bounded adoption record](../../../../.ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/context-how-review-01/disposition.md).
+Adoption covers the changed clauses, not every inherited candidate or an
+implementation/qualification claim.
+
 **Status:** Writer design candidate; Executive acceptance and implementation are separate.
 **Owner:** ABG semantic lifecycle admission, with Product construction and GTL/HoG traversal owners.
 **Re-entry:** `design_reframe`, T-287 D2 / GOAL-035; no requirement reprice.
@@ -20,8 +136,9 @@ Owning law is [proof carry-through](../../../../specification/requirements/abg/R
 001–015 and 022–030, [continuation](../../../../specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md)
 001–014, Product and the operative [Realization Constitution](ABI5_REALIZATION_CONSTITUTION.md).
 The exact Definition selects STDO RC6; the independent GLC Product retains RC4.
-The [D1 HOW](T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md) remains unchanged.
-Its same-byte historical/current-binding tail is not generic invalidation.
+The [D1 HOW](T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md#role-scoped-context-over-conserved-native-inputs)
+owns the shared role-context projection. Its same-byte historical/current-binding
+tail is not generic invalidation.
 
 GTL declares stage dependencies, callable work and permitted traversal. HoG
 traverses those declarations. ABG alone admits result, judgment, successor and
@@ -176,9 +293,10 @@ claim. Selected changed bytes bind actual receipts/post-publication residue and
 fresh observations, never a caller-digested postimage invented from the old task.
 The same physical app does not imply the same stale observation or binding.
 
-Native assembly exposes current postimages, the exact cause and affected-work
-selection, original source, the full conserved obligation union and applicable
-retained predecessors. Invalidated assets are labeled historical context, never
+Native assembly projects the sufficient role-dependency closure of current
+postimages, exact cause/selection, original source, conserved obligation union
+and applicable retained predecessors under the D1 relation. The complete native
+envelope and obligation lineage remain conserved outside that prompt view. Invalidated assets are labeled historical context, never
 current proof. Oracle/evaluation-only information remains assessor-only; cause
 feedback may explain failure without handing expected answers to authors.
 
@@ -221,6 +339,123 @@ bound correction composition are mandatory inputs; their absence returns typed
 or the existing owner refusal. Material governing ambiguity returns to its
 actual owner. There is no new catalog, compiler, scheduler, process-local runtime
 truth, automatic repair authority or general invalidation framework.
+
+## Current Role Context And Ordinary Local Consequence
+
+Apply D1's one finite role-dependency algebra to author, assessor, construction
+and correction-selection contexts. Its selection does not change this design's
+S/V/R worksite partition, observation origins, whole-binding cover, physical
+guards or immutable historical source. R is read-only context even when its
+content influences the result. Relevant current specification/design/code/test/
+output observations use the existing owner-admitted carriers, not just the
+selected write targets. Missing required read content is insufficiency; selecting
+its context does not add it to S or to a command's write territory.
+
+Compare each relied-upon result/assessment with the exact source, declaration,
+obligation and observation basis on which it was admitted. Preserve its original
+subject, role, scope, independence, evidence and owner ruling. The declared
+dependency closure determines which support is affected by an observed change;
+semantic materiality beyond that finite relation requires admitted J, and a
+reserved change of meaning/scope requires O. A changed read-only dependency can
+invalidate a claim even though S and W did not change. Conversely, unrelated
+changed content does not reopen a still-supported stage. Unknown affectedness
+withholds only the dependent use; it never proves either validity or invalidity.
+No accepted J is recreated merely because the actor's conversational context
+changed; author J cannot substitute for an independent evaluator.
+
+The current `SemanticRevisionSelectionInput` carries only parent and causes;
+`currentWorksite` first appears in the later revision request. Consequently the
+existing selector does not yet receive newly observed file bodies. Where a
+selection depends on those bytes, the bounded realization must carry the existing
+`SemanticWorksiteBasis` through a strict selection-input arm and authenticate it
+with the same native parent/cause/currentness relation before F_P dispatch.
+Until that join is available, return insufficiency; a later projection or old
+target names cannot retroactively supply the decision's missing context.
+
+A fresh observed file is not automatically a lawful replacement for an admitted
+dependency. Follow this HOW's existing origin/receipt and currentness relation;
+an owner-admitted successor can supply current bytes, while unexplained physical
+residue remains pressure. For a newly material observation, construct/admit the
+separate revision/current input before its consumer; do not refresh frozen E_D,
+an old stage envelope or recorded prompt in place. Later admission/replay uses
+those recorded observation values at that cut. Physical changes to governing
+source require the actual owning re-entry before changed meaning is relied on.
+
+Local Consequence consumes the current admitted result/assessment, declared
+next-work dependencies and actions, applicable observations/delta, retained
+support, pending obligations and existing attempt/recursion limits. It is a
+proposal in the existing traversal, not a new semantic authority. Its ordered
+finite decision relation is:
+
+| Admitted condition | Permitted proposal; withheld claim |
+|---|---|
+| Invalid source, authority, currentness or exhausted declared limit | Existing typed block/gap. Do not dispatch dependent work or invent a recovery or broader capability. |
+| Required current-stage criteria satisfied, next-step prerequisites supported, and remaining pressure explicitly outside those dependencies under the admitted contract/evidence | Existing declared advance, carrying pressure and every unresolved obligation. No gap becomes satisfied and final lifecycle/application closure remains unchanged. |
+| Actual affected support or failed realization, with a sufficient admitted selection and an available in-scope repair/re-entry declaration | Existing construction_repair or stage_revision and declared local route; preserve valid stages and invalidate only the justified dependent support. Prior failure remains failure. |
+| Dependency sufficiency or scope/affectedness is unknown, and a matching declared selection/disambiguation F_P exists within limits | Propose that bounded evidence-producing work; its result is admitted and validated before any repair or target-use conclusion. Otherwise return selection_required/blocked_incomplete. |
+| Required criterion remains falsified/indeterminate, or no lawful local next step exists | Typed block with actual cause, unmet obligation and owner handoff; no waived criterion, manufactured terminal success or automatic upstream A.0. |
+
+The rows are evaluated in order over typed facts and admitted judgments, not
+by matching words, severity labels or counts in pressure prose. A normal stage
+continues through its existing exact satisfied-criterion judgment and HoG route;
+ordinary wording or solution variation alone is not counterevidence. Every
+declared rubric criterion remains required. An out-of-frame item may be carried
+only when its noninterference is established by the declared dependency relation
+or applicable admitted assessment, not by an author's unsupported label.
+
+No new selection call is mandatory on an already-sufficient ordinary edge:
+existing F_D checks consume the actual required-criterion judgment and declared
+next step. Repair selection is different. The current native revision owner
+accepts selection producers only in F_P/F_H, and the selected consumer declares
+no deterministic policy supplying both repair mode and exact affected targets.
+Do not infer that missing policy or add F_D to the regime allowlist. A future
+F_D repair selection needs an exact finite case in the existing declaration
+owner, sufficient admitted facts/J, native authentication of that selected
+producer and regeneration of its typed output. Until that case is bound,
+existing admitted F_P selection may be reused when applicable; otherwise return
+selection_required or use its separately declared residual traversal. This is
+a named realization/declaration gap, not new F_D availability or a mandatory
+extra LLM at every edge. Reserved F_H authority remains distinct; the 5.1 human
+response/resume path is not implemented here.
+
+Ordinary advance/block continue to use existing judgment/outcome and route
+owners. Repair proposals use the existing semantic revision selection/projection,
+then `proposeGraphSpanReentryRoute`/`admitTraversalTransition` where the admitted
+Program declares that route. A terminal prior Run instead needs a separately
+admitted successor with the actual cause/parent and current authority; it is
+never revived by a host loop. Keep `evaluateNext -> admitConstructionIntent ->
+invokeGraphFunction` wherever the selected action requires it. Consequence
+cannot bypass current-call, child-basis, effect, evidence or closure guards.
+A missing local declaration yields a gap, not an implied routing capability.
+
+### Bounded integrated discriminator
+
+Use the prospectively selected witness and independent oracle, without changing
+the active Run or expanding the application claim. First validate the changed
+declarations/typed sufficiency and admission seams, then one installed thread:
+
+- Sunny day: the exact selected role receives all required content and no
+  unrelated worksite bodies; real work, independent evaluation and fresh
+  result/replay retain the same bounded contract and native path.
+- Mutable read dependency: a separately granted existing owner changes a
+  declared relevant member outside S on the same app. The next admitted
+  dependent input/prompt contains that actual successor, withholds affected old
+  evidence, preserves unrelated valid evidence and leaves S/write bounds intact.
+  An unexplained external change instead blocks; it is not silently reconciled.
+- Ordinary variation: a materially adequate nonidentical candidate with
+  nonblocking carried pressure advances after its actual required assessment;
+  an unresolved required criterion cannot advance. When actual evidence and a
+  declared local selection support repair, that same owner path proposes and
+  admits only the bounded correction. No planted application defect, forced
+  extra LLM round or copied expected verdict supplies the witness.
+
+These are future execution obligations, not results. Record actual prompt bytes
+and elapsed native/model work separately; no token quota or speedup assertion
+is a gate. Preserve focused authority/effect-integrity checks and the original
+first cause, then obtain early integrated evidence. Broader negatives,
+repeatability and same-candidate assurance stay at D5. This amendment grants
+neither source implementation, installed execution, application acceptance nor
+resilience/storage/recovery work.
 
 ## Decisive Construction And Same-Instance Witness
 

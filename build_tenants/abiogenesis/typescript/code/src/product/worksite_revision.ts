@@ -5,7 +5,9 @@ import { deepFreeze } from "../shared/immutable.js";
 import { isWorksiteObservation, isWorksiteSubject, constructWorksiteSubject,
   type WorksiteSubject, type FileWorksiteObservation } from "./worksite_effect.js";
 import type { WorksiteConstructionTask, WorksiteConstructionResult } from "./worksite_construction.js";
-import { constructWorksiteCommandExecutionTask, constructWorksiteCommandConfiguration, isWorksiteCommandExecutionTask,
+import { constructWorksiteCommandExecutionTask, constructWorksiteCommandConfiguration, isWorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask,
+  type NativeWorksiteCommandExecutionTask, type NativeWorksiteCommandExecutionObservation,
+  type ObservedWorksiteCommandExecutionTask, type ObservedWorksiteCommandExecutionObservation,
   type WorksiteCommandExecutionTaskInput, type WorksiteCommandExecutionTask, type WorksiteCommandExecutionObservation,
   type WorksiteCommandHelperArtifact, type WorksiteSnapshotMember, type WorksiteDeclaredCommandInput,
   type WorksiteOutcomePredicateInput, type WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
@@ -16,7 +18,8 @@ export { WORKSITE_REVISION_IDS } from "./worksite_revision_identity.js";
 export type WorksiteRevisionObservationOrigin = Readonly<{
   kind: "admitted_input"; basisAdmissionEventRef: string; inputAdmissionRef: string; inputDigest: Sha256Digest;
 }> | Readonly<{ kind: "admitted_replacement"; resultAdmissionEventRef: string; evidenceEventRef: string }>
-  | Readonly<{ kind: "admitted_binding_projection"; resultAdmissionEventRef: string; judgmentEventRef: string }>;
+  | Readonly<{ kind: "admitted_binding_projection"; resultAdmissionEventRef: string; judgmentEventRef: string }>
+  | Readonly<{ kind: "admitted_initial_job_bridge"; resultAdmissionEventRef: string; judgmentEventRef: string }>;
 export interface WorksiteRevisionDependencyObservation {
   readonly designTargetRef: string;
   readonly subject: WorksiteSubject;
@@ -50,7 +53,7 @@ export interface WorksiteRevisionSnapshotSource {
   readonly source: WorksiteRevisionSnapshotSourceKind;
 }
 export interface WorksiteRevisionCommandExecutionTask extends Omit<WorksiteCommandExecutionTask,
-  "kind" | "protectedObservations" | "materializationPlanRef" | "rendererRef" | "instructionContractRef" | "resultContractRef"> {
+  "kind" | "protectedObservations" | "readDependencyBasis" | "materializationPlanRef" | "rendererRef" | "instructionContractRef" | "resultContractRef"> {
   readonly kind: "worksite_revision_command_execution_task";
   readonly revisionBasisRef: string;
   readonly revisionBasisDigest: Sha256Digest;
@@ -74,8 +77,8 @@ export interface WorksiteRevisionCommandExecutionObservation extends Omit<Worksi
   readonly task: WorksiteRevisionCommandExecutionTask;
   readonly snapshotMembers: readonly WorksiteRevisionSnapshotMember[];
 }
-export type WorksiteExecutionTask = WorksiteCommandExecutionTask | WorksiteRevisionCommandExecutionTask;
-export type WorksiteExecutionObservation = WorksiteCommandExecutionObservation | WorksiteRevisionCommandExecutionObservation;
+export type WorksiteExecutionTask = WorksiteCommandExecutionTask | NativeWorksiteCommandExecutionTask | ObservedWorksiteCommandExecutionTask | WorksiteRevisionCommandExecutionTask;
+export type WorksiteExecutionObservation = WorksiteCommandExecutionObservation | NativeWorksiteCommandExecutionObservation | ObservedWorksiteCommandExecutionObservation | WorksiteRevisionCommandExecutionObservation;
 export type WorksiteExecutionHelperArtifact = WorksiteCommandHelperArtifact | WorksiteRevisionCommandHelperArtifact;
 export type WorksiteExecutionSnapshotMember = WorksiteSnapshotMember | WorksiteRevisionSnapshotMember;
 
@@ -87,7 +90,7 @@ export function isWorksiteRevisionObservationOrigin(x: unknown): x is WorksiteRe
     ? keys(x,["kind","basisAdmissionEventRef","inputAdmissionRef","inputDigest"]) && text(x.basisAdmissionEventRef) && text(x.inputAdmissionRef) && isSha256Digest(x.inputDigest)
     : x.kind === "admitted_replacement"
       ? keys(x,["kind","resultAdmissionEventRef","evidenceEventRef"]) && text(x.resultAdmissionEventRef) && text(x.evidenceEventRef)
-      : x.kind === "admitted_binding_projection" && keys(x,["kind","resultAdmissionEventRef","judgmentEventRef"]) && text(x.resultAdmissionEventRef) && text(x.judgmentEventRef));
+      : (x.kind === "admitted_binding_projection" || x.kind === "admitted_initial_job_bridge") && keys(x,["kind","resultAdmissionEventRef","judgmentEventRef"]) && text(x.resultAdmissionEventRef) && text(x.judgmentEventRef));
 }
 export function isWorksiteRevisionDependencyObservation(x: unknown): x is WorksiteRevisionDependencyObservation {
   return record(x) && keys(x,["designTargetRef","subject","observation","origin"]) && text(x.designTargetRef) &&
@@ -110,7 +113,7 @@ export function worksiteExecutionLocus(task: WorksiteExecutionTask): string {
   return task.kind === "worksite_command_execution_task" ? "node://abiogenesis/worksite/command-execution/fp@5" : WORKSITE_REVISION_IDS.nodeRef;
 }
 
-export type WorksiteRevisionCommandExecutionTaskInput = Omit<WorksiteCommandExecutionTaskInput, "protectedObservations"> & Readonly<{
+export type WorksiteRevisionCommandExecutionTaskInput = Omit<WorksiteCommandExecutionTaskInput, "protectedObservations" | "readDependencyBasis"> & Readonly<{
   revisionBasisRef: string; revisionBasisDigest: Sha256Digest;
   snapshotSources: readonly WorksiteRevisionSnapshotSource[];
 }>;
@@ -158,7 +161,7 @@ export function isWorksiteRevisionCommandExecutionTask(value: unknown): value is
   catch { return false; }
 }
 export function isWorksiteExecutionTask(value: unknown): value is WorksiteExecutionTask {
-  return isWorksiteCommandExecutionTask(value) || isWorksiteRevisionCommandExecutionTask(value);
+  return isWorksiteCommandExecutionTask(value) || isNativeWorksiteCommandExecutionTask(value) || isObservedWorksiteCommandExecutionTask(value) || isWorksiteRevisionCommandExecutionTask(value);
 }
 export function worksiteExecutionIdentityPrefix(task: WorksiteExecutionTask, suffix: "helper-artifact"|"snapshot"|"execution-observation"): string {
   return `worksite-${task.kind === "worksite_command_execution_task" ? "command" : "revision-command"}-${suffix}://abiogenesis`;
