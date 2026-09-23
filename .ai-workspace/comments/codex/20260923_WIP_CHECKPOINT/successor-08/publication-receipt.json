@@ -1,0 +1,17 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "9ff63da1af29296f4ff4cef85240874793adea07",
+  "commitIdentity": "Commit containing this receipt; exact local and remote identities recorded in external post-push receipt",
+  "newMembers": 146,
+  "newLogicalBytes": 402767617,
+  "newTransportBytes": 47451146,
+  "restoration": "Every newly banked member restored and compared with original and selected freeze; prior bank payload proof reused without rereading/reupload",
+  "scope": "Original held execution process failure only, no established ABG terminal; accepted S02continuation15 nested-compose/fresh readback and preserved14 ordering refusal; accepted core03 unchanged; original recovery/correction and remaining8cases plus semantic-negative gap open",
+  "excluded": [
+    "All original mutable GLC/S02 journals and canonical worksites; no read/hash/copy",
+    "original-run-allocation-diagnosis-01 and successors",
+    "s02-installed-continuation-16 and later active readiness/execution",
+    "All node_modules, installed dependency trees, build scratch and unselected caches"
+  ],
+  "allowedGitEffects": "One ordinary main commit and nonforce push, then remote ref verification"
+}

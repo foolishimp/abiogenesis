@@ -1,0 +1,58 @@
+{
+  "directExpected": {},
+  "closedProofSelections": [
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-14/freeze.json",
+      "sha256": "dea59be946031284cfb453801d294b069cf24441c00d17905dcbd45a24ac8b7e",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-15/freeze.json",
+      "sha256": "09986d350f76eb44d5d571f70ef9fee66fe3da5c31d9395532854f28137c6752",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/freeze.json",
+      "sha256": "b7e050048045330f79f793b5346c4dfb336d519b55271c6e06e53c335f813eb1",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/evidence-inventory.json",
+      "sha256": "c398fe7e3f7a2b437a7372a37ad09140b37b4f957eb6a380d39530441877a094",
+      "memberBase": null
+    }
+  ],
+  "adjoiningClosedPosts": [
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/subject.json",
+      "sha256": "c8c81abb77c8a8b3a9284d7a396e219d1716c141e9d0372ae6872468c12cfbb5"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/return.md",
+      "sha256": "efef6105f9aab9b41ab91e99ddce3c5c1b1242daf948043de2b0955f73184a0c"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-implementation-01/final-binding.json",
+      "sha256": "a4127732abaceaae5dbfc97fa79282164e5a548575a4b3ee2df44cf349c90e32"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-implementation-01/subject.json",
+      "sha256": "983d43d32ce3851eedeb35b82f25aea56b3c78ae97dc09f53255e146b1bfde3f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-14/return.md",
+      "sha256": "e20c756b5373e49744fabf7c9480a4ccbb81965dd42a6ca2e56c2e1d3f6ff490"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-15/return.md",
+      "sha256": "a9263977a3737d0b7acec5dade7bb23b3c5b3ca1c2ca94c464eba3e2ed073590"
+    }
+  ],
+  "pending": [
+    "Active original-run-allocation-diagnosis-01 and successors",
+    "Active s02-installed-continuation-16 readiness and later execution",
+    "Original mutable event journals/worksites and installed dependency trees; no read/hash/copy",
+    "Unselected scratch and caches"
+  ],
+  "scope": "Original held execution process failure only, no established ABG terminal; accepted S02continuation15 nested-compose/fresh readback and preserved14 ordering refusal; accepted core03 unchanged; original recovery/correction and remaining8cases plus semantic-negative gap open"
+}

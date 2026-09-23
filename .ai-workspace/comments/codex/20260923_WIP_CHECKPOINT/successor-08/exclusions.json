@@ -1,0 +1,10 @@
+{
+  "prefixesAndFiles": {},
+  "active": [
+    "Active original-run-allocation-diagnosis-01 and successors",
+    "Active s02-installed-continuation-16 readiness and later execution",
+    "Original mutable event journals/worksites and installed dependency trees; no read/hash/copy",
+    "Unselected scratch and caches"
+  ],
+  "note": "No new blanket ignore of active or reproducible trees; only exact newly transported originals will be ignored."
+}

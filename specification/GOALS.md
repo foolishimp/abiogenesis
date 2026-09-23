@@ -15,46 +15,42 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Lifetime03/compiled08 and frozen held-caller readiness are accepted after independent review. Original execution10 OOM cure and installed S02 successors remain unproved. Remaining declared S02 cases, full S1–S5, qualification/RC1 and actual human acceptance remain open. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Lifetime03/compiled08 and frozen held-caller readiness are accepted after independent review. Original held attempt is process-failed after setup; allocation diagnosis is active. Nested-compose15 is accepted; eight S02 cases and the semantic-negative gap, full S1–S5, qualification/RC1 and human acceptance remain open. |
 
 ## Current Selection
 
 ### Current checkpoint disposition — 2026-09-24
 
-GOAL-035 selects the usable ABG5 RC1 steel thread across the fixed fifteen
-Product families on one trusted developer laptop, under immutable STDO 2.5.1 RC1.
-[T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
-owns the exact evidence, sequence and current debt. Existing HoG/ABG ownership
-implies incremental live progression and an append journal; reconstruction serves
-unavailable live state or recovery. No controller or machine mode is introduced.
+GOAL-035 retains the fixed fifteen-family ABG5 outcome under STDO 2.5.1 RC1.
+Implementation03/compiled08 and frozen held-caller readiness remain accepted at
+their exercised bounded scope. The original capacity discriminator is now
+CLOSED PROCESS-FAILED; it establishes no ABG terminal result or genuine final close.
 
-Lifetime implementation02 is independently accepted at bounded source/installed
-scope, including LIFE-01 repair and the controlled held Run/close/fresh-read join.
-[Implementation03](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/return.md)
-and compiled08 `d899d1e3…` are accepted after [independent review](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/review-01/return.md). The actual installed
-path covers both Public installs, bind, F_D producer basis, reprice, controlled
-F_P Run, real outer close and fresh recovery. Executive acceptance covers that exercised relation and the frozen caller
-readiness; full Product qualification is not implied.
+[The original attempt](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/return.md)
+passed nine real setup calls, then aborted with SIGABRT/default-heap OOM:
+481.166s total, 147.293s native phase and 6,843,973,632B maximum RSS. Only the
+first F_D task success is recorded in bounded raw-suffix diagnostics. Provider
+execution/cost, terminal outcome, current Public readback and final protected
+worksite conservation remain unestablished. The journal is now 1,235,175,110B,
+with no genuine final handoff. Request233,491,292B and basis-record72,546,168B
+are measured cost red flags; exact allocating source remains unmeasured.
 
-Conformance, mini dependency and shared nested Run-scope repairs are accepted at
-source/component scope. Continuation13 remains failed after six successful F_D
-Results, zero complete case passes and six held cases. Remaining S02 installed
-proof is open; active continuation14 is outside this checkpoint. The closed
-17,023,864-byte S02 resource is distinct from the original GLC resource.
+[S02 continuation15](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-15/return.md)
+is accepted for native nested-compose11.562s and genuine fresh status/Result/replay
+against unchanged oracles. Its real final close names19,788,743B. Continuation14's
+zero-effect caller-order refusal and15's extra held-read refusal remain preserved;
+neither establishes a core bug. Remaining eight cases and the separate
+schema-valid semantic-negative gap stay open. Request bodies307,858,587B and
+3,408,478,208B RSS remain observations with unknown allocation attribution.
 
-The frozen GLC held caller is accepted at readiness scope. Root separately
-authorizes the original capacity/integration discriminator and installed S02
-continuation14. Their active bindings, resources and outputs are excluded from
-this checkpoint until terminal freeze. The original 1,157,851,917-byte
-execution10 pre-Run OOM cure and actual generic correction remain unproved.
-Core startup verification still costs 8.605s. Terminal/high-water RSS and remaining
-full-collection projections are recorded in T-287 with unmeasured allocation
-attribution. Full S1–S5/oracle, all-family qualification, RC1 and actual human
-acceptance remain open. No new paid Run, heap/timeout increase or extra hardening
-is granted by this tracking update.
-
-Prior pushed checkpoints ABG `3207aac25a9d58b9ca7730b606ca08f8aab14c12` and
-GLC `6aae3bf7a673041f7524835577e7573561d432ef` remain historical preservation.
+Next is the [bounded allocation diagnosis](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/)
+under the existing live-progression owner, then a supported removal and legitimately
+authorized original recovery/continuation. No retry, recovery or heap increase is
+currently authorized. Continuation16 readiness waits unbound; no next case runs
+while diagnosis may change the candidate. Active diagnosis/readiness are excluded
+from this checkpoint. Full S1–S5/oracle, all-family qualification, RC1 and actual
+human acceptance remain open. Existing incremental live state/append-journal and
+recovery ownership remains unchanged; no new mode, policy or caching framework.
 
 ### Historical delivery and repair dispositions
 

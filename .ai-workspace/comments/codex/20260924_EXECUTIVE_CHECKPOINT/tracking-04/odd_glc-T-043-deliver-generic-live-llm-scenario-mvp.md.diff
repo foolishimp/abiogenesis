@@ -1,0 +1,72 @@
+--- odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md
++++ odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md
+@@ -25,39 +25,39 @@
+ - project_reference_frame_basis: specification/REFERENCE_FRAME_BASIS.md
+ - runtime_substrate: exact ABIogenesis T-287 candidate selected for each activation
+ - release_status: unselected
+-- current_activation: ODD_GLC_HELD_CALLER_CORE03_ACCEPTED_ORIGINAL_CAPACITY_INTEGRATION_ACTIVE
+-- current_re_entry: accepted_core03_caller_then_separately_authorized_original_capacity_integration_discriminator
+-- current_activation_status: frozen_caller_readiness_accepted_original_execution_active_terminal_outcome_and_OOM_cure_unproved
+-- last_execution_selection: ../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md
+-- last_execution_result: parent_JSON_OOM_994_797s_after_setup0_to4_no_Run_paid_actor_application_effect_genuine_bind_close_preserved
+-- current_activation_record: ../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/
++- current_activation: ODD_GLC_ORIGINAL_HELD_PROCESS_FAILED_ALLOCATION_DIAGNOSIS_ACTIVE
++- current_re_entry: bounded_allocation_cause_removal_then_legitimately_authorized_original_recovery_continuation
++- current_activation_status: process_SIGABRT_default_heap_OOM_no_established_ABG_terminal_finalclose_current_readback_or_provider_cost
++- last_execution_selection: ../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/return.md
++- last_execution_result: nine_setup_calls_passed_process_OOM_481_166s_native147_293s_RSS6843973632_only_first_FD_task_recorded_no_genuine_handoff
++- current_activation_record: ../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/return.md
+ 
+ ## Current bounded selection
+ 
+-Original [execution10](../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md)
+-remains a pre-Run parent JSON OOM after setup0–4/994.797s, with genuine bind close
+-and no paid actor. Execution11 remains finite readiness. The [held caller](../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-implementation-01/return.md)
+-is accepted at frozen readiness scope after independent review.
+-ABG lifetime03/compiled08 is accepted at bounded installed scope. Root separately
+-authorizes original capacity/integration and installed S02 discriminators. Their
+-active bindings, resources and outputs are excluded until terminal freeze; the
+-original 1,157,851,917-byte cost cure and actual continuation remain unproved. Full S1–S5/oracle and human acceptance remain open.
+-
+-The generic lifecycle outcome, original job/S1–S5/oracle, five selected/four
+-outside residuals and protected worksite remain unchanged. No manual Data Mapper
+-business-code work is selected. [T-287](../../../../abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
+-owns the exact core acceptance and computational debt. Conformance, mini and
+-nested Run-scope repairs have bounded source/component acceptance; remaining S02
+-installed successors and complete qualification remain open.
+-
+-The closed caller preserves original inputs, consumer, policy and real outer
+-finalization. Core/caller acceptance is closed. Root separately authorizes the original
+-continuation; that active launch binds its final exact artifact and retains
+-existing budgets/default heap. This checkpoint grants no additional Run or
+-heap/timeout increase. ABG RC1 and actual human release
+-acceptance remain open. Prior pushes ABG `3207aac25a9d58b9ca7730b606ca08f8aab14c12`
+-and GLC `6aae3bf7a673041f7524835577e7573561d432ef` remain historical checkpoints;
+-RC4, default dependency and Product obligations are unchanged.
++The [original held attempt](../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/return.md)
++is CLOSED PROCESS-FAILED: nine setup calls passed before SIGABRT/default-heap
++OOM,481.166s total/147.293s native phase, maximum RSS6,843,973,632B. Raw suffix
++evidence records only the first F_D task success. It establishes no ABG terminal
++result, genuine final close/current handoff, current Public readback, provider
++execution/cost or final protected-worksite conservation. The physical journal is
++1,235,175,110B; its bytes and worksite remain preserved. Core03/compiled08's
++bounded acceptance remains unchanged. Original correction and S1–S5 are unfulfilled.
++
++The complete original job/S1–S5/oracle, five selected/four outside residuals and
++protected worksite remain selected. No application business-code edit is granted.
++[T-287](../../../../abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
++owns bounded allocation diagnosis/removal under the existing live-progression
++owner, followed by legitimately authorized original recovery/continuation. No
++retry, recovery or heap increase is currently authorized. Request233,491,292B,
++basis-record72,546,168B and setup/native timing are red flags; exact allocation
++source remains unmeasured.
++
++Accepted S02continuation15 covers native nested-compose and genuine fresh reads;
++eight cases and the semantic-negative gap remain open. Continuation16 readiness
++waits unbound while diagnosis may change the core. Moving diagnosis/readiness
++carriers are excluded from this checkpoint. Full generic outcomes, ABG qualification/
++RC1 and actual human acceptance remain open. GLC STDO RC4, default dependency,
++Product and original policy/budgets remain unchanged.
+ 
+ ### Retained earlier selection and evidence
+ 

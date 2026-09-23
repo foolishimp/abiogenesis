@@ -1,0 +1,50 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root/checkpoint_current_repairs",
+  "role": "Writer as Worker",
+  "returnTo": "/root",
+  "at": "2026-09-23T18:06:36.433529+00:00",
+  "authority": "Root bounded successor Writer assignment; factual process-failure report and continuation15 native nested-compose accepted; commit/push authorized after narrow verification",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "changeClass": "goal_reprice current tracking only",
+  "basis": "unchanged exact ABG STDO2.5.1rc1 / GLC2.5.0rc4 and current Product frames; prior verified basis reused without invalidator",
+  "grant": [
+    "current GOALS/T287 and GLC GOALS/T043 projections/live metadata",
+    "existing current debt rows",
+    "tracking04 and successor08 closed-evidence banking",
+    "one ordinary commit and push each repo then verify remote refs"
+  ],
+  "prohibitions": [
+    "no source/law changes",
+    "no native/provider/build/test/recovery/retry/heap increase",
+    "no read/hash/copy of original journal/worksite/install trees",
+    "no active allocation diagnosis or continuation16",
+    "no prior frozen record/tag/release/pin change"
+  ],
+  "preimages": [
+    {
+      "repo": "abiogenesis",
+      "path": "specification/GOALS.md",
+      "sha256": "6784a73296d186751933bb6907540a608a497afbde5f029326001db13f124b9a",
+      "bytes": 55073
+    },
+    {
+      "repo": "abiogenesis",
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "75f1ca0a4bd49b338527811bdc382ade43867ea3b443b1dbea22998223483db2",
+      "bytes": 336010
+    },
+    {
+      "repo": "odd_glc",
+      "path": "specification/GOALS.md",
+      "sha256": "42ae79c9b2cbb3f2e0574470214e23898f3d82c33a66840eb1fe41ceb17b46c5",
+      "bytes": 14462
+    },
+    {
+      "repo": "odd_glc",
+      "path": ".ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "sha256": "1c0e437aa92cf5af193c6f0ba24b581302b2a19dfad8e87a0ad0c7904b8b7dc2",
+      "bytes": 50620
+    }
+  ]
+}

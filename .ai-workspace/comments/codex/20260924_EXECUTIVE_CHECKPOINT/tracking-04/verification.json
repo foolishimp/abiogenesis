@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "method": "exact outside-section and live-field conservation, new-link/added-whitespace checks; no implementation/build/native/provider tests",
+  "checks": [
+    {
+      "repo": "abiogenesis",
+      "path": "specification/GOALS.md",
+      "outsideGrantUnchanged": true,
+      "addedWhitespacePass": true,
+      "newLinksResolved": 3
+    },
+    {
+      "repo": "abiogenesis",
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "outsideGrantUnchanged": true,
+      "addedWhitespacePass": true,
+      "newLinksResolved": 8
+    },
+    {
+      "repo": "odd_glc",
+      "path": "specification/GOALS.md",
+      "outsideGrantUnchanged": true,
+      "addedWhitespacePass": true,
+      "newLinksResolved": 2
+    },
+    {
+      "repo": "odd_glc",
+      "path": ".ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "outsideGrantUnchanged": true,
+      "addedWhitespacePass": true,
+      "newLinksResolved": 2
+    }
+  ],
+  "noNewSourceMutation": true,
+  "historicalTailsPreserved": true
+}

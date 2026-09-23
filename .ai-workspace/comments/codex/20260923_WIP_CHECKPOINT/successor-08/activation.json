@@ -1,0 +1,26 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root/checkpoint_current_repairs",
+  "role": "Writer as Worker",
+  "returnTo": "/root",
+  "at": "2026-09-23T18:06:36.433529+00:00",
+  "authority": "Root bounded successor Writer assignment; factual process-failure report and continuation15 native nested-compose accepted; commit/push authorized after narrow verification",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "changeClass": "goal_reprice current tracking only",
+  "basis": "unchanged exact ABG STDO2.5.1rc1 / GLC2.5.0rc4 and current Product frames; prior verified basis reused without invalidator",
+  "grant": [
+    "current GOALS/T287 and GLC GOALS/T043 projections/live metadata",
+    "existing current debt rows",
+    "tracking04 and successor08 closed-evidence banking",
+    "one ordinary commit and push each repo then verify remote refs"
+  ],
+  "prohibitions": [
+    "no source/law changes",
+    "no native/provider/build/test/recovery/retry/heap increase",
+    "no read/hash/copy of original journal/worksite/install trees",
+    "no active allocation diagnosis or continuation16",
+    "no prior frozen record/tag/release/pin change"
+  ],
+  "basisCommit": "9ff63da1af29296f4ff4cef85240874793adea07",
+  "repo": "/Users/jim/src/apps/abiogenesis"
+}

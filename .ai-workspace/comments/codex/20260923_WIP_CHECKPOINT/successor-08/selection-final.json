@@ -1,0 +1,103 @@
+{
+  "directExpected": {
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/abiogenesis-GOALS.md.diff": {
+      "sha256": "585cfc70c0549c3f3ccdf00fd3355ec46fdb3bcb4d6b05df8920fb252af9f36f",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/abiogenesis-T-287-deliver-abiogenesis-5-feature-waves.md.diff": {
+      "sha256": "56c3bb5efb8f6c6d3612eeb565c3319963dce3d16e8c986df67e22985d7b0b3a",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/activation.json": {
+      "sha256": "0de9f72fa2fc81344458b5673e2e1c2dca8658d3fdbe7ec7aebfc881ed1a0460",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/changed-fields.json": {
+      "sha256": "668988119d104a69021d0c765f538818d32fc752cd77b110c9463e9b6937ad5d",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/executive-disposition.json": {
+      "sha256": "feef585b072a5f819236323226eb49671c79df17ab79ef9c237f709ff9b0cf23",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/odd_glc-GOALS.md.diff": {
+      "sha256": "f31a59fae8cd63c3940aa66d7cbe799751addb1ef4d594293daeff8e4f568b55",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/odd_glc-T-043-deliver-generic-live-llm-scenario-mvp.md.diff": {
+      "sha256": "97285b1fea1b2c4206c2965ba52ea7b19156c2c81f5ce652b91043854b4d7894",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/postimages/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "5c44e2c72fa2f399c481b22a53ac0c4d2b73f960f7cc217a98779fd3b1c83017",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/postimages/abiogenesis/specification/GOALS.md": {
+      "sha256": "780f8c794ccc4577a3b0739ec25f6934d74f93e3c9f93dc3add5a3deb7207a63",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/postimages/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md": {
+      "sha256": "be657fd62bafad15dda125cdb1c4098b447b769ebe19b6bfe2e82bc7e6b35903",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/postimages/odd_glc/specification/GOALS.md": {
+      "sha256": "98d17d399282803ce4f432d19b6f0e81a84d5090f4a2a46a43d572dcf269433e",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/preimages/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "75f1ca0a4bd49b338527811bdc382ade43867ea3b443b1dbea22998223483db2",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/preimages/abiogenesis/specification/GOALS.md": {
+      "sha256": "6784a73296d186751933bb6907540a608a497afbde5f029326001db13f124b9a",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/preimages/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md": {
+      "sha256": "1c0e437aa92cf5af193c6f0ba24b581302b2a19dfad8e87a0ad0c7904b8b7dc2",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/preimages/odd_glc/specification/GOALS.md": {
+      "sha256": "42ae79c9b2cbb3f2e0574470214e23898f3d82c33a66840eb1fe41ceb17b46c5",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/return.md": {
+      "sha256": "648ad2e2bba1b47005d525d96a41004ca8acd360273168447ed9af1bd799e7f6",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/verification.json": {
+      "sha256": "d27685b79da652a9e073adaec9d28289fb3b15df15b091351ea1c456de23f715",
+      "classification": "closed_tracking03"
+    },
+    ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-04/freeze.json": {
+      "sha256": "25345d241b92592e32be51e3e4b781a876e7e2b1b284c3237da8f814e3744ea5",
+      "classification": "closed_tracking03_freeze"
+    },
+    "specification/GOALS.md": {
+      "sha256": "780f8c794ccc4577a3b0739ec25f6934d74f93e3c9f93dc3add5a3deb7207a63",
+      "classification": "accepted_current_tracking"
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "5c44e2c72fa2f399c481b22a53ac0c4d2b73f960f7cc217a98779fd3b1c83017",
+      "classification": "accepted_current_tracking"
+    }
+  },
+  "banks": [
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-08/transport-01",
+      "catalogSha256": "ed248a0918bff8eba69c08aceed41349cad3d0e489f3019e22046777db5d252d",
+      "indexSha256": "91311c105ae9d65fa68221e9d88744ea3d238e80a581b1037fb646dc093717bd",
+      "verificationSha256": "184de67042e4ac608e83afee1a00367a04819e7602043fd4e34aa6cc40a7b590",
+      "members": 146,
+      "logicalBytes": 402767617,
+      "transportBytes": 47451146
+    }
+  ],
+  "scope": "Original held execution process failure only, no established ABG terminal; accepted S02continuation15 nested-compose/fresh readback and preserved14 ordering refusal; accepted core03 unchanged; original recovery/correction and remaining8cases plus semantic-negative gap open",
+  "excluded": [
+    "All original mutable GLC/S02 journals and canonical worksites; no read/hash/copy",
+    "original-run-allocation-diagnosis-01 and successors",
+    "s02-installed-continuation-16 and later active readiness/execution",
+    "All node_modules, installed dependency trees, build scratch and unselected caches"
+  ],
+  "canonicalSourceUnchanged": true
+}
