@@ -1,0 +1,11 @@
+{
+  "stagedPaths": 144,
+  "stagedBlobComparisons": 144,
+  "largestBlobBytes": 51380224,
+  "credentialShapeFindings": [],
+  "whitespaceExitCode": 2,
+  "whitespaceDisposition": "Historical/frozen bytes preserved unchanged; report retained.",
+  "transportBytes": 123188825,
+  "prior8GBPayloadsRehashed": false,
+  "prior8GBPayloadsReuploaded": false
+}

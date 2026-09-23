@@ -107,6 +107,8 @@ async function sourceGate(f, t) {
 test('observed root source gate binds actual input and refuses stale, crossed and child authority', async t => {
   const f = await fixture(t), g = await sourceGate(f, t);
   assert.equal(g.check(), true);
+  g.inv.programRef = 'program://foreign'; assert.equal(g.check(), false); g.inv.programRef = ids.programRef;
+  assert.equal(g.check(), true, 'only the unchanged core root Program owns the observed source arm');
   assert.equal(g.check({ ...f.task, taskDigest: hash('different-input') }), false);
   g.inv.sourceResultBasis = {}; assert.equal(g.check(), false); g.inv.sourceResultBasis = null;
   const binding = g.inv.workspaceBindingId;

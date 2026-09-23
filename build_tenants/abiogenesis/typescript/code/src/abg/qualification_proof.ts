@@ -21,6 +21,7 @@ import { projectFhContinuations } from "./fh_continuation_projection.js";
 import { deriveRuntimeEventCalculusProjection } from "./event_calculus.js";
 import { GraphCallProjectionPort, projectRunTruthAtDurablePrefix } from "./project_read_ports.js";
 import { isWorksiteCandidateBundle, WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction.js";
+import { isObservedWorksiteCommandExecutionObservation, WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 import type { AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
 import {
   qualificationHash as hash, sameQualificationValue as same, uniqueQualificationRefs as unique,
@@ -33,9 +34,10 @@ import {
   type TenantConformanceManifest, type MalformedGtlAssessment, type MalformedGtlAssessmentInput,
   type NativeRuntimeAssessmentInput, type NativeRuntimeAssessment,
   type ExactCandidateQualification, type QualificationCoordinate, constructQualificationIdentity,
+  type QualificationVerificationSelection, type QualificationVerificationMaterial, type QualificationSubjectInventory,
 } from "../validator/qualification_contracts.js";
 import { isQualificationAssessmentInput, qualificationPlanMatches, qualificationWorkerRequest, qualificationRawMatches,
-  qualificationRulingMatches, isQualificationVerdictInput, reduceExactCandidateQualification } from "../validator/qualification.js";
+  qualificationRulingMatches, isQualificationVerdictInput, reduceExactCandidateQualification, constructQualificationVerificationMaterial } from "../validator/qualification.js";
 import { qualificationCoverageIsPublished, isQualificationBasisReady, projectExternalConstructionAttribution,
   isMalformedGtlAssessmentInput, isMalformedGtlAssessment,
   isNativeRuntimeAssessmentInput, isNativeRuntimeAssessment, constructNativeRuntimeAssessment } from "../validator/qualification.js";
@@ -609,6 +611,14 @@ export function qualificationTenantClaimsMatch(basis: QualificationNativeBasis, 
  * its applicability and sufficiency for each source-grounded coverage claim. */
 export function resolveQualificationExecutionEvidence(proof: QualificationProofResource,
   basis: ExactCandidateQualification<"basis">, consumer: QualificationNativeBasis): readonly QualificationMaterial[] | null {
+  return resolveQualificationExecutionMaterial(proof, basis, consumer)?.evidence ?? null;
+}
+/** The existing join resolves each producer once for both general assessment
+ * material and the selected QUAL-056 projection. This is no new proof carrier. */
+export function resolveQualificationExecutionMaterial(proof: QualificationProofResource,
+  basis: ExactCandidateQualification<"basis">, consumer: QualificationNativeBasis,
+  verificationSelection?: QualificationVerificationSelection,
+  inventory?: QualificationSubjectInventory | null): { evidence: readonly QualificationMaterial[]; verification: QualificationVerificationMaterial | null } | null {
   try {
     if (!isQualificationProofResource(proof) || !proofWithin(proof, consumer)) return null;
     readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
@@ -616,6 +626,7 @@ export function resolveQualificationExecutionEvidence(proof: QualificationProofR
     const selections = proof.selections.filter(s => s.kind === "execution_selection");
     if (!unique(selections.map(s => s.selectionRef)) || !unique(selections.map(s => s.result.ref))) return null;
     const material: QualificationMaterial[] = [];
+    let verification: QualificationVerificationMaterial | null = null;
     for (const selection of selections) {
       const selected = producerForResult(current, selection.result);
       if (selected === null || selected.state.cCall.programLocusRef !== selection.slotRef ||
@@ -631,12 +642,24 @@ export function resolveQualificationExecutionEvidence(proof: QualificationProofR
           (!isMalformedGtlAssessment(value) || !same(value.input.basis, basis) || !malformedGtlAssessmentHasNativeOwner(current, value))) return null;
       if (selected.state.cCall.implementationRef === RUNTIME_ASSESS &&
           (!isNativeRuntimeAssessment(value) || !same(value.input.basis, basis) || !nativeRuntimeAssessmentHasNativeOwner(current, value))) return null;
+      if (verificationSelection?.executionSelectionRef === selection.selectionRef && inventory != null &&
+          selected.state.cCall.implementationRef === WORKSITE_COMMAND_EXECUTION_IDS.implementationRef &&
+          selected.owner.execution.basisClass === "root" && selected.owner.execution.programRef === WORKSITE_COMMAND_EXECUTION_IDS.programRef &&
+          selected.owner.execution.graphFunctionRef === WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef &&
+          selected.state.cCall.regime === "F_P" && selected.state.result.resultClass === "success" &&
+          selected.state.result.contractRef === WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef &&
+          selected.state.judgment.judgment === "advance" && isObservedWorksiteCommandExecutionObservation(value) &&
+          same(selected.owner.input, value.task) &&
+          same(basis.workspaceBinding, coord(value.task.workspaceBinding.bindingId, value.task.workspaceBinding.bindingDigest))) {
+        verification = constructQualificationVerificationMaterial({ basis, inventory, selection: verificationSelection,
+          execution: selection.result, cCall: coord(selected.state.cCall.cCallRef, selected.state.cCall.cCallDigest), observation: value });
+      }
       const raw = Buffer.from(canonicalJson({ result: selected.state.result, judgment: selected.state.judgment,
         evidence: selected.state.evidence } as unknown as JsonValue));
       material.push({ ref: selection.result.ref, path: selection.result.ref, digest: sha256Bytes(raw),
         byteCount: raw.length, contentBase64: raw.toString("base64") });
     }
-    return deepFreeze(material);
+    return deepFreeze({ evidence: material, verification });
   } catch { return null; }
 }
 /** One whole F11 result replaces the per-behavior owning-result adapters.
@@ -664,7 +687,8 @@ export function projectQualificationSelfConformance(proof: QualificationProofRes
     return deepFreeze({ subjectBasis: value.subjectBasis, lawBasis: value.lawBasis,
       disposition: value.disposition === "passed" ? "green" : value.disposition === "failed" ? "red" : "blocked",
       assessment: coord(selected.state.result.resultRef, selected.state.result.resultDigest),
-      bypassRefs: value.findings.filter(f => f.disposition === "accepted_reentry").flatMap(f => f.evidenceRefs) });
+      bypassRefs: value.findings.filter(f => f.disposition === "accepted_reentry").flatMap(f => f.evidenceRefs),
+      ...(value.verification === undefined ? {} : { verification: value.verification }) });
   } catch { return null; }
 }
 export function qualificationHasNativeSelfConformance(input: QualificationVerdictInput, consumer: QualificationNativeBasis): boolean {

@@ -1,0 +1,26 @@
+{
+  "role": "Writer",
+  "executive": "/root",
+  "activation": "incremental WIP checkpoint preparation",
+  "scope": [
+    "/Users/jim/src/apps/abiogenesis"
+  ],
+  "basisCommit": "ad2a39f405627b980dcd7e2adf5a8b74cdc37e83",
+  "authority": "User authorized all completed ABG+odd_glc work committed/pushed; Root selected preparation now and holds final Git effects until consumer affected review and qualification draft close.",
+  "effectsNow": [
+    "classify only new/changed logical files",
+    "reuse banked transport/member proof without rehash/reupload",
+    "lossless new evidence transport and restoration verification",
+    "credential-shape protection without outputting values"
+  ],
+  "holds": [
+    "no staging/commit/push until Root final effect grant",
+    "no Product/build/package/native/provider/worksite mutation",
+    "no other repository/default/tag/selector/force/amend/reset"
+  ],
+  "activeAtEntry": [
+    "consumer56f9d4c5 affected independent review",
+    "qualification F11 population/HOW proposal and one T287 redflag row"
+  ],
+  "proofScope": "WIP preservation; accepted/source/proposal/native/qualification scopes remain distinct."
+}

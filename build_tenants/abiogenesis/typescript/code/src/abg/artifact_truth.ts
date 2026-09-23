@@ -1,5 +1,5 @@
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
-import { isReleaseOperationArtifact, projectReleaseQualification } from "../implementation/release_publication.js";
+import { isReleaseOperationArtifact, projectReleaseQualification, projectReleaseAcceptance } from "../implementation/release_publication.js";
 import { releaseArtifactCoordinate } from "../product/release_snapshot_operations.js";
 import {
   constructProductSet,
@@ -230,7 +230,7 @@ class RuntimeArtifactFacts {
     const artifactDigest = requiredString(payload, "artifactDigest");
     const event = row.sourceEvent;
     if (
-      memberKey !== (operationId === "abg.operation.product.install"
+      !(operationId === "abg.operation.release.snapshot" && memberKey === "tapped_release") && memberKey !== (operationId === "abg.operation.product.install"
         ? "install"
         : operationId === "abg.operation.release.snapshot" ? "published_rc" : "bind") ||
       !isExactOperationInvocationCoordinate({
@@ -346,7 +346,9 @@ class RuntimeArtifactFacts {
           canonicalJson(artifact.invocation as unknown as JsonValue) !== canonicalJson({operationId,memberKey,definitionDigest,invocationRef,invocationPayloadDigest,invocationDigest}) ||
           artifact.scope.ref !== authorityScopeRef || artifact.scope.digest !== authorityScopeDigest ||
           releaseArtifactCoordinate(artifact).ref !== artifactRef || releaseArtifactCoordinate(artifact).digest !== artifactDigest ||
-          projectReleaseQualification(artifact.request,artifact.proof,artifact.selection,artifact.entryPrefix as DurablePrefixCoordinate) === null) {
+          (artifact.memberKey === "published_rc"
+            ? projectReleaseQualification(artifact.request,artifact.proof,artifact.selection,artifact.entryPrefix as DurablePrefixCoordinate)
+            : projectReleaseAcceptance(artifact.request,artifact.proof,artifact.selection,artifact.publication,artifact.ruling,artifact.effectGrant,artifact.entryPrefix as DurablePrefixCoordinate,this.artifacts)) === null) {
         throw new TypeError("release artifact differs from its closed native qualification/observation/scope/Definition relation");
       }
       const environment = projectExactPrefixWorkspaceEnvironment(artifact.entryPrefix as DurablePrefixCoordinate, artifact.workspaceBinding);

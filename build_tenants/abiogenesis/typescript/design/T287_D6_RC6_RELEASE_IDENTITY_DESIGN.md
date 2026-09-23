@@ -4,18 +4,32 @@ Status: Executive-accepted release identity and EVENTS-032 artifact-admission de
 
 ## Current composition dependency: QUAL-056
 
-The QUALRELCOMP01 source composition remains incomplete for release publication.
-REQ-P-QUAL-056 requires actual build/lint/test outcomes and a parsed test summary
-inside the snapshot, in addition to the exact D5 verdict and owning citations.
-Current F11 assessment, coverage and verdict contain disposition,
-assessment/evidence coordinates and bypass refs. The selected native-runtime
-assessment contains case match, Result, terminal and replay coordinates. Neither
-provides the required command outcomes or parsed test summary as authenticated,
-selected typed material. verificationFacts and assessmentCitation alone do not satisfy
-this obligation. A later owning D5 result/material selection must supply those
-exact bodies; the snapshot may then copy them without evaluation. Caller green
-summaries, local build logs and inferred test results are not substitutes. No
-new qualification reducer, carrier or acceptance authority is selected here.
+QUAL-056 material is a nested relation in the existing qualification family.
+The exact observed-source root C2 producer supplies authenticated command
+outcomes and complete Node test-event reports through `execution_selection`.
+F11 binds the selected frozen recipe to its source inventory, checks protected
+observed inputs, exact command/predicate/write configurations, lint population,
+actual process outcomes, selected predicate declarations/observations and parsed summaries, and retains the material in its
+result. Existing independent rule judgment must receive the recipe and actual
+execution evidence when evaluating QUAL-056; structural success supplies no
+recipe applicability or coverage judgment.
+
+The authenticated F11 summary carries those exact bodies through sole AF22.
+Zero-exit commands cannot erase failed selected comparisons; unsupported or
+indeterminate comparisons retain incomplete material.
+AF25 copies them as `verificationMaterial` beside the exact verdict and
+assessment citation. Its snapshot is output only: it neither runs commands nor
+parses reports nor evaluates qualification. Missing material, a non-passing
+material disposition or a cross-subject/law body cannot supply a release-grade
+snapshot. Old absent fields remain absent/incomplete; no historical report is
+invented. Existing green verdict, bypass, identity and byte duties remain.
+
+This realization establishes the material contract, not current qualification.
+The final recipe must be rebound to the complete frozen prospective-RC subject
+after all qualifying implementation, including same-RC acceptance, is complete.
+The old QUAL056 recipe remains preparation for its old source. Actual installed
+C2 -> F11 -> AF22 material production, complete independent assessment and the
+positive AF25 publication remain separately selected effects.
 
 ## Current First Publication Selection
 
@@ -56,7 +70,7 @@ an extra ABIogenesis release gate.
 A Source Project is mutable construction, not the released Product. A Release
 Cut and its Product inventory are immutable. Installed Product and
 WorkspaceBinding identities are native admitted facts. Qualification bases,
-coverage assessments, verdicts and F_H responses are immutable evidence whose admission and
+coverage assessments, verdicts and original externally sourced owner rulings are immutable evidence whose admission and
 causal/current relation ABG authenticates. Snapshot/acceptance manifests and
 release evidence queries are subordinate projections. Git refs and artifact
 writes are physical effects owned by the release Product function; none of
@@ -144,26 +158,48 @@ release-domain equality; it does not copy their prefix, declaration, gate or
 F_H algorithms. The local claimed `ReleaseQualificationVerdict` packet does not
 remain a second independently authored qualification family.
 
-Same-RC acceptance is an actual Product-authority human act after the required
-qualification, independent reviews and operator checks. A release-owned closed
-F_H request binds the complete RC identity, installed-RC basis/verdict/law and
-required assessment evidence. Its closed response chooses `accept | withhold`
-over that exact request digest and records the actual responding authority.
-The declared GTL F_H boundary and existing `interaction.respond` admission
-mechanism own this act; AF-25 does not solicit or synthesize it. The native
-`projectFhContinuations` and `projectFhEffectfulPublicInvocationFacts` relations
-authenticate the request/response contracts, CCall/basis, opening and response
-events, Public response admission, actor/capability and causal order. Product
-release policy then requires the actual human authority selected by the
-release grant; an agent/reviewer decision, self-declared actor label or
-unjoined approval receipt does not satisfy it on the trusted-desktop boundary.
+Same-RC acceptance is an actual Product-authority owner ruling (O) after the
+required installed-RC qualification, independent reviews and operator checks.
+The 5.0/5.1 boundary in Product governs: native `interaction.respond` and
+response-driven same-run resumption remain 5.1. Same-RC release acceptance uses
+an externally selected trusted operator source, without a pending interaction
+or a resumed Run. No general F_H response binding is restored for F16.
 
-An exact `responded` or `resolved` acceptance remains usable without inventing
-a second Run closure requirement. A missing, withheld, abandoned, superseded,
-foreign-subject or wrong-authority response cannot produce an accepted result.
-The release function may report `withheld` through its refusal disposition;
-there is no default approval. Reusing an existing valid same-RC acceptance is
-evidence reuse, not a new human act or permission to change that RC.
+For this delivery Executive selects the direct Product-owner USER channel. Only
+that owner's later actual response to a presented exact installed-RC request
+can supply O. The broad instruction to reach RC1 is not that response. Generic
+Product contracts have no Codex log/API dependency. A lawful proxy may retain
+original source bytes/wording and attribution unchanged, never author the human
+ruling. Missing actual source or attribution remains unavailable/refused.
+
+The request binds the complete immutable RC/publication/snapshot identity,
+installed-RC basis and native green non-bypassed verdict/law, required evidence,
+selected human authority and any preceding admitted same-RC ruling observation.
+The retained source preserves exact request presentation and response bytes,
+source/channel and owner coordinates, response-to-presentation relation and an
+independently established trusted-source approval. Existing exact Public
+admission approval binds that whole resource/effect scope. Origin and human
+attribution are external trust premises; hashes establish correspondence, not
+humanity. An arbitrary caller file, actor label, permission to execute the
+operation, generated normalized decision or qualification verdict alone is not O.
+
+The bounded wire response is `accept <request-digest>` or
+`withhold <request-digest>` over the original presentation. Other wording,
+conditional decisions or ambiguity remain explicit unavailable for this
+mechanical path; no agent interpretation silently broadens scope or removes
+conditions. Original source bytes stay retained. C checks exact correspondence
+and currentness; J remains independent assessment/interpretation; O is the
+reserved original owner ruling. Recording any of them creates no new authority.
+The existing release effect records only the lawful consequence.
+
+Both accept and withhold produce an external immutable owner-ruling/evidence
+addendum when granted. Withholding returns a refusal and projects no acceptance.
+An incomplete effect never projects acceptance. A later actual ruling must bind
+the exact last complete admitted decision as predecessor; its deterministic
+successor scope uses that coordinate. Replaying an old ruling or renaming a scope
+cannot replace the current decision. An incomplete physical predecessor stops
+for separately selected reacquisition; it does not authorize blind write retry.
+This ordinary predecessor relation adds no registry or lifecycle owner.
 
 ## 4. AF-25 Members, Resources And Physical Boundaries
 
@@ -298,9 +334,9 @@ The native Product owner:
    an invalid partial state, never permission to call the older RC latest.
 
 `tapped_release` instead requires the exact published-RC receipt/artifact set,
-native installed-RC qualification and actual human acceptance. It verifies
+native installed-RC qualification and the actual externally sourced human owner ruling. It verifies
 that those Product and claim bytes remain unchanged and writes one
-content-addressed acceptance/evidence addendum outside the Product, snapshot
+content-addressed owner-ruling/evidence addendum outside the Product, snapshot
 and release-claim inventory. It does not create/rewrite a tag, branch,
 selector, package, snapshot or manifest in the cut. Its complete result reports
 the same RC's existing cut/artifact/snapshot identities and exact addendum.
@@ -312,7 +348,7 @@ The owner output is a closed sum, transported without Public reinterpretation:
 
 - `complete`: member-specific exact RC/artifact/snapshot identities, authorizing
   native basis/verdict/law, evidence/provenance and no unresolved effect;
-  `tapped_release` also carries actual human acceptance and the external addendum.
+  `tapped_release` also carries actual human acceptance and the external addendum; a recorded withholding returns refusal.
 - `refused`: failed exact relation, evidence and phase, with a receipt proving
   no publication/addendum effect in this invocation. Missing qualification,
   withheld acceptance, stale refs and wrong identity remain non-green.
@@ -384,7 +420,7 @@ The bounded implementation source cone is:
 | `product/release_snapshot_operations.ts` | Same two members; new closed native proof/resource/result/refusal contracts and Product member semantics; remove old second-cut input, no compatibility reinterpretation |
 | `product/release_snapshot_definition_bindings.ts` | Bind those exact static owner contracts through the existing ABI; preserve exact outputs and all receipts |
 | `implementation/release_publication.ts` (new physical owner) | Explicit scoped Git/artifact/addendum effects and reacquisition only; no gate evaluator, CLI orchestration or event writer |
-| `product/release_acceptance.ts`, `gtl/release_acceptance.ts` (new domain contracts/publication) | Closed same-RC F_H request/response and declared graph using existing HoG/ABG interaction semantics; no new Public operation or human-response runtime |
+| `product/release_acceptance.ts` | Closed original ruling/source and independently established attribution contracts; deterministic request/correspondence only, no new Public operation or human-response runtime |
 | `product/project_read_ports.ts`, `product/project_read_operation_contracts.ts`, `product/project_read_definition_bindings.ts` | Existing release-evidence member projects the owner's authenticated result/receipt and external addenda |
 | Existing D5 qualification contract/projector | Read-only dependency on the one native AF-22 family; D5 completion/correction is separate work, not an AF-25-local substitute or an added D6 write owner |
 | `abg/environment_admission.ts` | Extend the checked artifact operation/member relation to only the two AF-25 members; validate the closed owner artifact and exact scope/Definition/invocation joins before the existing checked append |
@@ -416,7 +452,7 @@ restamping or a fourth combinator.
 
 The decisive installed witness uses one complete exact candidate and real
 native AF-22 verdict, publishes one RC unchanged, fresh-installs and qualifies
-that RC, records actual human acceptance through its declared F_H contract,
+that RC, records the actual human owner ruling through its selected external source contract,
 and reports that same RC through `tapped_release` and fresh release-evidence
 reads. Remote tag/selector/artifact and native result/replay identities agree;
 two fresh processes do not change history or Product bytes. Acceptance causes
@@ -447,8 +483,9 @@ Release-evidence reads append no events and distinguish an admitted incomplete
 observation from complete publication/acceptance. These are finite required
 cases, not executed evidence or permission to mutate a retained store.
 
-Qualification still includes every selected fifteen-family outcome, complete F17/S06, S01 R1–R10,
-conservation, Consensus, F_H, Codex and self-conformance obligations. Mechanical
+Qualification includes every selected fifteen-family outcome, complete F17/S06,
+S01 R1–R10, conservation and self-conformance under Product’s release boundaries;
+reserved Consensus, human response/resume and host-parity portions are not restored by this HOW. Mechanical
 checks, this HOW, a source review, a bounded installed test or release tooling
 presence cannot close D5/D6. Implementation and publication require separate
 operation grants; human acceptance and 5.0 closure require their actual owning

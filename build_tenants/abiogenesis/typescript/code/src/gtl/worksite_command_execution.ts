@@ -4,6 +4,7 @@ import { WORKSITE_BRANCH_CONSTRUCTION_IDS } from "../product/worksite_branch_con
 import { WORKSITE_PREPARATION_IDS, worksitePreparationContractDeclarations } from "../product/worksite_preparation_contracts.js";
 import {
   WORKSITE_COMMAND_EXECUTION_IDS, NATIVE_WORK_REACQUISITION_IDS as reacquire,
+  renderWorksiteCommandExecutionPrompt,
   type WorksiteCommandExecutionObservation,
   type C2WorksiteCommandExecutionTask, type NativeWorksiteCommandExecutionObservation, type ObservedWorksiteCommandExecutionObservation,
 } from "../product/worksite_command_execution.js";
@@ -25,6 +26,40 @@ import {
   modulePublication,
   productSemanticsBinding,
 } from "./declarations.js";
+import { constructRunEnvironmentDeclaration, RUN_ENVIRONMENT_POLICY, stdoInventoryDigest } from "./stdo_run_environment.js";
+import { canonicalJson } from "../shared/canonical_json.js";
+import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
+
+// The existing Product renderer owns the mechanical relay contract. Bind its
+// packaged source, not an ambient method installation or a second policy text.
+// The generator verifies these exact member/span coordinates before publication.
+const commandSourceMember = { path: "build/code/src/product/worksite_command_execution.js", type: "file" as const,
+  digest: "sha256:9fe600d54f8a73d54bfef4359fbf03449591978f44f1cc16ce1439b0c5a24bf4" as const, target: null };
+const commandSource = { memberRef: "source-member://abiogenesis/worksite/command-execution/renderer@5",
+  path: commandSourceMember.path, byteCount: 103899, digest: commandSourceMember.digest };
+const commandContextRef = "context://abiogenesis/worksite/command-execution/renderer@5";
+const commandSourceBasisRef = "source://abiogenesis/worksite/command-execution/renderer@5/";
+const commandPolicy = renderWorksiteCommandExecutionPrompt.toString();
+export const WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY = Object.freeze({
+  path: "contracts/worksite/command-execution-context.inventory.json",
+  content: canonicalJson({ kind: "run_environment_member_inventory", schemaVersion: "5.0.0", members: [commandSourceMember] }) + "\n",
+});
+const commandEnvironment = constructRunEnvironmentDeclaration({ kind: "run_environment_declaration", schemaVersion: "5.0.0",
+  declarationRef: "environment://abiogenesis/worksite/command-execution@5",
+  dependencies: [{ dependencyRef: "dependency://abiogenesis/worksite/command-execution/renderer@5", basisRef: commandSourceBasisRef,
+    recordRef: "record://abiogenesis/worksite/command-execution/context-inventory@5",
+    recordDigest: sha256Bytes(Buffer.from(WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY.content)), recordFormat: "member_inventory@1",
+    inventoryDigest: stdoInventoryDigest([commandSourceMember]), members: [commandSourceMember] }],
+  contexts: [{ contextRef: commandContextRef, sourceLocator: commandSourceBasisRef,
+    inventoryDigest: sha256Canonical([commandSource]), members: [commandSource] }], corpusAccess: null, accesses: [],
+  roles: [{ graphFunctionRef: WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef, programLocusRef: WORKSITE_COMMAND_EXECUTION_IDS.nodeRef,
+    role: "command_executor", frameRefs: ["frame://abiogenesis/worksite/command-execution@5"],
+    policy: { policyRef: WORKSITE_COMMAND_EXECUTION_IDS.rendererRef, text: commandPolicy, digest: sha256Bytes(Buffer.from(commandPolicy)) },
+    accessRefs: [], contextPolicy: { policyRef: "policy://abiogenesis/worksite/command-execution/context@5",
+      selectors: ["current_worksite", "admitted_execution_evidence"] },
+    sourceBindings: [{ contextRef: commandContextRef, memberRef: commandSource.memberRef, memberDigest: commandSource.digest,
+      startByte: 93954, endByte: 96262, spanDigest: "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345" }] }],
+});
 
 function contract(
   contractRef: string,
@@ -221,12 +256,14 @@ export function constructWorksiteCommandExecutionModulePublication(
       startRef: WORKSITE_COMMAND_EXECUTION_IDS.startRef,
       graphFunctionRef: WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,
     }],
-    callableMembership: [WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef, revision.graphFunctionRef],
+    // Revision C2 is an authenticated child arm, retained below for consumers.
+    callableMembership: [WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef],
     closureContractRef: close.closureContractRef,
     policies: {
       "abg.root_mode": "direct",
       "abg.compute_regime": "F_P",
       "abg.default_start_ref": WORKSITE_COMMAND_EXECUTION_IDS.startRef,
+      [RUN_ENVIRONMENT_POLICY]: commandEnvironment.declarationRef,
     },
   };
   const reacquireBinding = implementationBinding({ ...binding, bindingRef: reacquire.implementationBindingRef,
@@ -284,6 +321,7 @@ export function constructWorksiteCommandExecutionModulePublication(
     implementationBindings: [binding, revisionBinding, ...preparationBindings, reacquireBinding],
     closureContracts: [close, childClose, revisionChildClose, reacquireClose, reacquireChildClose],
     programs: [program, reacquireProgram],
+    runEnvironments: [commandEnvironment],
     graphFunctions: [graphFunction, revisionGraphFunction, nativeWorkReacquisitionGraphFunction()],
     contributions: [catalogContribution({ handle: reacquire.graphFunctionRef, kind: "graph_function", declarationOrContractRef: reacquire.graphFunctionRef,
       owningProductId: artifact.productId, programMembershipRefs: [reacquire.programRef], readinessPrerequisiteRefs: [reacquire.programRef],
@@ -301,8 +339,8 @@ export function constructWorksiteCommandExecutionModulePublication(
       kind: "graph_function",
       declarationOrContractRef: revision.graphFunctionRef,
       owningProductId: artifact.productId,
-      programMembershipRefs: [WORKSITE_COMMAND_EXECUTION_IDS.programRef],
-      readinessPrerequisiteRefs: [WORKSITE_COMMAND_EXECUTION_IDS.programRef],
+      programMembershipRefs: [],
+      readinessPrerequisiteRefs: [],
       compatibilityRefs: ["compatibility://abiogenesis/major/5"],
       provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest],
     })],

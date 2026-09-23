@@ -1,0 +1,34 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "ad2a39f405627b980dcd7e2adf5a8b74cdc37e83",
+  "scope": "Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 14
+  },
+  "archiveMemberCount": 14,
+  "archiveMemberBytes": 1249459,
+  "transportBytes": 241721,
+  "assets": [
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE",
+      "byteLength": 241721,
+      "sha256": "7b92f02d81ca80090d7427e17cfbae9838e47687f7da19ab6532d7f859aab18c",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 241721,
+          "sha256": "7b92f02d81ca80090d7427e17cfbae9838e47687f7da19ab6532d7f859aab18c"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "f65a06657ad282cc77e60b26694b782d83c1c2909134ff811b81c028ec2bd004",
+  "reconciliationSha256": "8cf74dc8906450d4baf0502466e27cfbdfd159c2fc1db6f0932898a596c7131d",
+  "pendingActiveEvidence": [],
+  "credentialShapeFindingCount": 0
+}

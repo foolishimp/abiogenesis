@@ -96,6 +96,16 @@ test names, ticket state or a count. An excluded surface needs its actual
 governing authority and reason; an unreadable/unclassified required member is
 incomplete. A missing inventory itself cannot receive a synthesized empty one.
 
+## QUAL-056 material selection
+
+The current STDO v2.5.1-rc.1 subordinate native-qualification HOW owns the
+nested verification selection and material. Historical exact-basis wording
+below does not supersede the Product Definition. F11's source-bound recipe and
+actual observed-C2 evidence support its existing independent rule assessment;
+command outcomes alone cannot establish sufficiency. F11 conserves those
+bodies for the authenticated AF22 summary and AF25's output-only snapshot.
+Missing prior material is incomplete and is never synthesized from local logs.
+
 ## Evaluation Relation
 
 1. Admit the exact qualification and law basis, catalog, inventory and tenant

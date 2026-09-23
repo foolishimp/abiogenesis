@@ -5,7 +5,7 @@ import { resolve, relative } from "node:path";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { resolveQualificationAssessments, qualificationTenantClaimsMatch, resolveQualificationExecutionEvidence } from "../abg/qualification_proof.js";
+import { resolveQualificationAssessments, qualificationTenantClaimsMatch, resolveQualificationExecutionMaterial } from "../abg/qualification_proof.js";
 import { canonicalJson } from "../shared/canonical_json.js";
 import { isQualificationBasisReady, qualificationCoverageIsPublished } from "./qualification.js";
 import { QUALIFICATION_RULE_CATALOG_SCHEMA, qualificationIdentityDigest,
@@ -48,8 +48,9 @@ export function evaluateSelfConformance(input: SelfConformanceInput, owner: Self
     ...(input.tenantManifest === null ? [] : [typedMaterial(input.tenantManifest.manifestRef, input.tenantManifest)]),
     ...(input.law === null ? [] : [typedMaterial(input.law.lawBasisRef, input.law)]),
   ];
-  const executionMaterial = input.qualification === undefined ? null : resolveQualificationExecutionEvidence(
-    input.qualification.proof, basis, owner.nativeBasis);
+  const executionProof = input.qualification === undefined ? null : resolveQualificationExecutionMaterial(
+    input.qualification.proof, basis, owner.nativeBasis, input.qualification.verification, input.inventory);
+  const executionMaterial = executionProof?.evidence ?? null, verification = executionProof?.verification ?? null;
   const coverage = input.qualification?.coverageCatalog;
   const coverageBound = coverage !== undefined && qualificationCoverageIsPublished(coverage) &&
     same(basis.coverageCatalog, { ref: coverage.catalogRef, digest: coverage.catalogDigest }) && same(basis.lawBasis, coverage.lawBasis);
@@ -73,13 +74,16 @@ export function evaluateSelfConformance(input: SelfConformanceInput, owner: Self
     if (assessment === null) return null;
     const matches = (assessmentIndex.get([`qualification-role://abiogenesis/${role}@5`, evidenceRole, surfaceRef].join("\n")) ?? [])
       .filter(({ j, c }) => (ruleRef === null || c.ruleRef === ruleRef) && (() => {
+          const verificationRule = role === "rule" && ruleRef !== null && ruleByRef.get(ruleRef)?.governedClaim === "REQ-P-QUAL-056";
           const required = role === "catalog" ? [catalog.catalogRef, ...catalog.sources.map(s => s.ref)]
             : evidenceRole === "inventory_coverage" ? [input.inventory?.inventoryRef, ...(input.inventory?.members.map(m => m.ref) ?? [])]
             : role === "tenant" ? [input.tenantManifest?.manifestRef]
             : role === "coverage" ? [coverage?.catalogRef, ...(coverage?.claims.find(claim => claim.coverageRef === c.ruleRef)?.requirementRefs.map(ref => ref.split("#")[0]!) ?? [])]
-            : role === "rule" ? [c.surfaceRef, ruleByRef.get(c.ruleRef)?.sourceRef]
+            : role === "rule" ? [c.surfaceRef, ruleByRef.get(c.ruleRef)?.sourceRef,
+              ...(verificationRule ? [verification?.recipe.ref, verification?.execution.ref] : [])]
             : [c.surfaceRef];
-          return (role !== "coverage" || c.evidenceRefs.some(ref => executionMaterial?.some(m => m.ref === ref)) &&
+          return (!verificationRule || verification !== null && c.evidenceRefs.includes(verification.execution.ref)) &&
+            (role !== "coverage" || c.evidenceRefs.some(ref => executionMaterial?.some(m => m.ref === ref)) &&
             c.evidenceRefs.every(ref => executionMaterial?.some(m => m.ref === ref) && j.task.material.some(m => m.ref === ref))) && required.every(ref => ref !== undefined && j.task.material.some(m => m.ref === ref)) &&
             required.filter(ref => ref !== undefined && inventoryRefs.has(ref)).every(ref => j.task.subjectMembers.some(m => m.ref === ref));
         })());
@@ -112,6 +116,10 @@ export function evaluateSelfConformance(input: SelfConformanceInput, owner: Self
   if (basis.coverageCatalog === null) add("coverage_catalog_missing", "blocked_incomplete", "No source-grounded behavioral coverage catalog is bound.");
   if (!coverageBound) add("coverage_catalog_mismatch", "blocked_incomplete", "Complete exact published coverage declarations are required.");
   if (executionMaterial === null) add("execution_evidence_unadmitted", "blocked_incomplete", "Execution citations lack exact native subject/producer/current proof.");
+  if (verification === null) add("verification_material_missing", "blocked_incomplete", "QUAL-056 requires an exact observed-C2 recipe/source/outcome selection; prior receipts and caller summaries supply no material.");
+  else add("verification_material_" + verification.disposition, verification.disposition,
+    "Authenticated command outcomes and complete parsed test/lint reports; independent recipe applicability and sufficiency remain required.",
+    [verification.recipe.ref, verification.execution.ref]);
   for (const claim of coverageBound ? coverage!.claims : []) for (const behavior of claim.behaviors) {
     assessed("behavioral_coverage_assessment_required", "Source-scoped applicability, actual positive/nearest-negative behavior and execution sufficiency require independent J; shared evidence does not imply coverage.",
       "coverage", "behavioral_coverage", [behavior], claim.coverageRef);
@@ -217,7 +225,7 @@ export function evaluateSelfConformance(input: SelfConformanceInput, owner: Self
     ruleApplications: input.applications, evidenceCitations: input.evidenceCitations, findings,
     disposition: findings.some(x => x.disposition === "failed") ? "failed" as const
       : findings.some(x => x.disposition === "blocked_incomplete" || x.disposition === "accepted_reentry") ? "blocked_incomplete" as const : "passed" as const,
-    qualificationVerdict: false as const };
+    qualificationVerdict: false as const, verification };
   const resultDigest = sha256Canonical(body as unknown as JsonValue);
   return deepFreeze({ ...body, resultDigest, resultRef: `self-conformance-result://abiogenesis/${resultDigest.slice(7)}` });
 }

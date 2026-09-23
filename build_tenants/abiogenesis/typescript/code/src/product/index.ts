@@ -565,7 +565,7 @@ export { constructNativeWorksiteCommandExecutionTask, isNativeWorksiteCommandExe
 export { NATIVE_WORK_REACQUISITION_IDS, constructNativeWorksiteCommandReacquisitionRequest, isNativeWorksiteCommandReacquisitionRequest,
   type NativeWorksiteCommandReacquisitionRequest, type NativeWorksiteCommandReacquisition } from "./worksite_command_execution.js";
 
-export { RELEASE_OPERATION_CONTRACTS, releaseAuthorityScope, releaseArtifactCoordinate, type PublishedRcSnapshotRequest, type ReleasePublicationGrant, type ReleaseOperationArtifact } from "./release_snapshot_operations.js";
+export { RELEASE_OPERATION_CONTRACTS, releaseAuthorityScope, releaseArtifactCoordinate, type PublishedRcSnapshotRequest, type ReleasePublicationGrant, type ReleaseOperationArtifact, type TappedReleaseSnapshotRequest, type ReleaseAcceptanceGrant } from "./release_snapshot_operations.js";
 export { projectReleaseQualification, isReleaseOperationArtifact } from "../implementation/release_publication.js";
 
 export { constructObservedWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionObservation,
@@ -573,3 +573,5 @@ export { constructObservedWorksiteCommandExecutionTask, isObservedWorksiteComman
 
 export { RETAINED_GRAPH_INPUT_CONTRACT, isRetainedGraphInput, graphInputRetentionBinding, isGraphInputRetentionContractRelation, constructRetainedGraphInput } from "./worksite_preparation_contracts.js";
 export type { RetainedGraphInput } from "./worksite_preparation_contracts.js";
+
+export { RELEASE_OWNER_RULING_SCHEMA, RELEASE_RULING_SOURCE_APPROVAL_SCHEMA, releaseAcceptanceRequest, releaseOwnerRulingCoordinate, resolveReleaseOwnerRuling } from "./release_acceptance.js";

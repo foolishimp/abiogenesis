@@ -59,7 +59,8 @@ async function fixture(t) {
     assert.deepEqual(selections[member].workspaceBinding,blockedTruth.workspaceBinding);
   }
   const declarationProof={kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:ready.call.resources.catalog,catalogView:ready.call.resources.catalogView};
-  const historical=environment.productInstalls.find(i=>i.productId===product.ABI5_PRODUCT_ID);
+  const historicalOwners=environment.productInstalls.filter(i=>i.publicContracts.some(r=>r.contractId==='abg.operation.project.read'));
+  assert.equal(historicalOwners.length,1);const historical=historicalOwners[0];
   assert.notEqual(historical.productContentDigest,current.contractCatalog.productContentDigest);
   assert.notEqual(historical.catalogDigest,current.contractCatalog.catalogDigest);
   assert.notEqual(historical.publicContracts.find(r=>r.contractId==='abg.operation.project.read').contractDigest,current.flatRow.contractDigest);
@@ -93,16 +94,24 @@ async function fixture(t) {
   return {call,invoke,bytes,eventLogPath,handoff,historical,declarationProof,selections,rows};
 }
 
-test('different-cut native Definition reads keep blocked absence and exact historical child result/replay',async t=>{
-  const f=await fixture(t),out={};
+async function measureHistoryReads(f, action) {
   const originals={openSync:fs.openSync,readSync:fs.readSync,closeSync:fs.closeSync},selected=new Set();let reads=0,readBytes=0;
   fs.openSync=function(path,...args){const fd=originals.openSync.call(this,path,...args);if(String(path)===f.eventLogPath)selected.add(fd);return fd;};
   fs.readSync=function(fd,...args){const n=originals.readSync.call(this,fd,...args);if(selected.has(fd)){reads++;readBytes+=n;}return n;};
   fs.closeSync=function(fd){selected.delete(fd);return originals.closeSync.call(this,fd);};syncBuiltinESMExports();
-  try {out.run_status=await f.invoke(f.call('run_status'),false);} finally {Object.assign(fs,originals);syncBuiltinESMExports();}
+  try {return {value:await action(),reads,readBytes};} finally {Object.assign(fs,originals);syncBuiltinESMExports();}
+}
+
+test('different-cut native Definition reads keep blocked absence and exact historical child result/replay',async t=>{
+  const f=await fixture(t),out={};
+  const measurements={};
+  for(const member of ['run_status','run_result','run_replay','graph_call_result','graph_call_replay']) {
+    const measured=await measureHistoryReads(f,()=>f.invoke(f.call(member),false));out[member]=measured.value;
+    assert.equal(measured.reads,1,member+' must retain the acquired prefix through late proof admission');
+    assert.equal(measured.readBytes,f.bytes.length,member+' reconstructs history only at acquisition');
+    measurements[member]={reads:measured.reads,readBytes:measured.readBytes};
+  }
   assert.equal(digest(fs.readFileSync(f.eventLogPath)),digest(f.bytes));
-  assert.equal(reads,1,'one cold history read; metadata and retained derivations do not reread history');assert.equal(readBytes,f.bytes.length);
-  for(const member of ['run_result','run_replay','graph_call_result','graph_call_replay'])out[member]=await f.invoke(f.call(member));
   assert.equal(out.run_status.value.projection.status,'blocked');
   assert.equal(out.run_result.outcomeKind,'refusal');assert.equal(out.run_result.value.code,'not_found');
   assert.equal(out.run_replay.value.projection.status,'blocked');assert.equal(out.run_replay.value.projection.terminalResult,null);
@@ -111,7 +120,7 @@ test('different-cut native Definition reads keep blocked absence and exact histo
   const original=f.rows.find(r=>r.eventId===result.producer.resultAdmissionEventRef);assert.ok(original);assert.deepEqual(result.value,original.payload.value);
   assert.equal(result.producer.graphCallRef,f.selections.graph_call_result.source.ref);
   console.log(JSON.stringify({kind:'cross_cut_read_component',members:5,currentCatalog:current.contractCatalog,historicalCatalogDigest:f.historical.catalogDigest,
-    historyReadsOnStatus:reads,historyBytesOnStatus:readBytes,blocked:'blocked',absentResult:'not_found',childValueDigest:result.valueDigest,installedProof:false}));
+    historyReadsByMember:measurements,blocked:'blocked',absentResult:'not_found',childValueDigest:result.valueDigest,installedProof:false}));
 });
 
 test('current catalog and historical source permission refuse independently',async t=>{
@@ -150,4 +159,38 @@ test('Product metadata projection refuses incoherent catalog and missing or dupl
     assert.ok(parseProductManifest(x),'row refusal is separate from manifest shape and identity');
     assert.equal(projectProductManifestOperationCoordinate(x,'abg.operation.project.read'),null);
   }
+});
+
+
+test('late child proof preserves only the exact acquired prefix; copies and closed owners reconstruct, changed bytes refuse',async t=>{
+  const f=await fixture(t),opened=events.reopenEventStore(f.handoff.reopenAuthority);assert.ok(opened.store);
+  t.after(()=>opened.store.closeDurableLog());const prefix=opened.prefix;
+  const target=f.selections.graph_call_result.source.ref;
+  const project=coordinate=>{
+    const prepared=prepareRunReadAtDurablePrefix(coordinate,'graph_call_result',target);assert.ok(prepared);
+    return prepared.project(f.declarationProof);
+  };
+  const warm=await measureHistoryReads(f,()=>project(prefix));assert.equal(warm.value.kind,'abg_project_read_projection');
+  assert.equal(warm.reads,0,'already acquired history remains owned throughout terminal declaration reconstruction');
+  const selected=prepareRunReadAtDurablePrefix(prefix,'graph_call_result',target);assert.ok(selected);
+  for(const proof of [undefined,{...f.declarationProof,schemaVersion:'foreign'},
+    {...f.declarationProof,catalogView:{...f.declarationProof.catalogView,allowlist:[]}}]) {
+    assert.equal(selected.project(proof).kind,'abg_project_read_refusal','late proof is admitted on each call');
+  }
+  assert.deepEqual(selected.project(f.declarationProof),warm.value,'a prior refusal does not poison the admitted owner context');
+  const copied=await measureHistoryReads(f,()=>project(structuredClone(prefix)));
+  assert.ok(copied.reads>0,'equal bytes do not acquire owner authority');assert.deepEqual(copied.value,warm.value);
+  const foreignBody={...prefix,storeIdentity:{...prefix.storeIdentity,inode:prefix.storeIdentity.inode+1}};
+  delete foreignBody.coordinateDigest;
+  assert.equal(prepareRunReadAtDurablePrefix({...foreignBody,coordinateDigest:hash(foreignBody)},'graph_call_result',target),null);
+  assert.equal(prepareRunReadAtDurablePrefix({...prefix,prefixDigest:hash('wrong')},'graph_call_result',target),null);
+  opened.store.closeDurableLog();
+  const closed=await measureHistoryReads(f,()=>project(prefix));assert.ok(closed.reads>0,'closed owner cannot retain live acquisition authority');
+  assert.deepEqual(closed.value,warm.value);
+  // A prepared historical read retains its semantic context, but the child
+  // declaration callback must still authenticate bytes once its owner closes.
+  const prepared=prepareRunReadAtDurablePrefix(prefix,'graph_call_result',target);assert.ok(prepared);
+  const fd=fs.openSync(f.eventLogPath,'r+');try{fs.writeSync(fd,Buffer.from('!'),0,1,0);}finally{fs.closeSync(fd);}
+  const stale=prepared.project(f.declarationProof);assert.equal(stale.kind,'abg_project_read_refusal');
+  assert.equal(prepareRunReadAtDurablePrefix(prefix,'graph_call_result',target),null);
 });

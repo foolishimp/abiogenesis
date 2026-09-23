@@ -1,0 +1,13 @@
+{"stage": "inventory_closed", "repo": "/Users/jim/src/apps/abiogenesis", "counts": {"archive_backed": 1504}, "archiveFamilies": 6, "excludedPrefixes": 0}
+{"stage": "family_packed", "repo": "abiogenesis", "family": ".ai-workspace/comments/codex/20260923_C2_ENVIRONMENT_REPAIR", "files": 24, "familiesDone": 1, "familyCount": 6, "transportBytes": 171339}
+{"stage": "family_packed", "repo": "abiogenesis", "family": ".ai-workspace/comments/codex/20260923_F16_ACCEPTANCE", "files": 107, "familiesDone": 2, "familyCount": 6, "transportBytes": 1406065}
+{"stage": "family_packed", "repo": "abiogenesis", "family": ".ai-workspace/comments/codex/20260923_PUBLIC_CHILD_READ_REUSE", "files": 71, "familiesDone": 3, "familyCount": 6, "transportBytes": 13832526}
+{"stage": "family_packed", "repo": "abiogenesis", "family": ".ai-workspace/comments/codex/20260923_QUAL056_MATERIAL", "files": 143, "familiesDone": 4, "familyCount": 6, "transportBytes": 16286427}
+{"stage": "family_packed", "repo": "abiogenesis", "family": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE", "files": 1137, "familiesDone": 5, "familyCount": 6, "transportBytes": 111143571}
+{"stage": "family_packed", "repo": "abiogenesis", "family": ".ai-workspace/comments/codex/20260923_RETAINED_TRANSITION_REUSE", "files": 22, "familiesDone": 6, "familyCount": 6, "transportBytes": 122947104}
+{"stage": "transport_prepared", "repo": "abiogenesis", "members": 1504, "bytes": 122947104, "findings": 0}
+{"stage": "verification_progress", "assets": 1, "assetCount": 28, "members": 24, "bytes": 171339}
+{"stage": "verification_progress", "assets": 11, "assetCount": 28, "members": 351, "bytes": 27093076}
+{"stage": "verification_progress", "assets": 21, "assetCount": 28, "members": 361, "bytes": 36094053}
+{"stage": "verification_closed", "kind": "checkpoint_restoration_verification", "allPartHashesVerified": true, "allReconstructedAssetHashesVerified": true, "allMemberPathsAndHashesVerified": true, "memberCount": 1504, "transportBytes": 122947104, "originalsComparedAfterPacking": true, "restoredToDirectory": "/private/tmp/20260923-checkpoint-abiogenesis-transport-01-24625", "verification": "Complete bounded-memory reconstruction/readback through the restoration path; no source/runtime execution."}
+{"closed": true, "repository": "abiogenesis", "transport": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/transport-01", "restored": "/private/tmp/20260923-checkpoint-abiogenesis-transport-01-24625"}

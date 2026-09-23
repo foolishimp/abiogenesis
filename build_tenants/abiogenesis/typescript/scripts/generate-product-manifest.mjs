@@ -54,6 +54,7 @@ import {
   constructHelloWorldModulePublication,
   constructWorksiteConstructionModulePublication,
   constructWorksiteCommandExecutionModulePublication,
+  WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY,
   constructNativeWorkspaceWorkModulePublication,
   constructWorksiteCommandForwardModulePublication,
   constructRequirementHandoffModulePublication,
@@ -81,6 +82,25 @@ const packageLock = JSON.parse(
   await readFile(join(root, "package-lock.json"), "utf8"),
 );
 const productId = `product://abiogenesis/typescript-tenant@${packageJson.version}`;
+
+// Verify the existing packaged renderer as the declared generic C2 context.
+// Neither this record nor the declaration depends on the final Product digest.
+const contextPublication = constructWorksiteCommandExecutionModulePublication({ productId, packageName: packageJson.name,
+  packageVersion: packageJson.version, artifactDigest: `sha256:${"0".repeat(64)}`,
+  productContentDigest: `sha256:${"0".repeat(64)}`, productManifestDigest: `sha256:${"0".repeat(64)}` });
+const commandEnvironment = contextPublication.runEnvironments[0];
+for (const member of commandEnvironment.contexts.flatMap(context => context.members)) {
+  const bytes = await readFile(join(root, member.path));
+  if (bytes.length !== member.byteCount || sha256Bytes(bytes) !== member.digest)
+    throw new Error("C2 declared context member differs from its packaged Product source: " + member.path);
+  for (const role of commandEnvironment.roles) for (const span of role.sourceBindings.filter(span => span.memberRef === member.memberRef)) {
+    const selected = bytes.subarray(span.startByte, span.endByte);
+    if (sha256Bytes(selected) !== span.spanDigest || selected.toString("utf8") !== role.policy.text)
+      throw new Error("C2 declared context span differs from its Product-owned renderer");
+  }
+}
+await mkdir(dirname(join(root, WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY.path)), { recursive: true });
+await writeFile(join(root, WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY.path), WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY.content);
 
 if (
   packageJson.name !== ABI5_PACKAGE_NAME ||

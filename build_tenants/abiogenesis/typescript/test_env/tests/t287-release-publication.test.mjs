@@ -39,6 +39,12 @@ async function fixture(t,name){
  const lawBasis={ref:'fixture://law',digest:h({fixture:'law'})},verdict={ref:'fixture://conditional-verdict',digest:h({fixture:'not-native'})};
  // This conditional premise exercises the physical leaf only. It cannot enter projectReleaseQualification or ABG as D5 evidence.
  const qualification={verdictRef:verdict.ref,verdictDigest:verdict.digest,subjectBasis:{ref:basis.basisRef,digest:basis.basisDigest},lawBasis,disposition:'green',bypassRefs:[],selfConformance:{assessment:{ref:'fixture://conditional-physical-premise',digest:h({conditional:true})},disposition:'green'}};
+ // Supplied physical-leaf premise only. Empty fixture bodies are not a native
+ // F11 result and cannot establish QUAL-056 or enter the qualification join.
+ qualification.selfConformance.verification={subjectBasis:qualification.subjectBasis,lawBasis,
+  recipe:{ref:'fixture://recipe',digest:h('recipe')},executionSelectionRef:'fixture://execution-selection',
+  execution:{ref:'fixture://execution',digest:h('execution')},cCall:{ref:'fixture://call',digest:h('call')},
+  observation:{ref:'fixture://observation',digest:h('observation')},commandOutcomes:[],predicateOutcomes:[],lintOutcome:null,testSummaries:[],disposition:'passed',diagnostics:[]};
  const request={qualificationBasis:basis,lawBasis,verdict,requestedIdentity:identity};
  const grant={kind:'release_publication_grant',sourceRoot,sourceCommit,sourceTree,sourceInventory:inventory,artifact:{path:artifactPath,...basis.artifact,snapshotName:'fixture.tgz',packageName:manifest.packageName},manifestPath,releaseClaimPath,remote,pushMode:'atomic',expectedLocalRefs:[],expectedRemoteRefs:[],carrierRefs:[{ref:'refs/heads/published-fixture',expectedObject:null}],snapshotRoot:join(root,identity.version),artifactOutputRoot:join(root,'observations'),tagger:{name:'Bounded fixture',email:'fixture@example.invalid',date:'1789984800 +0000'},tagMessage:'Conditional local physical-owner probe',buildCommand:'fixture: already built',packCommand:'fixture: bytes supplied; no pack executed'};
  await save(name+'-grant',{claim:'Disposable local Git/physical mechanics only; conditional qualification, no native D5 or release acceptance',request,grant,qualification});
@@ -49,6 +55,7 @@ test('physical owner publishes exact conditional bytes and fresh process reacqui
  assert.equal(observed.disposition,'complete',JSON.stringify(observed));assert.equal(observed.unknownEffects.length,0);
  const manifest=JSON.parse(await readFile(join(f.grant.snapshotRoot,'release-snapshot.json'),'utf8'));
  assert.deepEqual(manifest.verificationFacts,f.qualification);assert.deepEqual(manifest.assessmentCitation,f.qualification.selfConformance);
+ assert.deepEqual(manifest.verificationMaterial,f.qualification.selfConformance.verification);
  assert.deepEqual(await readFile(join(f.grant.snapshotRoot,'fixture.tgz')),await readFile(f.grant.artifact.path));
  const script=`import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';const root=process.argv[1];const sums=(await readFile(root+'/SHA256SUMS','utf8')).trim().split('\\n');for(const line of sums){const [digest,name]=line.split('  ');if(createHash('sha256').update(await readFile(root+'/'+name)).digest('hex')!==digest)throw Error(name);}console.log(JSON.stringify({pid:process.pid,checksums:sums.length}));`;
  const cold=JSON.parse((await exec(process.execPath,['--input-type=module','-e',script,f.grant.snapshotRoot])).stdout);
@@ -84,8 +91,7 @@ test('push refusal preserves local tags/snapshot and marks possible remote effec
 test('Public owner refuses invented qualification and tapped acceptance; release read cannot infer admitted truth from bytes',async t=>{
  const f=await fixture(t,'no-native-proof');assert.equal(projectReleaseQualification(f.request,{}, {},{}),null);
  await assert.rejects(Effect.runPromise(product.RELEASE_SNAPSHOT_DEFINITION_BINDINGS.snapshot.published_rc({invocation:{definitionKey:{operationId:'abg.operation.release.snapshot',memberKey:'published_rc'},request:f.request},resources:null})));
- const tapped=await Effect.runPromise(product.RELEASE_SNAPSHOT_DEFINITION_BINDINGS.snapshot.tapped_release({invocation:{request:{}},resources:null}));
- assert.equal(tapped.ownerOutput.value.code,'not_implemented');assert.equal(tapped.ownerOutput.outcomeKind,'refusal');
+ await assert.rejects(Effect.runPromise(product.RELEASE_SNAPSHOT_DEFINITION_BINDINGS.snapshot.tapped_release({invocation:{definitionKey:{operationId:'abg.operation.release.snapshot',memberKey:'tapped_release'},request:{}},resources:null})));
  assert.equal(projectReleaseEvidence({}).kind,'product_project_read_refusal');
  assert.equal(await git(f.sourceRoot,['for-each-ref','refs/tags']), '');
 });

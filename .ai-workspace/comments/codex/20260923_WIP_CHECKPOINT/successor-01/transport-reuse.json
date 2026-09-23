@@ -1,0 +1,6 @@
+{
+  "originalSha256": "b098879011f13f86f518c7b4c1cbe23f788f6b698623cf2be7c780ead76805ec",
+  "successorSha256": "04f1331b20ae18ea4c6fb54e0b948525a1d04638ddb29267ed3c96b18bdccca3",
+  "delta": "Optional exact selected-path ingress bypasses broad collection; original archive, part-size, member hash, credential scan, verify and restoration bodies unchanged. Scope text updated.",
+  "noOriginalPayloadRead": true
+}

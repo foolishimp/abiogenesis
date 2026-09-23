@@ -1,0 +1,37 @@
+--- banked-transport
++++ incremental-transport
+@@ -153,17 +153,21 @@
+     return None
+ 
+ 
+-def prepare(repo, out, held, included=None):
++def prepare(repo, out, held, included=None, selected=None):
+     (out / 'payloads').mkdir(exist_ok=True)
+     if (out / 'catalog.json').exists():
+         raise RuntimeError('Refusing to overwrite an existing checkpoint')
+     tracked = set(git_paths(repo, 'ls-files', '--cached'))
+     known = set(git_paths(repo, 'ls-files', '--cached', '--others', '--exclude-standard'))
+-    if included:
++    if selected is not None:
++        known = set(selected)
++    elif included:
+         known = {p for p in known if any(p == q or p.startswith(q + '/') for q in included)}
+     archived, excluded, pending = set(), {}, set()
+-    roots = [repo / q for q in included] if included else [repo / '.ai-workspace/comments']
+-    if not included and repo.name == 'odd_glc':
++    if selected is not None:
++        archived = {p for p in known if p not in tracked and (p.startswith(COMMENTS) or p.startswith('.genesis/'))}
++    roots = [] if selected is not None else ([repo / q for q in included] if included else [repo / '.ai-workspace/comments'])
++    if selected is None and not included and repo.name == 'odd_glc':
+         roots.append(repo / '.genesis')
+     for root in roots:
+         if not root.exists():
+@@ -302,7 +306,7 @@
+         'claim': 'Heuristic scan of uncompressed retained members only; values are never recorded here.'})
+     value = {'kind': 'wip_checkpoint_transport', 'repository': str(repo),
+         'headAtPreparation': subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),
+-        'scope': 'WIP preservation only; current generic run failed before assessment; no release, qualification, RC or scenario-completion claim.',
++        'scope': 'Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.',
+         'partLimit': PART_LIMIT, 'originalsModified': False, 'counts': dict(counts),
+         'archiveMemberCount': len(rows), 'archiveMemberBytes': sum(x.get('byteLength',0) for x in rows),
+         'transportBytes': sum(x['byteLength'] for x in catalog), 'assets': catalog,

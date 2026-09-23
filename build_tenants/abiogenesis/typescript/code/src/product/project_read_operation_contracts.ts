@@ -5,6 +5,7 @@ import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 import {
   type ExactOwnerOperationPort,
   nonblankSchema,
+  jsonValueSchema,
   nonemptyRefDigestSetSchema,
   ownerAuthorityDigest,
   ownerContractPacket,
@@ -82,9 +83,11 @@ const installEvidenceProjectionSchema = v.strictObject({
 
 const releaseEvidenceProjectionSchema = v.strictObject({
   kind: v.literal("release_evidence_projection"),
-  disposition: v.picklist(["published_unqualified", "incomplete_effect"]),
+  disposition: v.picklist(["published_unqualified", "qualified_unaccepted", "accepted", "superseded", "incomplete_effect"]),
   observationArtifact: refDigestSchema,
-  acceptance: v.literal("incomplete"),
+  acceptance: v.picklist(["incomplete", "accepted", "withheld"]),
+  ownerRuling: v.optional(v.nullable(refDigestSchema)), addendum: v.optional(v.nullable(refDigestSchema)),
+  originalRuling: v.optional(jsonValueSchema), sourceApproval: v.optional(jsonValueSchema),
   releaseCut: refDigestSchema,
   snapshotManifest: v.nullable(refDigestSchema),
   artifacts: refDigestSetSchema,

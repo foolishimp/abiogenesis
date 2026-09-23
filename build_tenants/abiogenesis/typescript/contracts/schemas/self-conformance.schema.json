@@ -1622,6 +1622,57 @@
                 "claims"
               ],
               "additionalProperties": false
+            },
+            "verification": {
+              "type": "object",
+              "properties": {
+                "executionSelectionRef": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "recipe": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    },
+                    "byteCount": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "contentBase64": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "path",
+                    "digest",
+                    "byteCount",
+                    "contentBase64"
+                  ],
+                  "additionalProperties": false
+                },
+                "recipePath": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "executionSelectionRef",
+                "recipe",
+                "recipePath"
+              ],
+              "additionalProperties": false
             }
           },
           "required": [
@@ -2140,6 +2191,454 @@
         },
         "qualificationVerdict": {
           "const": false
+        },
+        "verification": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "subjectBasis": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                "lawBasis": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                "recipe": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                "executionSelectionRef": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "execution": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                "cCall": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                "observation": {
+                  "type": "object",
+                  "properties": {
+                    "ref": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "digest": {
+                      "type": "string",
+                      "pattern": "^sha256:[a-f0-9]{64}$"
+                    }
+                  },
+                  "required": [
+                    "ref",
+                    "digest"
+                  ],
+                  "additionalProperties": false
+                },
+                "commandOutcomes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "commandId": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "role": {
+                        "enum": [
+                          "setup",
+                          "build",
+                          "lint",
+                          "test",
+                          "compare"
+                        ],
+                        "type": "string"
+                      },
+                      "observation": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "executable": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "args": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "relativeCwd": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "environment": {
+                        "$ref": "#/$defs/d0"
+                      },
+                      "timeoutMs": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "terminationGraceMs": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "exitStatus": {
+                        "type": "integer"
+                      },
+                      "timedOut": {
+                        "type": "boolean"
+                      },
+                      "processSignal": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "signalSequence": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "terminationConfirmed": {
+                        "type": "boolean"
+                      },
+                      "stdout": {
+                        "type": "object",
+                        "properties": {
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          },
+                          "byteLength": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        },
+                        "required": [
+                          "digest",
+                          "byteLength"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "stderr": {
+                        "type": "object",
+                        "properties": {
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          },
+                          "byteLength": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        },
+                        "required": [
+                          "digest",
+                          "byteLength"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "reports": {
+                        "$ref": "#/$defs/d0"
+                      }
+                    },
+                    "required": [
+                      "commandId",
+                      "role",
+                      "observation",
+                      "executable",
+                      "args",
+                      "relativeCwd",
+                      "environment",
+                      "timeoutMs",
+                      "terminationGraceMs",
+                      "exitStatus",
+                      "timedOut",
+                      "processSignal",
+                      "signalSequence",
+                      "terminationConfirmed",
+                      "stdout",
+                      "stderr",
+                      "reports"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "lintOutcome": {
+                  "$ref": "#/$defs/d0"
+                },
+                "predicateOutcomes": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "declaration": {
+                        "$ref": "#/$defs/d0"
+                      },
+                      "observation": {
+                        "$ref": "#/$defs/d0"
+                      },
+                      "disposition": {
+                        "enum": [
+                          "passed",
+                          "failed",
+                          "blocked_incomplete"
+                        ],
+                        "type": "string"
+                      },
+                      "diagnostics": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      }
+                    },
+                    "required": [
+                      "declaration",
+                      "observation",
+                      "disposition",
+                      "diagnostics"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "testSummaries": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "commandId": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "streamDigest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      },
+                      "format": {
+                        "const": "node-test-events-jsonl@1"
+                      },
+                      "disposition": {
+                        "enum": [
+                          "passed",
+                          "failed",
+                          "blocked_incomplete"
+                        ],
+                        "type": "string"
+                      },
+                      "diagnostics": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "tests": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "passed": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "failed": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "cancelled": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "skipped": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "todo": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "suites": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "files": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "cases": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/$defs/d0"
+                        }
+                      },
+                      "summaries": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/$defs/d0"
+                        }
+                      },
+                      "complete": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "commandId",
+                      "streamDigest",
+                      "format",
+                      "disposition",
+                      "diagnostics",
+                      "tests",
+                      "passed",
+                      "failed",
+                      "cancelled",
+                      "skipped",
+                      "todo",
+                      "suites",
+                      "files",
+                      "cases",
+                      "summaries",
+                      "complete"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "disposition": {
+                  "enum": [
+                    "passed",
+                    "failed",
+                    "blocked_incomplete"
+                  ],
+                  "type": "string"
+                },
+                "diagnostics": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "required": [
+                "subjectBasis",
+                "lawBasis",
+                "recipe",
+                "executionSelectionRef",
+                "execution",
+                "cCall",
+                "observation",
+                "commandOutcomes",
+                "lintOutcome",
+                "predicateOutcomes",
+                "testSummaries",
+                "disposition",
+                "diagnostics"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -2159,7 +2658,40 @@
         "qualificationVerdict"
       ],
       "additionalProperties": false,
-      "$schema": "https://json-schema.org/draft/2020-12/schema"
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$defs": {
+        "d0": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/d0"
+              }
+            },
+            {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {
+                "$ref": "#/$defs/d0"
+              }
+            }
+          ]
+        }
+      }
     },
     "ExactCandidateQualification": {
       "oneOf": [
@@ -2636,6 +3168,454 @@
                     "type": "string",
                     "minLength": 1
                   }
+                },
+                "verification": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "subjectBasis": {
+                          "type": "object",
+                          "properties": {
+                            "ref": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "digest": {
+                              "type": "string",
+                              "pattern": "^sha256:[a-f0-9]{64}$"
+                            }
+                          },
+                          "required": [
+                            "ref",
+                            "digest"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "lawBasis": {
+                          "type": "object",
+                          "properties": {
+                            "ref": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "digest": {
+                              "type": "string",
+                              "pattern": "^sha256:[a-f0-9]{64}$"
+                            }
+                          },
+                          "required": [
+                            "ref",
+                            "digest"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "recipe": {
+                          "type": "object",
+                          "properties": {
+                            "ref": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "digest": {
+                              "type": "string",
+                              "pattern": "^sha256:[a-f0-9]{64}$"
+                            }
+                          },
+                          "required": [
+                            "ref",
+                            "digest"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "executionSelectionRef": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "execution": {
+                          "type": "object",
+                          "properties": {
+                            "ref": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "digest": {
+                              "type": "string",
+                              "pattern": "^sha256:[a-f0-9]{64}$"
+                            }
+                          },
+                          "required": [
+                            "ref",
+                            "digest"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "cCall": {
+                          "type": "object",
+                          "properties": {
+                            "ref": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "digest": {
+                              "type": "string",
+                              "pattern": "^sha256:[a-f0-9]{64}$"
+                            }
+                          },
+                          "required": [
+                            "ref",
+                            "digest"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "observation": {
+                          "type": "object",
+                          "properties": {
+                            "ref": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "digest": {
+                              "type": "string",
+                              "pattern": "^sha256:[a-f0-9]{64}$"
+                            }
+                          },
+                          "required": [
+                            "ref",
+                            "digest"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "commandOutcomes": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "commandId": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "role": {
+                                "enum": [
+                                  "setup",
+                                  "build",
+                                  "lint",
+                                  "test",
+                                  "compare"
+                                ],
+                                "type": "string"
+                              },
+                              "observation": {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "executable": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "args": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "relativeCwd": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "environment": {
+                                "$ref": "#/$defs/d0"
+                              },
+                              "timeoutMs": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "terminationGraceMs": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "exitStatus": {
+                                "type": "integer"
+                              },
+                              "timedOut": {
+                                "type": "boolean"
+                              },
+                              "processSignal": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "signalSequence": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "terminationConfirmed": {
+                                "type": "boolean"
+                              },
+                              "stdout": {
+                                "type": "object",
+                                "properties": {
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  },
+                                  "byteLength": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  }
+                                },
+                                "required": [
+                                  "digest",
+                                  "byteLength"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "stderr": {
+                                "type": "object",
+                                "properties": {
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  },
+                                  "byteLength": {
+                                    "type": "integer",
+                                    "minimum": 0
+                                  }
+                                },
+                                "required": [
+                                  "digest",
+                                  "byteLength"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "reports": {
+                                "$ref": "#/$defs/d0"
+                              }
+                            },
+                            "required": [
+                              "commandId",
+                              "role",
+                              "observation",
+                              "executable",
+                              "args",
+                              "relativeCwd",
+                              "environment",
+                              "timeoutMs",
+                              "terminationGraceMs",
+                              "exitStatus",
+                              "timedOut",
+                              "processSignal",
+                              "signalSequence",
+                              "terminationConfirmed",
+                              "stdout",
+                              "stderr",
+                              "reports"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "lintOutcome": {
+                          "$ref": "#/$defs/d0"
+                        },
+                        "predicateOutcomes": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "declaration": {
+                                "$ref": "#/$defs/d0"
+                              },
+                              "observation": {
+                                "$ref": "#/$defs/d0"
+                              },
+                              "disposition": {
+                                "enum": [
+                                  "passed",
+                                  "failed",
+                                  "blocked_incomplete"
+                                ],
+                                "type": "string"
+                              },
+                              "diagnostics": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              }
+                            },
+                            "required": [
+                              "declaration",
+                              "observation",
+                              "disposition",
+                              "diagnostics"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "testSummaries": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "commandId": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "streamDigest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              },
+                              "format": {
+                                "const": "node-test-events-jsonl@1"
+                              },
+                              "disposition": {
+                                "enum": [
+                                  "passed",
+                                  "failed",
+                                  "blocked_incomplete"
+                                ],
+                                "type": "string"
+                              },
+                              "diagnostics": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "tests": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "passed": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "failed": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "cancelled": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "skipped": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "todo": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "suites": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "files": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "minLength": 1
+                                }
+                              },
+                              "cases": {
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/$defs/d0"
+                                }
+                              },
+                              "summaries": {
+                                "type": "array",
+                                "items": {
+                                  "$ref": "#/$defs/d0"
+                                }
+                              },
+                              "complete": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "commandId",
+                              "streamDigest",
+                              "format",
+                              "disposition",
+                              "diagnostics",
+                              "tests",
+                              "passed",
+                              "failed",
+                              "cancelled",
+                              "skipped",
+                              "todo",
+                              "suites",
+                              "files",
+                              "cases",
+                              "summaries",
+                              "complete"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "disposition": {
+                          "enum": [
+                            "passed",
+                            "failed",
+                            "blocked_incomplete"
+                          ],
+                          "type": "string"
+                        },
+                        "diagnostics": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      },
+                      "required": [
+                        "subjectBasis",
+                        "lawBasis",
+                        "recipe",
+                        "executionSelectionRef",
+                        "execution",
+                        "cCall",
+                        "observation",
+                        "commandOutcomes",
+                        "lintOutcome",
+                        "predicateOutcomes",
+                        "testSummaries",
+                        "disposition",
+                        "diagnostics"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
                 }
               },
               "required": [
@@ -2760,7 +3740,40 @@
           "additionalProperties": false
         }
       ],
-      "$schema": "https://json-schema.org/draft/2020-12/schema"
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$defs": {
+        "d0": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/d0"
+              }
+            },
+            {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {
+                "$ref": "#/$defs/d0"
+              }
+            }
+          ]
+        }
+      }
     },
     "ExactCandidateQualificationBasis": {
       "type": "object",
@@ -3236,6 +4249,454 @@
                 "type": "string",
                 "minLength": 1
               }
+            },
+            "verification": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "subjectBasis": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "lawBasis": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "recipe": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "executionSelectionRef": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "execution": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "cCall": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "observation": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "commandOutcomes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "commandId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "role": {
+                            "enum": [
+                              "setup",
+                              "build",
+                              "lint",
+                              "test",
+                              "compare"
+                            ],
+                            "type": "string"
+                          },
+                          "observation": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "executable": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "args": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "relativeCwd": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "environment": {
+                            "$ref": "#/$defs/d0"
+                          },
+                          "timeoutMs": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "terminationGraceMs": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "exitStatus": {
+                            "type": "integer"
+                          },
+                          "timedOut": {
+                            "type": "boolean"
+                          },
+                          "processSignal": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "signalSequence": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "terminationConfirmed": {
+                            "type": "boolean"
+                          },
+                          "stdout": {
+                            "type": "object",
+                            "properties": {
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              },
+                              "byteLength": {
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "required": [
+                              "digest",
+                              "byteLength"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "stderr": {
+                            "type": "object",
+                            "properties": {
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              },
+                              "byteLength": {
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "required": [
+                              "digest",
+                              "byteLength"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "reports": {
+                            "$ref": "#/$defs/d0"
+                          }
+                        },
+                        "required": [
+                          "commandId",
+                          "role",
+                          "observation",
+                          "executable",
+                          "args",
+                          "relativeCwd",
+                          "environment",
+                          "timeoutMs",
+                          "terminationGraceMs",
+                          "exitStatus",
+                          "timedOut",
+                          "processSignal",
+                          "signalSequence",
+                          "terminationConfirmed",
+                          "stdout",
+                          "stderr",
+                          "reports"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "lintOutcome": {
+                      "$ref": "#/$defs/d0"
+                    },
+                    "predicateOutcomes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "declaration": {
+                            "$ref": "#/$defs/d0"
+                          },
+                          "observation": {
+                            "$ref": "#/$defs/d0"
+                          },
+                          "disposition": {
+                            "enum": [
+                              "passed",
+                              "failed",
+                              "blocked_incomplete"
+                            ],
+                            "type": "string"
+                          },
+                          "diagnostics": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          }
+                        },
+                        "required": [
+                          "declaration",
+                          "observation",
+                          "disposition",
+                          "diagnostics"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "testSummaries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "commandId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "streamDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          },
+                          "format": {
+                            "const": "node-test-events-jsonl@1"
+                          },
+                          "disposition": {
+                            "enum": [
+                              "passed",
+                              "failed",
+                              "blocked_incomplete"
+                            ],
+                            "type": "string"
+                          },
+                          "diagnostics": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "tests": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "passed": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "failed": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "cancelled": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "skipped": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "todo": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "suites": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "files": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "cases": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/$defs/d0"
+                            }
+                          },
+                          "summaries": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/$defs/d0"
+                            }
+                          },
+                          "complete": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "commandId",
+                          "streamDigest",
+                          "format",
+                          "disposition",
+                          "diagnostics",
+                          "tests",
+                          "passed",
+                          "failed",
+                          "cancelled",
+                          "skipped",
+                          "todo",
+                          "suites",
+                          "files",
+                          "cases",
+                          "summaries",
+                          "complete"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "disposition": {
+                      "enum": [
+                        "passed",
+                        "failed",
+                        "blocked_incomplete"
+                      ],
+                      "type": "string"
+                    },
+                    "diagnostics": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  },
+                  "required": [
+                    "subjectBasis",
+                    "lawBasis",
+                    "recipe",
+                    "executionSelectionRef",
+                    "execution",
+                    "cCall",
+                    "observation",
+                    "commandOutcomes",
+                    "lintOutcome",
+                    "predicateOutcomes",
+                    "testSummaries",
+                    "disposition",
+                    "diagnostics"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "required": [
@@ -3358,7 +4819,40 @@
         "nativeBasis"
       ],
       "additionalProperties": false,
-      "$schema": "https://json-schema.org/draft/2020-12/schema"
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$defs": {
+        "d0": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/d0"
+              }
+            },
+            {
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {
+                "$ref": "#/$defs/d0"
+              }
+            }
+          ]
+        }
+      }
     },
     "QualificationVerdictInput": {
       "type": "object",
@@ -3887,6 +5381,454 @@
                 "type": "string",
                 "minLength": 1
               }
+            },
+            "verification": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "subjectBasis": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "lawBasis": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "recipe": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "executionSelectionRef": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "execution": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "cCall": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "observation": {
+                      "type": "object",
+                      "properties": {
+                        "ref": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "digest": {
+                          "type": "string",
+                          "pattern": "^sha256:[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "ref",
+                        "digest"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "commandOutcomes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "commandId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "role": {
+                            "enum": [
+                              "setup",
+                              "build",
+                              "lint",
+                              "test",
+                              "compare"
+                            ],
+                            "type": "string"
+                          },
+                          "observation": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "executable": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "args": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "relativeCwd": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "environment": {
+                            "$ref": "#/$defs/d0"
+                          },
+                          "timeoutMs": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "terminationGraceMs": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "exitStatus": {
+                            "type": "integer"
+                          },
+                          "timedOut": {
+                            "type": "boolean"
+                          },
+                          "processSignal": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "signalSequence": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "terminationConfirmed": {
+                            "type": "boolean"
+                          },
+                          "stdout": {
+                            "type": "object",
+                            "properties": {
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              },
+                              "byteLength": {
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "required": [
+                              "digest",
+                              "byteLength"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "stderr": {
+                            "type": "object",
+                            "properties": {
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              },
+                              "byteLength": {
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "required": [
+                              "digest",
+                              "byteLength"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "reports": {
+                            "$ref": "#/$defs/d0"
+                          }
+                        },
+                        "required": [
+                          "commandId",
+                          "role",
+                          "observation",
+                          "executable",
+                          "args",
+                          "relativeCwd",
+                          "environment",
+                          "timeoutMs",
+                          "terminationGraceMs",
+                          "exitStatus",
+                          "timedOut",
+                          "processSignal",
+                          "signalSequence",
+                          "terminationConfirmed",
+                          "stdout",
+                          "stderr",
+                          "reports"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "lintOutcome": {
+                      "$ref": "#/$defs/d0"
+                    },
+                    "predicateOutcomes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "declaration": {
+                            "$ref": "#/$defs/d0"
+                          },
+                          "observation": {
+                            "$ref": "#/$defs/d0"
+                          },
+                          "disposition": {
+                            "enum": [
+                              "passed",
+                              "failed",
+                              "blocked_incomplete"
+                            ],
+                            "type": "string"
+                          },
+                          "diagnostics": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          }
+                        },
+                        "required": [
+                          "declaration",
+                          "observation",
+                          "disposition",
+                          "diagnostics"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "testSummaries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "commandId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "streamDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          },
+                          "format": {
+                            "const": "node-test-events-jsonl@1"
+                          },
+                          "disposition": {
+                            "enum": [
+                              "passed",
+                              "failed",
+                              "blocked_incomplete"
+                            ],
+                            "type": "string"
+                          },
+                          "diagnostics": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "tests": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "passed": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "failed": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "cancelled": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "skipped": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "todo": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "suites": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "files": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "cases": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/$defs/d0"
+                            }
+                          },
+                          "summaries": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/$defs/d0"
+                            }
+                          },
+                          "complete": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "commandId",
+                          "streamDigest",
+                          "format",
+                          "disposition",
+                          "diagnostics",
+                          "tests",
+                          "passed",
+                          "failed",
+                          "cancelled",
+                          "skipped",
+                          "todo",
+                          "suites",
+                          "files",
+                          "cases",
+                          "summaries",
+                          "complete"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "disposition": {
+                      "enum": [
+                        "passed",
+                        "failed",
+                        "blocked_incomplete"
+                      ],
+                      "type": "string"
+                    },
+                    "diagnostics": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  },
+                  "required": [
+                    "subjectBasis",
+                    "lawBasis",
+                    "recipe",
+                    "executionSelectionRef",
+                    "execution",
+                    "cCall",
+                    "observation",
+                    "commandOutcomes",
+                    "lintOutcome",
+                    "predicateOutcomes",
+                    "testSummaries",
+                    "disposition",
+                    "diagnostics"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "null"
+                }
+              ]
             }
           },
           "required": [

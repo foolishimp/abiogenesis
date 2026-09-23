@@ -16,12 +16,13 @@ import { definitionFault,isDefinitionFault,sameJson } from "../shared/definition
 import { nonblankSchema,refDigestSchema,type OwnerSemanticOutput } from "../shared/public_function_contracts.js";
 import type { ExactDefinitionCallable,DefinitionExecutionFault } from "../shared/effect_definition.js";
 import { QUALIFICATION_PROOF_RESOURCE_SCHEMA,QUALIFICATION_SELECTION_SCHEMA } from "../validator/qualification_contracts.js";
-import { publishReleaseSnapshot,projectReleaseQualification } from "../implementation/release_publication.js";
+import { publishReleaseSnapshot,projectReleaseQualification,projectReleaseAcceptance,recordReleaseAcceptance } from "../implementation/release_publication.js";
 import { withAdmissionAuthority, type AdmissionAuthorityResource, type AdmissionAuthorizedResources } from "./admission_authority.js";
 import { verifyProduct } from "./verify_product.js";
 import { productInstallCoordinate } from "./environment.js";
-import { RELEASE_OPERATION_CONTRACTS,RELEASE_PUBLICATION_GRANT_SCHEMA,releaseRefusal,releaseAuthorityScope,
- releaseArtifactCoordinate,releaseHash,snapshotTappedRelease,type ReleaseOperationArtifact,type ReleasePhysicalObservation } from "./release_snapshot_operations.js";
+import { RELEASE_OWNER_RULING_SCHEMA } from "./release_acceptance.js";
+import { RELEASE_OPERATION_CONTRACTS,RELEASE_PUBLICATION_GRANT_SCHEMA,RELEASE_ACCEPTANCE_GRANT_SCHEMA,PUBLISHED_RELEASE_OPERATION_ARTIFACT_SCHEMA,releaseRefusal,releaseAuthorityScope,releaseAcceptanceScope,
+ releaseArtifactCoordinate,releaseHash,type ReleaseOperationArtifact,type PublishedReleaseOperationArtifact,type TappedReleaseOperationArtifact,type ReleasePhysicalObservation } from "./release_snapshot_operations.js";
 
 export const RELEASE_PUBLICATION_RESOURCE_SCHEMA=v.strictObject({kind:v.literal("release_publication_resources"),schemaVersion:v.literal("5.0.0"),
  eventResource:v.custom<AbgEventResourceAssertion>(validateAbgEventResourceAssertion,"ABG event resource"),
@@ -61,23 +62,19 @@ const owner=(call:Parameters<ExactDefinitionCallable<Packet,ReleasePublicationRe
   phase="physical_publication";observation=await publishReleaseSnapshot(request,grant,qualification);
   if(observation.disposition==="refused")return deepFreeze({ownerOutput:{outcomeKind:"refusal" as const,value:releaseRefusal("published_rc","publication_failure",observation.message,observation)},resources:{kind:"release_publication_receipt" as const,schemaVersion:"5.0.0" as const,eventResource:closeAbgEventResource(acquired,acquired.entryPrefix),artifact:null,artifactPath:null,admissionEventRef:null}});
   const invocation=constructExactOperationInvocationCoordinate({operationId:"abg.operation.release.snapshot",memberKey:"published_rc",definitionDigest:call.invocation.definitionDigest},call.invocation.invocationRef,call.invocation.requestDigest);
-  const value:ReleaseOperationArtifact={kind:"release_operation_observation",schemaVersion:"5.0.0",memberKey:"published_rc",scope,invocation:{...invocation,operationId:"abg.operation.release.snapshot",memberKey:"published_rc"},
+  const value:PublishedReleaseOperationArtifact={kind:"release_operation_observation",schemaVersion:"5.0.0",memberKey:"published_rc",scope,invocation:{...invocation,operationId:"abg.operation.release.snapshot",memberKey:"published_rc"},
    entryPrefix:acquired.entryPrefix,admissionAuthority:approved as unknown as JsonValue,eventResource:resources.eventResource as unknown as JsonValue,grants:[...approved.grants] as unknown as JsonValue[],publicInvocation:call.invocation as unknown as JsonValue,resourceDigest:releaseHash(resources),actorRef:slots.actor!.actor.ref,
    capabilityGrants:slots.capability_grants as unknown as JsonValue,workspaceBinding:binding,productSet:slots.product_set as unknown as JsonValue,dependencyLock:slots.dependency_lock!,request,
    proof:resources.proof,selection:resources.selection,effectGrant:grant,observation};
-  artifact=releaseArtifactCoordinate(value);artifactPath=join(grant.artifactOutputRoot,artifact.digest.slice(7)+".json");phase="artifact_write";
-  await mkdir(grant.artifactOutputRoot,{recursive:true});await writeFile(artifactPath,canonicalJson(value as unknown as JsonValue),{flag:"wx"});
-  phase="artifact_admission";const admitted=admitArtifact(acquired.store,{...invocation,operationId:"abg.operation.release.snapshot",authorityScopeRef:scope.ref,authorityScopeDigest:scope.digest,
-   correlationId:call.invocation.correlationRef,eventTime:call.invocation.eventTime,causationEventRefs:[environment.workspaceBinding.admissionEventRef],predecessorPrefix:acquired.entryPrefix},"abg.operation.release.snapshot",artifact.ref,artifact.digest,{artifact:value as unknown as JsonValue});
-  if(admitted.disposition!=="admitted"&&admitted.disposition!=="idempotent")throw new TypeError(`release artifact admission refused: ${JSON.stringify(admitted)}`);
-  admissionEventRef=admitted.admissionEventRef;phase="resource_close";const eventResource=closeAbgEventResource(acquired,admitted.successorPrefix);
+  const committed=await commitReleaseArtifact(acquired,value,call.invocation.correlationRef,call.invocation.eventTime,environment.workspaceBinding.admissionEventRef,grant.artifactOutputRoot);
+  ({artifact,artifactPath,admissionEventRef}=committed);const eventResource=committed.eventResource;
   const ownerOutput:OwnerSemanticOutput<Packet>=observation.disposition==="complete"?{outcomeKind:"result",value:{kind:"release_snapshot_result",schemaVersion:"5.0.0",memberKey:"published_rc",disposition:"complete",identity:request.requestedIdentity,artifact,observation}}:
    {outcomeKind:"refusal",value:releaseRefusal("published_rc","publication_failure",observation.message,observation,artifact)};
   return deepFreeze({ownerOutput,resources:{kind:"release_publication_receipt" as const,schemaVersion:"5.0.0" as const,eventResource,artifact,artifactPath,admissionEventRef}});
  }catch(error){
   if(acquired!==undefined){try{abandonAbgEventResource(acquired);}catch{/* Keep original failure and known/unknown effects. */}}
   const fault=isDefinitionFault(error)?error:definitionFault(call.invocation.definitionKey,phase,"release_publication_failure",String(error));
-  throw {...fault,evidence:{phase,observation,artifact,artifactPath,admissionEventRef}};
+  throw {...fault,evidence:{phase,observation,artifact,artifactPath,admissionEventRef,...(isRecordEvidence(fault.evidence)?fault.evidence:{})}};
  }
 },catch:error=>error as DefinitionExecutionFault<Packet["definitionKey"]>});
 const authorizedOwner:ExactDefinitionCallable<Packet,AdmissionAuthorizedResources<ReleasePublicationResources>,ReleasePublicationReceipt>=call=>
@@ -85,5 +82,76 @@ const authorizedOwner:ExactDefinitionCallable<Packet,AdmissionAuthorizedResource
   (authorized,_environment,resource)=>bindExactPrefixTransition(RELEASE_OPERATION_CONTRACTS.snapshot.published_rc,
    admitted=>owner(admitted,call.resources.admissionAuthority,resource),RELEASE_PUBLICATION_RESOURCE_SCHEMA,RELEASE_PUBLICATION_RECEIPT_SCHEMA)(authorized))(call);
 const published_rc=authorizedOwner;
-const tapped_release:ExactDefinitionCallable<typeof RELEASE_OPERATION_CONTRACTS.snapshot.tapped_release,null,null>=call=>Effect.succeed({ownerOutput:{outcomeKind:"refusal" as const,value:snapshotTappedRelease(call.invocation.request)},resources:null});
+export const RELEASE_ACCEPTANCE_RESOURCE_SCHEMA=v.strictObject({kind:v.literal("release_acceptance_resources"),schemaVersion:v.literal("5.0.0"),
+ eventResource:v.custom<AbgEventResourceAssertion>(validateAbgEventResourceAssertion,"ABG event resource"),
+ proof:QUALIFICATION_PROOF_RESOURCE_SCHEMA,selection:QUALIFICATION_SELECTION_SCHEMA,effectGrant:RELEASE_ACCEPTANCE_GRANT_SCHEMA,
+ publication:PUBLISHED_RELEASE_OPERATION_ARTIFACT_SCHEMA,ruling:v.nullable(RELEASE_OWNER_RULING_SCHEMA)});
+export type ReleaseAcceptanceResources=v.InferOutput<typeof RELEASE_ACCEPTANCE_RESOURCE_SCHEMA>;
+type TappedPacket=typeof RELEASE_OPERATION_CONTRACTS.snapshot.tapped_release;
+function isRecordEvidence(value:unknown):value is Record<string,unknown>{return typeof value==="object"&&value!==null&&!Array.isArray(value);}
+/** Both release members use the existing single artifact/receipt protocol. */
+async function commitReleaseArtifact(acquired:AcquiredAbgEventResource,value:ReleaseOperationArtifact,correlationId:string,eventTime:string,
+ causationEventRef:string,outputRoot:string){
+ const artifact=releaseArtifactCoordinate(value),artifactPath=join(outputRoot,artifact.digest.slice(7)+".json");
+ let phase="artifact_write",admissionEventRef:string|null=null;
+ try{
+  await mkdir(outputRoot,{recursive:true});await writeFile(artifactPath,canonicalJson(value as unknown as JsonValue),{flag:"wx"});
+  phase="artifact_admission";const coordinate=constructExactOperationInvocationCoordinate({operationId:"abg.operation.release.snapshot",memberKey:value.memberKey,definitionDigest:value.invocation.definitionDigest},value.invocation.invocationRef,value.invocation.invocationPayloadDigest);
+  const admitted=admitArtifact(acquired.store,{...coordinate,operationId:"abg.operation.release.snapshot",authorityScopeRef:value.scope.ref,authorityScopeDigest:value.scope.digest,
+   correlationId,eventTime,causationEventRefs:[causationEventRef],predecessorPrefix:acquired.entryPrefix},"abg.operation.release.snapshot",artifact.ref,artifact.digest,{artifact:value as unknown as JsonValue});
+  if(admitted.disposition!=="admitted"&&admitted.disposition!=="idempotent")throw new TypeError(`release artifact admission refused: ${JSON.stringify(admitted)}`);
+  admissionEventRef=admitted.admissionEventRef;phase="resource_close";
+  return {artifact,artifactPath,admissionEventRef,eventResource:closeAbgEventResource(acquired,admitted.successorPrefix)};
+ }catch(error){throw {...definitionFault({operationId:"abg.operation.release.snapshot",memberKey:value.memberKey},phase,"release_artifact_failure",String(error)),
+  evidence:{phase,observation:value.observation,artifact,artifactPath,admissionEventRef}};}
+}
+const tappedOwner=(call:Parameters<ExactDefinitionCallable<TappedPacket,ReleaseAcceptanceResources,ReleasePublicationReceipt>>[0],
+ approved:AdmissionAuthorityResource,heldResource:AcquiredAbgEventResource|null):ReturnType<ExactDefinitionCallable<TappedPacket,ReleaseAcceptanceResources,ReleasePublicationReceipt>>=>Effect.tryPromise({try:async()=>{
+ let acquired:AcquiredAbgEventResource|undefined,phase="resource_acquisition",observation:ReleasePhysicalObservation|null=null;
+ try{
+  const resources=call.resources,request=call.invocation.request,slots=call.invocation.invocationAuthority.slots,grant=resources.effectGrant;
+  const opened=heldResource===null?acquireAbgEventResource(resources.eventResource):{kind:"acquired_abg_event_resource" as const,resource:heldResource};
+  if(opened.kind!=="acquired_abg_event_resource")throw definitionFault(call.invocation.definitionKey,phase,opened.code,opened.message);
+  acquired=opened.resource;
+  const refuse=(code:Parameters<typeof releaseRefusal>[1],message:string)=>deepFreeze({ownerOutput:{outcomeKind:"refusal" as const,value:releaseRefusal("tapped_release",code,message,observation)},resources:{kind:"release_publication_receipt" as const,schemaVersion:"5.0.0" as const,eventResource:closeAbgEventResource(acquired!,acquired!.entryPrefix),artifact:null,artifactPath:null,admissionEventRef:null}});
+  phase="acceptance_join";const binding=slots.workspace_binding;
+  if(binding===null)return refuse("identity_mismatch","acceptance requires its current admitted workspace");
+  const environment=projectExactPrefixWorkspaceEnvironment(acquired.entryPrefix,binding);
+  if(environment.kind!=="exact_prefix_workspace_environment"||!sameJson(slots.product_set,environment.productInstalls.map(productInstallCoordinate))||
+   !sameJson(slots.dependency_lock,{ref:environment.resolvedProductLock.lockId,digest:environment.resolvedProductLock.lockDigest})||
+   environment.productInstalls.some(i=>[grant.addendumRoot,grant.artifactOutputRoot].some(p=>within(i.installedRoot,p))))return refuse("identity_mismatch","acceptance environment or effect territory differs from admitted scope");
+  const truth=projectExactPrefixArtifactTruth(acquired.entryPrefix),scope=releaseAcceptanceScope(request,resources.proof,resources.selection,grant);
+  const prior=projectEffectfulPublicInvocationTruthAtPrefix(acquired.entryPrefix,call.invocation.invocationRef);
+  if(prior.disposition!=="available")return refuse("duplicate_invocation","invocation must be fresh in valid native history");
+  if(truth.kind!=="exact_prefix_artifact_truth_projection"||truth.rows.some(r=>r.authorityScopeRef===scope.ref))return refuse("artifact_conflict","acceptance scope already has native truth or history is invalid");
+  const joined=projectReleaseAcceptance(request,resources.proof,resources.selection,resources.publication,resources.ruling,grant,acquired.entryPrefix,truth.rows);
+  if(joined===null)return refuse("acceptance_unavailable","exact admitted publication, installed-RC green verdict and original attributable owner ruling/source are required");
+  phase="qualified_artifact_verification";const published=resources.publication,basis=request.qualificationBasis;
+  const verified=await verifyProduct({artifactPath:join(published.effectGrant.snapshotRoot,published.effectGrant.artifact.snapshotName),artifactRef:basis.artifact.ref,
+   expectedArtifactDigest:basis.artifact.digest as Sha256Digest,expectedProductContentDigest:basis.productContentDigest as Sha256Digest,
+   expectedManifestDigest:basis.productManifest.digest as Sha256Digest,expectedProductId:basis.productId,expectedPackageName:published.effectGrant.artifact.packageName,expectedPackageVersion:basis.productVersion});
+  if(verified.kind!=="verified_product_artifact")return refuse("identity_mismatch","same-RC archived Product failed existing verification");
+  phase="acceptance_effect";const physical=await recordReleaseAcceptance(request,published,resources.ruling!,grant,joined.decision);observation=physical.observation;
+  if(observation.disposition==="refused")return refuse("publication_failure",observation.message);
+  const invocation=constructExactOperationInvocationCoordinate({operationId:"abg.operation.release.snapshot",memberKey:"tapped_release",definitionDigest:call.invocation.definitionDigest},call.invocation.invocationRef,call.invocation.requestDigest);
+  const value: TappedReleaseOperationArtifact = {kind:"release_operation_observation",schemaVersion:"5.0.0",memberKey:"tapped_release",scope,
+   invocation:{...invocation,operationId:"abg.operation.release.snapshot",memberKey:"tapped_release"},entryPrefix:acquired.entryPrefix,
+   admissionAuthority:approved as unknown as JsonValue,eventResource:resources.eventResource as unknown as JsonValue,grants:[...approved.grants] as unknown as JsonValue[],
+   publicInvocation:call.invocation as unknown as JsonValue,resourceDigest:releaseHash(resources),actorRef:slots.actor!.actor.ref,capabilityGrants:slots.capability_grants as unknown as JsonValue,
+   workspaceBinding:binding,productSet:slots.product_set as unknown as JsonValue,dependencyLock:slots.dependency_lock!,request,proof:resources.proof,selection:resources.selection,effectGrant:grant,
+   publication:published,ruling:resources.ruling,decision:joined.decision,addendum:physical.addendum,observation};
+  const committed=await commitReleaseArtifact(acquired,value,call.invocation.correlationRef,call.invocation.eventTime,environment.workspaceBinding.admissionEventRef,grant.artifactOutputRoot);
+  const ownerOutput:OwnerSemanticOutput<TappedPacket>=observation.disposition==="complete"&&joined.decision==="accept"&&physical.addendum!==null
+   ? {outcomeKind:"result",value:{kind:"release_snapshot_result",schemaVersion:"5.0.0",memberKey:"tapped_release",disposition:"complete",identity:request.requestedIdentity,
+      artifact:committed.artifact,observation,decision:"accept",publication:request.acceptedRc,acceptance:request.acceptance!,addendum:physical.addendum}}
+   : {outcomeKind:"refusal",value:releaseRefusal("tapped_release",joined.decision==="withhold"?"acceptance_withheld":"publication_failure",observation.message,observation,committed.artifact)};
+  return deepFreeze({ownerOutput,resources:{kind:"release_publication_receipt" as const,schemaVersion:"5.0.0" as const,...committed}});
+ }catch(error){if(acquired!==undefined){try{abandonAbgEventResource(acquired);}catch{/* Retain original failure. */}}
+  const fault=isDefinitionFault(error)?error:definitionFault(call.invocation.definitionKey,phase,"release_acceptance_failure",String(error));
+  throw {...fault,evidence:{phase,observation,...(isRecordEvidence(fault.evidence)?fault.evidence:{})}};}
+},catch:error=>error as DefinitionExecutionFault<TappedPacket["definitionKey"]>});
+const tapped_release:ExactDefinitionCallable<TappedPacket,AdmissionAuthorizedResources<ReleaseAcceptanceResources>,ReleasePublicationReceipt>=call=>
+ withAdmissionAuthority<TappedPacket,ReleaseAcceptanceResources,ReleasePublicationReceipt>(RELEASE_OPERATION_CONTRACTS.snapshot.tapped_release,
+  (authorized,_environment,resource)=>bindExactPrefixTransition(RELEASE_OPERATION_CONTRACTS.snapshot.tapped_release,
+   admitted=>tappedOwner(admitted,call.resources.admissionAuthority,resource),RELEASE_ACCEPTANCE_RESOURCE_SCHEMA,RELEASE_PUBLICATION_RECEIPT_SCHEMA)(authorized))(call);
 export const RELEASE_SNAPSHOT_DEFINITION_BINDINGS=Object.freeze({snapshot:Object.freeze({published_rc,tapped_release})});

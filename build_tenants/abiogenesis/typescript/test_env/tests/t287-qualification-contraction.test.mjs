@@ -43,7 +43,7 @@ test('green execution cannot replace independent coverage judgment; shared evide
  const opened=f.open(self.graphFunctionRef,input,'coverage'),o=owner(f,opened);
  const material={ref:f.result.resultRef,path:f.result.resultRef,digest:hash('native fixture material'),byteCount:1,contentBase64:'eA=='};
  const mod=await privateOwner('validator/self_conformance.js',[],{'../abg/qualification_proof.js':{
- resolveQualificationAssessments:()=>[],resolveQualificationExecutionEvidence:()=>[material]}});
+ resolveQualificationAssessments:()=>[],resolveQualificationExecutionMaterial:()=>({evidence:[material],verification:null})}});
  const result=mod.evaluateSelfConformance(input,o);
  assert.equal(result.disposition,'blocked_incomplete');
  const findings=result.findings.filter(x=>x.diagnostic==='behavioral_coverage_assessment_required');

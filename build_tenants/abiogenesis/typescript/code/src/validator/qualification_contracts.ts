@@ -275,10 +275,59 @@ export type NativeRuntimeAssessmentInput = v.InferOutput<typeof NATIVE_RUNTIME_A
 export type NativeRuntimeAssessment = v.InferOutput<typeof NATIVE_RUNTIME_ASSESSMENT_SCHEMA>;
 /** Mechanical projection of one complete native F11 result. Its underlying
  * judgments/evidence may be shared; this summary itself supplies no authority. */
+/** Subordinate QUAL-056 data. The recipe is a frozen subject member; selected
+ * native evidence and F11 judgment, never this structure, supply authority. */
+export const QUALIFICATION_VERIFICATION_RECIPE_SCHEMA = v.strictObject({
+  kind: v.literal("qualification_verification_recipe"), schemaVersion: v.literal("1"),
+  sourceInputs: v.pipe(v.array(v.strictObject({ memberRef: ref, relativePath: ref })), v.minLength(1)),
+  auxiliaryInputs: v.array(v.strictObject({ relativePath: ref, digest, byteCount: ordinal })),
+  commandConfigurationDigest: digest, predicateConfigurationDigest: digest, writeTerritoriesDigest: digest,
+  commands: v.pipe(v.array(v.strictObject({ commandId: ref, role: v.picklist(["setup", "build", "lint", "test", "compare"]) })), v.minLength(1)),
+  lint: v.strictObject({ commandId: ref, files: v.pipe(v.array(v.strictObject({ path: ref, kind: v.picklist(["mjs", "json"]) })), v.minLength(1)) }),
+  tests: v.pipe(v.array(v.strictObject({ commandId: ref, files: v.pipe(v.array(ref), v.minLength(1)) })), v.minLength(1)),
+  skipPolicy: v.literal("incomplete"), reportFormat: v.literal("node-test-events-jsonl@1"),
+});
+export const QUALIFICATION_VERIFICATION_SELECTION_SCHEMA = v.strictObject({
+  executionSelectionRef: ref, recipe: QUALIFICATION_MATERIAL_SCHEMA, recipePath: ref,
+});
+const verificationCommand = v.strictObject({
+  commandId: ref, role: v.picklist(["setup", "build", "lint", "test", "compare"]),
+  observation: QUALIFICATION_COORDINATE_SCHEMA, executable: ref, args: v.array(v.string()), relativeCwd: ref,
+  environment: jsonValueSchema, timeoutMs: ordinal, terminationGraceMs: ordinal,
+  exitStatus: v.pipe(v.number(), v.integer()), timedOut: v.boolean(), processSignal: v.nullable(ref),
+  signalSequence: v.array(ref), terminationConfirmed: v.boolean(),
+  stdout: v.strictObject({ digest, byteLength: ordinal }), stderr: v.strictObject({ digest, byteLength: ordinal }),
+  reports: jsonValueSchema,
+});
+const qualificationTestSummarySchema = v.strictObject({
+  commandId: ref, streamDigest: digest, format: v.literal("node-test-events-jsonl@1"),
+  disposition: v.picklist(["passed", "failed", "blocked_incomplete"]), diagnostics: v.array(ref),
+  tests: ordinal, passed: ordinal, failed: ordinal, cancelled: ordinal, skipped: ordinal, todo: ordinal, suites: ordinal,
+  files: v.array(ref), cases: v.array(jsonValueSchema), summaries: v.array(jsonValueSchema), complete: v.boolean(),
+});
+export type QualificationTestSummary = v.InferOutput<typeof qualificationTestSummarySchema>;
+export const QUALIFICATION_TEST_SUMMARY_SCHEMA: v.GenericSchema<QualificationTestSummary> = qualificationTestSummarySchema;
+const qualificationVerificationMaterialSchema = v.strictObject({
+  subjectBasis: QUALIFICATION_COORDINATE_SCHEMA, lawBasis: QUALIFICATION_COORDINATE_SCHEMA,
+  recipe: QUALIFICATION_COORDINATE_SCHEMA, executionSelectionRef: ref, execution: QUALIFICATION_COORDINATE_SCHEMA,
+  cCall: QUALIFICATION_COORDINATE_SCHEMA, observation: QUALIFICATION_COORDINATE_SCHEMA,
+  commandOutcomes: v.array(verificationCommand), lintOutcome: jsonValueSchema,
+  predicateOutcomes: v.array(v.strictObject({ declaration: jsonValueSchema, observation: jsonValueSchema,
+    disposition: v.picklist(["passed", "failed", "blocked_incomplete"]), diagnostics: v.array(ref) })),
+  testSummaries: v.array(QUALIFICATION_TEST_SUMMARY_SCHEMA),
+  disposition: v.picklist(["passed", "failed", "blocked_incomplete"]), diagnostics: v.array(ref),
+});
+export type QualificationVerificationRecipe = v.InferOutput<typeof QUALIFICATION_VERIFICATION_RECIPE_SCHEMA>;
+export type QualificationVerificationSelection = v.InferOutput<typeof QUALIFICATION_VERIFICATION_SELECTION_SCHEMA>;
+export type QualificationVerificationMaterial = v.InferOutput<typeof qualificationVerificationMaterialSchema>;
+// Preserve one inferred data contract while keeping enclosing published native
+// declarations finite; repeating the full parser tree exceeds TS instantiation.
+export const QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA: v.GenericSchema<QualificationVerificationMaterial> = qualificationVerificationMaterialSchema;
 export const QUALIFICATION_SELF_CONFORMANCE_SUMMARY_SCHEMA = v.strictObject({
   subjectBasis: QUALIFICATION_COORDINATE_SCHEMA, lawBasis: QUALIFICATION_COORDINATE_SCHEMA,
   assessment: QUALIFICATION_COORDINATE_SCHEMA,
   disposition: v.picklist(["green", "red", "blocked"]), bypassRefs: v.array(ref),
+  verification: v.optional(v.nullable(QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA)),
 });
 export const QUALIFICATION_VERDICT_INPUT_SCHEMA = v.strictObject({
   kind: v.literal("qualification_verdict_input"), schemaVersion: v.literal("5.0.0"),

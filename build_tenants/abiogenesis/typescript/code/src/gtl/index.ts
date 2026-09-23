@@ -11,6 +11,7 @@ export type { SemanticLifecycleDeclaration, SemanticStageDeclaration, SemanticAs
 export { constructNativeWorkspaceWorkModulePublication, NATIVE_WORKSPACE_WORK_IDS } from "./native_workspace_work.js";
 export {
   constructWorksiteCommandExecutionModulePublication,
+  WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY,
 } from "./worksite_command_execution.js";
 export {
   C,

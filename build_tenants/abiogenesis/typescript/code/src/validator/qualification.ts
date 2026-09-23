@@ -9,11 +9,17 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type { ProbabilisticWorkerRequest } from "../implementation/contracts.js";
+import { isObservedWorksiteCommandExecutionObservation, type ObservedWorksiteCommandExecutionObservation,
+  type WorksiteCommandResult } from "../product/worksite_command_execution.js";
+import { jsonValueSchema } from "../shared/public_function_contracts.js";
 import {
   QUALIFICATION_ASSESSMENT_INPUT_SCHEMA, QUALIFICATION_RAW_JUDGMENT_SCHEMA,
   QUALIFICATION_COVERAGE_CATALOG_SCHEMA, QUALIFICATION_VERDICT_INPUT_SCHEMA,
   QUALIFICATION_RULING_REQUEST_SCHEMA, QUALIFICATION_OWNER_RULING_SCHEMA, QUALIFICATION_ROLE_POLICY,
   QUALIFICATION_RULE_CATALOG_SCHEMA,
+  QUALIFICATION_VERIFICATION_RECIPE_SCHEMA, QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA,
+  type QualificationVerificationSelection, type QualificationVerificationMaterial, type QualificationTestSummary,
+  type QualificationSubjectInventory, type QualificationCoordinate,
   MALFORMED_GTL_ASSESSMENT_INPUT_SCHEMA, MALFORMED_GTL_ASSESSMENT_SCHEMA,
   NATIVE_RUNTIME_ASSESSMENT_INPUT_SCHEMA, NATIVE_RUNTIME_ASSESSMENT_SCHEMA, type NativeRuntimeAssessmentInput, type NativeRuntimeAssessment,
   type MalformedGtlAssessmentInput, type MalformedGtlAssessment,
@@ -26,6 +32,181 @@ import {
   type QualificationRulingRequest,
 } from "./qualification_contracts.js";
 const coordinate = (ref: string, digest: string) => ({ ref, digest });
+const count = v.pipe(v.number(), v.integer(), v.minValue(0));
+const text = v.pipe(v.string(), v.minLength(1));
+const testReportRow = v.variant("type", [
+  v.strictObject({ ordinal: count, type: v.literal("begin"), format: v.literal("node-test-events-jsonl@1"), nodeVersion: text }),
+  v.strictObject({ ordinal: count, type: v.literal("end") }),
+  v.strictObject({ ordinal: count, type: v.literal("case"), passed: v.boolean(), name: text,
+    file: v.nullable(text), nesting: count, testNumber: count, suite: v.boolean(),
+    skip: v.union([v.boolean(), v.string()]), todo: v.union([v.boolean(), v.string()]), error: v.nullable(jsonValueSchema) }),
+  v.strictObject({ ordinal: count, type: v.literal("summary"), file: v.nullable(text),
+    counts: v.object({ tests: count, passed: count, failed: count, cancelled: count, skipped: count, todo: count, suites: count, topLevel: count }),
+    success: v.boolean(), durationMs: v.pipe(v.number(), v.minValue(0)) }),
+]);
+const lintReport = v.strictObject({ kind: v.literal("qualification_syntax_lint"), schemaVersion: v.literal("1"),
+  passed: v.boolean(), files: v.array(v.strictObject({ path: text, kind: v.picklist(["mjs", "json"]),
+    disposition: v.picklist(["passed", "failed"]), diagnostic: v.nullable(text) })) });
+const successfulCommand = (c: WorksiteCommandResult) => c.exitStatus === 0 && !c.timedOut &&
+  c.processSignal === null && c.signalSequence.length === 0 && c.terminationConfirmed;
+function streamText(c: WorksiteCommandResult, name: "stdout" | "stderr"): string {
+  const stream = c[name], bytes = Buffer.from(stream.payload, "base64");
+  if (bytes.toString("base64") !== stream.payload || bytes.length !== stream.byteLength || sha256Bytes(bytes) !== stream.digest)
+    throw new TypeError("command stream bytes differ from their observation");
+  return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+}
+/** Parse only this frozen reporter protocol. Native admission remains at the
+ * proof owner. Incomplete framing never supplies a zero-failure pass. */
+export function parseQualificationTestReport(command: WorksiteCommandResult, files: readonly string[]): QualificationTestSummary {
+  const result: QualificationTestSummary = { commandId: command.commandId, streamDigest: command.stdout.digest,
+    format: "node-test-events-jsonl@1", disposition: "blocked_incomplete", diagnostics: [], tests: 0, passed: 0,
+    failed: 0, cancelled: 0, skipped: 0, todo: 0, suites: 0, files: [], cases: [], summaries: [], complete: false };
+  try {
+    const bytes = streamText(command, "stdout");
+    if (!bytes.endsWith("\n")) throw new TypeError("missing final newline");
+    const rows = bytes.slice(0, -1).split("\n").map(line => v.parse(testReportRow, JSON.parse(line)));
+    if (rows.length < 3 || rows[0]!.type !== "begin" || rows.at(-1)!.type !== "end" ||
+        rows.some((r, i) => r.ordinal !== i || (r.type === "begin" && i !== 0) || (r.type === "end" && i !== rows.length - 1)))
+      throw new TypeError("missing, duplicate or unordered reporter framing");
+    const summaries = rows.filter(r => r.type === "summary"), global = summaries.filter(r => r.file === null);
+    if (global.length !== 1 || rows.at(-2) !== global[0]) throw new TypeError("one final global summary is required");
+    const summary = global[0]!, perFile = summaries.filter(r => r.file !== null), cases = rows.filter(r => r.type === "case"), leaves = cases.filter(c => !c.suite);
+    Object.assign(result, summary.counts);
+    // topLevel is runner metadata, not part of the published count contract.
+    delete (result as unknown as Record<string, unknown>).topLevel;
+    result.cases = cases as unknown as JsonValue[]; result.summaries = summaries as unknown as JsonValue[];
+    result.files = [...new Set(cases.flatMap(c => c.file === null ? [] : [c.file]))].sort();
+    result.complete = true;
+    if (!unique(files) || !same(result.files, [...files].sort()) || !unique(perFile.map(s => s.file!)) ||
+        !same(perFile.map(s => s.file!).sort(), [...files].sort())) result.diagnostics.push("test_file_population_mismatch");
+    const skipped = leaves.filter(c => Boolean(c.skip)).length, todo = leaves.filter(c => !c.skip && Boolean(c.todo)).length;
+    const passed = leaves.filter(c => !c.skip && !c.todo && c.passed).length;
+    const unsuccessful = leaves.filter(c => !c.skip && !c.todo && !c.passed).length;
+    if (leaves.length !== result.tests || skipped !== result.skipped || todo !== result.todo || passed !== result.passed ||
+        unsuccessful !== result.failed + result.cancelled ||
+        result.suites !== cases.filter(c => c.suite).length ||
+        result.tests !== result.passed + result.failed + result.cancelled + result.skipped + result.todo ||
+        (["tests", "passed", "failed", "cancelled", "skipped", "todo", "suites"] as const).some(key =>
+          perFile.reduce((sum, s) => sum + s.counts[key], 0) !== result[key]))
+      result.diagnostics.push("test_event_summary_mismatch");
+    if (summary.success !== successfulCommand(command)) result.diagnostics.push("test_summary_process_mismatch");
+    if (summaries.some(s => !s.success) || result.failed > 0 || result.cancelled > 0 || !successfulCommand(command)) {
+      result.disposition = "failed"; result.diagnostics.push("test_execution_failed");
+    } else if (result.skipped > 0 || result.todo > 0 || result.tests === 0 || result.diagnostics.length > 0) {
+      result.diagnostics.push("test_selection_incomplete");
+    } else result.disposition = "passed";
+  } catch (error) { result.diagnostics.push("test_report_incomplete: " + String(error)); }
+  if (!successfulCommand(command)) { result.disposition = "failed"; if (!result.diagnostics.includes("test_execution_failed")) result.diagnostics.push("test_execution_failed"); }
+  return result;
+}
+/** Pure material construction from an already resolved producer. Callers cannot
+ * supply this output to F11; its native join reconstructs it from the Result. */
+export function constructQualificationVerificationMaterial(input: {
+  basis: ExactCandidateQualification<"basis">; inventory: QualificationSubjectInventory;
+  selection: QualificationVerificationSelection; execution: QualificationCoordinate; cCall: QualificationCoordinate;
+  observation: ObservedWorksiteCommandExecutionObservation;
+}): QualificationVerificationMaterial | null {
+  const { basis, inventory, selection, observation } = input;
+  try {
+    if (!isObservedWorksiteCommandExecutionObservation(observation)) return null;
+    const recipeBytes = Buffer.from(selection.recipe.contentBase64, "base64");
+    if (recipeBytes.toString("base64") !== selection.recipe.contentBase64 || recipeBytes.length !== selection.recipe.byteCount ||
+        sha256Bytes(recipeBytes) !== selection.recipe.digest || !same(basis.sourceInventory, coordinate(inventory.inventoryRef, inventory.inventoryDigest)) ||
+        !qualificationIdentity(inventory, "inventoryRef", "inventoryDigest", "qualification-inventory://abiogenesis/") ||
+        inventory.members.filter(m => m.ref === selection.recipe.ref && m.path === selection.recipe.path &&
+          m.digest === selection.recipe.digest && m.byteCount === selection.recipe.byteCount).length !== 1) return null;
+    const recipe = v.parse(QUALIFICATION_VERIFICATION_RECIPE_SCHEMA, JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(recipeBytes)));
+    const task = observation.task, diagnostics: string[] = [];
+    const selectedSources = recipe.sourceInputs.map(s => {
+      const members = inventory.members.filter(m => m.ref === s.memberRef);
+      if (members.length !== 1) throw new TypeError("recipe source is absent or ambiguous in qualification inventory");
+      return { relativePath: s.relativePath, digest: members[0]!.digest, byteCount: members[0]!.byteCount };
+    });
+    const protectedInputs = [...selectedSources, ...recipe.auxiliaryInputs,
+      { relativePath: selection.recipePath, digest: selection.recipe.digest, byteCount: selection.recipe.byteCount }];
+    if (!unique(protectedInputs.map(s => s.relativePath)) || !unique(recipe.sourceInputs.map(s => s.memberRef)) ||
+        !same(protectedInputs.slice().sort((a, b) => a.relativePath.localeCompare(b.relativePath)),
+          task.protectedObservations.map(p => ({ relativePath: p.subject.relativePath,
+            digest: p.observation.state === "file" ? p.observation.fileDigest : null,
+            byteCount: p.observation.state === "file" ? p.observation.byteLength : null })).sort((a, b) => a.relativePath.localeCompare(b.relativePath))))
+      diagnostics.push("verification_source_inventory_mismatch");
+    if (hash(task.commands) !== recipe.commandConfigurationDigest || hash(task.outcomePredicates) !== recipe.predicateConfigurationDigest ||
+        hash(task.allowedWriteTerritories) !== recipe.writeTerritoriesDigest ||
+        !same(recipe.commands.map(c => c.commandId), task.commands.map(c => c.commandId)) ||
+        !unique(recipe.commands.map(c => c.commandId)) || ["build", "lint", "test", "compare"].some(role => !recipe.commands.some(c => c.role === role)) ||
+        recipe.commands.filter(c => c.role === "lint").length !== 1 ||
+        !recipe.commands.some(c => c.commandId === recipe.lint.commandId && c.role === "lint") ||
+        !same(recipe.commands.filter(c => c.role === "test").map(c => c.commandId), recipe.tests.map(c => c.commandId)))
+      diagnostics.push("verification_recipe_configuration_mismatch");
+    if (observation.productDelta.length > 0) diagnostics.push("verification_product_changed");
+    const commandOutcomes = observation.commandResults.map(c => ({ commandId: c.commandId,
+      role: recipe.commands.find(r => r.commandId === c.commandId)?.role ?? "setup" as const,
+      observation: coordinate(c.observationRef, c.observationDigest), executable: c.executable, args: [...c.args],
+      relativeCwd: c.relativeCwd, environment: c.environment as unknown as JsonValue, timeoutMs: c.timeoutMs,
+      terminationGraceMs: c.terminationGraceMs, exitStatus: c.exitStatus, timedOut: c.timedOut, processSignal: c.processSignal,
+      signalSequence: [...c.signalSequence], terminationConfirmed: c.terminationConfirmed,
+      stdout: { digest: c.stdout.digest, byteLength: c.stdout.byteLength }, stderr: { digest: c.stderr.digest, byteLength: c.stderr.byteLength },
+      reports: c.reports as unknown as JsonValue }));
+    if (observation.commandResults.some(c => !successfulCommand(c))) diagnostics.push("verification_command_failed");
+    // C2 admits observations, not successful comparisons. Conserve its exact
+    // selected bodies; these finite comparisons add no observation authority.
+    const predicateOutcomes = task.outcomePredicates.map((declaration, ordinal) => {
+      const observed = observation.predicateObservations[ordinal]!, value = observed.observedValue;
+      const expected = declaration.declaration as Readonly<Record<string, JsonValue>>;
+      let matched: boolean | null = null;
+      switch (declaration.predicateKind) {
+        case "stdout_exact":
+          if (typeof value === "string") matched = same(value, expected.equals);
+          break;
+        case "process_exit": case "file_count": case "test_report_failure_count": case "test_report_error_count":
+          if (typeof value === "number" && Number.isSafeInteger(value)) matched = same(value, expected.equals);
+          break;
+        case "test_pass_count":
+          if (typeof value === "number" && Number.isSafeInteger(value) && value >= 0)
+            matched = value >= (expected.greaterThanOrEqual as number);
+          break;
+        case "module_set_exact": case "test_report_set_exact":
+          if (Array.isArray(value) && value.every(v => typeof v === "string"))
+            matched = same([...new Set(value)].sort(), [...new Set(expected.equals as string[])].sort());
+          break;
+        case "module_export_return_exact":
+          // The existing helper also records null when import/call fails, so
+          // null cannot establish even an expected-null successful return.
+          if (value !== null) matched = same(value, expected.equals);
+          break;
+        // HTTP observations have their own probe/process structure. Retain
+        // them for independent judgment; this material owner does not reduce it.
+      }
+      return { declaration: declaration as unknown as JsonValue, observation: observed as unknown as JsonValue,
+        disposition: matched === null ? "blocked_incomplete" as const : matched ? "passed" as const : "failed" as const,
+        diagnostics: matched === null ? ["verification_predicate_comparison_incomplete"] : matched ? [] : ["verification_predicate_mismatch"] };
+    });
+    const testSummaries = recipe.tests.map(t => {
+      const command = observation.commandResults.find(c => c.commandId === t.commandId);
+      if (command === undefined) throw new TypeError("selected test command is missing");
+      return parseQualificationTestReport(command, t.files);
+    });
+    let lintOutcome: JsonValue | null = null;
+    try {
+      const command = observation.commandResults.find(c => c.commandId === recipe.lint.commandId);
+      if (command === undefined) throw new TypeError("selected lint command is missing");
+      const lint = v.parse(lintReport, JSON.parse(streamText(command, "stdout")));
+      lintOutcome = lint;
+      if (!same(lint.files.map(({ path, kind }) => ({ path, kind })), recipe.lint.files) || !unique(recipe.lint.files.map(f => f.path)) ||
+          lint.passed !== lint.files.every(f => f.disposition === "passed" && f.diagnostic === null) || lint.passed !== successfulCommand(command))
+        diagnostics.push("verification_lint_policy_mismatch");
+      if (!lint.passed) diagnostics.push("verification_lint_failed");
+    } catch { diagnostics.push("verification_lint_report_missing_or_malformed"); }
+    const disposition = diagnostics.some(d => d !== "verification_lint_report_missing_or_malformed") || testSummaries.some(t => t.disposition === "failed") ||
+        predicateOutcomes.some(p => p.disposition === "failed") ? "failed"
+      : diagnostics.length > 0 || testSummaries.some(t => t.disposition !== "passed") ||
+        predicateOutcomes.some(p => p.disposition !== "passed") ? "blocked_incomplete" : "passed";
+    return v.parse(QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA, { subjectBasis: coordinate(basis.basisRef, basis.basisDigest), lawBasis: basis.lawBasis,
+      recipe: coordinate(selection.recipe.ref, selection.recipe.digest), executionSelectionRef: selection.executionSelectionRef,
+      execution: input.execution, cCall: input.cCall, observation: coordinate(observation.observationRef, observation.observationDigest),
+      commandOutcomes, predicateOutcomes, lintOutcome, testSummaries, disposition, diagnostics });
+  } catch { return null; }
+}
 export function isMalformedGtlAssessmentInput(value: unknown): value is MalformedGtlAssessmentInput {
   return v.is(MALFORMED_GTL_ASSESSMENT_INPUT_SCHEMA, value) &&
     qualificationIdentity(value.basis, "basisRef", "basisDigest", "qualification-basis://abiogenesis/") &&
@@ -264,14 +445,18 @@ export function isQualificationVerdictInput(value: unknown): value is Qualificat
   return qualificationIdentity(basis, "basisRef", "basisDigest", "qualification-basis://abiogenesis/") &&
     same(basis.coverageCatalog, coordinate(coverage.catalogRef, coverage.catalogDigest)) &&
     same(basis.lawBasis, coverage.lawBasis) && same(selfConformance.subjectBasis, coordinate(basis.basisRef, basis.basisDigest)) &&
-    same(selfConformance.lawBasis, basis.lawBasis) && unique(selfConformance.bypassRefs);
+    same(selfConformance.lawBasis, basis.lawBasis) && unique(selfConformance.bypassRefs) &&
+    (selfConformance.verification == null || same(selfConformance.verification.subjectBasis, coordinate(basis.basisRef, basis.basisDigest)) &&
+      same(selfConformance.verification.lawBasis, basis.lawBasis));
 }
 /** AF22 alone computes qualification from its authenticated whole F11 result.
  * A computable assessment's green value never supplies semantic coverage. */
 export function reduceExactCandidateQualification(input: QualificationVerdictInput, nativeBasis: QualificationNativeBasis): Readonly<ExactCandidateQualification<"verdict">> {
   if (!isQualificationVerdictInput(input)) throw new TypeError("qualification verdict requires exact complete self-conformance evidence");
   const { basis, coverage, selfConformance } = input;
-  const disposition = selfConformance.disposition === "red" ? "red" : !isQualificationBasisReady(basis) || selfConformance.bypassRefs.length > 0 ? "blocked" : selfConformance.disposition;
+  const disposition = selfConformance.disposition === "red" || selfConformance.verification?.disposition === "failed" ? "red"
+    : !isQualificationBasisReady(basis) || selfConformance.bypassRefs.length > 0 || selfConformance.verification?.disposition !== "passed"
+      ? "blocked" : selfConformance.disposition;
   return constructQualificationIdentity({ kind: "exact_candidate_qualification" as const, projection: "verdict" as const,
     schemaVersion: "5.0.0" as const, subjectKind: basis.subjectKind,
     subjectBasis: coordinate(basis.basisRef, basis.basisDigest), lawBasis: basis.lawBasis,

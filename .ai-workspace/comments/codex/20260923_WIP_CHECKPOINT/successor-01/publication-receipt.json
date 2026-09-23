@@ -1,0 +1,14 @@
+{
+  "kind": "incremental_wip_checkpoint_publication",
+  "repository": "abiogenesis",
+  "previousActualRemoteMain": "ad2a39f405627b980dcd7e2adf5a8b74cdc37e83",
+  "finalSourceCommit": "The commit containing this receipt.",
+  "actualFinalRemoteVerification": "Performed after the ordinary push and returned in the Executive handoff; no self-referential commit id is invented.",
+  "transportBytes": 123188825,
+  "newLogicalArchiveMembers": 1518,
+  "priorBankedTransportReuploaded": false,
+  "restoration": "All new complete members and new log suffix were actually restored and compared with captured originals. Prior prefix/archive proof is inherited; full current log digest is the accepted Public owner coordinate.",
+  "sourceScope": "All closed completed source/docs/proofs; consumer56f9d4c5 accepted under79455fdb; ABG accepted repairs and exact882199e7 installed read; S02 carrier02 and closure review; F11 adopted proposal, current source unchanged/unqualified.",
+  "preservedFailures": "Earlier native failures and first mini archive/refusal remain exact; no outcome relabeling.",
+  "gitEffects": "Ordinary main commit/push only. No force, amend, reset, tag/default/selector changes."
+}

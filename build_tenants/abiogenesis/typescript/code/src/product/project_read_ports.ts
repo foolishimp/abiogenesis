@@ -1,7 +1,7 @@
 import { projectExactPrefixArtifactTruth } from "../abg/artifact_truth.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import { sameJson } from "../shared/definition_binding_mechanics.js";
-import { readReleaseArtifactBytes,projectReleaseQualification } from "../implementation/release_publication.js";
+import { readReleaseArtifactBytes,projectReleaseQualification,projectReleaseAcceptance } from "../implementation/release_publication.js";
 import { releaseArtifactCoordinate } from "./release_snapshot_operations.js";
 import { isRecord, hasObjectUnicodeNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import type {
@@ -785,15 +785,19 @@ export function projectReleaseEvidence(packet:ReleaseEvidenceProjectReadPacket):
     }
     const truth=projectExactPrefixArtifactTruth(packet.prefix),artifact=readReleaseArtifactBytes(packet.artifactPath,packet.artifact);
     if(truth.kind!=="exact_prefix_artifact_truth_projection"||artifact===null)return refusal("release_evidence","not_ready","release observation bytes or native prefix are unavailable",packet);
-    const rows=truth.rows.filter(row=>row.operationId==="abg.operation.release.snapshot"&&row.memberKey==="published_rc"&&row.artifactRef===packet.artifact.ref&&row.artifactDigest===packet.artifact.digest);
+    const rows=truth.rows.filter(row=>row.operationId==="abg.operation.release.snapshot"&&row.memberKey===artifact.memberKey&&row.artifactRef===packet.artifact.ref&&row.artifactDigest===packet.artifact.digest);
     const row=rows[0];
     if(rows.length!==1||row===undefined||!sameJson(row.artifact,artifact)||packet.sourceRef!==artifact.scope.ref||packet.sourceDigest!==artifact.scope.digest||
-       projectReleaseQualification(artifact.request,artifact.proof,artifact.selection,packet.prefix)===null)
+       (artifact.memberKey==="published_rc"?projectReleaseQualification(artifact.request,artifact.proof,artifact.selection,packet.prefix):
+        projectReleaseAcceptance(artifact.request,artifact.proof,artifact.selection,artifact.publication,artifact.ruling,artifact.effectGrant,packet.prefix,truth.rows.slice(0,truth.rows.indexOf(row))))===null)
       return refusal("release_evidence","source_digest_mismatch","release source lacks its exact native owner/qualification relation",packet);
+    const superseded=artifact.memberKey==="tapped_release"&&truth.rows.slice(truth.rows.indexOf(row)+1).some(r=>r.operationId==="abg.operation.release.snapshot"&&r.memberKey==="tapped_release"&&
+      isRecord(r.artifact)&&isRecord(r.artifact.request)&&sameJson(r.artifact.request.acceptedRc,artifact.request.acceptedRc));
     return projected(packet,{
-      kind:"release_evidence_projection",disposition:artifact.observation.disposition==="complete"?"published_unqualified":"incomplete_effect",
+      kind:"release_evidence_projection",disposition:artifact.observation.disposition!=="complete"?"incomplete_effect":artifact.memberKey==="published_rc"?"published_unqualified":superseded?"superseded":artifact.decision==="accept"?"accepted":"qualified_unaccepted",
       releaseCut:artifact.scope,observationArtifact:releaseArtifactCoordinate(artifact),snapshotManifest:artifact.observation.snapshotManifest,
-      artifacts:[artifact.request.qualificationBasis.artifact],qualification:artifact.request.verdict,acceptance:"incomplete",
+      artifacts:[artifact.request.qualificationBasis.artifact],qualification:artifact.request.verdict,acceptance:artifact.memberKey==="published_rc"?"incomplete":artifact.decision==="accept"&&artifact.observation.disposition==="complete"&&!superseded?"accepted":artifact.decision==="withhold"?"withheld":"incomplete",
+      ...(artifact.memberKey==="tapped_release"?{ownerRuling:artifact.request.acceptance,addendum:artifact.addendum,originalRuling:artifact.ruling,sourceApproval:artifact.effectGrant.sourceApproval}:{}),
       provenance:[{ref:row.admissionEventRef,digest:row.admissionEventDigest}],
     } as JsonValue);
   } catch { return refusal("release_evidence","not_ready","release native proof could not be reconstructed",packet); }

@@ -1,0 +1,4 @@
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/transport-selection.diff:5: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/transport-selection.diff:6: trailing whitespace.
++ 

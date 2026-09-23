@@ -880,7 +880,12 @@ export function prepareRunReadAtDurablePrefix(
           ...(declarationProof === undefined ? {} : { declarationProof }),
         });
         if ("code" in packet) return packet;
-        const selected = { ...prepared, packet };
+        // Late declaration-proof admission must not discard the exact prefix
+        // already retained by this read owner. The packet above is built only
+        // from that prepared prefix; raw proof admission remains mandatory.
+        const selected = { ...prepared,
+          packet: deepFreeze({ ...packet, prefix: prepared.packet.prefix }),
+        };
         return projectPreparedRead(selected, () => {
           switch (memberKey) {
             case "run_status": return projectRunStatus(selected, targetRef, run);

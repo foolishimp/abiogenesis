@@ -2,7 +2,8 @@ import * as v from "valibot";
 import { EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, QUALIFICATION_LAW_BASIS_SCHEMA, QUALIFICATION_INVENTORY_SCHEMA,
   TENANT_CONFORMANCE_MANIFEST_SCHEMA, QUALIFICATION_SOURCE_SCHEMA, QUALIFICATION_EVIDENCE_CITATION_SCHEMA,
   QUALIFICATION_COORDINATE_SCHEMA, QUALIFICATION_ASSESSMENT_PLAN_SCHEMA, QUALIFICATION_PROOF_RESOURCE_SCHEMA,
-  QUALIFICATION_COVERAGE_CATALOG_SCHEMA, QUALIFICATION_MATERIAL_SCHEMA, QUALIFICATION_NATIVE_BASIS_SCHEMA, qualificationIdentityDigest } from "./qualification_contracts.js";
+  QUALIFICATION_COVERAGE_CATALOG_SCHEMA, QUALIFICATION_MATERIAL_SCHEMA, QUALIFICATION_NATIVE_BASIS_SCHEMA,
+  QUALIFICATION_VERIFICATION_SELECTION_SCHEMA, QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA, qualificationIdentityDigest } from "./qualification_contracts.js";
 export * from "./qualification_contracts.js";
 const ref = v.pipe(v.string(), v.minLength(1));
 const digest = v.pipe(v.string(), v.regex(/^sha256:[a-f0-9]{64}$/));
@@ -18,7 +19,8 @@ export const SELF_CONFORMANCE_INPUT_SCHEMA = v.strictObject({
     evaluationEvidenceRefs: v.array(ref), rulingEvidenceRefs: v.array(ref) })),
   evidenceCitations: v.array(QUALIFICATION_EVIDENCE_CITATION_SCHEMA),
   qualification: v.optional(v.strictObject({ plan: QUALIFICATION_ASSESSMENT_PLAN_SCHEMA, proof: QUALIFICATION_PROOF_RESOURCE_SCHEMA,
-    sourceMembers: v.array(QUALIFICATION_MATERIAL_SCHEMA), coverageCatalog: QUALIFICATION_COVERAGE_CATALOG_SCHEMA })),
+    sourceMembers: v.array(QUALIFICATION_MATERIAL_SCHEMA), coverageCatalog: QUALIFICATION_COVERAGE_CATALOG_SCHEMA,
+    verification: v.optional(QUALIFICATION_VERIFICATION_SELECTION_SCHEMA) })),
 });
 /** @internal Runtime parser mechanics; serialized schemas and native data types are the published contract. */
 export const QUALIFICATION_OWNER_BASIS_SCHEMA = QUALIFICATION_NATIVE_BASIS_SCHEMA;
@@ -45,6 +47,7 @@ export const SELF_CONFORMANCE_RESULT_SCHEMA = v.strictObject({
   evidenceCitations: SELF_CONFORMANCE_INPUT_SCHEMA.entries.evidenceCitations,
   findings: v.array(SELF_CONFORMANCE_FINDING_SCHEMA), disposition: v.picklist(["passed", "failed", "blocked_incomplete"]),
   qualificationVerdict: v.literal(false),
+  verification: v.optional(v.nullable(QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA)),
 });
 
 // Keep data inference portable without exposing the internal parser exports.

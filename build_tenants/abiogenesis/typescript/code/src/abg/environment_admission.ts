@@ -821,7 +821,8 @@ export function admitArtifact(
   const invalidBasis = validatePublicOperationBasis(
     basis,
     expectedOperation,
-    expectedOperation === "abg.operation.release.snapshot" ? "published_rc" : artifactMemberKey(expectedOperation),
+    expectedOperation === "abg.operation.release.snapshot" && basis.memberKey === "tapped_release" ? "tapped_release" :
+      expectedOperation === "abg.operation.release.snapshot" ? "published_rc" : artifactMemberKey(expectedOperation),
   );
   if (invalidBasis !== null) {
     return {

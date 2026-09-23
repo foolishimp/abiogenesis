@@ -1,0 +1,30 @@
+{
+  "kind": "incremental_checkpoint_composition",
+  "baseCommit": "ad2a39f405627b980dcd7e2adf5a8b74cdc37e83",
+  "baseCheckpoint": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT",
+  "inheritedArchiveMembers": 108479,
+  "inheritedProof": "Prior publication/archive/member/restoration receipts reused without rehashing or reuploading old payloads.",
+  "transports": [
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/transport-01",
+      "catalogSha256": "bced515c39a3d3b84334b50b7ced499bdabf1b1ad256576c636f698af5f10e46",
+      "verificationSha256": "0535c99167b8d5c9263e45a969eb2393c4aa9201f171e1e792c3de5f53fda0f9",
+      "memberCount": 1504,
+      "memberBytes": 524710077,
+      "transportBytes": 122947104,
+      "parts": 29
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/transport-late",
+      "catalogSha256": "8b4158870f153df4166fb7bd8f56400bd091448e71c610e4fe9a68c8f01aba25",
+      "verificationSha256": "8237b3de69a3f5725c636fe32cf1c2110bc77526a20fa2d2c8b3b3a74e4136bf",
+      "memberCount": 14,
+      "memberBytes": 1249459,
+      "transportBytes": 241721,
+      "parts": 1
+    }
+  ],
+  "appendRecord": null,
+  "wholeAppendRecompositionDuringPreparation": null,
+  "currentClaims": "WIP only; source/component and installed scoped acceptances remain bounded. F11 HOW direction adopted, implementation selected but held until this verified checkpoint; current F11 unchanged/unqualified. RC recipe successor02 partial, first mini refusal and both mini archives preserved."
+}

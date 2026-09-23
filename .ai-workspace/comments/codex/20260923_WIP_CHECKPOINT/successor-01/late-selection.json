@@ -1,0 +1,28 @@
+{
+  "selected": [
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01-executive-adoption.json",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/activation.json",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/freeze.json",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/measure.mjs",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/measured-members.json",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/measurement.json",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/partial-preparation-inventory.json",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/preparation-diagnostic.json",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/proposal.md",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/return.md",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/self-check.json",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/ticket-delta.patch",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/f11-scope-readiness-01/ticket-preimage.md",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-carrier-02/review.md"
+  ],
+  "newDirect": [
+    "build_tenants/abiogenesis/typescript/code/src/product/release_acceptance.ts",
+    "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+    "build_tenants/abiogenesis/typescript/scripts/lint-verification.mjs",
+    "build_tenants/abiogenesis/typescript/scripts/node-test-evidence-reporter.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-core-environment.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs"
+  ],
+  "scope": "Closed review and qualification write boundaries; frozen predecessor transports reused."
+}

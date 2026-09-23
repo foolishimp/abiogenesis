@@ -15,36 +15,34 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. Accepted runtime repairs and installed mechanical evidence are retained. LIVE08 and DESIGN10 remain closed failed. [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-graph-context-re-entry) now separates small HoG functional proofs from the overlay/GraphFunction context reframe. DESIGN13 is a CLOSED unadopted proposal. Further retries of the failed cumulative-response protocol and larger response-schema work are held. The generic native-work boundary now has two accepted installed live completions on the same frozen core, including an independently assessed odd_glc Intent transition; the bounded source increment is applied. Full lifecycle and release acceptance remain open. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. Installed cursor correction accepted through independent assessment; five selected and four outside semantic residuals remain. QUAL-056 and F16 source/component increments are accepted. Generic correction and C2 environment source/component are accepted; the installed Public child-read OOM boundary is closed. Historical consumer ingress correction is selected for affected review; installed correction and qualification remain open. Full lifecycle, exact prospective-RC qualification and human release acceptance remain open. |
 
 ## Current Selection
 
-The composed cursor-provenance and failure-diagnostic fixes are accepted at the
-source and bounded component boundary after [independent review](../.ai-workspace/comments/codex/20260923_RETAINED_TRANSITION_REUSE/cursor-diagnostic-review-01.md).
-The [Executive disposition](../.ai-workspace/comments/codex/20260923_RETAINED_TRANSITION_REUSE/cursor-diagnostic-executive-disposition.json)
-binds exact subject `95880556…`, content `5edadeed…` and manifest `ab20cf39…`.
-Previously accepted repairs remain preserved. The old installed archive and
-[execution05 failure](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-05/return.md)
-remain historical; no installed cure, assessment success or missing diagnostic
-body is backfilled.
+Root accepts the closed [execution07 installed discriminator](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-07/return.md)
+(return `c483c869…`, freeze `d90c00e2…`) under the [recorded Executive disposition](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-07-executive-disposition.json).
+Exact archive `5b4dcf54…` / content `5edadeed…` crossed the repaired cursor
+boundary into actual independent assessment. The unchanged consumer correctly
+blocked on five selected assessment residuals; four outside residuals, original
+S1–S5 obligations and oracle remain. Fresh Public truth agrees. This closes the
+installed cursor-bug discriminator, not application completion or RC qualification.
+Diagnostic conservation retains its separate accepted component evidence; this
+Run did not trigger that diagnostic path. Earlier failures keep their identities.
 
-Current work is the complete WIP checkpoint and remote publication of approved
-ABIogenesis and odd_glc authored work and lossless retained proof. After both
-remote heads are verified, the next discriminator is one exact installed generic
-continuation with truthful fresh Public Result/replay readback. Continue toward
-ABIogenesis 5.0 RC1 under the unchanged fifteen-family Product, applicable D5
-qualification and reserved human release acceptance. Preserve the original
-application, author changes, completed C2 evidence and unresolved semantic scope.
-[T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
-owns this sequence, including consequential correction, current-subject QUAL-056
-material through F11/AF25, implementation of the still-unimplemented release
-acceptance operation, exact prospective-RC qualification/publication and the
-separate reserved human acceptance.
+[QUAL-056 repair-01](../.ai-workspace/comments/codex/20260923_QUAL056_MATERIAL/repair-01/return.md)
+is independently accepted at source/component scope: subject `83860f04…`, content
+`9e3e619d…`, manifest `90e40a1c…`, review `bfcbc1b8…` ([acceptance](../.ai-workspace/comments/codex/20260923_QUAL056_MATERIAL/repair-01-executive-acceptance.md)).
+Final installed material/qualification remain open. [F16 source/component acceptance](../.ai-workspace/comments/codex/20260923_F16_ACCEPTANCE/executive-disposition.md)
+records subject `cd38bdbc…` and review `aeee23a6…`; actual external same-RC human
+ruling and existing release admission retain separate owners and remain pending.
 
-The [lengthy predecessor selection](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/tracking-preimages/GOALS-current-selection-historical.md)
-is retained as historical checkpoint evidence. Earlier records below retain their
-bounded evidence and residuals; their older next-action wording does not override
-this current selection.
+[Generic consequential-correction source](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/consequence-implementation-01/return.md)
+(return `77ba7b7f…`, subject `1a0c8893…`, review `73a33590…`) is accepted at
+source/component scope. The original job, five selected/four outside residuals
+and S1–S5 oracle remain unchanged; D2/S03/S06 live correction remains open.
+[C2 root environment](../.ai-workspace/comments/codex/20260923_C2_ENVIRONMENT_REPAIR/return.md) is independently accepted at source/component scope (`e689b315…`, review `24b18847…`); its installed positive remains separately selected. [Public child-read owner reuse](../.ai-workspace/comments/codex/20260923_PUBLIC_CHILD_READ_REUSE/return.md) is accepted under review `10fc1a49…`. The [installed discriminator](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/correction-acquisition-03/return.md) (`340d0925…`, freeze `0fe2a629…`) succeeds on archive `882199e7…`: actual original child Result `c514b407…`, 135324.545ms, default heap, 5672747008B peak RSS, unchanged 600000ms limit. This closes the reproduced duplicate-reconstruction/OOM boundary; cold 1.15GB read cost remains observed, without global memory/latency qualification.
+
+The supported recovery receipt `8947585e…` owns closure of the preserved abandoned lock `30a316e8…`. Original 1150170187B history and genuine close remain exact; the final lock is absent. Prior failures retain their evidence. The genuine historical dev.3 child is banked; the [selected consumer successor](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/historical-assessment-01/activation.json) preserves original task/schema/provenance separately from current dev.4 declaration authority. Its affected source review precedes consumer package/new Run. No more original reads are needed. The [Executive disposition and preimages](../.ai-workspace/comments/codex/20260923_PUBLIC_CHILD_READ_REUSE/installed-disposition-01/executive-disposition.md) record this tracking without new qualification credit. Fifteen-family Product and exact prospective-RC obligations remain unchanged.
 
 ### Historical delivery and repair dispositions
 

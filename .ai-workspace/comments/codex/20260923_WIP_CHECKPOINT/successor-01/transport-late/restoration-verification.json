@@ -1,0 +1,11 @@
+{
+  "kind": "checkpoint_restoration_verification",
+  "allPartHashesVerified": true,
+  "allReconstructedAssetHashesVerified": true,
+  "allMemberPathsAndHashesVerified": true,
+  "memberCount": 14,
+  "transportBytes": 241721,
+  "originalsComparedAfterPacking": true,
+  "restoredToDirectory": "/private/tmp/20260923-checkpoint-abiogenesis-transport-late-29044",
+  "verification": "Complete bounded-memory reconstruction/readback through the restoration path; no source/runtime execution."
+}

@@ -215,7 +215,7 @@ export async function validateAdmissionCapabilityBasis(
   const scope = admissionAuthorityScope(data);
   const packet = basis.fixedPacket;
   const admissionOperation = ADMISSION_OPERATIONS.has(packet.definitionKey.operationId) ||
-    (packet.definitionKey.operationId === "abg.operation.release.snapshot" && packet.definitionKey.memberKey === "published_rc") ||
+    (packet.definitionKey.operationId === "abg.operation.release.snapshot" && (packet.definitionKey.memberKey === "published_rc" || packet.definitionKey.memberKey === "tapped_release")) ||
     (packet.definitionKey.operationId === "abg.operation.witness.admit" &&
       packet.definitionKey.memberKey === "reprice");
   if (!admissionOperation ||

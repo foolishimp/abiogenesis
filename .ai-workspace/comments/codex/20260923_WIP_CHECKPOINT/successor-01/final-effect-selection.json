@@ -1,0 +1,17 @@
+{
+  "executive": "/root",
+  "authority": "User-authorized all completed ABG+GLC checkpoint; Root final ordinary commit/push grant after consumer review closed and qualification writes stopped.",
+  "consumerReview": "79455fdb469751779907564bbf1e835c0b6c8274a26987d59caa10233d6c9b3c",
+  "qualificationWriteBoundary": "S02carrier02 frozen9cd1aae3; F11proposal frozene06d655e; T287 postimagea2856e20; no core change",
+  "allowed": [
+    "finish incremental preservation",
+    "stage all closed selected work",
+    "ordinary main commit and nonforce push",
+    "verify actual remote refs"
+  ],
+  "stops": [
+    "no native/provider/Product build or source mutation",
+    "no force/amend/reset/tag/default/selector changes"
+  ],
+  "S02ReviewPost": "Include if closed before final seal; otherwise one later review post may remain separately pending without blocking source checkpoint."
+}

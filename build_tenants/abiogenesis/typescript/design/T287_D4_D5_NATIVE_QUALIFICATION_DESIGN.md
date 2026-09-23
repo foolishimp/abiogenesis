@@ -136,6 +136,66 @@ bypass can authorize existing AF25. No per-row vector or second reducer remains.
 The current source increment does not manufacture J, current execution
 coverage, a release-ready subject, QUAL056 recipe completion or human acceptance.
 
+### QUAL-056 verification material
+
+This bounded `design_reframe` uses the existing observed-source root C2 and
+`qualification_proof.ts` execution join. One selected native producer is
+resolved once for assessment evidence and nested verification material. Exact
+C2 implementation, F_P regime, input/task, contract, Result, advancing judgment,
+Program/invocation/locus, installed subject and WorkspaceBinding remain native
+proof obligations. No additional producer, per-behavior run, reducer or Public
+operation is introduced; C2/helper dispatch and generic JUnit semantics remain
+unchanged.
+
+`qualification.verification` selects that execution and a retained recipe which
+must itself match one exact frozen qualification-inventory member and one
+protected C2 input. Recipe source mappings match the same inventory's exact
+bytes; auxiliary dependency/recipe inputs have frozen digests. All protected
+inputs and command/predicate/write configurations must equal the recipe.
+Build, lint, test and generated-comparison commands are explicit roles in that
+finite configuration. The recipe cannot contain its own digest or the digest
+of its enclosing inventory: those coordinates belong to the enclosing selection
+and basis, preserving acyclic construction.
+
+The lint policy is bounded syntax/data validity over an explicit nonempty list
+of authored MJS/JSON files. Installed Node `--check` and `JSON.parse` report each
+actual file outcome without running tests or relabelling TypeScript compilation.
+The recipe's source/application judgment owns population sufficiency. It must
+bind the exact source, dependency/toolchain, lint and test selections, expected
+generated output inventory and comparison procedure before native execution.
+No style cleanup, complete-suite count oracle or all-tests-per-feature rule is
+created.
+
+The selected Node runner uses the frozen `node-test-evidence-reporter.mjs`.
+It serializes case/error/summary events and complete stream framing into the
+C2-captured stdout. The qualification owner strictly parses that JSONL protocol,
+requires one final global summary, conservation of observed cases/counts and
+selected files, and agreement with actual exit, signal, timeout and confirmed
+termination. Missing/truncated/malformed streams cannot produce zero-failure
+credit. Failure, cancellation and runner crashes remain failed; skip, todo,
+empty or otherwise incomplete required selection remains incomplete. Original
+C2 stdout/stderr bodies stay in native evidence; the material carries their
+coordinates, actual command outcomes, lint body and parsed summary/cases.
+It also retains each exact selected C2 predicate declaration and observation,
+including evidence bodies/coordinates, with its subordinate comparison outcome.
+C2 observation admission is unchanged. Existing canonical equality compares
+stdout, integer exit/count and non-null module-return values; minimum pass
+counts use their declared bound, and exact sets compare their unique members.
+A computable mismatch fails material even after a zero-exit command. Invalid
+observed types, the helper's ambiguous null module return, and unsupported HTTP
+probe comparisons remain explicitly incomplete. A failed predicate takes
+precedence over incomplete predicates. These finite comparisons neither execute
+predicates again nor replace independent recipe applicability/sufficiency judgment.
+This parser is specific to the selected Node protocol, not a universal test
+report interpreter. Generic legacy JUnit regex results provide no credit here.
+
+F11's existing independent QUAL-056 rule assessments must actually include the
+recipe and authenticated execution material. F11 reports computable defects and
+retains missing material as `blocked_incomplete`. Its authenticated summary and
+sole AF22 conserve the body; absent or incomplete material cannot authorize a
+green verdict. AF25 copies the exact body without reevaluation. Historical
+missing fields remain representable without backfilling old Results.
+
 ## 6. Concrete source cone and integration dependencies
 
 Paths below are relative to the TypeScript tenant. These owners realize the accepted relation under a separately scoped implementation grant; shared ownership is retained rather than copied into fixture logic.
