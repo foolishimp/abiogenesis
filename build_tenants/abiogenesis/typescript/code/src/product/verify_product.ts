@@ -119,6 +119,25 @@ interface PackageJsonView {
 }
 
 const TAR_MAX_BUFFER = 64 * 1024 * 1024;
+
+// Disposable provenance for the actual immutable result of this verifier.
+// It is not keyed by a caller digest, and copied/foreign values cannot reuse it.
+const ownedProductVerifications = new WeakMap<object, string>();
+
+export function selectOwnedProductVerification(
+  request: unknown,
+  artifact: unknown,
+): VerifiedProductArtifact | null {
+  if (typeof artifact !== "object" || artifact === null) return null;
+  const verifiedRequest = ownedProductVerifications.get(artifact);
+  if (verifiedRequest === undefined) return null;
+  try {
+    return canonicalJson(request as JsonValue) === verifiedRequest
+      ? artifact as VerifiedProductArtifact : null;
+  } catch {
+    return null;
+  }
+}
 export function nativeDeclarationEvidenceForVerifiedArtifact(
   artifact: VerifiedProductArtifact,
 ): NativeProductDeclarationEvidence | null {
@@ -701,6 +720,7 @@ function isNativeDeclarationEvidence(
 export function isVerifiedProductArtifact(
   value: unknown,
 ): value is VerifiedProductArtifact {
+  if (typeof value === "object" && value !== null && ownedProductVerifications.has(value)) return true;
   if (
     !isRecord(value) ||
     !hasExactKeys(value, [
@@ -2070,6 +2090,7 @@ function assetDefinitionExists(
 export async function verifyProduct(
   request: VerifyProductRequest,
 ): Promise<ProductVerificationResult> {
+  request = deepFreeze({ ...request });
   let artifactBytes: Uint8Array;
   let archiveEntries: readonly string[];
   try {
@@ -2666,10 +2687,12 @@ export async function verifyProduct(
   const verificationDigest = sha256Canonical(
     verificationBody(verifiedBody),
   );
-  return deepFreeze({
+  const verified = deepFreeze({
     ...verifiedBody,
     verificationRef:
       `product-verification://abiogenesis/${verificationDigest.slice("sha256:".length)}`,
     verificationDigest,
   });
+  ownedProductVerifications.set(verified, canonicalJson(request as unknown as JsonValue));
+  return verified;
 }

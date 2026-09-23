@@ -1,0 +1,65 @@
+--- odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md
++++ odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md
+@@ -25,34 +25,39 @@
+ - project_reference_frame_basis: specification/REFERENCE_FRAME_BASIS.md
+ - runtime_substrate: exact ABIogenesis T-287 candidate selected for each activation
+ - release_status: unselected
+-- current_activation: ODD_GLC_EXECUTION10_FAILED_EXECUTION11_READINESS_EXISTING_OWNER_LIFETIME_ACTIVE
+-- current_re_entry: existing_owner_lifetime_repair_under_ABG_HOW5.6.2C_then_installed_proof_before_original_continuation
+-- current_activation_status: execution11_finite_readiness_only_six_cold_acquisitions_original_cure_unproved
++- current_activation: ODD_GLC_HELD_CALLER_CORE03_ACCEPTED_ORIGINAL_CAPACITY_INTEGRATION_ACTIVE
++- current_re_entry: accepted_core03_caller_then_separately_authorized_original_capacity_integration_discriminator
++- current_activation_status: frozen_caller_readiness_accepted_original_execution_active_terminal_outcome_and_OOM_cure_unproved
+ - last_execution_selection: ../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md
+ - last_execution_result: parent_JSON_OOM_994_797s_after_setup0_to4_no_Run_paid_actor_application_effect_genuine_bind_close_preserved
+-- current_activation_record: ../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/return.md
++- current_activation_record: ../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/
+ 
+ ## Current bounded selection
+ 
+-The complete generic lifecycle, original job/S1–S5/oracle, five selected/four
+-outside residuals and protected worksite remain unchanged. No manual application
+-business-code work is selected.
+-
+-[Execution10 failure](../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md)
+-records parent JSON allocation OOM after setup0–4/994.797s, no Run or paid actor,
+-and the genuine bind close. [Execution11](../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/return.md)
+-is accepted finite contraction/readiness only: six cold parent acquisitions
+-remain and the original cost defect is unclosed. Root selected existing-owner
+-lifetime repair under ABG HOW5.6.2C, [implementation-01](../../../../abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01),
+-active and unqualified. No new Product/session authority or heap increase.
+-
+-[T-287](../../../../abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
+-owns accepted compiled05 Hello correction/installed09 and cost/diagnostic debt.
+-The malformed negative lawfully failed against a stale blocked-only oracle;
+-there is no new runtime exception. Remaining declared S02 cases continue on frozen05 separately; exact outcomes
+-remain in native returns. This checkpoint preserves closed evidence and excludes active work.
+-Next: lifetime repair/installed proof, original generic correction and remaining
+-qualification/RC1. Complete outcomes and actual human acceptance remain open.
++Original [execution10](../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md)
++remains a pre-Run parent JSON OOM after setup0–4/994.797s, with genuine bind close
++and no paid actor. Execution11 remains finite readiness. The [held caller](../../comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-implementation-01/return.md)
++is accepted at frozen readiness scope after independent review.
++ABG lifetime03/compiled08 is accepted at bounded installed scope. Root separately
++authorizes original capacity/integration and installed S02 discriminators. Their
++active bindings, resources and outputs are excluded until terminal freeze; the
++original 1,157,851,917-byte cost cure and actual continuation remain unproved. Full S1–S5/oracle and human acceptance remain open.
++
++The generic lifecycle outcome, original job/S1–S5/oracle, five selected/four
++outside residuals and protected worksite remain unchanged. No manual Data Mapper
++business-code work is selected. [T-287](../../../../abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
++owns the exact core acceptance and computational debt. Conformance, mini and
++nested Run-scope repairs have bounded source/component acceptance; remaining S02
++installed successors and complete qualification remain open.
++
++The closed caller preserves original inputs, consumer, policy and real outer
++finalization. Core/caller acceptance is closed. Root separately authorizes the original
++continuation; that active launch binds its final exact artifact and retains
++existing budgets/default heap. This checkpoint grants no additional Run or
++heap/timeout increase. ABG RC1 and actual human release
++acceptance remain open. Prior pushes ABG `3207aac25a9d58b9ca7730b606ca08f8aab14c12`
++and GLC `6aae3bf7a673041f7524835577e7573561d432ef` remain historical checkpoints;
++RC4, default dependency and Product obligations are unchanged.
+ 
+ ### Retained earlier selection and evidence
+ 

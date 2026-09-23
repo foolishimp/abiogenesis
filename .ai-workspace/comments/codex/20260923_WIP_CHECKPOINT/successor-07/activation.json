@@ -1,0 +1,27 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root/checkpoint_current_repairs",
+  "role": "Writer as Worker",
+  "returnTo": "/root",
+  "createdAt": "2026-09-23T17:39:31.489320+00:00",
+  "authority": "Root exact bounded checkpoint grant; user-authorized commit/push after closed repairs; commit/push waits for Root acceptance",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "changeClass": "goal_reprice current tracking projection only",
+  "grant": [
+    "ABG GOALS current goal/checkpoint",
+    "T287 current checkpoint/current debt and corresponding live metadata",
+    "GLC GOALS current tracking/selection and T043 current selection/metadata",
+    "tracking-03 and successor-07 proof bank/index",
+    "Git index and one ordinary commit/push per repo only after Root acceptance"
+  ],
+  "prohibitions": [
+    "no source/runtime/design repair",
+    "no original GLC/S02 resource reads or mutations",
+    "no active continuation14",
+    "no build/native/provider tests",
+    "no tags/releases/pins",
+    "no mutation of prior frozen carriers"
+  ],
+  "basisCommit": "3207aac25a9d58b9ca7730b606ca08f8aab14c12",
+  "repo": "/Users/jim/src/apps/abiogenesis"
+}

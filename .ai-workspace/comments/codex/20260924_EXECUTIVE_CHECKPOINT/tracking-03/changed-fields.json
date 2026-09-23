@@ -1,0 +1,33 @@
+[
+  {
+    "repo": "abiogenesis",
+    "fields": [
+      "current_activation",
+      "current_candidate_record",
+      "current_candidate_archive_sha256",
+      "current_accepted_candidate_record",
+      "current_accepted_archive_sha256",
+      "current_worker_return",
+      "current_candidate_scope",
+      "current_live_execution_record",
+      "current_live_execution_status",
+      "current_activation_status",
+      "current_native_execution_record",
+      "current_activation_disposition",
+      "next_bounded_task",
+      "next_bounded_task_status",
+      "current_continuation_debt",
+      "current_correction_record",
+      "current_activation_record"
+    ]
+  },
+  {
+    "repo": "odd_glc",
+    "fields": [
+      "current_activation",
+      "current_re_entry",
+      "current_activation_status",
+      "current_activation_record"
+    ]
+  }
+]

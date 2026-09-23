@@ -1,0 +1,19 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "3207aac25a9d58b9ca7730b606ca08f8aab14c12",
+  "commitIdentity": "Commit containing this receipt; exact local and remote identities recorded in external post-push receipt",
+  "newMembers": 821,
+  "newLogicalBytes": 708782096,
+  "newTransportBytes": 129651749,
+  "restoration": "Every newly banked member restored and compared with original and selected freeze; prior bank payload proof reused without rereading/reupload",
+  "scope": "Accepted lifetime03/compiled08 full Public held path and frozen GLC caller readiness; closed lifetime01/02, compiled06/07, S02 continuations10-13 failures/diagnostics and accepted conformance/nested/mini source corrections; current GOAL035/T287 and GLC T043 tracking. Original/S02 active successors and full release obligations remain open.",
+  "excluded": [
+    "All original mutable GLC/S02 history and canonical worksite; no snapshot",
+    "s02-installed-continuation-14 and later active outputs",
+    "held-continuation-execution-01",
+    "held-continuation-launch-controls-01",
+    "held-continuation-implementation-01/final-binding.json",
+    "All node_modules, build scratch, unselected caches and unrelated work"
+  ],
+  "allowedGitEffects": "One ordinary main commit and nonforce push, then remote ref verification"
+}

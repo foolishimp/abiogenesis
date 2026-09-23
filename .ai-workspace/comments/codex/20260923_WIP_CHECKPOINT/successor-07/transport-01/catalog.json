@@ -1,0 +1,141 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "3207aac25a9d58b9ca7730b606ca08f8aab14c12",
+  "scope": "Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 527
+  },
+  "archiveMemberCount": 527,
+  "archiveMemberBytes": 256669934,
+  "transportBytes": 64314220,
+  "assets": [
+    {
+      "id": "raw-675a6c627355808abb3f541fc96b7a8ab42c10006f3adbebd87a22caf67a17bb",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10125265,
+      "sha256": "675a6c627355808abb3f541fc96b7a8ab42c10006f3adbebd87a22caf67a17bb",
+      "parts": [
+        {
+          "path": "payloads/raw-675a6c627355808abb3f541fc96b7a8ab42c10006f3adbebd87a22caf67a17bb.part0000",
+          "byteLength": 10125265,
+          "sha256": "675a6c627355808abb3f541fc96b7a8ab42c10006f3adbebd87a22caf67a17bb"
+        }
+      ]
+    },
+    {
+      "id": "raw-9ded9ab42354c4abe9346a6b529ce57449fd16520fa7fdda0e5d157f9f7fc4f3",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10126114,
+      "sha256": "9ded9ab42354c4abe9346a6b529ce57449fd16520fa7fdda0e5d157f9f7fc4f3",
+      "parts": [
+        {
+          "path": "payloads/raw-9ded9ab42354c4abe9346a6b529ce57449fd16520fa7fdda0e5d157f9f7fc4f3.part0000",
+          "byteLength": 10126114,
+          "sha256": "9ded9ab42354c4abe9346a6b529ce57449fd16520fa7fdda0e5d157f9f7fc4f3"
+        }
+      ]
+    },
+    {
+      "id": "raw-d899d1e3202a868525cb4614c5ad80d0ae7b755e1b1c5e4e62daf74e4e178ca9",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10126777,
+      "sha256": "d899d1e3202a868525cb4614c5ad80d0ae7b755e1b1c5e4e62daf74e4e178ca9",
+      "parts": [
+        {
+          "path": "payloads/raw-d899d1e3202a868525cb4614c5ad80d0ae7b755e1b1c5e4e62daf74e4e178ca9.part0000",
+          "byteLength": 10126777,
+          "sha256": "d899d1e3202a868525cb4614c5ad80d0ae7b755e1b1c5e4e62daf74e4e178ca9"
+        }
+      ]
+    },
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS",
+      "byteLength": 5335458,
+      "sha256": "3eab046ea072759b679b0d314065c103ee0a2501a9240daabd1edce8bfe5f456",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 5335458,
+          "sha256": "3eab046ea072759b679b0d314065c103ee0a2501a9240daabd1edce8bfe5f456"
+        }
+      ]
+    },
+    {
+      "id": "raw-7bb4815da4a187450ca612549c18f32f8f54c9559e7d69203a96659ae6db43cd",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 25347,
+      "sha256": "7bb4815da4a187450ca612549c18f32f8f54c9559e7d69203a96659ae6db43cd",
+      "parts": [
+        {
+          "path": "payloads/raw-7bb4815da4a187450ca612549c18f32f8f54c9559e7d69203a96659ae6db43cd.part0000",
+          "byteLength": 25347,
+          "sha256": "7bb4815da4a187450ca612549c18f32f8f54c9559e7d69203a96659ae6db43cd"
+        }
+      ]
+    },
+    {
+      "id": "family-0001",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE",
+      "byteLength": 15633113,
+      "sha256": "37765cbe17eece7596f717c424f8d46b776ba8ec396fd5bd11c1c414fab60be3",
+      "parts": [
+        {
+          "path": "payloads/family-0001.tar.gz.part0000",
+          "byteLength": 15633113,
+          "sha256": "37765cbe17eece7596f717c424f8d46b776ba8ec396fd5bd11c1c414fab60be3"
+        }
+      ]
+    },
+    {
+      "id": "family-0002",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT",
+      "byteLength": 3899,
+      "sha256": "a5c9be79c1fbb426c281618cc884330523cc1dfeb564a26957dfcad4432a714e",
+      "parts": [
+        {
+          "path": "payloads/family-0002.tar.gz.part0000",
+          "byteLength": 3899,
+          "sha256": "a5c9be79c1fbb426c281618cc884330523cc1dfeb564a26957dfcad4432a714e"
+        }
+      ]
+    },
+    {
+      "id": "raw-74f10de63803d90e7797e32db246a962159852ba8c23059924da0ae8ac9a076e",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 2400841,
+      "sha256": "74f10de63803d90e7797e32db246a962159852ba8c23059924da0ae8ac9a076e",
+      "parts": [
+        {
+          "path": "payloads/raw-74f10de63803d90e7797e32db246a962159852ba8c23059924da0ae8ac9a076e.part0000",
+          "byteLength": 2400841,
+          "sha256": "74f10de63803d90e7797e32db246a962159852ba8c23059924da0ae8ac9a076e"
+        }
+      ]
+    },
+    {
+      "id": "family-0003",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME",
+      "byteLength": 10537406,
+      "sha256": "8c1665838d08889703e206d7307275e8f8f40d670458134a81f2e333b1359a93",
+      "parts": [
+        {
+          "path": "payloads/family-0003.tar.gz.part0000",
+          "byteLength": 10537406,
+          "sha256": "8c1665838d08889703e206d7307275e8f8f40d670458134a81f2e333b1359a93"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "711129a7fd53f7f5e3c18e41439f67d82b699d27a4b889ff378739a5a7e443fb",
+  "reconciliationSha256": "bd02dd3a3cf192e3b6354cb74efd37ced5aaec06971030267a4b40908cd0a3ab",
+  "pendingActiveEvidence": [],
+  "credentialShapeFindingCount": 0
+}

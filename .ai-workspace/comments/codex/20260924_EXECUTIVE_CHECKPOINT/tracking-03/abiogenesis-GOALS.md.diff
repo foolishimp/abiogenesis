@@ -1,0 +1,77 @@
+--- abiogenesis/specification/GOALS.md
++++ abiogenesis/specification/GOALS.md
+@@ -15,41 +15,46 @@
+ 
+ | Goal ID | Goal | Success signal | Status |
+ |---|---|---|---|
+-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Compiled05 Hello repair is accepted at bounded source/installed scope. Original execution10 failed before Run; execution11 is component readiness only. Existing-owner lifetime repair is active. Remaining declared S02 cases, full S1–S5, qualification/RC1 and actual human acceptance remain open. |
++| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Lifetime03/compiled08 and frozen held-caller readiness are accepted after independent review. Original execution10 OOM cure and installed S02 successors remain unproved. Remaining declared S02 cases, full S1–S5, qualification/RC1 and actual human acceptance remain open. |
+ 
+ ## Current Selection
+ 
+ ### Current checkpoint disposition — 2026-09-24
+ 
+ GOAL-035 selects the usable ABG5 RC1 steel thread across the fixed fifteen
+-Product families on one trusted developer laptop, under the immutable STDO
+-2.5.1 RC1 basis. [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
+-owns the sequence, exact evidence and current debt. Existing HoG/ABG ownership
+-implies incremental live progression and a write journal; history reconstruction
+-is for unavailable live state or recovery, not routine API/LLM handoff.
+-Compiled05's bounded Hello acceptance remains. Conformance projection/oracle and the mini raw-result
+-dependency corrections are accepted at source/component scope; installed proof
+-remains open.
+-
+-The first lifetime repair proves held/cold acquisition counts of 1/4 on its
+-finite pair. Independent review requires LIFE-01 input-boundary repair; measured
+-repeated Product verification remains material cost. Root selects implementation-02
+-for that repair and reuse of the already-verified immutable Product basis,
+-preserving per-operation authorization/currentness. Its source/build, held pair,
+-one controlled F_P Run, final close and fresh reads are in progress, unaccepted.
+-Continuation13 on frozen compiled05 closed failed at nested-compose after six
+-successful F_D Results; zero complete cases passed and six remain held. The
+-closed diagnosis isolates workspace/Run prefix scope at the shared structural
+-projection seam. Root selects the bounded source repair; installed proof remains
+-open. The genuinely closed 17,023,864-byte S02 resource remains distinct from GLC.
+-
+-The original 1.157GB GLC resource remains untouched since execution10's pre-Run
+-OOM; execution11 supplies caller readiness only. The original cure, generic
+-correction, full S1–S5/oracle, all-family qualification, RC1 and actual human
+-acceptance remain open. No new paid Run, heap/timeout increase or excess hardening
+-is selected. Existing debt tracking retains unexplained/excessive work red flags.
++Product families on one trusted developer laptop, under immutable STDO 2.5.1 RC1.
++[T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
++owns the exact evidence, sequence and current debt. Existing HoG/ABG ownership
++implies incremental live progression and an append journal; reconstruction serves
++unavailable live state or recovery. No controller or machine mode is introduced.
++
++Lifetime implementation02 is independently accepted at bounded source/installed
++scope, including LIFE-01 repair and the controlled held Run/close/fresh-read join.
++[Implementation03](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/return.md)
++and compiled08 `d899d1e3…` are accepted after [independent review](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/review-01/return.md). The actual installed
++path covers both Public installs, bind, F_D producer basis, reprice, controlled
++F_P Run, real outer close and fresh recovery. Executive acceptance covers that exercised relation and the frozen caller
++readiness; full Product qualification is not implied.
++
++Conformance, mini dependency and shared nested Run-scope repairs are accepted at
++source/component scope. Continuation13 remains failed after six successful F_D
++Results, zero complete case passes and six held cases. Remaining S02 installed
++proof is open; active continuation14 is outside this checkpoint. The closed
++17,023,864-byte S02 resource is distinct from the original GLC resource.
++
++The frozen GLC held caller is accepted at readiness scope. Root separately
++authorizes the original capacity/integration discriminator and installed S02
++continuation14. Their active bindings, resources and outputs are excluded from
++this checkpoint until terminal freeze. The original 1,157,851,917-byte
++execution10 pre-Run OOM cure and actual generic correction remain unproved.
++Core startup verification still costs 8.605s. Terminal/high-water RSS and remaining
++full-collection projections are recorded in T-287 with unmeasured allocation
++attribution. Full S1–S5/oracle, all-family qualification, RC1 and actual human
++acceptance remain open. No new paid Run, heap/timeout increase or extra hardening
++is granted by this tracking update.
++
+ Prior pushed checkpoints ABG `3207aac25a9d58b9ca7730b606ca08f8aab14c12` and
+-GLC `6aae3bf7a673041f7524835577e7573561d432ef` are historical checkpoints only.
++GLC `6aae3bf7a673041f7524835577e7573561d432ef` remain historical preservation.
+ 
+ ### Historical delivery and repair dispositions
+ 

@@ -446,19 +446,34 @@ const gtl_program = (
       ),
     ];
     const violatedAuthorities = native.disposition === "failed"
-      ? native.violatedContractRefs.map((ref) => {
+      ? native.violatedContractRefs.flatMap((ref) => {
         const matches = authorityAdmissions.filter((admitted) =>
           (admitted.subjectKind === "contract_declaration" &&
             (admitted.value as ContractDeclaration).contractRef === ref) ||
           (admitted.subjectKind === "closure_contract" &&
             (admitted.value as ClosureContract).closureContractRef === ref)
         );
-        if (matches.length !== 1) {
+        if (matches.length === 0) {
           throw new TypeError(
-            "Validator emitted an unbound violated authority reference",
+            `Validator emitted an unbound violated authority reference: ${ref}`,
           );
         }
-        return reference(ref, matches[0]!.subjectDigest);
+        const declarations = matches.filter((admitted) =>
+          admitted.subjectKind === "contract_declaration"
+        );
+        const closures = matches.filter((admitted) =>
+          admitted.subjectKind === "closure_contract"
+        );
+        // A closure's contract declaration and definition are distinct typed
+        // authorities with the same ref. Preserve both exact coordinates.
+        const closurePair = declarations.length === 1 && closures.length === 1 &&
+          (declarations[0]!.value as ContractDeclaration).contractKind === "closure";
+        if (matches.length !== 1 && !closurePair) {
+          throw new TypeError(
+            `Validator emitted conflicting violated authority definitions: ${ref}`,
+          );
+        }
+        return matches.map((admitted) => reference(ref, admitted.subjectDigest));
       })
       : [];
     const rawEvidence = [

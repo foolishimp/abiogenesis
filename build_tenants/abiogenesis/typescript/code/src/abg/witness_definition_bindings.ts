@@ -29,13 +29,14 @@ import { bindStaticOwner } from "../shared/static_definition_bindings.js";
 import {
   abandonAbgEventResource,
   acquireAbgEventResource,
-  closeAbgEventResource,
-  validateAbgEventResourceAssertion,
-  validateAbgEventResourceReceipt,
-  type AbgEventResourceAssertion,
-  type AbgEventResourceReceipt,
+  completeAbgEventResource,
+  abgEventResourceInputPrefix,
+  abgEventResourceOutcomePrefix,
+  validateReopenedAbgEventResourceInput,
+  validateAbgEventResourceOutcome,
+  type ReopenedAbgEventResourceInput,
+  type AbgEventResourceOutcome,
 } from "./definition_event_resource.js";
-import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
 import { authenticateRuntimePrefixAncestry, projectRootEventProfileSchedule, readRuntimeEventsAtDurablePrefix,
   LEGACY_ROOT_EVENT_CONTRACT_DIGEST, ROOT_EVENT_CONTRACT_DIGEST, type DurablePrefixCoordinate } from "./event_store.js";
 import { ROOT_EVENT_PROFILE_DECLARATION_REF } from "./event_contract_profiles.js";
@@ -48,9 +49,9 @@ import {
 import { WITNESS_OPERATION_CONTRACTS } from "./witness_operation_contracts.js";
 
 type RepricePacket = typeof WITNESS_OPERATION_CONTRACTS.admit.reprice;
-type ReopenAssertion = Extract<AbgEventResourceAssertion, { kind: "reopen_abg_event_resource" }>;
+type ReopenAssertion = ReopenedAbgEventResourceInput;
 
-/** Data assertions only; the fixed owner acquires and closes its own store. */
+/** The fixed owner consumes serialized acquisition or an actual native selection. */
 export interface WitnessRepriceResourceAssertion {
   readonly kind: "witness_reprice_resource_assertion";
   readonly schemaVersion: "5.0.0";
@@ -61,12 +62,12 @@ export interface WitnessRepriceResourceAssertion {
 interface OrdinaryWitnessRepriceResourceReceipt {
   readonly kind: "witness_reprice_resource_receipt";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceReceipt;
+  readonly eventResource: AbgEventResourceOutcome;
 }
 export type WitnessRepriceResourceReceipt = OrdinaryWitnessRepriceResourceReceipt | Readonly<{
   kind: "witness_profile_reprice_resource_receipt";
   schemaVersion: "5.0.0";
-  eventResource: AbgEventResourceReceipt;
+  eventResource: AbgEventResourceOutcome;
   boundaryEventRef: string;
 }>;
 
@@ -76,7 +77,7 @@ const assertionSchema = v.strictObject({
   kind: v.literal("witness_reprice_resource_assertion"),
   schemaVersion: v.literal("5.0.0"),
   eventResource: v.custom<ReopenAssertion>((value) =>
-    validateAbgEventResourceAssertion(value) && value.kind === "reopen_abg_event_resource",
+    validateReopenedAbgEventResourceInput(value),
   "one reopened ABG event resource"),
   // Keep the shared schema lazy across the existing Product/ABG import cycle;
   // complete shape and semantic grant reconstruction remain in the fixed owner.
@@ -89,8 +90,8 @@ const typedAssertionSchema = assertionSchema as unknown as
 const ordinaryReceiptSchema = v.strictObject({
   kind: v.literal("witness_reprice_resource_receipt"),
   schemaVersion: v.literal("5.0.0"),
-  eventResource: v.custom<AbgEventResourceReceipt>((value) =>
-    validateAbgEventResourceReceipt(value) && value.acquisitionKind === "reopen",
+  eventResource: v.custom<AbgEventResourceOutcome>((value) =>
+    validateAbgEventResourceOutcome(value),
   "owner-issued reopened ABG successor"),
 });
 const receiptSchema = v.union([
@@ -98,8 +99,8 @@ const receiptSchema = v.union([
   v.strictObject({
     kind: v.literal("witness_profile_reprice_resource_receipt"),
     schemaVersion: v.literal("5.0.0"),
-    eventResource: v.custom<AbgEventResourceReceipt>(value =>
-      validateAbgEventResourceReceipt(value) && value.acquisitionKind === "reopen"),
+    eventResource: v.custom<AbgEventResourceOutcome>(value =>
+      validateAbgEventResourceOutcome(value)),
     boundaryEventRef: v.string(),
   }),
 ]);
@@ -111,14 +112,14 @@ export function witnessRepriceResourcesCorrespond(
 ): boolean {
   try {
     if (!receiptCoordinatesCorrespond(assertion.eventResource, receipt.eventResource)) return false;
-    return witnessPrefixTransitionCorrespond(receipt.eventResource.entryPrefix, receipt.eventResource.closeHandoff.prefix,
+    return witnessPrefixTransitionCorrespond(receipt.eventResource.entryPrefix, abgEventResourceOutcomePrefix(receipt.eventResource),
       receipt.kind === "witness_reprice_resource_receipt" ? null : receipt.boundaryEventRef, content);
   } catch { return false; }
 }
 
-function receiptCoordinatesCorrespond(assertion: ReopenAssertion, resource: AbgEventResourceReceipt): boolean {
-  return validateAbgEventResourceAssertion(assertion) && validateAbgEventResourceReceipt(resource) &&
-    resource.acquisitionKind === "reopen" && resource.entryPrefix.coordinateDigest === assertion.closeHandoff.prefix.coordinateDigest;
+function receiptCoordinatesCorrespond(assertion: ReopenAssertion, resource: AbgEventResourceOutcome): boolean {
+  return validateReopenedAbgEventResourceInput(assertion) && validateAbgEventResourceOutcome(resource) &&
+    resource.entryPrefix.coordinateDigest === abgEventResourceInputPrefix(assertion).coordinateDigest;
 }
 
 /** The same immutable transition relation serves live owner return and raw
@@ -177,10 +178,10 @@ function repriceOwner(
         const slots = invocation.invocationAuthority.slots;
         const currentW = slots.workspace_binding;
         const actor = slots.actor?.actor;
-        const environment = currentW === null ? null :
-          projectExactPrefixWorkspaceEnvironment(resource.entryPrefix, currentW);
+        const environment = boundEnvironment;
         if (environment?.kind !== "exact_prefix_workspace_environment" ||
-            environment !== boundEnvironment ||
+            !sameJson(environment.prefix, resource.entryPrefix) ||
+            !sameJson(currentW, reference(environment.workspaceBinding.bindingId, environment.workspaceBinding.bindingDigest)) ||
             actor === undefined || actor.ref !== environment.workspaceAuthorityBasis.authorizedActorRef ||
             actor.ref !== approved.authority.actorRef || slots.execution_basis !== null ||
             !sameJson(slots.product_set, environment.productInstalls.map(productInstallCoordinate)) ||
@@ -276,9 +277,9 @@ function repriceOwner(
           throw definitionFault(packet.definitionKey, "receipt_admission", "invalid_resource_receipt",
             "witness reprice returned neither its exact ordinary prefix nor its authenticated L-to-P boundary");
         }
-        const eventResource = closeAbgEventResource(resource, successor);
+        const eventResource = completeAbgEventResource(resource, successor);
         if (!receiptCoordinatesCorrespond(call.resources.eventResource, eventResource) ||
-            eventResource.closeHandoff.prefix.coordinateDigest !== successor.coordinateDigest) {
+            abgEventResourceOutcomePrefix(eventResource).coordinateDigest !== successor.coordinateDigest) {
           throw definitionFault(packet.definitionKey, "receipt_admission", "invalid_resource_receipt",
             "witness reprice close differs from its checked immutable transition");
         }

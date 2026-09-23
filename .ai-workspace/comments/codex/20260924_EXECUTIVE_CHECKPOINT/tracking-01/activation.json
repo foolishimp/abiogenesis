@@ -1,0 +1,46 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer as Worker",
+  "actor": "/root/checkpoint_tracking",
+  "returnTo": "/root",
+  "createdAt": "2026-09-23T16:24:51.230366+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "basis": {
+    "uri": "stdo://releases/v2.5.1-rc.1/",
+    "manifest_sha256": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+    "verification": "stdo status --definition stdo_abiogenesis.json --verify: installed=true, valid=true, failures=[]"
+  },
+  "authority": "Root explicit tracking-01 assignment and subsequent current_* front-matter extension; existing GOAL-035/T-287 fixed fifteen-family Product",
+  "outcome": "One concise current checkpoint and owning debt update conserving closed evidence, active-work limits and trusted single-developer laptop scope",
+  "grant": {
+    "paths": [
+      "specification/GOALS.md",
+      ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    ],
+    "sections": [
+      "GOALS current checkpoint",
+      "T-287 current checkpoint",
+      "T-287 owning Current Management Debt",
+      "existing current_* and directly related next-task front-matter fields projecting the same states"
+    ],
+    "evidenceTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01",
+    "effects": "documentation only; no implementation, Git, build, native or test effects"
+  },
+  "stops": [
+    "unexpected concurrent change to selected preimage",
+    "out-of-scope Product or work authority change",
+    "freeze exact postimages and CLOSED return"
+  ],
+  "preimages": [
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "f1f4fc0b39d3148af7fee79a43891c786d246e629cabbbea375368caab4ee6ae",
+      "bytes": 54500
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "11a2189084109afd4dfbf658bec83f54fe3b7606db25a8ef51b3f356fa478428",
+      "bytes": 333124
+    }
+  ]
+}

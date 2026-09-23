@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "path": "specification/GOALS.md",
+      "outside_exact_sections_fields_rows_unchanged": true,
+      "new_relative_links_resolve": 0,
+      "added_whitespace_defects": 0
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "outside_exact_sections_fields_rows_unchanged": true,
+      "new_relative_links_resolve": 7,
+      "added_whitespace_defects": 0
+    }
+  ],
+  "tracking01_all_members_byte_identical": true,
+  "effects": "documentation only; no Git/build/test/native effects"
+}

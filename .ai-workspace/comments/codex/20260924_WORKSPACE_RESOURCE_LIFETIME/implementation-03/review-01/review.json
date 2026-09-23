@@ -1,0 +1,78 @@
+{
+  "kind": "closed_independent_whole_path_review",
+  "status": "CLOSED",
+  "result": "satisfied",
+  "recommendation": "accept",
+  "reviewer": "/root/held_path_review",
+  "returnTo": "/root",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "coreSubjectSha256": "a3f07ef0638acadcbdf55f08a0a8cf7f9608cecda1adca5ad97b60e44396f69e",
+  "coreFreezeSha256": "6380cf21ce89bf3dfd6ababfddb59f8e231f77cf7f91293351557d76c9196c5e",
+  "coreArchiveSha256": "d899d1e3202a868525cb4614c5ad80d0ae7b755e1b1c5e4e62daf74e4e178ca9",
+  "coreProductContentDigest": "f479903e93947a4643e6b25ad5921a5725a570865e92a6ef379e1c8d8189f1ec",
+  "coreManifestDigest": "ca746e4e1b362b2677d7338e8dcb30564cbb78d031efeed3597f7c0bd38c3876",
+  "callerSubjectSha256": "983d43d32ce3851eedeb35b82f25aea56b3c78ae97dc09f53255e146b1bfde3f",
+  "callerDriverSha256": "8a2f292e9f4e3bd3ae531bc1ad640010af33a9749f3d514edd8d93a77a768728",
+  "blockingFindings": [],
+  "originalExecution": "not_performed",
+  "originalOomCure": "indeterminate",
+  "fullQualification": "open",
+  "originalFinalRuntimeBinding": "unselected",
+  "reacquisition": {
+    "implementationFreezeEntries": 90,
+    "subjectRoutes": 29,
+    "compiledFreezeEntries": 24,
+    "callerFiles": 30,
+    "callerExternalSourceDependencies": 5,
+    "hashMismatches": 0,
+    "changedSourceBuildInputJoins": 7,
+    "changedEmittedBodiesArchiveBootstrapPublicInstallJoins": 7
+  },
+  "retainedProof": {
+    "status": "passed_bounded",
+    "actualPublicPhysicalInstalls": 2,
+    "actualFDRuns": 1,
+    "controlledFPRuns": 1,
+    "controlledActorSubprocesses": 1,
+    "liveModelCalls": 0,
+    "nativeProofRerunsByReviewer": 0,
+    "privateSeeds": 0,
+    "finalEventRows": 81,
+    "finalPrefixBytes": 2579265,
+    "finalPrefixCoordinateDigest": "sha256:4d8633b8b68bc664788ebb5d3297dd4f519f6a4077bdb5c3607441a58c7bcaf6",
+    "finalPhysicalDigest": "sha256:58b8799ee41b8cca733cc8e61704afcd201c3f7f6b768fcd897d9a2060da4ce8"
+  },
+  "residuals": [
+    "original_large_resource_capacity_and_GLC_native_integration",
+    "original_correction_and_S1_to_S5",
+    "remaining_S02_cases",
+    "all_family_qualification_RC_and_human_acceptance",
+    "unattributed_retained_allocation_and_existing_collection_projections"
+  ],
+  "reviewReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/review-01/return.md",
+    "sha256": "c51375cca13ac786f7d0e1b51e9dbd36471b87649d5cd3ee84f0e1542c9659b3"
+  },
+  "claimResults": {
+    "contract_context_sufficiency": {
+      "result": "satisfied",
+      "scope": "changed_resource_verification_boundaries_and_frozen_caller_wiring"
+    },
+    "producer_consumer_congruence": {
+      "result": "satisfied",
+      "scope": "exercised_core_mini_chain",
+      "originalGlcResult": "indeterminate"
+    },
+    "exact_native_path": {
+      "result": "satisfied",
+      "scope": "new_tiny_installed_workspace_path_and_fresh_recovery",
+      "originalPathResult": "indeterminate"
+    },
+    "ordinary_user_LLM_usability": {
+      "result": "indeterminate",
+      "scope": "original_Data_Mapper",
+      "newLiveModelQualification": "out_of_frame"
+    }
+  },
+  "acceptanceScope": "bounded_core_correction_exercised_installed_path_and_frozen_caller_readiness"
+}

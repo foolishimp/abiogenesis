@@ -43,7 +43,7 @@ export interface InstalledDefinitionCallTransportRefusal {
 export interface InstalledDefinitionCallTransportResult {
   readonly kind: "installed_definition_call_transport_result";
   readonly schemaVersion: "5.0.0";
-  readonly acquisitionKind: "eventless" | "new" | "reopen";
+  readonly acquisitionKind: "eventless" | "new" | "reopen" | "acquired";
   readonly receipt: DefinitionHostReceipt;
 }
 
@@ -224,6 +224,43 @@ function selectedCallable(
     );
 }
 
+/** Detachment does not invalidate an actual immutable Product owner result.
+ * JSON copies retain no such provenance; the selected owner still validates
+ * every request/resource relation before consuming either value. */
+function preserveOwnedProductValues(
+  original: AnyDefinitionCall,
+  detached: AnyDefinitionCall,
+): void {
+  const resources = original.resources as Readonly<Record<string, unknown>>;
+  const copied = detached.resources as Record<string, unknown>;
+  const authority = resources.admissionAuthority;
+  const basis = isRecord(authority) ? authority.basis : null;
+  const ownerArtifact = isRecord(basis) && isRecord(basis.ownerArtifact) ? basis.ownerArtifact : null;
+  const owner = ownerArtifact === null ? null : product.selectOwnedProductVerification(
+    ownerArtifact.request, ownerArtifact.verified,
+  );
+  if (owner !== null) {
+    const copiedAuthority = copied.admissionAuthority as Record<string, unknown>;
+    const copiedBasis = copiedAuthority.basis as Record<string, unknown>;
+    (copiedBasis.ownerArtifact as Record<string, unknown>).verified = owner;
+  }
+  const artifact = resources.kind === "product_verification_resources" &&
+      resources.targetKind === "installed_artifact"
+    ? resources.installedArtifact : resources.packedArtifact;
+  if (!isRecord(artifact) || !isRecord(artifact.artifact) || !isRecord(artifact.productContent)) return;
+  const verified = product.selectOwnedProductVerification({
+    artifactPath: artifact.artifactPath,
+    artifactRef: artifact.artifact.ref,
+    expectedArtifactDigest: artifact.artifact.digest,
+    expectedProductContentDigest: artifact.productContent.digest,
+    expectedManifestDigest: artifact.manifestDigest,
+    expectedProductId: artifact.productId,
+    expectedPackageName: artifact.packageName,
+    expectedPackageVersion: artifact.packageVersion,
+  }, resources.verifiedArtifact);
+  if (verified !== null) copied.verifiedArtifact = verified;
+}
+
 export async function runInstalledDefinitionCallTransport(
   acquisition: InstalledDefinitionCallAcquisition,
   candidate: unknown,
@@ -259,16 +296,66 @@ export async function runInstalledDefinitionCallTransport(
       "top-level acquisition differs from the DefinitionCall event resource",
     );
   }
-  const callable = selectedCallable(detachedCandidate);
+  if (isInstalledDefinitionCallCandidate(candidate)) {
+    preserveOwnedProductValues(candidate, detachedCandidate);
+  }
+  return invokeInstalledDefinitionCall(detachedAcquisition.kind, detachedCandidate);
+}
+
+/** Thin native carrier: semantic data is detached, while the exact owner-issued
+ * physical selection survives. The same installed callable admits and executes it. */
+export async function runInstalledDefinitionCallWithResource(
+  resource: abg.AcquiredAbgEventResourceSelection,
+  candidate: unknown,
+): Promise<InstalledDefinitionCallTransportOutcome> {
+  if (!abg.isAcquiredAbgEventResourceSelection(resource) ||
+      !isInstalledDefinitionCallCandidate(candidate) || !isRecord(candidate.resources)) {
+    return refusal("acquisition_mismatch", "native call requires its actual owner-issued event-resource selection");
+  }
+  const authority = candidate.resources.admissionAuthority;
+  const basis = isRecord(authority) ? authority.basis : null;
+  const environment = isRecord(basis) ? basis.boundEnvironment : null;
+  const boundToSelection = isRecord(environment) && sameStructure(environment.prefix, resource.prefix);
+  const hasEventResource = Object.hasOwn(candidate.resources, "eventResource");
+  if (hasEventResource ? candidate.resources.eventResource !== resource : !boundToSelection) {
+    return refusal("acquisition_mismatch", "native call resources differ from the explicit acquired prefix");
+  }
+  try { abg.assertAcquiredAbgEventResourceSelectionCurrent(resource); }
+  catch (cause) { return refusal("acquisition_mismatch", String(cause)); }
+  let detached: AnyDefinitionCall;
+  try {
+    const { eventResource: _resource, ...resources } = candidate.resources;
+    const data = structuredClone({ invocation: candidate.invocation, resources });
+    // An eventless bound operation carries the same explicit entry selection in
+    // its existing admission basis. Preserve physical prefix correspondence,
+    // never a caller-derived environment body or a semantic default.
+    if (boundToSelection) {
+      const detachedAuthority = data.resources.admissionAuthority as Record<string, unknown>;
+      const detachedBasis = detachedAuthority.basis as Record<string, unknown>;
+      const detachedEnvironment = detachedBasis.boundEnvironment as Record<string, unknown>;
+      detachedEnvironment.prefix = resource.prefix;
+    }
+    detached = { invocation: data.invocation,
+      resources: hasEventResource ? { ...data.resources, eventResource: resource } : data.resources };
+    preserveOwnedProductValues(candidate, detached);
+  } catch { return refusal("invalid_definition_call", "native call semantic data is not one canonical DefinitionCall"); }
+  return invokeInstalledDefinitionCall("acquired", detached);
+}
+
+async function invokeInstalledDefinitionCall(
+  acquisitionKind: InstalledDefinitionCallTransportResult["acquisitionKind"],
+  call: AnyDefinitionCall,
+): Promise<InstalledDefinitionCallTransportOutcome> {
+  const callable = selectedCallable(call);
   if (typeof callable !== "function") return callable;
   const receipt = await runExactDefinition(
-    detachedCandidate,
-    callable(detachedCandidate),
+    call,
+    callable(call),
   );
   return Object.freeze({
     kind: "installed_definition_call_transport_result" as const,
     schemaVersion: "5.0.0" as const,
-    acquisitionKind: detachedAcquisition.kind,
+    acquisitionKind,
     receipt,
   });
 }

@@ -1,10 +1,12 @@
 import {
   productVerificationCoordinates,
+  selectOwnedProductVerification,
   verifyProduct,
 } from "./verify_product.js";
 import { installedProductContentMatches } from "./install_product.js";
 import type {
   ProductVerificationOperationResult,
+  VerifiedProductArtifact,
   VerifyProductRequest,
 } from "./contracts.js";
 import type { ProductInstall } from "./environment.js";
@@ -15,6 +17,7 @@ interface ProductVerificationPacketBase {
   readonly schemaVersion: "5.0.0";
   readonly memberKey: "verify";
   readonly request: VerifyProductRequest;
+  readonly verifiedArtifact?: VerifiedProductArtifact;
 }
 
 export type ProductVerificationPacket =
@@ -29,7 +32,8 @@ export type ProductVerificationPacket =
 export async function verifyProductArtifact(
   packet: ProductVerificationPacket,
 ): Promise<ProductVerificationOperationResult> {
-  const result = await verifyProduct(packet.request);
+  const result = selectOwnedProductVerification(packet.request, packet.verifiedArtifact) ??
+    await verifyProduct(packet.request);
   if (result.kind === "product_verification_refusal") return result;
   if (
     packet.targetKind === "installed_artifact" &&

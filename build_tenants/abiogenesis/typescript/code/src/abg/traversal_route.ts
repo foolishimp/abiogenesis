@@ -76,6 +76,7 @@ import { runtimeEventPrefixDigest,
   isImmutableRuntimeValue,
   selectValidatedRuntimeEventPrefix,
   selectRuntimeEventPrefixFromAuthority,
+  unscopedRuntimeEventPrefix,
   validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
@@ -2942,8 +2943,14 @@ export function projectDeclaredStructuralAdvanceAtPrefix(
     sha256Canonical(graphFunction as unknown as JsonValue) !==
       graph.graphFunctionDigest
   ) return null;
+  // Structural replay belongs to the source Run; declaration authority may
+  // still span the workspace's other Runs at this same admitted cut.
+  const runPrefix = selectRuntimeEventPrefixFromAuthority(
+    unscopedRuntimeEventPrefix(prefix),
+    { runId: sourceCursor.runId },
+  );
   const route = projectHistoricalTraversalRouteAtPrefix(
-    prefix,
+    runPrefix,
     admissionEventRef,
     authorityPrefix,
   );

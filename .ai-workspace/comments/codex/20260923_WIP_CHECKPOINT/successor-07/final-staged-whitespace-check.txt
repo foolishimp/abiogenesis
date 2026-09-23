@@ -1,0 +1,77 @@
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff:4: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff:6: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff:51: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff:53: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff:114: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff:116: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff:195: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff:197: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff:199: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff:201: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff:204: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-02/tracking.diff:21: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-02/tracking.diff:48: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-02/tracking.diff:57: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-GOALS.md.diff:4: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-GOALS.md.diff:9: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-GOALS.md.diff:11: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-GOALS.md.diff:13: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-GOALS.md.diff:75: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-GOALS.md.diff:77: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-GOALS.md.diff:77: new blank line at EOF.
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-T-287-deliver-abiogenesis-5-feature-waves.md.diff:68: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-T-287-deliver-abiogenesis-5-feature-waves.md.diff:70: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-T-287-deliver-abiogenesis-5-feature-waves.md.diff:156: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-T-287-deliver-abiogenesis-5-feature-waves.md.diff:165: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-T-287-deliver-abiogenesis-5-feature-waves.md.diff:167: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-GOALS.md.diff:4: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-GOALS.md.diff:6: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-GOALS.md.diff:21: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-GOALS.md.diff:25: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-GOALS.md.diff:27: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-GOALS.md.diff:38: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-GOALS.md.diff:60: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-GOALS.md.diff:62: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-GOALS.md.diff:62: new blank line at EOF.
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-T-043-deliver-generic-live-llm-scenario-mvp.md.diff:17: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-T-043-deliver-generic-live-llm-scenario-mvp.md.diff:19: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-T-043-deliver-generic-live-llm-scenario-mvp.md.diff:63: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-T-043-deliver-generic-live-llm-scenario-mvp.md.diff:65: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-T-043-deliver-generic-live-llm-scenario-mvp.md.diff:65: new blank line at EOF.

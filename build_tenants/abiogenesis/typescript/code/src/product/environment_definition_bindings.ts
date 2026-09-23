@@ -1,5 +1,5 @@
 import { isRecord, hasUnicodeNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
-import { withAdmissionAuthority } from "./admission_authority.js";
+import { withAdmissionAuthority, type AdmissionDefinitionOwner } from "./admission_authority.js";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { reconstructWorkspaceManifest, type WorkspaceManifest } from "./workspace_operations.js";
@@ -9,9 +9,10 @@ import * as Effect from "effect/Effect";
 import {
   abandonAbgEventResource,
   acquireAbgEventResource,
-  closeAbgEventResource,
-  type AbgEventResourceAssertion,
-  type AbgEventResourceReceipt,
+  completeAbgEventResource,
+  validateReopenedAbgEventResourceInput,
+  type AbgEventResourceInput,
+  type AbgEventResourceOutcome,
 } from "../abg/definition_event_resource.js";
 import {
   admitWorkspaceBinding,
@@ -104,7 +105,7 @@ export interface ProductResolutionResourceReceipt {
 export interface ProductWorkspaceBindingResourceAssertion {
   readonly kind: "product_workspace_binding_resource_assertion";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceAssertion;
+  readonly eventResource: AbgEventResourceInput;
   readonly workspaceAuthority: WorkspaceAuthorityBasis;
   readonly workspaceManifest: WorkspaceManifest;
   readonly admittedInstalls: readonly ProductInstall[];
@@ -115,7 +116,7 @@ export interface ProductWorkspaceBindingResourceAssertion {
 export interface ProductWorkspaceBindingResourceReceipt {
   readonly kind: "product_workspace_binding_resource_receipt";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceReceipt;
+  readonly eventResource: AbgEventResourceOutcome;
   readonly workspaceAuthority: ReferenceDigest<"WorkspaceAuthority">;
   readonly admittedInstalls: readonly ReferenceDigest<"InstalledProduct">[];
   readonly resolvedLock: ReferenceDigest<"ResolvedProductLock">;
@@ -566,7 +567,7 @@ function validateBindResources(
     ]) ||
     resources.kind !== "product_workspace_binding_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
-    resources.eventResource.kind !== "reopen_abg_event_resource" ||
+    !validateReopenedAbgEventResourceInput(resources.eventResource) ||
     !sameJson(resources, resources) ||
     !isResolvedProductLock(resources.resolvedLock) ||
     !isWorkspaceAuthorityBasis(resources.workspaceAuthority) ||
@@ -666,7 +667,7 @@ function bindingRefusal(
 
 function bindReceipt(
   resources: ProductWorkspaceBindingResourceAssertion,
-  eventResource: AbgEventResourceReceipt,
+  eventResource: AbgEventResourceOutcome,
   binding: WorkspaceBinding | WorkspaceBindingCandidate | null,
 ): ProductWorkspaceBindingResourceReceipt {
   return deepFreeze({
@@ -680,11 +681,11 @@ function bindReceipt(
   });
 }
 
-const bind: ExactDefinitionCallable<
+const bind: AdmissionDefinitionOwner<
   BindPacket,
   ProductWorkspaceBindingResourceAssertion,
   ProductWorkspaceBindingResourceReceipt
-> = (call) => {
+> = (call, _environment, heldResource) => {
   if (admitExactDefinitionCall(call, PRODUCT_ENVIRONMENT_CONTRACTS.bind) === null) {
     return Effect.fail(callAdmissionFault(
       PRODUCT_ENVIRONMENT_CONTRACTS.bind.definitionKey, "call_admission", "call_identity_mismatch",
@@ -695,7 +696,8 @@ const bind: ExactDefinitionCallable<
   if (resourceFault !== null) return Effect.fail(resourceFault);
   return Effect.try({
     try: (): DefinitionReturn<BindPacket, ProductWorkspaceBindingResourceReceipt> => {
-      const acquired = acquireAbgEventResource(call.resources.eventResource);
+      const acquired = heldResource === null ? acquireAbgEventResource(call.resources.eventResource) :
+        { kind: "acquired_abg_event_resource" as const, resource: heldResource };
       if (acquired.kind !== "acquired_abg_event_resource") {
         throw bindFault(
           call,
@@ -729,7 +731,7 @@ const bind: ExactDefinitionCallable<
             ownerOutput: bindingRefusal(bindRefusalCode(candidate), "/request"),
             resources: bindReceipt(
               call.resources,
-              closeAbgEventResource(resource, resource.entryPrefix),
+              completeAbgEventResource(resource, resource.entryPrefix),
               null,
             ),
           });
@@ -792,7 +794,7 @@ const bind: ExactDefinitionCallable<
             ),
             resources: bindReceipt(
               call.resources,
-              closeAbgEventResource(resource, admitted.successorPrefix),
+              completeAbgEventResource(resource, admitted.successorPrefix),
               null,
             ),
           });
@@ -827,7 +829,7 @@ const bind: ExactDefinitionCallable<
           ownerOutput,
           resources: bindReceipt(
             call.resources,
-            closeAbgEventResource(resource, admitted.successorPrefix),
+            completeAbgEventResource(resource, admitted.successorPrefix),
             binding,
           ),
         });

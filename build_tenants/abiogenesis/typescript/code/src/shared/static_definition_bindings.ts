@@ -5,9 +5,15 @@ import { pathToFileURL } from "node:url";
 
 import {
   validateAbgEventResourceAssertion,
+  validateAbgEventResourceInput,
+  validateAbgEventResourceOutcome,
+  abgEventResourceOutcomePrefix,
+  acquiredAbgEventResourceCompletionCorresponds,
   validateAbgEventResourceReceipt,
   type AbgEventResourceAssertion,
   type AbgEventResourceReceipt,
+  type AbgEventResourceInput,
+  type AbgEventResourceOutcome,
 } from "../abg/definition_event_resource.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import {
@@ -75,28 +81,25 @@ function exactReadReceipt(
 }
 
 function exactTransitionReceipt(
-  assertion: AbgEventResourceAssertion,
-  receipt: AbgEventResourceReceipt,
+  assertion: AbgEventResourceInput,
+  receipt: AbgEventResourceOutcome,
 ): boolean {
-  if (
-    !validateAbgEventResourceAssertion(assertion) ||
-    !validateAbgEventResourceReceipt(receipt) ||
-    receipt.acquisitionKind !==
-      (assertion.kind === "new_abg_event_resource" ? "new" : "reopen")
-  ) return false;
-  if (
-    assertion.kind === "new_abg_event_resource"
-      ? receipt.entryPrefix.prefixLength !== 0 ||
-        receipt.entryPrefix.prefixDigest !== EMPTY_PREFIX_DIGEST ||
-        receipt.entryPrefix.eventLogRef !==
-          pathToFileURL(resolve(assertion.eventLogPath)).href
-      : !samePrefix(receipt.entryPrefix, assertion.closeHandoff.prefix)
-  ) return false;
-  const successor = receipt.closeHandoff.prefix;
+  if (!validateAbgEventResourceInput(assertion) || !validateAbgEventResourceOutcome(receipt)) return false;
+  if (assertion.kind === "acquired_abg_event_resource_selection") {
+    if (receipt.kind !== "abg_event_resource_completion" ||
+        !acquiredAbgEventResourceCompletionCorresponds(assertion, receipt)) return false;
+  } else {
+    if (receipt.kind !== "abg_event_resource_receipt" ||
+        receipt.acquisitionKind !== (assertion.kind === "new_abg_event_resource" ? "new" : "reopen")) return false;
+    if (assertion.kind === "new_abg_event_resource"
+        ? receipt.entryPrefix.prefixLength !== 0 || receipt.entryPrefix.prefixDigest !== EMPTY_PREFIX_DIGEST ||
+          receipt.entryPrefix.eventLogRef !== pathToFileURL(resolve(assertion.eventLogPath)).href
+        : !samePrefix(receipt.entryPrefix, assertion.closeHandoff.prefix)) return false;
+  }
+  const successor = abgEventResourceOutcomePrefix(receipt);
   return sameStore(receipt.entryPrefix, successor) &&
     successor.prefixLength >= receipt.entryPrefix.prefixLength &&
-    (successor.prefixLength !== receipt.entryPrefix.prefixLength ||
-      samePrefix(receipt.entryPrefix, successor));
+    (successor.prefixLength !== receipt.entryPrefix.prefixLength || samePrefix(receipt.entryPrefix, successor));
 }
 
 /**
@@ -241,10 +244,10 @@ export function bindExactPrefixRead<
 export function bindExactPrefixTransition<
   TPacket extends OwnerContractSourceDeclaration,
   TResources extends Readonly<{
-    readonly eventResource: AbgEventResourceAssertion;
+    readonly eventResource: AbgEventResourceInput;
   }>,
   TResourceReceipt extends Readonly<{
-    readonly eventResource: AbgEventResourceReceipt;
+    readonly eventResource: AbgEventResourceOutcome;
   }>,
 >(
   packet: TPacket,
@@ -257,7 +260,7 @@ export function bindExactPrefixTransition<
     TResources,
     TResourceReceipt
   > = (call) => {
-    if (!validateAbgEventResourceAssertion(call.resources.eventResource)) {
+    if (!validateAbgEventResourceInput(call.resources.eventResource)) {
       return Effect.fail(definitionFault(
         packet.definitionKey,
         "resource_admission",
@@ -267,8 +270,8 @@ export function bindExactPrefixTransition<
     }
     return Effect.suspend(() => owner(call)).pipe(
       Effect.flatMap((result) => {
-        const eventReceipt = admittedEventReceipt(result.resources);
-        return eventReceipt !== null && exactTransitionReceipt(
+        const eventReceipt = result.resources.eventResource;
+        return validateAbgEventResourceOutcome(eventReceipt) && exactTransitionReceipt(
             call.resources.eventResource,
             eventReceipt,
           )

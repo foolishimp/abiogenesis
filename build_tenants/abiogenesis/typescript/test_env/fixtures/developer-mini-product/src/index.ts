@@ -4344,6 +4344,8 @@ export function constructDeveloperMiniPublication(
       "abg.compute_regime": "mixed",
       "abg.closure_contract":
         DEVELOPER_MINI_IDS.mixedClosureContractRef,
+      "abg.raw_result_contract":
+        DEVELOPER_MINI_IDS.probabilisticRawResultContractRef,
       "abg.evidence_contract": DEVELOPER_MINI_IDS.outputContractRef,
       "abg.judgment_contract":
         DEVELOPER_MINI_IDS.continuationContractRef,

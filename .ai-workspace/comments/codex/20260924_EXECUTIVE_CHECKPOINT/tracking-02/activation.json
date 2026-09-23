@@ -1,0 +1,88 @@
+{
+  "status": "ACTIVE",
+  "role": "Writer as Worker",
+  "actor": "/root/checkpoint_tracking",
+  "returnTo": "/root",
+  "createdAt": "2026-09-23T16:46:44.191120+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "basis": {
+    "uri": "stdo://releases/v2.5.1-rc.1/",
+    "manifest_sha256": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+    "verificationReuse": "tracking-01 exact installed verification; no basis invalidator"
+  },
+  "authority": "Root explicit successor tracking-02 assignment: current-surface projection only, fixed fifteen-family GOAL035/T287; no Product/design law changes",
+  "outcome": "Record owner live-state/lifetime clarification and CLOSED13 failure/diagnosis; keep selected repairs unaccepted",
+  "grant": {
+    "sections": [
+      "GOALS current checkpoint",
+      "T-287 current checkpoint and same corresponding current fields",
+      "T-287 existing Current Management Debt rows"
+    ],
+    "effects": "documentation only; no Git/build/test/native/implementation effects",
+    "evidenceTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-02"
+  },
+  "selectedRepair": "Root selected s02-nested-scope-repair-01; named carrier absent at entry, so no dangling activation link or inferred source result",
+  "preimages": [
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "1c0100c2827789c0b7fa11c3d6ed59e94caa59da50dcc61278e7beca4752a824",
+      "bytes": 54284
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "788e61be0dcc937717a67c887920eb83f3537514c283a474f648ac33d8a611de",
+      "bytes": 335704
+    }
+  ],
+  "preserveTracking01": [
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/activation.json",
+      "sha256": "fa549f67b7d99e977a9454b56c325cb9076bf4b80d666c429314923063180f16"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/changed-fields.json",
+      "sha256": "844e840361f18821bc07e85e033d2201df533d2bee71214254427b3776174e6d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/closed-evidence.json",
+      "sha256": "ac01f20b30199f0eaa78fbfc5cabb7e9760edbc2513877c3bbd93a87c9fc49b9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/freeze.json",
+      "sha256": "d09f496490bb57f0e654e728d58a6d536612a9c4f08608c0d0331161a3447165"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/postimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "788e61be0dcc937717a67c887920eb83f3537514c283a474f648ac33d8a611de"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/postimages/specification/GOALS.md",
+      "sha256": "1c0100c2827789c0b7fa11c3d6ed59e94caa59da50dcc61278e7beca4752a824"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "11a2189084109afd4dfbf658bec83f54fe3b7606db25a8ef51b3f356fa478428"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/preimages/specification/GOALS.md",
+      "sha256": "f1f4fc0b39d3148af7fee79a43891c786d246e629cabbbea375368caab4ee6ae"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/return.md",
+      "sha256": "5bfe9008a766127149833b69fe7ade7c5a4a88f6d02489022cd8166854782fec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/tracking.diff",
+      "sha256": "02f763299b876df569a3a52921f8e477b13e012ec39ad9e23764300f73ce801e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/verification.json",
+      "sha256": "40edecf3e278d66ea01bcc376a109ffddd13a4818c4d3771f576d931dfce6275"
+    }
+  ],
+  "stops": [
+    "unexpected concurrent target change",
+    "out-of-grant authority change",
+    "freeze own postimages then CLOSED"
+  ]
+}

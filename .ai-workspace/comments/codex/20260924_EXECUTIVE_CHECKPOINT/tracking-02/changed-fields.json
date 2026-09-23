@@ -1,0 +1,7 @@
+[
+  "current_activation",
+  "current_activation_status",
+  "next_bounded_task",
+  "next_bounded_task_status",
+  "current_continuation_debt"
+]

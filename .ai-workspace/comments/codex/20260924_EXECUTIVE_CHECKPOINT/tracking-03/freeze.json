@@ -1,0 +1,118 @@
+{
+  "status": "CLOSED",
+  "at": "2026-09-23T17:48:24.682941+00:00",
+  "postimages": [
+    {
+      "repo": "abiogenesis",
+      "path": "specification/GOALS.md",
+      "bytes": 55073,
+      "sha256": "6784a73296d186751933bb6907540a608a497afbde5f029326001db13f124b9a"
+    },
+    {
+      "repo": "abiogenesis",
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 336010,
+      "sha256": "75f1ca0a4bd49b338527811bdc382ade43867ea3b443b1dbea22998223483db2"
+    },
+    {
+      "repo": "odd_glc",
+      "path": "specification/GOALS.md",
+      "bytes": 14462,
+      "sha256": "42ae79c9b2cbb3f2e0574470214e23898f3d82c33a66840eb1fe41ceb17b46c5"
+    },
+    {
+      "repo": "odd_glc",
+      "path": ".ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "bytes": 50620,
+      "sha256": "1c0e437aa92cf5af193c6f0ba24b581302b2a19dfad8e87a0ad0c7904b8b7dc2"
+    }
+  ],
+  "carrier": [
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-GOALS.md.diff",
+      "bytes": 6846,
+      "sha256": "47725a7e958065af4292861f4367baa0ac665df95cffb50f1fe334232eaf9d5f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/abiogenesis-T-287-deliver-abiogenesis-5-feature-waves.md.diff",
+      "bytes": 31150,
+      "sha256": "081bf990b983bbbdbd15f52e5781ca5571a2a59071c315063c7a7db3308add35"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/activation.json",
+      "bytes": 2011,
+      "sha256": "016008365a7d2cbc0914ef89c54ce55dcec59c16f53ef0b9632479d0fb2c0e17"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/changed-fields.json",
+      "bytes": 849,
+      "sha256": "b8a411f20d2ac7c2cab1608147048214914f1472e2a4aae87745cf298d3e4987"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/executive-acceptance.json",
+      "bytes": 1763,
+      "sha256": "8a1799d988b0ef26d232f552446c0486a657c2aaad790620e9492181ac469f07"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-GOALS.md.diff",
+      "bytes": 4490,
+      "sha256": "fd6904e3f884d6e77131da95b15c6e1a589118905300ec470d0a2d14e8159133"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/odd_glc-T-043-deliver-generic-live-llm-scenario-mvp.md.diff",
+      "bytes": 5305,
+      "sha256": "a364f440c5557676e096fb133f27aff2da9a67962856bb3f3e54f8a4856d66aa"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/postimages/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 336010,
+      "sha256": "75f1ca0a4bd49b338527811bdc382ade43867ea3b443b1dbea22998223483db2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/postimages/abiogenesis/specification/GOALS.md",
+      "bytes": 55073,
+      "sha256": "6784a73296d186751933bb6907540a608a497afbde5f029326001db13f124b9a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/postimages/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "bytes": 50620,
+      "sha256": "1c0e437aa92cf5af193c6f0ba24b581302b2a19dfad8e87a0ad0c7904b8b7dc2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/postimages/odd_glc/specification/GOALS.md",
+      "bytes": 14462,
+      "sha256": "42ae79c9b2cbb3f2e0574470214e23898f3d82c33a66840eb1fe41ceb17b46c5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/preimages/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 337313,
+      "sha256": "7719cf1728c5f6877a096308052d8b14f4a45b435e67ca3b3210e18cef28b40f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/preimages/abiogenesis/specification/GOALS.md",
+      "bytes": 54706,
+      "sha256": "43be8d9f25bddcd19baed0eb30390048f44226606f44453b43ed4781a9721bc3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/preimages/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "bytes": 50221,
+      "sha256": "003ac4d31e80154bbc3e2090d2291b826823badf2c483c09df67519b3ac109a4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/preimages/odd_glc/specification/GOALS.md",
+      "bytes": 14468,
+      "sha256": "7238dc56cb1cc7090b2ba92d7f77f8b3fa37847d061a0aaf1a288a6a39d11ba0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/return.md",
+      "bytes": 1580,
+      "sha256": "78d322214e2b07939db71411205978f47d278c19f5fa7a8564f671a7d435808e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-03/verification.json",
+      "bytes": 1078,
+      "sha256": "9e1a7e35d05fd1d8745941a9a25f0a9ae27232e0a909362ececda1c731830e6e"
+    }
+  ],
+  "scope": "Current tracking projection only; publication separately authorized"
+}

@@ -1,0 +1,63 @@
+{
+  "basisCommit": "3207aac25a9d58b9ca7730b606ca08f8aab14c12",
+  "inherited": "successor-06/composition.json and unchanged prior bank indexes",
+  "newBanks": [
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-07/transport-01",
+      "catalogSha256": "2f2724c4c318610029ca634fb01e77f8f71de1692894680ba395ab298616fb66",
+      "indexSha256": "711129a7fd53f7f5e3c18e41439f67d82b699d27a4b889ff378739a5a7e443fb",
+      "verificationSha256": "fe894af1228bc417dc501b32a9a4c37d51c6806bc43d2d532f7f2d15635e8976",
+      "members": 527,
+      "logicalBytes": 256669934,
+      "transportBytes": 64314220
+    },
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-07/transport-02",
+      "catalogSha256": "9d31d8a0faefdaf6665b90227cb987c73f5a3b1bf95e41af9fca59e09977636e",
+      "indexSha256": "67ffd54bee94e19c21ba1082814467eb04a436efaa8bc04f4f0819b9869a24dd",
+      "verificationSha256": "1db292c5b1e044169b7eaef42d73b1e3e860cabed0eb3af38c9a4fa1f844663e",
+      "members": 294,
+      "logicalBytes": 452112162,
+      "transportBytes": 65337529
+    }
+  ],
+  "newMembers": 821,
+  "newLogicalBytes": 708782096,
+  "newTransportBytes": 129651749,
+  "priorPayloadReadOrReupload": false,
+  "scope": "Accepted lifetime03/compiled08 full Public held path and frozen GLC caller readiness; closed lifetime01/02, compiled06/07, S02 continuations10-13 failures/diagnostics and accepted conformance/nested/mini source corrections; current GOAL035/T287 and GLC T043 tracking. Original/S02 active successors and full release obligations remain open.",
+  "excluded": [
+    "All original mutable GLC/S02 history and canonical worksite; no snapshot",
+    "s02-installed-continuation-14 and later active outputs",
+    "held-continuation-execution-01",
+    "held-continuation-launch-controls-01",
+    "held-continuation-implementation-01/final-binding.json",
+    "All node_modules, build scratch, unselected caches and unrelated work"
+  ],
+  "rootAcceptance": {
+    "status": "ACCEPTED",
+    "authority": "Root Executive explicit message to checkpoint_current_repairs after reading independent CLOSED review",
+    "acceptedCoreSubject": "a3f07ef0638acadcbdf55f08a0a8cf7f9608cecda1adca5ad97b60e44396f69e",
+    "acceptedArchive": "d899d1e3202a868525cb4614c5ad80d0ae7b755e1b1c5e4e62daf74e4e178ca9",
+    "acceptedCallerSubject": "983d43d32ce3851eedeb35b82f25aea56b3c78ae97dc09f53255e146b1bfde3f",
+    "reviewReturnSha256": "c51375cca13ac786f7d0e1b51e9dbd36471b87649d5cd3ee84f0e1542c9659b3",
+    "reviewJsonSha256": "4f0f07f2e1a29794e1097c645286cfef00e94ac3958684c93bbfbca98e507d08",
+    "scope": "Exercised real complete Public verify/install/bind/F_D/reprice/preparation/controlled F_P/close/recovery relation and frozen caller readiness",
+    "remaining": "Original 1.157GB capacity/correction, remaining installed S02, full S1-S5, all-family qualification, RC and human acceptance unproved",
+    "newSelection": "Original continuation and S02continuation14 independently authorized by Root; active resource/output/final-binding bytes excluded until terminal freeze",
+    "writerGitGrant": "Proceed truthful tracking, bank CLOSED accepted work/review, one ordinary commit/push each repository and verify remote refs; no tag/release/selector effects",
+    "originalLaunch": {
+      "at": "2026-09-23T17:46:09.529Z",
+      "observerPid": 69886,
+      "driverPidPgid": 69895,
+      "initialPhase": "establish_product_0 before history acquisition",
+      "observationScope": "Root reported launch only; no terminal outcome or paid actor claim",
+      "excluded": [
+        "held-continuation-execution-01",
+        "held-continuation-launch-controls-01",
+        "held-continuation-implementation-01/final-binding.json",
+        "s02-installed-continuation-14"
+      ]
+    }
+  }
+}

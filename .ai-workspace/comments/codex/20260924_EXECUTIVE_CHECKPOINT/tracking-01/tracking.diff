@@ -1,0 +1,216 @@
+--- before/specification/GOALS.md
++++ after/specification/GOALS.md
+@@ -21,26 +21,30 @@
+ 
+ ### Current checkpoint disposition — 2026-09-24
+ 
+-Root accepts the bounded [Hello correction and installed09](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/return.md)
+-on compiled05 `a3d84599…`, with [independent review `44b74cc7…`](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/review-01/return.md).
+-The subsequent malformed negative follows its lawful failed route; the old
+-blocked-only oracle is stale, with no new runtime exception. Remaining declared
+-S02 cases continue separately on frozen05; this is not full qualification.
+-
+-Original [execution10](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md)
+-stopped at parent JSON allocation OOM after setup0–4 and 994.797s, before any
+-Run or paid actor; its genuine bind close is preserved. [Execution11](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/return.md)
+-has accepted finite caller readiness only: six cold parent acquisitions remain,
+-with no original-workspace cure or performance closure. [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
+-owns the selected existing-owner lifetime repair under HOW5.6.2C. Implementation
+-is active and unqualified; no new Product/session authority or heap increase.
+-
+-Last verified pushes at Writer entry: ABG `1efca608…` / GLC `7a9de213…`;
+-[successor06](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-06/publication-receipt.json)
+-banks this accepted work. Next: lifetime repair and installed proof, preserved
+-generic correction, remaining applicable qualification and clean checkpoint/RC1.
+-Fixed fifteen families, full S1–S5/oracle and actual human release acceptance
+-remain open; historical evidence and diagnostic/fixture debt retain their scope.
++GOAL-035 selects the usable ABG5 RC1 steel thread across the fixed fifteen
++Product families on one trusted developer laptop, under the immutable STDO
++2.5.1 RC1 basis. [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
++owns the sequence, exact evidence and current debt. Compiled05's bounded Hello
++acceptance remains. Conformance projection/oracle and the mini raw-result
++dependency corrections are accepted at source/component scope; installed proof
++remains open.
++
++The first lifetime repair proves held/cold acquisition counts of 1/4 on its
++finite pair. Independent review requires LIFE-01 input-boundary repair; measured
++repeated Product verification remains material cost. Root selects implementation-02
++for that repair and reuse of the already-verified immutable Product basis,
++preserving per-operation authorization/currentness. Its source/build, held pair,
++one controlled F_P Run, final close and fresh reads are in progress, unaccepted.
++Seven original independent F_D cases separately continue on frozen compiled05;
++there are no closed outcomes or qualification credit for a later artifact.
++
++The original 1.157GB GLC resource remains untouched since execution10's pre-Run
++OOM; execution11 supplies caller readiness only. The original cure, generic
++correction, full S1–S5/oracle, all-family qualification, RC1 and actual human
++acceptance remain open. No new paid Run, heap/timeout increase or excess hardening
++is selected. Existing debt tracking retains unexplained/excessive work red flags.
++Prior pushed checkpoints ABG `3207aac25a9d58b9ca7730b606ca08f8aab14c12` and
++GLC `6aae3bf7a673041f7524835577e7573561d432ef` are historical checkpoints only.
+ 
+ ### Historical delivery and repair dispositions
+ 
+
+--- before/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
++++ after/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+@@ -17,19 +17,19 @@
+ - updated_at: 2026-09-24
+ - prior_environment_change_class: product_reprice_with_requirement_reprice
+ - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
+-- current_activation: ACCEPTED_HELLO_CHECKPOINT_EXISTING_OWNER_LIFETIME_REPAIR_ACTIVE
+-- current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/return.md
+-- current_candidate_archive_sha256: a3d8459950a99987661300e29567400947cd25ed822979279d5a9d07caaa23e6
++- current_activation: LIFE01_AND_PRODUCT_VERIFICATION_REUSE_IMPLEMENTATION02_ACTIVE_S02_FD_FROZEN05_ACTIVE
++- current_candidate_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/return.md
++- current_candidate_archive_sha256: 675a6c627355808abb3f541fc96b7a8ab42c10006f3adbebd87a22caf67a17bb
+ - current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/return.md
+ - current_accepted_archive_sha256: a3d8459950a99987661300e29567400947cd25ed822979279d5a9d07caaa23e6
+-- current_worker_return: .ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/return.md
+-- current_candidate_scope: bounded_Hello_source_component_installed09_accepted_remaining_declared_S02_and_full_qualification_open
++- current_worker_return: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/return.md
++- current_candidate_scope: compiled06_lifetime_finite_acquisition_only_LOCAL_REPAIR_LIFE01_successor02_in_progress
+ - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md
+ - current_live_execution_status: parent_JSON_OOM_after_setup0_to4_994_797s_no_Run_or_paid_actor_genuine_bind_close_preserved
+-- current_activation_status: existing_owner_lifetime_implementation_active_original_effects_held_execution11_component_readiness_only
++- current_activation_status: implementation02_source_build_held_pair_controlled_FP_Run_close_fresh_reads_in_progress_unaccepted_conformance_mini_source_component_accepted_native_open
+ - current_native_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md
+ - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
+-- current_activation_disposition: .ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/review-01/return.md
++- current_activation_disposition: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/review-01/return.md
+ - current_management_plan: '#current-management-prerequisite-plan'
+ - prior_generic_job_activation: ABI5_GENERIC_JOB_IMPLEMENT_01
+ - prior_generic_job_activation_status: closed_native_two_job_intake_D1_and_selected_D2_mechanics_accepted_live_and_broader_Product_qualification_open
+@@ -48,8 +48,8 @@
+ - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
+ - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
+ - bounded_task_register: '#management-milestones'
+-- next_bounded_task: existing_owner_lifetime_repair_installed_proof_preserved_generic_correction_remaining_qualification_clean_checkpoint_RC1
+-- next_bounded_task_status: remaining_declared_S02_active_on_frozen05_full_outcomes_and_human_acceptance_open
++- next_bounded_task: LIFE01_input_refusal_Product_owned_verified_basis_reuse_installed_proof_preserved_generic_correction_remaining_qualification_RC1
++- next_bounded_task_status: implementation02_unaccepted_seven_original_FD_cases_active_frozen05_continuation13_no_closed_outcomes
+ - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
+ - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
+ - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
+@@ -61,7 +61,7 @@
+ - release_work: QUAL056_and_F16_source_component_accepted_exact_RC_native_qualification_and_actual_human_ruling_open
+ - native_reacquisition_source_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/executive-disposition.md
+ - native_reacquisition_cost_debt: NW-DEBT-03_99percent_append_is_repeated_bodies_measured_complexity_01
+-- current_continuation_debt: execution10_JSON_OOM_uncured_execution11_six_cold_parent_acquisitions_remain_existing_owner_lifetime_selected
++- current_continuation_debt: original_execution10_OOM_uncured_execution11_caller_only_LIFE01_open_repeated_Product_verification_measured_implementation02_selected
+ - current_recovery_reentry: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/current-handoff.json
+ - current_correction_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/return.md
+ - current_lifecycle_model_reentry: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/owned-module-continuation-01/lifecycle-model-selection.json
+@@ -94,7 +94,7 @@
+ - prior_fixture_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-prep-03/manifest.json
+ - prior_live08_execution_record: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/live08.json
+ - prior_native03_execution_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/execution-manifest.json
+-- current_activation_record: .ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/activation.json
++- current_activation_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-02/activation.json
+ - prior_generic_job_activation_record: .ai-workspace/comments/codex/20260918_GENERIC_JOB_BINDING_REPAIR/implementation/activation.md
+ - prior_mvp_continuation_activation_record: .ai-workspace/comments/codex/20260916_ABG5_MVP_CONTINUATION/activation.md
+ - prior_native03_input_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/records/call-14.jsonl
+@@ -269,38 +269,52 @@
+ 
+ ## Current Checkpoint And Installed Continuation
+ 
+-GOAL-035 retains all fifteen Product families under exact STDO 2.5.1 RC1;
+-odd_glc retains RC4. This Writer records Root's selections without changing
+-Product outcomes or historical acceptance.
+-
+-[Hello source/component and installed09](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/return.md)
+-on compiled05 `a3d84599…` are accepted with [review `44b74cc7…`](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/review-01/return.md).
+-The corrected contradiction passes. The next malformed negative lawfully takes
+-the failed route; the blocked-only oracle was stale, with no new runtime
+-exception. Remaining declared S02 cases continue on frozen05 separately; exact outcomes
+-remain in the native returns.
+-
+-Original [execution10](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md)
+-failed at parent JSON allocation after setup0–4, 994.797s, before any Run/paid
+-actor/application effect. Its genuine bind close remains selected. Peak child RSS
+-6,138,691,584B and core install181.259s/5.834GB process-tree peak are retained cost
+-observations; attribution and original cost closure remain open. [Execution11](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/return.md)
+-provides accepted finite caller contraction only, with six cold parent acquisitions
+-remaining. Job/S1–S5/oracle, five selected/four outside residuals, historical
+-provenance and protected worksite remain unchanged.
+-
+-The [lifetime review](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-lifetime-review-01/return.md)
+-supports Root's selected existing-owner repair under HOW5.6.2C, [implementation-01](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01).
+-Implementation is active, with adoption/installed qualification unproved. Physical
+-infrastructure lifetime and optional Run association create no new session
+-authority; no heap increase is selected. Known diagnostic/fixture debt remains.
+-
+-Last verified pushes at Writer entry are ABG `1efca608bcb4f738106e998d06f106bf45dd1ba9`
+-and GLC `7a9de213be424ee9ccf72a1e4908ca9d1292d996`; [successor06](../../comments/codex/20260923_WIP_CHECKPOINT/successor-06/publication-receipt.json)
+-banks accepted completed work, excluding active lifetime and S02 continuation10.
+-Next: lifetime repair/installed proof, preserved generic correction, remaining
+-applicable qualification and clean checkpoint/RC1. Complete outcomes and actual
+-human release acceptance stay open; no historical proof gains new credit.
++GOAL-035 selects the ABG5 RC1 steel thread for one trusted developer laptop,
++under immutable STDO 2.5.1 RC1 and the fixed fifteen Product families. Root uses
++F-END-TO-END-INTERFACE-INTEGRATION; this checkpoint records closed evidence and
++selected work, without changing Product outcomes or historical acceptance.
++
++[Hello/installed09](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/return.md)
++on compiled05 `a3d84599…` retains [bounded acceptance](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/review-01/return.md).
++The [conformance correction](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-conformance-authority-repair-01/return.md)
++and [independent review](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-conformance-authority-repair-01/review-01/return.md)
++are accepted at source/component scope: the prospective raw-admitted/static-invalid
++oracle requires the typed failed result with complete diagnostic/authority evidence.
++The [two-line mini raw-result dependency repair](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-mixed-declaration-repair-01/return.md)
++is component-accepted. Both installed/native corrections remain open; earlier failed
++attempts retain their outcomes.
++
++[Lifetime implementation-01](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/return.md),
++subject `38245f8b…` / compiled06 `675a6c62…`, proves actual held/cold acquisition
++counts 1/4 for its finite reprice → catalog pair. [Review-01](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/review-01/return.md)
++returns LOCAL_REPAIR: LIFE-01 permits an unsupported native install selection to
++close its caller's borrowed owner. [Cost measurement `e3f236df…`](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/cost-measurement-01/return.md)
++locates four repeated Product verifications within the 40.831s pair; the existing
++[debt register](#current-management-debt) retains exact cost and attribution limits.
++Neither result establishes original-resource OOM cure or held Run qualification.
++
++Root selects [implementation-02](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-02/activation.json):
++refuse LIFE-01 at the existing install input, and reuse the Product-owned,
++already-verified immutable basis across native grant/owner calls. Per-operation
++authorization/currentness and cold verification remain; no new API fields,
++cache/controller, heap increase or timeout increase. Source/build, held pair and
++one controlled F_P Run with genuine final close/fresh reads remain in progress,
++unaccepted. No provisional Worker message supplies closure.
++
++Separately, [continuation13](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-13/activation.json)
++selects seven original independent F_D cases on frozen compiled05 and the genuine
++[16,589,130-byte S02 resource](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-13/initial-resource.json).
++No outcomes have closed at this checkpoint; no later artifact receives this credit.
++The original 1.157GB GLC resource is untouched since [execution10's pre-Run OOM](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md).
++[Execution11](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/return.md)
++is caller readiness only. No new paid Run, original OOM cure, full S1–S5/oracle,
++all-family native qualification, ABG5 RC1 or human acceptance is claimed.
++
++Prior pushed checkpoints ABG `3207aac25a9d58b9ca7730b606ca08f8aab14c12` and
++GLC `6aae3bf7a673041f7524835577e7573561d432ef` remain historical preservation only.
++Next: the selected lifetime successor/proof, preserved generic correction,
++remaining applicable qualification and RC1. Excessive work/hardening returns to
++Root through the existing debt register; this update grants no additional work.
+ 
+ ## Current Management Prerequisite Plan
+ 
+@@ -563,7 +577,7 @@
+ 
+ ### Current Management Debt
+ 
+-Current RC1 opportunities remain under Executive-owned T-287 disposition; this register grants no extra implementation. Unexplained expensive execution is a red flag: retain its exact subject, work extent and elapsed evidence, distinguish observation from attribution, and identify the supported rule before selecting a removal. There is no universal timing/read quota, automatic delivery gate or separate optimization campaign.
++Current RC1 opportunities remain under Executive-owned T-287 disposition for one trusted developer laptop; this register grants no extra implementation. Unexplained expensive execution, repeated derivation and excess hardening are red flags: retain exact subject, work extent and elapsed evidence, distinguish observation from attribution, and return the supported-rule question to Root. No heap/timeout increase, universal timing/read quota, automatic delivery gate or separate optimization campaign is selected.
+ 
+ | Opportunity | Evidence / status | Next bounded scope |
+ |---|---|---|
+@@ -573,7 +587,8 @@
+ | NW-C0-FIXTURE-APPEND-01 | R7 passes and C0 sunny assertions pass at [fixtures-04](../../comments/codex/20260923_COMPOSITE_READINESS/fixtures-04/return.md)'s partial retained scope. [Fixtures-05](../../comments/codex/20260923_COMPOSITE_READINESS/fixtures-05/return.md) finds no lawful copied-prefix append owner for later negative clones. | Clone-dependent C0 negatives are held as obsolete fixture debt; no new runtime to salvage them. Root accepts fixtures-06's publication correction and deterministic C3 Parallel installed pass; Data Mapper's obsolete envelope and partial-prefix case remain unqualified. No further fixture expansion is selected; no full C0/C3 closure. |
+ | F11-PRODUCER-CONTEXT-01 | The implementation-01 acquisition/reuse finding is closed by [implementation-02 review](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/review.md), with source/component acceptance and emitted correspondence in compiled-01. | One finite real-reader component discriminator retains one authenticated representation through environment and both currentness consumers. Original provenance, cold fallback/currentness, independent local J/O and sole AF22 remain. No original-history/native qualification or general OOM cure is claimed. |
+ | F11-APPLICATION-DOMAIN-01 | Complete disjoint per-rule domains retain independent source review and compiled checks on e4e61fbe. Exact member/source unions and independent applicability/adequacy J are conserved. | Unknown/falsified J stays non-green. Source groups and regression counts do not establish applicability, native assessment or full qualification. |
+-| NW-CALLER-PREPARATION-LIFETIME-01 | Earlier lifetime repair and execution08/09 failures stay preserved. [Readiness03](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/return.md) binds accepted compiled04 through byte-identical reviewed caller/reader/observer and actual verification receipt. | Candidate/integrated dependency is satisfied; final checkpoint precedes original preparation. Original close/worksite/policy remain exact, with no original-resource effect or general memory-cure claim from readiness. |
++| NW-CALLER-PREPARATION-LIFETIME-01 / LIFE-01 | [Implementation-01](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/return.md) establishes held/cold acquisition counts 1/4 only. [Review-01](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/review-01/return.md) is LOCAL_REPAIR: unsupported native install input can close the borrowed owner. Original execution10 OOM and execution11 caller-only limits remain. | OPEN, Root-selected implementation-02 under HOW5.6.2C: enforce existing install assertion before effects, then the selected controlled held Run/final-close/fresh-read join. Active work is unaccepted. No original 1.157GB resource fit/cure or general lifetime/native qualification follows from the finite pair. |
++| NW-PRODUCT-VERIFICATION-REUSE-01 | [Closed measurement e3f236df…](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/cost-measurement-01/return.md): 40.831s pair; four whole-Product verifications consume 34.637s (84.8%) and 83.8% of accumulated sampled allocation. Setup already reaches 1,210,515,456B RSS. Sampled allocation is churn, not resident-memory attribution or leak proof. | OPEN, Root-selected implementation-02: reuse the Product-owned already-verified immutable basis across native grant/owner calls, preserving exact identity, per-operation authorization/currentness and cold fallback. One held pair plus the controlled F_P Run/close/fresh-read discriminator; no new API fields/cache/controller, heap/timeout increase or wider optimization. No speedup, OOM cure or RC1 closure is yet accepted. |
+ | NW-QUALIFICATION-CONTRACTION-01 | CLOSED accepted/applied after [independent review](../../comments/codex/20260922_QUALIFICATION_CONTRACTION/final-review.md). Executable roster/vector, two adapters and wrappers removed; all retained behavioral obligations conserved. 31 authored/60 generated changes, net −376/−2,299 lines. | [Executive disposition](../../comments/codex/20260922_QUALIFICATION_CONTRACTION/executive-disposition.md): compile and focused checks pass; installed F11 incomplete → AF22 blocked with fresh result/closed replay. Supersedes row-by-row D5 adapters. Full qualification, existing stale-harness debt and measured computational cost remain open; no new runtime or release selected. |
+ | ODD-DOM-01 / NW-RETENTION-01 | S1 consumer specialization confirmed by [independent audit](../../comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/domain-boundary-audit-01/odd-graph-review.md): consumer01–05 embed case admission/context/evaluation. Bounded core audit found no Data Mapper implementation. [Design intake](../../../../odd_glc/.ai-workspace/comments/codex/20260922_GENERIC_CONSUMER_CORRECTION/design-intake.md) identifies preparation-only retention as an existing generic-composition limitation; no historical motive is inferred. | Owner selects correction under T-043 with T-287 owning any generic retention seam. Restore one canonical job-parametric consumer and minimum existing-owner typed retention; same Product/Program/package across unrelated jobs. Original generated application/history stay preserved. [Final independent review](../../../../odd_glc/.ai-workspace/comments/codex/20260922_GENERIC_CONSUMER_CORRECTION/implementation-review.md) and Executive acceptance close the source/mechanical correction: one fixed ABG pair, existing parent judgment, installed owner join, finite two-job component evidence and actual deterministic traversal/cold reads. Canonical application is complete: 33 correction paths plus 253 accepted prerequisite paths; zero conflicts and exact subject/package identity. Generic execution04 now reaches actual C2 exit0/eight reports; assessment remains unqualified after Executive cancellation during the post-C2 retention interval. [Accepted retained-transition source](../../comments/codex/20260923_RETAINED_TRANSITION_REUSE/executive-disposition.json) is independently reviewed0cb3af86… and now composed with the accepted membership successor. [Closed recovery and actual-input localization](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/post-c2-localization-01/return.md) banks genuine recovery04 handoff at unchanged796,653,507B/12,281events, lock absent, preserving completed C2 and no Run terminal truth. Pre-route owner phases complete in seconds; actual47MB prospective post-route provenance remains CPU-active, with63.145s sampled under the projector and63.142s under its canonical-equality membership scan across12,282 events. Event-ID membership/body checks are accepted after review298b09a3…. Exact composed archive0adbb8e9… is installed. [Execution05](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-05/return.md) passed nine successor setup calls (736.224s process/1,103.918s setup wall) and exact conformance/input/preflight. One generic Runb9e516ef… under consumer833712…/unchanged policy completed C2exit0/eight reports/protected22 unchanged/product delta0, then admitted hog/traversal-defect70.149s after parent C2J before assessment. Native351.287s/peakRSS5.333GB returned runtime_failed with genuine close; Resultnot_found102.234s and replayfailed102.185s agree. Current916,771,980B handoff is valid, lock absent. [Closed RCA](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/post-c2-exception-01/return.md) identifies the pre-existing cold retention guard requiring an entered-event cursor although source cursoraaaefb22… is validly admitted by route12355. Reconstructed native TypeError/stack exactly matches subjectDigest9f307f4d…; one authenticated-cursor lookup intervention makes unchanged complete provenance accept. This predates both accepted contractions. Existing-owner correction is proposed, not applied; no further native action is selected. No timeout/OOM/operator cancellation or successful assessment is claimed. Initial current-reader counted one796.654MB history read; setup/start/terminal reads were not counter-instrumented, so no total reads inferred. Interrupted ordinary-advance reuse remains an existing route limitation; Root selected one additional C2, old C2 retains provenance, author was not repeated, no new controller/workstream or further retry/recovery is selected. [Disposition](../../../../odd_glc/.ai-workspace/comments/codex/20260922_GENERIC_CONSUMER_CORRECTION/executive-disposition.md). |
+ | NW-CODEWIDE-REVIEW-01 | CLOSED bounded independent static audit: [six findings](../../comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/codewide-debt-review-01/report.md); 481 members screened, 78 selected route reads, 25 prior-review reuse members (overlapping). Full semantic proof is not claimed. Persisted CLOSED report/coverage recovered after final-message usage failure; exact COLDHISTORY01 delta independently accepted. | Executive evaluated and merged all six into the existing rows below. No new demonstrated selected-continuation blocker. Proof-source/API corrections precede claims from affected D5 suites; computational opportunities remain conditional. Review completion does not close the debt. |

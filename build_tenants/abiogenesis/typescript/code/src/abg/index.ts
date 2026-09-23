@@ -575,3 +575,13 @@ export {
   ABG_EVENT_RESOURCE_RECOVERY, ABG_EVENT_RESOURCE_RECOVERY_DIGEST,
   type AbgInterruptedEventResourceRecoveryRequest, type AbgEventResourceRecoveryResult,
 } from "./definition_event_resource.js";
+
+export {
+  acquireAbgEventResource, closeAbgEventResource, abandonAbgEventResource,
+  selectAcquiredAbgEventResource, isAcquiredAbgEventResourceSelection,
+  assertAcquiredAbgEventResourceSelectionCurrent,
+  abgEventResourceInputPrefix, abgEventResourceOutcomePrefix,
+  type AcquiredAbgEventResource, type AcquiredAbgEventResourceSelection,
+  type AbgEventResourceInput, type ReopenedAbgEventResourceInput,
+  type AbgEventResourceCompletion, type AbgEventResourceOutcome,
+} from "./definition_event_resource.js";

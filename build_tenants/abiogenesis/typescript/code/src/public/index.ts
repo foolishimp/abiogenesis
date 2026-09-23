@@ -11,6 +11,7 @@ export type {
 export {
   isInstalledDefinitionCallCandidate,
   runInstalledDefinitionCallTransport,
+  runInstalledDefinitionCallWithResource,
   type InstalledDefinitionCallAcquisition,
   type InstalledDefinitionCallTransportOutcome,
   type InstalledDefinitionCallTransportRefusal,

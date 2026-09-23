@@ -261,6 +261,7 @@ export interface PackedProductVerificationResources {
   readonly schemaVersion: "5.0.0";
   readonly targetKind: "packed_artifact";
   readonly packedArtifact: ProductVerificationArtifactResource;
+  readonly verifiedArtifact?: VerifiedProductArtifact;
 }
 
 export interface InstalledProductVerificationResources {
@@ -268,6 +269,7 @@ export interface InstalledProductVerificationResources {
   readonly schemaVersion: "5.0.0";
   readonly targetKind: "installed_artifact";
   readonly installedArtifact: ProductVerificationArtifactResource;
+  readonly verifiedArtifact?: VerifiedProductArtifact;
   readonly resolvedLock: ResolvedProductLock;
   readonly installedProduct: ProductInstall;
   readonly installManifest: ProductVerificationInstallManifestResource;

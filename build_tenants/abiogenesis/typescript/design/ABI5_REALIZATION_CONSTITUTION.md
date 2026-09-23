@@ -1929,6 +1929,17 @@ exact imported owner composition for its definition.
 
 ##### Held ABG event-resource staging and physical publication
 
+A native caller may enclose preparation and execution in one actual physical
+acquisition. An ABG-issued resource selection carries its explicit current
+entry prefix and opaque correspondence to that acquisition through the same
+installed definition binding. This is physical possession, not a session,
+Run, binding mode, semantic authority or Context/Layer value. A copied selection
+does not acquire its owner. Each operation returns the owner's explicit durable
+successor; completion carries no close handoff while the acquisition remains
+held. The enclosing physical finalizer alone issues the existing real
+close/reopen receipt. Standalone serialized calls retain complete acquisition,
+operation and close, and a fresh process reconstructs from the closed history.
+
 A held ABG event store exclusively owns its event log until ownership is
 released or poisoned. New-empty acquisition or cold reopen establishes its
 admitted history and exact durable coordinate. Subsequent owned appends

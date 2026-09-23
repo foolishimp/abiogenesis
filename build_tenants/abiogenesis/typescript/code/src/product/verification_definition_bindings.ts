@@ -56,12 +56,14 @@ const packedResourcesSchema = v.strictObject({
   schemaVersion: v.literal("5.0.0"),
   targetKind: v.literal("packed_artifact"),
   packedArtifact: artifactResourceSchema,
+  verifiedArtifact: v.optional(v.unknown()),
 });
 const installedResourcesSchema = v.strictObject({
   kind: v.literal("product_verification_resources"),
   schemaVersion: v.literal("5.0.0"),
   targetKind: v.literal("installed_artifact"),
   installedArtifact: artifactResourceSchema,
+  verifiedArtifact: v.optional(v.unknown()),
   resolvedLock: v.unknown(),
   installedProduct: v.unknown(),
   installManifest: installManifestResourceSchema,
@@ -170,6 +172,7 @@ function nativePacket(resources: ProductVerificationResources): ProductVerificat
     kind: "product_verification_packet",
     schemaVersion: "5.0.0",
     memberKey: "verify",
+    ...(resources.verifiedArtifact === undefined ? {} : { verifiedArtifact: resources.verifiedArtifact }),
     request: {
       artifactPath: artifact.artifactPath,
       artifactRef: artifact.artifact.ref,

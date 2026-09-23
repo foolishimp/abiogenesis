@@ -708,6 +708,110 @@ test("historical traversal-route projection ignores later construction enrichmen
   );
 });
 
+test("structural retry lineage selects its Run while retaining workspace authority", async (context) => {
+  const [gtl, cursorApi, routeApi, prefixApi] = await Promise.all([
+    import("../../build/code/src/gtl/index.js"),
+    import("../../build/code/src/abg/traversal_cursor.js"),
+    import("../../build/code/src/abg/traversal_route.js"),
+    import("../../build/code/src/abg/event_prefix.js"),
+  ]);
+  const ids = gtl.COMPOSED_HELLO_IDS;
+  const graphFunction = gtl.constructHelloWorldModulePublication({
+    productId: "product://component/structural-scope@5",
+    artifactDigest: sha256Canonical("component archive"),
+    productContentDigest: sha256Canonical("component content"),
+    productManifestDigest: sha256Canonical("component manifest"),
+    packageName: "@abiogenesis/typescript-tenant", packageVersion: "5.0.0-rc.1",
+  })
+    .graphFunctions.find((value) => value.name === ids.graphFunctionRef);
+  const input = { kind: "hello_world_input", schemaVersion: "5.0.0", subject: "World" };
+  const graph = gtl.materializeGraph(graphFunction, {
+    invocationAdmissionRef: "invocation://structural-scope",
+    admittedInputRef: "input://structural-scope",
+    admittedInputDigest: sha256Canonical(input), admittedInput: input,
+  });
+  // The unchanged nested Program's retry wraps an edge. Lower admission is a
+  // supplied immutable component premise; this does not execute a native Run.
+  const sourceBody = {
+    programRef: ids.programRef, executionBasisRef: "basis://structural-scope",
+    traversalScopeRef: "scope://structural-scope", runId: "run://structural-scope",
+    graphCallId: "graph-call://structural-scope", frameId: "frame://structural-scope",
+    graphRef: graph.materializationRef, inputRef: "result://normalized",
+    inputDigest: sha256Canonical({ kind: "normalized_hello_input", schemaVersion: "5.0.0", subject: "World" }),
+    currentNodeRef: ids.nodeRef, position: "at_term",
+    termPath: ["node", ids.nodeRef, "c", "terms", "2", "term"],
+    taskOrdinal: null, attempt: 1, retryPath: [1],
+  };
+  const source = cursorApi.constructTraversalCursorCandidate(sourceBody);
+  const target = cursorApi.constructTraversalCursorCandidate({
+    ...sourceBody, termPath: [...sourceBody.termPath, "transform"],
+  });
+  const routeBody = {
+    routeKind: "advance", declarationRef: graph.materializationRef,
+    declarationDigest: graph.materializationDigest,
+    sourceCursorRef: source.cursorRef, sourceCursorDigest: source.cursorDigest,
+    targetCursorRef: target.cursorRef, targetCursorDigest: target.cursorDigest,
+    cCallRef: null, judgmentRef: null, consumedAvailabilityRefs: [], contractRef: null,
+    replayStateDigest: sha256Canonical({ component: "structural-scope" }),
+  };
+  const routeDigest = sha256Canonical(routeBody);
+  const row = (kind, eventId, payload, extra = {}) => ({
+    ...fakeEvent(eventId, 0, source.runId), kind, payload,
+    aggregateType: "frame", aggregateId: source.frameId, parentAggregateId: source.graphCallId,
+    basisId: source.executionBasisRef, graphFunctionRef: graphFunction.name,
+    graphCallId: source.graphCallId, frameId: source.frameId,
+    materializationRef: graph.materializationRef, payloadDigest: sha256Canonical(payload), ...extra,
+  });
+  const entered = row("traversal_cursor_entered", "event://structural-scope/source", {
+    cursorRef: source.cursorRef, cursorDigest: source.cursorDigest,
+  });
+  const route = row("traversal_route_admitted", "event://structural-scope/route", {
+    ...routeBody, routeDigest,
+    routeRef: `traversal-route://abiogenesis/${routeDigest.slice("sha256:".length)}`,
+  }, { causationEventRefs: [entered.eventId] });
+  const stop = (runId, ordinal) => ({
+    ...fakeEvent(`event://structural-scope/stop-${ordinal}`, 0, runId),
+    kind: "run_stopped", payload: { disposition: "blocked" },
+  });
+  const select = (events) => prefixApi.selectValidatedRuntimeEventPrefix(deeplyFreeze(
+    events.map((event, index) => ({ ...event, admissionOrdinal: index + 1 })),
+  ));
+  const single = select([entered, route]);
+  const workspace = select([stop("run://prior-a", 1), stop("run://prior-b", 2), entered, route]);
+  const project = (prefix, cursor = source, eventId = route.eventId, authority = prefix) =>
+    routeApi.projectDeclaredStructuralAdvanceAtPrefix(prefix, graph, graphFunction, cursor, eventId, authority);
+  const singleProjection = project(single);
+  assert.ok(singleProjection);
+  assert.equal(routeApi.projectHistoricalTraversalRouteAtPrefix(workspace, route.eventId), null,
+    "unscoped replay cannot reinterpret two independent stops as one Run");
+  const selected = prefixApi.selectRuntimeEventPrefixFromAuthority(workspace, { runId: source.runId });
+  const selectedProjection = project(selected, source, route.eventId, workspace);
+  const wholeProjection = project(workspace);
+  assert.ok(wholeProjection, "structural owner must select the admitted source Run");
+  assert.deepEqual(wholeProjection, selectedProjection);
+  assert.deepEqual(wholeProjection.sourceCursor, singleProjection.sourceCursor);
+  assert.deepEqual(wholeProjection.targetCursor, singleProjection.targetCursor);
+  assert.equal(wholeProjection.route.routeRef, singleProjection.route.routeRef);
+  assert.equal(project(workspace, cursorApi.constructTraversalCursorCandidate({
+    ...sourceBody, runId: "run://prior-a",
+  })), null);
+  assert.equal(project(workspace, cursorApi.constructTraversalCursorCandidate({
+    ...sourceBody, frameId: "frame://foreign",
+  })), null);
+  assert.equal(project(workspace, target), null, "target cannot impersonate the route source");
+  assert.equal(project(workspace, source, "event://absent-route"), null);
+  const wrongRun = prefixApi.selectRuntimeEventPrefixFromAuthority(workspace, { runId: "run://prior-a" });
+  assert.equal(project(wrongRun, source, route.eventId, workspace), null);
+  const stale = prefixApi.validatedRuntimeEventPrefixBeforeEvent(workspace, route.eventId);
+  assert.equal(project(workspace, source, route.eventId, stale), null);
+  const unrelated = row("activity_observed", "event://structural-scope/unrelated", {});
+  assert.equal(project(select([entered, unrelated, { ...route, causationEventRefs: [unrelated.eventId] }])), null,
+    "a same-Run unrelated event cannot replace the admitted source cause");
+  assert.equal(project(select([stop(source.runId, 1), stop(source.runId, 2), entered, route])), null,
+    "two stops inside the selected Run remain inconsistent");
+  context.diagnostic("Real structural/replay owners over supplied immutable event facts; no store, actor or installed lifecycle.");
+});
+
 test("retry HoldsAt truth is exact-keyed, interleaving-invariant, and reconstruction-stable", async () => {
   const eventCalculus = await import(
     `${pathToFileURL(join(root, "build/code/src/abg/event_calculus.js")).href}?t287-retry-law=${Date.now()}`

@@ -1,0 +1,32 @@
+[
+  {
+    "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/return.md",
+    "sha256": "2edc13c2dd30818fd31147cedc1f82d3d099d2b9176d3549a0fdc25aa7bb888a",
+    "bytes": 6054
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/review-01/return.md",
+    "sha256": "d69ca50998712bed01ce3e1085de2946b7b403909c59daa41db72e143b4295e5",
+    "bytes": 9436
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01/cost-measurement-01/return.md",
+    "sha256": "e3f236dff70f1c5fe2796689ea0f4ecaced6ea689dcaa3b9c37f62932bbe18da",
+    "bytes": 3791
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-conformance-authority-repair-01/return.md",
+    "sha256": "cdab6924fabb98647e68062d6e2593f413ccd7c2a5284c7d34ea13dc0467ec19",
+    "bytes": 4104
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-conformance-authority-repair-01/review-01/return.md",
+    "sha256": "2e9ec82b131b0eea35438ab86abb56f0c333a06b00ab46837de0439af77e3402",
+    "bytes": 5028
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-mixed-declaration-repair-01/return.md",
+    "sha256": "731a4ab59dd62cbefbcbf2a55645cf946e435b86fb03113ebce068b1cacc9a82",
+    "bytes": 3869
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "method": "Exact preimage comparison, allowed-section/field bounds, unified diff, new link existence and whitespace checks; no Git/build/native/test effects",
+  "checks": [
+    {
+      "path": "specification/GOALS.md",
+      "outside_grant_unchanged": true,
+      "added_lines_trailing_whitespace": false,
+      "new_relative_links_resolve": 1
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "outside_grant_unchanged": true,
+      "added_lines_trailing_whitespace": false,
+      "new_relative_links_resolve": 16
+    }
+  ]
+}

@@ -21,9 +21,11 @@ import {
 import {
   acquireAbgEventResource,
   abandonAbgEventResource,
-  closeAbgEventResource,
-  type AbgEventResourceAssertion,
-  type AbgEventResourceReceipt,
+  completeAbgEventResource,
+  validateAbgEventResourceInput,
+  validateAbgEventResourceOutcome,
+  type AbgEventResourceInput,
+  type AbgEventResourceOutcome,
   type AcquiredAbgEventResource,
 } from "../abg/definition_event_resource.js";
 import {
@@ -59,7 +61,7 @@ import {
   type AbgRunTruthCoordinate,
   type AbgRunTruthProjection,
 } from "../abg/project_read_ports.js";
-import { projectRuntimeTruthAtDurablePrefix } from "../abg/replay.js";
+import { projectRuntimePrefixesAtDurablePrefix } from "../abg/replay.js";
 import { materializeGraph } from "../gtl/materialize.js";
 import type {
   GraphFunction,
@@ -132,14 +134,14 @@ export interface RunInvocationResourceAssertion
   extends ProductRunInvocationResourceAssertion {
   readonly kind: "run_invocation_resource_assertion";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceAssertion;
+  readonly eventResource: AbgEventResourceInput;
   readonly applicationResources?: readonly CatalogApplicationResources[];
 }
 
 export interface RunInvocationResourceReceipt {
   readonly kind: "run_invocation_resource_receipt";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceReceipt;
+  readonly eventResource: AbgEventResourceOutcome;
   readonly productExecutionResolution: Readonly<{
     readonly ref: string;
     readonly digest: Sha256Digest;
@@ -1036,41 +1038,10 @@ const DECLARATION_APPLICATION_SCHEMA = v.strictObject({
   applicationDigest: digestSchema,
 }) as v.GenericSchema<DeclarationApplication, DeclarationApplication>;
 
-const EVENT_RESOURCE_ASSERTION_SCHEMA = v.union([
-  v.strictObject({
-    kind: v.literal("new_abg_event_resource"),
-    schemaVersion: v.literal("5.0.0"),
-    eventLogPath: absolutePathSchema,
-    locatorDigest: digestSchema,
-  }),
-  v.strictObject({
-    kind: v.literal("reopen_abg_event_resource"),
-    schemaVersion: v.literal("5.0.0"),
-    closeHandoff: v.custom<EventStoreCloseHandoff>(
-      validateEventStoreCloseHandoff,
-      "event_store_close_handoff",
-    ),
-    handoffDigest: digestSchema,
-  }),
-]) as v.GenericSchema<
-  AbgEventResourceAssertion,
-  AbgEventResourceAssertion
->;
-
-const EVENT_RESOURCE_RECEIPT_SCHEMA = v.strictObject({
-  kind: v.literal("abg_event_resource_receipt"),
-  schemaVersion: v.literal("5.0.0"),
-  acquisitionKind: v.union([v.literal("new"), v.literal("reopen")]),
-  entryPrefix: v.custom<DurablePrefixCoordinate>(
-    validateDurablePrefixCoordinate,
-    "durable_prefix_coordinate",
-  ),
-  closeHandoff: v.custom<EventStoreCloseHandoff>(
-    validateEventStoreCloseHandoff,
-    "event_store_close_handoff",
-  ),
-  receiptDigest: digestSchema,
-}) as v.GenericSchema<AbgEventResourceReceipt, AbgEventResourceReceipt>;
+const EVENT_RESOURCE_ASSERTION_SCHEMA = v.custom<AbgEventResourceInput>(
+  validateAbgEventResourceInput, "exact ABG acquisition or acquired native selection");
+const EVENT_RESOURCE_RECEIPT_SCHEMA = v.custom<AbgEventResourceOutcome>(
+  validateAbgEventResourceOutcome, "owner-issued ABG completion or physical close");
 
 const RUN_TRUTH_COORDINATE_SCHEMA = v.strictObject({
   ref: nonblankSchema,
@@ -1201,7 +1172,7 @@ function operationBasis<TPacket extends RunPacket>(
 }
 
 function resourceReceipt(
-  eventResource: AbgEventResourceReceipt,
+  eventResource: AbgEventResourceOutcome,
   prepared: PreparedProductRunInvocation<RunInvocationMemberKey> | null,
   admission: InvocationAdmission | null,
   truth: AbgRunTruthProjection | null,
@@ -1239,8 +1210,8 @@ function finish<TPacket extends RunPacket>(
   DefinitionReturn<TPacket, RunInvocationResourceReceipt>,
   DefinitionExecutionFault<TPacket["definitionKey"]>
 > {
-  return syncStage(call, "resource_close", () => {
-    const eventResource = closeAbgEventResource(resource, finalPrefix);
+  return syncStage(call, "resource_completion", () => {
+    const eventResource = completeAbgEventResource(resource, finalPrefix);
     return deepFreeze({
       ownerOutput,
       resources: resourceReceipt(eventResource, prepared, admission, truth),
@@ -1572,7 +1543,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
     }
     const completePostOpen = Effect.gen(function* () {
       const authorityPrefix = yield* syncStage(call, "runtime_truth", () =>
-        projectRuntimeTruthAtDurablePrefix(
+        projectRuntimePrefixesAtDurablePrefix(
           opened.successorPrefix,
           opened.scope.runId,
         ).authorityPrefix

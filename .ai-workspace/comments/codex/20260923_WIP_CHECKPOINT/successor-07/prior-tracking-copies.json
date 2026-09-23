@@ -1,0 +1,38 @@
+{
+  "status": "exact prior preimages and postimages preserved",
+  "files": [
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/preimages/specification/GOALS.md",
+      "sha256": "f1f4fc0b39d3148af7fee79a43891c786d246e629cabbbea375368caab4ee6ae"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "11a2189084109afd4dfbf658bec83f54fe3b7606db25a8ef51b3f356fa478428"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/postimages/specification/GOALS.md",
+      "sha256": "1c0100c2827789c0b7fa11c3d6ed59e94caa59da50dcc61278e7beca4752a824"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-01/postimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "788e61be0dcc937717a67c887920eb83f3537514c283a474f648ac33d8a611de"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-02/preimages/specification/GOALS.md",
+      "sha256": "1c0100c2827789c0b7fa11c3d6ed59e94caa59da50dcc61278e7beca4752a824"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-02/preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "788e61be0dcc937717a67c887920eb83f3537514c283a474f648ac33d8a611de"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-02/postimages/specification/GOALS.md",
+      "sha256": "43be8d9f25bddcd19baed0eb30390048f44226606f44453b43ed4781a9721bc3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-02/postimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "7719cf1728c5f6877a096308052d8b14f4a45b435e67ca3b3210e18cef28b40f"
+    }
+  ],
+  "frozenSubjectsUnchanged": true
+}

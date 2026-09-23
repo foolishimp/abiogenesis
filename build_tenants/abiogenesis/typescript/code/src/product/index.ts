@@ -153,6 +153,7 @@ export {
   isVerifiedProductArtifact,
   isProductContributionManifest,
   parseProductPublicContract,
+  selectOwnedProductVerification,
   verifyProduct,
 } from "./verify_product.js";
 export {
@@ -188,6 +189,7 @@ export {
 export {
   DIRECT_INVOKE_CAPABILITY,
   constructCapabilityGrant,
+  constructAdmissionCapabilityGrants,
   constructDirectInvocation,
   constructExactDirectInvocation,
   constructExactStartInvocation,

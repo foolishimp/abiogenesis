@@ -1,5 +1,7 @@
 import * as v from "valibot";
 import { readFile } from "node:fs/promises";
+import { statSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { absolutePathSchema, digestSchema, nonblankSchema, refDigestSchema } from "../shared/public_function_contracts.js";
 import { ADMISSION_CAPABILITY_DATA_SCHEMA, RESOLVED_ADMISSION_AUTHORITY_SCHEMA, type ResolvedAdmissionAuthority } from "../product/admission_authority.js";
 import { verifyProduct, isVerifiedProductArtifact } from "../product/verify_product.js";
@@ -15,6 +17,8 @@ import {
   type InterruptedEventStoreSelection,
   type InterruptedEventStoreRecovery,
   closeHeldEventStoreAtDurablePrefix,
+  assertHeldEventStoreAtDurablePrefix,
+  selectHeldEventStoreDurablePrefix,
   createNewEmptyAppendSink,
   reopenEventStore,
   validateDurablePrefixCoordinate,
@@ -51,6 +55,116 @@ export interface AcquiredAbgEventResource {
   readonly acquisitionKind: "new" | "reopen";
   readonly store: AbgEventStore;
   readonly entryPrefix: DurablePrefixCoordinate;
+}
+
+/** Native physical correspondence, issued only from an actual acquisition.
+ * Its explicit prefix selects one operation entry; a copied value is not held. */
+export interface AcquiredAbgEventResourceSelection {
+  readonly kind: "acquired_abg_event_resource_selection";
+  readonly schemaVersion: "5.0.0";
+  readonly prefix: DurablePrefixCoordinate;
+}
+
+export type AbgEventResourceInput = AbgEventResourceAssertion | AcquiredAbgEventResourceSelection;
+export type ReopenedAbgEventResourceInput = Extract<AbgEventResourceAssertion,
+  { kind: "reopen_abg_event_resource" }> | AcquiredAbgEventResourceSelection;
+
+/** Operation completion is not physical release and contains no close handoff. */
+export interface AbgEventResourceCompletion {
+  readonly kind: "abg_event_resource_completion";
+  readonly schemaVersion: "5.0.0";
+  readonly acquisitionKind: "new" | "reopen";
+  readonly entryPrefix: DurablePrefixCoordinate;
+  readonly successor: AcquiredAbgEventResourceSelection;
+  readonly receiptDigest: Sha256Digest;
+}
+export type AbgEventResourceOutcome = AbgEventResourceReceipt | AbgEventResourceCompletion;
+
+const acquiredSelections = new WeakMap<AcquiredAbgEventResourceSelection, AcquiredAbgEventResource>();
+const borrowedResources = new WeakSet<AcquiredAbgEventResource>();
+
+/** The store owns descriptor liveness and its committed cut. This operation
+ * boundary also observes ordinary pathname replacement or extent loss without
+ * rereading historical bytes. Same-inode outside content edits are unsupported. */
+function assertAcquiredResourceCurrent(resource: AcquiredAbgEventResource, prefix: DurablePrefixCoordinate): void {
+  assertHeldEventStoreAtDurablePrefix(resource.store, prefix);
+  const status = statSync(fileURLToPath(prefix.eventLogRef));
+  if (!status.isFile() || status.dev !== prefix.storeIdentity.device || status.ino !== prefix.storeIdentity.inode ||
+      status.size !== prefix.prefixLength) throw new TypeError("acquired ABG event source identity or extent differs from its selected prefix");
+}
+
+export function selectAcquiredAbgEventResource(
+  resource: AcquiredAbgEventResource,
+  prefix: DurablePrefixCoordinate,
+): AcquiredAbgEventResourceSelection {
+  assertAcquiredResourceCurrent(resource, prefix);
+  const ownedPrefix = selectHeldEventStoreDurablePrefix(resource.store);
+  const selection = deepFreeze({ kind: "acquired_abg_event_resource_selection" as const,
+    schemaVersion: "5.0.0" as const, prefix: ownedPrefix });
+  acquiredSelections.set(selection, { acquisitionKind: resource.acquisitionKind,
+    store: resource.store, entryPrefix: ownedPrefix });
+  return selection;
+}
+
+export function isAcquiredAbgEventResourceSelection(value: unknown): value is AcquiredAbgEventResourceSelection {
+  return isRecord(value) && acquiredSelections.has(value as unknown as AcquiredAbgEventResourceSelection);
+}
+
+export function assertAcquiredAbgEventResourceSelectionCurrent(selection: AcquiredAbgEventResourceSelection): void {
+  const resource = acquiredSelections.get(selection);
+  if (resource === undefined) throw new TypeError("native selection has no acquired owner");
+  assertAcquiredResourceCurrent(resource, selection.prefix);
+}
+
+export function validateAbgEventResourceInput(value: unknown): value is AbgEventResourceInput {
+  return isAcquiredAbgEventResourceSelection(value) || validateAbgEventResourceAssertion(value);
+}
+
+export function validateReopenedAbgEventResourceInput(value: unknown): value is ReopenedAbgEventResourceInput {
+  return isAcquiredAbgEventResourceSelection(value) ||
+    (validateAbgEventResourceAssertion(value) && value.kind === "reopen_abg_event_resource");
+}
+
+export function abgEventResourceInputPrefix(input: ReopenedAbgEventResourceInput): DurablePrefixCoordinate {
+  return input.kind === "acquired_abg_event_resource_selection" ? input.prefix : input.closeHandoff.prefix;
+}
+
+export function abgEventResourceOutcomePrefix(outcome: AbgEventResourceOutcome): DurablePrefixCoordinate {
+  return outcome.kind === "abg_event_resource_completion" ? outcome.successor.prefix : outcome.closeHandoff.prefix;
+}
+
+/** Physical owner relation for native completion at the live return boundary. */
+export function acquiredAbgEventResourceCompletionCorresponds(
+  entry: AcquiredAbgEventResourceSelection,
+  completion: AbgEventResourceCompletion,
+): boolean {
+  const before = acquiredSelections.get(entry), after = acquiredSelections.get(completion.successor);
+  if (before === undefined || after === undefined || before.store !== after.store ||
+      completion.entryPrefix.coordinateDigest !== entry.prefix.coordinateDigest) return false;
+  try { assertAcquiredResourceCurrent(after, completion.successor.prefix); return true; }
+  catch { return false; }
+}
+
+export function validateAbgEventResourceOutcome(value: unknown): value is AbgEventResourceOutcome {
+  if (validateAbgEventResourceReceipt(value)) return true;
+  if (!isRecord(value) || value.kind !== "abg_event_resource_completion" || value.schemaVersion !== "5.0.0" ||
+      Object.keys(value).sort().join("\0") !== ["kind", "schemaVersion", "acquisitionKind", "entryPrefix", "successor", "receiptDigest"].sort().join("\0") ||
+      (value.acquisitionKind !== "new" && value.acquisitionKind !== "reopen") ||
+      !validateDurablePrefixCoordinate(value.entryPrefix) || !isAcquiredAbgEventResourceSelection(value.successor)) return false;
+  const { receiptDigest, ...body } = value;
+  return receiptDigest === sha256Canonical(body as JsonValue);
+}
+
+/** Only a borrowed operation completes without releasing its enclosing owner. */
+export function completeAbgEventResource(
+  resource: AcquiredAbgEventResource,
+  finalPrefix: DurablePrefixCoordinate,
+): AbgEventResourceOutcome {
+  if (!borrowedResources.has(resource)) return closeAbgEventResource(resource, finalPrefix);
+  const body = { kind: "abg_event_resource_completion" as const, schemaVersion: "5.0.0" as const,
+    acquisitionKind: resource.acquisitionKind, entryPrefix: resource.entryPrefix,
+    successor: selectAcquiredAbgEventResource(resource, finalPrefix) };
+  return deepFreeze({ ...body, receiptDigest: sha256Canonical(body as unknown as JsonValue) });
 }
 
 export type AbgEventResourceAdmission =
@@ -158,8 +272,18 @@ export function validateAbgEventResourceReceipt(
 }
 
 export function acquireAbgEventResource(
-  assertion: AbgEventResourceAssertion,
+  assertion: AbgEventResourceInput,
 ): AbgEventResourceAdmission {
+  if (assertion.kind === "acquired_abg_event_resource_selection") {
+    const selected = acquiredSelections.get(assertion);
+    if (selected === undefined) return refusal("invalid_resource_assertion", "native selection has no acquired owner");
+    try {
+      assertAcquiredResourceCurrent(selected, assertion.prefix);
+      const resource = { ...selected };
+      borrowedResources.add(resource);
+      return { kind: "acquired_abg_event_resource", resource };
+    } catch (cause) { return refusal("acquisition_refused", String(cause)); }
+  }
   if (!exactIJson(assertion)) {
     return refusal(
       "invalid_resource_assertion",
@@ -240,6 +364,7 @@ export function closeAbgEventResource(
   resource: AcquiredAbgEventResource,
   finalPrefix: DurablePrefixCoordinate,
 ): AbgEventResourceReceipt {
+  assertAcquiredResourceCurrent(resource, finalPrefix);
   const closeHandoff = closeHeldEventStoreAtDurablePrefix(resource.store, finalPrefix);
   const body = {
     kind: "abg_event_resource_receipt" as const,
@@ -255,7 +380,7 @@ export function closeAbgEventResource(
 }
 
 export function abandonAbgEventResource(resource: AcquiredAbgEventResource): void {
-  resource.store.closeDurableLog();
+  if (!borrowedResources.has(resource)) resource.store.closeDurableLog();
 }
 
 /** Closed native maintenance data; it does not extend Public new/reopen or grant Run authority. */

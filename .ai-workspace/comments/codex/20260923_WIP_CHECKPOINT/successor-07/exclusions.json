@@ -1,0 +1,10 @@
+{
+  "prefixesAndFiles": {},
+  "active": [
+    "Active s02-installed-continuation-14 and later carriers",
+    "In-progress implementation03 independent review; later added only after CLOSED and Root acceptance",
+    "All original mutable GLC/S02 resources/history/worksite; no snapshot",
+    "Unselected scratch, node_modules, reproducible caches and unrelated outputs"
+  ],
+  "note": "No new blanket ignore of active or reproducible trees; only exact newly transported originals will be ignored."
+}

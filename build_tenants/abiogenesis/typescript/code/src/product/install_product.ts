@@ -30,6 +30,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import {
   isVerifiedProductArtifact,
   parseProductManifest,
+  selectOwnedProductVerification,
   verifyProduct,
 } from "./verify_product.js";
 
@@ -214,7 +215,7 @@ export async function installProduct(
     );
   }
 
-  const currentVerification = await verifyProduct({
+  const verificationRequest = {
     artifactPath: request.artifactPath,
     artifactRef: request.verifiedArtifact.artifactRef,
     expectedArtifactDigest: request.verifiedArtifact.artifactDigest,
@@ -224,11 +225,13 @@ export async function installProduct(
     expectedProductId: request.verifiedArtifact.productId,
     expectedPackageName: request.verifiedArtifact.packageName,
     expectedPackageVersion: request.verifiedArtifact.packageVersion,
-  });
+  };
+  const owned = selectOwnedProductVerification(verificationRequest, request.verifiedArtifact);
+  const currentVerification = owned ?? await verifyProduct(verificationRequest);
   if (
     currentVerification.kind !== "verified_product_artifact" ||
-    canonicalJson(currentVerification as unknown as JsonValue) !==
-      canonicalJson(request.verifiedArtifact as unknown as JsonValue)
+    (owned === null && canonicalJson(currentVerification as unknown as JsonValue) !==
+      canonicalJson(request.verifiedArtifact as unknown as JsonValue))
   ) {
     return refusal(
       "artifact_mismatch",
@@ -236,16 +239,8 @@ export async function installProduct(
     );
   }
 
-  let artifactDigest: string;
-  try {
-    artifactDigest = await sha256File(request.artifactPath);
-  } catch (error) {
-    return refusal("artifact_mismatch", String(error));
-  }
-  if (artifactDigest !== request.verifiedArtifact.artifactDigest) {
-    return refusal("artifact_mismatch", "artifact bytes differ from the verified artifact");
-  }
-
+  // The selected verification already owns this exact immutable archive basis.
+  // The newly materialized tree below still requires complete physical checking.
   await mkdir(request.targetRoot, { recursive: true });
   if ((await readdir(request.targetRoot)).length !== 0) {
     return refusal("target_not_empty", "installation target must be empty");

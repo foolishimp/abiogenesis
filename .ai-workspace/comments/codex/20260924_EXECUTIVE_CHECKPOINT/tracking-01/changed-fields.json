@@ -1,0 +1,13 @@
+[
+  "current_activation",
+  "current_candidate_record",
+  "current_candidate_archive_sha256",
+  "current_worker_return",
+  "current_candidate_scope",
+  "current_activation_status",
+  "current_activation_disposition",
+  "next_bounded_task",
+  "next_bounded_task_status",
+  "current_continuation_debt",
+  "current_activation_record"
+]

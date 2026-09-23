@@ -8,17 +8,12 @@ import * as Effect from "effect/Effect";
 import {
   abandonAbgEventResource,
   acquireAbgEventResource,
-  closeAbgEventResource,
-  type AbgEventResourceAssertion,
-  type AbgEventResourceReceipt,
+  completeAbgEventResource,
+  validateReopenedAbgEventResourceInput,
+  type AbgEventResourceInput,
+  type AbgEventResourceOutcome,
 } from "../abg/definition_event_resource.js";
-import {
-  hasAdmittedProductInstall,
-  hasAdmittedWorkspaceBinding,
-  projectAdmittedProductInstallByAdmissionEventRef,
-  projectAdmittedWorkspaceBindingByInvocationRef,
-} from "../abg/environment_admission.js";
-import { projectExactPrefixArtifactTruth } from "../abg/artifact_truth.js";
+import type { ExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import type {
   CatalogContribution,
@@ -103,7 +98,7 @@ type ApplyPacket = NodeTypePacket | OverlayPacket;
 export interface CatalogAdmissionResourceAssertion {
   readonly kind: "catalog_admission_resource_assertion";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceAssertion;
+  readonly eventResource: AbgEventResourceInput;
   readonly workspaceBinding: WorkspaceBinding;
   readonly resolvedLock: ResolvedProductLock;
   readonly verifiedProducts: readonly VerifiedProductArtifact[];
@@ -115,7 +110,7 @@ export interface CatalogAdmissionResourceReceipt {
   readonly kind: "catalog_admission_resource_receipt";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "read_only_unchanged";
-  readonly eventResource: AbgEventResourceReceipt;
+  readonly eventResource: AbgEventResourceOutcome;
   readonly workspaceBinding: ReferenceDigest<"WorkspaceBinding">;
   readonly resolvedLock: ReferenceDigest<"ResolvedProductLock">;
   readonly installedProducts: readonly ReferenceDigest<"InstalledProduct">[];
@@ -291,7 +286,7 @@ function validateAdmissionStructure(
     ]) ||
     resources.kind !== "catalog_admission_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
-    resources.eventResource.kind !== "reopen_abg_event_resource" ||
+    !validateReopenedAbgEventResourceInput(resources.eventResource) ||
     !sameJson(resources, resources) ||
     !isResolvedProductLock(resources.resolvedLock) ||
     !Array.isArray(resources.verifiedProducts) ||
@@ -321,67 +316,29 @@ function validateAdmissionStructure(
 function reconstructReadinessBasis(
   call: DefinitionCall<AdmitPacket, CatalogAdmissionResourceAssertion>,
   prefix: DurablePrefixCoordinate,
+  environment: ExactPrefixWorkspaceEnvironment | null,
 ): CatalogReadinessBasis | DefinitionExecutionFault<AdmitPacket["definitionKey"]> {
   const resources = call.resources;
-  const truth = projectExactPrefixArtifactTruth(prefix);
-  if (truth.kind !== "exact_prefix_artifact_truth_projection") {
-    return fault(
-      call,
-      "resource_admission",
-      "environment_prefix_refusal",
-      canonicalJson(truth as unknown as JsonValue),
-    );
+  if (environment === null || !sameJson(environment.prefix, prefix) ||
+      !sameJson(environment.workspaceBinding, resources.workspaceBinding) ||
+      !sameJson(environment.resolvedProductLock, resources.resolvedLock)) {
+    return fault(call, "resource_admission", "catalog_basis_projection_mismatch",
+      "catalog readiness inputs differ from the approved exact-prefix environment");
   }
-  if (
-    !hasAdmittedWorkspaceBinding(truth, resources.workspaceBinding) ||
-    resources.admittedInstalls.some((install) =>
-      !hasAdmittedProductInstall(truth, install)
-    )
-  ) {
-    return fault(
-      call,
-      "resource_admission",
-      "unadmitted_catalog_basis",
-      "catalog readiness resources are absent from the supplied exact ABG environment prefix",
-    );
-  }
-  const workspaceRow = truth.rows.find((row) =>
-    row.admissionEventRef === resources.workspaceBinding.admissionEventRef
-  );
-  const workspace = workspaceRow === undefined
-    ? null
-    : projectAdmittedWorkspaceBindingByInvocationRef(
-        truth,
-        workspaceRow.invocationRef,
-        resources.resolvedLock,
-      );
-  const installs = resources.admittedInstalls.map((install) =>
-    projectAdmittedProductInstallByAdmissionEventRef(
-      truth,
-      install.admissionEventRef,
-    )
-  );
-  if (
-    workspace === null ||
-    !sameJson(workspace.binding, resources.workspaceBinding) ||
-    installs.some((value) => value === null) ||
-    installs.some((value, index) =>
-      !sameJson(value!.install, resources.admittedInstalls[index]) ||
-      !sameJson(value!.resolvedLock, resources.resolvedLock)
-    )
-  ) {
-    return fault(
-      call,
-      "resource_admission",
-      "catalog_basis_projection_mismatch",
-      "catalog readiness inputs differ from independently reconstructed ABG artifact truth",
-    );
+  const installs = resources.admittedInstalls.map(install =>
+    environment.productInstalls.find(admitted => sameJson(admitted, install)));
+  if (installs.some(install => install === undefined)) {
+    return fault(call, "resource_admission", "unadmitted_catalog_basis",
+      "catalog installs are absent from the approved exact-prefix environment");
   }
   const basis: CatalogReadinessBasis = {
-    workspaceBinding: workspace.candidate,
-    resolvedLock: resources.resolvedLock,
+    workspaceBinding: environment.workspaceBindingCandidate,
+    resolvedLock: environment.resolvedProductLock,
     verifiedProducts: resources.verifiedProducts,
-    installedProducts: installs.map((value) => value!.candidate),
+    installedProducts: installs.map(install => {
+      const { kind: _kind, disposition: _disposition, admissionEventRef: _event, ...body } = install!;
+      return { kind: "product_install_candidate" as const, disposition: "materialized" as const, ...body };
+    }),
     publications: resources.publications,
   };
   const request = call.invocation.request;
@@ -576,7 +533,7 @@ function projectAdmissionRows(
 
 function admissionReceipt(
   resources: CatalogAdmissionResourceAssertion,
-  eventResource: AbgEventResourceReceipt,
+  eventResource: AbgEventResourceOutcome,
   catalog: ReadyGraphFunctionCatalog | null,
 ): CatalogAdmissionResourceReceipt {
   return deepFreeze({
@@ -602,7 +559,7 @@ const admit: AdmissionDefinitionOwner<
   AdmitPacket,
   CatalogAdmissionResourceAssertion,
   CatalogAdmissionResourceReceipt
-> = (call, _environment, heldResource) => {
+> = (call, environment, heldResource) => {
   if (admitExactDefinitionCall(call, CATALOG_OPERATION_CONTRACTS.admit) === null) {
       return Effect.fail( definitionFault(
         CATALOG_OPERATION_CONTRACTS.admit.definitionKey, "call_admission", "call_identity_mismatch",
@@ -620,7 +577,7 @@ const admit: AdmissionDefinitionOwner<
       }
       const resource = acquired.resource;
       try {
-        const basis = reconstructReadinessBasis(call, resource.entryPrefix);
+        const basis = reconstructReadinessBasis(call, resource.entryPrefix, environment);
         if (isDefinitionFault(basis)) throw basis;
         const nativePacket: CatalogAdmitPacket = {
           kind: "catalog_admit_packet",
@@ -634,7 +591,7 @@ const admit: AdmissionDefinitionOwner<
             ownerOutput: projectCatalogRefusal(native),
             resources: admissionReceipt(
               call.resources,
-              closeAbgEventResource(resource, resource.entryPrefix),
+              completeAbgEventResource(resource, resource.entryPrefix),
               null,
             ),
           });
@@ -648,7 +605,7 @@ const admit: AdmissionDefinitionOwner<
             ),
             resources: admissionReceipt(
               call.resources,
-              closeAbgEventResource(resource, resource.entryPrefix),
+              completeAbgEventResource(resource, resource.entryPrefix),
               null,
             ),
           });
@@ -677,7 +634,7 @@ const admit: AdmissionDefinitionOwner<
           ownerOutput,
           resources: admissionReceipt(
             call.resources,
-            closeAbgEventResource(resource, resource.entryPrefix),
+            completeAbgEventResource(resource, resource.entryPrefix),
             native,
           ),
         });

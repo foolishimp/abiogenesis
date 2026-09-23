@@ -21,13 +21,13 @@ import {
 } from "../abg/environment_admission.js";
 import { projectOwnedPrefixArtifactTruth } from "../abg/artifact_truth.js";
 import { assertDurableRuntimePrefixCurrent, assertHeldEventStoreAtDurablePrefix, captureDurablePrefixCoordinate, validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
-import { isVerifiedProductArtifact, verifyProduct } from "./verify_product.js";
+import { isVerifiedProductArtifact, selectOwnedProductVerification, verifyProduct } from "./verify_product.js";
 import { constructAdmissionCapabilityGrants, type CapabilityGrant } from "./invocation.js";
 import { productInstallCoordinate } from "./environment.js";
 import type { VerifiedProductArtifact } from "./contracts.js";
 
 import {
-  acquireAbgEventResource, abandonAbgEventResource, validateAbgEventResourceAssertion,
+  acquireAbgEventResource, abandonAbgEventResource, validateAbgEventResourceInput, isAcquiredAbgEventResourceSelection,
   type AcquiredAbgEventResource,
 } from "../abg/definition_event_resource.js";
 
@@ -206,7 +206,11 @@ export function admitCapabilityEnvironment(
   return environment;
 }
 
-/** Revalidate immutable owner bytes; external approval is consumed, not authenticated here. */
+// The actual Product result is also bound once to this executing immutable
+// install. This disposable relation conveys neither approval nor ABG currentness.
+const executingOwnerArtifacts = new WeakSet<VerifiedProductArtifact>();
+
+/** Establish/reuse immutable owner bytes; external approval is consumed here. */
 export async function validateAdmissionCapabilityBasis(
   authorityInput: ResolvedAdmissionAuthority,
   actorRef: string,
@@ -264,12 +268,17 @@ export async function validateAdmissionCapabilityBasis(
       throw new TypeError("admission grant requires the exact admitted workspace, Product set and lock");
     }
   }
-  const verified = await verifyProduct(data.ownerArtifact.request);
-  const installedManifest = await readFile(fileURLToPath(new URL("../../../../product-toolchain-manifest.json", import.meta.url)));
+  const owned = selectOwnedProductVerification(data.ownerArtifact.request, data.ownerArtifact.verified);
+  const verified = owned ?? await verifyProduct(data.ownerArtifact.request);
   if (verified.kind !== "verified_product_artifact" ||
-      !sameJson(verified, data.ownerArtifact.verified) ||
-      digest(JSON.parse(installedManifest.toString("utf8"))) !== verified.manifestDigest) {
+      (owned === null && !sameJson(verified, data.ownerArtifact.verified))) {
     throw new TypeError("admission capability owner differs from the verified executing artifact");
+  }
+  if (!executingOwnerArtifacts.has(verified)) {
+    const installedManifest = await readFile(fileURLToPath(new URL("../../../../product-toolchain-manifest.json", import.meta.url)));
+    if (digest(JSON.parse(installedManifest.toString("utf8"))) !== verified.manifestDigest)
+      throw new TypeError("admission capability owner differs from the verified executing artifact");
+    executingOwnerArtifacts.add(verified);
   }
   // Share only owner-built immutable bodies; caller wrappers are not retained.
   return { data: deepFreeze({ ...data, ownerArtifact: { ...data.ownerArtifact, verified } }),
@@ -305,9 +314,9 @@ export function withAdmissionAuthority<P extends OwnerContractSourceDeclaration,
         // Bound reopened effects acquire once, before semantic reconstruction.
         // A new resource is still created only by its authorized effect owner.
         const assertion = (resources as Record<string, unknown>).eventResource;
-        if (parsed.basis.boundEnvironment !== null && isRecord(assertion) &&
-            assertion.kind === "reopen_abg_event_resource") {
-          if (!validateAbgEventResourceAssertion(assertion)) throw new TypeError("invalid event resource assertion");
+        if (isAcquiredAbgEventResourceSelection(assertion) ||
+            (parsed.basis.boundEnvironment !== null && isRecord(assertion) && assertion.kind === "reopen_abg_event_resource")) {
+          if (!validateAbgEventResourceInput(assertion)) throw new TypeError("invalid event resource assertion");
           const acquired = acquireAbgEventResource(assertion);
           if (acquired.kind !== "acquired_abg_event_resource") throw definitionFault(
             packet.definitionKey, "resource_acquisition", acquired.code, acquired.message);

@@ -1,0 +1,7 @@
+CLOSED — tracking-03 accepted repair and active-discriminator projection.
+
+Writer /root/checkpoint_current_repairs returns to /root. GOALS/T287 and GLC GOALS/T043 now distinguish accepted implementation03/compiled08 and frozen caller readiness from the separately active original capacity/integration and installed S02 discriminators. Existing LIFE-01 and Product verification reuse debt records carry the bounded acceptance; startup8.605s, terminal/high-water RSS, remaining full-collection projections and unknown allocation attribution remain explicit. Original OOM cure, full S1–S5, remaining S02, all-family qualification, RC1 and actual human acceptance remain open.
+
+Root acceptance is preserved in executive-acceptance.json; independent review return c51375cc… and review4f0f07f2… retain their exact bytes. Tracking01/02 and all historical tails remain unchanged. Only current checkpoint/status/debt rows and corresponding live metadata changed. No Product/requirement/design/source or runtime effects were performed. Original execution launched separately at2026-09-23T17:46:09.529Z; launch is not terminal success or paid-actor evidence. Active bindings/resources/outputs and entire continuation14 are excluded from this closed-work checkpoint.
+
+Verification passes exact section/field bounds, introduced links and added-line whitespace. Frozen postimages and carrier are listed in freeze.json. The separate successor07 publication carrier owns banking and authorized Git effects; this closed tracking result is not a clean-tree, release or complete-goal claim.

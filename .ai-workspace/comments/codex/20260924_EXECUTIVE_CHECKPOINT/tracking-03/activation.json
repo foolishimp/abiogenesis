@@ -1,0 +1,51 @@
+{
+  "status": "ACTIVE",
+  "actor": "/root/checkpoint_current_repairs",
+  "role": "Writer as Worker",
+  "returnTo": "/root",
+  "createdAt": "2026-09-23T17:39:31.489320+00:00",
+  "authority": "Root exact bounded checkpoint grant; user-authorized commit/push after closed repairs; commit/push waits for Root acceptance",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "changeClass": "goal_reprice current tracking projection only",
+  "grant": [
+    "ABG GOALS current goal/checkpoint",
+    "T287 current checkpoint/current debt and corresponding live metadata",
+    "GLC GOALS current tracking/selection and T043 current selection/metadata",
+    "tracking-03 and successor-07 proof bank/index",
+    "Git index and one ordinary commit/push per repo only after Root acceptance"
+  ],
+  "prohibitions": [
+    "no source/runtime/design repair",
+    "no original GLC/S02 resource reads or mutations",
+    "no active continuation14",
+    "no build/native/provider tests",
+    "no tags/releases/pins",
+    "no mutation of prior frozen carriers"
+  ],
+  "preimages": [
+    {
+      "repo": "abiogenesis",
+      "path": "specification/GOALS.md",
+      "sha256": "43be8d9f25bddcd19baed0eb30390048f44226606f44453b43ed4781a9721bc3",
+      "bytes": 54706
+    },
+    {
+      "repo": "abiogenesis",
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "7719cf1728c5f6877a096308052d8b14f4a45b435e67ca3b3210e18cef28b40f",
+      "bytes": 337313
+    },
+    {
+      "repo": "odd_glc",
+      "path": "specification/GOALS.md",
+      "sha256": "7238dc56cb1cc7090b2ba92d7f77f8b3fa37847d061a0aaf1a288a6a39d11ba0",
+      "bytes": 14468
+    },
+    {
+      "repo": "odd_glc",
+      "path": ".ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "sha256": "003ac4d31e80154bbc3e2090d2291b826823badf2c483c09df67519b3ac109a4",
+      "bytes": 50221
+    }
+  ]
+}

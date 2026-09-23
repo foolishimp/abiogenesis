@@ -1,4 +1,4 @@
-import { withAdmissionAuthority } from "./admission_authority.js";
+import { withAdmissionAuthority, type AdmissionDefinitionOwner } from "./admission_authority.js";
 import { admitExactDefinitionCall, definitionFault as callAdmissionFault } from "../shared/definition_binding_mechanics.js";
 import { join } from "node:path";
 import * as Effect from "effect/Effect";
@@ -6,9 +6,10 @@ import * as Effect from "effect/Effect";
 import {
   abandonAbgEventResource,
   acquireAbgEventResource,
-  closeAbgEventResource,
-  type AbgEventResourceAssertion,
-  type AbgEventResourceReceipt,
+  completeAbgEventResource,
+  validateAbgEventResourceInput,
+  type AbgEventResourceInput,
+  type AbgEventResourceOutcome,
 } from "../abg/definition_event_resource.js";
 import {
   admitProductInstall,
@@ -31,7 +32,6 @@ import type {
   DefinitionCall,
   DefinitionExecutionFault,
   DefinitionReturn,
-  ExactDefinitionCallable,
 } from "../shared/effect_definition.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { constructExactOperationInvocationCoordinate } from
@@ -71,7 +71,7 @@ type InstallRefusalCode = OwnerRefusalOf<InstallPacket>["code"];
 export interface ProductInstallResourceAssertion {
   readonly kind: "product_install_resource_assertion";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceAssertion;
+  readonly eventResource: AbgEventResourceInput;
   readonly packedArtifact: ProductVerificationArtifactResource;
   readonly verifiedArtifact: VerifiedProductArtifact;
   readonly resolvedLock: ResolvedProductLock;
@@ -80,7 +80,7 @@ export interface ProductInstallResourceAssertion {
 export interface ProductInstallResourceReceipt {
   readonly kind: "product_install_resource_receipt";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: AbgEventResourceReceipt;
+  readonly eventResource: AbgEventResourceOutcome;
   readonly packedArtifact: ReferenceDigest<"PackedProductArtifact">;
   readonly resolvedLock: ReferenceDigest<"ResolvedProductLock">;
   readonly targetRoot: string;
@@ -139,6 +139,7 @@ function validateResources(
     ]) ||
     resources.kind !== "product_install_resource_assertion" ||
     resources.schemaVersion !== "5.0.0" ||
+    !validateAbgEventResourceInput(resources.eventResource) ||
     !sameJson(resources, resources) ||
     !isVerifiedProductArtifact(resources.verifiedArtifact) ||
     !isResolvedProductLock(resources.resolvedLock)
@@ -220,7 +221,7 @@ function nativeRefusalOutput(
 
 function receipt(
   call: DefinitionCall<InstallPacket, ProductInstallResourceAssertion>,
-  eventResource: AbgEventResourceReceipt,
+  eventResource: AbgEventResourceOutcome,
   candidate: ProductInstallCandidate | null,
   install: ProductInstall | null,
   installerManifest: ReferenceDigest<"InstallerManifest"> | null,
@@ -239,11 +240,11 @@ function receipt(
   });
 }
 
-const install: ExactDefinitionCallable<
+const install: AdmissionDefinitionOwner<
   InstallPacket,
   ProductInstallResourceAssertion,
   ProductInstallResourceReceipt
-> = (call) => {
+> = (call, _boundEnvironment, alreadyAcquired) => {
   if (admitExactDefinitionCall(call, PRODUCT_INSTALL_CONTRACTS.install) === null) {
     return Effect.fail(callAdmissionFault(
       PRODUCT_INSTALL_CONTRACTS.install.definitionKey, "call_admission", "call_identity_mismatch",
@@ -258,7 +259,9 @@ const install: ExactDefinitionCallable<
       InstallPacket,
       ProductInstallResourceReceipt
     >> => {
-      const acquired = acquireAbgEventResource(call.resources.eventResource);
+      const acquired = alreadyAcquired === null
+        ? acquireAbgEventResource(call.resources.eventResource)
+        : { kind: "acquired_abg_event_resource" as const, resource: alreadyAcquired };
       if (acquired.kind !== "acquired_abg_event_resource") {
         throw installFault(
           call,
@@ -286,7 +289,7 @@ const install: ExactDefinitionCallable<
             ownerOutput: nativeRefusalOutput(candidate),
             resources: receipt(
               call,
-              closeAbgEventResource(resource, resource.entryPrefix),
+              completeAbgEventResource(resource, resource.entryPrefix),
               null,
               null,
               null,
@@ -347,7 +350,7 @@ const install: ExactDefinitionCallable<
             ownerOutput: refusalOutput(code, "/targetRoot"),
             resources: receipt(
               call,
-              closeAbgEventResource(resource, admitted.successorPrefix),
+              completeAbgEventResource(resource, admitted.successorPrefix),
               candidate,
               null,
               null,
@@ -393,7 +396,7 @@ const install: ExactDefinitionCallable<
           ownerOutput,
           resources: receipt(
             call,
-            closeAbgEventResource(resource, admitted.successorPrefix),
+            completeAbgEventResource(resource, admitted.successorPrefix),
             candidate,
             projected,
             installerManifest,
