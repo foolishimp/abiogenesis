@@ -655,7 +655,7 @@ test("D1 installed fixed-source obligation handoff remains non-closing", async t
         inventoryBasis: { kind: "declared_inventory", inventory: catalog.boundPublications.map(p => coord(p.moduleRef, p)).sort((a, b) => a.ref.localeCompare(b.ref)) } },
       { kind: "conformance_evaluation_resource_assertion", schemaVersion, packet: { kind: "conformance_evaluate_packet", schemaVersion,
         memberKey: "gtl_program", publication: consumerPublication, program }, conformanceLaw: law,
-        artifactTruth: environment.artifactTruth, declaredInventory: catalog.boundPublications,
+        declaredInventory: catalog.boundPublications,
         declarationCatalog: { catalog, catalogView } }, boundSlots), "conformance.evaluate");
     assert.equal(conformance.ownerOutput.value.disposition, "passed", JSON.stringify(conformance.ownerOutput));
     phase = "installed_owner_resolution";
@@ -953,7 +953,7 @@ test("D1 retained catalog continuation reaches admitted handoff and replay", asy
         inventoryBasis: { kind: "declared_inventory", inventory: catalog.boundPublications.map(p => coord(p.moduleRef, p)).sort((a, b) => a.ref.localeCompare(b.ref)) } },
       { kind: "conformance_evaluation_resource_assertion", schemaVersion, packet: { kind: "conformance_evaluate_packet", schemaVersion,
         memberKey: "gtl_program", publication: consumerPublication, program }, conformanceLaw: law,
-        artifactTruth: environment.artifactTruth, declaredInventory: catalog.boundPublications,
+        declaredInventory: catalog.boundPublications,
         declarationCatalog: { catalog, catalogView } }, boundSlots), "conformance.evaluate");
     assert.equal(conformance.ownerOutput.value.disposition, "passed", JSON.stringify(conformance.ownerOutput));
     phase = "installed_owner_resolution";

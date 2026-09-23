@@ -1,0 +1,16 @@
+{
+  "role": "Writer",
+  "basisCommit": "15ef2b3d3c188a1fed2c8665e4d78c0caded375b",
+  "branch": "main",
+  "verifiedRemoteAtEntry": "15ef2b3d3c188a1fed2c8665e4d78c0caded375b",
+  "selection": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-02/checkpoint-selection.json",
+  "selectionSha256": "2b0f4171f14079e716a4587973327799ec64fe22b7364c78b3768c7af0fab97a",
+  "authority": "Root separate Writer activation; standing user commit/push grant; exact STDO v2.5.1-rc.1",
+  "scope": "One ordinary current-branch commit/push per repo; accepted closed source/evidence and expressly pending-review conformance/retry WIP; no implementation, tests, build, native or release",
+  "exclusions": [
+    "active WHOLE_PATH_SCOPE_REVIEW output",
+    "original mutable history/worksite and runtime resource trees",
+    "unselected moving/unknown files"
+  ],
+  "receipt": "Final commit/remote/dirty readback remains outside its own commit, without second checkpoint"
+}

@@ -448,7 +448,7 @@ async function runScenario(t, variantId) {
         inventoryBasis: { kind: "declared_inventory", inventory: publications.map(p => coord(p.moduleRef, p)).sort((a, b) => a.ref.localeCompare(b.ref)) } },
       { kind: "conformance_evaluation_resource_assertion", schemaVersion, packet: { kind: "conformance_evaluate_packet", schemaVersion,
         memberKey: "gtl_program", publication: consumerPublication, program }, conformanceLaw: law,
-        artifactTruth: environment.artifactTruth, declaredInventory: publications,
+        declaredInventory: publications,
         declarationCatalog: { catalog, catalogView } }, boundSlots), "conformance.evaluate");
     assert.equal(conformance.ownerOutput.value.disposition, "passed", JSON.stringify(conformance.ownerOutput));
     phase = "installed_owner_resolution";

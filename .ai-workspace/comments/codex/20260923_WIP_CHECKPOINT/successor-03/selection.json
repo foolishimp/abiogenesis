@@ -1,0 +1,323 @@
+{
+  "directExpected": {
+    "build_tenants/abiogenesis/typescript/code/src/abg/deferred_application.ts": {
+      "sha256": "90198cb8727d9c994b17677bd6099c463b9087e7dcdb9b47f6bfadd224f54b0b",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts": {
+      "sha256": "ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts": {
+      "sha256": "520ef1ba1acaf32a0b7263b78242d41a609a9e12820a4ebce27fd2b5229b14f1",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts": {
+      "sha256": "a5802f5cd7dcc267356f4d0769de320ac58e17b5a7b94d0d8ee88e70e56e5fcb",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts": {
+      "sha256": "b79ff60db5f85a2e8c97beffdb3ef1c0d25e39bcf65bd4a315a95faf81b4f285",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": {
+      "sha256": "21dc25553394183ade0267a6555d3410fe7e4f382b363d8f78dbdd00a39209c0",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/self_conformance.ts": {
+      "sha256": "0e07e01550b2bb48e3deaff0107e3ff1570220526149801d3084388c164807a0",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts": {
+      "sha256": "efb9ab0f469d355dda9fb993f6f90487d46083d4d326f431f1dc676bb0512100",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts": {
+      "sha256": "f8e92aa311cc56ce7ead7b6b51905791ace6502d4a7b5972a7671503ebe505d8",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts": {
+      "sha256": "cf50d1120b7a73aa8f09554a06793c419576bdf6d030c27d8af03c7168dd7e9b",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts": {
+      "sha256": "3e14d15f29656e9bb3e37b5d2bc110104523c349f09911b1f1353890d570eb81",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md": {
+      "sha256": "7f2ef6b22c5e6d7176e08dd2283ba3c09869a7738490090c444022a13ddfa41a",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_D4_SELF_CONFORMANCE_DESIGN.md": {
+      "sha256": "b6d1edc9ea9c2847241c0855a8de92340b79aedf3459b18639a3fb748ccd3d4c",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs": {
+      "sha256": "06885af43d383a3c3c51f33a0cfe944eca99eeb1b12985deb2d4057c2d64fff2",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/new-empty-append-sink.mjs": {
+      "sha256": "0d13d5d882d3d30ab8af2cc613b9d9540db4b4aa001349811726f0983d4f9a02",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs": {
+      "sha256": "dd4d40452294beb6f480f4d40f21eee3c1a15ceb126c5544ca65e70c37d18c23",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs": {
+      "sha256": "24cfa69990ef8ee06c8f815dad108cabdf10590460007842a6a5f0bbe9055857",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/r7-graph-validation-basis.test.mjs": {
+      "sha256": "0ef225cfb83ca14dcf169e7a1f3dadaca9e5f79ae7998a3a8dc222c8280cb676",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs": {
+      "sha256": "7ff195c4e74088124121b00c6d13a351f27e8edc9951ae6a5942939cb941fd9d",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs": {
+      "sha256": "9c7f9969ab07d01276396b0a75b743cd4dcf42a10260966a5733ac24e13846fd",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs": {
+      "sha256": "42119247958b1a1fdeedf72058670b2a2ede24972e0924c71a0fa501260b3bb3",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs": {
+      "sha256": "2125bd4fc66a3218827f3cc859a566836ded0dcf6096d81a90e4eff721b7cc56",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs": {
+      "sha256": "8d5cfcdf111641bb4ee651ea8ebb772a9e217de333a4c075f2fcde5e7d300a6d",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-execution-closure.test.mjs": {
+      "sha256": "515cffbdcb7d883c6ca78f4411b41ef0e264096e42b8ae0cc0bfbb147d92942a",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs": {
+      "sha256": "f394e26a3db022a5635dcf680f30af764ba42748f40ad1ea07412bb00bcf2950",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "10705f8fe5984c5b6cc9cb918d5c9decc7359ec2c6152d0f3251eee4700be4fe",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/schemas/self-conformance.schema.json": {
+      "sha256": "916a087f4b3c6490c9f5ea649cb91012be7769c18f05cf306c1c04409afcd48a",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "a985fac72a2530b52370c40d4d831127b52149213fff468c63d846a87814708d",
+      "classification": "accepted_bounded_source_or_generated"
+    },
+    "specification/GOALS.md": {
+      "sha256": "890fc31814459ee27000de7d291a1c06ee981970d6cab0e012a472c1b55c0be6",
+      "classification": "accepted_Writer_tracking"
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "7790810cc6cf91b09574cc783b7b72e869d830238ef578ffac7fa0af628defc5",
+      "classification": "accepted_Writer_tracking"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts": {
+      "sha256": "60b89b114380d0924a4e30d42d34e7bb379bd53fed7dbd2316d72656d5578fba",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs": {
+      "sha256": "0c3c10e981703b93ffb1f3e5cadaa9a1aa8de1ca4e89fe6d7cfd2a5833cab6cc",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-frame-installed.mjs": {
+      "sha256": "99bc11c8100c1249dc1ee0b5d420feba1796137eb3dae0437cb53064b4749c8a",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/steel-consumer-declaration.test.mjs": {
+      "sha256": "d5573a2bd8f0c33dcba23271ef7dbee52ff9ba3e3b0f2d700300cc3462196c2f",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs": {
+      "sha256": "e6d1239db9b67a1377b5f5a5e233f3b90e5e0578a983d830beeb470101f4944a",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-requirement-handoff.test.mjs": {
+      "sha256": "61e70ae8ab3e9cb80982315a9f27f23f727f98916f8309b083940f3a47e2346f",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs": {
+      "sha256": "87c3de9feb5febb3de42e56acd6de1d5ab9e8d3e8f5ea56b62ba6256be0cd81f",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment-installed.mjs": {
+      "sha256": "c56c8de84ebe24285a1ead4de38e9c1ea76d08b2bf6ee8e0b4d921898dfbff9e",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs": {
+      "sha256": "48ac49d41319ff32d16eed12c6b3f3cef1267ae100c11e2de9741b422cf80025",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-serial-branch-installed.test.mjs": {
+      "sha256": "4ad2774a76f3735f93138be77c6d5e7c89f6aa13839ea9c6f60d1ded592cce72",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-installed.test.mjs": {
+      "sha256": "e241af9f1292eaee20abedd541cfb568eefe15e56d931035329d0c1f0dd5b6fb",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts": {
+      "sha256": "bbfd81edb15f34237eb2f897e263069f695d38f472f7caf0ab6d9d2dda388bb6",
+      "classification": "pending_review_WIP"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs": {
+      "sha256": "bed29af21cb68d093d298e243ed1a6c7bd8ae041ec18112f80083296233c60ab",
+      "classification": "pending_review_WIP"
+    }
+  },
+  "closedProofSelections": [
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-01/freeze.json",
+      "sha256": "b4448e0d1be417b50160cb3c875819d8b4fbfce915a642dd8166631f8c4d196b",
+      "bytes": 16195,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/freeze.json",
+      "sha256": "4b47285b95656c83dd07f0d6cbcf794738b8328404aacc35cb9e0111e62559a3",
+      "bytes": 8131,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_SELECTED_EXECUTION_CLOSURE_REPAIR/implementation-01/freeze.json",
+      "sha256": "40241a390deafb5088daea0d02803b22655a0e2c54ea5fe156e36087faa35104",
+      "bytes": 8470,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_S02_RECURSION_RESTORATION/implementation-01/freeze.json",
+      "sha256": "6917d71ff20a57ad3a3ad78b8c3c38bae02768fe93269a2edb4b26a32172c981",
+      "bytes": 4757,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/runtime-stop/freeze.json",
+      "sha256": "0ed8c8f7a1f5a1dd779ad239705cb114edf8760c089e6f03373715e6f3b1abd3",
+      "bytes": 87155,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-04/runtime-stop/freeze.json",
+      "sha256": "bd4bdc4825139f30acc414d1a8529341242108495d8910b4ff1f13967517e4ed",
+      "bytes": 96567,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-01/freeze.json",
+      "sha256": "3ec580e6ed4f14fbd3838868be57f773606ab195a54004ee0d1fa3def5f188db",
+      "bytes": 9261,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-02/freeze.json",
+      "sha256": "9105b8f48afeaf908da2c819b59979c353a4b6f8afcb9f32e0447e16af27155c",
+      "bytes": 11457,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/c0-diagnosis-03/freeze.json",
+      "sha256": "4c48839e8286867224305dbe25f173df001bd24673107b127795963128ec3742",
+      "bytes": 3241,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-04/freeze.json",
+      "sha256": "82693ad8da11288a48a25486cad19b4608d862b96339e67491c41dd60f22c8e9",
+      "bytes": 3024,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-05/freeze.json",
+      "sha256": "07cc6d3feb634564ee5fb47891f9a06d3f036baa7528896733418f336d385505",
+      "bytes": 2024,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "abiogenesis",
+      "freeze": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-06/freeze.json",
+      "sha256": "e90d9d60e3f268bf3309dd3df1ffe0a8a72ca65fb8e869a54b679cb6ede5e599",
+      "bytes": 3288,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "odd_glc",
+      "freeze": ".ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-08-remaining/freeze.json",
+      "sha256": "232de5e8bc5260231f5d76e3e244cf37287986262c7bf148631af6a7a6ac64ff",
+      "bytes": 11728,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "odd_glc",
+      "freeze": ".ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09/freeze.json",
+      "sha256": "1936e87736fd847746b703f0943ff01025b7e26408194ce8e18bd33ad5821d17",
+      "bytes": 13849,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    },
+    {
+      "repository": "odd_glc",
+      "freeze": ".ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09-conformance-cost-01/freeze.json",
+      "sha256": "fdc059c514c11730e1b2e5274104ce273d236d988b1bf2b18d29c47030339cf7",
+      "bytes": 2146,
+      "selection": "Only exact frozen member set plus its freeze/closed return/review; deduplicate already banked members. Never select directory-wide mutable resources."
+    }
+  ],
+  "pendingReviewWipSelections": [
+    {
+      "repository": "abiogenesis",
+      "carrier": ".ai-workspace/comments/codex/20260923_CONFORMANCE_RESOURCE_REPAIR/implementation-01",
+      "freezeSha256": "4774293795202a9e4a17964585927c8052d0208ac5cabc24d73fcc7f513d0d58",
+      "returnSha256": "0c9e13fa1765712eade61e36423b8e2f386a2d539dba242bca5c754e3e5e5066",
+      "sourcePaths": [
+        "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+        "build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/d2-frame-installed.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment-installed.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/steel-consumer-declaration.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-installed.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-serial-branch-installed.test.mjs",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-requirement-handoff.test.mjs"
+      ],
+      "includesGlcClosedCaller": ".ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/correction-conformance-caller-01",
+      "classification": "Root-selected frozen pending-review WIP; preserve exact carrier-member/postimage set; no acceptance or emitted/installed cure"
+    },
+    {
+      "repository": "abiogenesis",
+      "carrier": ".ai-workspace/comments/codex/20260923_S02_NESTED_RETRY_REPAIR/implementation-01",
+      "freezeSha256": "f186ef62b39bb3bb29947de845f04600e4d32a10bf9f5749e5482cc040688f35",
+      "sourcePaths": [
+        "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs"
+      ],
+      "classification": "Root-selected frozen pending-review WIP; no acceptance, self-assurance or installed claim"
+    }
+  ],
+  "writerReceipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-02/freeze.json",
+  "adjoiningClosedPosts": [
+    "20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-01/review.md",
+    "20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/review.md",
+    "20260923_SELECTED_EXECUTION_CLOSURE_REPAIR/implementation-01/review-01.md",
+    "20260923_S02_RECURSION_RESTORATION/implementation-01/review-01.md"
+  ]
+}

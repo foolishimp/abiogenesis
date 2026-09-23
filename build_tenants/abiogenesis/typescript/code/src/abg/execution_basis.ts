@@ -28,6 +28,7 @@ import type {
   ModulePublication,
 } from "../gtl/contracts.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
+import { isProductExecutionResolution, type ProductExecutionResolution } from "../product/execution_resolution.js";
 import { rootCTraversalCoordinate } from "../gtl/source_path.js";
 import { sampleNativeEventTime } from "./native_event_time.js";
 import { isNativeWorkspaceWorkTask } from "../product/native_workspace_work.js";
@@ -430,6 +431,7 @@ export interface ExecutionBasisAdmission {
 
 export interface ExecutionBasisInput {
   readonly invocationAdmission: InvocationAdmission;
+  readonly executionResolution: ProductExecutionResolution;
   readonly rawInputValue: Readonly<Record<string, JsonValue>>;
   readonly program: Readonly<GtlProgram>;
   readonly programPublication?: Readonly<ModulePublication>;
@@ -1649,25 +1651,65 @@ export function admitExecutionBasis(
     !isProgramValidation(input.programValidation) ||
     input.programValidation.validationRef !== input.invocationAdmission.programValidationRef ||
     input.programValidation.programRef !== input.invocationAdmission.programRef ||
+    !isProductExecutionResolution(input.executionResolution) ||
+    input.executionResolution.resolutionRef !== input.invocationAdmission.productExecutionResolutionRef ||
+    input.executionResolution.resolutionDigest !== input.invocationAdmission.productExecutionResolutionDigest ||
+    input.executionResolution.programRef !== input.invocationAdmission.programRef ||
+    input.executionResolution.graphFunctionRef !== input.invocationAdmission.graphFunctionRef ||
+    input.executionResolution.catalogBasisDigest !== input.invocationAdmission.catalogBasisDigest ||
+    input.executionResolution.catalogViewDigest !== input.invocationAdmission.catalogViewDigest ||
+    input.executionResolution.programValidationRef !== input.programValidation.validationRef ||
+    input.executionResolution.programValidationDigest !== input.programValidation.sourceDigest ||
     !isImplementationResolutionSetCandidate(input.resolutionSetCandidate) ||
     !isImplementationResolutionSetValidation(input.resolutionSetValidation) ||
+    input.executionResolution.implementationSetCandidateRef !== input.resolutionSetCandidate.setCandidateRef ||
+    input.executionResolution.implementationSetCandidateDigest !== input.resolutionSetCandidate.setCandidateDigest ||
+    input.executionResolution.implementationSetValidationRef !== input.resolutionSetValidation.validationRef ||
+    input.executionResolution.implementationSetValidationDigest !== input.resolutionSetValidation.validationDigest ||
     input.resolutionSetCandidate.programValidationRef !== input.programValidation.validationRef ||
+    input.resolutionSetCandidate.publicationDigest !== input.programValidation.publicationDigest ||
     input.resolutionSetCandidate.catalogBasisDigest !== input.invocationAdmission.catalogBasisDigest ||
     input.resolutionSetCandidate.catalogViewDigest !== input.invocationAdmission.catalogViewDigest ||
     input.resolutionSetValidation.setCandidateRef !== input.resolutionSetCandidate.setCandidateRef ||
     input.resolutionSetValidation.setCandidateDigest !== input.resolutionSetCandidate.setCandidateDigest ||
-    input.resolutionSetValidation.programValidationRef !== input.programValidation.validationRef ||
+    input.resolutionSetValidation.programValidationRef !== input.programValidation.validationRef
+  ) {
+    return reject(
+      input.resolutionSetCandidate.setCandidateDigest,
+      "diagnostic://abiogenesis/execution-basis/resolution-set-mismatch@5",
+    );
+  }
+  // Whole-Program validation covers every start. Implementation resolution owns
+  // the exact transitive declaration closure of this admitted selection.
+  const selectedGraphFunctionRefs = new Set(
+    input.executionResolution.declarationOwners
+      .filter((owner) => owner.declarationKind === "graph_function")
+      .map((owner) => owner.declarationRef),
+  );
+  const selectedExecutableRows = input.programValidation.executableLeafRows.filter(
+    (row) => selectedGraphFunctionRefs.has(row.graphFunctionRef),
+  );
+  const selectedInteractionRows = input.programValidation.interactionLeafRows.filter(
+    (row) => selectedGraphFunctionRefs.has(row.graphFunctionRef),
+  );
+  const selectedExecutableLeafKeys = selectedExecutableRows.map((row) => row.requirementKey);
+  const selectedInteractionLeafKeys = selectedInteractionRows.map((row) => row.requirementKey);
+  if (
     sha256Canonical(input.resolutionSetCandidate.executableLeafKeys as unknown as JsonValue) !==
-      sha256Canonical(input.programValidation.transitiveReachableExecutableLeafKeys as unknown as JsonValue) ||
+      sha256Canonical(selectedExecutableLeafKeys as unknown as JsonValue) ||
     sha256Canonical(input.resolutionSetValidation.executableLeafKeys as unknown as JsonValue) !==
-      sha256Canonical(input.programValidation.transitiveReachableExecutableLeafKeys as unknown as JsonValue) ||
-    input.resolutionSetCandidate.rows.length !== input.programValidation.executableLeafRows.length ||
+      sha256Canonical(selectedExecutableLeafKeys as unknown as JsonValue) ||
+    input.resolutionSetCandidate.rows.length !== selectedExecutableRows.length ||
+    input.resolutionSetCandidate.rows.some((row, index) =>
+      row.requirementKey !== selectedExecutableRows[index]!.requirementKey ||
+      row.graphFunctionRef !== selectedExecutableRows[index]!.graphFunctionRef ||
+      row.graphFunctionDigest !== selectedExecutableRows[index]!.graphFunctionDigest
+    ) ||
     new Set([
-      ...input.programValidation.transitiveReachableExecutableLeafKeys,
-      ...input.programValidation.transitiveReachableInteractionLeafKeys,
+      ...selectedExecutableLeafKeys,
+      ...selectedInteractionLeafKeys,
     ]).size !==
-      input.programValidation.transitiveReachableExecutableLeafKeys.length +
-        input.programValidation.transitiveReachableInteractionLeafKeys.length
+      selectedExecutableLeafKeys.length + selectedInteractionLeafKeys.length
   ) {
     return reject(
       input.resolutionSetCandidate.setCandidateDigest,
@@ -1783,13 +1825,13 @@ export function admitExecutionBasis(
     catalogViewDigest: input.resolutionSetCandidate.catalogViewDigest,
     publicationDigest: input.resolutionSetCandidate.publicationDigest,
     programValidationRef: input.programValidation.validationRef,
-    executableLeafKeys: input.programValidation.transitiveReachableExecutableLeafKeys,
+    executableLeafKeys: selectedExecutableLeafKeys,
     rows: implementationRows,
   };
   const implementationSetDigest = sha256Canonical(implementationSetBody as unknown as JsonValue);
   const implementationSetRef =
     `implementation-set://abiogenesis/${implementationSetDigest.slice("sha256:".length)}`;
-  const interactionRows = input.programValidation.interactionLeafRows.map((row) => {
+  const interactionRows = selectedInteractionRows.map((row) => {
     const { kind: _kind, ...body } = row;
     return deepFreeze({
       kind: "admitted_interaction_contract_row" as const,
@@ -1803,7 +1845,7 @@ export function admitExecutionBasis(
     invocationRef: input.invocationAdmission.invocationRef,
     programValidationRef: input.programValidation.validationRef,
     programValidationSourceDigest: input.programValidation.sourceDigest,
-    interactionLeafKeys: input.programValidation.transitiveReachableInteractionLeafKeys,
+    interactionLeafKeys: selectedInteractionLeafKeys,
     rows: interactionRows,
   };
   const interactionSetDigest = sha256Canonical(interactionSetBody as unknown as JsonValue);

@@ -1507,7 +1507,6 @@ test("W2-05 installed Product install and catalog owners compose without catalog
         program: conformanceProgram,
       }),
       conformanceLaw,
-      artifactTruth,
       declaredInventory: Object.freeze([
         harness.rootPublication,
         publications[1],

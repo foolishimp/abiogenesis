@@ -321,7 +321,8 @@ export function qualificationScopeCorrespondence(scope: QualificationScope, cata
   check(qualificationIdentity(inventory, "inventoryRef", "inventoryDigest", "qualification-inventory://abiogenesis/"), "scope_inventory_identity_mismatch");
   check(unique(inventory.members.map(m => m.ref)) && unique(inventory.members.map(m => m.path)) &&
     unique(inventory.selectedRoots) && inventory.selectedRoots.length > 0, "scope_inventory_ambiguous");
-  const groupRefs = [...scope.ruleGroups, ...scope.surfaceGroups].map(g => g.groupRef);
+  const domainGroups = scope.applicationDomains?.flatMap(d => d.surfaceGroups) ?? [];
+  const groupRefs = [...scope.ruleGroups, ...scope.surfaceGroups, ...domainGroups].map(g => g.groupRef);
   check(unique(groupRefs) && groupRefs.every(ref => !members.has(ref) && !rules.has(ref)), "scope_group_identity_ambiguous");
   check(exactSet(scope.ruleGroups.flatMap(g => g.ruleRefs), [...rules.keys()]), "scope_rule_partition_incomplete");
   check(exactSet(scope.surfaceGroups.flatMap(g => g.memberRefs), [...members.keys()]), "scope_surface_partition_incomplete");
@@ -329,13 +330,25 @@ export function qualificationScopeCorrespondence(scope: QualificationScope, cata
   const sourceRefs = new Set([...members.keys(), ...catalog.sources.map(s => s.ref)]);
   for (const group of scope.ruleGroups) check(exactSet(group.sourceRefs,
     [...new Set(group.ruleRefs.flatMap(ref => rules.get(ref)?.sourceRef ?? []))]), "scope_rule_source_mismatch");
-  for (const group of scope.surfaceGroups) {
+  if (scope.applicationDomains !== undefined) {
+    check(exactSet(scope.applicationDomains.map(d => d.ruleGroupRef), scope.ruleGroups.map(g => g.groupRef)), "scope_application_rule_domain_incomplete");
+    for (const domain of scope.applicationDomains) {
+      check(exactSet(domain.surfaceGroups.flatMap(g => g.memberRefs), [...members.keys()]), "scope_application_member_domain_incomplete");
+      check(exactSet([...new Set(domain.surfaceGroups.flatMap(g => g.rootRefs))], inventory.selectedRoots), "scope_application_root_domain_incomplete");
+    }
+  }
+  for (const group of [...scope.surfaceGroups, ...domainGroups]) {
     check(unique(group.rootRefs) && group.rootRefs.every(ref => inventory.selectedRoots.includes(ref)), "scope_root_unbound");
     check(exactSet(group.surfaceRoles, [...new Set(group.memberRefs.flatMap(ref => members.get(ref)?.surfaceRoles ?? []))]), "scope_surface_role_mismatch");
     check(unique(group.ownerRefs) && group.ownerRefs.length > 0 && unique(group.sourceRefs) &&
       group.sourceRefs.length > 0 && group.sourceRefs.every(ref => sourceRefs.has(ref)), "scope_ownership_source_unbound");
   }
   return [...new Set(errors)];
+}
+/** Exact declared rule domain; no applicability is inferred by this lookup. */
+export function qualificationRuleSurfaces(scope: QualificationScope, ruleGroupRef: string): QualificationScope["surfaceGroups"] {
+  return scope.applicationDomains === undefined ? scope.surfaceGroups
+    : scope.applicationDomains.find(d => d.ruleGroupRef === ruleGroupRef)?.surfaceGroups ?? [];
 }
 function qualificationTaskScopeMatches(task: QualificationAssessmentTask, catalog: QualificationRuleCatalog, catalogDigest: string): boolean {
   const scope = task.scope;
@@ -349,7 +362,9 @@ function qualificationTaskScopeMatches(task: QualificationAssessmentTask, catalo
   const requiredMembers = new Set<string>(), requiredSources = new Set<string>();
   for (const c of task.coverage) {
     if (grouped) {
-      const surface = surfaces.get(c.surfaceRef); if (surface === undefined) return false;
+      const surface = role === "qualification-role://abiogenesis/rule@5"
+        ? qualificationRuleSurfaces(scope, c.ruleRef).find(g => g.groupRef === c.surfaceRef) : surfaces.get(c.surfaceRef);
+      if (surface === undefined) return false;
       surface.memberRefs.forEach(ref => requiredMembers.add(ref)); surface.sourceRefs.forEach(ref => requiredSources.add(ref));
       if (role === "qualification-role://abiogenesis/rule@5") {
         const rule = rules.get(c.ruleRef); if (rule === undefined || c.evidenceRole !== "semantic_assessment") return false;
@@ -496,7 +511,10 @@ export function qualificationWorkerRequest(input: QualificationAssessmentInput):
     completeDeclaredPartitions: { members: scope.inventory.members.length, surfaceGroups: scope.surfaceGroups.length,
       ruleGroups: scope.ruleGroups.length, rules: scope.ruleGroups.reduce((n, g) => n + g.ruleRefs.length, 0) },
     selectedRoots: scope.inventory.selectedRoots,
-    surfaceGroups: scope.surfaceGroups.filter(g => selectedSurfaces.has(g.groupRef)),
+    surfaceGroups: task.role.roleRef === "qualification-role://abiogenesis/rule@5"
+      ? task.coverage.map(c => ({ ruleGroupRef: c.ruleRef,
+          ...qualificationRuleSurfaces(scope, c.ruleRef).find(g => g.groupRef === c.surfaceRef)! }))
+      : scope.surfaceGroups.filter(g => selectedSurfaces.has(g.groupRef)),
     ruleGroups: scope.ruleGroups.filter(g => selectedRules.has(g.groupRef)),
     assessedMembers: task.subjectMembers,
     selectedSubject: qualificationSelectedSubject(task),

@@ -979,6 +979,7 @@ export async function setupInstalledRootExecutionBasis(
       rawInputValue: input,
       program,
       programPublication: environment.executionResolution.programPublication,
+      executionResolution: environment.executionResolution.resolution,
       programValidation,
       graph,
       graphValidation,

@@ -35,11 +35,17 @@ export function inputFixture() {
       expected: { boundary: 'program_validation', disposition: 'refused', diagnostics: [{ code: 'duplicate_identity', path: '$.program.starts' }] } },
   ] } };
 }
-export async function nativeJoinFixture({ changeInput, runtime = false, configureHello, declarationProof, sameRealm = false, rootGraphFunctionRef } = {}) {
-  const f = inputFixture(); if (changeInput) f.input = changeInput(structuredClone(f.input));
+export async function nativeJoinFixture({ changeInput, runtime = false, configureHello, declarationProof, sameRealm = false, rootGraphFunctionRef, origin, sourceFixtures = [], nativeSourceOwners = [] } = {}) {
+  const f = inputFixture();
+  if (origin) {
+    f.install.installId = 'install://' + origin;
+    const {basisRef, basisDigest, ...body} = f.input.basis;
+    f.input.basis = identity({...body, installedProduct:coord(f.install.installId,f.install), workspaceBinding:coord('workspace://'+origin,origin)}, 'basisRef','basisDigest','qualification-basis://abiogenesis/');
+  }
+  if (changeInput) f.input = changeInput(structuredClone(f.input));
   if (declarationProof) f.input.declarations = [declarationProof];
-  const counts = { catalog: 0, execution: 0, state: 0, assessment: 0, verdict: 0, terminal: 0, replay: 0 };
-  const computations = new Map();
+  const counts = { catalog: 0, execution: 0, state: 0, assessment: 0, verdict: 0, terminal: 0, replay: 0, sourceRead: 0, environment: 0 };
+  const acquisitions = [], computations = new Map();
   const input = f.input, declaration = input.declarations[0], pd = modulePublicationSemanticDigest(publication);
   const selectedProgram = rootGraphFunctionRef ? publication.programs.find(p => p.starts[0].graphFunctionRef === rootGraphFunctionRef) : runtime ? publication.programs.find(p => p.starts[0].graphFunctionRef === ids.runtimeAssessGraph) : program;
   const rootGraph = selectedProgram.starts[0].graphFunctionRef;
@@ -64,7 +70,7 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
   const invEvent = event('invocation_admitted', 'invocation');
   const invocation = { invocationAdmissionRef: 'invocation://mechanical', admissionEventRef: invEvent.eventId,
     outputContractRef: rootOutput, outputContractDigest: hash(publication.contracts.find(c => c.contractRef === rootOutput)), outputContractOwner: contractOwner };
-  const prefixBase = { kind: 'durable_prefix_coordinate', schemaVersion: '5.0.0', eventLogRef: 'file:///unadmitted-malformed-gtl-fixture',
+  const prefixBase = { kind: 'durable_prefix_coordinate', schemaVersion: '5.0.0', eventLogRef: 'file:///unadmitted-malformed-gtl-fixture' + (origin ? '/' + origin : ''),
     storeIdentity: { device: 1, inode: 2, eventContractDigest: hash('synthetic-contract') } };
   // This fixture assumes durable admission. It hashes each synthetic event
   // once to select exact prefixes; it is not a physical event codec proof.
@@ -73,7 +79,7 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
   const coordinate = n => ({ ...prefixBase, prefixLength: n, prefixDigest: prefixDigest(n), coordinateDigest: hash(['mechanical', n]) });
   const root = { basisRef: 'basis://root', basisClass: 'root', parentExecutionBasisRef: null, invocationAdmissionRef: invocation.invocationAdmissionRef,
     actorRef: 'actor://mechanical', programRef: selectedProgram.programRef, programDigest: hash(selectedProgram), graphFunctionRef: rootGraph,
-    graphFunctionDigest: hash(publication.graphFunctions.find(g => g.name === rootGraph)), workspaceBindingId: 'workspace://mechanical', workspaceBindingDigest: hash('W'),
+    graphFunctionDigest: hash(publication.graphFunctions.find(g => g.name === rootGraph)), workspaceBindingId: input.basis.workspaceBinding.ref, workspaceBindingDigest: input.basis.workspaceBinding.digest,
     catalogBasisDigest: declaration.catalog.basisDigest, catalogViewDigest: declaration.catalogView.viewDigest,
     resultContractRef: rootOutput, rawInputAdmissionRef: 'input://root', rawInputDigest: hash(input), rawInputValue: input };
   executions.set(root.basisRef, root); invocations.set(invocation.invocationAdmissionRef, invocation);
@@ -102,6 +108,7 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
     if (prior) execution = prior.execution;
     const graph = materializeGraph(gf, { invocationAdmissionRef: execution.invocationAdmissionRef, admittedInputRef: execution.rawInputAdmissionRef,
       admittedInputDigest: execution.rawInputDigest, admittedInput: execution.rawInputValue });
+    execution.basisDigest = hash(['synthetic admitted basis',execution]);
     execution.graphDigest = graph.materializationDigest; execution.graphRef = graph.materializationRef; executions.set(basisRef, execution);
     const call = { cCallRef: callRef, cCallDigest: hash(callRef), basisId: basisRef, runId: pub === hello ? 'run://hello' : 'run://mechanical', graphCallId: prior?.call.graphCallId ?? 'graph-call://' + suffix, frameId: prior?.call.frameId ?? 'frame://' + suffix,
       graphFunctionRef: gf.name, programLocusRef: locus, implementationRef: binding.implementationRef, implementationBindingRef: binding.bindingRef,
@@ -134,14 +141,22 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
       // t287-held-prefix.test.mjs against a disposable actual event resource.
       stubs['abg/event_store.js'].readRuntimeEventsAtDurablePrefix(historical);
       return historical;
+    }, assertDurableRuntimePrefixCurrent: p => {
+      if (p.eventLogRef !== prefixBase.eventLogRef || p.storeIdentity.inode !== 2 || p.prefixLength !== events.length ||
+        prefixDigest(p.prefixLength) !== p.prefixDigest) throw Error('foreign/stale mechanical prefix');
     }, readRuntimeEventsAtDurablePrefix: (p, options) => {
+      counts.sourceRead++;acquisitions.push({...p});
       if (p.eventLogRef !== prefixBase.eventLogRef || p.storeIdentity.inode !== 2 || p.prefixLength > events.length ||
         prefixDigest(p.prefixLength) !== p.prefixDigest || options?.requireCurrent && p.prefixLength !== events.length) throw Error('foreign/stale mechanical prefix');
       return events.slice(0, p.prefixLength); } },
-    'abg/event_prefix.js': { selectValidatedRuntimeEventPrefix: e => e, runtimePrefixComputation: (_p,key,construct) => { if(!computations.has(key))computations.set(key,construct()); return computations.get(key); } },
+    'abg/event_prefix.js': { selectValidatedRuntimeEventPrefix: e => e, runtimeEventsFromValidatedPrefix: p => p,
+      runtimePrefixComputation: (_p,key,construct) => { if(!computations.has(key))computations.set(key,construct()); return computations.get(key); } },
+    'abg/artifact_truth.js': { projectExactPrefixArtifactTruth: p => ({kind:'exact_prefix_artifact_truth_projection',prefix:p,
+      fixtureEvents:stubs['abg/event_store.js'].readRuntimeEventsAtDurablePrefix(p)}), runtimePrefixFromArtifactTruth: p => p.fixtureEvents },
     'abg/invocation_execution_truth.js': { projectExactExecutionBasisAtPrefix: (_p, ref) => { counts.execution++; return executions.get(ref) ?? null; },
       projectExactInvocationAdmissionAtPrefix: (_p, ref) => invocations.get(ref) ?? null },
-    'abg/environment_admission.js': { projectExactPrefixWorkspaceEnvironment: () => environment,
+    'abg/environment_admission.js': { projectExactPrefixWorkspaceEnvironment: () => {counts.environment++;return environment;},
+      projectWorkspaceEnvironmentFromArtifactTruth: () => {counts.environment++;return environment;},
       projectAdmittedProductInstallByAdmissionEventRef: (_a, ref) => ref === installEvent.eventId ? { candidate: {} } : null },
     'product/declaration_closure.js': { reconstructHistoricalDeclarationCatalog: d => { counts.catalog++; assert.deepEqual(d, declaration);
         if (declarationProof) return realDeclarations.reconstructHistoricalDeclarationCatalog(d, d.catalog.readinessBasis);
@@ -158,6 +173,27 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
       projectAdmittedCCallStateAtPrefix: (_p, c, r, j) => { counts.state++; const s = states.get(c.cCallRef); return s && s.result.resultRef === r.resultRef &&
         s.result.resultDigest === r.resultDigest && hash(s.result.value) === hash(r.value) && s.judgment.judgmentRef === j.judgmentRef ? s : null; } },
   };
+  // Each original resource has its own admitted lower-owner fixture. Route by
+  // genuine fixture-prefix identity, never concatenate or transplant events.
+  for (const module of ['abg/event_store.js','abg/artifact_truth.js','abg/invocation_execution_truth.js','abg/environment_admission.js','abg/execution_basis.js','abg/c_call.js']) {
+    for (const [name, local] of Object.entries(stubs[module])) {
+      stubs[module][name] = (...args) => {
+        const p = args[0], source = sourceFixtures.find(f => Array.isArray(p) ? p[0] === f.events[0] :
+          (p?.eventLogRef ?? p?.prefix?.eventLogRef) === f.proof().prefix.eventLogRef);
+        return (source?.nativeStubs[module]?.[name] ?? local)(...args);
+      };
+    }
+  }
+  // Optional real source owners acquire only a finite disposable physical copy.
+  // Consumer admission remains this fixture's explicitly supplied premise.
+  for (const [module, functions] of Object.entries(stubs)) {
+    for (const [name, local] of Object.entries(functions)) {
+      functions[name] = (...args) => {
+        const source = nativeSourceOwners.find(s => s.owns(args[0]));
+        return (source?.modules[module]?.[name] ?? local)(...args);
+      };
+    }
+  }
   // Runtime checks keep lower terminal/replay observations as explicit fixture assumptions.
   if (runtime) stubs['abg/project_read_ports.js'] = {
     GraphCallProjectionPort: { graph_call_result: packet => { counts.terminal++;
@@ -184,5 +220,5 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
   const implementation = (await load('implementation/qualification.js', true)).namespace;
   const semantics = (await load('validator/self_conformance_semantics.js', true)).namespace;
   const proof = () => ({ kind: 'qualification_proof_resource', schemaVersion: '5.0.0', prefix: coordinate(events.length), declarations: [declaration], selections: [] });
-  return { input, owner, implementation, semantics, open, complete, proof, coordinate, events, states, environment, invocation, root, hello, helloIds: HELLO_WORLD_IDS, counts, event, cold: () => computations.clear() };
+  return { input, owner, implementation, semantics, open, complete, proof, coordinate, events, states, environment, invocation, root, hello, helloIds: HELLO_WORLD_IDS, counts, event, nativeStubs: stubs, executions, acquisitions, cold: () => computations.clear() };
 }

@@ -1,0 +1,14 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "15ef2b3d3c188a1fed2c8665e4d78c0caded375b",
+  "commitIdentity": "The commit containing this receipt; exact resulting local/remote identities in external post-push receipt.",
+  "transportBytes": 457738695,
+  "newLogicalMembers": 1138,
+  "restoration": "Every new member restored and compared with its original; exact selected freeze relations checked. Prior transport reused.",
+  "currentScope": "Accepted e4e composite/source repairs and bounded installed S02/R7/C0/C3 facts; execution08/09 closed failed preparation; retry/conformance closed pending-review WIP; four current status projections; no release qualification.",
+  "ongoing": [
+    "Active WHOLE_PATH_SCOPE_REVIEW output; excluded until separately CLOSED",
+    "Original mutable GLC history/worksite and S02 resource trees; no snapshot selected"
+  ],
+  "allowedGitEffects": "One ordinary commit and nonforce main push; remote readback afterward."
+}

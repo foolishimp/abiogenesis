@@ -1,0 +1,171 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "15ef2b3d3c188a1fed2c8665e4d78c0caded375b",
+  "scope": "Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 1138
+  },
+  "archiveMemberCount": 1138,
+  "archiveMemberBytes": 2893004629,
+  "transportBytes": 457738695,
+  "assets": [
+    {
+      "id": "raw-e4e61fbeb1f01fa3ff863cc2fe0d7c92a8d90664f06a169b7ffba24b53c79ced",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10122424,
+      "sha256": "e4e61fbeb1f01fa3ff863cc2fe0d7c92a8d90664f06a169b7ffba24b53c79ced",
+      "parts": [
+        {
+          "path": "payloads/raw-e4e61fbeb1f01fa3ff863cc2fe0d7c92a8d90664f06a169b7ffba24b53c79ced.part0000",
+          "byteLength": 10122424,
+          "sha256": "e4e61fbeb1f01fa3ff863cc2fe0d7c92a8d90664f06a169b7ffba24b53c79ced"
+        }
+      ]
+    },
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS",
+      "byteLength": 1550850,
+      "sha256": "fe58bd4aff3f4b530da404b4bdacf65c0428bd261342c584c681f9495b8720be",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 1550850,
+          "sha256": "fe58bd4aff3f4b530da404b4bdacf65c0428bd261342c584c681f9495b8720be"
+        }
+      ]
+    },
+    {
+      "id": "family-0001",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_CONFORMANCE_RESOURCE_REPAIR",
+      "byteLength": 2286011,
+      "sha256": "a36df726e30e802334ac810a8aba02b56704882b9b648eabc750e78a819385f1",
+      "parts": [
+        {
+          "path": "payloads/family-0001.tar.gz.part0000",
+          "byteLength": 2286011,
+          "sha256": "a36df726e30e802334ac810a8aba02b56704882b9b648eabc750e78a819385f1"
+        }
+      ]
+    },
+    {
+      "id": "family-0002",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION",
+      "byteLength": 322730,
+      "sha256": "7d7da7fec418f370421b692b6f5ce31cb2232c5b0fdf20315adeddcd66ebb432",
+      "parts": [
+        {
+          "path": "payloads/family-0002.tar.gz.part0000",
+          "byteLength": 322730,
+          "sha256": "7d7da7fec418f370421b692b6f5ce31cb2232c5b0fdf20315adeddcd66ebb432"
+        }
+      ]
+    },
+    {
+      "id": "family-0003",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE",
+      "byteLength": 443186724,
+      "sha256": "7062e75c0a3fc65b2996bb7de0817aea6de42de9186f2533f39ae816455b4533",
+      "parts": [
+        {
+          "path": "payloads/family-0003.tar.gz.part0000",
+          "byteLength": 51380224,
+          "sha256": "6f47c2201fdd75fdc92c43d4b11943c72b85cfef15801fdb7228631eab791f6b"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0001",
+          "byteLength": 51380224,
+          "sha256": "fb0d5fd912bb2a3bd0d777f8cfbce43aba37c9b7e831bf34d057cf91046ef3b3"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0002",
+          "byteLength": 51380224,
+          "sha256": "791d8bf7e5f5eb3bc374f2fd47b73f2e8244b0a3f0d721d7895182661d94eb48"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0003",
+          "byteLength": 51380224,
+          "sha256": "255c0ac58af455c8b7564a7a5ce3bbc7834eab4ce4d66b87a7bb739bc6ae6ea0"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0004",
+          "byteLength": 51380224,
+          "sha256": "19a06b0403adf9f509ff1d3fabbdb9eb7cec98c20ea816ee6460fc68f657120b"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0005",
+          "byteLength": 51380224,
+          "sha256": "5b3446d025139b4517f13d43ff0bcfa9afe1166b5467bc11dd75004dea4dda31"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0006",
+          "byteLength": 51380224,
+          "sha256": "8ddadd08870d6374ae2067ae82be259180377d43ef3f800e591e0e8f76e43d6f"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0007",
+          "byteLength": 51380224,
+          "sha256": "39f66750b8cfaaa9e85a8ccae87dcb9db00548c1d28b816ae1e455229204c2e4"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0008",
+          "byteLength": 32144932,
+          "sha256": "e74d04efe483fd46fe89310246650b68b452efb0569d46babd8efc78c3b13621"
+        }
+      ]
+    },
+    {
+      "id": "family-0004",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_S02_NESTED_RETRY_REPAIR",
+      "byteLength": 107178,
+      "sha256": "299a1baf2da34a28b3c48983fce134a8f65646965c568ee05731aaa9a3e3e96f",
+      "parts": [
+        {
+          "path": "payloads/family-0004.tar.gz.part0000",
+          "byteLength": 107178,
+          "sha256": "299a1baf2da34a28b3c48983fce134a8f65646965c568ee05731aaa9a3e3e96f"
+        }
+      ]
+    },
+    {
+      "id": "family-0005",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_S02_RECURSION_RESTORATION",
+      "byteLength": 15361,
+      "sha256": "3dc1fec5534f092f8426ac08071fc359e85220ce0d9938b644cb8b37867000a3",
+      "parts": [
+        {
+          "path": "payloads/family-0005.tar.gz.part0000",
+          "byteLength": 15361,
+          "sha256": "3dc1fec5534f092f8426ac08071fc359e85220ce0d9938b644cb8b37867000a3"
+        }
+      ]
+    },
+    {
+      "id": "family-0006",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_SELECTED_EXECUTION_CLOSURE_REPAIR",
+      "byteLength": 147417,
+      "sha256": "a930d471216cfa39d0e66459a3bbbbf9c43d8711f1c258359d6ae534e2a3cede",
+      "parts": [
+        {
+          "path": "payloads/family-0006.tar.gz.part0000",
+          "byteLength": 147417,
+          "sha256": "a930d471216cfa39d0e66459a3bbbbf9c43d8711f1c258359d6ae534e2a3cede"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "5d27a8b69ac1f911f0ab044edeaaebfa12037943abe15f05fc91641063c5979e",
+  "reconciliationSha256": "706579828b74e7b0d46e8dded253932133094d4905c1e18ecc9ebbe70d98ebc5",
+  "pendingActiveEvidence": [],
+  "credentialShapeFindingCount": 0
+}

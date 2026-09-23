@@ -1913,6 +1913,27 @@ export function assertDurableRuntimePrefixBytes(prefix: DurablePrefixCoordinate)
   if (DurableHistoryDerivation.activeEvents(prefix) === undefined) readAuthenticatedRuntimePrefixBytes(prefix);
 }
 
+/** Currentness of an already authenticated source, not byte/event admission.
+ * The caller must retain its actual acquisition. Under the trusted-desktop
+ * boundary, unchanged prior bytes are not rehashed to detect hostile mutation. */
+export function assertDurableRuntimePrefixCurrent(prefix: DurablePrefixCoordinate): void {
+  if (DurableHistoryDerivation.activeEvents(prefix, true) !== undefined) return;
+  if (!validateDurablePrefixCoordinate(prefix)) {
+    throw new DurablePrefixReadError("event_envelope_invalid", "ABG durable prefix coordinate is invalid");
+  }
+  let status: ReturnType<typeof statSync>;
+  try { status = statSync(fileURLToPath(prefix.eventLogRef)); }
+  catch (error) {
+    throw new DurablePrefixReadError("file_identity_mismatch", `ABG durable prefix file is unavailable: ${String(error)}`);
+  }
+  if (!status.isFile() || status.dev !== prefix.storeIdentity.device || status.ino !== prefix.storeIdentity.inode) {
+    throw new DurablePrefixReadError("file_identity_mismatch", "ABG durable prefix file identity differs from coordinate");
+  }
+  if (status.size !== prefix.prefixLength) {
+    throw new DurablePrefixReadError("prefix_length_mismatch", "ABG durable prefix is not the current durable event-log prefix");
+  }
+}
+
 /** Pure derivation of the already authenticated immutable owner value. A copied
  * coordinate has no receipt and performs the ordinary cold physical read.
  * Acquisition, held mutation and explicit freshness use the readers below. */

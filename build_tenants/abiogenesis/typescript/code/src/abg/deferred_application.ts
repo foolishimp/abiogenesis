@@ -13,7 +13,6 @@ import {
 import {
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
-  validatedRuntimeEventPrefixThroughEvent,
 } from "./event_prefix.js";
 import {
   replayValidatedRuntimeEventPrefix,
@@ -87,14 +86,6 @@ export function projectDeferredApplicationAtPrefix(
   ].every((fluent) => holdsAt(eventCalculus, fluent))) {
     return null;
   }
-  const historicalPrefix = validatedRuntimeEventPrefixThroughEvent(
-    currentPrefix,
-    judgmentEvent.eventId,
-  );
-  const historicalAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
-    fullPrefix,
-    judgmentEvent.eventId,
-  );
   return deepFreeze({
     kind: "deferred_application_projection" as const,
     schemaVersion: "5.0.0" as const,
@@ -106,9 +97,12 @@ export function projectDeferredApplicationAtPrefix(
     judgmentEventRef: judgmentEvent.eventId,
     judgmentAdmissionOrdinal: judgmentEvent.admissionOrdinal,
     resultValue: resultEvent.payload.value ?? null,
+    // The producer remains the original judgment, while restoration must bind
+    // the exact supplied completion prefix, including later probe facts. The
+    // live Run/frame/locus/judgment checks above still govern that prefix.
     replayState: replayValidatedRuntimeEventPrefix(
-      historicalPrefix,
-      historicalAuthorityPrefix,
+      currentPrefix,
+      fullPrefix,
     ),
   });
 }

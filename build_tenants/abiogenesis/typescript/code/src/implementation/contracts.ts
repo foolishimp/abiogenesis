@@ -131,6 +131,8 @@ export interface LeafExecutionOccurrence {
 
 /** Internal operations of the invoking ABG owner, never serialized basis or evidence. */
 export interface NativeLeafProofOperations {
+  readonly qualificationSelfConformance?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
+    ReturnType<typeof import("../validator/self_conformance.js").evaluateSelfConformance> | null;
   readonly qualificationVerdict?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
     ReturnType<typeof import("../abg/qualification_proof.js").projectExactCandidateQualification>;
   readonly qualificationAssessment?: (input: unknown, occurrence: LeafExecutionOccurrence) =>

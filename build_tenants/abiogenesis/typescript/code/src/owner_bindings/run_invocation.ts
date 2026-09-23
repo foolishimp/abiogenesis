@@ -1484,6 +1484,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
         admitted.successorPrefix,
         {
           invocationAdmission: admission,
+          executionResolution: prepared.resolution.resolution,
           rawInputValue: prepared.admittedInput,
           program: prepared.resolution.program,
           programPublication: prepared.resolution.programPublication,
@@ -1510,7 +1511,14 @@ function runInvocationOwner<TPacket extends RunPacket>(
         execution.successorPrefix,
         ProductRunInvocationPort.projectOwnerRefusal(
           call.invocation.definitionKey.memberKey,
-          { stage: "execution_basis", code: execution.admission.stage },
+          {
+            stage: "execution_basis",
+            code: execution.admission.stage,
+            evidenceRefs: [
+              execution.admission.admissionEventRef,
+              ...execution.admission.contractOrDiagnosticRefs,
+            ],
+          },
         ) as OwnerSemanticOutput<TPacket>,
         prepared,
         admission,

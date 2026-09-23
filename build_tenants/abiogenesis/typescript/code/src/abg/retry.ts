@@ -88,7 +88,9 @@ import {
 import { projectFhContinuations } from "./fh_continuation_projection.js";
 import { runtimeEventPrefixDigest,
   runtimeEventsFromValidatedPrefix,
+  selectRuntimeEventPrefixFromAuthority,
   selectValidatedRuntimeEventPrefix,
+  unscopedRuntimeEventPrefix,
   validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
@@ -2988,7 +2990,10 @@ export function projectDeclaredCRetryFrontier(
     projectedProgresses.length > projectedAttempts.length
   ) return null;
   const allRouteProjections = projectHistoricalTraversalRoutesAtPrefix(
-    prefix,
+    // Route replay is Run-scoped; admission authority may span many Runs.
+    selectRuntimeEventPrefixFromAuthority(unscopedRuntimeEventPrefix(prefix), {
+      runId: cursor.runId,
+    }),
     authorityPrefix,
   );
   if (allRouteProjections === null) return null;
@@ -4459,7 +4464,9 @@ export function projectExecutableRetryInput(
     );
   }
   const historicalRoutes = projectHistoricalTraversalRoutesAtPrefix(
-    prefix,
+    selectRuntimeEventPrefixFromAuthority(unscopedRuntimeEventPrefix(prefix), {
+      runId: sourceCursor.runId,
+    }),
     authorityPrefix,
   );
   if (historicalRoutes === null) {

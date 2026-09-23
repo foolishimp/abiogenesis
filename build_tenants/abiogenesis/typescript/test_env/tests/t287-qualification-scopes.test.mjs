@@ -49,7 +49,7 @@ function fixture(size=3,ruleCount=2,configureCatalog=()=>{}){
  populate();
  async function ownerModule(){return privateOwner('validator/self_conformance.js',[],{'node:fs':{readFileSync:(p,...args)=>String(p).endsWith('/qualification/rule-catalog.json')?catalogBytes:fs.readFileSync(p,...args)},'./qualification.js':{qualificationCoverageIsPublished:()=>true},'../abg/qualification_proof.js':{resolveQualificationAssessments:()=>judgments,resolveQualificationExecutionMaterial:()=>({evidence:[execution],verification}),qualificationTenantClaimsMatch:()=>true}});}
  async function assessmentModule(){return privateOwner('validator/qualification.js',[],{'node:fs':{readFileSync:(p,...args)=>String(p).endsWith('/qualification/rule-catalog.json')?catalogBytes:fs.readFileSync(p,...args)}});}
- return {input,owner,catalog,catalogBytes,catalogDigest,scope,sourceMembers,authority,execution,verification,ownerModule,assessmentModule,populate,get judgments(){return judgments;}};
+ return {input,owner,catalog,catalogBytes,catalogDigest,scope,sourceMembers,authority,execution,verification,ownerModule,assessmentModule,populate,judgment,get judgments(){return judgments;}};
 }
 
 test('small whole subject grouped and singleton semantics agree under explicit independent/native premises',async()=>{
@@ -199,4 +199,82 @@ test('inventory renderer exposes per-member role and classification-evidence swa
  assert.deepEqual(old.selectedSubject.inventoryMembers,f.input.inventory.members);assert.deepEqual(changed.selectedSubject.inventoryMembers,b.input.task.scope.inventory.members);
  assert.deepEqual(old.selectedSubject.inventoryMembers[0].surfaceRoles,['code']);assert.deepEqual(changed.selectedSubject.inventoryMembers[0].surfaceRoles,['proof']);assert.deepEqual(changed.selectedSubject.inventoryMembers[0].classificationEvidenceRefs,['classification://changed-original-source']);
  const bad=clone(b);bad.input.task.subjectMembers[0].ref='source://foreign';resign(bad);assert(!q.isQualificationAssessmentInput(bad.input));assert.throws(()=>q.qualificationWorkerRequest(bad.input),/invalid qualification assessment input/);
+});
+
+
+// Independent J and native evidence remain the labelled fixture premises above.
+function domainFixture(split=2,size=4,refined=false){
+ const f=fixture(size,2),scope=clone(f.input.scope);
+ scope.ruleGroups=f.catalog.rules.map((r,i)=>({groupRef:'group://rule/'+i,ruleRefs:[r.ruleRef],sourceRefs:[r.sourceRef]}));
+ const group=(ref,members)=>({groupRef:ref,memberRefs:members.map(m=>m.ref),rootRefs:scope.inventory.selectedRoots,
+   surfaceRoles:[...new Set(members.flatMap(m=>m.surfaceRoles))],ownerRefs:['owner://component'],sourceRefs:[f.sourceMembers[0].ref]});
+ const members=scope.inventory.members;
+ scope.applicationDomains=[{ruleGroupRef:'group://rule/0',surfaceGroups:[...members.slice(0,split-1).map((m,i)=>group('domain://a/'+i,[m])),group('domain://a/rest',members.slice(split-1))]},
+  {ruleGroupRef:'group://rule/1',surfaceGroups:[group('domain://b/all',members)]}];
+ if(size===6){
+  scope.surfaceGroups=(refined?[[0],[1],[2,3],[4,5]]:[[0,1],[2,3],[4,5]]).map((indices,i)=>group('classification://'+i,indices.map(j=>members[j])));
+  scope.applicationDomains[0].surfaceGroups=[group('domain://a/first',members.slice(0,2)),group('domain://a/rest',members.slice(2))];
+  scope.applicationDomains[1].surfaceGroups=[group('domain://b/first',members.slice(0,4)),group('domain://b/rest',members.slice(4))];
+ }
+ f.input.scope=bodyIdentity(scope,'scopeRef','scopeDigest','qualification-scope://abiogenesis/');f.scope=f.input.scope;
+ f.judgments.length=0;f.input.qualification.proof.selections=[];f.input.applications=[];
+ for(const r of scope.ruleGroups)f.judgment('catalog','catalog_fidelity',r.groupRef,f.catalog.catalogRef);
+ for(const g of scope.surfaceGroups){
+  const selected=f.sourceMembers.filter(m=>g.memberRefs.includes(m.ref));
+  f.judgment('inventory','inventory_coverage',f.input.inventory.inventoryRef,g.groupRef,selected);
+  f.judgment('inventory','inventory_classification',f.input.inventory.inventoryRef,g.groupRef,selected);
+ }
+ for(const d of scope.applicationDomains)for(const g of d.surfaceGroups){
+  f.input.applications.push({ruleRef:d.ruleGroupRef,surfaceRef:g.groupRef,applicability:'applicable',premiseEvidenceRefs:[],evaluationEvidenceRefs:[],rulingEvidenceRefs:[]});
+  f.judgment('rule','semantic_assessment',d.ruleGroupRef,g.groupRef,f.sourceMembers.filter(m=>g.memberRefs.includes(m.ref)));
+ }
+ f.judgment('tenant','tenant_realization','tenant',f.input.tenantManifest.manifestRef);
+ f.judgment('coverage','behavioral_coverage','coverage://one','behavior://one');
+ return f;
+}
+test('per-rule complete member domains preserve flat semantics and do not split unrelated rule work',async t=>{
+ const measurements=[];
+ for(const splits of [2,3]){
+  const f=domainFixture(splits),q=await f.assessmentModule(),owner=await f.ownerModule(),out=owner.evaluateSelfConformance(f.input,f.owner);
+  assert.equal(out.disposition,'passed',JSON.stringify(out.findings.filter(x=>x.disposition!=='passed')));
+  assert.equal(out.ruleApplications.length,splits+1);assert.equal(out.ruleApplications.filter(a=>a.ruleRef==='group://rule/1').length,1);
+  const a=clone(assessment(f)),c={...a.input.task.coverage[0],ruleRef:'group://rule/1',surfaceRef:'domain://b/all'};
+  a.input.task.coverage=[c];a.input.plan.coverage=[c];a.input.plan.slots[0].coverage=[c];resign(a);
+  assert(q.isQualificationAssessmentInput(a.input));const request=q.qualificationWorkerRequest(a.input),context=promptScope(request);
+  assert.equal(context.surfaceGroups.length,1);assert.equal(context.surfaceGroups[0].ruleGroupRef,'group://rule/1');
+  assert.deepEqual(context.selectedSubject.inventoryMembers,f.input.inventory.members);
+  assert(!request.prompt.includes('domain://a/'));assert.equal(context.selectedSubject.catalogRows.length,1);
+  measurements.push({splits,criteria:out.ruleApplications.length,promptBytes:Buffer.byteLength(request.prompt),memberBodies:a.input.task.material.length,assessedMembers:a.input.task.subjectMembers.length});
+  f.populate(false);assert.equal(owner.evaluateSelfConformance(f.input,f.owner).disposition,out.disposition);
+ }
+ assert.equal(measurements[0].promptBytes,measurements[1].promptBytes);t.diagnostic(JSON.stringify({perRuleDomains:measurements,globalSplitRows:[4,6],claim:'actual owner/renderer; J/native premises supplied'}));
+});
+test('domain omission overlap foreign members and incomplete rule domains refuse; scoped J uncertainty survives',async()=>{
+ for(const [name,mutate]of [
+  ['missing domain',f=>f.input.scope.applicationDomains.pop()],
+  ['missing member',f=>f.input.scope.applicationDomains[0].surfaceGroups[1].memberRefs.pop()],
+  ['overlap',f=>f.input.scope.applicationDomains[0].surfaceGroups[1].memberRefs.push(f.sourceMembers[0].ref)],
+  ['foreign',f=>f.input.scope.applicationDomains[0].surfaceGroups[1].memberRefs.push('source://foreign')],
+  ['foreign role',f=>f.input.scope.applicationDomains[0].surfaceGroups[0].surfaceRoles=['proof']],
+  ['foreign rule',f=>f.input.scope.applicationDomains[1].ruleGroupRef='rule://foreign'],
+ ]){const f=domainFixture();f.input=clone(f.input);mutate(f);f.input.scope=bodyIdentity(f.input.scope,'scopeRef','scopeDigest','qualification-scope://abiogenesis/');const out=(await f.ownerModule()).evaluateSelfConformance(f.input,f.owner);assert.notEqual(out.disposition,'passed',name);}
+ for(const [grouping,disposition,expected] of [['unknown','indeterminate','blocked_incomplete'],['falsified','falsified','failed']]){
+  const f=domainFixture(),j=f.judgments.find(j=>j.task.role.roleRef.endsWith('/rule@5'));Object.assign(j.raw.criteria[0],{grouping,disposition});
+  assert.equal((await f.ownerModule()).evaluateSelfConformance(f.input,f.owner).disposition,expected);
+ }
+});
+
+test('six-member discriminator keeps four rule domains when unrelated classification refinement would grow six global pairs to eight',async t=>{
+ const measurements=[];
+ for(const refined of [false,true]){
+  const f=domainFixture(2,6,refined),owner=await f.ownerModule(),q=await f.assessmentModule(),result=owner.evaluateSelfConformance(f.input,f.owner);
+  assert.equal(result.disposition,'passed');assert.equal(result.ruleApplications.length,4);
+  for(const d of f.scope.applicationDomains)assert.deepEqual(d.surfaceGroups.flatMap(g=>g.memberRefs).sort(),f.sourceMembers.map(m=>m.ref).sort());
+  const a=clone(assessment(f)),c={...a.input.task.coverage[0],ruleRef:'group://rule/0',surfaceRef:'domain://a/first'};
+  a.input.task.subjectMembers=f.sourceMembers.slice(0,2).map(plainSource);a.input.task.coverage=[c];a.input.plan.coverage=[c];a.input.plan.slots[0].coverage=[c];resign(a);
+  const request=q.qualificationWorkerRequest(a.input),context=promptScope(request);
+  assert.equal(context.selectedSubject.inventoryMembers.length,2);assert.equal(context.surfaceGroups.length,1);
+  measurements.push({globalClassifications:f.scope.surfaceGroups.length,globalPairs:f.scope.surfaceGroups.length*2,actualRuleCriteria:result.ruleApplications.length,coveredMemberRelations:12,selectedPromptBytes:Buffer.byteLength(request.prompt)});
+ }
+ assert.equal(measurements[0].selectedPromptBytes,measurements[1].selectedPromptBytes);t.diagnostic(JSON.stringify({actualOwnerDiscriminator:measurements,claim:'C conservation and representation; supplied J/native premises'}));
 });

@@ -20,7 +20,7 @@ function runtimeBasis(correlationId) {
 }
 
 test("R7 validates the original materialized GTL and admits one ExecutionBasis", async (context) => {
-  const environment = await setupInstalledRootResolution(context, root);
+  const environment = await setupInstalledRootResolution(context, root, { candidateBasisSource: "packed_artifact" });
   const {
     gtl,
     validator,
@@ -72,6 +72,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     durablePrefix,
     {
       invocationAdmission,
+      executionResolution: environment.executionResolution.resolution,
       rawInputValue: input,
       program,
       programValidation,
@@ -97,7 +98,10 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     programValidation.transitiveReachableInteractionLeafKeys,
   );
   assert.equal(abg.hasAdmittedImplementationSet(store, basisAdmission.implementationSet), true);
-  assert.equal(abg.hasAdmittedInteractionSet(store, basisAdmission.interactionSet), true);
+  const admittedPrefix = abg.selectValidatedRuntimeEventPrefix(
+    abg.readRuntimeEventsAtDurablePrefix(basisAdmission.successorPrefix),
+  );
+  assert.equal(abg.hasAdmittedInteractionSetAtPrefix(admittedPrefix, basisAdmission.interactionSet), true);
   assert.notEqual(basisAdmission.implementationResolution, null);
   assert.equal(basisAdmission.implementationResolution.disposition, "admitted");
   assert.equal(
@@ -142,7 +146,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
   ]);
   assert.equal(events.at(-1).causationEventRefs[0], events.at(-2).eventId);
 
-  const setOnlyEnvironment = await setupInstalledRootResolution(context, root);
+  const setOnlyEnvironment = await setupInstalledRootResolution(context, root, { candidateBasisSource: "packed_artifact" });
   const setOnlyGraph = setOnlyEnvironment.gtl.materializeGraph(
     setOnlyEnvironment.graphFunction,
     {
@@ -172,6 +176,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     setOnlyEnvironment.durablePrefix,
     {
       invocationAdmission: setOnlyEnvironment.invocationAdmission,
+      executionResolution: setOnlyEnvironment.executionResolution.resolution,
       rawInputValue: setOnlyEnvironment.input,
       program: setOnlyEnvironment.program,
       programValidation: setOnlyEnvironment.programValidation,
@@ -191,7 +196,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     false,
   );
 
-  const rejectedEnvironment = await setupInstalledRootInvocation(context, root);
+  const rejectedEnvironment = await setupInstalledRootInvocation(context, root, { candidateBasisSource: "packed_artifact" });
   const alteredGraphFunction = structuredClone(rejectedEnvironment.graphFunction);
   alteredGraphFunction.template.graphRef = "graph://abiogenesis/conformance/altered@5";
   const alteredGraph = rejectedEnvironment.gtl.materializeGraph(
@@ -231,7 +236,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
   assert.equal(rejectedEnvironment.store.readAll().some((event) => event.kind === "implementation_admitted"), false);
   assert.equal(rejectedEnvironment.store.readAll().some((event) => event.kind === "basis_admitted"), false);
 
-  const forgedBasisEnvironment = await setupInstalledRootResolution(context, root);
+  const forgedBasisEnvironment = await setupInstalledRootResolution(context, root, { candidateBasisSource: "packed_artifact" });
   const forgedGraph = forgedBasisEnvironment.gtl.materializeGraph(
     forgedBasisEnvironment.graphFunction,
     {
@@ -264,6 +269,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     forgedBasisEnvironment.durablePrefix,
     {
       invocationAdmission: forgedBasisEnvironment.invocationAdmission,
+      executionResolution: forgedBasisEnvironment.executionResolution.resolution,
       rawInputValue: forgedBasisEnvironment.input,
       program: forgedBasisEnvironment.program,
       programValidation: forgedBasisEnvironment.programValidation,

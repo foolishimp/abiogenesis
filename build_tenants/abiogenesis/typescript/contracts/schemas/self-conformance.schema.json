@@ -933,6 +933,96 @@
                 "additionalProperties": false
               },
               "minItems": 1
+            },
+            "applicationDomains": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ruleGroupRef": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "surfaceGroups": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "groupRef": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "memberRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        },
+                        "rootRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        },
+                        "surfaceRoles": {
+                          "type": "array",
+                          "items": {
+                            "enum": [
+                              "constitutional",
+                              "design",
+                              "code",
+                              "proof",
+                              "execution_contract",
+                              "public_contract",
+                              "manifest",
+                              "qualification",
+                              "release_claim"
+                            ],
+                            "type": "string"
+                          },
+                          "minItems": 1
+                        },
+                        "ownerRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        },
+                        "sourceRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        }
+                      },
+                      "required": [
+                        "groupRef",
+                        "memberRefs",
+                        "rootRefs",
+                        "surfaceRoles",
+                        "ownerRefs",
+                        "sourceRefs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 1
+                  }
+                },
+                "required": [
+                  "ruleGroupRef",
+                  "surfaceGroups"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1
             }
           },
           "required": [
@@ -1628,6 +1718,76 @@
                               "digest"
                             ],
                             "additionalProperties": false
+                          },
+                          "source": {
+                            "type": "object",
+                            "properties": {
+                              "sourceRef": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "cCall": {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "executionBasis": {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "graphFunction": {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "sourceRef",
+                              "cCall",
+                              "executionBasis",
+                              "graphFunction"
+                            ],
+                            "additionalProperties": false
                           }
                         },
                         "required": [
@@ -1743,6 +1903,433 @@
                         "additionalProperties": false
                       }
                     ]
+                  }
+                },
+                "executionSources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "sourceRef": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "basis": {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "const": "exact_candidate_qualification"
+                          },
+                          "projection": {
+                            "const": "basis"
+                          },
+                          "schemaVersion": {
+                            "const": "5.0.0"
+                          },
+                          "subjectKind": {
+                            "enum": [
+                              "pre_rc_candidate",
+                              "installed_rc"
+                            ],
+                            "type": "string"
+                          },
+                          "basisRef": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "basisDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          },
+                          "productId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "productVersion": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "sourceInventory": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "artifact": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "productManifest": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "productContentDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          },
+                          "toolchain": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "installedProduct": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "workspaceBinding": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "prospectiveRelease": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "productId": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "namespace": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "profile": {
+                                    "const": "one_project_unqualified"
+                                  },
+                                  "projectSubtree": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "versionLine": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "ordinal": {
+                                    "type": "integer",
+                                    "minimum": 1
+                                  },
+                                  "version": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "releaseClaim": {
+                                    "type": "object",
+                                    "properties": {
+                                      "ref": {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      "digest": {
+                                        "type": "string",
+                                        "pattern": "^sha256:[a-f0-9]{64}$"
+                                      }
+                                    },
+                                    "required": [
+                                      "ref",
+                                      "digest"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "productId",
+                                  "namespace",
+                                  "profile",
+                                  "projectSubtree",
+                                  "versionLine",
+                                  "ordinal",
+                                  "version",
+                                  "releaseClaim"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "tenantManifest": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "coverageCatalog": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "lawBasis": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "projection",
+                          "schemaVersion",
+                          "subjectKind",
+                          "basisRef",
+                          "basisDigest",
+                          "productId",
+                          "productVersion",
+                          "sourceInventory",
+                          "artifact",
+                          "productManifest",
+                          "productContentDigest",
+                          "toolchain",
+                          "installedProduct",
+                          "workspaceBinding",
+                          "prospectiveRelease",
+                          "tenantManifest",
+                          "coverageCatalog",
+                          "lawBasis"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "prefix": {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "const": "durable_prefix_coordinate"
+                          },
+                          "schemaVersion": {
+                            "const": "5.0.0"
+                          },
+                          "eventLogRef": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "prefixLength": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "prefixDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          },
+                          "storeIdentity": {
+                            "type": "object",
+                            "properties": {
+                              "device": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "inode": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "eventContractDigest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "device",
+                              "inode",
+                              "eventContractDigest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "coordinateDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "schemaVersion",
+                          "eventLogRef",
+                          "prefixLength",
+                          "prefixDigest",
+                          "storeIdentity",
+                          "coordinateDigest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "declarations": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "abg_historical_declaration_proof"
+                            },
+                            "schemaVersion": {
+                              "const": "5.0.0"
+                            },
+                            "catalog": {
+                              "$ref": "#/$defs/d0"
+                            },
+                            "catalogView": {
+                              "$ref": "#/$defs/d0"
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "schemaVersion",
+                            "catalog",
+                            "catalogView"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "sourceRef",
+                      "basis",
+                      "prefix",
+                      "declarations"
+                    ],
+                    "additionalProperties": false
                   }
                 }
               },
@@ -2590,6 +3177,96 @@
                   "surfaceRoles",
                   "ownerRefs",
                   "sourceRefs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1
+            },
+            "applicationDomains": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ruleGroupRef": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "surfaceGroups": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "groupRef": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "memberRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        },
+                        "rootRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        },
+                        "surfaceRoles": {
+                          "type": "array",
+                          "items": {
+                            "enum": [
+                              "constitutional",
+                              "design",
+                              "code",
+                              "proof",
+                              "execution_contract",
+                              "public_contract",
+                              "manifest",
+                              "qualification",
+                              "release_claim"
+                            ],
+                            "type": "string"
+                          },
+                          "minItems": 1
+                        },
+                        "ownerRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        },
+                        "sourceRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        }
+                      },
+                      "required": [
+                        "groupRef",
+                        "memberRefs",
+                        "rootRefs",
+                        "surfaceRoles",
+                        "ownerRefs",
+                        "sourceRefs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 1
+                  }
+                },
+                "required": [
+                  "ruleGroupRef",
+                  "surfaceGroups"
                 ],
                 "additionalProperties": false
               },
@@ -6665,6 +7342,76 @@
                           "digest"
                         ],
                         "additionalProperties": false
+                      },
+                      "source": {
+                        "type": "object",
+                        "properties": {
+                          "sourceRef": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "cCall": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "executionBasis": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "graphFunction": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "sourceRef",
+                          "cCall",
+                          "executionBasis",
+                          "graphFunction"
+                        ],
+                        "additionalProperties": false
                       }
                     },
                     "required": [
@@ -6780,6 +7527,433 @@
                     "additionalProperties": false
                   }
                 ]
+              }
+            },
+            "executionSources": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sourceRef": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "basis": {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "const": "exact_candidate_qualification"
+                      },
+                      "projection": {
+                        "const": "basis"
+                      },
+                      "schemaVersion": {
+                        "const": "5.0.0"
+                      },
+                      "subjectKind": {
+                        "enum": [
+                          "pre_rc_candidate",
+                          "installed_rc"
+                        ],
+                        "type": "string"
+                      },
+                      "basisRef": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "basisDigest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      },
+                      "productId": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "productVersion": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sourceInventory": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "artifact": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "productManifest": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "productContentDigest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      },
+                      "toolchain": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "installedProduct": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "workspaceBinding": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "prospectiveRelease": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "productId": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "namespace": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "profile": {
+                                "const": "one_project_unqualified"
+                              },
+                              "projectSubtree": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "versionLine": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "ordinal": {
+                                "type": "integer",
+                                "minimum": 1
+                              },
+                              "version": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "releaseClaim": {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "productId",
+                              "namespace",
+                              "profile",
+                              "projectSubtree",
+                              "versionLine",
+                              "ordinal",
+                              "version",
+                              "releaseClaim"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "tenantManifest": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "coverageCatalog": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "lawBasis": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "projection",
+                      "schemaVersion",
+                      "subjectKind",
+                      "basisRef",
+                      "basisDigest",
+                      "productId",
+                      "productVersion",
+                      "sourceInventory",
+                      "artifact",
+                      "productManifest",
+                      "productContentDigest",
+                      "toolchain",
+                      "installedProduct",
+                      "workspaceBinding",
+                      "prospectiveRelease",
+                      "tenantManifest",
+                      "coverageCatalog",
+                      "lawBasis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "prefix": {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "const": "durable_prefix_coordinate"
+                      },
+                      "schemaVersion": {
+                        "const": "5.0.0"
+                      },
+                      "eventLogRef": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "prefixLength": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "prefixDigest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      },
+                      "storeIdentity": {
+                        "type": "object",
+                        "properties": {
+                          "device": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "inode": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "eventContractDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "device",
+                          "inode",
+                          "eventContractDigest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "coordinateDigest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "schemaVersion",
+                      "eventLogRef",
+                      "prefixLength",
+                      "prefixDigest",
+                      "storeIdentity",
+                      "coordinateDigest"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "declarations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "kind": {
+                          "const": "abg_historical_declaration_proof"
+                        },
+                        "schemaVersion": {
+                          "const": "5.0.0"
+                        },
+                        "catalog": {
+                          "$ref": "#/$defs/d0"
+                        },
+                        "catalogView": {
+                          "$ref": "#/$defs/d0"
+                        }
+                      },
+                      "required": [
+                        "kind",
+                        "schemaVersion",
+                        "catalog",
+                        "catalogView"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "sourceRef",
+                  "basis",
+                  "prefix",
+                  "declarations"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -7661,6 +8835,76 @@
                           "digest"
                         ],
                         "additionalProperties": false
+                      },
+                      "source": {
+                        "type": "object",
+                        "properties": {
+                          "sourceRef": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "cCall": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "executionBasis": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "graphFunction": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "sourceRef",
+                          "cCall",
+                          "executionBasis",
+                          "graphFunction"
+                        ],
+                        "additionalProperties": false
                       }
                     },
                     "required": [
@@ -7776,6 +9020,433 @@
                     "additionalProperties": false
                   }
                 ]
+              }
+            },
+            "executionSources": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sourceRef": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "basis": {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "const": "exact_candidate_qualification"
+                      },
+                      "projection": {
+                        "const": "basis"
+                      },
+                      "schemaVersion": {
+                        "const": "5.0.0"
+                      },
+                      "subjectKind": {
+                        "enum": [
+                          "pre_rc_candidate",
+                          "installed_rc"
+                        ],
+                        "type": "string"
+                      },
+                      "basisRef": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "basisDigest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      },
+                      "productId": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "productVersion": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sourceInventory": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "artifact": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "productManifest": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "productContentDigest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      },
+                      "toolchain": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "installedProduct": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "workspaceBinding": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "prospectiveRelease": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "productId": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "namespace": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "profile": {
+                                "const": "one_project_unqualified"
+                              },
+                              "projectSubtree": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "versionLine": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "ordinal": {
+                                "type": "integer",
+                                "minimum": 1
+                              },
+                              "version": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "releaseClaim": {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "productId",
+                              "namespace",
+                              "profile",
+                              "projectSubtree",
+                              "versionLine",
+                              "ordinal",
+                              "version",
+                              "releaseClaim"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "tenantManifest": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "coverageCatalog": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "lawBasis": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "projection",
+                      "schemaVersion",
+                      "subjectKind",
+                      "basisRef",
+                      "basisDigest",
+                      "productId",
+                      "productVersion",
+                      "sourceInventory",
+                      "artifact",
+                      "productManifest",
+                      "productContentDigest",
+                      "toolchain",
+                      "installedProduct",
+                      "workspaceBinding",
+                      "prospectiveRelease",
+                      "tenantManifest",
+                      "coverageCatalog",
+                      "lawBasis"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "prefix": {
+                    "type": "object",
+                    "properties": {
+                      "kind": {
+                        "const": "durable_prefix_coordinate"
+                      },
+                      "schemaVersion": {
+                        "const": "5.0.0"
+                      },
+                      "eventLogRef": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "prefixLength": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "prefixDigest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      },
+                      "storeIdentity": {
+                        "type": "object",
+                        "properties": {
+                          "device": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "inode": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "eventContractDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "device",
+                          "inode",
+                          "eventContractDigest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "coordinateDigest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": [
+                      "kind",
+                      "schemaVersion",
+                      "eventLogRef",
+                      "prefixLength",
+                      "prefixDigest",
+                      "storeIdentity",
+                      "coordinateDigest"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "declarations": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "kind": {
+                          "const": "abg_historical_declaration_proof"
+                        },
+                        "schemaVersion": {
+                          "const": "5.0.0"
+                        },
+                        "catalog": {
+                          "$ref": "#/$defs/d0"
+                        },
+                        "catalogView": {
+                          "$ref": "#/$defs/d0"
+                        }
+                      },
+                      "required": [
+                        "kind",
+                        "schemaVersion",
+                        "catalog",
+                        "catalogView"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "sourceRef",
+                  "basis",
+                  "prefix",
+                  "declarations"
+                ],
+                "additionalProperties": false
               }
             }
           },
@@ -8820,6 +10491,76 @@
                               "digest"
                             ],
                             "additionalProperties": false
+                          },
+                          "source": {
+                            "type": "object",
+                            "properties": {
+                              "sourceRef": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "cCall": {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "executionBasis": {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              "graphFunction": {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              }
+                            },
+                            "required": [
+                              "sourceRef",
+                              "cCall",
+                              "executionBasis",
+                              "graphFunction"
+                            ],
+                            "additionalProperties": false
                           }
                         },
                         "required": [
@@ -8935,6 +10676,433 @@
                         "additionalProperties": false
                       }
                     ]
+                  }
+                },
+                "executionSources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "sourceRef": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "basis": {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "const": "exact_candidate_qualification"
+                          },
+                          "projection": {
+                            "const": "basis"
+                          },
+                          "schemaVersion": {
+                            "const": "5.0.0"
+                          },
+                          "subjectKind": {
+                            "enum": [
+                              "pre_rc_candidate",
+                              "installed_rc"
+                            ],
+                            "type": "string"
+                          },
+                          "basisRef": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "basisDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          },
+                          "productId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "productVersion": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "sourceInventory": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "artifact": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "productManifest": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "productContentDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          },
+                          "toolchain": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "installedProduct": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "workspaceBinding": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "prospectiveRelease": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "productId": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "namespace": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "profile": {
+                                    "const": "one_project_unqualified"
+                                  },
+                                  "projectSubtree": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "versionLine": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "ordinal": {
+                                    "type": "integer",
+                                    "minimum": 1
+                                  },
+                                  "version": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "releaseClaim": {
+                                    "type": "object",
+                                    "properties": {
+                                      "ref": {
+                                        "type": "string",
+                                        "minLength": 1
+                                      },
+                                      "digest": {
+                                        "type": "string",
+                                        "pattern": "^sha256:[a-f0-9]{64}$"
+                                      }
+                                    },
+                                    "required": [
+                                      "ref",
+                                      "digest"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                },
+                                "required": [
+                                  "productId",
+                                  "namespace",
+                                  "profile",
+                                  "projectSubtree",
+                                  "versionLine",
+                                  "ordinal",
+                                  "version",
+                                  "releaseClaim"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "tenantManifest": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "coverageCatalog": {
+                            "anyOf": [
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "ref": {
+                                    "type": "string",
+                                    "minLength": 1
+                                  },
+                                  "digest": {
+                                    "type": "string",
+                                    "pattern": "^sha256:[a-f0-9]{64}$"
+                                  }
+                                },
+                                "required": [
+                                  "ref",
+                                  "digest"
+                                ],
+                                "additionalProperties": false
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          },
+                          "lawBasis": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "projection",
+                          "schemaVersion",
+                          "subjectKind",
+                          "basisRef",
+                          "basisDigest",
+                          "productId",
+                          "productVersion",
+                          "sourceInventory",
+                          "artifact",
+                          "productManifest",
+                          "productContentDigest",
+                          "toolchain",
+                          "installedProduct",
+                          "workspaceBinding",
+                          "prospectiveRelease",
+                          "tenantManifest",
+                          "coverageCatalog",
+                          "lawBasis"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "prefix": {
+                        "type": "object",
+                        "properties": {
+                          "kind": {
+                            "const": "durable_prefix_coordinate"
+                          },
+                          "schemaVersion": {
+                            "const": "5.0.0"
+                          },
+                          "eventLogRef": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "prefixLength": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "prefixDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          },
+                          "storeIdentity": {
+                            "type": "object",
+                            "properties": {
+                              "device": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "inode": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "eventContractDigest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "device",
+                              "inode",
+                              "eventContractDigest"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "coordinateDigest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "kind",
+                          "schemaVersion",
+                          "eventLogRef",
+                          "prefixLength",
+                          "prefixDigest",
+                          "storeIdentity",
+                          "coordinateDigest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "declarations": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "kind": {
+                              "const": "abg_historical_declaration_proof"
+                            },
+                            "schemaVersion": {
+                              "const": "5.0.0"
+                            },
+                            "catalog": {
+                              "$ref": "#/$defs/d0"
+                            },
+                            "catalogView": {
+                              "$ref": "#/$defs/d0"
+                            }
+                          },
+                          "required": [
+                            "kind",
+                            "schemaVersion",
+                            "catalog",
+                            "catalogView"
+                          ],
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "sourceRef",
+                      "basis",
+                      "prefix",
+                      "declarations"
+                    ],
+                    "additionalProperties": false
                   }
                 }
               },
@@ -9902,6 +12070,96 @@
                   "surfaceRoles",
                   "ownerRefs",
                   "sourceRefs"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1
+            },
+            "applicationDomains": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ruleGroupRef": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "surfaceGroups": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "groupRef": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "memberRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        },
+                        "rootRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        },
+                        "surfaceRoles": {
+                          "type": "array",
+                          "items": {
+                            "enum": [
+                              "constitutional",
+                              "design",
+                              "code",
+                              "proof",
+                              "execution_contract",
+                              "public_contract",
+                              "manifest",
+                              "qualification",
+                              "release_claim"
+                            ],
+                            "type": "string"
+                          },
+                          "minItems": 1
+                        },
+                        "ownerRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        },
+                        "sourceRefs": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 1
+                        }
+                      },
+                      "required": [
+                        "groupRef",
+                        "memberRefs",
+                        "rootRefs",
+                        "surfaceRoles",
+                        "ownerRefs",
+                        "sourceRefs"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 1
+                  }
+                },
+                "required": [
+                  "ruleGroupRef",
+                  "surfaceGroups"
                 ],
                 "additionalProperties": false
               },
@@ -11349,6 +13607,96 @@
                       "surfaceRoles",
                       "ownerRefs",
                       "sourceRefs"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                },
+                "applicationDomains": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ruleGroupRef": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "surfaceGroups": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "groupRef": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "memberRefs": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "minItems": 1
+                            },
+                            "rootRefs": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "minItems": 1
+                            },
+                            "surfaceRoles": {
+                              "type": "array",
+                              "items": {
+                                "enum": [
+                                  "constitutional",
+                                  "design",
+                                  "code",
+                                  "proof",
+                                  "execution_contract",
+                                  "public_contract",
+                                  "manifest",
+                                  "qualification",
+                                  "release_claim"
+                                ],
+                                "type": "string"
+                              },
+                              "minItems": 1
+                            },
+                            "ownerRefs": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "minItems": 1
+                            },
+                            "sourceRefs": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "minItems": 1
+                            }
+                          },
+                          "required": [
+                            "groupRef",
+                            "memberRefs",
+                            "rootRefs",
+                            "surfaceRoles",
+                            "ownerRefs",
+                            "sourceRefs"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 1
+                      }
+                    },
+                    "required": [
+                      "ruleGroupRef",
+                      "surfaceGroups"
                     ],
                     "additionalProperties": false
                   },
@@ -13118,6 +15466,76 @@
                       "digest"
                     ],
                     "additionalProperties": false
+                  },
+                  "source": {
+                    "type": "object",
+                    "properties": {
+                      "sourceRef": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "cCall": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "executionBasis": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "graphFunction": {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "sourceRef",
+                      "cCall",
+                      "executionBasis",
+                      "graphFunction"
+                    ],
+                    "additionalProperties": false
                   }
                 },
                 "required": [
@@ -13233,6 +15651,433 @@
                 "additionalProperties": false
               }
             ]
+          }
+        },
+        "executionSources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sourceRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basis": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "exact_candidate_qualification"
+                  },
+                  "projection": {
+                    "const": "basis"
+                  },
+                  "schemaVersion": {
+                    "const": "5.0.0"
+                  },
+                  "subjectKind": {
+                    "enum": [
+                      "pre_rc_candidate",
+                      "installed_rc"
+                    ],
+                    "type": "string"
+                  },
+                  "basisRef": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "basisDigest": {
+                    "type": "string",
+                    "pattern": "^sha256:[a-f0-9]{64}$"
+                  },
+                  "productId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "productVersion": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sourceInventory": {
+                    "type": "object",
+                    "properties": {
+                      "ref": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "digest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": [
+                      "ref",
+                      "digest"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "artifact": {
+                    "type": "object",
+                    "properties": {
+                      "ref": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "digest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": [
+                      "ref",
+                      "digest"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "productManifest": {
+                    "type": "object",
+                    "properties": {
+                      "ref": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "digest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": [
+                      "ref",
+                      "digest"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "productContentDigest": {
+                    "type": "string",
+                    "pattern": "^sha256:[a-f0-9]{64}$"
+                  },
+                  "toolchain": {
+                    "type": "object",
+                    "properties": {
+                      "ref": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "digest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": [
+                      "ref",
+                      "digest"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "installedProduct": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "workspaceBinding": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "prospectiveRelease": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "productId": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "namespace": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "profile": {
+                            "const": "one_project_unqualified"
+                          },
+                          "projectSubtree": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "versionLine": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "ordinal": {
+                            "type": "integer",
+                            "minimum": 1
+                          },
+                          "version": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "releaseClaim": {
+                            "type": "object",
+                            "properties": {
+                              "ref": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "digest": {
+                                "type": "string",
+                                "pattern": "^sha256:[a-f0-9]{64}$"
+                              }
+                            },
+                            "required": [
+                              "ref",
+                              "digest"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "productId",
+                          "namespace",
+                          "profile",
+                          "projectSubtree",
+                          "versionLine",
+                          "ordinal",
+                          "version",
+                          "releaseClaim"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "tenantManifest": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "coverageCatalog": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "ref": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "digest": {
+                            "type": "string",
+                            "pattern": "^sha256:[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "ref",
+                          "digest"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "lawBasis": {
+                    "type": "object",
+                    "properties": {
+                      "ref": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "digest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": [
+                      "ref",
+                      "digest"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "kind",
+                  "projection",
+                  "schemaVersion",
+                  "subjectKind",
+                  "basisRef",
+                  "basisDigest",
+                  "productId",
+                  "productVersion",
+                  "sourceInventory",
+                  "artifact",
+                  "productManifest",
+                  "productContentDigest",
+                  "toolchain",
+                  "installedProduct",
+                  "workspaceBinding",
+                  "prospectiveRelease",
+                  "tenantManifest",
+                  "coverageCatalog",
+                  "lawBasis"
+                ],
+                "additionalProperties": false
+              },
+              "prefix": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "durable_prefix_coordinate"
+                  },
+                  "schemaVersion": {
+                    "const": "5.0.0"
+                  },
+                  "eventLogRef": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "prefixLength": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "prefixDigest": {
+                    "type": "string",
+                    "pattern": "^sha256:[a-f0-9]{64}$"
+                  },
+                  "storeIdentity": {
+                    "type": "object",
+                    "properties": {
+                      "device": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "inode": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "eventContractDigest": {
+                        "type": "string",
+                        "pattern": "^sha256:[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": [
+                      "device",
+                      "inode",
+                      "eventContractDigest"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "coordinateDigest": {
+                    "type": "string",
+                    "pattern": "^sha256:[a-f0-9]{64}$"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "schemaVersion",
+                  "eventLogRef",
+                  "prefixLength",
+                  "prefixDigest",
+                  "storeIdentity",
+                  "coordinateDigest"
+                ],
+                "additionalProperties": false
+              },
+              "declarations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "abg_historical_declaration_proof"
+                    },
+                    "schemaVersion": {
+                      "const": "5.0.0"
+                    },
+                    "catalog": {
+                      "$ref": "#/$defs/d0"
+                    },
+                    "catalogView": {
+                      "$ref": "#/$defs/d0"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "schemaVersion",
+                    "catalog",
+                    "catalogView"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "sourceRef",
+              "basis",
+              "prefix",
+              "declarations"
+            ],
+            "additionalProperties": false
           }
         }
       },

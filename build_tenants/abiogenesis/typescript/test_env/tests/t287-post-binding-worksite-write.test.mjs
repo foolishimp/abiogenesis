@@ -257,25 +257,28 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     inputContractRef: builtGtl.WORKSITE_C0_IDS.inputContractRef,
     inputFactory: async ({
       product,
+      workspaceAuthority,
       workspaceBinding,
       capabilityGrant,
     }) => {
       const relativeRoot = "c0-proof";
       const relativePath = `${relativeRoot}/message.txt`;
-      await mkdir(join(workspaceBinding.roots.productRoot, relativeRoot), {
+      await mkdir(join(workspaceAuthority.canonicalRoot, relativeRoot), {
         recursive: true,
       });
-      targetPath = join(workspaceBinding.roots.productRoot, relativePath);
+      targetPath = join(workspaceAuthority.canonicalRoot, relativePath);
       const subject = product.constructWorksiteSubject({
+        workspaceAuthorityBasis: workspaceAuthority,
         workspaceBinding,
         subjectUri: pathToFileURL(targetPath).href,
         relativePath,
       });
       assert.equal(subject.kind, "worksite_subject", JSON.stringify(subject));
       const territory = product.constructWorksiteTerritory({
+        workspaceAuthorityBasis: workspaceAuthority,
         workspaceBinding,
         territoryUri: pathToFileURL(
-          join(workspaceBinding.roots.productRoot, relativeRoot),
+          join(workspaceAuthority.canonicalRoot, relativeRoot),
         ).href,
         relativeRoot,
       });
@@ -285,6 +288,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
         JSON.stringify(territory),
       );
       predecessorObservation = await product.observeWorksiteSubject(
+        workspaceAuthority,
         workspaceBinding,
         subject,
       );
@@ -295,6 +299,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
       );
       assert.equal(predecessorObservation.state, "absent");
       const request = product.constructWorksiteFileReplaceRequest({
+        workspaceAuthorityBasis: workspaceAuthority,
         workspaceBinding,
         capabilityGrant,
         subject,
@@ -348,6 +353,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     semanticsProjection,
     store,
     validator,
+    workspaceAuthority,
     workspaceBinding,
   } = environment;
   assert.equal(actorRef, workspaceBinding.authorizedActorRef);
@@ -364,6 +370,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     eventStore,
     store.readAll(),
     "abi5-t287-c0-prefix-conflict-",
+    artifactTruth,
   );
   const staleOwner = await cloneEventPrefixFixture(
     context,
@@ -371,6 +378,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     eventStore,
     store.readAll(),
     "abi5-t287-c0-stale-owner-",
+    artifactTruth,
   );
   const crossedReceipt = await cloneEventPrefixFixture(
     context,
@@ -378,6 +386,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     eventStore,
     store.readAll(),
     "abi5-t287-c0-crossed-receipt-",
+    artifactTruth,
   );
   const alternateAuthority = await cloneEventPrefixFixture(
     context,
@@ -385,6 +394,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     eventStore,
     store.readAll(),
     "abi5-t287-c0-alternate-authority-",
+    artifactTruth,
   );
   const substrateFailure = await cloneEventPrefixFixture(
     context,
@@ -392,6 +402,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     eventStore,
     store.readAll(),
     "abi5-t287-c0-substrate-failure-",
+    artifactTruth,
   );
   context.diagnostic("C0 phase: conflict prefix cloned");
 
@@ -593,6 +604,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     executionBasis,
     openedTraversalScope: opened.scope,
     program,
+    programPublication: publication,
     programValidation,
     graphFunction,
     graph,
@@ -682,6 +694,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     eventStore,
     preJudgmentEvents,
     "abi5-t287-c0-crossed-replay-identity-",
+    artifactTruth,
   );
   const exactAuthorityPrefix = abg.selectValidatedRuntimeEventPrefix(
     replayIdentityRefusal.store.readAll(),
@@ -911,6 +924,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     executionBasis,
     openedTraversalScope: staleOpened.scope,
     program,
+    programPublication: publication,
     programValidation,
     graphFunction,
     graph,
@@ -992,6 +1006,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     executionBasis,
     openedTraversalScope: crossedReceiptOpened.scope,
     program,
+    programPublication: publication,
     programValidation,
     graphFunction,
     graph,
@@ -1067,6 +1082,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     executionBasis,
     openedTraversalScope: conflictOpened.scope,
     program,
+    programPublication: publication,
     programValidation,
     graphFunction,
     graph,
@@ -1140,6 +1156,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
   assert.deepEqual(await readFile(targetPath), replacement);
 
   const freshObservation = await product.observeWorksiteSubject(
+    workspaceAuthority,
     workspaceBinding,
     input.subject,
   );
@@ -1155,6 +1172,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
   );
   const recoveredBytes = Buffer.from("recovered through a fresh C0 basis\n");
   const recoveryInput = product.constructWorksiteFileReplaceRequest({
+    workspaceAuthorityBasis: workspaceAuthority,
     workspaceBinding,
     capabilityGrant,
     subject: input.subject,
@@ -1327,6 +1345,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     recoveryInvocationReceipt.successorPrefix,
     {
       invocationAdmission: recoveryInvocationReceipt.admission,
+      executionResolution: executionResolution.resolution,
       rawInputValue: recoveryInput,
       program,
       programValidation,
@@ -1374,6 +1393,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     executionBasis: recoveryBasisAdmission.executionBasis,
     openedTraversalScope: recoveryOpened.scope,
     program,
+    programPublication: publication,
     programValidation,
     graphFunction,
     graph: recoveryGraph,
@@ -1432,6 +1452,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     executionBasis,
     openedTraversalScope: substrateOpened.scope,
     program,
+    programPublication: publication,
     programValidation,
     graphFunction,
     graph,

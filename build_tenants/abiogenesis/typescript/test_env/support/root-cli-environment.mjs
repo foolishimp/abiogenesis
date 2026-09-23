@@ -723,6 +723,19 @@ export async function buildRootCliScenario(
   }
   const installedProduct = admittedInstall.candidate;
   const workspaceBinding = admittedWorkspace.candidate;
+  const workspaceEnvironment = options.inputFactory === undefined
+    ? null
+    : installedAbg.projectExactPrefixWorkspaceEnvironment(
+        closeHandoff.prefix,
+        {
+          ref: admittedWorkspace.binding.bindingId,
+          digest: admittedWorkspace.binding.bindingDigest,
+        },
+      );
+  if (workspaceEnvironment !== null &&
+      workspaceEnvironment.kind !== "exact_prefix_workspace_environment") {
+    throw new Error(`root CLI workspace environment refused: ${JSON.stringify(workspaceEnvironment)}`);
+  }
   const readinessBasis = {
     workspaceBinding,
     resolvedLock,
@@ -795,6 +808,7 @@ export async function buildRootCliScenario(
       }
     : await options.inputFactory({
         product: harness.product,
+        workspaceAuthority: workspaceEnvironment.workspaceAuthorityBasis,
         workspaceBinding: admittedWorkspace.binding,
         catalogWorkspaceBinding: workspaceBinding,
         catalog,

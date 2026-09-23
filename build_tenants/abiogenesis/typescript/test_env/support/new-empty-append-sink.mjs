@@ -44,6 +44,7 @@ export async function cloneEventPrefixResource(
   eventStore,
   events,
   label = "abi5-event-prefix-clone-",
+  sourceArtifactTruth,
 ) {
   const acquired = await acquireNewEmptyAppendSinkResource(
     abg.createNewEmptyAppendSink,
@@ -70,11 +71,20 @@ export async function cloneEventPrefixResource(
         };
         let admitted;
         if (payload.operationId === "abg.operation.product.install") {
+          const sourceInstall = sourceArtifactTruth === undefined
+            ? null
+            : abg.projectAdmittedProductInstallByAdmissionEventRef(
+                sourceArtifactTruth,
+                expected.eventId,
+              );
+          if (sourceArtifactTruth !== undefined && sourceInstall === null) {
+            throw new TypeError("event-prefix clone lacks its exact source install owner");
+          }
           admitted = abg.admitProductInstall(
             acquired.store,
-            structuredClone(payload.artifact),
+            sourceInstall?.candidate ?? structuredClone(payload.artifact),
             basis,
-            structuredClone(payload.resolvedLock),
+            sourceInstall?.resolvedLock ?? structuredClone(payload.resolvedLock),
           );
         } else if (payload.operationId === "abg.operation.workspace.bind") {
           admitted = abg.admitWorkspaceBinding(
@@ -103,6 +113,7 @@ export async function cloneEventPrefixResource(
       delete candidate.eventId;
       delete candidate.admissionOrdinal;
       delete candidate.payloadDigest;
+      delete candidate.eventContractDigest;
       const admitted = eventStore.admitRuntimeEvent(acquired.store, candidate);
       if (admitted.eventId !== expected.eventId) {
         throw new TypeError(
@@ -123,12 +134,14 @@ export async function cloneEventPrefixFixture(
   eventStore,
   events,
   label = "abi5-event-prefix-clone-",
+  sourceArtifactTruth,
 ) {
   const acquired = await cloneEventPrefixResource(
     abg,
     eventStore,
     events,
     label,
+    sourceArtifactTruth,
   );
   context.after(acquired.dispose);
   return acquired;

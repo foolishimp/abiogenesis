@@ -7,7 +7,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { resolveQualificationAssessments, qualificationTenantClaimsMatch, resolveQualificationExecutionMaterial } from "../abg/qualification_proof.js";
 import { canonicalJson } from "../shared/canonical_json.js";
-import { isQualificationBasisReady, qualificationCoverageIsPublished, qualificationScopeCorrespondence } from "./qualification.js";
+import { isQualificationBasisReady, qualificationCoverageIsPublished, qualificationScopeCorrespondence, qualificationRuleSurfaces } from "./qualification.js";
 import { QUALIFICATION_RULE_CATALOG_SCHEMA, qualificationIdentityDigest,
   type SelfConformanceInput, type SelfConformanceResult, type SelfConformanceOwner,
   type SelfConformanceFinding, type QualificationRuleCatalog } from "./self_conformance_contracts.js";
@@ -86,7 +86,9 @@ export function evaluateSelfConformance(input: SelfConformanceInput, owner: Self
     const matches = (assessmentIndex.get([`qualification-role://abiogenesis/${role}@5`, evidenceRole, surfaceRef].join("\n")) ?? [])
       .filter(({ j, c }) => (ruleRef === null || c.ruleRef === ruleRef) && (() => {
           const verificationRule = role === "rule" && ruleRef !== null && ruleGroupByRef.get(ruleRef)?.ruleRefs.some(ref => ruleByRef.get(ref)?.governedClaim === "REQ-P-QUAL-056");
-          const surface = surfaceGroupByRef.get(c.surfaceRef), rule = ruleRef === null ? undefined : ruleGroupByRef.get(ruleRef);
+          const surface = scope !== undefined && role === "rule" && ruleRef !== null
+            ? qualificationRuleSurfaces(scope, ruleRef).find(g => g.groupRef === c.surfaceRef) : surfaceGroupByRef.get(c.surfaceRef),
+            rule = ruleRef === null ? undefined : ruleGroupByRef.get(ruleRef);
           const required = scope !== undefined && role === "catalog" ? rule?.sourceRefs ?? []
             : scope !== undefined && role === "inventory" ? surface?.sourceRefs ?? []
             : scope !== undefined && role === "rule" ? [...(surface?.sourceRefs ?? []), ...(rule?.sourceRefs ?? []),
@@ -223,18 +225,19 @@ export function evaluateSelfConformance(input: SelfConformanceInput, owner: Self
     }
   }
   for (const group of ruleGroups) {
-    const apps = applicationRows.get(group.groupRef) ?? [], appliedSurfaces = new Set(apps.map(a => a.surfaceRef));
+    const apps = applicationRows.get(group.groupRef) ?? [], appliedSurfaces = new Set(apps.map(a => a.surfaceRef)),
+      domainByRef = scope === undefined ? surfaceGroupByRef : new Map(qualificationRuleSurfaces(scope, group.groupRef).map(g => [g.groupRef, g]));
     if (apps.length === 0) add("rule_application_missing", "blocked_incomplete", "Rule scope applicability and required surface coverage remain unresolved.", [], group.groupRef, null, "J_required");
     for (const app of apps) {
-      if (inventory === null || !surfaceGroupByRef.has(app.surfaceRef)) add("application_surface_unbound", "failed", "Application surface scope is absent from the exact inventory partition.", [app.surfaceRef], group.groupRef);
+      if (inventory === null || !domainByRef.has(app.surfaceRef)) add("application_surface_unbound", "failed", "Application surface scope is absent from the exact inventory partition.", [app.surfaceRef], group.groupRef);
       if (app.applicability === "unknown") add("application_applicability_unknown", "blocked_incomplete", "Declared applicability remains unresolved.", [app.surfaceRef], group.groupRef, null, "J_required");
       if (scope !== undefined && app.applicability !== "unknown" && (assessmentIndex.get(["qualification-role://abiogenesis/rule@5", "semantic_assessment", app.surfaceRef].join("\n")) ?? [])
           .some(({ c }) => c.ruleRef === group.groupRef && c.applicability !== "unknown" && c.applicability !== app.applicability))
         add("application_applicability_conflict", "failed", "Declared applicability contradicts admitted scoped J.", [app.surfaceRef], group.groupRef);
       assessed("semantic_assessment_required", "The entire explicit rule/surface scope needs adequate common-scope native J; no MUST waiver or representative-member generalization is synthesized.", "rule", "semantic_assessment", [app.surfaceRef], group.groupRef, group.sourceRefs.length === 1 ? group.sourceRefs[0]! : null);
     }
-    if (inventory !== null && (appliedSurfaces.size !== surfaceGroupByRef.size || [...appliedSurfaces].some(ref => !surfaceGroupByRef.has(ref))))
-      add("rule_surface_classification_missing", "blocked_incomplete", "Rule scope must classify the complete unique surface partition; missing domain remains explicit.", [], group.groupRef, null, "J_required");
+    if (inventory !== null && (appliedSurfaces.size !== domainByRef.size || [...appliedSurfaces].some(ref => !domainByRef.has(ref))))
+      add("rule_surface_classification_missing", "blocked_incomplete", "Rule scope must classify its complete unique declared member-domain partition; missing domain remains explicit.", [], group.groupRef, null, "J_required");
   }
   if (input.applications.some(x => !ruleGroupByRef.has(x.ruleRef))) add("unpublished_rule_application", "failed", "Rule application has no exact published rule or declared group.");
   for (const evidence of input.evidenceCitations) {

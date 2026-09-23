@@ -45,6 +45,10 @@ export const QUALIFICATION_INVENTORY_SCHEMA = v.strictObject({
   members: v.array(v.strictObject({ ...QUALIFICATION_SOURCE_SCHEMA.entries,
     surfaceRoles: v.array(v.picklist(QUALIFICATION_SURFACE_ROLES)), classificationEvidenceRefs: v.array(ref) })),
 });
+const qualificationSurfaceGroupSchema = v.strictObject({ groupRef: ref,
+  memberRefs: v.pipe(v.array(ref), v.minLength(1)), rootRefs: v.pipe(v.array(ref), v.minLength(1)),
+  surfaceRoles: v.pipe(v.array(v.picklist(QUALIFICATION_SURFACE_ROLES)), v.minLength(1)),
+  ownerRefs: v.pipe(v.array(ref), v.minLength(1)), sourceRefs: v.pipe(v.array(ref), v.minLength(1)) });
 /** Explicit declared partitions; only admitted J can justify their common meaning. */
 const qualificationScopeSchema = v.strictObject({
   kind: v.literal("qualification_scope"), scopeRef: ref, scopeDigest: digest,
@@ -52,10 +56,11 @@ const qualificationScopeSchema = v.strictObject({
   catalog: QUALIFICATION_COORDINATE_SCHEMA, inventory: QUALIFICATION_INVENTORY_SCHEMA,
   ruleGroups: v.pipe(v.array(v.strictObject({ groupRef: ref,
     ruleRefs: v.pipe(v.array(ref), v.minLength(1)), sourceRefs: v.pipe(v.array(ref), v.minLength(1)) })), v.minLength(1)),
-  surfaceGroups: v.pipe(v.array(v.strictObject({ groupRef: ref,
-    memberRefs: v.pipe(v.array(ref), v.minLength(1)), rootRefs: v.pipe(v.array(ref), v.minLength(1)),
-    surfaceRoles: v.pipe(v.array(v.picklist(QUALIFICATION_SURFACE_ROLES)), v.minLength(1)),
-    ownerRefs: v.pipe(v.array(ref), v.minLength(1)), sourceRefs: v.pipe(v.array(ref), v.minLength(1)) })), v.minLength(1)),
+  surfaceGroups: v.pipe(v.array(qualificationSurfaceGroupSchema), v.minLength(1)),
+  // Each declared rule scope classifies the whole inventory through its own
+  // disjoint domains. Absence retains the existing global partition meaning.
+  applicationDomains: v.optional(v.pipe(v.array(v.strictObject({ ruleGroupRef: ref,
+    surfaceGroups: v.pipe(v.array(qualificationSurfaceGroupSchema), v.minLength(1)) })), v.minLength(1))),
 });
 export type QualificationScope = v.InferOutput<typeof qualificationScopeSchema>;
 export const QUALIFICATION_SCOPE_SCHEMA: v.GenericSchema<QualificationScope> = qualificationScopeSchema;
@@ -206,7 +211,9 @@ export const QUALIFICATION_SELECTION_SCHEMA = v.variant("kind", [
     slotRef: ref, request: QUALIFICATION_COORDINATE_SCHEMA, continuationRef: ref }),
   v.strictObject({ kind: v.literal("execution_selection"), selectionRef: ref,
     slotRef: ref, programRef: ref, invocationAdmissionRef: ref,
-    result: QUALIFICATION_COORDINATE_SCHEMA }),
+    result: QUALIFICATION_COORDINATE_SCHEMA,
+    source: v.optional(v.strictObject({ sourceRef: ref, cCall: QUALIFICATION_COORDINATE_SCHEMA,
+      executionBasis: QUALIFICATION_COORDINATE_SCHEMA, graphFunction: QUALIFICATION_COORDINATE_SCHEMA })) }),
   v.strictObject({ kind: v.literal("self_conformance_selection"), selectionRef: ref,
     slotRef: ref, programRef: ref, invocationAdmissionRef: ref,
     result: QUALIFICATION_COORDINATE_SCHEMA }),
@@ -218,6 +225,11 @@ export const QUALIFICATION_PROOF_RESOURCE_SCHEMA = v.strictObject({
   prefix: QUALIFICATION_PREFIX_SCHEMA,
   declarations: v.array(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA),
   selections: v.array(QUALIFICATION_SELECTION_SCHEMA),
+  // Original native execution contexts are subordinate evidence selections,
+  // never replacement consumer-local J/O/F11/AF22 authority.
+  executionSources: v.optional(v.array(v.strictObject({ sourceRef: ref,
+    basis: EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, prefix: QUALIFICATION_PREFIX_SCHEMA,
+    declarations: v.array(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA) }))),
 });
 /** Coverage is source-linked claim data, never an executable roster. One
  * authenticated execution may support several independently assessed claims. */

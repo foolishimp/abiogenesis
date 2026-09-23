@@ -11,8 +11,9 @@ import { isRecord } from "../shared/admission_predicates.js";
 import { SELF_CONFORMANCE_IDS } from "../gtl/self_conformance.js";
 import { QUALIFICATION_IMPLEMENTATION_REFS, projectQualificationConsumer, projectNativeRuntimeAssessment, projectExactCandidateQualification } from "../abg/qualification_proof.js";
 import { qualificationResultRelation } from "../validator/self_conformance_semantics.js";
+import { evaluateSelfConformance } from "../validator/self_conformance.js";
 import { resolveSelfConformanceOwner } from "../validator/self_conformance_basis.js";
-import { isSelfConformanceResult } from "../validator/self_conformance_contracts.js";
+import { isSelfConformanceInput, isSelfConformanceResult } from "../validator/self_conformance_contracts.js";
 import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
 import { WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS } from "../product/worksite_construction_recovery.js";
 import { authenticateWorksitePreservedResultBasis } from "../abg/worksite_construction_recovery.js";
@@ -425,6 +426,13 @@ function nativeLeafProofOperations(
   };
   const basis = occurrence.qualificationOwnerBasis, native = occurrence.nativeWorkReacquisitionBasis;
   return Object.freeze({
+    ...(implementationRef === SELF_CONFORMANCE_IDS.implementationRef && basis?.cCallRef === occurrence.cCallRef
+      ? { qualificationSelfConformance: (input: unknown, supplied: LeafExecutionOccurrence) => {
+          exact(input, supplied);
+          if (!isSelfConformanceInput(value)) return null;
+          const owner = resolveSelfConformanceOwner(basis, value, true);
+          return owner === null ? null : evaluateSelfConformance(value, owner);
+        } } : {}),
     ...(implementationRef === qualificationIds.verdictImplementation && basis?.cCallRef === occurrence.cCallRef
       ? { qualificationVerdict: (input: unknown, supplied: LeafExecutionOccurrence) => {
           exact(input, supplied); return projectExactCandidateQualification(basis, value, true);

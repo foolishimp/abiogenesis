@@ -503,7 +503,7 @@ test("D2 mechanical installed repair writes two files and snapshots twenty-two",
       const checked = await invoke(await authorized(validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,
         {program:coord(programRef,selectedProgram),conformanceLaw:selectedLaw,inventoryBasis:{kind:"declared_inventory",inventory:catalog.boundPublications.map(p=>coord(p.moduleRef,p)).sort((a,b)=>a.ref.localeCompare(b.ref))}},
         {kind:"conformance_evaluation_resource_assertion",schemaVersion,packet:{kind:"conformance_evaluate_packet",schemaVersion,memberKey:"gtl_program",publication:selectedPublication,program:selectedProgram},
-          conformanceLaw:selectedLaw,artifactTruth:environment.artifactTruth,declaredInventory:catalog.boundPublications,declarationCatalog:{catalog,catalogView}},boundSlots),"selected Program conformance");
+          conformanceLaw:selectedLaw,declaredInventory:catalog.boundPublications,declarationCatalog:{catalog,catalogView}},boundSlots),"selected Program conformance");
       assert.equal(checked.ownerOutput.value.disposition,"passed");
       const resolution = await product.ProductExecutionResolutionPort.resolve({catalog,catalogView,admittedInstalls:environment.productInstalls,
         verifyInstallAdmission:install=>abg.hasAdmittedProductInstall(environment.artifactTruth,install),programRef,

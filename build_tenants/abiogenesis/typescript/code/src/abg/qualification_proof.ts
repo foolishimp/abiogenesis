@@ -10,13 +10,14 @@ import { materializeGraph } from "../gtl/materialize.js";
 import type { CProgramNode } from "../gtl/c_algebra.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { reconstructHistoricalDeclarationCatalog, resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
-import { projectExactPrefixWorkspaceEnvironment, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
+import { projectExactPrefixWorkspaceEnvironment, projectWorkspaceEnvironmentFromArtifactTruth, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
+import { projectExactPrefixArtifactTruth, runtimePrefixFromArtifactTruth, type ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js";
 import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix,
   type RehydratedAdmittedCCallState, type AdmittedCCallEvidence } from "./c_call.js";
-import { readRuntimeEventsAtDurablePrefix, reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
-import { selectValidatedRuntimeEventPrefix, runtimePrefixComputation } from "./event_prefix.js";
+import { readRuntimeEventsAtDurablePrefix, assertDurableRuntimePrefixCurrent, reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
+import { selectValidatedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix, runtimePrefixComputation } from "./event_prefix.js";
 import { projectFhContinuations } from "./fh_continuation_projection.js";
 import { deriveRuntimeEventCalculusProjection } from "./event_calculus.js";
 import { GraphCallProjectionPort, projectRunTruthAtDurablePrefix } from "./project_read_ports.js";
@@ -70,6 +71,8 @@ const NATIVE_PROOF = Symbol("qualification_native_proof");
 type GraphOwner = NonNullable<ReturnType<typeof deriveGraphOwner>>;
 class NativeProofDerivation {
   readonly graphs = new Map<string, GraphOwner>();
+  readonly executionSources = new Map<string, { declaration: NonNullable<QualificationProofResource["executionSources"]>[number];
+    proof: QualificationProofResource }>();
   readonly declarations = new Map<string, { proof: AbgHistoricalDeclarationProof;
     environment: Parameters<typeof reconstructHistoricalDeclarationCatalog>[1];
     value: ReturnType<typeof reconstructHistoricalDeclarationCatalog> }>();
@@ -84,8 +87,25 @@ const nativeFacts = (prefix: ReturnType<typeof selectValidatedRuntimeEventPrefix
 // Equality is only a positive reuse discriminator for an already authenticated
 // immutable fact. The canonical relation remains the fallback for all data.
 const sameFact = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || same(a, b);
-function graphOwner(coordinate: DurablePrefixCoordinate, ref: string, declarations: readonly AbgHistoricalDeclarationProof[]) {
-  const events = readRuntimeEventsAtDurablePrefix(coordinate), prefix = selectValidatedRuntimeEventPrefix(events);
+// One operation borrows each authenticated source prefix and workspace
+// projection. These private associations cannot be supplied in JSON or confer
+// authority on copied coordinates. The existing cold owners still acquire it.
+type ExecutionSourceFacts = { events: readonly RuntimeEvent[];
+  artifactTruth?: ExactPrefixArtifactTruthProjection;
+  environments: Map<string, ReturnType<typeof projectExactPrefixWorkspaceEnvironment>> };
+const executionProofFacts = new WeakMap<QualificationProofResource, ExecutionSourceFacts>();
+function acquireExecutionSource(coordinate: DurablePrefixCoordinate): ExecutionSourceFacts | null {
+  const artifactTruth = projectExactPrefixArtifactTruth(coordinate);
+  if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") return null;
+  const prefix = runtimePrefixFromArtifactTruth(artifactTruth);
+  if (prefix === null) return null;
+  return { events: runtimeEventsFromValidatedPrefix(prefix), artifactTruth, environments: new Map() };
+}
+function proofEvents(proof: QualificationProofResource): readonly RuntimeEvent[] {
+  return executionProofFacts.get(proof)?.events ?? readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
+}
+function graphOwner(coordinate: DurablePrefixCoordinate, ref: string, declarations: readonly AbgHistoricalDeclarationProof[], source?: ExecutionSourceFacts) {
+  const events = source?.events ?? readRuntimeEventsAtDurablePrefix(coordinate), prefix = selectValidatedRuntimeEventPrefix(events);
   const opened = one(events.filter(e => e.kind === "c_call_opened" && e.aggregateId === ref));
   if (opened === null) return null;
   const facts = nativeFacts(prefix), known = facts.graphs.get(ref);
@@ -93,7 +113,7 @@ function graphOwner(coordinate: DurablePrefixCoordinate, ref: string, declaratio
     declarations.filter(d => d.catalog?.basisDigest === known.root.catalogBasisDigest && d.catalogView?.viewDigest === known.root.catalogViewDigest));
   if (known !== undefined && known.opened === opened && selectedProofs.length === 1 && sameFact(selectedProofs[0], known.proof))
     return { ...known, events, prefix };
-  const owner = deriveGraphOwner(coordinate, ref, declarations, events, prefix, opened);
+  const owner = deriveGraphOwner(coordinate, ref, declarations, events, prefix, opened, source);
   // Retention owns a distinct small wrapper. The returned projection view
   // remains caller-editable without editing an authenticated retained fact.
   if (owner !== null) facts.graphs.set(ref, Object.freeze({ ...owner }));
@@ -102,7 +122,7 @@ function graphOwner(coordinate: DurablePrefixCoordinate, ref: string, declaratio
 /** Reuses the historical Product verifier and native CCall owner. No supplied
  * declaration becomes authority by passing its own structural guard. */
 function deriveGraphOwner(prefixCoordinate: DurablePrefixCoordinate, cCallRef: string, declarations: readonly AbgHistoricalDeclarationProof[],
-  events: readonly RuntimeEvent[], prefix: ReturnType<typeof selectValidatedRuntimeEventPrefix>, opened: RuntimeEvent) {
+  events: readonly RuntimeEvent[], prefix: ReturnType<typeof selectValidatedRuntimeEventPrefix>, opened: RuntimeEvent, source?: ExecutionSourceFacts) {
   const execution = opened?.basisId === undefined ? null : projectExactExecutionBasisAtPrefix(prefix, opened.basisId);
   if (execution === null || opened === null) return null;
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, execution.invocationAdmissionRef);
@@ -116,7 +136,12 @@ function deriveGraphOwner(prefixCoordinate: DurablePrefixCoordinate, cCallRef: s
         parent.programDigest !== execution.programDigest || parent.workspaceBindingDigest !== execution.workspaceBindingDigest) return null;
     root = parent;
   }
-  const environment = projectExactPrefixWorkspaceEnvironment(prefixCoordinate, coord(root.workspaceBindingId, root.workspaceBindingDigest));
+  const environmentKey = root.workspaceBindingId + ":" + root.workspaceBindingDigest;
+  const environment = source?.environments.get(environmentKey) ??
+    (source?.artifactTruth === undefined
+      ? projectExactPrefixWorkspaceEnvironment(prefixCoordinate, coord(root.workspaceBindingId, root.workspaceBindingDigest))
+      : projectWorkspaceEnvironmentFromArtifactTruth(source.artifactTruth, coord(root.workspaceBindingId, root.workspaceBindingDigest)));
+  source?.environments.set(environmentKey, environment);
   if (environment.kind !== "exact_prefix_workspace_environment") return null;
   const invocationEvent = one(events.filter(e => e.eventId === invocation.admissionEventRef));
   if (invocationEvent === null || [...environment.productInstalls.map(i => i.admissionEventRef), environment.workspaceBinding.admissionEventRef].some(ref =>
@@ -207,10 +232,15 @@ function soleDeclaredReducer(owner: NonNullable<ReturnType<typeof graphOwner>>):
 }
 export function projectQualificationConsumer(basis: QualificationNativeBasis, input: unknown, requireCurrent = false) {
   try {
-    readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });
-    const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input));
+    const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });
+    const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input),
+      { events, environments: new Map() });
     if (owner === null || !QUALIFICATION_IMPLEMENTATION_REFS.includes(owner.call.implementationRef ?? "") ||
         !sameFact(owner.input, input) || projectCCallCarrierPhaseAtPrefix(owner.prefix, owner.call)?.phase !== "selected_no_evidence") return null;
+    if (requireCurrent && owner.call.implementationRef === SELF && record(input) && record(input.qualification) &&
+        isQualificationProofResource(input.qualification.proof) && input.qualification.proof.executionSources !== undefined &&
+        (!record(input.basis) || executionSourceProofs(input.qualification.proof,
+          input.basis as unknown as ExactCandidateQualification<"basis">, basis, true) === null)) return null;
     if (owner.call.implementationRef === VERDICT && (!record(input) || input.slotRef !== owner.call.programLocusRef || !soleDeclaredReducer(owner))) return null;
     if (owner.call.implementationRef === MALFORMED_ASSESS &&
         (!isMalformedGtlAssessmentInput(input) || !malformedSubjectMatches(owner, input))) return null;
@@ -419,7 +449,7 @@ function proofWithin(proof: QualificationProofResource, consumer: QualificationN
     proof.prefix.prefixLength <= consumer.predecessorPrefix.prefixLength;
 }
 function nativeState(proof: QualificationProofResource, ref: string) {
-  const owner = graphOwner(proof.prefix as DurablePrefixCoordinate, ref, proof.declarations);
+  const owner = graphOwner(proof.prefix as DurablePrefixCoordinate, ref, proof.declarations, executionProofFacts.get(proof));
   const state = owner === null ? null : stateAt(owner);
   if (owner === null || state === null) return null;
   // These rows are consumed only after the existing native outcome projector
@@ -431,7 +461,7 @@ function nativeState(proof: QualificationProofResource, ref: string) {
 }
 /** Parent folds alias only through the authenticated sub-traversal evidence. */
 function producerForResult(proof: QualificationProofResource, result: QualificationCoordinate) {
-  const events = readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
+  const events = proofEvents(proof);
   const event = one(events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) &&
     e.payload.resultRef === result.ref && e.payload.resultDigest === result.digest));
   if (event === null) return null;
@@ -558,7 +588,7 @@ export function projectQualificationConstructionAuthors(proof: QualificationProo
       const ruling = projectQualificationOwnerRuling(proof, plan, selected[0]!);
       if (ruling?.disposition !== "acknowledged") return null;
       const selectedContinuationRef = selected[0]!.continuationRef;
-      const events = readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
+      const events = proofEvents(proof);
       const continuation = projectFhContinuations(selectValidatedRuntimeEventPrefix(events), deriveRuntimeEventCalculusProjection(selectValidatedRuntimeEventPrefix(events)))
         .find(c => c.continuationRef === selectedContinuationRef);
       const request = continuation === undefined ? null : graphOwner(proof.prefix as DurablePrefixCoordinate, continuation.cCallRef, proof.declarations)?.input;
@@ -606,6 +636,52 @@ export function qualificationTenantClaimsMatch(basis: QualificationNativeBasis, 
     });
   } catch { return false; }
 }
+/** Runtime location is a producer fact. Every other exact qualification field
+ * is conserved, including source, release claim, toolchain, catalog and law. */
+function sameImmutableCandidate(a: ExactCandidateQualification<"basis">, b: ExactCandidateQualification<"basis">): boolean {
+  if (!qualificationIdentity(a, "basisRef", "basisDigest", "qualification-basis://abiogenesis/") ||
+      !qualificationIdentity(b, "basisRef", "basisDigest", "qualification-basis://abiogenesis/")) return false;
+  const immutable = ({ basisRef: _r, basisDigest: _d, installedProduct: _i, workspaceBinding: _w, ...value }: ExactCandidateQualification<"basis">) => value;
+  return same(immutable(a), immutable(b));
+}
+function executionSourceProofs(proof: QualificationProofResource, basis: ExactCandidateQualification<"basis">,
+  consumer: QualificationNativeBasis, requireCurrent = false): Map<string, QualificationProofResource> | null {
+  if (!isQualificationProofResource(proof) || !proofWithin(proof, consumer)) return null;
+  const sources = proof.executionSources ?? [], selections = proof.selections.filter(s => s.kind === "execution_selection"),
+    refs = new Set(selections.flatMap(s => s.source === undefined ? [] : [s.source.sourceRef]));
+  if (!unique(sources.map(s => s.sourceRef)) || !unique(sources.map(s => hash([s.prefix, s.basis, s.declarations]))) ||
+      refs.size !== sources.length || sources.some(s => !refs.has(s.sourceRef))) return null;
+  const events = readRuntimeEventsAtDurablePrefix(consumer.predecessorPrefix as DurablePrefixCoordinate),
+    facts = nativeFacts(selectValidatedRuntimeEventPrefix(events)), out = new Map<string, QualificationProofResource>(),
+    acquired = new Map<string, ExecutionSourceFacts>(), currentChecked = new Set<string>();
+  for (const source of sources) {
+    if (!sameImmutableCandidate(source.basis, basis) || source.basis.installedProduct === null || source.basis.workspaceBinding === null) return null;
+    const key = consumer.cCallRef + ":" + consumer.predecessorPrefix.coordinateDigest + ":" + source.sourceRef;
+    const known = facts.executionSources.get(key);
+    const prefixKey = hash(source.prefix);
+    const retained = known !== undefined && sameFact(known.declaration, source) ? executionProofFacts.get(known.proof) : undefined;
+    // Artifact truth authenticates cold ingress and owns its one event array.
+    // Equal caller data alone cannot supply this private acquisition relation.
+    const sourceFacts = acquired.get(prefixKey) ?? retained ?? acquireExecutionSource(source.prefix as DurablePrefixCoordinate);
+    if (sourceFacts === null) return null;
+    // Observe replacement/advance/truncation at each current consumer without
+    // decoding or retaining another copy of already authenticated history.
+    if (requireCurrent && !currentChecked.has(prefixKey)) {
+      assertDurableRuntimePrefixCurrent(sourceFacts.artifactTruth!.prefix);
+      currentChecked.add(prefixKey);
+    }
+    acquired.set(prefixKey, sourceFacts);
+    if (retained !== undefined && known !== undefined) {
+      out.set(source.sourceRef, known.proof); continue;
+    }
+    const sourceProof: QualificationProofResource = { kind: proof.kind, schemaVersion: proof.schemaVersion,
+      prefix: sourceFacts.artifactTruth!.prefix, declarations: source.declarations, selections: [] };
+    executionProofFacts.set(sourceProof, sourceFacts);
+    facts.executionSources.set(key, { declaration: deepFreeze(source), proof: sourceProof });
+    out.set(source.sourceRef, sourceProof);
+  }
+  return out;
+}
 /** Existing native Result/C/J ownership is shared evidence, not a new gate.
  * Material includes actual disposition and evidence; F11 independently judges
  * its applicability and sufficiency for each source-grounded coverage claim. */
@@ -623,25 +699,40 @@ export function resolveQualificationExecutionMaterial(proof: QualificationProofR
     if (!isQualificationProofResource(proof) || !proofWithin(proof, consumer)) return null;
     readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
     const current = { ...proof, prefix: consumer.predecessorPrefix };
-    const selections = proof.selections.filter(s => s.kind === "execution_selection");
-    if (!unique(selections.map(s => s.selectionRef)) || !unique(selections.map(s => s.result.ref))) return null;
+    const selections = proof.selections.filter(s => s.kind === "execution_selection"), sources = executionSourceProofs(proof, basis, consumer);
+    if (sources === null || !unique(selections.map(s => s.selectionRef)) || !unique(selections.map(s => s.result.ref))) return null;
+    const producers = new Set<string>();
     const material: QualificationMaterial[] = [];
     let verification: QualificationVerificationMaterial | null = null;
     for (const selection of selections) {
-      const selected = producerForResult(current, selection.result);
+      const sourceProof = selection.source === undefined ? current : sources.get(selection.source.sourceRef);
+      if (sourceProof === undefined) return null;
+      const sourceBasis = selection.source === undefined ? basis : proof.executionSources!.find(s => s.sourceRef === selection.source!.sourceRef)!.basis;
+      const selected = producerForResult(sourceProof, selection.result);
       if (selected === null || selected.state.cCall.programLocusRef !== selection.slotRef ||
           selected.owner.execution.programRef !== selection.programRef ||
           selected.owner.execution.invocationAdmissionRef !== selection.invocationAdmissionRef) return null;
+      if (selection.source !== undefined && (!same(selection.source.cCall, coord(selected.state.cCall.cCallRef, selected.state.cCall.cCallDigest)) ||
+          !same(selection.source.executionBasis, coord(selected.owner.execution.basisRef, selected.owner.execution.basisDigest)) ||
+          !same(selection.source.graphFunction, coord(selected.owner.execution.graphFunctionRef, selected.owner.execution.graphFunctionDigest)))) return null;
+      const producerKey = sourceProof.prefix.eventLogRef + ":" + hash(sourceProof.prefix.storeIdentity) + ":" + selected.state.cCall.cCallRef;
+      if (producers.has(producerKey)) return null;
+      producers.add(producerKey);
+      const peers = eligibleCalls(selected.owner.events, selected.owner).map(e => nativeState(sourceProof, e.aggregateId)).filter(s =>
+        s !== null && s.state.cCall.programLocusRef === selection.slotRef && s.owner.execution.programRef === selection.programRef &&
+        s.owner.execution.invocationAdmissionRef === selection.invocationAdmissionRef && s.state.result.resultClass === "success" &&
+        s.state.judgment.judgment === "advance");
+      if (peers.some(s => s!.state.cCall.cCallRef !== selected.state.cCall.cCallRef)) return null;
       const install = one(selected.owner.environment.productInstalls.filter(i => i.productId === basis.productId));
       if (install === null || install.packageVersion !== basis.productVersion || install.artifactDigest !== basis.artifact.digest ||
           install.productContentDigest !== basis.productContentDigest || install.manifestDigest !== basis.productManifest.digest ||
-          install.manifestDigest !== basis.toolchain.digest || !same(basis.installedProduct, coord(install.installId, hash(install))) ||
-          !same(basis.workspaceBinding, coord(selected.owner.execution.workspaceBindingId, selected.owner.execution.workspaceBindingDigest))) return null;
+          install.manifestDigest !== basis.toolchain.digest || !same(sourceBasis.installedProduct, coord(install.installId, hash(install))) ||
+          !same(sourceBasis.workspaceBinding, coord(selected.owner.execution.workspaceBindingId, selected.owner.execution.workspaceBindingDigest))) return null;
       const value = selected.state.result.value;
       if (selected.state.cCall.implementationRef === MALFORMED_ASSESS &&
-          (!isMalformedGtlAssessment(value) || !same(value.input.basis, basis) || !malformedGtlAssessmentHasNativeOwner(current, value))) return null;
+          (!isMalformedGtlAssessment(value) || !same(value.input.basis, sourceBasis) || !malformedGtlAssessmentHasNativeOwner(sourceProof, value))) return null;
       if (selected.state.cCall.implementationRef === RUNTIME_ASSESS &&
-          (!isNativeRuntimeAssessment(value) || !same(value.input.basis, basis) || !nativeRuntimeAssessmentHasNativeOwner(current, value))) return null;
+          (!isNativeRuntimeAssessment(value) || !same(value.input.basis, sourceBasis) || !nativeRuntimeAssessmentHasNativeOwner(sourceProof, value))) return null;
       if (verificationSelection?.executionSelectionRef === selection.selectionRef && inventory != null &&
           selected.state.cCall.implementationRef === WORKSITE_COMMAND_EXECUTION_IDS.implementationRef &&
           selected.owner.execution.basisClass === "root" && selected.owner.execution.programRef === WORKSITE_COMMAND_EXECUTION_IDS.programRef &&
@@ -650,12 +741,19 @@ export function resolveQualificationExecutionMaterial(proof: QualificationProofR
           selected.state.result.contractRef === WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef &&
           selected.state.judgment.judgment === "advance" && isObservedWorksiteCommandExecutionObservation(value) &&
           same(selected.owner.input, value.task) &&
-          same(basis.workspaceBinding, coord(value.task.workspaceBinding.bindingId, value.task.workspaceBinding.bindingDigest))) {
+          same(sourceBasis.workspaceBinding, coord(value.task.workspaceBinding.bindingId, value.task.workspaceBinding.bindingDigest))) {
         verification = constructQualificationVerificationMaterial({ basis, inventory, selection: verificationSelection,
           execution: selection.result, cCall: coord(selected.state.cCall.cCallRef, selected.state.cCall.cCallDigest), observation: value });
       }
       const raw = Buffer.from(canonicalJson({ result: selected.state.result, judgment: selected.state.judgment,
-        evidence: selected.state.evidence } as unknown as JsonValue));
+        evidence: selected.state.evidence, ...(selection.source === undefined ? {} : { origin: {
+          subjectBasis: coord(basis.basisRef, basis.basisDigest), lawBasis: basis.lawBasis, sourceBasis,
+          prefix: sourceProof.prefix, cCall: selection.source.cCall, executionBasis: selection.source.executionBasis,
+          programRef: selected.owner.execution.programRef, invocationAdmissionRef: selected.owner.execution.invocationAdmissionRef,
+          graphFunction: selection.source.graphFunction, input: selected.owner.input,
+          catalogBasisDigest: selected.owner.proof.catalog.basisDigest,
+          catalogViewDigest: selected.owner.proof.catalogView.viewDigest,
+        } }) } as unknown as JsonValue));
       material.push({ ref: selection.result.ref, path: selection.result.ref, digest: sha256Bytes(raw),
         byteCount: raw.length, contentBase64: raw.toString("base64") });
     }

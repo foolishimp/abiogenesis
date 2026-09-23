@@ -6,6 +6,7 @@ import {pathToFileURL} from 'node:url';
 import {syncBuiltinESMExports} from 'node:module';
 import {SourceTextModule, SyntheticModule} from 'node:vm';
 import * as v from 'valibot';
+import ts from 'typescript';
 import {publicOperationBasis} from '../support/root-installed-environment.mjs';
 
 // Source-level differential over fresh owner-admitted fixture history. Retained
@@ -15,6 +16,7 @@ import {publicOperationBasis} from '../support/root-installed-environment.mjs';
 const root=resolve(import.meta.dirname,'../..');
 const predecessor=process.env.ABI5_CONFORMANCE_PREDECESSOR_ROOT;
 const territory=process.env.ABI5_CONFORMANCE_PROOF_ROOT;
+const sourceOnly=process.env.ABI5_CONFORMANCE_SOURCE_ONLY==='1';
 assert.ok(predecessor && territory && process.env.ABI5_CONFORMANCE_METADATA);
 const metadata=JSON.parse(fs.readFileSync(process.env.ABI5_CONFORMANCE_METADATA,'utf8'));
 const load=(base,file)=>import(pathToFileURL(join(base,'build/code/src',file+'.js')).href);
@@ -26,7 +28,10 @@ assert.ok(verified);
 // Existing private-owner test technique; exact emitted code, no production hooks.
 async function mechanism(base,relative,overrides={}) {
   const file=join(base,'build/code/src',relative+'.js');
-  const module=new SourceTextModule(fs.readFileSync(file,'utf8'),{identifier:file,
+  const text=sourceOnly && base===root && relative==='validator/conformance_definition_bindings'
+    ? ts.transpileModule(fs.readFileSync(join(root,'code/src',relative+'.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText
+    : fs.readFileSync(file,'utf8');
+  const module=new SourceTextModule(text,{identifier:file,
     initializeImportMeta:meta=>{meta.url=pathToFileURL(file).href;}});
   const links=new Map();
   await module.link(async spec=>{
@@ -57,7 +62,12 @@ async function backend(base) {
       constructAdmissionCapabilityGrants:(...args)=>invocation.constructAdmissionCapabilityGrants(...args)},
   });
   invocation=await mechanism(base,'product/invocation',{'./admission_authority.js':authority});
-  const bindings=await mechanism(base,'validator/conformance_definition_bindings',{'../product/admission_authority.js':authority});
+  const mechanics=await load(base,'shared/definition_binding_mechanics');
+  metrics.resourceSelfComparisons=0;
+  const bindings=await mechanism(base,'validator/conformance_definition_bindings',{'../product/admission_authority.js':authority,
+    '../shared/definition_binding_mechanics.js':{sameJson:(a,b)=>{
+      if(a===b && a?.kind==='conformance_evaluation_resource_assertion')metrics.resourceSelfComparisons++;
+      return mechanics.sameJson(a,b);}}});
   return {base,authority,invocation,bindings,metrics,env,
     publicApi:await load(base,'public/index'),contracts:await load(base,'validator/conformance_operation_contracts'),host:await load(base,'shared/effect_definition'),
     failArchive:value=>{archiveFails=value;},failManifest:value=>{manifestFails=value;},afterManifestRead:fn=>{afterManifestRead=fn;}};
@@ -98,12 +108,13 @@ async function fixture(t) {
     const catalogView=product.narrowGraphFunctionCatalog(catalog,metadata.program.callableMembership);assert.equal(catalogView.kind,'graph_function_catalog_view');
     const law=coord('law://abiogenesis/validator/gtl-program@5',{ref:'law://abiogenesis/validator/gtl-program@5'});
     const resources={kind:'conformance_evaluation_resource_assertion',schemaVersion:'5.0.0',packet:{kind:'conformance_evaluate_packet',schemaVersion:'5.0.0',memberKey:'gtl_program',publication:metadata.publication,program:metadata.program},
-      conformanceLaw:law,artifactTruth:environment.artifactTruth,declaredInventory:metadata.publications,declarationCatalog:{catalog,catalogView}};
+      conformanceLaw:law,declaredInventory:metadata.publications,declarationCatalog:{catalog,catalogView}};
     return {scratch,eventLogPath,prefix,workspace,environment,resources,law};
   } finally {opened.store.closeDurableLog();}
 }
 
 async function callFor(b,f,resources=f.resources,request=null) {
+  if (b.base === predecessor) resources = {...resources,artifactTruth:f.environment.artifactTruth};
   const definition=b.publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d=>d.definitionKey.operationId==='abg.operation.conformance.evaluate'&&d.definitionKey.memberKey==='gtl_program');
   const packet=b.contracts.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program;
   request??={program:coord(metadata.program.programRef,metadata.program),conformanceLaw:f.law,
@@ -135,12 +146,16 @@ async function measured(b,f,call) {
 }
 const old=await backend(predecessor),next=await backend(root);
 
-test('same-call conformance retains one real owner derivation; predecessor result, grants and serializable resources agree',async t=>{
-  const f=await fixture(t),call=await callFor(old,f);assert.deepEqual(await callFor(next,f),call);
-  const before=fs.readFileSync(f.eventLogPath),a=await measured(old,f,call),b=await measured(next,f,call);
+test('same-subject conformance retains one real owner derivation and predecessor semantic result',async t=>{
+  const f=await fixture(t),call=await callFor(old,f),nextCall=await callFor(next,f);
+  assert.deepEqual(nextCall.invocation.request,call.invocation.request);
+  const before=fs.readFileSync(f.eventLogPath),a=await measured(old,f,call),b=await measured(next,f,nextCall);
   assert.equal(a.result.exitCode,0,JSON.stringify(a.result.failure));assert.equal(b.result.exitCode,0,JSON.stringify(b.result.failure));
-  assert.deepEqual(b.result,a.result);assert.equal(b.result.ownerOutput.value.disposition,'passed');
-  assert.ok(a.physicalPrefixReads>b.physicalPrefixReads,'shared structural admission does not repeat physical environment authentication');
+  assert.deepEqual(b.result.ownerOutput,a.result.ownerOutput);
+  const {artifactTruth:_removed,...oldResources}=a.result.resources;
+  assert.deepEqual(b.result.resources,oldResources);assert.equal(b.result.ownerOutput.value.disposition,'passed');
+  assert.ok(b.physicalPrefixReads<=a.physicalPrefixReads,'resource deletion adds no physical environment acquisition');
+  assert.equal(a.resourceSelfComparisons,1);assert.equal(b.resourceSelfComparisons,0);
   assert.equal(a.archiveChecks,1);assert.equal(b.archiveChecks,1);assert.equal(b.environmentDerivations,1);assert.equal(b.warmEnvironmentRelations,0);
   assert.deepEqual(fs.readFileSync(f.eventLogPath),before);
   console.log(JSON.stringify({kind:'conformance_reuse_differential',predecessor:{...a,result:undefined},successor:{...b,result:undefined},ownerOutputDigest:hash(b.result.ownerOutput),resourceDigest:hash(b.result.resources),fixtureOnly:true}));
@@ -148,23 +163,68 @@ test('same-call conformance retains one real owner derivation; predecessor resul
   for(const [label,change]of [
     ['incomplete inventory',r=>r.declaredInventory.pop()],
     ['crossed catalog',r=>r.declarationCatalog.catalog.workspaceBindingDigest=hash('foreign')],
-    ['forged raw artifact',r=>r.artifactTruth.projectionDigest=hash('foreign')],
     ['changed Program',r=>r.packet.program.version='foreign'],
   ]) {
     const r=structuredClone(f.resources);change(r);const c=await callFor(next,f,r);
     const outcome=await measured(next,f,c);assert.notEqual(outcome.result.exitCode,0,label);assert.equal(outcome.result.failure.fault.code,'resource_relation_mismatch',label);
   }
   for(const [label,change]of [
+    ['forged environment artifact',c=>c.resources.admissionAuthority.basis.boundEnvironment.artifactTruth.projectionDigest=hash('foreign')],
     ['approval scope',c=>c.resources.admissionAuthority.authority.approval.value.scopeDigest=hash('foreign')],
     ['request/resource digest',c=>c.resources.admissionAuthority.basis.resourceScope.resourcesDigest=hash('foreign')],
     ['actor',c=>c.resources.admissionAuthority.authority.actorRef='actor://foreign'],
     ['grant',c=>c.resources.admissionAuthority.grants[0].grantDigest=hash('foreign')],
-  ]) {const c=structuredClone(call);change(c);assert.notEqual((await measured(next,f,c)).result.exitCode,0,label);}
-  for(const fail of [next.failArchive,next.failManifest]) {fail(true);assert.notEqual((await measured(next,f,call)).result.exitCode,0);fail(false);}
+  ]) {const c=structuredClone(nextCall);change(c);assert.notEqual((await measured(next,f,c)).result.exitCode,0,label);}
+  for(const [label,changedResources,request]of [
+    ['law mismatch',{...f.resources,conformanceLaw:coord('law://foreign',{ref:'law://foreign'})},
+      {...nextCall.invocation.request,conformanceLaw:coord('law://foreign',{ref:'law://foreign'})}],
+    ['incomplete declared inventory',{...f.resources,declaredInventory:f.resources.declaredInventory.slice(1)},null],
+    ['changed Program',{...f.resources,packet:{...f.resources.packet,program:{...f.resources.packet.program,version:'foreign'}}},null],
+  ]) {
+    const results=[];
+    for(const backend of [old,next]) {
+      const c=await callFor(backend,f,changedResources,request);
+      const result=(await measured(backend,f,c)).result;
+      results.push(result.ownerOutput??{code:result.failure.fault.code,stage:result.failure.fault.stage});
+    }
+    assert.deepEqual(results[1],results[0],label+' is conserved');
+    assert.ok(results[1].outcomeKind==='refusal' || results[1].code, label+' must refuse');
+  }
+  // The wrapper's approved resources digest still validates finite raw JSON
+  // before grant construction. The private owner's removed self-comparison
+  // is not an ingress bypass, including for direct in-process DefinitionCall.
+  for(const malformed of [NaN,Infinity,undefined,1n]) {
+    for(const [b,original]of [[old,call],[next,nextCall]]) {
+      const c=structuredClone(original);c.resources.packet.malformed=malformed;
+      const checks=b.metrics.archiveChecks,result=await measured(b,f,c);
+      assert.notEqual(result.result.exitCode,0,'malformed raw resources refuse');
+      assert.equal(b.metrics.archiveChecks,checks,'raw refusal precedes archive/admission effects');
+    }
+  }
+  for(const extra of ['artifactTruth','unrelated']) {
+    const resources={...f.resources,[extra]:f.environment.artifactTruth};
+    const c=await callFor(next,f,resources),result=await measured(next,f,c);
+    assert.equal(result.result.failure.fault.code,'invalid_resource_assertion','removed/unknown slots stay closed');
+  }
+  // Body growth is external fixture data, never runtime authority. Removal is
+  // exact, independent of row count, and leaves the approved environment intact.
+  const scaling=[];
+  for(const n of [1,8,64]) {
+    const artifactTruth={rows:Array.from({length:n},(_,i)=>({i,value:'x'.repeat(1024)}))};
+    const resources={...f.resources};
+    const before={resources:{...resources,artifactTruth},basis:{boundEnvironment:{artifactTruth}}};
+    const after={resources,basis:before.basis};
+    const oldBytes=Buffer.byteLength(JSON.stringify(before)),newBytes=Buffer.byteLength(JSON.stringify(after));
+    assert.equal(oldBytes-newBytes,Buffer.byteLength(JSON.stringify(artifactTruth))+17);
+    assert.strictEqual(after.basis,before.basis);
+    scaling.push({rows:n,oldBytes,newBytes,removedBytes:oldBytes-newBytes});
+  }
+  console.log(JSON.stringify({kind:'conformance_resource_scaling',scaling,scope:'finite supplied size fixtures; no original history or allocation attribution'}));
+  for(const fail of [next.failArchive,next.failManifest]) {fail(true);assert.notEqual((await measured(next,f,nextCall)).result.exitCode,0);fail(false);}
   for(const backend of [old,next]) {
     const corrupt=Buffer.from(before);corrupt[0]^=1;
     backend.afterManifestRead(()=>fs.writeFileSync(f.eventLogPath,corrupt));
-    try {assert.notEqual((await measured(backend,f,call)).result.exitCode,0,'physical drift after awaited verification refuses');}
+    try {assert.notEqual((await measured(backend,f,backend===old?call:nextCall)).result.exitCode,0,'physical drift after awaited verification refuses');}
     finally {backend.afterManifestRead(null);fs.writeFileSync(f.eventLogPath,before);}
   }
 });

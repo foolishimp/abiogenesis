@@ -73,7 +73,6 @@ export interface ConformanceEvaluationResourceAssertion {
   readonly schemaVersion: "5.0.0";
   readonly packet: ConformanceEvaluatePacket;
   readonly conformanceLaw: ReferenceDigest<"GtlConformanceLaw">;
-  readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly declaredInventory: readonly ModulePublication[];
   readonly declarationCatalog?: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>;
 }
@@ -267,7 +266,7 @@ function reconstructDeclarationBasis(
   }
   const installs = environment.productInstalls.map(install =>
     projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth, install.admissionEventRef));
-  if (!sameJson(resources.artifactTruth, environment.artifactTruth) || installs.some(install => install === null)) {
+  if (installs.some(install => install === null)) {
     throw new TypeError("conformance artifact truth differs from its exact admitted environment");
   }
   const { catalog, catalogView } = reconstructHistoricalDeclarationCatalog(supplied, {
@@ -298,11 +297,13 @@ const gtl_program = (
     ConformanceContract,
     ConformanceEvaluationResourceAssertion
   > => {
+    // withAdmissionAuthority has already canonicalized these exact resources
+    // for the approved digest, including the existing finite-JSON check;
+    // repeating a self-comparison here would serialize the entire body twice.
     const resources = call.resources;
     if (
       !isRecord(resources) ||
       !hasExactKeys(resources, [
-        "artifactTruth",
         "conformanceLaw",
         "declaredInventory",
         "kind",
@@ -315,8 +316,7 @@ const gtl_program = (
       !isRecord(resources.packet) ||
       !isRecord(resources.conformanceLaw) ||
       !Array.isArray(resources.declaredInventory) ||
-      resources.declaredInventory.length === 0 ||
-      !sameJson(resources, resources)
+      resources.declaredInventory.length === 0
     ) {
       throw fault(
         call.invocation.definitionKey,
@@ -378,7 +378,6 @@ const gtl_program = (
       !sameCoordinate(request.conformanceLaw, resources.conformanceLaw) ||
       !inventoryMatches ||
       boundEnvironment === null ||
-      !sameJson(resources.artifactTruth, boundEnvironment.artifactTruth) ||
       // Grant construction awaited archive verification. Recheck the physical
       // prefix at this owner boundary while borrowing its completed derivation.
       !validateExactPrefixArtifactTruthProjection(boundEnvironment.artifactTruth) ||

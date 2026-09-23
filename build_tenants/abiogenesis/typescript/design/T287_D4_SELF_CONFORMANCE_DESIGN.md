@@ -112,11 +112,21 @@ Missing prior material is incomplete and is never synthesized from local logs.
    manifest. Resolve required bytes and native evidence coordinates. Missing,
    stale, conflicting, unreadable or cross-subject truth yields a typed
    non-green diagnostic naming the affected input; never reuse a prior verdict.
+   Immutable candidate/source/claim/toolchain/law correspondence is separate
+   from each selected execution's original admitted install, WorkspaceBinding
+   and resource frontier. The existing qualification proof owner authenticates
+   these original contexts and preserves their input/Result/C/J provenance;
+   current dispatch checks currentness there, while historical replay uses the
+   retained source cut. Consumer J/O/F11/AF22 stay local. No copied event log or
+   read projection becomes a producer execution.
 2. Join singleton or explicitly grouped rule applications to their exact
    published source and frozen inventory subjects. Digest-bound groups form
-   complete unique partitions; each rule group has a complete unique surface
-   group domain. C checks these unions and source/role correspondence without
-   expanding member Cartesian pairs. Independent J must justify common scope,
+   complete unique partitions. Inventory classification has its own surface
+   partition; each rule group may declare its own complete disjoint member
+   domain blocks, conserving every inventory member once. Without that explicit
+   declaration the common surface partition retains its existing meaning.
+   C checks these unions and exact member/source/role correspondence without
+   multiplying unrelated rule domains or expanding member Cartesian pairs. Independent J must justify common scope,
    applicability and adequacy; false grouping fails and unknown stays explicit.
    There is no filename waiver, inferred inapplicability, generic prose
    classifier or caller-supplied executable checker. Scoped source material is

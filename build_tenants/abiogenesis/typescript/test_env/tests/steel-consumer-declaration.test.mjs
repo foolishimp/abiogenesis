@@ -474,7 +474,7 @@ test("Thread 2: independent data-only declarations through actual installed Publ
         inventoryBasis: { kind: "declared_inventory", inventory: publications.map(p => coord(p.moduleRef, p)).sort((a, b) => a.ref.localeCompare(b.ref)) } },
       { kind: "conformance_evaluation_resource_assertion", schemaVersion, packet: { kind: "conformance_evaluate_packet", schemaVersion,
         memberKey: "gtl_program", publication: consumerPublication, program }, conformanceLaw: law,
-        artifactTruth: environment.artifactTruth, declaredInventory: publications,
+        declaredInventory: publications,
         declarationCatalog: { catalog, catalogView } }, boundSlots);
     const conformance = await invoke(conformanceCall, "conformance.evaluate");
     assert.equal(conformance.ownerOutput.value.disposition, "passed");

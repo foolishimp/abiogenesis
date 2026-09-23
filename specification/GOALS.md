@@ -15,63 +15,82 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. Accepted QUAL-056, F16, C2 child membership, F11 scoped subject context and Public terminal projection retain source/component bounds; exercised Public read fixes are accepted. Current prospective RC1 archive dd76783f remains unqualified. S02 is in progress; execution08 closed at preparation OOM before Run, with caller-only component repair accepted. Two F11 end-to-end design findings are selected and unimplemented. Full S1–S5 lifecycle, targeted revision, qualification and actual human release acceptance remain open. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under Definition-selected STDO 2.5.1 RC1. Composite e4e61fbe is accepted for bounded installed use (42 compiled checks), not qualification. S02 passes eight including recursion, then retry fails; fifteen held. Retry repair is source-ready/pending review. Execution09 preparation OOM precedes Run/actor; conformance repair is source-ready/pending review and the remaining environment cost needs an owner decision. Bounded whole-path review precedes further large preparation. Full S1–S5, targeted revision, exact qualification, source/RC publication and actual human acceptance remain open. |
 
 ## Current Selection
 
 ### Current checkpoint disposition — 2026-09-23
 
-Root accepts C2 child-membership subject `c7750196…` / review `fe9cea75…`,
-F11 selected-subject repair under review `e29702c4…`, and Public terminal
-projection subject `950bcb78…` with its exercised [installed readback](../.ai-workspace/comments/codex/20260923_PUBLIC_TERMINAL_PROJECTION_REPAIR/installed-01/readback-03/return.md).
-The unchanged prospective `5.0.0-rc.1` archive is `dd76783f…`, content
-`6381355c…`; no tag, publication, complete qualification or human acceptance follows.
-S02 has genuine installed traversal/readback evidence and retained fixture stops.
-Its selected recursive-foldback case has now returned actual `runtime_failed` /
-`hog/recursion-restoration-mismatch` after the first deterministic evaluator,
-before child/fold. That failure is open under retained-evidence RCA; no repair
-is implied. The candidate is WIP, not ready RC; remaining S02 scope stays open.
+Root accepts [compiled-01](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-01/return.md)
+for bounded installed use: one build in 18.148 s, 42 affected compiled checks,
+and archive `e4e61fbe…` with 5,232 exact package/source/install members.
+Selected-closure, recursion and F11 producer/domain/acquisition repairs are
+included. This is not release qualification; prior `dd76783f…` evidence keeps
+its original scope.
 
-[Execution08](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-08/return.md)
-closed at parent preparation OOM after setup6 (19m28.9s, peak6.15GB), before
-catalog receipt, Run or paid actor. Its original close and failure remain intact.
-Root accepts the [caller lifetime correction](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/correction-preparation-lifetime-01/return.md)
-at component scope; installed continuation is separate. Full original-source
-S1–S5 outcomes and actual targeted revision on the selected candidate remain required.
+Actual [S02 continuation-04](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-04/return.md)
+passed eight selected outcomes, including repaired recursive child/foldback,
+then failed at nested retry entry; fifteen cases remain held. Recursion now has
+installed positive evidence. The [nested-retry correction](../.ai-workspace/comments/codex/20260923_S02_NESTED_RETRY_REPAIR/implementation-01/return.md)
+is source-ready and pending independent review, with no emitted or installed
+claim. Earlier failed Runs and exact resource identities remain historical.
 
-[Successor05](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/return.md)
-(subject `ade9d5f3…`) is accepted preparation/diagnosis only. Root selects
-`F11-PRODUCER-CONTEXT-01` and `F11-APPLICATION-DOMAIN-01` as bounded HOW
-re-entry preserving exact immutable candidate/law, each genuine producer's
-runtime provenance, complete computable unions and independent applicability J.
-Both remain unimplemented; this checkpoint starts neither implementation nor
-native qualification. The sixteen coverage groups/sixty-six behavioral declarations
-remain source-grounded coverage, not a fresh-Run roster.
+[Execution09](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09/return.md)
+closed failed after 1,665.286 s of preparation: setup-8 conformance exhausted the
+default heap before any Run or actor. Actor spend and application writes were
+zero. Its retained current handoff owns the original 1,155,547,309-byte history
+and genuine setup-6 close, with the owning lock absent; this tracking update
+performs no resource acquisition.
 
-Root accepts the closed [execution07 installed discriminator](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-07/return.md)
-(return `c483c869…`, freeze `d90c00e2…`) under the [recorded Executive disposition](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-07-executive-disposition.json).
-Exact archive `5b4dcf54…` / content `5edadeed…` crossed the repaired cursor
-boundary into actual independent assessment. The unchanged consumer correctly
-blocked on five selected assessment residuals; four outside residuals, original
-S1–S5 obligations and oracle remain. Fresh Public truth agrees. This closes the
-installed cursor-bug discriminator, not application completion or RC qualification.
-Diagnostic conservation retains its separate accepted component evidence; this
-Run did not trigger that diagnostic path. Earlier failures keep their identities.
+[Conformance-cost-01](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09-conformance-cost-01/return.md)
+establishes two identical 123,638,704-byte artifact-truth bodies, 88.1% of the
+280,585,831-byte request. The exact JavaScript OOM allocation remains unknown.
+Conformance source/component repair is CLOSED, pending the active independent review; no compiled or installed cure is claimed. The remaining 128,232,644-byte environment is an
+unresolved delivery red flag requiring a bounded owner relation/design decision,
+not a justified resource cost. No unchanged-candidate large preparation is selected.
 
-[QUAL-056 repair-01](../.ai-workspace/comments/codex/20260923_QUAL056_MATERIAL/repair-01/return.md)
-is independently accepted at source/component scope: subject `83860f04…`, content
-`9e3e619d…`, manifest `90e40a1c…`, review `bfcbc1b8…` ([acceptance](../.ai-workspace/comments/codex/20260923_QUAL056_MATERIAL/repair-01-executive-acceptance.md)).
-Final installed material/qualification remain open. [F16 source/component acceptance](../.ai-workspace/comments/codex/20260923_F16_ACCEPTANCE/executive-disposition.md)
-records subject `cd38bdbc…` and review `aeee23a6…`; actual external same-RC human
-ruling and existing release admission retain separate owners and remain pending.
+[R7](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-02/return.md) passed;
+[C0 sunny assertions](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-04/return.md)
+passed at their disclosed retained scope, with no preserved successful physical
+history or complete C0-suite claim. [Clone-dependent C0 negatives](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-05/return.md)
+remain held as obsolete fixture debt: no lawful copied-prefix append owner was
+established, and no new runtime is selected to salvage them. Root accepts
+[fixtures-06](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-06/return.md)'s one-field
+publication correction and C3 Parallel installed pass (93.187 s, deterministic
+transport). Data Mapper stops before Product verification on its obsolete
+transport envelope; partial-prefix remains held. Both remain unqualified. Existing [F_D diagnostic cause loss](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/c0-diagnosis-03/return.md)
+and the retry projector's swallowed replay cause remain separately recorded;
+retained debug probes do not repair ordinary diagnostics.
 
-[Generic consequential-correction source](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/consequence-implementation-01/return.md)
-(return `77ba7b7f…`, subject `1a0c8893…`, review `73a33590…`) is accepted at
-source/component scope. The original job, five selected/four outside residuals
-and S1–S5 oracle remain unchanged; D2/S03/S06 live correction remains open.
-[C2 root environment](../.ai-workspace/comments/codex/20260923_C2_ENVIRONMENT_REPAIR/return.md) is independently accepted at source/component scope (`e689b315…`, review `24b18847…`); its installed positive remains separately selected. [Public child-read owner reuse](../.ai-workspace/comments/codex/20260923_PUBLIC_CHILD_READ_REUSE/return.md) is accepted under review `10fc1a49…`. The [installed discriminator](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/correction-acquisition-03/return.md) (`340d0925…`, freeze `0fe2a629…`) succeeds on archive `882199e7…`: actual original child Result `c514b407…`, 135324.545ms, default heap, 5672747008B peak RSS, unchanged 600000ms limit. This closes the reproduced duplicate-reconstruction/OOM boundary; cold 1.15GB read cost remains observed, without global memory/latency qualification.
+Owner ruling (direct Product-owner message, relayed by Executive in this Writer
+activation on 2026-09-23): “the system is currently designed around a single
+developer on their laptop - any hardening beyond that threshold is excessive”.
+The existing trusted-desktop boundary governs the review. Retained controls must
+be justified by concrete ordinary developer/process failures; identify hostile-
+local or multi-tenant assumptions, repeated distrust of same-owner results,
+redundant proof and physical rereads for evidenced removal. Existing HOW must
+re-enter where it contradicts this ruling; current implementation is not its own
+justification. Preserve functional Program, Run, effect and admission semantics.
+No broad deletion or future robustness scope is selected before that review.
 
-The supported recovery receipt `8947585e…` owns closure of the preserved abandoned lock `30a316e8…`. Original 1150170187B history and genuine close remain exact; the final lock is absent. Prior failures retain their evidence. The genuine historical dev.3 child is banked; the [selected consumer successor](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/historical-assessment-01/activation.json) preserves original task/schema/provenance separately from current dev.4 declaration authority. Its affected source review precedes consumer package/new Run. No more original reads are needed. The [Executive disposition and preimages](../.ai-workspace/comments/codex/20260923_PUBLIC_CHILD_READ_REUSE/installed-disposition-01/executive-disposition.md) record this tracking without new qualification credit. Fifteen-family Product and exact prospective-RC obligations remain unchanged.
+Conformance and retry source/component repairs are CLOSED, pending the active
+independent review. The bounded whole-path admission-to-execution ownership/context
+review is now active under Executive selection (astra/max); its owner decision
+is required before another large preparation. Whole-workspace versus selected Run/closure
+scope, omitted or reconstructed publication/environment relations, and duplicated
+immutable/current-state bodies are a recurring-mechanism hypothesis for that
+review, not an adopted architecture. The next delivery sequence is accepted
+payload/retry batch and the required owner decision → one build/package →
+installed affected proofs and the preserved correction path → complete applicable
+qualification and publication. This is no speculative redesign grant.
+
+Latest known checkpoint is ABG `15ef2b3d…` / GLC `ac17504a…`; later work is local.
+RC1/source publication, full selected S1–S5, actual targeted revision, complete
+qualification and later actual human acceptance remain open. Sixteen coverage
+groups and sixty-six behavioral declarations are shared coverage, not one Run
+per declaration. Data Mapper remains a generic framework discriminator; no
+business-code work is selected. T-288/T-289 remain closed. Historical narratives
+below keep their subjects; this checkpoint owns the next-work projection.
 
 ### Historical delivery and repair dispositions
 

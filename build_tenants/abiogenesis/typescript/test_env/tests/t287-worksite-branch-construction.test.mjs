@@ -112,8 +112,10 @@ async function setupCompositeRootExecutionBasis(context, packageRoot, options) {
     durablePrefix,
     {
       invocationAdmission,
+      executionResolution: environment.executionResolution.resolution,
       rawInputValue: input,
       program,
+      programPublication: environment.publication,
       programValidation,
       graph,
       graphValidation,
@@ -604,18 +606,20 @@ function assertPublicSourceRefusal(attempt, expectedHandoff) {
 
 async function constructFixture(
   product,
+  workspaceAuthority,
   workspaceBinding,
   capabilityGrant,
   branches,
   runtimeRoot,
 ) {
-  await mkdir(join(workspaceBinding.roots.productRoot, runtimeRoot), {
+  await mkdir(join(workspaceAuthority.canonicalRoot, runtimeRoot), {
     recursive: true,
   });
   const territory = product.constructWorksiteTerritory({
+    workspaceAuthorityBasis: workspaceAuthority,
     workspaceBinding,
     territoryUri: pathToFileURL(
-      join(workspaceBinding.roots.productRoot, runtimeRoot),
+      join(workspaceAuthority.canonicalRoot, runtimeRoot),
     ).href,
     relativeRoot: runtimeRoot,
   });
@@ -626,16 +630,18 @@ async function constructFixture(
     const targets = [];
     for (const path of branch.paths) {
       const relativePath = `${runtimeRoot}/${path}`;
-      const targetPath = join(workspaceBinding.roots.productRoot, relativePath);
+      const targetPath = join(workspaceAuthority.canonicalRoot, relativePath);
       await mkdir(dirname(targetPath), { recursive: true });
       targetPaths.push(targetPath);
       const subject = product.constructWorksiteSubject({
+        workspaceAuthorityBasis: workspaceAuthority,
         workspaceBinding,
         subjectUri: pathToFileURL(targetPath).href,
         relativePath,
       });
       assert.equal(subject.kind, "worksite_subject", JSON.stringify(subject));
       const predecessorObservation = await product.observeWorksiteSubject(
+        workspaceAuthority,
         workspaceBinding,
         subject,
       );
@@ -647,6 +653,7 @@ async function constructFixture(
       targets.push({ subject, territory, predecessorObservation });
     }
     const constructionTask = product.constructWorksiteConstructionTask({
+      workspaceAuthorityBasis: workspaceAuthority,
       workspaceBinding,
       capabilityGrant,
       prompt: `Construct exact branch ${branchOrdinal}.`,
@@ -682,9 +689,10 @@ async function setupFixture(context, branches, label) {
     programRef: ids.programRef,
     graphFunctionRef: ids.graphFunctionRef,
     inputContractRef: ids.taskContractRef,
-    inputFactory: async ({ product, workspaceBinding, capabilityGrant }) => {
+    inputFactory: async ({ product, workspaceAuthority, workspaceBinding, capabilityGrant }) => {
       fixture = await constructFixture(
         product,
+        workspaceAuthority,
         workspaceBinding,
         capabilityGrant,
         branches,
@@ -719,6 +727,7 @@ async function executeFixture(environment, label) {
       executionBasis: environment.executionBasis,
       openedTraversalScope: opened.scope,
       program: environment.program,
+      programPublication: environment.publication,
       programValidation: environment.programValidation,
       graphFunction: environment.graphFunction,
       graph: environment.graph,
@@ -1056,6 +1065,7 @@ test("T-287 C3 Data Mapper topology closes 9 C1 branches and a 22-member flat re
       inputContractRef: ids.taskContractRef,
       inputFactory: async ({
         product,
+        workspaceAuthority,
         workspaceBinding,
         admittedInstall,
         catalog,
@@ -1073,6 +1083,7 @@ test("T-287 C3 Data Mapper topology closes 9 C1 branches and a 22-member flat re
         });
         fixture = await constructFixture(
           product,
+          workspaceAuthority,
           workspaceBinding,
           capabilityGrant,
           DATA_MAPPER_BRANCHES,
@@ -1350,6 +1361,7 @@ test("T-287 C3 Data Mapper topology closes 9 C1 branches and a 22-member flat re
     branch.constructionTask.targets
   );
   const c2Task = harness.product.constructWorksiteCommandExecutionTask({
+    workspaceAuthorityBasis: fixture.task.branches[0].constructionTask.workspaceAuthorityBasis,
     workspaceBinding: fixture.task.workspaceBinding,
     capabilityGrant: c2CapabilityGrant,
     sourceConstructionResultRef: c3Outcome.result.resultRef,

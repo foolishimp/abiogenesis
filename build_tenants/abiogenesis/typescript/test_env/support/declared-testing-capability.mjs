@@ -472,7 +472,7 @@ export async function setupTestingInvocation({ packageRoot, scratch, inputRoot, 
     const checked = await invoke(await authorized(validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,
       { program: coord(programRef, program), conformanceLaw: law, inventoryBasis: { kind: "declared_inventory", inventory: catalog.boundPublications.map(p => coord(p.moduleRef, p)).sort((a, b) => a.ref.localeCompare(b.ref)) } },
       { kind: "conformance_evaluation_resource_assertion", schemaVersion, packet: { kind: "conformance_evaluate_packet", schemaVersion, memberKey: "gtl_program", publication, program },
-        conformanceLaw: law, artifactTruth: environment.artifactTruth, declaredInventory: catalog.boundPublications, declarationCatalog: { catalog, catalogView } }, boundSlots));
+        conformanceLaw: law, declaredInventory: catalog.boundPublications, declarationCatalog: { catalog, catalogView } }, boundSlots));
     assert.equal(checked.ownerOutput.value.disposition, "passed");
     const resolution = await product.ProductExecutionResolutionPort.resolve({ catalog, catalogView, admittedInstalls: environment.productInstalls,
       verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), programRef,
