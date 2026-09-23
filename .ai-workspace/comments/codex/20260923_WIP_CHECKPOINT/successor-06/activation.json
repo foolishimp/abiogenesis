@@ -1,0 +1,14 @@
+{
+  "role": "Writer",
+  "basisCommit": "1efca608bcb4f738106e998d06f106bf45dd1ba9",
+  "branch": "main",
+  "authority": "Root bounded accepted-work checkpoint/push grant; standing user authorization",
+  "scope": "Accepted Hello two-source/test delta, compiled05 generated/package correspondence, closed08/09/reviews/probes; execution10 failed preparation and finite receipts, execution11 readiness and lifetime review; no complete qualification/RC/human acceptance",
+  "exclusions": [
+    "Active 20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01 and all lifetime owner/HOW/test/generated successors",
+    "Active s02-installed-continuation-10 and later carriers",
+    "All original mutable GLC/S02 resources/history/worksite; no snapshot",
+    "Unselected scratch, reproducible caches and unrelated outputs"
+  ],
+  "receipt": "External post-push exact local/remote verification; no self-referential follow-up commit"
+}

@@ -14,22 +14,22 @@
 - derived_change_classes: design_reframe, realization_refactor_subject_to_milestone_intake
 - re_entry_point: specification/GOALS.md#current-selection
 - retriaged_at: 2026-09-19
-- updated_at: 2026-09-23
+- updated_at: 2026-09-24
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: ACCEPTED_INSTALLED_RETRY_RECOVERY_FINAL_CHECKPOINT_BEFORE_GENERIC_CORRECTION
-- current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-04/return.md
-- current_candidate_archive_sha256: 1b42037dfe6962a29e1f08cf99618f8a6436cc4759978b4302e87f0d01662e28
-- current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-04/return.md
-- current_accepted_archive_sha256: 1b42037dfe6962a29e1f08cf99618f8a6436cc4759978b4302e87f0d01662e28
-- current_worker_return: .ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/return.md
-- current_candidate_scope: compiled04_and_actual_installed07_nested_recovery_independently_accepted_remaining_qualification_open
-- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09/return.md
-- current_live_execution_status: preparation_1665_286s_setup8_default_heap_OOM_before_Run_actor_zero_spend_application_writes
-- current_activation_status: final_checkpoint_before_original_preparation_readiness03_candidate_dependency_satisfied
-- current_native_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09/return.md
+- current_activation: ACCEPTED_HELLO_CHECKPOINT_EXISTING_OWNER_LIFETIME_REPAIR_ACTIVE
+- current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/return.md
+- current_candidate_archive_sha256: a3d8459950a99987661300e29567400947cd25ed822979279d5a9d07caaa23e6
+- current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/return.md
+- current_accepted_archive_sha256: a3d8459950a99987661300e29567400947cd25ed822979279d5a9d07caaa23e6
+- current_worker_return: .ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/return.md
+- current_candidate_scope: bounded_Hello_source_component_installed09_accepted_remaining_declared_S02_and_full_qualification_open
+- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md
+- current_live_execution_status: parent_JSON_OOM_after_setup0_to4_994_797s_no_Run_or_paid_actor_genuine_bind_close_preserved
+- current_activation_status: existing_owner_lifetime_implementation_active_original_effects_held_execution11_component_readiness_only
+- current_native_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
-- current_activation_disposition: .ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/review-01/return.md
+- current_activation_disposition: .ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/review-01/return.md
 - current_management_plan: '#current-management-prerequisite-plan'
 - prior_generic_job_activation: ABI5_GENERIC_JOB_IMPLEMENT_01
 - prior_generic_job_activation_status: closed_native_two_job_intake_D1_and_selected_D2_mechanics_accepted_live_and_broader_Product_qualification_open
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#management-milestones'
-- next_bounded_task: checkpoint_then_preserved_generic_correction_remaining_applicable_qualification_clean_checkpoint_RC1
-- next_bounded_task_status: original_resource_untouched_readiness03_ready_full_outcomes_and_human_acceptance_open
+- next_bounded_task: existing_owner_lifetime_repair_installed_proof_preserved_generic_correction_remaining_qualification_clean_checkpoint_RC1
+- next_bounded_task_status: remaining_declared_S02_active_on_frozen05_full_outcomes_and_human_acceptance_open
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -61,9 +61,9 @@
 - release_work: QUAL056_and_F16_source_component_accepted_exact_RC_native_qualification_and_actual_human_ruling_open
 - native_reacquisition_source_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/executive-disposition.md
 - native_reacquisition_cost_debt: NW-DEBT-03_99percent_append_is_repeated_bodies_measured_complexity_01
-- current_continuation_debt: retry_recovery_installed_accepted_original_large_preparation_cost_diagnostic_fixture_residuals_open
-- current_recovery_reentry: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09/current-handoff.json
-- current_correction_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/return.md
+- current_continuation_debt: execution10_JSON_OOM_uncured_execution11_six_cold_parent_acquisitions_remain_existing_owner_lifetime_selected
+- current_recovery_reentry: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/current-handoff.json
+- current_correction_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/return.md
 - current_lifecycle_model_reentry: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/owned-module-continuation-01/lifecycle-model-selection.json
 - current_lifecycle_model_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/owned-module-continuation-01/lifecycle-model-disposition.json
 - d2_consumer_readiness: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-d2-consumer-01/executive-disposition.md
@@ -269,40 +269,38 @@
 
 ## Current Checkpoint And Installed Continuation
 
-GOAL-035 retains the fixed fifteen-family Product under exact STDO 2.5.1 RC1;
-odd_glc retains RC4. This Writer records Executive selections without changing
+GOAL-035 retains all fifteen Product families under exact STDO 2.5.1 RC1;
+odd_glc retains RC4. This Writer records Root's selections without changing
 Product outcomes or historical acceptance.
 
-[Compiled04 and installed07](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/return.md)
-archive `1b42037d…` are accepted under [independent SATISFIED review `11507bf4…`](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/review-01/return.md).
-Actual malformed evidence and retry progress reach a distinct second CCall/actor;
-inner/outer progress, frame/graph/Run close and fresh status/Result/replay agree.
-Source repair, six controlled probe checks, three emitted CCall checks and exact
-5,232-member package correspondence retain their separate proof scopes.
-Earlier failures stay failed; remaining fifteen S02 cases and full qualification
-are open.
+[Hello source/component and installed09](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/return.md)
+on compiled05 `a3d84599…` are accepted with [review `44b74cc7…`](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/review-01/return.md).
+The corrected contradiction passes. The next malformed negative lawfully takes
+the failed route; the blocked-only oracle was stale, with no new runtime
+exception. Remaining declared S02 cases continue on frozen05 separately; exact outcomes
+remain in the native returns.
 
-Original [execution09](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09/return.md)
-remains preparation-only failed with its genuine setup6 close untouched.
-[Readiness03](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/return.md)
-subject `818ae6eb…`/freeze `0191da60…` is accepted under unchanged caller review
-`6cca8f94…`; its candidate/integrated dependency is satisfied. This checkpoint
-precedes Executive activation of original preparation and one native correction.
-Author/C2/assessment provenance, full job/S1–S5/oracle, five selected/four outside
-residuals and protected worksite stay exact; no application completion is claimed.
+Original [execution10](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md)
+failed at parent JSON allocation after setup0–4, 994.797s, before any Run/paid
+actor/application effect. Its genuine bind close remains selected. Peak child RSS
+6,138,691,584B and core install181.259s/5.834GB process-tree peak are retained cost
+observations; attribution and original cost closure remain open. [Execution11](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/return.md)
+provides accepted finite caller contraction only, with six cold parent acquisitions
+remaining. Job/S1–S5/oracle, five selected/four outside residuals, historical
+provenance and protected worksite remain unchanged.
 
-Installed07 setup192.773s/root13.412s/case86.503s and observed peakRSS
-2,805,678,080B (2.806GB) remain residual costs in the existing register, with
-unmeasured allocation attribution and no performance closure. Known diagnostic
-and fixture debt remain. The single trusted developer and existing physical
-acquisition/session lifetime apply; optional Run association adds no authority.
+The [lifetime review](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-lifetime-review-01/return.md)
+supports Root's selected existing-owner repair under HOW5.6.2C, [implementation-01](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01).
+Implementation is active, with adoption/installed qualification unproved. Physical
+infrastructure lifetime and optional Run association create no new session
+authority; no heap increase is selected. Known diagnostic/fixture debt remains.
 
-Last verified pushes at Writer entry: ABG `462de346fc5b4d342049d97e626fc0ae815f1287`
-and GLC `d563c894a02d1fd11381449907dd9f8a63454370`. [Successor05](../../comments/codex/20260923_WIP_CHECKPOINT/successor-05/publication-receipt.json)
-owns the new checkpoint. Next: preserved generic correction and remaining
-applicable qualification, then clean checkpoint/RC1. Fixed fifteen families,
-full outcomes and actual human release acceptance remain open; historical
-T-288/T-289 and all accepted cuts retain their scopes.
+Last verified pushes at Writer entry are ABG `1efca608bcb4f738106e998d06f106bf45dd1ba9`
+and GLC `7a9de213be424ee9ccf72a1e4908ca9d1292d996`; [successor06](../../comments/codex/20260923_WIP_CHECKPOINT/successor-06/publication-receipt.json)
+banks accepted completed work, excluding active lifetime and S02 continuation10.
+Next: lifetime repair/installed proof, preserved generic correction, remaining
+applicable qualification and clean checkpoint/RC1. Complete outcomes and actual
+human release acceptance stay open; no historical proof gains new credit.
 
 ## Current Management Prerequisite Plan
 

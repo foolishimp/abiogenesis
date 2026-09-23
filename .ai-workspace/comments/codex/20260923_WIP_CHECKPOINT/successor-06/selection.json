@@ -1,0 +1,268 @@
+{
+  "directExpected": {
+    "build_tenants/abiogenesis/typescript/code/src/implementation/fp_hello.ts": {
+      "sha256": "2f028ef05e59732d0bdd5761d7616db3d9216e0ada93c6e410fae03b8135b19f",
+      "classification": "accepted_Hello_source_or_test"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": {
+      "sha256": "4a01925eb66762c8a102240e64bef2225cb8d780efa49e0bcaea5b2369f06616",
+      "classification": "accepted_Hello_source_or_test"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs": {
+      "sha256": "4625b7437f366bd05f1cb5212328a6294950b22b18bea0bd5b9c68bcd2603b3e",
+      "classification": "accepted_Hello_source_or_test"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "585b5b55c8643f456c569d56b69348de16300205c2d3b78d1a1c5436d9d79100",
+      "classification": "accepted_generated_tracked_product_projection"
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "28396731d5e08f906534058808c17dbbd5758294a690010c97ec3cf5c7266035",
+      "classification": "accepted_generated_tracked_product_projection"
+    },
+    "specification/GOALS.md": {
+      "sha256": "f1f4fc0b39d3148af7fee79a43891c786d246e629cabbbea375368caab4ee6ae",
+      "classification": "current_tracking_Writer_only"
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "11a2189084109afd4dfbf658bec83f54fe3b7606db25a8ef51b3f356fa478428",
+      "classification": "current_tracking_Writer_only"
+    }
+  },
+  "closedProofSelections": [
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/freeze.json",
+      "sha256": "b56dcc3e2a0bb585e6b9b98952cc344d60857088389811525fa58cde8f42457b",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/runtime-stop/freeze.json",
+      "sha256": "c45caf93b64d9a2eb949111400b6fc3740b61b82f4aab99acadf5bf2a127eb06",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-review/freeze.json",
+      "sha256": "be2d2dad6f48251b5fa1ee7bbfbb6014b072737406c6d04f4e0c29afce343703",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/freeze.json",
+      "sha256": "3237fbb78c4ec72cb2e2e6f3b9823be45743a96b4ebb38fa28f032007e078cfb",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/review-01/freeze.json",
+      "sha256": "e36e6a0610f2c930de7b793f1a411515b37114544ed78d7870adec50f4ffe04c",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/runtime-stop/freeze.json",
+      "sha256": "0f22eca0ff47d57fd381fbce1d623aeab4cba35087360a16e72827bdfde6bbed",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/freeze.json",
+      "sha256": "26766ccaac160bc00a6d0f88ee2e32446724db1d76794337abaf938fb125c946",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/freeze.json",
+      "sha256": "b852306cc4f99aa5268cbc9515f059296f4cca115c6d92cb6487a852d8a11a6a",
+      "memberBase": null
+    }
+  ],
+  "adjoiningClosedPosts": [
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-lifetime-review-01/freeze.json",
+      "sha256": "942185298088ca733fd2218c2dabd59f62b84274dd4da88e85db23a54ef5ac6e"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-lifetime-review-01/return.md",
+      "sha256": "552d9c340cfce4ab051cfb821883e73c5ed4c7dedaa991dd3a9ed018047109e5"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/configuration.json",
+      "sha256": "d16dec71c89a31901f5ebe1e50e6d74af967f0512db6b13a6691a56af4497a15"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-0-process-result.json",
+      "sha256": "beaba3bff9367ec9a84b3b3744deb393fbdc483c31651a21029b128f917ee314"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-0-process-start.json",
+      "sha256": "97b222577d43192d51ab9748b541a61daf24275d4c7438a0b32108fc5775a710"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-0-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-0-stdout.json",
+      "sha256": "f0d56290c1cb7c430d8fd28a28f61f6bb66404bb3e782744617f5d4ae61d6c6c"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-0.jsonl",
+      "sha256": "8f3141515e6f55b6037285ff88d82e3d4b768cde5279ed12f27d3df0292cd53a"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-1-process-result.json",
+      "sha256": "73b26b96c602cd962500f87a07c8a3ec6da69ff47bd34d5acafb86542e114283"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-1-process-start.json",
+      "sha256": "e01b7d278d7f84326e42fcbf5f0422f202fb5e44df1374ec0e132eb2ea20aed5"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-1-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-1-stdout.json",
+      "sha256": "66695ea5b2a3f223a0ba6cb9c4707c0444490fddac0fdd1794f2b874e7aeea80"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-1.jsonl",
+      "sha256": "e85488f448a9ea085e6b1dcaf932f6a4ca9b1b6dce40ab26e1674cdc8169c748"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-2-process-result.json",
+      "sha256": "bce31ad4c0d99ce0c2f3b47e2ce3ba4ad2489d86e9702edd92c9165777aafa4b"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-2-process-start.json",
+      "sha256": "904257891058ae0a9f6c5c039806fb5a77849d41437cb827355bac6c0023ad1e"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-2-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-2-stdout.json",
+      "sha256": "9f96fb7231de6bab3939ddb870da7d5eee0c1c31bd6eb8b25337df805be59e8a"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-2.jsonl",
+      "sha256": "a8ddc82ec856fe70b22c771dcf5e91534e442ac20c6944b879345c02b9defecb"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-3-process-result.json",
+      "sha256": "4cbf3ab44d6b61349a9122cf11d8e7f2076da44a16e5dea56859f7364f15fff8"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-3-process-start.json",
+      "sha256": "04a97c4ff4fdc84a2bf6baec99467a3c6f7c1198718d0e0a2271e11ba709d850"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-3-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-3-stdout.json",
+      "sha256": "224237170c57e17306de5c2e4a830f17af38b9d4eaceca8013a17b487ac90fb7"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-3.jsonl",
+      "sha256": "1508d5b1a0067bea919b2c5ef333cc4b14d55314c27c24a077f3745f633c7e93"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-4-process-result.json",
+      "sha256": "64783f90907caf11d37f88477eb3aa2a0269a6d7bfdd2b6d3fb097b5fd98faef"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-4-process-start.json",
+      "sha256": "f72a28c8f99b00d03f3b3eea8f92ec54e4490ad5255914fc4d28860a44efe0ba"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-4-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-4-stdout.json",
+      "sha256": "625eb397f00fa1d2b25203edac8c2ad3137e7afc501b5342dfdefe0814b43ed4"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-4.jsonl",
+      "sha256": "59d428ccc77361059cd4a9c27aaa1a8f0d3a20c9f6b53dd3358f15fafc93c0f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/setup-reuse.json",
+      "sha256": "1eae1e370e9d6d9384cd4c1e934db118558a94420a0bb086c93df1cc4ef69cb9"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-launch-controls/activation.json",
+      "sha256": "83f76e587f210384b3a5901821f11be75df0c7183ed2ce91a9df5e6cb2bc6bb2"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-launch-controls/dispatch-hold-01.json",
+      "sha256": "910f8cab2f78a685af240be2f029ef657db2834cf67ab2b07a9e150502eda980"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-launch-controls/prepare-process-result.json",
+      "sha256": "206f42975c21896e7258a29ae83fe2f5067fc1ec8d81e6ba43ffaa8b8016ffb2"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-launch-controls/prepare-process-start.json",
+      "sha256": "a87c5f92341ca0b339822bf2a8e35091376c34b2c5cf32cd218d88c2801bd03e"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-launch-controls/prepare-stderr.log",
+      "sha256": "a097dd1b3f44937d86795a395fd498f196ddfa37264a0b5296e40b3aa19e8bd0"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-launch-controls/prepare-stdout.json",
+      "sha256": "f3b7765de574072f65e80ef102fe04cf97de3d1efe53420921b802700d7bb0cc"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-launch-controls/profile-selection.json",
+      "sha256": "0c3e47c35df327214f10276fea4640c16b45afa2069e4a7dba6349d8b87ee450"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/driver.mjs",
+      "sha256": "f8f0ebd05b8b096c5485806efff12862d3c23e436b08b76fce5d90b5112870b8"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/current-resource.mjs",
+      "sha256": "fbef40bbb0b430a5507dcd6946fbf3e0232b1999c8fc23960059bdcaa1ee4060"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/observe-process.py",
+      "sha256": "c4dfc05c77bae747debe6199fa90c1fdcd69617bd9809fa031b81afc518fc781"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/configuration.json",
+      "sha256": "d16dec71c89a31901f5ebe1e50e6d74af967f0512db6b13a6691a56af4497a15"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/freeze.json",
+      "sha256": "0191da60204996f3269829171908938654d653f0b076141c5ea7d05e0aaa6907"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/return.md",
+      "sha256": "a6244f22062a4f6cfebe2e0ffa4f5cbf97f5ff6b1c31a9bca0f0c5b71f6b8600"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-04/selected-core.json",
+      "sha256": "bf8c79edd7cbdbb37708011100d07d64be16f2a496441ac41deb6eb4ed0b3248"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-04/freeze.json",
+      "sha256": "6c07753341099b12bc5e7610dbf996f2dfe395ddc5d31b63ec716f9dd896c69b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-04/archive-members.json",
+      "sha256": "5506ea05ae08570c67ce48d1444fb1e828478d8074c6646137faa0e81b47464c"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/correction-integration-01/launch-policy.json",
+      "sha256": "1e8e4febf717a9202b100e95e6b44d94e9cb2745c5f4518777e34e0eb0514bcb"
+    }
+  ],
+  "pending": [
+    "Active 20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01 and all lifetime owner/HOW/test/generated successors",
+    "Active s02-installed-continuation-10 and later carriers",
+    "All original mutable GLC/S02 resources/history/worksite; no snapshot",
+    "Unselected scratch, reproducible caches and unrelated outputs"
+  ],
+  "scope": "Accepted Hello two-source/test delta, compiled05 generated/package correspondence, closed08/09/reviews/probes; execution10 failed preparation and finite receipts, execution11 readiness and lifetime review; no complete qualification/RC/human acceptance",
+  "generatedCoverage": "All five changed generated members verified at Writer entry against accepted05; tracked contract/manifest staged; three ignored emitted bodies preserved by accepted archive/output inventory without re-reading old archives."
+}

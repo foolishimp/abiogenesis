@@ -1,0 +1,30 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/fp_hello.ts",
+    "sha256": "2f028ef05e59732d0bdd5761d7616db3d9216e0ada93c6e410fae03b8135b19f"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "sha256": "4a01925eb66762c8a102240e64bef2225cb8d780efa49e0bcaea5b2369f06616"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+    "sha256": "4625b7437f366bd05f1cb5212328a6294950b22b18bea0bd5b9c68bcd2603b3e"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "sha256": "585b5b55c8643f456c569d56b69348de16300205c2d3b78d1a1c5436d9d79100"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "28396731d5e08f906534058808c17dbbd5758294a690010c97ec3cf5c7266035"
+  },
+  {
+    "path": "specification/GOALS.md",
+    "sha256": "f1f4fc0b39d3148af7fee79a43891c786d246e629cabbbea375368caab4ee6ae"
+  },
+  {
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "sha256": "11a2189084109afd4dfbf658bec83f54fe3b7606db25a8ef51b3f356fa478428"
+  }
+]

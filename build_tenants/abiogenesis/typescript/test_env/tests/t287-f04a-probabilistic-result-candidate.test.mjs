@@ -57,34 +57,11 @@ function outputDigest(product, text) {
   }
 }
 
-function constructBasis(environment, rawResultText) {
+function constructBasis(environment, rawResultText, input = fpInput()) {
   const { product, implementationRow } = environment;
-  const input = fpInput();
-  const prompt = "Return one exact declared F_P result object.";
+  const request = environment.implementation.realizeFpHello(input, {}).workerRequest;
+  const prompt = request.prompt;
   const inputDigest = product.sha256Canonical(input);
-  const request = {
-    actorRef: ACTOR_REF,
-    workerBindingRef: WORKER_BINDING_REF,
-    implementationRef: implementationRow.implementationRef,
-    inputDigest,
-    materializationPlanRef: PLAN_REF,
-    rendererRef: RENDERER_REF,
-    instructionContractRef: INPUT_CONTRACT_REF,
-    resultContractRef: OUTPUT_CONTRACT_REF,
-    transportLane: "closed_prompt_proof",
-    prompt,
-    responseJsonSchema: {
-      type: "object",
-      additionalProperties: false,
-      required: [
-        "kind",
-        "schemaVersion",
-        "resultContractRef",
-        "actorRef",
-        "message",
-      ],
-    },
-  };
   const transportBindingDigest = product.sha256Canonical({
     actorRef: ACTOR_REF,
     workerBindingRef: WORKER_BINDING_REF,
@@ -126,6 +103,7 @@ function constructBasis(environment, rawResultText) {
     structuredEventCount: 1,
     progressEventCount: 1,
     toolCallCount: 0,
+    toolInvocations: [],
     apiRetryCount: 0,
     stdoutByteLength: Buffer.byteLength(rawResultText),
     stderrByteLength: 0,
@@ -138,6 +116,10 @@ function constructBasis(environment, rawResultText) {
     },
   };
   return {
+    artifactTruth: environment.artifactTruth,
+    executionBasis: environment.executionBasis,
+    implementationSet: environment.implementationSet,
+    prefix: environment.abg.selectValidatedRuntimeEventPrefix(environment.store.readAll()),
     leafPort: environment.leafPort,
     occurrence: {
       cCallRef: "c-call://t287/f04a/one",
@@ -146,6 +128,7 @@ function constructBasis(environment, rawResultText) {
       frameId: "frame://t287/f04a/one",
       programLocusRef: implementationRow.programLocusRef,
       taskOrdinal: null,
+      executionAuthority: null,
       attempt: 1,
     },
     resolution: implementationRow,
@@ -194,6 +177,12 @@ function actorObservation(basis, overrides) {
   return {
     ...basis.observation,
     ...overrides,
+    // Supplied component transport premises, not native tool observations.
+    toolInvocations: Array.from({ length: Number.isSafeInteger(overrides.toolCallCount) &&
+      overrides.toolCallCount >= 0 ? overrides.toolCallCount : basis.observation.toolCallCount },
+      (_, ordinal) => ({ kind: "worker_tool_invocation_evidence", schemaVersion: "5.0.0",
+        ordinal, toolUseRef: `tool-use://t287/f04a/${ordinal}`, toolName: "fixture-tool",
+        inputDigest: basis.request.inputDigest, inputByteLength: 0 })),
     artifactDigests: {
       ...basis.observation.artifactDigests,
       ...(overrides.artifactDigests ?? {}),
@@ -203,6 +192,7 @@ function actorObservation(basis, overrides) {
 
 test("F04-A exact request-bound raw result admission is pure and decision-exact", async (context) => {
   const environment = await setupInstalledRootExecutionBasis(context, root, {
+    candidateBasisSource: "packed_artifact",
     programRef: PROGRAM_REF,
     graphFunctionRef: GRAPH_FUNCTION_REF,
     inputContractRef: INPUT_CONTRACT_REF,
@@ -541,18 +531,36 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
     false,
   );
 
-  const semanticallyDifferent = admit(withRawResult(
-    environment,
-    basis,
-    JSON.stringify(validResult({ message: "Goodbye World" })),
-  ));
-  assert.equal(
-    semanticallyDifferent.kind,
-    "contract_admitted_probabilistic_result_candidate",
-    JSON.stringify(semanticallyDifferent),
+  // The actual Hello owner dispatches an exact message const. A contradiction
+  // is a response-contract defect, not a schema-valid semantic negative.
+  assert.equal(basis.request.responseJsonSchema.properties.message.const, "Hello World");
+  const semanticallyDifferent = assertPureRefusal(
+    environment, admit,
+    withRawResult(environment, basis, JSON.stringify(validResult({ message: "Goodbye World" }))),
+    "declared_contract_refused",
   );
-  assert.equal(semanticallyDifferent.value.message, "Goodbye World");
-  assert.equal(Object.hasOwn(semanticallyDifferent, "resultPredicateRef"), false);
+  const otherInput = { ...fpInput(), subject: "Ada" };
+  const wrongSubject = constructBasis(environment, JSON.stringify(validResult()), otherInput);
+  assert.equal(wrongSubject.request.responseJsonSchema.properties.message.const, "Hello Ada");
+  assertPureRefusal(environment, admit, wrongSubject, "declared_contract_refused");
+  const exactOther = admit(constructBasis(environment,
+    JSON.stringify(validResult({ message: "Hello Ada" })), otherInput));
+  assert.equal(exactOther.kind, "contract_admitted_probabilistic_result_candidate");
+  assert.equal(exactOther.value.message, "Hello Ada");
+  // Exercise the same admitted owner method used by native artifact assessment.
+  for (const [rawResult, expectedKind] of [
+    [validResult(), "verified_probabilistic_result_contract_preimage"],
+    [validResult({ message: "Goodbye World" }), "probabilistic_result_contract_preimage_refusal"],
+    [validResult({ message: "Hello Ada" }), "probabilistic_result_contract_preimage_refusal"],
+  ]) {
+    const verification = environment.leafPort.verifyProbabilisticResultContractPreimage({
+      resolution: basis.resolution, input: basis.input, inputDigest: basis.request.inputDigest,
+      instructionContractRef: INPUT_CONTRACT_REF, rawResultContractRef: OUTPUT_CONTRACT_REF, rawResult,
+    });
+    assert.equal(verification.kind, expectedKind, JSON.stringify(verification));
+    if (verification.kind === "probabilistic_result_contract_preimage_refusal")
+      assert.equal(verification.code, "result_contract_refused");
+  }
   assert.deepEqual(environment.store.readAll(), beforeEvents);
 
   const cCallCoordinates = {

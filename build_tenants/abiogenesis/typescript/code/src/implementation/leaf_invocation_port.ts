@@ -1,3 +1,4 @@
+import { FP_HELLO_IMPLEMENTATION_DESCRIPTOR, validateFpHelloResponse } from "./fp_hello.js";
 import type { NativeLeafProofOperations, NativeJudgmentProofOperations } from "./contracts.js";
 import { authenticateNativeWorkReacquisition, nativeWorkReacquisitionResultMatches } from "../abg/native_work_reacquisition.js";
 import { QUALIFICATION_IDS as qualificationIds } from "../gtl/self_conformance.js";
@@ -1443,7 +1444,9 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         const rawValid = assessment === undefined ? port.validateContractValueByRef(workerContracts.resultContractRef, input.rawResult)
           : admittedResolution.implementationRef === nativeIds.implementationRef && assessmentSchema !== null &&
             parseNativeWorkspaceAssessmentResult(assessmentSchema, JSON.stringify(input.rawResult)) !== null;
-        if (!rawValid) {
+        if (!rawValid ||
+            (admittedResolution.implementationRef === FP_HELLO_IMPLEMENTATION_DESCRIPTOR.implementationRef &&
+              !validateFpHelloResponse(input.input, input.rawResult))) {
           return preimageRefusal("result_contract_refused");
         }
         const owner = implementationOwner(admittedResolution);

@@ -1,0 +1,17 @@
+{
+  "basisCommit": "1efca608bcb4f738106e998d06f106bf45dd1ba9",
+  "prior": "successor-05/composition.json plus inherited transport receipts in classification.json",
+  "newTransport": "transport-01/catalog.json",
+  "archiveMembers": 355,
+  "archiveMemberBytes": 734125030,
+  "transportBytes": 112776172,
+  "parts": 4,
+  "priorPayloadReadOrReupload": false,
+  "pending": [
+    "Active 20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01 and all lifetime owner/HOW/test/generated successors",
+    "Active s02-installed-continuation-10 and later carriers",
+    "All original mutable GLC/S02 resources/history/worksite; no snapshot",
+    "Unselected scratch, reproducible caches and unrelated outputs"
+  ],
+  "scope": "Accepted Hello two-source/test delta, compiled05 generated/package correspondence, closed08/09/reviews/probes; execution10 failed preparation and finite receipts, execution11 readiness and lifetime review; no complete qualification/RC/human acceptance"
+}

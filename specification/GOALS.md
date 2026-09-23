@@ -15,37 +15,32 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Compiled04 and observed installed07 nested retry recovery are accepted under independent review. Original execution10 readiness03 is ready for the post-checkpoint activation; remaining fifteen S02 cases, full S1–S5, qualification/RC1 and actual human acceptance remain open. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Compiled05 Hello repair is accepted at bounded source/installed scope. Original execution10 failed before Run; execution11 is component readiness only. Existing-owner lifetime repair is active. Remaining declared S02 cases, full S1–S5, qualification/RC1 and actual human acceptance remain open. |
 
 ## Current Selection
 
-### Current checkpoint disposition — 2026-09-23
+### Current checkpoint disposition — 2026-09-24
 
-Root accepts [compiled04 and installed07 recovery](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/return.md)
-on archive `1b42037d…` under [independent review `11507bf4…`](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/review-01/return.md).
-Actual malformed evidence, retry judgment/progress, a distinct second actor and
-inner/outer completion lead to closed frame/graph/Run and agreeing fresh reads.
-Earlier failed cuts retain their original identities; this is bounded installed
-recovery evidence, not complete S02 or qualification.
+Root accepts the bounded [Hello correction and installed09](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/return.md)
+on compiled05 `a3d84599…`, with [independent review `44b74cc7…`](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/review-01/return.md).
+The subsequent malformed negative follows its lawful failed route; the old
+blocked-only oracle is stale, with no new runtime exception. Remaining declared
+S02 cases continue separately on frozen05; this is not full qualification.
 
-Original [execution09](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09/return.md)
-and its close remain untouched. [Execution10 readiness03](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/return.md)
-is accepted with its candidate dependency satisfied. This final checkpoint
-precedes separately authorized original preparation and one correction Run.
-Full S1–S5/oracle, protected scope and selected/outside residuals remain exact.
+Original [execution10](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-failure-01/return.md)
+stopped at parent JSON allocation OOM after setup0–4 and 994.797s, before any
+Run or paid actor; its genuine bind close is preserved. [Execution11](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/return.md)
+has accepted finite caller readiness only: six cold parent acquisitions remain,
+with no original-workspace cure or performance closure. [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
+owns the selected existing-owner lifetime repair under HOW5.6.2C. Implementation
+is active and unqualified; no new Product/session authority or heap increase.
 
-[T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-management-debt)
-retains setup192.773s/root13.412s/case86.503s and observed peak2.806GB as costs
-with unmeasured attribution, not performance closure. Fifteen remaining S02
-cases, full generic outcomes, applicable qualification/RC1 and actual human
-release acceptance stay open. Trusted developer scope and the existing physical
-acquisition/session lifetime remain; no new session authority is selected.
-
-The last verified pushes at Writer entry are ABG `462de346…` / GLC `d563c894…`;
-[successor05](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-05/publication-receipt.json)
-records this next closed checkpoint. Next: preserved generic correction and
-remaining applicable qualification, then clean checkpoint/RC1. Fixed fifteen
-families, T-288/T-289 closure and all historical evidence remain unchanged.
+Last verified pushes at Writer entry: ABG `1efca608…` / GLC `7a9de213…`;
+[successor06](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-06/publication-receipt.json)
+banks this accepted work. Next: lifetime repair and installed proof, preserved
+generic correction, remaining applicable qualification and clean checkpoint/RC1.
+Fixed fifteen families, full S1–S5/oracle and actual human release acceptance
+remain open; historical evidence and diagnostic/fixture debt retain their scope.
 
 ### Historical delivery and repair dispositions
 

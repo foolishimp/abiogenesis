@@ -1,0 +1,10 @@
+{
+  "prefixesAndFiles": {},
+  "active": [
+    "Active 20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01 and all lifetime owner/HOW/test/generated successors",
+    "Active s02-installed-continuation-10 and later carriers",
+    "All original mutable GLC/S02 resources/history/worksite; no snapshot",
+    "Unselected scratch, reproducible caches and unrelated outputs"
+  ],
+  "note": "No new blanket ignore of active or reproducible trees; only exact newly transported originals will be ignored."
+}

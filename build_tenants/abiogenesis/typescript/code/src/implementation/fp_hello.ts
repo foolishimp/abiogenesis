@@ -4,6 +4,7 @@ import {
   FP_FD_COMPOSED_HELLO_IDS,
   isFpHelloInstruction,
   isFpHelloOutput,
+  evaluateFpHelloResult,
 } from "../gtl/hello_world.js";
 import type { FpHelloInstruction, FpHelloOutput } from "../gtl/contracts.js";
 import {
@@ -117,6 +118,14 @@ function responseSchema(
       message: { const: `Hello ${input.subject}` },
     },
   } as Readonly<Record<string, JsonValue>>;
+}
+
+// Internal owner relation for the exact response schema declared above.
+// The published structural value kind remains reusable; this boundary also
+// conserves the request-bound greeting before native contract admission.
+export function validateFpHelloResponse(input: unknown, output: unknown): boolean {
+  return isFpHelloInstruction(input) && isFpHelloOutput(output) &&
+    evaluateFpHelloResult(input, output);
 }
 
 function parseCandidate(output: string): Readonly<Record<string, JsonValue>> {

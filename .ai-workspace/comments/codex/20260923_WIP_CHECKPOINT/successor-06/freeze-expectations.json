@@ -1,0 +1,1422 @@
+{
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/activation.json": {
+    "sha256": "fb5adf5a44b339342ec5eb05924f36f393e5e80645f58f0f5d12285974440408",
+    "byteLength": 507
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/archive-members.json": {
+    "sha256": "a7c6781012a195b64067b1e3512091bcf875455fae5a7b599a5f63f5726abc33",
+    "byteLength": 928493
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz": {
+    "sha256": "a3d8459950a99987661300e29567400947cd25ed822979279d5a9d07caaa23e6",
+    "byteLength": 10123241
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/authored-build-delta.json": {
+    "sha256": "74bf4ad1819270734b2457131927e4782f7db01ad29a15c5303d9225cd544238",
+    "byteLength": 911
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/bootstrap-install.json": {
+    "sha256": "3d9c316de102a65b20db24121b1cee5828535650c4613b718ed2a1da5bd35125",
+    "byteLength": 639
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/bootstrap-install.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/bootstrap-install.stdout": {
+    "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+    "byteLength": 23
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/build-inputs.json": {
+    "sha256": "c14bdf8fd537d5415cf1872927e7b39d23e1feb55e2416a28614baf345c069dd",
+    "byteLength": 51758
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/build.json": {
+    "sha256": "8d00fd0a0dd24d1f404b5b4b16f07e1bce651eddd7647de6de55e738cf661f57",
+    "byteLength": 114
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/build.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/build.stdout": {
+    "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+    "byteLength": 215
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/compiled-checks.json": {
+    "sha256": "b00232041a7beb9ee23d54ce5f99a4ea95de8b8d6f516d8f845f989ebecb8b11",
+    "byteLength": 266
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/compiled-checks.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/compiled-checks.stdout": {
+    "sha256": "f8e33b44336dca2a05b914e6758d514de75a1cceabf01ba14573bd705a6f2c66",
+    "byteLength": 212
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/generated-after.json": {
+    "sha256": "16c318ac9414011e39d080af493cbae09a0fed2bb40a6c6d1c0f506ee7263cf6",
+    "byteLength": 189492
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/generated-before.json": {
+    "sha256": "8fb74850a61ed6cb7b6489fde5b8aafd91bc1732af7ecba97e4efaac14897f4d",
+    "byteLength": 189492
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/generated-delta.json": {
+    "sha256": "653a894a164bd12533e71ad767d91aa7657a8908854cbb8c70b869da3205e52e",
+    "byteLength": 2316
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/generated-product.json": {
+    "sha256": "49fb122b9a842824b19020ada71d875dd7a62ab1f08faeb1cd4dfecf3b5786b2",
+    "byteLength": 1679
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/pack.json": {
+    "sha256": "ab778b827c1d9caa663df1a58fe5510483494110d2bc8481d84a2611f690f06f",
+    "byteLength": 537
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/pack.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/pack.stdout": {
+    "sha256": "1bd77d9869651e7af64d7b7e0e08a7e4ba826e1297f015aff59236a345e082a4",
+    "byteLength": 688611
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/package-correspondence.json": {
+    "sha256": "ebfa35fec0e491782a4dbdd8021845998aa70f18d1fb7943c5eb06283fb34dde",
+    "byteLength": 833
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/package-delta.json": {
+    "sha256": "18ef5004d96c944f71d134a81daf8bccae85d057068789f159da72bfec571c1b",
+    "byteLength": 2138
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/package-identity.json": {
+    "sha256": "3acc631c9fedb95e34a1d9d690a81e43ea97ad211dfb6c95c122d7b730a7dfce",
+    "byteLength": 582
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/package-once.py": {
+    "sha256": "1ab427aec8d8045a92f804a4625e48da79f74eb1aa809cd46bb85b5b2e31f7d8",
+    "byteLength": 3139
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/product-verification-request.json": {
+    "sha256": "38d9c669f475b180ad05c0b326d9a9e2ba1ab980f95f229560ec8dfc02807dfc",
+    "byteLength": 1022
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/product-verification-result.json": {
+    "sha256": "ce62ab1a130ea6c9aa017748848cff6430676743618e112b24a8fd228f521bfd",
+    "byteLength": 12489648
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/product-verification-timing.json": {
+    "sha256": "e039d58a2cefae31dd844bc0694cbd25a88dc93958715d0804a174a228462fd2",
+    "byteLength": 289
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/return.md": {
+    "sha256": "dcaf765ee9f638bf4ffde04414de82c09b053e28823db4e50e2e5781b6bf6d74",
+    "byteLength": 679
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/selected-core.json": {
+    "sha256": "ffcf712329c9b6d5e6bcdb246691e878908343d641b34fbaa96a6d25dd300010",
+    "byteLength": 708
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/verify-installed.mjs": {
+    "sha256": "8406729991b23bc749f1dc4476c46d03d3fe91242946769f125f278101075f17",
+    "byteLength": 2725
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/verify-installed.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/verify-installed.stdout": {
+    "sha256": "f54a1d0d3cc7fda56984bc8e9eb7d313a87218966abb68f52a32680e3345d969",
+    "byteLength": 922
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-05/freeze.json": {
+    "sha256": "b56dcc3e2a0bb585e6b9b98952cc344d60857088389811525fa58cde8f42457b",
+    "byteLength": 5626
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/activation.json": {
+    "sha256": "4316eea72e341c131c276ee038d4d4bc47ec35828c8debd9ab75df6969426888",
+    "byteLength": 1732
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/caller-freeze.json": {
+    "sha256": "f8ad594b0be08f0e8a7b51103552169200eaf990d43e4e3300dd7f7d13853008",
+    "byteLength": 1290
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/caller.mjs": {
+    "sha256": "455e4768f2b4a0814a7d47969977abc36b08a4740af9f3d9c0bc678a8edc138d",
+    "byteLength": 14596
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/campaign.mjs": {
+    "sha256": "2f4667191d65bd700b603253c5d1f9bf498502027b92dec63acd30ab7621b110",
+    "byteLength": 10514
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/cases.json": {
+    "sha256": "cb29c813b14cc53599a1d79d491c3b389f647074a05f6561ca722ba36e50c94f",
+    "byteLength": 11947
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/configuration.json": {
+    "sha256": "36655b757b3208a01add2af6b5e159b787eb7e2e0a605cc7b8ccbdc981d1ab2e",
+    "byteLength": 4654
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/continuation.json": {
+    "sha256": "f3e296dac11179fee0616c0e1a088128103e1b4b6a4a1b7cee2f70e4db25795d",
+    "byteLength": 1774
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/CONTINUATION-08-STOP.json": {
+    "sha256": "50504b3744b33e1f8347e6946877c211dac50d0000ef2252285909de26a71e39",
+    "byteLength": 48674
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/config.json": {
+    "sha256": "e2217ed6db971128b421f9ca3dddc86bc9f3bbbeafa0d297e8d486faa4056614",
+    "byteLength": 4910
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continuation-08-case-index.json": {
+    "sha256": "de8ae1f57b3b01e7424607dd6ca8781850bd4f2640f10c2019309030534d20c7",
+    "byteLength": 101
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-catalog-view-handoff.json": {
+    "sha256": "f528989aa92fb18d12e1ffef6301f1a8529c0202addcf2308a7aeaccef9ec1a5",
+    "byteLength": 2232
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-catalog-view-native-process.json": {
+    "sha256": "b6ab33696217daea70b136e384914af27b40f676241402b36f63d1c6759c1f87",
+    "byteLength": 669
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-catalog-view-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-catalog-view-stdout.json": {
+    "sha256": "d4cd46984c2bbddf48af1eb89a9ab8ab62e8c14e13f90c2cdd0b14967d704de4",
+    "byteLength": 1275
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-catalog-view-timing.json": {
+    "sha256": "920ffd23fe85731ebaeb2d9ed4e1c2af0e50d4bd4d7d6977203f8be4233e17f8",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-catalog-view.jsonl": {
+    "sha256": "fb667b10f825cb00ede732a5577fe4afe94d065c20bdc2341116b39310c42878",
+    "byteLength": 28132507
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-conformance-handoff.json": {
+    "sha256": "ed432111acfeb03df78072cc561b4970cbf756d2835f101e5088bb0b9286c840",
+    "byteLength": 1853
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-conformance-native-process.json": {
+    "sha256": "24cbda493d951fedbccc5299c10681649847416a35c1e007d0ee8f98a7943f80",
+    "byteLength": 668
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-conformance-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-conformance-stdout.json": {
+    "sha256": "d5a767b25ceac87177e9612d211843216150a34c6e47ad2107701a42631cdd5b",
+    "byteLength": 18232248
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-conformance-timing.json": {
+    "sha256": "0f0679fd7b23164287192a702bc9fda13c4f46df3173fb3df2d8509501da2a53",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-conformance.jsonl": {
+    "sha256": "ee928f0396dadc5c509901a650c3628280efee2db150dce3aae60ec271a89e59",
+    "byteLength": 29259211
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-construction-basis.json": {
+    "sha256": "dc0d0f34f55a5201ddff3e71df0c3edd2dfee0cd5d368cc01035819b0c495ce8",
+    "byteLength": 11303017
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fixture-count.txt": {
+    "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+    "byteLength": 1
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_replay-handoff.json": {
+    "sha256": "ac6159def4bdccef2dafff13a07794273d08dd43a09f8e1afc082f95f88ed1db",
+    "byteLength": 3872
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_replay-native-process.json": {
+    "sha256": "244d4b2bfa2543901df20b4735e41842b29c2bca50b9936dca23b0e24e432f52",
+    "byteLength": 670
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_replay-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_replay-stdout.json": {
+    "sha256": "9864bcb9a99712cf4c469d0d105b6a6c76bef86012b3684e4a4653857e82d75b",
+    "byteLength": 3596
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_replay-timing.json": {
+    "sha256": "2c337c648abbf26f6d621222fd482a5a1d92752c02b3055b07cdd8343d09c05d",
+    "byteLength": 286
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_replay.jsonl": {
+    "sha256": "f1aa0698a1d01be3ac071427a341c2e322a8ca4cae3c29cb4dbf3ce1bd1d9332",
+    "byteLength": 10175
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_result-handoff.json": {
+    "sha256": "fbdd7b4fb01129d95c85cc00c7c94a2447195b7b00792eab1cac3038d8adb192",
+    "byteLength": 3489
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_result-native-process.json": {
+    "sha256": "06d634cdc9182d219ea7ebb245dc9953507abe30b9d592bcc2152a7afc5a92e1",
+    "byteLength": 680
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_result-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_result-stdout.json": {
+    "sha256": "1ab852d62cb3f6a47e79f1ca5c515aa125d13d544f44ca9dbfca4067f981ecc4",
+    "byteLength": 2660
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_result-timing.json": {
+    "sha256": "f88543a7ac922779a2dfd73b2490da8f57b64cde6d127f15ed58a714660e2003",
+    "byteLength": 387
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_result.jsonl": {
+    "sha256": "b653fce8e8210c5f318be00ccd9350083ee3feb63688e347bf4d614f784c7a19",
+    "byteLength": 10138
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_status-handoff.json": {
+    "sha256": "11695fcf9d8133aa9385159eada033362c283c34c2986d38e9455eea41cd87fa",
+    "byteLength": 2980
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_status-native-process.json": {
+    "sha256": "fbad17871683238e80a967da312f67a343a513401a607b4e8612588c38bb6dbd",
+    "byteLength": 680
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_status-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_status-stdout.json": {
+    "sha256": "a4041645576507d1ee70f0bc30d6219ea8b19c102adaa645461a8335fb52f7f4",
+    "byteLength": 20540
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_status-timing.json": {
+    "sha256": "5b789a9c12b960765435e0c519f85f38fa0b73ceea741c1a18970f60a4096dd5",
+    "byteLength": 286
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-fresh-run_status.jsonl": {
+    "sha256": "97422b05bcd7afe5ade38084cb479c0ceb5e02b89d6b22e2fc0faffa02f215de",
+    "byteLength": 10138
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-input.json": {
+    "sha256": "0ad374503556712c6d82ee228a5ff5918d0b87936801eb016b452a54a2f672eb",
+    "byteLength": 671
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-result.json": {
+    "sha256": "e69aabca032868508792f000d10c37375c90db45162e7d520c68bfc1762b4aa2",
+    "byteLength": 67766
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-root-handoff.json": {
+    "sha256": "19c2b5e8e8b7bd87b5e0b5a7ffb57f8b33632b4af8db3d3e20970c1695d73401",
+    "byteLength": 2597
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-root-native-process.json": {
+    "sha256": "3549a379585dec7070353218d477e076b611c2074bdb625a754c321b8c1c0be8",
+    "byteLength": 659
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-root-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-root-stdout.json": {
+    "sha256": "e0d103508627870289801fd69ad3bc9c9a94e5c6cbbb6411449faf0b55d2710a",
+    "byteLength": 18886
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-root-timing.json": {
+    "sha256": "40b52789d03990dbd9275ed719d21a8d096cd3c55bfafec53b483a86e67f7e1d",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-root.jsonl": {
+    "sha256": "3882a99a05af99b58f8db249c9d44899cf58e3ad872a0a3f98417eab18b31e22",
+    "byteLength": 17130628
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-selection.json": {
+    "sha256": "131f057f70e6f4b5a818bd93939cbb44bf8fee45195362a6b2e1fa7aaa4190be",
+    "byteLength": 2223
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-retry-exhaustion-state.json": {
+    "sha256": "aabb82cf96e07875bc0c3de25779df06bbee9df5571a03090e49b20e82afb674",
+    "byteLength": 15892
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-catalog-view-handoff.json": {
+    "sha256": "77a64610cf5130a4af6776aad1aa87026ba75df9a89a3eb2d768f684639f9d69",
+    "byteLength": 2232
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-catalog-view-native-process.json": {
+    "sha256": "cd687abaf64166c9152b81a2b9a9a31becce22095cefd7f778a170e299c44173",
+    "byteLength": 675
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-catalog-view-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-catalog-view-stdout.json": {
+    "sha256": "7b4f0c73c62826b8dec49f32ea3ce72a81006b944673f46c33b3dd755ce3c27f",
+    "byteLength": 1275
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-catalog-view-timing.json": {
+    "sha256": "1c8ff65ded01d9b7b751f8cb20fb24870e9c81a54361c481aa4f01e759c29175",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-catalog-view.jsonl": {
+    "sha256": "58f9f6f0e639aecee2610701c39cb96016158c2d327720a668cb613eae3cf968",
+    "byteLength": 28132531
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-conformance-handoff.json": {
+    "sha256": "5346a2b398376bc76c93944b134abc8551d0560ef641c25e5094965de5d7660b",
+    "byteLength": 1853
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-conformance-native-process.json": {
+    "sha256": "8f050dc20d9322ec1bca018df8b55418fb4336f6616ae696678dee085f996086",
+    "byteLength": 674
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-conformance-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-conformance-stdout.json": {
+    "sha256": "0a73c7f0c76070877e100460e54c1d30ba9e2b180302fceb6a4920dd48e942b8",
+    "byteLength": 18232248
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-conformance-timing.json": {
+    "sha256": "a503ee1cf40072ded8fdc02788898c0c4d5ed77285d29c1724774a3141152306",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-conformance.jsonl": {
+    "sha256": "674e87a02facadfdec5696eda159608076b3417804bb1c1ece12ad530c902b56",
+    "byteLength": 29259235
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-construction-basis.json": {
+    "sha256": "dc0d0f34f55a5201ddff3e71df0c3edd2dfee0cd5d368cc01035819b0c495ce8",
+    "byteLength": 11303017
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fixture-count.txt": {
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+    "byteLength": 1
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_replay-handoff.json": {
+    "sha256": "68ba61a5926b2918c0619e26517b4cd6071fca9c4aa775ac204f0d0e384f3737",
+    "byteLength": 3865
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_replay-native-process.json": {
+    "sha256": "1e700dc4ebc5298c92122f4314cec8a8e0e7b0eb3235986395378cb4af8e552e",
+    "byteLength": 676
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_replay-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_replay-stdout.json": {
+    "sha256": "159e9d46d82d976a7a730330a6cca84a19ba9a27f13f4da2fa028ad0c9c55d73",
+    "byteLength": 3596
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_replay-timing.json": {
+    "sha256": "44c101c8f00087129f6a19de5cd5e1cffb63fd70156aff33939470a91d0be95e",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_replay.jsonl": {
+    "sha256": "808d140dada40813de28efeeb97948908b8ddc022dd2bb6de4a3e460bbe1b4c6",
+    "byteLength": 10175
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_result-handoff.json": {
+    "sha256": "7af643e2a3e2e69d0bb6d1cefc414ccb614ad60c21fe4e20f40a6c0496f034eb",
+    "byteLength": 3481
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_result-native-process.json": {
+    "sha256": "e7028f69d258d7372ad889d517820af7cda8f72d94ad90dbee479cc60eb5f5c7",
+    "byteLength": 676
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_result-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_result-stdout.json": {
+    "sha256": "a9da9c02aa15df0dc684553427b51450bc7d1b02c1664cf75271a4b4dcad4c76",
+    "byteLength": 2660
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_result-timing.json": {
+    "sha256": "997d5249da6b7065f959f9f4d8e03ed1eb217b8237a65bdbc92fffe806a038be",
+    "byteLength": 386
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_result.jsonl": {
+    "sha256": "5216079ec7f15fdc5e579c7cb9a777dfaab63912ecac00abbc81f5781875775f",
+    "byteLength": 10138
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_status-handoff.json": {
+    "sha256": "5110cd3ab3f7b741c297b36f1bd7a4e14f323c41097399991f005efc22c47675",
+    "byteLength": 2973
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_status-native-process.json": {
+    "sha256": "37040532cdf0d94abb0453478de25870d8f705d633b67caaf2d21bb92071c413",
+    "byteLength": 697
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_status-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_status-stdout.json": {
+    "sha256": "3afab29609be4c7a9fd06ad607924a6672e240b308215913432e4dc218a0463c",
+    "byteLength": 13926
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_status-timing.json": {
+    "sha256": "68a299989e327714066ac5e08a66797ea406c8ead6f611449cc5dcf96351e815",
+    "byteLength": 286
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-fresh-run_status.jsonl": {
+    "sha256": "465f1e209e40748149cb8bf2df10e5cce9d7ff1e058c413aa8067b82eb3dbf97",
+    "byteLength": 10138
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-input.json": {
+    "sha256": "0ad374503556712c6d82ee228a5ff5918d0b87936801eb016b452a54a2f672eb",
+    "byteLength": 671
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-root-handoff.json": {
+    "sha256": "cedcef2c51065eed1e49d4d57556d6f89696ec7a14a6f3902981c32f0784116a",
+    "byteLength": 2590
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-root-native-process.json": {
+    "sha256": "64d1b1b345c43e9624180f5632f0df30d20be2e92fcd77f027555b1106ff7ef1",
+    "byteLength": 663
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-root-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-root-stdout.json": {
+    "sha256": "e60f901359b913c2e239aaf0014d0f12c1656162d22251a53f6100968345d5f0",
+    "byteLength": 12656
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-root-timing.json": {
+    "sha256": "456cba5baa0c18558976c920a59003ec334cb9ea866a8b610f9067c7f1fc26d5",
+    "byteLength": 280
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-root.jsonl": {
+    "sha256": "4372a840ff18c31bddd3b8bde69de06e0f9afa562fa9628047a35f54f1d26a49",
+    "byteLength": 17130628
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/episode-01/continued-semantic-contradiction-selection.json": {
+    "sha256": "6512926f3268c1006007a5de7be0edd8f4acdbdf2b5e0d5591b2fc54fea2c857",
+    "byteLength": 2205
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/initial-resource.json": {
+    "sha256": "b398ec99bcaa115b5709942f67175cfd0c6887bf4c0edad0a8912c1396929044",
+    "byteLength": 1785
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/mechanical-delta.json": {
+    "sha256": "1c883fe571246bbdc3a4423097735e5512456e24439daa730593c81d1e7d25df",
+    "byteLength": 1531
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/observe-action.py": {
+    "sha256": "6547ae5f74e211ecedeec48533a5d23a01af9db10721c83ec441ec27b3d912a1",
+    "byteLength": 2511
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/retry-exhaustion-driver-result.json": {
+    "sha256": "5663bf158d7f66a20f7972b6f43c88793bc0c254954211f78fd61ab97ca5afd7",
+    "byteLength": 175
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/retry-exhaustion-driver-start.json": {
+    "sha256": "9f21a869f41f85bdc691f901091726b6282d2d5c05ce29b5098391ffd2408f19",
+    "byteLength": 570
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/retry-exhaustion-driver-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/retry-exhaustion-driver-stdout.jsonl": {
+    "sha256": "5f25e98c8b773776cd41f22ee3c1ce8102fa8a6c9313a6e38e57bd2b06d088d9",
+    "byteLength": 1834
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/retry-exhaustion-driver-usage.json": {
+    "sha256": "5df1584f5aafb18e02c6912824183a7e7b32ca8cde731d0620b7d5e55d8d1a9d",
+    "byteLength": 596
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/runtime-stop/admitted-suffix.jsonl": {
+    "sha256": "d0c162fdc270b042a2be4f8aa13ac7f84d14f47849772abf596709feaf0e4600",
+    "byteLength": 476065
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/runtime-stop/failed-causal-chain.json": {
+    "sha256": "29008ccfd8167714a724d4002c5777455a67614e12f41f4d3263ed3977ccf56b",
+    "byteLength": 25965
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/runtime-stop/failed-run.jsonl": {
+    "sha256": "ad87acf7df02e42f18084feef7a6648931739ce4cca4fcff88fecac5041ad829",
+    "byteLength": 149333
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/runtime-stop/protected-correspondence.json": {
+    "sha256": "03d0acac23a62fca345f30dc11a2af131b0bac985ddd695574909fee8028e55e",
+    "byteLength": 1030
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/runtime-stop/resource-closure.json": {
+    "sha256": "36615a9484e9d35d6e42ce06ea45c476032808fa4fef7a75313b12cfee62d014",
+    "byteLength": 1963
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/runtime-stop/results.json": {
+    "sha256": "ee8750ca0a5de9c124cd7d9487b55b30f769d3bb16e9ea4583ffb317f332344b",
+    "byteLength": 15049
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/runtime-stop/return.md": {
+    "sha256": "9fccc7b03a01f651f3ef6797610cd1e6e8880dc3008aeb2fab77791d513dec95",
+    "byteLength": 5687
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/semantic-contradiction-driver-result.json": {
+    "sha256": "8dce1acc9ffb4ed44c2da8582beb85dad702b6e5c613ee858384e05855fde950",
+    "byteLength": 178
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/semantic-contradiction-driver-start.json": {
+    "sha256": "b8c63e80c617155a9a55b405edc320b47ac7e787ca6aad57f0da4c84122a5bbb",
+    "byteLength": 576
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/semantic-contradiction-driver-stderr.log": {
+    "sha256": "4d8c97b296b407653499fbe6ea24fce8b174c5f2067f618d440763d165ae53d3",
+    "byteLength": 835
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/semantic-contradiction-driver-stdout.jsonl": {
+    "sha256": "d2911f619dc0d69bd84d277e2d79c0c239f573c92714c63241951a2205903ef8",
+    "byteLength": 1827
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/semantic-contradiction-driver-usage.json": {
+    "sha256": "41b32cdaf6e3abfbd7256b7fcc54280229c7b923a6e3e457042f2526b907712c",
+    "byteLength": 613
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08/runtime-stop/freeze.json": {
+    "sha256": "c45caf93b64d9a2eb949111400b6fc3740b61b82f4aab99acadf5bf2a127eb06",
+    "byteLength": 22397
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-review/return.md": {
+    "sha256": "a57c6a8efd7e28372835718a3d6806fecfe313405f296db5b0db3a004f59fc13",
+    "byteLength": 9017
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-review/freeze.json": {
+    "sha256": "be2d2dad6f48251b5fa1ee7bbfbb6014b072737406c6d04f4e0c29afce343703",
+    "byteLength": 892
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/activation.json": {
+    "sha256": "1a7cddd4be77eb91227cd4b64ccdf519e752a20b29ebd087cd1663ea36938427",
+    "byteLength": 1517
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/dependencies.json": {
+    "sha256": "7de537395fa66cf18a6c25eea4e7b2f860eba6862e27d40231efb8f2563e237c",
+    "byteLength": 1325
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/focused-proof.json": {
+    "sha256": "a91178861a042c27b2ecacfebc5ce1928f4482079fa4a0e5ef8fe98df291b1ba",
+    "byteLength": 778
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/fp_hello.ts.patch": {
+    "sha256": "2acf9baa2f3d4e55364a31dd9363c315d0a582e92fb183f85b2e6e74a2bd008f",
+    "byteLength": 968
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/leaf_invocation_port.ts.patch": {
+    "sha256": "584524cc923a488930cc9bf5f9317e4efb5c7ec67e077b87b5474da3d9014117",
+    "byteLength": 1295
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/noemit.json": {
+    "sha256": "a0d65faf9a83738241fe690334a96c3a0b2fed202c9ba0120826fa46c46ef139",
+    "byteLength": 59
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/noemit.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/noemit.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/oracle-delta.json": {
+    "sha256": "475c25a535b36aadcd7ccabc89861ec60173b3435d25b6a4d6c4bb64c9224a6e",
+    "byteLength": 960
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/postimages/fp_hello.ts": {
+    "sha256": "2f028ef05e59732d0bdd5761d7616db3d9216e0ada93c6e410fae03b8135b19f",
+    "byteLength": 9851
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/postimages/leaf_invocation_port.ts": {
+    "sha256": "4a01925eb66762c8a102240e64bef2225cb8d780efa49e0bcaea5b2369f06616",
+    "byteLength": 72977
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/postimages/t287-f04a-probabilistic-result-candidate.test.mjs": {
+    "sha256": "4625b7437f366bd05f1cb5212328a6294950b22b18bea0bd5b9c68bcd2603b3e",
+    "byteLength": 30366
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test-02.json": {
+    "sha256": "f98330c902c5e0a48d549fce797ab1d750fe99d1a40fec68cc73b73b5578cb1e",
+    "byteLength": 349
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test-02.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test-02.stdout": {
+    "sha256": "237d455b5f8cf210015dfe69cc7477f40da77095fe8ef52dd3494e45679346a8",
+    "byteLength": 1368
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test-03.json": {
+    "sha256": "ee2e75570be0d4613d0439f8e52920d645ec767662c5cba80b8286e7ce629af7",
+    "byteLength": 366
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test-03.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test-03.stdout": {
+    "sha256": "a202f58a9abb257f45530bcb1f8f6e3552f48a1e169af6a93fed6521db4f588e",
+    "byteLength": 1334
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test-04.json": {
+    "sha256": "f12c839fc1d6ff8fbe7b651a98baea7f9e616bd456aa83b826164f48e4066911",
+    "byteLength": 348
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test-04.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test-04.stdout": {
+    "sha256": "ae7e7490fdef9ae0ad4e66f328045b8c5f9ca650c00b3985062fdfab26d15a74",
+    "byteLength": 1516
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test.json": {
+    "sha256": "61f85b3cb6c5a8cfeeacbdc177b46af85abce1c01a0b2436d779f71396013e5a",
+    "byteLength": 354
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimage-test.stdout": {
+    "sha256": "f9bc23e4f6162129823d28226eacb2910f00e3cae1b7635e15ab3c537d4d4f13",
+    "byteLength": 2037
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimages/fp_hello.ts": {
+    "sha256": "31a837325ee66fe18f6e45b16ecf56fb4448e27496e846d1f7385783dc01f533",
+    "byteLength": 9407
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimages/leaf_invocation_port.ts": {
+    "sha256": "21dc25553394183ade0267a6555d3410fe7e4f382b363d8f78dbdd00a39209c0",
+    "byteLength": 72701
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/preimages/t287-f04a-probabilistic-result-candidate.test.mjs": {
+    "sha256": "976974ebf890c3380baa77d2180d12955b2465319497b855ce6aa8617edaa4ce",
+    "byteLength": 28548
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/return.md": {
+    "sha256": "5efb55f52e80daf23f071cca2b85d61e76883bfac49c359fb6d22ead4bf43643",
+    "byteLength": 5863
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/review-01/return.md": {
+    "sha256": "44b74cc7a07094d4ac3ff93e40c232dd96e53430cdf6da4cc62d251180c051f5",
+    "byteLength": 8000
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/source-delta.json": {
+    "sha256": "1983bd23bfdd27c09a6b55dbc3dd12960faf68fad09288ee8ed079b10f9db452",
+    "byteLength": 903
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/t287-f04a-probabilistic-result-candidate.test.mjs.patch": {
+    "sha256": "4897c3751529a6f07ee11cf8cf613b210c0f965cd2bd2bdec8e4023084b68288",
+    "byteLength": 5956
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/freeze.json": {
+    "sha256": "3237fbb78c4ec72cb2e2e6f3b9823be45743a96b4ebb38fa28f032007e078cfb",
+    "byteLength": 6830
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-08-repair-01/review-01/freeze.json": {
+    "sha256": "e36e6a0610f2c930de7b793f1a411515b37114544ed78d7870adec50f4ffe04c",
+    "byteLength": 795
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/activation.json": {
+    "sha256": "620e132cb6457da54c8ef0d68470549100a01bc4741fcafec96fd00e9619cd78",
+    "byteLength": 2389
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/assertions.mjs": {
+    "sha256": "525e06c373606704442e89f03d646eb8ae4e28736a994ecc73c3c2b989dd24cf",
+    "byteLength": 15331
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/caller-freeze.json": {
+    "sha256": "4c171bf602f337cf40af25e852a4bd2d4ba57f50805dd25e71924989b644314c",
+    "byteLength": 1642
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/caller.mjs": {
+    "sha256": "455e4768f2b4a0814a7d47969977abc36b08a4740af9f3d9c0bc678a8edc138d",
+    "byteLength": 14596
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/campaign.mjs": {
+    "sha256": "556d5f9e8516ec97eea1d9dc4392aec91d978fe65667d62da03383cb8b17257e",
+    "byteLength": 13282
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/case.json": {
+    "sha256": "0a7f5db725805d30b9f488c0b480f7bae7881b8b98101047352586e5ece6e26c",
+    "byteLength": 640
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/cases.json": {
+    "sha256": "3dad981bcaba3edc26494c1ecf2fa352b84eff6d97665d5639bedae207fe265c",
+    "byteLength": 11316
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/configuration.json": {
+    "sha256": "3f4c21fa41997ffb3385b6d27b9a50a0c216b4354326eb448acf57e209341a5e",
+    "byteLength": 4655
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/continuation.json": {
+    "sha256": "a2ae5809ea0e7f0d10d30d3760bbe176b63b77c7dd6b94f915bd8223a96ad8b0",
+    "byteLength": 1745
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/CONTINUATION-09-STOP.json": {
+    "sha256": "31540d17386efe50e7f8af73347186cb7af0d66a40a4b4c7f1eefb40ca524165",
+    "byteLength": 47249
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/bootstrap-core-reuse.json": {
+    "sha256": "5a24cf6b530fd322bfc72c205c030e36cf640e520aedb4ec718c7421cf4120a4",
+    "byteLength": 700
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/bootstrap-core.json": {
+    "sha256": "ce62ab1a130ea6c9aa017748848cff6430676743618e112b24a8fd228f521bfd",
+    "byteLength": 12489648
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/bootstrap-mini.json": {
+    "sha256": "10213d2edf73f1f0a453c8bde5ce9359747a2476410391bb179e57da573d52b4",
+    "byteLength": 11705
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/config.json": {
+    "sha256": "34dbe6abbc55895f14c17f155cb687c2afcfffb0cfe0a6b3e35eb6f73ca5a3b6",
+    "byteLength": 4911
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continuation-09-case-index.json": {
+    "sha256": "f35e1831145feaf57e51bf934409eaf19a1884b96239e893cc7ee3de04c83675",
+    "byteLength": 113
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-catalog-view-handoff.json": {
+    "sha256": "e144687bfbf618359000c4969a54f2f77f4bb457a48df7a14f021d6e484df6fd",
+    "byteLength": 2238
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-catalog-view-native-process.json": {
+    "sha256": "c304a7ce247d03aa8c9b15114d60640d02900d4a1d1419f5c0b1ad9c518d07c0",
+    "byteLength": 665
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-catalog-view-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-catalog-view-stdout.json": {
+    "sha256": "c6058b853c104fd0a24cbcf665061f2134c131acecf9889a5265225ceaab2729",
+    "byteLength": 1269
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-catalog-view-timing.json": {
+    "sha256": "50d1361c8d09135b86e7733f489d92c3c588fab50e7302339eb26925daea0ff0",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-catalog-view.jsonl": {
+    "sha256": "f900b36688874e6032fdc3663bc322b15ea256fa4e4c75aae803f8be884bb950",
+    "byteLength": 28132479
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-conformance-handoff.json": {
+    "sha256": "fd83ef7a26427ee97bf0789c255592312292a5c36cb93d8aff9eead9a7ff94a0",
+    "byteLength": 1859
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-conformance-native-process.json": {
+    "sha256": "263c2a947167c80994e2563846f023d4e61248338c0723d469c6f602c5edcfc3",
+    "byteLength": 664
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-conformance-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-conformance-stdout.json": {
+    "sha256": "a14f71bf6be05a4fa5b698608a099de315a62a721f57f0dc9e283d2ea532a736",
+    "byteLength": 18232218
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-conformance-timing.json": {
+    "sha256": "e619f24f880f913977b98ddb619f0597de4935d7edb4c7fb977c2ebd25032667",
+    "byteLength": 294
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-conformance.jsonl": {
+    "sha256": "0688922eae3b29016581cbd6728eb76ab5926c891a1bd5ff7c6b5ada857ea8b6",
+    "byteLength": 29259159
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-construction-basis.json": {
+    "sha256": "1821d37837aa5b5676fc79c9d7062564902b9e180292d6d4890390606b5faea6",
+    "byteLength": 11301466
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fixture-count.txt": {
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+    "byteLength": 1
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_replay-handoff.json": {
+    "sha256": "40728e73415fd25a1db9b44755ed8d272a41c1ad90e9a06bf5dcc9b96fbd7610",
+    "byteLength": 3877
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_replay-native-process.json": {
+    "sha256": "07151dd48ec1483a3925b423e3a050f761ffc1dab78c9b5c6653049744ebfb24",
+    "byteLength": 666
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_replay-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_replay-stdout.json": {
+    "sha256": "4de3a24f4ed3b7365b55c44838a6292a963aa34f2c0a1d89d72c3b9ce6123462",
+    "byteLength": 3595
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_replay-timing.json": {
+    "sha256": "48ab6a4baad3cbcf069408e4f2378a7208a37ca6f22dc6e5650104c00dc783df",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_replay.jsonl": {
+    "sha256": "b108b200f0313194d037aec4315699d7c097793d0f06db3abaf7f8b646394ce2",
+    "byteLength": 10175
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_result-handoff.json": {
+    "sha256": "84c7d85ed8901ae8fa6f9d5ecb5881e091f213157e9f9c4d56d942cd1d9b9ec3",
+    "byteLength": 3493
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_result-native-process.json": {
+    "sha256": "f08c710f3aef19e10751612306a9ac7b124ed031bb1fce7763dfcc815ec681be",
+    "byteLength": 677
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_result-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_result-stdout.json": {
+    "sha256": "2d36583141e69164862981a066fbb8127f86968ffb575db68e448050bbae3437",
+    "byteLength": 2660
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_result-timing.json": {
+    "sha256": "ba14433ad7113c8651c07989634d126c50b7fe4fa4c66ed5572913bfc614217c",
+    "byteLength": 386
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_result.jsonl": {
+    "sha256": "135fc2915c6c1207dea2cfba81df4ecf3e3c426ad8aab123e615c13f75c9079c",
+    "byteLength": 10138
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_status-handoff.json": {
+    "sha256": "026757fdfd2b7430c25d601773427994d8108aa5b6e0644cbaee69c27012678c",
+    "byteLength": 2985
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_status-native-process.json": {
+    "sha256": "39ccf65fba4eb4c4e9c85224096ba98291bd797804a851df5c8ad6f5bf23ca4a",
+    "byteLength": 666
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_status-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_status-stdout.json": {
+    "sha256": "8e799f3db3cfabe92f57d99f52f2dd433f29eb04882d72cbe6a13ecf26e0812b",
+    "byteLength": 13724
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_status-timing.json": {
+    "sha256": "cde1dc4888a186e5ccebafbb90e37a197fd714f71b09a25bea0b873eeb836b66",
+    "byteLength": 286
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-fresh-run_status.jsonl": {
+    "sha256": "ebddc6a401e014daa28c2f6e8f3cf3be574cc4993d1949fe7dc34c889974bfb1",
+    "byteLength": 10138
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-input.json": {
+    "sha256": "0ad374503556712c6d82ee228a5ff5918d0b87936801eb016b452a54a2f672eb",
+    "byteLength": 671
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-root-handoff.json": {
+    "sha256": "af7c4ee2bc4b0cb554eb6e216a9ca17cf931642121d1408ae1a8d030e45302a7",
+    "byteLength": 2602
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-root-native-process.json": {
+    "sha256": "3d3844fea4ead6389054606951409858da1b37236a6eae297d2777201cbc74b5",
+    "byteLength": 653
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-root-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-root-stdout.json": {
+    "sha256": "44f4b0402c6cbff77d99b8534253e1ff1488fd994adebf85304135fac42a2dd3",
+    "byteLength": 11595
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-root-timing.json": {
+    "sha256": "6ac62323d08563fcb1dbe4d0ed1bd9424483366395cdb5bdef0aafaebe6800c5",
+    "byteLength": 286
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-root.jsonl": {
+    "sha256": "00626fd62b958857602a5a5cd81373ef300ab1973ae217a427ca7bc40acf278b",
+    "byteLength": 17129762
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-malformed-FP-selection.json": {
+    "sha256": "1156df674dfa74774e5d6b5b29770db893e56851ff15df84c29be3c8f0574880",
+    "byteLength": 2170
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-catalog-view-handoff.json": {
+    "sha256": "cc951e8a79d64ff14fd7e7f9306e735ce3821daa3efbd963bdd937462d244bea",
+    "byteLength": 2238
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-catalog-view-native-process.json": {
+    "sha256": "c768ed96b6238629be9e7356b2aba95d2b8137f84d4f1df4c41d336d86e0f5a2",
+    "byteLength": 675
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-catalog-view-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-catalog-view-stdout.json": {
+    "sha256": "cd30943b9fd7730dc352a9aa8d048a0e15ccb1cffcdc3837fddb3e2e22e1a8a7",
+    "byteLength": 1275
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-catalog-view-timing.json": {
+    "sha256": "e72448b79b884cf31fe6bc660bb1440b40d2e026d69c8b9bbb19336fa2e86649",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-catalog-view.jsonl": {
+    "sha256": "a4e718299b29312c79435e68750ec3b069a424a56ba817952e79260e4dbd79a4",
+    "byteLength": 28132531
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-conformance-handoff.json": {
+    "sha256": "ec7ae8adc0bf227bee168a427fc12e2a3de51ee4f1a45026c3a4d09149d3e240",
+    "byteLength": 1859
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-conformance-native-process.json": {
+    "sha256": "4020c7a5f0273d2b309bdbbe609b5ca43284aa9346fc8fc7a5836fcfe3172970",
+    "byteLength": 673
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-conformance-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-conformance-stdout.json": {
+    "sha256": "4d6ac579d240f746cc7c3ad488f2a121af98abdba9f15964551bcdeb67915d7d",
+    "byteLength": 18232248
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-conformance-timing.json": {
+    "sha256": "37153e6e1a49e3387cccff609ff682bfe1ea4ccf9f3cce49df32ea9b499604bb",
+    "byteLength": 294
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-conformance.jsonl": {
+    "sha256": "9e8f9bdab7b8633678075e5a71d97a28cce8ecc6d8dcff3613cb857da6a4ad45",
+    "byteLength": 29259235
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-construction-basis.json": {
+    "sha256": "4bac21411ecc015d39c714775667c9697d86dd68ba8ac924988e1cfcef9d29ef",
+    "byteLength": 11303017
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fixture-count.txt": {
+    "sha256": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35",
+    "byteLength": 1
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_replay-handoff.json": {
+    "sha256": "e781c85b419840b33c463ce42ce1ef633542b23c74f09bd53ba36d595466bf45",
+    "byteLength": 3878
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_replay-native-process.json": {
+    "sha256": "219e249522b22197953370cbc06698523fbf5e0f25cc6794ef0a37d1ba61b685",
+    "byteLength": 675
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_replay-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_replay-stdout.json": {
+    "sha256": "a051fa6e55f2dbaa41a53441d1169a304dae4f8b68bdd2487e6e2c33b21497a3",
+    "byteLength": 3596
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_replay-timing.json": {
+    "sha256": "b4773133eefb9be333c6902ed4fcd5426152f5e88e2d63b7c79fdc1ded39f1a3",
+    "byteLength": 286
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_replay.jsonl": {
+    "sha256": "0a21420eb928c44f9034761bcfe5b5dbd9ff7cd740d0583fab63bec7d9131be1",
+    "byteLength": 10175
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_result-handoff.json": {
+    "sha256": "2bb776c4221d02a8412a6b58e321681c12965fb03103cbc57a34eb430baeadd1",
+    "byteLength": 3495
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_result-native-process.json": {
+    "sha256": "8fa680ff7b93be12cef7c82076eed9f5b69fe1591a73c06e25c9ed011a4651bd",
+    "byteLength": 687
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_result-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_result-stdout.json": {
+    "sha256": "3ccde02c9eeb22759e835a2c04164817b2a1d1daadaa1e7b1bb32036c5df329b",
+    "byteLength": 2660
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_result-timing.json": {
+    "sha256": "0d6d80141022eb127cbe9979bbb2689bd61d1c963f7425ad9b27d876de87ebde",
+    "byteLength": 387
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_result.jsonl": {
+    "sha256": "d410b191cece32287ab7401ecb8f45c61a7f22ebcc5b0d623545e11e59ec9a9a",
+    "byteLength": 10138
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_status-handoff.json": {
+    "sha256": "c9ac2cda8c5bc85435b5ff959ad5bd8296e053044d10b6780c154ae8028f3dfe",
+    "byteLength": 2986
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_status-native-process.json": {
+    "sha256": "6aef319305ddca644469802dd4b1e352b24714f6a68503c041131ba40a521c93",
+    "byteLength": 676
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_status-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_status-stdout.json": {
+    "sha256": "f0f7507b092bb8697cb99ede8a105f4b5b3b88498d8e37dbb181bb22ea340dbf",
+    "byteLength": 20543
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_status-timing.json": {
+    "sha256": "edbfc544ca6082b670c9ca1fbb1fb80e7e6829e7c0df880885da4ebb9537b873",
+    "byteLength": 286
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-fresh-run_status.jsonl": {
+    "sha256": "a0f9f3666b17e943169509d636e567b15fc0a71dd79915b2f217c684ec4f1389",
+    "byteLength": 10138
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-input.json": {
+    "sha256": "0ad374503556712c6d82ee228a5ff5918d0b87936801eb016b452a54a2f672eb",
+    "byteLength": 671
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-result.json": {
+    "sha256": "5d0d0376f0b23ff7ee331db0e68468acbae8e614d43363701e0b58b5583670d8",
+    "byteLength": 67760
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-root-handoff.json": {
+    "sha256": "8d622000d7a0c54c03cc7976ae5b4f61c8b3e7eb8b995b9f912f1eba08620314",
+    "byteLength": 2603
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-root-native-process.json": {
+    "sha256": "31ce0c3583d98bf828951c15a850d6165ddc095828454443272ca1a1d42dc954",
+    "byteLength": 667
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-root-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-root-stdout.json": {
+    "sha256": "a1aa20ae001f58cf10d5122e3ad26e886ff173b095da73f80c3070aa947922fe",
+    "byteLength": 18886
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-root-timing.json": {
+    "sha256": "2a6768b9e0a26d2d4f5bb50fdb9b3e0008488a7442fcac1de19eb82f68ec1b53",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-root.jsonl": {
+    "sha256": "7b7943a6f60180557f4d1b53baff90d44f8b226b1fcd6076bc5b6afaab5ce730",
+    "byteLength": 17130628
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-selection.json": {
+    "sha256": "4181369f11c7a8f9506197a7262840fbde438eef6012461c2b708b4756ae2b03",
+    "byteLength": 2250
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/continued-semantic-contradiction-state.json": {
+    "sha256": "a0c97a1ab2cb7f5b684c2471f8c7c819db6a4946994315b34800e0d0ef2e06e2",
+    "byteLength": 15898
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/mini-verification-reuse.json": {
+    "sha256": "bd2a8d7b76d0e47bba78405980057ca7731520d2bbb7091c96f94f752b988345",
+    "byteLength": 608
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/publication-inputs.json": {
+    "sha256": "7e29219ded8e8db446dab43870aef8bd33c261ab9c48b1ab2b78ebc72d66fa0b",
+    "byteLength": 13082617
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/retained-context.json": {
+    "sha256": "adc40671934367724701ac2e4d33b838f0ec6cfa5135cd951a9f84d2a280d4b7",
+    "byteLength": 4709
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-bind-handoff.json": {
+    "sha256": "b0738e85e9c294d8223ed91b065064e46b672d235612798391c827d04279de7a",
+    "byteLength": 3351
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-bind-native-process.json": {
+    "sha256": "cc659d7586e303e3ae94a58454d98f5f55ddc819356ca380da991a56ba4f28d7",
+    "byteLength": 639
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-bind-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-bind-stdout.json": {
+    "sha256": "09071c148af953b7112dcf27a59fb03d1c7876faf2ac648ce328337102597b6e",
+    "byteLength": 6229
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-bind-timing.json": {
+    "sha256": "176cc87e6c8104d1c25172fda7638fa3225ba96bba9a40a597759b31088aa2cd",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-bind.jsonl": {
+    "sha256": "4899c4fdc1ac490d5ff3e43b12d1a71e77cc0c99ea3e8ab90ef0bc4c475d4f1d",
+    "byteLength": 15621751
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog-handoff.json": {
+    "sha256": "d48f2e8dd8946104ec9d7a9abf82ac0732e88fd67196b769c1f20a9c680c9d08",
+    "byteLength": 3721
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog-native-process.json": {
+    "sha256": "a55c04d73f5db76f22cd747fd0e2bf4698377ef0640dd9502302c76534d4686b",
+    "byteLength": 643
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog-stdout.json": {
+    "sha256": "9c95cd3371df58a9277ecfb117646e01388f8efce70e80ff99b6bed3a53124a2",
+    "byteLength": 182123
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog-timing.json": {
+    "sha256": "53bb29d874c2c82c8d6f3473464c649e61711709a4cc3635f07d703aba4abcba",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog-view-handoff.json": {
+    "sha256": "95bfc6a866dc2475cf240a66ef20d405eaedf3b3942aab2379eb9c81cd8365b2",
+    "byteLength": 4099
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog-view-native-process.json": {
+    "sha256": "d22667933e70c1a5c06e9509693e3b7b7bd0c562819ab10150808d5aeced92d7",
+    "byteLength": 648
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog-view-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog-view-stdout.json": {
+    "sha256": "451b2e801af1c781d6d488df6582ad9a032ff3ccfd6168f2ccfd625c8c1ae15d",
+    "byteLength": 1275
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog-view-timing.json": {
+    "sha256": "9b7c9accb611b39f144e56d2ff86926d948a11bfd451eb28cfbbaecea868b0a7",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog-view.jsonl": {
+    "sha256": "99205c7157ab462674a598598d66b69f9d2c56360b4be9063ed5b0b60f61df66",
+    "byteLength": 28132423
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-catalog.jsonl": {
+    "sha256": "8563aa131827d19cb492245bfbeb644115e6bd3b1b182090550f351a67a598a5",
+    "byteLength": 27100166
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-core-handoff.json": {
+    "sha256": "88aaea554fcc31aedde9d98eec08059169fd2b568a1ca17ca65bcc6572fae6f4",
+    "byteLength": 2603
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-core-native-process.json": {
+    "sha256": "7991406fecc7f3171f33a3d6b8f99441a3aba741f3a8a0ba19cc32e1e7394927",
+    "byteLength": 648
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-core-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-core-stdout.json": {
+    "sha256": "87b3b85a531f3e4b28925af6ff64df44d31d9a375dc4d9bd1943ca10fadae5cc",
+    "byteLength": 5735
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-core-timing.json": {
+    "sha256": "95753ae520e69f3f5469c566c9830259a6a24f1e687e47e3e9d93c984f58f1d7",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-core.jsonl": {
+    "sha256": "e911e762ba2b7916f9d01cef50d39e51b3b6d07089e2b1ce32ecbb33030e2797",
+    "byteLength": 24331718
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-mini-handoff.json": {
+    "sha256": "b6800e227f59eb4a968e7421153a86e51fb0f44b3e8694168ae3dd0e3610f420",
+    "byteLength": 2983
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-mini-native-process.json": {
+    "sha256": "d45937f8e463f0c749d99f5f711256c6683dcc139e48bd2d88ea488926f6ec07",
+    "byteLength": 648
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-mini-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-mini-stdout.json": {
+    "sha256": "41828bbdbcf5ebae6f06ea7b3093bf684e3dd848641497e2f84c121527715fc9",
+    "byteLength": 5680
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-mini-timing.json": {
+    "sha256": "a6be270d1f90531aab0c0209bcf441ca0f6358f6e2038f580c0444bad18b99e4",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-install-mini.jsonl": {
+    "sha256": "073830ffa48830170425ea0740158303d0c8b375b04b2883ca50251302d1e6a4",
+    "byteLength": 13330576
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-protected.json": {
+    "sha256": "1451bcd93ff9167818314558d97d4cd0eacfaa9da54f0c5a826f7eadeefee796",
+    "byteLength": 1030
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-resolve-handoff.json": {
+    "sha256": "140587c4d72fe7b69f0ef7d780417c8b1d990edb05f6bc16d1584d45faa5cbe6",
+    "byteLength": 2223
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-resolve-native-process.json": {
+    "sha256": "5447668731f420cca24db719cbd327a3b871136cc9c408d3ef5eff32fe6a2b88",
+    "byteLength": 643
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-resolve-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-resolve-stdout.json": {
+    "sha256": "3bf56da415b1b52626e92cdccd734dff93b51c5cc0c27e58f1968e3545cb2de7",
+    "byteLength": 3952
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-resolve-timing.json": {
+    "sha256": "ff7e5d19b9a09de0bccb4ac08ffbcdd7fb0f2254903e70050be099c5fab16a27",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-resolve.jsonl": {
+    "sha256": "96e69c16ac6cc621e922b4bbf5dedf6b2d64d81cc80cc294d4d3ba5f41363eff",
+    "byteLength": 22189846
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-state.json": {
+    "sha256": "30dc7a9b606f0fad5f622287b10e7eb85e5af8f4d426f6a0640f3b3b09024c7f",
+    "byteLength": 119487705
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-verify-core-handoff.json": {
+    "sha256": "2d5472b5eaabc5713cb8ffe84c0665a018bdb422807d82bd2961c8c5b2a8bd17",
+    "byteLength": 1848
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-verify-core-native-process.json": {
+    "sha256": "0b64661cc895082f1c9ba64937fca57360e2e58498b268ab2c45dcd99d1d3d48",
+    "byteLength": 647
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-verify-core-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-verify-core-stdout.json": {
+    "sha256": "be2484704df62ce959d2a81ebc53895b45e02efbe743790e3556e686ddfe1412",
+    "byteLength": 146548
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-verify-core-timing.json": {
+    "sha256": "65c9ec1b5282f83a9165ea2cc750f0f465a624dd4f29fb630a07a44c0fb9d334",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/episode-01/setup-verify-core.jsonl": {
+    "sha256": "fe86bdf59c6feb5bdcf946ba6738d3d46e43f4ceecf2a8a8142a2645e41b5058",
+    "byteLength": 11024605
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/initial-resource.json": {
+    "sha256": "65aacf8e8c34d77aaae2859a7ecc992c115d575b3fec80e4b8781dc16b284a0a",
+    "byteLength": 1768
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/malformed-FP-driver-result.json": {
+    "sha256": "8edaea19c40880698f0e3b9a2bea4e722ab3741f0dfea99cfe97551dd9ffbb5b",
+    "byteLength": 178
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/malformed-FP-driver-start.json": {
+    "sha256": "79f2820dd6263ec15772df60facbc7a5f97fe416cf0675184b4df4d0a629d9d2",
+    "byteLength": 566
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/malformed-FP-driver-stderr.log": {
+    "sha256": "85e3e8da4d088ae029cb0ab7a047714a3042a860dcefd0b631845c9b8cf962df",
+    "byteLength": 915
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/malformed-FP-driver-stdout.jsonl": {
+    "sha256": "49e3ffcd9dba2d2782b51c14d11dd98d1e7d6b47888d0781e15337c026d30789",
+    "byteLength": 1839
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/malformed-FP-driver-usage.json": {
+    "sha256": "d22d72e40b501ddd37466085be109f4a1850ea144539dbe5da0efdb8205def8e",
+    "byteLength": 592
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/observe-action.py": {
+    "sha256": "eb1463939afe960781bcfbf7cb592fd78d50f73db2366b36deb9a51fa0c2afcf",
+    "byteLength": 2521
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/retained-inputs.json": {
+    "sha256": "7645eebc9eb7c43f5db760f6adaa52b32a5b16de6ab4b495288b6fb4eaca4ddf",
+    "byteLength": 5885
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/runtime-stop/admitted-suffix.jsonl": {
+    "sha256": "89fbc73461dc1fa6308386a2dbca5f70ae57a5bbcc99937b82adb02365f721c8",
+    "byteLength": 2757695
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/runtime-stop/first-causal-chain.json": {
+    "sha256": "78cfb75f1749b2c7bef5345c3eef697ee958e0589ad64caf062f08d03206da5e",
+    "byteLength": 23308
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/runtime-stop/malformed-FP-run.jsonl": {
+    "sha256": "0cc1935ad91837de1cfbb85cdd27aa4f93957d09629a2d80a7b8c203f8abb0d8",
+    "byteLength": 125772
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/runtime-stop/protected-correspondence.json": {
+    "sha256": "1451bcd93ff9167818314558d97d4cd0eacfaa9da54f0c5a826f7eadeefee796",
+    "byteLength": 1030
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/runtime-stop/resource-closure.json": {
+    "sha256": "f44c80943a4dc8e5c4faec16c7adfcd383d35263d4d3f2b114625c44615c4925",
+    "byteLength": 1934
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/runtime-stop/results.json": {
+    "sha256": "564f3d88f7b1ecf29952132797d5182a58d7140a25703d14e32c006ea61b6a8f",
+    "byteLength": 14918
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/runtime-stop/semantic-contradiction-run.jsonl": {
+    "sha256": "0a77f5a6333da966499d9eddf98255da35521233f14e035cbc93a137992e9141",
+    "byteLength": 270858
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/runtime-stop/source-output-correspondence.json": {
+    "sha256": "ceb0dbbe1e1f997076a9649765aafa0ceb33861b7a8a6b5c65cea253f9321c10",
+    "byteLength": 506
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/selected-installed-members.json": {
+    "sha256": "d6d61201842ca67cdca4d0c9b1c1b28e177b4cc0d37c4c9e5f098f3e3fe2af3a",
+    "byteLength": 1001760
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/semantic-contradiction-driver-result.json": {
+    "sha256": "a14406e600246a3e525fd276c11bdea9933aa3b64358ca8ad8672da04650e3ac",
+    "byteLength": 176
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/semantic-contradiction-driver-start.json": {
+    "sha256": "7753779f4bb3379b5d2789e2b68da7b48f8b21288e1bb1ffc38d3d70a2a4ee65",
+    "byteLength": 576
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/semantic-contradiction-driver-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/semantic-contradiction-driver-stdout.jsonl": {
+    "sha256": "e3b655c1ffa0fd2d540d1594e65625b557ae3c9a21e243e19f8385cf14391fa8",
+    "byteLength": 1840
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/semantic-contradiction-driver-usage.json": {
+    "sha256": "d10255340a8703c3cc7fa5d26f406a6b5564ebfbe3091abd42aa72e9471469d5",
+    "byteLength": 604
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/setup-driver-result.json": {
+    "sha256": "278144fcc97a4f4f2a4f1612a2800e62ab7ffb63d9c9169c53db8008f936dc02",
+    "byteLength": 177
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/setup-driver-start.json": {
+    "sha256": "9eb37582b8c976eed39db125f713ec2d1f912cd59da5ce81fe9ef971d8c64684",
+    "byteLength": 547
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/setup-driver-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/setup-driver-stdout.jsonl": {
+    "sha256": "58e2c0d81811a73bfbbf3d786a9d60b69bda93e1dab0844ed85e1ccb38aa63aa",
+    "byteLength": 2721
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/setup-driver-usage.json": {
+    "sha256": "a4e14179aa0ff8a2692e19077a52d8879248f01cf64a803d708c15acc64c82f6",
+    "byteLength": 585
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/setup.mjs": {
+    "sha256": "755755ea53bb3fd0a7ca7010cdfb9b221cc04b4f0139520170e3aa39cb236e12",
+    "byteLength": 11316
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-09/runtime-stop/freeze.json": {
+    "sha256": "0f22eca0ff47d57fd381fbce1d623aeab4cba35087360a16e72827bdfde6bbed",
+    "byteLength": 32563
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "operation": "finite selected generated-inventory inspection",
+  "firstError": "KeyError path: generated-delta rows contain before/after objects",
+  "correction": "Read actual after.path and after.sha256; no source, test, native or original resource effects",
+  "scopeRefinement": "Later closed10 excluded; current wording uses remaining declared cases per Root."
+}

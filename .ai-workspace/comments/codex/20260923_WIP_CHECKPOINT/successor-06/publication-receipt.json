@@ -1,0 +1,16 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "1efca608bcb4f738106e998d06f106bf45dd1ba9",
+  "commitIdentity": "The commit containing this receipt; exact resulting local/remote identities in external post-push receipt.",
+  "transportBytes": 112776172,
+  "newLogicalMembers": 355,
+  "restoration": "Every new member restored and compared with its original; exact selected freeze relations checked. Prior transport reused.",
+  "currentScope": "Accepted Hello two-source/test delta, compiled05 generated/package correspondence, closed08/09/reviews/probes; execution10 failed preparation and finite receipts, execution11 readiness and lifetime review; no complete qualification/RC/human acceptance",
+  "ongoing": [
+    "Active 20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-01 and all lifetime owner/HOW/test/generated successors",
+    "Active s02-installed-continuation-10 and later carriers",
+    "All original mutable GLC/S02 resources/history/worksite; no snapshot",
+    "Unselected scratch, reproducible caches and unrelated outputs"
+  ],
+  "allowedGitEffects": "One ordinary commit and nonforce main push; remote readback afterward."
+}
