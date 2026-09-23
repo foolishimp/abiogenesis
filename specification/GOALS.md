@@ -15,9 +15,38 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. Installed cursor correction accepted through independent assessment; five selected and four outside semantic residuals remain. QUAL-056 and F16 source/component increments are accepted. Generic correction and C2 environment source/component are accepted; the installed Public child-read OOM boundary is closed. Historical consumer ingress correction is selected for affected review; installed correction and qualification remain open. Full lifecycle, exact prospective-RC qualification and human release acceptance remain open. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. Accepted QUAL-056, F16, C2 child membership, F11 scoped subject context and Public terminal projection retain source/component bounds; exercised Public read fixes are accepted. Current prospective RC1 archive dd76783f remains unqualified. S02 is in progress; execution08 closed at preparation OOM before Run, with caller-only component repair accepted. Two F11 end-to-end design findings are selected and unimplemented. Full S1–S5 lifecycle, targeted revision, qualification and actual human release acceptance remain open. |
 
 ## Current Selection
+
+### Current checkpoint disposition — 2026-09-23
+
+Root accepts C2 child-membership subject `c7750196…` / review `fe9cea75…`,
+F11 selected-subject repair under review `e29702c4…`, and Public terminal
+projection subject `950bcb78…` with its exercised [installed readback](../.ai-workspace/comments/codex/20260923_PUBLIC_TERMINAL_PROJECTION_REPAIR/installed-01/readback-03/return.md).
+The unchanged prospective `5.0.0-rc.1` archive is `dd76783f…`, content
+`6381355c…`; no tag, publication, complete qualification or human acceptance follows.
+S02 has genuine installed traversal/readback evidence and retained fixture stops.
+Its selected recursive-foldback case has now returned actual `runtime_failed` /
+`hog/recursion-restoration-mismatch` after the first deterministic evaluator,
+before child/fold. That failure is open under retained-evidence RCA; no repair
+is implied. The candidate is WIP, not ready RC; remaining S02 scope stays open.
+
+[Execution08](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-08/return.md)
+closed at parent preparation OOM after setup6 (19m28.9s, peak6.15GB), before
+catalog receipt, Run or paid actor. Its original close and failure remain intact.
+Root accepts the [caller lifetime correction](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/correction-preparation-lifetime-01/return.md)
+at component scope; installed continuation is separate. Full original-source
+S1–S5 outcomes and actual targeted revision on the selected candidate remain required.
+
+[Successor05](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/return.md)
+(subject `ade9d5f3…`) is accepted preparation/diagnosis only. Root selects
+`F11-PRODUCER-CONTEXT-01` and `F11-APPLICATION-DOMAIN-01` as bounded HOW
+re-entry preserving exact immutable candidate/law, each genuine producer's
+runtime provenance, complete computable unions and independent applicability J.
+Both remain unimplemented; this checkpoint starts neither implementation nor
+native qualification. The sixteen coverage groups/sixty-six behavioral declarations
+remain source-grounded coverage, not a fresh-Run roster.
 
 Root accepts the closed [execution07 installed discriminator](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-07/return.md)
 (return `c483c869…`, freeze `d90c00e2…`) under the [recorded Executive disposition](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-07-executive-disposition.json).

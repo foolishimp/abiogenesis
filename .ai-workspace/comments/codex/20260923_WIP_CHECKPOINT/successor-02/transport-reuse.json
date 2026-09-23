@@ -1,0 +1,47 @@
+{
+  "prior": [
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT",
+      "catalogSha256": "f32468f3674f0cf298e18016ff4cc0b06360b38655a798d7e5b73f367f85efed",
+      "indexSha256": "bccae845e85edf82ad5498a4fe83f7dbfbe4caa4a9d970a70dfe329a9d7ccbe0",
+      "verificationSha256": "f511e5c8eceeccc92ef92346888034e04591bc2c501114c37d00ee66a0519fc2",
+      "memberCount": 108167,
+      "transportBytes": 5530728865
+    },
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/cursor-supplement",
+      "catalogSha256": "b2792c9ed28145f1bb5d34364ef348a844b701746eabe41f23c4941632bf2572",
+      "indexSha256": "c91e713bf0444adc0d013e87d0a3c8d6917a9d197d05161fa6e0c9f9653fb7db",
+      "verificationSha256": "ae569b25c2abbaabe8c9ea9e4318a6647e45fdbea38d5cea6811f558e65300da",
+      "memberCount": 255,
+      "transportBytes": 2999810
+    },
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/scratch-supplement",
+      "catalogSha256": "f2efa2d05a1c4e2d0acdf4e54225161db91ecf2e6b8ee75df86a5eec7a481860",
+      "indexSha256": "398987f2a82e2732fde247d7ae22685a5dc652c15b01821bdacf31ea3f9396ea",
+      "verificationSha256": "c2dd53f292bac619ba85f3645f0831fe2bc8925e22d2fcf43c034113e0c76771",
+      "memberCount": 57,
+      "transportBytes": 133791
+    },
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/transport-01",
+      "catalogSha256": "bced515c39a3d3b84334b50b7ced499bdabf1b1ad256576c636f698af5f10e46",
+      "indexSha256": "b576f796a4c5505bdf967de258368863ca5796e6f8fc4f3d9e5eeb1f16a3a75a",
+      "verificationSha256": "0535c99167b8d5c9263e45a969eb2393c4aa9201f171e1e792c3de5f53fda0f9",
+      "memberCount": 1504,
+      "transportBytes": 122947104
+    },
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/transport-late",
+      "catalogSha256": "8b4158870f153df4166fb7bd8f56400bd091448e71c610e4fe9a68c8f01aba25",
+      "indexSha256": "f65a06657ad282cc77e60b26694b782d83c1c2909134ff811b81c028ec2bd004",
+      "verificationSha256": "8237b3de69a3f5725c636fe32cf1c2110bc77526a20fa2d2c8b3b3a74e4136bf",
+      "memberCount": 14,
+      "transportBytes": 241721
+    }
+  ],
+  "script": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-01/checkpoint_transport.py",
+  "scriptSha256": "04f1331b20ae18ea4c6fb54e0b948525a1d04638ddb29267ed3c96b18bdccca3",
+  "unchangedPriorByteProof": "Accepted catalog/member/restoration proofs reused. Only indexes and selected logical member metadata read; old payloads not read or copied."
+}

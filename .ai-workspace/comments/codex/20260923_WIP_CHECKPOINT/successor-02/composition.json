@@ -1,0 +1,14 @@
+{
+  "basisCommit": "c4821f71833d6618fd9fc3234aadf21a70c6fc59",
+  "prior": "successor-01/composition.json plus inherited transport receipts in classification.json",
+  "newTransport": "transport-01/catalog.json",
+  "archiveMembers": 798,
+  "archiveMemberBytes": 1947662188,
+  "transportBytes": 315878096,
+  "parts": 11,
+  "priorPayloadReadOrReupload": false,
+  "pending": [
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/** except exact frozen members explicitly selected"
+  ],
+  "scope": "Accepted source/component and bounded installed proof, failures and prospective control diagnosis conserved; no qualification/human acceptance."
+}

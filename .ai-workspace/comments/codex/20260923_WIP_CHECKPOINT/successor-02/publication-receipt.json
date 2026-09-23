@@ -1,0 +1,14 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "c4821f71833d6618fd9fc3234aadf21a70c6fc59",
+  "commitIdentity": "The commit containing this receipt; exact resulting local/remote identities in external post-push receipt.",
+  "transportBytes": 315878096,
+  "newLogicalMembers": 798,
+  "restoration": "Every new member restored and compared with its original; exact selected freeze relations checked. Prior transport reused.",
+  "currentScope": "C2 child membership, F11 selected subject context, Public projection accepted; execution08 prep failure and caller component acceptance; successor05 two selected unimplemented F11 findings; S02 incomplete and active.",
+  "ongoing": [
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/** except exact frozen members explicitly selected"
+  ],
+  "allowedGitEffects": "One ordinary commit and nonforce main push; remote readback afterward.",
+  "lateRootStatus": "S02 recursive-foldback runtime_failed hog/recursion-restoration-mismatch after first deterministic evaluator, before child/fold; RCA active, no correction or ready-RC claim."
+}

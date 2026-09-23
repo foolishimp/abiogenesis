@@ -1,0 +1,5 @@
+{
+  "prefixesAndFiles": {},
+  "policy": "Only named reproducible dependency/cache/compiler artifacts are excluded. No blanket comments, test_runs, sandbox, source, report or runtime-evidence exclusion.",
+  "alreadyIgnoredOutsideEvidence": "Existing repository ignore policy retained; ignored evidence beneath comments was enumerated explicitly."
+}

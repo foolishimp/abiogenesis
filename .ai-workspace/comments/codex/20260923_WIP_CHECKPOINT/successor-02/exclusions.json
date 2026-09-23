@@ -1,0 +1,15 @@
+{
+  "prefixesAndFiles": {
+    ".ai-workspace/comments/codex/20260923_PUBLIC_TERMINAL_PROJECTION_REPAIR/installed-01/bootstrap/node_modules/": "Reproducible isolated installed/dependency tree; exact package and Public installation receipts retained",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/composite-installed-01/bootstrap/node_modules/": "Reproducible isolated installed/dependency tree; exact package and Public installation receipts retained",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/native-material-01/resources/installed/": "Reproducible isolated installed/dependency tree; exact package and Public installation receipts retained",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-nested-compose-01/episode-01/resources/installed/": "Reproducible isolated installed/dependency tree; exact package and Public installation receipts retained",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-nested-compose-02/episode-01/resources/installed/": "Reproducible isolated installed/dependency tree; exact package and Public installation receipts retained",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-mini-readiness-02/scratch/developer-mini-product-source/build/": "compiled package projection beside retained package.json",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-mini-readiness-03/scratch/developer-mini-product-source/build/": "compiled package projection beside retained package.json",
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successors/build/": "compiled package projection beside retained package.json"
+  },
+  "active": [
+    ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/** except exact frozen members explicitly selected"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "operation": "finite inventory construction",
+  "firstCause": "Caller02 freeze paths are relative to S02 lane, not caller directory; initial constructor assertion stopped before inventory write/packing/Git.",
+  "correction": "Use existing freeze root; compute prior commit epoch once.",
+  "sourceOrRuntimeEffects": false
+}

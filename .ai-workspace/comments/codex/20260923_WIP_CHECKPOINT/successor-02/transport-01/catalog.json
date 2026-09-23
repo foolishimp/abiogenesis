@@ -1,0 +1,127 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "c4821f71833d6618fd9fc3234aadf21a70c6fc59",
+  "scope": "Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 798
+  },
+  "archiveMemberCount": 798,
+  "archiveMemberBytes": 1947662188,
+  "transportBytes": 315878096,
+  "assets": [
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_C2_ENVIRONMENT_REPAIR",
+      "byteLength": 730564,
+      "sha256": "3a717eee73e7830e05d35f1fd9eff1a2ba471eaf8d4afc1ba4715bca96f4c8b9",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 730564,
+          "sha256": "3a717eee73e7830e05d35f1fd9eff1a2ba471eaf8d4afc1ba4715bca96f4c8b9"
+        }
+      ]
+    },
+    {
+      "id": "family-0001",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_F11_SCOPE_REPRESENTATION",
+      "byteLength": 1846806,
+      "sha256": "8d4bae7501b7694c824f7ee5d5eb79a28d30d64a8de8d9c72bdbfde0c22e7b29",
+      "parts": [
+        {
+          "path": "payloads/family-0001.tar.gz.part0000",
+          "byteLength": 1846806,
+          "sha256": "8d4bae7501b7694c824f7ee5d5eb79a28d30d64a8de8d9c72bdbfde0c22e7b29"
+        }
+      ]
+    },
+    {
+      "id": "raw-dd76783f7fc92873d9d21ca66c7f91f9be0eaad77248954ada99f5e265a04dbe",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10109344,
+      "sha256": "dd76783f7fc92873d9d21ca66c7f91f9be0eaad77248954ada99f5e265a04dbe",
+      "parts": [
+        {
+          "path": "payloads/raw-dd76783f7fc92873d9d21ca66c7f91f9be0eaad77248954ada99f5e265a04dbe.part0000",
+          "byteLength": 10109344,
+          "sha256": "dd76783f7fc92873d9d21ca66c7f91f9be0eaad77248954ada99f5e265a04dbe"
+        }
+      ]
+    },
+    {
+      "id": "family-0002",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_PUBLIC_TERMINAL_PROJECTION_REPAIR",
+      "byteLength": 2872185,
+      "sha256": "4218e05e03d454642422512e45317f8a25673116270e1f95236bcd656bd3a833",
+      "parts": [
+        {
+          "path": "payloads/family-0002.tar.gz.part0000",
+          "byteLength": 2872185,
+          "sha256": "4218e05e03d454642422512e45317f8a25673116270e1f95236bcd656bd3a833"
+        }
+      ]
+    },
+    {
+      "id": "raw-7a6b1d805a66b8bc549703ddd0eb3543ef85f69e66a1ad3165d71b6cdb2c022d",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10108919,
+      "sha256": "7a6b1d805a66b8bc549703ddd0eb3543ef85f69e66a1ad3165d71b6cdb2c022d",
+      "parts": [
+        {
+          "path": "payloads/raw-7a6b1d805a66b8bc549703ddd0eb3543ef85f69e66a1ad3165d71b6cdb2c022d.part0000",
+          "byteLength": 10108919,
+          "sha256": "7a6b1d805a66b8bc549703ddd0eb3543ef85f69e66a1ad3165d71b6cdb2c022d"
+        }
+      ]
+    },
+    {
+      "id": "family-0003",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE",
+      "byteLength": 290210278,
+      "sha256": "00198120d7afad3bb7aa30b5746c6998bb0658252b86e84f4bb06eddeb7d784c",
+      "parts": [
+        {
+          "path": "payloads/family-0003.tar.gz.part0000",
+          "byteLength": 51380224,
+          "sha256": "b7317789a910be05ac9c25064041aebf80b82551f49cb3676b5812895df12c04"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0001",
+          "byteLength": 51380224,
+          "sha256": "0244b397890f73faa6b5f144db38d6f2ceb919cb008586f856b4ba1f91f09b53"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0002",
+          "byteLength": 51380224,
+          "sha256": "8f9f19d1f4a24acd4a70925823c3e9e102702c89e39ad98d904dca4850c28b28"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0003",
+          "byteLength": 51380224,
+          "sha256": "62bff592b2114905f00cf560c0429fcaa4708db358c70580a8b6dfd7ac5f0f7f"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0004",
+          "byteLength": 51380224,
+          "sha256": "ede00aa4be8346a15861e269cf92a7db0b98ad349059dbbe5c572c685b4bd8e5"
+        },
+        {
+          "path": "payloads/family-0003.tar.gz.part0005",
+          "byteLength": 33309158,
+          "sha256": "755a74a95d6d4580117b44179a3ab2487441aaacf85597616bbf58ae4116f0ad"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "3db469205dbca27da50c5b1068c8dc35fde8948dba770387ab9a47d1258047e0",
+  "reconciliationSha256": "55cda956bb52bdd5229dbb45c357aa0db81737fbcd8aa3977709857a95e9cebb",
+  "pendingActiveEvidence": [],
+  "credentialShapeFindingCount": 0
+}
