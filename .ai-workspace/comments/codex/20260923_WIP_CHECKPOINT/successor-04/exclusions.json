@@ -1,0 +1,9 @@
+{
+  "prefixesAndFiles": {},
+  "active": [
+    "Next retry-handoff source repair and any later outputs remain outside the exact index subject",
+    "Original mutable GLC history/worksite and S02 runtime resource/install trees; no snapshot",
+    "Unselected build_tenants/abiogenesis/scratch outputs preserved in place"
+  ],
+  "note": "No new blanket ignore of active or reproducible trees; only exact newly transported originals will be ignored."
+}

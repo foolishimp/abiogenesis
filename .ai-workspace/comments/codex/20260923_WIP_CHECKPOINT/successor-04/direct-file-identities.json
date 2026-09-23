@@ -1,0 +1,417 @@
+{
+  "files": [
+    {
+      "path": ".ai-workspace/comments/.gitignore",
+      "bytes": 406292,
+      "sha256": "5940340f8aa09f5b119434d70a81364101fbe3769ee408c0119ae6a2bca0af6d",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/README.md",
+      "bytes": 1674,
+      "sha256": "b615db9c79fb360dc2624f2be895ed34728d861e4aae19b4ac8eb6d6a207baf1",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/activation.json",
+      "bytes": 771,
+      "sha256": "766c02f1d80b4683a31d5dffd00a1314a8157e64c818e4b6cb28d270c28b4ad7",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/classification.json",
+      "bytes": 9380,
+      "sha256": "9f5864ff3397af319ee7e94f621029fe68c38f465d057e2bc3ed4cbff2a7410a",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/composition.json",
+      "bytes": 828,
+      "sha256": "786ee8842b8094d4bad372bd2885ea231d3087dcfecbbe984b0f10920b9aaec6",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/exclusions.json",
+      "bytes": 448,
+      "sha256": "d796dbc4c569d7755bbdebf00e886a0b6c4454dab2998447619a21bfd6d9ec14",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/final-path-reconciliation.json",
+      "bytes": 75058,
+      "sha256": "36ff10772972c42f27c6271d85aeaf9e3eadfa905ecb1be52ea2386f1403285f",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/final-stage-paths.nul",
+      "bytes": 6462,
+      "sha256": "131a35bd825e637553e54b4be4b35af9ac32d53997a0fa62391fc92477fa560a",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/freeze-expectations.json",
+      "bytes": 124026,
+      "sha256": "6115d93c5d838293b6745ee85f590a6db11bdc9ccd9b05e2c591b5e65f243ae1",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/frozen-member-correspondence.json",
+      "bytes": 67847,
+      "sha256": "57258d6334ab1a1188a9b2d1d3ebf89c3bad20b496cb93918b02e80a520be77f",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/ignore-preimage.txt",
+      "bytes": 353443,
+      "sha256": "d3585b8b9aa690d73d1af810b2df270d7c7ccdd37a4da1279b56d06e8935a079",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/incremental-inventory.jsonl.gz",
+      "bytes": 29735,
+      "sha256": "a8f22b6dcca72779cfbd169baef9d271c6644cd48a6dfc62b5d40a62e1a88c8d",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/pack_incremental.py",
+      "bytes": 1677,
+      "sha256": "3106194f1019339a86f75925d6c9f76f18b23193800585c6605159a7e95dc37b",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/preimages.json",
+      "bytes": 7096,
+      "sha256": "23396544fab187ddd2b7e2e4177aba3631596706efcceb3aa0b125b325bc31e7",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/prepare_incremental.py",
+      "bytes": 6282,
+      "sha256": "1a192ac2a349eada38a521222895a2fa355ca1eb7000c20a46b1484b89bc9444",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/publication-receipt.json",
+      "bytes": 1082,
+      "sha256": "8f8c0b009301afca8f9f6ab2f3e2ba9b9763328bbf9c5fc835ce1a761c6ccc38",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/select_checkpoint.py",
+      "bytes": 3872,
+      "sha256": "9945beadfb81a3f662f749f30ef590ae9e8e83c32cef3f53b2774c59c978668d",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/selected-archive-paths.nul",
+      "bytes": 64037,
+      "sha256": "81bedb968b4dd838c02169b056fabd9c72b370289330c506d8039f8e94678f4d",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/selection.json",
+      "bytes": 12443,
+      "sha256": "9849eeb73039b01198ec7150e1bf0e6c5623ad5a0ef212ee2b38863e1dff99f1",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/stage_checkpoint.py",
+      "bytes": 9828,
+      "sha256": "373648ff84291f0855c22b1500a5a7f490a5fca8abbbefcd532091ac1b083dfe",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/tracking-delta.json",
+      "bytes": 496,
+      "sha256": "53250c0369f4e5cb8ddc5242fc626d8c59ba3ef9c44c6645ba5c87a809f8e563",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/tracking-goals.patch",
+      "bytes": 6363,
+      "sha256": "04450f611ea1d2cec9ecde92221ddd0ffca22781cb03f855cbb9db87f111d89c",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/tracking-preimages/goals.md",
+      "bytes": 55339,
+      "sha256": "a195e8c729dce155303ca13229076cb4b8b567f02fc5ad9ee17e5d586dcf9c0d",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/tracking-preimages/ticket.md",
+      "bytes": 334099,
+      "sha256": "80760d40885ad54a1e665405cdd41efaabdcefaa919b4d9fd19fb7985e67fa50",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/tracking-ticket.patch",
+      "bytes": 21640,
+      "sha256": "438be2fbf2d46bd415949b2ab1131883a66a5d40bcde0e5afd560f0353d9fa22",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/catalog.json",
+      "bytes": 4511,
+      "sha256": "93f45e9f512b462461918b020e1356dbc82d558286c0d71d47ae54fc4e11ec28",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/credential-shape-findings.json",
+      "bytes": 121,
+      "sha256": "44e87b2569a514609f5111491d1d0e0605c6a81f56db5ab4bdf0fe5812b7c55e",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/direct-paths.nul",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/exclusions.json",
+      "bytes": 348,
+      "sha256": "3974c18bd3617177301413f9dac88a296e227621726113ca3aa9e9ec8d227c36",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/members.jsonl.gz",
+      "bytes": 24909,
+      "sha256": "224634c4eea0e3397e968f88c1484fc813533a266e3f9252f1ff078d158e1c7b",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/path-reconciliation.jsonl.gz",
+      "bytes": 3792,
+      "sha256": "402ff5ae6dafc8ede31f05a3a37f33b5eb3189605fade258fc2645be2876077c",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/payloads/family-0000.tar.gz.part0000",
+      "bytes": 375749,
+      "sha256": "1c11087aea96d6e5deec2ef2f05fbd1ad481bf906073f79765ca14946c0d1248",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/payloads/family-0001.tar.gz.part0000",
+      "bytes": 4990488,
+      "sha256": "086ed6f56443e1f3bf500946e426f8df932f6ce2c222334fccdf0703615ea8d9",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/payloads/family-0002.tar.gz.part0000",
+      "bytes": 323121,
+      "sha256": "602fa1f91ab83aec7800aef5a2df0d2025d9dce4e5a419afa40ec954580f95ae",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/payloads/family-0003.tar.gz.part0000",
+      "bytes": 51380224,
+      "sha256": "5e58253050adda812fd6b07daa761b6a59b9b880d0f44b6a530373fcf879875a",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/payloads/family-0003.tar.gz.part0001",
+      "bytes": 51087870,
+      "sha256": "baa8a23ad8c74232b8bf00389f0d6896a6b2e0da148e1c089d0c69685b162ed6",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/payloads/family-0004.tar.gz.part0000",
+      "bytes": 13716,
+      "sha256": "f366c5b3079457bb48739b9506a6c9d797e8025d04520b39827f573ca3346f08",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/payloads/raw-1d44a8d17cc2c5282a7d4f26a91a941c62a5ad8c7103193535006203b9435e01.part0000",
+      "bytes": 10122945,
+      "sha256": "1d44a8d17cc2c5282a7d4f26a91a941c62a5ad8c7103193535006203b9435e01",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/payloads/raw-c9de3b7880be532e581c11e4eb41dfb647e04a573f04ad411f982f89156802ea.part0000",
+      "bytes": 10122850,
+      "sha256": "c9de3b7880be532e581c11e4eb41dfb647e04a573f04ad411f982f89156802ea",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/pending.json",
+      "bytes": 248,
+      "sha256": "5db967ae83d28d1f4d0cee865718f7c69ff1604472fe889e2211f1d9509b1fe8",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/restoration-verification.json",
+      "bytes": 488,
+      "sha256": "6161afa6250b68e8aab6781f8170be7246824d483a6809cf7e6b906499433078",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-01/verification.json",
+      "bytes": 488,
+      "sha256": "6161afa6250b68e8aab6781f8170be7246824d483a6809cf7e6b906499433078",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-backed-ignore-receipt.json",
+      "bytes": 94364,
+      "sha256": "5d1f857f12f59604d98e805bc39e8db38298a376816072e984da4068a1c22fd4",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/transport-reuse.json",
+      "bytes": 3437,
+      "sha256": "81001d16351b3e22bd2ebdb4ab357af716cb1b46ef596b1be9f28ec0bf357a01",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-04/update_tracking.py",
+      "bytes": 12507,
+      "sha256": "d945bc236ddd8bde96a5261995fdd7f440d7eb826e05531fb3561ff0ed74e552",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 333781,
+      "sha256": "918e4b9aea294c8809a88e0fd2c9ba4223ce2539c3e702db1b8c4a14a69e0a10",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "bytes": 29092,
+      "sha256": "62bf1335ed7529b2d13d32e8810871f2e7e99bfc7ab7b6716d3b1360aca39805",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 267601,
+      "sha256": "81df9b254be28818201cbb6c56924ee06b1003fba4813a3852f27a8ef6838008",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/release_publication.ts",
+      "bytes": 32769,
+      "sha256": "dcd2a8074ad11c07a8eaa1e8ff6e79b8b12613eaac5ba3643963ec23c79f6827",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+      "bytes": 17895,
+      "sha256": "64bc7c2caa45bdee1253bba9facadde66895b355942c7c1935a78d123239470e",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "bytes": 24639,
+      "sha256": "11adb3aaca2ac86d958e0be16add53a1a456f99c80f1f1e171a5072e84c8dca6",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "bytes": 53790,
+      "sha256": "931c3998c103e932215eee4a952e4575db91a20a5e128187054ac62048479c28",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts",
+      "bytes": 18879,
+      "sha256": "2d656946734148a566c1d0e13144d531c410f7b928ae79a5ef5667bfc5871352",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "fea6ee264e48617f655c6dcb42938a667b60c2942ae7acaa473dc12acb8dbf44",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
+      "bytes": 31198,
+      "sha256": "af682bcb839229081b6e4a450c6cc1950181e2a84003b093e8ba1796a73f0f25",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2377071,
+      "sha256": "6cdebeef7bc67e054f53422254eaf5d852eb475c347244f694280f6a87c1915a",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+      "bytes": 60032,
+      "sha256": "4a96998044b26793a8d410b7808062eff8cead4b0246f8a84d5153ed8916ca04",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/witness-reprice-mechanics.mjs",
+      "bytes": 16432,
+      "sha256": "71289e1505b15c901b626dd23152ab628cc4a4c46e7392d7db1a8b6c97990ab6",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/d2-frame-installed.mjs",
+      "bytes": 53975,
+      "sha256": "08c4ca72b0690e6d89df16a061241de07b8c9ee3fcffcb973ceb651f5333e358",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/steel-consumer-declaration.test.mjs",
+      "bytes": 44310,
+      "sha256": "71959b3d17293326d52bd0e1b23a89e44794c3ee921103e94788ea80277c430a",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "bytes": 34025,
+      "sha256": "624db7065b54bdc32ec544c6ad28c4b8ad8a327b8a6289d779b29981f5a13fd2",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-requirement-handoff.test.mjs",
+      "bytes": 89899,
+      "sha256": "5eabc0cd384f2b4f39d0645072604e23db1eb2da09dd19e9fbbc1ec5373dee39",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "bytes": 68834,
+      "sha256": "c6538742c815fd3e660c0791a71134f0f34815ac3525defbcc422926727a1138",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "bytes": 37799,
+      "sha256": "6d0a1a0bc5af05898765677cffbcf9bf440eb0df74a3885130067a44eff8a8a7",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment-installed.mjs",
+      "bytes": 58943,
+      "sha256": "3f260993abdd7b5f50be2814ebe9e796a4c23f2c976ef59a64a14d9b4ea052b9",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-serial-branch-installed.test.mjs",
+      "bytes": 51977,
+      "sha256": "742758e5d2dfb1d4de38779571463408d6409c79b1544a062ba50e71223aac51",
+      "mode": 420
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-installed.test.mjs",
+      "bytes": 42407,
+      "sha256": "d3c894162e3f756f43a137faa9da0b73f500d860a8bcb5c4db9eb93ffc96e2a6",
+      "mode": 420
+    },
+    {
+      "path": "specification/GOALS.md",
+      "bytes": 54920,
+      "sha256": "6387e80980225bf1f77aa0155e6956745cbed638e96f9922342477a7b98a4d09",
+      "mode": 420
+    }
+  ],
+  "selfReferenceExclusions": [
+    "direct-file-identities.json",
+    "final-staged-check.json",
+    "final-staged-whitespace-check.txt"
+  ]
+}

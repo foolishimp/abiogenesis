@@ -349,7 +349,7 @@ export async function setupTestingInvocation({ packageRoot, scratch, inputRoot, 
         owner: { ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest } },
       ownerArtifact: { request: ownerRequest, verified: abiArtifact }, request,
       resourceScope: { resourcesDigest: hash(resources), authoritySlots: product.admissionAuthoritySlots(slots) },
-      boundEnvironment: packet.metadata.workspaceBindingRequirement === "forbidden" ? null : environment };
+      boundEnvironment: packet.metadata.workspaceBindingRequirement === "forbidden" ? null : product.admissionEnvironmentSelection(closeHandoff.prefix, slots.workspace_binding) };
     const authorityValue = { actorRef, authorityMode: "trusted_developer" }, approvalValue = { decision: "allow", actorRef,
       definitionRef: definition.definitionRef, definitionDigest: definition.definitionDigest, requestDigest: hash(request), scopeDigest: product.admissionAuthorityScope(basis).digest };
     const authority = { kind: "resolved_admission_authority", schemaVersion, actorRef, authorityMode: "trusted_developer",

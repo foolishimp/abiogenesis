@@ -216,6 +216,8 @@ export {
   RESOLVED_ADMISSION_AUTHORITY_SCHEMA,
   admissionAuthorityScope,
   admissionAuthoritySlots,
+  admissionEnvironmentSelection,
+  type AdmissionEnvironmentSelection,
   type AdmissionCapabilityData,
   type AdmissionCapabilityGrantConstructionBasis,
   type AdmissionAuthorityResource,

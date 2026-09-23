@@ -1,0 +1,2054 @@
+{
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/activation.json": {
+    "sha256": "060551c3324bc9246160c48696d33bf32abc772a05050040b55e099e2ec1ccc9",
+    "byteLength": 1156
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/caller-correspondence.json": {
+    "sha256": "1a2ca988a26140132176f3f8aafd21a9d0a1efb608f4aff18a20ce50451ef64d",
+    "byteLength": 1330
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/caller.patch": {
+    "sha256": "f3025eeffb1e6bf0e470814e762ca0767551504a98979dd2d5430d2c6bc4c413",
+    "byteLength": 1351
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-01.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-01.stdout": {
+    "sha256": "bd8eaaa33dd8b09c462e3c13f8f4817432705bc901d380b9b93931d75de16331",
+    "byteLength": 2772
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-02.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-02.stdout": {
+    "sha256": "5f6ef7b0d85ab75d06b32bb71b33f02c56c81fe47c753a7f6d5f3f2d4db82a5f",
+    "byteLength": 1848
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-final.json": {
+    "sha256": "f7d2a19c94f7b37c45254dfff020e073f406a3741ab2116af5b4f7dbf3781fe5",
+    "byteLength": 1049
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-final.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-final.stdout": {
+    "sha256": "e383c57a49729fbd5787909f2186bc328e36140e30a03f6268fe09dc1368814a",
+    "byteLength": 2441
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-held-01.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-held-01.stdout": {
+    "sha256": "d5c5c4d97c0189443840716a04cbe664158e159749abbcfcecd0f0053733423c",
+    "byteLength": 820
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-release-01.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-release-01.stdout": {
+    "sha256": "d742da6fb78b4292067c9674adeb66abdb95af28143d9c2cad399544faabcee3",
+    "byteLength": 1529
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-release-02.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/check-release-02.stdout": {
+    "sha256": "f2bb38fc3dbc7b226ce754e3571af70aecb4de70e8189f45a23620de1c8b4f1a",
+    "byteLength": 853
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/checks-summary.json": {
+    "sha256": "72ae531394db98e89035bfb1ef49d5abc04fd4fd021369e6d2ce42d040abc4f4",
+    "byteLength": 1513
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/cost-accounting.json": {
+    "sha256": "1b74b08b99fd00684018168573014bd56d40f218f7845d4cb14b2376b8051993",
+    "byteLength": 1205
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/delta.json": {
+    "sha256": "fffbb12872a558e95077408a595661ba57da413d366ef7aa8c8515d93e46a5d2",
+    "byteLength": 5029
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/noemit-01.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/noemit-01.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/noemit-02.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/noemit-02.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/code/src/abg/artifact_truth.ts": {
+    "sha256": "62bf1335ed7529b2d13d32e8810871f2e7e99bfc7ab7b6716d3b1360aca39805",
+    "byteLength": 29092
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/code/src/implementation/release_publication.ts": {
+    "sha256": "dcd2a8074ad11c07a8eaa1e8ff6e79b8b12613eaac5ba3643963ec23c79f6827",
+    "byteLength": 32769
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/code/src/product/admission_authority.ts": {
+    "sha256": "64bc7c2caa45bdee1253bba9facadde66895b355942c7c1935a78d123239470e",
+    "byteLength": 17895
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/code/src/product/index.ts": {
+    "sha256": "11adb3aaca2ac86d958e0be16add53a1a456f99c80f1f1e171a5072e84c8dca6",
+    "byteLength": 24639
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/code/src/product/invocation.ts": {
+    "sha256": "931c3998c103e932215eee4a952e4575db91a20a5e128187054ac62048479c28",
+    "byteLength": 53790
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/code/src/validator/conformance_definition_bindings.ts": {
+    "sha256": "2d656946734148a566c1d0e13144d531c410f7b928ae79a5ef5667bfc5871352",
+    "byteLength": 18879
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md": {
+    "sha256": "af682bcb839229081b6e4a450c6cc1950181e2a84003b093e8ba1796a73f0f25",
+    "byteLength": 31198
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/test_env/support/declared-testing-capability.mjs": {
+    "sha256": "4a96998044b26793a8d410b7808062eff8cead4b0246f8a84d5153ed8916ca04",
+    "byteLength": 60032
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/test_env/support/witness-reprice-mechanics.mjs": {
+    "sha256": "71289e1505b15c901b626dd23152ab628cc4a4c46e7392d7db1a8b6c97990ab6",
+    "byteLength": 16432
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/test_env/tests/d2-frame-installed.mjs": {
+    "sha256": "08c4ca72b0690e6d89df16a061241de07b8c9ee3fcffcb973ceb651f5333e358",
+    "byteLength": 53975
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/test_env/tests/steel-consumer-declaration.test.mjs": {
+    "sha256": "71959b3d17293326d52bd0e1b23a89e44794c3ee921103e94788ea80277c430a",
+    "byteLength": 44310
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/test_env/tests/t287-conformance-owner-reuse.test.mjs": {
+    "sha256": "624db7065b54bdc32ec544c6ad28c4b8ad8a327b8a6289d779b29981f5a13fd2",
+    "byteLength": 34025
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/test_env/tests/t287-d1-requirement-handoff.test.mjs": {
+    "sha256": "5eabc0cd384f2b4f39d0645072604e23db1eb2da09dd19e9fbbc1ec5373dee39",
+    "byteLength": 89899
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/test_env/tests/t287-d1-semantic-stage.test.mjs": {
+    "sha256": "c6538742c815fd3e660c0791a71134f0f34815ac3525defbcc422926727a1138",
+    "byteLength": 68834
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/test_env/tests/t287-stdo-run-environment-installed.mjs": {
+    "sha256": "3f260993abdd7b5f50be2814ebe9e796a4c23f2c976ef59a64a14d9b4ea052b9",
+    "byteLength": 58943
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/test_env/tests/w2-steel-serial-branch-installed.test.mjs": {
+    "sha256": "742758e5d2dfb1d4de38779571463408d6409c79b1544a062ba50e71223aac51",
+    "byteLength": 51977
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/postimage/test_env/tests/w2-steel-single-start-installed.test.mjs": {
+    "sha256": "d3c894162e3f756f43a137faa9da0b73f500d860a8bcb5c4db9eb93ffc96e2a6",
+    "byteLength": 42407
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/code/src/abg/artifact_truth.ts": {
+    "sha256": "0a611e49af617b7f6a7e27e04e3c0b99a67b76d6d7ae9d2c95b4bae4f2c7ff14",
+    "byteLength": 28758
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/code/src/implementation/release_publication.ts": {
+    "sha256": "2dbf2b31ac72a1bc7fe19291b0ffed8c4e3cd4ac7f3abb6eab45359d55a30a8c",
+    "byteLength": 32602
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/code/src/product/admission_authority.ts": {
+    "sha256": "2351fa7a7baf8c62aef44b8250649a00417b0bdfcb423bb28fdf1ea8e10b60d3",
+    "byteLength": 17580
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/code/src/product/index.ts": {
+    "sha256": "0e13ede30416eb58fee89ef6cc0c0c5563884165b9df73f208408ff14c5968fb",
+    "byteLength": 24568
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/code/src/product/invocation.ts": {
+    "sha256": "3aa809fedddd9873547a0f1a25b2438240298a5c8ec56593075017b5008a1d80",
+    "byteLength": 53641
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/code/src/validator/conformance_definition_bindings.ts": {
+    "sha256": "60b89b114380d0924a4e30d42d34e7bb379bd53fed7dbd2316d72656d5578fba",
+    "byteLength": 18853
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md": {
+    "sha256": "34ab2c85348d84938b0a9f4daab7cdf2d0890cf1f4097ffd5f94878b0ec91042",
+    "byteLength": 30215
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/test_env/support/declared-testing-capability.mjs": {
+    "sha256": "0c3c10e981703b93ffb1f3e5cadaa9a1aa8de1ca4e89fe6d7cfd2a5833cab6cc",
+    "byteLength": 59960
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/test_env/support/witness-reprice-mechanics.mjs": {
+    "sha256": "5eeeef1fa8b16024711e0bd52306caf5d83ce8474dbf908e7c9439612495afc4",
+    "byteLength": 16236
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/test_env/tests/d2-frame-installed.mjs": {
+    "sha256": "99bc11c8100c1249dc1ee0b5d420feba1796137eb3dae0437cb53064b4749c8a",
+    "byteLength": 53886
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/test_env/tests/steel-consumer-declaration.test.mjs": {
+    "sha256": "d5573a2bd8f0c33dcba23271ef7dbee52ff9ba3e3b0f2d700300cc3462196c2f",
+    "byteLength": 44221
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/test_env/tests/t287-conformance-owner-reuse.test.mjs": {
+    "sha256": "e6d1239db9b67a1377b5f5a5e233f3b90e5e0578a983d830beeb470101f4944a",
+    "byteLength": 23283
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/test_env/tests/t287-d1-requirement-handoff.test.mjs": {
+    "sha256": "61e70ae8ab3e9cb80982315a9f27f23f727f98916f8309b083940f3a47e2346f",
+    "byteLength": 89738
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/test_env/tests/t287-d1-semantic-stage.test.mjs": {
+    "sha256": "87c3de9feb5febb3de42e56acd6de1d5ab9e8d3e8f5ea56b62ba6256be0cd81f",
+    "byteLength": 68745
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/test_env/tests/t287-stdo-run-environment-installed.mjs": {
+    "sha256": "c56c8de84ebe24285a1ead4de38e9c1ea76d08b2bf6ee8e0b4d921898dfbff9e",
+    "byteLength": 58863
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/test_env/tests/w2-steel-serial-branch-installed.test.mjs": {
+    "sha256": "4ad2774a76f3735f93138be77c6d5e7c89f6aa13839ea9c6f60d1ded592cce72",
+    "byteLength": 51888
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/preimage/test_env/tests/w2-steel-single-start-installed.test.mjs": {
+    "sha256": "e241af9f1292eaee20abedd541cfb568eefe15e56d931035329d0c1f0dd5b6fb",
+    "byteLength": 42318
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/release-owner-conservation.json": {
+    "sha256": "3ae26c1a438116ebe322ecd46bd9a279b68f4dbb8d3cfca50a034b33f4c0d894",
+    "byteLength": 5039
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/representation-disposition.json": {
+    "sha256": "0f6168f1103f93fb47f0be1ec7dbe16465c0395bc292204bcf7e9ff3af6aefe3",
+    "byteLength": 1147
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/return.md": {
+    "sha256": "addd4bf45ffa7d4b4652d171421ada2fb376c4be207e0df78aa63dce34f2a8ed",
+    "byteLength": 6383
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/source.patch": {
+    "sha256": "98e5a927f9396b82286118d344ee46c77b76edfcdb9b6b4670462f3b105f99ee",
+    "byteLength": 78648
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/subject.json": {
+    "sha256": "fd60c7bbf361cd287c9d398c0f51afe28dfe7a74618031cf9741a4fee52257f0",
+    "byteLength": 9358
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/syntax.json": {
+    "sha256": "26d6001e0999bedb9dc821fe559112e45feb247408e23206b35a6659ab1023b3",
+    "byteLength": 2882
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/freeze.json": {
+    "sha256": "51b73ac339f427757278a76f9ea2e263d9721eaad1ee0aa967348547adc2f594",
+    "byteLength": 12468
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/accepted-current-authored.json": {
+    "sha256": "d2d7a112a9622b58ba642fe7a0aa6139981e99ead90fb7e44a13c70e0cd3a3e4",
+    "byteLength": 4407
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/activation.json": {
+    "sha256": "aa9124f4d59f4acb138e19c953cfe144d410725fadaee79c002de73c202aa3c5",
+    "byteLength": 1300
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/archive-members.json": {
+    "sha256": "dabd4cbd3536d40970283b3ef561701459d00db0228fd731e2b8b1c9a5627e13",
+    "byteLength": 928493
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz": {
+    "sha256": "c9de3b7880be532e581c11e4eb41dfb647e04a573f04ad411f982f89156802ea",
+    "byteLength": 10122850
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/authored-build-delta.json": {
+    "sha256": "261656685205157333628bb3a9b2a61598ccb9fb2f000269f6d1ed266c4d08ac",
+    "byteLength": 1899
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/bookkeeping-first-diagnostic.json": {
+    "sha256": "587f3483a071f070f75ecd96358fa31fa8fb20643d9150bb8a59ee3f6516b8e1",
+    "byteLength": 526
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/bootstrap-install.json": {
+    "sha256": "d92add6043ce8ad38dbfe319b534e6ca62ec36702893b21041489be32179eda3",
+    "byteLength": 639
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/bootstrap-install.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/bootstrap-install.stdout": {
+    "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+    "byteLength": 23
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/build-inputs.json": {
+    "sha256": "3c1e4b108bd9520d803148070d7b9dd26fad9ba344f2dac236bce2e2ec19ce4f",
+    "byteLength": 51758
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/build.json": {
+    "sha256": "1e26c49d5394dc9b69786e4be7412ab7424bce85902d4e0854355f7487ad15fc",
+    "byteLength": 506
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/build.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/build.stdout": {
+    "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+    "byteLength": 215
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/abg/artifact_truth.d.ts": {
+    "sha256": "ae3b7b2e03d433fe6f48631f378deb50c3216f4ec060c83d07a43fb440f14a29",
+    "byteLength": 4214
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/abg/artifact_truth.js": {
+    "sha256": "16a4d09efa3238188a71a61f0c9efeb4adf415ca241eaadbbc3feb7dbac0a89b",
+    "byteLength": 25833
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/abg/retry.js": {
+    "sha256": "c5e6d13e9718eb7d87b2a2102f2175fb473d9da62f022e9d274cf2af7f877a98",
+    "byteLength": 207568
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/implementation/release_publication.js": {
+    "sha256": "731cf53b84b19749ea051ca8065492cc729085705a84036ef3043671ad439f1e",
+    "byteLength": 33832
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/product/admission_authority.d.ts": {
+    "sha256": "ea54054c55b4ad903c980feb6c0ed628460f72fb326638530c7d78bc5e928fee",
+    "byteLength": 21220
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/product/admission_authority.js": {
+    "sha256": "0f0fb92a5b01b9727e90a4a0410cf2640fed43f131ce06183c5d129086473ee2",
+    "byteLength": 15984
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/product/index.d.ts": {
+    "sha256": "85ba3a62f22c0dca1982e2ab64bb1727efa25868415dd7c85f96b64b201f80c1",
+    "byteLength": 23645
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/product/index.js": {
+    "sha256": "eec3eb36c49d88af833ac00030a5466aa4e9f7ee8ff918a276c6fec506b23c78",
+    "byteLength": 12963
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/product/invocation.d.ts": {
+    "sha256": "b0b0893d9caa4417ef430c25aa9096321c417589a9760db51cb5e3eddb9facdb",
+    "byteLength": 12755
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/product/invocation.js": {
+    "sha256": "87d9d39bbf41e2569c2a0af9e1291ff13c5cdc13e5b3a94fe77f32259ddad4b6",
+    "byteLength": 42710
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/validator/conformance_definition_bindings.d.ts": {
+    "sha256": "065b1e95ae3f788dc7eb66d71971c72b94b42180629ede5e0743145430d2ea8f",
+    "byteLength": 5325
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/build/code/src/validator/conformance_definition_bindings.js": {
+    "sha256": "0f2c38ee073efef9b3906582fffa4e563d599224698c81cdf6f87b1ba3dadd9e",
+    "byteLength": 16054
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/contracts/capabilities/capability-definition-graph.json": {
+    "sha256": "849bf132b4d030a42d2c9e5d1602cc71c2cb0056842bced9c42ee6d8dbde843d",
+    "byteLength": 197474
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/changed-generated/product-toolchain-manifest.json": {
+    "sha256": "d635f5bc229ab9459f7743f2e74d4b428c27818c3651e4589c7b494b98206a21",
+    "byteLength": 2377071
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/check-inputs.json": {
+    "sha256": "82fa801ef2d2ff0b29abff7e3e7c0a2aa6ebcc5a5260d4a2aa963c61931a7e02",
+    "byteLength": 2153
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/check-plan.json": {
+    "sha256": "078077b4adb0c36bec32424f35b7150d44e9475ff357213cda0c02bb753c01d5",
+    "byteLength": 2825
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/compact-conformance.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/compact-conformance.stdout": {
+    "sha256": "a426748a714d56e51765aceea88e4741111ebd8e2d9ac16ed1f639228133c2b3",
+    "byteLength": 2901
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/compiled-checks.json": {
+    "sha256": "678eef0235b07dc2d9d4ffbe64c1817edfc62f23c92fc091a5706f8bb9073506",
+    "byteLength": 3291
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/compiled-test-binding.json": {
+    "sha256": "28754fa9714c3efe6d66ecb8aa5cf64ce89f34b53385e7a08d502ef1e1b12819",
+    "byteLength": 704
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/compiled-tests/t287-conformance-owner-reuse.test.mjs": {
+    "sha256": "71d337626beeda354795af8dbdaeff49efd62effcbd8afbac767c45bbcb152e5",
+    "byteLength": 34034
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/emitted-correspondence.json": {
+    "sha256": "6e0e3f9c51f0ec413565020881a870ed0f09e6b3a85a9a620520c067ce8188c9",
+    "byteLength": 5403
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/final-currentness.json": {
+    "sha256": "affc216b9d9f6dbff0bbeea6c63e125936772b8745a582a5f5268b95be0091d7",
+    "byteLength": 361
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/generated-after.json": {
+    "sha256": "b04228deec42bdf63d0986f395b5372e55d779fb2d244fa73a4ac5420134369e",
+    "byteLength": 189492
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/generated-before.json": {
+    "sha256": "4092031747470387b6115dcfa409dd1317f5bf9d231553e60d8718777d4c80d6",
+    "byteLength": 189492
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/generated-delta.json": {
+    "sha256": "af9e786ae6c244a93896c82699a7b34295eda2674eaf494bc27314572b9b6597",
+    "byteLength": 4397
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/generated-product.json": {
+    "sha256": "91608bb5a1d1a73fa916b23bf5e308430563f25a0da065e3daddc520d1e22779",
+    "byteLength": 668
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/grant-witness.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/grant-witness.stdout": {
+    "sha256": "5eb1c2e25de0fd2355e136d850eda758da76db1951f12ab94244dee4f03320cb",
+    "byteLength": 4769
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/installed-product-verification-timing.json": {
+    "sha256": "899be0e87b05a4b782827f1837327a604fdeba0123d6112527f102cd6887659a",
+    "byteLength": 169
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/installed-product-verification.json": {
+    "sha256": "a7fac8141c93814692bde58f1a6e84fba073b16e68ff75c297e97e27a9ca02a8",
+    "byteLength": 12091997
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/pack.json": {
+    "sha256": "3e8c9ea481bfe4b8fda7295461ede5b0105f8f51dff38070ff346fc5a2c08954",
+    "byteLength": 537
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/pack.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/pack.stdout": {
+    "sha256": "38a67d86c43b3aa0bab0165777d1dfb18c8e545a3c70c0227698d79bc091a47d",
+    "byteLength": 688611
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/package-correspondence.json": {
+    "sha256": "725721ba348a64953ff56f5137fedbf1fa1e658c48e860b22f6d5a0aae4decde",
+    "byteLength": 833
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/package-identity.json": {
+    "sha256": "2ac995eb60d7951310c1ce0dfb109a3e510711e68c496462b5eac90a8dffb662",
+    "byteLength": 582
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/package-once.py": {
+    "sha256": "417cce866ed9d833a6f540a127aaef4229a60494ea26a063be94b7f29e065a64",
+    "byteLength": 3092
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/predecessor-owner-conservation.json": {
+    "sha256": "ae71f92a29b003c6da323e2816e9c9ec7476fa35df7dccec5fa14ab133a7bc06",
+    "byteLength": 2867
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/product-verification-request.json": {
+    "sha256": "23514cb7a6ddf6ee90b4a2960f8c6a4547b4611bda9cea2af705e924ae5f94c8",
+    "byteLength": 858
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/qualification-acquisition.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/qualification-acquisition.stdout": {
+    "sha256": "d45e079f988f1a1251796a6bb086d775d35127ac5457cf35146a55cc161d6fb8",
+    "byteLength": 1466
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/retry-run-prefix.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/retry-run-prefix.stdout": {
+    "sha256": "e7881208989c2bbf8dd63d729bc28bc46543a981afdc787dc7fd9df7cbc5f7be",
+    "byteLength": 1029
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/return.md": {
+    "sha256": "33b4804ff5d377e05c9ef4ba852de93b040abf1ed0f9eb1ba6e3a62157809e16",
+    "byteLength": 5484
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/run-checks.py": {
+    "sha256": "5793dc162a3822e8d672af1c3914689134a80c0bf3622e9a2c7b570527fb2270",
+    "byteLength": 3318
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/selected-core.json": {
+    "sha256": "ae0a2452473b74c00433a2b54dcf4f120fa3bef36656ccecc6c93e6aa3d7aaf7",
+    "byteLength": 708
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/subject.json": {
+    "sha256": "4be20e24840a787e9c371ac8247f24d286330f2ebe9e391a4a276a95b2aad4aa",
+    "byteLength": 3637
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/verify-installed.mjs": {
+    "sha256": "078ccc4cfdc2b2208213443a08f1ef6b28e17405e3dfd92e64ce72bfa4cd19e0",
+    "byteLength": 2410
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/verify-installed.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/verify-installed.stdout": {
+    "sha256": "f789543350a513135eb4ae02f1744191c69c05083fb9da494c83d36397afd937",
+    "byteLength": 922
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/freeze.json": {
+    "sha256": "9dfa09ac20b13ca3835744ada66b65e13bb5ee24a5c3acba534df2abc055d5f8",
+    "byteLength": 10890
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/accepted-current-authored.json": {
+    "sha256": "d2d7a112a9622b58ba642fe7a0aa6139981e99ead90fb7e44a13c70e0cd3a3e4",
+    "byteLength": 4407
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/activation.json": {
+    "sha256": "0c2208b1fb42c7da1ac477bbe34c6c7f749cda7a3b9532814fb7edccae2558f8",
+    "byteLength": 973
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/archive-members.json": {
+    "sha256": "f4149aadb88115a3c8cbb941128daae8541fcdb8c192a38ae17f23f42f9d4945",
+    "byteLength": 928493
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz": {
+    "sha256": "1d44a8d17cc2c5282a7d4f26a91a941c62a5ad8c7103193535006203b9435e01",
+    "byteLength": 10122945
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/authored-build-delta.json": {
+    "sha256": "5d46cb8e1fb8beb0ec990f2f66c76d471ebcec9b1e756bab96718cee282fc670",
+    "byteLength": 422
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/bootstrap-install.json": {
+    "sha256": "45d0da0a85097a66a0ab016e9b03ed7ab5463feeac1911b5ec202c3dabb8be91",
+    "byteLength": 640
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/bootstrap-install.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/bootstrap-install.stdout": {
+    "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+    "byteLength": 23
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/build-inputs.json": {
+    "sha256": "e19eb3a26bea28d245d9daf6cc601f1a0433cbd218c195230f1834925b6a8498",
+    "byteLength": 51758
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/build.json": {
+    "sha256": "56a868a43f4991c6d58e5799e152d9268060512a0de4a4b2133d6920c3e5e690",
+    "byteLength": 418
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/build.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/build.stdout": {
+    "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+    "byteLength": 215
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/changed-generated/build/code/src/abg/c_call.js": {
+    "sha256": "9f87807f91b1382cb8aa44206474f7f13eed18411c7760522735567790a35089",
+    "byteLength": 232426
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/changed-generated/contracts/capabilities/capability-definition-graph.json": {
+    "sha256": "fea6ee264e48617f655c6dcb42938a667b60c2942ae7acaa473dc12acb8dbf44",
+    "byteLength": 197474
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/changed-generated/product-toolchain-manifest.json": {
+    "sha256": "6cdebeef7bc67e054f53422254eaf5d852eb475c347244f694280f6a87c1915a",
+    "byteLength": 2377071
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/check-inputs.json": {
+    "sha256": "83c64cbded89a4730d189ac89066077eada5e487c57e73d93569fc1335b49d6c",
+    "byteLength": 221
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/compiled-checks.json": {
+    "sha256": "0ee96341f221c0fd47a93db6ccc2ab579f476ee17367045f674ad7dbccf376eb",
+    "byteLength": 473
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/compiled-checks.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/compiled-checks.stdout": {
+    "sha256": "8535266998f4666410dd7662a6d22d79e850d51c4d385a92b6c7adb4889f134f",
+    "byteLength": 430
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/emitted-correspondence.json": {
+    "sha256": "9b94524bb9e333a233e28c02404fa38776c74f2ebb93c1a392534e78acb4d6bb",
+    "byteLength": 349
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/final-currentness.json": {
+    "sha256": "956ed6104b69c4043490d76709741a3afd7b711d6c259c959b9b687e830ca216",
+    "byteLength": 378
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/generated-after.json": {
+    "sha256": "9d5095bf2e21d7de1596276969f5ea9454be6a2f4a782b18bc25a81674c911a7",
+    "byteLength": 189492
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/generated-before.json": {
+    "sha256": "b04228deec42bdf63d0986f395b5372e55d779fb2d244fa73a4ac5420134369e",
+    "byteLength": 189492
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/generated-delta.json": {
+    "sha256": "25dab1f6d35382d35a74d1053a183250b60a17537c2d5be3ee879105bbc59a76",
+    "byteLength": 1358
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/generated-product.json": {
+    "sha256": "07453e72765a2de0ef736593b802f2ef7376bd5828a4f90bd9733ce861825aa8",
+    "byteLength": 1679
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/pack.json": {
+    "sha256": "9f526dfc0388b7f9530ea8c24671c3d854810f325538e872b330bc935b348806",
+    "byteLength": 538
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/pack.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/pack.stdout": {
+    "sha256": "605c59909396a7ab2917f812c7393c493a0af3436d3e988db81f2793e2c93ee1",
+    "byteLength": 688611
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/package-correspondence.json": {
+    "sha256": "23b88b8d4a049c726e0ff1f02f8dce728aa21c12034daaf612683e33e7eef925",
+    "byteLength": 833
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/package-delta.json": {
+    "sha256": "9b5a9d68b06392f2bcd6ae857d7d3298e609ed9ec7248600e2aa32492b62381d",
+    "byteLength": 1416
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/package-identity.json": {
+    "sha256": "76eed4e7b0992328701a35337813f09155448cda2a222f484ee775e5b501c028",
+    "byteLength": 582
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/package-once.py": {
+    "sha256": "f00b1c867fbbbecf05a6d94f37b81a7d6b004cd768f3334f1cd94a65a72cdafd",
+    "byteLength": 3085
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/product-verification-request.json": {
+    "sha256": "b709aa87c089c48d495629ba61ff65b87f371e6b6ad0668e53b0c637cd2887e4",
+    "byteLength": 1022
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/product-verification-result.json": {
+    "sha256": "50c438bdbee452bbc6dc2b5a82ea376a850637ee111db32025b7bffa45427e87",
+    "byteLength": 12489648
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/product-verification-timing.json": {
+    "sha256": "71cbf48a76cdaae4759feb98e3239e5c3d2e48cf5b6a5e398b41eb62e6a8f87a",
+    "byteLength": 289
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/return.md": {
+    "sha256": "50d53f707aac52ec766781d81d2de3681a1e088788996cc77fcde3e494a49d5d",
+    "byteLength": 4608
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/selected-core.json": {
+    "sha256": "6f9fcf9053108fda7292c6428728ae4cedd5674935d89ddd3029e7d80101e037",
+    "byteLength": 708
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/subject.json": {
+    "sha256": "4a385b434bed61512f381666ec7adfcfdb8ff5a44a9e7909cb582aa43b7b1125",
+    "byteLength": 2007
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/verify-installed.mjs": {
+    "sha256": "8406729991b23bc749f1dc4476c46d03d3fe91242946769f125f278101075f17",
+    "byteLength": 2725
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/verify-installed.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/verify-installed.stdout": {
+    "sha256": "b0c60afcc67f949135a47969be5572f04b541068d3752e899e134f8c2c212bd4",
+    "byteLength": 922
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/freeze.json": {
+    "sha256": "d631a352c9ad834792833c21c3ae69a6d67e21f957b70939f4406abcc0336db6",
+    "byteLength": 6881
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/abg-goals.patch": {
+    "sha256": "6f01f75c6353eaf5c0b8d91afb79911eab9bc3387f8c581ee70d5730f0cf02d8",
+    "byteLength": 10927
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/activation.json": {
+    "sha256": "5ff76fd1b4dc861925512c420346c985a59b6d45d892adc967933eebc734611d",
+    "byteLength": 1820
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/checks.json": {
+    "sha256": "6c1f3b86331d506258a73486f54fc14a0f1712c2514c8ca328171c21aff354c2",
+    "byteLength": 414
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/delta.json": {
+    "sha256": "a8c82675c02e93fe20c5259e6ae6e365f5645e9cf273eb08faa733fb6b1afe3f",
+    "byteLength": 1529
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/glc-goals.patch": {
+    "sha256": "e72d5721a6c104b27c51a4954db809b3a81052b8c0f82dfc9ab7cf5f08d176fc",
+    "byteLength": 6362
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/postimages/abg-goals.md": {
+    "sha256": "a195e8c729dce155303ca13229076cb4b8b567f02fc5ad9ee17e5d586dcf9c0d",
+    "byteLength": 55339
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/postimages/glc-goals.md": {
+    "sha256": "58eb046b3903c0a233e42a1bd0b48802a14d61f8d2f5be0440813db1fd50d4db",
+    "byteLength": 14559
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/postimages/t043.md": {
+    "sha256": "51f69dfaa3ebd937a10ff67b116fd233666e8acf0ea7e2c134a598d08de4a7e9",
+    "byteLength": 51025
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/postimages/t287.md": {
+    "sha256": "80760d40885ad54a1e665405cdd41efaabdcefaa919b4d9fd19fb7985e67fa50",
+    "byteLength": 334099
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/preimages/abg-goals.md": {
+    "sha256": "890fc31814459ee27000de7d291a1c06ee981970d6cab0e012a472c1b55c0be6",
+    "byteLength": 58325
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/preimages/glc-goals.md": {
+    "sha256": "8306e83bd5cea1bd055034cb0d59eb3615b46f7ae7331531cbad33c2614e92f9",
+    "byteLength": 15695
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/preimages/t043.md": {
+    "sha256": "2701b7721e9d623fb516de128f1c7bfbde8ca688c894118550d06f1434ce1cb1",
+    "byteLength": 53858
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/preimages/t287.md": {
+    "sha256": "7790810cc6cf91b09574cc783b7b72e869d830238ef578ffac7fa0af628defc5",
+    "byteLength": 335944
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/return.md": {
+    "sha256": "a9ca16cda7a02e0022c3bb9bfc1f5f465c5e7eb95eac89c9af0cadae148eefed",
+    "byteLength": 1780
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/source-records.json": {
+    "sha256": "6b866bf17d3df99f4c185410a78caa6155b7b8156d23d54e65ebd143e6f5c7b2",
+    "byteLength": 1416
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/subject.json": {
+    "sha256": "db6bba65418af1918a68383a1405699b48db44856fa121db22d67fd5fd631792",
+    "byteLength": 2216
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/t043.patch": {
+    "sha256": "bd23334ffd9c176694ae4298c16316dfe816d29163b13b3b3b7667da45c8a4c3",
+    "byteLength": 9334
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/t287.patch": {
+    "sha256": "54e4eb22738c58c77e92d2db7be1851108bc19b10138b1d30f5392017ca6b43f",
+    "byteLength": 41571
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/write-status.py": {
+    "sha256": "1afe7e43cfe16dcc52138c5f2843a261e97d5e3912c8548ae49ccbc2f33793ef",
+    "byteLength": 18811
+  },
+  ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/freeze.json": {
+    "sha256": "541535616986dbcbb34d2280f7b1012b5000fa94ce94c2b9a7f738bdd1458b0f",
+    "byteLength": 3054
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/activation.json": {
+    "sha256": "954289306900459bcac1f2331985cc1c49f4a704a94d3000a028184d3c59bdac",
+    "byteLength": 606
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/caller.mjs": {
+    "sha256": "77fa33e6cfca7895f708b320d24bf4c00201218c540f3c484f967008c7676d27",
+    "byteLength": 14604
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/caller.patch": {
+    "sha256": "8a25d9bcb9c7c1a33237694c322dc20c3c68c611370e00f1395fba2c30710368",
+    "byteLength": 8852
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/campaign.mjs": {
+    "sha256": "c5b8a97a15201afb55771b735654ef87ad648a1bbcaaa21de7bdccfa66f84c06",
+    "byteLength": 7386
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/case.json": {
+    "sha256": "20d14d5c1944185c8d209e9493b99ce4d2f2867e0229d1df6f3f1405a3067553",
+    "byteLength": 614
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/check-shape.mjs": {
+    "sha256": "f2db60be310ac0803b103188aec8200945e71c3465ae964b9b617c551762913d",
+    "byteLength": 3003
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/configuration.bound.json": {
+    "sha256": "552fc8b2687aea1f78b27f09bb37a8373c1b8bc24d1c189d95c1e9b2454fc4c4",
+    "byteLength": 3736
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/configuration.pending.json": {
+    "sha256": "aaa9d9ac54e10da41e9472c6ea2a98ffd7dc7a00267617d8e9970551e44e8574",
+    "byteLength": 1897
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/continued-retry-recovery-driver-result.json": {
+    "sha256": "e816f6a0037d00b65647ade917804a56d8825339237636dd38562f7e8b57b64e",
+    "byteLength": 178
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/continued-retry-recovery-driver-start.json": {
+    "sha256": "839f03ddd1dd3d6171a85a8ce8085481a968a2aea26b7472e8b969ad20f1bfe2",
+    "byteLength": 550
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/continued-retry-recovery-driver-stderr.log": {
+    "sha256": "e7223a94abf0ed1d25d455732c80b79e9493c9d7115874aac99b483445ee1a28",
+    "byteLength": 868
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/continued-retry-recovery-driver-stdout.jsonl": {
+    "sha256": "543559bdfd02c245ed28b5e397ddbd910e0b0bb2fcd3f07d293074817c1442ac",
+    "byteLength": 1825
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/continued-retry-recovery-driver-usage.json": {
+    "sha256": "c746a3ceddee250be8c9f19fa46852e916f778e31c24ae5b58b3add73b744f63",
+    "byteLength": 588
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/CONTINUATION-05-STOP.json": {
+    "sha256": "21317504461c7cd39405abb03833ca15c30e3c4f4538fdef16f9133d757ed431",
+    "byteLength": 48690
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/bootstrap-core-timing.json": {
+    "sha256": "4f3296784e5010d495394044b3a24bfa65d8ea22f2f7bca5999539f16f5013f4",
+    "byteLength": 37
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/bootstrap-core.json": {
+    "sha256": "24ec89f2ca2db06af0ca1e2863ab8405c9c28b97758426c10586fc7c81efe61f",
+    "byteLength": 12489648
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/bootstrap-mini.json": {
+    "sha256": "10213d2edf73f1f0a453c8bde5ce9359747a2476410391bb179e57da573d52b4",
+    "byteLength": 11705
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/config.json": {
+    "sha256": "731ac1eaf8eacd00e7ea51b4c3ed8d5869f39eca87fbac8c9752cff14cffb3ed",
+    "byteLength": 3998
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-catalog-view-handoff.json": {
+    "sha256": "90a909aeafb2b34d6dab095c5fca21e2bfdd5018bb85aa4102747c5f0be14f93",
+    "byteLength": 2223
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-catalog-view-native-process.json": {
+    "sha256": "0c6af6caa0e3c04d82cfce67109e50917bedf05c657cab23a19e7e8eaa8a452e",
+    "byteLength": 676
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-catalog-view-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-catalog-view-stdout.json": {
+    "sha256": "de4d254d0950888e121afd65f85cefab80f71d228c4a7e4c8273d45fed1307a2",
+    "byteLength": 1275
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-catalog-view-timing.json": {
+    "sha256": "ae0bea5c214c550bed8d50ec737cb2736300f6a9b83ce0547892acfe419ec0b7",
+    "byteLength": 280
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-catalog-view.jsonl": {
+    "sha256": "b9f5b4be9a33f9869b9a7096f876189b91dfd5c117c87b27a4176107865ab5f6",
+    "byteLength": 28132513
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-conformance-handoff.json": {
+    "sha256": "04d8e5dfbf7e21608a13b10a71bb817fda01559454123cc37cd60a9b5934272d",
+    "byteLength": 1851
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-conformance-native-process.json": {
+    "sha256": "106a0d53c13bfc34ec88bb88cbe11e6e574d31ef78860c37839254d2833ffd7d",
+    "byteLength": 663
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-conformance-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-conformance-stdout.json": {
+    "sha256": "6ef7f97f9a5a7711053f4244c64f3333eaacd6cc6113c615f737e91233dc6e00",
+    "byteLength": 17703404
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-conformance-timing.json": {
+    "sha256": "dfc55226fc6632d17222fc00ee274afae41fb88c6ab2a131c52fc5b75116e029",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-conformance.jsonl": {
+    "sha256": "3a99512599c9f3426fd029b75828ac4c233d509935c04b84a2227b5c53dd257d",
+    "byteLength": 28730373
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-construction-basis.json": {
+    "sha256": "0e16f4540df8158732f70177a4933f4311aaebc8682fc5aab5cab8133c182f8b",
+    "byteLength": 11302983
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fixture-count.txt": {
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+    "byteLength": 1
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_replay-handoff.json": {
+    "sha256": "c951b42df1a637c1e5886ad38de2a8c55ab32da1d15a54fac15c39ae63795099",
+    "byteLength": 3861
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_replay-native-process.json": {
+    "sha256": "bee73d725ebeada2335360574be2c64125cba0986c4bd0be051ba59ece3d25e2",
+    "byteLength": 667
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_replay-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_replay-stdout.json": {
+    "sha256": "aa052aa96f5f1e561fdd287f2e1d1a88b2134d89f4d7d7704c103492e2bf2318",
+    "byteLength": 3593
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_replay-timing.json": {
+    "sha256": "e8226d260430537ec1ae2665dfdbdeef55d628309f3707fc6cbc73ddc73d28d8",
+    "byteLength": 285
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_replay.jsonl": {
+    "sha256": "2ef63b37c38bfa616f00870c4780a76a7ee3c115f48b876dbee6d797874df453",
+    "byteLength": 10186
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_result-handoff.json": {
+    "sha256": "d2005136d73759079f2995be3e134f8365ce7ff053af43ebfcc3f596f07cf832",
+    "byteLength": 3478
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_result-native-process.json": {
+    "sha256": "6667d5a07421cb7f3b2187bbfdfb192d4a02e5efee5778365d068c959d093fc2",
+    "byteLength": 667
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_result-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_result-stdout.json": {
+    "sha256": "49cec4cbd1192196e73f2b185ddbb301626f055d075eefa126dccbb96e6920e0",
+    "byteLength": 2657
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_result-timing.json": {
+    "sha256": "afb88c8f09818d3bd6da906f193da13415c4228a573a5a8dbd7a7e0a64c44df0",
+    "byteLength": 384
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_result.jsonl": {
+    "sha256": "50f2eb3fea42fa3952d18a4913b3d73c3f93786157234bafabea8a4db2e739d1",
+    "byteLength": 10149
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_status-handoff.json": {
+    "sha256": "0a95899faf2661864578d4cb7cb5fe7b61112938ee06bff8facb7713b6227ddf",
+    "byteLength": 2971
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_status-native-process.json": {
+    "sha256": "09723d836ae8570bd68914f187d9435d2741931c15b222d21f13e1ca6b0947cb",
+    "byteLength": 667
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_status-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_status-stdout.json": {
+    "sha256": "57a52d0a3db3e51b7884a1bf3a728503022444c12ddcc63f822e52d131e3b3f9",
+    "byteLength": 13922
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_status-timing.json": {
+    "sha256": "6be7d1cb36dc8fafbaf37d4b0edc3de13c4fad44d7d5208c0f0657d45632f7c2",
+    "byteLength": 286
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-fresh-run_status.jsonl": {
+    "sha256": "0197be881823fb26b1174772d23b075b0e752ae0dce406109608b57a74d95239",
+    "byteLength": 10149
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-input.json": {
+    "sha256": "0ad374503556712c6d82ee228a5ff5918d0b87936801eb016b452a54a2f672eb",
+    "byteLength": 671
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-root-handoff.json": {
+    "sha256": "16a3f173ada72c5e3755db2937a760e8e9316b4c448b25af486723d2971965e5",
+    "byteLength": 2587
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-root-native-process.json": {
+    "sha256": "2fe95cfcbddbef25e7b2864a5be9798f626cd135b83e23489bd1e8c2f18f527c",
+    "byteLength": 655
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-root-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-root-stdout.json": {
+    "sha256": "036a9ab685ec5fb0a4acfc6fcf6116a5d2273c866310ad094a50fbd851c2fc6a",
+    "byteLength": 12653
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-root-timing.json": {
+    "sha256": "2ec2ac16f1e84ef4955f2b52dc6e477c0ba95169b6d0bc5ab6a5ea87dbffa868",
+    "byteLength": 285
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-root.jsonl": {
+    "sha256": "c28ba54adb424bb60715d59778c469d4208d4b6e8ccf695045b7e157b466c3c0",
+    "byteLength": 17130639
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/continued-retry-recovery-selection.json": {
+    "sha256": "c4455fec95d52f838800e8b186d652ef83420e1c5ad681bc4bdeefeb6d49a56f",
+    "byteLength": 2222
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/mini-verification-reuse.json": {
+    "sha256": "bd2a8d7b76d0e47bba78405980057ca7731520d2bbb7091c96f94f752b988345",
+    "byteLength": 608
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/publication-inputs.json": {
+    "sha256": "360d13a85095f22940e3883be0f71c10dc8aeb9b77f7e0e512cbecbd5d4b9203",
+    "byteLength": 13082617
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/retained-context.json": {
+    "sha256": "1669faa4d7add08c0666accc991325bc0614cf762816f4f34870d107e1e3189e",
+    "byteLength": 4707
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-bind-handoff.json": {
+    "sha256": "56e3dba0188b2609815abb5c44aba5e41b8591e837b22948173d91acefcabf80",
+    "byteLength": 3343
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-bind-native-process.json": {
+    "sha256": "4d6486e535c92f5fd148efe96c8c32307c02a92f61e731b3572a22ee50f41918",
+    "byteLength": 649
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-bind-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-bind-stdout.json": {
+    "sha256": "cdb8a0bd91ad2de2727d8bb69a69a50414f88d6f6c8262b76c1dfcb59abc583a",
+    "byteLength": 6226
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-bind-timing.json": {
+    "sha256": "5ead8ef6278eb6118559ad0ea6926d53e1bd0510ef822073218a92b5dd6db4b5",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-bind.jsonl": {
+    "sha256": "4a6201b247505e5ea5fcc9d11618b3a36ed5589789d011e33a460337f79b8f5a",
+    "byteLength": 15621762
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog-handoff.json": {
+    "sha256": "1a4f5c15a445a3ed97aba1efca44b696b5be14759b4de134f480fca642a9979e",
+    "byteLength": 3714
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog-native-process.json": {
+    "sha256": "e1ea8b96288fe362104a2534b4ea3a787514ebe8aacfe33ad4dff92c577e3071",
+    "byteLength": 641
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog-stdout.json": {
+    "sha256": "6b1f86c3e44efe8c55eb3e37a95ce297d24620af16235bdfb357f66661fb61f9",
+    "byteLength": 182120
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog-timing.json": {
+    "sha256": "334581652ffc51de564bb7ac0683e1f8d0e9a46ff71bebc83d97b5c0a6c97eca",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog-view-handoff.json": {
+    "sha256": "eed322b4fcf9a64cbdbb09a5c6724e22273a55dcb53043e787210e31037dd7fd",
+    "byteLength": 4093
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog-view-native-process.json": {
+    "sha256": "fa18e59184a012442367ee7080513f320484003703eb8fa6059af29d425f4abb",
+    "byteLength": 647
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog-view-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog-view-stdout.json": {
+    "sha256": "eb2c05add65e1497b60af3cf16de8a08a54fa0a34386a012fa84139469cf55a8",
+    "byteLength": 1275
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog-view-timing.json": {
+    "sha256": "ba6554ae9531a4421ce2172773ac853f0063cfe6f64cc96d59751b6bfc9292b1",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog-view.jsonl": {
+    "sha256": "db526c7fbba93950479275a5c2b91fc73b4a9de7d3428a00aa23111488f8c18a",
+    "byteLength": 28132437
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-catalog.jsonl": {
+    "sha256": "2565ad47d73ec5f2fa10a23bea395d3e6ef1c7eb037e9032fa367a8f05a3b144",
+    "byteLength": 27100176
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-core-handoff.json": {
+    "sha256": "45fa37d2544fac0d0924a178eb318ecc863f9cc118d54404cc63a27b20761c9b",
+    "byteLength": 2595
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-core-native-process.json": {
+    "sha256": "593b543a387c981eefc4031ba3cd3cf0304d801b219a14f9a144f2f1e96983d1",
+    "byteLength": 646
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-core-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-core-stdout.json": {
+    "sha256": "0ee1888a0e646fab6fd637a418bb3dc927f59b371072a6fd3b506c39d08d8078",
+    "byteLength": 5732
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-core-timing.json": {
+    "sha256": "0662bcff658f625b39ea6d657d59db6768a38204a864ffe4efa7aeedfb47f825",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-core.jsonl": {
+    "sha256": "474236acebe7d5ce2dbc4382463ff530ea653d3fe28886bf5e7617276aed68cb",
+    "byteLength": 24331729
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-mini-handoff.json": {
+    "sha256": "c0aed693b01b845636b428d86f7140558bbf64990b1016f376de9941c2362cec",
+    "byteLength": 2975
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-mini-native-process.json": {
+    "sha256": "9d9ab4bffc16dd483be2bd0eb69004c75a1f1fda00600c74c86380479492d311",
+    "byteLength": 647
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-mini-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-mini-stdout.json": {
+    "sha256": "46f3bf40c7ddc9ff88318965f62fa604170b1f1c1c7ceee23fc29524e9739fa1",
+    "byteLength": 5677
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-mini-timing.json": {
+    "sha256": "c07360e37c55b10ca0d88f14f461bff812f0aa6d9be634f486a1301dc186f352",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-install-mini.jsonl": {
+    "sha256": "e2dcbde38d4a5e28918752bc68fe5ad07204a37ca4e1050bfab918d7dfef3f3b",
+    "byteLength": 13330587
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-protected.json": {
+    "sha256": "7e37db12cd480af287bc71019636a17f731ccb5a094a3ae7a5d048d71b890f76",
+    "byteLength": 1030
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-resolve-handoff.json": {
+    "sha256": "8dbff418386af950e0d723f1ef9c1d7c549c5dc16764bd0cf2a085decb196aac",
+    "byteLength": 2215
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-resolve-native-process.json": {
+    "sha256": "c8a4670182a202abdddfaaec103bd1328d5cd1824839e14e7d40afda618213b6",
+    "byteLength": 640
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-resolve-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-resolve-stdout.json": {
+    "sha256": "665d97db3ee9d4dca3dddf2eaef7f8878634ace072aca96d23f5a4e90c856b4f",
+    "byteLength": 3952
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-resolve-timing.json": {
+    "sha256": "467cad17c31e05752d7afc5092136f7da4b81b204b4c2b3f8d53f7e347e2e8e7",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-resolve.jsonl": {
+    "sha256": "b7bb493df1da7f0558d5d1b916e04950094357574c7092110e0e3be388bbabfe",
+    "byteLength": 22189861
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-state.json": {
+    "sha256": "96ab160caf26ca4984b08c4f5b832a9f45ad7e7c25399ecb958d61ec945da2d6",
+    "byteLength": 84969115
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-verify-core-handoff.json": {
+    "sha256": "291d7d85920dab142bfffac5f00d543e4e1c28d377192b1b3cf77a3a56faf15a",
+    "byteLength": 1840
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-verify-core-native-process.json": {
+    "sha256": "e41b360e69059ad7236fafcea4e4db069bf3f738e8541c3237ed8f18a0491e1c",
+    "byteLength": 645
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-verify-core-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-verify-core-stdout.json": {
+    "sha256": "3162c0515c98c8fd6a261c4cc20339ca1b95eb72ac890a349e2c515f2d811f64",
+    "byteLength": 146548
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-verify-core-timing.json": {
+    "sha256": "682aca3cc6b15070bbf518a0ae3e94361631137af3a73ed8be600b8e99434f98",
+    "byteLength": 281
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/episode-01/setup-verify-core.jsonl": {
+    "sha256": "5f275d3cf3a24c1d23bc7fc827ae71481d6dc44320145e37d4b92a299a63c231",
+    "byteLength": 11024620
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/actual-new-append-suffix.jsonl": {
+    "sha256": "8036522b7ba03c6377eed5b85f8f2b0a3306c9b5e63c4fd9d2f5b6d34b5b0c9b",
+    "byteLength": 2476824
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/actual-run-suffix.jsonl": {
+    "sha256": "83e1a6ef45fa59bf4f2ef89bacc6d0fbd359251c7f641f94d613e04dce777d34",
+    "byteLength": 171359
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/bookkeeping-diagnostic.json": {
+    "sha256": "6368607549397eb0380e4cd33e6e572db5f2e1e45fa1fb2f1f40c431e41c374e",
+    "byteLength": 359
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/candidate-runtime-binding.json": {
+    "sha256": "17ede81a27613271d4a5512a04fc3b12aa6042d2e9a4d73e3da6e558f9623801",
+    "byteLength": 6034
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/causal-discriminator.json": {
+    "sha256": "b1e9b241842be26e6c8fd27c267654e0ea07231794d9fcbd636a7088145bfd3a",
+    "byteLength": 43988
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/first-cause-events.json": {
+    "sha256": "c40ef62e24b591040d92be5ea933924f82fe73ae076210f9c2453ac225803368",
+    "byteLength": 25816
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/protected-post.json": {
+    "sha256": "7e37db12cd480af287bc71019636a17f731ccb5a094a3ae7a5d048d71b890f76",
+    "byteLength": 1030
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/readback-agreement.json": {
+    "sha256": "60a04b7b2b48350a51688c7787f6d5d3cd98cd62109504c095eefd331470d8c8",
+    "byteLength": 1326
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/resource-closure.json": {
+    "sha256": "10150b0104fd13726a39f7061f8307556a294fd090a98cf7b861724aee82ff1e",
+    "byteLength": 2294
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/return.md": {
+    "sha256": "e406eabbc8027134dc1ab113bbd430ac592c7d674f033abf4194f36844455ca7",
+    "byteLength": 4962
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/timing-size-cost.json": {
+    "sha256": "c1081c7404e54db35f9cd563b7cf98cdee66cf743c14d98985688de02a3c19f2",
+    "byteLength": 10773
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-selection.json": {
+    "sha256": "63e565570e068f4426374228b5a2b2824cc6ae54ec7362e3a13e0a39746e9871",
+    "byteLength": 2598
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/freeze.json": {
+    "sha256": "2d7cf8301a4f8dc1cc3ba1367758367ad5f36b7d835851197a6163e3a28f4d96",
+    "byteLength": 2362
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/initial-physical-state.json": {
+    "sha256": "7cfcd1fcfce86c06ea6357a8aa140ec992cc90e4822a47c497b4f6c8fffcbc76",
+    "byteLength": 2072
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/observe-continuation.py": {
+    "sha256": "2e9fba117bb6324f5d5cbe0dbf04ac5b0c97407bf0d8a9d89a1e46ddc5ca9d98",
+    "byteLength": 2533
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/readiness.json": {
+    "sha256": "2de76702ac30699c11c847d522df0639b37a3c8f6851f3ab44d6fcdd9fec7a7c",
+    "byteLength": 7175
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/retained-inputs.json": {
+    "sha256": "2174685ec34ef9aa201d78c6e244fb285e45cf93f41bd4630bfcc56ff26fb4b8",
+    "byteLength": 5919
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/return.md": {
+    "sha256": "abd45c3ab6a7bf0f3250fe73776975162d4a4a8eb1753ca6b3c5c6eff6adfc63",
+    "byteLength": 3000
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/selected-installed-members.json": {
+    "sha256": "ef2f0a2217a749bc05a307d04f36a06dd557512393dbd36470a3a9d73a8925ab",
+    "byteLength": 981322
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/setup-driver-result.json": {
+    "sha256": "7486d24e700d52c06428f351374dfa1ad5476e2148de189642c20927108e0e8e",
+    "byteLength": 176
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/setup-driver-start.json": {
+    "sha256": "e4b8ab9511ab3c00bf35a4d42ff1582f72c06c7d476707a5c25c039adbcffab3",
+    "byteLength": 551
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/setup-driver-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/setup-driver-stdout.jsonl": {
+    "sha256": "aa642ace7f2b686cf5a1a7e8ae04c784a336d7116a16df4a91acd5d02b398d2c",
+    "byteLength": 2716
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/setup-driver-usage.json": {
+    "sha256": "ab5e6f81e1e8259c65d648846eeac2dc110d9a7c722de2a51b711aa015a7a750",
+    "byteLength": 581
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/setup.mjs": {
+    "sha256": "185d21a75912e380ad7027db133b515085fda4d2ae2fe225a999a0bd3ab557bd",
+    "byteLength": 10821
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/setup.patch": {
+    "sha256": "f8ef9cad896b604707dbc50bde37623ad272cd59190666dcd659efddd056d387",
+    "byteLength": 11511
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/freeze.json": {
+    "sha256": "7cfbda8a4fd359ab10acd16fe91e5856bc7b7222ca14916bace3f303b274adec",
+    "byteLength": 24096
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/activation.json": {
+    "sha256": "c1e6ee553da5d62674d0a417defc2b9c7aa1baec0dfd6eb3f42df0e878caba00",
+    "byteLength": 477
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/c_call.ts.patch": {
+    "sha256": "47685afb713eedfab85d6bbfc50d98e4970f48a1930bef0e1ed2d14e22cda3f9",
+    "byteLength": 922
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/checks.json": {
+    "sha256": "3d76574a36ba4ea9846f6628ce420ce1125872bfa42aeea75b995bfda041e6f4",
+    "byteLength": 2534
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/current-02.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/current-02.stdout": {
+    "sha256": "1588adffdb6ea3636a263053bdd2d6a91ad3329026c7acefd4a42279453db141",
+    "byteLength": 1839
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/current-03.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/current-03.stdout": {
+    "sha256": "28ce63af39ad229924396ba3a1310410477847d57b9a26ff038ba0d8b2175d5c",
+    "byteLength": 1548
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/current-final.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/current-final.stdout": {
+    "sha256": "e41b653b75797a2047690e0fd0e4d4194a75c76fe6babe74890d7e4364d22c2b",
+    "byteLength": 849
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/current-initial.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/current-initial.stdout": {
+    "sha256": "49109d3b3024fc96392250b6f1df9623109acc5afd186aa25ab31486fb67e3d2",
+    "byteLength": 2853
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/delta.json": {
+    "sha256": "ce9bc04a21a52b5585d610a1d967ae2f3ca4ef194e0d2c6fdb652ce87029825e",
+    "byteLength": 634
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/noemit.json": {
+    "sha256": "e768fd6cc0b0dd157e8f2031dd0b7e1c7166a7ff4900ed12cdddb79958deaf72",
+    "byteLength": 246
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/noemit.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/noemit.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/postimages/c_call.ts": {
+    "sha256": "81df9b254be28818201cbb6c56924ee06b1003fba4813a3852f27a8ef6838008",
+    "byteLength": 267601
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/postimages/t287-native-assessment-evidence.test.mjs": {
+    "sha256": "1fa63b96f461a9f107e7eddc2b4d3519397f32ba1d654b7a7990c163cac4a86d",
+    "byteLength": 10049
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/preimage-check.json": {
+    "sha256": "7dd12ebb2fd8997022ca05f1b5c973b5a6a2c778b6bf5b47bfce248f221f4b17",
+    "byteLength": 725
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/preimage-final.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/preimage-final.stdout": {
+    "sha256": "0cf6bcd73806746d282556e369363aba41472218e0013d01ed0ec544e23aeb58",
+    "byteLength": 2025
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/preimages/c_call.ts": {
+    "sha256": "68c662cc7dcddd85e7d110caa302a3c2c72095d0b2699114924ea97eddb6252f",
+    "byteLength": 267272
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/protected-correspondence.json": {
+    "sha256": "ffa287ca1a6c069e453636658c7a870fcb3287048d79659a60841c5ec98a1c66",
+    "byteLength": 2395
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/return.md": {
+    "sha256": "cd207f072854515da54e2d459656990605a4b259b6b1899eb1b3665a9f61bd2f",
+    "byteLength": 5090
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/source-loader-initial.mjs": {
+    "sha256": "6b973a0e23ff666c08e1c6d83b7541daf0737136e3f1966e8c6dee86b47533fc",
+    "byteLength": 746
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/source-loader.mjs": {
+    "sha256": "467e4647cf78bab0a447b21c7df2c4bf368f5ddf29a770cd6bcb43577a50cc94",
+    "byteLength": 743
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/t287-native-assessment-evidence.test.mjs.patch": {
+    "sha256": "1db6f37982e7e9c9734d707dfdc435ade2509f7eef2e9f4824a1a483eefd872e",
+    "byteLength": 10305
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/freeze.json": {
+    "sha256": "05c9fccb5addc89002ded0b4067cded59d4f8b4f31019d4de77b1661dd31b584",
+    "byteLength": 4703
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/canonical-test.patch": {
+    "sha256": "14d53a4e8fd72a81bdbad81b49f960f9cf60bbd800514374774c023f6cdd7893",
+    "byteLength": 38476
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/checks-and-delta.json": {
+    "sha256": "493ad67d9698d66845cf014d19ebc653627fc34a4572fe330dfa557f07dc7b78",
+    "byteLength": 2938
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/current.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/current.stdout": {
+    "sha256": "62fdc0c6382c5724ae8a310ef8b3f2d81ec559af6895d01100b5dbde296c9281",
+    "byteLength": 613
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/preimage.json": {
+    "sha256": "5109209cb96bf306ec1ba4aa954a71fa0e68e10c15773044ad5d9182afd510b3",
+    "byteLength": 576
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/preimage.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/preimage.stdout": {
+    "sha256": "9636d85167e6804adfb2ee6e94b84b180ebfa15851367d66fdd47a8153efd541",
+    "byteLength": 2434
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/projection-extraction-02.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/projection-extraction-02.stdout": {
+    "sha256": "55887dcf85bb5fcae22326333b1cdd0109130692edd4b11450fa5a3599e2e965",
+    "byteLength": 1618
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/projection-extraction-03.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/projection-extraction-03.stdout": {
+    "sha256": "ada24bdb6451c85d8b16a367eb8d71c48ddded6aabad5ed4ad4c5bde6fdbc61f",
+    "byteLength": 620
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/projection-extraction.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/projection-extraction.stdout": {
+    "sha256": "4007415973d8ca7e729f6516a3eaac554f884e69634d59c091546c5109daad62",
+    "byteLength": 1627
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/projection-fixture.json": {
+    "sha256": "f42259bae560bf483453a85482b4a34619814af5769cbb5a5b3bc0272b5c666b",
+    "byteLength": 43393
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/retained-probe-initial.mjs": {
+    "sha256": "1c6703e76fa82f95451666100280eedf4a21d7d9928e74488d1f3eb08bf316e4",
+    "byteLength": 11235
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/retained-probe-second.mjs": {
+    "sha256": "ea632f1c78a1a0b94b115c407e57a202b64f1c231b8fde956e7fce91e81dc048",
+    "byteLength": 11277
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/retained-probe.mjs": {
+    "sha256": "64b58b512cce31df8f3df9c15ced1eb8cff9c9bc7a791cd0b49ebc2348257af3",
+    "byteLength": 11418
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/return.md": {
+    "sha256": "0b75bfd6cf79ac36e71acc66a7d479c9df3a1287313442304f727c4b51e11f82",
+    "byteLength": 4427
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/t287-native-assessment-evidence.test.mjs": {
+    "sha256": "6d0a1a0bc5af05898765677cffbcf9bf440eb0df74a3885130067a44eff8a8a7",
+    "byteLength": 37799
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/freeze.json": {
+    "sha256": "fe59b8d9482d317067c69d1c82c232f770d54956245d0d80acba9dd09c2fc355",
+    "byteLength": 3665
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/caller-freeze.json": {
+    "sha256": "f065d3a7e71ff084aaf786f18bcdd9564445d8fbdbf74321612f6504329141c7",
+    "byteLength": 1606
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/caller.mjs": {
+    "sha256": "77fa33e6cfca7895f708b320d24bf4c00201218c540f3c484f967008c7676d27",
+    "byteLength": 14604
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/campaign.mjs": {
+    "sha256": "3fda20f90a726228ba04c74acdc6bbd2f2890c1a25a0bfc217ba5a27de1be8ab",
+    "byteLength": 7386
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/campaign.mjs.patch": {
+    "sha256": "b0bd673b99b3cbbbb3f11d3b6b1b4a2f24d225f18fc52444496dfe4440f77127",
+    "byteLength": 2998
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/case.json": {
+    "sha256": "20d14d5c1944185c8d209e9493b99ce4d2f2867e0229d1df6f3f1405a3067553",
+    "byteLength": 614
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/configuration.bound.json": {
+    "sha256": "ce375a19cf0c993eacd7e71d618498bc6de66c6cc18d59c14b8e22cbbd94408e",
+    "byteLength": 4454
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/continued-retry-recovery-driver-result.json": {
+    "sha256": "5a088be6670329067509efcdb824a1a6289b69e2c4c113ebfc361ebf61e78c7c",
+    "byteLength": 178
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/continued-retry-recovery-driver-start.json": {
+    "sha256": "9f0e1ccc62265ff191aad1a28ee240d8119b9046b0b305af7f243b3c7fb78596",
+    "byteLength": 552
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/continued-retry-recovery-driver-stderr.log": {
+    "sha256": "d5596a92f3185e7cf89cf2cacacbbddfa60d9fb7be86eaae6231fb999d92813e",
+    "byteLength": 882
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/continued-retry-recovery-driver-stdout.jsonl": {
+    "sha256": "c5296e2751bf57f09f3ed57323785189de9f415d5375def5c2a5d3365ff7c67c",
+    "byteLength": 1840
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/continued-retry-recovery-driver-usage.json": {
+    "sha256": "a7fd90ed8a578114076a2e42e8f613694b111630939d8e32b7e97c825ffd43df",
+    "byteLength": 579
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/CONTINUATION-06-STOP.json": {
+    "sha256": "c7bcbf927206c3bfae1037129bb0d60fa10dc60bd784053d0ab4d03525b98cd7",
+    "byteLength": 49267
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/bootstrap-core-reuse.json": {
+    "sha256": "af824e9527c78b676b099e44df66713cabc395447e0d1d2ac857c5a20315bc3d",
+    "byteLength": 700
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/bootstrap-core.json": {
+    "sha256": "50c438bdbee452bbc6dc2b5a82ea376a850637ee111db32025b7bffa45427e87",
+    "byteLength": 12489648
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/bootstrap-mini.json": {
+    "sha256": "10213d2edf73f1f0a453c8bde5ce9359747a2476410391bb179e57da573d52b4",
+    "byteLength": 11705
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/config.json": {
+    "sha256": "f5c8f672eb0617ac3bb8e4d2bc0fc51980d28f8c8a6044c3c1b9c237125c7cbd",
+    "byteLength": 4716
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-catalog-view-handoff.json": {
+    "sha256": "ee83522c1a9978c0900bc929843d0c6187d09216ae5e750641b5e10b57307746",
+    "byteLength": 2236
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-catalog-view-native-process.json": {
+    "sha256": "8a8d4ff7b5eda0a21bcb77ef1f3b6caefc86d751f3db3e8e9ca082b15a3bee49",
+    "byteLength": 678
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-catalog-view-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-catalog-view-stdout.json": {
+    "sha256": "4c4fd6ca66d81c6376fd7cce7fa4c703d9d491a98a334c44dd28bc6c4a383000",
+    "byteLength": 1275
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-catalog-view-timing.json": {
+    "sha256": "c53971fbded8e5a4b6d942e4c31241c57dd1f5b6a86525db565402f75a08f72a",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-catalog-view.jsonl": {
+    "sha256": "03b4953696afaf19ba4d001c1e660b94e118cd61001549570ef884f1ac9d73d8",
+    "byteLength": 28132513
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-conformance-handoff.json": {
+    "sha256": "8aa335bfc6b44c4be0b1af7b09f2097d3298b25265cfc20a023e3803d09169fe",
+    "byteLength": 1857
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-conformance-native-process.json": {
+    "sha256": "fe947ac65786fba80e43bf18947125ccce6f9d97fb26484527aed3432b3449b8",
+    "byteLength": 666
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-conformance-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-conformance-stdout.json": {
+    "sha256": "1c4c2d2ab20777adca13ce5250e94a7d1e6db8bf00d4401f3663579ac6b33bf6",
+    "byteLength": 17703404
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-conformance-timing.json": {
+    "sha256": "9ea3d97c2735b3008fb0bae66252740f20a1be23a517da61b43848dc438a9a4a",
+    "byteLength": 294
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-conformance.jsonl": {
+    "sha256": "80a812a15dc352524b17b033375341ff5859ee47888d452afad9f0deb22361f6",
+    "byteLength": 28730373
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-construction-basis.json": {
+    "sha256": "dea75c7634351fd694c850e1573e4bb0f62ad82babe6005a2bfd841c8537ac8a",
+    "byteLength": 11302983
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fixture-count.txt": {
+    "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+    "byteLength": 1
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_replay-handoff.json": {
+    "sha256": "67d8da9f142fc13b61d594d67670a2a5b9e94256aeadc7d9500d7106542833eb",
+    "byteLength": 3878
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_replay-native-process.json": {
+    "sha256": "0a7a8e8c0981da9a0f8e2c04fed1cfd3ea3d8da5554b6cf26c7abd2431ab0e7c",
+    "byteLength": 667
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_replay-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_replay-stdout.json": {
+    "sha256": "dc860078a17eb493c248216ec452ca2c5e88610bf86757c03095e4bc5fc2f520",
+    "byteLength": 3595
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_replay-timing.json": {
+    "sha256": "37f3addaabb9dc31bece26e6246734b195870249c8c46e7c511209ac1551abb1",
+    "byteLength": 286
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_replay.jsonl": {
+    "sha256": "112c8fbe1e1c9dc7c7437801ac65462c27ed147d3b24d47d94ae31df93e6117b",
+    "byteLength": 10190
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_result-handoff.json": {
+    "sha256": "b3fd0ff835122a44313a2248bdaf5761c06dbadd6103608a5a22488bf2f4f278",
+    "byteLength": 3495
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_result-native-process.json": {
+    "sha256": "f53046a436ba9d03e164888c640c2af2ae5d872b4f28e19160ba15cb4f7e3c85",
+    "byteLength": 667
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_result-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_result-stdout.json": {
+    "sha256": "6b1e5a4e7a6d1b3cc3b1f0d47b05388e3e76206ac653eb2885b79f4560bfa2b3",
+    "byteLength": 2660
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_result-timing.json": {
+    "sha256": "3bed6cf68b178cd9ee04a831b87e178cf629dc9ffc38e00771e3c0c474388588",
+    "byteLength": 387
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_result.jsonl": {
+    "sha256": "135249ded4bf2abe263f5bd441c9fbb9b2119ca055bb4437ef2c6b22e0703569",
+    "byteLength": 10153
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_status-handoff.json": {
+    "sha256": "c9ffd48058ddcc81ad45544d43600153096f9a4dea36258f7aaa0e83cbf8d28d",
+    "byteLength": 2986
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_status-native-process.json": {
+    "sha256": "207c5cb28dd5c011febfd132e11e2d2e33cf89a61a99441137747359b0e1e68a",
+    "byteLength": 689
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_status-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_status-stdout.json": {
+    "sha256": "4df706bb39d6a28db21b3734d36dc5e24a88d0aa3a4fdf1dd870729981e60b72",
+    "byteLength": 13998
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_status-timing.json": {
+    "sha256": "4aa903e770d8ab7b326713a8ec5272cd8335108fa5bc0ff24ab4d3b24fa0e9a6",
+    "byteLength": 286
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-fresh-run_status.jsonl": {
+    "sha256": "d2d1ada7bdf8469dd82adf13bf168792a5c7fcfcc92fe5022065f7bd39add051",
+    "byteLength": 10153
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-input.json": {
+    "sha256": "0ad374503556712c6d82ee228a5ff5918d0b87936801eb016b452a54a2f672eb",
+    "byteLength": 671
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-root-handoff.json": {
+    "sha256": "463e73444df5675a091b5dac4326ee8fcf1f53af348b8708443206e42ee41fea",
+    "byteLength": 2603
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-root-native-process.json": {
+    "sha256": "556097a57f87d9c1bdfeedfbcae4c4dc1d17bd537362efb1b6918307e6f7746b",
+    "byteLength": 658
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-root-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-root-stdout.json": {
+    "sha256": "fe53a1c0f48ac0dc6eeaa49ec3962387299560026926b90feea59eb00fb298d9",
+    "byteLength": 13018
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-root-timing.json": {
+    "sha256": "d3ca0b1b0587f74b958aeaa66dccb52d510b07486428eedfb3465dc26079cee7",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-root.jsonl": {
+    "sha256": "427ee10b2a63377d304fd72529e77fc61a9ba9c87a8fd5ab1fd5b339d50cbdd2",
+    "byteLength": 17130639
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/continued-retry-recovery-selection.json": {
+    "sha256": "d0457b0bd2435bab6fa789a3873937dbc15a6a24c36f96b0b2741e3e96208ec3",
+    "byteLength": 2222
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/mini-verification-reuse.json": {
+    "sha256": "bd2a8d7b76d0e47bba78405980057ca7731520d2bbb7091c96f94f752b988345",
+    "byteLength": 608
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/publication-inputs.json": {
+    "sha256": "9670a9aaa1ccade4eb247e195160bbb4f549176e87b684ade84d833f5495ba8b",
+    "byteLength": 13082617
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/retained-context.json": {
+    "sha256": "b20ed89df51121f27ecab45fe80092815f8a6d1cdd6c214112cf434934d54a71",
+    "byteLength": 4707
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-bind-handoff.json": {
+    "sha256": "e20309bffade474759409e9a93f6c1d792dcc3677bc7df28942af7ccea036acf",
+    "byteLength": 3331
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-bind-native-process.json": {
+    "sha256": "6c88015242dfa61228dbe72afbdb4c98b517686f98a6ffa713f139974bd05299",
+    "byteLength": 638
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-bind-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-bind-stdout.json": {
+    "sha256": "c68ec1af075afe79cc4b2a5a25ffce4f3b3d46225bfb2e5d855b8086afa3af0d",
+    "byteLength": 6226
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-bind-timing.json": {
+    "sha256": "faa33f0c1fad29f5d24b4e0b1a1558a40fcaa9c5515f2ad9ff3d802e43f9e11f",
+    "byteLength": 282
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-bind.jsonl": {
+    "sha256": "3eef56a53342d2e366d03ddf5005a066bf878bac540e3e3847d9267d61b2fef4",
+    "byteLength": 15621762
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog-handoff.json": {
+    "sha256": "c6121ae8dd01ebfa5d62b8d724654c52864cffc9192e81c3214c6571ce67afeb",
+    "byteLength": 3702
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog-native-process.json": {
+    "sha256": "89638d318258cc07fe395e23b5073c5d45ad027ca1ee8db1fe3d0a342c0e0166",
+    "byteLength": 653
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog-stdout.json": {
+    "sha256": "9f5df109a09948c638882267303e3c1c4f3bbbaf09cbb2b34dcb27e1418d9bac",
+    "byteLength": 182120
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog-timing.json": {
+    "sha256": "ae679cee8166cd33deba1519f8eed024f3f2e96d34aa1403cd225124c5fa2a07",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog-view-handoff.json": {
+    "sha256": "bbad11a2f5a575e30812d41cc045098bc1fc642ec756bb7a1b8dde309239f898",
+    "byteLength": 4080
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog-view-native-process.json": {
+    "sha256": "62d37c345a327215946e3b8b6a39da98c43e1d2180150f922d1936003ecfd7f8",
+    "byteLength": 659
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog-view-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog-view-stdout.json": {
+    "sha256": "157ac2bbb2fa623933378577872c999929290df1fb58d992284341aedcf751af",
+    "byteLength": 1275
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog-view-timing.json": {
+    "sha256": "106b3c49925979e4061a2bc62051f4d4d3cb62e610fe79ce45892a352423d12f",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog-view.jsonl": {
+    "sha256": "002809cabeb4f3b2cb0cc27d00de0351ebcc8a6f691e0711a7900d8726fc54a8",
+    "byteLength": 28132437
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-catalog.jsonl": {
+    "sha256": "81452e2c166a15b2e10ffa6ad129f44283d9882ec2f36b00b7f0e976b14d4081",
+    "byteLength": 27100176
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-core-handoff.json": {
+    "sha256": "0654083d1f3842ec9d8825ad13d9e0aa29809a6872baa85dd33a81c7e2258fe8",
+    "byteLength": 2595
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-core-native-process.json": {
+    "sha256": "2d3766680169c928248a34940df6c1303b150790027a0e08b2c32b08ad158e4c",
+    "byteLength": 658
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-core-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-core-stdout.json": {
+    "sha256": "a805d46f6a513466ecef483cc5e25d5a85c6a58bc60af4bfe70e2f5dbca841b0",
+    "byteLength": 5732
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-core-timing.json": {
+    "sha256": "09575537bc8698199c38482b9e71f9c75bdee62bca15dbdb0eb9bffb024b9b56",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-core.jsonl": {
+    "sha256": "32f072f7a1a1870b7e94b4bf6d9e6d282214db0d6e4387b4ee402420eae65fb1",
+    "byteLength": 24331729
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-mini-handoff.json": {
+    "sha256": "af1e4bad0dd12576d48db62aca845368065f4ff28768480be228da5c3a8e5ece",
+    "byteLength": 2969
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-mini-native-process.json": {
+    "sha256": "1152563d3e2f6fbe4ba9330f7aad9b1af97330daed103d584ce933309a37924c",
+    "byteLength": 648
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-mini-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-mini-stdout.json": {
+    "sha256": "7c39f820e0876db9257973240a2f9e290e9f4eb2c937b9a6bf14586df944cce8",
+    "byteLength": 5677
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-mini-timing.json": {
+    "sha256": "b08fcfc9513ddcda18d0156ba942e730f1a67f2d2158ebbc3646e816434f200e",
+    "byteLength": 282
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-install-mini.jsonl": {
+    "sha256": "136c88b8e8f301c48e785f0320738d597abd0a59a0018633e59e9923ba7f2c6c",
+    "byteLength": 13330587
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-protected.json": {
+    "sha256": "290c86b5850098f386f15347cd59cdc6fa590af322519cfbf7ea7c838e77d85d",
+    "byteLength": 1030
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-resolve-handoff.json": {
+    "sha256": "fc343de32761837b3de2b56890e9ee9fd430a3804b79ed92eb1fa9f115ad1a08",
+    "byteLength": 2215
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-resolve-native-process.json": {
+    "sha256": "fa423cc257b7b2264363e4c45d9b4378cff722728c572106ec7aa689d32d7a65",
+    "byteLength": 643
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-resolve-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-resolve-stdout.json": {
+    "sha256": "f58969837be5fb0e52c761e889d3f1a98b1a62f44c825577239bde2e56536eb0",
+    "byteLength": 3952
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-resolve-timing.json": {
+    "sha256": "2639046ecda216ebf3db8c374cef567f5967ff4503d5154dedecc27766f4ac7d",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-resolve.jsonl": {
+    "sha256": "2f80ff76b52a7d5a6a8600a80bc674b013270200bd51f44dc19f1f4c59feaccf",
+    "byteLength": 22189861
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-state.json": {
+    "sha256": "80f699e4a7ebf34c0f738c2ba98bfabeed70e1a434a81216997ec6853343b97e",
+    "byteLength": 96475724
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-verify-core-handoff.json": {
+    "sha256": "602c1a81492f4d1468ca45e88ae3d747ad75279119de865e96638b13a8ef3a01",
+    "byteLength": 1840
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-verify-core-native-process.json": {
+    "sha256": "35160808dbcb4348545325fdc852375ea94a94dad1a01de4b4f1e481b771244b",
+    "byteLength": 646
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-verify-core-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-verify-core-stdout.json": {
+    "sha256": "f4a6b020de1c46d5d3169c4f2d4293752ac26ae10d888e1891dd3578bfd02ee9",
+    "byteLength": 146548
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-verify-core-timing.json": {
+    "sha256": "de8d02905a069126aa084e2aa1a36adfad90c42b5eea4e5da2c876a53f3e0a08",
+    "byteLength": 282
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/episode-01/setup-verify-core.jsonl": {
+    "sha256": "446026d8b7a6505dd1dbd91f8eaa147186a2324a1570c4d788d89d3b2496839f",
+    "byteLength": 11024620
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/actor-artifact-correspondence.json": {
+    "sha256": "8eab26975b0e5d2c49eafb196683c2cb0107988985ee41f2207bd37e553a7d74",
+    "byteLength": 2440
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/actor-artifacts/fp-317ed5ca7e877b9e-output.txt": {
+    "sha256": "f1dec6e9ee608550bd1c39ff2b90134059bac5d02e4e78f6410aed2fbd870bd0",
+    "byteLength": 9
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/actor-artifacts/fp-317ed5ca7e877b9e-prompt.txt": {
+    "sha256": "66009700b70e98cbf140d6fa346a242b73d6e918ce781fe89a5ced912e899d05",
+    "byteLength": 471
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/actor-artifacts/fp-317ed5ca7e877b9e-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/actor-artifacts/fp-317ed5ca7e877b9e-stdout.log": {
+    "sha256": "163899de51a121bf15cd119e6a4d18f4dfb78eabf9d96e2456f3fc6a8c2b8d91",
+    "byteLength": 174
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/actor-artifacts/fp-317ed5ca7e877b9e-transport.json": {
+    "sha256": "00569912d951221695a3a36a16dfa7778b385506212fff300c8726f1c5b78add",
+    "byteLength": 3139
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/actual-new-append-suffix.jsonl": {
+    "sha256": "8b7d93c0359cffa17e29a6905a391b224182d59d448af4022c13c34c4183aefe",
+    "byteLength": 2491197
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/actual-run-suffix.jsonl": {
+    "sha256": "05271bbbc2bdcf2b8a01e9ef47bd7828efe23522f4ae880c302f092837fcc0b6",
+    "byteLength": 157518
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/candidate-runtime-binding.json": {
+    "sha256": "120acd9d5e53b05b5bbac4cbd441e6b2620e602e571fbb76dcec48f16c4e4e04",
+    "byteLength": 3432498
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/causal-discriminator.json": {
+    "sha256": "e3aec24ca45a41a12007ed876c98eab9304dcf07df3632f239238182849be9df",
+    "byteLength": 22669
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/event-counts.json": {
+    "sha256": "8cc7e828384f29a299c7ab2ce8a649361ef1315df968ad7b2ed002fb045f196b",
+    "byteLength": 650
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/first-cause-events.json": {
+    "sha256": "578dc8dcf485e8006803b5160b8565380b0bf63f5a7e17e8a1fdc2e4522220da",
+    "byteLength": 43497
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/primary-diagnostic.json": {
+    "sha256": "985f952cc2cc92e9255482866660e5aa20b32e18ea03be02633f4b34c463d089",
+    "byteLength": 8753
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/protected-post.json": {
+    "sha256": "290c86b5850098f386f15347cd59cdc6fa590af322519cfbf7ea7c838e77d85d",
+    "byteLength": 1030
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/readback-agreement.json": {
+    "sha256": "2ba5ef1b58f1a7b26c0bc2789624bed10ef0f7f1e25ac800ac6f0c4ddfd3eb21",
+    "byteLength": 936
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/resource-closure.json": {
+    "sha256": "a2568fd8269017b071969d68bd29c58aef406180497506c30c3af80d76aadd5f",
+    "byteLength": 2304
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/retry-handoff-inputs.json": {
+    "sha256": "c91c9eaa27246121094e7bad5b7ebd8963f574a7cd33f5248c20d9937ad0362f",
+    "byteLength": 57405
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/return.md": {
+    "sha256": "86f7264e008ff84cc3298679687b7bf2bc3e288569a7a0a43616b057c7cc4bf4",
+    "byteLength": 6135
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/timing-size-cost.json": {
+    "sha256": "7f2b101f66dd74983ab206004c38182b2d40d1949416a24050facfe9bdb96127",
+    "byteLength": 18064
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-selection.json": {
+    "sha256": "560a89d199de80f917ee9a153504b0fbb749d00117e46786d524949351c49a4c",
+    "byteLength": 2822
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/initial-physical-state.json": {
+    "sha256": "abdc540f5b4073e2a617b136754fd03d6901a7f93a9f0a96b290e9ca279b5581",
+    "byteLength": 2045
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/observe-continuation.py": {
+    "sha256": "2e9fba117bb6324f5d5cbe0dbf04ac5b0c97407bf0d8a9d89a1e46ddc5ca9d98",
+    "byteLength": 2533
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/preflight.json": {
+    "sha256": "8fddf4a6dad4b8bcd780775308d03d1d4427282803f35046a293a6f3aaf6a398",
+    "byteLength": 2949
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/retained-inputs.json": {
+    "sha256": "17b05f890e686f4eef760ee66ca1143854e8a1e8b6443eafd1f69e5f8f25c867",
+    "byteLength": 5902
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/selected-installed-members.json": {
+    "sha256": "3b08c96e723414209bcc829c5a75b4bbfbcc0b31f5440b16bdeed2ff86144039",
+    "byteLength": 980832
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/setup-driver-result.json": {
+    "sha256": "90ecee7d5caaf0e7fe04a8f6a302d63eca46d41c5cd5232f4cf371f47d122f31",
+    "byteLength": 177
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/setup-driver-start.json": {
+    "sha256": "be938834f784ac932edfa6863f7588f6ad8cf765be6fb56541a7e53c96f203b8",
+    "byteLength": 553
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/setup-driver-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/setup-driver-stdout.jsonl": {
+    "sha256": "5fc3c9ffbdf48a5db5e8f5bf8bf6ffcdc1fc7737b306c576eee2e09add5de1e5",
+    "byteLength": 2703
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/setup-driver-usage.json": {
+    "sha256": "f536572a6088b474593b9c0eb30628283c54a1f5346b708264069090b1d47523",
+    "byteLength": 582
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/setup.mjs": {
+    "sha256": "755755ea53bb3fd0a7ca7010cdfb9b221cc04b4f0139520170e3aa39cb236e12",
+    "byteLength": 11316
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/setup.mjs.patch": {
+    "sha256": "576e8947500f6072d12ebbbceac29f7e7883512c304b93a703c93401aeb482ed",
+    "byteLength": 2369
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/freeze.json": {
+    "sha256": "590cf1ec21cf23347ee6c05849d65098e0624ae703f055385268713d450c1695",
+    "byteLength": 24973
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-diagnosis-01/counterexample.json": {
+    "sha256": "57a5096006242bcf1bd6f21ec698f504b1558267aa0160306283f64cb1aa1bd5",
+    "byteLength": 5624
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-diagnosis-01/diagnosis.md": {
+    "sha256": "de502cd7c71b51f8ca96c377391f39b6280d53742b9285b71829e994b40dae55",
+    "byteLength": 6616
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-diagnosis-01/source-identities.json": {
+    "sha256": "410eb3bee30e4c59b9d693c14b1cea592fd77145b582fa3b9a7271a6d973c557",
+    "byteLength": 5540
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-diagnosis-01/freeze.json": {
+    "sha256": "52e48d4aac5605c88db50418208bcc54c42759928324bfba0ffcb41e582c6fac",
+    "byteLength": 944
+  },
+  ".ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/review-01/return.md": {
+    "sha256": "f5572dc1eed21018cf7a3a0610ad10b21ab31d276d988d5451de322144c0abb4",
+    "byteLength": 19021
+  },
+  ".ai-workspace/comments/codex/20260923_WHOLE_PATH_SCOPE_REVIEW/review.md": {
+    "sha256": "4bef687bbbd7f3e6134e7d112a737f0386cb72a792aea2118e6260f38600246e",
+    "byteLength": 34017
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-diagnosis-01/diagnosis.md": {
+    "sha256": "1d183c67ad15a0e084c415bfd97bee933ffb96464e119184d45144327dba584c",
+    "byteLength": 8481
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/review-01/return.md": {
+    "sha256": "cff027c4e29357ce30185aeca16116f8f308cb407428fae6d32aa0577a68836f",
+    "byteLength": 12703
+  }
+}

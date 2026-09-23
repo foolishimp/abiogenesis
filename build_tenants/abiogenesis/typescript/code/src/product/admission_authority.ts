@@ -16,12 +16,11 @@ import {
 } from "../shared/definition_binding_mechanics.js";
 import type { DefinitionCall, ExactDefinitionCallable } from "../shared/effect_definition.js";
 import {
-  projectExactPrefixWorkspaceEnvironment,
   projectWorkspaceEnvironmentFromArtifactTruth,
   type ExactPrefixWorkspaceEnvironment,
 } from "../abg/environment_admission.js";
-import { runtimePrefixFromArtifactTruth } from "../abg/artifact_truth.js";
-import { assertDurableRuntimePrefixBytes, assertHeldEventStoreAtDurablePrefix, validateDurablePrefixCoordinate } from "../abg/event_store.js";
+import { projectOwnedPrefixArtifactTruth } from "../abg/artifact_truth.js";
+import { assertDurableRuntimePrefixCurrent, assertHeldEventStoreAtDurablePrefix, captureDurablePrefixCoordinate, validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { isVerifiedProductArtifact, verifyProduct } from "./verify_product.js";
 import { constructAdmissionCapabilityGrants, type CapabilityGrant } from "./invocation.js";
 import { productInstallCoordinate } from "./environment.js";
@@ -70,6 +69,25 @@ const verificationRequestSchema = v.strictObject({
   expectedPackageName: nonblankSchema,
   expectedPackageVersion: nonblankSchema,
 });
+const admissionEnvironmentSelectionSchema = v.strictObject({
+  kind: v.literal("admission_environment_selection"),
+  schemaVersion: v.literal("5.0.0"),
+  prefix: v.custom<DurablePrefixCoordinate>(validateDurablePrefixCoordinate, "exact durable prefix coordinate"),
+  workspaceBinding: refDigestSchema,
+});
+export type AdmissionEnvironmentSelection = v.InferOutput<typeof admissionEnvironmentSelectionSchema>;
+
+/** Pure input selection, not an admitted environment or permission. */
+export function admissionEnvironmentSelection(
+  prefix: DurablePrefixCoordinate,
+  workspaceBinding: AdmissionEnvironmentSelection["workspaceBinding"],
+): AdmissionEnvironmentSelection {
+  return deepFreeze(v.parse(admissionEnvironmentSelectionSchema, {
+    kind: "admission_environment_selection", schemaVersion: "5.0.0",
+    prefix: captureDurablePrefixCoordinate(prefix), workspaceBinding,
+  }));
+}
+
 const admissionCapabilityDataStructure = v.strictObject({
   kind: v.literal("admission_capability_data"),
   schemaVersion: v.literal("5.0.0"),
@@ -86,21 +104,14 @@ const admissionCapabilityDataStructure = v.strictObject({
     resourcesDigest: digestSchema,
     authoritySlots: jsonValueSchema,
   }),
-  boundEnvironment: v.nullable(v.custom<ExactPrefixWorkspaceEnvironment>(value =>
-    isRecord(value) && value.kind === "exact_prefix_workspace_environment" &&
-    validateDurablePrefixCoordinate(value.prefix) && isRecord(value.workspaceBinding),
-  "exact-prefix workspace environment preimage")),
+  boundEnvironment: v.nullable(admissionEnvironmentSelectionSchema),
 });
-/** Existing standalone parser keeps its semantic/cold contract. Fixed resource
- * owners use only the private preimage shape before one acquired admission. */
+/** Closed serialized data shape. Environment meaning is established by the
+ * admission owner below, never by parsing or a caller-supplied derived body. */
 export const ADMISSION_CAPABILITY_DATA_SCHEMA = v.strictObject({
   ...admissionCapabilityDataStructure.entries,
   ownerArtifact: v.strictObject({ request: verificationRequestSchema,
     verified: v.custom<VerifiedProductArtifact>(isVerifiedProductArtifact, "verified Product artifact") }),
-  boundEnvironment: v.nullable(v.pipe(v.unknown(), v.rawTransform(({ dataset, addIssue, NEVER }): ExactPrefixWorkspaceEnvironment => {
-    try { return admitCapabilityEnvironment(dataset.value, null); }
-    catch { addIssue({ message: "exact admitted prefix environment" }); return NEVER; }
-  }))),
 });
 export type AdmissionCapabilityData = v.InferOutput<typeof ADMISSION_CAPABILITY_DATA_SCHEMA>;
 export interface AdmissionCapabilityGrantConstructionBasis {
@@ -145,7 +156,9 @@ export function admissionAuthorityScope(data: AdmissionCapabilityData) {
       capabilityGraphDigest: data.ownerArtifact.verified.capabilityDefinitionGraph.graphDigest,
     },
     resourceScope: data.resourceScope,
-    boundEnvironmentDigest: data.boundEnvironment === null ? null : digest(data.boundEnvironment),
+    ...(data.boundEnvironment === null ? { boundEnvironmentDigest: null } : {
+      boundEnvironmentSelection: v.parse(admissionEnvironmentSelectionSchema, data.boundEnvironment),
+    }),
   };
   const scopeDigest = digest(body);
   return deepFreeze({ ref: `admission-scope://abiogenesis/${scopeDigest}`, digest: scopeDigest });
@@ -167,28 +180,29 @@ const ADMISSION_OPERATIONS = new Set([
   "abg.operation.catalog.apply", "abg.operation.conformance.evaluate",
 ]);
 
-/** One existing environment relation, shared by direct cold and acquired ingress. */
-function admitCapabilityEnvironment(value: unknown, acquiredResource: AcquiredAbgEventResource | null): ExactPrefixWorkspaceEnvironment {
-  if (!isRecord(value) || value.kind !== "exact_prefix_workspace_environment" ||
-      !validateDurablePrefixCoordinate(value.prefix) || !isRecord(value.workspaceBinding))
-    throw new TypeError("invalid environment coordinate");
-  const supplied = value as unknown as ExactPrefixWorkspaceEnvironment;
-  const workspace = { ref: String(supplied.workspaceBinding.bindingId), digest: supplied.workspaceBinding.bindingDigest };
-  let environment;
+/** Existing environment owner over one exact selection. Historical release
+ * observations authenticate their entry cut; live admission also requires the
+ * current extent. Retained acquired coordinates reuse only real owner proof. */
+export function admitCapabilityEnvironment(
+  value: unknown,
+  acquiredResource: AcquiredAbgEventResource | null = null,
+  requireCurrent = true,
+): ExactPrefixWorkspaceEnvironment {
+  const selection = v.parse(admissionEnvironmentSelectionSchema, value);
+  let prefix = selection.prefix;
   if (acquiredResource !== null) {
     assertHeldEventStoreAtDurablePrefix(acquiredResource.store, acquiredResource.entryPrefix);
-    if (!sameJson(supplied.prefix, acquiredResource.entryPrefix))
+    if (!sameJson(prefix, acquiredResource.entryPrefix))
       throw new TypeError("admission environment differs from the acquired current prefix");
-    environment = projectExactPrefixWorkspaceEnvironment(acquiredResource.entryPrefix, workspace);
-  } else if (runtimePrefixFromArtifactTruth(supplied.artifactTruth) !== null) {
-    assertDurableRuntimePrefixBytes(supplied.prefix);
-    environment = projectWorkspaceEnvironmentFromArtifactTruth(supplied.artifactTruth, workspace);
-  } else {
-    environment = projectExactPrefixWorkspaceEnvironment(supplied.prefix, workspace);
+    prefix = acquiredResource.entryPrefix;
   }
-  if (environment.kind !== "exact_prefix_workspace_environment" ||
-      (environment !== supplied && !sameJson(supplied, environment)))
+  const artifactTruth = projectOwnedPrefixArtifactTruth(prefix);
+  if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection")
+    throw new TypeError("admission requires authenticated exact-prefix artifact truth");
+  const environment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, selection.workspaceBinding);
+  if (environment.kind !== "exact_prefix_workspace_environment")
     throw new TypeError("admission requires the exact admitted prefix environment");
+  if (requireCurrent) assertDurableRuntimePrefixCurrent(environment.prefix);
   return environment;
 }
 
@@ -200,7 +214,7 @@ export async function validateAdmissionCapabilityBasis(
   basis: AdmissionCapabilityGrantConstructionBasis,
   acquiredResource: AcquiredAbgEventResource | null = null,
 ): Promise<Readonly<{ data: AdmissionCapabilityData; authority: ResolvedAdmissionAuthority;
-  scope: ReturnType<typeof admissionAuthorityScope> }>> {
+  scope: ReturnType<typeof admissionAuthorityScope>; boundEnvironment: ExactPrefixWorkspaceEnvironment | null }>> {
   let authority: ResolvedAdmissionAuthority;
   let data: AdmissionCapabilityData;
   try {
@@ -209,9 +223,8 @@ export async function validateAdmissionCapabilityBasis(
   } catch (cause) {
     throw new TypeError("admission grant requires valid external authority and closed data basis", { cause });
   }
-  if (data.boundEnvironment !== null) {
-    data = { ...data, boundEnvironment: admitCapabilityEnvironment(data.boundEnvironment, acquiredResource) };
-  }
+  const boundEnvironment = data.boundEnvironment === null ? null :
+    admitCapabilityEnvironment(data.boundEnvironment, acquiredResource);
   const scope = admissionAuthorityScope(data);
   const packet = basis.fixedPacket;
   const admissionOperation = ADMISSION_OPERATIONS.has(packet.definitionKey.operationId) ||
@@ -243,7 +256,7 @@ export async function validateAdmissionCapabilityBasis(
       throw new TypeError("pre-binding definition forbids a WorkspaceBinding");
     }
   } else {
-    const env = data.boundEnvironment;
+    const env = boundEnvironment;
     if (env === null || env.workspaceAuthorityBasis.authorizedActorRef !== actorRef ||
         !sameJson(slots.workspace_binding, { ref: env.workspaceBinding.bindingId, digest: env.workspaceBinding.bindingDigest }) ||
         !sameJson(slots.dependency_lock, { ref: env.resolvedProductLock.lockId, digest: env.resolvedProductLock.lockDigest }) ||
@@ -260,7 +273,7 @@ export async function validateAdmissionCapabilityBasis(
   }
   // Share only owner-built immutable bodies; caller wrappers are not retained.
   return { data: deepFreeze({ ...data, ownerArtifact: { ...data.ownerArtifact, verified } }),
-    authority: deepFreeze(authority), scope };
+    authority: deepFreeze(authority), scope, boundEnvironment };
 }
 
 /** Native call-local handoff; never serialized or supplied as authority data. */
@@ -300,7 +313,7 @@ export function withAdmissionAuthority<P extends OwnerContractSourceDeclaration,
             packet.definitionKey, "resource_acquisition", acquired.code, acquired.message);
           acquiredResource = acquired.resource;
         }
-        const { grants, data } = await constructAdmissionCapabilityGrants(
+        const { grants, boundEnvironment } = await constructAdmissionCapabilityGrants(
           parsed.authority, parsed.authority.actorRef,
           { kind: "admission_capability_grant_construction_basis", fixedPacket: packet, data: parsed.basis },
           acquiredResource,
@@ -309,7 +322,7 @@ export function withAdmissionAuthority<P extends OwnerContractSourceDeclaration,
           call.invocation.invocationAuthority.slots.capability_grants,
           { requiredCapabilityRefs: [...packet.metadata.capabilityRefs], grants: grants.map((grant) => ({ ref: grant.grantRef, digest: grant.grantDigest })) },
         )) throw new TypeError("admission grants differ from exact owner reconstruction");
-        return { call: { ...call, resources: resources as R }, boundEnvironment: data.boundEnvironment };
+        return { call: { ...call, resources: resources as R }, boundEnvironment };
       },
       catch: (cause) => definitionFault(packet.definitionKey, "resource_admission", "resource_relation_mismatch", String(cause)),
     }).pipe(

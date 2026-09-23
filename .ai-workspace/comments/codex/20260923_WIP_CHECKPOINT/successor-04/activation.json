@@ -1,0 +1,14 @@
+{
+  "role": "Writer",
+  "basisCommit": "11e03718d19edb07c98cec1fd4c4123b12206b14",
+  "branch": "main",
+  "verifiedRemoteAtEntry": "11e03718d19edb07c98cec1fd4c4123b12206b14",
+  "authority": "Root separate checkpoint/push activation; standing user authorization",
+  "scope": "Accepted compact admission/caller/CCall source, generated correspondence, closed evidence through finite06, and concise current tracking; source checkpoint only, not RC qualification/publication",
+  "exclusions": [
+    "Later retry-handoff source repair after exact index freeze",
+    "Original mutable GLC history/worksite and S02 resource trees",
+    "Unrelated or unknown scratch outputs"
+  ],
+  "receipt": "External actual local/remote post-push receipt; no extra commit for self-reference"
+}

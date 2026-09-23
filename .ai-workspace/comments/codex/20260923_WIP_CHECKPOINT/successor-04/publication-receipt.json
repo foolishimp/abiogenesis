@@ -1,0 +1,15 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "11e03718d19edb07c98cec1fd4c4123b12206b14",
+  "commitIdentity": "The commit containing this receipt; exact resulting local/remote identities in external post-push receipt.",
+  "transportBytes": 128416963,
+  "newLogicalMembers": 513,
+  "restoration": "Every new member restored and compared with its original; exact selected freeze relations checked. Prior transport reused.",
+  "currentScope": "Accepted compact/caller/CCall source and compiled03 package correspondence; installed05/06 success and failure evidence, closed retry-handoff diagnosis06, readiness02 and four current status projections; no RC qualification.",
+  "ongoing": [
+    "Next retry-handoff source repair and any later outputs remain outside the exact index subject",
+    "Original mutable GLC history/worksite and S02 runtime resource/install trees; no snapshot",
+    "Unselected build_tenants/abiogenesis/scratch outputs preserved in place"
+  ],
+  "allowedGitEffects": "One ordinary commit and nonforce main push; remote readback afterward."
+}

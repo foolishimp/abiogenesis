@@ -1,4 +1,4 @@
-import { ADMISSION_AUTHORITY_RESOURCE_SCHEMA,admissionAuthorityScope,admissionAuthoritySlots } from "../product/admission_authority.js";
+import { ADMISSION_AUTHORITY_RESOURCE_SCHEMA,admissionAuthorityScope,admissionAuthoritySlots,admitCapabilityEnvironment } from "../product/admission_authority.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
@@ -149,9 +149,12 @@ export function isReleaseOperationArtifact(value:unknown):value is ReleaseOperat
  const parsed=v.safeParse(ADMISSION_AUTHORITY_RESOURCE_SCHEMA,a.admissionAuthority);
  if(!parsed.success)return false;
  const approved=parsed.output,scope=admissionAuthorityScope(approved.basis),authority=approved.authority;
+ let environment;
+ try { environment=approved.basis.boundEnvironment===null?null:admitCapabilityEnvironment(approved.basis.boundEnvironment,null,false); }
+ catch { return false; }
  if(!same(approved.grants,grants)||!same(approved.basis.request,a.request)||approved.basis.resourceScope.resourcesDigest!==a.resourceDigest||
     !same(approved.basis.resourceScope.authoritySlots,admissionAuthoritySlots(slots))||approved.basis.definition.definitionDigest!==a.invocation.definitionDigest||
-    approved.basis.boundEnvironment?.workspaceAuthorityBasis.authorizedActorRef!==a.actorRef||!same(approved.basis.boundEnvironment?.prefix,a.entryPrefix)||
+    environment?.workspaceAuthorityBasis.authorizedActorRef!==a.actorRef||!same(environment?.prefix,a.entryPrefix)||
     authority.actorRef!==a.actorRef||authority.authority.value.actorRef!==a.actorRef||authority.approval.value.actorRef!==a.actorRef||
     authority.authority.digest!==sha256Canonical(authority.authority.value)||authority.approval.digest!==sha256Canonical(authority.approval.value)||
     authority.approval.value.definitionDigest!==a.invocation.definitionDigest||authority.approval.value.requestDigest!==a.invocation.invocationPayloadDigest||authority.approval.value.scopeDigest!==scope.digest||

@@ -15,82 +15,40 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under Definition-selected STDO 2.5.1 RC1. Composite e4e61fbe is accepted for bounded installed use (42 compiled checks), not qualification. S02 passes eight including recursion, then retry fails; fifteen held. Retry repair is source-ready/pending review. Execution09 preparation OOM precedes Run/actor; conformance repair is source-ready/pending review and the remaining environment cost needs an owner decision. Bounded whole-path review precedes further large preparation. Full S1–S5, targeted revision, exact qualification, source/RC publication and actual human acceptance remain open. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Compiled-03 is accepted mechanical/package readiness, not qualification. Its CCall correction admits actual failure evidence and retry progress; finite06 then fails at HoG retry projection before actor2. Read-only handoff diagnosis is active. Original correction readiness02 is accepted and held; full outcomes, exact qualification and actual human acceptance remain open. |
 
 ## Current Selection
 
 ### Current checkpoint disposition — 2026-09-23
 
-Root accepts [compiled-01](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-01/return.md)
-for bounded installed use: one build in 18.148 s, 42 affected compiled checks,
-and archive `e4e61fbe…` with 5,232 exact package/source/install members.
-Selected-closure, recursion and F11 producer/domain/acquisition repairs are
-included. This is not release qualification; prior `dd76783f…` evidence keeps
-its original scope.
+Root accepts [compiled-03](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/return.md)
+archive `1d44a8d1…`: three emitted CCall checks plus reused affected compiled-02
+proof, with exact 5,232-member correspondence. Compact source/review and the
+closed whole-path compact-selection decision remain accepted.
 
-Actual [S02 continuation-04](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-04/return.md)
-passed eight selected outcomes, including repaired recursive child/foldback,
-then failed at nested retry entry; fifteen cases remain held. Recursion now has
-installed positive evidence. The [nested-retry correction](../.ai-workspace/comments/codex/20260923_S02_NESTED_RETRY_REPAIR/implementation-01/return.md)
-is source-ready and pending independent review, with no emitted or installed
-claim. Earlier failed Runs and exact resource identities remain historical.
+[Finite06](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/return.md)
+proves actual malformed failure-evidence admission, retry judgment/progress and
+inner attempt2. HoG then refuses `projected-retry-projection-mismatch` before the
+second actor. The CCall repair has this installed scope; recovery remains
+unproved and read-only whole-handoff diagnosis is active. Prior finite05 compact
+conformance and existing cost/diagnostic/fixture debt retain their scope in
+[T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-management-debt).
 
-[Execution09](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09/return.md)
-closed failed after 1,665.286 s of preparation: setup-8 conformance exhausted the
-default heap before any Run or actor. Actor spend and application writes were
-zero. Its retained current handoff owns the original 1,155,547,309-byte history
-and genuine setup-6 close, with the owning lock absent; this tracking update
-performs no resource acquisition.
+Original [execution09](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09/return.md)
+and its genuine close remain untouched. [Execution10 readiness02](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-02/return.md)
+is accepted on compiled-03 under the satisfied caller review; no
+large-resource preparation or paid Run is selected. The single trusted developer
+scope remains operative. Existing physical acquisition/session lifetime may
+carry infrastructure, with optional Run association after admission; no new
+session authority is selected.
 
-[Conformance-cost-01](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09-conformance-cost-01/return.md)
-establishes two identical 123,638,704-byte artifact-truth bodies, 88.1% of the
-280,585,831-byte request. The exact JavaScript OOM allocation remains unknown.
-Conformance source/component repair is CLOSED, pending the active independent review; no compiled or installed cure is claimed. The remaining 128,232,644-byte environment is an
-unresolved delivery red flag requiring a bounded owner relation/design decision,
-not a justified resource cost. No unchanged-candidate large preparation is selected.
-
-[R7](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-02/return.md) passed;
-[C0 sunny assertions](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-04/return.md)
-passed at their disclosed retained scope, with no preserved successful physical
-history or complete C0-suite claim. [Clone-dependent C0 negatives](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-05/return.md)
-remain held as obsolete fixture debt: no lawful copied-prefix append owner was
-established, and no new runtime is selected to salvage them. Root accepts
-[fixtures-06](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/fixtures-06/return.md)'s one-field
-publication correction and C3 Parallel installed pass (93.187 s, deterministic
-transport). Data Mapper stops before Product verification on its obsolete
-transport envelope; partial-prefix remains held. Both remain unqualified. Existing [F_D diagnostic cause loss](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/c0-diagnosis-03/return.md)
-and the retry projector's swallowed replay cause remain separately recorded;
-retained debug probes do not repair ordinary diagnostics.
-
-Owner ruling (direct Product-owner message, relayed by Executive in this Writer
-activation on 2026-09-23): “the system is currently designed around a single
-developer on their laptop - any hardening beyond that threshold is excessive”.
-The existing trusted-desktop boundary governs the review. Retained controls must
-be justified by concrete ordinary developer/process failures; identify hostile-
-local or multi-tenant assumptions, repeated distrust of same-owner results,
-redundant proof and physical rereads for evidenced removal. Existing HOW must
-re-enter where it contradicts this ruling; current implementation is not its own
-justification. Preserve functional Program, Run, effect and admission semantics.
-No broad deletion or future robustness scope is selected before that review.
-
-Conformance and retry source/component repairs are CLOSED, pending the active
-independent review. The bounded whole-path admission-to-execution ownership/context
-review is now active under Executive selection (astra/max); its owner decision
-is required before another large preparation. Whole-workspace versus selected Run/closure
-scope, omitted or reconstructed publication/environment relations, and duplicated
-immutable/current-state bodies are a recurring-mechanism hypothesis for that
-review, not an adopted architecture. The next delivery sequence is accepted
-payload/retry batch and the required owner decision → one build/package →
-installed affected proofs and the preserved correction path → complete applicable
-qualification and publication. This is no speculative redesign grant.
-
-Latest known checkpoint is ABG `15ef2b3d…` / GLC `ac17504a…`; later work is local.
-RC1/source publication, full selected S1–S5, actual targeted revision, complete
-qualification and later actual human acceptance remain open. Sixteen coverage
-groups and sixty-six behavioral declarations are shared coverage, not one Run
-per declaration. Data Mapper remains a generic framework discriminator; no
-business-code work is selected. T-288/T-289 remain closed. Historical narratives
-below keep their subjects; this checkpoint owns the next-work projection.
+[T-287's current checkpoint](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
+records actual pushed ABG `11e03718…` / GLC `ae006dbc…`; subsequent work is local.
+Next: closed handoff diagnosis/selected correction and source review → one rebuild → affected installed retry proof
+→ preserved generic correction → remaining applicable qualification, clean
+checkpoint and RC1. Fixed fifteen-family GOAL-035, original S1–S5/oracle and
+selected/outside residuals remain; actual human release acceptance is separate.
+Historical cuts, T-288/T-289 closure and their bounded claims stay preserved.
 
 ### Historical delivery and repair dispositions
 

@@ -1,0 +1,16 @@
+{
+  "basisCommit": "11e03718d19edb07c98cec1fd4c4123b12206b14",
+  "prior": "successor-03/composition.json plus inherited transport receipts in classification.json",
+  "newTransport": "transport-01/catalog.json",
+  "archiveMembers": 513,
+  "archiveMemberBytes": 792629154,
+  "transportBytes": 128416963,
+  "parts": 8,
+  "priorPayloadReadOrReupload": false,
+  "pending": [
+    "Next retry-handoff source repair and any later outputs remain outside the exact index subject",
+    "Original mutable GLC history/worksite and S02 runtime resource/install trees; no snapshot",
+    "Unselected build_tenants/abiogenesis/scratch outputs preserved in place"
+  ],
+  "scope": "Accepted compact/caller/CCall source, compiled02/03 and bounded installed05/06 proof conserved; closed failures remain failed; no qualification/human acceptance."
+}

@@ -33,7 +33,7 @@ Before a ProductInstall exists, use the executing ABI package's immutable verifi
 
 ### Existing grant, extended basis
 
-Keep `CapabilityGrant` unchanged. Add a discriminated admission basis alongside the existing invocation/read basis, and expose it through `product/index.ts` with the existing constructor/verifier. The native constructor basis contains the full `OwnerContractSourceDeclaration` as an installed module-static parameter plus the data basis. The serialized data basis is a closed I-JSON object containing only exact definition/owner coordinates, verified executing-owner artifact preimages, external decision/approval, request, operation resource scope, and (only for bound definitions) actual A/W, admitted installs/lock and explicit artifact-truth prefix. It excludes the full native packet and its schema functions. Define strict schemas for this data basis once and derive its types and installed resource parser from them. Never deserialize a native packet, accept caller schema functions, or type a partial coordinate object as a full `OwnerContractSourceDeclaration`.
+Keep `CapabilityGrant` unchanged. Add a discriminated admission basis alongside the existing invocation/read basis, and expose it through `product/index.ts` with the existing constructor/verifier. The native constructor basis contains the full `OwnerContractSourceDeclaration` as an installed module-static parameter plus the data basis. The serialized data basis is a closed I-JSON object containing only exact definition/owner coordinates, verified executing-owner artifact preimages, external decision/approval, request, operation resource scope, and (only for bound definitions) the exact prefix/WorkspaceBinding selection defined below. It excludes the full native packet and its schema functions. Define strict schemas for this data basis once and derive its types and installed resource parser from them. Never deserialize a native packet, accept caller schema functions, or type a partial coordinate object as a full `OwnerContractSourceDeclaration`.
 
 The admission branch executes this pure algorithm:
 
@@ -50,46 +50,59 @@ The admission branch executes this pure algorithm:
 | `product.resolve#resolve` | W forbidden. Scope includes the complete verified Product set, resolution request and native-closure evidence. Preserve all declared contributions and full native lock identity. |
 | `product.install#install` | W forbidden. Scope includes exact verified artifact, resolved lock, target install root and existing event-resource authority. Only the existing install owner admits its event. |
 | `workspace.bind#bind` | W forbidden on input. Scope includes actual workspace authority A, all admitted installs, lock and declared roots. The binding owner creates W from those inputs; no proposed W is a grant prerequisite. |
-| `catalog.admit#admit`, `catalog.view#allowlist`, `catalog.apply#node_type/#overlay`, `conformance.evaluate#gtl_program` | Exactly one W. Reconstruct A/W and installs/lock from the explicit artifact truth using existing projections. Match actor, Product set, lock and any metadata-required catalog/view scope. Include the operation's request and complete immutable input coordinates in approval scope. |
+| `catalog.admit#admit`, `catalog.view#allowlist`, `catalog.apply#node_type/#overlay`, `conformance.evaluate#gtl_program` | Exactly one W. Reconstruct A/W and installs/lock from the explicit prefix/WorkspaceBinding selection using existing projections. Match actor, Product set, lock and any metadata-required catalog/view scope. Include the operation's request and complete immutable input coordinates in approval scope. |
 
 Workspace creation/opening and A remain distinct existing carriers. A construction consumes the actual workspace result/manifest root plus the explicit resolved authority's workspace id, actor and authority-manifest preimage. Use `constructWorkspaceAuthorityBasis` unchanged: its four-field authority-manifest digest is not the `WorkspaceManifest` digest. The consuming bind owner checks the actual workspace root/manifest and external approval against A. Preserve A's complete identity and W's full roots/install/lock relation; no new mutable type information enters A or W.
 
 The owner-local resource types gain one admission-authority member containing only the serialized data basis and grants; the full native packet never enters resources. Their existing operation-specific fields stay authoritative. `admitExactDefinitionCall` still checks common shape and fixed coordinates; each fixed owner supplies its own module-static packet to the shared grant checker, and no switch in Public chooses owner semantics. Existing run/read grant construction and policy admission continue to use their current A/W and InvocationPolicyBasis laws.
 
-### Shared resource admission and owned derivation lifetime (T-287)
+### Compact admission selection and owned derivation lifetime (T-287 WPS-01/04)
 
-Fixed-owner structural resource parsing establishes closed shape, not an admitted environment.
-It must not cold-reconstruct history or repeatedly validate full immutable owner
-bodies merely because schema, grant and effect consumers are separate helpers.
-The full serialized data basis, canonical scope/grant identities and external
-approval meaning above remain unchanged.
+Executive selection on 2026-09-23 under STDO 2.5.1 RC1 replaces the full bound
+environment preimage with one closed `admission_environment_selection`: exact
+`DurablePrefixCoordinate` plus WorkspaceBinding ref/digest. Unbound operations
+retain `null`. The existing admission scope commits that selection directly;
+it does not retain a full-environment digest to reproduce redundant work.
+Old full-preimage bound approvals have a different scope and are refused, not
+reinterpreted. New approvals come through the same external resolved decision
+and existing capability-grant construction. Null/no-environment scope meaning
+is unchanged. This changes internal representation, not Public WHAT, declared
+capabilities, runtime events, or Product outcomes.
 
-For a bound reopened effect, the existing admission wrapper acquires its declared
-ABG resource once and passes that exact native acquisition to the existing effect
-owner. It establishes the supplied environment relation against that acquired
-entry prefix, then validates one shared Product owner/request/resource/approval
-basis before constructing the exact required grants. New/unbound resource creation
-stays after authorization at its original effect owner. Read-only definitions and
-standalone constructors retain cold source authentication when no acquisition is
-supplied. A failed admission releases its acquisition without admitting an event;
-only ordinary owner close issues the close handoff.
+The existing admission owner parses the closed input, authenticates a cold
+prefix normally and derives the actual environment once through the existing
+artifact/environment projection. It validates actor, workspace, exact Product
+set/lock, request, resources, owner and grants against that result. The native
+result is passed directly to dependent owners and never serialized back into the
+input basis. Structural parsing alone supplies no environment authority; semantic
+consumers, including the release-artifact validator, call this same owner.
+Historical release observations select their genuine entry prefix; that exact
+historical cut is not required to equal today's append extent. Live ingress must
+name the current selected prefix. These are different existing uses, not a new
+history or compatibility protocol. This is an explicit pre-RC internal carrier
+break: no retained supported release-operation subject requiring the old shape
+was established by the closed F16/source and prospective qualification provenance.
+Frozen predecessor artifacts stay unchanged; no legacy decoder is introduced.
 
-ABG's existing prefix derivation owner retains the immutable artifact projection
-and workspace environment for their exact prefix and selected binding. Consumers
-reuse these completed relations, including through qualification. A prefix or
-binding change selects its own relation; raw/copy/closed-resource paths retain
-physical authentication. This is disposable derivation, never a serializable proof
-flag or independent registry. Retained wrappers stay private/immutable. Input
-capture/detachment, closed shape/I-JSON, exact archive/executing-manifest equality,
-actor/definition/contracts, approval/request/resource/grant scope, currentness and
-pre-effect held ownership remain required. The effect owner still owns its
-operation-specific relation, failure, append and close. No schema parse, equal
-coordinate or process-local identity alone grants permission or admission.
+Bound reopened effects retain the actual existing resource acquisition and
+pre-effect held-prefix checks. Read-only ingress authenticates once from the
+selected coordinate. At a subsequent conformance check, the real artifact owner
+value permits existing trusted-desktop path/device/inode/extent currentness
+instead of rereading all unchanged bytes. Raw/copied/foreign values still
+reconstruct and authenticate cold. Owned append, interruption, lock and close
+remain with their existing resource owner; no same-length hostile mutation
+hardening is added to a single trusted developer laptop. No process-local object
+is required for correctness: loss of a derivation simply returns to cold ingress.
 
-The existing exported admission-data/resource schemas retain their direct cold
-semantic contract (including release-artifact readers). Only fixed resource
-owners use the internal structural preimage parser before consolidated admission;
-that parser is not an alternative authority or publicly asserted success.
+Invalidators: changed selection, source identity or required current extent;
+changed actor, lock, Product set, owner, request/resource scope, capability or
+approval; malformed/extra input and altered Program/publication/inventory/catalog.
+Every selected raw GTL/LLM and owner check remains. The superseded responsibility
+to transport, hash, compare and retain a full caller-supplied environment solely
+to reconstruct that same derived value is deleted. Conformance consumes only the
+actual admitted environment. There is no new issuer, session, cache, controller,
+store, Run prerequisite or permission. Pre-Run physical lifetime remains distinct
+from the later admitted Run.
 
 ## Pure declaration application and value validation
 

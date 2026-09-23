@@ -28,6 +28,7 @@ import {
   DurablePrefixReadError,
   captureDurablePrefixCoordinate,
   assertDurableRuntimePrefixBytes,
+  assertDurableRuntimePrefixCurrent,
   readRuntimeEventsAtDurablePrefix,
   projectRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
@@ -677,12 +678,14 @@ function deriveExactPrefixArtifactTruth(
 
 export function validateExactPrefixArtifactTruthProjection(
   value: unknown,
+  options: Readonly<{ requireCurrent?: boolean }> = {},
 ): value is ExactPrefixArtifactTruthProjection {
   try {
     if (ArtifactTruthDerivation.isFor(value)) {
-      // Recheck current physical bytes on every use. The exact frozen result
-      // already carries the owner's completed semantic/history validation.
-      assertDurableRuntimePrefixBytes(value.prefix);
+      // A live consumer retaining this actual acquisition checks ordinary
+      // currentness. Historical byte validation keeps its existing contract.
+      if (options.requireCurrent) assertDurableRuntimePrefixCurrent(value.prefix);
+      else assertDurableRuntimePrefixBytes(value.prefix);
       return true;
     }
     if (
@@ -693,6 +696,8 @@ export function validateExactPrefixArtifactTruthProjection(
     const projected = projectExactPrefixArtifactTruth(
       value.prefix as DurablePrefixCoordinate,
     );
+    if (options.requireCurrent && projected.kind === "exact_prefix_artifact_truth_projection")
+      assertDurableRuntimePrefixCurrent(projected.prefix);
     return projected.kind === "exact_prefix_artifact_truth_projection" &&
       canonicalJson(projected as unknown as JsonValue) ===
         canonicalJson(value as JsonValue);

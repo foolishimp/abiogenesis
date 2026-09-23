@@ -102,7 +102,8 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
   let nativeCalls=0,observed=[],projectionOverride=null,invocation;
   const projection=(prefix,w)=>projectionOverride?.(prefix,w)??(prefix.coordinateDigest===environment.prefix.coordinateDigest&&w.ref===newW.ref&&w.digest===newW.digest?environment:{kind:'exact_prefix_workspace_environment_refusal'});
   const authority=await loadMechanism('product/admission_authority.js',{
-    '../abg/environment_admission.js':{projectExactPrefixWorkspaceEnvironment:projection},
+    '../abg/environment_admission.js':{projectWorkspaceEnvironmentFromArtifactTruth:(truth,w)=>projection(truth.prefix,w)},
+    '../abg/artifact_truth.js':{projectOwnedPrefixArtifactTruth:prefix=>({kind:'exact_prefix_artifact_truth_projection',prefix})},
     './verify_product.js':{isVerifiedProductArtifact:value=>value?.kind==='verified_product_artifact',verifyProduct:async request=>request.artifactRef===verified.artifactRef?verified:{kind:'product_verification_refusal'}},
     'node:fs/promises':{readFile:async path=>{assert.match(String(path),/product-toolchain-manifest\.json$/);return Buffer.from(JSON.stringify(ownerManifest));}},
     './invocation.js':{constructCapabilityGrant:(...args)=>invocation.constructCapabilityGrant(...args),
@@ -136,7 +137,7 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
     const basis={kind:'admission_capability_data',schemaVersion,definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,
       owner:{ref:fixedPacket.owner.authorityRef,digest:fixedPacket.owner.authorityDigest}},ownerArtifact:{request:{artifactPath:join(scratch,'unverified-fixture-placeholder.tgz'),artifactRef:verified.artifactRef,
         expectedArtifactDigest:verified.artifactDigest,expectedProductContentDigest:verified.productContentDigest,expectedManifestDigest:verified.manifestDigest,expectedProductId:verified.productId,expectedPackageName:'@mechanical/witness',expectedPackageVersion:'5.0.0'},verified},request:body,
-      resourceScope:{resourcesDigest:hash(resource),authoritySlots:authority.admissionAuthoritySlots(slots)},boundEnvironment:structuredClone(environment)};
+      resourceScope:{resourcesDigest:hash(resource),authoritySlots:authority.admissionAuthoritySlots(slots)},boundEnvironment:authority.admissionEnvironmentSelection(handoff.prefix,newW)};
     changeBasis(basis);
     const authorityValue={actorRef:actor.ref,authorityMode:'trusted_developer'},approvalValue={decision:'allow',actorRef:actor.ref,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,requestDigest:hash(body),scopeDigest:authority.admissionAuthorityScope(basis).digest};
     const external={kind:'resolved_admission_authority',schemaVersion,actorRef:actor.ref,authorityMode:'trusted_developer',authority:{...coord('authority://mechanical/trusted',authorityValue),value:authorityValue},approval:{...coord('approval://mechanical/exact',approvalValue),value:approvalValue}};

@@ -380,7 +380,7 @@ const gtl_program = (
       boundEnvironment === null ||
       // Grant construction awaited archive verification. Recheck the physical
       // prefix at this owner boundary while borrowing its completed derivation.
-      !validateExactPrefixArtifactTruthProjection(boundEnvironment.artifactTruth) ||
+      !validateExactPrefixArtifactTruthProjection(boundEnvironment.artifactTruth, { requireCurrent: true }) ||
       !conformanceAuthorityMatches(call, boundEnvironment.artifactTruth)
     ) {
       throw fault(

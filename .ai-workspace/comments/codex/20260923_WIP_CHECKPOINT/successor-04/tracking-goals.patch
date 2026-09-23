@@ -1,0 +1,59 @@
+--- preimage/goals
++++ /Users/jim/src/apps/abiogenesis/specification/GOALS.md
+@@ -15,32 +15,28 @@
+ 
+ | Goal ID | Goal | Success signal | Status |
+ |---|---|---|---|
+-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Compiled-02 c9 is accepted mechanical/package readiness, not qualification. Compact admission is accepted and finite installed conformance passes; retry now reaches an actor but exposes a CCall failure-evidence classification defect. Its bounded correction is active. Original correction readiness awaits review and successor binding; full outcomes, exact qualification and actual human acceptance remain open. |
++| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Compiled-03 is accepted mechanical/package readiness, not qualification. Its CCall correction admits actual failure evidence and retry progress; finite06 then fails at HoG retry projection before actor2. Read-only handoff diagnosis is active. Original correction readiness02 is accepted and held; full outcomes, exact qualification and actual human acceptance remain open. |
+ 
+ ## Current Selection
+ 
+ ### Current checkpoint disposition — 2026-09-23
+ 
+-Root accepts [compiled-02](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/return.md)
+-archive `c9de3b78…`: 15 affected compiled checks and exact 5,232-member
+-source/archive/install correspondence. Compact admission has accepted source and
+-[independent review](../.ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/review-01/return.md).
+-The [whole-path review](../.ai-workspace/comments/codex/20260923_WHOLE_PATH_SCOPE_REVIEW/review.md)
+-is CLOSED and the owner compact-selection decision is accepted. This is
+-mechanical/component readiness, not qualification.
+-
+-[Finite installed05](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/return.md)
+-passed all seven setup calls and ordinary compact conformance. Nested retry
+-attempts and its first deterministic actor now execute; the
+-[closed diagnosis](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-diagnosis-01/diagnosis.md)
+-identifies omission of the already authenticated native assessment at CCall
+-failure reclassification. The bounded existing-projector correction is active;
+-retry recovery is unproved. Measured costs and preserved diagnostic/fixture debt
+-remain in [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-management-debt).
++Root accepts [compiled-03](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/return.md)
++archive `1d44a8d1…`: three emitted CCall checks plus reused affected compiled-02
++proof, with exact 5,232-member correspondence. Compact source/review and the
++closed whole-path compact-selection decision remain accepted.
++
++[Finite06](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/return.md)
++proves actual malformed failure-evidence admission, retry judgment/progress and
++inner attempt2. HoG then refuses `projected-retry-projection-mismatch` before the
++second actor. The CCall repair has this installed scope; recovery remains
++unproved and read-only whole-handoff diagnosis is active. Prior finite05 compact
++conformance and existing cost/diagnostic/fixture debt retain their scope in
++[T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-management-debt).
+ 
+ Original [execution09](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09/return.md)
+-and its genuine close remain untouched. [Execution10 readiness](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness/return.md)
+-is CLOSED, pending independent caller review and later archive rebinding; no
++and its genuine close remain untouched. [Execution10 readiness02](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-02/return.md)
++is accepted on compiled-03 under the satisfied caller review; no
+ large-resource preparation or paid Run is selected. The single trusted developer
+ scope remains operative. Existing physical acquisition/session lifetime may
+ carry infrastructure, with optional Run association after admission; no new
+@@ -48,7 +44,7 @@
+ 
+ [T-287's current checkpoint](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
+ records actual pushed ABG `11e03718…` / GLC `ae006dbc…`; subsequent work is local.
+-Next: narrow source/caller review → one rebuild → affected installed retry proof
++Next: closed handoff diagnosis/selected correction and source review → one rebuild → affected installed retry proof
+ → preserved generic correction → remaining applicable qualification, clean
+ checkpoint and RC1. Fixed fifteen-family GOAL-035, original S1–S5/oracle and
+ selected/outside residuals remain; actual human release acceptance is separate.

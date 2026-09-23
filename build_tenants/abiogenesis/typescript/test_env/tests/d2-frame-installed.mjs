@@ -281,7 +281,7 @@ test("D2 mechanical installed repair writes two files and snapshots twenty-two",
   admittedContractCatalog = { productId: abiArtifact.productId, productContentDigest: abiArtifact.productContentDigest,
     catalogId: abiArtifact.catalogId, catalogVersion: schemaVersion, catalogDigest: abiArtifact.catalogDigest };
   admittedDefinitionContractCoordinates = abiArtifact.definitionContractCoordinates;
-  let ordinal = 0, environment = null;
+  let ordinal = 0, environment = null, closeHandoff = null;
   async function authorized(packet, request, resources, supplied = {}) {
     const definition = definitionFor(publicApi, packet.definitionKey.operationId, packet.definitionKey.memberKey);
     const slots = authoritySlots(product, definition, supplied);
@@ -290,7 +290,7 @@ test("D2 mechanical installed repair writes two files and snapshots twenty-two",
         definitionDigest: definition.definitionDigest, owner: { ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest } },
       ownerArtifact: { request: ownerRequest, verified: abiArtifact }, request,
       resourceScope: { resourcesDigest: hash(resources), authoritySlots: product.admissionAuthoritySlots(slots) },
-      boundEnvironment: packet.metadata.workspaceBindingRequirement === "forbidden" ? null : environment };
+      boundEnvironment: packet.metadata.workspaceBindingRequirement === "forbidden" ? null : product.admissionEnvironmentSelection(closeHandoff.prefix, slots.workspace_binding) };
     const authorityValue = { actorRef: ACTOR, authorityMode: "trusted_developer" };
     const approvalValue = { decision: "allow", actorRef: ACTOR, definitionRef: definition.definitionRef,
       definitionDigest: definition.definitionDigest, requestDigest: hash(request), scopeDigest: product.admissionAuthorityScope(basis).digest };
@@ -376,7 +376,7 @@ test("D2 mechanical installed repair writes two files and snapshots twenty-two",
     const eventLogRoot = join(scratch, `events-${attempt}`);
     await mkdir(eventLogRoot);
     const eventLogPath = join(eventLogRoot, "runtime.events.jsonl");
-    let closeHandoff = null;
+    closeHandoff = null;
     const installed = [];
     const installTargets = products.map((_, index) => join(scratch, `installed-${attempt}-${index}`));
     for (const [index, item] of products.entries()) {

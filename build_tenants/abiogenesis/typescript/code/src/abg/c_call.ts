@@ -114,6 +114,7 @@ import {
 import {
   WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
   classifyWorkerTransportFailure,
+  type NativeWorkerResultAssessment,
   type WorkerTransportFailureClass,
 } from "./transport_contracts.js";
 import {
@@ -1946,6 +1947,10 @@ function projectAdmittedProbabilisticTransport(
           (event.payload as Readonly<Record<string, JsonValue>>).byteLength,
         ), 0);
   const classified = classifyWorkerTransportFailure({
+    // The artifact/profile join above authenticates this native disposition.
+    ...(artifact.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST ? {
+      nativeResultDisposition: (artifact.payload.nativeResultAssessment as unknown as NativeWorkerResultAssessment).disposition,
+    } : {}),
     parser: binding.payload.parser as "claude_stream_json" | "plain_text",
     lane: source.transportLane,
     processStatus: source.processStatus as number | null,

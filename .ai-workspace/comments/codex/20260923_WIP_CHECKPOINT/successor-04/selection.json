@@ -1,0 +1,205 @@
+{
+  "directExpected": {
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "918e4b9aea294c8809a88e0fd2c9ba4223ce2539c3e702db1b8c4a14a69e0a10",
+      "classification": "Root-authorized_current_tracking",
+      "proof": null
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts": {
+      "sha256": "62bf1335ed7529b2d13d32e8810871f2e7e99bfc7ab7b6716d3b1360aca39805",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/build-inputs.json"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts": {
+      "sha256": "81df9b254be28818201cbb6c56924ee06b1003fba4813a3852f27a8ef6838008",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/build-inputs.json"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/release_publication.ts": {
+      "sha256": "dcd2a8074ad11c07a8eaa1e8ff6e79b8b12613eaac5ba3643963ec23c79f6827",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/build-inputs.json"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts": {
+      "sha256": "64bc7c2caa45bdee1253bba9facadde66895b355942c7c1935a78d123239470e",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/build-inputs.json"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/index.ts": {
+      "sha256": "11adb3aaca2ac86d958e0be16add53a1a456f99c80f1f1e171a5072e84c8dca6",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/build-inputs.json"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts": {
+      "sha256": "931c3998c103e932215eee4a952e4575db91a20a5e128187054ac62048479c28",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/build-inputs.json"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/validator/conformance_definition_bindings.ts": {
+      "sha256": "2d656946734148a566c1d0e13144d531c410f7b928ae79a5ef5667bfc5871352",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/build-inputs.json"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "fea6ee264e48617f655c6dcb42938a667b60c2942ae7acaa473dc12acb8dbf44",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/generated-after.json"
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md": {
+      "sha256": "af682bcb839229081b6e4a450c6cc1950181e2a84003b093e8ba1796a73f0f25",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/accepted-current-authored.json"
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "6cdebeef7bc67e054f53422254eaf5d852eb475c347244f694280f6a87c1915a",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/generated-after.json"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs": {
+      "sha256": "4a96998044b26793a8d410b7808062eff8cead4b0246f8a84d5153ed8916ca04",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/accepted-current-authored.json"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/witness-reprice-mechanics.mjs": {
+      "sha256": "71289e1505b15c901b626dd23152ab628cc4a4c46e7392d7db1a8b6c97990ab6",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/accepted-current-authored.json"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-frame-installed.mjs": {
+      "sha256": "08c4ca72b0690e6d89df16a061241de07b8c9ee3fcffcb973ceb651f5333e358",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/accepted-current-authored.json"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/steel-consumer-declaration.test.mjs": {
+      "sha256": "71959b3d17293326d52bd0e1b23a89e44794c3ee921103e94788ea80277c430a",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/accepted-current-authored.json"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-conformance-owner-reuse.test.mjs": {
+      "sha256": "624db7065b54bdc32ec544c6ad28c4b8ad8a327b8a6289d779b29981f5a13fd2",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/accepted-current-authored.json"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-requirement-handoff.test.mjs": {
+      "sha256": "5eabc0cd384f2b4f39d0645072604e23db1eb2da09dd19e9fbbc1ec5373dee39",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/accepted-current-authored.json"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs": {
+      "sha256": "c6538742c815fd3e660c0791a71134f0f34815ac3525defbcc422926727a1138",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/accepted-current-authored.json"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment-installed.mjs": {
+      "sha256": "3f260993abdd7b5f50be2814ebe9e796a4c23f2c976ef59a64a14d9b4ea052b9",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/accepted-current-authored.json"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-serial-branch-installed.test.mjs": {
+      "sha256": "742758e5d2dfb1d4de38779571463408d6409c79b1544a062ba50e71223aac51",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/accepted-current-authored.json"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/w2-steel-single-start-installed.test.mjs": {
+      "sha256": "d3c894162e3f756f43a137faa9da0b73f500d860a8bcb5c4db9eb93ffc96e2a6",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/accepted-current-authored.json"
+    },
+    "specification/GOALS.md": {
+      "sha256": "6387e80980225bf1f77aa0155e6956745cbed638e96f9922342477a7b98a4d09",
+      "classification": "Root-authorized_current_tracking",
+      "proof": null
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assessment-evidence.test.mjs": {
+      "sha256": "6d0a1a0bc5af05898765677cffbcf9bf440eb0df74a3885130067a44eff8a8a7",
+      "classification": "accepted_compiled03_source_component_or_generated",
+      "proof": "compiled-03/check-inputs.json"
+    }
+  },
+  "closedProofSelections": [
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/implementation-01/freeze.json",
+      "sha256": "51b73ac339f427757278a76f9ea2e263d9721eaad1ee0aa967348547adc2f594",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-02/freeze.json",
+      "sha256": "9dfa09ac20b13ca3835744ada66b65e13bb5ee24a5c3acba534df2abc055d5f8",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/freeze.json",
+      "sha256": "d631a352c9ad834792833c21c3ae69a6d67e21f957b70939f4406abcc0336db6",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/successor-03/freeze.json",
+      "sha256": "541535616986dbcbb34d2280f7b1012b5000fa94ce94c2b9a7f738bdd1458b0f",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/freeze.json",
+      "sha256": "7cfbda8a4fd359ab10acd16fe91e5856bc7b7222ca14916bace3f303b274adec",
+      "memberBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/freeze.json",
+      "sha256": "05c9fccb5addc89002ded0b4067cded59d4f8b4f31019d4de77b1661dd31b584",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/successor-01/freeze.json",
+      "sha256": "fe59b8d9482d317067c69d1c82c232f770d54956245d0d80acba9dd09c2fc355",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/freeze.json",
+      "sha256": "590cf1ec21cf23347ee6c05849d65098e0624ae703f055385268713d450c1695",
+      "memberBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness/freeze.json",
+      "sha256": "d0e2b127b09eb705dcf82bb44b4275d83151b08ae481924214945aefe5632e3d",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-02/freeze.json",
+      "sha256": "22ea02c519c692584267efe4d88a465f89fa024c3eb241e01431a03674034213",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-diagnosis-01/freeze.json",
+      "sha256": "52e48d4aac5605c88db50418208bcc54c42759928324bfba0ffcb41e582c6fac",
+      "memberBase": null
+    }
+  ],
+  "adjoiningClosedPosts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPACT_ADMISSION_SELECTION/review-01/return.md",
+      "sha256": "f5572dc1eed21018cf7a3a0610ad10b21ab31d276d988d5451de322144c0abb4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_WHOLE_PATH_SCOPE_REVIEW/review.md",
+      "sha256": "4bef687bbbd7f3e6134e7d112a737f0386cb72a792aea2118e6260f38600246e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-diagnosis-01/diagnosis.md",
+      "sha256": "1d183c67ad15a0e084c415bfd97bee933ffb96464e119184d45144327dba584c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05-evidence-repair-01/review-01/return.md",
+      "sha256": "cff027c4e29357ce30185aeca16116f8f308cb407428fae6d32aa0577a68836f"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-review/return.md",
+      "sha256": "6cca8f9448d1ae8bf6af15e5ec9ce498c37189824d8583109e3ad760a403c201"
+    }
+  ],
+  "pending": [
+    "Next retry-handoff source repair and any later outputs remain outside the exact index subject",
+    "Original mutable GLC history/worksite and S02 runtime resource/install trees; no snapshot",
+    "Unselected build_tenants/abiogenesis/scratch outputs preserved in place"
+  ],
+  "scope": "Accepted compact/caller/CCall source and component/compiled evidence, actual bounded installed05/06 success/failures, and four current tracking projections; no RC qualification or publication",
+  "generatedCoverage": "Tracked current contracts/manifest staged directly; ignored emitted build outputs are reproduced and fully represented by accepted compiled03 archive and generated inventory/correspondence, not omitted evidence"
+}

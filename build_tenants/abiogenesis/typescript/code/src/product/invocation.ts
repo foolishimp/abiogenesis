@@ -897,11 +897,11 @@ export async function constructAdmissionCapabilityGrants(
   policy: ResolvedAdmissionAuthority, actorRef: string,
   basis: AdmissionCapabilityGrantConstructionBasis,
   resource: import("../abg/definition_event_resource.js").AcquiredAbgEventResource | null,
-): Promise<Readonly<{ grants: readonly CapabilityGrant[]; data: AdmissionCapabilityData }>> {
+): Promise<Readonly<{ grants: readonly CapabilityGrant[]; data: AdmissionCapabilityData; boundEnvironment: import("../abg/environment_admission.js").ExactPrefixWorkspaceEnvironment | null }>> {
   const capabilityRefs = basis.fixedPacket.metadata.capabilityRefs;
   if (capabilityRefs.length === 0) throw new TypeError("admission definition requires declared capabilities");
   const admitted = await validateAdmissionCapabilityBasis(policy, actorRef, capabilityRefs[0]!, basis, resource);
-  return { grants: capabilityRefs.map(capabilityRef => admissionGrantFromBasis(actorRef, capabilityRef, basis, admitted)), data: admitted.data };
+  return { grants: capabilityRefs.map(capabilityRef => admissionGrantFromBasis(actorRef, capabilityRef, basis, admitted)), data: admitted.data, boundEnvironment: admitted.boundEnvironment };
 }
 
 function admissionGrantFromBasis(
@@ -915,7 +915,7 @@ function admissionGrantFromBasis(
     throw new TypeError("admission definition coordinate differs from the installed fixed packet");
   }
   const { graph, operationContract, row } = selectedCapabilityOwner(
-    data.boundEnvironment?.productInstalls ?? [data.ownerArtifact.verified], definition, capabilityRef,
+    admitted.boundEnvironment?.productInstalls ?? [data.ownerArtifact.verified], definition, capabilityRef,
   );
   closeCapabilityDependencies(graph, capabilityRef);
   const body = {
