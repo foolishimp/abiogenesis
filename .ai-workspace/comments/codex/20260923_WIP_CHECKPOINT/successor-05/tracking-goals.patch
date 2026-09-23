@@ -1,0 +1,67 @@
+--- preimage/goals
++++ /Users/jim/src/apps/abiogenesis/specification/GOALS.md
+@@ -15,40 +15,37 @@
+ 
+ | Goal ID | Goal | Success signal | Status |
+ |---|---|---|---|
+-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Compiled-03 is accepted mechanical/package readiness, not qualification. Its CCall correction admits actual failure evidence and retry progress; finite06 then fails at HoG retry projection before actor2. Read-only handoff diagnosis is active. Original correction readiness02 is accepted and held; full outcomes, exact qualification and actual human acceptance remain open. |
++| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Compiled04 and observed installed07 nested retry recovery are accepted under independent review. Original execution10 readiness03 is ready for the post-checkpoint activation; remaining fifteen S02 cases, full S1–S5, qualification/RC1 and actual human acceptance remain open. |
+ 
+ ## Current Selection
+ 
+ ### Current checkpoint disposition — 2026-09-23
+ 
+-Root accepts [compiled-03](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-03/return.md)
+-archive `1d44a8d1…`: three emitted CCall checks plus reused affected compiled-02
+-proof, with exact 5,232-member correspondence. Compact source/review and the
+-closed whole-path compact-selection decision remain accepted.
+-
+-[Finite06](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06/execution-01/return.md)
+-proves actual malformed failure-evidence admission, retry judgment/progress and
+-inner attempt2. HoG then refuses `projected-retry-projection-mismatch` before the
+-second actor. The CCall repair has this installed scope; recovery remains
+-unproved and read-only whole-handoff diagnosis is active. Prior finite05 compact
+-conformance and existing cost/diagnostic/fixture debt retain their scope in
+-[T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-management-debt).
++Root accepts [compiled04 and installed07 recovery](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/return.md)
++on archive `1b42037d…` under [independent review `11507bf4…`](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/review-01/return.md).
++Actual malformed evidence, retry judgment/progress, a distinct second actor and
++inner/outer completion lead to closed frame/graph/Run and agreeing fresh reads.
++Earlier failed cuts retain their original identities; this is bounded installed
++recovery evidence, not complete S02 or qualification.
+ 
+ Original [execution09](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09/return.md)
+-and its genuine close remain untouched. [Execution10 readiness02](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-02/return.md)
+-is accepted on compiled-03 under the satisfied caller review; no
+-large-resource preparation or paid Run is selected. The single trusted developer
+-scope remains operative. Existing physical acquisition/session lifetime may
+-carry infrastructure, with optional Run association after admission; no new
+-session authority is selected.
+-
+-[T-287's current checkpoint](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation)
+-records actual pushed ABG `11e03718…` / GLC `ae006dbc…`; subsequent work is local.
+-Next: closed handoff diagnosis/selected correction and source review → one rebuild → affected installed retry proof
+-→ preserved generic correction → remaining applicable qualification, clean
+-checkpoint and RC1. Fixed fifteen-family GOAL-035, original S1–S5/oracle and
+-selected/outside residuals remain; actual human release acceptance is separate.
+-Historical cuts, T-288/T-289 closure and their bounded claims stay preserved.
++and its close remain untouched. [Execution10 readiness03](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/return.md)
++is accepted with its candidate dependency satisfied. This final checkpoint
++precedes separately authorized original preparation and one correction Run.
++Full S1–S5/oracle, protected scope and selected/outside residuals remain exact.
++
++[T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-management-debt)
++retains setup192.773s/root13.412s/case86.503s and observed peak2.806GB as costs
++with unmeasured attribution, not performance closure. Fifteen remaining S02
++cases, full generic outcomes, applicable qualification/RC1 and actual human
++release acceptance stay open. Trusted developer scope and the existing physical
++acquisition/session lifetime remain; no new session authority is selected.
++
++The last verified pushes at Writer entry are ABG `462de346…` / GLC `d563c894…`;
++[successor05](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-05/publication-receipt.json)
++records this next closed checkpoint. Next: preserved generic correction and
++remaining applicable qualification, then clean checkpoint/RC1. Fixed fifteen
++families, T-288/T-289 closure and all historical evidence remain unchanged.
+ 
+ ### Historical delivery and repair dispositions
+ 

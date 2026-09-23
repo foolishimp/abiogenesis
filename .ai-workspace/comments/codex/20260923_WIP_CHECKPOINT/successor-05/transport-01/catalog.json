@@ -1,0 +1,80 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "462de346fc5b4d342049d97e626fc0ae815f1287",
+  "scope": "Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 194
+  },
+  "archiveMemberCount": 194,
+  "archiveMemberBytes": 519346378,
+  "transportBytes": 80519518,
+  "assets": [
+    {
+      "id": "raw-1b42037dfe6962a29e1f08cf99618f8a6436cc4759978b4302e87f0d01662e28",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10123115,
+      "sha256": "1b42037dfe6962a29e1f08cf99618f8a6436cc4759978b4302e87f0d01662e28",
+      "parts": [
+        {
+          "path": "payloads/raw-1b42037dfe6962a29e1f08cf99618f8a6436cc4759978b4302e87f0d01662e28.part0000",
+          "byteLength": 10123115,
+          "sha256": "1b42037dfe6962a29e1f08cf99618f8a6436cc4759978b4302e87f0d01662e28"
+        }
+      ]
+    },
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS",
+      "byteLength": 1870839,
+      "sha256": "d60d9b0b7e65cde3a5c6f43d6e14cd1f3b4c5b66b1540a7b82fd2bbd3822c0ad",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 1870839,
+          "sha256": "d60d9b0b7e65cde3a5c6f43d6e14cd1f3b4c5b66b1540a7b82fd2bbd3822c0ad"
+        }
+      ]
+    },
+    {
+      "id": "family-0001",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION",
+      "byteLength": 19222,
+      "sha256": "3680170d2783b471f03c7a446f5ce95790d2b32194d23eb89913d15f7171e02a",
+      "parts": [
+        {
+          "path": "payloads/family-0001.tar.gz.part0000",
+          "byteLength": 19222,
+          "sha256": "3680170d2783b471f03c7a446f5ce95790d2b32194d23eb89913d15f7171e02a"
+        }
+      ]
+    },
+    {
+      "id": "family-0002",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE",
+      "byteLength": 68506342,
+      "sha256": "a52690e14c413d209832ee79915530f11d16f79f411cacc88d5014d223d63655",
+      "parts": [
+        {
+          "path": "payloads/family-0002.tar.gz.part0000",
+          "byteLength": 51380224,
+          "sha256": "8701252ea9c7f0303f8cd3f30c8feddddc802cf30fbc68923259d618d9592552"
+        },
+        {
+          "path": "payloads/family-0002.tar.gz.part0001",
+          "byteLength": 17126118,
+          "sha256": "37e8a111a5ec3182607bf38ad4c8b7ca8ab69946914678275bd66919ace96538"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "d4d45428920d96a27985f46fe84ee9e0827f553bee12799a7027023004ce301b",
+  "reconciliationSha256": "96d9b05ba2f5db0bc5c8724c0f3a0dc3b03a200d1508fbad0f9111f66c93290f",
+  "pendingActiveEvidence": [],
+  "credentialShapeFindingCount": 0
+}

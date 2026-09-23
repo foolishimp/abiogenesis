@@ -1,0 +1,16 @@
+[
+  {
+    "path": "specification/GOALS.md",
+    "preimageSha256": "6387e80980225bf1f77aa0155e6956745cbed638e96f9922342477a7b98a4d09",
+    "postimageSha256": "348e3c827e40742f4187690258319923d5eec7d1d858bb33c48e6ead452d05ca",
+    "preimageBytes": 54920,
+    "postimageBytes": 54651
+  },
+  {
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "preimageSha256": "918e4b9aea294c8809a88e0fd2c9ba4223ce2539c3e702db1b8c4a14a69e0a10",
+    "postimageSha256": "8591e5662bc12b1f0b94d9d7490fe3406fe586926d4ac1cfb71023761122be94",
+    "preimageBytes": 333781,
+    "postimageBytes": 332957
+  }
+]

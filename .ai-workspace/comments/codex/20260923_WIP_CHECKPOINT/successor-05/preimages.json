@@ -1,0 +1,27 @@
+[
+  {
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "sha256": "8591e5662bc12b1f0b94d9d7490fe3406fe586926d4ac1cfb71023761122be94",
+    "classification": "Root-authorized_current_tracking"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+    "sha256": "14244fa45ceba22afdeb9d98ce7e7e98ff4ab65db68bba46c3f11ae1fc76df5f",
+    "classification": "accepted_compiled04_source_or_generated"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "sha256": "f40872b36eb59c19141a9b49a392dd661ac62fafda256f7c4bb8666adc95f45e",
+    "classification": "accepted_compiled04_source_or_generated"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "3099f970182321087be76341ff60dacf38aa68ddf86e502974574136df5ecd0e",
+    "classification": "accepted_compiled04_source_or_generated"
+  },
+  {
+    "path": "specification/GOALS.md",
+    "sha256": "348e3c827e40742f4187690258319923d5eec7d1d858bb33c48e6ead452d05ca",
+    "classification": "Root-authorized_current_tracking"
+  }
+]

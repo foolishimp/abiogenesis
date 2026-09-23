@@ -1,0 +1,11 @@
+{
+  "scope": "Writer-only draft boundary mistake caught before staging",
+  "firstDraftSha256": "3ea27cff7752c0ad7699211d5fb4aba8c919fd9db0c663480eb5afbbfcad8388",
+  "preservedSpanStart": "## Current Management Prerequisite Plan",
+  "preservedSpanEnd": "The sound C1 byte-return",
+  "restoredExactBytes": 29962,
+  "restoredSpanSha256": "00df0fa2a5b9ed81de53ccb5068f051ad176018eff26a2de367c402252c837f7",
+  "postimageSha256": "8591e5662bc12b1f0b94d9d7490fe3406fe586926d4ac1cfb71023761122be94",
+  "historicalManagementSpanByteIdentical": true,
+  "firstDraftPatch": "tracking-boundary-first-draft.patch"
+}

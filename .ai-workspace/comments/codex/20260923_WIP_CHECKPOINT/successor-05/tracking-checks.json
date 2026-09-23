@@ -1,0 +1,62 @@
+{
+  "changedLinkTargets": [
+    {
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/return.md",
+      "exists": true
+    },
+    {
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/review-01/return.md",
+      "exists": true
+    },
+    {
+      "target": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/return.md",
+      "exists": true
+    },
+    {
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "exists": true
+    },
+    {
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-05/publication-receipt.json",
+      "status": "Created by selected staging owner before commit"
+    },
+    {
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/return.md",
+      "exists": true
+    },
+    {
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/review-01/return.md",
+      "exists": true
+    },
+    {
+      "target": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/return.md",
+      "exists": true
+    },
+    {
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-05/publication-receipt.json",
+      "status": "Created by selected staging owner before commit"
+    },
+    {
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-04/return.md",
+      "exists": true
+    },
+    {
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/return.md",
+      "exists": true
+    },
+    {
+      "target": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/return.md",
+      "exists": true
+    },
+    {
+      "target": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-09-conformance-cost-01/return.md",
+      "exists": true
+    },
+    {
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-05/execution-01/return.md",
+      "exists": true
+    }
+  ],
+  "historicalSectionsPreserved": true,
+  "sourceTestsExecuted": false
+}

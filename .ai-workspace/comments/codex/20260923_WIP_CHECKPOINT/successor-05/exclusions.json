@@ -1,0 +1,9 @@
+{
+  "prefixesAndFiles": {},
+  "active": [
+    "Active s02-installed-continuation-08 and later evidence carriers",
+    "Original mutable GLC/S02 history/worksite/resources; no snapshot",
+    "Unselected build_tenants/abiogenesis/scratch and other leftover outputs"
+  ],
+  "note": "No new blanket ignore of active or reproducible trees; only exact newly transported originals will be ignored."
+}

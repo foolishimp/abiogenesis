@@ -1,0 +1,15 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "462de346fc5b4d342049d97e626fc0ae815f1287",
+  "commitIdentity": "The commit containing this receipt; exact resulting local/remote identities in external post-push receipt.",
+  "transportBytes": 80519518,
+  "newLogicalMembers": 194,
+  "restoration": "Every new member restored and compared with its original; exact selected freeze relations checked. Prior transport reused.",
+  "currentScope": "Accepted retry source, compiled04/installed07 recovery, independent review, readiness03 and four current status projections; remaining fifteen S02/full S1-S5/qualification/RC open.",
+  "ongoing": [
+    "Active s02-installed-continuation-08 and later evidence carriers",
+    "Original mutable GLC/S02 history/worksite/resources; no snapshot",
+    "Unselected build_tenants/abiogenesis/scratch and other leftover outputs"
+  ],
+  "allowedGitEffects": "One ordinary commit and nonforce main push; remote readback afterward."
+}

@@ -1,0 +1,16 @@
+{
+  "basisCommit": "462de346fc5b4d342049d97e626fc0ae815f1287",
+  "prior": "successor-04/composition.json plus inherited transport receipts in classification.json",
+  "newTransport": "transport-01/catalog.json",
+  "archiveMembers": 194,
+  "archiveMemberBytes": 519346378,
+  "transportBytes": 80519518,
+  "parts": 5,
+  "priorPayloadReadOrReupload": false,
+  "pending": [
+    "Active s02-installed-continuation-08 and later evidence carriers",
+    "Original mutable GLC/S02 history/worksite/resources; no snapshot",
+    "Unselected build_tenants/abiogenesis/scratch and other leftover outputs"
+  ],
+  "scope": "Accepted retry source and exact compiled04/installed07 recovery with independent review; prior failures conserved; no full S02/qualification/human acceptance."
+}

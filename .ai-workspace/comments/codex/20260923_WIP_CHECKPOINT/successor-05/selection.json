@@ -1,0 +1,68 @@
+{
+  "directExpected": {
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "8591e5662bc12b1f0b94d9d7490fe3406fe586926d4ac1cfb71023761122be94",
+      "classification": "Root-authorized_current_tracking"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts": {
+      "sha256": "14244fa45ceba22afdeb9d98ce7e7e98ff4ab65db68bba46c3f11ae1fc76df5f",
+      "classification": "accepted_compiled04_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "f40872b36eb59c19141a9b49a392dd661ac62fafda256f7c4bb8666adc95f45e",
+      "classification": "accepted_compiled04_source_or_generated"
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "3099f970182321087be76341ff60dacf38aa68ddf86e502974574136df5ecd0e",
+      "classification": "accepted_compiled04_source_or_generated"
+    },
+    "specification/GOALS.md": {
+      "sha256": "348e3c827e40742f4187690258319923d5eec7d1d858bb33c48e6ead452d05ca",
+      "classification": "Root-authorized_current_tracking"
+    }
+  },
+  "closedProofSelections": [
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/freeze.json",
+      "sha256": "c442191346f2f3b5b1b3595324e8273f541ad0d23cd4b413ed733afb16f3be2d",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-04/freeze.json",
+      "sha256": "6c07753341099b12bc5e7610dbf996f2dfe395ddc5d31b63ec716f9dd896c69b",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-07/execution-01/freeze.json",
+      "sha256": "d79a519d68d81d3f24acba09f7b71334652114968cbe98f25b5c9632bd19de00",
+      "memberBase": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-07"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-07/execution-01/final-freeze.json",
+      "sha256": "f6a806ecaa290ab40bd023b3b85c1925be6cbbf51c0541d1c3eff10d29286d35",
+      "memberBase": null
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10-readiness-03/freeze.json",
+      "sha256": "0191da60204996f3269829171908938654d653f0b076141c5ea7d05e0aaa6907",
+      "memberBase": null
+    }
+  ],
+  "adjoiningClosedPosts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-06-repair-01/review-01/return.md",
+      "sha256": "11507bf472b41696e8ec2694cf7962e4186fa7172c7cea381cafba5ed07d5509"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_CURRENT_STATUS_RECONCILIATION/return.md",
+      "sha256": "bd3b706bc03a34b2929f6c234357c3cda6cbed475fcf8f602b3dcb49edba1bb1"
+    }
+  ],
+  "pending": [
+    "Active s02-installed-continuation-08 and later evidence carriers",
+    "Original mutable GLC/S02 history/worksite/resources; no snapshot",
+    "Unselected build_tenants/abiogenesis/scratch and other leftover outputs"
+  ],
+  "scope": "Accepted exact retry source/component/compiled04/installed07 and independent review, readiness03, concise current tracking; no complete S02/full S1-S5/qualification/RC release claim",
+  "generatedCoverage": "Tracked contract/manifest direct; full accepted archive and generated correspondence preserve ignored emitted package outputs"
+}

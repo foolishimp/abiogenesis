@@ -26,7 +26,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { projectRuntimeLivenessAtPrefix, captureNativeFrameBoundary, observeNativeFrameLiveness, type RuntimeLivenessBudgetFacts } from "./runtime_liveness.js";
+import { projectRuntimeLivenessAtPrefix, captureNativeFrameBoundary, observeNativeFrameLiveness, createRuntimeLivenessEventValidator, type RuntimeLivenessBudgetFacts } from "./runtime_liveness.js";
 import type { RuntimeInvocationScope } from "./runtime_liveness_contracts.js";
 import {
   deriveCanonicalRootedTopologyPartition,
@@ -663,16 +663,37 @@ export function projectRetryResumeAtDurablePrefix(
     const durableEvents = readRuntimeEventsAtDurablePrefix(
       carrier.successorPrefix,
     );
-    const routeEvent = durableEvents.at(-2);
     const attemptEvent = durableEvents.at(-1);
+    const routeEvents = durableEvents.filter((event) =>
+      event.eventId === carrier.routeAdmissionEventRef
+    );
+    const routeEvent = routeEvents.length === 1 ? routeEvents[0] : undefined;
     if (
       routeEvent?.kind !== "traversal_route_admitted" ||
-      routeEvent.eventId !== carrier.routeAdmissionEventRef ||
       attemptEvent?.kind !== "retry_attempt_opened" ||
       attemptEvent.eventId !== carrier.retryAttemptAdmissionEventRef ||
-      routeEvent.admissionOrdinal + 1 !== attemptEvent.admissionOrdinal
+      routeEvent.admissionOrdinal >= attemptEvent.admissionOrdinal ||
+      !sameCanonicalRetryValue(attemptEvent.causationEventRefs, [routeEvent.eventId])
     ) return null;
     const authorityPrefix = selectValidatedRuntimeEventPrefix(durableEvents);
+    // The route owner observes its frame progress before opening the dependent
+    // attempt in the same transaction. Preserve that exact producer relation;
+    // arbitrary observations or semantic transitions are not transparent.
+    const validateObservation = createRuntimeLivenessEventValidator(authorityPrefix);
+    for (const event of durableEvents) {
+      if (event.admissionOrdinal <= routeEvent.admissionOrdinal ||
+          event.admissionOrdinal >= attemptEvent.admissionOrdinal) continue;
+      if (event.kind !== "runtime_activity_probe_observed" ||
+          !isRecord(event.payload) || !isRecord(event.payload.probeContract) ||
+          !isRecord(event.payload.observation) ||
+          event.payload.probeContract.source !== "frame_progress" ||
+          event.payload.observation.underlyingEventRef !== routeEvent.eventId ||
+          event.payload.observation.sourceDigest !== routeEvent.payloadDigest ||
+          event.runId !== routeEvent.runId || event.graphCallId !== routeEvent.graphCallId ||
+          event.frameId !== routeEvent.frameId || event.basisId !== routeEvent.basisId ||
+          event.graphFunctionRef !== routeEvent.graphFunctionRef ||
+          !validateObservation(event)) return null;
+    }
     const runPrefix = selectValidatedRuntimeEventPrefix(durableEvents, {
       runId: carrier.nextCursor.runId,
     });
