@@ -1,0 +1,11 @@
+{
+  "paths": 80,
+  "stagedBlobComparisons": 80,
+  "largestBlobBytes": 10130123,
+  "credentialShapeFindings": [],
+  "whitespaceExitCode": 2,
+  "whitespaceDisposition": "Frozen literal diff-context whitespace retained; diagnostics recorded; current added-line check separately passed",
+  "allAcceptedCanonicalPostimagesExact": true,
+  "priorPayloadReadOrReupload": false,
+  "activeResourcesExcluded": true
+}

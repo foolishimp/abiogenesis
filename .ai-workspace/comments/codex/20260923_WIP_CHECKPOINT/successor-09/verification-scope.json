@@ -1,0 +1,7 @@
+{
+  "status": "Current tracking and selected sources verified before staging",
+  "trackingReplay": "Use exact patches against tracking-preimages; scripts preserve construction history, final tracking-update.json and selection.json own exact postimages.",
+  "sourcePostimageEditByWriter": false,
+  "buildOrTestRun": false,
+  "packageAcceptance": "Root accepted closed package review before cutoff; all four review members restored exact."
+}

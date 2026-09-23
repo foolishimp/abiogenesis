@@ -1,3 +1,4 @@
+import { ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA } from "../abg/terminal_result_contracts.js";
 import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA } from "../gtl/requirement_handoff.js";
 import { SEMANTIC_LIFECYCLE_SCHEMA } from "../gtl/semantic_stage.js";
 import { SEMANTIC_JOB_LIFECYCLE_SCHEMA } from "../gtl/semantic_job.js";
@@ -1093,6 +1094,7 @@ const RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
   applicationResources: v.optional(v.array(jsonValueSchema)),
   runEnvironmentResources: v.optional(RUN_ENVIRONMENT_RESOURCES_SCHEMA),
   source: RUN_INVOCATION_SOURCE_ASSERTION_SCHEMA,
+  historicalSource: v.optional(ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA),
 }) as unknown as v.GenericSchema<
   RunInvocationResourceAssertion,
   RunInvocationResourceAssertion
@@ -1290,6 +1292,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
       catalogView: call.resources.catalogView,
       applications: call.resources.applications,
       source,
+      ...(call.resources.historicalSource === undefined ? {} : { historicalSource: call.resources.historicalSource }),
       ...(call.resources.runEnvironmentResources === undefined ? {} : { runEnvironmentResources: call.resources.runEnvironmentResources }),
     });
     const preparedResult = yield* asyncStage(
@@ -1551,6 +1554,7 @@ function runInvocationOwner<TPacket extends RunPacket>(
       const leafPort = yield* asyncStage(call, "leaf_port", () =>
         constructAdmittedLeafInvocationPort(Object.freeze({
           prefix: authorityPrefix,
+          ...(call.resources.historicalSource === undefined ? {} : { historicalSource: call.resources.historicalSource }),
           artifactTruth: setup.artifactTruth,
           implementationSet: execution.implementationSet,
           executionResolution: prepared.resolution,

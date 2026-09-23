@@ -1,0 +1,58 @@
+{
+  "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts": {
+    "sha256": "8b3d33cfd7e61a85039c918a743cd6487e55fe890d8a22798201af046b89f4b0",
+    "classification": "core04"
+  },
+  "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts": {
+    "sha256": "2c39789ac41c12d71c4da68c85b2f0a8d809ba6473b725bd5d1c1395535962fb",
+    "classification": "core04"
+  },
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs": {
+    "sha256": "a5cd99cde8bd9d96dd557059b25187a675ef9fb4948c51367cee3dde2a83c9fb",
+    "classification": "core04"
+  },
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs": {
+    "sha256": "e270eca715ac47d9d99af2ebc27625e38700a1a6aa210897e68ecc31466ee302",
+    "classification": "core04"
+  },
+  "build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts": {
+    "sha256": "e04d19ca520a2e3dc308d94e50db6a4b065b47855dfab9c143329a51ccf8e1ae",
+    "classification": "consumer01"
+  },
+  "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts": {
+    "sha256": "fb307b7bb9c847a63222f8fd01c61c53a9f14afb852302032941baad43900aa9",
+    "classification": "consumer01"
+  },
+  "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts": {
+    "sha256": "b1ab9412f844e294e82b7d3e0e683ad36611b23abe2dd5b0293d061519792c8f",
+    "classification": "consumer01"
+  },
+  "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts": {
+    "sha256": "77911129c853ae30eaf327a017d08de9d0e69e77c193280d2619e0d578088d28",
+    "classification": "consumer01"
+  },
+  "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts": {
+    "sha256": "be0b3ff8ad97cdb7f2edcaf12a4418ee006438a4d26226e4f77f34b63aeaa4f5",
+    "classification": "consumer01"
+  },
+  "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": {
+    "sha256": "33a721189d5cbac29f32e8a4c28be75fa7afecfffd72cedec7fde4e20487caf7",
+    "classification": "consumer01"
+  },
+  "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md": {
+    "sha256": "754477754540a825630125a154be9e1d692a8fd2a30a955e859ea93a1f858283",
+    "classification": "consumer01"
+  },
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-historical-source-resource.test.mjs": {
+    "sha256": "9a8304878d5625997e7e79fcc15becc104a3fae2131d3ccca254d1aa4738ded0",
+    "classification": "consumer01"
+  },
+  "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+    "sha256": "72d0d6571019bc10d0084369d03876f3602ca59547f09e217a2e43181d248bbb",
+    "classification": "compiled09_generated_package_projection"
+  },
+  "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+    "sha256": "dec66a17f069ffb30d8d034c8dad3dcb2357a594cc2177f0019101d938841890",
+    "classification": "compiled09_generated_package_projection"
+  }
+}

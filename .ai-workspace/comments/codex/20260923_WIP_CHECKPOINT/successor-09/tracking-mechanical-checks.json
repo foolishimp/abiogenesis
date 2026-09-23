@@ -1,0 +1,22 @@
+{
+  "files": [
+    {
+      "path": "specification/GOALS.md",
+      "inversePatchCheck": true,
+      "preimageSha256": "985f370cf5e0c9b4db85e043706739acb18731da776caecdbc4cc9ced995dc13",
+      "postimageSha256": "d29bc40ae801c7daa0f254ddab07c06b784303b397da57fec1a0e0996c03e5a2",
+      "newLocalLinks": true,
+      "newTrailingWhitespace": false
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "inversePatchCheck": true,
+      "preimageSha256": "08115be6da51942e109b8062ac1fe219015166ee15b51a17494bc9d0692b258f",
+      "postimageSha256": "8a7dfd992a5101c94726b3193c8c29bf8a43e2b4b1a54ec6c3caa4e1a104018b",
+      "newLocalLinks": true,
+      "newTrailingWhitespace": false
+    }
+  ],
+  "all592GuardedSourceFilesExact": true,
+  "firstCheckDiagnostic": "Initial reverse check omitted -p0 for existing repo-relative patch format, producing GOALS.md not found; corrected invocation passes with no document change."
+}

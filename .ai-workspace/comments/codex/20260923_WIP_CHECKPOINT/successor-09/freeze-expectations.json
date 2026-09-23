@@ -1,0 +1,538 @@
+{
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/activation.json": {
+    "sha256": "7870c41fc0750f89aaabecfbfe2e0a471db51b3d1a3387b3f008ead1052170b2",
+    "byteLength": 1531
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/close.py": {
+    "sha256": "ed51c6fbbdf58461b0dad80172ceaa0227f41f7d5e1202b89c8b69a95a1e7589",
+    "byteLength": 8361
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/json-spans.py": {
+    "sha256": "ff4e5533115b3264cc3f1af1869deec3779529ce88fb7d039fe1c45fb392b620",
+    "byteLength": 4766
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/observations.json": {
+    "sha256": "0e2100339af244fdabeadcaeabaf68ac4ed80e36b25862dbf18f9ff16c245430",
+    "byteLength": 9643
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/original-start-spans.json": {
+    "sha256": "da589cb0ac493afb41315924f3900568029bd5be64f181ea0ff4090acaa31afd",
+    "byteLength": 83070
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/return.md": {
+    "sha256": "bba1ac2bc55894ce68c44818acaff40150a6345c61b26d146d504e60c8a947f5",
+    "byteLength": 8126
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/s02-root-spans.json": {
+    "sha256": "12627f56410a5b1da8bb31fdf1e569bfc93d56c919fa536cb2d3accf737c4e55",
+    "byteLength": 79056
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/source-correspondence.json": {
+    "sha256": "c79da101545e1869c447e27e82a57b580fd4845f80620f15611ca14931e22f6b",
+    "byteLength": 17254
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/subject.json": {
+    "sha256": "32c79a5ce98423b25a82bb7b636f85231084890a9d0f2cf583f87f7d91b11c8c",
+    "byteLength": 2748
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/freeze.json": {
+    "sha256": "d5f6b667a151ec1c859fcbba0afe1e2c92aa4ca1538e504e0a6594a25b8fa138",
+    "byteLength": 3215
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/activation.json": {
+    "sha256": "158306b8efea27c046cda885983b168a1459576f6ea506145d3a67061c1c6d4b",
+    "byteLength": 2111
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/api-relation.md": {
+    "sha256": "9ebf5dc6690779f9f11b370236dceb0fcb900b6bc698d27d39db154891a09052",
+    "byteLength": 2554
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/candidate-source-after.json": {
+    "sha256": "b661eabd8befb5d995ba5ea4397d8eadd154ed68d71abbcea285f070638cd10e",
+    "byteLength": 83400
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/candidate-source-before.json": {
+    "sha256": "b1f069bc6a1b6641b83fb55cf50d9ef72c2687e6902882bc616c0da35af1dfc8",
+    "byteLength": 83400
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/candidate-source-delta.json": {
+    "sha256": "e3d1862806c853a1e8544b19e079523216d620a13d5e08c06ab924b8be0db510",
+    "byteLength": 4857
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/diagnostic-disposition.json": {
+    "sha256": "67fbd94328931347c2f257fc5cb75fbaa7357091da1b0af079c8dbe2b12089ed",
+    "byteLength": 3620
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/final-focused.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/final-focused.stdout": {
+    "sha256": "f1a0971c27e8ba396f9e98cfffd2e060f27cbd065e63b5678a809e0dfd5fca37",
+    "byteLength": 2456
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/generated-correspondence.json": {
+    "sha256": "85c4e40656039435b17562c59c79bb8b5e3bd742b8a5605cf99bf0d8b7135f94",
+    "byteLength": 510
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/mechanical-checks.json": {
+    "sha256": "5dc8e6596373a061d19ba40ea0d6c15fffcab6a662464e1b75b27f43cc52e1ea",
+    "byteLength": 3176
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/native-admission-01.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/native-admission-01.stdout": {
+    "sha256": "ec62553f9f53a55946ee16258bbcb77ff69301d2216639b1c7592c3887b378c2",
+    "byteLength": 877
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/noemit.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/noemit.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/observations.json": {
+    "sha256": "ddc7d7f29c314cd46ed06e10928f37b013ac21490665f05a66d6651b5549ea9d",
+    "byteLength": 2301
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-01.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-01.stdout": {
+    "sha256": "1dede0536683d9eab597cf286ba5264f91578b9f2580f5888eb70cbe052e735e",
+    "byteLength": 1503
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-02.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-02.stdout": {
+    "sha256": "8d55980f844d51ab2b35449da1f31aaa1ca609185095a669ed34283deaa4eeed",
+    "byteLength": 1306
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-03.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-03.stdout": {
+    "sha256": "cd2f7cce50398d7dbadeb436684010abd03907ca545de564b799531edb7db54a",
+    "byteLength": 1600
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-04.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-04.stdout": {
+    "sha256": "162736318e70775698195c5f5522a57a6c0b5d80b658feb9ed8441c241d5dd89",
+    "byteLength": 1344
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-05.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-05.stdout": {
+    "sha256": "96cee4b282d02839e724397f872c8f30331daf3344ad085e797ae3dadb474c49",
+    "byteLength": 1472
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-06.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/owned-judgment-06.stdout": {
+    "sha256": "6dd56e8b5eb889b3e8d34f6d0ba19a9279744cca8fa198911aecf60a015cb002",
+    "byteLength": 1531
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/predecessor-correspondence.json": {
+    "sha256": "84029210f82cba9be8030b93e15f04b04e929a8a9b6cb167977c3818043c6e01",
+    "byteLength": 816
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/preimages/code/src/abg/c_call_outcome.ts": {
+    "sha256": "36bc43fc3ce4ea01556369b1b755b655251e06d2da67343314c689fceb5ca322",
+    "byteLength": 63847
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/preimages/code/src/public/installed_definition_call_transport.ts": {
+    "sha256": "11c3b8623452256491e6a1485fe98fd3824638fd5443b4dbda69379ea8f276f1",
+    "byteLength": 13793
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/preimages/test_env/tests/t287-held-prefix.test.mjs": {
+    "sha256": "efcc2227617bb7ae58bda78100ffa90239d81387c563ff69b3edebca55d21390",
+    "byteLength": 10982
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/preimages/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs": {
+    "sha256": "e8c9693a6b370c6ce067b30e9e57da2e37fde9974709373137a345192aa9b44d",
+    "byteLength": 21084
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/proof-limits.json": {
+    "sha256": "8bb49ce1860afad9f4163f077d24452c33a1a394c3d62e308e6bda7e92ef3972",
+    "byteLength": 2692
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/return.md": {
+    "sha256": "69168fba68a6e4001f8a50145b6eb84bd2711aa48cdddebc185adc9df3c7a166",
+    "byteLength": 5066
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/source-change.diff": {
+    "sha256": "d12c028186b0c0fbb044a89cdc46010f0c69c0913bcfbf98ec83c1edd4b5c65d",
+    "byteLength": 29936
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/source-postimages.json": {
+    "sha256": "82607ed90171ee317b22d145dd08229607827866a794efe05fd75ddbbbefe588",
+    "byteLength": 688
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/source-preimages.json": {
+    "sha256": "aa034b9b26ead4142b678186170e735bfa9af811d5e8a6b1102d454c6681e541",
+    "byteLength": 688
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/static-algebra-02.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/static-algebra-02.stdout": {
+    "sha256": "d80151dd12027d5db6b9c78832f732d0b1567930be43bc6771e4a09e3d666938",
+    "byteLength": 1040
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/subject.json": {
+    "sha256": "e518891aad2d84303d08db5001fbae76bb9e6e1cf8318ba92826e84df03bfc5a",
+    "byteLength": 4473
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/freeze.json": {
+    "sha256": "47f8832a9e71ddf9423e477b04fe204772143deccd5a1832d0015404b0f40add",
+    "byteLength": 7456
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/freeze.json": {
+    "sha256": "95c4c32b35ea1acb549f3cc8f7599e6d8c16ca1acd4edccc60a7b0f3f9e04000",
+    "byteLength": 575
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/activation.json": {
+    "sha256": "73e49c629ba1eea59783949b71515bafac216e010a8ba0f6c39ecda7ff87e341",
+    "byteLength": 2284
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/initial-subject-checks.json": {
+    "sha256": "40864a796f61f3ab853ffa3a847469b98986db7033511d87a93b88a7c6be4b70",
+    "byteLength": 33236
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/interim-return.md": {
+    "sha256": "e730ac147daad2cba8ab8582201c069bdcb89738c10df1702085f909ab94a307",
+    "byteLength": 6182
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/consumer-subject-checks.json": {
+    "sha256": "18a307ec1183829617caee2e6a0517caec8eff84c601cb2e0517048ae6d31f1d",
+    "byteLength": 19291
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/source-readiness-return.md": {
+    "sha256": "f596f35ecc0219e57b7dbb8f0cd4af5299121a0029e5a7f0c1c9db4dd18e24ae",
+    "byteLength": 7015
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/closeout.json": {
+    "sha256": "b012818562b2a6633fa6a4efc74db644ada5ef8fdb711924fa11bd7f8ea36655",
+    "byteLength": 1292
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/freeze.json": {
+    "sha256": "af25927f408875ac44f52d70e36aa698e599dab9e0fb8f0107cd84ccad7f82e9",
+    "byteLength": 1085
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/activation.json": {
+    "sha256": "fdbc86fa7d0338fb03218096c558b5f672f20c0104c44d51d7a84d1334e120c5",
+    "byteLength": 1544
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/candidate-source-after.json": {
+    "sha256": "510ff950f334a683fa3d4fb8d12037f11d51576cceda4d9869b0a9ec27fab72e",
+    "byteLength": 142741
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/candidate-source-before.json": {
+    "sha256": "510ff950f334a683fa3d4fb8d12037f11d51576cceda4d9869b0a9ec27fab72e",
+    "byteLength": 142741
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/checks-and-timings.json": {
+    "sha256": "d386493bc14cee788ea2801d61f88ddc4b20a8b2badd473dc05e5762520ae6d9",
+    "byteLength": 6043
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/continue-declaration-check.mjs": {
+    "sha256": "cdfd2d7a32c22a56d6b65ec199cfb1c2ca4211a718c4a816b284ec552e80f07b",
+    "byteLength": 5941
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/continue-declaration-check.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/continue-declaration-check.stdout": {
+    "sha256": "9817c5f4e966768a937bd20d92bab9ed6b92e956086cbef6b813b6a60ad35f2a",
+    "byteLength": 115
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/diagnostic-disposition.json": {
+    "sha256": "c2dcaa2e2fd493246e2741f1ab7ff8cb441951a21bacf8e0e75ae5fdc34280d9",
+    "byteLength": 1556
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/fixture-disposition.json": {
+    "sha256": "2b0fabf8406f0e797dc8c28110873f3fa90ac542555f2c189a1be8a54e5d3b52",
+    "byteLength": 2037
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/frozen-source-correspondence.json": {
+    "sha256": "5c8115317082eac709fe8254fbe2e2ab32eaa2898f6f5a58579bfa6bc0508e32",
+    "byteLength": 4171
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/installed-declaration-validation.json": {
+    "sha256": "fd7901e880b9ff45379f80fea8d141def9a2742a3df09e56882755ca22bd79e0",
+    "byteLength": 28460
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/package-caller-congruence.json": {
+    "sha256": "30a758ff55f3421a1cba671b9fa45834ce9c616bc7c2a01a7e32b33d1f8bff20",
+    "byteLength": 4128
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/prepare-consumer.mjs": {
+    "sha256": "d1d5eecc880b31817804fe42356d9fcaf4850bbe24a09cd246049ab72ee280bb",
+    "byteLength": 4783
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/prepare-consumer.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/prepare-consumer.stdout": {
+    "sha256": "0c99fa5575df2b68963d7410aab1bd5eaa121a67dfa53873770573ab9adcf0e2",
+    "byteLength": 1090
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/proof-limits.json": {
+    "sha256": "eb86210151f3e2386e5da5655349b3cd040f7f3f0c094f0f7972973454dd3dbe",
+    "byteLength": 2273
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/retained-responsibilities.json": {
+    "sha256": "6a0bd2b467ca3cc6fb4fe35acdc7056af78e419a8f21a92e7f63e2f090e9391e",
+    "byteLength": 1132
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/return.md": {
+    "sha256": "e235dbf8abcdcc20a8224342d309220f7fc4018aeeea75badccae1c6242f37fa",
+    "byteLength": 4804
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/source-preservation.json": {
+    "sha256": "9646bd53fda1962db886f635c7e6fa2b465c2e0a72dbedafe400eb1a3c4c58c9",
+    "byteLength": 633
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/subject.json": {
+    "sha256": "f8b33436909888725ac304aeb6f2fef1e6363d84bbabfc3da072fc4506a025e0",
+    "byteLength": 5652
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/verify-installed-conjunction.mjs": {
+    "sha256": "85484c6e14a1fcf830663d5c2ef665073260c115fbdad936d0a9e98b2784b369",
+    "byteLength": 7783
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/verify-installed-conjunction.stderr": {
+    "sha256": "c5cb78562f37cfef319c21122f430e8e18986e7d83b57fa6a9a922000342763b",
+    "byteLength": 66333
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/verify-installed-conjunction.stdout": {
+    "sha256": "de6992cf30289a136f50825ba3565c04f1cf23bc7ee61440efe9136eb81cd020",
+    "byteLength": 534
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/freeze.json": {
+    "sha256": "93723f8c1156c0ea0bc108a422ac59dc8b014e930199f38bcf6fb4eb57aab7bb",
+    "byteLength": 4010
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/activation.json": {
+    "sha256": "1a2ac822a0570042589313c147e43646a0530580a81644ed6cf90e42da7252e4",
+    "byteLength": 1466
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/changes.patch": {
+    "sha256": "970f4c9d9425d605358b19f1bc20ce4a3f3ca6c1ebd1378931f7ed86c1d16012",
+    "byteLength": 48230
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/decision-basis.json": {
+    "sha256": "cf7db5648452771589cc1460703490044449ec63cbe187ad6c00cd12dfb53dd7",
+    "byteLength": 1803
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/document-coordinates.json": {
+    "sha256": "24fbaf5484ad2ad877489ea946270664f2a4bf778557dc6353b2816e74ba940a",
+    "byteLength": 1317
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/mechanical-checks.json": {
+    "sha256": "02dc744d092ec68b2c65b674685b29439870c7a824167d26a29eb887c6fc0989",
+    "byteLength": 2367
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/return.md": {
+    "sha256": "9bb751e7b580aeae34f3c95191ca3db557cd0244572d028e01f34c812b1a32f4",
+    "byteLength": 2366
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/subject.json": {
+    "sha256": "edb1f8c7c01dfa64c3b1a47304509bc9604d3a35e093a441f7ce957555094e44",
+    "byteLength": 2704
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/archive-members.json": {
+    "sha256": "947e3100c870b01942d64bbe3fb276ffb0666d61d9589bc818ef3376f898fdb8",
+    "byteLength": 928496
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz": {
+    "sha256": "ddce524a0f992206a2836bbdc4c0655beff5aab5fb7bef7c59ca6b8f180528d5",
+    "byteLength": 10130123
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/bootstrap-install.json": {
+    "sha256": "56ce4fdf6eb4dcb07a42dc475305f4525720b0fa3cedcbe56afbc3f2d1e81bb9",
+    "byteLength": 639
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/bootstrap-install.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/bootstrap-install.stdout": {
+    "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+    "byteLength": 23
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/build-inputs.json": {
+    "sha256": "c4f495fede955a6fe5d0653f82bc8bfd7d6e2a2b4aba95d772a06c4bcba904e5",
+    "byteLength": 50056
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/build.json": {
+    "sha256": "9cc2be527a773493b4410e9d710bf5fcf9da2faa9b01ec8ccf8b296dd71a137e",
+    "byteLength": 367
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/build.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/build.stdout": {
+    "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+    "byteLength": 215
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/compiled-readiness.json": {
+    "sha256": "3d428fc02880fdd5805d9bd09646594f0f5789405169fda618f9a89b95d03fea",
+    "byteLength": 1831
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/generated-after.json": {
+    "sha256": "92a03a1311572d455f87b6d68373bcd5f41aced8f4c3da0eefd97f065b22e668",
+    "byteLength": 121624
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/generated-before.json": {
+    "sha256": "edf4dba9db655c6e9dfcf1c66538ff398716b332d9f26563ead67459d5eab455",
+    "byteLength": 121623
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/generated-delta.json": {
+    "sha256": "5e9b20f11450003659213779c0f5b177ff4e0567152099a481ccdc8cd0c50eb6",
+    "byteLength": 5036
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/pack.json": {
+    "sha256": "ff290d328dec825e426da7490bc5e77d04a78b4193f04608487128653385cc61",
+    "byteLength": 537
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/pack.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/pack.stdout": {
+    "sha256": "f21e205f4924f4e1c527f76595713daefe13708892e7eac684985b6ba5742997",
+    "byteLength": 688614
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/package-correspondence.json": {
+    "sha256": "fe9f612fd297c951b6ec6926c9c05cb213227d3b4f8eaca1c7a6fbe0d02dc68c",
+    "byteLength": 833
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/package-identity.json": {
+    "sha256": "e42a1198542bf17238d9635c5aa52dc8af4b3c89fdc4ce805d4d0a0e6cea0660",
+    "byteLength": 582
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/package-once.py": {
+    "sha256": "72dcb22ef62deebd10d14d0adb3b9aa097fadfa628b050213cf8fe5c063c2ed6",
+    "byteLength": 3139
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/postproof-correspondence.json": {
+    "sha256": "1d53236f0e4a2a990490b7f88ff7526b45836e2e3353152c95d492dc9cdd48ce",
+    "byteLength": 515
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/product-verification-request.json": {
+    "sha256": "5aa8ef89cddd0b2f68ab1db2ce03238e190257925958a457425ff5f2cd6d957f",
+    "byteLength": 1022
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/product-verification-summary.json": {
+    "sha256": "a7b67832957618dbe9f824118b054b58ba1d82706d52b6f4e2b3ce2fc3631343",
+    "byteLength": 3976
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/product-verification-timing.json": {
+    "sha256": "368b0e8ea6e5a58a7c03c58b9c7c2a74895b3912635da8cd14b5457a550da271",
+    "byteLength": 503
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/selected-core.json": {
+    "sha256": "1c2013f138cabe2442ba57c22d643bd403ef7d7e307d8ce17bd304d16fb53dc0",
+    "byteLength": 986
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/freeze.json": {
+    "sha256": "bec9b205e6eb4dcab457f23274659d8d6d41c8da797d7f90808d8b899d7c3c9c",
+    "byteLength": 3881
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/activation.json": {
+    "sha256": "8ca30cfde32d4243c7d64e686170d96c9fa92341020be540e7dafa2c11ddd5ba",
+    "byteLength": 880
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/caller.mjs": {
+    "sha256": "2d37f99b56337f2d58054eb6d42dca74edcf7a37f97e2da73e6b5f2c9fe4bc0a",
+    "byteLength": 13232
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/campaign.mjs": {
+    "sha256": "6285d3efdb58a18dcc8719e1dce85abfca3ca666619bf89fcacd9bda6935a689",
+    "byteLength": 16305
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/cases.json": {
+    "sha256": "df772a1691c9b53a167f4ade6a6f12b3d79b367b0435ab6ed5d1a03526fb1eb3",
+    "byteLength": 5413
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/configuration.pending.json": {
+    "sha256": "13ce66613075f4adbaae9d33cec64ac408568225ecb85553b8ba66c4216729a6",
+    "byteLength": 5162
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/fresh-read.mjs": {
+    "sha256": "cd031744616c60d9a1a38864a670fd7f2c52995dd76f636215d30c5c86573f40",
+    "byteLength": 7123
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/observe-action.py": {
+    "sha256": "32c282557353a8e6230646d38fdba651198ccd2aa7c444895e719c28161d361c",
+    "byteLength": 3458
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/oracle-basis.json": {
+    "sha256": "0bd94689eab550251ebae07f3b2318e7fcb73476dd3d669f5e8229c94d30c729",
+    "byteLength": 1891
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/plan.json": {
+    "sha256": "0f8b610ebd9ca43512e6a85b473cead037db0a6c6adb4645edcb064423092dff",
+    "byteLength": 2034
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/readiness-check.mjs": {
+    "sha256": "3840ac52888420a58e53a2803df60f37335a500d0af42dbf49bc5d4503766f27",
+    "byteLength": 2569
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/readiness.json": {
+    "sha256": "915c771a7ed8bb27ffda285ce4303ce6fb732066e74d8efd2940b8f4ad2fdd6e",
+    "byteLength": 715
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/readiness.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/resume.mjs": {
+    "sha256": "83a5df43549ce6609bfba8bc702d2a7aa8be58b27ba500785f5cad7a6976fafd",
+    "byteLength": 3560
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/retained-selection.json": {
+    "sha256": "3036819116346ee1983269b7e131107d74ac497704f4e22fa8f1baee4c3955e9",
+    "byteLength": 7607
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/return.md": {
+    "sha256": "394df327433bf99a1e736a05e7210f446cf5edd13dddfa5e7a66af04e9f5d481",
+    "byteLength": 3708
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/semantic-oracle.md": {
+    "sha256": "c91c42e44b45d1d8e61290e03ba557e77cc274c09c1bfa06d645d94ab83a9fd9",
+    "byteLength": 3030
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/source-relations.json": {
+    "sha256": "34d28cdeb094665bff2c1d800f05a1e3eabe1d49863f818f414eaabc2c72c47f",
+    "byteLength": 3622
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/syntax.json": {
+    "sha256": "d54a932da7aaee6caaaf9b8b46fa69ea24ed43555b4e02acce47ef80fc446d2e",
+    "byteLength": 461
+  },
+  ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/freeze.json": {
+    "sha256": "15563c0f0cb38b073daa5b865167d33e57240d74f43818461df57874c065ab80",
+    "byteLength": 3247
+  }
+}

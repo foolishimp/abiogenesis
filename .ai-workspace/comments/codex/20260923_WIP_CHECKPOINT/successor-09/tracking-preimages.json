@@ -1,0 +1,26 @@
+[
+  {
+    "repo": "abiogenesis",
+    "path": "specification/GOALS.md",
+    "sha256": "985f370cf5e0c9b4db85e043706739acb18731da776caecdbc4cc9ced995dc13",
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-preimages/specification/GOALS.md"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "sha256": "08115be6da51942e109b8062ac1fe219015166ee15b51a17494bc9d0692b258f",
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-preimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  },
+  {
+    "repo": "odd_glc",
+    "path": "specification/GOALS.md",
+    "sha256": "eeec85ff8088ab15d0fc503f0f443fb4e79df4386a452a6910c785aada0d9292",
+    "preimage": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-preimages/specification/GOALS.md"
+  },
+  {
+    "repo": "odd_glc",
+    "path": ".ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+    "sha256": "12b0ea8927bca322638be84a85fe3947ddd6ff2bb60ca68c96511f0b257346f2",
+    "preimage": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-preimages/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md"
+  }
+]

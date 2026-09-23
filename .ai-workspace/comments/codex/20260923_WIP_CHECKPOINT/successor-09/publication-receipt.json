@@ -1,0 +1,16 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "e7ae5e172126de08249af66043d90957617c5dc8",
+  "commitIdentity": "Commit containing this receipt; exact local and remote identities recorded in external post-push receipt",
+  "newMembers": 138,
+  "newLogicalBytes": 13318674,
+  "newTransportBytes": 10828378,
+  "restoration": "Every newly banked member restored and compared with original and selected freeze; prior bank payload proof reused without rereading/reupload",
+  "scope": "Accepted core04/consumer01/caller02 SOURCE/READINESS and independently accepted compiled09/dev5 PACKAGE/CALLER READINESS; original recovered ordinary caller02 integration NEXT, all native outcome/OOM cure/RC qualification claims remain open.",
+  "excluded": [
+    "All original mutable GLC/S02 journals/worksites/live logs; no read/hash/copy",
+    "All dependency trees, implementation03 disposable fixture, build scratch and unselected caches",
+    "All unclosed and post-cutoff successors; source/package readiness only, original integration and qualification pending"
+  ],
+  "allowedGitEffects": "One ordinary main commit and nonforce push, then remote ref verification"
+}

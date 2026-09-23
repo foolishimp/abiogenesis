@@ -171,7 +171,11 @@ function acquisitionMatches(
 
 function selectedCallable(
   call: AnyDefinitionCall,
-): AnyDefinitionCallable | InstalledDefinitionCallTransportRefusal {
+  acquisitionKind: InstalledDefinitionCallTransportResult["acquisitionKind"],
+): Readonly<{
+  callable: AnyDefinitionCallable;
+  declaration: OwnerContractSourceDeclaration;
+}> | InstalledDefinitionCallTransportRefusal {
   const matches = OWNER_CONTRACT_SOURCES.filter(({ packet }) =>
     packet.definitionKey.operationId ===
       call.invocation.definitionKey.operationId &&
@@ -184,7 +188,10 @@ function selectedCallable(
     );
   }
   const packet = matches[0]!.packet;
-  if (admitExactDefinitionCall(call, matches[0]!.declaration) === null) {
+  // Serialized ingress also serves legacy read owners whose admission is at
+  // this boundary. Native acquired calls retain the fixed owner's admission.
+  if (acquisitionKind !== "acquired" &&
+      admitExactDefinitionCall(call, matches[0]!.declaration) === null) {
     return refusal(
       "invalid_definition_call",
       "DefinitionCall differs from its exact installed invocation contract",
@@ -217,7 +224,7 @@ function selectedCallable(
     selected = selected[member];
   }
   return typeof selected === "function"
-    ? selected as AnyDefinitionCallable
+    ? { callable: selected as AnyDefinitionCallable, declaration: matches[0]!.declaration }
     : refusal(
       "installed_binding_unavailable",
       "manifest-bound installed definition callable is unavailable",
@@ -346,12 +353,32 @@ async function invokeInstalledDefinitionCall(
   acquisitionKind: InstalledDefinitionCallTransportResult["acquisitionKind"],
   call: AnyDefinitionCall,
 ): Promise<InstalledDefinitionCallTransportOutcome> {
-  const callable = selectedCallable(call);
-  if (typeof callable !== "function") return callable;
+  const selected = selectedCallable(call, acquisitionKind);
+  if ("kind" in selected) return selected;
   const receipt = await runExactDefinition(
     call,
-    callable(call),
+    selected.callable(call),
   );
+  // The native fixed owner admits the complete call before its effects. Some
+  // direct owners first reject resource structure, while Product's authority
+  // wrapper reports its call check as a resource relation fault. Only those
+  // ambiguous admission failures need the compatibility check. Execution
+  // faults and successful progression retain their actual owner receipt.
+  const fault = receipt.failure?.fault;
+  const ambiguousAdmission = fault?.stage === "resource_admission" && (
+    fault.code === "invalid_resource_assertion" ||
+    fault.code === "resource_relation_mismatch" &&
+      fault.message === "TypeError: definition call differs from its fixed owner"
+  );
+  if (acquisitionKind === "acquired" && (
+    fault?.code === "call_identity_mismatch" ||
+    ambiguousAdmission && admitExactDefinitionCall(call, selected.declaration) === null
+  )) {
+    return refusal(
+      "invalid_definition_call",
+      "DefinitionCall differs from its exact installed invocation contract",
+    );
+  }
   return Object.freeze({
     kind: "installed_definition_call_transport_result" as const,
     schemaVersion: "5.0.0" as const,

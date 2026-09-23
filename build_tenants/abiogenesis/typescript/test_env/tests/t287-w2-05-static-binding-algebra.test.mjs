@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
-import { mkdtemp, rm } from "node:fs/promises";
-import { join } from "node:path";
+import { mkdtemp, rm, readFile } from "node:fs/promises";
+import { dirname, join, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import test from "node:test";
+import { pathToFileURL } from "node:url";
+import { SourceTextModule, SyntheticModule } from "node:vm";
+import ts from "typescript";
 
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
@@ -33,6 +36,9 @@ import { PUBLIC_PROJECTION_PAYLOADS } from
   "../../build/code/src/shared/public_function_projections.js";
 import * as bindings from
   "../../build/code/src/shared/static_definition_bindings.js";
+import * as resourceOwner from "../../build/code/src/abg/definition_event_resource.js";
+import * as eventOwner from "../../build/code/src/abg/event_store.js";
+import * as callAdmission from "../../build/code/src/shared/definition_binding_mechanics.js";
 
 const schemaVersion = "5.0.0";
 const catalog = Object.freeze({
@@ -597,4 +603,161 @@ test("W2-05 three-function static binding algebra admits once and fails closed",
     malformedReadReceipt(exactInvokeCall(readResources)),
   );
   assert.equal(malformedReadReceiptFault.code, "invalid_resource_receipt");
+});
+
+// Evaluate the changed source without mutating generated output. Overrides are
+// passive delegating counters and the same source owner composed through them.
+async function observedSource(relative, overrides = {}, emitted = false) {
+  const root = resolve(import.meta.dirname, '../..');
+  const built = join(root, 'build/code/src', relative + '.js');
+  const preimage = emitted && relative === 'public/installed_definition_call_transport'
+    ? process.env.ABI5_OWNED_ADMISSION_PREIMAGE : undefined;
+  const text = await readFile(preimage ?? (emitted ? built : join(root, 'code/src', relative + '.ts')), 'utf8');
+  const module = new SourceTextModule(emitted && preimage === undefined ? text : ts.transpileModule(text, {
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 },
+  }).outputText, { identifier: built, initializeImportMeta(meta) { meta.url = pathToFileURL(built).href; } });
+  await module.link(async specifier => {
+    const url = specifier.startsWith('.') ? pathToFileURL(resolve(dirname(built), specifier)).href : specifier;
+    const values = { ...await import(url), ...overrides[specifier] };
+    return new SyntheticModule(Object.keys(values), function () {
+      for (const [key, value] of Object.entries(values)) this.setExport(key, value);
+    });
+  });
+  await module.evaluate();
+  return module.namespace;
+}
+
+function absentSetupCatalog(root) {
+  // Structurally valid unadmitted setup: the actual Run owner must refuse it.
+  const digest = sha256Canonical('unadmitted setup');
+  const workspaceBinding = {kind:'workspace_binding_candidate',schemaVersion,
+    bindingId:'binding://absent',bindingDigest:digest,workspaceId:'workspace://absent',
+    authorityBasisId:'authority://absent',authorityBasisDigest:digest,authorizedActorRef:'actor://absent',
+    productSetId:'products://absent',productSetDigest:digest,lockId:'lock://absent',lockDigest:digest,
+    roots:Object.fromEntries(['toolchainRoot','productRoot','eventLogRoot','runtimeStateRoot','projectionRoot','archiveRoot'].map(key=>[key,root]))};
+  const resolvedLock = {kind:'resolved_product_lock',schemaVersion,lockId:workspaceBinding.lockId,
+    lockDigest:digest,nativeContractClosureDigest:digest,rows:[],dependencyEdges:[]};
+  return {kind:'graph_function_catalog',schemaVersion,basisDigest:digest,publicationDigests:[],entries:[],byHandle:{},
+    declarationEntries:[],declarationsByHandle:{},readinessBasisDigest:digest,workspaceBindingId:workspaceBinding.bindingId,
+    workspaceBindingDigest:digest,lockId:resolvedLock.lockId,lockDigest:digest,productSetId:workspaceBinding.productSetId,
+    productSetDigest:digest,readinessBasis:{workspaceBinding,resolvedLock,verifiedProducts:[],installedProducts:[],publications:[]},
+    boundPublications:[],rowDispositions:[]};
+}
+
+test('native transport delegates one complete admission to the real fixed Run owner and conserves refusal ordering', async t => {
+  const root = await mkdtemp(join(tmpdir(), 'abi5-owned-admission-'));
+  t.after(() => rm(root, {recursive:true,force:true}));
+  let ownerAdmissions = 0, transportAdmissions = 0;
+  const observedBindings = await observedSource('shared/static_definition_bindings', {
+    './definition_binding_mechanics.js': {admitExactDefinitionCall(...args) {
+      ownerAdmissions++; return callAdmission.admitExactDefinitionCall(...args);
+    }},
+  });
+  const run = await observedSource('owner_bindings/run_invocation', {'../shared/static_definition_bindings.js':observedBindings}, true);
+  const overrides = {
+    '../product/index.js':{RUN_DEFINITION_BINDINGS:run.RUN_DEFINITION_BINDINGS},
+    '../shared/definition_binding_mechanics.js':{admitExactDefinitionCall(...args) {
+      transportAdmissions++; return callAdmission.admitExactDefinitionCall(...args);
+    }},
+  };
+  const before = await observedSource('public/installed_definition_call_transport', overrides, true);
+  const after = await observedSource('public/installed_definition_call_transport', overrides);
+  function acquire(name) {
+    const eventLogPath = join(root, name + '.jsonl');
+    const opened = acquireAbgEventResource({kind:'new_abg_event_resource',schemaVersion,eventLogPath,
+      locatorDigest:abgEventLocatorDigest(eventLogPath)});
+    assert.equal(opened.kind,'acquired_abg_event_resource');
+    t.after(()=>resourceOwner.abandonAbgEventResource(opened.resource));
+    return opened.resource;
+  }
+  const held = acquire('held'), foreign = acquire('foreign');
+  let selection = resourceOwner.selectAcquiredAbgEventResource(held,held.entryPrefix);
+  const catalog = absentSetupCatalog(root);
+  const catalogView = {kind:'graph_function_catalog_view',catalogBasisDigest:catalog.basisDigest,allowlist:[],
+    entries:[],byHandle:{},declarationEntries:[],declarationsByHandle:{},viewDigest:catalog.basisDigest};
+  const call = member => exactRunCall(member,{kind:'run_invocation_resource_assertion',schemaVersion,eventResource:selection,
+    catalog,catalogView,applications:[],source:{kind:'none'}});
+  const invoke = async (transport, value, selected = selection) => {
+    ownerAdmissions = 0; transportAdmissions = 0;
+    const outcome = await transport.runInstalledDefinitionCallWithResource(selected,value);
+    return {outcome,ownerAdmissions,transportAdmissions};
+  };
+  const observations = [];
+  for (const member of ['invoke','start']) {
+    const old = await invoke(before,call(member)), current = await invoke(after,call(member));
+    assert.deepEqual(current.outcome,old.outcome);
+    assert.equal(current.outcome.receipt.ownerOutput.value.code,'invalid_program');
+    assert.equal(current.outcome.receipt.failure,null);
+    assert.equal(current.outcome.receipt.resources.eventResource.kind,'abg_event_resource_completion');
+    assert.equal(old.ownerAdmissions,1);
+    if(process.env.ABI5_OWNED_ADMISSION_PREIMAGE)assert.equal(old.transportAdmissions,1);
+    assert.deepEqual([current.transportAdmissions,current.ownerAdmissions],[0,1]);
+    observations.push({member,before:[old.transportAdmissions,old.ownerAdmissions],after:[current.transportAdmissions,current.ownerAdmissions]});
+    resourceOwner.assertAcquiredAbgEventResourceSelectionCurrent(selection);
+  }
+  const valid = call('invoke');
+  const copied = {...valid,invocation:structuredClone(valid.invocation)};
+  assert.deepEqual((await invoke(after,copied)).outcome,(await invoke(before,copied)).outcome);
+  for (const change of [
+    value=>{value.request.catalogHandle += '/changed';},
+    value=>{delete value.requestRef;},
+    value=>{value.invocationAuthority.slots.actor.actor.ref += '/foreign';},
+    value=>{value.definitionKey.memberKey='start';},
+  ]) {
+    const invocation=structuredClone(valid.invocation);change(invocation);
+    const malformed={...valid,invocation};
+    const old=await invoke(before,malformed),current=await invoke(after,malformed);
+    assert.deepEqual(current.outcome,old.outcome);
+    assert.equal(current.outcome.code,'invalid_definition_call');
+    assert.deepEqual([current.transportAdmissions,current.ownerAdmissions],[0,1]);
+  }
+  const badResources={...valid,resources:{...valid.resources,unexpected:true}};
+  const badBoth={...badResources,invocation:{...valid.invocation,requestDigest:sha256Canonical('changed')}};
+  for(const value of [badResources,badBoth]) {
+    assert.deepEqual((await invoke(after,value)).outcome,(await invoke(before,value)).outcome);
+  }
+  // These existing direct owners have different admission-fault ordering.
+  // A live physical prefix cannot authorize this malformed semantic call.
+  for(const definitionKey of [
+    {operationId:'abg.operation.product.verify',memberKey:'verify'},
+    {operationId:'abg.operation.project.read',memberKey:'catalog_list'},
+  ]) {
+    const value={invocation:{...valid.invocation,definitionKey},resources:{
+      admissionAuthority:{basis:{boundEnvironment:{prefix:selection.prefix}}}}};
+    const old=await invoke(before,value),current=await invoke(after,value);
+    assert.deepEqual(current.outcome,old.outcome);
+    assert.equal(current.outcome.code,'invalid_definition_call');
+    assert.equal(current.transportAdmissions,1,'only the ambiguous admission failure uses compatibility re-admission');
+  }
+  assert.equal(held.store.readAll().length,0,'refused setup and malformed calls append nothing');
+  for(const value of [{...valid,resources:{...valid.resources,eventResource:structuredClone(selection)}},
+    {...valid,resources:{...valid.resources,eventResource:resourceOwner.selectAcquiredAbgEventResource(foreign,foreign.entryPrefix)}}]) {
+    const refused=await invoke(after,value);
+    assert.equal(refused.outcome.code,'acquisition_mismatch');
+    assert.equal(refused.ownerAdmissions,0);
+  }
+  const coldHandoff=closeAbgEventResource(foreign,foreign.entryPrefix).closeHandoff;
+  const coldCall={invocation:{...valid.invocation,definitionKey:{operationId:'abg.operation.project.read',memberKey:'workspace_replay'}},
+    resources:{kind:'abg_project_read_resource_assertion',schemaVersion,eventResource:{kind:'reopen_abg_event_resource',schemaVersion,
+      closeHandoff:coldHandoff,handoffDigest:resourceOwner.abgEventHandoffDigest(coldHandoff)}}};
+  for(const transport of [before,after]) {
+    ownerAdmissions=0;transportAdmissions=0;
+    const result=await transport.runInstalledDefinitionCallTransport({kind:'reopen',closeHandoff:coldHandoff},coldCall);
+    assert.equal(result.code,'invalid_definition_call');
+    assert.deepEqual([transportAdmissions,ownerAdmissions],[1,0],'cold ingress retains its admission before legacy dispatch');
+  }
+  // A real unrelated append makes the previous physical entry selection stale.
+  eventOwner.admitRuntimeEvent(held.store,{kind:'public_operation_admitted',eventTime:'2026-09-24T00:00:00.000Z',
+    aggregateType:'workspace',aggregateId:'workspace://owned-admission',parentAggregateId:null,causationEventRefs:[],
+    correlationId:'correlation://owned-admission',workflowVersion:schemaVersion,scopeClass:'workspace',basisId:'basis://owned-admission',
+    payload:{operationId:'abg.operation.project.read',variant:'status',invocationRef:'invocation://owned-admission',invocationDigest:sha256Canonical('owned-admission')}});
+  assert.equal((await invoke(after,valid)).outcome.code,'acquisition_mismatch');
+  selection=resourceOwner.selectAcquiredAbgEventResource(held,eventOwner.selectHeldEventStoreDurablePrefix(held.store));
+  const final=closeAbgEventResource(held,selection.prefix);
+  assert.equal(final.kind,'abg_event_resource_receipt');
+  assert.equal((await invoke(after,call('invoke'))).outcome.code,'acquisition_mismatch');
+  t.diagnostic(JSON.stringify({kind:'native_call_admission_conservation',observations,rawCopyReAdmitted:true,
+    malformedBeforeEffects:true,ambiguousAdmissionOrderingPreserved:true,coldAdmissionPreserved:true,
+    resourceFaultPreserved:true,copiedForeignStaleReleasedRefused:true,realOuterClose:true,
+    limits:'Actual fixed Run owners consume a structurally valid unadmitted Catalog and return setup refusal; no Run or installed successor is claimed.'}));
 });

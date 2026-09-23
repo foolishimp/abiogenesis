@@ -143,6 +143,7 @@ export interface NativeLeafProofOperations {
 
 /** Bound to one declared relation evaluation by its invoking leaf port. */
 export interface NativeJudgmentProofOperations {
+  readonly historicalGraphCallSource?: () => import("../abg/terminal_result_contracts.js").AbgHistoricalGraphCallSource | null;
   readonly qualificationVerdict?: () => ReturnType<typeof import("../abg/qualification_proof.js").projectExactCandidateQualification>;
   readonly qualificationAssessment?: () => ReturnType<typeof import("../abg/qualification_proof.js").projectNativeRuntimeAssessment>;
   readonly nativeWorkReacquisition?: () => boolean;

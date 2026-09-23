@@ -1,0 +1,143 @@
+{
+  "closedProofSelections": [
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/freeze.json",
+      "sha256": "d5f6b667a151ec1c859fcbba0afe1e2c92aa4ca1538e504e0a6594a25b8fa138"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/freeze.json",
+      "sha256": "47f8832a9e71ddf9423e477b04fe204772143deccd5a1832d0015404b0f40add"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/freeze.json",
+      "sha256": "95c4c32b35ea1acb549f3cc8f7599e6d8c16ca1acd4edccc60a7b0f3f9e04000"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/freeze.json",
+      "sha256": "af25927f408875ac44f52d70e36aa698e599dab9e0fb8f0107cd84ccad7f82e9"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/freeze.json",
+      "sha256": "93723f8c1156c0ea0bc108a422ac59dc8b014e930199f38bcf6fb4eb57aab7bb"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/subject.json",
+      "sha256": "edb1f8c7c01dfa64c3b1a47304509bc9604d3a35e093a441f7ce957555094e44"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-09/freeze.json",
+      "sha256": "bec9b205e6eb4dcab457f23274659d8d6d41c8da797d7f90808d8b899d7c3c9c"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/freeze.json",
+      "sha256": "15563c0f0cb38b073daa5b865167d33e57240d74f43818461df57874c065ab80"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/design-01/freeze.json",
+      "sha256": "4e0eacf2aa31aa8ea233e052733416757009d931ebd4acae655d7242947d87d0"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/freeze.json",
+      "sha256": "920ab058bceb69642a3bf34d50f4186cbdddfdaee3a66e582b0a4af944872d0a"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-01/freeze.json",
+      "sha256": "c192afc67a47190d31d57f05a4e48f06ae74c1e7fca0d2f0f650f1cfd3283df8"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-recovery-readiness-01/subject.json",
+      "sha256": "4df91344106b1a1a7fcde60a7fd6436d7b66a06317fc2d49d4d41abf89dbeaf0"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-recovery-readiness-01/freeze.json",
+      "sha256": "440d8d936339f01cd87d29b135fa8fa2d4c38834ba035ef75a6e5c15775649f3"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-implementation-02/subject.json",
+      "sha256": "cb8b1d45e2da66ec10f4330497d86d3c48e85751a67cba35e521fa9bfb9d3f51"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-implementation-02/freeze.json",
+      "sha256": "5c8c88c518d8810894e9c01590b1ab08fe58bd522324c68721917e329fd2cc37"
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-review-freeze.json",
+      "sha256": "e27dae31149598fced59df42d1a6ad70f1c6d63f77bf9d2c81ea9f5635056ed3",
+      "bank": "abiogenesis successor09 transport02"
+    }
+  ],
+  "adjoiningClosedPosts": [],
+  "directExpected": {
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts": {
+      "sha256": "8b3d33cfd7e61a85039c918a743cd6487e55fe890d8a22798201af046b89f4b0",
+      "classification": "core04"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts": {
+      "sha256": "2c39789ac41c12d71c4da68c85b2f0a8d809ba6473b725bd5d1c1395535962fb",
+      "classification": "core04"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs": {
+      "sha256": "a5cd99cde8bd9d96dd557059b25187a675ef9fb4948c51367cee3dde2a83c9fb",
+      "classification": "core04"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs": {
+      "sha256": "e270eca715ac47d9d99af2ebc27625e38700a1a6aa210897e68ecc31466ee302",
+      "classification": "core04"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts": {
+      "sha256": "e04d19ca520a2e3dc308d94e50db6a4b065b47855dfab9c143329a51ccf8e1ae",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts": {
+      "sha256": "fb307b7bb9c847a63222f8fd01c61c53a9f14afb852302032941baad43900aa9",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts": {
+      "sha256": "b1ab9412f844e294e82b7d3e0e683ad36611b23abe2dd5b0293d061519792c8f",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts": {
+      "sha256": "77911129c853ae30eaf327a017d08de9d0e69e77c193280d2619e0d578088d28",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts": {
+      "sha256": "be0b3ff8ad97cdb7f2edcaf12a4418ee006438a4d26226e4f77f34b63aeaa4f5",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": {
+      "sha256": "33a721189d5cbac29f32e8a4c28be75fa7afecfffd72cedec7fde4e20487caf7",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md": {
+      "sha256": "754477754540a825630125a154be9e1d692a8fd2a30a955e859ea93a1f858283",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-historical-source-resource.test.mjs": {
+      "sha256": "9a8304878d5625997e7e79fcc15becc104a3fae2131d3ccca254d1aa4738ded0",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "72d0d6571019bc10d0084369d03876f3602ca59547f09e217a2e43181d248bbb",
+      "classification": "compiled09_generated_package_projection"
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "dec66a17f069ffb30d8d034c8dad3dcb2357a594cc2177f0019101d938841890",
+      "classification": "compiled09_generated_package_projection"
+    },
+    "specification/GOALS.md": {
+      "sha256": "d29bc40ae801c7daa0f254ddab07c06b784303b397da57fec1a0e0996c03e5a2",
+      "classification": "current_tracking_projection"
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "8a7dfd992a5101c94726b3193c8c29bf8a43e2b4b1a54ec6c3caa4e1a104018b",
+      "classification": "current_tracking_projection"
+    }
+  },
+  "pending": [
+    "All original mutable GLC/S02 journals/worksites/live logs; no read/hash/copy",
+    "All dependency trees, implementation03 disposable fixture, build scratch and unselected caches",
+    "All unclosed and post-cutoff successors; source/package readiness only, original integration and qualification pending"
+  ],
+  "scope": "Accepted core04/consumer01/caller02 SOURCE/READINESS and independently accepted compiled09/dev5 PACKAGE/CALLER READINESS; original recovered ordinary caller02 integration NEXT, all native outcome/OOM cure/RC qualification claims remain open.",
+  "coherentCutoff": "2026-09-23T19:38:13.779201+00:00"
+}

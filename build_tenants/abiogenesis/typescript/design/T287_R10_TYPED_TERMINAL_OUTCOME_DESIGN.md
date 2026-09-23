@@ -503,3 +503,43 @@ qualification. The retained twenty-event Hello remains bounded R1–R9 evidence;
 R10/full S01, other fixed16 outcomes, D1/D2/F11 integration, semantic UAT and
 release acceptance remain unclaimed. This amendment returns for independent
 review and Executive disposition before any implementation.
+
+
+## 2026-09-24 selected Run historical-source resource
+
+Under T-287 GOAL-035 and GLC T-043, Executive selected consumer carrier
+`design-01` subject `3820023c04f37d3ce5bf572591f8a9e1f4982d19ec7fce79cfa7a74ef3f14bdd`
+as `design_reframe`. The current fifteen-family Product and Public membership
+are unchanged. This selection uses STDO 2.5.1 RC1 and the project End-to-End
+Interface Integration frame with Owner, Conservation, Reuse and Code Construction.
+Source readiness does not establish installed proof or authorize a new Run.
+
+Existing Product.Run resources may carry one optional `historicalSource`:
+`{kind, schemaVersion, terminal, input:{graphFunctionRef,contractRef}, declarationProof}`.
+`terminal` is the stable typed terminal selection without `value` or
+`projectionBasis`. The complete resource remains under raw DefinitionCall and
+exact Run resource admission before effects. It is separate from semantic input,
+current Catalog/View, and the closed-Run `admitted_source_result` relation.
+A closed historical child under an incomplete Run is a lawful R10 source; no
+new lifecycle authority or forced close of the old Run follows.
+
+The Run binding passes the exact resource through its existing leaf port. The
+nonserialized native judgment proof operation `historicalGraphCallSource()` uses
+HoG's current durable prefix and the same R10 terminal/ancestry/declaration joins.
+R10 returns the terminal, one exact selected ancestor raw input, and that
+ancestor's historical publication by reference. Its ancestor selector must occur
+exactly once in the authenticated basis chain; its one declared input contract
+must match the requested contract in the admitted root declaration closure.
+There is no consumer-name switch, Public member, event, catalog registry or
+alternative history reader. The consumer retains its own meaning comparisons.
+
+R10 retains this immutable projection through `runtimePrefixComputation`, keyed
+by the actual resource object. The entry is usable only at or after the complete
+prefix used for authentication; an earlier cut cannot borrow later evidence.
+The resource and borrowed values are immutable data. Caller IDs, equal copies,
+or frozen lookalikes never acquire a source proof from equality. Raw/cold copies
+and closed owners reconstruct through the existing durable prefix and historical
+declaration owners. No historical input or publication is serialized into the
+successor basis merely to transfer an already owned result. No journal records
+are removed or rewritten. Current native effect/capability/independence checks
+remain outside this historical read relation with their existing owners.

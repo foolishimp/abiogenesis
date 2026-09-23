@@ -2,7 +2,7 @@ import { isRecord } from "../shared/admission_predicates.js";
 import type { ComputeRegime } from "../gtl/contracts.js";
 import { observeRunEnvironment, type RunEnvironmentResources } from "./stdo_environment.js";
 import type { RunEnvironmentEvidence } from "../abg/stdo_environment.js";
-import { isAbgTypedTerminalResult } from "../abg/terminal_result_contracts.js";
+import { isAbgTypedTerminalResult, type AbgHistoricalGraphCallSourceResource } from "../abg/terminal_result_contracts.js";
 import type {
   AbgRunTruthProjection,
   AbgRunTruthRefusal,
@@ -66,6 +66,7 @@ export type ProductRunInvocationSourceAssertion =
     }>;
 
 export interface ProductRunInvocationResourceAssertion {
+  readonly historicalSource?: AbgHistoricalGraphCallSourceResource;
   readonly runEnvironmentResources?: RunEnvironmentResources;
   readonly catalog: ReadyGraphFunctionCatalog;
   readonly catalogView: GraphFunctionCatalogView;

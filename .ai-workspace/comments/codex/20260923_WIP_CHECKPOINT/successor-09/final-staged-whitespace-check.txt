@@ -1,0 +1,25 @@
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-goals.patch:4: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-goals.patch:9: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-goals.patch:11: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-goals.patch:13: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-goals.patch:75: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-goals.patch:121: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-goals.patch:123: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-goals.patch:123: new blank line at EOF.
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-ticket.patch:44: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-ticket.patch:46: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-ticket.patch:108: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-ticket.patch:154: trailing whitespace.
++ 
+.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-ticket.patch:156: trailing whitespace.
++ 

@@ -1,0 +1,95 @@
+{
+  "directExpected": {
+    "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts": {
+      "sha256": "8b3d33cfd7e61a85039c918a743cd6487e55fe890d8a22798201af046b89f4b0",
+      "classification": "core04"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts": {
+      "sha256": "2c39789ac41c12d71c4da68c85b2f0a8d809ba6473b725bd5d1c1395535962fb",
+      "classification": "core04"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs": {
+      "sha256": "a5cd99cde8bd9d96dd557059b25187a675ef9fb4948c51367cee3dde2a83c9fb",
+      "classification": "core04"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs": {
+      "sha256": "e270eca715ac47d9d99af2ebc27625e38700a1a6aa210897e68ecc31466ee302",
+      "classification": "core04"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts": {
+      "sha256": "e04d19ca520a2e3dc308d94e50db6a4b065b47855dfab9c143329a51ccf8e1ae",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts": {
+      "sha256": "fb307b7bb9c847a63222f8fd01c61c53a9f14afb852302032941baad43900aa9",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts": {
+      "sha256": "b1ab9412f844e294e82b7d3e0e683ad36611b23abe2dd5b0293d061519792c8f",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts": {
+      "sha256": "77911129c853ae30eaf327a017d08de9d0e69e77c193280d2619e0d578088d28",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts": {
+      "sha256": "be0b3ff8ad97cdb7f2edcaf12a4418ee006438a4d26226e4f77f34b63aeaa4f5",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": {
+      "sha256": "33a721189d5cbac29f32e8a4c28be75fa7afecfffd72cedec7fde4e20487caf7",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md": {
+      "sha256": "754477754540a825630125a154be9e1d692a8fd2a30a955e859ea93a1f858283",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-historical-source-resource.test.mjs": {
+      "sha256": "9a8304878d5625997e7e79fcc15becc104a3fae2131d3ccca254d1aa4738ded0",
+      "classification": "consumer01"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "72d0d6571019bc10d0084369d03876f3602ca59547f09e217a2e43181d248bbb",
+      "classification": "compiled09_generated_package_projection"
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "dec66a17f069ffb30d8d034c8dad3dcb2357a594cc2177f0019101d938841890",
+      "classification": "compiled09_generated_package_projection"
+    },
+    "specification/GOALS.md": {
+      "sha256": "d29bc40ae801c7daa0f254ddab07c06b784303b397da57fec1a0e0996c03e5a2",
+      "classification": "current_tracking_projection"
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "8a7dfd992a5101c94726b3193c8c29bf8a43e2b4b1a54ec6c3caa4e1a104018b",
+      "classification": "current_tracking_projection"
+    }
+  },
+  "banks": [
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/transport-01",
+      "catalogSha256": "dfa83cd45b33bfa5a61e932563a70e660e29368fee3d405ac99993b7d9618e1b",
+      "indexSha256": "3826ce64518716c6ba084e6ad2ad4c5f98aaa358d2c16c040d6a13525d4c6e75",
+      "verificationSha256": "5f4ec79e10bc2f7422bd5dd17da0f67201fdcac6c2ca3dab6b28cfd3f005f496",
+      "members": 134,
+      "logicalBytes": 13296704,
+      "transportBytes": 10821600
+    },
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/transport-02",
+      "catalogSha256": "1c47277d0d945fa40675040abcfb54978f6717d2bf3d56239f8ad9fce08d10b8",
+      "indexSha256": "4b68eeb5be6e1b6a93f99309503d5cfd925930b4b13ed39d7b02128cc74c10cf",
+      "verificationSha256": "c1c60cdbe2aee99f381af654ad6dc8e916204b87eb9d3a8d9323efacd1ee61ab",
+      "members": 4,
+      "logicalBytes": 21970,
+      "transportBytes": 6778
+    }
+  ],
+  "scope": "Accepted core04/consumer01/caller02 SOURCE/READINESS and independently accepted compiled09/dev5 PACKAGE/CALLER READINESS; original recovered ordinary caller02 integration NEXT, all native outcome/OOM cure/RC qualification claims remain open.",
+  "excluded": [
+    "All original mutable GLC/S02 journals/worksites/live logs; no read/hash/copy",
+    "All dependency trees, implementation03 disposable fixture, build scratch and unselected caches",
+    "All unclosed and post-cutoff successors; source/package readiness only, original integration and qualification pending"
+  ],
+  "sourcePostimageMutationByWriter": false
+}

@@ -1,0 +1,26 @@
+ M .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+ M build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts
+ M build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts
+ M build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts
+ M build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts
+ M build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
+ M build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts
+ M build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts
+ M build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts
+ M build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json
+ M build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md
+ M build_tenants/abiogenesis/typescript/product-toolchain-manifest.json
+ M build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs
+ M build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs
+ M specification/GOALS.md
+?? .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/
+?? .ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/
+?? .ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/fixture/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-04/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/
+?? build_tenants/abiogenesis/scratch/
+?? build_tenants/abiogenesis/typescript/test_env/tests/t287-historical-source-resource.test.mjs

@@ -15,42 +15,80 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Lifetime03/compiled08 and frozen held-caller readiness are accepted after independent review. Original held attempt is process-failed after setup; allocation diagnosis is active. Nested-compose15 is accepted; eight S02 cases and the semantic-negative gap, full S1–S5, qualification/RC1 and human acceptance remain open. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Core04/consumer01/caller02 SOURCE/READINESS is accepted; compiled09/dev.5 package readiness is CLOSED with package/caller readiness independently accepted. Original recovery/caller02 integration, eight S02 cases, semantic-negative applicability/evidence, full S1–S5/oracle, qualification/RC1 and human acceptance remain open. |
 
 ## Current Selection
 
 ### Current checkpoint disposition — 2026-09-24
 
-GOAL-035 retains the fixed fifteen-family ABG5 outcome under STDO 2.5.1 RC1.
-Implementation03/compiled08 and frozen held-caller readiness remain accepted at
-their exercised bounded scope. The original capacity discriminator is now
-CLOSED PROCESS-FAILED; it establishes no ABG terminal result or genuine final close.
+GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original
+job/S1–S5/oracle, five selected/four outside residuals, source stream bytes and
+protected worksite. ABG uses STDO 2.5.1 RC1; GLC remains on RC4. Earlier
+core03/compiled08 and nested-compose15 acceptances keep their bounded scopes.
 
-[The original attempt](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/return.md)
-passed nine real setup calls, then aborted with SIGABRT/default-heap OOM:
-481.166s total, 147.293s native phase and 6,843,973,632B maximum RSS. Only the
-first F_D task success is recorded in bounded raw-suffix diagnostics. Provider
-execution/cost, terminal outcome, current Public readback and final protected
-worksite conservation remain unestablished. The journal is now 1,235,175,110B,
-with no genuine final handoff. Request233,491,292B and basis-record72,546,168B
-are measured cost red flags; exact allocating source remains unmeasured.
+Root accepts core04, consumer01 and caller02 at SOURCE/READINESS after the
+[independent source review](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/source-readiness-return.md)
+(`f596f35e…`). Core04 removes duplicate native complete-call admission and two
+whole validated-prefix comparisons. Consumer01 contracts the prior carrier and
+borrows authenticated historical input/publication through existing R10 and leaf
+owners. Caller02 uses the resulting ordinary interfaces. All 16 named source,
+test and HOW postimages are exact. No new admission relation, runtime entity,
+controller or Product family is selected.
 
-[S02 continuation15](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-15/return.md)
-is accepted for native nested-compose11.562s and genuine fresh status/Result/replay
-against unchanged oracles. Its real final close names19,788,743B. Continuation14's
-zero-effect caller-order refusal and15's extra held-read refusal remain preserved;
-neither establishes a core bug. Remaining eight cases and the separate
-schema-valid semantic-negative gap stay open. Request bodies307,858,587B and
-3,408,478,208B RSS remain observations with unknown allocation attribution.
+[Combined package readiness](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/return.md) is CLOSED:
+compiled09 archive `ddce524a0f992206a2836bbdc4c0655beff5aab5fb7bef7c59ca6b8f180528d5`
+and consumer dev.5 archive
+`f266d0723a48d858d8de59b1828693e784b38c1e9ee0924112b3f2776424f265`.
+Its frozen correspondence records all 5,232 core and 10 consumer members exact,
+713 generated core members with 11 changes, real installed Product verification
+and GTL validation. Root accepts package/caller readiness after the CLOSED independent review
+[`f3d85f69…`](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-readiness-return.md); its 31 named package/request/caller joins match.
+These are source/package readiness claims; the installed native correction
+conjunction and ordinary original-workspace outcome remain unproved.
 
-Next is the [bounded allocation diagnosis](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/)
-under the existing live-progression owner, then a supported removal and legitimately
-authorized original recovery/continuation. No retry, recovery or heap increase is
-currently authorized. Continuation16 readiness waits unbound; no next case runs
-while diagnosis may change the candidate. Active diagnosis/readiness are excluded
-from this checkpoint. Full S1–S5/oracle, all-family qualification, RC1 and actual
-human acceptance remain open. Existing incremental live state/append-journal and
-recovery ownership remains unchanged; no new mode, policy or caching framework.
+No suitable directly identified small assessment fixture supplies the required
+native-assessment/physical-subject conjunction. Root selects the
+[original recovered ordinary caller02](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-implementation-02/return.md)
+as the NEXT integration discriminator after package readiness. Do not manufacture
+a producer campaign. Its `final-binding.json` is absent; no current recovery or
+Run is claimed. The caller uses `until: converged`, so this selection establishes
+no model-free first-J stop. Installed first F_D/J equivalence, source/ancestor/
+currentness refusals, genuine cold reconstruction and original capacity outcome
+remain open to applicable evidence and Executive disposition.
+
+The [original attempt](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/return.md)
+remains CLOSED PROCESS-FAILED: nine setup calls passed before default-heap OOM
+(481.166 s total, 147.293 s native phase, 6,843,973,632 B peak RSS); only the first
+F_D task success is recorded. No ABG terminal, genuine final close/current
+handoff, current Public readback, provider cost or final protected conservation
+is established. The 1,235,175,110-byte journal and worksite remain preserved;
+this checkpoint did not read, hash, recover or mutate them. The
+[allocation diagnosis](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/return.md)
+is CLOSED; the exact fatal allocator and OOM cure remain unproved.
+
+[Recovery readiness](../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-recovery-readiness-01/return.md)
+retains its read-only acceptance. Genuine recovery requires the actual current
+digest, identity-scoped lock state, quiescence, executing artifact and exact
+owner approval. Old-Run terminalization is not a prerequisite for the distinct
+corrected-candidate Run; preserve its nonterminal history. Native `run-stopped`
+binding remains a separate open release-applicability/implementation residual.
+One live owner progresses incremental state with the append journal; cold
+recovery applies only when state is absent. This checkpoint grants no runtime
+recovery, retry, heap increase or new native execution.
+
+[Continuation16](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/return.md)
+is CLOSED readiness (`394df327…`, subject `006b80e8…`); eight S02 cases await an
+adequate final candidate. Semantic-negative applicability/evidence retains its
+contrary evidence and unknown applicability; no new campaign, closure or waiver.
+Full S1–S5/oracle, qualification, unpublished RC1 and human acceptance stay open.
+Existing actor/command budgets, default heap and default dependency stay fixed.
+
+The [successor09 checkpoint](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/README.md)
+conserves accepted source/package evidence through the existing proof bank and
+records exact commit/remote identities in its publication return. Source push
+publishes this bounded checkpoint; it does not qualify or release the Product.
+Next: separately authorized genuine recovery and ordinary
+caller02 integration → remaining qualification and human release acceptance.
 
 ### Historical delivery and repair dispositions
 

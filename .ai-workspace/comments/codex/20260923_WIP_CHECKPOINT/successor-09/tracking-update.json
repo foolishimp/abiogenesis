@@ -1,0 +1,34 @@
+[
+  {
+    "repo": "abiogenesis",
+    "path": "specification/GOALS.md",
+    "preimageSha256": "985f370cf5e0c9b4db85e043706739acb18731da776caecdbc4cc9ced995dc13",
+    "postimageSha256": "d29bc40ae801c7daa0f254ddab07c06b784303b397da57fec1a0e0996c03e5a2",
+    "patch": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-goals.patch",
+    "scope": "Current sections, current metadata and affected debt row only; earlier sections preserved."
+  },
+  {
+    "repo": "abiogenesis",
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "preimageSha256": "08115be6da51942e109b8062ac1fe219015166ee15b51a17494bc9d0692b258f",
+    "postimageSha256": "8a7dfd992a5101c94726b3193c8c29bf8a43e2b4b1a54ec6c3caa4e1a104018b",
+    "patch": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-ticket.patch",
+    "scope": "Current sections, current metadata and affected debt row only; earlier sections preserved."
+  },
+  {
+    "repo": "odd_glc",
+    "path": "specification/GOALS.md",
+    "preimageSha256": "eeec85ff8088ab15d0fc503f0f443fb4e79df4386a452a6910c785aada0d9292",
+    "postimageSha256": "ccd31bd90ba26b33e0313d1ec447771fcd3388aa71040fc58e104e5df275e266",
+    "patch": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-goals.patch",
+    "scope": "Current sections, current metadata and affected debt row only; earlier sections preserved."
+  },
+  {
+    "repo": "odd_glc",
+    "path": ".ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+    "preimageSha256": "12b0ea8927bca322638be84a85fe3947ddd6ff2bb60ca68c96511f0b257346f2",
+    "postimageSha256": "9cedba8c73c44d5177392c76543790247d71be7828d6eb7dc7e5a183dfcdc3ac",
+    "patch": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/tracking-ticket.patch",
+    "scope": "Current sections, current metadata and affected debt row only; earlier sections preserved."
+  }
+]

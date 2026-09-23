@@ -1,3 +1,4 @@
+import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "../shared/admission_predicates.js";
 import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import { projectNativeLivenessRead } from "./runtime_liveness.js";
@@ -10,7 +11,7 @@ import { rehydrateAdmittedImplementationSetAtPrefix, rehydrateAdmittedInteractio
 import { rehydrateOpenedTraversalScopeAtPrefix, projectOpenedTraversalScopeClassAtPrefix, type OpenedTraversalScope } from "./open_call.js";
 import { projectHistoricalTraversalRouteAtPrefix } from "./traversal_route.js";
 import { hasJudgedTerminalRouteCausation } from "./retry.js";
-import { isAbgTypedTerminalResult, isAbgHistoricalDeclarationProof, type AbgTypedTerminalResult, type AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
+import { isAbgTypedTerminalResult, isAbgHistoricalDeclarationProof, type AbgTypedTerminalResult, type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource, type AbgHistoricalGraphCallSource } from "./terminal_result_contracts.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -21,6 +22,8 @@ import {
   type RuntimeEventCalculusProjection,
 } from "./event_calculus.js";
 import {
+  runtimePrefixComputation,
+  isImmutableRuntimeValue,
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
   validatedRuntimeEventPrefixThroughEvent,
@@ -256,11 +259,12 @@ function scopeForBasis(prefix: ValidatedRuntimeEventPrefix, basis: ExecutionBasi
 
 /** The child proof is data. Admission history selects all authority, including
  * the historical parent frontier and the original root declaration closure. */
-function terminalContract(
+function terminalDeclaration(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   basis: ExecutionBasis,
   scope: OpenedTraversalScope,
-): AbgRunTruthCoordinate {
+  sourceInput?: AbgHistoricalGraphCallSourceResource["input"],
+): Readonly<{ contract: AbgRunTruthCoordinate; source?: Omit<AbgHistoricalGraphCallSource, "terminalResult"> }> {
   const prefix = prepared.fullPrefix;
   const events = runtimeEventsFromValidatedPrefix(prefix);
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, basis.invocationAdmissionRef);
@@ -307,7 +311,7 @@ function terminalContract(
       root.resultContractRef !== invocation.outputContractRef || scopeForBasis(prefix, root).runId !== scope.runId) {
     throw new TypeError("terminal root differs from its admitted invocation contract");
   }
-  if (basis.basisClass === "root") return truthCoordinate(invocation.outputContractRef, invocation.outputContractDigest);
+  if (basis.basisClass === "root" && sourceInput === undefined) return { contract: truthCoordinate(invocation.outputContractRef, invocation.outputContractDigest) };
 
   const proof = prepared.packet.declarationProof;
   if (proof === undefined || proof.kind !== "abg_historical_declaration_proof" || proof.schemaVersion !== "5.0.0" ||
@@ -389,15 +393,30 @@ function terminalContract(
   }
   const selected = selectExactClosureContract(closure, basis.resultContractRef);
   if (selected === null) throw new TypeError("child output contract has no unique historical owner");
-  return truthCoordinate(selected.contract.contractRef, sha256Canonical(selected.contract as unknown as JsonValue));
+  const contract = truthCoordinate(selected.contract.contractRef, sha256Canonical(selected.contract as unknown as JsonValue));
+  if (sourceInput === undefined) return { contract };
+  const ancestor = one(chain.filter((row) => row.graphFunctionRef === sourceInput.graphFunctionRef), "selected source ancestor");
+  const owner = one(closure.graphFunctionOwners.filter((row) => row.declarationRef === ancestor.graphFunctionRef), "source input owner");
+  const publication = one(closure.publications.filter((row) => row.moduleRef === owner.moduleRef &&
+    row.owningProductId === owner.productId && modulePublicationSemanticDigest(row) === owner.publicationDigest), "source input publication");
+  const graph = one(publication.graphFunctions.filter((row) => row.name === ancestor.graphFunctionRef), "source input declaration");
+  if (graph.inputs.length !== 1 || graph.inputs[0] !== sourceInput.contractRef ||
+      selectExactClosureContract(closure, sourceInput.contractRef) === null) throw new TypeError("source ancestor input contract differs");
+  return { contract, source: Object.freeze({ publication, input: Object.freeze({
+    graphFunctionRef: ancestor.graphFunctionRef, contractRef: sourceInput.contractRef, value: ancestor.rawInputValue,
+  }) }) };
+}
+
+function terminalContract(prepared: PreparedRead<AbgProjectReadMemberKey>, basis: ExecutionBasis, scope: OpenedTraversalScope): AbgRunTruthCoordinate {
+  return terminalDeclaration(prepared, basis, scope).contract;
 }
 
 /** The sole terminal carrier constructor. Inputs are owner-validated native
  * history, never a fixture result, caller-selected result, or ambient schema. */
-function typedTerminalResult(
+function terminalOutcome(
   prepared: PreparedRead<AbgProjectReadMemberKey>, context: RunReadContext,
-  graphCallId: string, requireRunClosed: boolean,
-): AbgTypedTerminalResult | null {
+  graphCallId: string, requireRunClosed: boolean, sourceInput?: AbgHistoricalGraphCallSourceResource["input"],
+): Readonly<{ terminalResult: AbgTypedTerminalResult; source?: Omit<AbgHistoricalGraphCallSource, "terminalResult"> }> | null {
   const events = runtimeEventsFromValidatedPrefix(context.prefix);
   const closes = events.filter((event) => event.kind === "graph_call_closed" && event.aggregateId === graphCallId);
   if (closes.length === 0 || (requireRunClosed && context.replay.runtimeStatus !== "closed")) return null;
@@ -455,7 +474,10 @@ function typedTerminalResult(
     if (runClosed.basisId !== basis.basisRef || eventRecord(runClosed).graphCallClosedEventRef !== closed.eventId ||
         !runClosed.causationEventRefs.includes(closed.eventId)) throw new TypeError("Run close does not join its root terminal");
   }
-  const contract = terminalContract(prepared, basis, scope);
+  const declaration = sourceInput === undefined
+    ? { contract: terminalContract(prepared, basis, scope) }
+    : terminalDeclaration(prepared, basis, scope, sourceInput);
+  const { contract } = declaration;
   const value = deepFreeze({
     kind: "abg_typed_terminal_result" as const, schemaVersion: "5.0.0" as const,
     result: truthCoordinate(outcome.result.resultRef, outcome.result.resultDigest), contract,
@@ -468,7 +490,51 @@ function typedTerminalResult(
     projectionBasis: truthCoordinate(prepared.packet.prefix.eventLogRef, prepared.packet.prefix.coordinateDigest),
   });
   if (!isAbgTypedTerminalResult(value)) throw new TypeError("native terminal carrier differs from its closed schema");
-  return value;
+  return { terminalResult: value, ...(declaration.source === undefined ? {} : { source: declaration.source }) };
+}
+
+function typedTerminalResult(prepared: PreparedRead<AbgProjectReadMemberKey>, context: RunReadContext,
+  graphCallId: string, requireRunClosed: boolean): AbgTypedTerminalResult | null {
+  return terminalOutcome(prepared, context, graphCallId, requireRunClosed)?.terminalResult ?? null;
+}
+
+const HISTORICAL_GRAPH_CALL_SOURCES = Symbol("r10_historical_graph_call_sources");
+
+/** Owner-only Run resource path. The complete DefinitionCall has already passed
+ * raw ingress. All authority still comes from the current history and R10 joins.
+ * Copies/closed owners reconstruct; an immutable resource identity retains the
+ * borrowed result only within the existing authenticated prefix lineage. */
+export function projectHistoricalGraphCallSourceAtDurablePrefix(
+  suppliedPrefix: DurablePrefixCoordinate, resource: AbgHistoricalGraphCallSourceResource,
+): AbgHistoricalGraphCallSource | null {
+  try {
+    const prefix = captureDurablePrefixCoordinate(suppliedPrefix);
+    const events = readRuntimeEventsAtDurablePrefix(prefix);
+    const fullPrefix = selectValidatedRuntimeEventPrefix(events);
+    const retained = runtimePrefixComputation(fullPrefix, HISTORICAL_GRAPH_CALL_SOURCES,
+      () => new WeakMap<AbgHistoricalGraphCallSourceResource, { minimumOrdinal: number; value: AbgHistoricalGraphCallSource }>());
+    const previous = retained.get(resource);
+    const lastOrdinal = events.at(-1)?.admissionOrdinal ?? 0;
+    if (previous !== undefined && previous.minimumOrdinal <= lastOrdinal) return previous.value;
+    if (!isImmutableRuntimeValue(resource) || resource.kind !== "abg_historical_graph_call_source_resource" ||
+        resource.schemaVersion !== "5.0.0" || !hasExactDataFields(resource, ["kind", "schemaVersion", "terminal", "input", "declarationProof"]) ||
+        !hasExactDataFields(resource.input, ["graphFunctionRef", "contractRef"])) return null;
+    const packet: AbgProjectReadPacket<"graph_call_result"> = Object.freeze({ kind: "abg_project_read_packet", schemaVersion: "5.0.0",
+      memberKey: "graph_call_result", prefix, targetRef: resource.terminal.producer.graphCallRef, declarationProof: resource.declarationProof });
+    const prepared: PreparedRead<"graph_call_result"> = Object.freeze({ packet, events, fullPrefix,
+      fullCalculus: deriveRuntimeEventCalculusProjection(fullPrefix) });
+    const runId = runIdForGraphCall(prepared, packet.targetRef);
+    const context = runId === null ? null : runContext(prepared, runId);
+    const result = context === null ? null : terminalOutcome(prepared, context, packet.targetRef, false, resource.input);
+    if (result?.source === undefined) return null;
+    const { value: _value, projectionBasis: _basis, ...terminal } = result.terminalResult;
+    if (!isDeepStrictEqual(terminal, resource.terminal)) return null;
+    const value = Object.freeze({ terminalResult: result.terminalResult, ...result.source });
+    // The complete prefix is sufficient and prevents a historical cut from
+    // borrowing a result authenticated only in a later owner state.
+    retained.set(resource, { minimumOrdinal: lastOrdinal, value });
+    return value;
+  } catch { return null; }
 }
 
 /** Internal reuse of the same R10 owner. No Public invocation or store acquisition. */

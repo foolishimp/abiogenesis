@@ -1,0 +1,165 @@
+--- .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
++++ .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+@@ -17,19 +17,19 @@
+ - updated_at: 2026-09-24
+ - prior_environment_change_class: product_reprice_with_requirement_reprice
+ - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
+-- current_activation: CORE04_AND_ACCEPTED_CONSUMER_DESIGN_SOURCE_ACTIVE_RECOVERY_AND_S0216_READINESS_CLOSED
+-- current_candidate_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/return.md
+-- current_candidate_archive_sha256: d899d1e3202a868525cb4614c5ad80d0ae7b755e1b1c5e4e62daf74e4e178ca9
+-- current_accepted_candidate_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/review-01/return.md
+-- current_accepted_archive_sha256: d899d1e3202a868525cb4614c5ad80d0ae7b755e1b1c5e4e62daf74e4e178ca9
+-- current_worker_return: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/return.md
+-- current_candidate_scope: compiled08_complete_held_Public_install_FD_basis_reprice_controlled_FP_close_recovery_accepted_bounded_scope
++- current_activation: CORE04_CONSUMER01_CALLER02_SOURCE_ACCEPTED_COMPILED09_DEV5_PACKAGE_READINESS_CLOSED
++- current_candidate_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/return.md
++- current_candidate_archive_sha256: ddce524a0f992206a2836bbdc4c0655beff5aab5fb7bef7c59ca6b8f180528d5
++- current_accepted_candidate_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-readiness-return.md
++- current_accepted_archive_sha256: ddce524a0f992206a2836bbdc4c0655beff5aab5fb7bef7c59ca6b8f180528d5
++- current_worker_return: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/return.md
++- current_candidate_scope: core04_consumer01_caller02_SOURCE_READINESS_accepted_compiled09_dev5_package_readiness_CLOSED_native_original_outcome_pending
+ - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/return.md
+ - current_live_execution_status: CLOSED_PROCESS_FAILED_SIGABRT_OOM_481_166s_native147_293s_no_established_ABG_terminal_finalclose_or_current_readback
+-- current_activation_status: core03_acceptance_retained_core04_active_not_accepted_consumer_design01_accepted_implementation_active_original_Run_process_failed_no_recovery_retry
++- current_activation_status: source_accepted_package_readiness_closed_package_caller_readiness_accepted_original_recovery_caller02_integration_next
+ - current_native_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/return.md
+ - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
+-- current_activation_disposition: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/tracking-05/return.md
++- current_activation_disposition: .ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/root-disposition.json
+ - current_management_plan: '#current-management-prerequisite-plan'
+ - prior_generic_job_activation: ABI5_GENERIC_JOB_IMPLEMENT_01
+ - prior_generic_job_activation_status: closed_native_two_job_intake_D1_and_selected_D2_mechanics_accepted_live_and_broader_Product_qualification_open
+@@ -48,8 +48,8 @@
+ - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
+ - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
+ - bounded_task_register: '#management-milestones'
+-- next_bounded_task: coherent_source_contraction_then_integrated_package_independent_checkpoint_affected_finite_native_proof_then_authorized_original_recovery_distinct_Run_remaining_qualification_push_release
+-- next_bounded_task_status: core04_and_consumer_implementation_active_not_accepted_no_original_recovery_retry_heap_increase_or_remaining_S02_launch
++- next_bounded_task: accepted_package_then_authorized_original_recovery_and_ordinary_caller02_integration_remaining_qualification
++- next_bounded_task_status: original_recovered_ordinary_caller_selected_next_final_binding_absent_no_model_free_first_J_stop_no_Producer_campaign
+ - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
+ - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
+ - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
+@@ -269,47 +269,74 @@
+ 
+ ## Current Checkpoint And Installed Continuation
+ 
+-GOAL-035 retains the fixed fifteen-family ABG5 outcome under STDO 2.5.1 RC1;
+-GLC remains on RC4. Core03/compiled08 and the frozen held caller retain their
+-accepted bounded scopes. The [original attempt](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/return.md)
+-remains CLOSED PROCESS-FAILED: nine setup calls passed, then default-heap OOM
+-(481.166 s total, 147.293 s native phase, 6,843,973,632 B peak RSS). Only the first
+-F_D task success is recorded. No ABG terminal result, genuine final close,
+-current Public readback, provider cost or final protected conservation is established;
+-the original 1,235,175,110-byte journal and worksite remain preserved.
+-
+-The [allocation diagnosis](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/return.md)
+-is CLOSED (`bba1ac2b…`); it identifies recursive prior-carrier expansion and repeated
+-native admission/prefix work, while the exact fatal allocator remains unknown.
+-Root selects core04 `realization_refactor` for duplicate native admission and
+-two validated-prefix comparisons: active source work, not yet accepted.
+-[Consumer design-01](../../../../odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/design-01/return.md) (`3820023c…` subject,
+-`3d8418ae…` return) is accepted as bounded `design_reframe`; its source
+-implementation is active, not accepted or installed proof.
++GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original
++job/S1–S5/oracle, five selected/four outside residuals, source stream bytes and
++protected worksite. ABG uses STDO 2.5.1 RC1; GLC remains on RC4. Earlier
++core03/compiled08 and nested-compose15 acceptances keep their bounded scopes.
++
++Root accepts core04, consumer01 and caller02 at SOURCE/READINESS after the
++[independent source review](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/source-readiness-return.md)
++(`f596f35e…`). Core04 removes duplicate native complete-call admission and two
++whole validated-prefix comparisons. Consumer01 contracts the prior carrier and
++borrows authenticated historical input/publication through existing R10 and leaf
++owners. Caller02 uses the resulting ordinary interfaces. All 16 named source,
++test and HOW postimages are exact. No new admission relation, runtime entity,
++controller or Product family is selected.
++
++[Combined package readiness](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/return.md) is CLOSED:
++compiled09 archive `ddce524a0f992206a2836bbdc4c0655beff5aab5fb7bef7c59ca6b8f180528d5`
++and consumer dev.5 archive
++`f266d0723a48d858d8de59b1828693e784b38c1e9ee0924112b3f2776424f265`.
++Its frozen correspondence records all 5,232 core and 10 consumer members exact,
++713 generated core members with 11 changes, real installed Product verification
++and GTL validation. Root accepts package/caller readiness after the CLOSED independent review
++[`f3d85f69…`](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-readiness-return.md); its 31 named package/request/caller joins match.
++These are source/package readiness claims; the installed native correction
++conjunction and ordinary original-workspace outcome remain unproved.
++
++No suitable directly identified small assessment fixture supplies the required
++native-assessment/physical-subject conjunction. Root selects the
++[original recovered ordinary caller02](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-implementation-02/return.md)
++as the NEXT integration discriminator after package readiness. Do not manufacture
++a producer campaign. Its `final-binding.json` is absent; no current recovery or
++Run is claimed. The caller uses `until: converged`, so this selection establishes
++no model-free first-J stop. Installed first F_D/J equivalence, source/ancestor/
++currentness refusals, genuine cold reconstruction and original capacity outcome
++remain open to applicable evidence and Executive disposition.
++
++The [original attempt](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-01/return.md)
++remains CLOSED PROCESS-FAILED: nine setup calls passed before default-heap OOM
++(481.166 s total, 147.293 s native phase, 6,843,973,632 B peak RSS); only the first
++F_D task success is recorded. No ABG terminal, genuine final close/current
++handoff, current Public readback, provider cost or final protected conservation
++is established. The 1,235,175,110-byte journal and worksite remain preserved;
++this checkpoint did not read, hash, recover or mutate them. The
++[allocation diagnosis](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/return.md)
++is CLOSED; the exact fatal allocator and OOM cure remain unproved.
+ 
+ [Recovery readiness](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-recovery-readiness-01/return.md)
+-is accepted at its read-only scope. Existing genuine recovery still requires
+-actual current digest, identity-scoped lock state, quiescence, executing artifact
+-and exact approval; no recovery/retry or heap increase is authorized. Old-Run
+-terminalization is not an established prerequisite for a distinct corrected-candidate
+-Run. Preserve its nonterminal history. The missing native `run-stopped` binding
+-is a separate open release-applicability/implementation residual, not a recovery
+-gate or implementation grant. One live owner and incremental state follow the
+-system scope and append journal; no machine mode or controller is selected.
+-
+-[Nested-compose15](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-15/return.md) stays accepted.
+-[Continuation16](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/return.md) is CLOSED readiness
+-(`394df327…` return, `006b80e8…` subject); eight remaining S02 cases are held for
+-an adequate final candidate. The semantic-negative remains an applicability/evidence
+-question, with contrary evidence and unknown applicability retained: no new test
+-campaign, blanket closure or waiver. Full S1–S5/oracle, qualification, RC1 and
+-actual human acceptance remain open.
+-
+-Next order: coherent source contraction → one integrated package/independent
+-checkpoint and affected finite native proof → genuine original recovery and a
+-distinct corrected-candidate Run → remaining qualification → source push/release.
+-Existing actor/command budgets, default heap and original job/oracle remain.
+-Recorded source basis remains pushed ABG `e7ae5e172126de08249af66043d90957617c5dc8` and GLC `f03d5664db29fb7ab8aa7fc8492aee7884843698`, plus individually frozen successors when returned. Those historical pushes do not publish the active work.
++retains its read-only acceptance. Genuine recovery requires the actual current
++digest, identity-scoped lock state, quiescence, executing artifact and exact
++owner approval. Old-Run terminalization is not a prerequisite for the distinct
++corrected-candidate Run; preserve its nonterminal history. Native `run-stopped`
++binding remains a separate open release-applicability/implementation residual.
++One live owner progresses incremental state with the append journal; cold
++recovery applies only when state is absent. This checkpoint grants no runtime
++recovery, retry, heap increase or new native execution.
++
++[Continuation16](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-16/return.md)
++is CLOSED readiness (`394df327…`, subject `006b80e8…`); eight S02 cases await an
++adequate final candidate. Semantic-negative applicability/evidence retains its
++contrary evidence and unknown applicability; no new campaign, closure or waiver.
++Full S1–S5/oracle, qualification, unpublished RC1 and human acceptance stay open.
++Existing actor/command budgets, default heap and default dependency stay fixed.
++
++The [successor09 checkpoint](../../comments/codex/20260923_WIP_CHECKPOINT/successor-09/README.md)
++conserves accepted source/package evidence through the existing proof bank and
++records exact commit/remote identities in its publication return. Source push
++publishes this bounded checkpoint; it does not qualify or release the Product.
++Next: separately authorized genuine recovery and ordinary
++caller02 integration → remaining qualification and human release acceptance.
+ 
+ ## Current Management Prerequisite Plan
+ 
+@@ -582,7 +609,7 @@
+ | NW-C0-FIXTURE-APPEND-01 | R7 passes and C0 sunny assertions pass at [fixtures-04](../../comments/codex/20260923_COMPOSITE_READINESS/fixtures-04/return.md)'s partial retained scope. [Fixtures-05](../../comments/codex/20260923_COMPOSITE_READINESS/fixtures-05/return.md) finds no lawful copied-prefix append owner for later negative clones. | Clone-dependent C0 negatives are held as obsolete fixture debt; no new runtime to salvage them. Root accepts fixtures-06's publication correction and deterministic C3 Parallel installed pass; Data Mapper's obsolete envelope and partial-prefix case remain unqualified. No further fixture expansion is selected; no full C0/C3 closure. |
+ | F11-PRODUCER-CONTEXT-01 | The implementation-01 acquisition/reuse finding is closed by [implementation-02 review](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/review.md), with source/component acceptance and emitted correspondence in compiled-01. | One finite real-reader component discriminator retains one authenticated representation through environment and both currentness consumers. Original provenance, cold fallback/currentness, independent local J/O and sole AF22 remain. No original-history/native qualification or general OOM cure is claimed. |
+ | F11-APPLICATION-DOMAIN-01 | Complete disjoint per-rule domains retain independent source review and compiled checks on e4e61fbe. Exact member/source unions and independent applicability/adequacy J are conserved. | Unknown/falsified J stays non-green. Source groups and regression counts do not establish applicability, native assessment or full qualification. |
+-| NW-CALLER-PREPARATION-LIFETIME-01 / LIFE-01 | Core03/compiled08 bounded held-path acceptance is retained; the original attempt remains process-failed with first F_D task success only, no ABG terminal/current close. [Allocation diagnosis](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/original-run-allocation-diagnosis-01/return.md) is CLOSED (`bba1ac2b…`): recursive prior expansion and duplicate native admission/prefix work are identified; exact fatal allocator remains unknown. | Core04 `realization_refactor` for native duplicate admission and two validated-prefix comparisons is active/not accepted. [Consumer design-01](../../../../odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/design-01/return.md) (`3820023c…`/`3d8418ae…`) is accepted bounded `design_reframe`; implementation is active. Conjoin frozen successors into one package/checkpoint and affected finite native proof before separately authorized original recovery/distinct Run. Original capacity, full S1–S5 and qualification remain open; no heap increase or new framework. |
++| NW-CALLER-PREPARATION-LIFETIME-01 / LIFE-01 | Core04/consumer01/caller02 SOURCE/READINESS is accepted after independent review. Compiled09/dev.5 package readiness is CLOSED with exact archive/source correspondence; package/caller readiness is independently accepted. Earlier core03/compiled08 acceptance and original process failure remain exact. Allocation diagnosis is CLOSED; fatal allocator and OOM cure remain unproved. | Original recovered ordinary caller02 is the next integration discriminator after package readiness; final binding and genuine recovery remain pending. No suitable direct small assessment fixture, producer campaign or model-free first-J stop is claimed. Keep all installed/currentness/cold obligations, original capacity, S1–S5 and qualification open; no heap increase or new framework. |
+ | NW-OPERATOR-STOP-BINDING-01 | [Accepted recovery readiness](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-recovery-readiness-01/return.md) finds `witness.admit#run-stopped` contract/semantic owner present but native binding absent. Existing recovery permits incomplete Run history; inspected distinct-start guards do not require old terminalization. | OPEN separate release-applicability/implementation residual under T-287. Preserve contrary evidence and unknown applicability; not a recovery gate, no fake closure/retargeting, and no implementation grant. Recovery still needs actual current digest/lock/quiescence/artifact/approval. |
+ | NW-PRODUCT-VERIFICATION-REUSE-01 | Core03/compiled08 reuse remains independently reviewed and Executive-accepted: two initial archive-verifier entries in its tiny two-Product path, with genuine copied/changed/cold fallback and installed-tree checks. Original attempt establishes core8.677s/consumer0.015s, then nine Public setup calls before native OOM. The earlier core8.604675s/mini0.010442s and pair34.637s repeated-verification measurements retain their exact subjects. | Bounded verifier reuse is not original capacity closure. Exact allocating source remains unmeasured; the lifetime/capacity row owns the CLOSED diagnosis and active selected contractions. Preserve actual-object provenance, per-operation authorization/currentness and physical checks. No separate startup optimization, new controller, heap/timer increase or release claim. |
+ | NW-QUALIFICATION-CONTRACTION-01 | CLOSED accepted/applied after [independent review](../../comments/codex/20260922_QUALIFICATION_CONTRACTION/final-review.md). Executable roster/vector, two adapters and wrappers removed; all retained behavioral obligations conserved. 31 authored/60 generated changes, net −376/−2,299 lines. | [Executive disposition](../../comments/codex/20260922_QUALIFICATION_CONTRACTION/executive-disposition.md): compile and focused checks pass; installed F11 incomplete → AF22 blocked with fresh result/closed replay. Supersedes row-by-row D5 adapters. Full qualification, existing stale-harness debt and measured computational cost remain open; no new runtime or release selected. |

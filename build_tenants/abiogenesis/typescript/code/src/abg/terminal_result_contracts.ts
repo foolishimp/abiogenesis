@@ -1,5 +1,7 @@
 import * as v from "valibot";
 import type { ReadyGraphFunctionCatalog, GraphFunctionCatalogView } from "../product/catalog.js";
+import type { ModulePublication } from "../gtl/contracts.js";
+import type { JsonValue } from "../shared/canonical_json.js";
 import { jsonValueSchema, nonblankSchema, refDigestSchema } from "../shared/public_function_contracts.js";
 
 /** This is an output carrier, not an admission or an independent result ledger. */
@@ -51,4 +53,29 @@ export const ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA = v.strictObject({
 
 export function isAbgHistoricalDeclarationProof(value: unknown): value is AbgHistoricalDeclarationProof {
   return v.safeParse(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA, value).success;
+}
+
+/** Stable selection only. The result body and the read prefix remain with ABG. */
+export const ABG_HISTORICAL_TERMINAL_SELECTION_SCHEMA = v.omit(ABG_TYPED_TERMINAL_RESULT_SCHEMA, ["value", "projectionBasis"]);
+export type AbgHistoricalTerminalSelection = v.InferOutput<typeof ABG_HISTORICAL_TERMINAL_SELECTION_SCHEMA>;
+
+/** One explicit cold declaration dependency, separate from semantic Run input. */
+export const ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA = v.strictObject({
+  kind: v.literal("abg_historical_graph_call_source_resource"),
+  schemaVersion: v.literal("5.0.0"),
+  terminal: ABG_HISTORICAL_TERMINAL_SELECTION_SCHEMA,
+  input: v.strictObject({ graphFunctionRef: nonblankSchema, contractRef: nonblankSchema }),
+  declarationProof: ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA,
+});
+export type AbgHistoricalGraphCallSourceResource = v.InferOutput<typeof ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA>;
+
+/** Borrowed owner values, never serialized into successor input or evidence. */
+export interface AbgHistoricalGraphCallSource {
+  readonly terminalResult: AbgTypedTerminalResult;
+  readonly input: Readonly<{
+    graphFunctionRef: string;
+    contractRef: string;
+    value: Readonly<Record<string, JsonValue>>;
+  }>;
+  readonly publication: Readonly<ModulePublication>;
 }

@@ -1,0 +1,28 @@
+{
+  "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-review-freeze.json",
+  "freezeSha256": "e27dae31149598fced59df42d1a6ad70f1c6d63f77bf9d2c81ea9f5635056ed3",
+  "members": [
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-evidence-checks.json",
+      "bytes": 12629,
+      "sha256": "42b5a342bb0b3048d10d838b2bf0a6ed3dfad4ed2f563e3bd3e2218b21827ccf"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-readiness-return.md",
+      "bytes": 7320,
+      "sha256": "f3d85f69b615b278be95f6eb9a0463051674bfca7304972052b7522d3a3f2ff3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-closeout.json",
+      "bytes": 1272,
+      "sha256": "5d97d92a067c1161a568b6d9017cc5589164dc93266131edc16397ec477fcef3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-review-freeze.json",
+      "bytes": 749,
+      "sha256": "e27dae31149598fced59df42d1a6ad70f1c6d63f77bf9d2c81ea9f5635056ed3"
+    }
+  ],
+  "allRestoredExact": true,
+  "destination": "/private/tmp/20260924-checkpoint-successor09-review-45380"
+}

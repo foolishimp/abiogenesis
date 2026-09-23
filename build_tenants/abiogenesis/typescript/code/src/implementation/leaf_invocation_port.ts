@@ -1,3 +1,5 @@
+import { projectHistoricalGraphCallSourceAtDurablePrefix } from "../abg/project_read_ports.js";
+import type { AbgHistoricalGraphCallSourceResource } from "../abg/terminal_result_contracts.js";
 import { FP_HELLO_IMPLEMENTATION_DESCRIPTOR, validateFpHelloResponse } from "./fp_hello.js";
 import type { NativeLeafProofOperations, NativeJudgmentProofOperations } from "./contracts.js";
 import { authenticateNativeWorkReacquisition, nativeWorkReacquisitionResultMatches } from "../abg/native_work_reacquisition.js";
@@ -459,11 +461,14 @@ function nativeOccurrenceVerifier(occurrence: Readonly<LeafExecutionOccurrence>)
 }
 function nativeJudgmentProofOperations(
   predicateRef: string, input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate,
+  historicalSource?: AbgHistoricalGraphCallSourceResource,
 ): Readonly<NativeJudgmentProofOperations> {
-  if (predicateRef === reacquireIds.predicateRef) return Object.freeze({
+  const historical = historicalSource === undefined ? {} : { historicalGraphCallSource: () =>
+    currentOwnerPrefix === undefined ? null : projectHistoricalGraphCallSourceAtDurablePrefix(currentOwnerPrefix, historicalSource) };
+  if (predicateRef === reacquireIds.predicateRef) return Object.freeze({ ...historical,
     nativeWorkReacquisition: () => nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix),
   });
-  if (predicateRef === qualificationIds.verdictPredicate) return Object.freeze({
+  if (predicateRef === qualificationIds.verdictPredicate) return Object.freeze({ ...historical,
     qualificationVerdict: () => {
       if (!isRecord(output) || !isRecord(output.nativeBasis)) return null;
       const original = output.nativeBasis as unknown as QualificationNativeBasis;
@@ -472,8 +477,8 @@ function nativeJudgmentProofOperations(
       return projectExactCandidateQualification(basis, input);
     },
   });
-  if (predicateRef !== qualificationIds.runtimeAssessPredicate) return Object.freeze({});
-  return Object.freeze({
+  if (predicateRef !== qualificationIds.runtimeAssessPredicate) return Object.freeze(historical);
+  return Object.freeze({ ...historical,
     qualificationAssessment: () => {
       if (!isRecord(output) || !isRecord(output.nativeBasis)) return null;
       const original = output.nativeBasis as unknown as QualificationNativeBasis;
@@ -874,6 +879,7 @@ function graphFunctionSemanticsOwner(
 }
 
 export async function constructAdmittedLeafInvocationPort(authority: {
+  readonly historicalSource?: AbgHistoricalGraphCallSourceResource;
   readonly prefix: ValidatedRuntimeEventPrefix;
   readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly implementationSet: AdmittedImplementationSet;
@@ -1380,7 +1386,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       return Object.freeze({ ...relation,
         evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate) =>
           relation.evaluate(input, output, currentOwnerPrefix,
-            nativeJudgmentProofOperations(predicateRef, input, output, currentOwnerPrefix)),
+            nativeJudgmentProofOperations(predicateRef, input, output, currentOwnerPrefix, authority.historicalSource)),
       });
     },
     validateResultEvidenceLineage(

@@ -1,0 +1,60 @@
+{
+  "basisCommit": "e7ae5e172126de08249af66043d90957617c5dc8",
+  "inherited": "successor-08/composition.json and unchanged prior bank indexes",
+  "newBanks": [
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/transport-01",
+      "catalogSha256": "dfa83cd45b33bfa5a61e932563a70e660e29368fee3d405ac99993b7d9618e1b",
+      "indexSha256": "3826ce64518716c6ba084e6ad2ad4c5f98aaa358d2c16c040d6a13525d4c6e75",
+      "verificationSha256": "5f4ec79e10bc2f7422bd5dd17da0f67201fdcac6c2ca3dab6b28cfd3f005f496",
+      "members": 134,
+      "logicalBytes": 13296704,
+      "transportBytes": 10821600
+    },
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-09/transport-02",
+      "catalogSha256": "1c47277d0d945fa40675040abcfb54978f6717d2bf3d56239f8ad9fce08d10b8",
+      "indexSha256": "4b68eeb5be6e1b6a93f99309503d5cfd925930b4b13ed39d7b02128cc74c10cf",
+      "verificationSha256": "c1c60cdbe2aee99f381af654ad6dc8e916204b87eb9d3a8d9323efacd1ee61ab",
+      "members": 4,
+      "logicalBytes": 21970,
+      "transportBytes": 6778
+    }
+  ],
+  "newMembers": 138,
+  "newLogicalBytes": 13318674,
+  "newTransportBytes": 10828378,
+  "priorPayloadReadOrReupload": false,
+  "scope": "Accepted core04/consumer01/caller02 SOURCE/READINESS and independently accepted compiled09/dev5 PACKAGE/CALLER READINESS; original recovered ordinary caller02 integration NEXT, all native outcome/OOM cure/RC qualification claims remain open.",
+  "excluded": [
+    "All original mutable GLC/S02 journals/worksites/live logs; no read/hash/copy",
+    "All dependency trees, implementation03 disposable fixture, build scratch and unselected caches",
+    "All unclosed and post-cutoff successors; source/package readiness only, original integration and qualification pending"
+  ],
+  "rootAcceptance": {
+    "status": "accepted_source_readiness_and_package_caller_readiness",
+    "authority": "Root Writer activation and closed source review accepted by Root",
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/source-readiness-return.md",
+      "sha256": "f596f35ecc0219e57b7dbb8f0cd4af5299121a0029e5a7f0c1c9db4dd18e24ae"
+    },
+    "packageReadiness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-01/return.md",
+      "sha256": "e235dbf8abcdcc20a8224342d309220f7fc4018aeeea75badccae1c6242f37fa",
+      "subject": "f8b33436909888725ac304aeb6f2fef1e6363d84bbabfc3da072fc4506a025e0"
+    },
+    "packageReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-readiness-return.md",
+      "sha256": "f3d85f69b615b278be95f6eb9a0463051674bfca7304972052b7522d3a3f2ff3",
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-review-freeze.json",
+      "freezeSha256": "e27dae31149598fced59df42d1a6ad70f1c6d63f77bf9d2c81ea9f5635056ed3",
+      "rootDisposition": "accepted after CLOSED independent review; 31 named joins exact; no supported blocker",
+      "scope": "Source/package/interface readiness only; no actual installed native conjunction or original outcome"
+    },
+    "accepted": "core04 consumer01 caller02 SOURCE/READINESS and compiled09/dev5 PACKAGE/CALLER READINESS",
+    "next": "Original recovered ordinary caller02 integration after package readiness and exact recovery/final binding; until:converged, no model-free first-J stop, no manufactured producer campaign",
+    "remaining": "Original process-failed/nonterminal Run unchanged; no genuine close or OOM cure; current recovery/Run/native correction/cold conjunction open; eight S02 cases and separate semantic-negative applicability/evidence; full S1-S5/oracle, RC1 qualification and actual human acceptance open",
+    "noEffects": "No tests/builds/native/provider/original-resource read/hash/recovery or default dependency/tag/release actions by this Writer",
+    "coherentCutoff": "2026-09-23T19:38:13.779201+00:00"
+  }
+}

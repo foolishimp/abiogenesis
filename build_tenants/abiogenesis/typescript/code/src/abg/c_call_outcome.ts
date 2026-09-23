@@ -78,6 +78,7 @@ import {
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
+  runtimeEventPrefixDigest,
   runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
   selectRuntimeEventPrefixFromAuthority,
@@ -1198,8 +1199,8 @@ export function admitCCallJudgment(
         input.outcome.replayState,
       );
       if (
-        sha256Canonical(runPrefix as unknown as JsonValue) !==
-            sha256Canonical(input.outcome.runtimePrefix as unknown as JsonValue) ||
+        runtimeEventPrefixDigest(runPrefix) !==
+            runtimeEventPrefixDigest(input.outcome.runtimePrefix) ||
         replayState.replayDigest !== input.outcome.replayState.replayDigest
       ) {
         throw new TypeError("CCall result receipt differs from its durable prefix");
@@ -1414,10 +1415,8 @@ export function admitCCallCompletion(
             input.store.readAll(),
           );
           if (
-            sha256Canonical(stagedPrefix as unknown as JsonValue) !==
-              sha256Canonical(
-                retryProgress.plan.projectedPrefix as unknown as JsonValue,
-              )
+            runtimeEventPrefixDigest(stagedPrefix) !==
+              runtimeEventPrefixDigest(retryProgress.plan.projectedPrefix)
           ) {
             throw new TypeError(
               "staged retry progress differs from its exact projected prefix",
