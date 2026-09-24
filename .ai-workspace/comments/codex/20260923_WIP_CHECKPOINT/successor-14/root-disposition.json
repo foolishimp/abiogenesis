@@ -1,0 +1,18 @@
+{
+  "status": "accepted_source_readiness_checkpoint_installed_full_outcome_pending",
+  "sourceSubject": "sha256:a13144e340e75597b0bdea0c50c030504c3fba72ad74f6ebe1856932f9662e1c",
+  "sourceSubjectFileSha256": "17f07c04d26071caf2c33d1e360484dbf70d1a8d20ed4de18caf47287f644eb1",
+  "reviewSha256": "6f0b43865a55912921b2910eb4a9a66c5f101c191fe6fa7f784bae21795ae8c0",
+  "compiled17ReturnSha256": "c8e5bf7b97d3a17ecb24424c55df49326035ce9b52f6494e3620a6e407d9224a",
+  "core": {
+    "artifactDigest": "sha256:b921450fddfdd959949da23af516c771506f4f6ae8bc697b3ca8120e190063e6",
+    "productContentDigest": "sha256:f8e00472f8f1878f61f177cab885d48811a006c4de78706d4993dfbb8671b68f",
+    "manifestDigest": "sha256:29a47c181eae5134bdf285b16cb519acc080414ac0a1fd013accdea9c033d636",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "previousFullLifecycle": "Opus02 failed at native Evidence after ten successful actors and C2; no terminal Result or independent complete-outcome assessment",
+  "activeExecution": "Root-reported Opus03 setup stopped at the existing 180-second core-install helper ceiling before Run/actor; no receipt, prior journal ca211660\u2026227614608 B unchanged, partial install preserved/unclassified; owner/lock diagnosis only, no retry or timeout increase.",
+  "noNewRuntimeAuthority": true
+}

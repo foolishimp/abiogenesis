@@ -786,6 +786,27 @@ export function deriveNativeSemanticAssessment(envelope: SemanticJobEnvelope, st
     return derived === null ? null : deepFreeze({ ...derived, context: observation.after });
   } catch { return null; }
 }
+/** Value projection only. ABG separately authenticates the native producers and
+ * same-Run predecessor before admitting these observed artifact bytes. */
+export function nativeSemanticEvidenceArtifacts(envelope: SemanticJobEnvelope, value: unknown): SemanticEvidenceInput["artifacts"] | null {
+  try {
+    if (!isNativeWorksiteCommandExecutionObservation(value) ||
+      !equal(value.task, constructNativeSemanticExecutionTask(envelope, value.task.sourceNativeWork))) return null;
+    const source = value.task.sourceNativeWork, design = envelope.assets.at(-1)!.candidate.design!;
+    return deepFreeze(design.targets.map(selected => {
+      const rows = value.task.protectedObservations.filter(row => row.subject.relativePath === selected.relativePath);
+      const observed = source.after.entries.find(e => e.relativePath === selected.relativePath);
+      if (rows.length !== 1 || observed?.state !== "file" || rows[0]!.observation.state !== "file" ||
+        observed.digest !== rows[0]!.observation.fileDigest) throw new TypeError("native evidence target mismatch");
+      const row = rows[0]!;
+      const snapshot = value.snapshotMembers.filter(m => m.relativePath === selected.relativePath &&
+        m.digest === observed.digest && m.byteLength === observed.byteLength);
+      if (snapshot.length !== 1 || snapshot[0]!.sourceObservationRef !== row.observation.observationRef) throw new TypeError("exact native C2 snapshot required");
+      return { subjectRef: row.subject.subjectRef, observationRef: snapshot[0]!.sourceObservationRef, base64: observed.bytes,
+        role: selected.role === "verifier" ? "verifier_artifact" as const : "realization" as const };
+    }));
+  } catch { return null; }
+}
 export function constructNativeSemanticTask(envelope: SemanticJobEnvelope, stageRef: string, role: "author" | "assessor",
   operating: NativeSemanticOperating, context: WorksiteContextObservation): Readonly<NativeWorkspaceWorkTask> {
   const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef), paths = nativeSemanticPaths(envelope);
@@ -796,8 +817,13 @@ export function constructNativeSemanticTask(envelope: SemanticJobEnvelope, stage
       : envelope.assets.at(-1)?.stageRef !== stageRef || envelope.assets.at(-1)?.assessment !== null)) throw new TypeError("current complete native semantic subject required");
   const contract = projectSemanticJobActorContract(envelope, stageRef, role);
   const predecessors = envelope.assets.filter(a => stage.predecessorStageRefs.includes(a.stageRef));
+  const execution = envelope.evidence?.executionObservation;
+  const evidencePaths = isNativeWorksiteCommandExecutionObservation(execution)
+    ? execution.task.protectedObservations.filter(row => envelope.evidence!.artifacts.some(artifact =>
+      artifact.subjectRef === row.subject.subjectRef && artifact.observationRef === row.observation.observationRef)).map(row => row.subject.relativePath)
+    : envelope.worksite?.targets.map(t => t.target.subject.relativePath) ?? [];
   const sources = [...envelope.job.members.map(m => m.path), ...predecessors.map(a => a.source.nativeWork!.assetPath),
-    ...(envelope.evidence === null ? [] : envelope.worksite?.targets.map(t => t.target.subject.relativePath) ?? [])];
+    ...(envelope.evidence === null ? [] : evidencePaths)];
   const readFirst = [...new Set([...sources, paths.rubricPath, ...(role === "assessor" ? [selected.path] : [])])];
   const instructions = ["Read every complete selected source and current predecessor asset. Preserve source roles, conflicts, obligations and residuals. The subject is distinct from the builder and runtime Products.",
     stage.purpose, ...stage.requiredContent,

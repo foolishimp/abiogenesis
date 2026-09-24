@@ -1,0 +1,47 @@
+{
+  "basisCommit": "5f150fe217ac6405f73da1692eeb5c0b0c8807ba",
+  "inherited": "successor-13/composition.json and unchanged prior bank indexes",
+  "newBanks": [
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-14/transport-01",
+      "catalogSha256": "753fe6ea38e5e7a9a51bc96c90c63fa4a31a56ed332f2aebbec77a407e1cc37a",
+      "indexSha256": "524a99de3b91e034c8b3e174a2cff15042c99385e9e65821c698cf321d8d30da",
+      "verificationSha256": "0bfcd3d7ae5ca1257133ea18095226c8c940f757bdf8b2face9569fec4a40208",
+      "members": 41,
+      "logicalBytes": 12523113,
+      "transportBytes": 10689757
+    }
+  ],
+  "newMembers": 41,
+  "newLogicalBytes": 12523113,
+  "newTransportBytes": 10689757,
+  "priorPayloadReadOrReupload": false,
+  "scope": "Five accepted native Evidence source/test postimages; exact compiled17 generated projections/archive/construction; concise closed repair/review/check records; single retained C2 regression extract and five Opus02 summary/metrics/diagnostic files; current four trackers/debt. No active resource or recursive historical collection.",
+  "excluded": [
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources",
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-03",
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-01/caller",
+    "Opus02 optional detailed native-semantic-replay projection (122634623 bytes), caller trees and actor archives are excluded; only six explicit closed summary/diagnostic/fixture files selected",
+    "All live/shared event resources and journals, worksites, active inputs/control/archives, installed node_modules and unrelated dirty work",
+    "No runtime history read/acquisition, new package/test or native call; full previous lifecycle stays failed and installed repaired outcome is pending",
+    "No qualification/F11/AF22/full-GLC/RC1 acceptance"
+  ],
+  "rootAcceptance": {
+    "status": "accepted_source_readiness_checkpoint_installed_full_outcome_pending",
+    "sourceSubject": "sha256:a13144e340e75597b0bdea0c50c030504c3fba72ad74f6ebe1856932f9662e1c",
+    "sourceSubjectFileSha256": "17f07c04d26071caf2c33d1e360484dbf70d1a8d20ed4de18caf47287f644eb1",
+    "reviewSha256": "6f0b43865a55912921b2910eb4a9a66c5f101c191fe6fa7f784bae21795ae8c0",
+    "compiled17ReturnSha256": "c8e5bf7b97d3a17ecb24424c55df49326035ce9b52f6494e3620a6e407d9224a",
+    "core": {
+      "artifactDigest": "sha256:b921450fddfdd959949da23af516c771506f4f6ae8bc697b3ca8120e190063e6",
+      "productContentDigest": "sha256:f8e00472f8f1878f61f177cab885d48811a006c4de78706d4993dfbb8671b68f",
+      "manifestDigest": "sha256:29a47c181eae5134bdf285b16cb519acc080414ac0a1fd013accdea9c033d636",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    },
+    "previousFullLifecycle": "Opus02 failed at native Evidence after ten successful actors and C2; no terminal Result or independent complete-outcome assessment",
+    "activeExecution": "Root-reported Opus03 setup stopped at the existing 180-second core-install helper ceiling before Run/actor; no receipt, prior journal ca211660\u2026227614608 B unchanged, partial install preserved/unclassified; owner/lock diagnosis only, no retry or timeout increase.",
+    "noNewRuntimeAuthority": true
+  }
+}

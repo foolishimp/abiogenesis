@@ -1,0 +1,61 @@
+{
+  "directExpected": {
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts": {
+      "sha256": "afe6844bff1433d04c245d2ccc1af640b3301c14144fd80030ee3627e8210c68",
+      "byteLength": 47674,
+      "proof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-evidence-territory-01/source-subject.json"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts": {
+      "sha256": "e60893ce71f9325679f0d2005d35b20837d6847eb54a3e185716d844d5a674a2",
+      "byteLength": 87240,
+      "proof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-evidence-territory-01/source-subject.json"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-evidence.test.mjs": {
+      "sha256": "7dc62780a30f0ef27dc8e45f4100969e759b74df7f694653584264f382a600af",
+      "byteLength": 5466,
+      "proof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-evidence-territory-01/source-subject.json"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "4dd57ef22cde56e09cae81eab64ee6b66d416e451b1a3d39dbcc39ad7840b0e1",
+      "byteLength": 197474,
+      "proof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-17/archive-members.json"
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "984c52d800e44ba2adf04592fd7b737f806685b7f49816d76308bc19d8830dce",
+      "byteLength": 2377790,
+      "proof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-17/archive-members.json"
+    },
+    "specification/GOALS.md": {
+      "sha256": "58d4e266a6cbffe1b546131c752dbd178a4a91fd547f51b034a7b9b9e08e3a91",
+      "byteLength": 60122,
+      "proof": "Root current tracker/debt projection; all historical outcomes retained"
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "c49b44bec6198aa74cd58d9be9ce2f56fe07a81844ebd70370738011967281c6",
+      "byteLength": 345517,
+      "proof": "Root current tracker/debt projection; all historical outcomes retained"
+    }
+  },
+  "banks": [
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-14/transport-01",
+      "catalogSha256": "753fe6ea38e5e7a9a51bc96c90c63fa4a31a56ed332f2aebbec77a407e1cc37a",
+      "indexSha256": "524a99de3b91e034c8b3e174a2cff15042c99385e9e65821c698cf321d8d30da",
+      "verificationSha256": "0bfcd3d7ae5ca1257133ea18095226c8c940f757bdf8b2face9569fec4a40208",
+      "members": 41,
+      "logicalBytes": 12523113,
+      "transportBytes": 10689757
+    }
+  ],
+  "scope": "Five accepted native Evidence source/test postimages; exact compiled17 generated projections/archive/construction; concise closed repair/review/check records; single retained C2 regression extract and five Opus02 summary/metrics/diagnostic files; current four trackers/debt. No active resource or recursive historical collection.",
+  "excluded": [
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources",
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-03",
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-01/caller",
+    "Opus02 optional detailed native-semantic-replay projection (122634623 bytes), caller trees and actor archives are excluded; only six explicit closed summary/diagnostic/fixture files selected",
+    "All live/shared event resources and journals, worksites, active inputs/control/archives, installed node_modules and unrelated dirty work",
+    "No runtime history read/acquisition, new package/test or native call; full previous lifecycle stays failed and installed repaired outcome is pending",
+    "No qualification/F11/AF22/full-GLC/RC1 acceptance"
+  ],
+  "sourcePostimageMutationByWriter": false
+}

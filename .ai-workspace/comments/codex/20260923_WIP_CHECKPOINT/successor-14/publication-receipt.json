@@ -1,0 +1,20 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "5f150fe217ac6405f73da1692eeb5c0b0c8807ba",
+  "commitIdentity": "Commit containing this receipt; exact local and remote identities recorded in external post-push receipt",
+  "newMembers": 41,
+  "newLogicalBytes": 12523113,
+  "newTransportBytes": 10689757,
+  "restoration": "Every newly banked member restored and compared with original and selected freeze; prior bank payload proof reused without rereading/reupload",
+  "scope": "Five accepted native Evidence source/test postimages; exact compiled17 generated projections/archive/construction; concise closed repair/review/check records; single retained C2 regression extract and five Opus02 summary/metrics/diagnostic files; current four trackers/debt. No active resource or recursive historical collection.",
+  "excluded": [
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources",
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-03",
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-01/caller",
+    "Opus02 optional detailed native-semantic-replay projection (122634623 bytes), caller trees and actor archives are excluded; only six explicit closed summary/diagnostic/fixture files selected",
+    "All live/shared event resources and journals, worksites, active inputs/control/archives, installed node_modules and unrelated dirty work",
+    "No runtime history read/acquisition, new package/test or native call; full previous lifecycle stays failed and installed repaired outcome is pending",
+    "No qualification/F11/AF22/full-GLC/RC1 acceptance"
+  ],
+  "allowedGitEffects": "One ordinary main commit and nonforce push, then remote ref verification"
+}

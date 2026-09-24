@@ -1,0 +1,75 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "5f150fe217ac6405f73da1692eeb5c0b0c8807ba",
+  "scope": "Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 41
+  },
+  "archiveMemberCount": 41,
+  "archiveMemberBytes": 12523113,
+  "transportBytes": 10689757,
+  "assets": [
+    {
+      "id": "raw-b921450fddfdd959949da23af516c771506f4f6ae8bc697b3ca8120e190063e6",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10146654,
+      "sha256": "b921450fddfdd959949da23af516c771506f4f6ae8bc697b3ca8120e190063e6",
+      "parts": [
+        {
+          "path": "payloads/raw-b921450fddfdd959949da23af516c771506f4f6ae8bc697b3ca8120e190063e6.part0000",
+          "byteLength": 10146654,
+          "sha256": "b921450fddfdd959949da23af516c771506f4f6ae8bc697b3ca8120e190063e6"
+        }
+      ]
+    },
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS",
+      "byteLength": 528923,
+      "sha256": "91205e97dcc886211f2d80c2eb27bd4513faa502503f84d9945a119fa0fbe902",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 528923,
+          "sha256": "91205e97dcc886211f2d80c2eb27bd4513faa502503f84d9945a119fa0fbe902"
+        }
+      ]
+    },
+    {
+      "id": "family-0001",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT",
+      "byteLength": 2163,
+      "sha256": "c8b1f2a84f54eb8565e82abf7fd0bd07014eb3fae93e0a17c67e21540a8ab866",
+      "parts": [
+        {
+          "path": "payloads/family-0001.tar.gz.part0000",
+          "byteLength": 2163,
+          "sha256": "c8b1f2a84f54eb8565e82abf7fd0bd07014eb3fae93e0a17c67e21540a8ab866"
+        }
+      ]
+    },
+    {
+      "id": "family-0002",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME",
+      "byteLength": 12017,
+      "sha256": "7eb1db063406feda4b7a5a390eacda435f941a1957b8ab23795994cceba49698",
+      "parts": [
+        {
+          "path": "payloads/family-0002.tar.gz.part0000",
+          "byteLength": 12017,
+          "sha256": "7eb1db063406feda4b7a5a390eacda435f941a1957b8ab23795994cceba49698"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "524a99de3b91e034c8b3e174a2cff15042c99385e9e65821c698cf321d8d30da",
+  "reconciliationSha256": "1e9c49bd5734265e4b429ff9d6986267511ecb94f389031b205cf1c414229790",
+  "pendingActiveEvidence": [],
+  "credentialShapeFindingCount": 0
+}

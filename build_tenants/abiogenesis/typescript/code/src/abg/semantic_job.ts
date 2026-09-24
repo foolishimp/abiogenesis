@@ -3,7 +3,7 @@ import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.
 import { isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
 import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { constructNativeSemanticTask, constructNativeSemanticConstructionTask, constructNativeSemanticExecutionTask,
-  deriveNativeSemanticAsset, deriveNativeSemanticAssessment, nativeSemanticContextMatches } from "../product/semantic_job.js";
+  deriveNativeSemanticAsset, deriveNativeSemanticAssessment, nativeSemanticContextMatches, nativeSemanticEvidenceArtifacts } from "../product/semantic_job.js";
 import { projectNativeWorkspaceWorkSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
 import type { ModulePublication } from "../gtl/contracts.js";
 import { SEMANTIC_STAGE_IDS as ids, SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
@@ -524,33 +524,14 @@ export function projectNativeSemanticEvidence(basis: SemanticStageNativeBasis, i
     const construction = projectNativeWorkspaceWorkSourceAtPrefix(owner.prefix, source);
     if (executionOwner === null || construction === null || construction.sourceResult.runId !== owner.call.runId ||
       !sameJobInvocation(owner.execution, construction.sourceBasis) ||
-      construction.sourceClosedEvent.admissionOrdinal >= executionOwner.event.admissionOrdinal ||
-      !equal(constructNativeSemanticExecutionTask(original, source), execution.task)) return null;
-    const design = original.assets.at(-1)!.candidate.design!;
-    const current = operating(owner);
-    const targets = design.targets.map(selected => {
-      const row = execution.task.protectedObservations.find(row => row.subject.relativePath === selected.relativePath);
-      const observed = source.after.entries.find(e => e.relativePath === selected.relativePath);
-      if (row === undefined || observed?.state !== "file" || row.observation.state !== "file" || observed.digest !== row.observation.fileDigest) throw new TypeError("native evidence target mismatch");
-      const territory = constructWorksiteTerritory({ ...current, relativeRoot: selected.relativePath,
-        territoryUri: pathToFileURL(resolve(current.workspaceAuthorityBasis.canonicalRoot, selected.relativePath)).href });
-      if (territory.kind !== "worksite_territory") throw new TypeError("native evidence territory unavailable");
-      return { selected, observed, target: { subject: row.subject, territory, predecessorObservation: row.observation } };
-    });
-    // Reuse target construction solely for this current worksite projection;
-    // no legacy C1 execution/result or pre-effect observation is invented.
-    const targetProjection = constructWorksiteConstructionTask({ ...current, prompt: "Current native construction evidence projection only.", targets: targets.map(t => t.target) });
-    const worksite: SemanticWorksiteBasis = { ...current, targets: targetProjection.targets.map((target, i) => ({ target, base64: targets[i]!.observed.bytes, role: targets[i]!.selected.role })),
-      commands: design.commands, outcomePredicates: design.outcomePredicates, allowedWriteTerritories: execution.task.allowedWriteTerritories };
-    const artifacts = targets.map(({ selected, observed, target }) => {
-      const snapshot = execution.snapshotMembers.filter(m => m.relativePath === selected.relativePath && m.digest === observed.digest && m.byteLength === observed.byteLength);
-      if (snapshot.length !== 1 || snapshot[0]!.sourceObservationRef !== target.predecessorObservation.observationRef) throw new TypeError("exact native C2 snapshot required");
-      return { subjectRef: target.subject.subjectRef, observationRef: snapshot[0]!.sourceObservationRef, base64: observed.bytes,
-        role: selected.role === "verifier" ? "verifier_artifact" as const : "realization" as const };
-    });
+      construction.sourceClosedEvent.admissionOrdinal >= executionOwner.event.admissionOrdinal) return null;
+    const artifacts = nativeSemanticEvidenceArtifacts(original, execution);
+    if (artifacts === null) return null;
     const payload = construction.sourceResult.payload;
     if (!record(payload) || typeof payload.resultRef !== "string" || typeof payload.resultDigest !== "string") return null;
-    return deepFreeze({ ...original, context: source.after, worksite, evidence: { kind: "semantic_worksite_evidence",
+    // Native observations carry the current evidence; there is no legacy C1
+    // operation basis and no new construction territory to authorize here.
+    return deepFreeze({ ...original, context: source.after, worksite: null, evidence: { kind: "semantic_worksite_evidence",
       constructionResultRef: payload.resultRef, constructionResultDigest: payload.resultDigest as `sha256:${string}`,
       executionResultRef: executionOwner.previous.result.resultRef, executionResultDigest: executionOwner.previous.result.resultDigest,
       constructionResult: source as unknown as Readonly<Record<string, JsonValue>>,

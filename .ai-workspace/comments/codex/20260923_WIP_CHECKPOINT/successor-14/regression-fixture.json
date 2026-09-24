@@ -1,0 +1,14 @@
+{
+  "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-02/terminal-owner-extract.json",
+  "sha256": "eb8ac9d84092e33b09d99e6be1863f2fdc1f6e8f33bf72482af4b314dcd49ba7",
+  "bytes": 5690518,
+  "purpose": "Exact closed ABI5_NATIVE_EVIDENCE_EXTRACT used by accepted retained C2 value/observation/snapshot regression; no original journal or detailed replay required",
+  "rootAuthorization": "Root explicitly approved this single 5690518-byte fixture after size/purpose report",
+  "test": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-evidence.test.mjs",
+  "environment": {
+    "ABI5_NATIVE_EVIDENCE_EXTRACT": "Restored exact path above",
+    "ABI5_GENERIC_JOB_BUILD_ROOT": "Exact compiled17 installed package root from selected-core.json, or offline installation of its retained archive"
+  },
+  "execution": "node --test test_env/tests/t287-native-semantic-evidence.test.mjs",
+  "rerunByWriter": false
+}
