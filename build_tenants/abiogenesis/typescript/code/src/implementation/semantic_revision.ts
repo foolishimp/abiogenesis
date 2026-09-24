@@ -24,7 +24,9 @@ export const SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS = semanticRevisionImpl
     kind: "packaged_leaf_implementation_descriptor" as const, schemaVersion: "5.0.0" as const, ...body, descriptorDigest: hash(body) }) as PackagedLeafImplementationDescriptor);
 export const [SEMANTIC_REVISION_SELECTION_DESCRIPTOR, SEMANTIC_REVISION_PROJECTION_DESCRIPTOR, SEMANTIC_REVISION_AUTHOR_DESCRIPTOR,
   SEMANTIC_REVISION_ASSESSOR_DESCRIPTOR, SEMANTIC_REVISION_BRIDGE_DESCRIPTOR, SEMANTIC_REVISION_EVIDENCE_INPUT_DESCRIPTOR,
-  SEMANTIC_REVISION_TERMINAL_DESCRIPTOR] = SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS;
+  SEMANTIC_REVISION_TERMINAL_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_INTAKE_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_REQUEST_DESCRIPTOR,
+  SEMANTIC_REVISION_NATIVE_CONSTRUCTION_DESCRIPTOR, SEMANTIC_REVISION_NATIVE_EXECUTION_DESCRIPTOR,
+  SEMANTIC_REVISION_NATIVE_EVIDENCE_DESCRIPTOR] = SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS;
 function result(input: Readonly<Record<string, JsonValue>>, output: unknown, implementationRef: string, deterministic: boolean, failureClass = "revision_basis_or_evidence_unavailable"): Readonly<LeafRealizationCandidate> {
   const failure = output === null;
   const value = failure ? { kind: "semantic_stage_failure", schemaVersion: "5.0.0", failureClass,

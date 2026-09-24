@@ -1,0 +1,9 @@
+{
+  "role": "Worker/Writer",
+  "model": "astra",
+  "effort": "xhigh",
+  "grant": "Root selected one paired checkpoint/push of current accepted source/generated/current tracking and CLOSED evidence; no native retry or further acquisition",
+  "headBefore": "da5f78b6ece505b63819dcfbf2193dd489520be8",
+  "sourceSubject": "1dc814cb5ea1a7b1d1e707f2be77bbf87df08531e9e804e114b1c3088f3c0183",
+  "sourcePredecessor": "c286bd2a595ef22160b0681841b72616ab729b9b82ef502afdbca51c292a2d81"
+}

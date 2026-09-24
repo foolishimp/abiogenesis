@@ -1,0 +1,45 @@
+{
+  "status": "FROZEN realization_refactor",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "beforeSha256": "3a2bfb6e5aa06ac7de261f59179c2dd4e05d9b97d78a943a3347af3b8e49a913",
+      "beforeBytes": 13282,
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/descriptor-exposure-repair-01/preimage/0",
+      "afterSha256": "2bd7db1ffaebdc72f0e956b1062da5343299715f93a6922d2effd9e1fe253bc2",
+      "afterBytes": 13518
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "beforeSha256": "c5eecdf8f7a8790f0e2d765dca0836f27a1b0da6cce8431ce8095b6247ee234e",
+      "beforeBytes": 30467,
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/descriptor-exposure-repair-01/preimage/1",
+      "afterSha256": "a1d094b4e87783748bcdac49ba83344d9c89d67493259f369a2746677915628c",
+      "afterBytes": 32246
+    }
+  ],
+  "generatedChanges": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.js",
+      "beforeSha256": "8cd39f61158ecf3280afb71e93768f89f953c6385561790d382c52d147397775",
+      "beforeBytes": 11675,
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/descriptor-exposure-repair-01/preimage/2",
+      "afterSha256": "af6d25986a512e7244353ad2dd6917d382a5a1af49907ff30ef07f72a83a3a3b",
+      "afterBytes": 11907
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.d.ts",
+      "beforeSha256": "04e68de843beb9d15d1ea89318bc634127e95a114fb6f556f4f0d13551160ec7",
+      "beforeBytes": 3703,
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/descriptor-exposure-repair-01/preimage/3",
+      "preimageSource": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite21-install-xk8zfep4/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/semantic_revision.d.ts",
+      "afterSha256": "fe2d9dea45ab616e630b820f0b065eecc9b2f08015a9ca4d3502b83ef43ca669",
+      "afterBytes": 4185
+    }
+  ],
+  "checks": [
+    "compile.json",
+    "focused.json"
+  ],
+  "grant": "Root selected five existing descriptor exports; preserve loader and all contracts/graphs. No extra broad review selected."
+}

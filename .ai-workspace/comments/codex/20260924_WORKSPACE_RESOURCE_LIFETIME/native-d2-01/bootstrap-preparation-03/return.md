@@ -1,0 +1,9 @@
+# CLOSED — bootstrap native-D2 Public invocation refusal
+
+Worker astra/xhigh; E2E / Owner / Conservation. Core22/dev12 package correspondence, all11 publications, all8 Programs and all12 descriptor exports passed. Existing-owner preparation passed nine Public calls plus execution resolution in485.043s, peakRSS3,205,775,360B. [Complete deterministic resolution](execution-resolution.json), [prepared caller](native-prepared.json).
+
+The one selected intake invocation returned **invalid_capability at /invocationAuthority** before admission ([complete original receipt](live-receipt.json), [exact request](live-start.jsonl)). Its resources explicitly contain null invocationAdmission, productExecutionResolution, Run and replay. The helper's result-only assertion is secondary; the Public refusal is primary. Process32.962s, peakRSS1,153,155,072B. No actor/provider call, intake Run, affectedness Result or suffix invocation occurred; actual cost/effects0. Requested Opus5.5/xhigh controls remain unexercised.
+
+Setup advanced the same resource109,136,203→111,462,891B. The intake acquired and genuinely closed at that identical111,462,891B prefix, coordinate`sha256:9b81f93d8d5ad8bc0e362508a50a02bb970d9d1f110d039fc6c6acf77857723d`. Original bootstrap Run3b04b7d2… and its104,482,827B source prefix remain historical input, with source/oracle/workspace preserved. No new Run exists for terminal Result/replay reads; no unrelated original Run read substituted. [Exact metrics, identities, null boundaries and controls](closed-disposition.json).
+
+Stop condition reached. No retry or repair selected from this refusal; its internal predicate is not established by the generic code alone. Native acquisition/eligibility and full correction remain unproved. Prior preparation02/five-descriptor diagnostic and core21/dev11 are immutable predecessor evidence. The authorized finite paired checkpoint follows without new runtime effects.

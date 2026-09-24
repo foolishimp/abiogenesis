@@ -99,7 +99,7 @@ function nativeConstructionGraph(input) {
     const nodes = [node("/prepare", "nativeConstruction"), call("/construct", native.graphFunctionRef, native.taskContractRef, native.observationContractRef),
         node("/prepare-execution", "nativeExecution"), call("/execute", c2.graphFunctionRef, c2.taskContractRef, c2.observationContractRef), node("/evidence", "nativeEvidence")];
     return deepFreeze({ kind: "graph_function", name: n, version: "5.0.0", inputs: [ids.envelopeContractRef], outputs: [ids.envelopeContractRef],
-        environment: { requires: [ids.envelopeContractRef], provides: [ids.envelopeContractRef], carries: [ids.envelopeContractRef, bound, ...nodes.map(node => node.term.outputCarrierRef)] },
+        environment: { requires: [ids.envelopeContractRef], provides: [ids.envelopeContractRef], carries: [...new Set([ids.envelopeContractRef, bound, ...nodes.map(node => node.term.outputCarrierRef)])] },
         effects: [native.effectUri], tags: ["semantic-revision", "native-work"], declarations: { "abg.compute_regime": "mixed", "abg.closure_contract": input.closureContractRef,
             "abg.child_closure_contract": input.closureContractRef, "abg.evidence_contract": old.evidenceContractRef, "abg.judgment_contract": old.judgmentContractRef,
             "abg.judgment_predicate": ids.stepPredicateRef, "abg.transition_contract": old.transitionContractRef, "abg.semantic_native_revision_construction": "5.0.0" },

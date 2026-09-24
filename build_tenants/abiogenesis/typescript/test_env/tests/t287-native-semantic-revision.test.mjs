@@ -189,3 +189,52 @@ test('native D2 serialized public request chooses among eligible stages and comp
  const crossed=structuredClone(observed);crossed.snapshotMembers.pop();assert.equal(revision.deriveNativeRevisionEvidence(current,crossed,coordinate(nativeState),coordinate(nativeState)),null);
  t.diagnostic('Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.');
 });
+
+
+test('native revision complete publication admits unique carriers and retains the exact factory graph', async () => {
+ const [{rawAdmitValue},{validatePublication},{isNativeSemanticRevisionGraphFunction}]=await Promise.all(['validator/raw_admission','validator/validation','gtl/semantic_revision_publication'].map(load));
+ const validate=value=>validatePublication(rawAdmitValue(value,'module_publication','contract://abiogenesis/gtl/module-publication@5'),
+   value.contributions.map(c=>rawAdmitValue(c,'catalog_contribution','contract://abiogenesis/gtl/catalog-contribution@5')));
+ // Bind distinct component artifact coordinates as normal publication materialization does.
+ const complete=g.modulePublication({...declaredPublication,artifactDigest:hash('component:archive'),
+   productContentDigest:hash('component:content'),productManifestDigest:hash('component:manifest'),
+   contributions:declaredPublication.contributions.map(row=>({...row,provenanceRefs:[hash('component:archive'),hash('component:manifest')]}))});
+ const graph=complete.graphFunctions.find(row=>row.declarations['abg.semantic_native_revision_construction']==='5.0.0');
+ assert.ok(graph);
+ const expected=[g.SEMANTIC_REVISION_IDS.envelopeContractRef,'contract://abiogenesis/worksite/retained-graph-input@5',
+   ...graph.template.nodes.map(node=>node.term.outputCarrierRef)];
+ assert.equal(graph.environment.carries.length,6);
+ assert.deepEqual(new Set(graph.environment.carries),new Set(expected));
+ assert.equal(isNativeSemanticRevisionGraphFunction(complete,graph),true);
+ const validated=validate(complete);
+ assert.equal(validated.kind,'publication_validation',JSON.stringify(validated.diagnostics));
+ const duplicate=structuredClone(complete),changed=duplicate.graphFunctions.find(row=>row.name===graph.name);
+ changed.environment.carries.push(g.SEMANTIC_REVISION_IDS.envelopeContractRef);
+ assert.equal(isNativeSemanticRevisionGraphFunction(duplicate,changed),false);
+ assert.equal(validate(duplicate).kind,'static_validation_refusal');
+});
+
+
+test('native revision installed descriptor loader discovers every declared leaf through module exports', async () => {
+ const namespace=await load('implementation/semantic_revision');
+ const publication=g.constructSemanticRevisionModulePublication({productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,
+   packageVersion:p.ABI5_PACKAGE_VERSION,artifactDigest:zero,productContentDigest:zero,productManifestDigest:zero});
+ const requested=[];
+ // Isolate only installed-byte custody; exercise the actual loader and real emitted module namespace.
+ // Package verification separately owns the installed-byte correspondence claim.
+ const loader=await component('product/implementation_resolution',{'./installed_module.js':{
+   loadVerifiedInstalledModule:async (_install,modulePath)=>{requested.push(modulePath);return {kind:'loaded',module:namespace};}
+ }});
+ const offered=await loader.loadInstalledImplementationDescriptors({packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION},publication);
+ assert(Array.isArray(offered));
+ assert.deepEqual(requested,[publication.implementationBindings[0].modulePath]);
+ assert.equal(offered.length,publication.implementationBindings.length);
+ const fields=['implementationRef','packageName','packageVersion','modulePath','namedSymbol','computeRegime','inputContractRef',
+   'outputContractRef','failureContractRef','refusalContractRef'];
+ for(const binding of publication.implementationBindings){
+   assert.equal(typeof namespace[binding.namedSymbol],'function',binding.namedSymbol);
+   const matches=offered.filter(descriptor=>fields.every(key=>descriptor[key]===binding[key]));
+   assert.equal(matches.length,1,binding.bindingRef);
+   assert.equal(p.isPackagedLeafImplementationDescriptor(matches[0]),true);
+ }
+});

@@ -1,0 +1,27 @@
+{
+  "files": {
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+      "beforeSha256": "250c58315af818b6d06e866eb5088f81f3036c63251215f397e74b32d5c8663c",
+      "beforeBytes": 14740,
+      "afterSha256": "9d7b75fdbb0eaa94df55c0cdfea3db9da3e0e94e806313b325fd27d394942597",
+      "afterBytes": 14754
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "beforeSha256": "7ad2d0cca70d82212a1f9ae0a2a9910b854cac0652aa107f31a9bad4bb1653e1",
+      "beforeBytes": 28444,
+      "afterSha256": "c5eecdf8f7a8790f0e2d765dca0836f27a1b0da6cce8431ce8095b6247ee234e",
+      "afterBytes": 30467
+    }
+  },
+  "generatedChanges": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_revision_publication.js",
+      "beforeSha256": "6a4bb957a415e357f723a3e9943e6c3ef334e06f81e49fb2ab7b3f19fc5d1788",
+      "afterSha256": "61bd1b7a0e5bc84194f543a32c5b353f19ed6e956135a7e07679e63a0fef06f5"
+    }
+  ],
+  "sourceReturn": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/catalog-repair-01/return.md",
+  "sourceSubject": "c286bd2a595ef22160b0681841b72616ab729b9b82ef502afdbca51c292a2d81"
+}

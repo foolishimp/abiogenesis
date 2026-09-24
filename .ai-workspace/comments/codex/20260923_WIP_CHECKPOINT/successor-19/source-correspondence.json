@@ -1,0 +1,62 @@
+[
+  {
+    "repo": "abiogenesis",
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "headPreimageSha256": "6ead989d2e1ccf28dfdbd2af2cf7b1767d26da772a49f4664fdab88b08a49d66",
+    "acceptedPostimageSha256": "2cfdd4d11ae033e09fe248c8500f4ad07fed50a4667ea5164599ca07f7e0a5a1"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/build/code/src/gtl/semantic_revision_publication.js",
+    "headPreimageSha256": "6a4bb957a415e357f723a3e9943e6c3ef334e06f81e49fb2ab7b3f19fc5d1788",
+    "acceptedPostimageSha256": "61bd1b7a0e5bc84194f543a32c5b353f19ed6e956135a7e07679e63a0fef06f5"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.d.ts",
+    "headPreimageSha256": "04e68de843beb9d15d1ea89318bc634127e95a114fb6f556f4f0d13551160ec7",
+    "acceptedPostimageSha256": "fe2d9dea45ab616e630b820f0b065eecc9b2f08015a9ca4d3502b83ef43ca669"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.js",
+    "headPreimageSha256": "8cd39f61158ecf3280afb71e93768f89f953c6385561790d382c52d147397775",
+    "acceptedPostimageSha256": "af6d25986a512e7244353ad2dd6917d382a5a1af49907ff30ef07f72a83a3a3b"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+    "headPreimageSha256": "250c58315af818b6d06e866eb5088f81f3036c63251215f397e74b32d5c8663c",
+    "acceptedPostimageSha256": "9d7b75fdbb0eaa94df55c0cdfea3db9da3e0e94e806313b325fd27d394942597"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+    "headPreimageSha256": "3a2bfb6e5aa06ac7de261f59179c2dd4e05d9b97d78a943a3347af3b8e49a913",
+    "acceptedPostimageSha256": "2bd7db1ffaebdc72f0e956b1062da5343299715f93a6922d2effd9e1fe253bc2"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "headPreimageSha256": "3e0ef10f6685646c8de2dab730461336d02119bd839ebd603ce7568d066e8cfd",
+    "acceptedPostimageSha256": "5e76f8f828ff77db5de14be08ff387657cdee209e66ed6025218909e4de7e6ec"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "headPreimageSha256": "1f6d63662a45ad1a83ea2d927f9ad1e22ea764ba69493e3aad797c9ab23cb059",
+    "acceptedPostimageSha256": "cb7e7ec79513527821143e1ba4f52c8bc2ffcbcc9aa110388775e22797acf5bd"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "headPreimageSha256": "7ad2d0cca70d82212a1f9ae0a2a9910b854cac0652aa107f31a9bad4bb1653e1",
+    "acceptedPostimageSha256": "a1d094b4e87783748bcdac49ba83344d9c89d67493259f369a2746677915628c"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "specification/GOALS.md",
+    "headPreimageSha256": "c16442437749c8f9d0154eee1562f814e61bfef32fa1a4eee901d744bae7b384",
+    "acceptedPostimageSha256": "5ce5cc69acb0c8f76f02db02e119d2c83a2400e50718288712701663e6954498"
+  }
+]
