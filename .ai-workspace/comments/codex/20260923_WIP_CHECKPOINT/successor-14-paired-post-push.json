@@ -1,0 +1,69 @@
+{
+  "status": "CLOSED_PAIRED_SOURCE_CHECKPOINT_PUSHED",
+  "writer": {
+    "model": "gpt-6-astra",
+    "effort": "max"
+  },
+  "recordedAtUtc": "2026-09-24T05:58:55.999385+00:00",
+  "repositories": [
+    {
+      "repository": "abiogenesis",
+      "branch": "main",
+      "commit": "58d6db97ff6be6e5c6ee2c8381604cd0bc93598f",
+      "verifiedRemoteMain": "58d6db97ff6be6e5c6ee2c8381604cd0bc93598f",
+      "push": "successful ordinary nonforce push; subsequent git ls-remote matched",
+      "trackedUncommittedPaths": [],
+      "selectedPostimagesUnchanged": true,
+      "indexEmpty": true,
+      "bankMembers": 41,
+      "bankLogicalBytes": 12523113,
+      "bankTransportBytes": 10689757,
+      "restoration": "all exact member hashes and originals compared",
+      "excluded": [
+        "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources",
+        "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-03",
+        "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-01/caller",
+        "Opus02 optional detailed native-semantic-replay projection (122634623 bytes), caller trees and actor archives are excluded; only six explicit closed summary/diagnostic/fixture files selected",
+        "All live/shared event resources and journals, worksites, active inputs/control/archives, installed node_modules and unrelated dirty work",
+        "No runtime history read/acquisition, new package/test or native call; full previous lifecycle stays failed and installed repaired outcome is pending",
+        "No qualification/F11/AF22/full-GLC/RC1 acceptance"
+      ],
+      "untrackedRuntimeTreesNotWalked": true
+    },
+    {
+      "repository": "odd_glc",
+      "branch": "main",
+      "commit": "abd4f4ce47b27dd78a1fd4b538c7bcaf97dca15e",
+      "verifiedRemoteMain": "abd4f4ce47b27dd78a1fd4b538c7bcaf97dca15e",
+      "push": "successful ordinary nonforce push; subsequent git ls-remote matched",
+      "trackedUncommittedPaths": [],
+      "selectedPostimagesUnchanged": true,
+      "indexEmpty": true,
+      "bankMembers": 8,
+      "bankLogicalBytes": 5737557,
+      "bankTransportBytes": 1070258,
+      "restoration": "all exact member hashes and originals compared",
+      "excluded": [
+        "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources",
+        "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-03",
+        "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-01/caller",
+        "Opus02 optional detailed native-semantic-replay projection (122634623 bytes), caller trees and actor archives are excluded; only six explicit closed summary/diagnostic/fixture files selected",
+        "All live/shared event resources and journals, worksites, active inputs/control/archives, installed node_modules and unrelated dirty work",
+        "No runtime history read/acquisition, new package/test or native call; full previous lifecycle stays failed and installed repaired outcome is pending",
+        "No qualification/F11/AF22/full-GLC/RC1 acceptance"
+      ],
+      "untrackedRuntimeTreesNotWalked": true
+    }
+  ],
+  "acceptedSourceSubject": "sha256:a13144e340e75597b0bdea0c50c030504c3fba72ad74f6ebe1856932f9662e1c",
+  "sourceReviewSha256": "6f0b43865a55912921b2910eb4a9a66c5f101c191fe6fa7f784bae21795ae8c0",
+  "compiled17ArchiveSha256": "b921450fddfdd959949da23af516c771506f4f6ae8bc697b3ca8120e190063e6",
+  "retainedRegressionFixture": {
+    "bytes": 5690518,
+    "sha256": "eb8ac9d84092e33b09d99e6be1863f2fdc1f6e8f33bf72482af4b314dcd49ba7",
+    "rootApprovedAfterSizeReport": true
+  },
+  "currentRunState": "Opus02 remains failed; Root reports Opus03 setup stopped at existing 180-second core-install helper ceiling before any Run/actor, no receipt; prior journal unchanged and partial install preserved/unclassified; bounded owner/lock diagnosis, no retry or timeout increase.",
+  "implementationEditsTestsBuildsOrRuntimeAccessByWriter": false,
+  "externalReceiptStatus": "This receipt and paired return are intentionally outside their referenced commits."
+}

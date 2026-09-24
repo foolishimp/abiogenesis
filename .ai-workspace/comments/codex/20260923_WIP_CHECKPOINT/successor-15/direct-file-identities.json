@@ -1,0 +1,74 @@
+{
+  "files": [
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-14-paired-post-push.json",
+      "byteLength": 4362,
+      "sha256": "3d3a5f307f888917394550a4bb9028c9b1784d3b28e391100256068b86e3116f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-14-return.md",
+      "byteLength": 1614,
+      "sha256": "91e0c1525ff5d342c5ed33eb1298a7ece2cd0e3337af269c4e3ee1233fe916b3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/README.md",
+      "byteLength": 1164,
+      "sha256": "8c6eef14435353ab74002fb553e382aaa8e0aa61ef26299201964d3302aa2b7b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/activation.json",
+      "byteLength": 307,
+      "sha256": "23fc7413206100d5ed8b86cedba70a3817f885a907f530571542320fbde7eaca"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/composition.json",
+      "byteLength": 2402,
+      "sha256": "9203d1be0e130c5c625be745c7441a4131277661fc8ba7e48539bdefd2bf359f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/final-stage-paths.nul",
+      "byteLength": 1313,
+      "sha256": "a0981825dcd1de4a12ae25fe980f3dcb71414bcadda726e246fc59e06c0efaa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/publication-receipt.json",
+      "byteLength": 1885,
+      "sha256": "958b14ce694ad86cde3e6d23bb019493ef4bc429fb90a06b77e4ac9e0b89f9a8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/root-disposition.json",
+      "byteLength": 1324,
+      "sha256": "952ecd7078a9d89ea21c82ca6393846014e64f89097afc5675d82b9a4fa23b0a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/selection-final.json",
+      "byteLength": 2054,
+      "sha256": "20cac2454cb0c2e846da8663ba89f4b26dcc6b5bb8689b184ecca29edc2a14fd"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/source-union.json",
+      "byteLength": 3006,
+      "sha256": "173f1adbc717128367a96878ad7fdbc66336786345a17962f1071a08ec7fb20f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/tracker-preimages.json",
+      "byteLength": 337,
+      "sha256": "b3e55c2753190be6f2b8896089c86f784d1c63bca18037c54cf2821e76b3066d"
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "byteLength": 348566,
+      "sha256": "c893bd8dcb77be6f6f9c66a875569f99507d50bc4256d5d92bc50c661c9751a6"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "byteLength": 59915,
+      "sha256": "7dab06ead7cb7adcc701afa27417be1719980e80bfa301cf460df970e3f25d0a"
+    }
+  ],
+  "selfReferenceExclusions": [
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/direct-file-identities.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/final-staged-check.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15/final-staged-whitespace-check.txt"
+  ]
+}

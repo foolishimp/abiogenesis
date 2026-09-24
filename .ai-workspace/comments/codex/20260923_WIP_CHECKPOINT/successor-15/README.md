@@ -1,0 +1,5 @@
+CLOSED source/proof checkpoint selected by Root. Opus04 basic-cli is case-accepted; remaining-five caller source is accepted. Root reports all five Public setups passed (~130 s each), zero native/paid actors, and now holds paid launches for holistic graph/context/event/readback cause review. Prepared cases remain intact; no setup repetition is selected. Native residuals and old failures are preserved.
+
+The exact staged list and hashes are retained here. Prepared Opus04 transport uses existing successor-01/checkpoint_transport.py; its CLOSED reconstruction verification is reused without archive expansion or journal reads. Raw originals remain untouched. Core17 is inherited from successor-14; exact dev8 is retained once in the Opus04 bank. Source union links HEAD through the accepted parser postimage to the reviewed remaining-case postimage. No source/code/test/build/runtime effect was performed by this Writer.
+
+All held per-case resources, worksite, control and archives, installed trees and unrelated evidence are excluded. No suite, Data Mapper, fifteen-family, qualification or release claim. The external post-push receipt records actual commits.

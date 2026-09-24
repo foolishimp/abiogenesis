@@ -1,0 +1,58 @@
+{
+  "repository": "/Users/jim/src/apps/odd_glc",
+  "basisCommit": "abd4f4ce47b27dd78a1fd4b538c7bcaf97dca15e",
+  "parserSubject": ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/observational-parser-01/source-subject.json",
+  "remainingSubject": ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/source-01/source-subject.json",
+  "files": [
+    {
+      "path": "build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs",
+      "headSha256": "a6bdc274897cbf93f31345936d0b6a7dbaaa2713c871b9702378b2b2a0d8f45a",
+      "acceptedParserPostimageSha256": null,
+      "acceptedFinalSha256": "53cb1e33e9d33d671318198b27f7aba7d000774b1d3bd0b573bab7216d88050d"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs",
+      "headSha256": "c19639bf1eaa52529d5bcd51c9bc3d0d35494fb70eb15de822c7e03517f46259",
+      "acceptedParserPostimageSha256": "1d6bac3fd16959f8423cdedfc584bb3626cc1b310cbf49cb27a79853df876dea",
+      "acceptedFinalSha256": "f420e49f6d6b933b9768a7fbaecd00c966d98b1f8644aa2c0b9783ae55d92d64"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+      "headSha256": "4b9c490c55059b0b5bb2555865d24e39e9b6252f32c45c450dd4a70d0fd8675d",
+      "acceptedParserPostimageSha256": "931dd9d9c1f333613614ae9ab5197617d3b5ad3a191e6c556ee240f298673439",
+      "acceptedFinalSha256": "065dd639f2316f0d28f53a3d093ed7e7a66442b58863f9cd81222554b0afc171"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/js-tenant-test.oracle.json",
+      "headSha256": null,
+      "acceptedParserPostimageSha256": null,
+      "acceptedFinalSha256": "55658e3343d7b27a553dbf38118052e60f9b27d977c3992ea13131ce5eebd58e"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/js-sdlc-bootstrap.oracle.json",
+      "headSha256": null,
+      "acceptedParserPostimageSha256": null,
+      "acceptedFinalSha256": "a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/rust-cli.oracle.json",
+      "headSha256": null,
+      "acceptedParserPostimageSha256": null,
+      "acceptedFinalSha256": "fca13e707df3c3ff3653e5c715a048e86518fc9c4a091ebe8b828f8b8649b25e"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/rust-service.oracle.json",
+      "headSha256": null,
+      "acceptedParserPostimageSha256": null,
+      "acceptedFinalSha256": "eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/parallel-js.oracle.json",
+      "headSha256": null,
+      "acceptedParserPostimageSha256": null,
+      "acceptedFinalSha256": "82a35700c78d9a9c85d18b2727b6de6f9fcb1fbb6a44910f2e46825fbcc2527c"
+    }
+  ],
+  "allFinalHashesVerified": true,
+  "canonicalSourceChangedByWriter": false
+}

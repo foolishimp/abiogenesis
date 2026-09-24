@@ -1,0 +1,9 @@
+{
+  "basisCommit": "58d6db97ff6be6e5c6ee2c8381604cd0bc93598f",
+  "branch": "main",
+  "selectedMethod": "STDO 2.5.1 RC1 (ABI) / RC4 (GLC)",
+  "frame": "End-to-end interface integration + Owner/Conservation/Proof; source checkpoint",
+  "role": "Writer",
+  "model": "gpt-6-astra",
+  "reasoningEffort": "max"
+}

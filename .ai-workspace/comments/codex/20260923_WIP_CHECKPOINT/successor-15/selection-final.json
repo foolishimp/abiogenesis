@@ -1,0 +1,33 @@
+{
+  "directExpected": {
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-14-paired-post-push.json": {
+      "sha256": "3d3a5f307f888917394550a4bb9028c9b1784d3b28e391100256068b86e3116f",
+      "byteLength": 4362
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-14-return.md": {
+      "sha256": "91e0c1525ff5d342c5ed33eb1298a7ece2cd0e3337af269c4e3ee1233fe916b3",
+      "byteLength": 1614
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "c893bd8dcb77be6f6f9c66a875569f99507d50bc4256d5d92bc50c661c9751a6",
+      "byteLength": 348566
+    },
+    "specification/GOALS.md": {
+      "sha256": "7dab06ead7cb7adcc701afa27417be1719980e80bfa301cf460df970e3f25d0a",
+      "byteLength": 59915
+    }
+  },
+  "excluded": [
+    ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-tenant-test/",
+    ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/",
+    ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/rust-cli/",
+    ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/rust-service/",
+    ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-js/",
+    ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-preparation-01/",
+    ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources/",
+    ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-03/ partial physical install and caller tree",
+    ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-01/caller/",
+    "All active resources, journals, worksites, control/archives; node_modules and installed/package trees; unrelated dirty evidence and scratch; old historical banks and optional detailed replay"
+  ],
+  "newRuntimeEvidenceCaptured": false
+}

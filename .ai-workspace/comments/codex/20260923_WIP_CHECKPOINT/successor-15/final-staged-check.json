@@ -1,0 +1,13 @@
+{
+  "paths": 16,
+  "stagedBlobComparisons": 16,
+  "largestBlobBytes": 348566,
+  "credentialShapeFindings": [],
+  "canonicalWhitespaceExitCode": 0,
+  "allStagedWhitespaceExitCode": 0,
+  "whitespaceDisposition": "All pass",
+  "allAcceptedCanonicalPostimagesExact": true,
+  "heldResourcesExcluded": true,
+  "originalJournalRead": false,
+  "archiveExpansion": false
+}

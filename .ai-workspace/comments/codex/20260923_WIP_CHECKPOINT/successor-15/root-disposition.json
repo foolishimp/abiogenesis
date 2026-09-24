@@ -1,0 +1,20 @@
+{
+  "role": "Writer",
+  "model": "gpt-6-astra",
+  "reasoningEffort": "max",
+  "acceptedBasicCli": "Opus04 complete selected full native outcome; native residuals unchanged; no further basic-cli execution",
+  "basicReviewSha256": "cd56945f4d2fce1ffa9b91f77b9bf8bae8edb22ceef1aa89ff5ff7ec694f6321",
+  "acceptedRemainingSourceSubjectSha256": "cbbf51195934fc074169d617727cf1903d7d9ba69d7a633cea15922c2e23c068",
+  "acceptedRemainingReviewSha256": "bbaf6106e99108cbbe85bda21a0e74033d1e0ae200211eebb9f34e3a141e83cd",
+  "reportedStateAtCheckpoint": "Root reports all five Public setups succeeded, approximately 130 seconds each, zero native/paid actors started; no case outcome presumed",
+  "nonClaims": [
+    "suite acceptance",
+    "Data Mapper completion",
+    "fifteen-family completion",
+    "qualification",
+    "RC1 release"
+  ],
+  "gitGrant": "Commit and nonforce push exact accepted source union, prepared bank/tracking and finite CLOSED records; preserve all other work",
+  "priorExecutionSelection": "Five PARALLEL native runs after each case ordinary Public setup, separate resources and unchanged finite controls, no retries; source frozen; outcomes pending",
+  "currentSelection": "Root HOLD before paid launches for holistic graph/context/event/readback cause review; no setup repetition; prepared cases preserved"
+}
