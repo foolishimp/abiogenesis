@@ -361,6 +361,7 @@ export interface LeafInvocationPort {
   readonly forGraphFunction: (graphFunctionRef: string) => Promise<LeafInvocationPort | null>;
   readonly sourcePublicationByDeclarationRef?: (declarationRef: string) => Readonly<ModulePublication> | null;
   readonly semanticPublicationByDeclarationRef?: (declarationRef: string) => Readonly<ModulePublication> | null;
+  readonly contractPublicationByRef?: (contractRef: string) => Readonly<ModulePublication> | null;
   readonly declarationGraphFunctions?: () => readonly Readonly<GraphFunction>[];
   readonly graphFunctionByRef: (
     graphFunctionRef: string,

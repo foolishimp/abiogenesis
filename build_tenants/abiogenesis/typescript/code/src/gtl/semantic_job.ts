@@ -57,16 +57,17 @@ export function validSemanticJobLifecyclePublication(publication: Readonly<Modul
   if (publication.semanticLifecycle !== undefined || publication.requirementHandoffs !== undefined ||
     !isSemanticJobLifecycleDeclaration(declaration)) return false;
   if (contracts !== undefined && !declaration.proofTemplates.every(t =>
-    contracts.filter(c => c.contractRef === t.realizationContractRef && c.contractKind === "output" && c.valueKind === "worksite_construction_result").length === 1 &&
+    contracts.filter(c => c.contractRef === t.realizationContractRef && c.contractKind === "output" && (c.valueKind === "worksite_construction_result" || c.valueKind === "native_workspace_work_observation" && declaration.stages.every(stage => publication.graphFunctions.some(g => g.name === stage.graphFunctionRef && g.declarations["abg.semantic_native_stage"] === stage.declarationRef)))).length === 1 &&
     contracts.filter(c => c.contractRef === t.proofContractRef && c.contractKind === "output" && c.valueKind === "worksite_command_execution_observation").length === 1)) return false;
   const intake = publication.graphFunctions.filter(g => g.name === declaration.intakeGraphFunctionRef &&
     g.declarations["abg.semantic_job_intake"] === declaration.declarationRef && g.inputs.length === 1 &&
     g.inputs[0] === SEMANTIC_STAGE_IDS.jobInputContractRef && g.outputs.length === 1 &&
     g.outputs[0] === SEMANTIC_STAGE_IDS.envelopeContractRef && g.effects.length === 0);
   return intake.length === 1 && declaration.stages.every(stage => publication.graphFunctions.filter(g =>
-    g.name === stage.graphFunctionRef && g.declarations["abg.semantic_stage"] === stage.declarationRef &&
+    g.name === stage.graphFunctionRef && (g.declarations["abg.semantic_stage"] === stage.declarationRef || g.declarations["abg.semantic_native_stage"] === stage.declarationRef) &&
     g.inputs.length === 1 && g.inputs[0] === SEMANTIC_STAGE_IDS.envelopeContractRef &&
-    g.outputs.length === 1 && g.outputs[0] === SEMANTIC_STAGE_IDS.envelopeContractRef && g.effects.length === 0).length === 1);
+    g.outputs.length === 1 && g.outputs[0] === SEMANTIC_STAGE_IDS.envelopeContractRef &&
+      (g.declarations["abg.semantic_native_stage"] === stage.declarationRef ? g.effects.length === 1 && g.effects[0] === "effect://abiogenesis/worksite/native-work/v1" : g.effects.length === 0)).length === 1);
 }
 export function validSemanticJobProgramOwners(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>,
   owner: Readonly<ModulePublication>, contracts?: readonly ContractDeclaration[]): boolean {

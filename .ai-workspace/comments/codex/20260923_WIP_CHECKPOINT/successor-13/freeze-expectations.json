@@ -1,0 +1,526 @@
+{
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/archive-members.json": {
+    "sha256": "ee4864c8b21e6223e2f03dcdd221d57039211d41f03e04813855f8cdecaed05d",
+    "byteLength": 928679
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz": {
+    "sha256": "549af7eca7378f3d9366901d439527baecac64d1847b60379a9cfc01d51f8c32",
+    "byteLength": 10146434
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/bootstrap-install.json": {
+    "sha256": "4ee3751e6d7bd88fee0f5ee9581be89e1f96e316818857580a933c6d92532b7d",
+    "byteLength": 640
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/bootstrap-install.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/bootstrap-install.stdout": {
+    "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+    "byteLength": 23
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/build-inputs.json": {
+    "sha256": "777e7bd9b736e0ea702edd0ad9bb47fe041b8e727144d99429fe74e7fe325090",
+    "byteLength": 42177
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/build-once.py": {
+    "sha256": "6f957c743ece330f3809b56b31e8abefc6ec7fed6786976007d3d424f3d07f7e",
+    "byteLength": 4171
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/build.json": {
+    "sha256": "867ebfa1c609308f47736628df98bea92ccc007cff62f57253539cb365f6b5c0",
+    "byteLength": 367
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/build.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/build.stdout": {
+    "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+    "byteLength": 215
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/construction-recipe.json": {
+    "sha256": "a28337361aba0b30645b251a39bc6f7c2720897a1513149a72a8097abdfe131f",
+    "byteLength": 1626
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/freeze.json": {
+    "sha256": "0936ca170893d9c7a757839287783884800ded4b01be1b5e32129d340deceaa8",
+    "byteLength": 1525
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/generated-after.json": {
+    "sha256": "b71523bbb50e9a660d8aca95134fbc8a32ac8c2f71ab383b285553cbab5c0ab4",
+    "byteLength": 156341
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/generated-before.json": {
+    "sha256": "fa9ca619a843c63af012bf108d7d9417dc9ce5a75a2a0fa5c1ac5899d396887b",
+    "byteLength": 156160
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/generated-delta.json": {
+    "sha256": "da49fa743911e61859e21f1d07b036f79e9cd8f5ae919eefe4d80abbdc7ad4d0",
+    "byteLength": 11784
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/governing-inputs.json": {
+    "sha256": "843f32e08ea6657383dbcf577d2756a61b1dfa7f45dfb74af286a0fe3f8db660",
+    "byteLength": 17392
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/pack.json": {
+    "sha256": "a125f55fa55fe7dd183f1ebcfcac135669f6a8b707d3e656fa4185a4a563f082",
+    "byteLength": 538
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/pack.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/pack.stdout": {
+    "sha256": "0b8aa720cbdb715336ab3861ef3beeaa9ba8d43fb961587794689485de2e692c",
+    "byteLength": 688751
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/package-correspondence.json": {
+    "sha256": "1e45a910009fab6f727137a909d2484a8910a4648439fc743306bf2905ad63a9",
+    "byteLength": 833
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/package-identity.json": {
+    "sha256": "34c41fe943f6c19bf83e72468622ddf2fe8c5bcdf3ae7585bb13315609d7eda8",
+    "byteLength": 582
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/package-once.py": {
+    "sha256": "3556c8f022469f8c6b7d99b9132b545f656adef1fedc09501ab0109f9d63ec2a",
+    "byteLength": 3139
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/package-readiness.json": {
+    "sha256": "e810d9b8f7947a5eea8e5999c9830ddd14e8700b44a8f31197aa814740746af2",
+    "byteLength": 2193
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/product-verification-request.json": {
+    "sha256": "823fefdb20f6668e5b9b95d9467e5bebe659f4482f96ba45dec945df7d4e410c",
+    "byteLength": 1022
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/product-verification-summary.json": {
+    "sha256": "e734d02e3260cca4705e1452f11d4ddbee98cca067127f5925d031f8d38ce916",
+    "byteLength": 3942
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/product-verification-timing.json": {
+    "sha256": "d90ee35a292a018f741815ddb2a78d80f6db1c2f7c0cc92ff661fe0594bd723c",
+    "byteLength": 227
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/return.md": {
+    "sha256": "6abb86969f4b246e7208e844d8a2bad54348908c02818f9d9979961cfe8dfb7a",
+    "byteLength": 1314
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/selected-core.json": {
+    "sha256": "88dd6d738b156119759b50965ec69229d8a96f91af02422af74ec12d17ec21d4",
+    "byteLength": 986
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/source-delta.json": {
+    "sha256": "61d869fe204a0d8d3488bdb52cb5d7b1f04a5940e7ba1a92addf2acbd6bed216",
+    "byteLength": 6286
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/source-freeze-before-build.json": {
+    "sha256": "c3ffaae716b1acea30ce6f469a233e9812ccaf66221f16da15b941b9058799e9",
+    "byteLength": 324360
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-15/verify-installed.mjs": {
+    "sha256": "a5f1a34ddf43d2d638161aac68dff14a3f8d947dedb809271867e2aeee0dc544",
+    "byteLength": 3689
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/archive-members.json": {
+    "sha256": "2649c24588c5879758897d43c4e00854686e9afb059bf0bd87cd900dc886f0be",
+    "byteLength": 928679
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz": {
+    "sha256": "7f7215e34fc4a9406c077112da0fdd598d63df94bf91aa89f4ecc4ca9d5dda2a",
+    "byteLength": 10146605
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/bootstrap-install.json": {
+    "sha256": "3bee16977a6726428557724e4a92ef5eb04a2f052f4a16219d4fb4f7218c751f",
+    "byteLength": 638
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/bootstrap-install.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/bootstrap-install.stdout": {
+    "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+    "byteLength": 23
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/build-inputs.json": {
+    "sha256": "60e501b96a9bf30115b5a6265a5407241ff7df4b61ecdca2373e49478bd9bdfc",
+    "byteLength": 42177
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/build-once.py": {
+    "sha256": "e255b61676864553db4943969f75bd9c26542de6469fe8f211e2b792c9fd166c",
+    "byteLength": 4276
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/build.json": {
+    "sha256": "aa833d003f34ff3016d02eae0a0c3e5d4cb3e846420ba4f424ca2f7c82892ec2",
+    "byteLength": 367
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/build.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/build.stdout": {
+    "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+    "byteLength": 215
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/freeze.json": {
+    "sha256": "784ca6a6b97a7deeb71d2ae41d2a0646ba2c22a055bbee79d51e33d2e8bad076",
+    "byteLength": 2355
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/generated-after.json": {
+    "sha256": "3df1d32be1f195bce7b76ae08b514c71753e3b4f7395f8e0bcf14eeb25f18a89",
+    "byteLength": 156341
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/generated-before.json": {
+    "sha256": "b71523bbb50e9a660d8aca95134fbc8a32ac8c2f71ab383b285553cbab5c0ab4",
+    "byteLength": 156341
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/generated-delta.json": {
+    "sha256": "33fa99ccc2d3b2aad658946761312db5316d57c8519d66c8cf1e0542a1fa4737",
+    "byteLength": 1325
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/governing-inputs.json": {
+    "sha256": "843f32e08ea6657383dbcf577d2756a61b1dfa7f45dfb74af286a0fe3f8db660",
+    "byteLength": 17392
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/pack.json": {
+    "sha256": "75a8344fc5f2eef7083a6fe887c4616166ab385e3dfa284ba1438ccc634b6ba5",
+    "byteLength": 538
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/pack.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/pack.stdout": {
+    "sha256": "12511d3ffbbcab0e1b9837bac3f5044e927d0f3acfe95f5a5f393994e3b8f2a5",
+    "byteLength": 688751
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/package-correspondence.json": {
+    "sha256": "1785e5b870b66b8ee0c8ffe3d36f7fd8f9530d245cd532072d301ca2ac90f424",
+    "byteLength": 833
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/package-identity.json": {
+    "sha256": "9567a32ea78f79879714d76a8e409446910358ffce55129d71dfd2d5077e9ec4",
+    "byteLength": 582
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/package-once.py": {
+    "sha256": "2abd6c2f7240ff05099acea5f1035d13f2c1c848e1fca99fc11b321a59052d31",
+    "byteLength": 3139
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/package-readiness.json": {
+    "sha256": "9f3fee9c9ad3147229c142c1fa8d28aa6aa4dbd903a5f9d19603ddeea83dc1c9",
+    "byteLength": 2171
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/product-verification-request.json": {
+    "sha256": "3c9044e58652cbedf9a90cfc2bec60f9a35c3a4cdac16355945ebfcdf649b2c8",
+    "byteLength": 1022
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/product-verification-summary.json": {
+    "sha256": "e6ce0dd38f84e298333a27aad2016d93708df19666389532dbea01b36f77e93b",
+    "byteLength": 3942
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/product-verification-timing.json": {
+    "sha256": "fcabe94ff5380399c97f30f5e234e1414b6c34928942f4df68395bd83188b8ba",
+    "byteLength": 226
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/return.md": {
+    "sha256": "1b1931867ed81464d041529cbd21f9fb477bc1bde4f973c4e226a2e14530b9ac",
+    "byteLength": 755
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/selected-core.json": {
+    "sha256": "424be9faf7967d3a9460a401e9f6e09b30ffd486c170be8c81ca43646e4ae0bd",
+    "byteLength": 986
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/source-delta.json": {
+    "sha256": "e913a614213bdf40e28220bf2f6497b63a69e050f9f9bb54e6d278cf50bc2abb",
+    "byteLength": 366
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/source-freeze-before-build.json": {
+    "sha256": "5f8639d284ee787eb263718bed46e2455b41b39ea0bb6fb64c3aa64a7ce9b383",
+    "byteLength": 317203
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-16/verify-installed.mjs": {
+    "sha256": "a7934c7717fc82c194d9fb7f1aab8e4ec7fe9d754cf97bf66635f1fd8ef3c33a",
+    "byteLength": 3668
+  },
+  ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12-paired-post-push.json": {
+    "sha256": "2ae5f3dc3ad1a05fb2d38bf88337ba9ff43da11d2f966f3f1c0fda59423bc8e1",
+    "byteLength": 3767
+  },
+  ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12-return.md": {
+    "sha256": "c8a9f836a001046d52e6ae7f072b9390cdd35b0ea7297fc35b7f651dd9f251c8",
+    "byteLength": 2271
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/assessment-preparation.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/assessment-preparation.stdout": {
+    "sha256": "51b0ce63b7d1ad5bad7fd4466ca3b626c420df9b50c831a0b4d7d73a2ebeec90",
+    "byteLength": 418
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/check.json": {
+    "sha256": "59a64a16e53cd2c5462aa2d77f76d4219562a5e2eabc6dadc080e0e14373afdb",
+    "byteLength": 258
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/compile.json": {
+    "sha256": "6c35d406a3ff7be9c2911c856ab7dc55035feadf2fbda692249819a8a1c143df",
+    "byteLength": 211
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/compile.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/compile.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/first-fixture-check.json": {
+    "sha256": "8f9db5aee58a30fcc093f03f3df153d36fdd402fb6c45155c4b44acf4d5778f2",
+    "byteLength": 159
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/first-fixture-native-semantic.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/first-fixture-native-semantic.stdout": {
+    "sha256": "973ccf68a24193e2e3ce989f9ce1e57467e4abc01894a81ab06566cf6149d9c9",
+    "byteLength": 1597
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/native-semantic.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/native-semantic.stdout": {
+    "sha256": "618a80dc0ff2a42da4dacc97211b905e93aedba976f5fc0aca669ef234fe5a82",
+    "byteLength": 694
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/preimages/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts": {
+    "sha256": "bf45ba8fdd433dbd5161eb6a4bd43ef4600a2733e8e57d861970e8349f9c771e",
+    "byteLength": 84911
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs": {
+    "sha256": "9f4c51d8442a05512507aec7b07357037a9a1b5237d620397969f43b4234a008",
+    "byteLength": 13265
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/preimages.json": {
+    "sha256": "ea5e21fdd337b3d46b64c79746981c7b576b6c1f379494cda9190a1cfcc60fc6",
+    "byteLength": 433
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/return.md": {
+    "sha256": "7259907a3217e121ba4f8d9a5006931a040e47317465baaa1e973180da932343",
+    "byteLength": 1519
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/second-fixture-first-cause.json": {
+    "sha256": "285545b75acbbc1f6348a600a2eda78c1aa99455cd5d7c08b82fc3fc1aa27f3f",
+    "byteLength": 229
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/semantic_job.ts.diff": {
+    "sha256": "36d521e5729b626f54878f5a6de240ff8b44744e768acd120d077b8509787092",
+    "byteLength": 1327
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/subject.json": {
+    "sha256": "1a6d848001a544b1e999a6bf86aa7acc28bb88aabff9fc441bc757ae7dd33642",
+    "byteLength": 10889
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/dependency-correction-01/t287-native-semantic-job.test.mjs.diff": {
+    "sha256": "cb0a239f87b8dcd0ad02b05147f1cc95586bc805a8cbe1e1e106acb3cb933d12",
+    "byteLength": 7337
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/focused-checks.json": {
+    "sha256": "499f6e17e275ad700867e347fb32eab943af724777cc07ca4f0c8943368cb895",
+    "byteLength": 2094
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/fresh-glc-composition.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/fresh-glc-composition.stdout": {
+    "sha256": "335d70fe2a2319dfc19b52306ae00ea82b86dd6b780b05cf9fa96e4f5f957655",
+    "byteLength": 333
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/legacy-algebra.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/legacy-algebra.stdout": {
+    "sha256": "aaa99f1aca9f0d8613c63d1e89cb2ea3981f55209c0aa61829123f98789a359f",
+    "byteLength": 443
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/native-semantic.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/native-semantic.stdout": {
+    "sha256": "fcef101be05a9771ac48eba4b38621c0e3802cf822137b3b2f8694d1fcb687c3",
+    "byteLength": 589
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts": {
+    "sha256": "520ef1ba1acaf32a0b7263b78242d41a609a9e12820a4ebce27fd2b5229b14f1",
+    "byteLength": 121282
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts": {
+    "sha256": "4c8ada5f8ff4875bb5364f83654053cfd152a6fd0deaad5cf3790cffa6d43cee",
+    "byteLength": 68137
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts": {
+    "sha256": "7a54d53a118cc7026ef33b42d897db95f428e1d87ea871ac2f4aa040299d7650",
+    "byteLength": 12493
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts": {
+    "sha256": "1d26ceff592b7f638ec24fb3d8e3359a6330c0f89075d02c7f5aabda0a818ba3",
+    "byteLength": 38194
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/index.ts": {
+    "sha256": "147b93c69a765b9ffd076dc4ee855348de6f50db4c5a55cbd0ccb48d12da28a0",
+    "byteLength": 12647
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_job.ts": {
+    "sha256": "6a59596c38543aa1552e9269a92f3c97dedb62f40ec3f70229d8d0d413afa542",
+    "byteLength": 5949
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_identity.ts": {
+    "sha256": "740924c9ba1f783c2af67ca32ce69838fffe1c787e9f744769e75dcde7b3b838",
+    "byteLength": 3880
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_stage_publication.ts": {
+    "sha256": "4d14c495d19b4839fa629ba2215f1c7d5e465ac2cdee86d84d74a2c9400f0767",
+    "byteLength": 13644
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts": {
+    "sha256": "716c381389279a1def613d5e6742a7e6434f7f70d8c71039e6d87a54e57c9e6e",
+    "byteLength": 34735
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts": {
+    "sha256": "be0b3ff8ad97cdb7f2edcaf12a4418ee006438a4d26226e4f77f34b63aeaa4f5",
+    "byteLength": 17622
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": {
+    "sha256": "226a7af8a7ed8ebaa895786f899e9a06adfded6535e540b0c90506193a998b85",
+    "byteLength": 73614
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts": {
+    "sha256": "c2c36f1b8b7c8cde1aaedb02388390040fbb7641a8e284946fe29adacca8d840",
+    "byteLength": 11549
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts": {
+    "sha256": "0289e92a11cd026a93c47ca37f79d151554283d5f786aed3f46567c816e34fbd",
+    "byteLength": 59431
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts": {
+    "sha256": "01b935cca710828828df0887c030706080279fb1773960592a69c73903e93852",
+    "byteLength": 39559
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts": {
+    "sha256": "6623bf01763ed3693aadfa0a8198a982770af9489b804303018d533135985b85",
+    "byteLength": 62775
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_stage.ts": {
+    "sha256": "fac4430d4e6bd84ff0dc7c7dd53a15b745cf333ef457df8f85d7a9b013e794bb",
+    "byteLength": 35720
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md": {
+    "sha256": "fedbc1143cd19b6eb3e21a6ca4bac286b43d5b99626bde13c74947636e1ca70e",
+    "byteLength": 69206
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md": {
+    "sha256": "b01fd0aeee9aaef18205d14f18a18d8a3436de40ac291e3394dae25516924c9c",
+    "byteLength": 12796
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs": {
+    "sha256": "227b520cd20278ccc9156628612cf325ba943bb8d8df033a7df9afef55885ee4",
+    "byteLength": 40746
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs": {
+    "sha256": "ddcd09165c4df31d69b5155523aa70b1ad9490d2bcf2e9b6ebdd65246cebbddf",
+    "byteLength": 63008
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md": {
+    "sha256": "a08b2549b6dc7c68fcbbaebf00dc8f27d74c76560415ef6ecc50c74d6c6ef446",
+    "byteLength": 32188
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/odd_glc/build_tenants/odd_glc/typescript/scripts/full-sandbox.mjs": {
+    "sha256": "9b00f6b40ad0711e86650cfaff9b88a8dc80b071833815f20221663d8046dd6e",
+    "byteLength": 1191
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs": {
+    "sha256": "4b5614eb18f7b82af3c12a4ce63a1f82ec04d85f1d3aacc56982b0f0098edd0a",
+    "byteLength": 18311
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs": {
+    "sha256": "63753ee0ea8891507cbcab910d1545f2865ee61540305d9e787c99968cb2752a",
+    "byteLength": 13317
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs": {
+    "sha256": "72f81a9967939f751e5bec354d45449fd1d29deda47d6e9cafa473c356aa5d46",
+    "byteLength": 63598
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs": {
+    "sha256": "0c48857e7986a097a65908535b32831172bfe6437f2e6780d1431eb36c1c1e87",
+    "byteLength": 18997
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preimages.json": {
+    "sha256": "0744b6b28a66d6589db061a74efbd3b0ef447182892bd7f07c2d9ea73383b7a5",
+    "byteLength": 5301
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/preparation-notes.json": {
+    "sha256": "43e177bce3178c18f99e1fe6088733fbbb54ff71b465ac78b87c31f3e3f96beb",
+    "byteLength": 1361
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/return.md": {
+    "sha256": "42f7de7cfb855b33a47a3bf257c1b92b02deb9380c905921c86629464ec6c3e5",
+    "byteLength": 3750
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/review-01/return.md": {
+    "sha256": "79fb9ecd420364aee84ac4b135353441b9a4badfd8a05294b4c391aec7534bf1",
+    "byteLength": 5029
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/review-01/successor-return.md": {
+    "sha256": "fbe7e82960bf179d27d7e6ee5850f2bc69de2bb48bd1e5de4bb915beba7dd6b2",
+    "byteLength": 2851
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/source-delta.json": {
+    "sha256": "5c3c0f82bcf825234d878b497dc89d1aaf5edb7167066af56140cda054a3d9f5",
+    "byteLength": 8516
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/fresh-native-lifecycle-01/subject.json": {
+    "sha256": "1ebb749ce8530f7bd73954fcf83af04fb986f3eb647f33c72106d380a2d613c3",
+    "byteLength": 9869
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-assembly-retained-input-01/check-01.log": {
+    "sha256": "d7538b4a1a408e860bf71bb612799e54079945f4c1f7d9ec7a3848a62bd391d3",
+    "byteLength": 1729
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-assembly-retained-input-01/checks.json": {
+    "sha256": "e396a761765f4592738def03953c4ca0d75176edaf4c48bccd7456aa6c41702c",
+    "byteLength": 1147
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-assembly-retained-input-01/compile.json": {
+    "sha256": "894c069fe92bbc86ca5241a700e3953e0e803c4ad51d717b7b6d8ab581405dc1",
+    "byteLength": 242
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-assembly-retained-input-01/compile.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-assembly-retained-input-01/execution_basis.preimage.ts": {
+    "sha256": "3bd1eae18f39fdf2310e837624221a843247f682ec649f882773abef1408df93",
+    "byteLength": 121346
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-assembly-retained-input-01/return.md": {
+    "sha256": "71567fa16d57ed7fbb7aa9fc6b57afd377299ab744e6f88f17d819032466aea6",
+    "byteLength": 3263
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-assembly-retained-input-01/review-01/return.md": {
+    "sha256": "6fc78f5290b0a152df83864c447884770bb1883509206fa6852815abfd50cbc6",
+    "byteLength": 3015
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-assembly-retained-input-01/source-subject.json": {
+    "sha256": "e0858530d9ed0fb8a1042b9614e7e4bd0def7cea00610af7ae41223467e110da",
+    "byteLength": 1001
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-assembly-retained-input-01/source.diff": {
+    "sha256": "dc7000eacddea22662ebbf9d34ee2e369f5e44cc83f79607eb772a11c7faf522",
+    "byteLength": 2942
+  }
+}

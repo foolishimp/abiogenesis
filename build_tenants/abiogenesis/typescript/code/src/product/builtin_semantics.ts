@@ -15,7 +15,7 @@ import { SEMANTIC_REVISION_IDS as revisionIds } from "../gtl/semantic_revision_i
 import { isSemanticRevisionRequest, isSemanticRevisionEnvelope, isSemanticRevisionSelection, isSemanticRevisionSelectionInput, deriveRevisionAsset, deriveRevisionAssessment,
   isSemanticJobRevisionEnvelope, deriveJobRevisionAsset, deriveJobRevisionAssessment } from "./semantic_revision.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
-import { isSemanticJobInput, isSemanticJobEnvelope, isSemanticJobAssetCandidate, isSemanticJobDesignResponse, deriveSemanticJobAsset, deriveSemanticJobAssessment, evaluateSemanticJobRelation } from "./semantic_job.js";
+import { evaluateNativeSemanticRelation, isSemanticJobInput, isSemanticJobEnvelope, isSemanticJobAssetCandidate, isSemanticJobDesignResponse, deriveSemanticJobAsset, deriveSemanticJobAssessment, evaluateSemanticJobRelation } from "./semantic_job.js";
 import { isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess, isWorksiteFileParentsFailure } from "./worksite_effect.js";
 import { isSemanticStageEnvelope, isSemanticAssetCandidate, isSemanticAssessmentCandidate, deriveSemanticAsset, deriveSemanticAssessment, deriveSemanticWorksitePreparation } from "./semantic_stage.js";
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
@@ -875,6 +875,7 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
     return (valueKind === "semantic_revision_selection_input" && isSemanticRevisionSelectionInput(value)) || (valueKind === "semantic_revision_request" && isSemanticRevisionRequest(value)) ||
       (valueKind === "semantic_revision_envelope" && (isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value))) ||
       (valueKind === "semantic_revision_selection" && isSemanticRevisionSelection(value)) ||
+      (valueKind === "semantic_stage_assessment_candidate" && isSemanticAssessmentCandidate(value)) ||
       (valueKind === "semantic_job_input" && isSemanticJobInput(value)) ||
       (valueKind === "semantic_stage_envelope" && (isSemanticStageEnvelope(value) || isSemanticJobEnvelope(value))) ||
       (valueKind === "semantic_stage_worker_result" && (isSemanticAssetCandidate(value) || isSemanticJobAssetCandidate(value) || isSemanticJobDesignResponse(value) || isSemanticAssessmentCandidate(value))) ||
@@ -990,6 +991,13 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
         } };
     }
     const ids = SEMANTIC_STAGE_IDS;
+    if ([ids.nativeAuthorTaskPredicateRef, ids.nativeAuthorFoldPredicateRef, ids.nativeAssessorTaskPredicateRef,
+      ids.nativeAssessorFoldPredicateRef, ids.nativeConstructionTaskPredicateRef, ids.nativeExecutionTaskPredicateRef,
+      ids.nativeEvidencePredicateRef, ids.nativeStagePredicateRef, ids.nativeStepPredicateRef].some(ref => ref === predicateRef)) {
+      return { predicateRef, advanceReasonRef: "reason://abiogenesis/semantic-stage/native-source-satisfied@5",
+        rejectionReasonRef: "reason://abiogenesis/semantic-stage/native-source-refused@5",
+        evaluate: (input: unknown, output: unknown) => evaluateNativeSemanticRelation(predicateRef, input, output) === true };
+    }
     if (![ids.authorPredicateRef, ids.assessorPredicateRef, ids.lifecyclePredicateRef, ids.lifecycleStepPredicateRef, ids.bridgePredicateRef, ids.evidenceInputPredicateRef, ids.terminalPredicateRef,
       ids.jobIntakePredicateRef, ids.jobContextPredicateRef, ids.jobPlanPredicateRef, ids.jobBridgePredicateRef].some(ref => ref === predicateRef)) {
       return ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS.resolveJudgmentRelation(predicateRef) ?? ABI5_PRODUCT_SEMANTICS.resolveJudgmentRelation(predicateRef);

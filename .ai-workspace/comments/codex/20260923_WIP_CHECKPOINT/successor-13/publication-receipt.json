@@ -1,0 +1,21 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "fbeeddd06c5807cb8df44a3eae57f1a38c6bf23e",
+  "commitIdentity": "Commit containing this receipt; exact local and remote identities recorded in external post-push receipt",
+  "newMembers": 131,
+  "newLogicalBytes": 26235007,
+  "newTransportBytes": 21633023,
+  "restoration": "Every newly banked member restored and compared with original and selected freeze; prior bank payload proof reused without rereading/reupload",
+  "scope": "Reviewed generic native lifecycle plus dependency correction and retained-input repair; exact compiled15/16 construction and generated projections; closed source/check/review records, two closed failed-attempt summaries, four current trackers and debt. Source checkpoint only; active Run dependencies unbanked.",
+  "excluded": [
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources",
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-01/caller",
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-02",
+    "All live journals, worksites, active actor archives and active return files; no read, acquire, copy or hash in this checkpoint",
+    "Any closed-record/test dependency on a reused active resource remains unbanked; reproducible full native evidence is pending until resource closure",
+    "Isolated installed node_modules and generated build trees are excluded; completed immutable core15/16 package archives retained",
+    "Unrelated dirty evidence and pending peer work remain outside this finite selection",
+    "No full-Hello, fifteen-family, qualification, F11/AF22 or RC1 closure; existing release-boundary checks remain open"
+  ],
+  "allowedGitEffects": "One ordinary main commit and nonforce push, then remote ref verification"
+}

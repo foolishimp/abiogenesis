@@ -2,6 +2,29 @@ import { SEMANTIC_REVISION_IMPLEMENTATION_REFS } from "./semantic_revision_ident
 // Dependency-free identities shared by native declaration and runtime owners.
 const scope = "abiogenesis/semantic-stage";
 export const SEMANTIC_STAGE_IDS = Object.freeze({
+  nativeAuthorTaskImplementationRef: `implementation://${scope}/native-author-task@5`,
+  nativeAuthorTaskBindingRef: `implementation-binding://${scope}/native-author-task@5`,
+  nativeAuthorTaskPredicateRef: `predicate://${scope}/native-author-task@5`,
+  nativeAuthorFoldImplementationRef: `implementation://${scope}/native-author-fold@5`,
+  nativeAuthorFoldBindingRef: `implementation-binding://${scope}/native-author-fold@5`,
+  nativeAuthorFoldPredicateRef: `predicate://${scope}/native-author-fold@5`,
+  nativeAssessorTaskImplementationRef: `implementation://${scope}/native-assessor-task@5`,
+  nativeAssessorTaskBindingRef: `implementation-binding://${scope}/native-assessor-task@5`,
+  nativeAssessorTaskPredicateRef: `predicate://${scope}/native-assessor-task@5`,
+  nativeAssessorFoldImplementationRef: `implementation://${scope}/native-assessor-fold@5`,
+  nativeAssessorFoldBindingRef: `implementation-binding://${scope}/native-assessor-fold@5`,
+  nativeAssessorFoldPredicateRef: `predicate://${scope}/native-assessor-fold@5`,
+  nativeConstructionTaskImplementationRef: `implementation://${scope}/native-construction-task@5`,
+  nativeConstructionTaskBindingRef: `implementation-binding://${scope}/native-construction-task@5`,
+  nativeConstructionTaskPredicateRef: `predicate://${scope}/native-construction-task@5`,
+  nativeExecutionTaskImplementationRef: `implementation://${scope}/native-execution-task@5`,
+  nativeExecutionTaskBindingRef: `implementation-binding://${scope}/native-execution-task@5`,
+  nativeExecutionTaskPredicateRef: `predicate://${scope}/native-execution-task@5`,
+  nativeEvidenceImplementationRef: `implementation://${scope}/native-evidence@5`,
+  nativeEvidenceBindingRef: `implementation-binding://${scope}/native-evidence@5`,
+  nativeEvidencePredicateRef: `predicate://${scope}/native-evidence@5`,
+  nativeStepPredicateRef: `predicate://${scope}/native-step@5`,
+  nativeStagePredicateRef: `predicate://${scope}/native-stage@5`,
   moduleRef: `module://${scope}@5`, programRef: `program://${scope}@5`, graphFunctionRef: `graph-function://${scope}@5`,
   envelopeContractRef: `contract://${scope}/envelope@5`, outputContractRef: `contract://${scope}/output@5`, workerContractRef: `contract://${scope}/worker-result@5`,
   failureContractRef: `contract://${scope}/failure@5`, refusalContractRef: `contract://${scope}/refusal@5`,
@@ -36,7 +59,9 @@ export const SEMANTIC_STAGE_IDS = Object.freeze({
   jobPlanPredicateRef: `predicate://${scope}/job-worksite-plan@5`,
   jobBridgePredicateRef: `predicate://${scope}/job-worksite-bridge@5`,
 });
+export const NATIVE_SEMANTIC_IMPLEMENTATION_REFS = Object.freeze([SEMANTIC_STAGE_IDS.nativeAuthorTaskImplementationRef,SEMANTIC_STAGE_IDS.nativeAuthorFoldImplementationRef,SEMANTIC_STAGE_IDS.nativeAssessorTaskImplementationRef,SEMANTIC_STAGE_IDS.nativeAssessorFoldImplementationRef,SEMANTIC_STAGE_IDS.nativeConstructionTaskImplementationRef,SEMANTIC_STAGE_IDS.nativeExecutionTaskImplementationRef,SEMANTIC_STAGE_IDS.nativeEvidenceImplementationRef]);
 export const SEMANTIC_IMPLEMENTATION_REFS: readonly string[] = Object.freeze([
+  ...NATIVE_SEMANTIC_IMPLEMENTATION_REFS,
   SEMANTIC_STAGE_IDS.authorImplementationRef, SEMANTIC_STAGE_IDS.assessorImplementationRef,
   SEMANTIC_STAGE_IDS.bridgeImplementationRef, SEMANTIC_STAGE_IDS.evidenceInputImplementationRef,
   SEMANTIC_STAGE_IDS.terminalImplementationRef, ...SEMANTIC_REVISION_IMPLEMENTATION_REFS,

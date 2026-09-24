@@ -460,8 +460,11 @@ export function evaluateExecutableCCall(
       (resolution.implementationRef === nativeIds.implementationRef ||
         runEnvironmentForProgram(input.programPublication, input.program) !== null &&
         selectedContextFamily.length === 1 && ["constructor", "command_executor"].includes(selectedContextFamily[0] ?? ""));
+    const assessmentPublication = isNativeWorkspaceWorkTask(input.input) && input.input.assessment !== undefined
+      ? input.leafPort.contractPublicationByRef?.(input.input.assessment.resultContract.contractRef) ?? null : null;
     const nativeInstructionAssemblyBasis = worksiteAssemblyRequired && input.programPublication !== undefined
       ? Abg.constructNativeInstructionAssemblyBasis({ publication: input.programPublication, graph: input.graph,
+          ...(assessmentPublication === null ? {} : { assessmentPublication }),
           graphFunction: input.graphFunction, declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [],
           executionBasis: input.executionBasis, cCall: opened.cCall, cursor: input.stop.cursor,
           predecessorPrefix: opened.successorPrefix }) : null;

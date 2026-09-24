@@ -1,7 +1,7 @@
 export { SEMANTIC_STAGE_IDS, constructSemanticLifecycleDeclaration } from "./semantic_stage.js";
 export { constructSemanticJobLifecycleDeclaration, isSemanticJobLifecycleDeclaration, validSemanticJobLifecyclePublication } from "./semantic_job.js";
 export type { SemanticJobLifecycleDeclaration, SemanticJobProofTemplate } from "./semantic_job.js";
-export { constructSemanticStageModulePublication, constructSemanticStageGraphFunction, constructSemanticBridgeGraphFunction, constructSemanticJobGraphFunction, constructSemanticClosureContract } from "./semantic_stage_publication.js";
+export { constructNativeSemanticStageGraphFunctions, constructNativeSemanticConstructionGraphFunction, constructSemanticStageModulePublication, constructSemanticStageGraphFunction, constructSemanticBridgeGraphFunction, constructSemanticJobGraphFunction, constructSemanticClosureContract } from "./semantic_stage_publication.js";
 export { constructStdoRunEnvironmentDeclaration, isStdoRunEnvironmentDeclaration, stdoInventoryDigest, STDO_ENVIRONMENT_POLICY } from "./stdo_run_environment.js";
 export type { StdoRunEnvironmentDeclaration } from "./stdo_run_environment.js";
 export { constructRunEnvironmentDeclaration, isRunEnvironmentDeclaration, RUN_ENVIRONMENT_POLICY,

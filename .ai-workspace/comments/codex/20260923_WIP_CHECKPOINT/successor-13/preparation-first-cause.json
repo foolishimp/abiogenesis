@@ -1,0 +1,4 @@
+{
+  "status": "corrected_writer_only",
+  "cause": "Writer assumed four fields in the three-column existing debt table; assertion fired before any tracker write. Corrected field count; no source, runtime or index effect."
+}

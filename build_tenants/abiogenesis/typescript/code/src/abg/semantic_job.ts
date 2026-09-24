@@ -1,3 +1,10 @@
+import { NATIVE_SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
+import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
+import { isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
+import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
+import { constructNativeSemanticTask, constructNativeSemanticConstructionTask, constructNativeSemanticExecutionTask,
+  deriveNativeSemanticAsset, deriveNativeSemanticAssessment, nativeSemanticContextMatches } from "../product/semantic_job.js";
+import { projectNativeWorkspaceWorkSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
 import type { ModulePublication } from "../gtl/contracts.js";
 import { SEMANTIC_STAGE_IDS as ids, SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
 import { validSemanticJobProgramOwners } from "../gtl/semantic_job.js";
@@ -83,11 +90,17 @@ export function authenticateSemanticJobBasis(basis: SemanticStageNativeBasis) {
         install.artifactDigest === publication.artifactDigest && install.productContentDigest === publication.productContentDigest &&
         install.manifestDigest === publication.productManifestDigest && install.contributionManifest.publicationBindings.filter(p =>
           p.moduleRef === publication.moduleRef && p.publicationDigest === modulePublicationSemanticDigest(publication)).length === 1).length !== 1) return null;
-    const role = native.call.implementationRef === ids.authorImplementationRef || native.call.implementationRef === revisionIds.authorImplementationRef ? "author" as const :
+    const nativeAuthor = [ids.nativeAuthorTaskImplementationRef, ids.nativeAuthorFoldImplementationRef].some(r => r === native.call.implementationRef);
+    const nativeAssessor = [ids.nativeAssessorTaskImplementationRef, ids.nativeAssessorFoldImplementationRef].some(r => r === native.call.implementationRef);
+    const nativeStage = nativeAuthor || nativeAssessor;
+    const role = nativeAuthor ? "author" as const : nativeAssessor ? "assessor" as const : native.call.implementationRef === ids.authorImplementationRef || native.call.implementationRef === revisionIds.authorImplementationRef ? "author" as const :
       native.call.implementationRef === ids.assessorImplementationRef || native.call.implementationRef === revisionIds.assessorImplementationRef ? "assessor" as const : null;
-    const stages = lifecycle.stages.filter(s => (s.graphFunctionRef === native.call.graphFunctionRef || basis.graphFunction.declarations["abg.semantic_revision_stage"] === s.declarationRef) &&
-      (role === "author" ? s.authorLocusRef : s.assessorLocusRef) === native.call.programLocusRef);
-    if (role !== null && (stages.length !== 1 || native.call.regime !== "F_P")) return null;
+    const preparing = native.call.implementationRef === ids.nativeAuthorTaskImplementationRef || native.call.implementationRef === ids.nativeAssessorTaskImplementationRef;
+    const stages = lifecycle.stages.filter(s => (nativeStage
+      ? basis.graphFunction.declarations["abg.semantic_native_stage"] === s.declarationRef
+      : s.graphFunctionRef === native.call.graphFunctionRef || basis.graphFunction.declarations["abg.semantic_revision_stage"] === s.declarationRef) &&
+      (role === "author" ? s.authorLocusRef : s.assessorLocusRef) + (preparing ? "/prepare" : "") === native.call.programLocusRef);
+    if (role !== null && (stages.length !== 1 || native.call.regime !== (nativeStage ? "F_D" : "F_P"))) return null;
     return { ...native, publication, lifecycle, root, invocationRoot, environment, grant: invocation.capabilityGrants[0]!, role, stage: stages[0] };
   } catch { return null; }
 }
@@ -104,7 +117,9 @@ function predecessor(basis: SemanticStageNativeBasis, owner: NonNullable<ReturnT
 export function semanticJobInputMatchesBasis(basis: SemanticStageNativeBasis, input: unknown): input is SemanticJobEnvelope {
   try {
     const owner = authenticateSemanticJobBasis(basis);
-    if (owner === null || !isSemanticJobEnvelope(input) || !equal(owner.inputValue, input) || hash(input) !== owner.inputDigest ||
+    if (owner === null || !isSemanticJobEnvelope(input) ||
+      !(equal(owner.inputValue, input) && hash(input) === owner.inputDigest ||
+        NATIVE_SEMANTIC_IMPLEMENTATION_REFS.some(r => r === owner.call.implementationRef) && isRetainedGraphInput(owner.inputValue) && equal(owner.inputValue.entry, input)) ||
       !equal(input.job, owner.root.rawInputValue) || !equal(input.declaration, owner.lifecycle) ||
       input.basis.rootExecutionBasisRef !== owner.root.basisRef || input.basis.rootInputRef !== owner.root.rawInputAdmissionRef ||
       input.basis.invocationAdmissionRef !== owner.root.invocationAdmissionRef || predecessor(basis, owner, input) === null) return false;
@@ -112,13 +127,15 @@ export function semanticJobInputMatchesBasis(basis: SemanticStageNativeBasis, in
     if (intake === null || intake.cCall.implementationRef !== ids.jobIntakeImplementationRef || intake.result.resultClass !== "success" ||
       intake.judgment.judgment !== "advance" || !isSemanticJobEnvelope(intake.result.value) || !equal(intake.result.value.basis, input.basis)) return false;
     for (const asset of input.assets) {
-      const author = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, asset.source.cCallRef, basis.declarationGraphFunctions);
-      if (author === null || author.cCall.implementationRef !== ids.authorImplementationRef || author.result.resultClass !== "success" ||
+      const authorSource = asset.source.nativeWork;
+      const author = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, authorSource?.adapterCCallRef ?? asset.source.cCallRef, basis.declarationGraphFunctions);
+      if (author === null || author.cCall.implementationRef !== (authorSource === undefined ? ids.authorImplementationRef : ids.nativeAuthorFoldImplementationRef) || author.result.resultClass !== "success" ||
         author.judgment.judgment !== "advance" || !isSemanticJobEnvelope(author.result.value) ||
         !equal(author.result.value.basis, input.basis) || !equal(author.result.value.assets.find(a => a.assetRef === asset.assetRef), { ...asset, assessment: null })) return false;
       if (asset.assessment !== null) {
-        const assessed = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, asset.assessment.source.cCallRef, basis.declarationGraphFunctions);
-        if (assessed === null || assessed.cCall.implementationRef !== ids.assessorImplementationRef || assessed.result.resultClass !== "success" ||
+        const assessmentSource = asset.assessment.source.nativeWork;
+        const assessed = projectSemanticPredecessorAtPrefix(owner.prefix, owner.events, basis.publication, assessmentSource?.adapterCCallRef ?? asset.assessment.source.cCallRef, basis.declarationGraphFunctions);
+        if (assessed === null || assessed.cCall.implementationRef !== (assessmentSource === undefined ? ids.assessorImplementationRef : ids.nativeAssessorFoldImplementationRef) || assessed.result.resultClass !== "success" ||
           assessed.judgment.judgment !== "advance" || !isSemanticJobEnvelope(assessed.result.value) ||
           !equal(assessed.result.value.assets.find(a => a.assetRef === asset.assetRef), asset)) return false;
       }
@@ -347,6 +364,7 @@ export function semanticJobResultMatchesBasis(basis: SemanticStageNativeBasis, i
     const owner = authenticateSemanticJobBasis(basis);
     if (owner === null || !equal(owner.inputValue, input)) return false;
     const implementation = owner.call.implementationRef;
+    if (NATIVE_SEMANTIC_IMPLEMENTATION_REFS.some(r => r === implementation)) return nativeSemanticResultMatchesBasis(basis, input, output);
     if (implementation === ids.jobIntakeImplementationRef) return equal(projectSemanticJobIntake(basis, input), output);
     if (implementation === ids.evidenceInputImplementationRef) return equal(projectSemanticJobEvidence(basis, input), output);
     if (implementation === ids.jobBridgeImplementationRef) {
@@ -429,5 +447,113 @@ export function semanticJobReadDependenciesAtPrefix(prefix: ValidatedRuntimeEven
         ? [{ event, seed }] : [];
     });
     return contexts.length === 1 ? { ...source, contextEvent: contexts[0]!.event } : null;
+  } catch { return null; }
+}
+
+function nativeStageSource(basis: SemanticStageNativeBasis, envelope: SemanticJobEnvelope, source: NativeWorkspaceWorkObservation) {
+  const owner = authenticateSemanticJobBasis(basis);
+  if (owner === null || !semanticJobInputMatchesBasis(basis, envelope)) return null;
+  const native = projectNativeWorkspaceWorkSourceAtPrefix(owner.prefix, source);
+  if (native === null || native.sourceResult.runId !== owner.call.runId || !sameJobInvocation(owner.execution, native.sourceBasis) ||
+    native.sourceClosedEvent.admissionOrdinal >= (owner.events.find(e => e.eventId === owner.call.openedEventRef)?.admissionOrdinal ?? -1) ||
+    !equal(source.task.workspaceAuthorityBasis, owner.environment.workspaceAuthorityBasis) ||
+    !equal(source.task.workspaceBinding, owner.environment.workspaceBinding) || !equal(source.task.capabilityGrant, owner.grant) ||
+    !nativeSemanticContextMatches(envelope, source.after) ||
+    worksiteCommandSourcesInvalidatedAfter(owner.prefix, native.sourceResult.admissionOrdinal,
+      source.task.workspaceAuthorityBasis.canonicalRoot, [], source.after.readRoots)) return null;
+  return { owner, native };
+}
+export async function projectNativeSemanticTask(basis: SemanticStageNativeBasis, input: unknown) {
+  const owner = authenticateSemanticJobBasis(basis);
+  if (owner === null || !semanticJobInputMatchesBasis(basis, input)) return null;
+  const context = await observeWorksiteContext({ ...operating(owner), readRoots: input.job.worksiteScope.readRoots,
+    maxFiles: input.declaration.bounds.maxContextFiles, maxBytes: input.declaration.bounds.maxContextBytes });
+  if (!isWorksiteContextObservation(context)) return null;
+  try {
+    if (owner.call.implementationRef === ids.nativeConstructionTaskImplementationRef) return constructNativeSemanticConstructionTask(input, operating(owner), context);
+    return owner.stage === undefined || owner.role === null ? null : constructNativeSemanticTask(input, owner.stage.declarationRef, owner.role, operating(owner), context);
+  } catch { return null; }
+}
+export function projectNativeSemanticFold(basis: SemanticStageNativeBasis, input: unknown) {
+  try {
+    if (!isRetainedGraphInput(input) || !isSemanticJobEnvelope(input.entry) || !isNativeWorkspaceWorkObservation(input.source)) return null;
+    const source = nativeStageSource(basis, input.entry, input.source);
+    if (source === null || source.owner.stage === undefined || source.owner.role === null) return null;
+    const { owner } = source, stageRef = owner.stage!.declarationRef;
+    const expected = constructNativeSemanticTask(input.entry, stageRef, owner.role!, operating(owner), input.source.before);
+    if (!equal(expected, input.source.task)) return null;
+    const adapter = { cCallRef: owner.call.cCallRef, inputDigest: owner.inputDigest };
+    return owner.role === "author" ? deriveNativeSemanticAsset(input.entry, stageRef, input.source, adapter)
+      : deriveNativeSemanticAssessment(input.entry, stageRef, input.source, adapter);
+  } catch { return null; }
+}
+export function projectNativeSemanticExecution(basis: SemanticStageNativeBasis, input: unknown) {
+  try {
+    if (!isRetainedGraphInput(input) || !isSemanticJobEnvelope(input.entry) || !isNativeWorkspaceWorkObservation(input.source)) return null;
+    const source = nativeStageSource(basis, input.entry, input.source);
+    return source?.owner.call.implementationRef === ids.nativeExecutionTaskImplementationRef
+      ? constructNativeSemanticExecutionTask(input.entry, input.source) : null;
+  } catch { return null; }
+}
+function nativeSemanticResultMatchesBasis(basis: SemanticStageNativeBasis, input: unknown, output: unknown): boolean {
+  const owner = authenticateSemanticJobBasis(basis);
+  if (owner === null) return false;
+  const implementation = owner.call.implementationRef;
+  if (implementation === ids.nativeAuthorFoldImplementationRef || implementation === ids.nativeAssessorFoldImplementationRef) return equal(projectNativeSemanticFold(basis, input), output);
+  if (implementation === ids.nativeExecutionTaskImplementationRef) return equal(projectNativeSemanticExecution(basis, input), output);
+  if (implementation === ids.nativeEvidenceImplementationRef) return equal(projectNativeSemanticEvidence(basis, input), output);
+  if (!isSemanticJobEnvelope(input) || !semanticJobInputMatchesBasis(basis, input) || !isNativeWorkspaceWorkTask(output) ||
+    !semanticJobContextMatches(basis, input, output.context)) return false;
+  try {
+    return equal(output, implementation === ids.nativeConstructionTaskImplementationRef
+      ? constructNativeSemanticConstructionTask(input, operating(owner), output.context)
+      : owner.stage === undefined || owner.role === null ? null : constructNativeSemanticTask(input, owner.stage.declarationRef, owner.role, operating(owner), output.context));
+  } catch { return false; }
+}
+
+/** Native C2 alternative of the existing semantic evidence owner. Native C2
+ * has already authenticated its source, protected snapshot and same-Run edge;
+ * this join retains that exact evidence and the current assessed Design. */
+export function projectNativeSemanticEvidence(basis: SemanticStageNativeBasis, input: unknown): SemanticJobEnvelope | null {
+  try {
+    const owner = authenticateSemanticJobBasis(basis);
+    if (owner?.call.implementationRef !== ids.nativeEvidenceImplementationRef || !isRetainedGraphInput(input) ||
+      !isSemanticJobEnvelope(input.entry) || !semanticJobInputMatchesBasis(basis, input.entry) || !isNativeWorksiteCommandExecutionObservation(input.source)) return null;
+    const original = input.entry, execution = input.source, source = execution.task.sourceNativeWork;
+    const executionOwner = predecessor(basis, owner, execution, WORKSITE_COMMAND_EXECUTION_IDS.implementationRef);
+    const construction = projectNativeWorkspaceWorkSourceAtPrefix(owner.prefix, source);
+    if (executionOwner === null || construction === null || construction.sourceResult.runId !== owner.call.runId ||
+      !sameJobInvocation(owner.execution, construction.sourceBasis) ||
+      construction.sourceClosedEvent.admissionOrdinal >= executionOwner.event.admissionOrdinal ||
+      !equal(constructNativeSemanticExecutionTask(original, source), execution.task)) return null;
+    const design = original.assets.at(-1)!.candidate.design!;
+    const current = operating(owner);
+    const targets = design.targets.map(selected => {
+      const row = execution.task.protectedObservations.find(row => row.subject.relativePath === selected.relativePath);
+      const observed = source.after.entries.find(e => e.relativePath === selected.relativePath);
+      if (row === undefined || observed?.state !== "file" || row.observation.state !== "file" || observed.digest !== row.observation.fileDigest) throw new TypeError("native evidence target mismatch");
+      const territory = constructWorksiteTerritory({ ...current, relativeRoot: selected.relativePath,
+        territoryUri: pathToFileURL(resolve(current.workspaceAuthorityBasis.canonicalRoot, selected.relativePath)).href });
+      if (territory.kind !== "worksite_territory") throw new TypeError("native evidence territory unavailable");
+      return { selected, observed, target: { subject: row.subject, territory, predecessorObservation: row.observation } };
+    });
+    // Reuse target construction solely for this current worksite projection;
+    // no legacy C1 execution/result or pre-effect observation is invented.
+    const targetProjection = constructWorksiteConstructionTask({ ...current, prompt: "Current native construction evidence projection only.", targets: targets.map(t => t.target) });
+    const worksite: SemanticWorksiteBasis = { ...current, targets: targetProjection.targets.map((target, i) => ({ target, base64: targets[i]!.observed.bytes, role: targets[i]!.selected.role })),
+      commands: design.commands, outcomePredicates: design.outcomePredicates, allowedWriteTerritories: execution.task.allowedWriteTerritories };
+    const artifacts = targets.map(({ selected, observed, target }) => {
+      const snapshot = execution.snapshotMembers.filter(m => m.relativePath === selected.relativePath && m.digest === observed.digest && m.byteLength === observed.byteLength);
+      if (snapshot.length !== 1 || snapshot[0]!.sourceObservationRef !== target.predecessorObservation.observationRef) throw new TypeError("exact native C2 snapshot required");
+      return { subjectRef: target.subject.subjectRef, observationRef: snapshot[0]!.sourceObservationRef, base64: observed.bytes,
+        role: selected.role === "verifier" ? "verifier_artifact" as const : "realization" as const };
+    });
+    const payload = construction.sourceResult.payload;
+    if (!record(payload) || typeof payload.resultRef !== "string" || typeof payload.resultDigest !== "string") return null;
+    return deepFreeze({ ...original, context: source.after, worksite, evidence: { kind: "semantic_worksite_evidence",
+      constructionResultRef: payload.resultRef, constructionResultDigest: payload.resultDigest as `sha256:${string}`,
+      executionResultRef: executionOwner.previous.result.resultRef, executionResultDigest: executionOwner.previous.result.resultDigest,
+      constructionResult: source as unknown as Readonly<Record<string, JsonValue>>,
+      executionObservation: execution as unknown as Readonly<Record<string, JsonValue>>, artifacts } });
   } catch { return null; }
 }

@@ -1,3 +1,4 @@
+import { NATIVE_SEMANTIC_ASSESSMENT_CONTRACT, NATIVE_SEMANTIC_ASSESSMENT_SCHEMA_TEXT } from "../build/code/src/product/semantic_job.js";
 import { constructSelfConformanceAssetRows } from "../build/code/src/product/public_contract_publication.js";
 import { generateQualificationAssets, qualificationSchema } from "./generate-qualification-rule-catalog.mjs";
 import { SELF_CONFORMANCE_INPUT_SCHEMA, SELF_CONFORMANCE_RESULT_SCHEMA, EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, QUALIFICATION_LAW_BASIS_SCHEMA, TENANT_CONFORMANCE_MANIFEST_SCHEMA, QUALIFICATION_RULE_CATALOG_SCHEMA } from "../build/code/src/validator/self_conformance_contracts.js";
@@ -152,6 +153,10 @@ await Promise.all([
   rm(join(root, CAPABILITY_DEFINITION_GRAPH_ASSET_PATH), { force: true }),
 ]);
 
+const nativeSemanticAssessmentPath = "contracts/schemas/native-semantic-assessment.schema.json";
+const nativeSemanticAssessmentBytes = Buffer.from(NATIVE_SEMANTIC_ASSESSMENT_SCHEMA_TEXT);
+await writeFile(join(root, nativeSemanticAssessmentPath), nativeSemanticAssessmentBytes);
+const nativeSemanticAssessmentDigest = sha256Bytes(nativeSemanticAssessmentBytes);
 const selfConformanceSchemaPath = "contracts/schemas/self-conformance.schema.json";
 generateQualificationAssets();
 const selfConformanceSchema = qualificationSchema();
@@ -845,6 +850,13 @@ const extantRows = [
       validatorNativeInventory,
       "rawAdmitValue",
     ),
+  },
+  {
+    contractId: NATIVE_SEMANTIC_ASSESSMENT_CONTRACT.contractRef, contractVersion: "5.0.0",
+    contractDigest: nativeSemanticAssessmentDigest, contractKind: "schema_asset", owningProduct: productId,
+    requirementAuthorityRefs: ["specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md"],
+    capabilityIdentities: capabilityRefsForContract(NATIVE_SEMANTIC_ASSESSMENT_CONTRACT.contractRef),
+    assetLocator: { path: nativeSemanticAssessmentPath, mediaType: "application/schema+json", schemaVersion: "5.0.0", contentDigest: nativeSemanticAssessmentDigest },
   },
   {
     contractId: "abg.schema.product-toolchain-manifest",

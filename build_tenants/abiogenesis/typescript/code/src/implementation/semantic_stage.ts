@@ -9,7 +9,7 @@ import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabi
 import { sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { authenticateSemanticJobBasis, projectSemanticJobContext, projectSemanticJobPlan, projectSemanticJobBridge,
+import { projectNativeSemanticTask, projectNativeSemanticFold, projectNativeSemanticExecution, projectNativeSemanticEvidence, authenticateSemanticJobBasis, projectSemanticJobContext, projectSemanticJobPlan, projectSemanticJobBridge,
   projectSemanticJobEvidence, semanticJobInputMatchesBasis } from "../abg/semantic_job.js";
 import { isSemanticJobEnvelope, deriveSemanticJobAsset, deriveSemanticJobAssessment, evaluateSemanticJobActorCandidate,
   semanticJobUsesDesignResponse, materializeSemanticJobDesignResponse, type SemanticJobContractIssue } from "../product/semantic_job.js";
@@ -117,3 +117,47 @@ export async function realizeSemanticJobBridge(input: Readonly<Record<string, Js
   const output = occurrence.semanticStageBasis === undefined ? null : await projectSemanticJobBridge(occurrence.semanticStageBasis, input);
   return output === null ? failure("job_bridge_relation_mismatch", { input, implementationRef: ids.jobBridgeImplementationRef }) : success(input, output, ids.jobBridgeImplementationRef, true);
 }
+
+// Existing owner adapters; actors remain the native workspace child Calls.
+export async function realizeNativeSemanticAuthorTask(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input);
+  return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAuthorTaskImplementationRef })
+    : success(input, output, ids.nativeAuthorTaskImplementationRef, true);
+}
+export const NATIVE_SEMANTIC_AUTHOR_TASK_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeAuthorTaskImplementationRef)!;
+export function realizeNativeSemanticAuthorFold(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+  const output = occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticFold(occurrence.semanticStageBasis, input);
+  return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAuthorFoldImplementationRef })
+    : success(input, output, ids.nativeAuthorFoldImplementationRef, true);
+}
+export const NATIVE_SEMANTIC_AUTHOR_FOLD_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeAuthorFoldImplementationRef)!;
+export async function realizeNativeSemanticAssessorTask(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input);
+  return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAssessorTaskImplementationRef })
+    : success(input, output, ids.nativeAssessorTaskImplementationRef, true);
+}
+export const NATIVE_SEMANTIC_ASSESSOR_TASK_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeAssessorTaskImplementationRef)!;
+export function realizeNativeSemanticAssessorFold(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+  const output = occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticFold(occurrence.semanticStageBasis, input);
+  return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAssessorFoldImplementationRef })
+    : success(input, output, ids.nativeAssessorFoldImplementationRef, true);
+}
+export const NATIVE_SEMANTIC_ASSESSOR_FOLD_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeAssessorFoldImplementationRef)!;
+export async function realizeNativeSemanticConstructionTask(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input);
+  return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeConstructionTaskImplementationRef })
+    : success(input, output, ids.nativeConstructionTaskImplementationRef, true);
+}
+export const NATIVE_SEMANTIC_CONSTRUCTION_TASK_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeConstructionTaskImplementationRef)!;
+export function realizeNativeSemanticExecutionTask(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+  const output = occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticExecution(occurrence.semanticStageBasis, input);
+  return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeExecutionTaskImplementationRef })
+    : success(input, output, ids.nativeExecutionTaskImplementationRef, true);
+}
+export const NATIVE_SEMANTIC_EXECUTION_TASK_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeExecutionTaskImplementationRef)!;
+export function realizeNativeSemanticEvidence(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
+  const output = occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticEvidence(occurrence.semanticStageBasis, input);
+  return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeEvidenceImplementationRef })
+    : success(input, output, ids.nativeEvidenceImplementationRef, true);
+}
+export const NATIVE_SEMANTIC_EVIDENCE_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeEvidenceImplementationRef)!;

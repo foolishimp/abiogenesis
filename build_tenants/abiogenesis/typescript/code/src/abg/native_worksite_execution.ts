@@ -38,17 +38,19 @@ export function admittedNativeTask(prefix: ValidatedRuntimeEventPrefix, task: un
   if (owned !== undefined) tasks.set(selected.taskRef, selected);
   return selected;
 }
-/** Pure projection. No caller-created file observation or result gains admission. */
-export function projectNativeWorkCommandSourceAtPrefix(prefix: ValidatedRuntimeEventPrefix, task: NativeWorksiteCommandExecutionTask): Readonly<{
-  sourceBasis: ExecutionBasis; sourceResult: RuntimeEvent; sourceJudgment: RuntimeEvent; sourceClosedEvent: RuntimeEvent;
-}> | null {
-  const admittedTask = admittedNativeTask(prefix, task);
-  if (admittedTask === null) return null;
-  task = admittedTask;
-  const events = runtimeEventsFromValidatedPrefix(prefix), source = admittedTask.sourceNativeWork;
+/** Existing admitted producer relation, shared by C2 and semantic native-source
+ * adapters. This authenticates provenance; each consuming owner retains its
+ * same-Run, current-subject and effect-scope obligations. */
+export function projectNativeWorkspaceWorkSourceAtPrefix(prefix: ValidatedRuntimeEventPrefix,
+  source: NativeWorksiteCommandExecutionTask["sourceNativeWork"]): Readonly<NativeSource> | null {
+  if (!isNativeWorkspaceWorkObservation(source)) return null;
+  const graphFunctionRef = source.task.assessment === undefined ? native.graphFunctionRef : native.assessmentGraphFunctionRef;
+  const implementationRef = native.implementationRef;
+  const implementationBindingRef = native.implementationBindingRef;
+  const events = runtimeEventsFromValidatedPrefix(prefix);
   const result = one(events, e => e.kind === "c_call_result_admitted" && e.aggregateId === source.provenance.cCallRef);
   if (result === null || typeof result.basisId !== "string" || !record(result.payload) ||
-    result.graphFunctionRef !== native.graphFunctionRef || result.payload.contractRef !== native.observationContractRef ||
+    result.graphFunctionRef !== graphFunctionRef || result.payload.contractRef !== native.observationContractRef ||
     result.payload.resultClass !== "success" || !same(result.payload.value, source) ||
     result.payload.valueDigest !== sha256Canonical(source as unknown as JsonValue) || !Array.isArray(result.payload.evidenceRefs)) return null;
   const facts = runtimePrefixComputation(prefix, NATIVE_SOURCE_PROOF, () => new Map<string, NativeSourceFact>());
@@ -56,24 +58,23 @@ export function projectNativeWorkCommandSourceAtPrefix(prefix: ValidatedRuntimeE
   // in this producer's admitted evidence/closure membership forces derivation.
   const rows = events.filter(e => e.aggregateId === result.aggregateId || e.basisId === result.basisId);
   const known = facts.get(result.eventId);
-  if (known !== undefined && known.workspaceId === task.workspaceAuthorityBasis.workspaceId && same(known.source, source) &&
+  if (known !== undefined && known.workspaceId === source.task.workspaceAuthorityBasis.workspaceId && same(known.source, source) &&
       rows.length === known.rows.length && rows.every((e, i) => e === known.rows[i]))
-    return worksiteCommandSourcesInvalidatedAfter(prefix, result.admissionOrdinal, task.workspaceAuthorityBasis.canonicalRoot,
-      task.protectedObservations.map(row => row.subject.relativePath), task.sourceReacquisition?.request.currentContext.readRoots) ? null : known.value;
+    return known.value;
   const payload = result.payload;
   const basis = projectExactExecutionBasisAtPrefix(prefix, result.basisId);
-  if (basis === null || basis.graphFunctionRef !== native.graphFunctionRef || !same(basis.rawInputValue, source.task) ||
+  if (basis === null || basis.graphFunctionRef !== graphFunctionRef || !same(basis.rawInputValue, source.task) ||
     basis.workspaceBindingId !== source.task.workspaceBinding.bindingId || basis.workspaceBindingDigest !== source.task.workspaceBinding.bindingDigest) return null;
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, basis.invocationAdmissionRef);
   if (invocation === null || invocation.workspaceBindingId !== source.task.workspaceBinding.bindingId ||
-    invocation.workspaceBindingDigest !== source.task.workspaceBinding.bindingDigest || invocation.workspaceId !== task.workspaceAuthorityBasis.workspaceId) return null;
+    invocation.workspaceBindingDigest !== source.task.workspaceBinding.bindingDigest || invocation.workspaceId !== source.task.workspaceAuthorityBasis.workspaceId) return null;
   const fibre = one(events, e => e.kind === "c_call_fibre_selected" && e.aggregateId === result.aggregateId &&
     e.basisId === result.basisId && e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
-    e.payload.regime === "F_P" && e.payload.implementationRef === native.implementationRef && e.payload.implementationBindingRef === native.implementationBindingRef);
+    e.payload.regime === "F_P" && e.payload.implementationRef === implementationRef && e.payload.implementationBindingRef === implementationBindingRef);
   const evidence = one(events, e => e.kind === "c_call_evidenced" && e.aggregateId === result.aggregateId &&
     e.basisId === result.basisId && e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
     (payload.evidenceRefs as readonly JsonValue[]).includes(e.payload.evidenceRef!) && e.payload.evidenceClass === "probabilistic_transport" &&
-    e.payload.implementationRef === native.implementationRef && e.payload.transportDigest === source.provenance.transportDigest &&
+    e.payload.implementationRef === implementationRef && e.payload.transportDigest === source.provenance.transportDigest &&
     e.payload.outputDigest === payload.valueDigest);
   const judgment = one(events, e => e.kind === "c_call_judged" && e.aggregateId === result.aggregateId &&
     e.basisId === result.basisId && e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
@@ -85,11 +86,20 @@ export function projectNativeWorkCommandSourceAtPrefix(prefix: ValidatedRuntimeE
   if (fibre === null || evidence === null || judgment === null || closed === null ||
     fibre.admissionOrdinal >= evidence.admissionOrdinal || evidence.admissionOrdinal >= result.admissionOrdinal ||
     closed.admissionOrdinal <= judgment.admissionOrdinal) return null;
-  if (worksiteCommandSourcesInvalidatedAfter(prefix, result.admissionOrdinal, task.workspaceAuthorityBasis.canonicalRoot,
-    task.protectedObservations.map(row => row.subject.relativePath), task.sourceReacquisition?.request.currentContext.readRoots)) return null;
   const value = Object.freeze({ sourceBasis: basis, sourceResult: result, sourceJudgment: judgment, sourceClosedEvent: closed });
-  facts.set(result.eventId, { source: result.payload.value as unknown as NativeWorksiteCommandExecutionTask["sourceNativeWork"], workspaceId: task.workspaceAuthorityBasis.workspaceId, rows, value });
+  facts.set(result.eventId, { source: result.payload.value as unknown as NativeWorksiteCommandExecutionTask["sourceNativeWork"], workspaceId: source.task.workspaceAuthorityBasis.workspaceId, rows, value });
   return value;
+}
+
+/** Pure projection. No caller-created observation or result gains admission. */
+export function projectNativeWorkCommandSourceAtPrefix(prefix: ValidatedRuntimeEventPrefix,
+  task: NativeWorksiteCommandExecutionTask): Readonly<NativeSource> | null {
+  const admittedTask = admittedNativeTask(prefix, task);
+  if (admittedTask === null || admittedTask.sourceNativeWork.task.assessment !== undefined) return null;
+  const source = projectNativeWorkspaceWorkSourceAtPrefix(prefix, admittedTask.sourceNativeWork);
+  return source === null || worksiteCommandSourcesInvalidatedAfter(prefix, source.sourceResult.admissionOrdinal,
+    admittedTask.workspaceAuthorityBasis.canonicalRoot, admittedTask.protectedObservations.map(row => row.subject.relativePath),
+    admittedTask.sourceReacquisition?.request.currentContext.readRoots) ? null : source;
 }
 
 /** Ordinary consumer preparation may use the exported pure constructor. Its

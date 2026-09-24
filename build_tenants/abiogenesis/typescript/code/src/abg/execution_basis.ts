@@ -15,7 +15,7 @@ import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_
 import { isWorksiteCommandForwardRequest, isWorksiteCommandForwardTask } from "../product/worksite_command_forward.js";
 import { worksiteCommandForwardChildSourceAtPrefix } from "./worksite_command_forward.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
-import { revisionPreparationHasNativeBridgeSourceAtPrefix, readDependencyPreparationHasNativeBridgeSourceAtPrefix } from "./worksite_input_provenance.js";
+import { revisionPreparationHasNativeBridgeSourceAtPrefix, readDependencyPreparationHasNativeBridgeSourceAtPrefix, projectRetainedWorksiteInputAtPrefix } from "./worksite_input_provenance.js";
 import { deriveRuntimeEventCalculusProjection, holdsAt, constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
 import { isWorksitePreparationInput, preparationConstructionTasks } from "../product/worksite_preparation.js";
 import type {
@@ -101,7 +101,7 @@ import {
 import { projectCurrentChildParentCCallAtPrefix, projectOpenedCCallCarrierAtPrefix,
   projectCCallCarrierPhaseAtPrefix, type CCall } from "./c_call.js";
 import { materializeGraph } from "../gtl/materialize.js";
-import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";
+import { hasAdmittedTraversalCursorAtPrefix, traversalCursorAdmissionEventsAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";
 import {
   AbgEventStore,
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
@@ -142,6 +142,7 @@ export interface RuntimeAdmissionBasis {
 /** Subordinate dispatch coordinates, authenticated against the existing event
  * prefix and implementation owners. This value grants no execution authority. */
 export interface NativeInstructionAssemblyBasis {
+  readonly assessmentPublication?: Readonly<ModulePublication>;
   readonly publication: Readonly<ModulePublication>;
   readonly graph: Readonly<GtlGraph>;
   readonly graphFunction: Readonly<GraphFunction>;
@@ -197,8 +198,17 @@ function deriveNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBa
     const inputRef = basis.cursor.inputRef, inputDigest = basis.cursor.inputDigest;
     const inputEvents = events.filter(event => event.kind === "c_call_result_admitted" &&
       isRecord(event.payload) && event.payload.resultRef === inputRef);
-    const inputValue = inputRef === execution.rawInputAdmissionRef ? execution.rawInputValue
+    let inputValue = inputRef === execution.rawInputAdmissionRef ? execution.rawInputValue
       : inputEvents.length === 1 && isRecord(inputEvents[0]!.payload) ? inputEvents[0]!.payload.value : undefined;
+    if (inputValue === undefined) {
+      const origins = traversalCursorAdmissionEventsAtPrefix(prefix, basis.cursor);
+      const retained = origins.length === 1
+        ? projectRetainedWorksiteInputAtPrefix(prefix, origins[0]!) : null;
+      if (retained === null || retained.entryBasis.basisRef !== execution.basisRef ||
+        retained.input.admissionRef !== inputRef || retained.input.subjectDigest !== inputDigest ||
+        retained.input.contractRef !== call.inputContractRef) return null;
+      inputValue = retained.input.value;
+    }
     if (inputValue === undefined || hash(inputValue) !== inputDigest) return null;
     const environment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth,
       { ref: execution.workspaceBindingId, digest: execution.workspaceBindingDigest });

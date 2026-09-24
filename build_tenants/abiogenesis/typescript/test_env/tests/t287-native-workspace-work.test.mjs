@@ -608,6 +608,10 @@ test('complete assessment preparation joins assessor context, declared schema an
   const selectedPublication={...publication,contracts:[...publication.contracts,assessmentContract],graphFunctions:[rootGraph,...publication.graphFunctions.slice(1)]};
   const graphFunction=publication.graphFunctions.find(g=>g.name===ids.assessmentGraphFunctionRef);
   const authority=p.occurrence.executionAuthority;
+  const {modulePublicationSemanticDigest}=await import('../../build/code/src/product/publication.js');
+  Object.assign(install,{artifactDigest:selectedPublication.artifactDigest,productContentDigest:selectedPublication.productContentDigest,
+    manifestDigest:selectedPublication.productManifestDigest,contributionManifest:{publicationBindings:[{moduleRef:selectedPublication.moduleRef,publicationDigest:modulePublicationSemanticDigest(selectedPublication)}]}});
+  let assessmentPublication;
   let selectedPublicationForCall=selectedPublication;
   const owner={inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:assessment-input',
     call:p.call,execution:authority.executionBasis,program:selectedPublication.programs[0],events:[],
@@ -639,7 +643,7 @@ test('complete assessment preparation joins assessor context, declared schema an
   });
   const port=await component('implementation/leaf_invocation_port',{'../abg/actor_process.js':actor});
   const occurrence=()=>({...p.occurrence,nativeInstructionAssemblyBasis:{publication:selectedPublicationForCall,
-    graphFunction,executionBasis:authority.executionBasis,cCall:p.call,predecessorPrefix:authority.predecessorPrefix}});
+    ...(assessmentPublication===undefined?{}:{assessmentPublication}),graphFunction,executionBasis:authority.executionBasis,cCall:p.call,predecessorPrefix:authority.predecessorPrefix}});
   const invoke=()=>port.invokeLeafOwnerBoundary({resolution:authority.implementationResolution,value:env.task,
     inputDigest:owner.inputDigest,failureValueKind:'native_workspace_work_failure',
     verifyAuthority:()=>native.nativeWorkspaceWorkAuthorityMatches(env.task,authority),validateSuccess:native.isNativeWorkspaceWorkObservation,
@@ -668,5 +672,15 @@ test('complete assessment preparation joins assessor context, declared schema an
   roleSelection='assessor';selectedPublicationForCall={...selectedPublication,graphFunctions:selectedPublication.graphFunctions.map(graph=>
     graph===rootGraph?{...rootGraph,declarations:{...rootGraph.declarations,'abg.raw_result_contract':ids.workerReportContractRef}}:graph)};
   refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation','unselected raw contract refuses before dispatch');
+  // The root consumer declares the raw contract selection, while the exact
+  // closure-selected ABI publication owns the installed schema bytes.
+  selectedPublicationForCall={...selectedPublication,owningProductId:'product://component/consumer',contracts:publication.contracts};
+  assessmentPublication=selectedPublication;
+  const delegated=await invoke();assert.equal(delegated.kind,'prepared_probabilistic_leaf_owner_invocation');
+  assert.deepEqual(delegated.workerRequest.responseJsonSchema,assessmentSchema);
+  assessmentPublication={...selectedPublication,owningProductId:'product://component/wrong-owner'};
+  refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation');
+  assessmentPublication=undefined;
+  refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation','no implicit foreign schema fallback');
   assert.equal(dispatches,0);
 });

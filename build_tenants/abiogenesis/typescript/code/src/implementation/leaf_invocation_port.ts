@@ -1348,6 +1348,10 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       }
       return publication;
     },
+    contractPublicationByRef(contractRef: string) {
+      const rows = authority.executionResolution.declarationClosure.contractOwners.filter(owner => owner.declarationRef === contractRef);
+      return rows.length === 1 ? exactOwnerBinding(authority.executionResolution, rows[0]!)?.publication ?? null : null;
+    },
     declarationGraphFunctions() {
       return Object.freeze(authority.executionResolution.declarationClosure.graphFunctionOwners.map(owner => graphFunctionByRef(owner.declarationRef))
         .filter((g): g is Readonly<GraphFunction> => g !== null));

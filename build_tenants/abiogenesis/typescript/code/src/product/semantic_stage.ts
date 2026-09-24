@@ -72,6 +72,11 @@ export interface SemanticWorksiteBasis {
 export interface SemanticActorSource {
   readonly cCallRef: string; readonly inputDigest: Sha256Digest; readonly actorInvocationRef: string;
   readonly promptDigest: Sha256Digest; readonly transportDigest: Sha256Digest;
+  /** Native actor identity remains above; this is the separate admitted F_D
+   * projection and its exact observed workspace asset, never an actor alias. */
+  readonly nativeWork?: { readonly adapterCCallRef: string; readonly adapterInputDigest: Sha256Digest;
+    readonly observationRef: string; readonly observationDigest: Sha256Digest;
+    readonly assetPath: string; readonly assetDigest: Sha256Digest };
 }
 export interface SemanticAsset {
   readonly assetRef: string; readonly assetDigest: Sha256Digest; readonly stageRef: string;

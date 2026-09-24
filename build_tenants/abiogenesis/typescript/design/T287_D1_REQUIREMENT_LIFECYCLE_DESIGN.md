@@ -930,3 +930,14 @@ admitted bridge join and stored C2 snapshots, not unchanged live worksite bytes.
 The construction prompt exposes the computed historical-to-current target refs.
 This ordinary tail Run reuses unchanged assessed stages; it is not a claim of
 general D2 invalidation, application success, or full lifecycle closure.
+
+
+## Native workspace source adapter — selected 2026-09-24
+
+Executive selected design re-entry under unchanged full-lifecycle and native-work requirements. Native workspace actors author one current asset file or return one typed independent assessment; they do not send or return accumulated semantic envelopes. Existing Product `deriveSemanticJobAsset`/`deriveSemanticJobAssessment` continue to ground source quotations and derive requirement/fulfillment identities. Computed envelopes remain owner values, not model-authored runtime truth.
+
+The existing semantic admission owner authenticates the exact declared native child, same Run/invocation, successful result and judgment, closed child, actual actor/provenance and observed candidate bytes. Native actor coordinates stay distinct from the deterministic adapter CCall. Only the declared author/assessment alternatives qualify; shape-valid caller values, stale files, foreign Runs, altered governing inputs and reused author/assessor identities refuse. Existing semantic sources retain their original interpretation.
+
+The declared native construction/C2 alternative preserves the sole assessed Design and protected source/assets. Existing same-Run native-work source authentication supplies construction provenance; the existing semantic evidence owner binds actual execution and snapshot evidence. No caller-generated success, local grounding authority, alternate event writer, host stage loop, cache, retry policy or new Product family is introduced. A failed/unknown assessment retains its actual result and stops progression. Full application and release claims still require their actual evidence and owner disposition.
+
+The existing retained-pair owner admits this explicit adapter composition when the graph is exactly the native semantic stage/construction declaration, the graph publication is itself installed and selected, and the entry contract, target implementation and Product semantics retain one exact ABI semantic owner. The fixed ABI pair and actual source owner remain mandatory. A marker or arbitrary mixed-owner graph is insufficient. Native assessment preparation resolves its unique declaring publication from the existing execution closure; its installed schema bytes and Product identity must match exactly. Missing, ambiguous or foreign owners refuse before dispatch.

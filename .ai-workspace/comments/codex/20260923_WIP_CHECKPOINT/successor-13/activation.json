@@ -1,0 +1,10 @@
+{
+  "role": "Writer",
+  "model": "gpt-6-astra",
+  "effort": "max",
+  "basisCommit": "fbeeddd06c5807cb8df44a3eae57f1a38c6bf23e",
+  "branch": "main",
+  "authorization": "Root bounded source checkpoint; user authorized commit/push. No implementation, test, build, actor or active-resource effect.",
+  "scope": "Reviewed generic native lifecycle plus dependency correction and retained-input repair; exact compiled15/16 construction and generated projections; closed source/check/review records, two closed failed-attempt summaries, four current trackers and debt. Source checkpoint only; active Run dependencies unbanked.",
+  "activeExecutionIndependent": true
+}

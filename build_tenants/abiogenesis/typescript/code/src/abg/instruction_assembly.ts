@@ -1,3 +1,4 @@
+import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { resolveNativeWorkspaceAssessmentSchema } from "../product/native_workspace_assessment.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, renderNativeWorkspaceWorkOrder,
@@ -87,9 +88,15 @@ export function constructWorksiteNativeInstructionAssembly(basis: NativeInstruct
       const resultContractRef = nativeWorkspaceWorkResultContractRef(supplied);
       const declaredResult = assessment === undefined || basis.publication.graphFunctions.some(graph =>
         owner.program.callableMembership.includes(graph.name) && graph.declarations["abg.raw_result_contract"] === resultContractRef);
+      const assessmentOwner = basis.assessmentPublication ?? basis.publication;
+      const exactSchemaOwner = assessment === undefined || owner.environment.kind === "exact_prefix_workspace_environment" &&
+        owner.environment.productInstalls.filter(install => install.productId === assessmentOwner.owningProductId &&
+          install.artifactDigest === assessmentOwner.artifactDigest && install.productContentDigest === assessmentOwner.productContentDigest &&
+          install.manifestDigest === assessmentOwner.productManifestDigest && install.contributionManifest.publicationBindings.filter(row =>
+            row.moduleRef === assessmentOwner.moduleRef && row.publicationDigest === modulePublicationSemanticDigest(assessmentOwner)).length === 1).length === 1;
       const schema = assessment === undefined ? nativeWorkspaceWorkReportSchema :
-        owner.environment.kind !== "exact_prefix_workspace_environment" ? null :
-          resolveNativeWorkspaceAssessmentSchema(assessment, [basis.publication], owner.environment.productInstalls);
+        owner.environment.kind !== "exact_prefix_workspace_environment" || !exactSchemaOwner ? null :
+          resolveNativeWorkspaceAssessmentSchema(assessment, [assessmentOwner], owner.environment.productInstalls);
       if (!declaredResult || schema === null || assessment?.producer.cCallRef === owner.call.cCallRef) return null;
       const role = stdo === null ? null : { frameRefs: stdo.frameRefs, policy: stdo.policy, contextPolicy: stdo.contextPolicy,
         sourceContent: stdo.sourceContent, accessContent: stdo.accessContent };
