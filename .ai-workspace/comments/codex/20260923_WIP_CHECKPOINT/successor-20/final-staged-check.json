@@ -1,0 +1,9 @@
+{
+  "status": "exact explicit staging and byte correspondence passed",
+  "beforeReceiptMembers": 26,
+  "canonicalWhitespace": "passed",
+  "fullFrozenEvidenceWhitespaceExitCode": 0,
+  "fullFrozenEvidenceWhitespaceOutput": "",
+  "sourceUnchanged": true,
+  "noTestsBuildRuntimeReads": true
+}

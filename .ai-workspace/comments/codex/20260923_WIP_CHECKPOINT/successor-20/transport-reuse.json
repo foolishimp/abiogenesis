@@ -1,0 +1,6 @@
+{
+  "predecessorBank": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-19/transport-01/catalog.json",
+  "predecessorBankSha256": "71091882be0adb45b25bd1aa5f2e7edc48008b850280aaf3ca07bbff53603baf",
+  "reuse": "core22/dev12 source/build/archive/install/preparation03 proof remains in predecessor bank; all earlier banks by reference",
+  "basisSymlink": "ABI bootstrap-invocation-correction-01/readback-basis.json is recreated by banked construct.mjs from unchanged predecessor preparation03/readback-basis.json; basis-reference.json binds exact bytes"
+}

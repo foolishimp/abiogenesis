@@ -1,0 +1,16 @@
+[
+  {
+    "repo": "abiogenesis",
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "headPreimageSha256": "2cfdd4d11ae033e09fe248c8500f4ad07fed50a4667ea5164599ca07f7e0a5a1",
+    "acceptedPostimageSha256": "478ebc113507f38c4d053c34e7e8a0d916ec58219ea7110b9bdcca2c1b1502fb",
+    "scope": "Root-authorized current outcome projection; no production source change"
+  },
+  {
+    "repo": "odd_glc",
+    "path": ".ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+    "headPreimageSha256": "c971c79b3012901b7ad8c350722acb6e68416666a23b1fe434c43818f4fbad6e",
+    "acceptedPostimageSha256": "4c564b548d79b6923ca1efa26d7e0d176840716550b9192eb9d8e2f829782fa7",
+    "scope": "Root-authorized current outcome projection; no production source change"
+  }
+]

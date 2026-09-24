@@ -1,0 +1,222 @@
+{
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/basis-reference.json": {
+    "sha256": "4284e96fa45ae7b59bc8347ec909f3a3499bc53936fc16ce8cfe5b72e585b2af",
+    "byteLength": 400
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/causal-capsule.json": {
+    "sha256": "bda696ed2693a376857b896d9dfc449f0c6418800114cfccb963e78701562e74",
+    "byteLength": 26873
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/closed-suffix.json": {
+    "sha256": "a520694de1431d089bdee1a95aecafcc86489badcd74ce5528d53ee6fbb3f407",
+    "byteLength": 1384640
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/construct.mjs": {
+    "sha256": "94cce2d07977757fd11d3ac400ec09d844bb4e2662339b3dfbb3ea55991d584d",
+    "byteLength": 7575
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/construction-return.md": {
+    "sha256": "f446d9b6481cf7a0cb4b17fb7a7312c3cd4fa8ab428ca520f2cdad7d03383778",
+    "byteLength": 1315
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/constructor-checks.json": {
+    "sha256": "7c1a1ce49facbfc803f9aa830a39934515850350a413bcec4edcb00d2c37d4f6",
+    "byteLength": 4367
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/evidence-02-process.json": {
+    "sha256": "d1a63e248bc7623ce88df9cf1c7b1107f5dc47ed81c19d8af473bd1f1c7497c9",
+    "byteLength": 296
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/evidence-02.stderr.log": {
+    "sha256": "be4995ea1d5ce1ca7bea0601f542b43bda88ca8dd106b5f92cf67c75928acbdb",
+    "byteLength": 777
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/evidence-02.stdout.log": {
+    "sha256": "642820e61a271d58493309e130e32cba298cd6b921a9e1f033d49912d0c3257d",
+    "byteLength": 135
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/evidence-process.json": {
+    "sha256": "daf1783bb3813e9c14b670aff3b9108442e239a44605638ff6040047d6ce290c",
+    "byteLength": 293
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/evidence.stderr.log": {
+    "sha256": "19d6c29fd47abc826935aa9dc9870866590410b057b2b56c7557f3cf2f51caef",
+    "byteLength": 1613
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/evidence.stdout.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/frozen-caller.json": {
+    "sha256": "4f24358bfbbffbbc81f1ebcad4c042552185311cff7e203ecdc8266c64493f03",
+    "byteLength": 1909
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/intake-process.json": {
+    "sha256": "a206a27b2297297148d4158c990520ba0479cd4a3d047da4296f52b7c949033f",
+    "byteLength": 469
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/intake-readback.json": {
+    "sha256": "27bdcc4536c06d41dd0b9eb6232071b275caf92fa0794d20c32a36fe964fb279",
+    "byteLength": 2908
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/intake-start.jsonl": {
+    "sha256": "8e15a61aaa5e38dd8d61d82e6f52b87a10ec6277b7bdb1862d4f8e22259b60bd",
+    "byteLength": 26393298
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/intake.stderr.log": {
+    "sha256": "d9ed24eaa849b7b0b143a99f75f9462c4528d5fe45c353a75ce4916a8329eac4",
+    "byteLength": 777
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/intake.stdout.log": {
+    "sha256": "a1cf51606b0e798ce15347768263df2daa3619ac4e84537ef4af861b00b0acc4",
+    "byteLength": 10514
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/live-attempt.json": {
+    "sha256": "72afc7564625f1966ab5172a86b28a9f2b689fb6e6e275c1d9d4acf29706459f",
+    "byteLength": 1910
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/live-receipt.json": {
+    "sha256": "4b8dc976d6e38f6c3714719cda09143cf65b546ceb1a5c87c218699c892437ae",
+    "byteLength": 13281
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/live-start.jsonl": {
+    "sha256": "d9cf4a9e79115893fd9105cf1360b3edafd5819967b1df3325b2f821da41fb62",
+    "byteLength": 19197250
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/live-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/native-prepared.json": {
+    "sha256": "e95e96a8977978bbc8345feb0cce1ffa4d86a700abdce9a04821cd4e7f871fe5",
+    "byteLength": 6434
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/observed-metrics.json": {
+    "sha256": "e803fd83108855557c81934f51e96271e460e4b85464033d906d117cac4e094b",
+    "byteLength": 1782
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/public-readback.json": {
+    "sha256": "718e042d14c39b181f001646b86c885d45c47f0a38050b18ccf91a18bf1a82a8",
+    "byteLength": 1631
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-evidence-02.mjs": {
+    "sha256": "f01d106f79b5e8af73f931ccdf75214205def4e4b65f89eb8d282e4600637abb",
+    "byteLength": 2814
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-evidence.mjs": {
+    "sha256": "8b50062a709ec29eee8acd84b68f715cde93c593f1b4e0b973dbd4b02e087336",
+    "byteLength": 2653
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_evidence-02.boundary.json": {
+    "sha256": "c9be481ec7b348c48e96c319b5c481b67fe30d0826ff2eb1d33f9fde2e041ac3",
+    "byteLength": 788
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_evidence-02.json": {
+    "sha256": "d8c324d875d24e986fe355933226ff1a1e9413bfb748498ec5d3ac968480bd12",
+    "byteLength": 4615
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_evidence-02.jsonl": {
+    "sha256": "f730a39a0965e729bc521fb310eb0a8b667b7ba38e7eff0fec087a18c4866c76",
+    "byteLength": 9795
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_evidence-02.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_evidence.json": {
+    "sha256": "8e3f9a884f1bf20a5f25bf6a005713d92fe8cd012f4c8e485913061b73b113e2",
+    "byteLength": 192
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_evidence.jsonl": {
+    "sha256": "fa890d1cf0ba308a542783145eedfa2fd0b81ff49d24bae551beeb069195fbdc",
+    "byteLength": 12462
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_evidence.process-failure.json": {
+    "sha256": "0c9c9c7359bce2746438fc1f5662122f28a00dc1237e772ebbf1758390719594",
+    "byteLength": 444
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_evidence.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_replay.boundary.json": {
+    "sha256": "074db6141dcfb0154aa8366851fc3f87aae6f83c203004870d5fa8a289cfe5ae",
+    "byteLength": 388
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_replay.json": {
+    "sha256": "00c69bd1a5c1b162c404f8791c43975cf94aaa7c59e0f8bd42bd2636273db9f2",
+    "byteLength": 3708
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_replay.jsonl": {
+    "sha256": "1fcbd018ba4570c19545d1e1d2b3be56a6883f8ff1c3f485c974579f0217d7a8",
+    "byteLength": 9818
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_replay.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_result.boundary.json": {
+    "sha256": "c1ad05023d98eed63f54da3df31385e25267b265400fe149c332000cc958c667",
+    "byteLength": 426
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_result.json": {
+    "sha256": "98fadfe43fed88e45eec83ec80b0c577f0c637f9aee492a9bdd8f558963a80b2",
+    "byteLength": 2744
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_result.jsonl": {
+    "sha256": "d10ddb4ffcac7b2571a15f89b1567d6b97df53b637875d375e1419b6dc0ec06b",
+    "byteLength": 9779
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_result.process-failure.json": {
+    "sha256": "690e94f30336020de18bbba4f159721ea5c2692243679884bfdcc7a5b824b4d1",
+    "byteLength": 442
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/read-run_result.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/readback-process.json": {
+    "sha256": "11b8b8612c5c3c6ba22fd135655b6f4c6d01379fbd75f63ee4453a77b58ce6e0",
+    "byteLength": 454
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/readback.stderr.log": {
+    "sha256": "5dd140a2b0dd96fae23567dbecb41fc39c0ce0c3e4528f1ac5c9cb29cad1a275",
+    "byteLength": 777
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/readback.stdout.log": {
+    "sha256": "d065f34063dd2560d5b0ca49ece6e3caf6704c7cd3c9008a360037d2d7857534",
+    "byteLength": 3380
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/refs.json": {
+    "sha256": "993a2f70b430cff9333b33385ec51476f0ab88e6a460eebe7cad452c87d388bb",
+    "byteLength": 2127
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-invocation-correction-01/return.md": {
+    "sha256": "77a1871117d89ca522796382f80420f554403e82f75fd2b8d7abe7b81263774b",
+    "byteLength": 3099
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/invocation-boundary-review-01/authority-probe.json": {
+    "sha256": "c9aaaead06812b737486399941016528a89f41a7d5ef6b03a57c2ca4c66802a4",
+    "byteLength": 6991
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/invocation-boundary-review-01/authority-probe.mjs": {
+    "sha256": "df2d90ce58c716599a64a7d663e7446d67e73ee4d17e5eb649f41f5d34ffd384",
+    "byteLength": 7993
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/invocation-boundary-review-01/evidence-refs.json": {
+    "sha256": "7f4ba730bd440e113ecfddc874bd42661e0ea0015ce1301a0d6a24d18c74d2c4",
+    "byteLength": 29265
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/invocation-boundary-review-01/remaining-joins-probe.json": {
+    "sha256": "ed3a5aeca56bbd3b0e121cab947b3cfba5c18e22244a6fd47d699e124a98f998",
+    "byteLength": 2948
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/invocation-boundary-review-01/remaining-joins-probe.mjs": {
+    "sha256": "af4c617e52aa1f7af07b9661d8d9a774a6d66605689121a00c51aa29715076a6",
+    "byteLength": 6129
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/invocation-boundary-review-01/review.md": {
+    "sha256": "df32ff8a0edf58cfe2c90c65f9c3e854362cc58b1b79bcc4daa66cafe267ca89",
+    "byteLength": 6787
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "excluded": [
+    "all original journals except already-retained authorized closed suffix file",
+    "all workspaces/application files",
+    "all installed Products/node_modules",
+    "all unchanged prior proof/archive banks",
+    "unrelated or unfinished peer outputs",
+    "readback-basis symlink; source target already banked"
+  ],
+  "closedResourcePrefix": 112775961,
+  "sourceScope": "only two ticket current projections; GOALS already routes to them and is unchanged",
+  "noSourceImplementationMutation": true
+}

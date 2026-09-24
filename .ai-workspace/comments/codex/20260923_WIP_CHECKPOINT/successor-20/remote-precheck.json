@@ -1,0 +1,7 @@
+{
+  "originMain": "79d9dfcfb31a3b6a7ff05bdf9f5e5a2b9760e928",
+  "head": "79d9dfcfb31a3b6a7ff05bdf9f5e5a2b9760e928",
+  "equal": true,
+  "operation": "git ls-remote origin refs/heads/main",
+  "force": false
+}
