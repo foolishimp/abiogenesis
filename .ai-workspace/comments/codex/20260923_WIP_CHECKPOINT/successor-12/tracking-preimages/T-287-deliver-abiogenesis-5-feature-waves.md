@@ -17,17 +17,17 @@
 - updated_at: 2026-09-24
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: NATIVE_FULL_HELLO_FRESH_START_IMPLEMENTATION
-- current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-14/selected-core.json
-- current_candidate_archive_sha256: 67bfd24c9a41286194d59ea9730c804a06a52a024bdf7fbe32fdcf3c80026279
-- current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-14/return.md
-- current_accepted_archive_sha256: 67bfd24c9a41286194d59ea9730c804a06a52a024bdf7fbe32fdcf3c80026279
-- current_worker_return: ../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core14-readback-03/return.md
-- current_candidate_scope: accepted_core14_replay_repair_package_and_supporting_core13_C1_C2_readback_full_GLC_sandbox_open
-- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core14-readback-03/return.md
-- current_live_execution_status: CLOSED_supporting_basic_cli_core13_two_real_Claude_calls_four_predicates_five_tests_core14_Public_readback_passed
-- current_activation_status: bounded_GLC_source_HOW_implementation_and_focused_checks_only_new_source_acceptance_package_paid_launch_unselected
-- current_native_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core14-readback-03/return.md
+- current_activation: CORE13_EXISTING_GLC_SIX_HELLOWORLDKEYS_FIRST
+- current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-13/selected-core.json
+- current_candidate_archive_sha256: bc6e648887a635b24da58bf283e5609a72f274bf358ba09cab33a1caedad2d47
+- current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-13/return.md
+- current_accepted_archive_sha256: bc6e648887a635b24da58bf283e5609a72f274bf358ba09cab33a1caedad2d47
+- current_worker_return: ../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core13-04/return.md
+- current_candidate_scope: accepted_core13_source_package_Hello_first_existing_six_projects_qualification_open
+- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core13-04/return.md
+- current_live_execution_status: CLOSED_basic_cli_C1_three_files_and_Public_read_succeeded_retained_C2_admitted_then_Run_truth_invalid_history_genuine_close5819027
+- current_activation_status: Hello_first_C2_external_source_result_basis_defect_unclassified_bounded_diagnosis_no_new_live_invocation_other_five_and_Data_Mapper_held
+- current_native_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core13-04/return.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#current-checkpoint-and-installed-continuation'
 - current_management_plan: '#current-management-prerequisite-plan'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#management-milestones'
-- next_bounded_task: implement_current_native_GLC_fresh_full_Hello_source_lifecycle_under_T043
-- next_bounded_task_status: separate_Worker_source_HOW_and_focused_checks_only_no_source_acceptance_package_paid_launch_other_five_reduced_cases_unlaunched_Data_Mapper_held
+- next_bounded_task: diagnose_retained_C1_source_C2_Run_truth_exact_admitted_external_source_result_basis
+- next_bounded_task_status: Worker_diagnosing_without_live_invocation_preserve_C1_worksite_advanced_close_other_five_Hello_and_Data_Mapper_held_RC_qualification_open
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -63,14 +63,14 @@
 - native_reacquisition_cost_debt: NW-DEBT-03_99percent_append_is_repeated_bodies_measured_complexity_01
 - current_continuation_debt: LIFE01_observed_recovery_native_freshread_RSS_request_cost_redflags_not_isolated_benchmark_attribution_or_OOM_cure
 - current_recovery_reentry: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-recovery-02/recovery-return.md
-- current_correction_record: ../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core13-05/return.md
+- current_correction_record: ../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core13-04/return.md
 - current_lifecycle_model_reentry: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/owned-module-continuation-01/lifecycle-model-selection.json
 - current_lifecycle_model_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/owned-module-continuation-01/lifecycle-model-disposition.json
 - d2_consumer_readiness: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-d2-consumer-01/executive-disposition.md
 - prior_recovery_candidate_record: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/implementation/freeze.json
 - prior_recovery_candidate_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/implementation/executive-disposition.md
 - prior_recovery_resource_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/installed/installed-disposition.json
-- current_review_disposition: Root_accepted_replay_subject_aeb6148e_compiled14_return32fba29d_basic_cli_readback1eda41aa_supporting_scope_only_full_GLC_implementation_unaccepted
+- current_review_disposition: Root_accepted_GLC8eef0699_review55056496_core923b510a_review10fd2d2f_compiled13_returncbf04e39
 - technical_debt_checklist: '#current-management-debt'
 - completed_technical_debt_checklist: ../completed/T-288-remove-duplicated-runtime-construction.md
 - prior_one_hour_task_register: '#rc7-one-hour-task-commitment'
@@ -296,7 +296,7 @@ The seven passes and earlier nested-compose acceptance are preserved.
 (`96dfe183…`) are accepted by Root for source readiness after [max independent review](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation-repair-review-01/return.md)
 (`0ae3209b…`). [Combined compiled10/dev.6 package and caller readiness](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/disposition.md)
 is CLOSED: archives `7b6791d3…` / `4f96ba95…`, exact offline install verification,
-original caller03 and mixed-only continuation18. Root accepts [original03](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/return.md) for repaired F_P/admission/foldback and its truthful construction-only `stage_revision_required` block; all 35 files remain unchanged and the genuine close is 1,285,520,237 B with fresh outcomes. [Mixed18](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/return.md) reached truthful human hold with accepted fresh-read scope; its result-only caller assertion defect remains retained. Seven prior S02 passes are preserved. [Accepted compiled13](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-13/return.md) and existing dev.7 completed the [Design-reentry attempt](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-launch-controls-01/return.md) (`51a0bd5a…`) with lawful independent Design-assessment refusal. All 35 original files are conserved; the rejected new Design remains preserved and was not promoted. No further Data Mapper attempt is selected. [Basic-cli's retained core13 execution](../../../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core14-readback-03/return.md) used [two genuine Claude calls](../../../../odd_glc/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12/actor-evidence.json): 19.490 s construction and 29.555 s execution. All four authored predicates and five tests pass with fresh installed [compiled14](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-14/return.md) Public result/replay. This is narrow C1→C2 supporting proof; prior caller refusals and the repaired replay defect remain preserved. The five remaining reduced cases were not launched. The user requires the actual full odd_glc Hello sandbox with live LLMs. The old full route is held, and current native continuation does not provide a fresh full-source start. Root selects bounded GLC source/HOW implementation and focused checks for that current-native gap under T-043: preserved full source and oracle through independently assessed Intent/Product/Requirements/Design, native construction, same-Run C2 and independent complete-outcome assessment. Existing native-work mechanisms own the route; no new ABG owner or cumulative-response revival is selected. New source acceptance, package and paid launch remain unselected. Data Mapper stays held. The fifteen-family ABG outcome, full lifecycle/oracle, release qualification and RC1 remain open. Operator stop was admitted once on retained S02-19. Its preserving-obligation [source repair](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/review-01/return.md) is accepted; fresh installed status/replay readback remains pending at the release boundary, with absent Result still expected as Public `not_found`. Q07 is prepared/incomplete and carries no qualification acceptance. Q07 completion, independent stop readback and this paired checkpoint are not launch prerequisites. Full S1–S5/oracle, qualification, QUAL056/F11/sole AF22 and RC1 remain open.
+original caller03 and mixed-only continuation18. Root accepts [original03](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/return.md) for repaired F_P/admission/foldback and its truthful construction-only `stage_revision_required` block; all 35 files remain unchanged and the genuine close is 1,285,520,237 B with fresh outcomes. [Mixed18](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/return.md) reached truthful human hold with accepted fresh-read scope; its result-only caller assertion defect remains retained. Seven prior S02 passes are preserved. [Accepted compiled13](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-13/return.md) and existing dev.7 completed the [Design-reentry attempt](../../../../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-launch-controls-01/return.md) (`51a0bd5a…`) with lawful independent Design-assessment refusal. All 35 original files are conserved; the rejected new Design remains preserved and was not promoted. No further Data Mapper attempt is selected. Hello-first remains selected on accepted core13. [Basic-cli C1](../../../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core13-03/return.md) constructed all three files and its Public result read succeeded; stale shared-helper environment, publication and context usage is repaired. [Retained C2 continuation](../../../../odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/core13-04/return.md) passed environment preparation and admission, then refused at `/run_truth` with `invalid_history`: “run semantic relation requires one exact admitted external source-result basis”. Ownership is unclassified; the Worker is diagnosing without another live invocation. Preserve C1, the worksite and the advanced genuine close at 5,819,027 bytes. The other five Hello cases and Data Mapper remain held. Operator stop was admitted once on retained S02-19. Its preserving-obligation [source repair](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/review-01/return.md) is accepted; fresh installed status/replay readback remains pending at the release boundary, with absent Result still expected as Public `not_found`. Q07 is prepared/incomplete and carries no qualification acceptance. Q07 completion, independent stop readback and this paired checkpoint are not launch prerequisites. Full S1–S5/oracle, qualification, QUAL056/F11/sole AF22 and RC1 remain open.
 No first-J stop, new producer campaign, heap/timer/model increase or automatic
 retry is selected by this tracking update.
 
@@ -311,11 +311,11 @@ incremental admitted state and appends events; reconstruction belongs to genuine
 cold acquisition/recovery when state is absent. This records scope interpretation,
 not a hardcoded mode or new Product law.
 
-Predecessor readiness ABI `2b9e540…` / GLC `8fd1de6…` and the paired successor10 selection remain historical. The earlier one-launch selection under [Root disposition](../../comments/codex/20260923_WIP_CHECKPOINT/successor-11/root-disposition.json) is consumed by the closed Design-assessment refusal above; The current full-sandbox source implementation selection owns next work; no paid execution is selected.
+Predecessor readiness ABI `2b9e540…` / GLC `8fd1de6…` and the paired successor10 selection remain historical. The earlier one-launch selection under [Root disposition](../../comments/codex/20260923_WIP_CHECKPOINT/successor-11/root-disposition.json) is consumed by the closed Design-assessment refusal above; Hello-first ordering now owns the next execution.
 
 ## Current Management Prerequisite Plan
 
-The [current selection](#current-checkpoint-and-installed-continuation) owns immediate work: bounded source/HOW implementation and focused checks for a fresh full-source start through current native odd_glc for the actual live-LLM Hello sandbox, under T-043. The accepted C1→C2 basic-cli proof is supporting evidence only. New source acceptance, package, paid full-sandbox attempt, remaining reduced case and Data Mapper launch are unselected. Q07 and independent operator-stop readback remain release-boundary work. The earlier management selections below retain their historical scope.
+The [current selection](#current-checkpoint-and-installed-continuation) owns immediate work: bounded diagnosis of the retained basic-cli C1-source/C2 Run-truth relation, without another live invocation. Preserve successful C1, its three files and the advanced genuine close; the other five Hello projects and Data Mapper remain held. Hello-first on accepted core13 remains selected; defect ownership is unclassified. Q07 completion, independent operator-stop readback and paired checkpoint are parallel or release-boundary work, not launch prerequisites. The earlier management selections below retain their historical scope.
 
 ### Current graph-context re-entry
 

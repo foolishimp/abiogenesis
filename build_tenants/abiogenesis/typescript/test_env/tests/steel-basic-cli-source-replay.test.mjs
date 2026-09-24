@@ -18,6 +18,94 @@ const freeze = value => {
   return value;
 };
 
+// Source-only regression over the selected installed imports. No generated
+// package or retained journal is changed by observing a candidate replay owner.
+async function selectedReplayOwner() {
+  const source = process.env.ABI5_STEEL_REPLAY_CANDIDATE_SOURCE;
+  if (!source) return abg;
+  const [{ SourceTextModule, SyntheticModule }, { default: ts }] = await Promise.all([
+    import("node:vm"), import("typescript"),
+  ]);
+  const file = path.join(reader, "build/code/src/abg/replay.js");
+  const compiled = ts.transpileModule(await readFile(source, "utf8"), {
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext },
+  }).outputText;
+  const module = new SourceTextModule(compiled, { identifier: file,
+    initializeImportMeta(meta) { meta.url = pathToFileURL(file).href; } });
+  const links = new Map();
+  await module.link(async specifier => {
+    if (links.has(specifier)) return links.get(specifier);
+    const actual = await import(specifier.startsWith(".")
+      ? pathToFileURL(path.resolve(path.dirname(file), specifier)).href : specifier);
+    const linked = new SyntheticModule(Object.keys(actual), function () {
+      for (const [key, value] of Object.entries(actual)) this.setExport(key, value);
+    });
+    links.set(specifier, linked);
+    return linked;
+  });
+  await module.evaluate();
+  return module.namespace;
+}
+
+test("external source replay uses the authenticated atomic admission entry cut", async t => {
+  const statePath = process.env.ABI5_STEEL_SOURCE_REPLAY_STATE;
+  if (!statePath) {
+    t.skip("requires an explicit retained source-bound continuation; no live invocation");
+    return;
+  }
+  const state = JSON.parse(await readFile(statePath, "utf8"));
+  const events = abg.readRuntimeEventsAtDurablePrefix(state.genuineClose.prefix);
+  const prefix = abg.selectValidatedRuntimeEventPrefix(events);
+  const ep = await import(pathToFileURL(path.join(reader, "build/code/src/abg/event_prefix.js")));
+  const owner = await selectedReplayOwner();
+  const admissionEvent = events.find(row => row.kind === "invocation_admitted" &&
+    row.payload.invocationAdmissionRef === state.invocationAdmission.ref);
+  assert.ok(admissionEvent);
+  const invocation = abg.rehydrateInvocationAdmissionAtPrefix(
+    ep.validatedRuntimeEventPrefixThroughEvent(prefix, admissionEvent.eventId), state.invocationAdmission.ref);
+  assert.equal(invocation?.admissionEventRef, admissionEvent.eventId);
+  const asserted = admissionEvent.payload.sourceResultBasis;
+  const sourceInput = { publicAuthorityDigest: asserted.publicAuthorityDigest,
+    runtimeInvocationRef: asserted.sourceInvocationRef, invocationAdmissionRef: asserted.sourceInvocationAdmissionRef,
+    runId: asserted.sourceRunId, resultRef: asserted.sourceResultRef };
+  const entry = ep.validatedRuntimeEventPrefixBeforeEvent(prefix, invocation.publicOperationEventRef);
+  const insideAdmission = ep.validatedRuntimeEventPrefixBeforeEvent(prefix, admissionEvent.eventId);
+  assert.deepEqual(abg.deriveInvocationSourceResultBasisAtPrefix(entry, sourceInput), asserted);
+  assert.notEqual(abg.deriveInvocationSourceResultBasisAtPrefix(insideAdmission, sourceInput).sourceReplayDigest,
+    asserted.sourceReplayDigest, "the native liveness read must still identify its actual observation prefix");
+  const runId = state.diagnosticTargetRun;
+  const local = abg.selectValidatedRuntimeEventPrefix(events, { runId });
+  const localRows = ep.runtimeEventsFromValidatedPrefix(local);
+  const projection = owner.projectRunSemanticReplayProjection(prefix, runId, state.genuineClose.prefix);
+  const sourceFact = projection.ownerFacts.find(row => row.owner === "invocation_source_result");
+  assert.deepEqual(sourceFact.sourceResultBasis, asserted);
+  assert.equal(projection.runtimeStatus, abg.replayValidatedRuntimeEventPrefix(local, prefix).runtimeStatus);
+  assert.deepEqual(projection.physicalCoordinates.events.map(row => row.eventId), localRows.map(row => row.eventId));
+  assert.equal(localRows.some(row => row.eventId === asserted.sourceResultAdmissionEventRef), false);
+  assert.equal(projection.eventAtoms.some(row => row.runId === asserted.sourceRunId), false);
+  const cold = abg.selectValidatedRuntimeEventPrefix(freeze(JSON.parse(JSON.stringify(events))));
+  assert.deepEqual(owner.projectRunSemanticReplayProjection(cold, runId, state.genuineClose.prefix), projection);
+
+  await t.test("a mismatched source basis still refuses", () => {
+    const changed = structuredClone(events);
+    const basis = changed.find(row => row.eventId === admissionEvent.eventId).payload.sourceResultBasis;
+    basis.sourceGraphCallId = "graph-call://abiogenesis/crossed-source";
+    const { kind, schemaVersion, basisRef, basisDigest, ...body } = basis;
+    void kind; void schemaVersion; void basisRef; void basisDigest;
+    basis.basisDigest = sha256Canonical(body);
+    basis.basisRef = `invocation-source-result://abiogenesis/${basis.basisDigest.slice(7)}`;
+    assert.equal(abg.isInvocationSourceResultBasis(basis), true);
+    assert.throws(() => owner.projectRunSemanticReplayProjection(
+      abg.selectValidatedRuntimeEventPrefix(freeze(changed)), runId), /source-result basis/u);
+  });
+  t.diagnostic(JSON.stringify({ runId, runtimeStatus: projection.runtimeStatus,
+    sourceRunId: asserted.sourceRunId, sourceReplayDigest: asserted.sourceReplayDigest,
+    eventCount: events.length, localEventCount: projection.eventCount,
+    admissionEntryEventRef: invocation.publicOperationEventRef,
+    sourceFactConserved: true, coldEquivalent: true,
+    scope: "pure owner projection over genuine closed events; no new admission or native execution" }));
+});
+
 test("retained source-bound C2 replay preserves external owner facts and local Run scope", async t => {
   const attempt = process.env.ABI5_STEEL_C2_ATTEMPT_PATH;
   if (!attempt) {

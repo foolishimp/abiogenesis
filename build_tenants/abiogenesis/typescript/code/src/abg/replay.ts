@@ -1731,8 +1731,13 @@ function projectOwnerFacts(
           event.payload.invocationAdmissionRef,
         )
       : null;
-    const predecessor = validatedRuntimeEventPrefixBeforeEvent(authorityPrefix, event.eventId);
-    const derived = isSemanticRecord(asserted) && isInvocationSourceResultBasis(asserted)
+    // The public-operation and invocation events are one atomic admission.
+    // Its source was checked at entry, before either event. A liveness read
+    // inside that pair identifies a different observation prefix.
+    const predecessor = invocation === null ? null : validatedRuntimeEventPrefixBeforeEvent(
+      authorityPrefix, invocation.publicOperationEventRef,
+    );
+    const derived = predecessor !== null && isSemanticRecord(asserted) && isInvocationSourceResultBasis(asserted)
       ? deriveInvocationSourceResultBasisAtPrefix(predecessor, {
           publicAuthorityDigest: asserted.publicAuthorityDigest,
           runtimeInvocationRef: asserted.sourceInvocationRef,

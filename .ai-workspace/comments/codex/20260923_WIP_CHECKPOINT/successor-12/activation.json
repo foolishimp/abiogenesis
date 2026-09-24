@@ -1,0 +1,10 @@
+{
+  "role": "Writer",
+  "model": "gpt-6-astra",
+  "effort": "max",
+  "basisCommit": "c6f6cd257f531843251a3db42971409b4a908d74",
+  "authority": "Root authorized bounded current-tracking and paired checkpoint/push; no implementation or execution grant here.",
+  "currentDeliveryActivation": "NATIVE_FULL_HELLO_FRESH_START_IMPLEMENTATION",
+  "sourceSubject": "aeb6148e3f80881fafeff26f8eaebff96f848cc7b8e99c70c92ccb5a4e8ece57",
+  "scope": "Accepted replay source/test, compiled14 construction, helper contract/retention repairs, four current trackers and finite closed basic-cli C1/C2/readback evidence. Full odd_glc fresh-source sandbox remains required; new source implementation is a separate excluded Worker activation."
+}

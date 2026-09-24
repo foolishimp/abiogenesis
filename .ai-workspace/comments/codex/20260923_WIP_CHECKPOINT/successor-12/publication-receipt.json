@@ -1,0 +1,18 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "c6f6cd257f531843251a3db42971409b4a908d74",
+  "commitIdentity": "Commit containing this receipt; exact local and remote identities recorded in external post-push receipt",
+  "newMembers": 36,
+  "newLogicalBytes": 12481330,
+  "newTransportBytes": 10667019,
+  "restoration": "Every newly banked member restored and compared with original and selected freeze; prior bank payload proof reused without rereading/reupload",
+  "scope": "Accepted replay source/test, compiled14 construction, helper contract/retention repairs, four current trackers and finite closed basic-cli C1/C2/readback evidence. Full odd_glc fresh-source sandbox remains required; new source implementation is a separate excluded Worker activation.",
+  "excluded": [
+    "All pending NATIVE_FULL_HELLO_FRESH_START_IMPLEMENTATION source/HOW/tests and evidence: excluded, no source acceptance/package/paid launch claim",
+    "The five remaining reduced Hello cases: not launched; retention syntax only, new actual setup-record validation pending",
+    "Original/S02/Data Mapper resources, active/live journals, locks, worksite files, active installs/node_modules and scratch: excluded",
+    "Duplicated setup call+receipt trees and unrelated historical untracked outputs: preserved locally, not staged",
+    "Q07 prepared/incomplete; operator-stop installed readback and qualification/RC1 remain open"
+  ],
+  "allowedGitEffects": "One ordinary main commit and nonforce push, then remote ref verification"
+}

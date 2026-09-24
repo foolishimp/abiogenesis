@@ -1,0 +1,54 @@
+{
+  "directExpected": {
+    "specification/GOALS.md": {
+      "sha256": "a04fdb3415657f2d5c9bcbb0fdbda523c51cb3119a3671e4d64087780e6e1e9a",
+      "byteLength": 60043,
+      "proof": "Root accepted finite source/generated selection or current Writer tracking projection"
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "feef9fe2087b859b61d192eef4c795600643008e35f8e9b2f9d3194968d6d8a5",
+      "byteLength": 342635,
+      "proof": "Root accepted finite source/generated selection or current Writer tracking projection"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts": {
+      "sha256": "e930116a94cffdb4ca50e6081c9712264106f98b1b30b0dcad7045389c377ca1",
+      "byteLength": 86502,
+      "proof": "Root accepted finite source/generated selection or current Writer tracking projection"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/steel-basic-cli-source-replay.test.mjs": {
+      "sha256": "0d49a00e327e397245cb6afb4048bfd3a1896366c206735b4967a1359002c7c1",
+      "byteLength": 13954,
+      "proof": "Root accepted finite source/generated selection or current Writer tracking projection"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "94a64c449bd86ab886d41692c0b51e0475a6386bfe23ff7acd69c2cb4b7f7873",
+      "byteLength": 197474,
+      "proof": "Root accepted finite source/generated selection or current Writer tracking projection"
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "1a5e8284ab648990c329350221b3433ca6206c601c28d9a74c42cd136ed7544c",
+      "byteLength": 2377071,
+      "proof": "Root accepted finite source/generated selection or current Writer tracking projection"
+    }
+  },
+  "banks": [
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12/transport-01",
+      "catalogSha256": "6cb8cbdb31e9e351009440b82c2dfc7c693a1ed24fdf79db8b9f02b147bd8e42",
+      "indexSha256": "b120c15073a98fdc842d2c80734a3c26c9f70161069f749e55e316eadfa07d30",
+      "verificationSha256": "3bc7e40d082e9dc70277c7f4cacd2970bcc5d0f0a702cdfdb42e903fb3f4924d",
+      "members": 36,
+      "logicalBytes": 12481330,
+      "transportBytes": 10667019
+    }
+  ],
+  "scope": "Accepted replay source/test, compiled14 construction, helper contract/retention repairs, four current trackers and finite closed basic-cli C1/C2/readback evidence. Full odd_glc fresh-source sandbox remains required; new source implementation is a separate excluded Worker activation.",
+  "excluded": [
+    "All pending NATIVE_FULL_HELLO_FRESH_START_IMPLEMENTATION source/HOW/tests and evidence: excluded, no source acceptance/package/paid launch claim",
+    "The five remaining reduced Hello cases: not launched; retention syntax only, new actual setup-record validation pending",
+    "Original/S02/Data Mapper resources, active/live journals, locks, worksite files, active installs/node_modules and scratch: excluded",
+    "Duplicated setup call+receipt trees and unrelated historical untracked outputs: preserved locally, not staged",
+    "Q07 prepared/incomplete; operator-stop installed readback and qualification/RC1 remain open"
+  ],
+  "sourcePostimageMutationByWriter": false
+}

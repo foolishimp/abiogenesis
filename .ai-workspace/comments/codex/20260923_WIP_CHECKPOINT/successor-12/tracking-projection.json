@@ -1,0 +1,20 @@
+{
+  "role": "Writer gpt-6-astra/max",
+  "authority": "Root bounded checkpoint activation after accepted installed basic-cli recovery",
+  "files": [
+    {
+      "path": "specification/GOALS.md",
+      "preimageSha256": "946359d2549e75c71ca001b757f1bb06cb2f10a9ce69142a473164e1dbb70961",
+      "postimageSha256": "a04fdb3415657f2d5c9bcbb0fdbda523c51cb3119a3671e4d64087780e6e1e9a"
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimageSha256": "36701393f6a55450998a1442bf3ac3a8be55fce1e160ad6e231b19068cb4513f",
+      "postimageSha256": "feef9fe2087b859b61d192eef4c795600643008e35f8e9b2f9d3194968d6d8a5"
+    }
+  ],
+  "historicalRecordsRewritten": false,
+  "noNewExecutionAuthority": true,
+  "currentActivation": "NATIVE_FULL_HELLO_FRESH_START_IMPLEMENTATION",
+  "newWorkerSourceAcceptance": false
+}

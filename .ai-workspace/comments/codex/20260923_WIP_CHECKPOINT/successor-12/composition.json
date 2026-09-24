@@ -1,0 +1,44 @@
+{
+  "basisCommit": "c6f6cd257f531843251a3db42971409b4a908d74",
+  "inherited": "successor-11/composition.json and unchanged prior bank indexes",
+  "newBanks": [
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-12/transport-01",
+      "catalogSha256": "6cb8cbdb31e9e351009440b82c2dfc7c693a1ed24fdf79db8b9f02b147bd8e42",
+      "indexSha256": "b120c15073a98fdc842d2c80734a3c26c9f70161069f749e55e316eadfa07d30",
+      "verificationSha256": "3bc7e40d082e9dc70277c7f4cacd2970bcc5d0f0a702cdfdb42e903fb3f4924d",
+      "members": 36,
+      "logicalBytes": 12481330,
+      "transportBytes": 10667019
+    }
+  ],
+  "newMembers": 36,
+  "newLogicalBytes": 12481330,
+  "newTransportBytes": 10667019,
+  "priorPayloadReadOrReupload": false,
+  "scope": "Accepted replay source/test, compiled14 construction, helper contract/retention repairs, four current trackers and finite closed basic-cli C1/C2/readback evidence. Full odd_glc fresh-source sandbox remains required; new source implementation is a separate excluded Worker activation.",
+  "excluded": [
+    "All pending NATIVE_FULL_HELLO_FRESH_START_IMPLEMENTATION source/HOW/tests and evidence: excluded, no source acceptance/package/paid launch claim",
+    "The five remaining reduced Hello cases: not launched; retention syntax only, new actual setup-record validation pending",
+    "Original/S02/Data Mapper resources, active/live journals, locks, worksite files, active installs/node_modules and scratch: excluded",
+    "Duplicated setup call+receipt trees and unrelated historical untracked outputs: preserved locally, not staged",
+    "Q07 prepared/incomplete; operator-stop installed readback and qualification/RC1 remain open"
+  ],
+  "rootAcceptance": {
+    "status": "accepted_source_readiness_and_bounded_installed_basic_cli_proof",
+    "replaySourceSubject": "aeb6148e3f80881fafeff26f8eaebff96f848cc7b8e99c70c92ccb5a4e8ece57",
+    "compiled14ReturnSha256": "32fba29d0cc65fd0150d3e499d30673d8120b51a2235bf84121cff8448daedf1",
+    "basicCliReadbackReturnSha256": "1eda41aafdf20b4de3a4007f6c737ae19bdbfa81b2cd9448090b6c4af3bd3370",
+    "retentionPostimage": "8216dd9411235657d98206449611f38673e51323ef1ee2b692afc450e30281d7",
+    "retentionActualNewRecordValidation": "pending; no remaining case launched",
+    "fullSandbox": "required; separate source/HOW implementation only, not accepted or packaged or launched",
+    "scope": "Accepted replay source/test, compiled14 construction, helper contract/retention repairs, four current trackers and finite closed basic-cli C1/C2/readback evidence. Full odd_glc fresh-source sandbox remains required; new source implementation is a separate excluded Worker activation.",
+    "exclusions": [
+      "All pending NATIVE_FULL_HELLO_FRESH_START_IMPLEMENTATION source/HOW/tests and evidence: excluded, no source acceptance/package/paid launch claim",
+      "The five remaining reduced Hello cases: not launched; retention syntax only, new actual setup-record validation pending",
+      "Original/S02/Data Mapper resources, active/live journals, locks, worksite files, active installs/node_modules and scratch: excluded",
+      "Duplicated setup call+receipt trees and unrelated historical untracked outputs: preserved locally, not staged",
+      "Q07 prepared/incomplete; operator-stop installed readback and qualification/RC1 remain open"
+    ]
+  }
+}

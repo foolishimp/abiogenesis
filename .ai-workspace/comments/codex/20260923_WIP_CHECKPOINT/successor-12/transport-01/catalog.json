@@ -1,0 +1,61 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "c6f6cd257f531843251a3db42971409b4a908d74",
+  "scope": "Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 36
+  },
+  "archiveMemberCount": 36,
+  "archiveMemberBytes": 12481330,
+  "transportBytes": 10667019,
+  "assets": [
+    {
+      "id": "raw-67bfd24c9a41286194d59ea9730c804a06a52a024bdf7fbe32fdcf3c80026279",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10133068,
+      "sha256": "67bfd24c9a41286194d59ea9730c804a06a52a024bdf7fbe32fdcf3c80026279",
+      "parts": [
+        {
+          "path": "payloads/raw-67bfd24c9a41286194d59ea9730c804a06a52a024bdf7fbe32fdcf3c80026279.part0000",
+          "byteLength": 10133068,
+          "sha256": "67bfd24c9a41286194d59ea9730c804a06a52a024bdf7fbe32fdcf3c80026279"
+        }
+      ]
+    },
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS",
+      "byteLength": 530584,
+      "sha256": "b88f1ab967f473feb88f67227336e179754ec2c3c35b989a1a8ffce7e3f9d9f5",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 530584,
+          "sha256": "b88f1ab967f473feb88f67227336e179754ec2c3c35b989a1a8ffce7e3f9d9f5"
+        }
+      ]
+    },
+    {
+      "id": "family-0001",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT",
+      "byteLength": 3367,
+      "sha256": "79d6b6f2a9208a237f9e0f421018df9f6950eea87cf83d184054d72c1aa8de20",
+      "parts": [
+        {
+          "path": "payloads/family-0001.tar.gz.part0000",
+          "byteLength": 3367,
+          "sha256": "79d6b6f2a9208a237f9e0f421018df9f6950eea87cf83d184054d72c1aa8de20"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "b120c15073a98fdc842d2c80734a3c26c9f70161069f749e55e316eadfa07d30",
+  "reconciliationSha256": "e425701e8dd43c742ae051bfb59f6960ba8440ae87a7931aca9e5e0ee2489bf5",
+  "pendingActiveEvidence": [],
+  "credentialShapeFindingCount": 0
+}
