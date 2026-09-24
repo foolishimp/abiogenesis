@@ -1,0 +1,18 @@
+{
+  "role": "Writer gpt-6-astra/max",
+  "files": [
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimageSha256": "a39222396483b71c89784abb58b0832f2004574687877cdf0840de252c15b019",
+      "postimageSha256": "65d61450cd4606824f39c94a1c759d6d8740d939ae7eb66b7be4e8bfdf71e56b"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "preimageSha256": "3488c4e20cde5b3a0c3da68ade74638e4b3c99f3ce694a787c94383fb770683d",
+      "postimageSha256": "83616a1f93566070e2e19bf510765f174f857719f7011f2c32126fdc8abf56f9"
+    }
+  ],
+  "sourceEdits": false,
+  "historicalEvidenceRewritten": false,
+  "scope": "Completed accepted source/generated/core13 and finite CLOSED evidence checkpoint, independent of the authorized one-launch GLC steel thread. Q07, operator-stop readback and paired checkpoint are not launch prerequisites. No execution or qualification outcome is inferred."
+}

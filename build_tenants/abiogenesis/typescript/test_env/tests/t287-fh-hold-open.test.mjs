@@ -128,3 +128,96 @@ test('actual S02 pending F_H transaction holds in its Run while retaining full w
  if(process.env.ABI5_FH_HOLD_EVIDENCE)fs.writeFileSync(join(process.env.ABI5_FH_HOLD_EVIDENCE,'component-observations.json'),JSON.stringify(result,null,2)+'\n');
  t.diagnostic(JSON.stringify({baselineRoute:baselineGuard.admitted,correctedRoute:observations.at(-1).admitted,appended:appended.length,refusals:4}));
 });
+
+test('operator stop preserves the held obligation and current Run reads while terminal cleanup remains scoped',async t=>{
+ const {loadMechanism}=await import('../support/witness-reprice-mechanics.mjs');
+ const currentLoad=p=>import(pathToFileURL(join(root,'build/code/src',p+'.js')));
+ const [storeOwner,prefixOwner,witness,coordinates,baselineCalculus]=await Promise.all([
+  'abg/event_store','abg/event_prefix','abg/witness_admission_operation','shared/operation_definition_coordinate','abg/event_calculus'].map(currentLoad));
+ const calculus=await loadMechanism('abg/event_calculus.js');
+ const continuation=await loadMechanism('abg/fh_continuation_projection.js',{'./event_calculus.js':calculus});
+ const replayOwner=await loadMechanism('abg/replay.js',{'./event_calculus.js':calculus,'./continuation.js':continuation});
+ const reads=await loadMechanism('abg/project_read_ports.js',{'./event_calculus.js':calculus,'./replay.js':replayOwner});
+ const readContracts=await loadMechanism('abg/project_read_operation_contracts.js');
+ const readBinding=await loadMechanism('abg/project_read_definition_bindings.js',{'./project_read_ports.js':reads,'./project_read_operation_contracts.js':readContracts},['outputFor']);
+ const retainedPath=join(repo,'.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-stop-request.json');
+ const retainedBytes=fs.readFileSync(retainedPath),retained=JSON.parse(retainedBytes).invocation;
+ const observations=[];
+ const save=()=>{if(process.env.ABI5_OPERATOR_STOP_EVIDENCE)fs.writeFileSync(join(process.env.ABI5_OPERATOR_STOP_EVIDENCE,'component-observations.json'),JSON.stringify({
+  kind:'held_operator_stop_component_evidence',retainedRequestDigest:byteHash(retainedBytes),observations,
+  premises:'Existing copied F_H fixture and explicit lower witness authority; no Public operator, original resource or installed qualification claim',
+ },null,2)+'\n');};
+ for(const reasonKind of ['operator_stop','external_interruption']){
+  const f=fixture(t),holdOwner=await sourceOwner(false),held=holdOwner.admitFhInteractionHold(f.input);
+  const handoff=f.opened.store.projectReopenAuthorityAndClose(),opened=storeOwner.reopenEventStore(handoff.reopenAuthority);
+  assert.ok(opened.store,JSON.stringify(opened));t.after(()=>opened.store.closeDurableLog());
+  const heldRows=opened.store.readAll(),opening=heldRows.find(e=>e.kind==='run_segment_opened'&&e.runId===runId);
+  const nativeRun={ref:runId,digest:opening.payload.runDigest};
+  const basis={ref:opening.payload.executionBasisRef,digest:opening.payload.executionBasisDigest};
+  const w=f.input.productBasis.workspaceBinding,workspaceBinding={ref:w.bindingId,digest:w.bindingDigest};
+  const contentValue={...retained.request.content.value,reasonKind},valueDigest=hash(contentValue);
+  const packet={kind:'witness_admit_packet',schemaVersion:'5.0.0',memberKey:'run-stopped',prefix:opened.prefix,
+   actor:retained.invocationAuthority.slots.actor.actor,subject:{kind:'run',...nativeRun},act:'run-stopped',
+   content:{...retained.request.content,value:contentValue,valueDigest,valueRef:'witness-content://abiogenesis/'+valueDigest.slice(7)},
+   context:{kind:'run',run:nativeRun,basis},evidence:[nativeRun],provenance:[basis]};
+  // This is an explicit component admission-authority premise. The installed
+  // Public stop already succeeded; this test isolates its downstream fold.
+  const operationBasis={...coordinates.constructExactOperationInvocationCoordinate({operationId:'abg.operation.witness.admit',memberKey:'run-stopped',definitionDigest:retained.definitionDigest},
+   'invocation://component/held-stop/'+reasonKind,hash(packet)),authorityScopeRef:workspaceBinding.ref,authorityScopeDigest:workspaceBinding.digest,
+   correlationId:'correlation://component/held-stop/'+reasonKind,eventTime:retained.eventTime,causationEventRefs:[w.admissionEventRef]};
+  const authority={kind:'witness_admission_authority',schemaVersion:'5.0.0',operationBasis,predecessorPrefix:opened.prefix,workspaceBinding,
+   productSet:{ref:'product-set://component/held-stop',digest:hash('component product-set premise')},
+   dependencyLock:retained.invocationAuthority.slots.dependency_lock,actor:packet.actor,
+   capabilityGrant:retained.invocationAuthority.slots.capability_grants.grants[0],executionBasis:basis};
+  const before=reads.prepareRunReadAtDurablePrefix(opened.prefix,'run_status',runId);assert.ok(before,'component Run is readable before stop');
+  const beforeValue=before.project();
+  const stop=witness.admitWitnessedAct(packet,authority,{kind:'witness_admission_dependencies',schemaVersion:'5.0.0',eventStore:opened.store});
+  assert.equal(stop.kind,'witness_admission',JSON.stringify(stop));
+  const full=prefixOwner.selectValidatedRuntimeEventPrefix(opened.store.readAll()),run=prefixOwner.selectRuntimeEventPrefixFromAuthority(full,{runId});
+  const projection=calculus.deriveRuntimeEventCalculusProjection(run);
+  const observation={reasonKind,before:beforeValue,stop,retainedContinuation:held.continuation.continuationRef};observations.push(observation);
+  try{observation.replay=replayOwner.replayValidatedRuntimeEventPrefix(run,full);}
+  catch(error){observation.firstCause={name:error.name,message:error.message,stack:error.stack};
+   observation.preparedRead=reads.prepareRunReadAtDurablePrefix(stop.successorPrefix,'run_status',runId);save();throw error;}
+  assert.equal(observation.replay.runtimeStatus,'stopped');assert.equal(observation.replay.continuations[0].status,'open');
+  assert.equal(observation.replay.continuations[0].terminalEventRef,null);
+  assert.equal(calculus.holdsAt(projection,calculus.constructRuntimeFluent({name:'run_active',identity:runId})),false);
+  assert.equal(calculus.holdsAt(projection,calculus.constructRuntimeFluent({name:'operator_run_stopped',identity:runId})),true);
+  const heldNames=new Set(['continuation_open','continuation_response_available','frame_held','interaction_pending']);
+  const withoutHeld=p=>({...p,holds:p.holds.filter(f=>!heldNames.has(f.name)),effectRows:p.effectRows.map(row=>({...row,terminates:row.terminates.filter(f=>!heldNames.has(f.name))}))});
+  assert.deepEqual(withoutHeld(projection),withoutHeld(baselineCalculus.deriveRuntimeEventCalculusProjection(run)),'all other Run/process/locus cleanup remains identical');
+  const sameAuthority={...authority,predecessorPrefix:stop.successorPrefix,
+   operationBasis:{...operationBasis,...coordinates.constructExactOperationInvocationCoordinate({operationId:operationBasis.operationId,memberKey:operationBasis.memberKey,definitionDigest:operationBasis.definitionDigest},operationBasis.invocationRef+'/again',hash('again'))}};
+  const refused=witness.admitWitnessedAct({...packet,prefix:stop.successorPrefix},sameAuthority,{kind:'witness_admission_dependencies',schemaVersion:'5.0.0',eventStore:opened.store});
+  assert.equal(refused.code,'act_forbidden');observation.repeatedStopRefusal=refused.code;
+  observation.reads={};
+  for(const member of ['run_status','run_result','run_replay']){
+   const prepared=reads.prepareRunReadAtDurablePrefix(stop.successorPrefix,member,runId);assert.ok(prepared,member);
+   assert.deepEqual(prepared.source,before.source);const value=prepared.project();
+   assert.equal('code'in value,member==='run_result',JSON.stringify(value));
+   if(member==='run_result')assert.equal(value.code,'target_absent','stop authors no traversal Result');
+   const request={caseKey:member,source:{sourceKind:'run',sourceRef:prepared.source.ref,sourceDigest:prepared.source.digest},
+    projectionBasis:{projectionBasisRef:stop.successorPrefix.eventLogRef,projectionBasisDigest:stop.successorPrefix.coordinateDigest},
+    selector:member==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:1000}:{kind:'none'}};
+   const output=readBinding.outputFor(readContracts.ABG_PROJECT_READ_CONTRACTS[member],request,member,value);
+   assert.equal(output.outcomeKind,member==='run_result'?'refusal':'result');
+   if(member==='run_result')assert.equal(output.value.code,'not_found','unchanged Public absent-Result mapping');
+   observation.reads[member]={nativeKind:value.kind,nativeCode:value.code??null,publicOutcome:output.outcomeKind,publicCode:output.value.code??null,source:prepared.source};
+  }
+  const close=opened.store.projectReopenAuthorityAndClose();
+  const coldRows=freeze(JSON.parse(JSON.stringify(opened.store.readAll()))),coldFull=prefixOwner.selectValidatedRuntimeEventPrefix(coldRows);
+  const cold=replayOwner.replayValidatedRuntimeEventPrefix(prefixOwner.selectRuntimeEventPrefixFromAuthority(coldFull,{runId}),coldFull);
+  assert.deepEqual(cold,observation.replay);observation.coldReplayMatches=true;observation.close=close;
+  observation.replay={runtimeStatus:observation.replay.runtimeStatus,continuations:observation.replay.continuations,runStoppedEventRef:observation.replay.runStoppedEventRef};
+  // The non-preserving cases retain their existing cleanup; no new terminal
+  // continuation semantics are introduced by this repair.
+  for(const terminalReason of ['operator_abort','campaign_close']){
+   const stopEvent=opened.store.readAll().at(-1),{eventId,admissionOrdinal,eventContractDigest,payloadDigest,...candidate}=stopEvent;
+   const terminal=storeOwner.projectRuntimeEventFromValidatedHistory(heldRows,{...candidate,causationEventRefs:[heldRows.at(-1).eventId],payload:{...candidate.payload,reasonKind:terminalReason}});
+   const terminalPrefix=prefixOwner.selectValidatedRuntimeEventPrefix(freeze([...heldRows,terminal])),terminalProjection=calculus.deriveRuntimeEventCalculusProjection(terminalPrefix);
+   assert.equal(calculus.holdsAt(terminalProjection,calculus.constructRuntimeFluent({name:'continuation_open',identity:held.continuation.continuationRef})),false);
+   assert.deepEqual(terminalProjection,baselineCalculus.deriveRuntimeEventCalculusProjection(terminalPrefix),'non-preserving terminal effects are unchanged');
+  }
+ }
+ save();
+});

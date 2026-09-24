@@ -1,0 +1,6 @@
+{
+  "command": "prepare_tail.py /Users/jim/src/apps/abiogenesis",
+  "exitCode": 1,
+  "cause": "Mechanical output-prefix replacement also changed the predecessor transport-reuse input path to nonexistent successor-10/tail-transport-reuse.json. No bank output or original evidence changed.",
+  "repair": "Restore only predecessor transport-reuse.json input; tail outputs retain their prefix."
+}

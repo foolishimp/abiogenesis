@@ -24,12 +24,13 @@ async function countHistory(path,action){
   try{return {value:await action(),work};}finally{Object.assign(fs,original);JSON.parse=parse;syncBuiltinESMExports();}
 }
 
-test('declared ABG export exposes the unchanged constructor data and only the selected callable',async()=>{
+test('declared ABG constructors remain unchanged and source binding exposes only selected callables',async()=>{
   const a=await import('../../build/code/src/abg/index.js');
+  const h=await witnessMechanics();
   assert.strictEqual(a.WITNESS_OPERATION_CONTRACTS,WITNESS_OPERATION_CONTRACTS);
   assert.strictEqual(a.WITNESS_CONTENT_CONTRACTS,nativeWitness.WITNESS_CONTENT_CONTRACTS);
-  assert.deepEqual(Object.keys(a.WITNESS_DEFINITION_BINDINGS.admit),['reprice']);
-  assert.equal(typeof a.WITNESS_DEFINITION_BINDINGS.admit.reprice,'function');
+  assert.deepEqual(Object.keys(h.binding.WITNESS_DEFINITION_BINDINGS.admit),['reprice','run-stopped']);
+  assert.equal(typeof h.binding.WITNESS_DEFINITION_BINDINGS.admit.reprice,'function');
 });
 
 test('exact DefinitionCall admits one native witness pair and fresh-process reads/replay agree (stubbed Product environment)',async()=>{
@@ -63,9 +64,10 @@ test('exact DefinitionCall admits one native witness pair and fresh-process read
   assert.equal(duplicated.code,'duplicate_invocation');assert.equal(rowCount(h),3);resources.closeAbgEventResource(reopened.resource,reopened.resource.entryPrefix);
 });
 
-test('reprice external approval is exact-member only; other witness members remain unsupported',async()=>{
+test('external approval remains exact-member only; unselected witness members remain unsupported',async()=>{
   const h=await witnessMechanics(),before=bytes(h);
-  for(const member of ['attest','hygiene-stamp','intake','run-resumed','run-stopped'])await assert.rejects(h.call({member}),/exact external approval, actor, request and owner scope/);
+  for(const member of ['attest','hygiene-stamp','intake','run-resumed'])await assert.rejects(h.call({member}),/exact external approval, actor, request and owner scope/);
+  await assert.rejects(h.call({member:'run-stopped'}),/exact external approval, actor, request and owner scope/,'reprice request cannot approve the stop member');
   await assert.rejects(h.call({changeAuthority:a=>{a.actorRef='actor://foreign';}}),/exact external approval/);
   await assert.rejects(h.call({changeAuthority:a=>{a.approval.value.decision='deny';a.approval.digest=hash(a.approval.value);}}),/valid external authority/);
   await assert.rejects(h.call({changeBasis:b=>{b.ownerArtifact.request.artifactRef='artifact://foreign';}}),/verified executing artifact/);

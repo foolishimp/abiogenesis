@@ -4,6 +4,7 @@ import {createHash} from 'node:crypto';
 import {resolve,join,dirname} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {SourceTextModule,SyntheticModule} from 'node:vm';
+import ts from 'typescript';
 import * as events from '../../build/code/src/abg/event_store.js';
 import * as resources from '../../build/code/src/abg/definition_event_resource.js';
 import * as nativeWitness from '../../build/code/src/abg/witness_admission_operation.js';
@@ -21,8 +22,12 @@ import {canonicalJson} from '../../build/code/src/shared/canonical_json.js';
 export {hash,events,resources,nativeWitness,WITNESS_OPERATION_CONTRACTS,admitExactDefinitionCall};
 const schemaVersion='5.0.0',root=resolve(import.meta.dirname,'../..');
 const coord=(ref,value)=>({ref,digest:hash(value)});
-export async function loadMechanism(relative,overrides={}) {
-  const path=join(root,'build/code/src',relative),module=new SourceTextModule(readFileSync(path,'utf8'),{
+export async function loadMechanism(relative,overrides={},names=[]) {
+  // Exercise the current owner source over unchanged emitted dependencies;
+  // this component fixture neither builds nor installs a candidate package.
+  const path=join(root,'build/code/src',relative),source=join(root,'code/src',relative.replace(/\.js$/,'.ts'));
+  const emitted=ts.transpileModule(readFileSync(source,'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText;
+  const module=new SourceTextModule(emitted+(names.length?'\nexport { '+names.join(', ')+' };':''),{
     identifier:path,initializeImportMeta:meta=>{meta.url=pathToFileURL(path).href;},
   }),links=new Map();
   await module.link(async specifier=>{
@@ -63,17 +68,22 @@ function declarationFixture() {
  * The fixed grant algorithm, call admission, event-resource ownership, native
  * witness transaction, event contracts and close/reopen machinery are real.
  */
-export async function witnessMechanics({faultNative=null,transactionFault=false,seedPayloadBytes=0,legacyProfile=false,beforeClose=null}={}) {
+export async function witnessMechanics({faultNative=null,transactionFault=false,seedPayloadBytes=0,legacyProfile=false,beforeClose=null,operatorRun=false,closedRun=false}={}) {
   const territory=process.env.ABI5_WITNESS_TEST_ROOT;assert.ok(territory);
-  assert.equal(resolve(territory),resolve(root,'../scratch'));
+  assert.equal(resolve(territory),territory,'explicit absolute disposable fixture territory');
   const scratch=mkdtempSync(join(territory,'witness-')),eventLogPath=join(scratch,'events.jsonl');
   const declaration=declarationFixture(),actor=coord('actor://mechanical/developer','actor'),oldW=coord('workspace-binding://mechanical/old','old W'),newW=coord('workspace-binding://mechanical/current','current W');
-  const historical=coord('execution-basis://mechanical/historical','historical basis');
-  // Contract-admitted fixture seed only: no claim of a reconstructed Run or
-  // real ExecutionBasis producer. No retained store is read, cloned or imported.
+  let historical=coord('execution-basis://mechanical/historical','historical basis');
+  const rawInputValue={kind:'mechanical-witness-seed',...(seedPayloadBytes?{material:'x'.repeat(seedPayloadBytes)}:{})};
+  const basisBody={basisClass:'root',rawInputValue,rawInputDigest:hash(rawInputValue),workspaceBindingId:newW.ref,workspaceBindingDigest:newW.digest,
+    invocationAdmissionRef:'invocation-admission://mechanical/run',invocationRef:'invocation://mechanical/run',programRef:'program://mechanical/stop',
+    graphFunctionRef:'graph-function://mechanical/stop',graphRef:'graph://mechanical/stop',graphDigest:hash('mechanical graph')};
+  if(operatorRun){const digest=hash(basisBody);historical={ref:'execution-basis://abiogenesis/'+digest.slice(7),digest};}
+  // Contract-admitted fixture basis and optional Run-open premises only: no
+  // real ExecutionBasis/Run producer claim. No retained store is imported.
   const seedCandidate={kind:'basis_admitted',eventTime:'2026-09-11T00:00:00.000Z',aggregateType:'workspace',aggregateId:oldW.ref,
     parentAggregateId:null,causationEventRefs:[],correlationId:'correlation://mechanical/seed',workflowVersion:schemaVersion,scopeClass:'workspace',basisId:historical.ref,
-    payload:{basisRef:historical.ref,basisDigest:historical.digest,basisClass:'root',rawInputValue:{kind:'mechanical-witness-seed',...(seedPayloadBytes?{material:'x'.repeat(seedPayloadBytes)}:{})}}};
+    payload:{...(operatorRun?basisBody:{basisClass:'root',rawInputValue}),basisRef:historical.ref,basisDigest:historical.digest}};
   let acquired,seed;
   if(legacyProfile){
     // Disposable raw legacy fixture only, using the unchanged native projector;
@@ -89,6 +99,33 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
     assert.ok('store'in acquired,JSON.stringify(acquired));seed=events.admitRuntimeEvent(acquired.store,seedCandidate);
   }
   assert.ok('store'in acquired,JSON.stringify(acquired));
+  const nativeRun=coord('run://mechanical/operator-stop','operator stop Run');let run=nativeRun;
+  if(operatorRun)events.admitRuntimeEvent(acquired.store,{kind:'run_segment_opened',eventTime:seed.eventTime,
+    aggregateType:'run',aggregateId:run.ref,parentAggregateId:newW.ref,causationEventRefs:[seed.eventId],
+    correlationId:seed.correlationId,workflowVersion:schemaVersion,scopeClass:'run',basisId:historical.ref,runId:run.ref,
+    graphFunctionRef:basisBody.graphFunctionRef,
+    payload:{runId:run.ref,runDigest:run.digest,executionBasisRef:historical.ref,executionBasisDigest:historical.digest,
+      ...Object.fromEntries(['invocationAdmissionRef','invocationRef','workspaceBindingId','programRef','graphFunctionRef','graphRef','graphDigest'].map(k=>[k,basisBody[k]]))}});
+  const replayOwner=await loadMechanism('abg/replay.js');
+  const readOwner=operatorRun?await loadMechanism('abg/project_read_ports.js',{'./replay.js':replayOwner}):null;
+  const readContracts=operatorRun?await loadMechanism('abg/project_read_operation_contracts.js'):null;
+  const readBinding=operatorRun?await loadMechanism('abg/project_read_definition_bindings.js',{'./project_read_ports.js':readOwner,'./project_read_operation_contracts.js':readContracts},['outputFor']):null;
+  function publicStatus(prefix){
+    const prepared=readOwner.prepareRunReadAtDurablePrefix(prefix,'run_status',nativeRun.ref);assert.ok(prepared,'actual current Public Run source owner');
+    const request={caseKey:'run_status',source:{sourceKind:'run',sourceRef:prepared.source.ref,sourceDigest:prepared.source.digest},
+      projectionBasis:{projectionBasisRef:prefix.eventLogRef,projectionBasisDigest:prefix.coordinateDigest},selector:{kind:'none'}};
+    const result=readBinding.outputFor(readContracts.ABG_PROJECT_READ_CONTRACTS.run_status,request,'run_status',prepared.project());
+    assert.equal(result.outcomeKind,'result',JSON.stringify(result));return result.value;
+  }
+  if(operatorRun)run=publicStatus(events.selectHeldEventStoreDurablePrefix(acquired.store)).source;
+  if(closedRun){
+    assert.equal(operatorRun,true);
+    const opening=events.readRuntimeEventsAtDurablePrefix(events.selectHeldEventStoreDurablePrefix(acquired.store)).at(-1);
+    events.admitRuntimeEvent(acquired.store,{kind:'run_closed',eventTime:seed.eventTime,
+      aggregateType:'run',aggregateId:run.ref,parentAggregateId:newW.ref,causationEventRefs:[opening.eventId],
+      correlationId:seed.correlationId,workflowVersion:schemaVersion,scopeClass:'run',basisId:historical.ref,runId:run.ref,
+      payload:{runId:run.ref,graphCallClosedEventRef:'event://mechanical/graph-call-close',closureContractRef:'closure-contract://mechanical/stop'}});
+  }
   let handoff=acquired.store.projectReopenAuthorityAndClose();
   const ownerManifest={kind:'mechanical-manifest-preimage',schemaVersion};
   const verified={kind:'verified_product_artifact',schemaVersion,disposition:'verified',artifactRef:'artifact://mechanical/owner',artifactDigest:hash('artifact'),
@@ -112,15 +149,16 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
   invocation=await loadMechanism('product/invocation.js',{'./admission_authority.js':authority});
   const witnessOwner=transactionFault?await loadMechanism('abg/witness_admission_operation.js',{
     './event_store.js':{admitRuntimeEvent:(store,candidate)=>{
-      if(candidate.kind==='declaration_reprice_admitted')throw new Error('injected second-event transaction failure');
+      if(candidate.kind==='declaration_reprice_admitted'||candidate.kind==='run_stopped')throw new Error('injected second-event transaction failure');
       return events.admitRuntimeEvent(store,candidate);
     }},
   }):nativeWitness;
   const binding=await loadMechanism('abg/witness_definition_bindings.js',{
+    './replay.js':replayOwner,
     '../product/admission_authority.js':authority,
     './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:projection},
     './witness_admission_operation.js':{admitWitnessedAct:(...args)=>{nativeCalls++;observed.push(structuredClone(args.slice(0,2)));return faultNative?.(...args)??witnessOwner.admitWitnessedAct(...args);}},
-    './definition_event_resource.js':{closeAbgEventResource:(...args)=>{beforeClose?.(...args);return resources.closeAbgEventResource(...args);}},
+    './definition_event_resource.js':{completeAbgEventResource:(...args)=>{beforeClose?.(...args);return resources.completeAbgEventResource(...args);}},
   });
   function request(overrides={}) {
     const content={declarationRef:oldW.ref,beforeDigest:oldW.digest,afterDigest:newW.digest,changeClass:'realization_refactor',owningTicketRef:'ticket://T-287',reason:'Mechanical witness binding proof only'};
@@ -128,12 +166,13 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
     return {subjectKind:'authority_basis',subject:historical,act:'reprice',content:{kind:'typed_payload',contentContract:{ref:contentContract.ref,digest:contentContract.digest},value:content},
       context:{kind:'basis',basis:historical},evidence:[oldW,newW],provenance:[historical],...overrides};
   }
-  async function call({request:body=request(),member='reprice',changeBasis=()=>{},changeAuthority=()=>{},serial='one'}={}) {
+  async function call({request:body=request(),member='reprice',changeBasis=()=>{},changeAuthority=()=>{},serial='one',eventResource=null}={}) {
     const fixedPacket=WITNESS_OPERATION_CONTRACTS.admit[member],definition=declaration.definitions.find(row=>row.definitionKey.operationId==='abg.operation.witness.admit'&&row.definitionKey.memberKey===member);
     const contracts=declaration.byKey.get('abg.operation.witness.admit#'+member);
-    const resource={kind:'witness_reprice_resource_assertion',schemaVersion,eventResource:{kind:'reopen_abg_event_resource',schemaVersion,closeHandoff:handoff,handoffDigest:hash(handoff)}};
+    const resource={kind:member==='run-stopped'?'witness_run_stopped_resource_assertion':'witness_reprice_resource_assertion',schemaVersion,eventResource:eventResource??{kind:'reopen_abg_event_resource',schemaVersion,closeHandoff:handoff,handoffDigest:hash(handoff)}};
     const slots=Object.fromEntries(['workspace_binding','product_set','dependency_lock','catalog_scope','execution_program','graph_function','input_contract','session_policy','capability_grants','actor','transport_steering','verification_references','execution_basis'].map(key=>[key,null]));
     Object.assign(slots,{workspace_binding:newW,product_set:[productInstallCoordinate(install)],dependency_lock:{ref:environment.resolvedProductLock.lockId,digest:environment.resolvedProductLock.lockDigest},actor:{actor,attribution:coord('attribution://mechanical/developer','explicit actor attribution')}});
+    if(member==='run-stopped')slots.execution_basis=body.context.basis;
     const basis={kind:'admission_capability_data',schemaVersion,definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,
       owner:{ref:fixedPacket.owner.authorityRef,digest:fixedPacket.owner.authorityDigest}},ownerArtifact:{request:{artifactPath:join(scratch,'unverified-fixture-placeholder.tgz'),artifactRef:verified.artifactRef,
         expectedArtifactDigest:verified.artifactDigest,expectedProductContentDigest:verified.productContentDigest,expectedManifestDigest:verified.manifestDigest,expectedProductId:verified.productId,expectedPackageName:'@mechanical/witness',expectedPackageVersion:'5.0.0'},verified},request:body,
@@ -153,7 +192,7 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
     return {invocation:{...invocationBody,invocationDigest,invocationRef:`invocation://abiogenesis/${invocationDigest.slice(7)}`},resources:{...resource,admissionAuthority:{basis,authority:external,grants}}};
   }
   function advance(receipt){handoff=receipt.resources.eventResource.closeHandoff;environment={...environment,prefix:handoff.prefix};}
-  return {scratch,eventLogPath,seed,historical,oldW,newW,actor,get environment(){return environment;},verified,declaration,authority,invocation,binding,request,call,advance,
+  return {scratch,eventLogPath,seed,historical,oldW,newW,actor,operatorRun:run,nativeOperatorRun:nativeRun,publicStatus,replayOwner,get environment(){return environment;},verified,declaration,authority,invocation,binding,request,call,advance,
     setProjection:fn=>{projectionOverride=fn;},get nativeCalls(){return nativeCalls;},get observed(){return observed;},get handoff(){return handoff;},
-    run:call=>runExactDefinition(call,binding.WITNESS_DEFINITION_BINDINGS.admit.reprice(call))};
+    run:call=>runExactDefinition(call,binding.WITNESS_DEFINITION_BINDINGS.admit[call.invocation.definitionKey.memberKey](call))};
 }

@@ -15,7 +15,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Recovery02, original first F_D/J/R10 and seven S02 case outcomes are accepted at their observed scopes. Original full continuation and mixed S02 failed; Root accepted both source repairs and combined compiled10/dev.6 package/caller readiness is CLOSED and Root-accepted; affected original03/mixed18 native verification selected after checkpoint. Affected native re-execution precedes remaining S1–S5/oracle, QUAL056/F11/AF22, qualification/RC1 and human acceptance. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO 2.5.1 RC1. Original03 closed with accepted repaired F_P/admission/foldback and truthful construction-only block; 35 files unchanged. Mixed18 truthful human hold/fresh reads accepted; seven prior S02 passes retained. Accepted compiled13/dev.7 GLC steel thread selected for one launch; active outcome unclaimed. Stop03 source accepted; installed stopped-Run readback remains a release check. Q07 prepared/incomplete; paired checkpoint proceeds independently. S1–S5/oracle, qualification, QUAL056/F11/AF22 and RC1 remain open. |
 
 ## Current Selection
 
@@ -24,7 +24,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original
 job/S1–S5/oracle, five selected/four outside residuals and protected worksite.
 ABG uses STDO 2.5.1 RC1; GLC remains on RC4. Earlier bounded acceptances remain
-historical evidence. [Root disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation09-disposition/disposition.md) owns the current conjunction.
+historical evidence. [Root disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation09-disposition/disposition.md) retains the predecessor conjunction.
 
 Predecessor core04/consumer01/caller02 source readiness and compiled09/dev.5
 [package/caller readiness](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-review-01/package-readiness-return.md)
@@ -48,8 +48,7 @@ The seven passes and earlier nested-compose acceptance are preserved.
 (`96dfe183…`) are accepted by Root for source readiness after [max independent review](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation-repair-review-01/return.md)
 (`0ae3209b…`). [Combined compiled10/dev.6 package and caller readiness](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/disposition.md)
 is CLOSED: archives `7b6791d3…` / `4f96ba95…`, exact offline install verification,
-original caller03 and mixed-only continuation18. Root accepts that readiness and selects original03 plus mixed18 native verification
-after the paired checkpoint; no repaired native outcome is yet claimed.
+original caller03 and mixed-only continuation18. Root accepts [original03](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/return.md) for repaired F_P/admission/foldback and its truthful construction-only `stage_revision_required` block; all 35 files remain unchanged and the genuine close is 1,285,520,237 B with fresh outcomes. [Mixed18](../.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/return.md) reached truthful human hold with accepted fresh-read scope; its result-only caller assertion defect remains retained. Seven prior S02 passes are preserved. [Accepted compiled13](../.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-13/return.md) and existing dev.7 now supply the selected one-launch GLC Design-reentry steel thread; the execution Worker owns the identity-only caller rebind and native outcome. The retained selector, ordinary first-J/R10 authentication and current Design-absence check stay on that path. Operator stop was admitted once on retained S02-19. Its preserving-obligation [source repair](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/review-01/return.md) is accepted; fresh installed status/replay readback remains pending at the release boundary, with absent Result still expected as Public `not_found`. Q07 is prepared/incomplete and carries no qualification acceptance. Q07 completion, independent stop readback and this paired checkpoint are not launch prerequisites. Full S1–S5/oracle, qualification, QUAL056/F11/sole AF22 and RC1 remain open.
 No first-J stop, new producer campaign, heap/timer/model increase or automatic
 retry is selected by this tracking update.
 
@@ -64,11 +63,7 @@ incremental admitted state and appends events; reconstruction belongs to genuine
 cold acquisition/recovery when state is absent. This records scope interpretation,
 not a hardcoded mode or new Product law.
 
-Last pushed predecessor readiness remains ABI `2b9e540…` / GLC `8fd1de6…`.
-Reviewed repair source, generated successor and finite evidence are selected for
-the paired checkpoint. Root accepts package readiness and authorizes the two
-affected native verifications after successful remote checks; execution and release
-outcomes remain unclaimed. [Root selection](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/root-disposition.json).
+Predecessor readiness ABI `2b9e540…` / GLC `8fd1de6…` and the paired successor10 selection remain historical. The one-launch GLC steel thread is selected under [current Root disposition](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-11/root-disposition.json); its active outcome is not claimed by this checkpoint. [Historical successor10 selection](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/root-disposition.json).
 
 ### Historical delivery and repair dispositions
 

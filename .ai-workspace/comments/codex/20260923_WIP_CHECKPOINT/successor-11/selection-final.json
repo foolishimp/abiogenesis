@@ -1,0 +1,223 @@
+{
+  "directExpected": {
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "65d61450cd4606824f39c94a1c759d6d8740d939ae7eb66b7be4e8bfdf71e56b",
+      "byteLength": 340142,
+      "proof": "Writer current tracking projection with retained preimage"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts": {
+      "sha256": "100d037846789f56fbbc279ece7923a3f4d2b04effefdb5ae0f35e21357ae467",
+      "byteLength": 72911,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/index.ts": {
+      "sha256": "2a23087a128e57a23f46417052ae8481cd4c2b743089410db482cc2f76239678",
+      "byteLength": 21596,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts": {
+      "sha256": "69624a50cff0f736434b7900bd8a356db0f6576bc373566bacc6fffc92a6a8ea",
+      "byteLength": 31496,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts": {
+      "sha256": "a095a108400e5fb91ca1e49027526c9d8dcfc8dcb9b53a4d6c24c790cc730936",
+      "byteLength": 13620,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts": {
+      "sha256": "8f5137dbd7785d392c208007b3c51ca12e1cc2c5a3adc6a96d5b0fc2311ccc9b",
+      "byteLength": 72206,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts": {
+      "sha256": "25b23363037bc72eea5ec6859bf329ed3afd7c3eaec946240381ba011289ca05",
+      "byteLength": 86195,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts": {
+      "sha256": "a2cbbc8525d5dd56c3024a23c2eaa22876cb600cde2ea6079e19126a7c3e8d67",
+      "byteLength": 20855,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts": {
+      "sha256": "bf7f633738757c2ce97bab18cc8816010480767de35ffc4c3f2a00012544b99c",
+      "byteLength": 18613,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "344f41546f1b3fad59725a97c7610c1c37a438363c311d201a469a0e70f30d60",
+      "byteLength": 197474,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-functions/adapter-projection.json": {
+      "sha256": "36b232bc10b96c825f001f1df59bcd46b5306971503bb9cc2cabbe32882d033b",
+      "byteLength": 69025,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/admit/operation-contract.json": {
+      "sha256": "2eb64ce5ed9c432d87c0e4793f52af4ff934d052073705de2464b9834f6fed49",
+      "byteLength": 5941,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/apply/operation-contract.json": {
+      "sha256": "ed422bb2b1b5e0e81e8aa9789d09f85fe8551625c35b18521458c08d99e9562d",
+      "byteLength": 10721,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/view/operation-contract.json": {
+      "sha256": "8250f440badebf108d2d914b40ae6a6aeea95f3f8778a0515ed62c60a91a2315",
+      "byteLength": 6053,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/conformance/evaluate/operation-contract.json": {
+      "sha256": "f188d917a17ccd1805cb0613e46e2bde4105e91e510eb64a21667838bbba75dd",
+      "byteLength": 6207,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/interaction/respond/operation-contract.json": {
+      "sha256": "a142d480e8820aeec1bc5f735db9a34112ba2828106439f1dd7e0845f58bdec8",
+      "byteLength": 30349,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/product/install/operation-contract.json": {
+      "sha256": "0968851857ce4446c94cc32fb5366d2bd82274295f65878043dcb3945fae8add",
+      "byteLength": 5954,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/product/materialize/operation-contract.json": {
+      "sha256": "2a175cbc36068ea473a299578246fc9d3155b580cddad908346c8b54ae8850b2",
+      "byteLength": 11023,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/product/resolve/operation-contract.json": {
+      "sha256": "f6fbf8ae444ef4562a23065c6f9e0023a9e3252e3045fa191d2feb81259b2e80",
+      "byteLength": 6080,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/product/verify/operation-contract.json": {
+      "sha256": "452642f8869bc9e60b2d396b4a15ec81b24bf9407cbcad99b815567cf2e42c29",
+      "byteLength": 5952,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/project/read/operation-contract.json": {
+      "sha256": "9a5552c40802db69cecc2eba37fc1d1ca1cb8810c25be366fdc76114fbcb6f75",
+      "byteLength": 114486,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/release/snapshot/operation-contract.json": {
+      "sha256": "db4c6a26ac9301b6c11861e152268e54ac080bf0733b69c618d1a4eea26e4e31",
+      "byteLength": 11097,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/result/assess/operation-contract.json": {
+      "sha256": "d0eceec93bafb804b5e49d3fd6c71068f98019505e3ab8a6fd7310f058d7ba50",
+      "byteLength": 6871,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/run/continue/operation-contract.json": {
+      "sha256": "93123c72ba4f5ab04e6d0c60b8794a524b3f8c2cc51afa414ba18207a3fedac3",
+      "byteLength": 12809,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/run/invoke/operation-contract.json": {
+      "sha256": "094af8f940b5a9712a9526df3f0a1c0f633204b556753c6e67a0e199b7ecf13b",
+      "byteLength": 12327,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/witness/admit/operation-contract.json": {
+      "sha256": "044ef92519e1b305efdc73bcf43cead6c2b08078fe14794ca645d22fc7679cd8",
+      "byteLength": 29041,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/bind/operation-contract.json": {
+      "sha256": "33a2eb3d627c75da6410539aad7fc13316b9ebcc33e4449f803ca9f1aa3d8cc9",
+      "byteLength": 6006,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/create/operation-contract.json": {
+      "sha256": "321e68bcde0cde4722b448e1bd11bb41ce6c6263639bd79ab0128c75b76e35d1",
+      "byteLength": 10823,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/open/operation-contract.json": {
+      "sha256": "e087e423f8fc0babd8627e8c51b738516dedf62214a8474576b8f3d4153ecfdf",
+      "byteLength": 6009,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/schemas/operations/project/read/result.schema.json": {
+      "sha256": "aef039061e465894ed89da7cef4794daab5fdc2421cf047aed2bc1961487a60c",
+      "byteLength": 132361,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/contracts/schemas/public-operation.schema.json": {
+      "sha256": "59738888a90f40765f6f9a602aa7da1a6fd595a52d26023bd7baaa2ff64d5f27",
+      "byteLength": 2855619,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md": {
+      "sha256": "b263bcefbf80bc2bdb1c8bca118cbe597cc8135e05995ef40e234abe96890a0c",
+      "byteLength": 171834,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "556ced94e6502be70d2fc05b57ddd22c5d156b46a4cd46c3e453fcde866b1fac",
+      "byteLength": 2377071,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/witness-reprice-mechanics.mjs": {
+      "sha256": "74e152c89c78f49b64b0327c4e2ee8f3f3e53fc1285d3d86d885f362bd10b448",
+      "byteLength": 20591,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-fh-hold-open.test.mjs": {
+      "sha256": "38e8cffe0cf084331a0f5b3a4b863fe1efd293e4f48c08cec9249dc67e0d6deb",
+      "byteLength": 25263,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs": {
+      "sha256": "febbf6da12f4efb4128c6b6e7ec95becce573798f0afacd51c4dc7a68875dabb",
+      "byteLength": 24733,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/witness-run-stopped-definition-binding.test.mjs": {
+      "sha256": "e6bdfc52e111a2f9e36c39841af41e9f5d9ddb757c0ab88065186dcb7670826d",
+      "byteLength": 12226,
+      "proof": "compiled13 frozen construction subject"
+    },
+    "specification/GOALS.md": {
+      "sha256": "83616a1f93566070e2e19bf510765f174f857719f7011f2c32126fdc8abf56f9",
+      "byteLength": 58522,
+      "proof": "Writer current tracking projection with retained preimage"
+    }
+  },
+  "banks": [
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-11/transport-01",
+      "catalogSha256": "bc2937f34fc7b274e3d1aa68ee6373c8e93e245cc0a45da8b9bf8e6d06ffe4fa",
+      "indexSha256": "1f23568858912035878c07583129e8d1270bf6096912afe0b726f9e9a71fb619",
+      "verificationSha256": "f58067dbf8ac4cdd88426ba1150ffd7789ba43cc3778ff34bf77fc19afd28967",
+      "members": 453,
+      "logicalBytes": 588070121,
+      "transportBytes": 87636334
+    },
+    {
+      "root": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-11/transport-02",
+      "catalogSha256": "d5c6ac026a21497cad96ad0961c989680ce9f6986f992b14699af8ff87d6763f",
+      "indexSha256": "f883aaf43cae9bd78e98d2e7f61e9cef924e2e27eb5686846d9d789d2be0528a",
+      "verificationSha256": "0d2c88a9183f2421b457b8fe81818bfcdd0c05f09ad70950b6fbb1164997fbcd",
+      "members": 41,
+      "logicalBytes": 12485324,
+      "transportBytes": 10667315
+    }
+  ],
+  "scope": "Completed accepted source/generated/core13 and finite CLOSED evidence checkpoint, independent of the authorized one-launch GLC steel thread. Q07, operator-stop readback and paired checkpoint are not launch prerequisites. No execution or qualification outcome is inferred.",
+  "excluded": [
+    "Active G/held-design-reentry-implementation-02, held-design-reentry-execution-01 and held-design-reentry-launch-controls-01: excluded, no read/hash/copy or launch dependency",
+    "Q/successor-07: prepared/incomplete; excluded, no qualification acceptance or launch dependency",
+    "Operator-stop installed readback: pending at release boundary; no launch dependency",
+    "Original/S02 mutable journals, locks and worksites, installed/node_modules trees, scratch/disposable trees: excluded",
+    "S1-S5/oracle, complete qualification, QUAL056/F11/sole AF22, RC1 and human acceptance: open; earlier evidence keeps its exact scope"
+  ],
+  "sourcePostimageMutationByWriter": false
+}

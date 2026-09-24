@@ -295,6 +295,11 @@ function statusProjection(
   if (replay === null) throw new TypeError("status projection lacks replay identity");
   const status = stringValue(value, "runtimeStatus") ?? stringValue(value, "status");
   if (status === null) throw new TypeError("status projection lacks status");
+  const executionBasis = memberKey === "run_status"
+    ? coordinateFrom(value.executionBasis, ["ref"], ["digest"]) : null;
+  if (memberKey === "run_status" && executionBasis === null) {
+    throw new TypeError("Run status lacks its admitted execution-basis identity");
+  }
   const active = Array.isArray(value.holdsAt)
     ? value.holdsAt
     : Array.isArray(value.activeFluents)
@@ -306,6 +311,7 @@ function statusProjection(
       ? "run_status_projection"
       : "graph_call_status_projection",
     subject: sourceCoordinate(request),
+    ...(executionBasis === null ? {} : { executionBasis }),
     status,
     replay,
     activeFluents: active.map((row) => {

@@ -1,0 +1,18 @@
+{
+  "closedProofSelections": [
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-13/freeze.json",
+      "sha256": "e5805b70960b46ab9a37c5438d16cb29f4f1331cc8853f3a3c362635ba50b8d0"
+    }
+  ],
+  "adjoiningClosedPosts": [],
+  "directExpected": {},
+  "pending": [
+    "Active G/held-design-reentry-implementation-02, held-design-reentry-execution-01 and held-design-reentry-launch-controls-01: excluded, no read/hash/copy or launch dependency",
+    "Q/successor-07: prepared/incomplete; excluded, no qualification acceptance or launch dependency",
+    "Operator-stop installed readback: pending at release boundary; no launch dependency",
+    "Original/S02 mutable journals, locks and worksites, installed/node_modules trees, scratch/disposable trees: excluded",
+    "S1-S5/oracle, complete qualification, QUAL056/F11/sole AF22, RC1 and human acceptance: open; earlier evidence keeps its exact scope"
+  ],
+  "scope": "Finite CLOSED compiled13 tail only; existing successor11/transport01 payload untouched."
+}

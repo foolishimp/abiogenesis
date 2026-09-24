@@ -1,0 +1,113 @@
+{
+  "role": "Worker/Writer",
+  "model": "astra",
+  "effort": "xhigh",
+  "worker": "/root/original_owner_continuation",
+  "basisCommit": "5611b53e96f483495ec8838082001a86d6aac58d",
+  "grant": "Root accepted operator-stop03 source after independent review and dev7 package/caller readiness; bank CLOSED finite work now; await CLOSED compiled13/Q07/readback before final successor binding, coherent commit/nonforce main push and remote verification. No native/paid execution.",
+  "initialClosedSources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/subject.json",
+      "sha256": "69210b1e1b0677328d0ad7f31bf10287777a61a568e591f71d02cfef39fae6b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/freeze.json",
+      "sha256": "d778e83d2375c7864008fd32bdf0479649bd6591c552236e0e1217fe024bc2e9"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/subject.json",
+      "sha256": "bb27ce38d91c22d9f31e9d6b47cf4d3f9996f7ded7b403af520d6703e761ea5c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/native-freeze.json",
+      "sha256": "2e283ebe33070f96cd73178bd2bff30fb4527d4e0b7f1a3119868bef2992bfad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/caller-freeze.json",
+      "sha256": "8ddef24ee986d5b6bc10e4f8e7ef08bfaf01c9c024e1ce8d632d77c51f26d861"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/subject.json",
+      "sha256": "815480a53d992bf6a29cb7ed7a6e3cba2216f0f034f90fc5823d9545a484562b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/subject.json",
+      "sha256": "aa5a3019bdb844ca50b76171e115d7c51823ca3e41d4990386280d2ed926dd95"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/subject.json",
+      "sha256": "396d537f21e51e907044b7efe1fd088f26822e571f42e444c04ca5185da2a754"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/completion-subject.json",
+      "sha256": "60c590c1ac1fa350e8aa442e3429dbc96d2c482f9010ce7cf78478900699c847"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/subject.json",
+      "sha256": "31bf6b983b0cb4fc1236b36bdf9a0ca46fb205036cd77bef322d80db3fccdb66"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/subject.json",
+      "sha256": "80c08e5ace0d3e91b50fa9f26c85637cadf03a77eec719b97b1a43d42fd4dce4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/subject.json",
+      "sha256": "9531fbf072db7880d503099ec60200c2f94c49fbe966de7599bd13d22b93ad97"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/freeze.json",
+      "sha256": "f7f79109764c23b75b678e6d32c057c2c4626807424aed35ab019e784d03d59d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/installed/subject.json",
+      "sha256": "a8b26fa83fcec39fa48808c186dfb04d58308e081bd951611a627a85b00d3f47"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/installed/freeze.json",
+      "sha256": "35804f604693c481743bab11790762dd29d2922ba73c03a2f45dca754ddd6fc9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/subject.json",
+      "sha256": "c0d2256d2b70b5b28b7ee4c3dc55ac402e0e9ac95d68e323da1570fb06dcf6b2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/subject.json",
+      "sha256": "6df2de916b3e97e4e06e40c99bf646c5e8f85578f79a29d617d3998b85b26ece"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/freeze.json",
+      "sha256": "2d00d12383b51d1422f3b7c8f03f84a8e880e69cb6cc15b88eb6b65b0cdd5eee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/subject.json",
+      "sha256": "d9c733d438a5746e3dfa73584ec86b9162d606270fcc36c00f290dccb9a15ec8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/freeze.json",
+      "sha256": "58105c65199a90f080d37f0351d823ecc280c660a9397a10d184a7e1febcb799"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/freeze.json",
+      "sha256": "56cb175fc40a163ca9db119057a643af8b6f75f18891485c5026bb722f8e109d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/freeze.json",
+      "sha256": "67d06fe30e56ced3ab14bfc498b708d57200a5fa8b8085ceb10c7015a9756bec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/control-freeze.json",
+      "sha256": "8f05ca07fa5b1094d55dff25dfe0c4a6d9bb5088ae87d5a578625c0e444a3cc0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/freeze.json",
+      "sha256": "77743564c0760922f598942eedb37aade98f45fc195bc2376a4c80d771b24371"
+    }
+  ],
+  "peerActiveExclusions": [
+    "compiled13",
+    "Q/successor07",
+    "operator-stop03 installed fresh readback"
+  ],
+  "nativeTimeoutMs": 8400000,
+  "outerTimeoutMs": 9000000
+}

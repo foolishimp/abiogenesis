@@ -1,0 +1,18 @@
+{
+  "kind": "incremental_closed_work_checkpoint",
+  "baseCommit": "5611b53e96f483495ec8838082001a86d6aac58d",
+  "commitIdentity": "Commit containing this receipt; exact local and remote identities recorded in external post-push receipt",
+  "newMembers": 494,
+  "newLogicalBytes": 600555445,
+  "newTransportBytes": 98303649,
+  "restoration": "Every newly banked member restored and compared with original and selected freeze; prior bank payload proof reused without rereading/reupload",
+  "scope": "Completed accepted source/generated/core13 and finite CLOSED evidence checkpoint, independent of the authorized one-launch GLC steel thread. Q07, operator-stop readback and paired checkpoint are not launch prerequisites. No execution or qualification outcome is inferred.",
+  "excluded": [
+    "Active G/held-design-reentry-implementation-02, held-design-reentry-execution-01 and held-design-reentry-launch-controls-01: excluded, no read/hash/copy or launch dependency",
+    "Q/successor-07: prepared/incomplete; excluded, no qualification acceptance or launch dependency",
+    "Operator-stop installed readback: pending at release boundary; no launch dependency",
+    "Original/S02 mutable journals, locks and worksites, installed/node_modules trees, scratch/disposable trees: excluded",
+    "S1-S5/oracle, complete qualification, QUAL056/F11/sole AF22, RC1 and human acceptance: open; earlier evidence keeps its exact scope"
+  ],
+  "allowedGitEffects": "One ordinary main commit and nonforce push, then remote ref verification"
+}

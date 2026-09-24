@@ -1,0 +1,2501 @@
+{
+  "closedProofSelections": [],
+  "adjoiningClosedPosts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/checkpoint-result.json",
+      "sha256": "c03fb05d5e459c9a38e141a8fe676deb266f45daaa53142ac2c6d95ce47f8c34"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/return.md",
+      "sha256": "5f0a6ad72b0b87be93d6ecd00a2ee16c4a07fdb696f79e1d7ed1901796a3f688"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/composite-native-02/subject.json",
+      "sha256": "5a0ff92a460e58615239278f2b26330d95912c05c3b025f0af262123ff6c16f4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation-repair-review-01/return.md",
+      "sha256": "0ae3209b42e4804ef17af1ce6987d96dd0c035ab1c8ba9e679563746638291ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/subject.json",
+      "sha256": "bb27ce38d91c22d9f31e9d6b47cf4d3f9996f7ded7b403af520d6703e761ea5c"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/readback-disposition.json",
+      "sha256": "2c6ba3ec44d321c071a3deaae32251603df5081e0a8edf85ed9d27d1e50934ef"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/first-cause.json",
+      "sha256": "a96a2fa1b964334d46fec9a29fe64dba1921c7f8f840814b41198f0293d5730d"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/actor-selection.json",
+      "sha256": "0723e91fb2f4058cb8af922c50446839bec84ae56ee8066bd2be412564ab3af9"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/reach-summary.json",
+      "sha256": "9673888d3ac4dc40c13b2aa51bd8ef3a55d30dd5011e0c8673ec7e8bb794d1c2"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/actor-usage.json",
+      "sha256": "ca4121202bb82b94b2c783661db149cace4783588110aaedcdf5c6c5d25d15cc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/native-freeze.json",
+      "sha256": "2e283ebe33070f96cd73178bd2bff30fb4527d4e0b7f1a3119868bef2992bfad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/held-readback-disposition.json",
+      "sha256": "0aee61496cd6b709b1b9b45aaa76c51930b71aa0bf1bd76032864b989ecdcfbe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/debt-tracking-update.json",
+      "sha256": "ef0fdc29929f6f96e62373212459e0b8566fc7a81cf23448a27d5c573f608053"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/activation.json",
+      "sha256": "04816b4312b61887b1ffb9e264d230a0c290ff8ec1ec011c6bfa5b3a9ed8990a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/debt-tracking-preimage.md",
+      "sha256": "457869e65831869f49204bd8b7c0891642a482bfa2234db460ec8d9fb812b634"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/mixed-evidence-selection.json",
+      "sha256": "405e0ed20c578d97e1568a5f83731529515a83c2bb55c04011d587213553511c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/original-readback-process-observation.json",
+      "sha256": "eb7189e19e6c1b10e885a8503dfc3bb3d79790934a4d784fd3540dae13dd3bee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/subject.json",
+      "sha256": "69210b1e1b0677328d0ad7f31bf10287777a61a568e591f71d02cfef39fae6b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/return.md",
+      "sha256": "f61f3f2f4fcb12539fa6e82b856df52b6aa5a7a931dd750ed184e2971bda0c71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/freeze.json",
+      "sha256": "d778e83d2375c7864008fd32bdf0479649bd6591c552236e0e1217fe024bc2e9"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-implementation-03/subject.json",
+      "sha256": "bc2e071c789645da2b8cd8f72abb6428fa3bff2e58846e12c0088f5d756c04f8"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-implementation-03/execution-selection.json",
+      "sha256": "b41375ad2940421b5b1bbe8fa717bbb38d5dfaf3aabf8c6a35473d65992fd634"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/resources/archives/fp-0e8d0b3358e4573e-output.txt",
+      "sha256": "ee3c71004a6136435150294ee0c6d3349f7ac1d3e3a61b9b975b35ffdbf1d00b"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/resources/archives/fp-0e8d0b3358e4573e-stdout.log",
+      "sha256": "d75675e337270fa98993d6d85f2620fc3a5433064bf5cdacec15896bc80e3c10"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-10/resources/archives/fp-0e8d0b3358e4573e-transport.json",
+      "sha256": "bf7717ac94e43c212b6b19ea379e8c52618674c82f8f19ec2dbdf0f0833d67a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/configuration.json",
+      "sha256": "d6fcbf8bd692cd1832c221bb26f6d653ecdc54e407add54bcda30247f5e6b95a"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/delivery.json",
+      "sha256": "d735adc75ab1afe7320d081af33102230daf5ebe36936f1ea2976ec1b28d63c4"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/final-close.json",
+      "sha256": "944581194b7f8d3e0cd3d5fcfc1db250cda651dd6bd79338c3e76ba00d031a15"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/historical-candidate-evidence.json",
+      "sha256": "24736270e5162012829bb48f3c0ac91a17c02b21c9e18805769948ebdd1b57f0"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/native-attempt.json",
+      "sha256": "ad08c4c6468ff61a82bfcf32dd62887fea5ed76bfbdc23b56e5527caf1538665"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/native-receipt.json",
+      "sha256": "82bd1337653139531fded051ac20d37a48276403651939e0e730bd3c5d5f5773"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/preparation.json",
+      "sha256": "b496066624aed342e2c037e68104ecfc282a7211bc3690a22c934bbf914fa5fe"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/product-0-verification.json",
+      "sha256": "366f2a0437727ea46b1e1921c24837c97d09b69a8dd996589804016c1f14dd81"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/product-1-verification.json",
+      "sha256": "db5f5125ed90b2aa15fc078844663005c100fd3041c2467257486d0fb5a98edc"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run-start-evidence.json",
+      "sha256": "a0fb9cb1f9f075238c8da61e73d22a6458b5bd2b6ea67bc94ec7f98472e28cb8"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run_replay-process-result.json",
+      "sha256": "9155fc4efd713236bdd1f3ff66be062902591bf9e681ab82b94d7e78cf55aa7b"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run_replay-process-start.json",
+      "sha256": "65689732a71d268f834f987b8d979be042f436d2a5ff1f486be3ddc12230e4ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run_replay-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run_replay-stdout.json",
+      "sha256": "93f494a55c97d55c14402d84cf3547443f8713b121f6ba3945a0dc3834c3147a"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run_replay.jsonl",
+      "sha256": "1c8d1fbabd86add468e843344eda718ba856cb1f29565ece8a2a0c4085e5da49"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run_result-process-failure.json",
+      "sha256": "b43e63c5c87ff3fc2b2f8eede2ae0df3b6a352c0a149b46c11409c03ebd5b6c1"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run_result-process-result.json",
+      "sha256": "cf7b6170983d7776902916e660531838e97938a078385f1ca2550fa69aba27f3"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run_result-process-start.json",
+      "sha256": "f1e8dfd2de8bb1b41d5dd2fbd733063a23792821df899f8192220dd6ccf12e17"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run_result-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run_result-stdout.json",
+      "sha256": "a6da486f5fd1f168b37b07d36d15622bcc93ee2f7bc518d292cc40ee156f93c1"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/run_result.jsonl",
+      "sha256": "793df88d310c0338f9992a35f7ee293d921879bdf73bb11c61c5fd6140bde900"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-0-call.json",
+      "sha256": "184737f68507ef1b1baeb7ac06f888863ae9a59d828e4d96b74655b3bfed9aea"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-0-receipt.json",
+      "sha256": "b7c1de4d8e51fc5ed2baaa801d6f20e2424f2c4793ba328af4a4e6e63a17de29"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-1-call.json",
+      "sha256": "2f1c590d88a7253e73ca96e3936655202f4350396ba70f8237a579bb1261be7f"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-1-receipt.json",
+      "sha256": "56dcecc25645afca84a66dfd1fd64ed4443d9bcac7a053f35decaf5af4481e35"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-2-call.json",
+      "sha256": "42d542e121fb6c258af68f137845d01eec1ac6125d55c12868ff8a215604644d"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-2-receipt.json",
+      "sha256": "7756fc2395599444496594a75869661de379b06b8d5cde455695273223f0c874"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-3-call.json",
+      "sha256": "3d976e4af2af22a9cc72e648b8ac0dca4dc8395de70a4441be63e307c35c1d7a"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-3-receipt.json",
+      "sha256": "89219a4f89d430ec1946bd8253876517b0cfb9018d6611d914473bf4b2c29e14"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-4-call.json",
+      "sha256": "332b2bfaa4f8a35e62e4147b38175ca7b7a1b7745b1292f927cdd6e359ce4439"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-4-receipt.json",
+      "sha256": "657aaa6c19045ae7e34e44c54c8f26c5cdd1f23f747cafd269ce85233be61fe3"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-5-call.json",
+      "sha256": "126527a2be4cbf224de96fba348bade18971216e19c220bbcf55fc572640a10c"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-5-receipt.json",
+      "sha256": "f6dd092c9dac722412a2308f9c9f83e33077d2b408328a70c5335acbb8d282f2"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-6-call.json",
+      "sha256": "d622f48c62443bc6306ac4bb24b4392b81c7544cc83d05da215a231a536bb0a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-6-receipt.json",
+      "sha256": "a9951e110216f92d42538b037efd91d8588491ae0a2b0f3e40b427eb5aaaaaab"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-7-call.json",
+      "sha256": "d5b89c27e995942bf9cbc0e89cc1074ae71f3b99ef178d8e11e0a729a76e52bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-7-receipt.json",
+      "sha256": "68e2d507e5bf7bd39a44885acbf776ab69e05a02abc095bd468c289365aa0a65"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-8-call.json",
+      "sha256": "33b2cd5606ada6df12815984e45e85b3012d53cda40b00fbd6ae4d0ef5fe2e26"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-8-receipt.json",
+      "sha256": "5afebffc667b9156c58efb18dfc9bcfb327836464b4d466668f9e0239bb33e64"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-9-call.json",
+      "sha256": "04e945ea4c2fd16a31ad4f5bc6dd46f7c538fae569cf4fa8828024df4190dca1"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-execution-03/setup-9-receipt.json",
+      "sha256": "37086495fc96075b3e27c00c0ea6d12cbe0f095a819047c61cde334fbcd82c85"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/activation.json",
+      "sha256": "04816b4312b61887b1ffb9e264d230a0c290ff8ec1ec011c6bfa5b3a9ed8990a"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/close-diagnostic.py",
+      "sha256": "6c5f8c5a8b56c1c0dab7fd1182affc255c023a1245fd350e1fb6451fd9239c5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/conservation.json",
+      "sha256": "87c85380aa4e178087e1e5688ac1748556e87fc5ade80b1f3e9f94d5fb8f9a64"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/diagnostic-preparation-error.json",
+      "sha256": "ee9b10f933066969e698a22a9fa994584be123861b32f978a2629ba69c4f82a0"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/input-scope.json",
+      "sha256": "97e5d3d4ba630315c2e9014fb65f15db4239686888aa8673050a8488b68ca745"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/journal-suffix.jsonl",
+      "sha256": "cf68ea6a7c130e47cf6eb088b6e919e6ffd9a23f298c40ec7ef5445f9c20b2c5"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/phase.json",
+      "sha256": "c14616b6a7e4e8b7cc63ea566b894a3653c658f54d31f2309e84183883effdc9"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/post-read-resource-metadata.json",
+      "sha256": "49ff1f5f960df219d0d2e3e00c59d37033e2e2ceb4c4cc45740cb768ea84f102"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/run-process-result.json",
+      "sha256": "52e4608f6eb198d389646d075bdded53c6886f27a95366090de329447f7e6530"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/run-process-start.json",
+      "sha256": "ccd87aa5e544af40e7be6477d96702ea00f34e8ab8a139d8f4a72cd2a1a1fdae"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/run-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/run-stdout.json",
+      "sha256": "d795f7782a9890af3198be02a431ced7356c379b1b078c465faa5ab5b771aa98"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/stage-times.json",
+      "sha256": "d08a0579c77f0c15fee7339e8dadacc5e85c62aa9319bc505b9d62d65ab24cd5"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-launch-controls-03/suffix-observation.json",
+      "sha256": "3b3d7c3998c146a969b5b65d7c154dd0a109275807127165b4b931d4f4458a7f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/assert-held-readback.mjs",
+      "sha256": "9045fe7a87bb30b4f1912aff35fb022c0fdcfcfb52722231a1ff2d1d1a98bf5c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/configuration.selected.json",
+      "sha256": "2c30b25bb4d36fdf6126eb73f28fc10f456b3275ccab3e04ae1b8d0554f0a1f7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/active-action.json",
+      "sha256": "42f8b924c048a030dd19cd5e9ba0a45ba6265b04c08a7c80d4256a756c8c7800"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/active-operation.json",
+      "sha256": "2189d8f2ea3d61c1e1156c8cc3fe1769c4fbb0a1abce26b970451d0f7eb4c554"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/appended-events.jsonl",
+      "sha256": "cb3838fbd961fcd7fa8f9165b9c62143347d7aab82ea9f44bb731e302f8172ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/bootstrap-core-cost.json",
+      "sha256": "89a4706cd58f9dea01f5e6c746ea2ef7ab2850b08bc4934f3ead4de6139be689"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/bootstrap-core.json",
+      "sha256": "c5b1b7ca82514a846111b8632865e461b22605163ba87e09ef9df700d0085b7d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/bootstrap-mini-cost.json",
+      "sha256": "b1427f26e8c7d4afdc152c15f190235eb45e174b04cfbea7c80c69a94e4c615f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/bootstrap-mini.json",
+      "sha256": "bacc87cdd82c000c65859dfeb78352290c0468fe75f3330114e084c2e9a4384e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/configuration.json",
+      "sha256": "e9d1f3ae1eb055734e844d2694ab594798a62fe83a9f5aae02d0ff293ff87ccc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-catalog-view-cost.json",
+      "sha256": "8bf555bb5c0a7ddb630e6eeece887a41f5ca0d97c4295b68f714e6d67b810145"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-catalog-view-receipt.json",
+      "sha256": "2ce65b0fbed2d2102d235e0dd3cc73fa91fac7dd54640994221177bc244230dc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-catalog-view-request.json",
+      "sha256": "87dc361ca718f2aacdce0b6334e17f72f8a57fac457a3a88b7c31104fc2401bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-conformance-cost.json",
+      "sha256": "8a5f83ef5fc581ba2ccaecf9aa4efe1bbc69de1802f8b994859c8063747f2c59"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-conformance-receipt.json",
+      "sha256": "ae46926f6a5f5b6cc0fd9cb840ae1c2360f65c7214e43f2d1774626ab112a96e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-conformance-request.json",
+      "sha256": "b1798ca537b5e0d3a83ac73ebf8c10c3f595f3e91d25ce43c68553f1ff429a21"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-construction-basis.json",
+      "sha256": "61d190e8e826cc73174e60cb044c04f8b6a1e111d4a4ea802b1a99eddac550d8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-construction-cost.json",
+      "sha256": "90590202cb7bb074825877b5406df0d8090f32ae515ae959a7bbc2f16bb7d633"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-fixture-count.txt",
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-input.json",
+      "sha256": "5f9232508f2be24861a4017d49bc1342057e423c8b31666422a6a41d50a2f750"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-root-cost.json",
+      "sha256": "95874371c76d3a5bbc29dc6d9bdc28e078c28dcab5513477074f9f1b09059553"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-root-receipt.json",
+      "sha256": "b19d961278f76ab509b4a70c78ec1b74e77fa598ad277a719a12d811bc0e8faa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-root-request.json",
+      "sha256": "7ef33a575c4d37965c110a20f67fb6e2ba26dd191a2d1dc07d1e0e3a5f77c214"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/continued-mixed-human-boundary-selection.json",
+      "sha256": "2c07ae3bf4ccf259de7243f42af69b02b6ec4a806b097c6dc74a64900b88e594"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/failure-fresh-read-input.json",
+      "sha256": "5f5c5c8f9b8a250b3c2a9a93ca53a53fe86664edf84ef1e3b980c37c456475c3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/final-close.json",
+      "sha256": "156cc2afe98ee2ad7355fb4a5c5b073cfccfc86c57f329103279c506e71f0cdd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/fresh-mixed-human-boundary-run_replay-cost.json",
+      "sha256": "7038a19cf2f900172c8f7640e165c0100c77138881690771d37c37e427f58d45"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/fresh-mixed-human-boundary-run_replay-receipt.json",
+      "sha256": "1ec5f02c694830b6d1e7e0f614e383e3e15ffd8e40ee2e4d4d94d1f2bc0806c5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/fresh-mixed-human-boundary-run_replay-request.json",
+      "sha256": "7276cb41654f220c03032216ff48176e433db27b7c9f05c1c3401e8b8b951f7b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/fresh-mixed-human-boundary-run_result-cost.json",
+      "sha256": "6dd413423bf5925656e20abd0f476f75286db22eae9b9d18716fa6497354741e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/fresh-mixed-human-boundary-run_result-receipt.json",
+      "sha256": "1cfb72335217f62051702480d155254bf8bc51d463ec6afdf201bd0d15aa1b6c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/fresh-mixed-human-boundary-run_result-request.json",
+      "sha256": "6b688e878da956603422660a5b66e015f5f710e6be99421d6f73363d8ec6b6ad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/fresh-mixed-human-boundary-run_status-cost.json",
+      "sha256": "66900ffcdc70e1f46583cf98ca927b17a6b40ff78829f606c103aa501a6ec726"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/fresh-mixed-human-boundary-run_status-receipt.json",
+      "sha256": "abf23ad05c84d51905bcc19c05d1213f7be327211fb8a679fdd76b365ba9e073"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/fresh-mixed-human-boundary-run_status-request.json",
+      "sha256": "1d97b07a91a019ab511696a40c4d0b077af46301555c1529c1f5486da655c2dd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/fresh-read-input.json",
+      "sha256": "1a41e33ca4ac0b013d7bf4a717978a6d1299a4a50a01db97dbc851e19157c697"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/fresh-read-result.json",
+      "sha256": "05dc0c3ffd8b8bdadf404163905ce66652329f22c37490f7f81deeb301cf15e1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/held-result.json",
+      "sha256": "78a6c69ee71663bf75c2527f68155e75f78c828cc403bf08bf2699b6f4695d3d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/retained-context.json",
+      "sha256": "163ad2695f3e686416e2db395ba66cf4732e944383aa3347df932bb83948749e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-bind-cost.json",
+      "sha256": "54fe510bd1c1ad62a41c93648153b5d9c4c51326236aec21c6237b2a2966fdea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-bind-receipt.json",
+      "sha256": "b8c4ebe54281c5b6fba0ae5fd3dddf28de92658f1e685699d746f6f37d19ce2a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-bind-request.json",
+      "sha256": "89cae6c03bbf97fa4a770685defed75b79986c23aa34d5c5fc6372956dc2ff21"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-catalog-cost.json",
+      "sha256": "c060c7b1891894f54df730043ba42fa96eb91709b4a78b254f1d510f359297ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-catalog-receipt.json",
+      "sha256": "f2d85e8a300743d24b919df196342502322aebfddb1d4bafa8bad29a7d5de4f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-catalog-request.json",
+      "sha256": "f71a149b05a691ea6ffe2404c475625974204b2792eac357d1d618e991c989c7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-catalog-view-cost.json",
+      "sha256": "5fdcac7d871272d6bd463ee53c249abf64151aecf4f00db530e8e9be9b345626"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-catalog-view-receipt.json",
+      "sha256": "fbd3d7b8c0cfca9e2d76f593dabbd80eab4d8ced033311c6991c584168144521"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-catalog-view-request.json",
+      "sha256": "acac3cdd1b1aea81f199e531781b94935ec52b5f82337c3be6924a5868a4f5b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-coordinates.json",
+      "sha256": "12bcee77b9b0726d348c433fff654b7bc979c9471d77d1402ea0b2809b30d6e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-install-core-cost.json",
+      "sha256": "dd7a1fd45b526913db129e6372d7c36c266e950d4c721868a1724310dbb92368"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-install-core-receipt.json",
+      "sha256": "b475be7e8fa7069662678de55139a5a9313ff6da03e27cf82c1b5eb93f8c733f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-install-core-request.json",
+      "sha256": "59ac0b391ad47e4bbc1775bc84fb5be7e38d0faab6caff169ec7446abca9931e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-install-mini-cost.json",
+      "sha256": "4033d9f501c5274c87378d052575371afa4592738168f2edb1810e2fb36f9486"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-install-mini-receipt.json",
+      "sha256": "5d8bca14361cb9cedc87c30720516a131e4cd43da1fb142499ad89fb42e604e6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-install-mini-request.json",
+      "sha256": "58654131a7982ae108d00d9f3458d06d678f43f5211b8e67526700a2ac05178d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-reprice-cost.json",
+      "sha256": "b70a052edd6988e784281b25b788fdadba444c01a588f78be7bc2e0c19189ee1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-reprice-receipt.json",
+      "sha256": "55eaced9ca24772c870abd91d40923576bd332f266a2b9f76c7179b76ac9ad4c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-reprice-request.json",
+      "sha256": "fce53386128a8eddd2e8c7cd420c619c11779666e46b97755fb071e75a1597d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-resolve-cost.json",
+      "sha256": "4afd4e2ed4a5b8409047627fd117e4bd9b43c7e6e93edd5c1e16c0693c58244e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-resolve-receipt.json",
+      "sha256": "8e8bc4c8170152f5c961e6137e6507bfd7565755dfa2a0c75e6b3aacef653fdf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-resolve-request.json",
+      "sha256": "43778ac34f2d962228b301ccb3bfc8fd2df0bb822bd24dfb77e8607ae63e5ceb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-resource-acquisition-cost.json",
+      "sha256": "dd978fbe75c876b7405216192ee4108467e8cac15bf2bea23b4976b5681f4210"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-verify-core-cost.json",
+      "sha256": "51141d7c1843dae828fb863af3fa4ac6647aaad0c3c017b5b20fe1beb71f284b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-verify-core-receipt.json",
+      "sha256": "f74e586122bc5bc9ad4b3acdfde109d3b332e55c78eb424b62f3ad66c60ad301"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-verify-core-request.json",
+      "sha256": "573578566adbb9f3d162f69d5fdf452f11eae96b592afe1583b0b6313eba56ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-verify-mini-cost.json",
+      "sha256": "15df37917bae6f60c2bf432fe75afb704981f52cd7d2112c6b5af09cf0608808"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-verify-mini-receipt.json",
+      "sha256": "01b26b8810c3fef219d580a1c0a8ca23c48639eb2ba982823ff5e246e16407ca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/episode-01/setup-verify-mini-request.json",
+      "sha256": "4d45066790429f888d8f7d458e2d5868ef44e4b65547dc2b1fe3254e6c83300b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/execution-selection.json",
+      "sha256": "252720e27f4b55fe80342b4487447bafe816a42dab864cb1d9457ebb2f3493d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/failure-fresh-selection.json",
+      "sha256": "6b0609d14b8c9933d80029c7281d99cd5c4bd4c8ce0bad2107be91256fd97865"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/fresh-driver-result.json",
+      "sha256": "2aa89ea6703ef6e15a1a6950c6de26844dbdbf888dca0725388e718040188cef"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/fresh-driver-start.json",
+      "sha256": "3792b6e42316e17fd089a812b2b1801ab1c376e002094a20162243d1bd5f4bf6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/fresh-driver-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/fresh-driver-stdout.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/fresh-driver-usage.json",
+      "sha256": "0a50262e555dbf991976840350c8ef304f90d68fa4feff0198b1ac9ab9de304a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/held-driver-result.json",
+      "sha256": "af950c306ca5a9b25a6542ca666e326fd180921fd2f51e517fb01f0cfb17236a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/held-driver-start.json",
+      "sha256": "4d6f9b6e41252641dbe2907da4efdabdbd7de35ddd8bd327956595bf4935fbc7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/held-driver-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/held-driver-stdout.jsonl",
+      "sha256": "88be18c06b34652a217a5fbe29ce3543d9e01ac00979b661dac73b7513d99e76"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/held-driver-usage.json",
+      "sha256": "503dfbc2520e5d0c4cee1a5e3b016941c4e049b6d21a0344c85cfa59fd322bc8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/observe-failure-read.py",
+      "sha256": "9a6a721969b71683128e8c0e776fe231d8b8c02dbdfb7c4a72002cc9d4673741"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-18/observe-failure-read.py.diff",
+      "sha256": "1efb5f9a4599e6835bcd1e542c05691f149e4700fe5a1351af4e07c01f2cbcee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/caller.mjs",
+      "sha256": "8de8a62d619b85a19cbc96dc00dbb2625c1f73513fdcbc46f231b523cc6a0bf4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/campaign.mjs",
+      "sha256": "c251b4dd493efb08286a124e9728a8c93a3976e50ac79c77fcbf79d5645cd498"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/setup.mjs",
+      "sha256": "2a7e102187e34c296a4e56a64047c5ace0e70d1c51ea1c5d5ff5060d27920bbe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/fresh-read.mjs",
+      "sha256": "46afc43a96b8f6d988471a78f03d267f63c20cca5d750170ae438dc25be293f8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/observe-action.py",
+      "sha256": "32c282557353a8e6230646d38fdba651198ccd2aa7c444895e719c28161d361c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/cases.json",
+      "sha256": "fd04696b59f74e41669302d33c9e646a0e16821a1dd61513c587dc8c5800cc73"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/oracle-basis.json",
+      "sha256": "0bd94689eab550251ebae07f3b2318e7fcb73476dd3d669f5e8229c94d30c729"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/caller-freeze.json",
+      "sha256": "8ddef24ee986d5b6bc10e4f8e7ef08bfaf01c9c024e1ce8d632d77c51f26d861"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/subject.json",
+      "sha256": "815480a53d992bf6a29cb7ed7a6e3cba2216f0f034f90fc5823d9545a484562b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/activation.md",
+      "sha256": "c09285c9553ee6abc0bb6071c1831b19f51c0da0bc97fc4706791929740d1ac0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/checks.json",
+      "sha256": "f031031dbf61ac5d5f55f00f01dbae5062bed040ebbb60520608d281814070c7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/correction-focused.log",
+      "sha256": "ce013dd3cf9640cbbddc7d0fb8380ca9d84d0ab94a5ad6d69e0fdfb04c6d645a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/existing-regression-initial.log",
+      "sha256": "f47fd962e9f45df006e1371726154304d8fee48db491e3924e9d3d95ed44c29c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/focused-final-02.log",
+      "sha256": "dca47c3cad58946d891668746456958a78e278d9e19f3c094a9f4dc401eb877d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/focused-final.log",
+      "sha256": "107155f90861d775485b97dd543882d226f915a0ac6a0e014b2a30bff3778303"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/focused-initial.log",
+      "sha256": "b9515c5f220127d62db5c3af170a4ff55eaaa9a3dded033e9960e7d7ea7970ee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/preimages/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+      "sha256": "43f3ded8d9750f764f49d2eb546d31f182dad28d30b6e25656beafc6f1d8a09c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/preimages/build_tenants/odd_glc/typescript/scripts/build-native-continuation-product.mjs",
+      "sha256": "3fa812f08369411b1df99706da91ac48700f1f4b407155ef2dc930aee9eea2ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/preimages/build_tenants/odd_glc/typescript/src/native-continuation-contracts.mjs",
+      "sha256": "ba6aca05b0f7e47b408a612b9ecc5475ad03414ea092243ed8809f561be3eea2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/preimages/build_tenants/odd_glc/typescript/src/native-continuation-declarations.mjs",
+      "sha256": "e44d81f3129e6e212f1319ea5053e32b2120a7480add93ddbb1a5aa8d6409b1a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/preimages/build_tenants/odd_glc/typescript/src/native-continuation-runtime.mjs",
+      "sha256": "7566f9dc36ed91c2aa5e6f08c19e3f8a06e3ecbba511f63bd31c84161b14f238"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/preimages/build_tenants/odd_glc/typescript/test/native-continuation.test.mjs",
+      "sha256": "af0aee31173c361fc730f863524e59bb7740c0beeec648c02b685ab9803e6055"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/preimages/build_tenants/odd_glc/typescript/test/native-correction.test.mjs",
+      "sha256": "77fc2822787678186b2749786343058926ab781584dd9c4d33d21098d97ea621"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/preimages.json",
+      "sha256": "f1647644451f6d4c9bba9eaf8ceff3ee19dff1e33674b6d8ce7b0ff3028bdc0a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/retained-selector-check-02.log",
+      "sha256": "bce66b5edc269138f57362193aecc720f7cd4ec458b0c9d1221193eb0d28658c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/retained-selector-check.log",
+      "sha256": "e017c878c3b7c3e5bd9d791aa932023a4966550b2a51d45095551fc37711ea07"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/retained-selector-check.mjs",
+      "sha256": "991c565a75af02bd8f78500b1310a24f51e8c4b05e1956d745ff162dcf7290db"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/retained-selector-compatibility.json",
+      "sha256": "33921c2cd24de8e7d1c25b914789223db59c1106368f53d71ec91906d01148e7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/source-members.json",
+      "sha256": "7a8bc001bc9dedc5431f7a8ca4a5b7148a29fbfce893768665b7f1516aa2c290"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/source.diff",
+      "sha256": "b3a62b8b22f28433cdebbdbf318ec544df9e35d0c1d99f79dc35a9e39f4cab24"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/syntax-checks.json",
+      "sha256": "5a8b98f8bc3ad5efb4fdc089b3777b5b7e0d8422a49e475373669007b465b592"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/subject.json",
+      "sha256": "aa5a3019bdb844ca50b76171e115d7c51823ca3e41d4990386280d2ed926dd95"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/construction-inputs.json",
+      "sha256": "c3247bb4df30523fadf7158d1299920619bd79a84c23f43a65101be801c0458d"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/preparation.json",
+      "sha256": "f096efe0f415bfedec375133c2021ecae72b95bb8debf9688e2857dee565b8f6"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/prospective-policy.json",
+      "sha256": "4a8adf8fc7cb4abbcc14823bdda5fe056f8af94910444bb6b4a8bb225e2f6e41"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/first-preparation-failure.json",
+      "sha256": "bf82235986e2cdb50eec4dde17320e7ca268e740cb7a69a3e7d32fd3aa16e386"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/return.md",
+      "sha256": "5a0739f725bc8db45c8231355ef0c3d299cf937e1a6c6e99a71ae4c5302e469f"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/staging/scripts/build-native-continuation-product.mjs",
+      "sha256": "3b7f6ded4565083e6d122e122d3fec72803666444ecb8a517f03f5bd3bd098bc"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/staging/src/product-package.mjs",
+      "sha256": "4c9dd6ee36f7bff43995adee94901add62ef66f2ac25b221592fb595a1ecd3e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/staging/src/native-continuation-contracts.mjs",
+      "sha256": "0fa7997312d4b6b27227481ad893ea20897821fcc10e3b247171452fbf821695"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/staging/src/native-continuation-runtime.mjs",
+      "sha256": "4718be7a9fb0cbf556b613635f78dc06223b75eeec9c9a761635394123dc9371"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/staging/src/native-continuation-declarations.mjs",
+      "sha256": "31447f63a40a22794a82f9f68eddc70cfac79169be339647e6e1ae2010c2d901"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/subject.json",
+      "sha256": "396d537f21e51e907044b7efe1fd088f26822e571f42e444c04ca5185da2a754"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/subject.json",
+      "sha256": "80c08e5ace0d3e91b50fa9f26c85637cadf03a77eec719b97b1a43d42fd4dce4"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/return.md",
+      "sha256": "a4c97066e06d4896891adb638de69c49f81e7d65523e212c9affb370e7ba6c43"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/subject.json",
+      "sha256": "31bf6b983b0cb4fc1236b36bdf9a0ca46fb205036cd77bef322d80db3fccdb66"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/final-binding.json",
+      "sha256": "035b88d47bd27501a77a3f2c2b3e9f8c54e86784e0cb80cd9fb005528ea59720"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/final-binding-check.json",
+      "sha256": "79b629d441e508717212574b64d62a4c94752f14819a570f87276e17923788cc"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/return.md",
+      "sha256": "ab8ea68c94f7c3c44728e236b6de9c70b808c8bb64107d2a03077827cee36fce"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/completion-return.md",
+      "sha256": "be09942160095f513d4263339c0b9938e5fb26fd39d2c1419a67be94350b3deb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/completion-selfcheck.json",
+      "sha256": "ff9ca2e54ef8c57a6e1660b1519153beb2cfa485f9e0212e28fb27eacb2e4372"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/selected-core.json",
+      "sha256": "e90fb23ad3890cf7c82f7239cdde520c9334c4cca681e148a2394725aac5958f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/tracking-preimages/abi-GOALS.md",
+      "sha256": "eaddbfdb869de6179b715abb3580a387e1193bbe8d8d8d20ee911d418e13ae20"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/tracking-preimages/abi-GOALS.md.diff",
+      "sha256": "5367b121cb0b58bb6052e5538679d996bfc15b2d4517bfcaeb0a00660cd05365"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/tracking-preimages/abi-T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "7653c57cf582d85f487cc696b8502d725f367668dfd576c78527bcb9af4b575e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/tracking-preimages/abi-T-287-deliver-abiogenesis-5-feature-waves.md.diff",
+      "sha256": "7a52cd861fc685303ff845f0b9832502f3552066ae24d206e72f354c8ad473d7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/tracking-preimages/glc-GOALS.md",
+      "sha256": "069c6603f2e0d69248130e24151c6c5ac12b93ff3b1e330001d96b6eb5a9337a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/tracking-preimages/glc-GOALS.md.diff",
+      "sha256": "76ce00877bdec073650ebe120dd11005c402c2759554f493b2d47aa9cd8e03e5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/tracking-preimages/glc-T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "sha256": "fe2e335813edb36b6348cd355c0911250d1110ce57377df90ac1ccd6118b576e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/tracking-preimages/glc-T-043-deliver-generic-live-llm-scenario-mvp.md.diff",
+      "sha256": "d1b5fc9c5e329d81fb1ce0d15188f11c3fe84985d8f1636f8d424990c86c3cb7"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/artifacts/odd-glc-route-one-typescript-0.2.0-dev.7.tgz",
+      "sha256": "fae12c1f1b2591463e7f2402e0656ea87b24ceae208f75d8a380a0751a82718d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/package-caller-01/completion-subject.json",
+      "sha256": "60c590c1ac1fa350e8aa442e3429dbc96d2c482f9010ce7cf78478900699c847"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/activation.json",
+      "sha256": "f2c36a1ec229c700fd30582ad3f4dbcaac8581168347942103163cda1434a419"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/caller-controls-result.json",
+      "sha256": "e6b44fa8a91848b351025e40b8172e96e5b8b7a41e35b9481e542c9f477f6bee"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/caller-controls.mjs",
+      "sha256": "2de68a14025b2c0fdabbee39d9aac355889271aacabb647598998f6657a0f1f2"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/candidate-readiness.json",
+      "sha256": "dbcb3007862a030b3b1495d5491c40493eb5adc7efdd2ca340d0bf0427fec4a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/configuration.json",
+      "sha256": "7c85507f96ed66ec9de64d37ffbcf54e387f0e18033e711cced8f29f24c24b2b"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/configuration.json.diff",
+      "sha256": "df949ba604bb41665bf93aa916318490d68fceb40fbb67712ddd3749728d6e35"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/design-path-selection.json",
+      "sha256": "1ea6ae09fbc600b1df995af211b07167659b71599b20d0458b3d3e7a4d907665"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/driver.mjs",
+      "sha256": "cae052131df99d2616ad4a64dd25b9f03f173ead95f427191ab8819db1790d5c"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/driver.mjs.diff",
+      "sha256": "4d7a60775a1e4ff6c15967d91504bafc40f641d2af44c5ea2321cd5c2741e7e4"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/external-dependencies.json",
+      "sha256": "e5fc0c1de8975954b80538e5f29ce9688923c4ca792715e464134eec8423c516"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/external-dependencies.json.diff",
+      "sha256": "1e228fa5ef2cf41803478a6554d650f4fc96ea64b79bc296c63d6db14a4254b9"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/final-binding.template.json",
+      "sha256": "bd4b123ad900e18b09b5b736b0782a16e0076a6b7059f836ce596366a62eba5b"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/future-commands.json",
+      "sha256": "01d16c4e5560ba3b7fc801c348475dd17199bbf3a3b00974f202ea9fb37dc220"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/launch-policy.json",
+      "sha256": "401996d9ceb45da6ec39907f703d844d1b188fbebdd101578de3533c2e0c90cb"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/launch-policy.json.diff",
+      "sha256": "29d2c370d4aa8aeba3b976045bb4b7d7ecd1277c47eb620b99c21112d1f33c50"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/observe-process.py",
+      "sha256": "1baca590f1015db5c873adc0e4b6eb80a020fba68785e41e1b93d788b23182a1"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/prepare-candidate-02.stderr",
+      "sha256": "c5e0b99b55ba008cbd4e4b568b2896bb02b7d01b004be0f5cdf874ab62afc47d"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/prepare-candidate-02.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/prepare-candidate-03.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/prepare-candidate-03.stdout",
+      "sha256": "9ea4debf1e308c7e3bca52eae68e45ec6823162c34fbae1e196bae0acf787abc"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/prepare-candidate.mjs",
+      "sha256": "beca427af10548edae2f03cb5d9363f668d524544a2f6e907049b46cb4387070"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/prepare-candidate.stderr",
+      "sha256": "ec4fc84624c5c6655489a20da23277f3e9b58b0a9c8a5d6075584d047502c749"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/prepare-candidate.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/retained-selector.mjs",
+      "sha256": "e7cac8389b49ee9046ee9a8552b3bc828328ccca8719619de2044a299d491f3e"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/selector-candidate.json",
+      "sha256": "8ca43420d6a5886c4954fe1066044f1b909287bfe030c022c3ea7a9430ade867"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-design-reentry-implementation-01/syntax-checks.json",
+      "sha256": "08cdcf44af452d29335cb1a2c05c2e8d86fb61cefb3848be47a778b74f9b2ee0"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/driver.mjs",
+      "sha256": "d43cc8cf9b330ab87646fbb476cd4dbe95f34f124d23de68c2ad470ece452a8e"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/current-resource.mjs",
+      "sha256": "fbef40bbb0b430a5507dcd6946fbf3e0232b1999c8fc23960059bdcaa1ee4060"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/execution-11-readiness/observe-process.py",
+      "sha256": "c4dfc05c77bae747debe6199fa90c1fdcd69617bd9809fa031b81afc518fc781"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/caller-readiness/current-resource.mjs",
+      "sha256": "a5e28ebd4bc0e828607dac6d2d2443a250520531c2e238b9d63a08b40b035c02"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-06/caller-readiness/current-resource.mjs",
+      "sha256": "5b3051df7dab4a8c4e5570af14a785681750fde8d5353bc47dbb6a5754884539"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/selected-consumer.json",
+      "sha256": "fe81fda27b4660a5dcfda4fc782a89b224d25eb9d2aec99d06376ec4d1cd3f7a"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/archive-members.json",
+      "sha256": "e64a428b883fa8d7d4dd140f9778502d91489fb0eed73ae481ab950a0b2fe295"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/bootstrap-install.json",
+      "sha256": "7fdf74c2398604a243d2080b3911b41965a906431cd24a7c9843bb6a4028bc65"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/bootstrap-install.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/bootstrap-install.stdout",
+      "sha256": "af2e4202f4a9c726830963af8d5b515de3f759665ce1789c014a1a1a39dafa06"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/build-result.json",
+      "sha256": "5d0770d5f7dfe63bebd8403b7712c56a80d630a4fc4119df2738e8a8d9117d38"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/build-timing.json",
+      "sha256": "900122d5e1cd6d2a9fd5dd447007d335f9e2c896a19f37364c8d895b9eb8dfc1"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/environment-input.json",
+      "sha256": "0f0a6c435ac60bfc9a2321b84cf05b2774362ecba8192a803508a60d6370954b"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/generic-run-environment.json",
+      "sha256": "9d212c8ab37ee8894781d529ede7074d4392d3d788868e95d6ee486b4e6d01c5"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/installed-declaration-validation.json",
+      "sha256": "cdbc34ae4507d9218ba7087ed6747eaf7401979806d727f4808d94d6e88987f4"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/pack.json",
+      "sha256": "55d071fdd5bec7e700f19df6b49fe8618a530dadda93dd84cacb52354f6ee2ca"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/pack.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/pack.stdout",
+      "sha256": "2f3d98b85f5dd3744c12b1dab3dbd2ecbea83f78ae8e068662785db31c00f3ee"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package/build/native-continuation-contracts.mjs",
+      "sha256": "0fa7997312d4b6b27227481ad893ea20897821fcc10e3b247171452fbf821695"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package/build/native-continuation-declarations.mjs",
+      "sha256": "31447f63a40a22794a82f9f68eddc70cfac79169be339647e6e1ae2010c2d901"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package/build/native-continuation-runtime.mjs",
+      "sha256": "4718be7a9fb0cbf556b613635f78dc06223b75eeec9c9a761635394123dc9371"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package/build/publication.json",
+      "sha256": "eb200192c2c11f26582e73f19186ef471b50f1394b542f76ce077118b14753bd"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package/contracts/native-continuation-assessment.schema.json",
+      "sha256": "8289425dbcfbb85c0be94a46451267183bb8666af413fc8484d941b594efbcc7"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package/contracts/native-correction-selection.schema.json",
+      "sha256": "afec49d152bbe34632e429fd9258a0540f24eb27d6b8b81474e6d689a839568e"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package/contracts/native-design-assessment.schema.json",
+      "sha256": "55ef90a0cf83d5cb1ef95b3ac1efcd01e46d03bc177ea6b4745db1edc257182b"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package/contracts/public-contract-catalog.schema.json",
+      "sha256": "a69db2dd825711aba598d29d8880b20df39aa8ac691fa25b5d7c058eed964646"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package/package.json",
+      "sha256": "733303bbc23c2594d667b07d77ac61a55edcf157db9b88b0bec9d5d5f68239b2"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package/product-toolchain-manifest.json",
+      "sha256": "8536cc150ef38ad7624497bef1e4e4a2bbba3f974310bfbf83e60b930897d401"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package-correspondence.json",
+      "sha256": "1bed61c3016ae2fed7f2847d352129841f09fb8808e917a7b2e4386afc732027"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package-identity.json",
+      "sha256": "d332cfa080fef67dfaaf54724217d12f6f207e2ad2fd697cbb1d67b0ac39ec53"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package-once.py",
+      "sha256": "7feed60a8b5779eaef49c06834197472476314ad70a0470c7869765480dd0111"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/package-readiness.json",
+      "sha256": "66e0c35310603b362919b83bf7376fa86474956f6ba4f5aaaa040f6185632905"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/prepare-package.mjs",
+      "sha256": "57a5993abb0c35ee369adc19098f61a8dd1027252dd51c0808a6675437f70a54"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/prepare-package.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/prepare-package.stdout",
+      "sha256": "65c567444774878707ef270ec9738dd090a75db80e15a1e7086efddd5b9798b6"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/product-verification-request.json",
+      "sha256": "ef71eb72bbfdd05aa67b4de9bddecb53a3685e4324b48196410a827c21db7297"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/product-verification-summary.json",
+      "sha256": "8404018410717291ccf6a48fdfa093d644aeb06ab97be8a18c60f27322b03f8b"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/product-verification-timing.json",
+      "sha256": "8944bb21f80b98ceccfa48729fdb55aec60313c78e8fa289cff057433e6ac8ce"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/selected-construction.json",
+      "sha256": "00072ac25cb3bbd35fd8810c67fa505351a332939fe1b8df57b5e5c0817ffd8f"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/verify-installed.mjs",
+      "sha256": "1080ed1fb9f8300104cdaffa0b2d1ff06ef7f77e84ebd1291ebdc719d0c5b379"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/verify-installed.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_NATIVE_CONTINUATION_CARRIER_CONTRACTION/implementation-01/package-03/verify-installed.stdout",
+      "sha256": "8ffa84de282c7cba5fd5b752cb0c1240a6c96f95a1392ec4f5a90e1367a9155d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/subject.json",
+      "sha256": "9531fbf072db7880d503099ec60200c2f94c49fbe966de7599bd13d22b93ad97"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/return.md",
+      "sha256": "5758b8e4aec795cc7f71cbbb0b674d74840742e21bad6f624b3cab90a86fc244"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/preimages.json",
+      "sha256": "9f6acefa951f120f945b8fcc3be820906bf47ed87bade526da8534f58b4cb9b1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/checks.json",
+      "sha256": "1ce04f632ef3003b31a62703446742b095cf746d4e32bb9da823a97549631cd4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/source.patch",
+      "sha256": "004c7183aaae219f4c9db62ba61633952a5337871ad9ce5ef72c27ee0881e38c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/noemit-01.log",
+      "sha256": "95ebd32a25ac7ec5071deca8745ff6146485b98de7218befc40aa2b686167c1f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/noemit-02.log",
+      "sha256": "95ebd32a25ac7ec5071deca8745ff6146485b98de7218befc40aa2b686167c1f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/noemit-03.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/focused-01.log",
+      "sha256": "d1decfe73fa95225d51948ecab9a8dfc55e5d6fa460fa71be938d336e1d3888b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/focused-02.log",
+      "sha256": "eb3680e73097a821a0628a5cf3c7e874accf4b23c5cdb5b950334c7a08d95384"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/freeze.json",
+      "sha256": "f7f79109764c23b75b678e6d32c057c2c4626807424aed35ab019e784d03d59d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/freeze.json",
+      "sha256": "56cb175fc40a163ca9db119057a643af8b6f75f18891485c5026bb722f8e109d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/package-readiness.json",
+      "sha256": "246a43bd6365f199671af4c49808b8cdde4dcf00dd0562d2be1427a93b44f5a0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/selected-core.json",
+      "sha256": "e9009e7898c4b1109ded5183cc87711c4caa96a4d4c7975ff697bce33be8b97f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/installed/execution-selection.json",
+      "sha256": "65b42f89da913be4918ffe16992dbc3d2c6157e1184b93c45a2c47032fe57c6b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/held-driver-result.json",
+      "sha256": "e7aac56438ef06a57b7ef90fd29531d674585f31fe0650f383d0a43c6db0542e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/held-driver-start.json",
+      "sha256": "eb6bba489d2fbcddb0a1c9ba05eb4e3398abee54cfdd943323d362f4188b46c8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/held-driver-usage.json",
+      "sha256": "65bbac31d476138e6fd160cfb2565ca2451d4bdfeb92a433b4817b7cb6203e10"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/held-driver-stdout.jsonl",
+      "sha256": "9a6ede1f5525e685e1e361ac82674ed10d7f8721e60a04d456b4bc0786bda2f7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/held-driver-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/continued-mixed-human-boundary-root-receipt.json",
+      "sha256": "7ada7c32cbc859cd59ca9e3e76501c010f980362e89a033e52efee4abf6c8c76"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/continued-mixed-human-boundary-events.jsonl",
+      "sha256": "dcbc36ce1bc3a0be71df631df058085e75d0ca057f09848fd6aa052ca541807c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/continued-mixed-human-boundary-construction-basis.json",
+      "sha256": "f846b809ceddcd889c1a3867257952bb23b5da339aab73a0a5e3cdf66b2c2c8b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/continued-mixed-human-boundary-fixture-count.txt",
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/held-result.json",
+      "sha256": "be727dff3484ac58b4714aea7521b62d067ffeedfc60a3445dfca26c5e98480a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/final-close.json",
+      "sha256": "cd984ce77f94bcf8255cddad4de2786a53dbcf8e7f1f5236dc25765f47086b70"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/fresh-read-input.json",
+      "sha256": "cfa7caac6f8c31615f40950e52105c7fbdf838c5cbb29eae0ca1810b7b0f183d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/installed/public-native-boundary.json",
+      "sha256": "c59866c549bc9f01b8010b6d2da7ab8336408a12b079ea6bd98574aa4effc653"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/installed/continuation-input.json",
+      "sha256": "d30b5485e04c1bc4596f890ae6c3a6528ee0642fc4c7e91ad3464818e0a54d7d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/installed/native-observation.json",
+      "sha256": "8d3f66f06533913a9a4d0576d4d664c541d54618f8086cf81d150276527addce"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/installed/subject.json",
+      "sha256": "a8b26fa83fcec39fa48808c186dfb04d58308e081bd951611a627a85b00d3f47"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/installed/return.md",
+      "sha256": "c07fac19065be187bdf74746aa746195b7810e723916a03878d62ea8f224dc48"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/return.md",
+      "sha256": "c3813b6cbd2fec8a67dd09bbeb89c85f061ae11e9d29e9c3d53b03b2df8e894c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/installed/freeze.json",
+      "sha256": "35804f604693c481743bab11790762dd29d2922ba73c03a2f45dca754ddd6fc9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/activation.md",
+      "sha256": "3eef75a28e585a13698fd8c7cc4ac4232c4a277ac2675984b883124a95d03d99"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/preimages.json",
+      "sha256": "eb0aa287c0e567f960d0188b6c2de64930132f1d64fa5b44a91e01a265855098"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/source.diff",
+      "sha256": "6aa7e538e876d8faa65a4ab7f123699c8b02875ae6ff468127f436f7bf3b04cb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/checks.json",
+      "sha256": "3579adcd1364ff7fa84d1f1dba41b343b856ee1e7e76579e10e3054bac795894"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/public-output-delta.json",
+      "sha256": "e4b25fa97bc7afb4b593d0f82e62148068eb75d0407b2ea276460de0f189d3cc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/noemit-01.log",
+      "sha256": "8f9d781ec396e63ada5c45b95d849c41859aebb40083aaa6a46df64fa1c4fafb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/noemit-02.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/focused-01.log",
+      "sha256": "0b54f05c8a2ef27bf1b3186bb20a2b96304d7bde529f82384a6ac530f37ddac8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/focused-02.log",
+      "sha256": "2d57b3da46eab3cc9a3abb6e65a2ce2e87a85e52951c8db9e82c693014716942"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/subject.json",
+      "sha256": "c0d2256d2b70b5b28b7ee4c3dc55ac402e0e9ac95d68e323da1570fb06dcf6b2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/activation.json",
+      "sha256": "71c59970d4b5495714209ed9875dcac6e9815b7b65b0246ced85a5f4bc2e047c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/observation.json",
+      "sha256": "10f360a0586d3173994708a786907c72a1f2e189fc3634e6bcd8af57b4eaacea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/continuation-input.json",
+      "sha256": "cd5b624e9f1ea960a1821bfe18f3e82aca80ceba68f826e2ae851e3db4e1850b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/readback-coordinate-comparison.json",
+      "sha256": "e83aae0361633acf17545053f38da4ad35b84f4af24d126e3d7601e882530a20"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/source-grounding.json",
+      "sha256": "9d54b7ee6f1c05654a70c71933cb062532f87f158445ee277e5f627d692adbf4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/return.md",
+      "sha256": "a9f5b8006b08a2b04b544a874243aae8a3a0c98f5d71dd52e71fc6e3704d98cb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/activation.json",
+      "sha256": "71c59970d4b5495714209ed9875dcac6e9815b7b65b0246ced85a5f4bc2e047c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/configuration.json",
+      "sha256": "aaf1decf6f0ce1399849c66f57c41b58af1d48d6d710fb4b8760c376e171b1f7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/caller-freeze.json",
+      "sha256": "17e1c7dd296fd10e7f520b394501c204bc478b5d5fedcfdf2d231e690ef117a3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/configuration-02.json",
+      "sha256": "426323558305018f7b1ce87764f16c14dee0b02cc966521f3c813917184e073b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/caller-freeze-02.json",
+      "sha256": "c8bfe7ef4f283c091f3b9e17b701078c6ae60c12f08cadabac2665bfd8c8b8ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/configuration-03.json",
+      "sha256": "f81da17eac20c3e71810f8d7d11c9df48bf106f6cae380b635bb8bea978ff2b6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/caller-freeze-03.json",
+      "sha256": "1f5c51e6fdd9d4e45c1c842484ad491c1d06529642cd8fb744a2aa6ca619b041"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/campaign.mjs",
+      "sha256": "0b2b0954e81b91c596ecae6f84b8421d397a92f0e83fe94b29bfda7817f99d2c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/campaign-02.mjs",
+      "sha256": "4cc0fdad3a4415e93a1385d62d64aeebfc087201b73455d373ee51a4a74579a8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/campaign-03.mjs",
+      "sha256": "63d58b686b042aeb90ed593d4ce3d0254c3023c4362d2a42633f7674579852d9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/public-read.mjs",
+      "sha256": "83d5309397e3e303507bb161838f409d8e07cbd519501a22fbaf9651ca28fdd7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/public-read-02.mjs",
+      "sha256": "eb16958d58cb44319934a1987a5a0d1e74df7ee98b162e337400020fa9be501d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/public-read-03.mjs",
+      "sha256": "47fe436bdbe6a33053ece27e1a547236a1b4b219a09a11d075b543ea4fee147d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/fresh-read.mjs",
+      "sha256": "fb149de1aa5244fe6b2a3a6adb2eb2965b61db4e015413e55dbfe01c102f6258"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/fresh-read-02.mjs",
+      "sha256": "a9a26b01090cb01dc9cefc88418772b9c690460e6c2c80d1b8a195122ee02f14"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/fresh-read-03.mjs",
+      "sha256": "e075eb0548ca27ec3c0754f3f75a109a56d93da7ea507622468d6af39438569b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/observe-action.py",
+      "sha256": "94ae79f1747cbea7d0542521032a853341cb448ad212dd35265080035614c0ed"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/observe-action-02.py",
+      "sha256": "64dbc4be4b68e3e7d34fabe832fc7eb3c84c5fa8729be983bb65eaa84941f1d1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/observe-action-03.py",
+      "sha256": "f5fa9995d1f59b88f67d9b6fc8fb4136d5a39eb9beae91bb48ff1d3bed10cf62"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/held-driver-result.json",
+      "sha256": "87437660775ea765b6160709f0f5fef268c3beb5c5001b29c4f0fef693fc1c50"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/held-02-driver-result.json",
+      "sha256": "d43d3dec61548f8258cfc03d5e55a1c232de569c92e2a146450f46bd963c399b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/held-03-driver-result.json",
+      "sha256": "b851dfa3f682ae894580cc0f02d90b6b54ee2437371a2b9fc0f826261fb4aecf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/fresh-03-driver-result.json",
+      "sha256": "85c3392fda387e1b5db3d5ca2ac53ca3aebced805e4d3f0a882874904523ebc2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-verify-mini-receipt.json",
+      "sha256": "0269bfe1760308ab021e913d1358d261a16a0073940b36dfbf4f3fcbdec90845"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/continuation-selection.json",
+      "sha256": "d30b5485e04c1bc4596f890ae6c3a6528ee0642fc4c7e91ad3464818e0a54d7d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-before-run_status-receipt.json",
+      "sha256": "4793a7c84b8c0f2e154de3ba8842890f601a4bc8be7842a2dcb583613445dae4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-before-run_status-cost.json",
+      "sha256": "b5eeec210037f1f57b7dee9898e74ddb2a15c2b18df71563a5c735666b3a5ddf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/held-result.json",
+      "sha256": "19d9c032313b35fe626057e4008baf9e655812c0def98941ea7b66200b6e7c95"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-verify-core-receipt.json",
+      "sha256": "aa94dff3ed9f1acd1b844b67bc9f7a804c91a5d61234da58ec1fae7a15ee9d26"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-verify-mini-cost.json",
+      "sha256": "b73db826bf33b36ec3a49a2fcaf129b4f6bca17d260354e9824b0fdec3614c8a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-resolve-request.json",
+      "sha256": "443a841007543d801ca100f04463089513847687c5e54f696a1accfc606b2f82"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/bootstrap-core.json",
+      "sha256": "d6ac3dedfe2c75f0de8fabbc8641ef7cc1e4e583d7d2de3d679f3a487c905dca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-resource-acquisition-cost.json",
+      "sha256": "b322b24eaee75c86055672be7620cf23b1cf438ff3b329eadd9b2836928a95c3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/bootstrap-mini-cost.json",
+      "sha256": "ee2056638a42c2ef0e1896ff2fa9c37bfd27b14085632c74756a49ebe3df5770"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-resolve-cost.json",
+      "sha256": "1042913ffdee74fda795ef5844721622b09ef856d1e4bc5527fa20e2538ba0cf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/fresh-read-input.json",
+      "sha256": "54f36cac92410b2511d33337d6afe9aca9c5bb64486285ee3de331ab50ed9e40"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/bootstrap-core-cost.json",
+      "sha256": "e0419dfd2f552b814db75f013cfb7052c6ad40bfc319101fe7607482b5bf878f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-verify-core-cost.json",
+      "sha256": "2926da593baba63da2bb66f7a88ec72c9e454057e1d87d3b531b62f03f65d359"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/configuration.json",
+      "sha256": "0d4627c1e324eef82bf8180e3dec02dad60af037fbe9f0986be46512056bce51"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-resolve-receipt.json",
+      "sha256": "39c14bbd7a8329d681826222905df5aa04b3571614dd4f6cde488a8dcd71978a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/final-close.json",
+      "sha256": "445a840b20a6754cec4da0c3fe8744a84966b47cfbf303482f390dd1d7d74d48"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-verify-core-request.json",
+      "sha256": "a4eb91dc26dd2d19a5c58b31c2a8396dae45acedd449f152dfb21745d684674e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-before-run_status-request.json",
+      "sha256": "444614e8378c33333b28491dae5052529fd1a763ec588c9209413a4fa8ae97a2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/bootstrap-mini.json",
+      "sha256": "bacc87cdd82c000c65859dfeb78352290c0468fe75f3330114e084c2e9a4384e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution/operator-stop-02-verify-mini-request.json",
+      "sha256": "1df7eb3114b0b78cfcb448f94647c48150d21dd4f40814234cf27b65d10da9cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-02/before-run_status-request.json",
+      "sha256": "46bbb01ed1ac7b9db32983f7fd6b6f0ed0942d3ca225fd08686270c9baa400d8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-02/continuation-selection.json",
+      "sha256": "d30b5485e04c1bc4596f890ae6c3a6528ee0642fc4c7e91ad3464818e0a54d7d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-02/held-result.json",
+      "sha256": "775b86358e314c4bf8da4a6c3cc96e64b1162a32326773ee8401aec4f8c938f5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-02/bootstrap-core.json",
+      "sha256": "d6ac3dedfe2c75f0de8fabbc8641ef7cc1e4e583d7d2de3d679f3a487c905dca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-02/bootstrap-mini-cost.json",
+      "sha256": "dee2c25edac513be2486d52eef2d1fd36b5a5d8365c7a0fde820b03461ef3825"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-02/bootstrap-core-cost.json",
+      "sha256": "baad9e8efd1386d7d01577eba0144752dcf3d75503b24e395dc9de1bf5f2ff6f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-02/configuration.json",
+      "sha256": "c76eb1ea60194325cdf0a07d6634641b09bc0a26f5d9c1b9410ade629a5139a5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-02/before-run_status-cost.json",
+      "sha256": "59e2deb6a39e9e3365633768fe50377945d299ab9cf79b48ecc7c85a1d7fd81c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-02/bootstrap-mini.json",
+      "sha256": "bacc87cdd82c000c65859dfeb78352290c0468fe75f3330114e084c2e9a4384e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-02/before-run_status-receipt.json",
+      "sha256": "5b2b776916779e26034fba6c707df28b3db3df803bd1b87b1c8fceac929ed28e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-02/reused-public-setup.json",
+      "sha256": "cb03df4eeb6329293e2df3c3b0847642f428ab6ee1918ae7d68290d09cb4bcfa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/before-run_status-request.json",
+      "sha256": "9c94e12096cb3a34287a0104af41b120c5597460e1e3ff899b99dc8bd64ab8ef"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-install-core-request.json",
+      "sha256": "a8644ff5039d21c4a0585f54da2f7b1a052d5b97471ec5927dd834cb3a07bbb0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-summary.json",
+      "sha256": "60a83b9b2f4f79a3c407535bb2a6baf0edbb47f27cd44ba303a4efb24177a011"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-reprice-receipt.json",
+      "sha256": "8f7cfab1d5a68b257ad32f2efe8f8f6f6d686bd4db61e1c9dfecf121dbd9203f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/continuation-selection.json",
+      "sha256": "d30b5485e04c1bc4596f890ae6c3a6528ee0642fc4c7e91ad3464818e0a54d7d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-run_replay-cost.json",
+      "sha256": "696f76fac5982986b4abe6943156eec23486b991645c444b0aa062a5e87c06f7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/held-result.json",
+      "sha256": "0210dcbca4a81280f74a82b0a43d10840bad86cc7d8a451fee518949f3237512"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-stop-receipt.json",
+      "sha256": "8f6e364f17913ab9c1ce910cc7b7086a23fe644686928d3d45abb19965844be5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-install-mini-cost.json",
+      "sha256": "1608a5206bf28732ec9113b9381e0e10c0752da846b6ac0d68bec6b1ed097040"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-run_result-request.json",
+      "sha256": "24bdf60ad738ca08f41ff651571b634546787b5b786ccf5f594e23cd4a4acfb1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-run_status-cost.json",
+      "sha256": "c025136ea15823d4cfe160a67854afcec09b5c7bfc6abd7974b43acef421caa5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-reprice-cost.json",
+      "sha256": "554fc1f63352f7fe5471fc6734cd991a7c045d27680c9f6f2c481802700251b1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-install-mini-request.json",
+      "sha256": "1f4523e69a81544505d0a05cbea9e859eafff03ef2a65ed83ca75ff092a6013e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-bind-request.json",
+      "sha256": "d4d7e1b6ade7469032d456332ee2437cec03d7c0de8e27b9372c76d18cb365c5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-run_replay-request.json",
+      "sha256": "a6bda63fda909ae0515a7a9340a1721012277180b4220c4d62c6fa61e4317f49"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/bootstrap-core.json",
+      "sha256": "d6ac3dedfe2c75f0de8fabbc8641ef7cc1e4e583d7d2de3d679f3a487c905dca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-run_status-receipt.json",
+      "sha256": "26af944fa7ff88d4cb8826adf949f932b52c7334dba3c01ecfe4d832db83a1ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-resource-acquisition-cost.json",
+      "sha256": "40479e7a05ecb77e7d22a7852d034a34343c6036f664470f17e7a904acb83bd1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-bind-cost.json",
+      "sha256": "9d9d9e1960b257882ff2ce35acb6f963c0f839548328aff2f11c9222e13a34ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/bootstrap-mini-cost.json",
+      "sha256": "3fce231734d3f8fadf23e4cbf5bef4070608958f7be33a14dc442bc421cc4017"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-read-input.json",
+      "sha256": "cc229355e95faf208be6477bbb75756d915fde266bf11ca2c084844f420cd17d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/bootstrap-core-cost.json",
+      "sha256": "ffcfbe278e6747ce1281e4c477125ffe54dc559fe6976519d60ab30cf7359ae1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-read-result.json",
+      "sha256": "4f9a14dc0d732ab98271eef9a36da13281073b3d20dbcb9ff606c5939886f946"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/configuration.json",
+      "sha256": "f31e8c56404a078f9221a3b665fef3330cba329d706fa035c71b2467d2300a52"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-run_result-cost.json",
+      "sha256": "04fbf9bdf7b1521bcf78c5e7e1abd9670109743007309c090507016420dc7e6a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-run_status-request.json",
+      "sha256": "6b7e7dbf971640dc2bc46bdffaae402277a2bd847b1d13db863f989faf453eb6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-install-core-cost.json",
+      "sha256": "8029b0141fe5b81673c47606b7e60fe4f6aeb18e221f24c5cc9ec25041c47baf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-bind-receipt.json",
+      "sha256": "fb1a4eebde83cc015f0879743c10867a47a7e8ec02a8b1714b028c46be3aa98c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-run_replay-receipt.json",
+      "sha256": "1ac405e0e89b79120b9c5dbcfea592fbee0c52fa235d9533a1efb5944271b681"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/final-close.json",
+      "sha256": "327a44096911b63d721c612067c534efd1a70670b51a2031947149e37d3f03e4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-install-mini-receipt.json",
+      "sha256": "1fa3c1061409d9a4d6dc15444612a99376e4b18ab399e7f1f2b9d1ebb34cbdb7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-stop-request.json",
+      "sha256": "6425a9863a24fbbe26e0d750ff766d1b2f0ff8a3094c6da5ca73b52893fcacb5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/fresh-run_result-receipt.json",
+      "sha256": "af37f27c6409bd01f66697f1f95984bed845ee600da108868326bed43eae65bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/before-status.json",
+      "sha256": "a2cd9d70ceba7783883d1b7f378126c2cb2667859fab233995a417fffb247e51"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-reprice-request.json",
+      "sha256": "dc19a71eb74ee6101d953e125a4e55e20c0c81b2533a73234d585b7fe73cbb81"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/before-run_status-cost.json",
+      "sha256": "10c935dfa9967533df3855339230e0e1ee7b510c11d29178ec4dc8529f89ad93"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/bootstrap-mini.json",
+      "sha256": "bacc87cdd82c000c65859dfeb78352290c0468fe75f3330114e084c2e9a4384e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/before-run_status-receipt.json",
+      "sha256": "8b1cf75fac00b22e96598bf0727235fe92153152c90bba03741b63b8537dd4fb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-install-core-receipt.json",
+      "sha256": "f19afbafa10f28a08e87e704d626f84d32b2427b74395f95edca665a40ba0fb2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/operator-stop-02-stop-cost.json",
+      "sha256": "2267e6fe43c712cacdb00ea2d953e4609f1ff4575ff71ebb60e597e64505057a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/operator-stop-02/execution-03/reused-public-setup.json",
+      "sha256": "cb03df4eeb6329293e2df3c3b0847642f428ab6ee1918ae7d68290d09cb4bcfa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/subject.json",
+      "sha256": "6df2de916b3e97e4e06e40c99bf646c5e8f85578f79a29d617d3998b85b26ece"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/installed/freeze.json",
+      "sha256": "2d00d12383b51d1422f3b7c8f03f84a8e880e69cb6cc15b88eb6b65b0cdd5eee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/subject.json",
+      "sha256": "d9c733d438a5746e3dfa73584ec86b9162d606270fcc36c00f290dccb9a15ec8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/baseline-check.log",
+      "sha256": "2ee6b681998da285c93c125f1af4fbec3b13727365ca4fc379cfe3b0a3ec1fe2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/baseline-component-observations.json",
+      "sha256": "17f8a461ba2936dadfd3653e54c21b4776ae451890bc293231c2a43314614944"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/checks.json",
+      "sha256": "56036b857f7acf576de13e8c86c3c18bac6b30d06c6bc1805300c61570498606"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/component-observations.json",
+      "sha256": "f7e2fd48dceb76f7881db44f7439264d036380d4cc963eebe4daae34f2347e1a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/diagnosis.json",
+      "sha256": "620523713932f09f5c39788c5c2b7e6202991d98b8f2495ba5fafc39f716fa34"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/event_calculus.ts.preimage",
+      "sha256": "7fd91b52b9d1ab6c76e1d4d0dc0e41d5e78d5aaf5a224af83d8dd2915ee0596a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/first-check.log",
+      "sha256": "885d786d0f92ba53a731b6e3b81499dd5d08c8c3172f509e7d72a02754f94e49"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/noemit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/preimages.json",
+      "sha256": "fc8a5bcc64988cedcf15634099748ca044a99e4a9af1cc04a1d744422e302330"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/repair-check-01.log",
+      "sha256": "f21c8bc57ae05d5a9b610e4f752306e57013db01d12e223d70893d92d0607384"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/repair-check-02.log",
+      "sha256": "1d9b06e5df75157b90bfb8a129ba1b9902fb69afc579e88e1eb95a0092170939"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/repair-check-03.log",
+      "sha256": "9ee29a6213769ffab23c949951e65ea1a12139090ad12636245a38cbb2c35609"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/repair-check-04.log",
+      "sha256": "3b544d62d6b5502550bbeeb4174081fcc6e51e421e34a742887245587f6fca13"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/return.md",
+      "sha256": "0d14bbe88ed4883317ce31e5e9b909ef7fd7a71bbe6e5b7474f33c71446bc8b8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/source.diff",
+      "sha256": "656b4e26f5d6296bfaa48b09d9ba6b9785918c9ba166b1105445bfd9823c5b0a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/t287-fh-hold-open.test.mjs.preimage",
+      "sha256": "547318dc4968d3a3e04448345dce96be9c24f482d225693716c3085fac9db313"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/freeze.json",
+      "sha256": "58105c65199a90f080d37f0351d823ecc280c660a9397a10d184a7e1febcb799"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/activation.json",
+      "sha256": "e0cc74c4f3e76a5c947a477900a465aec65faf40e1f905d6de305942160b5cf7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/source-delta.json",
+      "sha256": "23b17dfb2435a3f24eb3113a44dae521c21957a8ae41809fa170265d945c5fbe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/build-inputs.json",
+      "sha256": "5e65c31e7c64717b29bba7f6d61da0fe39bfdc4c8c170d1fd0dc32dc10ac05f2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/generated-before.json",
+      "sha256": "7cac63882642294eeb5963afbcbbc02c1ccd693a0767bf21092f56d92ce6a3de"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/generated-after.json",
+      "sha256": "394f4ca8b1b83c050bcca1ff806b969292e694bc95e7d447d90d5910b27eca2d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/generated-delta.json",
+      "sha256": "bcde62b242e217563e5031af8649c367bdcd8e5b14a5fcf9976832c836d607ab"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/build.json",
+      "sha256": "195ba17f800902f0451ea50fbe59689da36ba5944379d75ec83be3da508a3968"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/build.stdout",
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/build.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/package-once.py",
+      "sha256": "37860969d772df4be1d279ff382dada9aa2496c88d78507e7dec38bbcb4a7790"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/pack.json",
+      "sha256": "810564627c1e42836a22ab513d335338bc48cdb52e32a40b310b459212c0686b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/pack.stdout",
+      "sha256": "762c21aca5497ca3cae7ad1c6f41b32143596831ef850832fd247f20b7814b78"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/pack.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/bootstrap-install.json",
+      "sha256": "44a2f2416b7153ac08c66f45838beb99ddaeabbc8dd21e15dd43eac4a189e57a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/bootstrap-install.stdout",
+      "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/bootstrap-install.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/archive-members.json",
+      "sha256": "da21770010f6508c9919ce9458711c070b0276306a7257002625297e936c71c5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/package-identity.json",
+      "sha256": "511a52f4a7c7677b28e46c2ca0ef24b10310a091305262b292284ac7dc7840df"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/package-correspondence.json",
+      "sha256": "1cfa191e1468e15a7a28fa10709c66925e9c4c8654de9114008819d4fece879b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/verify-installed.mjs",
+      "sha256": "0575cfc2281f6a4dc6c4a71202258b85d3f4c1784de384ba32501cf6a52cc213"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/verify-installed.stdout",
+      "sha256": "27f1e5293ae882189730af5db028c3ae0895d6f57085b124c9cf77b48f63e058"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/verify-installed.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/product-verification-request.json",
+      "sha256": "13e4a8432fb96b89d29a57a84a4291c0814d434e605c9261644c255ab86f2f77"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/product-verification-timing.json",
+      "sha256": "adaf032660639b24bf2c8b72e8a34dffb19bf98ae9811ceb05ff3d9adc85dfbb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/product-verification-summary.json",
+      "sha256": "c3ba3c53cee27be3e4f26893516361c2aa17e258d9dda67685d4b425cf066bdb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-11/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "c0162f84504636ee263443b5bd0aa3bfd8059c186605dfd43ce0f3bc4b2c0a83"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/activation.json",
+      "sha256": "072ce832dac65fb38cacff81013db41af9561075e4b05a9428c4cafa99cd1357"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/archive-members.json",
+      "sha256": "cbedf8a76ac82183e35f60de273405c299b1105a667c573520e28c916b2eb4ca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "59551067ac5a055216686704b90489601b74fdac8674fa4311a566de7ebeb2fe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/bootstrap-install.json",
+      "sha256": "a5ed354dce91a39670010bcf3e8ee8c55e539ebe466b71250c346d3a6407940b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/bootstrap-install.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/bootstrap-install.stdout",
+      "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/build-inputs.json",
+      "sha256": "7270f6f738fd128c7190736a5eb3b0ace1f762ba2304fcdf699ff627bbce194d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/build-once.py",
+      "sha256": "3533c34872afd43640f06b77d675ccbeb37bde6b2050a2e08f80515196043d17"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/build.json",
+      "sha256": "4ae7083cae28cc09c7aaeb38e46ecd788b88cb14db1154e066a8392cc3498ad2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/build.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/build.stdout",
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/generated-after.json",
+      "sha256": "61765d47e7369b715cf779763678474cbced238c38b7c89eaa969ca37383e4a9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/generated-before.json",
+      "sha256": "bb0ccab324d3b0cc22889750ecf7c730cb09f216044894243e4ecccb5980a72d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/generated-delta.json",
+      "sha256": "53f10648eee1f15ac0288a59c03d629c44877cf55c9975cc2750dda6da3365a7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/governing-inputs.json",
+      "sha256": "843f32e08ea6657383dbcf577d2756a61b1dfa7f45dfb74af286a0fe3f8db660"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/pack.json",
+      "sha256": "dc98ad8c9208001e446fd85011a8436b3911449c39e227ccc8899efa54825ef1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/pack.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/pack.stdout",
+      "sha256": "4b3dae0ac01d15bc35a6eee8478c1b9410de5b1bda90fa2544b363363ef21d22"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/package-correspondence.json",
+      "sha256": "275b7575a210f14c4bbdcefa4bf1df8181987e571231e3f324830bd5f9e7edb6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/package-identity.json",
+      "sha256": "2e365b25ab5e6710beb0697033bfe91084096dec0521088464210e1de4a748db"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/package-once.py",
+      "sha256": "f21d044d1e71060e8e9623150f6eb4a6c871a358dbac478abfb3affce0ef0cf6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/package-readiness.json",
+      "sha256": "c9ac25aeaad71ba6a24053115daacf2c5224112e3d006bdda48fcd96c25b5736"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/product-verification-request.json",
+      "sha256": "4151f5b0b6113cca09447c81798262a7008aa79d62f3a6dd1f5cd3a988378276"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/product-verification-summary.json",
+      "sha256": "63c413f09d63f626028636cd22f075a019d3b26d5230b9f59909bf05fb5302cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/product-verification-timing.json",
+      "sha256": "c12cd91bd86abf748f641d8602597da0885c43af480c57db588962658ef0ba32"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/source-delta.json",
+      "sha256": "7f7db55246948200aeb757930b90b38341fff06938ccf58da944bca011688b9d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/verify-installed.mjs",
+      "sha256": "319becfc3f47b01206a22679065e4d97226025d4a4c0dad77f7974a86e6dde60"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/verify-installed.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/verify-installed.stdout",
+      "sha256": "a4ec6dbea3955bab7e8301cd55b094976e481c60e168421035d7c70540733396"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/freeze.json",
+      "sha256": "67d06fe30e56ced3ab14bfc498b708d57200a5fa8b8085ceb10c7015a9756bec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/activation.json",
+      "sha256": "671069e2bdfb3387f9b95dcc452f420d49a255acffe97675088f8ac7cc691f9f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/scope-policy.json",
+      "sha256": "dad91c6dd235d51db7633efd2600bd94d1f814b139f7feaa95cf39fd211e231d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/member-classification.json",
+      "sha256": "6d151c02b908880fefb6b050230e45b930f9af8b48c5a64c4a1d0e1f9332e73d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/prepare-assessments.mjs",
+      "sha256": "ba8d1ba95f4646e254054527a9728ea289ff9fe23ec58ebb2d33f1c1196d20f3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/representation-comparison.mjs",
+      "sha256": "578d2007581430b5a71081c446adb5463820d66bc2bc09ce694b50ac274da33b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/plan.json",
+      "sha256": "648461aa0d00ac2fa71cf4374599a3ef7ffd394a64d86e4d20c04d757de0fba5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/control-selection.json",
+      "sha256": "2ea92b1d9b08d1c68c03cc096c93c76358781b12b6dc5f8b4e6087b0fd091ba6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/selection-check.json",
+      "sha256": "a97d758d26ff8932dc7d59f30e940880d62277e6389007a732771d30f99efa6a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/workload.json",
+      "sha256": "60a020b6d0c0da287592253c6707e444352037350be6fc0564987765a67994d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/representation-comparison.json",
+      "sha256": "299fc94c7939aa11d48c6be2ff3ecbb85310bccd8b1c61f13c0d87fc282933d5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/producer-coordinates.json",
+      "sha256": "f1f37aa642f8a3751b9946f3a597d31f1402dcfce12bdacaf390791c7ca7cc27"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/return.md",
+      "sha256": "0f28e5c7d412ddb131bb94e727613beba9d159084adaee58c3eed7fd82994276"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/control-freeze.json",
+      "sha256": "8f05ca07fa5b1094d55dff25dfe0c4a6d9bb5088ae87d5a578625c0e444a3cc0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/activation.json",
+      "sha256": "6d0c6c5a89154f2955e5965f85f56029074084b767db603ee577d9b0cd6ed55c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/applicability-preparation.json",
+      "sha256": "894847db2ab61ca2c18e47f2d56c3440e88c3d0507432dff990b05e5c50484ef"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/basis-template.json",
+      "sha256": "516d4830ff5ddcc87ae573b70aa76a78e0b14914efe5aab04d4c0d86e8b6b5c4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/compare-generated.mjs",
+      "sha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/config.json",
+      "sha256": "68f66f1cc2e9fac75061d7200e9e262a52d34aa86a0f76d8bcb28dd002fcca13"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/configuration-binding.json",
+      "sha256": "7714564b9ebcd13d81641be507bb1977ca531c7ce884bdbb7e9a7a9cd5698d0a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/expected-output-inventory.json",
+      "sha256": "6aeb08d10cfc60fd07b26aa84a8ebe2c4444864a0a68ac9c6efb6d44f489e6ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/input-manifest.json",
+      "sha256": "6417cca58889830984202f392c692772bd0fdb04767809bcf195fd0765168a0b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/lint-population.json",
+      "sha256": "c4712d1cb6a8793295763dc715f624017d9fa5f18498bf32633a7f30ad8dacb9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/npm-toolchain-inventory.json",
+      "sha256": "57422b62fb01ddb84b3d55259bc2c929aa0038d28cdc5edf422a2216909168dc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/package-readiness.json",
+      "sha256": "074e1c6034a1b24c568547b71e0ccbae25f3dfbf4b383e987f945fa4793728ca"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/prepare-subject-binding.mjs",
+      "sha256": "927258c3aeb4840e96f321e4f6a7f5ff97c7a1b0766e4d976d7e1a11c1dfc06c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/qualification-inventory.json",
+      "sha256": "6bce2278fbc5a4559180f4a708d4247f5d214ac0c668a24be8efb050a0995e7b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/recipe-stage.mjs",
+      "sha256": "de17486b1af297a006a7667bfc12f00add60134b3144e9be523d7fee8c50d075"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/recipe.mjs",
+      "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/release-claims.json",
+      "sha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/reuse-selection.json",
+      "sha256": "97a642fc062ee30e9608d62df6dd4dcf7252407aa68ca3d452dee9a0ab6c7ec9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/artifact_truth.ts",
+      "sha256": "62bf1335ed7529b2d13d32e8810871f2e7e99bfc7ab7b6716d3b1360aca39805"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/c_call.ts",
+      "sha256": "81df9b254be28818201cbb6c56924ee06b1003fba4813a3852f27a8ef6838008"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/c_call_outcome.ts",
+      "sha256": "2c39789ac41c12d71c4da68c85b2f0a8d809ba6473b725bd5d1c1395535962fb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/continuation.ts",
+      "sha256": "d3632e0fc06119e938c9e514d517cb72a40ad66b3771ce10dc1f249b32207acb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/deferred_application.ts",
+      "sha256": "90198cb8727d9c994b17677bd6099c463b9087e7dcdb9b47f6bfadd224f54b0b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/definition_event_resource.ts",
+      "sha256": "429593f1d8e7041384da2bee509f3053999f86675146044fad1249a644f9353f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/event_contract_profiles.ts",
+      "sha256": "c850ccedbe55721ffd3b26b6ddce894702aebbd8245b5010a9c4bd883f3264e1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/event_store.ts",
+      "sha256": "ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/execution_basis.ts",
+      "sha256": "520ef1ba1acaf32a0b7263b78242d41a609a9e12820a4ebce27fd2b5229b14f1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/index.ts",
+      "sha256": "2a23087a128e57a23f46417052ae8481cd4c2b743089410db482cc2f76239678"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/project_read_definition_bindings.ts",
+      "sha256": "69624a50cff0f736434b7900bd8a356db0f6576bc373566bacc6fffc92a6a8ea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/project_read_operation_contracts.ts",
+      "sha256": "a095a108400e5fb91ca1e49027526c9d8dcfc8dcb9b53a4d6c24c790cc730936"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/project_read_ports.ts",
+      "sha256": "8f5137dbd7785d392c208007b3c51ca12e1cc2c5a3adc6a96d5b0fc2311ccc9b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/qualification_proof.ts",
+      "sha256": "a5802f5cd7dcc267356f4d0769de320ac58e17b5a7b94d0d8ee88e70e56e5fcb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/replay.ts",
+      "sha256": "25b23363037bc72eea5ec6859bf329ed3afd7c3eaec946240381ba011289ca05"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/retry.ts",
+      "sha256": "14244fa45ceba22afdeb9d98ce7e7e98ff4ab65db68bba46c3f11ae1fc76df5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/runtime_failure.ts",
+      "sha256": "0d40af8644685795280b19ea26e7a4baed210abad7c24319957e2db6eb25f994"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/terminal_result_contracts.ts",
+      "sha256": "e04d19ca520a2e3dc308d94e50db6a4b065b47855dfab9c143329a51ccf8e1ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/traversal_route.ts",
+      "sha256": "ba6e85a27365b4b7d83e58ddb6cd24ffb1210e233a981adadf1a64d9736fba75"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/abg/witness_definition_bindings.ts",
+      "sha256": "a2cbbc8525d5dd56c3024a23c2eaa22876cb600cde2ea6079e19126a7c3e8d67"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/gtl/index.ts",
+      "sha256": "147b93c69a765b9ffd076dc4ee855348de6f50db4c5a55cbd0ccb48d12da28a0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/gtl/worksite_command_execution.ts",
+      "sha256": "f87beba2cc5b4924132a8d34156c649bb27a3f1c3b8f1987f87eaea7dd479f44"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/implementation/contracts.ts",
+      "sha256": "be0b3ff8ad97cdb7f2edcaf12a4418ee006438a4d26226e4f77f34b63aeaa4f5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/implementation/fp_hello.ts",
+      "sha256": "2f028ef05e59732d0bdd5761d7616db3d9216e0ada93c6e410fae03b8135b19f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "226a7af8a7ed8ebaa895786f899e9a06adfded6535e540b0c90506193a998b85"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/implementation/release_publication.ts",
+      "sha256": "dcd2a8074ad11c07a8eaa1e8ff6e79b8b12613eaac5ba3643963ec23c79f6827"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/implementation/self_conformance.ts",
+      "sha256": "0e07e01550b2bb48e3deaff0107e3ff1570220526149801d3084388c164807a0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/owner_bindings/run_invocation.ts",
+      "sha256": "77911129c853ae30eaf327a017d08de9d0e69e77c193280d2619e0d578088d28"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/admission_authority.ts",
+      "sha256": "bf7f633738757c2ce97bab18cc8816010480767de35ffc4c3f2a00012544b99c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/catalog_definition_bindings.ts",
+      "sha256": "99eb6bc769e6d0cfe2096fc7d2dead581cdbf8b195289ae934f6fe467e4b755b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/contracts.ts",
+      "sha256": "797868e3c6c5981f8105dcd612453ddf9439447f445caef5302a99c1ab251ff4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/environment_definition_bindings.ts",
+      "sha256": "82bbfbf4ebc6e1fdcd5f5d434bbd3105f5a77dc1296d3e6c5e9377018d645c43"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/index.ts",
+      "sha256": "4819619adb88b46f5a96a99ab4e2fa270294738787cbcb15ced7c5b553a784b5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/install_definition_bindings.ts",
+      "sha256": "b41c703d907076104a3067c1229ec53704f6d23a56e565fd02b8a49e6ef4737b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/install_product.ts",
+      "sha256": "530a64de26789abbc11beb050059f8fa41760b3c7bf2f675b7a13f1bdc4e48ad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/invocation.ts",
+      "sha256": "931c3998c103e932215eee4a952e4575db91a20a5e128187054ac62048479c28"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/run_invocation_operation.ts",
+      "sha256": "b1ab9412f844e294e82b7d3e0e683ad36611b23abe2dd5b0293d061519792c8f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/verification_definition_bindings.ts",
+      "sha256": "e96a40d675c0c024f8c55f6769842947a12a94bf1140a2799af0cdb5a8336614"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/verification_operation.ts",
+      "sha256": "2683edf2d838988064e492f5822b100eb6b82dbe1a32b54ec815656384b4fc6e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/product/verify_product.ts",
+      "sha256": "3578d093d40572415ebea6fe5b6d033c4ea9024054057a0475d19e40042011e4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/public/index.ts",
+      "sha256": "f6ff523f558590987767d66c6f9cd7ca0dbff2e99330ff099605318332a27df2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/public/installed_definition_call_transport.ts",
+      "sha256": "8b3d33cfd7e61a85039c918a743cd6487e55fe890d8a22798201af046b89f4b0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/shared/static_definition_bindings.ts",
+      "sha256": "ca1f0b489ab6563f49c0b17a222b2472d6c085d6840293cb2bf3ec96d66c2a01"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/validator/conformance_definition_bindings.ts",
+      "sha256": "1345ece641eec5c59eac9c45ecdd6adb8b86330cb1ce1a6bd913e76192908490"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/validator/index.ts",
+      "sha256": "221a1c22e933648043f691f58cd458c9001d7e1a526ad60e8a7c057a6d5017a8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/validator/qualification.ts",
+      "sha256": "f8e92aa311cc56ce7ead7b6b51905791ace6502d4a7b5972a7671503ebe505d8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/validator/qualification_contracts.ts",
+      "sha256": "cf50d1120b7a73aa8f09554a06793c419576bdf6d030c27d8af03c7168dd7e9b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/validator/self_conformance.ts",
+      "sha256": "3e14d15f29656e9bb3e37b5d2bc110104523c349f09911b1f1353890d570eb81"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/code/src/validator/self_conformance_contracts.ts",
+      "sha256": "65ef87b21f38b8f1c9686e30fb211960f0e73b898286de1ab7356347db523208"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/scripts/generate-product-manifest.mjs",
+      "sha256": "227b520cd20278ccc9156628612cf325ba943bb8d8df033a7df9afef55885ee4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/test_env/support/malformed-gtl-native-fixture.mjs",
+      "sha256": "06885af43d383a3c3c51f33a0cfe944eca99eeb1b12985deb2d4057c2d64fff2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selected-source/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "sha256": "52f55296af35c1c1656b6898288a2c1ae25efffe8ae3e2ad382ac64c55659daa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selection-check.json",
+      "sha256": "34bff159429173b571b6b8e95baad25652a44e8b9d813dcc3a286f41b05d7703"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selection-check.mjs",
+      "sha256": "e0e81b4ac829b26cb9e10841cd3e0bce929de2fba38c17f6f6cce05de327a859"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selection-check.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/selection-check.stdout",
+      "sha256": "db73206bcddd29c25d670f27a22a33bf7262a225f7b830003e5bc3d9ac78bf29"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/source-input-delta.json",
+      "sha256": "6ac2b2a76ab9765491e07c78c9ddcffb202cf99a1001b9c234207adc70292074"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/source-inventory.json",
+      "sha256": "6aa4d99383cd5e8208c680bfe0ea4325961c3b7b2227d87c42a627a3f3b128a0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/subject-binding-readiness.json",
+      "sha256": "5c0d9319bd4f3e9e320ea8393985ab63b81a1bd20807e9a4d5e7fe884df3b6c7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/subject-binding.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/subject-binding.stdout",
+      "sha256": "27ce1f4bd3dab896c06764123c5b3869e708d38e21333c880189fb6443c30d83"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/test-environment.mjs",
+      "sha256": "93913ad5f1574d7d38c7b2435e2e7d9b5c3e492518adb616ece83485c7d65208"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/test-selection.json",
+      "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/toolchain.json",
+      "sha256": "280717ffa7a67ee694613b1c6fcb52b73e72c0b80309d7fe1ba0cd55f156f64e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/verification-recipe.json",
+      "sha256": "af992a21945288dfbcc0f09465b48de2e9daa00b65baeb097cd4668af78c67fc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/verification-selection-binding.json",
+      "sha256": "c18498344113939408f4af6b6892fcf6a2a643e400e54cef819083693d2fa39f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/freeze.json",
+      "sha256": "77743564c0760922f598942eedb37aade98f45fc195bc2376a4c80d771b24371"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/return.md",
+      "sha256": "ba48190e563672470abbf6ad055167615dc898823c54ecbd82afbb19c52a06d4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/implementation/return.md",
+      "sha256": "3f49e569660466e968d6296dc1decfe997a963035f4419b05c66de789b9efdc9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/review-01/return.md",
+      "sha256": "55056496f4949837f5a847ffe0e759eb4d3d4f7e85406bfeeb9d00866f46c41b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/return.md",
+      "sha256": "d0b3a2f7065da0021da08bf9802a5efc4531e8b91eb9bf64a7e9116ba29a7d3b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/review-01/return.md",
+      "sha256": "6f91936f70253c9b2f7a9b35f74113268de8525ccb346c5fd7ea1e898bbbb317"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/review-01/return.md",
+      "sha256": "10fd2d2fd1cf361b0c88d805558a3288de29539ec4d08b56d343d514b435ebaf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/rc1-next-applicability-01/return.md",
+      "sha256": "0568a4f4ab79d3017003e6931114528e3adfc8e913d73140951160fe595b1591"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-12/executive-selection.json",
+      "sha256": "75925107b00d08877dcbfc5fd65f0d9e1cc022d6726ca323c89723ac522e79bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-04/return.md",
+      "sha256": "b2b19568b4e55cfd6899cbe8689eec069d0136672275e5744ec5264c36a0e79d"
+    }
+  ],
+  "directExpected": {},
+  "pending": [
+    "Peer compiled13/Q07 and fresh stop readback unfinished; excluded from this initial transport",
+    "Original mutable journals/locks/worksites and installed/node_modules trees; no read/hash/copy",
+    "Scratch/disposable fixture/generated installation trees not selected",
+    "Final successor caller, tracking projection and coherent source/generated cutoff pending"
+  ],
+  "scope": "Initial finite closed evidence banking only; no staging/commit or native effect until peer close and exact final binding. Prior banks reused by accepted index/verification proofs."
+}

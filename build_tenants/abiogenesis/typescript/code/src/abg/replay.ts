@@ -8,7 +8,7 @@ import { projectRetainedWorksiteInputAtPrefix, retainedWorksiteInputRelationVers
 import { rawAdmitValue, type RawAdmittedValue } from "../validator/raw_admission.js";
 import { isWorksitePreparationBoundInput } from "../product/worksite_preparation.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
+import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
@@ -1667,6 +1667,34 @@ function semanticPayloadDigest(
     )!;
   }
   return sha256Canonical(payload);
+}
+
+/** Route-grade identity only. Reuse the live prefix index and the same semantic
+ * payload owner as Public reads; no traversal, raw-input or Run reconstruction.
+ * Native Run identity is an admitted opening field, never parsed from a URI. */
+export function projectRunIdentityAtPrefix(prefix: ValidatedRuntimeEventPrefix, runId: string) {
+  const openings = indexedRuntimeEvents(prefix, `aggregate:run:${runId}`)
+    .filter(event => event.kind === "run_segment_opened" && event.runId === runId);
+  if (openings.length !== 1) return null;
+  const opening = openings[0]!, payload = opening.payload;
+  if (!isRecord(payload) || payload.runId !== runId || !isSha256Digest(payload.runDigest) ||
+      typeof payload.executionBasisRef !== "string" || !isSha256Digest(payload.executionBasisDigest) ||
+      opening.basisId !== payload.executionBasisRef || typedReferencePathsForEvent(opening).length !== 0) return null;
+  const bases = opening.causationEventRefs.flatMap(ref => indexedRuntimeEvents(prefix, `id:${ref}`))
+    .filter(event => event.kind === "basis_admitted" && event.basisId === payload.executionBasisRef &&
+      isRecord(event.payload) && event.payload.basisRef === payload.executionBasisRef &&
+      event.payload.basisDigest === payload.executionBasisDigest && event.payload.basisClass === "root");
+  if (bases.length !== 1) return null;
+  const basis = bases[0]!.payload;
+  if (!isRecord(basis) || opening.parentAggregateId !== basis.workspaceBindingId ||
+      ["invocationAdmissionRef", "invocationRef", "workspaceBindingId", "programRef", "graphFunctionRef", "graphRef", "graphDigest"]
+        .some(key => typeof payload[key] !== "string" || payload[key] !== basis[key])) return null;
+  return deepFreeze({
+    run: { ref: runId, digest: semanticPayloadDigest(opening, new Map(), new Set()) },
+    nativeRun: { ref: runId, digest: payload.runDigest },
+    executionBasis: { ref: payload.executionBasisRef, digest: payload.executionBasisDigest },
+    runOpenEventRef: opening.eventId,
+  });
 }
 
 function requiredAtom(

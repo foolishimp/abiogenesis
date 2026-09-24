@@ -1753,6 +1753,11 @@ class RuntimeEventCalculusDerivation {
     const cleanupTerminalEvent = event.kind === "run_stopped" ||
       (event.kind === "runtime_failure_observed" &&
         event.aggregateType === "run");
+    // A preserving operator stop ends Run activity, not its unresolved F_H
+    // obligation. Process cleanup and non-preserving terminal effects remain.
+    const preservesHeldObligation = event.kind === "run_stopped" &&
+      (stringField(event, "reasonKind") === "operator_stop" ||
+        stringField(event, "reasonKind") === "external_interruption");
     const processRef = stringField(event, "processRef");
     const liveProcesses = cleanupTerminalEvent
       ? [...this.holds.values()].filter((candidate) =>
@@ -1786,10 +1791,12 @@ class RuntimeEventCalculusDerivation {
                     candidate.name === "runtime_invocation_active" ||
                     candidate.name === "actor_process_active" ||
                     candidate.name === "c_call_active" ||
-                    candidate.name === "continuation_open" ||
-                    candidate.name === "continuation_response_available" ||
-                    candidate.name === "frame_held" ||
-                    candidate.name === "interaction_pending" ||
+                    (!preservesHeldObligation && (
+                      candidate.name === "continuation_open" ||
+                      candidate.name === "continuation_response_available" ||
+                      candidate.name === "frame_held" ||
+                      candidate.name === "interaction_pending"
+                    )) ||
                     candidate.name === "parent_waiting_on_child" ||
                     candidate.name === "retry_attempt_active" ||
                     candidate.name === "retry_progress_available"

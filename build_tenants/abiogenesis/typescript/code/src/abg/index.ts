@@ -552,6 +552,8 @@ export {
   WITNESS_DEFINITION_BINDINGS,
   type WitnessRepriceResourceAssertion,
   type WitnessRepriceResourceReceipt,
+  type WitnessRunStoppedResourceAssertion,
+  type WitnessRunStoppedResourceReceipt,
 } from "./witness_definition_bindings.js";
 export { WITNESS_OPERATION_CONTRACTS } from "./witness_operation_contracts.js";
 export { WITNESS_CONTENT_CONTRACTS } from "./witness_admission_operation.js";

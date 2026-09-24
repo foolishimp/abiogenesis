@@ -1,0 +1,49 @@
+ M .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+ M build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts
+ M build_tenants/abiogenesis/typescript/code/src/abg/index.ts
+ M build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts
+ M build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts
+ M build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts
+ M build_tenants/abiogenesis/typescript/code/src/abg/replay.ts
+ M build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts
+ M build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts
+ M build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json
+ M build_tenants/abiogenesis/typescript/contracts/public-functions/adapter-projection.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/admit/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/apply/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/view/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/conformance/evaluate/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/interaction/respond/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/product/install/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/product/materialize/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/product/resolve/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/product/verify/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/project/read/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/release/snapshot/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/result/assess/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/run/continue/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/run/invoke/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/witness/admit/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/bind/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/create/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/open/operation-contract.json
+ M build_tenants/abiogenesis/typescript/contracts/schemas/operations/project/read/result.schema.json
+ M build_tenants/abiogenesis/typescript/contracts/schemas/public-operation.schema.json
+ M build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md
+ M build_tenants/abiogenesis/typescript/product-toolchain-manifest.json
+ M build_tenants/abiogenesis/typescript/test_env/support/witness-reprice-mechanics.mjs
+ M build_tenants/abiogenesis/typescript/test_env/tests/t287-fh-hold-open.test.mjs
+ M build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs
+ M specification/GOALS.md
+?? .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/
+?? .ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation09-disposition/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/continuation10-native-verification-01/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/glc-stage-reentry-01/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/implementation-03/fixture/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-01/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-02/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/
+?? .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/rc1-next-applicability-01/
+?? build_tenants/abiogenesis/scratch/
+?? build_tenants/abiogenesis/typescript/test_env/tests/witness-run-stopped-definition-binding.test.mjs

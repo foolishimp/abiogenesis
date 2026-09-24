@@ -815,6 +815,22 @@ context bag is lawful. `run.invoke(invoke)` has no `fhMode`, `rootMode`,
 `scope`, or `until` field. `run.invoke(start)` has exactly the modes and
 defaults above.
 
+For WITNESS018, the existing `project.read(run_status)` projection includes the
+required `executionBasis: RD<ExecutionBasis>` coordinate of the Run's admitted
+root basis at the selected prefix. Its `source` and `projection.subject` retain
+the same Public `RD<Run>` as `run.invoke`: the opening event's semantic payload
+digest. A caller supplies that Public Run coordinate and the projected basis in
+the unchanged `run-stopped` request and exact execution-basis authority slot.
+The witness owner authenticates them through the shared current-prefix Run
+identity projection, then resolves the native Run-body digest internally for
+native admission. The native digest is not a second accepted Public alias.
+The shared projection uses the existing incremental prefix index and semantic
+digest owner; it resolves the opening's causal admitted basis without traversal
+reconstruction, caller event reads, or URI parsing. This read coordinate grants
+no authority: exact approval, actor, capability, basis and current active-Run
+checks still govern the stop. The output addition applies only to `run_status`;
+witness request/capability semantics and historical event records are unchanged.
+
 The complete public request is `PublicInvocation<K>`. Actor, capability grant,
 workspace binding, Product set, dependency lock, catalog scope, execution
 Program, policy, and steering fields occur only in its

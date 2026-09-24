@@ -1,0 +1,11 @@
+{
+  "prefixesAndFiles": {},
+  "active": [
+    "Active G/held-design-reentry-implementation-02, held-design-reentry-execution-01 and held-design-reentry-launch-controls-01: excluded, no read/hash/copy or launch dependency",
+    "Q/successor-07: prepared/incomplete; excluded, no qualification acceptance or launch dependency",
+    "Operator-stop installed readback: pending at release boundary; no launch dependency",
+    "Original/S02 mutable journals, locks and worksites, installed/node_modules trees, scratch/disposable trees: excluded",
+    "S1-S5/oracle, complete qualification, QUAL056/F11/sole AF22, RC1 and human acceptance: open; earlier evidence keeps its exact scope"
+  ],
+  "note": "No new blanket ignore of active or reproducible trees; only exact newly transported originals will be ignored."
+}

@@ -65,13 +65,16 @@ function withNativeLiveness<const E extends v.ObjectEntries>(fields: E) {
 function subjectStatusProjectionSchema(
   kind: "run_status_projection" | "graph_call_status_projection",
 ) {
-  return withNativeLiveness({
+  const fields = {
     kind: v.literal(kind),
     subject: refDigestSchema,
     status: runtimeStatusSchema,
     replay: refDigestSchema,
     activeFluents: refDigestSetSchema,
-  });
+  };
+  return kind === "run_status_projection"
+    ? withNativeLiveness({ ...fields, executionBasis: refDigestSchema })
+    : withNativeLiveness(fields);
 }
 
 function subjectResultProjectionSchema(

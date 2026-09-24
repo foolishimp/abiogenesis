@@ -234,7 +234,7 @@ export async function validateAdmissionCapabilityBasis(
   const admissionOperation = ADMISSION_OPERATIONS.has(packet.definitionKey.operationId) ||
     (packet.definitionKey.operationId === "abg.operation.release.snapshot" && (packet.definitionKey.memberKey === "published_rc" || packet.definitionKey.memberKey === "tapped_release")) ||
     (packet.definitionKey.operationId === "abg.operation.witness.admit" &&
-      packet.definitionKey.memberKey === "reprice");
+      (packet.definitionKey.memberKey === "reprice" || packet.definitionKey.memberKey === "run-stopped"));
   if (!admissionOperation ||
       !sameJson(data.definition.definitionKey, packet.definitionKey) ||
       !sameJson(data.definition.owner, { ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest }) ||
