@@ -1,0 +1,18 @@
+import { type NativeInstructionAssembly } from "../abg/instruction_assembly.js";
+import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
+import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation } from "./contracts.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+export declare const SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS: PackagedLeafImplementationDescriptor[];
+export declare const SEMANTIC_REVISION_SELECTION_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_PROJECTION_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_AUTHOR_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_ASSESSOR_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_BRIDGE_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_EVIDENCE_INPUT_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined, SEMANTIC_REVISION_TERMINAL_DESCRIPTOR: PackagedLeafImplementationDescriptor | undefined;
+export declare function realizeSemanticRevisionProjection(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate>;
+export declare function realizeSemanticRevisionAuthor(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>, prepareAssembly?: () => Readonly<NativeInstructionAssembly>): Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>>;
+export declare function realizeSemanticRevisionAssessor(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>, prepareAssembly?: () => Readonly<NativeInstructionAssembly>): Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>>;
+export declare function realizeSemanticRevisionBridge(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate>;
+export declare function realizeSemanticRevisionEvidenceInput(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate>;
+export declare function realizeSemanticRevisionTerminal(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate>;
+export declare function realizeSemanticRevisionSelection(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>, prepareAssembly?: () => Readonly<NativeInstructionAssembly>): Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>>;
+export declare function realizeSemanticRevisionNativeIntake(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>): Promise<Readonly<LeafRealizationCandidate>>;
+export declare function realizeSemanticRevisionNativeRequest(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate>;
+export declare function realizeSemanticRevisionNativeConstruction(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate>;
+export declare function realizeSemanticRevisionNativeExecution(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate>;
+export declare function realizeSemanticRevisionNativeEvidence(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate>;

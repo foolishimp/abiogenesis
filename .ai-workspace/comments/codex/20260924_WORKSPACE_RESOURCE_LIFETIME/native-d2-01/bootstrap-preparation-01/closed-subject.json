@@ -1,0 +1,50 @@
+{
+  "status": "CLOSED",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/selection.json",
+      "sha256": "7a4d5775cd98204a985e335a1c93e1f3e44a60742edea3488ec3f8b164b8c7e2",
+      "byteLength": 3674
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/caller-subject.json",
+      "sha256": "ad8592b56a9ccc15cea7377cf548985ae863fac4b3aae5867b99c20973420fa9",
+      "byteLength": 3567
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/prepare.mjs",
+      "sha256": "38e3b873d4a5de14253ff02f2f9cc7010d98cc64a33c22d56a485ff06862ecab",
+      "byteLength": 17087
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/preparation-process.json",
+      "sha256": "f76dab522cdc3a4de9433c83a84c0fa32659049f41deaa8c4568f270a23eae4f",
+      "byteLength": 492
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/preparation.stderr",
+      "sha256": "b07b6296c82dada8862d0b09a4f78c597e6911f2430d1c2ad8666e2b3b42de3e",
+      "byteLength": 7168
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/closed-disposition.json",
+      "sha256": "e0d52a8f1385461b377a081ca9430c1835041929602fd8d135d01fc0a5b09c1c",
+      "byteLength": 16038
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/final-close.json",
+      "sha256": "53864c350312ae53ee1c79ca11a102700afe8d4d6c4ecb2b26da4a40f3908cd3",
+      "byteLength": 1438
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/return.md",
+      "sha256": "ef5a9879d1118ac627115a9c826a18ddd41c8dd317147d205ee899795a2c11aa",
+      "byteLength": 3504
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/worksite-conservation.json",
+      "sha256": "60694607428dcf9b733f45fee685b39f6950284be53cac0a900ef6cc6b00a82f",
+      "byteLength": 2079
+    }
+  ]
+}

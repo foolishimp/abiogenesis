@@ -1,0 +1,151 @@
+{
+  "classification": "NATIVE-D2-01 bounded design_reframe; source/component readiness only",
+  "abiCheckpoint": "5c4245ea900fddea9911e73183f5fb7b0631ce91",
+  "glcCheckpoint": "7724346a477691d69ddc2b08ff7290fb92027cb0",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/abg/instruction_assembly.ts",
+      "beforeSha256": "8a8fca9010e33222feaae6bb67d37ea6281be1fb2baeffc1a02ca97b66dd57ed",
+      "afterSha256": "44a17142cc66db21a0c992ff8565e1bfc17479f6604aa81304a21fd273aa0d44",
+      "addedLines": 16,
+      "removedLines": 9
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/abg/semantic_job.ts",
+      "beforeSha256": "d98a36d304de9dfa54f37596beadcb8a90feea835e814cc8409d04ba2c64e829",
+      "afterSha256": "1ee24400b6e27ae4676112e33731d4d93cd89b966584284f74ca4b65fb8b9515",
+      "addedLines": 7,
+      "removedLines": 4
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/abg/semantic_revision.ts",
+      "beforeSha256": "b25c634590b1c08a3ff9cd840e873a38de1fa24a88b13c6eec5497515717ca93",
+      "afterSha256": "6a90360d745785cd52ee972a55b42e964d57079244c0bb483be27698f2bda488",
+      "addedLines": 252,
+      "removedLines": 7
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/abg/worksite_revision.ts",
+      "beforeSha256": "31f3d27be76e564bf632a3ce4224c423b36fe89540cfde700e51a330ea282c0e",
+      "afterSha256": "947a882c9473ae5e4fd8cdc6d9dab021cf63bc6e00169984177859f939637e0e",
+      "addedLines": 14,
+      "removedLines": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_identity.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/gtl/semantic_revision_identity.ts",
+      "beforeSha256": "eb227972f30bb6df32efc90676a5ecc97e9665bf7d5618e38fea24d43e464512",
+      "afterSha256": "981b9d6cdae1b024967e1f29b4bebc2e312528e4c89a0d4721818e6ce39fc0aa",
+      "addedLines": 8,
+      "removedLines": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/gtl/semantic_revision_publication.ts",
+      "beforeSha256": "9381e00a6dd89ac61679f920bebd4202759d864a610c4aef34dd1d631ee0d335",
+      "afterSha256": "250c58315af818b6d06e866eb5088f81f3036c63251215f397e74b32d5c8663c",
+      "addedLines": 54,
+      "removedLines": 20
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/gtl/stdo_run_environment.ts",
+      "beforeSha256": "4d0a785131d150312b3daf0d81681ac2efaee2218051adb57df0fac122db5342",
+      "afterSha256": "e16c05f49d3cf29c621151cb9276b7d8e278a56535997a594a53e5fe20de5460",
+      "addedLines": 9,
+      "removedLines": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/implementation/semantic_revision.ts",
+      "beforeSha256": "5e7d8dba5a6411e4f133d2abcd5bf658074dfa091661d17ed1ae69f37589fb58",
+      "afterSha256": "3a2bfb6e5aa06ac7de261f59179c2dd4e05d9b97d78a943a3347af3b8e49a913",
+      "addedLines": 25,
+      "removedLines": 4
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/product/builtin_semantics.ts",
+      "beforeSha256": "ed6cb3b0da7e3b96340fdec6637b9771a48ab40f4cb40ba61b0aa86699eb9266",
+      "afterSha256": "04b65c97923cc77af05d1003e30804cecfbc55d3abd3021476182befdcb3fc26",
+      "addedLines": 8,
+      "removedLines": 3
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/product/execution_resolution.ts",
+      "beforeSha256": "632b6a943231fb566d87d2a171663ef3665422a2a3cb914611e2a0a1a838f5f3",
+      "afterSha256": "1b633dd7a0d982f5d00181669b69561480fc176794020cafeada4a65c1cdbdc1",
+      "addedLines": 9,
+      "removedLines": 5
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/product/semantic_job.ts",
+      "beforeSha256": "c0f3d17f24c5b25dea5542b415d10af68ed2babd6083767e2e9cce613ad97d18",
+      "afterSha256": "22148c16b13afea031ebf126b01e0dc96fc705223e96a8c14e507bd4cf8239bf",
+      "addedLines": 39,
+      "removedLines": 28
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/code/src/product/semantic_revision.ts",
+      "beforeSha256": "be3b800281a4cbc0a787d1601b1316e22bb219a78eebd6e415ec5d6ece661a76",
+      "afterSha256": "401aa49a9b0b5f68a1d4a957a8d3f67413a86f617a9e56c4a863dadeecd2463a",
+      "addedLines": 174,
+      "removedLines": 19
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "beforeSha256": "c5d06fe9348471d2f87baf7c2bf10c071bbdf0aa3d0af831fb6053a2ca1ea5e7",
+      "afterSha256": "7cc7447a1b019a2459d84c2607c02429727817c71b77cc3815ab4afe9a4f825c",
+      "addedLines": 70,
+      "removedLines": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/abi/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "beforeSha256": "dbb00fc5ce556fb75e67f93d7a2367a7e367825799865c581ce0a33cc0cf44d8",
+      "afterSha256": "0f88bbb966daa82ffc5b3f0ff7fb741271f9995cf766ec6e9b8851108c68bee3",
+      "addedLines": 27,
+      "removedLines": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+      "beforeSha256": "70b91e438ab58907b21b638d788fad94b5bd8f1518fdae6b293a1994903bb134",
+      "afterSha256": "47ae881bc76d7db3cf25bf34b0cbfe2cc05a44a53c1bd2fb1370148866ddc15d",
+      "addedLines": 43,
+      "removedLines": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+      "beforeSha256": "6350893ffc1d8ab31e98f5bc2f05230046e3670d8f736e92d2bc37c61ac505db",
+      "afterSha256": "943db8bc271ccb32ba5b7557f552c44eb265cd11f73b771ebd4326a4198eda93",
+      "addedLines": 61,
+      "removedLines": 8
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/preimage/glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+      "beforeSha256": "db94a8160f180d638d581591bac24334a77afe960dcbc3555389baf7e6bcaa29",
+      "afterSha256": "4f9e55b8063f97c7277bbe035311baa16cfc5bd4ac288b86286ac9e5c176d6d6",
+      "addedLines": 42,
+      "removedLines": 2
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "preimage": null,
+      "beforeSha256": null,
+      "afterSha256": "2c98ffd868dd8736b64825b959ff9589918dbfc4ed7ed93d9f01551113735112",
+      "addedLines": 167,
+      "removedLines": 0
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+# NATIVE-D2-R01 correction return
+
+Frozen for Root's targeted R01 closure check by the same independent Reviewer. This is the one selected correction of the ordinary-caller contract under NATIVE-D2-01, GOAL035/T287 and T043; it is not a new general review or installed/native qualification. Selected interface/conservation frame, ABI STDO 2.5.1 RC1 and GLC RC4 remain unchanged. The closed review `56bdf058dd6e00dfb7af889061203d465f7ac3f155069d0b5f487d2fa94e1b32` and its finding remain intact as the pre-correction result.
+
+The request owner now returns `selectionChoice: {mode, selectedStageRef}` from the actual admitted selection. `construction_repair` requires a null stage; `stage_revision` requires the exact nonempty stage reference. Existing request admission regenerates the owner projection. Both existing revision derivations and the native request consequence reject a provided choice inconsistent with the referenced admitted selection. The existing exact suffix-entry guard is unchanged.
+
+The field is optional only to retain historical request input behavior. New native request production always supplies it. A historical request without it cannot be routed by the new lookup; neither missing values nor alternative stages are inferred.
+
+GLC's existing declaration module adds `selectNativeSemanticRevisionStart({product, publication, request})`. It reads only the serialized request and public Program/GraphFunction data, joins each declared start to its first projection's exact entry, and returns one `{programRef, startRef, graphFunctionRef}` or null for absent/ambiguous choice. It performs no history access, affectedness judgment, invocation or traversal. The declaration factories, lifecycle/Program bytes and topology are unchanged. ABG retains the admitted selection authority; a caller-altered field does not authorize a different suffix.
+
+The ordinary route is consequently: public Run/prefix → existing native intake and admitted selection → terminal request → pure declared-start lookup using its `selectionChoice` → ordinary invocation with that same request → authenticated whole correction suffix. No private intermediate read is needed at this seam.
+
+The focused component now uses actual GLC declaration output, serializes/deserializes the terminal value, and chooses the next start solely from that value and those public declarations. Its refused Requirements assessment permits Intent, Product and Requirements; the admitted choice is Product, so inferring the entry from the refusal would be wrong. The selected Product suffix composes through corrected Product/Requirements/Design, native construction/C2 and fresh Evidence while conserving the original job/root and unaffected Intent. Current execution capacity still reaches new author/assessor contracts without enriching the old job. An altered choice to the eligible Requirements stage fails owner result admission and suffix projection even when paired with that stage's declared Program. An unchanged request on the wrong suffix also refuses. GLC checks cover all six declared choices plus absent/ambiguous lookup; exact GTL, role and retention checks still pass.
+
+Checks: TypeScript compile passed on its sole run. The first focused run exposed only a fixture lifecycle-reference mismatch after adopting the real GLC publication; fixing that test input gave **2 passed, 0 failed, 0 skipped** on the one justified repeat. Exact commands, exit statuses and log hashes are in [checks.json](checks.json). No further production change followed compilation.
+
+Delta: **3 production files, +40/−6 lines**, 2 existing HOW files and 2 focused test files; 7 source/design/test files total. Compiler emit changed only Product semantic_revision.js/.d.ts and ABG semantic_revision.js, inventoried in [compiler-output-delta.json](compiler-output-delta.json). [frozen-subject.json](frozen-subject.json) records exact pre/post hashes and retained preimages; [source-design-tests.diff](source-design-tests.diff) is the correction-only diff. All 47 inventoried prior evidence files—including original freeze, review and bootstrap-declaration outputs—and all 11 unselected original subject files remain byte-identical, recorded in [preservation.json](preservation.json).
+
+The component still supplies historical admission/prefix/leaf/source joins and synthetic candidate, assessment and command receipts; temporary files are component fixtures. It tests serialized terminal carrier sufficiency, not an installed Public read or actual traversal. The GLC check uses fixture governance for real GTL/role/retention owners. Real source acquisition, affectedness judgment, postconstruction/Evidence-only execution, actor usability and installed consequential correction remain unqualified. Historical bootstrap declaration preparation is preserved and not rerun. No packages, installs, Git, actors, native execution, old Run/journal/resource/configuration changes or manual application repair occurred.
+
+Frozen identities (SHA256):
+
+- `frozen-subject.json`: `f29d715d5563f847f52252b1e1b230b57314f0c82d79bd36f6436647077553f6`
+- `source-design-tests.diff`: `8907d101e1e6fad171fed9bc1fc557852309a5fd146dcb36dd669256e4c0e741`
+- `checks.json`: `40b34725c95712fc74ad46f0d11c9d5ecc797951fb3a7392e38ca757be8a7fbe`
+- `compiler-output-delta.json`: `1c5e1696626bb87d73ec559aa4c8d3d290ea72381fe55851eaaff67f2be975e9`
+- `preservation.json`: `75226325fae089811bf095e7cffba82856ebc271de799673cbaafb85a149c299`

@@ -25,7 +25,7 @@ import { resolve, relative, isAbsolute } from "node:path";
 import { pathToFileURL } from "node:url";
 import { projectWorksiteRevisionNativeResult } from "./worksite_revision.js";
 import { SEMANTIC_REVISION_IDS as revisionIds } from "../gtl/semantic_revision_identity.js";
-import { isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
+import { isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticJobRevisionEnvelope, isNativeSemanticRevisionIntake } from "../product/semantic_revision.js";
 const hash = (x) => sha256Canonical(x);
 const equal = (a, b) => hash(a) === hash(b);
 const record = (x) => x !== null && typeof x === "object" && !Array.isArray(x);
@@ -62,8 +62,11 @@ export function authenticateSemanticJobBasis(basis) {
         if (invocationRoot === null)
             return null;
         let root = invocationRoot;
-        if (!isSemanticJobInput(root.rawInputValue)) {
-            const request = root.rawInputValue;
+        const acquiring = native.call.implementationRef === revisionIds.nativeIntakeImplementationRef && isNativeSemanticRevisionIntake(root.rawInputValue);
+        if (!isSemanticJobInput(root.rawInputValue) && !acquiring) {
+            // Intake's admitted child input carries the acquired original parent.
+            // The revision owner authenticates that child against the intake Result.
+            const request = isNativeSemanticRevisionIntake(root.rawInputValue) ? native.execution.rawInputValue : root.rawInputValue;
             if (!isSemanticRevisionRequest(request) && !isSemanticRevisionSelectionInput(request))
                 return null;
             const parent = projectWorksiteRevisionNativeResult(native.prefix, request.parent);
@@ -77,7 +80,7 @@ export function authenticateSemanticJobBasis(basis) {
                 return null;
             root = initial;
         }
-        if (!isSemanticJobInput(root.rawInputValue) || root.rawInputValue.lifecycleRef !== lifecycle.declarationRef ||
+        if ((!acquiring && (!isSemanticJobInput(root.rawInputValue) || root.rawInputValue.lifecycleRef !== lifecycle.declarationRef)) ||
             hash(root.rawInputValue) !== root.rawInputDigest)
             return null;
         const environment = native.environment;

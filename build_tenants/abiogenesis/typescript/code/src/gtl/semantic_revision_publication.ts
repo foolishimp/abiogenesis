@@ -1,28 +1,38 @@
-import type { ContractDeclaration, ModulePublication, GraphFunction, RootModuleArtifactBasis, ImplementationBinding } from "./contracts.js";
+import type { ContractDeclaration, ModulePublication, GraphFunction, RootModuleArtifactBasis, ImplementationBinding, GtlNode } from "./contracts.js";
 import type { SemanticStageDeclaration } from "./semantic_stage.js";
 import { SEMANTIC_REVISION_IDS as ids } from "./semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS as old } from "./semantic_stage_identity.js";
 import { constructSemanticClosureContract } from "./semantic_stage_publication.js";
-import { C, cCarrier } from "./c_algebra.js";
+import { C, cCarrier, cGraphFunctionRef, workflow } from "./c_algebra.js";
 import { modulePublication } from "./declarations.js";
+import { graphEdge } from "./graph_applications.js";
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 import { deepFreeze } from "../shared/immutable.js";
-export type SemanticRevisionRole = "selection" | "projection" | "author" | "assessor" | "bridge" | "evidenceInput" | "terminal";
+import { NATIVE_WORKSPACE_WORK_IDS as native } from "../product/native_workspace_work_identity.js";
+import { RETAINED_GRAPH_INPUT_CONTRACT, graphInputRetentionBinding } from "../product/worksite_preparation_contracts.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
+export type SemanticRevisionRole = "selection" | "projection" | "author" | "assessor" | "bridge" | "evidenceInput" | "terminal" | "nativeIntake" | "nativeRequest" | "nativeConstruction" | "nativeExecution" | "nativeEvidence";
+const inputs = (role: SemanticRevisionRole) => role === "selection" ? ids.selectionInputContractRef : role === "projection" ? ids.requestContractRef : role === "evidenceInput" ? WORKSITE_REVISION_IDS.observationContractRef :
+  role === "nativeIntake" ? ids.nativeIntakeContractRef : role === "nativeRequest" ? ids.selectionContractRef :
+  role === "nativeExecution" || role === "nativeEvidence" ? RETAINED_GRAPH_INPUT_CONTRACT.contractRef : ids.envelopeContractRef;
+const outputs = (role: SemanticRevisionRole) => role === "selection" ? ids.selectionContractRef : role === "bridge" ? WORKSITE_REVISION_IDS.inputContractRef : role === "terminal" ? ids.outputContractRef :
+  role === "nativeIntake" ? ids.selectionInputContractRef : role === "nativeRequest" ? ids.requestContractRef :
+  role === "nativeConstruction" ? native.taskContractRef : role === "nativeExecution" ? WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef : ids.envelopeContractRef;
 export function semanticRevisionImplementationBindings(artifact: RootModuleArtifactBasis): readonly ImplementationBinding[] {
-  return ( ["selection", "projection", "author", "assessor", "bridge", "evidenceInput", "terminal"] as const).map(role => ({
+  return ( ["selection", "projection", "author", "assessor", "bridge", "evidenceInput", "terminal", "nativeIntake", "nativeRequest", "nativeConstruction", "nativeExecution", "nativeEvidence"] as const).map(role => ({
     kind: "implementation_binding", bindingRef: ids[`${role}BindingRef`], implementationRef: ids[`${role}ImplementationRef`],
     namedSymbol: `realizeSemanticRevision${role[0]!.toUpperCase()}${role.slice(1)}`,
     computeRegime: role === "selection" || role === "author" || role === "assessor" ? "F_P" : "F_D",
-    inputContractRef: role === "selection" ? ids.selectionInputContractRef : role === "projection" ? ids.requestContractRef : role === "evidenceInput" ? WORKSITE_REVISION_IDS.observationContractRef : ids.envelopeContractRef,
-    outputContractRef: role === "selection" ? ids.selectionContractRef : role === "bridge" ? WORKSITE_REVISION_IDS.inputContractRef : role === "terminal" ? ids.outputContractRef : ids.envelopeContractRef,
+    inputContractRef: inputs(role),
+    outputContractRef: outputs(role),
     packageName: artifact.packageName, packageVersion: artifact.packageVersion,
     modulePath: "build/code/src/implementation/semantic_revision.js", failureContractRef: old.failureContractRef, refusalContractRef: old.refusalContractRef,
   }));
 }
 function leaf(locus: string, role: SemanticRevisionRole) {
-  const inputRef = role === "selection" ? ids.selectionInputContractRef : role === "projection" ? ids.requestContractRef : role === "evidenceInput" ? WORKSITE_REVISION_IDS.observationContractRef : ids.envelopeContractRef;
-  const outputRef = role === "selection" ? ids.selectionContractRef : role === "bridge" ? WORKSITE_REVISION_IDS.inputContractRef : role === "terminal" ? ids.outputContractRef : ids.envelopeContractRef;
+  const inputRef = inputs(role), outputRef = outputs(role);
   return C.of({ input: cCarrier(inputRef), output: cCarrier(outputRef), programLocusRef: locus, stageRole: `semantic-revision-${role}`,
     fibre: role === "selection" || role === "author" || role === "assessor" ? "F_P" : "F_D", armId: `${locus}/arm`, compositionRef: null, vectorIndex: 0,
     judgmentPredicateRef: ids[`${role}PredicateRef`], resultBearing: role !== "author",
@@ -31,15 +41,16 @@ function leaf(locus: string, role: SemanticRevisionRole) {
       refusalContractRef: old.refusalContractRef, judgmentContractRef: old.judgmentContractRef } });
 }
 export function constructSemanticRevisionGraphFunction(input: { readonly graphFunctionRef: string; readonly closureContractRef: string;
-  readonly childClosureContractRef?: string; readonly role: "projection" | "bridge" | "evidenceInput" | "terminal"; readonly stage?: SemanticStageDeclaration; readonly rootOutput?: boolean }): Readonly<GraphFunction> {
+  readonly childClosureContractRef?: string; readonly role: "projection" | "bridge" | "evidenceInput" | "terminal" | "nativeIntake" | "nativeRequest" | "nativeConstruction" | "nativeExecution" | "nativeEvidence"; readonly nativeEntry?: string; readonly stage?: SemanticStageDeclaration; readonly rootOutput?: boolean }): Readonly<GraphFunction> {
+  if (input.role === "nativeConstruction") return nativeConstructionGraph(input);
   const stage = input.stage, nodeRef = `${input.graphFunctionRef}/node`, role = stage === undefined ? input.role : "assessor";
-  const inputRef = role === "projection" ? ids.requestContractRef : role === "evidenceInput" ? WORKSITE_REVISION_IDS.observationContractRef : ids.envelopeContractRef;
-  const outputRef = input.rootOutput === true ? ids.outputContractRef : role === "bridge" ? WORKSITE_REVISION_IDS.inputContractRef : role === "terminal" ? ids.outputContractRef : ids.envelopeContractRef;
+  const inputRef = inputs(role), outputRef = input.rootOutput === true ? ids.outputContractRef : outputs(role);
   const computation = stage === undefined ? leaf(nodeRef, input.role) : C.compose(leaf(stage.authorLocusRef, "author"), leaf(stage.assessorLocusRef, "assessor"));
   return deepFreeze({ kind: "graph_function", name: input.graphFunctionRef, version: "5.0.0", effects: [], tags: ["semantic-revision"],
     environment: { requires: [inputRef], provides: [outputRef], carries: stage === undefined ? [] : [old.workerContractRef] }, inputs: [inputRef], outputs: [outputRef],
     declarations: { "abg.compute_regime": stage === undefined ? "F_D" : "F_P", "abg.closure_contract": input.closureContractRef,
-      "abg.semantic_revision_history": ids.historicalOwnerDependencyRef,
+      ...(role === "nativeIntake" ? {} : { "abg.semantic_revision_history": ids.historicalOwnerDependencyRef }),
+      ...(input.nativeEntry === undefined ? {} : { "abg.semantic_native_revision_entry": input.nativeEntry }),
       ...(input.childClosureContractRef === undefined ? {} : { "abg.child_closure_contract": input.childClosureContractRef }), "abg.failure_contract": old.failureContractRef,
       "abg.evidence_contract": old.evidenceContractRef, "abg.judgment_contract": old.judgmentContractRef,
       "abg.judgment_predicate": ids[`${role}PredicateRef`], "abg.transition_contract": old.transitionContractRef,
@@ -61,7 +72,7 @@ export function constructSemanticRevisionModulePublication(artifact: RootModuleA
     contributionManifestRef: `contribution-manifest://abiogenesis/conformance/${artifact.productContentDigest.slice(7)}`,
     productSemanticsBinding: { kind: "product_semantics_binding", bindingRef: ids.semanticsBindingRef, packageName: artifact.packageName,
       packageVersion: artifact.packageVersion, modulePath: "build/code/src/product/builtin_semantics.js", namedSymbol: "ABI5_SEMANTIC_REVISION_PRODUCT_SEMANTICS" },
-    contracts: [contract(ids.selectionInputContractRef, "input", "semantic_revision_selection_input"), contract(ids.requestContractRef, "input", "semantic_revision_request"), contract(ids.envelopeContractRef, "input", "semantic_revision_envelope"),
+    contracts: [contract(ids.nativeIntakeContractRef, "input", "native_semantic_revision_intake"), contract(ids.selectionInputContractRef, "input", "semantic_revision_selection_input"), contract(ids.requestContractRef, "input", "semantic_revision_request"), contract(ids.envelopeContractRef, "input", "semantic_revision_envelope"),
       contract(ids.outputContractRef, "output", "semantic_revision_envelope"), contract(ids.selectionContractRef, "output", "semantic_revision_selection"),
       contract(ids.selectionRawContractRef, "output", "semantic_revision_selection")],
     graphFunctions: [graph], implementationBindings: semanticRevisionImplementationBindings(artifact), evaluators: [], rules: [],
@@ -75,12 +86,35 @@ export function constructSemanticRevisionModulePublication(artifact: RootModuleA
       compatibilityRefs: ["compatibility://abiogenesis/major/5"], provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest] }] });
 }
 
-export function constructSemanticRevisionSelectionGraphFunction(input: { readonly graphFunctionRef: string; readonly closureContractRef: string; readonly childClosureContractRef?: string; readonly lifecycleRef: string }): Readonly<GraphFunction> {
+export function constructSemanticRevisionSelectionGraphFunction(input: { readonly graphFunctionRef: string; readonly closureContractRef: string; readonly childClosureContractRef?: string; readonly lifecycleRef: string; readonly sealRequest?: boolean }): Readonly<GraphFunction> {
   const base = constructSemanticRevisionGraphFunction({ ...input, role: "projection" }), nodeRef = `${input.graphFunctionRef}/node`;
-  return deepFreeze({ ...base, inputs: [ids.selectionInputContractRef], outputs: [ids.selectionContractRef],
-    environment: { requires: [ids.selectionInputContractRef], provides: [ids.selectionContractRef], carries: [ids.selectionRawContractRef] },
-    declarations: { ...base.declarations, "abg.compute_regime": "F_P", "abg.raw_result_contract": ids.selectionRawContractRef,
-      "abg.semantic_revision_selection": input.lifecycleRef, "abg.judgment_predicate": ids.selectionPredicateRef },
-    template: { kind: "inline_graph", graphRef: `${input.graphFunctionRef}/graph`, startNodeRef: nodeRef, terminalNodeRefs: [nodeRef], edges: [], applications: [],
-      nodes: [{ nodeRef, nodeKind: "c_locus", term: leaf(nodeRef, "selection") }] } });
+  return deepFreeze({ ...base, inputs: [ids.selectionInputContractRef], outputs: [input.sealRequest ? ids.requestContractRef : ids.selectionContractRef],
+    environment: { requires: [ids.selectionInputContractRef], provides: [input.sealRequest ? ids.requestContractRef : ids.selectionContractRef], carries: [ids.selectionRawContractRef] },
+    declarations: { ...base.declarations, "abg.compute_regime": input.sealRequest ? "mixed" : "F_P", "abg.raw_result_contract": ids.selectionRawContractRef,
+      "abg.semantic_revision_selection": input.lifecycleRef, "abg.judgment_predicate": input.sealRequest ? ids.stepPredicateRef : ids.selectionPredicateRef },
+    template: { kind: "inline_graph", graphRef: `${input.graphFunctionRef}/graph`, startNodeRef: nodeRef, terminalNodeRefs: [input.sealRequest ? nodeRef + "/request" : nodeRef],
+      edges: input.sealRequest ? [graphEdge({fromNodeRef:nodeRef,toNodeRef:nodeRef+"/request"})] : [], applications: [],
+      nodes: [{nodeRef,nodeKind:"c_locus",term:leaf(nodeRef,"selection")},...(input.sealRequest ? [{nodeRef:nodeRef+"/request",nodeKind:"c_locus" as const,term:leaf(nodeRef+"/request","nativeRequest")}] : [])] } });
+}
+
+function nativeConstructionGraph(input: {readonly graphFunctionRef:string; readonly closureContractRef:string}): Readonly<GraphFunction> {
+  const n = input.graphFunctionRef, bound = RETAINED_GRAPH_INPUT_CONTRACT.contractRef, c2 = WORKSITE_COMMAND_EXECUTION_IDS;
+  const node = (suffix:string,role:SemanticRevisionRole):GtlNode => ({nodeRef:n+suffix,nodeKind:"c_locus",term:leaf(n+suffix,role)});
+  const call = (suffix:string,ref:string,i:string,o:string):GtlNode => ({nodeRef:n+suffix,nodeKind:"c_locus",term:workflow.C(cGraphFunctionRef({graphFunctionRef:ref,input:cCarrier(i),output:cCarrier(o)}))});
+  const nodes = [node("/prepare","nativeConstruction"),call("/construct",native.graphFunctionRef,native.taskContractRef,native.observationContractRef),
+    node("/prepare-execution","nativeExecution"),call("/execute",c2.graphFunctionRef,c2.taskContractRef,c2.observationContractRef),node("/evidence","nativeEvidence")];
+  return deepFreeze({kind:"graph_function",name:n,version:"5.0.0",inputs:[ids.envelopeContractRef],outputs:[ids.envelopeContractRef],
+    environment:{requires:[ids.envelopeContractRef],provides:[ids.envelopeContractRef],carries:[ids.envelopeContractRef,bound,...nodes.map(node=>node.term.outputCarrierRef)]},
+    effects:[native.effectUri],tags:["semantic-revision","native-work"],declarations:{"abg.compute_regime":"mixed","abg.closure_contract":input.closureContractRef,
+      "abg.child_closure_contract":input.closureContractRef,"abg.evidence_contract":old.evidenceContractRef,"abg.judgment_contract":old.judgmentContractRef,
+      "abg.judgment_predicate":ids.stepPredicateRef,"abg.transition_contract":old.transitionContractRef,"abg.semantic_native_revision_construction":"5.0.0"},
+    template:{kind:"inline_graph",graphRef:n+"/graph",startNodeRef:nodes[0]!.nodeRef,terminalNodeRefs:[nodes.at(-1)!.nodeRef],nodes,applications:[],
+      edges:nodes.slice(1).map((node,i)=>graphEdge({fromNodeRef:nodes[i]!.nodeRef,toNodeRef:node.nodeRef,
+        ...([n+"/construct",n+"/execute"].includes(nodes[i]!.nodeRef)?{inputBinding:graphInputRetentionBinding(ids.envelopeContractRef,nodes[i]!.term.outputCarrierRef)}:{})}))}});
+}
+/** Retention has this exact factory as owner, never a free-form marker. */
+export function isNativeSemanticRevisionGraphFunction(publication: Readonly<ModulePublication>, graph: Readonly<GraphFunction>): boolean {
+  try { return publication.semanticJobLifecycle !== undefined && graph.declarations["abg.semantic_native_revision_construction"] === "5.0.0" &&
+    canonicalJson(canonicalizeAuthoredGtlCarrier(nativeConstructionGraph({graphFunctionRef:graph.name,closureContractRef:graph.declarations["abg.closure_contract"]!}),"graph_function") as unknown as JsonValue) === canonicalJson(graph as unknown as JsonValue);
+  } catch { return false; }
 }

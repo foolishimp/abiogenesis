@@ -257,13 +257,13 @@ export function constructSemanticJobEnvelope(job, declaration, coordinate) {
 }
 /** One Product-owned reference and coverage relation. Assembly renders this
  * projection; native validators consume the same domains, not prompt copies. */
-export function projectSemanticJobActorContract(envelope, stageRef, role, retainedTerms = []) {
+export function projectSemanticJobActorContract(envelope, stageRef, role, retainedTerms = [], executionLimits) {
     const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef), active = projectSemanticJobBindings(envelope);
     if (stage === undefined || active === null)
         throw new TypeError("unknown semantic actor contract");
     const current = role === "assessor" ? envelope.assets.find(a => a.stageRef === stageRef) : undefined;
     const incoming = envelope.assets.filter(a => a.stageRef !== stageRef);
-    const limits = nativeSemanticCommandExecutionLimits(envelope);
+    const limits = executionLimits ?? nativeSemanticCommandExecutionLimits(envelope);
     const currentDesign = current?.candidate.design;
     const budget = limits === null ? null : projectWorksiteCommandExecutionBudget(currentDesign ?? { commands: [], outcomePredicates: [] });
     const body = { kind: "semantic_job_actor_contract", schemaVersion: "5.0.0", stageRef, role,
@@ -340,8 +340,8 @@ export function projectSemanticJobPromptContext(envelope, context) {
     });
     return deepFreeze({ ...context, predecessors, activeBindings });
 }
-export function evaluateSemanticJobActorCandidate(envelope, stageRef, role, raw, retainedTerms = []) {
-    const contract = projectSemanticJobActorContract(envelope, stageRef, role, retainedTerms), issues = [];
+export function evaluateSemanticJobActorCandidate(envelope, stageRef, role, raw, retainedTerms = [], executionLimits) {
+    const contract = projectSemanticJobActorContract(envelope, stageRef, role, retainedTerms, executionLimits), issues = [];
     const issue = (path, rule, expected, actual) => issues.push({ path, rule, expected: expected, actual: actual });
     const refs = (path, values, allowed) => {
         if (!values.every(r => allowed.includes(r)))
@@ -388,11 +388,11 @@ export function evaluateSemanticJobActorCandidate(envelope, stageRef, role, raw,
             refs(`bindings[${i}].requirement.ref`, [b.requirement.ref], b.requirement.kind === "candidate" ? raw.asset.requirementCandidates.map(c => c.candidateRef) : contract.requirementRefs);
         });
         if (raw.design !== null)
-            issues.push(...semanticJobDesignIssues(envelope, raw.design));
+            issues.push(...semanticJobDesignIssues(envelope, raw.design, executionLimits));
     }
     return deepFreeze(issues);
 }
-export function deriveSemanticJobAsset(envelope, stageRef, raw, source, retainedTerms = [], onContractIssues) {
+export function deriveSemanticJobAsset(envelope, stageRef, raw, source, retainedTerms = [], onContractIssues, executionLimits) {
     try {
         if (!isSemanticJobEnvelope(envelope) || !isSemanticJobAssetCandidate(raw) || !v.is(sourceSchema, source) || envelope.assets.some(a => a.stageRef === stageRef))
             return null;
@@ -401,7 +401,7 @@ export function deriveSemanticJobAsset(envelope, stageRef, raw, source, retained
             ((raw.asset.requirementCandidates.length > 0 || raw.bindings.length > 0) && !stage.bodyCapabilities.includes("requirement_refinement")) ||
             (raw.design !== null && !stage.bodyCapabilities.includes("worksite_design")))
             return null;
-        const issues = evaluateSemanticJobActorCandidate(envelope, stageRef, "author", raw, retainedTerms);
+        const issues = evaluateSemanticJobActorCandidate(envelope, stageRef, "author", raw, retainedTerms, executionLimits);
         if (issues.length > 0) {
             onContractIssues?.(issues);
             return null;
@@ -418,19 +418,19 @@ export function deriveSemanticJobAsset(envelope, stageRef, raw, source, retained
         const assetDigest = hash(body);
         const next = deepFreeze({ ...envelope, assets: [...envelope.assets, { ...body, assetDigest,
                     assetRef: "semantic-job-asset://abiogenesis/" + assetDigest.slice(7), assessment: null }] });
-        return raw.design === null || semanticJobDesignMatches(next, raw.design) ? next : null;
+        return raw.design === null || semanticJobDesignMatches(next, raw.design, executionLimits) ? next : null;
     }
     catch {
         return null;
     }
 }
-export function deriveSemanticJobAssessment(envelope, stageRef, raw, source, retainedTerms = []) {
+export function deriveSemanticJobAssessment(envelope, stageRef, raw, source, retainedTerms = [], executionLimits) {
     try {
         if (!isSemanticJobEnvelope(envelope) || !isSemanticAssessmentCandidate(raw) || !v.is(sourceSchema, source))
             return null;
         const asset = envelope.assets.at(-1), stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef);
         if (asset?.stageRef !== stageRef || asset.assessment !== null || stage === undefined || source.actorInvocationRef === asset.source.actorInvocationRef ||
-            evaluateSemanticJobActorCandidate(envelope, stageRef, "assessor", raw, retainedTerms).length > 0)
+            evaluateSemanticJobActorCandidate(envelope, stageRef, "assessor", raw, retainedTerms, executionLimits).length > 0)
             return null;
         const disposition = raw.criteria.some(c => c.disposition === "falsified") ? "falsified"
             : raw.criteria.some(c => c.disposition === "indeterminate") ? "indeterminate" : "satisfied";
@@ -482,7 +482,7 @@ export function semanticJobMissingBindingRequirementRefs(envelope, active) {
         .filter(term => !active.some(b => b.binding.requirementRef === term.requirementRef))
         .map(term => term.requirementRef));
 }
-export function semanticJobDesignIssues(envelope, design) {
+export function semanticJobDesignIssues(envelope, design, executionLimits) {
     const issues = [];
     const issue = (path, rule, expected, actual) => issues.push({ path, rule, expected: expected, actual: actual });
     try {
@@ -538,7 +538,7 @@ export function semanticJobDesignIssues(envelope, design) {
             if (launch === null || typeof launch !== "object" || Array.isArray(launch) || !permittedLaunch(launch))
                 issue(`design.outcomePredicates[${i}].declaration.launch`, "exact_nested_executable_capability", scope.executableCapabilities, launch ?? null);
         });
-        const limits = nativeSemanticCommandExecutionLimits(envelope);
+        const limits = executionLimits ?? nativeSemanticCommandExecutionLimits(envelope);
         if (limits !== null && design.dependencyDisposition === "sufficient") {
             const budget = projectWorksiteCommandExecutionBudget(design);
             if (!worksiteCommandExecutionBudgetFits(budget.requiredExecutionBudgetMs, limits))
@@ -550,8 +550,8 @@ export function semanticJobDesignIssues(envelope, design) {
     }
     return deepFreeze(issues);
 }
-export function semanticJobDesignMatches(envelope, design) {
-    return semanticJobDesignIssues(envelope, design).length === 0;
+export function semanticJobDesignMatches(envelope, design, executionLimits) {
+    return semanticJobDesignIssues(envelope, design, executionLimits).length === 0;
 }
 export function semanticJobAssessmentDomain(envelope) {
     const current = envelope.assets.at(-1);
@@ -785,12 +785,12 @@ function nativeSemanticFile(context, path) {
         throw new TypeError("one observed native semantic file required: " + path);
     return rows[0];
 }
-export function nativeSemanticContextMatches(envelope, context) {
+export function nativeSemanticContextMatches(envelope, context, admittedRevision = false) {
     try {
         const paths = nativeSemanticPaths(envelope);
         return envelope.job.members.every(member => nativeSemanticFile(context, member.path).bytes === member.base64) &&
             nativeSemanticFile(context, paths.rubricPath).bytes === Buffer.from(canonicalJson(envelope.declaration) + "\n").toString("base64") &&
-            envelope.assets.every(asset => asset.source.nativeWork !== undefined &&
+            envelope.assets.every(asset => asset.source.nativeWork === undefined ? admittedRevision :
                 nativeSemanticFile(context, asset.source.nativeWork.assetPath).digest === asset.source.nativeWork.assetDigest);
     }
     catch {
@@ -850,10 +850,10 @@ export function deriveNativeSemanticAssessment(envelope, stageRef, observation, 
 }
 /** Value projection only. ABG separately authenticates the native producers and
  * same-Run predecessor before admitting these observed artifact bytes. */
-export function nativeSemanticEvidenceArtifacts(envelope, value) {
+export function nativeSemanticEvidenceArtifacts(envelope, value, revision) {
     try {
         if (!isNativeWorksiteCommandExecutionObservation(value) ||
-            !equal(value.task, constructNativeSemanticExecutionTask(envelope, value.task.sourceNativeWork)))
+            !equal(value.task, constructNativeSemanticExecutionTask(envelope, value.task.sourceNativeWork, revision)))
             return null;
         const source = value.task.sourceNativeWork, design = envelope.assets.at(-1).candidate.design;
         return deepFreeze(design.targets.map(selected => {
@@ -920,25 +920,31 @@ export function constructNativeSemanticTask(envelope, stageRef, role, operating,
             producer: { resultRef: asset.source.nativeWork.observationRef, resultDigest: asset.source.nativeWork.observationDigest,
                 cCallRef: asset.source.cCallRef, actorInvocationRef: asset.source.actorInvocationRef } } });
 }
-export function constructNativeSemanticConstructionTask(envelope, operating, context) {
+export function constructNativeSemanticConstructionTask(envelope, operating, context, revision) {
     const asset = envelope.assets.at(-1), design = asset?.candidate.design;
-    if (asset?.assessment?.disposition !== "satisfied" || !design || !semanticJobDesignMatches(envelope, design) ||
-        design.dependencyDisposition !== "sufficient" || !nativeSemanticContextMatches(envelope, context))
+    if (asset?.assessment?.disposition !== "satisfied" || !design || !semanticJobDesignMatches(envelope, design, revision?.executionLimits) ||
+        design.dependencyDisposition !== "sufficient" || !nativeSemanticContextMatches(envelope, context, revision !== undefined))
         throw new TypeError("one current assessed complete Design required");
+    if (revision !== undefined && (revision.selectedPaths.length === 0 || !unique(revision.selectedPaths) ||
+        !revision.selectedPaths.every(path => design.targets.some(target => target.relativePath === path))))
+        throw new TypeError("exact selected revision targets required");
     const protectedPaths = [...envelope.job.members.map(m => m.path), nativeSemanticPaths(envelope).rubricPath, ...nativeSemanticPaths(envelope).assets.map(a => a.path)];
     if (design.targets.some(t => protectedPaths.some(p => t.relativePath === p || t.relativePath.startsWith(p + "/") || p.startsWith(t.relativePath + "/"))))
         throw new TypeError("construction cannot replace governing inputs or semantic assets");
     return constructNativeWorkspaceWorkTask({ workspaceAuthorityBasis: operating.workspaceAuthorityBasis, workspaceBinding: operating.workspaceBinding, capabilityGrant: operating.capabilityGrant, context, outcome: "Construct the complete selected outcome from its independently assessed Design.",
-        instructions: ["Read complete selected source and current assessed semantic assets. Construct all declared targets and verifiers faithfully. Preserve every governing source, rubric, semantic asset and unrelated file. Do not execute commands, manufacture evidence or inspect evaluator-only data.",
+        instructions: [revision === undefined ? "Read complete selected source and current assessed semantic assets. Construct all declared targets and verifiers faithfully. Preserve every governing source, rubric, semantic asset and unrelated file. Do not execute commands, manufacture evidence or inspect evaluator-only data." : "Read complete selected source and the current admitted semantic assets below. Correct only the selected targets and verifiers faithfully. Preserve governing source, rubric, historical semantic files and every unaffected file. Do not execute commands, manufacture evidence or inspect evaluator-only data.",
             `Ordinary task: ${canonicalJson(envelope.job.taskData)}`, `Current Design: ${canonicalJson(design)}`,
-            `Active paired realization/proof obligations: ${canonicalJson(projectSemanticJobBindings(envelope))}`],
+            `Active paired realization/proof obligations: ${canonicalJson(projectSemanticJobBindings(envelope))}`,
+            ...(revision === undefined ? [] : ["Only the selected target paths are writable. Preserve every other file. Historical asset files remain historical where superseded by the following admitted semantic assets.",
+                `Current admitted semantic assets: ${canonicalJson(envelope.assets)}`,
+                `Revision feedback: ${canonicalJson(revision.feedback)}`])],
         readFirst: [...new Set([...protectedPaths.filter(path => context.entries.some(e => e.relativePath === path && e.state === "file")), ...design.dependencyPaths])],
-        writeRoots: design.targets.map(t => t.relativePath), checks: [] });
+        writeRoots: design.targets.filter(t => revision === undefined || revision.selectedPaths.includes(t.relativePath)).map(t => t.relativePath), checks: [] });
 }
-export function constructNativeSemanticExecutionTask(envelope, source) {
+export function constructNativeSemanticExecutionTask(envelope, source, revision) {
     const design = envelope.assets.at(-1)?.candidate.design;
-    if (!design || !isNativeWorkspaceWorkObservation(source) || !nativeSemanticContextMatches(envelope, source.after) ||
-        !equal(source.task, constructNativeSemanticConstructionTask(envelope, source.task, source.before)))
+    if (!design || !isNativeWorkspaceWorkObservation(source) || !nativeSemanticContextMatches(envelope, source.after, revision !== undefined) ||
+        !equal(source.task, constructNativeSemanticConstructionTask(envelope, source.task, source.before, revision)))
         throw new TypeError("exact current native construction required");
     const paths = nativeSemanticPaths(envelope), protectedPaths = [...envelope.job.members.map(m => m.path), paths.rubricPath, ...paths.assets.map(a => a.path)];
     if (envelope.job.worksiteScope.evidenceWriteRoots.some(root => protectedPaths.some(path => root === "." || path === root || path.startsWith(root + "/") || root.startsWith(path + "/"))))

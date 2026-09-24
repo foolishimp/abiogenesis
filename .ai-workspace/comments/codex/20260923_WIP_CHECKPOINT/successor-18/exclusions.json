@@ -1,0 +1,10 @@
+{
+  "excluded": [
+    "all installed Products/node_modules and staging installs",
+    "all original application workspaces, actors, logs and runtime resources",
+    "old archives/evidence already banked by checkpoint17 and predecessors",
+    "bootstrap-preparation-01/products and invocation/runtime/projections/archives",
+    "no original journal is read or copied by checkpoint writer"
+  ],
+  "unrelatedDirtyWork": "preserved; exact authorized direct union checked before staging"
+}

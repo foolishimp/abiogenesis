@@ -1,3 +1,5 @@
+import { isNativeSemanticRevisionGraphFunction } from "../gtl/semantic_revision_publication.js";
+import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { isNativeSemanticGraphFunction } from "../gtl/semantic_stage_publication.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { RETAINED_GRAPH_INPUT_CONTRACT, isGraphInputRetentionContractRelation } from "./worksite_preparation_contracts.js";
@@ -740,12 +742,12 @@ async function resolveProductExecution(
         : targetTerm?.kind === "c_of" && targetTerm.requirement.kind === "executable_leaf_requirement"
           ? exactOwner(programDeclarationClosure.implementationBindingOwners, targetTerm.requirement.implementationBindingRef) : null;
       const declaredGraphOwner = graphOwner === null ? null : publicationForCoordinate(programDeclarationClosure.publications, graphOwner);
-      const nativeSemantic = declaredGraphOwner?.kind === "one" && entry !== null && exactAbiOwner(entry, SEMANTIC_STAGE_IDS.moduleRef) &&
+      const nativeSemantic = declaredGraphOwner?.kind === "one" && entry !== null && [SEMANTIC_STAGE_IDS.moduleRef,SEMANTIC_REVISION_IDS.moduleRef].some(ref=>exactAbiOwner(entry,ref)) &&
         nativeSemanticRetentionOwnersMatch(declaredGraphOwner.value, graph, graphOwner, entry, targetOwner, programDeclarationClosure.semanticsOwner);
       if (!isGraphInputRetentionContractRelation(binding, contracts) || source === null ||
         target === null || !exactAbiOwner(target, WORKSITE_COMMAND_EXECUTION_IDS.moduleRef) ||
         (!sameOwner(entry, graphOwner) && !nativeSemantic) || !sameOwner(entry, targetOwner) ||
-        !sameOwner(entry, programDeclarationClosure.semanticsOwner)) {
+        (!sameOwner(entry, programDeclarationClosure.semanticsOwner) && !nativeSemantic)) {
         return refusal("wrong_owner", "declaration_closure", "retained input requires the fixed ABI pair and exact entry, source and consumer semantics owners");
       }
       continue;
@@ -1054,6 +1056,8 @@ export function nativeSemanticRetentionOwnersMatch(publication: Readonly<ModuleP
     a.productId === b.productId && a.installId === b.installId && a.moduleRef === b.moduleRef && a.publicationDigest === b.publicationDigest;
   return graphOwner !== null && graphOwner.productId === publication.owningProductId && graphOwner.moduleRef === publication.moduleRef &&
     graphOwner.publicationDigest === modulePublicationSemanticDigest(publication) &&
-    entry !== null && entry.productId === ABI5_PRODUCT_ID && entry.moduleRef === SEMANTIC_STAGE_IDS.moduleRef &&
-    same(entry, target) && same(entry, semantics) && isNativeSemanticGraphFunction(publication, graph);
+    entry !== null && entry.productId === ABI5_PRODUCT_ID && same(entry,target) &&
+    (entry.moduleRef === SEMANTIC_STAGE_IDS.moduleRef ? same(entry,semantics) && isNativeSemanticGraphFunction(publication,graph) :
+      entry.moduleRef === SEMANTIC_REVISION_IDS.moduleRef && semantics !== null && semantics.productId === entry.productId && semantics.installId === entry.installId &&
+      [SEMANTIC_STAGE_IDS.moduleRef,SEMANTIC_REVISION_IDS.moduleRef].some(ref=>ref===semantics.moduleRef) && isNativeSemanticRevisionGraphFunction(publication,graph));
 }

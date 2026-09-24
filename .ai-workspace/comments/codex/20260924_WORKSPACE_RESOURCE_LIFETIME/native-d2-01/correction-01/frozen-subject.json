@@ -1,0 +1,61 @@
+{
+  "classification": "NATIVE-D2-R01 correction; bounded request/ordinary-caller contract design_reframe; source/component only",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/abi/code/src/product/semantic_revision.ts",
+      "beforeSha256": "401aa49a9b0b5f68a1d4a957a8d3f67413a86f617a9e56c4a863dadeecd2463a",
+      "afterSha256": "e973b1ed01980b773637b13ce15ed0a059f7de41123d906971a4dd557de4303f",
+      "addedLines": 15,
+      "removedLines": 4
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/abi/code/src/abg/semantic_revision.ts",
+      "beforeSha256": "6a90360d745785cd52ee972a55b42e964d57079244c0bb483be27698f2bda488",
+      "afterSha256": "6f61fd28225b1f19c73cad4ba30426529501b10a679108cda87e7dae7d255b0a",
+      "addedLines": 7,
+      "removedLines": 2
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/abi/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "beforeSha256": "2c98ffd868dd8736b64825b959ff9589918dbfc4ed7ed93d9f01551113735112",
+      "afterSha256": "7ad2d0cca70d82212a1f9ae0a2a9910b854cac0652aa107f31a9bad4bb1653e1",
+      "addedLines": 36,
+      "removedLines": 12
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/abi/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "beforeSha256": "7cc7447a1b019a2459d84c2607c02429727817c71b77cc3815ab4afe9a4f825c",
+      "afterSha256": "ca5ac049892b817b07432baf7bf821de75b01898ad5c4d546fa26d262a89abde",
+      "addedLines": 8,
+      "removedLines": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/glc/src/native-lifecycle-declarations.mjs",
+      "beforeSha256": "943db8bc271ccb32ba5b7557f552c44eb265cd11f73b771ebd4326a4198eda93",
+      "afterSha256": "b8dcaa7f4444addaeb556133169a403270dc7a9a69674e8f28aff2d398234599",
+      "addedLines": 18,
+      "removedLines": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/glc/test/full-sandbox.test.mjs",
+      "beforeSha256": "4f9e55b8063f97c7277bbe035311baa16cfc5bd4ac288b86286ac9e5c176d6d6",
+      "afterSha256": "17b3e5b3ac822b34c81908ed3bb21d33f5ef7d7f4f50cacae3276c9b41516035",
+      "addedLines": 13,
+      "removedLines": 1
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/preimage/glc-common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+      "beforeSha256": "47ae881bc76d7db3cf25bf34b0cbfe2cc05a44a53c1bd2fb1370148866ddc15d",
+      "afterSha256": "d4a3f28aefad5a6343f909ee3e1b2a77c1f347bb6a8516666abce0727a4d64fc",
+      "addedLines": 9,
+      "removedLines": 1
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { SEMANTIC_REVISION_IDS as revision } from "./semantic_revision_identity.js";
 import * as v from "valibot";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work_identity.js";
 import type { ModulePublication, GtlProgram, GraphFunction } from "./contracts.js";
@@ -107,6 +108,14 @@ export function stdoRoleForDeclaredLeaf(graph: Readonly<GraphFunction>, leaf: Re
     requirement.implementationBindingRef === (leaf.stageRole === "semantic-author" ? SEMANTIC_STAGE_IDS.authorBindingRef : SEMANTIC_STAGE_IDS.assessorBindingRef) &&
     requirement.inputContractRef === SEMANTIC_STAGE_IDS.envelopeContractRef && requirement.outputContractRef === SEMANTIC_STAGE_IDS.envelopeContractRef)
     return leaf.stageRole === "semantic-author" ? "author" : "assessor";
+  if (graph.declarations["abg.semantic_revision_selection"] !== undefined && leaf.stageRole === "semantic-revision-selection" &&
+    requirement.implementationBindingRef === revision.selectionBindingRef && requirement.inputContractRef === revision.selectionInputContractRef &&
+    requirement.outputContractRef === revision.selectionContractRef) return "assessor";
+  if (graph.declarations["abg.semantic_revision_stage"] !== undefined &&
+    (leaf.stageRole === "semantic-revision-author" || leaf.stageRole === "semantic-revision-assessor") &&
+    requirement.implementationBindingRef === (leaf.stageRole === "semantic-revision-author" ? revision.authorBindingRef : revision.assessorBindingRef) &&
+    requirement.inputContractRef === revision.envelopeContractRef && requirement.outputContractRef === revision.envelopeContractRef)
+    return leaf.stageRole === "semantic-revision-author" ? "author" : "assessor";
   if (graph.name === nativeIds.assessmentGraphFunctionRef && leaf.stageRole === "native-assessment" &&
     requirement.implementationBindingRef === nativeIds.implementationBindingRef &&
     requirement.inputContractRef === nativeIds.taskContractRef && requirement.outputContractRef === nativeIds.observationContractRef) return "assessor";

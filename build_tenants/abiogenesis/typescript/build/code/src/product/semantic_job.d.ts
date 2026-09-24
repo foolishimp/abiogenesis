@@ -291,7 +291,7 @@ export interface SemanticJobContractIssue {
 }
 /** One Product-owned reference and coverage relation. Assembly renders this
  * projection; native validators consume the same domains, not prompt copies. */
-export declare function projectSemanticJobActorContract(envelope: SemanticJobEnvelope, stageRef: string, role: "author" | "assessor", retainedTerms?: readonly RequirementTerm[]): Readonly<{
+export declare function projectSemanticJobActorContract(envelope: SemanticJobEnvelope, stageRef: string, role: "author" | "assessor", retainedTerms?: readonly RequirementTerm[], executionLimits?: WorksiteCommandExecutionLimits): Readonly<{
     contractDigest: `sha256:${string}`;
     kind: string;
     schemaVersion: string;
@@ -468,13 +468,13 @@ export declare function projectSemanticJobPromptContext(envelope: SemanticJobEnv
     } | null;
     omitted: string[];
 }>;
-export declare function evaluateSemanticJobActorCandidate(envelope: SemanticJobEnvelope, stageRef: string, role: "author" | "assessor", raw: unknown, retainedTerms?: readonly RequirementTerm[]): readonly SemanticJobContractIssue[];
-export declare function deriveSemanticJobAsset(envelope: SemanticJobEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource, retainedTerms?: readonly RequirementTerm[], onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void): Readonly<SemanticJobEnvelope> | null;
-export declare function deriveSemanticJobAssessment(envelope: SemanticJobEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource, retainedTerms?: readonly RequirementTerm[]): Readonly<SemanticJobEnvelope> | null;
+export declare function evaluateSemanticJobActorCandidate(envelope: SemanticJobEnvelope, stageRef: string, role: "author" | "assessor", raw: unknown, retainedTerms?: readonly RequirementTerm[], executionLimits?: WorksiteCommandExecutionLimits): readonly SemanticJobContractIssue[];
+export declare function deriveSemanticJobAsset(envelope: SemanticJobEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource, retainedTerms?: readonly RequirementTerm[], onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void, executionLimits?: WorksiteCommandExecutionLimits): Readonly<SemanticJobEnvelope> | null;
+export declare function deriveSemanticJobAssessment(envelope: SemanticJobEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource, retainedTerms?: readonly RequirementTerm[], executionLimits?: WorksiteCommandExecutionLimits): Readonly<SemanticJobEnvelope> | null;
 /** Coverage required to author a worksite Design, not to admit partial refinement. */
 export declare function semanticJobMissingBindingRequirementRefs(envelope: SemanticJobEnvelope, active: readonly SemanticJobBindingVersion[]): readonly string[];
-export declare function semanticJobDesignIssues(envelope: SemanticJobEnvelope, design: SemanticJobDesign): readonly SemanticJobContractIssue[];
-export declare function semanticJobDesignMatches(envelope: SemanticJobEnvelope, design: SemanticJobDesign): boolean;
+export declare function semanticJobDesignIssues(envelope: SemanticJobEnvelope, design: SemanticJobDesign, executionLimits?: WorksiteCommandExecutionLimits): readonly SemanticJobContractIssue[];
+export declare function semanticJobDesignMatches(envelope: SemanticJobEnvelope, design: SemanticJobDesign, executionLimits?: WorksiteCommandExecutionLimits): boolean;
 export declare function semanticJobAssessmentDomain(envelope: SemanticJobEnvelope): {
     assetRef: string;
     statementRefs: string[];
@@ -512,7 +512,7 @@ export declare function nativeSemanticPaths(envelope: SemanticJobEnvelope): {
     }[];
     rubricPath: string;
 };
-export declare function nativeSemanticContextMatches(envelope: SemanticJobEnvelope, context: WorksiteContextObservation): boolean;
+export declare function nativeSemanticContextMatches(envelope: SemanticJobEnvelope, context: WorksiteContextObservation, admittedRevision?: boolean): boolean;
 export declare function nativeSemanticAssetSource(envelope: SemanticJobEnvelope, stageRef: string, observation: NativeWorkspaceWorkObservation, adapter: {
     readonly cCallRef: string;
     readonly inputDigest: Sha256Digest;
@@ -527,10 +527,15 @@ export declare function deriveNativeSemanticAssessment(envelope: SemanticJobEnve
 }): Readonly<SemanticJobEnvelope> | null;
 /** Value projection only. ABG separately authenticates the native producers and
  * same-Run predecessor before admitting these observed artifact bytes. */
-export declare function nativeSemanticEvidenceArtifacts(envelope: SemanticJobEnvelope, value: unknown): SemanticEvidenceInput["artifacts"] | null;
+export declare function nativeSemanticEvidenceArtifacts(envelope: SemanticJobEnvelope, value: unknown, revision?: NativeSemanticRevisionConstruction): SemanticEvidenceInput["artifacts"] | null;
 export declare function constructNativeSemanticTask(envelope: SemanticJobEnvelope, stageRef: string, role: "author" | "assessor", operating: NativeSemanticOperating, context: WorksiteContextObservation): Readonly<NativeWorkspaceWorkTask>;
-export declare function constructNativeSemanticConstructionTask(envelope: SemanticJobEnvelope, operating: NativeSemanticOperating, context: WorksiteContextObservation): Readonly<NativeWorkspaceWorkTask>;
-export declare function constructNativeSemanticExecutionTask(envelope: SemanticJobEnvelope, source: NativeWorkspaceWorkObservation): Readonly<NativeWorksiteCommandExecutionTask>;
+export interface NativeSemanticRevisionConstruction {
+    readonly selectedPaths: readonly string[];
+    readonly feedback: JsonValue;
+    readonly executionLimits: WorksiteCommandExecutionLimits;
+}
+export declare function constructNativeSemanticConstructionTask(envelope: SemanticJobEnvelope, operating: NativeSemanticOperating, context: WorksiteContextObservation, revision?: NativeSemanticRevisionConstruction): Readonly<NativeWorkspaceWorkTask>;
+export declare function constructNativeSemanticExecutionTask(envelope: SemanticJobEnvelope, source: NativeWorkspaceWorkObservation, revision?: NativeSemanticRevisionConstruction): Readonly<NativeWorksiteCommandExecutionTask>;
 /** Shape/meaning consequence only; native admission validates the exact owner
  * source and projection CCalls separately before this judgment can advance. */
 export declare function evaluateNativeSemanticRelation(predicate: string, input: unknown, output: unknown): boolean | null;

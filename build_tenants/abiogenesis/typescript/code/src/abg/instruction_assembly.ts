@@ -1,3 +1,4 @@
+import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { resolveNativeWorkspaceAssessmentSchema } from "../product/native_workspace_assessment.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
@@ -241,7 +242,7 @@ function exactEvidenceText(base64: string, expectedDigest?: Sha256Digest, expect
 export function renderSemanticEvidenceTextView(evidence: SemanticEvidenceInput | null) {
   if (evidence === null) return null;
   const observation = evidence.executionObservation;
-  if (!isWorksiteCommandExecutionObservation(observation) && !isWorksiteRevisionCommandExecutionObservation(observation))
+  if (!isWorksiteCommandExecutionObservation(observation) && !isWorksiteRevisionCommandExecutionObservation(observation) && !isNativeWorksiteCommandExecutionObservation(observation))
     throw new TypeError("invalid admitted evidence observation");
   const stream = ({ payload, ...identity }: typeof observation.commandResults[number]["stdout"]) =>
     ({ ...identity, textView: exactEvidenceText(payload, identity.digest, identity.byteLength) });
@@ -425,7 +426,7 @@ function constructJobInstructionAssembly(basis: SemanticStageNativeBasis, suppli
     owner.execution.programRef, owner.call.graphFunctionRef, owner.call.programLocusRef, owner.role);
   if (stdo === false || stdo !== null && selectedNativeContextRole(basis, owner.call.programLocusRef) !== owner.role)
     return assemblyRefusal("unavailable_required_content", stage.assembly.ruleRef, owner.role, [owner.execution.invocationAdmissionRef]);
-  const contract = projectSemanticJobActorContract(input, stage.declarationRef, owner.role, revision?.revisionBasis.retainedTerms ?? []);
+  const contract = projectSemanticJobActorContract(input, stage.declarationRef, owner.role, revision?.revisionBasis.retainedTerms ?? [], revision?.revisionBasis.request.nativeWorksite?.commandExecutionLimits);
   const designResponse = revision === null && semanticJobUsesDesignResponse(owner.role, stage.bodyCapabilities);
   const schema = semanticJobWorkerResultSchema(owner.role, stage.bodyCapabilities, designResponse ? contract : undefined);
   const context = projectSemanticJobActorContext(input, stage.declarationRef, owner.role);
@@ -467,7 +468,7 @@ function constructJobInstructionAssembly(basis: SemanticStageNativeBasis, suppli
     // Preserve the existing section's array carrier. Its last assessor entry
     // is explicitly identified as the current candidate, not a predecessor domain.
     predecessors: [...promptContext.predecessors, ...(context.currentCandidate === null ? [] : [context.currentCandidate])], worksite: { scope: input.job.worksiteScope, observationRole: input.evidence === null ? "pre_construction_context" : "historical_pre_construction_context",
-      ...(revisionSubject === null ? {} : { currentRevisionTargets: worksiteContentRows(revisionSubject.currentWorksite), origins: revisionSubject.origins }),
+      ...(revisionSubject === null ? {} : { currentRevisionTargets: revisionSubject.currentWorksite === null ? [] : worksiteContentRows(revisionSubject.currentWorksite), origins: revisionSubject.origins }),
       observation: content === "not_required" ? input.context === null ? null : { observationRef: input.context.observationRef, observationDigest: input.context.observationDigest, bodyDisposition: "omitted_not_required" } :
         input.context === null ? null : { ...input.context, entries: input.context.entries.map(e => e.state === "file" ? { ...e, textView: exactEvidenceText(e.bytes, e.digest, e.byteLength) } : e) } },
     evidence: { observed: renderSemanticEvidenceTextView(input.evidence), evaluationData: applicationAssessment ? input.job.evaluationData : null,
@@ -533,7 +534,12 @@ function constructRevisionSelectionAssembly(basis: SemanticStageNativeBasis, inp
   const job = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined;
   const subject = job ? projectJobRevisionSubject(basis, input, readPhysical) : projectRevisionSelectionSubject(basis, input, readPhysical);
   if (subject === null) return null;
-  const { owner, envelope } = subject, schema = semanticRevisionSelectionSchema();
+  const { owner, envelope } = subject;
+  const native = "nativeWorksite" in subject ? subject.nativeWorksite : undefined;
+  const nativePhase = native === undefined ? undefined : native.construction === null ? "preconstruction" : "postconstruction";
+  const schema = semanticRevisionSelectionSchema(nativePhase);
+  const stdo = projectRunEnvironmentRoleEvidence(owner.events,owner.execution.invocationAdmissionRef,basis.publication,owner.execution.programRef,owner.call.graphFunctionRef,owner.call.programLocusRef,"assessor");
+  if (stdo === false || stdo !== null && selectedNativeContextRole(basis,owner.call.programLocusRef) !== "assessor") return null;
   const sectionOrder = ["role", "source", "obligations", "predecessors", "worksite", "evidence", "task", "response"];
   const currentWorksite = subject.currentWorksite, currentWorksiteDigest = currentWorksite === null ? null : sha256Canonical(currentWorksite as unknown as JsonValue);
   const selectionInput = input as import("../product/semantic_revision.js").SemanticRevisionSelectionInput;
@@ -544,15 +550,16 @@ function constructRevisionSelectionAssembly(basis: SemanticStageNativeBasis, inp
       { source: envelope.sourceHandoff.declaration.fulfillmentBindings, discovered: envelope.assets.flatMap(a => a.discoveredBindings), remainingGaps: envelope.remainingGaps,
       retained: isSemanticRevisionEnvelope(subject.parent.result.value) ? subject.parent.result.value.revisionBasis.retainedBindings : [] },
     predecessors: envelope.assets,
-    worksite: currentWorksite === null ? null : { inventoryDigest: currentWorksiteDigest,
+    worksite: native !== undefined ? {context:native.context,construction:"construction" in subject ? subject.construction : null,
+      commandExecutionLimits:native.commandExecutionLimits} : currentWorksite === null ? null : { inventoryDigest: currentWorksiteDigest,
       workspaceBinding: currentWorksite.workspaceBinding, targets: worksiteContentRows(currentWorksite),
       origins: subject.origins, commands: currentWorksite.commands, outcomePredicates: currentWorksite.outcomePredicates,
       allowedWriteTerritories: currentWorksite.allowedWriteTerritories },
     evidence: subject.causes.map(c => ({ cCall: c.cCall, result: c.result, judgment: c.judgment })),
-    task: { input: { kind: selectionInput.kind, schemaVersion: selectionInput.schemaVersion, parent: selectionInput.parent,
-        causes: selectionInput.causes, currentWorksiteDigest }, selectedTargetReferenceSpace: "historical_parent_target_refs",
-      stages: owner.lifecycle.stages.map(stage => ({ declarationRef: stage.declarationRef, predecessorStageRefs: stage.predecessorStageRefs, purpose: stage.purpose, rubric: stage.rubric })),
-      targets: ("priorWorksite" in subject ? subject.priorWorksite : envelope.worksite)?.targets.map(row => ({ target: row.target, role: row.role,
+    task: { ...(stdo === null ? {} : { runEnvironment: stdo }), input: { kind: selectionInput.kind, schemaVersion: selectionInput.schemaVersion, parent: selectionInput.parent,
+        causes: selectionInput.causes, currentWorksiteDigest, ...(nativePhase === undefined ? {} : {nativePhase}) }, selectedTargetReferenceSpace: native === undefined ? "historical_parent_target_refs" : "declared_native_design_relative_paths",
+      stages: owner.lifecycle.stages.filter((_,i)=>native === undefined || i <= envelope.assets.length).map(stage => ({ declarationRef: stage.declarationRef, predecessorStageRefs: stage.predecessorStageRefs, purpose: stage.purpose, rubric: stage.rubric })),
+      targets: native !== undefined && isSemanticJobEnvelope(envelope) ? envelope.assets.flatMap(a=>a.candidate.design?.targets ?? []) : ("priorWorksite" in subject ? subject.priorWorksite : envelope.worksite)?.targets.map(row => ({ target: row.target, role: row.role,
         currentTargetRef: currentWorksite?.targets.find(current => current.target.subject.relativePath === row.target.subject.relativePath)?.target.targetRef ?? null })) ?? [] }, response: schema,
   } as unknown as Readonly<Record<string, JsonValue>>;
   const rendererRef = "renderer://abiogenesis/semantic-revision/selection@5";

@@ -13,7 +13,7 @@ import { isWorksiteCommandForwardObservation } from "./worksite_command_executio
 import { isWorksiteRevisionCommandExecutionObservation, isWorksiteRevisionCommandExecutionWorkerResult } from "./worksite_command_execution.js";
 import { SEMANTIC_REVISION_IDS as revisionIds } from "../gtl/semantic_revision_identity.js";
 import { isSemanticRevisionRequest, isSemanticRevisionEnvelope, isSemanticRevisionSelection, isSemanticRevisionSelectionInput, deriveRevisionAsset, deriveRevisionAssessment,
-  isSemanticJobRevisionEnvelope, deriveJobRevisionAsset, deriveJobRevisionAssessment } from "./semantic_revision.js";
+  isSemanticJobRevisionEnvelope, deriveJobRevisionAsset, deriveJobRevisionAssessment, isNativeSemanticRevisionIntake, evaluateNativeSemanticRevisionRelation } from "./semantic_revision.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { evaluateNativeSemanticRelation, isSemanticJobInput, isSemanticJobEnvelope, isSemanticJobAssetCandidate, isSemanticJobDesignResponse, deriveSemanticJobAsset, deriveSemanticJobAssessment, evaluateSemanticJobRelation } from "./semantic_job.js";
 import { isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess, isWorksiteFileParentsFailure } from "./worksite_effect.js";
@@ -864,7 +864,7 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
   ...ABI5_PRODUCT_SEMANTICS,
   bindingRef: SEMANTIC_STAGE_IDS.semanticsBindingRef,
   admitInput(contractRef: string, value: unknown) {
-    if ((contractRef === revisionIds.selectionInputContractRef && isSemanticRevisionSelectionInput(value)) || (contractRef === revisionIds.requestContractRef && isSemanticRevisionRequest(value)) ||
+    if ((contractRef === revisionIds.nativeIntakeContractRef && isNativeSemanticRevisionIntake(value)) || (contractRef === revisionIds.selectionContractRef && isSemanticRevisionSelection(value)) || (contractRef === revisionIds.selectionInputContractRef && isSemanticRevisionSelectionInput(value)) || (contractRef === revisionIds.requestContractRef && isSemanticRevisionRequest(value)) ||
       (contractRef === revisionIds.envelopeContractRef && (isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value)))) return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
     if (contractRef === SEMANTIC_STAGE_IDS.jobInputContractRef && isSemanticJobInput(value)) return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
     return contractRef === SEMANTIC_STAGE_IDS.envelopeContractRef && (isSemanticStageEnvelope(value) || isSemanticJobEnvelope(value))
@@ -872,7 +872,7 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
       : ABI5_REQUIREMENT_HANDOFF_PRODUCT_SEMANTICS.admitInput(contractRef, value) ?? ABI5_PRODUCT_SEMANTICS.admitInput(contractRef, value);
   },
   validateContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
-    return (valueKind === "semantic_revision_selection_input" && isSemanticRevisionSelectionInput(value)) || (valueKind === "semantic_revision_request" && isSemanticRevisionRequest(value)) ||
+    return (valueKind === "native_semantic_revision_intake" && isNativeSemanticRevisionIntake(value)) || (valueKind === "semantic_revision_selection_input" && isSemanticRevisionSelectionInput(value)) || (valueKind === "semantic_revision_request" && isSemanticRevisionRequest(value)) ||
       (valueKind === "semantic_revision_envelope" && (isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value))) ||
       (valueKind === "semantic_revision_selection" && isSemanticRevisionSelection(value)) ||
       (valueKind === "semantic_stage_assessment_candidate" && isSemanticAssessmentCandidate(value)) ||
@@ -892,6 +892,9 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
       : ABI5_PRODUCT_SEMANTICS.resolveProbabilisticWorkerContracts(basis);
   },
   resolveJudgmentRelation(predicateRef: string) {
+    if ([revisionIds.nativeIntakePredicateRef,revisionIds.nativeRequestPredicateRef,revisionIds.nativeConstructionPredicateRef,revisionIds.nativeExecutionPredicateRef,revisionIds.nativeEvidencePredicateRef].some(ref=>ref===predicateRef))
+      return {predicateRef,advanceReasonRef:"reason://abiogenesis/semantic-revision/native-source-satisfied@5",rejectionReasonRef:"reason://abiogenesis/semantic-revision/native-source-refused@5",
+        evaluate:(input:unknown,output:unknown)=>evaluateNativeSemanticRevisionRelation(predicateRef,input,output) === true};
     if (predicateRef === revisionIds.stepPredicateRef) {
       return { predicateRef, advanceReasonRef: "reason://abiogenesis/semantic-revision/step-satisfied@5",
         rejectionReasonRef: "reason://abiogenesis/semantic-revision/step-refused@5",
@@ -900,6 +903,8 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
             const equal = (a: unknown, b: unknown) => sha256Canonical(a as JsonValue) === sha256Canonical(b as JsonValue);
             const matches = (ref: string, before: unknown, after: unknown) =>
               ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS.resolveJudgmentRelation(ref)?.evaluate(before, after) === true;
+            const native = evaluateNativeSemanticRevisionRelation(predicateRef,input,output);
+            if (native !== null) return native;
             // These are typed carrier relations. The existing native owners
             // authenticate the request, historical bridge and C2 predecessors.
             const evidenceMatches = (envelope: unknown, observation: unknown) => {

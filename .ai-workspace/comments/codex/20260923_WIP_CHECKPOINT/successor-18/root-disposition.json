@@ -1,0 +1,14 @@
+{
+  "source": "Root accepts NATIVE-D2-01 + correction-01",
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/review-02/review.md",
+    "sha256": "5ad753443854d4af7bc3c58dd3c44a54c811eb3ca3f14993fb2f1ec9e1bd3279"
+  },
+  "package": "Root accepts core20/dev10 correspondence within package scope",
+  "preparation": {
+    "status": "CLOSED catalog.admit refusal, no launch",
+    "return": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/return.md",
+    "sha256": "ef5a9879d1118ac627115a9c826a18ddd41c8dd317147d205ee899795a2c11aa"
+  },
+  "selection": "Checkpoint accepted source/generated/closed evidence; no repair/retry/paid launch/release. A separate read-only reviewer may trace catalog predicate; its unfinished work is excluded."
+}

@@ -1,5 +1,83 @@
 # T-287 D2: Evidence-Bound Affected Lifecycle Successor
 
+## Native phase-qualified intake and correction (NATIVE-D2-01)
+
+Executive selection under T287/GOAL035 and T043 is a bounded design reframe of
+this existing D2 relation. ABI's selected method is exact STDO 2.5.1 RC1; GLC
+retains RC4. The historical design dispositions below remain historical. This
+increment changes no Product family or Public operation and does not establish
+installed qualification.
+
+An ordinary caller supplies only the original public Run `{ref,digest}` and
+its durable prefix to `program://odd-glc/native-semantic-revision/intake@5`.
+The declared F_D intake uses existing ABG prefix, Run, execution-basis,
+Result/J, workspace and native-observation owners to authenticate one eligible
+cause and one successful advancing semantic predecessor from that Run. An
+absent or ambiguous cause/parent refuses; chronological latest is not a
+selector. The original admitted job, source, oracle and root remain exact.
+Rejected candidate/assessment bytes are counterevidence, never the advancing
+parent. Lifecycle declaration bytes must equal the selected publication's
+lifecycle, even when its declaration reference has the same spelling.
+
+Before construction, a refused native assessment supplies the actual rejected
+candidate and assessment; no future worksite, construction origin or target
+selection is invented. After construction, an eligible failed command or
+assessment must additionally resolve its real native construction source and
+current observed context through the existing owners. A native observation
+never becomes a fabricated C0/C1 result. Intake checks the current workspace
+and admitted binding correspondence and observes current context; later
+consumers use that one admitted acquisition and exact referenced leaves within
+its basis, without repeating failure discovery.
+
+The existing F_P selection receives authenticated alternatives, complete
+source, current context, obligations and counterevidence. Its preconstruction
+arm selects only an existing stage at or before the refused stage, with no
+target references; postconstruction also admits construction repair and exact
+historical Design paths. F_D request construction binds the admitted selection
+and intake Results into the existing terminal-readable SemanticRevisionRequest.
+Its `selectionChoice` contains the admitted `mode` and `selectedStageRef`, so
+the caller can select the exact declared suffix from the serialized terminal
+value and public Program data alone, even when several stages were eligible.
+Request admission regenerates that projection; suffix derivation compares it
+with the referenced admitted selection as well as checking the declared entry.
+Changing the returned choice creates no selection authority. Historical requests
+without this optional field retain their existing input behavior; a caller
+cannot infer a missing choice through the new declaration lookup.
+No caller extracts private leaf ids or writes a proof packet. Selection and
+execution are two ordinary invocations: the second starts a declared whole
+suffix. Its projection refuses a start whose entry differs from the admitted
+mode/stage. HoG traverses the suffix; no caller stage loop is introduced.
+
+D2 retains unaffected accepted assets, original source and oracle, historical
+counterevidence, grounded terms, outstanding obligations and binding versions.
+The selected semantic stages use the existing D2 author/assessor owners.
+Application correction uses native construction restricted to affected paths,
+existing C2 over all declared target/dependency snapshots, then fresh Evidence.
+An Evidence-only semantic re-entry retains its authenticated prior native
+observation and re-evaluates that evidence without granting construction writes.
+Old workspace semantic files remain historical when superseded by current
+admitted D2 semantic assets; the native constructor receives that distinction.
+
+Current execution limits are selected at the implementation intake boundary
+and retained in its operating context. They are passed explicitly to the one
+existing Product budget calculation for new revision author/assessor contracts
+and construction readiness. Original job bytes and historical folds are not
+enriched or reinterpreted; this also covers an old job lacking the optional
+limits field. Changed selected controls refuse new construction preparation.
+
+The exact native D2 graph factory owns its two retained-input edges. Existing
+ABI contract, implementation and semantics owners authenticate that relation;
+a marker alone is insufficient. STDO role admission recognizes only the exact
+existing D2 selection/author/assessor bindings, using the existing assessor role
+for selection and Program-scoped context declarations.
+
+Source/component readiness is separate from a real correction. Successful
+cases supply no invented failure. A budget-only retry is not consequential
+application correction. The prospective bootstrap source additionally needs
+its exact historical lifecycle selected unchanged; this increment neither
+migrates old carriers nor admits a lifecycle-definition successor.
+
+
 ## Proposed generic-job binding conservation
 
 Status: Executive-accepted at the ABI5_GENERIC_JOB_DESIGN_01 freeze after the same

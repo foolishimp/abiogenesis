@@ -1,5 +1,32 @@
 # T-287 Native Workspace Work
 
+## Native D2 source relation (NATIVE-D2-01)
+
+The existing D2 HOW owns the phase-qualified correction loop. Public Run and
+durable-prefix coordinates enter a declared ABG F_D intake; existing owners
+acquire the unique failed leaf, advancing semantic parent, original root and
+current workspace relation. The admitted intake supplies selection and request
+construction. It is a derived carrier, not a store or new runtime authority.
+
+A preconstruction assessment refusal has no native construction source. It
+re-enters the selected semantic stage and later reaches the ordinary native
+construction owner. A postconstruction correction retains its real native
+observation origin. Affected paths derive from the admitted selection and
+current assessed Design; unaffected paths stay protected snapshot dependencies.
+C2 and fresh Evidence retain their actual Result/J coordinates and native
+observations. No copied target list is substituted for provenance and no C0/C1
+parent is fabricated. The existing retained-input mechanism is admitted only
+for the exact reconstructed D2 factory and ABI owners.
+
+The native task carries current admitted semantic meaning alongside explicitly
+historical asset files. Existing source/oracle and protected-file constraints
+remain. Current command capacity enters as explicit immutable operating data
+from the implementation selector and uses the existing budget owner; old job
+bytes and historical task correspondence remain unchanged. Qualification still
+requires real eligible evidence, a lawful unchanged lifecycle selection, and a
+fresh installed execution; component receipts do not establish S06.
+
+
 This bounded design reframe realizes Product's native F_P and current-workspace
 Worker → Evaluator → Consequence grants (PRODUCT.md 516–565, 640–659, 850–858)
 under STDO v2.5.1-rc.1, Derived Worker, Reuse/Foundation and computational

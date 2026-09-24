@@ -1,0 +1,29 @@
+{
+  "status": "current clauses updated only",
+  "changes": [
+    {
+      "repo": "abiogenesis",
+      "path": "specification/GOALS.md",
+      "preimageSha256": "d636d809ccdcd70e9a8f6779b06ee2ecbaa17b3ba73ccd8eb0ff979306826631",
+      "postimageSha256": "c16442437749c8f9d0154eee1562f814e61bfef32fa1a4eee901d744bae7b384"
+    },
+    {
+      "repo": "abiogenesis",
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimageSha256": "734835f8f87bc28bf1010b50641666c8200674ba65c21d0d29245e9fe69e15a0",
+      "postimageSha256": "6ead989d2e1ccf28dfdbd2af2cf7b1767d26da772a49f4664fdab88b08a49d66"
+    },
+    {
+      "repo": "odd_glc",
+      "path": "specification/GOALS.md",
+      "preimageSha256": "cf4dcb11e979d2d7654cc2d465d04d1ce9f4a1238f6be0eb30a8f6041ab81517",
+      "postimageSha256": "2060088e78b81ee2e04d8fe7427e3e8374c9143548e0a811a23124891cb0982f"
+    },
+    {
+      "repo": "odd_glc",
+      "path": ".ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+      "preimageSha256": "eeebd6ca4216d70d8178a13b996f41e8be5a48aef314a1ec34f0b2b9e45a0a08",
+      "postimageSha256": "e23d9c34af63a051549fea5e6fdbb487ef5774cf173c7aca4fcd9efe33e63a46"
+    }
+  ]
+}

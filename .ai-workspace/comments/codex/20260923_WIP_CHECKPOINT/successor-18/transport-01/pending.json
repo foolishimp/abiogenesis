@@ -1,0 +1,4 @@
+{
+  "activeEvidenceRoots": [],
+  "sourceAddition": "All canonical changed/new/deleted source, tests, generated metadata and tracking bytes must be frozen and staged directly after final acceptance; this preparation makes no source-freeze claim."
+}

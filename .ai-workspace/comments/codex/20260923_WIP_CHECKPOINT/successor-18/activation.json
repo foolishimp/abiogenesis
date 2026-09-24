@@ -1,0 +1,13 @@
+{
+  "worker": "astra/xhigh",
+  "scope": "accepted NATIVE-D2 + R01 source/generated, core20/dev10 construction, closed bootstrap preparation, four current trackers; no actor run",
+  "priorHead": "5c4245ea900fddea9911e73183f5fb7b0631ce91",
+  "rootSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/review-02/review.md",
+    "sha256": "5ad753443854d4af7bc3c58dd3c44a54c811eb3ca3f14993fb2f1ec9e1bd3279"
+  },
+  "constructionReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-20/return.md",
+    "sha256": "8e21d42f724111ce79a6a6bc4ab918df81a5409e7340b9c04aa9bfb362a1f4ea"
+  }
+}

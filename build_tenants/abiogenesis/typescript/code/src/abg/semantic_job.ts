@@ -36,7 +36,7 @@ import { pathToFileURL } from "node:url";
 import type { SemanticWorksiteBasis } from "../product/semantic_stage.js";
 import { projectWorksiteRevisionNativeResult } from "./worksite_revision.js";
 import { SEMANTIC_REVISION_IDS as revisionIds } from "../gtl/semantic_revision_identity.js";
-import { isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
+import { isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticJobRevisionEnvelope, isNativeSemanticRevisionIntake } from "../product/semantic_revision.js";
 
 const hash = (x: unknown) => sha256Canonical(x as JsonValue);
 const equal = (a: unknown, b: unknown) => hash(a) === hash(b);
@@ -70,8 +70,11 @@ export function authenticateSemanticJobBasis(basis: SemanticStageNativeBasis) {
     const invocationRoot = rootOf(native.prefix, native.execution);
     if (invocationRoot === null) return null;
     let root = invocationRoot;
-    if (!isSemanticJobInput(root.rawInputValue)) {
-      const request = root.rawInputValue;
+    const acquiring = native.call.implementationRef === revisionIds.nativeIntakeImplementationRef && isNativeSemanticRevisionIntake(root.rawInputValue);
+    if (!isSemanticJobInput(root.rawInputValue) && !acquiring) {
+      // Intake's admitted child input carries the acquired original parent.
+      // The revision owner authenticates that child against the intake Result.
+      const request = isNativeSemanticRevisionIntake(root.rawInputValue) ? native.execution.rawInputValue : root.rawInputValue;
       if (!isSemanticRevisionRequest(request) && !isSemanticRevisionSelectionInput(request)) return null;
       const parent = projectWorksiteRevisionNativeResult(native.prefix, request.parent);
       const envelope = parent === null ? null : isSemanticJobRevisionEnvelope(parent.result.value) ? parent.result.value.current : parent.result.value;
@@ -82,7 +85,7 @@ export function authenticateSemanticJobBasis(basis: SemanticStageNativeBasis) {
         initial.invocationAdmissionRef !== envelope.basis.invocationAdmissionRef) return null;
       root = initial;
     }
-    if (!isSemanticJobInput(root.rawInputValue) || root.rawInputValue.lifecycleRef !== lifecycle.declarationRef ||
+    if ((!acquiring && (!isSemanticJobInput(root.rawInputValue) || root.rawInputValue.lifecycleRef !== lifecycle.declarationRef)) ||
       hash(root.rawInputValue) !== root.rawInputDigest) return null;
     const environment = native.environment;
     const invocation = rehydrateInvocationAdmissionAtPrefix(native.prefix, invocationRoot.invocationAdmissionRef);

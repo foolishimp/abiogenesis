@@ -412,6 +412,20 @@ export function worksiteRevisionEntryBindingDisposition(prefix:ValidatedRuntimeE
   input:unknown,currentBinding:WorkspaceBinding):"not_applicable"|"covered"|"basis_fork_detected" {
   if(graphFunction.declarations["abg.semantic_revision_history"]!==SEMANTIC_REVISION_IDS.historicalOwnerDependencyRef)return "not_applicable";
   try {
+    const nativeRequest = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
+    if ((isSemanticRevisionSelectionInput(nativeRequest) || isSemanticRevisionRequest(nativeRequest)) && nativeRequest.nativeWorksite !== undefined) {
+      const native = nativeRequest.nativeWorksite;
+      if (!same(native.workspaceBinding,currentBinding)) return "basis_fork_detected";
+      const {acquisition:_acquisition,...retained} = native;
+      const prepared = {kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:nativeRequest.parent,causes:nativeRequest.causes,currentWorksite:null,nativeWorksite:retained};
+      const sources = native.acquisition === undefined ? runtimeEventsFromValidatedPrefix(prefix).flatMap(event=>{
+        if(event.kind!=="c_call_result_admitted"||!record(event.payload)||!same(event.payload.value,prepared))return [];
+        const c=coordinateFor(runtimeEventsFromValidatedPrefix(prefix),event),state=c===null?null:projectWorksiteRevisionNativeResult(prefix,c);
+        return state===null?[]:[state];
+      }) : [projectWorksiteRevisionNativeResult(prefix,native.acquisition)];
+      return sources.length===1 && sources[0]?.cCall.implementationRef===SEMANTIC_REVISION_IDS.nativeIntakeImplementationRef &&
+        sources[0].result.resultClass==="success" && sources[0].judgment.judgment==="advance" && same(sources[0].result.value,prepared) ? "covered" : "basis_fork_detected";
+    }
     if(isWorksiteRevisionCommandExecutionObservation(input)){
       // Evidence-input consumes the actual C2 producer, not a request. Resolve
       // its earlier preparation revision; the existing evidence owner still
