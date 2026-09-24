@@ -1,0 +1,31 @@
+# CLOSED — event causation lookup source
+
+Worker: gpt-6-astra / xhigh. Re-entry: realization_refactor, T-287 / LIFE-01. Frame: `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`, with Owner, Conservation and Code Construction. ABG STDO2.5.1-rc.1 and the fifteen-family Product remain unchanged.
+
+Source subject `sha256:3aa415ff96c7f8646cd1701ea9060fa1a517a57869b6e44db3e357de8c3f3f95`, [exact preimages/postimages](source-subject.json), subject-file SHA256 `efd9697ba809f8d08a363fc2512a1423972c80c5be6f9f207afef1117d604b62`. Baseline `c080e5f85de059714528538342f3e93cf4405b52`. [Patch](source.patch): event_store.ts +39/−15; existing m5-event-store-reopen.test.mjs +99/−0; net +123 lines. Only additional tracked change is the existing T-287 current selection/LIFE-01 row (+5/−5). [Preimages](preimages.json) were captured before editing.
+
+The existing Event Store privately indexes admitted events by identity. Cold decoding inserts each event only after its existing validation and seeds the live owner with that same index. Live admission publishes lookup membership with its existing event-array publication; transactional rollback deletes the abandoned suffix, and batch staging uses an uncommitted overlay. Each indexed hit must still equal the event at its ordinal in the exact selected prefix. No new stamp, authority, serialized field, event kind, observation cadence or write path exists. Ordinary raw-array projection retains its compatibility lookup; this change concerns held admission and cold decode.
+
+[Checks](checks.json): isolated ordinary TypeScript compilation passed (5.662 s); [10 focused owner tests](owner-checks-02.log) passed (0.860 s process time). Existing checks cover immutable historical prefixes, stale/foreign guards, exact durable bytes, fresh-process reconstruction, atomic F_H rollback, and write/fsync/truncation failure or poisoning. The new regression adds abandoned-cause refusal, rollback/reappend identity, earlier-only causation, cross-Run refusal and envelope/ordinal/causation diagnostic ordering. The first check failed because the new CCall fixture omitted required cCallDigest/callClass; only that fixture was corrected, with the [first failure](owner-checks.log) preserved. No source failure was concealed.
+
+| Sequence | Live lookup / index insertions | Cold lookup / index insertions |
+| --- | --- | --- |
+| 128 events, 127 causal refs | 127 / 128 | 127 / 128 |
+| 256 events, 255 causal refs | 255 / 256 | 255 / 256 |
+
+Every event agrees with existing pure projection and cold canonical bytes. These are operation counts over actual owner paths, not time thresholds or heap measurements. The source supports expected O(N + R) hash-index work and O(N) additional references for N events/R causal references, replacing prefix-length cause searches. It does **not** establish linear whole-owner work, reduced native latency or reduced total memory.
+
+## Deferred immutable-sequence seam
+
+No sequence representation was changed. The finite owner boundary is:
+
+- `runtime_derivation.ts`: private snapshot/append/prefix and SnapshotProof currently copy dense arrays while preserving prior snapshots. Its implementation shape is private; immutable predecessor meaning is required.
+- `event_store.ts`: state.events/durableHistory and transaction suffix/cold seeding use those snapshots. Exported AbgEventStore.readAll/readScope and durable-prefix read functions return readonly RuntimeEvent arrays.
+- `event_prefix.ts`: exported ValidatedRuntimeEventPrefix.events is a readonly array; nominal receipt construction, immutable-data checks, scoped selection/indexing and prefix cuts consume it. `abg/index.ts` exports that carrier and selector. A frozen getter/proxy would not satisfy its existing frozen-data contract.
+- Hot consumers such as `runtime_liveness.ts` obtain this array through runtimeEventsFromValidatedPrefix even for last-ordinal/currentness queries; event-calculus/replay and other projections also consume the array port. Merely putting a persistent collection behind an array materialization on every append/read would preserve the copy cost. A later selection must explicitly separate internal sequence consumption from actual dense-array export boundaries and cover those affected consumers. No entire-family adaptation is selected here. Existing effect@3.22.1 offers Chunk as a possible private collection; it was neither adopted nor evaluated in this increment.
+
+The governing routes are `specification/requirements/abg/REQ-R-ABG3-EVENTS.md` 001–003, 010, 024, 027–028 (append-only owner admission, immutable event identity, durable sequencing, ordered replay); `build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md` §3 (canonical identities, original historical bytes/causal/ordinal validation, exact physical-prefix ownership); and `ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md` Claim/Boundary/Non-Authority (projections derive truth). These require immutability and admitted-event truth, not a private JavaScript-array implementation. The current exported array/value contract is nevertheless a real compatibility seam; changing it needs an explicit bounded design disposition before implementation. None of these designs was edited.
+
+LIFE-01 stays OPEN. Remaining contributors include repeated immutable reference copies, activity/contract body amplification and cold byte/semantic reconstruction. The two Public terminal reads are deliberately separate cold acquisitions, so their combined 424.436 s is not one established duplicate-read or live-runtime defect. Root's complementary context review separately identifies the shared 89,995-byte role block (including 33,169 bytes of Design-method material in Intent) and omitted compact final-assessor joins; actor latency attribution is unknown. The accepted twelve-role baseline remains unchanged; no graph optimizer or context repair is included.
+
+Five prepared Hello cases remain HOLD, with no resource/worksite/control access, package build, install, actor call, original journal read, Git mutation or evidence banking. Source readiness only; Root retains review, installed selection and performance/qualification disposition.

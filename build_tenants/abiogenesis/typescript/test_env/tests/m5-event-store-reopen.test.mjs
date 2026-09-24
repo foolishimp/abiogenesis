@@ -295,6 +295,105 @@ test("M5 EventStore batch factory interruption leaves the exact prefix unchanged
   assert.deepEqual(store.readAll(), before);
 });
 
+test("owned causation lookup conserves batch and transaction rollback, reappend and refusal precedence", async context => {
+  const { store } = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-cause-rollback-");
+  const candidate = (key, causes = []) => workspaceEvent({ correlationId: "correlation://cause/" + key,
+    eventTime: "2026-09-24T00:00:00.000Z", invocationRef: "invocation://cause/" + key, causationEventRefs: causes });
+  const first = admitRuntimeEvent(store, candidate("first")), before = store.readAll();
+  const priorBytes = await readFile(store.configuredDurableLogPath());
+  let abandoned;
+  assert.throws(() => admitRuntimeEventBatch(store, [
+    () => candidate("abandoned", [first.eventId]),
+    rows => { abandoned = rows[0]; throw Error("batch refused"); },
+  ]), /batch refused/);
+  const refuseMissing = ref => assert.throws(() => admitRuntimeEvent(store, candidate("missing", [ref])),
+    /causation refs must be unique admitted events/);
+  refuseMissing(abandoned.eventId);
+  assert.throws(() => admitRuntimeEventTransaction(store, () => {
+    abandoned = admitRuntimeEvent(store, candidate("abandoned", [first.eventId]));
+    admitRuntimeEvent(store, candidate("tentative-child", [abandoned.eventId]));
+    throw Error("transaction refused");
+  }), /transaction refused/);
+  refuseMissing(abandoned.eventId);
+  assert.deepEqual(store.readAll(), before);
+  assert.deepEqual(await readFile(store.configuredDurableLogPath()), priorBytes);
+  const batch = admitRuntimeEventBatch(store, [
+    () => candidate("abandoned", [first.eventId]),
+    rows => candidate("child", [first.eventId, rows[0].eventId]),
+  ]);
+  assert.equal(batch[0].eventId, abandoned.eventId, "same candidate reappends at the same restored ordinal");
+  assert.equal(before.length, 1); assert.equal(Object.isFrozen(before), true);
+  const runCandidate = runScopedEvent("c_call_opened", "c_call", "c-call://cause/one",
+    { cCallRef: "c-call://cause/one", cCallDigest: sha256Canonical({ call: "one" }), callClass: "leaf" });
+  const runEvent = admitRuntimeEvent(store, runCandidate);
+  const crossed = { ...runCandidate, runId: "run://cause/other", causationEventRefs: [runEvent.eventId] };
+  assert.throws(() => admitRuntimeEvent(store, crossed), /causation cannot cross a run scope/);
+  assert.throws(() => admitRuntimeEvent(store, candidate("workspace-crossed", [runEvent.eventId])), /causation cannot cross a run scope/);
+  for (const causes of [[runEvent.eventId, "event://absent"], [runEvent.eventId, runEvent.eventId]]) {
+    assert.throws(() => admitRuntimeEvent(store, { ...crossed, causationEventRefs: causes }), /causation refs must be unique admitted events/);
+  }
+  assert.throws(() => admitRuntimeEvent(store, { ...crossed, payload: { wrong: true }, causationEventRefs: ["event://absent"] }),
+    /payload matches no admitted event-contract variant/);
+  const closed = store.projectReopenAuthorityAndClose(), reopened = reopenEventStore(closed.reopenAuthority);
+  assert.equal(reopened.kind, "reopened_event_store_context");
+  context.after(() => reopened.store.closeDurableLog());
+  const next = admitRuntimeEvent(reopened.store, candidate("cold-child", [batch[1].eventId]));
+  assert.equal(next.admissionOrdinal, store.readAll().length + 1);
+  assert.deepEqual(validateHistoricalEvents(await readFile(reopened.store.configuredDurableLogPath())), reopened.store.readAll());
+  const rows = reopened.store.readAll().map(row => structuredClone(row));
+  rows[0].causationEventRefs = [next.eventId];
+  assert.throws(() => validateHistoricalEvents(Buffer.from(rows.map(row => canonicalJson(row) + "\n").join(""))),
+    /causation refs must be unique admitted events/, "cold index never exposes a later cause");
+  rows[0].admissionOrdinal = 2;
+  assert.throws(() => validateHistoricalEvents(Buffer.from(rows.map(row => canonicalJson(row) + "\n").join(""))),
+    /invalid admission ordinal/, "ordinal refusal still precedes causation");
+});
+
+test("owned causation lookup grows with causal references in live admission and cold reconstruction", async context => {
+  // Count only event-reference Map operations, not wall time or total owner
+  // allocations. Dense immutable snapshot copies remain a separate cost.
+  const measure = action => {
+    const originalGet = Map.prototype.get, originalSet = Map.prototype.set;
+    const counts = { lookups: 0, entries: 0 };
+    Map.prototype.get = function(key) {
+      if (typeof key === "string" && key.startsWith("event://abiogenesis/")) counts.lookups++;
+      return originalGet.call(this, key);
+    };
+    Map.prototype.set = function(key, value) {
+      if (typeof key === "string" && key.startsWith("event://abiogenesis/")) counts.entries++;
+      return originalSet.call(this, key, value);
+    };
+    try { return { value: action(), counts }; }
+    finally { Map.prototype.get = originalGet; Map.prototype.set = originalSet; }
+  };
+  const measurements = [];
+  for (const count of [128, 256]) {
+    const { store } = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-cause-growth-");
+    const candidates = [];
+    const live = measure(() => admitRuntimeEventTransaction(store, () => {
+      let previous;
+      for (let index = 0; index < count; index++) {
+        const candidate = workspaceEvent({ correlationId: `correlation://growth/${index}`,
+          eventTime: "2026-09-24T00:00:00.000Z", invocationRef: `invocation://growth/${index}`,
+          causationEventRefs: previous === undefined ? [] : [previous.eventId] });
+        candidates.push(candidate); previous = admitRuntimeEvent(store, candidate);
+      }
+    }));
+    const events = store.readAll(), bytes = await readFile(store.configuredDurableLogPath());
+    const cold = measure(() => validateHistoricalEvents(bytes));
+    assert.deepEqual(live.counts, { lookups: count - 1, entries: count });
+    assert.deepEqual(cold.counts, live.counts);
+    assert.deepEqual(cold.value, events);
+    assert.equal(bytes.toString(), events.map(row => canonicalJson(row) + "\n").join(""));
+    for (let index = 0; index < count; index++) {
+      assert.deepEqual(projectRuntimeEventFromValidatedHistory(events.slice(0, index), candidates[index]), events[index]);
+    }
+    measurements.push({ events: count, causalReferences: count - 1, live: live.counts, cold: cold.counts });
+  }
+  console.log(JSON.stringify({ kind: "owned_causation_lookup_growth", measurements,
+    limit: "lookup and index-entry counts only; immutable array copying and end-to-end latency unmeasured" }));
+});
+
 test("held transaction reuse conserves exact bytes, private memory, stale/foreign guards and rollback", async context => {
   const acquired = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-held-history-");
   const foreign = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-held-foreign-");

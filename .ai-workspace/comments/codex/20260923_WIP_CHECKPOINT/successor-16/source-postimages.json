@@ -1,0 +1,22 @@
+{
+  "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts": {
+    "sha256": "ee930b198e178c24fc99c96d8a11fedd6f58766beabcb564432fd828a1423fa6",
+    "byteLength": 169755
+  },
+  "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs": {
+    "sha256": "6c381a883f4b57bc5a66f5fa88cfca0acc88d703d9ffca47b455e3b185eb08fd",
+    "byteLength": 56420
+  },
+  "build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js": {
+    "sha256": "5dfab78f7d976a94df3e6f61f6447a4f7ecb09011d5a2a68eea4a82ae35c8131",
+    "byteLength": 156185
+  },
+  "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+    "sha256": "9de93cd0dac70e49eb81c25a769803199484362b377d8e94cd7b17d7184cabbb",
+    "byteLength": 197474
+  },
+  "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+    "sha256": "3ce1fa69fa108b12e74fd1152726448c3f1d2e531d037adb683c0bc940673f68",
+    "byteLength": 2377790
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "sourceSubject": "sha256:3aa415ff96c7f8646cd1701ea9060fa1a517a57869b6e44db3e357de8c3f3f95",
+  "sourceSubjectFileSha256": "efd9697ba809f8d08a363fc2512a1423972c80c5be6f9f207afef1117d604b62",
+  "sourcePostimagesPreserved": true,
+  "buildInputsPreserved": 259,
+  "governingInputsPreserved": 96,
+  "generatedMembers": 902,
+  "generatedDelta": [
+    "build/code/src/abg/event_store.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "archiveMemberInventorySha256": "272253db47abb6958fdabae53e0c13b42b4ad7a9767ddc9d21fac0ac99dda3b1",
+  "packageCorrespondenceSha256": "abd51c9eaf5c2538e8adcec41d692118d675a648e03f26966c1cc4c546ab1258",
+  "selectedCoreSha256": "cccb2a34385a4093ccef31c9258dbf4b36b63fde7bc884e41ba98b10d985675a",
+  "retainedConsumerArchiveDigest": "sha256:aef3df7a43da5d8af620c624a4c88f5eb30b6de26437458a8fd81156b6d877c9",
+  "status": "CLOSED_CONSTRUCTION_ONLY_NOT_ROOT_ACCEPTANCE",
+  "consumerRebuiltOrInstalled": false,
+  "nativeExecution": false
+}

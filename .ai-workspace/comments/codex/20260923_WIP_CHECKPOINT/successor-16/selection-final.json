@@ -1,0 +1,251 @@
+{
+  "directExpected": {
+    ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/construction-freeze.json": {
+      "sha256": "b27f8810a2415db6bf67f0d349226a3bf87942245a3810ed3bee53e6a5d37cd4",
+      "byteLength": 1024
+    },
+    ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/generated-delta.json": {
+      "sha256": "f18f10c08999a564ad78edc09534bc3595324bf9376d026566ccd70e577e5e07",
+      "byteLength": 1313
+    },
+    ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/observed-metrics.json": {
+      "sha256": "6dc5475dcbdbf8a9a60fe54e3a72ff0ad5731da15cb0851f6667e0faff626020",
+      "byteLength": 758
+    },
+    ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/package-correspondence.json": {
+      "sha256": "abd51c9eaf5c2538e8adcec41d692118d675a648e03f26966c1cc4c546ab1258",
+      "byteLength": 833
+    },
+    ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/package-identity.json": {
+      "sha256": "ce257e6dfd71222ad3c1d3e73d6d01ad0d4ffdf4f4653e2089798e685e4f9c17",
+      "byteLength": 582
+    },
+    ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/package-readiness.json": {
+      "sha256": "d379b69b4ffda0cc1336bbe0d16618a9811c7d09836a0c27797d6f5f543b7339",
+      "byteLength": 2141
+    },
+    ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/product-verification-summary.json": {
+      "sha256": "4e1bc63da839caea66cb262133bb5f55b25b3126407a96ae5933b5379cf3779d",
+      "byteLength": 3942
+    },
+    ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/return.md": {
+      "sha256": "ab8c7cafe599870574d5ed65083896064d6ee77ab12a0ac4942bd939cdb0dd3f",
+      "byteLength": 2463
+    },
+    ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/selected-core.json": {
+      "sha256": "cccb2a34385a4093ccef31c9258dbf4b36b63fde7bc884e41ba98b10d985675a",
+      "byteLength": 986
+    },
+    ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/source-acceptance.json": {
+      "sha256": "3418517ccadcdb0c5cc1f4deb2b529d4a9e10c53a819c353d975678452c99ed9",
+      "byteLength": 777
+    },
+    ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/source-delta.json": {
+      "sha256": "badafaf54c429d4a7b70e89a441e735c9ac57597f84b95c9eea002fa496d4b2e",
+      "byteLength": 358
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15-paired-post-push.json": {
+      "sha256": "c3ab671b146291a3f61fe222d7bdad2c0f0dd76f3a6cf231bb463495e3278f3a",
+      "byteLength": 13755
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-15-return.md": {
+      "sha256": "8574f4e642bbfd70c890c88a31013d400cfaec64bf047a9c104e4efca8b9c576",
+      "byteLength": 1386
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/activation.json": {
+      "sha256": "f4bbfee85e40700f18bf9bad916329a8162d91b42404f7c1954c69f54aaa097f",
+      "byteLength": 798
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/closed-selection.json": {
+      "sha256": "f25a5fcf32e81ea572992f8186a0059cc7f3c87df78361be8bdeff177c863b64",
+      "byteLength": 9155
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/direct-selection.json": {
+      "sha256": "cb29c50913848b8962e0c47611cee6f957a944d54f5e623c34f41267714b4b5b",
+      "byteLength": 3751
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/exclusions.json": {
+      "sha256": "4f4658c15d8c2713863d403e63d990e2d0be3ecb902c1dc0f1e19e140af4f5c3",
+      "byteLength": 568
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/freeze-expectations.json": {
+      "sha256": "b5abe06c9931d281292d4c7f13c9dc742940be2460ade2465b8312dca4ccefda",
+      "byteLength": 11345
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/frozen-member-correspondence.json": {
+      "sha256": "4e9ad5c95e7c5852b4641bd648c33604276f462a95c60e6ee894a00a442a84db",
+      "byteLength": 6077
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/pack_incremental.py": {
+      "sha256": "e871677a38ea595c36c23894d06d96a8f09edc57c17ac0ad3436341a246669bb",
+      "byteLength": 1706
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/root-disposition.json": {
+      "sha256": "dfd903feb02187592045d13f9bd8dde690bc3727305f2d2fb1fc0d94e4fadc26",
+      "byteLength": 1786
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/selected-archive-paths.nul": {
+      "sha256": "8b404d91d4fb9f48456a68b4ac14edd56b9295cc9b922c7ba13edefd6a899563",
+      "byteLength": 5509
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/source-postimages.json": {
+      "sha256": "e81bf765bad3f9d791ea7c7231ede10451d81010e7ef811cde8349e5411e00cf",
+      "byteLength": 979
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/stage_checkpoint.py": {
+      "sha256": "ad0752d940ba8dc931b8c33c2e080d118c203d0c48df1dcdaaa125d4e9c780a2",
+      "byteLength": 2927
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/tracking-postimages.json": {
+      "sha256": "9ff429d78a1f1666d7cfbc2fb9ac9eb8c8e2d837dadcfe0b6ea9819e02cdbd38",
+      "byteLength": 337
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/tracking-preimages.json": {
+      "sha256": "1382240f95092daa480dbc011b9a8fd1e57886917472ef4d397e433e34adf50b",
+      "byteLength": 337
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/catalog.json": {
+      "sha256": "92256df31448a2606e500acf910b4d2cb9aa85cbabfe8d6f345874316025aa83",
+      "byteLength": 2303
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/credential-shape-findings.json": {
+      "sha256": "44e87b2569a514609f5111491d1d0e0605c6a81f56db5ab4bdf0fe5812b7c55e",
+      "byteLength": 121
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/direct-paths.nul": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/exclusions.json": {
+      "sha256": "3974c18bd3617177301413f9dac88a296e227621726113ca3aa9e9ec8d227c36",
+      "byteLength": 348
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/members.jsonl.gz": {
+      "sha256": "82dab69585f27cf69c95111d670c9bcb80b2b155069aaa73eb9a99ffb47b0f2a",
+      "byteLength": 2942
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/path-reconciliation.jsonl.gz": {
+      "sha256": "e18a58b6be0a6e23feb1f129cd595fd91b8af0950a0f7d3f5106482478080812",
+      "byteLength": 731
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/payloads/family-0000.tar.gz.part0000": {
+      "sha256": "c5f312daf0c0f7b7c8d1c43d75fb721f8244fc675e16110336b600745104a936",
+      "byteLength": 522303
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/payloads/family-0001.tar.gz.part0000": {
+      "sha256": "7a7137c37b46b37b6027195effeab0b10bdd1f4e2a3dfd261f4c2bb0d3d9c276",
+      "byteLength": 1781921
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/payloads/raw-64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb.part0000": {
+      "sha256": "64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb",
+      "byteLength": 10146983
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/pending.json": {
+      "sha256": "5db967ae83d28d1f4d0cee865718f7c69ff1604472fe889e2211f1d9509b1fe8",
+      "byteLength": 248
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/restoration-verification.json": {
+      "sha256": "4747a5c4b09f836b16a2f697c89e9fd22e740a600f0ac148840744530e195a6a",
+      "byteLength": 486
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/verification.json": {
+      "sha256": "4747a5c4b09f836b16a2f697c89e9fd22e740a600f0ac148840744530e195a6a",
+      "byteLength": 486
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-reuse.json": {
+      "sha256": "bfaae2160a879df34db6cb3e11f39da0d4433cb399a09401ba154841868e5e23",
+      "byteLength": 627
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/checks.json": {
+      "sha256": "6f35ab643e87bfbde4024b0f074fc642f10307d81ce82c0777ec9ac3d884bb84",
+      "byteLength": 2322
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-01/comparison.json": {
+      "sha256": "fee54b2b62a72430358c11af1cfe254086985ac315048c2bfe5fb22e821d846f",
+      "byteLength": 2846
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-01/control.json": {
+      "sha256": "9698b0b5d677bb1552da693b51766211c2857189cdc0e25f453c1af624f54f4a",
+      "byteLength": 5511
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-01/return.md": {
+      "sha256": "f8ae261166a026fed429c115e4015d9dde5de1c3f47994f4ecef122e0a3d8470",
+      "byteLength": 3948
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-02/comparison.json": {
+      "sha256": "9ef8b917d5796da807f5242455d84805bb11656453d7452e89d35ae7822c1f7b",
+      "byteLength": 1164
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-02/control.json": {
+      "sha256": "11dc3ddb1d7551f7c5a52ad3265a25a62c9b6645c2705cace8d2d450e40d0850",
+      "byteLength": 6874
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-02/observed-metrics.json": {
+      "sha256": "990acde0316bee34862e7ab5ea983a68de5998f7ac4b3a105fe8061d9363e140",
+      "byteLength": 1001
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-02/read.mjs": {
+      "sha256": "f315671c9b84bbd40b6a1f597b92c0f12206a9244d5d67022091eaa6c38ef039",
+      "byteLength": 8622
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-02/request.json": {
+      "sha256": "90ab59c978d423ed4e1cf3f8c88547c26aea676d4774002e693efefe329fe079",
+      "byteLength": 12245
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-02/return.md": {
+      "sha256": "25d2e935ebf3ef8446e8f916f547f14b9955d47980679ec5e101871b71332c22",
+      "byteLength": 3590
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-02/terminal-summary.json": {
+      "sha256": "1a0ce3ec50ab22352045dd84eaeb7f950f8100ad268826f9eeffa7076e03341f",
+      "byteLength": 4723
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/return.md": {
+      "sha256": "471334ed642bc2ff9b077179a270453b699006725f4be8cd255babbe87fed6d0",
+      "byteLength": 6289
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/review-01/return.md": {
+      "sha256": "4410aa5b3c8d9c227b6ab010bbad4476a4ac2b411d05212e7adaddda171eb174",
+      "byteLength": 5498
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/source-subject.json": {
+      "sha256": "efd9697ba809f8d08a363fc2512a1423972c80c5be6f9f207afef1117d604b62",
+      "byteLength": 1063
+    },
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/source.patch": {
+      "sha256": "62e4fe126b0743280096f21be438ff887acdad76a18642f6cd29193bbecfe605",
+      "byteLength": 17933
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "63005671cb1ef13a52b1dd62c0bcdb8737b036995ec7d80598ea0365d9476d1f",
+      "byteLength": 352632
+    },
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js": {
+      "sha256": "5dfab78f7d976a94df3e6f61f6447a4f7ecb09011d5a2a68eea4a82ae35c8131",
+      "byteLength": 156185
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts": {
+      "sha256": "ee930b198e178c24fc99c96d8a11fedd6f58766beabcb564432fd828a1423fa6",
+      "byteLength": 169755
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "9de93cd0dac70e49eb81c25a769803199484362b377d8e94cd7b17d7184cabbb",
+      "byteLength": 197474
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "3ce1fa69fa108b12e74fd1152726448c3f1d2e531d037adb683c0bc940673f68",
+      "byteLength": 2377790
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs": {
+      "sha256": "6c381a883f4b57bc5a66f5fa88cfca0acc88d703d9ffca47b455e3b185eb08fd",
+      "byteLength": 56420
+    },
+    "specification/GOALS.md": {
+      "sha256": "c157e723d790c67177d34e360726d2cadfb7b5c5a35a39f5ca0d4b91d6507657",
+      "byteLength": 60292
+    }
+  },
+  "newArchive": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-16/transport-01/catalog.json",
+  "excludedRuntimeScope": "see exclusions.json",
+  "previousO4Bank": "reference only; no historical bytes reprocessed"
+}

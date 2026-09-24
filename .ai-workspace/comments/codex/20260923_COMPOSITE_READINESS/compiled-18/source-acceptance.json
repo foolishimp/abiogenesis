@@ -1,0 +1,13 @@
+{
+  "kind": "executive_source_disposition",
+  "sourceSubject": "sha256:3aa415ff96c7f8646cd1701ea9060fa1a517a57869b6e44db3e357de8c3f3f95",
+  "reviewReturn": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/review-01/return.md",
+  "reviewReturnSha256": "4410aa5b3c8d9c227b6ab010bbad4476a4ac2b411d05212e7adaddda171eb174",
+  "disposition": "Root accepted exact source after independent max conservation review; construction bytes unchanged",
+  "constructionReturnSha256": "ab8c7cafe599870574d5ed65083896064d6ee77ab12a0ac4942bd939cdb0dd3f",
+  "limits": [
+    "LIFE-01 remains open",
+    "No whole-path performance claim",
+    "No new native or cold Public invocation in this construction activation"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "compile": {
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json",
+      "--outDir",
+      "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-event-causation-check-8cl_ay09/build/code/src"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "elapsedSeconds": 5.662408083211631,
+    "log": "compile.log",
+    "fixture": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-event-causation-check-8cl_ay09"
+  },
+  "owner": {
+    "command": [
+      "node",
+      "--test",
+      "--test-name-pattern=^(owned causation lookup|M5 new-empty acquisition|M5 EventStore batch factory|held transaction reuse|M5 reopens one exact|M5 rolls back an incomplete|M5 event contract refuses|trusted owned history|owned append I/O failures)",
+      "test_env/tests/m5-event-store-reopen.test.mjs"
+    ],
+    "cwd": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-event-causation-check-8cl_ay09",
+    "exitCode": 1,
+    "elapsedSeconds": 0.8867184999398887,
+    "log": "owner-checks.log"
+  },
+  "ownerCorrected": {
+    "command": [
+      "node",
+      "--test",
+      "--test-name-pattern=^(owned causation lookup|M5 new-empty acquisition|M5 EventStore batch factory|held transaction reuse|M5 reopens one exact|M5 rolls back an incomplete|M5 event contract refuses|trusted owned history|owned append I/O failures)",
+      "test_env/tests/m5-event-store-reopen.test.mjs"
+    ],
+    "cwd": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-event-causation-check-8cl_ay09",
+    "exitCode": 0,
+    "elapsedSeconds": 0.8599469577893615,
+    "log": "owner-checks-02.log"
+  },
+  "firstFailure": "New regression fixture initially omitted required c_call_opened cCallDigest/callClass. Corrected test input only; original owner-checks.log retained.",
+  "diffWhitespace": {
+    "exitCode": 0
+  },
+  "sourceSubjectFileSha256": "efd9697ba809f8d08a363fc2512a1423972c80c5be6f9f207afef1117d604b62",
+  "trackingProjection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "preimageSha256": "c893bd8dcb77be6f6f9c66a875569f99507d50bc4256d5d92bc50c661c9751a6",
+    "sha256": "2085ec548ed6a62910691594c716fb8e1b18bedae1012ae27667f57482d86fa6"
+  }
+}

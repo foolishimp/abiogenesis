@@ -1,0 +1,93 @@
+{
+  "kind": "single_existing_public_result_read",
+  "core": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb",
+      "productContentDigest": "sha256:ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e",
+      "manifestDigest": "sha256:bd392df59fabfe2b47f6fd24dcbbf43817044cbb3e939bc49ea7f5ab41a48010",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceSubject": "sha256:3aa415ff96c7f8646cd1701ea9060fa1a517a57869b6e44db3e357de8c3f3f95",
+  "requestPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/caller/jobs/basic-cli/read-run_result.jsonl",
+  "requestSha256": "7a9701e4976c688e41d96d248262be97d99a072b136e373dfee64edaf63afa5f",
+  "requestReusedUnchanged": true,
+  "historicalRun": {
+    "digest": "sha256:9dc23f7fd354b22a5a2de5a37a59cafd6f6da798205c1de3b345440c44d034d9",
+    "ref": "run://abiogenesis/08b5322ec8633eaff50a40a11aeaa57e17fe0f672ce9cadf308796535783d421"
+  },
+  "historicalResult": {
+    "digest": "sha256:ae6a2a452d58e83c573a031061674e8fa740593341d8bbea942a149f31e13be2",
+    "ref": "result://abiogenesis/ae6a2a452d58e83c573a031061674e8fa740593341d8bbea942a149f31e13be2"
+  },
+  "genuineClose": {
+    "coordinateDigest": "sha256:06e8c20644dff44de8cc9b2a34a44774386e3f59d45b1d6da980732e49d501c1",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:d19bfa943757107e5d0ca47e340f821c684aac539aa1b5402ca71c64c7aadd66",
+    "prefixLength": 353742824,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459234334
+    }
+  },
+  "baselineResult": {
+    "memberKey": "run_result",
+    "disposition": "preserved_and_checked",
+    "elapsedMs": 210961.544,
+    "resultPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/caller/jobs/basic-cli/read-run_result.json",
+    "resultDigest": "sha256:6798cf7d88155c214f36843ecc62f7f4a5793f05202bc80f1dac9c5799d2e454"
+  },
+  "installedExecutingMembers": [
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant/package.json",
+      "sha256": "b01fad9ad6e172420abf9996f5d630122d914eb9a1fc6ea54b46bf64be60e396",
+      "archiveMember": "package.json"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "sha256": "3ce1fa69fa108b12e74fd1152726448c3f1d2e531d037adb683c0bc940673f68",
+      "archiveMember": "product-toolchain-manifest.json"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+      "sha256": "94d13d72e79246f35c12062cc75549da7225639edcc976aca5fa3b16313f4f25",
+      "archiveMember": "build/code/src/public/cli.js"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/installed_definition_call_transport.js",
+      "sha256": "d1341cbb960b85068a12ee6c5985692d0974d72c86e2b1533604e708697d7b6a",
+      "archiveMember": "build/code/src/public/installed_definition_call_transport.js"
+    },
+    {
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+      "sha256": "5dfab78f7d976a94df3e6f61f6447a4f7ecb09011d5a2a68eea4a82ae35c8131",
+      "archiveMember": "build/code/src/abg/event_store.js"
+    }
+  ],
+  "journalBefore": {
+    "device": 16777230,
+    "inode": 459234334,
+    "bytes": 353742824,
+    "mtimeNs": 1790233889750239200
+  },
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "node",
+    "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+    "--jsonl",
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/caller/jobs/basic-cli/read-run_result.jsonl"
+  ],
+  "timeoutMs": 600000,
+  "defaultHeap": true,
+  "actors": false,
+  "note": "Old core17/dev8 historical invocation, binding and Run are unchanged. Execution is the accepted core18 installed CLI and owners; no binding/admission or old event rewrite."
+}

@@ -1,0 +1,31 @@
+{
+  "checks": {
+    "normalTransport": true,
+    "publicResult": true,
+    "historicalClose": true,
+    "physicalFileUnchanged": true,
+    "run": true,
+    "result": true,
+    "producer": true,
+    "projectionBasis": true,
+    "terminalRoute": true,
+    "contract": true,
+    "typedValue": true,
+    "entireProjection": true,
+    "historicalSource": true,
+    "coverage": true
+  },
+  "passed": true,
+  "baselineResultPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/caller/jobs/basic-cli/read-run_result.json",
+  "baselineResultDigest": "sha256:6798cf7d88155c214f36843ecc62f7f4a5793f05202bc80f1dac9c5799d2e454",
+  "freshResultDigest": "sha256:a6184873b9ad2c448b971f653a4db5c9703f76d9c5ddfa4c54c117433687b986",
+  "journalAfter": {
+    "device": 16777230,
+    "inode": 459234334,
+    "bytes": 353742824,
+    "mtimeMs": 1790233889750.2393
+  },
+  "readElapsedMs": 150059.805708,
+  "baselineReadElapsedMs": 210961.544,
+  "timingLimit": "Separate observed calls, not a controlled benchmark or isolated decoder timing. Setup/verification is excluded from measured Public call duration."
+}

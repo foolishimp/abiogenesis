@@ -1,0 +1,61 @@
+{
+  "checks": {
+    "processSucceeded": false,
+    "normalTransport": true,
+    "historicalClose": true,
+    "publicResult": false,
+    "physicalIdentityAndExtent": true
+  },
+  "passed": false,
+  "freshReceiptPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/installed-cold-read-01/result.json",
+  "ownerDisposition": {
+    "outcomeKind": "refusal",
+    "value": {
+      "code": "projection_basis_mismatch",
+      "evidenceRefs": [],
+      "issuePaths": [
+        "/contractCatalog"
+      ]
+    }
+  },
+  "comparisonDisposition": "unavailable_owner_refusal_no_result",
+  "baselineReceiptPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/caller/jobs/basic-cli/read-run_result.json",
+  "baselineReceiptSha256": "sha256:6798cf7d88155c214f36843ecc62f7f4a5793f05202bc80f1dac9c5799d2e454",
+  "freshReceiptSha256": "sha256:b2edf0cd4517327dc2db4f480ac6a4a205751227eee841a9f543122bc2e91b5f",
+  "requestReusedUnchanged": true,
+  "sourceCore": {
+    "artifactDigest": "sha256:64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb",
+    "productContentDigest": "sha256:ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e",
+    "manifestDigest": "sha256:bd392df59fabfe2b47f6fd24dcbbf43817044cbb3e939bc49ea7f5ab41a48010",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "originalClose": {
+    "coordinateDigest": "sha256:06e8c20644dff44de8cc9b2a34a44774386e3f59d45b1d6da980732e49d501c1",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:d19bfa943757107e5d0ca47e340f821c684aac539aa1b5402ca71c64c7aadd66",
+    "prefixLength": 353742824,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459234334
+    }
+  },
+  "journalAfter": {
+    "device": 16777230,
+    "inode": 459234334,
+    "bytes": 353742824,
+    "mtimeNs": "1790233889750239200"
+  },
+  "timing": {
+    "freshSeconds": 75.58389912499115,
+    "baselineSeconds": 210.961544,
+    "observedSecondsDifference": null,
+    "observedRatio": null,
+    "peakRssBytes": 3075751936,
+    "limit": "Separate historical observations, not a controlled benchmark. Refused read is not comparable to the successful baseline Result read. Baseline includes caller checks; fresh timing is supervised CLI wall time. No actor or full-native performance claim."
+  }
+}

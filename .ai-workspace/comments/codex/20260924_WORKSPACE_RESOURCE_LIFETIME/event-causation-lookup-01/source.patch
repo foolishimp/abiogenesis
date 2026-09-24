@@ -1,0 +1,308 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts b/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts
+index 548c54af..a00437b6 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts
+@@ -1309,6 +1309,10 @@ interface DurableAppendLock {
+ interface EventStoreState {
+   derivation: RuntimeDerivationSource;
+   events: readonly RuntimeEvent[];
++  /** Private lookup over exactly the current (possibly transactional) events.
++   * Cold decode reconstructs it; rollback removes only the abandoned suffix.
++   * It is not a historical snapshot or independently admitted authority. */
++  eventsById: Map<string, RuntimeEvent>;
+   /** Owner-derived correspondence only. Seeded by cold validation or genuine
+    * empty acquisition, advanced only after the owned append and fsync succeed. */
+   durableHistory: Readonly<{
+@@ -2196,6 +2200,7 @@ function projectRuntimeEventAtContract(
+   events: readonly RuntimeEvent[],
+   candidate: RuntimeEventCandidate,
+   profileDigest: Sha256Digest,
++  eventsById?: Pick<ReadonlyMap<string, RuntimeEvent>, "get">,
+ ): RuntimeEvent {
+   if (
+     !isRecord(candidate) ||
+@@ -2206,21 +2211,25 @@ function projectRuntimeEventAtContract(
+   }
+   assertRuntimeEventContract(candidate, profileDigest);
+   if (
+-    new Set(candidate.causationEventRefs).size !== candidate.causationEventRefs.length ||
+-    candidate.causationEventRefs.some(
+-      (eventRef) => !events.some((event) => event.eventId === eventRef),
+-    )
++    new Set(candidate.causationEventRefs).size !== candidate.causationEventRefs.length
+   ) {
+     throw new TypeError("runtime event causation refs must be unique admitted events in this store");
+   }
+-  const causeEvents = candidate.causationEventRefs.map((eventRef) =>
+-    events.find((event) => event.eventId === eventRef)!,
+-  );
++  const causeEvents = candidate.causationEventRefs.map((eventRef) => {
++    if (eventsById === undefined) return events.find((event) => event.eventId === eventRef);
++    const cause = eventsById.get(eventRef);
++    // A lookup never grants membership in another or earlier immutable prefix.
++    // This also preserves batch staging when a factory appends reentrantly.
++    return cause !== undefined && events[cause.admissionOrdinal - 1] === cause ? cause : undefined;
++  });
++  if (causeEvents.some((cause) => cause === undefined)) {
++    throw new TypeError("runtime event causation refs must be unique admitted events in this store");
++  }
+   if (
+     causeEvents.some((cause) =>
+       candidate.runId === undefined
+-        ? cause.runId !== undefined
+-        : cause.runId !== undefined && cause.runId !== candidate.runId)
++        ? cause!.runId !== undefined
++        : cause!.runId !== undefined && cause!.runId !== candidate.runId)
+   ) {
+     throw new TypeError("runtime event causation cannot cross a run scope");
+   }
+@@ -2257,6 +2266,7 @@ export class AbgEventStore {
+     const derivation = new RuntimeDerivationSource();
+     eventState.set(this, {
+       events: derivation.snapshot([]),
++      eventsById: new Map(),
+       derivation,
+       durableHistory: null,
+       activeEventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
+@@ -2413,6 +2423,7 @@ export function createNewEmptyAppendSink(
+       `sha256:${durableHash.copy().digest("hex")}`, ROOT_EVENT_CONTRACT_DIGEST, { source: derivation, events });
+     eventState.set(store, {
+       events,
++      eventsById: new Map(),
+       derivation,
+       durableHistory: Object.freeze({ prefix, events }),
+       activeEventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
+@@ -3093,7 +3104,8 @@ export function validateHistoricalEvents(
+ }
+ 
+ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha256Digest): {
+-  events: readonly RuntimeEvent[]; inlineBodies: InlineEventBodies; physicalSource: object;
++  events: readonly RuntimeEvent[]; eventsById: Map<string, RuntimeEvent>;
++  inlineBodies: InlineEventBodies; physicalSource: object;
+ } {
+   const inlineByEvent: InlineEventBodies = new Map(), inlineBodies: InlineEventBodies = new Map();
+   const physicalSource = {}, physicalRows: [RuntimeEvent, PhysicalEventPrefix][] = [];
+@@ -3113,6 +3125,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
+     throw new TypeError("durable ABG event log contains a blank record");
+   }
+   const admitted: RuntimeEvent[] = [];
++  const eventsById = new Map<string, RuntimeEvent>();
+   let profile: Sha256Digest | null = null;
+   for (let start = 0, end = encoded.indexOf(10); end !== -1;
+     start = end + 1, end = encoded.indexOf(10, start)) {
+@@ -3163,6 +3176,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
+       admitted,
+       candidateValue as unknown as RuntimeEventCandidate,
+       profile,
++      eventsById,
+     );
+     if (
+       reconstructed.eventId !== eventId ||
+@@ -3190,13 +3204,14 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
+       if (profile !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST) throw new TypeError("native profile boundary cannot repeat or reverse");
+       profile = ROOT_EVENT_CONTRACT_DIGEST;
+     }
++    eventsById.set(reconstructed.eventId, reconstructed);
+   }
+   if (expectedProfileDigest !== undefined &&
+       (!isKnownRootEventContractDigest(expectedProfileDigest) || (profile !== null && profile !== expectedProfileDigest))) {
+     throw new TypeError("durable coordinate profile differs from authenticated history");
+   }
+   for (const [event, receipt] of physicalRows) physicalEventPrefixes.set(event, receipt);
+-  return { events: Object.freeze(admitted), inlineBodies, physicalSource };
++  return { events: Object.freeze(admitted), eventsById, inlineBodies, physicalSource };
+ }
+ 
+ export interface RootEventProfileSchedule {
+@@ -3259,7 +3274,7 @@ export function admitRootEventProfileUpgrade(
+       entryPrefix.prefixLength === 0 || !isRootEventProfileBoundary(repriceCandidate)) {
+     throw new TypeError("profile upgrade requires an authentic nonempty exact-L acquired predecessor");
+   }
+-  const projectedPublic = projectRuntimeEventAtContract(state.events, publicCandidate, state.activeEventContractDigest);
++  const projectedPublic = projectRuntimeEventAtContract(state.events, publicCandidate, state.activeEventContractDigest, state.eventsById);
+   assertRootEventProfileBoundary([...state.events, projectedPublic], repriceCandidate);
+   const committed = runRuntimeEventTransaction(store, () => {
+     const publicOperationEvent = admitRuntimeEventInternal(store, publicCandidate).event;
+@@ -3363,6 +3378,7 @@ function seedValidatedDurableHistory(exactPath: string,
+   eventState.set(store, {
+     derivation,
+     events,
++    eventsById: history.eventsById,
+     durableHistory: Object.freeze({ prefix, events }),
+     activeEventContractDigest: profile,
+     durableLogPath: exactPath,
+@@ -3647,7 +3663,7 @@ export function admitNativeRuntimeLivenessEvent(store: AbgEventStore, candidate:
+     throw new TypeError("liveness admission requires one held current-profile owner context");
+   }
+   const prefix = selectValidatedRuntimeEventPrefix(state.derivation.snapshot(state.events));
+-  const event = projectRuntimeEventAtContract(state.events, candidate, state.activeEventContractDigest);
++  const event = projectRuntimeEventAtContract(state.events, candidate, state.activeEventContractDigest, state.eventsById);
+   if (!validateRuntimeLivenessEventAtPrefix(prefix, event)) {
+     state.derivation.invalidate(); state.derivation = new RuntimeDerivationSource();
+     throw new TypeError("native liveness relation refused the selected observation");
+@@ -3668,7 +3684,7 @@ function admitRuntimeEventInternal(
+     throw new TypeError("event store was not constructed by this ABG module");
+   }
+   const events = state.events;
+-  const event = preparedEvent ?? projectRuntimeEventAtContract(events, candidate, state.activeEventContractDigest);
++  const event = preparedEvent ?? projectRuntimeEventAtContract(events, candidate, state.activeEventContractDigest, state.eventsById);
+   const successorPrefix =
+     state.durableLogPath !== null &&
+     state.transactionStartIndex === null
+@@ -3676,6 +3692,7 @@ function admitRuntimeEventInternal(
+       : null;
+   state.events = successorPrefix === null
+     ? state.derivation.append(events, [event]) : state.durableHistory!.events;
++  state.eventsById.set(event.eventId, event);
+   return Object.freeze({ event, successorPrefix });
+ }
+ 
+@@ -3739,6 +3756,8 @@ export function admitRuntimeEventBatch(
+   if (factories.length === 0) return Object.freeze([]);
+   const staged = [...state.events];
+   const admitted: RuntimeEvent[] = [];
++  const stagedById = new Map<string, RuntimeEvent>();
++  const eventsById = { get: (ref: string) => stagedById.get(ref) ?? state.eventsById.get(ref) };
+   for (const factory of factories) {
+     const candidate = factory(Object.freeze([...admitted]));
+     if (candidate.kind === "public_operation_artifact_admitted" || isRootEventProfileBoundary(candidate) || isLivenessCandidate(candidate)) {
+@@ -3746,9 +3765,10 @@ export function admitRuntimeEventBatch(
+         "artifact truth is reachable only through its checked owner ingress",
+       );
+     }
+-    const event = projectRuntimeEventAtContract(staged, candidate, state.activeEventContractDigest);
++    const event = projectRuntimeEventAtContract(staged, candidate, state.activeEventContractDigest, eventsById);
+     staged.push(event);
+     admitted.push(event);
++    stagedById.set(event.eventId, event);
+   }
+   if (
+     state.durableLogPath !== null &&
+@@ -3759,6 +3779,7 @@ export function admitRuntimeEventBatch(
+   } else {
+     state.events = state.derivation.append(state.events, admitted);
+   }
++  for (const event of admitted) state.eventsById.set(event.eventId, event);
+   return Object.freeze(admitted);
+ }
+ 
+@@ -3809,6 +3830,9 @@ function runRuntimeEventTransaction<T>(
+     }
+     return Object.freeze({ value, successorPrefix });
+   } catch (error) {
++    for (let index = startIndex; index < state.events.length; index++) {
++      state.eventsById.delete(state.events[index]!.eventId);
++    }
+     state.derivation.invalidate();
+     state.derivation = new RuntimeDerivationSource();
+     state.events = state.derivation.snapshot(priorEvents);
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs
+index 7af9726b..ae0cbca9 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs
+@@ -295,6 +295,105 @@ test("M5 EventStore batch factory interruption leaves the exact prefix unchanged
+   assert.deepEqual(store.readAll(), before);
+ });
+ 
++test("owned causation lookup conserves batch and transaction rollback, reappend and refusal precedence", async context => {
++  const { store } = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-cause-rollback-");
++  const candidate = (key, causes = []) => workspaceEvent({ correlationId: "correlation://cause/" + key,
++    eventTime: "2026-09-24T00:00:00.000Z", invocationRef: "invocation://cause/" + key, causationEventRefs: causes });
++  const first = admitRuntimeEvent(store, candidate("first")), before = store.readAll();
++  const priorBytes = await readFile(store.configuredDurableLogPath());
++  let abandoned;
++  assert.throws(() => admitRuntimeEventBatch(store, [
++    () => candidate("abandoned", [first.eventId]),
++    rows => { abandoned = rows[0]; throw Error("batch refused"); },
++  ]), /batch refused/);
++  const refuseMissing = ref => assert.throws(() => admitRuntimeEvent(store, candidate("missing", [ref])),
++    /causation refs must be unique admitted events/);
++  refuseMissing(abandoned.eventId);
++  assert.throws(() => admitRuntimeEventTransaction(store, () => {
++    abandoned = admitRuntimeEvent(store, candidate("abandoned", [first.eventId]));
++    admitRuntimeEvent(store, candidate("tentative-child", [abandoned.eventId]));
++    throw Error("transaction refused");
++  }), /transaction refused/);
++  refuseMissing(abandoned.eventId);
++  assert.deepEqual(store.readAll(), before);
++  assert.deepEqual(await readFile(store.configuredDurableLogPath()), priorBytes);
++  const batch = admitRuntimeEventBatch(store, [
++    () => candidate("abandoned", [first.eventId]),
++    rows => candidate("child", [first.eventId, rows[0].eventId]),
++  ]);
++  assert.equal(batch[0].eventId, abandoned.eventId, "same candidate reappends at the same restored ordinal");
++  assert.equal(before.length, 1); assert.equal(Object.isFrozen(before), true);
++  const runCandidate = runScopedEvent("c_call_opened", "c_call", "c-call://cause/one",
++    { cCallRef: "c-call://cause/one", cCallDigest: sha256Canonical({ call: "one" }), callClass: "leaf" });
++  const runEvent = admitRuntimeEvent(store, runCandidate);
++  const crossed = { ...runCandidate, runId: "run://cause/other", causationEventRefs: [runEvent.eventId] };
++  assert.throws(() => admitRuntimeEvent(store, crossed), /causation cannot cross a run scope/);
++  assert.throws(() => admitRuntimeEvent(store, candidate("workspace-crossed", [runEvent.eventId])), /causation cannot cross a run scope/);
++  for (const causes of [[runEvent.eventId, "event://absent"], [runEvent.eventId, runEvent.eventId]]) {
++    assert.throws(() => admitRuntimeEvent(store, { ...crossed, causationEventRefs: causes }), /causation refs must be unique admitted events/);
++  }
++  assert.throws(() => admitRuntimeEvent(store, { ...crossed, payload: { wrong: true }, causationEventRefs: ["event://absent"] }),
++    /payload matches no admitted event-contract variant/);
++  const closed = store.projectReopenAuthorityAndClose(), reopened = reopenEventStore(closed.reopenAuthority);
++  assert.equal(reopened.kind, "reopened_event_store_context");
++  context.after(() => reopened.store.closeDurableLog());
++  const next = admitRuntimeEvent(reopened.store, candidate("cold-child", [batch[1].eventId]));
++  assert.equal(next.admissionOrdinal, store.readAll().length + 1);
++  assert.deepEqual(validateHistoricalEvents(await readFile(reopened.store.configuredDurableLogPath())), reopened.store.readAll());
++  const rows = reopened.store.readAll().map(row => structuredClone(row));
++  rows[0].causationEventRefs = [next.eventId];
++  assert.throws(() => validateHistoricalEvents(Buffer.from(rows.map(row => canonicalJson(row) + "\n").join(""))),
++    /causation refs must be unique admitted events/, "cold index never exposes a later cause");
++  rows[0].admissionOrdinal = 2;
++  assert.throws(() => validateHistoricalEvents(Buffer.from(rows.map(row => canonicalJson(row) + "\n").join(""))),
++    /invalid admission ordinal/, "ordinal refusal still precedes causation");
++});
++
++test("owned causation lookup grows with causal references in live admission and cold reconstruction", async context => {
++  // Count only event-reference Map operations, not wall time or total owner
++  // allocations. Dense immutable snapshot copies remain a separate cost.
++  const measure = action => {
++    const originalGet = Map.prototype.get, originalSet = Map.prototype.set;
++    const counts = { lookups: 0, entries: 0 };
++    Map.prototype.get = function(key) {
++      if (typeof key === "string" && key.startsWith("event://abiogenesis/")) counts.lookups++;
++      return originalGet.call(this, key);
++    };
++    Map.prototype.set = function(key, value) {
++      if (typeof key === "string" && key.startsWith("event://abiogenesis/")) counts.entries++;
++      return originalSet.call(this, key, value);
++    };
++    try { return { value: action(), counts }; }
++    finally { Map.prototype.get = originalGet; Map.prototype.set = originalSet; }
++  };
++  const measurements = [];
++  for (const count of [128, 256]) {
++    const { store } = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-cause-growth-");
++    const candidates = [];
++    const live = measure(() => admitRuntimeEventTransaction(store, () => {
++      let previous;
++      for (let index = 0; index < count; index++) {
++        const candidate = workspaceEvent({ correlationId: `correlation://growth/${index}`,
++          eventTime: "2026-09-24T00:00:00.000Z", invocationRef: `invocation://growth/${index}`,
++          causationEventRefs: previous === undefined ? [] : [previous.eventId] });
++        candidates.push(candidate); previous = admitRuntimeEvent(store, candidate);
++      }
++    }));
++    const events = store.readAll(), bytes = await readFile(store.configuredDurableLogPath());
++    const cold = measure(() => validateHistoricalEvents(bytes));
++    assert.deepEqual(live.counts, { lookups: count - 1, entries: count });
++    assert.deepEqual(cold.counts, live.counts);
++    assert.deepEqual(cold.value, events);
++    assert.equal(bytes.toString(), events.map(row => canonicalJson(row) + "\n").join(""));
++    for (let index = 0; index < count; index++) {
++      assert.deepEqual(projectRuntimeEventFromValidatedHistory(events.slice(0, index), candidates[index]), events[index]);
++    }
++    measurements.push({ events: count, causalReferences: count - 1, live: live.counts, cold: cold.counts });
++  }
++  console.log(JSON.stringify({ kind: "owned_causation_lookup_growth", measurements,
++    limit: "lookup and index-entry counts only; immutable array copying and end-to-end latency unmeasured" }));
++});
++
+ test("held transaction reuse conserves exact bytes, private memory, stale/foreign guards and rollback", async context => {
+   const acquired = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-held-history-");
+   const foreign = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-held-foreign-");

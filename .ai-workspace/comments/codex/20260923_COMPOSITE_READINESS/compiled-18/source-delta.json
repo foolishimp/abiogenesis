@@ -1,0 +1,14 @@
+[
+  {
+    "before": {
+      "path": "code/src/abg/event_store.ts",
+      "bytes": 168233,
+      "sha256": "ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf"
+    },
+    "after": {
+      "path": "code/src/abg/event_store.ts",
+      "bytes": 169755,
+      "sha256": "ee930b198e178c24fc99c96d8a11fedd6f58766beabcb564432fd828a1423fa6"
+    }
+  }
+]

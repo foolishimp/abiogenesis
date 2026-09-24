@@ -1,0 +1,21 @@
+{
+  "kind": "event_causation_lookup_source_subject",
+  "schemaVersion": "1",
+  "baselineCommit": "c080e5f85de059714528538342f3e93cf4405b52",
+  "scope": "Existing owner causation lookup only; immutable dense sequence representation unchanged; no installed/runtime performance claim.",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "preimageSha256": "ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf",
+      "sha256": "ee930b198e178c24fc99c96d8a11fedd6f58766beabcb564432fd828a1423fa6",
+      "bytes": 169755
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "preimageSha256": "001a5179facef26b9b0cf6ffa77d4294c2f127267bed7474da3a29b7f7752dd6",
+      "sha256": "6c381a883f4b57bc5a66f5fa88cfca0acc88d703d9ffca47b455e3b185eb08fd",
+      "bytes": 56420
+    }
+  ],
+  "subjectDigest": "sha256:3aa415ff96c7f8646cd1701ea9060fa1a517a57869b6e44db3e357de8c3f3f95"
+}

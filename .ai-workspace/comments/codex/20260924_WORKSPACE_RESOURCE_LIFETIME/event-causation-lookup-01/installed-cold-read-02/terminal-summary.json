@@ -1,0 +1,86 @@
+{
+  "run": {
+    "ref": "run://abiogenesis/08b5322ec8633eaff50a40a11aeaa57e17fe0f672ce9cadf308796535783d421",
+    "digest": "sha256:9dc23f7fd354b22a5a2de5a37a59cafd6f6da798205c1de3b345440c44d034d9"
+  },
+  "result": {
+    "ref": "result://abiogenesis/ae6a2a452d58e83c573a031061674e8fa740593341d8bbea942a149f31e13be2",
+    "digest": "sha256:ae6a2a452d58e83c573a031061674e8fa740593341d8bbea942a149f31e13be2"
+  },
+  "producer": {
+    "runRef": "run://abiogenesis/08b5322ec8633eaff50a40a11aeaa57e17fe0f672ce9cadf308796535783d421",
+    "graphCallRef": "graph-call://abiogenesis/13c7f9fd8982bdd68820eec13a81887bba2c54fcc58157ec6f8584bced7fd156",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/3d35da8496bf62fb516284f5b28c39a497ba50653f700c2e59bd5ee5356154d1",
+    "program": {
+      "ref": "program://odd-glc/generic-lifecycle-witness@5",
+      "digest": "sha256:dbd93bf34f8ce3ffd9332cb0a436bf31a7e465437a2fae20b9c13b7b2021909c"
+    },
+    "graphFunction": {
+      "ref": "graph-function://odd-glc/generic-lifecycle-witness@5",
+      "digest": "sha256:a0555252a3e40c74501f342cfe101b5b4e0098e72f6861478b46a0f23c587811"
+    },
+    "executionBasis": {
+      "ref": "execution-basis://abiogenesis/ef910fa4a048498a373775c85e65bdf14e6728f82fca1b82d0e71db0e00e9e69",
+      "digest": "sha256:ef910fa4a048498a373775c85e65bdf14e6728f82fca1b82d0e71db0e00e9e69"
+    },
+    "cCallRef": "c-call:sha256:bf0b9017c3c14c471cb715e921e03d6d6acbb6472d007611806c033671bbb270",
+    "resultAdmissionEventRef": "event://abiogenesis/5bc98725e167581381b73236ce98066aee8f154fe760f6377edf7c62448d984c",
+    "judgmentRef": "judgment://abiogenesis/218b8085fa443c6306a696dfc353ee22cbb4ead3272d04b3900bc32db534ab9c",
+    "judgmentAdmissionEventRef": "event://abiogenesis/f09406f25f40ea47fadc33c72eadb757f9dc1b2bfca77c9ef5a0e3450e53ae96",
+    "terminalRoute": {
+      "ref": "traversal-route://abiogenesis/efdc2d8e7424ca20db871d4e15b514bf436a3067ab6fbc1de556454b903504f1",
+      "digest": "sha256:efdc2d8e7424ca20db871d4e15b514bf436a3067ab6fbc1de556454b903504f1"
+    }
+  },
+  "valueDigest": "sha256:25d23c2ba1cdae14d60097abf3a070bd33b3330fcdaa778979d104a6483d6b10",
+  "valueKind": "semantic_stage_envelope",
+  "terminalRoute": {
+    "ref": "traversal-route://abiogenesis/efdc2d8e7424ca20db871d4e15b514bf436a3067ab6fbc1de556454b903504f1",
+    "digest": "sha256:efdc2d8e7424ca20db871d4e15b514bf436a3067ab6fbc1de556454b903504f1"
+  },
+  "projectionBasis": {
+    "ref": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/resources/events/runtime.events.jsonl",
+    "digest": "sha256:06e8c20644dff44de8cc9b2a34a44774386e3f59d45b1d6da980732e49d501c1"
+  },
+  "sourceBasis": {
+    "declarationDigest": "sha256:89e672a24697bc653745ff5066a379ec681fee9f2d03bef8a93e0e6b4c2e2267",
+    "intakeCCallDigest": "sha256:e64fcea0d602856801e4a55ac1d7a6895480ffb85a7d93140c0139d176191c9d",
+    "intakeCCallRef": "c-call:sha256:e64fcea0d602856801e4a55ac1d7a6895480ffb85a7d93140c0139d176191c9d",
+    "intakeExecutionBasisRef": "execution-basis://abiogenesis/6bf96d1fb16c53cbd1d8f68ee2540563081277e4153bab21cc388cac0fc81cce",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/3d35da8496bf62fb516284f5b28c39a497ba50653f700c2e59bd5ee5356154d1",
+    "jobDigest": "sha256:6b06a7f03d3cd36da7143150e808294861c2fe6fbd6f6689c4fb6707b99d43b9",
+    "jobRef": "semantic-job://abiogenesis/6b06a7f03d3cd36da7143150e808294861c2fe6fbd6f6689c4fb6707b99d43b9",
+    "rootExecutionBasisRef": "execution-basis://abiogenesis/ef910fa4a048498a373775c85e65bdf14e6728f82fca1b82d0e71db0e00e9e69",
+    "rootInputDigest": "sha256:0c0a9fe329b9d99fa6b5273093445b230754131ec30c5a67475d0dbef5521368",
+    "rootInputRef": "raw-admission://abiogenesis/e5f5b190825598a4e0159131ccc63e0a308ca43f21ee9e397627fbf28efcc431"
+  },
+  "applicationCoverage": "non_closing",
+  "remainingGapsPreserved": [
+    "full_source_semantic_completeness_unassessed",
+    "application_requirements_not_closed",
+    "proof_depth_and_strength_unassessed"
+  ],
+  "assessments": [
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/intent@5",
+      "disposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/product@5",
+      "disposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/requirements@5",
+      "disposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/design@5",
+      "disposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/evidence@5",
+      "disposition": "satisfied"
+    }
+  ],
+  "status": "successful terminal Public Result; no separate status or replay invocation"
+}

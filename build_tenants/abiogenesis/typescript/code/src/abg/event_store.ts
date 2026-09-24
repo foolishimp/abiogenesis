@@ -1309,6 +1309,10 @@ interface DurableAppendLock {
 interface EventStoreState {
   derivation: RuntimeDerivationSource;
   events: readonly RuntimeEvent[];
+  /** Private lookup over exactly the current (possibly transactional) events.
+   * Cold decode reconstructs it; rollback removes only the abandoned suffix.
+   * It is not a historical snapshot or independently admitted authority. */
+  eventsById: Map<string, RuntimeEvent>;
   /** Owner-derived correspondence only. Seeded by cold validation or genuine
    * empty acquisition, advanced only after the owned append and fsync succeed. */
   durableHistory: Readonly<{
@@ -2196,6 +2200,7 @@ function projectRuntimeEventAtContract(
   events: readonly RuntimeEvent[],
   candidate: RuntimeEventCandidate,
   profileDigest: Sha256Digest,
+  eventsById?: Pick<ReadonlyMap<string, RuntimeEvent>, "get">,
 ): RuntimeEvent {
   if (
     !isRecord(candidate) ||
@@ -2206,21 +2211,25 @@ function projectRuntimeEventAtContract(
   }
   assertRuntimeEventContract(candidate, profileDigest);
   if (
-    new Set(candidate.causationEventRefs).size !== candidate.causationEventRefs.length ||
-    candidate.causationEventRefs.some(
-      (eventRef) => !events.some((event) => event.eventId === eventRef),
-    )
+    new Set(candidate.causationEventRefs).size !== candidate.causationEventRefs.length
   ) {
     throw new TypeError("runtime event causation refs must be unique admitted events in this store");
   }
-  const causeEvents = candidate.causationEventRefs.map((eventRef) =>
-    events.find((event) => event.eventId === eventRef)!,
-  );
+  const causeEvents = candidate.causationEventRefs.map((eventRef) => {
+    if (eventsById === undefined) return events.find((event) => event.eventId === eventRef);
+    const cause = eventsById.get(eventRef);
+    // A lookup never grants membership in another or earlier immutable prefix.
+    // This also preserves batch staging when a factory appends reentrantly.
+    return cause !== undefined && events[cause.admissionOrdinal - 1] === cause ? cause : undefined;
+  });
+  if (causeEvents.some((cause) => cause === undefined)) {
+    throw new TypeError("runtime event causation refs must be unique admitted events in this store");
+  }
   if (
     causeEvents.some((cause) =>
       candidate.runId === undefined
-        ? cause.runId !== undefined
-        : cause.runId !== undefined && cause.runId !== candidate.runId)
+        ? cause!.runId !== undefined
+        : cause!.runId !== undefined && cause!.runId !== candidate.runId)
   ) {
     throw new TypeError("runtime event causation cannot cross a run scope");
   }
@@ -2257,6 +2266,7 @@ export class AbgEventStore {
     const derivation = new RuntimeDerivationSource();
     eventState.set(this, {
       events: derivation.snapshot([]),
+      eventsById: new Map(),
       derivation,
       durableHistory: null,
       activeEventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
@@ -2413,6 +2423,7 @@ export function createNewEmptyAppendSink(
       `sha256:${durableHash.copy().digest("hex")}`, ROOT_EVENT_CONTRACT_DIGEST, { source: derivation, events });
     eventState.set(store, {
       events,
+      eventsById: new Map(),
       derivation,
       durableHistory: Object.freeze({ prefix, events }),
       activeEventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
@@ -3093,7 +3104,8 @@ export function validateHistoricalEvents(
 }
 
 function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha256Digest): {
-  events: readonly RuntimeEvent[]; inlineBodies: InlineEventBodies; physicalSource: object;
+  events: readonly RuntimeEvent[]; eventsById: Map<string, RuntimeEvent>;
+  inlineBodies: InlineEventBodies; physicalSource: object;
 } {
   const inlineByEvent: InlineEventBodies = new Map(), inlineBodies: InlineEventBodies = new Map();
   const physicalSource = {}, physicalRows: [RuntimeEvent, PhysicalEventPrefix][] = [];
@@ -3113,6 +3125,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
     throw new TypeError("durable ABG event log contains a blank record");
   }
   const admitted: RuntimeEvent[] = [];
+  const eventsById = new Map<string, RuntimeEvent>();
   let profile: Sha256Digest | null = null;
   for (let start = 0, end = encoded.indexOf(10); end !== -1;
     start = end + 1, end = encoded.indexOf(10, start)) {
@@ -3163,6 +3176,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
       admitted,
       candidateValue as unknown as RuntimeEventCandidate,
       profile,
+      eventsById,
     );
     if (
       reconstructed.eventId !== eventId ||
@@ -3190,13 +3204,14 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
       if (profile !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST) throw new TypeError("native profile boundary cannot repeat or reverse");
       profile = ROOT_EVENT_CONTRACT_DIGEST;
     }
+    eventsById.set(reconstructed.eventId, reconstructed);
   }
   if (expectedProfileDigest !== undefined &&
       (!isKnownRootEventContractDigest(expectedProfileDigest) || (profile !== null && profile !== expectedProfileDigest))) {
     throw new TypeError("durable coordinate profile differs from authenticated history");
   }
   for (const [event, receipt] of physicalRows) physicalEventPrefixes.set(event, receipt);
-  return { events: Object.freeze(admitted), inlineBodies, physicalSource };
+  return { events: Object.freeze(admitted), eventsById, inlineBodies, physicalSource };
 }
 
 export interface RootEventProfileSchedule {
@@ -3259,7 +3274,7 @@ export function admitRootEventProfileUpgrade(
       entryPrefix.prefixLength === 0 || !isRootEventProfileBoundary(repriceCandidate)) {
     throw new TypeError("profile upgrade requires an authentic nonempty exact-L acquired predecessor");
   }
-  const projectedPublic = projectRuntimeEventAtContract(state.events, publicCandidate, state.activeEventContractDigest);
+  const projectedPublic = projectRuntimeEventAtContract(state.events, publicCandidate, state.activeEventContractDigest, state.eventsById);
   assertRootEventProfileBoundary([...state.events, projectedPublic], repriceCandidate);
   const committed = runRuntimeEventTransaction(store, () => {
     const publicOperationEvent = admitRuntimeEventInternal(store, publicCandidate).event;
@@ -3363,6 +3378,7 @@ function seedValidatedDurableHistory(exactPath: string,
   eventState.set(store, {
     derivation,
     events,
+    eventsById: history.eventsById,
     durableHistory: Object.freeze({ prefix, events }),
     activeEventContractDigest: profile,
     durableLogPath: exactPath,
@@ -3647,7 +3663,7 @@ export function admitNativeRuntimeLivenessEvent(store: AbgEventStore, candidate:
     throw new TypeError("liveness admission requires one held current-profile owner context");
   }
   const prefix = selectValidatedRuntimeEventPrefix(state.derivation.snapshot(state.events));
-  const event = projectRuntimeEventAtContract(state.events, candidate, state.activeEventContractDigest);
+  const event = projectRuntimeEventAtContract(state.events, candidate, state.activeEventContractDigest, state.eventsById);
   if (!validateRuntimeLivenessEventAtPrefix(prefix, event)) {
     state.derivation.invalidate(); state.derivation = new RuntimeDerivationSource();
     throw new TypeError("native liveness relation refused the selected observation");
@@ -3668,7 +3684,7 @@ function admitRuntimeEventInternal(
     throw new TypeError("event store was not constructed by this ABG module");
   }
   const events = state.events;
-  const event = preparedEvent ?? projectRuntimeEventAtContract(events, candidate, state.activeEventContractDigest);
+  const event = preparedEvent ?? projectRuntimeEventAtContract(events, candidate, state.activeEventContractDigest, state.eventsById);
   const successorPrefix =
     state.durableLogPath !== null &&
     state.transactionStartIndex === null
@@ -3676,6 +3692,7 @@ function admitRuntimeEventInternal(
       : null;
   state.events = successorPrefix === null
     ? state.derivation.append(events, [event]) : state.durableHistory!.events;
+  state.eventsById.set(event.eventId, event);
   return Object.freeze({ event, successorPrefix });
 }
 
@@ -3739,6 +3756,8 @@ export function admitRuntimeEventBatch(
   if (factories.length === 0) return Object.freeze([]);
   const staged = [...state.events];
   const admitted: RuntimeEvent[] = [];
+  const stagedById = new Map<string, RuntimeEvent>();
+  const eventsById = { get: (ref: string) => stagedById.get(ref) ?? state.eventsById.get(ref) };
   for (const factory of factories) {
     const candidate = factory(Object.freeze([...admitted]));
     if (candidate.kind === "public_operation_artifact_admitted" || isRootEventProfileBoundary(candidate) || isLivenessCandidate(candidate)) {
@@ -3746,9 +3765,10 @@ export function admitRuntimeEventBatch(
         "artifact truth is reachable only through its checked owner ingress",
       );
     }
-    const event = projectRuntimeEventAtContract(staged, candidate, state.activeEventContractDigest);
+    const event = projectRuntimeEventAtContract(staged, candidate, state.activeEventContractDigest, eventsById);
     staged.push(event);
     admitted.push(event);
+    stagedById.set(event.eventId, event);
   }
   if (
     state.durableLogPath !== null &&
@@ -3759,6 +3779,7 @@ export function admitRuntimeEventBatch(
   } else {
     state.events = state.derivation.append(state.events, admitted);
   }
+  for (const event of admitted) state.eventsById.set(event.eventId, event);
   return Object.freeze(admitted);
 }
 
@@ -3809,6 +3830,9 @@ function runRuntimeEventTransaction<T>(
     }
     return Object.freeze({ value, successorPrefix });
   } catch (error) {
+    for (let index = startIndex; index < state.events.length; index++) {
+      state.eventsById.delete(state.events[index]!.eventId);
+    }
     state.derivation.invalidate();
     state.derivation = new RuntimeDerivationSource();
     state.events = state.derivation.snapshot(priorEvents);

@@ -1,0 +1,15 @@
+{
+  "role": "Writer",
+  "model": "gpt-6-astra",
+  "reasoningEffort": "max",
+  "authority": "Root bounded checkpoint grant; prior user commit/push authorization persists",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "scope": "accepted lookup source, ordinary core18 projections, CLOSED source/construction/read evidence and current tracking",
+  "prohibitions": [
+    "no source repair or tests/build/install/runtime/model calls",
+    "no O4 journal/history copy, parse, expansion or rebank",
+    "no active preparation/resources/control/worksite/archive inclusion",
+    "no default/tag/release change or RC1 readiness claim"
+  ],
+  "baseCommit": "c080e5f85de059714528538342f3e93cf4405b52"
+}

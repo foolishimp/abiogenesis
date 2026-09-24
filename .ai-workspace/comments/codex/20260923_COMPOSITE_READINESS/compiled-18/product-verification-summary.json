@@ -1,0 +1,77 @@
+{
+  "kind": "product_verification_success",
+  "coordinates": {
+    "verifiedArtifact": {
+      "ref": "product-verification://abiogenesis/604387531eb39f4c18070d2919a368f550776c31cc2653a98d77e2e0a1b36bfb",
+      "digest": "sha256:604387531eb39f4c18070d2919a368f550776c31cc2653a98d77e2e0a1b36bfb"
+    },
+    "descriptor": {
+      "ref": "descriptor://abiogenesis/typescript-tenant/ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e",
+      "digest": "sha256:d507ddce833560e726abba006fcca4571e21cfd8f14890efd1078acee2a6c29d"
+    },
+    "localNativeEvidence": {
+      "ref": "local-native-evidence://abiogenesis/product-verification/e6711fc6f9fb779f480d474f9d4b79b5cae7780c03ff796fb1d30de2e17461ee",
+      "digest": "sha256:e6711fc6f9fb779f480d474f9d4b79b5cae7780c03ff796fb1d30de2e17461ee"
+    },
+    "provenance": {
+      "ref": "provenance://abiogenesis/product-verification/2e19a729e8ea1744d303d423677d83f106e491c3bf1e89395f98d15053707cbc",
+      "digest": "sha256:2e19a729e8ea1744d303d423677d83f106e491c3bf1e89395f98d15053707cbc"
+    }
+  },
+  "verificationRef": "product-verification://abiogenesis/604387531eb39f4c18070d2919a368f550776c31cc2653a98d77e2e0a1b36bfb",
+  "verificationDigest": "sha256:604387531eb39f4c18070d2919a368f550776c31cc2653a98d77e2e0a1b36bfb",
+  "basis": {
+    "artifactDigest": "sha256:64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb",
+    "productContentDigest": "sha256:ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e",
+    "manifestDigest": "sha256:bd392df59fabfe2b47f6fd24dcbbf43817044cbb3e939bc49ea7f5ab41a48010",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "contributionManifestDigest": "sha256:d6130e67f413cf9add6bceae62346b918fbd409036a81c7a648569d18bd88b57",
+  "catalogDigest": "sha256:f243eb4cdcb6245f8a782d0d18c997b5ad9e717960dfc9593bac60ba8df81c5b",
+  "publicationBindings": [
+    {
+      "moduleRef": "module://abg/consensus@5",
+      "publicationDigest": "sha256:8c00800f85640850d5c5c2fd2bb3ec008f4a7a3fbc6995e099730b983cb17559"
+    },
+    {
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "publicationDigest": "sha256:4a3fc86d0ca5d5c14e7f2bd6a48974a1b7ef7f7398bf93cad9b41779aaaf92c1"
+    },
+    {
+      "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+      "publicationDigest": "sha256:82918d7c01c50641547421939e51ab92d98a6b1d64a148623f2807b3b4af2ff2"
+    },
+    {
+      "moduleRef": "module://abiogenesis/requirement-handoff@5",
+      "publicationDigest": "sha256:2f27d6628c6afedb2e10cc5822459de6899f18b6528f59ce3d5096b6161d62b4"
+    },
+    {
+      "moduleRef": "module://abiogenesis/semantic-revision@5",
+      "publicationDigest": "sha256:8da396601a5be3413f111ba2f74e8b221e42c095ed3a685ab0aa0efd2ce22ed9"
+    },
+    {
+      "moduleRef": "module://abiogenesis/semantic-stage@5",
+      "publicationDigest": "sha256:61280aaa10168d3bf15fe7b52a05b7cd3890a157e81c94c22476e4b4e5ba6392"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+      "publicationDigest": "sha256:d37d89b9c2738403b6b91bf48ec05052fadef35f72322c24cc19c89f7cf1c144"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+      "publicationDigest": "sha256:30aa18cff7f1deb1d954740b6629afa6edcd277bf5899ff22a722ac5fe59cec2"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/construction@5",
+      "publicationDigest": "sha256:cc7a11841127a747b234b51cf8bbac9fb644fd72c18cbada7d4075cce7b774b5"
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "publicationDigest": "sha256:4494f6d87acee18d5d090ca1d064b3c0748de78ca97cb380326b591d8696987a"
+    }
+  ],
+  "stopExport": true,
+  "limit": "Actual installed verification and binding export; this retained summary is not nominal authority or installed stop execution."
+}

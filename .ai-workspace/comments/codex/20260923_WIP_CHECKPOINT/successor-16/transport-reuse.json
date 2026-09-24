@@ -1,0 +1,12 @@
+{
+  "mode": "reference_only_no_copy_reparse_or_rebank",
+  "repository": "odd_glc",
+  "checkpointCommit": "f12ded310d24bffe0e7b698bcbc67f8c7a6952a4",
+  "path": ".ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/runtime-proof-bank-01",
+  "memberCount": 153,
+  "rawBytes": 472116750,
+  "transportBytes": 67568000,
+  "catalogSha256": "70e1ab97f2eb53420b6c43e988cd6f8c2ec6b5af9e829a0753a9713bc415122b",
+  "verificationSha256": "fde397cb63df165a3f0ac0327ab9c45d6e61cad08a736560121b2e19a32c4974",
+  "dev8ArchiveSha256": "aef3df7a43da5d8af620c624a4c88f5eb30b6de26437458a8fd81156b6d877c9"
+}

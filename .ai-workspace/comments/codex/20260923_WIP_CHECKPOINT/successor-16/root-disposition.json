@@ -1,0 +1,19 @@
+{
+  "status": "Root accepted source and installed cold Result scope; checkpoint only",
+  "sourceSubject": "3aa415ff96c7f8646cd1701ea9060fa1a517a57869b6e44db3e357de8c3f3f95",
+  "reviewSha256": "4410aa5b3c8d9c227b6ab010bbad4476a4ac2b411d05212e7adaddda171eb174",
+  "core18ArchiveSha256": "64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb",
+  "coldRead02ReturnSha256": "25d2e935ebf3ef8446e8f916f547f14b9955d47980679ec5e101871b71332c22",
+  "comparisonsPassed": 14,
+  "preservedFailure": "read01 caller old/current reader catalog mismatch",
+  "performanceClaim": "150.060s vs historical210.962s observational only; different timing boundaries; LIFE-01 remains OPEN; actor-duration sum is an elapsed window, with model/tool/backpressure attribution unresolved",
+  "basicCli": "complete selected Opus04 case remains accepted on original core17/dev8 provenance; native residuals unchanged",
+  "currentSelection": "Root selects new immutable core18/dev8 successor preparation then five parallel native cases once each under unchanged Opus5.5/xhigh finite controls; no extra handoff; actual native outcomes pending",
+  "oldPreparations": "five core17 Public setups preserved and unselected",
+  "nonclaims": [
+    "no suite/DataMapper/fifteen-family/qualification/RC1 closure",
+    "no new budget or retry",
+    "no native or runtime effects in checkpoint"
+  ],
+  "currentPreparationObservation": "All five reached verify/lock/core18 install/dev8 install, then stopped before binding on caller raw-file SHA versus canonical oracleDigest assertion. Existing canonical helper confirms unchanged original oracles. Worker selected to correct only comparison and continue existing setup tail from genuine install closes; no new journal/repeated install, no Run/actor/workspace write."
+}

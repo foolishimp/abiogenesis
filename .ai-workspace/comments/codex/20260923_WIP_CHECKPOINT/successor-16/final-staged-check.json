@@ -1,0 +1,11 @@
+{
+  "status": "exact explicit staged set and all blob/current-file hashes verified",
+  "stagedMembers": 64,
+  "canonicalWhitespace": "passed",
+  "fullFrozenEvidenceWhitespaceExitCode": 2,
+  "fullFrozenEvidenceWhitespaceOutput": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/source.patch:77: trailing whitespace.\n+ \n.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/source.patch:115: trailing whitespace.\n+ \n.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/source.patch:159: trailing whitespace.\n+ \n.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/source.patch:188: trailing whitespace.\n+ \n.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/event-causation-lookup-01/source.patch:206: trailing whitespace.\n+ \n",
+  "frozenSourcePatchDisposition": "unchanged captured diff context whitespace retained",
+  "sourceUnchanged": true,
+  "currentState": "Root selected five core18 successor preparation/execution; latest caller hash-domain assertion before binding retained; no Run/actor/workspace effect",
+  "noTestsBuildRuntimeReads": true
+}

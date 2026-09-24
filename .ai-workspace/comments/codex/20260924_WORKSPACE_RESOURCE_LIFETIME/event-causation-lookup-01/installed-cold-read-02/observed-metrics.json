@@ -1,0 +1,20 @@
+{
+  "status": "successful_exact_historical_result",
+  "verificationSeconds": 8.8472955,
+  "preparationSecondsIncludingVerification": 9.172386499999998,
+  "publicReadSeconds": 150.059805708,
+  "totalProcessSeconds": 159.45427016727626,
+  "peakRssBytes": 3984031744,
+  "baselineObservedPublicReadSeconds": 210.961544,
+  "observedReadReductionSeconds": 60.901738292,
+  "observedReadReductionPercent": 28.86864455827077,
+  "resultBytes": 8255139,
+  "resultSha256": "a6184873b9ad2c448b971f653a4db5c9703f76d9c5ddfa4c54c117433687b986",
+  "noTimeout": true,
+  "timingLimits": [
+    "Different historical calls and transport shells; no controlled benchmark",
+    "Baseline included constructor/CLI work; this Public-call duration excludes separately measured preparation and uses the same exported Public transport in one fresh process",
+    "Peak RSS is the whole verification/read process, not isolated cold-decoder allocation",
+    "No extra status/replay call, actor or native-run performance claim"
+  ]
+}

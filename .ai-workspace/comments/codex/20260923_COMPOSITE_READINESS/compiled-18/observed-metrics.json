@@ -1,0 +1,23 @@
+{
+  "elapsedSeconds": {
+    "build": 19.062376749701798,
+    "pack": 3.1353744589723647,
+    "offlineInstall": 1.912468749564141,
+    "productVerification": 8.862513834000001
+  },
+  "resources": {
+    "buildDriver": {
+      "peakRssBytes": 1350189056,
+      "resourceRecord": "build-driver.stderr"
+    },
+    "packInstallCorrespondenceDriver": {
+      "peakRssBytes": 424312832,
+      "resourceRecord": "package-driver.stderr"
+    },
+    "installedVerificationProcess": {
+      "peakRssBytes": 1441054720,
+      "resourceRecord": "verification.stderr"
+    }
+  },
+  "interpretation": "Mechanical construction observations only. Pack/install/correspondence RSS is one combined driver maximum, not an isolated phase attribution. No native performance claim."
+}
