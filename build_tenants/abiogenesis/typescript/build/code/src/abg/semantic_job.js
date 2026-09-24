@@ -29,7 +29,8 @@ import { isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemantic
 const hash = (x) => sha256Canonical(x);
 const equal = (a, b) => hash(a) === hash(b);
 const record = (x) => x !== null && typeof x === "object" && !Array.isArray(x);
-function rootOf(prefix, execution) {
+/** Existing semantic-job ancestry owner; an internal projection, not Public authority. */
+export function semanticJobRootAtPrefix(prefix, execution) {
     let root = execution;
     const seen = new Set();
     while (root !== null && root.parentExecutionBasisRef !== null) {
@@ -58,7 +59,7 @@ export function authenticateSemanticJobBasis(basis) {
             !validSemanticJobProgramOwners(basis.publication, native.program, publication) ||
             !SEMANTIC_IMPLEMENTATION_REFS.includes(native.call.implementationRef ?? ""))
             return null;
-        const invocationRoot = rootOf(native.prefix, native.execution);
+        const invocationRoot = semanticJobRootAtPrefix(native.prefix, native.execution);
         if (invocationRoot === null)
             return null;
         let root = invocationRoot;

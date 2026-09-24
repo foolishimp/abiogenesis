@@ -41,7 +41,8 @@ import { isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemantic
 const hash = (x: unknown) => sha256Canonical(x as JsonValue);
 const equal = (a: unknown, b: unknown) => hash(a) === hash(b);
 const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
-function rootOf(prefix: ValidatedRuntimeEventPrefix, execution: ExecutionBasis): ExecutionBasis | null {
+/** Existing semantic-job ancestry owner; an internal projection, not Public authority. */
+export function semanticJobRootAtPrefix(prefix: ValidatedRuntimeEventPrefix, execution: ExecutionBasis): ExecutionBasis | null {
   let root: ExecutionBasis | null = execution;
   const seen = new Set<string>();
   while (root !== null && root.parentExecutionBasisRef !== null) {
@@ -67,7 +68,7 @@ export function authenticateSemanticJobBasis(basis: SemanticStageNativeBasis) {
     if (native === null || lifecycle === undefined || !equal(basis.sourcePublication ?? publication, publication) ||
       !validSemanticJobProgramOwners(basis.publication, native.program, publication) ||
       !SEMANTIC_IMPLEMENTATION_REFS.includes(native.call.implementationRef ?? "")) return null;
-    const invocationRoot = rootOf(native.prefix, native.execution);
+    const invocationRoot = semanticJobRootAtPrefix(native.prefix, native.execution);
     if (invocationRoot === null) return null;
     let root = invocationRoot;
     const acquiring = native.call.implementationRef === revisionIds.nativeIntakeImplementationRef && isNativeSemanticRevisionIntake(root.rawInputValue);

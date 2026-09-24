@@ -1,0 +1,92 @@
+[
+  {
+    "repo": "abiogenesis",
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "headPreimageSha256": "478ebc113507f38c4d053c34e7e8a0d916ec58219ea7110b9bdcca2c1b1502fb",
+    "acceptedPostimageSha256": "84a23eae125fd13dc272ca392a44c5eb9ecbba6ef8b84a40fee1801d463c6f63"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.d.ts",
+    "headPreimageSha256": "2ae9200579ddd47944b59bac20d19cb8d0acfbf49bac6907445634194a62cd9d",
+    "acceptedPostimageSha256": "14c8e5c640da281d7b96a888322ca37e915158ecb75d4dfd03eb2526187a114a"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js",
+    "headPreimageSha256": "cbddee3694199e2fea205b9c2e426751243af62a4a15c665ee879a7854feb196",
+    "acceptedPostimageSha256": "89a7a2f7bdc264ff04f87bfe1119c0a0faf5e9080764e3c68c2402e6106e810f"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+    "headPreimageSha256": "c4e9d8c1a8e3b6934ec477d1e940744c6b7b0d40dfe1c5fd93a386e2f151e922",
+    "acceptedPostimageSha256": "cd9ed62d7c33b180ed98d65a93ec97302ade025d03f58796d4e6209b0e6d215a"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "headPreimageSha256": "1ee24400b6e27ae4676112e33731d4d93cd89b966584284f74ca4b65fb8b9515",
+    "acceptedPostimageSha256": "5c9196e5761551d7bfa9c3f0841d8aaef84ed2430824866c405b02c4f9e54ff2"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "headPreimageSha256": "6f61fd28225b1f19c73cad4ba30426529501b10a679108cda87e7dae7d255b0a",
+    "acceptedPostimageSha256": "cc5a526479f4ac70443bb89b933bfffd10cbee90bed4a28731ba8ce9ea9a1818"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "headPreimageSha256": "5e76f8f828ff77db5de14be08ff387657cdee209e66ed6025218909e4de7e6ec",
+    "acceptedPostimageSha256": "dda542e1a7bb6d80f0310bc1d2e491a1f2b165401f3d30dc32d5f8d2770381b5"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "headPreimageSha256": "ca5ac049892b817b07432baf7bf821de75b01898ad5c4d546fa26d262a89abde",
+    "acceptedPostimageSha256": "9ce7221a2425c26a5fe914633c91a5a547981690a0ef81a01ee04b832102d07e"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "headPreimageSha256": "cb7e7ec79513527821143e1ba4f52c8bc2ffcbcc9aa110388775e22797acf5bd",
+    "acceptedPostimageSha256": "5da5523cd504639508549f7ae27b5b2bd958ff92629c7a8a57efc029d524c4d2"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "headPreimageSha256": "a1d094b4e87783748bcdac49ba83344d9c89d67493259f369a2746677915628c",
+    "acceptedPostimageSha256": "5299f9fa948555e908e5fb39b01a5577fc81405d4bc773c82bc68a920f6c8771"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "specification/GOALS.md",
+    "headPreimageSha256": "5ce5cc69acb0c8f76f02db02e119d2c83a2400e50718288712701663e6954498",
+    "acceptedPostimageSha256": "8f95cd90df1c0c653d9fbb8e284e3ae5deb7ce6b598b6a1a0d013517c8ed987c"
+  },
+  {
+    "repo": "odd_glc",
+    "path": ".ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+    "headPreimageSha256": "4c564b548d79b6923ca1efa26d7e0d176840716550b9192eb9d8e2f829782fa7",
+    "acceptedPostimageSha256": "15d40d5dd16b928e7b35e31e88ccd00370612792352ac13c0df34610f329a35d"
+  },
+  {
+    "repo": "odd_glc",
+    "path": "build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs",
+    "headPreimageSha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7",
+    "acceptedPostimageSha256": "63a10082c83899da949384d0c0ee796218d11093cd5cd26832e862ae84d112b8"
+  },
+  {
+    "repo": "odd_glc",
+    "path": "build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+    "headPreimageSha256": "17b3e5b3ac822b34c81908ed3bb21d33f5ef7d7f4f50cacae3276c9b41516035",
+    "acceptedPostimageSha256": "9cddc489541852e2972c929b821783cd39d643915690b102fedfd8a809dfb807"
+  },
+  {
+    "repo": "odd_glc",
+    "path": "specification/GOALS.md",
+    "headPreimageSha256": "b909bfb80aa2f49542624d08d8c293395eb0ff7c3136b03aaffe3f1256f69e95",
+    "acceptedPostimageSha256": "b4ac7c7d43cb4c793017f543270eb796eb5d5ee7745cae3f710e3355496aa762"
+  }
+]

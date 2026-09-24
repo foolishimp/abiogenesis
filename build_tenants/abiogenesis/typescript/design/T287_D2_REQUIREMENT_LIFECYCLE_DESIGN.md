@@ -19,6 +19,25 @@ Rejected candidate/assessment bytes are counterevidence, never the advancing
 parent. Lifecycle declaration bytes must equal the selected publication's
 lifecycle, even when its declaration reference has the same spelling.
 
+When the installed setup changes W0 to W1, the ordinary caller first reads
+`run_status.executionBasis` for the exact source Run, then submits the existing
+`witness.admit/reprice` under W1. Its authority_basis subject and basis context
+are that same authentic root; typed content/evidence retain the exact W0 -> W1
+relation described below. Setup binding alone is not a cover. No diagnostic
+child coordinates or inferred path correspondence are caller inputs.
+
+Acquisition may add this root to its existing historical child/native-basis
+cover set only after the unique eligible parent and cause both rehydrate through
+the semantic-job ancestry owner to that source Run root. Every ancestry step
+keeps its invocation, Program, root implementation set and historical W; the
+original job/root and lifecycle remain separately authenticated. The unchanged
+cover owner still requires actual witness and binding admissions, actor/current
+authority, exact W evidence and event ordering. An unrelated root or matching
+path does not suffice. Missing coverage and other first failed intake relations
+use the existing semantic_stage_failure failureClass/diagnosticRef channel.
+These diagnostic names confer no authority; current source invalidation and
+physical context correspondence remain mandatory after coverage.
+
 Before construction, a refused native assessment supplies the actual rejected
 candidate and assessment; no future worksite, construction origin or target
 selection is invented. After construction, an eligible failed command or

@@ -1,0 +1,25 @@
+{
+  "explicit": [
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/invocation",
+      "reason": "installed/materialized tree or runtime directory; exact selected package retained instead"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/products",
+      "reason": "installed/materialized tree or runtime directory; exact selected package retained instead"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/readback-basis.json",
+      "reason": "derived full-history snapshot or reference; not runtime authority, preserved in place; current receipts and source constructor retained"
+    }
+  ],
+  "general": [
+    "all original and current runtime journals",
+    "all workspaces/application files",
+    "all installed Products/node_modules",
+    "all unchanged predecessor proof banks/archives",
+    "unrelated untracked work"
+  ],
+  "noNewRuntimeEffects": true,
+  "currentClosedResourceBytes": 115102824
+}

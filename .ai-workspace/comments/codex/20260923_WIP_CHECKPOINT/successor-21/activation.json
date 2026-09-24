@@ -1,0 +1,17 @@
+{
+  "role": "Writer",
+  "model": "astra",
+  "effort": "xhigh",
+  "scope": "one paired checkpoint accepted current source/generated/helper/tracking and compact CLOSED evidence",
+  "effects": [
+    "existing bank/restore/hash",
+    "ordinary scoped commit/push",
+    "actual remote verification"
+  ],
+  "forbidden": [
+    "native runtime",
+    "tests/builds",
+    "source implementation changes",
+    "force/tag/publication"
+  ]
+}

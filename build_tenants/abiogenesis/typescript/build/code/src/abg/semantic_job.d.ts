@@ -7,6 +7,8 @@ import { type ExecutionBasis } from "./execution_basis.js";
 import { type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { SemanticWorksiteBasis } from "../product/semantic_stage.js";
+/** Existing semantic-job ancestry owner; an internal projection, not Public authority. */
+export declare function semanticJobRootAtPrefix(prefix: ValidatedRuntimeEventPrefix, execution: ExecutionBasis): ExecutionBasis | null;
 export declare function authenticateSemanticJobBasis(basis: SemanticStageNativeBasis): {
     publication: Readonly<ModulePublication>;
     lifecycle: Readonly<import("../gtl/semantic_job.js").SemanticJobLifecycleDeclaration>;

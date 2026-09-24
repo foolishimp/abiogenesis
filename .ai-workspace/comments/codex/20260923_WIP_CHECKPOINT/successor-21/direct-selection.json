@@ -1,0 +1,15 @@
+{
+  "paths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.d.ts",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "specification/GOALS.md"
+  ]
+}

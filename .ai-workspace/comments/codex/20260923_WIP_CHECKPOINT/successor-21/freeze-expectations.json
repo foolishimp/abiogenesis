@@ -1,0 +1,650 @@
+{
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/accepted-source.json": {
+    "sha256": "85934c83c3c40123b3ca97636ee1c8661b8ae7db49c489c257c84d478a6d85eb",
+    "byteLength": 2109
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/archive-members.json": {
+    "sha256": "0576c91ea07f0771cf6809d9ee77838e940e74af39b47e5a247b2783f7f8c35f",
+    "byteLength": 928683
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz": {
+    "sha256": "3c1a7cdb050f748ab5e8ef76da68b514d6a72572cb45b78c182f38bedc1226d2",
+    "byteLength": 10159070
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/bootstrap-install.json": {
+    "sha256": "872d1bec3345624b3bf65fcfd1fa2f084ff0977d1380bd9e2995251c0914d997",
+    "byteLength": 639
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/bootstrap-install.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/bootstrap-install.stdout": {
+    "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+    "byteLength": 23
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/build-inputs.json": {
+    "sha256": "b53dc8018a85b5b1617fecf6dce7e1eb8eaede09e0ec1b3bfed8277261659f86",
+    "byteLength": 42177
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/build-once.py": {
+    "sha256": "47b457d3075cc41f6934871c2c0f57bc926a8f2689ccfac6ec86ea82b47f1488",
+    "byteLength": 4275
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/build.json": {
+    "sha256": "b2ee362f2aea1a8691370c96b378164e43b6232db4b0ae9dec3f0cd0e7e0617f",
+    "byteLength": 367
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/build.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/build.stdout": {
+    "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+    "byteLength": 215
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/generated-after.json": {
+    "sha256": "c8a3fd17842c41cbee8ae1fcf62709d7de77871f02d9e4196472480232ffbd77",
+    "byteLength": 156345
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/generated-before.json": {
+    "sha256": "051525e1b6360d15aca907977f6782601c6b64c2f88ec1cdcbb4cb418d29a545",
+    "byteLength": 156345
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/generated-delta.json": {
+    "sha256": "1bbc3d681f854e4a746ddf49ce80aac8105a7f912925833705a294b4d31f175e",
+    "byteLength": 897
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/governing-inputs.json": {
+    "sha256": "843f32e08ea6657383dbcf577d2756a61b1dfa7f45dfb74af286a0fe3f8db660",
+    "byteLength": 17392
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/installed-descriptor-discovery.json": {
+    "sha256": "47c7e015d93d36d164905aed4387966f4ea84add97addc132930547b562a9945",
+    "byteLength": 13486
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/pack.json": {
+    "sha256": "8d03ebb510295d4831249474caf758af02107e97929532ee614b3fc658d2a459",
+    "byteLength": 537
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/pack.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/pack.stdout": {
+    "sha256": "dcacc07ca06ee12913d84defc29493026d331eb3d456bd786251f5563348720d",
+    "byteLength": 688755
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/package-correspondence.json": {
+    "sha256": "8f49ee47598f75f3c2b010ba503dde10d9d6a11ca268a91c0a3683d78039a91d",
+    "byteLength": 833
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/package-identity.json": {
+    "sha256": "c5ab9a135172bed4c9bd7eb662ffb1283082e54146a7ab630384af8f9085563d",
+    "byteLength": 582
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/package-once.py": {
+    "sha256": "505bff6eed3747b7411c0e6f22454f5aa4abd7fc14ce65c79260a1f76a36f59b",
+    "byteLength": 3075
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/package-readiness.json": {
+    "sha256": "7aba9358bde6c0017769201b09746c48268c01635746f3542262f30673b90c8b",
+    "byteLength": 2178
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/product-verification-request.json": {
+    "sha256": "53e0a7d1cb16200315348f6affc07cad1c08205912c67fad3987a09045734938",
+    "byteLength": 1022
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/product-verification-summary.json": {
+    "sha256": "e50f72f8e54ac58990cc6481f6fbcb5e59dd6f7a8c415e2d2b34a84926f170a2",
+    "byteLength": 3942
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/product-verification-timing.json": {
+    "sha256": "307c8c9fc56d96d4431961a39867beed213ad76f384f9cdba179a68ad96ded4e",
+    "byteLength": 226
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/return.md": {
+    "sha256": "8e5c0dbab6dd22b6c1ae1c3a58e115b3727746b3ef4902a2ab4bd8c888db1856",
+    "byteLength": 611
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/selected-core.json": {
+    "sha256": "1ba6f8eee68af1fe3794639cc8a1e71b253ff0d46a5201bf26fc25488edead04",
+    "byteLength": 986
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/source-delta.json": {
+    "sha256": "ccb05c1751f88e125b72c6514c4444d1bae3a90b23ae4cd2b270f6e3bbd068ec",
+    "byteLength": 723
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/source-freeze-before-build.json": {
+    "sha256": "1193f981b324fb68d07dd44b55cf57621f192b0e97a78e6203cf180afee4b1f1",
+    "byteLength": 153206
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/verify-descriptors.mjs": {
+    "sha256": "a9b9eede4378f8661990340e9c46f81421584fb4dd3319d7ebb18b6464112190",
+    "byteLength": 2064
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-23/verify-installed.mjs": {
+    "sha256": "e9e7e14f0aadc3b23a9365fa97d5f8c7d8e7f57264ecd9c6126c695b352d5e4d",
+    "byteLength": 3563
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/checks.json": {
+    "sha256": "4382768a4b3aafc14c7a75974a0bfe8401cb6edc67e58a8c0db6d6d7ec61ce9c",
+    "byteLength": 1104
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/focused-02.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/focused-02.stdout": {
+    "sha256": "34b5c6721e0288900c0cc708d930df09fcc2a58ae35a2f7f34c7eec341aa6e91",
+    "byteLength": 1151
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/focused-03.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/focused-03.stdout": {
+    "sha256": "bb1ba4520f44ad8b206ed928dce00080ae0f50785f6f90c8162fdc40481f0aac",
+    "byteLength": 501
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/focused.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/focused.stdout": {
+    "sha256": "4fb2fd2bd71fe003fc1413452e6773b14a828a42c82c717eceb3cce12144004d",
+    "byteLength": 847
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/frozen-subject.json": {
+    "sha256": "ed8f0207ab08b8a15e1ab66d522b50dd4edd75bed8b63237da3bc89060a5e20c",
+    "byteLength": 8356
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/caller-subject.json": {
+    "sha256": "227a151e32ccb13e706efb15234a2c9540fa602a2cecfe9dcea8e69006f030e3",
+    "byteLength": 3792
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/caller/src/native-continuation-contracts.mjs": {
+    "sha256": "98b26c5f39806e3673ebc99b1fe4b110ced7370c3f59e4384ca83e4cea37f886",
+    "byteLength": 13664
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/caller/src/native-continuation-declarations.mjs": {
+    "sha256": "31447f63a40a22794a82f9f68eddc70cfac79169be339647e6e1ae2010c2d901",
+    "byteLength": 15184
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/caller/src/native-intent-declarations.mjs": {
+    "sha256": "5630d1d25802a8ad1bd3c81d6f68155b439c5edb4cad5e4135650afdf1077ea9",
+    "byteLength": 6877
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/caller/src/native-lifecycle-declarations.mjs": {
+    "sha256": "b8dcaa7f4444addaeb556133169a403270dc7a9a69674e8f28aff2d398234599",
+    "byteLength": 34704
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/caller/src/product-package.mjs": {
+    "sha256": "4c9dd6ee36f7bff43995adee94901add62ef66f2ac25b221592fb595a1ecd3e0",
+    "byteLength": 4549
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/caller/test/d1-lifecycle-declarations.mjs": {
+    "sha256": "b71f3550a9a8c0f15533b59adc568d6cb07b290db85b6e19053572efd9c0411b",
+    "byteLength": 30749
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/caller/test/full-sandbox-declarations.mjs": {
+    "sha256": "3a5152f4ac99ca8ae27c1e6417e32c483f6addd0eeb2f4392e5dda38c5336e6a",
+    "byteLength": 15968
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/caller/test/full-sandbox-support.mjs": {
+    "sha256": "63a10082c83899da949384d0c0ee796218d11093cd5cd26832e862ae84d112b8",
+    "byteLength": 82912
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/caller/test/generic-live-workflow-support.mjs": {
+    "sha256": "8216dd9411235657d98206449611f38673e51323ef1ee2b692afc450e30281d7",
+    "byteLength": 87990
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/entry-close.json": {
+    "sha256": "982d20f3701928e0bde8a50c9ccdfe4bb8d10dbd0a1af20d52c14e7ded68a6e2",
+    "byteLength": 1438
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/prepare.mjs": {
+    "sha256": "e30f8a5befb62c96bed42ae73c4c506a43d1d8bb9915812566b0824d91d342fa",
+    "byteLength": 18479
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-01/selection.json": {
+    "sha256": "fe41c28126cf0dda3b8d08d4b8c7723f643710af1c942795849e6f354d2cbc8b",
+    "byteLength": 4007
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller-subject.json": {
+    "sha256": "8767131e965351140e488a5886425ba4d432941a0f70e5bd243a56cb6a39b7d6",
+    "byteLength": 2775
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/src/native-continuation-contracts.mjs": {
+    "sha256": "98b26c5f39806e3673ebc99b1fe4b110ced7370c3f59e4384ca83e4cea37f886",
+    "byteLength": 13664
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/src/native-continuation-declarations.mjs": {
+    "sha256": "31447f63a40a22794a82f9f68eddc70cfac79169be339647e6e1ae2010c2d901",
+    "byteLength": 15184
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/src/native-intent-declarations.mjs": {
+    "sha256": "5630d1d25802a8ad1bd3c81d6f68155b439c5edb4cad5e4135650afdf1077ea9",
+    "byteLength": 6877
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/src/native-lifecycle-declarations.mjs": {
+    "sha256": "b8dcaa7f4444addaeb556133169a403270dc7a9a69674e8f28aff2d398234599",
+    "byteLength": 34704
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/src/product-package.mjs": {
+    "sha256": "4c9dd6ee36f7bff43995adee94901add62ef66f2ac25b221592fb595a1ecd3e0",
+    "byteLength": 4549
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/test/d1-lifecycle-declarations.mjs": {
+    "sha256": "b71f3550a9a8c0f15533b59adc568d6cb07b290db85b6e19053572efd9c0411b",
+    "byteLength": 30749
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/test/full-sandbox-declarations.mjs": {
+    "sha256": "3a5152f4ac99ca8ae27c1e6417e32c483f6addd0eeb2f4392e5dda38c5336e6a",
+    "byteLength": 15968
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/test/full-sandbox-support.mjs": {
+    "sha256": "63a10082c83899da949384d0c0ee796218d11093cd5cd26832e862ae84d112b8",
+    "byteLength": 82912
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/caller/test/generic-live-workflow-support.mjs": {
+    "sha256": "8216dd9411235657d98206449611f38673e51323ef1ee2b692afc450e30281d7",
+    "byteLength": 87990
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/calls/00-verify-core23.json": {
+    "sha256": "0c2dee9dbe0428b243c6d40502aae38778c870c3ceae62531732516c2b75f916",
+    "byteLength": 25653092
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/calls/01-verify-dev14.json": {
+    "sha256": "3d1fa1f83258ae76c61cc9d3f634257314536a3016ccf7a60f196030a3f5fdfb",
+    "byteLength": 13128290
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/calls/02-resolve-core23-dev14.json": {
+    "sha256": "393140e5e7bb6a954a9dc13a51fb064c4500eec78fceedc76691f0d327d62f7a",
+    "byteLength": 26310773
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/calls/03-install-core23.json": {
+    "sha256": "33f1b5011ef299183a369a8eff29f396fefc621eb671209e54bb5559c662dfe1",
+    "byteLength": 29237979
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/calls/04-install-dev14.json": {
+    "sha256": "301b548925ad0b5368e5667df5d2a18017754976f3738989e0d2652fedd2263e",
+    "byteLength": 16712011
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/calls/05-bootstrap-native-d2-intake-bind-existing-workspace.json": {
+    "sha256": "4b236e1bae243c294326f37a14fabaae28e7c8051bebc92ed27b21980a9f1f3e",
+    "byteLength": 20139458
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/calls/06-catalog.json": {
+    "sha256": "8e981f62e21b0c84003d72677529d9bc453c06bcd2dde5faa44e9f6a0c708f5a",
+    "byteLength": 34706662
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/calls/07-view.json": {
+    "sha256": "4a66c4fd40e23e244f51be74cd4c1a0ff63b25881716da2f79b3ad6f07cd0e9d",
+    "byteLength": 38832548
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/calls/08-intake-conformance.json": {
+    "sha256": "7078494b18a9b6e2dde649d5293e25741860bdf047569d0bd6c5a7c903e85003",
+    "byteLength": 42467105
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/execution-resolution.json": {
+    "sha256": "56cc8d11ca4c9ea5467e07097922a856fdd1138f73bf9fa0ed8fc6c9876d902f",
+    "byteLength": 84268
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/intake-start.jsonl": {
+    "sha256": "16a166110780f64d2b35bff6270d80c1c577d8d28b95a33022ae94f96b747cd0",
+    "byteLength": 26393523
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/launch-control.json": {
+    "sha256": "89368cd55041c1f278644fa4b2a4053bbaf181970fba2e8b6ed823d2fb8487af",
+    "byteLength": 1238
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/observed-metrics.json": {
+    "sha256": "d0744a089f02b9bbe23218814f6ee413437143fb361a9d75276c891f35789ba6",
+    "byteLength": 10184
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/owner-receipt-chain.json": {
+    "sha256": "a2cb8ad60cbc4d39dc79e9d92373546f3bcdad05e19ae70f57c1c074d3714c2f",
+    "byteLength": 15609
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/prepare.mjs": {
+    "sha256": "926a0a761f7affc670c75ca4e7312b63177169e5447782b57aa69a36f796fbf0",
+    "byteLength": 18479
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/prepare.stderr": {
+    "sha256": "17337dbd622f2a7933716357b1ba00ced261bd07716dde63b03534a8c2390aca",
+    "byteLength": 1586
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/prepare.stdout": {
+    "sha256": "7bc7792301a13defdac2e40460904baa99cc137db974a01666fb4ef4712cfbda",
+    "byteLength": 957
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/prepared.json": {
+    "sha256": "b838f25bcdf498ffcf06f5864b7a03a1ac98ab0249a5962663a87d282a149309",
+    "byteLength": 12082
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/process-result.json": {
+    "sha256": "07e0dcf9c00398ac47f37f8db4d721f00d611d765528677c827f42e04ff2826d",
+    "byteLength": 348
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/process.json": {
+    "sha256": "a8baf1efdc0e0b633a0141f83fdf82d6419ac4c5d03c86835bc2c73d498d97c0",
+    "byteLength": 299
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/receipts/00-verify-core23.json": {
+    "sha256": "d3dcaeb017d1563ffa1998fbd097ae39fa13edfae7a4acc933ee7bfdef925972",
+    "byteLength": 257095
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/receipts/01-verify-dev14.json": {
+    "sha256": "48987619ebac38e183d8d6cdc94d1d8441687b47f29c715f9a20cd7fdecf2db8",
+    "byteLength": 1966
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/receipts/02-resolve-core23-dev14.json": {
+    "sha256": "862625194a8d44331391744b2a9969ce93e503eac0fc1a6214bfaaf22d6dd853",
+    "byteLength": 5400
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/receipts/03-install-core23.json": {
+    "sha256": "6bb92e207e8f653cf4b7bea99c5bc5e0308e277653dacac21c128c4e14c93c54",
+    "byteLength": 6219
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/receipts/04-install-dev14.json": {
+    "sha256": "0d2af1a2fb99e8ca549fc023ca9a97a00abcbdaaa561927ee444453b7ce9223e",
+    "byteLength": 6218
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/receipts/05-bootstrap-native-d2-intake-bind-existing-workspace.json": {
+    "sha256": "f269c219caa39a723de2036615c8a8b9dd1bce442ccd58e13b2d6a7b8c048b36",
+    "byteLength": 7236
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/receipts/06-catalog.json": {
+    "sha256": "15634a1bc96d5cdac1ee4643b851fd741c2eb29702b9b72828bbf16fc5be3485",
+    "byteLength": 327171
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/receipts/07-view.json": {
+    "sha256": "200b52dfbda9321c100e7b949ef5f6d4889e1f1325f119fdcebcd3964bd014ce",
+    "byteLength": 1719
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/receipts/08-intake-conformance.json": {
+    "sha256": "432c5d6eca27d6e80bdc666e36ea30edb275246a9e453758b1d6ececa44d86b1",
+    "byteLength": 30069269
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/selection.json": {
+    "sha256": "4025e6446df8b8c2a6a8ecdcc42bad7fac075e395f1d86eef213e3cc433c10a2",
+    "byteLength": 3991
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/setup-resource-close.json": {
+    "sha256": "58d3431ee997848c85515555ee0aa29cd74feace6639eb1b020bcb6ae3040fe5",
+    "byteLength": 2577
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/setup-resource-entry.json": {
+    "sha256": "5494ada29d617403906f77c913883e2e3d2832278e5b3b9cb919e56f460eaf4e",
+    "byteLength": 892
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/bootstrap-native-d2-intake-bind-existing-workspace.json": {
+    "sha256": "4773150146e22f46ed03dec13688380e123864930f302288b4124c97fd0c6ffb",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/catalog.json": {
+    "sha256": "518966dc655231473bb2fcfae20abfe885e278c5af9cc472797eb7b98d797a49",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/execution-resolution.json": {
+    "sha256": "f3ac3ed62fc687440d9a034003ae17516dd24f0e49cf0c2da16d62088cdfb87d",
+    "byteLength": 86
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/install-core23.json": {
+    "sha256": "38b48d25f226a16566bce19721c9bbd22702fa85f722bbed3b8fc2b3fab29e20",
+    "byteLength": 285
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/install-dev14.json": {
+    "sha256": "8f3b95fd982ff6de993ff8283a315e7bbfbf0670faf84fb37b518f31264ff022",
+    "byteLength": 292
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/intake-conformance.json": {
+    "sha256": "60f53dad9a285f9eccf24da88bfc5a145933226765b0f276c173738c2c685332",
+    "byteLength": 300
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/nominal-verification-0.json": {
+    "sha256": "30ea580c996c7d93574b864d960e7cfbf91cccb3efc94c9869c0051bb3f42ff5",
+    "byteLength": 73
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/nominal-verification-1.json": {
+    "sha256": "5a29009deb2ed75685cdc796e60df1c699ff6588545a2f7d126945bc960b6e2b",
+    "byteLength": 80
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/resolve-core23-dev14.json": {
+    "sha256": "9325a8aa6598f7817e14080bffb78c70027b17642f047aa8f7b13c42d2366dad",
+    "byteLength": 285
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/verify-core23.json": {
+    "sha256": "172d22c503776d37a24fa08d0920338b2ef0e1ca468c4f28ccd93a7fc727007a",
+    "byteLength": 290
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/verify-dev14.json": {
+    "sha256": "165afe83df0931fc7a740ccb08694840d61b741be58b90c8203f1673a5c775eb",
+    "byteLength": 289
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/timings/view.json": {
+    "sha256": "801b7d6de0b449f0994fe0317b34c1533a5ab65859c131a57ba0cd77470b1bf1",
+    "byteLength": 290
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-preparation-02/worksite-conservation.json": {
+    "sha256": "60694607428dcf9b733f45fee685b39f6950284be53cac0a900ef6cc6b00a82f",
+    "byteLength": 2079
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-return.md": {
+    "sha256": "79edbd038c42dbffd0e367687ea363188eeaa050f61feabf4533c15bbe7b3e2d",
+    "byteLength": 4258
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/installed-subject.json": {
+    "sha256": "4df38b4d16b644033fa70e8bc1e99372c7ac911f4da7db66475d55b049e936d1",
+    "byteLength": 13221
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/package-correspondence-02.json": {
+    "sha256": "3bd789bddfccc72ac36982e30cea7c405e8f56977b6185465b549721715bb681",
+    "byteLength": 5169
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/preimages.json": {
+    "sha256": "b240b340159cbc76b8c31b1a854a8d5c6b3557dc85c143d8024499952a924811",
+    "byteLength": 809
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/preimages/full-sandbox-support.mjs": {
+    "sha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7",
+    "byteLength": 80535
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/preimages/full-sandbox.test.mjs": {
+    "sha256": "17b3e5b3ac822b34c81908ed3bb21d33f5ef7d7f4f50cacae3276c9b41516035",
+    "byteLength": 40359
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/return.md": {
+    "sha256": "eadc60b2f26e5067adb14b4b0dd9808a13446a2e5946136e6d58a7351597ea4e",
+    "byteLength": 3046
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/source.diff": {
+    "sha256": "44b1eef2d8ae1a2094b54d49de89b31778980cbc09b0b8f34d79ae5fbf13a820",
+    "byteLength": 24970
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/tracking-postimages.json": {
+    "sha256": "3e0fd563507431b02165e0a904a0afa3b84048ee2d8cdada002d0ac859f504ff",
+    "byteLength": 739
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/tracking-preimages.json": {
+    "sha256": "d9bc2ff18d1ebb0173ecee822d5a3f221f85f4d6f1b5c37cb1b831e028c991d4",
+    "byteLength": 1585
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/tracking-preimages/abiogenesis-GOALS.md": {
+    "sha256": "a26904137dbf759af4364aeec8b1b3c259e3e382ac0752d5673225ed9ded8617",
+    "byteLength": 60105
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/tracking-preimages/abiogenesis-T-287-deliver-abiogenesis-5-feature-waves.md": {
+    "sha256": "8f08697d7af4e9d91220d8672f43101b5aaea0292ed90c96ca9a56d9d1902775",
+    "byteLength": 359207
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/tracking-preimages/odd_glc-GOALS.md": {
+    "sha256": "b4ac7c7d43cb4c793017f543270eb796eb5d5ee7745cae3f710e3355496aa762",
+    "byteLength": 18772
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/tracking-preimages/odd_glc-T-043-deliver-generic-live-llm-scenario-mvp.md": {
+    "sha256": "31bd05fc70924ebf331b43635400e07bf61ca8b12023c85d88a5e1fe40ea3c3d",
+    "byteLength": 63697
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-review-01/evidence-refs.json": {
+    "sha256": "8de5533d092bb07b9362c8a0a7ffacb1d1aa2a712d44c4bf3f231bcf9082aeec",
+    "byteLength": 37908
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-review-01/review.md": {
+    "sha256": "5dfe844170ba403a70feba2032faf6819e0bdca486a847699dc2f9403b4217fc",
+    "byteLength": 9639
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/caller-sequence.md": {
+    "sha256": "e5ad247b989e5c03164e1324b7e2d982d4d636e3244bc8d067697b4dbb173920",
+    "byteLength": 1813
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/checks.json": {
+    "sha256": "acbd7da2607c6c8a7396869f4acdfcc84792373ff140f8e1571044562f994ddb",
+    "byteLength": 1985
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/compile-01.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/delta.tsv": {
+    "sha256": "cf1dd3176f5b8596f9f95c2cf6329eea810b15acc409d00d6755b11eba441f2e",
+    "byteLength": 781
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/focused-01.log": {
+    "sha256": "ee77fc824e3e8e4e17e030b406b436d9c27398847e662ca5cb0dbc1468f3c5d1",
+    "byteLength": 1410
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/focused-02.log": {
+    "sha256": "c5afabb0feb804602f17b21194613c040b112b108c495742a02976b021d1245c",
+    "byteLength": 1219
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/frozen-subject.json": {
+    "sha256": "90df7dceeb0353c89123f0fb591d5d7287ab19089dfe5344a5e901dbdfbf46e8",
+    "byteLength": 5404
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/preimage/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.d.ts": {
+    "sha256": "2ae9200579ddd47944b59bac20d19cb8d0acfbf49bac6907445634194a62cd9d",
+    "byteLength": 6292
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/preimage/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js": {
+    "sha256": "cbddee3694199e2fea205b9c2e426751243af62a4a15c665ee879a7854feb196",
+    "byteLength": 49001
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/preimage/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js": {
+    "sha256": "c4e9d8c1a8e3b6934ec477d1e940744c6b7b0d40dfe1c5fd93a386e2f151e922",
+    "byteLength": 79993
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/preimage/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts": {
+    "sha256": "1ee24400b6e27ae4676112e33731d4d93cd89b966584284f74ca4b65fb8b9515",
+    "byteLength": 48750
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/preimage/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts": {
+    "sha256": "6f61fd28225b1f19c73cad4ba30426529501b10a679108cda87e7dae7d255b0a",
+    "byteLength": 78483
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/preimage/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md": {
+    "sha256": "ca5ac049892b817b07432baf7bf821de75b01898ad5c4d546fa26d262a89abde",
+    "byteLength": 60016
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/preimage/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs": {
+    "sha256": "a1d094b4e87783748bcdac49ba83344d9c89d67493259f369a2746677915628c",
+    "byteLength": 32246
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/preimages.json": {
+    "sha256": "7baf0149fd7844deee771b5a897b804ded8431723e17d0f5f786c56d0928c91a",
+    "byteLength": 946
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/preservation.json": {
+    "sha256": "212e1ff9fb1d5562dac8acfdcb121ce5f7bc7445e074475359b155a27c146bae",
+    "byteLength": 410
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/retained-grounding.json": {
+    "sha256": "a0fce2de157f9327b84897ee58a1ba50e8a57e7bd4bca223233364ffeab982f4",
+    "byteLength": 4727
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/return.md": {
+    "sha256": "82fc9f4310e3824e3932d23e74c888625ea1164bcc4d3770e624358a69ba2fc3",
+    "byteLength": 3881
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/review-01/evidence-refs.json": {
+    "sha256": "ce5c574330f01d63d0f224a7507d91229c2c6b3b80941c0e127f6da0f4863f1a",
+    "byteLength": 12140
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/review-01/identity-checks.json": {
+    "sha256": "238c1aa8799ac2780e293cd744d056855e9ef82e619e2cfe70aff5239d0015cf",
+    "byteLength": 7133
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/review-01/read-permission-probe.json": {
+    "sha256": "fd0357a62b3e8c7b2bbc1a06eb421a97c492fe082677020bb0efde8abf728a32",
+    "byteLength": 2016
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/review-01/read-permission-probe.mjs": {
+    "sha256": "00b83eceb5d5c4129e8eba456c71922ca7cf55c10fbadbb49bb9b28209418a1f",
+    "byteLength": 2319
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/review-01/review.md": {
+    "sha256": "1d0c48c152e9fdf39ab655315f2cde9307d7f3d9cd4d11fadfc755f6bb403957",
+    "byteLength": 6692
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/source-design-test.diff": {
+    "sha256": "e9100f67ac4fec3a9778287b9c2bcd7e93de99e45afa0c66580501165c8e4b76",
+    "byteLength": 28356
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/tracking-preimage/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+    "sha256": "478ebc113507f38c4d053c34e7e8a0d916ec58219ea7110b9bdcca2c1b1502fb",
+    "byteLength": 358691
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/tracking-preimage/abiogenesis/specification/GOALS.md": {
+    "sha256": "5ce5cc69acb0c8f76f02db02e119d2c83a2400e50718288712701663e6954498",
+    "byteLength": 60096
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/tracking-preimage/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md": {
+    "sha256": "4c564b548d79b6923ca1efa26d7e0d176840716550b9192eb9d8e2f829782fa7",
+    "byteLength": 63286
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/tracking-preimage/odd_glc/specification/GOALS.md": {
+    "sha256": "b909bfb80aa2f49542624d08d8c293395eb0ff7c3136b03aaffe3f1256f69e95",
+    "byteLength": 18763
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-repair-01/tracking-preimages.json": {
+    "sha256": "5d3bdedc01a3cb1222aa3d09b34e79cc1783fe1db25990660365465d9877b539",
+    "byteLength": 719
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/acquisition-failure.json": {
+    "sha256": "874634fca737e8ff33629729d73b73caccca6e0a820b7a73051758952e5d4a7f",
+    "byteLength": 310
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/binding-cover-events.json": {
+    "sha256": "e254355463859e222f8f0b6eac3cba0c718ec95acf207aee22cd0f4fa4834a58",
+    "byteLength": 315
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/compact-diagnostics.mjs": {
+    "sha256": "751d2982b191d219614d665c8928823ef11e5e77129a07ba02e47fcce78eb273",
+    "byteLength": 5309
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/constructability.json": {
+    "sha256": "a065f0b9833b7e9e1c2ff5c14fa3eb528ffdda858d85ac06f86898b600931211",
+    "byteLength": 3691
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/diagnose.mjs": {
+    "sha256": "033a39a2dd444e618c93706c599675bcdef0dcd0abb13332717d55a0429c14e0",
+    "byteLength": 11087
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/evidence-refs.json": {
+    "sha256": "77d29ee5e1dbd544d54a3c0cbaa9ca1ed89aa73a74f3b4d73e1e2dda59ef83d1",
+    "byteLength": 22205
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/recorded-relation.json": {
+    "sha256": "e81028cf6a2c800ef6aae133ed6ceb05855bb634c20b1d37ec2b9576580e099d",
+    "byteLength": 44654
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/retained-facts.json": {
+    "sha256": "56ee43ceab70e71333309664d91f5c970c146bcade68f83e9a1a8eed00b6d819",
+    "byteLength": 61341
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/source-basis-review-01/review.md": {
+    "sha256": "e0c6ed89153bec279bbf26a7e5164b39b77faef896b33ab8b9fa77530f2c9b84",
+    "byteLength": 9241
+  }
+}

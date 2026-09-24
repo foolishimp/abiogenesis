@@ -28,7 +28,7 @@ import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.
 import { constructWorksiteObservation, isWorksiteObservation, isWorksitePostPublicationFailure } from "../product/worksite_effect.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
-import { authenticateSemanticJobBasis, semanticJobConstructionSourceAtPrefix } from "./semantic_job.js";
+import { authenticateSemanticJobBasis, semanticJobRootAtPrefix, semanticJobConstructionSourceAtPrefix } from "./semantic_job.js";
 import { projectWorksiteRevisionNativeResult } from "./worksite_revision.js";
 import { isSemanticJobEnvelope, deriveSemanticJobPreparation, deriveSemanticJobReadDependencies, projectSemanticJobBindings } from "../product/semantic_job.js";
 import { isSemanticJobRevisionEnvelope, deriveSemanticJobRevision, deriveJobRevisionAsset, deriveJobRevisionAssessment,
@@ -81,15 +81,17 @@ function contextCorresponds(a: WorksiteContextObservation, b: WorksiteContextObs
 /** Discovery occurs only at the declared intake. Consumers use its admitted
  * result and exact references; they never choose a later or similar failure. */
 function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanticRevisionIntake, onRefusal?: (reason:string)=>void) {
+  const refuse = (relation: string) => { onRefusal?.(`native_revision_${relation}`); return null; };
   try {
     const owner = authenticateNativeInstructionAssemblyBasis(basis);
     if (owner === null || owner.call.implementationRef !== ids.nativeIntakeImplementationRef ||
-      !same(owner.inputValue, input) || !authenticateRuntimePrefixAncestry(input.sourcePrefix, basis.predecessorPrefix)) return null;
+      !same(owner.inputValue, input)) return refuse("intake_basis_mismatch");
+    if (!authenticateRuntimePrefixAncestry(input.sourcePrefix, basis.predecessorPrefix)) return refuse("source_prefix_mismatch");
     const historical = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, input.sourcePrefix);
     const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(historical));
     const run = projectRunIdentityAtPrefix(prefix, input.sourceRun.ref);
     const sourceRoot = run === null ? null : rehydrateExecutionBasisAtPrefix(prefix, run.executionBasis.ref);
-    if (run === null || !same(run.run, input.sourceRun) || sourceRoot === null) return null;
+    if (run === null || !same(run.run, input.sourceRun) || sourceRoot === null || sourceRoot.parentExecutionBasisRef !== null) return refuse("source_run_mismatch");
     const leaves = admittedLeaves(prefix).filter(row => row.state.cCall.runId === input.sourceRun.ref);
     const causes = leaves.filter(({ state }) => {
       const envelope = jobEnvelope(state.result.value);
@@ -104,7 +106,7 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
     const command = isNativeWorksiteCommandExecutionObservation(cause.state.result.value) ? cause.state.result.value.task : causeBasis?.rawInputValue;
     const construction = rejected?.evidence?.constructionResult ?? (isNativeWorksiteCommandExecutionTask(command) ? command.sourceNativeWork : null);
     const native = isNativeWorkspaceWorkObservation(construction) ? projectNativeWorkspaceWorkSourceAtPrefix(prefix, construction) : null;
-    if (construction !== null && native === null) return null;
+    if (construction !== null && native === null) return refuse("construction_source_mismatch");
     const parents = leaves.filter(({ state, event }) => {
       const envelope = jobEnvelope(state.result.value);
       if (event.admissionOrdinal >= cause.event.admissionOrdinal || state.result.resultClass !== "success" || state.judgment.judgment !== "advance" ||
@@ -122,26 +124,32 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
     const parent = parents[0]!, envelope = jobEnvelope(parent.state.result.value)!;
     const original = rehydrateExecutionBasisAtPrefix(prefix, envelope.basis.rootExecutionBasisRef);
     if (original === null || !isSemanticJobInput(original.rawInputValue) || !same(original.rawInputValue, envelope.job) ||
+      original.parentExecutionBasisRef !== null || original.rawInputDigest !== envelope.basis.rootInputDigest ||
       original.rawInputAdmissionRef !== envelope.basis.rootInputRef || original.invocationAdmissionRef !== envelope.basis.invocationAdmissionRef ||
       !(basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle ||
-      !same(envelope.declaration, (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle)) return null;
+      !same(envelope.declaration, (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle)) return refuse("original_job_or_lifecycle_mismatch");
     const expectedContext = rejected?.context ?? (isNativeWorkspaceWorkObservation(construction) ? construction.after : envelope.context);
     const parentBasis = rehydrateExecutionBasisAtPrefix(prefix, parent.state.cCall.basisId);
     const invocation = rehydrateInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef);
     if (expectedContext === null || parentBasis === null || causeBasis === null || invocation?.capabilityGrants.length !== 1 ||
       causeBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef || parentBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef ||
-      owner.environment.kind !== "exact_prefix_workspace_environment") return null;
+      owner.environment.kind !== "exact_prefix_workspace_environment") return refuse("historical_context_or_invocation_mismatch");
+    // Public run_status exposes this root. It is usable for cover only after
+    // both exact eligible leaves resolve to it through the existing ancestry owner.
+    if (!same(semanticJobRootAtPrefix(prefix, parentBasis), sourceRoot) ||
+      !same(semanticJobRootAtPrefix(prefix, causeBasis), sourceRoot)) return refuse("source_root_ancestry_mismatch");
     const priorBinding = native === null ? { bindingId: parentBasis.workspaceBindingId, bindingDigest: parentBasis.workspaceBindingDigest } : (construction as import("../product/native_workspace_work.js").NativeWorkspaceWorkObservation).task.workspaceBinding;
     const oldEnvironment = projectExactPrefixWorkspaceEnvironment(historical, { ref: priorBinding.bindingId, digest: priorBinding.bindingDigest });
     if (oldEnvironment.kind !== "exact_prefix_workspace_environment" ||
-      !same(oldEnvironment.workspaceAuthorityBasis, owner.environment.workspaceAuthorityBasis) ||
-      projectWorksiteRevisionBindingCover(owner.prefix, oldEnvironment.workspaceBinding, owner.environment.workspaceBinding, [parentBasis, causeBasis, ...(native === null ? [] : [native.sourceBasis])]) === null ||
-      worksiteCommandSourcesInvalidatedAfter(owner.prefix, cause.event.admissionOrdinal, owner.environment.workspaceAuthorityBasis.canonicalRoot, [], expectedContext.readRoots)) return null;
+      !same(oldEnvironment.workspaceAuthorityBasis, owner.environment.workspaceAuthorityBasis)) return refuse("historical_environment_mismatch");
+    if (projectWorksiteRevisionBindingCover(owner.prefix, oldEnvironment.workspaceBinding, owner.environment.workspaceBinding,
+      [parentBasis, causeBasis, sourceRoot, ...(native === null ? [] : [native.sourceBasis])]) === null) return refuse("binding_cover_absent");
+    if (worksiteCommandSourcesInvalidatedAfter(owner.prefix, cause.event.admissionOrdinal, owner.environment.workspaceAuthorityBasis.canonicalRoot, [], expectedContext.readRoots)) return refuse("source_invalidated");
     const constructionState = native === null ? null : leaves.find(row => row.event.eventId === native.sourceResult.eventId)?.state;
-    if (native !== null && constructionState === undefined) return null;
+    if (native !== null && constructionState === undefined) return refuse("construction_result_absent");
     return { owner: {...owner, environment:owner.environment}, input, parent: parent.state, cause: cause.state, envelope, expectedContext, grant: invocation.capabilityGrants[0]!,
       construction: constructionState === null || constructionState === undefined ? null : resultCoordinate(constructionState) };
-  } catch { return null; }
+  } catch { return refuse("intake_projection_exception"); }
 }
 function intakeValue(facts: NonNullable<ReturnType<typeof nativeIntakeFacts>>, context: WorksiteContextObservation, commandExecutionLimits: import("../product/worksite_command_execution.js").WorksiteCommandExecutionLimits): SemanticRevisionSelectionInput | null {
   const { owner } = facts;
@@ -153,13 +161,16 @@ function intakeValue(facts: NonNullable<ReturnType<typeof nativeIntakeFacts>>, c
       workspaceBinding: owner.environment.workspaceBinding, capabilityGrant: facts.grant, context, commandExecutionLimits, construction: facts.construction, source: facts.input } });
 }
 export async function prepareNativeSemanticRevisionIntake(basis: SemanticStageNativeBasis, input: unknown, commandExecutionLimits: import("../product/worksite_command_execution.js").WorksiteCommandExecutionLimits, onRefusal?: (reason:string)=>void) {
-  if (!isNativeSemanticRevisionIntake(input)) return null;
+  if (!isNativeSemanticRevisionIntake(input)) { onRefusal?.("native_revision_input_malformed"); return null; }
   const facts = nativeIntakeFacts(basis, input, onRefusal);
   if (facts === null) return null;
   const context = await observeWorksiteContext({ workspaceAuthorityBasis: facts.owner.environment.workspaceAuthorityBasis,
     workspaceBinding: facts.owner.environment.workspaceBinding,
     readRoots: facts.envelope.job.worksiteScope.readRoots, maxFiles: facts.envelope.declaration.bounds.maxContextFiles, maxBytes: facts.envelope.declaration.bounds.maxContextBytes });
-  return isWorksiteContextObservation(context) ? intakeValue(facts, context, commandExecutionLimits) : null;
+  if (!isWorksiteContextObservation(context)) { onRefusal?.("native_revision_current_context_unavailable"); return null; }
+  const value = intakeValue(facts, context, commandExecutionLimits);
+  if (value === null) onRefusal?.("native_revision_current_context_mismatch");
+  return value;
 }
 export function nativeSemanticRevisionIntakeMatches(basis: SemanticStageNativeBasis, input: unknown, output: unknown): boolean {
   if (!isNativeSemanticRevisionIntake(input) || !isSemanticRevisionSelectionInput(output) || output.nativeWorksite === undefined) return false;

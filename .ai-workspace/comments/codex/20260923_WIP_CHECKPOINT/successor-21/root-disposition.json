@@ -1,0 +1,15 @@
+{
+  "acceptedSB01Subject": "d321ffba668c3733c3f003a2d26dfb6a5847790588a7c19fbad4011f5c02f003",
+  "acceptedSB01Review": "1d0c48c152e9fdf39ab655315f2cde9307d7f3d9cd4d11fadfc755f6bb403957",
+  "acceptedSetupSubject": "d2d33833e576c8a14ad560ffa3bec6e3f0dbc515dbedbf9e9fab5862d481fbfc",
+  "acceptedSetupReturn": "79edbd038c42dbffd0e367687ea363188eeaa050f61feabf4533c15bbe7b3e2d",
+  "outcome": "one genuine resource lifetime; nine Public operations and execution resolution passed; close115102824B/3b005942\u2026; zero Run/witness/actor",
+  "observations": "130.134s versus historical485.043s different candidate/prefix, no isolated attribution; peak RSS3.442GB increased",
+  "open": [
+    "LIFE-01 and remaining setup/install/bind cost",
+    "native correction suspended",
+    "root status/witness/intake/whole suffix unexecuted",
+    "fifteen-family qualification and RC1"
+  ],
+  "failedDev13": "preserved immutable; declaration owner identity mismatch, not valid package selection"
+}

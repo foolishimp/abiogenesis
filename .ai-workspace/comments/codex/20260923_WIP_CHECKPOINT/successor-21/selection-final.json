@@ -1,0 +1,151 @@
+{
+  "directExpected": {
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/activation.json": {
+      "sha256": "e7283df17c081292a5be6ae24bd8abbc3ca424c953eb351e0dd3f00c8ee5e63f",
+      "byteLength": 429
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/closed-selection.json": {
+      "sha256": "357b9b556e30970bd496310042f86580075cbb3ebb2fa13137d9d1f11fd5540b",
+      "byteLength": 24053
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/direct-selection.json": {
+      "sha256": "3f73892f57d9ea959814effd1fa5839a8ba9656907dff45121e862cc67b1a669",
+      "byteLength": 891
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/exclusions.json": {
+      "sha256": "93daea57b7e553c260d05f742f03ef23b234f8bf379d72729e4814863d993f27",
+      "byteLength": 1221
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/freeze-expectations.json": {
+      "sha256": "fd5aa8728e5d33157af7d7269a873a65858bd287aefc6c4f2b47f85f9ba14217",
+      "byteLength": 41293
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/frozen-member-correspondence.json": {
+      "sha256": "a755aa072c5223452faa4a5eca782b03d677adaf86cfbdfd0baec9d118efc32d",
+      "byteLength": 23640
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/pack_incremental.py": {
+      "sha256": "e03ee020195f4dfd4bdb8eb1d3451125caa4628e2a6003ba1140e259b9c801ae",
+      "byteLength": 1706
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/remote-precheck.json": {
+      "sha256": "93606d4d24babdebe1461144be4aa763d77ef5a85a038d2c58073e183fcb58b6",
+      "byteLength": 180
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/root-disposition.json": {
+      "sha256": "acd13a834949619f6b9f183a2997292b06985ecc3262396e4c51baa8f4d15c47",
+      "byteLength": 980
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/selected-archive-paths.nul": {
+      "sha256": "11c23675c50afba97b509c50079dbafee7d47b7eaa865e2133c80f190411af57",
+      "byteLength": 22287
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/source-correspondence.json": {
+      "sha256": "56460b8e0b32a7f3a06d5307cfe9310754f8e7a8daa03e984e0bc1f69d65ad92",
+      "byteLength": 4648
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/stage_checkpoint.py": {
+      "sha256": "7ec0019bb4d6e8ddf7afb8195a2f63c24fabc67cd299acdf4e7b44c5949f4044",
+      "byteLength": 3301
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/catalog.json": {
+      "sha256": "30779b6d643d5e99a9ebf3bb03ec3d19fa2386fabd783a2297ea95bd4da88745",
+      "byteLength": 2308
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/credential-shape-findings.json": {
+      "sha256": "44e87b2569a514609f5111491d1d0e0605c6a81f56db5ab4bdf0fe5812b7c55e",
+      "byteLength": 121
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/direct-paths.nul": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/exclusions.json": {
+      "sha256": "3974c18bd3617177301413f9dac88a296e227621726113ca3aa9e9ec8d227c36",
+      "byteLength": 348
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/members.jsonl.gz": {
+      "sha256": "f2fc769794cb0a9ac920cc519d234b3ea3faa21caaa40300aa9fdb2e80140215",
+      "byteLength": 8752
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/path-reconciliation.jsonl.gz": {
+      "sha256": "c4a0730a075bc3a9e4c48db0f7ff14013392cc3c8a1873eb44d03d97dfc1442d",
+      "byteLength": 1734
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/payloads/family-0000.tar.gz.part0000": {
+      "sha256": "d8912114c69903bb761a6d625802f4b655376f638a01fc04af74fe8c5f866e7c",
+      "byteLength": 484669
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/payloads/family-0001.tar.gz.part0000": {
+      "sha256": "51b9cb7a3f8eb9b7c6ff4ed19f1db2f41622932220c44b2914c10696f9436f38",
+      "byteLength": 35005278
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/payloads/raw-3c1a7cdb050f748ab5e8ef76da68b514d6a72572cb45b78c182f38bedc1226d2.part0000": {
+      "sha256": "3c1a7cdb050f748ab5e8ef76da68b514d6a72572cb45b78c182f38bedc1226d2",
+      "byteLength": 10159070
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/pending.json": {
+      "sha256": "5db967ae83d28d1f4d0cee865718f7c69ff1604472fe889e2211f1d9509b1fe8",
+      "byteLength": 248
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/restoration-verification.json": {
+      "sha256": "f191d7cc2da287bbd0dd05a14362f4431a40a2587e6f6e13aa2abfe4bcff2ed6",
+      "byteLength": 487
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/verification.json": {
+      "sha256": "f191d7cc2da287bbd0dd05a14362f4431a40a2587e6f6e13aa2abfe4bcff2ed6",
+      "byteLength": 487
+    },
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-reuse.json": {
+      "sha256": "8665956239f155875cb7e2b7d9703b2b7e32480eb51840f839d9572c269bdbb6",
+      "byteLength": 625
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "sha256": "84a23eae125fd13dc272ca392a44c5eb9ecbba6ef8b84a40fee1801d463c6f63",
+      "byteLength": 361198
+    },
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.d.ts": {
+      "sha256": "14c8e5c640da281d7b96a888322ca37e915158ecb75d4dfd03eb2526187a114a",
+      "byteLength": 6519
+    },
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js": {
+      "sha256": "89a7a2f7bdc264ff04f87bfe1119c0a0faf5e9080764e3c68c2402e6106e810f",
+      "byteLength": 49133
+    },
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js": {
+      "sha256": "cd9ed62d7c33b180ed98d65a93ec97302ade025d03f58796d4e6209b0e6d215a",
+      "byteLength": 81387
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts": {
+      "sha256": "5c9196e5761551d7bfa9c3f0841d8aaef84ed2430824866c405b02c4f9e54ff2",
+      "byteLength": 48882
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts": {
+      "sha256": "cc5a526479f4ac70443bb89b933bfffd10cbee90bed4a28731ba8ce9ea9a1818",
+      "byteLength": 79771
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "dda542e1a7bb6d80f0310bc1d2e491a1f2b165401f3d30dc32d5f8d2770381b5",
+      "byteLength": 197474
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md": {
+      "sha256": "9ce7221a2425c26a5fe914633c91a5a547981690a0ef81a01ee04b832102d07e",
+      "byteLength": 61322
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "5da5523cd504639508549f7ae27b5b2bd958ff92629c7a8a57efc029d524c4d2",
+      "byteLength": 2377790
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs": {
+      "sha256": "5299f9fa948555e908e5fb39b01a5577fc81405d4bc773c82bc68a920f6c8771",
+      "byteLength": 39825
+    },
+    "specification/GOALS.md": {
+      "sha256": "8f95cd90df1c0c653d9fbb8e284e3ae5deb7ce6b598b6a1a0d013517c8ed987c",
+      "byteLength": 60172
+    }
+  },
+  "newArchive": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-21/transport-01/catalog.json",
+  "excludedRuntimeScope": "see exclusions.json",
+  "previousO4Bank": "reference only; no historical bytes reprocessed"
+}
