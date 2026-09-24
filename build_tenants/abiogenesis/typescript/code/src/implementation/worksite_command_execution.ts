@@ -43,6 +43,8 @@ import {
   renderWorksiteCommandExecutionPrompt,
   worksiteCommandExecutionHelperPlan,
   worksiteCommandExecutionWorkerResultSchema,
+  projectWorksiteCommandExecutionBudget,
+  type WorksiteCommandExecutionLimits,
   type WorksiteCommandExecutionHelperPlan,
 } from "../product/worksite_command_execution.js";
 import { observeWorksiteSubject } from "../product/worksite_operations.js";
@@ -602,26 +604,9 @@ function manifestPairIsCurrent(
   }
 }
 
-function requiredExecutionBudgetMs(task: WorksiteExecutionTask): number {
-  const commandBudget = task.commands.reduce(
-    (sum, command) => sum + command.timeoutMs + command.terminationGraceMs,
-    0,
-  );
-  const probeBudget = task.outcomePredicates.reduce((sum, predicate) => {
-    if (predicate.predicateKind !== "http_response_exact" ||
-      typeof predicate.declaration !== "object" || predicate.declaration === null ||
-      Array.isArray(predicate.declaration)) return sum;
-    const declaration = predicate.declaration as Readonly<Record<string, JsonValue>>;
-    const launch = declaration.launch;
-    const request = declaration.request;
-    if (typeof launch !== "object" || launch === null || Array.isArray(launch) ||
-      typeof request !== "object" || request === null || Array.isArray(request)) return sum;
-    const launchRecord = launch as Readonly<Record<string, JsonValue>>;
-    const requestRecord = request as Readonly<Record<string, JsonValue>>;
-    return sum + Number(launchRecord.timeoutMs) + Number(launchRecord.terminationGraceMs) +
-      Number(requestRecord.timeoutMs);
-  }, 0);
-  return commandBudget + probeBudget + 5_000;
+export function selectedWorksiteCommandExecutionLimits(): WorksiteCommandExecutionLimits {
+  return { absoluteTimeoutMs: Number(process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS ?? "3600000"),
+    inactivityTimeoutMs: Number(process.env.ABG_TS_FP_TIMEOUT_MS ?? "60000") };
 }
 
 export function realizeWorksiteCommandExecution(
@@ -634,13 +619,8 @@ export function realizeWorksiteCommandExecution(
     throw new TypeError("command execution requires one exact admitted task");
   }
   const c2Occurrence = exactAuthorityFreeOccurrence(occurrence, verifyNativeOccurrence);
-  const configuredAbsoluteTimeout = Number(
-    process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS ?? "3600000",
-  );
-  const configuredInactivityTimeout = Number(
-    process.env.ABG_TS_FP_TIMEOUT_MS ?? "60000",
-  );
-  const requiredBudget = requiredExecutionBudgetMs(input);
+  const { absoluteTimeoutMs: configuredAbsoluteTimeout, inactivityTimeoutMs: configuredInactivityTimeout } = selectedWorksiteCommandExecutionLimits();
+  const requiredBudget = projectWorksiteCommandExecutionBudget(input).requiredExecutionBudgetMs;
   if (!Number.isSafeInteger(configuredInactivityTimeout) ||
     configuredInactivityTimeout <= requiredBudget) {
     throw new TypeError("actor inactivity timeout must exceed the task's closed helper execution budget");

@@ -1,0 +1,80 @@
+[
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "headPreimageSha256": "5cf3ffcb26b293c64f6977428211164a13f2e5452930631edb981b737b3c773d",
+    "acceptedPostimageSha256": "f52a3d596e01fb7caf411ae38dcc9994e20b85df1f364cda62832b027cbf5496"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+    "headPreimageSha256": "cdc325bd55811597ffa12db34fd92be9b52f6db5553df1dbfb105b260af7924f",
+    "acceptedPostimageSha256": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+    "headPreimageSha256": "e60893ce71f9325679f0d2005d35b20837d6847eb54a3e185716d844d5a674a2",
+    "acceptedPostimageSha256": "c0f3d17f24c5b25dea5542b415d10af68ed2babd6083767e2e9cce613ad97d18"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+    "headPreimageSha256": "afe6844bff1433d04c245d2ccc1af640b3301c14144fd80030ee3627e8210c68",
+    "acceptedPostimageSha256": "d98a36d304de9dfa54f37596beadcb8a90feea835e814cc8409d04ba2c64e829"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+    "headPreimageSha256": "352cc4736337eb367d1d0ecb21e9b9f43ea6d21d195d3af02dcd63b0095a60ff",
+    "acceptedPostimageSha256": "4451f6df48b844f231dc48bcd2f21a4e7e8589f4cee847f58d533e958375f486"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "headPreimageSha256": "ca123011c6f308d4d2f57600c3d0140149c2f3805901c544df7cbb88297a0460",
+    "acceptedPostimageSha256": "dbb00fc5ce556fb75e67f93d7a2367a7e367825799865c581ce0a33cc0cf44d8"
+  },
+  {
+    "repo": "odd_glc",
+    "path": "build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+    "headPreimageSha256": "8b73267f5ee441113e1973aaeac8bdea1c49cf38b46ff45900d7c303213a1969",
+    "acceptedPostimageSha256": "6350893ffc1d8ab31e98f5bc2f05230046e3670d8f736e92d2bc37c61ac505db"
+  },
+  {
+    "repo": "odd_glc",
+    "path": "build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs",
+    "headPreimageSha256": "f420e49f6d6b933b9768a7fbaecd00c966d98b1f8644aa2c0b9783ae55d92d64",
+    "acceptedPostimageSha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7"
+  },
+  {
+    "repo": "odd_glc",
+    "path": "build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+    "headPreimageSha256": "065dd639f2316f0d28f53a3d093ed7e7a66442b58863f9cd81222554b0afc171",
+    "acceptedPostimageSha256": "db94a8160f180d638d581591bac24334a77afe960dcbc3555389baf7e6bcaa29"
+  },
+  {
+    "repo": "odd_glc",
+    "path": "build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+    "headPreimageSha256": "ae17927299c1aadd43a59e9f44cb4317e483dae37dfbd4c961ee3e7db3063dd4",
+    "acceptedPostimageSha256": "70b91e438ab58907b21b638d788fad94b5bd8f1518fdae6b293a1994903bb134"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+    "headPreimageSha256": "fb50fc45dba166c0c16427b01eb560c9d6149534a6d4cdca192f3b7cfc5e0a47",
+    "acceptedPostimageSha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3"
+  },
+  {
+    "repo": "odd_glc",
+    "path": "build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs",
+    "headPreimageSha256": "53cb1e33e9d33d671318198b27f7aba7d000774b1d3bd0b573bab7216d88050d",
+    "acceptedPostimageSha256": "3a5152f4ac99ca8ae27c1e6417e32c483f6addd0eeb2f4392e5dda38c5336e6a"
+  },
+  {
+    "repo": "abiogenesis",
+    "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+    "headPreimageSha256": "f87beba2cc5b4924132a8d34156c649bb27a3f1c3b8f1987f87eaea7dd479f44",
+    "acceptedPostimageSha256": "21294f03144b82f6c6bf7078e0ea711f5682e7b1a7c8a7c5c44e7e88c8469c9c"
+  }
+]

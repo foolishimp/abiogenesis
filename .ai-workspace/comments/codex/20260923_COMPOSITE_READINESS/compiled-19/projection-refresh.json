@@ -1,0 +1,16 @@
+{
+  "status": "Root authorized exact four-literal derived-coordinate refresh",
+  "file": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+  "beforeSha256": "f87beba2cc5b4924132a8d34156c649bb27a3f1c3b8f1987f87eaea7dd479f44",
+  "afterSha256": "21294f03144b82f6c6bf7078e0ea711f5682e7b1a7c8a7c5c44e7e88c8469c9c",
+  "changes": {
+    "9fe600d54f8a73d54bfef4359fbf03449591978f44f1cc16ce1439b0c5a24bf4": "43451ebc4b5458acc2a8e711771a1e2b7baa3e29a4c9ab39bf1d56889cd2b6ef",
+    "byteCount: 103899": "byteCount: 106106",
+    "startByte: 93954": "startByte: 96161",
+    "endByte: 96262": "endByte: 98469"
+  },
+  "spanDigest": "10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345",
+  "spanBytes": 2308,
+  "rendererBytesUnchanged": true,
+  "memberSetPolicyScopeUnchanged": true
+}

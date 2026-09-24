@@ -3,7 +3,8 @@ import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.
 import { isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
 import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { constructNativeSemanticTask, constructNativeSemanticConstructionTask, constructNativeSemanticExecutionTask,
-  deriveNativeSemanticAsset, deriveNativeSemanticAssessment, nativeSemanticContextMatches, nativeSemanticEvidenceArtifacts } from "../product/semantic_job.js";
+  deriveNativeSemanticAsset, deriveNativeSemanticAssessment, nativeSemanticContextMatches, nativeSemanticEvidenceArtifacts,
+  nativeSemanticCommandExecutionLimits } from "../product/semantic_job.js";
 import { projectNativeWorkspaceWorkSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
 import type { ModulePublication } from "../gtl/contracts.js";
 import { SEMANTIC_STAGE_IDS as ids, SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
@@ -11,14 +12,14 @@ import { validSemanticJobProgramOwners } from "../gtl/semantic_job.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { isSemanticJobInput, isSemanticJobEnvelope, constructSemanticJobEnvelope,
   deriveSemanticJobAsset, deriveSemanticJobAssessment, deriveSemanticJobPreparation, deriveSemanticJobReadDependencies, semanticJobDesignMatches,
-  semanticJobPathWithin, type SemanticJobEnvelope } from "../product/semantic_job.js";
+  semanticJobPathWithin, type SemanticJobEnvelope, type SemanticJobContractIssue } from "../product/semantic_job.js";
 import { constructWorksiteSubject, constructWorksiteTerritory, constructWorksiteObservation,
   constructWorksiteFileParentsRequest, isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess,
   isWorksiteContextObservation, type WorksiteFileParentsRequest, type WorksiteContextObservation } from "../product/worksite_effect.js";
 import { observeWorksiteContext, observeWorksiteFileParents, observeWorksiteSubject } from "../product/worksite_operations.js";
 import { constructWorksiteConstructionTask, WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult } from "../product/worksite_construction.js";
 import { isWorksiteCommandExecutionObservation, constructWorksiteCommandConfiguration, isWorksiteReadDependencyBasis,
-  type WorksiteReadDependencyBasis, WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
+  type WorksiteReadDependencyBasis, type WorksiteCommandExecutionLimits, WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 import { isWorksitePreparationInput, prepareWorksiteCommandTask } from "../product/worksite_preparation.js";
 import { WORKSITE_FILE_PARENTS_IMPLEMENTATION } from "../implementation/worksite_file_replace.js";
 import type { SemanticStageNativeBasis } from "./semantic_stage.js";
@@ -463,9 +464,15 @@ function nativeStageSource(basis: SemanticStageNativeBasis, envelope: SemanticJo
       source.task.workspaceAuthorityBasis.canonicalRoot, [], source.after.readRoots)) return null;
   return { owner, native };
 }
-export async function projectNativeSemanticTask(basis: SemanticStageNativeBasis, input: unknown) {
+export async function projectNativeSemanticTask(basis: SemanticStageNativeBasis, input: unknown, selectedLimits?: WorksiteCommandExecutionLimits) {
   const owner = authenticateSemanticJobBasis(basis);
   if (owner === null || !semanticJobInputMatchesBasis(basis, input)) return null;
+  // Current preparation checks actual controls; source/fold reconstruction
+  // remains a pure relation over the selection retained by the admitted job.
+  try {
+    const retained = nativeSemanticCommandExecutionLimits(input);
+    if (retained !== null && (selectedLimits === undefined || !equal(retained, selectedLimits))) return null;
+  } catch { return null; }
   const context = await observeWorksiteContext({ ...operating(owner), readRoots: input.job.worksiteScope.readRoots,
     maxFiles: input.declaration.bounds.maxContextFiles, maxBytes: input.declaration.bounds.maxContextBytes });
   if (!isWorksiteContextObservation(context)) return null;
@@ -474,7 +481,8 @@ export async function projectNativeSemanticTask(basis: SemanticStageNativeBasis,
     return owner.stage === undefined || owner.role === null ? null : constructNativeSemanticTask(input, owner.stage.declarationRef, owner.role, operating(owner), context);
   } catch { return null; }
 }
-export function projectNativeSemanticFold(basis: SemanticStageNativeBasis, input: unknown) {
+export function projectNativeSemanticFold(basis: SemanticStageNativeBasis, input: unknown,
+  onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void) {
   try {
     if (!isRetainedGraphInput(input) || !isSemanticJobEnvelope(input.entry) || !isNativeWorkspaceWorkObservation(input.source)) return null;
     const source = nativeStageSource(basis, input.entry, input.source);
@@ -483,7 +491,7 @@ export function projectNativeSemanticFold(basis: SemanticStageNativeBasis, input
     const expected = constructNativeSemanticTask(input.entry, stageRef, owner.role!, operating(owner), input.source.before);
     if (!equal(expected, input.source.task)) return null;
     const adapter = { cCallRef: owner.call.cCallRef, inputDigest: owner.inputDigest };
-    return owner.role === "author" ? deriveNativeSemanticAsset(input.entry, stageRef, input.source, adapter)
+    return owner.role === "author" ? deriveNativeSemanticAsset(input.entry, stageRef, input.source, adapter, onContractIssues)
       : deriveNativeSemanticAssessment(input.entry, stageRef, input.source, adapter);
   } catch { return null; }
 }

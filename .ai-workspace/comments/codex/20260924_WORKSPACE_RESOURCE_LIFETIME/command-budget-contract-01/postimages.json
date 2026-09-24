@@ -1,0 +1,138 @@
+{
+  "time": "2026-09-24T11:30:25.449152+00:00",
+  "heads": {
+    "/Users/jim/src/apps/abiogenesis": "701026970da59538e6dcc203ada4538b80e3d6de",
+    "/Users/jim/src/apps/odd_glc": "e7cc69fcd8a7c10a4cf13f0ec40915b64bae9d8d"
+  },
+  "files": {
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts": {
+      "beforeSha256": "5cf3ffcb26b293c64f6977428211164a13f2e5452930631edb981b737b3c773d",
+      "afterSha256": "f52a3d596e01fb7caf411ae38dcc9994e20b85df1f364cda62832b027cbf5496",
+      "changed": true
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts": {
+      "beforeSha256": "cdc325bd55811597ffa12db34fd92be9b52f6db5553df1dbfb105b260af7924f",
+      "afterSha256": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f",
+      "changed": true
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts": {
+      "beforeSha256": "a9c3f626aad25a23e009c13e28ab8eff52f844600bc1c801a550cff4d82b6421",
+      "afterSha256": "c0f3d17f24c5b25dea5542b415d10af68ed2babd6083767e2e9cce613ad97d18",
+      "changed": true
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts": {
+      "beforeSha256": "897f1e69a98fd35a19224e1ce8c31b3f47fd5210e612d478c96a6faf24a35323",
+      "afterSha256": "d98a36d304de9dfa54f37596beadcb8a90feea835e814cc8409d04ba2c64e829",
+      "changed": true
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs": {
+      "beforeSha256": "fed90e4d8cf076c6b6db082d39de0a77bb9cc581fca81831287b1eafb49a957b",
+      "afterSha256": "4451f6df48b844f231dc48bcd2f21a4e7e8589f4cee847f58d533e958375f486",
+      "changed": true
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md": {
+      "beforeSha256": "ca123011c6f308d4d2f57600c3d0140149c2f3805901c544df7cbb88297a0460",
+      "afterSha256": "dbb00fc5ce556fb75e67f93d7a2367a7e367825799865c581ce0a33cc0cf44d8",
+      "changed": true
+    },
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs": {
+      "beforeSha256": "8b73267f5ee441113e1973aaeac8bdea1c49cf38b46ff45900d7c303213a1969",
+      "afterSha256": "6350893ffc1d8ab31e98f5bc2f05230046e3670d8f736e92d2bc37c61ac505db",
+      "changed": true
+    },
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs": {
+      "beforeSha256": "f420e49f6d6b933b9768a7fbaecd00c966d98b1f8644aa2c0b9783ae55d92d64",
+      "afterSha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7",
+      "changed": true
+    },
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs": {
+      "beforeSha256": "065dd639f2316f0d28f53a3d093ed7e7a66442b58863f9cd81222554b0afc171",
+      "afterSha256": "db94a8160f180d638d581591bac24334a77afe960dcbc3555389baf7e6bcaa29",
+      "changed": true
+    },
+    "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md": {
+      "beforeSha256": "ae17927299c1aadd43a59e9f44cb4317e483dae37dfbd4c961ee3e7db3063dd4",
+      "afterSha256": "70b91e438ab58907b21b638d788fad94b5bd8f1518fdae6b293a1994903bb134",
+      "changed": true
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts": {
+      "beforeSha256": "32fc80f9af9029fbcc8ab5ffcb84065373a8d76a3e41d4cd89b401bf168bf8e9",
+      "afterSha256": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3",
+      "changed": true
+    },
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs": {
+      "beforeSha256": "53cb1e33e9d33d671318198b27f7aba7d000774b1d3bd0b573bab7216d88050d",
+      "afterSha256": "3a5152f4ac99ca8ae27c1e6417e32c483f6addd0eeb2f4392e5dda38c5336e6a",
+      "changed": true
+    }
+  },
+  "tracking": {
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md": {
+      "beforeSha256": "9fab65bdb1c52e6c36076e65952eee8cfc97cd7d92214d1a5b1262ce93af74e8",
+      "afterSha256": "9fab65bdb1c52e6c36076e65952eee8cfc97cd7d92214d1a5b1262ce93af74e8",
+      "unchanged": true
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "beforeSha256": "5dcf87418e5625720dd3a0cacbe05362923064b901219d84605f98136b012b35",
+      "afterSha256": "5dcf87418e5625720dd3a0cacbe05362923064b901219d84605f98136b012b35",
+      "unchanged": true
+    },
+    "/Users/jim/src/apps/odd_glc/specification/GOALS.md": {
+      "beforeSha256": "b56423eeaf0bb055ddf7dfe6221ed455b1ce8bc4ea6bbcc984093abba67b4c17",
+      "afterSha256": "b56423eeaf0bb055ddf7dfe6221ed455b1ce8bc4ea6bbcc984093abba67b4c17",
+      "unchanged": true
+    },
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md": {
+      "beforeSha256": "50287229df6e3bf55c8f22772f83b428eddbefcbd92d85df2a7923bf00e0f371",
+      "afterSha256": "50287229df6e3bf55c8f22772f83b428eddbefcbd92d85df2a7923bf00e0f371",
+      "unchanged": true
+    }
+  },
+  "generatedChanges": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.d.ts",
+      "beforeSha256": "ae148ae75ea245a41e3d9be5550a5b8962a26d65760f50747ec88c63e6266d44",
+      "afterSha256": "2ae9200579ddd47944b59bac20d19cb8d0acfbf49bac6907445634194a62cd9d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js",
+      "beforeSha256": "86e4c340b07f9cb2e493105e4fe6c533b9563668de21f9ced14b20d32d254884",
+      "afterSha256": "e7141fe1fb853667a6d56f3847d113bb975e1326aadf5b3349527821a53086c3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_stage.js",
+      "beforeSha256": "0b3fe3d859197e6c8fee1086e2a3f300d94233fe815c305458b0355eb2e0414f",
+      "afterSha256": "22372552f51454b424d5b817c073a01a377520f0befde6e872b0476e37516913"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_execution.d.ts",
+      "beforeSha256": "a54cdc28d26e3093dd06ad00be1cc41200d0194f0cacec13549a6cb4dfcd3f03",
+      "afterSha256": "0512f70d79d764ce79d4b807f7ba04d1100bd9f73fb20a6ad7980bde91afb257"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_execution.js",
+      "beforeSha256": "f8489fecac9af4cab562989f4166526775691e522a26fe10d3853780f8b279bf",
+      "afterSha256": "5e2f3d40f4724640b458dde517d043e1e3332727268c40f2c381109a914d6313"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.d.ts",
+      "beforeSha256": "88e1c03535fa36c501551eaaaa840a543bd4203dac3fd0b70eda5c68178a266d",
+      "afterSha256": "663a7135420edeab24ab3440ac50d56b32f308a12d2e771c8ebbb0dabeb23665"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js",
+      "beforeSha256": "e704c865e50d77126b556de065951c03af771a4fd70ba29710b3568879b1d7ea",
+      "afterSha256": "ace741fb60d2f448cad23c5d886203bf9564bf0388b94c7143dd9e3d77cb51d2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.d.ts",
+      "beforeSha256": "a05657cbf514bdc4f06c47dd21b732bf90b9072665e4e10c59c729767ef78b76",
+      "afterSha256": "2409c635d6b9409a8ab46cce02ad0c76f5b5b2dea8faed81646ca4765a46e4bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/worksite_command_execution.js",
+      "beforeSha256": "9fe600d54f8a73d54bfef4359fbf03449591978f44f1cc16ce1439b0c5a24bf4",
+      "afterSha256": "43451ebc4b5458acc2a8e711771a1e2b7baa3e29a4c9ab39bf1d56889cd2b6ef"
+    }
+  ]
+}

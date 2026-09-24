@@ -1,0 +1,7 @@
+{"stage": "inventory_closed", "repo": "/Users/jim/src/apps/abiogenesis", "counts": {"archive_backed": 136}, "archiveFamilies": 2, "excludedPrefixes": 0}
+{"stage": "family_packed", "repo": "abiogenesis", "family": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS", "files": 47, "familiesDone": 1, "familyCount": 2, "transportBytes": 10801756}
+{"stage": "family_packed", "repo": "abiogenesis", "family": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME", "files": 89, "familiesDone": 2, "familyCount": 2, "transportBytes": 11274104}
+{"stage": "transport_prepared", "repo": "abiogenesis", "members": 136, "bytes": 11274104, "findings": 0}
+{"stage": "verification_progress", "assets": 1, "assetCount": 3, "members": 1, "bytes": 10148589}
+{"stage": "verification_closed", "kind": "checkpoint_restoration_verification", "allPartHashesVerified": true, "allReconstructedAssetHashesVerified": true, "allMemberPathsAndHashesVerified": true, "memberCount": 136, "transportBytes": 11274104, "originalsComparedAfterPacking": true, "restoredToDirectory": "/private/tmp/20260924-checkpoint-successor17-abiogenesis-10266", "verification": "Complete bounded-memory reconstruction/readback through the restoration path; no source/runtime execution."}
+{"status": "CLOSED transport and restoration", "repository": "abiogenesis", "members": 136, "freezeMembersVerified": 0, "catalog": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-17/transport-01/catalog.json"}

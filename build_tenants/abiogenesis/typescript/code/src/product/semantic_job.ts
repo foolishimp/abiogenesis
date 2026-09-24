@@ -17,7 +17,8 @@ import { isSemanticAssetCandidate, isSemanticAssessmentCandidate, isSemanticWork
 import { constructWorksiteConstructionTask } from "./worksite_construction.js";
 import { constructWorksiteCommandPreparationInput } from "./worksite_preparation.js";
 import type { WorksiteCommandPreparationInput } from "./worksite_preparation_contracts.js";
-import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput } from "./worksite_command_execution.js";
+import { projectWorksiteCommandExecutionBudget, worksiteCommandExecutionBudgetFits,
+  type WorksiteCommandExecutionLimits, type WorksiteDeclaredCommandInput, type WorksiteOutcomePredicateInput } from "./worksite_command_execution.js";
 import { isWorksiteContextObservation, isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess,
   constructWorksiteSubject, constructWorksiteObservation, type WorksiteContextObservation } from "./worksite_effect.js";
 import { resolve } from "node:path";
@@ -319,6 +320,9 @@ export function projectSemanticJobActorContract(envelope: SemanticJobEnvelope, s
   if (stage === undefined || active === null) throw new TypeError("unknown semantic actor contract");
   const current = role === "assessor" ? envelope.assets.find(a => a.stageRef === stageRef) : undefined;
   const incoming = envelope.assets.filter(a => a.stageRef !== stageRef);
+  const limits = nativeSemanticCommandExecutionLimits(envelope);
+  const currentDesign = current?.candidate.design;
+  const budget = limits === null ? null : projectWorksiteCommandExecutionBudget(currentDesign ?? { commands: [], outcomePredicates: [] });
   const body = { kind: "semantic_job_actor_contract", schemaVersion: "5.0.0", stageRef, role,
     sourceMemberRefs: envelope.job.members.map(m => m.memberRef), quoteRule: "exact_unique_original_source_substring",
     requirementRefs: [...new Set([...retainedTerms, ...incoming.flatMap(a => a.groundedTerms)].map(t => t.requirementRef))],
@@ -334,6 +338,9 @@ export function projectSemanticJobActorContract(envelope: SemanticJobEnvelope, s
       coverageRules: ["every_grounded_requirement_has_active_binding", "each_active_obligation_has_implementation_and_verifier_target",
         "target_binding_versions_equal_active_versions_selected_by_its_obligations"],
       pathRule: "relative_nontraversing_unique_within_declared_roots", commandRule: "top_level_and_nested_http_launch_within_exact_capabilities",
+      ...(limits === null || budget === null ? {} : { executionCapacity: { selectedLimits: limits, budgetRule: budget.rule,
+        currentCandidate: currentDesign == null ? null : { commandBudgetMs: budget.commandBudgetMs, httpProbeBudgetMs: budget.httpProbeBudgetMs,
+          requiredExecutionBudgetMs: budget.requiredExecutionBudgetMs, compatible: worksiteCommandExecutionBudgetFits(budget.requiredExecutionBudgetMs, limits) } } }),
       dependencyRule: "declared_read_paths_observed_before_construction", readinessRule: "readiness_is_not_fulfillment" } };
   return deepFreeze({ ...body, contractDigest: hash(body) });
 }
@@ -424,14 +431,15 @@ export function evaluateSemanticJobActorCandidate(envelope: SemanticJobEnvelope,
   return deepFreeze(issues);
 }
 export function deriveSemanticJobAsset(envelope: SemanticJobEnvelope, stageRef: string, raw: unknown, source: SemanticActorSource,
-  retainedTerms: readonly RequirementTerm[] = []): Readonly<SemanticJobEnvelope> | null {
+  retainedTerms: readonly RequirementTerm[] = [], onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void): Readonly<SemanticJobEnvelope> | null {
   try {
     if (!isSemanticJobEnvelope(envelope) || !isSemanticJobAssetCandidate(raw) || !v.is(sourceSchema, source) || envelope.assets.some(a => a.stageRef === stageRef)) return null;
     const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef);
     if (stage === undefined || !stage.predecessorStageRefs.every(ref => envelope.assets.some(a => a.stageRef === ref && a.assessment?.disposition === "satisfied")) ||
       ((raw.asset.requirementCandidates.length > 0 || raw.bindings.length > 0) && !stage.bodyCapabilities.includes("requirement_refinement")) ||
       (raw.design !== null && !stage.bodyCapabilities.includes("worksite_design"))) return null;
-    if (evaluateSemanticJobActorCandidate(envelope, stageRef, "author", raw, retainedTerms).length > 0) return null;
+    const issues = evaluateSemanticJobActorCandidate(envelope, stageRef, "author", raw, retainedTerms);
+    if (issues.length > 0) { onContractIssues?.(issues); return null; }
     const priorTerms = [...retainedTerms, ...envelope.assets.flatMap(a => a.groundedTerms)];
     const quoted = (quotes: readonly SemanticSourceQuote[]) => quotes.every(q => groundSemanticJobQuote(envelope, q) !== null);
     const groundedTerms = raw.asset.requirementCandidates.map(candidate => {
@@ -540,6 +548,13 @@ export function semanticJobDesignIssues(envelope: SemanticJobEnvelope, design: S
         if (launch === null || typeof launch !== "object" || Array.isArray(launch) || !permittedLaunch(launch as unknown as WorksiteDeclaredCommandInput))
           issue(`design.outcomePredicates[${i}].declaration.launch`, "exact_nested_executable_capability", scope.executableCapabilities, launch ?? null);
     });
+    const limits = nativeSemanticCommandExecutionLimits(envelope);
+    if (limits !== null && design.dependencyDisposition === "sufficient") {
+      const budget = projectWorksiteCommandExecutionBudget(design);
+      if (!worksiteCommandExecutionBudgetFits(budget.requiredExecutionBudgetMs, limits))
+        issue("design.commands", "enclosing_execution_capacity", { selectedLimits: limits, budgetRule: budget.rule },
+          { commandBudgetMs: budget.commandBudgetMs, httpProbeBudgetMs: budget.httpProbeBudgetMs, requiredExecutionBudgetMs: budget.requiredExecutionBudgetMs });
+    }
   } catch { issue("design", "well_formed_design_relation", "declared_design", null); }
   return deepFreeze(issues);
 }
@@ -716,9 +731,20 @@ export const NATIVE_SEMANTIC_ASSESSMENT_SCHEMA = deepFreeze({
 });
 export const NATIVE_SEMANTIC_ASSESSMENT_SCHEMA_TEXT = JSON.stringify(NATIVE_SEMANTIC_ASSESSMENT_SCHEMA) + "\n";
 export type NativeSemanticOperating = Pick<SemanticWorksiteBasis, "workspaceAuthorityBasis" | "workspaceBinding" | "capabilityGrant">;
+export function nativeSemanticCommandExecutionLimits(envelope: SemanticJobEnvelope): WorksiteCommandExecutionLimits | null {
+  const selection = envelope.job.taskData.nativeLifecycle;
+  if (!record(selection) || selection.commandExecutionLimits === undefined) return null;
+  const limits = selection.commandExecutionLimits;
+  if (!keys(limits, ["inactivityTimeoutMs", "absoluteTimeoutMs"]) ||
+    !Number.isSafeInteger(limits.inactivityTimeoutMs) || Number(limits.inactivityTimeoutMs) <= 0 ||
+    !Number.isSafeInteger(limits.absoluteTimeoutMs) || Number(limits.absoluteTimeoutMs) <= Number(limits.inactivityTimeoutMs))
+    throw new TypeError("exact selected command execution limits required");
+  return limits as unknown as WorksiteCommandExecutionLimits;
+}
 export function nativeSemanticPaths(envelope: SemanticJobEnvelope) {
   const selection = envelope.job.taskData.nativeLifecycle;
-  if (!keys(selection, ["assets", "rubricPath"]) || !Array.isArray(selection.assets) || typeof selection.rubricPath !== "string" ||
+  const limits = nativeSemanticCommandExecutionLimits(envelope);
+  if (!keys(selection, ["assets", "rubricPath", ...(limits === null ? [] : ["commandExecutionLimits"])]) || !Array.isArray(selection.assets) || typeof selection.rubricPath !== "string" ||
     !semanticJobRelativePath(selection.rubricPath) || selection.assets.length !== envelope.declaration.stages.length) throw new TypeError("exact native lifecycle asset selection required");
   const assets = selection.assets.map((row, i) => {
     if (!keys(row, ["stageRef", "path"]) || row.stageRef !== envelope.declaration.stages[i]!.declarationRef ||
@@ -756,13 +782,14 @@ export function nativeSemanticAssetSource(envelope: SemanticJobEnvelope, stageRe
       observationRef: observation.observationRef, observationDigest: observation.observationDigest, assetPath: selected.path, assetDigest: asset.digest } };
 }
 export function deriveNativeSemanticAsset(envelope: SemanticJobEnvelope, stageRef: string, observation: NativeWorkspaceWorkObservation,
-  adapter: { readonly cCallRef: string; readonly inputDigest: Sha256Digest }): Readonly<SemanticJobEnvelope> | null {
+  adapter: { readonly cCallRef: string; readonly inputDigest: Sha256Digest },
+  onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void): Readonly<SemanticJobEnvelope> | null {
   try {
     if (!isNativeWorkspaceWorkObservation(observation) || observation.task.assessment !== undefined || !nativeSemanticContextMatches(envelope, observation.after)) return null;
     const source = nativeSemanticAssetSource(envelope, stageRef, observation, adapter);
     if (!equal(observation.task.writeRoots, [source.nativeWork!.assetPath])) return null;
     const raw = JSON.parse(Buffer.from(nativeSemanticFile(observation.after, source.nativeWork!.assetPath).bytes, "base64").toString("utf8"));
-    const derived = deriveSemanticJobAsset(envelope, stageRef, raw, source);
+    const derived = deriveSemanticJobAsset(envelope, stageRef, raw, source, [], onContractIssues);
     return derived === null ? null : deepFreeze({ ...derived, context: observation.after });
   } catch { return null; }
 }

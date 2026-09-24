@@ -132,6 +132,47 @@ export interface WorksiteOutcomePredicateInput {
   readonly declaration: JsonValue;
 }
 
+export interface WorksiteCommandExecutionLimits {
+  readonly inactivityTimeoutMs: number;
+  readonly absoluteTimeoutMs: number;
+}
+
+// The displayed terms also drive the calculation used by the C2 guard.
+const commandExecutionBudgetRule = deepFreeze({
+  aggregation: "sum" as const,
+  commandFields: ["timeoutMs", "terminationGraceMs"] as const,
+  httpResponseFields: { launch: ["timeoutMs", "terminationGraceMs"], request: ["timeoutMs"] } as const,
+  ownerAllowanceMs: 5_000,
+  limitComparison: "required_budget_strictly_less_than_each_limit" as const,
+  limitOrdering: "absolute_strictly_greater_than_inactivity" as const,
+});
+export function projectWorksiteCommandExecutionBudget(task: Readonly<{
+  commands: readonly Pick<WorksiteDeclaredCommandInput, "timeoutMs" | "terminationGraceMs">[];
+  outcomePredicates: readonly Pick<WorksiteOutcomePredicateInput, "predicateKind" | "declaration">[];
+}>) {
+  const commandBudgetMs = task.commands.reduce((sum, command) =>
+    commandExecutionBudgetRule.commandFields.reduce((subtotal, field) => subtotal + command[field], sum), 0);
+  const httpProbeBudgetMs = task.outcomePredicates.reduce((sum, predicate) => {
+    if (predicate.predicateKind !== "http_response_exact" ||
+      typeof predicate.declaration !== "object" || predicate.declaration === null ||
+      Array.isArray(predicate.declaration)) return sum;
+    const declaration = predicate.declaration as Readonly<Record<string, JsonValue>>;
+    const launch = declaration.launch, request = declaration.request;
+    if (typeof launch !== "object" || launch === null || Array.isArray(launch) ||
+      typeof request !== "object" || request === null || Array.isArray(request)) return sum;
+    const parts = { launch: launch as Readonly<Record<string, JsonValue>>, request: request as Readonly<Record<string, JsonValue>> };
+    return (Object.keys(commandExecutionBudgetRule.httpResponseFields) as (keyof typeof parts)[]).reduce((subtotal, part) =>
+      commandExecutionBudgetRule.httpResponseFields[part].reduce((total, field) => total + Number(parts[part][field]), subtotal), sum);
+  }, 0);
+  return deepFreeze({ rule: commandExecutionBudgetRule, commandBudgetMs, httpProbeBudgetMs,
+    requiredExecutionBudgetMs: commandBudgetMs + httpProbeBudgetMs + commandExecutionBudgetRule.ownerAllowanceMs });
+}
+export function worksiteCommandExecutionBudgetFits(requiredBudget: number, limits: WorksiteCommandExecutionLimits): boolean {
+  return Number.isSafeInteger(limits.inactivityTimeoutMs) && limits.inactivityTimeoutMs > requiredBudget &&
+    Number.isSafeInteger(limits.absoluteTimeoutMs) && limits.absoluteTimeoutMs > requiredBudget &&
+    limits.absoluteTimeoutMs > limits.inactivityTimeoutMs;
+}
+
 export interface WorksiteProtectedObservation {
   readonly kind: "worksite_protected_observation";
   readonly schemaVersion: "5.0.0";

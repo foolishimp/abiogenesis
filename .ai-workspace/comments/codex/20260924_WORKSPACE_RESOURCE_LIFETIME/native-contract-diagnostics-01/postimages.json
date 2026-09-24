@@ -1,0 +1,49 @@
+{
+  "capturedAt": "2026-09-24T11:08:03.074095+00:00",
+  "head": "701026970da59538e6dcc203ada4538b80e3d6de",
+  "files": {
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts": "a9c3f626aad25a23e009c13e28ab8eff52f844600bc1c801a550cff4d82b6421",
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts": "897f1e69a98fd35a19224e1ce8c31b3f47fd5210e612d478c96a6faf24a35323",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts": "32fc80f9af9029fbcc8ab5ffcb84065373a8d76a3e41d4cd89b401bf168bf8e9",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs": "fed90e4d8cf076c6b6db082d39de0a77bb9cc581fca81831287b1eafb49a957b"
+  },
+  "protectedTracking": {
+    "specification/GOALS.md": {
+      "beforeSha256": "9fab65bdb1c52e6c36076e65952eee8cfc97cd7d92214d1a5b1262ce93af74e8",
+      "afterSha256": "9fab65bdb1c52e6c36076e65952eee8cfc97cd7d92214d1a5b1262ce93af74e8",
+      "unchanged": true
+    },
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "beforeSha256": "5dcf87418e5625720dd3a0cacbe05362923064b901219d84605f98136b012b35",
+      "afterSha256": "5dcf87418e5625720dd3a0cacbe05362923064b901219d84605f98136b012b35",
+      "unchanged": true
+    }
+  },
+  "generatedChanges": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.d.ts",
+      "beforeSha256": "af7f4bbe874cf6e95f57e44f91f5200601ed3c5956ffbf2021353d2829312743",
+      "afterSha256": "ae148ae75ea245a41e3d9be5550a5b8962a26d65760f50747ec88c63e6266d44"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js",
+      "beforeSha256": "48cbf6c148ca1abf47751cd3d685878d17d2183eb6dbfb1bf95018a6a95de693",
+      "afterSha256": "86e4c340b07f9cb2e493105e4fe6c533b9563668de21f9ced14b20d32d254884"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_stage.js",
+      "beforeSha256": "88c7654bd95d721086a675f654fcc89da571092fadf4439a666f18e134519ccd",
+      "afterSha256": "0b3fe3d859197e6c8fee1086e2a3f300d94233fe815c305458b0355eb2e0414f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.d.ts",
+      "beforeSha256": "6d8da942b7aa3ff23fa6a8880eaa47a19d837d5815769fdb227ebaa85d3facf3",
+      "afterSha256": "88e1c03535fa36c501551eaaaa840a543bd4203dac3fd0b70eda5c68178a266d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js",
+      "beforeSha256": "bdb195c3572570d936a9f08724c3f452511a91ffb6ce07b709dd92998b3c296c",
+      "afterSha256": "e704c865e50d77126b556de065951c03af771a4fd70ba29710b3568879b1d7ea"
+    }
+  ]
+}

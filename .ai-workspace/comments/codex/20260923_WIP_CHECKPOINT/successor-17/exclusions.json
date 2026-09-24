@@ -1,0 +1,12 @@
+{
+  "unchangedPriorEvidence": "All preexisting banks and immutable source candidates reused by reference. Unrelated untracked histories remain outside this finite selection.",
+  "excluded": [
+    "all node_modules/product installs",
+    "old core17 five-case operational trees except immutable configuration data",
+    "all prior Data Mapper resources/worksites",
+    "Opus01/02/03/04 histories already banked or outside this slice",
+    "Q07 incomplete execution outputs",
+    "unselected worksite files and command-generated binaries"
+  ],
+  "workspaceProof": "Only exact source/rubric/semantic/app files named by CLOSED metrics are included as evidence members."
+}

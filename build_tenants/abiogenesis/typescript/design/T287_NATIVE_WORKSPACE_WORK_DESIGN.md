@@ -77,6 +77,24 @@ original failure remain explicit; no successor observation is manufactured.
 
 ## Consumer judgment and qualification
 
+The native semantic job may retain exact selected command-executor inactivity
+and absolute limits in `taskData.nativeLifecycle.commandExecutionLimits`.
+The caller binds its frozen transport selection there without changing those
+controls. Current native task preparation compares the retained selection with
+the existing C2 implementation selector. Product projections remain pure and
+historical task/fold correspondence uses retained limits, never a later host
+environment. Missing limits on a legacy job are unknown, not a fabricated
+selection, and retain that job's existing task bytes and behavior.
+
+The Product C2 budget owner computes the existing command, HTTP-probe and
+owner-allowance sum; the displayed terms drive that same calculation. Design
+author and assessor context receives the retained limits and rule, plus the
+candidate's computed compatibility when present. A Design claiming sufficient
+dependencies must fit before executable readiness; unknown capacity may remain
+explicit pressure without weakening source obligations. Actors judge warranted
+commands and bounds. C2 retains its existing strict guards and error messages.
+This bounded design reframe changes neither dispatch policy nor timers.
+
 The leaf's mechanical judgment means only that the declared native work
 boundary returned an admissible observation. Neither an empty `gaps` array
 nor a successful process proves domain correctness. A consumer declares its

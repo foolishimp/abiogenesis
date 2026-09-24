@@ -1,0 +1,9 @@
+{
+  "role": "Worker/Writer",
+  "model": "gpt-6-astra",
+  "reasoningEffort": "xhigh",
+  "authority": "Root explicit paired construction/checkpoint commit/push grant",
+  "scope": "accepted diagnostic+budget source; compiled19/dev9 construction; CLOSED five-case evidence; four current tracking surfaces",
+  "baseCommit": "701026970da59538e6dcc203ada4538b80e3d6de",
+  "noNativeExecution": true
+}

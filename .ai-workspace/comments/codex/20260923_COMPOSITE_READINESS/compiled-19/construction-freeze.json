@@ -1,0 +1,24 @@
+{
+  "status": "CLOSED accepted source plus Root selected identity-only refresh",
+  "sourceFiles": {
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts": "f52a3d596e01fb7caf411ae38dcc9994e20b85df1f364cda62832b027cbf5496",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts": "c0f3d17f24c5b25dea5542b415d10af68ed2babd6083767e2e9cce613ad97d18",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts": "d98a36d304de9dfa54f37596beadcb8a90feea835e814cc8409d04ba2c64e829",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs": "4451f6df48b844f231dc48bcd2f21a4e7e8589f4cee847f58d533e958375f486",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md": "dbb00fc5ce556fb75e67f93d7a2367a7e367825799865c581ce0a33cc0cf44d8",
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs": "6350893ffc1d8ab31e98f5bc2f05230046e3670d8f736e92d2bc37c61ac505db",
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7",
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs": "db94a8160f180d638d581591bac24334a77afe960dcbc3555389baf7e6bcaa29",
+    "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md": "70b91e438ab58907b21b638d788fad94b5bd8f1518fdae6b293a1994903bb134",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts": "8c1bfe878494941da19a4b3abc863b05bbaa6c74e465673317a997c543c649f3",
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-declarations.mjs": "3a5152f4ac99ca8ae27c1e6417e32c483f6addd0eeb2f4392e5dda38c5336e6a",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts": "21294f03144b82f6c6bf7078e0ea711f5682e7b1a7c8a7c5c44e7e88c8469c9c"
+  },
+  "coreSelectionSha256": "71b2ffd827370aae8507423e27b8a4fab1e5de4170b655cfb8265075cb8ef534",
+  "coreArchiveMembersSha256": "34b542e4e175f8d64778f7b3db6b09df78417acb66d6be05febecc86fca1ae6d",
+  "consumerSelectionSha256": "59e666074277647bab782dd94d7de4202b62a1b514059e73561224f6a823acf3",
+  "consumerMembersSha256": "cc9133c31eac99a5f3502f040fd5cb742da73fa94258a3dc7b36cd0dbc8ac6de",
+  "programValidationSha256": "eba365ac48381d1473ac34884bafdf4e703b383031d2a305fd2ee6c15c670900",
+  "nativeExecution": false
+}

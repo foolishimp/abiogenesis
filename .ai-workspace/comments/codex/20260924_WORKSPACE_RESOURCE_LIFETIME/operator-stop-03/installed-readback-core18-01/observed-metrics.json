@@ -1,0 +1,125 @@
+{
+  "reads": [
+    {
+      "memberKey": "run_status",
+      "elapsedMs": 1497.0726670000004,
+      "kind": "installed_definition_call_transport_result",
+      "exitCode": 0,
+      "memory": {
+        "rss": 1451294720,
+        "heapTotal": 1167523840,
+        "heapUsed": 1027784416,
+        "external": 82799774,
+        "arrayBuffers": 80381828
+      },
+      "resourceUsage": {
+        "userCPUTime": 14225502,
+        "systemCPUTime": 363250,
+        "maxRSS": 1435136,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 195313,
+        "majorPageFault": 82,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4348,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 965,
+        "involuntaryContextSwitches": 21693
+      }
+    },
+    {
+      "memberKey": "run_replay",
+      "elapsedMs": 1499.9481660000001,
+      "kind": "installed_definition_call_transport_result",
+      "exitCode": 0,
+      "memory": {
+        "rss": 1528807424,
+        "heapTotal": 1237532672,
+        "heapUsed": 1114351424,
+        "external": 87679415,
+        "arrayBuffers": 85261469
+      },
+      "resourceUsage": {
+        "userCPUTime": 15689262,
+        "systemCPUTime": 420218,
+        "maxRSS": 1513104,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 255838,
+        "majorPageFault": 82,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4348,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 969,
+        "involuntaryContextSwitches": 22423
+      }
+    },
+    {
+      "memberKey": "run_result",
+      "elapsedMs": 1560.0765420000007,
+      "kind": "installed_definition_call_transport_result",
+      "exitCode": 1,
+      "memory": {
+        "rss": 1611186176,
+        "heapTotal": 1312358400,
+        "heapUsed": 1195593504,
+        "external": 92586933,
+        "arrayBuffers": 90168987
+      },
+      "resourceUsage": {
+        "userCPUTime": 17221262,
+        "systemCPUTime": 479343,
+        "maxRSS": 1591168,
+        "sharedMemorySize": 0,
+        "unsharedDataSize": 0,
+        "unsharedStackSize": 0,
+        "minorPageFault": 316338,
+        "majorPageFault": 82,
+        "swappedOut": 0,
+        "fsRead": 0,
+        "fsWrite": 0,
+        "ipcSent": 0,
+        "ipcReceived": 4348,
+        "signalsCount": 0,
+        "voluntaryContextSwitches": 977,
+        "involuntaryContextSwitches": 23102
+      }
+    }
+  ],
+  "verificationMs": 9075.773625,
+  "setupMs": 9406.547791,
+  "totalMs": 13971.483291,
+  "memory": {
+    "rss": 1611186176,
+    "heapTotal": 1312358400,
+    "heapUsed": 1195726096,
+    "external": 92633561,
+    "arrayBuffers": 90215615
+  },
+  "resourceUsage": {
+    "userCPUTime": 17221530,
+    "systemCPUTime": 479745,
+    "maxRSS": 1591168,
+    "sharedMemorySize": 0,
+    "unsharedDataSize": 0,
+    "unsharedStackSize": 0,
+    "minorPageFault": 316338,
+    "majorPageFault": 82,
+    "swappedOut": 0,
+    "fsRead": 0,
+    "fsWrite": 0,
+    "ipcSent": 0,
+    "ipcReceived": 4348,
+    "signalsCount": 0,
+    "voluntaryContextSwitches": 977,
+    "involuntaryContextSwitches": 23102
+  }
+}

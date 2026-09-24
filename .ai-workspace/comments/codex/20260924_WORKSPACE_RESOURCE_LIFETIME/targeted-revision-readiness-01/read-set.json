@@ -1,0 +1,170 @@
+{
+  "scope": "Source and already-retained receipts only; no journal, physical workspace, installed runtime, replay or test execution",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/AGENTS.md",
+      "bytes": 8035,
+      "sha256": "158a3f7a48e0cc21f9251a59439f81c299eb851d1d2f7a0ea06c5ba7f9a7556a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 9431,
+      "sha256": "06304989adf8e27244946493c7554ebcbd84a229e9354815f8dbcc8a5a94b26c"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/AGENTS.md",
+      "bytes": 11312,
+      "sha256": "a186502d178617742dbdab05a6a636aaaa45d5754bc1eec1aa75e6fc90c305f2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 33727,
+      "sha256": "ee198c089c4f0344ed04605a902d186c750805a78ef67cac2940957d8aabec33"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "bytes": 13957,
+      "sha256": "e84443f27e54e533a907565b84db7422657dd8b748d5753157649826a8f0d747"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "bytes": 54935,
+      "sha256": "c5d06fe9348471d2f87baf7c2bf10c071bbdf0aa3d0af831fb6053a2ca1ea5e7"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+      "bytes": 35552,
+      "sha256": "70b91e438ab58907b21b638d788fad94b5bd8f1518fdae6b293a1994903bb134"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "bytes": 54119,
+      "sha256": "b25c634590b1c08a3ff9cd840e873a38de1fa24a88b13c6eec5497515717ca93"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "bytes": 48290,
+      "sha256": "d98a36d304de9dfa54f37596beadcb8a90feea835e814cc8409d04ba2c64e829"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "bytes": 61546,
+      "sha256": "31f3d27be76e564bf632a3ce4224c423b36fe89540cfde700e51a330ea282c0e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "bytes": 13885,
+      "sha256": "ecfbb9f2c698ccc48ca7e109936760a0ef5eeb0cb3284f0d9afbd86bfbd9954a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "bytes": 18093,
+      "sha256": "be3b800281a4cbc0a787d1601b1316e22bb219a78eebd6e415ec5d6ece661a76"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "bytes": 128556,
+      "sha256": "f52a3d596e01fb7caf411ae38dcc9994e20b85df1f364cda62832b027cbf5496"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_identity.ts",
+      "bytes": 2726,
+      "sha256": "eb227972f30bb6df32efc90676a5ecc97e9665bf7d5618e38fea24d43e464512"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_revision_publication.ts",
+      "bytes": 10420,
+      "sha256": "9381e00a6dd89ac61679f920bebd4202759d864a610c4aef34dd1d631ee0d335"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/semantic_job.ts",
+      "bytes": 6433,
+      "sha256": "53f14ccfb7837abcaec76543deb816ca9989daaa7aabcc8599788173706c792e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "bytes": 10761,
+      "sha256": "5e7d8dba5a6411e4f133d2abcd5bf658074dfa091661d17ed1ae69f37589fb58"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+      "bytes": 27901,
+      "sha256": "6350893ffc1d8ab31e98f5bc2f05230046e3670d8f736e92d2bc37c61ac505db"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-continuation-declarations.mjs",
+      "bytes": 15184,
+      "sha256": "31447f63a40a22794a82f9f68eddc70cfac79169be339647e6e1ae2010c2d901"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-continuation-contracts.mjs",
+      "bytes": 13664,
+      "sha256": "98b26c5f39806e3673ebc99b1fe4b110ced7370c3f59e4384ca83e4cea37f886"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-continuation-runtime.mjs",
+      "bytes": 69250,
+      "sha256": "4718be7a9fb0cbf556b613635f78dc06223b75eeec9c9a761635394123dc9371"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/return.md",
+      "bytes": 9658,
+      "sha256": "40d4d81ef6a0db5c6e79a131aea140c14f06667cddd4a8ef50877a8bc0695a84"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/observed-metrics.json",
+      "bytes": 72832,
+      "sha256": "fe4537989c49a184f3740ecd3bfe6d2a145c0038b0c0cc2da670a5a984475efb"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-tenant-test/jobs/js-tenant-test/closed-outcome.json",
+      "bytes": 18069,
+      "sha256": "ecdb34982a1ae5e6959daf8e159a23df6a8fac2f458822dddd14d873cf7629fd"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-tenant-test/jobs/js-tenant-test/full-result-proof.json",
+      "bytes": 17763,
+      "sha256": "ac11f30110a619ed4c8b71a5a6ecd58a3a35433df0dc007c0e3e9e01e9038b68"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/rust-service/jobs/rust-service/closed-outcome.json",
+      "bytes": 15768,
+      "sha256": "e38904eb94eff7148f3e4c28eed147384b1535c68aedb3b6369ab0edb5813a07"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/rust-service/jobs/rust-service/full-result-proof.json",
+      "bytes": 21087,
+      "sha256": "ee0f3cdedf4810c2dcfe39fc8b61697fa3252d87ae023adef35f6436e4ea90f6"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/parallel-js/jobs/parallel-js/closed-outcome.json",
+      "bytes": 13658,
+      "sha256": "8678084a8b13422db320c4ad2740fbab3317c03f3d07274115544a12e123a00b"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/parallel-js/jobs/parallel-js/full-result-proof.json",
+      "bytes": 3323,
+      "sha256": "d3a5fd75d9fa7693f692010486051f136daa1ff2b75b309e8fd051a8a76ff432"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-tenant-test/jobs/js-tenant-test/read-run_result.json",
+      "bytes": 3342166,
+      "sha256": "995bc4452d31e5cc0b925fa0f402471080095a626bc8ed27cafc98fb95261d62"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/rust-service/jobs/rust-service/read-run_result.json",
+      "bytes": 3906105,
+      "sha256": "7cd341e288efeb530c73c062e99362e745a72b907af6a4fb81da7dd488e037e5"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/parallel-js/jobs/parallel-js/causal-capsule.json",
+      "bytes": 3951,
+      "sha256": "2c5cdeb66f58d11e63745e13841a70639021e8323c39f11ef65084c6a5a04fd7"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/parallel-js/jobs/parallel-js/causal-public-evidence.json",
+      "bytes": 6941,
+      "sha256": "3ad0472096490c486126cd2df025559cc14318bcc7463a87e94b6e946110363a"
+    }
+  ]
+}
