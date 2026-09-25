@@ -123,7 +123,7 @@ test("Design response refuses malformed or unavailable selections and preserves 
   assert.equal(materializeSemanticJobDesignResponse(input, declaration.stages[2].declarationRef, raw), null);
   assert.equal(semanticJobUsesDesignResponse("assessor", stage.bodyCapabilities), false);
   assert.equal(semanticJobUsesDesignResponse("author", ["worksite_design", "requirement_refinement"]), false);
-  assert.equal(semanticJobWorkerResultSchema("author", stage.bodyCapabilities).properties.kind.const, "semantic_job_asset_candidate", "revision/default schema retained");
+  assert.equal(semanticJobWorkerResultSchema("author", stage.bodyCapabilities).properties.kind.const, "semantic_job_asset_candidate", "canonical/default schema retained when no Design contract is selected");
   assert.equal(semanticJobWorkerResultSchema("assessor", stage.bodyCapabilities).properties.kind.const, "semantic_stage_assessment_candidate");
   const uncovered = structuredClone(raw); uncovered.design.targets.pop();
   const expanded = materializeSemanticJobDesignResponse(input, stage.declarationRef, uncovered); assert.ok(expanded);

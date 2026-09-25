@@ -21,13 +21,13 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 ### Current checkpoint disposition — 2026-09-26
 
-[T287 current disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md#dr01-revision-design-uses-its-exact-typed-response-domains)
-accepts the bounded lock/graph correction and core32 package. The closed core31
-continuation passed intake and Design dispatch, then timed out without a decoded
-Design result. Retained-request review selects DR01: extend the existing compact
-Design response to exact revision domains before the combined installed continuation. Preserve admitted Requirements, original
-job/oracle/root and all failed outcomes. Installed cost reduction, native correction,
-LIFE01, fifteen-family qualification and RC1 remain open.
+[T287 current disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md#accepted-core33-preserved-continuation)
+accepts the reviewed lock/graph and exact revision-domain response corrections,
+core33 package and prepared caller. After checkpoint28 push, one preserved installed
+continuation measures setup and attempts the actual declared suffix. Core31 remains
+failed at Design; preserve admitted Requirements, original job/oracle/root and all
+failed outcomes. Installed cost reduction, native correction, LIFE01, fifteen-family
+qualification and RC1 remain open.
 
 GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original
 job/S1–S5/oracle, five selected/four outside residuals and protected worksite.

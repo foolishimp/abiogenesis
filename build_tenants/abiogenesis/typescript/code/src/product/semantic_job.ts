@@ -1,4 +1,5 @@
 import { isRetainedGraphInput } from "./worksite_preparation_contracts.js";
+import { isSemanticJobRevisionEnvelope, type SemanticJobRevisionEnvelope } from "./semantic_revision.js";
 import { ABI5_PRODUCT_ID } from "./contracts.js";
 import { constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation, nativeWorkspaceAssessmentMatchesContext,
   type NativeWorkspaceWorkTask, type NativeWorkspaceWorkObservation } from "./native_workspace_work.js";
@@ -165,7 +166,7 @@ export function isSemanticJobAssetCandidate(value: unknown): value is SemanticJo
     unique(value.asset.requirementCandidates.map(c => c.candidateRef)) &&
     unique(value.bindings.map(b => b.requirement.kind + ":" + b.requirement.ref));
 }
-// Ordinary Design authors select references from the exact input-derived
+// Design authors select references from the exact ordinary or revision input-derived
 // domains. This closed transport form is never a canonical semantic candidate.
 const selection = v.pipe(nonnegative, v.maxValue(Number.MAX_SAFE_INTEGER));
 const selections = v.array(selection);
@@ -192,12 +193,16 @@ export function semanticJobUsesDesignResponse(role: "author" | "assessor", capab
 }
 /** Expand only declared reference fields; arbitrary JSON and all authored
  * meaning remain untouched. Canonical admission/assessment are separate. */
-export function materializeSemanticJobDesignResponse(envelope: SemanticJobEnvelope, stageRef: string,
+export function materializeSemanticJobDesignResponse(input: SemanticJobEnvelope | SemanticJobRevisionEnvelope, stageRef: string,
   raw: unknown): Readonly<SemanticJobAssetCandidate> | null {
   try {
+    const revision = input.kind === "semantic_revision_envelope" ? input : null;
+    if (revision !== null && !isSemanticJobRevisionEnvelope(revision)) return null;
+    const envelope = revision?.current ?? input as SemanticJobEnvelope;
     const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef);
     if (stage === undefined || !semanticJobUsesDesignResponse("author", stage.bodyCapabilities) || !isSemanticJobDesignResponse(raw)) return null;
-    const contract = projectSemanticJobActorContract(envelope, stageRef, "author");
+    const contract = projectSemanticJobActorContract(envelope, stageRef, "author", revision?.revisionBasis.retainedTerms ?? [],
+      revision?.revisionBasis.request.nativeWorksite?.commandExecutionLimits);
     const select = (index: number, domain: readonly string[]): string => {
       const value = domain[index];
       if (value === undefined) throw new TypeError("Design reference selection outside exact domain");

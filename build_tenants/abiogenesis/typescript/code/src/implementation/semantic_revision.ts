@@ -11,6 +11,7 @@ import { projectSemanticRevision, semanticRevisionInputMatchesBasis, projectRevi
 import { deriveRevisionAsset, deriveRevisionAssessment, isSemanticRevisionEnvelope,
   isSemanticJobRevisionEnvelope, deriveJobRevisionAsset, deriveJobRevisionAssessment } from "../product/semantic_revision.js";
 import type { SemanticActorSource } from "../product/semantic_stage.js";
+import { materializeSemanticJobDesignResponse, semanticJobUsesDesignResponse } from "../product/semantic_job.js";
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, ABI5_PRODUCT_ID } from "../product/contracts.js";
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
 import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation } from "./contracts.js";
@@ -60,9 +61,11 @@ function actor(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<
         o.actorRef !== old.workerActorRef || o.workerBindingRef !== old.workerBindingRef || o.transportLane !== "closed_prompt_proof") return result(input, null, owner.call.implementationRef!, false);
       try {
         const raw = JSON.parse(o.finalOutput) as unknown;
+        const candidate = isSemanticJobRevisionEnvelope(input) && semanticJobUsesDesignResponse(role, stage.bodyCapabilities)
+          ? materializeSemanticJobDesignResponse(input, stage.declarationRef, raw) : raw;
         const source: SemanticActorSource = { cCallRef: occurrence.cCallRef, inputDigest: owner.inputDigest,
           actorInvocationRef: o.actorInvocationRef, promptDigest: o.promptDigest, transportDigest: o.transportDigest };
-        return result(input, isSemanticJobRevisionEnvelope(input) ? role === "author" ? deriveJobRevisionAsset(input, stage.declarationRef, raw, source)
+        return result(input, isSemanticJobRevisionEnvelope(input) ? role === "author" ? deriveJobRevisionAsset(input, stage.declarationRef, candidate, source)
           : deriveJobRevisionAssessment(input, stage.declarationRef, raw, source) : role === "author" ? deriveRevisionAsset(input, stage.declarationRef, raw, source)
           : deriveRevisionAssessment(input, stage.declarationRef, raw, source), owner.call.implementationRef!, false);
       } catch { return result(input, null, owner.call.implementationRef!, false); }

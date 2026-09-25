@@ -525,6 +525,75 @@ test('actual derived revision successor shares complete typed assets under the u
   const assemble=()=>componentOwner.evaluateNativeInstructionAssembly(basis,supplied);
   const before=hash(input),assembly=assemble();assert.equal(assembly.kind,'native_instruction_assembly');assert.equal(hash(input),before);
   const sections=assembly.envelope.sections;
+  // DR01: use the real rendered revision domain at the actual completion
+  // seam. Prefix/role authentication remains the disclosed premise above;
+  // neither this complete component response nor the old partial provider
+  // response is admitted runtime evidence.
+  const contract=sections.role.actorContract,ordinary=job.projectSemanticJobActorContract(input.current,stage.declarationRef,'author');
+  assert.equal(contract.requirementRefs.length,29);assert.equal(ordinary.requirementRefs.length,15);
+  assert.equal(contract.requirementRefs[14],'requirement://abiogenesis/semantic-job/6cec93b453f2df9b331e5908febb36e581998805218c49fab406ce4e9370a287');
+  assert.equal(ordinary.requirementRefs[14],'requirement://abiogenesis/semantic-job/db07c18d91f1dcee127290132e58619874224e0edc21af9af0b29245818242ff');
+  const retainedPrompt=process.env.ABI5_NATIVE_D2_DESIGN_RESPONSE_PROMPT;
+  if(retainedPrompt){
+    const bytes=fs.readFileSync(retainedPrompt);assert.equal(sha256Bytes(bytes),'sha256:6b3e7830ec5a8b06d126d36daf73ee22869cda649ce76871c210a127c0a6332d');
+    const parts=bytes.toString('utf8').split(/^## (\w+)\n/m),actual=Object.fromEntries(Array.from({length:(parts.length-1)/2},(_,i)=>[parts[i*2+1],JSON.parse(parts[i*2+2])]));
+    assert.equal(hash(contract),hash(actual.role.actorContract),'same complete contract as the retained failed core31 Design request');
+  }
+  assert.equal(assembly.request.responseJsonSchema.properties.kind.const,'semantic_job_design_response');
+  const {default:Ajv}=await import('ajv'),validate=new Ajv({strict:false}).compile(assembly.request.responseJsonSchema);
+  const indices=rows=>rows.map((_,i)=>i).reverse(),cap=input.current.job.worksiteScope.executableCapabilities[0];
+  const path=name=>input.current.job.worksiteScope.writeRoots[0]==='.'?name:input.current.job.worksiteScope.writeRoots[0]+'/'+name;
+  const opaque={requirementRefs:[0,'literal'],bindingVersionRefs:[900],sourceQuotes:[{memberRef:900,quote:'not a source quote'}],
+    kind:'semantic_revision_envelope',base64:'YQ==',payload:'literal',encoding:'base64',evaluationData:{untouched:true}};
+  const response={kind:'semantic_job_design_response',schemaVersion:'5.0.0',bindings:[],asset:{kind:'semantic_stage_asset_candidate',schemaVersion:'5.0.0',
+    statements:[{statementRef:'component:revision-design-statement',text:'Preserve authored prose, quotes and ordered choices.',modality:'supporting',
+      sourceQuotes:[{memberRef:0,quote:Buffer.from(input.current.job.members[0].base64,'base64').toString('utf8')}],
+      requirementRefs:[14,...indices(contract.requirementRefs).filter(i=>i!==14)],obligationRefs:indices(contract.obligationRefs),predecessorStatementRefs:indices(contract.predecessorStatementRefs)}],
+    requirementCandidates:[],worksiteDesign:null,pressure:[{pressureRef:'component:revision-pressure',text:'Retain every version without claiming it satisfied.',requirementRefs:indices(contract.requirementRefs),disposition:'unassessed'}]},
+    design:{targets:['implementation','verifier'].map(role=>({relativePath:path(role+'.mjs'),role,obligationRefs:indices(contract.obligationRefs),bindingVersionRefs:indices(contract.design.active),changeInstruction:'Retain the exact selected meanings.'})),
+      dependencyPaths:[],dependencyDisposition:'sufficient',commands:[{commandId:'component:check',executable:cap.executable,args:['requirementRefs','0'],relativeCwd:cap.relativeCwdRoots[0],environment:{},timeoutMs:100,terminationGraceMs:1,expectedReports:[]}],
+      outcomePredicates:[{predicateId:'component:opaque',predicateKind:'module_export_return_exact',declaration:{path:path('implementation.mjs'),export:'inspect',equals:opaque}}]}};
+  assert.equal(validate(response),true,JSON.stringify(validate.errors));
+  const canonical=structuredClone(response);canonical.kind='semantic_job_asset_candidate';
+  for(const s of canonical.asset.statements){s.requirementRefs=s.requirementRefs.map(i=>contract.requirementRefs[i]);s.obligationRefs=s.obligationRefs.map(i=>contract.obligationRefs[i]);s.predecessorStatementRefs=s.predecessorStatementRefs.map(i=>contract.predecessorStatementRefs[i]);for(const q of s.sourceQuotes)q.memberRef=contract.sourceMemberRefs[q.memberRef];}
+  for(const p of canonical.asset.pressure)p.requirementRefs=p.requirementRefs.map(i=>contract.requirementRefs[i]);
+  for(const target of canonical.design.targets){target.obligationRefs=target.obligationRefs.map(i=>contract.obligationRefs[i]);target.bindingVersionRefs=target.bindingVersionRefs.map(i=>contract.design.active[i].versionRef);}
+  const expanded=job.materializeSemanticJobDesignResponse(input,stage.declarationRef,response);
+  assert.equal(canonicalJson(expanded),canonicalJson(canonical),'all typed identities/order and opaque data round-trip byte-identically');
+  assert.deepEqual(expanded.design.outcomePredicates[0].declaration.equals,opaque);
+  assert.equal(job.materializeSemanticJobDesignResponse(input.current,stage.declarationRef,response),null,'ordinary 15-entry domain cannot consume this 29-entry revision response');
+  assert.equal(canonical.asset.statements[0].requirementRefs[0],contract.requirementRefs[14]);
+  assert(canonical.asset.pressure[0].requirementRefs.some(ref=>!ordinary.requirementRefs.includes(ref)),'retained-only choices remain available');
+  const impl=await component('implementation/semantic_revision',{'../abg/semantic_job.js':{authenticateSemanticJobBasis:()=>owner}});
+  const prepared=impl.realizeSemanticRevisionAuthor(input,{semanticStageBasis:basis,cCallRef:call.cCallRef},()=>assembly);
+  const observation={disposition:'success',promptDigest:assembly.manifest.promptDigest,toolCallCount:0,inputDigest:owner.inputDigest,implementationRef:call.implementationRef,
+    actorRef:S.workerActorRef,workerBindingRef:S.workerBindingRef,transportLane:'closed_prompt_proof',actorInvocationRef:'component:revision-author',transportDigest:hash('component:revision-transport'),finalOutput:JSON.stringify(response)};
+  const complete=(raw=response,o={})=>prepared.complete({request:assembly.request,observation:{...observation,finalOutput:JSON.stringify(raw),...o}});
+  const completed=complete();assert.equal(completed.disposition,'success');
+  const provenance={cCallRef:call.cCallRef,inputDigest:owner.inputDigest,actorInvocationRef:observation.actorInvocationRef,promptDigest:observation.promptDigest,transportDigest:observation.transportDigest};
+  assert.equal(hash(completed.resultCandidate),hash(revision.deriveJobRevisionAsset(input,stage.declarationRef,canonical,provenance)));
+  assert.equal(hash(completed.resultCandidate.current.assets.slice(0,-1)),hash(input.current.assets));
+  assert.equal(completed.resultCandidate.current.assets.at(-1).assessment,null,'independent assessment remains required');
+  assert.deepEqual(completed.resultCandidate.current.assets.at(-1).candidate,canonical);
+  assert.equal(complete(canonical).disposition,'failure','no raw canonical fallback for the selected typed transport');
+  assert.equal(complete(response,{disposition:'failure'}).disposition,'failure','failed provider output is never salvaged');
+  assert.equal(complete(response,{finalOutput:'{"kind":'}).disposition,'failure','partial JSON is never salvaged');
+  for(const key of ['promptDigest','inputDigest','implementationRef','actorRef','workerBindingRef','transportLane'])assert.equal(complete(response,{[key]:'wrong:'+key}).disposition,'failure',key);
+  assert.equal(prepared.complete({request:{...assembly.request,inputDigest:hash('wrong-input')},observation}).disposition,'failure');
+  for(const mutate of [
+    r=>{r.asset.statements[0].requirementRefs=[29];},r=>{r.asset.pressure[0].requirementRefs=[29];},
+    r=>{r.asset.statements[0].obligationRefs=[contract.obligationRefs.length];},r=>{r.asset.statements[0].predecessorStatementRefs=[contract.predecessorStatementRefs.length];},
+    r=>{r.asset.statements[0].sourceQuotes[0].memberRef=contract.sourceMemberRefs.length;},r=>{r.design.targets[0].bindingVersionRefs=[contract.design.active.length];},
+    ...[-1,0.5,'14',null].map(value=>r=>{r.asset.statements[0].requirementRefs=[value];}),r=>{r.extra=true;},
+  ]){const bad=structuredClone(response);mutate(bad);assert.equal(job.materializeSemanticJobDesignResponse(input,stage.declarationRef,bad),null);assert.equal(complete(bad).disposition,'failure');}
+  const malformed={...input,revisionBasis:{...input.revisionBasis,basisDigest:hash('wrong-revision')}};
+  assert.equal(job.materializeSemanticJobDesignResponse(malformed,stage.declarationRef,response),null);
+  assert.equal(job.materializeSemanticJobDesignResponse(input,input.current.declaration.stages[2].declarationRef,response),null);
+  const uncovered=structuredClone(response);uncovered.design.targets.pop();
+  assert(job.materializeSemanticJobDesignResponse(input,stage.declarationRef,uncovered));assert.equal(complete(uncovered).disposition,'failure','materialization does not waive canonical coverage');
+  assert.equal(hash(input),before,'completion preserves the exact input');
+  t.diagnostic(JSON.stringify({scope:'DR01 component completion, upstream admission/role premises supplied; no failed-output reuse',revisionRequirementDomain:contract.requirementRefs.length,ordinaryRequirementDomain:ordinary.requirementRefs.length,
+    exactRetainedPromptContractCompared:Boolean(retainedPrompt),typedResponseBytes:Buffer.byteLength(canonicalJson(response)),canonicalResponseBytes:Buffer.byteLength(canonicalJson(canonical))}));
   assert.deepEqual(sections.task.historicalAssets,input.revisionBasis.historicalAssets);
   assert.deepEqual(sections.task.revisionContext.historicalAssets,{presentationRef:'#/task/historicalAssets',materialDigest:hash(input.revisionBasis.historicalAssets)});
   const versions=sections.task.historicalAssets.filter(a=>a.stageRef===input.current.assets.at(-1).stageRef);

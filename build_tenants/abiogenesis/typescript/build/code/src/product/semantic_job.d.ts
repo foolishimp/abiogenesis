@@ -1,3 +1,4 @@
+import { type SemanticJobRevisionEnvelope } from "./semantic_revision.js";
 import { type NativeWorkspaceWorkTask, type NativeWorkspaceWorkObservation } from "./native_workspace_work.js";
 import { type NativeWorksiteCommandExecutionTask } from "./worksite_command_execution.js";
 import * as v from "valibot";
@@ -234,7 +235,7 @@ export declare function isSemanticJobDesignResponse(value: unknown): value is v.
 export declare function semanticJobUsesDesignResponse(role: "author" | "assessor", capabilities: readonly string[]): boolean;
 /** Expand only declared reference fields; arbitrary JSON and all authored
  * meaning remain untouched. Canonical admission/assessment are separate. */
-export declare function materializeSemanticJobDesignResponse(envelope: SemanticJobEnvelope, stageRef: string, raw: unknown): Readonly<SemanticJobAssetCandidate> | null;
+export declare function materializeSemanticJobDesignResponse(input: SemanticJobEnvelope | SemanticJobRevisionEnvelope, stageRef: string, raw: unknown): Readonly<SemanticJobAssetCandidate> | null;
 export interface SemanticJobAsset {
     readonly assetRef: string;
     readonly assetDigest: Sha256Digest;

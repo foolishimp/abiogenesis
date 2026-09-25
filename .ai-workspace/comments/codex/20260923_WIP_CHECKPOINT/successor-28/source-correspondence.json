@@ -1,0 +1,88 @@
+{
+  "subjectSha256": "915f5668a638690433de3de1d7270439aca6169a55d5f8d3f65f30e319341591",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "sha256": "cf58447a94c95875d475c89ab38f4d26c4042648c32853ba2971324ca642a002",
+      "changed": true,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "sha256": "f955ce6c36403709ea73dd447e3937a30bdf8ee1d78608b6effe833ee85482d3",
+      "changed": true,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "e45c1a74ad761d55c2fd4089cb38d7eb5bb1ff35e29e8c06011280ecc4711649",
+      "changed": true,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "sha256": "5ad7b666282327568624ae8d371169636c82a3c739e7970f0e0fb87c381f1384",
+      "changed": true,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+      "sha256": "830bc0643e233ec268f6d7234990d1705ef26d5b709c4f10c2243afa82a3c0a7",
+      "changed": true,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "sha256": "6fcb02789ec0d5d05a303ad16697db7d255706d80edd4f902d8250dac3645b76",
+      "changed": true,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js",
+      "sha256": "0fb18d4662143abd28dc15acd43f2e3e3c9be0233b4fbab0ebf20e827f67cae7",
+      "changed": true,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.d.ts",
+      "sha256": "6cd62b9d4978127328ce3614fc4ce8276f06213fa0bbd8c33ae4042e39d0cc92",
+      "changed": true,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "sha256": "de6d482fdcfd0951cbe728c50787826d569730fb68648de425974e4746734127",
+      "changed": true,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+      "sha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+      "changed": false,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.js",
+      "sha256": "93d7933e7f0f133a1bce7e6ead260e5b9170bd325ce4a111148ddc0f11052c50",
+      "changed": true,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.d.ts",
+      "sha256": "fe2d9dea45ab616e630b820f0b065eecc9b2f08015a9ca4d3502b83ef43ca669",
+      "changed": false,
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "de477a32269a9c4874cca2da8056249c500f70ef337e984bbe1b56b248400734",
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "c371fcea1fcb64e87f3b0231bcb23c8f37f1be92df5a6ae93c979a01e4ccc056",
+      "representation": "direct Git"
+    }
+  ],
+  "allExact": true
+}

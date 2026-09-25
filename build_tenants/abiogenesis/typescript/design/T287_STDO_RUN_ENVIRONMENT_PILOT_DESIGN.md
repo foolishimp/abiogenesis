@@ -264,14 +264,18 @@ The contract exposes at least:
   empty citation lists are lawful where no statement is cited. No author
   evaluationData, expected disposition or oracle reaches the candidate writer.
 
-The ordinary Design author (sole `worksite_design` capability, no revision)
-returns the closed `semantic_job_design_response` transport form. Only its
+The Design author (sole `worksite_design` capability), ordinary or authenticated
+revision, returns the closed `semantic_job_design_response` transport form. Only its
 typed reference fields use zero-based integer selections: statement/pressure
 requirement refs select `actorContract.requirementRefs`; statement/target
 obligation refs select `obligationRefs`; predecessor statement refs select
 `predecessorStatementRefs`; quote member refs select `sourceMemberRefs`; target
 binding versions select `design.active` by `versionRef`. These ordered domains
-are bound to the exact admitted input and actor-contract identity. Empty
+are bound to the exact admitted input and actor-contract identity. For a revision,
+rendering and expansion use its current envelope, expressly retained terms and
+current command limits through the same actor-contract projection; the ordinary
+current-only domain cannot substitute for that revision domain. The Product
+materializer accepts the declared envelope, never a caller-supplied domain. Empty
 domains require empty reference arrays; malformed or out-of-range selections
 are refused. The author retains every reference choice and its order.
 
@@ -284,7 +288,7 @@ binding proposals remain empty for this Design-only form. No target, coverage
 choice, disposition or semantic meaning is inferred. Raw response structural
 validation is distinct from input-bound expansion and canonical admission.
 Independent assessors receive the complete canonical candidate. Other stages,
-assessors and revisions retain their existing raw forms; historical canonical
+assessors and legacy non-job revisions retain their existing raw forms; historical canonical
 candidates, Public output and replay relations remain unchanged. Native
 transport failure cannot be salvaged through this materializer.
 

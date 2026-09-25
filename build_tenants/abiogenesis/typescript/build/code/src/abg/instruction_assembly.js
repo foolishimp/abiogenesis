@@ -416,7 +416,7 @@ function constructJobInstructionAssembly(basis, supplied, readPhysical) {
     if (stdo === false || stdo !== null && selectedNativeContextRole(basis, owner.call.programLocusRef) !== owner.role)
         return assemblyRefusal("unavailable_required_content", stage.assembly.ruleRef, owner.role, [owner.execution.invocationAdmissionRef]);
     const contract = projectSemanticJobActorContract(input, stage.declarationRef, owner.role, revision?.revisionBasis.retainedTerms ?? [], revision?.revisionBasis.request.nativeWorksite?.commandExecutionLimits);
-    const designResponse = revision === null && semanticJobUsesDesignResponse(owner.role, stage.bodyCapabilities);
+    const designResponse = semanticJobUsesDesignResponse(owner.role, stage.bodyCapabilities);
     const schema = semanticJobWorkerResultSchema(owner.role, stage.bodyCapabilities, designResponse ? contract : undefined);
     const context = projectSemanticJobActorContext(input, stage.declarationRef, owner.role);
     const promptContext = projectSemanticJobPromptContext(input, context);

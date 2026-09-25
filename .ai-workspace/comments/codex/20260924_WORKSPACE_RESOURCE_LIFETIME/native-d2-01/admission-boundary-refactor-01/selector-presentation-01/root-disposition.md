@@ -551,3 +551,71 @@ remains separately pending. Root resumes Executive. After the affected review,
 select a combined package and one preserved installed continuation, with a single
 CPU profile around its already-needed setup to distinguish remaining local work.
 There is no retry on unchanged machinery or implicit native grant here.
+
+## DR01 frozen review and combined preparation
+
+Root receives DR01 [closed source](author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/return.md)
+`945205549ab9e77f5391f256f1c8241917b921d078f27c282d8d8e9b06e85de3`,
+subject `915f5668a638690433de3de1d7270439aca6169a55d5f8d3f65f30e319341591`.
+Select one affected max review and separable core33 package/caller preparation
+over this frozen subject. Preparation may overlap review; acceptance and execution
+still require their closed conjunction. Reuse the successful compile and unchanged
+dev15; preserve the lock/graph repair, original failed source and admitted stages.
+Use the existing caller and exact latest terminal cut, retaining the previous
+valid source-root read. Prepare one setup-only V8 CPU profile for the already-needed
+setup process, with ordinary phase wall/CPU/RSS observations; no permanent runtime
+instrumentation or extra benchmark. No Public setup or native/provider effects
+until Root selects the exact prepared caller after review.
+
+Root activates Writer solely for this dependency clarification and current ticket
+projection, then resumes Executive. Checkpoint27 is pushed at ABG02e70138 and
+GLC96aed6d; pending DR01 source is explicitly outside it.
+
+## DR01 source acceptance
+
+Root accepts DR01 subject `915f5668a638690433de3de1d7270439aca6169a55d5f8d3f65f30e319341591`
+and [independent review](author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/review-01/review.md)
+`b5b1b3b385dcd97c21e3ba7be2c88dbcd455bfabc13eccbc9d74b8a946d60805`.
+The narrow HOW and source correction preserve exact revision-domain meaning,
+canonical admission, opaque authored values, transport refusal and independent
+assessment. No supported source blocker remains; the compiled component proof is
+bounded and all accepted lock/graph members remain exact. Core33 package/caller
+preparation continues; installed timing, native completion and release stay open.
+
+Root activates Writer for checkpoint28 of this accepted source/HOW, independent
+review and the closed core33 package/caller once returned, plus exact generated
+metadata and paired current tracking. Reuse valid verification and incremental
+transport, exclude original journals/dependencies/named full-state snapshots, and
+commit/push scoped paths without rerunning checks. This preservation grant does
+not itself launch the prepared caller. Root resumes Executive after each bounded
+write; execution requires the explicit closed-return conjunction below.
+
+## Accepted core33 preserved continuation
+
+Root conjoins accepted DR01 HOW/source and independent review with
+[core33 package](../../../../20260923_COMPOSITE_READINESS/compiled-33/return.md)
+`332a8d8cf79aea9b76754d64eb27b57c258e724a85f8301b43c1053902a17e98`
+and [prepared caller](author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/revision-design-response-01/caller-preparation-01/return.md)
+`96bd6d36fcbcf061e7fea9088a84e1d92e823d45ec9f33ee1820afe53684f59c`.
+Archive `f9fc2c4aade3e87db326f6e20bd3af5c4da2170ba205a14e2eaca1b9555a2222`,
+content `85a5074f4a675fcf86ba62e3e582c57a94993ebf89f4590f7313e3b7261bc771`,
+manifest `e02bbac0c5d9b72cc798c63138a6e0845ea84e382664db3e393d89d478366faa`
+and all5,233 members correspond. Caller subject
+`ec0340cf5e615946fd54618140ae27b6b379006ec881e015ff47d21a769a1b2b`
+preserves original sourceRun74ac and current cut283,768,726B/6d14d89e….
+
+After checkpoint28 push, select exactly this prepared ordinary setup with its
+one setup-only CPU profile, retained valid source-root receipt reuse, genuine new
+binding witness, one native intake and its actually admitted declared whole suffix.
+Keep dev15, original source/oracle/job/worksite, accepted Requirements and failed
+history. No partial Design salvage or transferred old request. Opus5.5/xhigh,
+$5 per occurrence,300s idle/900s actor/1s grace,90min native/10min readback,
+default heap, explicit live enable and no retry remain. HoG owns progression;
+fresh terminal Result/replay and necessary first-cause evidence own disposition.
+Stop and return at an actual refusal. Worker should report completed setup
+wall/user/system CPU/RSS and profile location while the ordinary next phase
+continues; profiling itself is disclosed when comparing observations.
+
+This Writer activation projects the selection into paired tickets/goals and
+checkpoints exact accepted material only. Root resumes Executive after the push;
+timing improvement, native correction, qualification and RC1 remain unproved.

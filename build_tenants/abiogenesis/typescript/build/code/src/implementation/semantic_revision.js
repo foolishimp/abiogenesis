@@ -7,6 +7,7 @@ import { authenticateSemanticStageBasis } from "../abg/semantic_stage.js";
 import { authenticateSemanticJobBasis } from "../abg/semantic_job.js";
 import { projectSemanticRevision, semanticRevisionInputMatchesBasis, projectRevisionWorksitePreparation, projectRevisionEvidenceInput, semanticRevisionSelectionMatchesBasis, prepareNativeSemanticRevisionIntake, projectNativeSemanticRevisionRequest, projectNativeRevisionConstructionTask, projectNativeRevisionExecutionTask, projectNativeRevisionEvidence, projectSemanticJobRevision, semanticJobRevisionInputMatchesBasis, projectJobRevisionPreparation, jobRevisionSelectionMatchesBasis } from "../abg/semantic_revision.js";
 import { deriveRevisionAsset, deriveRevisionAssessment, isSemanticRevisionEnvelope, isSemanticJobRevisionEnvelope, deriveJobRevisionAsset, deriveJobRevisionAssessment } from "../product/semantic_revision.js";
+import { materializeSemanticJobDesignResponse, semanticJobUsesDesignResponse } from "../product/semantic_job.js";
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, ABI5_PRODUCT_ID } from "../product/contracts.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -53,9 +54,11 @@ function actor(input, occurrence, role, prepareAssembly) {
                 return result(input, null, owner.call.implementationRef, false);
             try {
                 const raw = JSON.parse(o.finalOutput);
+                const candidate = isSemanticJobRevisionEnvelope(input) && semanticJobUsesDesignResponse(role, stage.bodyCapabilities)
+                    ? materializeSemanticJobDesignResponse(input, stage.declarationRef, raw) : raw;
                 const source = { cCallRef: occurrence.cCallRef, inputDigest: owner.inputDigest,
                     actorInvocationRef: o.actorInvocationRef, promptDigest: o.promptDigest, transportDigest: o.transportDigest };
-                return result(input, isSemanticJobRevisionEnvelope(input) ? role === "author" ? deriveJobRevisionAsset(input, stage.declarationRef, raw, source)
+                return result(input, isSemanticJobRevisionEnvelope(input) ? role === "author" ? deriveJobRevisionAsset(input, stage.declarationRef, candidate, source)
                     : deriveJobRevisionAssessment(input, stage.declarationRef, raw, source) : role === "author" ? deriveRevisionAsset(input, stage.declarationRef, raw, source)
                     : deriveRevisionAssessment(input, stage.declarationRef, raw, source), owner.call.implementationRef, false);
             }

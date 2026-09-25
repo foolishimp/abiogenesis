@@ -1,0 +1,8 @@
+{
+  "memberCount": 95,
+  "originalBytes": 13763923,
+  "transportBytes": 10971695,
+  "allReconstructionVerificationsPassed": true,
+  "credentialShapeFindingCount": 0,
+  "scope": "Accepted DR01 HOW/source, review, core33 package/caller. Native continuation selected after push; unexecuted at checkpoint."
+}
