@@ -102,6 +102,16 @@ export function constructCatalogProgramValidationInput(
       message: "Program validation input requires one Product-resolved declaration closure",
     } as RawAdmissionRefusal;
   }
+  return constructProgramValidationInputFromResolvedClosure(declarationClosure, program);
+}
+
+/** Internal continuation of the Product closure owner. Raw callers use the
+ * catalog wrapper above; this consumes its actual resolved value and retains
+ * declaration admission and subsequent Program validation. */
+export function constructProgramValidationInputFromResolvedClosure(
+  declarationClosure: ResolvedProgramDeclarationClosure,
+  program: Readonly<GtlProgram>,
+): ProgramValidationInput | RawAdmissionRefusal {
   const declarationPublications = declarationClosure.publications;
   const graphFunctionRefs = new Set(
     declarationClosure.graphFunctionOwners.map((owner) => owner.declarationRef),

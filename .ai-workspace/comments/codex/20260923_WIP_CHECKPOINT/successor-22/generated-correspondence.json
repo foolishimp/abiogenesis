@@ -1,0 +1,25 @@
+{
+  "status": "frozen construction correspondence retained",
+  "members": [
+    {
+      "path": "build/code/src/abg/semantic_revision.js",
+      "sha256": "9f1470afa613ed2a06c55560975fd47ece68e15d07852208b597003383983d93"
+    },
+    {
+      "path": "build/code/src/product/execution_resolution.js",
+      "sha256": "6d423393b196b77db235b718f0a6890b4bde3d4100452d6479ff49e643231df0"
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "sha256": "04f78c3b8cd5573581998911b737f2ece489f4d3b194847233e744749f898bfc"
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "sha256": "8bb21242cd83374b5c2b56bd0d1a39fe409059b1f2cedbf9a45d839ab9ba17f3"
+    }
+  ],
+  "archives": [
+    "compiled-24",
+    "compiled-25"
+  ]
+}

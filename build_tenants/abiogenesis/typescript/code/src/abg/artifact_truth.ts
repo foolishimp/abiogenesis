@@ -20,6 +20,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { isExactOperationInvocationCoordinate } from "../shared/operation_definition_coordinate.js";
 import {
   constructRuntimeFluent,
+  eventCalculusEffect,
   runtimeEventCalculusEffectsByKind,
   runtimeFluentHoldsAtPrefix,
   type RuntimeEventCalculusEffectRow,
@@ -38,6 +39,7 @@ import {
   runtimeEventsFromValidatedPrefix,
   runtimePrefixComputation,
   selectValidatedRuntimeEventPrefix,
+  validateRuntimeEventPrefixExtension,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 
@@ -187,17 +189,29 @@ function assertsArtifactAvailabilityEffect(
  * The installed authority surface remains projectExactPrefixArtifactTruth.
  */
 const ARTIFACT_FACTS = Symbol("ordered_artifact_facts");
+interface AdmittedInstallFact {
+  readonly install: ProductInstall;
+  readonly resolvedLock: ResolvedProductLock;
+  readonly embeddedLock: boolean;
+  readonly admissionEventDigest: Sha256Digest;
+}
 class RuntimeArtifactFacts {
   readonly artifacts: FoldedArtifactTruthRow[] = [];
   readonly exactProjections = new Map<string, ExactPrefixArtifactTruthProjection>();
-  readonly admittedInstalls = new Map<string, Readonly<{
-    install: ProductInstall;
-    resolvedLock: ResolvedProductLock;
-    embeddedLock: boolean;
-    admissionEventDigest: Sha256Digest;
-  }>>();
+  readonly admittedInstalls = new Map<string, AdmittedInstallFact>();
   advance(artifactRows: readonly RuntimeEventCalculusEffectRow[]): void {
     for (const row of artifactRows.slice(this.artifacts.length)) {
+      const prepared = this.prepare(row);
+      if (prepared.install !== undefined) this.admittedInstalls.set(row.sourceEvent.eventId, prepared.install);
+      this.artifacts.push(prepared.artifact);
+    }
+  }
+  /** Shared cold/live relation, with no mutation until the complete row passes. */
+  prepare(row: RuntimeEventCalculusEffectRow): Readonly<{
+    artifact: FoldedArtifactTruthRow;
+    install: AdmittedInstallFact | undefined;
+  }> {
+    let admittedInstall: AdmittedInstallFact | undefined;
     const payload = recordPayload(row);
     const authorityScopeRef = requiredString(payload, "authorityScopeRef");
     assertsArtifactAvailabilityEffect(row, authorityScopeRef);
@@ -331,7 +345,7 @@ class RuntimeArtifactFacts {
         );
       }
       const { kind: _kind, disposition: _disposition, ...body } = candidate;
-      this.admittedInstalls.set(event.eventId, deepFreeze({
+      admittedInstall = deepFreeze({
         install: {
           kind: "product_install" as const,
           disposition: "admitted" as const,
@@ -341,7 +355,7 @@ class RuntimeArtifactFacts {
         resolvedLock,
         embeddedLock: event.causationEventRefs.length === 0,
         admissionEventDigest: event.payloadDigest,
-      }));
+      });
     } else if (operationId === "abg.operation.release.snapshot") {
       if (!isReleaseOperationArtifact(artifact) || payload.resolvedLock !== undefined || payload.workspaceAuthorityBasis !== undefined ||
           canonicalJson(artifact.invocation as unknown as JsonValue) !== canonicalJson({operationId,memberKey,definitionDigest,invocationRef,invocationPayloadDigest,invocationDigest}) ||
@@ -428,7 +442,7 @@ class RuntimeArtifactFacts {
         );
       }
     }
-    this.artifacts.push(deepFreeze({
+    return { install: admittedInstall, artifact: deepFreeze({
       operationId,
       memberKey,
       definitionDigest,
@@ -447,8 +461,7 @@ class RuntimeArtifactFacts {
       admissionOrdinal: event.admissionOrdinal,
       causationEventRefs: [...event.causationEventRefs],
       ownerAdmittedDisposition: "admitted" as const,
-    }));
-  }
+    }) };
   }
 }
 
@@ -462,6 +475,14 @@ export function projectArtifactTruth(prefix: ValidatedRuntimeEventPrefix): Artif
       throw new TypeError("artifact admission history disagrees with scoped Event Calculus availability");
   }
 
+  assertUniqueArtifactTruth(artifacts);
+  return deepFreeze({
+    kind: "artifact_truth_projection" as const,
+    artifacts,
+  });
+}
+
+function assertUniqueArtifactTruth(artifacts: FoldedArtifactTruthRow[]): void {
   artifacts.sort((left, right) =>
     left.authorityScopeRef < right.authorityScopeRef
       ? -1
@@ -521,10 +542,23 @@ export function projectArtifactTruth(prefix: ValidatedRuntimeEventPrefix): Artif
     }
   }
 
-  return deepFreeze({
-    kind: "artifact_truth_projection" as const,
-    artifacts,
-  });
+}
+
+/** Speculation borrows the actual predecessor's checked facts. It never lends
+ * candidate rows to the live prefix or creates another history derivation. */
+export function validateArtifactTruthCandidate(
+  predecessor: ExactPrefixArtifactTruthProjection,
+  event: RuntimeEvent,
+): void {
+  const prefix = runtimePrefixFromArtifactTruth(predecessor);
+  if (prefix === null) throw new TypeError("artifact candidate requires its owner-derived predecessor");
+  if (event.kind !== "public_operation_artifact_admitted") throw new TypeError("artifact candidate requires an artifact event");
+  validateRuntimeEventPrefixExtension(prefix, event);
+  const facts = runtimePrefixComputation(prefix, ARTIFACT_FACTS, () => new RuntimeArtifactFacts());
+  const prepared = facts.prepare({ kind: "event_calculus_effect_row", eventKind: event.kind,
+    sourceEvent: event, ...eventCalculusEffect(event) });
+  const artifacts = facts.artifacts.filter(row => row.admissionOrdinal <= predecessor.lastAdmissionOrdinal);
+  assertUniqueArtifactTruth([...artifacts, prepared.artifact]);
 }
 
 function refusal(

@@ -1708,16 +1708,29 @@ interface AdmittedProbabilisticTransportProjection {
   readonly stableFailureSource: Readonly<Record<string, JsonValue>> | null;
 }
 
-function projectAdmittedProbabilisticTransport(
+/** Internal same-call-chain owner projection, not a serialized admission input. */
+export interface AdmittedActorTransportProjection {
+  readonly kind: "admitted_actor_transport_projection";
+  readonly prefixDigest: Sha256Digest;
+  readonly cCallRef: string;
+  readonly sourceDigest: Sha256Digest;
+  readonly actorTerminalEventRef: string;
+  readonly failureClass: WorkerTransportFailureClass | null;
+  readonly nativeResultAssessment: NativeWorkerResultAssessment | null;
+}
+
+function actorTransportSourceDigest(source: Readonly<Record<string, JsonValue>>): Sha256Digest {
+  const { kind: _kind, schemaVersion: _schema, candidateRef: _candidateRef,
+    candidateDigest: _candidateDigest, outputDigest: _outputDigest, ...transport } = source;
+  return sha256Canonical(transport);
+}
+
+function projectAdmittedActorTransport(
   prefix: ValidatedRuntimeEventPrefix,
   cCallRef: string,
   source: Readonly<Record<string, JsonValue>>,
-): AdmittedProbabilisticTransportProjection | null {
+): AdmittedActorTransportProjection | null {
   if (
-    (source.candidateRef !== null &&
-      typeof source.candidateRef !== "string") ||
-    (source.candidateDigest !== null &&
-      typeof source.candidateDigest !== "string") ||
     typeof source.requestRef !== "string" ||
     typeof source.requestDigest !== "string" ||
     typeof source.rawOutputDigest !== "string" ||
@@ -1727,7 +1740,6 @@ function projectAdmittedProbabilisticTransport(
     typeof source.implementationRef !== "string" ||
     typeof source.inputDigest !== "string" ||
     typeof source.observedOutputDigest !== "string" ||
-    typeof source.outputDigest !== "string" ||
     typeof source.processRef !== "string" ||
     typeof source.transportBindingRef !== "string" ||
     typeof source.transportBindingDigest !== "string" ||
@@ -1766,11 +1778,6 @@ function projectAdmittedProbabilisticTransport(
   ) return null;
   if (
     source.timedOut !== (source.timeoutClass !== null) ||
-    ((source.candidateRef === null) !== (source.candidateDigest === null)) ||
-    (source.candidateDigest !== null &&
-      (!isSha256Digest(source.candidateDigest) ||
-        source.candidateRef !==
-          `probabilistic-result-candidate://abiogenesis/${source.candidateDigest.slice("sha256:".length)}`)) ||
     !isSha256Digest(source.requestDigest) ||
     source.requestRef !==
       `probabilistic-request://abiogenesis/${source.requestDigest.slice("sha256:".length)}` ||
@@ -1980,6 +1987,32 @@ function projectAdmittedProbabilisticTransport(
     (lifecycle.processTerminalKind === "actor_process_spawn_failed" &&
       processStartedRows.length !== 0)
   ) return null;
+  return deepFreeze({
+    kind: "admitted_actor_transport_projection" as const,
+    prefixDigest: runtimeEventPrefixDigest(prefix),
+    cCallRef,
+    sourceDigest: actorTransportSourceDigest(source),
+    actorTerminalEventRef: terminal.eventId,
+    failureClass: classified,
+    nativeResultAssessment: source.nativeResultAssessment === undefined ? null
+      : source.nativeResultAssessment as unknown as NativeWorkerResultAssessment,
+  });
+}
+function projectAdmittedProbabilisticTransport(
+  prefix: ValidatedRuntimeEventPrefix,
+  cCallRef: string,
+  source: Readonly<Record<string, JsonValue>>,
+): AdmittedProbabilisticTransportProjection | null {
+  if ((source.candidateRef !== null && typeof source.candidateRef !== "string") ||
+      (source.candidateDigest !== null && typeof source.candidateDigest !== "string") ||
+      ((source.candidateRef === null) !== (source.candidateDigest === null)) ||
+      (source.candidateDigest !== null && (!isSha256Digest(source.candidateDigest) ||
+        source.candidateRef !== `probabilistic-result-candidate://abiogenesis/${source.candidateDigest.slice(7)}`)) ||
+      typeof source.outputDigest !== "string") return null;
+  const transport = projectAdmittedActorTransport(prefix, cCallRef, source);
+  if (transport === null) return null;
+  const artifactDigests = source.artifactDigests as Readonly<Record<string, JsonValue>>;
+  const classified = transport.failureClass;
   const stableFailureSource = classified === null ? null : deepFreeze({
     failureClass: classified,
     sourceClass: "probabilistic_transport",
@@ -2006,9 +2039,9 @@ function projectAdmittedProbabilisticTransport(
     stderrByteLength: source.stderrByteLength,
     observedOutputDigest: source.observedOutputDigest,
     outputDigest: source.outputDigest,
-    artifactOutputDigest: source.artifactDigests.output,
-    artifactStdoutDigest: source.artifactDigests.stdout,
-    artifactStderrDigest: source.artifactDigests.stderr,
+    artifactOutputDigest: artifactDigests.output,
+    artifactStdoutDigest: artifactDigests.stdout,
+    artifactStderrDigest: artifactDigests.stderr,
   } as unknown as Readonly<Record<string, JsonValue>>);
   return deepFreeze({
     kind: "admitted_probabilistic_transport_projection" as const,
@@ -3594,14 +3627,40 @@ export function deriveProbabilisticTransportEvidence(
       "probabilistic evidence requires the exact ABG-revalidated F04-A result carrier",
     );
   }
-  const candidate = deepFreeze({
+  return probabilisticTransportEvidenceValue(request, observation, carrier, sha256Canonical(resultCandidate));
+}
+
+/** Establish actor/artifact/terminal truth before associating an output candidate. */
+export function projectActorTransportForResult(
+  prefix: ValidatedRuntimeEventPrefix,
+  cCall: CCall,
+  request: Readonly<ActorProcessRequest>,
+  observation: Readonly<ActorProcessObservation>,
+): AdmittedActorTransportProjection | null {
+  const requestDigest = sha256Canonical(request as unknown as JsonValue);
+  const source = probabilisticTransportEvidenceValue(request, observation, {
+    candidateRef: null, candidateDigest: null, requestDigest,
+    requestRef: `probabilistic-request://abiogenesis/${requestDigest.slice(7)}`,
+    rawOutputDigest: sha256Bytes(observation.finalOutput),
+  }, observation.observedOutputDigest);
+  return projectAdmittedActorTransport(prefix, cCall.cCallRef,
+    source as unknown as Readonly<Record<string, JsonValue>>);
+}
+
+function probabilisticTransportEvidenceValue(
+  request: Readonly<ActorProcessRequest>,
+  observation: Readonly<ActorProcessObservation>,
+  carrier: RevalidatedProbabilisticResultCarrier,
+  outputDigest: Sha256Digest,
+): ProbabilisticTransportEvidenceCandidate {
+  return deepFreeze({
     kind: "probabilistic_transport_evidence_candidate" as const,
     ...(observation.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: observation.nativeResultAssessment }),
     schemaVersion: "5.0.0" as const,
     implementationRef: observation.implementationRef,
     inputDigest: observation.inputDigest,
     observedOutputDigest: observation.observedOutputDigest,
-    outputDigest: sha256Canonical(resultCandidate),
+    outputDigest,
     candidateRef: carrier.candidateRef,
     candidateDigest: carrier.candidateDigest,
     requestRef: carrier.requestRef,
@@ -3637,7 +3696,6 @@ export function deriveProbabilisticTransportEvidence(
     stderrByteLength: observation.stderrByteLength,
     artifactDigests: observation.artifactDigests,
   }) as ProbabilisticTransportEvidenceCandidate;
-  return candidate;
 }
 
 export function admitWorkflowChildPreparationRefusal(
@@ -6027,6 +6085,33 @@ export function admitEvidence(
   expectedResultContractRef: string = cCall.outputContractRef,
   probabilisticResultBasis: ProbabilisticResultEvidenceBasis | null = null,
 ): CCallEvidenceAdmissionResult {
+  return admitEvidenceUsingTransport(undefined, store, prefix, graph, graphFunction, cursor, cCall, candidate, contractRef, expectedInputDigest, basis, expectedInstructionContractRef, expectedResultContractRef, probabilisticResultBasis);
+}
+
+/** Internal composition only. Raw admitEvidence always authenticates its own source. */
+export function admitEvidenceFromActorTransport(
+  transport: AdmittedActorTransportProjection | null,
+  ...args: Parameters<typeof admitEvidence>
+): CCallEvidenceAdmissionResult {
+  return admitEvidenceUsingTransport(transport, ...args);
+}
+
+function admitEvidenceUsingTransport(
+  transport: AdmittedActorTransportProjection | null | undefined,
+  store: AbgEventStore,
+  prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  graphFunction: Readonly<GraphFunction>,
+  cursor: TraversalCursorCandidate,
+  cCall: CCall,
+  candidate: CCallEvidenceCandidate,
+  contractRef: string,
+  expectedInputDigest: Sha256Digest,
+  basis: RuntimeAdmissionBasis,
+  expectedInstructionContractRef: string = cCall.inputContractRef,
+  expectedResultContractRef: string = cCall.outputContractRef,
+  probabilisticResultBasis: ProbabilisticResultEvidenceBasis | null = null,
+): CCallEvidenceAdmissionResult {
   const owner = projectCCallOwnerAtPrefix(prefix, cCall);
   const retryOwner = cCall.retryPath.length === 0 || owner === null
     ? null
@@ -6222,7 +6307,10 @@ export function admitEvidence(
     Number.isSafeInteger(candidate.stdoutByteLength) && candidate.stdoutByteLength >= 0 &&
     Number.isSafeInteger(candidate.stderrByteLength) && candidate.stderrByteLength >= 0 &&
     (candidate.transportLane !== "closed_prompt_proof" || candidate.toolCallCount === 0) &&
-    hasAdmittedActorEvidence(store, cCall, candidate);
+    (transport === undefined ? hasAdmittedActorEvidence(store, cCall, candidate) :
+      transport !== null && transport.cCallRef === cCall.cCallRef &&
+      transport.prefixDigest === runtimeEventPrefixDigest(prefix) &&
+      transport.sourceDigest === actorTransportSourceDigest(candidate as unknown as Readonly<Record<string, JsonValue>>));
   const foldbackEvent = candidate.kind === "sub_traversal_evidence_candidate"
     ? owner === null
       ? undefined
@@ -6360,7 +6448,7 @@ export function admitEvidence(
   // lifecycle. Conserve its actual producer in the evidence cause chain for
   // both success and failure, rather than leaving transport causes orphaned.
   const actorTerminalEventRef = candidate.kind === "probabilistic_transport_evidence_candidate"
-    ? projectActorProcessLifecycle(owner.prefix, candidate.actorInvocationRef).actorTerminalEventRef!
+    ? transport?.actorTerminalEventRef ?? projectActorProcessLifecycle(owner.prefix, candidate.actorInvocationRef).actorTerminalEventRef!
     : null;
   const event = admitCCallProgressEvent(
     store,

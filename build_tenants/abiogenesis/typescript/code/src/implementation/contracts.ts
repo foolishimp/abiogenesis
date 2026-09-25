@@ -408,6 +408,13 @@ export interface LeafInvocationPort {
       readonly rawResult: Readonly<Record<string, JsonValue>>;
     }>,
   ) => Readonly<ProbabilisticResultContractPreimageVerification>;
+  /** Internal ABG use after authenticating the actual native artifact producer.
+   * Rechecks the current owner/input/schema basis; it does not admit a supplied
+   * preimage or authorize a result by itself. Raw entries use verify above. */
+  readonly revalidateProbabilisticResultContractPreimage: (
+    input: Parameters<LeafInvocationPort["verifyProbabilisticResultContractPreimage"]>[0],
+    verified: Readonly<VerifiedProbabilisticResultContractPreimage>,
+  ) => Readonly<ProbabilisticResultContractPreimageVerification>;
   readonly invoke: (
     call: Readonly<{
       resolution: Readonly<LeafInvocationResolution>;

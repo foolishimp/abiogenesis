@@ -27,7 +27,7 @@ import {
 import {
   projectExactPrefixArtifactTruth,
   runtimePrefixFromArtifactTruth,
-  projectArtifactTruth,
+  validateArtifactTruthCandidate,
   projectValidatedPrefixArtifactTruth,
   validateArtifactTruthProjectionValue,
   type AdmittedArtifactTruth,
@@ -984,16 +984,12 @@ export function admitArtifact(
   }
   const predecessorEvents = store.readAll();
   let preparedEvent: ReturnType<typeof projectRuntimeEventFromValidatedHistory>;
-  let preparedPrefix: ReturnType<typeof selectValidatedRuntimeEventPrefix>;
   try {
     preparedEvent = projectRuntimeEventFromValidatedHistory(
       predecessorEvents,
       initiatedEvent,
     );
-    preparedPrefix = selectValidatedRuntimeEventPrefix(
-      Object.freeze([...predecessorEvents, preparedEvent]),
-    );
-    projectArtifactTruth(preparedPrefix);
+    validateArtifactTruthCandidate(predecessorTruth, preparedEvent);
   } catch (error) {
     return {
       disposition: "refused",
@@ -1026,7 +1022,7 @@ export function admitArtifact(
   }
   const artifactTruth = projectValidatedPrefixArtifactTruth(
     appended.successorPrefix,
-    preparedPrefix,
+    selectValidatedRuntimeEventPrefix(store.readAll()),
   );
   return {
     disposition: "admitted",

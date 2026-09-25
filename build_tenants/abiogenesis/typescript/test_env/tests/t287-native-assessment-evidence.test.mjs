@@ -581,3 +581,30 @@ test('historical absent-assessment classification and ordinary failure classes r
   assert.equal(classifyWorkerTransportFailure({...base,nativeResultDisposition:'rejected'}),'contract_failure');
   assert.equal(classifyWorkerTransportFailure({...base,processStatus:1,nativeResultDisposition:'admitted'}),null,'existing admitted-result salvage policy is unchanged');
 });
+
+test('actor transport authentication is available before candidate association and refuses crossed facts',async()=>{
+  const {projectActorTransportForResult}=await import('../../build/code/src/abg/c_call.js');
+  const {sha256Canonical:hash,sha256Bytes}=await import('../../build/code/src/shared/digests.js');
+  const events=rows.slice(0,10).map(row=>({...structuredClone(scope),...structuredClone(row)}));
+  const artifact=events.find(e=>e.kind==='actor_result_artifact_observed'),started=events.find(e=>e.kind==='actor_invocation_started');
+  const p=artifact.payload;
+  // Original raw malformed-output/terminal relation; only the absent full
+  // request is supplied as a component premise and its two references rebound.
+  const request=Object.fromEntries(['actorRef','workerBindingRef','implementationRef','inputDigest','materializationPlanRef','rendererRef',
+    'instructionContractRef','resultContractRef','transportLane'].map(k=>[k,p[k]]));
+  Object.assign(request,{prompt:'component native assessment request',responseJsonSchema:{type:'object'}});
+  const rd=hash(request),rr=`probabilistic-request://abiogenesis/${rd.slice(7)}`;
+  for(const e of [artifact,started])Object.assign(e.payload,{requestRef:rr,requestDigest:rd,promptDigest:hash(request.prompt)});
+  p.artifactDigests.prompt=sha256Bytes(request.prompt);
+  const {cCallRef,requestRef,requestDigest,...observation}=p;
+  const prefix=selectValidatedRuntimeEventPrefix(deepFreeze(events));const call={cCallRef};
+  const projected=projectActorTransportForResult(prefix,call,request,observation);
+  assert(projected);assert.equal(projected.failureClass,'contract_failure');
+  assert.equal(projected.nativeResultAssessment.disposition,'rejected');
+  assert.equal(projected.actorTerminalEventRef,events.find(e=>e.kind==='actor_invocation_failed').eventId);
+  assert(!Object.hasOwn(projected,'candidateRef'),'artifact truth does not invent a result candidate');
+  for(const [key,value]of [['actorInvocationRef','actor://foreign'],['inputDigest',hash('other input')],['finalOutput','{}'],['processRef','process://foreign']])
+    assert.equal(projectActorTransportForResult(prefix,call,request,{...observation,[key]:value}),null,key);
+  assert.equal(projectActorTransportForResult(prefix,{cCallRef:'c-call://foreign'},request,observation),null);
+  assert.equal(projectActorTransportForResult(selectValidatedRuntimeEventPrefix(deepFreeze(events.slice(0,-1))),call,request,observation),null,'preterminal prefix cannot supply completed actor truth');
+});

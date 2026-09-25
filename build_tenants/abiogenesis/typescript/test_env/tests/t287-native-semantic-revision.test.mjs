@@ -91,8 +91,8 @@ async function harness(env, options={}){
   const resultDigest=hash({value,cCallRef}),resultRef='result://abiogenesis/'+resultDigest.slice(7),admissionEventRef='component:event:'+(++ordinal),judgmentEventRef='component:event:'+(++ordinal);
   const state={cCall:{...env.cCall,cCallRef,basisId:execution.basisRef,runId:run,implementationRef:impl,graphFunctionRef:current?.call.graphFunctionRef??'component:graph',regime:impl===R.selectionImplementationRef?'F_P':'F_D'},
    result:{resultClass,resultRef,resultDigest,value,admissionEventRef},judgment:{judgment,admissionEventRef:judgmentEventRef}};
-  states.set(cCallRef,state);events.push({kind:'c_call_result_admitted',aggregateId:cCallRef,eventId:admissionEventRef,admissionOrdinal:ordinal,payload:{resultRef,resultDigest,value}},{kind:'c_call_judged',aggregateId:cCallRef,eventId:judgmentEventRef,admissionOrdinal:++ordinal,payload:{}});return state;}
- const lookup=(_prefix,c)=>{const state=states.get(c.cCallRef);return state&&hash(coordinate(state))===hash(c)?state:null;};
+  states.set(cCallRef,state);events.push({kind:'c_call_result_admitted',aggregateId:cCallRef,runId:run,eventId:admissionEventRef,admissionOrdinal:ordinal,payload:{resultRef,resultDigest,value}},{kind:'c_call_judged',aggregateId:cCallRef,runId:run,eventId:judgmentEventRef,admissionOrdinal:++ordinal,payload:{}});return state;}
+ const lookup=(_prefix,c)=>{options.onLeafLookup?.(c.cCallRef);const state=states.get(c.cCallRef);return state&&hash(coordinate(state))===hash(c)?state:null;};
  const selected=(_basis,impl,value)=>{const rows=[...states.values()].filter(s=>s.result.resultClass==='success'&&s.judgment.judgment==='advance'&&s.cCall.implementationRef===impl&&hash(s.result.value)===hash(value)&&bases.get(s.cCall.basisId)?.invocationAdmissionRef===current.execution.invocationAdmissionRef);
   return rows.length===1?{previous:rows[0],execution:bases.get(rows[0].cCall.basisId),event:events.find(e=>e.eventId===rows[0].result.admissionEventRef)}:null;};
  const executionOverrides={authenticateNativeInstructionAssemblyBasis:()=>current,rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>bases.get(ref)??null};
@@ -114,7 +114,7 @@ test('native D2 serialized public request chooses among eligible stages and comp
  const env=await fixture(t);let parent=env.envelope;for(let i=0;i<2;i++){const a=await author(env,parent,i);parent=assess(env,a.authored,i).assessed;}
  const rejectedAuthor=await author(env,parent,2),rejected=assess(env,rejectedAuthor.authored,2,'falsified').assessed;
  assert.equal(m.nativeSemanticCommandExecutionLimits(parent),null,'historical old job has no selected limits');
- const h=await harness(env);h.admit(parent,D.nativeAssessorFoldImplementationRef,h.original,'advance',parent.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,h.publicRun.ref);
+ const consulted=[];const h=await harness(env,{onLeafLookup:ref=>consulted.push(ref)});h.admit(parent,D.nativeAssessorFoldImplementationRef,h.original,'advance',parent.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,h.publicRun.ref);
  assert(revision.isNativeSemanticRevisionIntake(h.intake));h.invocation('intake',h.intake);h.call(R.nativeIntakeImplementationRef,h.intake);
  let reason;const limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000};
  assert.equal(await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits,r=>reason=r),null);assert.equal(reason,'native_revision_cause_absent');
@@ -124,6 +124,18 @@ test('native D2 serialized public request chooses among eligible stages and comp
  h.states.delete(duplicate.cCall.cCallRef);h.events.splice(h.events.findIndex(e=>e.aggregateId===duplicate.cCall.cCallRef),2);
  h.ancestry=false;assert.equal(await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits),null);h.ancestry=true;
  const prepared=await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits);assert(prepared);assert.equal(prepared.nativeWorksite.construction,null);
+ const unrelated=h.admit(rejected,D.nativeAssessorFoldImplementationRef,h.original,'stop','component:unrelated-cause','component:unrelated-run');
+ consulted.length=0;
+ assert.deepEqual(await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits),prepared,'unrelated Run preserves the selected cause and parent');
+ assert.equal(consulted.includes(unrelated.cCall.cCallRef),false,'unrelated Result is not reconstructed');
+ h.states.delete(unrelated.cCall.cCallRef);h.events.splice(h.events.findIndex(e=>e.aggregateId===unrelated.cCall.cCallRef),2);
+ const judgmentIndex=h.events.findIndex(e=>e.eventId===cause.judgment.admissionEventRef),[savedJudgment]=h.events.splice(judgmentIndex,1);
+ assert.equal(await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits,r=>reason=r),null);assert.equal(reason,'native_revision_cause_absent');
+ h.events.splice(judgmentIndex,0,savedJudgment);
+ h.events.unshift({...savedJudgment,eventId:'component:earlier-unmatched-judgment'});
+ assert.equal(await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits,r=>reason=r),null,'first matching judgment is retained for exact owner checking');
+ assert.equal(reason,'native_revision_cause_absent');h.events.shift();
+ assert.deepEqual(await h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits),prepared);
  assert.deepEqual(prepared.nativeWorksite.commandExecutionLimits,limits);assert.equal(h.owner.nativeSemanticRevisionIntakeMatches(h.basis,h.intake,prepared),true);
  h.admit(prepared,R.nativeIntakeImplementationRef);
  h.basis.graphFunction={name:'component:selection-graph',declarations:{'abg.semantic_revision_selection':declaration.declarationRef}};

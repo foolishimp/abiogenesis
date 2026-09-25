@@ -615,7 +615,8 @@ async function observedSource(relative, overrides = {}, emitted = false) {
   const text = await readFile(preimage ?? (emitted ? built : join(root, 'code/src', relative + '.ts')), 'utf8');
   const module = new SourceTextModule(emitted && preimage === undefined ? text : ts.transpileModule(text, {
     compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 },
-  }).outputText, { identifier: built, initializeImportMeta(meta) { meta.url = pathToFileURL(built).href; } });
+  }).outputText, { identifier: built, initializeImportMeta(meta) { meta.url = pathToFileURL(built).href; },
+    importModuleDynamically: specifier => import(specifier) });
   await module.link(async specifier => {
     const url = specifier.startsWith('.') ? pathToFileURL(resolve(dirname(built), specifier)).href : specifier;
     const values = { ...await import(url), ...overrides[specifier] };
@@ -760,4 +761,143 @@ test('native transport delegates one complete admission to the real fixed Run ow
     malformedBeforeEffects:true,ambiguousAdmissionOrderingPreserved:true,coldAdmissionPreserved:true,
     resourceFaultPreserved:true,copiedForeignStaleReleasedRefused:true,realOuterClose:true,
     limits:'Actual fixed Run owners consume a structurally valid unadmitted Catalog and return setup refusal; no Run or installed successor is claimed.'}));
+});
+
+const preparationCallPath = process.env.ABI5_PREPARATION_RESOLVE_CALL;
+const retainedPreparation = preparationCallPath
+  ? readFile(preparationCallPath, 'utf8').then(JSON.parse) : null;
+
+test('preparation resolution retains its established native link and raw lock refusals', {
+  skip: !retainedPreparation,
+}, async t => {
+  const call = await retainedPreparation;
+  const declarations = await import('../../build/code/src/product/declaration_exports.js');
+  let links = 0;
+  const environment = await observedSource('product/environment', {
+    './declaration_exports.js': { linkNativeContractSet(...args) {
+      links++; return declarations.linkNativeContractSet(...args);
+    } },
+  });
+  // Exercise the actual fixed resolver/projection; external grant admission is
+  // already covered by the retained call and is not a claim of this component check.
+  const definitions = await observedSource('product/environment_definition_bindings', {
+    './environment.js': environment,
+    './admission_authority.js': { withAdmissionAuthority: (_packet, owner) => owner },
+  });
+  const { admissionAuthority, ...resources } = call.resources;
+  const value = await Effect.runPromise(definitions.PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS.resolve({
+    ...call, resources,
+  }));
+  assert.equal(links, 1, 'one actual link, reused by the output projection');
+  const prior = JSON.parse(await readFile(preparationCallPath.replace('/calls/', '/receipts/'), 'utf8'));
+  assert.deepEqual(value.ownerOutput, prior.receipt.ownerOutput);
+  assert.deepEqual(value.resources, prior.receipt.resources);
+  const artifacts = resources.verifiedPreimages.map(x => x.verifiedArtifact);
+  const environmentModule = await import('../../build/code/src/product/environment.js');
+  const resolved = environment.resolveProductArtifacts(artifacts);
+  assert.equal(resolved.kind, 'resolved_product_environment');
+  assert.equal(environmentModule.isResolvedProductLock(structuredClone(resolved.lock)), true);
+  assert.equal(environmentModule.verifiedArtifactMatchesResolvedLock(artifacts[0], resolved.lock), true);
+  const wrongLock = structuredClone(resolved.lock);
+  wrongLock.rows[0].productContentDigest = sha256Canonical('foreign Product');
+  assert.equal(environmentModule.verifiedArtifactMatchesResolvedLock(artifacts[0], wrongLock), false);
+  const forged = structuredClone(artifacts[0]); forged.verificationDigest = sha256Canonical('foreign body');
+  assert.equal(environment.resolveProductArtifacts([forged]).code, 'lock_mismatch');
+  const install = await import('../../build/code/src/product/install_product.js');
+  assert.equal((await install.installProduct({verifiedArtifact:artifacts[0],resolvedLock:wrongLock})).code,
+    'dependency_lock_mismatch', 'bad basis refuses before any physical install');
+  const crossed = { ...resources, nativeContractClosure: { ...resources.nativeContractClosure,
+    occurrences: [] } };
+  // Force a genuinely different carrier even if this particular closure has no occurrences.
+  crossed.nativeContractClosure.selectorDispositions = [{foreign:true}];
+  await assert.rejects(Effect.runPromise(definitions.PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS.resolve({
+    ...call, resources:crossed,
+  })), /resolved native closure differs/);
+  t.diagnostic('Actual native link and owner projection equal retained successful output; external grants/history not reacquired.');
+});
+
+test('preparation module loading shares one physical basis and reacquires changed content', async t => {
+  const {writeFile} = await import('node:fs/promises');
+  const root = await mkdtemp(join(tmpdir(), 'abi5-preparation-modules-'));
+  t.after(() => rm(root,{recursive:true,force:true}));
+  const modulePath='leaf.mjs', path=join(root,modulePath);
+  const implementation = { implementationRef:'implementation://preparation/leaf',packageName:'fixture',packageVersion:'1',
+    modulePath,namedSymbol:'leaf',computeRegime:'F_D',inputContractRef:'contract://input',outputContractRef:'contract://output',
+    failureContractRef:'contract://failure',refusalContractRef:'contract://refusal'};
+  const descriptor={kind:'packaged_leaf_implementation_descriptor',schemaVersion,
+    ...implementation,descriptorDigest:sha256Canonical(implementation)};
+  const code=`export const leaf=${JSON.stringify(descriptor)};\n`;
+  await writeFile(path,code);
+  const install=Object.freeze({installedRoot:root,packageName:'fixture',packageVersion:'1',productContentDigest:sha256Canonical(code)});
+  let physicalChecks=0;
+  // Controlled physical boundary over an actual small file; the unchanged full
+  // Product inventory verifier is not requalified by this module-scope check.
+  const modules=await observedSource('product/installed_module',{'./install_product.js':{
+    async installedProductContentMatches(selected) {
+      physicalChecks++; return selected===install && await readFile(path,'utf8')===code;
+    },
+  }});
+  const descriptors=await import('../../build/code/src/product/implementation_resolution.js');
+  const publication={implementationBindings:[{packageName:'fixture',packageVersion:'1',modulePath}]};
+  const prepared=await modules.prepareInstalledProductModules(install);
+  for(let n=0;n<2;n++) assert.deepEqual(await descriptors.implementationDescriptorsFromProduct(install,publication,prepared),[descriptor]);
+  assert.equal(physicalChecks,1);
+  assert.equal((await prepared.load('../escape.mjs')).code,'path_escape');
+  assert.equal((await prepared.load('absent.mjs')).code,'load_failed');
+  assert.equal((await descriptors.implementationDescriptorsFromProduct({...install},publication,prepared)).code,'implementation_absent');
+  assert.equal((await descriptors.implementationDescriptorsFromProduct(install,{implementationBindings:[{packageName:'foreign',packageVersion:'1',modulePath}]},prepared)).code,'implementation_absent');
+  await writeFile(path,code+'// changed after the completed resolution\n');
+  assert.equal((await modules.prepareInstalledProductModules(install)).code,'content_mismatch');
+  assert.equal(physicalChecks,2,'a new resolution must re-establish physical content');
+  t.diagnostic('Two descriptor projections share one physical result; new acquisition, path, absent module and crossed install refuse.');
+});
+
+test('native detachment retains only actual immutable verifier bodies and detaches raw copies', {
+  skip: !retainedPreparation,
+}, async t => {
+  const original=await retainedPreparation;
+  const verification=await import('../../build/code/src/product/verify_product.js');
+  const owner=original.resources.admissionAuthority.basis.ownerArtifact;
+  const verified=await verification.verifyProduct(owner.request);
+  assert.equal(verified.kind,'verified_product_artifact');
+  assert.equal(Object.isFrozen(verified),true);
+  const raw=structuredClone(verified);
+  assert.equal(verification.retainedProductVerification(raw),null);
+  assert.equal(verification.isVerifiedProductArtifact(raw),true,'raw value retains its structural admission route');
+  const malformed=structuredClone(raw); malformed.verificationDigest=sha256Canonical('malformed');
+  assert.equal(verification.isVerifiedProductArtifact(malformed),false);
+  let received;
+  const transport=await observedSource('public/installed_definition_call_transport',{
+    '../product/index.js':{PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS:{resolve(call){received=call;
+      return Effect.fail({kind:'definition_execution_fault',schemaVersion,definitionKey:call.invocation.definitionKey,
+        stage:'test_capture',code:'captured',message:'detachment check only',evidence:{}});}}},
+  });
+  const candidate={...original,resources:{...original.resources,verifiedArtifact:verified,verifiedProducts:[verified,raw],
+    verifiedPreimages:original.resources.verifiedPreimages.map((row,n)=>n===0?{...row,verifiedArtifact:verified}:row),
+    admissionAuthority:{...original.resources.admissionAuthority,basis:{...original.resources.admissionAuthority.basis,
+      ownerArtifact:{...owner,verified}}}}};
+  const clone=globalThis.structuredClone;
+  let copiedOwnedBody=false;
+  const contains=(value,target,seen=new Set())=>{
+    if(value===target)return true;
+    if(value===null||typeof value!=='object'||seen.has(value))return false;
+    seen.add(value);return Object.values(value).some(child=>contains(child,target,seen));
+  };
+  globalThis.structuredClone=(value,...rest)=>{copiedOwnedBody ||= contains(value,verified);return clone(value,...rest);};
+  let result;
+  try{result=await transport.runInstalledDefinitionCallTransport({kind:'eventless'},candidate);}
+  finally{globalThis.structuredClone=clone;}
+  assert.equal(result.kind,'installed_definition_call_transport_result');
+  assert.equal(result.receipt.failure.fault.code,'captured');
+  assert.equal(copiedOwnedBody,false,'the immutable body never entered structuredClone');
+  assert.equal(received.resources.verifiedArtifact,verified);
+  assert.equal(received.resources.verifiedProducts[0],verified);
+  assert.equal(received.resources.verifiedPreimages[0].verifiedArtifact,verified);
+  assert.equal(received.resources.admissionAuthority.basis.ownerArtifact.verified,verified);
+  assert.notEqual(received.resources.verifiedProducts[1],raw);
+  assert.equal(verification.retainedProductVerification(received.resources.verifiedProducts[1]),null);
+  assert.deepEqual(received.resources.verifiedProducts[1],raw);
+  assert.notEqual(received.invocation,candidate.invocation);
+  assert.notEqual(received.resources.verifiedPreimages,candidate.resources.verifiedPreimages);
+  t.diagnostic('Real verifier result retained; raw copy stays detached/unowned. Captured receiver is not an admission/effect claim.');
 });

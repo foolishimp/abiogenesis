@@ -1,0 +1,14 @@
+{
+  "status": "CLOSED scoped source and finite evidence selection",
+  "sourceSubjectSha256": "da1e4cb4f547a29be1c210cb0144ab4199ce93bbcb5682aa3333e85d366cfee1",
+  "sourceScope": "30 accepted source/design/test paths plus normal generated metadata and current four tracking surfaces",
+  "installedReturn": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/return.md",
+  "installedReturnSha256": "14f52dfe48014d7554fb6c0da7090a15977eb2690fa718036dafae3e850caf1c",
+  "nativeDisposition": "runtime_failed: provider budget exhausted; absent Result and failed replay; no suffix",
+  "additionalActors": 0,
+  "noNewTestsBuildsRuntimeReads": true,
+  "proofBankRepository": "abiogenesis",
+  "proofBankRelative": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-22/transport-01/catalog.json",
+  "priorBanksReused": "successor-21 and its references",
+  "open": "LIFE-01/native-D2 successful correction/fifteen-family qualification/RC1; paid HOLD pending Root"
+}

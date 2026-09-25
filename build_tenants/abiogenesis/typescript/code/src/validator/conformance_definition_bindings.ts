@@ -46,6 +46,7 @@ import {
 } from "../product/environment.js";
 import {
   ConformancePort,
+  evaluateGtlProgramConformanceFromResolvedClosure,
   type ConformanceEvaluatePacket,
   type ConformanceDeclarationBasis,
   type GtlProgramConformanceOperationResult,
@@ -75,6 +76,28 @@ export interface ConformanceEvaluationResourceAssertion {
   readonly conformanceLaw: ReferenceDigest<"GtlConformanceLaw">;
   readonly declaredInventory: readonly ModulePublication[];
   readonly declarationCatalog?: Readonly<{ catalog: ReadyGraphFunctionCatalog; catalogView: GraphFunctionCatalogView }>;
+}
+
+/** Read-only Definition resource handoff. The existing admitted grants bind
+ * the approved resource scope; no input packet, catalog or new proof is echoed. */
+export interface ConformanceEvaluationResourceReceipt {
+  readonly kind: "conformance_evaluation_resource_receipt";
+  readonly schemaVersion: "5.0.0";
+  readonly invocation: ReferenceDigest;
+  readonly request: ReferenceDigest;
+  readonly capabilityGrants: readonly ReferenceDigest[];
+}
+
+function resourceReceipt(
+  call: DefinitionCall<ConformanceContract, ConformanceEvaluationResourceAssertion>,
+): ConformanceEvaluationResourceReceipt {
+  return deepFreeze({
+    kind: "conformance_evaluation_resource_receipt" as const,
+    schemaVersion: "5.0.0" as const,
+    invocation: reference(call.invocation.invocationRef, call.invocation.invocationDigest),
+    request: reference(call.invocation.requestRef, call.invocation.requestDigest),
+    capabilityGrants: call.invocation.invocationAuthority.slots.capability_grants!.grants,
+  });
 }
 
 function fault(
@@ -295,7 +318,7 @@ const gtl_program = (
 ) => Effect.try({
   try: (): DefinitionReturn<
     ConformanceContract,
-    ConformanceEvaluationResourceAssertion
+    ConformanceEvaluationResourceReceipt
   > => {
     // withAdmissionAuthority has already canonicalized these exact resources
     // for the approved digest, including the existing finite-JSON check;
@@ -392,7 +415,7 @@ const gtl_program = (
     if (!sameCoordinate(request.conformanceLaw, GTL_PROGRAM_CONFORMANCE_LAW)) {
       return deepFreeze({
         ownerOutput: lawMismatchRefusal(),
-        resources,
+        resources: resourceReceipt(call),
       });
     }
     let declarationBasis: ConformanceDeclarationBasis | undefined;
@@ -405,11 +428,13 @@ const gtl_program = (
     } catch (cause) {
       throw fault(call.invocation.definitionKey, "resource_relation_mismatch", String(cause));
     }
-    const native = ConformancePort.evaluateGtlProgram(packet, declarationBasis);
+    const native = declarationBasis === undefined
+      ? ConformancePort.evaluateGtlProgram(packet)
+      : evaluateGtlProgramConformanceFromResolvedClosure(packet, declarationBasis.declarationClosure);
     if (native.disposition === "failed" && native.code !== "validation_failed") {
       return deepFreeze({
         ownerOutput: nativeRefusal(native),
-        resources,
+        resources: resourceReceipt(call),
       });
     }
     const assessment = native.disposition === "passed"
@@ -522,7 +547,7 @@ const gtl_program = (
       } as OwnerSemanticOutput<ConformanceContract>,
       "Validator conformance",
     );
-    return deepFreeze({ ownerOutput, resources });
+    return deepFreeze({ ownerOutput, resources: resourceReceipt(call) });
   },
   catch: (cause) => isDefinitionFault(cause)
     ? cause as DefinitionExecutionFault<ConformanceContract["definitionKey"]>

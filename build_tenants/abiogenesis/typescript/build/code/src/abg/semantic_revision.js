@@ -46,18 +46,25 @@ function resultCoordinate(state) {
     return { cCallRef: state.cCall.cCallRef, resultRef: state.result.resultRef, resultDigest: state.result.resultDigest,
         resultAdmissionEventRef: state.result.admissionEventRef, judgmentEventRef: state.judgment.admissionEventRef };
 }
-function admittedLeaves(prefix) {
+function admittedLeaves(prefix, runRef) {
     const events = runtimeEventsFromValidatedPrefix(prefix);
+    const judgments = new Map();
+    for (const event of events) {
+        if (event.kind === "c_call_judged" && !judgments.has(event.aggregateId))
+            judgments.set(event.aggregateId, event);
+    }
     return events.flatMap(event => {
-        if (event.kind !== "c_call_result_admitted" || !recordJob(event.payload))
+        // The leaf owner retains exact scope/uniqueness checks. A Result from a
+        // different Run cannot yield a leaf in this Run, so do not reconstruct it.
+        if (event.kind !== "c_call_result_admitted" || event.runId !== runRef || !recordJob(event.payload))
             return [];
-        const judgment = events.find(row => row.kind === "c_call_judged" && row.aggregateId === event.aggregateId);
+        const judgment = judgments.get(event.aggregateId);
         if (judgment === undefined)
             return [];
         const state = projectWorksiteRevisionNativeResult(prefix, { cCallRef: event.aggregateId,
             resultRef: event.payload.resultRef, resultDigest: event.payload.resultDigest,
             resultAdmissionEventRef: event.eventId, judgmentEventRef: judgment.eventId });
-        return state === null ? [] : [{ state, event }];
+        return state === null || state.cCall.runId !== runRef ? [] : [{ state, event }];
     });
 }
 function jobEnvelope(value) { return isSemanticJobRevisionEnvelope(value) ? value.current : isSemanticJobEnvelope(value) ? value : null; }
@@ -86,7 +93,7 @@ function nativeIntakeFacts(basis, input, onRefusal) {
         const sourceRoot = run === null ? null : rehydrateExecutionBasisAtPrefix(prefix, run.executionBasis.ref);
         if (run === null || !same(run.run, input.sourceRun) || sourceRoot === null || sourceRoot.parentExecutionBasisRef !== null)
             return refuse("source_run_mismatch");
-        const leaves = admittedLeaves(prefix).filter(row => row.state.cCall.runId === input.sourceRun.ref);
+        const leaves = admittedLeaves(prefix, input.sourceRun.ref);
         const causes = leaves.filter(({ state }) => {
             const envelope = jobEnvelope(state.result.value);
             return [SEMANTIC_STAGE_IDS.nativeAssessorFoldImplementationRef, ids.assessorImplementationRef].some(ref => ref === state.cCall.implementationRef)

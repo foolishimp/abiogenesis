@@ -14,16 +14,42 @@ export type InstalledModuleLoadResult =
       code: "content_mismatch" | "load_failed" | "path_escape";
     }>;
 
+/** Physical content established for one resolution lifetime only. The caller
+ * retains this derived result, never serializes it or uses it as admission. */
+export interface InstalledProductModuleLoading {
+  readonly kind: "installed_product_module_loading";
+  readonly install: ProductInstall;
+  readonly load: (modulePath: string) => Promise<InstalledModuleLoadResult>;
+}
+
+export type InstalledProductModulePreparation = InstalledProductModuleLoading |
+  Readonly<{ readonly kind: "refused"; readonly code: "content_mismatch" }>;
+
+export async function prepareInstalledProductModules(
+  install: ProductInstall,
+): Promise<InstalledProductModulePreparation> {
+  if (!(await installedProductContentMatches(install))) {
+    return Object.freeze({ kind: "refused", code: "content_mismatch" });
+  }
+  return Object.freeze({
+    kind: "installed_product_module_loading",
+    install,
+    load: (modulePath: string) => loadModuleWithinProduct(install, modulePath),
+  });
+}
+
 export async function loadVerifiedInstalledModule(
   install: ProductInstall,
   modulePath: string,
 ): Promise<InstalledModuleLoadResult> {
-  if (!(await installedProductContentMatches(install))) {
-    return Object.freeze({
-      kind: "refused",
-      code: "content_mismatch",
-    });
-  }
+  const prepared = await prepareInstalledProductModules(install);
+  return prepared.kind === "refused" ? prepared : prepared.load(modulePath);
+}
+
+async function loadModuleWithinProduct(
+  install: ProductInstall,
+  modulePath: string,
+): Promise<InstalledModuleLoadResult> {
   const exactPath = resolve(install.installedRoot, modulePath);
   const relation = relative(install.installedRoot, exactPath);
   if (

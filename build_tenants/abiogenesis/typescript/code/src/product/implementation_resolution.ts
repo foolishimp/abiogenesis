@@ -18,8 +18,7 @@ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { ProductInstall } from "./environment.js";
 import { resolveExactMatch } from "./exact_match.js";
-import { installedProductContentMatches } from "./install_product.js";
-import { loadVerifiedInstalledModule } from "./installed_module.js";
+import { prepareInstalledProductModules, type InstalledProductModulePreparation } from "./installed_module.js";
 import {
   isResolvedExecutionDeclarationClosure,
   type ResolvedExecutionDeclarationClosure,
@@ -175,13 +174,23 @@ export async function loadInstalledImplementationDescriptors(
       "published implementation bindings are not carried by the exact admitted Product install",
     );
   }
-  const descriptors: PackagedLeafImplementationDescriptor[] = [];
-  const modulePaths = [...new Set(
-    publication.implementationBindings.map((binding) => binding.modulePath),
-  )];
+  return implementationDescriptorsFromProduct(
+    install, publication, await prepareInstalledProductModules(install),
+  );
+}
+
+/** Internal composition consumes the physical result of this resolution. */
+export async function implementationDescriptorsFromProduct(
+  install: ProductInstall,
+  publication: Readonly<ModulePublication>,
+  prepared: InstalledProductModulePreparation,
+): Promise<readonly Readonly<PackagedLeafImplementationDescriptor>[] | ImplementationResolutionSetRefusal> {
   if (
-    modulePaths.length === 0 &&
-    !(await installedProductContentMatches(install))
+    publication.implementationBindings.some(
+      (binding) =>
+        binding.packageName !== install.packageName ||
+        binding.packageVersion !== install.packageVersion,
+    )
   ) {
     return setRefusal(
       "implementation_absent",
@@ -189,8 +198,18 @@ export async function loadInstalledImplementationDescriptors(
       "published implementation bindings are not carried by the exact admitted Product install",
     );
   }
+  if (prepared.kind === "refused" || prepared.install !== install) {
+    return setRefusal("implementation_absent", null,
+      publication.implementationBindings.length === 0
+        ? "published implementation bindings are not carried by the exact admitted Product install"
+        : "published implementation module differs from the admitted Product install");
+  }
+  const descriptors: PackagedLeafImplementationDescriptor[] = [];
+  const modulePaths = [...new Set(
+    publication.implementationBindings.map((binding) => binding.modulePath),
+  )];
   for (const modulePath of modulePaths) {
-    const moduleResult = await loadVerifiedInstalledModule(install, modulePath);
+    const moduleResult = await prepared.load(modulePath);
     if (moduleResult.kind === "refused") {
       return setRefusal(
         "implementation_absent",

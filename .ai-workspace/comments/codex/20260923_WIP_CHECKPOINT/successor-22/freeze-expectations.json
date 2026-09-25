@@ -1,0 +1,1242 @@
+{
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/accepted-source.json": {
+    "sha256": "7334e2cecd633d2e31e171f7435992809bf70747dbc30ef27dc51efd63423973",
+    "byteLength": 7054
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/archive-members.json": {
+    "sha256": "45cd750926abf16ff88397a7e978e53ee72d07d6791e903b4ec5e5d44350e3d3",
+    "byteLength": 928685
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz": {
+    "sha256": "04d9d33dc3278f318abf88531fae4b7f6eafc316ad9b88f96c0c20a78a20b181",
+    "byteLength": 10161066
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/bootstrap-install.json": {
+    "sha256": "d8475b2f6a3b6537e30903965c0c69866a35b5e3152b662a48d7ce1fd9f31bfa",
+    "byteLength": 638
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/bootstrap-install.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/bootstrap-install.stdout": {
+    "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+    "byteLength": 23
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/build-inputs.json": {
+    "sha256": "1fa17dd6ba2fabdfb63a85884e8b661cf753d3cf29f3c20229858037bed344e2",
+    "byteLength": 42177
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/build-once.py": {
+    "sha256": "4ead41d3a92c7e4c0306ff132dc70a010c47a697eb28def7fb4d547d97de94bc",
+    "byteLength": 4286
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/build.json": {
+    "sha256": "fcdec31192cb89554e4cc42b352b0caebad4a26a26ead38b6e999dd8ac1281d1",
+    "byteLength": 367
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/build.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/build.stdout": {
+    "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+    "byteLength": 215
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/generated-after.json": {
+    "sha256": "88857938b199dff0d0c299ff96c4cd651d9972c3f365ee828e17fca37a22729a",
+    "byteLength": 156347
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/generated-before.json": {
+    "sha256": "bf119ba70828eaee3da09c9247ec6b739e0d1bd77c1a9cd45274d99de22b047a",
+    "byteLength": 156347
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/generated-delta.json": {
+    "sha256": "ee7d5bccc2faa67d5ba29ef68af5768f86ee79e31d4c8380b8fafeee8cd5526f",
+    "byteLength": 897
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/governing-inputs.json": {
+    "sha256": "843f32e08ea6657383dbcf577d2756a61b1dfa7f45dfb74af286a0fe3f8db660",
+    "byteLength": 17392
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/pack.json": {
+    "sha256": "ec8a71440b84b41d4665003368a657f13660cb18066264a0bbc3f447c52e776e",
+    "byteLength": 538
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/pack.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/pack.stdout": {
+    "sha256": "2618a3db3400c49287c1abad3cd6e04de7415af2840922fdcb2ed86c5b115ea9",
+    "byteLength": 688757
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/package-correspondence.json": {
+    "sha256": "ecdfbfa204c9319dbe81cf51a94dcee4e65e92c18262296bf28590c99c80974a",
+    "byteLength": 833
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/package-identity.json": {
+    "sha256": "45835ef551611f7f888e39a89019e9ab898434f427932bc59cb9a79b9d11f6e4",
+    "byteLength": 582
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/package-once.py": {
+    "sha256": "af7d6cdceb223920190c848a89e9821f48fb2b93983d5ee10829505e859cd2c8",
+    "byteLength": 3075
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/package-readiness.json": {
+    "sha256": "99ab1ea76a3e1e148c45461610b7e02d81b50bcca86860c772b81d7bd132bf7a",
+    "byteLength": 2186
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/product-verification-request.json": {
+    "sha256": "482a884fb01c313ffa503cf6b0f896cf48071e98eda901fa973842ca94b4c11c",
+    "byteLength": 1022
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/product-verification-summary.json": {
+    "sha256": "49142e7bcd3bccdb96f9d4b33a623946385a226a56daf78122fba0a96e8d8a33",
+    "byteLength": 3942
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/product-verification-timing.json": {
+    "sha256": "a33ac7776976fb3d87cfb87326006b54756c0306cd88beb4c67854c3718d1833",
+    "byteLength": 226
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/return.md": {
+    "sha256": "e81c1f1cc34d024a10a8d5d9c119f6ce0c04d99081277ad40e7f345fabe57c68",
+    "byteLength": 549
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/selected-core.json": {
+    "sha256": "b308084bda0c0b3424b6aa7d1ad9989b9ce40b0aa1ce7ce0af6f3ca8d3b65cce",
+    "byteLength": 986
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/source-delta.json": {
+    "sha256": "46601163046f15bb27f059e4d47ec58c1a430894ab8a750925223caa5eb70d64",
+    "byteLength": 3402
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/source-freeze-before-build.json": {
+    "sha256": "acb57bbf1f96fa6492139f875b5418a36fc0422cbe5900cd13745e72b2e8adac",
+    "byteLength": 156078
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-24/verify-installed.mjs": {
+    "sha256": "5df618218cd8170de6953a97a6afbcb2e21688a99f0f562266dac06cf95eddd9",
+    "byteLength": 3557
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/accepted-source.json": {
+    "sha256": "c743c35689b88f785425bef8aa2cba165a666566a20c169641a23be374b46e9c",
+    "byteLength": 17375
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/archive-members.json": {
+    "sha256": "e6fe61817ddcaa36bcea66bd41b99743553654c97ff8787f87a65c425a733218",
+    "byteLength": 928685
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz": {
+    "sha256": "b10d85d807b22333717887f63c837e2589baf14f5ecda3f9803db169711d21b6",
+    "byteLength": 10164353
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/bootstrap-install.json": {
+    "sha256": "e02e63da5defa5ff4a2050284ced18abc3b35fefa6b5439856dab9101532b2b5",
+    "byteLength": 640
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/bootstrap-install.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/bootstrap-install.stdout": {
+    "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+    "byteLength": 23
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/build-inputs.json": {
+    "sha256": "f4666cb8bc0e90d904efb78c66e216c31fc70d677fbc07607b8de6f66d4cf77d",
+    "byteLength": 42177
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/build-once.py": {
+    "sha256": "87839a6f2f5dc404d4b9f3830b548f60ea67aa57724a7a4939ac0e3223efd6a3",
+    "byteLength": 4275
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/build.json": {
+    "sha256": "8f6e8d32428f9f2d848625844065534720fdfeda440ad7f350645e10b7fbfd1e",
+    "byteLength": 366
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/build.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/build.stdout": {
+    "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+    "byteLength": 215
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/generated-after.json": {
+    "sha256": "57cba526b44ee34578a4349e1d0edd1043ff3d2667624efa829c413e4e70a54b",
+    "byteLength": 156347
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/generated-before.json": {
+    "sha256": "ee12e13bfa17ed71732f748af98a5a0d656c24cb769aaa64cdbd811911ac2ea6",
+    "byteLength": 156347
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/generated-delta.json": {
+    "sha256": "58880b215febe561e23bfa5f384e80b615c28c492c043b059bd9235a45a91228",
+    "byteLength": 897
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/governing-inputs.json": {
+    "sha256": "843f32e08ea6657383dbcf577d2756a61b1dfa7f45dfb74af286a0fe3f8db660",
+    "byteLength": 17392
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/pack.json": {
+    "sha256": "823f2efe2dee73bb54a807a21526143f2f0f6349eaf40a0cb016db5bd3503198",
+    "byteLength": 538
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/pack.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/pack.stdout": {
+    "sha256": "83ddeca445734eb7ba520c54c239cdeb9dcd2ecd74d4e14873e8fb49af230fe3",
+    "byteLength": 688757
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/package-correspondence.json": {
+    "sha256": "eb75848ced5fc2f3a75ed2f7f19cc289642bf3d88560c6f9e12b93259ae0d978",
+    "byteLength": 833
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/package-identity.json": {
+    "sha256": "85f66086963406e1c49f4cd05323a974ee10e82fc1b09277abf8bb18c06924c2",
+    "byteLength": 582
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/package-once.py": {
+    "sha256": "4524e05b537df8640ffb72fc10c53e0050eae5ff6313a6cea5f1fb42640e0c96",
+    "byteLength": 3075
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/package-readiness.json": {
+    "sha256": "7e06388d02841169f90d6227e5cb1137c43529521211f8dfd7b1fbb70cdf47a9",
+    "byteLength": 2184
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/product-verification-request.json": {
+    "sha256": "007e8a5e771a9edbd4ceaecb596401f08a1a7ce1b1e905689b9e93fee4e350e8",
+    "byteLength": 1022
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/product-verification-summary.json": {
+    "sha256": "8b70552856089c155269a97c82d68de21051d060a76de1cbda2a1e3061b09072",
+    "byteLength": 3942
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/product-verification-timing.json": {
+    "sha256": "60f613bd39f5433a5de65a4433ebc50a31f0e9b683410b273530f06d221eea3d",
+    "byteLength": 227
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/retained-consumer.json": {
+    "sha256": "87bb240eb098ecb07f732c2c81d4c736b4cc008433adff8117ff649a205a1129",
+    "byteLength": 989
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/return.md": {
+    "sha256": "6945b5e359ad3b7dec9ee47bd10cf84dcdba56350c5a725a45903f84f8ded685",
+    "byteLength": 1976
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/selected-core.json": {
+    "sha256": "43a039547c5694a8356357cbdf970f008de2f718869e0a5a86801ad5e890104a",
+    "byteLength": 986
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/source-delta.json": {
+    "sha256": "94b47c0c2fc121bcff736a4bc32bfba64685727bec7238df4889ee15c1077ca9",
+    "byteLength": 4810
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/source-freeze-before-build.json": {
+    "sha256": "54f4af4bcd05e43bbe17a0e3211b2659c95d383c4eb09208f43a177bdb4b6c0c",
+    "byteLength": 159295
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/verification.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/verification.stdout": {
+    "sha256": "eaaf14dd7d3d386dd2dad4eeca95d8bc99000255a844777f856a3979ae085076",
+    "byteLength": 930
+  },
+  ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/verify-installed.mjs": {
+    "sha256": "90447e73cd501c8ec551c191e077149fa674152be2fb678fe0cd69a9c8ea38aa",
+    "byteLength": 3555
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/return.md": {
+    "sha256": "fe41bf4a6cd8d116be46b8b2a49782c73df406347403f895312771be69db1dcd",
+    "byteLength": 4120
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/caller-subject.json": {
+    "sha256": "8767131e965351140e488a5886425ba4d432941a0f70e5bd243a56cb6a39b7d6",
+    "byteLength": 2775
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/calls/00-verify-core24.json": {
+    "sha256": "8c4c430b81a6d889c198f228ea05e40f3dcd99fce5a7071b232a7c8d9d7659a2",
+    "byteLength": 25682454
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/calls/01-verify-dev14.json": {
+    "sha256": "ad70579d69daead06d166494b97f6e79baf5468038edaaeeeeae8cfafcef291b",
+    "byteLength": 13143601
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/calls/02-resolve-core24-dev14.json": {
+    "sha256": "7001075e1bc96a1aac2e13cfd14fa38846cf2e2181dcbae17f577864eed0e5f8",
+    "byteLength": 26340975
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/calls/03-install-core24.json": {
+    "sha256": "45d996135be8a6f66adbb348dc2f9ca608839191700f20035b3c74dec6c6a71e",
+    "byteLength": 29277681
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/calls/04-install-dev14.json": {
+    "sha256": "56ff8e02313e99fa53f5c91bec83510a6762d42705b0000fcbf74de2cfc775c5",
+    "byteLength": 16737662
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/calls/05-bootstrap-native-d2-intake-bind-existing-workspace.json": {
+    "sha256": "56536807df690eaf625d1da0541a56f27fe157f57ef395244a9dc8567730e5b8",
+    "byteLength": 20175060
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/calls/06-catalog.json": {
+    "sha256": "35f89fe73211b6a16311487d7d2649fecf42286a97ff6d517b74cd2130a24a8e",
+    "byteLength": 34756765
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/calls/07-view.json": {
+    "sha256": "85b3fab6ef1272adcebf8d316a5bece36d8753094d62d68ebd86486a5414ca97",
+    "byteLength": 38884891
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/calls/08-intake-conformance.json": {
+    "sha256": "16d3038efae3098c7dba0700e5a5fe9e50eb35ef325c78539ad0af9eb6cc06e5",
+    "byteLength": 42520568
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/entry-close.json": {
+    "sha256": "e8ca98606d626e917284c14ed83da2331aecf2110ccae80fb4d880878e5d425e",
+    "byteLength": 1438
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/execution-resolution.json": {
+    "sha256": "ef2efb475dc42e27332dfba045f2e57fcd8266229575728f789aafe33231e9db",
+    "byteLength": 84268
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/frozen-subject.json": {
+    "sha256": "ae421f3b2f3bad520296a83631a6ddc7b137e61740299c67779999c2af1c18a3",
+    "byteLength": 18514
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/intake-start.jsonl": {
+    "sha256": "ca85c2067766d8c8a1b407119d7bfd445470e6b737a0f81de67295017b3d9ede",
+    "byteLength": 26431669
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/launch-control.json": {
+    "sha256": "b50728f8aaf510a482a115fc14f50eaf717110cf8bd568538a9efd668ca3dc9c",
+    "byteLength": 2129
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/observed-metrics.json": {
+    "sha256": "a772bb97136ff4b674c115f9fbbead95214ef1fa77b1e4aaebefcdbedc053ab7",
+    "byteLength": 8774
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/owner-receipt-chain.json": {
+    "sha256": "4b8e434012d19217e67edcd6211af5f3219331a2053999de2afd61ebc14a9a6b",
+    "byteLength": 14057
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/prepare.mjs": {
+    "sha256": "8f731c578a34b287a92f438d26a8741a8c5ebe2c2c71a783794a18929e99bafb",
+    "byteLength": 19093
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/prepared.json": {
+    "sha256": "2286c5e2aad053b90f9bab478093c8fd65c662c52a5952b31ab0aa57d4c4f04a",
+    "byteLength": 12079
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/process-result.json": {
+    "sha256": "f13c3328c4f0b6770bac21d23767458398e3bae935d5806b00318e6dddb0be63",
+    "byteLength": 345
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/process.json": {
+    "sha256": "cb9c74aa7ceed77e832ad4ff866584e6fe410e6044f4e2e4b480f2b58f6632d4",
+    "byteLength": 392
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/00-verify-core24.json": {
+    "sha256": "d09589ab6f95e9c4d54dec12d67975a1779494c7e1b7e815f321911b387af2e8",
+    "byteLength": 257095
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/01-verify-dev14.json": {
+    "sha256": "5ba9df7034c1b8fab666fd6258ddaabe570ee7f8488400ab2e007bc21c734e7f",
+    "byteLength": 1966
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/02-resolve-core24-dev14.json": {
+    "sha256": "f27e3bee3c52afdf443b72f83bad5ae7950890c5cdf4d493a1f99c45307937f1",
+    "byteLength": 5400
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/03-install-core24.json": {
+    "sha256": "eab23f2d9ea7453c42156ed5b25a541d89d991094d16120bdea0044d47024f56",
+    "byteLength": 6210
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/04-install-dev14.json": {
+    "sha256": "e03ef41411fcda8fb8d150fccb5fd318714f6822514ac7c47be27969c5f37a83",
+    "byteLength": 6209
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/05-bootstrap-native-d2-intake-bind-existing-workspace.json": {
+    "sha256": "4968ecc89a615c3b97d674f2c953a638eb78dc73bfbfe74a2f73d638c2e2e267",
+    "byteLength": 7221
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/06-catalog.json": {
+    "sha256": "3b923475f1214edba7b564eb0a96556215592c056bd5c548767467ae503395ea",
+    "byteLength": 327171
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/07-view.json": {
+    "sha256": "c1fbe55442e5570344e39fc3c11af6acb25048a07f069f3635e060584b6db166",
+    "byteLength": 1719
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/receipts/08-intake-conformance.json": {
+    "sha256": "218a3c052b56f55cde29af8c7196414696e9acd0a3c3475adc76ad6f27beea22",
+    "byteLength": 30108541
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/return.md": {
+    "sha256": "92776e7cc14f21ca02151fa958a0a42ad3c66b986d4d2d0ab46f312fe41a1d27",
+    "byteLength": 4449
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/selection.json": {
+    "sha256": "a6efce30457c4c32e34a4e2af71416c9d3a0f268f40c471861df81e0c5293650",
+    "byteLength": 3985
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/setup-resource-close.json": {
+    "sha256": "96917f1cd67134da37cb0a42b36cb5db6a621ef3c6a86843de9fff81273cb7b8",
+    "byteLength": 2578
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/setup-resource-entry.json": {
+    "sha256": "bd908c2168917f889cf937bccc6777d2f2d4d81e776fb082ac00858ca9c7a471",
+    "byteLength": 893
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/setup.stderr": {
+    "sha256": "4e865d92c3c80da5c698f84bb075b2a30123d73e701ed190d95966bfd349f9af",
+    "byteLength": 1586
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/setup.stdout": {
+    "sha256": "f1604d593de0d79c622325eb066215678bafac8cebec6182ecd2275365c6ab1f",
+    "byteLength": 957
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/bootstrap-native-d2-intake-bind-existing-workspace.json": {
+    "sha256": "50006b667a208326502a9e20295e7267693c7eb90a3b2cd9bb4671ad2c0987e9",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/catalog.json": {
+    "sha256": "3f44f4a9fd7f39b2385a51b96d83d677e81533789e84a96fe48aa0b31db6dea6",
+    "byteLength": 288
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/execution-resolution.json": {
+    "sha256": "750879fd5ca7cdb76563d9d3458b95cff5ad74887f58f221f5b08bbbaece8aab",
+    "byteLength": 86
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/install-core24.json": {
+    "sha256": "573de182c8fcf29eafa6cdcbbe79a89a3183b813dd5e99970f354bf5dccc1dc5",
+    "byteLength": 292
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/install-dev14.json": {
+    "sha256": "a6d3f0364a32663094e3ba83036f6a3a836eabcdc15381af9592d118cd07b9a6",
+    "byteLength": 292
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/intake-conformance.json": {
+    "sha256": "a6d24b5aa65dc2f751cf7bac5e320f5ccb3d7f735fd168a8bc53a3dc1d015b74",
+    "byteLength": 301
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/nominal-verification-0.json": {
+    "sha256": "3c6889164b1abc19fd546594621aacb4b8080f56b55668e43ad8333c0577e562",
+    "byteLength": 79
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/nominal-verification-1.json": {
+    "sha256": "2fd18918758d867f3a08702d28f8f37ec8d89299c18e3fe476f59d58dba90d8f",
+    "byteLength": 80
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/resolve-core24-dev14.json": {
+    "sha256": "010d4c9ccb638d9edbd193053025ac2a7a43ddc11fe95e131d253de6f3d2d7d3",
+    "byteLength": 291
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/verify-core24.json": {
+    "sha256": "e96ec936a4725bb1be275c05ab1a1598875de21ae54325c9c3d3d7e4ec65875f",
+    "byteLength": 290
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/verify-dev14.json": {
+    "sha256": "e4aaef326d77f4a913f23501195f294a62304badb72fbfc4e5a6c7a8936bbc7c",
+    "byteLength": 289
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/timings/view.json": {
+    "sha256": "c0feaee9bcd643f28aa08390ceb2132304eb4370ef4d0c95725979a71214247e",
+    "byteLength": 290
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/worksite-conservation.json": {
+    "sha256": "60694607428dcf9b733f45fee685b39f6950284be53cac0a900ef6cc6b00a82f",
+    "byteLength": 2079
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2-installed/writer-projection.json": {
+    "sha256": "5390dece338dee316f61cb5a2e84bcbf6653c8594291d65a1684b9f2a4b34480",
+    "byteLength": 1435
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2/checks.json": {
+    "sha256": "c3bc4b56bfc8ca5ad9c69ae5169d093905281fd7ee24295726b6e8ec11ee2968",
+    "byteLength": 2437
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2/focused-01.log": {
+    "sha256": "db378643319d78d2da5cc245ba088acd6b53bed2a1cdd06e92df1501c4c7da9e",
+    "byteLength": 4704
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2/focused-02.log": {
+    "sha256": "d9ce9f2f691f793e5aa5f18515a1df5f3308b1dc05430bdf5ac7a88bebcf6509",
+    "byteLength": 1290
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2/frozen-subject.json": {
+    "sha256": "857b0aed1cc270cbf11150a32b1fad0c922ddef1002ae0ea4d102acaf751f16d",
+    "byteLength": 6899
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step2/return.md": {
+    "sha256": "f509a39c223a45fed099f86012c77d4ceb3537dd6649b5a4b93ade5ffeba63ed",
+    "byteLength": 3161
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3-run-scope/return.md": {
+    "sha256": "56338fef8af5ef7c5e8c3a5c93023831621d8524db7d5b3b38a71eec2aabf21e",
+    "byteLength": 1649
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/checks.json": {
+    "sha256": "2132e2bf66661f5931c55037421f33c515fc6a8ff36f0d494ec3ca97ffa3c8b9",
+    "byteLength": 3553
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/compile-01.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/compiler-preimages.json": {
+    "sha256": "fb6caaa494dae4f8b37be815aad65feb2920c75c69cd3c96e1e6d5efc00a9cec",
+    "byteLength": 134266
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-01.log": {
+    "sha256": "4a936c9596b070de7ee8f734137868e99e53332b47d69d2f69a6a376fdfc679b",
+    "byteLength": 237
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/focused-02.log": {
+    "sha256": "b3db1d2867714bc5c2d857481db27263d657385acd1b1d76a4f8d246ee8ba641",
+    "byteLength": 340
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/frozen-subject.json": {
+    "sha256": "54851cd0c5e4e123ad4df859e4f05fef60df766884504789815bfa00ebe52461",
+    "byteLength": 3108
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/preimages.json": {
+    "sha256": "0387ff1b56348909e32cd81d7e58daeb95372f6204bf2ed2f152cca8344ed28b",
+    "byteLength": 719
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/profile-01.log": {
+    "sha256": "6afd30faa404e19c1b361e14513a7bfb77379d493947ec5a5f61597916e47c94",
+    "byteLength": 1784
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/return.md": {
+    "sha256": "af81a15bcf5c307b6108fc0a5cc7a9702bac8fe3d103e77b3e911aa476677cf1",
+    "byteLength": 3933
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/source.diff": {
+    "sha256": "8de8bcd83f4b3b9d4ddd6cce2ee2bc603cd37872fafe1840f43c683649f3af0e",
+    "byteLength": 24782
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step3/step2-preservation.json": {
+    "sha256": "1f8f8badd19b4e79dad45026bea79b02d460f468bda3bc94b0c4093653d209c5",
+    "byteLength": 1845
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/auth1.log": {
+    "sha256": "0d20d96611f9aa96acf344974c379b2d36e2734557d9e304fe9480c3d1e1ab10",
+    "byteLength": 545
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/checks.json": {
+    "sha256": "962127f4465369f6041d874a8e9f0330dd442084482b89ca3fc5c97e0f65a0e4",
+    "byteLength": 2845
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/compile.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/final-compile.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/final-tests.log": {
+    "sha256": "a454122d63c65744a8dec72c85b82b780f932585f2aea970837239fd467119ef",
+    "byteLength": 1545
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/final2-compile.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/final2-tests.log": {
+    "sha256": "16997d76f98694ddb24677d0c0a20f6f1ecd2ee2dd0193768921a1210c01f86c",
+    "byteLength": 2626
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/final3-fp.log": {
+    "sha256": "71b2272029b9611b18fc26e16d82ac9d159bfb83683b2e0bf76104d95840a598",
+    "byteLength": 553
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/first-compile.log": {
+    "sha256": "e2afa469eadcec80be7e16021d46ce442b7931b772f5ef8feee4d8697c09d963",
+    "byteLength": 1026
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/focused1.log": {
+    "sha256": "e604376a314fca3e39ae86b797ed7602388cae71ee6b00102afbc7a9ee6695e6",
+    "byteLength": 1743
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/focused2.log": {
+    "sha256": "ac99f7443d44261538244cd6572a39d0ee473d3a0b44e597ab719adeb2520e19",
+    "byteLength": 551
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/frozen-subject.json": {
+    "sha256": "f32503390559b83febf5afb646d23011107a9171377323768d415d08089532ed",
+    "byteLength": 6453
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/predecessor-preservation.json": {
+    "sha256": "64438d370fb5dcecb075917b85712d4c9e0dc64e14af42ea36fd97e648c54678",
+    "byteLength": 2561
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/preimages.json": {
+    "sha256": "9a7b0cc37fcf19de62daecb9215b11a606bc1ebd88276f0e71e36dbe5b2047f5",
+    "byteLength": 1176
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/return.md": {
+    "sha256": "e352de1d33dabe791bcd0782a0479750d54aa1932eb2e216ec8b3b61fd6fecb4",
+    "byteLength": 4305
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/composition-01/source.diff": {
+    "sha256": "ec6585d23311fe107c0d15ccd164fa455ac16e2d746c50ad26cb3f7595d2bb49",
+    "byteLength": 39531
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/return.md": {
+    "sha256": "4e69b40d608ccaa009c8691f94465e53ffd1107f1d5321f9882d81c3f5838092",
+    "byteLength": 3864
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step4/source-refs.json": {
+    "sha256": "0cf3694d3a1eb92bf5fcb68a40cdca7babb28f7c9aa08c6837e13e64d2ef7ba6",
+    "byteLength": 2880
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/abi-step5-check01.log": {
+    "sha256": "32fb3bc2049e60c6ba23cbf881c96aa33f669821a104ecda872b549a4751b074",
+    "byteLength": 3319
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/abi-step5-check02.log": {
+    "sha256": "c43de66e04f277ac37b16bd259f39ab466f5535ae5056dff4836f0180d6d9234",
+    "byteLength": 2375
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/abi-step5-check03.log": {
+    "sha256": "41ad6701d4512db4a21376d3151627826b5210e0198bc944d330d44c932986ca",
+    "byteLength": 1573
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/abi-step5-compile01.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/abi-step5-compile02.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/checks.json": {
+    "sha256": "f20eebfcca06137a97b7b9ffc2feceed45fe7fa77a5e8d5570d7cb10e51b595d",
+    "byteLength": 4827
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/combined-subject.json": {
+    "sha256": "fffb6279eb3eb3b65d89ce9ba9685e59c089c9f18259c0f43565e3c459f4108d",
+    "byteLength": 16279
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/frozen-subject.json": {
+    "sha256": "b1b1cf94ab450dec918db2946ccad991e283afd6248408b806fb0c60fdc408e5",
+    "byteLength": 5545
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/glc-step5-check01.log": {
+    "sha256": "1616ded271edcde03f6192f663efaef36ccfccc3e2259d6870f0b95a8dc7e621",
+    "byteLength": 298
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/predecessor-preservation.json": {
+    "sha256": "873db1160d1b32b5ac25455ddd3273418c6beaa979d01772dcb50cde750b3253",
+    "byteLength": 6990
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/preimages.json": {
+    "sha256": "edadb12680d4ce6f0cf5eb92b3c4794c784e0a3a734aa02ed34c9393b5bc450f",
+    "byteLength": 1675
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/return.md": {
+    "sha256": "501a221af02f89f0931fa0b7d000700c6eb80e4d895eb42ffc7d36e53fff1340",
+    "byteLength": 3136
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/source.diff": {
+    "sha256": "3924d78b0a6c2a79640bb8cb8de789d8e05ed9c038b0ea06db652bf529677549",
+    "byteLength": 23866
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/construct.mjs": {
+    "sha256": "79904f53a7ca9882ab70b134e353dfaf3f591add1097333cf91ce49e23414148",
+    "byteLength": 4116
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/constructor-checks.json": {
+    "sha256": "5c06f51b7855b7bc52c349c17ba3397db0f41da24fedbaa011edfaf620d36684",
+    "byteLength": 2513
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/control.json": {
+    "sha256": "dda9f9342e6a51a8df222b887751510106016f1c938e6bf5f740dd32b3301b23",
+    "byteLength": 712
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/intake-readback.json": {
+    "sha256": "86f619a73c73c39590cee47dbb25121ecf91764d5e0305730e1910a632411b94",
+    "byteLength": 2952
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/intake-start.jsonl": {
+    "sha256": "29d99ffcd034fdf1d14982d1e5887a0bd7e9a3af6902a0e848d3a94dbba3423d",
+    "byteLength": 26436028
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/live-attempt.json": {
+    "sha256": "424aba342d690e77b18b75aa7980e48adc433c23272f4420ac40b189c1c462b2",
+    "byteLength": 1910
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/live-receipt.json": {
+    "sha256": "9f7f0a2fcbabbcd510c984b5bbae8b92c9eb12447f8baf8a886e7bde37d8a2ed",
+    "byteLength": 90711
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/live-start.jsonl": {
+    "sha256": "7c463d0af404a3caf298a1daf3535479eac5b2eef5158a061558370aa7de97e4",
+    "byteLength": 19225668
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/live-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/native-prepared.json": {
+    "sha256": "1e0ba998cfa977acf8dc14bf07372400253b25e94905fe10b9f674d9fbb3de1a",
+    "byteLength": 6454
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/observed-metrics.json": {
+    "sha256": "cfd83a2024b51ca79186d5974310744c9b2b379f47ed5af0248336df3ecd7ad6",
+    "byteLength": 10230
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/process-result.json": {
+    "sha256": "7d1c74e8b31c09d61aac1d5536271993e83ed0ac5e9912650273ea1fec624b38",
+    "byteLength": 142
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/process.json": {
+    "sha256": "40197367bba7ab5a9d3bcf79ee7336933704d18ec7da79ad8a00238db4c024b0",
+    "byteLength": 497
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/process.stderr": {
+    "sha256": "460bd78db6abf45c9ea1674165900521dfe3087e225b0951ba3820203846f5db",
+    "byteLength": 777
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/process.stdout": {
+    "sha256": "a1e71f1cdb89334b8b54056c297262bd7d522e3eac575bc938aacfce09645001",
+    "byteLength": 87944
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/public-readback.json": {
+    "sha256": "cc05f626414a963de6ac18bbf06ade92e26eb6a68e044777f8b95aa6957f370f",
+    "byteLength": 1675
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/read-intake.mjs": {
+    "sha256": "b4e40a167554c886e48f916696cafa8b8813713da55acb301b77886d251478a0",
+    "byteLength": 6008
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/read-run_replay.boundary.json": {
+    "sha256": "f1d8bc3da81b736949ccda93b3435b29ca7d9be57d79556ef5970038d7824568",
+    "byteLength": 410
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/read-run_replay.json": {
+    "sha256": "5949b2a7fcdf0254c2a1ae27047cc061c26cbff1a648dd15ff7ad12fba6e1b6e",
+    "byteLength": 3708
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/read-run_replay.jsonl": {
+    "sha256": "91b1f5b82cdc39fb5420996136a88e33d95ce53e2ccd623ba3caf6c12c174101",
+    "byteLength": 9818
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/read-run_replay.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/read-run_result.boundary.json": {
+    "sha256": "3dab2d2e9f04b548db3013adc039331ecb06da8c24d0d091d5099eeac5ce27e2",
+    "byteLength": 448
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/read-run_result.json": {
+    "sha256": "cc4b0b1d46364c5e9b53db70804abd620e8447c7505162eb0cab31d865a1cd92",
+    "byteLength": 2744
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/read-run_result.jsonl": {
+    "sha256": "13cd5414a959b903d184cf6c6b88da3ef95a4de3ac3f66c072e9534f4244a321",
+    "byteLength": 9779
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/read-run_result.process-failure.json": {
+    "sha256": "d633c474c0f42f7ff974b60684350fb2fb91a23ab2de7c44a7cc3eb5b4fede66",
+    "byteLength": 567
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/read-run_result.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/readback-process-result.json": {
+    "sha256": "065dbc8a9060004da7889bc06f3835a3fad1d88fe04f1f7133cec37450912265",
+    "byteLength": 143
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/readback-process.json": {
+    "sha256": "7eeb7c82fe38293ea63a59e34520dd7b896bd27a8cd01f8d07fb0343c0727a27",
+    "byteLength": 505
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/readback.stderr": {
+    "sha256": "6c8d16eee4bdd68daf1983cc0091ef039215c539df29d268dee3b2615adf6e4b",
+    "byteLength": 777
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/readback.stdout": {
+    "sha256": "5259e5347cd1918a5647b49923ff6974a2298e78b6a2f5d3a842df99ff32464a",
+    "byteLength": 3468
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/intake-01/run.mjs": {
+    "sha256": "ad9b26b5466af94a7f6f121cca54226cca3c89c6ca2be6f999469bca9483971c",
+    "byteLength": 349
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/caller-subject.json": {
+    "sha256": "8767131e965351140e488a5886425ba4d432941a0f70e5bd243a56cb6a39b7d6",
+    "byteLength": 2775
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/calls/00-verify-core25.json": {
+    "sha256": "c35212c600a01d0e95020bc383f6b5e609ee14d6b6e5b4c4dbba3473975c441e",
+    "byteLength": 25690916
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/calls/01-verify-dev14.json": {
+    "sha256": "70f9177afa0afa2f046698691f8751caea24f43fee63e18bdd645eda5b4a6219",
+    "byteLength": 13147844
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/calls/02-resolve-core25-dev14.json": {
+    "sha256": "572375a17791afdca230a4f2d7a39331afb779f48ada27ab161580eb65db34e3",
+    "byteLength": 26349453
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/calls/03-install-core25.json": {
+    "sha256": "ed2acce311c5bc6e40923c4c6077b0b3f964b72ecbf2a185731fd2b6257b18c2",
+    "byteLength": 29286167
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/calls/04-install-dev14.json": {
+    "sha256": "dc36c8db6fc1ead3624866737ee1f13ae9a268c8ca157dbda0ffa385261e074e",
+    "byteLength": 16741929
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/calls/05-bootstrap-native-d2-intake-bind-existing-workspace.json": {
+    "sha256": "30df4936cf875eabe8ac54f47cb3da57aee5d8c3cd39399da3f3f58184805bf3",
+    "byteLength": 20179507
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/calls/06-catalog.json": {
+    "sha256": "6225e77830b7e1e538fb5149375504e9a93c68f665f598aad6c6d94b56a40b56",
+    "byteLength": 34765319
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/calls/07-view.json": {
+    "sha256": "febb2892907b6bcdc8e0a378e43d0ef31a0c57d6d595c712e4b74e1ff5b9ce79",
+    "byteLength": 38893461
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/calls/08-intake-conformance.json": {
+    "sha256": "19fc8ae48dd029fa2b22816912109ef2d60b01638a2183d6a8303f03fd46c2e6",
+    "byteLength": 42529146
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/entry-close.json": {
+    "sha256": "519b6d95445b8129205bfa02d1916d96b3540bd20c98f0393f8030ab22415b0e",
+    "byteLength": 1438
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/execution-resolution.json": {
+    "sha256": "ec1b13a2c1edaface1a84383708623f3eebd2de65b98becb9fe1637d35c7ddb3",
+    "byteLength": 84268
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/intake-start.jsonl": {
+    "sha256": "e74de0d821267302f325aaf6f961f6e03ba90ce66b4a3710ed5955bf9a32f7a6",
+    "byteLength": 26436028
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/invocation/archives/fp-f304d26f4bb76f62-output.txt": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/invocation/archives/fp-f304d26f4bb76f62-prompt.txt": {
+    "sha256": "ef70f87489f8bb9bc3fa875baafa8c651fe43f39d4132a8435472feab532e3e2",
+    "byteLength": 1052422
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/invocation/archives/fp-f304d26f4bb76f62-stderr.log": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/invocation/archives/fp-f304d26f4bb76f62-stdout.log": {
+    "sha256": "7e41133cd1518d77358b5c206f587891718e3167629e72609cf7a78c93d4c51f",
+    "byteLength": 65781
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/invocation/archives/fp-f304d26f4bb76f62-transport.json": {
+    "sha256": "f437331f904f1195f68b7a425cb938acfa57d2f98c9daa2a478b8dda4ec79db2",
+    "byteLength": 77407
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/launch-control.json": {
+    "sha256": "bd5beb5e56510da93c28a540ff9d841b9fd920b38b9b503bf194e655c69d04f1",
+    "byteLength": 2089
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/observed-metrics.json": {
+    "sha256": "2d2519242bd55c981906e62d60337f9b337e647b4215641d1e2b9c8852fee713",
+    "byteLength": 6004
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/prepare.mjs": {
+    "sha256": "53cc3238b5b07092e997f9acd610ef8024c706d7ffac0f28cd1641a228d76d8c",
+    "byteLength": 19145
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/prepared.json": {
+    "sha256": "429929a3d29d094764904439c71094d64c4ab1c602032ecf50824bf9c3cacc6b",
+    "byteLength": 12143
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/process-result.json": {
+    "sha256": "856579c43b9afd08e9270a4c8fb7e5d01e4d26ced6c552885fea280090ef266a",
+    "byteLength": 356
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/process.json": {
+    "sha256": "32b0467edd1b4bdebefb4b7c6c6759a6ddc91fa862c3227a9e9b3c1e42a6c964",
+    "byteLength": 375
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/receipts/00-verify-core25.json": {
+    "sha256": "979b5e0b368847196a2e21ea0e48ed9577f2cd8aaa72bc8bf4520aab8fd7dede",
+    "byteLength": 257095
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/receipts/01-verify-dev14.json": {
+    "sha256": "cea4b719019511859f3b50e9abe37361960247fab6cd5633eb679785385fffc9",
+    "byteLength": 1966
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/receipts/02-resolve-core25-dev14.json": {
+    "sha256": "80cbfd485d1ee9383ac1008da0caeae2c0e77d5a2cd1abc126517b77cddbf80e",
+    "byteLength": 5400
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/receipts/03-install-core25.json": {
+    "sha256": "cb70dcb590d6e8caab8919b64076a14fd1f239c39db338eb73e4500864eba9e4",
+    "byteLength": 6246
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/receipts/04-install-dev14.json": {
+    "sha256": "d372e60f6640c81d097763b4195915019e8f787f70366a40cc537cd86428ac24",
+    "byteLength": 6245
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/receipts/05-bootstrap-native-d2-intake-bind-existing-workspace.json": {
+    "sha256": "a43829764d648fa7f89efdaf5f5c1be0e312ebdea520d40969c52425e97df5c4",
+    "byteLength": 7281
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/receipts/06-catalog.json": {
+    "sha256": "c4b479a697c2e2dff36ca97e5f758bd5a27052da38d30dffbc8d195a1ea26376",
+    "byteLength": 327171
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/receipts/07-view.json": {
+    "sha256": "c7265490308bbf0a4a1b1739fc6bc7bb338fffaab2743ed7e7df3cf2f43ddd06",
+    "byteLength": 1719
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/receipts/08-intake-conformance.json": {
+    "sha256": "b371d48df587a7c4d2039b80747e13149c0c170c8bb891400574d33038712a47",
+    "byteLength": 2479
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/selection.json": {
+    "sha256": "0358f333c4c7afcab9dd5cf29c161fe5cc968c4ae0d085035de6f7e5ba31accb",
+    "byteLength": 4038
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/setup-resource-close.json": {
+    "sha256": "73858b2b821144a94e366cbfc36e7c7505ab3b7ee035149132955947eb41d3d4",
+    "byteLength": 2578
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/setup-resource-entry.json": {
+    "sha256": "30c7b03e9881b52aa74094f692fed9198d634562f61cc5c8447dbe5111f2384c",
+    "byteLength": 893
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/setup.stderr": {
+    "sha256": "cc63721720ed02d91901ee86227e87b6281ab0a29677c595ce060036bf0866d3",
+    "byteLength": 1586
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/setup.stdout": {
+    "sha256": "baa5b6110282b01c8a9627a8167a473205926086e3379df6e4d8f9920e993fe7",
+    "byteLength": 957
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/bootstrap-native-d2-intake-bind-existing-workspace.json": {
+    "sha256": "4b9deb2ace51203465c9105e9db91c3759f2c74dd2254f27d60c02a6f27696b3",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/catalog.json": {
+    "sha256": "7fa18bb10fb9d3bcfc6033180b1a38714d351b90f044fe82578a659c889deb5e",
+    "byteLength": 287
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/execution-resolution.json": {
+    "sha256": "35b0aed57647684217ac6248c36c6cc9d0d8a36a58dc0af5f2e16c9c7cb33f13",
+    "byteLength": 86
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/install-core25.json": {
+    "sha256": "a740fc002b4bd5395b4c135e6a9508895c9e0f02ebbc5ffe0129b642d39bfaff",
+    "byteLength": 286
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/install-dev14.json": {
+    "sha256": "a89653cd7d7ebc1a2d7c47ce560ccca95c0a149cb669df20a66f8b4849626c52",
+    "byteLength": 292
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/intake-conformance.json": {
+    "sha256": "c65a8a51bebbafe526b6c2ba76ad1b166478f39da628fa7a450efaaf76af93dc",
+    "byteLength": 301
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/nominal-verification-0.json": {
+    "sha256": "e1f21e62795170b28be599b2523be1ddc9f344fdcf68662a0e394fdae5593430",
+    "byteLength": 73
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/nominal-verification-1.json": {
+    "sha256": "cafd9fb6d176381d68cf41f59f9227d1a9bd45179176247e2b1977ae45afbcca",
+    "byteLength": 80
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/resolve-core25-dev14.json": {
+    "sha256": "28a3c44fdb1676aea67395d7fdf2a9e358c01522518c88a2330f76997a32a677",
+    "byteLength": 292
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/verify-core25.json": {
+    "sha256": "5914b5718c5792cd184155864bee1db672034695c75791e4ae8f8b7604a04db1",
+    "byteLength": 290
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/verify-dev14.json": {
+    "sha256": "38c02e24700fa37b53c0d7d3e6c2907bbcbcc695f3c3e9592ee19e90be764539",
+    "byteLength": 290
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/timings/view.json": {
+    "sha256": "32747e3b54ba4b626e0b779c8f58c383ba48c50ca4ee5e634a898fa2617b869f",
+    "byteLength": 290
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/preparation/worksite-conservation.json": {
+    "sha256": "60694607428dcf9b733f45fee685b39f6950284be53cac0a900ef6cc6b00a82f",
+    "byteLength": 2079
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/return.md": {
+    "sha256": "14f52dfe48014d7554fb6c0da7090a15977eb2690fa718036dafae3e850caf1c",
+    "byteLength": 3192
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/caller-check.json": {
+    "sha256": "57af11c8013f39e508797f8f903a9c6839eb87f68d1bc11e052d7f534d84805c",
+    "byteLength": 147
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/calls/00-original-public-run-status.json": {
+    "sha256": "c6582752a4e93c40d9a5fde0817a213f5bdb8fb5c850bd836a12489322f2cf98",
+    "byteLength": 9407
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/execute.mjs": {
+    "sha256": "247078bb70e3981e8823be815ae9c4fe8215562b764c01c9129edfbb43c85a23",
+    "byteLength": 6332
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/first-failure.json": {
+    "sha256": "85dd27c7aa530dd98724c57f6fb002e1cd4930bca5e54ded829c0d91d5f36979",
+    "byteLength": 725
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/launch-control.json": {
+    "sha256": "e0755317686638532c1031bf907960bc900251992d6d0a247a282e0ea5684f72",
+    "byteLength": 571
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/process-result.json": {
+    "sha256": "f879a0d1b6b364bb1a0dd6566a5aa965850170d87613e02a95b3d0f31a4dec8f",
+    "byteLength": 90
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/process.json": {
+    "sha256": "ee1f7d586fd6592aec0f396da698642b5eb693155b4583a35efd0e8c34eae6cd",
+    "byteLength": 311
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/receipts/00-original-public-run-status.json": {
+    "sha256": "12120b6da107826da65ef329f2a0b6e239506a13a9ff31b8e49aa55444885268",
+    "byteLength": 1377
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/return.md": {
+    "sha256": "826926e989ac72d1e76a5a093b2d547680d22a0cdfe3feff26a84e88d7d147fe",
+    "byteLength": 1589
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/setup-resource-close.json": {
+    "sha256": "931802b4bf69adfad14ca8c4450886862d5291347ed15259e27f7a7add7ba6eb",
+    "byteLength": 2577
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/setup-resource-entry.json": {
+    "sha256": "da0d7a09f3c5e0a07d851d5f91a54b4a9d4dbf88aa01a58ed5c0906b2ed43c37",
+    "byteLength": 893
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/stderr": {
+    "sha256": "198dc10172021a5d9b8b764df256a44b2dbe5b89be063745c90880b8878af919",
+    "byteLength": 1669
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-02/verification.json": {
+    "sha256": "b355f722d240ed4b710d22fb876be73f49efda5d15cc870cf301edcb082fe819",
+    "byteLength": 1084
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-03/control.json": {
+    "sha256": "576459b9b6e4d3be045ee754fa2ff5a7b945145b859953e8eaa9dfb0b136a048",
+    "byteLength": 453
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-03/execute.mjs": {
+    "sha256": "22ebeb6726b499f8eae6f4ed2e8cef510ab43bf0fa86abadfc6593eac496d331",
+    "byteLength": 8305
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-03/first-failure.json": {
+    "sha256": "1a9d72bfd8a8fbe0e42ef59a29bb2933ebe031b4da0bbd1b814a20c1b9e04bf8",
+    "byteLength": 378
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-03/process-result.json": {
+    "sha256": "1d9aa3e9da4724f3984f211c99fa768bfbd3cb18348bc1b1410437e27a906774",
+    "byteLength": 142
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-03/process.json": {
+    "sha256": "83e79973b7a2e2f46deb4f20b0ae09ccd928bb5164961136bcfb59316d0841ab",
+    "byteLength": 311
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-03/process.stderr": {
+    "sha256": "015c0a7530d15fdf287a19877952b7f586661ee5d463178b913abc4a67c8f6f1",
+    "byteLength": 1227
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-03/process.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-03/verification.json": {
+    "sha256": "481850a8e39f461bc6cb0eb0c8868bbdc666748b5f16ab7638a982316a0c18bb",
+    "byteLength": 1090
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/caller-check.json": {
+    "sha256": "88c68639a518bd33d396d240d603383cf42b88373d0333800249f75d4afef246",
+    "byteLength": 1467
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/calls/00-original-public-run-status.json": {
+    "sha256": "11028fc22f4243e9c37a5c112433a6c9d9fe7cbb2be35b97eafb46c665395fb1",
+    "byteLength": 10322
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/control.json": {
+    "sha256": "ad87187a4b712a97a64791646b4f7413a9b509ad6d26a4416ad01c15a1106584",
+    "byteLength": 542
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/execute.mjs": {
+    "sha256": "bd975e20fe09a743803be4f19c2d4dc0feb61ec42005a9681bb1849487342280",
+    "byteLength": 8212
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/first-failure.json": {
+    "sha256": "2d8c2c7aa9218b7a60a4ead7289863cd6425aa3f8cc529f203912ce7b0689cfb",
+    "byteLength": 678
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/process-result.json": {
+    "sha256": "59e29fdd9835fb2045a917e09d599ea36feda0dd22938b9be0d92ded804fa864",
+    "byteLength": 143
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/process.json": {
+    "sha256": "88226962e5d50b16cfcfaba942ec7657d35a9d0ffb3b1fbe5b08baa84ae22b84",
+    "byteLength": 311
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/process.stderr": {
+    "sha256": "8f2107903a76430bae44fe710c6e1c593cb96527f5d97b7d1676941d5ee1d1aa",
+    "byteLength": 1417
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/process.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/receipts/00-original-public-run-status.json": {
+    "sha256": "29bd430c3f9619dde004ace6edf48ce754d8dadd5668bb92f71c79c53a7857b6",
+    "byteLength": 1767035
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/setup-resource-close.json": {
+    "sha256": "1516a547074e764f45646b10b95457c3ebb18c369ce775ec434f2ee264a74e0e",
+    "byteLength": 2578
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/setup-resource-entry.json": {
+    "sha256": "04b9d9c311a15db494784efbdb890ffba230238694bbd333cacd65e8165b1087",
+    "byteLength": 892
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/timings/original-public-run-status.json": {
+    "sha256": "1467171ecad2ff2b9500ba65a5a6a7dea5a48a1fa7465714fe50bc96e2b35a64",
+    "byteLength": 32
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness-04/verification.json": {
+    "sha256": "b6647c1a7bb48711c3442d0cf942c703a69840c6cca5e3a7c75ba6ea8e2ae123",
+    "byteLength": 1084
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/calls/00-original-public-run-status.json": {
+    "sha256": "11028fc22f4243e9c37a5c112433a6c9d9fe7cbb2be35b97eafb46c665395fb1",
+    "byteLength": 10322
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/execute.mjs": {
+    "sha256": "9a44b0b4cb95eb3ee55946630119a27c756a81282718898b552b07c5b7612963",
+    "byteLength": 5475
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/first-failure.json": {
+    "sha256": "c729d8f2bce9efb295e99f22cd081b1cd5c6549c46ad51a0252b51c075b8f432",
+    "byteLength": 866
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/launch-control.json": {
+    "sha256": "60a8b534149321aa68b101e3b6f6aa45b06f5bef0a1f6055fbbf57ff9e50d7ad",
+    "byteLength": 519
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/process-result.json": {
+    "sha256": "29405c3589a43010f4057978f98ae3eaa9a4fef86a06935965b48fc96c100e88",
+    "byteLength": 90
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/process.json": {
+    "sha256": "ce4969bcbdc272386526d35afd72916b08bb6ce9bc9ad7b693fcac77a5f7442d",
+    "byteLength": 308
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/receipts/00-original-public-run-status.json": {
+    "sha256": "747724705154cd79cf362233b8b501b6a812db8927afbe073eb17dc4de2a9fdb",
+    "byteLength": 229
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/return.md": {
+    "sha256": "44176a25f0757c67c3a34423be9ff81605ea00abfcf5ac79984b5d2d80a46567",
+    "byteLength": 1436
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/setup-resource-close.json": {
+    "sha256": "8bc3dea4b4d8fd78db4aeb7026295acb389a3b9967ff94c45132a732db55fb37",
+    "byteLength": 2578
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/setup-resource-entry.json": {
+    "sha256": "fe35a16ea2475add3478074f1961325a4b4ac27163eefd4ddb08b79e3de10269",
+    "byteLength": 893
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/stderr": {
+    "sha256": "68e164fe8353e552a48da9c97a5313c8832efc67d718c08839bd8381a1ac8793",
+    "byteLength": 1810
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/root-witness/verification.json": {
+    "sha256": "6e308c762b195a7d42a11f29408556f47193996ec52bbf5f737eb6f148ae290c",
+    "byteLength": 1084
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/terminal-writer-projection.json": {
+    "sha256": "c099b3b10f40926d01c5128d6c173c5389a5fc0b2362838afb023a1265a896b5",
+    "byteLength": 609
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/calls/00-original-root-binding-reprice.json": {
+    "sha256": "f69cf478d1ef5ceeaf730375378e4c08b15834f227c0edc0d905a05e10972066",
+    "byteLength": 13113441
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/control.json": {
+    "sha256": "ef9707d47d9f2fe00b18612d995497a171452af3b04610707409f56f259b4865",
+    "byteLength": 402
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/execute.mjs": {
+    "sha256": "7db5692ed580050825c44ab39734cdf2e2abf9a8c77bf215fc683f363f9fd0e9",
+    "byteLength": 5451
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/process-result.json": {
+    "sha256": "b5223a7628343b9a346443a7c6dae1139c2873e1f1a7c0ed3696aaa964fb0dd9",
+    "byteLength": 143
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/process.json": {
+    "sha256": "ba00505eff84b4a05f12bfa796113d0bbc4be6f04aed17dbffbaae9ae51dd819",
+    "byteLength": 307
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/process.stderr": {
+    "sha256": "cc1abade82a5217131d772a80d9001bf62983304ffa4a1f1de274c217907315c",
+    "byteLength": 955
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/process.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "byteLength": 0
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/public-root-source.json": {
+    "sha256": "5a7b3f19d54409a4fd618d623e78c2342679190b96b214ae664d1ecca97ef24d",
+    "byteLength": 764
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/receipts/00-original-root-binding-reprice.json": {
+    "sha256": "603071910a2b5e88a40ea6ab36852395dd5f47579ce157d294739e29158cc159",
+    "byteLength": 3708
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/result.json": {
+    "sha256": "e1e751c21f254e2444db82c2c1ca3060d26111204f6f5c0d587d977b9ea7ed5a",
+    "byteLength": 4441
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/setup-resource-close.json": {
+    "sha256": "3c7f14ffee86d91f688637f1e0ba1975f69ca8befe13d805563ebfe564c906f1",
+    "byteLength": 2577
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/setup-resource-entry.json": {
+    "sha256": "1a527c215d0e8c2f523f458c0a978062a4218efdf8cb2ae80a2102909ccc390e",
+    "byteLength": 893
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/timings/reprice-construction-and-admission.json": {
+    "sha256": "4866ea27ca426554a5ea13009b6fc20b147887b8f4d430edff4347f54600b1b7",
+    "byteLength": 32
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/witness-01/verification.json": {
+    "sha256": "0d358fe8ead822913f8fa074c70ae05135b2049ba7d2fa7b6d6fda8dfd9614b4",
+    "byteLength": 1090
+  },
+  ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/writer-projection.json": {
+    "sha256": "66dccb5ff9572be5239e580b5fe9767fe73e1ab7669900b68d3ffcbc0f9886a2",
+    "byteLength": 759
+  }
+}

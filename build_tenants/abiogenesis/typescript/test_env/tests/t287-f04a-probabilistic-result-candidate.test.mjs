@@ -932,3 +932,72 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
   }
   assert.deepEqual(environment.store.readAll(), beforeEvents);
 });
+
+// Source/component join: installation, prefix admission and loaded semantics are
+// explicit lower-owner premises. The real leaf port, raw verifier and F04 owner
+// run; no Product install, event append or provider is performed by this case.
+test('F04 same native contract proof is reused while raw and changed bases still check', async t => {
+  const {SourceTextModule,SyntheticModule}=await import('node:vm');
+  const fs=await import('node:fs/promises');
+  const digests=await import('../../build/code/src/shared/digests.js');
+  const hello=await import('../../build/code/src/gtl/hello_world.js');
+  const implementation=await import('../../build/code/src/implementation/fp_hello.js');
+  const {ABI5_PRODUCT_SEMANTICS:semantics}=await import('../../build/code/src/product/builtin_semantics.js');
+  const {modulePublicationSemanticDigest}=await import('../../build/code/src/product/publication.js');
+  const {ABI5_PACKAGE_NAME,ABI5_PACKAGE_VERSION}=await import('../../build/code/src/product/contracts.js');
+  async function component(name,overrides){
+    const path=join(root,'build/code/src',name+'.js'),module=new SourceTextModule(await fs.readFile(path,'utf8'),{identifier:path});
+    await module.link(async spec=>{const native=await import(spec.startsWith('node:')?spec:pathToFileURL(resolve(dirname(path),spec)).href);
+      const values={...native,...overrides[spec]};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});
+    await module.evaluate();return module.namespace;
+  }
+  const hash=digests.sha256Canonical,artifact={artifactDigest:hash('archive'),productContentDigest:hash('content'),productManifestDigest:hash('manifest'),productId:'product://component/f04',packageName:ABI5_PACKAGE_NAME,packageVersion:ABI5_PACKAGE_VERSION};
+  const publication=hello.constructHelloWorldModulePublication(artifact),publicationDigest=modulePublicationSemanticDigest(publication);
+  const install={installId:'install://component/f04',productId:publication.owningProductId,productContentDigest:publication.productContentDigest,manifestDigest:publication.productManifestDigest,packageName:ABI5_PACKAGE_NAME,packageVersion:ABI5_PACKAGE_VERSION};
+  const coordinate=(declarationKind,declarationRef)=>({...install,moduleRef:publication.moduleRef,publicationDigest,declarationKind,declarationRef});
+  const binding=publication.implementationBindings.find(x=>x.implementationRef===hello.FP_HELLO_IDS.implementationRef);
+  const row={...binding,computeRegime:'F_P',implementationBindingRef:binding.bindingRef,implementationOwnerProductId:install.productId,implementationPublicationDigest:publicationDigest,graphFunctionRef:GRAPH_FUNCTION_REF,programLocusRef:'locus://component/f04'};
+  const set={rows:[row],implementationSetRef:'set://component/f04',implementationSetDigest:hash([row]),invocationAdmissionRef:'admission://component/f04',invocationRef:'invocation://component/f04'};
+  const execution={...set,graphFunctionRef:GRAPH_FUNCTION_REF,workspaceBindingId:'workspace://component/f04'};
+  const closure={selectedGraphFunctionRef:GRAPH_FUNCTION_REF,semanticsOwner:coordinate('semantics',publication.productSemanticsBinding.bindingRef),publications:[publication],
+    contractOwners:publication.contracts.map(c=>coordinate('contract',c.contractRef)),implementationBindingOwners:[coordinate('implementation_binding',binding.bindingRef)]};
+  const projection={...install,publicationDigest,bindingRef:publication.productSemanticsBinding.bindingRef};let current=true,rawChecks=0;
+  const lower={'../abg/environment_admission.js':{hasAdmittedProductInstall:()=>current},'../abg/execution_basis.js':{hasAdmittedImplementationSetAtPrefix:()=>current},
+    '../product/semantics.js':{inspectProductLeafSemanticsProjection:()=>({projection,runtime:{...semantics,verifyInstalledContent:async()=>true,
+      validateContractValue:(kind,value)=>{if(kind==='fp_hello_output')rawChecks++;return semantics.validateContractValue(kind,value);}}})}};
+  const ports=await component('implementation/leaf_invocation_port',lower);
+  const leafPort=await ports.constructAdmittedLeafInvocationPort({prefix:{},artifactTruth:{},implementationSet:set,semanticsProjection:projection,
+    executionResolution:{declarationClosure:closure,declarationPublications:[publication],ownerInstalls:[install]}});
+  const owner=await component('abg/probabilistic_result',{'./execution_basis.js':{hasAdmittedImplementationSetAtPrefix:()=>current,hasAdmittedExecutionBasisAtPrefix:()=>current},
+    './environment_admission.js':{projectAdmittedWorkspaceProductInstall:()=>current?{install}:null}});
+  const env={product:digests,implementationRow:row,implementation,artifactTruth:{},executionBasis:execution,implementationSet:set,leafPort,
+    abg:{selectValidatedRuntimeEventPrefix:x=>x},store:{readAll:()=>[]}};
+  const basis=constructBasis(env,JSON.stringify(validResult()));
+  const verifyInput={resolution:row,input:basis.input,inputDigest:hash(basis.input),instructionContractRef:INPUT_CONTRACT_REF,rawResultContractRef:OUTPUT_CONTRACT_REF,rawResult:validResult()};
+  const verified=leafPort.verifyProbabilisticResultContractPreimage(verifyInput);assert.equal(verified.kind,'verified_probabilistic_result_contract_preimage');assert.equal(rawChecks,1);
+  basis.observation.nativeResultAssessment={kind:'native_worker_result_assessment',schemaVersion:'5.0.0',resultContractRef:OUTPUT_CONTRACT_REF,
+    inputDigest:hash(basis.input),rawOutputDigest:digests.sha256Bytes(basis.observation.finalOutput),disposition:'admitted',verification:verified};
+  // The native actor projection itself is tested by the retained actual-owner
+  // relation in t287-native-assessment-evidence; here its exact proof is supplied.
+  let projections=0;const authenticated=()=>{projections++;return {nativeResultAssessment:{disposition:'admitted',verification:verified}};};
+  const warm=owner.admitProbabilisticResultFromActorTransport(basis,authenticated);assert.equal(warm.kind,'contract_admitted_probabilistic_result_candidate');assert.equal(rawChecks,1);assert.equal(projections,1);
+  assert.deepEqual(owner.admitProbabilisticResultCandidate({...basis,observation:structuredClone(basis.observation)}),warm);
+  assert.equal(rawChecks,2,'raw exported ingress still performs the declared result check');
+  assertRefusal(owner.admitProbabilisticResultCandidate({...basis,leafPort:{...leafPort}}),'unadmitted_contract_capability');
+  const badRaw={...validResult(),message:'forged schema acceptance'},badBasis=withRawResult(env,basis,JSON.stringify(badRaw));
+  const {kind:vk,schemaVersion:vs,verificationRef:vr,verificationDigest:vd,...vb}=verified;
+  const forgedBody={...vb,rawResultDigest:hash(badRaw)},forgedDigest=hash(forgedBody);
+  badBasis.observation.nativeResultAssessment={kind:'native_worker_result_assessment',schemaVersion:'5.0.0',resultContractRef:OUTPUT_CONTRACT_REF,
+    inputDigest:hash(badBasis.input),rawOutputDigest:digests.sha256Bytes(badBasis.observation.finalOutput),disposition:'admitted',
+    verification:{kind:vk,schemaVersion:vs,verificationRef:`probabilistic-result-contract-preimage://abiogenesis/${forgedDigest.slice(7)}`,verificationDigest:forgedDigest,...forgedBody}};
+  assertRefusal(owner.admitProbabilisticResultCandidate(badBasis),'declared_contract_refused','self-consistent supplied verification is not admission');
+  const duplicate=basis.observation.finalOutput.replace('{','{"kind":"fp_hello_output",');
+  const before=projections;assertRefusal(owner.admitProbabilisticResultFromActorTransport(withRawResult(env,basis,duplicate),authenticated),'duplicate_object_key');assert.equal(projections,before,'strict framing precedes history authentication');
+  assertRefusal(owner.admitProbabilisticResultFromActorTransport({...basis,occurrence:{...basis.occurrence,attempt:0}},authenticated),'request_basis_mismatch');
+  assertRefusal(owner.admitProbabilisticResultFromActorTransport(withInput(env,basis,{...basis.input,subject:'Changed'}),authenticated),'transport_basis_mismatch');
+  const changed=withRawResult(env,basis,JSON.stringify({...validResult(),message:'wrong'}));assertRefusal(owner.admitProbabilisticResultFromActorTransport(changed,authenticated),'declared_contract_refused');
+  assertRefusal(owner.admitProbabilisticResultFromActorTransport({...basis,request:{...basis.request,resultContractRef:'contract://foreign'}},authenticated),'transport_basis_mismatch');
+  assertRefusal(owner.admitProbabilisticResultFromActorTransport(withRawResult(env,basis,JSON.stringify({...validResult(),actorRef:'actor://ineligible'})),authenticated),'declared_contract_refused');
+  current=false;assertRefusal(owner.admitProbabilisticResultFromActorTransport(basis,authenticated),'unadmitted_contract_capability');
+  t.diagnostic('Actual compiled leaf/F04 owners; prefix/install/semantic-loader facts and authenticated actor proof are supplied component premises. No runtime or native claim.');
+});

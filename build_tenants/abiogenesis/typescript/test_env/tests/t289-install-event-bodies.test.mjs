@@ -4,6 +4,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
+import { Session } from "node:inspector";
 import { filePrefix, loadProjectionOwners, sha256 } from "../support/t287-exact-prefix-projection-reuse.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
@@ -23,6 +24,33 @@ const basis = (event, predecessorPrefix, causationEventRefs = []) => {
     correlationId: event.correlationId, eventTime: event.eventTime, predecessorPrefix,
     causationEventRefs };
 };
+
+// Count real owner calls without replacing validation, derivation or I/O.
+async function measuredAdmission(action) {
+  const session = new Session();
+  session.connect();
+  const post = (method, params = {}) => new Promise((resolve, reject) =>
+    session.post(method, params, (error, result) => error ? reject(error) : resolve(result)));
+  try {
+    await post("Profiler.enable");
+    await post("Profiler.startPreciseCoverage", { callCount: true, detailed: false });
+    const value = action();
+    const coverage = await post("Profiler.takePreciseCoverage");
+    const calls = (path, name) => coverage.result.filter(row => row.url.endsWith(path))
+      .flatMap(row => row.functions).filter(row => row.functionName === name)
+      .reduce((sum, row) => sum + row.ranges[0].count, 0);
+    const work = {
+      artifactRowsPrepared: calls("/abg/artifact_truth.js", "prepare"),
+      coldPrefixSelections: calls("/abg/event_prefix.js", "selectColdPrefixFromImmutableSnapshot"),
+      calculusEffects: calls("/abg/event_calculus.js", "eventCalculusEffectRefs"),
+    };
+    assert.deepEqual(work, { artifactRowsPrepared: 2, coldPrefixSelections: 0, calculusEffects: 2 },
+      "only the proposed row and its accepted append are derived; prior history stays established");
+    return { value, work };
+  } finally {
+    session.disconnect();
+  }
+}
 
 if (process.argv[2] === "--cold") {
   const input = JSON.parse(await readFile(process.argv[3], "utf8"));
@@ -59,6 +87,9 @@ if (process.argv[2] === "--cold") {
     }
     outcomes.push({ name: entry.name, disposition: entry.valid ? "equal" : "refused" });
   }
+  const live = JSON.parse(await readFile(input.liveProjectionPath, "utf8"));
+  assert.deepEqual(project(await filePrefix(input.livePath, await readFile(input.livePath), owners)), live,
+    "fresh-process recovery equals the complete live projection at the same physical prefix");
   process.stdout.write(JSON.stringify({ processId: process.pid, outcomes }));
 } else {
   test("T289 owner serialization and cold historical/reference reconstruction preserve exact install truth", async () => {
@@ -82,10 +113,34 @@ if (process.argv[2] === "--cold") {
     assert.ok(acquisition.store);
     const { store } = acquisition;
     try {
-      const first = owners.environment.admitProductInstall(store, original[0].payload.artifact,
-        basis(original[0], acquisition.prefix), lock);
+      const firstAdmission = await measuredAdmission(() => owners.environment.admitProductInstall(store, original[0].payload.artifact,
+        basis(original[0], acquisition.prefix), lock));
+      const first = firstAdmission.value;
       assert.equal(first.kind, "artifact_owner_result");
       const firstEvent = store.readAll()[0];
+      const firstPrefix = owners.prefix.selectValidatedRuntimeEventPrefix(store.readAll());
+      const firstTruth = owners.artifact.projectArtifactTruth(firstPrefix);
+      const predecessorTruth = project(first.successorPrefix);
+      const prepared = owners.events.projectRuntimeEventFromValidatedHistory(store.readAll(), asCandidate(original[1]));
+      const duplicate = owners.events.projectRuntimeEventFromValidatedHistory(store.readAll(), asCandidate(original[0]));
+      const outcome = action => {
+        try { action(); return { accepted: true }; }
+        catch (error) { return { error: error.constructor.name, message: error.message }; }
+      };
+      const deltaCases = [prepared, duplicate,
+        Object.freeze({ ...prepared, admissionOrdinal: 3 }),
+        Object.freeze({ ...prepared, eventContractDigest: undefined }),
+        Object.freeze({ ...prepared, causationEventRefs: Object.freeze(["event://absent"]) }),
+      ];
+      for (const event of deltaCases) {
+        assert.deepEqual(outcome(() => owners.artifact.validateArtifactTruthCandidate(predecessorTruth, event)),
+          outcome(() => owners.artifact.projectArtifactTruth(owners.prefix.selectValidatedRuntimeEventPrefix(
+            Object.freeze([...store.readAll(), event])))),
+          "candidate delta preserves the full-prefix validity/refusal relation");
+        assert.strictEqual(owners.artifact.projectArtifactTruth(firstPrefix).artifacts[0], firstTruth.artifacts[0]);
+      }
+      assert.throws(() => owners.artifact.validateArtifactTruthCandidate(structuredClone(predecessorTruth), prepared),
+        /owner-derived predecessor/, "a copied projection is not the established internal value");
       assert.deepEqual(firstEvent.payload.resolvedLock, lock);
       assert.equal(firstEvent.payload.resolvedLock.kind, "resolved_product_lock");
       assert.deepEqual(Object.keys(firstEvent.payload.artifact).sort(),
@@ -123,6 +178,10 @@ if (process.argv[2] === "--cold") {
         assert.equal(result.disposition, "refused", name);
         assert.deepEqual(await readFile(path), before, `${name}: refuses before append`);
         assert.equal(store.readAll().length, 1, name);
+        assert.strictEqual(owners.artifact.projectArtifactTruth(firstPrefix).artifacts[0], firstTruth.artifacts[0],
+          `${name}: refused candidate preserves the exact predecessor fact`);
+        assert.deepEqual(project(first.successorPrefix).rows, first.artifactTruth.rows,
+          `${name}: refused candidate leaves the accepted projection unchanged`);
         // Re-sign only the envelope of an explicit mutation probe. These are
         // refusal inputs, not admitted or transplanted runtime evidence.
         const candidate = asCandidate(original[1]);
@@ -135,8 +194,9 @@ if (process.argv[2] === "--cold") {
         const event = { ...eventBody, eventId: "event://abiogenesis/" + owners.digests.sha256Canonical(eventBody).slice(7) };
         negativeHistories.push({ name, events: [firstEvent, event], valid: false });
       }
-      const second = owners.environment.admitProductInstall(store, original[1].payload.artifact,
-        basis(original[1], first.successorPrefix), lock);
+      const secondAdmission = await measuredAdmission(() => owners.environment.admitProductInstall(store, original[1].payload.artifact,
+        basis(original[1], first.successorPrefix), lock));
+      const second = secondAdmission.value;
       assert.equal(second.kind, "artifact_owner_result", JSON.stringify(second));
       const secondEvent = store.readAll()[1];
       assert.deepEqual(secondEvent.payload.resolvedLock, goodReference);
@@ -144,10 +204,25 @@ if (process.argv[2] === "--cold") {
       assert.deepEqual(secondEvent.causationEventRefs, [firstEvent.eventId]);
       assert.notEqual(secondEvent.eventId, firstEvent.eventId);
       assert.notEqual(secondEvent.payload.artifactRef, firstEvent.payload.artifactRef);
-      const binding = owners.environment.admitWorkspaceBinding(store, original[2].payload.artifact,
+      const beforeBinding = await readFile(path);
+      const stale = owners.environment.admitArtifact(store, basis(original[2], first.successorPrefix),
+        "abg.operation.workspace.bind", original[2].payload.artifactRef,
+        original[2].payload.artifactDigest, { artifact: original[2].payload.artifact,
+          workspaceAuthorityBasis: original[2].payload.workspaceAuthorityBasis });
+      assert.equal(stale.disposition, "coordinate_refused");
+      assert.deepEqual(await readFile(path), beforeBinding);
+      const bindingAdmission = await measuredAdmission(() => owners.environment.admitWorkspaceBinding(store, original[2].payload.artifact,
         basis(original[2], second.successorPrefix, [firstEvent.eventId, secondEvent.eventId]),
-        original[2].payload.workspaceAuthorityBasis);
+        original[2].payload.workspaceAuthorityBasis));
+      const binding = bindingAdmission.value;
       assert.equal(binding.kind, "artifact_owner_result");
+      assert.deepEqual(owners.artifact.projectArtifactTruth(firstPrefix), firstTruth,
+        "a successful later binding cannot change an immutable prior prefix");
+      const currentTruth = owners.artifact.projectArtifactTruth(owners.prefix.selectValidatedRuntimeEventPrefix(store.readAll()));
+      assert.strictEqual(currentTruth.artifacts.find(row => row.admissionEventRef === firstEvent.eventId), firstTruth.artifacts[0],
+        "successful suffixes retain the established first-install fact");
+      const liveProjectionPath = join(proofRoot, "live-projection.json");
+      await writeFile(liveProjectionPath, JSON.stringify(binding.artifactTruth));
       const expected = original.map((event) => ({ artifactRef: event.payload.artifactRef,
         artifactDigest: event.payload.artifactDigest, artifact: event.payload.artifact,
         resolvedLock: event.payload.resolvedLock ?? null }));
@@ -185,7 +260,7 @@ if (process.argv[2] === "--cold") {
         histories.push({ name: entry.name, path: file, valid: entry.valid });
       }
       const coldInputPath = join(proofRoot, "cold-input.json");
-      await writeFile(coldInputPath, JSON.stringify({ expectedPath, histories }, null, 2));
+      await writeFile(coldInputPath, JSON.stringify({ expectedPath, histories, liveProjectionPath, livePath: path }, null, 2));
       store.projectReopenAuthorityAndClose();
       const coldResult = JSON.parse(execFileSync(process.execPath,
         [fileURLToPath(import.meta.url), "--cold", coldInputPath], { encoding: "utf8", maxBuffer: 1024 * 1024 }));
@@ -203,8 +278,66 @@ if (process.argv[2] === "--cold") {
         ownerEvents: store.readAll().length, historicalPrefixBytes: encode(original).length,
         compactPrefixBytes: before.length, compactSavingsBytes: encode(original).length - before.length,
         preAppendRefusalCases: mutations.map(([name]) => name), coldResult,
+        candidateWork: [firstAdmission.work, secondAdmission.work, bindingAdmission.work],
+        refusedCandidateIsolation: true, immutablePriorPrefix: true, stalePredecessorRefused: true,
+        completeLiveColdProjectionEqual: true,
+        candidateDeltaColdCases: deltaCases.length,
         physicalMutationRefused: true, retainedInputUnchanged: true,
         scope: "Owner and cold-reader regression; synthetic histories are explicitly projection/refusal probes, not installed qualification.",
+      }, null, 2) + "\n");
+    } finally {
+      store.closeDurableLog();
+    }
+  });
+
+  test("T289 live state recovers after rollback without changing earlier artifact prefixes", async () => {
+    const proofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT;
+    const historyBytes = await readFile(process.env.ABI5_INSTALL_BODY_HISTORY);
+    assert.equal(sha256(historyBytes), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
+    const original = historyBytes.toString().trimEnd().split("\n").slice(0, 3).map(JSON.parse);
+    const path = join(proofRoot, "rollback.jsonl");
+    const acquired = owners.events.createNewEmptyAppendSink({
+      kind: "new_empty_append_sink_request", schemaVersion: "5.0.0", eventLogPath: path,
+    });
+    const { store } = acquired;
+    assert.ok(store);
+    try {
+      const first = owners.environment.admitProductInstall(store, original[0].payload.artifact,
+        basis(original[0], acquired.prefix), original[0].payload.resolvedLock);
+      const earlierPrefix = owners.prefix.selectValidatedRuntimeEventPrefix(store.readAll());
+      const earlierTruth = owners.artifact.projectArtifactTruth(earlierPrefix);
+      const second = owners.environment.admitProductInstall(store, original[1].payload.artifact,
+        basis(original[1], first.successorPrefix), original[1].payload.resolvedLock);
+      const accepted = project(second.successorPrefix);
+      const bytes = await readFile(path);
+      const marker = {
+        kind: "public_operation_admitted", eventTime: original[0].eventTime,
+        aggregateType: "workspace", aggregateId: "invocation://rollback-marker", parentAggregateId: null,
+        causationEventRefs: [], correlationId: "correlation://rollback-marker", workflowVersion: "5.0.0",
+        scopeClass: "workspace", basisId: "basis://rollback-marker",
+        payload: { invocationDigest: owners.digests.sha256Canonical("rollback-marker"),
+          invocationRef: "invocation://rollback-marker", operationId: "abg.operation.project.read", variant: "status" },
+      };
+      assert.throws(() => owners.events.admitRuntimeEventTransactionAtExpectedPrefix(store, store.digest(), () => {
+        owners.events.admitRuntimeEvent(store, marker);
+        owners.artifact.projectArtifactTruth(owners.prefix.selectValidatedRuntimeEventPrefix(store.readAll()));
+        throw new Error("selected transaction rollback");
+      }), /selected transaction rollback/);
+      assert.deepEqual(await readFile(path), bytes);
+      assert.equal(store.readAll().length, 2);
+      assert.deepEqual(project(second.successorPrefix), accepted);
+      assert.deepEqual(owners.artifact.projectArtifactTruth(earlierPrefix), earlierTruth,
+        "invalidated computation still reconstructs the same immutable prior prefix");
+      const binding = owners.environment.admitWorkspaceBinding(store, original[2].payload.artifact,
+        basis(original[2], second.successorPrefix, store.readAll().map(event => event.eventId)),
+        original[2].payload.workspaceAuthorityBasis);
+      assert.equal(binding.kind, "artifact_owner_result", JSON.stringify(binding));
+      assert.equal(store.readAll().length, 3);
+      assert.equal(store.readAll().at(-1).kind, "public_operation_artifact_admitted");
+      assert.deepEqual(owners.artifact.projectArtifactTruth(earlierPrefix), earlierTruth);
+      await writeFile(join(proofRoot, "rollback-result.json"), JSON.stringify({
+        stagedDerivationRolledBack: true, durableBytesUnchanged: true,
+        priorPrefixConserved: true, laterBindingAdmitted: true,
       }, null, 2) + "\n");
     } finally {
       store.closeDurableLog();

@@ -15,7 +15,7 @@ import type {
   ProductInstall,
 } from "./environment.js";
 import { installedProductContentMatches } from "./install_product.js";
-import { loadVerifiedInstalledModule } from "./installed_module.js";
+import { prepareInstalledProductModules, type InstalledProductModulePreparation } from "./installed_module.js";
 import type {
   DeclarationApplication,
   GraphFunctionCatalogView,
@@ -302,6 +302,21 @@ export function inspectProductLeafSemanticsProjection(
 export async function loadInstalledProductSemantics(
   basis: InstalledProductSemanticsBasis,
 ): Promise<ProductSemanticsProvider> {
+  return loadProductSemantics(basis, () => prepareInstalledProductModules(basis.install));
+}
+
+/** Same-owner composition; the caller supplies this resolution's physical result. */
+export async function productSemanticsFromModules(
+  basis: InstalledProductSemanticsBasis,
+  prepared: InstalledProductModulePreparation,
+): Promise<ProductSemanticsProvider> {
+  return loadProductSemantics(basis, async () => prepared);
+}
+
+async function loadProductSemantics(
+  basis: InstalledProductSemanticsBasis,
+  prepare: () => Promise<InstalledProductModulePreparation>,
+): Promise<ProductSemanticsProvider> {
   const binding = "publication" in basis
     ? basis.publication.productSemanticsBinding
     : basis.productSemanticsBinding;
@@ -317,10 +332,11 @@ export async function loadInstalledProductSemantics(
       "Product semantics requires one exact admitted install and publication binding",
     );
   }
-  const moduleResult = await loadVerifiedInstalledModule(
-    basis.install,
-    binding.modulePath,
-  );
+  const prepared = await prepare();
+  if (prepared.kind !== "refused" && prepared.install !== basis.install) {
+    throw new TypeError("Product semantics requires exact installed Product content");
+  }
+  const moduleResult = prepared.kind === "refused" ? prepared : await prepared.load(binding.modulePath);
   if (moduleResult.kind === "refused") {
     throw new TypeError(
       moduleResult.code === "path_escape"

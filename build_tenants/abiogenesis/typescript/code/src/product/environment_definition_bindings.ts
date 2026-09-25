@@ -44,6 +44,8 @@ import type { ReferenceDigest } from "../shared/public_invocation.js";
 import type { VerifiedProductArtifact } from "./contracts.js";
 import {
   isProductInstall,
+  resolveProductArtifacts,
+  type ResolvedProductEnvironment,
   isResolvedProductLock,
   isWorkspaceAuthorityBasis,
   productInstallCoordinate,
@@ -62,11 +64,8 @@ import {
 } from "./environment_operation_contracts.js";
 import {
   ProductEnvironmentPort,
-  type ProductResolutionPacket,
   type WorkspaceBindingPacket,
 } from "./environment_operations.js";
-import { ABI5_PRODUCT_ID } from "./contracts.js";
-import { linkNativeContractSet } from "./declaration_exports.js";
 import { PRODUCT_VERIFICATION_CONTRACTS } from "./verification_operation_contracts.js";
 import { isVerifiedProductArtifact, productVerificationCoordinates } from "./verify_product.js";
 
@@ -330,8 +329,9 @@ function resolveReceipt(
 
 function projectResolutionSuccess(
   call: DefinitionCall<ResolvePacket, ProductResolutionResourceAssertion>,
-  lock: ResolvedProductLock,
+  resolved: ResolvedProductEnvironment,
 ): OwnerSemanticOutput<ResolvePacket> {
+  const { lock, linked } = resolved;
   const resources = call.resources;
   const request = call.invocation.request;
   for (const requirement of request.requirements) {
@@ -409,26 +409,8 @@ function projectResolutionSuccess(
     selectorRefs,
     resources.nativeContractClosure,
   );
-  const artifacts = resources.verifiedPreimages.map(({ verifiedArtifact }) =>
-    verifiedArtifact
-  );
-  const toolchain = artifacts.filter(({ productId }) =>
-    productId === ABI5_PRODUCT_ID
-  );
-  if (toolchain.length !== 1) {
-    throw new TypeError("resolved native closure requires its exact toolchain Product");
-  }
-  const linked = linkNativeContractSet(artifacts.map((artifact) => ({
-    productId: artifact.productId,
-    productContentDigest: artifact.productContentDigest,
-    packageName: artifact.packageName,
-    declaredDependencies: artifact.declaredDependencies,
-    publicContracts: artifact.publicContracts,
-    evidence: artifact.nativeDeclarationEvidence,
-  })), toolchain[0]!.productContentDigest);
   if (
     closure.disposition !== "admitted" ||
-    linked.kind !== "linked" ||
     lock.nativeContractClosureDigest !== linked.nativeContractClosureDigest ||
     !sameJson(closure.value, {
       selectorDispositions: linked.selectorDispositions,
@@ -489,15 +471,9 @@ const resolve: ExactDefinitionCallable<
   if (resourceFault !== null) return Effect.fail(resourceFault);
   return Effect.try({
     try: (): DefinitionReturn<ResolvePacket, ProductResolutionResourceReceipt> => {
-      const nativePacket: ProductResolutionPacket = {
-        kind: "product_resolution_packet",
-        schemaVersion: "5.0.0",
-        memberKey: "resolve",
-        verifiedArtifacts: call.resources.verifiedPreimages.map(
-          ({ verifiedArtifact }) => verifiedArtifact,
-        ),
-      };
-      const native = ProductEnvironmentPort.resolve(nativePacket);
+      const native = resolveProductArtifacts(call.resources.verifiedPreimages.map(
+        ({ verifiedArtifact }) => verifiedArtifact,
+      ));
       if (native.kind === "environment_refusal") {
         return deepFreeze({
           ownerOutput: validateResolveOutput({
@@ -513,7 +489,7 @@ const resolve: ExactDefinitionCallable<
       }
       return deepFreeze({
         ownerOutput: projectResolutionSuccess(call, native),
-        resources: resolveReceipt(call.resources, native),
+        resources: resolveReceipt(call.resources, native.lock),
       });
     },
     catch: (cause) => isExecutionFault(cause)

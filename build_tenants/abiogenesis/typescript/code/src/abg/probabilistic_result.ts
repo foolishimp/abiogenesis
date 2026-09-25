@@ -1,3 +1,4 @@
+import type { AdmittedActorTransportProjection } from "./c_call.js";
 import {
   validateActorProcessCarrierPair,
   type ActorProcessObservation,
@@ -296,6 +297,22 @@ function transportBasisMatches(
 export function admitProbabilisticResultCandidate(
   supplied: Readonly<ProbabilisticResultAdmissionInput>,
 ): ProbabilisticResultAdmissionResult {
+  return admitResultCandidate(supplied);
+}
+
+/** Internal CCall composition; the callback obtains actual owner facts at the
+ * selected prefix, never a supplied serialized preimage. */
+export function admitProbabilisticResultFromActorTransport(
+  supplied: Readonly<ProbabilisticResultAdmissionInput>,
+  actorTransport: () => AdmittedActorTransportProjection | null,
+): ProbabilisticResultAdmissionResult {
+  return admitResultCandidate(supplied, actorTransport);
+}
+
+function admitResultCandidate(
+  supplied: Readonly<ProbabilisticResultAdmissionInput>,
+  actorTransport?: () => AdmittedActorTransportProjection | null,
+): ProbabilisticResultAdmissionResult {
   if (
     typeof supplied !== "object" ||
     supplied === null ||
@@ -494,15 +511,19 @@ export function admitProbabilisticResultCandidate(
     LeafInvocationPort["verifyProbabilisticResultContractPreimage"]
   >;
   try {
-    contractPreimage = supplied.leafPort
-      .verifyProbabilisticResultContractPreimage({
-        resolution: admittedResolution,
-        input: admittedInput,
-        inputDigest,
-        instructionContractRef: request.instructionContractRef,
-        rawResultContractRef: request.resultContractRef,
-        rawResult: value,
-      });
+    const contractInput = {
+      resolution: admittedResolution,
+      input: admittedInput,
+      inputDigest,
+      instructionContractRef: request.instructionContractRef,
+      rawResultContractRef: request.resultContractRef,
+      rawResult: value,
+    };
+    const assessment = observation.nativeResultAssessment?.disposition === "admitted"
+      ? actorTransport?.()?.nativeResultAssessment : undefined;
+    contractPreimage = assessment?.disposition === "admitted" && assessment.verification !== null
+      ? supplied.leafPort.revalidateProbabilisticResultContractPreimage(contractInput, assessment.verification)
+      : supplied.leafPort.verifyProbabilisticResultContractPreimage(contractInput);
   } catch {
     return refusal(
       "unadmitted_contract_capability",

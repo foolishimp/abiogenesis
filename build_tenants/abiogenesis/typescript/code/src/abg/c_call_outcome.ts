@@ -43,6 +43,9 @@ import type { WorkspaceBinding } from "../product/environment.js";
 import type { ActorRuntimeBinding } from "./actor_process.js";
 import {
   admitEvidence,
+  admitEvidenceFromActorTransport,
+  projectActorTransportForResult,
+  type AdmittedActorTransportProjection,
   admitJudgment,
   admitResult,
   completeRejectedCCall,
@@ -85,7 +88,7 @@ import {
 } from "./event_prefix.js";
 import type { ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import {
-  admitProbabilisticResultCandidate,
+  admitProbabilisticResultFromActorTransport,
   type ProbabilisticResultAdmissionResult,
 } from "./probabilistic_result.js";
 import {
@@ -520,12 +523,13 @@ function isRetryEligibleProbabilisticPayloadRefusal(
 function projectProbabilisticResultAtPrefix(
   input: AdmitCCallResultInput,
   prefix: ValidatedRuntimeEventPrefix,
+  actorTransport: () => AdmittedActorTransportProjection | null,
 ): ProbabilisticResultAdmissionResult | null {
   if (input.outcomeClass !== "leaf" || input.regime !== "F_P") return null;
   const receipt = input.ownerReceipt.receipt;
   if (receipt?.computeRegime !== "F_P") return null;
   const exchange = receipt.actorProcessExchange;
-  return admitProbabilisticResultCandidate({
+  return admitProbabilisticResultFromActorTransport({
     artifactTruth: input.actorRuntimeBinding.artifactTruth,
     executionBasis: input.executionBasis,
     implementationSet: input.implementationSet,
@@ -545,7 +549,7 @@ function projectProbabilisticResultAtPrefix(
     input: input.input,
     request: exchange.request,
     observation: exchange.observation,
-  });
+  }, actorTransport);
 }
 
 function admitProbabilisticPayloadRejection(
@@ -790,6 +794,7 @@ function stageCCallResult(
   input: AdmitCCallResultInput,
   probabilistic: ProbabilisticResultAdmissionResult | null,
   payloadRejection: CCallAdmissionRejection | null,
+  actorTransport: () => AdmittedActorTransportProjection | null,
 ): StagedCCallOutcome {
   if (!isRuntimeEventTransactionActive(input.store)) {
     throw new TypeError("CCall result admission requires one ABG transaction");
@@ -887,7 +892,10 @@ function stageCCallResult(
   const workerContracts = leafInput?.ownerReceipt.workerContracts ?? null;
   const evidence: AdmittedCCallEvidence[] = [];
   for (const row of evidenceCandidates) {
-    const admitted = admitEvidence(
+    const admitCurrentEvidence = row.kind === "probabilistic_transport_evidence_candidate"
+      ? (...args: Parameters<typeof admitEvidence>) => admitEvidenceFromActorTransport(actorTransport(), ...args)
+      : admitEvidence;
+    const admitted = admitCurrentEvidence(
       input.store,
       authorityPrefix,
       input.graph,
@@ -1098,9 +1106,22 @@ export function admitCCallResult(
       const predecessorPrefix = selectValidatedRuntimeEventPrefix(
         readActiveRuntimeTransactionAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }),
       );
+      // Retain the one actual owner projection for this transaction. Invalid raw
+      // framing still refuses before requesting actor-history authentication.
+      let transport: AdmittedActorTransportProjection | null | undefined;
+      const actorTransport = () => {
+        if (transport === undefined) {
+          const exchange = input.outcomeClass === "leaf" && input.ownerReceipt.receipt?.computeRegime === "F_P"
+            ? input.ownerReceipt.receipt.actorProcessExchange : null;
+          transport = exchange === null ? null : projectActorTransportForResult(
+            predecessorPrefix, input.cCall, exchange.request, exchange.observation);
+        }
+        return transport;
+      };
       const probabilistic = projectProbabilisticResultAtPrefix(
         input,
         predecessorPrefix,
+        actorTransport,
       );
       if (
         probabilistic?.kind === "probabilistic_result_admission_refusal" &&
@@ -1153,6 +1174,7 @@ export function admitCCallResult(
         input,
         probabilistic,
         payloadRejection,
+        actorTransport,
       );
       const truth = projectActiveRuntimeTransaction(
         input.store,

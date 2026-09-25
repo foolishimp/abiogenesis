@@ -45,6 +45,7 @@ export {
 export {
   CONFORMANCE_DEFINITION_BINDINGS,
   type ConformanceEvaluationResourceAssertion,
+  type ConformanceEvaluationResourceReceipt,
 } from "./conformance_definition_bindings.js";
 export { CONFORMANCE_OPERATION_CONTRACTS } from "./conformance_operation_contracts.js";
 export * from "./self_conformance_contracts.js";

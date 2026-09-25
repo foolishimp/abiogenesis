@@ -124,6 +124,13 @@ const TAR_MAX_BUFFER = 64 * 1024 * 1024;
 // It is not keyed by a caller digest, and copied/foreign values cannot reuse it.
 const ownedProductVerifications = new WeakMap<object, string>();
 
+/** @internal Retain only this verifier's actual immutable result during native
+ * detachment. Raw/copied bodies keep their ordinary structural admission. */
+export function retainedProductVerification(value: unknown): VerifiedProductArtifact | null {
+  return typeof value === "object" && value !== null && ownedProductVerifications.has(value)
+    ? value as VerifiedProductArtifact : null;
+}
+
 export function selectOwnedProductVerification(
   request: unknown,
   artifact: unknown,

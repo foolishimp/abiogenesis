@@ -60,7 +60,7 @@ async function backend(base) {
     },
     './verify_product.js':{verifyProduct:async request=>{metrics.archiveChecks++;
       assert.equal(request.artifactPath,join(territory,'unmaterialized-fixture.tgz'));
-      return archiveFails?{kind:'product_verification_refusal'}:verified;}},
+      return archiveFails?{kind:'product_verification_refusal'}:structuredClone(verified);}},
     'node:fs/promises':{readFile:async file=>{assert.equal(String(file),join(base,'product-toolchain-manifest.json'));
       afterManifestRead?.();
       return Buffer.from(JSON.stringify(manifestFails?{changed:true}:metadata.ownerManifest));}},
@@ -70,12 +70,24 @@ async function backend(base) {
   invocation=await mechanism(base,'product/invocation',{'./admission_authority.js':authority});
   const mechanics=await load(base,'shared/definition_binding_mechanics');
   metrics.resourceSelfComparisons=0;
+  metrics.closureResolutions=0;metrics.rawClosureValidations=0;metrics.resolvedClosureContinuations=0;
+  const declarations=await load(base,'product/declaration_closure');
+  const catalogOperations=await load(base,'product/catalog_operations');
+  const conformance=base===root ? await mechanism(base,'validator/conformance_operation',{
+    '../product/catalog_operations.js':{
+      constructCatalogProgramValidationInput:(...args)=>{metrics.rawClosureValidations++;return catalogOperations.constructCatalogProgramValidationInput(...args);},
+      constructProgramValidationInputFromResolvedClosure:(...args)=>{metrics.resolvedClosureContinuations++;return catalogOperations.constructProgramValidationInputFromResolvedClosure(...args);},
+    },
+  }) : await load(base,'validator/conformance_operation');
   const bindings=await mechanism(base,'validator/conformance_definition_bindings',{'../product/admission_authority.js':authority,
+    './conformance_operation.js':conformance,
+    '../product/declaration_closure.js':{resolveProgramDeclarationClosure:(...args)=>{metrics.closureResolutions++;return declarations.resolveProgramDeclarationClosure(...args);}},
     '../abg/index.js':{...env,...artifact},
     '../shared/definition_binding_mechanics.js':{sameJson:(a,b)=>{
       if(a===b && a?.kind==='conformance_evaluation_resource_assertion')metrics.resourceSelfComparisons++;
       return mechanics.sameJson(a,b);}}});
-  return {base,authority,invocation,bindings,metrics,env,artifact,
+  return {base,authority,invocation,bindings,metrics,env,artifact,conformance,
+    projections:(await load(base,'shared/public_function_projections')).PUBLIC_PROJECTION_PAYLOADS,
     publicApi:await load(base,'public/index'),contracts:await load(base,'validator/conformance_operation_contracts'),host:await load(base,'shared/effect_definition'),
     failArchive:value=>{archiveFails=value;},failManifest:value=>{manifestFails=value;},afterManifestRead:fn=>{afterManifestRead=fn;}};
 }
@@ -139,7 +151,15 @@ async function callFor(b,f,resources=f.resources,request=null,selection={}) {
   const authority={kind:'resolved_admission_authority',schemaVersion:'5.0.0',actorRef:actor.ref,authorityMode:'trusted_developer',authority:{...coord('authority://conformance-fixture',authorityValue),value:authorityValue},approval:{...coord('approval://conformance-fixture',approvalValue),value:approvalValue}};
   const grants=await Promise.all(definition.capabilityRefs.map(cap=>b.invocation.constructCapabilityGrant(authority,actor.ref,definition.definitionKey.operationId,cap,{kind:'admission_capability_grant_construction_basis',fixedPacket:packet,data:basis})));
   slots.capability_grants={requiredCapabilityRefs:definition.capabilityRefs,grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))};
-  return JSON.parse(JSON.stringify(b.publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:b.publicApi,definitionContractCoordinates:verified.definitionContractCoordinates,
+  // Archive/install verification is already a supplied component premise.
+  // Keep the historical metadata immutable; source-owned slot digests select
+  // the current reader's actual contract, not a newly verified package claim.
+  const definitionContractCoordinates=structuredClone(verified.definitionContractCoordinates);
+  if(b.base===root) for(const row of definitionContractCoordinates.operations) {
+    const asset=b.projections.operationContractAssets.find(asset=>asset.operationId===row.operationId);
+    for(const member of row.members)for(const coordinate of Object.values(member.slots))if(coordinate)coordinate.flatRow.contractDigest=asset.contentDigest;
+  }
+  return JSON.parse(JSON.stringify(b.publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:b.publicApi,definitionContractCoordinates,
     contractCatalog:{productId:verified.productId,productContentDigest:verified.productContentDigest,catalogId:verified.catalogId,catalogVersion:'5.0.0',catalogDigest:verified.catalogDigest},operationId:definition.definitionKey.operationId,memberKey,request,slots,
     resources:{...resources,admissionAuthority:{basis,authority,grants}},requestRef:'request://conformance-fixture',correlationRef:'correlation://conformance-fixture',eventTime:'2026-09-22T00:00:00.000Z',provenanceRefs:[]})));
 }
@@ -160,14 +180,25 @@ test('same-subject conformance retains one real owner derivation and predecessor
   const before=fs.readFileSync(f.eventLogPath),a=await measured(old,f,call),b=await measured(next,f,nextCall);
   assert.equal(a.result.exitCode,0,JSON.stringify(a.result.failure));assert.equal(b.result.exitCode,0,JSON.stringify(b.result.failure));
   assert.deepEqual(b.result.ownerOutput,a.result.ownerOutput);
-  const {artifactTruth:_removed,...oldResources}=a.result.resources;
-  assert.deepEqual(b.result.resources,oldResources);assert.equal(b.result.ownerOutput.value.disposition,'passed');
+  assert.equal(a.result.resources.kind,'conformance_evaluation_resource_assertion','historical receipt remains an input echo');
+  assert.deepEqual(b.result.resources,{kind:'conformance_evaluation_resource_receipt',schemaVersion:'5.0.0',
+    invocation:{ref:nextCall.invocation.invocationRef,digest:nextCall.invocation.invocationDigest},
+    request:{ref:nextCall.invocation.requestRef,digest:nextCall.invocation.requestDigest},
+    capabilityGrants:nextCall.invocation.invocationAuthority.slots.capability_grants.grants});
+  assert.equal(b.result.invocationRef,nextCall.invocation.invocationRef);
+  assert.equal(b.result.failure,null);
+  assert.equal(b.result.ownerOutput.value.disposition,'passed');
+  assert.equal(b.closureResolutions,1);assert.equal(b.rawClosureValidations,0);assert.equal(b.resolvedClosureContinuations,1);
+  const copiedResources=structuredClone(f.resources),copiedCall=await callFor(next,f,copiedResources);
+  const copied=(await measured(next,f,copiedCall)).result;
+  assert.deepEqual(copied.ownerOutput,b.result.ownerOutput,'equal-body catalogs retain raw/cold meaning');
+  assert.deepEqual(copied.resources,b.result.resources);
   assert.ok(b.physicalPrefixReads<=a.physicalPrefixReads,'resource deletion adds no physical environment acquisition');
   assert.equal(a.resourceSelfComparisons,1);assert.equal(b.resourceSelfComparisons,0);
   assert.equal(b.physicalPrefixReads,1,'cold ingress plus same-acquisition currentness reads history once');
   assert.equal(a.archiveChecks,1);assert.equal(b.archiveChecks,1);assert.equal(b.environmentDerivations,1);assert.equal(b.warmEnvironmentRelations,0);
   assert.deepEqual(fs.readFileSync(f.eventLogPath),before);
-  console.log(JSON.stringify({kind:'conformance_reuse_differential',predecessor:{...a,result:undefined},successor:{...b,result:undefined},ownerOutputDigest:hash(b.result.ownerOutput),resourceDigest:hash(b.result.resources),fixtureOnly:true}));
+  console.log(JSON.stringify({kind:'conformance_reuse_differential',predecessor:{...a,result:undefined},successor:{...b,result:undefined},ownerOutputDigest:hash(b.result.ownerOutput),resourceDigest:hash(b.result.resources),predecessorReceiptBytes:Buffer.byteLength(JSON.stringify(a.result.resources)),compactReceiptBytes:Buffer.byteLength(JSON.stringify(b.result.resources)),fixtureOnly:true}));
 
   for(const [label,change]of [
     ['incomplete inventory',r=>r.declaredInventory.pop()],
@@ -195,6 +226,12 @@ test('same-subject conformance retains one real owner derivation and predecessor
       const c=await callFor(backend,f,changedResources,request);
       const result=(await measured(backend,f,c)).result;
       results.push(result.ownerOutput??{code:result.failure.fault.code,stage:result.failure.fault.stage});
+      if(backend===next && result.ownerOutput!==null) {
+        assert.equal(result.exitCode,1);
+        assert.equal(result.resources.kind,'conformance_evaluation_resource_receipt');
+        assert.deepEqual(result.resources.request,{ref:c.invocation.requestRef,digest:c.invocation.requestDigest});
+        assert.deepEqual(result.resources.capabilityGrants,c.invocation.invocationAuthority.slots.capability_grants.grants);
+      }
     }
     assert.deepEqual(results[1],results[0],label+' is conserved');
     assert.ok(results[1].outcomeKind==='refusal' || results[1].code, label+' must refuse');
@@ -238,6 +275,32 @@ test('same-subject conformance retains one real owner derivation and predecessor
     try {assert.notEqual((await measured(backend,f,backend===old?call:nextCall)).result.exitCode,0,'physical drift after awaited verification refuses');}
     finally {backend.afterManifestRead(null);fs.writeFileSync(f.eventLogPath,before);}
   }
+});
+
+test('conformance resolved-closure continuation preserves raw readiness and complete validation outcomes',async t=>{
+  const f=await fixture(t),{catalog,catalogView}=f.resources.declarationCatalog;
+  const owner=await load(root,'product/declaration_closure');
+  const closure=owner.resolveProgramDeclarationClosure(catalog,catalogView,metadata.program.programRef);
+  assert.equal(closure.kind,'resolved_program_declaration_closure');
+  const basis={catalog,catalogView,declarationClosure:closure},packet=f.resources.packet;
+  const raw=next.conformance.evaluateGtlProgramConformance(packet,basis);
+  const continued=next.conformance.evaluateGtlProgramConformanceFromResolvedClosure(packet,closure);
+  assert.equal(raw.disposition,'passed');assert.deepEqual(continued,raw);
+  for(const [label,change]of [
+    ['static validation',p=>p.program.starts[0].graphFunctionRef='graph-function://missing'],
+    ['raw declaration',p=>p.program.starts='malformed'],
+    ['packet',p=>p.extra=true],
+    ['crossed publication',p=>p.publication.moduleRef='module://foreign'],
+  ]) {
+    const changed=structuredClone(packet);change(changed);
+    const expected=next.conformance.evaluateGtlProgramConformance(changed,basis);
+    const actual=next.conformance.evaluateGtlProgramConformanceFromResolvedClosure(changed,closure);
+    assert.equal(expected.disposition,'failed',label);assert.deepEqual(actual,expected,label);
+  }
+  const forgedClosure=structuredClone(closure);forgedClosure.closureDigest=hash('forged closure');
+  assert.equal(next.conformance.evaluateGtlProgramConformance(packet,{...basis,declarationClosure:forgedClosure}).code,'raw_admission_refused');
+  const changedCatalog=structuredClone(catalog);changedCatalog.basisDigest=hash('foreign catalog basis');
+  assert.equal(next.conformance.evaluateGtlProgramConformance(packet,{...basis,catalog:changedCatalog}).code,'raw_admission_refused');
 });
 
 test('compact selection binds scope, cold acquisition, historical cuts and trusted-desktop currentness',async t=>{

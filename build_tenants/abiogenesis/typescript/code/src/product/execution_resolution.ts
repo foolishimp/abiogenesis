@@ -1,3 +1,4 @@
+import { prepareInstalledProductModules, type InstalledProductModulePreparation } from "./installed_module.js";
 import { isNativeSemanticRevisionGraphFunction } from "../gtl/semantic_revision_publication.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { isNativeSemanticGraphFunction } from "../gtl/semantic_stage_publication.js";
@@ -53,14 +54,14 @@ import {
 } from "./declaration_closure.js";
 import type { ProductInstall } from "./environment.js";
 import {
-  loadInstalledImplementationDescriptors,
+  implementationDescriptorsFromProduct,
   resolveImplementationSet,
   type ImplementationResolutionSetCandidate,
   type PackagedLeafImplementationDescriptor,
 } from "./implementation_resolution.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
 import {
-  loadInstalledProductSemantics,
+  productSemanticsFromModules,
   type ProductSemanticsProvider,
 } from "./semantics.js";
 
@@ -796,6 +797,16 @@ async function resolveProductExecution(
       publicationMatch.value,
     );
   }
+  // Each resolution owns fresh physical acquisition. Reuse only these actual
+  // results for its selected modules; nothing survives into another resolution.
+  const preparedProducts = new Map<ProductInstall, InstalledProductModulePreparation>();
+  const modulesFor = async (install: ProductInstall): Promise<InstalledProductModulePreparation> => {
+    const existing = preparedProducts.get(install);
+    if (existing !== undefined) return existing;
+    const prepared = await prepareInstalledProductModules(install);
+    preparedProducts.set(install, prepared);
+    return prepared;
+  };
   const packagedImplementations: Readonly<PackagedLeafImplementationDescriptor>[] = [];
   for (const ownerPublication of implementationPublicationMap.values()) {
     const ownerCoordinateValue = implementationOwnerCoordinates.find(
@@ -815,9 +826,10 @@ async function resolveProductExecution(
         "ImplementationBinding publication lacks one exact admitted owner install",
       );
     }
-    const descriptors = await loadInstalledImplementationDescriptors(
+    const descriptors = await implementationDescriptorsFromProduct(
       installMatch.value,
       ownerPublication,
+      await modulesFor(installMatch.value),
     );
     if ("kind" in descriptors) {
       return refusal(
@@ -925,13 +937,13 @@ async function resolveProductExecution(
   }
   let productSemantics: ProductSemanticsProvider;
   try {
-    productSemantics = await loadInstalledProductSemantics({
+    productSemantics = await productSemanticsFromModules({
       install: semanticsInstallMatch.value,
       publicationDigest:
         declarationClosure.semanticsOwner.publicationDigest,
       productSemanticsBinding: programPublication.productSemanticsBinding,
       verifyInstallAdmission: input.verifyInstallAdmission,
-    });
+    }, await modulesFor(semanticsInstallMatch.value));
   } catch {
     return refusal(
       "wrong_owner",

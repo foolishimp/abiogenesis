@@ -1,3 +1,4 @@
+import { prepareInstalledProductModules } from "./installed_module.js";
 import { isNativeSemanticRevisionGraphFunction } from "../gtl/semantic_revision_publication.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { isNativeSemanticGraphFunction } from "../gtl/semantic_stage_publication.js";
@@ -16,9 +17,9 @@ import { validateImplementationResolutionSet, validateProgram, } from "../valida
 import { admitGraphFunctionCatalog, lookupGraphFunction, lookupGraphFunctionDefinition, narrowGraphFunctionCatalog, } from "./catalog.js";
 import { constructCatalogProgramValidationInput } from "./catalog_operations.js";
 import { resolveExecutionDeclarationClosure, resolveProgramDeclarationClosure, selectExactClosureContract, } from "./declaration_closure.js";
-import { loadInstalledImplementationDescriptors, resolveImplementationSet, } from "./implementation_resolution.js";
+import { implementationDescriptorsFromProduct, resolveImplementationSet, } from "./implementation_resolution.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
-import { loadInstalledProductSemantics, } from "./semantics.js";
+import { productSemanticsFromModules, } from "./semantics.js";
 export function isProductExecutionResolution(value) {
     try {
         const candidate = value;
@@ -370,6 +371,17 @@ async function resolveProductExecution(input) {
         }
         implementationPublicationMap.set(`${coordinate.moduleRef}\0${coordinate.publicationDigest}`, publicationMatch.value);
     }
+    // Each resolution owns fresh physical acquisition. Reuse only these actual
+    // results for its selected modules; nothing survives into another resolution.
+    const preparedProducts = new Map();
+    const modulesFor = async (install) => {
+        const existing = preparedProducts.get(install);
+        if (existing !== undefined)
+            return existing;
+        const prepared = await prepareInstalledProductModules(install);
+        preparedProducts.set(install, prepared);
+        return prepared;
+    };
     const packagedImplementations = [];
     for (const ownerPublication of implementationPublicationMap.values()) {
         const ownerCoordinateValue = implementationOwnerCoordinates.find((coordinate) => coordinate.moduleRef === ownerPublication.moduleRef &&
@@ -379,7 +391,7 @@ async function resolveProductExecution(input) {
         if (installMatch.kind !== "one") {
             return refusal(installMatch.kind, "implementation", "ImplementationBinding publication lacks one exact admitted owner install");
         }
-        const descriptors = await loadInstalledImplementationDescriptors(installMatch.value, ownerPublication);
+        const descriptors = await implementationDescriptorsFromProduct(installMatch.value, ownerPublication, await modulesFor(installMatch.value));
         if ("kind" in descriptors) {
             return refusal(descriptors.code === "ambiguous_implementation"
                 ? "ambiguous"
@@ -428,12 +440,12 @@ async function resolveProductExecution(input) {
     }
     let productSemantics;
     try {
-        productSemantics = await loadInstalledProductSemantics({
+        productSemantics = await productSemanticsFromModules({
             install: semanticsInstallMatch.value,
             publicationDigest: declarationClosure.semanticsOwner.publicationDigest,
             productSemanticsBinding: programPublication.productSemanticsBinding,
             verifyInstallAdmission: input.verifyInstallAdmission,
-        });
+        }, await modulesFor(semanticsInstallMatch.value));
     }
     catch {
         return refusal("wrong_owner", "semantics", "Product semantics callable is not carried by its resolved admitted owner install");

@@ -1,3 +1,4 @@
+import { retainedProductVerification } from "../product/verify_product.js";
 import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
 import * as abg from "../abg/index.js";
 import * as product from "../product/index.js";
@@ -231,41 +232,54 @@ function selectedCallable(
     );
 }
 
-/** Detachment does not invalidate an actual immutable Product owner result.
- * JSON copies retain no such provenance; the selected owner still validates
- * every request/resource relation before consuming either value. */
-function preserveOwnedProductValues(
-  original: AnyDefinitionCall,
-  detached: AnyDefinitionCall,
-): void {
-  const resources = original.resources as Readonly<Record<string, unknown>>;
-  const copied = detached.resources as Record<string, unknown>;
+/** Detach mutable/raw input without copying an immutable verifier result first.
+ * Only the verifier's existing exact request/result relation retains a body;
+ * every receiving owner still admits the call and its additional relations. */
+function detachDefinitionCall(original: AnyDefinitionCall): AnyDefinitionCall {
+  const resources = { ...original.resources as Readonly<Record<string, unknown>> };
+  const retained: { readonly path: readonly (string | number)[]; readonly value: unknown }[] = [];
+  const keep = (record: Record<string, unknown>, key: string, path: readonly (string | number)[], value: unknown): void => {
+    record[key] = null;
+    retained.push({ path: [...path, key], value });
+  };
   const authority = resources.admissionAuthority;
   const basis = isRecord(authority) ? authority.basis : null;
   const ownerArtifact = isRecord(basis) && isRecord(basis.ownerArtifact) ? basis.ownerArtifact : null;
   const owner = ownerArtifact === null ? null : product.selectOwnedProductVerification(
     ownerArtifact.request, ownerArtifact.verified,
   );
-  if (owner !== null) {
-    const copiedAuthority = copied.admissionAuthority as Record<string, unknown>;
-    const copiedBasis = copiedAuthority.basis as Record<string, unknown>;
-    (copiedBasis.ownerArtifact as Record<string, unknown>).verified = owner;
+  if (owner !== null && isRecord(authority) && isRecord(basis) && ownerArtifact !== null) {
+    const detachedOwner = { ...ownerArtifact };
+    resources.admissionAuthority = { ...authority, basis: { ...basis, ownerArtifact: detachedOwner } };
+    keep(detachedOwner, "verified", ["resources", "admissionAuthority", "basis", "ownerArtifact"], owner);
   }
-  const artifact = resources.kind === "product_verification_resources" &&
-      resources.targetKind === "installed_artifact"
-    ? resources.installedArtifact : resources.packedArtifact;
-  if (!isRecord(artifact) || !isRecord(artifact.artifact) || !isRecord(artifact.productContent)) return;
-  const verified = product.selectOwnedProductVerification({
-    artifactPath: artifact.artifactPath,
-    artifactRef: artifact.artifact.ref,
-    expectedArtifactDigest: artifact.artifact.digest,
-    expectedProductContentDigest: artifact.productContent.digest,
-    expectedManifestDigest: artifact.manifestDigest,
-    expectedProductId: artifact.productId,
-    expectedPackageName: artifact.packageName,
-    expectedPackageVersion: artifact.packageVersion,
-  }, resources.verifiedArtifact);
-  if (verified !== null) copied.verifiedArtifact = verified;
+  const verified = retainedProductVerification(resources.verifiedArtifact);
+  if (verified !== null) keep(resources, "verifiedArtifact", ["resources"], verified);
+  if (Array.isArray(resources.verifiedProducts)) {
+    resources.verifiedProducts = resources.verifiedProducts.map((value, index) => {
+      const owned = retainedProductVerification(value);
+      if (owned === null) return value;
+      retained.push({ path: ["resources", "verifiedProducts", index], value: owned });
+      return null;
+    });
+  }
+  if (Array.isArray(resources.verifiedPreimages)) {
+    resources.verifiedPreimages = resources.verifiedPreimages.map((value, index) => {
+      if (!isRecord(value)) return value;
+      const owned = retainedProductVerification(value.verifiedArtifact);
+      if (owned === null) return value;
+      const row = { ...value };
+      keep(row, "verifiedArtifact", ["resources", "verifiedPreimages", index], owned);
+      return row;
+    });
+  }
+  const detached = structuredClone({ invocation: original.invocation, resources });
+  for (const { path, value } of retained) {
+    let parent: unknown = detached;
+    for (const key of path.slice(0, -1)) parent = (parent as Record<string | number, unknown>)[key];
+    (parent as Record<string | number, unknown>)[path[path.length - 1]!] = value;
+  }
+  return detached;
 }
 
 export async function runInstalledDefinitionCallTransport(
@@ -274,7 +288,11 @@ export async function runInstalledDefinitionCallTransport(
 ): Promise<InstalledDefinitionCallTransportOutcome> {
   let detachedEnvelope: unknown;
   try {
-    detachedEnvelope = structuredClone({ acquisition, candidate });
+    detachedEnvelope = {
+      acquisition: structuredClone(acquisition),
+      candidate: isInstalledDefinitionCallCandidate(candidate)
+        ? detachDefinitionCall(candidate) : structuredClone(candidate),
+    };
   } catch {
     return refusal(
       "invalid_definition_call",
@@ -303,9 +321,6 @@ export async function runInstalledDefinitionCallTransport(
       "top-level acquisition differs from the DefinitionCall event resource",
     );
   }
-  if (isInstalledDefinitionCallCandidate(candidate)) {
-    preserveOwnedProductValues(candidate, detachedCandidate);
-  }
   return invokeInstalledDefinitionCall(detachedAcquisition.kind, detachedCandidate);
 }
 
@@ -332,19 +347,18 @@ export async function runInstalledDefinitionCallWithResource(
   let detached: AnyDefinitionCall;
   try {
     const { eventResource: _resource, ...resources } = candidate.resources;
-    const data = structuredClone({ invocation: candidate.invocation, resources });
+    const data = detachDefinitionCall({ invocation: candidate.invocation, resources });
     // An eventless bound operation carries the same explicit entry selection in
     // its existing admission basis. Preserve physical prefix correspondence,
     // never a caller-derived environment body or a semantic default.
     if (boundToSelection) {
-      const detachedAuthority = data.resources.admissionAuthority as Record<string, unknown>;
+      const detachedAuthority = (data.resources as Record<string, unknown>).admissionAuthority as Record<string, unknown>;
       const detachedBasis = detachedAuthority.basis as Record<string, unknown>;
       const detachedEnvironment = detachedBasis.boundEnvironment as Record<string, unknown>;
       detachedEnvironment.prefix = resource.prefix;
     }
     detached = { invocation: data.invocation,
-      resources: hasEventResource ? { ...data.resources, eventResource: resource } : data.resources };
-    preserveOwnedProductValues(candidate, detached);
+      resources: hasEventResource ? { ...data.resources as Record<string, unknown>, eventResource: resource } : data.resources };
   } catch { return refusal("invalid_definition_call", "native call semantic data is not one canonical DefinitionCall"); }
   return invokeInstalledDefinitionCall("acquired", detached);
 }

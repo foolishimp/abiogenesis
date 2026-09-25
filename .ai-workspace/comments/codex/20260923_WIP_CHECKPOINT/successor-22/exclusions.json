@@ -1,0 +1,17 @@
+{
+  "preservedNotCopied": [
+    "all journals and locks",
+    "original workspaces/application files",
+    "installed Products/node_modules",
+    "90MB full-state readback-basis snapshots",
+    "prior archives/banks including dev14 reused by reference",
+    "unrelated untracked files",
+    "independent selector prompt review still active"
+  ],
+  "exactSourceSubject": "da1e4cb4f547a29be1c210cb0144ab4199ce93bbcb5682aa3333e85d366cfee1",
+  "runtimeNoLongerActive": true,
+  "journalClose": {
+    "prefixLength": 124889739,
+    "coordinateDigest": "sha256:419521c930e6f09553a9772f92bcc12e2e0630e55dafbea7d1c5657332ff59ed"
+  }
+}

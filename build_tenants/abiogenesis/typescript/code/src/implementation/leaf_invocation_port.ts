@@ -1268,6 +1268,101 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     });
   }
 
+  function verifyContractPreimage(
+    receiver: unknown,
+    input: Parameters<LeafInvocationPort["verifyProbabilisticResultContractPreimage"]>[0],
+    verified: Parameters<LeafInvocationPort["revalidateProbabilisticResultContractPreimage"]>[1] | null,
+  ): Readonly<ProbabilisticResultContractPreimageVerification> {
+    try {
+      const admittedResolution = exactAdmittedResolution(input.resolution);
+      if (
+        receiver !== port ||
+        !isAdmittedLeafInvocationPort(port) ||
+        input.resolution.computeRegime !== "F_P" ||
+        !everyOwnerIsAdmitted ||
+        !hasAdmittedImplementationSetAtPrefix(
+          authority.prefix,
+          authority.implementationSet,
+        ) ||
+        admittedResolution === null
+      ) {
+        return preimageRefusal("unadmitted_resolution");
+      }
+      if (
+        sha256Canonical(input.input as unknown as JsonValue) !==
+          input.inputDigest ||
+        !port.validateContractValueByRef(
+          input.resolution.inputContractRef,
+          input.input,
+        )
+      ) {
+        return preimageRefusal("input_contract_refused");
+      }
+      const workerContracts = resolveWorkerContracts(
+        input.resolution,
+        input.input,
+      );
+      if (
+        workerContracts === null ||
+        workerContracts.instructionContractRef !==
+          input.instructionContractRef ||
+        workerContracts.resultContractRef !== input.rawResultContractRef
+      ) {
+        return preimageRefusal("contract_identity_mismatch");
+      }
+      const assessment = admittedResolution.implementationRef === nativeIds.implementationRef && isNativeWorkspaceWorkTask(input.input)
+        ? input.input.assessment : undefined;
+      const assessmentOwner = assessment === undefined ? null : uniqueContractByRef(workerContracts.resultContractRef);
+      const assessmentSchema = assessment === undefined || assessmentOwner === null ? null : resolveNativeWorkspaceAssessmentSchema(
+        assessment, authority.executionResolution.declarationPublications, authority.executionResolution.ownerInstalls);
+      const rawValid = assessment === undefined
+        ? verified !== null || port.validateContractValueByRef(workerContracts.resultContractRef, input.rawResult)
+        : admittedResolution.implementationRef === nativeIds.implementationRef && assessmentSchema !== null &&
+          (verified !== null || parseNativeWorkspaceAssessmentResult(assessmentSchema, JSON.stringify(input.rawResult)) !== null);
+      if (!rawValid ||
+          (admittedResolution.implementationRef === FP_HELLO_IMPLEMENTATION_DESCRIPTOR.implementationRef &&
+            !validateFpHelloResponse(input.input, input.rawResult))) {
+        return preimageRefusal("result_contract_refused");
+      }
+      const owner = implementationOwner(admittedResolution);
+      if (owner === null) {
+        return preimageRefusal("unadmitted_resolution");
+      }
+      const body = deepFreeze({
+        contractCapabilityBasis: {
+          installId: owner.install.installId,
+          implementationSetRef: port.implementationSetRef,
+          implementationSetDigest: port.implementationSetDigest,
+          publicationDigest: owner.coordinate.publicationDigest,
+        },
+        implementationResolutionDigest: sha256Canonical(
+          admittedResolution as unknown as JsonValue,
+        ),
+        implementationRef: admittedResolution.implementationRef,
+        inputContractRef: admittedResolution.inputContractRef,
+        targetOutputContractRef: admittedResolution.outputContractRef,
+        instructionContractRef: workerContracts.instructionContractRef,
+        rawResultContractRef: workerContracts.resultContractRef,
+        inputDigest: input.inputDigest,
+        rawResultDigest: sha256Canonical(
+          input.rawResult as unknown as JsonValue,
+        ),
+      });
+      const verificationDigest = sha256Canonical(body as unknown as JsonValue);
+      const result = deepFreeze({
+        kind: "verified_probabilistic_result_contract_preimage" as const,
+        schemaVersion: "5.0.0" as const,
+        verificationRef:
+          `probabilistic-result-contract-preimage://abiogenesis/${verificationDigest.slice("sha256:".length)}`,
+        verificationDigest,
+        ...body,
+      });
+      return verified === null || sha256Canonical(verified as unknown as JsonValue) === sha256Canonical(result as unknown as JsonValue)
+        ? result : preimageRefusal("contract_identity_mismatch");
+    } catch {
+      return preimageRefusal("owner_boundary_exception");
+    }
+  }
   const port = Object.freeze({
     kind: "admitted_leaf_invocation_port" as const,
     isExactLoadedCapability(): boolean {
@@ -1404,97 +1499,14 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         admittedEvidence,
       });
     },
-    verifyProbabilisticResultContractPreimage(
-      input: Parameters<
-        LeafInvocationPort["verifyProbabilisticResultContractPreimage"]
-      >[0],
-    ): Readonly<ProbabilisticResultContractPreimageVerification> {
-      try {
-        const admittedResolution = exactAdmittedResolution(input.resolution);
-        if (
-          this !== port ||
-          !isAdmittedLeafInvocationPort(port) ||
-          input.resolution.computeRegime !== "F_P" ||
-          !everyOwnerIsAdmitted ||
-          !hasAdmittedImplementationSetAtPrefix(
-            authority.prefix,
-            authority.implementationSet,
-          ) ||
-          admittedResolution === null
-        ) {
-          return preimageRefusal("unadmitted_resolution");
-        }
-        if (
-          sha256Canonical(input.input as unknown as JsonValue) !==
-            input.inputDigest ||
-          !port.validateContractValueByRef(
-            input.resolution.inputContractRef,
-            input.input,
-          )
-        ) {
-          return preimageRefusal("input_contract_refused");
-        }
-        const workerContracts = resolveWorkerContracts(
-          input.resolution,
-          input.input,
-        );
-        if (
-          workerContracts === null ||
-          workerContracts.instructionContractRef !==
-            input.instructionContractRef ||
-          workerContracts.resultContractRef !== input.rawResultContractRef
-        ) {
-          return preimageRefusal("contract_identity_mismatch");
-        }
-        const assessment = admittedResolution.implementationRef === nativeIds.implementationRef && isNativeWorkspaceWorkTask(input.input)
-          ? input.input.assessment : undefined;
-        const assessmentOwner = assessment === undefined ? null : uniqueContractByRef(workerContracts.resultContractRef);
-        const assessmentSchema = assessment === undefined || assessmentOwner === null ? null : resolveNativeWorkspaceAssessmentSchema(
-          assessment, authority.executionResolution.declarationPublications, authority.executionResolution.ownerInstalls);
-        const rawValid = assessment === undefined ? port.validateContractValueByRef(workerContracts.resultContractRef, input.rawResult)
-          : admittedResolution.implementationRef === nativeIds.implementationRef && assessmentSchema !== null &&
-            parseNativeWorkspaceAssessmentResult(assessmentSchema, JSON.stringify(input.rawResult)) !== null;
-        if (!rawValid ||
-            (admittedResolution.implementationRef === FP_HELLO_IMPLEMENTATION_DESCRIPTOR.implementationRef &&
-              !validateFpHelloResponse(input.input, input.rawResult))) {
-          return preimageRefusal("result_contract_refused");
-        }
-        const owner = implementationOwner(admittedResolution);
-        if (owner === null) {
-          return preimageRefusal("unadmitted_resolution");
-        }
-        const body = deepFreeze({
-          contractCapabilityBasis: {
-            installId: owner.install.installId,
-            implementationSetRef: port.implementationSetRef,
-            implementationSetDigest: port.implementationSetDigest,
-            publicationDigest: owner.coordinate.publicationDigest,
-          },
-          implementationResolutionDigest: sha256Canonical(
-            admittedResolution as unknown as JsonValue,
-          ),
-          implementationRef: admittedResolution.implementationRef,
-          inputContractRef: admittedResolution.inputContractRef,
-          targetOutputContractRef: admittedResolution.outputContractRef,
-          instructionContractRef: workerContracts.instructionContractRef,
-          rawResultContractRef: workerContracts.resultContractRef,
-          inputDigest: input.inputDigest,
-          rawResultDigest: sha256Canonical(
-            input.rawResult as unknown as JsonValue,
-          ),
-        });
-        const verificationDigest = sha256Canonical(body as unknown as JsonValue);
-        return deepFreeze({
-          kind: "verified_probabilistic_result_contract_preimage" as const,
-          schemaVersion: "5.0.0" as const,
-          verificationRef:
-            `probabilistic-result-contract-preimage://abiogenesis/${verificationDigest.slice("sha256:".length)}`,
-          verificationDigest,
-          ...body,
-        });
-      } catch {
-        return preimageRefusal("owner_boundary_exception");
-      }
+    verifyProbabilisticResultContractPreimage(input: Parameters<LeafInvocationPort["verifyProbabilisticResultContractPreimage"]>[0]) {
+      return verifyContractPreimage(this, input, null);
+    },
+    revalidateProbabilisticResultContractPreimage(
+      input: Parameters<LeafInvocationPort["verifyProbabilisticResultContractPreimage"]>[0],
+      verified: Parameters<LeafInvocationPort["revalidateProbabilisticResultContractPreimage"]>[1],
+    ) {
+      return verifyContractPreimage(this, input, verified);
     },
     async invoke(
       call: Parameters<LeafInvocationPort["invoke"]>[0],

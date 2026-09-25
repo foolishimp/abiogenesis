@@ -1,5 +1,5 @@
 import { isRecord } from "../shared/admission_predicates.js";
-import { constructCatalogProgramValidationInput } from "../product/catalog_operations.js";
+import { constructCatalogProgramValidationInput, constructProgramValidationInputFromResolvedClosure } from "../product/catalog_operations.js";
 import type { ReadyGraphFunctionCatalog, GraphFunctionCatalogView } from "../product/catalog.js";
 import type { ResolvedProgramDeclarationClosure } from "../product/declaration_closure.js";
 import type {
@@ -196,6 +196,28 @@ export function evaluateGtlProgramConformance(
   supplied: ConformanceEvaluatePacket,
   declarationBasis?: ConformanceDeclarationBasis,
 ): GtlProgramConformanceOperationResult {
+  return evaluateWithValidationInput(supplied, declarationBasis,
+    (packet) => declarationBasis === undefined
+      ? rawInput(packet.publication, packet.program)
+      : constructCatalogProgramValidationInput(declarationBasis.catalog, declarationBasis.catalogView,
+        declarationBasis.declarationClosure, packet.program));
+}
+
+/** Internal continuation after this conformance owner resolves the exact
+ * declaration closure. This is not exposed on the raw ConformancePort. */
+export function evaluateGtlProgramConformanceFromResolvedClosure(
+  supplied: ConformanceEvaluatePacket,
+  declarationClosure: ResolvedProgramDeclarationClosure,
+): GtlProgramConformanceOperationResult {
+  return evaluateWithValidationInput(supplied, { declarationClosure },
+    (packet) => constructProgramValidationInputFromResolvedClosure(declarationClosure, packet.program));
+}
+
+function evaluateWithValidationInput(
+  supplied: ConformanceEvaluatePacket,
+  declarationBasis: Pick<ConformanceDeclarationBasis, "declarationClosure"> | undefined,
+  inputForPacket: (packet: ConformanceEvaluatePacket) => ProgramValidationInput | RawAdmissionRefusal,
+): GtlProgramConformanceOperationResult {
   let admitted: JsonValue;
   try {
     admitted = admitIJsonValue(supplied, "GTL Program conformance packet");
@@ -239,10 +261,7 @@ export function evaluateGtlProgramConformance(
       code: "invalid_packet", path: "$.publication", message: "conformance closure differs from the original Program publication",
     }]);
   }
-  const input = declarationBasis === undefined
-    ? rawInput(packet.publication, packet.program)
-    : constructCatalogProgramValidationInput(declarationBasis.catalog, declarationBasis.catalogView,
-      declarationBasis.declarationClosure, packet.program);
+  const input = inputForPacket(packet);
   if (isRawAdmissionRefusal(input)) {
     return refusal(
       "raw_admission_refused",

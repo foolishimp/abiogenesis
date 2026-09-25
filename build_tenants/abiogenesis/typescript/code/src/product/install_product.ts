@@ -16,7 +16,6 @@ import type {
 } from "./contracts.js";
 import {
   type ProductInstall,
-  isResolvedProductLock,
   verifiedArtifactMatchesResolvedLock,
 } from "./environment.js";
 import {
@@ -28,7 +27,6 @@ import {
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
-  isVerifiedProductArtifact,
   parseProductManifest,
   selectOwnedProductVerification,
   verifyProduct,
@@ -202,8 +200,6 @@ export async function installProduct(
   request: InstallProductRequest,
 ): Promise<ProductInstallResult> {
   if (
-    !isVerifiedProductArtifact(request.verifiedArtifact) ||
-    !isResolvedProductLock(request.resolvedLock) ||
     !verifiedArtifactMatchesResolvedLock(
       request.verifiedArtifact,
       request.resolvedLock,

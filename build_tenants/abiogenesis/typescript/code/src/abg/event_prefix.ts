@@ -74,6 +74,26 @@ export function extendRuntimeEventPrefixForValidation(prefix: ValidatedRuntimeEv
   return selectPrefixFromImmutableSnapshot(receipt.source.append(runtimeEventsFromValidatedPrefix(prefix), [event]), undefined, receipt.source);
 }
 
+/** Check a proposed suffix without advancing any accepted derivation. The
+ * caller still owns event-envelope admission and the eventual checked append. */
+export function validateRuntimeEventPrefixExtension(prefix: ValidatedRuntimeEventPrefix, event: RuntimeEvent): void {
+  const receipt = computationReceipt(prefix);
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  if (receipt.scopeKey !== "all") throw new TypeError("candidate validation requires an unscoped predecessor");
+  if (!isImmutableRuntimeValue(event)) throw new TypeError("candidate event must be immutable data");
+  if (event.admissionOrdinal !== events.length + 1) throw new TypeError(
+    "runtime event-prefix selection requires a total, gap-free admission-ordinal order");
+  const index = authorityIndex(receipt.source, events);
+  index.structure(events);
+  extendRootEventProfileProjection(receipt.source.append(events, [event]), events.length, index.profile(events));
+  for (const causeRef of event.causationEventRefs) {
+    const cause = index.through("id:" + causeRef, events.length).at(-1);
+    if (cause === undefined) throw new TypeError("runtime event-prefix selection encountered an unknown causal predecessor");
+    if (event.runId !== undefined && cause.runId !== undefined && event.runId !== cause.runId) throw new TypeError(
+      "runtime event-prefix selection cannot cross a run causation boundary");
+  }
+}
+
 export function isImmutableRuntimeValue(
   value: unknown,
   visited: Set<object> = new Set(),

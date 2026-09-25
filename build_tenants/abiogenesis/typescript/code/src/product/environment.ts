@@ -34,6 +34,7 @@ import {
 import {
   linkNativeContractSet,
   type NativeLinkProduct,
+  type NativeContractLinkResult,
 } from "./declaration_exports.js";
 
 export interface ProductInstall extends Omit<ProductInstallCandidate, "kind" | "disposition"> {
@@ -397,9 +398,17 @@ function hasProductDependencyCycle(
   return [...productIds].some(visit);
 }
 
-export function constructResolvedProductLock(
+export interface ResolvedProductEnvironment {
+  readonly kind: "resolved_product_environment";
+  readonly lock: ResolvedProductLock;
+  readonly linked: Extract<NativeContractLinkResult, { readonly kind: "linked" }>;
+}
+
+/** Internal owner result: preserve the link already established for this lock.
+ * It is not a new serialized lock or runtime admission. */
+export function resolveProductArtifacts(
   artifacts: readonly VerifiedProductArtifact[],
-): EnvironmentRefusal | ResolvedProductLock {
+): EnvironmentRefusal | ResolvedProductEnvironment {
   if (artifacts.length === 0) {
     return refusal(
       "empty_product_set",
@@ -491,7 +500,14 @@ export function constructResolvedProductLock(
     rows,
     dependencyEdges,
   });
-  return lock;
+  return Object.freeze({ kind: "resolved_product_environment", lock, linked });
+}
+
+export function constructResolvedProductLock(
+  artifacts: readonly VerifiedProductArtifact[],
+): EnvironmentRefusal | ResolvedProductLock {
+  const resolved = resolveProductArtifacts(artifacts);
+  return resolved.kind === "environment_refusal" ? resolved : resolved.lock;
 }
 
 export function isResolvedProductLock(
