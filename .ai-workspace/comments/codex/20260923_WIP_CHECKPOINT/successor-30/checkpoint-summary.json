@@ -1,0 +1,8 @@
+{
+  "memberCount": 306,
+  "originalBytes": 369709712,
+  "transportBytes": 62133655,
+  "allReconstructionVerificationsPassed": true,
+  "credentialShapeFindingCount": 0,
+  "scope": "Both reviewed source corrections and core36 readiness, closed native34 failures and recovered original cause, frozen qualification preparation; native36 active and excluded"
+}

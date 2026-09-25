@@ -32,7 +32,7 @@ import { constructWorksiteSubject } from "../product/worksite_effect.js";
 import { projectRuntimeEventFromValidatedHistory, type RuntimeEvent } from "./event_store.js";
 import { projectWorksiteTransitionForResult, deriveRuntimeEventCalculusProjection, holdsAt,
   constructWorksiteObservationCurrentFluent } from "./event_calculus.js";
-import type { ExecutionBasis } from "./execution_basis.js";
+import type { ChildExecutionBasisInput, ExecutionBasis } from "./execution_basis.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
 
@@ -409,7 +409,8 @@ function deriveCurrentOrigins(prefix:ValidatedRuntimeEventPrefix,seedBasis:Execu
 /** One selected native D2 admission gate, shared by new actions, child bases
  * and later assembly. Raw kind strings cannot select an owner or grant. */
 export function worksiteRevisionEntryBindingDisposition(prefix:ValidatedRuntimeEventPrefix,graphFunction:Readonly<GraphFunction>,
-  input:unknown,currentBinding:WorkspaceBinding):"not_applicable"|"covered"|"basis_fork_detected" {
+  input:unknown,currentBinding:WorkspaceBinding,
+  admittedInput?:Pick<ChildExecutionBasisInput,"admittedInputRef"|"admittedInputDigest">):"not_applicable"|"covered"|"basis_fork_detected" {
   if(graphFunction.declarations["abg.semantic_revision_history"]!==SEMANTIC_REVISION_IDS.historicalOwnerDependencyRef)return "not_applicable";
   try {
     const nativeRequest = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
@@ -418,9 +419,14 @@ export function worksiteRevisionEntryBindingDisposition(prefix:ValidatedRuntimeE
       if (!same(native.workspaceBinding,currentBinding)) return "basis_fork_detected";
       const {acquisition:_acquisition,...retained} = native;
       const prepared = {kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:nativeRequest.parent,causes:nativeRequest.causes,currentWorksite:null,nativeWorksite:retained};
-      const sources = native.acquisition === undefined ? runtimeEventsFromValidatedPrefix(prefix).flatMap(event=>{
+      const events = runtimeEventsFromValidatedPrefix(prefix);
+      const sources = native.acquisition === undefined ? events.flatMap(event=>{
+        // Child admission already names its producer. Equal acquisitions in
+        // other Runs are not competitors for that exact admitted input.
+        if(admittedInput!==undefined && (!record(event.payload) || event.payload.resultRef!==admittedInput.admittedInputRef ||
+          event.payload.valueDigest!==admittedInput.admittedInputDigest))return [];
         if(event.kind!=="c_call_result_admitted"||!record(event.payload)||!same(event.payload.value,prepared))return [];
-        const c=coordinateFor(runtimeEventsFromValidatedPrefix(prefix),event),state=c===null?null:projectWorksiteRevisionNativeResult(prefix,c);
+        const c=coordinateFor(events,event),state=c===null?null:projectWorksiteRevisionNativeResult(prefix,c);
         return state===null?[]:[state];
       }) : [projectWorksiteRevisionNativeResult(prefix,native.acquisition)];
       return sources.length===1 && sources[0]?.cCall.implementationRef===SEMANTIC_REVISION_IDS.nativeIntakeImplementationRef &&

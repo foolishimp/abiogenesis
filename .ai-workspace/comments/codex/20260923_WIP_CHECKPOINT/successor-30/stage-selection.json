@@ -1,0 +1,40 @@
+{
+  "abiogenesis": [
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-29/push-verification.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-29/return.md",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/checkpoint-summary.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/catalog.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/credential-shape-findings.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/direct-paths.nul",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/exclusions.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/members.jsonl.gz",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/path-reconciliation.jsonl.gz",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/payloads/family-0000.tar.gz.part0000",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/payloads/family-0001.tar.gz.part0000",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/payloads/raw-5dcf9269ef302443c4a3a1aae0638c24e482d22a6a16a24bf36bcb1af6bae199.part0000",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/payloads/raw-e8751bfaa71d2969d95a30a278e2c69c6f5e4c815db7fbf4552aa19172827868.part0000",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/pending.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/closed-boundary/verification.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/root-disposition.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/selection.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/source-correspondence.json",
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md",
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-undispatched-diagnostic.test.mjs",
+    "specification/GOALS.md"
+  ],
+  "odd_glc": [
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-29/push-verification.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-29/return.md",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-30/checkpoint-reference.json",
+    ".ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+    "specification/GOALS.md"
+  ]
+}

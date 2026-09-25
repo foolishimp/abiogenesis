@@ -1,0 +1,18 @@
+{
+  "status": "exact",
+  "checked": {
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts": "bda88474783e415f8a5e0d08518f14af08a9bd660e582aa2813120a5c543981d",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts": "0544ab335f1885f6f25b5aa3f157dc5300fc5ccd5f661c487122885dee69334d",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-undispatched-diagnostic.test.mjs": "7d02c2955b50ae11ba4df2db9109b55e3f666d7faae3f8c8b0776995350c65a1",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.js": "45af70afb17273a9f73f359eca63083dc32bcddff422a56b0291c1d82dec9e5f",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js": "43b24ecd56a45c4efda3527b59549177ae8e7ec761bd3551bcb0d2c68ac2c855",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts": "7c8e69865a1c0d3fd2d777ea603cd0a747ab375e854048b45c46fc777ce984ec",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts": "91aec3f47a4da8ed33f2d59e665eed76fe459500dea4c4c363525b1ae5652af4",
+    "build_tenants/abiogenesis/typescript/test_env/tests/d2-binding-transition.test.mjs": "b1abdac4481120ab983cf26ca2a65375c5eb4432b2bc2a6377521a545d7f2e0b",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.js": "f84c19cd557ed7e0afdedfc8e9ffc75f707ceec644c2188ce3f5bc588f1f0390",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_revision.d.ts": "00b7388875a2280a441eb1cfcdf9f49bfe1ef71b94f6dcc30a352a6388567562",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/execution_basis.js": "6afee3c1868f2d9c225234a26823b35b7327b89aee3313a358b9084263d8a9bd",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": "f1e3b13c8d06f51b1ac55426698f8da4846c2216cf70dbf9d65cb79ed3702618",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": "3954d1ca8836723d27f81b5c2978e5102f59524077194f13e4b7deebfd7fef42"
+  }
+}

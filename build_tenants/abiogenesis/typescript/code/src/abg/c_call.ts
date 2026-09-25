@@ -71,6 +71,7 @@ import { runtimeEventPrefixDigest,
   indexedRuntimeEvents,
   validatedRuntimeEventPrefixThroughEvent,
   selectValidatedRuntimeEventPrefix,
+  selectRuntimeEventPrefixFromAuthority,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
@@ -1681,10 +1682,9 @@ function projectCCallOwnerAtPrefix(
   rows: readonly RuntimeEvent[];
   expectedStorePrefixDigest: Sha256Digest;
 }> | null {
-  const snapshot = runtimeEventsFromValidatedPrefix(authorityPrefix);
   const expectedStorePrefixDigest = runtimeEventPrefixDigest(authorityPrefix);
-  const prefix = selectValidatedRuntimeEventPrefix(
-    snapshot,
+  const prefix = selectRuntimeEventPrefixFromAuthority(
+    authorityPrefix,
     {
       runId: cCall.runId,
     },

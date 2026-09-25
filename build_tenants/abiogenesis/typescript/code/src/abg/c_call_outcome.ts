@@ -1306,14 +1306,16 @@ export function admitCCallRejection(
     input.store,
     input.predecessorPrefix,
     (): BlockedCCallOutcomeReceiptBody => {
-      const runPrefix = selectValidatedRuntimeEventPrefix(
+      // Completion owns its Run projection; retain the complete authority cut
+      // here, including the original global ordinals of unrelated Runs.
+      const authorityPrefix = selectValidatedRuntimeEventPrefix(
         readActiveRuntimeTransactionAtDurablePrefix(
           input.store, input.predecessorPrefix, { durableOnly: true },
-        ), { runId: input.cCall.runId },
+        ),
       );
       const completion = completeRejectedCCall(
         input.store,
-        runPrefix,
+        authorityPrefix,
         input.graph,
         input.graphFunction,
         input.cursor,

@@ -1,0 +1,8 @@
+{
+  "verifiedAtUtc": "2026-09-25T17:43:36.640357+00:00",
+  "localHead": "29e2b1621c41aa70d7e1d139c7e52b205d1e884c",
+  "actualRemoteMain": "29e2b1621c41aa70d7e1d139c7e52b205d1e884c",
+  "equal": true,
+  "evidence": "Closed EC source review, core34 package and identical Public replay; source and necessary evidence transported losslessly.",
+  "runtime": "Core33 Design remains provider-budget failed; no paid retry or increased controls selected."
+}

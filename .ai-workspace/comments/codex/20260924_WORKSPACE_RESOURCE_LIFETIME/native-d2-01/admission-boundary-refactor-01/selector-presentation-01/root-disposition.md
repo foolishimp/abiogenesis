@@ -754,3 +754,328 @@ preserve source postimages, prior receipts and original mutable runtime resource
 Use the existing lossless checkpoint transport, exact staging and normal commit/
 push. No test, package, native run or history reconstruction is repeated. Return
 to Executive after actual remote equality. This is a checkpoint, not release.
+
+
+## Native34 workload disposition and preserved continuation
+
+User directs execution to close the steel thread without cleanup drift. Root's
+Executive disposition is local_repair of the finite occurrence envelope, under
+existing D2 HOW execution-limit selection; no Product, source or oracle change.
+CLOSED core33 evidence establishes a complete compact StructuredOutput followed
+by the explicit provider budget stop:695.327s,$5.20156 reported list cost under
+$5, with no admitted Design result. The retained request review binds eight
+source surfaces,15 obligations and29 terms; reference transcription is already
+contracted. No supported evidence requires another source or architecture repair
+before an integrated attempt. Excess context/evidence cost remains LIFE01 debt.
+
+Root activates Writer only for this grant and paired current-state projections,
+then resumes Executive. Existing astra/xhigh Worker prepares and freezes one
+core34/dev15 continuation at F/native34-continuation-01 (F is the existing
+owner-continuation-repair-01 directory). Reuse core33's caller and conserved source
+Run74ac/cut216334690 plus the genuine current316064006B/158f2797 close; preserve
+original job/source/oracle/worksite, accepted Requirements and all failed Runs.
+Use exact accepted core34 archive758321d6 and unchanged dev15, no compile/package
+or profile. Use the actual current binding and new genuine witness; reuse the
+valid original-root receipt. One current-bound native intake selects its actual
+published complete suffix; HoG owns stages and effects. No transferred request,
+manual solution, candidate salvage or replacement history.
+
+Select Opus5.5/xhigh and ClaudeCode2.1.280. Intake keeps$5; the declared suffix gets
+$8 per actor occurrence, a finite allowance above the observed completed-output
+cost, not a prediction or pass condition. Retain300s idle/900s absolute/1s grace,
+90min native/10min readback/default heap, suffix ceiling12, explicit live enable,
+no fallback/automatic retry. Raw observation/admission/independent assessment and
+failure truth remain unchanged. Stop at actual refusal or terminal boundary and
+return complete semantic results, first cause and ordinary timings. The budget
+adjustment itself is not proof of consequential correction. Source34/review/
+package/installed-read acceptance and checkpoint29 are already closed. The
+prepared caller must correspond before execution; no new review round is required
+for unchanged source and this explicit supported control selection. Root conjoins
+the preparation return before launching. This is the next T287/T043 increment.
+
+
+## Parallel release-readiness reconciliation
+
+Root activates Writer solely to record this bounded read-only evaluation, then
+resumes Executive. Existing max Reviewer may reconcile the next qualification
+step from current Product15/T287 and accepted core34 with the retained RC1 recipe,
+F11/AF22 and existing S01/S02/S03/S06 evidence. Outcome: a short list of actual
+remaining execution/implementation dependencies and reusable evidence, with
+exact owning routes. Distinguish stale predecessor preparations from current
+capability. No new roster, audit framework, requirements, code, tests, Public
+reads, model/provider calls or runtime access. Write only the closed review under
+F/native34-continuation-01/release-readiness-01. This is not a launch gate for the
+current steel thread, and it grants no qualification or release acceptance.
+
+
+## Native34 exact execution selection
+
+Root conjoins accepted core34 source/review/package/installed replay and
+checkpoint29 with CLOSED caller return
+`4e42a49a626db436d2a550707a8c287891edee523d51f7c80fa2265ea407c750`,
+subject `dfa875944206f76f350ea92f6a69bc62f4db7dfc3836bd8d268e1446a960465e`
+and operation selection `c74d039f56d89d8628c48c5f66cbc27dda4ac05599f41c264ba4ab9b7c456895`.
+Select that one prepared ordinary sequence now, conditional on each real
+predecessor result: setup, genuine witness, current-bound intake, fresh reads,
+actual declared whole suffix and terminal readback. Original source/root reuse
+and all controls match the preceding grant; suffix$8 is constructed by the
+existing transport owner. No other source/runtime scope is selected. Worker
+returns at actual failure or terminal boundary with first cause; no automatic
+retry. Root's Writer activation records current tracking only, then resumes
+Executive and does not acquire the active journal.
+
+## Native34 closed intake and preserved successor
+
+Root consumes CLOSED native34 execution b3c8bf9583ed489ec1ee32c802a4eaebf842cf19afb160b2c555b4bd61490f1d
+and supported reuse boundary 0989bbc680142bc6c42c3ccd59e958e7f949c4340a1fbd482db87ce413ac6080.
+Setup and the genuine binding witness succeeded; the intake failed at its $5
+provider ceiling after an internal client stream continuation, complete typed
+output and tool acknowledgment. Reported list cost $6.1741984 is not billed
+cost. No selection was admitted and no suffix ran. Fresh Result is absent;
+replay is failed at324503143B/7c7e80d791372ef31f52b4cb0076cdab9ab5a5818ffc7f50943d29f8c189a83f.
+Preserve that failed Run and all original source/job/oracle/Requirements/worksite.
+
+Root selects one fresh intake with $12 finite provider allowance: headroom above
+the observed two input presentations and stream-continuation cost, not a timing
+or success prediction. The already-selected suffix keeps $8 per occurrence,
+Opus5.5/xhigh, ClaudeCode2.1.280,300s idle/900s absolute/1s grace,90min native,
+10min readback/default heap and ceiling12. No automatic retry or raw-output salvage.
+This is existing D2 execution-limit selection, not a source or Product change.
+
+Activate the existing xhigh Worker at F/native34-continuation-02. Reuse exact
+core34/dev15 installation, binding, catalog/resolution, original source-root
+receipt and successful witness through executeFullSandbox with the genuine
+native34 intake live-receipt as afterReceiptPath. Construct the new selected
+transport through prepareFullSandboxTransport, and let definitionCall construct
+new dependent invocation/steering. Use a distinct scratch/receipt; do not copy
+the failed selector into an admitted result. No setup/witness/build/package,
+profile, fresh history scan, broad test or source edit is selected.
+Freeze and return exact caller correspondence before execution. The intended
+execution remains one intake followed by its actual declared whole suffix and
+fresh terminal readback, conditional on real admitted predecessors. Root will
+conjoin the prepared return; failure returns for disposition.
+
+Root also accepts the closed read-only release-readiness return
+a2099be52091d46280b49e91c4f07404a79b542deb1bb4b0a288df2f68adbb42
+as dependency guidance, not qualification. It establishes no new implementation
+prerequisite in the inspected owners. Current-candidate qualification still needs
+its exact basis, actual required evidence, independent F11 judgments and sole
+AF22, then publication and distinct installed-RC qualification. Actual owner
+acceptance remains a later human act. The older S02 mixed18 hold/readback is
+satisfied within its recorded candidate, not a core34 scenario pass.
+
+Root activates Writer only to append this selection and update the paired
+current ticket/GOALS fields; then resumes Executive. This is the next bounded
+T287/T043 delivery step. Residual LIFE01 cost and context findings remain tracked.
+
+## Core34 qualification preparation
+
+Root activates Writer to record one parallel, preparation-only Worker grant,
+then resumes Executive. Under Derived Worker, E2E Interface Integration,
+Qualification/Proof and Conservation frames, bind the existing RC1 recipe and
+ordinary caller to accepted core34/dev15 and current selected law. Territory:
+F/qualification-core34-preparation-01 only; read the existing recipe, current
+Product completion, T287 D5, accepted packages and closed evidence. Preserve
+the existing S01/S02/S03/S06/QUAL056 selection and F11/soleAF22 ownership.
+Construct reusable caller inputs through existing owners, exact inventories and
+a short return of real pending bindings/results. Do not invent an admitted
+current binding or qualification result. No source/governing-law changes,
+compile/build/test/native/Public/journal/paid/Git effect, new roster/controller,
+or independent judgment by the author. Keep current D2 wholly independent.
+The Worker freezes one coherent preparation, identifies actual missing inputs,
+and returns; qualification execution and independent assessment need Root selection.
+
+## Native34 successor02 execution
+
+Root conjoins CLOSED preparation c0ecf8bf5dee643d81c030407c15f1ecbe8c83835037dcabd8945628dfc3856f,
+subject efa3ce001c2911bb289a4f89a44c66a987f61ab6f196feeb0e54fcc3ef6d103c,
+operation selection11caff3d7919a18d0118ac128ca739a4fa4456e7c5163e2d7f4be1c74d35f390
+and correspondence19c70ac3345c2421e54d706abb81ce176003a57e6922736f997abd9928b90a2c
+with accepted core34 and the preceding finite-envelope/reuse grant. Execute
+exactly that ordinary sequence now: one $12 current-bound intake; fresh reads;
+only on actual admitted selection, its complete declared $8-per-actor suffix
+and terminal fresh reads. Existing Product constructors/HoG/ABG own progression.
+No setup or witness repeat, source change, fallback or automatic retry. Return
+the first real refusal or terminal boundary with original evidence and timings.
+Root's bounded Writer updates execution fields and this grant, then resumes
+Executive without opening the active resource.
+
+## Native34 successor02 first refusal
+
+The selected successor closed runtime_failed before any new provider dispatch,
+Run b03597ae79756303688e03f268ad1e0b2cc97cfd7385fe70a300a6842dafc2b1,
+at325856830B/32b2fa1f…. Root does not classify this as another provider-budget
+failure. The Worker finishes the selected fresh reads and returns the first
+owned diagnostic within this occurrence. No retry, suffix or source repair is
+selected. Root activates Writer only for these current tracking fields, then
+resumes Executive. Current core34 qualification preparation is mechanically
+closed at b2539ffba514d330565b093cdc1773f42233d0b4023e0c0234db6ce2f608ef07;
+its execution waits on disposition of this actual failure.
+
+## Run-scoped refusal owner correction
+
+Root consumes the successor02 owned runtime diagnostic: TypeError "runtime
+event-prefix selection requires a total, gap-free admission-ordinal order",
+at RuntimeEventIndex.structure -> projectCCallOwnerAtPrefix ->
+completeRejectedCCall -> admitCCallRejection -> rejectWorkflowAdmission.
+A selected Run subset is being re-entered as a complete globally ordered prefix.
+This is an actual runtime refusal-path failure which masks the original refusal,
+not evidence that the selected $12 limit failed. The prior failed Run remains
+immutable and the underlying refusal stays unknown until supported evidence
+establishes it.
+
+Select realization_refactor within the existing c_call/c_call_outcome owner
+handoff; no Product/requirement/schema/timeout policy change. The existing
+xhigh Worker first closes the current execution record, then repairs the
+full-prefix/Run-scope relation without reconstructing an admitted subset as raw
+global ingress. Inspect only directly affected completion/projector callers for
+the same relation. Preserve external raw gap/order validation, exact Run identity,
+failure causality, event admission and cold replay. No new cache/controller,
+universal abstraction, unrelated guard removal or whole-codebase audit.
+
+Write only the necessary owner source/emitted files, one focused existing test
+surface and F/run-scope-refusal-repair-01 evidence. Use a sparse multi-Run refusal
+counterexample and relevant existing invalid-gap/identity controls. Reuse existing
+fixtures; one compile and focused checks suffice. Freeze the exact source and a
+short closed return, reporting original-refusal recoverability from already
+retained evidence. Do not open/scan the runtime journal, run another actor, alter
+the old caller, package/install, commit/push or activate review. Return on any
+upstream contract insufficiency. Root will select the single applicable independent
+checkpoint and next installed discriminator after this return.
+
+The core34 qualification preparation stays frozen and unexecuted. Root activates
+Writer for this grant/current T287/T043 projection only, then resumes Executive.
+
+## Run-scope repair review and package
+
+Root consumes CLOSED source return a16d007ba8fb753aa286da31f510aa3003806b4f0dcfe05593ecc462a71d6123,
+frozen subject71f591f0269f398c0f59e311b359b0fb3931c7febaf1fde896a46bc2d3e87b11.
+The two-owner +8/-6 correction and focused sparse multi-Run regression are
+ready for one independent max review. Review the current Product frame,
+preserved raw ingress/scope/failure relations and exact affected owner family;
+do not repeat the compile/checks, broaden to a code-wide audit or acquire runtime.
+Write only F/run-scope-refusal-repair-01/review-01 and return to Root.
+
+In parallel, the xhigh qualification-preparation Worker may construct core35
+through the existing compiled34 package workflow from these frozen emitted
+postimages plus all conserved members. Reuse the completed compile; generate
+only normal package metadata, pack, offline install and exact member/Product
+verification. Write COMPOSITE/compiled-35 and its declared ephemeral install,
+plus normal generated metadata. No source/test/requirement/GLC edit, runtime
+acquisition/actor, extra suite/profile or Git effect. dev15 stays unchanged.
+This is package readiness only; Root must conjoin closed source review and exact
+package identities before selecting installed execution. Root activates Writer
+for this grant/current selection only and then resumes Executive.
+
+Package assignment substitution: the qualification-preparation agent could not be
+reactivated because the agent thread limit was reached. Root assigns the same
+bounded core35 package operation to the existing original-owner xhigh Worker;
+source freeze, independent review and all scope limits remain unchanged.
+
+
+Tracking normalization: Root's bounded Writer keeps GOALS on the enduring
+steel-thread and RC1 outcome, with T287/T043 owning changing execution state.
+This removes duplicated transient budget/candidate status from the current
+GOALS summaries; scope and historical acceptances stay unchanged. Root resumes
+Executive after this projection edit.
+
+## Successor02 bounded journal diagnostic
+
+Closed retained-Public inspection156fc2520469ae879aeb162d26ea401ab38e3b3e64cd2e01cc356e865f091c9e
+cannot expose the original child-preparation refusal. Source shows its candidate
+was admitted before masking, so Root selects one diagnostic read of only the
+1,353,687 appended bytes at[324503143,325856830) of the already-closed resource.
+The Worker checks the known file identity/terminal length before and after,
+seeks directly to that suffix and selects the b03597ae Run's
+child_preparation_refused event. No full-prefix read/hash/replay, runtime owner
+acquisition or event write; no fabricated Public result. Save the exact retained
+event and locator as diagnostic evidence in a new successor02 addendum. If absent
+or changed, return unknown and stop. This read supplies diagnosis only, not new
+runtime admission. Root activates Writer to record the bounded grant, then
+resumes Executive.
+
+## Core35 source/package acceptance and checkpoint30
+
+Root conjoins source return a16d007b…, independent review991c12a1… and package
+e89dc7e6…. The bounded refusal-owner correction is accepted at source/component/
+package scope; installed and D2 outcome remain open. Core35 archive5dcf9269…
+(content75086b0e…, manifest0e241ee7…) is the next candidate; dev15 stays unchanged.
+The original successor02 cause is now observed: child_preparation_refused72849,
+basis_admission/basis_fork_detected, "selected D2 child lacks exact native binding
+correspondence", preserved by addendumdf19747a…. Current caller correspondence
+is being examined read-only before any new native selection.
+
+Root activates Writer for paired tracking and checkpoint30: exact two source
+owners, focused test, generated metadata, closed native34/successor02 records,
+reviewed repair/core35 package and frozen qualification preparation. Use the
+existing lossless bank, preserve prior identities and exclude active or original
+runtime resources. No build/test/native operation repeats. Stage exact paths,
+normal commit/push, verify remote equality, then resume Executive. This is a
+checkpoint, not release or installed-success acceptance.
+
+Checkpoint30 execution is deferred until the bounded original-refusal diagnosis
+is disposed, so the same delivery correction can be checkpointed together.
+No staging, commit or push has yet occurred. Root leaves Writer and resumes
+Executive; the existing read-only diagnostic continues.
+
+## Exact acquisition provenance correction
+
+Root consumes closed comparison8f47e089…/e79843a3…. No caller or provider-budget
+mismatch is established. The source gate instead requires one historical
+equal-valued acquisition, while the child already carries admittedInputRef and
+digest. Its observed first refusal is preserved; exact live cardinality remains
+unmeasured. Select realization_refactor in the existing worksite_revision /
+execution_basis join. First reproduce the repeated equal-acquisition ambiguity
+with existing owner fixtures; if it does not reproduce, return without patching.
+Then use the exact already-admitted input coordinate to authenticate the producer,
+retaining binding, currentness, implementation, scope, outcome and leaf checks.
+No new Public schema, fabricated unique value, cache, controller or latest-match
+fallback. Source/test/emitted territory is the directly affected existing owners
+and one focused test; evidence F/acquisition-provenance-repair-01.
+One compile and focused valid/repeated/wrong-reference/digest/binding cases,
+then freeze a short return. No runtime/history/provider/package/Git effect or
+new reviewer. Root will conjoin one applicable independent review, reuse the
+accepted masking correction and continue the preserved steel thread.
+Root records this as Writer, then resumes Executive.
+
+## Acquisition repair review and core36 preparation
+
+Root consumes source return82708e1e… and frozen subjectd634bf91….
+Select one independent max review of the exact producer join and its repeated-
+acquisition/wrong-coordinate controls; reuse compile and10 passing focused checks.
+Preserve the accepted masking repair and its prior review. Write only
+F/acquisition-provenance-repair-01/review-01; no test/runtime/source effects.
+In parallel the existing xhigh source Worker prepares core36 by the normal
+core35 package workflow, reusing compile, exact new postimages and unchanged
+dev15; normal metadata, pack, offline install/member/Product verification only.
+No source/review expansion or runtime action. Root records as Writer, resumes
+Executive and conjoins both closed returns before the installed continuation.
+
+## Conditional core36 caller preparation
+
+After core36 packaging closes, the same xhigh Worker may prepare the ordinary
+preserved continuation at F/native36-continuation-01 while source review finishes.
+Use the successful native34 setup/witness/intake/suffix caller pattern, exact
+core36/dev15 and genuine current325856830B/32b2fa1f… close, original source
+Run74ac/cut216334690 and authentic source-root receipt. Preserve worksite,
+Requirements, source/oracle, $12 intake/$8 suffix and all existing model/time/
+heap/count controls. New core identity uses its real future binding/witness;
+preparation alone performs no Public setup, resource acquisition or actor call.
+Freeze one concise caller correspondence; Root must conjoin source review,
+package and caller before execution. Writer records; Root resumes Executive.
+
+## Core36 acceptance and native execution
+
+Root accepts the acquisition correction by conjoining82708e1e…/d634bf91… with
+independent reviewe96c1023… and package9b5bfa99…. The accepted masking correction
+and its review remain conserved. Core36 archivee8751bfa… is the combined
+source/component/package candidate; no installed success is inferred.
+Caller55cc6220…/subject1b784fd2… and exact operation selection615a8727… correspond.
+Execute that one preserved sequence now: genuine core36 setup/binding/witness,
+$12 intake and, only on its admitted selection, the declared $8-per-actor whole
+suffix, then fresh terminal reads. All recorded source/oracle/Requirements,
+model/time/count/heap controls and refusal stops remain. No automatic retry.
+Root updates tracking as Writer, then resumes Executive; the existing xhigh
+Worker alone owns the active runtime resource. Checkpoint30 may preserve accepted
+source and closed predecessor evidence in parallel, excluding active native36
+execution files. Qualification and native D2 remain open until actual outcomes.

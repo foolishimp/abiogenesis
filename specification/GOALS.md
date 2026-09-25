@@ -19,16 +19,21 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 ## Current Selection
 
-### Current checkpoint disposition — 2026-09-26
+### Current delivery objective
 
-[T287 current disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md#core34-installed-recovery-disposition-and-checkpoint)
-accepts the reviewed two-owner recovery correction and core34's identical installed
-replay. Observed Public-read time falls from104.483s to20.281s with different reader
-windows; whole new process29.59s. Residual cold cost remains. Core33 native Design
-is closed-failed on its provider budget, with no admitted result; no paid retry or
-control increase is selected. Preserve Requirements, original job/oracle/root and
-failed outcomes. Checkpoint29 records this boundary. Native correction, LIFE01,
-fifteen-family qualification and RC1 remain open.
+Complete the preserved native correction steel thread from its original source
+and oracle through affected lifecycle work, construction, real execution,
+independent assessment and fresh Public readback. Reuse valid completed work;
+repair supported failures on that path without starting a general cleanup
+campaign. Then qualify the exact fixed fifteen-family ABG5 candidate and publish
+RC1 through the existing F11, sole AF22 and release owners. Publication, installed-RC
+qualification and actual owner acceptance remain distinct.
+
+[T287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md)
+owns the exact current candidate, active execution/repair, evidence and remaining
+release conditions; [T043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md)
+owns the paired GLC work. Data Mapper stays held. Historical bounded acceptances
+below do not replace the tickets' current selection.
 
 GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original
 job/S1–S5/oracle, five selected/four outside residuals and protected worksite.

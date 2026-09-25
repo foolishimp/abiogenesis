@@ -2309,7 +2309,7 @@ function admitChildExecutionBasisUsing(
       { ref: parent.workspaceBindingId, digest: parent.workspaceBindingDigest });
     if (currentEnvironment.kind !== "exact_prefix_workspace_environment" ||
       worksiteRevisionEntryBindingDisposition(authorityPrefix, input.graphFunction, rawInputValue,
-        currentEnvironment.workspaceBinding) === "basis_fork_detected") {
+        currentEnvironment.workspaceBinding, input) === "basis_fork_detected") {
       return childRefusal("basis_fork_detected", "selected D2 child lacks exact native binding correspondence");
     }
   }

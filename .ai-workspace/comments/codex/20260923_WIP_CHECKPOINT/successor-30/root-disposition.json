@@ -1,0 +1,15 @@
+{
+  "role": "Writer",
+  "operationGrant": "Checkpoint reviewed refusal and exact acquisition-provenance corrections, combined core36 package and closed native34 history; preserve active native36, normal scoped commit/push, then Executive",
+  "sourceReviews": [
+    "991c12a13a1d123e1befbdd44ca608e90fbf334926dc6f228da035d39b0d0c6d",
+    "e96c102326feb989124d47368871df13802aa79dc494ebbcdf8fe8d7aabd7608"
+  ],
+  "coreArchive": "e8751bfaa71d2969d95a30a278e2c69c6f5e4c815db7fbf4552aa19172827868",
+  "heads": {
+    "/Users/jim/src/apps/abiogenesis": "29e2b1621c41aa70d7e1d139c7e52b205d1e884c",
+    "/Users/jim/src/apps/odd_glc": "ea0398b2555a650f440ba9348e8c7cad709f5695"
+  },
+  "nativeAcceptance": false,
+  "releaseAcceptance": false
+}
