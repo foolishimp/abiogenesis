@@ -126,7 +126,7 @@ export interface SemanticJobRevisionEnvelope {
     readonly current: SemanticJobEnvelope;
 }
 export declare function isSemanticJobRevisionEnvelope(x: unknown): x is SemanticJobRevisionEnvelope;
-export declare function deriveSemanticJobRevision(parent: SemanticJobEnvelope | SemanticJobRevisionEnvelope, request: SemanticRevisionRequest, selection: SemanticRevisionSelection, worksite: SemanticWorksiteBasis | null, historicalWorksite?: SemanticWorksiteBasis | null, counterevidenceAssets?: readonly SemanticJobAsset[], counterevidence?: SemanticJobEnvelope): Readonly<SemanticJobRevisionEnvelope> | null;
+export declare function deriveSemanticJobRevision(parent: SemanticJobEnvelope | SemanticJobRevisionEnvelope, request: SemanticRevisionRequest, selection: SemanticRevisionSelection, worksite: SemanticWorksiteBasis | null, historicalWorksite?: SemanticWorksiteBasis | null, counterevidenceAssets?: readonly SemanticJobAsset[], counterevidence?: SemanticJobEnvelope, operationalFailedStage?: SemanticJobEnvelope["declaration"]["stages"][number]): Readonly<SemanticJobRevisionEnvelope> | null;
 export declare function semanticJobRevisionNativeTargets(envelope: SemanticJobEnvelope): readonly {
     readonly relativePath: string;
     readonly role: "implementation" | "verifier" | "configuration";

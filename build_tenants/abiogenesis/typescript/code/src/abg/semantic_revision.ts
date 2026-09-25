@@ -413,7 +413,8 @@ export function jobRevisionSelectionMatchesBasis(basis: SemanticStageNativeBasis
     const selectedStage = subject.owner.lifecycle.stages.findIndex(s => s.declarationRef === output.selectedStageRef);
     return active !== null && output.nativePhase === phase &&
       (subject.operationalFailure === null || output.mode === "stage_revision" && output.selectedStageRef === subject.operationalFailure.stageRef) &&
-      (active.length === 0 || output.selectedObligationRefs.length > 0) &&
+      (active.length === 0 || output.selectedObligationRefs.length > 0 || phase === "preconstruction" &&
+        subject.operationalFailure !== null && selectedStage === subject.envelope.assets.length) &&
       output.selectedObligationRefs.every(r => active.some(v => v.binding.obligationRef === r)) &&
       (phase === "preconstruction" ? output.mode === "stage_revision" && output.selectedTargetRefs.length === 0 && selectedStage >= 0 && selectedStage <= subject.envelope.assets.length :
         output.selectedTargetRefs.every(r => semanticJobRevisionNativeTargets(subject.envelope).some(t => t.relativePath === r))) &&
@@ -437,8 +438,12 @@ export function projectSemanticJobRevision(basis: SemanticStageNativeBasis,input
     const selection = decision.result.value;
     const entry = selection.mode === "construction_repair" ? "construction_repair" : selection.selectedStageRef;
     if (basis.graphFunction.declarations["abg.semantic_native_revision_entry"] !== entry) return null;
+    const operationalFailure = subject.operationalFailure;
+    const operationalFailedStage = operationalFailure === null ? undefined :
+      subject.owner.lifecycle.stages.find(stage => stage.declarationRef === operationalFailure.stageRef);
     return isSemanticJobEnvelope(parent) || isSemanticJobRevisionEnvelope(parent)
-      ? deriveSemanticJobRevision(parent,input,selection,null,null,subject.counterevidenceAssets,jobEnvelope(subject.causes[0]?.result.value) ?? undefined) : null;
+      ? deriveSemanticJobRevision(parent,input,selection,null,null,subject.counterevidenceAssets,
+        jobEnvelope(subject.causes[0]?.result.value) ?? undefined,operationalFailedStage) : null;
   }
   return isSemanticJobEnvelope(parent) || isSemanticJobRevisionEnvelope(parent)
     ? deriveSemanticJobRevision(parent,input,decision.result.value,subject.currentWorksite,subject.priorWorksite) : null;

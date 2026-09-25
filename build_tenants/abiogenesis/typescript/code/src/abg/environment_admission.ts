@@ -28,7 +28,7 @@ import {
   projectExactPrefixArtifactTruth,
   runtimePrefixFromArtifactTruth,
   validateArtifactTruthCandidate,
-  projectValidatedPrefixArtifactTruth,
+  projectOwnedPrefixArtifactTruth,
   validateArtifactTruthProjectionValue,
   type AdmittedArtifactTruth,
   type ExactPrefixArtifactTruthProjection,
@@ -1020,10 +1020,12 @@ export function admitArtifact(
       "artifact append differs from its exact pre-effect semantic projection",
     );
   }
-  const artifactTruth = projectValidatedPrefixArtifactTruth(
-    appended.successorPrefix,
-    selectValidatedRuntimeEventPrefix(store.readAll()),
-  );
+  // Keep the actual owner derivation through immediate install/binding
+  // consumption. A plain projection would re-enter raw historical validation.
+  const artifactTruth = projectOwnedPrefixArtifactTruth(appended.successorPrefix);
+  if (artifactTruth.kind === "exact_prefix_artifact_truth_projection_refusal") {
+    return { disposition: "coordinate_refused", successorPrefix: null, refusal: artifactTruth };
+  }
   return {
     disposition: "admitted",
     admissionEventRef: appended.event.eventId,

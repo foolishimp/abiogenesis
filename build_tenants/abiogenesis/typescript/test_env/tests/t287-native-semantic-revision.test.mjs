@@ -22,11 +22,11 @@ const ids=Object.fromEntries(Object.entries({productId:'product',moduleRef:'modu
 const declaredPublication=constructFreshNativeLifecyclePublication({gtl:g,product:p,ids,semanticPublication:publication});
 const declaration=declaredPublication.semanticJobLifecycle;
 // Ordinary caller data only: no local selection, admitted leaf lookup or cause inference.
-function declaredCorrection(request){
- const start=selectNativeSemanticRevisionStart({product:p,publication:declaredPublication,request});assert(start);
- const root=declaredPublication.graphFunctions.find(graph=>graph.name===start.graphFunctionRef);
+function declaredCorrection(request,publication=declaredPublication){
+ const start=selectNativeSemanticRevisionStart({product:p,publication,request});assert(start);
+ const root=publication.graphFunctions.find(graph=>graph.name===start.graphFunctionRef);
  const first=root.template.nodes.find(node=>node.nodeRef===root.template.startNodeRef);
- return {start,projection:declaredPublication.graphFunctions.find(graph=>graph.name===first.term.graphFunctionRef)};
+ return {start,projection:publication.graphFunctions.find(graph=>graph.name===first.term.graphFunctionRef)};
 }
 const provenance = key => ({ cCallRef:'component:c-call:'+key,executionAuthorityRef:'component:authority:'+key,executionAuthorityDigest:hash(key),
  actorInvocationRef:'component:actor:'+key,transportBindingRef:'component:transport',transportBindingDigest:hash('transport'),promptDigest:hash(key),transportDigest:hash('transport:'+key) });
@@ -77,7 +77,7 @@ async function harness(env, options={}){
  bases.set(original.basisRef,original);
  const oldEnvironment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]};
  const environment={...oldEnvironment,...options.current};
- const lifecyclePublication=declaredPublication;
+ const lifecyclePublication=options.publication??declaredPublication;
  const pub=await load('product/publication');environment.productInstalls.push({productId:lifecyclePublication.owningProductId,artifactDigest:lifecyclePublication.artifactDigest,productContentDigest:lifecyclePublication.productContentDigest,
   manifestDigest:lifecyclePublication.productManifestDigest,installedRoot:env.scratch,contributionManifest:{publicationBindings:[{moduleRef:lifecyclePublication.moduleRef,publicationDigest:pub.modulePublicationSemanticDigest(lifecyclePublication)}]}});
  const prefixBody={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///component/no-journal',prefixLength:0,prefixDigest:hash('prefix'),storeIdentity:{device:1,inode:1,eventContractDigest:(await load('abg/event_store')).ROOT_EVENT_CONTRACT_DIGEST}};
@@ -99,7 +99,7 @@ async function harness(env, options={}){
  const invocationOverrides={rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[options.current?.capabilityGrant??env.capabilityGrant]})};
  const jobOwner=await component('abg/semantic_job',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
- const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':jobOwner,
+ const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':{...jobOwner,...options.contextPremises},
   './semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h,readRuntimeEventsAtDurablePrefix:()=>events},
   './event_prefix.js':{selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,indexedRuntimeEvents:(p,key)=>p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId)},'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>ref===publicRun.ref?{run:publicRun,executionBasis:{ref:original.basisRef}}:null},
   './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>oldEnvironment},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:options.cover??(()=>[])},
@@ -358,7 +358,7 @@ test('native D2 operational author preparation cause retains accepted stages and
  h.basis.graphFunction={name:'component:selection-graph',declarations:{'abg.semantic_revision_selection':declaration.declarationRef}};
  h.call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:'component:selection-graph'});
  const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',selectedStageRef:stage.declarationRef,
-  selectedObligationRefs:p.projectSemanticJobBindings(parent).map(row=>row.binding.obligationRef),selectedTargetRefs:[],reasonRef:'component:operational-preparation-pressure',nativePhase:'preconstruction'};
+  selectedObligationRefs:[],selectedTargetRefs:[],reasonRef:'component:operational-preparation-pressure',nativePhase:'preconstruction'};
  assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,selection),true);
  for(const other of declaration.stages.filter(s=>s.declarationRef!==stage.declarationRef))assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,{...selection,selectedStageRef:other.declarationRef}),false);
  const subject=h.owner.projectJobRevisionSubject(h.basis,prepared);assert.equal(subject.operationalFailure.stageRef,stage.declarationRef);assert.deepEqual(subject.operationalFailure.refusal,refusal);assert.deepEqual(subject.counterevidenceAssets,[],'operational failure invents no rejected semantic asset');
@@ -368,4 +368,61 @@ test('native D2 operational author preparation cause retains accepted stages and
  h.invocation('operational-correction',request);h.basis.graphFunction=next.projection;h.call(R.projectionImplementationRef,request);
  const current=h.owner.projectSemanticJobRevision(h.basis,request);assert(current);assert.deepEqual(current.current.assets,parent.assets);assert.deepEqual(current.current.job,parent.job);
  assert.equal(current.current.assets.at(-1).assessment.disposition,'satisfied');assert.equal(current.revisionBasis.historicalAssets.length,parent.assets.length);
+ assert.deepEqual(current.revisionBasis.retainedBindings,p.projectSemanticJobBindings(parent).map(row=>row.binding));
+ assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null),null,'a raw request and reason do not establish operational pressure');
+ assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null,null,[],undefined,declaration.stages[0]),null,'crossed failed-stage premise refuses');
+ assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null,null,parent.assets,undefined,stage),null,'operational continuation cannot disguise semantic counterevidence');
+ assert.equal(revision.deriveSemanticJobRevision(parent,{...request,nativeWorksite:{...request.nativeWorksite,construction:request.parent}},
+  {...selection,nativePhase:'postconstruction'},null,null,[],undefined,stage),null,'operational empty-scope allowance never extends to postconstruction');
+});
+
+test('native D2 retained empty-obligation selector composes with all fifteen unchanged obligations',async t=>{
+ const directory=process.env.ABI5_NATIVE_D2_DESIGN_DIRECTORY;
+ if(!directory){t.skip('explicit retained Design/selector evidence directory required');return;}
+ const read=async path=>JSON.parse(await readFile(join(directory,path),'utf8'));
+ const parent=(await read('design-bound-diagnosis-01/design-input.json')).targets[0].event.payload.rawInputValue;
+ const publication=await read('publication-01/prospective-publication.json');
+ const attempt='design-presentation-continuation-02/caller-preparation-01';
+ const diagnostics=(await read(attempt+'/intake-01/forensic-diagnostic-events.json')).diagnostics;
+ const prepared=diagnostics.find(row=>row.event.payload.resultRef==='result://abiogenesis/6ffdcf5c198b84b65ba0da0f9eef8c674763c0d367e1fd1b5da162e9733d8ae6').event.payload.value;
+ const selection=await read(attempt+'/preparation/invocation/archives/fp-bdfb7a0ef62a1cd0-output.txt');
+ assert.deepEqual(selection.parent,prepared.parent);assert.deepEqual(selection.causes,prepared.causes);
+ assert.equal(p.isSemanticJobRevisionEnvelope(parent),true);assert.equal(p.isSemanticRevisionSelection(selection),true);
+ const active=p.projectSemanticJobBindings(parent.current);assert.equal(active.length,15);assert.deepEqual(selection.selectedObligationRefs,[]);
+ assert.deepEqual(publication.semanticJobLifecycle,parent.current.declaration);
+ // Retained values and actual public declaration are exact. Prefix/leaf admission,
+ // install/authority and current physical checks are supplied component premises;
+ // this does not admit the historically rejected selector or qualify a new Run.
+ const env={...await fixture(t),job:parent.current.job,envelope:parent.current,...prepared.nativeWorksite};
+ const h=await harness(env,{publication,contextPremises:{semanticJobContextMatches:(_basis,envelope,context)=>hash(context)===hash(prepared.nativeWorksite.context),semanticJobContextCurrent:()=>true}});
+ function retained(state,coordinate){const before=state.result.admissionEventRef,judgment=state.judgment.admissionEventRef;
+  Object.assign(state.result,{resultRef:coordinate.resultRef,resultDigest:coordinate.resultDigest,admissionEventRef:coordinate.resultAdmissionEventRef});state.judgment.admissionEventRef=coordinate.judgmentEventRef;
+  Object.assign(h.events.find(e=>e.eventId===before),{eventId:coordinate.resultAdmissionEventRef,payload:{...state.result}});
+  h.events.find(e=>e.eventId===judgment).eventId=coordinate.judgmentEventRef;return state;}
+ retained(h.admit(parent,D.nativeAssessorFoldImplementationRef,h.original,'advance',prepared.parent.cCallRef,h.publicRun.ref),prepared.parent);
+ const stage=parent.current.declaration.stages[parent.current.assets.length];
+ const failureBasis={...h.original,basisRef:'component:retained-failed-author',rawInputValue:parent,rawInputDigest:hash(parent)};h.bases.set(failureBasis.basisRef,failureBasis);
+ const cause=retained(h.admit({kind:'semantic_stage_failure',schemaVersion:'5.0.0',failureClass:'implementation_exception'},R.authorImplementationRef,failureBasis,'blocked',prepared.causes[0].cCallRef,h.publicRun.ref,'failure'),prepared.causes[0]);
+ Object.assign(cause.cCall,{regime:'F_P',programLocusRef:stage.authorLocusRef});cause.result.evidenceRefs=['component:retained-operational-evidence'];
+ const retainedEvidence=(await read('installed-01/suffix-01/first-cause-public-evidence-02.json')).bodies[0].value;
+ const {constructRuntimeFailureDiagnosticRef}=await load('abg/runtime_failure');
+ const observation={stage:'preparation',reason:'thrown',errorClass:'TypeError',diagnosticRef:constructRuntimeFailureDiagnosticRef(retainedEvidence.subject)};
+ const evidence={kind:'c_call_evidenced',aggregateId:cause.cCall.cCallRef,eventId:'component:retained-evidence',payload:{evidenceClass:'undispatched_owner_refusal',evidenceRef:cause.result.evidenceRefs[0],ownerObservation:observation}};h.events.unshift(evidence);
+ h.invocation('retained-intake',prepared.nativeWorksite.source);h.call(R.nativeIntakeImplementationRef,prepared.nativeWorksite.source);h.admit(prepared,R.nativeIntakeImplementationRef);
+ h.basis.graphFunction={name:'component:retained-selector',declarations:{'abg.semantic_revision_selection':parent.current.declaration.declarationRef}};
+ h.call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:h.basis.graphFunction.name});
+ assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,selection),true);
+ h.events.shift();assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,selection),false,'actor reason cannot replace authenticated operational evidence');h.events.unshift(evidence);
+ const unknown={...selection,selectedObligationRefs:['component:foreign-obligation']};assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,unknown),false);
+ h.admit(selection,R.selectionImplementationRef);h.basis.declarationGraphFunctions=[h.basis.graphFunction];h.call(R.nativeRequestImplementationRef,selection,prepared);
+ const request=h.owner.projectNativeSemanticRevisionRequest(h.basis,selection);assert(request);
+ const next=declaredCorrection(JSON.parse(JSON.stringify(request)),publication);assert.equal(next.start.programRef,'program://odd-glc/native-semantic-revision/from-design@5');
+ h.invocation('retained-correction',request);h.basis.graphFunction=next.projection;h.call(R.projectionImplementationRef,request);
+ const successor=h.owner.projectSemanticJobRevision(h.basis,request);assert(successor);
+ assert.deepEqual(successor.current.assets,parent.current.assets);assert.deepEqual(successor.current.job,parent.current.job);
+ assert.deepEqual(successor.revisionBasis.retainedBindings,active.map(row=>row.binding));assert.deepEqual(p.projectSemanticJobBindings(successor.current),active);
+ for(const asset of [...parent.revisionBasis.historicalAssets,...parent.current.assets])assert(successor.revisionBasis.historicalAssets.some(row=>hash(row)===hash(asset)));
+ assert.deepEqual(successor.revisionBasis.selection,selection);assert.equal(successor.revisionBasis.parentRevisionRef,parent.revisionBasis.basisRef);
+ assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null),null,'serialized request alone does not acquire operational qualification');
+ t.diagnostic(JSON.stringify({kind:'retained_operational_continuation',parentDigest:hash(parent),selectionDigest:hash(selection),obligations:active.length,preservedAssets:successor.current.assets.length,historicalAssets:successor.revisionBasis.historicalAssets.length,selectedProgram:next.start.programRef,premises:'upstream admission and current physical environment supplied; no runtime admission or native execution'}));
 });

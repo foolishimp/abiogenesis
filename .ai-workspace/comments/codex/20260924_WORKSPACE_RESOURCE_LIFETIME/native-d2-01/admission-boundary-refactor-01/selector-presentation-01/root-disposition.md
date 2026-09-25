@@ -288,3 +288,128 @@ Writer activation grants Root only these tracking projections, checkpoint25
 source/evidence preservation, and exact scoped commit/push under standing owner
 authorization. Root resumes Executive after the checkpoint; runtime source and
 published artifacts stay immutable throughout. Native correction and release remain open.
+
+## Core30 terminal intake and setup-cost audit
+
+Core30/dev15 setup and genuine latest-source/current binding witness succeed.
+Setup100.36s includes the measured60.550s core-install window; those figures locate
+cost without justifying or isolating it. Root selects one read-only astra/max
+Product/E2E/Code-Construction/Owner audit of that exact closed window, using
+retained counters/receipts and installed source. It must separate measured work,
+source-traced duplication and unknown attribution, and propose the smallest
+reuse/deletion correction. No new benchmark, runtime or broad code survey.
+
+One native intake Run ca14f2e0… closes failed at223,704,751B/4de6fefd…;
+Result is not_found and replay failed. One selector returns Design at provider/
+worker-contract level; this does not establish an admitted revision request.
+No suffix starts. The execution Worker retains the ordinary Public first-cause
+read; Root awaits that closed evidence before classifying the failure. Previous
+source/review acceptance, accepted Requirements, original source/job/oracle,
+worksite and failed histories remain preserved. No retry is selected.
+
+Writer activation records only this disposition and T287 current state/LIFE01;
+Root resumes Executive after the tracking update.
+
+## Established results and operational scope repair
+
+Root consumes the [closed execution](author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/execution-return.md)
+e3ad5c96… and [operational addendum](author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/operational-selection-addendum.md)
+001cf996… . The actual Design selector preserves the parent but selects no changed
+obligations. Fifteen remain active. The prior semantic cardinality predicate is
+false; its duplicate pure-construction rejection must also be reconciled. Exact
+first short-circuit is not retained by the generic failure. The operational HOW
+preserves unchanged meaning and accepted obligations; it does not require the
+agent to invent an obligation change.
+
+Root also consumes the [closed setup audit](author-context-policy-01/design-presentation-continuation-02/setup-cost-review-01/return.md)
+3dd06d7b… . The actual internal install handoff drops an existing artifact
+derivation, causing complete successor reconstruction/equality over31 rows/74.21MB.
+The measured install window60.550s includes other work; the audit establishes
+redundancy, not isolated latency attribution.
+
+Root selects realization_refactor in these existing owners only. Preserve the
+existing owner-issued artifact projection/derivation through immediate consumption,
+using the current factory and no new cache/registry/Public carrier. Retain raw,
+copied and cold validation, candidate checks, physical installation and append/
+rollback. Separately, reconcile matcher and pure derivation for the authenticated
+operational arm and its exact failed stage, allowing unchanged obligations without
+relaxing semantic/postconstruction duties. An actor reasonRef is not authority.
+All assets, history, source/ancestry/binding/currentness and actual selector duties
+remain. Existing real append/projection and retained selector/derivation cases,
+focused contrary cases and one normal compile produce one frozen source return
+for affected review. No package, runtime, paid, Git or controls change is selected.
+The repeated full-lock predicate opportunity is registered separately in T287.
+
+This Writer activation updates only paired current tracking, LIFE01/debt and this
+disposition. Root resumes Executive; source implementation remains delegated.
+
+## Checkpoint26 closed evidence preservation
+
+Root activates Writer for incremental preservation of the closed core30 attempt,
+its operational-selection addendum and the completed setup-cost audit. Reuse the
+existing checkpoint transport, omit already banked unchanged members, dependencies,
+original journal/locks and named full-state snapshots. Preserve exact member bytes;
+this grants no source repair, runtime, paid call or release. The active combined
+repair remains delegated and is excluded until frozen. Root resumes Executive
+after the bounded preservation write.
+
+## Combined owner repair: affected review and package preparation
+
+Root receives [combined source](author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/return.md)
+`a815f5c648496eccd65cfb8a3032cf97bbbe49bd1271cf0c1bd54fb2fb1cf4dd`,
+subject `ecf77aed12be1a10d75210a346e3bf6f5ce0fe4d099b4db45b21e248dea1cb3b`.
+Six affected checks pass; the exact derivation reuse and operational suffix
+composition remain source/component evidence. Root selects one independent
+affected review and separable core31 package/caller preparation using unchanged
+dev15. Reuse current compiled work where the normal package contract permits;
+verify exact source/archive/install correspondence without rerunning unaffected
+tests. Preserve Run74ac as the continuation source and the actual latest journal
+cut as current physical state; the failed selector is not an admitted request.
+
+Only package/install verification and caller preparation are granted to the Worker.
+Public setup effects, native/provider calls, retry and changes to limits remain
+withheld until Root conjoins the closed source review, package and caller returns.
+Use the next already-required install for the three bounded cost spans identified
+by the audit; no permanent instrumentation or extra benchmark is selected.
+This Writer activation records only the grant and paired current tracking, marking
+the obsolete September19 schedule as historical. Root resumes Executive.
+
+## Accepted owner correction and core31 continuation
+
+Root accepts the frozen combined source `a815f5c6…` and its
+[independent affected review](author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/review-01/review.md)
+`62aa799be216926eddedd3e222444302cbb73ec544fb48a9ada25814b49c819a`.
+The two affected relations have no supported blocker. Six passing checks establish
+bounded source/component readiness, preserving raw/cold validation and all fifteen
+obligations. Installed continuation and elapsed savings are not yet established.
+
+Root conjoins [core31](../../../../20260923_COMPOSITE_READINESS/compiled-31/return.md)
+`e11dfe7522756db56a06e6f1ac6a0afa2e64b6bb9f1d59f8cf4ffc3b7467ecdf`,
+archive `fb13cf52d5733dc85ed5ca3c651182c0bb49073a3a9705d012b9a11903b29579`,
+content `5c34c976ba905ec4c4024c308e9fc18a4ba15be2a536ac006255414107840e91`,
+manifest `d51660e7c686127b2c1637843dbf5d04de9e45b47682867612a811006f629f53`.
+All5,233 members correspond and installed Product verification passes. Dev15 is
+unchanged. The [frozen caller](author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/return.md)
+`cceb2b84767beb235bbfb32d93d34aaee75a0dcee7001ab4d40c49822d9c8336`,
+subject `ca751407799208b5fdb9ad24e8520298b1ab3ece7da50946aff5685e3c9ef56f`,
+preserves source Run74ac/cut216,334,690B and actual current close223,704,751B.
+
+After checkpoint26 push, Root selects this caller's ordinary setup, exact retained
+Public source-root read reuse, a genuine new current-binding witness, one native
+intake and only its actual admitted/publicly declared whole suffix. Preserve
+admitted Requirements, original job/root/oracle/worksite and all failed histories.
+HoG owns progression; fresh terminal Public Result/replay and first-cause evidence
+establish the outcome. Opus5.5/xhigh,5USD per occurrence,300s idle/900s actor/1s
+grace,90min native,10min readback, default heap and explicit live enable remain.
+No retry, invented request/witness, host-selected stage or controls/source change.
+A genuine refusal returns to Root at that boundary.
+
+The current observer cannot provide the requested three internal wall spans
+without modifying the subject. Root accepts enclosing Public windows plus retained
+work counts and unknown internal attribution; no instrumentation branch or extra
+benchmark. The remaining lock-predicate opportunity remains separately registered.
+
+Root activates Writer only for exact checkpoint26 source/generated metadata,
+paired current tracking and closed-evidence preservation plus normal commit/push.
+Originals and unrelated work remain. Root resumes Executive after checkpointing;
+native correction, LIFE01, broader qualification and RC1 stay open.

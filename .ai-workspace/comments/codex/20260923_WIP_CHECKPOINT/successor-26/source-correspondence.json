@@ -1,0 +1,60 @@
+{
+  "subjectSha256": "ecf77aed12be1a10d75210a346e3bf6f5ce0fe4d099b4db45b21e248dea1cb3b",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "sha256": "5c64b06afd7ea50ca37a1555dddb078df043efd0718db49c437fb84885086f8a",
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "sha256": "ac240bfe34dc6a344f79415fa8da65f23d1c6596d27263d3995fb1a39fae6d02",
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "sha256": "b1028e1dc2aaf06c8b2f46e96de7eddde7a97c9ef2799559b454d06ce537a9a7",
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+      "sha256": "f9a0e032f9c46990cd575940bebf0692663eb74ce5653636723aa903009063e8",
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "sha256": "ea6dfc6a617a2f9764e4c29bcee6ad887d3afabcfd642068e048d6ee6a793c2e",
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/environment_admission.js",
+      "sha256": "99eced7ac66159ab8062be1482b5169ce3cf9f303f480b995d55dc7ddad2c992",
+      "representation": "exact compiled31 archive and installed-member correspondence"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+      "sha256": "cb1833b2199b2fb9159a933d0a1eb26cec7b8d25c8a6f2d2705a64f1512d933f",
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.js",
+      "sha256": "7d35da7fd7f9779c2837b252dcb1ebe29c30638b25efb9c937e221de2d45bacd",
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.d.ts",
+      "sha256": "cf0a5810cc52bca737e62b297df488d1646697c6cd4a4f99a5761308300c0a6a",
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "8a72475e8f62cee6eeaa10e91f2af6b70d68bd3eb4f714d24e94d1a435da21d4",
+      "representation": "direct Git"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "2df6ef63dfdad39f508f40affbe2a16b4c620c096b03fee3f575072193648747",
+      "representation": "direct Git"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "role": "Writer",
+  "operationGrant": "Checkpoint accepted source, exact generated metadata, paired tracking and closed evidence; scoped commit and normal push then resume Executive",
+  "sourceSubject": "ecf77aed12be1a10d75210a346e3bf6f5ce0fe4d099b4db45b21e248dea1cb3b",
+  "sourceReview": "62aa799be216926eddedd3e222444302cbb73ec544fb48a9ada25814b49c819a",
+  "coreArchive": "fb13cf52d5733dc85ed5ca3c651182c0bb49073a3a9705d012b9a11903b29579",
+  "consumer": "dev15 unchanged",
+  "runtime": "Selected only after successful checkpoint26 push; no outcome claimed",
+  "originalsPreserved": true,
+  "releaseAccepted": false
+}

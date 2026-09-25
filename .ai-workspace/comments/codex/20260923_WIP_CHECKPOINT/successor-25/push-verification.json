@@ -1,0 +1,11 @@
+{
+  "verifiedAt": "2026-09-25T14:22:03.398030+00:00",
+  "method": "Actual git ls-remote origin refs/heads/main matches each HEAD; tracked worktree status is empty",
+  "heads": {
+    "abiogenesis": "80eae6bf254acc0bceadbe2ce7e031e31208ec96",
+    "odd_glc": "876020113aececca7d9636e4608e9368c1081080"
+  },
+  "sourceAndTrackingPushed": true,
+  "runtimeStarted": false,
+  "releaseAccepted": false
+}

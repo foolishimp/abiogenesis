@@ -208,7 +208,7 @@ export function isSemanticJobRevisionEnvelope(x) {
         return false;
     }
 }
-export function deriveSemanticJobRevision(parent, request, selection, worksite, historicalWorksite = worksite, counterevidenceAssets = [], counterevidence) {
+export function deriveSemanticJobRevision(parent, request, selection, worksite, historicalWorksite = worksite, counterevidenceAssets = [], counterevidence, operationalFailedStage) {
     try {
         const native = request.nativeWorksite;
         if (!isSemanticRevisionRequest(request) || !isSemanticRevisionSelection(selection) || !requestChoiceMatchesSelection(request, selection) ||
@@ -220,13 +220,23 @@ export function deriveSemanticJobRevision(parent, request, selection, worksite, 
         const prior = priorRevision?.current ?? parent;
         if (!isSemanticJobEnvelope(prior))
             return null;
+        // The ABG source owner supplies this already-authenticated failed author
+        // declaration. This pure constructor checks its retained-value relation;
+        // neither the selector's reason nor a copied request establishes the cause.
+        const operational = operationalFailedStage !== undefined;
+        if (operational && (native === undefined || native.construction !== null || selection.mode !== "stage_revision" ||
+            selection.selectedStageRef !== operationalFailedStage.declarationRef ||
+            prior.declaration.stages[prior.assets.length] === undefined ||
+            hash(operationalFailedStage) !== hash(prior.declaration.stages[prior.assets.length]) ||
+            counterevidence !== undefined || counterevidenceAssets.length !== 0))
+            return null;
         const history = merge([...(priorRevision?.revisionBasis.historicalAssets ?? []), ...prior.assets,
             ...(native === undefined ? [] : counterevidenceAssets)], a => a.assetRef);
         const active = projectSemanticJobBindings(prior), terms = history === null ? null : merge(history.flatMap(a => a.groundedTerms), t => t.requirementRef);
         if (history === null || terms === null || active === null || !selection.selectedObligationRefs.every(r => active.some(v => v.binding.obligationRef === r)) ||
             !selection.selectedTargetRefs.every(r => native === undefined ? historicalWorksite.targets.some(t => t.target.targetRef === r) :
                 semanticJobRevisionNativeTargets(prior).some(t => t.relativePath === r)) ||
-            native !== undefined && (active.length > 0 && selection.selectedObligationRefs.length === 0 ||
+            native !== undefined && (!operational && active.length > 0 && selection.selectedObligationRefs.length === 0 ||
                 native.construction === null && (selection.mode !== "stage_revision" || selection.selectedTargetRefs.length !== 0)))
             return null;
         const affected = new Set();

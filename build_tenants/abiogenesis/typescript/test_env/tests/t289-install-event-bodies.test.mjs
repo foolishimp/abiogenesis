@@ -35,7 +35,7 @@ async function measuredAdmission(action) {
     await post("Profiler.enable");
     await post("Profiler.startPreciseCoverage", { callCount: true, detailed: false });
     const value = action();
-    const coverage = await post("Profiler.takePreciseCoverage");
+    let coverage = await post("Profiler.takePreciseCoverage");
     const calls = (path, name) => coverage.result.filter(row => row.url.endsWith(path))
       .flatMap(row => row.functions).filter(row => row.functionName === name)
       .reduce((sum, row) => sum + row.ranges[0].count, 0);
@@ -46,7 +46,32 @@ async function measuredAdmission(action) {
     };
     assert.deepEqual(work, { artifactRowsPrepared: 2, coldPrefixSelections: 0, calculusEffects: 2 },
       "only the proposed row and its accepted append are derived; prior history stays established");
-    return { value, work };
+    let consumerWork;
+    if (value.kind === "artifact_owner_result" && value.value.kind === "product_install") {
+      const truth = value.artifactTruth;
+      assert.ok(owners.artifact.runtimePrefixFromArtifactTruth(truth), "append returns the actual owner derivation");
+      const row = truth.rows.find(row => row.admissionEventRef === value.admissionEventRef);
+      const installed = owners.environment.projectAdmittedProductInstall(truth, row.artifact, row.invocationRef);
+      coverage = await post("Profiler.takePreciseCoverage");
+      consumerWork = {
+        successorConstructions: calls("/abg/artifact_truth.js", "projectValidatedPrefixArtifactTruth"),
+        rawProjectionValidation: calls("/abg/artifact_truth.js", "validateExactPrefixArtifactTruthProjection"),
+      };
+      assert.deepEqual(consumerWork, { successorConstructions: 0, rawProjectionValidation: 0 },
+        "immediate install selection does not rebuild/hash a successor or compare complete projection bodies");
+      assert.deepEqual(installed, value.value);
+      const copy = structuredClone(truth);
+      assert.equal(owners.artifact.runtimePrefixFromArtifactTruth(copy), null);
+      assert.deepEqual(owners.environment.projectAdmittedProductInstall(copy, row.artifact, row.invocationRef), installed);
+      coverage = await post("Profiler.takePreciseCoverage");
+      assert.equal(calls("/abg/artifact_truth.js", "validateExactPrefixArtifactTruthProjection"), 1,
+        "serialized/copied values retain complete raw validation");
+      const forged = structuredClone(copy); forged.rows[0].artifactDigest = "sha256:" + "0".repeat(64);
+      assert.equal(owners.environment.projectAdmittedProductInstall(forged, row.artifact, row.invocationRef), null);
+      assert.equal(owners.json.canonicalJson(truth), owners.json.canonicalJson(copy), "owner derivation changes no serialized bytes");
+      console.log(JSON.stringify({ kind: "immediate_install_projection_work", consumerWork, rawCopyValidated: true }));
+    }
+    return { value, work, consumerWork };
   } finally {
     session.disconnect();
   }

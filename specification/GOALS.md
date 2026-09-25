@@ -19,13 +19,13 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 ## Current Selection
 
-### Current checkpoint disposition — 2026-09-25
+### Current checkpoint disposition — 2026-09-26
 
-[T287 current disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md#accepted-correction-and-core30-continuation)
-owns the accepted source/component correction and exact core30/dev15 package/caller.
-One installed continuation is selected after checkpoint push, using the latest
-failed Run and preserving admitted Requirements and original job/oracle/root.
-Existing controls and declared progression remain. Installed success, native
+[T287 current disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md#accepted-owner-correction-and-core31-continuation)
+accepts the two-owner correction, independent review and exact core31 package/caller.
+Checkpoint26 push precedes one current-bound intake and its actual declared whole
+suffix, preserving admitted Requirements, original job/oracle/root and failed
+outcomes. Six affected checks establish source/component readiness. Native
 correction, LIFE01, fifteen-family qualification and RC1 remain open.
 
 GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original
