@@ -1,0 +1,8 @@
+{
+  "memberCount": 215,
+  "originalBytes": 537871688,
+  "transportBytes": 69911887,
+  "allReconstructionVerificationsPassed": true,
+  "credentialShapeFindingCount": 0,
+  "scope": "Reviewed EC two-owner correction and identical installed core34 replay; closed core33 provider-budget failure, COST33 diagnosis and package evidence. Native correction and release remain open."
+}

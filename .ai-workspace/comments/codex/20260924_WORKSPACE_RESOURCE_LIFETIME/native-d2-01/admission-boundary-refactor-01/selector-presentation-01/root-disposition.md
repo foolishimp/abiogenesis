@@ -619,3 +619,138 @@ continues; profiling itself is disclosed when comparing observations.
 This Writer activation projects the selection into paired tickets/goals and
 checkpoints exact accepted material only. Root resumes Executive after the push;
 timing improvement, native correction, qualification and RC1 remain unproved.
+
+Checkpoint28 actual remote equality verified2026-09-25T16:44:48.439078Z:
+ABG45a34f72 / GLC5c5aa8b. Root released the exact grant above; Worker reports
+profiled setup started, before any witness or actor. This bounded Writer update
+records current ticket state; Root resumes Executive and does not acquire the
+active journal.
+
+## COST33: measured Event Calculus recovery work
+
+Core33 setup closes successfully at286,103,401B/b1ae9326…, with119.91s wall,
+127.81s user+6.23s system and5,131,534,336B peak RSS. The single setup profile
+`3cd66a0603f94987288b04734a18fdc3a4ffdac27832037bef6fcf368fa4e93b`
+shows about72.5s sampled inclusive time under Event Calculus derivation reached
+from artifact projection. Profile overhead and changed history preclude an isolated
+speed comparison. The graph correction is not closure of the measured cost.
+
+Root selects one bounded max read-only diagnosis of the dominant existing
+Event Calculus/liveness/probe owners, using the closed profile and exact core33
+source. Distinguish necessary cold recovery from repeated validation/construction
+of owned facts; identify a coherent contraction and its preservation falsifier.
+No new execution, history acquisition, cache/registry, source edit or wider audit.
+The original Worker continues the selected frozen native sequence independently.
+This Writer update records the existing LIFE01 debt and resumes Executive.
+
+## COST33 owner continuation correction
+
+Root accepts closed COST33 `488674d9e8c8c3da1c8bf0af1bb93d59141cc26bcb63d8639524351e412c1ef2`.
+Select realization_refactor within the existing Event Calculus/liveness owners:
+retain established probe/scope, immutable context and canonical fluent facts
+through internal closure, semantic, key and matching consumers. Preserve the full
+fold and exported raw/copy admission, per-observation causal/currentness checks,
+historical answers, duplicate invalidation, liveness meaning and rollback. No
+Product/event/Public schema, host control, observation suppression, rival fold,
+global cache/registry or new authority. Existing HOW is sufficient unless a Worker
+finds a concrete contradiction; do not expand on speculation.
+
+One astra/xhigh Worker implements this coherent family on canonical source while
+core33 continues frozen. Consume the closed diagnosis rather than repeat the audit.
+Use existing affected cold/incremental/historical and malformed/duplicate/scope
+fixtures to compare exact effect/holds/clips/dispositions and refusal behavior;
+record reduced reconstruction multiplicity as diagnostic evidence. One compile
+and focused checks, then one frozen return for independent max review. No live
+journal access, package, provider, runtime/caller/Git change or broad campaign.
+Any retained-data comparison must use closed data in an isolated fixture, never
+follow an input route into the active resource. This is not a new prerequisite
+for the current native suffix. Root owns later packaging and installed selection.
+
+This Writer activation records the bounded grant in T287/LIFE01 and resumes
+Executive. Native correction, measured overhead and release remain open.
+
+## Core33 terminal and COST33 verification
+
+The selected native Worker reports core33 Design closed on the explicit provider
+`error_max_budget_usd`, not the actor timeout:695.327s provider time,814.35s native
+process time,$5.20156 reported list cost,80,812 output tokens including64,243 thinking.
+The actual compact revision schema produced one complete StructuredOutput before
+the provider error; this is not an admitted result or proof of semantic correctness.
+Fresh Public Result is absent and replay is failed at the genuine316,064,006B close.
+No retry, partial-result salvage or control increase is selected. The closed Worker
+capsule will retain exact identities; Root does not reacquire the journal.
+
+COST33's separate two-owner correction has one compile and focused predecessor/
+successor checks over an isolated closed3471-event fixture with10 probe scopes.
+Worker reports exact outputs/refusals conserved and repeated internal validation
+removed. Frozen return and independent review remain pending; installed timing
+improvement is unproved. Root will consume those returns before selecting one
+necessary installed recovery measurement. The source fix cannot qualify core33
+retroactively. This bounded Writer update reconciles current tracking and returns
+Root to Executive.
+
+## EC source review and package preparation
+
+Root consumes the CLOSED two-owner return `7d741af5b618c40838f88f732b68481e345e4572b396f531ee47c276725fd8aa`.
+Select one independent max source review against COST33 and its frozen controls.
+In parallel the existing xhigh Worker may prepare core34 from these exact source/
+emitted postimages plus conserved core33, using the existing package workflow,
+offline install and Product verification. Reuse the completed compile; no source
+change, runtime resource access, actor, caller or Git action. Preserve the three
+matched inherited test failures. Preparation does not grant execution or acceptance.
+Root will conjoin closed source review and package identities before one fresh
+installed read of an existing terminal Run; no paid Design retry is selected.
+This bounded Writer selection ends on recording this grant; Root resumes Executive.
+
+## EC accepted source and one installed recovery read
+
+Root accepts the bounded source/component correction by conjoining Worker return
+`7d741af5b618c40838f88f732b68481e345e4572b396f531ee47c276725fd8aa`
+with independent max review
+`de6e0ae974d55a11b7edeacc7d7732a0c396c09777b70c6d2a965d52c6ccacac`.
+The four focused and seven existing passes retain their scopes; the three matched
+predecessor failures remain open test debt. No installed speed claim follows.
+
+Core34 package return `d27fd0a1b93c91f68d5ceb4639043910f27d272d83c9e5e0abb3ccfb565e0b2a`
+establishes archive `758321d64dcbac39855f1bb95bafce90fb49148c202c7f60adb62d3af9cbf009`,
+content `2bd6dff9c759a0aa21927e703481a896e9ca90da225697dd2746f7c8a183bf3f`
+and manifest `36bf7a6ad3beec53bf904fc5a654566d1598b15eb06bc86f6550475144d3ad22`.
+Only the two EC emitted owners and two normal metadata members differ from core33;
+all5,233 source/archive/install members correspond. Compile and checks were reused.
+
+Select exactly one fresh installed Public replay of terminal core33 Run
+`a6d993ab5e81dbc9ae08d5069f68ae1503224100fe537634a8658513aba55dbd`
+at316,064,006B/`158f2797ef17d8d84e1311b989db109966ecb367de10caeb786523e69e0997dd`.
+Use the established installed-cold-read-02 constructor with a current nominal
+core34 verifiedArtifact and current reader catalog in the same caller lifetime;
+historical installs/binding/Run/close remain unchanged. Compare the complete
+semantic Public replay with retained core33, keeping current reader metadata
+explicit. Record wall/user/system/peakRSS and the genuine unchanged close. Keep
+the existing600s read allowance/default heap. No profile, duplicate Result read,
+pre-scan, new setup event/witness, actor, retry, control increase or worksite change.
+Return the first actual refusal if any. Root owns disposition and checkpoint;
+native correction and qualification remain open. This Writer activation ends on
+recording this grant; Root resumes Executive.
+
+## Core34 installed recovery disposition and checkpoint
+
+Root accepts the single installed read `1dc9b6058d49e95521b08fd0c421dd6fc4d1d69ba1692f7677c3772e0a00ebc3`.
+All nine comparisons pass: full semantic replay is identical, including failed
+status and absent terminal Result; the historical close and physical identity
+remain unchanged. The new read takes20.281237s, with9.243021s caller preparation;
+whole process29.59s wall/35.24s CPU, peak2,410,889,216B. Prior core33 replay was
+104.482589s with a different reader/CLI window. This supports a bounded observed
+improvement, not an isolated benchmark or native-success claim.
+
+The selected EC repetition correction is accepted at source/component/package/
+installed-read scope. Residual cold-read/startup/memory cost remains LIFE01 debt;
+the original Design provider-budget failure and native correction remain open.
+Its actual compact output and64,243 thinking tokens require ask/budget disposition
+before another paid attempt; no further run or control increase is selected here.
+
+Root activates Writer for checkpoint29: transport exact closed core33 execution,
+COST33 diagnosis, reviewed EC correction, core34 package/read and paired tracking;
+preserve source postimages, prior receipts and original mutable runtime resources.
+Use the existing lossless checkpoint transport, exact staging and normal commit/
+push. No test, package, native run or history reconstruction is repeated. Return
+to Executive after actual remote equality. This is a checkpoint, not release.

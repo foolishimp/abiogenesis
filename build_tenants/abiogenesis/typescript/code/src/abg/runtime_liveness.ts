@@ -47,6 +47,21 @@ export interface RuntimeLivenessContext {
   readonly declarationEventRef: string;
 }
 
+interface RuntimeLivenessContextFacts {
+  readonly context: RuntimeLivenessContext;
+  readonly scopeDigest: Sha256Digest;
+}
+
+/** Declaration-owned facts live with the existing reconstruction and its
+ * declaration stamp. A copied/raw context still establishes these premises. */
+function livenessContextFacts(context: RuntimeLivenessContext | null): RuntimeLivenessContextFacts | null {
+  if (context === null || !isRuntimeLivenessBinding(context.binding) || context.probes.length === 0 ||
+      new Set(context.probes.map(p => p.probeRef)).size !== context.probes.length) return null;
+  const scopeDigest = digest(context.scope);
+  if (context.probes.some(p => !isRuntimeSystemProbeContract(p) || digest(p.scope) !== scopeDigest)) return null;
+  return { context, scopeDigest };
+}
+
 /** Reconstruct predeclared actor probes from admitted owner coordinates, never from observed paths. */
 function deriveActorLivenessContext(prefix: ValidatedRuntimeEventPrefix, actorInvocationRef: string): RuntimeLivenessContext | null {
   try {
@@ -328,8 +343,10 @@ function probeObservationMatches(prefix: ValidatedRuntimeEventPrefix, context: R
   reconstruction?: RuntimeLivenessReconstruction, cutOrdinal = ordinal - 1): boolean {
   const events = reconstruction?.facts(cutOrdinal) ?? runtimeEventsFromValidatedPrefix(prefix);
   const findEvent = (ref: string) => reconstruction === undefined ? events.find(e => e.eventId === ref) : reconstruction.event(ref, cutOrdinal);
-  if (!isRuntimeSystemProbeContract(contract) || !isRuntimeProbeObservation(observation) ||
-      context.probes.filter(p => p.probeRef === contract.probeRef && same(p, contract)).length !== 1 ||
+  const declared = context.probes.find(p => p.probeRef === contract?.probeRef);
+  if (declared === undefined ||
+      (contract !== declared && (!isRuntimeSystemProbeContract(contract) || !same(declared, contract))) ||
+      !isRuntimeProbeObservation(observation) ||
       observation.probeRef !== contract.probeRef || observation.scopeDigest !== digest(context.scope) ||
       observation.clockOriginRef !== context.binding.clockOriginRef) return false;
   const declaration = findEvent(contract.declarationEventRef);
@@ -458,7 +475,7 @@ class RuntimeLivenessReconstruction {
   // Earlier reads have their own disposable progress. They cannot rewind or
   // mutate the later-cut fold, but an ordered historical walk need not restart.
   readonly historicalFolds: RuntimeLivenessHistoryFolds = new Map();
-  readonly contexts = new Map<string, RuntimeLivenessContext | null>();
+  readonly contexts = new Map<string, RuntimeLivenessContextFacts | null>();
   readonly budgets = new Map<string, RuntimeLivenessBudgetFacts>();
   private readonly cuts = new Map<number, ValidatedRuntimeEventPrefix>();
 
@@ -568,8 +585,12 @@ class RuntimeLivenessReconstruction {
   }
 
   context(ordinal: number, occurrenceRef: string): RuntimeLivenessContext | null {
+    return this.contextFacts(ordinal, occurrenceRef)?.context ?? null;
+  }
+  contextFacts(ordinal: number, occurrenceRef: string): RuntimeLivenessContextFacts | null {
     const key = this.contextStamp(ordinal, occurrenceRef);
-    if (!this.contexts.has(key)) this.contexts.set(key, contextForOccurrence(this.cut(this.declarationAt[ordinal] ?? 0), occurrenceRef));
+    if (!this.contexts.has(key)) this.contexts.set(key,
+      livenessContextFacts(contextForOccurrence(this.cut(this.declarationAt[ordinal] ?? 0), occurrenceRef)));
     return this.contexts.get(key)!;
   }
   budget(ordinal: number, context: RuntimeLivenessContext): RuntimeLivenessBudgetFacts {
@@ -607,7 +628,8 @@ function validateRuntimeLivenessEvent(prefix: ValidatedRuntimeEventPrefix, event
     if (!record(p) || event.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ||
         event.admissionOrdinal !== ordinal + 1) return false;
     const actor = typeof p.actorInvocationRef === "string" ? p.actorInvocationRef : null;
-    const occurrence = actor ?? (isRuntimeSystemProbeContract(p.probeContract) ? p.probeContract.scope.cCallRef ?? p.probeContract.scope.frameId : null);
+    const probe = isRuntimeSystemProbeContract(p.probeContract) ? p.probeContract : null;
+    const occurrence = actor ?? (probe === null ? null : probe.scope.cCallRef ?? probe.scope.frameId);
     const context = occurrence === null ? null : reconstruction.context(ordinal, occurrence);
     if (context === null || event.runId !== context.scope.runId || event.basisId !== context.scope.basisRef ||
         event.graphCallId !== context.scope.graphCallId || event.frameId !== context.scope.frameId ||
@@ -624,7 +646,7 @@ function validateRuntimeLivenessEvent(prefix: ValidatedRuntimeEventPrefix, event
         p.timeoutMs === (projection.hardCapReached ? context.binding.policy.hardCapMs : context.binding.policy.inactivityMs) &&
         events.some(e => e.kind === "actor_process_started" && e.aggregateId === p.processRef && record(e.payload) && e.payload.actorInvocationRef === actor);
     }
-    if (!isRuntimeSystemProbeContract(p.probeContract) || !isRuntimeProbeObservation(p.observation) ||
+    if (probe === null || !isRuntimeProbeObservation(p.observation) ||
         p.observation.scopeDigest !== digest(context.scope) ||
         (actor !== null ? event.aggregateId !== actor || event.aggregateType !== "actor_invocation" || event.parentAggregateId !== context.scope.cCallRef :
           event.aggregateId !== context.scope.graphCallId || event.aggregateType !== "graph_call" || event.parentAggregateId !== context.scope.runId) ||
@@ -681,20 +703,22 @@ function deriveRuntimeLivenessSemantics(
 ): RuntimeLivenessSemantics | null {
   try {
     const events = reconstruction?.facts(ordinal) ?? runtimeEventsFromValidatedPrefix(prefix);
+    const occurrence = context.scope.actorInvocationRef ?? context.scope.cCallRef ?? context.scope.frameId;
+    const authenticated = reconstruction === undefined
+      ? livenessContextFacts(contextForOccurrence(prefix, occurrence)) : reconstruction.contextFacts(ordinal, occurrence);
+    if (authenticated === null || context !== authenticated.context &&
+        (livenessContextFacts(context) === null || !same(authenticated.context, context))) return null;
+    // All later consumers use the established immutable owner value. Object
+    // identity is useful only after the exact current declaration lookup above.
+    context = authenticated.context;
+    const { scopeDigest } = authenticated;
     const budget = { resultRejectionRef: null, ...(selectedBudget ?? (reconstruction?.budget(ordinal, context) ?? projectRuntimeRetryBudgetFacts(prefix, context.scope))) };
-    if (!isRuntimeLivenessBinding(context.binding) ||
-        sample.clockOriginRef !== context.binding.clockOriginRef || !Number.isFinite(sample.elapsedMs) || sample.elapsedMs < 0 ||
-        context.probes.length === 0 || new Set(context.probes.map(p => p.probeRef)).size !== context.probes.length ||
-        context.probes.some(p => !isRuntimeSystemProbeContract(p) || !same(p.scope, context.scope)) ||
+    if (sample.clockOriginRef !== context.binding.clockOriginRef || !Number.isFinite(sample.elapsedMs) || sample.elapsedMs < 0 ||
         typeof budget.retryEligible !== "boolean" ||
         !(budget.resultRejectionRef === null || typeof budget.resultRejectionRef === "string" && budget.resultRejectionRef.length > 0) ||
         !(budget.continuationRef === null || typeof budget.continuationRef === "string" && budget.continuationRef.length > 0) ||
         !["block", "escalate", "reprice_policy"].includes(budget.terminalPolicy) ||
         budget.remaining !== null && (!Number.isSafeInteger(budget.remaining) || budget.remaining < 0)) return null;
-    const occurrence = context.scope.actorInvocationRef ?? context.scope.cCallRef ?? context.scope.frameId;
-    const authenticatedContext = reconstruction === undefined ? contextForOccurrence(prefix, occurrence) : reconstruction.context(ordinal, occurrence);
-    if (authenticatedContext === null || !same(authenticatedContext, context)) return null;
-    const scopeDigest = digest(authenticatedContext.scope);
     const rows = reconstruction?.observations.get(scopeDigest) ?? events.filter(e =>
       (e.kind === "runtime_activity_probe_observed" || e.kind === "runtime_external_interruption_observed") &&
       record(e.payload) && isRuntimeProbeObservation(e.payload.observation) && e.payload.observation.scopeDigest === scopeDigest);

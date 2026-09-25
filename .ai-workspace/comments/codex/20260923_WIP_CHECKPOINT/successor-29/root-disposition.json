@@ -1,0 +1,9 @@
+{
+  "role": "Writer",
+  "operationGrant": "Checkpoint accepted EC owner reuse and installed replay, closed core33 failure and COST33 diagnosis; normal scoped commit/push then Executive",
+  "sourceReturn": "7d741af5b618c40838f88f732b68481e345e4572b396f531ee47c276725fd8aa",
+  "sourceReview": "de6e0ae974d55a11b7edeacc7d7732a0c396c09777b70c6d2a965d52c6ccacac",
+  "coreArchive": "758321d64dcbac39855f1bb95bafce90fb49148c202c7f60adb62d3af9cbf009",
+  "installedRead": "1dc9b6058d49e95521b08fd0c421dd6fc4d1d69ba1692f7677c3772e0a00ebc3",
+  "releaseAccepted": false
+}

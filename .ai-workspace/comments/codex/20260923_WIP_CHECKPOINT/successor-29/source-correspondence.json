@@ -1,0 +1,39 @@
+{
+  "status": "exact",
+  "checked": [
+    {
+      "path": "code/src/abg/event_calculus.ts",
+      "before": "100d037846789f56fbbc279ece7923a3f4d2b04effefdb5ae0f35e21357ae467",
+      "after": "354dde450eda3c986c25ec4919f2884ef54a13d4bebde8647693a6af97f2ed0e"
+    },
+    {
+      "path": "code/src/abg/runtime_liveness.ts",
+      "before": "a0ee579a28c6372ccb2bbb65d581b1953f4c27e829721a2189ea92102784f7f4",
+      "after": "a4b4a10f718a69125c15d2883b18d9749f357f772fcf1e834f918623b0e8a6bd"
+    },
+    {
+      "path": "build/code/src/abg/event_calculus.js",
+      "before": "9edc80e3277e89b26103da2a0d646dba050282698753e5ed4b2b18cf680f2c1a",
+      "after": "f9defa9971b351f5d9aa578e4a60fe2fcd09f07da1042898541e781321548312"
+    },
+    {
+      "path": "build/code/src/abg/runtime_liveness.js",
+      "before": "0eb18b3605551e02098ca3ad60e65f8776d178a76723b3bed6e1a8606b96f008",
+      "after": "51263211f5c6d21fc3c45ac090a10d413fa9bdbc948dfc93bad0db9154cbfc09"
+    },
+    {
+      "path": "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+      "sha256": "0f86b55946040837d508345ad4a9233a86affa81aea0bd1022a36a20425c312f"
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "ebcaf42b861959854a099fbe7edd95c660c9532eefd1b95b54bd35718f6b2bab"
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "0eac7090ace5601396d857be0b18401478ef473c4085152092e855c1a4317f5f"
+    }
+  ]
+}
