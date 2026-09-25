@@ -1,0 +1,38 @@
+{
+  "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md": {
+    "sha256": "bc148fc67f660125025a0b9dd19e873a0ade3741e3530526df5e78d13056df91",
+    "bytes": 62698
+  },
+  "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts": {
+    "sha256": "8d814ce4a654448bbe281b6364d2b69e5128e5bc88bd6fede27e55b89ba07039",
+    "bytes": 80663
+  },
+  "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs": {
+    "sha256": "f08eaec00207bbd3ad127f860b1782f2ae207058cc740fba38fe39eeb6b303c7",
+    "bytes": 39291
+  },
+  "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js": {
+    "sha256": "ccb002b6f9d426e646f1c96c88081515ce9643a71b375cce12c75bf7536592c7",
+    "bytes": 78590
+  },
+  "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts": {
+    "sha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763",
+    "bytes": 14248
+  },
+  "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts": {
+    "sha256": "c93d3ef3a1c2fa27c2a4ba630c7b504560ce980b6f237599f1efed092b48dd57",
+    "bytes": 273204
+  },
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-undispatched-diagnostic.test.mjs": {
+    "sha256": "eec646184ea291e632158ecd1183f01c6f4d4fdeb590b5480cd18a8f0e59c917",
+    "bytes": 20377
+  },
+  "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.js": {
+    "sha256": "210621b9ebcc704048ac54ef0776c09807de2ba6330a80c1a4e1ba63cec58ad6",
+    "bytes": 236560
+  },
+  "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.d.ts": {
+    "sha256": "568fe5861972584b4c168d0c28f1c73ea91440cbe2817ff3ebf4657715c6ce64",
+    "bytes": 39422
+  }
+}

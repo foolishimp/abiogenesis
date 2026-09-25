@@ -6056,9 +6056,20 @@ export function undispatchedOwnerEvidenceMatches(
         !isJsonRecord(opened.payload) || !isJsonRecord(fibre.payload) ||
         opened.aggregateId !== cCall.cCallRef || fibre.payload.implementationRef !== cCall.implementationRef ||
         fibre.payload.regime !== "F_P") return false;
-    const cursor = events.find(event => event.kind === "traversal_cursor_entered" && isJsonRecord(event.payload) &&
-      event.payload.cursorDigest === (opened.payload as Record<string, JsonValue>).cursorDigest);
-    if (cursor === undefined || !isJsonRecord(cursor.payload) || cursor.payload.inputDigest !== expectedInputDigest) return false;
+    if (typeof opened.payload.cursorRef !== "string") return false;
+    const origins = traversalCursorAdmissionEventsAtPrefix(prefix, {
+      cursorRef: opened.payload.cursorRef, executionBasisRef: cCall.basisId,
+      runId: cCall.runId, graphCallId: cCall.graphCallId, frameId: cCall.frameId,
+    });
+    const origin = origins.length === 1 ? origins[0] : undefined;
+    if (origin === undefined || traversalCursorAdmissionDigest(origin) !== opened.payload.cursorDigest ||
+        origin.admissionOrdinal >= opened.admissionOrdinal || opened.causationEventRefs[0] !== origin.eventId ||
+        !isJsonRecord(origin.payload)) return false;
+    // Routes retain the target identity, not a duplicate input body. Raw
+    // admission below checks the actual cursor/input; cold result checking
+    // consumes the exact evidence that admission established.
+    if ((origin.kind === "traversal_cursor_entered" && origin.payload.inputDigest !== expectedInputDigest) ||
+        (origin.kind === "fh_interaction_resume_admitted" && origin.payload.successorInputDigest !== expectedInputDigest)) return false;
     // Link actor/process children through the actual binding and invocation,
     // not an assumption that every process event repeats payload.cCallRef.
     const bindings = events.filter(event => event.kind === "actor_transport_binding_admitted" &&
@@ -6133,9 +6144,17 @@ function admitEvidenceUsingTransport(
     cCall.callClass === "leaf" &&
     cCall.regime === "F_D" &&
     candidate.implementationRef === cCall.implementationRef;
+  const undispatchedOpened = owner?.rows[0];
   const undispatchedValid = candidate.kind === "undispatched_owner_refusal_evidence_candidate" &&
     owner?.phase.phase === "selected_no_evidence" &&
     selectHeldEventStoreDurablePrefix(store).storeIdentity.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
+    cursor.inputDigest === expectedInputDigest && cursor.runId === cCall.runId &&
+    cursor.graphCallId === cCall.graphCallId && cursor.frameId === cCall.frameId &&
+    cursor.executionBasisRef === cCall.basisId &&
+    hasAdmittedTraversalCursorAtPrefix(prefix, cursor) &&
+    isJsonRecord(undispatchedOpened?.payload) &&
+    undispatchedOpened.payload.cursorRef === cursor.cursorRef &&
+    undispatchedOpened.payload.cursorDigest === cursor.cursorDigest &&
     undispatchedOwnerEvidenceMatches(prefix, cCall, candidate, expectedInputDigest);
   const worksiteBasis = candidate.kind === "worksite_file_replace_evidence_candidate"
     ? rehydrateExecutionBasisAtPrefix(prefix, cCall.basisId)

@@ -12,6 +12,217 @@ const { deepFreeze } = await load('shared/immutable');
 const { SEMANTIC_STAGE_IDS: S } = await load('gtl/semantic_stage_identity');
 const { SEMANTIC_REVISION_IDS: R } = await load('gtl/semantic_revision_identity');
 
+const selectorPrompt = process.env.ABI5_NATIVE_D2_SELECTOR_PROMPT;
+test('native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data', {
+  skip: !selectorPrompt,
+}, async t => {
+  const { sha256Bytes } = await load('shared/digests');
+  const { canonicalJson } = await load('shared/canonical_json');
+  const { admitIJsonText } = await load('shared/i_json');
+  const { renderNativeRevisionSelectionDecisionView: render } = await load('abg/instruction_assembly');
+  const bytes = fs.readFileSync(selectorPrompt);
+  assert.equal(sha256Bytes(bytes), 'sha256:ef70f87489f8bb9bc3fa875baafa8c651fe43f39d4132a8435472feab532e3e2');
+  const parts = bytes.toString('utf8').split(/^## (\w+)\n/m);
+  const old = Object.fromEntries(Array.from({ length: (parts.length - 1) / 2 }, (_, i) => [parts[i * 2 + 1], JSON.parse(parts[i * 2 + 2])]));
+  const envelope = old.evidence[0].result.value;
+  // The retained prompt carries the genuine cause leaf, but only parent
+  // coordinates. This test does not recreate parent authority or authenticate
+  // a runtime prefix. Production obtains the full parent from its existing owner.
+  const sections = { ...old, evidence: { parent: null, causes: old.evidence } };
+  const before = hash(sections), view = render(sections, envelope);
+  const deref = ref => ref.slice(2).split('/').reduce((value, key) => value[key], view);
+  const textOf = ref => { const value = deref(ref.presentationRef); return typeof value === 'string' ? value : value.text; };
+  assert.equal(hash(sections), before, 'full retained carriers are unchanged');
+  assert.deepEqual(view, render(sections, envelope), 'deterministic presentation');
+  assert.deepEqual(view.source, old.source, 'complete ordinary source remains available');
+  assert.deepEqual(view.task.runEnvironment, old.task.runEnvironment, 'STDO sourceContent and selected policy unchanged');
+  assert.deepEqual(view.task.input, old.task.input);
+  assert.deepEqual(view.task.stages, old.task.stages);
+  assert.deepEqual(view.task.targets, old.task.targets);
+  assert.deepEqual(view.obligations, old.obligations);
+  assert.deepEqual(view.response, old.response);
+  assert.equal(view.evidence.parent, null, 'retained parent coordinates remain in task.input; no fabricated parent leaf');
+  assert.deepEqual(view.task.originalJob.taskData, envelope.job.taskData);
+  assert.deepEqual(view.task.originalJob.worksiteScope, envelope.job.worksiteScope);
+  assert.deepEqual(view.task.originalJob.evaluationData, { disposition: 'withheld_evaluator_only' });
+  assert.deepEqual(old.task.runEnvironment.contextPolicy.selectors, ['current_worksite']);
+  for (let i = 0; i < old.evidence.length; i++) {
+    const cause = old.evidence[i], projected = view.evidence.causes[i];
+    assert.deepEqual(projected.cCall, cause.cCall);
+    assert.deepEqual(projected.judgment, cause.judgment);
+    const { value, ...result } = cause.result, { value: projectedValue, ...projectedResult } = projected.result;
+    assert.deepEqual(projectedResult, result, 'Result outcome/provenance unchanged');
+    assert.equal(projectedValue.rawEnvelopeDigest, hash(value));
+    assert.equal(projectedValue.job.digest, hash(value.job));
+    assert.equal(projectedValue.declaration.digest, hash(value.declaration));
+    assert.deepEqual(projectedValue.basis, value.basis);
+    assert.deepEqual(projectedValue.bindingVersions, value.bindingVersions);
+    assert.deepEqual(projectedValue.remainingGaps, value.remainingGaps);
+    for (let j = 0; j < value.assets.length; j++) {
+      const asset = value.assets[j], material = deref(projectedValue.assets[j].presentationRef);
+      assert.deepEqual(material.assessment, asset.assessment, 'full published assessment remains available');
+      assert.deepEqual(material.source, asset.source);
+      assert.deepEqual(material.groundedTerms, asset.groundedTerms);
+      const candidate = material.candidate.interpretation === 'exact_json_candidate'
+        ? admitIJsonText(textOf(material.candidate), 'retained candidate') : material.candidate;
+      assert.deepEqual(candidate, asset.candidate);
+      assert.equal(projectedValue.assets[j].materialDigest, hash(asset));
+    }
+  }
+  assert.equal(view.predecessors.materialAssets.length, 3);
+  assert.equal(view.predecessors.accepted.length, 2);
+  assert.equal(deref(view.evidence.causes[0].result.value.assets[2].presentationRef).assessment.disposition, 'falsified');
+  assert.ok(!view.predecessors.accepted.some(ref => ref.presentationRef === view.evidence.causes[0].result.value.assets[2].presentationRef));
+  for (const [original, projected] of [
+    [old.worksite.context, view.worksite.context],
+    [envelope.context, view.evidence.causes[0].result.value.context],
+  ]) {
+    const { entries, ...identity } = original, { entries: projectedEntries, ...projectedIdentity } = projected;
+    assert.deepEqual(projectedIdentity, identity, 'historical/current observation and binding identities remain distinct');
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i], shown = projectedEntries[i];
+      if (entry.state !== 'file') { assert.deepEqual(shown, entry); continue; }
+      const { bytes: encoded, encoding, ...fileIdentity } = entry;
+      const { textView, sourceEncoding, ...shownIdentity } = shown;
+      assert.deepEqual(shownIdentity, fileIdentity); assert.equal(sourceEncoding, encoding);
+      assert.deepEqual(Buffer.from(textOf(textView), 'utf8'), Buffer.from(encoded, 'base64'));
+      assert.equal(textView.digest, entry.digest);
+      const duplicate = view.worksite.context.entries.find(e => e.state === 'file' && e.digest === entry.digest);
+      assert.deepEqual(textView, duplicate.textView, 'identical observed bytes have one text view');
+    }
+  }
+  assert.equal(new Set(view.worksite.byteBodies.map(body => body.digest)).size, view.worksite.byteBodies.length);
+  for (const source of old.source) assert.ok(!view.worksite.byteBodies.some(body => body.digest === sha256Bytes(Buffer.from(source.text))));
+  const sentinel = 'EVALUATOR_ONLY_MUST_NOT_REACH_SELECTOR_916dad7e';
+  const withheld = structuredClone(sections);
+  withheld.evidence.causes[0].result.value.job.evaluationData = { hidden: sentinel };
+  const withheldView = render(withheld, withheld.evidence.causes[0].result.value);
+  assert.ok(!canonicalJson(withheldView).includes(sentinel), 'no nested cause/job/presentation leaks evaluator-only data');
+  assert.deepEqual(withheldView.predecessors.materialAssets.map(a => a.assessment), view.predecessors.materialAssets.map(a => a.assessment));
+  assert.deepEqual(withheldView.source, view.source);
+  // Exercise plan/manifest/request composition with explicitly substituted
+  // upstream admission and role selection. This proves presentation wiring,
+  // not eligibility, root ancestry, currentness or installed admission.
+  const call = { graphFunctionRef: 'graph://presentation-test', programLocusRef: 'locus://selection',
+    cCallRef: 'c-call://presentation-test', cCallDigest: hash('presentation-call'), inputContractRef: R.selectionInputContractRef };
+  const owner = { events: [], call, lifecycle: envelope.declaration, inputRef: 'input://presentation-test', inputDigest: hash(old.task.input),
+    execution: { invocationAdmissionRef: 'invocation://presentation-test', programRef: 'program://presentation-test', basisRef: 'basis://presentation-test', basisDigest: hash('presentation-basis') } };
+  const subject = { owner, envelope, nativeWorksite: { ...old.worksite }, construction: null, currentWorksite: null,
+    parent: old.evidence[0], causes: old.evidence };
+  const assemblyOwner = await component('abg/instruction_assembly', {
+    './execution_basis.js': { constructNativeInstructionAssemblyBasis: value => value },
+    './semantic_revision.js': { projectJobRevisionSubject: () => subject },
+    './stdo_environment.js': { projectRunEnvironmentRoleEvidence: () => old.task.runEnvironment },
+    '../gtl/c_algebra.js': { cLeafTerms: () => [{ programLocusRef: call.programLocusRef }] },
+    '../gtl/stdo_run_environment.js': { nativeContextLeafFamily: () => 'assessor' },
+  });
+  const assembly = assemblyOwner.evaluateNativeInstructionAssembly({ publication: { semanticJobLifecycle: {} },
+    graphFunction: { template: { nodes: [{ term: {} }] } }, cCall: { implementationRef: R.selectionImplementationRef }, predecessorPrefix: { fixture: true } }, old.task.input);
+  assert.equal(assembly.kind, 'native_instruction_assembly');
+  assert.equal(assembly.plan.evaluationDataIncluded, false);
+  assert.equal(assembly.plan.presentation, 'native_revision_decision_view');
+  assert.ok(assembly.manifest.sections.every(section => section.disposition === 'included_decision_view'));
+  assert.equal(assembly.manifest.promptBytesDigest, sha256Bytes(Buffer.from(assembly.request.prompt)));
+  assert.equal(assembly.manifest.promptByteCount, Buffer.byteLength(assembly.request.prompt));
+  assert.equal(assembly.manifest.envelopeDigest, hash(assembly.envelope));
+  assert.equal(assembly.manifest.nativeContext, undefined);
+  assert.deepEqual(assembly.manifest.worksiteContent.nativeContext, { ref: old.worksite.context.observationRef, digest: old.worksite.context.observationDigest });
+  assert.deepEqual(assembly.envelope.sections.evidence.parent.cCall, old.evidence[0].cCall);
+  assert.deepEqual(assembly.envelope.sections.evidence.parent.judgment, old.evidence[0].judgment);
+  assert.deepEqual(assembly.envelope.sections.task.runEnvironment, old.task.runEnvironment);
+  t.diagnostic(JSON.stringify({ retainedPromptBytes: bytes.length,
+    decisionSectionsBytes: Buffer.byteLength(Object.entries(view).map(([name, value]) => `## ${name}\n${canonicalJson(value)}`).join('\n\n')),
+    distinctAssets: view.predecessors.materialAssets.length, distinctAdditionalByteBodies: view.worksite.byteBodies.length,
+    sourceBytes: old.source.reduce((n, m) => n + Buffer.byteLength(m.text), 0), fullAssessments: view.predecessors.materialAssets.filter(a => a.assessment).length }));
+});
+
+test('native revision decision view preserves byte identity, non-UTF8 absence and changed candidate observations', async () => {
+  const { sha256Bytes } = await load('shared/digests');
+  const { renderNativeRevisionSelectionDecisionView: render } = await load('abg/instruction_assembly');
+  const candidate = { meaning: 'original candidate' }, candidateBytes = Buffer.from(JSON.stringify(candidate));
+  const file = (relativePath, bytes) => ({ relativePath, state: 'file', encoding: 'base64', bytes: bytes.toString('base64'), digest: sha256Bytes(bytes), byteLength: bytes.length });
+  const original = file('candidate.json', candidateBytes);
+  const historical = { kind: 'worksite_context_observation', observationRef: 'context://historical', workspaceBindingIdentity: 'binding://old', entries: [original] };
+  const current = { ...historical, observationRef: 'context://current', workspaceBindingIdentity: 'binding://new', entries: [
+    file('candidate.json', Buffer.from('{"meaning":"changed current candidate"}')),
+    file('unicode.txt', Buffer.from('\uFEFF\r\n☃\n')), file('binary.bin', Buffer.from([0xff, 0x00])),
+  ] };
+  const asset = { assetRef: 'asset://one', assetDigest: hash(candidate), candidate, groundedTerms: [], assessment: null,
+    source: { nativeWork: { assetPath: 'candidate.json', assetDigest: original.digest } } };
+  const envelope = { kind: 'semantic_stage_envelope', job: { members: [], taskData: {}, evaluationData: { secret: 'withheld' } },
+    declaration: { declarationRef: 'lifecycle://one' }, assets: [asset], context: historical, evidence: null, worksite: null };
+  const sections = { role: 'selection', source: [], predecessors: [asset], worksite: { context: current, construction: null },
+    evidence: { parent: null, causes: [{ result: { valueKind: 'semantic_stage_envelope', value: envelope } }] }, task: {} };
+  const view = render(sections, envelope);
+  const material = view.predecessors.materialAssets[0], body = ref => view.worksite.byteBodies[Number(ref.presentationRef.split('/').at(-1))];
+  assert.equal(body(material.candidate).text, candidateBytes.toString());
+  assert.notEqual(material.candidate.presentationRef, view.worksite.context.entries[0].textView.presentationRef);
+  assert.deepEqual(Buffer.from(body(view.worksite.context.entries[1].textView).text), Buffer.from('\uFEFF\r\n☃\n'));
+  assert.equal(body(view.worksite.context.entries[2].textView).disposition, 'text_unavailable_non_utf8');
+  assert.equal(body(view.worksite.context.entries[2].textView).text, null);
+  const changed = structuredClone(sections); changed.worksite.context.entries[0].digest = original.digest;
+  assert.throws(() => render(changed, envelope), /evidence byte identity mismatch/);
+  const duplicateKeys = Buffer.from('{"meaning":"wrong","meaning":"original candidate"}');
+  const raw = file('candidate.json', duplicateKeys), unparseable = structuredClone(sections);
+  unparseable.evidence.causes[0].result.value.context.entries = [raw];
+  unparseable.predecessors[0].source.nativeWork.assetDigest = raw.digest;
+  unparseable.evidence.causes[0].result.value.assets[0].source.nativeWork.assetDigest = raw.digest;
+  assert.deepEqual(render(unparseable, envelope).predecessors.materialAssets[0].candidate, candidate, 'duplicate-key text cannot replace a typed candidate');
+});
+
+test('native revision decision view leaves all opaque C2 and application JSON verbatim', async () => {
+  const { sha256Bytes } = await load('shared/digests');
+  const { renderNativeRevisionSelectionDecisionView: render } = await load('abg/instruction_assembly');
+  const context = { kind: 'worksite_context_observation', entries: [] };
+  const opaque = [
+    { base64: 'ordinary text is not a byte carrier' }, { base64: 'YQ==' },
+    { payload: 'ordinary payload', encoding: 'base64' },
+    { payload: 'YQ==', encoding: 'base64', digest: 'not-an-owner-digest', byteLength: 999 },
+    { kind: 'worksite_context_observation', entries: 'application value' },
+    { assetRef: 'application-asset', assetDigest: 'opaque', candidate: { base64: 'opaque' }, groundedTerms: [], assessment: null },
+    { kind: 'semantic_stage_envelope', job: { evaluationData: 'ordinary-domain-data-must-remain' }, assets: 'application value' },
+    { kind: 'semantic_revision_envelope', current: 'application value', revisionBasis: 'application value' },
+  ];
+  const streamBytes = Buffer.from('actual command output\r\n'), stream = { encoding: 'base64', payload: streamBytes.toString('base64'),
+    digest: sha256Bytes(streamBytes), byteLength: streamBytes.length };
+  const nativeWork = { kind: 'native_workspace_work_observation', task: { context }, before: context, after: context,
+    report: { opaque }, assessment: { opaque } };
+  const execution = { kind: 'worksite_command_execution_observation',
+    task: { sourceNativeWork: nativeWork, outcomePredicates: opaque.map((equals, ordinal) => ({
+      kind: 'worksite_outcome_predicate', schemaVersion: '5.0.0', ordinal, predicateId: `predicate-${ordinal}`,
+      predicateKind: 'module_export_return_exact', declaration: { path: 'module.mjs', export: 'value', equals } })) },
+    commandResults: [{ stdout: stream, stderr: stream }],
+    predicateObservations: opaque.map((observedValue, ordinal) => ({ kind: 'worksite_predicate_observation', schemaVersion: '5.0.0',
+      ordinal, predicateId: `predicate-${ordinal}`, predicateKind: 'module_export_return_exact', observedValue, evidence: opaque, evidenceRefs: [] })) };
+  const asset = { assetRef: 'asset://actual-slot', assetDigest: hash(opaque), source: {}, candidate: { opaque }, groundedTerms: [], assessment: { candidate: { opaque } } };
+  const envelope = { kind: 'semantic_stage_envelope', job: { members: [], taskData: { opaque }, evaluationData: { hidden: 'actual-private-evaluator-sentinel' } },
+    declaration: { declarationRef: 'lifecycle://actual-slot' }, assets: [asset], context,
+    worksite: null, evidence: { constructionResult: nativeWork, executionObservation: execution,
+      artifacts: [{ subjectRef: 'subject://one', observationRef: 'observation://one', role: 'realization', base64: stream.payload }] } };
+  const sections = { role: 'selection', source: [], task: {}, predecessors: [asset],
+    worksite: { context, construction: { result: { valueKind: 'native_workspace_work_observation', value: nativeWork } } },
+    evidence: { parent: { result: { valueKind: 'semantic_stage_envelope', value: envelope } }, causes: [
+      { result: { valueKind: 'worksite_command_execution_observation', value: execution } },
+      ...opaque.map(value => ({ result: { valueKind: 'application_defined_result', value } })),
+    ] } };
+  const before = hash(sections), view = render(sections, envelope), observed = view.evidence.causes[0].result.value;
+  assert.equal(hash(sections), before);
+  assert.deepEqual(observed.predicateObservations, execution.predicateObservations);
+  assert.deepEqual(observed.task.outcomePredicates, execution.task.outcomePredicates);
+  assert.deepEqual(observed.task.sourceNativeWork.report, nativeWork.report);
+  assert.deepEqual(observed.task.sourceNativeWork.assessment, nativeWork.assessment);
+  assert.deepEqual(view.task.originalJob.taskData, envelope.job.taskData);
+  assert.deepEqual(view.predecessors.materialAssets[0].candidate, asset.candidate);
+  assert.deepEqual(view.predecessors.materialAssets[0].assessment, asset.assessment);
+  assert.deepEqual(view.evidence.causes.slice(1).map(leaf => leaf.result.value), opaque);
+  assert.deepEqual(view.evidence.parent.result.value.evidence.executionObservation.predicateObservations, execution.predicateObservations);
+  assert.equal(view.worksite.byteBodies.length, 1, 'actual stdout/stderr/artifact share one verified body');
+  assert.equal(view.worksite.byteBodies[0].text, streamBytes.toString());
+  assert.equal(observed.commandResults[0].stdout.textView.presentationRef, observed.commandResults[0].stderr.textView.presentationRef);
+  assert.ok(!JSON.stringify(view).includes('actual-private-evaluator-sentinel'));
+  assert.ok(JSON.stringify(view).includes('ordinary-domain-data-must-remain'));
+});
+
 async function component(name, overrides) {
   const path = join(root, 'build/code/src', name + '.js');
   const module = new SourceTextModule(fs.readFileSync(path, 'utf8'), { identifier: path });

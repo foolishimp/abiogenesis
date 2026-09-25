@@ -17,17 +17,17 @@
 - updated_at: 2026-09-25
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: NATIVE_D2_01_STEP6_CLOSED_SELECTOR_BUDGET_FAILURE
-- current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-25/selected-core.json
-- current_candidate_archive_sha256: b10d85d807b22333717887f63c837e2589baf14f5ecda3f9803db169711d21b6
+- current_activation: NATIVE_D2_01_CORE28_REFUSAL_REPAIR_ACCEPTED_CURRENT_BOUND_CONTINUATION
+- current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-28/selected-core.json
+- current_candidate_archive_sha256: a0db110f4269c0bec8bb8666a1ce2a51fc9527829f9996fe554105ec69bd6052
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/return.md
 - current_accepted_archive_sha256: 64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb
-- current_worker_return: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/return.md
-- current_candidate_scope: core25_dev14_installed_setup_root_witness_proved_intake_budget_failed_native_correction_open
-- current_live_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/return.md
-- current_live_execution_status: CLOSED_one_Opus55_selector_budget_exhausted_Result_absent_replay_failed_no_suffix_no_retry
-- current_activation_status: STEP6_setup_public_root_witness_passed_intake_runtime_failed_provider_budget_exhausted_paid_HOLD_no_suffix
-- current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/return.md
+- current_worker_return: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/return.md
+- current_candidate_scope: core28_refusal_source_and_package_accepted_current_bound_intake_and_suffix_selected
+- current_live_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/installed-01/suffix-01/process.json
+- current_live_execution_status: CLOSED_selector_completed_suffix_blocked_before_actor_fresh_Result_absent_replay_blocked
+- current_activation_status: refusal_source_fix_and_package_accepted_original_owner_reason_unknown_new_current_bound_attempt_selected
+- current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#admission-boundary-execution-checklist'
 - current_management_plan: '#current-management-prerequisite-plan'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#management-milestones'
-- next_bounded_task: STEP6_current_setup_public_original_root_actual_reprice_native_intake_returned_choice_whole_suffix_fresh_reads_and_recovery
-- next_bounded_task_status: authorized_once_existing_controls_stop_on_first_causal_failure_no_retry
+- next_bounded_task: one_core28_current_bound_intake_and_actual_declared_suffix_fresh_reads_and_recovery
+- next_bounded_task_status: authorized_once_after_supported_cross_binding_reuse_refused_unchanged_controls_no_automatic_retry
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -94,7 +94,7 @@
 - prior_fixture_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-prep-03/manifest.json
 - prior_live08_execution_record: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/live08.json
 - prior_native03_execution_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/execution-manifest.json
-- current_activation_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/bootstrap-preparation-01/return.md
+- current_activation_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - prior_generic_job_activation_record: .ai-workspace/comments/codex/20260918_GENERIC_JOB_BINDING_REPAIR/implementation/activation.md
 - prior_mvp_continuation_activation_record: .ai-workspace/comments/codex/20260916_ABG5_MVP_CONTINUATION/activation.md
 - prior_native03_input_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/records/call-14.jsonl
@@ -329,8 +329,19 @@ after `/root/native_d2_review` (astra/max) found no supported blocker; review
 closed in chat. [Exact source/check return](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step5/return.md)
 and [core25 construction](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-25/return.md)
 select unchanged dev14. [STEP6 closed return](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/step6-installed/return.md) (`14f52dfe…`)
-retains setup/root/witness success and one provider-budget-failed intake. Further
-paid work is HOLD; no budget increase or suffix is selected.
+retains setup/root/witness success and one provider-budget-failed intake.
+[Core27 disposition](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md)
+now supersedes that HOLD for one resumed selector and its returned whole suffix.
+The corrected source is independently accepted; the installed selector succeeds
+with fresh Result/replay and selects Requirements. The complete declared suffix
+is closed blocked under unchanged controls with fresh reads. An entered-only
+refusal-evidence predicate rejected its lawful route target; the bounded source
+repair is accepted after independent review, compile and six focused tests.
+Core28 is verified. Existing request/binding equality requires one fresh
+current-bound intake; its actual choice alone selects the complete suffix.
+The original pre-dispatch reason remains unknown. No native-correction or release closure is
+claimed. Duplicate Product linking and measured setup/intake computation remain
+in LIFE01; they are not additional prerequisites to this execution.
 
 | Item | Dependency-ready increment | Required discriminator / current disposition |
 |---|---|---|
@@ -339,7 +350,7 @@ paid work is HOLD; no budget increase or suffix is selected.
 | 3 | Preserve live predecessor derivation and reuse invocation/query state. | Root-accepted STEP3 `1df2966c…` and S9 source-Run selection in the combined subject; focused component checks pass. STEP6 fresh Public reads exercise genuine cold reopening; live-query reuse remains partial and no borrowed read is claimed. |
 | 4 | Reuse checked F_P results through the existing owners. | Root-accepted STEP4 `257f2a90…`; existing actor authentication and checked result reuse preserve strict parsing, raw admission and later judgment/effect duties. The installed selector reached the provider but returned no checked result; successful result-reuse composition remains unproved. |
 | 5 | Contract redundant catalog, authority and receipt carriers. | Root-accepted STEP5 `f6105980…`; compact conformance receipt and within-owner resolved closure reuse. Component receipt 21,990,418→613B is not installed timing attribution; no cross-call catalog authority. |
-| 6 | Conjoin the ready changes in one exact installed candidate and the preserved native-D2 steel thread. | CLOSED bounded setup/root/witness and one intake on core25/dev14. Selector Opus5.5/xhigh exhausted the unchanged $5 provider budget; fresh Result is absent and replay failed at genuine124,889,739B close. No returned choice/suffix; native correction stays open. Preserve original source/oracle/job/history; paid HOLD, no retry. |
+| 6 | Conjoin the ready changes in one exact installed candidate and the preserved native-D2 steel thread. | Core25 budget failure remains historical. Core27/dev14 selector completes with fresh Result/replay and a Requirements choice; the declared suffix blocks before actor dispatch. Its entered-only refusal predicate is the established defect; source repair and core28 package are accepted; one current-bound intake and its returned suffix are selected. Original owner reason and full correction remain open; preserve admitted choice/source/oracle/job/history. |
 
 Items are a delivery dependency order, not a demand to finish every cleanup
 opportunity before integration. The Executive selects the earliest lawful

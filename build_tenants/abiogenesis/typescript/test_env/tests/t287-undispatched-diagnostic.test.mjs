@@ -90,21 +90,83 @@ test('other pre-dispatch catches keep exact stage and native stack; arbitrary ge
  assert.equal(body.message.length,8192);assert.equal(body.stack.length,32768);assert(body.messageTruncated&&body.stackTruncated);
 });
 
-test('retained diagnostics preserve the actual CCall owner no-dispatch and exact-output gates',async()=>{
- const receipt=await port.invokeLeafOwnerBoundary({...base,loadImplementation:async()=>()=>{throw new TypeError('assembly refused');}});
+test('undispatched refusal retains entered, routed and resumed cursor ownership at raw and cold boundaries',async()=>{
+ let rows=[],recorded=[];
+ const prefix={component:'frozen upstream prefix premise'},prefixDigest=hash('component prefix');
+ const prefixOps={runtimeEventsFromValidatedPrefix:()=>rows,selectValidatedRuntimeEventPrefix:()=>prefix,
+  runtimeEventPrefixDigest:()=>prefixDigest,indexedRuntimeEvents:(_p,key)=>rows.filter(e=>
+   key==='id:'+e.eventId||key==='graph-call:'+e.graphCallId||key==='aggregate:'+e.aggregateType+':'+e.aggregateId)};
+ const cursors=await sourceOwner('abg/traversal_cursor',{'./event_prefix.js':prefixOps});
+ const cursor=cursors.constructTraversalCursorCandidate({programRef:'program://component',executionBasisRef:'basis://component',
+  traversalScopeRef:'scope://component',runId:occurrence.runId,graphCallId:occurrence.graphCallId,frameId:occurrence.frameId,
+  graphRef:'graph://component',inputRef:'input://component',inputDigest,currentNodeRef:'node://component',position:'at_term',
+  termPath:['node','case','author'],taskOrdinal:null,attempt:1,retryPath:[]});
+ const callIdentity={basisId:cursor.executionBasisRef,graphCallId:cursor.graphCallId,frameId:cursor.frameId,vectorIndex:0,
+  stageRole:'semantic-revision-author',taskOrdinal:null,attempt:1,programLocusRef:occurrence.programLocusRef,retryPath:[]};
+ const cCallDigest=hash(callIdentity),cCallRef='c-call:'+cCallDigest;
+ const receipt=await port.invokeLeafOwnerBoundary({...base,occurrence:{...occurrence,cCallRef},
+  loadImplementation:async()=>()=>{throw new TypeError('assembly refused');}});
  const o=receipt.ownerObservation,failure=receipt.candidate.resultCandidate;
- const call={...o,callClass:'leaf',regime:'F_P',openedEventRef:'event://opened',fibreSelectedEventRef:'event://selected',failureContractRef:resolution.failureContractRef};
+ const call={...o,...callIdentity,kind:'c_call',schemaVersion:'5.0.0',cCallRef,cCallDigest,callClass:'leaf',regime:'F_P',
+  openedEventRef:'event://opened',fibreSelectedEventRef:'event://selected',failureContractRef:resolution.failureContractRef,
+  evidenceContractRef:'contract://component/evidence',armId:'arm://component',compositionRef:null,implementationSetRef:'set://component'};
  const candidate={kind:'undispatched_owner_refusal_evidence_candidate',schemaVersion:'5.0.0',implementationRef:o.implementationRef,inputDigest,
   outputDigest:hash(failure),failureContractRef:resolution.failureContractRef,failureValue:failure,ownerObservation:o};
- const rows=[{eventId:call.openedEventRef,kind:'c_call_opened',aggregateId:o.cCallRef,payload:{cursorDigest:hash('cursor')}},
-  {eventId:call.fibreSelectedEventRef,kind:'c_call_fibre_selected',payload:{implementationRef:o.implementationRef,regime:'F_P'}},
-  {kind:'traversal_cursor_entered',payload:{cursorDigest:hash('cursor'),inputDigest}}];
- const owner=await sourceOwner('abg/c_call',{'./event_contract_profiles.js':profiles,'./event_prefix.js':{runtimeEventsFromValidatedPrefix:()=>rows}});
- assert.equal(owner.undispatchedOwnerEvidenceMatches({},call,candidate,inputDigest),true);
- assert.equal(owner.undispatchedOwnerEvidenceMatches({},call,{...candidate,outputDigest:hash('wrong')},inputDigest),false);
- assert.equal(owner.undispatchedOwnerEvidenceMatches({},call,{...candidate,ownerObservation:{...o,attempt:2}},inputDigest),false);
- rows.push({kind:'actor_transport_binding_admitted',aggregateId:'binding://actor',payload:{cCallRef:o.cCallRef}});
- assert.equal(owner.undispatchedOwnerEvidenceMatches({},call,candidate,inputDigest),false);
+ const scope={runId:call.runId,graphCallId:call.graphCallId,frameId:call.frameId,basisId:call.basisId};
+ const entry={...scope,eventId:'event://entry',admissionOrdinal:1,aggregateType:'frame',aggregateId:call.frameId,
+  kind:'traversal_cursor_entered',payload:{cursorRef:cursor.cursorRef,cursorDigest:cursor.cursorDigest,inputDigest}};
+ const opened={...scope,eventId:call.openedEventRef,admissionOrdinal:3,kind:'c_call_opened',aggregateType:'c_call',aggregateId:cCallRef,
+  parentAggregateId:call.frameId,causationEventRefs:[entry.eventId],payload:{cCallRef,cCallDigest,callClass:'leaf',cursorRef:cursor.cursorRef,cursorDigest:cursor.cursorDigest}};
+ const fibre={...scope,eventId:call.fibreSelectedEventRef,admissionOrdinal:4,kind:'c_call_fibre_selected',aggregateType:'c_call',aggregateId:cCallRef,
+  parentAggregateId:call.frameId,causationEventRefs:[opened.eventId],payload:{cCallRef,callClass:'leaf',implementationRef:o.implementationRef,
+   regime:'F_P',armId:call.armId,compositionRef:null,implementationSetRef:call.implementationSetRef}};
+ const frozenStore=await import('../../build/code/src/abg/event_store.js');
+ // Only physical append/prefix custody is substituted. The actual cursor,
+ // CCall, observation, raw evidence and cold association predicates run.
+ const owner=await sourceOwner('abg/c_call',{'./event_contract_profiles.js':profiles,'./event_prefix.js':prefixOps,
+  './traversal_cursor.js':cursors,'./event_store.js':{
+   selectHeldEventStoreDurablePrefix:()=>({storeIdentity:{eventContractDigest:frozenStore.ROOT_EVENT_CONTRACT_DIGEST}}),
+   isRuntimeEventTransactionActive:()=>true,admitRuntimeEvent:(_s,e)=>{const event={...e,eventId:'event://evidence',admissionOrdinal:5};recorded.push(event);return event;}},
+  './runtime_liveness.js':{captureNativeFrameBoundary:()=>null,observeNativeFrameLiveness:()=>{},observeNativeCCallLiveness:()=>{}}});
+ const admit=(selected=cursor,c=candidate)=>owner.admitEvidence({digest:()=>prefixDigest},prefix,{}, {},selected,call,c,
+  call.evidenceContractRef,inputDigest,{correlationId:'correlation://component',causationEventRefs:[]});
+ rows=[entry,opened,fibre];
+ assert.equal(owner.undispatchedOwnerEvidenceMatches(prefix,call,candidate,inputDigest),true);
+ assert.equal(admit().kind,'admitted_c_call_evidence');
+ const route={...scope,eventId:'event://route',admissionOrdinal:2,aggregateType:'frame',aggregateId:call.frameId,
+  kind:'traversal_route_admitted',payload:{sourceCursorRef:'cursor://case',sourceCursorDigest:hash('case'),
+   targetCursorRef:cursor.cursorRef,targetCursorDigest:cursor.cursorDigest}};
+ const routedOpen={...opened,causationEventRefs:[route.eventId]};
+ rows=[{...entry,payload:{...entry.payload,cursorRef:route.payload.sourceCursorRef,cursorDigest:route.payload.sourceCursorDigest}},route,routedOpen,fibre];
+ assert.equal(owner.undispatchedOwnerEvidenceMatches(prefix,call,candidate,inputDigest),true);
+ const admitted=admit();assert.equal(admitted.kind,'admitted_c_call_evidence');
+ assert.deepEqual(recorded.at(-1).payload.ownerObservation,o);
+ assert.equal(diagnostic.readRuntimeFailureDiagnosticSubject(admitted.ownerObservation.diagnosticRef).message,'assembly refused');
+ assert.equal(admit({...cursor,inputDigest:hash('wrong')}).kind,'c_call_admission_rejection');
+ const other=cursors.constructTraversalCursorCandidate({...cursor,termPath:['node','case','other']});
+ assert.equal(admit(other).kind,'c_call_admission_rejection');
+ assert.equal(owner.undispatchedOwnerEvidenceMatches(prefix,call,{...candidate,outputDigest:hash('wrong')},inputDigest),false);
+ assert.equal(owner.undispatchedOwnerEvidenceMatches(prefix,call,{...candidate,ownerObservation:{...o,cCallRef:'c-call:wrong'}},inputDigest),false);
+ assert.equal(owner.undispatchedOwnerEvidenceMatches(prefix,call,{...candidate,ownerObservation:{...o,attempt:2}},inputDigest),false);
+ const validRows=rows;
+ for(const bad of [{...route,runId:'run://other'},{...route,frameId:'frame://other'},
+   {...route,payload:{...route.payload,targetCursorDigest:hash('wrong')}},{...route,eventId:'event://unrelated'},
+   {...route,admissionOrdinal:6}]){
+  rows=[validRows[0],bad,routedOpen,fibre];
+  assert.equal(owner.undispatchedOwnerEvidenceMatches(prefix,call,candidate,inputDigest),false);
+ }
+ rows=[validRows[0],route,{...routedOpen,causationEventRefs:[entry.eventId]},fibre];
+ assert.equal(owner.undispatchedOwnerEvidenceMatches(prefix,call,candidate,inputDigest),false);
+ rows=[...validRows,route];assert.equal(owner.undispatchedOwnerEvidenceMatches(prefix,call,candidate,inputDigest),false);
+ rows=[...validRows,{kind:'actor_transport_binding_admitted',aggregateId:'binding://actor',payload:{cCallRef}}];
+ assert.equal(owner.undispatchedOwnerEvidenceMatches(prefix,call,candidate,inputDigest),false);
+ const resumed={...scope,eventId:'event://resume',admissionOrdinal:2,aggregateType:'continuation',aggregateId:'continuation://component',
+  kind:'fh_interaction_resume_admitted',payload:{successorCursor:cursor,successorCursorRef:cursor.cursorRef,
+   successorCursorDigest:cursor.cursorDigest,successorInputDigest:inputDigest}};
+ rows=[resumed,{...opened,causationEventRefs:[resumed.eventId]},fibre];
+ assert.equal(admit().kind,'admitted_c_call_evidence');
+ rows=[{...resumed,payload:{...resumed.payload,successorInputDigest:hash('wrong')}},rows[1],fibre];
+ assert.equal(owner.undispatchedOwnerEvidenceMatches(prefix,call,candidate,inputDigest),false);
 });
 
 test('source diagnostic/profile/store imports initialize together with their actual cyclic links',async()=>{

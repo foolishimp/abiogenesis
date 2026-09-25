@@ -15,11 +15,22 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. [T-287 current frontier](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation) owns the selected native lifecycle correction, exact candidate/failed-cut evidence and current source/installed execution disposition, with the [T287/LIFE-01 admission-boundary checklist](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#admission-boundary-execution-checklist) owning the dependency-ready cleanup and paused native correction. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. [T-287 current frontier](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation) owns the selected native lifecycle correction, exact candidate/failed-cut evidence and current source/installed execution disposition, with the [T287/LIFE-01 admission-boundary checklist](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#admission-boundary-execution-checklist) owning the dependency-ready cleanup and resumed native correction. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
 
 ## Current Selection
 
-### Current checkpoint disposition — 2026-09-24
+### Current checkpoint disposition — 2026-09-25
+
+[T287 core27 disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md)
+owns the resumed frontier: corrected context rendering is source-accepted,
+the installed selector completes with fresh Public Result/replay, and its
+declared Requirements correction suffix is blocked under unchanged controls;
+fresh readback is complete. The refusal-admission repair and core28 package are accepted; a fresh
+current-bound intake and its returned suffix are selected because the previous
+request cannot cross the package binding unchanged. The original owner reason
+remains unknown.
+The existing source/oracle/job and historical failures remain preserved.
+Native correction, LIFE01, qualification and RC1 remain open.
 
 GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original
 job/S1–S5/oracle, five selected/four outside residuals and protected worksite.

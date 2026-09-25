@@ -1,0 +1,81 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "faf44bfb5904924272987b872d08b5c90d04a462",
+  "scope": "Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 244
+  },
+  "archiveMemberCount": 244,
+  "archiveMemberBytes": 499714326,
+  "transportBytes": 76278304,
+  "assets": [
+    {
+      "id": "raw-d7f4262281fd529630113e2be8d1ac1a1afab511799bbe3d417df245c7cb27bb",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10166404,
+      "sha256": "d7f4262281fd529630113e2be8d1ac1a1afab511799bbe3d417df245c7cb27bb",
+      "parts": [
+        {
+          "path": "payloads/raw-d7f4262281fd529630113e2be8d1ac1a1afab511799bbe3d417df245c7cb27bb.part0000",
+          "byteLength": 10166404,
+          "sha256": "d7f4262281fd529630113e2be8d1ac1a1afab511799bbe3d417df245c7cb27bb"
+        }
+      ]
+    },
+    {
+      "id": "raw-a0db110f4269c0bec8bb8666a1ce2a51fc9527829f9996fe554105ec69bd6052",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10166665,
+      "sha256": "a0db110f4269c0bec8bb8666a1ce2a51fc9527829f9996fe554105ec69bd6052",
+      "parts": [
+        {
+          "path": "payloads/raw-a0db110f4269c0bec8bb8666a1ce2a51fc9527829f9996fe554105ec69bd6052.part0000",
+          "byteLength": 10166665,
+          "sha256": "a0db110f4269c0bec8bb8666a1ce2a51fc9527829f9996fe554105ec69bd6052"
+        }
+      ]
+    },
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS",
+      "byteLength": 966572,
+      "sha256": "4f557eda024090f66f346edf6ae7f627bb5527853942a49ed98f73a0703491e0",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 966572,
+          "sha256": "4f557eda024090f66f346edf6ae7f627bb5527853942a49ed98f73a0703491e0"
+        }
+      ]
+    },
+    {
+      "id": "family-0001",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME",
+      "byteLength": 54978663,
+      "sha256": "e95accbba1c75abcecc3010e7ee7c93a4ac09220e5ff631a7b5ab980561d15d7",
+      "parts": [
+        {
+          "path": "payloads/family-0001.tar.gz.part0000",
+          "byteLength": 51380224,
+          "sha256": "30a2d2e81d2ba17697397c64a0ade4ebd25b109d8cfaa2ab3ae7b7916591e239"
+        },
+        {
+          "path": "payloads/family-0001.tar.gz.part0001",
+          "byteLength": 3598439,
+          "sha256": "8fd604ba43405447d4b59505998f90cf46d69520d3a0a5dc41bdcacb4ca65642"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "36de8c6f6d1738feb743300a782fa8d0ceef89f2140c2bfceb9bbeac3ce1b096",
+  "reconciliationSha256": "50f032e1b16552817f32a9e3c4c7e0c007892d808c29609eaa0e880a1f4b4a01",
+  "pendingActiveEvidence": [
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02"
+  ],
+  "credentialShapeFindingCount": 0
+}

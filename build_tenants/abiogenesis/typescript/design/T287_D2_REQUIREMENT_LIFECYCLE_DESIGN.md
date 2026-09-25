@@ -49,7 +49,26 @@ consumers use that one admitted acquisition and exact referenced leaves within
 its basis, without repeating failure discovery.
 
 The existing F_P selection receives authenticated alternatives, complete
-source, current context, obligations and counterevidence. Its preconstruction
+source, current context, obligations and counterevidence through a deterministic
+decision view of the same admitted subject. The assembly owner renders each
+distinct accepted/rejected asset, full assessment and observed byte body once;
+local presentation references preserve repeated uses, not new authority.
+Exact UTF-8 text replaces base64 display through the existing byte-identity and
+round-trip check; non-UTF8 remains explicitly unavailable as text. An observed
+byte carrier is reached only through its existing typed owner slot; opaque
+application values, including carrier-shaped JSON, remain verbatim. An observed
+native candidate file may present its exact candidate value once only when
+strict JSON parsing proves that value equal; original byte/path/provenance
+coordinates and full admitted carriers remain unchanged. Parent/cause C/J
+outcomes, eligible stage/rubric/obligation/target domains, phase, historical versus
+current observations and binding identities remain explicit. The plan/manifest
+identify the decision view and its material references; they do not claim a
+full-carrier echo. Ordinary source and task data remain available; separately
+owned evaluator-only job data remains withheld from the selector, with its
+omission explicit and the original job identity preserved. Declared STDO
+policy/sourceContent remains unchanged. No
+caller summary, truncation or failed transport output becomes selection truth.
+Its preconstruction
 arm selects only an existing stage at or before the refused stage, with no
 target references; postconstruction also admits construction repair and exact
 historical Design paths. F_D request construction binds the admitted selection

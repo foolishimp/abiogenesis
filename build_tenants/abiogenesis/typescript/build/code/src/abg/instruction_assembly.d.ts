@@ -287,6 +287,10 @@ export declare function evaluateNativeInstructionAssembly(basis: SemanticStageNa
 export declare function constructNativeInstructionAssembly(basis: SemanticStageNativeBasis, supplied: unknown): Readonly<NativeInstructionAssembly> | null;
 /** Existing pre-dispatch boundary: a typed cause is never an empty successful prompt. */
 export declare function requireNativeInstructionAssembly(basis: SemanticStageNativeBasis, supplied: unknown): Readonly<NativeInstructionAssembly>;
+/** A presentation of the already authenticated native selection subject, not
+ * an admission entry or a replacement carrier. References are local JSON
+ * pointers into this one prompt; all source identities remain the originals. */
+export declare function renderNativeRevisionSelectionDecisionView(sections: Readonly<Record<string, JsonValue>>, envelope: import("../product/semantic_job.js").SemanticJobEnvelope): Readonly<Record<string, JsonValue>>;
 export declare function nativeInstructionRequestMatches(basis: SemanticStageNativeBasis, input: unknown, request: ProbabilisticWorkerRequest): boolean;
 /** The wrapper's candidate/source must equal the one actual native transport.
  * Full transport admission remains the existing actor/CCall owner's check. */
