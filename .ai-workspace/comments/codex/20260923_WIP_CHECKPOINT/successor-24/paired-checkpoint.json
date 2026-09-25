@@ -1,0 +1,22 @@
+{
+  "selection": "Accepted GLC semantic role context correction; unchanged ABI core28; current installed execution excluded",
+  "sourcePostimagesVerified": true,
+  "coreArchiveSha256": "a0db110f4269c0bec8bb8666a1ce2a51fc9527829f9996fe554105ec69bd6052",
+  "consumerArchiveSha256": "0d56f168bf4afbcffd0e264e298f6bd1429e9546b39d4c7823e0f3c086afc964",
+  "banks": {
+    "abiogenesis": {
+      "members": 190,
+      "originalBytes": 465963003,
+      "transportBytes": 54032246,
+      "catalogSha256": "2f873aaae28e8b4a11eaab7db34a26c8a8ddd2008c00710f774992a3968c2c03",
+      "verified": true
+    },
+    "odd_glc": {
+      "members": 52,
+      "originalBytes": 15792921,
+      "transportBytes": 2059301,
+      "catalogSha256": "b0aac0546237cca891a7b6408e41e79296989ac54483547191d06485680acd24",
+      "verified": true
+    }
+  }
+}

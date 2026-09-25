@@ -1,0 +1,25 @@
+{
+  "paths": [
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-23/push-verification.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-23/return.md",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/README.md",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/accepted-source.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/paired-checkpoint.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/snapshot-observation.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/catalog.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/credential-shape-findings.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/direct-paths.nul",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/exclusions.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/members.jsonl.gz",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/path-reconciliation.jsonl.gz",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/payloads/family-0000.tar.gz.part0000",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/payloads/family-0000.tar.gz.part0001",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/pending.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-01/verification.json",
+    ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-24/transport-selection.json",
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md",
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "specification/GOALS.md"
+  ],
+  "activeRuntimeExcluded": true
+}

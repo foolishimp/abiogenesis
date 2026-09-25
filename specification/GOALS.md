@@ -21,16 +21,14 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 ### Current checkpoint disposition — 2026-09-25
 
-[T287 core27 disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md)
-owns the resumed frontier: corrected context rendering is source-accepted,
-the installed selector completes with fresh Public Result/replay, and its
-declared Requirements correction suffix is blocked under unchanged controls;
-fresh readback is complete. The refusal-admission repair and core28 package are accepted; a fresh
-current-bound intake and its returned suffix are selected because the previous
-request cannot cross the package binding unchanged. The original owner reason
-remains unknown.
-The existing source/oracle/job and historical failures remain preserved.
-Native correction, LIFE01, qualification and RC1 remain open.
+[T287 current disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md#current-core28-boundary-and-glc-declaration-repair)
+owns the frontier. Core28's current-bound selector succeeds and its corrected
+refusal path retains the suffix's actual pre-actor preparation failure through
+fresh Public evidence. GLC's existing semantic stage/role declaration correction is independently
+accepted, dev15 is verified, and one installed continuation is selected. The
+required standards are present; original contracts and limits are unchanged.
+Preserve the existing source/oracle/job and all historical outcomes. Native
+correction, LIFE01, fifteen-family qualification and RC1 remain open.
 
 GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original
 job/S1–S5/oracle, five selected/four outside residuals and protected worksite.

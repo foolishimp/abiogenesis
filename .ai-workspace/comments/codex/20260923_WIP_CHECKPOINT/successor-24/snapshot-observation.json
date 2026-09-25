@@ -1,0 +1,23 @@
+{
+  "scope": "Closed core28/dev14 proof-fixture output, not cumulative runtime reads or timing attribution",
+  "closedAttemptFileCount": 170,
+  "closedAttemptFileBytes": 840132153,
+  "snapshots": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/preparation/readback-basis.json",
+      "bytes": 125166372,
+      "sha256": "f831bab233ff3c525ceb5607875589080102b17f0ef6df071c005fddfe19edd6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/intake-01/readback-basis.json",
+      "bytes": 125166372,
+      "sha256": "f831bab233ff3c525ceb5607875589080102b17f0ef6df071c005fddfe19edd6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/undispatched-route-repair-01/installed-02/suffix-01/readback-basis.json",
+      "bytes": 125166372,
+      "sha256": "5cfcd15a55e4d062b621f85027b7457e187bbd8eb56252dd5351158a9306ece9"
+    }
+  ],
+  "disposition": "Originals remain; two snapshots are byte-identical; the third differs. Full-state snapshots excluded from transport as before; active runtime untouched."
+}

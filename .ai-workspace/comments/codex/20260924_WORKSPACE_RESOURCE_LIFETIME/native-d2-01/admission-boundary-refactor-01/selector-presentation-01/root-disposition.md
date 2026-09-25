@@ -77,3 +77,65 @@ shows that the old successful request cannot enter core28 unchanged. Root
 therefore selects one fresh current-bound intake and its actually selected
 whole suffix under the existing limits. The old selection and all work remain
 preserved. No request migration feature or automatic retry is selected.
+
+## Current core28 boundary and GLC declaration repair
+
+Root accepts the [core28 closed execution](undispatched-route-repair-01/installed-02/return.md)
+only within its observed scope: the current-bound selector succeeds; the whole
+Requirements suffix fails before an actor dispatches; fresh Public reads agree.
+The routed-refusal repair now retains the preparation TypeError and stack through
+ordinary Public run evidence. The genuine resource close is142,924,635 B. The
+original core27 owner reason remains unknown; this run does not recover it.
+
+The [closed diagnosis](author-context-policy-01/return.md) establishes a GLC
+declaration mismatch. Its D2 author selects current_worksite while the exact
+stage/role contract requires source, predecessor and binding semantics and does
+not require worksite content. The assessor also requires current_candidate.
+Both reported GLC standards are already bound; the diagnostic lists the entire
+requested set, not five independently missing items. ABI's refusal is correct.
+
+Root selects local_repair / realization_refactor in GLC's existing lifecycle
+role/declaration factory, its focused tests and a successor publication recipe.
+Reuse the existing closed-semantic stage/role policy; preserve workspace-native
+roles, original lifecycle/source/oracle/job and all historical artifacts. Check
+the whole declared suffix, including Design worksite and Evidence evaluator-only
+contracts. Source readiness and independent review precede a successor consumer
+package and a separately selected installed continuation. Core28 remains accepted;
+no ABI policy weakening, paid retry or new context subsystem is selected here.
+
+Writer activation: Root updates this disposition and the existing paired tickets
+and GOALS projections only. Source implementation remains the delegated Worker.
+Root returns to Executive after the tracking write.
+
+## Accepted GLC source and installed continuation selection
+
+Root accepts frozen source `b9efe8e97162b2a3052899d59b5bb2d4947151f6eb222306034fd8bffb013c20`
+after `/root/native_d2_review` (astra/max) independently verifies all four
+pre/postimages, six evidence hashes, exact32 policy-only row changes and the
+unchanged historical lifecycle. The [source return](author-context-policy-01/source-01/return.md)
+retains three focused passes across all ten stage/role combinations and its
+explicit substituted authentication/currentness/C2 premises. No installed
+success follows from those component premises.
+
+Root conjoins that source acceptance with [dev15's closed package return](../../../../../../../../odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev15/return.md)
+`c835c1051a81a724a01a559002086e83545ba23b0645710543184ea416cbb13c`.
+Archive `0d56f168bf4afbcffd0e264e298f6bd1429e9546b39d4c7823e0f3c086afc964`,
+content `33d8bc33935403c959114c13566a198660e34a3659213ad478c3c37e4064bd5e`,
+manifest `0327ef3c929aecdd282342f93304ed45e1ae2fdeb71a528b4d113984cfdaf6ee`.
+All nine members and12 required descriptors correspond; all11 publications
+and8 Programs validate. Core28 remains unchanged.
+
+The [prepared caller](author-context-policy-01/installed-01/preparation/frozen-caller.json)
+is selected at the genuine142,924,635B close. Eight necessary Public setup
+operations and resolution precede the genuine current-binding witness, one
+current-bound selector and only its actually selected whole suffix. Existing
+Public source-root evidence is reused; old lock-bound installs, witness and
+request cannot be retargeted. HoG owns progression. Original source Run/prefix,
+job, lifecycle, oracle and worksite remain preserved. Existing actor/model,
+per-occurrence budget, timeouts and heap are unchanged; no automatic retry.
+Runtime/source failure returns with its first causal evidence. Native correction
+and release remain open until their own outcomes are established.
+
+Checkpoint24 Writer activation banks only accepted source and closed evidence,
+excluding the active installed-01 tree, journals, locks, mutable worksites and
+redundant full-state snapshots. Root resumes Executive after those Git effects.

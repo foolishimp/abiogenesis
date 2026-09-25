@@ -1,0 +1,80 @@
+{
+  "frozenSubjectSha256": "b9efe8e97162b2a3052899d59b5bb2d4947151f6eb222306034fd8bffb013c20",
+  "sourceSubject": {
+    "status": "FROZEN_SOURCE_COMPONENT_READY",
+    "classification": "local_repair / realization_refactor",
+    "files": [
+      {
+        "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+        "beforeSha256": "b8dcaa7f4444addaeb556133169a403270dc7a9a69674e8f28aff2d398234599",
+        "afterSha256": "1ec7d08e68e45b9c55a86b4a9366c48d8afbbc3e6ce248b6ad227ac38c8daa0d",
+        "bytes": 36431
+      },
+      {
+        "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+        "beforeSha256": "2cbbe5fa8fca49564b7e1aeddb18dfbb51aaa5de1f1ed50cf50387a0abaaa76b",
+        "afterSha256": "5bf30547b386ec679ba66cd670bee2fc9bad3fa791169f096d77591610c6a177",
+        "bytes": 55778
+      },
+      {
+        "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/management-environment.test.mjs",
+        "beforeSha256": "c5e8cb6e4f7d667cb52b903a521c0f2549dda1f96b2531e89111fc42c7790d34",
+        "afterSha256": "c31230c037a042d62f8d05c5295d1ace90632eadbe0edbe962eb932fef44b5f4",
+        "bytes": 13763
+      },
+      {
+        "path": "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_NATIVE_INTENT_ASSET_TRANSITION.md",
+        "beforeSha256": "d4a3f28aefad5a6343f909ee3e1b2a77c1f347bb6a8516666abce0727a4d64fc",
+        "afterSha256": "527df1459b8589af3224d8115f607c78d9cf744fd29c63b13b661bef59a7b933",
+        "bytes": 39342
+      }
+    ],
+    "evidence": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/source-01/check-final.txt",
+        "sha256": "a277b02d77d90a2b84da69225d7b612bc1a9e59ae2d15f32b11e3327f1e7b699",
+        "bytes": 891
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/publication-01/inputs.json",
+        "sha256": "2555818dc906a618f760120b60e5d3c17e8e6accb3d3017f26a281b8ca5891dc",
+        "bytes": 2089
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/publication-01/prepare.mjs",
+        "sha256": "b4a63922de71ed32cd7ec51fa1f7fcbdd19269dd8e238e1990e8d98bb84d5299",
+        "bytes": 4234
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/publication-01/prospective-publication.json",
+        "sha256": "882ef5821f5570ec35ae0f253c4854c84c9cc216e9008f3ce2f43cd3bcf50daf",
+        "bytes": 1088936
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/publication-01/correspondence.json",
+        "sha256": "64f134d531d60c843e4130c2b37dafdc67d81666760ff39159601313683f6987",
+        "bytes": 28640
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/publication-01/component-validation.json",
+        "sha256": "ba258b2eebb8e1b9427fd8229882a06ce567c27b68b830aecb25a148478de049",
+        "bytes": 10562
+      }
+    ],
+    "net": {
+      "added": 115,
+      "deleted": 7
+    },
+    "governingBasis": {
+      "GLC": "v2.5.0-rc.4",
+      "manifest": "4fa2556d0127bebce8f7184cc4a3cb708a175b2e40552c55cb211f2426d5049e",
+      "statusValid": true
+    },
+    "runtimeEffects": 0,
+    "ABIChanges": 0
+  },
+  "sourceReview": "Closed independent astra/max return consumed by Root; no supported blocker; source/component only",
+  "consumerArchiveSha256": "0d56f168bf4afbcffd0e264e298f6bd1429e9546b39d4c7823e0f3c086afc964",
+  "coreArchiveSha256": "a0db110f4269c0bec8bb8666a1ce2a51fc9527829f9996fe554105ec69bd6052",
+  "activeRuntimeExcluded": true
+}
