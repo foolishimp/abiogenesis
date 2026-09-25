@@ -105,6 +105,37 @@ function completedC3Child(prefix: ValidatedRuntimeEventPrefix, parent: Execution
   return terminal === null ? null : { basis, result: completed.result, judgment: completed.judgment, foldback };
 }
 
+/** Resolve an exact admitted input through transparent, closed workflow
+ * foldbacks. Equal-valued results elsewhere are never candidate producers.
+ * The caller still authenticates the selected native leaf's implementation and
+ * outcome; this owner establishes only its exact input/foldback provenance. */
+export function projectWorksiteInputLeafResultAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix, inputRef: string, inputDigest: string,
+): RuntimeEvent | null {
+  const events = runtimeEventsFromValidatedPrefix(prefix);
+  let result = one(events, e => e.kind === "c_call_result_admitted" && record(e.payload) && e.payload.resultRef === inputRef);
+  if (result === null || !record(result.payload) || result.payload.valueDigest !== inputDigest) return null;
+  while (true) {
+    if (!record(result.payload) || typeof result.payload.resultRef !== "string" || typeof result.basisId !== "string") return null;
+    const successful = successfulResult(events, result.payload.resultRef, result);
+    const opened = one(events, e => e.kind === "c_call_opened" && sameScope(e, result!) && e.aggregateId === result!.aggregateId);
+    if (successful === null || successful.result.eventId !== result.eventId || opened === null || !record(opened.payload)) return null;
+    if (opened.payload.callClass === "leaf") return result;
+    if (opened.payload.callClass !== "workflow" || typeof opened.payload.childGraphFunctionRef !== "string") return null;
+    const parent = projectExactExecutionBasisAtPrefix(prefix, result.basisId);
+    const foldback = one(events, e => e.kind === "child_foldback_admitted" && sameScope(e, result!) &&
+      record(e.payload) && e.payload.parentCCallRef === result!.aggregateId);
+    const child = foldback !== null && record(foldback.payload) && typeof foldback.payload.childExecutionBasisRef === "string"
+      ? projectExactExecutionBasisAtPrefix(prefix, foldback.payload.childExecutionBasisRef) : null;
+    if (parent === null || child === null) return null;
+    const completed = completedC3Child(prefix, parent, result, opened.payload.childGraphFunctionRef, child.closureContractRef);
+    // A closed child precedes its enclosing Result. Strict decrease also
+    // excludes cycles without a parallel ancestry ledger or latest-match rule.
+    if (completed === null || completed.result.admissionOrdinal >= result.admissionOrdinal) return null;
+    result = completed.result;
+  }
+}
+
 export interface RetainedWorksiteInputProjection {
   readonly input: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   readonly entryBasis: ExecutionBasis;

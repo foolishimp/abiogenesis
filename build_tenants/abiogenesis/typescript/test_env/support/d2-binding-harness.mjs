@@ -158,6 +158,17 @@ export async function bindingHarness(){
       holdsAt:(p,ref)=>!p.events.some(e=>transitions.get(e.eventId)?.before===ref),projectWorksiteTransitionForResult:e=>transitions.get(e.eventId)??null},
     'node:fs':{readFileSync:()=>{physicalReads++;throw Error('no original file read in replay');},lstatSync:()=>{physicalReads++;throw Error('no original stat in replay');},realpathSync:()=>{physicalReads++;throw Error('no original path in replay');}},
   };
+  // The foldback provenance owner itself is real; only the same declared
+  // basis/install/prefix lookup premises above are substituted for this fixture.
+  const provenancePath=resolve(packageRoot,'build/code/src/abg/worksite_input_provenance.js');
+  const provenance=new SourceTextModule(readFileSync(provenancePath,'utf8'),{identifier:provenancePath});
+  await provenance.link(async specifier=>{
+    const native=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(provenancePath),specifier)).href);
+    const values={...native,...overrides[specifier]};
+    return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});
+  });
+  await provenance.evaluate();
+  overrides['./worksite_input_provenance.js']={...provenance.namespace};
   const module=new SourceTextModule(readFileSync(modulePath,'utf8'),{identifier:modulePath}),links=new Map();
   await module.link(async specifier=>{
     if(links.has(specifier))return links.get(specifier);

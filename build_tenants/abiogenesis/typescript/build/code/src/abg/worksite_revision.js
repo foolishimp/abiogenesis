@@ -1,5 +1,6 @@
 import { isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { projectNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
+import { projectWorksiteInputLeafResultAtPrefix } from "./worksite_input_provenance.js";
 import { isSemanticJobEnvelope } from "../product/semantic_job.js";
 import { isSemanticJobRevisionEnvelope, deriveSemanticJobRevision } from "../product/semantic_revision.js";
 import { semanticJobConstructionSourceAtPrefix, semanticJobReadDependenciesAtPrefix } from "./semantic_job.js";
@@ -446,7 +447,7 @@ function deriveCurrentOrigins(prefix, seedBasis, historical, current, eligible, 
 }
 /** One selected native D2 admission gate, shared by new actions, child bases
  * and later assembly. Raw kind strings cannot select an owner or grant. */
-export function worksiteRevisionEntryBindingDisposition(prefix, graphFunction, input, currentBinding) {
+export function worksiteRevisionEntryBindingDisposition(prefix, graphFunction, input, currentBinding, admittedInput) {
     if (graphFunction.declarations["abg.semantic_revision_history"] !== SEMANTIC_REVISION_IDS.historicalOwnerDependencyRef)
         return "not_applicable";
     try {
@@ -457,10 +458,13 @@ export function worksiteRevisionEntryBindingDisposition(prefix, graphFunction, i
                 return "basis_fork_detected";
             const { acquisition: _acquisition, ...retained } = native;
             const prepared = { kind: "semantic_revision_selection_input", schemaVersion: "5.0.0", parent: nativeRequest.parent, causes: nativeRequest.causes, currentWorksite: null, nativeWorksite: retained };
-            const sources = native.acquisition === undefined ? runtimeEventsFromValidatedPrefix(prefix).flatMap(event => {
+            const events = runtimeEventsFromValidatedPrefix(prefix);
+            const inputSource = admittedInput === undefined ? null : projectWorksiteInputLeafResultAtPrefix(prefix, admittedInput.admittedInputRef, admittedInput.admittedInputDigest);
+            const candidates = admittedInput === undefined ? events : inputSource === null ? [] : [inputSource];
+            const sources = native.acquisition === undefined ? candidates.flatMap(event => {
                 if (event.kind !== "c_call_result_admitted" || !record(event.payload) || !same(event.payload.value, prepared))
                     return [];
-                const c = coordinateFor(runtimeEventsFromValidatedPrefix(prefix), event), state = c === null ? null : projectWorksiteRevisionNativeResult(prefix, c);
+                const c = coordinateFor(events, event), state = c === null ? null : projectWorksiteRevisionNativeResult(prefix, c);
                 return state === null ? [] : [state];
             }) : [projectWorksiteRevisionNativeResult(prefix, native.acquisition)];
             return sources.length === 1 && sources[0]?.cCall.implementationRef === SEMANTIC_REVISION_IDS.nativeIntakeImplementationRef &&

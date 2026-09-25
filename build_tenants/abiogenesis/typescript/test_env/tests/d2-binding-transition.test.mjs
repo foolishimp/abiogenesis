@@ -59,6 +59,88 @@ test('native acquisition child uses its exact admitted input when another Run ac
   assert(h.product.isSemanticRevisionRequest(request));
   assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(h.snapshot(),h.graphFunction,request,current.workspaceBinding),'covered',
     'the existing request acquisition coordinate remains the authority for later consumers');
+  // Actual core36 shape: the selector consumes a workflow Result, whose
+  // admitted sub-traversal folds back a distinct native acquisition Result.
+  // These are component events with the existing explicit lookup premises,
+  // not reconstructed runtime authority or an installed replay of that Run.
+  function fold(name,produce){
+    const parent=h.addCall(name,structuredClone(input),{input:source,worksite:current,invocation:'invocation://component/'+name});
+    h.events.splice(-2); // parent Result/J arrive only after its child closes
+    parent.opened.payload.callClass='workflow';parent.fibre.payload.callClass='workflow';
+    const child=produce();
+    const basis=child.basis,pb=parent.basis;
+    for(const key of ['invocationAdmissionRef','invocationRef','invocationDigest','programRef','programDigest','programValidationRef',
+      'catalogBasisRef','catalogBasisDigest','catalogViewId','catalogViewDigest','actorRef','rootImplementationSetRef','rootImplementationSetDigest'])basis[key]=pb[key];
+    basis.parentExecutionBasisRef=pb.basisRef;basis.parentCCallRef=parent.opened.aggregateId;
+    basis.closureContractRef='contract://component/'+name+'/closed';
+    parent.opened.payload.childGraphFunctionRef=basis.graphFunctionRef;parent.fibre.payload.childGraphFunctionRef=basis.graphFunctionRef;
+    const descendants=h.events.filter(e=>e.runId===child.opened.runId);
+    for(const e of descendants){
+      e.runId=parent.opened.runId;
+      const descendant=h.bases.get(e.basisId);
+      if(descendant)for(const key of ['invocationAdmissionRef','invocationRef','invocationDigest','programRef','programDigest','programValidationRef',
+        'catalogBasisRef','catalogBasisDigest','catalogViewId','catalogViewDigest','actorRef','rootImplementationSetRef','rootImplementationSetDigest'])descendant[key]=pb[key];
+    }
+    const admission=h.events.find(e=>e.eventId===basis.admissionEventRef);admission.causationEventRefs=[parent.fibre.eventId];
+    child.judged.payload.judgmentRef='judgment://component/'+name+'/child';
+    const childScope={basisId:basis.basisRef,runId:parent.opened.runId,graphCallId:child.result.graphCallId,frameId:child.result.frameId};
+    const closureRef='closure://component/'+name;
+    const terminal=h.event('terminal_reached',{closureRef,closureContractRef:basis.closureContractRef,
+      resultRef:child.coordinate.resultRef,judgmentRef:child.judged.payload.judgmentRef},childScope);
+    const frame=h.event('frame_closed',{}, {...childScope,causationEventRefs:[terminal.eventId]});
+    const closed=h.event('graph_call_closed',{closureContractRef:basis.closureContractRef},{...childScope,causationEventRefs:[frame.eventId]});
+    const scope={basisId:pb.basisRef,runId:parent.opened.runId,graphCallId:parent.result.graphCallId,frameId:parent.result.frameId};
+    const body={parentCCallRef:parent.opened.aggregateId,childExecutionBasisRef:basis.basisRef,childExecutionBasisDigest:basis.basisDigest,
+      childGraphCallId:child.result.graphCallId,childFrameId:child.result.frameId,childDisposition:'closed',childResultRef:child.coordinate.resultRef,
+      childResultDigest:child.coordinate.resultDigest,childJudgmentRef:child.judged.payload.judgmentRef,childClosureRef:closureRef,
+      childReasonRef:null,childTerminalEventRef:closed.eventId,outputDigest:h.hash(input)};
+    const foldbackDigest=h.hash(body),foldback=h.event('child_foldback_admitted',{foldbackRef:'child-foldback://abiogenesis/'+foldbackDigest.slice(7),foldbackDigest,...body},
+      {...scope,causationEventRefs:[closed.eventId,parent.fibre.eventId]});
+    const evidenceBody={cCallRef:parent.opened.aggregateId,evidenceClass:'sub_traversal',contractRef:pb.evidenceContractRef,
+      inputDigest:h.hash(source),outputDigest:h.hash(input),foldbackEventRef:foldback.eventId,...foldback.payload};
+    delete evidenceBody.parentCCallRef;
+    const evidenceDigest=h.hash(evidenceBody),evidence=h.event('c_call_evidenced',{...evidenceBody,evidenceDigest,evidenceRef:'evidence://abiogenesis/'+evidenceDigest.slice(7)},
+      {...scope,aggregateId:parent.opened.aggregateId,causationEventRefs:[foldback.eventId]});
+    const {resultRef:oldRef,resultDigest:oldDigest,...resultBody}=parent.result.payload;
+    resultBody.evidenceRefs=[evidence.payload.evidenceRef];const resultDigest=h.hash(resultBody),resultRef='result://abiogenesis/'+resultDigest.slice(7);
+    Object.assign(parent.result.payload,resultBody,{resultRef,resultDigest});parent.result.causationEventRefs=[evidence.eventId];
+    Object.assign(parent.judged.payload,{resultRef,resultDigest});Object.assign(parent.coordinate,{resultRef,resultDigest});
+    parent.result.admissionOrdinal=h.events.length+1;h.events.push(parent.result);
+    parent.judged.admissionOrdinal=h.events.length+1;h.events.push(parent.judged);
+    return {...parent,child,foldback,closed,terminal,admission};
+  }
+  const composite=fold('workflow-acquisition',()=>acquire('nested-native-acquisition'));
+  assert.notEqual(composite.coordinate.resultRef,composite.child.coordinate.resultRef);
+  assert.equal(gate(composite),'covered','actual enclosing Result resolves through its admitted closed child to the native leaf');
+  assert.equal(rawGate(),'basis_fork_detected','foldback does not make raw equal-value ambiguity lawful');
+  assert.equal(gate(composite,{admittedInputDigest:composite.coordinate.resultDigest}),'basis_fork_detected');
+  for(const [object,key,value]of [
+    [composite.foldback.payload,'childResultRef',second.coordinate.resultRef],
+    [composite.foldback.payload,'childResultDigest',second.coordinate.resultDigest],
+    [composite.foldback.payload,'childExecutionBasisRef',second.basis.basisRef],
+    [composite.child.basis,'parentCCallRef','c-call://component/unrelated'],
+    [composite.child.basis,'programRef','program://component/crossed'],
+    [composite.child.basis,'workspaceBindingDigest',h.hash('crossed binding')],
+    [composite.child.result,'runId','run://component/crossed'],
+    [composite.child.judged.payload,'judgment','blocked'],
+    [composite.foldback.payload,'childDisposition','blocked'],
+    [composite.foldback.payload,'outputDigest',h.hash('wrong output')],
+    [composite.closed,'admissionOrdinal',composite.result.admissionOrdinal+1],
+    [composite.foldback,'admissionOrdinal',composite.result.admissionOrdinal+1],
+    [composite.child.fibre.payload,'implementationRef','implementation://component/foreign'],
+  ]){
+    const old=object[key];object[key]=value;
+    assert.equal(gate(composite),'basis_fork_detected','exact foldback/native relation: '+key);object[key]=old;
+  }
+  const atClosed=h.snapshot();
+  h.events.push({...structuredClone(composite.foldback),eventId:'lookup-event:later-duplicate',admissionOrdinal:h.events.length+1});
+  assert.equal(gate(composite),'basis_fork_detected','later competing foldback invalidates uniqueness');
+  assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(atClosed,h.graphFunction,input,current.workspaceBinding,coordinate(composite)),
+    'covered','earlier immutable prefix preserves its exact relation');h.events.pop();
+  const nested=fold('outer-acquisition',()=>fold('inner-acquisition',()=>acquire('twice-nested-native')));
+  assert.equal(gate(nested),'covered','each declared foldback is followed, without equal-value search');
+  assert.equal(h.owner.worksiteRevisionEntryBindingDisposition(JSON.parse(JSON.stringify(h.snapshot())),h.graphFunction,
+    JSON.parse(JSON.stringify(input)),current.workspaceBinding,coordinate(nested)),'covered','cold copied events preserve exact provenance checks');
   assert.equal(gate(second),'covered');assert.equal(h.physicalReads,0);
   t.diagnostic('Real binding/native-leaf projection with explicit upstream lookup premises; no journal, actor, physical observation or installed qualification.');
 });

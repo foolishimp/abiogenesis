@@ -1079,3 +1079,90 @@ Root updates tracking as Writer, then resumes Executive; the existing xhigh
 Worker alone owns the active runtime resource. Checkpoint30 may preserve accepted
 source and closed predecessor evidence in parallel, excluding active native36
 execution files. Qualification and native D2 remain open until actual outcomes.
+
+## Core36 closed refusal and exact foldback acquisition correction
+
+Root resumes Executive after checkpoint30, pushed ABI e3341150… and GLC
+82dc53e0… with verified remote equality. Core36 setup and genuine W0→W1 witness
+succeeded; intake Run101fa95e… blocked before any provider dispatch. Fresh
+Result/replay agree at329857339B/70d2a920…. Under the existing first-cause duty,
+Root authorized one read-only seek of[328198170,329857339), checking physical
+identity/currentness before and after; no full-history read/hash/replay or retry.
+Ordinal72914 records basis_admission/basis_fork_detected: selected D2 child lacks
+exact native binding correspondence. Its admitted input is composite Result8651e0ae…,
+while prior admitted sub-traversal evidence names acquisition leaf Result4f1688d0…
+and its actual foldback. Equal values alone do not establish that relation.
+The masking repair now preserves refusal Evidence→Result→blocked J without an
+exception. The direct-producer component correction remains valid but does not
+cover this genuine composed path.
+
+Select realization_refactor under the existing D2 HOW and same T287/LIFE01.
+The existing xhigh Worker reuses the owning admitted foldback/provenance relation
+from the exact child input to its acquisition leaf; retain all native-leaf,
+Program/implementation, binding, ordering/currentness and wrong-coordinate checks.
+No alternate resolver/cache, equal-value/latest fallback, new Public schema or
+caller-extracted leaf coordinate. Exact territory: existing execution_basis /
+worksite_revision owners and only their necessary current relation owner, focused
+D2 test and normal emissions; evidence F/foldback-acquisition-repair-01. Reproduce
+the nested shape first; cover direct/nested and crossed/stale/raw-ambiguous cases,
+then freeze source and self-check for one independent review. No live retry or
+package is granted by this step. Root activates Writer only for this disposition
+and paired ticket status, then resumes Executive. GOALS' overall outcome remains.
+
+## Conditional core37 package and preserved caller preparation
+
+Root consumes closed native36 return8e320385…/subjectb616e751… and exact first-cause
+addendum6e600792…. Existing completedC3Child owns the required admitted foldback
+relation; its reuse is within the current HOW. After focused checks and frozen
+foldback source return, the same xhigh Worker may prepare compiled37 using the
+normal core36 package workflow, conserved source and unchanged dev15. Reuse
+compile/tests; normal metadata, pack, offline installation/member/Product checks
+only. Root selects one independent max review of that frozen source in parallel.
+After package closure the Worker may prepare F/native37-continuation-01 from
+genuine close329857339B/70d2a920…, original source Run74ac/cut216334690 and the
+authentic root receipt. Keep source/oracle/Requirements/worksite and all model,
+budget, time, count and heap controls. A new candidate requires its real future
+binding/witness, not a reused selection/request. Freeze caller correspondence;
+no live operation until Root conjoins closed source review/package/caller. Root
+records this conditional grant as Writer, then resumes Executive.
+
+## Core37 acceptance and preserved native execution
+
+Root conjoins source0328f698…/subject5341cc18…, independent reviewee45eca0…,
+package4af94326…/archivec676fad1… and callercbd27496…/subjecte3c936d3….
+The existing-provenance correction is accepted at source/component/package
+scope. Execute exactly operation573f2ad3… now: genuine core37/dev15 setup and
+witness, one $12 intake, then only its admitted declared $8-per-actor suffix,
+and fresh terminal reads. Original source Run74ac/cut216334690, job/oracle,
+Requirements/worksite/history and all model/time/count/heap controls remain.
+Entry close329857339B/70d2a920…; no automatic retry or transplanted request.
+The existing xhigh Worker owns the runtime resource; return at actual terminal
+or first refusal with original cause. Installed D2/qualification/RC1 remain
+open. Root records this selection and paired ticket status as Writer, then
+resumes Executive.
+
+## Core37 qualification input rebind
+
+Root activates Writer for F/qualification-core37-preparation-01 only, plus this
+grant record. Reuse the existing closed core34 preparation and exact accepted
+core37 package. Mechanically rebind source/generated/input/recipe inventories,
+caller paths and coordinates; preserve unchanged commands, predicates, controls,
+dependencies and genuine historical evidence. Syntax/correspondence checks only;
+no build/test/provider/runtime acquisition or qualification execution, independent
+J, invented binding or completion claim. Original D2 resource belongs solely to
+the native Worker. Freeze one short return, then resume Executive.
+
+## Checkpoint31 during preserved Design continuation
+
+Core37 intake Run779b7f6f… completes with admitted request Result62aea2ac…;
+fresh Result/replay agree at337679621B/e1fa04fa…. Its actual returned choice
+selects stage_revision/Design through the installed declaration lookup. The
+existing Worker continues that whole suffix; accepted Requirements remain.
+This proves the prior provenance boundary is crossed, not full D2 completion.
+Root activates Writer for checkpoint31 of the exact accepted source/test/normal
+metadata, closed core36/repair/review/core37-package/qualification-input records
+and paired tracking. Use the existing lossless bank and exact-path Git staging;
+exclude active native37 and original runtime/basis/dependency resources. No
+build/test/native repetition. Commit/push and verify remote equality, then resume
+Executive. Qualification input return554cae95…/freeze33afe299… is preparation
+only; native fields remain unbound. No release acceptance follows this checkpoint.

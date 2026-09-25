@@ -1,5 +1,6 @@
 import { isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { projectNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
+import { projectWorksiteInputLeafResultAtPrefix } from "./worksite_input_provenance.js";
 import { isSemanticJobEnvelope } from "../product/semantic_job.js";
 import { isSemanticJobRevisionEnvelope, deriveSemanticJobRevision, type SemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
 import { semanticJobConstructionSourceAtPrefix, semanticJobReadDependenciesAtPrefix } from "./semantic_job.js";
@@ -420,11 +421,10 @@ export function worksiteRevisionEntryBindingDisposition(prefix:ValidatedRuntimeE
       const {acquisition:_acquisition,...retained} = native;
       const prepared = {kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:nativeRequest.parent,causes:nativeRequest.causes,currentWorksite:null,nativeWorksite:retained};
       const events = runtimeEventsFromValidatedPrefix(prefix);
-      const sources = native.acquisition === undefined ? events.flatMap(event=>{
-        // Child admission already names its producer. Equal acquisitions in
-        // other Runs are not competitors for that exact admitted input.
-        if(admittedInput!==undefined && (!record(event.payload) || event.payload.resultRef!==admittedInput.admittedInputRef ||
-          event.payload.valueDigest!==admittedInput.admittedInputDigest))return [];
+      const inputSource = admittedInput === undefined ? null : projectWorksiteInputLeafResultAtPrefix(prefix,
+        admittedInput.admittedInputRef, admittedInput.admittedInputDigest);
+      const candidates = admittedInput === undefined ? events : inputSource === null ? [] : [inputSource];
+      const sources = native.acquisition === undefined ? candidates.flatMap(event=>{
         if(event.kind!=="c_call_result_admitted"||!record(event.payload)||!same(event.payload.value,prepared))return [];
         const c=coordinateFor(events,event),state=c===null?null:projectWorksiteRevisionNativeResult(prefix,c);
         return state===null?[]:[state];
