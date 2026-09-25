@@ -1166,3 +1166,80 @@ exclude active native37 and original runtime/basis/dependency resources. No
 build/test/native repetition. Commit/push and verify remote equality, then resume
 Executive. Qualification input return554cae95…/freeze33afe299… is preparation
 only; native fields remain unbound. No release acceptance follows this checkpoint.
+
+## Core37 suffix refusal and exact envelope diagnosis
+
+Checkpoint31 is pushed: ABI7fb769e0… and GLC398b9f9… equal their remotes.
+Core37 intake and fresh reads succeeded, proving the actual foldback route.
+The declared Design suffix then blocked: Run6c86ba96…, genuine363731863B/ed4d053b….
+Design provider exit0/no timeout and decoded48096B are preserved. First refusal
+80343 is result-contract-mismatch at semantic-revision/envelope@5, candidate
+518618148bc7e537b517d5154b16f04ba9da6f7d86090ff29e3ce4352fdc435d;
+Result80345 and blocked J80347 preserve it. Enclosing80354 is secondary. Raw
+worker-result assessment admitted the provider result; no independent Design
+assessor ran. This observation alone does not classify an implementation defect.
+
+Select bounded read-only diagnosis through the existing installed constructor /
+validator and retained decoded input/output. Any reconstructed candidate must
+match the observed digest before its predicate failure is attributed to this Run.
+Write only F/native37-envelope-diagnostic-01; no history acquisition/replay, extra
+Public/provider call, raw-thinking inspection, source/prompt/control change, or
+speculative patch. Return exact failed relation and classify actor-output refusal
+versus owner/contract construction mismatch. Root records paired tracking as
+Writer, then resumes Executive. D2/qualification/RC1 remain open.
+
+## Shared semantic-result materialization correction
+
+Root consumes diagnostic4df3e9cf…/refsbee4e6b6…. Actual input16619ace… and valid
+raw79475b2f… reconstruct through the installed owner to canonicalbcd234c8…;
+instruction_assembly's raw-versus-expanded comparison is false. Whole rejected
+envelope51861814… and preceding short-circuits remain unproved. This supported
+source mismatch justifies realization_refactor; it is not exclusive Run-cause proof.
+
+The existing xhigh Worker reuses completion's input/stage/role materializer in the
+existing matcher. Preserve all source/call/actor/stage/role/candidate/currentness
+ties and negative refusals; no new converter/cache/schema/law or relaxed equality.
+Territory instruction_assembly, necessary existing materializer export only, one
+focused test/fixture/harness and normal emissions; F/semantic-result-materialization-
+repair-01 evidence. Reproduce first, compile/check once, freeze. Then normal
+compiled38 package/dev15 and native38 caller preparation are conditionally granted,
+in parallel with one independent max source review. Caller starts from actual
+363731863B/ed4d053b…, original source Run74ac/cut216334690/root receipt/Requirements
+and unchanged controls. Old raw response is never promoted to an admitted success.
+No live retry until Root conjoins closed review/package/caller. Root records as
+Writer, updates paired status, then resumes Executive.
+
+## Core38 qualification input rebind
+
+Root activates Writer only for F/qualification-core38-preparation-01 and this
+grant. Reuse closed core37 preparation, mechanically rebind to exact core38
+package49305fee…/archive84f8b93a…, preserve existing commands/predicates/dependencies
+and missing native/J fields. Cheap syntax/correspondence checks only; no source,
+compile/test, provider/runtime or qualification effect. Source review is independent
+and native38 remains held. Freeze one concise preparation return, resume Executive.
+
+## Core38 acceptance and preserved native execution
+
+Root conjoins source6a3e6307…/subject84b12bc5…, independent reviewe6d7e9bd…,
+package49305fee…/archive84f8b93a… and caller94c7fbcb…/subject9a83b661….
+Accept shared materializer correction at source/component/package scope; historical
+whole-envelope/preceding-clause uncertainty remains. Execute exact operation
+dbfdaf69…: genuine core38/dev15 setup/witness, one $12 intake and only its admitted
+$8-per-actor whole suffix, then fresh terminal Result/replay. Entry is genuine
+363731863B/ed4d053b…; original source Run74ac/cut216334690/root receipt, job/oracle,
+Requirements/worksite/history and all model/time/count/heap controls remain.
+No prior raw output is promoted, request transplanted or automatic retry granted.
+The existing xhigh Worker owns the runtime resource and exact-new-suffix first-cause
+diagnostic policy. Return at actual terminal or first refusal. Qualification input
+preparation5bd67d77…/freeze8cd04794… remains unbound, not qualified. Root records
+paired current status as Writer, then resumes Executive.
+
+## Checkpoint32 during preserved native38
+
+Root activates Writer for exact accepted matcher/test/normal metadata, closed
+native37/diagnostic/repair/review/core38 package and qualification-input evidence,
+and paired tracking. Use the existing lossless bank, exact-path staging and normal
+commit/push with remote equality. Exclude active native38 and original runtime,
+readback-basis and dependency resources. No build/test/native repeat or release
+claim. The native Worker retains sole runtime ownership. Resume Executive after
+push; core38 installed correction and whole D2 remain pending.

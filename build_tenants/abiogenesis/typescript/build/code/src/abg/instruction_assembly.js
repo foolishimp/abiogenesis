@@ -4,7 +4,7 @@ import { resolveNativeWorkspaceAssessmentSchema } from "../product/native_worksp
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, renderNativeWorkspaceWorkOrder, nativeWorkspaceWorkReportSchema, nativeWorkspaceWorkGraphFunctionRef, nativeWorkspaceWorkResultContractRef } from "../product/native_workspace_work.js";
 import { authenticateSemanticJobBasis, semanticJobInputMatchesBasis, semanticJobContextCurrent } from "./semantic_job.js";
-import { isSemanticJobEnvelope, semanticJobWorkerResultSchema, semanticJobUsesDesignResponse, semanticJobSourceText, projectSemanticJobActorContract, projectSemanticJobActorContext, projectSemanticJobPromptContext, projectSemanticJobBindings, semanticJobMissingBindingRequirementRefs } from "../product/semantic_job.js";
+import { isSemanticJobEnvelope, semanticJobWorkerResultSchema, semanticJobUsesDesignResponse, materializeSemanticJobDesignResponse, semanticJobSourceText, projectSemanticJobActorContract, projectSemanticJobActorContext, projectSemanticJobPromptContext, projectSemanticJobBindings, semanticJobMissingBindingRequirementRefs } from "../product/semantic_job.js";
 import { isSemanticRevisionEnvelope, isSemanticJobRevisionEnvelope, isSemanticRevisionSelection, semanticRevisionSelectionSchema } from "../product/semantic_revision.js";
 import { semanticRevisionInputMatchesBasis, projectRevisionSelectionSubject, projectRevisionHistoricalContext, semanticJobRevisionInputMatchesBasis, projectJobRevisionSubject } from "./semantic_revision.js";
 import { canonicalJson } from "../shared/canonical_json.js";
@@ -783,8 +783,15 @@ export function semanticInstructionResultMatches(basis, input, output) {
         const closes = owner.events.filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === source.actorInvocationRef);
         if (bindings.length !== 1 || closes.length !== 1 || observation.actorInvocationRef !== source.actorInvocationRef ||
             observation.promptDigest !== source.promptDigest || observation.transportDigest !== source.transportDigest ||
-            observation.toolCallCount !== 0 || observation.disposition !== "success" || typeof observation.finalOutput !== "string" ||
-            sha256Canonical(JSON.parse(observation.finalOutput)) !== sha256Canonical(candidate))
+            observation.toolCallCount !== 0 || observation.disposition !== "success" || typeof observation.finalOutput !== "string")
+            return false;
+        const raw = JSON.parse(observation.finalOutput);
+        // Compare the completion owner's canonical candidate, retaining its exact
+        // input-derived domains rather than equating compact transport with output.
+        const observedCandidate = (isSemanticJobEnvelope(input) || isSemanticJobRevisionEnvelope(input)) &&
+            owner.stage !== undefined && semanticJobUsesDesignResponse(owner.role, owner.stage.bodyCapabilities)
+            ? materializeSemanticJobDesignResponse(input, owner.stage.declarationRef, raw) : raw;
+        if (observedCandidate === null || sha256Canonical(observedCandidate) !== sha256Canonical(candidate))
             return false;
         const stored = bindings[0].payload.instructionAssembly;
         if (stored?.kind !== "native_instruction_assembly")

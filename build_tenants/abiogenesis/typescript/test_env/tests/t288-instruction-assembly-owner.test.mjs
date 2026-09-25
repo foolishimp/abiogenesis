@@ -635,3 +635,86 @@ test('actual derived revision successor shares complete typed assets under the u
   // Oversized required role-content premise; no new declared bound or raw ingress waiver.
   assert.equal(assemble().cause,'declared_bound_overflow','same declared bound still refuses an oversized complete presentation');
 });
+
+const retainedNative37 = process.env.ABI5_NATIVE37_DIRECTORY;
+test('semantic result matcher follows the exact native compact Design materialization and preserves other roles', {skip: !retainedNative37 || !retainedDesignDirectory}, async t => {
+  const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+  const revision=await load('product/semantic_revision'),job=await load('product/semantic_job');
+  const parent=read(join(retainedDesignDirectory,'design-bound-diagnosis-01/design-input.json')).targets[0].event.payload.rawInputValue;
+  const request=read(join(retainedNative37,'intake-01/intake-terminal-request.json'));
+  const chunks=fs.readFileSync(join(retainedNative37,'preparation/invocation/archives/fp-899183623f72f486-prompt.txt'),'utf8').split(/^## (\w+)\n/m);
+  const sections=Object.fromEntries(Array.from({length:(chunks.length-1)/2},(_,i)=>[chunks[i*2+1],JSON.parse(chunks[i*2+2])]));
+  const stage=parent.current.declaration.stages[parent.current.assets.length];
+  const input=revision.deriveSemanticJobRevision(parent,request,sections.task.revisionContext.selection,null,null,[],undefined,stage);
+  const raw=read(join(retainedNative37,'preparation/invocation/archives/fp-899183623f72f486-output.txt'));
+  assert.equal(hash(input),'sha256:16619acefe2ce4f1ceebc40eb90c20aa47c8b1612ab2d8a5bfbaf4c13e3dd3ce');
+  assert.equal(hash(raw),'sha256:79475b2f5b951948607b818ec007ad510756c0d93e4a23430e0512bc3ac9b15e');
+  const expanded=job.materializeSemanticJobDesignResponse(input,stage.declarationRef,raw);
+  assert.equal(hash(expanded),'sha256:bcd234c866262ca7303c9b7f4fdf3204e172d31e257dae60c4bcc4c58e2b99d9');
+  assert.notEqual(hash(raw),hash(expanded),'the observed preimage equality is false');
+  // Actual input/response bytes above; authentication, historical-prefix,
+  // current workspace and role evidence below are explicit component premises.
+  // Event rows and actor refs are fixture values, never claimed native authority
+  // or a reconstruction of the rejected envelope 51861814... .
+  let owner,current=true;
+  const matchedInput=(_basis,value)=>hash(value)===owner.inputDigest;
+  const overrides={
+    './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
+    './event_store.js':{reidentifyHistoricalDurablePrefixCoordinate:(a,b)=>{assert.deepEqual(a,b);return a;}},
+    './semantic_job.js':{authenticateSemanticJobBasis:()=>owner,semanticJobInputMatchesBasis:matchedInput,semanticJobContextCurrent:()=>current},
+    './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:matchedInput,projectJobRevisionSubject:()=>current?{currentWorksite:null,origins:[]}:null},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:()=>null},
+  };
+  const instructions=await component('abg/instruction_assembly',overrides);
+  const implementationOverrides={'../abg/semantic_job.js':{authenticateSemanticJobBasis:()=>owner}};
+  const revisionImpl=await component('implementation/semantic_revision',implementationOverrides);
+  const ordinaryImpl=await component('implementation/semantic_stage',implementationOverrides);
+  function exercise(value,selected,role,response){
+    const isRevision=revision.isSemanticJobRevisionEnvelope(value),ids=isRevision?R:S;
+    const call={cCallRef:'component:matcher-'+role,cCallDigest:hash('component-call'),graphFunctionRef:'graph://component/matcher',
+      programLocusRef:role==='author'?selected.authorLocusRef:selected.assessorLocusRef,inputContractRef:isRevision?R.envelopeContractRef:S.envelopeContractRef,
+      implementationRef:role==='author'?ids.authorImplementationRef:ids.assessorImplementationRef};
+    owner={role,stage:selected,lifecycle:isRevision?value.current.declaration:value.declaration,events:[],call,inputDigest:hash(value),inputRef:'input://component/matcher',
+      execution:{invocationAdmissionRef:'invocation://component/matcher',programRef:'program://component/matcher',basisRef:'basis://component/matcher',basisDigest:hash('component-basis')}};
+    const basis={publication:{semanticJobLifecycle:owner.lifecycle},graphFunction:{template:{nodes:[]}},cCall:call,predecessorPrefix:{fixture:'matcher'}};
+    const assembly=instructions.constructNativeInstructionAssembly(basis,value);assert(assembly,'complete component assembly');
+    const realize=isRevision?(role==='author'?revisionImpl.realizeSemanticRevisionAuthor:revisionImpl.realizeSemanticRevisionAssessor)
+      :(role==='author'?ordinaryImpl.realizeSemanticAuthor:ordinaryImpl.realizeSemanticAssessor);
+    const prepared=realize(value,{semanticStageBasis:basis,cCallRef:call.cCallRef},()=>assembly);
+    const observation={disposition:'success',promptDigest:assembly.manifest.promptDigest,toolCallCount:0,inputDigest:owner.inputDigest,implementationRef:call.implementationRef,
+      actorRef:S.workerActorRef,workerBindingRef:S.workerBindingRef,transportLane:'closed_prompt_proof',actorInvocationRef:'component:matcher-actor-'+role,
+      transportBindingRef:'binding://component/transport',transportDigest:hash('component-transport'),finalOutput:JSON.stringify(response)};
+    const completed=prepared.complete({request:assembly.request,observation});assert.equal(completed.disposition,'success','existing completion accepts the fixture');
+    owner.events=[{kind:'actor_result_artifact_observed',parentAggregateId:call.cCallRef,eventId:'event://component/artifact',payload:observation},
+      {kind:'actor_transport_binding_admitted',aggregateId:observation.transportBindingRef,payload:{instructionAssembly:assembly}},
+      {kind:'actor_invocation_closed',aggregateId:observation.actorInvocationRef,payload:{consumedArtifactEventRef:'event://component/artifact'}}];
+    const matches=(output=completed.resultCandidate,supplied=value)=>instructions.semanticInstructionResultMatches(basis,supplied,output);
+    assert.equal(matches(),true,'existing completion and result matcher agree');
+    return {value,basis,assembly,observation,completed,matches,owner};
+  }
+  const authored=exercise(input,stage,'author',raw);
+  assert.deepEqual(authored.completed.resultCandidate.current.assets.at(-1).candidate,expanded);
+  assert.equal(authored.completed.resultCandidate.current.assets.at(-1).assessment,null);
+  for(const finalOutput of [JSON.stringify(expanded),'{"kind":',JSON.stringify({...raw,extra:true}),JSON.stringify({...raw,asset:{...raw.asset,statements:[{...raw.asset.statements[0],requirementRefs:[29]}]}})]){
+    const old=authored.observation.finalOutput;authored.observation.finalOutput=finalOutput;assert.equal(authored.matches(),false);authored.observation.finalOutput=old;
+  }
+  const altered=structuredClone(authored.completed.resultCandidate),asset=altered.current.assets.at(-1);
+  asset.candidate.asset.statements[0].text+=' changed';const {assetRef,assetDigest,assessment,...body}=asset;asset.assetDigest=hash(body);asset.assetRef='semantic-job-asset://abiogenesis/'+asset.assetDigest.slice(7);
+  assert(revision.isSemanticJobRevisionEnvelope(altered));assert.equal(authored.matches(altered),false,'altered expanded candidate refuses');
+  const wrongInput=structuredClone(input);wrongInput.current.job.taskData={different:true};assert.equal(authored.matches(undefined,wrongInput),false);
+  for(const key of ['actorInvocationRef','promptDigest','transportDigest']){const old=authored.observation[key];authored.observation[key]='wrong:'+key;assert.equal(authored.matches(),false,key);authored.observation[key]=old;}
+  const originalStage=owner.stage;owner.stage=input.current.declaration.stages[2];assert.equal(authored.matches(),false,'wrong stage');owner.stage=originalStage;
+  owner.role='assessor';assert.equal(authored.matches(),false,'wrong role');owner.role='author';
+  owner.call={...owner.call,cCallRef:'wrong:call'};assert.equal(authored.matches(),false,'wrong call');owner.call=authored.basis.cCall;
+  current=false;assert.equal(authored.matches(),false,'changed currentness');current=true;
+  const assessorResponse={kind:'semantic_stage_assessment_candidate',schemaVersion:'5.0.0',pressure:[],criteria:stage.rubric.map(c=>({criterionRef:c.criterionRef,disposition:'indeterminate',explanation:'Component matcher only; no native semantic judgment.',sourceQuotes:[],statementRefs:[]}))};
+  const assessed=exercise(authored.completed.resultCandidate,stage,'assessor',assessorResponse);
+  assert.equal(assessed.completed.resultCandidate.current.assets.at(-1).assessment.disposition,'indeterminate');
+  const ordinary=structuredClone(raw),contract=job.projectSemanticJobActorContract(input.current,stage.declarationRef,'author');
+  for(const s of ordinary.asset.statements)s.requirementRefs=s.requirementRefs.filter(i=>i<contract.requirementRefs.length);
+  for(const p of ordinary.asset.pressure)p.requirementRefs=p.requirementRefs.filter(i=>i<contract.requirementRefs.length);
+  exercise(input.current,stage,'author',ordinary);
+  const first=input.current.assets[0],initial={...input.current,assets:[],bindingVersions:[]};
+  exercise(initial,input.current.declaration.stages[0],'author',first.candidate);
+  t.diagnostic(JSON.stringify({scope:'actual retained input/response plus disclosed component authentication/actor rows; not live admission',inputDigest:hash(input),rawDigest:hash(raw),expandedDigest:hash(expanded),rejectedEnvelopeReconstructed:false}));
+});

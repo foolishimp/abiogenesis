@@ -1,0 +1,83 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "7fb769e06e5d82b5be944564ac1e01837f65bc01",
+  "scope": "Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 254,
+    "direct_git": 7
+  },
+  "archiveMemberCount": 256,
+  "archiveMemberBytes": 474485474,
+  "transportBytes": 66022603,
+  "assets": [
+    {
+      "id": "raw-84f8b93aaa922e06db5569eeb8ed0f1064e1256f4007f81552c640de46d90813",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10172443,
+      "sha256": "84f8b93aaa922e06db5569eeb8ed0f1064e1256f4007f81552c640de46d90813",
+      "parts": [
+        {
+          "path": "payloads/raw-84f8b93aaa922e06db5569eeb8ed0f1064e1256f4007f81552c640de46d90813.part0000",
+          "byteLength": 10172443,
+          "sha256": "84f8b93aaa922e06db5569eeb8ed0f1064e1256f4007f81552c640de46d90813"
+        }
+      ]
+    },
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS",
+      "byteLength": 487695,
+      "sha256": "5430fc812c1f4365540d732e3e697d02a83e913fa7c9d92760a0c43297577794",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 487695,
+          "sha256": "5430fc812c1f4365540d732e3e697d02a83e913fa7c9d92760a0c43297577794"
+        }
+      ]
+    },
+    {
+      "id": "family-0001",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT",
+      "byteLength": 654,
+      "sha256": "ce72e539b2a7e07e4aab4d49c869208a9b80887dbfb9bd9377051a4f865263db",
+      "parts": [
+        {
+          "path": "payloads/family-0001.tar.gz.part0000",
+          "byteLength": 654,
+          "sha256": "ce72e539b2a7e07e4aab4d49c869208a9b80887dbfb9bd9377051a4f865263db"
+        }
+      ]
+    },
+    {
+      "id": "family-0002",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME",
+      "byteLength": 55361811,
+      "sha256": "1b6071dcb080e2c26c89aeb7e3e0ee7201b6a84c4881316b2167b0f42f1c86d9",
+      "parts": [
+        {
+          "path": "payloads/family-0002.tar.gz.part0000",
+          "byteLength": 51380224,
+          "sha256": "e3c6d099bb5d11e7e12b68cc212802c3a186518250df4bece1d71ff7549953bb"
+        },
+        {
+          "path": "payloads/family-0002.tar.gz.part0001",
+          "byteLength": 3981587,
+          "sha256": "7587d37bd266308db50d5c40fbab3cef60e07240703669688a6df66ae75051a4"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "00d7f331fb7822c52d749bfd6fe083ce5eee43dc092dcbf75b7bcb2a3a17de69",
+  "reconciliationSha256": "d4462a7617d72a04050d64efff668a88ad1ead04f54560bb05247310727b1884",
+  "pendingActiveEvidence": [
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01"
+  ],
+  "credentialShapeFindingCount": 0
+}
