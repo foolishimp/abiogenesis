@@ -1,0 +1,12 @@
+{
+  "kind": "checkpoint_restoration_verification",
+  "allPartHashesVerified": true,
+  "allReconstructedAssetHashesVerified": true,
+  "allMemberPathsAndHashesVerified": true,
+  "memberCount": 2,
+  "transportBytes": 7891,
+  "originalsComparedAfterPacking": true,
+  "restoredToDirectory": null,
+  "verification": "Complete bounded-memory reconstruction/readback through the restoration path; no source/runtime execution.",
+  "recordBasis": "Persisted successful verification_closed result already observed from exec session 78602; verification is not rerun."
+}

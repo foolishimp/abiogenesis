@@ -2,7 +2,7 @@ import type {
   InstallProductRequest,
   ProductInstallResult,
 } from "./contracts.js";
-import { installProduct } from "./install_product.js";
+import { installProduct, installProductInResolvedLock } from "./install_product.js";
 
 export interface ProductInstallPacket {
   readonly kind: "product_install_packet";
@@ -19,6 +19,9 @@ export async function materializeProductInstall(
 
 export const ProductInstallPort = Object.freeze({
   install: materializeProductInstall,
+  /** @internal The enclosing Definition resource owner has admitted artifact and lock. */
+  installInResolvedLock: (packet: ProductInstallPacket): Promise<ProductInstallResult> =>
+    installProductInResolvedLock(packet.request),
 });
 
 export const PRODUCT_INSTALL_CONTRACTS = Object.freeze({

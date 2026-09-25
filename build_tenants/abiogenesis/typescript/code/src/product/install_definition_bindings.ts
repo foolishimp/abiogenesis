@@ -12,7 +12,7 @@ import {
   type AbgEventResourceOutcome,
 } from "../abg/definition_event_resource.js";
 import {
-  admitProductInstall,
+  admitProductInstallInResolvedLock,
   projectAdmittedProductInstall,
   type ArtifactAdmissionBasis,
 } from "../abg/environment_admission.js";
@@ -283,7 +283,7 @@ const install: AdmissionDefinitionOwner<
             resolvedLock: call.resources.resolvedLock,
           },
         };
-        const candidate = await ProductInstallPort.install(nativePacket);
+        const candidate = await ProductInstallPort.installInResolvedLock(nativePacket);
         if (candidate.kind === "product_install_refusal") {
           return deepFreeze({
             ownerOutput: nativeRefusalOutput(candidate),
@@ -317,7 +317,7 @@ const install: AdmissionDefinitionOwner<
           causationEventRefs: [],
           predecessorPrefix: resource.entryPrefix,
         });
-        const admitted = admitProductInstall(
+        const admitted = admitProductInstallInResolvedLock(
           resource.store,
           candidate,
           basis,

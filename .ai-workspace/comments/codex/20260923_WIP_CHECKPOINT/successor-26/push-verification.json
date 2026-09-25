@@ -1,0 +1,19 @@
+{
+  "verifiedAtUtc": "2026-09-25T15:17:56.819850+00:00",
+  "repositories": [
+    {
+      "repository": "/Users/jim/src/apps/abiogenesis",
+      "commit": "88cd8b66f9016e3df44f28c15e0d2863f2ee4f92",
+      "remoteMain": "88cd8b66f9016e3df44f28c15e0d2863f2ee4f92",
+      "trackedWorktreeClean": true
+    },
+    {
+      "repository": "/Users/jim/src/apps/odd_glc",
+      "commit": "6c83a328463cdffaabdbbc5658fbc02b8f4ba1a6",
+      "remoteMain": "6c83a328463cdffaabdbbc5658fbc02b8f4ba1a6",
+      "trackedWorktreeClean": true
+    }
+  ],
+  "scope": "Accepted source/package and retained closed evidence checkpoint; no new runtime or release acceptance",
+  "postPushReceiptOutsideOwnCommit": true
+}

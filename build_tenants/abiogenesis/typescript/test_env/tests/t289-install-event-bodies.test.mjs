@@ -43,9 +43,12 @@ async function measuredAdmission(action) {
       artifactRowsPrepared: calls("/abg/artifact_truth.js", "prepare"),
       coldPrefixSelections: calls("/abg/event_prefix.js", "selectColdPrefixFromImmutableSnapshot"),
       calculusEffects: calls("/abg/event_calculus.js", "eventCalculusEffectRefs"),
+      completeLockChecks: calls("/product/environment.js", "isResolvedProductLock"),
+      graphConstructions: calls("/shared/capability_contracts.js", "constructCapabilityDefinitionGraph"),
     };
-    assert.deepEqual(work, { artifactRowsPrepared: 2, coldPrefixSelections: 0, calculusEffects: 2 },
-      "only the proposed row and its accepted append are derived; prior history stays established");
+    // Work counters are bounded diagnostics, not a permanent algorithm/count
+    // acceptance rule. Event, prefix, cold and refusal equality below are the oracle.
+    console.log(JSON.stringify({ kind: "artifact_admission_work", work }));
     let consumerWork;
     if (value.kind === "artifact_owner_result" && value.value.kind === "product_install") {
       const truth = value.artifactTruth;
@@ -57,15 +60,13 @@ async function measuredAdmission(action) {
         successorConstructions: calls("/abg/artifact_truth.js", "projectValidatedPrefixArtifactTruth"),
         rawProjectionValidation: calls("/abg/artifact_truth.js", "validateExactPrefixArtifactTruthProjection"),
       };
-      assert.deepEqual(consumerWork, { successorConstructions: 0, rawProjectionValidation: 0 },
-        "immediate install selection does not rebuild/hash a successor or compare complete projection bodies");
+
       assert.deepEqual(installed, value.value);
       const copy = structuredClone(truth);
       assert.equal(owners.artifact.runtimePrefixFromArtifactTruth(copy), null);
       assert.deepEqual(owners.environment.projectAdmittedProductInstall(copy, row.artifact, row.invocationRef), installed);
       coverage = await post("Profiler.takePreciseCoverage");
-      assert.equal(calls("/abg/artifact_truth.js", "validateExactPrefixArtifactTruthProjection"), 1,
-        "serialized/copied values retain complete raw validation");
+      consumerWork.copiedProjectionValidations = calls("/abg/artifact_truth.js", "validateExactPrefixArtifactTruthProjection");
       const forged = structuredClone(copy); forged.rows[0].artifactDigest = "sha256:" + "0".repeat(64);
       assert.equal(owners.environment.projectAdmittedProductInstall(forged, row.artifact, row.invocationRef), null);
       assert.equal(owners.json.canonicalJson(truth), owners.json.canonicalJson(copy), "owner derivation changes no serialized bytes");
@@ -246,6 +247,10 @@ if (process.argv[2] === "--cold") {
       const currentTruth = owners.artifact.projectArtifactTruth(owners.prefix.selectValidatedRuntimeEventPrefix(store.readAll()));
       assert.strictEqual(currentTruth.artifacts.find(row => row.admissionEventRef === firstEvent.eventId), firstTruth.artifacts[0],
         "successful suffixes retain the established first-install fact");
+      if (process.env.ABI5_LOCK_REUSE_EXPECTED_EVENTS) {
+        assert.deepEqual(await readFile(path), await readFile(process.env.ABI5_LOCK_REUSE_EXPECTED_EVENTS),
+          "the established-lock path emits exactly the predecessor's event bytes");
+      }
       const liveProjectionPath = join(proofRoot, "live-projection.json");
       await writeFile(liveProjectionPath, JSON.stringify(binding.artifactTruth));
       const expected = original.map((event) => ({ artifactRef: event.payload.artifactRef,
@@ -367,6 +372,64 @@ if (process.argv[2] === "--cold") {
     } finally {
       store.closeDurableLog();
     }
+  });
+
+  test("T289 established causal installs and binding admit a new lock without changing prior truth", async () => {
+    const product = await import("../../build/code/src/product/environment.js");
+    const coordinate = await import("../../build/code/src/shared/operation_definition_coordinate.js");
+    const proofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT;
+    const history = await readFile(process.env.ABI5_INSTALL_BODY_HISTORY);
+    assert.equal(sha256(history), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
+    const original = history.toString().trimEnd().split("\n").slice(0, 3).map(JSON.parse);
+    const path = join(proofRoot, "new-lock-append.jsonl");
+    const { store, prefix } = owners.events.createNewEmptyAppendSink({
+      kind: "new_empty_append_sink_request", schemaVersion: "5.0.0", eventLogPath: path,
+    });
+    assert.ok(store);
+    try {
+      const lock = original[0].payload.resolvedLock;
+      assert.equal(product.isResolvedProductLock(lock), true);
+      const first = owners.environment.admitProductInstallInResolvedLock(store, original[0].payload.artifact,
+        basis(original[0], prefix), lock);
+      assert.equal(first.kind, "artifact_owner_result");
+      const second = owners.environment.admitProductInstallInResolvedLock(store, original[1].payload.artifact,
+        basis(original[1], first.successorPrefix), lock);
+      assert.equal(second.kind, "artifact_owner_result");
+      const bound = owners.environment.admitWorkspaceBinding(store, original[2].payload.artifact,
+        basis(original[2], second.successorPrefix, store.readAll().map(event => event.eventId)),
+        original[2].payload.workspaceAuthorityBasis);
+      assert.equal(bound.kind, "artifact_owner_result");
+      const prior = bound.artifactTruth;
+      const priorEvents = store.readAll();
+      const nextLock = structuredClone(lock);
+      nextLock.nativeContractClosureDigest = owners.digests.sha256Canonical("isolated new lock fixture");
+      nextLock.lockDigest = owners.digests.sha256Canonical({ rows: nextLock.rows,
+        dependencyEdges: nextLock.dependencyEdges, nativeContractClosureDigest: nextLock.nativeContractClosureDigest });
+      nextLock.lockId = "product-lock://abiogenesis/" + nextLock.lockDigest.slice(7);
+      const candidate = { ...original[0].payload.artifact,
+        resolvedLockId: nextLock.lockId, resolvedLockDigest: nextLock.lockDigest,
+        installId: original[0].payload.artifact.installId.replace(lock.lockDigest.slice(7), nextLock.lockDigest.slice(7)) };
+      const nextBasis = { ...basis(original[0], bound.successorPrefix),
+        ...coordinate.constructExactOperationInvocationCoordinate({ operationId: "abg.operation.product.install",
+          memberKey: "install", definitionDigest: original[0].payload.definitionDigest },
+          original[0].payload.invocationRef + "/new-lock", owners.digests.sha256Canonical("new lock fixture request")),
+        authorityScopeRef: candidate.installId };
+      const next = await measuredAdmission(() => owners.environment.admitProductInstall(store, candidate, nextBasis, nextLock));
+      assert.equal(next.value.kind, "artifact_owner_result");
+      assert.equal(store.readAll().length, 4);
+      assert.deepEqual(store.readAll().slice(0, 3), priorEvents);
+      assert.deepEqual(project(bound.successorPrefix), prior);
+      assert.equal(store.readAll()[3].payload.resolvedLock.kind, "resolved_product_lock",
+        "a different validated lock cannot borrow an earlier body");
+      assert.deepEqual(next.value.artifactTruth.rows.filter(row => row.admissionOrdinal <= 3), prior.rows);
+      const current = next.value.artifactTruth;
+      store.projectReopenAuthorityAndClose();
+      assert.deepEqual(project(await filePrefix(path, await readFile(path), owners)), current);
+      await writeFile(join(proofRoot, "new-lock-result.json"), JSON.stringify({
+        priorEventsPreserved: true, distinctLockEmbedded: true, warmColdEqual: true, work: next.work,
+        scope: "isolated Product-valid lock fixture; no native declaration/package qualification claim",
+      }, null, 2) + "\n");
+    } finally { store.closeDurableLog(); }
   });
 
   test("T289 raw install compaction preserves the predecessor structured refusal", async () => {

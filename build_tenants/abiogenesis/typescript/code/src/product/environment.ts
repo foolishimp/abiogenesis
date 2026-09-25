@@ -3,9 +3,8 @@ import { isAbsolute } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
-  capabilityDefinitionGraphAssetBytes,
+  serializeCapabilityDefinitionGraph,
   capabilityRefsForContract,
-  constructCapabilityDefinitionGraph,
   isCapabilityDefinitionGraph,
   type CapabilityDefinitionGraph,
 } from "../shared/capability_contracts.js";
@@ -606,7 +605,7 @@ export function isResolvedProductLock(
           "contracts/capabilities/capability-definition-graph.json" ||
         row.capabilityDefinitionGraphAsset.mediaType !== "application/json" ||
         row.capabilityDefinitionGraphAsset.contentDigest !== sha256Bytes(
-          capabilityDefinitionGraphAssetBytes(row.capabilityDefinitionGraph),
+          serializeCapabilityDefinitionGraph(row.capabilityDefinitionGraph),
         ) ||
         !isUniqueStringArray(row.compatibilityRefs) ||
         !Array.isArray(row.declaredDependencies) ||
@@ -719,49 +718,31 @@ export function isResolvedProductLock(
     value.lockId === identity("product-lock://abiogenesis", expectedDigest);
 }
 
+/** The graph guard already established the register, rows and dependency graph.
+ * Catalog correspondence only adds the exact flat-owner coordinates. */
 function lockRowGraphMatchesCatalog(row: ResolvedProductLockRow): boolean {
-  try {
-    const contractCatalog = {
-      productId: row.productId,
-      productContentDigest: row.productContentDigest,
-      catalogId: row.catalogId,
-      catalogVersion: "5.0.0" as const,
-      catalogDigest: row.catalogDigest,
-    };
-    const flatCoordinates = row.publicContracts.map((contract) => ({
-        contractCatalog,
-        flatRow: {
-          contractId: contract.contractId,
-          contractVersion: contract.contractVersion,
-          contractDigest: contract.contractDigest,
-        },
-        nestedSelector: {
-          selectorKind: "flat_contract" as const,
-          definitionKey: null,
-          slot: null,
-          definitionRef: null,
-        },
-      }));
-    const nestedCoordinates = [...new Map(
-      row.capabilityDefinitionGraph.rows
-        .flatMap(({ owningPublicContracts }) => owningPublicContracts)
-        .filter(({ nestedSelector }) =>
-          nestedSelector.selectorKind === "operation_definition_slot"
-        )
-        .map((coordinate) => [
-          canonicalJson(coordinate as unknown as JsonValue),
-          coordinate,
-        ]),
-    ).values()];
-    const expected = constructCapabilityDefinitionGraph([
-      ...flatCoordinates,
-      ...nestedCoordinates,
-    ]);
-    return canonicalJson(expected as unknown as JsonValue) ===
-      canonicalJson(row.capabilityDefinitionGraph as unknown as JsonValue);
-  } catch {
-    return false;
+  if (row.capabilityDefinitionGraph.rows.length === 0) {
+    return row.publicContracts.every((contract) =>
+      capabilityRefsForContract(contract.contractId).length === 0);
   }
+  const contracts = new Map(row.publicContracts.map((contract) => [contract.contractId, contract]));
+  const contractCatalog = {
+    productId: row.productId,
+    productContentDigest: row.productContentDigest,
+    catalogId: row.catalogId,
+    catalogVersion: "5.0.0" as const,
+    catalogDigest: row.catalogDigest,
+  };
+  return row.capabilityDefinitionGraph.rows.every(({ owningPublicContracts }) =>
+    owningPublicContracts.every((coordinate) => {
+      if (coordinate.nestedSelector.selectorKind !== "flat_contract") return true;
+      const contract = contracts.get(coordinate.flatRow.contractId);
+      return contract !== undefined &&
+        canonicalJson(coordinate.contractCatalog as unknown as JsonValue) ===
+          canonicalJson(contractCatalog as unknown as JsonValue) &&
+        coordinate.flatRow.contractVersion === contract.contractVersion &&
+        coordinate.flatRow.contractDigest === contract.contractDigest;
+    }));
 }
 
 export function verifiedArtifactMatchesResolvedLock(
@@ -771,6 +752,14 @@ export function verifiedArtifactMatchesResolvedLock(
   if (!isVerifiedProductArtifact(artifact) || !isResolvedProductLock(lock)) {
     return false;
   }
+  return verifiedArtifactMatchesEstablishedLock(artifact, lock);
+}
+
+/** @internal Artifact and lock validity are established by their ingress owners. */
+export function verifiedArtifactMatchesEstablishedLock(
+  artifact: VerifiedProductArtifact,
+  lock: ResolvedProductLock,
+): boolean {
   const matches = lock.rows.filter((row) => row.productId === artifact.productId);
   return matches.length === 1 &&
     canonicalJson(matches[0] as unknown as JsonValue) ===
@@ -780,6 +769,22 @@ export function verifiedArtifactMatchesResolvedLock(
 export function isProductInstallCandidate(
   value: unknown,
   lock: ResolvedProductLock,
+): value is ProductInstallCandidate {
+  return isProductInstallCandidateWithLockCheck(value, lock, isResolvedProductLock);
+}
+
+/** @internal The enclosing owner has established this exact resolved lock. */
+export function isProductInstallCandidateInResolvedLock(
+  value: unknown,
+  lock: ResolvedProductLock,
+): value is ProductInstallCandidate {
+  return isProductInstallCandidateWithLockCheck(value, lock, () => true);
+}
+
+function isProductInstallCandidateWithLockCheck(
+  value: unknown,
+  lock: ResolvedProductLock,
+  checkLock: (lock: ResolvedProductLock) => boolean,
 ): value is ProductInstallCandidate {
   if (
     !isRecord(value) ||
@@ -820,7 +825,7 @@ export function isProductInstallCandidate(
     !nonEmptyString(value.installId) ||
     !nonEmptyString(value.installedRoot) ||
     !isAbsolute(value.installedRoot) ||
-    !isResolvedProductLock(lock) ||
+    !checkLock(lock) ||
     value.resolvedLockId !== lock.lockId ||
     value.resolvedLockDigest !== lock.lockDigest
   ) {
@@ -925,6 +930,22 @@ export function isProductSet(
   value: unknown,
   lock: ResolvedProductLock,
 ): value is ProductSet {
+  return isProductSetWithLockCheck(value, lock, isResolvedProductLock);
+}
+
+/** @internal The enclosing owner has established this exact resolved lock. */
+export function isProductSetInResolvedLock(
+  value: unknown,
+  lock: ResolvedProductLock,
+): value is ProductSet {
+  return isProductSetWithLockCheck(value, lock, () => true);
+}
+
+function isProductSetWithLockCheck(
+  value: unknown,
+  lock: ResolvedProductLock,
+  checkLock: (lock: ResolvedProductLock) => boolean,
+): value is ProductSet {
   if (
     !isRecord(value) ||
     !hasExactKeys(value, [
@@ -946,7 +967,7 @@ export function isProductSet(
     value.orderedInstallRefs.length === 0 ||
     value.orderedInstallRefs.some((entry) => !nonEmptyString(entry)) ||
     new Set(value.orderedInstallRefs).size !== value.orderedInstallRefs.length ||
-    !isResolvedProductLock(lock) ||
+    !checkLock(lock) ||
     value.lockId !== lock.lockId ||
     value.lockDigest !== lock.lockDigest ||
     value.orderedInstallRefs.length !== lock.rows.length
@@ -1041,9 +1062,29 @@ export function constructWorkspaceBinding(
   lock: ResolvedProductLock,
   roots: WorkspaceDeclaredRoots,
 ): EnvironmentRefusal | WorkspaceBindingCandidate {
+  return constructWorkspaceBindingWithSetCheck(authority, productSet, lock, roots, isProductSet);
+}
+
+/** @internal Preserve ProductSet, authority and root relations over an established lock. */
+export function constructWorkspaceBindingInResolvedLock(
+  authority: WorkspaceAuthorityBasis,
+  productSet: ProductSet,
+  lock: ResolvedProductLock,
+  roots: WorkspaceDeclaredRoots,
+): EnvironmentRefusal | WorkspaceBindingCandidate {
+  return constructWorkspaceBindingWithSetCheck(authority, productSet, lock, roots, isProductSetInResolvedLock);
+}
+
+function constructWorkspaceBindingWithSetCheck(
+  authority: WorkspaceAuthorityBasis,
+  productSet: ProductSet,
+  lock: ResolvedProductLock,
+  roots: WorkspaceDeclaredRoots,
+  checkSet: typeof isProductSet,
+): EnvironmentRefusal | WorkspaceBindingCandidate {
   if (
     !isWorkspaceAuthorityBasis(authority) ||
-    !isProductSet(productSet, lock) ||
+    !checkSet(productSet, lock) ||
     !isRecord(roots) ||
     !hasExactKeys(roots, [
       "archiveRoot",
@@ -1092,6 +1133,26 @@ export function isWorkspaceBindingCandidate(
   productSet?: ProductSet,
   authority?: WorkspaceAuthorityBasis,
 ): value is WorkspaceBindingCandidate {
+  return workspaceBindingCandidateMatches(value, lock, productSet, authority, isResolvedProductLock);
+}
+
+/** @internal Only the lock premise is reused; candidate, set and authority remain checked. */
+export function isWorkspaceBindingCandidateInResolvedLock(
+  value: unknown,
+  lock: ResolvedProductLock,
+  productSet?: ProductSet,
+  authority?: WorkspaceAuthorityBasis,
+): value is WorkspaceBindingCandidate {
+  return workspaceBindingCandidateMatches(value, lock, productSet, authority, () => true);
+}
+
+function workspaceBindingCandidateMatches(
+  value: unknown,
+  lock: ResolvedProductLock,
+  productSet: ProductSet | undefined,
+  authority: WorkspaceAuthorityBasis | undefined,
+  checkLock: (lock: ResolvedProductLock) => boolean,
+): value is WorkspaceBindingCandidate {
   if (
     !isRecord(value) ||
     !hasExactKeys(value, [
@@ -1120,8 +1181,8 @@ export function isWorkspaceBindingCandidate(
     !nonEmptyString(value.productSetId) ||
     !isSha256Digest(value.productSetDigest) ||
     !(productSet === undefined
-      ? isResolvedProductLock(lock)
-      : isProductSet(productSet, lock)) ||
+      ? checkLock(lock)
+      : isProductSetWithLockCheck(productSet, lock, checkLock)) ||
     value.lockId !== lock.lockId ||
     value.lockDigest !== lock.lockDigest ||
     !isRecord(value.roots) ||

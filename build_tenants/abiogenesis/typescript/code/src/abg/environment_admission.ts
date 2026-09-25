@@ -1,6 +1,5 @@
 import {
   constructProductSet,
-  constructWorkspaceBinding,
   isProductInstallCandidate,
   isWorkspaceAuthorityBasis,
   isWorkspaceBindingCandidate,
@@ -12,6 +11,11 @@ import {
   type WorkspaceBinding,
   type WorkspaceBindingCandidate,
 } from "../product/index.js";
+import {
+  constructWorkspaceBindingInResolvedLock,
+  isProductInstallCandidateInResolvedLock,
+  isWorkspaceBindingCandidateInResolvedLock,
+} from "../product/environment.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import {
@@ -27,8 +31,7 @@ import {
 import {
   projectExactPrefixArtifactTruth,
   runtimePrefixFromArtifactTruth,
-  validateArtifactTruthCandidate,
-  projectOwnedPrefixArtifactTruth,
+  prepareArtifactTruthCandidate,
   validateArtifactTruthProjectionValue,
   type AdmittedArtifactTruth,
   type ExactPrefixArtifactTruthProjection,
@@ -278,11 +281,12 @@ function rehydrateProductInstallRowFromRows(
   rows: ExactPrefixArtifactTruthProjection["rows"],
   row: AdmittedArtifactTruth,
 ): RehydratedProductInstallTruth | null {
-  // The candidate predicate validates the raw lock before using its fields.
+  // Every caller acquired/validated this complete projection before selecting
+  // its row. Artifact truth already established the embedded or causal lock.
   const resolvedLock = row.resolvedLock as unknown as ResolvedProductLock;
   if (
     row.operationId !== "abg.operation.product.install" ||
-    !isProductInstallCandidate(row.artifact, resolvedLock)
+    !isProductInstallCandidateInResolvedLock(row.artifact, resolvedLock)
   ) return null;
   const candidate = row.artifact as ProductInstallCandidate;
   if (
@@ -387,10 +391,11 @@ function rehydrateWorkspaceBindingRow(
   resolvedLock: ResolvedProductLock,
   productSet?: ProductSet,
   workspaceAuthorityBasis?: WorkspaceAuthorityBasis,
+  checkCandidate = isWorkspaceBindingCandidate,
 ): RehydratedWorkspaceBindingTruth | null {
   if (
     row === null ||
-    !isWorkspaceBindingCandidate(row.artifact, resolvedLock, productSet, workspaceAuthorityBasis)
+    !checkCandidate(row.artifact, resolvedLock, productSet, workspaceAuthorityBasis)
   ) return null;
   const candidate = row.artifact as WorkspaceBindingCandidate;
   if (
@@ -601,6 +606,7 @@ function deriveWorkspaceEnvironment(
     resolvedProductLock,
     productSet,
     bindingRow.workspaceAuthorityBasis,
+    isWorkspaceBindingCandidateInResolvedLock,
   );
   if (
     bindingTruth === null ||
@@ -795,6 +801,18 @@ export function admitArtifact(
   artifactDigest: Sha256Digest,
   metadata: ArtifactAdmissionMetadata = {},
 ): ArtifactAdmissionResult {
+  return admitArtifactFromOwner(store, basis, expectedOperation, artifactRef, artifactDigest, metadata);
+}
+
+function admitArtifactFromOwner(
+  store: AbgEventStore,
+  basis: ArtifactAdmissionBasis,
+  expectedOperation: ArtifactOperationId,
+  artifactRef: string,
+  artifactDigest: Sha256Digest,
+  metadata: ArtifactAdmissionMetadata,
+  establishedLock?: ResolvedProductLock,
+): ArtifactAdmissionResult {
   try {
     assertHeldEventStoreAtDurablePrefix(store, basis.predecessorPrefix);
   } catch (error) {
@@ -896,18 +914,22 @@ export function admitArtifact(
     if (
       expectedOperation === "abg.operation.product.install" &&
       basis.causationEventRefs.length === 0 &&
-      isProductInstallCandidate(
+      (establishedLock === undefined ? isProductInstallCandidate : isProductInstallCandidateInResolvedLock)(
         metadata.artifact,
         metadata.resolvedLock as unknown as ResolvedProductLock,
       )
     ) {
       const candidate = metadata.artifact;
       const resolvedLock = metadata.resolvedLock as unknown as ResolvedProductLock;
+      establishedLock = resolvedLock;
+      let lockBody: string | undefined;
       const source = predecessorTruth.rows
         .filter((row) =>
           row.operationId === "abg.operation.product.install" &&
           row.causationEventRefs.length === 0 &&
-          canonicalJson(row.resolvedLock) === canonicalJson(metadata.resolvedLock!)
+          (row.resolvedLock as unknown as ResolvedProductLock).lockId === resolvedLock.lockId &&
+          (row.resolvedLock as unknown as ResolvedProductLock).lockDigest === resolvedLock.lockDigest &&
+          canonicalJson(row.resolvedLock) === (lockBody ??= canonicalJson(metadata.resolvedLock!))
         )
         .sort((left, right) => left.admissionOrdinal - right.admissionOrdinal)[0];
       const { artifact: _artifact, resolvedLock: _resolvedLock, ...otherMetadata } = metadata;
@@ -984,12 +1006,13 @@ export function admitArtifact(
   }
   const predecessorEvents = store.readAll();
   let preparedEvent: ReturnType<typeof projectRuntimeEventFromValidatedHistory>;
+  let acceptPrepared: ReturnType<typeof prepareArtifactTruthCandidate>;
   try {
     preparedEvent = projectRuntimeEventFromValidatedHistory(
       predecessorEvents,
       initiatedEvent,
     );
-    validateArtifactTruthCandidate(predecessorTruth, preparedEvent);
+    acceptPrepared = prepareArtifactTruthCandidate(predecessorTruth, preparedEvent, establishedLock);
   } catch (error) {
     return {
       disposition: "refused",
@@ -1012,17 +1035,9 @@ export function admitArtifact(
       refusal: appended,
     };
   }
-  if (
-    sha256Canonical(appended.event as unknown as JsonValue) !==
-      sha256Canonical(preparedEvent as unknown as JsonValue)
-  ) {
-    throw new TypeError(
-      "artifact append differs from its exact pre-effect semantic projection",
-    );
-  }
-  // Keep the actual owner derivation through immediate install/binding
-  // consumption. A plain projection would re-enter raw historical validation.
-  const artifactTruth = projectOwnedPrefixArtifactTruth(appended.successorPrefix);
+  // Publication occurs only after the checked append. The continuation binds
+  // the exact event and retains the existing authenticated projection handoff.
+  const artifactTruth = acceptPrepared(appended);
   if (artifactTruth.kind === "exact_prefix_artifact_truth_projection_refusal") {
     return { disposition: "coordinate_refused", successorPrefix: null, refusal: artifactTruth };
   }
@@ -1068,6 +1083,27 @@ export function admitProductInstall(
   basis: ArtifactAdmissionBasis,
   resolvedLock: ResolvedProductLock,
 ): ArtifactOwnerResult<ProductInstall> {
+  return admitProductInstallWithCandidateCheck(store, candidate, basis, resolvedLock, isProductInstallCandidate);
+}
+
+/** @internal The Product Definition has admitted the lock; candidate scope,
+ * exact membership, predecessor and ABG semantics still belong to this owner. */
+export function admitProductInstallInResolvedLock(
+  store: AbgEventStore,
+  candidate: ProductInstallCandidate,
+  basis: ArtifactAdmissionBasis,
+  resolvedLock: ResolvedProductLock,
+): ArtifactOwnerResult<ProductInstall> {
+  return admitProductInstallWithCandidateCheck(store, candidate, basis, resolvedLock, isProductInstallCandidateInResolvedLock);
+}
+
+function admitProductInstallWithCandidateCheck(
+  store: AbgEventStore,
+  candidate: ProductInstallCandidate,
+  basis: ArtifactAdmissionBasis,
+  resolvedLock: ResolvedProductLock,
+  checkCandidate: typeof isProductInstallCandidate,
+): ArtifactOwnerResult<ProductInstall> {
   try {
     assertHeldEventStoreAtDurablePrefix(store, basis.predecessorPrefix);
   } catch (error) {
@@ -1095,7 +1131,7 @@ export function admitProductInstall(
     };
   }
   if (
-    !isProductInstallCandidate(candidate, resolvedLock) ||
+    !checkCandidate(candidate, resolvedLock) ||
     basis.authorityScopeRef !== candidate.installId ||
     basis.authorityScopeDigest !== candidate.productContentDigest
   ) {
@@ -1108,7 +1144,7 @@ export function admitProductInstall(
     };
   }
   const candidateDigest = sha256Canonical(candidate as unknown as JsonValue);
-  const admission = admitArtifact(
+  const admission = admitArtifactFromOwner(
     store,
     basis,
     "abg.operation.product.install",
@@ -1118,6 +1154,7 @@ export function admitProductInstall(
       artifact: candidate as unknown as JsonValue,
       resolvedLock: resolvedLock as unknown as JsonValue,
     },
+    resolvedLock,
   );
   if (admission.disposition === "coordinate_refused") {
     return {
@@ -1227,7 +1264,7 @@ export function admitWorkspaceBinding(
       productSet === null || productSet.kind !== "product_set" ||
       !isWorkspaceAuthorityBasis(authority)
     ? null
-    : constructWorkspaceBinding(
+    : constructWorkspaceBindingInResolvedLock(
         authority,
         productSet,
         resolvedLock,
@@ -1239,7 +1276,7 @@ export function admitWorkspaceBinding(
     productSet.kind !== "product_set" ||
     reconstructedCandidate === null ||
     reconstructedCandidate.kind !== "workspace_binding_candidate" ||
-    !isWorkspaceBindingCandidate(
+    !isWorkspaceBindingCandidateInResolvedLock(
       candidate,
       resolvedLock,
       productSet,

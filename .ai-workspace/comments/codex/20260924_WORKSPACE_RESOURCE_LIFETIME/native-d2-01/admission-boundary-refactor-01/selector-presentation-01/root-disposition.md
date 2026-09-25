@@ -413,3 +413,141 @@ Root activates Writer only for exact checkpoint26 source/generated metadata,
 paired current tracking and closed-evidence preservation plus normal commit/push.
 Originals and unrelated work remain. Root resumes Executive after checkpointing;
 native correction, LIFE01, broader qualification and RC1 stay open.
+
+Checkpoint26 remote verification closed at2026-09-25T15:17:56.819850Z:
+ABG `88cd8b66f9016e3df44f28c15e0d2863f2ee4f92`, GLC
+`6c83a328463cdffaabdbbc5658fbc02b8f4ba1a6`. Root released the exact execution
+grant above; the Worker reports actual setup started, before any actor. This
+bounded Writer update records current paired ticket state only. Root resumes
+Executive; runtime remains exclusively with the delegated Worker.
+
+## COST32: lock and graph ownership contraction
+
+Root accepts [COST32](author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/setup-cost-review-02/return.md)
+`e10e4877ffc243a8f0df93ab66a9be0fa4e71799e18085c7ef9e863277e8bfd1`
+as bounded diagnosis. Core31 setup101.76s uses108.14s user plus5.72s system CPU;
+install63.404s is not separately CPU-attributed. At least76 complete lock checks
+and228 core-graph reconstructions are source-derived lower bounds, including
+historical causal rows. The accepted projection handoff is consumed correctly.
+This activates the registered INSTALL-LOCK-REUSE-01 opportunity; elapsed savings
+remain unproved.
+
+Root selects one realization_refactor across the existing lock/graph/install and
+artifact-fact owners. Establish raw lock/graph facts once at their real entry;
+carry them through internal serialization/catalog checks, pre-effect preparation,
+append and causally referenced historical install/binding consumption. Compare
+validated source coordinates before unnecessary full-body source search. Preserve
+candidate scope, exact graph/lock/event/projection bytes, reference causality,
+currentness, refusal precedence, actual physical installation, cold admission and
+rollback. No new global cache/brand/registry, Public representation, schema waiver
+or independent authority. Existing construction helpers/typed internal relations
+own reuse; an unvalidated caller's digest never proves equal content.
+
+A separate astra/xhigh Worker may implement and self-check this coherent family
+on canonical source while the original Worker exclusively runs frozen core31.
+Neither edits the other's evidence or subject. Freeze one source return for one
+affected max review, with real embedded-lock/reference/binding/append and contrary
+cases. Reuse valid unaffected proof; no benchmark, paid call, package, Git or
+governing-law edit in this source grant. Any actual law insufficiency returns to
+Root before expansion. The native Design suffix continues; this work is not a new
+prerequisite to its completion. A single future install-scoped CPU profile is an
+option for later selection, not an extra execution now.
+
+This Writer activation updates only this grant and the existing T287 debt row.
+Root resumes Executive and retains both outcomes separately.
+
+## Core31 terminal boundary and Design request review
+
+Root consumes the [closed continuation](author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/caller-preparation-01/execution-return.md)
+`1072facd10d359f4e70ecfaad04df161dfe01812fa9f020dc9119b81283fedd2`.
+The actual intake now admits the unchanged-obligation Design request; its declared
+whole suffix dispatches Design with985,119B under the unchanged1MiB prompt bound.
+These exercised fixes hold. The Design author then reaches its900s absolute bound,
+with2,368,858B raw stream and no decoded result. No assessor/construction/C2 follows.
+All fresh Result/replay/evidence reads close at283,768,726B/6d14d89e…; transport
+supplies the absolute-timeout cause. No further fold cause or complete provider
+cost is known. Original source, Requirements, obligations and failed history remain.
+
+Root selects one independent astra/max review of the exact closed Design request,
+result schema and partial response: identify actual work asked versus preserved
+facts, deterministic duties imposed on the model, repetition/contradiction and
+streamed work versus transport size. Use retained files only, no live run, journal
+replay, model call or speculative attribution. Return the smallest warranted
+owner-local correction or justified workload decision with direct falsifiers.
+This does not authorize a retry, source repair, limit increase or oracle change.
+The frozen COST32 source correction proceeds through its separate affected review.
+
+This Writer activation records only this disposition and paired current tracking.
+Root resumes Executive; no native run remains active.
+
+Root activates Writer for incremental checkpoint27 preservation of the closed
+core31 execution and completed COST32 diagnosis only. Reuse the existing transport,
+exclude already banked unchanged members, dependencies, original journal/locks and
+named full-state snapshots. The frozen lock/graph source waits for its affected
+review; package/native/Git effects are not granted by this preservation. The same
+max reviewer will take the separate Design-request diagnosis after closing the
+source review; agent capacity prevented parallel review. Root resumes Executive
+after the preservation write.
+
+## Accepted lock and graph reuse; core32 package preparation
+
+Root accepts [the lock/graph correction](author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/lock-graph-reuse-01/return.md)
+`e324135440b1fc0cb2220d85e406807fa17218d0b13145b02f4da9073f30c552`,
+frozen subject `ce12802cf968ae828511eccd7dc30739cb101b70146baef8d1f22e94414c2190`,
+and its [independent affected review](author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/lock-graph-reuse-01/review-01/review.md)
+`6147dce43002962cc33dd2d432fc384ad6851d41f04726def2ec4d58b0aed7f9`.
+No supported source blocker remains. One compile, three affected owner tests and
+37 differential cases establish bounded readiness. Two inherited graph-test
+assertions remain disclosed debt; no full-suite pass is claimed. The source-derived
+76-to-12 lock checks and 228-to-12 core-graph constructions are removed work,
+not installed timing or memory results.
+
+Select ordinary core32 package preparation only, reusing the successful compile
+and unchanged dev15. Verify the exact frozen source, normal generated metadata,
+archive/install correspondence and installed Product verification. Reuse the
+established packaging path; no additional suite, caller construction, Public setup,
+journal acquisition, actor or retry. Return the package and its actual preparation
+timings. Native execution awaits the separate closed Design-request diagnosis and
+Root's conjunction. Preserve core31 and its failed run unchanged.
+
+Root activates Writer for this disposition and current ticket/goal projections;
+checkpoint27 will preserve the reviewed source and closed evidence using the
+existing incremental transport. No Product or governing-law change is selected.
+Root resumes Executive; the existing Worker owns package preparation and the
+existing max Reviewer owns the retained Design request diagnosis.
+
+## DR01: revision Design uses its exact typed response domains
+
+Root accepts [the closed Design-request diagnosis](author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/design-request-review-01/return.md)
+`3e1964f2f9418fd31e63e797c858ae5c7a5c1c01b803b67289691bcb95da3d35`.
+The supported defect is unnecessary identity transcription on revision Design;
+the 900s timeout's complete attribution remains unknown. Retained partial output
+is evidence only. Core32 [package readiness](../../../../20260923_COMPOSITE_READINESS/compiled-32/return.md)
+`7c62ae5feb79a0b46f9af82a7941cb02066fe508d1db6b441c588873b3d6624b`
+is accepted, archive `1574cbf5e32e74565ba9ac0851899599757122531079fe0359cce6f3f33ee337`;
+it has not executed the preserved scenario.
+
+Select a bounded design_reframe at the existing pilot HOW's D1-only response
+restriction, followed by realization in the existing Product materializer,
+instruction assembly and revision completion owners. Authenticated revision
+Design uses the existing closed typed form and its exact revision actor contract;
+the same ordered domains govern rendering and expansion. Retain authored choices,
+canonical candidates, opaque JSON, admission, assessment and transport-failure
+boundaries. No new registry, caller-supplied domain, GLC declaration, oracle,
+Public schema, runtime control or budget change. Do not salvage failed output.
+
+One astra/xhigh Worker owns the small HOW/source change and affected proof. The
+decisive case is revision index14, retained-only entries and the 29-entry domain:
+round-trip to identical canonical references/order rather than the ordinary
+15-entry domain's different index14. Include malformed/out-of-range refusal,
+opaque payload preservation and existing ordinary Design behavior. Reuse prior
+valid evidence; one compile and focused checks, then freeze for one max review.
+No package, caller, runtime, Git or provider effects in this source grant.
+
+Root activates Writer for this grant, paired current tracking and checkpoint27
+of the closed core31 attempt, accepted lock/graph source, core32 package and closed
+diagnosis. Use exact scoped staging and normal commit/push; the new DR01 source
+remains separately pending. Root resumes Executive. After the affected review,
+select a combined package and one preserved installed continuation, with a single
+CPU profile around its already-needed setup to distinguish remaining local work.
+There is no retry on unchanged machinery or implicit native grant here.

@@ -1,0 +1,12 @@
+{
+  "role": "Writer",
+  "operationGrant": "Scoped checkpoint of accepted lock/graph source, core32 generated metadata/package, paired tracking and closed evidence; normal commit/push; resume Executive",
+  "sourceSubject": "ce12802cf968ae828511eccd7dc30739cb101b70146baef8d1f22e94414c2190",
+  "sourceReview": "6147dce43002962cc33dd2d432fc384ad6851d41f04726def2ec4d58b0aed7f9",
+  "coreArchive": "1574cbf5e32e74565ba9ac0851899599757122531079fe0359cce6f3f33ee337",
+  "consumer": "dev15 unchanged",
+  "native": "core31 closed Design timeout; no new attempt",
+  "pendingExcluded": "DR01 HOW/source implementation",
+  "releaseAccepted": false,
+  "originalsPreserved": true
+}

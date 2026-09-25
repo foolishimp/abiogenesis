@@ -440,5 +440,12 @@ export function capabilityDefinitionGraphAssetBytes(
   if (!isCapabilityDefinitionGraph(graph)) {
     throw new TypeError("invalid capability definition graph");
   }
+  return serializeCapabilityDefinitionGraph(graph);
+}
+
+/** @internal Pure serialization after the graph owner has established validity. */
+export function serializeCapabilityDefinitionGraph(
+  graph: CapabilityDefinitionGraph,
+): Uint8Array {
   return new TextEncoder().encode(canonicalJson(graph as unknown as JsonValue));
 }

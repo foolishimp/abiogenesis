@@ -1,0 +1,8 @@
+{
+  "memberCount": 259,
+  "originalBytes": 551136349,
+  "transportBytes": 84290078,
+  "allReconstructionVerificationsPassed": true,
+  "credentialShapeFindingCount": 0,
+  "scope": "Accepted lock/graph reuse source and core32 package; core31 failed Design and exact diagnosis preserved. DR01 source pending and excluded; no timing or release acceptance."
+}

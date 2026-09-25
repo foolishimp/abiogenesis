@@ -4,7 +4,7 @@ import { join, relative, resolve, sep } from "node:path";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
-  capabilityDefinitionGraphAssetBytes,
+  serializeCapabilityDefinitionGraph,
   isCapabilityDefinitionGraph,
 } from "../shared/capability_contracts.js";
 import type {
@@ -17,6 +17,7 @@ import type {
 import {
   type ProductInstall,
   verifiedArtifactMatchesResolvedLock,
+  verifiedArtifactMatchesEstablishedLock,
 } from "./environment.js";
 import {
   payloadInventoryDigest,
@@ -137,7 +138,7 @@ async function installedPayloadMatchesGraphCarrier(
       sha256Bytes(graphBytes) !== graphAsset.contentDigest ||
       canonicalJson(graph as unknown as JsonValue) !==
         canonicalJson(expectedGraph as unknown as JsonValue) ||
-      sha256Bytes(capabilityDefinitionGraphAssetBytes(graph)) !==
+      sha256Bytes(serializeCapabilityDefinitionGraph(graph)) !==
         expectedGraphAsset.contentDigest
     ) {
       return false;
@@ -199,12 +200,22 @@ export async function installedProductContentMatches(
 export async function installProduct(
   request: InstallProductRequest,
 ): Promise<ProductInstallResult> {
-  if (
-    !verifiedArtifactMatchesResolvedLock(
-      request.verifiedArtifact,
-      request.resolvedLock,
-    )
-  ) {
+  return installProductWithMembership(request, verifiedArtifactMatchesResolvedLock);
+}
+
+/** @internal The Definition owner has admitted the exact artifact and lock.
+ * Installation still checks membership and the actual archive/materialized tree. */
+export async function installProductInResolvedLock(
+  request: InstallProductRequest,
+): Promise<ProductInstallResult> {
+  return installProductWithMembership(request, verifiedArtifactMatchesEstablishedLock);
+}
+
+async function installProductWithMembership(
+  request: InstallProductRequest,
+  matches: typeof verifiedArtifactMatchesResolvedLock,
+): Promise<ProductInstallResult> {
+  if (!matches(request.verifiedArtifact, request.resolvedLock)) {
     return refusal(
       "dependency_lock_mismatch",
       "installation requires exact membership in one resolved Product lock",
