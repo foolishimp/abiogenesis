@@ -1,0 +1,37 @@
+{
+  "role": "Writer",
+  "grant": "Retain only the now-closed core28/dev15 execution and retained-input diagnosis using existing checkpoint transport; no source, runtime, original evidence, Git or qualification effect. Return to Executive after verification.",
+  "selectedRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-bound-diagnosis-01"
+  ],
+  "exclusions": [
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/suffix-01/readback-basis.json",
+      "reason": "Derived full-state snapshot; original retained locally, authoritative journal and closure coordinates unchanged",
+      "bytes": 136813315,
+      "sha256": "663fec5f86606df0ea500e72f249553b8839f3f6f18ee5a9dd26c64298433321"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/intake-01/readback-basis.json",
+      "reason": "Derived full-state snapshot; original retained locally, authoritative journal and closure coordinates unchanged",
+      "bytes": 136813315,
+      "sha256": "43f4fe6ed9e56e905756980294eb310a2dd53a5b0f84e308089a2b115a0af610"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/readback-basis.json",
+      "reason": "Derived full-state snapshot; original retained locally, authoritative journal and closure coordinates unchanged",
+      "bytes": 136813315,
+      "sha256": "43f4fe6ed9e56e905756980294eb310a2dd53a5b0f84e308089a2b115a0af610"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/products/core28/node_modules",
+      "reason": "reproducible dependency/cache directory: node_modules"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/installed-01/preparation/products/dev15/node_modules",
+      "reason": "reproducible dependency/cache directory: node_modules"
+    }
+  ],
+  "currentRepairExcluded": true
+}

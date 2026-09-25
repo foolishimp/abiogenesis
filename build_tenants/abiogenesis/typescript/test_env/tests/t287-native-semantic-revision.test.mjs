@@ -101,7 +101,7 @@ async function harness(env, options={}){
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
  const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':jobOwner,
   './semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h,readRuntimeEventsAtDurablePrefix:()=>events},
-  './event_prefix.js':{selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events},'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>ref===publicRun.ref?{run:publicRun,executionBasis:{ref:original.basisRef}}:null},
+  './event_prefix.js':{selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,indexedRuntimeEvents:(p,key)=>p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId)},'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>ref===publicRun.ref?{run:publicRun,executionBasis:{ref:original.basisRef}}:null},
   './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>oldEnvironment},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:options.cover??(()=>[])},
   './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:()=>false}});
  const implementation=await component('implementation/semantic_revision',{'../abg/semantic_revision.js':owner,'../implementation/worksite_command_execution.js':{}});
@@ -316,4 +316,56 @@ test('native D2 root-backed binding cover authenticates source ancestry and pres
  h.call(R.nativeIntakeImplementationRef,h.intake);assert(await prepare());
  const rubric=join(env.canonicalRoot,'assets/rubric.json'),before=await readFile(rubric);await writeFile(rubric,'changed protected current context');
  assert.equal(await prepare(),null);assert.equal(reason,'native_revision_current_context_mismatch');await writeFile(rubric,before);assert(await prepare());
+});
+
+
+test('native D2 operational author preparation cause retains accepted stages and selects only the actual failed stage',async t=>{
+ // Real component owner and Product derivations; admitted leaf/prefix/binding
+ // authentication is supplied by the existing harness, not runtime qualification.
+ const env=await fixture(t);let parent=env.envelope;
+ for(let i=0;i<3;i++){const a=await author(env,parent,i);parent=assess(env,a.authored,i).assessed;}
+ const h=await harness(env),stage=declaration.stages[parent.assets.length];
+ h.admit(parent,D.nativeAssessorFoldImplementationRef,h.original,'advance',parent.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,h.publicRun.ref);
+ const causeBasis={...h.original,basisRef:'component:failed-author-basis',parentExecutionBasisRef:h.original.basisRef,rawInputValue:parent,rawInputDigest:hash(parent)};
+ h.bases.set(causeBasis.basisRef,causeBasis);
+ const cause=h.admit({kind:'semantic_stage_failure',schemaVersion:'5.0.0',failureClass:'implementation_exception'},R.authorImplementationRef,causeBasis,'blocked','component:failed-author',h.publicRun.ref,'failure');
+ Object.assign(cause.cCall,{regime:'F_P',programLocusRef:stage.authorLocusRef});cause.result.evidenceRefs=['component:undispatched-evidence'];
+ const {constructRuntimeFailureDiagnosticRef}=await load('abg/runtime_failure');
+ const refusal={kind:'native_instruction_assembly_refusal',cause:'declared_bound_overflow',policy:stage.assembly.ruleRef,role:'author',unresolvedRefs:['maxPromptBytes']};
+ if(process.env.ABI5_NATIVE_D2_DESIGN_DIRECTORY){
+  const retained=JSON.parse(await readFile(join(process.env.ABI5_NATIVE_D2_DESIGN_DIRECTORY,'installed-01/suffix-01/first-cause-public-evidence-02.json'),'utf8')).bodies[0].value;
+  assert.deepEqual(JSON.parse(retained.subject.message),refusal,'actual retained author materialization failure has exactly this typed operational shape');
+  const accepted=JSON.parse(await readFile(join(process.env.ABI5_NATIVE_D2_DESIGN_DIRECTORY,'design-bound-diagnosis-01/design-input.json'),'utf8')).targets[0].event.payload.rawInputValue;
+  assert.equal(accepted.current.declaration.stages[accepted.current.assets.length].declarationRef,stage.declarationRef);
+  assert.equal(accepted.current.assets.at(-1).assessment.disposition,'satisfied');
+  const results=JSON.parse(await readFile(join(process.env.ABI5_NATIVE_D2_DESIGN_DIRECTORY,'design-bound-diagnosis-01/result-events.json'),'utf8')).results;
+  const actualParent=results.find(row=>row.event.payload.resultRef==='result://abiogenesis/7580c6b2215e48a5a133984b0f4d10541ff7abd6de1b498862e4b79eab2dcfb6');
+  assert(actualParent);assert.deepEqual(actualParent.event.payload.value,accepted,'actual advancing assessor value is the complete failed author input, not merely similar assets');
+  t.diagnostic('Actual failed source Run 74ac812a / close 216334690: failure shape and three accepted-stage frontier conserved; prefix/leaf admission and physical roots remain supplied component premises.');
+ }
+ const observation={stage:'preparation',reason:'thrown',errorClass:'TypeError',diagnosticRef:constructRuntimeFailureDiagnosticRef({message:JSON.stringify(refusal),messageTruncated:false})};
+ const evidence={kind:'c_call_evidenced',aggregateId:cause.cCall.cCallRef,eventId:'component:evidence-event',payload:{evidenceClass:'undispatched_owner_refusal',evidenceRef:cause.result.evidenceRefs[0],ownerObservation:observation}};
+ h.events.unshift(evidence);h.invocation('operational-intake',h.intake);h.call(R.nativeIntakeImplementationRef,h.intake);
+ const limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000};let reason;
+ const prepare=()=>h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits,r=>reason=r);
+ const prepared=await prepare();assert(prepared);assert.equal(prepared.nativeWorksite.construction,null);assert.deepEqual(prepared.causes,[coordinate(cause)]);
+ for(const [object,key,value]of [[cause.cCall,'programLocusRef',stage.assessorLocusRef],[cause.cCall,'regime','F_D'],[cause.judgment,'judgment','advance'],[evidence.payload,'evidenceClass','actor_process'],[observation,'stage','dispatch'],[observation,'diagnosticRef',constructRuntimeFailureDiagnosticRef({message:'arbitrary TypeError',messageTruncated:false})]]){
+  const old=object[key];object[key]=value;assert.equal(await prepare(),null);assert.equal(reason,'native_revision_cause_absent');object[key]=old;
+ }
+ const oldInput=causeBasis.rawInputValue;causeBasis.rawInputValue={...parent,remainingGaps:['crossed parent']};assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');causeBasis.rawInputValue=oldInput;
+ h.events.shift();assert.equal(await prepare(),null);assert.equal(reason,'native_revision_cause_absent');h.events.unshift(evidence);
+ h.admit(prepared,R.nativeIntakeImplementationRef);
+ h.basis.graphFunction={name:'component:selection-graph',declarations:{'abg.semantic_revision_selection':declaration.declarationRef}};
+ h.call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:'component:selection-graph'});
+ const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',selectedStageRef:stage.declarationRef,
+  selectedObligationRefs:p.projectSemanticJobBindings(parent).map(row=>row.binding.obligationRef),selectedTargetRefs:[],reasonRef:'component:operational-preparation-pressure',nativePhase:'preconstruction'};
+ assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,selection),true);
+ for(const other of declaration.stages.filter(s=>s.declarationRef!==stage.declarationRef))assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,{...selection,selectedStageRef:other.declarationRef}),false);
+ const subject=h.owner.projectJobRevisionSubject(h.basis,prepared);assert.equal(subject.operationalFailure.stageRef,stage.declarationRef);assert.deepEqual(subject.operationalFailure.refusal,refusal);assert.deepEqual(subject.counterevidenceAssets,[],'operational failure invents no rejected semantic asset');
+ h.admit(selection,R.selectionImplementationRef);h.basis.declarationGraphFunctions=[h.basis.graphFunction];h.call(R.nativeRequestImplementationRef,selection,prepared);
+ const request=h.owner.projectNativeSemanticRevisionRequest(h.basis,selection);assert(request);
+ const next=declaredCorrection(JSON.parse(JSON.stringify(request)));assert.equal(next.start.programRef,'program://odd-glc/native-semantic-revision/from-design@5');
+ h.invocation('operational-correction',request);h.basis.graphFunction=next.projection;h.call(R.projectionImplementationRef,request);
+ const current=h.owner.projectSemanticJobRevision(h.basis,request);assert(current);assert.deepEqual(current.current.assets,parent.assets);assert.deepEqual(current.current.job,parent.job);
+ assert.equal(current.current.assets.at(-1).assessment.disposition,'satisfied');assert.equal(current.revisionBasis.historicalAssets.length,parent.assets.length);
 });

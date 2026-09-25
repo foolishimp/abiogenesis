@@ -15,7 +15,7 @@ export declare function projectNativeSemanticRevisionRequest(basis: SemanticStag
 export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical?: boolean): {
     owner: {
         publication: Readonly<import("../index.js").ModulePublication>;
-        lifecycle: Readonly<import("../index.js").SemanticJobLifecycleDeclaration>;
+        lifecycle: Readonly<import("../gtl/semantic_job.js").SemanticJobLifecycleDeclaration>;
         root: import("./execution_basis.js").ExecutionBasis;
         invocationRoot: import("./execution_basis.js").ExecutionBasis;
         environment: import("./environment_admission.js").ExactPrefixWorkspaceEnvironment;
@@ -39,6 +39,15 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
     nativeWorksite: import("../product/semantic_revision.js").NativeSemanticRevisionWorksite;
     acquisition: import("./c_call.js").RehydratedAdmittedCCallState;
     construction: import("./c_call.js").RehydratedAdmittedCCallState | null;
+    operationalFailure: {
+        stageRef: string;
+        evidenceRef: JsonValue | undefined;
+        evidenceAdmissionEventRef: string;
+        ownerObservation: {
+            readonly [key: string]: JsonValue;
+        };
+        refusal: Record<string, JsonValue>;
+    } | null;
     priorWorksite: null;
     currentWorksite: null;
     origins: import("./c_call.js").RehydratedAdmittedCCallState[];
@@ -47,7 +56,7 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
 } | {
     owner: {
         publication: Readonly<import("../index.js").ModulePublication>;
-        lifecycle: Readonly<import("../index.js").SemanticJobLifecycleDeclaration>;
+        lifecycle: Readonly<import("../gtl/semantic_job.js").SemanticJobLifecycleDeclaration>;
         root: import("./execution_basis.js").ExecutionBasis;
         invocationRoot: import("./execution_basis.js").ExecutionBasis;
         environment: import("./environment_admission.js").ExactPrefixWorkspaceEnvironment;

@@ -1,0 +1,61 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "b657db8139d97e5560222aa800985c962c5511b6",
+  "scope": "Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 69
+  },
+  "archiveMemberCount": 69,
+  "archiveMemberBytes": 12773353,
+  "transportBytes": 10759124,
+  "assets": [
+    {
+      "id": "raw-65e9eded3b70a3c24ed1077b4549942c2e933e5ed14529b306a56878f3fc6860",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10167843,
+      "sha256": "65e9eded3b70a3c24ed1077b4549942c2e933e5ed14529b306a56878f3fc6860",
+      "parts": [
+        {
+          "path": "payloads/raw-65e9eded3b70a3c24ed1077b4549942c2e933e5ed14529b306a56878f3fc6860.part0000",
+          "byteLength": 10167843,
+          "sha256": "65e9eded3b70a3c24ed1077b4549942c2e933e5ed14529b306a56878f3fc6860"
+        }
+      ]
+    },
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS",
+      "byteLength": 485578,
+      "sha256": "eb9d8348968223af9630d7642c54c29f405ce69be6e187b59e52f01fb3841650",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 485578,
+          "sha256": "eb9d8348968223af9630d7642c54c29f405ce69be6e187b59e52f01fb3841650"
+        }
+      ]
+    },
+    {
+      "id": "family-0001",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME",
+      "byteLength": 105703,
+      "sha256": "69027a67564e7a8d3e5742cef728d57c05de1a13c6dff3169ed5c1d45d4734ba",
+      "parts": [
+        {
+          "path": "payloads/family-0001.tar.gz.part0000",
+          "byteLength": 105703,
+          "sha256": "69027a67564e7a8d3e5742cef728d57c05de1a13c6dff3169ed5c1d45d4734ba"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "0878f040b17228cc832e5e5bb9a54addc9821e12b356f903476cc35b7c6fdf41",
+  "reconciliationSha256": "14d7508457f076f4732100ca1fcde5a75cf026eda33f367c6a4fe64350a6490b",
+  "pendingActiveEvidence": [],
+  "credentialShapeFindingCount": 0
+}

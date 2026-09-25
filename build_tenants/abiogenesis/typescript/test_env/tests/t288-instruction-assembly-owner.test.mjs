@@ -469,3 +469,100 @@ test('retained native assemblies conserve every canonical part and required-cont
   assert.deepEqual(fs.readFileSync(join(scratch, 'runtime/events.jsonl')), all, 'immutable regression history unchanged');
   console.log(JSON.stringify({ scope: 'read-only retained native owner equivalence; no new native effects', matched, fresh, stale, roles, physicalRefusals }));
 });
+
+const retainedDesignDirectory = process.env.ABI5_NATIVE_D2_DESIGN_DIRECTORY;
+test('actual derived revision successor shares complete typed assets under the unchanged Design bound', {skip: !retainedDesignDirectory}, async t => {
+  const {sha256Bytes} = await load('shared/digests');
+  const {canonicalJson} = await load('shared/canonical_json');
+  const D = retainedDesignDirectory;
+  const retained = JSON.parse(fs.readFileSync(join(D,'design-bound-diagnosis-01/design-input.json'),'utf8')).targets[0].event.payload;
+  const parent = retained.rawInputValue;
+  assert.equal(hash(parent),'sha256:b18bc0a6c74426fdf145ca3a9bf4e9275816b2fab8643271468c7c906f19d185');
+  const publication = JSON.parse(fs.readFileSync(join(D,'publication-01/prospective-publication.json'),'utf8'));
+  const stage = parent.current.declaration.stages[parent.current.assets.length];
+  const revision=await load('product/semantic_revision'),job=await load('product/semantic_job');
+  // Future acquisition/selection coordinates are component premises, not new
+  // authority. Reuse the review's actual pure Product successor construction.
+  const selection={...parent.revisionBasis.selection,selectedStageRef:stage.declarationRef,
+    selectedObligationRefs:job.projectSemanticJobBindings(parent.current).map(row=>row.binding.obligationRef),selectedTargetRefs:[]};
+  const request={...parent.revisionBasis.request,selectionChoice:{mode:'stage_revision',selectedStageRef:stage.declarationRef},
+    nativeWorksite:{...parent.revisionBasis.request.nativeWorksite,context:parent.current.context}};
+  const input=revision.deriveSemanticJobRevision(parent,request,selection,null,null);
+  assert(input && revision.isSemanticJobRevisionEnvelope(input));
+  assert.deepEqual(input.current.assets,parent.current.assets);assert.deepEqual(input.current.job,parent.current.job);
+  assert.equal(input.revisionBasis.parentRevisionRef,parent.revisionBasis.basisRef);
+  assert.equal(input.revisionBasis.historicalAssets.length,4);
+  assert.equal(stage.assembly.maxPromptBytes,1048576);
+  const prompt = fs.readFileSync(join(D,'installed-01/preparation/invocation/archives/fp-551946c5d41986bb-prompt.txt'),'utf8');
+  const chunks = prompt.split(/^## (\w+)\n/m);
+  const preceding = Object.fromEntries(Array.from({length:(chunks.length-1)/2},(_,i)=>[chunks[i*2+1],JSON.parse(chunks[i*2+2])]));
+  const roles = publication.runEnvironments.flatMap(e=>e.roles).filter(r=>r.graphFunctionRef===retained.graphFunctionRef && r.programLocusRef===stage.authorLocusRef && r.role==='author');
+  assert(roles.length);assert(roles.every(r=>hash(r)===hash(roles[0])));
+  const role = roles[0], sourceContent = role.sourceBindings.filter((b,i,rows)=>rows.findIndex(x=>hash(x)===hash(b))===i).map(b=>{
+    const row=preceding.role.environment.sourceContent.find(row=>Object.entries(b).every(([k,v])=>row[k]===v));assert(row);
+    assert.equal(sha256Bytes(Buffer.from(row.text)),b.spanDigest);return row;
+  });
+  assert.deepEqual(role.policy,preceding.role.environment.policy);
+  // Exact retained input and published role/content; authentication, current
+  // workspace, execution basis and admitted role evidence are explicit component
+  // premises. This is the real complete renderer, not an installed assembly claim.
+  let supplied=input, selectedRole=role;
+  const call={cCallRef:'component:retained-design',cCallDigest:hash('component-call'),graphFunctionRef:retained.graphFunctionRef,
+    programLocusRef:stage.authorLocusRef,inputContractRef:R.envelopeContractRef,implementationRef:R.authorImplementationRef};
+  const owner={role:'author',stage,lifecycle:input.current.declaration,events:[],call,inputDigest:hash(input),inputRef:retained.rawInputAdmissionRef,
+    execution:{...retained,invocationAdmissionRef:retained.invocationAdmissionRef}};
+  const stdo=()=>({invocationAdmissionRef:retained.invocationAdmissionRef,environmentRef:'component:retained-role',environmentDigest:hash('component-environment'),evidenceDigest:hash('component-evidence'),
+    role:'author',policy:selectedRole.policy,contextPolicy:selectedRole.contextPolicy,contextPolicyDigest:hash(selectedRole.contextPolicy),frameRefs:selectedRole.frameRefs,sourceContent,accessContent:preceding.evidence.environmentAccess});
+  const componentOwner=await component('abg/instruction_assembly',{
+    './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
+    './semantic_job.js':{authenticateSemanticJobBasis:()=>owner},
+    './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:()=>true,projectJobRevisionSubject:()=>({currentWorksite:null,origins:[]})},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:stdo},
+    '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
+    '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=> 'author'},
+  });
+  const basis={publication,graphFunction:{template:{nodes:[{term:{}}]}},cCall:call,predecessorPrefix:{fixture:true}};
+  const assemble=()=>componentOwner.evaluateNativeInstructionAssembly(basis,supplied);
+  const before=hash(input),assembly=assemble();assert.equal(assembly.kind,'native_instruction_assembly');assert.equal(hash(input),before);
+  const sections=assembly.envelope.sections;
+  assert.deepEqual(sections.task.historicalAssets,input.revisionBasis.historicalAssets);
+  assert.deepEqual(sections.task.revisionContext.historicalAssets,{presentationRef:'#/task/historicalAssets',materialDigest:hash(input.revisionBasis.historicalAssets)});
+  const versions=sections.task.historicalAssets.filter(a=>a.stageRef===input.current.assets.at(-1).stageRef);
+  assert.equal(versions.length,2);assert.deepEqual(versions.map(a=>a.assessment.disposition),['falsified','satisfied']);
+  assert.notEqual(versions[0].assetDigest,versions[1].assetDigest,'distinct rejected and accepted versions are never collapsed');
+  for(const asset of [...parent.revisionBasis.historicalAssets,...parent.current.assets])assert(sections.task.historicalAssets.some(h=>hash(h)===hash(asset)));
+  const resolveMaterial=row=>{
+    if(row.presentationRef===undefined)return row;
+    assert.match(row.presentationRef,/^#\/task\/historicalAssets\/\d+$/);
+    const material=row.presentationRef.slice(2).split('/').reduce((value,key)=>value[key],sections);
+    assert(material);assert.equal(hash(material),row.materialDigest);return material;
+  };
+  assert.deepEqual(sections.predecessors.map(resolveMaterial),input.current.assets.filter(a=>stage.predecessorStageRefs.includes(a.stageRef)));
+  assert(sections.predecessors.every(row=>row.presentationRef),'all identical current predecessors share exact complete history material');
+  assert(!sections.predecessors.map(resolveMaterial).some(asset=>asset.assessment.disposition!=='satisfied'));
+  assert.equal(assembly.manifest.contextDispositions.revisionAssetMaterial,'complete_typed_assets_shared_with_history_by_exact_value');
+  for(let i=0;i<input.current.context.entries.length;i++){
+    const original=input.current.context.entries[i],shown=sections.worksite.observation.entries[i];
+    if(original.state!=='file'){assert.deepEqual(shown,original);continue;}
+    const {bytes,encoding,...identity}=original,{textView,sourceEncoding,...shownIdentity}=shown;
+    assert.deepEqual(shownIdentity,identity);assert.equal(sourceEncoding,encoding);
+    assert.deepEqual(Buffer.from(textView.text),Buffer.from(bytes,'base64'));assert.equal(textView.digest,original.digest);assert.equal(textView.byteLength,original.byteLength);
+  }
+  const actualBytes=Buffer.byteLength(assembly.request.prompt);assert.equal(assembly.manifest.promptByteCount,actualBytes);assert(actualBytes<=stage.assembly.maxPromptBytes);
+  t.diagnostic(JSON.stringify({scope:'actual pure Product successor; upstream authentication/currentness/role evidence and future coordinates supplied',parentInputDigest:hash(parent),componentSuccessorDigest:hash(input),
+    promptBytes:actualBytes,maxPromptBytes:stage.assembly.maxPromptBytes,headroomBytes:stage.assembly.maxPromptBytes-actualBytes,
+    historyAssets:input.revisionBasis.historicalAssets.length,sharedPredecessors:sections.predecessors.length,
+    sections:Object.fromEntries(Object.entries(sections).map(([k,v])=>[k,Buffer.byteLength(canonicalJson(v))])),roleSourceSpans:sourceContent.length}));
+  supplied=parent;
+  const previous=assemble();assert.equal(previous.kind,'native_instruction_assembly');
+  const unshared=previous.envelope.sections.predecessors.find(a=>a.assetRef===parent.current.assets.at(-1).assetRef);
+  assert.deepEqual(unshared,parent.current.assets.at(-1),'same stage with a distinct historical version retains complete accepted material, never a digest-only/lossy alias');
+  assert.notEqual(hash(unshared),hash(parent.revisionBasis.historicalAssets.at(-1)));supplied=input;
+  assert.deepEqual(sections.task.taskData,input.current.job.taskData,'ordinary domain task JSON is unchanged');
+  selectedRole={...role,contextPolicy:{...role.contextPolicy,selectors:role.contextPolicy.selectors.filter(s=>s!=='current_worksite')}};
+  assert.equal(assemble().cause,'unavailable_required_content');selectedRole=role;
+  supplied={...input,current:{...input.current,context:null}};assert.equal(assemble().cause,'unavailable_required_content');supplied=input;
+  supplied=input;selectedRole={...role,policy:{...role.policy,text:role.policy.text+'x'.repeat(stage.assembly.maxPromptBytes)}};
+  // Oversized required role-content premise; no new declared bound or raw ingress waiver.
+  assert.equal(assemble().cause,'declared_bound_overflow','same declared bound still refuses an oversized complete presentation');
+});

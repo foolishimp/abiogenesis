@@ -139,3 +139,152 @@ and release remain open until their own outcomes are established.
 Checkpoint24 Writer activation banks only accepted source and closed evidence,
 excluding the active installed-01 tree, journals, locks, mutable worksites and
 redundant full-state snapshots. Root resumes Executive after those Git effects.
+
+## Current boundary: Design assembly size
+
+Root consumes the [closed core28/dev15 execution](author-context-policy-01/installed-01/return.md)
+`7179f828345142974477d0ca660dc5b8f51d10666427bc2bb97a2c13a1ade617`
+and frozen subject `6547af5aff28574e92d6df25e17e16c32ae327e201f75246e65d27891c24b1d2`.
+The role correction crosses its prior refusal: Requirements author and assessor
+both execute successfully at provider level and progression reaches Design
+preparation. Normal Public run evidence retains the actual Design refusal:
+`declared_bound_overflow`, `maxPromptBytes`, author role. The selected Design
+bound is1,048,576B; the failure does not retain its draft's exact size.
+No Design actor, construction or C2 occurs. Fresh Result is not_found and
+replay is failed. Genuine close216,334,690B /6a3e7700… remains authoritative.
+
+Root selects read-only diagnosis through existing GLC policy and ABI assembly
+owners: establish exact required content and byte/duplication inventory where
+reconstructible, confirm Requirements admission independently of provider success,
+and identify the smallest projection or declared-budget correction. No limit
+increase, source edit, paid retry, new context framework or original-source change
+is selected. Original inputs, worksite and all historical outcomes remain intact.
+
+LIFE01 remains open: setup76.48s /5,099,749,376B peak RSS; cold suffix Result/replay
+76.823s+77.806s; diagnostic read79.35s. Three actor calls report$9.3235464 list
+cost, not billing. The suffix adds66,495,432B to the journal. Author/provider
+728.089s produces106,396B structured output; assessor271.981s produces17,315B.
+These measure different scopes; they do not attribute every delay to a cause.
+Root's tracking-only Writer activation is complete; Root resumes Executive.
+
+## Selected repair: one presentation and preserved stage progress
+
+Root accepts the [read-only diagnosis](author-context-policy-01/design-bound-diagnosis-01/return.md)
+`34f5887a3b932e903496a41f92b7e2931c70d8d775a5558a052a866b4416eced`
+only at its stated limits. Required-section bodies already total1,343,812B.
+The existing task repeats the exact239,391B historical array; the typed worksite
+view prints281,544 base64 characters beside their verified decoded text. Root
+selects realization_refactor in the existing presentation owner to retain each
+distinct material value and route once, preserve opaque domain JSON, and keep
+the existing1MiB limit and lifecycle. Exact whole-draft measurement follows in
+the affected component check; the prior lower bound is not that measurement.
+
+Requirements author, assessor and enclosing stage are actually admitted with
+advance judgments. The current intake supports unsatisfied-assessor and failed-C2
+causes, so it cannot yet derive a request from this undispatched Design-author
+failure. Root selects bounded design_reframe in the existing native-intake HOW
+and source relation, then realization: genuine admitted pre-dispatch lifecycle-
+author preparation failure is operational pressure at its declared stage;
+completed accepted stage results remain inputs. Existing Product/requirements
+must cover that relation before dependent code; any explicit WHAT exclusion
+returns to Root. No invented semantic failure, arbitrary exception promotion,
+host-selected stage, new controller, event retargeting or repeated Requirements
+work is authorized. The existing native selector and published complete suffix
+must remain the progression route. Source/HOW and focused checks freeze for one
+independent review before package or runtime selection.
+
+This tracking-only Writer activation ends here; Root resumes Executive.
+
+## Frozen repair and review selection
+
+Root consumes the [frozen source return](author-context-policy-01/design-presentation-continuation-01/return.md)
+`07c0f744145ab563c419ee53a85ee35db8672736c1a3a8d4f3ac70ec04f4d441`,
+subject `83a011af7acf53c2a2597837d58e8edb003fa485ffa08b24c146598010fa47f6`.
+The component renderer produces937,078B under the unchanged1,048,576B bound;
+six affected checks and compilation pass. Retained-input presentation conserves
+material content. Operational continuation selects only the failed declared
+stage and conserves all three admitted accepted assets. Component premises and
+the excluded unchanged descriptor-loader fixture remain disclosed; no installed
+eligibility or native success follows yet.
+
+Root selects one independent astra/max review under the Product/E2E-interface,
+Owner, Conservation and Code-Construction frames. Existing astra/xhigh Worker
+may concurrently package the exact frozen source through the existing pipeline
+and prepare the latest-failed-Run caller without acquiring/executing it. Reuse
+dev15 unchanged. Source/HOW/tests remain frozen. Review, package and caller
+conjunction precede any new runtime effects. The next source is genuine Run
+74ac812a… at216,334,690B/6a3e7700…; original3b04… remains job/root/oracle ancestry,
+not a substitute for the newly admitted Requirements and failed Design.
+
+Writer activation: Root updates only this disposition, paired tickets and GOALS
+projections. Closed prior execution/diagnosis has162 verified archive members in
+checkpoint25; it neither modifies originals nor closes native correction. This
+tracking activation ends here; Root resumes Executive.
+
+## Actual successor presentation correction
+
+Root consumes closed [review R-DPC01](author-context-policy-01/design-presentation-continuation-01/review-01/review.md)
+`564a070f3a25da2cd364d9b91896a7108436c03488c84232feb37acbdac91d19`
+and refs `83ac32c448babfc323a0b68c39b4bdb9901c5f8b2e21e1a5608aa77e9dc85a7b`.
+The actual pure Product-derived successor renders1,162,088B, exceeding the bound
+by113,512B. The937,078B preceding-input observation remains true but cannot
+establish next-input readiness. Future authority coordinates in this counterexample
+are disclosed component premises, not admitted installed facts.
+
+Root rejects next-input readiness and selects only an existing-renderer
+realization_refactor: share the newly accepted Requirements and other identical
+typed current/historical values, preserving the distinct rejected version, full
+assessments, obligations, qualifications, exact identity and opaque domain data.
+No limit increase, history removal, new context framework or repeated Requirements
+work. Check the actual derived successor and meaningful conservation/overflow
+negatives. Freeze for delta review; reuse still-valid operational HOW/source review,
+which found no additional supported blocker. Existing stale descriptor-loader test
+maintenance is registered separately in T287; it provides no installed assurance.
+
+[Core29 package](../../../../20260923_COMPOSITE_READINESS/compiled-29/return.md)
+return c5cd4635… and [caller preparation](author-context-policy-01/design-presentation-continuation-01/caller-preparation-01/return.md)
+2b22d75a… remain frozen and unexecuted. Their source/archive correspondence is
+mechanical evidence; the package is not selected for a paid attempt. Original
+resources, source/root/oracle, accepted stages and all failed outcomes remain.
+
+Writer activation updates only this disposition, paired tickets and GOALS. Root
+resumes Executive after this tracking write.
+
+## Accepted correction and core30 continuation
+
+Root accepts [source02](author-context-policy-01/design-presentation-continuation-02/return.md)
+`72dc9a6d29a5101823f13bcf79ca70b60393a2130b512daa2179eaed2bc21aac`,
+subject `d44f63fdca28b9c298fbc9e1c310c11b2dce5fdca667df5406c5a9609f7eaa6b`,
+and [delta review](author-context-policy-01/design-presentation-continuation-02/review-01/review.md)
+`f3045279d7dc86fbe8a89d128679d035b7aaedd615e14b2dd8c92b8f7ebe8aed`.
+R-DPC01 closes at source/component scope: same successor41ce3d8a… renders986,679B
+with61,897B headroom, preserving distinct assets/full assessments and overflow
+refusal. The operational review remains valid. No installed or future-content
+size assurance follows.
+
+Root conjoins [core30](../../../../20260923_COMPOSITE_READINESS/compiled-30/return.md)
+`c8faae36d7eeb13f4166368d7bb3ac9cde64725cbc6dab20950aaffba4879313`:
+archive `7241917e6d3bb7484594d9e15db6cdd8b3dd8480ab00a20aa72c13b865a14925`,
+content `fa9c636398482a85aae258214bf31c2f0310f9e758bf7bb98237871406f35efb`,
+manifest `aaf0aa6b67858e83ee58a14fa8216c01fc0b4b0d2f55941d0cc2a2f225bff29b`.
+All5,233 members correspond; actual installed verification passes. Dev15 is unchanged.
+The [caller](author-context-policy-01/design-presentation-continuation-02/caller-preparation-01/return.md)
+`aeef5e337b900908de67b6daab5c1ecbb89df89a96721ed8ccb5c7247d288887`,
+subject c8d8f513… preserves the latest Run74ac… at216,334,690B/6a3e7700… and
+original ancestry; only core/evidence identities change.
+
+After the authorized checkpoint push, Root selects the complete installed sequence:
+eight existing Public setup operations and resolution, ordinary latest-Run source
+root read, genuine old/current binding witness, one native intake and only its
+actual admitted/publicly declared whole suffix. HoG owns progression; fresh
+terminal Result/replay and first-cause evidence establish the outcome. Preserve
+accepted Requirements, source/oracle/root/job, all prior Runs and exact controls:
+Opus5.5/xhigh,5USD per occurrence,300s idle/900s actor/1s grace,90min native,
+10min readback, default heap and explicit live enable. No retry, invented source
+root/witness, Requirements repetition, host-selected stage, limit increase or
+source repair is authorized during execution. A genuine refusal returns to Root.
+
+Writer activation grants Root only these tracking projections, checkpoint25
+source/evidence preservation, and exact scoped commit/push under standing owner
+authorization. Root resumes Executive after the checkpoint; runtime source and
+published artifacts stay immutable throughout. Native correction and release remain open.

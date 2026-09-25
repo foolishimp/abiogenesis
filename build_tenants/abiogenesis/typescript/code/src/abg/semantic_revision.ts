@@ -38,7 +38,7 @@ import { isNativeSemanticRevisionIntake, type NativeSemanticRevisionIntake, type
   semanticJobRevisionNativeTargets } from "../product/semantic_revision.js";
 import { authenticateNativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate, readRuntimeEventsAtDurablePrefix } from "./event_store.js";
-import { runtimeEventsFromValidatedPrefix } from "./event_prefix.js";
+import { indexedRuntimeEvents, runtimeEventsFromValidatedPrefix } from "./event_prefix.js";
 import { projectRunIdentityAtPrefix } from "./replay.js";
 import { projectNativeWorkspaceWorkSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
 import { projectWorksiteRevisionBindingCover } from "./worksite_revision.js";
@@ -49,6 +49,9 @@ import { semanticJobContextMatches, semanticJobContextCurrent } from "./semantic
 import { isWorksiteContextObservation, type WorksiteContextObservation } from "../product/worksite_effect.js";
 import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
 import { observeWorksiteContext } from "../product/worksite_operations.js";
+
+import { readRuntimeFailureDiagnosticSubject } from "./runtime_failure.js";
+import { admitIJsonText } from "../shared/i_json.js";
 
 const hash = (x: unknown) => sha256Canonical(x as JsonValue);
 const recordJob = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
@@ -79,6 +82,37 @@ function jobEnvelope(value: unknown) { return isSemanticJobRevisionEnvelope(valu
 function nativeCause(value: unknown): boolean {
   return isNativeWorksiteCommandExecutionObservation(value) && value.commandResults.some(row => row.exitStatus !== 0 || row.timedOut || row.processSignal !== null);
 }
+/** Additional source-class selection over an already authenticated leaf. CCall's
+ * existing admission owns the exact sole evidence, frame/order/input and absence
+ * of dispatch relation; this does not turn arbitrary exception text into a cause. */
+function operationalAuthorFailure(prefix: ValidatedRuntimeEventPrefix,
+  state: NonNullable<ReturnType<typeof projectWorksiteRevisionNativeResult>>,
+  lifecycle: import("../gtl/semantic_job.js").SemanticJobLifecycleDeclaration) {
+  if (state.cCall.implementationRef !== ids.authorImplementationRef || state.cCall.regime !== "F_P" ||
+    state.result.resultClass !== "failure" || state.judgment.judgment !== "blocked" || state.result.evidenceRefs.length !== 1) return null;
+  const stages = lifecycle.stages.filter(stage => stage.authorLocusRef === state.cCall.programLocusRef);
+  if (stages.length !== 1) return null;
+  const events = indexedRuntimeEvents(prefix, "aggregate:c_call:" + state.cCall.cCallRef);
+  const rows = events.filter(event => event.kind === "c_call_evidenced" && recordJob(event.payload) &&
+    event.payload.evidenceRef === state.result.evidenceRefs[0]);
+  const payload = rows.length === 1 ? rows[0]!.payload : null;
+  if (!recordJob(payload) || payload.evidenceClass !== "undispatched_owner_refusal" || !recordJob(payload.ownerObservation)) return null;
+  const observation = payload.ownerObservation;
+  if (observation.stage !== "preparation" || observation.reason !== "thrown" || observation.errorClass !== "TypeError" ||
+    typeof observation.diagnosticRef !== "string") return null;
+  let refusal: unknown;
+  try {
+    const diagnostic = readRuntimeFailureDiagnosticSubject(observation.diagnosticRef);
+    if (!recordJob(diagnostic) || typeof diagnostic.message !== "string" || diagnostic.messageTruncated !== false) return null;
+    refusal = admitIJsonText(diagnostic.message, "native revision preparation cause");
+  } catch { return null; }
+  if (!recordJob(refusal) || refusal.kind !== "native_instruction_assembly_refusal" || refusal.role !== "author" ||
+    refusal.policy !== stages[0]!.assembly.ruleRef ||
+    !["unknown_dependency", "unavailable_required_content", "stale_basis", "unsupported_selection", "declared_bound_overflow"].includes(String(refusal.cause)) ||
+    !Array.isArray(refusal.unresolvedRefs) || !refusal.unresolvedRefs.every(ref => typeof ref === "string")) return null;
+  return { stageRef: stages[0]!.declarationRef, evidenceRef: payload.evidenceRef, evidenceAdmissionEventRef: rows[0]!.eventId,
+    ownerObservation: observation, refusal };
+}
 function contextCorresponds(a: WorksiteContextObservation, b: WorksiteContextObservation) {
   const { observationRef: _ar, observationDigest: _ad, workspaceBindingIdentity: _aw, workspaceBindingDigest: _awd, ...left } = a;
   const { observationRef: _br, observationDigest: _bd, workspaceBindingIdentity: _bw, workspaceBindingDigest: _bwd, ...right } = b;
@@ -99,7 +133,14 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
     const sourceRoot = run === null ? null : rehydrateExecutionBasisAtPrefix(prefix, run.executionBasis.ref);
     if (run === null || !same(run.run, input.sourceRun) || sourceRoot === null || sourceRoot.parentExecutionBasisRef !== null) return refuse("source_run_mismatch");
     const leaves = admittedLeaves(prefix, input.sourceRun.ref);
+    const lifecycle = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle;
+    if (lifecycle === undefined) return refuse("original_job_or_lifecycle_mismatch");
+    const operational = new Map(leaves.flatMap(({ state }) => {
+      const failure = operationalAuthorFailure(prefix, state, lifecycle);
+      return failure === null ? [] : [[state.cCall.cCallRef, failure] as const];
+    }));
     const causes = leaves.filter(({ state }) => {
+      if (operational.has(state.cCall.cCallRef)) return true;
       const envelope = jobEnvelope(state.result.value);
       return [SEMANTIC_STAGE_IDS.nativeAssessorFoldImplementationRef, ids.assessorImplementationRef].some(ref => ref === state.cCall.implementationRef)
         ? envelope !== null && envelope.assets.at(-1)?.assessment != null && envelope.assets.at(-1)!.assessment!.disposition !== "satisfied" && state.judgment.judgment !== "advance"
@@ -107,7 +148,7 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
           (state.result.resultClass === "failure" || state.judgment.judgment !== "advance" || nativeCause(state.result.value));
     });
     if (causes.length !== 1) { onRefusal?.(causes.length === 0 ? "native_revision_cause_absent" : "native_revision_cause_ambiguous"); return null; }
-    const cause = causes[0]!, rejected = jobEnvelope(cause.state.result.value);
+    const cause = causes[0]!, rejected = jobEnvelope(cause.state.result.value), operationalFailure = operational.get(cause.state.cCall.cCallRef);
     const causeBasis = rehydrateExecutionBasisAtPrefix(prefix, cause.state.cCall.basisId);
     const command = isNativeWorksiteCommandExecutionObservation(cause.state.result.value) ? cause.state.result.value.task : causeBasis?.rawInputValue;
     const construction = rejected?.evidence?.constructionResult ?? (isNativeWorksiteCommandExecutionTask(command) ? command.sourceNativeWork : null);
@@ -120,6 +161,9 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
       const last = envelope.assets.at(-1), exactProducer = last === undefined ? state.cCall.implementationRef === SEMANTIC_STAGE_IDS.jobIntakeImplementationRef :
         state.cCall.cCallRef === (last.assessment!.source.nativeWork?.adapterCCallRef ?? last.assessment!.source.cCallRef) || state.cCall.implementationRef === ids.projectionImplementationRef;
       if (!exactProducer) return false;
+      if (operationalFailure !== undefined) return causeBasis !== null &&
+        same(state.result.value, causeBasis.rawInputValue) && envelope.evidence === null &&
+        envelope.declaration.stages[envelope.assets.length]?.declarationRef === operationalFailure.stageRef;
       if (rejected !== null) return same(envelope.basis, rejected.basis) && same(envelope.assets, rejected.assets.slice(0, -1));
       if (native === null || !isNativeWorkspaceWorkObservation(construction)) return false;
       try { return same(construction.task, isSemanticJobRevisionEnvelope(state.result.value)
@@ -214,7 +258,8 @@ function nativeJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknow
     const current = isSemanticJobRevisionEnvelope(input) ? input.current : { ...envelope, context: nativeWorksite.context };
     if (current.context === null || !semanticJobContextMatches(basis, current, current.context) ||
       readPhysical && current.evidence === null && !semanticJobContextCurrent(basis, current)) return null;
-    return { owner, request, parent, envelope, nativeWorksite, acquisition: acquired, construction,
+    const operationalFailure = causes.length === 1 ? operationalAuthorFailure(owner.prefix, causes[0]!, owner.lifecycle) : null;
+    return { owner, request, parent, envelope, nativeWorksite, acquisition: acquired, construction, operationalFailure,
       priorWorksite: null, currentWorksite: null, origins: construction === null ? [] : [construction],
       causes: causes.filter((c): c is NonNullable<typeof c> => c !== null),
       counterevidenceAssets: causes.flatMap(c => jobEnvelope(c!.result.value)?.assets ?? []) };
@@ -367,6 +412,7 @@ export function jobRevisionSelectionMatchesBasis(basis: SemanticStageNativeBasis
     const phase = subject.nativeWorksite.construction === null ? "preconstruction" : "postconstruction";
     const selectedStage = subject.owner.lifecycle.stages.findIndex(s => s.declarationRef === output.selectedStageRef);
     return active !== null && output.nativePhase === phase &&
+      (subject.operationalFailure === null || output.mode === "stage_revision" && output.selectedStageRef === subject.operationalFailure.stageRef) &&
       (active.length === 0 || output.selectedObligationRefs.length > 0) &&
       output.selectedObligationRefs.every(r => active.some(v => v.binding.obligationRef === r)) &&
       (phase === "preconstruction" ? output.mode === "stage_revision" && output.selectedTargetRefs.length === 0 && selectedStage >= 0 && selectedStage <= subject.envelope.assets.length :

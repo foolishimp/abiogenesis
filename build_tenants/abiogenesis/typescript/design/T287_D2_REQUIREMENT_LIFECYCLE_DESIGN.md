@@ -48,6 +48,23 @@ and admitted binding correspondence and observes current context; later
 consumers use that one admitted acquisition and exact referenced leaves within
 its basis, without repeating failure discovery.
 
+A separately admitted preconstruction operational arm may use a lifecycle
+author's genuine undispatched preparation failure. Existing CCall outcome
+authentication must retain the sole undispatched evidence, blocked J, exact
+input and declared author locus; the retained diagnostic must be the existing
+typed native instruction-assembly refusal for that stage, not arbitrary thrown
+text, dispatched actor failure or semantic falsification. Its input must equal
+the unique earlier advancing assessed predecessor in the same source Run and
+original job/root. The failed declared stage is the only operational selection
+alternative; all already-assessed assets and their active obligations survive.
+The ordinary native intake, independent selector, authenticated request and
+whole published from-stage suffix remain the only progression route. Original
+failure and operational reason stay explicit; no unsatisfied assessment is
+invented. Missing/ambiguous evidence, crossed input/locus/root, changed physical
+context or missing binding cover refuses through the existing owner channel.
+This applies Product S03/S06 and CONTINUATION-001/004/008/014 to the existing
+source-pressure relation; it changes no Public/schema or Product operation.
+
 The existing F_P selection receives authenticated alternatives, complete
 source, current context, obligations and counterevidence through a deterministic
 decision view of the same admitted subject. The assembly owner renders each
@@ -68,9 +85,9 @@ owned evaluator-only job data remains withheld from the selector, with its
 omission explicit and the original job identity preserved. Declared STDO
 policy/sourceContent remains unchanged. No
 caller summary, truncation or failed transport output becomes selection truth.
-Its preconstruction
+Its semantic-refusal preconstruction
 arm selects only an existing stage at or before the refused stage, with no
-target references; postconstruction also admits construction repair and exact
+target references; the operational arm selects only its actual failed stage; postconstruction also admits construction repair and exact
 historical Design paths. F_D request construction binds the admitted selection
 and intake Results into the existing terminal-readable SemanticRevisionRequest.
 Its `selectionChoice` contains the admitted `mode` and `selectedStageRef`, so
@@ -85,6 +102,14 @@ No caller extracts private leaf ids or writes a proof packet. Selection and
 execution are two ordinary invocations: the second starts a declared whole
 suffix. Its projection refuses a start whose entry differs from the admitted
 mode/stage. HoG traverses the suffix; no caller stage loop is introduced.
+
+Stage author/assessor presentation also conserves each typed byte body once:
+observed file identities retain original encoding/digest/length and a verified
+text view, without also displaying base64. Opaque application JSON is untouched.
+Revision task metadata references the one task historical-assets array; full
+admitted envelopes remain unchanged. Distinct accepted and rejected semantics,
+full source, required inventory and role policy remain present. The original
+assembly byte bound and required-content refusals still apply.
 
 D2 retains unaffected accepted assets, original source and oracle, historical
 counterevidence, grounded terms, outstanding obligations and binding versions.

@@ -21,13 +21,11 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 ### Current checkpoint disposition — 2026-09-25
 
-[T287 current disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md#current-core28-boundary-and-glc-declaration-repair)
-owns the frontier. Core28's current-bound selector succeeds and its corrected
-refusal path retains the suffix's actual pre-actor preparation failure through
-fresh Public evidence. GLC's existing semantic stage/role declaration correction is independently
-accepted, dev15 is verified, and one installed continuation is selected. The
-required standards are present; original contracts and limits are unchanged.
-Preserve the existing source/oracle/job and all historical outcomes. Native
+[T287 current disposition](../.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md#accepted-correction-and-core30-continuation)
+owns the accepted source/component correction and exact core30/dev15 package/caller.
+One installed continuation is selected after checkpoint push, using the latest
+failed Run and preserving admitted Requirements and original job/oracle/root.
+Existing controls and declared progression remain. Installed success, native
 correction, LIFE01, fifteen-family qualification and RC1 remain open.
 
 GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original

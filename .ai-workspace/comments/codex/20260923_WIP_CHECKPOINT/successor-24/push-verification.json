@@ -1,0 +1,15 @@
+{
+  "verifiedAt": "2026-09-25T12:46:35.879659+00:00",
+  "abiogenesis": {
+    "head": "b657db8139d97e5560222aa800985c962c5511b6",
+    "remoteMain": "b657db8139d97e5560222aa800985c962c5511b6",
+    "trackedWorktreeClean": true
+  },
+  "odd_glc": {
+    "head": "9742b724082951fccf7cf29a6490df67e4c478ad",
+    "remoteMain": "9742b724082951fccf7cf29a6490df67e4c478ad",
+    "trackedWorktreeClean": true
+  },
+  "actualLsRemoteVerified": true,
+  "activeRuntimeExcluded": true
+}
