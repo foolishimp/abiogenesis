@@ -1,0 +1,13 @@
+{
+  "predecessor": "compiled-45",
+  "unchanged": 5230,
+  "changed": 3,
+  "changedPaths": [
+    "build/code/src/product/catalog.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "outsideAcceptedScope": [],
+  "generatedIdentityPropagation": "capability graph changed only content/digest/identity fields; installed Product verifier validates derived identities",
+  "packageDriverNote": "initial expected-delta check omitted the derived capability graph; corrected after exact field readback without repeating build, pack or install"
+}

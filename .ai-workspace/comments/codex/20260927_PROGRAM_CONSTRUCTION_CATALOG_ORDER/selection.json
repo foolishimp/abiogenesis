@@ -1,0 +1,23 @@
+{
+  "role": "Worker",
+  "executive": "root",
+  "method": "STDO v2.5.1-rc.1",
+  "changeClass": "realization_refactor",
+  "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+  "sourceSha256": "bd2a160d28f7a8b6c67dcbfb3fc559ea3d0d28059f2dc873c5df530b3639c75a",
+  "requirements": [
+    "REQ-P-INSTALL-049",
+    "REQ-P-INSTALL-051"
+  ],
+  "subject": "Product CatalogReadinessBasis ordered installed ProductSet",
+  "proof": "existing installed-02 refusal and same pure-owner input; selected exact installed thread follows",
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION_CATALOG_ORDER",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46"
+  ],
+  "stop": "different authority change or admitted-history mutation"
+}

@@ -1,0 +1,8 @@
+
+> @abiogenesis/typescript-tenant@5.0.0-rc.1 build
+> npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs
+
+
+> @abiogenesis/typescript-tenant@5.0.0-rc.1 clean
+> node scripts/clean.mjs
+

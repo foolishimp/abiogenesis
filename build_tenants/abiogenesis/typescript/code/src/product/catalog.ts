@@ -404,8 +404,8 @@ export function admitGraphFunctionCatalog(
     resolvedLock: basis.resolvedLock,
     verifiedProducts: [...basis.verifiedProducts].sort((left, right) =>
       compareUnicodeCodeUnits(left.productId, right.productId)),
-    installedProducts: [...basis.installedProducts].sort((left, right) =>
-      compareUnicodeCodeUnits(left.productId, right.productId)),
+    // ProductSet order belongs to the selected lock, not catalog row ordering.
+    installedProducts: [...basis.installedProducts],
     publications: basis.publications
       .map((publication) =>
         canonicalizeAuthoredGtlCarrier(publication, "module_publication")

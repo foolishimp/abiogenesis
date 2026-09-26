@@ -1,0 +1,41 @@
+[
+  {
+    "path": "build/code/src/product/catalog.js",
+    "before": {
+      "path": "build/code/src/product/catalog.js",
+      "bytes": 26716,
+      "sha256": "080871d43df3a9f4941d72fa90b6711c2e4e92df26cbf24cf639584f1ef2d387"
+    },
+    "after": {
+      "path": "build/code/src/product/catalog.js",
+      "bytes": 26720,
+      "sha256": "be43625ca325855297a70e22707f951e4773b0594fbb4b4e0d021527758605a1"
+    }
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "4801dc03f74830b3857bd21d62435d7da8d849c1fa9da8beaddc1e8d9ae055a2"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "598207c1d69386c5bd52f2b3b447a0a7f280f1c125247ad84ddea887aad91ddc"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "4a434e072c96ee5db12784d95e69e38251cec9d58925f895bd2431037063aee3"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "2d7f81b0ea2472e3109e68c76d3fc11cf465287cfde4fdd1d2bdf5de28ce8ff6"
+    }
+  }
+]

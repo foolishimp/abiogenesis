@@ -1,0 +1,16 @@
+{
+  "buildExitCode": 0,
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+      "sha256": "bd2a160d28f7a8b6c67dcbfb3fc559ea3d0d28059f2dc873c5df530b3639c75a"
+    }
+  ],
+  "sourceSubjects": [
+    "20260927_PROGRAM_CONSTRUCTION_CATALOG_ORDER/freeze.json"
+  ],
+  "sourceReturns": [
+    "20260927_PROGRAM_CONSTRUCTION_CATALOG_ORDER/regression-result.json"
+  ],
+  "boundary": "packaged candidate; review pending, no runtime acceptance"
+}

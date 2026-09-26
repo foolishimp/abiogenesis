@@ -1,0 +1,56 @@
+{
+  "status": "source_ready",
+  "selectedMethod": {
+    "uri": "stdo://releases/v2.5.1-rc.1/",
+    "manifestSha256": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+    "verificationReference": ".ai-workspace/comments/codex/20260926_PROGRAM_CONSTRUCTION_CALCULUS/review.md",
+    "basisSelection": "stdo_abiogenesis.json#/constitution/stdo/basis"
+  },
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+      "sha256": "bd2a160d28f7a8b6c67dcbfb3fc559ea3d0d28059f2dc873c5df530b3639c75a",
+      "bytes": 35463
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/catalog.js",
+      "sha256": "be43625ca325855297a70e22707f951e4773b0594fbb4b4e0d021527758605a1",
+      "bytes": 26720
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION_CATALOG_ORDER/regression.mjs",
+      "sha256": "2f3d2606b2bff5206731f299c3811b480b288550c55f4074685f8aacde15f59d",
+      "bytes": 3163
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION_CATALOG_ORDER/regression-result.json",
+      "sha256": "abdf73520a33075bf961fb3089724aa91c0ace2111ddac70db307d280b48a6da",
+      "bytes": 678
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION_CATALOG_ORDER/catalog-input.json.gz",
+      "sha256": "856aaca110ec525b743f32d88cafd9db44a4b7150dc9ee197d3a454fb52a25aa",
+      "bytes": 3965456
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION_CATALOG_ORDER/input-provenance.json",
+      "sha256": "471b5ddc40a43b2441ccd559a6a092a72c34c36bc5333345cb03c2f1d6ce7341",
+      "bytes": 364
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION_CATALOG_ORDER/build.stdout",
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+      "bytes": 215
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION_CATALOG_ORDER/build.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "checks": {
+    "buildExitCode": 0,
+    "pureRegression": "six predicates passed in1.238s"
+  },
+  "runtimeClaim": "none"
+}

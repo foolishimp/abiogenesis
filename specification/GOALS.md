@@ -48,11 +48,13 @@ preparation then refuses the context bound. T-287 selects lossless context
 sharing and the missing operational recovery case so the declared Evidence-only
 suffix can consume valid completed work. Native44 completes that recovery with satisfied stage assessments, fresh Public
 readback and exact conservation of completed work. Independent review supports
-the application behavior and content; the selected S06 witness still requires
-prospectively declared predecessor inputs and its evaluator records. T-043 owns
-that consumer work, reusing valid artifacts and execution evidence. The current
-qualification source bindings and exact core45 package are accepted; complete
-qualification remains open. T-287 owns the
+the application behavior and content. T-043's first Program-construction
+increment now supplies the missing computed evaluator records through accepted
+installed positive/refusal proof on core46. The selected S06 witness still
+requires its prospective construction-input relation and comparison. T-043
+owns that consumer work, reusing valid artifacts and execution evidence.
+The current qualification source bindings and exact core46 package are accepted;
+complete qualification remains open. T-287 owns the
 bounded grants, proof and disposition. Preserve valid
 work and triage any further delivery failure against the end-to-end calculus
 before selecting its owning repair. Native39 remains historical closed-failed

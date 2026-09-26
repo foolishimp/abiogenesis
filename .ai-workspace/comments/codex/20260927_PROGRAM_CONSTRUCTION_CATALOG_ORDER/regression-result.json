@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "checks": [
+    "unchanged core45 reproduces actual refusal",
+    "exact three-Product lock order accepted",
+    "original ordered ProductSet and binding conserved",
+    "reordered installs under unchanged lock refused",
+    "independent verified/publication order remains canonical",
+    "missing install still refused"
+  ],
+  "inputSha256": "sha256:49f803a2d35a50086e0887a45b2a1986821f36b8d93ce2a0062f7aa833567b38",
+  "sourceSha256": "sha256:bd2a160d28f7a8b6c67dcbfb3fc559ea3d0d28059f2dc873c5df530b3639c75a",
+  "elapsedMs": 1238.1779580000002,
+  "scope": "pure readiness over retained actual input; no installed successor or runtime qualification"
+}

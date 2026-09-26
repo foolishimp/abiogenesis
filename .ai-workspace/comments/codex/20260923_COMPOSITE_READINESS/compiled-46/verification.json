@@ -1,0 +1,23 @@
+{
+  "kind": "product_verification_success",
+  "elapsedMs": 9003.26975,
+  "coordinates": {
+    "verifiedArtifact": {
+      "ref": "product-verification://abiogenesis/8347b94eb23e33fdaee0a101ef5053aa94de7548cb18c9eba65fe5dfe71553cd",
+      "digest": "sha256:8347b94eb23e33fdaee0a101ef5053aa94de7548cb18c9eba65fe5dfe71553cd"
+    },
+    "descriptor": {
+      "ref": "descriptor://abiogenesis/typescript-tenant/5ea793a0ca674277911dc18b1802a6d4c0fb8d9466b2828f68a9dec67e7c8113",
+      "digest": "sha256:907fdcae4632a9ba9c75b1e1ba55809fcd711e97a1cbd9f71c8af83bcb44f983"
+    },
+    "localNativeEvidence": {
+      "ref": "local-native-evidence://abiogenesis/product-verification/bdfe13401ebe912a1f95abb5c250d40ac07601270992ed406a75db85798df0b4",
+      "digest": "sha256:bdfe13401ebe912a1f95abb5c250d40ac07601270992ed406a75db85798df0b4"
+    },
+    "provenance": {
+      "ref": "provenance://abiogenesis/product-verification/2d4e767a9374c95f2e4522064e432e6878703be27884bad4a4cddeb4c4b17c44",
+      "digest": "sha256:2d4e767a9374c95f2e4522064e432e6878703be27884bad4a4cddeb4c4b17c44"
+    }
+  },
+  "scope": "exact private package; installed delivery and release qualification remain separate"
+}

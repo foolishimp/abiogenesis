@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/package-once.py", line 42, in <module>
+    assert {r['path'] for r in delta}<=allowed, [r['path'] for r in delta if r['path'] not in allowed]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ['contracts/capabilities/capability-definition-graph.json']
