@@ -60,13 +60,13 @@ and admitted binding correspondence and observes current context; later
 consumers use that one admitted acquisition and exact referenced leaves within
 its basis, without repeating failure discovery.
 
-A separately admitted preconstruction operational arm may use a lifecycle
+A separately admitted operational arm may use a lifecycle
 author or assessor's genuine undispatched preparation failure. Existing CCall
 outcome authentication retains the sole undispatched evidence, blocked J,
 exact input, implementation, role/locus, frame and order; the diagnostic is the
 existing typed native instruction-assembly refusal for that stage and role,
 not arbitrary thrown text, dispatched actor failure or semantic falsification.
-An author's input equals the unique earlier advancing assessed predecessor.
+Before construction, an author's input is the unique earlier advancing assessed predecessor.
 An assessor's input equals the unique earlier advancing authored Result of
 that declared stage: its final asset retains exact candidate bytes, original
 author provenance and assessment:null, with all prior assets satisfied. Both
@@ -74,6 +74,31 @@ retain the same source Run and original job/root/lifecycle. The operational
 alternative is only that failed stage and role; all obligations survive and no
 unsatisfied assessment is invented. Missing/ambiguous producer, crossed input,
 wrong locus/order/root, stale context or absent binding cover refuses.
+
+After construction and command execution, an Evidence-author preparation
+refusal conserves its exact admitted Evidence-input producer. The existing
+input-provenance owner follows the failed consumer's input Result through any
+transparent closed workflow foldbacks to the native Evidence leaf. Value
+equality alone never selects that producer. The native Evidence owner has
+already admitted its construction, execution, artifact and predicate joins;
+the operational intake retains those complete bytes and exact Result/actor
+coordinates. Its phase is postconstruction, its sole stage alternative is the
+failed Evidence author, and its target selection is empty. The active
+obligations, original source/oracle, four satisfied predecessor stages and
+revision ancestry survive. An empty affected-obligation selection does not
+remove any retained obligation or supply an assessment.
+
+This recovery uses the existing published Evidence-only suffix: projection,
+Evidence author, independent assessor, terminal. It grants no construction or
+command effect. The pure revision constructor takes retained evidence from the
+authenticated advancing producer, because an operational preparation failure
+is not a semantic counterevidence envelope. Historical construction/execution
+and actor identities remain historical; successor admission does not rename
+them as new effects or mark Evidence accepted. The existing source owner,
+W0-to-W1 cover, fresh context observation and physical-context currentness
+checks still apply. Relevant admitted invalidation after the conserved
+producer, including after intake acquisition, refuses reuse; changed or
+unknown dependency observations cannot be hidden by retaining old evidence.
 
 F_D derives the entry role from those authenticated facts, never actor prose.
 The existing terminal-readable request's stage selectionChoice may include
@@ -142,8 +167,9 @@ counterevidence, grounded terms, outstanding obligations and binding versions.
 The selected semantic stages use the existing D2 author/assessor owners.
 Application correction uses native construction restricted to affected paths,
 existing C2 over all declared target/dependency snapshots, then fresh Evidence.
-An Evidence-only semantic re-entry retains its authenticated prior native
-observation and re-evaluates that evidence without granting construction writes.
+An Evidence-only semantic re-entry or admitted Evidence-author operational
+recovery retains its authenticated prior native observation and re-evaluates
+that evidence without granting construction writes or repeating commands.
 Old workspace semantic files remain historical when superseded by current
 admitted D2 semantic assets; the native constructor receives that distinction.
 

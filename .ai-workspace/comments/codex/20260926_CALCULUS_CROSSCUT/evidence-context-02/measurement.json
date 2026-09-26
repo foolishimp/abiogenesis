@@ -1,0 +1,57 @@
+{
+  "scope": "actual native42 input plus Product-derived operational recovery with the native owner-required construction origin; exact published role/source material; finite assessor candidates; component admission/current-W premises; no actor",
+  "inputDigest": "sha256:03e5a0bdea479e006ea766f761f44e83f3f4d2fc0cc55dd1ec55c7013722a92d",
+  "recoveryDigest": "sha256:176bc2b6ff0dc53ef7a1ed40fc9c842bcf4552ca8dbdd27412d0922779e2cdaa",
+  "recoveryOriginResultRef": "result://abiogenesis/e14ee1f3df7ac6292eba353ccf7b9cb000c5c25d4f49e0d997577b22ea61bb36",
+  "recoveryOriginResultDigest": "sha256:e14ee1f3df7ac6292eba353ccf7b9cb000c5c25d4f49e0d997577b22ea61bb36",
+  "measurements": [
+    {
+      "subject": "original",
+      "role": "author",
+      "promptBytes": 965884,
+      "maxPromptBytes": 1048576,
+      "evidenceBytes": 150849,
+      "worksiteBytes": 671,
+      "origins": 0,
+      "commandResults": 9,
+      "predicates": 13,
+      "artifacts": 14
+    },
+    {
+      "subject": "original",
+      "role": "assessor",
+      "promptBytes": 968267,
+      "maxPromptBytes": 1048576,
+      "evidenceBytes": 152501,
+      "worksiteBytes": 671,
+      "origins": 0,
+      "commandResults": 9,
+      "predicates": 13,
+      "artifacts": 14
+    },
+    {
+      "subject": "recovery_with_owner_required_origin",
+      "role": "author",
+      "promptBytes": 966599,
+      "maxPromptBytes": 1048576,
+      "evidenceBytes": 150849,
+      "worksiteBytes": 1796,
+      "origins": 1,
+      "commandResults": 9,
+      "predicates": 13,
+      "artifacts": 14
+    },
+    {
+      "subject": "recovery_with_owner_required_origin",
+      "role": "assessor",
+      "promptBytes": 968982,
+      "maxPromptBytes": 1048576,
+      "evidenceBytes": 152501,
+      "worksiteBytes": 1796,
+      "origins": 1,
+      "commandResults": 9,
+      "predicates": 13,
+      "artifacts": 14
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+(node:2930) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (767.74225ms)
+ℹ Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.
+✔ native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings (456.683833ms)
+ℹ Component proof: exact historical admission tables, real ancestry/acquisition reuse, binding-cover algorithm and current physical context; no installed/provider or original operational-failure admission claim.
+✔ Product author recovery values retain accepted stages under an explicit failed-stage premise (60.768792ms)
+ℹ Product derivation only: supplied failed-stage premise and value coordinates; no intake, call, prefix or producer admission claim.
+✔ Product assessor recovery values preserve pending Design and select assessment-first without reauthoring (108.824792ms)
+ℹ {"scope":"Product values and declared assessment-first graph only; operational role supplied, no intake or runtime admission claim","retainedInput":null,"successorDigest":"sha256:f4c7c3ff867cb8366e1bd50276db12fecce5b5310ca551520047ef0dbbdf9122","asset":"semantic-job-asset://abiogenesis/530bba040e3d662888fb2b44080e56729c17536b306965ce0f7e61b946fafbc2","assets":4,"program":"program://odd-glc/native-semantic-revision/from-design-assessment@5"}
+✖ native Evidence preparation recovery conserves its exact folded producer through intake and the declared Evidence-only suffix (506.382667ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2209.288166
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:531:1
+✖ native Evidence preparation recovery conserves its exact folded producer through intake and the declared Evidence-only suffix (506.382667ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:624:9)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,16 @@
+(node:11094) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native revision decision view preserves byte identity, non-UTF8 absence and changed candidate observations (230.132542ms)
+✔ native revision decision view leaves all opaque C2 and application JSON verbatim (1.217542ms)
+✔ native42 operational selector context preserves current inventory and qualified completed evidence (479.126375ms)
+ℹ {"scope":"Exact native42 payload shape for component selector context; source/current-W/intake/selection admission are premises, not a runnable request","promptBytes":1260169,"selectorAssemblyMaxPromptBytes":null,"boundClaim":"No selector cap exists; this is selected-material/proportionality evidence only.","currentInventoryFiles":20,"completedObservationRef":"native-work-observation://abiogenesis/b17961c3865b64b65275692cd892ea5fb59e9c7fbe9ef14335e751b903c06479","parentDigest":"sha256:03e5a0bdea479e006ea766f761f44e83f3f4d2fc0cc55dd1ec55c7013722a92d","sections":{"role":1431,"source":6709,"obligations":107144,"predecessors":442932,"worksite":276885,"evidence":326903,"task":96657,"response":1401}}
+✔ native42 Evidence role context preserves selected observations under the unchanged bound (1018.652583ms)
+ℹ {"scope":"actual native42 author input and exact published role/source material; finite Product-derived assessor candidate; component admission premises; no actor","inputDigest":"sha256:03e5a0bdea479e006ea766f761f44e83f3f4d2fc0cc55dd1ec55c7013722a92d","measurements":[{"role":"author","promptBytes":965884,"maxPromptBytes":1048576,"evidenceBytes":150849,"commandResults":9,"predicates":13,"artifacts":14},{"role":"assessor","promptBytes":968267,"maxPromptBytes":1048576,"evidenceBytes":152501,"commandResults":9,"predicates":13,"artifacts":14}]}
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1776.99925

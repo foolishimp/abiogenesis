@@ -216,8 +216,10 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
       : projectOpenedCCallTraversalInputAtPrefix(prefix, causeGraph, cause.state.cCall.cCallRef);
     const currentProducer = current === null ? null : projectWorksiteInputLeafResultAtPrefix(prefix, current.input.inputRef, current.input.inputDigest);
     if (operationalFailure !== undefined && (current === null || currentProducer === null)) return refuse("cause_input_absent");
+    const operationalInput = current === null ? null : jobEnvelope(current.input.value);
     const command = isNativeWorksiteCommandExecutionObservation(cause.state.result.value) ? cause.state.result.value.task : causeBasis?.rawInputValue;
-    const construction = rejected?.evidence?.constructionResult ?? (isNativeWorksiteCommandExecutionTask(command) ? command.sourceNativeWork : null);
+    const construction = rejected?.evidence?.constructionResult ?? operationalInput?.evidence?.constructionResult ??
+      (isNativeWorksiteCommandExecutionTask(command) ? command.sourceNativeWork : null);
     const native = isNativeWorkspaceWorkObservation(construction) ? projectNativeWorkspaceWorkSourceAtPrefix(prefix, construction) : null;
     if (construction !== null && native === null) return refuse("construction_source_mismatch");
     const eligibleParent = ({ state, event }: ReturnType<typeof admittedLeaves>[number]) => {
@@ -233,11 +235,17 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
           last.source.cCallRef === state.cCall.cCallRef && currentProducer?.eventId === event.eventId && same(state.result.value, current!.input.value);
       }
       if (!envelope.assets.every(asset => asset.assessment?.disposition === "satisfied")) return false;
+      // Evidence preparation consumes the admitted evidence fold, not the
+      // earlier Design assessment. Its exact input/foldback producer above
+      // already owns the complete native construction and execution join.
+      const evidenceProducer = operationalFailure?.role === "author" && envelope.evidence !== null && native !== null &&
+        envelope.declaration.stages[envelope.assets.length]?.bodyCapabilities.includes("application_assessment") === true &&
+        [SEMANTIC_STAGE_IDS.nativeEvidenceImplementationRef, ids.nativeEvidenceImplementationRef].some(ref => ref === state.cCall.implementationRef);
       const exactProducer = last === undefined ? state.cCall.implementationRef === SEMANTIC_STAGE_IDS.jobIntakeImplementationRef :
-        state.cCall.cCallRef === (last.assessment!.source.nativeWork?.adapterCCallRef ?? last.assessment!.source.cCallRef) || state.cCall.implementationRef === ids.projectionImplementationRef;
+        state.cCall.cCallRef === (last.assessment!.source.nativeWork?.adapterCCallRef ?? last.assessment!.source.cCallRef) || state.cCall.implementationRef === ids.projectionImplementationRef || evidenceProducer;
       if (!exactProducer) return false;
       if (operationalFailure !== undefined) return currentProducer?.eventId === event.eventId &&
-        same(state.result.value, current!.input.value) && envelope.evidence === null &&
+        same(state.result.value, current!.input.value) && (envelope.evidence === null || evidenceProducer) &&
         envelope.declaration.stages[envelope.assets.length]?.declarationRef === operationalFailure.stageRef;
       if (rejected !== null) return same(envelope.basis, rejected.basis) && same(envelope.assets, rejected.assets.slice(0, -1));
       if (native === null || !isNativeWorkspaceWorkObservation(construction)) return false;
@@ -276,9 +284,12 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
       !same(oldEnvironment.workspaceAuthorityBasis, owner.environment.workspaceAuthorityBasis)) return refuse("historical_environment_mismatch");
     if (projectWorksiteRevisionBindingCover(owner.prefix, oldEnvironment.workspaceBinding, owner.environment.workspaceBinding,
       [parentBasis, causeBasis, sourceRoot, ...(native === null ? [] : [native.sourceBasis])]) === null) return refuse("binding_cover_absent");
-    if (worksiteCommandSourcesInvalidatedAfter(owner.prefix, cause.event.admissionOrdinal, owner.environment.workspaceAuthorityBasis.canonicalRoot, [], expectedContext.readRoots)) return refuse("source_invalidated");
+    if (worksiteCommandSourcesInvalidatedAfter(owner.prefix, operationalInput?.evidence == null ? cause.event.admissionOrdinal : parent.event.admissionOrdinal,
+      owner.environment.workspaceAuthorityBasis.canonicalRoot, [], expectedContext.readRoots)) return refuse("source_invalidated");
     const constructionState = native === null ? null : leaves.find(row => row.event.eventId === native.sourceResult.eventId)?.state;
     if (native !== null && constructionState === undefined) return refuse("construction_result_absent");
+    if (operationalInput?.evidence != null && (constructionState?.result.resultRef !== operationalInput.evidence.constructionResultRef ||
+      constructionState.result.resultDigest !== operationalInput.evidence.constructionResultDigest)) return refuse("construction_source_mismatch");
     return { owner: {...owner, environment:owner.environment}, input, parent: parent.state, cause: cause.state, envelope, expectedContext, grant: invocation.capabilityGrants[0]!,
       construction: constructionState === null || constructionState === undefined ? null : resultCoordinate(constructionState) };
   } catch { return refuse("intake_projection_exception"); }
@@ -335,7 +346,10 @@ function nativeJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknow
       !same(envelope.job, owner.root.rawInputValue) || envelope.basis.rootExecutionBasisRef !== owner.root.basisRef || !same(envelope.declaration, owner.lifecycle)) return null;
     const current = isSemanticJobRevisionEnvelope(input) ? input.current : { ...envelope, context: nativeWorksite.context };
     if (current.context === null || !semanticJobContextMatches(basis, current, current.context) ||
-      readPhysical && current.evidence === null && !semanticJobContextCurrent(basis, current)) return null;
+      readPhysical && !semanticJobContextCurrent(basis, current)) return null;
+    if (current.evidence !== null && same(current.evidence, envelope.evidence) &&
+      worksiteCommandSourcesInvalidatedAfter(owner.prefix, indexedRuntimeEvents(owner.prefix, "id:" + acquired.result.admissionEventRef)[0]!.admissionOrdinal,
+        owner.environment.workspaceAuthorityBasis.canonicalRoot, [], current.context.readRoots)) return null;
     const operationalFailure = causes.length === 1 ? operationalPreparationFailure(owner.prefix, causes[0]!, owner.lifecycle) : null;
     return { owner, request, parent, envelope, nativeWorksite, acquisition: acquired, construction, operationalFailure,
       priorWorksite: null, currentWorksite: null, origins: construction === null ? [] : [construction],
@@ -491,8 +505,8 @@ export function jobRevisionSelectionMatchesBasis(basis: SemanticStageNativeBasis
     const phase = subject.nativeWorksite.construction === null ? "preconstruction" : "postconstruction";
     const selectedStage = subject.owner.lifecycle.stages.findIndex(s => s.declarationRef === output.selectedStageRef);
     return active !== null && output.nativePhase === phase &&
-      (subject.operationalFailure === null || output.mode === "stage_revision" && output.selectedStageRef === subject.operationalFailure.stageRef) &&
-      (active.length === 0 || output.selectedObligationRefs.length > 0 || phase === "preconstruction" &&
+      (subject.operationalFailure === null || output.mode === "stage_revision" && output.selectedStageRef === subject.operationalFailure.stageRef && output.selectedTargetRefs.length === 0) &&
+      (active.length === 0 || output.selectedObligationRefs.length > 0 ||
         subject.operationalFailure !== null && selectedStage === subject.envelope.assets.length - (subject.operationalFailure.role === "assessor" ? 1 : 0)) &&
       output.selectedObligationRefs.every(r => active.some(v => v.binding.obligationRef === r)) &&
       (phase === "preconstruction" ? output.mode === "stage_revision" && output.selectedTargetRefs.length === 0 && selectedStage >= 0 && selectedStage <= subject.envelope.assets.length :

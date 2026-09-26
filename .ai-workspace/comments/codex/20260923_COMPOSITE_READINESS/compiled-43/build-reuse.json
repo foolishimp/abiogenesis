@@ -1,0 +1,9 @@
+{
+  "status": "REUSED_EXACT_FROZEN_BUILD",
+  "buildRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/build-final.json",
+  "newCompile": false,
+  "newManifestGeneration": false,
+  "newTests": false,
+  "evidence": "4 presentation cases,4 preserved recovery cases+new full recovery case and exact native42 pure preservation proof; see frozen returns for component premises and retained failures.",
+  "review": "pending; paid launch held"
+}

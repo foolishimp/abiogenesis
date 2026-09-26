@@ -1,0 +1,7 @@
+{
+  "role": "Writer /root",
+  "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/witness-01/execute.mjs",
+  "beforeSha256": "ffbaeed8b7e00871306fbbed41f39b9a8f2bc6fcadb40dc8e85aee2faeaced1a",
+  "afterSha256": "99ca8b6326f9046b17c48f7c628fcc3614b45f52fc792ee572ad6db346d95014",
+  "change": "Witness reason candidate label core42 to actual core44; no caller mechanics or selection changed."
+}

@@ -1,0 +1,140 @@
+{
+  "activation": "EVIDENCE-ORIGIN-01",
+  "scope": "Typed native revision-origin presentation and its composed regression only",
+  "subjectFiles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 94082,
+      "sha256": "9f809b6c52be40b0805e12b93f291124af276996f548ffad7a5802446ca89941"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "bytes": 108670,
+      "sha256": "61a23e6c4efe4e2aeb3cbf18b4b65915640f8a933a6845e85803cb86fb0aa158"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "bytes": 91076,
+      "sha256": "da80447a48c7c5aa224e2a809d447246ee3edd11077a7eb228a7ae578bfbac6b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+      "bytes": 40053,
+      "sha256": "c6da45e0f3018f1308d88f24a4b471b2372d538607b053e9898ea125e870c561"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "3a50cff127905665361571803c241091f683e7c6ef45eacfa98987038a5f1161"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "436b777567a7a5c5cf226a9399abd6500689c1d1c87d3a4fef79742bd3b5d395"
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/RETURN.md",
+      "bytes": 3665,
+      "sha256": "a3c5dcd1d5a732085e705bbad7217236c96012d0ccde33e796285e6087680c23"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/executive-selection.json",
+      "bytes": 1450,
+      "sha256": "807b9ce53a6f8703f9366142d25c348ef3cd5cd57a169d3a76cdb4e841074ed3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/activation-preimages.json",
+      "bytes": 18403,
+      "sha256": "4393371fa7f2d7301f30584557361c0e05b5fea8462b6564023f46778589c660"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/preservation.json",
+      "bytes": 118,
+      "sha256": "bc1196756005029879cc407b0ad0a55850ba1cbb9687ef3146697f37bd0380a0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/build.json",
+      "bytes": 623,
+      "sha256": "c7423869f5bc18ff09ffd63d541a6e725b1ba7653dbf28f8df8c418327998694"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/tsc.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/tsc.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/manifest.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/manifest.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/checks.json",
+      "bytes": 265,
+      "sha256": "296d84168890fdde8ba320bba7ba066f3173180201ace8bc60268b16dcca3848"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/checks.stdout",
+      "bytes": 1878,
+      "sha256": "f32501642703faa5160680096061fc091c4bdd1b4bebeb63bc3de28b34a014ad"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/checks.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/measurement.json",
+      "bytes": 1864,
+      "sha256": "63d92e6752a7fd5356372bcc6b0edec61e0fb5c685d2c50961bbf6a3bdb5f428"
+    }
+  ],
+  "reusedFiles": [
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 81200,
+      "sha256": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/review.md",
+      "bytes": 13344,
+      "sha256": "c7e50b979bf114c211ee7eb40a074792596274ba78ddb89012b9a8646e1d5b7f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/findings.json",
+      "bytes": 2875,
+      "sha256": "5a71d5528cec16fd2a97e5bc5b001ed83bcc2393e0e4b40ef480ce548efc64b3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/native42-selected-events.json",
+      "bytes": 6413207,
+      "sha256": "733701942d27d7767167db5a2d527e64f887661ff533bb024999375acfea35ba"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/role-source.json",
+      "bytes": 309823,
+      "sha256": "b617f8f70f2b7374ad867897f6c68d5b897b454009ad9ef47b97145438fa2821"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/native42-selector-component-fixture.json",
+      "bytes": 13904702,
+      "sha256": "1bd71a0947d9ced16eeed8c3d497e0230314f50474f2dc64971431fa6fa5c3e3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/retained-product-proof.json",
+      "bytes": 1166,
+      "sha256": "54d3d6de70893ca89a0251c4ffdc89094059ec10c5eb4cac0f372377300235f3"
+    }
+  ]
+}

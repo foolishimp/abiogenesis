@@ -1,0 +1,18 @@
+{
+  "scope": "Prospective lossless presentation feasibility only; same retained selection and unchanged bound.",
+  "promptBytes": 1052001,
+  "maxPromptBytes": 1048576,
+  "evidenceBytes": 396526,
+  "evidenceFields": {
+    "artifacts": 6367,
+    "constructionResult": 294526,
+    "constructionResultDigest": 73,
+    "constructionResultRef": 87,
+    "executionObservation": 94668,
+    "executionResultDigest": 73,
+    "executionResultRef": 87,
+    "kind": 38,
+    "rawEvidenceDigest": 73
+  },
+  "sourceTouched": false
+}

@@ -1,0 +1,133 @@
+{
+  "activation": "T287_NATIVE44_EVIDENCE_CONTINUATION",
+  "recordingRole": "Writer /root",
+  "executiveDisposition": "Accept combined context/recovery source and origin correction, and exact core44 package; select actual native intake then the declared suffix returned by it. Installed lifecycle and release closure remain open.",
+  "recordedAt": "2026-09-26T09:36:54.468629+00:00",
+  "authority": "T-287 GOAL-035 LIFE01; owner authorization to continue to 5.0 under STDO 2.5.1 RC1",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-interface-integration-frame",
+  "changeClass": "realization_refactor with accepted bounded D2 design reframe",
+  "sourceReturns": [
+    "evidence-context-01/RETURN.md",
+    "evidence-recovery-01/RETURN.md",
+    "evidence-context-02/RETURN.md"
+  ],
+  "independentReviews": [
+    "evidence-context-01/review.md",
+    "evidence-context-02/review.md"
+  ],
+  "sourceDisposition": {
+    "disposition": "CLOSED_SOURCE_READY",
+    "finding": "EVIDENCE-ORIGIN-01",
+    "frameResult": "satisfied",
+    "scope": "Typed native revision-origin presentation and composed recovery regression only",
+    "freezeFileSha256": "9cd731abb807d68aae412c691066a150bdfeb6bf7632eae81173d334f1342f14",
+    "frozenEntriesVerified": 26,
+    "priorEvidenceFilesVerified": 70,
+    "unchangedRecoveryMembersVerified": 6,
+    "mismatches": [],
+    "remainingActionableFindings": [],
+    "recoveredAuthorPromptBytes": 966599,
+    "recoveredFiniteAssessorPromptBytes": 968982,
+    "maxPromptBytes": 1048576,
+    "requiredOriginRetained": true,
+    "priorCombinedReviewRetained": true,
+    "nativeInstalledSuccess": "indeterminate",
+    "ordinaryLlmUsability": "indeterminate",
+    "additionalProbes": 0,
+    "buildOrSuiteRepeats": 0,
+    "decisionConsumer": "/root"
+  },
+  "core": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:f89e8037921d086505ed7c067720b942948b6326d4cacbb34ede0b2007e97da3",
+      "productContentDigest": "sha256:7aa123cdd0909118b2f0f535c8646c74b938fb538f44308171072af4b486f7dc",
+      "manifestDigest": "sha256:3df648293dc01b5282ad20fddaac9368610ae9ffb417a8f6a32af367b2daf2ff",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceRun": {
+    "digest": "sha256:cce568ace4a12b125cc9c16938636becfa70fbdf04ad8190f919b2ef3960404c",
+    "ref": "run://abiogenesis/a86e01c3b4f85bb53caca93af82add805baadf5c708ded9aa27e3257f1fe6989"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:d3cc6a4f48c603a59303a5efb172fde4d72530f5b643eeedc8bb6c99d0053b68",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:22f54122cedef70d54f5f30a12970a0f0a4e22ede25927988b8fcc09631a690b",
+    "prefixLength": 531792783,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "currentPreparedPrefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "prefixLength": 536480831,
+    "prefixDigest": "sha256:3cdc93639b550509c1a3b3d626289e094dbc94dd8e195814797a5fb366919bb9",
+    "storeIdentity": {
+      "device": 16777230,
+      "inode": 459405010,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+    },
+    "coordinateDigest": "sha256:fd0442414805d1119426c915e7671435aed580efd40a0282b74c16b8a28b40eb"
+  },
+  "writerGrant": {
+    "actor": "/root as Writer",
+    "effects": [
+      "tracking and caller-label records",
+      "existing witness admission",
+      "one native intake",
+      "one actual selected declared whole suffix",
+      "fresh Public reads and conserved-work check"
+    ],
+    "territory": [
+      "native44 evidence and callers",
+      "compiled-44/return.md",
+      "T-287 current status",
+      "existing selected worksite and event resource through installed owners"
+    ],
+    "stop": "First unexpected refusal or runtime failure returns to Executive triage; no automatic retries, forced suffix, event transplantation, reauthoring of valid work, or raised limits."
+  },
+  "controls": {
+    "kind": "odd_glc_full_sandbox_transport",
+    "schemaVersion": "1",
+    "configuration": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "12"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 5400000
+    },
+    "resolvedCommand": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "executableDigest": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+    "reportedVersion": "2.1.280 (Claude Code)",
+    "transportDigest": "sha256:51050fef1e4a879e1ca851cdfefa9b50fed352647037f08fef95405c3edc6803"
+  },
+  "preserve": [
+    "native42 Run and failed status",
+    "native42 construction/execution and original source/oracle",
+    "complete provenance and evidence",
+    "unchanged dev16"
+  ],
+  "claimLimits": [
+    "source readiness is not installed qualification",
+    "finite assessor fixture is not actual independent semantic assessment",
+    "package rc.1 version is not a release claim"
+  ]
+}

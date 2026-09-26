@@ -27,12 +27,13 @@ is documented and independently reviewed. Product and its existing requirement
 owners govern state, context and recovery. The owner now selects T-287's
 [forced-ranked repairs](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#forced-ranked-calculus-repairs),
 with coherent input transfer, recovery and role/context repairs accepted in
-their recorded scopes. Ranks 7–8 are accepted and packaged. Native40 completed Design assessment
-and closed blocked with supported semantic counterevidence and matching fresh
-Public reads. T-287 selects the existing correction path on the reviewed core41,
-from that actual result; its admitted selector owns the repair stage. Native41
-exposed a predecessor-lineage refusal before any actor; T-287 selects its bounded
-calculus triage and repair, then resumes the same correction. T-287 owns the
+their recorded scopes. Ranks 7–8 and the bounded predecessor-lineage repair are
+accepted and packaged. Native42 proves the repaired installed intake, accepts
+revised Design, and completes construction and nine command runs. Evidence-author
+preparation then refuses the context bound. T-287 selects lossless context
+sharing and the missing operational recovery case so the declared Evidence-only
+suffix can consume valid completed work. Its source, proof and continuation
+disposition remain T-287-owned. T-287 owns the
 bounded grants, proof and disposition. Preserve valid
 work and triage any further delivery failure against the end-to-end calculus
 before selecting its owning repair. Native39 remains historical closed-failed

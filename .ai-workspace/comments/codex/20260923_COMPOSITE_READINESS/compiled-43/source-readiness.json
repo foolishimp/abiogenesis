@@ -1,0 +1,16 @@
+{
+  "status": "FROZEN_HASHES_MATCH",
+  "members": 64,
+  "frozenSubjects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/freeze.json",
+      "sha256": "6c0235002d2f1eae003aaf2aa7ffd089f8b2a55ceebf1e9857821451222a91da"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/freeze.json",
+      "sha256": "4d573c793b155977e1036f62bcb4ccc77a76d589b742a5ae0da1dbbae3447017"
+    }
+  ],
+  "sourceAndEmissionMembers": 15,
+  "newBuild": false
+}

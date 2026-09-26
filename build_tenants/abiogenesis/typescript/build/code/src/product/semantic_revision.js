@@ -77,7 +77,7 @@ export function semanticRevisionSelectionSchema(nativePhase) {
     return { type: "object", additionalProperties: false,
         required: ["kind", "schemaVersion", "parent", "causes", "mode", "selectedStageRef", "selectedObligationRefs", "selectedTargetRefs", "reasonRef", ...(nativePhase === undefined ? [] : ["nativePhase"])],
         properties: { kind: { const: "semantic_revision_selection" }, schemaVersion: { const: "5.0.0" }, parent: coordinateSchema, causes: { type: "array", minItems: 1, items: coordinateSchema },
-            mode: { enum: nativePhase === "preconstruction" ? ["stage_revision"] : ["construction_repair", "stage_revision"] }, selectedStageRef: { type: ["string", "null"] }, selectedObligationRefs: { type: "array", minItems: nativePhase === "preconstruction" ? 0 : 1, items: { type: "string" } }, selectedTargetRefs: { type: "array", items: { type: "string" } }, reasonRef: { type: "string" },
+            mode: { enum: nativePhase === "preconstruction" ? ["stage_revision"] : ["construction_repair", "stage_revision"] }, selectedStageRef: { type: ["string", "null"] }, selectedObligationRefs: { type: "array", minItems: nativePhase === undefined ? 1 : 0, items: { type: "string" } }, selectedTargetRefs: { type: "array", items: { type: "string" } }, reasonRef: { type: "string" },
             ...(nativePhase === undefined ? {} : { nativePhase: { const: nativePhase } }) } };
 }
 const requestSchema = v.strictObject({ kind: v.literal("semantic_revision_request"), schemaVersion: v.literal("5.0.0"),
@@ -94,7 +94,9 @@ function requestChoiceMatchesSelection(request, selection) {
 const unique = (xs) => new Set(xs).size === xs.length;
 export function isSemanticRevisionSelection(x) {
     return v.is(selectionSchema, x) && unique(x.causes.map(c => c.resultRef)) && unique(x.selectedObligationRefs) &&
-        (x.selectedObligationRefs.length > 0 || x.nativePhase === "preconstruction") &&
+        // Empty affected work is a native stage-selection candidate. The owning
+        // admitted subject must still warrant it; phase alone grants no recovery.
+        (x.selectedObligationRefs.length > 0 || x.nativePhase !== undefined && x.mode === "stage_revision" && x.selectedTargetRefs.length === 0) &&
         (x.nativePhase !== "preconstruction" || x.mode === "stage_revision" && x.selectedTargetRefs.length === 0) &&
         unique(x.selectedTargetRefs) && (x.mode === "construction_repair" ? x.selectedStageRef === null : x.selectedStageRef !== null);
 }
@@ -223,11 +225,16 @@ export function deriveSemanticJobRevision(parent, request, selection, worksite, 
         // This role comes from ABG's authenticated preparation failure, never a
         // selector label or the serialized request alone.
         const operational = operationalFailedStage !== undefined;
+        const evidenceOnly = native !== undefined && selection.mode === "stage_revision" && prior.declaration.stages.find(s => s.declarationRef === selection.selectedStageRef)?.bodyCapabilities.includes("application_assessment") === true;
+        const operationalEvidence = operational && operationalRole === "author" && evidenceOnly && native?.construction != null &&
+            prior.evidence !== null && prior.evidence.constructionResultRef === native.construction.resultRef &&
+            prior.evidence.constructionResultDigest === native.construction.resultDigest;
         const pending = operational && operationalRole === "assessor" ? prior.assets.at(-1) : undefined;
         const stageIndex = prior.assets.length - (operationalRole === "assessor" ? 1 : 0);
         const entryRole = request.selectionChoice?.mode === "stage_revision" ? request.selectionChoice.entryRole ?? "author" : "author";
         if (entryRole !== (operational ? operationalRole : "author") ||
-            operational && (native === undefined || native.construction !== null || selection.mode !== "stage_revision" ||
+            operational && (native === undefined || (native.construction === null ? prior.evidence !== null : !operationalEvidence) ||
+                selection.mode !== "stage_revision" || selection.selectedTargetRefs.length !== 0 ||
                 selection.selectedStageRef !== operationalFailedStage.declarationRef ||
                 prior.declaration.stages[stageIndex] === undefined ||
                 hash(operationalFailedStage) !== hash(prior.declaration.stages[stageIndex]) ||
@@ -258,8 +265,10 @@ export function deriveSemanticJobRevision(parent, request, selection, worksite, 
             prior.declaration.stages.find(s => s.declarationRef === a.stageRef)?.bodyCapabilities.includes("application_assessment")));
         if (preserved.some(a => a.assessment?.disposition !== "satisfied"))
             return null;
-        const evidenceOnly = native !== undefined && selection.mode === "stage_revision" && prior.declaration.stages.find(s => s.declarationRef === selection.selectedStageRef)?.bodyCapabilities.includes("application_assessment") === true;
-        if (evidenceOnly && (native.construction === null || counterevidence?.evidence == null))
+        // Operational pressure has no rejected semantic envelope. Preserve the
+        // admitted producer's evidence with its old result and actor identities.
+        const retainedEvidence = operational ? prior.evidence : counterevidence?.evidence;
+        if (evidenceOnly && (native.construction === null || retainedEvidence == null))
             return null;
         const body = { request, selection, affectedStageRefs: [...affected], preservedAssetRefs: preserved.map(a => a.assetRef),
             retainedTerms: terms, retainedBindings: active.map(v => v.binding), historicalAssets: history,
@@ -267,7 +276,7 @@ export function deriveSemanticJobRevision(parent, request, selection, worksite, 
         const basisDigest = hash(body);
         const result = { kind: "semantic_revision_envelope", schemaVersion: "5.0.0",
             revisionBasis: { ...body, basisDigest, basisRef: `semantic-revision://abiogenesis/${basisDigest.slice(7)}` },
-            current: { ...prior, assets: pending === undefined ? preserved : [...preserved, pending], worksite, evidence: evidenceOnly ? counterevidence.evidence : null, ...(native === undefined ? {} : { context: native.context }) } };
+            current: { ...prior, assets: pending === undefined ? preserved : [...preserved, pending], worksite, evidence: evidenceOnly ? retainedEvidence : null, ...(native === undefined ? {} : { context: native.context }) } };
         return isSemanticJobRevisionEnvelope(result) ? deepFreeze(result) : null;
     }
     catch {

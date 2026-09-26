@@ -1,0 +1,13 @@
+{"phase":"full_sandbox_setup_start","pid":16241,"startedAt":"2026-09-26T09:10:41.301Z","nativeActors":false}
+{"phase":"full_sandbox_public_setup","ordinal":1,"label":"verify-core43"}
+{"phase":"full_sandbox_public_setup","ordinal":2,"label":"verify-dev16"}
+{"phase":"full_sandbox_public_setup","ordinal":3,"label":"resolve-core43-dev16"}
+{"phase":"full_sandbox_public_setup","ordinal":4,"label":"install-core43"}
+{"phase":"full_sandbox_public_setup","ordinal":5,"label":"install-dev16"}
+{"phase":"full_sandbox_public_setup","ordinal":6,"label":"bootstrap-native-d2-intake-bind-existing-workspace"}
+{"phase":"full_sandbox_public_setup","ordinal":7,"label":"catalog"}
+{"phase":"full_sandbox_public_setup","ordinal":8,"label":"view"}
+{"phase":"full_sandbox_public_setup","ordinal":9,"label":"intake-conformance"}
+real 75.68
+user 84.42
+sys 6.98

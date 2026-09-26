@@ -1,0 +1,168 @@
+{
+  "status": "WRITER_FROZEN_SOURCE_COMPONENT_READY",
+  "activation": "NATIVE-EVIDENCE-RECOVERY-01",
+  "frozenAt": "2026-09-26T09:06:23.534450+00:00",
+  "ownedSourceAndEmittedMembers": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "bytes": 92918,
+      "sha256": "f116eeb46ba67721e672e0b35f6a884d425d411186cd191f3d90e806e81f6f67"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "bytes": 37050,
+      "sha256": "1820eccd3c2e3a13e7087b8c39a71c971bed487cf86e808c93da02ab370f8549"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "bytes": 87332,
+      "sha256": "caf83aaac05e760cf8a5508736dd7161760b4805279b75fd15d499f53bd7624c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "bytes": 68168,
+      "sha256": "a5d44af0906334cb09d048a08e0267374ca79141ce99275ec4913c785240104c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+      "bytes": 94712,
+      "sha256": "494e5e4e0109505e1d3ebc1b1e27ef06fa6b26e35127398468bb6219838ecfa5"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.d.ts",
+      "bytes": 10245,
+      "sha256": "aabda321ba70baf461a08179a2e51a9cd14f2205e04cb03dbcec9d49bdb35c38"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.js",
+      "bytes": 32207,
+      "sha256": "a49075264bb7e02fdf3508cf97a76fe21202992beeca66c99a952073223920ae"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.d.ts",
+      "bytes": 10201,
+      "sha256": "0783ade88f01509a67336e3a6fdfc06e98752bf9b334af83f8f200d5253cf7bb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "7af0c401210b56fea60c6d4687b35ae5057529d1c1ac84bbb53fcbe04f2f0e4b"
+    }
+  ],
+  "companionBuildBasis": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 92145,
+      "sha256": "8c9e9cfc9de942f4e0f9c79cc426393ce8cbdcdead4441c3a516656f84403e1e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "bytes": 89242,
+      "sha256": "d21f572a4c89e26c9f0bcf21ebfb12cdfc0296d51b36a7cb04e71925fda63148"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/build-final.json",
+      "bytes": 665,
+      "sha256": "36c82a92630b13f5de0a20b654a540913fe0706a525856eaa9b4619197c68e37"
+    }
+  ],
+  "evidence": [
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/activation.md",
+      "bytes": 1929,
+      "sha256": "f0e9110f6c4a89341cc7826dd24dd72e167b04d596d8fef841c2974a48cf9a22"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/preimages.json",
+      "bytes": 1261,
+      "sha256": "6c3824e6ea7874cf37f379465a7cc233d1c750035870a529b331bbfce444aa20"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/focused-tests-01.json",
+      "bytes": 353,
+      "sha256": "057176501fcd2419d3bbde6aae1d096d9295ed3ebeb6231ea5ba98d9c194e04c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/focused-tests-01.stdout",
+      "bytes": 2776,
+      "sha256": "92f2ca3103b0a698d4a2b67259d803d4ed2592029e83a630de3fd8db6341808d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/focused-tests-02.json",
+      "bytes": 353,
+      "sha256": "14e6d7e7ef0833ee6bd6d8573cea093ba5b9f26f0670ac0cf76ea56d2df4f123"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/focused-tests-02.stdout",
+      "bytes": 2773,
+      "sha256": "e322622351f25d70f521f612ac6efbd34e8506ead4072b425bccdfb4128d6b23"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/focused-tests-03.json",
+      "bytes": 279,
+      "sha256": "301017b92ef7a4d86ee8bbdb86fcb08988b81cfffb82141bcb8de6bd740de18e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/focused-tests-03.stdout",
+      "bytes": 1207,
+      "sha256": "9b37c439bc3bb6b99b7cef09dd1a51eb2aa094a279a12c012da3f23cf5198f5f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/focused-tests-04.json",
+      "bytes": 278,
+      "sha256": "8b26e2a83d899e9d4e52faf2d112b9020fee3bb12b4cd2c538d77ce309488b5e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/focused-tests-04.stdout",
+      "bytes": 1230,
+      "sha256": "60497ac0a489f4d3fa4d875be87467f981089a52f9a3ab58599cfc1c6105048e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/retained-product-proof.mjs",
+      "bytes": 8215,
+      "sha256": "00243ff80c068a358ba3981be474d5037d9932b32e38a034da3c073e1dcf7aa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/retained-product-proof-02.json",
+      "bytes": 230,
+      "sha256": "683be5f94b94babf683f9dbaa730cc57eed5955c089adf0df06f7d6981e2b047"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/retained-product-proof.json",
+      "bytes": 1166,
+      "sha256": "54d3d6de70893ca89a0251c4ffdc89094059ec10c5eb4cac0f372377300235f3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/native42-selector-component-fixture.json",
+      "bytes": 13904702,
+      "sha256": "1bd71a0947d9ced16eeed8c3d497e0230314f50474f2dc64971431fa6fa5c3e3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/native42-suffix-extraction.json",
+      "bytes": 1445,
+      "sha256": "a2f4fafdeb757596ac9084b1bb3cd70d1da24c577471a2f3bc154d49330dd675"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/native42-events-109400-109464.jsonl",
+      "bytes": 9847145,
+      "sha256": "828854791ce819638979504d7e502f76bbe098869b62e1dc1fa4d378ddaf983e"
+    }
+  ],
+  "checks": {
+    "finalSharedTscExit": 0,
+    "finalSharedManifestExit": 0,
+    "preservedCasesPassed": 4,
+    "recoveryCasePassed": 1,
+    "syntax": "pass",
+    "diffCheck": "pass",
+    "native42PureConservation": "pass"
+  },
+  "nonclaims": [
+    "Independent acceptance",
+    "Installed continuation",
+    "Runtime admission by component premises",
+    "Fresh native42 workspace currentness",
+    "Product qualification or release"
+  ],
+  "subjectDigest": "sha256:50cee013fc4bb518d1cb15fb53823cd6ebc15a1905ab94ac3f6b8ac2bc81e613"
+}

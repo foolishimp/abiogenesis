@@ -1,0 +1,23 @@
+{
+  "activation": "NATIVE-EVIDENCE-RECOVERY-01",
+  "recordingRole": "Writer /root, tracking and grant only",
+  "executiveDecision": "Accept the independent recovery triage; select the existing owners' missing operational postconstruction case under unchanged Product recovery law.",
+  "triage": "recovery-triage.md",
+  "triageSha256": "957a48339c71109f0969c3c8e9a583db6f06963bb48f0c0a952ca12eaaeaa86f",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-interface-integration-frame + Owner/Conservation",
+  "changeClass": "design_reframe_with_realization_refactor",
+  "reentry": "Product execution/context calculus -> T287_D2_REQUIREMENT_LIFECYCLE_DESIGN operational recovery relation",
+  "outcome": "An undispatched Evidence-author preparation failure preserves admitted construction/execution and reaches the existing Evidence-only Program through ordinary intake, selection and projection.",
+  "writer": "/root/evidence_recovery_repair, gpt-6-astra max for the coupled design/realization relation",
+  "territory": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+    "directly required existing semantic revision tests",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "evidence-recovery-01 evidence directory"
+  ],
+  "conservation": "Exact admitted producer and folded input provenance, old construction/execution identities, source/oracle/accepted assets/obligations, genuine failure class, fresh changed-binding cover, currentness and invalidation; no invented acceptance or repeated effects merely to restore the boundary.",
+  "validation": "Actual-shape component producer -> preparation failure -> intake -> selection -> Evidence-only projection, with material negative cases; independent frozen review then installed continuation. Component premises are explicit.",
+  "coordination": "Assembly Writer owns the sole shared emission after both source subjects are ready; recovery Writer does not build/package/install. Existing reviewer remains independent.",
+  "stops": "No Product/requirements/GLC/application/cap changes, new controller, broad campaign or provider call. Return to Executive if this scope cannot satisfy the relation."
+}

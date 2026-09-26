@@ -1,0 +1,112 @@
+{
+  "status": "PREPARED_NOT_EXECUTED",
+  "role": "Writer /root",
+  "sourceRun": {
+    "digest": "sha256:cce568ace4a12b125cc9c16938636becfa70fbdf04ad8190f919b2ef3960404c",
+    "ref": "run://abiogenesis/a86e01c3b4f85bb53caca93af82add805baadf5c708ded9aa27e3257f1fe6989"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:d3cc6a4f48c603a59303a5efb172fde4d72530f5b643eeedc8bb6c99d0053b68",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:22f54122cedef70d54f5f30a12970a0f0a4e22ede25927988b8fcc09631a690b",
+    "prefixLength": 531792783,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "physicalEntry": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "prefixLength": 534136807,
+    "prefixDigest": "sha256:ea7cf721c78d67dd95be623591b64e2ad57528b4b0ace0a056215d5c5e500c40",
+    "storeIdentity": {
+      "device": 16777230,
+      "inode": 459405010,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+    },
+    "coordinateDigest": "sha256:3258818fa7a8addc167c07d3c6f04aa597d2eb7f6ab8862da7fc6819c030e39e"
+  },
+  "sourceOfClose": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/preparation/setup-resource-close.json",
+  "callerScripts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/preparation/prepare.mjs",
+      "sha256": "1bfcc49cb3d2220facd77ce19ef4ff60fab9fe1da78bc04452a348dd0e150953",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/preparation/prepare.mjs",
+      "sourceSha256": "2bbf6e8a26c36e4661e09ada3e66fea73f21995f465142eb93b25f74d047745d",
+      "changes": [
+        "core installation label only"
+      ]
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/witness-01/execute.mjs",
+      "sha256": "ffbaeed8b7e00871306fbbed41f39b9a8f2bc6fcadb40dc8e85aee2faeaced1a",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/witness-01/execute.mjs",
+      "sourceSha256": "ffbaeed8b7e00871306fbbed41f39b9a8f2bc6fcadb40dc8e85aee2faeaced1a",
+      "changes": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/intake-01/construct.mjs",
+      "sha256": "860e59780e6f11e84cf7e0107752a8aaf054fef27ea9acd3781db2e9e1203a45",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/intake-01/construct.mjs",
+      "sourceSha256": "860e59780e6f11e84cf7e0107752a8aaf054fef27ea9acd3781db2e9e1203a45",
+      "changes": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/intake-01/run.mjs",
+      "sha256": "45d73da54245993fb5acf2ab00e4c2f4986d4dccc9b7166350f95cb0f85d1fca",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/intake-01/run.mjs",
+      "sourceSha256": "45d73da54245993fb5acf2ab00e4c2f4986d4dccc9b7166350f95cb0f85d1fca",
+      "changes": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/intake-01/read-intake.mjs",
+      "sha256": "2952fedfba80ab3891998cde8599c6bada1f93dfbab3ee81556b9d399dee40a5",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/intake-01/read-intake.mjs",
+      "sourceSha256": "2952fedfba80ab3891998cde8599c6bada1f93dfbab3ee81556b9d399dee40a5",
+      "changes": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/prepare.mjs",
+      "sha256": "47f8fe843bb460ec05d6bdf56512572f18d7a989c16a48fb1f47ee86142928d2",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/suffix-01/prepare.mjs",
+      "sourceSha256": "47f8fe843bb460ec05d6bdf56512572f18d7a989c16a48fb1f47ee86142928d2",
+      "changes": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/run.mjs",
+      "sha256": "729bb33d9c69fa7d320efdcc6e099ff1981f7976c3da62f5260b3b12d4bc1992",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/suffix-01/run.mjs",
+      "sourceSha256": "729bb33d9c69fa7d320efdcc6e099ff1981f7976c3da62f5260b3b12d4bc1992",
+      "changes": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/read-suffix.mjs",
+      "sha256": "a9787444b8ad212583868fbe76d7e34fa9929b7cd21867f9b25b136adeeb75ac",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/suffix-01/read-suffix.mjs",
+      "sourceSha256": "a9787444b8ad212583868fbe76d7e34fa9929b7cd21867f9b25b136adeeb75ac",
+      "changes": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/read-evidence.mjs",
+      "sha256": "d29327c1f940b47b01d0e486c899334bc7eaf708ce8276fb39bc3744fb65988a",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/suffix-01/read-evidence.mjs",
+      "sourceSha256": "d29327c1f940b47b01d0e486c899334bc7eaf708ce8276fb39bc3744fb65988a",
+      "changes": []
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/check-conserved-work.mjs",
+      "sha256": "ffd19b6c00c4284e6e898bd95ddd2f82de7e2b9394cdbe26e449bb8c4fe12ffb",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native43/suffix-01/check-conserved-work.mjs",
+      "sourceSha256": "ffd19b6c00c4284e6e898bd95ddd2f82de7e2b9394cdbe26e449bb8c4fe12ffb",
+      "changes": []
+    }
+  ],
+  "controlsUnchanged": true,
+  "selection": "Actual admitted intake terminal and public declaration lookup; no forced stage",
+  "requires": "Frozen repaired source, independent delta disposition, exact package and ordinary acquisition/witness"
+}

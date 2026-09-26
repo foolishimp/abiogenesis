@@ -1,0 +1,24 @@
+{
+  "scope": "actual native42 author input and exact published role/source material; finite Product-derived assessor candidate; component admission premises; no actor",
+  "inputDigest": "sha256:03e5a0bdea479e006ea766f761f44e83f3f4d2fc0cc55dd1ec55c7013722a92d",
+  "measurements": [
+    {
+      "role": "author",
+      "promptBytes": 965884,
+      "maxPromptBytes": 1048576,
+      "evidenceBytes": 150849,
+      "commandResults": 9,
+      "predicates": 13,
+      "artifacts": 14
+    },
+    {
+      "role": "assessor",
+      "promptBytes": 968267,
+      "maxPromptBytes": 1048576,
+      "evidenceBytes": 152501,
+      "commandResults": 9,
+      "predicates": 13,
+      "artifacts": 14
+    }
+  ]
+}

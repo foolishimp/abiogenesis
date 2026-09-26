@@ -1,0 +1,54 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "sha256": "9f809b6c52be40b0805e12b93f291124af276996f548ffad7a5802446ca89941"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+    "sha256": "61a23e6c4efe4e2aeb3cbf18b4b65915640f8a933a6845e85803cb86fb0aa158"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+    "sha256": "da80447a48c7c5aa224e2a809d447246ee3edd11077a7eb228a7ae578bfbac6b"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+    "sha256": "c6da45e0f3018f1308d88f24a4b471b2372d538607b053e9898ea125e870c561"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "3a50cff127905665361571803c241091f683e7c6ef45eacfa98987038a5f1161"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "sha256": "436b777567a7a5c5cf226a9399abd6500689c1d1c87d3a4fef79742bd3b5d395"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+    "sha256": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/review.md",
+    "sha256": "c7e50b979bf114c211ee7eb40a074792596274ba78ddb89012b9a8646e1d5b7f"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/findings.json",
+    "sha256": "5a71d5528cec16fd2a97e5bc5b001ed83bcc2393e0e4b40ef480ce548efc64b3"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/native42-selected-events.json",
+    "sha256": "733701942d27d7767167db5a2d527e64f887661ff533bb024999375acfea35ba"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/role-source.json",
+    "sha256": "b617f8f70f2b7374ad867897f6c68d5b897b454009ad9ef47b97145438fa2821"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/native42-selector-component-fixture.json",
+    "sha256": "1bd71a0947d9ced16eeed8c3d497e0230314f50474f2dc64971431fa6fa5c3e3"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/retained-product-proof.json",
+    "sha256": "54d3d6de70893ca89a0251c4ffdc89094059ec10c5eb4cac0f372377300235f3"
+  }
+]

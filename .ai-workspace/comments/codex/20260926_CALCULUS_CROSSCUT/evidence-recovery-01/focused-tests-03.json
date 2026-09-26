@@ -1,0 +1,12 @@
+{
+  "args": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=native Evidence preparation",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "exitCode": 1,
+  "elapsedSeconds": 0.9488584999926388
+}

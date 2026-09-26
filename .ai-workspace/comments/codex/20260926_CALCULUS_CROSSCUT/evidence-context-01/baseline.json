@@ -1,0 +1,41 @@
+{
+  "scope": "Actual admitted input and exact published role/source spans; auth/prefix/role admission are component premises. No actor/current-worksite read.",
+  "inputDigest": "sha256:03e5a0bdea479e006ea766f761f44e83f3f4d2fc0cc55dd1ec55c7013722a92d",
+  "stageRef": "stage://odd-glc/generic-lifecycle/evidence@5",
+  "outcomeKind": "native_instruction_assembly_refusal",
+  "refusal": {
+    "kind": "native_instruction_assembly_refusal",
+    "cause": "declared_bound_overflow",
+    "policy": "assembly://odd-glc/generic-lifecycle/evidence@5",
+    "role": "author",
+    "unresolvedRefs": [
+      "maxPromptBytes"
+    ]
+  },
+  "maxPromptBytes": 1048576,
+  "promptBytes": 4982367,
+  "sections": {
+    "role": 113917,
+    "source": 6709,
+    "obligations": 126795,
+    "predecessors": 112108,
+    "worksite": 671,
+    "evidence": 4167931,
+    "task": 450566,
+    "response": 3563
+  },
+  "evidenceFields": {
+    "artifacts": 36785,
+    "constructionResult": 2012930,
+    "constructionResultDigest": 73,
+    "constructionResultRef": 87,
+    "executionObservation": 2117251,
+    "executionResultDigest": 73,
+    "executionResultRef": 87,
+    "kind": 38,
+    "rawEvidenceDigest": 73
+  },
+  "commands": 9,
+  "predicates": 13,
+  "artifacts": 14
+}

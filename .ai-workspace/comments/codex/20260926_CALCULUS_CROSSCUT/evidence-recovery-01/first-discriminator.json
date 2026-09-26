@@ -1,0 +1,10 @@
+{
+  "sourceReadyEmission": "../evidence-context-01/build.json",
+  "focusedTests": "focused-tests-01.json",
+  "firstObservedFailure": "new component path reaches jobRevisionSelectionMatchesBasis and rejects empty postconstruction selectedObligationRefs",
+  "preservedCasesPassed": 4,
+  "secondaryIndependentObservation": "retained-product-proof.mjs over exact native42 Result109418 returns null at the same isSemanticRevisionSelection guard",
+  "owningCorrection": "Product semanticRevisionSelectionSchema and isSemanticRevisionSelection native candidate grammar; ABG and pure derivation still decide operational eligibility and preserve all bindings",
+  "sourceChanged": "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+  "status": "corrected_source_awaiting_coordinated_emission_and_focused_recheck"
+}

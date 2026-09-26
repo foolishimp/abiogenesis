@@ -1,0 +1,29 @@
+{
+  "status": "source_ready_not_frozen",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "preimageSha256": "9036931bc5f7641ce32b0c5d0a6b10f88a7d70bf6fbb5541b9fdcf0a37092aba",
+      "currentSha256": "f116eeb46ba67721e672e0b35f6a884d425d411186cd191f3d90e806e81f6f67",
+      "bytes": 92918
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "preimageSha256": "681072c77b262c56a90839f4aaed40eafe069b3b71c6cb072a4128c5364eba2a",
+      "currentSha256": "1820eccd3c2e3a13e7087b8c39a71c971bed487cf86e808c93da02ab370f8549",
+      "bytes": 37050
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "preimageSha256": "6b37376bd9f89d3a20c2aff62bd9348538390965e96f2f06823e9d1deae75902",
+      "currentSha256": "fb628f531a8dbccc46f27aefef3a08b1ac32fe0fa9b9c6b97942a3247c356a4f",
+      "bytes": 87010
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "preimageSha256": "8183439af945c312d4e61f0a64de37ea25fce4b1c22074561faae105f6858ed5",
+      "currentSha256": "a5d44af0906334cb09d048a08e0267374ca79141ce99275ec4913c785240104c",
+      "bytes": 68168
+    }
+  ]
+}

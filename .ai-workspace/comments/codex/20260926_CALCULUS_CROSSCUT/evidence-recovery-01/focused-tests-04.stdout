@@ -1,0 +1,12 @@
+(node:11856) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native Evidence preparation recovery conserves its exact folded producer through intake and the declared Evidence-only suffix (840.612ms)
+ℹ {"claim":"component producer to Evidence-only projection","parentDigest":"sha256:06af7a4fb01c434bf3376905bf31f6c8d4c5d1606cb069e77957a2fe175f6065","successorDigest":"sha256:12ab9c51a67b4fd9fda18a019172209d29d693413c85434b1586dc3ab3738f42","preservedStages":4,"retainedObligations":1,"oldConstruction":"result://abiogenesis/9eebec8f873196615b8973e49007c77e9afa2eaa9844db4fca64488fd28e5962","oldExecution":"result://abiogenesis/bfeb64045991efdb3ec5c3620f56fb38b67c77e66ce3e948977a88cccbbcdc6f","premises":"CCall/fibre, native-source, traversal-current-input, binding/install and invalidation admissions supplied; real fold provenance, recovery owner, physical context, cover algorithm, pure constructors and declared caller selection exercised; no actor, command, installed Run or qualification"}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1110.577042

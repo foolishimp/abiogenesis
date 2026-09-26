@@ -1,0 +1,6 @@
+{
+  "role": "Writer /root",
+  "status": "RECIPE_ONLY_AWAITING_ORIGIN_REPAIR_FREEZE",
+  "predecessor": "compiled-43",
+  "scope": "Only reviewed Evidence-origin projection delta; reuse unchanged recovery/source evidence, one package and offline verification. Native launch requires closed independent delta disposition."
+}

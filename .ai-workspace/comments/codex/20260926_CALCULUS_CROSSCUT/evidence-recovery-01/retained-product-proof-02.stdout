@@ -1,0 +1,23 @@
+{
+  "claim": "Pure Product conservation of exact retained native42 producer; operational and omitted admission coordinates are explicit component premises",
+  "inputValueDigest": "sha256:03e5a0bdea479e006ea766f761f44e83f3f4d2fc0cc55dd1ec55c7013722a92d",
+  "successorDigest": "sha256:176bc2b6ff0dc53ef7a1ed40fc9c842bcf4552ca8dbdd27412d0922779e2cdaa",
+  "conserved": {
+    "stages": 4,
+    "obligations": 15,
+    "artifacts": 14,
+    "commands": 9,
+    "predicates": 13,
+    "evidenceDigest": "sha256:8e5e8f0477c9479a8b6968812b118126d50b5f53dd6a57945a33cd78b7197adc",
+    "constructionResultRef": "result://abiogenesis/e14ee1f3df7ac6292eba353ccf7b9cb000c5c25d4f49e0d997577b22ea61bb36",
+    "executionResultRef": "result://abiogenesis/5f743236d9c21a82eb4da9d1fff8590403ae087db386f1a32d7d6c39b46ac8f5"
+  },
+  "effectPermission": "Evidence-only; construction constructor refuses",
+  "acceptance": "No Evidence candidate or assessment manufactured",
+  "nonclaims": [
+    "No runtime acquisition or fresh-workspace currentness",
+    "No binding cover admission",
+    "No admitted request",
+    "No provider, native effect, replay, package or installed qualification"
+  ]
+}

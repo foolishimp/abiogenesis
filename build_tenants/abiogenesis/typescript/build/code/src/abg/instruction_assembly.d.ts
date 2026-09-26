@@ -4,6 +4,7 @@ import { type SemanticEvidenceInput } from "../product/semantic_stage.js";
 import { type SemanticStageNativeBasis } from "./semantic_stage.js";
 import type { ProbabilisticWorkerRequest } from "../implementation/contracts.js";
 import { type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 export interface NativeInstructionAssembly {
     readonly kind: "native_instruction_assembly";
     readonly schemaVersion: "5.0.0";
@@ -37,12 +38,187 @@ export declare function worksiteCommandExecutionAttemptRef(occurrence: Readonly<
  * prompt overrides. This projection performs no helper or filesystem effect. */
 export declare function constructWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, supplied: unknown): Readonly<NativeInstructionAssembly> | null;
 export declare function requireWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, supplied: unknown): Readonly<NativeInstructionAssembly>;
-/** Deterministic prompt view of the authenticated raw evidence. No truncation,
- * normalization, inferred judgment or replacement of the admitted envelope. */
+/** Deterministic projection of required admitted evidence. Artifact/log bytes
+ * are exact; no truncation, normalization, inferred judgment or raw-envelope
+ * replacement occurs. Historical task/inventory bodies are not role material. */
 export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenceInput | null): Readonly<{
-    kind: string;
-    rawEvidenceDigest: `sha256:${string}`;
+    constructionResult: Readonly<Record<string, JsonValue>> | {
+        task: {
+            kind: "native_workspace_work_task";
+            schemaVersion: "5.0.0";
+            taskDigest: `sha256:${string}`;
+            bodyDisposition: string;
+        };
+        before: {
+            kind: "worksite_context_observation";
+            schemaVersion: "5.0.0";
+            observationRef: string;
+            observationDigest: `sha256:${string}`;
+            workspaceAuthorityBasisRef: string;
+            workspaceAuthorityBasisDigest: `sha256:${string}`;
+            workspaceBindingIdentity: string;
+            workspaceBindingDigest: `sha256:${string}`;
+            bodyDisposition: string;
+        };
+        after: {
+            kind: "worksite_context_observation";
+            schemaVersion: "5.0.0";
+            observationRef: string;
+            observationDigest: `sha256:${string}`;
+            workspaceAuthorityBasisRef: string;
+            workspaceAuthorityBasisDigest: `sha256:${string}`;
+            workspaceBindingIdentity: string;
+            workspaceBindingDigest: `sha256:${string}`;
+            bodyDisposition: string;
+        };
+        kind: "native_workspace_work_observation";
+        schemaVersion: "5.0.0";
+        observationRef: string;
+        observationDigest: Sha256Digest;
+        changedPaths: readonly string[];
+        report: import("../product/native_workspace_work.js").NativeWorkspaceWorkReport | null;
+        assessment?: Readonly<Record<string, JsonValue>>;
+        provenance: import("../product/native_workspace_work.js").NativeWorkspaceWorkProvenance;
+    };
     executionObservation: {
+        task: import("../product/worksite_command_execution.js").WorksiteCommandExecutionTask | import("../index.js").WorksiteRevisionCommandExecutionTask | {
+            sourceReacquisition?: import("../product/worksite_command_execution.js").NativeWorksiteCommandReacquisition | {
+                request: {
+                    sourceNativeWork: {
+                        task: {
+                            kind: "native_workspace_work_task";
+                            schemaVersion: "5.0.0";
+                            taskDigest: `sha256:${string}`;
+                            bodyDisposition: string;
+                        };
+                        before: {
+                            kind: "worksite_context_observation";
+                            schemaVersion: "5.0.0";
+                            observationRef: string;
+                            observationDigest: `sha256:${string}`;
+                            workspaceAuthorityBasisRef: string;
+                            workspaceAuthorityBasisDigest: `sha256:${string}`;
+                            workspaceBindingIdentity: string;
+                            workspaceBindingDigest: `sha256:${string}`;
+                            bodyDisposition: string;
+                        };
+                        after: {
+                            kind: "worksite_context_observation";
+                            schemaVersion: "5.0.0";
+                            observationRef: string;
+                            observationDigest: `sha256:${string}`;
+                            workspaceAuthorityBasisRef: string;
+                            workspaceAuthorityBasisDigest: `sha256:${string}`;
+                            workspaceBindingIdentity: string;
+                            workspaceBindingDigest: `sha256:${string}`;
+                            bodyDisposition: string;
+                        };
+                        kind: "native_workspace_work_observation";
+                        schemaVersion: "5.0.0";
+                        observationRef: string;
+                        observationDigest: Sha256Digest;
+                        changedPaths: readonly string[];
+                        report: import("../product/native_workspace_work.js").NativeWorkspaceWorkReport | null;
+                        assessment?: Readonly<Record<string, JsonValue>>;
+                        provenance: import("../product/native_workspace_work.js").NativeWorkspaceWorkProvenance;
+                    };
+                    currentContext: {
+                        observationRef: string;
+                        observationDigest: `sha256:${string}`;
+                        workspaceAuthorityBasisRef: string;
+                        workspaceAuthorityBasisDigest: `sha256:${string}`;
+                        workspaceBindingIdentity: string;
+                        workspaceBindingDigest: `sha256:${string}`;
+                        bodyDisposition: string;
+                    };
+                    kind: "native_worksite_command_reacquisition_request";
+                    schemaVersion: "5.0.0";
+                    requestRef: string;
+                    requestDigest: Sha256Digest;
+                    source: Readonly<{
+                        prefix: import("./event_store.js").DurablePrefixCoordinate;
+                        graphCallRef: string;
+                        declarationProof: import("./terminal_result_contracts.js").AbgHistoricalDeclarationProof;
+                    }>;
+                    workspaceBinding: import("../index.js").WorkspaceBinding;
+                    capabilityGrant: import("../index.js").CapabilityGrant;
+                    commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommandInput[];
+                    outcomePredicates?: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicateInput[];
+                    allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritoryInput[];
+                    workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+                    selectedSources: readonly Readonly<{
+                        subjectUri: string;
+                        relativePath: string;
+                    }>[];
+                };
+                nativeBasis: Readonly<{
+                    predecessorPrefix: import("./event_store.js").DurablePrefixCoordinate;
+                    cCallRef: string;
+                }>;
+                bindingCoverEventRefs: readonly string[];
+            };
+            sourceNativeWork: {
+                task: {
+                    kind: "native_workspace_work_task";
+                    schemaVersion: "5.0.0";
+                    taskDigest: `sha256:${string}`;
+                    bodyDisposition: string;
+                };
+                before: {
+                    kind: "worksite_context_observation";
+                    schemaVersion: "5.0.0";
+                    observationRef: string;
+                    observationDigest: `sha256:${string}`;
+                    workspaceAuthorityBasisRef: string;
+                    workspaceAuthorityBasisDigest: `sha256:${string}`;
+                    workspaceBindingIdentity: string;
+                    workspaceBindingDigest: `sha256:${string}`;
+                    bodyDisposition: string;
+                };
+                after: {
+                    kind: "worksite_context_observation";
+                    schemaVersion: "5.0.0";
+                    observationRef: string;
+                    observationDigest: `sha256:${string}`;
+                    workspaceAuthorityBasisRef: string;
+                    workspaceAuthorityBasisDigest: `sha256:${string}`;
+                    workspaceBindingIdentity: string;
+                    workspaceBindingDigest: `sha256:${string}`;
+                    bodyDisposition: string;
+                };
+                kind: "native_workspace_work_observation";
+                schemaVersion: "5.0.0";
+                observationRef: string;
+                observationDigest: Sha256Digest;
+                changedPaths: readonly string[];
+                report: import("../product/native_workspace_work.js").NativeWorkspaceWorkReport | null;
+                assessment?: Readonly<Record<string, JsonValue>>;
+                provenance: import("../product/native_workspace_work.js").NativeWorkspaceWorkProvenance;
+            } | {
+                observationRef: string;
+                observationDigest: `sha256:${string}`;
+                presentationRef: string;
+                disposition: string;
+            };
+            kind: "worksite_command_execution_task";
+            workerActorRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerActorRef;
+            workerBindingRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerBindingRef;
+            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
+            materializationPlanRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.materializationPlanRef;
+            schemaVersion: "5.0.0";
+            resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
+            transportLane: "worker_executes";
+            workspaceBinding: import("../index.js").WorkspaceBinding;
+            capabilityGrant: import("../index.js").CapabilityGrant;
+            taskRef: string;
+            taskDigest: Sha256Digest;
+            commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommand[];
+            outcomePredicates: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicate[];
+            allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritory[];
+            workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+            instructionContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef;
+            protectedObservations: readonly import("../product/worksite_command_execution.js").WorksiteProtectedObservation[];
+        };
         commandResults: {
             stdout: {
                 textView: {
@@ -100,7 +276,6 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
             observationRef: string;
             observationDigest: Sha256Digest;
         }[];
-        task: import("../product/worksite_command_execution.js").NativeWorksiteCommandExecutionTask;
         kind: "worksite_command_execution_observation";
         schemaVersion: "5.0.0";
         provenance: import("../product/worksite_command_execution.js").WorksiteCommandExecutionProvenance;
@@ -115,6 +290,144 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         helperArtifactRef: string;
         helperArtifactDigest: Sha256Digest;
     } | {
+        task: import("../product/worksite_command_execution.js").WorksiteCommandExecutionTask | import("../index.js").WorksiteRevisionCommandExecutionTask | {
+            sourceReacquisition?: import("../product/worksite_command_execution.js").NativeWorksiteCommandReacquisition | {
+                request: {
+                    sourceNativeWork: {
+                        task: {
+                            kind: "native_workspace_work_task";
+                            schemaVersion: "5.0.0";
+                            taskDigest: `sha256:${string}`;
+                            bodyDisposition: string;
+                        };
+                        before: {
+                            kind: "worksite_context_observation";
+                            schemaVersion: "5.0.0";
+                            observationRef: string;
+                            observationDigest: `sha256:${string}`;
+                            workspaceAuthorityBasisRef: string;
+                            workspaceAuthorityBasisDigest: `sha256:${string}`;
+                            workspaceBindingIdentity: string;
+                            workspaceBindingDigest: `sha256:${string}`;
+                            bodyDisposition: string;
+                        };
+                        after: {
+                            kind: "worksite_context_observation";
+                            schemaVersion: "5.0.0";
+                            observationRef: string;
+                            observationDigest: `sha256:${string}`;
+                            workspaceAuthorityBasisRef: string;
+                            workspaceAuthorityBasisDigest: `sha256:${string}`;
+                            workspaceBindingIdentity: string;
+                            workspaceBindingDigest: `sha256:${string}`;
+                            bodyDisposition: string;
+                        };
+                        kind: "native_workspace_work_observation";
+                        schemaVersion: "5.0.0";
+                        observationRef: string;
+                        observationDigest: Sha256Digest;
+                        changedPaths: readonly string[];
+                        report: import("../product/native_workspace_work.js").NativeWorkspaceWorkReport | null;
+                        assessment?: Readonly<Record<string, JsonValue>>;
+                        provenance: import("../product/native_workspace_work.js").NativeWorkspaceWorkProvenance;
+                    };
+                    currentContext: {
+                        observationRef: string;
+                        observationDigest: `sha256:${string}`;
+                        workspaceAuthorityBasisRef: string;
+                        workspaceAuthorityBasisDigest: `sha256:${string}`;
+                        workspaceBindingIdentity: string;
+                        workspaceBindingDigest: `sha256:${string}`;
+                        bodyDisposition: string;
+                    };
+                    kind: "native_worksite_command_reacquisition_request";
+                    schemaVersion: "5.0.0";
+                    requestRef: string;
+                    requestDigest: Sha256Digest;
+                    source: Readonly<{
+                        prefix: import("./event_store.js").DurablePrefixCoordinate;
+                        graphCallRef: string;
+                        declarationProof: import("./terminal_result_contracts.js").AbgHistoricalDeclarationProof;
+                    }>;
+                    workspaceBinding: import("../index.js").WorkspaceBinding;
+                    capabilityGrant: import("../index.js").CapabilityGrant;
+                    commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommandInput[];
+                    outcomePredicates?: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicateInput[];
+                    allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritoryInput[];
+                    workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+                    selectedSources: readonly Readonly<{
+                        subjectUri: string;
+                        relativePath: string;
+                    }>[];
+                };
+                nativeBasis: Readonly<{
+                    predecessorPrefix: import("./event_store.js").DurablePrefixCoordinate;
+                    cCallRef: string;
+                }>;
+                bindingCoverEventRefs: readonly string[];
+            };
+            sourceNativeWork: {
+                task: {
+                    kind: "native_workspace_work_task";
+                    schemaVersion: "5.0.0";
+                    taskDigest: `sha256:${string}`;
+                    bodyDisposition: string;
+                };
+                before: {
+                    kind: "worksite_context_observation";
+                    schemaVersion: "5.0.0";
+                    observationRef: string;
+                    observationDigest: `sha256:${string}`;
+                    workspaceAuthorityBasisRef: string;
+                    workspaceAuthorityBasisDigest: `sha256:${string}`;
+                    workspaceBindingIdentity: string;
+                    workspaceBindingDigest: `sha256:${string}`;
+                    bodyDisposition: string;
+                };
+                after: {
+                    kind: "worksite_context_observation";
+                    schemaVersion: "5.0.0";
+                    observationRef: string;
+                    observationDigest: `sha256:${string}`;
+                    workspaceAuthorityBasisRef: string;
+                    workspaceAuthorityBasisDigest: `sha256:${string}`;
+                    workspaceBindingIdentity: string;
+                    workspaceBindingDigest: `sha256:${string}`;
+                    bodyDisposition: string;
+                };
+                kind: "native_workspace_work_observation";
+                schemaVersion: "5.0.0";
+                observationRef: string;
+                observationDigest: Sha256Digest;
+                changedPaths: readonly string[];
+                report: import("../product/native_workspace_work.js").NativeWorkspaceWorkReport | null;
+                assessment?: Readonly<Record<string, JsonValue>>;
+                provenance: import("../product/native_workspace_work.js").NativeWorkspaceWorkProvenance;
+            } | {
+                observationRef: string;
+                observationDigest: `sha256:${string}`;
+                presentationRef: string;
+                disposition: string;
+            };
+            kind: "worksite_command_execution_task";
+            workerActorRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerActorRef;
+            workerBindingRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerBindingRef;
+            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
+            materializationPlanRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.materializationPlanRef;
+            schemaVersion: "5.0.0";
+            resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
+            transportLane: "worker_executes";
+            workspaceBinding: import("../index.js").WorkspaceBinding;
+            capabilityGrant: import("../index.js").CapabilityGrant;
+            taskRef: string;
+            taskDigest: Sha256Digest;
+            commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommand[];
+            outcomePredicates: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicate[];
+            allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritory[];
+            workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+            instructionContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef;
+            protectedObservations: readonly import("../product/worksite_command_execution.js").WorksiteProtectedObservation[];
+        };
         commandResults: {
             stdout: {
                 textView: {
@@ -173,7 +486,6 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
             observationDigest: Sha256Digest;
         }[];
         kind: "worksite_revision_command_execution_observation";
-        task: import("../index.js").WorksiteRevisionCommandExecutionTask;
         snapshotMembers: readonly import("../index.js").WorksiteRevisionSnapshotMember[];
         schemaVersion: "5.0.0";
         provenance: import("../product/worksite_command_execution.js").WorksiteCommandExecutionProvenance;
@@ -187,6 +499,144 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         helperArtifactRef: string;
         helperArtifactDigest: Sha256Digest;
     } | {
+        task: import("../product/worksite_command_execution.js").WorksiteCommandExecutionTask | import("../index.js").WorksiteRevisionCommandExecutionTask | {
+            sourceReacquisition?: import("../product/worksite_command_execution.js").NativeWorksiteCommandReacquisition | {
+                request: {
+                    sourceNativeWork: {
+                        task: {
+                            kind: "native_workspace_work_task";
+                            schemaVersion: "5.0.0";
+                            taskDigest: `sha256:${string}`;
+                            bodyDisposition: string;
+                        };
+                        before: {
+                            kind: "worksite_context_observation";
+                            schemaVersion: "5.0.0";
+                            observationRef: string;
+                            observationDigest: `sha256:${string}`;
+                            workspaceAuthorityBasisRef: string;
+                            workspaceAuthorityBasisDigest: `sha256:${string}`;
+                            workspaceBindingIdentity: string;
+                            workspaceBindingDigest: `sha256:${string}`;
+                            bodyDisposition: string;
+                        };
+                        after: {
+                            kind: "worksite_context_observation";
+                            schemaVersion: "5.0.0";
+                            observationRef: string;
+                            observationDigest: `sha256:${string}`;
+                            workspaceAuthorityBasisRef: string;
+                            workspaceAuthorityBasisDigest: `sha256:${string}`;
+                            workspaceBindingIdentity: string;
+                            workspaceBindingDigest: `sha256:${string}`;
+                            bodyDisposition: string;
+                        };
+                        kind: "native_workspace_work_observation";
+                        schemaVersion: "5.0.0";
+                        observationRef: string;
+                        observationDigest: Sha256Digest;
+                        changedPaths: readonly string[];
+                        report: import("../product/native_workspace_work.js").NativeWorkspaceWorkReport | null;
+                        assessment?: Readonly<Record<string, JsonValue>>;
+                        provenance: import("../product/native_workspace_work.js").NativeWorkspaceWorkProvenance;
+                    };
+                    currentContext: {
+                        observationRef: string;
+                        observationDigest: `sha256:${string}`;
+                        workspaceAuthorityBasisRef: string;
+                        workspaceAuthorityBasisDigest: `sha256:${string}`;
+                        workspaceBindingIdentity: string;
+                        workspaceBindingDigest: `sha256:${string}`;
+                        bodyDisposition: string;
+                    };
+                    kind: "native_worksite_command_reacquisition_request";
+                    schemaVersion: "5.0.0";
+                    requestRef: string;
+                    requestDigest: Sha256Digest;
+                    source: Readonly<{
+                        prefix: import("./event_store.js").DurablePrefixCoordinate;
+                        graphCallRef: string;
+                        declarationProof: import("./terminal_result_contracts.js").AbgHistoricalDeclarationProof;
+                    }>;
+                    workspaceBinding: import("../index.js").WorkspaceBinding;
+                    capabilityGrant: import("../index.js").CapabilityGrant;
+                    commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommandInput[];
+                    outcomePredicates?: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicateInput[];
+                    allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritoryInput[];
+                    workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+                    selectedSources: readonly Readonly<{
+                        subjectUri: string;
+                        relativePath: string;
+                    }>[];
+                };
+                nativeBasis: Readonly<{
+                    predecessorPrefix: import("./event_store.js").DurablePrefixCoordinate;
+                    cCallRef: string;
+                }>;
+                bindingCoverEventRefs: readonly string[];
+            };
+            sourceNativeWork: {
+                task: {
+                    kind: "native_workspace_work_task";
+                    schemaVersion: "5.0.0";
+                    taskDigest: `sha256:${string}`;
+                    bodyDisposition: string;
+                };
+                before: {
+                    kind: "worksite_context_observation";
+                    schemaVersion: "5.0.0";
+                    observationRef: string;
+                    observationDigest: `sha256:${string}`;
+                    workspaceAuthorityBasisRef: string;
+                    workspaceAuthorityBasisDigest: `sha256:${string}`;
+                    workspaceBindingIdentity: string;
+                    workspaceBindingDigest: `sha256:${string}`;
+                    bodyDisposition: string;
+                };
+                after: {
+                    kind: "worksite_context_observation";
+                    schemaVersion: "5.0.0";
+                    observationRef: string;
+                    observationDigest: `sha256:${string}`;
+                    workspaceAuthorityBasisRef: string;
+                    workspaceAuthorityBasisDigest: `sha256:${string}`;
+                    workspaceBindingIdentity: string;
+                    workspaceBindingDigest: `sha256:${string}`;
+                    bodyDisposition: string;
+                };
+                kind: "native_workspace_work_observation";
+                schemaVersion: "5.0.0";
+                observationRef: string;
+                observationDigest: Sha256Digest;
+                changedPaths: readonly string[];
+                report: import("../product/native_workspace_work.js").NativeWorkspaceWorkReport | null;
+                assessment?: Readonly<Record<string, JsonValue>>;
+                provenance: import("../product/native_workspace_work.js").NativeWorkspaceWorkProvenance;
+            } | {
+                observationRef: string;
+                observationDigest: `sha256:${string}`;
+                presentationRef: string;
+                disposition: string;
+            };
+            kind: "worksite_command_execution_task";
+            workerActorRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerActorRef;
+            workerBindingRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerBindingRef;
+            rendererRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.rendererRef;
+            materializationPlanRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.materializationPlanRef;
+            schemaVersion: "5.0.0";
+            resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
+            transportLane: "worker_executes";
+            workspaceBinding: import("../index.js").WorkspaceBinding;
+            capabilityGrant: import("../index.js").CapabilityGrant;
+            taskRef: string;
+            taskDigest: Sha256Digest;
+            commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommand[];
+            outcomePredicates: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicate[];
+            allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritory[];
+            workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+            instructionContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef;
+            protectedObservations: readonly import("../product/worksite_command_execution.js").WorksiteProtectedObservation[];
+        };
         commandResults: {
             stdout: {
                 textView: {
@@ -248,7 +698,6 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         schemaVersion: "5.0.0";
         observationRef: string;
         observationDigest: Sha256Digest;
-        task: import("../product/worksite_command_execution.js").WorksiteCommandExecutionTask;
         provenance: import("../product/worksite_command_execution.js").WorksiteCommandExecutionProvenance;
         helperArtifactRef: string;
         helperArtifactDigest: Sha256Digest;
@@ -275,11 +724,13 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         observationRef: string;
         role: "realization" | "verifier_artifact";
     }[];
+    historicalCarrierDisposition?: string;
+    kind: string;
+    rawEvidenceDigest: `sha256:${string}`;
     constructionResultRef: string;
     constructionResultDigest: Sha256Digest;
     executionResultRef: string;
     executionResultDigest: Sha256Digest;
-    constructionResult: Readonly<Record<string, JsonValue>>;
 }> | null;
 /** Selected work already comes from GTL/HoG; this owner only binds and renders it. */
 export declare function evaluateNativeInstructionAssembly(basis: SemanticStageNativeBasis, supplied: unknown, readPhysical?: boolean): Readonly<NativeInstructionAssembly | NativeInstructionAssemblyRefusal>;

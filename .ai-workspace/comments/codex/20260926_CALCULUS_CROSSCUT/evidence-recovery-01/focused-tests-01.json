@@ -1,0 +1,12 @@
+{
+  "args": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-concurrency=1",
+    "--test-name-pattern=native D2 serialized|native D2 rejected|Product (author|assessor) recovery|native Evidence preparation",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "exitCode": 1,
+  "elapsedSeconds": 2.237929666880518
+}

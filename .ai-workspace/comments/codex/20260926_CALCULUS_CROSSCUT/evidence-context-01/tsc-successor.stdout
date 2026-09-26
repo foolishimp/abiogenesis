@@ -1,0 +1,13 @@
+code/src/abg/instruction_assembly.ts(734,23): error TS2322: Type '{ value: string | number | boolean | readonly JsonValue[] | { readonly [key: string]: JsonValue; } | { task: { kind: "native_workspace_work_task"; schemaVersion: "5.0.0"; taskDigest: `sha256:${string}`; bodyDisposition: string; }; ... 9 more ...; provenance: NativeWorkspaceWorkProvenance; }; }' is not assignable to type 'JsonValue'.
+  Types of property 'value' are incompatible.
+    Type 'string | number | boolean | readonly JsonValue[] | { readonly [key: string]: JsonValue; } | { task: { kind: "native_workspace_work_task"; schemaVersion: "5.0.0"; taskDigest: `sha256:${string}`; bodyDisposition: string; }; ... 9 more ...; provenance: NativeWorkspaceWorkProvenance; }' is not assignable to type 'JsonValue | undefined'.
+      Type '{ task: { kind: "native_workspace_work_task"; schemaVersion: "5.0.0"; taskDigest: `sha256:${string}`; bodyDisposition: string; }; before: { kind: "worksite_context_observation"; schemaVersion: "5.0.0"; ... 6 more ...; bodyDisposition: string; }; ... 8 more ...; provenance: NativeWorkspaceWorkProvenance; }' is not assignable to type 'JsonValue | undefined'.
+        Type '{ task: { kind: "native_workspace_work_task"; schemaVersion: "5.0.0"; taskDigest: `sha256:${string}`; bodyDisposition: string; }; before: { kind: "worksite_context_observation"; schemaVersion: "5.0.0"; ... 6 more ...; bodyDisposition: string; }; ... 8 more ...; provenance: NativeWorkspaceWorkProvenance; }' is not assignable to type '{ readonly [key: string]: JsonValue; }'.
+          Property 'report' is incompatible with index signature.
+            Type 'NativeWorkspaceWorkReport | null' is not assignable to type 'JsonValue'.
+              Type 'NativeWorkspaceWorkReport' is not assignable to type 'JsonValue'.
+                Type 'NativeWorkspaceWorkReport' is not assignable to type '{ readonly [key: string]: JsonValue; }'.
+                  Index signature for type 'string' is missing in type 'NativeWorkspaceWorkReport'.
+code/src/abg/instruction_assembly.ts(741,61): error TS2345: Argument of type '(leaf: Readonly<Record<string, JsonValue>>, primaryConstruction?: boolean) => Readonly<Record<string, JsonValue>>' is not assignable to parameter of type '(value: Readonly<Record<string, JsonValue>>, index: number, array: readonly Readonly<Record<string, JsonValue>>[]) => Readonly<...>'.
+  Types of parameters 'primaryConstruction' and 'index' are incompatible.
+    Type 'number' is not assignable to type 'boolean | undefined'.

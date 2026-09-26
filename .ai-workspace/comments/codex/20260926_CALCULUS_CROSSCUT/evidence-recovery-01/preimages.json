@@ -1,0 +1,26 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "bytes": 91415,
+    "sha256": "9036931bc5f7641ce32b0c5d0a6b10f88a7d70bf6fbb5541b9fdcf0a37092aba",
+    "preimage": "preimages/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+    "bytes": 36196,
+    "sha256": "681072c77b262c56a90839f4aaed40eafe069b3b71c6cb072a4128c5364eba2a",
+    "preimage": "preimages/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "bytes": 70089,
+    "sha256": "6b37376bd9f89d3a20c2aff62bd9348538390965e96f2f06823e9d1deae75902",
+    "preimage": "preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "bytes": 66384,
+    "sha256": "8183439af945c312d4e61f0a64de37ea25fce4b1c22074561faae105f6858ed5",
+    "preimage": "preimages/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md"
+  }
+]

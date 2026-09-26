@@ -1,0 +1,11 @@
+{
+  "predecessor": "compiled-43",
+  "unchanged": 5230,
+  "changed": 3,
+  "changedPaths": [
+    "build/code/src/abg/instruction_assembly.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "outsideAcceptedScope": []
+}

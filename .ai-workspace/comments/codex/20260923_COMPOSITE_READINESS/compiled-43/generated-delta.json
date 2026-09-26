@@ -1,0 +1,80 @@
+[
+  {
+    "path": "build/code/src/abg/instruction_assembly.d.ts",
+    "before": {
+      "path": "build/code/src/abg/instruction_assembly.d.ts",
+      "bytes": 14248,
+      "sha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763"
+    },
+    "after": {
+      "path": "build/code/src/abg/instruction_assembly.d.ts",
+      "bytes": 40053,
+      "sha256": "c6da45e0f3018f1308d88f24a4b471b2372d538607b053e9898ea125e870c561"
+    }
+  },
+  {
+    "path": "build/code/src/abg/instruction_assembly.js",
+    "before": {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "bytes": 83202,
+      "sha256": "792513784efd1cb1bb2c7e4b63e7649f293d3eba07b1e315b446d1abb54d7576"
+    },
+    "after": {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "bytes": 89242,
+      "sha256": "d21f572a4c89e26c9f0bcf21ebfb12cdfc0296d51b36a7cb04e71925fda63148"
+    }
+  },
+  {
+    "path": "build/code/src/abg/semantic_revision.js",
+    "before": {
+      "path": "build/code/src/abg/semantic_revision.js",
+      "bytes": 93130,
+      "sha256": "806413d872a168d9e5901b44e7e3eef593afbb6be293766131bbe72bf10d7320"
+    },
+    "after": {
+      "path": "build/code/src/abg/semantic_revision.js",
+      "bytes": 94712,
+      "sha256": "494e5e4e0109505e1d3ebc1b1e27ef06fa6b26e35127398468bb6219838ecfa5"
+    }
+  },
+  {
+    "path": "build/code/src/product/semantic_revision.js",
+    "before": {
+      "path": "build/code/src/product/semantic_revision.js",
+      "bytes": 31309,
+      "sha256": "987d7fe79d47ce1f0b1b4b2958d89c5f9bff10437d58e46c5c16e0d1531f4861"
+    },
+    "after": {
+      "path": "build/code/src/product/semantic_revision.js",
+      "bytes": 32207,
+      "sha256": "a49075264bb7e02fdf3508cf97a76fe21202992beeca66c99a952073223920ae"
+    }
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "e4614aa48c5d1919e28fb7b0d1878e48f8c44fe029cab57f144634ecaeb57841"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "187f5d4ddbc9cd7784de1f78714dabb0c7c1be2cdb0f3328967d430bcea7e824"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "4da0e62013a7c7a41e47d5b8d0ae98c10fa1044d4e7610e5330d8170a19d37b6"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "7af0c401210b56fea60c6d4687b35ae5057529d1c1ac84bbb53fcbe04f2f0e4b"
+    }
+  }
+]

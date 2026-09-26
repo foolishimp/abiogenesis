@@ -1,0 +1,26 @@
+{
+  "scope": "EVIDENCE-ORIGIN-01 single tenant emission and manifest pass; no clean/package/install",
+  "phases": [
+    {
+      "phase": "tsc",
+      "command": [
+        "./node_modules/.bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "started": "2026-09-26T09:24:29.576614+00:00",
+      "elapsedSeconds": 5.5886932499706745,
+      "exitCode": 0
+    },
+    {
+      "phase": "manifest",
+      "command": [
+        "node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "started": "2026-09-26T09:24:35.165593+00:00",
+      "elapsedSeconds": 12.917554874904454,
+      "exitCode": 0
+    }
+  ]
+}

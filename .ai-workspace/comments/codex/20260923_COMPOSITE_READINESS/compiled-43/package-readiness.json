@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED_PACKAGE_NATIVE_QUALIFICATION_DISTINCT",
+  "identity": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-43/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:576467fa3ce0c1ce9dc8be840a35b05cbe2d2b22a0664d6e9568c9d585653924",
+    "archiveBytes": 10185885,
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite43-install-qisb4ihs/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite43-install-qisb4ihs",
+    "archiveMembers": 5233
+  },
+  "selected": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite43-install-qisb4ihs/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-43/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-43/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:576467fa3ce0c1ce9dc8be840a35b05cbe2d2b22a0664d6e9568c9d585653924",
+      "productContentDigest": "sha256:44b6c37c987a010de34f6cb33029e8712d968e7464b16190baabb4fb6e56cf77",
+      "manifestDigest": "sha256:65d610783b0669f378a5c6980b5664300f872448d9f94851d73043fe18f6daa1",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceSubjects": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/freeze.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/freeze.json"
+  ],
+  "sourceReturns": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/RETURN.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/RETURN.md"
+  ],
+  "buildInputsPreserved": 15,
+  "generatedChanged": 6,
+  "memberCorrespondence": 5233,
+  "testsReused": "Combined Evidence context/recovery emission and focused checks reused; no duplicate compile or test run",
+  "nativeExecution": false
+}

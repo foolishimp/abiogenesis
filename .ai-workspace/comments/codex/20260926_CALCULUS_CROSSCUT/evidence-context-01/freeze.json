@@ -1,0 +1,222 @@
+{
+  "scope": "Evidence-role and necessary operational-selector assembly repair only; shared generated identity includes independent recovery source cut",
+  "head": "5496471c1377f37417836c675db39197f4de0067",
+  "subjectFiles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 92145,
+      "sha256": "8c9e9cfc9de942f4e0f9c79cc426393ce8cbdcdead4441c3a516656f84403e1e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "bytes": 101606,
+      "sha256": "8913e8ebd654c2f3aeefd48ead5665820fc9d26ec96cf19d7503362cc3106579"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "bytes": 89242,
+      "sha256": "d21f572a4c89e26c9f0bcf21ebfb12cdfc0296d51b36a7cb04e71925fda63148"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+      "bytes": 40053,
+      "sha256": "c6da45e0f3018f1308d88f24a4b471b2372d538607b053e9898ea125e870c561"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "7af0c401210b56fea60c6d4687b35ae5057529d1c1ac84bbb53fcbe04f2f0e4b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "187f5d4ddbc9cd7784de1f78714dabb0c7c1be2cdb0f3328967d430bcea7e824"
+    }
+  ],
+  "authorityFiles": [
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 81200,
+      "sha256": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "bytes": 12093,
+      "sha256": "4dca668bf7c11987cf9a79e320d828e783e99b43591b0e408bc325e178d65f15"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "bytes": 71560,
+      "sha256": "0f6abd854c3a1b4b3972b2619b7fb0d69d6116d6c4f41d7affc9819ce8de03fb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "bytes": 68168,
+      "sha256": "a5d44af0906334cb09d048a08e0267374ca79141ce99275ec4913c785240104c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/selection.json",
+      "bytes": 4023,
+      "sha256": "71d3c015262fb6e73bf1ff570018b4a240f44404cb7fb724807c05834b7cb3e0"
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/RETURN.md",
+      "bytes": 5660,
+      "sha256": "3cfd98d3407dd3506aa0813da8ea783f47379d4f124527852104ed0ce59c087e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/preimages.json",
+      "bytes": 872,
+      "sha256": "58f15e5188c088348252308355e45facb0ff7b24e25696e5fdb34aa9181b3aca"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/native42-selected-events.json",
+      "bytes": 6413207,
+      "sha256": "733701942d27d7767167db5a2d527e64f887661ff533bb024999375acfea35ba"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/role-source.json",
+      "bytes": 309823,
+      "sha256": "b617f8f70f2b7374ad867897f6c68d5b897b454009ad9ef47b97145438fa2821"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/baseline.json",
+      "bytes": 1235,
+      "sha256": "86753c77b888a30dfe2afbf67d7f6125893f5de2b4e8111806579ce5d764f153"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/measure.mjs",
+      "bytes": 4612,
+      "sha256": "e8d8ce921f02a9d9eca8d09d4fac9189f2308c0d4fdb55ffaada8ca078fafba1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/measure-selector.mjs",
+      "bytes": 4228,
+      "sha256": "456a99b64b326e69403952fa425cd76355c9d8de094478e06f0c251b80b0e088"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/selector-before-corrected.json",
+      "bytes": 1183,
+      "sha256": "9a4111cad07d9efa116cf14ed64bec184b926a71bda298bd2cb7b87fbe629d5a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/selector-after.json",
+      "bytes": 788,
+      "sha256": "c79d35212b761fca4e94b71639e622d03abbf89ef0f5c4c709d7dc3b4b66d46d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/selector-after-comparable.json",
+      "bytes": 1220,
+      "sha256": "7d18cd4bf68670046333e23fb1ce36c15dd27b5f69c1a89888a0781549011574"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/checks-final.json",
+      "bytes": 356,
+      "sha256": "f81f688c8c626dff2551d2a94da52e9b2da5080ef2dbf8c8d8848daaf6d5676a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/checks-final.stdout",
+      "bytes": 1997,
+      "sha256": "16cea820f3f9e1d944900f2f79d18ec755e0e6dbad0bf7daef46b8842c250a70"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/checks-final.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/checks-measurement-final.json",
+      "bytes": 694,
+      "sha256": "8e2164233fae3233096b6523baccf84544d2878b958b932209d79d8b80616c6d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/build.json",
+      "bytes": 632,
+      "sha256": "1bdc2a9b18eb5e9b56d4776322c21ea5a5dc94d45efcb053168acbca67f1457b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/build-successor.json",
+      "bytes": 398,
+      "sha256": "11575e969ec254d38cd27b471e9a03b2a953654ef6673c1c40652ee1e20420ba"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/build-final.json",
+      "bytes": 665,
+      "sha256": "36c82a92630b13f5de0a20b654a540913fe0706a525856eaa9b4619197c68e37"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/tsc-final.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/tsc-final.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/manifest-final.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/manifest-final.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/native42-selector-component-fixture.json",
+      "bytes": 13904702,
+      "sha256": "1bd71a0947d9ced16eeed8c3d497e0230314f50474f2dc64971431fa6fa5c3e3"
+    }
+  ],
+  "supersededDiagnostics": [
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/prospective.mjs",
+      "bytes": 5917,
+      "sha256": "7faa69211943d5c4e217d3ff716e4f9c9e463525657d03cd8f399bdbba6673f6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/prospective.json",
+      "bytes": 517,
+      "sha256": "dae45dd0a886b73af1c6c41b69bd908bb018d6531096003b5292487ed0202f8e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/selector-before.json",
+      "bytes": 1183,
+      "sha256": "e3e79ca05a942816ebf65250396a5348fd60f52fb4871ef005deaa8b710f6a57"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/checks.json",
+      "bytes": 313,
+      "sha256": "b54b20018711719f07bc59ce52e4b031e98d112f926bb6d07ccb364c4016407d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/checks.stdout",
+      "bytes": 947,
+      "sha256": "825fab73334b0b3c6884152c225e1f2b971991d5436c9ed5946038df6f3fcfa1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/checks.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/checks-measurement.json",
+      "bytes": 694,
+      "sha256": "8e2164233fae3233096b6523baccf84544d2878b958b932209d79d8b80616c6d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/tsc-successor.stdout",
+      "bytes": 2521,
+      "sha256": "51ae1a782831481671fcab5b8ae0bdc88969f8ca7c4e2d8c1fe1b8b6ee832f50"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/tsc-successor.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

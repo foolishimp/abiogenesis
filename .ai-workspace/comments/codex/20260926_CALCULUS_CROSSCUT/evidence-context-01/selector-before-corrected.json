@@ -1,0 +1,31 @@
+{
+  "scope": "Exact native42 payload shape for component selector context; source/current-W/intake/selection admission are premises, not a runnable request",
+  "roleSource": "exact native42 selector declaration and complete source spans; role/execution admission are component premises",
+  "inputDigest": "sha256:89d85b34c4ae0000e948d09d121d8c7c7531935fe5daf68beb2272b29ddf7542",
+  "parentDigest": "sha256:03e5a0bdea479e006ea766f761f44e83f3f4d2fc0cc55dd1ec55c7013722a92d",
+  "outcome": "native_instruction_assembly",
+  "promptBytes": 4688666,
+  "selectorAssemblyMaxPromptBytes": null,
+  "boundExplanation": "constructRevisionSelectionAssembly has no maxPromptBytes check; the 1 MiB stage bound belongs to later Evidence author/assessor.",
+  "sections": {
+    "role": 1307,
+    "source": 6709,
+    "obligations": 107144,
+    "predecessors": 442932,
+    "worksite": 1402916,
+    "evidence": 2595273,
+    "task": 130877,
+    "response": 1401
+  },
+  "evidenceFields": {
+    "parent": 2582625,
+    "operationalFailure": 4220,
+    "causes": 8385
+  },
+  "worksiteFields": {
+    "context": 10542,
+    "construction": 1135308,
+    "commandExecutionLimits": 57,
+    "byteBodies": 256941
+  }
+}

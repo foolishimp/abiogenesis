@@ -1,0 +1,30 @@
+(node:11541) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ native Evidence preparation recovery conserves its exact folded producer through intake and the declared Evidence-only suffix (666.495417ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 923.325709
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:531:1
+✖ native Evidence preparation recovery conserves its exact folded producer through intake and the declared Evidence-only suffix (666.495417ms)
+  AssertionError [ERR_ASSERTION]: projection and Evidence only
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:636:9)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,41 @@
+[
+  {
+    "path": "build/code/src/abg/instruction_assembly.js",
+    "before": {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "bytes": 89242,
+      "sha256": "d21f572a4c89e26c9f0bcf21ebfb12cdfc0296d51b36a7cb04e71925fda63148"
+    },
+    "after": {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "bytes": 91076,
+      "sha256": "da80447a48c7c5aa224e2a809d447246ee3edd11077a7eb228a7ae578bfbac6b"
+    }
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "187f5d4ddbc9cd7784de1f78714dabb0c7c1be2cdb0f3328967d430bcea7e824"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "436b777567a7a5c5cf226a9399abd6500689c1d1c87d3a4fef79742bd3b5d395"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "7af0c401210b56fea60c6d4687b35ae5057529d1c1ac84bbb53fcbe04f2f0e4b"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "3a50cff127905665361571803c241091f683e7c6ef45eacfa98987038a5f1161"
+    }
+  }
+]

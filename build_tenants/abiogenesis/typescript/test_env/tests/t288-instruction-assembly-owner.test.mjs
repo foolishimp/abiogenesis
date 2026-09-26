@@ -849,3 +849,241 @@ test('assessment-first actual successor preserves typed retained terms and full 
   if(process.env.ABI5_ASSESSMENT_MEASUREMENT_OUTPUT)fs.writeFileSync(process.env.ABI5_ASSESSMENT_MEASUREMENT_OUTPUT,JSON.stringify(report,null,2)+'\n');
   t.diagnostic(JSON.stringify(report));
 });
+
+const retainedEvidenceContext = process.env.ABI5_EVIDENCE_CONTEXT_DIRECTORY;
+test('native42 operational selector context preserves current inventory and qualified completed evidence', {skip: !retainedEvidenceContext}, async t => {
+  const {canonicalJson}=await load('shared/canonical_json'),{sha256Bytes}=await load('shared/digests'),{admitIJsonText}=await load('shared/i_json');
+  const read=path=>JSON.parse(fs.readFileSync(path,'utf8'));
+  const fixture=read(resolve(retainedEvidenceContext,'../evidence-recovery-01/native42-selector-component-fixture.json'));
+  const input=fixture.input,originalSubject=fixture.subject,sources=read(join(retainedEvidenceContext,'role-source.json')),selected=sources.roles.selector;
+  const publication=read(resolve(root,'../../..',sources.publication.path));
+  const call={graphFunctionRef:selected.role.graphFunctionRef,programLocusRef:selected.role.programLocusRef,cCallRef:'component:selector',cCallDigest:hash('selector'),implementationRef:R.selectionImplementationRef,inputContractRef:R.selectionInputContractRef};
+  const owner={call,lifecycle:originalSubject.envelope.declaration,events:[],inputRef:'component:selector-input',inputDigest:hash(input),
+    execution:{invocationAdmissionRef:'component:selector-invocation',programRef:'component:selector-program',basisRef:'component:selector-basis',basisDigest:hash('selector-basis')}};
+  const stdo={invocationAdmissionRef:owner.execution.invocationAdmissionRef,environmentRef:'component:selector-environment',environmentDigest:hash(selected.role),evidenceDigest:hash('selector-evidence'),role:'assessor',
+    policy:selected.role.policy,contextPolicy:selected.role.contextPolicy,contextPolicyDigest:hash(selected.role.contextPolicy),frameRefs:selected.role.frameRefs,sourceContent:selected.sourceContent,accessContent:selected.accessContent};
+  let subject={...originalSubject,owner};
+  const renderer=await component('abg/instruction_assembly',{
+    './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
+    './semantic_revision.js':{projectJobRevisionSubject:()=>subject},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:()=>stdo},
+    '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
+    '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=> 'assessor'},
+  });
+  const basis={publication,graphFunction:{template:{nodes:[{term:{}}]}},cCall:call,predecessorPrefix:{component:true}};
+  const assembly=renderer.evaluateNativeInstructionAssembly(basis,input);assert.equal(assembly.kind,'native_instruction_assembly');
+  const sections=assembly.envelope.sections,at=ref=>ref.slice(2).split('/').reduce((v,k)=>v?.[k],sections);
+  const text=ref=>{const value=at(ref.presentationRef);assert(value!==undefined);return typeof value==='string'?value:value.text;};
+  const asset=ref=>{const material=at(ref.presentationRef),candidate=material.candidate.interpretation==='exact_json_candidate'?admitIJsonText(text(material.candidate)):material.candidate;
+    const expanded={...material,candidate};assert.equal(hash(expanded),ref.materialDigest);return expanded;};
+  assert.deepEqual(sections.predecessors.accepted.map(asset),subject.envelope.assets);
+  assert.deepEqual(sections.evidence.parent.result.value.revisionBasis.historicalAssets.map(asset),subject.parent.result.value.revisionBasis.historicalAssets);
+  assert.deepEqual(sections.obligations.activeBindings,(await load('product/semantic_job')).projectSemanticJobBindings(subject.envelope));
+  assert.deepEqual(sections.task.runEnvironment,stdo);assert.equal(sections.task.input.nativePhase,'postconstruction');
+  assert.deepEqual(sections.task.targets,[]);assert.deepEqual(sections.task.stages.map(s=>s.declarationRef),[subject.operationalFailure.stageRef]);
+  assert.match(sections.role,/selectedTargetRefs must be \[\]/);assert.match(sections.role,/selectedObligationRefs may be \[\]/);assert.doesNotMatch(sections.role,/requires construction_repair/);
+  const expectedCurrent=subject.nativeWorksite.context,actualCurrent=sections.worksite.context;
+  const {entries,...currentIdentity}=expectedCurrent,{entries:actualEntries,...actualIdentity}=actualCurrent;assert.deepEqual(actualIdentity,currentIdentity);
+  for(let i=0;i<entries.length;i++){
+    const original=entries[i],shown=actualEntries[i];if(original.state!=='file'){assert.deepEqual(shown,original);continue;}
+    const {bytes,encoding,...identity}=original,{textView,sourceEncoding,...shownIdentity}=shown;assert.deepEqual(shownIdentity,identity);assert.equal(sourceEncoding,encoding);
+    assert.deepEqual(Buffer.from(text(textView)),Buffer.from(bytes,'base64'));assert.equal(textView.digest,original.digest);assert.equal(textView.byteLength,original.byteLength);
+  }
+  const completed=sections.worksite.construction.result.value,raw=subject.construction.result.value;
+  const {task,before,after,...material}=raw,{task:shownTask,before:shownBefore,after:shownAfter,...shownMaterial}=completed;
+  assert.deepEqual(shownMaterial,material);assert.equal(shownTask.taskDigest,hash(task));assert.equal(shownTask.instructions,undefined);
+  for(const [actual,original]of [[shownBefore,before],[shownAfter,after]]){assert.equal(actual.observationRef,original.observationRef);assert.equal(actual.observationDigest,original.observationDigest);assert.equal(actual.bodyDisposition,'historical_inventory_not_selected');}
+  const evidence=sections.evidence.parent.result.value.current.evidence,rawEvidence=subject.envelope.evidence;
+  for(const reference of [evidence.constructionResult,evidence.executionObservation.task.sourceNativeWork]){
+    assert.equal(reference.disposition,'same_admitted_construction_evidence');assert.equal(at(reference.presentationRef),completed);assert.equal(reference.observationDigest,raw.observationDigest);
+  }
+  assert.deepEqual(evidence.executionObservation.predicateObservations,rawEvidence.executionObservation.predicateObservations);
+  assert.deepEqual(evidence.executionObservation.snapshotMembers,rawEvidence.executionObservation.snapshotMembers);
+  assert.deepEqual(evidence.executionObservation.provenance,rawEvidence.executionObservation.provenance);
+  for(let i=0;i<evidence.artifacts.length;i++)assert.deepEqual(Buffer.from(text(evidence.artifacts[i].textView)),Buffer.from(rawEvidence.artifacts[i].base64,'base64'));
+  for(const name of ['parent','construction']){
+    const original=subject[name],shown=name==='parent'?sections.evidence.parent:sections.worksite.construction;
+    assert.deepEqual(shown.cCall,original.cCall);assert.deepEqual(shown.judgment,original.judgment);
+    const {value,...result}=original.result,{value:shownValue,...shownResult}=shown.result;assert.deepEqual(shownResult,result);
+  }
+  assert.deepEqual(sections.evidence.causes,subject.causes.map(({cCall,result,judgment})=>({cCall,result,judgment})));
+  assert.equal(hash(subject.envelope),hash(originalSubject.envelope));
+  // Without this owner-qualified operational relation, all original native
+  // construction counterevidence remains available under the existing view.
+  subject={...originalSubject,owner,operationalFailure:null};
+  const semantic=renderer.evaluateNativeInstructionAssembly(basis,input);assert.equal(semantic.kind,'native_instruction_assembly');
+  assert.deepEqual(semantic.envelope.sections.worksite.construction.result.value.task.instructions,raw.task.instructions);
+  assert.equal(semantic.envelope.sections.worksite.completedConstructionDisposition,undefined);
+  // A different qualified observation must not be substituted by equal stage,
+  // role or a carrier-shaped body elsewhere in application data.
+  const crossed=structuredClone(originalSubject);crossed.construction.result.value.provenance.promptDigest=hash('different observation');subject={...crossed,owner};
+  const different=renderer.evaluateNativeInstructionAssembly(basis,input);assert.equal(different.kind,'native_instruction_assembly');
+  assert.equal(different.envelope.sections.worksite.completedConstructionDisposition,undefined);
+  assert.deepEqual(different.envelope.sections.evidence.parent.result.value.current.evidence.constructionResult.task.instructions,raw.task.instructions);
+  const report={scope:fixture.claim,promptBytes:Buffer.byteLength(assembly.request.prompt),selectorAssemblyMaxPromptBytes:null,
+    boundClaim:'No selector cap exists; this is selected-material/proportionality evidence only.',currentInventoryFiles:entries.filter(e=>e.state==='file').length,
+    completedObservationRef:raw.observationRef,parentDigest:hash(originalSubject.parent.result.value),
+    sections:Object.fromEntries(Object.entries(sections).map(([k,v])=>[k,Buffer.byteLength(canonicalJson(v))]))};
+  if(process.env.ABI5_SELECTOR_MEASUREMENT_OUTPUT)fs.writeFileSync(process.env.ABI5_SELECTOR_MEASUREMENT_OUTPUT,JSON.stringify(report,null,2)+'\n');
+  t.diagnostic(JSON.stringify(report));
+});
+
+test('native42 Evidence role context preserves selected observations under the unchanged bound', {skip: !retainedEvidenceContext}, async t => {
+  const {canonicalJson}=await load('shared/canonical_json'),{sha256Bytes}=await load('shared/digests');
+  const {deriveSemanticJobAsset}=await load('product/semantic_job');
+  const {renderSemanticEvidenceTextView}=await load('abg/instruction_assembly');
+  const read=path=>JSON.parse(fs.readFileSync(path,'utf8'));
+  const events=read(join(retainedEvidenceContext,'native42-selected-events.json')).events;
+  const result=events.find(e=>e.admissionOrdinal===109418),opened=events.find(e=>e.admissionOrdinal===109457);
+  const input=result.payload.value,originalDigest=hash(input),stage=input.current.declaration.stages[4];
+  assert.equal(originalDigest,result.payload.valueDigest);
+  assert.equal(originalDigest,'sha256:03e5a0bdea479e006ea766f761f44e83f3f4d2fc0cc55dd1ec55c7013722a92d');
+  const sources=read(join(retainedEvidenceContext,'role-source.json'));
+  const publicationBytes=fs.readFileSync(resolve(root,'../../..',sources.publication.path));
+  assert.equal(sha256Bytes(publicationBytes),sources.publication.sha256.startsWith('sha256:')?sources.publication.sha256:'sha256:'+sources.publication.sha256);
+  const publication=JSON.parse(publicationBytes),call={...opened.payload,graphFunctionRef:opened.graphFunctionRef,
+    implementationRef:R.authorImplementationRef,inputContractRef:R.envelopeContractRef};
+  let supplied=input,selected=sources.roles.author,revisionSubject={currentWorksite:null,origins:[]},projectedSections,subjectLabel='original';
+  const owner={role:'author',stage,lifecycle:input.current.declaration,events:[],call,inputDigest:hash(input),inputRef:result.payload.resultRef,
+    execution:{invocationAdmissionRef:'component:native42-evidence',programRef:'program://odd-glc/native-semantic-revision/from-design@5',basisRef:opened.basisId,basisDigest:hash('component-basis')}};
+  const stdo=()=>({invocationAdmissionRef:owner.execution.invocationAdmissionRef,environmentRef:'component:retained-evidence-role',environmentDigest:hash(selected.role),evidenceDigest:hash('component-role-evidence'),
+    role:owner.role,policy:selected.role.policy,contextPolicy:selected.role.contextPolicy,contextPolicyDigest:hash(selected.role.contextPolicy),frameRefs:selected.role.frameRefs,sourceContent:selected.sourceContent,accessContent:selected.accessContent});
+  for(const entry of Object.values(sources.roles))for(const binding of entry.role.sourceBindings){
+    const row=entry.sourceContent.find(row=>Object.entries(binding).every(([key,value])=>row[key]===value));
+    assert(row,'exact published source binding');assert.equal(sha256Bytes(Buffer.from(row.text)),binding.spanDigest);
+  }
+  // Actual retained input, declaration and complete role/source spans. Runtime
+  // admission/currentness are explicit component premises; no replay or actor.
+  const renderer=await component('abg/instruction_assembly',{
+    './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
+    './semantic_job.js':{authenticateSemanticJobBasis:()=>owner},
+    './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:()=>true,projectJobRevisionSubject:()=>revisionSubject},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:stdo},
+    '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
+    '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=>owner.role},
+    '../shared/digests.js':{sha256Canonical:value=>{if(value?.sections?.worksite?.origins)projectedSections=value.sections;return hash(value);}},
+  });
+  const basis={publication,graphFunction:{template:{nodes:[{term:{}}]}},cCall:call,predecessorPrefix:{component:true}};
+  const assemble=()=>renderer.evaluateNativeInstructionAssembly(basis,supplied),measurements=[];
+  const conserve=(assembly,raw)=>{
+    assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
+    const sections=assembly.envelope.sections,view=sections.evidence.observed,evidence=raw.current.evidence;
+    assert.equal(view.rawEvidenceDigest,hash(evidence));
+    for(const key of ['constructionResultRef','constructionResultDigest','executionResultRef','executionResultDigest'])assert.equal(view[key],evidence[key]);
+    const construction=evidence.constructionResult,shown=view.constructionResult;
+    const {task,before,after,...material}=construction,{task:shownTask,before:shownBefore,after:shownAfter,...shownMaterial}=shown;
+    assert.deepEqual(shownMaterial,material,'complete report, changed paths, observation and original provenance');
+    assert.equal(shownTask.taskDigest,hash(task));assert.equal(shownTask.bodyDisposition,'historical_constructor_input_not_selected');
+    assert.equal(shownTask.instructions,undefined);
+    for(const [historical,identity]of [[before,shownBefore],[after,shownAfter]]){
+      for(const key of ['kind','schemaVersion','observationRef','observationDigest','workspaceAuthorityBasisRef','workspaceAuthorityBasisDigest','workspaceBindingIdentity','workspaceBindingDigest'])assert.equal(identity[key],historical[key]);
+      assert.equal(identity.bodyDisposition,'historical_inventory_not_selected');assert.equal(identity.entries,undefined);
+    }
+    const execution=evidence.executionObservation,projected=view.executionObservation;
+    const {task:executionTask,commandResults,...executionMaterial}=execution;
+    const {task:projectedTask,commandResults:projectedCommands,...projectedMaterial}=projected;
+    assert.deepEqual(projectedMaterial,executionMaterial,'all predicates, snapshots, deltas, helper identity and provenance');
+    const {sourceNativeWork,...configuration}=executionTask,{sourceNativeWork:sourceView,...projectedConfiguration}=projectedTask;
+    assert.deepEqual(projectedConfiguration,configuration,'full command/predicate configuration and protected observations');
+    const source=sourceView.presentationRef.slice(2).split('/').reduce((v,k)=>v?.[k],sections);assert.equal(source,shown);
+    assert.equal(sourceView.observationRef,sourceNativeWork.observationRef);assert.equal(sourceView.observationDigest,sourceNativeWork.observationDigest);
+    assert.deepEqual(source.provenance,sourceNativeWork.provenance);
+    const restore=({textView,...identity})=>{assert.equal(textView.disposition,'utf8_text');const bytes=Buffer.from(textView.text);assert.equal(sha256Bytes(bytes),textView.digest);assert.equal(bytes.length,textView.byteLength);return {...identity,payload:bytes.toString('base64')};};
+    assert.deepEqual(projectedCommands.map(row=>({...row,stdout:restore(row.stdout),stderr:restore(row.stderr)})),commandResults);
+    assert.deepEqual(view.artifacts.map(({textView,...identity})=>{const bytes=Buffer.from(textView.text);assert.equal(sha256Bytes(bytes),textView.digest);assert.equal(bytes.length,textView.byteLength);return {...identity,base64:bytes.toString('base64')};}),evidence.artifacts);
+    const semantic=revisionPresentation(sections);assert.deepEqual(semantic.history,raw.revisionBasis.historicalAssets);assert.deepEqual(semantic.predecessors,raw.current.assets);
+    assert.deepEqual(sections.task.taskData,raw.current.job.taskData);assert.deepEqual(sections.task.rubric,stage.rubric);
+    assert.equal(assembly.manifest.sections.find(s=>s.name==='evidence').disposition,'included_declared_evidence_material');
+    const bytes=Buffer.byteLength(assembly.request.prompt);assert.equal(bytes,assembly.manifest.promptByteCount);assert(bytes<=stage.assembly.maxPromptBytes);
+    measurements.push({subject:subjectLabel,role:owner.role,promptBytes:bytes,maxPromptBytes:stage.assembly.maxPromptBytes,
+      evidenceBytes:Buffer.byteLength(canonicalJson(sections.evidence)),worksiteBytes:Buffer.byteLength(canonicalJson(sections.worksite)),origins:sections.worksite.origins.length,
+      commandResults:commandResults.length,predicates:execution.predicateObservations.length,artifacts:evidence.artifacts.length});
+    return sections;
+  };
+  const author=assemble(),authorSections=conserve(author,input);
+  assert.equal(authorSections.evidence.evaluationData,null);assert.equal(author.plan.evaluationDataIncluded,false);
+  assert.equal(author.request.responseJsonSchema.properties.kind.const,'semantic_job_asset_candidate');
+  const exactRole=selected;
+  selected={...selected,role:{...selected.role,contextPolicy:{...selected.role.contextPolicy,selectors:selected.role.contextPolicy.selectors.filter(s=>s!=='admitted_execution_evidence')}}};
+  assert.equal(assemble().cause,'unavailable_required_content');selected=exactRole;
+  selected={...selected,role:{...selected.role,policy:{...selected.role.policy,text:selected.role.policy.text+'x'.repeat(stage.assembly.maxPromptBytes)}}};
+  assert.equal(assemble().cause,'declared_bound_overflow');selected=exactRole;
+  // A finite Product-derived candidate exercises assessor role correspondence;
+  // this is not the absent native42 Evidence response or a semantic judgment.
+  const candidate={kind:'semantic_job_asset_candidate',schemaVersion:'5.0.0',asset:{kind:'semantic_stage_asset_candidate',schemaVersion:'5.0.0',
+    statements:[{statementRef:'statement://finite-evidence-view',text:'Finite Evidence presentation candidate.',modality:'supporting',sourceQuotes:[],requirementRefs:[],obligationRefs:[],predecessorStatementRefs:[]}],
+    requirementCandidates:[],worksiteDesign:null,pressure:[]},bindings:[],design:null};
+  const pending=deriveSemanticJobAsset(input.current,stage.declarationRef,candidate,{cCallRef:'component:evidence-author',inputDigest:hash(input),actorInvocationRef:'component:evidence-author',promptDigest:hash('finite prompt'),transportDigest:hash('finite response')},input.revisionBasis.retainedTerms);
+  assert(pending);supplied={...input,current:pending};owner.role='assessor';owner.inputDigest=hash(supplied);call.implementationRef=R.assessorImplementationRef;call.programLocusRef=stage.assessorLocusRef;selected=sources.roles.assessor;
+  const assessor=assemble(),assessorSections=conserve(assessor,supplied);
+  assert.deepEqual(assessorSections.evidence.evaluationData,input.current.job.evaluationData);assert.equal(assessor.plan.evaluationDataIncluded,true);
+  assert.equal(assessor.request.responseJsonSchema.properties.kind.const,'semantic_stage_assessment_candidate');
+  assert.equal(assessorSections.task.currentCandidateRef,pending.assets.at(-1).assetRef);assert.equal(revisionPresentation(assessorSections).predecessors.at(-1).assessment,null);
+  assert.match(assessorSections.role.native,/Independently assess/);assert.doesNotMatch(assessorSections.role.native,/Author only the selected/);
+  // Compose the retained recovery constructor with the origin required by its
+  // actual native owner, rather than carrying the original empty-origin premise
+  // across the new postconstruction request. Admission/current-W premises are
+  // still explicit; the exact construction bytes and its CCall are retained.
+  const fixture=read(resolve(retainedEvidenceContext,'../evidence-recovery-01/native42-selector-component-fixture.json'));
+  const {deriveSemanticJobRevision}=await load('product/semantic_revision'),origin=fixture.subject.construction;
+  const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:fixture.input.parent,causes:fixture.input.causes,
+    mode:'stage_revision',selectedStageRef:stage.declarationRef,selectedObligationRefs:[],selectedTargetRefs:[],reasonRef:'component:operational-failure-premise',nativePhase:'postconstruction'};
+  const request={...fixture.input,kind:'semantic_revision_request',selection:{cCallRef:'component:selection',resultRef:'component:selection-result',resultDigest:hash(selection),
+    resultAdmissionEventRef:'component:selection-admission-premise',judgmentEventRef:'component:selection-judgment-premise'},
+    selectionChoice:{mode:'stage_revision',selectedStageRef:stage.declarationRef,entryRole:'author'},
+    nativeWorksite:{...fixture.subject.nativeWorksite,context:origin.result.value.after}};
+  const recovered=deriveSemanticJobRevision(input,request,selection,null,null,[],undefined,stage,'author');assert(recovered);
+  for(const field of ['job','basis','assets','bindingVersions','evidence'])assert.deepEqual(recovered.current[field],input.current[field]);
+  const recoveredSubject={...fixture.subject,request:recovered.revisionBasis.request,origins:[origin]};
+  revisionSubject=recoveredSubject;subjectLabel='recovery_with_owner_required_origin';supplied=recovered;owner.role='author';owner.inputDigest=hash(supplied);
+  call.implementationRef=R.authorImplementationRef;call.programLocusRef=stage.authorLocusRef;selected=sources.roles.author;
+  const originConserved=sections=>{
+    assert.equal(sections.worksite.origins.length,1);
+    const shown=sections.worksite.origins[0],{result:rawResult,...originCoordinates}=origin,{result:shownResult,...shownCoordinates}=shown;
+    assert.deepEqual(shownCoordinates,originCoordinates,'complete CCall/fibre/J and all other origin coordinates');
+    const {value,...resultCoordinates}=rawResult,{value:reference,...shownResultCoordinates}=shownResult;
+    assert.deepEqual(shownResultCoordinates,resultCoordinates,'exact Result ref/digest/value identity and admission metadata');
+    assert.equal(reference.disposition,'same_admitted_construction_evidence');
+    const material=reference.presentationRef.slice(2).split('/').reduce((v,k)=>v?.[k],sections);
+    assert.equal(material,sections.evidence.observed.constructionResult);assert.equal(reference.observationRef,value.observationRef);assert.equal(reference.observationDigest,value.observationDigest);
+    assert.deepEqual(material.provenance,value.provenance);assert.deepEqual(material.report,value.report);assert.deepEqual(material.changedPaths,value.changedPaths);
+    assert.equal(material.task.taskDigest,hash(value.task));assert.equal(material.task.bodyDisposition,'historical_constructor_input_not_selected');
+    assert.equal(material.before.observationDigest,value.before.observationDigest);assert.equal(material.after.observationDigest,value.after.observationDigest);
+  };
+  const recoveredAuthor=assemble(),recoveredAuthorSections=conserve(recoveredAuthor,recovered);originConserved(recoveredAuthorSections);
+  assert.equal(recoveredAuthorSections.evidence.evaluationData,null);assert.equal(recoveredAuthor.plan.evaluationDataIncluded,false);
+  const recoveredPending=deriveSemanticJobAsset(recovered.current,stage.declarationRef,candidate,{cCallRef:'component:evidence-author',inputDigest:hash(recovered),actorInvocationRef:'component:evidence-author',promptDigest:hash('finite prompt'),transportDigest:hash('finite response')},recovered.revisionBasis.retainedTerms);
+  assert(recoveredPending);supplied={...recovered,current:recoveredPending};owner.role='assessor';owner.inputDigest=hash(supplied);
+  call.implementationRef=R.assessorImplementationRef;call.programLocusRef=stage.assessorLocusRef;selected=sources.roles.assessor;
+  const recoveredAssessor=assemble(),recoveredAssessorSections=conserve(recoveredAssessor,supplied);originConserved(recoveredAssessorSections);
+  assert.deepEqual(recoveredAssessorSections.evidence.evaluationData,recovered.current.job.evaluationData);
+  assert.equal(recoveredAssessorSections.task.currentCandidateRef,recoveredPending.assets.at(-1).assetRef);
+  assert.equal(revisionPresentation(recoveredAssessorSections).predecessors.at(-1).assessment,null);
+  assert.equal(recoveredAssessor.request.responseJsonSchema.properties.kind.const,'semantic_stage_assessment_candidate');
+  // Equal native body bytes do not identify an origin. Crossed Result, CCall,
+  // observation/value identities and outcomes keep their full supplied body;
+  // its resulting overflow is a refusal, never a substituted producer.
+  const crossedOrigins=[
+    {...origin,result:{...origin.result,resultRef:'result://foreign-construction'}},
+    {...origin,cCall:{...origin.cCall,cCallRef:'c-call://foreign-construction'}},
+    {...origin,result:{...origin.result,valueDigest:hash('foreign-value')}},
+    {...origin,judgment:{...origin.judgment,judgment:'block'}},
+  ];
+  for(const crossed of crossedOrigins){revisionSubject={...recoveredSubject,origins:[crossed]};assert.equal(assemble().cause,'declared_bound_overflow');assert.deepEqual(projectedSections.worksite.origins,[crossed]);}
+  const opaqueOrigin={...origin,result:{...origin.result,valueKind:'application_defined_result',value:{kind:'native_workspace_work_observation',presentationRef:'#/not-an-owner-reference',payload:'opaque application data'}}};
+  revisionSubject={...recoveredSubject,origins:[origin,opaqueOrigin]};const opaqueAssembly=assemble();assert.equal(opaqueAssembly.kind,'native_instruction_assembly');
+  assert.deepEqual(opaqueAssembly.envelope.sections.worksite.origins[1],opaqueOrigin,'unmatched application origin is opaque');
+  revisionSubject={currentWorksite:null,origins:[origin]};assert.equal(assemble().cause,'declared_bound_overflow');
+  assert.deepEqual(projectedSections.worksite.origins,[origin],'other revision-origin branches retain their complete material');
+  revisionSubject=recoveredSubject;
+  const opaque='{"kind":"native_workspace_work_observation","presentationRef":"#/wrong","payload":"opaque"}\r\n';
+  const changed={...input.current.evidence,artifacts:[...input.current.evidence.artifacts,{subjectRef:'component:opaque',observationRef:'component:opaque',role:'realization',base64:Buffer.from(opaque).toString('base64')}]};
+  assert.equal(renderSemanticEvidenceTextView(changed).artifacts.at(-1).textView.text,opaque,'opaque application strings remain exact');
+  const invalid=structuredClone(input.current.evidence);invalid.executionObservation.commandResults[0].stdout.digest=hash('wrong');
+  assert.throws(()=>renderSemanticEvidenceTextView(invalid),/invalid admitted evidence observation|evidence byte identity mismatch/);
+  assert.equal(hash(input),originalDigest,'retained input is immutable');
+  const report={scope:'actual native42 input plus Product-derived operational recovery with the native owner-required construction origin; exact published role/source material; finite assessor candidates; component admission/current-W premises; no actor',
+    inputDigest:originalDigest,recoveryDigest:hash(recovered),recoveryOriginResultRef:origin.result.resultRef,recoveryOriginResultDigest:origin.result.resultDigest,measurements};
+  if(process.env.ABI5_EVIDENCE_MEASUREMENT_OUTPUT)fs.writeFileSync(process.env.ABI5_EVIDENCE_MEASUREMENT_OUTPUT,JSON.stringify(report,null,2)+'\n');
+  t.diagnostic(JSON.stringify(report));
+});

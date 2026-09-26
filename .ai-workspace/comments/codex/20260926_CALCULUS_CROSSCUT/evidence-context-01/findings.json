@@ -1,0 +1,50 @@
+{
+  "reviewDisposition": "CLOSED_BLOCKER",
+  "frameResult": "falsified",
+  "contextFreezeFileSha256": "6c0235002d2f1eae003aaf2aa7ffd089f8b2a55ceebf1e9857821451222a91da",
+  "recoveryFreezeFileSha256": "4d573c793b155977e1036f62bcb4ccc77a76d589b742a5ae0da1dbbae3447017",
+  "recoveryRecordedSubjectDigest": "sha256:50cee013fc4bb518d1cb15fb53823cd6ebc15a1905ab94ac3f6b8ac2bc81e613",
+  "frozenMemberEntriesVerified": 70,
+  "frozenMemberMismatches": [],
+  "findings": [{
+    "id": "EVIDENCE-ORIGIN-01",
+    "priority": "P1",
+    "title": "Recovery-derived construction origin reintroduces full historical constructor content into Evidence prompt",
+    "producer": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts:356",
+    "consumer": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts:562",
+    "fixtureOmission": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs:960",
+    "smallestReentry": "realization_refactor",
+    "owner": "existing instruction-assembly owner",
+    "maxPromptBytes": 1048576,
+    "measurements": {
+      "originalAuthorEmptyOrigins": 965884,
+      "recoveredAuthorEmptyOrigins": 965457,
+      "recoveredAuthorRequiredOrigin": 2979184,
+      "recoveredFiniteAssessorEmptyOrigins": 967840,
+      "recoveredFiniteAssessorRequiredOrigin": 2981567,
+      "retainedConstructionOrigin": 2013727,
+      "worksiteEmptyOrigins": 671,
+      "worksiteRequiredOrigin": 2014398
+    },
+    "refusal": {
+      "kind": "native_instruction_assembly_refusal",
+      "cause": "declared_bound_overflow",
+      "policy": "assembly://odd-glc/generic-lifecycle/evidence@5",
+      "roles": ["author", "assessor"],
+      "unresolvedRefs": ["maxPromptBytes"]
+    },
+    "probeScope": "Read-only VM evaluation of frozen emitted renderer; exact native42 parent/construction/role bytes and pure Product-derived recovery successor. Existing runtime admission/currentness premises remain supplied. Small construction CCall/admission metadata are component premises. Finite assessor candidate is not an actual author response or semantic judgment.",
+    "impact": "Selected Evidence-only continuation refuses before author dispatch; completed construction and commands remain valid and must not repeat.",
+    "repairBoundary": "Project or share the typed revision-origin Evidence material while preserving complete required content and CCall/Result/J/provenance; compose regression with recovery-derived origin shape. No cap, Product, GLC, effect or recovery-truth change."
+  }],
+  "claimResults": {
+    "contractContextSufficiency": "falsified",
+    "producerConsumerCongruence": "falsified",
+    "exactInstalledSuccess": "indeterminate",
+    "ordinaryCallerLlmUsability": "indeterminate"
+  },
+  "newNativeActors": 0,
+  "sourceEdits": 0,
+  "buildOrSuiteRepeats": 0,
+  "decisionConsumer": "/root"
+}

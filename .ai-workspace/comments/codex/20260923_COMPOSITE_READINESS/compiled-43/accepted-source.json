@@ -1,0 +1,82 @@
+{
+  "status": "WRITER_SOURCE_AND_EMISSION_FROZEN_REVIEW_PENDING_PACKAGE_CONSTRUCTION_ONLY",
+  "sourceSubjects": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/freeze.json",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/freeze.json"
+  ],
+  "sourceReturns": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/RETURN.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-recovery-01/RETURN.md"
+  ],
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "8c9e9cfc9de942f4e0f9c79cc426393ce8cbdcdead4441c3a516656f84403e1e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "sha256": "8913e8ebd654c2f3aeefd48ead5665820fc9d26ec96cf19d7503362cc3106579"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "sha256": "d21f572a4c89e26c9f0bcf21ebfb12cdfc0296d51b36a7cb04e71925fda63148"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+      "sha256": "c6da45e0f3018f1308d88f24a4b471b2372d538607b053e9898ea125e870c561"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "7af0c401210b56fea60c6d4687b35ae5057529d1c1ac84bbb53fcbe04f2f0e4b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "187f5d4ddbc9cd7784de1f78714dabb0c7c1be2cdb0f3328967d430bcea7e824"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "sha256": "f116eeb46ba67721e672e0b35f6a884d425d411186cd191f3d90e806e81f6f67"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "sha256": "1820eccd3c2e3a13e7087b8c39a71c971bed487cf86e808c93da02ab370f8549"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "sha256": "caf83aaac05e760cf8a5508736dd7161760b4805279b75fd15d499f53bd7624c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "sha256": "a5d44af0906334cb09d048a08e0267374ca79141ce99275ec4913c785240104c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+      "sha256": "494e5e4e0109505e1d3ebc1b1e27ef06fa6b26e35127398468bb6219838ecfa5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.d.ts",
+      "sha256": "aabda321ba70baf461a08179a2e51a9cd14f2205e04cb03dbcec9d49bdb35c38"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.js",
+      "sha256": "a49075264bb7e02fdf3508cf97a76fe21202992beeca66c99a952073223920ae"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_revision.d.ts",
+      "sha256": "0783ade88f01509a67336e3a6fdfc06e98752bf9b334af83f8f200d5253cf7bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-01/build-final.json",
+      "sha256": "36c82a92630b13f5de0a20b654a540913fe0706a525856eaa9b4619197c68e37"
+    }
+  ],
+  "allowedPackageDeltas": [
+    "build/code/src/abg/instruction_assembly.js",
+    "build/code/src/abg/instruction_assembly.d.ts",
+    "build/code/src/abg/semantic_revision.js",
+    "build/code/src/product/semantic_revision.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "independentlyMatchedFrozenMembers": 64
+}

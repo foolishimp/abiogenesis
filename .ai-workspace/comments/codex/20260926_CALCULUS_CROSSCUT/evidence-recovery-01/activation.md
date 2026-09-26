@@ -1,0 +1,9 @@
+# Bounded Writer activation
+
+Actor `/root/evidence_recovery_repair` activates Writer under Executive `/root` for T287/LIFE01 `design_reframe` plus realization. Grant: correct the existing generic native semantic revision owner and pure Product constructor so a genuine Evidence-author undispatched preparation refusal conserves its admitted construction/execution producer and reaches the declared Evidence-only suffix. Record bounded HOW and finite component proof.
+
+Write territory: the two semantic revision sources, directly required existing semantic revision owner test, D2 lifecycle HOW, and this evidence directory. Preimages are exact in `preimages.json`. No instruction assembly, Product/requirements, GLC, worksite, ticket/goal, packaging/install or Git mutations. No paid calls, whole journal replay, broad test run, cap/heap/time changes or runtime controller. Assembly Writer alone emits the shared tsc and manifest after both source edits are ready.
+
+Basis: exact selected STDO 2.5.1 RC1 at commit dc4742d08af0a1c42c437a4ce645ea7ca55f3a3a, installed `/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1`; GLC RC4 unchanged. Frame `stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-interface-integration-frame`, Owner and Conservation, with project `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`. Fifteen-family scope; GTL declares, HoG traverses, existing owners effect, ABG admits, replay projects.
+
+Input: independent `evidence-context-01/recovery-triage.md`, SHA256 957a48339c71109f0969c3c8e9a583db6f06963bb48f0c0a952ca12eaaeaa86f, read before source inspection. Product execution/context calculus and its 698–718 recovery law require valid work conservation without manufactured acceptance. Source-ready and frozen RETURN go to Executive; independent review, packaging and actual installed continuation remain Executive-owned.

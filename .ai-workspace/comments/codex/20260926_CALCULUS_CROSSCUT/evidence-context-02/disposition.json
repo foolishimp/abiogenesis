@@ -1,0 +1,22 @@
+{
+  "disposition": "CLOSED_SOURCE_READY",
+  "finding": "EVIDENCE-ORIGIN-01",
+  "frameResult": "satisfied",
+  "scope": "Typed native revision-origin presentation and composed recovery regression only",
+  "freezeFileSha256": "9cd731abb807d68aae412c691066a150bdfeb6bf7632eae81173d334f1342f14",
+  "frozenEntriesVerified": 26,
+  "priorEvidenceFilesVerified": 70,
+  "unchangedRecoveryMembersVerified": 6,
+  "mismatches": [],
+  "remainingActionableFindings": [],
+  "recoveredAuthorPromptBytes": 966599,
+  "recoveredFiniteAssessorPromptBytes": 968982,
+  "maxPromptBytes": 1048576,
+  "requiredOriginRetained": true,
+  "priorCombinedReviewRetained": true,
+  "nativeInstalledSuccess": "indeterminate",
+  "ordinaryLlmUsability": "indeterminate",
+  "additionalProbes": 0,
+  "buildOrSuiteRepeats": 0,
+  "decisionConsumer": "/root"
+}

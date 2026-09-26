@@ -1,0 +1,21 @@
+{
+  "role": "Writer /root",
+  "status": "RECIPE_ONLY_AWAITING_FROZEN_SOURCE",
+  "scope": "Reuse one shared source emission after both selected Evidence repairs; one exact package/offline install and installed verification. Independent review required before native execution.",
+  "predecessor": "compiled-42",
+  "recipes": [
+    {
+      "path": "package-once.py",
+      "sha256": "88ffb1bee03a0f8c4e32d316a03d984739e6f7dec2333d0eda7b692d2b042d0e",
+      "predecessorSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-42/package-once.py",
+      "sourceSha256": "6dd2db9e795736772cbd0a26243da59dbc8ab909b3d33bb052e3437c61153b98"
+    },
+    {
+      "path": "verify-installed.mjs",
+      "sha256": "4632b7bd1420a092db07e156f42c2b1c91490c8be0e67cc22f83a9c7366a49d2",
+      "predecessorSource": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-42/verify-installed.mjs",
+      "sourceSha256": "4632b7bd1420a092db07e156f42c2b1c91490c8be0e67cc22f83a9c7366a49d2"
+    }
+  ],
+  "noBuildOrPackageExecuted": true
+}

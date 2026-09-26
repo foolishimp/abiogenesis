@@ -1,0 +1,12 @@
+(node:2982) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native42 Evidence role context preserves selected observations under the unchanged bound (1871.208875ms)
+ℹ {"scope":"actual native42 author input and exact published role/source material; finite Product-derived assessor candidate; component admission premises; no actor","inputDigest":"sha256:03e5a0bdea479e006ea766f761f44e83f3f4d2fc0cc55dd1ec55c7013722a92d","measurements":[{"role":"author","promptBytes":965884,"maxPromptBytes":1048576,"evidenceBytes":150849,"commandResults":9,"predicates":13,"artifacts":14},{"role":"assessor","promptBytes":968267,"maxPromptBytes":1048576,"evidenceBytes":152501,"commandResults":9,"predicates":13,"artifacts":14}]}
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1922.738292

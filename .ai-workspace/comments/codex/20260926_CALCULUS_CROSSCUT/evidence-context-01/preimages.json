@@ -1,0 +1,25 @@
+{
+  "head": "5496471c1377f37417836c675db39197f4de0067",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 86069,
+      "sha256": "3055fb2f4bbbd8f0d7706780a778780b9fb4e14a95d895cd730a6df7c9d07bd7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "bytes": 81222,
+      "sha256": "3418d3aabd1166d90c95cda1101c10f3892f6b77fb2f272e804e335ce9da6d07"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 81200,
+      "sha256": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "bytes": 12093,
+      "sha256": "4dca668bf7c11987cf9a79e320d828e783e99b43591b0e408bc325e178d65f15"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "scope": "Completion of affected successor emission after two concrete selector TS integration corrections; prior compiler failure retained",
+  "phases": [
+    {
+      "phase": "tsc",
+      "command": [
+        "./node_modules/.bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "started": "2026-09-26T09:01:53.849161+00:00",
+      "elapsedSeconds": 5.777312667109072,
+      "exitCode": 0
+    },
+    {
+      "phase": "manifest",
+      "command": [
+        "node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "started": "2026-09-26T09:01:59.626768+00:00",
+      "elapsedSeconds": 12.95302424998954,
+      "exitCode": 0
+    }
+  ]
+}

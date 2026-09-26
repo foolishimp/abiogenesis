@@ -1,0 +1,7 @@
+{
+  "status": "CALLER_INPUT_ABSENT_BEFORE_VERIFICATION",
+  "cause": "Copied packaging recipe required build-inputs.json; source freeze inputs now supplied directly from verified accepted-source members.",
+  "productVerificationRan": false,
+  "sourceOrArtifactChanged": false,
+  "recipeMetadataCorrection": "Combined sourceSubjects/sourceReturns and reused-check description replace the prior ancestry-only labels."
+}

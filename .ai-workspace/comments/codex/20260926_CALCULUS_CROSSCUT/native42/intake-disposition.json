@@ -1,0 +1,42 @@
+{
+  "status": "COMPLETED_INTAKE_FRESH_READS_AGREE_SUFFIX_PREPARING",
+  "run": {
+    "digest": "sha256:4a067e3ce454e4f7c67412c5bcfa1ed57375a68411442bfadba88e50e328c2bb",
+    "ref": "run://abiogenesis/c30a15613d2858ba1a49e3d9cc9ad6b75b5e18b76f9b627e309c73b5677ef4f2"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:c24459000303119be4c93e9f88312f1f7fb996267ee826c046ee6d799b95a377",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:df7fb273243353e17e2dae3b65910c68784143ec888759c46b094c57d3880489",
+    "prefixLength": 442337570,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "selectionChoice": {
+    "mode": "stage_revision",
+    "selectedStageRef": "stage://odd-glc/generic-lifecycle/design@5"
+  },
+  "selected": {
+    "programRef": "program://odd-glc/native-semantic-revision/from-design@5",
+    "startRef": "program://odd-glc/native-semantic-revision/from-design@5/start",
+    "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-design@5"
+  },
+  "valueDigest": "sha256:5c5b754beaa4e2f1f982f4aa86050b1730c34b05b2d061d0900bce36f331faf5",
+  "timingSeconds": {
+    "preparation": 71.34,
+    "nativeIntake": 131.03,
+    "publicReads": [
+      30.329218125,
+      30.466455124999996
+    ]
+  },
+  "actorOccurrences": 1,
+  "repairProof": "Exact installed intake now follows the conserved accepted predecessor which core41 refused; actual semantic selector returned Design correction. No host stage choice or application completion.",
+  "sourceCheckpoint": "5496471c pushed to origin/main",
+  "next": "prepared actual-choice whole suffix on same core42/dev16 binding, then fresh Public readback"
+}

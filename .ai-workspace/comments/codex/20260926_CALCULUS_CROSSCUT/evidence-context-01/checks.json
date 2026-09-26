@@ -1,0 +1,12 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern",
+    "native42 Evidence role context|native revision decision view preserves opaque",
+    "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+  ],
+  "elapsedSeconds": 1.9514013337902725,
+  "exitCode": 0
+}

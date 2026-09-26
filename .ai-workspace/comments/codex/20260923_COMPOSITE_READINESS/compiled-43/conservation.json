@@ -1,0 +1,14 @@
+{
+  "predecessor": "compiled-42",
+  "unchanged": 5227,
+  "changed": 6,
+  "changedPaths": [
+    "build/code/src/abg/instruction_assembly.d.ts",
+    "build/code/src/abg/instruction_assembly.js",
+    "build/code/src/abg/semantic_revision.js",
+    "build/code/src/product/semantic_revision.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "outsideAcceptedScope": []
+}
